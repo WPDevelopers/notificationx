@@ -1,4 +1,4 @@
-=== FomoPress ===
+=== WPFomo - Fomo Notification for WordPress ===
 Contributors: re_enter_rupok, Asif2BD
 Donate link: https://wpdeveloper.net
 Tags: fomo, notifier, fomo notification
@@ -56,7 +56,8 @@ Yes. After activating, headover to the WPFomo setting menu, add your messages, a
 == Screenshots ==
 
 1. Example Fomo
-2. Option menu screenshot.
+2. Option menu (fomo template).
+3. Option menu (fomo items).
 
 
 == Changelog ==
