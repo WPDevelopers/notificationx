@@ -4,8 +4,8 @@
  * @link       https://wpdeveloper.net
  * @since      1.0.0
  *
- * @package    Fomopress
- * @subpackage Fomopress/includes
+ * @package    FomoPress
+ * @subpackage FomoPress/includes
  */
 
 /**
@@ -18,11 +18,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Fomopress
- * @subpackage Fomopress/includes
+ * @package    FomoPress
+ * @subpackage FomoPress/includes
  * @author     WPDeveloper <support@wpdeveloper.net>
  */
-class Fomopress {
+class FomoPress {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -30,7 +30,7 @@ class Fomopress {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Fomopress_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      FomoPress_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -73,7 +73,6 @@ class Fomopress {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -81,10 +80,10 @@ class Fomopress {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Fomopress_Loader. Orchestrates the hooks of the plugin.
-	 * - Fomopress_i18n. Defines internationalization functionality.
-	 * - Fomopress_Admin. Defines all hooks for the admin area.
-	 * - Fomopress_Public. Defines all hooks for the public side of the site.
+	 * - FomoPress_Loader. Orchestrates the hooks of the plugin.
+	 * - FomoPress_i18n. Defines internationalization functionality.
+	 * - FomoPress_Admin. Defines all hooks for the admin area.
+	 * - FomoPress_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -95,36 +94,56 @@ class Fomopress {
 	private function load_dependencies() {
 
 		/**
+		 * 
+		 */
+		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-db.php';
+		/**
+		 * FomoPress Helper
+		 */
+		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-helper.php';
+		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-fomopress-loader.php';
+		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-fomopress-i18n.php';
+		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-i18n.php';
 
+		
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-fomopress-admin.php';
+		require_once FOMOPRESS_ADMIN_DIR_PATH . 'class-fomopress-admin.php';
+		
+		/**
+		 * The class responsible for defining extensions functionality
+		 * of the plugin.
+		 */
+		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-extension.php';
+		require_once FOMOPRESS_EXT_DIR_PATH . 'press-bar/class-press-bar.php';
+		require_once FOMOPRESS_EXT_DIR_PATH . 'wp-comments/class-wp-comments.php';
+		require_once FOMOPRESS_EXT_DIR_PATH . 'woocommerce/class-woocommerce.php';
+		global $fomopress_extension_factory;
+		$fomopress_extension_factory->load();
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-fomopress-public.php';
+		require_once FOMOPRESS_ROOT_DIR_PATH . 'public/class-fomopress-public.php';
+		require_once FOMOPRESS_ROOT_DIR_PATH . 'public/includes/class-fomopress-template.php';
 
-		$this->loader = new Fomopress_Loader();
-
+		$this->loader = new FomoPress_Loader();
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Fomopress_i18n class in order to set the domain and to register the hook
+	 * Uses the FomoPress_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -132,7 +151,7 @@ class Fomopress {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Fomopress_i18n();
+		$plugin_i18n = new FomoPress_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -147,11 +166,18 @@ class Fomopress {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Fomopress_Admin( $this->get_plugin_name(), $this->get_version() );
-
+		$plugin_admin     = new FomoPress_Admin( $this->get_plugin_name(), $this->get_version() );
+		
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+		$this->loader->add_action( 'init', $plugin_admin, 'fomopress_type_register' );
+		$this->loader->add_action( 'add_meta_boxes', $plugin_admin->metabox, 'add_meta_boxes' );
+		$this->loader->add_action( 'save_post', $plugin_admin->metabox, 'save_metabox' );
+
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'fomopress_admin_menu_page' );
+
+		do_action( 'fomopress_admin_action', $this->loader );
 	}
 
 	/**
@@ -163,11 +189,15 @@ class Fomopress {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Fomopress_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new FomoPress_Public( $this->get_plugin_name(), $this->get_version() );
+
+		do_action( 'fomopress_public_action', $this->loader );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
+		$this->loader->add_action( 'wp', $plugin_public, 'get_active_items' );
+		$this->loader->add_action( 'wp_footer', $plugin_public, 'display' );
+		$this->loader->add_action( 'wp_ajax_fomopress_get_conversions', $plugin_public, 'fomopress_get_conversions' );
 	}
 
 	/**
@@ -194,7 +224,7 @@ class Fomopress {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Fomopress_Loader    Orchestrates the hooks of the plugin.
+	 * @return    FomoPress_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

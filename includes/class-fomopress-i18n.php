@@ -9,8 +9,8 @@
  * @link       https://wpdeveloper.net
  * @since      1.0.0
  *
- * @package    Fomopress
- * @subpackage Fomopress/includes
+ * @package    FomoPress
+ * @subpackage FomoPress/includes
  */
 
 /**
@@ -20,11 +20,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Fomopress
- * @subpackage Fomopress/includes
+ * @package    FomoPress
+ * @subpackage FomoPress/includes
  * @author     WPDeveloper <support@wpdeveloper.net>
  */
-class Fomopress_i18n {
+class FomoPress_i18n {
 
 
 	/**

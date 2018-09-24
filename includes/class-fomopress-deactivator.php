@@ -6,8 +6,8 @@
  * @link       https://wpdeveloper.net
  * @since      1.0.0
  *
- * @package    Fomopress
- * @subpackage Fomopress/includes
+ * @package    FomoPress
+ * @subpackage FomoPress/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    Fomopress
- * @subpackage Fomopress/includes
+ * @package    FomoPress
+ * @subpackage FomoPress/includes
  * @author     WPDeveloper <support@wpdeveloper.net>
  */
-class Fomopress_Deactivator {
+class FomoPress_Deactivator {
 
 	/**
 	 * Short Description. (use period)
@@ -31,6 +31,10 @@ class Fomopress_Deactivator {
 	 */
 	public static function deactivate() {
 
+		/**
+		 * Reqrite the rules on deactivation.
+		 */
+		flush_rewrite_rules();
 	}
 
 }

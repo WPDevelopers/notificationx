@@ -6,8 +6,8 @@
  * @link       https://wpdeveloper.net
  * @since      1.0.0
  *
- * @package    Fomopress
- * @subpackage Fomopress/includes
+ * @package    FomoPress
+ * @subpackage FomoPress/includes
  */
 
 /**
@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Fomopress
- * @subpackage Fomopress/includes
+ * @package    FomoPress
+ * @subpackage FomoPress/includes
  * @author     WPDeveloper <support@wpdeveloper.net>
  */
-class Fomopress_Loader {
+class FomoPress_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.
@@ -40,7 +40,7 @@ class Fomopress_Loader {
 	 * @var      array    $filters    The filters registered with WordPress to fire when the plugin loads.
 	 */
 	protected $filters;
-
+	
 	/**
 	 * Initialize the collections used to maintain the actions and filters.
 	 *

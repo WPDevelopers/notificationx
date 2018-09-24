@@ -1,0 +1,27 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+ .fomopress-notification {
+     position: fixed;
+     left: 0;
+     background: red;
+ }
+
+ .fomopress-press-bar {
+     background: #ddd;
+     position: absolute;
+     z-index: 9;
+     padding: 20px;
+     width: 100%;
+     left: 0;
+ }
+.fomopress-press-bar.fomopress-position-bottom {
+    position: fixed;
+    bottom: 0;
+}
+.fomopress-press-bar.fomopress-position-top {
+    top: 0;
+}
+

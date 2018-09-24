@@ -1,0 +1,49 @@
+<?php
+/**
+ * This class responsible for database work
+ * using wordpress functionality 
+ * get_option and update_option.
+ */
+class FomoPress_DB {
+    /**
+     * Get all the notification 
+     * saved in options table.
+     * @return array
+     */
+    public static function get_notifications(){
+        $notifications = get_option( 'fomopress_notifications', true );
+        return is_array( $notifications ) ? $notifications : [];
+    }
+    /**
+     * Update notifications.
+     * @param array $new_value
+     * @return boolean
+     */
+    public static function update_notifications( $new_value ){
+        return update_option( 'fomopress_notifications', $new_value );
+    }
+    /**
+     * Get all settings value from options table.
+     * or, get settings for a specific $key
+     *
+     * @param string $name
+     * @return array
+     */
+    public static function get_settings( $name = '' ){
+        $settings = get_option( 'fomopress_settings', true );
+        
+        if( ! empty( $name ) ) {
+            return $settings[ $name ];
+        }
+
+        return is_array( $settings ) ? $settings : [];
+    }
+    /**
+     * Update settings 
+     * @param array $new_value
+     * @return boolean
+     */
+    public static function update_settings( $new_value ){
+        return update_option( 'fomopress_settings', $new_value );
+    }
+}

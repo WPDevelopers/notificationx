@@ -1,0 +1,114 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+#fomopress_metabox_wrapper {
+    background: none;
+    border: 0px;
+}
+#fomopress_metabox_wrapper .handlediv,
+#fomopress_metabox_wrapper h2.hndle.ui-sortable-handle {
+    display: none;
+}
+
+#fomopress_metabox_wrapper .inside {
+    padding: 0;
+}
+
+.fomopress-metabox-wrapper {}
+
+.fomopress-meta-tab-menu {
+    margin-bottom: 30px;
+    background: #fff;
+}
+.fomopress-meta-tab-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.fomopress-meta-tab-menu ul li {
+    display: inline-block;
+    margin: 0;
+    padding: 10px 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.fomopress-meta-tab-menu ul li.active {
+    font-weight: 700;
+}
+
+/* CONTENT CSS */
+
+.fomopress-meta-tab-contents {
+    background: #fff;
+}
+
+.fomopress-meta-tab-content {
+    display: none;
+    padding: 30px;
+}
+
+.fomopress-meta-tab-content.active {
+    display: block;
+}
+
+
+#fomopress_metabox_wrapper .fomopress-meta-tab-content h2.fomopress-metabox-section-title {
+    padding: 0;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+}
+
+/*
+    Form Input CSS
+*/
+.fomopress-metabox-section table {
+    width: 100%;
+}
+
+.fomopress-metabox-section table tr {
+    
+}
+.fomopress-metabox-section table tr th {
+    width: 25%;
+    text-align: left;
+    padding: 15px 15px 15px 0px;
+}
+.fomopress-metabox-section table tr td {
+    width: 75%;
+    text-align: left;
+    padding: 15px;
+}
+
+.fomopress-meta-field {
+    padding: 10px;
+    border: 1px solid #f2f2f2;
+    background-color: #f2f2f2 !important;
+    border-radius: 0px;
+    width: 400px;
+}
+
+input.fomopress-meta-field:focus,
+select.fomopress-meta-field:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #f2f2f2;
+}
+
+select.fomopress-meta-field {
+    height: 40px;
+}
+
+textarea.fomopress-meta-field {
+    height: 150px;
+}
+
+input.fomopress-template-field {
+    margin: 0;
+    border: 0px;
+}
