@@ -3,25 +3,71 @@
  * included in this file.
  */
 
- .fomopress-notification {
-     position: fixed;
-     left: 0;
-     background: red;
- }
+.fomopress-notification {
+    position: fixed;
+    left: 0;
+    background: red;
+    padding: 15px;
+}
 
- .fomopress-press-bar {
-     background: #ddd;
-     position: absolute;
-     z-index: 9;
-     padding: 20px;
-     width: 100%;
-     left: 0;
- }
+.fomopress-notification-inner {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.fomopress-notification-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    float: left;
+    margin-right: 15px;
+}
+.fomopress-notification-content {
+    float: left;
+}
+
+.fomopress-author {
+    font-weight: 600;
+}
+
+.fomopress-time { 
+    display: block;
+}
+
+.fomopress-press-bar {
+    background: #ddd;
+    /* position: absolute; */
+    z-index: 9;
+    /* visibility: hidden; */
+    width: 100%;
+    left: 0;
+    text-align: center;
+}
+.fomopress-press-bar .fomopress-bar-inner {
+    padding: 20px;
+    display: inline-block;
+}
+
+.fomopress-close {
+    margin: 0;
+    position: absolute;
+    right: 10px;
+    margin-top: -10px;
+    cursor: pointer;
+    top: 50%;
+}
+
 .fomopress-press-bar.fomopress-position-bottom {
     position: fixed;
     bottom: 0;
 }
 .fomopress-press-bar.fomopress-position-top {
     top: 0;
+}
+
+.fomopress-press-bar-visible {
+    visibility: visible;
 }
 

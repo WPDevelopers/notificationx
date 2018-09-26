@@ -105,138 +105,171 @@ class FomoPress_Public {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, FOMOPRESS_PUBLIC_URL . 'assets/js/fomopress-public.js', array( 'jquery' ), $this->version, true );
-
 	}
 
-        /**
-    	 * Get all active notifications.
-    	 *
-    	 * @since 1.0.0
-    	 * @return void
-    	 */
-        public function get_active_items() {
-            // WP Query arguments.
-            $args = array(
-                'post_type'         => 'fomopress',
-				'posts_per_page'    => '-1',
-				'post_status'		=> 'publish',
-            );
+	/**
+	 * Get all active notifications.
+	 *
+	 * @since 1.0.0
+	 * @return void
+	 */
+	public function get_active_items() {
+		// WP Query arguments.
+		$args = array(
+			'post_type'         => 'fomopress',
+			'posts_per_page'    => '-1',
+			'post_status'		=> 'publish',
+		);
 
-            // Get the notification posts.
-            $posts = get_posts( $args );
+		// Get the notification posts.
+		$posts = get_posts( $args );
 
-            if ( count( $posts ) ) {
-                foreach ( $posts as $post ) {
-                    self::$active[] = $post->ID;
-                }
+		if ( count( $posts ) ) {
+			foreach ( $posts as $post ) {
+				self::$active[] = $post->ID;
 			}
 		}
+	}
 		
-		public function display(){
+	public function display(){
 
-			if( empty( self::$active ) ) {
-				return;
-			}
-
-			$conversion_ids = $comments_id = array();
-			
-			foreach( self::$active as $id ) {
-				
-				$settings = FomoPress_MetaBox::get_metabox_settings( $id );
-
-				switch ( $settings->display_type ) {
-					case "press_bar":
-						FomoPress_PressBar_Extension::display( $settings );
-                        break;
-                    case "conversions":
-                        $conversion_ids[] = $id;
-                        break;
-                    case "comments":
-                        $comments_id[] = $id;
-                        break;
-                    default:
-                        break;
-                }
-
-			}
-
-			if( ! empty( $conversion_ids ) || ! empty( $comments_id ) ) :
-		?>
-			<script type="text/javascript">
-				var fomopress = {
-					nonce      : '<?php echo wp_create_nonce('fomopress_frontend_nonce'); ?>',
-					ajaxurl    : '<?php echo admin_url('admin-ajax.php'); ?>',
-					conversions: <?php echo json_encode( $conversion_ids ); ?>,
-					comments   : <?php echo json_encode( $comments_id ); ?>
-				};
-			</script>
-		<?php	
-			endif;
+		if( empty( self::$active ) ) {
+			return;
 		}
 
-		public function fomopress_get_conversions() {
+		$conversion_ids = $comments_id = array();
+		
+		foreach( self::$active as $id ) {
+			
+			$settings = FomoPress_MetaBox::get_metabox_settings( $id );
 
-			if( ! isset( $_POST['nonce'] ) && ! wp_verify_nonce( $_POST['nonce'], 'fomopress_frontend_nonce' ) ) {
-				return;
+			$logged_in = is_user_logged_in();
+			$show_on_display = $settings->show_on_display;
+
+			if( ( $logged_in && 'logged_out_user' == $show_on_display ) || ( ! $logged_in && 'logged_in_user' == $show_on_display ) ) {
+				continue;
 			}
 
-			$ids = $_POST['ids'];
+			$locations = $settings->all_locations;
 
-			$echo = $data = [];
-			if( ! empty( $this->notifications ) ) {
-				$data = $this->notifications;
+			$check_location = false;
+
+			if( ! empty( $locations ) ) {
+				$check_location = FomoPress_Locations::check_location( array( $locations ) );
 			}
 
-			foreach( $ids as $id ) {
-
-				$settings = FomoPress_MetaBox::get_metabox_settings( $id );
-
-				// dump( $settings );
-
-				// // dump( FomoPress_Template::template( $settings->notification_template ) );
-
-				// die();
-
-				$echo['config'] = array(
-					'delay_before' => $settings->delay_before,
-					'display_for' => $settings->display_for,
-					'delay_between' => $settings->delay_between,
-					'loop' => $settings->loop,
-					'id' => $id,
-				);
-
-				ob_start();
-				include FOMOPRESS_PUBLIC_PATH . 'partials/fomopress-public-display.php';
-				$content = ob_get_clean();
-
-				$echo['content'] = $content;
+			if( $settings->show_on == 'on_selected' ) {
+				// do not proceed further if none of these condition matches.
+				if ( ! $check_location ) {
+					continue;
+				}
+			} elseif( $settings->show_on == 'hide_on_selected' ) {
+				if ( $check_location ) {
+					continue;
+				}
 			}
 
-			// echo json_encode( $echo );
+			switch ( $settings->display_type ) {
+				case "press_bar":
+					FomoPress_PressBar_Extension::display( $settings );
+					break;
+				case "conversions":
+					$conversion_ids[] = $id;
+					break;
+				case "comments":
+					$comments_id[] = $id;
+					break;
+				default:
+					break;
+			}
 
-			// die();
 		}
 
-		public function get_client_ip() {
-			$ip = '';
-			
-			if( getenv( 'HTTP_CLIENT_IP' ) ) {
-				$ip = getenv( 'HTTP_CLIENT_IP' );
-			} elseif( getenv( 'HTTP_X_FORWARDED_FOR' ) ) {
-				$ip = getenv( 'HTTP_X_FORWARDED_FOR' );
-			} elseif( getenv( 'HTTP_X_FORWARDED' ) ) {
-				$ip = getenv( 'HTTP_X_FORWARDED' );
-			} elseif( getenv( 'HTTP_FORWARDED_FOR' ) ) {
-				$ip = getenv( 'HTTP_FORWARDED_FOR' );
-			} elseif( getenv( 'HTTP_FORWARDED' ) ) {
-				$ip = getenv( 'HTTP_FORWARDED' );
-			} elseif( getenv( 'REMOTE_ADDR' ) ) {
-				$ip = getenv( 'REMOTE_ADDR' );
-			} else {
-				$ip = "UNKNOWN";
-			}
+		if( ! empty( $conversion_ids ) || ! empty( $comments_id ) ) :
+	?>
+		<script type="text/javascript">
+			var fomopress = {
+				nonce      : '<?php echo wp_create_nonce('fomopress_frontend_nonce'); ?>',
+				ajaxurl    : '<?php echo admin_url('admin-ajax.php'); ?>',
+				conversions: <?php echo json_encode( $conversion_ids ); ?>,
+				comments   : <?php echo json_encode( $comments_id ); ?>
+			};
+		</script>
+	<?php	
+		endif;
+	}
 
-			return $ip;
-        }
+	public function fomopress_get_conversions() {
+
+		if( ! isset( $_POST['nonce'] ) && ! wp_verify_nonce( $_POST['nonce'], 'fomopress_frontend_nonce' ) ) {
+			return;
+		}
+
+		$ids = $_POST['ids'];
+
+		$echo = $data = [];
+		if( ! empty( $this->notifications ) ) {
+			$data = $this->notifications;
+		}
+
+		foreach( $ids as $id ) {
+
+			$settings = FomoPress_MetaBox::get_metabox_settings( $id );
+
+			$echo['config'] = array(
+				'delay_before' => ( ! empty( $settings->delay_before ) ) ? intval( $settings->delay_before ) * 1000 : 0,
+				'display_for' => ( ! empty( $settings->display_for ) ) ? intval( $settings->display_for ) * 1000 : 0,
+				'delay_between' => ( ! empty( $settings->delay_between ) ) ? intval( $settings->delay_between ) * 1000 : 0,
+				'loop' => ( ! empty( $settings->loop ) ) ? $settings->loop : 0,
+				'id' => $id,
+			);
+
+			ob_start();
+			include FOMOPRESS_PUBLIC_PATH . 'partials/fomopress-public-display.php';
+			$content = ob_get_clean();
+
+			$echo['content'] = $content;
+		}
+
+		echo json_encode( $echo );
+
+		die();
+	}
+
+	public function get_client_ip() {
+		$ip = '';
+		
+		if( getenv( 'HTTP_CLIENT_IP' ) ) {
+			$ip = getenv( 'HTTP_CLIENT_IP' );
+		} elseif( getenv( 'HTTP_X_FORWARDED_FOR' ) ) {
+			$ip = getenv( 'HTTP_X_FORWARDED_FOR' );
+		} elseif( getenv( 'HTTP_X_FORWARDED' ) ) {
+			$ip = getenv( 'HTTP_X_FORWARDED' );
+		} elseif( getenv( 'HTTP_FORWARDED_FOR' ) ) {
+			$ip = getenv( 'HTTP_FORWARDED_FOR' );
+		} elseif( getenv( 'HTTP_FORWARDED' ) ) {
+			$ip = getenv( 'HTTP_FORWARDED' );
+		} elseif( getenv( 'REMOTE_ADDR' ) ) {
+			$ip = getenv( 'REMOTE_ADDR' );
+		} else {
+			$ip = "UNKNOWN";
+		}
+
+		return $ip;
+	}
+
+	public function is_visible( $settings ){
+		if( $settings->show_on == 'everywhere' ) {
+			// return true;
+		}
+
+		if( $settings->show_on == 'on_selected' ) {
+			
+		}
+
+		if( $settings->show_on == 'hide_on_selected' ) {
+			
+		}
+	}
 
 }

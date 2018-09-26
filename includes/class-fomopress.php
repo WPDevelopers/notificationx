@@ -113,7 +113,7 @@ class FomoPress {
 		 */
 		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-i18n.php';
 
-		
+		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-locations.php';
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
@@ -172,6 +172,7 @@ class FomoPress {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
 		$this->loader->add_action( 'init', $plugin_admin, 'fomopress_type_register' );
+		$this->loader->add_action( 'init', $plugin_admin, 'get_active_items' );
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin->metabox, 'add_meta_boxes' );
 		$this->loader->add_action( 'save_post', $plugin_admin->metabox, 'save_metabox' );
 

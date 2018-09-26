@@ -9,6 +9,8 @@ class Extension_Factory {
      * @var array
      */
     protected $extensions;
+    protected $loaded_extensions;
+    protected $template;
     /**
      * This function is responsible for registering an extension.
      *
@@ -42,6 +44,8 @@ class Extension_Factory {
         if( ! empty( $this->extensions ) ) {
             foreach( $this->extensions as $extension ) {
                 $object = new $extension;
+                $this->loaded_extensions[ $object->type ] = $extension;
+
                 /**
                  * Hooked all actions to their responsible 
                  * methods if exists.
@@ -52,6 +56,10 @@ class Extension_Factory {
 
                 if( method_exists( $object, 'public_actions' ) ) {
                     add_action( 'fomopress_public_action', array( $object, 'public_actions' ) );
+                }
+
+                if( method_exists( $object, 'get_notification_ready' ) ) {
+                    add_action( 'fomopress_get_conversions_ready', array( $object, 'get_notification_ready' ), 10, 3 );
                 }
 
                 /**
@@ -70,20 +78,24 @@ class Extension_Factory {
                  * All tab filters
                  */
                 if( method_exists( $object, 'source_tab_section' ) ) {
-                    add_filter( 'fomopress_source_tab_section', array( $object, 'source_tab_section' ), 10, 1 );
+                    add_filter( 'fomopress_source_tab_sections', array( $object, 'source_tab_section' ) );
                 }
                 if( method_exists( $object, 'content_tab_section' ) ) {
-                    add_filter( 'fomopress_content_tab_section', array( $object, 'content_tab_section' ), 10, 1 );
+                    add_filter( 'fomopress_content_tab_sections', array( $object, 'content_tab_section' ) );
                 }
                 if( method_exists( $object, 'display_tab_section' ) ) {
-                    add_filter( 'fomopress_display_tab_section', array( $object, 'display_tab_section' ), 10, 1 );
+                    add_filter( 'fomopress_display_tab_sections', array( $object, 'display_tab_section' ) );
                 }
                 if( method_exists( $object, 'customize_tab_section' ) ) {
-                    add_filter( 'fomopress_customize_tab_section', array( $object, 'customize_tab_section' ), 10, 1 );
+                    add_filter( 'fomopress_customize_tab_sections', array( $object, 'customize_tab_section' ) );
                 }
                 
             }
         }
+    }
+
+    public function get_extension( string $key ){
+        return $this->loaded_extensions[ $key ];
     }
 
 }
@@ -98,6 +110,15 @@ $GLOBALS['fomopress_extension_factory'] = new Extension_Factory();
 function fomopress_register_extension( string $extension ){
     global $fomopress_extension_factory;
     $fomopress_extension_factory->register( $extension );
+}
+
+function get_extention_frontend( $key, $data, $settings = false ){
+    global $fomopress_extension_factory;
+    $class_name = $fomopress_extension_factory->get_extension( $key );
+    if( class_exists( $class_name ) ) {
+        $object = new $class_name;
+        return $object->frontend_html( $data, $settings );
+    }
 }
 
 /**
@@ -130,6 +151,8 @@ class FomoPress_Extension {
     protected $prefix = 'fomopress_';
 
 
+    public $defaults_settings;
+
     /**
      * Constructor of extension for ready the settings and cache limit.
      */
@@ -139,8 +162,27 @@ class FomoPress_Extension {
         if( ! empty( self::$settings ) && isset( self::$settings['cache_limit'] ) ) {
             $this->cache_limit = intval( self::$settings['cache_limit'] );
         }
+
+        $this->defaults_settings = [
+            'show_on',
+            'show_on_display',
+            'close_button',
+            'hide_on_mobile',
+        ];
     }
 
+    public static function is_created( $type = '' ){
+        if( empty( $type ) ) {
+            return false;
+        }
+        $active_items = FomoPress_Admin::get_active_items();
+
+        if( ! empty( $active_items ) ) {
+            return in_array( $type, $active_items );
+        } else {
+            return false;
+        }
+    }
     /**
      * This method is responsible for get all 
      * the notifications we have stored
@@ -169,6 +211,59 @@ class FomoPress_Extension {
         $notifications = FomoPress_DB::get_notifications();
         $notifications[ $type ] = $data;
         return FomoPress_DB::update_notifications( $notifications );
+    }
+
+    public function merge( $old, $new ) {
+        return array_merge( $old, $new );
+    }
+
+    public function toggleData( $options, $type, $name ){
+        if( ! isset( $options[ 'toggle' ][ $type ][ $name ] ) ) {
+            return array();
+        }
+        return $options[ 'toggle' ][ $type ][ $name ];
+    }
+    public function hideData( $options, $type, $name ){
+        if( ! isset( $options[ 'hide' ][ $type ][ $name ] ) ) {
+            return array();
+        }
+        return $options[ 'hide' ][ $type ][ $name ];
+    }
+
+    protected function newData( $data = false ) {
+        if( ! $data ) {
+            return;
+        }
+        $new_data = array();
+        foreach( $data as $key => $single_data ) {
+            if( $key == 'timestamp' ) {
+                $new_data[ '{{time}}' ] = FomoPress_Helper::get_timeago_html( $single_data );
+                continue;
+            }
+            $new_data[ '{{'. $key .'}}' ] = $single_data;
+        }
+
+        return $new_data;
+    }
+
+    public function frontend_html( $data, $settings = false ){
+        ob_start();
+        if( $data['user_id'] ) {
+            $avatar = get_avatar_url( $data['user_id'], array(
+                'size' => '60'    
+            ));
+        }
+        ?>
+            <div class="fomopress-notification-image">
+                <img src="<?php echo $avatar; ?>" alt="<?php echo $data['name']; ?>">
+            </div>
+            <div class="fomopress-notification-content">
+                <?php 
+                    echo FomoPress_Helper::get_template_ready( $settings->{ $this->template }, $this->newData( $data ) );
+                ?>
+            </div>
+        <?php
+        return ob_get_clean();
     }
 
 }

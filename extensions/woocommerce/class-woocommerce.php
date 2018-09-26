@@ -6,7 +6,8 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
      *
      * @var string
      */
-    protected $type = 'woocommerce';
+    public $type = 'woocommerce';
+    public $template = 'woo_template';
     /**
      * An array of all notifications
      *
@@ -26,18 +27,49 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
      * @return void
      */
     public function public_actions( $loader ){
+        if( ! $this->is_created( $this->type ) ) {
+            return;
+        }
         $loader->add_action( 'woocommerce_new_order_item', $this, 'save_new_orders', 9, 3 );
     }
+
     /**
-     * This allows woocommerce to add 
-     * Conversion From List.
-     *
+     * Some extra field on the fly.
+     * 
      * @param array $options
      * @return array
      */
+
+    public function content_tab_section( $options ){
+
+        $options[ 'content_config' ][ 'fields' ] = $this->merge(
+            $options[ 'content_config' ][ 'fields' ],
+            array(
+                'woo_template'  => array(
+                    'type'     => 'template',
+                    'label'    => __('Notification Template' , 'fomopress'),
+                    'priority' => 90,
+                    'defaults' => [
+                        __('{{name}} recently purchased', 'fomopress'), '{{title}}', '{{time}}'
+                    ],
+                    'variables' => [
+                        '{{name}}', '{{title}}', '{{time}}'
+                    ],
+                )
+            )
+        );
+
+        return $options;
+    }
+    /**
+     * Some toggleData & hideData manipulation.
+     *
+     * @param array $options
+     * @return void
+     */
     public function conversion_from( $options ){
-        $options['options'][ 'woocommerce' ] = __( 'WooCommerce', 'fomopress' );
-        $options['default'] = 'woocommerce';
+        $options['options'][ 'woocommerce' ]                = __( 'WooCommerce', 'fomopress' );
+        $options['default']                                 = 'woocommerce';        
         return $options;
     }
     /**
@@ -61,8 +93,9 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
             $new_order['title'] = $product_data['title'];
             $new_order['link']  = $product_data['link'];
         }
-        $new_order['buyer']     = $this->buyer( $order );
         $new_order['timestamp'] = $date->getTimestamp();
+
+        $new_order = array_merge( $new_order, $this->buyer( $order ));
         
         $this->notifications[] = $new_order;
         $this->save( $this->type, $this->notifications );
@@ -78,9 +111,14 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
     protected function buyer( WC_Order $order ){
         $user = $order->get_user();
         if( $user ) {
-            return $user->display_name;
+            return array(
+                'name' => $user->display_name,
+                'user_id' => $user->ID,
+            );
         }
-        return $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
+        return array(
+            'name' => $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
+        );
     }
 
     /**

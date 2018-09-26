@@ -2,25 +2,14 @@
 
 class FomoPress_WP_Comments_Extension extends FomoPress_Extension {
 
-    protected $type = 'comments';
+    public $type = 'comments';
+    public $template = 'comments_template';
 
     protected $notifications = [];
 
     public function __construct() {    
         parent::__construct();
         $this->notifications = $this->get_notifications( $this->type );
-    }
-    /**
-     * This function is responsible for adding this notification type to admin option.
-     * This functions fires when 
-     * 
-     * @filtered fomopress_display_type_options
-     * 
-     * @param array $options
-     */
-    public function display_type( $options ){
-        $options['options'][ $this->type ] = __( 'WP Comments', 'fomopress' );
-        return $options;
     }
     /**
      * This functions is hooked
@@ -30,10 +19,42 @@ class FomoPress_WP_Comments_Extension extends FomoPress_Extension {
      * @return void
      */
     public function public_actions( $loader ){
+        if( ! $this->is_created( $this->type ) ) {
+            return;
+        }
         $loader->add_action( 'comment_post', $this, 'post_comment', 10, 2 );
         $loader->add_action( 'trash_comment', $this, 'delete_comment', 10, 2 );
         $loader->add_action( 'delete_comment', $this, 'delete_comment', 10, 2 );
         $loader->add_action( 'transition_comment_status', $this, 'transition_comment_status', 10, 3 );
+    }
+
+    public function get_notification_ready( $type, $data = array() ){
+        if( $this->type === $type ) {
+            $this->save( $this->type, $this->get_comments( $data ) );
+        }
+    }
+
+    public function get_comments( $data ) {
+        $comments = get_comments();
+        $new_comments = [];
+
+        $count = count( $comments );
+        $needed = intval( $data[ 'fomopress_display_last' ] );
+        $count = $count > $needed ? $needed : $count;
+
+        for( $i = 0; $i < $count; $i++ ) {
+            $comment = $comments[ $i ];
+            $comment_data['link']       = get_comment_link( $comment->comment_ID );
+            $comment_data['post_title'] = get_the_title( $comment->comment_post_ID );
+            $comment_data['post_link']  = get_permalink( $comment->comment_post_ID );
+            $comment_data['timestamp']  = strtotime( $comment->comment_date );
+            if( $comment->user_id )  {
+                $comment_data['user_id'] = $comment->user_id;
+            }
+            $comment_data['name'] = get_comment_author( $comment->comment_ID );
+            $new_comments[ $comment->comment_ID ] = $comment_data;
+        }
+        return $new_comments;
     }
 
     public function transition_comment_status( $new_status, $old_status, $comment ){
@@ -60,17 +81,20 @@ class FomoPress_WP_Comments_Extension extends FomoPress_Extension {
             $this->notifications = $sorted_data;
         }
 
+        
         if( 1 === $comment_approved ){
             $comment                    = get_comment( $comment_ID, 'OBJECT' );
             $comment_data['link']       = get_comment_link( $comment_ID );
             $comment_data['post_title'] = get_the_title( $comment->comment_post_ID );
             $comment_data['post_link']  = get_permalink( $comment->comment_post_ID );
             $comment_data['timestamp']  = strtotime( $comment->comment_date );
+            
+            if( $comment->user_id )  {
+                $comment_data['user_id'] = $comment->user_id;
+                // $comment_data['author_link'] = get_the_author_link( $comment->user_id );
+            }
 
-            // if( $comment->user_id )  {
-            //     $comment_data['author_link'] = get_the_author_link( $comment->user_id );
-            // }
-            $comment_data['author'] = get_comment_author( $comment_ID );
+            $comment_data['name'] = get_comment_author( $comment_ID );
             $this->notifications[ $comment_ID ] = $comment_data;
             /**
              * Save the data to 
@@ -99,6 +123,7 @@ class FomoPress_WP_Comments_Extension extends FomoPress_Extension {
             $this->save( $this->type, $this->notifications );
         }
     }
+
 }
 /**
  * Register the extension

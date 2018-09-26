@@ -36,11 +36,18 @@
 
 		init : function(){
 
-			FomoPressPlugin.initPressBar();
+			// FomoPressPlugin.initPressBar();			
+			FomoPressPlugin.initNotifications();			
+			FomoPressPlugin.bindEvents();
 
+		},
+
+		initNotifications : function(){
 			if ( 'undefined' === typeof fomopress ) {
                 return;
 			}
+
+			window.localStorage.removeItem('fomopress_notifications');
 
 			if ( fomopress.conversions.length > 0 ) {
                 FomoPressPlugin.processNotifications( fomopress.conversions );
@@ -49,22 +56,19 @@
 			if ( fomopress.comments.length > 0 ) {
                 FomoPressPlugin.processNotifications( fomopress.comments );
 			}
-			
-			FomoPressPlugin.bindEvents();
-
 		},
 
 		bindEvents : function(){
-			$('body').delegate( '.fomopress-press-bar .fomopress-close', 'click', function() {
-                FomoPressPlugin.pressBarActive = 0;
-                FomoPressPlugin.hidePressBar();
+			$('body').delegate( '.fomopress-press-bar .fomopress-close', 'click', function( e ) {
+				FomoPressPlugin.pressBarActive = 0;
+				FomoPressPlugin.hidePressBar( e.target.offsetParent.id );
             } );
 		},
 
 		processNotifications : function( ids ){
 			var node = $('<div class="fomopress-conversions"></div>');
 			var html = '';
-			
+
 			$.ajax({
 				type: 'post',
                 url: fomopress.ajaxurl,
@@ -166,7 +170,7 @@
 
                 if ( ( '' !== duration || undefined !== duration ) && parseInt( auto_hide ) ) {
                     setTimeout(function() {
-                        FomoPressPlugin.hidePressBar( press_bar, id );
+                        FomoPressPlugin.hidePressBar( 'fomopress-bar-' + id );
                     }, parseInt(duration) * 1000);
                 }
             });
@@ -188,27 +192,30 @@
                 $('html').addClass('fomopress-bar-active');
                 if ( press_bar.hasClass('fomopress-position-top') ) {
 					$('html').animate({ 'padding-top': press_bar_height + 'px' }, 300);
-					press_bar.animate( { 'top' : admin_bar_height + 'px' }, 300 );
-                }
+					press_bar.animate({ 'top' : admin_bar_height + 'px' }, 300);
+				}
+
+				press_bar.addClass('fomopress-press-bar-visible');
 
                 FomoPressPlugin.pressBarActive = 1;
             }, initial_delay * 1000);	
 		},
 
-        hidePressBar: function( press_bar, id ) {
-			if ( '' === press_bar ) {
-                press_bar = $('.fomopress-press-bar ' + '.fomopress-bar-' + id);
-			}
+        hidePressBar: function( id ) {
 			
-            var press_bar_height = press_bar.find('.fomopress-bar-inner').outerHeight(),
-                admin_bar_height = ( $('#wpadminbar').length > 0 ) ? $('#wpadminbar').outerHeight() : 0;
+			var press_bar        = $('.fomopress-press-bar#' + id ),
+			    press_bar_height = press_bar.find('.fomopress-bar-inner').outerHeight() ,
+			    admin_bar_height = ( $('#wpadminbar').length > 0 ) ? $('#wpadminbar').outerHeight() : 0;
 
             $('html').removeClass('fomopress-bar-active');
 			$('html').css( 'padding-top', '0px' );
-			press_bar.css( 'display', 'none' );
 			
-			// if ( press_bar.hasClass('fomopress-position-top') ) {
-			// }
+			if ( press_bar.hasClass('fomopress-position-top') ) {
+				press_bar.animate( { 'top' : 0 }, 300 );
+			}
+
+			// press_bar.animate( { 'visibility' : 'hidden' }, 300 );
+			press_bar.removeClass('fomopress-press-bar-visible');
 
             FomoPressPlugin.pressBarActive = 0;
 		},
@@ -217,7 +224,6 @@
 
 			var count       = 0,
 				elements    = html.find('.fomopress-notification-' + config.id),
-				delayCalc   = (config.initial_delay + config.hide_after + config.delay_between) / 1000,
 				delayEach   = config.delay_between,
 				last        = FomoPressPlugin.lastNotification(config.id, false);
 
@@ -225,10 +231,10 @@
 				count = last + 1;
 			}
 
+			
 			if ( config.loop === 0 && elements.length === 1 ) {
 				count = 0;
 			}
-
 
 			setTimeout(function() {
 
@@ -263,13 +269,13 @@
 								count++;
 							}
 
-						}, config.hide_after);
+						}, config.display_for);
 
-					}, delayEach + config.hide_after);
+					}, delayEach + config.display_for);
 
-				}, config.hide_after);
+				}, config.display_for);
 
-			}, config.initial_delay);
+			}, config.delay_before);
 
 		},
 		showNotification: function( element, config, count ){

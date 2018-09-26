@@ -21,18 +21,22 @@ return array(
                             'label'     => __('I would like to display' , 'fomopress'),
                             'default'   => 'press_bar',
                             'options'   => [
-                                'conversions' => __('Converstion' , 'fomopress'),
                                 'press_bar'   => __('Notification Bar' , 'fomopress'),
+                                'comments'    => __('WP Comments' , 'fomopress'),
+                                'conversions' => __('Converstion' , 'fomopress'),
                             ],
                             'toggle'   => [
-                                'comments' => [
-                                    'sections'    => [ 'behaviour' ],
-                                    'fields'   => [ 'conversion_position' ]
-                                ],
-                                'conversions' => [
-                                    'sections'    => [ 'behaviour' ],
-                                    'fields'   => [ 'conversion_from', 'conversion_position' ]
-                                ],
+                                'comments'    => fomopress_comments_toggle_data(),
+                                'press_bar'   => fomopress_press_bar_toggle_data(),
+                                'conversions' => fomopress_conversions_toggle_data(),
+                            ],
+                            'hide'   => [
+                                'comments' => array(
+                                    'fields' => [ 'woo_template', 'custom_template' ]
+                                ),
+                                'press_bar' => array(
+                                    'fields' => [ 'woo_template', 'custom_template', 'comments_template' ]
+                                )
                             ],
                             'priority' => 50
                         ) ),
@@ -44,16 +48,14 @@ return array(
                                 'custom'      => __( 'Custom', 'fomopress' )
                             ],
                             'priority'	=> 60,
-                            'toggle'   => [
-                                // 'woocommerce' => array(
-                                //     'fields' => array( 'notification_template' )
-                                // ),
-                            ],
-                            'hide'   => [
-                                // 'custom' => array(
-                                //     'fields' => array( 'notification_template' )
-                                // ),
-                            ],
+                            'toggle'        => array(
+                                'custom'        => array(
+                                    'fields' => [ 'custom_template' ]
+                                ),
+                                'woocommerce'        => array(
+                                    'fields' => [ 'woo_template' ]
+                                ),
+                            ),
                         ) )
                     ),
                 ),
@@ -80,17 +82,28 @@ return array(
                             'label'    => __('Button URL' , 'fomopress'),
                             'priority' => 70,
                         ),
-                        'notification_template'  => apply_filters( 'fomopress_content_section', array(
+                        'custom_template'  => array(
                             'type'     => 'template',
                             'label'    => __('Notification Template' , 'fomopress'),
                             'priority' => 100,
                             'defaults' => [
-                                __('{{name}} from {{city}} signed up for', 'ibx-wpfomo'), '{{title}}', '{{time}}'
+                                __('{{name}} from {{city}} signed up for', 'fomopress'), '{{title}}', '{{time}}'
                             ],
                             'variables' => [
                                 '{{name}}', '{{city}}', '{{title}}', '{{time}}'
                             ],
-                        ) )
+                        ),
+                        'comments_template'  => array(
+                            'type'     => 'template',
+                            'label'    => __('Notification Template' , 'fomopress'),
+                            'priority' => 80,
+                            'defaults' => [
+                                __('{{name}} posted comment on', 'fomopress'), '{{post_title}}', '{{time}}'
+                            ],
+                            'variables' => [
+                                '{{name}}', '{{link}}', '{{time}}', '{{post_link}}', '{{post_title}}'
+                            ],
+                        )
                     ),
                 ),
                 'countdown_timer' => array(
@@ -111,26 +124,40 @@ return array(
                     'title'    => __('Visibility', 'fomopress'),
                     'priority' => 1000,
                     'fields'   => array(
-                        'show_on'  => apply_filters( 'fomopress_show_on', array(
+                        'show_on'  => array(
                             'type'      => 'select',
                             'label'     => __('Show On' , 'fomopress'),
-                            'priority'	=> 50,
+                            'priority'	=> 10,
                             'options'   => [
                                 'everywhere'       => __('Show Everywhere' , 'fomopress'),
                                 'on_selected'      => __('Show On Selected' , 'fomopress'),
                                 'hide_on_selected' => __('Hide On Selected' , 'fomopress'),
                             ],
-                        )),
-                        'show_on_display'  => apply_filters( 'fomopress_show_on_display', array(
+                            'toggle' => [
+                                'on_selected' => [ 
+                                    'fields' => [ 'all_locations' ]
+                                ],
+                                'hide_on_selected' => [ 
+                                    'fields' => [ 'all_locations' ]
+                                ]
+                            ]
+                        ),
+                        'all_locations'  => array(
+                            'type'      => 'select',
+                            'label'     => __('Locations' , 'fomopress'),
+                            'priority'	=> 20,
+                            'options'   => FomoPress_Locations::locations(),
+                        ),
+                        'show_on_display'  => array(
                             'type'      => 'select',
                             'label'     => __('Display' , 'fomopress'),
-                            'priority'	=> 60,
+                            'priority'	=> 200,
                             'options'   => [
                                 'always'          => __('Always' , 'fomopress'),
                                 'logged_out_user' => __('Logged Out User' , 'fomopress'),
                                 'logged_in_user'  => __('Logged In User' , 'fomopress'),
                             ],
-                        ))
+                        )
                     ),
                 ),
             ))
@@ -164,6 +191,7 @@ return array(
                             'type'        => 'checkbox',
                             'label'       => __('Sticky Bar?' , 'fomopress'),
                             'priority'    => 60,
+                            'default'     => 0,
                             'description' => __('If checked, this will fixed Notification Bar at top or bottom.', 'fomopress'),
                         ),
                         'close_button'  => array(
@@ -177,6 +205,7 @@ return array(
                             'type'        => 'checkbox',
                             'label'       => __('Hide On Mobile' , 'fomopress'),
                             'priority'    => 200,
+                            'default'     => 0,
                             'description' => __(' It will hide the notification on mobile devices.', 'fomopress'),
                         ),
                     ),
@@ -240,6 +269,20 @@ return array(
                     'priority'    => 300,
                     'collapsable' => true,
                     'fields'      => array(
+                        'display_last'  => array(
+                            'type'        => 'number',
+                            'label'       => __('Display the last' , 'fomopress'),
+                            'description' => 'conversions',
+                            'default'     => 30,
+                            'priority'    => 40,
+                        ),
+                        'display_from'  => array(
+                            'type'        => 'number',
+                            'label'       => __('Display From The Last' , 'fomopress'),
+                            'priority'    => 45,
+                            'default'     => 2,
+                            'description' => 'days',
+                        ),
                         'loop'  => array(
                             'type'        => 'checkbox',
                             'label'       => __('Loop notification' , 'fomopress'),

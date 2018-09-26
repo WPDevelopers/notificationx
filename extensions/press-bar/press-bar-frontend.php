@@ -1,6 +1,7 @@
 <?php
 $attrs = $wrapper_attrs = $class = '';
 $pos_class = 'fomopress-position-top';
+
 if( $settings->link_open ) {
     $attrs .= ' target="_blank"';
 }
@@ -35,17 +36,22 @@ if( is_admin_bar_showing() ) {
 
 ?>
 
-<div class="fomopress-press-bar fomopress-bar-<?php echo $settings->id; ?> <?php echo esc_attr( $pos_class ); ?> <?php echo esc_attr( $class ); ?>" <?php echo $wrapper_attrs; ?>>
+<div 
+    id="fomopress-bar-<?php echo $settings->id; ?>"
+    class="fomopress-press-bar fomopress-bar-<?php echo $settings->id; ?> <?php echo esc_attr( $pos_class ); ?> <?php echo esc_attr( $class ); ?>" <?php echo $wrapper_attrs; ?>>
     <div class="fomopress-bar-inner">
-        <div class="fomopress-press-bar-inners">
+        <div class="fomopress-press-bar-content">
             <?php 
-                echo esc_html__( $settings->press_content, 'fomopress' ); 
+                echo esc_html_e( $settings->press_content, 'fomopress' ); 
                 if( $settings->button_url != '' ) :
             ?>
                 <a href="<?php echo esc_url( $settings->button_url ); ?>" <?php echo $attrs; ?>>
-                    <?php echo esc_html__( $settings->button_text, 'fomopress' ); ?>
+                    <?php echo esc_html_e( $settings->button_text, 'fomopress' ); ?>
                 </a>
             <?php endif; ?>
         </div>
+        <?php if( $settings->close_button ) : ?>
+            <p class="fomopress-close" title="Close">x</p>
+        <?php endif; ?>
     </div>
 </div>

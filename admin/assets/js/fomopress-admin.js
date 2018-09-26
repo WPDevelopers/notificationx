@@ -49,12 +49,12 @@
 
 		fieldChange: function( input ){
 			var field   = $(input),
-                id      = field.attr('id'),
+                id  = field.attr('id'),
                 toggle  = field.data('toggle'),
                 hide    = field.data('hide'),
                 val     = field.val(),
 				i       = 0;
-				
+			
 			if ( 'checkbox' === field.attr('type') && ! field.is(':checked') ) {
 				val = '0';
 			}
@@ -65,15 +65,14 @@
 				if ( typeof toggle !== 'object' ) {
 					toggle = JSON.parse(toggle);
 				}
-
 				for(i in toggle) {
-					FomoPressAdmin.fieldToggle(toggle[i].fields, 'hide', '#fomopress-');
-					FomoPressAdmin.fieldToggle(toggle[i].sections, 'hide', '#fomopress-meta-section-');
+					FomoPressAdmin.fieldToggle(toggle[i].fields, 'hide', '#fomopress-', '', id);
+					FomoPressAdmin.fieldToggle(toggle[i].sections, 'hide', '#fomopress-meta-section-', '', id);
 				}
 
 				if(typeof toggle[val] !== 'undefined') {
-					FomoPressAdmin.fieldToggle(toggle[val].fields, 'show', '#fomopress-');
-					FomoPressAdmin.fieldToggle(toggle[val].sections, 'show', '#fomopress-meta-section-');
+					FomoPressAdmin.fieldToggle(toggle[val].fields, 'show', '#fomopress-', '', id);
+					FomoPressAdmin.fieldToggle(toggle[val].sections, 'show', '#fomopress-meta-section-', '', id);
 				}
 			}
 
@@ -83,15 +82,15 @@
                 if ( typeof hide !== 'object' ) {
     			    hide = JSON.parse(hide);
 				}
-
+				
     			if(typeof hide[val] !== 'undefined') {
-    				FomoPressAdmin.fieldToggle(hide[val].fields, 'hide', '#fomopress-');
-    				FomoPressAdmin.fieldToggle(hide[val].sections, 'hide', '#fomopress-meta-section-');
+    				FomoPressAdmin.fieldToggle(hide[val].fields, 'hide', '#fomopress-', '', id);
+    				FomoPressAdmin.fieldToggle(hide[val].sections, 'hide', '#fomopress-meta-section-', '', id);
     			}
-    		}
+			}
 		},
 
-		fieldToggle: function( array, func, prefix, suffix ){
+		fieldToggle: function( array, func, prefix, suffix, id = '' ){
 			var i = 0;
 
 			suffix = 'undefined' == typeof suffix ? '' : suffix;
@@ -128,7 +127,6 @@
 	 * when the document is ready.
 	 */
 	$(document).ready(function() {
-		FomoPressAdmin.init();
 		/**
 		 * Current Tab Manage
 		 */
@@ -139,6 +137,18 @@
 			$(this).addClass( 'active' ).siblings().removeClass('active');
 			$('#fomopress-' + $tab).addClass( 'active' ).siblings().removeClass('active');
 		});
-    });
+
+		FomoPressAdmin.init();
+	});
+	
+	$( window ).load(function(){
+		$('body').on('change', '#fomopress_display_type', function(){
+			var type = $(this).val();
+			if( type == 'conversions' ) {
+				$('#fomopress_conversion_from').trigger('change');
+			}
+		});
+		$('#fomopress_display_type').trigger('change');
+	});
 
 })( jQuery );

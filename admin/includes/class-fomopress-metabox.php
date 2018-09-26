@@ -26,10 +26,9 @@ class FomoPress_MetaBox {
         $tabs       = self::$args['tabs'];
         $prefix     = self::$prefix;
         $metabox_id = self::$args['id'];
-        // $layout     = self::get_layout();
-        $tabnumber	= isset( self::$args['tabnumber'] ) && self::$args['tabnumber'] ? true : false;
-        // $toggle_sections = get_post_meta( $post->ID, 'mbt_section_toggle', true );
 
+        $tabnumber	= isset( self::$args['tabnumber'] ) && self::$args['tabnumber'] ? true : false;
+        
         wp_nonce_field( self::$args['id'], self::$args['id'] . '_nonce' );
 		include_once FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-admin-display.php';
     }
@@ -40,46 +39,58 @@ class FomoPress_MetaBox {
 
     public static function render_meta_field( $key = '', $field = [] ) {
         $post_id   = self::$post_id;
-        $name = self::$prefix . $key;
-        $id   = self::get_row_id( $key );
+        $name      = self::$prefix . $key;
+        $id        = self::get_row_id( $key );
         $file_name = isset( $field['type'] ) ? $field['type'] : 'text';
-        $value       = get_post_meta( $post_id, $name, true );
         
-        if( empty( $value ) ) {
-            if( 'template' === $field['type'] ) {
-                $value = isset( $field['defaults'] ) ? $field['defaults'] : [];
-            } else {
-                $value = isset( $field['default'] ) ? $field['default'] : '';
-            }
+        if( 'template' === $field['type'] ) {
+            $default = isset( $field['defaults'] ) ? $field['defaults'] : [];
+        } else {
+            $default = isset( $field['default'] ) ? $field['default'] : '';
         }
-        
+
+        if( metadata_exists( 'post', $post_id, $name ) ) {
+            $value = get_post_meta( $post_id, $name, true );
+        } else {
+            $value = $default;
+        }
+
         $class  = 'fomopress-meta-field';
 
         $attrs = '';
-        if( isset( $field['toggle'] ) ) {
+
+        if( isset( $field['toggle'] ) && in_array( $file_name, array( 'checkbox', 'select', 'toggle' ) ) ) {
             $attrs .= ' data-toggle="' . esc_attr( json_encode( $field['toggle'] ) ) . '"';
         }
 
-        if( isset( $field['hide'] ) ) {
+        if( isset( $field['hide'] ) && $file_name == 'select' ) {
             $attrs .= ' data-hide="' . esc_attr( json_encode( $field['hide'] ) ) . '"';
         }
 
         include FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-field-display.php';
     }
-
+    /**
+     * Get the row id ready
+     *
+     * @param string $key
+     * @return string
+     */
     protected static function get_row_id( $key ) {
         return str_replace( '_', '-', self::$prefix ) . $key;
     }
 
+    /**
+     * Add the metabox to the posts
+     *
+     * @return void
+     */
 	public function add_meta_boxes() {
         self::$args         = wp_parse_args( $this->get_args(), $this->defaults );
         self::$object_types = (array)self::$args['object_types'];
-
         add_meta_box( self::$args['id'], self::$args['title'], __CLASS__ . '::render_fomopress_metabox', self::$object_types, self::$args['context'], self::$args['priority'] );
     }
 
     public static function get_metabox_fields() {
-
         $args = self::get_args();
         $tabs = $args['tabs'];
 
@@ -105,7 +116,6 @@ class FomoPress_MetaBox {
         $object_types   = $args['object_types'];
         $prefix         = self::$prefix;
 
-
         // Verify the nonce.
         if ( ! isset( $_POST[$metabox_id . '_nonce'] ) || ! wp_verify_nonce( $_POST[$metabox_id . '_nonce'], $metabox_id ) ) {
             return $post_id;
@@ -124,7 +134,7 @@ class FomoPress_MetaBox {
         }
 
         $fields = self::get_metabox_fields();
-
+        $data = [];
         foreach ( $fields as $name => $field ) {
 
             $field_id = $prefix . $name;
@@ -139,25 +149,47 @@ class FomoPress_MetaBox {
             }
 
             update_post_meta( $post_id, $field_id, $value );
+            $data[ $field_id ] = $value;
         }
 
+        
+        $d_type = get_post_meta( $post_id, 'fomopress_current_data_ready_for', true );
+        $type = $_POST['fomopress_display_type'];
+
+        if( $type != $d_type ) {
+            if( $type == 'conversions' ) {
+                do_action( 'fomopress_get_conversions_ready', $_POST['fomopress_conversion_from'], $data );
+            } else {
+                do_action( 'fomopress_get_conversions_ready', $type, $data );
+            }
+        }
+
+        update_post_meta( $post_id, 'fomopress_current_data_ready_for', $type );
         update_post_meta( $post_id, 'fomopress_current_tab', $_POST['fomopress_current_tab'] );
     }
 
+    /**
+     * Get all the meta settings of a noitification post
+     *
+     * @param int $id
+     * @return stdClass object
+     */
     public static function get_metabox_settings( $id ){
         $fields     = self::get_metabox_fields();
         $prefix     = self::$prefix;
         $settings   = new stdClass();
-
 
         if( empty( $id ) ) {
             return;
         }
 
         foreach ( $fields as $name => $field ) {
-
             $field_id   = $prefix . $name;
             $default    = isset( $field['default'] ) ? $field['default'] : '';
+
+            if( $field['type'] == 'template' ) {
+                $default    = isset( $field['defaults'] ) ? $field['defaults'] : [];
+            }
 
             if ( metadata_exists( 'post', $id, $field_id ) ) {
                 $value  = get_post_meta( $id, $field_id, true );
@@ -172,5 +204,4 @@ class FomoPress_MetaBox {
 
         return $settings;
     }
-
 }

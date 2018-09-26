@@ -66,14 +66,40 @@ class FomoPress_Admin {
 
 	}
 
+	public static function get_active_items() {
+		// WP Query arguments.
+		$args = array(
+			'post_type'         => 'fomopress',
+			'posts_per_page'    => '-1',
+			'post_status'		=> 'publish',
+		);
+		$active = [];
+		// Get the notification posts.
+		$posts = get_posts( $args );
+
+		if ( count( $posts ) ) {
+			foreach ( $posts as $post ) {
+				if( ! class_exists( 'FomoPress_MetaBox' ) ) {
+					require_once FOMOPRESS_ADMIN_DIR_PATH . 'includes/class-fomopress-metabox.php';
+				}
+				$settings = FomoPress_MetaBox::get_metabox_settings( $post->ID );
+				$active[] = $settings->display_type;
+			}
+		}
+
+		return $active;
+	}
+
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
-		wp_enqueue_style( 'wp-color-picker' );
+	public function enqueue_styles( ) {
+		global $post_type;
+		if( $post_type != $this->type ) return;
 
+		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 
 			$this->plugin_name, 
 			FOMOPRESS_ADMIN_URL . 'assets/css/fomopress-admin.css', 
@@ -88,6 +114,8 @@ class FomoPress_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
+		global $post_type;
+		if( $post_type != $this->type ) return;
 
 		wp_enqueue_script( 'wp-color-picker' );
 
@@ -96,7 +124,6 @@ class FomoPress_Admin {
 			FOMOPRESS_ADMIN_URL . 'assets/js/fomopress-admin.js', 
 			array( 'jquery' ), $this->version, true 
 		);
-
 	}
 
 	/**
@@ -119,6 +146,7 @@ class FomoPress_Admin {
 			'not_found_in_trash'  => esc_html__( 'No fomo found in Trash', 'fomopress' ),
 			'menu_name'           => 'FomoPress',
 		);
+
 		$args = array(
 			'labels'              => $labels,
 			'hierarchical'        => false,
