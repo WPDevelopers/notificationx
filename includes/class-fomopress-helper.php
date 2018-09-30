@@ -44,6 +44,7 @@ class FomoPress_Helper {
             }
         } else {
             foreach( $data as $key => $value ) {
+                if( ! is_array( $value ) ) continue;
                 foreach( $value as $inner_key => $single ) {
                     if( $inner_key == $using ) {
                         $value[ 'tempid' ] = $key;
@@ -76,7 +77,7 @@ class FomoPress_Helper {
             case 'comments' : 
                 return self::sorter( $value, 'key', 'DESC' );
                 break;
-            case 'conversions' : 
+            case 'woocommerce' : 
                 return self::sorter( $value, 'timestamp', 'DESC' );
                 break;
             default: 

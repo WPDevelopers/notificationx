@@ -38,9 +38,9 @@
 
 .fomopress-press-bar {
     background: #ddd;
-    /* position: absolute; */
+    position: absolute;
     z-index: 9;
-    /* visibility: hidden; */
+    visibility: hidden;
     width: 100%;
     left: 0;
     text-align: center;

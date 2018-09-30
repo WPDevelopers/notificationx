@@ -79,7 +79,7 @@ class FomoPress_WP_Comments_Extension extends FomoPress_Extension {
     public function get_notification_ready( $type, $data = array() ){
         if( $this->type === $type ) {
             if( ! is_null( $comments = $this->get_comments( $data ) ) ) {
-                $this->save( $this->type, $comments );
+                $this->save( $this->type, ['comments'] );
             }
         }
     }
@@ -92,8 +92,8 @@ class FomoPress_WP_Comments_Extension extends FomoPress_Extension {
     public function get_comments( $data ) {
         if( empty( $data ) ) return null;
 
-        $from = isset( $data[ 'fomopress_display_from' ] ) ? intval( $data[ 'fomopress_display_from' ] ) : 0;
-        $needed = isset( $data[ 'fomopress_display_last' ] ) ? intval( $data[ 'fomopress_display_last' ] ) : 0;
+        $from = isset( $data[ '_fomopress_display_from' ] ) ? intval( $data[ '_fomopress_display_from' ] ) : 0;
+        $needed = isset( $data[ '_fomopress_display_last' ] ) ? intval( $data[ '_fomopress_display_last' ] ) : 0;
 
         $comments = get_comments([
             'status' => 'approve',
@@ -103,6 +103,7 @@ class FomoPress_WP_Comments_Extension extends FomoPress_Extension {
                     'inclusive' => true,
                 ]
         ]);
+
         if( empty( $comments ) ) return null;
         $new_comments = [];
         foreach( $comments as $comment ) {

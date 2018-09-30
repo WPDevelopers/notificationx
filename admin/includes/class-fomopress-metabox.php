@@ -52,8 +52,8 @@ class FomoPress_MetaBox {
        
 
         if( empty( $value ) ) {
-            if( metadata_exists( 'post', $post_id, $name ) ) {
-                $value = get_post_meta( $post_id, $name, true );
+            if( metadata_exists( 'post', $post_id, "_{$name}" ) ) {
+                $value = get_post_meta( $post_id, "_{$name}", true );
             } else {
                 $value = $default;
             }
@@ -166,30 +166,24 @@ class FomoPress_MetaBox {
                 }
             }
 
-            // if( $field['type'] == 'group' ) {
-            //     dump( $field_id );
-            //     dump( $value );
-            //     die;
-            // }
-
-            update_post_meta( $post_id, $field_id, $value );
-            $data[ $field_id ] = $value;
+            update_post_meta( $post_id, "_{$field_id}", $value );
+            $data[ "_{$field_id}" ] = $value;
         }
 
         
-        $d_type = get_post_meta( $post_id, 'fomopress_current_data_ready_for', true );
+        $d_type = get_post_meta( $post_id, '_fomopress_current_data_ready_for', true );
         $type = $_POST['fomopress_display_type'];
-
+        
+        if( $type == 'conversions' ) {
+            $type = $_POST['fomopress_conversion_from'];
+        }
+        
         if( $type != $d_type ) {
-            if( $type == 'conversions' ) {
-                do_action( 'fomopress_get_conversions_ready', $_POST['fomopress_conversion_from'], $data );
-            } else {
-                do_action( 'fomopress_get_conversions_ready', $type, $data );
-            }
+            do_action( 'fomopress_get_conversions_ready', $type, $data );
         }
 
-        update_post_meta( $post_id, 'fomopress_current_data_ready_for', $type );
-        update_post_meta( $post_id, 'fomopress_current_tab', $_POST['fomopress_current_tab'] );
+        update_post_meta( $post_id, '_fomopress_current_data_ready_for', $type );
+        update_post_meta( $post_id, '_fomopress_current_tab', $_POST['fomopress_current_tab'] );
     }
 
     /**
@@ -215,8 +209,8 @@ class FomoPress_MetaBox {
                 $default    = isset( $field['defaults'] ) ? $field['defaults'] : [];
             }
 
-            if ( metadata_exists( 'post', $id, $field_id ) ) {
-                $value  = get_post_meta( $id, $field_id, true );
+            if ( metadata_exists( 'post', $id, "_{$field_id}" ) ) {
+                $value  = get_post_meta( $id, "_{$field_id}", true );
             } else {
                 $value  = $default;
             }

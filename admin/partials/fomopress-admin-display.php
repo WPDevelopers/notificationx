@@ -12,7 +12,7 @@
  * @subpackage FomoPress/admin/partials
  */
 
-$current_tab = get_post_meta( $post->ID, 'fomopress_current_tab', true );
+$current_tab = get_post_meta( $post->ID, '_fomopress_current_tab', true );
 if( ! $current_tab ) {
     $current_tab = 'source_tab';
 }

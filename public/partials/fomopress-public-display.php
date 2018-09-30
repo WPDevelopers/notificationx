@@ -21,6 +21,8 @@ $from = date( 'j', strtotime( '-' . intval( $settings->display_from ) . ' days')
 
 if( ! empty( $data[ $key ] ) ) {
     $new_data = FomoPress_Helper::sortBy( $data[ $key ], $key );
+
+    // dump( $new_data ); die;
     foreach( $new_data as $value ) {
         $unique_id = uniqid( 'fomopress-notification-' );
         /**

@@ -83,7 +83,7 @@ class FomoPress_Admin {
 					require_once FOMOPRESS_ADMIN_DIR_PATH . 'includes/class-fomopress-metabox.php';
 				}
 				$settings = FomoPress_MetaBox::get_metabox_settings( $post->ID );
-				$active[] = $settings->display_type;
+				$active[] = ( $settings->display_type != 'conversions' ) ? $settings->display_type : $settings->conversion_from;
 			}
 		}
 

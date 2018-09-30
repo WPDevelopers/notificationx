@@ -59,7 +59,7 @@ class Extension_Factory {
                 }
 
                 if( method_exists( $object, 'get_notification_ready' ) ) {
-                    add_action( 'fomopress_get_conversions_ready', array( $object, 'get_notification_ready' ), 10, 3 );
+                    add_action( 'fomopress_get_conversions_ready', array( $object, 'get_notification_ready' ), 10, 2 );
                 }
 
                 /**
@@ -263,7 +263,7 @@ class FomoPress_Extension {
             return;
         }
         ob_start();
-        if( $data['user_id'] ) {
+        if( isset( $data['user_id'] ) ) {
             $avatar = get_avatar_url( $data['user_id'], array(
                 'size' => '60'    
             ));
@@ -274,7 +274,6 @@ class FomoPress_Extension {
         $conversion_image_status =  $settings->display_type == 'conversions' && 
                                     $settings->conversion_from == 'woocommerce'
                                     ? $settings->show_product_image : false;
-
         if( $show_avatar_status || $conversion_image_status ) :
         ?>
             <div class="fomopress-notification-image">
@@ -283,9 +282,9 @@ class FomoPress_Extension {
                 <?php endif; ?>
                 <?php 
                     if( $conversion_image_status ) : 
-                        $image_url = wp_get_attachment_url( get_post_thumbnail_id( $data['product_id'] ) );
+                        $image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $data['product_id'] ), 'small', true );
                 ?>
-                    <img src="<?php echo $image_url; ?>" alt="<?php echo esc_attr( $alt_title ); ?>">
+                    <img src="<?php echo $image_url[0]; ?>" alt="<?php echo esc_attr( $alt_title ); ?>">
                 <?php endif; ?>
             </div>
         <?php endif; ?>

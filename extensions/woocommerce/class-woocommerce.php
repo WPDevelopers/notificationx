@@ -31,6 +31,13 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
             return;
         }
         $loader->add_action( 'woocommerce_new_order_item', $this, 'save_new_orders', 9, 3 );
+        // woocommerce_order_status_on_hold_to_processing
+    }
+    public function admin_actions( $loader ){
+        if( ! $this->is_created( $this->type ) ) {
+            return;
+        }
+        $loader->add_action( 'woocommerce_order_status_changed', $this, 'status_transition', 10, 4 );
     }
 
     public function source_tab_section( $options ){
@@ -118,7 +125,7 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
      */
     public function get_notification_ready( $type, $data = array() ){
         if( ! class_exists( 'WooCommerce' ) ) {
-            return $options;
+            return;
         }
         if( $this->type === $type ) {
             if( ! is_null( $orders = $this->get_orders( $data ) ) ) {
@@ -126,6 +133,33 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
             }
         }
     }
+
+    public function status_transition( $id, $from, $to, $order ){
+        
+        $items = $order->get_items();
+        $status = [ 'on-hold', 'cancelled', 'refunded', 'failed', 'pending' ];
+        $done = [ 'completed', 'processing' ];
+        if( in_array( $from, $done ) && in_array( $to, $status ) ) {
+            foreach( $items as $item ) {
+                if( ! isset( $this->notifications[ $id . '-' . $item->get_id() ] ) ) continue;
+                unset( $this->notifications[ $id . '-' . $item->get_id() ] );
+            }
+            $this->save( $this->type, $this->notifications );
+        }
+
+        if( in_array( $from, $status ) && in_array( $to, $done ) ) {
+            $orders = [];
+
+            foreach( $items as $item ) {
+                if( isset( $this->notifications[ $id . '-' . $item->get_id() ] ) ) continue;
+                $this->notifications[ $id . '-' . $item->get_id() ] = $this->ordered_product( $item->get_id(), $item, $order );
+            }
+            $this->save( $this->type, $this->notifications );
+        }
+
+        return;
+    }
+
     /**
      * Get all the orders from database using a date query
      * for limitation.
@@ -136,7 +170,7 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
     public function get_orders( $data = array() ) {
         if( empty( $data ) ) return null;
         $orders = [];
-        $from = strtotime( date( get_option( 'date_format' ), strtotime( '-' . intval( $data[ 'fomopress_display_from' ] ) . ' days') ) );
+        $from = strtotime( date( get_option( 'date_format' ), strtotime( '-' . intval( $data[ '_fomopress_display_from' ] ) . ' days') ) );
         $wc_orders = wc_get_orders( [
             'status' => 'processing',
             'date_created' => '>' . $from,
@@ -144,7 +178,7 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
         foreach( $wc_orders as $order ) {
             $items = $order->get_items();
             foreach( $items as $item ) {
-                $orders[] = $this->ordered_product( $item->get_id(), $item, $order );
+                $orders[ $order->get_id() . '-' . $item->get_id() ] = $this->ordered_product( $item->get_id(), $item, $order );
             }
         }
         return $orders;
@@ -158,8 +192,15 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
      * @param int $order_id
      * @return void
      */
-    public function save_new_orders( $item_id,  $item,  $order_id ){        
-        $this->notifications[] = $this->ordered_product( $item_id, $item, $order_id );
+    public function save_new_orders( $item_id,  $item,  $order_id ){   
+        
+        if( count( $this->notifications ) === $this->cache_limit ) {
+            $sorted_data = FomoPress_Helper::sorter( $this->notifications, 'timestamp' );
+            array_pop( $sorted_data );
+            $this->notifications = $sorted_data;
+        }
+      
+        $this->notifications[ $order_id . '-' . $item_id ] = $this->ordered_product( $item_id, $item, $order_id );
         $this->save( $this->type, $this->notifications );
     }
     /**
@@ -177,6 +218,11 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
 
         if( is_int( $order_id ) ) {
             $order = new WC_Order( $order_id );
+            $status = $order->get_status();
+            $done = [ 'completed', 'processing' ];
+            if( ! in_array( $status, $done ) ){
+                return;
+            }
         } else {
             $order = $order_id;
         }
@@ -233,3 +279,10 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
  * Register the extension
  */
 fomopress_register_extension( 'FomoPress_WooCommerce_Extension' );
+
+if( class_exists('FomoPress_WooCommerce_Extension') ) {
+
+    add_action( 'woocommerce_order_status_changed',  'fm_status_transition', 10, 4);
+    
+
+}

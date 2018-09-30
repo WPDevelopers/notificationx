@@ -36,7 +36,7 @@
 
 		init : function(){
 
-			// FomoPressPlugin.initPressBar();			
+			FomoPressPlugin.initPressBar();			
 			FomoPressPlugin.initNotifications();			
 			FomoPressPlugin.bindEvents();
 
@@ -46,6 +46,8 @@
 			if ( 'undefined' === typeof fomopress ) {
                 return;
 			}
+
+			window.localStorage.removeItem('fomopress_notifications');
 
 			if ( fomopress.conversions.length > 0 ) {
                 FomoPressPlugin.processNotifications( fomopress.conversions );
