@@ -213,54 +213,84 @@ class FomoPress_Extension {
         return FomoPress_DB::update_notifications( $notifications );
     }
 
-    public function merge( $old, $new ) {
-        return array_merge( $old, $new );
-    }
+    // public function merge( $old, $new ) {
+    //     return array_merge( $old, $new );
+    // }
 
-    public function toggleData( $options, $type, $name ){
-        if( ! isset( $options[ 'toggle' ][ $type ][ $name ] ) ) {
-            return array();
-        }
-        return $options[ 'toggle' ][ $type ][ $name ];
-    }
-    public function hideData( $options, $type, $name ){
-        if( ! isset( $options[ 'hide' ][ $type ][ $name ] ) ) {
-            return array();
-        }
-        return $options[ 'hide' ][ $type ][ $name ];
-    }
+    // public function toggleData( $options, $type, $name ){
+    //     if( ! isset( $options[ 'toggle' ][ $type ][ $name ] ) ) {
+    //         return array();
+    //     }
+    //     return $options[ 'toggle' ][ $type ][ $name ];
+    // }
 
-    protected function newData( $data = false ) {
-        if( ! $data ) {
-            return;
-        }
+    // public function hideData( $options, $type, $name ){
+    //     if( ! isset( $options[ 'hide' ][ $type ][ $name ] ) ) {
+    //         return array();
+    //     }
+    //     return $options[ 'hide' ][ $type ][ $name ];
+    // }
+
+    /**
+     * This function will convert all the data key into double curly braces format
+     * {{key}} = $value
+     *
+     * @param boolean $data
+     * @return void
+     */
+    protected function newData( $data = array() ) {
+        if( empty( $data ) ) return;
         $new_data = array();
         foreach( $data as $key => $single_data ) {
+            if( $key == 'link' || $key == 'post_link' ) continue;
             if( $key == 'timestamp' ) {
                 $new_data[ '{{time}}' ] = FomoPress_Helper::get_timeago_html( $single_data );
                 continue;
             }
             $new_data[ '{{'. $key .'}}' ] = $single_data;
         }
-
         return $new_data;
     }
-
-    public function frontend_html( $data, $settings = false ){
+    /**
+     * This function responsible for all
+     *
+     * @param array $data
+     * @param boolean $settings
+     * @return void
+     */
+    public function frontend_html( $data = [], $settings = false ){
+        if( ! is_object( $settings ) || empty( $data ) ) {
+            return;
+        }
         ob_start();
         if( $data['user_id'] ) {
             $avatar = get_avatar_url( $data['user_id'], array(
                 'size' => '60'    
             ));
         }
+        $alt_title = isset( $data['name'] ) ? $data['name'] : $data['title'];
+        
+        $show_avatar_status = $settings->display_type == 'comments' && $settings->show_avatar ? true : false;
+        $conversion_image_status =  $settings->display_type == 'conversions' && 
+                                    $settings->conversion_from == 'woocommerce'
+                                    ? $settings->show_product_image : false;
+
+        if( $show_avatar_status || $conversion_image_status ) :
         ?>
             <div class="fomopress-notification-image">
-                <img src="<?php echo $avatar; ?>" alt="<?php echo $data['name']; ?>">
-            </div>
-            <div class="fomopress-notification-content">
+                <?php if( $show_avatar_status ) : ?>
+                <img src="<?php echo $avatar; ?>" alt="<?php echo esc_attr( $alt_title ); ?>">
+                <?php endif; ?>
                 <?php 
-                    echo FomoPress_Helper::get_template_ready( $settings->{ $this->template }, $this->newData( $data ) );
+                    if( $conversion_image_status ) : 
+                        $image_url = wp_get_attachment_url( get_post_thumbnail_id( $data['product_id'] ) );
                 ?>
+                    <img src="<?php echo $image_url; ?>" alt="<?php echo esc_attr( $alt_title ); ?>">
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+            <div class="fomopress-notification-content">
+                <?php echo FomoPress_Template::get_template_ready( $settings->{ $this->template }, $this->newData( $data ) ); ?>
             </div>
         <?php
         return ob_get_clean();

@@ -39,11 +39,21 @@
 		initFields: function(){
 			$('.fomopress-metabox-wrapper .fomopress-meta-field').trigger('change');
 			FomoPressAdmin.initColorField();
+			FomoPressAdmin.initGroupField();
 		},
 
 		bindEvents: function(){
 			$('body').delegate( '.fomopress-metabox-wrapper .fomopress-meta-field', 'change', function() {
 				FomoPressAdmin.fieldChange( this );
+            } );
+			$('body').delegate( '.fomopress-group-field .fomopress-group-field-title', 'click', function() {
+				FomoPressAdmin.groupToggle( this );
+			} );
+			$('body').delegate( '.fomopress-group-field .fomopress-group-remove', 'click', function() {
+                FomoPressAdmin.removeGroup(this);
+			} );
+			$('body').delegate( '.fomopress-group-field .fomopress-group-clone', 'click', function() {
+                FomoPressAdmin.cloneGroup(this);
             } );
 		},
 
@@ -118,6 +128,136 @@
                 });
             }
 
+		},
+		initGroupField : function(){
+
+			if( $('.fomopress-group-field-wrapper').length < 0 ) {
+				return;
+			}
+
+			var fields = $('.fomopress-group-field-wrapper');
+
+			fields.each(function(){
+
+				var $this  = $( this ),
+					groups = $this.find('.fomopress-group-field'),
+					firstGroup   = $this.find('.fomopress-group-field:first'),
+					lastGroup   = $this.find('.fomopress-group-field:last');
+
+				groups.each(function() {
+					var groupContent = $(this).find('.fomopress-group-field:not(.open)').next();
+					if ( groupContent.is(':visible') ) {
+						groupContent.slideToggle(0);
+					}
+				});
+
+				$this.find('.fomopress-group-field-add').on('click', function( e ){
+					e.preventDefault();
+
+					var fieldId     = $this.attr('id'),
+					    dataId      = $this.data( 'name' ),
+					    wrapper     = $this.find( '.fomopress-group-fields-wrapper' ),
+					    groups      = $this.find('.fomopress-group-field'),
+					    firstGroup  = $this.find('.fomopress-group-field:first'),
+					    lastGroup   = $this.find('.fomopress-group-field:last'),
+					    clone       = $( $this.find('.fomopress-group-template').html() ),
+					    groupId     = parseInt( lastGroup.data('id') ),
+					    nextGroupId = groupId + 1,
+					    title       = clone.data('group-title');
+
+					groups.each(function() {
+						$(this).find('.fomopress-group-field-title').next().slideUp(0);
+					});
+
+					// Reset all data of clone object.
+					clone.attr('data-id', nextGroupId);
+					// clone.find('.fomopress-group-field-title > span').html(title + ' ' + nextGroupId);
+					clone.find('tr.fomopress-field[id*='+fieldId+']').each(function() {
+						var fieldName       = dataId;
+						var fieldNameSuffix = $(this).attr('id').split('[1]')[1];
+						var nextFieldId     = fieldName + '[' + nextGroupId + ']' + fieldNameSuffix;
+						var label           = $(this).find('th label');
+
+						$(this).find('[name*="'+fieldName+'[1]"]').each(function() {
+							var inputName       = $(this).attr('name').split('[1]');
+							var inputNamePrefix = inputName[0];
+							var inputNameSuffix = inputName[1];
+							var newInputName    = inputNamePrefix + '[' + nextGroupId + ']' + inputNameSuffix;
+							$(this).attr('id', newInputName).attr('name', newInputName);
+							label.attr('for', newInputName);
+						});
+
+						$(this).attr('id', nextFieldId);
+					});
+
+					clone.insertBefore( $( this ) );
+				});
+
+			});
+
+		},
+		groupToggle : function( input ){
+			var input = $(input);
+            input.next().slideToggle({
+                duration: 0,
+                complete: function() {
+                    if ( $(this).is(':visible') ) {
+                        input.addClass('open');
+                    } else {
+                        input.removeClass('open');
+                    }
+                }
+            });
+		},
+		removeGroup : function( button ){
+			var groupId = $(button).parents('.fomopress-group-field').data('id'),
+                group   = $(button).parents('.fomopress-group-field[data-id="'+groupId+'"]'),
+				parent  = group.parent();
+
+            group.fadeOut({
+                duration: 300,
+                complete: function() {
+                    $(this).remove();
+                }
+            });
+		},
+		cloneGroup : function( button ){
+			var groupId = $(button).parents('.fomopress-group-field').data('id'),
+				group   = $(button).parents('.fomopress-group-field[data-id="'+groupId+'"]'),
+				clone   = group.clone(),
+				lastGroup   = $( button ).parents('.fomopress-group-fields-wrapper').find('.fomopress-group-field:last'),
+				parent  = group.parent(),
+				nextGroupID = $( lastGroup ).data('id') + 1;
+
+			clone.attr('data-id', nextGroupID);
+			clone.insertAfter(group);
+			FomoPressAdmin.resetFieldIds( parent.find('.fomopress-group-field') );
+			group.find('.fomopress-group-field-title').trigger('click');
+		},
+
+		resetFieldIds : function( groups ){
+			var groupID = 1,
+				nextGroupId = groups.length + 1;
+				// fieldName = $( groups ).parents('.fomopress-group-field-wrapper').data('name');
+
+			// 	console.log( fieldName );
+
+			// return;
+			groups.each(function() {
+				var group       = $(this),
+					groupInfo   = group.find('.fomopress-group-field-info').data('info'),
+					subFields   = groupInfo.group_sub_fields;
+
+				console.log( groupInfo );
+				return;
+				
+				// Update group id.
+				group.attr('data-id', groupId);
+				// Update group title.
+				// group.find('.mbt-fields-group-title .mbt-group-field-title-text').html(title + ' ' + groupId);
+
+				
+			});
 		}
 
 	};

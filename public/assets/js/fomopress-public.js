@@ -47,8 +47,6 @@
                 return;
 			}
 
-			window.localStorage.removeItem('fomopress_notifications');
-
 			if ( fomopress.conversions.length > 0 ) {
                 FomoPressPlugin.processNotifications( fomopress.conversions );
 			}
@@ -79,9 +77,11 @@
 					ids: ids
 				},
 				success : function( response ){
-					var data = JSON.parse( response );
-						html = node.html(data.content);
-					FomoPressPlugin.render_notifications(data.config, html);
+					if( response ) {
+						var data = JSON.parse( response );
+							html = node.html(data.content);
+						FomoPressPlugin.render_notifications(data.config, html);
+					}
 				}
 			});
 		},
@@ -104,66 +104,7 @@
 
                 if ( 'undefined' !== typeof countdown_time ) {
 
-                    countdown['days']       = countdown_time.split(',')[0];
-                    countdown['hours']      = countdown_time.split(',')[1];
-                    countdown['minutes']    = countdown_time.split(',')[2];
-                    countdown['seconds']    = countdown_time.split(',')[3];
-
-                    // Get current date and time.
-                    var date    = new Date(),
-                        year    = date.getYear() + 1900,
-                        month   = date.getMonth() + 1,
-                        days    = ( parseInt( date.getDate() ) + parseInt( countdown['days'] ) ),
-                        hours   = ( parseInt( date.getHours() ) + parseInt( countdown['hours'] ) ),
-                        minutes = ( parseInt( date.getMinutes() ) + parseInt( countdown['minutes'] ) ),
-                        seconds = ( parseInt( date.getSeconds() ) + parseInt( countdown['seconds'] ) ),
-                        new_date = new Date( year, parseInt( month, 10 ) - 1, days, hours, minutes, seconds ),
-                        countdown_cookie = '';
-
-                    // Conver countdown time to miliseconds and add it to current date.
-                    date.setTime(date.getTime() +  ( parseInt( countdown['days'] ) * 24 * 60 * 60 * 1000)
-                                                +  ( parseInt( countdown['hours'] )  * 60 * 60 * 1000)
-                                                +  ( parseInt( countdown['minutes'] ) * 60 * 1000)
-                                                +  ( parseInt( countdown['seconds'] ) * 1000) );
-
-                    // Remove countdown value from cookie if countdown value has changed in wp-admin.
-                    if( $.cookie('ibx_fomo_countdown_old') !== countdown_time ){
-                        $.cookie( 'ibx_fomo_countdown_old', countdown_time, { expires: date } );
-                        $.removeCookie('ibx_fomo_countdown');
-                    }
-                    // Get countdown value from cookie if exist.
-                    if ( $.cookie('ibx_fomo_countdown') ){
-                        countdown_cookie = $.cookie( 'ibx_fomo_countdown' );
-                    }
-                    else {
-                        // Set countdown value in cookie if doesn't exist.
-                        $.cookie( 'ibx_fomo_countdown', new_date.getTime(), { expires: date } );
-                        $.cookie( 'ibx_fomo_countdown_old', countdown_time, { expires: date } );
-                        countdown_cookie = $.cookie( 'ibx_fomo_countdown' );
-                    }
-
-                    // Start countdown.
-                    var countdown_interval = setInterval(function() {
-                        var now         = new Date().getTime(),
-                            difference  = countdown_cookie - now;
-
-                        // Calculate time from difference.
-                        var days        = Math.floor( difference / ( 1000 * 60 * 60 * 24 ) ),
-                            hours       = Math.floor( ( difference % ( 1000 * 60 * 60 * 24 ) ) / ( 1000 * 60 * 60 ) ),
-                            minutes     = Math.floor( ( difference % ( 1000 * 60 * 60 ) ) / ( 1000 * 60 ) ),
-                            seconds     = Math.floor( ( difference % ( 1000 * 60 )) / 1000 );
-
-                        // Output the result in an element with id="ibx-fomo-countdown-time"
-                        press_bar.find('.ibx-fomo-days').html(days);
-                        press_bar.find('.ibx-fomo-hours').html(hours);
-                        press_bar.find('.ibx-fomo-minutes').html(minutes);
-                        press_bar.find('.ibx-fomo-seconds').html(seconds);
-                        // If the count down is over, write some text
-                        if ( difference < 0 ) {
-                            clearInterval( countdown_interval );
-                            // press_bar.find('#ibx-fomo-countdown-time').addClass('ibx-fomo-expired');
-                        }
-                    }, 1000);
+                   
                 }
 
                 FomoPressPlugin.showPressBar( press_bar, id );
@@ -283,10 +224,6 @@
 			if ( 'undefined' === typeof element || 0 === element.length ) {
 				return;
 			}
-
-			// if ( 'undefined' !== typeof $.cookie( 'ibx_wpfomo_notification_hidden' ) ) {
-			// 	return;
-			// }
 
 			$('body').append( element );
 			element.animate({ 'bottom': '20px', 'opacity': '1' }, 500);

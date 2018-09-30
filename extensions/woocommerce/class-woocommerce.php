@@ -33,6 +33,15 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
         $loader->add_action( 'woocommerce_new_order_item', $this, 'save_new_orders', 9, 3 );
     }
 
+    public function source_tab_section( $options ){
+        $options['config']['fields']['display_type']['hide']['comments']['fields'][] = 'woo_template';
+        $options['config']['fields']['display_type']['hide']['comments']['fields'][] = 'show_product_image';
+        
+        $options['config']['fields']['display_type']['hide']['press_bar']['fields'][] = 'woo_template';
+
+        return $options;
+    }
+
     /**
      * Some extra field on the fly.
      * 
@@ -42,21 +51,35 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
 
     public function content_tab_section( $options ){
 
-        $options[ 'content_config' ][ 'fields' ] = $this->merge(
-            $options[ 'content_config' ][ 'fields' ],
-            array(
-                'woo_template'  => array(
-                    'type'     => 'template',
-                    'label'    => __('Notification Template' , 'fomopress'),
-                    'priority' => 90,
-                    'defaults' => [
-                        __('{{name}} recently purchased', 'fomopress'), '{{title}}', '{{time}}'
-                    ],
-                    'variables' => [
-                        '{{name}}', '{{title}}', '{{time}}'
-                    ],
-                )
-            )
+        $options[ 'content_config' ][ 'fields' ]['woo_template'] = array(
+            'type'     => 'template',
+            'label'    => __('Notification Template' , 'fomopress'),
+            'priority' => 90,
+            'defaults' => [
+                __('{{name}} recently purchased', 'fomopress'), '{{title}}', '{{time}}'
+            ],
+            'variables' => [
+                '{{name}}', '{{title}}', '{{time}}'
+            ],
+        );
+
+        return $options;
+    }
+    /**
+     * This function is responsible for the some fields of 
+     * wp comments notification in display tab
+     *
+     * @param array $options
+     * @return void
+     */
+    public function display_tab_section( $options ){
+
+        $options['image']['fields']['show_product_image'] = array(
+            'label'       => __( 'Show Product Image', 'fomopress' ),
+            'priority'    => 25,
+            'type'        => 'checkbox',
+            'default'     => true,
+            'description' => __( 'Show the product image in notification', 'fomopress' ),
         );
 
         return $options;
@@ -68,9 +91,49 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
      * @return void
      */
     public function conversion_from( $options ){
-        $options['options'][ 'woocommerce' ]                = __( 'WooCommerce', 'fomopress' );
-        $options['default']                                 = 'woocommerce';        
+        $options['options'][ 'woocommerce' ]        = __( 'WooCommerce', 'fomopress' );
+        $options['default']                         = 'woocommerce';
+        $options['toggle']['woocommerce']['fields'] = [ 'woo_template', 'show_product_image' ];
+        $options['toggle']['woocommerce']['sections'] = [ 'image' ];
+
         return $options;
+    }
+    /**
+     * This function is responsible for making the notification ready for first time we make the notification.
+     *
+     * @param string $type
+     * @param array $data
+     * @return void
+     */
+    public function get_notification_ready( $type, $data = array() ){
+        if( $this->type === $type ) {
+            if( ! is_null( $orders = $this->get_orders( $data ) ) ) {
+                $this->save( $this->type, $orders );
+            }
+        }
+    }
+    /**
+     * Get all the orders from database using a date query
+     * for limitation.
+     *
+     * @param array $data
+     * @return void
+     */
+    public function get_orders( $data = array() ) {
+        if( empty( $data ) ) return null;
+        $orders = [];
+        $from = strtotime( date( get_option( 'date_format' ), strtotime( '-' . intval( $data[ 'fomopress_display_from' ] ) . ' days') ) );
+        $wc_orders = wc_get_orders( [
+            'status' => 'processing',
+            'date_created' => '>' . $from,
+        ] );
+        foreach( $wc_orders as $order ) {
+            $items = $order->get_items();
+            foreach( $items as $item ) {
+                $orders[] = $this->ordered_product( $item->get_id(), $item, $order );
+            }
+        }
+        return $orders;
     }
     /**
      * It will generate and save a notification
@@ -82,25 +145,39 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
      * @return void
      */
     public function save_new_orders( $item_id,  $item,  $order_id ){        
+        $this->notifications[] = $this->ordered_product( $item_id, $item, $order_id );
+        $this->save( $this->type, $this->notifications );
+    }
+    /**
+     * This function is responsible for making ready the orders data.
+     *
+     * @param int $item_id
+     * @param WC_Order_Item_Product $item
+     * @param int $order_id
+     * @return void
+     */
+    public function ordered_product( $item_id, $item, $order_id ) {
         if( $item instanceof WC_Order_Item_Shipping ) {
             return;
         }
 
-        $order = new WC_Order( $order_id );
+        if( is_int( $order_id ) ) {
+            $order = new WC_Order( $order_id );
+        } else {
+            $order = $order_id;
+        }
+
         $date = $order->get_date_created();
 
         if( ! empty( $product_data = $this->ready_product_data( $item->get_data() ) ) ) {
-            $new_order['title'] = $product_data['title'];
-            $new_order['link']  = $product_data['link'];
+            $new_order['product_id'] = $item->get_product_id();
+            $new_order['title']      = $product_data['title'];
+            $new_order['link']       = $product_data['link'];
         }
         $new_order['timestamp'] = $date->getTimestamp();
 
-        $new_order = array_merge( $new_order, $this->buyer( $order ));
-        
-        $this->notifications[] = $new_order;
-        $this->save( $this->type, $this->notifications );
+        return array_merge( $new_order, $this->buyer( $order ));
     }
-
     /**
      * This function is responsible for getting 
      * the buyer name from order.
@@ -120,7 +197,6 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
             'name' => $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
         );
     }
-
     /**
      * It will take an array to make data clean
      *

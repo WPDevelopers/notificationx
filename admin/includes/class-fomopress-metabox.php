@@ -37,22 +37,26 @@ class FomoPress_MetaBox {
         return require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-metabox-helper.php';
     }
 
-    public static function render_meta_field( $key = '', $field = [] ) {
+    public static function render_meta_field( $key = '', $field = [], $value = '' ) {
         $post_id   = self::$post_id;
         $name      = self::$prefix . $key;
         $id        = self::get_row_id( $key );
         $file_name = isset( $field['type'] ) ? $field['type'] : 'text';
         
-        if( 'template' === $field['type'] ) {
+        if( 'template' === $file_name ) {
             $default = isset( $field['defaults'] ) ? $field['defaults'] : [];
         } else {
             $default = isset( $field['default'] ) ? $field['default'] : '';
         }
 
-        if( metadata_exists( 'post', $post_id, $name ) ) {
-            $value = get_post_meta( $post_id, $name, true );
+        if( empty( $value ) ) {
+            if( metadata_exists( 'post', $post_id, $name ) ) {
+                $value = get_post_meta( $post_id, $name, true );
+            } else {
+                $value = $default;
+            }
         } else {
-            $value = $default;
+            $value = $value;
         }
 
         $class  = 'fomopress-meta-field';
@@ -148,6 +152,12 @@ class FomoPress_MetaBox {
                 }
             }
 
+            // if( $field['type'] == 'group' ) {
+            //     dump( $field_id );
+            //     dump( $value );
+            //     die;
+            // }
+
             update_post_meta( $post_id, $field_id, $value );
             $data[ $field_id ] = $value;
         }
@@ -187,7 +197,7 @@ class FomoPress_MetaBox {
             $field_id   = $prefix . $name;
             $default    = isset( $field['default'] ) ? $field['default'] : '';
 
-            if( $field['type'] == 'template' ) {
+            if( isset( $field['type'] ) && $field['type'] == 'template' ) {
                 $default    = isset( $field['defaults'] ) ? $field['defaults'] : [];
             }
 

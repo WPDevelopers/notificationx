@@ -12,7 +12,7 @@ return array(
     'tabs'         => apply_filters( 'fomopress_metabox_tabs', array(
         'source_tab' => array(
             'title'         => __('Source', 'fomopress'),
-            'sections'      => apply_filters('fomopress_source_tab_section', array(
+            'sections'      => apply_filters('fomopress_source_tab_sections', array(
                 'config'        => array(
                     'title'             => __('Select Source', 'fomopress'),
                     'fields'            => array(
@@ -32,10 +32,10 @@ return array(
                             ],
                             'hide'   => [
                                 'comments' => array(
-                                    'fields' => [ 'woo_template', 'custom_template' ]
+                                    'fields' => [ 'custom_template' ]
                                 ),
                                 'press_bar' => array(
-                                    'fields' => [ 'woo_template', 'custom_template', 'comments_template' ]
+                                    'fields' => [ 'custom_template', 'comments_template' ]
                                 )
                             ],
                             'priority' => 50
@@ -50,10 +50,12 @@ return array(
                             'priority'	=> 60,
                             'toggle'        => array(
                                 'custom'        => array(
-                                    'fields' => [ 'custom_template' ]
+                                    'fields' => [ 'custom_template', 'custom_contents' ]
                                 ),
-                                'woocommerce'        => array(
-                                    'fields' => [ 'woo_template' ]
+                            ),
+                            'hide'        => array(
+                                'custom'        => array(
+                                    'sections' => [ 'image' ]
                                 ),
                             ),
                         ) )
@@ -93,17 +95,23 @@ return array(
                                 '{{name}}', '{{city}}', '{{title}}', '{{time}}'
                             ],
                         ),
-                        'comments_template'  => array(
-                            'type'     => 'template',
-                            'label'    => __('Notification Template' , 'fomopress'),
-                            'priority' => 80,
-                            'defaults' => [
-                                __('{{name}} posted comment on', 'fomopress'), '{{post_title}}', '{{time}}'
+                        'custom_contents'  => array(
+                            'type'     => 'group',
+                            'priority' => 110,
+                            'title'    => __('Conversion', 'fomopress'),
+                            'fields'   => [
+                                'title' => array(
+                                    'type'     => 'text',
+                                    'label'    => __('Title' , 'fomopress'),
+                                    'priority' => 10,
+                                ),
+                                'name' => array(
+                                    'type'     => 'text',
+                                    'label'    => __('Name' , 'fomopress'),
+                                    'priority' => 20,
+                                ),
                             ],
-                            'variables' => [
-                                '{{name}}', '{{link}}', '{{time}}', '{{post_link}}', '{{post_title}}'
-                            ],
-                        )
+                        ),
                     ),
                 ),
                 'countdown_timer' => array(
@@ -120,6 +128,17 @@ return array(
         'display_tab' => array(
             'title'         => __('Display', 'fomopress'),
             'sections'      => apply_filters('fomopress_display_tab_sections', array(
+                'image' => array(
+                    'title'    => __('Image', 'fomopress'),
+                    'priority' => 100,
+                    'fields'   => array(
+                        'image_url'  => array(
+                            'type'      => 'text',
+                            'label'     => __('Image' , 'fomopress'),
+                            'priority'	=> 10,
+                        ),
+                    )
+                ),
                 'visibility'        => array(
                     'title'    => __('Visibility', 'fomopress'),
                     'priority' => 1000,

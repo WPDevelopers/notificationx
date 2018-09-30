@@ -112,3 +112,30 @@ input.fomopress-template-field {
     margin: 0;
     border: 0px;
 }
+
+/* Group Field */
+.fomopress-group-row {}
+.fomopress-group-row td.fomopress-control {
+    padding-left: 0; 
+    padding-right: 0; 
+}
+.fomopress-group-field-wrapper {}
+.fomopress-group-field-wrapper .fomopress-group-field {
+    border: 1px solid #f2f2f2;
+}
+.fomopress-group-field-wrapper .fomopress-group-field > h4 {
+    margin: 0;
+    position: relative;
+    padding: 10px;
+    color: #000;
+}
+.fomopress-group-field-wrapper .fomopress-group-field > h4 > div {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    padding: 10px;
+    top: 0;
+}
+.fomopress-group-field-wrapper .fomopress-group-field > div.fomopress-group-inner {
+    display: none;
+}

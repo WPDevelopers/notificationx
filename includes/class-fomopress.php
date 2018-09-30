@@ -112,7 +112,8 @@ class FomoPress {
 		 * of the plugin.
 		 */
 		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-i18n.php';
-
+		
+		require_once FOMOPRESS_ROOT_DIR_PATH . 'public/includes/class-fomopress-template.php';
 		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-locations.php';
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
@@ -135,7 +136,6 @@ class FomoPress {
 		 * side of the site.
 		 */
 		require_once FOMOPRESS_ROOT_DIR_PATH . 'public/class-fomopress-public.php';
-		require_once FOMOPRESS_ROOT_DIR_PATH . 'public/includes/class-fomopress-template.php';
 
 		$this->loader = new FomoPress_Loader();
 	}

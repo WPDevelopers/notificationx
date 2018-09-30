@@ -76,7 +76,7 @@
                     ?>
                 </div>
                 <?php wp_nonce_field( 'fomopress_settings', 'fomopress_settings_nonce' ); ?>
-                <input type="submit" class="fomopress-settings-button" name="fomopress_settings_submit" id="fomopress-submit" value="<?php esc_html_e('Save Changes', 'ibx-wpfomo'); ?>" />
+                <input type="submit" class="fomopress-settings-button" name="fomopress_settings_submit" id="fomopress-submit" value="<?php esc_html_e('Save Changes', 'fomopress'); ?>" />
             </div>
         </form>
     <?php endif; ?>
