@@ -2,7 +2,6 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
-
 #fomopress_metabox_wrapper {
     background: none;
     border: 0px;
@@ -39,7 +38,6 @@
 .fomopress-meta-tab-menu ul li.active {
     font-weight: 700;
 }
-
 /* CONTENT CSS */
 
 .fomopress-meta-tab-contents {
@@ -62,6 +60,15 @@
     text-transform: uppercase;
     border-bottom: 1px solid #ddd;
     padding-bottom: 15px;
+}
+
+.fomopress-info-message-wrapper {
+    padding: 0;
+}
+.fomopress-info-message {
+    font-size: 20px;
+    padding: 30px;
+    border-left: 2px solid orangered;   
 }
 
 /*

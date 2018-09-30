@@ -49,6 +49,8 @@ class FomoPress_MetaBox {
             $default = isset( $field['default'] ) ? $field['default'] : '';
         }
 
+       
+
         if( empty( $value ) ) {
             if( metadata_exists( 'post', $post_id, $name ) ) {
                 $value = get_post_meta( $post_id, $name, true );
@@ -60,6 +62,18 @@ class FomoPress_MetaBox {
         }
 
         $class  = 'fomopress-meta-field';
+        $row_class = '';
+
+        switch( $file_name ) {
+            case 'group':
+                $row_class .= ' fomopress-group-row';
+                # code...
+                break;
+            case 'message':
+                $row_class .= ' fomopress-info-message-wrapper';
+                # code...
+                break;
+        }
 
         $attrs = '';
 

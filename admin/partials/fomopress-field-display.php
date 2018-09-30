@@ -1,4 +1,4 @@
-<tr id="<?php echo esc_attr( $id ); ?>" class="fomopress-field <?php echo ( $field['type'] == 'group') ? 'fomopress-group-row' : ''; ?>">
+<tr id="<?php echo esc_attr( $id ); ?>" class="fomopress-field <?php echo $row_class; ?>">
     <?php if( empty( $field['label'] ) ) : ?>
         <td class="fomopress-control" colspan="2">
     <?php else : ?>
