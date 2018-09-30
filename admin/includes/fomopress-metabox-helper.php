@@ -32,10 +32,10 @@ return array(
                             ],
                             'hide'   => [
                                 'comments' => array(
-                                    'fields' => [ 'custom_template' ]
+                                    'fields' => [ 'custom_template', 'custom_contents' ]
                                 ),
                                 'press_bar' => array(
-                                    'fields' => [ 'custom_template', 'comments_template' ]
+                                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents' ]
                                 )
                             ],
                             'priority' => 50

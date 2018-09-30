@@ -34,6 +34,9 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
     }
 
     public function source_tab_section( $options ){
+        if( ! class_exists( 'WooCommerce' ) ) {
+            return $options;
+        }
         $options['config']['fields']['display_type']['hide']['comments']['fields'][] = 'woo_template';
         $options['config']['fields']['display_type']['hide']['comments']['fields'][] = 'show_product_image';
         
@@ -50,7 +53,9 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
      */
 
     public function content_tab_section( $options ){
-
+        if( ! class_exists( 'WooCommerce' ) ) {
+            return $options;
+        }
         $options[ 'content_config' ][ 'fields' ]['woo_template'] = array(
             'type'     => 'template',
             'label'    => __('Notification Template' , 'fomopress'),
@@ -73,7 +78,9 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
      * @return void
      */
     public function display_tab_section( $options ){
-
+        if( ! class_exists( 'WooCommerce' ) ) {
+            return $options;
+        }
         $options['image']['fields']['show_product_image'] = array(
             'label'       => __( 'Show Product Image', 'fomopress' ),
             'priority'    => 25,
@@ -91,6 +98,9 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
      * @return void
      */
     public function conversion_from( $options ){
+        if( ! class_exists( 'WooCommerce' ) ) {
+            return $options;
+        }
         $options['options'][ 'woocommerce' ]        = __( 'WooCommerce', 'fomopress' );
         $options['default']                         = 'woocommerce';
         $options['toggle']['woocommerce']['fields'] = [ 'woo_template', 'show_product_image' ];
