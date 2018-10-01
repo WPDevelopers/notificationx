@@ -236,8 +236,7 @@
 		},
 
 		resetFieldIds : function( groups ){
-			var groupID = 1,
-				nextGroupId = groups.length + 1;
+			var groupID = 1;
 				// fieldName = $( groups ).parents('.fomopress-group-field-wrapper').data('name');
 
 			// 	console.log( fieldName );
@@ -245,18 +244,35 @@
 			// return;
 			groups.each(function() {
 				var group       = $(this),
+					fieldName   = group.data('field-name'),
+					fieldId     = 'fomopress-' + fieldName,
 					groupInfo   = group.find('.fomopress-group-field-info').data('info'),
 					subFields   = groupInfo.group_sub_fields;
 
-				console.log( groupInfo );
-				return;
-				
-				// Update group id.
-				group.attr('data-id', groupId);
-				// Update group title.
-				// group.find('.mbt-fields-group-title .mbt-group-field-title-text').html(title + ' ' + groupId);
+				group.data('id', groupID);
 
-				
+				subFields.forEach(function( item ){
+					var table_row = group.find('tr.fomopress-field[id="fomopress-' + item.field_name + '"]');
+
+					table_row.find('[name*="'+item.field_name+'"]').each(function(){
+						var name = $(this).attr('name'),
+							prefix  = name.split(item.field_name)[0],
+							suffix  = '';
+
+						if ( undefined === prefix ) {
+							prefix = '';
+						}
+						
+						name = name.replace( name, prefix + fieldName + '[' + groupID + '][' + item.original_name + ']' + suffix );
+						$(this).attr('name', name).attr('id', name);
+					});
+
+					group.find('tr.fomopress-field[id="fomopress-' + item.field_name + '"]').attr('id', fieldId + '[' + groupID + '][' + item.original_name + ']');
+				});
+				// Update group title.
+				// group.find('.fomopress-group-field-title > span').html(title + ' ' + groupId);
+
+				groupID++;
 			});
 		}
 

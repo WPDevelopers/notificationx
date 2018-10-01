@@ -8,11 +8,12 @@
     $group_value = $value;
     $group_title = isset( $field['title'] ) ? $field['title'] : '';
     $parent_key = $key;
+    $group_field_info = array();
 ?>
 
 <div class="fomopress-group-field-wrapper" id="<?php echo $id; ?>" data-name="<?php echo $name; ?>">
     <script type="text/html" class="fomopress-group-template">
-        <div class="fomopress-group-field" data-id="1">
+        <div class="fomopress-group-field" data-id="1" data-field-name="<?php echo $parent_key;?>">
             <h4 class="fomopress-group-field-title">
                 <span><?php echo _e( $group_title ); ?></span>
                 <div class="fomopress-group-controls">
@@ -41,7 +42,7 @@
 
     <div class="fomopress-group-fields-wrapper">
         <?php if( empty( $group_value ) ) : ?>
-            <div class="fomopress-group-field" data-id="1">
+            <div class="fomopress-group-field" data-id="1" data-field-name="<?php echo $parent_key;?>">
                 <h4 class="fomopress-group-field-title">
                     <span><?php echo _e( $group_title ); ?></span>
                     <div class="fomopress-group-controls">
@@ -52,6 +53,7 @@
                 <div class="fomopress-group-inner">
                     <table>
                         <?php 
+                            $group_field_info = array();
                             foreach( $fields as $inner_key => $inner_field ) {
                                 $name = $parent_key . '[1][' . $inner_key . ']';
 
@@ -69,8 +71,10 @@
                 </div>
             </div>
         <?php else : ?>
-            <?php foreach( $group_value as $group_id => $field_data ) : ?>
-            <div class="fomopress-group-field" data-id="<?php echo $group_id; ?>">
+            <?php 
+                $group_field_info = array();
+                foreach( $group_value as $group_id => $field_data ) : ?>
+            <div class="fomopress-group-field" data-id="<?php echo $group_id; ?>" data-field-name="<?php echo $parent_key;?>">
                 <h4 class="fomopress-group-field-title">
                     <span><?php echo _e( $group_title ); ?></span>
                     <div class="fomopress-group-controls">
