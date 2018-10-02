@@ -269,18 +269,24 @@ class FomoPress_Extension {
         $alt_title = isset( $data['name'] ) ? $data['name'] : $data['title'];
 
         switch( $settings->display_type ) {
-            case 'comments' && $settings->show_avatar :
-                $avatar = '';
-                if( isset( $data['user_id'] ) ) {
-                    $avatar = get_avatar_url( $data['user_id'], array(
-                        'size' => '60'    
-                    ));
+            case 'comments' :
+                if( $settings->show_avatar ) {
+                    $avatar = '';
+                    if( isset( $data['user_id'] ) ) {
+                        $avatar = get_avatar_url( $data['user_id'], array(
+                            'size' => '60'    
+                        ));
+                    }
+                    $image_url = $avatar;
                 }
-                $image_url = $avatar;
                 break;
-            case 'conversions' && $settings->show_product_image && $settings->conversion_from == 'woocommerce' :
-                $product_image = wp_get_attachment_image_src( get_post_thumbnail_id( $data['product_id'] ), 'small', true );
-                $image_url = $product_image != false ? $product_image[0] : '';
+            case 'conversions' :
+                if( $settings->conversion_from == 'woocommerce' ) {
+                    if( $settings->show_product_image ) {
+                        $product_image = wp_get_attachment_image_src( get_post_thumbnail_id( $data['product_id'] ), 'small', false );
+                        $image_url = is_array( $product_image ) ? $product_image[0] : '';
+                    }
+                }
                 break;
         }
 
