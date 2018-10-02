@@ -55,6 +55,14 @@
 			$('body').delegate( '.fomopress-group-field .fomopress-group-clone', 'click', function() {
                 FomoPressAdmin.cloneGroup(this);
             } );
+			$('body').delegate( '.fomopress-media-field-wrapper .fomopress-media-upload-button', 'click', function(e) {
+				e.preventDefault();
+                FomoPressAdmin.initMediaField(this);
+            } );
+			$('body').delegate( '.fomopress-media-field-wrapper .fomopress-media-remove-button', 'click', function(e) {
+				e.preventDefault();
+                FomoPressAdmin.removeMedia(this);
+            } );
 		},
 
 		fieldChange: function( input ){
@@ -211,8 +219,7 @@
 		},
 		removeGroup : function( button ){
 			var groupId = $(button).parents('.fomopress-group-field').data('id'),
-                group   = $(button).parents('.fomopress-group-field[data-id="'+groupId+'"]'),
-				parent  = group.parent();
+                group   = $(button).parents('.fomopress-group-field[data-id="'+groupId+'"]');
 
             group.fadeOut({
                 duration: 300,
@@ -234,14 +241,9 @@
 			FomoPressAdmin.resetFieldIds( parent.find('.fomopress-group-field') );
 			group.find('.fomopress-group-field-title').trigger('click');
 		},
-
 		resetFieldIds : function( groups ){
 			var groupID = 1;
-				// fieldName = $( groups ).parents('.fomopress-group-field-wrapper').data('name');
-
-			// 	console.log( fieldName );
-
-			// return;
+				
 			groups.each(function() {
 				var group       = $(this),
 					fieldName   = group.data('field-name'),
@@ -274,6 +276,69 @@
 
 				groupID++;
 			});
+		},
+		initMediaField : function( button ){
+
+			var button = $( button ),
+				wrapper = button.parents('.fomopress-media-field-wrapper'),
+				removeButton = wrapper.find('.fomopress-media-remove-button'),
+				imgContainer = wrapper.find('.fomopress-thumb-container'),
+				idField = wrapper.find('.fomopress-media-id'),
+				urlField = wrapper.find('.fomopress-media-url');
+
+			// Create a new media frame
+            var frame = wp.media({
+                title: 'Upload Photo',
+                button: {
+                    text: 'Use this photo'
+                },
+                multiple: false  // Set to true to allow multiple files to be selected
+			});
+			
+			console.log( imgContainer );
+			// console.log( imgContainer );
+
+			// return;
+            // When an image is selected in the media frame...
+            frame.on( 'select', function() {
+
+                // Get media attachment details from the frame state
+                var attachment = frame.state().get('selection').first().toJSON();
+
+                // Send the attachment URL to our custom image input field.
+                imgContainer.addClass('fomopress-has-thumb').append( '<img src="'+attachment.url+'" alt="" style="max-width:100%;"/>' );
+
+                // Send the attachment id to our hidden input
+                idField.val( attachment.id );
+
+                // Send the attachment url to our url input
+                urlField.val( attachment.url );
+
+                // Hide the upload button
+                button.addClass( 'hidden' );
+
+                // Show the remove button
+                removeButton.removeClass( 'hidden' );
+            });
+
+            // Finally, open the modal on click
+            frame.open();
+		},
+		removeMedia : function( button ) {
+			var button = $( button ),
+				wrapper = button.parents('.fomopress-media-field-wrapper'),
+				uploadButton = wrapper.find('.fomopress-media-upload-button'),
+				imgContainer = wrapper.find('.fomopress-has-thumb'),
+				idField = wrapper.find('.fomopress-media-id'),
+				urlField = wrapper.find('.fomopress-media-url');
+
+			imgContainer.removeClass('fomopress-has-thumb').find('img').remove();
+
+			urlField.val(''); // URL field has to be empty
+			idField.val(''); // ID field has to empty as well
+
+			button.addClass('hidden'); // Hide the remove button first
+			uploadButton.removeClass('hidden'); // Show the uplaod button
 		}
 
 	};

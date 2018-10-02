@@ -118,6 +118,7 @@ class FomoPress {
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
+		require_once FOMOPRESS_ADMIN_DIR_PATH . 'includes/class-fomopress-metabox.php';
 		require_once FOMOPRESS_ADMIN_DIR_PATH . 'class-fomopress-admin.php';
 		
 		/**
@@ -128,6 +129,7 @@ class FomoPress {
 		require_once FOMOPRESS_EXT_DIR_PATH . 'press-bar/class-press-bar.php';
 		require_once FOMOPRESS_EXT_DIR_PATH . 'wp-comments/class-wp-comments.php';
 		require_once FOMOPRESS_EXT_DIR_PATH . 'woocommerce/class-woocommerce.php';
+		require_once FOMOPRESS_EXT_DIR_PATH . 'conversions/class-custom.php';
 		global $fomopress_extension_factory;
 		$fomopress_extension_factory->load();
 
@@ -168,6 +170,8 @@ class FomoPress {
 
 		$plugin_admin     = new FomoPress_Admin( $this->get_plugin_name(), $this->get_version() );
 		
+		$plugin_admin->metabox = new FomoPress_MetaBox;
+
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 

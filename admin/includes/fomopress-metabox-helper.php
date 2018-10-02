@@ -132,9 +132,15 @@ return array(
                     'title'    => __('Image', 'fomopress'),
                     'priority' => 100,
                     'fields'   => array(
+                        'show_default_image'  => array(
+                            'type'      => 'checkbox',
+                            'label'     => __('Show Default Image' , 'fomopress'),
+                            'priority'	=> 5,
+                            'description' => __('If checked, this will show in notifications.', 'fomopress'),
+                        ),
                         'image_url'  => array(
-                            'type'      => 'text',
-                            'label'     => __('Image' , 'fomopress'),
+                            'type'      => 'media',
+                            'label'     => __('Default Image' , 'fomopress'),
                             'priority'	=> 10,
                         ),
                     )

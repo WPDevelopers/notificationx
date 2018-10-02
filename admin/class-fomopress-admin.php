@@ -56,14 +56,6 @@ class FomoPress_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 		self::$settings = FomoPress_DB::get_settings();
-		/**
-		 * Load FomoPress_MetaBox
-		 */
-		if( ! class_exists( 'FomoPress_MetaBox' ) ) {
-			require_once FOMOPRESS_ADMIN_DIR_PATH . 'includes/class-fomopress-metabox.php';
-			$this->metabox = new FomoPress_MetaBox;
-		}
-
 	}
 
 	public static function get_active_items() {
@@ -79,11 +71,10 @@ class FomoPress_Admin {
 
 		if ( count( $posts ) ) {
 			foreach ( $posts as $post ) {
-				if( ! class_exists( 'FomoPress_MetaBox' ) ) {
-					require_once FOMOPRESS_ADMIN_DIR_PATH . 'includes/class-fomopress-metabox.php';
-				}
 				$settings = FomoPress_MetaBox::get_metabox_settings( $post->ID );
-				$active[] = ( $settings->display_type != 'conversions' ) ? $settings->display_type : $settings->conversion_from;
+				$type = ( $settings->display_type != 'conversions' ) ? $settings->display_type : $settings->conversion_from;
+
+				$active[ $type ][] = $post->ID;
 			}
 		}
 
@@ -118,7 +109,7 @@ class FomoPress_Admin {
 		if( $post_type != $this->type ) return;
 
 		wp_enqueue_script( 'wp-color-picker' );
-
+		wp_enqueue_media();
 		wp_enqueue_script( 
 			$this->plugin_name, 
 			FOMOPRESS_ADMIN_URL . 'assets/js/fomopress-admin.js', 

@@ -153,6 +153,8 @@ class FomoPress_Extension {
 
     public $defaults_settings;
 
+    public $active_items = [];
+
     /**
      * Constructor of extension for ready the settings and cache limit.
      */
@@ -162,6 +164,8 @@ class FomoPress_Extension {
         if( ! empty( self::$settings ) && isset( self::$settings['cache_limit'] ) ) {
             $this->cache_limit = intval( self::$settings['cache_limit'] );
         }
+
+        $this->active_items = FomoPress_Admin::get_active_items();
 
         $this->defaults_settings = [
             'show_on',
@@ -175,10 +179,9 @@ class FomoPress_Extension {
         if( empty( $type ) ) {
             return false;
         }
-        $active_items = FomoPress_Admin::get_active_items();
-
-        if( ! empty( $active_items ) ) {
-            return in_array( $type, $active_items );
+    
+        if( ! empty( self::$active_items ) ) {
+            return in_array( $type, array_keys( self::$active_items ) );
         } else {
             return false;
         }
@@ -213,24 +216,6 @@ class FomoPress_Extension {
         return FomoPress_DB::update_notifications( $notifications );
     }
 
-    // public function merge( $old, $new ) {
-    //     return array_merge( $old, $new );
-    // }
-
-    // public function toggleData( $options, $type, $name ){
-    //     if( ! isset( $options[ 'toggle' ][ $type ][ $name ] ) ) {
-    //         return array();
-    //     }
-    //     return $options[ 'toggle' ][ $type ][ $name ];
-    // }
-
-    // public function hideData( $options, $type, $name ){
-    //     if( ! isset( $options[ 'hide' ][ $type ][ $name ] ) ) {
-    //         return array();
-    //     }
-    //     return $options[ 'hide' ][ $type ][ $name ];
-    // }
-
     /**
      * This function will convert all the data key into double curly braces format
      * {{key}} = $value
@@ -263,29 +248,13 @@ class FomoPress_Extension {
             return;
         }
         ob_start();
-        if( isset( $data['user_id'] ) ) {
-            $avatar = get_avatar_url( $data['user_id'], array(
-                'size' => '60'    
-            ));
-        }
-        $alt_title = isset( $data['name'] ) ? $data['name'] : $data['title'];
         
-        $show_avatar_status = $settings->display_type == 'comments' && $settings->show_avatar ? true : false;
-        $conversion_image_status =  $settings->display_type == 'conversions' && 
-                                    $settings->conversion_from == 'woocommerce'
-                                    ? $settings->show_product_image : false;
-        if( $show_avatar_status || $conversion_image_status ) :
+        $image_data = $this->get_image_url( $data, $settings );
+
+        if( $image_data ) :
         ?>
             <div class="fomopress-notification-image">
-                <?php if( $show_avatar_status ) : ?>
-                <img src="<?php echo $avatar; ?>" alt="<?php echo esc_attr( $alt_title ); ?>">
-                <?php endif; ?>
-                <?php 
-                    if( $conversion_image_status ) : 
-                        $image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $data['product_id'] ), 'small', true );
-                ?>
-                    <img src="<?php echo $image_url[0]; ?>" alt="<?php echo esc_attr( $alt_title ); ?>">
-                <?php endif; ?>
+                <img src="<?php echo $image_data['url']; ?>" alt="<?php echo esc_attr( $image_data['alt'] ); ?>">
             </div>
         <?php endif; ?>
             <div class="fomopress-notification-content">
@@ -293,6 +262,41 @@ class FomoPress_Extension {
             </div>
         <?php
         return ob_get_clean();
+    }
+
+    protected function get_image_url( $data = [], $settings ) {
+        $image_url = $alt_title = '';
+        $alt_title = isset( $data['name'] ) ? $data['name'] : $data['title'];
+
+        switch( $settings->display_type ) {
+            case 'comments' && $settings->show_avatar :
+                $avatar = '';
+                if( isset( $data['user_id'] ) ) {
+                    $avatar = get_avatar_url( $data['user_id'], array(
+                        'size' => '60'    
+                    ));
+                }
+                $image_url = $avatar;
+                break;
+            case 'conversions' && $settings->show_product_image && $settings->conversion_from == 'woocommerce' :
+                $product_image = wp_get_attachment_image_src( get_post_thumbnail_id( $data['product_id'] ), 'small', true );
+                $image_url = $product_image != false ? $product_image[0] : '';
+                break;
+        }
+
+        if( isset( $settings->show_default_image ) && $settings->show_default_image && $image_url == '' ) {
+            $image_url = $settings->image_url['url'];
+            // $image_id = $settings['image_url']['id']; // maybe will use later
+        }       
+
+        if( $image_url ) {
+            return [
+                'url' => $image_url,
+                'alt' => $alt_title
+            ];
+        }
+
+        return false;
     }
 
 }

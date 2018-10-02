@@ -279,10 +279,3 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
  * Register the extension
  */
 fomopress_register_extension( 'FomoPress_WooCommerce_Extension' );
-
-if( class_exists('FomoPress_WooCommerce_Extension') ) {
-
-    add_action( 'woocommerce_order_status_changed',  'fm_status_transition', 10, 4);
-    
-
-}

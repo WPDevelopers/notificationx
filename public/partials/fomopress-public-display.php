@@ -33,6 +33,8 @@ if( ! empty( $data[ $key ] ) ) {
         if(  $notification_date < $from ) {
             break;
         }
+
+        // dump( $settings ); die;
         ?>
         <div id="<?php echo esc_attr( $unique_id ); ?>" class="fomopress-notification fomopress-notification-<?php echo $id; ?>">
             <div class="fomopress-notification-inner">
