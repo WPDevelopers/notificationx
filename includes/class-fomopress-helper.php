@@ -77,7 +77,7 @@ class FomoPress_Helper {
             case 'comments' : 
                 return self::sorter( $value, 'key', 'DESC' );
                 break;
-            case 'woocommerce' : 
+            case 'woocommerce' : // || 'custom' : 
                 return self::sorter( $value, 'timestamp', 'DESC' );
                 break;
             default: 

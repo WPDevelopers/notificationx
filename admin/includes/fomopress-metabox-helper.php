@@ -50,12 +50,8 @@ return array(
                             'priority'	=> 60,
                             'toggle'        => array(
                                 'custom'        => array(
+                                    'sections' => [ 'image' ],
                                     'fields' => [ 'custom_template', 'custom_contents' ]
-                                ),
-                            ),
-                            'hide'        => array(
-                                'custom'        => array(
-                                    'sections' => [ 'image' ]
                                 ),
                             ),
                         ) )
@@ -92,7 +88,7 @@ return array(
                                 __('{{name}} from {{city}} signed up for', 'fomopress'), '{{title}}', '{{time}}'
                             ],
                             'variables' => [
-                                '{{name}}', '{{city}}', '{{title}}', '{{time}}'
+                                '{{title}}', '{{name}}', '{{email}}', '{{city}}', '{{country}}'
                             ],
                         ),
                         'custom_contents'  => array(
@@ -103,12 +99,37 @@ return array(
                                 'title' => array(
                                     'type'     => 'text',
                                     'label'    => __('Title' , 'fomopress'),
-                                    'priority' => 10,
+                                    'priority' => 5,
                                 ),
                                 'name' => array(
                                     'type'     => 'text',
                                     'label'    => __('Name' , 'fomopress'),
+                                    'priority' => 10,
+                                ),
+                                'email' => array(
+                                    'type'     => 'text',
+                                    'label'    => __('Email Address' , 'fomopress'),
+                                    'priority' => 15,
+                                ),
+                                'city' => array(
+                                    'type'     => 'text',
+                                    'label'    => __('City' , 'fomopress'),
                                     'priority' => 20,
+                                ),
+                                'country' => array(
+                                    'type'     => 'text',
+                                    'label'    => __('Country' , 'fomopress'),
+                                    'priority' => 25,
+                                ),
+                                'image' => array(
+                                    'type'     => 'media',
+                                    'label'    => __('Image' , 'fomopress'),
+                                    'priority' => 30,
+                                ),
+                                'url' => array(
+                                    'type'     => 'text',
+                                    'label'    => __('URL' , 'fomopress'),
+                                    'priority' => 35,
                                 ),
                             ],
                         ),
@@ -120,6 +141,14 @@ return array(
                         'enable_countdown' => array(
                             'label' => __('Enable Countdown', 'fomopress'),
                             'type'  => 'checkbox',
+                        ),
+                        'countdown_text' => array(
+                            'label' => __('Countdown Text', 'fomopress'),
+                            'type'  => 'text',
+                        ),
+                        'countdown_time' => array(
+                            'label' => __('Countdown Time', 'fomopress'),
+                            'type'  => 'time',
                         )
                     )
                 )
@@ -142,6 +171,13 @@ return array(
                             'type'      => 'media',
                             'label'     => __('Default Image' , 'fomopress'),
                             'priority'	=> 10,
+                        ),
+                        'show_custom_image'  => array(
+                            'type'      => 'checkbox',
+                            'label'     => __('Show Image' , 'fomopress'),
+                            'priority'	=> 15,
+                            'default'	=> true,
+                            'description' => __('If checked, this will show in notifications.', 'fomopress'),
                         ),
                     )
                 ),

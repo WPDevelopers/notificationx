@@ -131,7 +131,12 @@ input.fomopress-template-field {
 .fomopress-group-field-wrapper {}
 .fomopress-group-field-wrapper .fomopress-group-field {
     border: 1px solid #f2f2f2;
+    margin-bottom: 15px;
 }
+.fomopress-group-field-wrapper .fomopress-group-field:last-child {
+    margin-bottom: 0;
+}
+
 .fomopress-group-field-wrapper .fomopress-group-field > h4 {
     margin: 0;
     position: relative;
@@ -147,6 +152,10 @@ input.fomopress-template-field {
 }
 .fomopress-group-field-wrapper .fomopress-group-field > div.fomopress-group-inner {
     display: none;
+    padding: 30px 15px 0;
+}
+.fomopress-group-field-wrapper .fomopress-group-field.open > div.fomopress-group-inner {
+    display: block;   
 }
 
 /* Media Fiels */
@@ -185,4 +194,15 @@ input.fomopress-template-field {
     color: red;
     margin-left: 0;
     margin-top: 10px;
+}
+
+/* Countdown Timer CSS */
+.fomopress-countdown-inputs {
+    display: flex;
+}
+
+.fomopress-countdown-input > input {
+    padding: 15px 10px;
+    width: 100px;
+    margin-right: 10px;
 }

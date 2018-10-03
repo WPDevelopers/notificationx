@@ -38,9 +38,6 @@ class FomoPress_Custom_Extension extends FomoPress_Extension {
         if( ! $this->is_created( $this->type ) ) {
             return;
         }
-        
-        var_dump( self::$active_items );
-        die;
     }
     
     /**
@@ -60,7 +57,6 @@ class FomoPress_Custom_Extension extends FomoPress_Extension {
     //         }
     //     }
     // }
-
 
 }
 

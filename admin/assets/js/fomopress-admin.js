@@ -49,10 +49,12 @@
 			$('body').delegate( '.fomopress-group-field .fomopress-group-field-title', 'click', function() {
 				FomoPressAdmin.groupToggle( this );
 			} );
-			$('body').delegate( '.fomopress-group-field .fomopress-group-remove', 'click', function() {
-                FomoPressAdmin.removeGroup(this);
+			$('body').delegate( '.fomopress-group-field .fomopress-group-remove', 'click', function( e ) {
+				e.preventDefault();
+				FomoPressAdmin.removeGroup(this);
 			} );
-			$('body').delegate( '.fomopress-group-field .fomopress-group-clone', 'click', function() {
+			$('body').delegate( '.fomopress-group-field .fomopress-group-clone', 'click', function( e ) {
+				e.preventDefault();
                 FomoPressAdmin.cloneGroup(this);
             } );
 			$('body').delegate( '.fomopress-media-field-wrapper .fomopress-media-upload-button', 'click', function(e) {
@@ -153,7 +155,8 @@
 					lastGroup   = $this.find('.fomopress-group-field:last');
 
 				groups.each(function() {
-					var groupContent = $(this).find('.fomopress-group-field:not(.open)').next();
+					var groupContent = $(this).find('.fomopress-group-field-title:not(.open)').next();
+					console.log( groupContent );
 					if ( groupContent.is(':visible') ) {
 						groupContent.slideToggle(0);
 					}
@@ -174,11 +177,12 @@
 					    title       = clone.data('group-title');
 
 					groups.each(function() {
-						$(this).find('.fomopress-group-field-title').next().slideUp(0);
+						$(this).removeClass('open');
 					});
 
 					// Reset all data of clone object.
 					clone.attr('data-id', nextGroupId);
+					clone.addClass('open');
 					// clone.find('.fomopress-group-field-title > span').html(title + ' ' + nextGroupId);
 					clone.find('tr.fomopress-field[id*='+fieldId+']').each(function() {
 						var fieldName       = dataId;
@@ -204,18 +208,19 @@
 			});
 
 		},
+		setDate : function( item ){
+			var date    = new Date();
+			item.find('.fomopress-group-field-timestamp').val( date.getTime() );
+		},
 		groupToggle : function( input ){
-			var input = $(input);
-            input.next().slideToggle({
-                duration: 0,
-                complete: function() {
-                    if ( $(this).is(':visible') ) {
-                        input.addClass('open');
-                    } else {
-                        input.removeClass('open');
-                    }
-                }
-            });
+			var input = $(input),
+				wrapper = input.parents('.fomopress-group-field');
+
+			if( wrapper.hasClass('open') ) {
+				wrapper.removeClass( 'open' );
+			} else {
+				wrapper.addClass('open').siblings().removeClass('open');
+			}
 		},
 		removeGroup : function( button ){
 			var groupId = $(button).parents('.fomopress-group-field').data('id'),
@@ -237,9 +242,10 @@
 				nextGroupID = $( lastGroup ).data('id') + 1;
 
 			clone.attr('data-id', nextGroupID);
+			clone.find('.fomopress-group-field-title').trigger('click');
 			clone.insertAfter(group);
+			// clone.addClass('open'); //.siblings().removeClass('open');
 			FomoPressAdmin.resetFieldIds( parent.find('.fomopress-group-field') );
-			group.find('.fomopress-group-field-title').trigger('click');
 		},
 		resetFieldIds : function( groups ){
 			var groupID = 1;
@@ -294,25 +300,18 @@
                 },
                 multiple: false  // Set to true to allow multiple files to be selected
 			});
-			
-			console.log( imgContainer );
-			// console.log( imgContainer );
 
-			// return;
             // When an image is selected in the media frame...
             frame.on( 'select', function() {
-
                 // Get media attachment details from the frame state
                 var attachment = frame.state().get('selection').first().toJSON();
 
-                // Send the attachment URL to our custom image input field.
+                /**
+				 * Set image to the image container
+				 */
                 imgContainer.addClass('fomopress-has-thumb').append( '<img src="'+attachment.url+'" alt="" style="max-width:100%;"/>' );
-
-                // Send the attachment id to our hidden input
-                idField.val( attachment.id );
-
-                // Send the attachment url to our url input
-                urlField.val( attachment.url );
+                idField.val( attachment.id ); // set image id
+                urlField.val( attachment.url ); // set image url
 
                 // Hide the upload button
                 button.addClass( 'hidden' );

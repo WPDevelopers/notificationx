@@ -33,7 +33,7 @@
                             );
                             FomoPress_MetaBox::render_meta_field( $name, $inner_field );
                         }
-                    ?>
+                        ?>
                 </table>
                 <div class="fomopress-group-field-info" data-info="<?php echo esc_attr( json_encode( $group_field_info ) ); ?>"></div>
             </div>

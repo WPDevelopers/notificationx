@@ -34,14 +34,49 @@ if( is_admin_bar_showing() ) {
     $class .= 'fomopress-admin';
 }
 
+if( $settings->enable_countdown ) {
+    $countdown = [];
+    if( $settings->countdown_time ) {
+        foreach( $settings->countdown_time as $key => $time ) {
+            $time = empty( $time ) ? 0 : $time;
+            $countdown[ $key ] = $time < 10 ? '0' . $time : $time;
+        }
+    }
+}
 ?>
-
 <div 
     id="fomopress-bar-<?php echo $settings->id; ?>"
     class="fomopress-press-bar fomopress-bar-<?php echo $settings->id; ?> <?php echo esc_attr( $pos_class ); ?> <?php echo esc_attr( $class ); ?>" <?php echo $wrapper_attrs; ?>>
     <div class="fomopress-bar-inner">
         <div class="fomopress-press-bar-content">
             <?php 
+                if( $settings->enable_countdown ) :
+                    if( $settings->countdown_text ) : ?>
+                        <div class="fomopress-countdown-text">
+                            <?php echo esc_html__( $settings->countdown_text, 'fomopress' ); ?>
+                        </div>
+                    <?php endif; ?>             
+                <div class="fomopress-countdown" data-countdown="<?php echo esc_attr( json_encode( $countdown ) ); ?>">
+                    <div class="fomopress-time-section">
+                        <span class="fomopress-days">00</span>
+                        <span class="fomopress-countdown-time-text"><?php esc_html_e('Days', 'fomopress'); ?></span>
+                    </div>
+                    <div class="fomopress-time-section">
+                        <span class="fomopress-hours">00</span>
+                        <span class="fomopress-countdown-time-text"><?php esc_html_e('Hrs', 'fomopress'); ?></span>
+                    </div>
+                    <div class="fomopress-time-section">
+                        <span class="fomopress-minutes">00</span>
+                        <span class="fomopress-countdown-time-text"><?php esc_html_e('Mins', 'fomopress'); ?></span>
+                    </div>
+                    <div class="fomopress-time-section">
+                        <span class="fomopress-seconds">00</span>
+                        <span class="fomopress-countdown-time-text"><?php esc_html_e('Secs', 'fomopress'); ?></span>
+                    </div>
+                    <span class="fomopress-expired-text"><?php esc_html_e('Expired!', 'fomopress'); ?></span>
+                </div>
+            <?php 
+                endif;
                 echo esc_html_e( $settings->press_content, 'fomopress' ); 
                 if( $settings->button_url != '' ) :
             ?>

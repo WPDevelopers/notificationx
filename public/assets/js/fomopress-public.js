@@ -101,12 +101,68 @@
 				    id             = press_bar.data('press_id'),
 				    duration       = press_bar.data('hide_after'),
 				    auto_hide      = press_bar.data('auto_hide'),
-				    countdown_time = press_bar.find('.fomopress-countdown').data('press_time'),
-				    countdown      = [];
+					countdown_time = press_bar.find('.fomopress-countdown').data('countdown');
+					
+				if ( 'undefined' !== typeof countdown_time ) {
+					// Get current date and time.
+                    var date    = new Date(),
+                        year    = date.getYear() + 1900,
+                        month   = date.getMonth() + 1,
+                        days    = ( parseInt( date.getDate() ) + parseInt( countdown_time.days ) ),
+                        hours   = ( parseInt( date.getHours() ) + parseInt( countdown_time.hours ) ),
+                        minutes = ( parseInt( date.getMinutes() ) + parseInt( countdown_time.minutes ) ),
+                        seconds = ( parseInt( date.getSeconds() ) + parseInt( countdown_time.seconds ) ),
+                        new_date = new Date( year, parseInt( month, 10 ) - 1, days, hours, minutes, seconds ),
+						countdown_cookie = '',
+						countdown_string = countdown_time.days + ', ' + countdown_time.hours + ', ' + countdown_time.minutes + ', ' + countdown_time.seconds;
 
-                if ( 'undefined' !== typeof countdown_time ) {
+                    // Conver countdown time to miliseconds and add it to current date.
+                    date.setTime(date.getTime() +  ( parseInt( countdown_time.days ) * 24 * 60 * 60 * 1000)
+                                                +  ( parseInt( countdown_time.hours )  * 60 * 60 * 1000)
+                                                +  ( parseInt( countdown_time.minutes ) * 60 * 1000)
+												+  ( parseInt( countdown_time.seconds ) * 1000) );
 
-                   
+					// Remove countdown value from cookie if countdown value has changed in wp-admin.
+                    if( Cookies.get( 'fomopress_bar_countdown_old' ) !== countdown_string ){
+						document.cookie = 'fomopress_bar_countdown_old' + "=" + countdown_string + ";" + date + ";path=/";
+						Cookies.remove('fomopress_bar_countdown');
+                    }
+                    // Get countdown value from cookie if exist.
+                    if ( Cookies.get( 'fomopress_bar_countdown' ) ){
+                        countdown_cookie = Cookies.get( 'fomopress_bar_countdown' );
+                    } else {
+                        // Set countdown value in cookie if doesn't exist.
+						document.cookie = 'fomopress_bar_countdown' + "=" + new_date.getTime() + ";" + date + ";path=/";
+						document.cookie = 'fomopress_bar_countdown_old' + "=" + countdown_string + ";" + date + ";path=/";
+                        countdown_cookie = Cookies.get( 'fomopress_bar_countdown' );
+                    }
+				   
+					
+					// Start countdown.
+                    var countdown_interval = setInterval(function() {
+                        var now         = new Date().getTime(),
+                            difference  = countdown_cookie - now;
+
+                        // Calculate time from difference.
+                        var days        = Math.floor( difference / ( 1000 * 60 * 60 * 24 ) ),
+                            hours       = Math.floor( ( difference % ( 1000 * 60 * 60 * 24 ) ) / ( 1000 * 60 * 60 ) ),
+                            minutes     = Math.floor( ( difference % ( 1000 * 60 * 60 ) ) / ( 1000 * 60 ) ),
+                            seconds     = Math.floor( ( difference % ( 1000 * 60 )) / 1000 );
+
+
+						console.log( press_bar );
+
+                        // Output the result in an element with id="ibx-fomo-countdown-time"
+                        press_bar.find('.fomopress-days').html(days);
+                        press_bar.find('.fomopress-hours').html(hours);
+                        press_bar.find('.fomopress-minutes').html(minutes);
+                        press_bar.find('.fomopress-seconds').html(seconds);
+                        // If the count down is over, write some text
+                        if ( difference < 0 ) {
+                            clearInterval( countdown_interval );
+                            press_bar.find('.fomopress-countdown').addClass('fomopress-expired');
+                        }
+                    }, 1000);
                 }
 
                 FomoPressPlugin.showPressBar( press_bar, id );

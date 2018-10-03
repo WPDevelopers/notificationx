@@ -250,7 +250,6 @@ class FomoPress_Extension {
         ob_start();
         
         $image_data = $this->get_image_url( $data, $settings );
-
         if( $image_data ) :
         ?>
             <div class="fomopress-notification-image">
@@ -285,6 +284,17 @@ class FomoPress_Extension {
                     if( $settings->show_product_image ) {
                         $product_image = wp_get_attachment_image_src( get_post_thumbnail_id( $data['product_id'] ), 'small', false );
                         $image_url = is_array( $product_image ) ? $product_image[0] : '';
+                    }
+                }
+                if( $settings->conversion_from == 'custom' ) {
+                    if( ! empty( $data ) ) {
+                        $image_url = $alt_title = '';
+                        if( isset( $data['image'] ) && ! empty( $data['image'] ) ) {
+                            $image_url = $data['image']['url'];
+                        }
+                        if( isset( $data['title'] ) && ! empty( $data['title'] ) ) {
+                            $alt_title = $data['title'];
+                        }
                     }
                 }
                 break;

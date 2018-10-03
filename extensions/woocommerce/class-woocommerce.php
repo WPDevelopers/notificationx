@@ -112,6 +112,7 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
         } else {
             $options['toggle']['woocommerce']['fields'] = [ 'woo_template', 'show_product_image' ];
             $options['toggle']['woocommerce']['sections'] = [ 'image' ];
+            $options['hide']['woocommerce']['fields'] = [ 'show_custom_image' ];
         }
 
         return $options;
