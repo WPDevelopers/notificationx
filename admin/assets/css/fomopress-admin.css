@@ -2,6 +2,62 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+ .fomopress-notification-preview {
+    position: absolute;
+    right: 20px;
+    bottom: 50px;
+    padding: 15px;
+    background: #fff;
+    box-shadow: 0 0 50px 0px #ddd;
+    z-index: 999;
+    padding-right: 30px;
+}
+.fomopress-preview-inner {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+.fomopress-preview-inner > div {
+    float: left;
+}
+.fomopress-preview-inner .fomopress-preview-image {
+    margin-right: 15px;
+}
+.fomopress-preview-inner .fomopress-preview-image > img {
+    width: 60px;
+    display: block;
+    height: 60px;
+    border-radius: 30px;
+}
+.fomopress-preview-inner .fomopress-preview-content > span {
+    display: block;
+}
+
+.fomopress-preview-inner .fomopress-preview-content > span.fomopress-preview-row {
+    line-height: 20px;
+}
+.fomopress-preview-inner .fomopress-preview-content > span.fomopress-preview-first-row {
+    font-size: 13px;
+}
+.fomopress-preview-inner .fomopress-preview-content > span.fomopress-preview-second-row {
+    font-size: 14px;
+}
+.fomopress-preview-inner .fomopress-preview-content > span.fomopress-preview-third-row {
+    font-size: 11px;
+}
+
+.fomopress-preview-inner .fomopress-preview-content > span.fomopress-preview-row.fomopress-highlight {
+    font-weight: 700;
+}
+
+span.fomopress-preview-close {
+    position: absolute;
+    right: 6px;
+    top: 0px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
 #fomopress_metabox_wrapper {
     background: none;
     border: 0px;
