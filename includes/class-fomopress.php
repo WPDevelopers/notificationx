@@ -73,8 +73,25 @@ final class FomoPress {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
+		$this->loader->add_action( 'admin_init', $this, 'redirect' );
 	}
 
+	public function redirect() {
+		// Bail if no activation transient is set.
+		if ( ! get_transient( '_fomopress_activation_notice' ) ) {
+			return;
+		}
+		// Delete the activation transient.
+		delete_transient( '_fomopress_activation_notice' );
+
+		if ( ! is_multisite() ) {
+			// Redirect to the welcome page.
+			wp_safe_redirect( add_query_arg( array(
+				'post_type' => 'fomopress',
+				'page'		=> 'fomopress-settings'
+			), admin_url( 'edit.php' ) ) );
+		}
+	}
 	/**
 	 * Load the required dependencies for this plugin.
 	 *

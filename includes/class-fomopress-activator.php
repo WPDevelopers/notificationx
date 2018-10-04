@@ -30,7 +30,10 @@ class FomoPress_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-		
+		// _fomopress_activation_notice
+		if( current_user_can( 'delete_users' ) ) {
+			set_transient( '_fomopress_activation_notice', true, 30 );
+		}
 		/**
 		 * Reqrite the rules on activation.
 		 */

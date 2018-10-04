@@ -235,6 +235,8 @@ class FomoPress_Admin {
 		$file_name = isset( $field['type'] ) ? $field['type'] : 'text';
 		$value = FomoPress_DB::get_settings( $name );
 
+		$class = 'fomopress-settings-field';
+
 		if( ! $value ) {
 			$value = isset( $field['default'] ) ? $field['default'] : '';
 		}
@@ -280,8 +282,12 @@ class FomoPress_Admin {
 		}
 	}
 
-	public function notification_preview(){
+	public function notification_preview(  ){
+		global $pagenow;
 
+		if ( ! in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) ) {
+			return false;
+		}
 		include FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-admin-preview.php';
 	}
 
