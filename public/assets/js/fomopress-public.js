@@ -148,10 +148,6 @@
                             hours       = Math.floor( ( difference % ( 1000 * 60 * 60 * 24 ) ) / ( 1000 * 60 * 60 ) ),
                             minutes     = Math.floor( ( difference % ( 1000 * 60 * 60 ) ) / ( 1000 * 60 ) ),
                             seconds     = Math.floor( ( difference % ( 1000 * 60 )) / 1000 );
-
-
-						console.log( press_bar );
-
                         // Output the result in an element with id="ibx-fomo-countdown-time"
                         press_bar.find('.fomopress-days').html(days);
                         press_bar.find('.fomopress-hours').html(hours);

@@ -36,9 +36,8 @@ if( ! empty( $data[ $key ] ) ) {
                 break;
             }
         }
-
     ?>
-        <div id="<?php echo esc_attr( $unique_id ); ?>" class="fomopress-notification fomopress-notification-<?php echo $id; ?>">
+        <div id="<?php echo esc_attr( $unique_id ); ?>" class="fomopress-notification fomopress-<?php echo $settings->conversion_position; ?> fomopress-notification-<?php echo $id; ?>">
             <div class="fomopress-notification-inner">
                 <?php echo get_extention_frontend( $key, $value, $settings ); ?>
             </div>
