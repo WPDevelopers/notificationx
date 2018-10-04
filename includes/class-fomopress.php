@@ -22,7 +22,7 @@
  * @subpackage FomoPress/includes
  * @author     WPDeveloper <support@wpdeveloper.net>
  */
-class FomoPress {
+final class FomoPress {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -92,9 +92,8 @@ class FomoPress {
 	 * @access   private
 	 */
 	private function load_dependencies() {
-
 		/**
-		 * 
+		 * FomoPress DB
 		 */
 		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-db.php';
 		/**
@@ -169,18 +168,18 @@ class FomoPress {
 	private function define_admin_hooks() {
 
 		$plugin_admin     = new FomoPress_Admin( $this->get_plugin_name(), $this->get_version() );
-		
 		$plugin_admin->metabox = new FomoPress_MetaBox;
-
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
+		
 		$this->loader->add_action( 'init', $plugin_admin, 'fomopress_type_register' );
 		$this->loader->add_action( 'init', $plugin_admin, 'get_active_items' );
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin->metabox, 'add_meta_boxes' );
-		$this->loader->add_action( 'save_post', $plugin_admin->metabox, 'save_metabox' );
-
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'fomopress_admin_menu_page' );
+		$this->loader->add_action( 'admin_footer', $plugin_admin, 'notification_preview' );
+
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		
+		$this->loader->add_action( 'save_post', $plugin_admin->metabox, 'save_metabox' );
 
 		do_action( 'fomopress_admin_action', $this->loader );
 	}
@@ -203,6 +202,7 @@ class FomoPress {
 		$this->loader->add_action( 'wp', $plugin_public, 'get_active_items' );
 		$this->loader->add_action( 'wp_footer', $plugin_public, 'display' );
 		$this->loader->add_action( 'wp_ajax_fomopress_get_conversions', $plugin_public, 'fomopress_get_conversions' );
+		$this->loader->add_action( 'wp_ajax_no_priv_fomopress_get_conversions', $plugin_public, 'fomopress_get_conversions' );
 	}
 
 	/**

@@ -3,11 +3,19 @@
  * included in this file.
  */
 
+ .fomopress-notification-preview {
+     position: absolute;
+     right: 30px;
+     bottom: 30px;
+     z-index: 999;
+ }
+
 .fomopress-notification {
     position: fixed;
-    left: 0;
-    background: red;
+    left: 30px;
+    background: #fff;
     padding: 15px;
+    box-shadow: 0 0 25px 5px #f2f2f2;
 }
 
 .fomopress-notification-inner {
@@ -24,9 +32,17 @@
     float: left;
     margin-right: 15px;
 }
+.fomopress-notification-image > img {
+    height: 100%;
+    width: auto;
+}
 .fomopress-notification-content {
     float: left;
 }
+.fomopress-notification-content > span {
+    display: block;
+}
+
 
 .fomopress-author {
     font-weight: 600;
@@ -50,13 +66,61 @@
     display: inline-block;
 }
 
+.fomopress-press-bar-content {
+    display: flex;
+    align-items: center;
+}
+
+.fomopress-countdown-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.fomopress-countdown {overflow: hidden;}
+
+.fomopress-countdown-text {
+    margin-right: 10px;
+}
+
+.fomopress-time-section {
+    float: left;
+    margin: 0 5px;
+    padding: 10px;
+    background: #fff;
+}
+
+.fomopress-time-section > span {
+    display: block;
+}
+
+.fomopress-bar-content {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+a.fomopress-bar-button {
+    background: #999;
+    color: #fff;
+    font-size: 14px;
+    padding: 6px 15px;
+    border-radius: 5px;
+    margin-left: 15px;
+}
+
 .fomopress-close {
     margin: 0;
     position: absolute;
     right: 10px;
-    margin-top: -10px;
+    margin-top: -5px;
     cursor: pointer;
     top: 50%;
+    background: #000;
+    color: #fff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    line-height: 17px;
+    font-size: 14px;
 }
 
 .fomopress-press-bar.fomopress-position-bottom {

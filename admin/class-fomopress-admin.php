@@ -81,6 +81,15 @@ class FomoPress_Admin {
 		return $active;
 	}
 
+	public function redirect(){
+
+		wp_safe_redirect( add_query_arg( array(
+			'post_type' => 'fomopress',
+			'page'		=> 'fomopress-settings'
+		), admin_url( 'edit.php' ) ) );
+
+	}
+
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
@@ -261,7 +270,7 @@ class FomoPress_Admin {
 		FomoPress_DB::update_settings( $data );
 	}
 
-	static public function get_form_action( $query_var = '' ) {
+	public static function get_form_action( $query_var = '' ) {
 		$page = '/edit.php?post_type=fomopress&page=fomopress-settings';
 
 		if ( is_network_admin() ) {
@@ -269,6 +278,11 @@ class FomoPress_Admin {
 		} else {
 			return admin_url( $page . $query_var );
 		}
+	}
+
+	public function notification_preview(){
+
+		include FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-admin-preview.php';
 	}
 
 }

@@ -284,7 +284,7 @@
 			}
 
 			$('body').append( element );
-			element.animate({ 'bottom': '20px', 'opacity': '1' }, 500);
+			element.animate({ 'bottom': '30px', 'opacity': '1' }, 500);
 
 			FomoPressPlugin.saveNotification( config.id, count );
 		},

@@ -171,6 +171,7 @@ input.fomopress-template-field {
     width: 100px;
     height: 100px;
     margin-right: 10px;
+    overflow: hidden;
 }
 .fomopress-thumb-container.fomopress-has-thumb > img {
     height: 100px;

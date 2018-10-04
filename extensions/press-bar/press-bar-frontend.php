@@ -49,41 +49,42 @@ if( $settings->enable_countdown ) {
     class="fomopress-press-bar fomopress-bar-<?php echo $settings->id; ?> <?php echo esc_attr( $pos_class ); ?> <?php echo esc_attr( $class ); ?>" <?php echo $wrapper_attrs; ?>>
     <div class="fomopress-bar-inner">
         <div class="fomopress-press-bar-content">
-            <?php 
-                if( $settings->enable_countdown ) :
-                    if( $settings->countdown_text ) : ?>
+            <?php if( $settings->enable_countdown ) : ?>
+                <div class="fomopress-countdown-wrapper">
+                    <?php if( $settings->countdown_text ) : ?>
                         <div class="fomopress-countdown-text">
                             <?php echo esc_html__( $settings->countdown_text, 'fomopress' ); ?>
                         </div>
                     <?php endif; ?>             
-                <div class="fomopress-countdown" data-countdown="<?php echo esc_attr( json_encode( $countdown ) ); ?>">
-                    <div class="fomopress-time-section">
-                        <span class="fomopress-days">00</span>
-                        <span class="fomopress-countdown-time-text"><?php esc_html_e('Days', 'fomopress'); ?></span>
+                    <div class="fomopress-countdown" data-countdown="<?php echo esc_attr( json_encode( $countdown ) ); ?>">
+                        <div class="fomopress-time-section">
+                            <span class="fomopress-days">00</span>
+                            <span class="fomopress-countdown-time-text"><?php esc_html_e('Days', 'fomopress'); ?></span>
+                        </div>
+                        <div class="fomopress-time-section">
+                            <span class="fomopress-hours">00</span>
+                            <span class="fomopress-countdown-time-text"><?php esc_html_e('Hrs', 'fomopress'); ?></span>
+                        </div>
+                        <div class="fomopress-time-section">
+                            <span class="fomopress-minutes">00</span>
+                            <span class="fomopress-countdown-time-text"><?php esc_html_e('Mins', 'fomopress'); ?></span>
+                        </div>
+                        <div class="fomopress-time-section">
+                            <span class="fomopress-seconds">00</span>
+                            <span class="fomopress-countdown-time-text"><?php esc_html_e('Secs', 'fomopress'); ?></span>
+                        </div>
+                        <span class="fomopress-expired-text"><?php esc_html_e('Expired!', 'fomopress'); ?></span>
                     </div>
-                    <div class="fomopress-time-section">
-                        <span class="fomopress-hours">00</span>
-                        <span class="fomopress-countdown-time-text"><?php esc_html_e('Hrs', 'fomopress'); ?></span>
-                    </div>
-                    <div class="fomopress-time-section">
-                        <span class="fomopress-minutes">00</span>
-                        <span class="fomopress-countdown-time-text"><?php esc_html_e('Mins', 'fomopress'); ?></span>
-                    </div>
-                    <div class="fomopress-time-section">
-                        <span class="fomopress-seconds">00</span>
-                        <span class="fomopress-countdown-time-text"><?php esc_html_e('Secs', 'fomopress'); ?></span>
-                    </div>
-                    <span class="fomopress-expired-text"><?php esc_html_e('Expired!', 'fomopress'); ?></span>
                 </div>
-            <?php 
-                endif;
-                echo esc_html_e( $settings->press_content, 'fomopress' ); 
-                if( $settings->button_url != '' ) :
-            ?>
-                <a href="<?php echo esc_url( $settings->button_url ); ?>" <?php echo $attrs; ?>>
-                    <?php echo esc_html_e( $settings->button_text, 'fomopress' ); ?>
-                </a>
             <?php endif; ?>
+            <div class="fomopress-inner-content-wrapper">
+                <div class="fomopress-bar-content"><?php echo $settings->press_content; ?></div>
+                <?php if( $settings->button_url != '' ) : ?>
+                    <a class="fomopress-bar-button" href="<?php echo esc_url( $settings->button_url ); ?>" <?php echo $attrs; ?>>
+                        <?php echo esc_html_e( $settings->button_text, 'fomopress' ); ?>
+                    </a>
+                <?php endif; ?>
+            </div>
         </div>
         <?php if( $settings->close_button ) : ?>
             <p class="fomopress-close" title="Close">x</p>
