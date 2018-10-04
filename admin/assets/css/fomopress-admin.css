@@ -3,9 +3,9 @@
  * included in this file.
  */
  .fomopress-notification-preview {
-    position: absolute;
+    position: fixed;
     right: 20px;
-    bottom: 50px;
+    bottom: 40px;
     padding: 15px;
     background: #fff;
     box-shadow: 0 0 50px 0px #ddd;
