@@ -282,16 +282,16 @@ class FomoPress_Admin {
 		}
 	}
 
-	public function notification_preview(  ){
-		global $pagenow, $post_type;
-
+	public function notification_preview(){
+		global $pagenow, $post_type, $post;
 		if ( ! in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) ) {
 			return false;
 		}
-
 		if ( $this->type != $post_type ) {
 			return false;
 		}
+		$display_type = get_post_meta( $post->ID, '_fomopress_display_type', true );
+		if( $display_type == 'press_bar' ) return;
 
 		include FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-admin-preview.php';
 	}

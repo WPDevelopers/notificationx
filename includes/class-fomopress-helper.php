@@ -193,7 +193,8 @@ function fomopress_conversions_toggle_data(){
             'display_from',
             'display_for',
             'delay_between',
-            'loop'
+            'loop',
+            'notification_preview'
         ],
     ));
 }
@@ -212,7 +213,8 @@ function fomopress_comments_toggle_data(){
             'delay_before',
             'display_for',
             'delay_between',
-            'loop'
+            'loop',
+            'notification_preview',
         ],
     ));
 }

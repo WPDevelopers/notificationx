@@ -35,7 +35,7 @@ return array(
                                     'fields' => [ 'custom_template', 'custom_contents', 'show_custom_image' ]
                                 ),
                                 'press_bar' => array(
-                                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents' ]
+                                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'notification_preview' ]
                                 )
                             ],
                             'priority' => 50
