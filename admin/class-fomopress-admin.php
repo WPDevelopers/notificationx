@@ -42,6 +42,8 @@ class FomoPress_Admin {
 
 	public $metabox;
 
+	public static $prefix = 'fomopress_';
+
 	public static $settings;
 
 	/**
@@ -80,24 +82,21 @@ class FomoPress_Admin {
 
 		return $active;
 	}
-
-	public function redirect(){
-
-		wp_safe_redirect( add_query_arg( array(
-			'post_type' => 'fomopress',
-			'page'		=> 'fomopress-settings'
-		), admin_url( 'edit.php' ) ) );
-
-	}
-
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles( ) {
+	public function enqueue_styles( $hook ) {
 		global $post_type;
-		if( $post_type != $this->type ) return;
+		$page_status = false;
+		if( $hook == 'fomopress_page_fomopress-builder' ) {
+			$page_status = true;
+		}
+
+		if( $post_type != $this->type && ! $page_status ) {
+			return;
+		}
 
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 
@@ -108,14 +107,108 @@ class FomoPress_Admin {
 
 	}
 
+	public function custom_columns( $columns ) {
+		$title_column = $columns['title'];
+		$date_column = $columns['date'];
+
+		unset( $columns['title'] );
+		unset( $columns['date'] );
+
+		$columns['notification_status'] = '';
+		$columns['title'] = $title_column;
+
+		$columns['notification_type']   = __('Type', 'fomopress');
+
+		$columns['date'] = $date_column;
+
+		return apply_filters( 'fomopress_post_columns', $columns );
+	}
+
+	public function manage_custom_columns( $column, $post_id ){
+		switch ( $column ) {
+			case 'notification_type':
+				$type = get_post_meta( $post_id, '_fomopress_display_type', true );
+				if ( $type ) {
+					$type = FomoPress_Helper::notification_types( $type );
+					if( $type != 'Conversions' ) {
+						echo $type;
+					} else {
+						$from = get_post_meta( $post_id, '_fomopress_conversion_from', true );
+						echo $type . ' - ' . FomoPress_Helper::conversion_from( $from );
+					}
+				}
+				break;
+			case 'notification_status':
+				$status = get_post_meta( $post_id, '_fomopress_active_check', true );
+				self::notification_toggle( $status, $post_id );
+				break;
+		}
+
+		do_action( 'fomopress_post_columns_content', $column, $post_id );
+	}
+
+	public static function notification_toggle( $status = '1', $post_id ){
+		$text           = __('Active', 'fomopress');
+		$img_active     = FOMOPRESS_ADMIN_URL . 'assets/img/active1.png';
+		$img_inactive   = FOMOPRESS_ADMIN_URL . 'assets/img/active0.png';
+		$active         = 'true';
+		$img            = $img_active;
+
+		if ( ! $status ) {
+			$text   = __('Inactive', 'fomopress');
+			$img    = $img_inactive;
+			$active = 'false';
+		}
+		?>
+		<img 
+			src="<?php echo $img; ?>" 
+			style="cursor: pointer; height: 16px; vertical-align: middle;" 
+			alt="<?php echo $text; ?>" title="<?php echo $text; ?>" 
+			data-nonce="<?php echo wp_create_nonce('fomopress_notification_toggle_status'); ?>" 
+			data-post="<?php echo $post_id; ?>" />
+		<?php
+	}
+
+	public function notification_status(){
+		$error = false;
+
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'fomopress_notification_toggle_status' ) ) {
+			$error = true;
+		}
+
+		if ( ! isset( $_POST['post_id'] ) || empty( $_POST['post_id'] ) || ! absint( $_POST['post_id'] ) ) {
+			$error = true;
+		}
+
+		if ( $error ) {
+			echo __('There is an error updating status.', 'fomopress');
+			die();
+		}
+
+		$post_id = absint( $_POST['post_id'] );
+		$status = $_POST['status'] == 'active' ? '1' : '0';
+
+		update_post_meta( $post_id, '_fomopress_active_check', $status );
+
+		echo 'success';
+		die();
+	}
+
 	/**
 	 * Register the JavaScript for the admin area.
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts( $hook ) {
 		global $post_type;
-		if( $post_type != $this->type ) return;
+		$page_status = false;
+		if( $hook == 'fomopress_page_fomopress-builder' ) {
+			$page_status = true;
+		}
+
+		if( $post_type != $this->type && ! $page_status ) {
+			return;
+		}
 
 		wp_enqueue_script( 'wp-color-picker' );
 		wp_enqueue_media();
@@ -186,8 +279,13 @@ class FomoPress_Admin {
 			'fomopress-settings'   => array(
 				'title'      => __('Settings', 'fomopress'),
 				'capability' => 'delete_users',
-				'callback'   => array( $this, 'fomopress_settings_page' )
-			)
+				'callback'   => array( $this, 'settings_page' )
+			),
+			'fomopress-builder'   => array(
+				'title'      => __('Quick Builder', 'fomopress'),
+				'capability' => 'delete_users',
+				'callback'   => array( $this, 'quick_builder' )
+			),
 		) );
 
 		foreach( $settings as $slug => $setting ) {
@@ -201,7 +299,7 @@ class FomoPress_Admin {
 		return require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-settings-page-helper.php';
 	}
 
-	public function fomopress_settings_page(){
+	public function settings_page(){
 		$settings_args = self::settings_args();
 
 		if( isset( $_POST[ 'fomopress_settings_submit' ] ) ) : 
@@ -209,6 +307,63 @@ class FomoPress_Admin {
 		endif;
 
 		include_once FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-settings-display.php';
+	}
+
+	public function quick_builder(){
+		$builder_args = FomoPress_MetaBox::get_args();
+		
+        $tabs       = $builder_args['tabs'];
+        $prefix     = self::$prefix;
+        $metabox_id = $builder_args['id'];
+        $flag       = true;
+
+		if( isset( $_POST[ 'fomopress_builder_submit' ] ) ) : 
+			// var_dump( ! isset( $_POST[$metabox_id . '_nonce'] ) || ! wp_verify_nonce( $_POST[$metabox_id . '_nonce'], $metabox_id ) );
+			// var_dump( $_POST[$metabox_id . '_nonce'] );
+			// return;
+			// Verify the nonce.
+			if ( ! isset( $_POST[$metabox_id . '_nonce'] ) || ! wp_verify_nonce( $_POST[$metabox_id . '_nonce'], $metabox_id ) ) {
+				$flag = false;
+			}
+
+			
+			if( $flag ) {
+				if( $_POST['fomopress_display_type'] == 'press_bar' )  {
+					$title = __('Press Bar', 'fomopress');
+				} elseif( $_POST['fomopress_display_type'] == 'comments' )  {
+					$title = __('WP Comments', 'fomopress');
+				} elseif( $_POST['fomopress_display_type'] == 'conversions' )  {
+					$title = __('Conversion - ' . ucfirst( $_POST['fomopress_conversion_from'] ), 'fomopress');
+				}
+				$_POST['post_type'] = 'fomopress';
+				$postdata = array(
+					'post_type'   => 'fomopress',
+					'post_title'  => $title . ' - ' . date( get_option( 'date_format' ), current_time( 'timestamp' ) ),
+					'post_status' => 'publish',
+					'post_author' => get_current_user_id()
+				);
+	
+				$post_id = wp_insert_post($postdata);
+	
+				if( $post_id || ! is_wp_error( $post_id ) ) {
+					FomoPress_MetaBox::save_data( $_POST, $post_id );
+				}
+			}
+		endif;
+
+		include_once FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-quick-builder-display.php';
+	}
+
+	private function ready_meta_input( $newdata ){
+		if( empty( $defaults ) || empty( $newdata ) ) return;
+		
+		$meta_input = [];
+
+		foreach( $defaults as $key => $value ) {
+
+			$meta_input[ "_{$key}" ] = $value;
+
+		}
 	}
 
 	private function get_settings_fields( $settings ){
@@ -272,8 +427,11 @@ class FomoPress_Admin {
 		FomoPress_DB::update_settings( $data );
 	}
 
-	public static function get_form_action( $query_var = '' ) {
+	public static function get_form_action( $query_var = '', $builder_form = false ) {
 		$page = '/edit.php?post_type=fomopress&page=fomopress-settings';
+		if( $builder_form ) {
+			$page = '/edit.php?post_type=fomopress&page=fomopress-builder';
+		}
 
 		if ( is_network_admin() ) {
 			return network_admin_url( $page . $query_var );

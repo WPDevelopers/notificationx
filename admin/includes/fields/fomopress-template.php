@@ -7,7 +7,7 @@
 <div id="<?php echo $name; ?>">
     <?php for( $i = 0; $i < 3; $i++ ) : ?>
         <div>
-            <input type="text" class="<?php echo esc_attr( $class ); ?>" name="<?php echo $name; ?>[]" value="<?php echo $value[ $i ]; ?>">
+            <input type="text" class="<?php echo esc_attr( $class ); ?>" name="<?php echo $name; ?>[]" value="<?php echo ! empty( $value[ $i ] ) ? $value[ $i ] : ''; ?>">
         </div>
     <?php endfor; ?>
     <div class="<?php echo $name; ?>-variables">

@@ -20,23 +20,19 @@ return array(
                             'type'      => 'select',
                             'label'     => __('I would like to display' , 'fomopress'),
                             'default'   => 'press_bar',
-                            'options'   => [
-                                'press_bar'   => __('Notification Bar' , 'fomopress'),
-                                'comments'    => __('WP Comments' , 'fomopress'),
-                                'conversions' => __('Converstion' , 'fomopress'),
-                            ],
+                            'options'   => FomoPress_Helper::notification_types(),
                             'toggle'   => [
-                                'comments'    => fomopress_comments_toggle_data(),
-                                'press_bar'   => fomopress_press_bar_toggle_data(),
-                                'conversions' => fomopress_conversions_toggle_data(),
+                                'comments'    => FomoPress_Helper::comments_toggle_data(),
+                                'press_bar'   => FomoPress_Helper::press_bar_toggle_data(),
+                                'conversions' => FomoPress_Helper::conversions_toggle_data(),
                             ],
                             'hide'   => [
                                 'comments' => array(
                                     'fields' => [ 'custom_template', 'custom_contents', 'show_custom_image' ]
                                 ),
                                 'press_bar' => array(
-                                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'notification_preview' ]
-                                )
+                                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'notification_preview', 'all_locations', 'countdown_text', 'countdown_time' ]
+                                ),
                             ],
                             'priority' => 50
                         ) ),
@@ -44,9 +40,7 @@ return array(
                             'type'      => 'select',
                             'label'     => __('From' , 'fomopress'),
                             'default'   => 'custom',
-                            'options'   => [
-                                'custom'      => __( 'Custom', 'fomopress' )
-                            ],
+                            'options'   => FomoPress_Helper::conversion_from(),
                             'priority'	=> 60,
                             'toggle'        => array(
                                 'custom'        => array(
@@ -141,6 +135,11 @@ return array(
                         'enable_countdown' => array(
                             'label' => __('Enable Countdown', 'fomopress'),
                             'type'  => 'checkbox',
+                            'toggle'  => [
+                                '1' => [
+                                    'fields' => ['countdown_text', 'countdown_time']
+                                ]
+                            ],
                         ),
                         'countdown_text' => array(
                             'label' => __('Countdown Text', 'fomopress'),
@@ -201,7 +200,12 @@ return array(
                                 'hide_on_selected' => [ 
                                     'fields' => [ 'all_locations' ]
                                 ]
-                            ]
+                            ],
+                            'hide' => [
+                                'everywhere' => [ 
+                                    'fields' => [ 'all_locations' ]
+                                ],
+                            ],
                         ),
                         'all_locations'  => array(
                             'type'      => 'select',

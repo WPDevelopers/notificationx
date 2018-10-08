@@ -85,6 +85,10 @@ class FomoPress_MetaBox {
             $attrs .= ' data-hide="' . esc_attr( json_encode( $field['hide'] ) ) . '"';
         }
 
+        if( isset( $field['tab'] ) && $file_name == 'select' ) {
+            $attrs .= ' data-tab="' . esc_attr( json_encode( $field['tab'] ) ) . '"';
+        }
+
         include FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-field-display.php';
     }
     /**
@@ -132,7 +136,6 @@ class FomoPress_MetaBox {
 
         $metabox_id     = $args['id'];
         $object_types   = $args['object_types'];
-        $prefix         = self::$prefix;
 
         // Verify the nonce.
         if ( ! isset( $_POST[$metabox_id . '_nonce'] ) || ! wp_verify_nonce( $_POST[$metabox_id . '_nonce'], $metabox_id ) ) {
@@ -151,6 +154,12 @@ class FomoPress_MetaBox {
             }
         }
 
+        self::save_data( $_POST, $post_id);  
+    }
+
+    public static function save_data( $posts, $post_id ){
+        $prefix         = self::$prefix;
+
         $fields = self::get_metabox_fields();
         $data = [];
         foreach ( $fields as $name => $field ) {
@@ -158,8 +167,8 @@ class FomoPress_MetaBox {
             $field_id = $prefix . $name;
             $value = '';
 
-            if ( isset( $_POST[$field_id] ) ) {
-                $value = FomoPress_Helper::sanitize_field( $field, $_POST[$field_id] );
+            if ( isset( $posts[$field_id] ) ) {
+                $value = FomoPress_Helper::sanitize_field( $field, $posts[$field_id] );
             } else {
                 if ( 'checkbox' == $field['type'] ) {
                     $value = '0';
@@ -169,21 +178,23 @@ class FomoPress_MetaBox {
             update_post_meta( $post_id, "_{$field_id}", $value );
             $data[ "_{$field_id}" ] = $value;
         }
+        update_post_meta( $post_id, '_fomopress_active_check', true );
 
         
         $d_type = get_post_meta( $post_id, '_fomopress_current_data_ready_for', true );
-        $type = $_POST['fomopress_display_type'];
+        $type = $posts['fomopress_display_type'];
         
         if( $type == 'conversions' ) {
-            $type = $_POST['fomopress_conversion_from'];
+            $type = $posts['fomopress_conversion_from'];
         }
         
         if( $type != $d_type ) {
             do_action( 'fomopress_get_conversions_ready', $type, $data );
         }
-
+        
         update_post_meta( $post_id, '_fomopress_current_data_ready_for', $type );
-        update_post_meta( $post_id, '_fomopress_current_tab', $_POST['fomopress_current_tab'] );
+        update_post_meta( $post_id, '_fomopress_current_tab', $posts['fomopress_current_tab'] );
+
     }
 
     /**

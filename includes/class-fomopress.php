@@ -88,7 +88,7 @@ final class FomoPress {
 			// Redirect to the welcome page.
 			wp_safe_redirect( add_query_arg( array(
 				'post_type' => 'fomopress',
-				'page'		=> 'fomopress-settings'
+				'page'		=> 'fomopress-builder'
 			), admin_url( 'edit.php' ) ) );
 		}
 	}
@@ -192,6 +192,9 @@ final class FomoPress {
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin->metabox, 'add_meta_boxes' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'fomopress_admin_menu_page' );
 		$this->loader->add_action( 'admin_footer', $plugin_admin, 'notification_preview' );
+		$this->loader->add_filter( 'manage_fomopress_posts_columns', $plugin_admin, 'custom_columns' );
+		$this->loader->add_action( 'manage_fomopress_posts_custom_column', $plugin_admin, 'manage_custom_columns', 10, 2 );
+		$this->loader->add_action( 'wp_ajax_notifications_toggle_status', $plugin_admin, 'notification_status');
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );

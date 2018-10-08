@@ -263,3 +263,66 @@ input.fomopress-template-field {
     width: 100px;
     margin-right: 10px;
 }
+
+/* Quick Builder CSS */
+.fomopress-builder-wrapper {
+    background-color: #fff;
+    padding: 50px;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+.fomopress-builder-menu {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #f2f2f2;
+}
+.fomopress-builder-menu ul {
+    margin: 0;
+    padding: 0;
+}
+.fomopress-builder-menu ul li {
+    display: inline-block;
+    padding: 10px 15px;
+    margin-right: 10px;
+    cursor: pointer;
+    border: 1px solid #f2f2f2;
+    border-radius: 3px;
+    margin-bottom: -1px;
+}
+.fomopress-builder-menu ul li.active > span {
+    background-color: #0073aa;
+    color: #fff;
+}
+
+.fomopress-builder-menu ul li > span {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: #f2f2f2;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px;
+    margin-right: 10px;
+}
+
+.fomopress-builder-content {
+    display: none;
+}
+.fomopress-builder-content.active {
+    display: block;
+}
+.fomopress-builder-hidden {
+    display: none;
+}
+
+.quick-builder-submit-btn {
+    background-color: #0073aa;
+    color: #fff;
+    border: 0;
+    padding: 10px 30px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 30px;
+    cursor: pointer;
+}

@@ -32,6 +32,7 @@
 	var FomoPressAdmin = {
 
 		init: function(){
+			FomoPressAdmin.notificationStatus();
 			FomoPressAdmin.bindEvents();
 			FomoPressAdmin.initFields();
 		},
@@ -43,18 +44,19 @@
 		},
 
 		bindEvents: function(){
-			$('body').delegate( '.fomopress-metabox-wrapper .fomopress-meta-field', 'change', function() {
+			$('body').delegate( '.fomopress-meta-field', 'change', function() {
 				FomoPressAdmin.fieldChange( this );
             } );
-			$('body').delegate( '.fomopress-group-field .fomopress-group-field-title', 'click', function() {
-				FomoPressAdmin.groupToggle( this );
-			} );
-			$('body').delegate( '.fomopress-group-field .fomopress-group-remove', 'click', function( e ) {
+			$('body').delegate( '.fomopress-group-field .fomopress-group-field-title', 'click', function(e) {
 				e.preventDefault();
+				if( $( e.srcElement ).hasClass( 'fomopress-group-field-title' ) ) {
+					FomoPressAdmin.groupToggle( this );
+				}
+			} );
+			$('body').delegate( '.fomopress-group-field .fomopress-group-remove', 'click', function() {
 				FomoPressAdmin.removeGroup(this);
 			} );
-			$('body').delegate( '.fomopress-group-field .fomopress-group-clone', 'click', function( e ) {
-				e.preventDefault();
+			$('body').delegate( '.fomopress-group-field .fomopress-group-clone', 'click', function() {
                 FomoPressAdmin.cloneGroup(this);
             } );
 			$('body').delegate( '.fomopress-media-field-wrapper .fomopress-media-upload-button', 'click', function(e) {
@@ -67,6 +69,49 @@
             } );
 		},
 
+		notificationStatus : function(){
+			$('.wp-list-table .column-notification_status img').off('click').on('click', function(e) {
+				e.stopPropagation();
+				var $this       = $(this),
+					isActive    = $(this).attr('src').indexOf('active1.png') >= 0,
+					postID      = $(this).data('post'),
+					nonce       = $(this).data('nonce');
+	
+				if ( isActive ) {
+					$this.attr('src', $this.attr('src').replace('active1.png', 'active0.png'));
+					$this.attr('title', 'Inactive').attr('alt', 'Inactive');
+				} else {
+					$this.attr('src', $this.attr('src').replace('active0.png', 'active1.png'));
+					$this.attr('title', 'Active').attr('alt', 'Active');
+				}
+	
+				$.ajax({
+					type: 'post',
+					url: ajaxurl,
+					data: {
+						action: 'notifications_toggle_status',
+						post_id: postID,
+						nonce: nonce,
+						status: isActive ? 'inactive' : 'active'
+					},
+					success: function(res) {
+						console.log(res);
+						if ( res !== 'success' ) {
+							alert( res );
+							isActive = $this.attr('src').indexOf('active1.png') >= 0;
+							if ( isActive ) {
+								$this.attr('src', $this.attr('src').replace('active1.png', 'active0.png'));
+								$this.attr('title', 'Inactive').attr('alt', 'Inactive');
+							} else {
+								$this.attr('src', $this.attr('src').replace('active0.png', 'active1.png'));
+								$this.attr('title', 'Active').attr('alt', 'Active');
+							}
+						}
+					}
+				});
+			});
+		},
+
 		fieldChange: function( input ){
 			var field   = $(input),
                 id  = field.attr('id'),
@@ -76,7 +121,7 @@
 				i       = 0;
 			
 			if ( 'checkbox' === field.attr('type') && ! field.is(':checked') ) {
-				val = '0';
+				val = 0;
 			}
 
 			// TOGGLE sections or fields.
@@ -89,11 +134,12 @@
 					FomoPressAdmin.fieldToggle(toggle[i].fields, 'hide', '#fomopress-', '', id);
 					FomoPressAdmin.fieldToggle(toggle[i].sections, 'hide', '#fomopress-meta-section-', '', id);
 				}
-
+				
 				if(typeof toggle[val] !== 'undefined') {
 					FomoPressAdmin.fieldToggle(toggle[val].fields, 'show', '#fomopress-', '', id);
 					FomoPressAdmin.fieldToggle(toggle[val].sections, 'show', '#fomopress-meta-section-', '', id);
 				}
+
 			}
 
 			// HIDE sections or fields.
@@ -114,7 +160,6 @@
 			var i = 0;
 
 			suffix = 'undefined' == typeof suffix ? '' : suffix;
-
     		if(typeof array !== 'undefined') {
     			for( ; i < array.length; i++) {
     				$(prefix + array[i] + suffix)[func]();
@@ -156,9 +201,8 @@
 
 				groups.each(function() {
 					var groupContent = $(this).find('.fomopress-group-field-title:not(.open)').next();
-					console.log( groupContent );
 					if ( groupContent.is(':visible') ) {
-						groupContent.slideToggle(0);
+						groupContent.addClass('open');
 					}
 				});
 
@@ -236,14 +280,14 @@
 		cloneGroup : function( button ){
 			var groupId = $(button).parents('.fomopress-group-field').data('id'),
 				group   = $(button).parents('.fomopress-group-field[data-id="'+groupId+'"]'),
-				clone   = group.clone(),
+				clone   = $( group.clone() ),
 				lastGroup   = $( button ).parents('.fomopress-group-fields-wrapper').find('.fomopress-group-field:last'),
 				parent  = group.parent(),
 				nextGroupID = $( lastGroup ).data('id') + 1;
 
 			clone.attr('data-id', nextGroupID);
-			clone.find('.fomopress-group-field-title').trigger('click');
 			clone.insertAfter(group);
+			// clone.find('.fomopress-group-field-title').trigger('click');
 			// clone.addClass('open'); //.siblings().removeClass('open');
 			FomoPressAdmin.resetFieldIds( parent.find('.fomopress-group-field') );
 		},
@@ -350,7 +394,7 @@
 		/**
 		 * Current Tab Manage
 		 */
-		var $tabMenu = $('.fomopress-meta-tab-menu');
+		var $tabMenu = $('.fomopress-meta-tab-menu, .fomopress-builder-menu');
 		$tabMenu.on( 'click', 'li', function(){
 			var $tab = $(this).data( 'tab' );
 			$('#fomopress_current_tab').val( $tab );

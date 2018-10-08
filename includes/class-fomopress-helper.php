@@ -158,63 +158,104 @@ class FomoPress_Helper {
         }
 
 		return apply_filters( 'fomopress_loop_taxonomies', $data, $taxonomies, $post_type );
-	}
+    }
+    
 
-}
+    public static function conversion_from( $from = '' ) {
+        $froms = [
+            'woocommerce'    => __('WooCommerce' , 'fomopress'),
+        ];
+        if( $from ){
+            return $froms[ $from ];
+        }
+        return apply_filters( 'fomopress_conversions_from', $froms );
+    }
 
-function fomopress_press_bar_toggle_data(){
-    return apply_filters('fomopress_press_bar_toggle_data', array(
-        'sections' => [
-            'countdown_timer'
-        ],
-        'fields'   => [
-            'press_content',
-            'button_text',
-            'button_url',
-            'pressbar_position',
-            'sticky_bar',
-            'initial_delay',
-            'auto_hide',
-            'hide_after',
-        ],
-    ));
-}
+    public static function press_bar_toggle_data(){
+        return apply_filters('fomopress_press_bar_toggle_data', array(
+            'sections' => [
+                'countdown_timer'
+            ],
+            'fields'   => [
+                'press_content',
+                'button_text',
+                'button_url',
+                'pressbar_position',
+                'sticky_bar',
+                'initial_delay',
+                'auto_hide',
+                'hide_after',
+            ],
+        ));
+    }
 
-function fomopress_conversions_toggle_data(){
-    return apply_filters('fomopress_conversions_toggle_data', array(
-        'sections' => [
-            'image'
-        ],
-        'fields'   => [
-            'conversion_from',
-            'conversion_position',
-            'delay_before',
-            'display_last',
-            'display_from',
-            'display_for',
-            'delay_between',
-            'loop',
-            'notification_preview'
-        ],
-    ));
-}
+    public static function comments_toggle_data(){
+        return apply_filters('fomopress_comments_toggle_data', array(
+            'sections' => [
+                'image'
+            ],
+            'fields'   => [
+                'conversion_position',
+                'comments_template',
+                'show_avatar',
+                'display_last',
+                'display_from',
+                'delay_before',
+                'display_for',
+                'delay_between',
+                'loop',
+                'notification_preview',
+            ],
+        ));
+    }
 
-function fomopress_comments_toggle_data(){
-    return apply_filters('fomopress_comments_toggle_data', array(
-        'sections' => [
-            'image'
-        ],
-        'fields'   => [
-            'conversion_position',
-            'comments_template',
-            'show_avatar',
-            'display_last',
-            'display_from',
-            'delay_before',
-            'display_for',
-            'delay_between',
-            'loop',
-            'notification_preview',
-        ],
-    ));
+    public static function conversions_toggle_data(){
+        return apply_filters('fomopress_conversions_toggle_data', array(
+            'sections' => [
+                'image'
+            ],
+            'fields'   => [
+                'conversion_from',
+                'conversion_position',
+                'delay_before',
+                'display_last',
+                'display_from',
+                'display_for',
+                'delay_between',
+                'loop',
+                'notification_preview'
+            ],
+        ));
+    }
+
+    public static function not_in_builder( $type = 'fields' ){
+        $not_in_builder = apply_filters('fomopress_not_in_builder', array(
+            'sections' => [
+                'timing',
+            ],
+            'fields' => [
+                'sticky_bar',
+                'close_button',
+                'hide_on_mobile',
+                'loop',
+            ],
+        ));
+    
+        return $not_in_builder[ $type ];
+    }    
+
+    public static function notification_types( $type = '' ) {
+
+        $types = [
+            'press_bar'   => __('Notification Bar' , 'fomopress'),
+            'comments'    => __('WP Comments' , 'fomopress'),
+            'conversions' => __('Conversions' , 'fomopress'),
+        ];
+    
+        if( $type ){
+            return $types[ $type ];
+        }
+    
+        return apply_filters( 'fomopress_notification_types', $types );
+    }
 }

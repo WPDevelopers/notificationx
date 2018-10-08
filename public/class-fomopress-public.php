@@ -119,6 +119,13 @@ class FomoPress_Public {
 			'post_type'         => 'fomopress',
 			'posts_per_page'    => '-1',
 			'post_status'		=> 'publish',
+			'meta_query'        => array(
+				array(
+					'key'           => '_fomopress_active_check',
+					'value'         => '1',
+					'compare'       => '='
+				)
+			)
 		);
 
 		// Get the notification posts.
