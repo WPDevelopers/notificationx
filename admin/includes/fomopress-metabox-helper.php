@@ -12,6 +12,7 @@ return array(
     'tabs'         => apply_filters( 'fomopress_metabox_tabs', array(
         'source_tab' => array(
             'title'         => __('Source', 'fomopress'),
+            'icon'          => 'database.svg',
             'sections'      => apply_filters('fomopress_source_tab_sections', array(
                 'config'        => array(
                     'title'             => __('Select Source', 'fomopress'),
@@ -28,10 +29,10 @@ return array(
                             ],
                             'hide'   => [
                                 'comments' => array(
-                                    'fields' => [ 'custom_template', 'custom_contents', 'show_custom_image' ]
+                                    'fields' => [ 'custom_template', 'custom_contents', 'show_custom_image', 'image_url' ]
                                 ),
                                 'press_bar' => array(
-                                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'notification_preview', 'all_locations', 'countdown_text', 'countdown_time' ]
+                                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'notification_preview', 'all_locations', 'countdown_text', 'countdown_time', 'image_url' ]
                                 ),
                             ],
                             'priority' => 50
@@ -55,6 +56,7 @@ return array(
         ),
         'content_tab' => array(
             'title'         => __('Content', 'fomopress'),
+            'icon'          => 'pencil.svg',
             'sections'      => apply_filters('fomopress_content_tab_sections', array(
                 'content_config'        => array(
                     'title'             => __('Content', 'fomopress'),
@@ -155,6 +157,7 @@ return array(
         ),
         'display_tab' => array(
             'title'         => __('Display', 'fomopress'),
+            'icon'          => 'screen.svg',
             'sections'      => apply_filters('fomopress_display_tab_sections', array(
                 'image' => array(
                     'title'    => __('Image', 'fomopress'),
@@ -164,6 +167,11 @@ return array(
                             'type'      => 'checkbox',
                             'label'     => __('Show Default Image' , 'fomopress'),
                             'priority'	=> 5,
+                            'toggle'	=> [
+                                '1' => [
+                                    'fields' => [ 'image_url' ]
+                                ]
+                            ],
                             'description' => __('If checked, this will show in notifications.', 'fomopress'),
                         ),
                         'image_url'  => array(
@@ -229,6 +237,7 @@ return array(
         ),
         'customize_tab' => array(
             'title'         => __('Customize', 'fomopress'),
+            'icon'          => 'cog.svg',
             'sections'      => apply_filters('fomopress_customize_tab_sections', array(
                 'appearance'        => array(
                     'title'    => __('Appearance', 'fomopress'),

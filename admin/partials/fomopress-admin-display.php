@@ -16,17 +16,32 @@ $current_tab = get_post_meta( $post->ID, '_fomopress_current_tab', true );
 if( ! $current_tab ) {
     $current_tab = 'source_tab';
 }
+
 ?>
 
 <div class="fomopress-metabox-wrapper">
-
+    <?php //if( $post->filter == 'edit' ) : ?>
+        <!-- <a href="<?php //echo FomoPress_Admin::get_form_action( '&post_id=' . $post->ID, true ); ?>"><?php //_e( 'Simple Notification Builder', 'fomopress' ); ?></a> -->
+    <?php // endif; ?>
     <div class="fomopress-meta-tab-menu">
         <ul>
             <?php 
                 $i = 1;
                 foreach( $tabs as $id => $tab ) {
                     $active = $current_tab === $id ? ' active ' : '';
-                    echo '<li data-tab="'. $id .'" class="' . $active . '">'. $tab['title'] .'</li>';
+                    $class = isset( $tab['icon'] ) ? ' fomopress-has-icon ' : '';
+                    $class .= $active;
+                    ?>
+                        <li class="<?php echo $class; ?>" data-tab="<?php echo $id; ?>">
+                            <?php if( isset( $tab['icon'] ) ) : ?>
+                                <span class="fomopress-menu-icon">
+                                    <img src="<?php echo FOMOPRESS_ADMIN_URL . 'assets/img/icons/' . $tab['icon']; ?>" alt="<?php echo $tab['title']; ?>">
+                                </span>
+                            <?php endif; ?>
+                            <span class="fomopress-menu-title"><?php echo $tab['title']; ?></span>
+                        </li>
+                    <?php
+                    // echo '<li data-tab="'. $id .'" class="' . $active . '">'. $tab['title'] .'</li>';
                 }
             ?>
         </ul>

@@ -74,8 +74,8 @@ span.fomopress-preview-close {
 .fomopress-metabox-wrapper {}
 
 .fomopress-meta-tab-menu {
-    margin-bottom: 30px;
     background: #fff;
+    padding: 30px;
 }
 .fomopress-meta-tab-menu ul {
     list-style-type: none;
@@ -85,14 +85,68 @@ span.fomopress-preview-close {
 .fomopress-meta-tab-menu ul li {
     display: inline-block;
     margin: 0;
-    padding: 10px 15px;
+    position: relative;
+    padding: 15px 25px 15px 40px;
     text-transform: uppercase;
     letter-spacing: 2px;
     cursor: pointer;
+    background-color: #edeff0;
+}
+
+.fomopress-meta-tab-menu ul li:after,
+.fomopress-meta-tab-menu ul li:before {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    content: '';
+    height: 0;
+    width: 0;
+    border: 25px solid transparent;
+    border-right-width: 0;
+    border-left-width: 20px;
+}
+.fomopress-meta-tab-menu ul li:after {
+    z-index: 1;
+    -webkit-transform: translateX(3px);
+    -moz-transform: translateX(3px);
+    -ms-transform: translateX(3px);
+    -o-transform: translateX(3px);
+    transform: translateX(3px);
+    border-left-color: #fff;
+    margin: 0;
+}
+.fomopress-meta-tab-menu ul li:before {
+    z-index: 2;
+    border-left-color: #edeff0;
+    border-top-width: 25px;
+    border-bottom-width: 25px;
+}
+
+.fomopress-meta-tab-menu ul li:first-child.fomopress-has-icon {
+    padding-left: 25px;
+}
+.fomopress-meta-tab-menu ul li.fomopress-has-icon > .fomopress-menu-icon {
+    margin-right: 10px;
+}
+
+.fomopress-meta-tab-menu ul li > span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.fomopress-meta-tab-menu ul li img {
+    display: block;
 }
 
 .fomopress-meta-tab-menu ul li.active {
-    font-weight: 700;
+    background-color: #96c03d;
+    color: #fff;
+}
+.fomopress-meta-tab-menu ul li.active > .fomopress-menu-icon {
+    filter: invert(1);
+}
+.fomopress-meta-tab-menu ul li.active:before {
+    border-left-color: #96c03d;
 }
 /* CONTENT CSS */
 

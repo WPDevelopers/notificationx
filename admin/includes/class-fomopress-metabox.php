@@ -37,8 +37,11 @@ class FomoPress_MetaBox {
         return require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-metabox-helper.php';
     }
 
-    public static function render_meta_field( $key = '', $field = [], $value = '' ) {
+    public static function render_meta_field( $key = '', $field = [], $value = '', $idd = null ) {
         $post_id   = self::$post_id;
+        if( ! is_null( $idd ) ){
+            $post_id   = $idd;
+        }
         $name      = self::$prefix . $key;
         $id        = self::get_row_id( $key );
         $file_name = isset( $field['type'] ) ? $field['type'] : 'text';
@@ -48,8 +51,6 @@ class FomoPress_MetaBox {
         } else {
             $default = isset( $field['default'] ) ? $field['default'] : '';
         }
-
-       
 
         if( empty( $value ) ) {
             if( metadata_exists( 'post', $post_id, "_{$name}" ) ) {
