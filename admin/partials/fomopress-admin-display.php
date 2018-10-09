@@ -16,9 +16,9 @@ $current_tab = get_post_meta( $post->ID, '_fomopress_current_tab', true );
 if( ! $current_tab ) {
     $current_tab = 'source_tab';
 }
-
+$totaltabs = count( $tabs );
+$position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
 ?>
-
 <div class="fomopress-metabox-wrapper">
     <?php //if( $post->filter == 'edit' ) : ?>
         <!-- <a href="<?php //echo FomoPress_Admin::get_form_action( '&post_id=' . $post->ID, true ); ?>"><?php //_e( 'Simple Notification Builder', 'fomopress' ); ?></a> -->
@@ -26,13 +26,16 @@ if( ! $current_tab ) {
     <div class="fomopress-meta-tab-menu">
         <ul>
             <?php 
-                $i = 1;
+                $tid = 1;
                 foreach( $tabs as $id => $tab ) {
-                    $active = $current_tab === $id ? ' active ' : '';
-                    $class = isset( $tab['icon'] ) ? ' fomopress-has-icon ' : '';
+                    $active = $current_tab === $id ? ' active' : '';
+                    $class = isset( $tab['icon'] ) ? ' fomopress-has-icon' : '';
                     $class .= $active;
+                    if( $position > $tid ){
+                        $class .= ' fp-complete';
+                    }
                     ?>
-                        <li class="<?php echo $class; ?>" data-tab="<?php echo $id; ?>">
+                        <li data-tabid="<?php echo $tid++; ?>" class="<?php echo $class; ?>" data-tab="<?php echo $id; ?>">
                             <?php if( isset( $tab['icon'] ) ) : ?>
                                 <span class="fomopress-menu-icon">
                                     <img src="<?php echo FOMOPRESS_ADMIN_URL . 'assets/img/icons/' . $tab['icon']; ?>" alt="<?php echo $tab['title']; ?>">
@@ -41,15 +44,15 @@ if( ! $current_tab ) {
                             <span class="fomopress-menu-title"><?php echo $tab['title']; ?></span>
                         </li>
                     <?php
-                    // echo '<li data-tab="'. $id .'" class="' . $active . '">'. $tab['title'] .'</li>';
                 }
             ?>
         </ul>
     </div>
 
-    <div class="fomopress-meta-tab-contents">
+    <div class="fomopress-meta-tab-contents" data-totaltab="<?php echo $totaltabs; ?>">
         <input id="fomopress_current_tab" type="hidden" name="fomopress_current_tab" value="<?php echo $current_tab; ?>">
         <?php 
+            $tabid = 1;
             foreach( $tabs as $id => $tab  ){
                 $active = $current_tab === $id ? ' active ' : '';
                 $sections = FomoPress_Helper::sorter( $tab['sections'], 'priority', 'ASC' );
@@ -76,6 +79,15 @@ if( ! $current_tab ) {
                         endif;
                     }
                 ?>
+                <button class="fomopress-meta-next" data-tab="<?php echo $id; ?>" data-tabid="<?php echo ++$tabid; ?>">
+                    <?php
+                        if( $totaltabs < $tabid ) {
+                            _e( 'Publish', 'fomopress' );
+                        } else {
+                            _e( 'Next', 'fomopress' );
+                        }
+                    ?>
+                </button>
                 </div>
                 <?php
             }

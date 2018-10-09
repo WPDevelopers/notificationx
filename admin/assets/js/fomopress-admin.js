@@ -47,6 +47,10 @@
 			$('body').delegate( '.fomopress-meta-field', 'change', function() {
 				FomoPressAdmin.fieldChange( this );
             } );
+			$('body').delegate( '.fomopress-meta-next', 'click', function(e) {
+				e.preventDefault();
+				FomoPressAdmin.tabChanger( this );
+            } );
 			$('body').delegate( '.fomopress-group-field .fomopress-group-field-title', 'click', function(e) {
 				e.preventDefault();
 				if( $( e.srcElement ).hasClass( 'fomopress-group-field-title' ) ) {
@@ -67,6 +71,18 @@
 				e.preventDefault();
                 FomoPressAdmin.removeMedia(this);
             } );
+		},
+
+		tabChanger : function( nextBTN ){
+			var button = $( nextBTN ),
+				totalTab = button.parents('.fomopress-meta-tab-contents').data('totaltab'),
+				tabID = button.data('tabid'),
+				tab = $( '#fomopress-' + button.data('tab') );
+			if( totalTab + 1 == tabID ){
+				$('#publish').trigger('click');
+				return;
+			}
+			$('.fomopress-meta-tab-menu li[data-tabid="'+ tabID +'"]').trigger('click');
 		},
 
 		notificationStatus : function(){
@@ -396,8 +412,16 @@
 		 */
 		var $tabMenu = $('.fomopress-meta-tab-menu, .fomopress-builder-menu');
 		$tabMenu.on( 'click', 'li', function(){
-			var $tab = $(this).data( 'tab' );
+			var $tab = $(this).data( 'tab' ),
+				tabID = $(this).data('tabid') - 1;
 			$('#fomopress_current_tab').val( $tab );
+			$tabMenu.find('li').each(function(i){
+				if( i < tabID ) {
+					$(this).addClass('fp-complete');
+				} else {
+					$(this).removeClass('fp-complete');
+				}
+			});
 			$(this).addClass( 'active' ).siblings().removeClass('active');
 			$('#fomopress-' + $tab).addClass( 'active' ).siblings().removeClass('active');
 		});

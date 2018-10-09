@@ -230,6 +230,9 @@ class FomoPress_Helper {
 
     public static function not_in_builder( $type = 'fields' ){
         $not_in_builder = apply_filters('fomopress_not_in_builder', array(
+            'tabs' => [
+                'content_tab'
+            ],
             'sections' => [
                 'timing',
             ],

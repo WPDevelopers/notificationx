@@ -155,6 +155,33 @@ return array(
                 )
             ))
         ),
+        'design_tab' => array(
+            'title'      => __('Design', 'fomopress'),
+            'icon'       => 'screen.svg',
+            'sections'   => apply_filters('fomopress_design_tab_sections', array(
+                'themes' => array(
+                    'title'      => __('Themes', 'fomopress'),
+                    'priority' => 5,
+                    'fields'   => array(
+                        'theme' => array(
+                            'type'      => 'theme',
+                            'title'     => __('Select a Theme' , 'fomopress'),
+                            'priority'	=> 5,
+                            'options'   => apply_filters('fomopress_colored_themes', array(
+                                'theme_one' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
+                                'theme_two' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
+                                'theme_three' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
+                            )),
+                        ),
+                        'image_url_2'  => array(
+                            'type'      => 'media',
+                            'label'     => __('Default Image' , 'fomopress'),
+                            'priority'	=> 10,
+                        ),
+                    )
+                )
+            ))
+        ),
         'display_tab' => array(
             'title'         => __('Display', 'fomopress'),
             'icon'          => 'screen.svg',

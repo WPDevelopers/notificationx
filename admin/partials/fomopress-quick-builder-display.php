@@ -1,7 +1,11 @@
 <?php 
-    $current_tab = 'source_tab';
+    $current_tab = get_post_meta( $idd, '_fomopress_current_tab', true );
     if( ! $current_tab ) {
+        $current_tab = 'source_tab';
     }
+
+    $totaltabs = count( $tabs );
+    $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
 ?>
 
 <div class="fomopress-builder-wrapper">
@@ -14,10 +18,28 @@
     <?php if( ! empty( $tabs ) ) : ?>
         <ul>
             <?php 
-                $i = 1;
+                $tid = 1;
                 foreach( $tabs as $id => $tab ) {
-                    $active = $current_tab === $id ? ' active ' : '';
-                    echo '<li data-tab="'. $id .'" class="' . $active . '"><span>'. $i++ .'</span>'. $tab['title'] .'</li>';
+                    $active = $current_tab === $id ? ' active' : '';
+                    $class = isset( $tab['icon'] ) ? ' fomopress-has-icon' : '';
+                    $class .= $active;
+                    if( $position > $tid ){
+                        $class .= ' fp-complete';
+                    }
+                    if( in_array( $id, FomoPress_Helper::not_in_builder( 'tabs' ) ) ) {
+                        $tid++;
+                        continue;
+                    }
+                    ?>
+                        <li data-tabid="<?php echo $tid++; ?>" class="<?php echo $class; ?>" data-tab="<?php echo $id; ?>">
+                            <?php if( isset( $tab['icon'] ) ) : ?>
+                                <span class="fomopress-menu-icon">
+                                    <img src="<?php echo FOMOPRESS_ADMIN_URL . 'assets/img/icons/' . $tab['icon']; ?>" alt="<?php echo $tab['title']; ?>">
+                                </span>
+                            <?php endif; ?>
+                            <span class="fomopress-menu-title"><?php echo $tab['title']; ?></span>
+                        </li>
+                    <?php
                 }
             ?>
         </ul>
@@ -30,6 +52,9 @@
             <?php 
                 wp_nonce_field( $builder_args['id'], $builder_args['id'] . '_nonce' );
                 foreach( $tabs as $id => $tab  ){
+                    if( in_array( $id, FomoPress_Helper::not_in_builder( 'tabs' ) ) ) {
+                        echo '<div class="fomopress-builder-hidden">';
+                    }
                     $active = $current_tab === $id ? ' active ' : '';
                     $sections = FomoPress_Helper::sorter( $tab['sections'], 'priority', 'ASC' );
                     ?>
@@ -86,6 +111,9 @@
                     ?>
                     </div>
                     <?php
+                    if( in_array( $id, FomoPress_Helper::not_in_builder( 'tabs' ) ) ) {
+                        echo '</div>';
+                    }
                 }
             ?>
             <?php if( $idd ) :?>
