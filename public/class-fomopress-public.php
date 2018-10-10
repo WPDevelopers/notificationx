@@ -82,7 +82,6 @@ class FomoPress_Public {
 		 */
 
 		wp_enqueue_style( $this->plugin_name, FOMOPRESS_PUBLIC_URL . 'assets/css/fomopress-public.css', array(), $this->version, 'all' );
-
 	}
 
 	/**
@@ -190,8 +189,8 @@ class FomoPress_Public {
 					break;
 			}
 
+			self::generate_css( $settings );
 		}
-
 		if( ! empty( $conversion_ids ) || ! empty( $comments_id ) ) :
 	?>
 		<script type="text/javascript">
@@ -277,6 +276,48 @@ class FomoPress_Public {
 		if( $settings->show_on == 'hide_on_selected' ) {
 			
 		}
+	}
+
+	public static function generate_css( $settings ){
+		if( empty( $settings ) ) return;
+		$style = $first_row_font = $second_row_font = $third_row_font = [];
+		$css_string = $css = '';
+
+		if( $settings->theme == 'customize' ) {
+			$style[] = 'background-color: ' . $settings->bg_color;
+			$style[] = 'color: ' . $settings->text_color;
+			
+			if( $settings->border ){
+				$style[] = 'border-width: ' . $settings->border_size;
+				$style[] = 'border-style: ' . $settings->border_style;
+				$style[] = 'border-color: ' . $settings->border_color;
+			}
+			$first_row_font[] = 'font-size: ' . $settings->first_font_size; 
+			$second_row_font[] = 'font-size: ' . $settings->second_font_size; 
+			$third_row_font[] = 'font-size: ' . $settings->third_font_size; 
+		}
+
+		if( ! empty( $style ) ) {
+			$css_string .= '.fomopress-customize-style-' . $settings->ID . '{' . implode( ';', $style ) . '}';
+		}
+
+		if( ! empty( $first_row_font ) ) {
+			$css_string .= '.fomopress-customize-style-' . $settings->ID . ' .fp-first-row {' . implode( ';', $first_row_font ) . '}';
+		}
+		if( ! empty( $second_row_font ) ) {
+			$css_string .= '.fomopress-customize-style-' . $settings->ID . ' .fp-second-row{' . implode( ';', $second_row_font ) . '}';
+		}
+		if( ! empty( $third_row_font ) ) {
+			$css_string .= '.fomopress-customize-style-' . $settings->ID . ' .fp-third-row{' . implode( ';', $third_row_font ) . '}';
+		}
+
+		if( ! empty( $css_string ) ) {
+			$css .= '<style type="text/css">';
+			$css .= $css_string;
+			$css .= '<style type="text/css">';
+		}
+
+		echo ! empty( $css ) ? $css : '';
 	}
 
 }

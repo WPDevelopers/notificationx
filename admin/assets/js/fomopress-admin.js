@@ -96,7 +96,9 @@
 				wrapper = $( imgParent.parents('.fomopress-theme-field-wrapper') ),
 				inputID = wrapper.data('name');
 
+				
 			imgParent.addClass('fomopress-theme-selected').siblings().removeClass('fomopress-theme-selected');
+			$('.fomopress-single-theme-wrapper.fomopress-meta-field').trigger('change');
 			$('#' + inputID).val( value );
 		},
 
@@ -149,10 +151,16 @@
                 hide    = field.data('hide'),
                 val     = field.val(),
 				i       = 0;
-			
+
 			if ( 'checkbox' === field.attr('type') && ! field.is(':checked') ) {
 				val = 0;
 			}
+
+			if ( field.hasClass('fomopress-theme-selected') ) {
+				val = field.find('img').data('theme');
+				console.log( val );
+			}
+
 
 			// TOGGLE sections or fields.
 			if ( typeof toggle !== 'undefined' ) {

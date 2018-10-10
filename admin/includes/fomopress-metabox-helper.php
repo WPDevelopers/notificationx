@@ -166,11 +166,17 @@ return array(
                         'theme' => array(
                             'type'      => 'theme',
                             'priority'	=> 5,
-                            'default'	=> 'theme_one',
+                            'default'	=> 'theme-one',
+                            'toggle'	=> [
+                                'customize' => [
+                                    'sections' => ['design', 'image_design', 'typography']
+                                ]
+                            ],
                             'options'   => apply_filters('fomopress_colored_themes', array(
-                                'theme_one' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
-                                'theme_two' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
-                                'theme_three' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
+                                'theme-one' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
+                                'theme-two' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
+                                'theme-three' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
+                                'customize' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/customize.png',
                             )),
                         ),
                     )
@@ -196,7 +202,6 @@ return array(
                             'label'     => __('Want Border?' , 'fomopress'),
                             'priority'	=> 15,
                             'default'	=> 0,
-                            'description'	=> __('If you want border.'),
                             'toggle'	=> [
                                 '1' => [
                                     'fields' => [ 'border_size', 'border_style', 'border_color' ]

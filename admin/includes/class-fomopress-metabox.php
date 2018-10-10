@@ -67,7 +67,7 @@ class FomoPress_MetaBox {
 
         $attrs = '';
 
-        if( isset( $field['toggle'] ) && in_array( $file_name, array( 'checkbox', 'select', 'toggle' ) ) ) {
+        if( isset( $field['toggle'] ) && in_array( $file_name, array( 'checkbox', 'select', 'toggle', 'theme' ) ) ) {
             $attrs .= ' data-toggle="' . esc_attr( json_encode( $field['toggle'] ) ) . '"';
         }
 

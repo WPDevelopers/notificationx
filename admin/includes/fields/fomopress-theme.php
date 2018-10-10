@@ -16,7 +16,7 @@
                 foreach( $options as $opt_key => $opt_value ) {
                     $selected = ( $value == $opt_key ) ? 'fomopress-theme-selected' : '';
                     ?>
-                    <div class="fomopress-single-theme-wrapper <?php echo $selected; ?>">
+                    <div class="fomopress-single-theme-wrapper fomopress-meta-field <?php echo $selected; ?>" <?php echo $attrs; ?>>
                         <img data-theme="<?php echo $opt_key; ?>" src="<?php echo $opt_value; ?>" alt="<?php echo $theme_title; ?>">
                     </div>
                     <?php

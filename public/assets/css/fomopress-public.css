@@ -20,19 +20,29 @@
     align-items: center;
     overflow: hidden;
 }
-
+/*
+    Notification Image CSS
+*/
 .fomopress-notification-image {
     width: 60px;
     height: 60px;
-    border-radius: 50%;
     overflow: hidden;
     float: left;
     margin-right: 15px;
+}
+.fomopress-notification-image.fp-img-circle {
+    border-radius: 50% !important;
+}
+.fomopress-notification-image.fp-img-rounded {
+    border-radius: 5px !important;
 }
 .fomopress-notification-image > img {
     height: 100%;
     width: auto;
 }
+/*
+    Notification Content CSS
+*/
 .fomopress-notification-content {
     float: left;
 }
@@ -40,7 +50,9 @@
     display: block;
 }
 
-
+/*
+    FomoPressBar CSS
+*/
 .fomopress-author {
     font-weight: 600;
 }
@@ -68,31 +80,23 @@
     align-items: center;
 }
 
-.fomopress-countdown-wrapper {
-    display: flex;
-    align-items: center;
-}
-
-.fomopress-countdown {overflow: hidden;}
-
-.fomopress-countdown-text {
-    margin-right: 10px;
-}
-
-.fomopress-time-section {
-    float: left;
-    margin: 0 5px;
-    padding: 10px;
-    background: #fff;
-}
-
-.fomopress-time-section > span {
-    display: block;
-}
 
 .fomopress-bar-content {
     display: inline-block;
     margin-left: 15px;
+}
+
+
+.fomopress-press-bar.fomopress-position-bottom {
+    position: fixed;
+    bottom: 0;
+}
+.fomopress-press-bar.fomopress-position-top {
+    top: 0;
+}
+
+.fomopress-press-bar-visible {
+    visibility: visible;
 }
 
 a.fomopress-bar-button {
@@ -120,19 +124,31 @@ a.fomopress-bar-button {
     font-size: 14px;
 }
 
-.fomopress-press-bar.fomopress-position-bottom {
-    position: fixed;
-    bottom: 0;
-}
-.fomopress-press-bar.fomopress-position-top {
-    top: 0;
+/*
+    FomoPress CountDown CSS
+*/
+
+.fomopress-countdown-wrapper {
+    display: flex;
+    align-items: center;
 }
 
-.fomopress-press-bar-visible {
-    visibility: visible;
+.fomopress-countdown {overflow: hidden;}
+
+.fomopress-countdown-text {
+    margin-right: 10px;
 }
 
-.fomopress-countdown.fomopress-expired {}
+.fomopress-time-section {
+    float: left;
+    margin: 0 5px;
+    padding: 10px;
+    background: #fff;
+}
+
+.fomopress-time-section > span {
+    display: block;
+}
 
 .fomopress-countdown.fomopress-expired .fomopress-time-section {
     background-color: #f2f2f2;

@@ -250,9 +250,10 @@ class FomoPress_Extension {
         ob_start();
         
         $image_data = $this->get_image_url( $data, $settings );
+
         if( $image_data ) :
         ?>
-            <div class="fomopress-notification-image">
+            <div class="fomopress-notification-image fp-img-<?php echo esc_attr( $settings->image_shape ); ?>">
                 <img src="<?php echo $image_data['url']; ?>" alt="<?php echo esc_attr( $image_data['alt'] ); ?>">
             </div>
         <?php endif; ?>
@@ -282,7 +283,7 @@ class FomoPress_Extension {
             case 'conversions' :
                 if( $settings->conversion_from == 'woocommerce' ) {
                     if( $settings->show_product_image ) {
-                        $product_image = wp_get_attachment_image_src( get_post_thumbnail_id( $data['product_id'] ), 'small', false );
+                        $product_image = wp_get_attachment_image_src( get_post_thumbnail_id( $data['product_id'] ), '_fomopress_notification_image', false );
                         $image_url = is_array( $product_image ) ? $product_image[0] : '';
                     }
                 }

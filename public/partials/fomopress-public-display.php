@@ -22,7 +22,8 @@ $from = strtotime( '-' . intval( $settings->display_from ) . ' days');
 if( $settings->display_type == 'conversions' && $settings->conversion_from == 'custom' ) {
     $data[ $key ] = $settings->custom_contents;
 }
-
+// var_dump( empty( $settings ) );
+// dump( $settings ); die;
 if( ! empty( $data[ $key ] ) ) {
     $new_data = FomoPress_Helper::sortBy( $data[ $key ], $key );
     foreach( $new_data as $value ) {
@@ -37,8 +38,8 @@ if( ! empty( $data[ $key ] ) ) {
             }
         }
     ?>
-        <div id="<?php echo esc_attr( $unique_id ); ?>" class="fomopress-notification fomopress-<?php echo $settings->conversion_position; ?> fomopress-notification-<?php echo $id; ?>">
-            <div class="fomopress-notification-inner">
+        <div id="<?php echo esc_attr( $unique_id ); ?>" class="fomopress-notification fomopress-<?php echo esc_attr( $settings->conversion_position ); ?> fomopress-notification-<?php echo $id; ?>">
+            <div class="fomopress-notification-inner fp-notification-<?php echo esc_attr( $settings->theme ); ?>">
                 <?php echo get_extention_frontend( $key, $value, $settings ); ?>
             </div>
             <!-- Link Code Will Be Here -->

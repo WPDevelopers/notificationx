@@ -437,6 +437,13 @@ input.fomopress-template-field {
     margin: 0 -5px;
 }
 
+.fomopress-single-theme-wrapper.fomopress-meta-field {
+    padding: 0px;
+    border: 0;
+    background: none;
+    width: auto;
+}
+
 .fomopress-single-theme-wrapper > img {
     display: block;
 }

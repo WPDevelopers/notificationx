@@ -263,9 +263,7 @@ class FomoPress_Admin {
 		);
 
 		register_post_type( $this->type, $args );
-
-		// $this->metabox_tabs();
-
+		add_image_size( "_fomopress_notification_image", 100, 100, true );
 	}
 
 	/**
