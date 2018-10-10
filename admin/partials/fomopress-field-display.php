@@ -16,12 +16,12 @@
             
             if( isset( $field['description'] ) && ! empty( $field['description'] ) ) : 
                 ?>
-                    <span class="fomopress-field-description"><?php esc_html_e( $field['description'], 'fomopress' ); ?></span>
+                    <span class="fomopress-field-description"><?php _e( $field['description'], 'fomopress' ); ?></span>
                 <?php
             endif;
             if( isset( $field['help'] ) && ! empty( $field['help'] ) ) : 
                 ?>
-                    <p class="fomopress-field-help"><?php esc_html_e( $field['help'], 'fomopress' ); ?></p>
+                    <p class="fomopress-field-help"><?php _e( $field['help'], 'fomopress' ); ?></p>
                 <?php
             endif;
         ?>

@@ -51,6 +51,10 @@
 				e.preventDefault();
 				FomoPressAdmin.tabChanger( this );
             } );
+			$('body').delegate( '.fomopress-single-theme-wrapper', 'click', function(e) {
+				e.preventDefault();
+				FomoPressAdmin.selectImage( this );
+            } );
 			$('body').delegate( '.fomopress-group-field .fomopress-group-field-title', 'click', function(e) {
 				e.preventDefault();
 				if( $( e.srcElement ).hasClass( 'fomopress-group-field-title' ) ) {
@@ -85,6 +89,17 @@
 			$('.fomopress-meta-tab-menu li[data-tabid="'+ tabID +'"]').trigger('click');
 		},
 
+		selectImage : function( image ){
+			var imgParent = $( image ),
+				img = imgParent.find('img'),
+				value = img.data('theme'),
+				wrapper = $( imgParent.parents('.fomopress-theme-field-wrapper') ),
+				inputID = wrapper.data('name');
+
+			imgParent.addClass('fomopress-theme-selected').siblings().removeClass('fomopress-theme-selected');
+			$('#' + inputID).val( value );
+		},
+
 		notificationStatus : function(){
 			$('.wp-list-table .column-notification_status img').off('click').on('click', function(e) {
 				e.stopPropagation();
@@ -111,7 +126,6 @@
 						status: isActive ? 'inactive' : 'active'
 					},
 					success: function(res) {
-						console.log(res);
 						if ( res !== 'success' ) {
 							alert( res );
 							isActive = $this.attr('src').indexOf('active1.png') >= 0;

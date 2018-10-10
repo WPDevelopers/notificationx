@@ -165,21 +165,117 @@ return array(
                     'fields'   => array(
                         'theme' => array(
                             'type'      => 'theme',
-                            'title'     => __('Select a Theme' , 'fomopress'),
                             'priority'	=> 5,
+                            'default'	=> 'theme_one',
                             'options'   => apply_filters('fomopress_colored_themes', array(
                                 'theme_one' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
                                 'theme_two' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
                                 'theme_three' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
                             )),
                         ),
-                        'image_url_2'  => array(
-                            'type'      => 'media',
-                            'label'     => __('Default Image' , 'fomopress'),
+                    )
+                ),
+                'design' => array(
+                    'title'      => __('Design', 'fomopress'),
+                    'priority' => 10,
+                    'fields'   => array(
+                        'bg_color' => array(
+                            'type'      => 'colorpicker',
+                            'label'     => __('Background Color' , 'fomopress'),
+                            'priority'	=> 5,
+                            'default'	=> '#fff'
+                        ),
+                        'text_color' => array(
+                            'type'      => 'colorpicker',
+                            'label'     => __('Text Color' , 'fomopress'),
                             'priority'	=> 10,
+                            'default'	=> '#000'
+                        ),
+                        'border' => array(
+                            'type'      => 'checkbox',
+                            'label'     => __('Want Border?' , 'fomopress'),
+                            'priority'	=> 15,
+                            'default'	=> 0,
+                            'description'	=> __('If you want border.'),
+                            'toggle'	=> [
+                                '1' => [
+                                    'fields' => [ 'border_size', 'border_style', 'border_color' ]
+                                ]
+                            ],
+                        ),
+                        'border_size' => array(
+                            'type'      => 'number',
+                            'label'     => __('Text Color' , 'fomopress'),
+                            'priority'	=> 20,
+                            'default'	=> '1',
+                            'description'	=> 'px',
+                        ),
+                        'border_style' => array(
+                            'type'      => 'select',
+                            'label'     => __('Border Style' , 'fomopress'),
+                            'priority'	=> 25,
+                            'default'	=> 'solid',
+                            'options'	=> [
+                                'solid' => __('Solid', 'fomopress'),
+                                'dashed' => __('Dashed', 'fomopress'),
+                                'dotted' => __('Dotted', 'fomopress'),
+                            ],
+                        ),
+                        'border_color' => array(
+                            'type'      => 'colorpicker',
+                            'label'     => __('Border Color' , 'fomopress'),
+                            'priority'	=> 30,
+                            'default'	=> '#000'
                         ),
                     )
-                )
+                ),
+                'image_design' => array(
+                    'title'      => __('Image Appearance', 'fomopress'),
+                    'priority' => 15,
+                    'fields'   => array(
+                        'image_shape' => array(
+                            'type'      => 'select',
+                            'label'     => __('Image Shape' , 'fomopress'),
+                            'priority'	=> 5,
+                            'default'	=> 'circle',
+                            'options'	=> [
+                                'circle' => __('Circle', 'fomopress'),
+                                'rounded' => __('Rounded', 'fomopress'),
+                                'square' => __('Square', 'fomopress'),
+                            ],
+                        ),
+                    )
+                ),
+                'typography' => array(
+                    'title'      => __('Typography', 'fomopress'),
+                    'priority' => 20,
+                    'fields'   => array(
+                        'first_font_size' => array(
+                            'type'      => 'number',
+                            'label'     => __('Font Size' , 'fomopress'),
+                            'priority'	=> 5,
+                            'default'	=> '13',
+                            'description'	=> 'px',
+                            'help'	=> __( 'This font size will be applied for <mark>first</mark> row', 'fomopress' ),
+                        ),
+                        'second_font_size' => array(
+                            'type'      => 'number',
+                            'label'     => __('Font Size' , 'fomopress'),
+                            'priority'	=> 10,
+                            'default'	=> '14',
+                            'description'	=> 'px',
+                            'help'	=> __( 'This font size will be applied for <mark>second</mark> row', 'fomopress' ),
+                        ),
+                        'third_font_size' => array(
+                            'type'      => 'number',
+                            'label'     => __('Font Size' , 'fomopress'),
+                            'priority'	=> 15,
+                            'default'	=> '11',
+                            'description'	=> 'px',
+                            'help'	=> __( 'This font size will be applied for <mark>third</mark> row', 'fomopress' ),
+                        ),
+                    )
+                ),
             ))
         ),
         'display_tab' => array(

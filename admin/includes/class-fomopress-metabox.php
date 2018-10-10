@@ -63,18 +63,7 @@ class FomoPress_MetaBox {
         }
 
         $class  = 'fomopress-meta-field';
-        $row_class = '';
-
-        switch( $file_name ) {
-            case 'group':
-                $row_class .= ' fomopress-group-row';
-                # code...
-                break;
-            case 'message':
-                $row_class .= ' fomopress-info-message-wrapper';
-                # code...
-                break;
-        }
+        $row_class = self::get_row_class( $file_name );
 
         $attrs = '';
 
@@ -100,6 +89,35 @@ class FomoPress_MetaBox {
      */
     protected static function get_row_id( $key ) {
         return str_replace( '_', '-', self::$prefix ) . $key;
+    }
+    /**
+     * Get the row id ready
+     *
+     * @param string $key
+     * @return string
+     */
+    protected static function get_row_class( $file ) {
+        $prefix = str_replace( '_', '-', self::$prefix );
+
+        switch( $file ) {
+            case 'group':
+                $row_class = $prefix .'group-row';
+                break;
+            case 'colorpicker':
+                $row_class = $prefix .'colorpicker-row';
+                break;
+            case 'message':
+                $row_class = $prefix . 'info-message-wrapper';
+                break;
+            case 'theme':
+                $row_class = $prefix . 'theme-field-wrapper';
+                break;
+            default :
+                $row_class = $prefix . $file;
+                break;
+        }
+
+        return $row_class;
     }
 
     /**
