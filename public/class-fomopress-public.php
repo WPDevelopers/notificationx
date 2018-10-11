@@ -52,14 +52,10 @@ class FomoPress_Public {
 	 * @param      string    $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
-
 		$this->plugin_name   = $plugin_name;
 		$this->version       = $version;
 		
 		$this->notifications = get_option('fomopress_notifications');
-
-		// add_action( 'fomopress_after_public_action', array( $this, 'fomopress_get_conversions' ) );
-
 	}
 
 	/**
@@ -113,7 +109,6 @@ class FomoPress_Public {
 	 * @return void
 	 */
 	public function get_active_items() {
-		// WP Query arguments.
 		$args = array(
 			'post_type'         => 'fomopress',
 			'posts_per_page'    => '-1',
@@ -126,11 +121,8 @@ class FomoPress_Public {
 				)
 			)
 		);
-
-		// Get the notification posts.
 		$posts = get_posts( $args );
-
-		if ( count( $posts ) ) {
+		if ( ! empty( $posts ) ) {
 			foreach ( $posts as $post ) {
 				self::$active[] = $post->ID;
 			}
@@ -165,14 +157,21 @@ class FomoPress_Public {
 			}
 
 			if( $settings->show_on == 'on_selected' ) {
-				// do not proceed further if none of these condition matches.
+				// show if the page is on selected
 				if ( ! $check_location ) {
 					continue;
 				}
 			} elseif( $settings->show_on == 'hide_on_selected' ) {
+				// hide if the page is on selected
 				if ( $check_location ) {
 					continue;
 				}
+			}
+			/**
+			 * Check for hiding in mobile device
+			 */
+			if( wp_is_mobile() && $settings->hide_on_mobile ) {
+				continue;
 			}
 
 			switch ( $settings->display_type ) {
@@ -264,23 +263,9 @@ class FomoPress_Public {
 		return $ip;
 	}
 
-	public function is_visible( $settings ){
-		if( $settings->show_on == 'everywhere' ) {
-			// return true;
-		}
-
-		if( $settings->show_on == 'on_selected' ) {
-			
-		}
-
-		if( $settings->show_on == 'hide_on_selected' ) {
-			
-		}
-	}
-
 	public static function generate_css( $settings ){
 		if( empty( $settings ) ) return;
-		$style = $first_row_font = $second_row_font = $third_row_font = [];
+		$style = $image_style = $content_style = $first_row_font = $second_row_font = $third_row_font = [];
 		$css_string = $css = '';
 
 		if( $settings->theme == 'customize' ) {
@@ -288,36 +273,69 @@ class FomoPress_Public {
 			$style[] = 'color: ' . $settings->text_color;
 			
 			if( $settings->border ){
-				$style[] = 'border-width: ' . $settings->border_size;
+				$style[] = 'border-width: ' . $settings->border_size . 'px';
 				$style[] = 'border-style: ' . $settings->border_style;
 				$style[] = 'border-color: ' . $settings->border_color;
 			}
-			$first_row_font[] = 'font-size: ' . $settings->first_font_size; 
-			$second_row_font[] = 'font-size: ' . $settings->second_font_size; 
-			$third_row_font[] = 'font-size: ' . $settings->third_font_size; 
+
+			if( ! empty( $settings->first_font_size ) ) {
+				$first_row_font[] = 'font-size: ' . $settings->first_font_size . 'px';
+			}
+			if( ! empty( $settings->second_font_size ) ) {
+				$second_row_font[] = 'font-size: ' . $settings->second_font_size . 'px';
+			}
+			if( ! empty( $settings->third_font_size ) ) {
+				$third_row_font[] = 'font-size: ' . $settings->third_font_size . 'px';
+			}
+
+			if( $settings->image_position == 'right' ) {
+				$style[] = 'flex-direction: row-reverse';
+			}
 		}
 
 		if( ! empty( $style ) ) {
-			$css_string .= '.fomopress-customize-style-' . $settings->ID . '{' . implode( ';', $style ) . '}';
+			$css_string .= '.fomopress-customize-style-' . $settings->id . '{' . implode( ';', $style ) . '}';
+		}
+
+		if( ! empty( $content_style ) ) {
+			$css_string .= '.fomopress-customize-style-' . $settings->id . ' .fomopress-notification-content {' . implode( ';', $content_style ) . '}';
 		}
 
 		if( ! empty( $first_row_font ) ) {
-			$css_string .= '.fomopress-customize-style-' . $settings->ID . ' .fp-first-row {' . implode( ';', $first_row_font ) . '}';
+			$css_string .= '.fomopress-customize-style-' . $settings->id . ' .fp-first-row {' . implode( ';', $first_row_font ) . '}';
 		}
 		if( ! empty( $second_row_font ) ) {
-			$css_string .= '.fomopress-customize-style-' . $settings->ID . ' .fp-second-row{' . implode( ';', $second_row_font ) . '}';
+			$css_string .= '.fomopress-customize-style-' . $settings->id . ' .fp-second-row {' . implode( ';', $second_row_font ) . '}';
 		}
 		if( ! empty( $third_row_font ) ) {
-			$css_string .= '.fomopress-customize-style-' . $settings->ID . ' .fp-third-row{' . implode( ';', $third_row_font ) . '}';
+			$css_string .= '.fomopress-customize-style-' . $settings->id . ' .fp-third-row {' . implode( ';', $third_row_font ) . '}';
 		}
 
 		if( ! empty( $css_string ) ) {
 			$css .= '<style type="text/css">';
 			$css .= $css_string;
-			$css .= '<style type="text/css">';
+			$css .= '</style>';
 		}
 
 		echo ! empty( $css ) ? $css : '';
+	}
+
+	public static function get_classes( $settings, $type = 'wrapper' ){
+		if( empty( $settings ) ) return;
+		$classes = [];
+		
+		if( $settings->theme == 'customize' ) {
+			$classes[ 'inner' ][] = 'fomopress-customize-style-' . $settings->id;
+		}
+		if( $settings->close_button ) {
+			$classes[ 'inner' ][] = 'fomopress-has-close-btn';
+		}
+		$classes[ 'wrapper' ][] = 'fomopress-' . esc_attr( $settings->conversion_position );
+		$classes[ 'wrapper' ][] = 'fomopress-notification-' . $settings->id;
+
+		$classes[ 'inner' ][] = 'fp-notification-' . esc_attr( $settings->theme );
+
+		echo implode( ' ', $classes[ $type ] );
 	}
 
 }

@@ -38,8 +38,8 @@ if( ! empty( $data[ $key ] ) ) {
             }
         }
     ?>
-        <div id="<?php echo esc_attr( $unique_id ); ?>" class="fomopress-notification fomopress-<?php echo esc_attr( $settings->conversion_position ); ?> fomopress-notification-<?php echo $id; ?>">
-            <div class="fomopress-notification-inner fp-notification-<?php echo esc_attr( $settings->theme ); ?>">
+        <div id="<?php echo esc_attr( $unique_id ); ?>" class="fomopress-notification <?php self::get_classes( $settings ); ?>">
+            <div class="fomopress-notification-inner <?php self::get_classes( $settings, 'inner' ); ?>">
                 <?php echo get_extention_frontend( $key, $value, $settings ); ?>
             </div>
             <!-- Link Code Will Be Here -->

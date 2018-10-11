@@ -63,6 +63,9 @@
 				FomoPressPlugin.pressBarActive = 0;
 				FomoPressPlugin.hidePressBar( e.target.offsetParent.id );
             } );
+			$('body').delegate( '.fomopress-notification-close', 'click', function( e ) {
+				FomoPressPlugin.hideNotification( $( e.target.offsetParent ) );
+            } );
 		},
 
 		processNotifications : function( ids ){

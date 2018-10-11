@@ -250,10 +250,10 @@ class FomoPress_Extension {
         ob_start();
         
         $image_data = $this->get_image_url( $data, $settings );
-
         if( $image_data ) :
         ?>
-            <div class="fomopress-notification-image fp-img-<?php echo esc_attr( $settings->image_shape ); ?>">
+            <div 
+                class="fomopress-notification-image fp-img-<?php echo esc_attr( $settings->image_shape ); ?> fp-img-<?php echo esc_attr( $settings->image_position ); ?>">
                 <img src="<?php echo $image_data['url']; ?>" alt="<?php echo esc_attr( $image_data['alt'] ); ?>">
             </div>
         <?php endif; ?>
@@ -261,6 +261,11 @@ class FomoPress_Extension {
                 <?php echo FomoPress_Template::get_template_ready( $settings->{ $this->template }, $this->newData( $data ) ); ?>
             </div>
         <?php
+
+            if( $settings->close_button ) {
+                echo '<span class="fomopress-notification-close">x</span>';
+            }
+
         return ob_get_clean();
     }
 

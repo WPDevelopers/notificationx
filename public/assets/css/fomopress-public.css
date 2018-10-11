@@ -5,9 +5,7 @@
 .fomopress-notification {
     position: fixed;
     left: 30px;
-    background: #fff;
-    padding: 15px;
-    box-shadow: 0 0 25px 5px #f2f2f2;
+    z-index: 9999;
 }
 
 .fomopress-notification.fomopress-bottom_right {
@@ -19,7 +17,22 @@
     display: flex;
     align-items: center;
     overflow: hidden;
+    padding: 15px;
+    background: #fff;
+    box-shadow: 0 0 50px -16px #000;
 }
+
+.fomopress-has-close-btn {
+    padding-right: 30px;
+}
+
+span.fomopress-notification-close {
+    position: absolute;
+    right: 6px;
+    top: 5px;
+    cursor: pointer;
+}
+
 /*
     Notification Image CSS
 */
@@ -28,6 +41,11 @@
     height: 60px;
     overflow: hidden;
     float: left;
+}
+.fomopress-notification-image.fp-img-right {
+    margin-left: 15px;
+}
+.fomopress-notification-image.fp-img-left {
     margin-right: 15px;
 }
 .fomopress-notification-image.fp-img-circle {

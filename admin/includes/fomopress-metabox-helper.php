@@ -249,6 +249,16 @@ return array(
                                 'square' => __('Square', 'fomopress'),
                             ],
                         ),
+                        'image_position' => array(
+                            'type'      => 'select',
+                            'label'     => __('Position' , 'fomopress'),
+                            'priority'	=> 10,
+                            'default'	=> 'left',
+                            'options'	=> [
+                                'left' => __('Left', 'fomopress'),
+                                'right' => __('Right', 'fomopress'),
+                            ],
+                        ),
                     )
                 ),
                 'typography' => array(
