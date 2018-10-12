@@ -22,12 +22,9 @@ $from = strtotime( '-' . intval( $settings->display_from ) . ' days');
 if( $settings->display_type == 'conversions' && $settings->conversion_from == 'custom' ) {
     $data[ $key ] = $settings->custom_contents;
 }
-// var_dump( empty( $settings ) );
-// dump( $settings ); die;
 if( ! empty( $data[ $key ] ) ) {
     $new_data = FomoPress_Helper::sortBy( $data[ $key ], $key );
     foreach( $new_data as $value ) {
-        $unique_id = uniqid( 'fomopress-notification-' );
         /**
          * It will break the loop when the 
          * display from the last value isset.
@@ -37,14 +34,8 @@ if( ! empty( $data[ $key ] ) ) {
                 break;
             }
         }
-    ?>
-        <div id="<?php echo esc_attr( $unique_id ); ?>" class="fomopress-notification <?php self::get_classes( $settings ); ?>">
-            <div class="fomopress-notification-inner <?php self::get_classes( $settings, 'inner' ); ?>">
-                <?php echo get_extention_frontend( $key, $value, $settings ); ?>
-            </div>
-            <!-- Link Code Will Be Here -->
-        </div>
-        <?php
+        // dump( get_extention_frontend( $key, $value, $settings ), true, false, true ); die;
+        echo get_extention_frontend( $key, $value, $settings );
     }
 }
 

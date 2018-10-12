@@ -107,9 +107,17 @@ $GLOBALS['fomopress_extension_factory'] = new Extension_Factory();
  * @param string $extension
  * @return void
  */
-function fomopress_register_extension( string $extension ){
+function fomopress_register_extension( string $extension, $condition = array() ){
     global $fomopress_extension_factory;
-    $fomopress_extension_factory->register( $extension );
+    if( ! empty( $condition ) ) {
+
+        // if( class_exists( $condition['exists'] ) ) {
+        //     $fomopress_extension_factory->register( $extension );
+        // }
+
+    } else {
+        $fomopress_extension_factory->register( $extension );
+    }
 }
 
 function get_extention_frontend( $key, $data, $settings = false ){
@@ -117,7 +125,7 @@ function get_extention_frontend( $key, $data, $settings = false ){
     $class_name = $fomopress_extension_factory->get_extension( $key );
     if( class_exists( $class_name ) ) {
         $object = new $class_name;
-        return $object->frontend_html( $data, $settings );
+        return $object->frontend_html( $data, $settings, $object->template );
     }
 }
 
@@ -223,7 +231,7 @@ class FomoPress_Extension {
      * @param boolean $data
      * @return void
      */
-    protected function newData( $data = array() ) {
+    protected static function newData( $data = array() ) {
         if( empty( $data ) ) return;
         $new_data = array();
         foreach( $data as $key => $single_data ) {
@@ -243,33 +251,51 @@ class FomoPress_Extension {
      * @param boolean $settings
      * @return void
      */
-    public function frontend_html( $data = [], $settings = false ){
+    public function frontend_html( $data = [], $settings = false, $template = '' ){
         if( ! is_object( $settings ) || empty( $data ) ) {
             return;
         }
-        ob_start();
-        
-        $image_data = $this->get_image_url( $data, $settings );
-        if( $image_data ) :
-        ?>
-            <div 
-                class="fomopress-notification-image fp-img-<?php echo esc_attr( $settings->image_shape ); ?> fp-img-<?php echo esc_attr( $settings->image_position ); ?>">
-                <img src="<?php echo $image_data['url']; ?>" alt="<?php echo esc_attr( $image_data['alt'] ); ?>">
-            </div>
-        <?php endif; ?>
-            <div class="fomopress-notification-content">
-                <?php echo FomoPress_Template::get_template_ready( $settings->{ $this->template }, $this->newData( $data ) ); ?>
-            </div>
-        <?php
-
-            if( $settings->close_button ) {
-                echo '<span class="fomopress-notification-close">x</span>';
-            }
-
-        return ob_get_clean();
+        $output = '';
+        $unique_id = uniqid( 'fomopress-notification-' ); 
+        $image_data = self::get_image_url( $data, $settings );
+        $output .= '<div id="'. esc_attr( $unique_id ) .'" class="fomopress-notification '. self::get_classes( $settings ) .'">';
+            $output .= '<div class="fomopress-notification-inner '. self::get_classes( $settings, 'inner' ) .'">';
+                if( $image_data ) :
+                    $output .= '<div class="fomopress-notification-image fp-img-'. esc_attr( $settings->image_shape ) .' fp-img-'. esc_attr( $settings->image_position ) .'">';
+                        $output .= '<img src="'. $image_data['url'] .'" alt="'. esc_attr( $image_data['alt'] ) .'">';
+                    $output .= '</div>';
+                endif;
+                $output .= '<div class="fomopress-notification-content">';
+                    $output .= FomoPress_Template::get_template_ready( $settings->{ $template }, self::newData( $data ) );
+                $output .= '</div>';
+                if( $settings->close_button ) :
+                    $output .= '<span class="fomopress-notification-close">x</span>';
+                endif;
+            $output .= '</div>';
+            $output .= '<!-- Link Code Will Be Here -->';
+        $output .= '</div>';
+        return $output;
     }
 
-    protected function get_image_url( $data = [], $settings ) {
+	public static function get_classes( $settings, $type = 'wrapper' ){
+		if( empty( $settings ) ) return;
+		$classes = [];
+		
+		if( $settings->theme == 'customize' ) {
+			$classes[ 'inner' ][] = 'fomopress-customize-style-' . $settings->id;
+		}
+		if( $settings->close_button ) {
+			$classes[ 'inner' ][] = 'fomopress-has-close-btn';
+		}
+		$classes[ 'wrapper' ][] = 'fomopress-' . esc_attr( $settings->conversion_position );
+		$classes[ 'wrapper' ][] = 'fomopress-notification-' . $settings->id;
+
+		$classes[ 'inner' ][] = 'fp-notification-' . esc_attr( $settings->theme );
+
+		return implode( ' ', $classes[ $type ] );
+	}
+
+    protected static function get_image_url( $data = [], $settings ) {
         $image_url = $alt_title = '';
         $alt_title = isset( $data['name'] ) ? $data['name'] : $data['title'];
 

@@ -232,7 +232,6 @@ class FomoPress_Public {
 			ob_start();
 			include FOMOPRESS_PUBLIC_PATH . 'partials/fomopress-public-display.php';
 			$content = ob_get_clean();
-
 			$echo['content'] = $content;
 		}
 
@@ -319,23 +318,4 @@ class FomoPress_Public {
 
 		echo ! empty( $css ) ? $css : '';
 	}
-
-	public static function get_classes( $settings, $type = 'wrapper' ){
-		if( empty( $settings ) ) return;
-		$classes = [];
-		
-		if( $settings->theme == 'customize' ) {
-			$classes[ 'inner' ][] = 'fomopress-customize-style-' . $settings->id;
-		}
-		if( $settings->close_button ) {
-			$classes[ 'inner' ][] = 'fomopress-has-close-btn';
-		}
-		$classes[ 'wrapper' ][] = 'fomopress-' . esc_attr( $settings->conversion_position );
-		$classes[ 'wrapper' ][] = 'fomopress-notification-' . $settings->id;
-
-		$classes[ 'inner' ][] = 'fp-notification-' . esc_attr( $settings->theme );
-
-		echo implode( ' ', $classes[ $type ] );
-	}
-
 }

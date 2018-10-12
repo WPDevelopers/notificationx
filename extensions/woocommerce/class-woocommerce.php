@@ -31,7 +31,6 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
             return;
         }
         $loader->add_action( 'woocommerce_new_order_item', $this, 'save_new_orders', 9, 3 );
-        // woocommerce_order_status_on_hold_to_processing
     }
     public function admin_actions( $loader ){
         if( ! $this->is_created( $this->type ) ) {
@@ -272,6 +271,12 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
             'title' => $data['name'],
             'link' => get_permalink( $data['product_id'] ),
         );
+    }
+
+    public function frontend_html( $data = [], $settings = false, $template = '' ){
+        if( class_exists( 'WooCommerce' ) ) {
+            return parent::frontend_html( $data, $settings, $template );
+        }
     }
 
 }
