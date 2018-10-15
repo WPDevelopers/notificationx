@@ -163,9 +163,11 @@ class FomoPress_Helper {
 
     public static function conversion_from( $from = '' ) {
         $froms = [
-            'woocommerce'    => __('WooCommerce' , 'fomopress'),
+            'woocommerce' => __('WooCommerce' , 'fomopress'),
+            'edd'         => __('Easy Digital Downloads' , 'fomopress'),
         ];
         if( $from ){
+            $forms = apply_filters( 'fomopress_conversions_from', $froms );
             return $froms[ $from ];
         }
         return apply_filters( 'fomopress_conversions_from', $froms );

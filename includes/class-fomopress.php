@@ -71,8 +71,10 @@ final class FomoPress {
 
 		$this->load_dependencies();
 		$this->set_locale();
-		$this->define_admin_hooks();
-		$this->define_public_hooks();
+		// $this->define_admin_hooks();
+		// $this->define_public_hooks();
+		$this->loader->add_action( 'plugins_loaded', $this, 'define_admin_hooks' );
+		$this->loader->add_action( 'plugins_loaded', $this, 'define_public_hooks' );
 		$this->loader->add_action( 'admin_init', $this, 'redirect' );
 	}
 
@@ -145,6 +147,7 @@ final class FomoPress {
 		require_once FOMOPRESS_EXT_DIR_PATH . 'press-bar/class-press-bar.php';
 		require_once FOMOPRESS_EXT_DIR_PATH . 'wp-comments/class-wp-comments.php';
 		require_once FOMOPRESS_EXT_DIR_PATH . 'woocommerce/class-woocommerce.php';
+		require_once FOMOPRESS_EXT_DIR_PATH . 'edd/class-edd.php';
 		require_once FOMOPRESS_EXT_DIR_PATH . 'conversions/class-custom.php';
 		global $fomopress_extension_factory;
 		$fomopress_extension_factory->load();
@@ -168,11 +171,8 @@ final class FomoPress {
 	 * @access   private
 	 */
 	private function set_locale() {
-
 		$plugin_i18n = new FomoPress_i18n();
-
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -182,24 +182,24 @@ final class FomoPress {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_admin_hooks() {
+	public function define_admin_hooks() {
 
 		$plugin_admin     = new FomoPress_Admin( $this->get_plugin_name(), $this->get_version() );
 		$plugin_admin->metabox = new FomoPress_MetaBox;
 		
-		$this->loader->add_action( 'init', $plugin_admin, 'fomopress_type_register' );
-		$this->loader->add_action( 'init', $plugin_admin, 'get_active_items' );
-		$this->loader->add_action( 'add_meta_boxes', $plugin_admin->metabox, 'add_meta_boxes' );
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'fomopress_admin_menu_page' );
-		$this->loader->add_action( 'admin_footer', $plugin_admin, 'notification_preview' );
-		$this->loader->add_filter( 'manage_fomopress_posts_columns', $plugin_admin, 'custom_columns' );
-		$this->loader->add_action( 'manage_fomopress_posts_custom_column', $plugin_admin, 'manage_custom_columns', 10, 2 );
-		$this->loader->add_action( 'wp_ajax_notifications_toggle_status', $plugin_admin, 'notification_status');
+		add_action( 'init', array( $plugin_admin, 'fomopress_type_register') );
+		add_action( 'init', array( $plugin_admin, 'get_active_items') );
+		add_action( 'add_meta_boxes', array( $plugin_admin->metabox, 'add_meta_boxes') );
+		add_action( 'admin_menu', array( $plugin_admin, 'fomopress_admin_menu_page') );
+		add_action( 'admin_footer', array( $plugin_admin, 'notification_preview') );
+		add_filter( 'manage_fomopress_posts_columns', array( $plugin_admin, 'custom_columns') );
+		add_action( 'manage_fomopress_posts_custom_column', array( $plugin_admin, 'manage_custom_columns' ), 10, 2 );
+		add_action( 'wp_ajax_notifications_toggle_status', array( $plugin_admin, 'notification_status') );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		add_action( 'admin_enqueue_scripts', array( $plugin_admin, 'enqueue_styles') );
+		add_action( 'admin_enqueue_scripts', array( $plugin_admin, 'enqueue_scripts') );
 		
-		$this->loader->add_action( 'save_post', $plugin_admin->metabox, 'save_metabox' );
+		add_action( 'save_post', array( $plugin_admin->metabox, 'save_metabox') );
 
 		do_action( 'fomopress_admin_action', $this->loader );
 	}
@@ -211,18 +211,18 @@ final class FomoPress {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_public_hooks() {
+	public function define_public_hooks() {
 
 		$plugin_public = new FomoPress_Public( $this->get_plugin_name(), $this->get_version() );
 
 		do_action( 'fomopress_public_action', $this->loader );
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-		$this->loader->add_action( 'wp', $plugin_public, 'get_active_items' );
-		$this->loader->add_action( 'wp_footer', $plugin_public, 'display' );
-		$this->loader->add_action( 'wp_ajax_fomopress_get_conversions', $plugin_public, 'fomopress_get_conversions' );
-		$this->loader->add_action( 'wp_ajax_no_priv_fomopress_get_conversions', $plugin_public, 'fomopress_get_conversions' );
+		add_action( 'wp_enqueue_scripts', array( $plugin_public, 'enqueue_styles') );
+		add_action( 'wp_enqueue_scripts', array( $plugin_public, 'enqueue_scripts') );
+		add_action( 'wp', array( $plugin_public, 'get_active_items') );
+		add_action( 'wp_footer', array( $plugin_public, 'display') );
+		add_action( 'wp_ajax_fomopress_get_conversions', array( $plugin_public, 'fomopress_get_conversions') );
+		add_action( 'wp_ajax_no_priv_fomopress_get_conversions', array( $plugin_public, 'fomopress_get_conversions') );
 	}
 
 	/**

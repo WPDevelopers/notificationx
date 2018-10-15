@@ -71,7 +71,7 @@ class Extension_Factory {
                 }
 
                 if( method_exists( $object, 'conversion_from' ) ) {
-                    add_filter( 'fomopress_conversion_from', array( $object, 'conversion_from' ) );
+                    add_filter( 'fomopress_conversion_from_field', array( $object, 'conversion_from' ) );
                 }
 
                 /**
@@ -161,7 +161,7 @@ class FomoPress_Extension {
 
     public $defaults_settings;
 
-    public $active_items = [];
+    public static $active_items = [];
 
     /**
      * Constructor of extension for ready the settings and cache limit.
@@ -173,7 +173,7 @@ class FomoPress_Extension {
             $this->cache_limit = intval( self::$settings['cache_limit'] );
         }
 
-        $this->active_items = FomoPress_Admin::get_active_items();
+        self::$active_items = FomoPress_Admin::get_active_items();
 
         $this->defaults_settings = [
             'show_on',
@@ -187,7 +187,7 @@ class FomoPress_Extension {
         if( empty( $type ) ) {
             return false;
         }
-    
+
         if( ! empty( self::$active_items ) ) {
             return in_array( $type, array_keys( self::$active_items ) );
         } else {
@@ -298,7 +298,6 @@ class FomoPress_Extension {
     protected static function get_image_url( $data = [], $settings ) {
         $image_url = $alt_title = '';
         $alt_title = isset( $data['name'] ) ? $data['name'] : $data['title'];
-
         switch( $settings->display_type ) {
             case 'comments' :
                 if( $settings->show_avatar ) {
@@ -312,8 +311,8 @@ class FomoPress_Extension {
                 }
                 break;
             case 'conversions' :
-                if( $settings->conversion_from == 'woocommerce' ) {
-                    if( $settings->show_product_image ) {
+                if( $settings->conversion_from != 'custom' ) {
+                    if( $settings->show_product_image && has_post_thumbnail( $data['product_id'] ) ) {
                         $product_image = wp_get_attachment_image_src( get_post_thumbnail_id( $data['product_id'] ), '_fomopress_notification_image', false );
                         $image_url = is_array( $product_image ) ? $product_image[0] : '';
                     }
@@ -331,6 +330,7 @@ class FomoPress_Extension {
                 }
                 break;
         }
+
 
         if( isset( $settings->show_default_image ) && $settings->show_default_image && $image_url == '' ) {
             $image_url = $settings->image_url['url'];

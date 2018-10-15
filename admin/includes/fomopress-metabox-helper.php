@@ -37,7 +37,7 @@ return array(
                             ],
                             'priority' => 50
                         ) ),
-                        'conversion_from'  => apply_filters( 'fomopress_conversion_from', array(
+                        'conversion_from'  => apply_filters( 'fomopress_conversion_from_field', array(
                             'type'      => 'select',
                             'label'     => __('From' , 'fomopress'),
                             'default'   => 'custom',
