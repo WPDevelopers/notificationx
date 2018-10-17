@@ -1,135 +1,5 @@
 <?php
 /**
- * This class responsivle for loading all extension at a time.
- */
-class Extension_Factory {
-    /**
-     * An array of all extensions
-     *
-     * @var array
-     */
-    protected $extensions;
-    protected $loaded_extensions;
-    protected $template;
-    /**
-     * This function is responsible for registering an extension.
-     *
-     * @param string $extension
-     * @return void
-     */
-    public function register( string $extension ){
-        if ( empty( $extension ) ) {
-			return;
-        }
-        $this->extensions = $this->add( $this->extensions, $extension );
-    }
-    /**
-     * This function is responsible for adding an extension to the extensions array!
-     *
-     * @param array $extensions
-     * @param string $classname
-     * @return void
-     */
-    protected function add( $extensions, $classname ) {
-		$extensions[] = $classname;
-		return $extensions;
-    }
-    /**
-     * This function is responsible for loading all extension 
-     * and also firing the actions and filters method.
-     *
-     * @return void
-     */
-    public function load(){
-        if( ! empty( $this->extensions ) ) {
-            foreach( $this->extensions as $extension ) {
-                $object = new $extension;
-                $this->loaded_extensions[ $object->type ] = $extension;
-
-                /**
-                 * Hooked all actions to their responsible 
-                 * methods if exists.
-                 */
-                if( method_exists( $object, 'admin_actions' ) ) {
-                    add_action( 'fomopress_admin_action', array( $object, 'admin_actions' ) );
-                }
-
-                if( method_exists( $object, 'public_actions' ) ) {
-                    add_action( 'fomopress_public_action', array( $object, 'public_actions' ) );
-                }
-
-                if( method_exists( $object, 'get_notification_ready' ) ) {
-                    add_action( 'fomopress_get_conversions_ready', array( $object, 'get_notification_ready' ), 10, 2 );
-                }
-
-                /**
-                 * Hooked all filters to their responsible 
-                 * methods if exists.
-                 */
-                if( method_exists( $object, 'display_type' ) ) {
-                    add_filter( 'fomopress_display_type', array( $object, 'display_type' ) );
-                }
-
-                if( method_exists( $object, 'conversion_from' ) ) {
-                    add_filter( 'fomopress_conversion_from_field', array( $object, 'conversion_from' ) );
-                }
-
-                /**
-                 * All tab filters
-                 */
-                if( method_exists( $object, 'source_tab_section' ) ) {
-                    add_filter( 'fomopress_source_tab_sections', array( $object, 'source_tab_section' ) );
-                }
-                if( method_exists( $object, 'content_tab_section' ) ) {
-                    add_filter( 'fomopress_content_tab_sections', array( $object, 'content_tab_section' ) );
-                }
-                if( method_exists( $object, 'display_tab_section' ) ) {
-                    add_filter( 'fomopress_display_tab_sections', array( $object, 'display_tab_section' ) );
-                }
-                if( method_exists( $object, 'customize_tab_section' ) ) {
-                    add_filter( 'fomopress_customize_tab_sections', array( $object, 'customize_tab_section' ) );
-                }
-                
-            }
-        }
-    }
-
-    public function get_extension( string $key ){
-        return $this->loaded_extensions[ $key ];
-    }
-
-}
-
-$GLOBALS['fomopress_extension_factory'] = new Extension_Factory();
-/**
- * This function is responsible for register an extension.
- *
- * @param string $extension
- * @return void
- */
-function fomopress_register_extension( string $extension, $condition = array() ){
-    global $fomopress_extension_factory;
-    if( ! empty( $condition ) ) {
-
-        // if( class_exists( $condition['exists'] ) ) {
-        //     $fomopress_extension_factory->register( $extension );
-        // }
-
-    } else {
-        $fomopress_extension_factory->register( $extension );
-    }
-}
-
-function get_extention_frontend( $key, $data, $settings = false ){
-    global $fomopress_extension_factory;
-    $class_name = $fomopress_extension_factory->get_extension( $key );
-    if( class_exists( $class_name ) ) {
-        $object = new $class_name;
-        return $object->frontend_html( $data, $settings, $object->template );
-    }
-}
-
-/**
  * Register all extensions for the plugin.
  * 
  * @link       https://wpdeveloper.net
@@ -157,12 +27,12 @@ class FomoPress_Extension {
      * @var string
      */
     protected $prefix = 'fomopress_';
-
-
-    public $defaults_settings;
-
+    /**
+     * All Active Notification Items
+     *
+     * @var array
+     */
     public static $active_items = [];
-
     /**
      * Constructor of extension for ready the settings and cache limit.
      */
@@ -172,17 +42,17 @@ class FomoPress_Extension {
         if( ! empty( self::$settings ) && isset( self::$settings['cache_limit'] ) ) {
             $this->cache_limit = intval( self::$settings['cache_limit'] );
         }
-
+        /**
+         * Get all Active Notification Items
+         */
         self::$active_items = FomoPress_Admin::get_active_items();
-
-        $this->defaults_settings = [
-            'show_on',
-            'show_on_display',
-            'close_button',
-            'hide_on_mobile',
-        ];
     }
-
+    /**
+     * this function is responsible for check a type of notification is created or not
+     *
+     * @param string $type
+     * @return boolean
+     */
     public static function is_created( $type = '' ){
         if( empty( $type ) ) {
             return false;
@@ -223,7 +93,6 @@ class FomoPress_Extension {
         $notifications[ $type ] = $data;
         return FomoPress_DB::update_notifications( $notifications );
     }
-
     /**
      * This function will convert all the data key into double curly braces format
      * {{key}} = $value
@@ -276,7 +145,13 @@ class FomoPress_Extension {
         $output .= '</div>';
         return $output;
     }
-
+    /**
+     * This function is responsible for generate classes for wrapper, inner
+     *
+     * @param stdClass $settings
+     * @param string $type
+     * @return string
+     */
 	public static function get_classes( $settings, $type = 'wrapper' ){
 		if( empty( $settings ) ) return;
 		$classes = [];
@@ -287,6 +162,7 @@ class FomoPress_Extension {
 		if( $settings->close_button ) {
 			$classes[ 'inner' ][] = 'fomopress-has-close-btn';
 		}
+		$classes[ 'wrapper' ][] = 'fomopress-' . esc_attr( $settings->conversion_from );
 		$classes[ 'wrapper' ][] = 'fomopress-' . esc_attr( $settings->conversion_position );
 		$classes[ 'wrapper' ][] = 'fomopress-notification-' . $settings->id;
 
@@ -294,7 +170,14 @@ class FomoPress_Extension {
 
 		return implode( ' ', $classes[ $type ] );
 	}
-
+    /**
+     * This function is responsible for getting the image url 
+     * using Product ID or from default image settings.
+     *
+     * @param array $data
+     * @param stdClass $settings
+     * @return array of image data, contains url and title as alt text
+     */
     protected static function get_image_url( $data = [], $settings ) {
         $image_url = $alt_title = '';
         $alt_title = isset( $data['name'] ) ? $data['name'] : $data['title'];
@@ -321,7 +204,8 @@ class FomoPress_Extension {
                     if( ! empty( $data ) ) {
                         $image_url = $alt_title = '';
                         if( isset( $data['image'] ) && ! empty( $data['image'] ) ) {
-                            $image_url = $data['image']['url'];
+                            $product_image = wp_get_attachment_image_src( $data['image']['id'], '_fomopress_notification_image', false );
+                            $image_url = is_array( $product_image ) ? $product_image[0] : '';
                         }
                         if( isset( $data['title'] ) && ! empty( $data['title'] ) ) {
                             $alt_title = $data['title'];
@@ -331,20 +215,33 @@ class FomoPress_Extension {
                 break;
         }
 
-
         if( isset( $settings->show_default_image ) && $settings->show_default_image && $image_url == '' ) {
-            $image_url = $settings->image_url['url'];
-            // $image_id = $settings['image_url']['id']; // maybe will use later
+            $product_image = wp_get_attachment_image_src( $settings->image_url['id'], '_fomopress_notification_image', false );
+            $image_url = is_array( $product_image ) ? $product_image[0] : '';
         }       
 
         if( $image_url ) {
-            return [
-                'url' => $image_url,
-                'alt' => $alt_title
-            ];
+            return [ 'url' => $image_url, 'alt' => $alt_title ];
         }
 
         return false;
     }
+}
 
+/**
+ * This function is responsible for getting frontend
+ * html to generate the output.
+ * 
+ * @param string $key
+ * @param array $data
+ * @param stdObject $settings
+ */
+function get_extension_frontend( $key, $data, $settings = false ){
+    if( empty( $key ) ) return;
+    global $fomopress_extension_factory;
+    $extension_name = $fomopress_extension_factory->get_extension( $key );
+    if( class_exists( $extension_name ) ) {
+        $extension = new $extension_name;
+        return $extension->frontend_html( $data, $settings, $extension->template );
+    }
 }

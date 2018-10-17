@@ -50,11 +50,11 @@
 			window.localStorage.removeItem('fomopress_notifications');
 
 			if ( fomopress.conversions.length > 0 ) {
-                FomoPressPlugin.processNotifications( fomopress.conversions );
+				FomoPressPlugin.processNotifications( fomopress.conversions[0] );
 			}
 			
 			if ( fomopress.comments.length > 0 ) {
-                FomoPressPlugin.processNotifications( fomopress.comments );
+				FomoPressPlugin.processNotifications( fomopress.comments[0] );
 			}
 		},
 

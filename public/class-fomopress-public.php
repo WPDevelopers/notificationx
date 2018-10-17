@@ -217,26 +217,24 @@ class FomoPress_Public {
 			$data = $this->notifications;
 		}
 
-		foreach( $ids as $id ) {
-
-			$settings = FomoPress_MetaBox::get_metabox_settings( $id );
+		// foreach( $ids as $id ) {
+			$settings = FomoPress_MetaBox::get_metabox_settings( $ids );
 
 			$echo['config'] = array(
-				'delay_before' => ( ! empty( $settings->delay_before ) ) ? intval( $settings->delay_before ) * 1000 : 0,
-				'display_for' => ( ! empty( $settings->display_for ) ) ? intval( $settings->display_for ) * 1000 : 0,
+				'delay_before'  => ( ! empty( $settings->delay_before ) ) ? intval( $settings->delay_before ) * 1000 : 0,
+				'display_for'   => ( ! empty( $settings->display_for ) ) ? intval( $settings->display_for ) * 1000 : 0,
 				'delay_between' => ( ! empty( $settings->delay_between ) ) ? intval( $settings->delay_between ) * 1000 : 0,
-				'loop' => ( ! empty( $settings->loop ) ) ? $settings->loop : 0,
-				'id' => $id,
+				'loop'          => ( ! empty( $settings->loop ) ) ? $settings->loop : 0,
+				'id'            => $ids,
 			);
 
 			ob_start();
 			include FOMOPRESS_PUBLIC_PATH . 'partials/fomopress-public-display.php';
 			$content = ob_get_clean();
 			$echo['content'] = $content;
-		}
+		// } 
 
 		echo json_encode( $echo );
-
 		die();
 	}
 
@@ -312,7 +310,7 @@ class FomoPress_Public {
 
 		if( ! empty( $css_string ) ) {
 			$css .= '<style type="text/css">';
-			$css .= $css_string;
+				$css .= $css_string;
 			$css .= '</style>';
 		}
 

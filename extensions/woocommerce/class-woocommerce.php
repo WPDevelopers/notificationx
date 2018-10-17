@@ -18,6 +18,8 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
     public function __construct() {
         parent::__construct();
         $this->notifications = $this->get_notifications( $this->type );
+
+        // dump( $this->notifications );
     }
     /**
      * This functions is hooked
@@ -26,17 +28,17 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
      *
      * @return void
      */
-    public function public_actions( $loader ){
+    public function public_actions(){
         if( ! $this->is_created( $this->type ) ) {
             return;
         }
-        $loader->add_action( 'woocommerce_new_order_item', $this, 'save_new_orders', 9, 3 );
+        add_action( 'woocommerce_new_order_item', array( $this, 'save_new_orders' ), 10, 3 );
     }
-    public function admin_actions( $loader ){
+    public function admin_actions(){
         if( ! $this->is_created( $this->type ) ) {
             return;
         }
-        $loader->add_action( 'woocommerce_order_status_changed', $this, 'status_transition', 10, 4 );
+        add_action( 'woocommerce_order_status_changed', array( $this, 'status_transition' ), 10, 4 );
     }
 
     public function source_tab_section( $options ){
@@ -280,8 +282,3 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
     }
 
 }
-
-/**
- * Register the extension
- */
-fomopress_register_extension( 'FomoPress_WooCommerce_Extension' );

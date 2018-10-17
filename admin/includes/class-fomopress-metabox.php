@@ -36,6 +36,9 @@ class FomoPress_MetaBox {
     public static function get_args() {
         return require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-metabox-helper.php';
     }
+    public static function get_builder_args() {
+        return require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-builder-helper.php';
+    }
 
     public static function render_meta_field( $key = '', $field = [], $value = '', $idd = null ) {
         $post_id   = self::$post_id;
@@ -131,7 +134,7 @@ class FomoPress_MetaBox {
         add_meta_box( self::$args['id'], self::$args['title'], __CLASS__ . '::render_fomopress_metabox', self::$object_types, self::$args['context'], self::$args['priority'] );
     }
 
-    public static function get_metabox_fields() {
+    public static function get_metabox_fields( $prefix = '' ) {
         $args = self::get_args();
         $tabs = $args['tabs'];
 
@@ -142,7 +145,7 @@ class FomoPress_MetaBox {
             foreach( $sections as $section ) {
                 $fields = $section['fields'];
                 foreach( $fields as $id => $field ) {
-                    $new_fields[ $id ] = $field;
+                    $new_fields[ $prefix . $id ] = $field;
                 }    
             }
         }
@@ -172,7 +175,7 @@ class FomoPress_MetaBox {
                 return $post_id;
             }
         }
-
+        
         self::save_data( $_POST, $post_id);  
     }
 

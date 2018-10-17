@@ -74,8 +74,8 @@ require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress.php';
 $main = array();
 $main_reg = array();
 
-function run_FomoPress() {
+function run_fomopress() {
 	$plugin = new FomoPress();
 	$plugin->run();
 }
-run_FomoPress();
+run_fomopress();

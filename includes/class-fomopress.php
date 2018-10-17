@@ -71,8 +71,7 @@ final class FomoPress {
 
 		$this->load_dependencies();
 		$this->set_locale();
-		// $this->define_admin_hooks();
-		// $this->define_public_hooks();
+		$this->loader->add_action( 'plugins_loaded', $this, 'load_extensions' );
 		$this->loader->add_action( 'plugins_loaded', $this, 'define_admin_hooks' );
 		$this->loader->add_action( 'plugins_loaded', $this, 'define_public_hooks' );
 		$this->loader->add_action( 'admin_init', $this, 'redirect' );
@@ -143,15 +142,13 @@ final class FomoPress {
 		 * The class responsible for defining extensions functionality
 		 * of the plugin.
 		 */
+		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-extension-factory.php';
 		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-extension.php';
 		require_once FOMOPRESS_EXT_DIR_PATH . 'press-bar/class-press-bar.php';
 		require_once FOMOPRESS_EXT_DIR_PATH . 'wp-comments/class-wp-comments.php';
 		require_once FOMOPRESS_EXT_DIR_PATH . 'woocommerce/class-woocommerce.php';
 		require_once FOMOPRESS_EXT_DIR_PATH . 'edd/class-edd.php';
 		require_once FOMOPRESS_EXT_DIR_PATH . 'conversions/class-custom.php';
-		global $fomopress_extension_factory;
-		$fomopress_extension_factory->load();
-
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
@@ -159,6 +156,33 @@ final class FomoPress {
 		require_once FOMOPRESS_ROOT_DIR_PATH . 'public/class-fomopress-public.php';
 
 		$this->loader = new FomoPress_Loader();
+	}
+
+	public function load_extensions(){
+		global $fomopress_extension_factory;
+
+		$extensions = [
+			'FomoPress_EDD_Extension',
+			'FomoPress_Custom_Extension',
+			'FomoPress_PressBar_Extension',
+			'FomoPress_WP_Comments_Extension',
+			'FomoPress_WooCommerce_Extension',
+		];
+
+		foreach( $extensions as $extension ) {
+			/**
+			 * Register the extension
+			 */
+			fomopress_register_extension( $extension );
+		}
+		/**
+		 * Init all extensions here.
+		 */
+		do_action( 'fomopress_extensions_init' );
+		/**
+		 * Load all extension.
+		 */
+		$fomopress_extension_factory->load();
 	}
 
 	/**
@@ -183,8 +207,8 @@ final class FomoPress {
 	 * @access   private
 	 */
 	public function define_admin_hooks() {
-
-		$plugin_admin     = new FomoPress_Admin( $this->get_plugin_name(), $this->get_version() );
+		
+		$plugin_admin          = new FomoPress_Admin( $this->get_plugin_name(), $this->get_version() );
 		$plugin_admin->metabox = new FomoPress_MetaBox;
 		
 		add_action( 'init', array( $plugin_admin, 'fomopress_type_register') );

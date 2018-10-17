@@ -25,11 +25,7 @@
                     $class .= $active;
                     if( $position > $tid ){
                         $class .= ' fp-complete';
-                    }
-                    if( in_array( $id, FomoPress_Helper::not_in_builder( 'tabs' ) ) ) {
-                        $tid++;
-                        continue;
-                    }
+                    } 
                     ?>
                         <li data-tabid="<?php echo $tid++; ?>" class="<?php echo $class; ?>" data-tab="<?php echo $id; ?>">
                             <?php if( isset( $tab['icon'] ) ) : ?>
@@ -52,18 +48,12 @@
             <?php 
                 wp_nonce_field( $builder_args['id'], $builder_args['id'] . '_nonce' );
                 foreach( $tabs as $id => $tab  ){
-                    if( in_array( $id, FomoPress_Helper::not_in_builder( 'tabs' ) ) ) {
-                        echo '<div class="fomopress-builder-hidden">';
-                    }
                     $active = $current_tab === $id ? ' active ' : '';
                     $sections = FomoPress_Helper::sorter( $tab['sections'], 'priority', 'ASC' );
                     ?>
                     <div id="fomopress-<?php echo $id ?>" class="fomopress-builder-content <?php echo $active; ?>">
                     <?php 
                         foreach( $sections as $sec_id => $section ) {
-                            if( in_array( $sec_id, FomoPress_Helper::not_in_builder( 'sections' ) ) ) {
-                                echo '<div class="fomopress-builder-hidden">';
-                            }
                             $fields = FomoPress_Helper::sorter( $section['fields'], 'priority', 'ASC' );
                             if( ! empty( $fields ) )  :
                         ?>
@@ -74,46 +64,17 @@
                                 <table>
                                     <?php 
                                         foreach( $fields as $key => $field ) {
-                                            if( in_array( $key, FomoPress_Helper::not_in_builder( ) ) ) continue;
                                             FomoPress_MetaBox::render_meta_field( $key, $field, '', $idd );
                                         }
                                     ?>
                                 </table>
                             </div>
                         <?php
-                                if( in_array( $sec_id, FomoPress_Helper::not_in_builder( 'sections' ) ) ) {
-                                    echo '</div>';
-                                }
-                            endif;
-                            if( ! empty( $fields ) )  :
-                                foreach( $fields as $key => $field ) {
-                                    $name      = self::$prefix . $key;
-                                    if( in_array( $key, FomoPress_Helper::not_in_builder( ) ) ) {
-                                        if( 'template' === $field['type'] ) {
-                                            $default = isset( $field['defaults'] ) ? $field['defaults'] : [];
-                                        } else {
-                                            $default = isset( $field['default'] ) ? $field['default'] : '';
-                                        }
-
-                                        if( is_array( $default ) ) :
-                                            foreach( $default as $value ) {
-                                                echo '<input type="hidden" name="'. $name .'[]" value="'. $value .'">';
-                                            }
-                                        else :
-                                            echo '<input type="hidden" name="'. $name .'" value="'. $default .'">';
-                                        endif;
-                                    } else  {
-                                        continue;
-                                    }
-                                }
                             endif;
                         }
                     ?>
                     </div>
                     <?php
-                    if( in_array( $id, FomoPress_Helper::not_in_builder( 'tabs' ) ) ) {
-                        echo '</div>';
-                    }
                 }
             ?>
             <?php if( $idd ) :?>

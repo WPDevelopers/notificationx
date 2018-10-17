@@ -1,13 +1,11 @@
 <?php
 
 class FomoPress_Template {
-
-
     public static function get_template_ready( $template, $tags ){
         $html = $template;
-
-		// If template is in array format, lets break it down and
-		// make HTML markup.
+		/**
+		 * If template is in array format, lets break it down and make HTML markup.
+		 */
 		if ( is_array( $template ) ) {
 			$html = '';
 			for ( $i = 0; $i < count( $template ); $i++ ) {
@@ -22,18 +20,21 @@ class FomoPress_Template {
 				}
 			}
 		}
-
-		// Get all merge tags from the template html.
+		/**
+		 * Get all merge tags from the template html.
+		 */
 		preg_match_all( '/{{([^}]*)}}/', $html, $tags_in_html, PREG_PATTERN_ORDER );
-		// Holds the original tags without formatting parameteres.
+		/**
+		 * Holds the original tags without formatting parameteres.
+		 */
 		$actual_tags = array();
-
-		// Holds the tags with formatting parameteres.
+		/**
+		 * Holds the tags with formatting parameteres.
+		 */
 		$formatted_tags = array();
 
 		if ( ! empty( $tags_in_html ) ) {
 			for ( $i = 0; $i < count( $tags_in_html[1] ); $i++ ) {
-				
 				$x = explode( '|', $tags_in_html[1][$i] );
 				$tag_in_template = '{{' . trim( $tags_in_html[1][$i] ) . '}}';
 				if ( is_array( $x ) ) {
@@ -49,8 +50,9 @@ class FomoPress_Template {
 				}
 			}
 		}
-
-		// Loop through tags and convert the values in their relevant HTML.
+		/**
+		 * Loop through tags and convert the values in their relevant HTML.
+		 */
         foreach ( $tags as $tag => $value ) {
 			
 			if ( isset( $actual_tags[ $tag ] ) ) {

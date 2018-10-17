@@ -18,11 +18,11 @@ class FomoPress_WP_Comments_Extension extends FomoPress_Extension {
      *
      * @return void
      */
-    public function public_actions( $loader ){
-        $loader->add_action( 'comment_post', $this, 'post_comment', 10, 2 );
-        $loader->add_action( 'trash_comment', $this, 'delete_comment', 10, 2 );
-        $loader->add_action( 'delete_comment', $this, 'delete_comment', 10, 2 );
-        $loader->add_action( 'transition_comment_status', $this, 'transition_comment_status', 10, 3 );
+    public function public_actions(){
+        add_action( 'comment_post', array( $this, 'post_comment' ), 10, 2 );
+        add_action( 'trash_comment', array( $this, 'delete_comment' ), 10, 2 );
+        add_action( 'delete_comment', array( $this, 'delete_comment' ), 10, 2 );
+        add_action( 'transition_comment_status', array( $this, 'transition_comment_status' ), 10, 3 );
     }
     /**
      * This function is responsible for the some fields of 
@@ -195,7 +195,3 @@ class FomoPress_WP_Comments_Extension extends FomoPress_Extension {
     }
 
 }
-/**
- * Register the extension
- */
-fomopress_register_extension( 'FomoPress_WP_Comments_Extension' );

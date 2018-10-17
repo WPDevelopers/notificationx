@@ -20,8 +20,3 @@ class FomoPress_PressBar_Extension extends FomoPress_Extension {
         require plugin_dir_path( __FILE__ ) . 'press-bar-frontend.php';
     }
 }
-
-/**
- * Register the extension
- */
-fomopress_register_extension( 'FomoPress_PressBar_Extension' );

@@ -40,10 +40,10 @@ class FomoPress_DB {
     }
     /**
      * Update settings 
-     * @param array $new_value
+     * @param array $value
      * @return boolean
      */
-    public static function update_settings( $new_value ){
-        return update_option( 'fomopress_settings', $new_value );
+    public static function update_settings( $value ){
+        return update_option( 'fomopress_settings', $value );
     }
 }

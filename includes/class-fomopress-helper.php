@@ -35,7 +35,7 @@ class FomoPress_Helper {
             return $data;
         }
         $new_array = [];
-
+        $prev_single = 0;
         if( $using === 'key' ) {
             if( $way !== 'ASC' ) {
                 krsort( $data );
@@ -48,7 +48,11 @@ class FomoPress_Helper {
                 foreach( $value as $inner_key => $single ) {
                     if( $inner_key == $using ) {
                         $value[ 'tempid' ] = $key;
+                        if( $prev_single == $single ) {
+                            $single = $single + 1;
+                        }
                         $new_array[ $single ] = $value;
+                        $prev_single = $single;
                     }
                 }
             }
@@ -71,21 +75,24 @@ class FomoPress_Helper {
 
         return $data;
     }
-
+    /**
+     * Sorting Data 
+     * by their type
+     *
+     * @param array $value
+     * @param string $key
+     * @return void
+     */
     public static function sortBy( &$value, $key = 'comments' ) {
         switch( $key ){
             case 'comments' : 
                 return self::sorter( $value, 'key', 'DESC' );
                 break;
-            case 'woocommerce' : // || 'custom' : 
-                return self::sorter( $value, 'timestamp', 'DESC' );
-                break;
             default: 
-                return apply_filters('fomopress_sorted_data', $value);
+                return self::sorter( $value, 'timestamp', 'DESC' );
                 break;
         }
     }
-
     /**
      * Human Readable Time Diff
      *
@@ -110,16 +117,20 @@ class FomoPress_Helper {
         $time_ago = ob_get_clean();
         return $time_ago;
     }
-
-
+    /**
+     * Get all post types
+     *
+     * @param array $exclude
+     * @return void
+     */
     public static function post_types( $exclude = array() ) {
 		$post_types = get_post_types(array(
 			'public'	=> true,
 			'show_ui'	=> true
-		), 'objects');
-
-		unset( $post_types['attachment'] );
-
+        ), 'objects');
+        
+        unset( $post_types['attachment'] );
+        
         if ( count( $exclude ) ) {
             foreach ( $exclude as $type ) {
                 if ( isset( $post_types[$type] ) ) {
@@ -128,9 +139,15 @@ class FomoPress_Helper {
             }
         }
 
-		return $post_types;
+		return apply_filters( 'fomopress_post_types', $post_types );
     }
-    
+    /**
+     * Get all taxonomies
+     *
+     * @param string $post_type
+     * @param array $exclude
+     * @return void
+     */
 	public static function taxonomies( $post_type = '', $exclude = array() ) {
         if ( empty( $post_type ) ) {
             $taxonomies = get_taxonomies(
@@ -143,24 +160,22 @@ class FomoPress_Helper {
         } else {
 		    $taxonomies = get_object_taxonomies( $post_type, 'objects' );
         }
-
-		$data		= array();
-
-		foreach ( $taxonomies as $tax_slug => $tax ) {
-			if ( ! $tax->public || ! $tax->show_ui ) {
-				continue;
-			}
-
-            if ( in_array( $tax_slug, $exclude ) ) {
-                continue;
+        
+        $data = array();
+        if( is_array( $taxonomies ) ) {
+            foreach ( $taxonomies as $tax_slug => $tax ) {
+                if( ! $tax->public || ! $tax->show_ui ) {
+                    continue;
+                }
+                if( in_array( $tax_slug, $exclude ) ) {
+                    continue;
+                }
+                $data[$tax_slug] = $tax;
             }
-			$data[$tax_slug] = $tax;
         }
-
 		return apply_filters( 'fomopress_loop_taxonomies', $data, $taxonomies, $post_type );
     }
     
-
     public static function conversion_from( $from = '' ) {
         $froms = [
             'woocommerce' => __('WooCommerce' , 'fomopress'),
@@ -229,7 +244,13 @@ class FomoPress_Helper {
             ],
         ));
     }
-
+    /**
+     * This function is responsible for
+     * making sure that a key is not rendered in quick builder!
+     *
+     * @param string $type
+     * @return void
+     */
     public static function not_in_builder( $type = 'fields' ){
         $not_in_builder = apply_filters('fomopress_not_in_builder', array(
             'tabs' => [
@@ -248,19 +269,24 @@ class FomoPress_Helper {
     
         return $not_in_builder[ $type ];
     }    
-
+    /**
+     * All Notification Types
+     *
+     * @param string $type
+     * @return array
+     */
     public static function notification_types( $type = '' ) {
-
         $types = [
             'press_bar'   => __('Notification Bar' , 'fomopress'),
             'comments'    => __('WP Comments' , 'fomopress'),
             'conversions' => __('Conversions' , 'fomopress'),
         ];
-    
+
+        $types = apply_filters( 'fomopress_notification_types', $types );
+
         if( $type ){
             return $types[ $type ];
         }
-    
-        return apply_filters( 'fomopress_notification_types', $types );
+        return $types;
     }
 }

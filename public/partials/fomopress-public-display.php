@@ -13,7 +13,10 @@
  */
 $type = $key = $settings->display_type;
 $data = apply_filters( 'fomopress_fields_data', $data );
-
+/**
+ * Set the key
+ * which is use to get data out of it!
+ */
 if( 'conversions' === $type ) {
     $key = $settings->conversion_from;
 }
@@ -34,8 +37,7 @@ if( ! empty( $data[ $key ] ) ) {
                 break;
             }
         }
-        // dump( get_extention_frontend( $key, $value, $settings ), true, false, true ); die;
-        echo get_extention_frontend( $key, $value, $settings );
+        echo get_extension_frontend( $key, $value, $settings );
     }
 }
 
