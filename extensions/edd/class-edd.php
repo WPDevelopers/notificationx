@@ -86,7 +86,6 @@ class FomoPress_EDD_Extension extends FomoPress_Extension {
                 '{{name}}', '{{title}}', '{{time}}'
             ],
         );
-
         return $options;
     }
     /**

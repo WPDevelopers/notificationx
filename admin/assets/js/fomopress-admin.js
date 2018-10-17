@@ -74,7 +74,7 @@
 			$('body').delegate( '.fomopress-media-field-wrapper .fomopress-media-remove-button', 'click', function(e) {
 				e.preventDefault();
                 FomoPressAdmin.removeMedia(this);
-            } );
+			} );
 		},
 
 		tabChanger : function( nextBTN ){
@@ -420,8 +420,15 @@
 
 			button.addClass('hidden'); // Hide the remove button first
 			uploadButton.removeClass('hidden'); // Show the uplaod button
+		},
+		previewUpdate : function( type ) {
+			if ( type === 'press_bar' ) {
+				$('#fomopress-notification-preview').hide();
+			} else {
+				$('#fomopress-notification-preview').removeClass('fomopress-notification-preview-comments').removeClass('fomopress-notification-preview-conversions');
+				$('#fomopress-notification-preview').show().addClass('fomopress-notification-preview-' + type);
+			}
 		}
-
 	};
 
 	/**
@@ -454,6 +461,7 @@
 	$( window ).load(function(){
 		$('body').on('change', '#fomopress_display_type', function(){
 			var type = $(this).val();
+			FomoPressAdmin.previewUpdate( type );
 			if( type == 'conversions' ) {
 				$('#fomopress_conversion_from').trigger('change');
 			}

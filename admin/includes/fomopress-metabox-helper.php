@@ -32,7 +32,7 @@ return array(
                                     'fields' => [ 'custom_template', 'custom_contents', 'show_custom_image', 'image_url' ]
                                 ),
                                 'press_bar' => array(
-                                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'notification_preview', 'all_locations', 'countdown_text', 'countdown_time', 'image_url' ]
+                                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'all_locations', 'countdown_text', 'countdown_time', 'image_url' ]
                                 ),
                             ],
                             'priority' => 50

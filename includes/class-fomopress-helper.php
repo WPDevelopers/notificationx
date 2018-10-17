@@ -35,7 +35,6 @@ class FomoPress_Helper {
             return $data;
         }
         $new_array = [];
-        $prev_single = 0;
         if( $using === 'key' ) {
             if( $way !== 'ASC' ) {
                 krsort( $data );
@@ -48,11 +47,10 @@ class FomoPress_Helper {
                 foreach( $value as $inner_key => $single ) {
                     if( $inner_key == $using ) {
                         $value[ 'tempid' ] = $key;
-                        if( $prev_single == $single ) {
+                        if( isset( $new_array[ $single ] ) ) {
                             $single = $single + 1;
                         }
                         $new_array[ $single ] = $value;
-                        $prev_single = $single;
                     }
                 }
             }

@@ -18,8 +18,6 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
     public function __construct() {
         parent::__construct();
         $this->notifications = $this->get_notifications( $this->type );
-
-        // dump( $this->notifications );
     }
     /**
      * This functions is hooked
@@ -57,14 +55,12 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
 
         return $options;
     }
-
     /**
      * Some extra field on the fly.
      * 
      * @param array $options
      * @return array
      */
-
     public function content_tab_section( $options ){
         $options[ 'content_config' ][ 'fields' ]['woo_template'] = array(
             'type'     => 'template',

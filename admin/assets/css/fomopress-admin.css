@@ -2,6 +2,17 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+ #fomopress-notification-preview,
+ #fomopress-notification-preview .fomopress-notification-preview-comments,
+ #fomopress-notification-preview .fomopress-notification-preview-conversions { 
+    display: none;
+ }
+
+ #fomopress-notification-preview.fomopress-notification-preview-comments .fomopress-notification-preview-comments,
+ #fomopress-notification-preview.fomopress-notification-preview-conversions .fomopress-notification-preview-conversions {
+     display: block;
+ }
+
  .fomopress-notification-preview {
     position: fixed;
     right: 20px;

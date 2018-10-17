@@ -71,10 +71,10 @@ final class FomoPress {
 
 		$this->load_dependencies();
 		$this->set_locale();
-		$this->loader->add_action( 'plugins_loaded', $this, 'load_extensions' );
-		$this->loader->add_action( 'plugins_loaded', $this, 'define_admin_hooks' );
-		$this->loader->add_action( 'plugins_loaded', $this, 'define_public_hooks' );
-		$this->loader->add_action( 'admin_init', $this, 'redirect' );
+		add_action( 'plugins_loaded', array( $this, 'load_extensions' ) );
+		add_action( 'plugins_loaded', array( $this, 'define_admin_hooks' ) );
+		add_action( 'plugins_loaded', array( $this, 'define_public_hooks' ) );
+		add_action( 'admin_init', array( $this, 'redirect' ) );
 	}
 
 	public function redirect() {
@@ -122,7 +122,7 @@ final class FomoPress {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-loader.php';
+		// require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
@@ -155,7 +155,7 @@ final class FomoPress {
 		 */
 		require_once FOMOPRESS_ROOT_DIR_PATH . 'public/class-fomopress-public.php';
 
-		$this->loader = new FomoPress_Loader();
+		// $this->loader = new FomoPress_Loader();
 	}
 
 	public function load_extensions(){
@@ -196,7 +196,7 @@ final class FomoPress {
 	 */
 	private function set_locale() {
 		$plugin_i18n = new FomoPress_i18n();
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+		add_action( 'plugins_loaded', array( $plugin_i18n, 'load_plugin_textdomain' ) );
 	}
 
 	/**
@@ -225,7 +225,7 @@ final class FomoPress {
 		
 		add_action( 'save_post', array( $plugin_admin->metabox, 'save_metabox') );
 
-		do_action( 'fomopress_admin_action', $this->loader );
+		do_action( 'fomopress_admin_action' );
 	}
 
 	/**
@@ -239,7 +239,7 @@ final class FomoPress {
 
 		$plugin_public = new FomoPress_Public( $this->get_plugin_name(), $this->get_version() );
 
-		do_action( 'fomopress_public_action', $this->loader );
+		do_action( 'fomopress_public_action' );
 
 		add_action( 'wp_enqueue_scripts', array( $plugin_public, 'enqueue_styles') );
 		add_action( 'wp_enqueue_scripts', array( $plugin_public, 'enqueue_scripts') );
@@ -255,7 +255,7 @@ final class FomoPress {
 	 * @since    1.0.0
 	 */
 	public function run() {
-		$this->loader->run();
+		return $this;
 	}
 
 	/**
@@ -288,5 +288,4 @@ final class FomoPress {
 	public function get_version() {
 		return $this->version;
 	}
-
 }
