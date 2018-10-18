@@ -117,7 +117,7 @@ class FomoPress_Admin {
 	public function enqueue_scripts( $hook ) {
 		global $post_type;
 		$page_status = false;
-		if( $hook == 'fomopress_page_fomopress-builder' ) {
+		if( $hook == 'fomopress_page_fomopress-builder' || $hook == 'fomopress_page_fomopress-settings' ) {
 			$page_status = true;
 		}
 
@@ -274,11 +274,13 @@ class FomoPress_Admin {
 	 */
 	public function fomopress_admin_menu_page(){
 
+		$settings_class = new FomoPress_Settings();
+
 		$settings = apply_filters( 'fomopress_admin_menu', array(
 			'fomopress-settings'   => array(
 				'title'      => __('Settings', 'fomopress'),
 				'capability' => 'delete_users',
-				'callback'   => array( $this, 'settings_page' )
+				'callback'   => array( $settings_class, 'settings_page' )
 			),
 			'fomopress-builder'   => array(
 				'title'      => __('Quick Builder', 'fomopress'),
@@ -291,21 +293,6 @@ class FomoPress_Admin {
 			$cap  = isset( $setting['capability'] ) ? $setting['capability'] : 'delete_users';
 			$hook = add_submenu_page( 'edit.php?post_type=fomopress', $setting['title'], $setting['title'], $cap, $slug, $setting['callback'] );
 		}
-		
-	}
-
-	public static function settings_args(){
-		return require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-settings-page-helper.php';
-	}
-
-	public function settings_page(){
-		$settings_args = self::settings_args();
-
-		if( isset( $_POST[ 'fomopress_settings_submit' ] ) ) : 
-			$this->save_settings( $_POST );
-		endif;
-
-		include_once FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-settings-display.php';
 	}
 
 	public function quick_builder(){
@@ -410,73 +397,7 @@ class FomoPress_Admin {
 
 		return array_merge( $post_data, $data );
 	}
-	/**
-	 * Get all settings fields
-	 *
-	 * @param array $settings
-	 * @return array
-	 */
-	private function get_settings_fields( $settings ){
-        $new_fields = [];
-
-        foreach( $settings as $setting ) {
-            $sections = $setting['sections'];
-            foreach( $sections as $section ) {
-                $fields = $section['fields'];
-                foreach( $fields as $id => $field ) {
-                    $new_fields[ $id ] = $field;
-                }
-            }
-        }
-
-        return apply_filters( 'fomopress_settings_fields', $new_fields );
-	}
 	
-
-	public static function render_field( $name, $field ){
-		if( empty( $name ) || empty( $field ) ) {
-			return;
-		}
-		$file_name = isset( $field['type'] ) ? $field['type'] : 'text';
-		$value = FomoPress_DB::get_settings( $name );
-
-		$class = 'fomopress-settings-field';
-
-		if( ! $value ) {
-			$value = isset( $field['default'] ) ? $field['default'] : '';
-		}
-
-        include FOMOPRESS_ADMIN_DIR_PATH . 'includes/fields/fomopress-'. $file_name .'.php';
-	}
-
-	public function save_settings( $values = [] ){
-		// Verify the nonce.
-        if ( ! isset( $values['fomopress_settings_nonce'] ) || ! wp_verify_nonce( $values['fomopress_settings_nonce'], 'fomopress_settings' ) ) {
-            return;
-		}
-
-		if( ! isset( $values['fomopress_settings_submit'] ) || ! is_array( $values ) ) {
-			return;
-		}
-
-		$settings_args = self::settings_args();
-		$fields = $this->get_settings_fields( $settings_args );
-
-		foreach( $values as $key => $value ) {
-
-			if( array_key_exists( $key, $fields ) ) {
-				if( empty( $value ) ) {
-					$value = $fields[ $key ]['default'];
-				}
-				$value = FomoPress_Helper::sanitize_field( $fields[ $key ], $value );
-				$data[ $key ] = $value;
-			}
-
-		}
-
-		FomoPress_DB::update_settings( $data );
-	}
-
 	public static function get_form_action( $query_var = '', $builder_form = false ) {
 		$page = '/edit.php?post_type=fomopress&page=fomopress-settings';
 		if( $builder_form ) {

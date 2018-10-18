@@ -179,3 +179,23 @@ a.fomopress-bar-button {
 .fomopress-countdown.fomopress-expired .fomopress-expired-text {
     display: block;
 }
+
+/* Powered By CSS */
+.fomopress-branding {
+    font-size: 10px;
+    color: #999;
+    margin-left: 2px;
+    vertical-align: middle;
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    z-index: 9999;
+    padding: 5px;
+}
+.fomopress-branding svg {
+    position: relative;
+    top: 3px;
+}
+a.fp-powered-by {
+    cursor: pointer;
+}

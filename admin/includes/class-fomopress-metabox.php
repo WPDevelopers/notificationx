@@ -34,10 +34,14 @@ class FomoPress_MetaBox {
     }
 
     public static function get_args() {
-        return require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-metabox-helper.php';
+        $metabox_args = require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-metabox-helper.php';
+        $metabox_args = apply_filters( 'fomopress_before_metabox_load', $metabox_args );
+        return $metabox_args;
     }
     public static function get_builder_args() {
-        return require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-builder-helper.php';
+        $builder_args = require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-builder-helper.php';
+        $builder_args = apply_filters( 'fomopress_before_builder_load', $builder_args );
+        return $builder_args;
     }
 
     public static function render_meta_field( $key = '', $field = [], $value = '', $idd = null ) {
@@ -99,7 +103,7 @@ class FomoPress_MetaBox {
      * @param string $key
      * @return string
      */
-    protected static function get_row_class( $file ) {
+    public static function get_row_class( $file ) {
         $prefix = str_replace( '_', '-', self::$prefix );
 
         switch( $file ) {

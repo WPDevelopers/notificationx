@@ -2,11 +2,10 @@
     <?php
         do_action( 'fomopress_before_settings_form' );
         if( ! empty( $settings_args ) ) : ?>
-        <form method="post" id="fomopress-settings-form" action="<?php echo self::get_form_action(); ?>">
+        <form method="post" id="fomopress-settings-form" action="<?php echo FomoPress_Admin::get_form_action(); ?>">
             <?php do_action( 'fomopress_settings_header' ); ?>
             <div class="fomopress-settings">
                 <div class="fomopress-settings-menu">
-                    
                     <ul>
                         <?php
                             $i = 1;
@@ -27,6 +26,7 @@
                         foreach( $settings_args as $key => $setting ) {
                             $active = $i++ === 1 ? 'active ' : '';
                             $sections = isset( $setting['sections'] ) ? $setting['sections'] : [];
+                            $sections = FomoPress_Helper::sorter( $sections, 'priority', 'ASC' );
                             ?>
                             <div id="<?php echo esc_attr( $key ); ?>" class="fomopress-settings-tab fomopress-settings-<?php echo esc_attr( $key );?> <?php echo $active; ?>">
                                 <?php 
@@ -37,6 +37,7 @@
                                          */
                                         foreach( $sections as $key => $section ) :
                                             $fields = isset( $section['fields'] ) ? $section['fields'] : [];
+                                            $fields = FomoPress_Helper::sorter( $fields, 'priority', 'ASC' );
                                             ?>                                 
                                             <div 
                                                 id="fomoporess-<?php echo esc_attr( $key ); ?>" 
@@ -50,16 +51,7 @@
                                                     <tbody>
                                                     <?php 
                                                         foreach( $fields as $key => $field ) :
-                                                            if( empty( $field['label'] ) ) :
-                                                                echo '<td colspan="2">';
-                                                            else : 
-                                                                echo '<th>';
-                                                                    echo $field['label'];
-                                                                echo '</th>';
-                                                                echo '<td>';
-                                                            endif;
-                                                                self::render_field( $key, $field );
-                                                            echo '</td>';
+                                                            FomoPress_Settings::render_field( $key, $field );
                                                         endforeach;
                                                     ?>
                                                     </tbody>

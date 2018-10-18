@@ -32,8 +32,12 @@ class FomoPress_DB {
     public static function get_settings( $name = '' ){
         $settings = get_option( 'fomopress_settings', true );
         
-        if( ! empty( $name ) ) {
+        if( ! empty( $name ) && isset( $settings[ $name ] ) ) {
             return $settings[ $name ];
+        }
+        
+        if( ! empty( $name ) && ! isset( $settings[ $name ] ) ) {
+            return '';
         }
 
         return is_array( $settings ) ? $settings : [];
