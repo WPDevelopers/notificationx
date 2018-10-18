@@ -209,13 +209,13 @@
 
 			if ( 'undefined' !== typeof $.fn.wpColorPicker ) {
                 // Add Color Picker to all inputs that have 'mbt-color-picker' class.
-                $( '.fomopress-colorpicker' ).each(function() {
+                $( '.fomopress-colorpicker-field' ).each(function() {
                     var color = $(this).val();
                     $(this).wpColorPicker({
                         change: function(event, ui) {
                             var element = event.target;
                             var color = ui.color.toString();
-                            $(element).parents('.wp-picker-container').find('input.fomopress-colorpicker').val(color).trigger('change');
+							$(element).parents('.wp-picker-container').find('input.fomopress-colorpicker-field').val(color).trigger('change');
                         }
                     }).parents('.wp-picker-container').find('.wp-color-result').css('background-color', '#' + color);
                 });

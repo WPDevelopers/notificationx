@@ -1,6 +1,6 @@
 <?php
 
-    $class .= ' fomopress-colorpicker';
+    $class .= ' fomopress-colorpicker-field';
 
 ?>
 

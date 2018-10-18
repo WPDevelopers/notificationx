@@ -215,6 +215,8 @@ final class FomoPress {
 		add_action( 'init', array( $plugin_admin, 'get_active_items') );
 		add_action( 'add_meta_boxes', array( $plugin_admin->metabox, 'add_meta_boxes') );
 		add_action( 'admin_menu', array( $plugin_admin, 'fomopress_admin_menu_page') );
+		// add_action( 'admin_menu', array( $plugin_admin, 'admin_menus' ) );
+		// add_action( 'admin_init', array( $plugin_admin, 'quick_builder' ) );
 		add_action( 'admin_footer', array( $plugin_admin, 'notification_preview') );
 		add_filter( 'manage_fomopress_posts_columns', array( $plugin_admin, 'custom_columns') );
 		add_action( 'manage_fomopress_posts_custom_column', array( $plugin_admin, 'manage_custom_columns' ), 10, 2 );
