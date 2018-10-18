@@ -94,7 +94,7 @@ class FomoPress_Admin {
 	public function enqueue_styles( $hook ) {
 		global $post_type;
 		$page_status = false;
-		if( $hook == 'fomopress_page_fomopress-builder' ) {
+		if( $hook == 'fomopress_page_fomopress-builder' || $hook == 'fomopress_page_fomopress-settings' ) {
 			$page_status = true;
 		}
 
@@ -499,7 +499,6 @@ class FomoPress_Admin {
 			return false;
 		}
 		$display_type = get_post_meta( $post->ID, '_fomopress_display_type', true );
-		if( $display_type == 'press_bar' ) return;
 
 		include FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-admin-preview.php';
 	}

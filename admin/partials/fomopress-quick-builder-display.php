@@ -81,7 +81,7 @@
                 <input name="fomopress_edit_notification_id" type="hidden" value="<?php echo $idd; ?>">
                 <input class="quick-builder-submit-btn" name="fomopress_builder_edit_submit" type="submit" value="Edit">
             <?php else : ?>
-                <input class="quick-builder-submit-btn" name="fomopress_builder_add_submit" type="submit" value="Add">
+                <input class="quick-builder-submit-btn" name="fomopress_builder_add_submit" type="submit" value="Create Notification">
             <?php endif; ?>
         </form>
     </div>

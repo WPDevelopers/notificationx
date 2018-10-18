@@ -136,6 +136,7 @@ final class FomoPress {
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once FOMOPRESS_ADMIN_DIR_PATH . 'includes/class-fomopress-metabox.php';
+		require_once FOMOPRESS_ADMIN_DIR_PATH . 'includes/class-fomopress-settings.php';
 		require_once FOMOPRESS_ADMIN_DIR_PATH . 'class-fomopress-admin.php';
 		
 		/**

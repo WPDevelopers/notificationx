@@ -3,12 +3,13 @@
     if( $display_type ) {
         $class_name = 'fomopress-notification-preview-' . $display_type;
     }
-    $settings = FomoPress_MetaBox::get_metabox_settings( $post->ID );
-    echo FomoPress_Public::generate_css( $settings );
+    // $settings = FomoPress_MetaBox::get_metabox_settings( $post->ID );
+    // echo FomoPress_Public::generate_css( $settings );
+    // FomoPress_Extension::get_classes( $settings, 'inner' )
 ?>
 <div id="fomopress-notification-preview" class="<?php echo $class_name; ?>">
-    <div class="fomopress-notification-preview fomopress-notification-preview-conversions <?php echo FomoPress_Extension::get_classes( $settings ); ?>">
-        <div class="fomopress-preview-inner <?php echo FomoPress_Extension::get_classes( $settings, 'inner' ); ?>">
+    <div class="fomopress-notification-preview fomopress-notification-preview-conversions">
+        <div class="fomopress-preview-inner">
             <div class="fomopress-preview-image">
                 <img src="<?php echo FOMOPRESS_ADMIN_URL . 'assets/img/placeholder-300x300.png'; ?>" alt="">
             </div>
@@ -21,8 +22,8 @@
         </div>
     </div>
 
-    <div class="fomopress-notification-preview fomopress-notification-preview-comments <?php echo FomoPress_Extension::get_classes( $settings ); ?>">
-        <div class="fomopress-preview-inner <?php echo FomoPress_Extension::get_classes( $settings, 'inner' ); ?>">
+    <div class="fomopress-notification-preview fomopress-notification-preview-comments">
+        <div class="fomopress-preview-inner">
             <div class="fomopress-preview-image">
                 <img src="<?php echo FOMOPRESS_ADMIN_URL . 'assets/img/placeholder-300x300.png'; ?>" alt="">
             </div>
