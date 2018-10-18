@@ -32,12 +32,17 @@ class FomoPress_MetaBox {
         wp_nonce_field( self::$args['id'], self::$args['id'] . '_nonce' );
 		include_once FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-admin-display.php';
     }
-
+    /**
+     * This function is responsible for get all metabox arguments
+     *
+     * @return void
+     */
     public static function get_args() {
         $metabox_args = require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-metabox-helper.php';
         $metabox_args = apply_filters( 'fomopress_before_metabox_load', $metabox_args );
         return $metabox_args;
     }
+    
     public static function get_builder_args() {
         $builder_args = require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-builder-helper.php';
         $builder_args = apply_filters( 'fomopress_before_builder_load', $builder_args );
