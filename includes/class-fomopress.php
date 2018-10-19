@@ -121,6 +121,8 @@ final class FomoPress {
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
+		 * 
+		 * TODO: do something with loader
 		 */
 		// require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-loader.php';
 
@@ -155,10 +157,16 @@ final class FomoPress {
 		 * side of the site.
 		 */
 		require_once FOMOPRESS_ROOT_DIR_PATH . 'public/class-fomopress-public.php';
-
+		/**
+		 * TODO: do something with loader, or have to remove
+		 */
 		// $this->loader = new FomoPress_Loader();
 	}
-
+	/**
+	 * This function is responsible for load all extensions
+	 *
+	 * @return void
+	 */
 	public function load_extensions(){
 		global $fomopress_extension_factory;
 
@@ -185,7 +193,6 @@ final class FomoPress {
 		 */
 		$fomopress_extension_factory->load();
 	}
-
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
@@ -199,7 +206,6 @@ final class FomoPress {
 		$plugin_i18n = new FomoPress_i18n();
 		add_action( 'plugins_loaded', array( $plugin_i18n, 'load_plugin_textdomain' ) );
 	}
-
 	/**
 	 * Register all of the hooks related to the admin area functionality
 	 * of the plugin.
@@ -228,9 +234,13 @@ final class FomoPress {
 		
 		add_action( 'save_post', array( $plugin_admin->metabox, 'save_metabox') );
 
+		/**
+		 * Initializing FomoPress_Settings
+		 */
+		FomoPress_Settings::init();
+
 		do_action( 'fomopress_admin_action' );
 	}
-
 	/**
 	 * Register all of the hooks related to the public-facing functionality
 	 * of the plugin.
@@ -251,7 +261,6 @@ final class FomoPress {
 		add_action( 'wp_ajax_fomopress_get_conversions', array( $plugin_public, 'fomopress_get_conversions') );
 		add_action( 'wp_ajax_no_priv_fomopress_get_conversions', array( $plugin_public, 'fomopress_get_conversions') );
 	}
-
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.
 	 *
@@ -260,7 +269,6 @@ final class FomoPress {
 	public function run() {
 		return $this;
 	}
-
 	/**
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
@@ -271,17 +279,16 @@ final class FomoPress {
 	public function get_plugin_name() {
 		return $this->plugin_name;
 	}
-
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
 	 * @return    FomoPress_Loader    Orchestrates the hooks of the plugin.
+	 * TODO: remove this or do others 
 	 */
 	public function get_loader() {
 		return $this->loader;
 	}
-
 	/**
 	 * Retrieve the version number of the plugin.
 	 *

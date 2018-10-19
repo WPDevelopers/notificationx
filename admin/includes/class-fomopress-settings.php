@@ -1,18 +1,31 @@
 <?php 
-
+/**
+ * This class is responsible for all settings things happening in FomoPress Plugin
+ */
 class FomoPress_Settings {
     public static function init(){
         add_action( 'fomopress_before_settings_form', array( __CLASS__, 'notice_template' ), 9 );
         add_action( 'fomopress_settings_header', array( __CLASS__, 'header_template' ), 10 );
     }
-
-    public function notice_template(){
+    /**
+     * This function is responsible for settings page notice
+     * before the settings form start
+     *
+     * @hooked fomopress_before_settings_form
+     * @return void
+     */
+    public static function notice_template(){
         ?>
             <div class="fomopress-settings-notice"></div>
         <?php
     }
-
-    public function header_template(){
+    /**
+     * This function is responsible for settings page header
+     *
+     * @hooked fomopress_settings_header
+     * @return void
+     */
+    public static function header_template(){
         ?>
             <div class="fomopress-settings-header">
                 <div class="fps-header-left">
@@ -28,8 +41,7 @@ class FomoPress_Settings {
             </div>
         <?php
     }
-
-/**
+    /**
 	 * Get all settings fields
 	 *
 	 * @param array $settings
@@ -75,8 +87,15 @@ class FomoPress_Settings {
 
 		include_once FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-settings-display.php';
 	}
-    
-    public static function render_field( $key = '', $field = [], $value = '' ) {
+    /**
+     * This function is responsible for render settings field
+     *
+     * @param string $key
+     * @param array $field
+     * @return void
+     */
+    public static function render_field( $key = '', $field = [] ) {
+        $post_id   = '';
         $name      = $key;
         $id        = $key;
         $file_name = isset( $field['type'] ) ? $field['type'] : 'text';
@@ -109,9 +128,18 @@ class FomoPress_Settings {
 
         include FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-field-display.php';
     }
-
+    /**
+     * This function is responsible for 
+     * save all settings data, including checking the disable field to prevent
+     * users manipulation.
+     *
+     * @param array $values
+     * @return void
+     */
     public static function save_settings( $values = [] ){
-		// Verify the nonce.
+		/**
+         * Verify the Nonce
+         */
         if ( ! isset( $values['fomopress_settings_nonce'] ) || ! wp_verify_nonce( $values['fomopress_settings_nonce'], 'fomopress_settings' ) ) {
             return;
 		}
@@ -142,4 +170,3 @@ class FomoPress_Settings {
 		FomoPress_DB::update_settings( $data );
 	}
 }
-FomoPress_Settings::init();
