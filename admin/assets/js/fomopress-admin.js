@@ -47,7 +47,7 @@
 			$('body').delegate( '.fomopress-meta-field', 'change', function() {
 				FomoPressAdmin.fieldChange( this );
             } );
-			$('body').delegate( '.fomopress-meta-next', 'click', function(e) {
+			$('body').delegate( '.fomopress-meta-next, .fomopress-quick-builder-btn', 'click', function(e) {
 				e.preventDefault();
 				FomoPressAdmin.tabChanger( this );
             } );
@@ -77,16 +77,19 @@
 			} );
 		},
 
-		tabChanger : function( nextBTN ){
-			var button = $( nextBTN ),
-				totalTab = button.parents('.fomopress-meta-tab-contents').data('totaltab'),
+		tabChanger : function( button ){
+			var button = $( button ),
+				totalTab = button.parents('.fomopress-tab-content-wrapper').data('totaltab'),
 				tabID = button.data('tabid'),
 				tab = $( '#fomopress-' + button.data('tab') );
+
 			if( totalTab + 1 == tabID ){
 				$('#publish').trigger('click');
 				return;
 			}
+
 			$('.fomopress-meta-tab-menu li[data-tabid="'+ tabID +'"]').trigger('click');
+			$('.fomopress-builder-menu li[data-tabid="'+ tabID +'"]').trigger('click');
 		},
 
 		selectImage : function( image ){
@@ -96,10 +99,9 @@
 				wrapper = $( imgParent.parents('.fomopress-theme-field-wrapper') ),
 				inputID = wrapper.data('name');
 
-				
 			imgParent.addClass('fomopress-theme-selected').siblings().removeClass('fomopress-theme-selected');
-			$('.fomopress-single-theme-wrapper.fomopress-meta-field').trigger('change');
 			$('#' + inputID).val( value );
+			imgParent.trigger('change');
 		},
 
 		notificationStatus : function(){
@@ -157,10 +159,9 @@
 			}
 
 			if ( field.hasClass('fomopress-theme-selected') ) {
-				val = field.find('img').data('theme');
-				console.log( val );
+				id = field.parents('.fomopress-theme-field-wrapper').data('name');
+				val = $( '#' + id ).val();
 			}
-
 
 			// TOGGLE sections or fields.
 			if ( typeof toggle !== 'undefined' ) {
@@ -172,7 +173,7 @@
 					FomoPressAdmin.fieldToggle(toggle[i].fields, 'hide', '#fomopress-', '', id);
 					FomoPressAdmin.fieldToggle(toggle[i].sections, 'hide', '#fomopress-meta-section-', '', id);
 				}
-				
+
 				if(typeof toggle[val] !== 'undefined') {
 					FomoPressAdmin.fieldToggle(toggle[val].fields, 'show', '#fomopress-', '', id);
 					FomoPressAdmin.fieldToggle(toggle[val].sections, 'show', '#fomopress-meta-section-', '', id);
@@ -200,6 +201,7 @@
 			suffix = 'undefined' == typeof suffix ? '' : suffix;
     		if(typeof array !== 'undefined') {
     			for( ; i < array.length; i++) {
+					// console.log( prefix + array[i] + suffix );
     				$(prefix + array[i] + suffix)[func]();
     			}
     		}

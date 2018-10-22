@@ -42,11 +42,12 @@
     <?php endif; ?>
     </div>
 
-    <div class="fomopress-builder-content-wrapper">
+    <div class="fomopress-builder-content-wrapper fomopress-tab-content-wrapper" data-totaltab="<?php echo $totaltabs; ?>">
         <form method="post" id="fomopress-settings-form" action="<?php echo self::get_form_action( '', true ); ?>">
-            <input id="fomopress_current_tab" type="hidden" name="fomopress_current_tab" value="<?php echo $current_tab; ?>">
+            <input type="hidden" name="fomopress_current_tab" value="source_tab">
             <?php 
                 wp_nonce_field( $builder_args['id'], $builder_args['id'] . '_nonce' );
+                $tabid = 1;
                 foreach( $tabs as $id => $tab  ){
                     $active = $current_tab === $id ? ' active ' : '';
                     $sections = FomoPress_Helper::sorter( $tab['sections'], 'priority', 'ASC' );
@@ -73,16 +74,21 @@
                             endif;
                         }
                     ?>
+                    <input id="publish" style="display:none" class="quick-builder-submit-btn" name="fomopress_builder_add_submit" type="submit" value="Create Notification">
+                    <button data-tab="<?php echo $id; ?>" data-tabid="<?php echo ($tabid - 1); ?>" class="quick-builder-submit-btn fomopress-quick-builder-btn btn-prev"><?php _e( 'Previous', 'fomopress' ); ?></button>
+                    <button data-tab="<?php echo $id; ?>" data-tabid="<?php echo ++$tabid; ?>" class="quick-builder-submit-btn fomopress-quick-builder-btn btn-next">
+                        <?php
+                            if( $totaltabs < $tabid ) {
+                                _e( 'Launch', 'fomopress' );
+                            } else {
+                                _e( 'Next', 'fomopress' );
+                            }
+                        ?>
+                    </button>
                     </div>
                     <?php
                 }
             ?>
-            <?php if( $idd ) :?>
-                <input name="fomopress_edit_notification_id" type="hidden" value="<?php echo $idd; ?>">
-                <input class="quick-builder-submit-btn" name="fomopress_builder_edit_submit" type="submit" value="Edit">
-            <?php else : ?>
-                <input class="quick-builder-submit-btn" name="fomopress_builder_add_submit" type="submit" value="Create Notification">
-            <?php endif; ?>
         </form>
     </div>
 

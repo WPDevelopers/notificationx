@@ -49,7 +49,7 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
         </ul>
     </div>
 
-    <div class="fomopress-meta-tab-contents" data-totaltab="<?php echo $totaltabs; ?>">
+    <div class="fomopress-meta-tab-contents fomopress-tab-content-wrapper" data-totaltab="<?php echo $totaltabs; ?>">
         <input id="fomopress_current_tab" type="hidden" name="fomopress_current_tab" value="<?php echo $current_tab; ?>">
         <?php 
             $tabid = 1;

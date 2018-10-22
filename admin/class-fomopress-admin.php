@@ -301,8 +301,11 @@ class FomoPress_Admin {
 		$prefix       = self::$prefix;
 		$metabox_id   = $builder_args['id'];
 		$flag         = true;
-		
-		if( isset( $_POST[ 'fomopress_builder_add_submit' ] ) && $_POST[ 'fomopress_builder_add_submit' ] === 'Add' ) :
+		/**
+		 * Add Submit
+		 */
+		if( isset( $_POST[ 'fomopress_builder_add_submit' ] ) ) :
+			
 			if ( ! isset( $_POST[$metabox_id . '_nonce'] ) || ! wp_verify_nonce( $_POST[$metabox_id . '_nonce'], $metabox_id ) ) {
 				$flag = false;
 			}
@@ -326,35 +329,7 @@ class FomoPress_Admin {
 				$p_id = wp_insert_post($postdata);
 	
 				if( $p_id || ! is_wp_error( $p_id ) ) {
-
 					FomoPress_MetaBox::save_data( $this->builder_data( $_POST ), $p_id );
-				}
-			}
-		endif;
-
-		if( isset( $_POST[ 'fomopress_builder_edit_submit' ] ) && $_POST[ 'fomopress_builder_add_submit' ] === 'Edit' ) : 
-			if( $_POST['fomopress_display_type'] == 'press_bar' )  {
-				$title = __('Press Bar', 'fomopress');
-			} elseif( $_POST['fomopress_display_type'] == 'comments' )  {
-				$title = __('WP Comments', 'fomopress');
-			} elseif( $_POST['fomopress_display_type'] == 'conversions' )  {
-				$title = __('Conversion - ' . ucfirst( $_POST['fomopress_conversion_from'] ), 'fomopress');
-			}
-			$iddd = intval( $_POST['fomopress_edit_notification_id'] );
-			if( $iddd ) {
-				$_POST['post_type'] = 'fomopress';
-				$postdata = array(
-					'ID'   => $iddd,
-					'post_type'   => 'fomopress',
-					'post_title'  => $title . ' - ' . date( get_option( 'date_format' ), current_time( 'timestamp' ) ),
-					'post_status' => 'publish',
-					'post_author' => get_current_user_id()
-				);
-	
-				$p_idd = wp_insert_post( $postdata );
-	
-				if( $p_idd || ! is_wp_error( $p_idd ) ) {
-					FomoPress_MetaBox::save_data( $this->builder_data( $_POST ), $p_idd );
 				}
 			}
 		endif;
