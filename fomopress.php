@@ -29,6 +29,7 @@ define( 'FOMOPRESS_URL', plugins_url( '/', __FILE__ ) );
 define( 'FOMOPRESS_ADMIN_URL', FOMOPRESS_URL . 'admin/' );
 define( 'FOMOPRESS_PUBLIC_URL', FOMOPRESS_URL . 'public/' );
 
+define( 'FOMOPRESS_FILE', __FILE__ );
 define( 'FOMOPRESS_ROOT_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FOMOPRESS_ADMIN_DIR_PATH', FOMOPRESS_ROOT_DIR_PATH . 'admin/' );
 define( 'FOMOPRESS_PUBLIC_PATH', FOMOPRESS_ROOT_DIR_PATH . 'public/' );
@@ -70,9 +71,6 @@ require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress.php';
  *
  * @since    1.0.0
  */
-
-$main = array();
-$main_reg = array();
 
 function run_fomopress() {
 	$plugin = new FomoPress();

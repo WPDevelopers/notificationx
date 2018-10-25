@@ -71,6 +71,7 @@ final class FomoPress {
 
 		$this->load_dependencies();
 		$this->set_locale();
+		$this->fomopress_start_plugin_tracking();
 		add_action( 'plugins_loaded', array( $this, 'load_extensions' ) );
 		add_action( 'plugins_loaded', array( $this, 'define_admin_hooks' ) );
 		add_action( 'plugins_loaded', array( $this, 'define_public_hooks' ) );
@@ -131,6 +132,7 @@ final class FomoPress {
 		 * of the plugin.
 		 */
 		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-i18n.php';
+		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-plugin-usage-tracker.php';
 		
 		require_once FOMOPRESS_ROOT_DIR_PATH . 'public/includes/class-fomopress-template.php';
 		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-locations.php';
@@ -162,6 +164,23 @@ final class FomoPress {
 		 */
 		// $this->loader = new FomoPress_Loader();
 	}
+
+	/**
+	 * Optional usage tracker
+	 *
+	 * @since v1.0.0
+ 	*/
+	public function fomopress_start_plugin_tracking() {
+		$wisdom = new FomoPress_Plugin_Usage_Tracker(
+			FOMOPRESS_FILE,
+			'https://wpdeveloper.net',
+			array(),
+			true,
+			true,
+			1
+		);
+	}
+
 	/**
 	 * This function is responsible for load all extensions
 	 *
