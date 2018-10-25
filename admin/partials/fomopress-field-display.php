@@ -1,3 +1,9 @@
+<?php 
+$opt_alert_class = '';
+if( isset( $field['disable'] ) && $field['disable'] === true ) {
+    $opt_alert_class = 'fomopress-opt-alert';
+}
+?>
 <tr id="<?php echo esc_attr( $id ); ?>" class="fomopress-field <?php echo $row_class; ?>">
     <?php if( empty( $field['label'] ) ) : ?>
         <td class="fomopress-control" colspan="2">
@@ -10,10 +16,15 @@
         endif; 
         do_action( 'fomopress_field_before_wrapper', $name, $value, $field, $post_id );
     ?>
-        <div class="fomopress-control-wrapper">
+        <div class="fomopress-control-wrapper <?php echo $opt_alert_class; ?>">
         <?php 
-            include FOMOPRESS_ADMIN_DIR_PATH . 'includes/fields/fomopress-'. $file_name .'.php';
-            
+            if( $file_name ) {
+                include FOMOPRESS_ADMIN_DIR_PATH . 'includes/fields/fomopress-'. $file_name .'.php';
+            } else {
+                if( $field['view'] ) {
+                    call_user_func( $field['view'] );
+                }
+            }
             if( isset( $field['description'] ) && ! empty( $field['description'] ) ) : 
                 ?>
                     <span class="fomopress-field-description"><?php _e( $field['description'], 'fomopress' ); ?></span>

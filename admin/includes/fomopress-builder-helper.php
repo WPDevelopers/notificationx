@@ -66,16 +66,10 @@ return array(
                             'type'      => 'theme',
                             'priority'	=> 5,
                             'default'	=> 'theme-one',
-                            'toggle'	=> [
-                                'customize' => [
-                                    'sections' => [  ]
-                                ]
-                            ],
                             'options'   => apply_filters('fomopress_colored_themes', array(
                                 'theme-one' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
                                 'theme-two' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
                                 'theme-three' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
-                                'customize' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/customize.png',
                             )),
                         ),
                     )
@@ -86,6 +80,30 @@ return array(
             'title'         => __('Display', 'fomopress'),
             'icon'          => 'screen.svg',
             'sections'      => apply_filters('fomopress_display_tab_sections', array(
+                'appearance'        => array(
+                    'title'    => __('Appearance', 'fomopress'),
+                    'priority' => 10,
+                    'fields'   => array(
+                        'pressbar_position'  => array(
+                            'type'      => 'select',
+                            'label'     => __('Position' , 'fomopress'),
+                            'priority'	=> 40,
+                            'options'   => [
+                                'top'       => __('Top' , 'fomopress'),
+                                'bottom'    => __('Bottom' , 'fomopress'),
+                            ],
+                        ),
+                        'conversion_position'  => array(
+                            'type'      => 'select',
+                            'label'     => __('Position' , 'fomopress'),
+                            'priority'	=> 50,
+                            'options'   => [
+                                'bottom_left'       => __('Bottom Left' , 'fomopress'),
+                                'bottom_right'      => __('Bottom Right' , 'fomopress'),
+                            ],
+                        ),
+                    ),
+                ),
                 'visibility'        => array(
                     'title'    => __('Visibility', 'fomopress'),
                     'priority' => 1000,
@@ -133,66 +151,14 @@ return array(
                 ),
             ))
         ),
-        'customize_tab' => array(
-            'title'         => __('Customize', 'fomopress'),
+        'finalize_tab' => array(
+            'title'         => __('Finalize', 'fomopress'),
             'icon'          => 'cog.svg',
             'sections'      => apply_filters('fomopress_customize_tab_sections', array(
-                'appearance'        => array(
+                'appearance_2'        => array(
                     'title'    => __('Appearance', 'fomopress'),
-                    'priority' => 100,
-                    'fields'   => array(
-                        'pressbar_position'  => array(
-                            'type'      => 'select',
-                            'label'     => __('Position' , 'fomopress'),
-                            'priority'	=> 40,
-                            'options'   => [
-                                'top'       => __('Top' , 'fomopress'),
-                                'bottom'      => __('Bottom' , 'fomopress'),
-                            ],
-                        ),
-                        'conversion_position'  => array(
-                            'type'      => 'select',
-                            'label'     => __('Position' , 'fomopress'),
-                            'priority'	=> 50,
-                            'options'   => [
-                                'bottom_left'       => __('Bottom Left' , 'fomopress'),
-                                'bottom_right'      => __('Bottom Right' , 'fomopress'),
-                            ],
-                        ),
-                    ),
-                ),
-                'behaviour'        => array(
-                    'title'       => __('Behaviour', 'fomopress'),
-                    'priority'    => 300,
-                    'collapsable' => true,
-                    'fields'      => array(
-                        'display_last'  => array(
-                            'type'        => 'number',
-                            'label'       => __('Display the last' , 'fomopress'),
-                            'description' => 'conversions',
-                            'default'     => 30,
-                            'priority'    => 40,
-                        ),
-                        'display_from'  => array(
-                            'type'        => 'number',
-                            'label'       => __('Display From The Last' , 'fomopress'),
-                            'priority'    => 45,
-                            'default'     => 2,
-                            'description' => 'days',
-                        ),
-                        'loop'  => array(
-                            'type'        => 'checkbox',
-                            'label'       => __('Loop notification' , 'fomopress'),
-                            'priority'    => 50,
-                            'default'     => true,
-                        ),
-                        'link_open'  => array(
-                            'type'        => 'checkbox',
-                            'label'       => __('Open link in new tab' , 'fomopress'),
-                            'priority'    => 60,
-                            'default'     => false,
-                        ),
-                    ),
+                    'priority' => 10,
+                    'view' => 'FomoPress_Helper::my_view_func'
                 ),
             ))
         ),

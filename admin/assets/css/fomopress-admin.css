@@ -201,6 +201,10 @@ span.fomopress-preview-close {
     font-weight: 700;
 }
 
+h2.fomopress-metabox-section-title .fomopress-section-reset {
+    float: right;
+}
+
 .fomopress-info-message-wrapper {
     padding: 0;
 }
@@ -261,6 +265,42 @@ textarea.fomopress-meta-field {
 input.fomopress-template-field {
     margin: 0;
     border: 0px;
+}
+
+.fomopress-opt-alert {
+    position: relative;
+}
+.fomopress-opt-alert:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
+    z-index: 9999;
+}
+
+label.fomopress-adv-checkbox-label {
+    background: #48b148;
+    color: #fff;
+    padding: 17px;
+    display: inline-block;
+    border-radius: 3px;
+    letter-spacing: 1px;
+}
+
+.fomopress-adv-checkbox-wrap #fomopress_advance_edit {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+.fomopress-metabox-section table tr.fomopress-adv_checkbox td {
+    padding: 15px 0px;
+}
+
+.fomopress-adv-checkbox-wrap #fomopress_advance_edit:checked + label.fomopress-adv-checkbox-label {
+    background-color: #f55656;
 }
 
 /* Group Field */

@@ -3,13 +3,18 @@
  * This class will provide all kind of helper methods.
  */
 class FomoPress_Helper {
+    /**
+     * This function is responsible for the data sanitization
+     *
+     * @param array $field
+     * @param string|array $value
+     * @return string|array
+     */
     public static function sanitize_field( $field, $value ) {
         if ( isset( $field['sanitize'] ) && ! empty( $field['sanitize'] ) ) {
-
             if ( function_exists( $field['sanitize'] ) ) {
                 $value = call_user_func( $field['sanitize'], $value );
             }
-
             return $value;
         }
 
@@ -29,7 +34,13 @@ class FomoPress_Helper {
 
         return $value;
     }
-
+    /**
+     * This function is responsible for making an array sort by their key
+     * @param array $data
+     * @param string $using
+     * @param string $way
+     * @return array
+     */
     public static function sorter( $data, $using = 'time_date',  $way = 'DESC' ){
         if( ! is_array( $data ) ) {
             return $data;
@@ -173,7 +184,11 @@ class FomoPress_Helper {
         }
 		return apply_filters( 'fomopress_loop_taxonomies', $data, $taxonomies, $post_type );
     }
-    
+    /**
+     * This function is responsible for all conversion from data
+     * @param string $from
+     * @return array|string
+     */
     public static function conversion_from( $from = '' ) {
         $froms = [
             'woocommerce' => __('WooCommerce' , 'fomopress'),
@@ -185,7 +200,10 @@ class FomoPress_Helper {
         }
         return apply_filters( 'fomopress_conversions_from', $froms );
     }
-
+    /**
+     * This function is responsible for press_bar toggle data
+     * @return array
+     */
     public static function press_bar_toggle_data(){
         return apply_filters('fomopress_press_bar_toggle_data', array(
             'sections' => [
@@ -203,7 +221,10 @@ class FomoPress_Helper {
             ],
         ));
     }
-
+    /**
+     * This function is responsible for comments toggle data
+     * @return array
+     */
     public static function comments_toggle_data(){
         return apply_filters('fomopress_comments_toggle_data', array(
             'sections' => [
@@ -223,7 +244,10 @@ class FomoPress_Helper {
             ],
         ));
     }
-
+    /**
+     * This function is responsible for conversion toggle data
+     * @return array
+     */
     public static function conversions_toggle_data(){
         return apply_filters('fomopress_conversions_toggle_data', array(
             'sections' => [
@@ -241,37 +265,11 @@ class FomoPress_Helper {
                 'notification_preview'
             ],
         ));
-    }
+    }  
     /**
-     * This function is responsible for
-     * making sure that a key is not rendered in quick builder!
-     *
+     * This function is responsible for all Notification types
      * @param string $type
-     * @return void
-     */
-    public static function not_in_builder( $type = 'fields' ){
-        $not_in_builder = apply_filters('fomopress_not_in_builder', array(
-            'tabs' => [
-                'content_tab'
-            ],
-            'sections' => [
-                'timing',
-            ],
-            'fields' => [
-                'sticky_bar',
-                'close_button',
-                'hide_on_mobile',
-                'loop',
-            ],
-        ));
-    
-        return $not_in_builder[ $type ];
-    }    
-    /**
-     * All Notification Types
-     *
-     * @param string $type
-     * @return array
+     * @return array|string
      */
     public static function notification_types( $type = '' ) {
         $types = [
@@ -287,4 +285,10 @@ class FomoPress_Helper {
         }
         return $types;
     }
+
+
+    public static function my_view_func(){
+        echo '<div><h1>Hello, world!</h1></div>';
+    }
 }
+

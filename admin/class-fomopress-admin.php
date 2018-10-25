@@ -128,6 +128,11 @@ class FomoPress_Admin {
 		wp_enqueue_script( 'wp-color-picker' );
 		wp_enqueue_media();
 		wp_enqueue_script( 
+			$this->plugin_name . '-sweetalert', 
+			FOMOPRESS_ADMIN_URL . 'assets/js/sweetalert.min.js', 
+			array( 'jquery' ), $this->version, true 
+		);
+		wp_enqueue_script( 
 			$this->plugin_name, 
 			FOMOPRESS_ADMIN_URL . 'assets/js/fomopress-admin.js', 
 			array( 'jquery' ), $this->version, true 

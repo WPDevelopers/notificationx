@@ -53,6 +53,10 @@ class FomoPress_Extension {
          */
         self::$active_items = FomoPress_Admin::get_active_items();
     }
+
+    public function hide_option(){
+        add_filter( 'fomopress_display_type', array( $this, 'hide_options' ) );
+    }
     /**
      * this function is responsible for check a type of notification is created or not
      *
@@ -146,8 +150,10 @@ class FomoPress_Extension {
                 if( $settings->close_button ) :
                     $output .= '<span class="fomopress-notification-close">x</span>';
                 endif;
+                if( self::is_link_visible( $settings ) ) :
+                    $output .= '<a class="fomopress-notification-link" href="'. self::get_link( $data ) .'"></a>';
+                endif;
             $output .= '</div>';
-            $output .= '<!-- Link Code Will Be Here -->';
             if( is_null( self::$powered_by ) ) :
                 $output .= '<small class="fomopress-branding">';
                     $output .= '<svg width="7" height="13" viewBox="0 0 7 13" xmlns="http://www.w3.org/2000/svg" title="Powered by FomoPress"><g fill-rule="evenodd" fill="none"><path fill="#F6A623" d="M4.127.496C4.51-.12 5.37.356 5.16 1.07L3.89 5.14H6.22c.483 0 .757.616.464 1.044l-4.338 6.34c-.407.595-1.244.082-1.01-.618L2.72 7.656H.778c-.47 0-.748-.59-.48-1.02L4.13.495z"></path><path fill="#FEF79E" d="M4.606.867L.778 7.007h2.807l-1.7 5.126 4.337-6.34H3.16"></path></g></svg>';
@@ -168,7 +174,7 @@ class FomoPress_Extension {
 		if( empty( $settings ) ) return;
 		$classes = [];
 		
-		if( $settings->theme == 'customize' ) {
+		if( $settings->advance_edit ) {
 			$classes[ 'inner' ][] = 'fomopress-customize-style-' . $settings->id;
 		}
 		if( $settings->close_button ) {
@@ -181,7 +187,33 @@ class FomoPress_Extension {
 		$classes[ 'inner' ][] = 'fp-notification-' . esc_attr( $settings->theme );
 
 		return implode( ' ', $classes[ $type ] );
-	}
+    }
+    /**
+     * This function is responsible for checking, is the notification is visible or not.
+     *
+     * @return void
+     */
+    public static function is_link_visible( $settings = [] ){
+        if( empty( $settings ) ) return false;
+        $link = true;
+        $link = apply_filters( 'fomopress_notification_link_visible', $link );
+        return $link;
+    }
+    /**
+     * This function is responsible for make ready the link for notifications.
+     *
+     * @param array $data
+     * @return void
+     */
+    public static function get_link( $data = [], $settings = [] ){
+        if( empty( $data ) ) {
+            return false;
+        }
+
+        $link = apply_filters( 'fomopress_notification_link', $data['link'], $settings );
+
+        return $link;
+    }
     /**
      * This function is responsible for getting the image url 
      * using Product ID or from default image settings.

@@ -23,7 +23,6 @@ class FomoPress_EDD_Extension extends FomoPress_Extension {
     public function __construct() {
         parent::__construct();
         $this->notifications = $this->get_notifications( $this->type );
-
     }
     /**
      * This functions is hooked
@@ -50,13 +49,22 @@ class FomoPress_EDD_Extension extends FomoPress_Extension {
         }
         add_action( 'edd_complete_purchase', array( $this, 'update_notifications' ) );
     }
+    
+    /**
+     * Hide fields when type is change.
+     */
+    public function hide_options( $options ){
+
+        $options['hide']['comments']['fields'][] = 'has_no_edd';
+        $options['hide']['comments']['fields'][] = 'edd_template';
+        $options['hide']['comments']['fields'][] = 'show_product_image';
+        $options['hide']['press_bar']['fields'][] = 'has_no_edd';
+        $options['hide']['press_bar']['fields'][] = 'edd_template';
+
+        return $options;
+    }
 
     public function source_tab_section( $options ){
-        $options['config']['fields']['display_type']['hide']['comments']['fields'][] = 'edd_template';
-        $options['config']['fields']['display_type']['hide']['comments']['fields'][] = 'show_product_image';
-        
-        $options['config']['fields']['display_type']['hide']['press_bar']['fields'][] = 'edd_template';
-
         if( ! class_exists( 'Easy_Digital_Downloads' ) ) {
             $options['config']['fields']['has_no_edd'] = array(
                 'type'     => 'message',
@@ -64,10 +72,8 @@ class FomoPress_EDD_Extension extends FomoPress_Extension {
                 'priority' => 0,
             );
         }
-
         return $options;
     }
-
     /**
      * Some extra field on the fly.
      * 
@@ -89,37 +95,19 @@ class FomoPress_EDD_Extension extends FomoPress_Extension {
         return $options;
     }
     /**
-     * This function is responsible for the some fields of 
-     * wp comments notification in display tab
-     *
-     * @param array $options
-     * @return void
-     */
-    public function display_tab_section( $options ){
-        // $options['image']['fields']['edd_show_product_image'] = array(
-        //     'label'       => __( 'Show Product Image', 'fomopress' ),
-        //     'priority'    => 25,
-        //     'type'        => 'checkbox',
-        //     'default'     => true,
-        //     'description' => __( 'Show the product image in notification', 'fomopress' ),
-        // );
-
-        return $options;
-    }
-    /**
      * Some toggleData & hideData manipulation.
      *
      * @param array $options
      * @return void
      */
     public function conversion_from( $options ){
+        $options['toggle']['edd']['fields']   = [ 'edd_template', 'show_product_image' ];
+        $options['toggle']['edd']['sections'] = [ 'image' ];
+        $options['hide']['edd']['fields']     = [ 'show_custom_image' ];
+        
         if( ! class_exists( 'Easy_Digital_Downloads' ) ) {
-            $options['toggle']['edd']['fields'] = [ 'has_no_edd' ];
-            $options['hide']['custom']['fields'] = [ 'edd_template' ];
-        } else {
-            $options['toggle']['edd']['fields'] = [ 'edd_template', 'show_product_image' ];
-            $options['toggle']['edd']['sections'] = [ 'image' ];
-            $options['hide']['edd']['fields'] = [ 'show_custom_image' ];
+            $options['toggle']['edd']['fields'][]  = 'has_no_edd';
+            // $options['hide']['custom']['fields'][] = 'edd_template';
         }
 
         return $options;

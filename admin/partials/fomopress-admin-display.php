@@ -60,22 +60,29 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
                 <div id="fomopress-<?php echo $id ?>" class="fomopress-meta-tab-content <?php echo $active; ?>">
                 <?php 
                     foreach( $sections as $sec_id => $section ) {
-                        $fields = FomoPress_Helper::sorter( $section['fields'], 'priority', 'ASC' );
-                        if( ! empty( $fields ) )  :
-                    ?>
-                        <div id="fomopress-meta-section-<?php echo $sec_id; ?>" class="fomopress-metabox-section">
-                            <h2 class="fomopress-metabox-section-title">
-                                <?php echo $section['title']; ?>    
-                            </h2>
-                            <table>
-                                <?php 
-                                    foreach( $fields as $key => $field ) {
-                                        FomoPress_MetaBox::render_meta_field( $key, $field );
-                                    }
-                                ?>
-                            </table>
-                        </div>
-                    <?php
+                        if( isset( $section['fields'] ) ) :
+                            $fields = FomoPress_Helper::sorter( $section['fields'], 'priority', 'ASC' );
+                            if( ! empty( $fields ) )  :
+                        ?>
+                            <div id="fomopress-meta-section-<?php echo $sec_id; ?>" class="fomopress-metabox-section">
+                                <h2 class="fomopress-metabox-section-title">
+                                    <?php 
+                                        echo $section['title']; 
+                                        if( isset( $section['reset'] ) && $section['reset'] ) {
+                                            echo '<div class="fomopress-section-reset"><button>R</button></div>';
+                                        }
+                                    ?>
+                                </h2>
+                                <table>
+                                    <?php 
+                                        foreach( $fields as $key => $field ) {
+                                            FomoPress_MetaBox::render_meta_field( $key, $field );
+                                        }
+                                    ?>
+                                </table>
+                            </div>
+                        <?php
+                            endif;
                         endif;
                     }
                 ?>

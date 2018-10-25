@@ -6,6 +6,7 @@
         foreach( $field['options'] as $opt_id => $option ) {
             $selected = ( $value == $opt_id ) ? 'selected="true"' : '';
             echo '<option value="'. $opt_id .'" '. $selected .'>'. $option .'</option>';
+
         }
     ?>
 </select>

@@ -167,35 +167,40 @@ return array(
                             'type'      => 'theme',
                             'priority'	=> 5,
                             'default'	=> 'theme-one',
-                            'toggle'	=> [
-                                'customize' => [
-                                    'sections' => ['design', 'image_design', 'typography']
-                                ]
-                            ],
                             'options'   => apply_filters('fomopress_colored_themes', array(
                                 'theme-one' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
-                                'theme-two' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
-                                'theme-three' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
-                                'customize' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/customize.png',
+                                'theme_two' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
+                                'theme-three' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png'
                             )),
+                        ),
+                        'advance_edit' => array(
+                            'type'      => 'adv_checkbox',
+                            'priority'	=> 10,
+                            'default'	=> 0,
+                            'toggle' => [
+                                1 => [
+                                    'sections' => ['design', 'image_design', 'typography']
+                                ]
+                            ]
                         ),
                     )
                 ),
                 'design' => array(
-                    'title'      => __('Design', 'fomopress'),
+                    'title'    => __('Design', 'fomopress'),
                     'priority' => 10,
+                    'reset'    => true,
                     'fields'   => array(
                         'bg_color' => array(
                             'type'      => 'colorpicker',
                             'label'     => __('Background Color' , 'fomopress'),
                             'priority'	=> 5,
-                            'default'	=> '#fff'
+                            'default'	=> ''
                         ),
                         'text_color' => array(
                             'type'      => 'colorpicker',
                             'label'     => __('Text Color' , 'fomopress'),
                             'priority'	=> 10,
-                            'default'	=> '#000'
+                            'default'	=> ''
                         ),
                         'border' => array(
                             'type'      => 'checkbox',
@@ -230,13 +235,14 @@ return array(
                             'type'      => 'colorpicker',
                             'label'     => __('Border Color' , 'fomopress'),
                             'priority'	=> 30,
-                            'default'	=> '#000'
+                            'default'	=> ''
                         ),
                     )
                 ),
                 'image_design' => array(
                     'title'      => __('Image Appearance', 'fomopress'),
                     'priority' => 15,
+                    'reset'    => true,
                     'fields'   => array(
                         'image_shape' => array(
                             'type'      => 'select',
@@ -264,6 +270,7 @@ return array(
                 'typography' => array(
                     'title'      => __('Typography', 'fomopress'),
                     'priority' => 20,
+                    'reset'    => true,
                     'fields'   => array(
                         'first_font_size' => array(
                             'type'      => 'number',

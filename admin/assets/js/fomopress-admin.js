@@ -44,7 +44,14 @@
 		},
 
 		bindEvents: function(){
-			$('body').delegate( '.fomopress-meta-field', 'change', function() {
+			$('body').delegate( '.fomopress-opt-alert', 'click', function( e ) {
+				FomoPressAdmin.fieldAlert( this );
+            } );
+			$('body').delegate( '.fomopress-section-reset', 'click', function( e ) {
+				e.preventDefault();
+				FomoPressAdmin.resetSection( this );
+            } );
+			$('body').delegate( '.fomopress-meta-field', 'change', function( ) {
 				FomoPressAdmin.fieldChange( this );
             } );
 			$('body').delegate( '.fomopress-meta-next, .fomopress-quick-builder-btn', 'click', function(e) {
@@ -146,6 +153,35 @@
 			});
 		},
 
+		fieldAlert: function( element ){
+			var element = $( element );
+			swal({
+				title     : "Hi, there.",
+				text      : "You have to upgrade in PRO",
+				icon      : "warning",
+				buttons   : [false, "Close"],
+				dangerMode: true,
+			});
+		},
+
+		resetSection: function( button ){
+			var button = $( button ),
+				parent = button.parents('.fomopress-metabox-section'),
+				fields = parent.find('.fomopress-meta-field');
+			
+			window.fieldsss = fields;
+			fields.map(function(iterator, item){ 
+				var item = $( item ),
+					default_value = item.data( 'default' );
+
+				item.val( default_value );
+
+				if( item.hasClass('wp-color-picker') ) {
+					item.parents('.wp-picker-container').find('.wp-color-result').removeAttr('style')
+				}
+			});
+		},
+
 		fieldChange: function( input ){
 			var field   = $(input),
                 id  = field.attr('id'),
@@ -197,11 +233,10 @@
 
 		fieldToggle: function( array, func, prefix, suffix, id = '' ){
 			var i = 0;
-
+			
 			suffix = 'undefined' == typeof suffix ? '' : suffix;
     		if(typeof array !== 'undefined') {
     			for( ; i < array.length; i++) {
-					// console.log( prefix + array[i] + suffix );
     				$(prefix + array[i] + suffix)[func]();
     			}
     		}

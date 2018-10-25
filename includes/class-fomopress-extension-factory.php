@@ -71,7 +71,6 @@ class Extension_Factory {
                 if( method_exists( $object, 'conversion_from' ) ) {
                     add_filter( 'fomopress_conversion_from_field', array( $object, 'conversion_from' ) );
                 }
-
                 /**
                  * All tab filters
                  */
@@ -87,11 +86,13 @@ class Extension_Factory {
                 if( method_exists( $object, 'customize_tab_section' ) ) {
                     add_filter( 'fomopress_customize_tab_sections', array( $object, 'customize_tab_section' ) );
                 }
-                
+
+                if( method_exists( $object, 'hide_options' ) ) {
+                    add_action( 'fomopress_before_metabox_load', array( $object, 'hide_option' ) );
+                }
             }
         }
     }
-
     /**
      * This function is responsible for getting the extension from loaded extension.
      *

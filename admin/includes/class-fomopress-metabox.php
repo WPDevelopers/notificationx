@@ -39,7 +39,7 @@ class FomoPress_MetaBox {
      */
     public static function get_args() {
         $metabox_args = require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-metabox-helper.php';
-        $metabox_args = apply_filters( 'fomopress_before_metabox_load', $metabox_args );
+        do_action( 'fomopress_before_metabox_load' );
         return $metabox_args;
     }
     
@@ -51,12 +51,13 @@ class FomoPress_MetaBox {
 
     public static function render_meta_field( $key = '', $field = [], $value = '', $idd = null ) {
         $post_id   = self::$post_id;
+        $attrs = '';
         if( ! is_null( $idd ) ){
             $post_id   = $idd;
         }
         $name      = self::$prefix . $key;
         $id        = self::get_row_id( $key );
-        $file_name = isset( $field['type'] ) ? $field['type'] : 'text';
+        $file_name = isset( $field['type'] ) ? $field['type'] : '';
         
         if( 'template' === $file_name ) {
             $default = isset( $field['defaults'] ) ? $field['defaults'] : [];
@@ -74,12 +75,16 @@ class FomoPress_MetaBox {
             $value = $value;
         }
 
+        $default_attr = is_array( $default ) ? json_encode( $default ) : $default;
+
+        if( ! empty( $default_attr ) ) {
+            $attrs .= ' data-default="' . esc_attr( $default_attr ) . '"';
+        }
+
         $class  = 'fomopress-meta-field';
         $row_class = self::get_row_class( $file_name );
 
-        $attrs = '';
-
-        if( isset( $field['toggle'] ) && in_array( $file_name, array( 'checkbox', 'select', 'toggle', 'theme' ) ) ) {
+        if( isset( $field['toggle'] ) && in_array( $file_name, array( 'checkbox', 'select', 'toggle', 'theme', 'adv_checkbox' ) ) ) {
             $attrs .= ' data-toggle="' . esc_attr( json_encode( $field['toggle'] ) ) . '"';
         }
 
@@ -184,17 +189,20 @@ class FomoPress_MetaBox {
                 return $post_id;
             }
         }
-        
+        /**
+         * Save all meta!
+         */        
         self::save_data( $_POST, $post_id);  
     }
 
     public static function save_data( $posts, $post_id ){
-        $prefix         = self::$prefix;
+        $prefix       = self::$prefix;
+        $fields       = self::get_metabox_fields();
+        $old_settings = self::get_metabox_settings( $post_id );
+        $data         = [];
+        $new_settings = new stdClass();
 
-        $fields = self::get_metabox_fields();
-        $data = [];
         foreach ( $fields as $name => $field ) {
-
             $field_id = $prefix . $name;
             $value = '';
 
@@ -207,7 +215,7 @@ class FomoPress_MetaBox {
             }
 
             update_post_meta( $post_id, "_{$field_id}", $value );
-            $data[ "_{$field_id}" ] = $value;
+            $data[ "_{$field_id}" ] = $new_settings->{ $name } = $value;
         }
         update_post_meta( $post_id, '_fomopress_active_check', true );
 
@@ -219,13 +227,42 @@ class FomoPress_MetaBox {
             $type = $posts['fomopress_conversion_from'];
         }
         
-        if( $type != $d_type ) {
+        if( self::check_any_changes( $old_settings, $new_settings ) ) {
             do_action( 'fomopress_get_conversions_ready', $type, $data );
         }
-        
+
         update_post_meta( $post_id, '_fomopress_current_data_ready_for', $type );
         update_post_meta( $post_id, '_fomopress_current_tab', $posts['fomopress_current_tab'] );
 
+    }
+    /**
+     * This function is responsible for checking all the old_settings with new_settings for changes
+     *
+     * @param stdClass $old_settings
+     * @param stdClass $new_settings
+     * @return boolean
+     */
+    protected static function check_any_changes( stdClass $old_settings, stdClass $new_settings ){
+        if( empty( $new_settings ) || empty( $old_settings ) ) return;
+
+        $opt_in = apply_filters('fomopress_update_notification_for_changes', array(
+            'display_for',
+            'display_type',
+            'conversion_from'
+        ));
+
+        foreach( $old_settings as $key => $value ) {
+            if( in_array( $key, $opt_in ) ) {
+                if( $new_settings->{$key} == $value ) {
+                    $status = false;
+                } else {
+                    $status = true;
+                    break;
+                }
+            }
+        }
+
+        return $status;
     }
 
     /**

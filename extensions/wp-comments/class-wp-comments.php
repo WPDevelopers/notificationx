@@ -19,6 +19,9 @@ class FomoPress_WP_Comments_Extension extends FomoPress_Extension {
      * @return void
      */
     public function public_actions(){
+        if( ! $this->is_created( $this->type ) ) {
+            return;
+        }
         add_action( 'comment_post', array( $this, 'post_comment' ), 10, 2 );
         add_action( 'trash_comment', array( $this, 'delete_comment' ), 10, 2 );
         add_action( 'delete_comment', array( $this, 'delete_comment' ), 10, 2 );
@@ -74,7 +77,6 @@ class FomoPress_WP_Comments_Extension extends FomoPress_Extension {
      * @return void
      */
     public function get_notification_ready( $type, $data = array() ){
-        
         if( $this->type === $type ) {
             if( ! is_null( $comments = $this->get_comments( $data ) ) ) {
                 $this->save( $this->type, $comments );

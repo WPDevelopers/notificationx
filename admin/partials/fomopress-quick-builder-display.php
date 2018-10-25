@@ -55,22 +55,27 @@
                     <div id="fomopress-<?php echo $id ?>" class="fomopress-builder-content <?php echo $active; ?>">
                     <?php 
                         foreach( $sections as $sec_id => $section ) {
-                            $fields = FomoPress_Helper::sorter( $section['fields'], 'priority', 'ASC' );
-                            if( ! empty( $fields ) )  :
-                        ?>
-                            <div id="fomopress-meta-section-<?php echo $sec_id; ?>" class="fomopress-metabox-section">
-                                <h2 class="fomopress-metabox-section-title">
-                                    <?php echo $section['title']; ?>    
-                                </h2>
-                                <table>
-                                    <?php 
-                                        foreach( $fields as $key => $field ) {
-                                            FomoPress_MetaBox::render_meta_field( $key, $field, '', $idd );
-                                        }
-                                    ?>
-                                </table>
-                            </div>
-                        <?php
+                            if( isset( $section['fields'] ) ) : 
+                                $fields = FomoPress_Helper::sorter( $section['fields'], 'priority', 'ASC' );
+                                if( ! empty( $fields ) )  :
+                            ?>
+                                <div id="fomopress-meta-section-<?php echo $sec_id; ?>" class="fomopress-metabox-section">
+                                    <h2 class="fomopress-metabox-section-title">
+                                        <?php echo $section['title']; ?>    
+                                    </h2>
+                                    <table>
+                                        <?php 
+                                            foreach( $fields as $key => $field ) {
+                                                FomoPress_MetaBox::render_meta_field( $key, $field, '', $idd );
+                                            }
+                                        ?>
+                                    </table>
+                                </div>
+                            <?php
+                                endif;
+                            endif;
+                            if( isset( $section['view'] ) ) : 
+                                call_user_func( $section['view'] );
                             endif;
                         }
                     ?>

@@ -265,7 +265,7 @@ class FomoPress_Public {
 		$style = $image_style = $content_style = $first_row_font = $second_row_font = $third_row_font = [];
 		$css_string = $css = '';
 
-		if( $settings->theme == 'customize' ) {
+		if( $settings->advance_edit ) {
 			$style[] = 'background-color: ' . $settings->bg_color;
 			$style[] = 'color: ' . $settings->text_color;
 			

@@ -39,11 +39,24 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
         add_action( 'woocommerce_order_status_changed', array( $this, 'status_transition' ), 10, 4 );
     }
 
+    public function hide_options( $options ){
+        $options['hide']['comments']['fields'][] = 'has_no_woo';
+        $options['hide']['comments']['fields'][] = 'woo_template';
+        $options['hide']['comments']['fields'][] = 'show_product_image';
+        $options['hide']['press_bar']['fields'][] = 'has_no_woo';
+        $options['hide']['press_bar']['fields'][] = 'woo_template';
+        return $options;
+    }
+
     public function source_tab_section( $options ){
+
+        // dump( $options ); die;
+
         $options['config']['fields']['display_type']['hide']['comments']['fields'][] = 'woo_template';
         $options['config']['fields']['display_type']['hide']['comments']['fields'][] = 'show_product_image';
         
         $options['config']['fields']['display_type']['hide']['press_bar']['fields'][] = 'woo_template';
+
 
         if( ! class_exists( 'WooCommerce' ) ) {
             $options['config']['fields']['has_no_woo'] = array(
@@ -52,7 +65,6 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
                 'priority' => 0,
             );
         }
-
         return $options;
     }
     /**
@@ -101,15 +113,13 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
      * @return void
      */
     public function conversion_from( $options ){
-        $options['options'][ 'woocommerce' ]        = __( 'WooCommerce', 'fomopress' );
-        $options['default']                         = 'woocommerce';
+        $options['toggle']['woocommerce']['fields'] = [ 'woo_template', 'show_product_image' ];
+        $options['toggle']['woocommerce']['sections'] = [ 'image' ];
+        $options['hide']['woocommerce']['fields'] = [ 'show_custom_image' ];
+        
         if( ! class_exists( 'WooCommerce' ) ) {
-            $options['toggle']['woocommerce']['fields'] = [ 'has_no_woo' ];
-            $options['hide']['custom']['fields'] = [ 'woo_template' ];
-        } else {
-            $options['toggle']['woocommerce']['fields'] = [ 'woo_template', 'show_product_image' ];
-            $options['toggle']['woocommerce']['sections'] = [ 'image' ];
-            $options['hide']['woocommerce']['fields'] = [ 'show_custom_image' ];
+            $options['toggle']['woocommerce']['fields'][] = 'has_no_woo';
+            // $options['hide']['custom']['fields'] = [ 'woo_template' ];
         }
 
         return $options;
