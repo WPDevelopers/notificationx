@@ -275,7 +275,7 @@ class FomoPress_Helper {
         $types = [
             'press_bar'   => __('Notification Bar' , 'fomopress'),
             'comments'    => __('WP Comments' , 'fomopress'),
-            'conversions' => __('Conversions' , 'fomopress'),
+            'conversions' => __('Sales Notification' , 'fomopress'),
         ];
 
         $types = apply_filters( 'fomopress_notification_types', $types );

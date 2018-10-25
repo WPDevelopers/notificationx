@@ -49,12 +49,17 @@
                 wp_nonce_field( $builder_args['id'], $builder_args['id'] . '_nonce' );
                 $tabid = 1;
                 foreach( $tabs as $id => $tab  ){
+                    do_action( 'fomopress_builder_before_tab', $id, $tab );
                     $active = $current_tab === $id ? ' active ' : '';
                     $sections = FomoPress_Helper::sorter( $tab['sections'], 'priority', 'ASC' );
                     ?>
                     <div id="fomopress-<?php echo $id ?>" class="fomopress-builder-content <?php echo $active; ?>">
                     <?php 
                         foreach( $sections as $sec_id => $section ) {
+                            /**
+                             * This will go with section_id, and tab_id
+                             */
+                            do_action( 'fomopress_builder_before_section', $sec_id, $section, $id );
                             if( isset( $section['fields'] ) ) : 
                                 $fields = FomoPress_Helper::sorter( $section['fields'], 'priority', 'ASC' );
                                 if( ! empty( $fields ) )  :
@@ -75,8 +80,14 @@
                                 endif;
                             endif;
                             if( isset( $section['view'] ) ) : 
-                                call_user_func( $section['view'] );
+                                do_action( 'fomopress_builder_before_section_view', $sec_id, $section, $id );
+                                    call_user_func( $section['view'] );
+                                do_action( 'fomopress_builder_after_section_view', $sec_id, $section, $id );
                             endif;
+                            /**
+                             * This will go with section_id, and tab_id
+                             */
+                            do_action( 'fomopress_builder_after_section', $sec_id, $section, $id );
                         }
                     ?>
                     <input id="publish" style="display:none" class="quick-builder-submit-btn" name="fomopress_builder_add_submit" type="submit" value="Create Notification">
@@ -92,9 +103,9 @@
                     </button>
                     </div>
                     <?php
+                    do_action( 'fomopress_builder_after_tab', $id, $tab );
                 }
             ?>
         </form>
     </div>
-
 </div>

@@ -20,9 +20,6 @@ $totaltabs = count( $tabs );
 $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
 ?>
 <div class="fomopress-metabox-wrapper">
-    <?php //if( $post->filter == 'edit' ) : ?>
-        <!-- <a href="<?php //echo FomoPress_Admin::get_form_action( '&post_id=' . $post->ID, true ); ?>"><?php //_e( 'Simple Notification Builder', 'fomopress' ); ?></a> -->
-    <?php // endif; ?>
     <div class="fomopress-meta-tab-menu">
         <ul>
             <?php 
@@ -54,12 +51,14 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
         <?php 
             $tabid = 1;
             foreach( $tabs as $id => $tab  ){
+                do_action( 'fomopress_before_metabox_tab', $id, $tab );
                 $active = $current_tab === $id ? ' active ' : '';
                 $sections = FomoPress_Helper::sorter( $tab['sections'], 'priority', 'ASC' );
                 ?>
                 <div id="fomopress-<?php echo $id ?>" class="fomopress-meta-tab-content <?php echo $active; ?>">
                 <?php 
                     foreach( $sections as $sec_id => $section ) {
+                        do_action( 'fomopress_before_metabox_tab_section', $sec_id, $id, $section );
                         if( isset( $section['fields'] ) ) :
                             $fields = FomoPress_Helper::sorter( $section['fields'], 'priority', 'ASC' );
                             if( ! empty( $fields ) )  :
@@ -84,6 +83,7 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
                         <?php
                             endif;
                         endif;
+                        do_action( 'fomopress_after_metabox_tab_section', $sec_id, $id, $section );
                     }
                 ?>
                 <button class="fomopress-meta-next" data-tab="<?php echo $id; ?>" data-tabid="<?php echo ++$tabid; ?>">
@@ -97,6 +97,7 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
                 </button>
                 </div>
                 <?php
+                do_action( 'fomopress_after_metabox_tab', $id, $tab );
             }
         ?>
     </div>
