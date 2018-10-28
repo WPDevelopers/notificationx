@@ -458,13 +458,60 @@
 			button.addClass('hidden'); // Hide the remove button first
 			uploadButton.removeClass('hidden'); // Show the uplaod button
 		},
-		previewUpdate : function( type ) {
+		shownPreview : function( type ) {
 			if ( type === 'press_bar' ) {
 				$('#fomopress-notification-preview').hide();
 			} else {
 				$('#fomopress-notification-preview').removeClass('fomopress-notification-preview-comments').removeClass('fomopress-notification-preview-conversions');
 				$('#fomopress-notification-preview').show().addClass('fomopress-notification-preview-' + type);
 			}
+		},
+		updatePreview: function( fields ){
+			fields.map(function(item, i){
+				var event = item.event || 'change';
+				$( item.id ).on( event, function(){
+					var val = $( item.id ).val(),
+						suffix = '',
+						selector = '.fomopress-notification-preview';
+
+					if( event == 'click' && item.field == 'border' ) {
+						window.itemshide = item.hide;
+						if( ! $( item.id ).is(":checked") ) {
+							item.hide.forEach(function(item){
+								$( selector ).css( item.property, '' );
+							});
+						} else {
+							item.hide.forEach(function(item){
+								var oval = $(item.key).val();
+								$( selector ).css( item.property, oval );
+							});
+						}
+					}
+
+					if( typeof item.selector != 'undefined' ) {
+						selector = item.selector;
+					}
+
+					if( typeof item.unit != 'undefined' ) {
+						suffix = item.unit;
+					}
+
+					if( typeof item.property != 'undefined' ) {
+						$( selector ).css( item.property, val + suffix );
+					}
+					
+					if( 'image_shape' == item.field ) {
+						$( selector ).removeClass( 'fp-img-circle fp-img-rounded fp-img-square' );
+					}
+					if( 'image_position' == item.field ) {
+						$( selector ).removeClass( 'fp-img-left fp-img-right' );
+					}
+
+					if( item.field == 'image_shape' || 'image_position' == item.field ) {
+						$( selector ).addClass( 'fp-img-' + val );
+					}
+				})
+			});
 		}
 	};
 
@@ -498,12 +545,88 @@
 	$( window ).load(function(){
 		$('body').on('change', '#fomopress_display_type', function(){
 			var type = $(this).val();
-			FomoPressAdmin.previewUpdate( type );
+			FomoPressAdmin.shownPreview( type );
 			if( type == 'conversions' ) {
 				$('#fomopress_conversion_from').trigger('change');
 			}
 		});
 		$('#fomopress_display_type').trigger('change');
+
+		var fields = [
+			{
+				id: "#fomopress_bg_color",
+				field: "bg_color",
+				property : "background-color",
+			},
+			{
+				id: "#fomopress_text_color",
+				field: "text_color",
+				property : "color",
+			},
+			{
+				id: "#fomopress_border",
+				field: "border",
+				event : "click",
+				hide : [
+					{ 'key': '#fomopress_border_size', 'property' : 'border-width' }, 
+					{ 'key': '#fomopress_border_style', 'property' : 'border-style' }, 
+					{ 'key': '#fomopress_border_color', 'property' : 'border-color' }, 
+				],
+			},
+			{
+				id: "#fomopress_border_size",
+				field: "border_size",
+				event : "keyup",
+				property : "border-width",
+				unit : "px",
+			},
+			{
+				id: "#fomopress_border_style",
+				field: "border_style",
+				property : "border-style",
+			},
+			{
+				id: "#fomopress_border_color",
+				field: "border_color",
+				property : "border-color",
+			},
+			{
+				id: "#fomopress_image_shape",
+				field: "image_shape",
+				selector: ".fomopress-preview-image",
+			},
+			{
+				id: "#fomopress_image_position",
+				field: "image_position",
+				selector: ".fomopress-preview-image",
+			},
+			{
+				id: "#fomopress_first_font_size",
+				field: "first_font_size",
+				selector: ".fomopress-preview-first-row",
+				property : "font-size",
+				event : "keyup",
+				unit : "px",
+			},
+			{
+				id: "#fomopress_second_font_size",
+				field: "second_font_size",
+				selector: ".fomopress-preview-second-row",
+				property : "font-size",
+				event : "keyup",
+				unit : "px",
+			},
+			{
+				id: "#fomopress_third_font_size",
+				field: "third_font_size",
+				selector: ".fomopress-preview-third-row",
+				property : "font-size",
+				event : "keyup",
+				unit : "px",
+			},
+		];
+
+		FomoPressAdmin.updatePreview( fields );
 	});
 
 })( jQuery );
