@@ -18,6 +18,7 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
     public function __construct() {
         parent::__construct();
         $this->notifications = $this->get_notifications( $this->type );
+        add_filter( 'fomopress_display_types_hide_data', array( $this, 'hide_fields' ) );
     }
     /**
      * This functions is hooked
@@ -39,25 +40,16 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
         add_action( 'woocommerce_order_status_changed', array( $this, 'status_transition' ), 10, 4 );
     }
 
-    public function hide_options( $options ){
-        $options['hide']['comments']['fields'][] = 'has_no_woo';
-        $options['hide']['comments']['fields'][] = 'woo_template';
-        $options['hide']['comments']['fields'][] = 'show_product_image';
-        $options['hide']['press_bar']['fields'][] = 'has_no_woo';
-        $options['hide']['press_bar']['fields'][] = 'woo_template';
+    public function hide_fields( $options ){
+        $options['comments']['fields'][] = 'has_no_woo';
+        $options['comments']['fields'][] = 'woo_template';
+        $options['comments']['fields'][] = 'show_product_image';
+        $options['press_bar']['fields'][] = 'has_no_woo';
+        $options['press_bar']['fields'][] = 'woo_template';
         return $options;
     }
 
     public function source_tab_section( $options ){
-
-        // dump( $options ); die;
-
-        $options['config']['fields']['display_type']['hide']['comments']['fields'][] = 'woo_template';
-        $options['config']['fields']['display_type']['hide']['comments']['fields'][] = 'show_product_image';
-        
-        $options['config']['fields']['display_type']['hide']['press_bar']['fields'][] = 'woo_template';
-
-
         if( ! class_exists( 'WooCommerce' ) ) {
             $options['config']['fields']['has_no_woo'] = array(
                 'type'     => 'message',

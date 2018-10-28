@@ -27,14 +27,7 @@ return array(
                                 'press_bar'   => FomoPress_Helper::press_bar_toggle_data(),
                                 'conversions' => FomoPress_Helper::conversions_toggle_data(),
                             ],
-                            'hide'   => [
-                                'comments' => array(
-                                    'fields' => [ 'custom_template', 'custom_contents', 'show_custom_image', 'image_url' ]
-                                ),
-                                'press_bar' => array(
-                                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'all_locations', 'countdown_text', 'countdown_time', 'image_url' ]
-                                ),
-                            ],
+                            'hide' => FomoPress_Helper::hide_data( 'display_types' ),                            
                             'priority' => 50
                         ) ),
                         'conversion_from'  => apply_filters( 'fomopress_conversion_from_field', array(

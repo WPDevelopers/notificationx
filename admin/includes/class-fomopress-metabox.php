@@ -45,7 +45,7 @@ class FomoPress_MetaBox {
     
     public static function get_builder_args() {
         $builder_args = require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-builder-helper.php';
-        $builder_args = apply_filters( 'fomopress_before_builder_load', $builder_args );
+        do_action( 'fomopress_before_builder_load' );
         return $builder_args;
     }
 

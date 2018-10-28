@@ -53,10 +53,14 @@ class FomoPress_Extension {
          */
         self::$active_items = FomoPress_Admin::get_active_items();
     }
-
-    public function hide_option(){
-        add_filter( 'fomopress_display_type', array( $this, 'hide_options' ) );
-    }
+    /**
+     * This function is responsible for making hide option.
+     *
+     * @return void
+     */
+    // public function hide_field(){
+        // add_filter( 'fomopress_display_types_hide_data', array( $this, 'hide_fields' ) );
+    // }
     /**
      * this function is responsible for check a type of notification is created or not
      *

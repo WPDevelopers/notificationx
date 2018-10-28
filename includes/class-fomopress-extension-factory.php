@@ -87,9 +87,10 @@ class Extension_Factory {
                     add_filter( 'fomopress_customize_tab_sections', array( $object, 'customize_tab_section' ) );
                 }
 
-                if( method_exists( $object, 'hide_options' ) ) {
-                    add_action( 'fomopress_before_metabox_load', array( $object, 'hide_option' ) );
-                }
+                // if( method_exists( $object, 'hide_fields' ) ) {
+                //     add_action( 'fomopress_before_metabox_load', array( $object, 'hide_field' ) );
+                // }
+                
             }
         }
     }

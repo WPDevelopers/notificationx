@@ -23,6 +23,7 @@ class FomoPress_EDD_Extension extends FomoPress_Extension {
     public function __construct() {
         parent::__construct();
         $this->notifications = $this->get_notifications( $this->type );
+        add_filter( 'fomopress_display_types_hide_data', array( $this, 'hide_fields' ) );
     }
     /**
      * This functions is hooked
@@ -49,17 +50,16 @@ class FomoPress_EDD_Extension extends FomoPress_Extension {
         }
         add_action( 'edd_complete_purchase', array( $this, 'update_notifications' ) );
     }
-    
     /**
      * Hide fields when type is change.
      */
-    public function hide_options( $options ){
-
-        $options['hide']['comments']['fields'][] = 'has_no_edd';
-        $options['hide']['comments']['fields'][] = 'edd_template';
-        $options['hide']['comments']['fields'][] = 'show_product_image';
-        $options['hide']['press_bar']['fields'][] = 'has_no_edd';
-        $options['hide']['press_bar']['fields'][] = 'edd_template';
+    public function hide_fields( $options ){
+ 
+        $options['comments']['fields'][]  = "has_no_edd";
+        $options['comments']['fields'][]  = 'edd_template';
+        $options['comments']['fields'][]  = 'show_product_image';
+        $options['press_bar']['fields'][] = "has_no_edd";
+        $options['press_bar']['fields'][] = 'edd_template';
 
         return $options;
     }

@@ -266,6 +266,24 @@ class FomoPress_Helper {
             ],
         ));
     }  
+
+    public static function hide_data( $types = 'display_types' ){
+        if( $types == 'display_types' ) {
+            return apply_filters("fomopress_display_types_hide_data", array(
+                'comments' => array(
+                    'fields' => [ 'custom_template', 'custom_contents', 'show_custom_image', 'image_url' ]
+                ),
+                'press_bar' => array(
+                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'notification_preview', 'all_locations', 'countdown_text', 'countdown_time', 'image_url' ]
+                ),
+            ));
+        }
+        if( $types == 'conversion_from' ) {
+            return apply_filters("fomopress_conversion_from_hide_data", array() );
+        }
+
+        return [];
+    }
     /**
      * This function is responsible for all Notification types
      * @param string $type
