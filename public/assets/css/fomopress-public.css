@@ -72,6 +72,15 @@ span.fomopress-notification-close {
 .fomopress-notification-content > span {
     display: block;
 }
+.fp-first-row {
+    font-size: 13px;
+}
+.fp-second-row {
+    font-size: 14px;
+}
+.fp-third-row {
+    font-size: 11px;
+}
 
 /*
     FomoPressBar CSS

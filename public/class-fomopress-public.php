@@ -316,4 +316,37 @@ class FomoPress_Public {
 
 		echo ! empty( $css ) ? $css : '';
 	}
+
+	public static function generate_preview_css( $settings, $key = 'wrapper' ){
+		if( empty( $settings ) ) return;
+		$style = $image_style = $content_style = $first_row_font = $second_row_font = $third_row_font = [];
+		$css_string = $css = '';
+
+		if( $settings->advance_edit ) {
+			$style[ 'wrapper' ][] = 'background-color: ' . $settings->bg_color;
+			$style[ 'wrapper' ][] = 'color: ' . $settings->text_color;
+			
+			if( $settings->border ){
+				$style[ 'wrapper' ][] = 'border-width: ' . $settings->border_size . 'px';
+				$style[ 'wrapper' ][] = 'border-style: ' . $settings->border_style;
+				$style[ 'wrapper' ][] = 'border-color: ' . $settings->border_color;
+			}
+
+			if( ! empty( $settings->first_font_size ) ) {
+				$style['first-row'][] = 'font-size: ' . $settings->first_font_size . 'px';
+			}
+			if( ! empty( $settings->second_font_size ) ) {
+				$style['second-row'][] = 'font-size: ' . $settings->second_font_size . 'px';
+			}
+			if( ! empty( $settings->third_font_size ) ) {
+				$style['third-row'][] = 'font-size: ' . $settings->third_font_size . 'px';
+			}
+
+			if( $settings->image_position == 'right' ) {
+				$style[ 'wrapper' ][] = 'flex-direction: row-reverse';
+			}
+			echo 'style="'. implode( '; ', $style[ $key ] ) .'"';
+		}
+		echo '';
+	}
 }

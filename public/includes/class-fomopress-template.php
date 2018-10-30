@@ -16,7 +16,7 @@ class FomoPress_Template {
 					$html .= '<span class="fp-second-row">' . $template[$i] . '</span>';	
 				}
 				if ( $i == 2 ) {
-					$html .= '<span class="fp-third-row"><small>' . $template[$i] . '</small></span>';	
+					$html .= '<span class="fp-third-row">' . $template[$i] . '</span>';	
 				}
 			}
 		}

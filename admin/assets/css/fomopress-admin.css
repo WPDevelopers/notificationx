@@ -17,28 +17,36 @@
     position: fixed;
     right: 20px;
     bottom: 40px;
-    padding: 15px;
     background: #fff;
     box-shadow: 0 0 50px 0px #ddd;
     z-index: 999;
-    padding-right: 30px;
 }
 .fomopress-preview-inner {
     overflow: hidden;
     display: flex;
     align-items: center;
+    padding: 15px;
+    padding-right: 30px;
 }
 .fomopress-preview-inner > div {
     float: left;
 }
-.fomopress-preview-inner .fomopress-preview-image {
+.fomopress-preview-inner .fomopress-preview-image.fp-img-left {
     margin-right: 15px;
+}
+.fomopress-preview-inner .fomopress-preview-image.fp-img-right {
+    margin-left: 15px;
+}
+.fomopress-preview-inner .fomopress-preview-image.fp-img-circle > img {
+    border-radius: 30px;
+}
+.fomopress-preview-inner .fomopress-preview-image.fp-img-rounded > img {
+    border-radius: 5px;
 }
 .fomopress-preview-inner .fomopress-preview-image > img {
     width: 60px;
     display: block;
     height: 60px;
-    border-radius: 30px;
 }
 .fomopress-preview-inner .fomopress-preview-content > span {
     display: block;

@@ -474,11 +474,26 @@
 						suffix = '',
 						selector = '.fomopress-notification-preview';
 
+					if( typeof item.selector != 'undefined' ) {
+						selector = item.selector;
+					}
+
+					if( typeof item.unit != 'undefined' ) {
+						suffix = item.unit;
+					}
+					/**
+					 * This lines of code use for removing & adding the border css 
+					 * on CLICK to want border.
+					 */
 					if( event == 'click' && item.field == 'border' ) {
 						window.itemshide = item.hide;
 						if( ! $( item.id ).is(":checked") ) {
 							item.hide.forEach(function(item){
-								$( selector ).css( item.property, '' );
+								if( item.property == 'border-width' ) {
+									$( selector ).css( item.property, '0px' );
+								} else {
+									$( selector ).css( item.property, '' );
+								}
 							});
 						} else {
 							item.hide.forEach(function(item){
@@ -486,14 +501,6 @@
 								$( selector ).css( item.property, oval );
 							});
 						}
-					}
-
-					if( typeof item.selector != 'undefined' ) {
-						selector = item.selector;
-					}
-
-					if( typeof item.unit != 'undefined' ) {
-						suffix = item.unit;
 					}
 
 					if( typeof item.property != 'undefined' ) {
@@ -508,7 +515,15 @@
 					}
 
 					if( item.field == 'image_shape' || 'image_position' == item.field ) {
-						$( selector ).addClass( 'fp-img-' + val );
+						$( selector ).addClass( 'fp-img-' + val ); 
+						/**
+						 * This lines of code use for layouting the notification preview
+						 */
+						if( val == 'left' ) {
+							$( '.fomopress-preview-inner' ).css( 'flex-direction', 'row' );
+						} else {
+							$( '.fomopress-preview-inner' ).css( 'flex-direction', 'row-reverse' );
+						}
 					}
 				})
 			});
@@ -567,6 +582,7 @@
 				id: "#fomopress_border",
 				field: "border",
 				event : "click",
+				selector : ".fomopress-preview-inner",
 				hide : [
 					{ 'key': '#fomopress_border_size', 'property' : 'border-width' }, 
 					{ 'key': '#fomopress_border_style', 'property' : 'border-style' }, 
@@ -578,17 +594,20 @@
 				field: "border_size",
 				event : "keyup",
 				property : "border-width",
+				selector : ".fomopress-preview-inner",
 				unit : "px",
 			},
 			{
 				id: "#fomopress_border_style",
 				field: "border_style",
 				property : "border-style",
+				selector : ".fomopress-preview-inner",
 			},
 			{
 				id: "#fomopress_border_color",
 				field: "border_color",
 				property : "border-color",
+				selector : ".fomopress-preview-inner",
 			},
 			{
 				id: "#fomopress_image_shape",
