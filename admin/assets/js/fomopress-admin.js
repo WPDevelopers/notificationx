@@ -195,12 +195,13 @@
                 val     = field.val(),
 				i       = 0;
 
-				
-			if ( 'checkbox' === field.attr('type') && ! field.is(':checked') ) {
-				val = 0;
-			} else {
-				val = 1;
-			}
+			if ( 'checkbox' === field.attr('type') ) {
+				if( ! field.is(':checked') ) {
+					val = 0;
+				} else {
+					val = 1;
+				}
+			} 
 
 			if ( field.hasClass('fomopress-theme-selected') ) {
 				id = field.parents('.fomopress-theme-field-wrapper').data('name');
