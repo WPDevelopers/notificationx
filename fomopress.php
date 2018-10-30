@@ -39,7 +39,7 @@ define( 'FOMOPRESS_EXT_DIR_PATH', FOMOPRESS_ROOT_DIR_PATH . 'extensions/' );
  * The code that runs during plugin activation.
  * This action is documented in includes/class-fomopress-activator.php
  */
-function activate_FomoPress() {
+function activate_fomopress() {
 	require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-activator.php';
 	FomoPress_Activator::activate();
 }
@@ -48,13 +48,13 @@ function activate_FomoPress() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-fomopress-deactivator.php
  */
-function deactivate_FomoPress() {
+function deactivate_fomopress() {
 	require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-deactivator.php';
 	FomoPress_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_FomoPress' );
-register_deactivation_hook( __FILE__, 'deactivate_FomoPress' );
+register_activation_hook( __FILE__, 'activate_fomopress' );
+register_deactivation_hook( __FILE__, 'deactivate_fomopress' );
 
 /**
  * The core plugin class that is used to define internationalization,

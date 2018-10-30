@@ -167,7 +167,7 @@
 		resetSection: function( button ){
 			var button = $( button ),
 				parent = button.parents('.fomopress-metabox-section'),
-				fields = parent.find('.fomopress-meta-field');
+				fields = parent.find('.fomopress-meta-field'), updateFields = [];
 			
 			window.fieldsss = fields;
 			fields.map(function(iterator, item){ 
@@ -178,6 +178,11 @@
 
 				if( item.hasClass('wp-color-picker') ) {
 					item.parents('.wp-picker-container').find('.wp-color-result').removeAttr('style')
+				}
+				if( item[0].id == 'fomopress_border' ){
+					item.trigger('click');
+				} else {
+					item.trigger('change');
 				}
 			});
 		},
@@ -190,8 +195,11 @@
                 val     = field.val(),
 				i       = 0;
 
+				
 			if ( 'checkbox' === field.attr('type') && ! field.is(':checked') ) {
 				val = 0;
+			} else {
+				val = 1;
 			}
 
 			if ( field.hasClass('fomopress-theme-selected') ) {
@@ -243,7 +251,6 @@
 		},
 
 		initColorField: function(){
-
 			if ( 'undefined' !== typeof $.fn.wpColorPicker ) {
                 // Add Color Picker to all inputs that have 'mbt-color-picker' class.
                 $( '.fomopress-colorpicker-field' ).each(function() {
@@ -257,7 +264,6 @@
                     }).parents('.wp-picker-container').find('.wp-color-result').css('background-color', '#' + color);
                 });
             }
-
 		},
 		initGroupField : function(){
 
@@ -467,12 +473,13 @@
 			}
 		},
 		updatePreview: function( fields ){
+
 			fields.map(function(item, i){
 				var event = item.event || 'change';
 				$( item.id ).on( event, function(){
 					var val = $( item.id ).val(),
 						suffix = '',
-						selector = '.fomopress-notification-preview';
+						selector = '.fomopress-preview-inner';
 
 					if( typeof item.selector != 'undefined' ) {
 						selector = item.selector;
