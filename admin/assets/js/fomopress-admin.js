@@ -519,10 +519,12 @@
 						/**
 						 * This lines of code use for layouting the notification preview
 						 */
-						if( val == 'left' ) {
-							$( '.fomopress-preview-inner' ).css( 'flex-direction', 'row' );
-						} else {
-							$( '.fomopress-preview-inner' ).css( 'flex-direction', 'row-reverse' );
+						if( 'image_position' == item.field ) {
+							if( val == 'left' ) {
+								$( '.fomopress-preview-inner' ).css( 'flex-direction', 'row' );
+							} else {
+								$( '.fomopress-preview-inner' ).css( 'flex-direction', 'row-reverse' );
+							}
 						}
 					}
 				})

@@ -336,6 +336,12 @@ class FomoPress_Admin {
 				if( $p_id || ! is_wp_error( $p_id ) ) {
 					FomoPress_MetaBox::save_data( $this->builder_data( $_POST ), $p_id );
 				}
+				/**
+				 * Safely Redirect to FomoPress Page
+				 */
+				wp_safe_redirect( add_query_arg( array(
+					'post_type' => 'fomopress',
+				), admin_url( 'edit.php' ) ) );
 			}
 		endif;
 
