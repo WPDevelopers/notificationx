@@ -2,6 +2,11 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+
+.fixed .column-notification_status {
+    width: 10%;
+}
+
  #fomopress-notification-preview,
  #fomopress-notification-preview .fomopress-notification-preview-comments,
  #fomopress-notification-preview .fomopress-notification-preview-conversions { 

@@ -146,7 +146,7 @@ class FomoPress_Admin {
 		unset( $columns['title'] );
 		unset( $columns['date'] );
 
-		$columns['notification_status'] = '';
+		$columns['notification_status'] = __('Enable / Disable', 'fomopress');
 		$columns['title'] = $title_column;
 
 		$columns['notification_type']   = __('Type', 'fomopress');
@@ -317,11 +317,12 @@ class FomoPress_Admin {
 
 			if( $flag ) {
 				if( $_POST['fomopress_display_type'] == 'press_bar' )  {
-					$title = __('Press Bar', 'fomopress');
+					$title = __('Fomo - Notification Bar', 'fomopress');
 				} elseif( $_POST['fomopress_display_type'] == 'comments' )  {
-					$title = __('WP Comments', 'fomopress');
+					$title = __('Fomo - WP Comments', 'fomopress');
 				} elseif( $_POST['fomopress_display_type'] == 'conversions' )  {
-					$title = __('Conversion - ' . ucfirst( $_POST['fomopress_conversion_from'] ), 'fomopress');
+					$conversions = FomoPress_Helper::conversion_from();
+					$title = 'Fomo - ' . $conversions[$_POST['fomopress_conversion_from']];
 				}
 				$_POST['post_type'] = 'fomopress';
 				$postdata = array(
