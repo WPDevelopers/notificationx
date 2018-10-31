@@ -153,7 +153,6 @@ final class FomoPress {
 		require_once FOMOPRESS_EXT_DIR_PATH . 'wp-comments/class-wp-comments.php';
 		require_once FOMOPRESS_EXT_DIR_PATH . 'woocommerce/class-woocommerce.php';
 		require_once FOMOPRESS_EXT_DIR_PATH . 'edd/class-edd.php';
-		require_once FOMOPRESS_EXT_DIR_PATH . 'conversions/class-custom.php';
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
@@ -191,7 +190,6 @@ final class FomoPress {
 
 		$extensions = [
 			'FomoPress_EDD_Extension',
-			'FomoPress_Custom_Extension',
 			'FomoPress_PressBar_Extension',
 			'FomoPress_WP_Comments_Extension',
 			'FomoPress_WooCommerce_Extension',

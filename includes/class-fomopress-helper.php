@@ -194,11 +194,11 @@ class FomoPress_Helper {
             'woocommerce' => __('WooCommerce' , 'fomopress'),
             'edd'         => __('Easy Digital Downloads' , 'fomopress'),
         ];
+        $forms = apply_filters( 'fomopress_conversions_from', $froms );
         if( $from ){
-            $forms = apply_filters( 'fomopress_conversions_from', $froms );
             return $froms[ $from ];
         }
-        return apply_filters( 'fomopress_conversions_from', $froms );
+        return $forms;
     }
     /**
      * This function is responsible for press_bar toggle data
