@@ -42,7 +42,12 @@ return array(
                                     'fields' => [ 'custom_template', 'custom_contents' ]
                                 ),
                             ),
-                        ) )
+                        ) ),
+                        'press_content' => array(
+                            'type'     => 'editor',
+                            'label'    => __('Content' , 'fomopress'),
+                            'priority' => 70,
+                        ),
                     ),
                 ),
             ))
