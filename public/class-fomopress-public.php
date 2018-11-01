@@ -128,15 +128,15 @@ class FomoPress_Public {
 			}
 		}
 	}
-		
-	public function display(){
+	
+	public function generate_active_fomo(){
 
 		if( empty( self::$active ) ) {
 			return;
 		}
 
 		$conversion_ids = $comments_id = array();
-		
+
 		foreach( self::$active as $id ) {
 			
 			$settings = FomoPress_MetaBox::get_metabox_settings( $id );
@@ -187,24 +187,34 @@ class FomoPress_Public {
 				default:
 					break;
 			}
-
 			self::generate_css( $settings );
 		}
+		/**
+		 * Filtered Active IDs
+		 */
+		$conversion_ids = apply_filters( 'fomopress_conversions_id', $conversion_ids );
+		$comments_id = apply_filters( 'fomopress_comments_id', $comments_id );
+		/**
+		 * Action for pro hooked!
+		 * @if any.
+		 */
+		do_action( 'fomopress_active_fomo' );
+
 		if( ! empty( $conversion_ids ) || ! empty( $comments_id ) ) :
-	?>
-		<script type="text/javascript">
-			var fomopress = {
-				nonce      : '<?php echo wp_create_nonce('fomopress_frontend_nonce'); ?>',
-				ajaxurl    : '<?php echo admin_url('admin-ajax.php'); ?>',
-				conversions: <?php echo json_encode( $conversion_ids ); ?>,
-				comments   : <?php echo json_encode( $comments_id ); ?>
-			};
-		</script>
-	<?php	
+		?>
+			<script type="text/javascript">
+				var fomopress = {
+					nonce      : '<?php echo wp_create_nonce('fomopress_frontend_nonce'); ?>',
+					ajaxurl    : '<?php echo admin_url('admin-ajax.php'); ?>',
+					conversions: <?php echo json_encode( $conversion_ids ); ?>,
+					comments   : <?php echo json_encode( $comments_id ); ?>
+				};
+			</script>
+		<?php	
 		endif;
 	}
 
-	public function fomopress_get_conversions() {
+	public function generate_conversions() {
 
 		if( ! isset( $_POST['nonce'] ) && ! wp_verify_nonce( $_POST['nonce'], 'fomopress_frontend_nonce' ) ) {
 			return;
@@ -217,22 +227,20 @@ class FomoPress_Public {
 			$data = $this->notifications;
 		}
 
-		// foreach( $ids as $id ) {
-			$settings = FomoPress_MetaBox::get_metabox_settings( $ids );
+		$settings = FomoPress_MetaBox::get_metabox_settings( $ids );
 
-			$echo['config'] = array(
-				'delay_before'  => ( ! empty( $settings->delay_before ) ) ? intval( $settings->delay_before ) * 1000 : 0,
-				'display_for'   => ( ! empty( $settings->display_for ) ) ? intval( $settings->display_for ) * 1000 : 0,
-				'delay_between' => ( ! empty( $settings->delay_between ) ) ? intval( $settings->delay_between ) * 1000 : 0,
-				'loop'          => ( ! empty( $settings->loop ) ) ? $settings->loop : 0,
-				'id'            => $ids,
-			);
+		$echo['config'] = array(
+			'delay_before'  => ( ! empty( $settings->delay_before ) ) ? intval( $settings->delay_before ) * 1000 : 0,
+			'display_for'   => ( ! empty( $settings->display_for ) ) ? intval( $settings->display_for ) * 1000 : 0,
+			'delay_between' => ( ! empty( $settings->delay_between ) ) ? intval( $settings->delay_between ) * 1000 : 0,
+			'loop'          => ( ! empty( $settings->loop ) ) ? $settings->loop : 0,
+			'id'            => $ids,
+		);
 
-			ob_start();
-			include FOMOPRESS_PUBLIC_PATH . 'partials/fomopress-public-display.php';
-			$content = ob_get_clean();
-			$echo['content'] = $content;
-		// } 
+		ob_start();
+		include FOMOPRESS_PUBLIC_PATH . 'partials/fomopress-public-display.php';
+		$content = ob_get_clean();
+		$echo['content'] = $content;
 
 		echo json_encode( $echo );
 		die();
