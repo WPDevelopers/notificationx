@@ -246,7 +246,7 @@ class FomoPress_MetaBox {
         if( empty( $new_settings ) || empty( $old_settings ) ) return;
 
         $opt_in = apply_filters('fomopress_update_notification_for_changes', array(
-            'display_for',
+            'display_from',
             'display_type',
             'conversion_from'
         ));
