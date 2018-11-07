@@ -17,7 +17,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 		private $wisdom_version = '1.1.2';
 		private $home_url = '';
 		private $plugin_file = '';
-		private $plugin_name = '';
+		public $plugin_name = '';
 		private $options = array();
 		private $require_optin = true;
 		private $include_goodbye_form = true;
@@ -91,6 +91,8 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 			add_filter( 'plugin_action_links_' . plugin_basename( $this->plugin_file ), array( $this, 'filter_action_links' ) );
 			add_action( 'admin_footer-plugins.php', array( $this, 'goodbye_ajax' ) );
 			add_action( 'wp_ajax_goodbye_form', array( $this, 'goodbye_form_callback' ) );
+
+			add_action( 'fomopress_builder_before_tab', array( $this, 'opt_in' ), 10, 3 );
 			
 		}
 		
@@ -584,7 +586,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 
 			// @credit EDD
 			// Don't bother asking user to opt in if they're in local dev
-			if ( stristr( network_site_url( '/' ), 'local' ) !== false || stristr( network_site_url( '/' ), 'localhost' ) !== false || stristr( network_site_url( '/' ), ':8888' ) !== false ) {
+			if ( stristr( network_site_url( '/' ), 'test' ) !== false || stristr( network_site_url( '/' ), 'localhost' ) !== false || stristr( network_site_url( '/' ), ':8888' ) !== false ) {
 				$this->update_block_notice();
 			} else {
 				
@@ -612,7 +614,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 					'plugin' 		=> $this->plugin_name,
 					'plugin_action'	=> 'no'
 				) );
-				
+
 				// Decide on notice text
 				if( $this->marketing != 1 ) {
 					// Standard notice text
@@ -877,6 +879,54 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 			$this->do_tracking(); // Run this straightaway
 			echo 'success';
 			wp_die();
+		}
+
+		public function opt_in( $id, $tab ) {
+			$block_notice = get_option( 'wisdom_block_notice' );
+			if( $id == 'finalize_tab' ) {
+				if( ! empty( $block_notice ) && isset( $block_notice[$this->plugin_name] ) ) {
+					return;
+				}
+
+				// Args to add to query if user opts in to tracking
+				$yes_args = array(
+					'plugin' 		=> $this->plugin_name,
+					'plugin_action'	=> 'yes'
+				);
+				
+				// Decide how to request permission to collect email addresses
+				if( $this->marketing == 1 ) {
+					// Option 1 combines permissions to track and collect email
+					$yes_args['marketing_optin'] = 'yes';
+				} else if( $this->marketing == 2 ) {
+					// Option 2 enables a second notice that fires after the user opts in to tracking
+					$yes_args['marketing'] = 'yes';
+				}
+				$url_yes = add_query_arg( $yes_args );
+				$url_no = add_query_arg( array(
+					'plugin' 		=> $this->plugin_name,
+					'plugin_action'	=> 'no'
+				) );
+
+				ob_start();
+				/**
+				 * TODO: select items for tracking
+				 * FIXME: this has to be done
+				 */
+				?>
+				
+					<div class="fomopress-opt-in">
+						<p><?php _e('Hey, ', 'fomopress'); ?> <strong><?php echo get_user_meta( get_current_user_id(), 'first_name', true ); ?></strong></p>
+						<p><?php _e( 'We collect non-sensitive diagnostic data and plugin usage information. Your site URL, WordPress & PHP version, plugins & themes and email address to send you the discount coupon. This data lets us make sure this plugin always stays compatible with the most popular plugins and themes. No spam, I promise.', 'fomopress' ); ?></p>
+						<p>
+							<a href="<?php echo esc_url( $url_yes ); ?>" class="button-primary"><?php _e( 'Allow', 'fomopress' ); ?></a>
+							<a href="<?php echo esc_url( $url_no ); ?>" class="button-secondary"><?php _e( 'No Thanks', 'fomopress' ); ?></a>
+						</p>
+					</div>
+				
+				<?php
+				echo ob_get_clean();
+			}
 		}
 		
 	}
