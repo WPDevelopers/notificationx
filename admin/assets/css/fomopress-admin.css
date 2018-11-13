@@ -1,0 +1,621 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+.fixed .column-notification_status {
+    width: 10%;
+}
+
+ #fomopress-notification-preview,
+ #fomopress-notification-preview .fomopress-notification-preview-comments,
+ #fomopress-notification-preview .fomopress-notification-preview-conversions { 
+    display: none;
+ }
+
+ #fomopress-notification-preview.fomopress-notification-preview-comments .fomopress-notification-preview-comments,
+ #fomopress-notification-preview.fomopress-notification-preview-conversions .fomopress-notification-preview-conversions {
+     display: block;
+ }
+
+ .fomopress-notification-preview {
+    position: fixed;
+    right: 20px;
+    bottom: 40px;
+    background: #fff;
+    box-shadow: 0 0 50px 0px #ddd;
+    z-index: 999;
+}
+.fomopress-preview-inner {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    padding-right: 30px;
+}
+.fomopress-preview-inner > div {
+    float: left;
+}
+.fomopress-preview-inner .fomopress-preview-image.fp-img-left {
+    margin-right: 15px;
+}
+.fomopress-preview-inner .fomopress-preview-image.fp-img-right {
+    margin-left: 15px;
+}
+.fomopress-preview-inner .fomopress-preview-image.fp-img-circle > img {
+    border-radius: 30px;
+}
+.fomopress-preview-inner .fomopress-preview-image.fp-img-rounded > img {
+    border-radius: 5px;
+}
+.fomopress-preview-inner .fomopress-preview-image > img {
+    width: 60px;
+    display: block;
+    height: 60px;
+}
+.fomopress-preview-inner .fomopress-preview-content > span {
+    display: block;
+}
+
+.fomopress-preview-inner .fomopress-preview-content > span.fomopress-preview-row {
+    line-height: 1.45;
+}
+.fomopress-preview-inner .fomopress-preview-content > span.fomopress-preview-first-row {
+    font-size: 13px;
+}
+.fomopress-preview-inner .fomopress-preview-content > span.fomopress-preview-second-row {
+    font-size: 14px;
+}
+.fomopress-preview-inner .fomopress-preview-content > span.fomopress-preview-third-row {
+    font-size: 11px;
+}
+
+.fomopress-preview-inner .fomopress-preview-content > span.fomopress-preview-row.fomopress-highlight {
+    font-weight: 700;
+}
+
+span.fomopress-preview-close {
+    position: absolute;
+    right: 6px;
+    top: 0px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#fomopress_metabox_wrapper {
+    background: none;
+    border: 0px;
+}
+#fomopress_metabox_wrapper .handlediv,
+#fomopress_metabox_wrapper h2.hndle.ui-sortable-handle {
+    display: none;
+}
+
+#fomopress_metabox_wrapper .inside {
+    padding: 0;
+}
+
+.fomopress-metabox-wrapper {}
+
+.fomopress-meta-tab-menu {
+    background: #fff;
+    padding: 30px;
+}
+.fomopress-meta-tab-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.fomopress-meta-tab-menu ul li,
+.fomopress-builder-menu ul li {
+    display: inline-block;
+    margin: 0;
+    position: relative;
+    padding: 15px 25px 15px 40px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    background-color: #edeff0;
+}
+
+.fomopress-meta-tab-menu ul li:after,
+.fomopress-meta-tab-menu ul li:before {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    content: '';
+    height: 0;
+    width: 0;
+    border: 25px solid transparent;
+    border-right-width: 0;
+    border-left-width: 20px;
+}
+.fomopress-meta-tab-menu ul li:after {
+    z-index: 1;
+    -webkit-transform: translateX(3px);
+    -moz-transform: translateX(3px);
+    -ms-transform: translateX(3px);
+    -o-transform: translateX(3px);
+    transform: translateX(3px);
+    border-left-color: #fff;
+    margin: 0;
+}
+.fomopress-meta-tab-menu ul li:before {
+    z-index: 2;
+    border-left-color: #edeff0;
+    border-top-width: 25px;
+    border-bottom-width: 25px;
+}
+
+.fomopress-meta-tab-menu ul li:first-child.fomopress-has-icon {
+    padding-left: 25px;
+}
+.fomopress-meta-tab-menu ul li.fomopress-has-icon > .fomopress-menu-icon {
+    margin-right: 10px;
+}
+
+.fomopress-meta-tab-menu ul li > span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.fomopress-meta-tab-menu ul li img {
+    display: block;
+}
+
+.fomopress-meta-tab-menu ul li.active,
+.fomopress-meta-tab-menu ul li.fp-complete {
+    background-color: #96c03d;
+    color: #fff;
+}
+.fomopress-meta-tab-menu ul li.active > .fomopress-menu-icon,
+.fomopress-meta-tab-menu ul li.fp-complete > .fomopress-menu-icon {
+    filter: invert(1);
+}
+.fomopress-meta-tab-menu ul li.active:before,
+.fomopress-meta-tab-menu ul li.fp-complete:before {
+    border-left-color: #96c03d;
+}
+/* CONTENT CSS */
+
+.fomopress-meta-tab-contents {
+    background: #fff;
+}
+
+.fomopress-meta-tab-content {
+    display: none;
+    padding: 0px 30px;
+    overflow: hidden;
+}
+
+.fomopress-meta-tab-content.active {
+    display: block;
+}
+.fomopress-meta-next {
+    float: right;
+}
+
+.fomopress-metabox-section {
+    margin-bottom: 20px;
+    border-left: 1px solid #f2f2f2;
+    border-bottom: 1px solid #f2f2f2;
+    border-right: 1px solid #f2f2f2;
+    padding-bottom: 20px;
+}
+
+#fomopress_metabox_wrapper .fomopress-meta-tab-content h2.fomopress-metabox-section-title {
+    display: block;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    padding-bottom: 0px;
+    background: #f2f2f2;
+    padding: 14px;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+h2.fomopress-metabox-section-title .fomopress-section-reset {
+    float: right;
+}
+
+.fomopress-info-message-wrapper {
+    padding: 0;
+}
+.fomopress-info-message {
+    font-size: 20px;
+    padding: 30px;
+    border-left: 2px solid orangered;   
+}
+
+/*
+    Form Input CSS
+*/
+.fomopress-metabox-section table {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 30px;
+}
+
+.fomopress-metabox-section table tr {
+    vertical-align: top;
+}
+.fomopress-metabox-section table tr th {
+    width: 25%;
+    text-align: left;
+    padding: 15px 15px 15px 0px;
+}
+.fomopress-metabox-section table tr td {
+    width: 75%;
+    text-align: left;
+    padding: 15px;
+}
+
+.fomopress-meta-field, 
+.fomopress-media-url {
+    padding: 10px;
+    border: 1px solid #f2f2f2;
+    background-color: #f2f2f2 !important;
+    border-radius: 0px;
+    width: 400px;
+}
+
+input.fomopress-meta-field:focus,
+select.fomopress-meta-field:focus,
+input.fomopress-media-url:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #f2f2f2;
+}
+
+select.fomopress-meta-field {
+    height: 40px;
+}
+
+textarea.fomopress-meta-field {
+    height: 150px;
+}
+
+input.fomopress-template-field {
+    margin: 0;
+    border: 0px;
+}
+
+.fomopress-opt-alert {
+    position: relative;
+}
+.fomopress-opt-alert:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
+    z-index: 9999;
+}
+
+label.fomopress-adv-checkbox-label {
+    background: #48b148;
+    color: #fff;
+    padding: 17px;
+    display: inline-block;
+    border-radius: 3px;
+    letter-spacing: 1px;
+}
+
+.fomopress-adv-checkbox-wrap #fomopress_advance_edit {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+.fomopress-metabox-section table tr.fomopress-adv_checkbox td {
+    padding: 15px 0px;
+}
+
+.fomopress-adv-checkbox-wrap #fomopress_advance_edit:checked + label.fomopress-adv-checkbox-label {
+    background-color: #f55656;
+}
+
+/* Group Field */
+.fomopress-group-row {}
+.fomopress-group-row td.fomopress-control {
+    padding-left: 0; 
+    padding-right: 0; 
+}
+.fomopress-group-field-wrapper {}
+.fomopress-group-field-wrapper .fomopress-group-field {
+    border: 1px solid #f2f2f2;
+    margin-bottom: 15px;
+}
+.fomopress-group-field-wrapper .fomopress-group-field:last-child {
+    margin-bottom: 0;
+}
+
+.fomopress-group-field-wrapper .fomopress-group-field > h4 {
+    margin: 0;
+    position: relative;
+    padding: 10px;
+    color: #000;
+}
+.fomopress-group-field-wrapper .fomopress-group-field > h4 > div {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    padding: 10px;
+    top: 0;
+}
+.fomopress-group-field-wrapper .fomopress-group-field > div.fomopress-group-inner {
+    display: none;
+    padding: 30px 15px 0;
+}
+.fomopress-group-field-wrapper .fomopress-group-field.open > div.fomopress-group-inner {
+    display: block;   
+}
+
+/* Media Fiels */
+.fomopress-media-field-wrapper {
+    display: flex;
+    align-items: center;
+}
+.fomopress-thumb-container {
+    display: none;
+}
+.fomopress-thumb-container.fomopress-has-thumb {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    overflow: hidden;
+}
+.fomopress-thumb-container.fomopress-has-thumb > img {
+    height: 100px;
+}
+
+.fomopress-media-content {}
+.fomopress-media-content > input {
+    display: block;
+    padding: 10px;
+    width: 250px;
+}
+
+.fomopress-media-button {
+    padding: 10px;
+    font-weight: 700;
+    border: 1px solid #f2f2f2;
+    margin-left: 10px;
+}
+
+.fomopress-media-button.fomopress-media-remove-button {
+    color: red;
+    margin-left: 0;
+    margin-top: 10px;
+}
+
+/* Countdown Timer CSS */
+.fomopress-countdown-inputs {
+    display: flex;
+}
+
+.fomopress-countdown-input > input {
+    padding: 15px 10px;
+    width: 100px;
+    margin-right: 10px;
+}
+
+/* Quick Builder CSS */
+.fomopress-builder-wrapper {
+    background-color: #fff;
+    padding: 50px;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.fomopress-builder-header {
+    text-align: center;
+}
+
+.fomopress-builder-menu {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.fomopress-builder-menu ul, 
+.fomopress-settings-menu ul {
+    margin: 0;
+    padding: 0;
+}
+
+.fomopress-builder-menu ul li {
+    padding: 10px 15px;
+    margin-right: 20px;
+    margin-left: 20px;
+    border-radius: 3px;
+    position: relative;
+}
+.fomopress-builder-menu ul li:after {
+    position: absolute;
+    left: 100%;
+    width: 100px;
+    height: 10px;
+    background: #f2f2f2;
+    content: "";
+    top: 50%;
+    margin-top: -5px;
+}
+.fomopress-builder-menu ul li:last-child:after {
+    display: none;
+}
+.fomopress-builder-menu ul li > span.fomopress-menu-icon { 
+    margin-right: 10px;
+}
+.fomopress-builder-menu ul li > span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.fomopress-builder-menu ul li.active, 
+.fomopress-builder-menu ul li.fp-complete,
+.fomopress-builder-menu ul li.fp-complete:after {
+    background-color: #96c03d;
+    color: #fff;
+}
+.fomopress-builder-menu ul li.active > span.fomopress-menu-icon,
+.fomopress-builder-menu ul li.fp-complete > span.fomopress-menu-icon {
+    filter: invert(1);
+}
+
+
+.fomopress-builder-menu ul li > span img {
+    display: block;
+}
+
+.fomopress-builder-content {
+    display: none;
+}
+.fomopress-builder-content.active {
+    display: block;
+}
+.fomopress-builder-hidden {
+    display: none;
+}
+
+.quick-builder-submit-btn,
+.fomopress-meta-next,
+.fomopress-settings-button {
+    background-color: #0073aa;
+    color: #fff;
+    border: 0;
+    padding: 10px 30px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 30px 0;
+    cursor: pointer;
+}
+
+/* Theme Option CSS */
+.fomopress-metabox-section table tr.fomopress-theme-field-wrapper > td {
+    padding: 0;
+}
+.fomopress-theme-field-inner {
+    display: flex;
+    align-items: center;
+    margin: 0 -5px;
+}
+
+.fomopress-single-theme-wrapper.fomopress-meta-field {
+    padding: 0px;
+    border: 0;
+    background: none;
+    width: auto;
+}
+
+.fomopress-single-theme-wrapper > img {
+    display: block;
+}
+
+.fomopress-single-theme-wrapper {margin: 0 5px;}
+
+.fomopress-single-theme-wrapper.fomopress-theme-selected {
+    position: relative;
+    transition: all 0.3s ease 0s;
+}
+
+.fomopress-single-theme-wrapper.fomopress-theme-selected:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 4px solid #96c03d;
+    box-sizing: border-box;
+    transition: all 0.3s ease 0s;
+}
+
+/* FomoPress Settings Page CSS */
+.fomopress-settings-wrap {
+    padding: 15px;
+}
+.fomopress-settings-header {
+    height: auto;
+    padding: 25px;
+    background: #fff;
+    border: 1px solid rgba( 0,0,0,0.1 );
+    -webkit-display: flex;
+    display: flex;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+    -webkit-align-items: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.fomopress-settings-header .fps-header-left {
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+.fomopress-settings-header .fps-header-left .title {
+    font-size: 22px;
+    color: #444;
+    font-weight: 600;
+    margin: 0px;
+    line-height: 1;
+}
+.fomopress-settings-header .fps-header-right {
+    text-align: right;
+}
+
+.fomopress-settings-header .fps-header-left,
+.fomopress-settings-header .fps-header-right {
+    webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+
+
+.fomopress-settings-menu {}
+.fomopress-settings-menu ul {}
+.fomopress-settings-menu ul li {
+    display: inline-block;
+    margin-bottom: 0;
+}
+.fomopress-settings-menu ul li a {
+    padding: 15px 20px;
+    background: #ECF0F1;
+    color: #646464;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgba( 0,0,0,0.1 );
+    display: block;
+    border-bottom: none;
+}
+
+.fomopress-settings-menu ul li.active a {
+    background-color: #fff;
+}
+
+.fomopress-settings-tab {
+    background: #fff;
+    margin-top: 5px;
+    padding: 15px 25px;
+    border: 1px solid rgba( 0,0,0,0.1 );
+    border-top: none;
+    position: relative;
+}
+.fomopress-settings-button {
+    margin: 0px;
+}
+.fomopress-settings-section {}
+.fomopress-settings-section tr th {
+    padding-right: 15px;
+}
+.fomopress-settings-section tr td {
+    padding-left: 15px;
+}
+.fomopress-settings-field {
+    padding: 10px;
+    border: 1px solid #f2f2f2 !important;
+}
