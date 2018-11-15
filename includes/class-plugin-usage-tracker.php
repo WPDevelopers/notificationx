@@ -91,8 +91,9 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 			add_filter( 'plugin_action_links_' . plugin_basename( $this->plugin_file ), array( $this, 'filter_action_links' ) );
 			add_action( 'admin_footer-plugins.php', array( $this, 'goodbye_ajax' ) );
 			add_action( 'wp_ajax_goodbye_form', array( $this, 'goodbye_form_callback' ) );
-
+			
 			add_action( 'fomopress_builder_before_tab', array( $this, 'opt_in' ), 10, 3 );
+			add_action( 'wp_ajax_fomopress_optin_check', array( $this, 'optin_check' ) );
 			
 		}
 		
@@ -125,12 +126,12 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 				return;
 			}
 	
-			// Check to see if the user has opted in to tracking
+			// // Check to see if the user has opted in to tracking
 			$allow_tracking = $this->get_is_tracking_allowed();
 			if( ! $allow_tracking ) {
 				return;
 			}
-			
+				
 			// Check to see if it's time to track
 			$track_time = $this->get_is_time_to_track();
 			if( ! $track_time && ! $force ) {
@@ -166,7 +167,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 					'user-agent'  => 'PUT/1.0.0; ' . get_bloginfo( 'url' )
 				)
 			);
-			
+
 			$this->set_track_time();
 	
 			if( is_wp_error( $request ) ) {
@@ -883,8 +884,11 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 
 		public function opt_in( $id, $tab ) {
 			$block_notice = get_option( 'wisdom_block_notice' );
+			$last_time_track = get_option( 'wisdom_last_track_time' );
+			$new_track_time = strtotime( date('d F Y', $last_time_track[ $this->plugin_name ] ) . " +7 Days");
+
 			if( $id == 'finalize_tab' ) {
-				if( ! empty( $block_notice ) && isset( $block_notice[$this->plugin_name] ) ) {
+				if( ( time() < $new_track_time ) ) {
 					return;
 				}
 
@@ -902,25 +906,42 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 					// Option 2 enables a second notice that fires after the user opts in to tracking
 					$yes_args['marketing'] = 'yes';
 				}
-				$url_yes = add_query_arg( $yes_args );
-				$url_no = add_query_arg( array(
-					'plugin' 		=> $this->plugin_name,
-					'plugin_action'	=> 'no'
+			
+				$no_args['plugin'] = $this->plugin_name;
+				$no_args['plugin_action'] = 'no';
+
+				$opt_in_options = apply_filters( 'fomopress_opt_in_options', array(
+					'email' => array(
+						'label' => 'Email Address',
+						'default' => 1
+					),
 				) );
 
 				ob_start();
 				/**
 				 * TODO: select items for tracking
-				 * FIXME: this has to be done
 				 */
 				?>
 				
 					<div class="fomopress-opt-in">
 						<p><?php _e('Hey, ', 'fomopress'); ?> <strong><?php echo get_user_meta( get_current_user_id(), 'first_name', true ); ?></strong></p>
 						<p><?php _e( 'We collect non-sensitive diagnostic data and plugin usage information. Your site URL, WordPress & PHP version, plugins & themes and email address to send you the discount coupon. This data lets us make sure this plugin always stays compatible with the most popular plugins and themes. No spam, I promise.', 'fomopress' ); ?></p>
+						<?php 
+						
+							foreach( $opt_in_options as $key => $option ) {
+									$checked = $option['default'];
+								?>
+									<div class="fomopress-single-opt">
+										<label for="<?php echo $key ?>"><?php echo $option['label'] ?></label>
+										<input type="checkbox" <?php echo $checked ? 'checked' : '' ?> name="fomopress_tracking[<?php echo $key ?>]" id="<?php echo $key ?>">
+									</div>
+								<?php
+							}
+						
+						?>
 						<p>
-							<a href="<?php echo esc_url( $url_yes ); ?>" class="button-primary"><?php _e( 'Allow', 'fomopress' ); ?></a>
-							<a href="<?php echo esc_url( $url_no ); ?>" class="button-secondary"><?php _e( 'No Thanks', 'fomopress' ); ?></a>
+							<a class="fomopress-optin-button fp-allow" id="fomopress-optin-allow" data-args="<?php echo esc_attr( json_encode( $yes_args ) ); ?>" href="#" class="button-primary"><?php _e( 'Allow', 'fomopress' ); ?></a>
+							<a class="fomopress-optin-button fp-skip" id="fomopress-optin-skip" data-args="<?php echo esc_attr( json_encode( $no_args ) ); ?>" href="#" class="button-secondary"><?php _e( 'Skip this step', 'fomopress' ); ?></a>
 						</p>
 					</div>
 				
@@ -929,6 +950,52 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 			}
 		}
 		
+
+		public function optin_do_tracking( $force=false ) {
+			// If the home site hasn't been defined, we just drop out. Nothing much we can do.
+			if ( ! $this->home_url ) {
+				return;
+			}
+
+			// Check to see if it's time to track
+			$track_time = $this->get_is_time_to_track();
+			if( ! $track_time && ! $force ) {
+				return;
+			}
+			
+			$this->set_admin_email();
+	
+			// Get our data
+			$body = $this->get_data();
+
+			// Send the data
+			$this->send_data( $body );
+		}
+
+		public function optin_check(){
+			$fields = $_POST['fields'];
+
+			if( $fields['plugin_action'] === 'no' ) {
+				$this->set_track_time();
+
+				echo 'false'; 
+				die;
+			}
+
+			if( $fields['email'] === 'true' ) {
+				$this->set_can_collect_email( true, $this->plugin_name );
+				$this->set_is_tracking_allowed( true, $this->plugin_name );
+			} else {
+				$this->set_can_collect_email( false, $this->plugin_name );
+				$this->set_is_tracking_allowed( false, $this->plugin_name );
+			}
+			$this->optin_do_tracking();
+
+			echo 'true';
+
+			die;
+		}
+
 	}
 	
 }

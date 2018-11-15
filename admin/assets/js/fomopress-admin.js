@@ -82,6 +82,10 @@
 				e.preventDefault();
                 FomoPressAdmin.removeMedia(this);
 			} );
+			$('body').delegate( '.fomopress-optin-button', 'click', function(e) {
+				e.preventDefault();
+                FomoPressAdmin.optinAllowOrNot(this);
+			} );
 		},
 
 		tabChanger : function( button ){
@@ -537,6 +541,40 @@
 					}
 				})
 			});
+		},
+		optinAllowOrNot : function( button ){
+			var button = $( button ),
+			    args   = button.data('args'),
+			    parent = button.parents('.fomopress-opt-in'),
+			    inputs = parent.find('.fomopress-single-opt input'),
+			    values = {};
+
+			inputs.each(function(){
+				var input = $(this)[0],
+					id = input.id;
+				if( $( input ).is(':checked') ) {
+					values[ id ] = true;
+				} else {
+					values[ id ] = false;
+				}
+			});
+
+			values  = Object.assign(values, args);
+
+			$.ajax({
+				type: 'post',
+				url: ajaxurl,
+				data: {
+					action: 'fomopress_optin_check',
+					fields : values
+				},
+				success: function(res) {
+					if( res == 'true' || res == 'false' ) {
+						parent.slideToggle( '500' );
+					}
+				}
+			});
+			
 		}
 	};
 
