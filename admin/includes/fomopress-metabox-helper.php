@@ -485,8 +485,9 @@ return array(
                             'type'        => 'number',
                             'label'       => __('Display the last' , 'fomopress'),
                             'description' => 'conversions',
-                            'default'     => 30,
+                            'default'     => 20,
                             'priority'    => 40,
+                            'max'         => 20,
                         ),
                         'display_from'  => array(
                             'type'        => 'number',
