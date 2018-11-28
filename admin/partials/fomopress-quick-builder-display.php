@@ -49,12 +49,12 @@
                 wp_nonce_field( $builder_args['id'], $builder_args['id'] . '_nonce' );
                 $tabid = 1;
                 foreach( $tabs as $id => $tab  ){
-                    do_action( 'fomopress_builder_before_tab', $id, $tab );
                     $active = $current_tab === $id ? ' active ' : '';
                     $sections = FomoPress_Helper::sorter( $tab['sections'], 'priority', 'ASC' );
                     ?>
                     <div id="fomopress-<?php echo $id ?>" class="fomopress-builder-content <?php echo $active; ?>">
                     <?php 
+                        do_action( 'fomopress_builder_before_tab', $id, $tab );
                         foreach( $sections as $sec_id => $section ) {
                             /**
                              * This will go with section_id, and tab_id
@@ -101,9 +101,9 @@
                             }
                         ?>
                     </button>
+                    <?php do_action( 'fomopress_builder_after_tab', $id, $tab ); ?>
                     </div>
                     <?php
-                    do_action( 'fomopress_builder_after_tab', $id, $tab );
                 }
             ?>
         </form>

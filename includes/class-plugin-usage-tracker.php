@@ -17,7 +17,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 		private $wisdom_version = '1.1.2';
 		private $home_url = '';
 		private $plugin_file = '';
-		private $plugin_name = '';
+		public $plugin_name = '';
 		private $options = array();
 		private $require_optin = true;
 		private $include_goodbye_form = true;
@@ -92,6 +92,9 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 			add_action( 'admin_footer-plugins.php', array( $this, 'goodbye_ajax' ) );
 			add_action( 'wp_ajax_goodbye_form', array( $this, 'goodbye_form_callback' ) );
 			
+			add_action( 'fomopress_builder_before_tab', array( $this, 'opt_in' ), 10, 3 );
+			add_action( 'wp_ajax_fomopress_optin_check', array( $this, 'optin_check' ) );
+			
 		}
 		
 		/**
@@ -123,12 +126,12 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 				return;
 			}
 	
-			// Check to see if the user has opted in to tracking
+			// // Check to see if the user has opted in to tracking
 			$allow_tracking = $this->get_is_tracking_allowed();
 			if( ! $allow_tracking ) {
 				return;
 			}
-			
+				
 			// Check to see if it's time to track
 			$track_time = $this->get_is_time_to_track();
 			if( ! $track_time && ! $force ) {
@@ -164,7 +167,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 					'user-agent'  => 'PUT/1.0.0; ' . get_bloginfo( 'url' )
 				)
 			);
-			
+
 			$this->set_track_time();
 	
 			if( is_wp_error( $request ) ) {
@@ -584,7 +587,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 
 			// @credit EDD
 			// Don't bother asking user to opt in if they're in local dev
-			if ( stristr( network_site_url( '/' ), 'local' ) !== false || stristr( network_site_url( '/' ), 'localhost' ) !== false || stristr( network_site_url( '/' ), ':8888' ) !== false ) {
+			if ( stristr( network_site_url( '/' ), 'test' ) !== false || stristr( network_site_url( '/' ), 'localhost' ) !== false || stristr( network_site_url( '/' ), ':8888' ) !== false ) {
 				$this->update_block_notice();
 			} else {
 				
@@ -612,7 +615,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 					'plugin' 		=> $this->plugin_name,
 					'plugin_action'	=> 'no'
 				) );
-				
+
 				// Decide on notice text
 				if( $this->marketing != 1 ) {
 					// Standard notice text
@@ -878,7 +881,121 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 			echo 'success';
 			wp_die();
 		}
+
+		public function opt_in( $id, $tab ) {
+			$block_notice = get_option( 'wisdom_block_notice' );
+			$last_time_track = get_option( 'wisdom_last_track_time' );
+			$new_track_time = strtotime( date('d F Y', $last_time_track[ $this->plugin_name ] ) . " +7 Days");
+
+			if( $id == 'finalize_tab' ) {
+				if( ( time() < $new_track_time ) ) {
+					return;
+				}
+
+				// Args to add to query if user opts in to tracking
+				$yes_args = array(
+					'plugin' 		=> $this->plugin_name,
+					'plugin_action'	=> 'yes'
+				);
+				
+				// Decide how to request permission to collect email addresses
+				if( $this->marketing == 1 ) {
+					// Option 1 combines permissions to track and collect email
+					$yes_args['marketing_optin'] = 'yes';
+				} else if( $this->marketing == 2 ) {
+					// Option 2 enables a second notice that fires after the user opts in to tracking
+					$yes_args['marketing'] = 'yes';
+				}
+			
+				$no_args['plugin'] = $this->plugin_name;
+				$no_args['plugin_action'] = 'no';
+
+				$opt_in_options = apply_filters( 'fomopress_opt_in_options', array(
+					'email' => array(
+						'label' => 'Email Address',
+						'default' => 1
+					),
+				) );
+
+				ob_start();
+				/**
+				 * TODO: select items for tracking
+				 */
+				?>
+				
+					<div class="fomopress-opt-in">
+						<p><?php _e('Hey, ', 'fomopress'); ?> <strong><?php echo get_user_meta( get_current_user_id(), 'first_name', true ); ?></strong></p>
+						<p><?php _e( 'We collect non-sensitive diagnostic data and plugin usage information. Your site URL, WordPress & PHP version, plugins & themes and email address to send you the discount coupon. This data lets us make sure this plugin always stays compatible with the most popular plugins and themes. No spam, I promise.', 'fomopress' ); ?></p>
+						<?php 
+						
+							foreach( $opt_in_options as $key => $option ) {
+									$checked = $option['default'];
+								?>
+									<div class="fomopress-single-opt">
+										<label for="<?php echo $key ?>"><?php echo $option['label'] ?></label>
+										<input type="checkbox" <?php echo $checked ? 'checked' : '' ?> name="fomopress_tracking[<?php echo $key ?>]" id="<?php echo $key ?>">
+									</div>
+								<?php
+							}
+						
+						?>
+						<p>
+							<a class="fomopress-optin-button fp-allow" id="fomopress-optin-allow" data-args="<?php echo esc_attr( json_encode( $yes_args ) ); ?>" href="#" class="button-primary"><?php _e( 'Allow', 'fomopress' ); ?></a>
+							<a class="fomopress-optin-button fp-skip" id="fomopress-optin-skip" data-args="<?php echo esc_attr( json_encode( $no_args ) ); ?>" href="#" class="button-secondary"><?php _e( 'Skip this step', 'fomopress' ); ?></a>
+						</p>
+					</div>
+				
+				<?php
+				echo ob_get_clean();
+			}
+		}
 		
+
+		public function optin_do_tracking( $force=false ) {
+			// If the home site hasn't been defined, we just drop out. Nothing much we can do.
+			if ( ! $this->home_url ) {
+				return;
+			}
+
+			// Check to see if it's time to track
+			$track_time = $this->get_is_time_to_track();
+			if( ! $track_time && ! $force ) {
+				return;
+			}
+			
+			$this->set_admin_email();
+	
+			// Get our data
+			$body = $this->get_data();
+
+			// Send the data
+			$this->send_data( $body );
+		}
+
+		public function optin_check(){
+			$fields = $_POST['fields'];
+
+			if( $fields['plugin_action'] === 'no' ) {
+				$this->set_track_time();
+
+				echo 'false'; 
+				die;
+			}
+
+			if( $fields['email'] === 'true' ) {
+				$this->set_can_collect_email( true, $this->plugin_name );
+				$this->set_is_tracking_allowed( true, $this->plugin_name );
+			} else {
+				$this->set_can_collect_email( false, $this->plugin_name );
+				$this->set_is_tracking_allowed( false, $this->plugin_name );
+			}
+			$this->optin_do_tracking();
+
+			echo 'true';
+
+			die;
+		}
+
 	}
 	
 }

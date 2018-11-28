@@ -153,11 +153,7 @@ return array(
             'title'         => __('Finalize', 'fomopress'),
             'icon'          => 'cog.svg',
             'sections'      => apply_filters('fomopress_customize_tab_sections', array(
-                'appearance_2'        => array(
-                    'title'    => __('Appearance', 'fomopress'),
-                    'priority' => 10,
-                    'view' => 'FomoPress_Helper::my_view_func'
-                ),
+                
             ))
         ),
     ))

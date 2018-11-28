@@ -303,10 +303,5 @@ class FomoPress_Helper {
         }
         return $types;
     }
-
-
-    public static function my_view_func(){
-        echo '<div><h1>Hello, world!</h1></div>';
-    }
 }
 
