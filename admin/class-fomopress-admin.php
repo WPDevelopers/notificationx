@@ -94,6 +94,11 @@ class FomoPress_Admin {
 	public function enqueue_styles( $hook ) {
 		global $post_type;
 		$page_status = false;
+		wp_enqueue_style( 
+			$this->plugin_name . '-admin-global', 
+			FOMOPRESS_ADMIN_URL . 'assets/css/fomopress-admin-global.css', 
+			array(), $this->version, 'all' 
+		);
 		if( $hook == 'fomopress_page_fomopress-builder' || $hook == 'fomopress_page_fomopress-settings' ) {
 			$page_status = true;
 		}
@@ -256,7 +261,7 @@ class FomoPress_Admin {
 			'show_in_menu'        => true,
 			'show_in_admin_bar'   => true,
 			'menu_position'       => 80,
-			'menu_icon'           => FOMOPRESS_ADMIN_URL . 'assets/img/fomopress-icon.png',
+			'menu_icon'           => FOMOPRESS_ADMIN_URL . 'assets/img/fomopress-menu-icon.png',
 			'show_in_nav_menus'   => false,
 			'publicly_queryable'  => false,
 			'exclude_from_search' => true,

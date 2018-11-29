@@ -1,0 +1,10 @@
+#adminmenu .menu-icon-fomopress img {
+	width: 20px;
+	margin-top: 7px;
+	margin-left: 2px;
+	padding: 0;
+}
+
+.menu-icon-fomopress + .wp-menu-separator {
+	display: none;
+}
