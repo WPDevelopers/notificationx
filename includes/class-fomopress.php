@@ -120,6 +120,10 @@ final class FomoPress {
 		 */
 		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-helper.php';
 		/**
+		 * FomoPress Cron
+		 */
+		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-cron.php';
+		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 * 

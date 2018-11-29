@@ -25,6 +25,10 @@ class FomoPress_EDD_Extension extends FomoPress_Extension {
         $this->notifications = $this->get_notifications( $this->type );
         add_filter( 'fomopress_display_types_hide_data', array( $this, 'hide_fields' ) );
     }
+
+    public function init_hooks(){
+        add_filter( 'fomopress_conversion_from', array( $this, 'toggle_fields' ) );
+    }
     /**
      * This functions is hooked
      * @hooked fomopress_public_action
@@ -100,7 +104,7 @@ class FomoPress_EDD_Extension extends FomoPress_Extension {
      * @param array $options
      * @return void
      */
-    public function conversion_from( $options ){
+    public function toggle_fields( $options ){
         $options['toggle']['edd']['fields']   = [ 'edd_template', 'show_product_image' ];
         $options['toggle']['edd']['sections'] = [ 'image' ];
         $options['hide']['edd']['fields']     = [ 'show_custom_image' ];

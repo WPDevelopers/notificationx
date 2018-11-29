@@ -303,5 +303,24 @@ class FomoPress_Helper {
         }
         return $types;
     }
+
+    public static function colored_themes(){
+
+        return apply_filters( 'fomopress_colored_themes', array(
+            'theme-one' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
+            'theme_two' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
+            'theme-three' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png'
+        ));
+
+    }
+
+    public static function conversion_toggle(){
+        return apply_filters( 'fomopress_conversion_toggle' , array(
+            'custom'        => array(
+                'sections' => [ 'image' ],
+                'fields' => [ 'custom_template', 'custom_contents' ]
+            ),
+        ));
+    }
 }
 

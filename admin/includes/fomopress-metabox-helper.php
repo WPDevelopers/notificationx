@@ -30,19 +30,14 @@ return array(
                             'hide' => FomoPress_Helper::hide_data( 'display_types' ),                            
                             'priority' => 50
                         ) ),
-                        'conversion_from'  => apply_filters( 'fomopress_conversion_from_field', array(
+                        'conversion_from'  => apply_filters('fomopress_conversion_from', array(
                             'type'      => 'select',
                             'label'     => __('From' , 'fomopress'),
                             'default'   => 'custom',
                             'options'   => FomoPress_Helper::conversion_from(),
                             'priority'	=> 60,
-                            'toggle'        => array(
-                                'custom'        => array(
-                                    'sections' => [ 'image' ],
-                                    'fields' => [ 'custom_template', 'custom_contents' ]
-                                ),
-                            ),
-                        ) )
+                            'toggle'   => FomoPress_Helper::conversion_toggle(),
+                        ))
                     ),
                 ),
             ))
@@ -160,11 +155,7 @@ return array(
                             'type'      => 'theme',
                             'priority'	=> 5,
                             'default'	=> 'theme-one',
-                            'options'   => apply_filters('fomopress_colored_themes', array(
-                                'theme-one' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
-                                'theme_two' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
-                                'theme-three' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png'
-                            )),
+                            'options'   => FomoPress_Helper::colored_themes(),
                         ),
                         'advance_edit' => array(
                             'type'      => 'adv_checkbox',

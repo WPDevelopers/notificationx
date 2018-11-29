@@ -68,8 +68,11 @@ class Extension_Factory {
                     add_filter( 'fomopress_display_type', array( $object, 'display_type' ) );
                 }
 
-                if( method_exists( $object, 'conversion_from' ) ) {
-                    add_filter( 'fomopress_conversion_from_field', array( $object, 'conversion_from' ) );
+                if( method_exists( $object, 'init_hooks' ) ) {
+                    add_action( 'fomopress_before_metabox_load', array( $object, 'init_hooks' ) );
+                }
+                if( method_exists( $object, 'init_builder_hooks' ) ) {
+                    add_action( 'fomopress_before_builder_load', array( $object, 'init_builder_hooks' ) );
                 }
                 /**
                  * All tab filters
@@ -86,10 +89,6 @@ class Extension_Factory {
                 if( method_exists( $object, 'customize_tab_section' ) ) {
                     add_filter( 'fomopress_customize_tab_sections', array( $object, 'customize_tab_section' ) );
                 }
-
-                // if( method_exists( $object, 'hide_fields' ) ) {
-                //     add_action( 'fomopress_before_metabox_load', array( $object, 'hide_field' ) );
-                // }
                 
             }
         }

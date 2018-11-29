@@ -68,17 +68,19 @@ class FomoPress_Settings {
 	 * @return void
 	 */
 	public static function settings_args(){
-        $settings_args = require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-settings-page-helper.php';
-        $settings_args = apply_filters( 'fomopress_before_settings_load', $settings_args );
-        return $settings_args;
+        if( ! function_exists( 'fomopress_settings_array' ) ) {
+            require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-settings-page-helper.php';
+        }
+        do_action( 'fomopress_before_settings_load' );
+        return fomopress_settings_array();
 	}
 	/**
-	 * Render the settings page
+     * Render the settings page
 	 *
-	 * @return void
+     * @return void
 	 */
-	public static function settings_page(){
-		$settings_args = self::settings_args();
+    public static function settings_page(){
+        $settings_args = self::settings_args();
 		$value = FomoPress_DB::get_settings();
 
 		if( isset( $_POST[ 'fomopress_settings_submit' ] ) ) : 
@@ -97,7 +99,8 @@ class FomoPress_Settings {
     public static function render_field( $key = '', $field = [] ) {
         $post_id   = '';
         $name      = $key;
-        $id        = $key;
+        // $id        = $key;
+        $id        = FomoPress_Metabox::get_row_id( $key );
         $file_name = isset( $field['type'] ) ? $field['type'] : 'text';
         
         if( 'template' === $file_name ) {

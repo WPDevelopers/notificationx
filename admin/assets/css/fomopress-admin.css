@@ -593,6 +593,11 @@ label.fomopress-adv-checkbox-label {
     border-bottom: none;
 }
 
+.fomopress-settings-menu ul li a:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 .fomopress-settings-menu ul li.active a {
     background-color: #fff;
 }
@@ -604,6 +609,10 @@ label.fomopress-adv-checkbox-label {
     border: 1px solid rgba( 0,0,0,0.1 );
     border-top: none;
     position: relative;
+    display: none;
+}
+.fomopress-settings-tab.active {
+    display: block;
 }
 .fomopress-settings-button {
     margin: 0px;
