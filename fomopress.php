@@ -3,18 +3,18 @@
 /**
  * @link              https://wpdeveloper.net
  * @since             1.0.0
- * @package           Fomopress
+ * @package           FomoPress
  *
  * @wordpress-plugin
  * Plugin Name:       FomoPress
- * Plugin URI:        https://wpdeveloper.net/fomopress
+ * Plugin URI:        https://wpdeveloper.net/FomoPress
  * Description:       FOMO notification for WordPress.
  * Version:           1.0.0
  * Author:            WPDeveloper
  * Author URI:        https://wpdeveloper.net
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       fomopress
+ * Text Domain:       FomoPress
  * Domain Path:       /languages
  */
 
@@ -25,13 +25,23 @@ if ( ! defined( 'WPINC' ) ) {
 
 define( 'FOMOPRESS_VERSION', '1.0.0' );
 
+define( 'FOMOPRESS_URL', plugins_url( '/', __FILE__ ) );
+define( 'FOMOPRESS_ADMIN_URL', FOMOPRESS_URL . 'admin/' );
+define( 'FOMOPRESS_PUBLIC_URL', FOMOPRESS_URL . 'public/' );
+
+define( 'FOMOPRESS_FILE', __FILE__ );
+define( 'FOMOPRESS_ROOT_DIR_PATH', plugin_dir_path( __FILE__ ) );
+define( 'FOMOPRESS_ADMIN_DIR_PATH', FOMOPRESS_ROOT_DIR_PATH . 'admin/' );
+define( 'FOMOPRESS_PUBLIC_PATH', FOMOPRESS_ROOT_DIR_PATH . 'public/' );
+define( 'FOMOPRESS_EXT_DIR_PATH', FOMOPRESS_ROOT_DIR_PATH . 'extensions/' );
+
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-fomopress-activator.php
  */
 function activate_fomopress() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-fomopress-activator.php';
-	Fomopress_Activator::activate();
+	require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-activator.php';
+	FomoPress_Activator::activate();
 }
 
 /**
@@ -39,8 +49,8 @@ function activate_fomopress() {
  * This action is documented in includes/class-fomopress-deactivator.php
  */
 function deactivate_fomopress() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-fomopress-deactivator.php';
-	Fomopress_Deactivator::deactivate();
+	require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-deactivator.php';
+	FomoPress_Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_fomopress' );
@@ -50,7 +60,7 @@ register_deactivation_hook( __FILE__, 'deactivate_fomopress' );
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-fomopress.php';
+require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress.php';
 
 /**
  * Begins execution of the plugin.
@@ -62,9 +72,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-fomopress.php';
  * @since    1.0.0
  */
 function run_fomopress() {
-
-	$plugin = new Fomopress();
+	$plugin = new FomoPress();
 	$plugin->run();
-
 }
 run_fomopress();
