@@ -44,9 +44,11 @@ class FomoPress_MetaBox {
     }
     
     public static function get_builder_args() {
-        $builder_args = require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-builder-helper.php';
+        if( ! function_exists( 'fomopress_builder_args' ) ) {
+            require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-builder-helper.php';
+        }
         do_action( 'fomopress_before_builder_load' );
-        return $builder_args;
+        return fomopress_builder_args();
     }
 
     public static function render_meta_field( $key = '', $field = [], $value = '', $idd = null ) {
@@ -104,7 +106,7 @@ class FomoPress_MetaBox {
      * @param string $key
      * @return string
      */
-    protected static function get_row_id( $key ) {
+    public static function get_row_id( $key ) {
         return str_replace( '_', '-', self::$prefix ) . $key;
     }
     /**
@@ -192,7 +194,8 @@ class FomoPress_MetaBox {
         /**
          * Save all meta!
          */        
-        self::save_data( $_POST, $post_id);  
+        self::save_data( $_POST, $post_id);
+        do_action('fomopress_save_post'); 
     }
 
     public static function save_data( $posts, $post_id ){

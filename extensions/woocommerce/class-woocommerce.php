@@ -40,6 +40,10 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
         add_action( 'woocommerce_order_status_changed', array( $this, 'status_transition' ), 10, 4 );
     }
 
+    public function init_hooks(){
+        add_filter( 'fomopress_conversion_from', array( $this, 'toggle_fields' ) );
+    }
+
     public function hide_fields( $options ){
         $options['comments']['fields'][] = 'has_no_woo';
         $options['comments']['fields'][] = 'woo_template';
@@ -104,7 +108,7 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
      * @param array $options
      * @return void
      */
-    public function conversion_from( $options ){
+    public function toggle_fields( $options ){
         $options['toggle']['woocommerce']['fields'] = [ 'woo_template', 'show_product_image' ];
         $options['toggle']['woocommerce']['sections'] = [ 'image' ];
         $options['hide']['woocommerce']['fields'] = [ 'show_custom_image' ];

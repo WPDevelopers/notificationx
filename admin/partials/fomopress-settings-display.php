@@ -28,7 +28,7 @@
                             $sections = isset( $setting['sections'] ) ? $setting['sections'] : [];
                             $sections = FomoPress_Helper::sorter( $sections, 'priority', 'ASC' );
                             ?>
-                            <div id="<?php echo esc_attr( $key ); ?>" class="fomopress-settings-tab fomopress-settings-<?php echo esc_attr( $key );?> <?php echo $active; ?>">
+                            <div id="fs-<?php echo esc_attr( $key ); ?>" class="fomopress-settings-tab fomopress-settings-<?php echo esc_attr( $key );?> <?php echo $active; ?>">
                                 <?php 
                                     if( ! empty( $sections ) ) :
                                         /**

@@ -410,4 +410,11 @@ class FomoPress_Admin {
 
 		include FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-admin-preview.php';
 	}
+
+	public static function get_post_meta( $post_id, $key, $single = true ) {
+		return get_post_meta( $post_id, 'fomopress_' . $key, $single );
+	}
+	public static function update_post_meta( $post_id, $key, $value ) {
+		update_post_meta( $post_id, 'fomopress_' . $key, $value );
+	}
 }
