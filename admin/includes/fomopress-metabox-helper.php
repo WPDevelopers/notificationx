@@ -145,7 +145,7 @@ return array(
         ),
         'design_tab' => array(
             'title'      => __('Design', 'fomopress'),
-            'icon'       => 'screen.svg',
+            'icon'       => 'magic-wand.svg',
             'sections'   => apply_filters('fomopress_design_tab_sections', array(
                 'themes' => array(
                     'title'      => __('Themes', 'fomopress'),

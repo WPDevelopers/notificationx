@@ -50,7 +50,7 @@ function fomopress_builder_args() {
             ),
             'design_tab' => array(
                 'title'      => __('Design', 'fomopress'),
-                'icon'       => 'screen.svg',
+                'icon'       => 'magic-wand.svg',
                 'sections'   => array(
                     'themes' => array(
                         'title'      => __('Themes', 'fomopress'),
