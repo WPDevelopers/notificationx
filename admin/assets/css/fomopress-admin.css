@@ -715,7 +715,7 @@ label.fomopress-adv-checkbox-label:hover {
     width: 100%;
     display: flex;
     flex-flow: row wrap;
-    align-content: center;
+    justify-content: space-between;
 }
 
 .fomopress-settings-left {
@@ -725,35 +725,31 @@ label.fomopress-adv-checkbox-label:hover {
 }
 
 .fomopress-settings-right {
-    flex: 1 1 200px;
+    flex: 1 1 30%;
     padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fomopress-sidebar {
+    background-color: #fff;
+    width: 100%;
+    padding: 50px 20px;
+    margin-top: 34px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-.fomopress-admin-block-wrapper {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    margin: -10px;
-}
-.fomopress-admin-block-wrapper .fomopress-admin-block {
-    background-color: #fff;
-    flex: 1 1 auto;
-    min-width: 250px;
-    width: 300px;
-    margin: 10px 10px 25px 10px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
 
 .fomopress-sidebar-block {
     margin: 1em auto;
 }
 .fomopress-sidebar-block .fomopress-admin-sidebar-logo {
-    max-width: 150px;
+    max-width: 200px;
     display: block;
-    margin: 0 auto;
+    margin: 25px auto;
 }
 .fomopress-sidebar-block .fomopress-admin-sidebar-logo > img, .fomopress-sidebar-block .fomopress-admin-sidebar-logo > svg {
     width: 100%;
