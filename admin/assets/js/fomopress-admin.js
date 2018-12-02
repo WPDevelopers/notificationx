@@ -605,13 +605,24 @@
 					action: 'fomopress_' + submitKey + '_settings_ac',
 					key: submitKey,
 					nonce: nonce,
-					form_data: formData
+					form_data: JSON.stringify(formData)
 				},
 				success: function(res) {
-					if ( res !== 'success' ) {
-						
+					if ( res === 'success' ) {
+						swal({
+							title     : "Settings Saved!",
+							text      : "Click OK to continue",
+							icon      : "success",
+							buttons   : [false, "Ok"],
+						});
+					} else {
+						swal({
+							title     : "Settings Not Saved!",
+							text      : "Click OK to continue",
+							icon      : "success",
+							buttons   : [false, "Ok"],
+						});
 					}
-					console.log( formData );
 				}
 			});			
 		}

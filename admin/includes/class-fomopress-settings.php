@@ -164,22 +164,10 @@ class FomoPress_Settings {
      * @return void
      */
     public static function save_settings( $values = [] ){
-		/**
-         * Verify the Nonce
-         */
-        if ( ! isset( $values['fomopress_settings_nonce'] ) || ! wp_verify_nonce( $values['fomopress_settings_nonce'], 'fomopress_settings' ) ) {
-            return;
-		}
-
-		if( ! isset( $values['fomopress_settings_submit'] ) || ! is_array( $values ) ) {
-			return;
-		}
-
 		$settings_args = self::settings_args();
 		$fields = self::get_settings_fields( $settings_args );
-
+        $data = [];
 		foreach( $values as $key => $value ) {
-
 			if( array_key_exists( $key, $fields ) ) {
 				if( empty( $value ) ) {
 					$value = $fields[ $key ]['default'];
@@ -193,13 +181,32 @@ class FomoPress_Settings {
 				$data[ $key ] = $value;
 			}
 		}
+        dump( $values );
 
-		FomoPress_DB::update_settings( $data );
+		// FomoPress_DB::update_settings( $data );
     }
     
-    public function general_settings_ac(){
+    public static function general_settings_ac(){
+        /**
+         * Verify the Nonce
+         */
+        if ( ( ! isset( $_POST['nonce'] ) && ! isset( $_POST['key'] ) ) || ! 
+            wp_verify_nonce( $_POST['nonce'], 'fomopress_'. $_POST['key'] .'_nonce' ) ) {
+            return;
+        }
+        if( isset( $_POST['form_data'] ) ) {
 
-        dump( $_POST );
+            dump( $_POST['form_data'] );
+
+            dump( urldecode( $_POST['form_data'] ) );
+            die;
+
+            self::save_settings( $_POST['form_data'] );
+            echo 'success';
+        } else {
+            echo 'error';
+        }
+
         die;
     }
 }
