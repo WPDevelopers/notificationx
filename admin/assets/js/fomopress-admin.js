@@ -47,6 +47,10 @@
 			$('body').delegate( '.fomopress-settings-menu li', 'click', function( e ) {
 				FomoPressAdmin.settingsTab( this );
             } );
+			$('body').delegate( '.fomopress-settings-button', 'click', function( e ) {
+				e.preventDefault();
+				FomoPressAdmin.submitSettings( this );
+            } );
 			$('body').delegate( '.fomopress-opt-alert', 'click', function( e ) {
 				FomoPressAdmin.fieldAlert( this );
             } );
@@ -585,6 +589,31 @@
 
 			button.addClass('active').siblings().removeClass('active');
 			$('#fs-'+tabToGo).addClass('active').siblings().removeClass('active');
+		},
+		submitSettings : function( button ){
+			var button = $(button),
+				submitKey = button.data('key'),
+				nonce = button.data('nonce'),
+				form = button.parent('#fomopress-settings-'+ submitKey +'-form'),
+				formData = $( form ).serializeArray();
+		
+
+			$.ajax({
+				type: 'POST',
+				url: ajaxurl,
+				data: {
+					action: 'fomopress_' + submitKey + '_settings_ac',
+					key: submitKey,
+					nonce: nonce,
+					form_data: formData
+				},
+				success: function(res) {
+					if ( res !== 'success' ) {
+						
+					}
+					console.log( formData );
+				}
+			});			
 		}
 	};
 
