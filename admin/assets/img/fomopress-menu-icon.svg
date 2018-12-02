@@ -15,7 +15,7 @@
         <g id="Artboard-3-light" transform="translate(-244.000000, -244.000000)">
             <g id="fomopress-logo-light" transform="translate(244.000000, 244.000000)">
                 <circle id="Oval" stroke="#C9C9C9" stroke-width="50" fill="#F1F2F9" cx="256" cy="256" r="231"></circle>
-                <circle id="Oval-Inner" fill="#979797" cx="256" cy="256" r="125"></circle>
+                <circle id="Oval-Inner" fill="#333" cx="256" cy="256" r="125"></circle>
                 <g id="eye" transform="translate(126.000000, 127.000000)">
                     <g id="Oval-3">
                         <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>

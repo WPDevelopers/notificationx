@@ -656,21 +656,6 @@ label.fomopress-adv-checkbox-label:hover {
     flex: 1 1 auto;
 }
 
-.fomopress-left-right-settings {
-    display: flex;
-}
-
-.fomopress-settings-left {
-    flex: 2;
-}
-
-.fomopress-settings-right {
-    padding: 30px;
-    background: #fff;
-    margin-left: 30px;
-    flex: 1;
-}
-
 .fomopress-settings-menu {}
 .fomopress-settings-menu ul {}
 .fomopress-settings-menu ul li {
@@ -725,3 +710,76 @@ label.fomopress-adv-checkbox-label:hover {
     padding: 10px;
     border: 1px solid #f2f2f2 !important;
 }
+
+.fomopress-left-right-settings {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: center;
+}
+
+.fomopress-settings-left {
+    max-width: 80em;
+    height: auto;
+    flex: 1 1 70%;
+}
+
+.fomopress-settings-right {
+    flex: 1 1 200px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.fomopress-admin-block-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin: -10px;
+}
+.fomopress-admin-block-wrapper .fomopress-admin-block {
+    background-color: #fff;
+    flex: 1 1 auto;
+    min-width: 250px;
+    width: 300px;
+    margin: 10px 10px 25px 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.fomopress-sidebar-block {
+    margin: 1em auto;
+}
+.fomopress-sidebar-block .fomopress-admin-sidebar-logo {
+    max-width: 150px;
+    display: block;
+    margin: 0 auto;
+}
+.fomopress-sidebar-block .fomopress-admin-sidebar-logo > img, .fomopress-sidebar-block .fomopress-admin-sidebar-logo > svg {
+    width: 100%;
+    display: block;
+    margin: 10px auto;
+}
+.fomopress-admin-sidebar-cta a {
+    font-size: 1em;
+    color: rgba(35,40,45,0.45);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: .065em;
+    text-align: center;
+    margin: 20px auto;
+    display: block;
+    border: 1px solid rgba(35,40,45,0.185);
+    border-radius: 4px;
+    padding: 15px;
+    width: 200px;
+    outline: none;
+    box-shadow: none;
+    transition: all .3s;
+}
+
+.fomopress-admin-sidebar-cta a:hover {
+    color: #23282d;
+    box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.715);
+}
+
