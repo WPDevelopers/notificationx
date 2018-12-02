@@ -605,7 +605,7 @@
 					action: 'fomopress_' + submitKey + '_settings_ac',
 					key: submitKey,
 					nonce: nonce,
-					form_data: JSON.stringify(formData)
+					form_data: formData
 				},
 				success: function(res) {
 					if ( res === 'success' ) {
