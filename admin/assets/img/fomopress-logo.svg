@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="2898px" height="400px" viewBox="0 0 2898 400" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>fomopress-logo-full</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#806EE8" offset="0%"></stop>
+            <stop stop-color="#6044EA" offset="100%"></stop>
+        </linearGradient>
+        <path d="M233.5,163 C236.5,163 239,165 239,167.5 L239,231 C239,233 236.5,235.5 233.5,235.5 L76.5,235.5 L76.5,400 L5.5,400 C2.5,400 0,397.5 0,395.5 L0,4.5 C0,2.5 2.5,0 5.5,0 L190,0 L190,72.5 L76.5,72.5 L76.5,163 L233.5,163 Z M1040,348.828125 L1041,176.5 L939,381 C938.5,382.5 936,384 934.5,384 L873,384 C871.5,384 868.5,382.5 868,381 L759.5,171 L759.5,395.5 C759.5,397.5 757,400 754,400 L688,400 C684.5,400 683,397.5 683,395.5 L683,4.5 C683,2.5 684.5,0 688,0 L755,0 C756.5,0 759.5,1.5 760,3 L903.5,296 L1040,3 C1041,1.5 1043.5,0 1045.5,0 L1111.5,0 C1115,0 1117,2.5 1117,4.5 L1117,348.828125 L1040,348.828125 Z M1689.5,0 C1705.5,0 1824.5,2.5 1824.5,120 C1824.5,237.5 1699,239 1689.5,239 L1630,239 L1630,395.5 C1630,397.5 1628.5,400 1625,400 L1560,400 C1557.5,400 1555,397.5 1555,395.5 L1555,165 L1689.5,165 C1699.5,165 1748.5,164 1748.5,120 C1748.5,76 1698.5,73.5 1689.5,73.5 L1555,73.5 L1555,4.5 C1555,2.5 1557.5,0 1560,0 L1689.5,0 Z M2116,393.5 C2117.5,397 2115.5,400 2111.5,400 L2040,400 C2038.5,400 2035.5,398.5 2035,397 L1962,238.5 L1919,238.5 L1919,395.5 C1919,397.5 1916.5,400 1913.5,400 L1848,400 C1845.5,400 1843,397.5 1843,395.5 L1843,165 L1977.5,165 C1994,165 2036.5,163 2036.5,119 C2036.5,75 1989.5,72.5 1977.5,72.5 L1843,72.5 L1843,4.5 C1843,2.5 1845.5,0 1848,0 L1977.5,0 C2000,0 2112.5,1 2112.5,119 C2112.5,180 2079,212 2039,226.5 C2064,283 2091,338 2116,393.5 Z M2403.10938,325.5 L2370.39063,400 L2144,400 C2141,400 2138.5,397.5 2138.5,395.5 L2138.5,4.5 C2138.5,2.5 2141,0 2144,0 L2328.5,0 L2328.5,72.5 L2215,72.5 L2215,163 L2360,163 L2360,235.5 L2215,235.5 L2215,325.5 L2403.10938,325.5 Z M2567.13078,178 C2609.04628,197.5 2632,236.5 2632,283.5 C2632,358.5 2572.12072,400 2508.2495,400 L2448.86922,400 L2448.86922,328 L2508.2495,328 C2534.69618,328 2558.14889,310 2558.14889,283.5 C2558.14889,254 2530.70423,236 2508.2495,235 C2504.75654,235 2477.81087,235 2448.86922,221.5 C2407.45272,202.5 2384,167 2384,120.5 C2384,45.5 2444.37827,0 2508.2495,0 C2576.61167,0 2629.50503,46 2630.50302,114 C2631.00201,115.5 2628.50704,118 2625.01408,118 L2562.63984,118 C2559.64588,118 2557.15091,115.5 2557.15091,114 C2556.15292,85.5 2534.19718,72 2508.2495,72 C2480.80483,72 2458.3501,88.5 2458.3501,120.5 C2458.3501,149.5 2482.8008,164.5 2508.2495,164.5 C2510.74447,164.5 2538.68813,164.5 2567.13078,178 Z M2833.13078,178 C2875.04628,197.5 2898,236.5 2898,283.5 C2898,358.5 2838.12072,400 2774.2495,400 L2714.86922,400 L2714.86922,328 L2774.2495,328 C2800.69618,328 2824.14889,310 2824.14889,283.5 C2824.14889,254 2796.70423,236 2774.2495,235 C2770.75654,235 2743.81087,235 2714.86922,221.5 C2673.45272,202.5 2650,167 2650,120.5 C2650,45.5 2710.37827,0 2774.2495,0 C2842.61167,0 2895.50503,46 2896.50302,114 C2897.00201,115.5 2894.50704,118 2891.01408,118 L2828.63984,118 C2825.64588,118 2823.15091,115.5 2823.15091,114 C2822.15292,85.5 2800.19718,72 2774.2495,72 C2746.80483,72 2724.3501,88.5 2724.3501,120.5 C2724.3501,149.5 2748.8008,164.5 2774.2495,164.5 C2776.74447,164.5 2804.68813,164.5 2833.13078,178 Z" id="path-2"></path>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#806EE8" stop-opacity="0.985309103" offset="0%"></stop>
+            <stop stop-color="#6044EA" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-4" cx="43.1279621" cy="43.1279621" r="43.1279621"></circle>
+        <filter x="-84.6%" y="-56.8%" width="257.7%" height="257.7%" filterUnits="objectBoundingBox" id="filter-5">
+            <feOffset dx="-5" dy="19" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="19.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.28161798 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <circle id="path-6" cx="43.1279621" cy="43.1279621" r="43.1279621"></circle>
+        <filter x="-84.6%" y="-56.8%" width="257.7%" height="257.7%" filterUnits="objectBoundingBox" id="filter-7">
+            <feOffset dx="-5" dy="19" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="19.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.28161798 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-Copy" transform="translate(-552.000000, -250.000000)">
+            <g id="fomopress-logo-full" transform="translate(552.000000, 250.000000)">
+                <g id="font-paths">
+                    <g id="FomoPress">
+                        <use fill="#9A89FF" xlink:href="#path-2"></use>
+                        <use fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+                    </g>
+                </g>
+                <g id="fomopress-logo" transform="translate(1133.000000, 0.000000)">
+                    <circle id="Oval" stroke="url(#linearGradient-3)" stroke-width="50" fill="#EAEAEA" cx="200" cy="200" r="175"></circle>
+                    <circle id="Oval-Inner" fill="#252526" cx="200" cy="200" r="97.6303318"></circle>
+                    <g id="eye" transform="translate(98.578199, 99.526066)" opacity="0.95">
+                        <g id="Oval-3">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-5)" xlink:href="#path-4"></use>
+                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-4"></use>
+                        </g>
+                    </g>
+                </g>
+                <g id="fomopress-logo" transform="translate(260.000000, 0.000000)">
+                    <circle id="Oval" stroke="url(#linearGradient-3)" stroke-width="50" fill="#EAEAEA" cx="200" cy="200" r="175"></circle>
+                    <circle id="Oval-Inner" fill="#252526" cx="200" cy="200" r="97.6303318"></circle>
+                    <g id="eye" transform="translate(98.578199, 99.526066)" opacity="0.95">
+                        <g id="Oval-3">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-7)" xlink:href="#path-6"></use>
+                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-6"></use>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

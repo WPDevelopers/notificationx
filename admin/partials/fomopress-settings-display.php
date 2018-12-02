@@ -80,7 +80,29 @@
             do_action( 'fomopress_before_settings_right' );
         ?>
         <div class="fomopress-settings-right">
-
+            <div class="fomopress-sidebar">
+                <div class="fomopress-sidebar-block">
+                    <div class="fomopress-admin-sidebar-logo">
+                        <img src="<?php echo plugins_url( '/', __FILE__ ).'../assets/img/fomopress-logo.svg'; ?>">
+                    </div>
+                    <div class="fomopress-admin-sidebar-cta">
+                        <?php     
+                            if(class_exists('FomoPressPro')) {
+                                printf( __( '<a href="%s" target="_blank">Manage License</a>', 'fomopress' ), 'https://wpdeveloper.net/account' ); 
+                            }else{
+                                printf( __( '<a href="%s" target="_blank">Upgrade to Pro</a>', 'fomopress' ), 'https://wpdeveloper.net/in/fomopress' );
+                            }
+                        ?>
+                    </div>
+                </div>
+                <div class="fomopress-sidebar-block fomopress-license-block">
+                    <?php
+                        if(class_exists('FomoPressPro')) {
+                        do_action( 'fomopress_licensing' );
+                    }
+                ?>
+                </div>
+            </div>
         </div>
         <?php do_action( 'fomopress_after_settings_right' ); ?>
     </div>
