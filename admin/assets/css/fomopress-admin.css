@@ -656,6 +656,20 @@ label.fomopress-adv-checkbox-label:hover {
     flex: 1 1 auto;
 }
 
+.fomopress-left-right-settings {
+    display: flex;
+}
+
+.fomopress-settings-left {
+    flex: 2;
+}
+
+.fomopress-settings-right {
+    padding: 30px;
+    background: #fff;
+    margin-left: 30px;
+    flex: 1;
+}
 
 .fomopress-settings-menu {}
 .fomopress-settings-menu ul {}
@@ -698,7 +712,7 @@ label.fomopress-adv-checkbox-label:hover {
     display: block;
 }
 .fomopress-settings-button {
-    margin: 0 15px 0 0;
+    margin: 30px 15px 0 0;
 }
 .fomopress-settings-section {}
 .fomopress-settings-section tr th {
