@@ -68,7 +68,7 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
                                     <?php 
                                         echo $section['title']; 
                                         if( isset( $section['reset'] ) && $section['reset'] ) {
-                                            echo '<div class="fomopress-section-reset"><button>R</button></div>';
+                                            echo '<div class="fomopress-section-reset" data-tooltip="Reset"><span class="dashicons dashicons-image-rotate"></span></div>';
                                         }
                                     ?>
                                 </h2>

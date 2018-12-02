@@ -6,6 +6,7 @@ function fomopress_settings_array(){
         'general' => array(
             'title' => __( 'General', 'fomopress' ),
             'priority' => 10,
+            'button_text' => __( 'Save Settings' ),
             'sections' => apply_filters('fomopress_general_settings_sections', array(
                 'notification' => apply_filters('fomopress_notification_settings', array(
                     'title' => __( 'Notification', 'fomopress' ),

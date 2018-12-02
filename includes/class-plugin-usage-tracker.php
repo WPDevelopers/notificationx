@@ -629,7 +629,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 							
 				<div class="notice notice-info updated put-dismiss-notice">
 					<p><?php echo __( $notice_text ); ?></p>
-					<div class="fomopress-insights-data" >
+					<div class="fomopress-insights-data" style="display: none;">
 						<p><?php echo __( 'We collect non-sensitive diagnostic data and plugin usage information. Your site URL, WordPress & PHP version, plugins & themes and email address to send you the discount coupon. This data lets us make sure this plugin always stays compatible with the most popular plugins and themes. No spam, I promise.' ); ?></p>
 					</div>
 					<p>

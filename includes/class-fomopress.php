@@ -166,6 +166,7 @@ final class FomoPress {
 		 * TODO: do something with loader, or have to remove
 		 */
 		// $this->loader = new FomoPress_Loader();
+		do_action('fomopress_load_depedencies');
 	}
 
 	/**

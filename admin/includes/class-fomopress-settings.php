@@ -6,6 +6,7 @@ class FomoPress_Settings {
     public static function init(){
         add_action( 'fomopress_before_settings_form', array( __CLASS__, 'notice_template' ), 9 );
         add_action( 'fomopress_settings_header', array( __CLASS__, 'header_template' ), 10 );
+        add_action( 'wp_ajax_fomopress_general_settings_ac', array( __CLASS__, 'general_settings_ac' ), 10 );
     }
     /**
      * This function is responsible for settings page notice
@@ -30,13 +31,37 @@ class FomoPress_Settings {
             <div class="fomopress-settings-header">
                 <div class="fps-header-left">
                     <div class="fps-admin-logo-inline">
-                        <!-- logo will be here -->
+                        <svg width="32px" height="32px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <title>FomoPress Icon</title>
+                            <defs>
+                                <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+                                    <stop stop-color="#806EE8" stop-opacity="0.985309103" offset="0%"></stop>
+                                    <stop stop-color="#6044EA" offset="100%"></stop>
+                                </linearGradient>
+                                <circle id="path-2" cx="55" cy="55" r="55"></circle>
+                                <filter x="-66.4%" y="-44.5%" width="223.6%" height="223.6%" filterUnits="objectBoundingBox" id="filter-3">
+                                    <feOffset dx="-5" dy="19" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+                                    <feGaussianBlur stdDeviation="19.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+                                    <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.28161798 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+                                </filter>
+                            </defs>
+                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g id="Artboard-1-alt-Copy" transform="translate(-244.000000, -244.000000)">
+                                    <g id="fomopress-logo" transform="translate(244.000000, 244.000000)">
+                                        <circle id="Oval" stroke="url(#linearGradient-1)" stroke-width="50" fill="#EAEAEA" cx="256" cy="256" r="231"></circle>
+                                        <circle id="Oval-Inner" fill="#252526" cx="256" cy="256" r="125"></circle>
+                                        <g id="eye" transform="translate(126.000000, 127.000000)" opacity="0.95">
+                                            <g id="Oval-3">
+                                                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                                                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-2"></use>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
                     </div>
                     <h2 class="title"><?php _e( 'FomoPress Settings', 'fomopress' ); ?></h2>
-                </div>
-                <div class="fps-header-right">
-                <!-- <input type="submit" class="fomopress-settings-button" name="fomopress_settings_submit" id="fomopress-submit" value="<?php // esc_html_e('Save Changes', 'fomopress'); ?>" /> -->
-                    <button type="submit" class="fomopress-settings-button" name="fomopress_settings_submit" id="fomopress-submit"><?php _e( 'Save settings', 'fomopress' ); ?></button>
                 </div>
             </div>
         <?php
@@ -82,10 +107,9 @@ class FomoPress_Settings {
     public static function settings_page(){
         $settings_args = self::settings_args();
 		$value = FomoPress_DB::get_settings();
-
-		if( isset( $_POST[ 'fomopress_settings_submit' ] ) ) : 
-			self::save_settings( $_POST );
-        endif;
+		// if( isset( $_POST[ 'fomopress_settings_submit' ] ) ) : 
+		// 	self::save_settings( $_POST );
+        // endif;
 
 		include_once FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-settings-display.php';
 	}
@@ -171,5 +195,11 @@ class FomoPress_Settings {
 		}
 
 		FomoPress_DB::update_settings( $data );
-	}
+    }
+    
+    public function general_settings_ac(){
+
+        dump( $_POST );
+        die;
+    }
 }

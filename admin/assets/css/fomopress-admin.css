@@ -165,7 +165,7 @@ span.fomopress-preview-close {
 
 .fomopress-meta-tab-menu ul li.active,
 .fomopress-meta-tab-menu ul li.fp-complete {
-    background-color: #96c03d;
+    background-color: #6c63ff;
     color: #fff;
 }
 .fomopress-meta-tab-menu ul li.active > .fomopress-menu-icon,
@@ -174,7 +174,7 @@ span.fomopress-preview-close {
 }
 .fomopress-meta-tab-menu ul li.active:before,
 .fomopress-meta-tab-menu ul li.fp-complete:before {
-    border-left-color: #96c03d;
+    border-left-color: #6c63ff;
 }
 /* CONTENT CSS */
 
@@ -218,6 +218,75 @@ h2.fomopress-metabox-section-title .fomopress-section-reset {
     float: right;
 }
 
+.fomopress-section-reset > span {
+    color: #dc4f4b;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.fomopress-section-reset > span:hover {
+    color: #EF4144;
+}
+
+/* Add this attribute to the element that needs a tooltip */
+[data-tooltip] {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+    visibility: hidden;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Position tooltip above the element */
+[data-tooltip]::before {
+    position: absolute;
+    bottom: 150%;
+    left: calc(50% - 38px);
+    margin-bottom: 5px;
+    padding: 8px;
+    min-width: 60px;
+    border-radius: 3px;
+    background-color: #333;
+    color: #fff;
+    content: attr(data-tooltip);
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.2;
+    z-index: 9999;
+}
+
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+    position: absolute;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -5px;
+    width: 0;
+    border-top: 5px solid #000;
+    border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    content: " ";
+    font-size: 0;
+    line-height: 0;
+}
+
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+    visibility: visible;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+}
 .fomopress-info-message-wrapper {
     padding: 0;
 }
@@ -294,12 +363,19 @@ input.fomopress-template-field {
 }
 
 label.fomopress-adv-checkbox-label {
-    background: #48b148;
-    color: #fff;
-    padding: 17px;
+    background: #fff;
+    color: #6c63ff;
+    padding: 8px 15px;
     display: inline-block;
-    border-radius: 3px;
+    border-radius: 0;
     letter-spacing: 1px;
+    border: 1px solid #6c63ff;
+    transition: all .3s;
+}
+label.fomopress-adv-checkbox-label:hover {
+    background: #8982ff;
+    color: #fff;
+    border: 1px solid #6c63ff;
 }
 
 .fomopress-adv-checkbox-wrap #fomopress_advance_edit {
@@ -313,7 +389,8 @@ label.fomopress-adv-checkbox-label {
 }
 
 .fomopress-adv-checkbox-wrap #fomopress_advance_edit:checked + label.fomopress-adv-checkbox-label {
-    background-color: #f55656;
+    background-color: #6c63ff;
+    color: #fff;
 }
 
 /* Group Field */
@@ -456,7 +533,7 @@ label.fomopress-adv-checkbox-label {
 .fomopress-builder-menu ul li.active, 
 .fomopress-builder-menu ul li.fp-complete,
 .fomopress-builder-menu ul li.fp-complete:after {
-    background-color: #96c03d;
+    background-color: #6c63ff;
     color: #fff;
 }
 .fomopress-builder-menu ul li.active > span.fomopress-menu-icon,
@@ -479,18 +556,21 @@ label.fomopress-adv-checkbox-label {
     display: none;
 }
 
-.quick-builder-submit-btn,
-.fomopress-meta-next,
-.fomopress-settings-button {
-    background-color: #0073aa;
+.quick-builder-submit-btn, .fomopress-meta-next, .fomopress-settings-button {
+    background-color: #6648FE;
     color: #fff;
     border: 0;
-    padding: 10px 30px;
+    padding: 10px 25px;
     border-radius: 3px;
     letter-spacing: 1px;
+    font-weight: 600;
     text-transform: uppercase;
     margin: 30px 0;
     cursor: pointer;
+    transition: all .3s;
+}
+.quick-builder-submit-btn:hover, .fomopress-meta-next:hover, .fomopress-settings-button:hover {
+    background-color: #6044EA;
 }
 
 /* Theme Option CSS */
@@ -529,7 +609,7 @@ label.fomopress-adv-checkbox-label {
     width: 100%;
     height: 100%;
     background: transparent;
-    border: 4px solid #96c03d;
+    border: 4px solid #6c63ff;
     box-sizing: border-box;
     transition: all 0.3s ease 0s;
 }
@@ -540,7 +620,6 @@ label.fomopress-adv-checkbox-label {
 }
 .fomopress-settings-header {
     height: auto;
-    padding: 25px;
     background: #fff;
     border: 1px solid rgba( 0,0,0,0.1 );
     -webkit-display: flex;
@@ -556,6 +635,11 @@ label.fomopress-adv-checkbox-label {
     align-content: center;
     align-items: center;
 }
+.fomopress-settings-header .fps-admin-logo-inline {
+    box-shadow: 1px 0 0 0 rgba(0,0,0,0.1);
+    padding: 15px 10px 10px 13px;
+    margin-right: 10px;
+}
 .fomopress-settings-header .fps-header-left .title {
     font-size: 22px;
     color: #444;
@@ -569,10 +653,8 @@ label.fomopress-adv-checkbox-label {
 
 .fomopress-settings-header .fps-header-left,
 .fomopress-settings-header .fps-header-right {
-    webkit-flex-grow: 1;
-    flex-grow: 1;
+    flex: 1 1 auto;
 }
-
 
 .fomopress-settings-menu {}
 .fomopress-settings-menu ul {}
@@ -615,7 +697,7 @@ label.fomopress-adv-checkbox-label {
     display: block;
 }
 .fomopress-settings-button {
-    margin: 0px;
+    margin: 30px 15px 0 0;
 }
 .fomopress-settings-section {}
 .fomopress-settings-section tr th {
@@ -628,3 +710,72 @@ label.fomopress-adv-checkbox-label {
     padding: 10px;
     border: 1px solid #f2f2f2 !important;
 }
+
+.fomopress-left-right-settings {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.fomopress-settings-left {
+    max-width: 80em;
+    height: auto;
+    flex: 1 1 70%;
+}
+
+.fomopress-settings-right {
+    flex: 1 1 30%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fomopress-sidebar {
+    background-color: #fff;
+    width: 100%;
+    padding: 50px 20px;
+    margin-top: 34px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.fomopress-sidebar-block {
+    margin: 1em auto;
+}
+.fomopress-sidebar-block .fomopress-admin-sidebar-logo {
+    max-width: 200px;
+    display: block;
+    margin: 25px auto;
+}
+.fomopress-sidebar-block .fomopress-admin-sidebar-logo > img, .fomopress-sidebar-block .fomopress-admin-sidebar-logo > svg {
+    width: 100%;
+    display: block;
+    margin: 10px auto;
+}
+.fomopress-admin-sidebar-cta a {
+    font-size: 1em;
+    color: rgba(35,40,45,0.45);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: .065em;
+    text-align: center;
+    margin: 20px auto;
+    display: block;
+    border: 1px solid rgba(35,40,45,0.185);
+    border-radius: 4px;
+    padding: 15px;
+    width: 200px;
+    outline: none;
+    box-shadow: none;
+    transition: all .3s;
+}
+
+.fomopress-admin-sidebar-cta a:hover {
+    color: #23282d;
+    box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.715);
+}
+
