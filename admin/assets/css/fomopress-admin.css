@@ -656,23 +656,19 @@ label.fomopress-adv-checkbox-label:hover {
     flex: 1 1 auto;
 }
 
-.fomopress-settings-menu {}
-.fomopress-settings-menu ul {}
 .fomopress-settings-menu ul li {
     display: inline-block;
     margin-bottom: 0;
 }
 .fomopress-settings-menu ul li a {
     padding: 15px 20px;
-    background: #ECF0F1;
-    color: #646464;
-    font-size: 16px;
+    background-color: #f8fafb;
+    color: #516378;
+    font-size: 14px;
     font-weight: 600;
-    text-transform: uppercase;
     text-decoration: none;
-    border: 1px solid rgba( 0,0,0,0.1 );
+    border-top: 2px solid #f8fafb;
     display: block;
-    border-bottom: none;
 }
 
 .fomopress-settings-menu ul li a:focus {
@@ -682,6 +678,7 @@ label.fomopress-adv-checkbox-label:hover {
 
 .fomopress-settings-menu ul li.active a {
     background-color: #fff;
+    border-top: 2px solid #6648FE;
 }
 
 .fomopress-settings-tab {
@@ -699,7 +696,6 @@ label.fomopress-adv-checkbox-label:hover {
 .fomopress-settings-button {
     margin: 30px 15px 0 0;
 }
-.fomopress-settings-section {}
 .fomopress-settings-section tr th {
     padding-right: 15px;
 }
