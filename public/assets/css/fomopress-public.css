@@ -219,10 +219,16 @@ a.fp-powered-by {
 
 /* Theme specific CSS */
 
-.fomopress-notification-inner.fp-notification-theme-one {
+.fomopress-notification-inner.fp-notification-theme_two {
     border-radius: 50px;
+    padding-right: 50px;
 }
 
-.fomopress-notification-inner.fp-notification-theme-one  span.fomopress-notification-close {
-    right: 15px;
+.fomopress-notification-inner.fp-notification-theme_two span.fomopress-notification-close {
+    right: 20px;
+    top: 5px;
+}
+
+.fp-notification-theme_two + .fomopress-branding {
+    right: 20px;
 }
