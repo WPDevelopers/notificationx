@@ -307,9 +307,9 @@ class FomoPress_Helper {
     public static function colored_themes(){
 
         return apply_filters( 'fomopress_colored_themes', array(
-            'theme-one' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
-            'theme_two' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png',
-            'theme-three' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/1.png'
+            'theme-one' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fomopress-theme-1.svg',
+            'theme_two' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fomopress-theme-2.svg',
+            'theme-three' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fomopress-theme-3.svg'
         ));
 
     }

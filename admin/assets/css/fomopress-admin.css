@@ -621,6 +621,7 @@ label.fomopress-adv-checkbox-label:hover {
 }
 .fomopress-theme-field-inner {
     display: flex;
+    flex-flow: row wrap;
     align-items: center;
     margin: 0 -5px;
 }
@@ -630,10 +631,12 @@ label.fomopress-adv-checkbox-label:hover {
     border: 0;
     background: none;
     width: auto;
+    cursor: pointer;
 }
 
 .fomopress-single-theme-wrapper > img {
     display: block;
+    max-width: 300px;
 }
 
 .fomopress-single-theme-wrapper {margin: 0 5px;}
