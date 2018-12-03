@@ -17,8 +17,8 @@
             <h4 class="fomopress-group-field-title">
                 <span><?php echo _e( $group_title ); ?></span>
                 <div class="fomopress-group-controls">
-                    <a href="#" class="fomopress-group-clone">D</a>
-                    <a href="#" class="fomopress-group-remove">x</a>
+                    <a href="#" class="fomopress-group-clone" data-tooltip="Duplicate"><span class="dashicons dashicons-admin-page"></span></a>
+                    <a href="#" class="fomopress-group-remove" data-tooltip="Remove"><span class="dashicons dashicons-trash"></span></a>
                 </div>
             </h4>
             <div class="fomopress-group-inner">
@@ -46,8 +46,8 @@
                 <h4 class="fomopress-group-field-title">
                     <span><?php echo _e( $group_title ); ?></span>
                     <div class="fomopress-group-controls">
-                        <a href="#" class="fomopress-group-clone">D</a>
-                        <a href="#" class="fomopress-group-remove">x</a>
+                        <a href="#" class="fomopress-group-clone" data-tooltip="Duplicate"><span class="dashicons dashicons-admin-page"></span></a>
+                        <a href="#" class="fomopress-group-remove" data-tooltip="Remove"><span class="dashicons dashicons-trash"></span></a>
                     </div>
                 </h4>
                 <div class="fomopress-group-inner">
@@ -78,8 +78,8 @@
                 <h4 class="fomopress-group-field-title">
                     <span><?php echo _e( $group_title ); ?></span>
                     <div class="fomopress-group-controls">
-                        <a href="#" class="fomopress-group-clone">D</a>
-                        <a href="#" class="fomopress-group-remove">x</a>
+                        <a href="#" class="fomopress-group-clone" data-tooltip="Duplicate"><span class="dashicons dashicons-admin-page"></span></a>
+                        <a href="#" class="fomopress-group-remove" data-tooltip="Remove"><span class="dashicons dashicons-trash"></span></a>
                     </div>
                 </h4>
                 <div class="fomopress-group-inner">
@@ -102,6 +102,6 @@
             </div>
             <?php endforeach; ?>
         <?php endif; ?>
-        <button class="fomopress-group-field-add">Add</button>
+        <button class="fomopress-group-field-add"><span class="dashicons dashicons-plus"></span></button>
     </div>
 </div>
