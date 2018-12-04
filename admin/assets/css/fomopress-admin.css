@@ -197,18 +197,17 @@ span.fomopress-preview-close {
 
 .fomopress-metabox-section {
     margin-bottom: 20px;
-    border-left: 1px solid #f2f2f2;
-    border-bottom: 1px solid #f2f2f2;
-    border-right: 1px solid #f2f2f2;
+    border: 1px solid #f7f7f7;
     padding-bottom: 20px;
 }
 
 #fomopress_metabox_wrapper .fomopress-meta-tab-content h2.fomopress-metabox-section-title {
     display: block;
+    color: #516378;
     margin-bottom: 20px;
     text-transform: uppercase;
     padding-bottom: 0px;
-    background: #f2f2f2;
+    background: #f8fafb;
     padding: 14px;
     letter-spacing: 2px;
     font-weight: 700;
@@ -216,6 +215,20 @@ span.fomopress-preview-close {
 
 h2.fomopress-metabox-section-title .fomopress-section-reset {
     float: right;
+}
+
+.fomopress-group-clone, .fomopress-group-remove {
+    text-decoration: none;
+    color: #333;
+}
+.fomopress-group-clone > span, .fomopress-group-remove > span {
+    font-size: 18px;
+}
+.fomopress-group-clone > span {
+    color: #5F7EFF;
+}
+.fomopress-group-remove > span {
+    color: #dc4f4b;
 }
 
 .fomopress-section-reset > span {
@@ -228,6 +241,24 @@ h2.fomopress-metabox-section-title .fomopress-section-reset {
     color: #EF4144;
 }
 
+.fomopress-group-field-add {
+    background-color: #5F7EFF;
+    color: #fff;
+    border: none;
+    box-shadow: 0 3px 6px rgba(95,126,255, .5);
+    text-shadow: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.fomopress-group-field-add:hover {
+    box-shadow: 0 3px 6px rgba(95,126,255, .8);
+}
+
+.fomopress-group-field-add > span {
+    line-height: 23px;
+}
 /* Add this attribute to the element that needs a tooltip */
 [data-tooltip] {
     position: relative;
@@ -291,9 +322,11 @@ h2.fomopress-metabox-section-title .fomopress-section-reset {
     padding: 0;
 }
 .fomopress-info-message {
-    font-size: 20px;
-    padding: 30px;
-    border-left: 2px solid orangered;   
+    font-size: 16px;
+    padding: 15px;
+    border-left: 2px solid #e61811;
+    background-color: #ffdcdc;
+    color: #403E3C;
 }
 
 /*
@@ -322,10 +355,14 @@ h2.fomopress-metabox-section-title .fomopress-section-reset {
 .fomopress-meta-field, 
 .fomopress-media-url {
     padding: 10px;
-    border: 1px solid #f2f2f2;
-    background-color: #f2f2f2 !important;
+    border: 1px solid #f7f7f7;
+    background-color: #f7f7f7 !important;
     border-radius: 0px;
     width: 400px;
+}
+
+input[type="number"].fomopress-meta-field{
+    height: auto;
 }
 
 input.fomopress-meta-field:focus,
@@ -411,14 +448,17 @@ label.fomopress-adv-checkbox-label:hover {
 .fomopress-group-field-wrapper .fomopress-group-field > h4 {
     margin: 0;
     position: relative;
-    padding: 10px;
-    color: #000;
+    padding: 15px;
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: #f8fafb;
 }
 .fomopress-group-field-wrapper .fomopress-group-field > h4 > div {
     position: absolute;
     right: 0;
     height: 100%;
-    padding: 10px;
+    padding: 15px;
     top: 0;
 }
 .fomopress-group-field-wrapper .fomopress-group-field > div.fomopress-group-inner {
@@ -568,10 +608,12 @@ label.fomopress-adv-checkbox-label:hover {
     text-transform: uppercase;
     margin: 30px 0;
     cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0, .3);
     transition: all .3s;
 }
 .quick-builder-submit-btn:hover, .fomopress-meta-next:hover, .fomopress-settings-button:hover {
     background-color: #6044EA;
+    box-shadow: 0 2px 4px rgba(0,0,0, .5);
 }
 
 /* Theme Option CSS */
@@ -580,6 +622,7 @@ label.fomopress-adv-checkbox-label:hover {
 }
 .fomopress-theme-field-inner {
     display: flex;
+    flex-flow: row wrap;
     align-items: center;
     margin: 0 -5px;
 }
@@ -589,10 +632,12 @@ label.fomopress-adv-checkbox-label:hover {
     border: 0;
     background: none;
     width: auto;
+    cursor: pointer;
 }
 
 .fomopress-single-theme-wrapper > img {
     display: block;
+    max-width: 300px;
 }
 
 .fomopress-single-theme-wrapper {margin: 0 5px;}
@@ -657,23 +702,19 @@ label.fomopress-adv-checkbox-label:hover {
     flex: 1 1 auto;
 }
 
-.fomopress-settings-menu {}
-.fomopress-settings-menu ul {}
 .fomopress-settings-menu ul li {
     display: inline-block;
     margin-bottom: 0;
 }
 .fomopress-settings-menu ul li a {
     padding: 15px 20px;
-    background: #ECF0F1;
-    color: #646464;
-    font-size: 16px;
+    background-color: #f8fafb;
+    color: #516378;
+    font-size: 14px;
     font-weight: 600;
-    text-transform: uppercase;
     text-decoration: none;
-    border: 1px solid rgba( 0,0,0,0.1 );
+    border-top: 2px solid #f8fafb;
     display: block;
-    border-bottom: none;
 }
 
 .fomopress-settings-menu ul li a:focus {
@@ -683,6 +724,7 @@ label.fomopress-adv-checkbox-label:hover {
 
 .fomopress-settings-menu ul li.active a {
     background-color: #fff;
+    border-top: 2px solid #6648FE;
 }
 
 .fomopress-settings-tab {
@@ -700,7 +742,6 @@ label.fomopress-adv-checkbox-label:hover {
 .fomopress-settings-button {
     margin: 30px 15px 0 0;
 }
-.fomopress-settings-section {}
 .fomopress-settings-section tr th {
     padding-right: 15px;
 }
