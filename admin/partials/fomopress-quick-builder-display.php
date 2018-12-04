@@ -7,7 +7,7 @@
     $totaltabs = count( $tabs );
     $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
 ?>
-
+</div>
 <div class="fomopress-builder-wrapper">
 
     <div class="fomopress-builder-header">

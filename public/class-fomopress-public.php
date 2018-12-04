@@ -99,6 +99,7 @@ class FomoPress_Public {
 		 * class.
 		 */
 
+		wp_enqueue_script( $this->plugin_name . '-cookie', FOMOPRESS_PUBLIC_URL . 'assets/js/Cookies.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( $this->plugin_name, FOMOPRESS_PUBLIC_URL . 'assets/js/fomopress-public.js', array( 'jquery' ), $this->version, true );
 	}
 

@@ -415,7 +415,8 @@ label.fomopress-adv-checkbox-label:hover {
     border: 1px solid #6c63ff;
 }
 
-.fomopress-adv-checkbox-wrap #fomopress_advance_edit {
+.fomopress-adv-checkbox-wrap #fomopress_advance_edit,
+.fomopress-adv-checkbox-wrap > input {
     visibility: hidden;
     width: 0;
     height: 0;
@@ -425,6 +426,7 @@ label.fomopress-adv-checkbox-label:hover {
     padding: 15px 0px;
 }
 
+.fomopress-adv-checkbox-wrap > input:checked + label.fomopress-adv-checkbox-label,
 .fomopress-adv-checkbox-wrap #fomopress_advance_edit:checked + label.fomopress-adv-checkbox-label {
     background-color: #6c63ff;
     color: #fff;

@@ -94,6 +94,28 @@ return array(
             'title'      => __('Design', 'fomopress'),
             'icon'       => 'magic-wand.svg',
             'sections'   => apply_filters('fomopress_design_tab_sections', array(
+                'bar_themes' => array(
+                    'title'      => __('Themes', 'fomopress'),
+                    'priority' => 3,
+                    'fields'   => array(
+                        'bar_theme' => array(
+                            'type'      => 'theme',
+                            'priority'	=> 5,
+                            'default'	=> 'theme-one',
+                            'options'   => FomoPress_Helper::bar_colored_themes(),
+                        ),
+                        'bar_advance_edit' => array(
+                            'type'      => 'adv_checkbox',
+                            'priority'	=> 10,
+                            'default'	=> 0,
+                            'toggle' => [
+                                1 => [
+                                    'sections' => ['bar_design', 'bar_typography']
+                                ]
+                            ]
+                        ),
+                    )
+                ),
                 'themes' => array(
                     'title'      => __('Themes', 'fomopress'),
                     'priority' => 5,
@@ -226,6 +248,40 @@ return array(
                             'default'	=> '11',
                             'description'	=> 'px',
                             'help'	=> __( 'This font size will be applied for <mark>third</mark> row', 'fomopress' ),
+                        ),
+                    )
+                ),
+                'bar_design' => array(
+                    'title'      => __('Design', 'fomopress'),
+                    'priority' => 25,
+                    'reset'    => true,
+                    'fields'   => array(
+                        'bar_bg_color' => array(
+                            'type'      => 'colorpicker',
+                            'label'     => __('Background Color' , 'fomopress'),
+                            'priority'	=> 5,
+                            'default'	=> ''
+                        ),
+                        'bar_text_color' => array(
+                            'type'      => 'colorpicker',
+                            'label'     => __('Text Color' , 'fomopress'),
+                            'priority'	=> 10,
+                            'default'	=> ''
+                        ),
+                    )
+                ),
+                'bar_typography' => array(
+                    'title'      => __('Typography', 'fomopress'),
+                    'priority' => 30,
+                    'reset'    => true,
+                    'fields'   => array(
+                        'bar_font_size' => array(
+                            'type'      => 'number',
+                            'label'     => __('Font Size' , 'fomopress'),
+                            'priority'	=> 5,
+                            'default'	=> '13',
+                            'description'	=> 'px',
+                            'help'	=> __( 'This font size will be applied for <mark>first</mark> row', 'fomopress' ),
                         ),
                     )
                 ),

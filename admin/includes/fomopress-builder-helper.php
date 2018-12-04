@@ -52,6 +52,18 @@ function fomopress_builder_args() {
                 'title'      => __('Design', 'fomopress'),
                 'icon'       => 'magic-wand.svg',
                 'sections'   => array(
+                    'bar_themes' => array(
+                        'title'      => __('Themes', 'fomopress'),
+                        'priority' => 3,
+                        'fields'   => array(
+                            'bar_theme' => array(
+                                'type'      => 'theme',
+                                'priority'	=> 5,
+                                'default'	=> 'theme-one',
+                                'options'   => FomoPress_Helper::bar_colored_themes(),
+                            ),
+                        )
+                    ),
                     'themes' => array(
                         'title'      => __('Themes', 'fomopress'),
                         'priority' => 5,
