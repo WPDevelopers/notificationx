@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -343,13 +342,14 @@ class FomoPress_Admin {
 	
 				if( $p_id || ! is_wp_error( $p_id ) ) {
 					FomoPress_MetaBox::save_data( $this->builder_data( $_POST ), $p_id );
+					
+					/**
+					 * Safely Redirect to FomoPress Page
+					 */
+					wp_safe_redirect( add_query_arg( array(
+						'post_type' => 'fomopress',
+					), admin_url( 'edit.php' ) ) );
 				}
-				/**
-				 * Safely Redirect to FomoPress Page
-				 */
-				wp_safe_redirect( add_query_arg( array(
-					'post_type' => 'fomopress',
-				), admin_url( 'edit.php' ) ) );
 			}
 		endif;
 
@@ -393,9 +393,9 @@ class FomoPress_Admin {
 	}
 	
 	public static function get_form_action( $query_var = '', $builder_form = false ) {
-		$page = '/edit.php?post_type=fomopress&page=fomopress-settings';
+		$page = '/admin.php?page=fomopress-settings';
 		if( $builder_form ) {
-			$page = '/edit.php?post_type=fomopress&page=fomopress-builder';
+			$page = '/admin.php?page=fomopress-builder';
 		}
 
 		if ( is_network_admin() ) {

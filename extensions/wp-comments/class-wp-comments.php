@@ -161,8 +161,9 @@ class FomoPress_WP_Comments_Extension extends FomoPress_Extension {
      */
     public function add( $comment ){
         $comment_data = [];
-        if( is_int( $comment ) ) {
-            $comment = get_comment( $comment, 'OBJECT' );
+
+        if( ! $comment instanceof WP_Comment ) {
+            $comment = get_comment( intval( $comment ), 'OBJECT' );  
         }
 
         $comment_data['link']       = get_comment_link( $comment->comment_ID );

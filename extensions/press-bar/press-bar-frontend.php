@@ -46,7 +46,7 @@ if( $settings->enable_countdown ) {
 ?>
 <div 
     id="fomopress-bar-<?php echo $settings->id; ?>"
-    class="fomopress-press-bar fomopress-bar-<?php echo $settings->id; ?> <?php echo esc_attr( $pos_class ); ?> <?php echo esc_attr( $class ); ?>" <?php echo $wrapper_attrs; ?>>
+    class="fomopress-press-bar <?php echo $settings->bar_theme; ?> fomopress-bar-<?php echo $settings->id; ?> <?php echo esc_attr( $pos_class ); ?> <?php echo esc_attr( $class ); ?>" <?php echo $wrapper_attrs; ?>>
     <div class="fomopress-bar-inner">
         <div class="fomopress-press-bar-content">
             <?php if( $settings->enable_countdown ) : ?>

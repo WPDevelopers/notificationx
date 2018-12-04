@@ -236,7 +236,7 @@ class FomoPress_MetaBox {
 
         update_post_meta( $post_id, '_fomopress_current_data_ready_for', $type );
         update_post_meta( $post_id, '_fomopress_current_tab', $posts['fomopress_current_tab'] );
-
+        
     }
     /**
      * This function is responsible for checking all the old_settings with new_settings for changes

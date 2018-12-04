@@ -128,7 +128,7 @@
 					// Remove countdown value from cookie if countdown value has changed in wp-admin.
                     if( Cookies.get( 'fomopress_bar_countdown_old' ) !== countdown_string ){
 						document.cookie = 'fomopress_bar_countdown_old' + "=" + countdown_string + ";" + date + ";path=/";
-						Cookies.remove('fomopress_bar_countdown');
+						Cookies.clear('fomopress_bar_countdown');
                     }
                     // Get countdown value from cookie if exist.
                     if ( Cookies.get( 'fomopress_bar_countdown' ) ){

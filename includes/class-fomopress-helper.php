@@ -207,7 +207,8 @@ class FomoPress_Helper {
     public static function press_bar_toggle_data(){
         return apply_filters('fomopress_press_bar_toggle_data', array(
             'sections' => [
-                'countdown_timer'
+                'countdown_timer',
+                'bar_themes'
             ],
             'fields'   => [
                 'press_content',
@@ -228,7 +229,8 @@ class FomoPress_Helper {
     public static function comments_toggle_data(){
         return apply_filters('fomopress_comments_toggle_data', array(
             'sections' => [
-                'image'
+                'image',
+                'themes'
             ],
             'fields'   => [
                 'conversion_position',
@@ -251,7 +253,8 @@ class FomoPress_Helper {
     public static function conversions_toggle_data(){
         return apply_filters('fomopress_conversions_toggle_data', array(
             'sections' => [
-                'image'
+                'image',
+                'themes'
             ],
             'fields'   => [
                 'conversion_from',
@@ -274,7 +277,7 @@ class FomoPress_Helper {
                     'fields' => [ 'custom_template', 'custom_contents', 'show_custom_image', 'image_url' ]
                 ),
                 'press_bar' => array(
-                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'notification_preview', 'all_locations', 'countdown_text', 'countdown_time', 'image_url' ]
+                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'notification_preview', 'all_locations', 'image_url' ]
                 ),
             ));
         }
@@ -310,6 +313,16 @@ class FomoPress_Helper {
             'theme-one' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fomopress-theme-1.svg',
             'theme_two' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fomopress-theme-2.svg',
             'theme-three' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fomopress-theme-3.svg'
+        ));
+
+    }
+
+    public static function bar_colored_themes(){
+
+        return apply_filters( 'fomopress_bar_colored_themes', array(
+            'theme_two' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fomopress-theme-2.svg',
+            'theme-three' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fomopress-theme-3.svg',
+            'theme-one' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fomopress-theme-1.svg',
         ));
 
     }
