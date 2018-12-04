@@ -64,59 +64,6 @@ return array(
                             'label'    => __('Button URL' , 'fomopress'),
                             'priority' => 70,
                         ),
-                        'custom_template'  => array(
-                            'type'     => 'template',
-                            'label'    => __('Notification Template' , 'fomopress'),
-                            'priority' => 100,
-                            'defaults' => [
-                                __('{{name}} from {{city}} signed up for', 'fomopress'), '{{title}}', '{{time}}'
-                            ],
-                            'variables' => [
-                                '{{title}}', '{{name}}', '{{email}}', '{{city}}', '{{country}}'
-                            ],
-                        ),
-                        'custom_contents'  => array(
-                            'type'     => 'group',
-                            'priority' => 110,
-                            'title'    => __('Conversion', 'fomopress'),
-                            'fields'   => [
-                                'title' => array(
-                                    'type'     => 'text',
-                                    'label'    => __('Title' , 'fomopress'),
-                                    'priority' => 5,
-                                ),
-                                'name' => array(
-                                    'type'     => 'text',
-                                    'label'    => __('Name' , 'fomopress'),
-                                    'priority' => 10,
-                                ),
-                                'email' => array(
-                                    'type'     => 'text',
-                                    'label'    => __('Email Address' , 'fomopress'),
-                                    'priority' => 15,
-                                ),
-                                'city' => array(
-                                    'type'     => 'text',
-                                    'label'    => __('City' , 'fomopress'),
-                                    'priority' => 20,
-                                ),
-                                'country' => array(
-                                    'type'     => 'text',
-                                    'label'    => __('Country' , 'fomopress'),
-                                    'priority' => 25,
-                                ),
-                                'image' => array(
-                                    'type'     => 'media',
-                                    'label'    => __('Image' , 'fomopress'),
-                                    'priority' => 30,
-                                ),
-                                'url' => array(
-                                    'type'     => 'text',
-                                    'label'    => __('URL' , 'fomopress'),
-                                    'priority' => 35,
-                                ),
-                            ],
-                        ),
                     ),
                 ),
                 'countdown_timer' => array(

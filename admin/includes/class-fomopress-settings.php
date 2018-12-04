@@ -107,10 +107,6 @@ class FomoPress_Settings {
     public static function settings_page(){
         $settings_args = self::settings_args();
 		$value = FomoPress_DB::get_settings();
-		// if( isset( $_POST[ 'fomopress_settings_submit' ] ) ) : 
-		// 	self::save_settings( $_POST );
-        // endif;
-
 		include_once FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-settings-display.php';
 	}
     /**
@@ -123,7 +119,6 @@ class FomoPress_Settings {
     public static function render_field( $key = '', $field = [] ) {
         $post_id   = '';
         $name      = $key;
-        // $id        = $key;
         $id        = FomoPress_Metabox::get_row_id( $key );
         $file_name = isset( $field['type'] ) ? $field['type'] : 'text';
         
@@ -163,43 +158,48 @@ class FomoPress_Settings {
      * @param array $values
      * @return void
      */
-    public static function save_settings( $values = [] ){
-		/**
-         * Verify the Nonce
-         */
-        if ( ! isset( $values['fomopress_settings_nonce'] ) || ! wp_verify_nonce( $values['fomopress_settings_nonce'], 'fomopress_settings' ) ) {
-            return;
-		}
-
-		if( ! isset( $values['fomopress_settings_submit'] ) || ! is_array( $values ) ) {
-			return;
-		}
-
+    public static function save_settings( $posted_fields = [] ){
 		$settings_args = self::settings_args();
 		$fields = self::get_settings_fields( $settings_args );
+        $data = [];
 
-		foreach( $values as $key => $value ) {
-
-			if( array_key_exists( $key, $fields ) ) {
-				if( empty( $value ) ) {
-					$value = $fields[ $key ]['default'];
+		foreach( $posted_fields as $posted_field ) {
+			if( array_key_exists( $posted_field['name'], $fields ) ) {
+                if( empty( $posted_field['value'] ) ) {
+					$posted_value = $fields[ $posted_field['name'] ]['default'];
                 }
+
+                if( isset( $fields[ $posted_field['name'] ]['disable'] ) && $fields[ $posted_field['name'] ]['disable'] === true ) {
+                    $posted_value = $fields[ $posted_field['name'] ]['default'];
+                }
+                $posted_value = FomoPress_Helper::sanitize_field( $fields[ $posted_field['name'] ], $posted_field['value'] );
                 
-                if( isset( $fields[ $key ]['disable'] ) && $fields[ $key ]['disable'] === true ) {
-                    $value = $fields[ $key ]['default'];
-                }
-
-				$value = FomoPress_Helper::sanitize_field( $fields[ $key ], $value );
-				$data[ $key ] = $value;
+				$data[ $posted_field['name'] ] = $posted_value;
 			}
-		}
+        }
 
+        dump( $data );
+
+        die;
+        
 		FomoPress_DB::update_settings( $data );
     }
     
-    public function general_settings_ac(){
+    public static function general_settings_ac(){
+        /**
+         * Verify the Nonce
+         */
+        if ( ( ! isset( $_POST['nonce'] ) && ! isset( $_POST['key'] ) ) || ! 
+            wp_verify_nonce( $_POST['nonce'], 'fomopress_'. $_POST['key'] .'_nonce' ) ) {
+            return;
+        }
+        if( isset( $_POST['form_data'] ) ) {
+            self::save_settings( $_POST['form_data'] );
+            echo 'success';
+        } else {
+            echo 'error';
+        }
 
-        dump( $_POST );
         die;
     }
 }

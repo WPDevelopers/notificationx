@@ -73,7 +73,6 @@
                         } // settings rendering loop end;
                     ?>
                 </div>
-                <?php wp_nonce_field( 'fomopress_settings', 'fomopress_settings_nonce' ); ?>
             </div>
         </div>
         <?php 
