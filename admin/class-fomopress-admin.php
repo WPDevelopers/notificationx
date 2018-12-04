@@ -255,11 +255,12 @@ class FomoPress_Admin {
 			'labels'              => $labels,
 			'hierarchical'        => false,
 			'description'         => '',
-			'taxonomies' 		  => array( '' ),
+			'taxonomies'          => array( '' ),
 			'public'              => false,
 			'show_ui'             => true,
-			'show_in_menu'        => true,
+			'show_in_menu'        => 'fomopress',
 			'show_in_admin_bar'   => true,
+			'show_in_rest'        => false,
 			'menu_position'       => 80,
 			'menu_icon'           => FOMOPRESS_ADMIN_URL . 'assets/img/fomopress-menu-icon.png',
 			'show_in_nav_menus'   => false,
@@ -299,9 +300,10 @@ class FomoPress_Admin {
 			),
 		) );
 
+		add_menu_page( 'FomoPress', 'FomoPress', 'delete_users', 'fomopress', '', FOMOPRESS_ADMIN_URL . 'assets/img/fomopress-menu-icon.png', 80 );
 		foreach( $settings as $slug => $setting ) {
 			$cap  = isset( $setting['capability'] ) ? $setting['capability'] : 'delete_users';
-			$hook = add_submenu_page( 'edit.php?post_type=fomopress', $setting['title'], $setting['title'], $cap, $slug, $setting['callback'] );
+			$hook = add_submenu_page( 'fomopress', $setting['title'], $setting['title'], $cap, $slug, $setting['callback'] );
 		}
 	}
 
