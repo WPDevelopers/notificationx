@@ -535,20 +535,62 @@ label.fomopress-adv-checkbox-label:hover {
 
 /* Quick Builder CSS */
 .fomopress-builder-wrapper {
-    background-color: #fff;
+    padding: 20px;
+    margin: 50px 20px 20px 0;
+}
+
+.fomopress-builder-content-wrapper.fomopress-tab-content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f5f5f5;
     padding: 50px;
-    margin-top: 20px;
-    margin-right: 20px;
+    box-shadow: 0 4px 30px rgba(0,0,0,.07);
+    border-radius: 3px;
+    border: 25px solid #fff;
+}
+
+.fomopress-builder-content select.fomopress-meta-field {
+    border-color: rgba(0,0,0, .1);
+    background-color: #fff !important;
+}
+
+.fomopress-builder-content .fomopress-metabox-section {
+    border: none;
+}
+
+.fomopress-builder-content .fomopress-single-theme-wrapper {
+    margin: 10px;
 }
 
 .fomopress-builder-header {
     text-align: center;
 }
+.fomopress-builder-header > h1 {
+    font-size: 2em;
+    color: #444;
+    margin-bottom: 50px;
+}
 
+.fomopress-builder-content .fomopress-metabox-section-title {
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: .035em;
+    font-style: italic;
+}
+
+.fomopress-builder-content#fomopress-source_tab .quick-builder-submit-btn.btn-prev {
+    display: none;
+}
 .fomopress-builder-menu {
     margin-top: 30px;
     margin-bottom: 30px;
     text-align: center;
+}
+
+.fomopress-builder-menu ul li  {
+    background-color: #fff;
 }
 .fomopress-builder-menu ul, 
 .fomopress-settings-menu ul {
@@ -568,7 +610,7 @@ label.fomopress-adv-checkbox-label:hover {
     left: 100%;
     width: 100px;
     height: 10px;
-    background: #f2f2f2;
+    background: #fff;
     content: "";
     top: 50%;
     margin-top: -5px;
@@ -608,6 +650,17 @@ label.fomopress-adv-checkbox-label:hover {
 }
 .fomopress-builder-hidden {
     display: none;
+}
+
+.quick-builder-submit-btn-wrap {
+    max-width: 300px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row wrap;
+}
+.quick-builder-submit-btn.fomopress-quick-builder-btn {
+    flex: 1 1 45%;
+    margin: 7px;
 }
 
 .quick-builder-submit-btn, .fomopress-meta-next, .fomopress-settings-button {
