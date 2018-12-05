@@ -361,15 +361,15 @@ h2.fomopress-metabox-section-title .fomopress-section-reset {
     width: 400px;
 }
 
-input[type="text"].fomopress-meta-field, input[type="number"].fomopress-meta-field, .fomopress-countdown-input > input[type="number"] {
+input[type="text"].fomopress-meta-field, input[type="text"].fomopress-settings-field, input[type="number"].fomopress-meta-field, .fomopress-countdown-input > input[type="number"] {
     box-shadow: none;
     border: 1px solid #f2f2f2;
     transition: border linear 0.2s,box-shadow linear 0.2s;
 }
 
-input[type="text"].fomopress-meta-field:focus, input[type="number"].fomopress-meta-field:focus, .fomopress-countdown-input > input[type="number"]:focus {
+input[type="text"].fomopress-meta-field:focus, input[type="text"].fomopress-settings-field:focus, input[type="number"].fomopress-meta-field:focus, .fomopress-countdown-input > input[type="number"]:focus {
     background-color: #fff !important;
-    border-color: rgba(108,99,255,.5);
+    border-color: rgba(108,99,255,.5)!important;
 }
 
 input[type="number"].fomopress-meta-field{
@@ -674,6 +674,7 @@ label.fomopress-adv-checkbox-label:hover {
 }
 
 #fomopress-bar_theme .fomopress-single-theme-wrapper.fomopress-meta-field {
+    display: block;
     width: 100%;
     max-width: 1000px;
     margin: 10px 0;
@@ -756,7 +757,7 @@ label.fomopress-adv-checkbox-label:hover {
     background: #fff;
     margin-top: 5px;
     padding: 15px 25px;
-    border: 1px solid rgba( 0,0,0,0.1 );
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
     border-top: none;
     position: relative;
     display: none;
@@ -773,15 +774,15 @@ label.fomopress-adv-checkbox-label:hover {
 .fomopress-settings-section tr td {
     padding-left: 15px;
 }
-.fomopress-settings-field {
+.fomopress-settings-field, input.fomopress-settings-field {
     padding: 10px;
-    border: 1px solid #f2f2f2 !important;
+    border: 1px solid #f2f2f2;
 }
 
 .fomopress-left-right-settings {
     width: 100%;
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
     justify-content: space-between;
 }
 
@@ -846,3 +847,13 @@ label.fomopress-adv-checkbox-label:hover {
     box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.715);
 }
 
+@media only screen and (max-width: 767px) {
+.fomopress-left-right-settings {
+    flex-flow: row wrap;
+    flex-direction: column;
+}
+.fomopress-settings-right {
+    padding: 0;
+}
+    
+}
