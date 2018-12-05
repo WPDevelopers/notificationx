@@ -830,6 +830,7 @@ label.fomopress-adv-checkbox-label:hover {
 .fomopress-settings-field, input.fomopress-settings-field {
     padding: 10px;
     border: 1px solid #f2f2f2;
+    background-color: #f2f2f2;
 }
 
 .fomopress-left-right-settings {
