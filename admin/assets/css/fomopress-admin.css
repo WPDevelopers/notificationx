@@ -662,6 +662,18 @@ label.fomopress-adv-checkbox-label:hover {
     transition: all 0.3s ease 0s;
 }
 
+#fomopress-bar_theme .fomopress-single-theme-wrapper.fomopress-meta-field {
+    width: 100%;
+    max-width: 1000px;
+    margin: 10px 0;
+    padding: 5px;
+}
+
+#fomopress-bar_theme .fomopress-single-theme-wrapper > img {
+    max-width: 1000px;
+    width: 100%;
+}
+
 /* FomoPress Settings Page CSS */
 .fomopress-settings-wrap {
     padding: 15px;
