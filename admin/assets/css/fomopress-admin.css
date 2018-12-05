@@ -361,6 +361,17 @@ h2.fomopress-metabox-section-title .fomopress-section-reset {
     width: 400px;
 }
 
+input[type="text"].fomopress-meta-field, input[type="number"].fomopress-meta-field, .fomopress-countdown-input > input[type="number"] {
+    box-shadow: none;
+    border: 1px solid #f2f2f2;
+    transition: border linear 0.2s,box-shadow linear 0.2s;
+}
+
+input[type="text"].fomopress-meta-field:focus, input[type="number"].fomopress-meta-field:focus, .fomopress-countdown-input > input[type="number"]:focus {
+    background-color: #fff !important;
+    border-color: rgba(108,99,255,.5);
+}
+
 input[type="number"].fomopress-meta-field{
     height: auto;
 }
