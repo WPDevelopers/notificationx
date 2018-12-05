@@ -361,15 +361,15 @@ h2.fomopress-metabox-section-title .fomopress-section-reset {
     width: 400px;
 }
 
-input[type="text"].fomopress-meta-field, input[type="number"].fomopress-meta-field, .fomopress-countdown-input > input[type="number"] {
+input[type="text"].fomopress-meta-field, input[type="text"].fomopress-settings-field, input[type="number"].fomopress-meta-field, .fomopress-countdown-input > input[type="number"] {
     box-shadow: none;
     border: 1px solid #f2f2f2;
     transition: border linear 0.2s,box-shadow linear 0.2s;
 }
 
-input[type="text"].fomopress-meta-field:focus, input[type="number"].fomopress-meta-field:focus, .fomopress-countdown-input > input[type="number"]:focus {
+input[type="text"].fomopress-meta-field:focus, input[type="text"].fomopress-settings-field:focus, input[type="number"].fomopress-meta-field:focus, .fomopress-countdown-input > input[type="number"]:focus {
     background-color: #fff !important;
-    border-color: rgba(108,99,255,.5);
+    border-color: rgba(108,99,255,.5)!important;
 }
 
 input[type="number"].fomopress-meta-field{
@@ -535,20 +535,62 @@ label.fomopress-adv-checkbox-label:hover {
 
 /* Quick Builder CSS */
 .fomopress-builder-wrapper {
-    background-color: #fff;
+    padding: 20px;
+    margin: 50px 20px 20px 0;
+}
+
+.fomopress-builder-content-wrapper.fomopress-tab-content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f5f5f5;
     padding: 50px;
-    margin-top: 20px;
-    margin-right: 20px;
+    box-shadow: 0 4px 30px rgba(0,0,0,.07);
+    border-radius: 3px;
+    border: 25px solid #fff;
+}
+
+.fomopress-builder-content select.fomopress-meta-field {
+    border-color: rgba(0,0,0, .1);
+    background-color: #fff !important;
+}
+
+.fomopress-builder-content .fomopress-metabox-section {
+    border: none;
+}
+
+.fomopress-builder-content .fomopress-single-theme-wrapper {
+    margin: 10px;
 }
 
 .fomopress-builder-header {
     text-align: center;
 }
+.fomopress-builder-header > h1 {
+    font-size: 2em;
+    color: #444;
+    margin-bottom: 50px;
+}
 
+.fomopress-builder-content .fomopress-metabox-section-title {
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: .035em;
+    font-style: italic;
+}
+
+.fomopress-builder-content#fomopress-source_tab .quick-builder-submit-btn.btn-prev {
+    display: none;
+}
 .fomopress-builder-menu {
     margin-top: 30px;
     margin-bottom: 30px;
     text-align: center;
+}
+
+.fomopress-builder-menu ul li  {
+    background-color: #fff;
 }
 .fomopress-builder-menu ul, 
 .fomopress-settings-menu ul {
@@ -568,7 +610,7 @@ label.fomopress-adv-checkbox-label:hover {
     left: 100%;
     width: 100px;
     height: 10px;
-    background: #f2f2f2;
+    background: #fff;
     content: "";
     top: 50%;
     margin-top: -5px;
@@ -608,6 +650,17 @@ label.fomopress-adv-checkbox-label:hover {
 }
 .fomopress-builder-hidden {
     display: none;
+}
+
+.quick-builder-submit-btn-wrap {
+    max-width: 300px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row wrap;
+}
+.quick-builder-submit-btn.fomopress-quick-builder-btn {
+    flex: 1 1 45%;
+    margin: 7px;
 }
 
 .quick-builder-submit-btn, .fomopress-meta-next, .fomopress-settings-button {
@@ -674,6 +727,7 @@ label.fomopress-adv-checkbox-label:hover {
 }
 
 #fomopress-bar_theme .fomopress-single-theme-wrapper.fomopress-meta-field {
+    display: block;
     width: 100%;
     max-width: 1000px;
     margin: 10px 0;
@@ -756,7 +810,7 @@ label.fomopress-adv-checkbox-label:hover {
     background: #fff;
     margin-top: 5px;
     padding: 15px 25px;
-    border: 1px solid rgba( 0,0,0,0.1 );
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
     border-top: none;
     position: relative;
     display: none;
@@ -773,15 +827,15 @@ label.fomopress-adv-checkbox-label:hover {
 .fomopress-settings-section tr td {
     padding-left: 15px;
 }
-.fomopress-settings-field {
+.fomopress-settings-field, input.fomopress-settings-field {
     padding: 10px;
-    border: 1px solid #f2f2f2 !important;
+    border: 1px solid #f2f2f2;
 }
 
 .fomopress-left-right-settings {
     width: 100%;
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
     justify-content: space-between;
 }
 
@@ -846,3 +900,13 @@ label.fomopress-adv-checkbox-label:hover {
     box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.715);
 }
 
+@media only screen and (max-width: 767px) {
+.fomopress-left-right-settings {
+    flex-flow: row wrap;
+    flex-direction: column;
+}
+.fomopress-settings-right {
+    padding: 0;
+}
+    
+}

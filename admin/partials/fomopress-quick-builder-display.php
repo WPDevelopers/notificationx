@@ -11,7 +11,7 @@
 <div class="fomopress-builder-wrapper">
 
     <div class="fomopress-builder-header">
-        <h1><?php _e( 'Quick Notification Builder', 'fomopress' ); ?></h1>
+        <h1><?php _e( 'FomoPress Quick Builder', 'fomopress' ); ?></h1>
     </div>
 
     <div class="fomopress-builder-menu">
@@ -91,16 +91,18 @@
                         }
                     ?>
                     <input id="publish" style="display:none" class="quick-builder-submit-btn" name="fomopress_builder_add_submit" type="submit" value="Create Notification">
-                    <button data-tab="<?php echo $id; ?>" data-tabid="<?php echo ($tabid - 1); ?>" class="quick-builder-submit-btn fomopress-quick-builder-btn btn-prev"><?php _e( 'Previous', 'fomopress' ); ?></button>
-                    <button data-tab="<?php echo $id; ?>" data-tabid="<?php echo ++$tabid; ?>" class="quick-builder-submit-btn fomopress-quick-builder-btn btn-next">
-                        <?php
-                            if( $totaltabs < $tabid ) {
-                                _e( 'Launch', 'fomopress' );
-                            } else {
-                                _e( 'Next', 'fomopress' );
-                            }
-                        ?>
-                    </button>
+                    <div class="quick-builder-submit-btn-wrap">
+                        <button data-tab="<?php echo $id; ?>" data-tabid="<?php echo ($tabid - 1); ?>" class="quick-builder-submit-btn fomopress-quick-builder-btn btn-prev"><?php _e( 'Previous', 'fomopress' ); ?></button>
+                        <button data-tab="<?php echo $id; ?>" data-tabid="<?php echo ++$tabid; ?>" class="quick-builder-submit-btn fomopress-quick-builder-btn btn-next">
+                            <?php
+                                if( $totaltabs < $tabid ) {
+                                    _e( 'Launch', 'fomopress' );
+                                } else {
+                                    _e( 'Next', 'fomopress' );
+                                }
+                            ?>
+                        </button>
+                    </div>
                     <?php do_action( 'fomopress_builder_after_tab', $id, $tab ); ?>
                     </div>
                     <?php
