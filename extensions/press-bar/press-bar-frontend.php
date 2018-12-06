@@ -27,6 +27,7 @@ if( $settings->id ) {
 }
 
 if( 'bottom' == $settings->pressbar_position ) {
+    $pos_class = '';
     $pos_class = ' fomopress-position-bottom';
 }
 
@@ -43,6 +44,11 @@ if( $settings->enable_countdown ) {
         }
     }
 }
+
+if( $settings->bar_advance_edit ) {
+    $class = ' fomopress-customize-style-' . $settings->id;
+}
+
 ?>
 <div 
     id="fomopress-bar-<?php echo $settings->id; ?>"

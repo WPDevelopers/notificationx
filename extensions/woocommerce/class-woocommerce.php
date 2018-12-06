@@ -18,59 +18,39 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
     public function __construct() {
         parent::__construct();
         $this->notifications = $this->get_notifications( $this->type );
-        add_filter( 'fomopress_display_types_hide_data', array( $this, 'hide_fields' ) );
     }
     /**
-     * This functions is hooked
-     * 
-     * @hooked fomopress_public_action
-     *
-     * @return void
+     * Main Screen Hooks
      */
-    public function public_actions(){
-        if( ! $this->is_created( $this->type ) ) {
-            return;
-        }
-        add_action( 'woocommerce_new_order_item', array( $this, 'save_new_orders' ), 10, 3 );
-    }
-    public function admin_actions(){
-        if( ! $this->is_created( $this->type ) ) {
-            return;
-        }
-        add_action( 'woocommerce_order_status_changed', array( $this, 'status_transition' ), 10, 4 );
-    }
-
     public function init_hooks(){
+        add_filter( 'fomopress_metabox_tabs', array( $this, 'add_fields' ) );
+        add_filter( 'fomopress_display_types_hide_data', array( $this, 'hide_fields' ) );
         add_filter( 'fomopress_conversion_from', array( $this, 'toggle_fields' ) );
     }
-
-    public function hide_fields( $options ){
-        $options['comments']['fields'][] = 'has_no_woo';
-        $options['comments']['fields'][] = 'woo_template';
-        $options['comments']['fields'][] = 'show_product_image';
-        $options['press_bar']['fields'][] = 'has_no_woo';
-        $options['press_bar']['fields'][] = 'woo_template';
-        return $options;
+    /**
+     * Builder Hooks
+     */
+    public function init_builder_hooks(){
+        add_filter( 'fomopress_builder_tabs', array( $this, 'add_builder_fields' ) );
+        add_filter( 'fomopress_display_types_hide_data', array( $this, 'hide_builder_fields' ) );
+        add_filter( 'fomopress_builder_tabs', array( $this, 'builder_toggle_fields' ) );
     }
 
-    public function source_tab_section( $options ){
+    /**
+     * Needed Fields
+     */
+    private function init_fields(){
+        $fields = [];
+
         if( ! class_exists( 'WooCommerce' ) ) {
-            $options['config']['fields']['has_no_woo'] = array(
+            $fields['has_no_woo'] = array(
                 'type'     => 'message',
                 'message'    => __('You have to install WooCommerce plugin first.' , 'fomopress'),
                 'priority' => 0,
             );
         }
-        return $options;
-    }
-    /**
-     * Some extra field on the fly.
-     * 
-     * @param array $options
-     * @return array
-     */
-    public function content_tab_section( $options ){
-        $options[ 'content_config' ][ 'fields' ]['woo_template'] = array(
+
+        $fields['woo_template'] = array(
             'type'     => 'template',
             'label'    => __('Notification Template' , 'fomopress'),
             'priority' => 90,
@@ -82,24 +62,97 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
             ],
         );
 
-        return $options;
+        return $fields;
     }
     /**
-     * This function is responsible for the some fields of 
-     * wp comments notification in display tab
+     * This function is responsible for adding fields in main screen
      *
      * @param array $options
      * @return void
      */
-    public function display_tab_section( $options ){
-        $options['image']['fields']['show_product_image'] = array(
-            'label'       => __( 'Show Product Image', 'fomopress' ),
-            'priority'    => 25,
-            'type'        => 'checkbox',
-            'default'     => true,
-            'description' => __( 'Show the product image in notification', 'fomopress' ),
-        );
+    public function add_fields( $options ){
+        $fields = $this->init_fields();
 
+        foreach ( $fields as $name => $field ) {
+            if( $name === 'has_no_woo' ) {
+                $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
+            }
+            if( $name === 'woo_template' ) {
+                $options[ 'content_tab' ]['sections']['content_config']['fields'][ $name ] = $field;
+            }
+        }
+
+        return $options;
+    }
+    /**
+     * This function is responsible for adding fields in builder
+     *
+     * @param array $options
+     * @return void
+     */
+    public function add_builder_fields( $options ){
+        $fields = $this->init_fields();
+        unset( $fields[ $this->template ] );
+        
+        foreach ( $fields as $name => $field ) {
+            $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
+        }
+
+        return $options;
+    }
+    /**
+     * This functions is hooked
+     * 
+     * @hooked fomopress_public_action
+     * @return void
+     */
+    public function public_actions(){
+        if( ! $this->is_created( $this->type ) ) {
+            return;
+        }
+        add_action( 'woocommerce_new_order_item', array( $this, 'save_new_orders' ), 10, 3 );
+    }
+    /**
+     * This functions is hooked
+     * 
+     * @hooked fomopress_admin_action
+     * @return void
+     */
+    public function admin_actions(){
+        if( ! $this->is_created( $this->type ) ) {
+            return;
+        }
+        add_action( 'woocommerce_order_status_changed', array( $this, 'status_transition' ), 10, 4 );
+    }
+    /**
+     * This function is responsible for hide fields in main screen
+     *
+     * @param array $options
+     * @return void
+     */
+    public function hide_fields( $options ) {
+        $fields = $this->init_fields();
+        foreach ( $fields as $name => $field ) {
+            foreach( $options as $opt_key => $opt_value ) {
+                $options[ $opt_key ][ 'fields' ][] = $name;
+            }
+        }
+        return $options;
+    }
+    /**
+     * This function is reponsible for hide fields on toggle
+     * in builder
+     *
+     * @param array $options
+     * @return void
+     */
+    public function hide_builder_fields( $options ) {
+        $fields = $this->init_fields();
+        foreach ( $fields as $name => $field ) {
+            foreach( $options as $opt_key => $opt_value ) {
+                $options[ $opt_key ][ 'fields' ][] = $name;
+            }
+        }
         return $options;
     }
     /**
@@ -108,16 +161,25 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
      * @param array $options
      * @return void
      */
-    public function toggle_fields( $options ){
-        $options['toggle']['woocommerce']['fields'] = [ 'woo_template', 'show_product_image' ];
-        $options['toggle']['woocommerce']['sections'] = [ 'image' ];
-        $options['hide']['woocommerce']['fields'] = [ 'show_custom_image' ];
-        
-        if( ! class_exists( 'WooCommerce' ) ) {
-            $options['toggle']['woocommerce']['fields'][] = 'has_no_woo';
-            // $options['hide']['custom']['fields'] = [ 'woo_template' ];
-        }
+    public function toggle_fields( $options ) {
+        $fields = array_keys( $this->init_fields() );
+        $fields = array_merge( [ 'show_product_image' ], $fields );
 
+
+        $options['toggle'][ $this->type ]['fields'] = $fields;
+        $options['toggle'][ $this->type ]['sections'] = [ 'image' ];
+        return $options;
+    }
+    /**
+     * This function is responsible for builder fields
+     *
+     * @param array $options
+     * @return void
+     */
+    public function builder_toggle_fields( $options ) {
+        $fields = $this->init_fields();
+        unset( $fields[ $this->template ] );
+        $options['source_tab']['sections']['config']['fields']['conversion_from']['toggle'][ $this->type ]['fields'] = array_keys( $fields );
         return $options;
     }
     /**
@@ -163,7 +225,6 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
 
         return;
     }
-
     /**
      * Get all the orders from database using a date query
      * for limitation.

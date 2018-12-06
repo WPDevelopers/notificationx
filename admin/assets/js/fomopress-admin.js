@@ -38,6 +38,7 @@
 		},
 
 		initFields: function(){
+			FomoPressAdmin.initSelect2();
 			$('.fomopress-metabox-wrapper .fomopress-meta-field').trigger('change');
 			FomoPressAdmin.initColorField();
 			FomoPressAdmin.initGroupField();
@@ -93,6 +94,16 @@
 				e.preventDefault();
                 FomoPressAdmin.optinAllowOrNot(this);
 			} );
+		},
+
+		initSelect2 : function(){
+			$('.fomopress-meta-field').map(function( iterator, item ){
+				var node = item.nodeName;
+
+				if( node === 'SELECT' ) {
+					$(item).select2();
+				}
+			});
 		},
 
 		tabChanger : function( button ){
@@ -488,65 +499,130 @@
 
 			fields.map(function(item, i){
 				var event = item.event || 'change';
-				$( item.id ).on( event, function(){
-					var val = $( item.id ).val(),
-						suffix = '',
-						selector = '.fomopress-preview-inner';
 
-					if( typeof item.selector != 'undefined' ) {
-						selector = item.selector;
-					}
+				$( item.id ).each(function(){
 
-					if( typeof item.unit != 'undefined' ) {
-						suffix = item.unit;
-					}
-					/**
-					 * This lines of code use for removing & adding the border css 
-					 * on CLICK to want border.
-					 */
-					if( event == 'click' && item.field == 'border' ) {
-						window.itemshide = item.hide;
-						if( ! $( item.id ).is(":checked") ) {
-							item.hide.forEach(function(item){
-								if( item.property == 'border-width' ) {
-									$( selector ).css( item.property, '0px' );
-								} else {
-									$( selector ).css( item.property, '' );
-								}
-							});
-						} else {
-							item.hide.forEach(function(item){
-								var oval = $(item.key).val();
-								$( selector ).css( item.property, oval );
-							});
+					$( this ).on( event, function(){
+						var val = $( this ).val(),
+							suffix = '',
+							selector = '.fomopress-preview-inner';
+	
+						if( typeof item.selector != 'undefined' ) {
+							selector = item.selector;
 						}
-					}
-
-					if( typeof item.property != 'undefined' ) {
-						$( selector ).css( item.property, val + suffix );
-					}
-					
-					if( 'image_shape' == item.field ) {
-						$( selector ).removeClass( 'fp-img-circle fp-img-rounded fp-img-square' );
-					}
-					if( 'image_position' == item.field ) {
-						$( selector ).removeClass( 'fp-img-left fp-img-right' );
-					}
-
-					if( item.field == 'image_shape' || 'image_position' == item.field ) {
-						$( selector ).addClass( 'fp-img-' + val ); 
+	
+						if( typeof item.unit != 'undefined' ) {
+							suffix = item.unit;
+						}
 						/**
-						 * This lines of code use for layouting the notification preview
+						 * This lines of code use for removing & adding the border css 
+						 * on CLICK to want border.
 						 */
-						if( 'image_position' == item.field ) {
-							if( val == 'left' ) {
-								$( '.fomopress-preview-inner' ).css( 'flex-direction', 'row' );
+						if( event == 'click' && item.field == 'border' ) {
+							window.itemshide = item.hide;
+							if( ! $( this ).is(":checked") ) {
+								item.hide.forEach(function(item){
+									if( item.property == 'border-width' ) {
+										$( selector ).css( item.property, '0px' );
+									} else {
+										$( selector ).css( item.property, '' );
+									}
+								});
 							} else {
-								$( '.fomopress-preview-inner' ).css( 'flex-direction', 'row-reverse' );
+								item.hide.forEach(function(item){
+									var oval = $(item.key).val();
+									$( selector ).css( item.property, oval );
+								});
 							}
 						}
-					}
-				})
+	
+						if( typeof item.property != 'undefined' ) {
+							$( selector ).css( item.property, val + suffix );
+						}
+						
+						if( 'image_shape' == item.field || 'comment_image_shape' == item.field ) {
+							$( selector ).removeClass( 'fp-img-circle fp-img-rounded fp-img-square' );
+						}
+						if( 'image_position' == item.field || 'comment_image_position' == item.field ) {
+							$( selector ).removeClass( 'fp-img-left fp-img-right' );
+						}
+	
+						if( ( item.field == 'image_shape' || 'image_position' == item.field ) || ( item.field == 'comment_image_shape' || 'comment_image_position' == item.field ) ) {
+							$( selector ).addClass( 'fp-img-' + val ); 
+							/**
+							 * This lines of code use for layouting the notification preview
+							 */
+							if( 'image_position' == item.field || 'comment_image_position' == item.field ) {
+								if( val == 'left' ) {
+									$( '.fomopress-preview-inner' ).css( 'flex-direction', 'row' );
+								} else {
+									$( '.fomopress-preview-inner' ).css( 'flex-direction', 'row-reverse' );
+								}
+							}
+						}
+					})
+
+				});
+
+				// $( item.id ).on( event, function(){
+				// 	var val = $( item.id ).val(),
+				// 		suffix = '',
+				// 		selector = '.fomopress-preview-inner';
+
+				// 	if( typeof item.selector != 'undefined' ) {
+				// 		selector = item.selector;
+				// 	}
+
+				// 	if( typeof item.unit != 'undefined' ) {
+				// 		suffix = item.unit;
+				// 	}
+				// 	/**
+				// 	 * This lines of code use for removing & adding the border css 
+				// 	 * on CLICK to want border.
+				// 	 */
+				// 	if( event == 'click' && item.field == 'border' ) {
+				// 		window.itemshide = item.hide;
+				// 		if( ! $( item.id ).is(":checked") ) {
+				// 			item.hide.forEach(function(item){
+				// 				if( item.property == 'border-width' ) {
+				// 					$( selector ).css( item.property, '0px' );
+				// 				} else {
+				// 					$( selector ).css( item.property, '' );
+				// 				}
+				// 			});
+				// 		} else {
+				// 			item.hide.forEach(function(item){
+				// 				var oval = $(item.key).val();
+				// 				$( selector ).css( item.property, oval );
+				// 			});
+				// 		}
+				// 	}
+
+				// 	if( typeof item.property != 'undefined' ) {
+				// 		$( selector ).css( item.property, val + suffix );
+				// 	}
+					
+				// 	if( 'image_shape' == item.field ) {
+				// 		$( selector ).removeClass( 'fp-img-circle fp-img-rounded fp-img-square' );
+				// 	}
+				// 	if( 'image_position' == item.field ) {
+				// 		$( selector ).removeClass( 'fp-img-left fp-img-right' );
+				// 	}
+
+				// 	if( item.field == 'image_shape' || 'image_position' == item.field ) {
+				// 		$( selector ).addClass( 'fp-img-' + val ); 
+				// 		/**
+				// 		 * This lines of code use for layouting the notification preview
+				// 		 */
+				// 		if( 'image_position' == item.field ) {
+				// 			if( val == 'left' ) {
+				// 				$( '.fomopress-preview-inner' ).css( 'flex-direction', 'row' );
+				// 			} else {
+				// 				$( '.fomopress-preview-inner' ).css( 'flex-direction', 'row-reverse' );
+				// 			}
+				// 		}
+				// 	}
+				// })
 			});
 		},
 		optinAllowOrNot : function( button ){
@@ -667,17 +743,17 @@
 
 		var fields = [
 			{
-				id: "#fomopress_bg_color",
+				id: [ "#fomopress_bg_color", "#fomopress_comment_bg_color" ],
 				field: "bg_color",
 				property : "background-color",
 			},
 			{
-				id: "#fomopress_text_color",
+				id: [ "#fomopress_text_color", "#fomopress_comment_text_color" ],
 				field: "text_color",
 				property : "color",
 			},
 			{
-				id: "#fomopress_border",
+				id: [ "#fomopress_border", "#fomopress_comment_border" ],
 				field: "border",
 				event : "click",
 				selector : ".fomopress-preview-inner",
@@ -688,7 +764,7 @@
 				],
 			},
 			{
-				id: "#fomopress_border_size",
+				id: [ "#fomopress_border_size", "#fomopress_comment_border_size" ],
 				field: "border_size",
 				event : "keyup",
 				property : "border-width",
@@ -696,29 +772,29 @@
 				unit : "px",
 			},
 			{
-				id: "#fomopress_border_style",
+				id: [ "#fomopress_border_style", "#fomopress_comment_border_style" ],
 				field: "border_style",
 				property : "border-style",
 				selector : ".fomopress-preview-inner",
 			},
 			{
-				id: "#fomopress_border_color",
+				id: [ "#fomopress_border_color", "#fomopress_comment_border_color" ],
 				field: "border_color",
 				property : "border-color",
 				selector : ".fomopress-preview-inner",
 			},
 			{
-				id: "#fomopress_image_shape",
+				id: [ "#fomopress_image_shape", "#fomopress_comment_image_shape" ],
 				field: "image_shape",
 				selector: ".fomopress-preview-image",
 			},
 			{
-				id: "#fomopress_image_position",
+				id: [ "#fomopress_image_position", "#fomopress_comment_image_position" ],
 				field: "image_position",
 				selector: ".fomopress-preview-image",
 			},
 			{
-				id: "#fomopress_first_font_size",
+				id: [ "#fomopress_first_font_size", "#fomopress_comment_first_font_size" ],
 				field: "first_font_size",
 				selector: ".fomopress-preview-first-row",
 				property : "font-size",
@@ -726,7 +802,7 @@
 				unit : "px",
 			},
 			{
-				id: "#fomopress_second_font_size",
+				id: [ "#fomopress_second_font_size", "#fomopress_comment_second_font_size" ],
 				field: "second_font_size",
 				selector: ".fomopress-preview-second-row",
 				property : "font-size",
@@ -734,7 +810,7 @@
 				unit : "px",
 			},
 			{
-				id: "#fomopress_third_font_size",
+				id: [ "#fomopress_third_font_size", "#fomopress_comment_third_font_size" ],
 				field: "third_font_size",
 				selector: ".fomopress-preview-third-row",
 				property : "font-size",

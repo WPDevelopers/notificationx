@@ -274,30 +274,72 @@ class FomoPress_Public {
 		$style = $image_style = $content_style = $first_row_font = $second_row_font = $third_row_font = [];
 		$css_string = $css = '';
 
-		if( $settings->advance_edit ) {
-			$style[] = 'background-color: ' . $settings->bg_color;
-			$style[] = 'color: ' . $settings->text_color;
-			
-			if( $settings->border ){
-				$style[] = 'border-width: ' . $settings->border_size . 'px';
-				$style[] = 'border-style: ' . $settings->border_style;
-				$style[] = 'border-color: ' . $settings->border_color;
-			}
-
-			if( ! empty( $settings->first_font_size ) ) {
-				$first_row_font[] = 'font-size: ' . $settings->first_font_size . 'px';
-			}
-			if( ! empty( $settings->second_font_size ) ) {
-				$second_row_font[] = 'font-size: ' . $settings->second_font_size . 'px';
-			}
-			if( ! empty( $settings->third_font_size ) ) {
-				$third_row_font[] = 'font-size: ' . $settings->third_font_size . 'px';
-			}
-
-			if( $settings->image_position == 'right' ) {
-				$style[] = 'flex-direction: row-reverse';
-			}
+		switch( $settings->display_type ){
+			case 'conversions' : 
+				if( $settings->advance_edit ) {
+					$style[] = 'background-color: ' . $settings->bg_color;
+					$style[] = 'color: ' . $settings->text_color;
+					
+					if( $settings->border ){
+						$style[] = 'border-width: ' . $settings->border_size . 'px';
+						$style[] = 'border-style: ' . $settings->border_style;
+						$style[] = 'border-color: ' . $settings->border_color;
+					}
+		
+					if( ! empty( $settings->first_font_size ) ) {
+						$first_row_font[] = 'font-size: ' . $settings->first_font_size . 'px';
+					}
+					if( ! empty( $settings->second_font_size ) ) {
+						$second_row_font[] = 'font-size: ' . $settings->second_font_size . 'px';
+					}
+					if( ! empty( $settings->third_font_size ) ) {
+						$third_row_font[] = 'font-size: ' . $settings->third_font_size . 'px';
+					}
+		
+					if( $settings->image_position == 'right' ) {
+						$style[] = 'flex-direction: row-reverse';
+					}
+				}
+				break;
+			case 'comments' : 
+				if( $settings->comment_advance_edit ) {
+					$style[] = 'background-color: ' . $settings->comment_bg_color;
+					$style[] = 'color: ' . $settings->comment_text_color;
+					
+					if( $settings->comment_border ){
+						$style[] = 'border-width: ' . $settings->comment_border_size . 'px';
+						$style[] = 'border-style: ' . $settings->comment_border_style;
+						$style[] = 'border-color: ' . $settings->comment_border_color;
+					}
+		
+					if( ! empty( $settings->comment_first_font_size ) ) {
+						$first_row_font[] = 'font-size: ' . $settings->comment_first_font_size . 'px';
+					}
+					if( ! empty( $settings->comment_second_font_size ) ) {
+						$second_row_font[] = 'font-size: ' . $settings->comment_second_font_size . 'px';
+					}
+					if( ! empty( $settings->comment_third_font_size ) ) {
+						$third_row_font[] = 'font-size: ' . $settings->comment_third_font_size . 'px';
+					}
+		
+					if( $settings->comment_image_position == 'right' ) {
+						$style[] = 'flex-direction: row-reverse';
+					}
+				}
+				break;
+			case 'press_bar' : 
+				if( $settings->bar_advance_edit ) {
+					$style[] = 'background-color: ' . $settings->bar_bg_color;
+					$style[] = 'color: ' . $settings->bar_text_color;
+					$style[] = 'font-size: ' . $settings->bar_font_size . 'px';
+				}
+				break;
 		}
+
+		
+
+		$style = apply_filters( 'fomopress_style', $style );
+		do_action( 'fomopress_style_generation' );
 
 		if( ! empty( $style ) ) {
 			$css_string .= '.fomopress-customize-style-' . $settings->id . '{' . implode( ';', $style ) . '}';
@@ -331,31 +373,66 @@ class FomoPress_Public {
 		$style = $image_style = $content_style = $first_row_font = $second_row_font = $third_row_font = [];
 		$css_string = $css = '';
 
-		if( $settings->advance_edit ) {
-			$style[ 'wrapper' ][] = 'background-color: ' . $settings->bg_color;
-			$style[ 'wrapper' ][] = 'color: ' . $settings->text_color;
-			
-			if( $settings->border ){
-				$style[ 'wrapper' ][] = 'border-width: ' . $settings->border_size . 'px';
-				$style[ 'wrapper' ][] = 'border-style: ' . $settings->border_style;
-				$style[ 'wrapper' ][] = 'border-color: ' . $settings->border_color;
-			}
 
-			if( ! empty( $settings->first_font_size ) ) {
-				$style['first-row'][] = 'font-size: ' . $settings->first_font_size . 'px';
-			}
-			if( ! empty( $settings->second_font_size ) ) {
-				$style['second-row'][] = 'font-size: ' . $settings->second_font_size . 'px';
-			}
-			if( ! empty( $settings->third_font_size ) ) {
-				$style['third-row'][] = 'font-size: ' . $settings->third_font_size . 'px';
-			}
+		switch( $settings->display_type ) {
+			case 'conversions' : 
+				if( $settings->advance_edit ) {
+					$style[ 'wrapper' ][] = 'background-color: ' . $settings->bg_color;
+					$style[ 'wrapper' ][] = 'color: ' . $settings->text_color;
+					
+					if( $settings->border ){
+						$style[ 'wrapper' ][] = 'border-width: ' . $settings->border_size . 'px';
+						$style[ 'wrapper' ][] = 'border-style: ' . $settings->border_style;
+						$style[ 'wrapper' ][] = 'border-color: ' . $settings->border_color;
+					}
+		
+					if( ! empty( $settings->first_font_size ) ) {
+						$style['first-row'][] = 'font-size: ' . $settings->first_font_size . 'px';
+					}
+					if( ! empty( $settings->second_font_size ) ) {
+						$style['second-row'][] = 'font-size: ' . $settings->second_font_size . 'px';
+					}
+					if( ! empty( $settings->third_font_size ) ) {
+						$style['third-row'][] = 'font-size: ' . $settings->third_font_size . 'px';
+					}
+		
+					if( $settings->image_position == 'right' ) {
+						$style[ 'wrapper' ][] = 'flex-direction: row-reverse';
+					}
+					echo 'style="'. implode( '; ', $style[ $key ] ) .'"';
+				}
+				break;
 
-			if( $settings->image_position == 'right' ) {
-				$style[ 'wrapper' ][] = 'flex-direction: row-reverse';
-			}
-			echo 'style="'. implode( '; ', $style[ $key ] ) .'"';
+			case 'comments' : 
+				if( $settings->comment_advance_edit ) {
+					$style[ 'wrapper' ][] = 'background-color: ' . $settings->comment_bg_color;
+					$style[ 'wrapper' ][] = 'color: ' . $settings->comment_text_color;
+					
+					if( $settings->comment_border ){
+						$style[ 'wrapper' ][] = 'border-width: ' . $settings->comment_border_size . 'px';
+						$style[ 'wrapper' ][] = 'border-style: ' . $settings->comment_border_style;
+						$style[ 'wrapper' ][] = 'border-color: ' . $settings->comment_border_color;
+					}
+		
+					if( ! empty( $settings->comment_first_font_size ) ) {
+						$style['first-row'][] = 'font-size: ' . $settings->comment_first_font_size . 'px';
+					}
+					if( ! empty( $settings->comment_second_font_size ) ) {
+						$style['second-row'][] = 'font-size: ' . $settings->comment_second_font_size . 'px';
+					}
+					if( ! empty( $settings->comment_third_font_size ) ) {
+						$style['third-row'][] = 'font-size: ' . $settings->comment_third_font_size . 'px';
+					}
+		
+					if( $settings->comment_image_position == 'right' ) {
+						$style[ 'wrapper' ][] = 'flex-direction: row-reverse';
+					}
+					echo 'style="'. implode( '; ', $style[ $key ] ) .'"';
+				}
+				break;
+			default : 
+				echo '';
+				break;
 		}
-		echo '';
 	}
 }

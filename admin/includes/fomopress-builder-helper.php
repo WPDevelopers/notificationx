@@ -64,6 +64,18 @@ function fomopress_builder_args() {
                             ),
                         )
                     ),
+                    'comment_themes' => array(
+                        'title'      => __('Comments Themes', 'fomopress'),
+                        'priority' => 4,
+                        'fields'   => array(
+                            'comment_theme' => array(
+                                'type'      => 'theme',
+                                'priority'	=> 5,
+                                'default'	=> 'theme-one',
+                                'options'   => FomoPress_Helper::comment_colored_themes(),
+                            ),
+                        )
+                    ),
                     'themes' => array(
                         'title'      => __('Themes', 'fomopress'),
                         'priority' => 5,
