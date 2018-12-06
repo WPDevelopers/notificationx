@@ -23,11 +23,115 @@ class FomoPress_EDD_Extension extends FomoPress_Extension {
     public function __construct() {
         parent::__construct();
         $this->notifications = $this->get_notifications( $this->type );
-        add_filter( 'fomopress_display_types_hide_data', array( $this, 'hide_fields' ) );
     }
-
+    /**
+     * Main Screen Hooks
+     */
     public function init_hooks(){
+        add_filter( 'fomopress_metabox_tabs', array( $this, 'add_fields' ) );
+        add_filter( 'fomopress_display_types_hide_data', array( $this, 'hide_fields' ) );
         add_filter( 'fomopress_conversion_from', array( $this, 'toggle_fields' ) );
+    }
+    /**
+     * Builder Hooks
+     */
+    public function init_builder_hooks(){
+        add_filter( 'fomopress_builder_tabs', array( $this, 'add_builder_fields' ) );
+        add_filter( 'fomopress_display_types_hide_data', array( $this, 'hide_builder_fields' ) );
+        add_filter( 'fomopress_builder_tabs', array( $this, 'builder_toggle_fields' ) );
+    }
+    /**
+     * Needed Fields
+     */
+    private function init_fields(){
+        $fields = [];
+
+        if( ! class_exists( 'Easy_Digital_Downloads' ) ) {
+            $fields['has_no_edd'] = array(
+                'type'     => 'message',
+                'message'    => __('You have to install Easy Digital Downloads plugin first.', 'fomopress'),
+                'priority' => 0,
+            );
+        }
+
+        $fields['edd_template'] = array(
+            'type'     => 'template',
+            'label'    => __('Notification Template' , 'fomopress'),
+            'priority' => 90,
+            'defaults' => [
+                __('{{name}} recently purchased', 'fomopress'), '{{title}}', '{{time}}'
+            ],
+            'variables' => [
+                '{{name}}', '{{title}}', '{{time}}'
+            ],
+        );
+
+        return $fields;
+    }
+    /**
+     * This function is responsible for adding fields in main screen
+     *
+     * @param array $options
+     * @return void
+     */
+    public function add_fields( $options ){
+        $fields = $this->init_fields();
+
+        foreach ( $fields as $name => $field ) {
+            if( $name === 'has_no_edd' ) {
+                $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
+            }
+            if( $name === 'edd_template' ) {
+                $options[ 'content_tab' ]['sections']['content_config']['fields'][ $name ] = $field;
+            }
+        }
+        return $options;
+    }
+    /**
+     * This function is responsible for adding fields in builder
+     *
+     * @param array $options
+     * @return void
+     */
+    public function add_builder_fields( $options ){
+        $fields = $this->init_fields();
+        unset( $fields[ $this->template ] );
+        
+        foreach ( $fields as $name => $field ) {
+            $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
+        }
+        return $options;
+    }
+    /**
+     * This function is responsible for hide fields in main screen
+     *
+     * @param array $options
+     * @return void
+     */
+    public function hide_fields( $options ) {
+        $fields = $this->init_fields();
+        foreach ( $fields as $name => $field ) {
+            foreach( $options as $opt_key => $opt_value ) {
+                $options[ $opt_key ][ 'fields' ][] = $name;
+            }
+        }
+        return $options;
+    }
+    /**
+     * This function is reponsible for hide fields on toggle
+     * in builder
+     *
+     * @param array $options
+     * @return void
+     */
+    public function hide_builder_fields( $options ) {
+        $fields = $this->init_fields();
+        foreach ( $fields as $name => $field ) {
+            foreach( $options as $opt_key => $opt_value ) {
+                $options[ $opt_key ][ 'fields' ][] = $name;
+            }
+        }
+        return $options;
     }
     /**
      * This functions is hooked
@@ -55,65 +159,29 @@ class FomoPress_EDD_Extension extends FomoPress_Extension {
         add_action( 'edd_complete_purchase', array( $this, 'update_notifications' ) );
     }
     /**
-     * Hide fields when type is change.
-     */
-    public function hide_fields( $options ){
- 
-        $options['comments']['fields'][]  = "has_no_edd";
-        $options['comments']['fields'][]  = 'edd_template';
-        $options['comments']['fields'][]  = 'show_product_image';
-        $options['press_bar']['fields'][] = "has_no_edd";
-        $options['press_bar']['fields'][] = 'edd_template';
-
-        return $options;
-    }
-
-    public function source_tab_section( $options ){
-        if( ! class_exists( 'Easy_Digital_Downloads' ) ) {
-            $options['config']['fields']['has_no_edd'] = array(
-                'type'     => 'message',
-                'message'    => __('You have to install Easy Digital Downloads plugin first.', 'fomopress'),
-                'priority' => 0,
-            );
-        }
-        return $options;
-    }
-    /**
-     * Some extra field on the fly.
-     * 
-     * @param array $options
-     * @return array
-     */
-    public function content_tab_section( $options ){
-        $options[ 'content_config' ][ 'fields' ]['edd_template'] = array(
-            'type'     => 'template',
-            'label'    => __('Notification Template' , 'fomopress'),
-            'priority' => 90,
-            'defaults' => [
-                __('{{name}} recently purchased', 'fomopress'), '{{title}}', '{{time}}'
-            ],
-            'variables' => [
-                '{{name}}', '{{title}}', '{{time}}'
-            ],
-        );
-        return $options;
-    }
-    /**
      * Some toggleData & hideData manipulation.
      *
      * @param array $options
      * @return void
      */
-    public function toggle_fields( $options ){
-        $options['toggle']['edd']['fields']   = [ 'edd_template', 'show_product_image' ];
-        $options['toggle']['edd']['sections'] = [ 'image' ];
-        $options['hide']['edd']['fields']     = [ 'show_custom_image' ];
-        
-        if( ! class_exists( 'Easy_Digital_Downloads' ) ) {
-            $options['toggle']['edd']['fields'][]  = 'has_no_edd';
-            // $options['hide']['custom']['fields'][] = 'edd_template';
-        }
+    public function toggle_fields( $options ) {
+        $fields = array_keys( $this->init_fields() );
+        $fields = array_merge( [ 'show_product_image' ], $fields );
 
+        $options['toggle'][ $this->type ]['fields'] = $fields;
+        $options['toggle'][ $this->type ]['sections'] = [ 'image' ];
+        return $options;
+    }
+    /**
+     * This function is responsible for builder fields
+     *
+     * @param array $options
+     * @return void
+     */
+    public function builder_toggle_fields( $options ) {
+        $fields = $this->init_fields();
+        unset( $fields[ $this->template ] );
+        $options['source_tab']['sections']['config']['fields']['conversion_from']['toggle'][ $this->type ]['fields'] = array_keys( $fields );
         return $options;
     }
     /**

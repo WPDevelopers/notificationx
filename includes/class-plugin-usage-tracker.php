@@ -93,7 +93,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 			add_action( 'wp_ajax_goodbye_form', array( $this, 'goodbye_form_callback' ) );
 			
 			add_action( 'fomopress_builder_before_tab', array( $this, 'opt_in' ), 10, 3 );
-			add_action( 'wp_ajax_fomopress_optin_check', array( $this, 'optin_check' ) );
+			add_action( 'fomopress_before_builder_submit', array( $this, 'optin_check' ) );
 			
 		}
 		
@@ -912,7 +912,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 
 				$opt_in_options = apply_filters( 'fomopress_opt_in_options', array(
 					'email' => array(
-						'label' => 'Email Address',
+						'label' => 'Opt-in to get 25% discount for premium version. We will collect your email address and send the coupon, no spam!',
 						'default' => 1
 					),
 				) );
@@ -924,25 +924,25 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 				?>
 				
 					<div class="fomopress-opt-in">
-						<p><?php _e('Hey, ', 'fomopress'); ?> <strong><?php echo get_user_meta( get_current_user_id(), 'first_name', true ); ?></strong></p>
-						<p><?php _e( 'We collect non-sensitive diagnostic data and plugin usage information. Your site URL, WordPress & PHP version, plugins & themes and email address to send you the discount coupon. This data lets us make sure this plugin always stays compatible with the most popular plugins and themes. No spam, I promise.', 'fomopress' ); ?></p>
+						<!-- <p><?php // _e('Hey, ', 'fomopress'); ?> <strong><?php // echo get_user_meta( get_current_user_id(), 'first_name', true ); ?></strong></p> -->
+						<p><?php _e( 'You are about to publish <strong><span class="finalize_fomo_name">Fomo – Notification Bar</span></strong>. You can rename this and edit everything whenever you want from <strong><a href="'. admin_url('admin.php?page=fomopress') .'">FomoPress</a></strong> page.', 'fomopress' ); ?></p>
 						<?php 
 						
 							foreach( $opt_in_options as $key => $option ) {
 									$checked = $option['default'];
 								?>
 									<div class="fomopress-single-opt">
-										<label for="<?php echo $key ?>"><?php echo $option['label'] ?></label>
 										<input type="checkbox" <?php echo $checked ? 'checked' : '' ?> name="fomopress_tracking[<?php echo $key ?>]" id="<?php echo $key ?>">
+										<label for="<?php echo $key ?>"><?php echo $option['label'] ?></label>
 									</div>
 								<?php
 							}
 						
 						?>
-						<p>
-							<a class="fomopress-optin-button fp-allow" id="fomopress-optin-allow" data-args="<?php echo esc_attr( json_encode( $yes_args ) ); ?>" href="#" class="button-primary"><?php _e( 'Allow', 'fomopress' ); ?></a>
-							<a class="fomopress-optin-button fp-skip" id="fomopress-optin-skip" data-args="<?php echo esc_attr( json_encode( $no_args ) ); ?>" href="#" class="button-secondary"><?php _e( 'Skip this step', 'fomopress' ); ?></a>
-						</p>
+						<!-- <p>
+							<a class="fomopress-optin-button fp-allow" id="fomopress-optin-allow" data-args="<?php // echo esc_attr( json_encode( $yes_args ) ); ?>" href="#" class="button-primary"><?php // _e( 'Allow', 'fomopress' ); ?></a>
+							<a class="fomopress-optin-button fp-skip" id="fomopress-optin-skip" data-args="<?php // echo esc_attr( json_encode( $no_args ) ); ?>" href="#" class="button-secondary"><?php // _e( 'Skip this step', 'fomopress' ); ?></a>
+						</p> -->
 					</div>
 				
 				<?php
@@ -972,28 +972,26 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 			$this->send_data( $body );
 		}
 
-		public function optin_check(){
-			$fields = $_POST['fields'];
-
-			if( $fields['plugin_action'] === 'no' ) {
-				$this->set_track_time();
-
-				echo 'false'; 
-				die;
+		public function optin_check( $data ){
+			if( isset( $data['fomopress_tracking'] ) ) {
+				$fields = $data['fomopress_tracking'];
+				if( $fields['plugin_action'] === 'no' ) {
+					$this->set_track_time();
+	
+					return false;
+				}
+	
+				if( $fields['email'] === 'true' ) {
+					$this->set_can_collect_email( true, $this->plugin_name );
+					$this->set_is_tracking_allowed( true, $this->plugin_name );
+				} else {
+					$this->set_can_collect_email( false, $this->plugin_name );
+					$this->set_is_tracking_allowed( false, $this->plugin_name );
+				}
+				$this->optin_do_tracking();
 			}
-
-			if( $fields['email'] === 'true' ) {
-				$this->set_can_collect_email( true, $this->plugin_name );
-				$this->set_is_tracking_allowed( true, $this->plugin_name );
-			} else {
-				$this->set_can_collect_email( false, $this->plugin_name );
-				$this->set_is_tracking_allowed( false, $this->plugin_name );
-			}
-			$this->optin_do_tracking();
-
-			echo 'true';
-
-			die;
+			
+			return true;
 		}
 
 	}

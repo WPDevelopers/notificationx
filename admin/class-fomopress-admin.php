@@ -108,6 +108,11 @@ class FomoPress_Admin {
 
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 
+			$this->plugin_name . '-select2', 
+			FOMOPRESS_ADMIN_URL . 'assets/css/select2.min.css', 
+			array(), $this->version, 'all' 
+		);
+		wp_enqueue_style( 
 			$this->plugin_name, 
 			FOMOPRESS_ADMIN_URL . 'assets/css/fomopress-admin.css', 
 			array(), $this->version, 'all' 
@@ -134,6 +139,11 @@ class FomoPress_Admin {
 		wp_enqueue_script( 
 			$this->plugin_name . '-sweetalert', 
 			FOMOPRESS_ADMIN_URL . 'assets/js/sweetalert.min.js', 
+			array( 'jquery' ), $this->version, true 
+		);
+		wp_enqueue_script( 
+			$this->plugin_name . '-select2', 
+			FOMOPRESS_ADMIN_URL . 'assets/js/select2.min.js', 
 			array( 'jquery' ), $this->version, true 
 		);
 		wp_enqueue_script( 
@@ -316,12 +326,12 @@ class FomoPress_Admin {
 		 * Add Submit
 		 */
 		if( isset( $_POST[ 'fomopress_builder_add_submit' ] ) ) :
-			
 			if ( ! isset( $_POST[$metabox_id . '_nonce'] ) || ! wp_verify_nonce( $_POST[$metabox_id . '_nonce'], $metabox_id ) ) {
 				$flag = false;
 			}
 
 			if( $flag ) {
+
 				if( $_POST['fomopress_display_type'] == 'press_bar' )  {
 					$title = __('Fomo - Notification Bar', 'fomopress');
 				} elseif( $_POST['fomopress_display_type'] == 'comments' )  {
@@ -341,6 +351,8 @@ class FomoPress_Admin {
 				$p_id = wp_insert_post($postdata);
 	
 				if( $p_id || ! is_wp_error( $p_id ) ) {
+					do_action( 'fomopress_before_builder_submit', $_POST );
+
 					FomoPress_MetaBox::save_data( $this->builder_data( $_POST ), $p_id );
 					
 					/**
@@ -419,9 +431,9 @@ class FomoPress_Admin {
 	}
 
 	public static function get_post_meta( $post_id, $key, $single = true ) {
-		return get_post_meta( $post_id, 'fomopress_' . $key, $single );
+		return get_post_meta( $post_id, '_fomopress_' . $key, $single );
 	}
 	public static function update_post_meta( $post_id, $key, $value ) {
-		update_post_meta( $post_id, 'fomopress_' . $key, $value );
+		update_post_meta( $post_id, '_fomopress_' . $key, $value );
 	}
 }

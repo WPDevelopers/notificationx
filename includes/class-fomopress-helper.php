@@ -230,7 +230,7 @@ class FomoPress_Helper {
         return apply_filters('fomopress_comments_toggle_data', array(
             'sections' => [
                 'image',
-                'themes'
+                'comment_themes'
             ],
             'fields'   => [
                 'conversion_position',
@@ -274,10 +274,15 @@ class FomoPress_Helper {
         if( $types == 'display_types' ) {
             return apply_filters("fomopress_display_types_hide_data", array(
                 'comments' => array(
+                    'sections' => [ 'bar_themes', 'bar_design', 'bar_typography', 'themes', 'design', 'image_design', 'typography' ],
                     'fields' => [ 'custom_template', 'custom_contents', 'show_custom_image', 'image_url' ]
                 ),
                 'press_bar' => array(
+                    'sections' => [ 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography' ],
                     'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'notification_preview', 'all_locations', 'image_url' ]
+                ),
+                'conversions' => array(
+                    'sections' => [ 'bar_themes', 'bar_design', 'bar_typography', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography' ], 
                 ),
             ));
         }
@@ -310,8 +315,18 @@ class FomoPress_Helper {
     public static function colored_themes(){
 
         return apply_filters( 'fomopress_colored_themes', array(
-            'theme-one' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-conv-theme-1.jpg',
-            'theme_two' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-conv-theme-2.jpg',
+            'theme-one'   => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-conv-theme-1.jpg',
+            'theme-two'   => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-conv-theme-2.jpg',
+            'theme-three' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-conv-theme-3.jpg'
+        ));
+
+    }
+
+    public static function comment_colored_themes(){
+
+        return apply_filters( 'fomopress_comment_colored_themes', array(
+            'theme-one'   => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-conv-theme-1.jpg',
+            'theme-two'   => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-conv-theme-2.jpg',
             'theme-three' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-conv-theme-3.jpg'
         ));
 
@@ -320,9 +335,9 @@ class FomoPress_Helper {
     public static function bar_colored_themes(){
 
         return apply_filters( 'fomopress_bar_colored_themes', array(
-            'theme_two' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-bar-theme-1.jpg',
+            'theme-one'   => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-bar-theme-3.jpg',
+            'theme-two'   => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-bar-theme-1.jpg',
             'theme-three' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-bar-theme-2.jpg',
-            'theme-one' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-bar-theme-3.jpg',
         ));
 
     }

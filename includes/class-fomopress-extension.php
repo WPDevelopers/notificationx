@@ -177,10 +177,25 @@ class FomoPress_Extension {
 	public static function get_classes( $settings, $type = 'wrapper' ){
 		if( empty( $settings ) ) return;
 		$classes = [];
-		
-		if( $settings->advance_edit ) {
-			$classes[ 'inner' ][] = 'fomopress-customize-style-' . $settings->id;
-		}
+        
+        switch( $settings->display_type ) {
+            case 'comments' : 
+                if( $settings->comment_advance_edit ) {
+                    $classes[ 'inner' ][] = 'fomopress-customize-style-' . $settings->id;
+                }
+                break;
+            case 'conversions' : 
+                if( $settings->advance_edit ) {
+                    $classes[ 'inner' ][] = 'fomopress-customize-style-' . $settings->id;
+                }
+                break;
+            case 'press_bar' : 
+                if( $settings->bar_advance_edit ) {
+                    $classes[ 'inner' ][] = 'fomopress-customize-style-' . $settings->id;
+                }
+                break;
+        }
+
 		if( $settings->close_button ) {
 			$classes[ 'inner' ][] = 'fomopress-has-close-btn';
 		}
@@ -188,9 +203,25 @@ class FomoPress_Extension {
 		$classes[ 'wrapper' ][] = 'fomopress-' . esc_attr( $settings->conversion_position );
 		$classes[ 'wrapper' ][] = 'fomopress-notification-' . $settings->id;
 
-		$classes[ 'inner' ][] = 'fp-notification-' . esc_attr( $settings->theme );
+		$classes[ 'inner' ][] = 'fp-notification-' . esc_attr( self::get_theme( $settings ) );
 
 		return implode( ' ', $classes[ $type ] );
+    }
+
+    private static function get_theme( $settings ){
+        switch( $settings->display_type ) {
+            // case 'press_bar' : 
+            //     $theme_name = $settings->bar_theme;
+            //     break;
+            case 'comments' : 
+                $theme_name = $settings->comment_theme;
+                break;
+            case 'conversions' : 
+                $theme_name = $settings->theme;
+                break;
+        }
+
+        return $theme_name;
     }
     /**
      * This function is responsible for checking, is the notification is visible or not.
