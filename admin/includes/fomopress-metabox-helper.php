@@ -116,6 +116,28 @@ return array(
                         ),
                     )
                 ),
+                'comment_themes' => array(
+                    'title'      => __('Themes', 'fomopress'),
+                    'priority' => 4,
+                    'fields'   => array(
+                        'comment_theme' => array(
+                            'type'      => 'theme',
+                            'priority'	=> 5,
+                            'default'	=> 'theme-one',
+                            'options'   => FomoPress_Helper::comment_colored_themes(),
+                        ),
+                        'comment_advance_edit' => array(
+                            'type'      => 'adv_checkbox',
+                            'priority'	=> 10,
+                            'default'	=> 0,
+                            'toggle' => [
+                                1 => [
+                                    'sections' => ['comment_design', 'comment_image_design', 'comment_typography']
+                                ]
+                            ]
+                        ),
+                    )
+                ),
                 'themes' => array(
                     'title'      => __('Themes', 'fomopress'),
                     'priority' => 5,
@@ -140,7 +162,7 @@ return array(
                 ),
                 'design' => array(
                     'title'    => __('Design', 'fomopress'),
-                    'priority' => 10,
+                    'priority' => 6,
                     'reset'    => true,
                     'fields'   => array(
                         'bg_color' => array(
@@ -192,9 +214,63 @@ return array(
                         ),
                     )
                 ),
+                'comment_design' => array(
+                    'title'    => __('Design', 'fomopress'),
+                    'priority' => 7,
+                    'reset'    => true,
+                    'fields'   => array(
+                        'comment_bg_color' => array(
+                            'type'      => 'colorpicker',
+                            'label'     => __('Background Color' , 'fomopress'),
+                            'priority'	=> 5,
+                            'default'	=> ''
+                        ),
+                        'comment_text_color' => array(
+                            'type'      => 'colorpicker',
+                            'label'     => __('Text Color' , 'fomopress'),
+                            'priority'	=> 10,
+                            'default'	=> ''
+                        ),
+                        'comment_border' => array(
+                            'type'      => 'checkbox',
+                            'label'     => __('Want Border?' , 'fomopress'),
+                            'priority'	=> 15,
+                            'default'	=> 0,
+                            'toggle'	=> [
+                                '1' => [
+                                    'fields' => [ 'comment_border_size', 'comment_border_style', 'comment_border_color' ]
+                                ]
+                            ],
+                        ),
+                        'comment_border_size' => array(
+                            'type'      => 'number',
+                            'label'     => __('Text Color' , 'fomopress'),
+                            'priority'	=> 20,
+                            'default'	=> '1',
+                            'description'	=> 'px',
+                        ),
+                        'comment_border_style' => array(
+                            'type'      => 'select',
+                            'label'     => __('Border Style' , 'fomopress'),
+                            'priority'	=> 25,
+                            'default'	=> 'solid',
+                            'options'	=> [
+                                'solid' => __('Solid', 'fomopress'),
+                                'dashed' => __('Dashed', 'fomopress'),
+                                'dotted' => __('Dotted', 'fomopress'),
+                            ],
+                        ),
+                        'comment_border_color' => array(
+                            'type'      => 'colorpicker',
+                            'label'     => __('Border Color' , 'fomopress'),
+                            'priority'	=> 30,
+                            'default'	=> ''
+                        ),
+                    )
+                ),
                 'image_design' => array(
                     'title'      => __('Image Appearance', 'fomopress'),
-                    'priority' => 15,
+                    'priority' => 8,
                     'reset'    => true,
                     'fields'   => array(
                         'image_shape' => array(
@@ -220,9 +296,37 @@ return array(
                         ),
                     )
                 ),
+                'comment_image_design' => array(
+                    'title'      => __('Image Appearance', 'fomopress'),
+                    'priority' => 9,
+                    'reset'    => true,
+                    'fields'   => array(
+                        'comment_image_shape' => array(
+                            'type'      => 'select',
+                            'label'     => __('Image Shape' , 'fomopress'),
+                            'priority'	=> 5,
+                            'default'	=> 'circle',
+                            'options'	=> [
+                                'circle' => __('Circle', 'fomopress'),
+                                'rounded' => __('Rounded', 'fomopress'),
+                                'square' => __('Square', 'fomopress'),
+                            ],
+                        ),
+                        'comment_image_position' => array(
+                            'type'      => 'select',
+                            'label'     => __('Position' , 'fomopress'),
+                            'priority'	=> 10,
+                            'default'	=> 'left',
+                            'options'	=> [
+                                'left' => __('Left', 'fomopress'),
+                                'right' => __('Right', 'fomopress'),
+                            ],
+                        ),
+                    )
+                ),
                 'typography' => array(
                     'title'      => __('Typography', 'fomopress'),
-                    'priority' => 20,
+                    'priority' => 10,
                     'reset'    => true,
                     'fields'   => array(
                         'first_font_size' => array(
@@ -251,9 +355,40 @@ return array(
                         ),
                     )
                 ),
+                'comment_typography' => array(
+                    'title'      => __('Typography', 'fomopress'),
+                    'priority' => 11,
+                    'reset'    => true,
+                    'fields'   => array(
+                        'comment_first_font_size' => array(
+                            'type'      => 'number',
+                            'label'     => __('Font Size' , 'fomopress'),
+                            'priority'	=> 5,
+                            'default'	=> '13',
+                            'description'	=> 'px',
+                            'help'	=> __( 'This font size will be applied for <mark>first</mark> row', 'fomopress' ),
+                        ),
+                        'comment_second_font_size' => array(
+                            'type'      => 'number',
+                            'label'     => __('Font Size' , 'fomopress'),
+                            'priority'	=> 10,
+                            'default'	=> '14',
+                            'description'	=> 'px',
+                            'help'	=> __( 'This font size will be applied for <mark>second</mark> row', 'fomopress' ),
+                        ),
+                        'comment_third_font_size' => array(
+                            'type'      => 'number',
+                            'label'     => __('Font Size' , 'fomopress'),
+                            'priority'	=> 15,
+                            'default'	=> '11',
+                            'description'	=> 'px',
+                            'help'	=> __( 'This font size will be applied for <mark>third</mark> row', 'fomopress' ),
+                        ),
+                    )
+                ),
                 'bar_design' => array(
                     'title'      => __('Design', 'fomopress'),
-                    'priority' => 25,
+                    'priority' => 12,
                     'reset'    => true,
                     'fields'   => array(
                         'bar_bg_color' => array(
@@ -272,7 +407,7 @@ return array(
                 ),
                 'bar_typography' => array(
                     'title'      => __('Typography', 'fomopress'),
-                    'priority' => 30,
+                    'priority' => 13,
                     'reset'    => true,
                     'fields'   => array(
                         'bar_font_size' => array(

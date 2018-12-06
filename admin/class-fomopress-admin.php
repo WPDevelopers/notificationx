@@ -419,9 +419,9 @@ class FomoPress_Admin {
 	}
 
 	public static function get_post_meta( $post_id, $key, $single = true ) {
-		return get_post_meta( $post_id, 'fomopress_' . $key, $single );
+		return get_post_meta( $post_id, '_fomopress_' . $key, $single );
 	}
 	public static function update_post_meta( $post_id, $key, $value ) {
-		update_post_meta( $post_id, 'fomopress_' . $key, $value );
+		update_post_meta( $post_id, '_fomopress_' . $key, $value );
 	}
 }
