@@ -89,9 +89,8 @@ final class FomoPress {
 		if ( ! is_multisite() ) {
 			// Redirect to the welcome page.
 			wp_safe_redirect( add_query_arg( array(
-				'post_type' => 'fomopress',
 				'page'		=> 'fomopress-builder'
-			), admin_url( 'edit.php' ) ) );
+			), admin_url( 'admin.php' ) ) );
 		}
 	}
 	/**

@@ -923,7 +923,6 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 				 */
 				?>
 					<div class="fomopress-opt-in">
-						<!-- <p><?php // _e('Hey, ', 'fomopress'); ?> <strong><?php // echo get_user_meta( get_current_user_id(), 'first_name', true ); ?></strong></p> -->
 						<p><?php _e( 'You are about to publish <strong><span class="finalize_fomo_name">Fomo – Notification Bar</span></strong>. You can rename this and edit everything whenever you want from <strong><a href="'. admin_url('admin.php?page=fomopress') .'">FomoPress</a></strong> page.', 'fomopress' ); ?></p>
 						<?php 
 							if( ! empty( $opt_in_options ) ) : 
@@ -937,12 +936,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 									<?php
 								}
 							endif;
-						
 						?>
-						<!-- <p>
-							<a class="fomopress-optin-button fp-allow" id="fomopress-optin-allow" data-args="<?php // echo esc_attr( json_encode( $yes_args ) ); ?>" href="#" class="button-primary"><?php // _e( 'Allow', 'fomopress' ); ?></a>
-							<a class="fomopress-optin-button fp-skip" id="fomopress-optin-skip" data-args="<?php // echo esc_attr( json_encode( $no_args ) ); ?>" href="#" class="button-secondary"><?php // _e( 'Skip this step', 'fomopress' ); ?></a>
-						</p> -->
 					</div>
 				
 				<?php
@@ -950,8 +944,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 			}
 		}
 		
-
-		public function optin_do_tracking( $force=false ) {
+		public function optin_do_tracking( $force = false ) {
 			// If the home site hasn't been defined, we just drop out. Nothing much we can do.
 			if ( ! $this->home_url ) {
 				return;
