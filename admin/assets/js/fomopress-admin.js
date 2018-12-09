@@ -701,6 +701,15 @@
 					}
 				}
 			});			
+		},
+		createTitle : function( selector ){
+			$('body').on('change', selector, function( e ){
+				var type = $(this).val(),
+					title = e.currentTarget.selectedOptions[0].innerText,
+					options = { year: 'numeric', month: 'short', day: 'numeric' },
+					date = ( new Date() ).toLocaleDateString('en-US', options);
+				return [ type, title, date ];
+			});
 		}
 	};
 
@@ -739,6 +748,24 @@
 				$('#fomopress_conversion_from').trigger('change');
 			}
 		});
+
+		$('body').on('change', '#fomopress_display_type.fomopress-select', function( e ){
+			var type = $(this).val(),
+				title = e.currentTarget.selectedOptions[0].innerText,
+				options = { year: 'numeric', month: 'short', day: 'numeric' },
+				date = ( new Date() ).toLocaleDateString('en-US', options);
+			if( type === 'conversions' ) {
+				$('body').on('change', '#fomopress_conversion_from.fomopress-select', function( e ){
+					var type = $(this).val(),
+						title = e.currentTarget.selectedOptions[0].innerText;
+					$('.finalize_fomo_name').text("Fomo - " + title + ' - ' + date);
+				});
+				$('#fomopress_conversion_from.fomopress-select').trigger('change');
+			} else {
+				$('.finalize_fomo_name').text("Fomo - " + title + ' - ' + date);
+			}
+		});
+
 		$('#fomopress_display_type').trigger('change');
 
 		var fields = [
