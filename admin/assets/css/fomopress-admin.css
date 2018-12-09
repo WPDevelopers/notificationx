@@ -739,6 +739,46 @@ label.fomopress-adv-checkbox-label:hover {
     width: 100%;
 }
 
+/* Custom select2 styles */
+
+.fomopress-control-wrapper .select2-container--default .select2-selection.select2-selection--single {
+    background-color: #fff;
+    border-color: #ABB9D6;
+    height: 40px;
+    border-radius: 0;
+}
+
+.fomopress-control-wrapper .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #333;
+    font-size: 15px;
+    line-height: 40px;
+}
+
+.fomopress-control-wrapper .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 36px;
+}
+
+body.fomopress_page_fomopress-builder .select2-dropdown, body.post-type-fomopress .select2-dropdown {
+    background-color: #fff;
+    color: #262625;
+    border-color: #97a1b9;
+}
+
+body.fomopress_page_fomopress-builder .select2-container--default .select2-results__option--highlighted[aria-selected], body.fomopress_page_fomopress-builder .select2-container--default .select2-results__option[aria-selected="true"], body.post-type-fomopress .select2-container--default .select2-results__option--highlighted[aria-selected], body.post-type-fomopress .select2-container--default .select2-results__option[aria-selected="true"] {
+    background-color: #6c63ff;
+    color: #fff;
+}
+
+body.fomopress_page_fomopress-builder .select2-results__option, body.post-type-fomopress .select2-results__option {
+    padding: 10px 6px;
+}
+
+body.fomopress_page_fomopress-builder .select2-container--default .select2-search--dropdown .select2-search__field, body.post-type-fomopress .select2-container--default .select2-search--dropdown .select2-search__field {
+    padding: 8px;
+    box-shadow: none;
+    border: 1px solid rgba(108,99,255,.5);
+}
+
 /* FomoPress Settings Page CSS */
 .fomopress-settings-wrap {
     padding: 15px;
@@ -830,6 +870,7 @@ label.fomopress-adv-checkbox-label:hover {
 .fomopress-settings-field, input.fomopress-settings-field {
     padding: 10px;
     border: 1px solid #f2f2f2;
+    background-color: #f2f2f2;
 }
 
 .fomopress-left-right-settings {
