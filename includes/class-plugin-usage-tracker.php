@@ -888,9 +888,6 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 			$new_track_time = strtotime( date('d F Y', $last_time_track[ $this->plugin_name ] ) . " +7 Days");
 
 			if( $id == 'finalize_tab' ) {
-				if( ( time() < $new_track_time ) ) {
-					return;
-				}
 
 				// Args to add to query if user opts in to tracking
 				$yes_args = array(
@@ -909,34 +906,37 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 			
 				$no_args['plugin'] = $this->plugin_name;
 				$no_args['plugin_action'] = 'no';
+				$opt_in_options = null;
+				if( ! $this->get_admin_email() ) {
+					$opt_in_options = apply_filters( 'fomopress_opt_in_options', array(
+						'email' => array(
+							'label' => 'Opt-in to get 25% discount for premium version. We will collect your email address and send the coupon, no spam!',
+							'default' => 1
+						),
+					) );
+				}
 
-				$opt_in_options = apply_filters( 'fomopress_opt_in_options', array(
-					'email' => array(
-						'label' => 'Opt-in to get 25% discount for premium version. We will collect your email address and send the coupon, no spam!',
-						'default' => 1
-					),
-				) );
 
 				ob_start();
 				/**
 				 * TODO: select items for tracking
 				 */
 				?>
-				
 					<div class="fomopress-opt-in">
 						<!-- <p><?php // _e('Hey, ', 'fomopress'); ?> <strong><?php // echo get_user_meta( get_current_user_id(), 'first_name', true ); ?></strong></p> -->
 						<p><?php _e( 'You are about to publish <strong><span class="finalize_fomo_name">Fomo – Notification Bar</span></strong>. You can rename this and edit everything whenever you want from <strong><a href="'. admin_url('admin.php?page=fomopress') .'">FomoPress</a></strong> page.', 'fomopress' ); ?></p>
 						<?php 
-						
-							foreach( $opt_in_options as $key => $option ) {
+							if( ! empty( $opt_in_options ) ) : 
+								foreach( $opt_in_options as $key => $option ) {
 									$checked = $option['default'];
-								?>
-									<div class="fomopress-single-opt">
-										<input type="checkbox" <?php echo $checked ? 'checked' : '' ?> name="fomopress_tracking[<?php echo $key ?>]" id="<?php echo $key ?>">
-										<label for="<?php echo $key ?>"><?php echo $option['label'] ?></label>
-									</div>
-								<?php
-							}
+									?>
+										<div class="fomopress-single-opt">
+											<input type="checkbox" <?php echo $checked ? 'checked' : '' ?> name="fomopress_tracking[<?php echo $key ?>]" id="<?php echo $key ?>">
+											<label for="<?php echo $key ?>"><?php echo $option['label'] ?></label>
+										</div>
+									<?php
+								}
+							endif;
 						
 						?>
 						<!-- <p>
