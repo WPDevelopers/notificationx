@@ -91,16 +91,14 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 			add_filter( 'plugin_action_links_' . plugin_basename( $this->plugin_file ), array( $this, 'filter_action_links' ) );
 			add_action( 'admin_footer-plugins.php', array( $this, 'goodbye_ajax' ) );
 			add_action( 'wp_ajax_goodbye_form', array( $this, 'goodbye_form_callback' ) );
-			
 			add_action( 'fomopress_builder_before_tab', array( $this, 'opt_in' ), 10, 3 );
 			add_action( 'fomopress_before_builder_submit', array( $this, 'optin_check' ) );
-			
 		}
 		
 		/**
 		 * When the plugin is activated
 		 * Create scheduled event
-		 * And check if tracking is enabled - perhaps the plugin has been reactivated
+		 * And check if tracking is enablFed - perhaps the plugin has been reactivated
 		 *
 		 * @since 1.0.0
 		 */
@@ -923,7 +921,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 				 */
 				?>
 					<div class="fomopress-opt-in">
-						<p><?php _e( 'You are about to publish <strong><span class="finalize_fomo_name">Fomo – Notification Bar</span></strong>. You can rename this and edit everything whenever you want from <strong><a href="'. admin_url('admin.php?page=fomopress') .'">FomoPress</a></strong> page.', 'fomopress' ); ?></p>
+						<p><?php _e( 'You are about to publish <strong><span class="finalize_fomo_name">Fomo – Notification Bar</span></strong>. You can rename this and edit everything whenever you want from <strong><a href="'. admin_url('edit.php?post_type=fomopress') .'">FomoPress</a></strong> page.', 'fomopress' ); ?></p>
 						<?php 
 							if( ! empty( $opt_in_options ) ) : 
 								foreach( $opt_in_options as $key => $option ) {
@@ -968,13 +966,12 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 		public function optin_check( $data ){
 			if( isset( $data['fomopress_tracking'] ) ) {
 				$fields = $data['fomopress_tracking'];
-				if( $fields['plugin_action'] === 'no' ) {
+				if( isset( $fields['plugin_action'] ) && $fields['plugin_action'] === 'no' ) {
 					$this->set_track_time();
-	
 					return false;
 				}
-	
-				if( $fields['email'] === 'true' ) {
+
+				if( isset( $fields['email'] ) && $fields['email'] === 'on' ) {
 					$this->set_can_collect_email( true, $this->plugin_name );
 					$this->set_is_tracking_allowed( true, $this->plugin_name );
 				} else {
@@ -982,9 +979,9 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 					$this->set_is_tracking_allowed( false, $this->plugin_name );
 				}
 				$this->optin_do_tracking();
+				return true;
 			}
-			
-			return true;
+			return false;
 		}
 
 	}

@@ -20,6 +20,18 @@ class FomoPress_Admin {
 	 * @var      string    $plugin_name    The ID of this plugin.
 	 */
 	private $plugin_name;
+	/**
+	 * All builder args
+	 *
+	 * @var array
+	 */
+	private $builder_args;
+	/**
+	 * Builder Metabox ID
+	 *
+	 * @var string
+	 */
+	private $metabox_id;
 
 	/**
 	 * The version of this plugin.
@@ -309,24 +321,14 @@ class FomoPress_Admin {
 			),
 		) );
 
-		add_menu_page( 'FomoPress', 'FomoPress', 'delete_users', 'fomopress', '', FOMOPRESS_ADMIN_URL . 'assets/img/fomopress-menu-icon.png', 80 );
-		foreach( $settings as $slug => $setting ) {
-			$cap  = isset( $setting['capability'] ) ? $setting['capability'] : 'delete_users';
-			$hook = add_submenu_page( 'fomopress', $setting['title'], $setting['title'], $cap, $slug, $setting['callback'] );
-		}
-	}
-
-	public function quick_builder(){
-		$builder_args = FomoPress_MetaBox::get_builder_args();
-		$tabs         = $builder_args['tabs'];
-		$prefix       = self::$prefix;
-		$metabox_id   = $builder_args['id'];
+		$this->builder_args = FomoPress_MetaBox::get_builder_args();
+		$this->metabox_id   = $this->builder_args['id'];
 		$flag         = true;
 		/**
 		 * Add Submit
 		 */
 		if( isset( $_POST[ 'fomopress_builder_add_submit' ] ) ) :
-			if ( ! isset( $_POST[$metabox_id . '_nonce'] ) || ! wp_verify_nonce( $_POST[$metabox_id . '_nonce'], $metabox_id ) ) {
+			if ( ! isset( $_POST[$this->metabox_id . '_nonce'] ) || ! wp_verify_nonce( $_POST[$this->metabox_id . '_nonce'], $this->metabox_id ) ) {
 				$flag = false;
 			}
 
@@ -349,12 +351,10 @@ class FomoPress_Admin {
 				);
 	
 				$p_id = wp_insert_post($postdata);
-	
 				if( $p_id || ! is_wp_error( $p_id ) ) {
 					do_action( 'fomopress_before_builder_submit', $_POST );
-
+					// saving builder meta data with post
 					FomoPress_MetaBox::save_data( $this->builder_data( $_POST ), $p_id );
-					
 					/**
 					 * Safely Redirect to FomoPress Page
 					 */
@@ -364,7 +364,18 @@ class FomoPress_Admin {
 				}
 			}
 		endif;
+		add_menu_page( 'FomoPress', 'FomoPress', 'delete_users', 'fomopress', '', FOMOPRESS_ADMIN_URL . 'assets/img/fomopress-menu-icon.png', 80 );
+		foreach( $settings as $slug => $setting ) {
+			$cap  = isset( $setting['capability'] ) ? $setting['capability'] : 'delete_users';
+			$hook = add_submenu_page( 'fomopress', $setting['title'], $setting['title'], $cap, $slug, $setting['callback'] );
+		}
+	}
 
+	public function quick_builder(){
+		$builder_args = $this->builder_args;
+		$tabs         = $this->builder_args['tabs'];
+		$prefix       = self::$prefix;
+		$metabox_id   = $this->metabox_id;
 		/**
 		 * This lines of code is for editing a notification in simple|quick builder
 		 *

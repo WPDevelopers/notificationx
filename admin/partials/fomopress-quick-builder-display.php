@@ -43,7 +43,7 @@
     </div>
 
     <div class="fomopress-builder-content-wrapper fomopress-tab-content-wrapper" data-totaltab="<?php echo $totaltabs; ?>">
-        <form method="post" id="fomopress-settings-form" action="<?php echo self::get_form_action( '', true ); ?>">
+        <form method="post" id="fomopress-builder-form" action="<?php echo self::get_form_action( '', true ); ?>">
             <input type="hidden" name="fomopress_current_tab" value="source_tab">
             <?php 
                 wp_nonce_field( $builder_args['id'], $builder_args['id'] . '_nonce' );
