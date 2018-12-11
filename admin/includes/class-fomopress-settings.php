@@ -168,19 +168,14 @@ class FomoPress_Settings {
                 if( empty( $posted_field['value'] ) ) {
 					$posted_value = $fields[ $posted_field['name'] ]['default'];
                 }
-
                 if( isset( $fields[ $posted_field['name'] ]['disable'] ) && $fields[ $posted_field['name'] ]['disable'] === true ) {
                     $posted_value = $fields[ $posted_field['name'] ]['default'];
                 }
                 $posted_value = FomoPress_Helper::sanitize_field( $fields[ $posted_field['name'] ], $posted_field['value'] );
-                
+
 				$data[ $posted_field['name'] ] = $posted_value;
 			}
         }
-
-        dump( $data );
-
-        die;
         
 		FomoPress_DB::update_settings( $data );
     }
