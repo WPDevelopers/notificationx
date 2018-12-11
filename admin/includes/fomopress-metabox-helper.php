@@ -95,7 +95,7 @@ return array(
             'icon'       => 'magic-wand.svg',
             'sections'   => apply_filters('fomopress_design_tab_sections', array(
                 'bar_themes' => array(
-                    'title'      => __('Bar Themes', 'fomopress'),
+                    'title'      => __('Themes', 'fomopress'),
                     'priority' => 3,
                     'fields'   => array(
                         'bar_theme' => array(
@@ -117,7 +117,7 @@ return array(
                     )
                 ),
                 'comment_themes' => array(
-                    'title'      => __('Comment Themes', 'fomopress'),
+                    'title'      => __('Themes', 'fomopress'),
                     'priority' => 4,
                     'fields'   => array(
                         'comment_theme' => array(
@@ -139,7 +139,7 @@ return array(
                     )
                 ),
                 'themes' => array(
-                    'title'      => __('Conv Themes', 'fomopress'),
+                    'title'      => __('Themes', 'fomopress'),
                     'priority' => 5,
                     'fields'   => array(
                         'theme' => array(
@@ -161,7 +161,7 @@ return array(
                     )
                 ),
                 'design' => array(
-                    'title'    => __('Conv Design', 'fomopress'),
+                    'title'    => __('Design', 'fomopress'),
                     'priority' => 6,
                     'reset'    => true,
                     'fields'   => array(
@@ -215,7 +215,7 @@ return array(
                     )
                 ),
                 'comment_design' => array(
-                    'title'    => __('Comment Design', 'fomopress'),
+                    'title'    => __('Design', 'fomopress'),
                     'priority' => 7,
                     'reset'    => true,
                     'fields'   => array(
@@ -269,7 +269,7 @@ return array(
                     )
                 ),
                 'image_design' => array(
-                    'title'      => __('Conv Image Appearance', 'fomopress'),
+                    'title'      => __('Image Appearance', 'fomopress'),
                     'priority' => 8,
                     'reset'    => true,
                     'fields'   => array(
@@ -297,7 +297,7 @@ return array(
                     )
                 ),
                 'comment_image_design' => array(
-                    'title'      => __('Comment Image Appearance', 'fomopress'),
+                    'title'      => __('Image Appearance', 'fomopress'),
                     'priority' => 9,
                     'reset'    => true,
                     'fields'   => array(
@@ -325,7 +325,7 @@ return array(
                     )
                 ),
                 'typography' => array(
-                    'title'      => __('Conv Typography', 'fomopress'),
+                    'title'      => __('Typography', 'fomopress'),
                     'priority' => 10,
                     'reset'    => true,
                     'fields'   => array(
@@ -356,7 +356,7 @@ return array(
                     )
                 ),
                 'comment_typography' => array(
-                    'title'      => __('Comment Typography', 'fomopress'),
+                    'title'      => __('Typography', 'fomopress'),
                     'priority' => 11,
                     'reset'    => true,
                     'fields'   => array(
@@ -387,7 +387,7 @@ return array(
                     )
                 ),
                 'bar_design' => array(
-                    'title'      => __('Bar Design', 'fomopress'),
+                    'title'      => __('Design', 'fomopress'),
                     'priority' => 12,
                     'reset'    => true,
                     'fields'   => array(
@@ -406,7 +406,7 @@ return array(
                     )
                 ),
                 'bar_typography' => array(
-                    'title'      => __('Bar Typography', 'fomopress'),
+                    'title'      => __('Typography', 'fomopress'),
                     'priority' => 13,
                     'reset'    => true,
                     'fields'   => array(
