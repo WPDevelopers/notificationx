@@ -99,7 +99,7 @@ class FomoPress_Extension {
      * @param array $data - notification data to save.
      * @return boolean
      */
-    protected function save( string $type = '', array $data = [] ){
+    protected function save( $type = '', array $data = [] ){
         if( empty( $type ) ) {
             return;
         }
