@@ -536,7 +536,8 @@ label.fomopress-adv-checkbox-label:hover {
 /* Quick Builder CSS */
 .fomopress-builder-wrapper {
     padding: 20px;
-    margin: 50px 20px 20px 0;
+    margin: 0px 20px 20px 0;
+    padding-top: 50px;
 }
 
 .fomopress-builder-content-wrapper.fomopress-tab-content-wrapper {

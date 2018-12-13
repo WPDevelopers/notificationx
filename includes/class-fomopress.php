@@ -278,7 +278,7 @@ final class FomoPress {
 		add_action( 'wp', array( $plugin_public, 'get_active_items') );
 		add_action( 'wp_footer', array( $plugin_public, 'generate_active_fomo') );
 		add_action( 'wp_ajax_fomopress_get_conversions', array( $plugin_public, 'generate_conversions') );
-		add_action( 'wp_ajax_no_priv_fomopress_get_conversions', array( $plugin_public, 'generate_conversions') );
+		add_action( 'wp_ajax_nopriv_fomopress_get_conversions', array( $plugin_public, 'generate_conversions') );
 	}
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.

@@ -244,7 +244,7 @@ class FomoPress_Public {
 		$echo['content'] = $content;
 
 		echo json_encode( $echo );
-		die();
+		wp_die();
 	}
 
 	public function get_client_ip() {
