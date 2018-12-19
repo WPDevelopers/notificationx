@@ -4,6 +4,7 @@ class FomoPress_WP_Comments_Extension extends FomoPress_Extension {
 
     public $type = 'comments';
     public $template = 'comments_template';
+    public $themeName = 'comment_theme';
 
     protected $notifications = [];
 

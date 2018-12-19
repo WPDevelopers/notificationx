@@ -134,10 +134,12 @@ class FomoPress_Extension {
      * @param boolean $settings
      * @return void
      */
-    public function frontend_html( $data = [], $settings = false, $template = '' ){
+    public function frontend_html( $data = [], $settings = false, $args = [] ){
         if( ! is_object( $settings ) || empty( $data ) ) {
             return;
         }
+        extract( $args );
+        $settings->themeName = $settings->{ $themeName };
         $output = '';
         $unique_id = uniqid( 'fomopress-notification-' ); 
         $image_data = self::get_image_url( $data, $settings );
@@ -210,14 +212,16 @@ class FomoPress_Extension {
 
     private static function get_theme( $settings ){
         switch( $settings->display_type ) {
-            // case 'press_bar' : 
-            //     $theme_name = $settings->bar_theme;
-            //     break;
             case 'comments' : 
                 $theme_name = $settings->comment_theme;
                 break;
             case 'conversions' : 
                 $theme_name = $settings->theme;
+                break;
+            default: 
+                    if( ! empty( $settings->themeName ) ) :
+                        $theme_name = $settings->themeName;
+                    endif;
                 break;
         }
 
@@ -321,6 +325,10 @@ function get_extension_frontend( $key, $data, $settings = false ){
     $extension_name = $fomopress_extension_factory->get_extension( $key );
     if( class_exists( $extension_name ) ) {
         $extension = new $extension_name;
-        return $extension->frontend_html( $data, $settings, $extension->template );
+        $args = [
+            'template' => $extension->template,
+            'themeName' => $extension->themeName,
+        ];
+        return $extension->frontend_html( $data, $settings, $args );
     }
 }

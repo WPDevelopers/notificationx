@@ -12,6 +12,7 @@ class FomoPress_EDD_Extension extends FomoPress_Extension {
      */
     public $type = 'edd';
     public $template = 'edd_template';
+    public $themeName = 'theme';
     protected $ordered_products = [];
     /**
      * An array of all notifications
@@ -328,9 +329,9 @@ class FomoPress_EDD_Extension extends FomoPress_Extension {
      * @param string $template
      * @return void
      */
-    public function frontend_html( $data = [], $settings = false, $template = '' ){
+    public function frontend_html( $data = [], $settings = false, $args = [] ){
         if( class_exists( 'Easy_Digital_Downloads' ) ) {
-            return parent::frontend_html( $data, $settings, $template );
+            return parent::frontend_html( $data, $settings, $args );
         }
     }
 }

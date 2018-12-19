@@ -56,6 +56,12 @@
 			if ( fomopress.comments.length > 0 ) {
 				FomoPressPlugin.processNotifications( fomopress.comments[0] );
 			}
+
+			if( fomopress.pro_ext.length > 0 ) {
+				fomopress.pro_ext.map(function( item, i ){
+					FomoPressPlugin.processNotifications( item[0] );
+				});
+			}
 		},
 
 		bindEvents : function(){

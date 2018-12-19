@@ -12,7 +12,7 @@
  * @subpackage FomoPress/public/partials
  */
 $type = $key = $settings->display_type;
-$data = apply_filters( 'fomopress_fields_data', $data );
+$data = apply_filters( 'fomopress_fields_data', $data, $settings->id );
 /**
  * Set the key
  * which is use to get data out of it!

@@ -8,6 +8,7 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
      */
     public $type = 'woocommerce';
     public $template = 'woo_template';
+    public $themeName = 'theme';
     /**
      * An array of all notifications
      *
@@ -338,9 +339,9 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
         );
     }
 
-    public function frontend_html( $data = [], $settings = false, $template = '' ){
+    public function frontend_html( $data = [], $settings = false, $args = [] ){
         if( class_exists( 'WooCommerce' ) ) {
-            return parent::frontend_html( $data, $settings, $template );
+            return parent::frontend_html( $data, $settings, $args );
         }
     }
 

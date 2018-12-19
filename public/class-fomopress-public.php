@@ -135,7 +135,7 @@ class FomoPress_Public {
 		if( empty( self::$active ) ) {
 			return;
 		}
-
+		$activeItems = self::$active;
 		$conversion_ids = $comments_id = array();
 
 		foreach( self::$active as $id ) {
@@ -185,30 +185,31 @@ class FomoPress_Public {
 				case "comments":
 					$comments_id[] = $id;
 					break;
-				default:
-					break;
 			}
+			
 			self::generate_css( $settings );
+			unset( $activeItems[ $id ] );
 		}
+		function pro_extension_ids() {
+			return apply_filters('fomopress_pro_extetion_ids', array());
+		}
+		do_action( 'fomopress_active_fomo', $activeItems );
+		$pro_ext = pro_extension_ids();
 		/**
 		 * Filtered Active IDs
 		 */
 		$conversion_ids = apply_filters( 'fomopress_conversions_id', $conversion_ids );
 		$comments_id = apply_filters( 'fomopress_comments_id', $comments_id );
-		/**
-		 * Action for pro hooked!
-		 * @if any.
-		 */
-		do_action( 'fomopress_active_fomo' );
 
-		if( ! empty( $conversion_ids ) || ! empty( $comments_id ) ) :
+		if( ! empty( $conversion_ids ) || ! empty( $comments_id ) || ! empty( $pro_ext ) ) :
 		?>
 			<script type="text/javascript">
 				var fomopress = {
 					nonce      : '<?php echo wp_create_nonce('fomopress_frontend_nonce'); ?>',
 					ajaxurl    : '<?php echo admin_url('admin-ajax.php'); ?>',
 					conversions: <?php echo json_encode( $conversion_ids ); ?>,
-					comments   : <?php echo json_encode( $comments_id ); ?>
+					comments   : <?php echo json_encode( $comments_id ); ?>,
+					pro_ext   : <?php echo json_encode( $pro_ext ); ?>,
 				};
 			</script>
 		<?php	

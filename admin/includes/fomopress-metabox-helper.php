@@ -577,6 +577,11 @@ return array(
                             'label'       => __('Auto Hide' , 'fomopress'),
                             'description' => __('If checked, notification bar will be hidden after the time set below.', 'fomopress'),
                             'priority'    => 50,
+                            'toggle'	=> [
+                                '1' => [
+                                    'fields' => [ 'hide_after' ]
+                                ]
+                            ],
                             'default'     => 60,
                         ),
                         'hide_after'  => array(

@@ -218,7 +218,6 @@ class FomoPress_Helper {
                 'sticky_bar',
                 'initial_delay',
                 'auto_hide',
-                'hide_after',
             ],
         ));
     }
@@ -351,4 +350,3 @@ class FomoPress_Helper {
         ));
     }
 }
-
