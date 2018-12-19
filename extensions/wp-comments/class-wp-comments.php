@@ -37,11 +37,11 @@ class FomoPress_WP_Comments_Extension extends FomoPress_Extension {
      */
     public function display_tab_section( $options ){
         $options['image']['fields']['show_avatar'] = array(
-            'label'       => __( 'Show Avatar', 'fomopress' ),
+            'label'       => __( 'Show Avatar', 'notificationx' ),
             'priority'    => 20,
             'type'        => 'checkbox',
             'default'     => true,
-            'description' => __( 'Show the commenter avatar in notification', 'fomopress' ),
+            'description' => __( 'Show the commenter avatar in notification', 'notificationx' ),
         );
 
         return $options;
@@ -57,10 +57,10 @@ class FomoPress_WP_Comments_Extension extends FomoPress_Extension {
 
         $options['content_config']['fields']['comments_template'] = array(
             'type'     => 'template',
-            'label'    => __('Notification Template' , 'fomopress'),
+            'label'    => __('Notification Template' , 'notificationx'),
             'priority' => 80,
             'defaults' => [
-                __('{{name}} posted comment on', 'fomopress'), '{{post_title}}', '{{time}}'
+                __('{{name}} posted comment on', 'notificationx'), '{{post_title}}', '{{time}}'
             ],
             'variables' => [
                 '{{name}}', '{{time}}', '{{post_title}}'

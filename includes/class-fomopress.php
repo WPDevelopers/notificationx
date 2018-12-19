@@ -62,12 +62,12 @@ final class FomoPress {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'FOMOPRESS_VERSION' ) ) {
-			$this->version = FOMOPRESS_VERSION;
+		if ( defined( 'NOTIFICATIONX_VERSION' ) ) {
+			$this->version = NOTIFICATIONX_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'fomopress';
+		$this->plugin_name = 'notificationx';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -113,54 +113,54 @@ final class FomoPress {
 		/**
 		 * FomoPress DB
 		 */
-		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-db.php';
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-fomopress-db.php';
 		/**
 		 * FomoPress Helper
 		 */
-		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-helper.php';
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-fomopress-helper.php';
 		/**
 		 * FomoPress Cron
 		 */
-		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-cron.php';
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-fomopress-cron.php';
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 * 
 		 * TODO: do something with loader
 		 */
-		// require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-loader.php';
+		// require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-fomopress-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-i18n.php';
-		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-plugin-usage-tracker.php';
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-fomopress-i18n.php';
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-plugin-usage-tracker.php';
 		
-		require_once FOMOPRESS_ROOT_DIR_PATH . 'public/includes/class-fomopress-template.php';
-		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-locations.php';
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'public/includes/class-fomopress-template.php';
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-fomopress-locations.php';
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once FOMOPRESS_ADMIN_DIR_PATH . 'includes/class-fomopress-metabox.php';
-		require_once FOMOPRESS_ADMIN_DIR_PATH . 'includes/class-fomopress-settings.php';
-		require_once FOMOPRESS_ADMIN_DIR_PATH . 'class-fomopress-admin.php';
+		require_once NOTIFICATIONX_ADMIN_DIR_PATH . 'includes/class-fomopress-metabox.php';
+		require_once NOTIFICATIONX_ADMIN_DIR_PATH . 'includes/class-fomopress-settings.php';
+		require_once NOTIFICATIONX_ADMIN_DIR_PATH . 'class-fomopress-admin.php';
 		
 		/**
 		 * The class responsible for defining extensions functionality
 		 * of the plugin.
 		 */
-		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-extension-factory.php';
-		require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-extension.php';
-		require_once FOMOPRESS_EXT_DIR_PATH . 'press-bar/class-press-bar.php';
-		require_once FOMOPRESS_EXT_DIR_PATH . 'wp-comments/class-wp-comments.php';
-		require_once FOMOPRESS_EXT_DIR_PATH . 'woocommerce/class-woocommerce.php';
-		require_once FOMOPRESS_EXT_DIR_PATH . 'edd/class-edd.php';
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-fomopress-extension-factory.php';
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-fomopress-extension.php';
+		require_once NOTIFICATIONX_EXT_DIR_PATH . 'press-bar/class-press-bar.php';
+		require_once NOTIFICATIONX_EXT_DIR_PATH . 'wp-comments/class-wp-comments.php';
+		require_once NOTIFICATIONX_EXT_DIR_PATH . 'woocommerce/class-woocommerce.php';
+		require_once NOTIFICATIONX_EXT_DIR_PATH . 'edd/class-edd.php';
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once FOMOPRESS_ROOT_DIR_PATH . 'public/class-fomopress-public.php';
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'public/class-fomopress-public.php';
 		/**
 		 * TODO: do something with loader, or have to remove
 		 */
@@ -175,7 +175,7 @@ final class FomoPress {
  	*/
 	public function fomopress_start_plugin_tracking() {
 		$wisdom = new FomoPress_Plugin_Usage_Tracker(
-			FOMOPRESS_FILE,
+			NOTIFICATIONX_FILE,
 			'https://wpdeveloper.net',
 			array(),
 			true,

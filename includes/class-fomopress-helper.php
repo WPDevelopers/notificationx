@@ -121,7 +121,7 @@ class FomoPress_Helper {
     
         ob_start();
         ?>
-            <small><?php echo esc_html__( 'About', 'fomopress' ) . ' ' . esc_html( $time ) . ' ' . esc_html__( 'ago', 'fomopress' ) ?></small>
+            <small><?php echo esc_html__( 'About', 'notificationx' ) . ' ' . esc_html( $time ) . ' ' . esc_html__( 'ago', 'notificationx' ) ?></small>
         <?php
         $time_ago = ob_get_clean();
         return $time_ago;
@@ -191,8 +191,8 @@ class FomoPress_Helper {
      */
     public static function conversion_from( $from = '' ) {
         $froms = [
-            'woocommerce' => __('WooCommerce' , 'fomopress'),
-            'edd'         => __('Easy Digital Downloads' , 'fomopress'),
+            'woocommerce' => __('WooCommerce' , 'notificationx'),
+            'edd'         => __('Easy Digital Downloads' , 'notificationx'),
         ];
         $forms = apply_filters( 'fomopress_conversions_from', $froms );
         if( $from ){
@@ -298,9 +298,9 @@ class FomoPress_Helper {
      */
     public static function notification_types( $type = '' ) {
         $types = [
-            'press_bar'   => __('Notification Bar' , 'fomopress'),
-            'comments'    => __('WP Comments' , 'fomopress'),
-            'conversions' => __('Sales Notification' , 'fomopress'),
+            'press_bar'   => __('Notification Bar' , 'notificationx'),
+            'comments'    => __('WP Comments' , 'notificationx'),
+            'conversions' => __('Sales Notification' , 'notificationx'),
         ];
 
         $types = apply_filters( 'fomopress_notification_types', $types );
@@ -314,9 +314,9 @@ class FomoPress_Helper {
     public static function colored_themes(){
 
         return apply_filters( 'fomopress_colored_themes', array(
-            'theme-one'   => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-conv-theme-1.jpg',
-            'theme-two'   => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-conv-theme-2.jpg',
-            'theme-three' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-conv-theme-3.jpg'
+            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/fps-conv-theme-1.jpg',
+            'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/fps-conv-theme-2.jpg',
+            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/fps-conv-theme-3.jpg'
         ));
 
     }
@@ -324,9 +324,9 @@ class FomoPress_Helper {
     public static function comment_colored_themes(){
 
         return apply_filters( 'fomopress_comment_colored_themes', array(
-            'theme-one'   => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-conv-theme-1.jpg',
-            'theme-two'   => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-conv-theme-2.jpg',
-            'theme-three' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-conv-theme-3.jpg'
+            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/fps-conv-theme-1.jpg',
+            'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/fps-conv-theme-2.jpg',
+            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/fps-conv-theme-3.jpg'
         ));
 
     }
@@ -334,9 +334,9 @@ class FomoPress_Helper {
     public static function bar_colored_themes(){
 
         return apply_filters( 'fomopress_bar_colored_themes', array(
-            'theme-one'   => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-bar-theme-3.jpg',
-            'theme-two'   => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-bar-theme-1.jpg',
-            'theme-three' => FOMOPRESS_ADMIN_URL . 'assets/img/themes/fps-bar-theme-2.jpg',
+            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/fps-bar-theme-3.jpg',
+            'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/fps-bar-theme-1.jpg',
+            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/fps-bar-theme-2.jpg',
         ));
 
     }

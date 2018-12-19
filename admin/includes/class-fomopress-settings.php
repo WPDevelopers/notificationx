@@ -61,7 +61,7 @@ class FomoPress_Settings {
                             </g>
                         </svg>
                     </div>
-                    <h2 class="title"><?php _e( 'FomoPress Settings', 'fomopress' ); ?></h2>
+                    <h2 class="title"><?php _e( 'NotificationX Settings', 'notificationx' ); ?></h2>
                 </div>
             </div>
         <?php
@@ -85,7 +85,7 @@ class FomoPress_Settings {
             }
         }
 
-        return apply_filters( 'fomopress_settings_fields', $new_fields );
+        return apply_filters( 'notificationx_settings_fields', $new_fields );
 	}
 	/**
 	 * Get the whole settings array
@@ -93,11 +93,11 @@ class FomoPress_Settings {
 	 * @return void
 	 */
 	public static function settings_args(){
-        if( ! function_exists( 'fomopress_settings_array' ) ) {
-            require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-settings-page-helper.php';
+        if( ! function_exists( 'notificationx_settings_args' ) ) {
+            require NOTIFICATIONX_ADMIN_DIR_PATH . 'includes/fomopress-settings-page-helper.php';
         }
         do_action( 'fomopress_before_settings_load' );
-        return fomopress_settings_array();
+        return notificationx_settings_args();
 	}
 	/**
      * Render the settings page
@@ -107,7 +107,7 @@ class FomoPress_Settings {
     public static function settings_page(){
         $settings_args = self::settings_args();
 		$value = FomoPress_DB::get_settings();
-		include_once FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-settings-display.php';
+		include_once NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/fomopress-settings-display.php';
 	}
     /**
      * This function is responsible for render settings field
@@ -148,7 +148,7 @@ class FomoPress_Settings {
             $attrs .= ' data-hide="' . esc_attr( json_encode( $field['hide'] ) ) . '"';
         }
 
-        include FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-field-display.php';
+        include NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/fomopress-field-display.php';
     }
     /**
      * This function is responsible for 

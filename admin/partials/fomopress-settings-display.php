@@ -65,7 +65,7 @@
                                         // Submit Button
                                         if( isset( $setting['button_text'] ) && ! empty( $setting['button_text'] ) ) :
                                     ?>
-                                    <button type="submit" class="fomopress-settings-button fomopress-submit-<?php echo $tab_key; ?>" data-nonce="<?php echo wp_create_nonce('fomopress_'. $tab_key .'_nonce'); ?>" data-key="<?php echo $tab_key; ?>" id="fomopress-submit-<?php echo $tab_key; ?>"><?php _e( $setting['button_text'], 'fomopress' ); ?></button>
+                                    <button type="submit" class="fomopress-settings-button fomopress-submit-<?php echo $tab_key; ?>" data-nonce="<?php echo wp_create_nonce('fomopress_'. $tab_key .'_nonce'); ?>" data-key="<?php echo $tab_key; ?>" id="fomopress-submit-<?php echo $tab_key; ?>"><?php _e( $setting['button_text'], 'notificationx' ); ?></button>
                                     <?php endif; ?>
                                 </form>
                             </div>
@@ -88,9 +88,9 @@
                     <div class="fomopress-admin-sidebar-cta">
                         <?php     
                             if(class_exists('FomoPressPro')) {
-                                printf( __( '<a href="%s" target="_blank">Manage License</a>', 'fomopress' ), 'https://wpdeveloper.net/account' ); 
+                                printf( __( '<a href="%s" target="_blank">Manage License</a>', 'notificationx' ), 'https://wpdeveloper.net/account' ); 
                             }else{
-                                printf( __( '<a href="%s" target="_blank">Upgrade to Pro</a>', 'fomopress' ), 'https://wpdeveloper.net/in/fomopress' );
+                                printf( __( '<a href="%s" target="_blank">Upgrade to Pro</a>', 'notificationx' ), 'https://wpdeveloper.net/in/fomopress' );
                             }
                         ?>
                     </div>

@@ -1,11 +1,11 @@
-#adminmenu .menu-icon-fomopress img,
-.toplevel_page_fomopress .wp-menu-image img {
+#adminmenu .menu-icon-notificationx img,
+.toplevel_page_notificationx .wp-menu-image img {
 	width: 20px;
 	margin-top: 7px;
 	margin-left: 2px;
 	padding: 0 !important;
 }
 
-.menu-icon-fomopress + .wp-menu-separator {
+.menu-icon-notificationx + .wp-menu-separator {
 	display: none;
 }

@@ -57,7 +57,7 @@ class Extension_Factory {
                 }
 
                 if( method_exists( $object, 'get_notification_ready' ) ) {
-                    add_action( 'fomopress_get_conversions_ready', array( $object, 'get_notification_ready' ), 10, 2 );
+                    add_action( 'nx_get_conversions_ready', array( $object, 'get_notification_ready' ), 10, 2 );
                 }
 
                 /**
@@ -65,7 +65,7 @@ class Extension_Factory {
                  * methods if exists.
                  */
                 if( method_exists( $object, 'display_type' ) ) {
-                    add_filter( 'fomopress_display_type', array( $object, 'display_type' ) );
+                    add_filter( 'nx_display_type', array( $object, 'display_type' ) );
                 }
 
                 if( method_exists( $object, 'init_hooks' ) ) {

@@ -49,11 +49,11 @@ class FomoPress_Admin {
 	 * @access   public
 	 * @var string the post type of fomopress.
 	 */
-	public $type = 'fomopress';
+	public $type = 'notificationx';
 
 	public $metabox;
 
-	public static $prefix = 'fomopress_';
+	public static $prefix = 'nx_meta_';
 
 	public static $settings;
 
@@ -78,7 +78,7 @@ class FomoPress_Admin {
 	public static function get_active_items() {
 		// WP Query arguments.
 		$args = array(
-			'post_type'         => 'fomopress',
+			'post_type'         => 'notificationx',
 			'posts_per_page'    => '-1',
 			'post_status'		=> 'publish',
 		);
@@ -107,10 +107,10 @@ class FomoPress_Admin {
 		$page_status = false;
 		wp_enqueue_style( 
 			$this->plugin_name . '-admin-global', 
-			FOMOPRESS_ADMIN_URL . 'assets/css/fomopress-admin-global.css', 
+			NOTIFICATIONX_ADMIN_URL . 'assets/css/fomopress-admin-global.css', 
 			array(), $this->version, 'all' 
 		);
-		if( $hook == 'fomopress_page_fomopress-builder' || $hook == 'fomopress_page_fomopress-settings' ) {
+		if( $hook == 'notificationx_page_nx-builder' || $hook == 'notificationx_page_nx-settings' ) {
 			$page_status = true;
 		}
 
@@ -121,12 +121,12 @@ class FomoPress_Admin {
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 
 			$this->plugin_name . '-select2', 
-			FOMOPRESS_ADMIN_URL . 'assets/css/select2.min.css', 
+			NOTIFICATIONX_ADMIN_URL . 'assets/css/select2.min.css', 
 			array(), $this->version, 'all' 
 		);
 		wp_enqueue_style( 
 			$this->plugin_name, 
-			FOMOPRESS_ADMIN_URL . 'assets/css/fomopress-admin.css', 
+			NOTIFICATIONX_ADMIN_URL . 'assets/css/fomopress-admin.css', 
 			array(), $this->version, 'all' 
 		);
 	}
@@ -138,7 +138,7 @@ class FomoPress_Admin {
 	public function enqueue_scripts( $hook ) {
 		global $post_type;
 		$page_status = false;
-		if( $hook == 'fomopress_page_fomopress-builder' || $hook == 'fomopress_page_fomopress-settings' ) {
+		if( $hook == 'notificationx_page_nx-builder' || $hook == 'notificationx_page_nx-settings' ) {
 			$page_status = true;
 		}
 
@@ -150,17 +150,17 @@ class FomoPress_Admin {
 		wp_enqueue_media();
 		wp_enqueue_script( 
 			$this->plugin_name . '-sweetalert', 
-			FOMOPRESS_ADMIN_URL . 'assets/js/sweetalert.min.js', 
+			NOTIFICATIONX_ADMIN_URL . 'assets/js/sweetalert.min.js', 
 			array( 'jquery' ), $this->version, true 
 		);
 		wp_enqueue_script( 
 			$this->plugin_name . '-select2', 
-			FOMOPRESS_ADMIN_URL . 'assets/js/select2.min.js', 
+			NOTIFICATIONX_ADMIN_URL . 'assets/js/select2.min.js', 
 			array( 'jquery' ), $this->version, true 
 		);
 		wp_enqueue_script( 
 			$this->plugin_name, 
-			FOMOPRESS_ADMIN_URL . 'assets/js/fomopress-admin.js', 
+			NOTIFICATIONX_ADMIN_URL . 'assets/js/fomopress-admin.js', 
 			array( 'jquery' ), $this->version, true 
 		);
 	}
@@ -172,10 +172,10 @@ class FomoPress_Admin {
 		unset( $columns['title'] );
 		unset( $columns['date'] );
 
-		$columns['notification_status'] = __('Enable / Disable', 'fomopress');
+		$columns['notification_status'] = __('Enable / Disable', 'notificationx');
 		$columns['title'] = $title_column;
 
-		$columns['notification_type']   = __('Type', 'fomopress');
+		$columns['notification_type']   = __('Type', 'notificationx');
 
 		$columns['date'] = $date_column;
 
@@ -197,7 +197,7 @@ class FomoPress_Admin {
 				}
 				break;
 			case 'notification_status':
-				$status = get_post_meta( $post_id, '_fomopress_active_check', true );
+				$status = get_post_meta( $post_id, '_nx_meta_active_check', true );
 				self::notification_toggle( $status, $post_id );
 				break;
 		}
@@ -206,14 +206,14 @@ class FomoPress_Admin {
 	}
 
 	public static function notification_toggle( $status = '1', $post_id ){
-		$text           = __('Active', 'fomopress');
-		$img_active     = FOMOPRESS_ADMIN_URL . 'assets/img/active1.png';
-		$img_inactive   = FOMOPRESS_ADMIN_URL . 'assets/img/active0.png';
+		$text           = __('Active', 'notificationx');
+		$img_active     = NOTIFICATIONX_ADMIN_URL . 'assets/img/active1.png';
+		$img_inactive   = NOTIFICATIONX_ADMIN_URL . 'assets/img/active0.png';
 		$active         = 'true';
 		$img            = $img_active;
 
 		if ( ! $status ) {
-			$text   = __('Inactive', 'fomopress');
+			$text   = __('Inactive', 'notificationx');
 			$img    = $img_inactive;
 			$active = 'false';
 		}
@@ -239,14 +239,14 @@ class FomoPress_Admin {
 		}
 
 		if ( $error ) {
-			echo __('There is an error updating status.', 'fomopress');
+			echo __('There is an error updating status.', 'notificationx');
 			die();
 		}
 
 		$post_id = absint( $_POST['post_id'] );
 		$status = $_POST['status'] == 'active' ? '1' : '0';
 
-		update_post_meta( $post_id, '_fomopress_active_check', $status );
+		update_post_meta( $post_id, '_nx_meta_active_check', $status );
 
 		echo 'success';
 		die();
@@ -259,17 +259,17 @@ class FomoPress_Admin {
 	public function fomopress_type_register(){
 
 		$labels = array(
-			'name'                => 'FomoPress',
-			'singular_name'       => 'FomoPress',
-			'add_new'             => esc_html__( 'Add New', 'fomopress' ) ,
-			'add_new_item'        => esc_html__( 'Add New', 'fomopress' ),
-			'edit_item'           => esc_html__( 'Edit', 'fomopress' ),
-			'new_item'            => esc_html__( 'New', 'fomopress' ),
-			'view_item'           => esc_html__( 'View', 'fomopress' ),
-			'search_items'        => esc_html__( 'Search', 'fomopress' ),
-			'not_found'           => esc_html__( 'No fomopress found', 'fomopress' ),
-			'not_found_in_trash'  => esc_html__( 'No fomopress found in Trash', 'fomopress' ),
-			'menu_name'           => 'FomoPress',
+			'name'                => 'NotificationX',
+			'singular_name'       => 'NotificationX',
+			'add_new'             => esc_html__( 'Add New', 'notificationx' ) ,
+			'add_new_item'        => esc_html__( 'Add New', 'notificationx' ),
+			'edit_item'           => esc_html__( 'Edit', 'notificationx' ),
+			'new_item'            => esc_html__( 'New', 'notificationx' ),
+			'view_item'           => esc_html__( 'View', 'notificationx' ),
+			'search_items'        => esc_html__( 'Search', 'notificationx' ),
+			'not_found'           => esc_html__( 'No notification x is found', 'notificationx' ),
+			'not_found_in_trash'  => esc_html__( 'No notification x is found in Trash', 'notificationx' ),
+			'menu_name'           => 'NotificationX',
 		);
 
 		$args = array(
@@ -279,11 +279,11 @@ class FomoPress_Admin {
 			'taxonomies'          => array( '' ),
 			'public'              => false,
 			'show_ui'             => true,
-			'show_in_menu'        => 'fomopress',
+			'show_in_menu'        => 'notificationx',
 			'show_in_admin_bar'   => true,
 			'show_in_rest'        => false,
 			'menu_position'       => 80,
-			'menu_icon'           => FOMOPRESS_ADMIN_URL . 'assets/img/fomopress-menu-icon.png',
+			'menu_icon'           => NOTIFICATIONX_ADMIN_URL . 'assets/img/fomopress-menu-icon.png',
 			'show_in_nav_menus'   => false,
 			'publicly_queryable'  => false,
 			'exclude_from_search' => true,
@@ -296,7 +296,7 @@ class FomoPress_Admin {
 		);
 
 		register_post_type( $this->type, $args );
-		add_image_size( "_fomopress_notification_image", 100, 100, true );
+		add_image_size( "_nx_notification_thumb", 100, 100, true );
 	}
 
 	/**
@@ -308,14 +308,14 @@ class FomoPress_Admin {
 
 		$settings_class = new FomoPress_Settings();
 
-		$settings = apply_filters( 'fomopress_admin_menu', array(
-			'fomopress-settings'   => array(
-				'title'      => __('Settings', 'fomopress'),
+		$settings = apply_filters( 'notificationx_admin_menu', array(
+			'nx-settings'   => array(
+				'title'      => __('Settings', 'notificationx'),
 				'capability' => 'delete_users',
 				'callback'   => array( $settings_class, 'settings_page' )
 			),
-			'fomopress-builder'   => array(
-				'title'      => __('Quick Builder', 'fomopress'),
+			'nx-builder'   => array(
+				'title'      => __('Quick Builder', 'notificationx'),
 				'capability' => 'delete_users',
 				'callback'   => array( $this, 'quick_builder' )
 			),
@@ -334,17 +334,17 @@ class FomoPress_Admin {
 
 			if( $flag ) {
 
-				if( $_POST['fomopress_display_type'] == 'press_bar' )  {
-					$title = __('Fomo - Notification Bar', 'fomopress');
-				} elseif( $_POST['fomopress_display_type'] == 'comments' )  {
-					$title = __('Fomo - WP Comments', 'fomopress');
-				} elseif( $_POST['fomopress_display_type'] == 'conversions' )  {
+				if( $_POST['nx_display_type'] == 'press_bar' )  {
+					$title = __('Fomo - Notification Bar', 'notificationx');
+				} elseif( $_POST['nx_display_type'] == 'comments' )  {
+					$title = __('Fomo - WP Comments', 'notificationx');
+				} elseif( $_POST['nx_display_type'] == 'conversions' )  {
 					$conversions = FomoPress_Helper::conversion_from();
-					$title = 'Fomo - ' . $conversions[$_POST['fomopress_conversion_from']];
+					$title = 'Fomo - ' . $conversions[$_POST['nx_conversion_from']];
 				}
-				$_POST['post_type'] = 'fomopress';
+				$_POST['post_type'] = 'notificationx';
 				$postdata = array(
-					'post_type'   => 'fomopress',
+					'post_type'   => 'notificationx',
 					'post_title'  => $title . ' - ' . date( get_option( 'date_format' ), current_time( 'timestamp' ) ),
 					'post_status' => 'publish',
 					'post_author' => get_current_user_id()
@@ -359,15 +359,15 @@ class FomoPress_Admin {
 					 * Safely Redirect to FomoPress Page
 					 */
 					wp_safe_redirect( add_query_arg( array(
-						'post_type' => 'fomopress',
+						'post_type' => 'notificationx',
 					), admin_url( 'edit.php' ) ) );
 				}
 			}
 		endif;
-		add_menu_page( 'FomoPress', 'FomoPress', 'delete_users', 'fomopress', '', FOMOPRESS_ADMIN_URL . 'assets/img/fomopress-menu-icon.png', 80 );
+		add_menu_page( 'NotificationX', 'NotificationX', 'delete_users', 'notificationx', '', NOTIFICATIONX_ADMIN_URL . 'assets/img/fomopress-menu-icon.png', 80 );
 		foreach( $settings as $slug => $setting ) {
 			$cap  = isset( $setting['capability'] ) ? $setting['capability'] : 'delete_users';
-			$hook = add_submenu_page( 'fomopress', $setting['title'], $setting['title'], $cap, $slug, $setting['callback'] );
+			$hook = add_submenu_page( 'notificationx', $setting['title'], $setting['title'], $cap, $slug, $setting['callback'] );
 		}
 	}
 
@@ -385,7 +385,7 @@ class FomoPress_Admin {
 		if( isset( $_GET['post_id'] ) && ! empty( $_GET['post_id'] )) {
 			$idd = intval( $_GET['post_id'] );
 		}
-		include_once FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-quick-builder-display.php';
+		include_once NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/fomopress-quick-builder-display.php';
 	}
 	/**
 	 * Generate the builder data acording to default meta data
@@ -416,9 +416,9 @@ class FomoPress_Admin {
 	}
 	
 	public static function get_form_action( $query_var = '', $builder_form = false ) {
-		$page = '/admin.php?page=fomopress-settings';
+		$page = '/admin.php?page=nx-settings';
 		if( $builder_form ) {
-			$page = '/admin.php?page=fomopress-builder';
+			$page = '/admin.php?page=nx-builder';
 		}
 
 		if ( is_network_admin() ) {
@@ -436,15 +436,15 @@ class FomoPress_Admin {
 		if ( $this->type != $post_type ) {
 			return false;
 		}
-		$display_type = get_post_meta( $post->ID, '_fomopress_display_type', true );
+		$display_type = get_post_meta( $post->ID, '_nx_meta_display_type', true );
 
-		include FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-admin-preview.php';
+		include NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/fomopress-admin-preview.php';
 	}
 
 	public static function get_post_meta( $post_id, $key, $single = true ) {
-		return get_post_meta( $post_id, '_fomopress_' . $key, $single );
+		return get_post_meta( $post_id, '_nx_meta_' . $key, $single );
 	}
 	public static function update_post_meta( $post_id, $key, $value ) {
-		update_post_meta( $post_id, '_fomopress_' . $key, $value );
+		update_post_meta( $post_id, '_nx_meta_' . $key, $value );
 	}
 }

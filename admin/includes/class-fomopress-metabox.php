@@ -2,10 +2,10 @@
 
 class FomoPress_MetaBox {
 
-    public $type = 'fomopress';
+    public $type = 'notificationx';
 
     public static $args;
-    public static $prefix = 'fomopress_';
+    public static $prefix = 'nx_meta_';
     public static $post_id;
     public static $object_types;
 
@@ -29,8 +29,8 @@ class FomoPress_MetaBox {
 
         $tabnumber	= isset( self::$args['tabnumber'] ) && self::$args['tabnumber'] ? true : false;
         
-        wp_nonce_field( self::$args['id'], self::$args['id'] . '_nonce' );
-		include_once FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-admin-display.php';
+        wp_nonce_field( $metabox_id, $metabox_id . '_nonce' );
+		include_once NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/fomopress-admin-display.php';
     }
     /**
      * This function is responsible for get all metabox arguments
@@ -38,14 +38,14 @@ class FomoPress_MetaBox {
      * @return void
      */
     public static function get_args() {
-        $metabox_args = require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-metabox-helper.php';
+        $metabox_args = require NOTIFICATIONX_ADMIN_DIR_PATH . 'includes/fomopress-metabox-helper.php';
         do_action( 'fomopress_before_metabox_load' );
         return $metabox_args;
     }
     
     public static function get_builder_args() {
         if( ! function_exists( 'fomopress_builder_args' ) ) {
-            require FOMOPRESS_ADMIN_DIR_PATH . 'includes/fomopress-builder-helper.php';
+            require NOTIFICATIONX_ADMIN_DIR_PATH . 'includes/fomopress-builder-helper.php';
         }
         do_action( 'fomopress_before_builder_load' );
         return fomopress_builder_args();
@@ -98,7 +98,7 @@ class FomoPress_MetaBox {
             $attrs .= ' data-tab="' . esc_attr( json_encode( $field['tab'] ) ) . '"';
         }
 
-        include FOMOPRESS_ADMIN_DIR_PATH . 'partials/fomopress-field-display.php';
+        include NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/fomopress-field-display.php';
     }
     /**
      * Get the row id ready
@@ -220,22 +220,22 @@ class FomoPress_MetaBox {
             update_post_meta( $post_id, "_{$field_id}", $value );
             $data[ "_{$field_id}" ] = $new_settings->{ $name } = $value;
         }
-        update_post_meta( $post_id, '_fomopress_active_check', true );
+        update_post_meta( $post_id, '_nx_meta_active_check', true );
 
         
-        $d_type = get_post_meta( $post_id, '_fomopress_current_data_ready_for', true );
-        $type = $posts['fomopress_display_type'];
+        $d_type = get_post_meta( $post_id, '_nx_meta_current_data_ready_for', true );
+        $type = $posts['nx_display_type'];
         
         if( $type == 'conversions' ) {
-            $type = $posts['fomopress_conversion_from'];
+            $type = $posts['nx_conversion_from'];
         }
         
         if( self::check_any_changes( $old_settings, $new_settings ) ) {
-            do_action( 'fomopress_get_conversions_ready', $type, $data );
+            do_action( 'nx_get_conversions_ready', $type, $data );
         }
 
-        update_post_meta( $post_id, '_fomopress_current_data_ready_for', $type );
-        update_post_meta( $post_id, '_fomopress_current_tab', $posts['fomopress_current_tab'] );
+        update_post_meta( $post_id, '_nx_meta_current_data_ready_for', $type );
+        update_post_meta( $post_id, '_nx_builder_current_tab', $posts['nx_builder_current_tab'] );
         
     }
     /**
@@ -248,7 +248,7 @@ class FomoPress_MetaBox {
     protected static function check_any_changes( stdClass $old_settings, stdClass $new_settings ){
         if( empty( $new_settings ) || empty( $old_settings ) ) return;
 
-        $opt_in = apply_filters('fomopress_update_notification_for_changes', array(
+        $opt_in = apply_filters('nx_update_changes', array(
             'display_from',
             'display_type',
             'conversion_from'

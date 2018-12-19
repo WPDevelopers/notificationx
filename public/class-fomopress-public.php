@@ -77,7 +77,7 @@ class FomoPress_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, FOMOPRESS_PUBLIC_URL . 'assets/css/fomopress-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, NOTIFICATIONX_PUBLIC_URL . 'assets/css/fomopress-public.css', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -99,8 +99,8 @@ class FomoPress_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name . '-cookie', FOMOPRESS_PUBLIC_URL . 'assets/js/Cookies.js', array( 'jquery' ), $this->version, true );
-		wp_enqueue_script( $this->plugin_name, FOMOPRESS_PUBLIC_URL . 'assets/js/fomopress-public.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name . '-cookie', NOTIFICATIONX_PUBLIC_URL . 'assets/js/Cookies.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name, NOTIFICATIONX_PUBLIC_URL . 'assets/js/fomopress-public.js', array( 'jquery' ), $this->version, true );
 	}
 
 	/**
@@ -111,12 +111,12 @@ class FomoPress_Public {
 	 */
 	public function get_active_items() {
 		$args = array(
-			'post_type'         => 'fomopress',
+			'post_type'         => 'notificationx',
 			'posts_per_page'    => '-1',
 			'post_status'		=> 'publish',
 			'meta_query'        => array(
 				array(
-					'key'           => '_fomopress_active_check',
+					'key'           => '_nx_meta_active_check',
 					'value'         => '1',
 					'compare'       => '='
 				)
@@ -240,7 +240,7 @@ class FomoPress_Public {
 		);
 
 		ob_start();
-		include FOMOPRESS_PUBLIC_PATH . 'partials/fomopress-public-display.php';
+		include NOTIFICATIONX_PUBLIC_PATH . 'partials/fomopress-public-display.php';
 		$content = ob_get_clean();
 		$echo['content'] = $content;
 

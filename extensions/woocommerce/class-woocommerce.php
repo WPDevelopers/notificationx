@@ -26,7 +26,7 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
     public function init_hooks(){
         add_filter( 'fomopress_metabox_tabs', array( $this, 'add_fields' ) );
         add_filter( 'fomopress_display_types_hide_data', array( $this, 'hide_fields' ) );
-        add_filter( 'fomopress_conversion_from', array( $this, 'toggle_fields' ) );
+        add_filter( 'nx_conversion_from', array( $this, 'toggle_fields' ) );
     }
     /**
      * Builder Hooks
@@ -46,17 +46,17 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
         if( ! class_exists( 'WooCommerce' ) ) {
             $fields['has_no_woo'] = array(
                 'type'     => 'message',
-                'message'    => __('You have to install WooCommerce plugin first.' , 'fomopress'),
+                'message'    => __('You have to install WooCommerce plugin first.' , 'notificationx'),
                 'priority' => 0,
             );
         }
 
         $fields['woo_template'] = array(
             'type'     => 'template',
-            'label'    => __('Notification Template' , 'fomopress'),
+            'label'    => __('Notification Template' , 'notificationx'),
             'priority' => 90,
             'defaults' => [
-                __('{{name}} recently purchased', 'fomopress'), '{{title}}', '{{time}}'
+                __('{{name}} recently purchased', 'notificationx'), '{{title}}', '{{time}}'
             ],
             'variables' => [
                 '{{name}}', '{{title}}', '{{time}}'

@@ -9,7 +9,7 @@ if( isset( $field['disable'] ) && $field['disable'] === true ) {
         <td class="fomopress-control" colspan="2">
     <?php else : ?>
     <th class="fomopress-label">
-        <label for="<?php echo esc_attr( $name ); ?>"><?php esc_html_e( $field['label'], 'fomopress' ); ?></label>
+        <label for="<?php echo esc_attr( $name ); ?>"><?php esc_html_e( $field['label'], 'notificationx' ); ?></label>
     </th>
     <td class="fomopress-control">
     <?php 
@@ -19,7 +19,7 @@ if( isset( $field['disable'] ) && $field['disable'] === true ) {
         <div class="fomopress-control-wrapper <?php echo $opt_alert_class; ?>">
         <?php 
             if( $file_name ) {
-                include FOMOPRESS_ADMIN_DIR_PATH . 'includes/fields/fomopress-'. $file_name .'.php';
+                include NOTIFICATIONX_ADMIN_DIR_PATH . 'includes/fields/fomopress-'. $file_name .'.php';
             } else {
                 if( $field['view'] ) {
                     call_user_func( $field['view'] );
@@ -27,12 +27,12 @@ if( isset( $field['disable'] ) && $field['disable'] === true ) {
             }
             if( isset( $field['description'] ) && ! empty( $field['description'] ) ) : 
                 ?>
-                    <span class="fomopress-field-description"><?php _e( $field['description'], 'fomopress' ); ?></span>
+                    <span class="fomopress-field-description"><?php _e( $field['description'], 'notificationx' ); ?></span>
                 <?php
             endif;
             if( isset( $field['help'] ) && ! empty( $field['help'] ) ) : 
                 ?>
-                    <p class="fomopress-field-help"><?php _e( $field['help'], 'fomopress' ); ?></p>
+                    <p class="fomopress-field-help"><?php _e( $field['help'], 'notificationx' ); ?></p>
                 <?php
             endif;
         ?>

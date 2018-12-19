@@ -11,7 +11,7 @@
         </div>
     <?php endfor; ?>
     <div class="<?php echo $name; ?>-variables">
-        <span class="<?php echo $name; ?>-variable-title"><?php _e( 'Variables: ', 'fomopress' ); ?></span>
+        <span class="<?php echo $name; ?>-variable-title"><?php _e( 'Variables: ', 'notificationx' ); ?></span>
         <?php foreach ( $variables as $variable ) { ?>
             <span class="fomopress-variable-tag"><?php echo $variable; ?></span>
         <?php } ?>

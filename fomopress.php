@@ -23,24 +23,24 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'FOMOPRESS_VERSION', '1.0.0' );
+define( 'NOTIFICATIONX_VERSION', '1.0.0' );
 
-define( 'FOMOPRESS_URL', plugins_url( '/', __FILE__ ) );
-define( 'FOMOPRESS_ADMIN_URL', FOMOPRESS_URL . 'admin/' );
-define( 'FOMOPRESS_PUBLIC_URL', FOMOPRESS_URL . 'public/' );
+define( 'NOTIFICATIONX_URL', plugins_url( '/', __FILE__ ) );
+define( 'NOTIFICATIONX_ADMIN_URL', NOTIFICATIONX_URL . 'admin/' );
+define( 'NOTIFICATIONX_PUBLIC_URL', NOTIFICATIONX_URL . 'public/' );
 
-define( 'FOMOPRESS_FILE', __FILE__ );
-define( 'FOMOPRESS_ROOT_DIR_PATH', plugin_dir_path( __FILE__ ) );
-define( 'FOMOPRESS_ADMIN_DIR_PATH', FOMOPRESS_ROOT_DIR_PATH . 'admin/' );
-define( 'FOMOPRESS_PUBLIC_PATH', FOMOPRESS_ROOT_DIR_PATH . 'public/' );
-define( 'FOMOPRESS_EXT_DIR_PATH', FOMOPRESS_ROOT_DIR_PATH . 'extensions/' );
+define( 'NOTIFICATIONX_FILE', __FILE__ );
+define( 'NOTIFICATIONX_ROOT_DIR_PATH', plugin_dir_path( __FILE__ ) );
+define( 'NOTIFICATIONX_ADMIN_DIR_PATH', NOTIFICATIONX_ROOT_DIR_PATH . 'admin/' );
+define( 'NOTIFICATIONX_PUBLIC_PATH', NOTIFICATIONX_ROOT_DIR_PATH . 'public/' );
+define( 'NOTIFICATIONX_EXT_DIR_PATH', NOTIFICATIONX_ROOT_DIR_PATH . 'extensions/' );
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-fomopress-activator.php
  */
 function activate_fomopress() {
-	require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-activator.php';
+	require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-fomopress-activator.php';
 	FomoPress_Activator::activate();
 }
 
@@ -49,7 +49,7 @@ function activate_fomopress() {
  * This action is documented in includes/class-fomopress-deactivator.php
  */
 function deactivate_fomopress() {
-	require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress-deactivator.php';
+	require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-fomopress-deactivator.php';
 	FomoPress_Deactivator::deactivate();
 }
 
@@ -60,7 +60,7 @@ register_deactivation_hook( __FILE__, 'deactivate_fomopress' );
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require_once FOMOPRESS_ROOT_DIR_PATH . 'includes/class-fomopress.php';
+require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-fomopress.php';
 
 /**
  * Begins execution of the plugin.

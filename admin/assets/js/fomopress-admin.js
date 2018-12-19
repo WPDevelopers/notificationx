@@ -237,13 +237,13 @@
 					toggle = JSON.parse(toggle);
 				}
 				for(i in toggle) {
-					FomoPressAdmin.fieldToggle(toggle[i].fields, 'hide', '#fomopress-', '', id);
-					FomoPressAdmin.fieldToggle(toggle[i].sections, 'hide', '#fomopress-meta-section-', '', id);
+					FomoPressAdmin.fieldToggle(toggle[i].fields, 'hide', '#nx-meta-', '', id);
+					FomoPressAdmin.fieldToggle(toggle[i].sections, 'hide', '#nx-meta-section-', '', id);
 				}
 
 				if(typeof toggle[val] !== 'undefined') {
-					FomoPressAdmin.fieldToggle(toggle[val].fields, 'show', '#fomopress-', '', id);
-					FomoPressAdmin.fieldToggle(toggle[val].sections, 'show', '#fomopress-meta-section-', '', id);
+					FomoPressAdmin.fieldToggle(toggle[val].fields, 'show', '#nx-meta-', '', id);
+					FomoPressAdmin.fieldToggle(toggle[val].sections, 'show', '#nx-meta-section-', '', id);
 				}
 
 			}
@@ -256,8 +256,8 @@
 				}
 				
     			if(typeof hide[val] !== 'undefined') {
-    				FomoPressAdmin.fieldToggle(hide[val].fields, 'hide', '#fomopress-', '', id);
-    				FomoPressAdmin.fieldToggle(hide[val].sections, 'hide', '#fomopress-meta-section-', '', id);
+    				FomoPressAdmin.fieldToggle(hide[val].fields, 'hide', '#nx-meta-', '', id);
+    				FomoPressAdmin.fieldToggle(hide[val].sections, 'hide', '#nx-meta-section-', '', id);
     			}
 			}
 		},
@@ -391,8 +391,6 @@
 
 			clone.attr('data-id', nextGroupID);
 			clone.insertAfter(group);
-			// clone.find('.fomopress-group-field-title').trigger('click');
-			// clone.addClass('open'); //.siblings().removeClass('open');
 			FomoPressAdmin.resetFieldIds( parent.find('.fomopress-group-field') );
 		},
 		resetFieldIds : function( groups ){
@@ -724,7 +722,7 @@
 		$tabMenu.on( 'click', 'li', function(){
 			var $tab = $(this).data( 'tab' ),
 				tabID = $(this).data('tabid') - 1;
-			$('#fomopress_current_tab').val( $tab );
+			$('#nx_builder_current_tab').val( $tab );
 			$tabMenu.find('li').each(function(i){
 				if( i < tabID ) {
 					$(this).addClass('fp-complete');
@@ -740,32 +738,32 @@
 	});
 	
 	$( window ).load(function(){
-		$('body').on('change', '#fomopress_display_type', function(){
+		$('body').on('change', '#nx_meta_display_type', function(){
 			var type = $(this).val();
 			FomoPressAdmin.shownPreview( type );
 			if( type == 'conversions' ) {
-				$('#fomopress_conversion_from').trigger('change');
+				$('#nx_meta_conversion_from').trigger('change');
 			}
 		});
 
-		$('body').on('change', '#fomopress_display_type.fomopress-select', function( e ){
+		$('body').on('change', '#nx_meta_display_type.fomopress-select', function( e ){
 			var type = $(this).val(),
 				title = e.currentTarget.selectedOptions[0].innerText,
 				options = { year: 'numeric', month: 'short', day: 'numeric' },
 				date = ( new Date() ).toLocaleDateString('en-US', options);
 			if( type === 'conversions' ) {
-				$('body').on('change', '#fomopress_conversion_from.fomopress-select', function( e ){
+				$('body').on('change', '#nx_meta_conversion_from.fomopress-select', function( e ){
 					var type = $(this).val(),
 						title = e.currentTarget.selectedOptions[0].innerText;
 					$('.finalize_fomo_name').text("Fomo - " + title + ' - ' + date);
 				});
-				$('#fomopress_conversion_from.fomopress-select').trigger('change');
+				$('#nx_meta_conversion_from.fomopress-select').trigger('change');
 			} else {
 				$('.finalize_fomo_name').text("Fomo - " + title + ' - ' + date);
 			}
 		});
 
-		$('#fomopress_display_type').trigger('change');
+		$('#nx_meta_display_type').trigger('change');
 
 		var fields = [
 			{

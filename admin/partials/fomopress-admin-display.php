@@ -12,7 +12,7 @@
  * @subpackage FomoPress/admin/partials
  */
 
-$current_tab = get_post_meta( $post->ID, '_fomopress_current_tab', true );
+$current_tab = get_post_meta( $post->ID, '_nx_builder_current_tab', true );
 if( ! $current_tab ) {
     $current_tab = 'source_tab';
 }
@@ -35,7 +35,7 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
                         <li data-tabid="<?php echo $tid++; ?>" class="<?php echo $class; ?>" data-tab="<?php echo $id; ?>">
                             <?php if( isset( $tab['icon'] ) ) : ?>
                                 <span class="fomopress-menu-icon">
-                                    <img src="<?php echo FOMOPRESS_ADMIN_URL . 'assets/img/icons/' . $tab['icon']; ?>" alt="<?php echo $tab['title']; ?>">
+                                    <img src="<?php echo NOTIFICATIONX_ADMIN_URL . 'assets/img/icons/' . $tab['icon']; ?>" alt="<?php echo $tab['title']; ?>">
                                 </span>
                             <?php endif; ?>
                             <span class="fomopress-menu-title"><?php echo $tab['title']; ?></span>
@@ -63,7 +63,7 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
                             $fields = FomoPress_Helper::sorter( $section['fields'], 'priority', 'ASC' );
                             if( ! empty( $fields ) )  :
                         ?>
-                            <div id="fomopress-meta-section-<?php echo $sec_id; ?>" class="fomopress-metabox-section">
+                            <div id="nx-meta-section-<?php echo $sec_id; ?>" class="fomopress-metabox-section">
                                 <h2 class="fomopress-metabox-section-title">
                                     <?php 
                                         echo $section['title']; 
@@ -89,9 +89,9 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
                 <button class="fomopress-meta-next" data-tab="<?php echo $id; ?>" data-tabid="<?php echo ++$tabid; ?>">
                     <?php
                         if( $totaltabs < $tabid ) {
-                            _e( 'Publish', 'fomopress' );
+                            _e( 'Publish', 'notificationx' );
                         } else {
-                            _e( 'Next', 'fomopress' );
+                            _e( 'Next', 'notificationx' );
                         }
                     ?>
                 </button>

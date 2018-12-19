@@ -59,27 +59,27 @@ if( $settings->bar_advance_edit ) {
                 <div class="fomopress-countdown-wrapper">
                     <?php if( $settings->countdown_text ) : ?>
                         <div class="fomopress-countdown-text">
-                            <?php echo esc_html__( $settings->countdown_text, 'fomopress' ); ?>
+                            <?php echo esc_html__( $settings->countdown_text, 'notificationx' ); ?>
                         </div>
                     <?php endif; ?>             
                     <div class="fomopress-countdown" data-countdown="<?php echo esc_attr( json_encode( $countdown ) ); ?>">
                         <div class="fomopress-time-section">
                             <span class="fomopress-days">00</span>
-                            <span class="fomopress-countdown-time-text"><?php esc_html_e('Days', 'fomopress'); ?></span>
+                            <span class="fomopress-countdown-time-text"><?php esc_html_e('Days', 'notificationx'); ?></span>
                         </div>
                         <div class="fomopress-time-section">
                             <span class="fomopress-hours">00</span>
-                            <span class="fomopress-countdown-time-text"><?php esc_html_e('Hrs', 'fomopress'); ?></span>
+                            <span class="fomopress-countdown-time-text"><?php esc_html_e('Hrs', 'notificationx'); ?></span>
                         </div>
                         <div class="fomopress-time-section">
                             <span class="fomopress-minutes">00</span>
-                            <span class="fomopress-countdown-time-text"><?php esc_html_e('Mins', 'fomopress'); ?></span>
+                            <span class="fomopress-countdown-time-text"><?php esc_html_e('Mins', 'notificationx'); ?></span>
                         </div>
                         <div class="fomopress-time-section">
                             <span class="fomopress-seconds">00</span>
-                            <span class="fomopress-countdown-time-text"><?php esc_html_e('Secs', 'fomopress'); ?></span>
+                            <span class="fomopress-countdown-time-text"><?php esc_html_e('Secs', 'notificationx'); ?></span>
                         </div>
-                        <span class="fomopress-expired-text"><?php esc_html_e('Expired!', 'fomopress'); ?></span>
+                        <span class="fomopress-expired-text"><?php esc_html_e('Expired!', 'notificationx'); ?></span>
                     </div>
                 </div>
             <?php endif; ?>
@@ -87,7 +87,7 @@ if( $settings->bar_advance_edit ) {
                 <div class="fomopress-bar-content"><?php echo $settings->press_content; ?></div>
                 <?php if( $settings->button_url != '' ) : ?>
                     <a class="fomopress-bar-button" href="<?php echo esc_url( $settings->button_url ); ?>" <?php echo $attrs; ?>>
-                        <?php echo esc_html_e( $settings->button_text, 'fomopress' ); ?>
+                        <?php echo esc_html_e( $settings->button_text, 'notificationx' ); ?>
                     </a>
                 <?php endif; ?>
             </div>
