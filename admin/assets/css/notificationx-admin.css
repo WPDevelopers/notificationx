@@ -1,0 +1,954 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+.fixed .column-notification_status {
+    width: 10%;
+}
+
+ #nx-notification-preview,
+ #nx-notification-preview .nx-notification-preview-comments,
+ #nx-notification-preview .nx-notification-preview-conversions { 
+    display: none;
+ }
+
+ #nx-notification-preview.nx-notification-preview-comments .nx-notification-preview-comments,
+ #nx-notification-preview.nx-notification-preview-conversions .nx-notification-preview-conversions {
+     display: block;
+ }
+
+ .nx-notification-preview {
+    position: fixed;
+    right: 20px;
+    bottom: 40px;
+    background: #fff;
+    box-shadow: 0 0 50px 0px #ddd;
+    z-index: 999;
+}
+.nx-preview-inner {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    padding-right: 30px;
+}
+.nx-preview-inner > div {
+    float: left;
+}
+.nx-preview-inner .nx-preview-image.fp-img-left {
+    margin-right: 15px;
+}
+.nx-preview-inner .nx-preview-image.fp-img-right {
+    margin-left: 15px;
+}
+.nx-preview-inner .nx-preview-image.fp-img-circle > img {
+    border-radius: 30px;
+}
+.nx-preview-inner .nx-preview-image.fp-img-rounded > img {
+    border-radius: 5px;
+}
+.nx-preview-inner .nx-preview-image > img {
+    width: 60px;
+    display: block;
+    height: 60px;
+}
+.nx-preview-inner .fomopress-preview-content > span {
+    display: block;
+}
+
+.nx-preview-inner .fomopress-preview-content > span.fomopress-preview-row {
+    line-height: 1.45;
+}
+.nx-preview-inner .fomopress-preview-content > span.nx-preview-first-row {
+    font-size: 13px;
+}
+.nx-preview-inner .fomopress-preview-content > span.nx-preview-second-row {
+    font-size: 14px;
+}
+.nx-preview-inner .fomopress-preview-content > span.nx-preview-third-row {
+    font-size: 11px;
+}
+
+.nx-preview-inner .fomopress-preview-content > span.fomopress-preview-row.fomopress-highlight {
+    font-weight: 700;
+}
+
+span.fomopress-preview-close {
+    position: absolute;
+    right: 6px;
+    top: 0px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#notificationx_metabox_wrapper {
+    background: none;
+    border: 0px;
+}
+#notificationx_metabox_wrapper .handlediv,
+#notificationx_metabox_wrapper h2.hndle.ui-sortable-handle {
+    display: none;
+}
+
+#notificationx_metabox_wrapper .inside {
+    padding: 0;
+}
+
+.notificationx-metabox-wrapper {}
+
+.nx-metatab-menu {
+    background: #fff;
+    padding: 30px;
+}
+.nx-metatab-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.nx-metatab-menu ul li,
+.nx-builder-tab-menu ul li {
+    display: inline-block;
+    margin: 0;
+    position: relative;
+    padding: 15px 25px 15px 40px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    background-color: #edeff0;
+}
+
+.nx-metatab-menu ul li:after,
+.nx-metatab-menu ul li:before {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    content: '';
+    height: 0;
+    width: 0;
+    border: 25px solid transparent;
+    border-right-width: 0;
+    border-left-width: 20px;
+}
+.nx-metatab-menu ul li:after {
+    z-index: 1;
+    -webkit-transform: translateX(3px);
+    -moz-transform: translateX(3px);
+    -ms-transform: translateX(3px);
+    -o-transform: translateX(3px);
+    transform: translateX(3px);
+    border-left-color: #fff;
+    margin: 0;
+}
+.nx-metatab-menu ul li:before {
+    z-index: 2;
+    border-left-color: #edeff0;
+    border-top-width: 25px;
+    border-bottom-width: 25px;
+}
+
+.nx-metatab-menu ul li:first-child.fomopress-has-icon {
+    padding-left: 25px;
+}
+.nx-metatab-menu ul li.fomopress-has-icon > .fomopress-menu-icon {
+    margin-right: 10px;
+}
+
+.nx-metatab-menu ul li > span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.nx-metatab-menu ul li img {
+    display: block;
+}
+
+.nx-metatab-menu ul li.active,
+.nx-metatab-menu ul li.nx-complete {
+    background-color: #6c63ff;
+    color: #fff;
+}
+.nx-metatab-menu ul li.active > .fomopress-menu-icon,
+.nx-metatab-menu ul li.nx-complete > .fomopress-menu-icon {
+    filter: invert(1);
+}
+.nx-metatab-menu ul li.active:before,
+.nx-metatab-menu ul li.nx-complete:before {
+    border-left-color: #6c63ff;
+}
+/* CONTENT CSS */
+
+.nx-meta-contents {
+    background: #fff;
+}
+
+.fomopress-meta-tab-content {
+    display: none;
+    padding: 0px 30px;
+    overflow: hidden;
+}
+
+.fomopress-meta-tab-content.active {
+    display: block;
+}
+.nx-meta-next {
+    float: right;
+}
+
+.nx-meta-section {
+    margin-bottom: 20px;
+    border: 1px solid #f7f7f7;
+    padding-bottom: 20px;
+}
+
+#notificationx_metabox_wrapper .fomopress-meta-tab-content h2.nx-meta-section-title {
+    display: block;
+    color: #516378;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    padding-bottom: 0px;
+    background: #f8fafb;
+    padding: 14px;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+h2.nx-meta-section-title .nx-section-reset {
+    float: right;
+}
+
+.nx-group-clone, .nx-group-remove {
+    text-decoration: none;
+    color: #333;
+}
+.nx-group-clone > span, .nx-group-remove > span {
+    font-size: 18px;
+}
+.nx-group-clone > span {
+    color: #5F7EFF;
+}
+.nx-group-remove > span {
+    color: #dc4f4b;
+}
+
+.nx-section-reset > span {
+    color: #dc4f4b;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.nx-section-reset > span:hover {
+    color: #EF4144;
+}
+
+.nx-group-field-add {
+    background-color: #5F7EFF;
+    color: #fff;
+    border: none;
+    box-shadow: 0 3px 6px rgba(95,126,255, .5);
+    text-shadow: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.nx-group-field-add:hover {
+    box-shadow: 0 3px 6px rgba(95,126,255, .8);
+}
+
+.nx-group-field-add > span {
+    line-height: 23px;
+}
+/* Add this attribute to the element that needs a tooltip */
+[data-tooltip] {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+    visibility: hidden;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Position tooltip above the element */
+[data-tooltip]::before {
+    position: absolute;
+    bottom: 150%;
+    left: calc(50% - 38px);
+    margin-bottom: 5px;
+    padding: 8px;
+    min-width: 60px;
+    border-radius: 3px;
+    background-color: #333;
+    color: #fff;
+    content: attr(data-tooltip);
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.2;
+    z-index: 9999;
+}
+
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+    position: absolute;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -5px;
+    width: 0;
+    border-top: 5px solid #000;
+    border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    content: " ";
+    font-size: 0;
+    line-height: 0;
+}
+
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+    visibility: visible;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+}
+.fomopress-info-message-wrapper {
+    padding: 0;
+}
+.fomopress-info-message {
+    font-size: 16px;
+    padding: 15px;
+    border-left: 2px solid #e61811;
+    background-color: #ffdcdc;
+    color: #403E3C;
+}
+
+/*
+    Form Input CSS
+*/
+.nx-meta-section table {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 30px;
+}
+
+.nx-meta-section table tr {
+    vertical-align: top;
+}
+.nx-meta-section table tr th {
+    width: 25%;
+    text-align: left;
+    padding: 15px 15px 15px 0px;
+}
+.nx-meta-section table tr td {
+    width: 75%;
+    text-align: left;
+    padding: 15px;
+}
+
+.nx-meta-field, 
+.nx-media-url {
+    padding: 10px;
+    border: 1px solid #f7f7f7;
+    background-color: #f7f7f7 !important;
+    border-radius: 0px;
+    width: 400px;
+}
+
+input[type="text"].nx-meta-field, input[type="text"].nx-settings-field, input[type="number"].nx-meta-field, .nx-countdown-input > input[type="number"] {
+    box-shadow: none;
+    border: 1px solid #f2f2f2;
+    transition: border linear 0.2s,box-shadow linear 0.2s;
+}
+
+input[type="text"].nx-meta-field:focus, input[type="text"].nx-settings-field:focus, input[type="number"].nx-meta-field:focus, .nx-countdown-input > input[type="number"]:focus {
+    background-color: #fff !important;
+    border-color: rgba(108,99,255,.5)!important;
+}
+
+input[type="number"].nx-meta-field{
+    height: auto;
+}
+
+input.nx-meta-field:focus,
+select.nx-meta-field:focus,
+input.nx-media-url:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #f2f2f2;
+}
+
+select.nx-meta-field {
+    height: 40px;
+}
+
+textarea.nx-meta-field {
+    height: 150px;
+}
+
+input.fomopress-template-field {
+    margin: 0;
+    border: 0px;
+}
+
+.nx-opt-alert {
+    position: relative;
+}
+.nx-opt-alert:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
+    z-index: 9999;
+}
+
+label.fomopress-adv-checkbox-label {
+    background: #fff;
+    color: #6c63ff;
+    padding: 8px 15px;
+    display: inline-block;
+    border-radius: 0;
+    letter-spacing: 1px;
+    border: 1px solid #6c63ff;
+    transition: all .3s;
+}
+label.fomopress-adv-checkbox-label:hover {
+    background: #8982ff;
+    color: #fff;
+    border: 1px solid #6c63ff;
+}
+
+.fomopress-adv-checkbox-wrap #fomopress_advance_edit,
+.fomopress-adv-checkbox-wrap > input {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+.nx-meta-section table tr.fomopress-adv_checkbox td {
+    padding: 15px 0px;
+}
+
+.fomopress-adv-checkbox-wrap > input:checked + label.fomopress-adv-checkbox-label,
+.fomopress-adv-checkbox-wrap #fomopress_advance_edit:checked + label.fomopress-adv-checkbox-label {
+    background-color: #6c63ff;
+    color: #fff;
+}
+
+/* Group Field */
+.fomopress-group-row {}
+.fomopress-group-row td.nx-control {
+    padding-left: 0; 
+    padding-right: 0; 
+}
+.nx-group-field-wrapper {}
+.nx-group-field-wrapper .nx-group-field {
+    border: 1px solid #f2f2f2;
+    margin-bottom: 15px;
+}
+.nx-group-field-wrapper .nx-group-field:last-child {
+    margin-bottom: 0;
+}
+
+.nx-group-field-wrapper .nx-group-field > h4 {
+    margin: 0;
+    position: relative;
+    padding: 15px;
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: #f8fafb;
+}
+.nx-group-field-wrapper .nx-group-field > h4 > div {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    padding: 15px;
+    top: 0;
+}
+.nx-group-field-wrapper .nx-group-field > div.nx-group-inner {
+    display: none;
+    padding: 30px 15px 0;
+}
+.nx-group-field-wrapper .nx-group-field.open > div.nx-group-inner {
+    display: block;   
+}
+
+/* Media Fiels */
+.nx-media-field-wrapper {
+    display: flex;
+    align-items: center;
+}
+.nx-thumb-container {
+    display: none;
+}
+.nx-thumb-container.nx-has-thumb {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    overflow: hidden;
+}
+.nx-thumb-container.nx-has-thumb > img {
+    height: 100px;
+}
+
+.fomopress-media-content {}
+.fomopress-media-content > input {
+    display: block;
+    padding: 10px;
+    width: 250px;
+}
+
+.fomopress-media-button {
+    padding: 10px;
+    font-weight: 700;
+    border: 1px solid #f2f2f2;
+    margin-left: 10px;
+}
+
+.fomopress-media-button.nx-media-remove-button {
+    color: red;
+    margin-left: 0;
+    margin-top: 10px;
+}
+
+/* Countdown Timer CSS */
+.nx-countdown-inputs {
+    display: flex;
+}
+
+.nx-countdown-input > input {
+    padding: 5px 10px;
+    box-sizing: content-box;
+    width: 100px;
+    margin-right: 10px;
+}
+
+/* Quick Builder CSS */
+.fomopress-builder-wrapper {
+    padding: 20px;
+    margin: 0px 20px 20px 0;
+    padding-top: 50px;
+}
+
+.nx-builder-content-wrapper.nx-metatab-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f5f5f5;
+    padding: 50px;
+    box-shadow: 0 4px 30px rgba(0,0,0,.07);
+    border-radius: 3px;
+    border: 25px solid #fff;
+}
+
+.nx-builder-content select.nx-meta-field {
+    border-color: rgba(0,0,0, .1);
+    background-color: #fff !important;
+}
+
+.nx-builder-content .nx-meta-section {
+    border: none;
+}
+
+.nx-builder-content .nx-single-theme-wrapper {
+    margin: 10px;
+}
+
+.fomopress-builder-header {
+    text-align: center;
+}
+.fomopress-builder-header > h1 {
+    font-size: 2em;
+    color: #444;
+    margin-bottom: 50px;
+}
+
+.nx-builder-content .nx-meta-section-title {
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: .035em;
+    font-style: italic;
+}
+
+.nx-builder-content#nx-source_tab .quick-builder-submit-btn.btn-prev {
+    display: none;
+}
+.nx-builder-tab-menu {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.nx-builder-tab-menu ul li  {
+    background-color: #fff;
+}
+.nx-builder-tab-menu ul, 
+.nx-settings-menu ul {
+    margin: 0;
+    padding: 0;
+}
+
+.nx-builder-tab-menu ul li {
+    padding: 10px 15px;
+    margin-right: 20px;
+    margin-left: 20px;
+    border-radius: 3px;
+    position: relative;
+}
+.nx-builder-tab-menu ul li:after {
+    position: absolute;
+    left: 100%;
+    width: 100px;
+    height: 10px;
+    background: #fff;
+    content: "";
+    top: 50%;
+    margin-top: -5px;
+}
+.nx-builder-tab-menu ul li:last-child:after {
+    display: none;
+}
+.nx-builder-tab-menu ul li > span.fomopress-menu-icon { 
+    margin-right: 10px;
+}
+.nx-builder-tab-menu ul li > span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.nx-builder-tab-menu ul li.active, 
+.nx-builder-tab-menu ul li.nx-complete,
+.nx-builder-tab-menu ul li.nx-complete:after {
+    background-color: #6c63ff;
+    color: #fff;
+}
+.nx-builder-tab-menu ul li.active > span.fomopress-menu-icon,
+.nx-builder-tab-menu ul li.nx-complete > span.fomopress-menu-icon {
+    filter: invert(1);
+}
+
+
+.nx-builder-tab-menu ul li > span img {
+    display: block;
+}
+
+.nx-builder-content {
+    display: none;
+}
+.nx-builder-content.active {
+    display: block;
+}
+.fomopress-builder-hidden {
+    display: none;
+}
+
+.quick-builder-submit-btn-wrap {
+    max-width: 300px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row wrap;
+}
+.quick-builder-submit-btn.nx-quick-builder-btn {
+    flex: 1 1 45%;
+    margin: 7px;
+}
+
+.quick-builder-submit-btn, .nx-meta-next, .nx-settings-button {
+    background-color: #6648FE;
+    color: #fff;
+    border: 0;
+    padding: 10px 25px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 30px 0;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0, .3);
+    transition: all .3s;
+}
+.quick-builder-submit-btn:hover, .nx-meta-next:hover, .nx-settings-button:hover {
+    background-color: #6044EA;
+    box-shadow: 0 2px 4px rgba(0,0,0, .5);
+}
+
+/* Theme Option CSS */
+.nx-meta-section table tr.nx-theme-control-wrapper > td {
+    padding: 0;
+}
+.nx-theme-field-inner {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    margin: 0 -5px;
+}
+
+.nx-single-theme-wrapper.nx-meta-field {
+    padding: 0px;
+    border: 0;
+    background: none;
+    width: auto;
+    cursor: pointer;
+}
+
+.nx-single-theme-wrapper > img {
+    display: block;
+    max-width: 300px;
+}
+
+.nx-single-theme-wrapper {margin: 0 5px;}
+
+.nx-single-theme-wrapper.nx-theme-selected {
+    position: relative;
+    transition: all 0.3s ease 0s;
+}
+
+.nx-single-theme-wrapper.nx-theme-selected:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 4px solid #6c63ff;
+    box-sizing: border-box;
+    transition: all 0.3s ease 0s;
+}
+
+#nx-bar_theme .nx-single-theme-wrapper.nx-meta-field {
+    display: block;
+    width: 100%;
+    max-width: 1000px;
+    margin: 10px 0;
+    padding: 5px;
+}
+
+#nx-bar_theme .nx-single-theme-wrapper > img {
+    max-width: 1000px;
+    width: 100%;
+}
+
+/* Custom select2 styles */
+
+.nx-control-wrapper .select2-container--default .select2-selection.select2-selection--single {
+    background-color: #fff;
+    border-color: #ABB9D6;
+    height: 40px;
+    border-radius: 0;
+}
+
+.nx-control-wrapper .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #333;
+    font-size: 15px;
+    line-height: 40px;
+}
+
+.nx-control-wrapper .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 36px;
+}
+
+body.fomopress_page_fomopress-builder .select2-dropdown, body.post-type-fomopress .select2-dropdown {
+    background-color: #fff;
+    color: #262625;
+    border-color: #97a1b9;
+}
+
+body.fomopress_page_fomopress-builder .select2-container--default .select2-results__option--highlighted[aria-selected], body.fomopress_page_fomopress-builder .select2-container--default .select2-results__option[aria-selected="true"], body.post-type-fomopress .select2-container--default .select2-results__option--highlighted[aria-selected], body.post-type-fomopress .select2-container--default .select2-results__option[aria-selected="true"] {
+    background-color: #6c63ff;
+    color: #fff;
+}
+
+body.fomopress_page_fomopress-builder .select2-results__option, body.post-type-fomopress .select2-results__option {
+    padding: 10px 6px;
+}
+
+body.fomopress_page_fomopress-builder .select2-container--default .select2-search--dropdown .select2-search__field, body.post-type-fomopress .select2-container--default .select2-search--dropdown .select2-search__field {
+    padding: 8px;
+    box-shadow: none;
+    border: 1px solid rgba(108,99,255,.5);
+}
+
+/* NotificationX Settings Page CSS */
+.fomopress-settings-wrap {
+    padding: 15px;
+}
+.nx-settings-header {
+    height: auto;
+    background: #fff;
+    border: 1px solid rgba( 0,0,0,0.1 );
+    -webkit-display: flex;
+    display: flex;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+    -webkit-align-items: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.nx-settings-header .nx-header-left {
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+.nx-settings-header .nx-admin-logo-inline {
+    box-shadow: 1px 0 0 0 rgba(0,0,0,0.1);
+    padding: 15px 10px 10px 13px;
+    margin-right: 10px;
+}
+.nx-settings-header .nx-header-left .title {
+    font-size: 22px;
+    color: #444;
+    font-weight: 600;
+    margin: 0px;
+    line-height: 1;
+}
+.nx-settings-header .fps-header-right {
+    text-align: right;
+}
+
+.nx-settings-header .nx-header-left,
+.nx-settings-header .fps-header-right {
+    flex: 1 1 auto;
+}
+
+.nx-settings-menu ul li {
+    display: inline-block;
+    margin-bottom: 0;
+}
+.nx-settings-menu ul li a {
+    padding: 15px 20px;
+    background-color: #f8fafb;
+    color: #516378;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border-top: 2px solid #f8fafb;
+    display: block;
+}
+
+.nx-settings-menu ul li a:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.nx-settings-menu ul li.active a {
+    background-color: #fff;
+    border-top: 2px solid #6648FE;
+}
+
+.fomopress-settings-tab {
+    background: #fff;
+    margin-top: 5px;
+    padding: 15px 25px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    border-top: none;
+    position: relative;
+    display: none;
+}
+.fomopress-settings-tab.active {
+    display: block;
+}
+.nx-settings-button {
+    margin: 30px 15px 0 0;
+}
+.fomopress-settings-section tr th {
+    padding-right: 15px;
+}
+.fomopress-settings-section tr td {
+    padding-left: 15px;
+}
+.nx-settings-field, input.nx-settings-field {
+    padding: 10px;
+    border: 1px solid #f2f2f2;
+    background-color: #f2f2f2;
+}
+
+.fomopress-left-right-settings {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.fomopress-settings-left {
+    max-width: 80em;
+    height: auto;
+    flex: 1 1 70%;
+}
+
+.fomopress-settings-right {
+    flex: 1 1 30%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fomopress-sidebar {
+    background-color: #fff;
+    width: 100%;
+    padding: 50px 20px;
+    margin-top: 34px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.fomopress-sidebar-block {
+    margin: 1em auto;
+}
+.fomopress-sidebar-block .fomopress-admin-sidebar-logo {
+    max-width: 200px;
+    display: block;
+    margin: 25px auto;
+}
+.fomopress-sidebar-block .fomopress-admin-sidebar-logo > img, .fomopress-sidebar-block .fomopress-admin-sidebar-logo > svg {
+    width: 100%;
+    display: block;
+    margin: 10px auto;
+}
+.fomopress-admin-sidebar-cta a {
+    font-size: 1em;
+    color: rgba(35,40,45,0.45);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: .065em;
+    text-align: center;
+    margin: 20px auto;
+    display: block;
+    border: 1px solid rgba(35,40,45,0.185);
+    border-radius: 4px;
+    padding: 15px;
+    width: 200px;
+    outline: none;
+    box-shadow: none;
+    transition: all .3s;
+}
+
+.fomopress-admin-sidebar-cta a:hover {
+    color: #23282d;
+    box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.715);
+}
+
+@media only screen and (max-width: 767px) {
+.fomopress-left-right-settings {
+    flex-flow: row wrap;
+    flex-direction: column;
+}
+.fomopress-settings-right {
+    padding: 0;
+}
+    
+}

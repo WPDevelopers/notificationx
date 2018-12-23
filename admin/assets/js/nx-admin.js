@@ -399,7 +399,7 @@
 			groups.each(function() {
 				var group       = $(this),
 					fieldName   = group.data('field-name'),
-					fieldId     = 'fomopress-' + fieldName,
+					fieldId     = 'nx-' + fieldName,
 					groupInfo   = group.find('.nx-group-field-info').data('info'),
 					subFields   = groupInfo.group_sub_fields;
 

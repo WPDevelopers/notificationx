@@ -29,17 +29,17 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
      * Main Screen Hooks
      */
     public function init_hooks(){
-        add_filter( 'fomopress_metabox_tabs', array( $this, 'add_fields' ) );
-        add_filter( 'fomopress_display_types_hide_data', array( $this, 'hide_fields' ) );
+        add_filter( 'nx_metabox_tabs', array( $this, 'add_fields' ) );
+        add_filter( 'nx_display_types_hide_data', array( $this, 'hide_fields' ) );
         add_filter( 'nx_conversion_from', array( $this, 'toggle_fields' ) );
     }
     /**
      * Builder Hooks
      */
     public function init_builder_hooks(){
-        add_filter( 'fomopress_builder_tabs', array( $this, 'add_builder_fields' ) );
-        add_filter( 'fomopress_display_types_hide_data', array( $this, 'hide_builder_fields' ) );
-        add_filter( 'fomopress_builder_tabs', array( $this, 'builder_toggle_fields' ) );
+        add_filter( 'nx_builder_tabs', array( $this, 'add_builder_fields' ) );
+        add_filter( 'nx_display_types_hide_data', array( $this, 'hide_builder_fields' ) );
+        add_filter( 'nx_builder_tabs', array( $this, 'builder_toggle_fields' ) );
     }
     /**
      * Needed Fields
@@ -252,8 +252,8 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
      */
     public function get_orders( $data ) {
         if( empty( $data ) ) return;
-        $days     = $data['_fomopress_display_from'];
-        $amount   = $data['_fomopress_display_last'];
+        $days     = $data['_nx_meta_display_from'];
+        $amount   = $data['_nx_meta_display_last'];
         $payments = $this->get_payments( $days, $amount );
       
         if( is_array( $payments ) && ! empty( $payments ) ) {

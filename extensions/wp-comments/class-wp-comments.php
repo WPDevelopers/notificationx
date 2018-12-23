@@ -11,6 +11,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
     public function __construct() {    
         parent::__construct();
         $this->notifications = $this->get_notifications( $this->type );
+
     }
     /**
      * This functions is hooked
@@ -93,8 +94,8 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
     public function get_comments( $data ) {
         if( empty( $data ) ) return null;
 
-        $from = isset( $data[ '_fomopress_display_from' ] ) ? intval( $data[ '_fomopress_display_from' ] ) : 0;
-        $needed = isset( $data[ '_fomopress_display_last' ] ) ? intval( $data[ '_fomopress_display_last' ] ) : 0;
+        $from = isset( $data[ '_nx_meta_display_from' ] ) ? intval( $data[ '_nx_meta_display_from' ] ) : 0;
+        $needed = isset( $data[ '_nx_meta_display_last' ] ) ? intval( $data[ '_nx_meta_display_last' ] ) : 0;
 
         $comments = get_comments([
             'status' => 'approve',
@@ -148,7 +149,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
             $this->notifications[ $comment_ID ] = $this->add( $comment_ID );
             /**
              * Save the data to 
-             * fomopress_notifications ( options DB. )
+             * notificationx_data ( options DB. )
              */
             $this->save( $this->type, $this->notifications );
         }
@@ -192,7 +193,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
             unset( $this->notifications[ $comment_ID ] );
             /**
              * Delete the data from 
-             * fomopress_notifications ( options DB. )
+             * notificationx_data ( options DB. )
              */
             $this->save( $this->type, $this->notifications );
         }

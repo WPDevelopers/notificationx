@@ -1,0 +1,234 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+.fomopress-notification {
+    position: fixed;
+    left: 30px;
+    z-index: 9999;
+}
+a.notificationx-link {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+}
+.fomopress-notification.fomopress-bottom_right {
+    right: 30px;
+    left: auto;
+}
+
+.notificationx-inner {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 15px;
+    background: #fff;
+    box-shadow: 0 0 30px 0 rgba(0,0,0, .1);
+}
+
+.fomopress-has-close-btn {
+    padding-right: 30px;
+}
+
+span.notificationx-close {
+    position: absolute;
+    right: 6px;
+    top: 2px;
+    z-index: 999;
+    cursor: pointer;
+}
+
+/*
+    Notification Image CSS
+*/
+.notificationx-image {
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    float: left;
+}
+.notificationx-image.fp-img-right {
+    margin-left: 15px;
+}
+.notificationx-image.fp-img-left {
+    margin-right: 15px;
+}
+.notificationx-image.fp-img-circle {
+    border-radius: 50% !important;
+}
+.notificationx-image.fp-img-rounded {
+    border-radius: 5px !important;
+}
+.notificationx-image > img {
+    width: auto;
+}
+/*
+    Notification Content CSS
+*/
+.notificationx-content {
+    float: left;
+}
+.notificationx-content > span {
+    display: block;
+}
+.nx-first-row {
+    font-size: 13px;
+}
+.nx-second-row {
+    font-size: 15px;
+    font-weight: bolder;
+}
+.nx-third-row {
+    font-size: 11px;
+}
+
+/*
+    FomoPressBar CSS
+*/
+.fomopress-author {
+    font-weight: 600;
+}
+
+.fomopress-time { 
+    display: block;
+}
+
+.nx-bar {
+    background: #ddd;
+    position: absolute;
+    z-index: 9;
+    visibility: hidden;
+    width: 100%;
+    left: 0;
+    text-align: center;
+}
+.nx-bar .nx-bar-inner {
+    padding: 20px;
+    display: inline-block;
+}
+
+.nx-bar-content {
+    display: flex;
+    align-items: center;
+}
+
+
+.nx-bar-content {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+
+.nx-bar.fomopress-position-bottom {
+    position: fixed;
+    bottom: 0;
+}
+.nx-bar.nx-position-top {
+    top: 0;
+}
+
+.nx-bar-visible {
+    visibility: visible;
+}
+
+a.nx-bar-button {
+    background: #999;
+    color: #fff;
+    font-size: 14px;
+    padding: 6px 15px;
+    border-radius: 5px;
+    margin-left: 15px;
+}
+
+.nx-close {
+    margin: 0;
+    position: absolute;
+    right: 10px;
+    margin-top: -5px;
+    cursor: pointer;
+    top: 50%;
+    background: #000;
+    color: #fff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    line-height: 17px;
+    font-size: 14px;
+}
+
+/*
+    NotificationX CountDown CSS
+*/
+
+.nx-countdown-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.nx-countdown {overflow: hidden;}
+
+.nx-countdown-text {
+    margin-right: 10px;
+}
+
+.fomopress-time-section {
+    float: left;
+    margin: 0 5px;
+    padding: 10px;
+    background: #fff;
+}
+
+.fomopress-time-section > span {
+    display: block;
+}
+
+.nx-countdown.nx-expired .fomopress-time-section {
+    background-color: #f2f2f2;
+}
+.nx-countdown.nx-expired .fomopress-time-section > span,
+.nx-countdown .nx-expired-text {
+    display: none;
+}
+
+.nx-countdown.nx-expired .nx-expired-text {
+    display: block;
+}
+
+/* Powered By CSS */
+.fomopress-branding {
+    font-size: 10px;
+    color: #999;
+    margin-left: 2px;
+    vertical-align: middle;
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    z-index: 9999;
+    padding: 5px;
+}
+.fomopress-branding svg {
+    position: relative;
+    top: 3px;
+}
+a.fp-powered-by {
+    cursor: pointer;
+}
+
+/* Theme specific CSS */
+
+.notificationx-inner.fp-notification-theme_two {
+    border-radius: 50px;
+    padding-right: 50px;
+}
+
+.notificationx-inner.fp-notification-theme_two span.fomopress-notification-close {
+    right: 20px;
+    top: 5px;
+}
+
+.fp-notification-theme_two + .fomopress-branding {
+    right: 20px;
+}

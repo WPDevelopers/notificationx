@@ -1,6 +1,6 @@
 <?php
 $attrs = $wrapper_attrs = $class = '';
-$pos_class = 'fomopress-position-top';
+$pos_class = 'nx-position-top';
 
 if( $settings->link_open ) {
     $attrs .= ' target="_blank"';
@@ -46,54 +46,54 @@ if( $settings->enable_countdown ) {
 }
 
 if( $settings->bar_advance_edit ) {
-    $class = ' fomopress-customize-style-' . $settings->id;
+    $class = ' nx-customize-style-' . $settings->id;
 }
 
 ?>
 <div 
-    id="fomopress-bar-<?php echo $settings->id; ?>"
-    class="fomopress-press-bar <?php echo $settings->bar_theme; ?> fomopress-bar-<?php echo $settings->id; ?> <?php echo esc_attr( $pos_class ); ?> <?php echo esc_attr( $class ); ?>" <?php echo $wrapper_attrs; ?>>
-    <div class="fomopress-bar-inner">
-        <div class="fomopress-press-bar-content">
+    id="nx-bar-<?php echo $settings->id; ?>"
+    class="nx-bar <?php echo $settings->bar_theme; ?> nx-bar-<?php echo $settings->id; ?> <?php echo esc_attr( $pos_class ); ?> <?php echo esc_attr( $class ); ?>" <?php echo $wrapper_attrs; ?>>
+    <div class="nx-bar-inner">
+        <div class="nx-bar-content">
             <?php if( $settings->enable_countdown ) : ?>
-                <div class="fomopress-countdown-wrapper">
+                <div class="nx-countdown-wrapper">
                     <?php if( $settings->countdown_text ) : ?>
-                        <div class="fomopress-countdown-text">
+                        <div class="nx-countdown-text">
                             <?php echo esc_html__( $settings->countdown_text, 'notificationx' ); ?>
                         </div>
                     <?php endif; ?>             
-                    <div class="fomopress-countdown" data-countdown="<?php echo esc_attr( json_encode( $countdown ) ); ?>">
+                    <div class="nx-countdown" data-countdown="<?php echo esc_attr( json_encode( $countdown ) ); ?>">
                         <div class="fomopress-time-section">
-                            <span class="fomopress-days">00</span>
-                            <span class="fomopress-countdown-time-text"><?php esc_html_e('Days', 'notificationx'); ?></span>
+                            <span class="nx-days">00</span>
+                            <span class="nx-countdown-time-text"><?php esc_html_e('Days', 'notificationx'); ?></span>
                         </div>
                         <div class="fomopress-time-section">
-                            <span class="fomopress-hours">00</span>
-                            <span class="fomopress-countdown-time-text"><?php esc_html_e('Hrs', 'notificationx'); ?></span>
+                            <span class="nx-hours">00</span>
+                            <span class="nx-countdown-time-text"><?php esc_html_e('Hrs', 'notificationx'); ?></span>
                         </div>
                         <div class="fomopress-time-section">
-                            <span class="fomopress-minutes">00</span>
-                            <span class="fomopress-countdown-time-text"><?php esc_html_e('Mins', 'notificationx'); ?></span>
+                            <span class="nx-minutes">00</span>
+                            <span class="nx-countdown-time-text"><?php esc_html_e('Mins', 'notificationx'); ?></span>
                         </div>
                         <div class="fomopress-time-section">
-                            <span class="fomopress-seconds">00</span>
-                            <span class="fomopress-countdown-time-text"><?php esc_html_e('Secs', 'notificationx'); ?></span>
+                            <span class="nx-seconds">00</span>
+                            <span class="nx-countdown-time-text"><?php esc_html_e('Secs', 'notificationx'); ?></span>
                         </div>
-                        <span class="fomopress-expired-text"><?php esc_html_e('Expired!', 'notificationx'); ?></span>
+                        <span class="nx-expired-text"><?php esc_html_e('Expired!', 'notificationx'); ?></span>
                     </div>
                 </div>
             <?php endif; ?>
             <div class="fomopress-inner-content-wrapper">
-                <div class="fomopress-bar-content"><?php echo $settings->press_content; ?></div>
+                <div class="nx-bar-content"><?php echo $settings->press_content; ?></div>
                 <?php if( $settings->button_url != '' ) : ?>
-                    <a class="fomopress-bar-button" href="<?php echo esc_url( $settings->button_url ); ?>" <?php echo $attrs; ?>>
+                    <a class="nx-bar-button" href="<?php echo esc_url( $settings->button_url ); ?>" <?php echo $attrs; ?>>
                         <?php echo esc_html_e( $settings->button_text, 'notificationx' ); ?>
                     </a>
                 <?php endif; ?>
             </div>
         </div>
         <?php if( $settings->close_button ) : ?>
-            <p class="fomopress-close" title="Close">x</p>
+            <p class="nx-close" title="Close">x</p>
         <?php endif; ?>
     </div>
 </div>

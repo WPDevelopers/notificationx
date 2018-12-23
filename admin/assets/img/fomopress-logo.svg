@@ -28,14 +28,14 @@
     </defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Artboard-Copy" transform="translate(-552.000000, -250.000000)">
-            <g id="fomopress-logo-full" transform="translate(552.000000, 250.000000)">
+            <g id="nx-logo-full" transform="translate(552.000000, 250.000000)">
                 <g id="font-paths">
-                    <g id="FomoPress">
+                    <g id="NotificationX">
                         <use fill="#9A89FF" xlink:href="#path-2"></use>
                         <use fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
                     </g>
                 </g>
-                <g id="fomopress-logo" transform="translate(1133.000000, 0.000000)">
+                <g id="nx-logo" transform="translate(1133.000000, 0.000000)">
                     <circle id="Oval" stroke="url(#linearGradient-3)" stroke-width="50" fill="#EAEAEA" cx="200" cy="200" r="175"></circle>
                     <circle id="Oval-Inner" fill="#252526" cx="200" cy="200" r="97.6303318"></circle>
                     <g id="eye" transform="translate(98.578199, 99.526066)" opacity="0.95">
@@ -45,7 +45,7 @@
                         </g>
                     </g>
                 </g>
-                <g id="fomopress-logo" transform="translate(260.000000, 0.000000)">
+                <g id="nx-logo" transform="translate(260.000000, 0.000000)">
                     <circle id="Oval" stroke="url(#linearGradient-3)" stroke-width="50" fill="#EAEAEA" cx="200" cy="200" r="175"></circle>
                     <circle id="Oval-Inner" fill="#252526" cx="200" cy="200" r="97.6303318"></circle>
                     <g id="eye" transform="translate(98.578199, 99.526066)" opacity="0.95">

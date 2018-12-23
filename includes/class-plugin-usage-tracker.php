@@ -92,7 +92,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 			add_action( 'admin_footer-plugins.php', array( $this, 'goodbye_ajax' ) );
 			add_action( 'wp_ajax_goodbye_form', array( $this, 'goodbye_form_callback' ) );
 			add_action( 'fomopress_builder_before_tab', array( $this, 'opt_in' ), 10, 3 );
-			add_action( 'fomopress_before_builder_submit', array( $this, 'optin_check' ) );
+			add_action( 'nx_before_builder_submit', array( $this, 'optin_check' ) );
 		}
 		
 		/**
@@ -620,7 +620,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 					$notice_text = __( 'Thank you for installing our plugin. We would like to track its usage on your site. We don\'t record any sensitive data, only information regarding the WordPress environment and plugin settings, which we will use to help us make improvements to the plugin. Tracking is completely optional.', 'plugin-usage-tracker' );
 				} else {
 					// If we have option 1 for marketing, we include reference to sending product information here
-					$notice_text = __( 'Want to help make <strong>FomoPress</strong> even more awesome? You can get a <strong>25% discount coupon</strong> for Pro upgrade if you allow. <a class="insights-data-we-collect" href="#">What we collect.</a>', 'plugin-usage-tracker' );
+					$notice_text = __( 'Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>25% discount coupon</strong> for Pro upgrade if you allow. <a class="insights-data-we-collect" href="#">What we collect.</a>', 'plugin-usage-tracker' );
 				}
 				// And we allow you to filter the text anyway
 				$notice_text = apply_filters( 'wisdom_notice_text_' . esc_attr( $this->plugin_name ), $notice_text ); ?>
@@ -906,7 +906,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 				$no_args['plugin_action'] = 'no';
 				$opt_in_options = null;
 				if( ! $this->get_admin_email() ) {
-					$opt_in_options = apply_filters( 'fomopress_opt_in_options', array(
+					$opt_in_options = apply_filters('nx_opt_in_options', array(
 						'email' => array(
 							'label' => 'Opt-in to get 25% discount for premium version. We will collect your email address and send the coupon, no spam!',
 							'default' => 1
@@ -921,7 +921,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 				 */
 				?>
 					<div class="nx-opt-in">
-						<p><?php _e( 'You are about to publish <strong><span class="finalize_fomo_name">Fomo – Notification Bar</span></strong>. You can rename this and edit everything whenever you want from <strong><a href="'. admin_url('edit.php?post_type=fomopress') .'">FomoPress</a></strong> page.', 'notificationx' ); ?></p>
+						<p><?php _e( 'You are about to publish <strong><span class="finalize_fomo_name">Fomo – Notification Bar</span></strong>. You can rename this and edit everything whenever you want from <strong><a href="'. admin_url('edit.php?post_type=fomopress') .'">NotificationX</a></strong> page.', 'notificationx' ); ?></p>
 						<?php 
 							if( ! empty( $opt_in_options ) ) : 
 								foreach( $opt_in_options as $key => $option ) {
