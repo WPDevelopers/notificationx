@@ -100,14 +100,14 @@ class Extension_Factory {
 /**
  * Make The Extension Factory Global!
  */
-$GLOBALS['fomopress_extension_factory'] = new Extension_Factory();
+$GLOBALS['nx_extension_factory'] = new Extension_Factory();
 /**
  * This function is responsible for register an extension.
  *
  * @param string $extension
  * @return void
  */
-function fomopress_register_extension( string $extension ){
-    global $fomopress_extension_factory;
-    $fomopress_extension_factory->register( $extension );
+function nx_register_extension( string $extension ){
+    global $nx_extension_factory;
+    $nx_extension_factory->register( $extension );
 }

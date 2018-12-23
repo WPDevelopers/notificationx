@@ -47,7 +47,7 @@ class NotificationX_Admin {
 	 *
 	 * @since    1.0.0
 	 * @access   public
-	 * @var string the post type of fomopress.
+	 * @var string the post type of notificationx.
 	 */
 	public $type = 'notificationx';
 
@@ -223,7 +223,7 @@ class NotificationX_Admin {
 			src="<?php echo $img; ?>" 
 			style="cursor: pointer; height: 16px; vertical-align: middle;" 
 			alt="<?php echo $text; ?>" title="<?php echo $text; ?>" 
-			data-nonce="<?php echo wp_create_nonce('fomopress_notification_toggle_status'); ?>" 
+			data-nonce="<?php echo wp_create_nonce('notificationx_status_nonce'); ?>" 
 			data-post="<?php echo $post_id; ?>" />
 		<?php
 	}
@@ -231,7 +231,7 @@ class NotificationX_Admin {
 	public function notification_status(){
 		$error = false;
 
-		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'fomopress_notification_toggle_status' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'notificationx_status_nonce' ) ) {
 			$error = true;
 		}
 
@@ -257,7 +257,7 @@ class NotificationX_Admin {
 	 *
 	 * @since	1.0.0
 	 */
-	public function fomopress_type_register(){
+	public function register(){
 
 		$labels = array(
 			'name'                => 'NotificationX',
@@ -305,7 +305,7 @@ class NotificationX_Admin {
 	 *
 	 * @return void
 	 */
-	public function fomopress_admin_menu_page(){
+	public function menu_page(){
 
 		$settings_class = new NotificationX_Settings();
 
@@ -328,7 +328,7 @@ class NotificationX_Admin {
 		/**
 		 * Add Submit
 		 */
-		if( isset( $_POST[ 'fomopress_builder_add_submit' ] ) ) :
+		if( isset( $_POST[ 'nx_builder_add_submit' ] ) ) :
 			if ( ! isset( $_POST[$this->metabox_id . '_nonce'] ) || ! wp_verify_nonce( $_POST[$this->metabox_id . '_nonce'], $this->metabox_id ) ) {
 				$flag = false;
 			}

@@ -39,7 +39,7 @@ define( 'NOTIFICATIONX_EXT_DIR_PATH', NOTIFICATIONX_ROOT_DIR_PATH . 'extensions/
  * The code that runs during plugin activation.
  * This action is documented in includes/class-nx-activator.php
  */
-function activate_fomopress() {
+function activate_notificationx() {
 	require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-activator.php';
 	NotificationX_Activator::activate();
 }
@@ -48,13 +48,13 @@ function activate_fomopress() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-nx-deactivator.php
  */
-function deactivate_fomopress() {
+function deactivate_notificationx() {
 	require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-deactivator.php';
 	NotificationX_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_fomopress' );
-register_deactivation_hook( __FILE__, 'deactivate_fomopress' );
+register_activation_hook( __FILE__, 'activate_notificationx' );
+register_deactivation_hook( __FILE__, 'deactivate_notificationx' );
 
 /**
  * The core plugin class that is used to define internationalization,

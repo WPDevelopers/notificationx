@@ -83,7 +83,7 @@
                 url: notificationx.ajaxurl,
                 cache: false,
                 data: {
-                    action: 'fomopress_get_conversions',
+                    action: 'nx_get_conversions',
 					nonce: notificationx.nonce,
 					ids: ids
 				},
@@ -132,18 +132,18 @@
 												+  ( parseInt( countdown_time.seconds ) * 1000) );
 
 					// Remove countdown value from cookie if countdown value has changed in wp-admin.
-                    if( Cookies.get( 'fomopress_bar_countdown_old' ) !== countdown_string ){
-						document.cookie = 'fomopress_bar_countdown_old' + "=" + countdown_string + ";" + date + ";path=/";
-						Cookies.clear('fomopress_bar_countdown');
+                    if( Cookies.get( 'nx_bar_countdown_old' ) !== countdown_string ){
+						document.cookie = 'nx_bar_countdown_old' + "=" + countdown_string + ";" + date + ";path=/";
+						Cookies.clear('nx_bar_countdown');
                     }
                     // Get countdown value from cookie if exist.
-                    if ( Cookies.get( 'fomopress_bar_countdown' ) ){
-                        countdown_cookie = Cookies.get( 'fomopress_bar_countdown' );
+                    if ( Cookies.get( 'nx_bar_countdown' ) ){
+                        countdown_cookie = Cookies.get( 'nx_bar_countdown' );
                     } else {
                         // Set countdown value in cookie if doesn't exist.
-						document.cookie = 'fomopress_bar_countdown' + "=" + new_date.getTime() + ";" + date + ";path=/";
-						document.cookie = 'fomopress_bar_countdown_old' + "=" + countdown_string + ";" + date + ";path=/";
-                        countdown_cookie = Cookies.get( 'fomopress_bar_countdown' );
+						document.cookie = 'nx_bar_countdown' + "=" + new_date.getTime() + ";" + date + ";path=/";
+						document.cookie = 'nx_bar_countdown_old' + "=" + countdown_string + ";" + date + ";path=/";
+                        countdown_cookie = Cookies.get( 'nx_bar_countdown' );
                     }
 				   
 					

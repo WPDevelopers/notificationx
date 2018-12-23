@@ -1,5 +1,5 @@
 <?php
-    $class .= ' fomopress-template-field';
+    $class .= ' nx-template-field';
     if( isset( $field['variables'] ) ) :
         $variables = $field['variables'];
     endif;
@@ -13,7 +13,7 @@
     <div class="<?php echo $name; ?>-variables">
         <span class="<?php echo $name; ?>-variable-title"><?php _e( 'Variables: ', 'notificationx' ); ?></span>
         <?php foreach ( $variables as $variable ) { ?>
-            <span class="fomopress-variable-tag"><?php echo $variable; ?></span>
+            <span class="nx-variable-tag"><?php echo $variable; ?></span>
         <?php } ?>
     </div>
 </div>

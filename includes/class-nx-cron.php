@@ -7,7 +7,7 @@ class NotificationX_Cron {
 	 * @since 1.1.2
 	 * @var string $hook
 	 */
-	public static $hook = 'fomopress_cron_update_data';
+	public static $hook = 'nx_cron_update_data';
 
 	/**
 	 * Schedule cron jobs.
@@ -25,7 +25,7 @@ class NotificationX_Cron {
 
         // If there is no next event, start cron now.
         if ( ! wp_next_scheduled( self::$hook, array( 'post_id' => $post_id ) ) ) {
-    	    wp_schedule_event( time(), 'fomopress_cache_interval', self::$hook, array( 'post_id' => $post_id ) );
+    	    wp_schedule_event( time(), 'nx_cache_interval', self::$hook, array( 'post_id' => $post_id ) );
         }
 	}
 }

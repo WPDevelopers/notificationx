@@ -32,7 +32,7 @@ if( 'bottom' == $settings->pressbar_position ) {
 }
 
 if( is_admin_bar_showing() ) {
-    $class .= 'fomopress-admin';
+    $class .= 'nx-admin';
 }
 
 if( $settings->enable_countdown ) {
@@ -54,7 +54,7 @@ if( $settings->bar_advance_edit ) {
     id="nx-bar-<?php echo $settings->id; ?>"
     class="nx-bar <?php echo $settings->bar_theme; ?> nx-bar-<?php echo $settings->id; ?> <?php echo esc_attr( $pos_class ); ?> <?php echo esc_attr( $class ); ?>" <?php echo $wrapper_attrs; ?>>
     <div class="nx-bar-inner">
-        <div class="nx-bar-content">
+        <div class="nx-bar-content-wrap">
             <?php if( $settings->enable_countdown ) : ?>
                 <div class="nx-countdown-wrapper">
                     <?php if( $settings->countdown_text ) : ?>

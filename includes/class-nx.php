@@ -51,7 +51,7 @@ final class NotificationX {
 
 		$this->load_dependencies();
 		$this->set_locale();
-		$this->fomopress_start_plugin_tracking();
+		$this->start_plugin_tracking();
 		add_action( 'plugins_loaded', array( $this, 'load_extensions' ) );
 		add_action( 'plugins_loaded', array( $this, 'define_admin_hooks' ) );
 		add_action( 'plugins_loaded', array( $this, 'define_public_hooks' ) );
@@ -78,10 +78,10 @@ final class NotificationX {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - FomoPress_Loader. Orchestrates the hooks of the plugin.
-	 * - FomoPress_i18n. Defines internationalization functionality.
-	 * - FomoPress_Admin. Defines all hooks for the admin area.
-	 * - FomoPress_Public. Defines all hooks for the public side of the site.
+	 * - NotificationX_Loader. Orchestrates the hooks of the plugin.
+	 * - NotificationX_i18n. Defines internationalization functionality.
+	 * - NotificationX_Admin. Defines all hooks for the admin area.
+	 * - NotificationX_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -141,7 +141,7 @@ final class NotificationX {
 		 * side of the site.
 		 */
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'public/class-nx-public.php';
-		do_action('fomopress_load_depedencies');
+		do_action('notificationx_load_depedencies');
 	}
 
 	/**
@@ -149,7 +149,7 @@ final class NotificationX {
 	 *
 	 * @since v1.0.0
  	*/
-	public function fomopress_start_plugin_tracking() {
+	public function start_plugin_tracking() {
 		$wisdom = new NotificationX_Plugin_Usage_Tracker(
 			NOTIFICATIONX_FILE,
 			'https://wpdeveloper.net',
@@ -166,7 +166,7 @@ final class NotificationX {
 	 * @return void
 	 */
 	public function load_extensions(){
-		global $fomopress_extension_factory;
+		global $nx_extension_factory;
 
 		$extensions = [
 			'NotificationX_EDD_Extension',
@@ -179,7 +179,7 @@ final class NotificationX {
 			/**
 			 * Register the extension
 			 */
-			fomopress_register_extension( $extension );
+			nx_register_extension( $extension );
 		}
 		/**
 		 * Init all extensions here.
@@ -188,12 +188,12 @@ final class NotificationX {
 		/**
 		 * Load all extension.
 		 */
-		$fomopress_extension_factory->load();
+		$nx_extension_factory->load();
 	}
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the FomoPress_i18n class in order to set the domain and to register the hook
+	 * Uses the NotificationX_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -215,13 +215,13 @@ final class NotificationX {
 		$plugin_admin          = new NotificationX_Admin( $this->get_plugin_name(), $this->get_version() );
 		$plugin_admin->metabox = new NotificationX_MetaBox;
 		
-		add_action( 'init', array( $plugin_admin, 'fomopress_type_register') );
+		add_action( 'init', array( $plugin_admin, 'register') );
 		add_action( 'init', array( $plugin_admin, 'get_active_items') );
 		add_action( 'add_meta_boxes', array( $plugin_admin->metabox, 'add_meta_boxes') );
-		add_action( 'admin_menu', array( $plugin_admin, 'fomopress_admin_menu_page') );
+		add_action( 'admin_menu', array( $plugin_admin, 'menu_page') );
 		add_action( 'admin_footer', array( $plugin_admin, 'notification_preview') );
-		add_filter( 'manage_fomopress_posts_columns', array( $plugin_admin, 'custom_columns') );
-		add_action( 'manage_fomopress_posts_custom_column', array( $plugin_admin, 'manage_custom_columns' ), 10, 2 );
+		add_filter( 'manage_notificationx_posts_columns', array( $plugin_admin, 'custom_columns') );
+		add_action( 'manage_notificationx_posts_custom_column', array( $plugin_admin, 'manage_custom_columns' ), 10, 2 );
 		add_action( 'wp_ajax_notifications_toggle_status', array( $plugin_admin, 'notification_status') );
 		
 		add_action( 'admin_enqueue_scripts', array( $plugin_admin, 'enqueue_styles') );
@@ -253,8 +253,8 @@ final class NotificationX {
 		add_action( 'wp_enqueue_scripts', array( $plugin_public, 'enqueue_scripts') );
 		add_action( 'wp', array( $plugin_public, 'get_active_items') );
 		add_action( 'wp_footer', array( $plugin_public, 'generate_active_fomo') );
-		add_action( 'wp_ajax_fomopress_get_conversions', array( $plugin_public, 'generate_conversions') );
-		add_action( 'wp_ajax_nopriv_fomopress_get_conversions', array( $plugin_public, 'generate_conversions') );
+		add_action( 'wp_ajax_nx_get_conversions', array( $plugin_public, 'generate_conversions') );
+		add_action( 'wp_ajax_nopriv_nx_get_conversions', array( $plugin_public, 'generate_conversions') );
 	}
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.
@@ -278,7 +278,7 @@ final class NotificationX {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    FomoPress_Loader    Orchestrates the hooks of the plugin.
+	 * @return    NotificationX_Loader    Orchestrates the hooks of the plugin.
 	 * TODO: remove this or do others 
 	 */
 	public function get_loader() {

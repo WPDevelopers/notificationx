@@ -69,10 +69,10 @@ class NotificationX_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in FomoPress_Loader as all of the hooks are defined
+		 * defined in NotificationX_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The FomoPress_Loader will then create the relationship
+		 * The NotificationX_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -91,10 +91,10 @@ class NotificationX_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in FomoPress_Loader as all of the hooks are defined
+		 * defined in NotificationX_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The FomoPress_Loader will then create the relationship
+		 * The NotificationX_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -205,7 +205,7 @@ class NotificationX_Public {
 		?>
 			<script type="text/javascript">
 				var notificationx = {
-					nonce      : '<?php echo wp_create_nonce('fomopress_frontend_nonce'); ?>',
+					nonce      : '<?php echo wp_create_nonce('nx_frontend_nonce'); ?>',
 					ajaxurl    : '<?php echo admin_url('admin-ajax.php'); ?>',
 					conversions: <?php echo json_encode( $conversion_ids ); ?>,
 					comments   : <?php echo json_encode( $comments_id ); ?>,
@@ -218,7 +218,7 @@ class NotificationX_Public {
 
 	public function generate_conversions() {
 
-		if( ! isset( $_POST['nonce'] ) && ! wp_verify_nonce( $_POST['nonce'], 'fomopress_frontend_nonce' ) ) {
+		if( ! isset( $_POST['nonce'] ) && ! wp_verify_nonce( $_POST['nonce'], 'nx_frontend_nonce' ) ) {
 			return;
 		}
 

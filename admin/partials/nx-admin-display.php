@@ -55,7 +55,7 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
                 $active = $current_tab === $id ? ' active ' : '';
                 $sections = NotificationX_Helper::sorter( $tab['sections'], 'priority', 'ASC' );
                 ?>
-                <div id="nx-<?php echo $id ?>" class="fomopress-meta-tab-content <?php echo $active; ?>">
+                <div id="nx-<?php echo $id ?>" class="nx-metatab-content <?php echo $active; ?>">
                 <?php 
                     foreach( $sections as $sec_id => $section ) {
                         do_action( 'nx_before_metabox_tab_section', $sec_id, $id, $section );

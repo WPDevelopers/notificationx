@@ -86,7 +86,7 @@ span.notificationx-close {
 }
 
 /*
-    FomoPressBar CSS
+    NotificationXBar CSS
 */
 .nx-author {
     font-weight: 600;
@@ -110,11 +110,10 @@ span.notificationx-close {
     display: inline-block;
 }
 
-.nx-bar-content {
+.nx-bar-content-wrap {
     display: flex;
     align-items: center;
 }
-
 
 .nx-bar-content {
     display: inline-block;
@@ -198,7 +197,7 @@ a.nx-bar-button {
 }
 
 /* Powered By CSS */
-.fomopress-branding {
+.nx-branding {
     font-size: 10px;
     color: #999;
     margin-left: 2px;
@@ -209,7 +208,7 @@ a.nx-bar-button {
     z-index: 9999;
     padding: 5px;
 }
-.fomopress-branding svg {
+.nx-branding svg {
     position: relative;
     top: 3px;
 }
@@ -229,6 +228,6 @@ a.fp-powered-by {
     top: 5px;
 }
 
-.fp-notification-theme_two + .fomopress-branding {
+.fp-notification-theme_two + .nx-branding {
     right: 20px;
 }

@@ -19,7 +19,7 @@ class NotificationX_MetaBox {
         'prefix' => ''
     );
 
-    public static function render_fomopress_metabox( $post = null ) {
+    public static function render_metabox( $post = null ) {
 
         self::$post_id = $post->ID;
 
@@ -149,7 +149,7 @@ class NotificationX_MetaBox {
 	public function add_meta_boxes() {
         self::$args         = wp_parse_args( $this->get_args(), $this->defaults );
         self::$object_types = (array)self::$args['object_types'];
-        add_meta_box( self::$args['id'], self::$args['title'], __CLASS__ . '::render_fomopress_metabox', self::$object_types, self::$args['context'], self::$args['priority'] );
+        add_meta_box( self::$args['id'], self::$args['title'], __CLASS__ . '::render_metabox', self::$object_types, self::$args['context'], self::$args['priority'] );
     }
 
     public static function get_metabox_fields( $prefix = '' ) {

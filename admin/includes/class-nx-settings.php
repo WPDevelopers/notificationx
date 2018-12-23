@@ -12,7 +12,7 @@ class NotificationX_Settings {
      * This function is responsible for settings page notice
      * before the settings form start
      *
-     * @hooked fomopress_before_settings_form
+     * @hooked notificationx_before_settings_form
      * @return void
      */
     public static function notice_template(){
@@ -185,7 +185,7 @@ class NotificationX_Settings {
          * Verify the Nonce
          */
         if ( ( ! isset( $_POST['nonce'] ) && ! isset( $_POST['key'] ) ) || ! 
-            wp_verify_nonce( $_POST['nonce'], 'fomopress_'. $_POST['key'] .'_nonce' ) ) {
+            wp_verify_nonce( $_POST['nonce'], 'nx_'. $_POST['key'] .'_nonce' ) ) {
             return;
         }
 

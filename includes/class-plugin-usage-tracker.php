@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
+if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 	
 	class NotificationX_Plugin_Usage_Tracker {
 		
@@ -91,7 +91,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 			add_filter( 'plugin_action_links_' . plugin_basename( $this->plugin_file ), array( $this, 'filter_action_links' ) );
 			add_action( 'admin_footer-plugins.php', array( $this, 'goodbye_ajax' ) );
 			add_action( 'wp_ajax_goodbye_form', array( $this, 'goodbye_form_callback' ) );
-			add_action( 'fomopress_builder_before_tab', array( $this, 'opt_in' ), 10, 3 );
+			add_action( 'nx_builder_before_tab', array( $this, 'opt_in' ), 10, 3 );
 			add_action( 'nx_before_builder_submit', array( $this, 'optin_check' ) );
 		}
 		
@@ -627,7 +627,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 							
 				<div class="notice notice-info updated put-dismiss-notice">
 					<p><?php echo __( $notice_text ); ?></p>
-					<div class="fomopress-insights-data" style="display: none;">
+					<div class="nx-insights-data" style="display: none;">
 						<p><?php echo __( 'We collect non-sensitive diagnostic data and plugin usage information. Your site URL, WordPress & PHP version, plugins & themes and email address to send you the discount coupon. This data lets us make sure this plugin always stays compatible with the most popular plugins and themes. No spam, I promise.' ); ?></p>
 					</div>
 					<p>
@@ -636,7 +636,7 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 					</p>
 		            <?php echo "<script type='text/javascript'>jQuery('.insights-data-we-collect').on('click', function(e) {
 		                    e.preventDefault();
-		                    jQuery('.fomopress-insights-data').slideToggle('fast');
+		                    jQuery('.nx-insights-data').slideToggle('fast');
 		                });
 		                </script>";?>
 				</div>
@@ -921,14 +921,14 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 				 */
 				?>
 					<div class="nx-opt-in">
-						<p><?php _e( 'You are about to publish <strong><span class="finalize_fomo_name">Fomo – Notification Bar</span></strong>. You can rename this and edit everything whenever you want from <strong><a href="'. admin_url('edit.php?post_type=fomopress') .'">NotificationX</a></strong> page.', 'notificationx' ); ?></p>
+						<p><?php _e( 'You are about to publish <strong><span class="finalize_fomo_name">Fomo – Notification Bar</span></strong>. You can rename this and edit everything whenever you want from <strong><a href="'. admin_url('edit.php?post_type=notificationx') .'">NotificationX</a></strong> page.', 'notificationx' ); ?></p>
 						<?php 
 							if( ! empty( $opt_in_options ) ) : 
 								foreach( $opt_in_options as $key => $option ) {
 									$checked = $option['default'];
 									?>
 										<div class="nx-single-opt">
-											<input type="checkbox" <?php echo $checked ? 'checked' : '' ?> name="fomopress_tracking[<?php echo $key ?>]" id="<?php echo $key ?>">
+											<input type="checkbox" <?php echo $checked ? 'checked' : '' ?> name="nx_tracking[<?php echo $key ?>]" id="<?php echo $key ?>">
 											<label for="<?php echo $key ?>"><?php echo $option['label'] ?></label>
 										</div>
 									<?php
@@ -964,8 +964,8 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 		}
 
 		public function optin_check( $data ){
-			if( isset( $data['fomopress_tracking'] ) ) {
-				$fields = $data['fomopress_tracking'];
+			if( isset( $data['nx_tracking'] ) ) {
+				$fields = $data['nx_tracking'];
 				if( isset( $fields['plugin_action'] ) && $fields['plugin_action'] === 'no' ) {
 					$this->set_track_time();
 					return false;

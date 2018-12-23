@@ -1,5 +1,5 @@
 <?php 
-    $class .= ' fomopress-' . $key;
+    $class .= ' nx-' . $key;
     
     // if( isset( $field['disable'] ) && $field['disable'] === true ) {
     //     $attrs .= ' disabled';

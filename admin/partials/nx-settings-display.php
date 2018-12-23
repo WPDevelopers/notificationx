@@ -1,9 +1,9 @@
-<div class="fomopress-settings-wrap">
+<div class="nx-settings-wrap">
     <?php do_action( 'notificationx_settings_header' ); ?>
-    <div class="fomopress-left-right-settings">
+    <div class="nx-left-right-settings">
         <?php do_action( 'nx_before_settings_left' ); ?>
-        <div class="fomopress-settings-left">
-            <div class="fomopress-settings">
+        <div class="nx-settings-left">
+            <div class="nx-settings">
                 <div class="nx-settings-menu">
                     <ul>
                         <?php
@@ -16,7 +16,7 @@
                     </ul>
                 </div>
 
-                <div class="fomopress-settings-content">
+                <div class="nx-settings-content">
                     <?php 
                         $i = 1;
                         /**
@@ -27,7 +27,7 @@
                             $sections = isset( $setting['sections'] ) ? $setting['sections'] : [];
                             $sections = NotificationX_Helper::sorter( $sections, 'priority', 'ASC' );
                             ?>
-                            <div id="fs-<?php echo esc_attr( $tab_key ); ?>" class="fomopress-settings-tab fomopress-settings-<?php echo esc_attr( $key );?> <?php echo $active; ?>">
+                            <div id="fs-<?php echo esc_attr( $tab_key ); ?>" class="nx-settings-tab nx-settings-<?php echo esc_attr( $key );?> <?php echo $active; ?>">
                                 <form method="post" id="nx-settings-<?php echo $tab_key; ?>-form" action="#">
                                     <?php 
                                         if( ! empty( $sections ) ) :
@@ -40,8 +40,8 @@
                                                 $fields = NotificationX_Helper::sorter( $fields, 'priority', 'ASC' );
                                                 ?>                                 
                                                 <div 
-                                                    id="fomoporess-<?php echo esc_attr( $sec_key ); ?>" 
-                                                    class="fomopress-settings-section fomopress-<?php echo esc_attr( $sec_key ); ?>">
+                                                    id="nx-settings-<?php echo esc_attr( $sec_key ); ?>" 
+                                                    class="nx-settings-section nx-<?php echo esc_attr( $sec_key ); ?>">
                                                     <?php 
                                                     /**
                                                      * Every Section Field Rendering
@@ -65,7 +65,7 @@
                                         // Submit Button
                                         if( isset( $setting['button_text'] ) && ! empty( $setting['button_text'] ) ) :
                                     ?>
-                                    <button type="submit" class="nx-settings-button nx-submit-<?php echo $tab_key; ?>" data-nonce="<?php echo wp_create_nonce('fomopress_'. $tab_key .'_nonce'); ?>" data-key="<?php echo $tab_key; ?>" id="nx-submit-<?php echo $tab_key; ?>"><?php _e( $setting['button_text'], 'notificationx' ); ?></button>
+                                    <button type="submit" class="nx-settings-button nx-submit-<?php echo $tab_key; ?>" data-nonce="<?php echo wp_create_nonce('nx_'. $tab_key .'_nonce'); ?>" data-key="<?php echo $tab_key; ?>" id="nx-submit-<?php echo $tab_key; ?>"><?php _e( $setting['button_text'], 'notificationx' ); ?></button>
                                     <?php endif; ?>
                                 </form>
                             </div>
@@ -79,25 +79,25 @@
             do_action( 'nx_after_settings_left' );
             do_action( 'nx_before_settings_right' );
         ?>
-        <div class="fomopress-settings-right">
-            <div class="fomopress-sidebar">
+        <div class="nx-settings-right">
+            <div class="nx-sidebar">
                 <div class="nx-sidebar-block">
                     <div class="nx-admin-sidebar-logo">
-                        <img src="<?php echo plugins_url( '/', __FILE__ ).'../assets/img/fomopress-logo.svg'; ?>">
+                        <img src="<?php echo plugins_url( '/', __FILE__ ).'../assets/img/nx-logo.svg'; ?>">
                     </div>
-                    <div class="fomopress-admin-sidebar-cta">
+                    <div class="nx-admin-sidebar-cta">
                         <?php     
-                            if(class_exists('FomoPressPro')) {
+                            if(class_exists('NotificationXPro')) {
                                 printf( __( '<a href="%s" target="_blank">Manage License</a>', 'notificationx' ), 'https://wpdeveloper.net/account' ); 
                             }else{
-                                printf( __( '<a href="%s" target="_blank">Upgrade to Pro</a>', 'notificationx' ), 'https://wpdeveloper.net/in/fomopress' );
+                                printf( __( '<a href="%s" target="_blank">Upgrade to Pro</a>', 'notificationx' ), 'https://wpdeveloper.net/in/fomdopress' );
                             }
                         ?>
                     </div>
                 </div>
-                <div class="nx-sidebar-block fomopress-license-block">
+                <div class="nx-sidebar-block nx-license-block">
                     <?php
-                        if(class_exists('FomoPressPro')) {
+                        if(class_exists('NotificationXPro')) {
                         do_action( 'nx_licensing' );
                     }
                 ?>
