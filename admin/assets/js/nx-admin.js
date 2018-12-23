@@ -693,11 +693,11 @@
 				$('body').on('change', '#nx_meta_conversion_from.nx-select', function( e ){
 					var type = $(this).val(),
 						title = e.currentTarget.selectedOptions[0].innerText;
-					$('.finalize_fomo_name').text("Fomo - " + title + ' - ' + date);
+					$('.finalize_notificationx_name').text("NotificationX - " + title + ' - ' + date);
 				});
 				$('#nx_meta_conversion_from.nx-select').trigger('change');
 			} else {
-				$('.finalize_fomo_name').text("Fomo - " + title + ' - ' + date);
+				$('.finalize_notificationx_name').text("NotificationX - " + title + ' - ' + date);
 			}
 		});
 

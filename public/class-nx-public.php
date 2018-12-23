@@ -130,7 +130,7 @@ class NotificationX_Public {
 		}
 	}
 	
-	public function generate_active_fomo(){
+	public function generate_active_notificationx(){
 
 		if( empty( self::$active ) ) {
 			return;
@@ -193,7 +193,7 @@ class NotificationX_Public {
 		function pro_extension_ids() {
 			return apply_filters('nx_pro_extetion_ids', array());
 		}
-		do_action( 'nx_active_fomo', $activeItems );
+		do_action( 'nx_active_notificationx', $activeItems );
 		$pro_ext = pro_extension_ids();
 		/**
 		 * Filtered Active IDs

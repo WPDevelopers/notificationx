@@ -921,7 +921,7 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 				 */
 				?>
 					<div class="nx-opt-in">
-						<p><?php _e( 'You are about to publish <strong><span class="finalize_fomo_name">Fomo – Notification Bar</span></strong>. You can rename this and edit everything whenever you want from <strong><a href="'. admin_url('edit.php?post_type=notificationx') .'">NotificationX</a></strong> page.', 'notificationx' ); ?></p>
+						<p><?php _e( 'You are about to publish <strong><span class="finalize_notificationx_name">NotificationX – Notification Bar</span></strong>. You can rename this and edit everything whenever you want from <strong><a href="'. admin_url('edit.php?post_type=notificationx') .'">NotificationX</a></strong> page.', 'notificationx' ); ?></p>
 						<?php 
 							if( ! empty( $opt_in_options ) ) : 
 								foreach( $opt_in_options as $key => $option ) {

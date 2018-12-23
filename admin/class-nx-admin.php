@@ -335,13 +335,13 @@ class NotificationX_Admin {
 
 			if( $flag ) {
 
-				if( $_POST['nx_display_type'] == 'press_bar' )  {
-					$title = __('Fomo - Notification Bar', 'notificationx');
-				} elseif( $_POST['nx_display_type'] == 'comments' )  {
-					$title = __('Fomo - WP Comments', 'notificationx');
-				} elseif( $_POST['nx_display_type'] == 'conversions' )  {
+				if( $_POST['nx_meta_display_type'] == 'press_bar' )  {
+					$title = __('NotificationX - Notification Bar', 'notificationx');
+				} elseif( $_POST['nx_meta_display_type'] == 'comments' )  {
+					$title = __('NotificationX - WP Comments', 'notificationx');
+				} elseif( $_POST['nx_meta_display_type'] == 'conversions' )  {
 					$conversions = NotificationX_Helper::conversion_from();
-					$title = 'Fomo - ' . $conversions[$_POST['nx_conversion_from']];
+					$title = 'NotificationX - ' . $conversions[$_POST['nx_meta_conversion_from']];
 				}
 				$_POST['post_type'] = 'notificationx';
 				$postdata = array(

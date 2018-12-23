@@ -24,6 +24,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'NOTIFICATIONX_VERSION', '1.0.0' );
+define( 'NOTIFICATIONX_PLUGIN_URL', 'https://notificationx.com' );
 
 define( 'NOTIFICATIONX_URL', plugins_url( '/', __FILE__ ) );
 define( 'NOTIFICATIONX_ADMIN_URL', NOTIFICATIONX_URL . 'admin/' );

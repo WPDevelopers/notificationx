@@ -252,7 +252,7 @@ final class NotificationX {
 		add_action( 'wp_enqueue_scripts', array( $plugin_public, 'enqueue_styles') );
 		add_action( 'wp_enqueue_scripts', array( $plugin_public, 'enqueue_scripts') );
 		add_action( 'wp', array( $plugin_public, 'get_active_items') );
-		add_action( 'wp_footer', array( $plugin_public, 'generate_active_fomo') );
+		add_action( 'wp_footer', array( $plugin_public, 'generate_active_notificationx') );
 		add_action( 'wp_ajax_nx_get_conversions', array( $plugin_public, 'generate_conversions') );
 		add_action( 'wp_ajax_nopriv_nx_get_conversions', array( $plugin_public, 'generate_conversions') );
 	}
