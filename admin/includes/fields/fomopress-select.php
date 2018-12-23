@@ -1,5 +1,5 @@
 <?php 
-    $class .= ' fomopress-select';
+    $class .= ' nx-select';
 ?>
 <select class="<?php echo esc_attr( $class ); ?>" name="<?php echo $name; ?>" id="<?php echo $name; ?>" <?php echo $attrs; ?>>
     <?php 

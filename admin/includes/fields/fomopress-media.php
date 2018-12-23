@@ -9,7 +9,7 @@
 ?>
 
 <div class="nx-media-field-wrapper">
-    <div class="nx-thumb-container <?php echo $image_url == '' ? '' : 'fomopress-has-thumb'; ?>">
+    <div class="nx-thumb-container <?php echo $image_url == '' ? '' : 'nx-has-thumb'; ?>">
         <?php 
             if( $image_url ) {
                 echo '<img src="'. esc_url( $image_url ) .'">';

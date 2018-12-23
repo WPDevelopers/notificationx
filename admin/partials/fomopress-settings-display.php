@@ -28,7 +28,7 @@
                             $sections = NotificationX_Helper::sorter( $sections, 'priority', 'ASC' );
                             ?>
                             <div id="fs-<?php echo esc_attr( $tab_key ); ?>" class="fomopress-settings-tab fomopress-settings-<?php echo esc_attr( $key );?> <?php echo $active; ?>">
-                                <form method="post" id="fomopress-settings-<?php echo $tab_key; ?>-form" action="#">
+                                <form method="post" id="nx-settings-<?php echo $tab_key; ?>-form" action="#">
                                     <?php 
                                         if( ! empty( $sections ) ) :
                                             /**

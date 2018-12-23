@@ -29,7 +29,7 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
                     $class = isset( $tab['icon'] ) ? ' fomopress-has-icon' : '';
                     $class .= $active;
                     if( $position > $tid ){
-                        $class .= ' fp-complete';
+                        $class .= ' nx-complete';
                     }
                     ?>
                         <li data-tabid="<?php echo $tid++; ?>" class="<?php echo $class; ?>" data-tab="<?php echo $id; ?>">

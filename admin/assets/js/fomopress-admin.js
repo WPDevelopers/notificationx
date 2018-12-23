@@ -29,70 +29,70 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
-	var FomoPressAdmin = {
+	var NotificationX_Admin = {
 
 		init: function(){
-			FomoPressAdmin.notificationStatus();
-			FomoPressAdmin.bindEvents();
-			FomoPressAdmin.initFields();
+			NotificationX_Admin.notificationStatus();
+			NotificationX_Admin.bindEvents();
+			NotificationX_Admin.initFields();
 		},
 
 		initFields: function(){
-			FomoPressAdmin.initSelect2();
+			NotificationX_Admin.initSelect2();
 			$('.notificationx-metabox-wrapper .nx-meta-field').trigger('change');
-			FomoPressAdmin.initColorField();
-			FomoPressAdmin.initGroupField();
+			NotificationX_Admin.initColorField();
+			NotificationX_Admin.initGroupField();
 		},
 
 		bindEvents: function(){
 			$('body').delegate( '.nx-settings-menu li', 'click', function( e ) {
-				FomoPressAdmin.settingsTab( this );
+				NotificationX_Admin.settingsTab( this );
             } );
 			$('body').delegate( '.nx-submit-general', 'click', function( e ) {
 				e.preventDefault();
-				FomoPressAdmin.submitSettings( this );
+				NotificationX_Admin.submitSettings( this );
             } );
 			$('body').delegate( '.nx-opt-alert', 'click', function( e ) {
-				FomoPressAdmin.fieldAlert( this );
+				NotificationX_Admin.fieldAlert( this );
             } );
 			$('body').delegate( '.nx-section-reset', 'click', function( e ) {
 				e.preventDefault();
-				FomoPressAdmin.resetSection( this );
+				NotificationX_Admin.resetSection( this );
             } );
 			$('body').delegate( '.nx-meta-field', 'change', function( ) {
-				FomoPressAdmin.fieldChange( this );
+				NotificationX_Admin.fieldChange( this );
             } );
 			$('body').delegate( '.nx-meta-next, .nx-quick-builder-btn', 'click', function(e) {
 				e.preventDefault();
-				FomoPressAdmin.tabChanger( this );
+				NotificationX_Admin.tabChanger( this );
             } );
 			$('body').delegate( '.nx-single-theme-wrapper', 'click', function(e) {
 				e.preventDefault();
-				FomoPressAdmin.selectImage( this );
+				NotificationX_Admin.selectImage( this );
             } );
 			$('body').delegate( '.nx-group-field .nx-group-field-title', 'click', function(e) {
 				e.preventDefault();
 				if( $( e.srcElement ).hasClass( 'nx-group-field-title' ) ) {
-					FomoPressAdmin.groupToggle( this );
+					NotificationX_Admin.groupToggle( this );
 				}
 			} );
 			$('body').delegate( '.nx-group-field .nx-group-remove', 'click', function() {
-				FomoPressAdmin.removeGroup(this);
+				NotificationX_Admin.removeGroup(this);
 			} );
 			$('body').delegate( '.nx-group-field .nx-group-clone', 'click', function() {
-                FomoPressAdmin.cloneGroup(this);
+                NotificationX_Admin.cloneGroup(this);
             } );
 			$('body').delegate( '.nx-media-field-wrapper .nx-media-upload-button', 'click', function(e) {
 				e.preventDefault();
-                FomoPressAdmin.initMediaField(this);
+                NotificationX_Admin.initMediaField(this);
             } );
 			$('body').delegate( '.nx-media-field-wrapper .nx-media-remove-button', 'click', function(e) {
 				e.preventDefault();
-                FomoPressAdmin.removeMedia(this);
+                NotificationX_Admin.removeMedia(this);
 			} );
 			$('body').delegate( '.nx-optin-button', 'click', function(e) {
 				e.preventDefault();
-                FomoPressAdmin.optinAllowOrNot(this);
+                NotificationX_Admin.optinAllowOrNot(this);
 			} );
 		},
 
@@ -237,13 +237,13 @@
 					toggle = JSON.parse(toggle);
 				}
 				for(i in toggle) {
-					FomoPressAdmin.fieldToggle(toggle[i].fields, 'hide', '#nx-meta-', '', id);
-					FomoPressAdmin.fieldToggle(toggle[i].sections, 'hide', '#nx-meta-section-', '', id);
+					NotificationX_Admin.fieldToggle(toggle[i].fields, 'hide', '#nx-meta-', '', id);
+					NotificationX_Admin.fieldToggle(toggle[i].sections, 'hide', '#nx-meta-section-', '', id);
 				}
 
 				if(typeof toggle[val] !== 'undefined') {
-					FomoPressAdmin.fieldToggle(toggle[val].fields, 'show', '#nx-meta-', '', id);
-					FomoPressAdmin.fieldToggle(toggle[val].sections, 'show', '#nx-meta-section-', '', id);
+					NotificationX_Admin.fieldToggle(toggle[val].fields, 'show', '#nx-meta-', '', id);
+					NotificationX_Admin.fieldToggle(toggle[val].sections, 'show', '#nx-meta-section-', '', id);
 				}
 
 			}
@@ -256,8 +256,8 @@
 				}
 				
     			if(typeof hide[val] !== 'undefined') {
-    				FomoPressAdmin.fieldToggle(hide[val].fields, 'hide', '#nx-meta-', '', id);
-    				FomoPressAdmin.fieldToggle(hide[val].sections, 'hide', '#nx-meta-section-', '', id);
+    				NotificationX_Admin.fieldToggle(hide[val].fields, 'hide', '#nx-meta-', '', id);
+    				NotificationX_Admin.fieldToggle(hide[val].sections, 'hide', '#nx-meta-section-', '', id);
     			}
 			}
 		},
@@ -391,7 +391,7 @@
 
 			clone.attr('data-id', nextGroupID);
 			clone.insertAfter(group);
-			FomoPressAdmin.resetFieldIds( parent.find('.nx-group-field') );
+			NotificationX_Admin.resetFieldIds( parent.find('.nx-group-field') );
 		},
 		resetFieldIds : function( groups ){
 			var groupID = 1;
@@ -452,7 +452,7 @@
                 /**
 				 * Set image to the image container
 				 */
-                imgContainer.addClass('fomopress-has-thumb').append( '<img src="'+attachment.url+'" alt="" style="max-width:100%;"/>' );
+                imgContainer.addClass('nx-has-thumb').append( '<img src="'+attachment.url+'" alt="" style="max-width:100%;"/>' );
                 idField.val( attachment.id ); // set image id
                 urlField.val( attachment.url ); // set image url
 
@@ -470,11 +470,11 @@
 			var button = $( button ),
 				wrapper = button.parents('.nx-media-field-wrapper'),
 				uploadButton = wrapper.find('.nx-media-upload-button'),
-				imgContainer = wrapper.find('.fomopress-has-thumb'),
+				imgContainer = wrapper.find('.nx-has-thumb'),
 				idField = wrapper.find('.nx-media-id'),
 				urlField = wrapper.find('.nx-media-url');
 
-			imgContainer.removeClass('fomopress-has-thumb').find('img').remove();
+			imgContainer.removeClass('nx-has-thumb').find('img').remove();
 
 			urlField.val(''); // URL field has to be empty
 			idField.val(''); // ID field has to empty as well
@@ -484,10 +484,10 @@
 		},
 		shownPreview : function( type ) {
 			if ( type === 'press_bar' ) {
-				$('#fomopress-notification-preview').hide();
+				$('#nx-notification-preview').hide();
 			} else {
-				$('#fomopress-notification-preview').removeClass('fomopress-notification-preview-comments').removeClass('fomopress-notification-preview-conversions');
-				$('#fomopress-notification-preview').show().addClass('fomopress-notification-preview-' + type);
+				$('#nx-notification-preview').removeClass('nx-notification-preview-comments').removeClass('nx-notification-preview-conversions');
+				$('#nx-notification-preview').show().addClass('nx-notification-preview-' + type);
 			}
 		},
 		updatePreview: function( fields ){
@@ -500,7 +500,7 @@
 					$( this ).on( event, function(){
 						var val = $( this ).val(),
 							suffix = '',
-							selector = '.fomopress-preview-inner';
+							selector = '.nx-preview-inner';
 	
 						if( typeof item.selector != 'undefined' ) {
 							selector = item.selector;
@@ -549,82 +549,22 @@
 							 */
 							if( 'image_position' == item.field || 'comment_image_position' == item.field ) {
 								if( val == 'left' ) {
-									$( '.fomopress-preview-inner' ).css( 'flex-direction', 'row' );
+									$( '.nx-preview-inner' ).css( 'flex-direction', 'row' );
 								} else {
-									$( '.fomopress-preview-inner' ).css( 'flex-direction', 'row-reverse' );
+									$( '.nx-preview-inner' ).css( 'flex-direction', 'row-reverse' );
 								}
 							}
 						}
 					})
 
 				});
-
-				// $( item.id ).on( event, function(){
-				// 	var val = $( item.id ).val(),
-				// 		suffix = '',
-				// 		selector = '.fomopress-preview-inner';
-
-				// 	if( typeof item.selector != 'undefined' ) {
-				// 		selector = item.selector;
-				// 	}
-
-				// 	if( typeof item.unit != 'undefined' ) {
-				// 		suffix = item.unit;
-				// 	}
-				// 	/**
-				// 	 * This lines of code use for removing & adding the border css 
-				// 	 * on CLICK to want border.
-				// 	 */
-				// 	if( event == 'click' && item.field == 'border' ) {
-				// 		window.itemshide = item.hide;
-				// 		if( ! $( item.id ).is(":checked") ) {
-				// 			item.hide.forEach(function(item){
-				// 				if( item.property == 'border-width' ) {
-				// 					$( selector ).css( item.property, '0px' );
-				// 				} else {
-				// 					$( selector ).css( item.property, '' );
-				// 				}
-				// 			});
-				// 		} else {
-				// 			item.hide.forEach(function(item){
-				// 				var oval = $(item.key).val();
-				// 				$( selector ).css( item.property, oval );
-				// 			});
-				// 		}
-				// 	}
-
-				// 	if( typeof item.property != 'undefined' ) {
-				// 		$( selector ).css( item.property, val + suffix );
-				// 	}
-					
-				// 	if( 'image_shape' == item.field ) {
-				// 		$( selector ).removeClass( 'fp-img-circle fp-img-rounded fp-img-square' );
-				// 	}
-				// 	if( 'image_position' == item.field ) {
-				// 		$( selector ).removeClass( 'fp-img-left fp-img-right' );
-				// 	}
-
-				// 	if( item.field == 'image_shape' || 'image_position' == item.field ) {
-				// 		$( selector ).addClass( 'fp-img-' + val ); 
-				// 		/**
-				// 		 * This lines of code use for layouting the notification preview
-				// 		 */
-				// 		if( 'image_position' == item.field ) {
-				// 			if( val == 'left' ) {
-				// 				$( '.fomopress-preview-inner' ).css( 'flex-direction', 'row' );
-				// 			} else {
-				// 				$( '.fomopress-preview-inner' ).css( 'flex-direction', 'row-reverse' );
-				// 			}
-				// 		}
-				// 	}
-				// })
 			});
 		},
 		optinAllowOrNot : function( button ){
 			var button = $( button ),
 			    args   = button.data('args'),
-			    parent = button.parents('.fomopress-opt-in'),
-			    inputs = parent.find('.fomopress-single-opt input'),
+			    parent = button.parents('.nx-opt-in'),
+			    inputs = parent.find('.nx-single-opt input'),
 			    values = {};
 
 			inputs.each(function(){
@@ -643,7 +583,7 @@
 				type: 'post',
 				url: ajaxurl,
 				data: {
-					action: 'fomopress_optin_check',
+					action: 'nx_optin_check',
 					fields : values
 				},
 				success: function(res) {
@@ -665,14 +605,14 @@
 			var button = $(button),
 				submitKey = button.data('key'),
 				nonce = button.data('nonce'),
-				form = button.parent('#fomopress-settings-general-form'),
+				form = button.parent('#nx-settings-general-form'),
 				formData = $( form ).serializeArray();
 		
 			$.ajax({
 				type: 'POST',
 				url: ajaxurl,
 				data: {
-					action: 'fomopress_general_settings_ac',
+					action: 'nx_general_settings',
 					key: submitKey,
 					nonce: nonce,
 					form_data: formData
@@ -723,39 +663,39 @@
 			console.log( $tab );
 			$tabMenu.find('li').each(function(i){
 				if( i < tabID ) {
-					$(this).addClass('fp-complete');
+					$(this).addClass('nx-complete');
 				} else {
-					$(this).removeClass('fp-complete');
+					$(this).removeClass('nx-complete');
 				}
 			});
 			$(this).addClass( 'active' ).siblings().removeClass('active');
 			$('#fomopress-' + $tab).addClass( 'active' ).siblings().removeClass('active');
 		});
 
-		FomoPressAdmin.init();
+		NotificationX_Admin.init();
 	});
 	
 	$( window ).load(function(){
 		$('body').on('change', '#nx_meta_display_type', function(){
 			var type = $(this).val();
-			FomoPressAdmin.shownPreview( type );
+			NotificationX_Admin.shownPreview( type );
 			if( type == 'conversions' ) {
 				$('#nx_meta_conversion_from').trigger('change');
 			}
 		});
 
-		$('body').on('change', '#nx_meta_display_type.fomopress-select', function( e ){
+		$('body').on('change', '#nx_meta_display_type.nx-select', function( e ){
 			var type = $(this).val(),
 				title = e.currentTarget.selectedOptions[0].innerText,
 				options = { year: 'numeric', month: 'short', day: 'numeric' },
 				date = ( new Date() ).toLocaleDateString('en-US', options);
 			if( type === 'conversions' ) {
-				$('body').on('change', '#nx_meta_conversion_from.fomopress-select', function( e ){
+				$('body').on('change', '#nx_meta_conversion_from.nx-select', function( e ){
 					var type = $(this).val(),
 						title = e.currentTarget.selectedOptions[0].innerText;
 					$('.finalize_fomo_name').text("Fomo - " + title + ' - ' + date);
 				});
-				$('#nx_meta_conversion_from.fomopress-select').trigger('change');
+				$('#nx_meta_conversion_from.nx-select').trigger('change');
 			} else {
 				$('.finalize_fomo_name').text("Fomo - " + title + ' - ' + date);
 			}
@@ -765,58 +705,58 @@
 
 		var fields = [
 			{
-				id: [ "#fomopress_bg_color", "#fomopress_comment_bg_color" ],
+				id: [ "#nx_meta_bg_color", "#nx_meta_comment_bg_color" ],
 				field: "bg_color",
 				property : "background-color",
 			},
 			{
-				id: [ "#fomopress_text_color", "#fomopress_comment_text_color" ],
+				id: [ "#nx_meta_text_color", "#nx_meta_comment_text_color" ],
 				field: "text_color",
 				property : "color",
 			},
 			{
-				id: [ "#fomopress_border", "#fomopress_comment_border" ],
+				id: [ "#nx_meta_border", "#nx_meta_comment_border" ],
 				field: "border",
 				event : "click",
-				selector : ".fomopress-preview-inner",
+				selector : ".nx-preview-inner",
 				hide : [
-					{ 'key': '#fomopress_border_size', 'property' : 'border-width' }, 
-					{ 'key': '#fomopress_border_style', 'property' : 'border-style' }, 
-					{ 'key': '#fomopress_border_color', 'property' : 'border-color' }, 
+					{ 'key': '#nx_meta_border_size', 'property' : 'border-width' }, 
+					{ 'key': '#nx_meta_border_style', 'property' : 'border-style' }, 
+					{ 'key': '#nx_meta_border_color', 'property' : 'border-color' }, 
 				],
 			},
 			{
-				id: [ "#fomopress_border_size", "#fomopress_comment_border_size" ],
+				id: [ "#nx_meta_border_size", "#nx_meta_comment_border_size" ],
 				field: "border_size",
 				event : "keyup",
 				property : "border-width",
-				selector : ".fomopress-preview-inner",
+				selector : ".nx-preview-inner",
 				unit : "px",
 			},
 			{
-				id: [ "#fomopress_border_style", "#fomopress_comment_border_style" ],
+				id: [ "#nx_meta_border_style", "#nx_meta_comment_border_style" ],
 				field: "border_style",
 				property : "border-style",
-				selector : ".fomopress-preview-inner",
+				selector : ".nx-preview-inner",
 			},
 			{
-				id: [ "#fomopress_border_color", "#fomopress_comment_border_color" ],
+				id: [ "#nx_meta_border_color", "#nx_meta_comment_border_color" ],
 				field: "border_color",
 				property : "border-color",
-				selector : ".fomopress-preview-inner",
+				selector : ".nx-preview-inner",
 			},
 			{
-				id: [ "#fomopress_image_shape", "#fomopress_comment_image_shape" ],
+				id: [ "#nx_meta_image_shape", "#nx_meta_comment_image_shape" ],
 				field: "image_shape",
-				selector: ".fomopress-preview-image",
+				selector: ".nx-preview-image",
 			},
 			{
-				id: [ "#fomopress_image_position", "#fomopress_comment_image_position" ],
+				id: [ "#nx_meta_image_position", "#nx_meta_comment_image_position" ],
 				field: "image_position",
-				selector: ".fomopress-preview-image",
+				selector: ".nx-preview-image",
 			},
 			{
-				id: [ "#fomopress_first_font_size", "#fomopress_comment_first_font_size" ],
+				id: [ "#nx_meta_first_font_size", "#nx_meta_comment_first_font_size" ],
 				field: "first_font_size",
 				selector: ".fomopress-preview-first-row",
 				property : "font-size",
@@ -824,7 +764,7 @@
 				unit : "px",
 			},
 			{
-				id: [ "#fomopress_second_font_size", "#fomopress_comment_second_font_size" ],
+				id: [ "#nx_meta_second_font_size", "#nx_meta_comment_second_font_size" ],
 				field: "second_font_size",
 				selector: ".fomopress-preview-second-row",
 				property : "font-size",
@@ -832,7 +772,7 @@
 				unit : "px",
 			},
 			{
-				id: [ "#fomopress_third_font_size", "#fomopress_comment_third_font_size" ],
+				id: [ "#nx_meta_third_font_size", "#nx_meta_comment_third_font_size" ],
 				field: "third_font_size",
 				selector: ".fomopress-preview-third-row",
 				property : "font-size",
@@ -841,7 +781,7 @@
 			},
 		];
 
-		FomoPressAdmin.updatePreview( fields );
+		NotificationX_Admin.updatePreview( fields );
 	});
 
 })( jQuery );

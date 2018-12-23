@@ -6,7 +6,7 @@ class NotificationX_Settings {
     public static function init(){
         add_action( 'fomopress_before_settings_form', array( __CLASS__, 'notice_template' ), 9 );
         add_action( 'fomopress_settings_header', array( __CLASS__, 'header_template' ), 10 );
-        add_action( 'wp_ajax_fomopress_general_settings_ac', array( __CLASS__, 'general_settings_ac' ), 10 );
+        add_action( 'wp_ajax_nx_general_settings', array( __CLASS__, 'general_settings_ac' ), 10 );
     }
     /**
      * This function is responsible for settings page notice

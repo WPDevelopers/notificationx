@@ -920,14 +920,14 @@ if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 				 * TODO: select items for tracking
 				 */
 				?>
-					<div class="fomopress-opt-in">
+					<div class="nx-opt-in">
 						<p><?php _e( 'You are about to publish <strong><span class="finalize_fomo_name">Fomo – Notification Bar</span></strong>. You can rename this and edit everything whenever you want from <strong><a href="'. admin_url('edit.php?post_type=fomopress') .'">FomoPress</a></strong> page.', 'notificationx' ); ?></p>
 						<?php 
 							if( ! empty( $opt_in_options ) ) : 
 								foreach( $opt_in_options as $key => $option ) {
 									$checked = $option['default'];
 									?>
-										<div class="fomopress-single-opt">
+										<div class="nx-single-opt">
 											<input type="checkbox" <?php echo $checked ? 'checked' : '' ?> name="fomopress_tracking[<?php echo $key ?>]" id="<?php echo $key ?>">
 											<label for="<?php echo $key ?>"><?php echo $option['label'] ?></label>
 										</div>
