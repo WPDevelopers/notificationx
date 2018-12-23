@@ -5,11 +5,11 @@
  * @link       https://wpdeveloper.net
  * @since      1.0.0
  * 
- * @package    FomoPress
- * @subpackage FomoPress/extensions
+ * @package    NotificationX
+ * @subpackage    NotificationX/extensions
  * @author     WPDeveloper <support@wpdeveloper.net>
  */
-class FomoPress_Extension {
+class NotificationX_Extension {
     /**
      * Settings options for all notifications we saw
      * @var array
@@ -39,7 +39,7 @@ class FomoPress_Extension {
      * Constructor of extension for ready the settings and cache limit.
      */
     public function __construct( ){
-        self::$settings      = FomoPress_DB::get_settings();
+        self::$settings      = NotificationX_DB::get_settings();
 
         if( ! empty( self::$settings ) && isset( self::$settings['cache_limit'] ) ) {
             $this->cache_limit = intval( self::$settings['cache_limit'] );
@@ -51,7 +51,7 @@ class FomoPress_Extension {
         /**
          * Get all Active Notification Items
          */
-        self::$active_items = FomoPress_Admin::get_active_items();
+        self::$active_items = NotificationX_Admin::get_active_items();
     }
     /**
      * This function is responsible for making hide option.
@@ -86,7 +86,7 @@ class FomoPress_Extension {
      * @return array - Multidimensional, has a key for every type of notification with all data stored.
      */
     public function get_notifications( $type = '' ){
-        $notifications = FomoPress_DB::get_notifications();
+        $notifications = NotificationX_DB::get_notifications();
         if( empty( $type ) || empty( $notifications ) || ! isset( $notifications[ $type ] ) ) {
             return [];
         }
@@ -103,7 +103,7 @@ class FomoPress_Extension {
         if( empty( $type ) ) {
             return;
         }
-        $notifications = FomoPress_DB::get_notifications();
+        $notifications = NotificationX_DB::get_notifications();
         $notifications[ $type ] = $data;
         return FomoPress_DB::update_notifications( $notifications );
     }
@@ -120,7 +120,7 @@ class FomoPress_Extension {
         foreach( $data as $key => $single_data ) {
             if( $key == 'link' || $key == 'post_link' ) continue;
             if( $key == 'timestamp' ) {
-                $new_data[ '{{time}}' ] = FomoPress_Helper::get_timeago_html( $single_data );
+                $new_data[ '{{time}}' ] = NotificationX_Helper::get_timeago_html( $single_data );
                 continue;
             }
             $new_data[ '{{'. $key .'}}' ] = $single_data;
@@ -151,7 +151,7 @@ class FomoPress_Extension {
                     $output .= '</div>';
                 endif;
                 $output .= '<div class="fomopress-notification-content">';
-                    $output .= FomoPress_Template::get_template_ready( $settings->{ $template }, self::newData( $data ) );
+                    $output .= NotificationX_Template::get_template_ready( $settings->{ $template }, self::newData( $data ) );
                     if( $settings->close_button ) :
                         $output .= '<span class="fomopress-notification-close">x</span>';
                     endif;

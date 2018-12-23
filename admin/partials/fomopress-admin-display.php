@@ -8,8 +8,8 @@
  * @link       https://wpdeveloper.net
  * @since      1.0.0
  *
- * @package    FomoPress
- * @subpackage FomoPress/admin/partials
+ * @package    NotificationX
+ * @subpackage NotificationX/admin/partials
  */
 
 $current_tab = get_post_meta( $post->ID, '_nx_builder_current_tab', true );
@@ -53,14 +53,14 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
             foreach( $tabs as $id => $tab  ){
                 do_action( 'fomopress_before_metabox_tab', $id, $tab );
                 $active = $current_tab === $id ? ' active ' : '';
-                $sections = FomoPress_Helper::sorter( $tab['sections'], 'priority', 'ASC' );
+                $sections = NotificationX_Helper::sorter( $tab['sections'], 'priority', 'ASC' );
                 ?>
                 <div id="fomopress-<?php echo $id ?>" class="fomopress-meta-tab-content <?php echo $active; ?>">
                 <?php 
                     foreach( $sections as $sec_id => $section ) {
                         do_action( 'fomopress_before_metabox_tab_section', $sec_id, $id, $section );
                         if( isset( $section['fields'] ) ) :
-                            $fields = FomoPress_Helper::sorter( $section['fields'], 'priority', 'ASC' );
+                            $fields = NotificationX_Helper::sorter( $section['fields'], 'priority', 'ASC' );
                             if( ! empty( $fields ) )  :
                         ?>
                             <div id="nx-meta-section-<?php echo $sec_id; ?>" class="fomopress-metabox-section">
@@ -75,7 +75,7 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
                                 <table>
                                     <?php 
                                         foreach( $fields as $key => $field ) {
-                                            FomoPress_MetaBox::render_meta_field( $key, $field );
+                                            NotificationX_MetaBox::render_meta_field( $key, $field );
                                         }
                                     ?>
                                 </table>

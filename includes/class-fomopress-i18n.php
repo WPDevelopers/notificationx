@@ -9,7 +9,7 @@
  * @link       https://wpdeveloper.net
  * @since      1.0.0
  *
- * @package    FomoPress
+ * @package    NotificationX
  * @subpackage FomoPress/includes
  */
 
@@ -20,11 +20,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    FomoPress
+ * @package    NotificationX
  * @subpackage FomoPress/includes
  * @author     WPDeveloper <support@wpdeveloper.net>
  */
-class FomoPress_i18n {
+class NotificationX_i18n {
 
 
 	/**

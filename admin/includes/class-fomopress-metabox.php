@@ -1,6 +1,6 @@
 <?php
 
-class FomoPress_MetaBox {
+class NotificationX_MetaBox {
 
     public $type = 'notificationx';
 
@@ -210,7 +210,7 @@ class FomoPress_MetaBox {
             $value = '';
 
             if ( isset( $posts[$field_id] ) ) {
-                $value = FomoPress_Helper::sanitize_field( $field, $posts[$field_id] );
+                $value = NotificationX_Helper::sanitize_field( $field, $posts[$field_id] );
             } else {
                 if ( 'checkbox' == $field['type'] ) {
                     $value = '0';

@@ -4,7 +4,7 @@
  * Easy Digital Downloads 
  * Conversions
  */
-class FomoPress_EDD_Extension extends FomoPress_Extension {
+class NotificationX_EDD_Extension extends NotificationX_Extension {
     /**
      *  Type of notification.
      *
@@ -235,7 +235,7 @@ class FomoPress_EDD_Extension extends FomoPress_Extension {
      */
     public function update_notifications( $payment_id ){
         if( count( $this->notifications ) === $this->cache_limit ) {
-            $sorted_data = FomoPress_Helper::sorter( $this->notifications, 'timestamp' );
+            $sorted_data = NotificationX_Helper::sorter( $this->notifications, 'timestamp' );
             array_pop( $sorted_data );
             $this->notifications = $sorted_data;
         }

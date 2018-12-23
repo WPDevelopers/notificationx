@@ -1,6 +1,6 @@
 <?php
 
-class FomoPress_WP_Comments_Extension extends FomoPress_Extension {
+class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
 
     public $type = 'comments';
     public $template = 'comments_template';
@@ -139,7 +139,7 @@ class FomoPress_WP_Comments_Extension extends FomoPress_Extension {
     public function post_comment( $comment_ID, $comment_approved ){
 
         if( count( $this->notifications ) === $this->cache_limit ) {
-            $sorted_data = FomoPress_Helper::sorter( $this->notifications, 'key' );
+            $sorted_data = NotificationX_Helper::sorter( $this->notifications, 'key' );
             array_pop( $sorted_data );
             $this->notifications = $sorted_data;
         }

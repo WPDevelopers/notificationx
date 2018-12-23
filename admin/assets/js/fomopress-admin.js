@@ -723,6 +723,7 @@
 			var $tab = $(this).data( 'tab' ),
 				tabID = $(this).data('tabid') - 1;
 			$('#nx_builder_current_tab').val( $tab );
+			console.log( $tab );
 			$tabMenu.find('li').each(function(i){
 				if( i < tabID ) {
 					$(this).addClass('fp-complete');

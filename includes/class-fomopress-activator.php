@@ -6,7 +6,7 @@
  * @link       https://wpdeveloper.net
  * @since      1.0.0
  *
- * @package    FomoPress
+ * @package    NotificationX
  * @subpackage FomoPress/includes
  */
 
@@ -16,11 +16,11 @@
  * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      1.0.0
- * @package    FomoPress
+ * @package    NotificationX
  * @subpackage FomoPress/includes
  * @author     WPDeveloper <support@wpdeveloper.net>
  */
-class FomoPress_Activator {
+class NotificationX_Activator {
 
 	/**
 	 * Short Description. (use period)

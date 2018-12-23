@@ -2,7 +2,7 @@
 /**
  * This class is responsible for all settings things happening in FomoPress Plugin
  */
-class FomoPress_Settings {
+class NotificationX_Settings {
     public static function init(){
         add_action( 'fomopress_before_settings_form', array( __CLASS__, 'notice_template' ), 9 );
         add_action( 'fomopress_settings_header', array( __CLASS__, 'header_template' ), 10 );
@@ -106,7 +106,7 @@ class FomoPress_Settings {
 	 */
     public static function settings_page(){
         $settings_args = self::settings_args();
-		$value = FomoPress_DB::get_settings();
+		$value = NotificationX_DB::get_settings();
 		include_once NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/fomopress-settings-display.php';
 	}
     /**
@@ -119,7 +119,7 @@ class FomoPress_Settings {
     public static function render_field( $key = '', $field = [] ) {
         $post_id   = '';
         $name      = $key;
-        $id        = FomoPress_Metabox::get_row_id( $key );
+        $id        = NotificationX_Metabox::get_row_id( $key );
         $file_name = isset( $field['type'] ) ? $field['type'] : 'text';
         
         if( 'template' === $file_name ) {
@@ -128,7 +128,7 @@ class FomoPress_Settings {
             $default = isset( $field['default'] ) ? $field['default'] : '';
         }
 
-        $saved_value = FomoPress_DB::get_settings( $name );
+        $saved_value = NotificationX_DB::get_settings( $name );
         if( ! empty( $saved_value ) ) {
             $value = $saved_value;
         } else {
@@ -136,7 +136,7 @@ class FomoPress_Settings {
         }
         
         $class  = 'fomopress-settings-field';
-        $row_class = FomoPress_Metabox::get_row_class( $file_name );
+        $row_class = NotificationX_Metabox::get_row_class( $file_name );
 
         $attrs = '';
 
@@ -171,7 +171,7 @@ class FomoPress_Settings {
                 if( isset( $fields[ $posted_field['name'] ]['disable'] ) && $fields[ $posted_field['name'] ]['disable'] === true ) {
                     $posted_value = $fields[ $posted_field['name'] ]['default'];
                 }
-                $posted_value = FomoPress_Helper::sanitize_field( $fields[ $posted_field['name'] ], $posted_field['value'] );
+                $posted_value = NotificationX_Helper::sanitize_field( $fields[ $posted_field['name'] ], $posted_field['value'] );
 
 				$data[ $posted_field['name'] ] = $posted_value;
 			}

@@ -6,7 +6,7 @@
  * @link       https://wpdeveloper.net
  * @since      1.0.0
  *
- * @package    FomoPress
+ * @package    NotificationX
  * @subpackage FomoPress/includes
  */
 
@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    FomoPress
+ * @package    NotificationX
  * @subpackage FomoPress/includes
  * @author     WPDeveloper <support@wpdeveloper.net>
  */
-class FomoPress_Loader {
+class NotificationX_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

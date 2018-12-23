@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if( ! class_exists( 'FomoPress_Plugin_Usage_Tracker') ) {
 	
-	class FomoPress_Plugin_Usage_Tracker {
+	class NotificationX_Plugin_Usage_Tracker {
 		
 		private $wisdom_version = '1.1.2';
 		private $home_url = '';

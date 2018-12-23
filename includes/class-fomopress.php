@@ -4,7 +4,7 @@
  * @link       https://wpdeveloper.net
  * @since      1.0.0
  *
- * @package    FomoPress
+ * @package    NotificationX
  * @subpackage FomoPress/includes
  */
 
@@ -18,7 +18,7 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    FomoPress
+ * @package    NotificationX
  * @subpackage FomoPress/includes
  * @author     WPDeveloper <support@wpdeveloper.net>
  */
@@ -164,7 +164,7 @@ final class FomoPress {
 		/**
 		 * TODO: do something with loader, or have to remove
 		 */
-		// $this->loader = new FomoPress_Loader();
+		// $this->loader = new NotificationX_Loader();
 		do_action('fomopress_load_depedencies');
 	}
 
@@ -174,7 +174,7 @@ final class FomoPress {
 	 * @since v1.0.0
  	*/
 	public function fomopress_start_plugin_tracking() {
-		$wisdom = new FomoPress_Plugin_Usage_Tracker(
+		$wisdom = new NotificationX_Plugin_Usage_Tracker(
 			NOTIFICATIONX_FILE,
 			'https://wpdeveloper.net',
 			array(),
@@ -193,10 +193,10 @@ final class FomoPress {
 		global $fomopress_extension_factory;
 
 		$extensions = [
-			'FomoPress_EDD_Extension',
-			'FomoPress_PressBar_Extension',
-			'FomoPress_WP_Comments_Extension',
-			'FomoPress_WooCommerce_Extension',
+			'NotificationX_EDD_Extension',
+			'NotificationX_PressBar_Extension',
+			'NotificationX_WP_Comments_Extension',
+			'NotificationX_WooCommerce_Extension',
 		];
 
 		foreach( $extensions as $extension ) {
@@ -224,7 +224,7 @@ final class FomoPress {
 	 * @access   private
 	 */
 	private function set_locale() {
-		$plugin_i18n = new FomoPress_i18n();
+		$plugin_i18n = new NotificationX_i18n();
 		add_action( 'plugins_loaded', array( $plugin_i18n, 'load_plugin_textdomain' ) );
 	}
 	/**
@@ -236,8 +236,8 @@ final class FomoPress {
 	 */
 	public function define_admin_hooks() {
 		
-		$plugin_admin          = new FomoPress_Admin( $this->get_plugin_name(), $this->get_version() );
-		$plugin_admin->metabox = new FomoPress_MetaBox;
+		$plugin_admin          = new NotificationX_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin->metabox = new NotificationX_MetaBox;
 		
 		add_action( 'init', array( $plugin_admin, 'fomopress_type_register') );
 		add_action( 'init', array( $plugin_admin, 'get_active_items') );
@@ -254,9 +254,9 @@ final class FomoPress {
 		add_action( 'save_post', array( $plugin_admin->metabox, 'save_metabox') );
 
 		/**
-		 * Initializing FomoPress_Settings
+		 * Initializing NotificationX_Settings
 		 */
-		FomoPress_Settings::init();
+		NotificationX_Settings::init();
 
 		do_action( 'fomopress_admin_action' );
 	}
@@ -269,7 +269,7 @@ final class FomoPress {
 	 */
 	public function define_public_hooks() {
 
-		$plugin_public = new FomoPress_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new NotificationX_Public( $this->get_plugin_name(), $this->get_version() );
 
 		do_action( 'fomopress_public_action' );
 

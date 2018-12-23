@@ -1,6 +1,6 @@
 <?php
 
-class FomoPress_Template {
+class NotificationX_Template {
     public static function get_template_ready( $template, $tags ){
         $html = $template;
 		/**

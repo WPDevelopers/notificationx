@@ -6,7 +6,7 @@
  * @link       https://wpdeveloper.net
  * @since      1.0.0
  *
- * @package    FomoPress
+ * @package    NotificationX
  * @subpackage FomoPress/public
  */
 
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the public-facing stylesheet and JavaScript.
  *
- * @package    FomoPress
+ * @package    NotificationX
  * @subpackage FomoPress/public
  * @author     WPDeveloper <support@wpdeveloper.net>
  */
-class FomoPress_Public {
+class NotificationX_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -140,7 +140,7 @@ class FomoPress_Public {
 
 		foreach( self::$active as $id ) {
 			
-			$settings = FomoPress_MetaBox::get_metabox_settings( $id );
+			$settings = NotificationX_MetaBox::get_metabox_settings( $id );
 
 			$logged_in = is_user_logged_in();
 			$show_on_display = $settings->show_on_display;
@@ -154,7 +154,7 @@ class FomoPress_Public {
 			$check_location = false;
 
 			if( ! empty( $locations ) ) {
-				$check_location = FomoPress_Locations::check_location( array( $locations ) );
+				$check_location = NotificationX_Locations::check_location( array( $locations ) );
 			}
 
 			if( $settings->show_on == 'on_selected' ) {
@@ -177,7 +177,7 @@ class FomoPress_Public {
 
 			switch ( $settings->display_type ) {
 				case "press_bar":
-					FomoPress_PressBar_Extension::display( $settings );
+					NotificationX_PressBar_Extension::display( $settings );
 					break;
 				case "conversions":
 					$conversion_ids[] = $id;
@@ -229,7 +229,7 @@ class FomoPress_Public {
 			$data = $this->notifications;
 		}
 
-		$settings = FomoPress_MetaBox::get_metabox_settings( $ids );
+		$settings = NotificationX_MetaBox::get_metabox_settings( $ids );
 
 		$echo['config'] = array(
 			'delay_before'  => ( ! empty( $settings->delay_before ) ) ? intval( $settings->delay_before ) * 1000 : 0,

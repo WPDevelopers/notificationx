@@ -50,7 +50,7 @@
                 $tabid = 1;
                 foreach( $tabs as $id => $tab  ){
                     $active = $current_tab === $id ? ' active ' : '';
-                    $sections = FomoPress_Helper::sorter( $tab['sections'], 'priority', 'ASC' );
+                    $sections = NotificationX_Helper::sorter( $tab['sections'], 'priority', 'ASC' );
                     ?>
                     <div id="fomopress-<?php echo $id ?>" class="fomopress-builder-content <?php echo $active; ?>">
                     <?php 
@@ -61,7 +61,7 @@
                              */
                             do_action( 'fomopress_builder_before_section', $sec_id, $section, $id );
                             if( isset( $section['fields'] ) ) : 
-                                $fields = FomoPress_Helper::sorter( $section['fields'], 'priority', 'ASC' );
+                                $fields = NotificationX_Helper::sorter( $section['fields'], 'priority', 'ASC' );
                                 if( ! empty( $fields ) )  :
                             ?>
                                 <div id="nx-meta-section-<?php echo $sec_id; ?>" class="fomopress-metabox-section">
@@ -71,7 +71,7 @@
                                     <table>
                                         <?php 
                                             foreach( $fields as $key => $field ) {
-                                                FomoPress_MetaBox::render_meta_field( $key, $field, '', $idd );
+                                                NotificationX_MetaBox::render_meta_field( $key, $field, '', $idd );
                                             }
                                         ?>
                                     </table>

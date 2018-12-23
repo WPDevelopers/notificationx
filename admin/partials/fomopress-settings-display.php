@@ -25,7 +25,7 @@
                         foreach( $settings_args as $tab_key => $setting ) {
                             $active = $i++ === 1 ? 'active ' : '';
                             $sections = isset( $setting['sections'] ) ? $setting['sections'] : [];
-                            $sections = FomoPress_Helper::sorter( $sections, 'priority', 'ASC' );
+                            $sections = NotificationX_Helper::sorter( $sections, 'priority', 'ASC' );
                             ?>
                             <div id="fs-<?php echo esc_attr( $tab_key ); ?>" class="fomopress-settings-tab fomopress-settings-<?php echo esc_attr( $key );?> <?php echo $active; ?>">
                                 <form method="post" id="fomopress-settings-<?php echo $tab_key; ?>-form" action="#">
@@ -37,7 +37,7 @@
                                              */
                                             foreach( $sections as $sec_key => $section ) :
                                                 $fields = isset( $section['fields'] ) ? $section['fields'] : [];
-                                                $fields = FomoPress_Helper::sorter( $fields, 'priority', 'ASC' );
+                                                $fields = NotificationX_Helper::sorter( $fields, 'priority', 'ASC' );
                                                 ?>                                 
                                                 <div 
                                                     id="fomoporess-<?php echo esc_attr( $sec_key ); ?>" 
@@ -51,7 +51,7 @@
                                                         <tbody>
                                                         <?php 
                                                             foreach( $fields as $field_key => $field ) :
-                                                                FomoPress_Settings::render_field( $field_key, $field );
+                                                                NotificationX_Settings::render_field( $field_key, $field );
                                                             endforeach;
                                                         ?>
                                                         </tbody>

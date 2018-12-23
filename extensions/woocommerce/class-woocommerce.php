@@ -1,6 +1,6 @@
 <?php
 
-class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
+class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
     /**
      *  Type of notification.
      *
@@ -261,7 +261,7 @@ class FomoPress_WooCommerce_Extension extends FomoPress_Extension {
     public function save_new_orders( $item_id,  $item,  $order_id ){   
         
         if( count( $this->notifications ) === $this->cache_limit ) {
-            $sorted_data = FomoPress_Helper::sorter( $this->notifications, 'timestamp' );
+            $sorted_data = NotificationX_Helper::sorter( $this->notifications, 'timestamp' );
             array_pop( $sorted_data );
             $this->notifications = $sorted_data;
         }

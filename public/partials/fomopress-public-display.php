@@ -8,7 +8,7 @@
  * @link       https://wpdeveloper.net
  * @since      1.0.0
  *
- * @package    FomoPress
+ * @package    NotificationX
  * @subpackage FomoPress/public/partials
  */
 $type = $key = $settings->display_type;
@@ -26,7 +26,7 @@ if( $settings->display_type == 'conversions' && $settings->conversion_from == 'c
     $data[ $key ] = $settings->custom_contents;
 }
 if( ! empty( $data[ $key ] ) ) {
-    $new_data = FomoPress_Helper::sortBy( $data[ $key ], $key );
+    $new_data = NotificationX_Helper::sortBy( $data[ $key ], $key );
     foreach( $new_data as $value ) {
         /**
          * It will break the loop when the 

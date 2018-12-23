@@ -1,6 +1,6 @@
 <?php
 
-class FomoPress_Cron {
+class NotificationX_Cron {
     /**
 	 * Holds cron hook.
 	 * 

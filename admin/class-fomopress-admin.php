@@ -5,12 +5,12 @@
  * @link       https://wpdeveloper.net
  * @since      1.0.0
  *
- * @package    FomoPress
- * @subpackage FomoPress/admin
+ * @package    NotificationX
+ * @subpackage NotificationX/admin
  * @author     WPDeveloper <support@wpdeveloper.net>
  */
 
-class FomoPress_Admin {
+class NotificationX_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -68,7 +68,7 @@ class FomoPress_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-		self::$settings = FomoPress_DB::get_settings();
+		self::$settings = NotificationX_DB::get_settings();
 	}
 	/**
 	 * Get all active items.
@@ -88,7 +88,7 @@ class FomoPress_Admin {
 
 		if ( count( $posts ) ) {
 			foreach ( $posts as $post ) {
-				$settings = FomoPress_MetaBox::get_metabox_settings( $post->ID );
+				$settings = NotificationX_MetaBox::get_metabox_settings( $post->ID );
 				$type = ( $settings->display_type != 'conversions' ) ? $settings->display_type : $settings->conversion_from;
 
 				$active[ $type ][] = $post->ID;
@@ -138,6 +138,7 @@ class FomoPress_Admin {
 	public function enqueue_scripts( $hook ) {
 		global $post_type;
 		$page_status = false;
+
 		if( $hook == 'notificationx_page_nx-builder' || $hook == 'notificationx_page_nx-settings' ) {
 			$page_status = true;
 		}
@@ -187,12 +188,12 @@ class FomoPress_Admin {
 			case 'notification_type':
 				$type = get_post_meta( $post_id, '_fomopress_display_type', true );
 				if ( $type ) {
-					$type = FomoPress_Helper::notification_types( $type );
+					$type = NotificationX_Helper::notification_types( $type );
 					if( $type !== 'Conversions' ) {
 						echo $type;
 					} else {
 						$from = get_post_meta( $post_id, '_fomopress_conversion_from', true );
-						echo $type . ' - ' . FomoPress_Helper::conversion_from( $from );
+						echo $type . ' - ' . NotificationX_Helper::conversion_from( $from );
 					}
 				}
 				break;
@@ -306,7 +307,7 @@ class FomoPress_Admin {
 	 */
 	public function fomopress_admin_menu_page(){
 
-		$settings_class = new FomoPress_Settings();
+		$settings_class = new NotificationX_Settings();
 
 		$settings = apply_filters( 'notificationx_admin_menu', array(
 			'nx-settings'   => array(
@@ -321,7 +322,7 @@ class FomoPress_Admin {
 			),
 		) );
 
-		$this->builder_args = FomoPress_MetaBox::get_builder_args();
+		$this->builder_args = NotificationX_MetaBox::get_builder_args();
 		$this->metabox_id   = $this->builder_args['id'];
 		$flag         = true;
 		/**
@@ -339,7 +340,7 @@ class FomoPress_Admin {
 				} elseif( $_POST['nx_display_type'] == 'comments' )  {
 					$title = __('Fomo - WP Comments', 'notificationx');
 				} elseif( $_POST['nx_display_type'] == 'conversions' )  {
-					$conversions = FomoPress_Helper::conversion_from();
+					$conversions = NotificationX_Helper::conversion_from();
 					$title = 'Fomo - ' . $conversions[$_POST['nx_conversion_from']];
 				}
 				$_POST['post_type'] = 'notificationx';
@@ -354,7 +355,7 @@ class FomoPress_Admin {
 				if( $p_id || ! is_wp_error( $p_id ) ) {
 					do_action( 'fomopress_before_builder_submit', $_POST );
 					// saving builder meta data with post
-					FomoPress_MetaBox::save_data( $this->builder_data( $_POST ), $p_id );
+					NotificationX_MetaBox::save_data( $this->builder_data( $_POST ), $p_id );
 					/**
 					 * Safely Redirect to FomoPress Page
 					 */
@@ -396,7 +397,7 @@ class FomoPress_Admin {
 	protected function builder_data( $data ) {
 		$post_data   = [];
 		$prefix      = self::$prefix;
-		$meta_fields = FomoPress_MetaBox::get_metabox_fields( $prefix );
+		$meta_fields = NotificationX_MetaBox::get_metabox_fields( $prefix );
 		foreach( $meta_fields as $meta_key => $meta_field ) {
 			if( in_array( $meta_key, array_keys($data) ) ) {
 				$post_data[ $meta_key ] = $data[ $meta_key ];

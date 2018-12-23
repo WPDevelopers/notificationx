@@ -1,6 +1,6 @@
 <?php 
     if( isset( $field['fields'] ) ){
-        $fields = FomoPress_Helper::sorter( $field['fields'], 'priority', 'ASC' );;
+        $fields = NotificationX_Helper::sorter( $field['fields'], 'priority', 'ASC' );;
     } else {
         return;
     }
@@ -31,7 +31,7 @@
                                 'field_name'    => $name,
                                 'original_name' => $inner_key,
                             );
-                            FomoPress_MetaBox::render_meta_field( $name, $inner_field );
+                            NotificationX_MetaBox::render_meta_field( $name, $inner_field );
                         }
                         ?>
                 </table>
@@ -63,7 +63,7 @@
                                     'original_name' => $inner_key,
                                 );
 
-                                FomoPress_MetaBox::render_meta_field( $name, $inner_field );
+                                NotificationX_MetaBox::render_meta_field( $name, $inner_field );
                             }
                         ?>
                     </table>
@@ -93,7 +93,7 @@
                                     'original_name' => $key,
                                 );
                                 $field_value = isset( $field_data[ $key ] ) ? $field_data[ $key ] : '';
-                                FomoPress_MetaBox::render_meta_field( $name, $field, $field_value );
+                                NotificationX_MetaBox::render_meta_field( $name, $field, $field_value );
                             }
                         ?>
                     </table>

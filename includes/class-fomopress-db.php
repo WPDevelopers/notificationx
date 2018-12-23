@@ -4,7 +4,7 @@
  * using wordpress functionality 
  * get_option and update_option.
  */
-class FomoPress_DB {
+class NotificationX_DB {
     /**
      * Get all the notification 
      * saved in options table.

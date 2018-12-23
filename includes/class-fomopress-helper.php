@@ -2,7 +2,7 @@
 /**
  * This class will provide all kind of helper methods.
  */
-class FomoPress_Helper {
+class NotificationX_Helper {
     /**
      * This function is responsible for the data sanitization
      *

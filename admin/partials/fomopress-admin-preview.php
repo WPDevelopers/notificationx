@@ -3,7 +3,7 @@
     if( $display_type ) {
         $class_name = 'fomopress-notification-preview-' . $display_type;
     }
-    $settings = FomoPress_MetaBox::get_metabox_settings( $post->ID );
+    $settings = NotificationX_MetaBox::get_metabox_settings( $post->ID );
     $img_classes .= ' fp-img-' . $settings->image_shape;
     $img_classes .= ' fp-img-' . $settings->image_position;
 ?>

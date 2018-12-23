@@ -1,6 +1,6 @@
 <?php
 
-class FomoPress_Locations {
+class NotificationX_Locations {
 
     public static function locations( $type = 'global' ) {
         $locations = array(
@@ -22,8 +22,8 @@ class FomoPress_Locations {
         }
 
         $locations = array();
-        $post_types = FomoPress_Helper::post_types();
-        $taxonomies = FomoPress_Helper::taxonomies();
+        $post_types = NotificationX_Helper::post_types();
+        $taxonomies = NotificationX_Helper::taxonomies();
 
         if ( ! empty( $post_types ) ) {
 
@@ -66,8 +66,8 @@ class FomoPress_Locations {
 			'is_tag'         => is_tag(),
 		);
 
-        $post_types = FomoPress_Helper::post_types();
-        $taxonomies = FomoPress_Helper::taxonomies();
+        $post_types = NotificationX_Helper::post_types();
+        $taxonomies = NotificationX_Helper::taxonomies();
 
         if ( ! empty( $post_types ) ) {
 

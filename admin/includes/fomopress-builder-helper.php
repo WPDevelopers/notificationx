@@ -22,22 +22,22 @@ function fomopress_builder_args() {
                                 'type'      => 'select',
                                 'label'     => __('I would like to display' , 'notificationx'),
                                 'default'   => 'press_bar',
-                                'options'   => FomoPress_Helper::notification_types(),
+                                'options'   => NotificationX_Helper::notification_types(),
                                 'toggle'   => [
-                                    'comments'    => FomoPress_Helper::comments_toggle_data(),
-                                    'press_bar'   => FomoPress_Helper::press_bar_toggle_data(),
-                                    'conversions' => FomoPress_Helper::conversions_toggle_data(),
+                                    'comments'    => NotificationX_Helper::comments_toggle_data(),
+                                    'press_bar'   => NotificationX_Helper::press_bar_toggle_data(),
+                                    'conversions' => NotificationX_Helper::conversions_toggle_data(),
                                 ],
-                                'hide' => FomoPress_Helper::hide_data( 'display_types' ),
+                                'hide' => NotificationX_Helper::hide_data( 'display_types' ),
                                 'priority' => 50
                             ),
                             'conversion_from'  => array(
                                 'type'     => 'select',
                                 'label'    => __('From' , 'notificationx'),
                                 'default'  => 'custom',
-                                'options'  => FomoPress_Helper::conversion_from(),
+                                'options'  => NotificationX_Helper::conversion_from(),
                                 'priority' => 60,
-                                'toggle'   => FomoPress_Helper::conversion_toggle(),
+                                'toggle'   => NotificationX_Helper::conversion_toggle(),
                             ),
                             'press_content' => array(
                                 'type'     => 'editor',
@@ -60,7 +60,7 @@ function fomopress_builder_args() {
                                 'type'      => 'theme',
                                 'priority'	=> 5,
                                 'default'	=> 'theme-one',
-                                'options'   => FomoPress_Helper::bar_colored_themes(),
+                                'options'   => NotificationX_Helper::bar_colored_themes(),
                             ),
                         )
                     ),
@@ -72,7 +72,7 @@ function fomopress_builder_args() {
                                 'type'      => 'theme',
                                 'priority'	=> 5,
                                 'default'	=> 'theme-one',
-                                'options'   => FomoPress_Helper::comment_colored_themes(),
+                                'options'   => NotificationX_Helper::comment_colored_themes(),
                             ),
                         )
                     ),
@@ -84,7 +84,7 @@ function fomopress_builder_args() {
                                 'type'      => 'theme',
                                 'priority'	=> 5,
                                 'default'	=> 'theme-one',
-                                'options'   => FomoPress_Helper::colored_themes(),
+                                'options'   => NotificationX_Helper::colored_themes(),
                             ),
                         )
                     ),
@@ -149,7 +149,7 @@ function fomopress_builder_args() {
                                 'type'      => 'select',
                                 'label'     => __('Locations' , 'notificationx'),
                                 'priority'	=> 20,
-                                'options'   => FomoPress_Locations::locations(),
+                                'options'   => NotificationX_Locations::locations(),
                             ),
                             'show_on_display'  => array(
                                 'type'      => 'select',
