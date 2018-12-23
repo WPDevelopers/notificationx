@@ -136,7 +136,7 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
     }
     /**
      * This functions is hooked
-     * @hooked fomopress_public_action
+     * @hooked nx_public_action
      *
      * @return void
      */
@@ -149,7 +149,7 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
     }
     /**
      * This functions is hooked
-     * @hooked fomopress_admin_action
+     * @hooked nx_admin_action
      * 
      * @return void
      */

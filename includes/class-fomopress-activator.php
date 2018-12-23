@@ -7,7 +7,7 @@
  * @since      1.0.0
  *
  * @package    NotificationX
- * @subpackage FomoPress/includes
+ * @subpackage NotificationX/includes
  */
 
 /**
@@ -17,7 +17,7 @@
  *
  * @since      1.0.0
  * @package    NotificationX
- * @subpackage FomoPress/includes
+ * @subpackage NotificationX/includes
  * @author     WPDeveloper <support@wpdeveloper.net>
  */
 class NotificationX_Activator {

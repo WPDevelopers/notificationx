@@ -49,11 +49,11 @@ class Extension_Factory {
                  * methods if exists.
                  */
                 if( method_exists( $object, 'admin_actions' ) ) {
-                    add_action( 'fomopress_admin_action', array( $object, 'admin_actions' ) );
+                    add_action( 'nx_admin_action', array( $object, 'admin_actions' ) );
                 }
 
                 if( method_exists( $object, 'public_actions' ) ) {
-                    add_action( 'fomopress_public_action', array( $object, 'public_actions' ) );
+                    add_action( 'nx_public_action', array( $object, 'public_actions' ) );
                 }
 
                 if( method_exists( $object, 'get_notification_ready' ) ) {
@@ -69,25 +69,19 @@ class Extension_Factory {
                 }
 
                 if( method_exists( $object, 'init_hooks' ) ) {
-                    add_action( 'fomopress_before_metabox_load', array( $object, 'init_hooks' ) );
+                    add_action( 'nx_before_metabox_load', array( $object, 'init_hooks' ) );
                 }
                 if( method_exists( $object, 'init_builder_hooks' ) ) {
-                    add_action( 'fomopress_before_builder_load', array( $object, 'init_builder_hooks' ) );
+                    add_action( 'nx_before_builder_load', array( $object, 'init_builder_hooks' ) );
                 }
                 /**
                  * All tab filters
                  */
-                if( method_exists( $object, 'source_tab_section' ) ) {
-                    add_filter( 'fomopress_source_tab_sections', array( $object, 'source_tab_section' ) );
-                }
                 if( method_exists( $object, 'content_tab_section' ) ) {
                     add_filter( 'fomopress_content_tab_sections', array( $object, 'content_tab_section' ) );
                 }
                 if( method_exists( $object, 'display_tab_section' ) ) {
                     add_filter( 'fomopress_display_tab_sections', array( $object, 'display_tab_section' ) );
-                }
-                if( method_exists( $object, 'customize_tab_section' ) ) {
-                    add_filter( 'fomopress_customize_tab_sections', array( $object, 'customize_tab_section' ) );
                 }
                 
             }

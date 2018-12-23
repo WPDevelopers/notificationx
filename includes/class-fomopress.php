@@ -1,13 +1,4 @@
 <?php
-
-/**
- * @link       https://wpdeveloper.net
- * @since      1.0.0
- *
- * @package    NotificationX
- * @subpackage FomoPress/includes
- */
-
 /**
  * The core plugin class.
  *
@@ -19,21 +10,10 @@
  *
  * @since      1.0.0
  * @package    NotificationX
- * @subpackage FomoPress/includes
+ * @subpackage NotificationX/includes
  * @author     WPDeveloper <support@wpdeveloper.net>
  */
-final class FomoPress {
-
-	/**
-	 * The loader that's responsible for maintaining and registering all hooks that power
-	 * the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   protected
-	 * @var      FomoPress_Loader    $loader    Maintains and registers all hooks for the plugin.
-	 */
-	protected $loader;
-
+final class NotificationX {
 	/**
 	 * The unique identifier of this plugin.
 	 *
@@ -161,10 +141,6 @@ final class FomoPress {
 		 * side of the site.
 		 */
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'public/class-fomopress-public.php';
-		/**
-		 * TODO: do something with loader, or have to remove
-		 */
-		// $this->loader = new NotificationX_Loader();
 		do_action('fomopress_load_depedencies');
 	}
 
@@ -208,7 +184,7 @@ final class FomoPress {
 		/**
 		 * Init all extensions here.
 		 */
-		do_action( 'fomopress_extensions_init' );
+		do_action( 'nx_extensions_init' );
 		/**
 		 * Load all extension.
 		 */
@@ -247,10 +223,10 @@ final class FomoPress {
 		add_filter( 'manage_fomopress_posts_columns', array( $plugin_admin, 'custom_columns') );
 		add_action( 'manage_fomopress_posts_custom_column', array( $plugin_admin, 'manage_custom_columns' ), 10, 2 );
 		add_action( 'wp_ajax_notifications_toggle_status', array( $plugin_admin, 'notification_status') );
-
+		
 		add_action( 'admin_enqueue_scripts', array( $plugin_admin, 'enqueue_styles') );
 		add_action( 'admin_enqueue_scripts', array( $plugin_admin, 'enqueue_scripts') );
-		
+
 		add_action( 'save_post', array( $plugin_admin->metabox, 'save_metabox') );
 
 		/**
@@ -258,7 +234,7 @@ final class FomoPress {
 		 */
 		NotificationX_Settings::init();
 
-		do_action( 'fomopress_admin_action' );
+		do_action( 'nx_admin_action' );
 	}
 	/**
 	 * Register all of the hooks related to the public-facing functionality
@@ -271,7 +247,7 @@ final class FomoPress {
 
 		$plugin_public = new NotificationX_Public( $this->get_plugin_name(), $this->get_version() );
 
-		do_action( 'fomopress_public_action' );
+		do_action( 'nx_public_action' );
 
 		add_action( 'wp_enqueue_scripts', array( $plugin_public, 'enqueue_styles') );
 		add_action( 'wp_enqueue_scripts', array( $plugin_public, 'enqueue_scripts') );

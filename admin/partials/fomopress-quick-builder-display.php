@@ -14,7 +14,7 @@
         <h1><?php _e( 'NotificationX Quick Builder', 'notificationx' ); ?></h1>
     </div>
 
-    <div class="fomopress-builder-menu">
+    <div class="nx-builder-tab-menu">
     <?php if( ! empty( $tabs ) ) : ?>
         <ul>
             <?php 
@@ -42,7 +42,7 @@
     <?php endif; ?>
     </div>
 
-    <div class="fomopress-builder-content-wrapper fomopress-tab-content-wrapper" data-totaltab="<?php echo $totaltabs; ?>">
+    <div class="fomopress-builder-content-wrapper nx-metatab-wrapper" data-totaltab="<?php echo $totaltabs; ?>">
         <form method="post" id="fomopress-builder-form" action="<?php echo self::get_form_action( '', true ); ?>">
             <input type="hidden" name="fomopress_current_tab" value="source_tab">
             <?php 
@@ -64,8 +64,8 @@
                                 $fields = NotificationX_Helper::sorter( $section['fields'], 'priority', 'ASC' );
                                 if( ! empty( $fields ) )  :
                             ?>
-                                <div id="nx-meta-section-<?php echo $sec_id; ?>" class="fomopress-metabox-section">
-                                    <h2 class="fomopress-metabox-section-title">
+                                <div id="nx-meta-section-<?php echo $sec_id; ?>" class="nx-meta-section">
+                                    <h2 class="nx-meta-section-title">
                                         <?php echo $section['title']; ?>    
                                     </h2>
                                     <table>
@@ -92,8 +92,8 @@
                     ?>
                     <input id="publish" style="display:none" class="quick-builder-submit-btn" name="fomopress_builder_add_submit" type="submit" value="Create Notification">
                     <div class="quick-builder-submit-btn-wrap">
-                        <button data-tab="<?php echo $id; ?>" data-tabid="<?php echo ($tabid - 1); ?>" class="quick-builder-submit-btn fomopress-quick-builder-btn btn-prev"><?php _e( 'Previous', 'notificationx' ); ?></button>
-                        <button data-tab="<?php echo $id; ?>" data-tabid="<?php echo ++$tabid; ?>" class="quick-builder-submit-btn fomopress-quick-builder-btn btn-next">
+                        <button data-tab="<?php echo $id; ?>" data-tabid="<?php echo ($tabid - 1); ?>" class="quick-builder-submit-btn nx-quick-builder-btn btn-prev"><?php _e( 'Previous', 'notificationx' ); ?></button>
+                        <button data-tab="<?php echo $id; ?>" data-tabid="<?php echo ++$tabid; ?>" class="quick-builder-submit-btn nx-quick-builder-btn btn-next">
                             <?php
                                 if( $totaltabs < $tabid ) {
                                     _e( 'Launch', 'notificationx' );

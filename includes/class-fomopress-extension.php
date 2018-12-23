@@ -105,7 +105,7 @@ class NotificationX_Extension {
         }
         $notifications = NotificationX_DB::get_notifications();
         $notifications[ $type ] = $data;
-        return FomoPress_DB::update_notifications( $notifications );
+        return NotificationX_DB::update_notifications( $notifications );
     }
     /**
      * This function will convert all the data key into double curly braces format

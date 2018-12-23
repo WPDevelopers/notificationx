@@ -39,65 +39,65 @@
 
 		initFields: function(){
 			FomoPressAdmin.initSelect2();
-			$('.fomopress-metabox-wrapper .fomopress-meta-field').trigger('change');
+			$('.notificationx-metabox-wrapper .nx-meta-field').trigger('change');
 			FomoPressAdmin.initColorField();
 			FomoPressAdmin.initGroupField();
 		},
 
 		bindEvents: function(){
-			$('body').delegate( '.fomopress-settings-menu li', 'click', function( e ) {
+			$('body').delegate( '.nx-settings-menu li', 'click', function( e ) {
 				FomoPressAdmin.settingsTab( this );
             } );
-			$('body').delegate( '.fomopress-submit-general', 'click', function( e ) {
+			$('body').delegate( '.nx-submit-general', 'click', function( e ) {
 				e.preventDefault();
 				FomoPressAdmin.submitSettings( this );
             } );
-			$('body').delegate( '.fomopress-opt-alert', 'click', function( e ) {
+			$('body').delegate( '.nx-opt-alert', 'click', function( e ) {
 				FomoPressAdmin.fieldAlert( this );
             } );
-			$('body').delegate( '.fomopress-section-reset', 'click', function( e ) {
+			$('body').delegate( '.nx-section-reset', 'click', function( e ) {
 				e.preventDefault();
 				FomoPressAdmin.resetSection( this );
             } );
-			$('body').delegate( '.fomopress-meta-field', 'change', function( ) {
+			$('body').delegate( '.nx-meta-field', 'change', function( ) {
 				FomoPressAdmin.fieldChange( this );
             } );
-			$('body').delegate( '.fomopress-meta-next, .fomopress-quick-builder-btn', 'click', function(e) {
+			$('body').delegate( '.nx-meta-next, .nx-quick-builder-btn', 'click', function(e) {
 				e.preventDefault();
 				FomoPressAdmin.tabChanger( this );
             } );
-			$('body').delegate( '.fomopress-single-theme-wrapper', 'click', function(e) {
+			$('body').delegate( '.nx-single-theme-wrapper', 'click', function(e) {
 				e.preventDefault();
 				FomoPressAdmin.selectImage( this );
             } );
-			$('body').delegate( '.fomopress-group-field .fomopress-group-field-title', 'click', function(e) {
+			$('body').delegate( '.nx-group-field .nx-group-field-title', 'click', function(e) {
 				e.preventDefault();
-				if( $( e.srcElement ).hasClass( 'fomopress-group-field-title' ) ) {
+				if( $( e.srcElement ).hasClass( 'nx-group-field-title' ) ) {
 					FomoPressAdmin.groupToggle( this );
 				}
 			} );
-			$('body').delegate( '.fomopress-group-field .fomopress-group-remove', 'click', function() {
+			$('body').delegate( '.nx-group-field .nx-group-remove', 'click', function() {
 				FomoPressAdmin.removeGroup(this);
 			} );
-			$('body').delegate( '.fomopress-group-field .fomopress-group-clone', 'click', function() {
+			$('body').delegate( '.nx-group-field .nx-group-clone', 'click', function() {
                 FomoPressAdmin.cloneGroup(this);
             } );
-			$('body').delegate( '.fomopress-media-field-wrapper .fomopress-media-upload-button', 'click', function(e) {
+			$('body').delegate( '.nx-media-field-wrapper .nx-media-upload-button', 'click', function(e) {
 				e.preventDefault();
                 FomoPressAdmin.initMediaField(this);
             } );
-			$('body').delegate( '.fomopress-media-field-wrapper .fomopress-media-remove-button', 'click', function(e) {
+			$('body').delegate( '.nx-media-field-wrapper .nx-media-remove-button', 'click', function(e) {
 				e.preventDefault();
                 FomoPressAdmin.removeMedia(this);
 			} );
-			$('body').delegate( '.fomopress-optin-button', 'click', function(e) {
+			$('body').delegate( '.nx-optin-button', 'click', function(e) {
 				e.preventDefault();
                 FomoPressAdmin.optinAllowOrNot(this);
 			} );
 		},
 
 		initSelect2 : function(){
-			$('.fomopress-meta-field').map(function( iterator, item ){
+			$('.nx-meta-field').map(function( iterator, item ){
 				var node = item.nodeName;
 
 				if( node === 'SELECT' ) {
@@ -108,7 +108,7 @@
 
 		tabChanger : function( button ){
 			var button = $( button ),
-				totalTab = button.parents('.fomopress-tab-content-wrapper').data('totaltab'),
+				totalTab = button.parents('.nx-metatab-wrapper').data('totaltab'),
 				tabID = button.data('tabid'),
 				tab = $( '#fomopress-' + button.data('tab') );
 
@@ -117,18 +117,18 @@
 				return;
 			}
 
-			$('.fomopress-meta-tab-menu li[data-tabid="'+ tabID +'"]').trigger('click');
-			$('.fomopress-builder-menu li[data-tabid="'+ tabID +'"]').trigger('click');
+			$('.nx-metatab-menu li[data-tabid="'+ tabID +'"]').trigger('click');
+			$('.nx-builder-tab-menu li[data-tabid="'+ tabID +'"]').trigger('click');
 		},
 
 		selectImage : function( image ){
 			var imgParent = $( image ),
 				img = imgParent.find('img'),
 				value = img.data('theme'),
-				wrapper = $( imgParent.parents('.fomopress-theme-field-wrapper') ),
+				wrapper = $( imgParent.parents('.nx-theme-control-wrapper') ),
 				inputID = wrapper.data('name');
 
-			imgParent.addClass('fomopress-theme-selected').siblings().removeClass('fomopress-theme-selected');
+			imgParent.addClass('nx-theme-selected').siblings().removeClass('nx-theme-selected');
 			$('#' + inputID).val( value );
 			imgParent.trigger('change');
 		},
@@ -188,8 +188,8 @@
 
 		resetSection: function( button ){
 			var button = $( button ),
-				parent = button.parents('.fomopress-metabox-section'),
-				fields = parent.find('.fomopress-meta-field'), updateFields = [];
+				parent = button.parents('.nx-meta-section'),
+				fields = parent.find('.nx-meta-field'), updateFields = [];
 			
 			window.fieldsss = fields;
 			fields.map(function(iterator, item){ 
@@ -225,8 +225,8 @@
 				}
 			} 
 
-			if ( field.hasClass('fomopress-theme-selected') ) {
-				id = field.parents('.fomopress-theme-field-wrapper').data('name');
+			if ( field.hasClass('nx-theme-selected') ) {
+				id = field.parents('.nx-theme-control-wrapper').data('name');
 				val = $( '#' + id ).val();
 			}
 
@@ -290,36 +290,36 @@
 		},
 		initGroupField : function(){
 
-			if( $('.fomopress-group-field-wrapper').length < 0 ) {
+			if( $('.nx-group-field-wrapper').length < 0 ) {
 				return;
 			}
 
-			var fields = $('.fomopress-group-field-wrapper');
+			var fields = $('.nx-group-field-wrapper');
 
 			fields.each(function(){
 
 				var $this  = $( this ),
-					groups = $this.find('.fomopress-group-field'),
-					firstGroup   = $this.find('.fomopress-group-field:first'),
-					lastGroup   = $this.find('.fomopress-group-field:last');
+					groups = $this.find('.nx-group-field'),
+					firstGroup   = $this.find('.nx-group-field:first'),
+					lastGroup   = $this.find('.nx-group-field:last');
 
 				groups.each(function() {
-					var groupContent = $(this).find('.fomopress-group-field-title:not(.open)').next();
+					var groupContent = $(this).find('.nx-group-field-title:not(.open)').next();
 					if ( groupContent.is(':visible') ) {
 						groupContent.addClass('open');
 					}
 				});
 
-				$this.find('.fomopress-group-field-add').on('click', function( e ){
+				$this.find('.nx-group-field-add').on('click', function( e ){
 					e.preventDefault();
 
 					var fieldId     = $this.attr('id'),
 					    dataId      = $this.data( 'name' ),
-					    wrapper     = $this.find( '.fomopress-group-fields-wrapper' ),
-					    groups      = $this.find('.fomopress-group-field'),
-					    firstGroup  = $this.find('.fomopress-group-field:first'),
-					    lastGroup   = $this.find('.fomopress-group-field:last'),
-					    clone       = $( $this.find('.fomopress-group-template').html() ),
+					    wrapper     = $this.find( '.nx-group-fields-wrapper' ),
+					    groups      = $this.find('.nx-group-field'),
+					    firstGroup  = $this.find('.nx-group-field:first'),
+					    lastGroup   = $this.find('.nx-group-field:last'),
+					    clone       = $( $this.find('.nx-group-template').html() ),
 					    groupId     = parseInt( lastGroup.data('id') ),
 					    nextGroupId = groupId + 1,
 					    title       = clone.data('group-title');
@@ -331,8 +331,8 @@
 					// Reset all data of clone object.
 					clone.attr('data-id', nextGroupId);
 					clone.addClass('open');
-					// clone.find('.fomopress-group-field-title > span').html(title + ' ' + nextGroupId);
-					clone.find('tr.fomopress-field[id*='+fieldId+']').each(function() {
+					// clone.find('.nx-group-field-title > span').html(title + ' ' + nextGroupId);
+					clone.find('tr.nx-field[id*='+fieldId+']').each(function() {
 						var fieldName       = dataId;
 						var fieldNameSuffix = $(this).attr('id').split('[1]')[1];
 						var nextFieldId     = fieldName + '[' + nextGroupId + ']' + fieldNameSuffix;
@@ -358,11 +358,11 @@
 		},
 		setDate : function( item ){
 			var date    = new Date();
-			item.find('.fomopress-group-field-timestamp').val( date.getTime() );
+			item.find('.nx-group-field-timestamp').val( date.getTime() );
 		},
 		groupToggle : function( input ){
 			var input = $(input),
-				wrapper = input.parents('.fomopress-group-field');
+				wrapper = input.parents('.nx-group-field');
 
 			if( wrapper.hasClass('open') ) {
 				wrapper.removeClass( 'open' );
@@ -371,8 +371,8 @@
 			}
 		},
 		removeGroup : function( button ){
-			var groupId = $(button).parents('.fomopress-group-field').data('id'),
-                group   = $(button).parents('.fomopress-group-field[data-id="'+groupId+'"]');
+			var groupId = $(button).parents('.nx-group-field').data('id'),
+                group   = $(button).parents('.nx-group-field[data-id="'+groupId+'"]');
 
             group.fadeOut({
                 duration: 300,
@@ -382,16 +382,16 @@
             });
 		},
 		cloneGroup : function( button ){
-			var groupId = $(button).parents('.fomopress-group-field').data('id'),
-				group   = $(button).parents('.fomopress-group-field[data-id="'+groupId+'"]'),
+			var groupId = $(button).parents('.nx-group-field').data('id'),
+				group   = $(button).parents('.nx-group-field[data-id="'+groupId+'"]'),
 				clone   = $( group.clone() ),
-				lastGroup   = $( button ).parents('.fomopress-group-fields-wrapper').find('.fomopress-group-field:last'),
+				lastGroup   = $( button ).parents('.nx-group-fields-wrapper').find('.nx-group-field:last'),
 				parent  = group.parent(),
 				nextGroupID = $( lastGroup ).data('id') + 1;
 
 			clone.attr('data-id', nextGroupID);
 			clone.insertAfter(group);
-			FomoPressAdmin.resetFieldIds( parent.find('.fomopress-group-field') );
+			FomoPressAdmin.resetFieldIds( parent.find('.nx-group-field') );
 		},
 		resetFieldIds : function( groups ){
 			var groupID = 1;
@@ -400,13 +400,13 @@
 				var group       = $(this),
 					fieldName   = group.data('field-name'),
 					fieldId     = 'fomopress-' + fieldName,
-					groupInfo   = group.find('.fomopress-group-field-info').data('info'),
+					groupInfo   = group.find('.nx-group-field-info').data('info'),
 					subFields   = groupInfo.group_sub_fields;
 
 				group.data('id', groupID);
 
 				subFields.forEach(function( item ){
-					var table_row = group.find('tr.fomopress-field[id="fomopress-' + item.field_name + '"]');
+					var table_row = group.find('tr.nx-field[id="fomopress-' + item.field_name + '"]');
 
 					table_row.find('[name*="'+item.field_name+'"]').each(function(){
 						var name = $(this).attr('name'),
@@ -421,22 +421,19 @@
 						$(this).attr('name', name).attr('id', name);
 					});
 
-					group.find('tr.fomopress-field[id="fomopress-' + item.field_name + '"]').attr('id', fieldId + '[' + groupID + '][' + item.original_name + ']');
+					group.find('tr.nx-field[id="fomopress-' + item.field_name + '"]').attr('id', fieldId + '[' + groupID + '][' + item.original_name + ']');
 				});
-				// Update group title.
-				// group.find('.fomopress-group-field-title > span').html(title + ' ' + groupId);
-
 				groupID++;
 			});
 		},
 		initMediaField : function( button ){
 
 			var button = $( button ),
-				wrapper = button.parents('.fomopress-media-field-wrapper'),
-				removeButton = wrapper.find('.fomopress-media-remove-button'),
-				imgContainer = wrapper.find('.fomopress-thumb-container'),
-				idField = wrapper.find('.fomopress-media-id'),
-				urlField = wrapper.find('.fomopress-media-url');
+				wrapper = button.parents('.nx-media-field-wrapper'),
+				removeButton = wrapper.find('.nx-media-remove-button'),
+				imgContainer = wrapper.find('.nx-thumb-container'),
+				idField = wrapper.find('.nx-media-id'),
+				urlField = wrapper.find('.nx-media-url');
 
 			// Create a new media frame
             var frame = wp.media({
@@ -471,11 +468,11 @@
 		},
 		removeMedia : function( button ) {
 			var button = $( button ),
-				wrapper = button.parents('.fomopress-media-field-wrapper'),
-				uploadButton = wrapper.find('.fomopress-media-upload-button'),
+				wrapper = button.parents('.nx-media-field-wrapper'),
+				uploadButton = wrapper.find('.nx-media-upload-button'),
 				imgContainer = wrapper.find('.fomopress-has-thumb'),
-				idField = wrapper.find('.fomopress-media-id'),
-				urlField = wrapper.find('.fomopress-media-url');
+				idField = wrapper.find('.nx-media-id'),
+				urlField = wrapper.find('.nx-media-url');
 
 			imgContainer.removeClass('fomopress-has-thumb').find('img').remove();
 
@@ -718,7 +715,7 @@
 		/**
 		 * Current Tab Manage
 		 */
-		var $tabMenu = $('.fomopress-meta-tab-menu, .fomopress-builder-menu');
+		var $tabMenu = $('.nx-metatab-menu, .nx-builder-tab-menu');
 		$tabMenu.on( 'click', 'li', function(){
 			var $tab = $(this).data( 'tab' ),
 				tabID = $(this).data('tabid') - 1;

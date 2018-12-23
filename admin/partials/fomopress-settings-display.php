@@ -4,7 +4,7 @@
         <?php do_action( 'fomopress_before_settings_left' ); ?>
         <div class="fomopress-settings-left">
             <div class="fomopress-settings">
-                <div class="fomopress-settings-menu">
+                <div class="nx-settings-menu">
                     <ul>
                         <?php
                             $i = 1;

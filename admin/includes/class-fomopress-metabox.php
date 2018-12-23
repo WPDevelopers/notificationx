@@ -38,17 +38,19 @@ class NotificationX_MetaBox {
      * @return void
      */
     public static function get_args() {
-        $metabox_args = require NOTIFICATIONX_ADMIN_DIR_PATH . 'includes/fomopress-metabox-helper.php';
-        do_action( 'fomopress_before_metabox_load' );
-        return $metabox_args;
+        if( ! function_exists( 'notificationx_metabox_args' ) ) {
+            require NOTIFICATIONX_ADMIN_DIR_PATH . 'includes/fomopress-metabox-helper.php';
+        }
+        do_action( 'nx_before_metabox_load' );
+        return notificationx_metabox_args();
     }
     
     public static function get_builder_args() {
-        if( ! function_exists( 'fomopress_builder_args' ) ) {
+        if( ! function_exists( 'notificationx_builder_args' ) ) {
             require NOTIFICATIONX_ADMIN_DIR_PATH . 'includes/fomopress-builder-helper.php';
         }
-        do_action( 'fomopress_before_builder_load' );
-        return fomopress_builder_args();
+        do_action( 'nx_before_builder_load' );
+        return notificationx_builder_args();
     }
 
     public static function render_meta_field( $key = '', $field = [], $value = '', $idd = null ) {
@@ -83,7 +85,7 @@ class NotificationX_MetaBox {
             $attrs .= ' data-default="' . esc_attr( $default_attr ) . '"';
         }
 
-        $class  = 'fomopress-meta-field';
+        $class  = 'nx-meta-field';
         $row_class = self::get_row_class( $file_name );
 
         if( isset( $field['toggle'] ) && in_array( $file_name, array( 'checkbox', 'select', 'toggle', 'theme', 'adv_checkbox' ) ) ) {

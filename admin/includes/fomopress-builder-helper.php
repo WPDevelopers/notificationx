@@ -1,9 +1,9 @@
 <?php
 
-function fomopress_builder_args() {
+function notificationx_builder_args() {
     return array(
-        'id'           => 'fomopress_metabox_wrapper',
-        'title'        => __('FomoPress', 'notificationx'),
+        'id'           => 'notificationx_metabox_wrapper',
+        'title'        => __('NotificationX', 'notificationx'),
         'object_types' => array( 'notificationx' ),
         'context'      => 'normal',
         'priority'     => 'high',

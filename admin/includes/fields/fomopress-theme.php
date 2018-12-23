@@ -7,16 +7,16 @@
 ?>
 
 
-<div class="fomopress-theme-field-wrapper" data-name="<?php echo $name; ?>">
+<div class="nx-theme-control-wrapper" data-name="<?php echo $name; ?>">
     <input id="<?php echo $name; ?>" type="hidden" name="<?php echo $name; ?>" value="<?php echo $value; ?>">
     <div class="fomopress-theme-field-inner">
         <?php 
             if( is_array( $options ) ) {
                 
                 foreach( $options as $opt_key => $opt_value ) {
-                    $selected = ( $value == $opt_key ) ? 'fomopress-theme-selected' : '';
+                    $selected = ( $value == $opt_key ) ? 'nx-theme-selected' : '';
                     ?>
-                    <div class="fomopress-single-theme-wrapper fomopress-meta-field <?php echo $selected; ?>" <?php echo $attrs; ?>>
+                    <div class="nx-single-theme-wrapper nx-meta-field <?php echo $selected; ?>" <?php echo $attrs; ?>>
                         <img data-theme="<?php echo $opt_key; ?>" src="<?php echo $opt_value; ?>" alt="<?php echo $theme_title; ?>">
                     </div>
                     <?php

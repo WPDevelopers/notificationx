@@ -41,7 +41,7 @@ define( 'NOTIFICATIONX_EXT_DIR_PATH', NOTIFICATIONX_ROOT_DIR_PATH . 'extensions/
  */
 function activate_fomopress() {
 	require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-fomopress-activator.php';
-	FomoPress_Activator::activate();
+	NotificationX_Activator::activate();
 }
 
 /**
@@ -50,7 +50,7 @@ function activate_fomopress() {
  */
 function deactivate_fomopress() {
 	require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-fomopress-deactivator.php';
-	FomoPress_Deactivator::deactivate();
+	NotificationX_Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_fomopress' );
@@ -72,7 +72,7 @@ require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-fomopress.php';
  * @since    1.0.0
  */
 function run_fomopress() {
-	$plugin = new FomoPress();
+	$plugin = new NotificationX();
 	$plugin->run();
 }
 run_fomopress();

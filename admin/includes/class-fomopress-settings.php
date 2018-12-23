@@ -177,7 +177,7 @@ class NotificationX_Settings {
 			}
         }
         
-		FomoPress_DB::update_settings( $data );
+		NotificationX_DB::update_settings( $data );
     }
     
     public static function general_settings_ac(){

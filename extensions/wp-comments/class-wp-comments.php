@@ -15,7 +15,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
     /**
      * This functions is hooked
      * 
-     * @hooked fomopress_public_action
+     * @hooked nx_public_action
      *
      * @return void
      */

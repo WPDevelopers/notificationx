@@ -19,8 +19,8 @@ if( ! $current_tab ) {
 $totaltabs = count( $tabs );
 $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
 ?>
-<div class="fomopress-metabox-wrapper">
-    <div class="fomopress-meta-tab-menu">
+<div class="notificationx-metabox-wrapper">
+    <div class="nx-metatab-menu">
         <ul>
             <?php 
                 $tid = 1;
@@ -46,7 +46,7 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
         </ul>
     </div>
 
-    <div class="fomopress-meta-tab-contents fomopress-tab-content-wrapper" data-totaltab="<?php echo $totaltabs; ?>">
+    <div class="fomopress-meta-tab-contents nx-metatab-wrapper" data-totaltab="<?php echo $totaltabs; ?>">
         <input id="fomopress_current_tab" type="hidden" name="fomopress_current_tab" value="<?php echo $current_tab; ?>">
         <?php 
             $tabid = 1;
@@ -63,12 +63,12 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
                             $fields = NotificationX_Helper::sorter( $section['fields'], 'priority', 'ASC' );
                             if( ! empty( $fields ) )  :
                         ?>
-                            <div id="nx-meta-section-<?php echo $sec_id; ?>" class="fomopress-metabox-section">
-                                <h2 class="fomopress-metabox-section-title">
+                            <div id="nx-meta-section-<?php echo $sec_id; ?>" class="nx-meta-section">
+                                <h2 class="nx-meta-section-title">
                                     <?php 
                                         echo $section['title']; 
                                         if( isset( $section['reset'] ) && $section['reset'] ) {
-                                            echo '<div class="fomopress-section-reset" data-tooltip="Reset"><span class="dashicons dashicons-image-rotate"></span></div>';
+                                            echo '<div class="nx-section-reset" data-tooltip="Reset"><span class="dashicons dashicons-image-rotate"></span></div>';
                                         }
                                     ?>
                                 </h2>
@@ -86,7 +86,7 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
                         do_action( 'fomopress_after_metabox_tab_section', $sec_id, $id, $section );
                     }
                 ?>
-                <button class="fomopress-meta-next" data-tab="<?php echo $id; ?>" data-tabid="<?php echo ++$tabid; ?>">
+                <button class="nx-meta-next" data-tab="<?php echo $id; ?>" data-tabid="<?php echo ++$tabid; ?>">
                     <?php
                         if( $totaltabs < $tabid ) {
                             _e( 'Publish', 'notificationx' );

@@ -11,14 +11,14 @@
     $group_field_info = array();
 ?>
 
-<div class="fomopress-group-field-wrapper" id="<?php echo $id; ?>" data-name="<?php echo $name; ?>">
-    <script type="text/html" class="fomopress-group-template">
-        <div class="fomopress-group-field" data-id="1" data-field-name="<?php echo $parent_key;?>">
-            <h4 class="fomopress-group-field-title">
+<div class="nx-group-field-wrapper" id="<?php echo $id; ?>" data-name="<?php echo $name; ?>">
+    <script type="text/html" class="nx-group-template">
+        <div class="nx-group-field" data-id="1" data-field-name="<?php echo $parent_key;?>">
+            <h4 class="nx-group-field-title">
                 <span><?php echo _e( $group_title ); ?></span>
                 <div class="fomopress-group-controls">
-                    <a href="#" class="fomopress-group-clone" data-tooltip="Duplicate"><span class="dashicons dashicons-admin-page"></span></a>
-                    <a href="#" class="fomopress-group-remove" data-tooltip="Remove"><span class="dashicons dashicons-trash"></span></a>
+                    <a href="#" class="nx-group-clone" data-tooltip="Duplicate"><span class="dashicons dashicons-admin-page"></span></a>
+                    <a href="#" class="nx-group-remove" data-tooltip="Remove"><span class="dashicons dashicons-trash"></span></a>
                 </div>
             </h4>
             <div class="fomopress-group-inner">
@@ -35,19 +35,19 @@
                         }
                         ?>
                 </table>
-                <div class="fomopress-group-field-info" data-info="<?php echo esc_attr( json_encode( $group_field_info ) ); ?>"></div>
+                <div class="nx-group-field-info" data-info="<?php echo esc_attr( json_encode( $group_field_info ) ); ?>"></div>
             </div>
         </div>
     </script>
 
-    <div class="fomopress-group-fields-wrapper">
+    <div class="nx-group-fields-wrapper">
         <?php if( empty( $group_value ) ) : ?>
-            <div class="fomopress-group-field" data-id="1" data-field-name="<?php echo $parent_key;?>">
-                <h4 class="fomopress-group-field-title">
+            <div class="nx-group-field" data-id="1" data-field-name="<?php echo $parent_key;?>">
+                <h4 class="nx-group-field-title">
                     <span><?php echo _e( $group_title ); ?></span>
                     <div class="fomopress-group-controls">
-                        <a href="#" class="fomopress-group-clone" data-tooltip="Duplicate"><span class="dashicons dashicons-admin-page"></span></a>
-                        <a href="#" class="fomopress-group-remove" data-tooltip="Remove"><span class="dashicons dashicons-trash"></span></a>
+                        <a href="#" class="nx-group-clone" data-tooltip="Duplicate"><span class="dashicons dashicons-admin-page"></span></a>
+                        <a href="#" class="nx-group-remove" data-tooltip="Remove"><span class="dashicons dashicons-trash"></span></a>
                     </div>
                 </h4>
                 <div class="fomopress-group-inner">
@@ -67,19 +67,19 @@
                             }
                         ?>
                     </table>
-                    <div class="fomopress-group-field-info" data-info="<?php echo esc_attr( json_encode( $group_field_info ) ); ?>"></div>
+                    <div class="nx-group-field-info" data-info="<?php echo esc_attr( json_encode( $group_field_info ) ); ?>"></div>
                 </div>
             </div>
         <?php else : ?>
             <?php 
                 $group_field_info = array();
                 foreach( $group_value as $group_id => $field_data ) : ?>
-            <div class="fomopress-group-field" data-id="<?php echo $group_id; ?>" data-field-name="<?php echo $parent_key;?>">
-                <h4 class="fomopress-group-field-title">
+            <div class="nx-group-field" data-id="<?php echo $group_id; ?>" data-field-name="<?php echo $parent_key;?>">
+                <h4 class="nx-group-field-title">
                     <span><?php echo _e( $group_title ); ?></span>
                     <div class="fomopress-group-controls">
-                        <a href="#" class="fomopress-group-clone" data-tooltip="Duplicate"><span class="dashicons dashicons-admin-page"></span></a>
-                        <a href="#" class="fomopress-group-remove" data-tooltip="Remove"><span class="dashicons dashicons-trash"></span></a>
+                        <a href="#" class="nx-group-clone" data-tooltip="Duplicate"><span class="dashicons dashicons-admin-page"></span></a>
+                        <a href="#" class="nx-group-remove" data-tooltip="Remove"><span class="dashicons dashicons-trash"></span></a>
                     </div>
                 </h4>
                 <div class="fomopress-group-inner">
@@ -97,11 +97,11 @@
                             }
                         ?>
                     </table>
-                    <div class="fomopress-group-field-info" data-info="<?php echo esc_attr( json_encode( $group_field_info ) ); ?>"></div>
+                    <div class="nx-group-field-info" data-info="<?php echo esc_attr( json_encode( $group_field_info ) ); ?>"></div>
                 </div>
             </div>
             <?php endforeach; ?>
         <?php endif; ?>
-        <button class="fomopress-group-field-add"><span class="dashicons dashicons-plus"></span></button>
+        <button class="nx-group-field-add"><span class="dashicons dashicons-plus"></span></button>
     </div>
 </div>
