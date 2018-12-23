@@ -8,9 +8,9 @@
     $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
 ?>
 </div>
-<div class="fomopress-builder-wrapper">
+<div class="nx-builder-wrapper">
 
-    <div class="fomopress-builder-header">
+    <div class="nx-builder-header">
         <h1><?php _e( 'NotificationX Quick Builder', 'notificationx' ); ?></h1>
     </div>
 
@@ -21,7 +21,7 @@
                 $tid = 1;
                 foreach( $tabs as $id => $tab ) {
                     $active = $current_tab === $id ? ' active' : '';
-                    $class = isset( $tab['icon'] ) ? ' fomopress-has-icon' : '';
+                    $class = isset( $tab['icon'] ) ? ' nx-has-icon' : '';
                     $class .= $active;
                     if( $position > $tid ){
                         $class .= ' nx-complete';
@@ -29,11 +29,11 @@
                     ?>
                         <li data-tabid="<?php echo $tid++; ?>" class="<?php echo $class; ?>" data-tab="<?php echo $id; ?>">
                             <?php if( isset( $tab['icon'] ) ) : ?>
-                                <span class="fomopress-menu-icon">
+                                <span class="nx-menu-icon">
                                     <img src="<?php echo NOTIFICATIONX_ADMIN_URL . 'assets/img/icons/' . $tab['icon']; ?>" alt="<?php echo $tab['title']; ?>">
                                 </span>
                             <?php endif; ?>
-                            <span class="fomopress-menu-title"><?php echo $tab['title']; ?></span>
+                            <span class="nx-menu-title"><?php echo $tab['title']; ?></span>
                         </li>
                     <?php
                 }

@@ -143,7 +143,7 @@ class NotificationX_Extension {
         $output = '';
         $unique_id = uniqid( 'notificationx-' ); 
         $image_data = self::get_image_url( $data, $settings );
-        $output .= '<div id="'. esc_attr( $unique_id ) .'" class="fomopress-notification '. self::get_classes( $settings ) .'">';
+        $output .= '<div id="'. esc_attr( $unique_id ) .'" class="nx-notification '. self::get_classes( $settings ) .'">';
             $output .= '<div class="notificationx-inner '. self::get_classes( $settings, 'inner' ) .'">';
                 if( $image_data ) :
                     $output .= '<div class="notificationx-image fp-img-'. esc_attr( $settings->image_shape ) .' fp-img-'. esc_attr( $settings->image_position ) .'">';
@@ -199,10 +199,10 @@ class NotificationX_Extension {
         }
 
 		if( $settings->close_button ) {
-			$classes[ 'inner' ][] = 'fomopress-has-close-btn';
+			$classes[ 'inner' ][] = 'nx-has-close-btn';
 		}
-		$classes[ 'wrapper' ][] = 'fomopress-' . esc_attr( $settings->conversion_from );
-		$classes[ 'wrapper' ][] = 'fomopress-' . esc_attr( $settings->conversion_position );
+		$classes[ 'wrapper' ][] = 'nx-' . esc_attr( $settings->conversion_from );
+		$classes[ 'wrapper' ][] = 'nx-' . esc_attr( $settings->conversion_position );
 		$classes[ 'wrapper' ][] = 'notificationx-' . $settings->id;
 
 		$classes[ 'inner' ][] = 'fp-notification-' . esc_attr( self::get_theme( $settings ) );

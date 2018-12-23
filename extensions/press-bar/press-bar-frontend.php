@@ -28,7 +28,7 @@ if( $settings->id ) {
 
 if( 'bottom' == $settings->pressbar_position ) {
     $pos_class = '';
-    $pos_class = ' fomopress-position-bottom';
+    $pos_class = ' nx-position-bottom';
 }
 
 if( is_admin_bar_showing() ) {
@@ -63,19 +63,19 @@ if( $settings->bar_advance_edit ) {
                         </div>
                     <?php endif; ?>             
                     <div class="nx-countdown" data-countdown="<?php echo esc_attr( json_encode( $countdown ) ); ?>">
-                        <div class="fomopress-time-section">
+                        <div class="nx-time-section">
                             <span class="nx-days">00</span>
                             <span class="nx-countdown-time-text"><?php esc_html_e('Days', 'notificationx'); ?></span>
                         </div>
-                        <div class="fomopress-time-section">
+                        <div class="nx-time-section">
                             <span class="nx-hours">00</span>
                             <span class="nx-countdown-time-text"><?php esc_html_e('Hrs', 'notificationx'); ?></span>
                         </div>
-                        <div class="fomopress-time-section">
+                        <div class="nx-time-section">
                             <span class="nx-minutes">00</span>
                             <span class="nx-countdown-time-text"><?php esc_html_e('Mins', 'notificationx'); ?></span>
                         </div>
-                        <div class="fomopress-time-section">
+                        <div class="nx-time-section">
                             <span class="nx-seconds">00</span>
                             <span class="nx-countdown-time-text"><?php esc_html_e('Secs', 'notificationx'); ?></span>
                         </div>
@@ -83,7 +83,7 @@ if( $settings->bar_advance_edit ) {
                     </div>
                 </div>
             <?php endif; ?>
-            <div class="fomopress-inner-content-wrapper">
+            <div class="nx-inner-content-wrapper">
                 <div class="nx-bar-content"><?php echo $settings->press_content; ?></div>
                 <?php if( $settings->button_url != '' ) : ?>
                     <a class="nx-bar-button" href="<?php echo esc_url( $settings->button_url ); ?>" <?php echo $attrs; ?>>

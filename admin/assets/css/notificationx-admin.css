@@ -147,10 +147,10 @@ span.fomopress-preview-close {
     border-bottom-width: 25px;
 }
 
-.nx-metatab-menu ul li:first-child.fomopress-has-icon {
+.nx-metatab-menu ul li:first-child.nx-has-icon {
     padding-left: 25px;
 }
-.nx-metatab-menu ul li.fomopress-has-icon > .fomopress-menu-icon {
+.nx-metatab-menu ul li.nx-has-icon > .nx-menu-icon {
     margin-right: 10px;
 }
 
@@ -168,8 +168,8 @@ span.fomopress-preview-close {
     background-color: #6c63ff;
     color: #fff;
 }
-.nx-metatab-menu ul li.active > .fomopress-menu-icon,
-.nx-metatab-menu ul li.nx-complete > .fomopress-menu-icon {
+.nx-metatab-menu ul li.active > .nx-menu-icon,
+.nx-metatab-menu ul li.nx-complete > .nx-menu-icon {
     filter: invert(1);
 }
 .nx-metatab-menu ul li.active:before,
@@ -318,10 +318,10 @@ h2.nx-meta-section-title .nx-section-reset {
     filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
     opacity: 1;
 }
-.fomopress-info-message-wrapper {
+.nx-info-message-wrapper {
     padding: 0;
 }
-.fomopress-info-message {
+.nx-info-message {
     font-size: 16px;
     padding: 15px;
     border-left: 2px solid #e61811;
@@ -501,21 +501,21 @@ label.fomopress-adv-checkbox-label:hover {
     height: 100px;
 }
 
-.fomopress-media-content {}
-.fomopress-media-content > input {
+.nx-media-content {}
+.nx-media-content > input {
     display: block;
     padding: 10px;
     width: 250px;
 }
 
-.fomopress-media-button {
+.nx-media-button {
     padding: 10px;
     font-weight: 700;
     border: 1px solid #f2f2f2;
     margin-left: 10px;
 }
 
-.fomopress-media-button.nx-media-remove-button {
+.nx-media-button.nx-media-remove-button {
     color: red;
     margin-left: 0;
     margin-top: 10px;
@@ -534,7 +534,7 @@ label.fomopress-adv-checkbox-label:hover {
 }
 
 /* Quick Builder CSS */
-.fomopress-builder-wrapper {
+.nx-builder-wrapper {
     padding: 20px;
     margin: 0px 20px 20px 0;
     padding-top: 50px;
@@ -563,10 +563,10 @@ label.fomopress-adv-checkbox-label:hover {
     margin: 10px;
 }
 
-.fomopress-builder-header {
+.nx-builder-header {
     text-align: center;
 }
-.fomopress-builder-header > h1 {
+.nx-builder-header > h1 {
     font-size: 2em;
     color: #444;
     margin-bottom: 50px;
@@ -619,7 +619,7 @@ label.fomopress-adv-checkbox-label:hover {
 .nx-builder-tab-menu ul li:last-child:after {
     display: none;
 }
-.nx-builder-tab-menu ul li > span.fomopress-menu-icon { 
+.nx-builder-tab-menu ul li > span.nx-menu-icon { 
     margin-right: 10px;
 }
 .nx-builder-tab-menu ul li > span {
@@ -633,8 +633,8 @@ label.fomopress-adv-checkbox-label:hover {
     background-color: #6c63ff;
     color: #fff;
 }
-.nx-builder-tab-menu ul li.active > span.fomopress-menu-icon,
-.nx-builder-tab-menu ul li.nx-complete > span.fomopress-menu-icon {
+.nx-builder-tab-menu ul li.active > span.nx-menu-icon,
+.nx-builder-tab-menu ul li.nx-complete > span.nx-menu-icon {
     filter: invert(1);
 }
 
@@ -906,15 +906,15 @@ body.fomopress_page_fomopress-builder .select2-container--default .select2-searc
     align-items: center;
 }
 
-.fomopress-sidebar-block {
+.nx-sidebar-block {
     margin: 1em auto;
 }
-.fomopress-sidebar-block .fomopress-admin-sidebar-logo {
+.nx-sidebar-block .nx-admin-sidebar-logo {
     max-width: 200px;
     display: block;
     margin: 25px auto;
 }
-.fomopress-sidebar-block .fomopress-admin-sidebar-logo > img, .fomopress-sidebar-block .fomopress-admin-sidebar-logo > svg {
+.nx-sidebar-block .nx-admin-sidebar-logo > img, .nx-sidebar-block .nx-admin-sidebar-logo > svg {
     width: 100%;
     display: block;
     margin: 10px auto;

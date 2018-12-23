@@ -16,10 +16,10 @@
             }
         ?>
     </div>
-    <div class="fomopress-media-content">
+    <div class="nx-media-content">
         <input class="nx-media-url" type="text" name="<?php echo $name; ?>[url]" value="<?php echo esc_url( $image_url ); ?>">
         <input class="nx-media-id" type="hidden" name="<?php echo $name; ?>[id]" value="<?php echo esc_attr( $image_id ); ?>">
-        <button class="fomopress-media-button nx-media-remove-button <?php echo $image_url == '' ? 'hidden' : ''; ?>">Remove</button>
+        <button class="nx-media-button nx-media-remove-button <?php echo $image_url == '' ? 'hidden' : ''; ?>">Remove</button>
     </div>
-    <button class="fomopress-media-button nx-media-upload-button <?php echo $image_url == '' ? '' : 'hidden'; ?>">Upload</button>
+    <button class="nx-media-button nx-media-upload-button <?php echo $image_url == '' ? '' : 'hidden'; ?>">Upload</button>
 </div>

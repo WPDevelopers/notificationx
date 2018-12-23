@@ -284,7 +284,7 @@ class NotificationX_Admin {
 			'show_in_admin_bar'   => true,
 			'show_in_rest'        => false,
 			'menu_position'       => 80,
-			'menu_icon'           => NOTIFICATIONX_ADMIN_URL . 'assets/img/fomopress-menu-icon.png',
+			'menu_icon'           => NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon.png',
 			'show_in_nav_menus'   => false,
 			'publicly_queryable'  => false,
 			'exclude_from_search' => true,
@@ -365,7 +365,7 @@ class NotificationX_Admin {
 				}
 			}
 		endif;
-		add_menu_page( 'NotificationX', 'NotificationX', 'delete_users', 'notificationx', '', NOTIFICATIONX_ADMIN_URL . 'assets/img/fomopress-menu-icon.png', 80 );
+		add_menu_page( 'NotificationX', 'NotificationX', 'delete_users', 'notificationx', '', NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon.png', 80 );
 		foreach( $settings as $slug => $setting ) {
 			$cap  = isset( $setting['capability'] ) ? $setting['capability'] : 'delete_users';
 			$hook = add_submenu_page( 'notificationx', $setting['title'], $setting['title'], $cap, $slug, $setting['callback'] );

@@ -2,6 +2,6 @@
     $message = isset( $field['message'] ) ? $field['message'] : '';
 ?>
 
-<div class="fomopress-info-message">
+<div class="nx-info-message">
     <?php echo esc_html_e( $message ); ?>
 </div>

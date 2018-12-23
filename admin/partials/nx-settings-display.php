@@ -81,8 +81,8 @@
         ?>
         <div class="fomopress-settings-right">
             <div class="fomopress-sidebar">
-                <div class="fomopress-sidebar-block">
-                    <div class="fomopress-admin-sidebar-logo">
+                <div class="nx-sidebar-block">
+                    <div class="nx-admin-sidebar-logo">
                         <img src="<?php echo plugins_url( '/', __FILE__ ).'../assets/img/fomopress-logo.svg'; ?>">
                     </div>
                     <div class="fomopress-admin-sidebar-cta">
@@ -95,7 +95,7 @@
                         ?>
                     </div>
                 </div>
-                <div class="fomopress-sidebar-block fomopress-license-block">
+                <div class="nx-sidebar-block fomopress-license-block">
                     <?php
                         if(class_exists('FomoPressPro')) {
                         do_action( 'nx_licensing' );

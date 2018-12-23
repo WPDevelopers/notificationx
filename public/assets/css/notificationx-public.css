@@ -2,7 +2,7 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
-.fomopress-notification {
+.nx-notification {
     position: fixed;
     left: 30px;
     z-index: 9999;
@@ -15,7 +15,7 @@ a.notificationx-link {
     height: 100%;
     outline: none;
 }
-.fomopress-notification.fomopress-bottom_right {
+.nx-notification.nx-bottom_right {
     right: 30px;
     left: auto;
 }
@@ -29,7 +29,7 @@ a.notificationx-link {
     box-shadow: 0 0 30px 0 rgba(0,0,0, .1);
 }
 
-.fomopress-has-close-btn {
+.nx-has-close-btn {
     padding-right: 30px;
 }
 
@@ -88,11 +88,11 @@ span.notificationx-close {
 /*
     FomoPressBar CSS
 */
-.fomopress-author {
+.nx-author {
     font-weight: 600;
 }
 
-.fomopress-time { 
+.nx-time { 
     display: block;
 }
 
@@ -122,7 +122,7 @@ span.notificationx-close {
 }
 
 
-.nx-bar.fomopress-position-bottom {
+.nx-bar.nx-position-bottom {
     position: fixed;
     bottom: 0;
 }
@@ -174,21 +174,21 @@ a.nx-bar-button {
     margin-right: 10px;
 }
 
-.fomopress-time-section {
+.nx-time-section {
     float: left;
     margin: 0 5px;
     padding: 10px;
     background: #fff;
 }
 
-.fomopress-time-section > span {
+.nx-time-section > span {
     display: block;
 }
 
-.nx-countdown.nx-expired .fomopress-time-section {
+.nx-countdown.nx-expired .nx-time-section {
     background-color: #f2f2f2;
 }
-.nx-countdown.nx-expired .fomopress-time-section > span,
+.nx-countdown.nx-expired .nx-time-section > span,
 .nx-countdown .nx-expired-text {
     display: none;
 }
@@ -224,7 +224,7 @@ a.fp-powered-by {
     padding-right: 50px;
 }
 
-.notificationx-inner.fp-notification-theme_two span.fomopress-notification-close {
+.notificationx-inner.fp-notification-theme_two span.notificationx-close {
     right: 20px;
     top: 5px;
 }
