@@ -477,6 +477,7 @@ label.nx-adv-checkbox-label:hover {
 .nx-group-field-wrapper .nx-group-field > div.nx-group-inner {
     display: none;
     padding: 30px 15px 0;
+    background-color: #FFFFFF;
 }
 .nx-group-field-wrapper .nx-group-field.open > div.nx-group-inner {
     display: block;   
