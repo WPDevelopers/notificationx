@@ -218,16 +218,16 @@ a.fp-powered-by {
 
 /* Theme specific CSS */
 
-.notificationx-inner.fp-notification-theme_two {
+.notificationx-inner.fp-notification-theme-two {
     border-radius: 50px;
     padding-right: 50px;
 }
 
-.notificationx-inner.fp-notification-theme_two span.notificationx-close {
+.notificationx-inner.fp-notification-theme-two span.notificationx-close {
     right: 20px;
     top: 5px;
 }
 
-.fp-notification-theme_two + .nx-branding {
+.fp-notification-theme-two .nx-branding {
     right: 20px;
 }

@@ -200,10 +200,14 @@ class NotificationX_Extension {
 
 		if( $settings->close_button ) {
 			$classes[ 'inner' ][] = 'nx-has-close-btn';
-		}
-		$classes[ 'wrapper' ][] = 'nx-' . esc_attr( $settings->conversion_from );
+        }
+        if( $settings->display_type !== 'comments' ) {
+            $classes[ 'wrapper' ][] = 'nx-' . esc_attr( $settings->conversion_from );
+        }
 		$classes[ 'wrapper' ][] = 'nx-' . esc_attr( $settings->conversion_position );
-		$classes[ 'wrapper' ][] = 'notificationx-' . $settings->id;
+        $classes[ 'wrapper' ][] = 'notificationx-' . $settings->id;
+        
+		$classes[ 'wrapper' ][] = 'nx-' . $settings->display_type;
 
 		$classes[ 'inner' ][] = 'fp-notification-' . esc_attr( self::get_theme( $settings ) );
 
