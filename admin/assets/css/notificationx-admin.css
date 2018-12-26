@@ -346,6 +346,11 @@ h2.nx-meta-section-title .nx-section-reset {
     display: none;
 }
 
+/* easy fix */
+#nx-meta-conversion_from {
+    display: none;
+}
+
 .nx-meta-section table tr th {
     width: 25%;
     text-align: left;
