@@ -341,6 +341,11 @@ h2.nx-meta-section-title .nx-section-reset {
 .nx-meta-section table tr {
     vertical-align: top;
 }
+
+.nx-meta-section tr[id^="nx-meta-has_no_"] {
+    display: none;
+}
+
 .nx-meta-section table tr th {
     width: 25%;
     text-align: left;
@@ -944,12 +949,12 @@ body.notificationx_page_nx-builder .select2-container--default .select2-search--
 }
 
 @media only screen and (max-width: 767px) {
-.nx-left-right-settings {
-    flex-flow: row wrap;
-    flex-direction: column;
-}
-.nx-settings-right {
-    padding: 0;
-}
+    .nx-left-right-settings {
+        flex-flow: row wrap;
+        flex-direction: column;
+    }
+    .nx-settings-right {
+        padding: 0;
+    }
     
 }
