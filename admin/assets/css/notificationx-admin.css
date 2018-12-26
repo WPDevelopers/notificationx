@@ -342,7 +342,7 @@ h2.nx-meta-section-title .nx-section-reset {
     vertical-align: top;
 }
 
-.nx-meta-section tr[id^="nx-meta-has_no_"] {
+.nx-meta-section tr[id^="nx-meta-has_no"] {
     display: none;
 }
 

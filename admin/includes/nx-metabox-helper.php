@@ -482,6 +482,7 @@ function notificationx_metabox_args(){
                                         'fields' => [ 'all_locations' ]
                                     ],
                                 ],
+                                'default'	=> 'everywhere'
                             ),
                             'all_locations'  => array(
                                 'type'      => 'select',
@@ -583,7 +584,7 @@ function notificationx_metabox_args(){
                                         'fields' => [ 'hide_after' ]
                                     ]
                                 ],
-                                'default'     => 60,
+                                'default'     => false,
                             ),
                             'hide_after'  => array(
                                 'type'        => 'number',

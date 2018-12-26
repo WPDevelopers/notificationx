@@ -278,7 +278,7 @@ class NotificationX_Helper {
                 ),
                 'press_bar' => array(
                     'sections' => [ 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography' ],
-                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'notification_preview', 'all_locations', 'image_url' ]
+                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'notification_preview', 'image_url' ]
                 ),
                 'conversions' => array(
                     'sections' => [ 'bar_themes', 'bar_design', 'bar_typography', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography' ], 
