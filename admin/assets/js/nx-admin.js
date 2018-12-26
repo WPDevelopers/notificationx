@@ -39,7 +39,7 @@
 
 		initFields: function(){
 			NotificationX_Admin.initSelect2();
-			$('.notificationx-metabox-wrapper .nx-meta-field').trigger('change');
+			$('.notificationx-metabox-wrapper .nx-meta-field:not(#nx_meta_conversion_from)').trigger('change');
 			NotificationX_Admin.initColorField();
 			NotificationX_Admin.initGroupField();
 		},
