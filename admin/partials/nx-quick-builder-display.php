@@ -7,7 +7,6 @@
     $totaltabs = count( $tabs );
     $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
 ?>
-</div>
 <div class="nx-builder-wrapper">
 
     <div class="nx-builder-header">
