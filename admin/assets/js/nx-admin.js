@@ -176,10 +176,19 @@
 		},
 
 		fieldAlert: function( element ){
-			var element = $( element );
+			// var element = $( element );
+
+			var premium_content = document.createElement("p");
+			var premium_anchor = document.createElement("a");
+				
+			premium_anchor.setAttribute( 'href', 'https://wpdeveloper.net/notificationx-pro' );
+			premium_anchor.innerText = 'Premium';
+			premium_anchor.style.color = 'red';
+			premium_content.innerHTML = 'You need to upgrade to the <strong>'+ premium_anchor.outerHTML +' </strong> Version to use this feature';
+			
 			swal({
-				title     : "Hi, there.",
-				text      : "You have to upgrade in PRO",
+				title     : "Opps...",
+				content   :  premium_content,
 				icon      : "warning",
 				buttons   : [false, "Close"],
 				dangerMode: true,
