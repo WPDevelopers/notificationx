@@ -58,9 +58,7 @@ class NotificationX_Helper {
                 foreach( $value as $inner_key => $single ) {
                     if( $inner_key == $using ) {
                         $value[ 'tempid' ] = $key;
-                        if( isset( $new_array[ $single ] ) ) {
-                            $single = $single + 1;
-                        }
+                        $single = self::numeric_key_gen( $new_array, $single );
                         $new_array[ $single ] = $value;
                     }
                 }
@@ -83,6 +81,20 @@ class NotificationX_Helper {
         }
 
         return $data;
+    }
+    /**
+     * This function is responsible for generate unique numeric key for a given array.
+     *
+     * @param array $data
+     * @param integer $index
+     * @return integer
+     */
+    private static function numeric_key_gen( $data, $index = 0 ){
+        if( isset( $data[ $index ] ) ) {
+            $index+=1;
+            return self::numeric_key_gen( $data, $index );
+        }
+        return $index;
     }
     /**
      * Sorting Data 
