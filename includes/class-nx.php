@@ -99,6 +99,10 @@ final class NotificationX {
 		 */
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-helper.php';
 		/**
+		 * NotificationX Messages
+		 */
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-message.php';
+		/**
 		 * NotificationX Cron
 		 */
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-cron.php';
@@ -143,7 +147,6 @@ final class NotificationX {
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'public/class-nx-public.php';
 		do_action('notificationx_load_depedencies');
 	}
-
 	/**
 	 * Optional usage tracker
 	 *
@@ -152,7 +155,7 @@ final class NotificationX {
 	public function start_plugin_tracking() {
 		$wisdom = new NotificationX_Plugin_Usage_Tracker(
 			NOTIFICATIONX_FILE,
-			'https://wpdeveloper.net',
+			'http://app.wpdeveloper.net',
 			array(),
 			true,
 			true,

@@ -10,19 +10,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
-	
+if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) :
+
 	class NotificationX_Plugin_Usage_Tracker {
-		
-		private $wisdom_version = '1.1.2';
+		private $wpins_version = '1.1.3';
 		private $home_url = '';
 		private $plugin_file = '';
-		public $plugin_name = '';
+		private $plugin_name = '';
 		private $options = array();
 		private $require_optin = true;
 		private $include_goodbye_form = true;
 		private $marketing = false;
 		private $collect_email = false;
+		/**
+		 * for matching the deactivation form header color with plugins appearance.
+		 * @var string
+		 */
+		private $header_bg  = '#3A56FF'; 
+		private $text_color = '#FFFFFF';
 		
 		/**
 		 * Class constructor
@@ -60,6 +65,7 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 			
 			// Get it going
 			$this->init();
+			
 		}
 		
 		public function init() {
@@ -67,7 +73,6 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 			if( $this->marketing == 3 ) {
 				$this->set_can_collect_email( true, $this->plugin_name );
 			}
-			
 			// Check whether opt-in is required
 			// If not, then tracking is allowed
 			if( ! $this->require_optin ) {
@@ -76,29 +81,27 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 				$this->update_block_notice();
 				$this->do_tracking( true );
 			}
-
 			// Hook our do_tracking function to the daily action
+			add_action( 'wpdeveloper_notice_clicked', array( $this, 'clicked' ) );
 			add_action( 'put_do_weekly_action', array( $this, 'do_tracking' ) );
-
-			// Use this action for local testing
-			// add_action( 'admin_init', array( $this, 'do_tracking' ) );
-			 
+			// for local test
+			// add_action( 'admin_init', array( $this, 'force_tracking' ) );
+			
 			// Display the admin notice on activation
-			add_action( 'admin_notices', array( $this, 'optin_notice' ) );
+			add_action( 'wpdeveloper_optin_notice', array( $this, 'optin_notice' ) );
 			add_action( 'admin_notices', array( $this, 'marketing_notice' ) );
 
 			// Deactivation
 			add_filter( 'plugin_action_links_' . plugin_basename( $this->plugin_file ), array( $this, 'filter_action_links' ) );
 			add_action( 'admin_footer-plugins.php', array( $this, 'goodbye_ajax' ) );
 			add_action( 'wp_ajax_goodbye_form', array( $this, 'goodbye_form_callback' ) );
-			add_action( 'nx_builder_before_tab', array( $this, 'opt_in' ), 10, 3 );
-			add_action( 'nx_before_builder_submit', array( $this, 'optin_check' ) );
+			
 		}
 		
 		/**
 		 * When the plugin is activated
 		 * Create scheduled event
-		 * And check if tracking is enablFed - perhaps the plugin has been reactivated
+		 * And check if tracking is enabled - perhaps the plugin has been reactivated
 		 *
 		 * @since 1.0.0
 		 */
@@ -108,7 +111,16 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 				wp_schedule_event( time(), 'daily', 'put_do_weekly_action' );
 			}
 		}
-		
+		/**
+		 * This function is responsible for force tracking the plugin, 
+		 * if users are allowed to do!
+		 *
+		 * @return void
+		 */
+		public function force_tracking(){
+			$this->do_tracking( true );
+		}
+
 		/**
 		 * This is our function to get everything going
 		 * Check that user has opted in
@@ -124,12 +136,12 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 				return;
 			}
 	
-			// // Check to see if the user has opted in to tracking
+			// Check to see if the user has opted in to tracking
 			$allow_tracking = $this->get_is_tracking_allowed();
 			if( ! $allow_tracking ) {
 				return;
 			}
-				
+			
 			// Check to see if it's time to track
 			$track_time = $this->get_is_time_to_track();
 			if( ! $track_time && ! $force ) {
@@ -143,7 +155,6 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 
 			// Send the data
 			$this->send_data( $body );
-
 		}
 		
 		/**
@@ -165,7 +176,7 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 					'user-agent'  => 'PUT/1.0.0; ' . get_bloginfo( 'url' )
 				)
 			);
-
+			
 			$this->set_track_time();
 	
 			if( is_wp_error( $request ) ) {
@@ -192,7 +203,7 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 				'site_version'		=> get_bloginfo( 'version' ),
 				'site_language'		=> get_bloginfo( 'language' ),
 				'charset'			=> get_bloginfo( 'charset' ),
-				'wisdom_version'	=> $this->wisdom_version,
+				'wpins_version'		=> $this->wpins_version,
 				'php_version'		=> phpversion(),
 				'multisite'			=> is_multisite(),
 				'file_location'		=> __FILE__
@@ -266,7 +277,7 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 				foreach( $options as $option ) {
 					$fields = get_option( $option );
 					// Check for permission to send this option
-					if( isset( $fields['wisdom_registered_setting'] ) ) {
+					if( isset( $fields['wpins_registered_setting'] ) ) {
 						foreach( $fields as $key=>$value ) {
 							$plugin_options[$key] = $value;
 						}
@@ -323,11 +334,11 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 			$body['deactivated_date'] = time();
 			
 			// Add deactivation form data
-			if( false !== get_option( 'wisdom_deactivation_reason_' . $this->plugin_name ) ) {
-				$body['deactivation_reason'] = get_option( 'wisdom_deactivation_reason_' . $this->plugin_name );
+			if( false !== get_option( 'wpins_deactivation_reason_' . $this->plugin_name ) ) {
+				$body['deactivation_reason'] = get_option( 'wpins_deactivation_reason_' . $this->plugin_name );
 			}
-			if( false !== get_option( 'wisdom_deactivation_details_' . $this->plugin_name ) ) {
-				$body['deactivation_details'] = get_option( 'wisdom_deactivation_details_' . $this->plugin_name );
+			if( false !== get_option( 'wpins_deactivation_details_' . $this->plugin_name ) ) {
+				$body['deactivation_details'] = get_option( 'wpins_deactivation_details_' . $this->plugin_name );
 			}
 			
 			$this->send_data( $body );
@@ -345,8 +356,8 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 				$this->set_is_tracking_allowed( false, $this->plugin_name );
 				return false;
 			}
-			// The wisdom_allow_tracking option is an array of plugins that are being tracked
-			$allow_tracking = get_option( 'wisdom_allow_tracking' );
+			// The wpins_allow_tracking option is an array of plugins that are being tracked
+			$allow_tracking = get_option( 'wpins_allow_tracking' );
 			// If this plugin is in the array, then tracking is allowed
 			if( isset( $allow_tracking[$this->plugin_name] ) ) {
 				return true;
@@ -365,8 +376,8 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 			if( empty( $plugin ) ) {
 				$plugin = $this->plugin_name;
 			}
-			// The wisdom_allow_tracking option is an array of plugins that are being tracked
-			$allow_tracking = get_option( 'wisdom_allow_tracking' );
+			// The wpins_allow_tracking option is an array of plugins that are being tracked
+			$allow_tracking = get_option( 'wpins_allow_tracking' );
 			
 			// If the user has decided to opt out
 			if( $this->has_user_opted_out() ) {
@@ -387,7 +398,7 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 					unset( $allow_tracking[$plugin] );
 				}
 			}
-			update_option( 'wisdom_allow_tracking', $allow_tracking );
+			update_option( 'wpins_allow_tracking', $allow_tracking );
 		}
 		
 		/**
@@ -396,13 +407,13 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 		 * @return Boolean
 		 */
 		public function has_user_opted_out() {
-			// Iterate through the options that are being tracked looking for wisdom_opt_out setting
+			// Iterate through the options that are being tracked looking for wpins_opt_out setting
 			if( ! empty( $this->options ) ) {
 				foreach( $this->options as $option_name ) {
 					// Check each option
 					$options = get_option( $option_name );
 					// If we find the setting, return true
-					if( ! empty( $options['wisdom_opt_out'] ) ) {
+					if( ! empty( $options['wpins_opt_out'] ) ) {
 						return true;
 					}
 				}
@@ -416,7 +427,7 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 		 */
 		public function get_is_time_to_track() {
 			// Let's see if we're due to track this plugin yet
-			$track_times = get_option( 'wisdom_last_track_time', array() );
+			$track_times = get_option( 'wpins_last_track_time', array() );
 			if( ! isset( $track_times[$this->plugin_name] ) ) {
 				// If we haven't set a time for this plugin yet, then we must track it
 				return true;
@@ -435,10 +446,10 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 		 */
 		public function set_track_time() {
 			// We've tracked, so record the time
-			$track_times = get_option( 'wisdom_last_track_time', array() );
+			$track_times = get_option( 'wpins_last_track_time', array() );
 			// Set different times according to plugin, in case we are tracking multiple plugins
 			$track_times[$this->plugin_name] = time();
-			update_option( 'wisdom_last_track_time', $track_times );
+			update_option( 'wpins_last_track_time', $track_times );
 		}
 		
 		/**
@@ -450,7 +461,7 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 			if( empty( $plugin ) ) {
 				$plugin = $this->plugin_name;
 			}
-			$block_notice = get_option( 'wisdom_block_notice' );
+			$block_notice = get_option( 'wpins_block_notice' );
 			if( empty( $block_notice ) || ! is_array( $block_notice ) ) {
 				// If nothing exists in the option yet, start a new array with the plugin name
 				$block_notice = array( $plugin => $plugin );
@@ -458,7 +469,7 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 				// Else add the plugin name to the array
 				$block_notice[$plugin] = $plugin;
 			}
-			update_option( 'wisdom_block_notice', $block_notice );
+			update_option( 'wpins_block_notice', $block_notice );
 		}
 		
 		/**
@@ -466,8 +477,8 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 		 * @since 1.0.0
 		 */
 		public function get_can_collect_email() {
-			// The wisdom_collect_email option is an array of plugins that are being tracked
-			$collect_email = get_option( 'wisdom_collect_email' );
+			// The wpins_collect_email option is an array of plugins that are being tracked
+			$collect_email = get_option( 'wpins_collect_email' );
 			// If this plugin is in the array, then we can collect the email address
 			if( isset( $collect_email[$this->plugin_name] ) ) {
 				return true;
@@ -486,8 +497,8 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 			if( empty( $plugin ) ) {
 				$plugin = $this->plugin_name;
 			}
-			// The wisdom_collect_email option is an array of plugins that are being tracked
-			$collect_email = get_option( 'wisdom_collect_email' );
+			// The wpins_collect_email option is an array of plugins that are being tracked
+			$collect_email = get_option( 'wpins_collect_email' );
 			// If the user has agreed to allow tracking or if opt-in is not required
 			if( $can_collect ) {
 				if( empty( $collect_email ) || ! is_array( $collect_email ) ) {
@@ -502,7 +513,7 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 					unset( $collect_email[$plugin] );
 				}
 			}
-			update_option( 'wisdom_collect_email', $collect_email );
+			update_option( 'wpins_collect_email', $collect_email );
 		}
 		
 		/**
@@ -511,8 +522,8 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 		 * @return Email address
 		 */
 		public function get_admin_email() {
-			// The wisdom_collect_email option is an array of plugins that are being tracked
-			$email = get_option( 'wisdom_admin_emails' );
+			// The wpins_collect_email option is an array of plugins that are being tracked
+			$email = get_option( 'wpins_admin_emails' );
 			// If this plugin is in the array, then we can collect the email address
 			if( isset( $email[$this->plugin_name] ) ) {
 				return $email[$this->plugin_name];
@@ -540,8 +551,8 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 					$email = $current_user->user_email;
 				}
 			}
-			// The wisdom_admin_emails option is an array of admin email addresses
-			$admin_emails = get_option( 'wisdom_admin_emails' );
+			// The wpins_admin_emails option is an array of admin email addresses
+			$admin_emails = get_option( 'wpins_admin_emails' );
 			if( empty( $admin_emails ) || ! is_array( $admin_emails ) ) {
 				// If nothing exists in the option yet, start a new array with the plugin name
 				$admin_emails = array( $plugin => sanitize_email( $email ) );
@@ -549,15 +560,10 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 				// Else add the email address to the array, if not already set
 				$admin_emails[$plugin] = sanitize_email( $email );
 			}
-			update_option( 'wisdom_admin_emails', $admin_emails );
+			update_option( 'wpins_admin_emails', $admin_emails );
 		}
-		
-		/**
-		 * Display the admin notice to users to allow them to opt in
-		 *
-		 * @since 1.0.0
-		 */
-		public function optin_notice() {
+
+		public function clicked(){
 			// Check for plugin args
 			if( isset( $_GET['plugin'] ) && isset( $_GET['plugin_action'] ) ) {
 				$plugin = sanitize_text_field( $_GET['plugin'] );
@@ -570,11 +576,17 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 				}
 				$this->update_block_notice( $plugin );
 			}
-			
+		}
+		
+		/**
+		 * Display the admin notice to users to allow them to opt in
+		 *
+		 * @since 1.0.0
+		 */
+		public function optin_notice() {
 			// Check whether to block the notice, e.g. because we're in a local environment
-			// wisdom_block_notice works the same as wisdom_allow_tracking, an array of plugin names
-			$block_notice = get_option( 'wisdom_block_notice' );
-
+			// wpins_block_notice works the same as wpins_allow_tracking, an array of plugin names
+			$block_notice = get_option( 'wpins_block_notice' );
 			if( isset( $block_notice[$this->plugin_name] ) ) {
 				return;
 			}
@@ -585,7 +597,12 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 
 			// @credit EDD
 			// Don't bother asking user to opt in if they're in local dev
-			if ( stristr( network_site_url( '/' ), 'test' ) !== false || stristr( network_site_url( '/' ), 'localhost' ) !== false || stristr( network_site_url( '/' ), ':8888' ) !== false ) {
+			$is_local = false;
+			if( stristr( network_site_url( '/' ), '.dev' ) !== false || stristr( network_site_url( '/' ), 'localhost' ) !== false || stristr( network_site_url( '/' ), ':8888' ) !== false ) {
+				$is_local = true;
+			}
+			$is_local = apply_filters( 'wpins_is_local_' . $this->plugin_name, $is_local );
+			if ( $is_local ) {
 				$this->update_block_notice();
 			} else {
 				
@@ -613,7 +630,7 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 					'plugin' 		=> $this->plugin_name,
 					'plugin_action'	=> 'no'
 				) );
-
+				
 				// Decide on notice text
 				if( $this->marketing != 1 ) {
 					// Standard notice text
@@ -623,28 +640,26 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 					$notice_text = __( 'Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>25% discount coupon</strong> for Pro upgrade if you allow. <a class="insights-data-we-collect" href="#">What we collect.</a>', 'plugin-usage-tracker' );
 				}
 				// And we allow you to filter the text anyway
-				$notice_text = apply_filters( 'wisdom_notice_text_' . esc_attr( $this->plugin_name ), $notice_text ); ?>
-							
+				$notice_text = apply_filters( 'wpins_notice_text_' . esc_attr( $this->plugin_name ), $notice_text ); ?>
+					
 				<div class="notice notice-info updated put-dismiss-notice">
 					<p><?php echo __( $notice_text ); ?></p>
-					<div class="nx-insights-data" style="display: none;">
+					<div class="eael-insights-data" style="display: none;">
 						<p><?php echo __( 'We collect non-sensitive diagnostic data and plugin usage information. Your site URL, WordPress & PHP version, plugins & themes and email address to send you the discount coupon. This data lets us make sure this plugin always stays compatible with the most popular plugins and themes. No spam, I promise.' ); ?></p>
 					</div>
 					<p>
 						<a href="<?php echo esc_url( $url_yes ); ?>" class="button-primary"><?php _e( 'Allow', 'plugin-usage-tracker' ); ?></a>
 						<a href="<?php echo esc_url( $url_no ); ?>" class="button-secondary"><?php _e( 'No Thanks', 'plugin-usage-tracker' ); ?></a>
 					</p>
-		            <?php echo "<script type='text/javascript'>jQuery('.insights-data-we-collect').on('click', function(e) {
+		            <?php echo "<script type='text/javascript'>jQuery('.insights-data-we-collect').on('click', 			function(e) {
 		                    e.preventDefault();
-		                    jQuery('.nx-insights-data').slideToggle('fast');
+		                    jQuery('.eael-insights-data').slideToggle('fast');
 		                });
 		                </script>";?>
 				</div>
 			<?php
 			}
-			
 		}
-		
 		/**
 		 * Display the marketing notice to users if enabled
 		 * Only displays after the user has opted in to tracking
@@ -674,7 +689,7 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 				) );
 				
 				$marketing_text = __( 'Thank you for opting in to tracking. Would you like to receive occasional news about this plugin, including details of new features and special offers?', 'plugin-usage-tracker' );
-				$marketing_text = apply_filters( 'wisdom_marketing_text_' . esc_attr( $this->plugin_name ), $marketing_text ); ?>
+				$marketing_text = apply_filters( 'wpins_marketing_text_' . esc_attr( $this->plugin_name ), $marketing_text ); ?>
 				
 				<div class="notice notice-info updated put-dismiss-notice">
 					<p><?php echo '<strong>' . esc_html( $plugin_name ) . '</strong>'; ?></p>
@@ -698,8 +713,10 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 			}
 			if( isset( $links['deactivate'] ) && $this->include_goodbye_form ) {
 				$deactivation_link = $links['deactivate'];
+
+
 				// Insert an onClick action to allow form before deactivating
-				$deactivation_link = str_replace( '<a ', '<div class="put-goodbye-form-wrapper"><span class="put-goodbye-form" id="put-goodbye-form-' . esc_attr( $this->plugin_name ) . '"></span></div><a onclick="javascript:event.preventDefault();" id="put-goodbye-link-' . esc_attr( $this->plugin_name ) . '" ', $deactivation_link );
+				$deactivation_link = str_replace( '<a ', '<div class="eael-put-goodbye-form-wrapper"><div class="eael-put-goodbye-form-bg"></div><span class="eael-put-goodbye-form" id="eael-put-goodbye-form-' . esc_attr( $this->plugin_name ) . '"></span></div><a onclick="javascript:event.preventDefault();" id="eael-put-goodbye-link-' . esc_attr( $this->plugin_name ) . '" ', $deactivation_link );
 				$links['deactivate'] = $deactivation_link;
 			}
 			return $links;
@@ -714,16 +731,22 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 			$form = array();
 			$form['heading'] = __( 'Sorry to see you go', 'plugin-usage-tracker' );
 			$form['body'] = __( 'Before you deactivate the plugin, would you quickly give us your reason for doing so?', 'plugin-usage-tracker' );
+
 			$form['options'] = array(
-				__( 'Set up is too difficult', 'plugin-usage-tracker' ),
-				__( 'Lack of documentation', 'plugin-usage-tracker' ),
-				__( 'Not the features I wanted', 'plugin-usage-tracker' ),
-				__( 'Found a better plugin', 'plugin-usage-tracker' ),
-				__( 'Installed by mistake', 'plugin-usage-tracker' ),
-				__( 'Only required temporarily', 'plugin-usage-tracker' ),
-				__( 'Didn\'t work', 'plugin-usage-tracker' )
+				__( 'I no longer need the plugin', 'plugin-usage-tracker' ),
+				[
+					'label' => __( 'I found a better plugin', 'plugin-usage-tracker' ),
+					'extra_field' => __( 'Please share which plugin', 'plugin-usage-tracker' )
+				],
+				__( "I couldn't get the plugin to work", 'plugin-usage-tracker' ),
+				__( 'It\'s a temporary deactivation', 'plugin-usage-tracker' ),
+				[
+					'label' => __( 'Other', 'plugin-usage-tracker' ),
+					'extra_field' => __( 'Please share the reason', 'plugin-usage-tracker' ),
+					'type' => 'textarea'
+				]
 			);
-			$form['details'] = __( 'Details (optional)', 'plugin-usage-tracker' );
+
 			return $form;
 		}
 		
@@ -735,7 +758,7 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 		 */
 		public function form_filterable_text() {
 			$form = $this->form_default_text();
-			return apply_filters( 'wisdom_form_text_' . esc_attr( $this->plugin_name ), $form );
+			return apply_filters( 'wpins_form_text_' . esc_attr( $this->plugin_name ), $form );
 		}
 		
 		/**
@@ -751,59 +774,105 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 				$form = $this->form_default_text();
 			}
 			// Build the HTML to go in the form
-			$html = '<div class="put-goodbye-form-head"><strong>' . esc_html( $form['heading'] ) . '</strong></div>';
-			$html .= '<div class="put-goodbye-form-body"><p>' . esc_html( $form['body'] ) . '</p>';
+			$html = '<div class="eael-put-goodbye-form-head"><strong>' . esc_html( $form['heading'] ) . '</strong></div>';
+			$html .= '<div class="eael-put-goodbye-form-body"><p class="eael-put-goodbye-form-caption">' . esc_html( $form['body'] ) . '</p>';
 			if( is_array( $form['options'] ) ) {
-				$html .= '<div class="put-goodbye-options"><p>';
+				$html .= '<div id="eael-put-goodbye-options" class="eael-put-goodbye-options"><ul>';
 				foreach( $form['options'] as $option ) {
-					$html .= '<input type="checkbox" name="put-goodbye-options[]" id="' . str_replace( " ", "", esc_attr( $option ) ) . '" value="' . esc_attr( $option ) . '"> <label for="' . str_replace( " ", "", esc_attr( $option ) ) . '">' . esc_attr( $option ) . '</label><br>';
+					if( is_array( $option ) ) {
+						$id = strtolower( str_replace( " ", "_", esc_attr( $option['label'] ) ) );
+						$html .= '<li class="has-goodbye-extra">';
+						$html .= '<input type="radio" name="eael-put-goodbye-options" id="' . $id . '" value="' . esc_attr( $option['label'] ) . '">';
+						$html .= '<div><label for="' . $id . '">' . esc_attr( $option['label'] ) . '</label>';
+						if( isset( $option[ 'extra_field' ] ) && ! isset( $option['type'] )) {
+							$html .= '<input type="text" style="display: none" name="'. $id .'" id="' . str_replace( " ", "", esc_attr( $option['extra_field'] ) ) . '" placeholder="' . esc_attr( $option['extra_field'] ) . '">';
+						}
+						if( isset( $option[ 'extra_field' ] ) && isset( $option['type'] )) {
+							$html .= '<'. $option['type'] .' style="display: none" type="text" name="'. $id .'" id="' . str_replace( " ", "", esc_attr( $option['extra_field'] ) ) . '" placeholder="' . esc_attr( $option['extra_field'] ) . '"></' . $option['type'] . '>';
+						}
+						$html .= '</div></li>';
+					} else {
+						$id = strtolower( str_replace( " ", "_", esc_attr( $option ) ) );
+						$html .= '<li><input type="radio" name="eael-put-goodbye-options" id="' . $id . '" value="' . esc_attr( $option ) . '"> <label for="' . $id . '">' . esc_attr( $option ) . '</label></li>';
+					}
 				}
-				$html .= '</p><label for="put-goodbye-reasons">' . esc_html( $form['details'] ) .'</label><textarea name="put-goodbye-reasons" id="put-goodbye-reasons" rows="2" style="width:100%"></textarea>';
-				$html .= '</div><!-- .put-goodbye-options -->';
+				$html .= '</ul></div><!-- .eael-put-goodbye-options -->';
 			}
-			$html .= '</div><!-- .put-goodbye-form-body -->';
+			$html .= '</div><!-- .eael-put-goodbye-form-body -->';
 			$html .= '<p class="deactivating-spinner"><span class="spinner"></span> ' . __( 'Submitting form', 'plugin-usage-tracker' ) . '</p>';
 			?>
-			<div class="put-goodbye-form-bg"></div>
 			<style type="text/css">
-				.put-form-active .put-goodbye-form-bg {
-					background: rgba( 0, 0, 0, .5 );
+				.eael-put-form-active .eael-put-goodbye-form-bg {
+					background: rgba( 0, 0, 0, .8 );
 					position: fixed;
 					top: 0;
 					left: 0;
 					width: 100%;
 					height: 100%;
+					z-index: 9;
 				}
-				.put-goodbye-form-wrapper {
+				.eael-put-goodbye-form-wrapper {
 					position: relative;
-					z-index: 999;
 					display: none;
 				}
-				.put-form-active .put-goodbye-form-wrapper {
-					display: block;
+				.eael-put-form-active .eael-put-goodbye-form-wrapper {
+					display: flex !important;
+					align-items: center;
+					justify-content: center;
+					width: 100%;
+					height: 100%;
+					position: fixed;
+					left: 0px;
+					top: 0px;
 				}
-				.put-goodbye-form {
+				.eael-put-goodbye-form {
 					display: none;
 				}
-				.put-form-active .put-goodbye-form {
-					position: absolute;
-				    bottom: 30px;
-				    left: 0;
-					max-width: 400px;
+				.eael-put-form-active .eael-put-goodbye-form {
+					position: relative !important;
+					width: 550px;
+					max-width: 80%;
 				    background: #fff;
+					box-shadow: 2px 8px 23px 3px rgba(0,0,0,.2);
+					border-radius: 3px;
 					white-space: normal;
+					overflow: hidden;
+					display: block;
+					z-index: 999999;
 				}
-				.put-goodbye-form-head {
-					background: #0073aa;
-					color: #fff;
-					padding: 8px 18px;
+				.eael-put-goodbye-form-head {
+					background: #fff;
+					color: #495157;
+					padding: 18px;
+					box-shadow: 0 0 8px rgba(0,0,0,.1);
+					font-size: 15px;
 				}
-				.put-goodbye-form-body {
+				.eael-put-goodbye-form .eael-put-goodbye-form-head strong {
+					font-size: 15px;
+				}
+				.eael-put-goodbye-form-body {
 					padding: 8px 18px;
-					color: #444;
+					color: #333;
+				}
+				.eael-put-goodbye-form-body label {
+					color: #6d7882;
+					padding-left: 5px;
+				}
+				.eael-put-goodbye-form-body .eael-put-goodbye-form-caption {
+					font-weight: 500;
+					font-size: 15px;
+					color: #495157;
+					line-height: 1.4;
+				}
+				.eael-put-goodbye-form-body #eael-put-goodbye-options {
+					padding-top: 5px;
+				}
+				.eael-put-goodbye-form-body #eael-put-goodbye-options ul > li {
+					margin-bottom: 15px;
 				}
 				.deactivating-spinner {
-					display: none;
+ 					display: none;
+					 padding-bottom: 20px !important;
 				}
 				.deactivating-spinner .spinner {
 					float: none;
@@ -811,37 +880,80 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 					vertical-align: bottom;
 					visibility: visible;
 				}
-				.put-goodbye-form-footer {
+				.eael-put-goodbye-form-footer {
 					padding: 8px 18px;
+					margin-bottom: 15px;
+				}
+				.eael-put-goodbye-form-footer > .eael-put-goodbye-form-buttons {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+				}
+				.eael-put-goodbye-form-footer .eael-put-submit-btn {
+					background-color: #d30c5c;
+					-webkit-border-radius: 3px;
+					border-radius: 3px;
+					color: #fff;
+					line-height: 1;
+					padding: 15px 20px;
+					font-size: 13px;
+				}
+				.eael-put-goodbye-form-footer .eael-put-deactivate-btn {
+					font-size: 13px;
+					color: #a4afb7;
+					background: none;
+					float: right;
+					padding-right: 10px;
+					width: auto;
+					text-decoration: underline;
+				}
+				#eael-put-goodbye-options ul li > div {
+					display: inline;
+					padding-left: 3px;
+				}
+				#eael-put-goodbye-options ul li > div > input, #eael-put-goodbye-options ul li > div > textarea {
+					margin: 10px 18px;
+					padding: 8px;
+					width: 80%;
 				}
 			</style>
 			<script>
 				jQuery(document).ready(function($){
-					$("#put-goodbye-link-<?php echo esc_attr( $this->plugin_name ); ?>").on("click",function(){
+					$("#eael-put-goodbye-link-<?php echo esc_attr( $this->plugin_name ); ?>").on("click",function(){
 						// We'll send the user to this deactivation link when they've completed or dismissed the form
-						var url = document.getElementById("put-goodbye-link-<?php echo esc_attr( $this->plugin_name ); ?>");
-						$('body').toggleClass('put-form-active');
-						$("#put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?>").fadeIn();
-						$("#put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?>").html( '<?php echo $html; ?>' + '<div class="put-goodbye-form-footer"><p><a id="put-submit-form" class="button primary" href="#"><?php _e( 'Submit and Deactivate', 'plugin-usage-tracker' ); ?></a>&nbsp;<a class="secondary button" href="'+url+'"><?php _e( 'Just Deactivate', 'plugin-usage-tracker' ); ?></a></p></div>');
+						var url = document.getElementById("eael-put-goodbye-link-<?php echo esc_attr( $this->plugin_name ); ?>");
+						$('body').toggleClass('eael-put-form-active');
+						$("#eael-put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?>").fadeIn();
+						$("#eael-put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?>").html( '<?php echo $html; ?>' + '<div class="eael-put-goodbye-form-footer"><div class="eael-put-goodbye-form-buttons"><a id="put-submit-form" class="eael-put-submit-btn" href="#"><?php _e( 'Submit and Deactivate', 'plugin-usage-tracker' ); ?></a>&nbsp;<a class="eael-put-deactivate-btn" href="'+url+'"><?php _e( 'Just Deactivate', 'plugin-usage-tracker' ); ?></a></div></div>');
 						$('#put-submit-form').on('click', function(e){
 							// As soon as we click, the body of the form should disappear
-							$("#put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?> .put-goodbye-form-body").fadeOut();
-							$("#put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?> .put-goodbye-form-footer").fadeOut();
+							$("#eael-put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?> .eael-put-goodbye-form-body").fadeOut();
+							$("#eael-put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?> .eael-put-goodbye-form-footer").fadeOut();
 							// Fade in spinner
-							$("#put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?> .deactivating-spinner").fadeIn();
+							$("#eael-put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?> .deactivating-spinner").fadeIn();
 							e.preventDefault();
-							var values = new Array();
-							$.each($("input[name='put-goodbye-options[]']:checked"), function(){
-								values.push($(this).val());
-							});
-							var details = $('#put-goodbye-reasons').val();
+							var checkedInput = $("input[name='eael-put-goodbye-options']:checked"), 
+								checkedInputVal, details;
+							if( checkedInput.length > 0 ) {
+								checkedInputVal = checkedInput.val();
+								details = $('input[name="'+ checkedInput[0].id +'"], textarea[name="'+ checkedInput[0].id +'"]').val();
+							}
+
+							if( typeof details === 'undefined' ) {
+								details = '';
+							}
+							if( typeof checkedInputVal === 'undefined' ) {
+								checkedInputVal = 'No Reason';
+							}
+
 							var data = {
 								'action': 'goodbye_form',
-								'values': values,
+								'values': checkedInputVal,
 								'details': details,
-								'security': "<?php echo wp_create_nonce ( 'wisdom_goodbye_form' ); ?>",
+								'security': "<?php echo wp_create_nonce ( 'wpins_goodbye_form' ); ?>",
 								'dataType': "json"
 							}
+
 							$.post(
 								ajaxurl,
 								data,
@@ -851,12 +963,19 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 								}
 							);
 						});
+						$('#eael-put-goodbye-options > ul ').on('click', 'li label, li > input', function( e ){
+							var parent = $(this).parents('li');
+							parent.siblings().find('label').next('input, textarea').css('display', 'none');
+							parent.find('label').next('input, textarea').css('display', 'block');
+						});
 						// If we click outside the form, the form will close
-						$('.put-goodbye-form-bg').on('click',function(){
-							$("#put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?>").fadeOut();
-							$('body').removeClass('put-form-active');
+						$('.eael-put-goodbye-form-bg').on('click',function(){
+							$("#eael-put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?>").fadeOut();
+							$('body').removeClass('eael-put-form-active');
 						});
 					});
+
+					
 				});
 			</script>
 		<?php }
@@ -866,124 +985,18 @@ if( ! class_exists( 'NotificationX_Plugin_Usage_Tracker') ) {
 		 * @since 1.0.0
 		 */
 		public function goodbye_form_callback() {
-			check_ajax_referer( 'wisdom_goodbye_form', 'security' );
+			check_ajax_referer( 'wpins_goodbye_form', 'security' );
 			if( isset( $_POST['values'] ) ) {
-				$values = json_encode( wp_unslash( $_POST['values'] ) );
-				update_option( 'wisdom_deactivation_reason_' . $this->plugin_name, $values );
+				$values = $_POST['values'];
+				update_option( 'wpins_deactivation_reason_' . $this->plugin_name, $values );
 			}
 			if( isset( $_POST['details'] ) ) {
 				$details = sanitize_text_field( $_POST['details'] );
-				update_option( 'wisdom_deactivation_details_' . $this->plugin_name, $details );
+				update_option( 'wpins_deactivation_details_' . $this->plugin_name, $details );
 			}
 			$this->do_tracking(); // Run this straightaway
 			echo 'success';
 			wp_die();
 		}
-
-		public function opt_in( $id, $tab ) {
-			$block_notice = get_option( 'wisdom_block_notice' );
-			$last_time_track = get_option( 'wisdom_last_track_time' );
-			$new_track_time = strtotime( date('d F Y', $last_time_track[ $this->plugin_name ] ) . " +7 Days");
-
-			if( $id == 'finalize_tab' ) {
-
-				// Args to add to query if user opts in to tracking
-				$yes_args = array(
-					'plugin' 		=> $this->plugin_name,
-					'plugin_action'	=> 'yes'
-				);
-				
-				// Decide how to request permission to collect email addresses
-				if( $this->marketing == 1 ) {
-					// Option 1 combines permissions to track and collect email
-					$yes_args['marketing_optin'] = 'yes';
-				} else if( $this->marketing == 2 ) {
-					// Option 2 enables a second notice that fires after the user opts in to tracking
-					$yes_args['marketing'] = 'yes';
-				}
-			
-				$no_args['plugin'] = $this->plugin_name;
-				$no_args['plugin_action'] = 'no';
-				$opt_in_options = null;
-				if( ! $this->get_admin_email() ) {
-					$opt_in_options = apply_filters('nx_opt_in_options', array(
-						'email' => array(
-							'label' => 'Opt-in to get 25% discount for premium version. We will collect your email address and send the coupon, no spam!',
-							'default' => 1
-						),
-					) );
-				}
-
-
-				ob_start();
-				/**
-				 * TODO: select items for tracking
-				 */
-				?>
-					<div class="nx-opt-in">
-						<p><?php _e( 'You are about to publish <strong><span class="finalize_notificationx_name">NotificationX – Notification Bar</span></strong>. You can rename this and edit everything whenever you want from <strong><a href="'. admin_url('edit.php?post_type=notificationx') .'">NotificationX</a></strong> page.', 'notificationx' ); ?></p>
-						<?php 
-							if( ! empty( $opt_in_options ) ) : 
-								foreach( $opt_in_options as $key => $option ) {
-									$checked = $option['default'];
-									?>
-										<div class="nx-single-opt">
-											<input type="checkbox" <?php echo $checked ? 'checked' : '' ?> name="nx_tracking[<?php echo $key ?>]" id="<?php echo $key ?>">
-											<label for="<?php echo $key ?>"><?php echo $option['label'] ?></label>
-										</div>
-									<?php
-								}
-							endif;
-						?>
-					</div>
-				
-				<?php
-				echo ob_get_clean();
-			}
-		}
-		
-		public function optin_do_tracking( $force = false ) {
-			// If the home site hasn't been defined, we just drop out. Nothing much we can do.
-			if ( ! $this->home_url ) {
-				return;
-			}
-
-			// Check to see if it's time to track
-			$track_time = $this->get_is_time_to_track();
-			if( ! $track_time && ! $force ) {
-				return;
-			}
-			
-			$this->set_admin_email();
-	
-			// Get our data
-			$body = $this->get_data();
-
-			// Send the data
-			$this->send_data( $body );
-		}
-
-		public function optin_check( $data ){
-			if( isset( $data['nx_tracking'] ) ) {
-				$fields = $data['nx_tracking'];
-				if( isset( $fields['plugin_action'] ) && $fields['plugin_action'] === 'no' ) {
-					$this->set_track_time();
-					return false;
-				}
-
-				if( isset( $fields['email'] ) && $fields['email'] === 'on' ) {
-					$this->set_can_collect_email( true, $this->plugin_name );
-					$this->set_is_tracking_allowed( true, $this->plugin_name );
-				} else {
-					$this->set_can_collect_email( false, $this->plugin_name );
-					$this->set_is_tracking_allowed( false, $this->plugin_name );
-				}
-				$this->optin_do_tracking();
-				return true;
-			}
-			return false;
-		}
-
 	}
-	
-}
+endif;
