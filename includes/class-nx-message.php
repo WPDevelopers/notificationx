@@ -100,6 +100,7 @@ class NotificationX_Notice {
 
         if( ! class_exists( 'NotificationX_Core_Installer' ) ) {
             require_once dirname( __FILE__ ) . '/class-nx-core-installer.php';
+            new NotificationX_Core_Installer( $this->plugin_name );
         }
     }
     /**
@@ -723,7 +724,7 @@ class NotificationX_Notice {
         <script type="text/javascript">
             jQuery(document).ready( function($) {
                 <?php if( ! empty( $plugin_slug ) && ! empty( $plugin_file ) ) : ?>
-                $('#plugin-install-core').on('click', function (e) {
+                $('#plugin-install-core-<?php echo $this->plugin_name; ?>').on('click', function (e) {
                     var self = $(this);
                     e.preventDefault();
                     self.addClass('install-now updating-message');
@@ -733,8 +734,8 @@ class NotificationX_Notice {
                         url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
                         type: 'POST',
                         data: {
-                            action: 'wpdeveloper_upsale_core_install',
-                            _wpnonce: '<?php echo wp_create_nonce('wpdeveloper_upsale_core_install'); ?>',
+                            action: 'wpdeveloper_upsale_core_install_<?php echo $this->plugin_name; ?>',
+                            _wpnonce: '<?php echo wp_create_nonce('wpdeveloper_upsale_core_install_' . $this->plugin_name ); ?>',
                             slug : '<?php echo $plugin_slug; ?>',
                             file : '<?php echo $plugin_file; ?>'
                         },
