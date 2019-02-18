@@ -53,6 +53,12 @@ class NotificationX_Notice {
      */
     public $timestamp;
     /**
+     * Primary Notice Action
+     *
+     * @var string
+     */
+    private $do_notice_action;
+    /**
      * Default Options Set
      *
      * @var array
@@ -90,6 +96,8 @@ class NotificationX_Notice {
         $this->timestamp = intval( current_time( 'timestamp' ) );
         $this->notice_id = 'wpdeveloper_notice_' . str_replace( '.', '_', $this->version );
 
+        $this->do_notice_action = 'wpdeveloper_notices_for_' . $this->plugin_name;
+
         if( ! class_exists( 'NotificationX_Core_Installer' ) ) {
             require_once dirname( __FILE__ ) . '/class-nx-core-installer.php';
         }
@@ -108,16 +116,16 @@ class NotificationX_Notice {
      * @return void
      */
     public function hooks(){
-        add_action( 'wpdeveloper_notice_clicked', array( $this, 'clicked' ) );
-        add_action( 'wp_ajax_wpdeveloper_upsale_notice_dissmiss', array( $this, 'upsale_notice_dissmiss' ) );
-        add_action( 'wpdeveloper_before_notice', array( $this, 'before' ) );
-        add_action( 'wpdeveloper_after_notice', array( $this, 'after' ) );
-        add_action( 'wpdeveloper_before_upsale_notice', array( $this, 'before_upsale' ) );
-        add_action( 'wpdeveloper_after_upsale_notice', array( $this, 'after' ) );
-        add_action( 'wpdeveloper_notices', array( $this, 'content' ) );
+        add_action( 'wpdeveloper_notice_clicked_for_' . $this->plugin_name, array( $this, 'clicked' ) );
+        add_action( 'wp_ajax_wpdeveloper_upsale_notice_dissmiss_for_' . $this->plugin_name, array( $this, 'upsale_notice_dissmiss' ) );
+        add_action( 'wpdeveloper_before_notice_for_' . $this->plugin_name, array( $this, 'before' ) );
+        add_action( 'wpdeveloper_after_notice_for_' . $this->plugin_name, array( $this, 'after' ) );
+        add_action( 'wpdeveloper_before_upsale_notice_for_' . $this->plugin_name, array( $this, 'before_upsale' ) );
+        add_action( 'wpdeveloper_after_upsale_notice_for_' . $this->plugin_name, array( $this, 'after' ) );
+        add_action( $this->do_notice_action, array( $this, 'content' ) );
         if( current_user_can( 'install_plugins' ) ) {
             if( isset( $_GET['plugin'] ) &&  $_GET['plugin'] == $this->plugin_name ) {
-                do_action( 'wpdeveloper_notice_clicked' );
+                do_action( 'wpdeveloper_notice_clicked_for_' . $this->plugin_name );
                 /**
                  * Redirect User To the Current URL, but without set query arguments.
                  */
@@ -135,6 +143,7 @@ class NotificationX_Notice {
                 ? $options_data[ $this->plugin_name ]['notice_will_show'][ $current_notice ] : $this->timestamp;
             $next_notice_time = $next_notice ? $options_data[ $this->plugin_name ]['notice_will_show'][ $next_notice ] : $this->timestamp;
             $current_notice_end  = $this->makeTime( $notice_time, $this->cne_time );
+
             if( ! $deserve_notice ) {
                 unset( $options_data[ $this->plugin_name ]['notice_will_show'][ $current_notice ] );
                 $this->update_options_data( $options_data[ $this->plugin_name ] );
@@ -295,22 +304,22 @@ class NotificationX_Notice {
 
         switch( $notice ) {
             case 'opt_in' :
-                do_action('wpdeveloper_optin_notice');
+                do_action('wpdeveloper_optin_notice_for_' . $this->plugin_name );
                 break;
             case 'first_install' : 
                 if( $options_data[ $this->plugin_name ]['first_install'] !== 'deactivated' ) {
-                    do_action('wpdeveloper_first_install_notice');
+                    do_action( 'wpdeveloper_first_install_notice_for_' . $this->plugin_name );
                     $this->get_thumbnail( 'first_install' );
                     $this->get_message( 'first_install' );
                 }
                 break;
             case 'update' : 
-                do_action('wpdeveloper_update_notice');
+                do_action( 'wpdeveloper_update_notice_for_' . $this->plugin_name );
                 $this->get_thumbnail( 'update' );
                 $this->get_message( 'update' );
                 break;
             case 'review' : 
-                do_action('wpdeveloper_review_notice');
+                do_action( 'wpdeveloper_review_notice_for_' . $this->plugin_name );
                 $this->get_thumbnail( 'review' );
                 $this->get_message( 'review' );
                 break;
@@ -331,11 +340,11 @@ class NotificationX_Notice {
      * Upsale Notice
      */
     public function upsale_notice(){
-        do_action( 'wpdeveloper_before_upsale_notice' );
-            do_action('wpdeveloper_upsale_notice');
+        do_action( 'wpdeveloper_before_upsale_notice_for_' . $this->plugin_name );
+            do_action('wpdeveloper_upsale_notice_for_' . $this->plugin_name);
             $this->get_thumbnail( 'upsale' );
             $this->get_message( 'upsale' );
-        do_action( 'wpdeveloper_after_upsale_notice' );
+        do_action( 'wpdeveloper_after_upsale_notice_for_' . $this->plugin_name );
         $this->upsale_button_script();
     }
     /**
@@ -354,7 +363,7 @@ class NotificationX_Notice {
         if( empty( $plugin_slug ) ) {
             return;
         }
-        echo '<button data-slug="'. $plugin_slug .'" id="plugin-install-core" class="button button-primary">'. __( 'Install Now!', $this->text_domain ) .'</button>';
+        echo '<a href="https://wpdeveloper.net/in/notificationx-pro" class="button button-primary notificationx-notice-cta" target="_blank">'. __( 'Upgrade to Pro!', $this->text_domain ) .'</a>';
     }
     /**
      * This methods is responsible for get notice image.
@@ -382,7 +391,7 @@ class NotificationX_Notice {
             return false;
         }
         if( isset( $this->data['thumbnail'] ) && isset( $this->data['thumbnail'][ $msg_for ] ) ) {
-           return true;
+            return true;
         }
         return false;
     }
@@ -454,12 +463,12 @@ class NotificationX_Notice {
     public function admin_notices(){
         $current_notice = current( $this->next_notice() );
         if( $current_notice == 'opt_in' ) {
-            do_action( 'wpdeveloper_notices' );
+            do_action( $this->do_notice_action );
             return;
         }
-        do_action( 'wpdeveloper_before_notice' );
-            do_action( 'wpdeveloper_notices' );
-        do_action( 'wpdeveloper_after_notice' );
+        do_action( 'wpdeveloper_before_notice_for_' . $this->plugin_name );
+            do_action( $this->do_notice_action );
+        do_action( 'wpdeveloper_after_notice_for_' . $this->plugin_name );
     }
     /**
      * This method is responsible for all dismissible links generation.
@@ -684,7 +693,7 @@ class NotificationX_Notice {
             return;
         }
         
-        if( ! isset( $_POST['action'] ) || ( $_POST['action'] !== 'wpdeveloper_upsale_notice_dissmiss' ) ) {
+        if( ! isset( $_POST['action'] ) || ( $_POST['action'] !== 'wpdeveloper_upsale_notice_dissmiss_for_' . $this->plugin_name ) ) {
             return;
         }
         
@@ -754,7 +763,7 @@ class NotificationX_Notice {
                         url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
                         type: 'post',
                         data: {
-                            action: 'wpdeveloper_upsale_notice_dissmiss',
+                            action: 'wpdeveloper_upsale_notice_dissmiss_for_<?php echo $this->plugin_name; ?>',
                             _wpnonce: '<?php echo wp_create_nonce('wpdeveloper_upsale_notice_dissmiss'); ?>',
                             dismiss: true
                         },
@@ -783,14 +792,14 @@ $url = $_SERVER['REQUEST_URI'] . $scheme;
 $notice->links = [
     'review' => array(
         'later' => array(
-            'link' => 'https://wpdeveloper.net/review-essential-addons-elementor',
+            'link' => 'https://wpdeveloper.net/review-notificationx',
             'target' => '_blank',
-            'label' => __( 'Ok, you deserve it!', 'essential-addons-elementor' ),
+            'label' => __( 'Ok, you deserve it!', $notice->text_domain ),
             'icon_class' => 'dashicons dashicons-external',
         ),
         'allready' => array(
             'link' => $url,
-            'label' => __( 'I already did', 'essential-addons-elementor' ),
+            'label' => __( 'I already did', $notice->text_domain ),
             'icon_class' => 'dashicons dashicons-smiley',
             'data_args' => [
                 'dismiss' => true,
@@ -798,7 +807,7 @@ $notice->links = [
         ),
         'maybe_later' => array(
             'link' => $url,
-            'label' => __( 'Maybe Later', 'essential-addons-elementor' ),
+            'label' => __( 'Maybe Later', $notice->text_domain ),
             'icon_class' => 'dashicons dashicons-calendar-alt',
             'data_args' => [
                 'later' => true,
@@ -806,12 +815,12 @@ $notice->links = [
         ),
         'support' => array(
             'link' => 'https://wpdeveloper.net/support',
-            'label' => __( 'I need help', 'essential-addons-elementor' ),
+            'label' => __( 'I need help', $notice->text_domain ),
             'icon_class' => 'dashicons dashicons-sos',
         ),
         'never_show_again' => array(
             'link' => $url,
-            'label' => __( 'Never show again', 'essential-addons-elementor' ),
+            'label' => __( 'Never show again', $notice->text_domain ),
             'icon_class' => 'dashicons dashicons-dismiss',
             'data_args' => [
                 'dismiss' => true,
@@ -826,13 +835,13 @@ $notice->links = [
  * Message message for showing.
  */
 $notice->classes( 'upsale', 'notice is-dismissible' );
-$notice->message( 'upsale', '<p>'. __( 'Get the missing Drag & Drop Post Calendar feature for WordPress for Free!', 'essential-addons-elementor' ) .'</p>' );
+$notice->message( 'upsale', '<p>'. __( 'Get the missing feature for NotificationX by installing PRO!', $notice->text_domain ) .'</p>' );
 $notice->thumbnail( 'upsale', plugins_url( 'admin/assets/images/wpsp-logo.svg', NOTIFICATIONX_BASENAME ) );
 
 /**
  * This is review message and thumbnail.
  */
-$notice->message( 'review', '<p>'. __( 'We hope you\'re enjoying Essential Addons for Elementor! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'essential-addons-elementor' ) .'</p>' );
+$notice->message( 'review', '<p>'. __( 'We hope you\'re enjoying NotificationX! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', $notice->text_domain ) .'</p>' );
 $notice->thumbnail( 'review', plugins_url( 'admin/assets/images/ea-logo.svg', NOTIFICATIONX_BASENAME ) );
 
 /**
@@ -847,9 +856,9 @@ $notice->cne_time = '3 Day';
 $notice->maybe_later_time = '7 Day';
 
 $notice->upsale_args = array(
-    'slug' => 'wp-scheduled-posts',
-    'page_slug' => 'wpsp-schedule-calendar',
-    'file' => 'wp-scheduled-posts.php'
+    'slug' => 'notificationx-pro',
+    'page_slug' => 'nx-builder',
+    'file' => 'notificationx.php'
 );
 
 $notice->options_args = array(

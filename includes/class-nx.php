@@ -153,7 +153,7 @@ final class NotificationX {
 	 * @since v1.0.0
  	*/
 	public function start_plugin_tracking() {
-		$wisdom = new NotificationX_Plugin_Usage_Tracker(
+		new NotificationX_Plugin_Usage_Tracker(
 			NOTIFICATIONX_FILE,
 			'http://app.wpdeveloper.net',
 			array(),
