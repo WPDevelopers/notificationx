@@ -858,7 +858,7 @@ $notice->maybe_later_time = '7 Day';
 $notice->upsale_args = array(
     'slug' => 'notificationx-pro',
     'page_slug' => 'nx-builder',
-    'file' => 'notificationx.php'
+    'file' => 'nx-pro.php'
 );
 
 $notice->options_args = array(
