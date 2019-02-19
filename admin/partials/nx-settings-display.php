@@ -83,7 +83,7 @@
             <div class="nx-sidebar">
                 <div class="nx-sidebar-block">
                     <div class="nx-admin-sidebar-logo">
-                        <img src="<?php echo plugins_url( '/', __FILE__ ).'../assets/img/nx-logo.svg'; ?>">
+                        <img src="<?php echo plugins_url( '/', __FILE__ ).'../assets/img/nx-logo.png'; ?>">
                     </div>
                     <div class="nx-admin-sidebar-cta">
                         <?php     

@@ -817,6 +817,10 @@ body.notificationx_page_nx-builder .select2-container--default .select2-search--
     padding: 15px 10px 10px 13px;
     margin-right: 10px;
 }
+.nx-settings-header .nx-admin-logo-inline > svg { 
+    width: 31.5px;
+    height: 32px;
+}
 .nx-settings-header .nx-header-left .title {
     font-size: 22px;
     color: #444;
