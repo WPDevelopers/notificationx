@@ -186,7 +186,7 @@ class NotificationX_MetaBox {
         if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
             return $post_id;
         }
-
+        
         // Check permissions to edit pages and/or posts
         if ( in_array( $_POST['post_type'], $object_types ) ) {
             if ( ! current_user_can( 'edit_page', $post_id ) || ! current_user_can( 'edit_post', $post_id ) ) {

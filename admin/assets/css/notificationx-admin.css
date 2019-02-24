@@ -36,22 +36,26 @@
 .nx-preview-inner > div {
     float: left;
 }
-.nx-preview-inner .nx-preview-image.fp-img-left {
+.nx-preview-inner .nx-preview-image {
     margin-right: 15px;
 }
-.nx-preview-inner .nx-preview-image.fp-img-right {
+.nx-preview-inner.nx-img-right .nx-preview-image {
     margin-left: 15px;
 }
-.nx-preview-inner .nx-preview-image.fp-img-circle > img {
+.nx-preview-inner .nx-preview-image img.nx-img-square {
+    border-radius: 0px;
+}
+.nx-preview-inner .nx-preview-image img.nx-img-circle {
     border-radius: 30px;
 }
-.nx-preview-inner .nx-preview-image.fp-img-rounded > img {
+.nx-preview-inner .nx-preview-image img.nx-img-rounded {
     border-radius: 5px;
 }
 .nx-preview-inner .nx-preview-image > img {
     width: 60px;
     display: block;
     height: 60px;
+    border-radius: 30px;
 }
 .nx-preview-inner .nx-preview-content > span {
     display: block;

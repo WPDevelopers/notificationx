@@ -67,10 +67,10 @@
 		bindEvents : function(){
 			$('body').delegate( '.nx-bar .nx-close', 'click', function( e ) {
 				NotificationXPublic.pressBarActive = 0;
-				NotificationXPublic.hidePressBar( e.target.offsetParent.id );
+				NotificationXPublic.hidePressBar( e.currentTarget.offsetParent.id );
             } );
 			$('body').delegate( '.notificationx-close', 'click', function( e ) {
-				NotificationXPublic.hideNotification( $( e.target.offsetParent ) );
+				NotificationXPublic.hideNotification( $( e.currentTarget.offsetParent ) );
             } );
 		},
 

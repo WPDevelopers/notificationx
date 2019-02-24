@@ -326,8 +326,8 @@ class NotificationX_Helper {
     public static function colored_themes(){
 
         return apply_filters('nx_colored_themes', array(
-            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/fps-conv-theme-1.jpg',
-            'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/fps-conv-theme-2.jpg',
+            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/fps-conv-theme-2.jpg',
+            'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/fps-conv-theme-1.jpg',
             'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/fps-conv-theme-3.jpg'
         ));
 

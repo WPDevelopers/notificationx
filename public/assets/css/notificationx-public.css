@@ -27,18 +27,27 @@ a.notificationx-link {
     padding: 15px;
     background: #fff;
     box-shadow: 0 0 30px 0 rgba(0,0,0, .1);
+    min-width: 280px;
+    max-width: 300px;
 }
 
-.nx-has-close-btn {
-    padding-right: 30px;
+.nx-has-close-btn.notificationx-inner {
+    padding-right: 30px !important;
 }
 
 span.notificationx-close {
     position: absolute;
-    right: 6px;
-    top: 2px;
+    right: 10px;
+    top: 10px;
     z-index: 999;
     cursor: pointer;
+    width: 8px;
+    height: 8px;
+}
+
+span.notificationx-close > svg {
+    fill: #000000;
+    position: absolute;
 }
 
 /*
@@ -49,17 +58,20 @@ span.notificationx-close {
     height: 60px;
     overflow: hidden;
     float: left;
-}
-.notificationx-image.fp-img-right {
-    margin-left: 15px;
-}
-.notificationx-image.fp-img-left {
     margin-right: 15px;
 }
-.notificationx-image.fp-img-circle {
+.nx-img-right .notificationx-image {
+    margin-left: 15px;
+    margin-right: 0px;
+}
+.notificationx-image img.nx-img-square {
+    border-radius: 0px !important;
+}
+.notificationx-image img.nx-img-circle,
+.notificationx-image > img {
     border-radius: 50% !important;
 }
-.notificationx-image.fp-img-rounded {
+.notificationx-image img.nx-img-rounded {
     border-radius: 5px !important;
 }
 .notificationx-image > img {
@@ -76,13 +88,16 @@ span.notificationx-close {
 }
 .nx-first-row {
     font-size: 13px;
+    line-height: 1.2;
 }
 .nx-second-row {
     font-size: 15px;
     font-weight: bolder;
+    line-height: 1.5;
 }
 .nx-third-row {
     font-size: 11px;
+    line-height: 1;
 }
 
 /*
@@ -134,28 +149,35 @@ span.notificationx-close {
 }
 
 a.nx-bar-button {
-    background: #999;
-    color: #fff;
     font-size: 14px;
     padding: 6px 15px;
-    border-radius: 5px;
     margin-left: 15px;
+    background-color: #262626;
+    color: #fff;
+    border-radius: 3px;
+}
+a.nx-bar-button:hover {
+    color: #fff;
 }
 
 .nx-close {
     margin: 0;
     position: absolute;
-    right: 10px;
+    right: 30px;
     margin-top: -5px;
     cursor: pointer;
     top: 50%;
-    background: #000;
     color: #fff;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 10px;
+    height: 10px;
     line-height: 17px;
     font-size: 14px;
+}
+
+.nx-close > svg {
+    position: absolute;
+    left: 0;
 }
 
 /*
@@ -167,7 +189,11 @@ a.nx-bar-button {
     align-items: center;
 }
 
-.nx-countdown {overflow: hidden;}
+.nx-countdown {
+    overflow: hidden;
+    background-color: #262626;
+    color: #FFF;
+}
 
 .nx-countdown-text {
     margin-right: 10px;
@@ -177,15 +203,33 @@ a.nx-bar-button {
     float: left;
     margin: 0 5px;
     padding: 10px;
-    background: #fff;
+    position: relative;
+    width: 40px;
+}
+
+.nx-time-section:after {
+    content: ":";
+    position: absolute;
+    right: -6px;
+    top: 12px;
+    line-height: 1;
+}
+.nx-time-section:last-of-type:after {
+    display: none;
 }
 
 .nx-time-section > span {
     display: block;
+    line-height: 1;
+}
+
+.nx-time-section > span.nx-countdown-time-text {
+    display: none;
+    font-size: 14px;
 }
 
 .nx-countdown.nx-expired .nx-time-section {
-    background-color: #f2f2f2;
+    background-color: #262626;
 }
 .nx-countdown.nx-expired .nx-time-section > span,
 .nx-countdown .nx-expired-text {
@@ -195,6 +239,40 @@ a.nx-bar-button {
 .nx-countdown.nx-expired .nx-expired-text {
     display: block;
 }
+
+/* Nx Bar Theme CSS */
+
+.nx-bar {}
+.nx-bar.theme-two {
+    background-color: #5704A2;
+    color: #FFF;
+}
+.nx-bar.theme-three {
+    background-color: #3F4462;
+    color: #FFF;
+}
+.nx-bar.theme-three .nx-time-section,
+.nx-bar.theme-three a.nx-bar-button {
+    background-color: #6549FE;
+}
+.nx-bar.theme-three .nx-time-section:after {
+    content: '';
+}
+.nx-bar.theme-three .nx-countdown {
+    background-color: transparent;
+}
+.nx-bar.theme-three .nx-time-section {
+    width: 55px;
+}
+.nx-bar.theme-three .nx-time-section > span.nx-countdown-time-text {
+    display: block;
+}
+
+.nx-bar.theme-three p.nx-close > svg,
+.nx-bar.theme-two p.nx-close > svg {
+    fill: #FFF;
+}
+
 
 /* Powered By CSS */
 .nx-branding {
@@ -212,22 +290,49 @@ a.nx-bar-button {
     position: relative;
     top: 3px;
 }
-a.fp-powered-by {
+a.nx-powered-by {
     cursor: pointer;
 }
 
 /* Theme specific CSS */
 
-.notificationx-inner.fp-notification-theme-two {
+.notificationx-inner.nx-notification-theme-one {
+    border: 1px solid #f2f2f2;
+}
+
+.notificationx-inner.nx-notification-theme-two {
     border-radius: 50px;
     padding-right: 50px;
 }
 
-.notificationx-inner.fp-notification-theme-two span.notificationx-close {
+.notificationx-inner.nx-notification-theme-two span.notificationx-close {
     right: 20px;
-    top: 5px;
+    top: 25px;
 }
 
-.fp-notification-theme-two .nx-branding {
+.nx-notification-theme-two .nx-branding {
     right: 20px;
+}
+
+/* Comments Theme Three */
+.notificationx-inner.nx-notification-theme-three {
+    padding: 0px;
+}
+.notificationx-inner.nx-notification-theme-three .notificationx-image {
+    width: 80px;
+    height: 80px;
+    padding: 10px;
+}
+
+.notificationx-inner.nx-notification-theme-three .notificationx-image {
+    border-right: 1px solid #f2f2f2;
+}
+
+.notificationx-inner.nx-notification-theme-three .notificationx-image.nx-img-right {
+    border-left: 1px solid #f2f2f2;
+    border-right: 0px;
+}
+
+.notificationx-inner.nx-notification-theme-three .notificationx-content {
+    padding-left: 15px;
 }

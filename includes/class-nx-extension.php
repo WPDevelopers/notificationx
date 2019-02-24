@@ -140,25 +140,26 @@ class NotificationX_Extension {
         }
         extract( $args );
         $settings->themeName = $settings->{ $themeName };
+
         $output = '';
         $unique_id = uniqid( 'notificationx-' ); 
         $image_data = self::get_image_url( $data, $settings );
         $output .= '<div id="'. esc_attr( $unique_id ) .'" class="nx-notification '. self::get_classes( $settings ) .'">';
             $output .= '<div class="notificationx-inner '. self::get_classes( $settings, 'inner' ) .'">';
                 if( $image_data ) :
-                    $output .= '<div class="notificationx-image fp-img-'. esc_attr( $settings->image_shape ) .' fp-img-'. esc_attr( $settings->image_position ) .'">';
-                        $output .= '<img src="'. $image_data['url'] .'" alt="'. esc_attr( $image_data['alt'] ) .'">';
+                    $output .= '<div class="notificationx-image">';
+                        $output .= '<img class="'. self::get_classes( $settings, 'img' ) .'" src="'. $image_data['url'] .'" alt="'. esc_attr( $image_data['alt'] ) .'">';
                     $output .= '</div>';
                 endif;
                 $output .= '<div class="notificationx-content">';
                     $output .= NotificationX_Template::get_template_ready( $settings->{ $template }, self::newData( $data ) );
                     if( $settings->close_button ) :
-                        $output .= '<span class="notificationx-close">x</span>';
+                        $output .= '<span class="notificationx-close"><svg width="8px" height="8px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd"><g id="close" fill-rule="nonzero"><path d="M28.228,23.986 L47.092,5.122 C48.264,3.951 48.264,2.051 47.092,0.88 C45.92,-0.292 44.022,-0.292 42.85,0.88 L23.986,19.744 L5.121,0.88 C3.949,-0.292 2.051,-0.292 0.879,0.88 C-0.293,2.051 -0.293,3.951 0.879,5.122 L19.744,23.986 L0.879,42.85 C-0.293,44.021 -0.293,45.921 0.879,47.092 C1.465,47.677 2.233,47.97 3,47.97 C3.767,47.97 4.535,47.677 5.121,47.091 L23.986,28.227 L42.85,47.091 C43.436,47.677 44.204,47.97 44.971,47.97 C45.738,47.97 46.506,47.677 47.092,47.091 C48.264,45.92 48.264,44.02 47.092,42.849 L28.228,23.986 Z" id="Shape"></path></g></g></svg></span>';
                     endif;
                     if( is_null( self::$powered_by ) ) :
                         $output .= '<small class="nx-branding">';
                             $output .= '<svg width="7" height="13" viewBox="0 0 7 13" xmlns="http://www.w3.org/2000/svg" title="Powered by NotificationX"><g fill-rule="evenodd" fill="none"><path fill="#F6A623" d="M4.127.496C4.51-.12 5.37.356 5.16 1.07L3.89 5.14H6.22c.483 0 .757.616.464 1.044l-4.338 6.34c-.407.595-1.244.082-1.01-.618L2.72 7.656H.778c-.47 0-.748-.59-.48-1.02L4.13.495z"></path><path fill="#FEF79E" d="M4.606.867L.778 7.007h2.807l-1.7 5.126 4.337-6.34H3.16"></path></g></svg>';
-                            $output .= ' by <a href="'. NOTIFICATIONX_PLUGIN_URL .'?utm_source='. urlencode( home_url() ) .'&utm_medium=notificationx_referrer" target="_blank" class="fp-powered-by">NotificationX</a>';
+                            $output .= ' by <a href="'. NOTIFICATIONX_PLUGIN_URL .'?utm_source='. urlencode( home_url() ) .'&utm_medium=notificationx_referrer" target="_blank" class="nx-powered-by">NotificationX</a>';
                         $output .= '</small>';
                     endif;
                 $output .= '</div>';
@@ -184,11 +185,15 @@ class NotificationX_Extension {
             case 'comments' : 
                 if( $settings->comment_advance_edit ) {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
+                    // $classes[ 'inner' ][] =  'nx-img-' . $settings->comment_image_position;
+                    $classes[ 'img' ][] = 'nx-img-' . $settings->comment_image_shape;
                 }
                 break;
             case 'conversions' : 
                 if( $settings->advance_edit ) {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
+                    $classes[ 'inner' ][] =  'nx-img-' . $settings->image_position;
+                    $classes[ 'img' ][] = 'nx-img-' . $settings->image_shape;
                 }
                 break;
             case 'press_bar' : 
@@ -209,7 +214,7 @@ class NotificationX_Extension {
         
 		$classes[ 'wrapper' ][] = 'nx-' . $settings->display_type;
 
-		$classes[ 'inner' ][] = 'fp-notification-' . esc_attr( self::get_theme( $settings ) );
+		$classes[ 'inner' ][] = 'nx-notification-' . esc_attr( self::get_theme( $settings ) );
 
 		return implode( ' ', $classes[ $type ] );
     }
