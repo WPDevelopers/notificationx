@@ -185,8 +185,11 @@ class NotificationX_Extension {
             case 'comments' : 
                 if( $settings->comment_advance_edit ) {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
-                    // $classes[ 'inner' ][] =  'nx-img-' . $settings->comment_image_position;
+                    $classes[ 'inner' ][] =  'nx-img-' . $settings->comment_image_position;
                     $classes[ 'img' ][] = 'nx-img-' . $settings->comment_image_shape;
+                    if( $settings->comment_image_position == 'right' ) {
+                        $classes[ 'inner' ][] =  'nx-flex-reverse';
+                    }
                 }
                 break;
             case 'conversions' : 
@@ -194,6 +197,9 @@ class NotificationX_Extension {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
                     $classes[ 'inner' ][] =  'nx-img-' . $settings->image_position;
                     $classes[ 'img' ][] = 'nx-img-' . $settings->image_shape;
+                    if( $settings->image_position == 'right' ) {
+                        $classes[ 'inner' ][] =  'nx-flex-reverse';
+                    }
                 }
                 break;
             case 'press_bar' : 

@@ -285,16 +285,16 @@ function notificationx_metabox_args(){
                                     'square' => __('Square', 'notificationx'),
                                 ],
                             ),
-                            // 'image_position' => array(
-                            //     'type'      => 'select',
-                            //     'label'     => __('Position' , 'notificationx'),
-                            //     'priority'	=> 10,
-                            //     'default'	=> 'left',
-                            //     'options'	=> [
-                            //         'left' => __('Left', 'notificationx'),
-                            //         'right' => __('Right', 'notificationx'),
-                            //     ],
-                            // ),
+                            'image_position' => array(
+                                'type'      => 'select',
+                                'label'     => __('Position' , 'notificationx'),
+                                'priority'	=> 10,
+                                'default'	=> 'left',
+                                'options'	=> [
+                                    'left' => __('Left', 'notificationx'),
+                                    'right' => __('Right', 'notificationx'),
+                                ],
+                            ),
                         )
                     ),
                     'comment_image_design' => array(
@@ -313,16 +313,16 @@ function notificationx_metabox_args(){
                                     'square' => __('Square', 'notificationx'),
                                 ],
                             ),
-                            // 'comment_image_position' => array(
-                            //     'type'      => 'select',
-                            //     'label'     => __('Position' , 'notificationx'),
-                            //     'priority'	=> 10,
-                            //     'default'	=> 'left',
-                            //     'options'	=> [
-                            //         'left' => __('Left', 'notificationx'),
-                            //         'right' => __('Right', 'notificationx'),
-                            //     ],
-                            // ),
+                            'comment_image_position' => array(
+                                'type'      => 'select',
+                                'label'     => __('Position' , 'notificationx'),
+                                'priority'	=> 10,
+                                'default'	=> 'left',
+                                'options'	=> [
+                                    'left' => __('Left', 'notificationx'),
+                                    'right' => __('Right', 'notificationx'),
+                                ],
+                            ),
                         )
                     ),
                     'typography' => array(

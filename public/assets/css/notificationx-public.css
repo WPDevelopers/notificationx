@@ -31,6 +31,10 @@ a.notificationx-link {
     max-width: 300px;
 }
 
+.nx-flex-reverse.notificationx-inner {
+    flex-direction: row-reverse;
+}
+
 .nx-has-close-btn.notificationx-inner {
     padding-right: 30px !important;
 }
@@ -80,6 +84,16 @@ span.notificationx-close > svg {
 /*
     Notification Content CSS
 */
+.notificationx-inner.nx-img-right .notificationx-content {
+    display: flex;
+    flex-direction: column;
+}
+.notificationx-inner.nx-img-right .notificationx-content .nx-branding{
+    position: static;
+    margin-left: 0px;
+    padding: 5px 0px 0px
+}
+
 .notificationx-content {
     float: left;
 }
@@ -211,7 +225,7 @@ a.nx-bar-button:hover {
     content: ":";
     position: absolute;
     right: -6px;
-    top: 12px;
+    top: 9px;
     line-height: 1;
 }
 .nx-time-section:last-of-type:after {
@@ -328,11 +342,38 @@ a.nx-powered-by {
     border-right: 1px solid #f2f2f2;
 }
 
-.notificationx-inner.nx-notification-theme-three .notificationx-image.nx-img-right {
+.notificationx-inner.nx-notification-theme-three.nx-img-right .notificationx-image {
     border-left: 1px solid #f2f2f2;
     border-right: 0px;
 }
 
 .notificationx-inner.nx-notification-theme-three .notificationx-content {
     padding-left: 15px;
+}
+
+.notificationx-inner.nx-notification-theme-three.nx-img-right .notificationx-content {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.notificationx-inner.nx-notification-theme-three.nx-img-right .notificationx-image {
+    height: auto;
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+}
+
+.notificationx-inner.nx-notification-theme-two.nx-img-right.nx-has-close-btn {
+    padding-right: 20px !important;
+}
+
+.notificationx-inner.nx-notification-theme-two.nx-img-right.nx-has-close-btn .notificationx-content {
+    padding-left: 25px;
+}
+
+.notificationx-inner.nx-notification-theme-two.nx-img-right span.notificationx-close {
+    right: auto;
+    left: 19px;
+    top: 50%;
+    margin-top: -4px;
 }

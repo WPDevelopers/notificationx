@@ -397,9 +397,6 @@ class NotificationX_Public {
 						$style['third-row'][] = 'font-size: ' . $settings->third_font_size . 'px';
 					}
 		
-					if( $settings->image_position == 'right' ) {
-						$style[ 'wrapper' ][] = 'flex-direction: row-reverse';
-					}
 					echo 'style="'. implode( '; ', $style[ $key ] ) .'"';
 				}
 				break;
@@ -425,9 +422,6 @@ class NotificationX_Public {
 						$style['third-row'][] = 'font-size: ' . $settings->comment_third_font_size . 'px';
 					}
 		
-					// if( $settings->comment_image_position == 'right' ) {
-					// 	$style[ 'wrapper' ][] = 'flex-direction: row-reverse';
-					// }
 					echo 'style="'. implode( '; ', $style[ $key ] ) .'"';
 				}
 				break;
