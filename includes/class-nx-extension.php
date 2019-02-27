@@ -114,7 +114,7 @@ class NotificationX_Extension {
      * @param boolean $data
      * @return void
      */
-    protected static function newData( $data = array() ) {
+    public static function newData( $data = array() ) {
         if( empty( $data ) ) return;
         $new_data = array();
         foreach( $data as $key => $single_data ) {
@@ -179,7 +179,8 @@ class NotificationX_Extension {
      */
 	public static function get_classes( $settings, $type = 'wrapper' ){
 		if( empty( $settings ) ) return;
-		$classes = [];
+        $classes = [];
+        $classes[ 'img' ] = [];
         
         switch( $settings->display_type ) {
             case 'comments' : 
@@ -226,6 +227,7 @@ class NotificationX_Extension {
     }
 
     private static function get_theme( $settings ){
+        $theme_name = '';
         switch( $settings->display_type ) {
             case 'comments' : 
                 $theme_name = $settings->comment_theme;
@@ -239,7 +241,6 @@ class NotificationX_Extension {
                     endif;
                 break;
         }
-
         return $theme_name;
     }
     /**

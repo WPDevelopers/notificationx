@@ -509,8 +509,8 @@
 					$( this ).on( event, function(){
 						var val = $( this ).val(),
 							suffix = '',
-							selector = '.nx-preview-inner';
-	
+							selector = '.notificationx-inner';
+
 						if( typeof item.selector != 'undefined' ) {
 							selector = item.selector;
 						}
@@ -518,6 +518,7 @@
 						if( typeof item.unit != 'undefined' ) {
 							suffix = item.unit;
 						}
+
 						/**
 						 * This lines of code use for removing & adding the border css 
 						 * on CLICK to want border.
@@ -539,28 +540,43 @@
 								});
 							}
 						}
+
+						/**
+						 * For theme changed
+						 */
+						if( item.field == 'nx_theme' ) {
+							var themeField = $( this ).find( 'input' ),
+								theme_name = themeField.val(),
+								prev_theme = themeField.data('prev_theme'),
+								prev_className = 'nx-notification-' + prev_theme,
+								class_name = 'nx-notification-' + theme_name;
+
+							$( selector ).removeClass( prev_className );
+							$( selector ).addClass( class_name );
+							themeField.data( 'prev_theme',  theme_name );
+						}
 	
 						if( typeof item.property != 'undefined' ) {
 							$( selector ).css( item.property, val + suffix );
 						}
 						
 						if( 'image_shape' == item.field || 'comment_image_shape' == item.field ) {
-							$( selector ).removeClass( 'fp-img-circle fp-img-rounded fp-img-square' );
+							$( selector ).removeClass( 'nx-img-circle nx-img-rounded nx-img-square' );
 						}
 						if( 'image_position' == item.field || 'comment_image_position' == item.field ) {
-							$( selector ).removeClass( 'fp-img-left fp-img-right' );
+							$( selector ).removeClass( 'nx-img-left nx-img-right' );
 						}
 	
 						if( ( item.field == 'image_shape' || 'image_position' == item.field ) || ( item.field == 'comment_image_shape' || 'comment_image_position' == item.field ) ) {
-							$( selector ).addClass( 'fp-img-' + val ); 
+							$( selector ).addClass( 'nx-img-' + val ); 
 							/**
 							 * This lines of code use for layouting the notification preview
 							 */
 							if( 'image_position' == item.field || 'comment_image_position' == item.field ) {
 								if( val == 'left' ) {
-									$( '.nx-preview-inner' ).css( 'flex-direction', 'row' );
+									$( '.notificationx-inner' ).removeClass( 'nx-flex-reverse' );
 								} else {
-									$( '.nx-preview-inner' ).css( 'flex-direction', 'row-reverse' );
+									$( '.notificationx-inner' ).addClass( 'nx-flex-reverse' );
 								}
 							}
 						}
@@ -727,7 +743,7 @@
 				id: [ "#nx_meta_border", "#nx_meta_comment_border" ],
 				field: "border",
 				event : "click",
-				selector : ".nx-preview-inner",
+				selector : ".notificationx-inner",
 				hide : [
 					{ 'key': '#nx_meta_border_size', 'property' : 'border-width' }, 
 					{ 'key': '#nx_meta_border_style', 'property' : 'border-style' }, 
@@ -739,35 +755,35 @@
 				field: "border_size",
 				event : "keyup",
 				property : "border-width",
-				selector : ".nx-preview-inner",
+				selector : ".notificationx-inner",
 				unit : "px",
 			},
 			{
 				id: [ "#nx_meta_border_style", "#nx_meta_comment_border_style" ],
 				field: "border_style",
 				property : "border-style",
-				selector : ".nx-preview-inner",
+				selector : ".notificationx-inner",
 			},
 			{
 				id: [ "#nx_meta_border_color", "#nx_meta_comment_border_color" ],
 				field: "border_color",
 				property : "border-color",
-				selector : ".nx-preview-inner",
+				selector : ".notificationx-inner",
 			},
 			{
 				id: [ "#nx_meta_image_shape", "#nx_meta_comment_image_shape" ],
 				field: "image_shape",
-				selector: ".nx-preview-image",
+				selector: ".nx-preview-image > img",
 			},
 			{
 				id: [ "#nx_meta_image_position", "#nx_meta_comment_image_position" ],
 				field: "image_position",
-				selector: ".nx-preview-image",
+				selector: ".notificationx-inner",
 			},
 			{
 				id: [ "#nx_meta_first_font_size", "#nx_meta_comment_first_font_size" ],
 				field: "first_font_size",
-				selector: ".nx-preview-first-row",
+				selector: ".nx-first-row",
 				property : "font-size",
 				event : "keyup",
 				unit : "px",
@@ -775,7 +791,7 @@
 			{
 				id: [ "#nx_meta_second_font_size", "#nx_meta_comment_second_font_size" ],
 				field: "second_font_size",
-				selector: ".nx-preview-second-row",
+				selector: ".nx-second-row",
 				property : "font-size",
 				event : "keyup",
 				unit : "px",
@@ -783,14 +799,52 @@
 			{
 				id: [ "#nx_meta_third_font_size", "#nx_meta_comment_third_font_size" ],
 				field: "third_font_size",
-				selector: ".nx-preview-third-row",
+				selector: ".nx-third-row",
 				property : "font-size",
 				event : "keyup",
 				unit : "px",
 			},
+			{
+				id: [ "#nx-meta-theme", "#nx-meta-comment_theme" ],
+				field: "nx_theme",
+				event : "change",
+				selector: ".notificationx-inner",
+			},
 		];
 
 		NotificationX_Admin.updatePreview( fields );
+
+
+		/**
+		 * TODO: Advance Edit Preview 
+		 * have to done with a better way, 
+		 * FIXME: Multiple id not working, precedence problem maybe. 
+		 */
+		var defaultsAdvancedDesign = [
+			{
+				id: [ "#nx_meta_image_shape" ],
+				event : "change",
+			},
+			{
+				id: [ "#nx_meta_comment_image_shape" ],
+				event : "change",
+			}
+		];
+
+		$('.nx-meta-adv_checkbox').each(function(){
+			$( this ).on('click', 'label', function( e ){
+				// e.preventDefault();
+				defaultsAdvancedDesign.map(function( item, i ){
+					$( item.id ).each(function( i, cItem ){	
+						$( cItem ).trigger( "change" );
+						// $( '#nx_meta_image_shape' ).trigger( "change" );
+					});
+				});
+				// $('#nx_meta_image_shape').trigger('change');
+				// $('#nx_meta_comment_image_shape').trigger('change');
+			});
+		});
+
 	});
 
 })( jQuery );

@@ -8,7 +8,7 @@
 
 
 <div class="nx-theme-control-wrapper" data-name="<?php echo $name; ?>">
-    <input id="<?php echo $name; ?>" type="hidden" name="<?php echo $name; ?>" value="<?php echo $value; ?>">
+    <input id="<?php echo $name; ?>" data-prev_theme="<?php echo $value; ?>" type="hidden" name="<?php echo $name; ?>" value="<?php echo $value; ?>">
     <div class="nx-theme-field-inner">
         <?php 
             if( is_array( $options ) ) {

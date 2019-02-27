@@ -368,12 +368,17 @@ class NotificationX_Public {
 
 		echo ! empty( $css ) ? $css : '';
 	}
-
+	/**
+	 * This function is responsible for generate css for preview
+	 * 
+	 * @param stdClass $settings
+	 * @param string $key
+	 * @return string
+	 */
 	public static function generate_preview_css( $settings, $key = 'wrapper' ){
 		if( empty( $settings ) ) return;
 		$style = $image_style = $content_style = $first_row_font = $second_row_font = $third_row_font = [];
 		$css_string = $css = '';
-
 
 		switch( $settings->display_type ) {
 			case 'conversions' : 
@@ -397,10 +402,9 @@ class NotificationX_Public {
 						$style['third-row'][] = 'font-size: ' . $settings->third_font_size . 'px';
 					}
 		
-					echo 'style="'. implode( '; ', $style[ $key ] ) .'"';
+					return 'style="'. implode( '; ', $style[ $key ] ) .'"';
 				}
 				break;
-
 			case 'comments' : 
 				if( $settings->comment_advance_edit ) {
 					$style[ 'wrapper' ][] = ! empty( $settings->comment_bg_color ) ? 'background-color: ' . $settings->comment_bg_color : '';
@@ -421,12 +425,71 @@ class NotificationX_Public {
 					if( ! empty( $settings->comment_third_font_size ) ) {
 						$style['third-row'][] = 'font-size: ' . $settings->comment_third_font_size . 'px';
 					}
-		
-					echo 'style="'. implode( '; ', $style[ $key ] ) .'"';
+					return 'style="'. implode( '; ', $style[ $key ] ) .'"';
 				}
 				break;
 			default : 
-				echo '';
+				return '';
+				break;
+		}
+	}
+	/**
+	 * This function is responsible for generate css for preview
+	 * its use when advance edit button is clicked.
+	 * @param stdClass $settings
+	 * @param string $key
+	 * @return string
+	 */
+	public static function generate_css_for_preview( $settings, $key = 'wrapper' ){
+		if( empty( $settings ) ) return;
+		$style = $image_style = $content_style = $first_row_font = $second_row_font = $third_row_font = [];
+		$css_string = $css = '';
+
+		switch( $settings->display_type ) {
+			case 'conversions' : 
+				$style[ 'wrapper' ][] = ! empty( $settings->bg_color ) ? 'background-color: ' . $settings->bg_color : '';
+				$style[ 'wrapper' ][] = ! empty( $settings->text_color ) ? 'color: ' . $settings->text_color : '';
+				
+				if( $settings->border ){
+					$style[ 'wrapper' ][] = ! empty( $settings->border_size ) ? 'border-width: ' . $settings->border_size . 'px' : '';
+					$style[ 'wrapper' ][] = ! empty( $settings->border_style ) ? 'border-style: ' . $settings->border_style : '';
+					$style[ 'wrapper' ][] = ! empty( $settings->border_color ) ? 'border-color: ' . $settings->border_color : '';
+				}
+	
+				if( ! empty( $settings->first_font_size ) ) {
+					$style['first-row'][] = 'font-size: ' . $settings->first_font_size . 'px';
+				}
+				if( ! empty( $settings->second_font_size ) ) {
+					$style['second-row'][] = 'font-size: ' . $settings->second_font_size . 'px';
+				}
+				if( ! empty( $settings->third_font_size ) ) {
+					$style['third-row'][] = 'font-size: ' . $settings->third_font_size . 'px';
+				}
+				return implode( ';', $style[ $key ] );
+				break;
+			case 'comments' : 
+				$style[ 'wrapper' ][] = ! empty( $settings->comment_bg_color ) ? 'background-color: ' . $settings->comment_bg_color : '';
+				$style[ 'wrapper' ][] = ! empty( $settings->comment_text_color ) ? 'color: ' . $settings->comment_text_color : '';
+				
+				if( $settings->comment_border ){
+					$style[ 'wrapper' ][] = ! empty( $settings->comment_border_size ) ? 'border-width: ' . $settings->comment_border_size . 'px' : '';
+					$style[ 'wrapper' ][] = ! empty( $settings->comment_border_style ) ? 'border-style: ' . $settings->comment_border_style : '';
+					$style[ 'wrapper' ][] = ! empty( $settings->comment_border_color ) ? 'border-color: ' . $settings->comment_border_color : '';
+				}
+	
+				if( ! empty( $settings->comment_first_font_size ) ) {
+					$style['first-row'][] = 'font-size: ' . $settings->comment_first_font_size . 'px';
+				}
+				if( ! empty( $settings->comment_second_font_size ) ) {
+					$style['second-row'][] = 'font-size: ' . $settings->comment_second_font_size . 'px';
+				}
+				if( ! empty( $settings->comment_third_font_size ) ) {
+					$style['third-row'][] = 'font-size: ' . $settings->comment_third_font_size . 'px';
+				}
+				return implode( ';', $style[ $key ] );
+				break;
+			default : 
+				return '';
 				break;
 		}
 	}

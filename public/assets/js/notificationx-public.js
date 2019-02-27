@@ -114,49 +114,48 @@
 					
 				if ( 'undefined' !== typeof countdown_time ) {
 					// Get current date and time.
-                    var date    = new Date(),
-                        year    = date.getYear() + 1900,
-                        month   = date.getMonth() + 1,
-                        days    = ( parseInt( date.getDate() ) + parseInt( countdown_time.days ) ),
-                        hours   = ( parseInt( date.getHours() ) + parseInt( countdown_time.hours ) ),
-                        minutes = ( parseInt( date.getMinutes() ) + parseInt( countdown_time.minutes ) ),
-                        seconds = ( parseInt( date.getSeconds() ) + parseInt( countdown_time.seconds ) ),
-                        new_date = new Date( year, parseInt( month, 10 ) - 1, days, hours, minutes, seconds ),
-						countdown_cookie = '',
-						countdown_string = countdown_time.days + ', ' + countdown_time.hours + ', ' + countdown_time.minutes + ', ' + countdown_time.seconds;
+                    var date             = new Date(),
+                        year             = date.getYear() + 1900,
+                        month            = date.getMonth() + 1,
+                        days             = ( parseInt( date.getDate() ) + parseInt( countdown_time.days ) ),
+                        hours            = ( parseInt( date.getHours() ) + parseInt( countdown_time.hours ) ),
+                        minutes          = ( parseInt( date.getMinutes() ) + parseInt( countdown_time.minutes ) ),
+                        seconds          = ( parseInt( date.getSeconds() ) + parseInt( countdown_time.seconds ) ),
+                        new_date         = new Date( year, parseInt( month, 10 ) - 1, days, hours, minutes, seconds ),
+                        countdown_cookie = '',
+                        countdown_string = countdown_time.days + ', ' + countdown_time.hours + ', ' + countdown_time.minutes + ', ' + countdown_time.seconds;
 
-                    // Conver countdown time to miliseconds and add it to current date.
-                    date.setTime(date.getTime() +  ( parseInt( countdown_time.days ) * 24 * 60 * 60 * 1000)
-                                                +  ( parseInt( countdown_time.hours )  * 60 * 60 * 1000)
-                                                +  ( parseInt( countdown_time.minutes ) * 60 * 1000)
-												+  ( parseInt( countdown_time.seconds ) * 1000) );
+                    // Convert countdown time to miliseconds and add it to current date.
+                    date.setTime( date.getTime() + ( parseInt( countdown_time.days ) * 24 * 60 * 60 * 1000)
+                                                 + ( parseInt( countdown_time.hours )  * 60 * 60 * 1000)
+                                                 + ( parseInt( countdown_time.minutes ) * 60 * 1000)
+												 + ( parseInt( countdown_time.seconds ) * 1000) );
 
 					// Remove countdown value from cookie if countdown value has changed in wp-admin.
                     if( Cookies.get( 'nx_bar_countdown_old' ) !== countdown_string ){
-						document.cookie = 'nx_bar_countdown_old' + "=" + countdown_string + ";" + date + ";path=/";
+						Cookies.set( 'nx_bar_countdown_old',  countdown_string, { expires: date, path: '/' } );
 						Cookies.clear('nx_bar_countdown');
                     }
-                    // Get countdown value from cookie if exist.
-                    if ( Cookies.get( 'nx_bar_countdown' ) ){
+					// Get countdown value from cookie if exist.
+					countdown_cookie = Cookies.get( 'nx_bar_countdown' );
+
+					// Set countdown value in cookie if doesn't exist.
+                    if ( typeof countdown_cookie == 'undefined' ){
+						Cookies.set( 'nx_bar_countdown',  new_date.getTime(), { expires: date, path: '/' } );
+						Cookies.set( 'nx_bar_countdown_old',  countdown_string, { expires: date, path: '/' } );
                         countdown_cookie = Cookies.get( 'nx_bar_countdown' );
-                    } else {
-                        // Set countdown value in cookie if doesn't exist.
-						document.cookie = 'nx_bar_countdown' + "=" + new_date.getTime() + ";" + date + ";path=/";
-						document.cookie = 'nx_bar_countdown_old' + "=" + countdown_string + ";" + date + ";path=/";
-                        countdown_cookie = Cookies.get( 'nx_bar_countdown' );
-                    }
-				   
+					}
 					
 					// Start countdown.
                     var countdown_interval = setInterval(function() {
                         var now         = new Date().getTime(),
-                            difference  = countdown_cookie - now;
-
-                        // Calculate time from difference.
-                        var days        = Math.floor( difference / ( 1000 * 60 * 60 * 24 ) ),
+							difference  = countdown_cookie - now,
+                        	// Calculate time from difference.
+                        	days        = Math.floor( difference / ( 1000 * 60 * 60 * 24 ) ),
                             hours       = Math.floor( ( difference % ( 1000 * 60 * 60 * 24 ) ) / ( 1000 * 60 * 60 ) ),
                             minutes     = Math.floor( ( difference % ( 1000 * 60 * 60 ) ) / ( 1000 * 60 ) ),
-                            seconds     = Math.floor( ( difference % ( 1000 * 60 )) / 1000 );
+							seconds     = Math.floor( ( difference % ( 1000 * 60 )) / 1000 );
+
                         // Output the result in an element
                         press_bar.find('.nx-days').html(days);
                         press_bar.find('.nx-hours').html(hours);
@@ -205,11 +204,8 @@
             }, initial_delay * 1000);	
 		},
 
-        hidePressBar: function( id ) {
-			
-			var press_bar        = $('.nx-bar#' + id ),
-			    press_bar_height = press_bar.find('.nx-bar-inner').outerHeight() ,
-			    admin_bar_height = ( $('#wpadminbar').length > 0 ) ? $('#wpadminbar').outerHeight() : 0;
+        hidePressBar: function( id ) {			
+			var press_bar        = $('.nx-bar#' + id );
 
             $('html').removeClass('nx-bar-active');
 			$('html').css( 'padding-top', '0px' );
@@ -217,15 +213,10 @@
 			if ( press_bar.hasClass('nx-position-top') ) {
 				press_bar.animate( { 'top' : 0 }, 300 );
 			}
-
-			// press_bar.animate( { 'visibility' : 'hidden' }, 300 );
 			press_bar.removeClass('nx-bar-visible');
-
             NotificationXPublic.pressBarActive = 0;
 		},
-
 		render_notifications : function( config, html ){
-
 			var count       = 0,
 				elements    = html.find('.notificationx-' + config.id),
 				delayEach   = config.delay_between,
