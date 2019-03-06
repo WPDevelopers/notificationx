@@ -747,7 +747,10 @@
 				hide : [
 					{ 'key': '#nx_meta_border_size', 'property' : 'border-width' }, 
 					{ 'key': '#nx_meta_border_style', 'property' : 'border-style' }, 
-					{ 'key': '#nx_meta_border_color', 'property' : 'border-color' }, 
+					{ 'key': '#nx_meta_border_color', 'property' : 'border-color' },
+					{ 'key': '#nx_meta_comment_border_size', 'property' : 'border-width' }, 
+					{ 'key': '#nx_meta_comment_border_style', 'property' : 'border-style' }, 
+					{ 'key': '#nx_meta_comment_border_color', 'property' : 'border-color' }, 
 				],
 			},
 			{
@@ -822,29 +825,62 @@
 		 */
 		var defaultsAdvancedDesign = [
 			{
-				id: [ "#nx_meta_image_shape" ],
+				id: [ '#nx_meta_image_shape', '#nx_meta_bg_color', '#nx_meta_text_color' ],
 				event : "change",
+				type: 'conversions'
 			},
 			{
-				id: [ "#nx_meta_comment_image_shape" ],
+				id: [ '#nx_meta_comment_image_shape', '#nx_meta_comment_bg_color', '#nx_meta_comment_text_color' ],
 				event : "change",
+				type: 'comments'
+			},
+			{
+				id: [ '#nx_meta_comment_border_color', '#nx_meta_comment_border_style' ],
+				event : "change",
+				type: 'comments',
+				dependency: '#nx_meta_comment_border'
+			},
+			{
+				id: [ '#nx_meta_comment_border_size' ],
+				event : "keyup",
+				type: 'comments',
+				dependency: '#nx_meta_comment_border'
 			}
 		];
 
 		$('.nx-meta-adv_checkbox').each(function(){
-			$( this ).on('click', 'label', function( e ){
-				// e.preventDefault();
-				defaultsAdvancedDesign.map(function( item, i ){
-					$( item.id ).each(function( i, cItem ){	
-						$( cItem ).trigger( "change" );
-						// $( '#nx_meta_image_shape' ).trigger( "change" );
-					});
-				});
-				// $('#nx_meta_image_shape').trigger('change');
-				// $('#nx_meta_comment_image_shape').trigger('change');
+			var buttonAdv = $(this);
+			
+			buttonAdv.on('click', 'label', function( e ){
+				var checked = false, i, j;
+				var listItems = defaultsAdvancedDesign.length;
+				if( $(buttonAdv).find('input').is(":checked") ) {
+					$('.notificationx-inner').removeAttr('style');
+					return;
+				}
+
+				for( i = 0; i < listItems; i++ ) {
+					let itemD = defaultsAdvancedDesign[ i ];
+					let itemLen = itemD.id.length;
+					for( j = 0; j < itemLen; j++ ) {
+						var cItem = $( itemD.id[j] );
+						var type = $( '#nx_meta_display_type' ).val();
+						if( type === itemD.type ) { 
+							if( typeof itemD.dependency != 'undefined' ) {
+								checked = $( itemD.dependency + ':checked' ).length > 0 ? true : false;
+								if( checked ) {
+									$( cItem ).trigger( itemD.event );
+									return;
+								} else {
+									continue;
+								}
+							}
+							$( cItem ).trigger( itemD.event );
+						}
+					}
+				}
 			});
 		});
 
 	});
-
 })( jQuery );
