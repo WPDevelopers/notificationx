@@ -1,7 +1,7 @@
 <?php
 
 class NotificationX_Template {
-    public static function get_template_ready( $template, $tags ){
+    public static function get_template_ready( $template, $tags, $settings = '' ){
         $html = $template;
 		/**
 		 * If template is in array format, lets break it down and make HTML markup.
@@ -10,13 +10,25 @@ class NotificationX_Template {
 			$html = '';
 			for ( $i = 0; $i < count( $template ); $i++ ) {
 				if ( $i == 0 ) {
-					$html .= '<span class="nx-first-row">' . $template[$i] . '</span>';
+					if( is_admin() && ! empty( $settings ) ) {
+						$html .= '<span class="nx-first-row" '. NotificationX_Public::generate_preview_css( $settings, 'first-row' ) .'>' . $template[$i] . '</span>';
+					} else {
+						$html .= '<span class="nx-first-row">' . $template[$i] . '</span>';
+					}
 				}
 				if ( $i == 1 ) {
-					$html .= '<span class="nx-second-row">' . $template[$i] . '</span>';	
+					if( is_admin() && ! empty( $settings ) ) {
+						$html .= '<span class="nx-second-row" '. NotificationX_Public::generate_preview_css( $settings, 'second-row' ) .'>' . $template[$i] . '</span>';	
+					} else {
+						$html .= '<span class="nx-second-row">' . $template[$i] . '</span>';	
+					}
 				}
 				if ( $i == 2 ) {
-					$html .= '<span class="nx-third-row">' . $template[$i] . '</span>';	
+					if( is_admin() && ! empty( $settings ) ) {
+						$html .= '<span class="nx-third-row" '. NotificationX_Public::generate_preview_css( $settings, 'third-row' ) .'>' . $template[$i] . '</span>';	
+					} else {
+						$html .= '<span class="nx-third-row">' . $template[$i] . '</span>';	
+					}
 				}
 			}
 		}

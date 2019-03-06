@@ -77,7 +77,7 @@ class NotificationX_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, NOTIFICATIONX_PUBLIC_URL . 'assets/css/notificationx-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, NOTIFICATIONX_PUBLIC_URL . 'assets/css/notificationx-public.min.css', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -100,7 +100,7 @@ class NotificationX_Public {
 		 */
 
 		wp_enqueue_script( $this->plugin_name . '-cookie', NOTIFICATIONX_PUBLIC_URL . 'assets/js/Cookies.js', array( 'jquery' ), $this->version, true );
-		wp_enqueue_script( $this->plugin_name, NOTIFICATIONX_PUBLIC_URL . 'assets/js/notificationx-public.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name, NOTIFICATIONX_PUBLIC_URL . 'assets/js/notificationx-public.min.js', array( 'jquery' ), $this->version, true );
 	}
 
 	/**
@@ -282,9 +282,9 @@ class NotificationX_Public {
 					$style[] = ! empty( $settings->text_color ) ? 'color: ' . $settings->text_color : '';
 					
 					if( $settings->border ){
-						$style[] = 'border-width: ' . $settings->border_size . 'px';
-						$style[] = 'border-style: ' . $settings->border_style;
-						$style[] = 'border-color: ' . $settings->border_color;
+						$style[] = 'border-width: ' . $settings->border_size . 'px !important';
+						$style[] = 'border-style: ' . $settings->border_style . '!important';
+						$style[] = 'border-color: ' . $settings->border_color . '!important';
 					}
 		
 					if( ! empty( $settings->first_font_size ) ) {
@@ -308,9 +308,9 @@ class NotificationX_Public {
 					$style[] = ! empty( $settings->comment_text_color ) ? 'color: ' . $settings->comment_text_color : '';
 					
 					if( $settings->comment_border ){
-						$style[] = 'border-width: ' . $settings->comment_border_size . 'px';
-						$style[] = 'border-style: ' . $settings->comment_border_style;
-						$style[] = 'border-color: ' . $settings->comment_border_color;
+						$style[] = 'border-width: ' . $settings->comment_border_size . 'px !important';
+						$style[] = 'border-style: ' . $settings->comment_border_style . ' !important';
+						$style[] = 'border-color: ' . $settings->comment_border_color . '!important';
 					}
 		
 					if( ! empty( $settings->comment_first_font_size ) ) {
@@ -387,9 +387,9 @@ class NotificationX_Public {
 					$style[ 'wrapper' ][] = ! empty( $settings->text_color ) ? 'color: ' . $settings->text_color : '';
 					
 					if( $settings->border ){
-						$style[ 'wrapper' ][] = ! empty( $settings->border_size ) ? 'border-width: ' . $settings->border_size . 'px' : '';
-						$style[ 'wrapper' ][] = ! empty( $settings->border_style ) ? 'border-style: ' . $settings->border_style : '';
-						$style[ 'wrapper' ][] = ! empty( $settings->border_color ) ? 'border-color: ' . $settings->border_color : '';
+						$style[ 'wrapper' ][] = ! empty( $settings->border_size ) ? 'border-width: ' . $settings->border_size . 'px !important' : '';
+						$style[ 'wrapper' ][] = ! empty( $settings->border_style ) ? 'border-style: ' . $settings->border_style . ' !important': '';
+						$style[ 'wrapper' ][] = ! empty( $settings->border_color ) ? 'border-color: ' . $settings->border_color  . ' !important': '';
 					}
 		
 					if( ! empty( $settings->first_font_size ) ) {
@@ -411,9 +411,9 @@ class NotificationX_Public {
 					$style[ 'wrapper' ][] = ! empty( $settings->comment_text_color ) ? 'color: ' . $settings->comment_text_color : '';
 					
 					if( $settings->comment_border ){
-						$style[ 'wrapper' ][] = ! empty( $settings->comment_border_size ) ? 'border-width: ' . $settings->comment_border_size . 'px' : '';
-						$style[ 'wrapper' ][] = ! empty( $settings->comment_border_style ) ? 'border-style: ' . $settings->comment_border_style : '';
-						$style[ 'wrapper' ][] = ! empty( $settings->comment_border_color ) ? 'border-color: ' . $settings->comment_border_color : '';
+						$style[ 'wrapper' ][] = ! empty( $settings->comment_border_size ) ? 'border-width: ' . $settings->comment_border_size . 'px !important' : '';
+						$style[ 'wrapper' ][] = ! empty( $settings->comment_border_style ) ? 'border-style: ' . $settings->comment_border_style . ' !important' : '';
+						$style[ 'wrapper' ][] = ! empty( $settings->comment_border_color ) ? 'border-color: ' . $settings->comment_border_color . ' !important' : '';
 					}
 		
 					if( ! empty( $settings->comment_first_font_size ) ) {

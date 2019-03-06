@@ -271,7 +271,7 @@
 			}
 		},
 
-		fieldToggle: function( array, func, prefix, suffix, id = '' ){
+		fieldToggle: function( array, func, prefix, suffix  ){
 			var i = 0;
 			
 			suffix = 'undefined' == typeof suffix ? '' : suffix;
@@ -825,12 +825,29 @@
 		 */
 		var defaultsAdvancedDesign = [
 			{
-				id: [ '#nx_meta_image_shape', '#nx_meta_bg_color', '#nx_meta_text_color' ],
+				id: [ '#nx_meta_image_shape', '#nx_meta_bg_color', '#nx_meta_text_color', '#nx_meta_image_position' ],
 				event : "change",
 				type: 'conversions'
 			},
 			{
-				id: [ '#nx_meta_comment_image_shape', '#nx_meta_comment_bg_color', '#nx_meta_comment_text_color' ],
+				id: [ '#nx_meta_border_color', '#nx_meta_border_style' ],
+				event : "change",
+				type: 'conversions',
+				dependency: '#nx_meta_border'
+			},
+			{
+				id: [ '#nx_meta_border_size' ],
+				event : "keyup",
+				type: 'conversions',
+				dependency: '#nx_meta_border'
+			},
+			{
+				id: [ '#nx_meta_first_font_size', '#nx_meta_second_font_size', '#nx_meta_third_font_size' ],
+				event : "keyup",
+				type: 'conversions',
+			},
+			{
+				id: [ '#nx_meta_comment_image_shape', '#nx_meta_comment_bg_color', '#nx_meta_comment_text_color', '#nx_meta_comment_image_position' ],
 				event : "change",
 				type: 'comments'
 			},
@@ -845,6 +862,11 @@
 				event : "keyup",
 				type: 'comments',
 				dependency: '#nx_meta_comment_border'
+			},
+			{
+				id: [ '#nx_meta_comment_first_font_size', '#nx_meta_comment_second_font_size', '#nx_meta_comment_third_font_size' ],
+				event : "keyup",
+				type: 'comments',
 			}
 		];
 
@@ -856,12 +878,14 @@
 				var listItems = defaultsAdvancedDesign.length;
 				if( $(buttonAdv).find('input').is(":checked") ) {
 					$('.notificationx-inner').removeAttr('style');
+					$('.notificationx-inner').removeClass('nx-img-left nx-img-right nx-flex-reverse');
+					$('.notificationx-image > img').removeClass();
 					return;
 				}
 
 				for( i = 0; i < listItems; i++ ) {
-					let itemD = defaultsAdvancedDesign[ i ];
-					let itemLen = itemD.id.length;
+					var itemD = defaultsAdvancedDesign[ i ];
+					var itemLen = itemD.id.length;
 					for( j = 0; j < itemLen; j++ ) {
 						var cItem = $( itemD.id[j] );
 						var type = $( '#nx_meta_display_type' ).val();

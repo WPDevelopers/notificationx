@@ -126,7 +126,7 @@ class NotificationX_Admin {
 		);
 		wp_enqueue_style( 
 			$this->plugin_name, 
-			NOTIFICATIONX_ADMIN_URL . 'assets/css/notificationx-admin.css', 
+			NOTIFICATIONX_ADMIN_URL . 'assets/css/nx-admin.min.css', 
 			array(), $this->version, 'all' 
 		);
 	}
@@ -161,7 +161,7 @@ class NotificationX_Admin {
 		);
 		wp_enqueue_script( 
 			$this->plugin_name, 
-			NOTIFICATIONX_ADMIN_URL . 'assets/js/nx-admin.js', 
+			NOTIFICATIONX_ADMIN_URL . 'assets/js/nx-admin.min.js', 
 			array( 'jquery' ), $this->version, true 
 		);
 	}
@@ -471,10 +471,10 @@ class NotificationX_Admin {
 				$output .= '<div class="notificationx-content">';
 
 				if( $type === 'conversion' ) :
-					$output .= NotificationX_Template::get_template_ready( $settings->woo_template, NotificationX_Extension::newData( $data[ 'conversion' ] ) );
+					$output .= NotificationX_Template::get_template_ready( $settings->woo_template, NotificationX_Extension::newData( $data[ 'conversion' ] ), $settings );
 				endif;
 				if( $type === 'comment' ) :
-					$output .= NotificationX_Template::get_template_ready( $settings->comments_template, NotificationX_Extension::newData( $data[ 'comment' ] ) );
+					$output .= NotificationX_Template::get_template_ready( $settings->comments_template, NotificationX_Extension::newData( $data[ 'comment' ] ), $settings );
 				endif;
 
 					if( $settings->close_button ) :
