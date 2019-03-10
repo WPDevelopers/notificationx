@@ -661,6 +661,10 @@ label.nx-adv-checkbox-label:hover {
     max-width: 300px;
 }
 
+#nx-meta-bar_theme .nx-single-theme-wrapper > img {
+    max-width: 100%;
+}
+
 .nx-single-theme-wrapper {margin: 0 5px;}
 
 .nx-single-theme-wrapper.nx-theme-selected {
