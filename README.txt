@@ -1,47 +1,28 @@
-=== WPFomo - Fomo Notification for WordPress ===
-Contributors: re_enter_rupok, Asif2BD
+=== NotificationX - Fomo Notification for WordPress ===
+Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul
 Donate link: https://wpdeveloper.net
-Tags: fomo, notifier, fomo notification
+Tags: notification, fomo, notifier, fomo notification
 Requires at least: 4.0
-Tested up to: 4.8.2
+Tested up to: 5.1
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Fomo notification for WordPress.
+All-in-one notification solution for WordPress including sales notification (WooCommerce and Easy Digital Downloads), comment notification, subscription notification, notification bar and many more.
 
 == Description ==
 
-This is a simple plugin, does a very interesting task. Activate this plugin, it will create a viral effect on your site.
+E-commerce Sales Notification, Comment Notification, Subscription Notification, Notification Bar and many more.
 
-Fomo is the short version of "Fear of Missing Out", It teases your user, showing others are active on your site. You could use this plugin for various purpose and could deliver an important message in an amazing way as well.
-
-Just activate the plugin, head over to the WPFomo setting menu, add your messages, and enjoy the "Fomo" effects.
-
-
-**Basic Features:**
-
-*   **[New]** Ability to add a custom message.
-*   **[New]** Ability to add custom images.
-*   **[New]** Ability to add multiple notices.
-
-
-**Check Our Other Plugins:**
-
-* **[Twitter Cards Meta](https://wordpress.org/plugins/twitter-cards-meta/)** 
-* **[Facebook Secret Meta](https://wordpress.org/plugins/facebook-secret-meta/)** 
-* **[Essential Addons For Elementor](https://wordpress.org/plugins/essential-addons-for-elementor-lite/)** 
-* **[Analytify - Ultimate Google Analytics Dashboard](https://wordpress.org/plugins/wp-analytify/)**
-* **[WP Scheduled Posts](https://wordpress.org/plugins/wp-scheduled-posts/)**
 == Installation ==
 
 = Modern Way: =
 1. Go to the WordPress Dashboard "Add New Plugin" section.
-2. Search For "WPFomo". 
+2. Search For "NotificationX". 
 3. Install, then Activate it.
 
 = Old Way: =
-1. Upload `wpfomo` to the `/wp-content/plugins/` directory
+1. Upload `notificationx` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 
@@ -50,14 +31,10 @@ Just activate the plugin, head over to the WPFomo setting menu, add your message
 
 = Does it need any theme customization or anything? =
 
-Yes. After activating, headover to the WPFomo setting menu, add your messages, and enjoy the "Fomo" effects.
+You need to build the notification from options page. You can use both quick builder or extensive builder to create them.
 
 
 == Screenshots ==
-
-1. Example Fomo
-2. Option menu (fomo template).
-3. Option menu (fomo items).
 
 
 == Changelog ==
@@ -69,10 +46,4 @@ Yes. After activating, headover to the WPFomo setting menu, add your messages, a
 
 == Upgrade Notice ==
 
-= 1.0 =
-Initial release.
 
-
-== Donation ==
-
-You may donate to WordPress Foundation.
