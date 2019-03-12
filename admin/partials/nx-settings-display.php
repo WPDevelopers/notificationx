@@ -27,7 +27,7 @@
                             $sections = isset( $setting['sections'] ) ? $setting['sections'] : [];
                             $sections = NotificationX_Helper::sorter( $sections, 'priority', 'ASC' );
                             ?>
-                            <div id="fs-<?php echo esc_attr( $tab_key ); ?>" class="nx-settings-tab nx-settings-<?php echo esc_attr( $key );?> <?php echo $active; ?>">
+                            <div id="nx-<?php echo esc_attr( $tab_key ); ?>" class="nx-settings-tab nx-settings-<?php echo esc_attr( $key );?> <?php echo $active; ?>">
                                 <form method="post" id="nx-settings-<?php echo $tab_key; ?>-form" action="#">
                                     <?php 
                                         if( ! empty( $sections ) ) :

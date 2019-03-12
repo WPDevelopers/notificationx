@@ -19,6 +19,12 @@ class NotificationX_MetaBox {
         'prefix' => ''
     );
 
+    public function finalize_builder( $id, $tab ){
+        if( $id === 'finalize_tab' ) {
+            echo __( 'You are about to publish <strong class="finalize_notificationx_name"></strong>. You can rename this and edit everything whenever you want from <a href="'. admin_url('edit.php?post_type=notificationx') .'">NotificationX</a> Page.', 'notificationx' );
+        }
+    }
+
     public static function render_metabox( $post = null ) {
 
         self::$post_id = $post->ID;
@@ -30,7 +36,7 @@ class NotificationX_MetaBox {
         $tabnumber	= isset( self::$args['tabnumber'] ) && self::$args['tabnumber'] ? true : false;
         
         wp_nonce_field( $metabox_id, $metabox_id . '_nonce' );
-		include_once NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-admin-display.php';
+        include_once NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-admin-display.php';
     }
     /**
      * This function is responsible for get all metabox arguments
@@ -224,21 +230,19 @@ class NotificationX_MetaBox {
         }
         update_post_meta( $post_id, '_nx_meta_active_check', true );
 
-        
         $d_type = get_post_meta( $post_id, '_nx_meta_current_data_ready_for', true );
-        $type = $posts['nx_display_type'];
+        $type = $posts['nx_meta_display_type'];
         
         if( $type == 'conversions' ) {
-            $type = $posts['nx_conversion_from'];
+            $type = $posts['nx_meta_conversion_from'];
         }
-        
+
         if( self::check_any_changes( $old_settings, $new_settings ) ) {
             do_action( 'nx_get_conversions_ready', $type, $data );
         }
 
         update_post_meta( $post_id, '_nx_meta_current_data_ready_for', $type );
         update_post_meta( $post_id, '_nx_builder_current_tab', $posts['nx_builder_current_tab'] );
-        
     }
     /**
      * This function is responsible for checking all the old_settings with new_settings for changes

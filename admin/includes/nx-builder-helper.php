@@ -169,7 +169,6 @@ function notificationx_builder_args() {
                 'title'         => __('Finalize', 'notificationx'),
                 'icon'          => 'cog.svg',
                 'sections'      => array(
-                    
                 )
             ),
         ))
