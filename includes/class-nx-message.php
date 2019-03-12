@@ -837,7 +837,7 @@ $notice->links = [
  */
 $notice->classes( 'upsale', 'notice is-dismissible' );
 $notice->message( 'upsale', '<p>'. __( 'Get the missing feature for NotificationX by installing PRO!', $notice->text_domain ) .'</p>' );
-$notice->thumbnail( 'upsale', plugins_url( 'admin/assets/images/nx-icon.svg', NOTIFICATIONX_BASENAME ) );
+$notice->thumbnail( 'upsale', plugins_url( 'admin/assets/img/nx-icon.svg', NOTIFICATIONX_BASENAME ) );
 
 /**
  * This is review message and thumbnail.
