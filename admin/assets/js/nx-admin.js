@@ -624,7 +624,7 @@
 				tabToGo = button.data('tab');
 
 			button.addClass('active').siblings().removeClass('active');
-			$('#fs-'+tabToGo).addClass('active').siblings().removeClass('active');
+			$('#nx-'+tabToGo).addClass('active').siblings().removeClass('active');
 		},
 		submitSettings : function( button ){
 			var button = $(button),
