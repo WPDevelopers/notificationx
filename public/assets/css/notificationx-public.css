@@ -102,11 +102,12 @@ span.notificationx-close > svg {
     display: block;
 }
 .nx-first-row {
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.2;
 }
 .nx-second-row {
-    font-size: 15px;
+    margin: 5px 0;
+    font-size: 14px;
     font-weight: bolder;
     line-height: 1.5;
 }

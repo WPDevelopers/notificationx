@@ -937,8 +937,7 @@ a.notificationx-link {
     padding: 15px;
     background: #fff;
     box-shadow: 0 0 30px 0 rgba(0,0,0, .1);
-    min-width: 280px;
-    max-width: 300px;
+    max-width: 400px;
 }
 
 .nx-flex-reverse.notificationx-inner {
@@ -1015,11 +1014,12 @@ Notification Content CSS
     display: block;
 }
 .nx-first-row {
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.2;
 }
 .nx-second-row {
-    font-size: 15px;
+    margin: 5px 0;
+    font-size: 14px;
     font-weight: bolder;
     line-height: 1.5;
 }
