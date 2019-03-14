@@ -1,24 +1,24 @@
 /**
- * All of the CSS for your admin-specific functionality should be
- * included in this file.
- */
+* All of the CSS for your admin-specific functionality should be
+* included in this file.
+*/
 
 .fixed .column-notification_status {
     width: 10%;
 }
 
- #nx-notification-preview,
- #nx-notification-preview .nx-notification-preview-comments,
- #nx-notification-preview .nx-notification-preview-conversions { 
+#nx-notification-preview,
+#nx-notification-preview .nx-notification-preview-comments,
+#nx-notification-preview .nx-notification-preview-conversions { 
     display: none;
- }
+}
 
- #nx-notification-preview.nx-notification-preview-comments .nx-notification-preview-comments,
- #nx-notification-preview.nx-notification-preview-conversions .nx-notification-preview-conversions {
-     display: block;
- }
+#nx-notification-preview.nx-notification-preview-comments .nx-notification-preview-comments,
+#nx-notification-preview.nx-notification-preview-conversions .nx-notification-preview-conversions {
+    display: block;
+}
 
- .nx-notification-preview {
+.nx-notification-preview {
     position: fixed;
     right: 20px;
     bottom: 40px;
@@ -273,7 +273,7 @@ h2.nx-meta-section-title .nx-section-reset {
 }
 
 /*
-    Form Input CSS
+Form Input CSS
 */
 .nx-meta-section table {
     width: 100%;
@@ -913,9 +913,9 @@ body.notificationx_page_nx-builder .select2-container--default .select2-search--
 
 /* ADMIN */
 /**
- * All of the CSS for your public-facing functionality should be
- * included in this file.
- */
+* All of the CSS for your public-facing functionality should be
+* included in this file.
+*/
 
 a.notificationx-link {
     position: absolute;
@@ -961,7 +961,7 @@ span.notificationx-close > svg {
 }
 
 /*
-    Notification Image CSS
+Notification Image CSS
 */
 .notificationx-image {
     width: 60px;
@@ -989,10 +989,10 @@ span.notificationx-close > svg {
     border-radius: 5px !important;
 }
 .notificationx-image > img {
-    width: 60px;
+    width: 100%;
 }
 /*
-    Notification Content CSS
+Notification Content CSS
 */
 .notificationx-inner.nx-img-right .notificationx-content {
     display: flex;
@@ -1025,7 +1025,7 @@ span.notificationx-close > svg {
 }
 
 /*
-    NotificationXBar CSS
+NotificationXBar CSS
 */
 .nx-author {
     font-weight: 600;
@@ -1105,7 +1105,7 @@ a.nx-bar-button:hover {
 }
 
 /*
-    NotificationX CountDown CSS
+NotificationX CountDown CSS
 */
 
 .nx-countdown-wrapper {
@@ -1257,7 +1257,7 @@ a.nx-powered-by {
     border-right: 0px;
 }
 
-.notificationx-inner.nx-notification-theme-three .notificationx-content {
+.notificationx-inner.nx-img-right.nx-notification-theme-three .notificationx-content {
     padding-left: 15px;
 }
 
