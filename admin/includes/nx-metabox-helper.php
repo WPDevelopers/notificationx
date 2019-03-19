@@ -557,6 +557,13 @@ function notificationx_metabox_args(){
                                     'bottom_right'      => __('Bottom Right' , 'notificationx'),
                                 ],
                             ),
+                            'conversion_size'  => array(
+                                'type'      => 'number',
+                                'label'     => __('Notification Size' , 'notificationx'),
+                                'priority'	=> 51,
+                                'default'   => 500,
+                                'help' => __('Set a max width for notification.', 'notificationx'),
+                            ),
                             'sticky_bar'  => array(
                                 'type'        => 'checkbox',
                                 'label'       => __('Sticky Bar?' , 'notificationx'),
