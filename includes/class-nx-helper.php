@@ -241,7 +241,8 @@ class NotificationX_Helper {
         return apply_filters('nx_comments_toggle_data', array(
             'sections' => [
                 'image',
-                'comment_themes'
+                'comment_themes',
+                'link_options'
             ],
             'fields'   => [
                 'conversion_position',
@@ -265,7 +266,8 @@ class NotificationX_Helper {
         return apply_filters('nx_conversions_toggle_data', array(
             'sections' => [
                 'image',
-                'themes'
+                'themes',
+                'link_options'
             ],
             'fields'   => [
                 'conversion_from',
@@ -289,7 +291,7 @@ class NotificationX_Helper {
                     'fields' => [ 'custom_template', 'custom_contents', 'show_custom_image', 'show_product_image', 'image_url' ]
                 ),
                 'press_bar' => array(
-                    'sections' => [ 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography' ],
+                    'sections' => [ 'link_options', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography' ],
                     'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'notification_preview', 'image_url' ]
                 ),
                 'conversions' => array(

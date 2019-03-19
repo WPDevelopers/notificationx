@@ -28,15 +28,15 @@ function notificationx_metabox_args(){
                                     'press_bar'   => NotificationX_Helper::press_bar_toggle_data(),
                                     'conversions' => NotificationX_Helper::conversions_toggle_data(),
                                 ],
-                                'hide' => NotificationX_Helper::hide_data( 'display_types' ),                            
+                                'hide'     => NotificationX_Helper::hide_data( 'display_types' ),
                                 'priority' => 50
                             ) ),
                             'conversion_from'  => apply_filters('nx_conversion_from', array(
-                                'type'      => 'select',
-                                'label'     => __('From' , 'notificationx'),
-                                'default'   => 'custom',
-                                'options'   => NotificationX_Helper::conversion_from(),
-                                'priority'	=> 60,
+                                'type'     => 'select',
+                                'label'    => __('From' , 'notificationx'),
+                                'default'  => 'custom',
+                                'options'  => NotificationX_Helper::conversion_from(),
+                                'priority' => 60,
                                 'toggle'   => NotificationX_Helper::conversion_toggle(),
                             ))
                         ),
@@ -88,7 +88,34 @@ function notificationx_metabox_args(){
                                 'type'  => 'time',
                             )
                         )
-                    )
+                    ),
+                    'link_options' => array(
+                        'title' => __('Link Options', 'notificationx'),
+                        'fields' => array(
+                            'notx_url' => array(
+                                'label' => __('Link Type', 'notificationx'),
+                                'type'  => 'select',
+                                'priority'	=> 10,
+                                'default'	=> 'none',
+                                'options'	=> apply_filters('nx_link_options', array(
+                                    'none'             => __('None', 'notificationx'),
+                                    'product_page' => __( 'Product Page', 'notificationx' ),
+                                    'comment_url'      => __( 'Comment URL', 'notificationx' ),
+                                    'custom'           => __('Custom', 'notificationx'),
+                                )),
+                                'toggle' => [
+                                    'custom' => [
+                                        'fields' => ['notx_url_custom']
+                                    ]
+                                ]
+                            ),
+                            'notx_url_custom' => array(
+                                'label' => __('Custom URL', 'notificationx'),
+                                'type'  => 'text',
+                                'priority'	=> 15,
+                            )
+                        )
+                    ),
                 ))
             ),
             'design_tab' => array(
