@@ -47,29 +47,29 @@
 		bindEvents: function(){
 			$('body').delegate( '.nx-settings-menu li', 'click', function( e ) {
 				NotificationX_Admin.settingsTab( this );
-            } );
+			} );
 			$('body').delegate( '.nx-submit-general', 'click', function( e ) {
 				e.preventDefault();
 				NotificationX_Admin.submitSettings( this );
-            } );
+			} );
 			$('body').delegate( '.nx-opt-alert', 'click', function( e ) {
 				NotificationX_Admin.fieldAlert( this );
-            } );
+			} );
 			$('body').delegate( '.nx-section-reset', 'click', function( e ) {
 				e.preventDefault();
 				NotificationX_Admin.resetSection( this );
-            } );
+			} );
 			$('body').delegate( '.nx-meta-field', 'change', function( ) {
 				NotificationX_Admin.fieldChange( this );
-            } );
+			} );
 			$('body').delegate( '.nx-meta-next, .nx-quick-builder-btn', 'click', function(e) {
 				e.preventDefault();
 				NotificationX_Admin.tabChanger( this );
-            } );
+			} );
 			$('body').delegate( '.nx-single-theme-wrapper', 'click', function(e) {
 				e.preventDefault();
 				NotificationX_Admin.selectImage( this );
-            } );
+			} );
 			$('body').delegate( '.nx-group-field .nx-group-field-title', 'click', function(e) {
 				e.preventDefault();
 				if( $( e.srcElement ).hasClass( 'nx-group-field-title' ) ) {
@@ -80,20 +80,35 @@
 				NotificationX_Admin.removeGroup(this);
 			} );
 			$('body').delegate( '.nx-group-field .nx-group-clone', 'click', function() {
-                NotificationX_Admin.cloneGroup(this);
-            } );
+				NotificationX_Admin.cloneGroup(this);
+			} );
 			$('body').delegate( '.nx-media-field-wrapper .nx-media-upload-button', 'click', function(e) {
 				e.preventDefault();
-                NotificationX_Admin.initMediaField(this);
-            } );
+				NotificationX_Admin.initMediaField(this);
+			} );
 			$('body').delegate( '.nx-media-field-wrapper .nx-media-remove-button', 'click', function(e) {
 				e.preventDefault();
-                NotificationX_Admin.removeMedia(this);
+				NotificationX_Admin.removeMedia(this);
 			} );
 			$('body').delegate( '.nx-optin-button', 'click', function(e) {
 				e.preventDefault();
-                NotificationX_Admin.optinAllowOrNot(this);
+				NotificationX_Admin.optinAllowOrNot(this);
 			} );
+			$('body').delegate( '#nx_meta_display_type', 'change', function(e) {
+				e.preventDefault();
+				NotificationX_Admin.linkOptions(this);
+			} );
+		},
+
+		linkOptions : function( e ){
+			var type = $('#nx_meta_display_type').val();
+			if( type == 'conversions' ) {
+				var from = $('#nx_meta_conversion_from').val();
+				$('#nx_meta_notx_url').val('product_page').trigger('change');
+			}
+			if( type == 'comments' ) {
+				$('#nx_meta_notx_url').val('comment_url').trigger('change');
+			}
 		},
 
 		initSelect2 : function(){
