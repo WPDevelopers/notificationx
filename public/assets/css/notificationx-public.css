@@ -310,6 +310,7 @@ a.nx-powered-by {
     cursor: pointer;
     color: #5614D5;
     transition: all .3s ease-in-out;
+    text-decoration: none;
 }
 a.nx-powered-by:hover {
     color: #21D8A3;
