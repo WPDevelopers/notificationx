@@ -8,13 +8,13 @@
  * @wordpress-plugin
  * Plugin Name:       NotificationX
  * Plugin URI:        https://wpdeveloper.net/NotificationX
- * Description:       FOMO notification for WordPress.
+ * Description:       Social Proof & Recent Sales Popup, Comment Notification, Subscription Notification, Notification Bar and many more.
  * Version:           1.0.0
  * Author:            WPDeveloper
  * Author URI:        https://wpdeveloper.net
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       NotificationX
+ * Text Domain:       notificationx
  * Domain Path:       /languages
  */
 

@@ -41,6 +41,10 @@
 	opacity: .85;
 	transition: all .3s;
 }
+.wpdeveloper-upsale-notice .wpdeveloper-notice-thumbnail img {
+	width: 50px;
+	padding: 10px;
+}
 
 .wpdeveloper-notice-thumbnail img:hover {
 	opacity: 1;
