@@ -135,6 +135,7 @@ span.notificationx-close > svg {
     width: 100%;
     left: 0;
     text-align: center;
+    transition: height 0.3s ease-in-out 0s;
 }
 .nx-bar .nx-bar-inner {
     padding: 20px;
