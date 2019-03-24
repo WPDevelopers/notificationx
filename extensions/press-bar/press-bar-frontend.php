@@ -18,6 +18,17 @@ if( $settings->hide_after ) {
     $wrapper_attrs .= ' data-hide_after="'. $settings->hide_after .'"';
 }
 
+if( $settings->countdown_start_date ) {
+    $wrapper_attrs .= ' data-start_date="'. $settings->countdown_start_date .'"';
+}
+if( $settings->countdown_end_date ) {
+    $wrapper_attrs .= ' data-end_date="'. $settings->countdown_end_date .'"';
+}
+
+if( $settings->close_forever ) {
+    $wrapper_attrs .= ' data-close_forever="'. $settings->close_forever .'"';
+}
+
 if( $settings->auto_hide ) {
     $wrapper_attrs .= ' data-auto_hide="'. $settings->auto_hide .'"';
 }

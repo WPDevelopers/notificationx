@@ -39,6 +39,7 @@
 
 		initFields: function(){
 			NotificationX_Admin.initSelect2();
+			NotificationX_Admin.initDatepicker();
 			$('.notificationx-metabox-wrapper .nx-meta-field:not(#nx_meta_conversion_from)').trigger('change');
 			NotificationX_Admin.initColorField();
 			NotificationX_Admin.initGroupField();
@@ -118,6 +119,16 @@
 				if( node === 'SELECT' ) {
 					$(item).select2();
 				}
+			});
+		},
+
+		initDatepicker : function(){
+			$('.nx-countdown-datepicker').each(function(){
+				$(this).find('input').datepicker({
+					changeMonth: true,
+					changeYear: true,
+					dateFormat : 'DD, d MM, yy'
+				});
 			});
 		},
 

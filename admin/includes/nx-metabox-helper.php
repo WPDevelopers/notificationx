@@ -75,7 +75,7 @@ function notificationx_metabox_args(){
                                 'type'  => 'checkbox',
                                 'toggle'  => [
                                     '1' => [
-                                        'fields' => ['countdown_text', 'countdown_time']
+                                        'fields' => ['countdown_text', 'countdown_start_date', 'countdown_end_date', 'close_forever']
                                     ]
                                 ],
                             ),
@@ -83,10 +83,18 @@ function notificationx_metabox_args(){
                                 'label' => __('Countdown Text', 'notificationx'),
                                 'type'  => 'text',
                             ),
-                            'countdown_time' => array(
-                                'label' => __('Countdown Time', 'notificationx'),
-                                'type'  => 'time',
-                            )
+                            'countdown_start_date' => array(
+                                'label' => __('Start Date', 'notificationx'),
+                                'type'  => 'datepicker',
+                            ),
+                            'countdown_end_date' => array(
+                                'label' => __('End Date', 'notificationx'),
+                                'type'  => 'datepicker',
+                            ),
+                            'close_forever' => array(
+                                'label' => __('Permanent Close', 'notificationx'),
+                                'type'  => 'checkbox',
+                            ),
                         )
                     ),
                     'link_options' => array(

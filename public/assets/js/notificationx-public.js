@@ -5,94 +5,70 @@ window.addEventListener('DOMContentLoaded', function( event ) {
 	function notificationX_initialize(){
 		notificationX_pressbar();
 		notificationX_conversion();
+		notificationX_events();
+	}
+
+	function notificationX_events(){
+		document.querySelector('.nx-bar .nx-close').addEventListener('click', function( event ){
+			notificationX_pressbar_active = 0;
+			notificationX_hideBar( event.currentTarget.offsetParent.id );
+		});
 	}
 
 	function notificationX_pressbar(){
 		var bars = document.querySelectorAll('.nx-bar');
 		if ( bars.length > 0 ) {
-		
 			bars.forEach(function( bar ){
 				var id = bar.dataset.press_id,
 					duration = bar.dataset.hide_after,
 					auto_hide = bar.dataset.auto_hide,
-					countdown_wrapper = bar.querySelector('.nx-countdown');
-				
-				if( countdown_wrapper != null ) {
-					var countdown_time = JSON.parse( countdown_wrapper.dataset.countdown );
+					close_forever = bar.dataset.close_forever,
+					start_date = new Date( bar.dataset.start_date ),
+					end_date = new Date( bar.dataset.end_date ),
+					start_timestamp = start_date.getTime(),
+					end_timestamp = end_date.getTime(),
+					current_date = new Date(),
+					current_timestamp = current_date.getTime();
 
-					
-					if ( 'undefined' !== typeof countdown_time ) {
-						// Get current date and time.
-						var date             = new Date(),
-							year             = date.getYear() + 1900,
-							month            = date.getMonth() + 1,
-							days             = ( parseInt( date.getDate() ) + parseInt( countdown_time.days ) ),
-							hours            = ( parseInt( date.getHours() ) + parseInt( countdown_time.hours ) ),
-							minutes          = ( parseInt( date.getMinutes() ) + parseInt( countdown_time.minutes ) ),
-							seconds          = ( parseInt( date.getSeconds() ) + parseInt( countdown_time.seconds ) ),
-							new_date         = new Date( year, parseInt( month, 10 ) - 1, days, hours, minutes, seconds ),
-							countdown_cookie = '',
-							countdown_string = countdown_time.days + ', ' + countdown_time.hours + ', ' + countdown_time.minutes + ', ' + countdown_time.seconds;
-	
-						// Convert countdown time to miliseconds and add it to current date.
-						date.setTime( date.getTime() + ( parseInt( countdown_time.days ) * 24 * 60 * 60 * 1000)
-													 + ( parseInt( countdown_time.hours )  * 60 * 60 * 1000)
-													 + ( parseInt( countdown_time.minutes ) * 60 * 1000)
-													 + ( parseInt( countdown_time.seconds ) * 1000) );
+				if ( current_timestamp > start_timestamp && current_timestamp < end_timestamp ) {	
+					var bar_interval = setInterval(function() {
+						var current_timestamp         = new Date().getTime(),
+							difference  = end_timestamp - current_timestamp,
+							days        = Math.floor( difference / ( 1000 * 60 * 60 * 24 ) ),
+							hours       = Math.floor( ( difference % ( 1000 * 60 * 60 * 24 ) ) / ( 1000 * 60 * 60 ) ),
+							minutes     = Math.floor( ( difference % ( 1000 * 60 * 60 ) ) / ( 1000 * 60 ) ),
+							seconds     = Math.floor( ( difference % ( 1000 * 60 )) / 1000 );
 
-						if( Cookies.get( 'nx_bar_countdown_old' ) !== countdown_string ){
-							Cookies.set( 'nx_bar_countdown_old',  countdown_string, { expires: date, path: '/' } );
-							Cookies.clear('nx_bar_countdown');
+						bar.querySelector('.nx-days').innerHTML = days;
+						bar.querySelector('.nx-hours').innerHTML = hours;
+						bar.querySelector('.nx-minutes').innerHTML = minutes;
+						bar.querySelector('.nx-seconds').innerHTML = seconds;
+						if ( difference < 0 ) {
+							clearInterval( bar_interval );
+							bar.querySelector('.nx-countdown').classList.add('nx-expired');
 						}
-
-						countdown_cookie = Cookies.get( 'nx_bar_countdown' );
-
-						
-						if ( typeof countdown_cookie == 'undefined' || isNaN( countdown_cookie ) ){
-							Cookies.set( 'nx_bar_countdown',  new_date.getTime(), { expires: date, path: '/' } );
-							Cookies.set( 'nx_bar_countdown_old',  countdown_string, { expires: date, path: '/' } );
-							countdown_cookie = Cookies.get( 'nx_bar_countdown' );
-						}
-						
-						var countdown_interval = setInterval(function() {
-							var now         = new Date().getTime(),
-								difference  = countdown_cookie - now,
-								days        = Math.floor( difference / ( 1000 * 60 * 60 * 24 ) ),
-								hours       = Math.floor( ( difference % ( 1000 * 60 * 60 * 24 ) ) / ( 1000 * 60 * 60 ) ),
-								minutes     = Math.floor( ( difference % ( 1000 * 60 * 60 ) ) / ( 1000 * 60 ) ),
-								seconds     = Math.floor( ( difference % ( 1000 * 60 )) / 1000 );
-
-
-
-							bar.querySelector('.nx-days').innerHTML = days;
-							bar.querySelector('.nx-hours').innerHTML = hours;
-							bar.querySelector('.nx-minutes').innerHTML = minutes;
-							bar.querySelector('.nx-seconds').innerHTML = seconds;
-							if ( difference < 0 ) {
-								clearInterval( countdown_interval );
-								bar.querySelector('.nx-countdown').classList.add('nx-expired');
-							}
-						}, 1000);
-					}
+					}, 1000);
 				}
 
 				notificationX_showBar( bar , id );
 
 				if ( ( '' !== duration || undefined !== duration ) && parseInt( auto_hide ) ) {
                     setTimeout(function() {
-                        notificationX_hideBar( 'nx-bar-' + id );
+                        notificationX_hideBar( 'nx-bar-' + id, close_forever );
                     }, parseInt(duration) * 1000);
 				}
-				
 			});
 			
 		}
-
 	}
 
 	function notificationX_showBar( bar, bar_id ){
 		if( bar === '' ) {
 			bar = document.querySelector( '.nx-bar ' + '.nx-bar-' + bar_id );
+		}
+		console.log( bar_id, Cookies.get( 'notificationx_nx-bar-' + bar_id ) );
+		if( Cookies.get( 'notificationx_nx-bar-' + bar_id ) ) {
+			return false;
 		}
 
 		var delay     = parseInt( bar.dataset.initial_delay ),
@@ -126,7 +102,16 @@ window.addEventListener('DOMContentLoaded', function( event ) {
 
 	function notificationX_hideBar( id ){
 		var bar = document.querySelector( '.nx-bar#' + id ),
-			html = document.querySelector( 'html' );
+			html = document.querySelector( 'html' ),
+			close_forever = bar.dataset.close_forever;
+
+		if( close_forever ) {
+			var date = new Date(),
+				expired_timestamp = date.getTime() + ( 2 * 30 * 24 * 60 * 60 * 1000 ),
+				expired_date = new Date( expired_timestamp );
+			Cookies.set( 'notificationx_' + id,  true, { expires: expired_date, path: '/' } );
+		}
+
 		html.classList.remove( 'nx-bar-active' );
 		html.style.paddingTop = 0;
 		bar.animate([
@@ -245,6 +230,9 @@ window.addEventListener('DOMContentLoaded', function( event ) {
 		notification.style.bottom = '30px';
 		notification.style.opacity = 1;
 		notificationX_save( configuration.id, count );
+		document.querySelector('.notificationx-close').addEventListener('click', function( event ){
+			notificationX_hide( event.currentTarget.offsetParent );
+		});
 	}
 
 	function notificationX_hide( notification ){

@@ -148,6 +148,7 @@ class NotificationX_Admin {
 		}
 		
 		wp_enqueue_script( 'wp-color-picker' );
+		wp_enqueue_script( 'jquery-ui-datepicker' );
 		wp_enqueue_media();
 		wp_enqueue_script( 
 			$this->plugin_name . '-sweetalert', 
