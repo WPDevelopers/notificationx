@@ -9,10 +9,13 @@ window.addEventListener('DOMContentLoaded', function( event ) {
 	}
 
 	function notificationX_events(){
-		document.querySelector('.nx-bar .nx-close').addEventListener('click', function( event ){
-			notificationX_pressbar_active = 0;
-			notificationX_hideBar( event.currentTarget.offsetParent.id );
-		});
+		var barClose = document.querySelector('.nx-bar .nx-close');
+		if( barClose !== null ) {
+			barClose.addEventListener('click', function( event ){
+				notificationX_pressbar_active = 0;
+				notificationX_hideBar( event.currentTarget.offsetParent.id );
+			});
+		}
 	}
 
 	function notificationX_pressbar(){
@@ -144,35 +147,13 @@ window.addEventListener('DOMContentLoaded', function( event ) {
 		}
 	}
 
-	function notificationX_process( ids ){
-		var node = document.createElement('div'),
-			notificationHTML = '';
-			node.classList.add('notificationx-conversions');
-
-		fetch( notificationx.ajaxurl, {
-			method: 'POST',
-			credentials: 'same-origin',
-			headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'}),
-			body: 'action=nx_get_conversions&nonce=' + notificationx.nonce + '&ids=' + ids,
-		})
-		.then(function( response ){
-			return response.json();
-		})
-		.then(function( response ){
-			if( response ) {
-				node.innerHTML = response.content;
-				notificationX_render(response.config, node);
-			}
-		})
-		.catch(function( err ){
-			// console.log('AJAX error, Something went wrong! Please, Contact support team.')
-		});
-
-	}
-
 	function notificationX_render( configuration, html ) {
+		var notificationHTML = document.createElement('div');
+			notificationHTML.classList.add('notificationx-conversions');
+			notificationHTML.insertAdjacentHTML('beforeend', html);
+
 		var count = 0,
-			notifications = html.querySelectorAll( '.notificationx-' + configuration.id ),
+			notifications = notificationHTML.querySelectorAll( '.notificationx-' + configuration.id ),
 			delayBetween = configuration.delay_between,
 			last = notificationX_last( configuration.id, false );
 
@@ -192,7 +173,6 @@ window.addEventListener('DOMContentLoaded', function( event ) {
 				count++;
 				var nextNotification = setInterval(function(){ 
 					notificationX_show( notifications[ count ], configuration, count );
-
 					setTimeout(function() {
 						notificationX_hide( notifications[ count ] );
 						if ( count >= notifications.length - 1 ) {
@@ -203,10 +183,29 @@ window.addEventListener('DOMContentLoaded', function( event ) {
 						} else {
 							count++;
 						}
-					}, delayBetween + configuration.display_for);
-				}, configuration.display_for );
-			}, configuration.delay_before);
+					}, configuration.display_for);
+				}, delayBetween + configuration.display_for );
+			}, configuration.display_for);
+		}, configuration.delay_before);
+	}
+
+	function notificationX_process( ids ){
+		fetch( notificationx.ajaxurl, {
+			method: 'POST',
+			credentials: 'same-origin',
+			headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'}),
+			body: 'action=nx_get_conversions&nonce=' + notificationx.nonce + '&ids=' + ids,
+		})
+		.then(function( response ){
+			return response.json();
+		})
+		.then(function( response ){
+			notificationX_render(response.config, response.content);
+		})
+		.catch(function( err ){
+			// console.log('AJAX error, Something went wrong! Please, Contact support team.')
 		});
+
 	}
 
 	function notificationX_show( notification, configuration, count ){
@@ -215,8 +214,8 @@ window.addEventListener('DOMContentLoaded', function( event ) {
 		}
 
 		var body = document.querySelector('body');
-
 		body.append( notification );
+		
 		notification.animate([
 			{
 				bottom : '0px',
@@ -236,13 +235,17 @@ window.addEventListener('DOMContentLoaded', function( event ) {
 	}
 
 	function notificationX_hide( notification ){
-		
+		if( notification === undefined ) {
+			return;
+		}
 		notification.animate([
-			{ opacity : 1 },
-			{ opacity : 0 }
+			{ opacity : 1, bottom : '30px' },
+			{ opacity : 0, bottom : '0px' }
 		], { duration : 300 });
 
-		notificationX_remove( notification );	
+		setTimeout(function(){
+			notificationX_remove( notification );	
+		}, 300);
 	}
 
 	function notificationX_remove( notification ){

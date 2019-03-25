@@ -125,7 +125,7 @@ class NotificationX_Helper {
             return;
 		}
 		
-        $offset = get_option('gmt_offset') * 60 * 60; // Time offset in seconds
+        $offset = get_option('gmt_offset'); // Time offset in seconds
 		$timestamp = $time;
 		$local_time = $timestamp + $offset;
 
