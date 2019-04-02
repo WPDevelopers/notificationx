@@ -43,7 +43,7 @@
 
     <div class="nx-builder-content-wrapper nx-metatab-wrapper" data-totaltab="<?php echo $totaltabs; ?>">
         <form method="post" id="nx-builder-form" action="<?php echo self::get_form_action( '', true ); ?>">
-            <input type="hidden" name="nx_builder_current_tab" value="source_tab">
+            <input id="nx_builder_current_tab" type="hidden" name="nx_builder_current_tab" value="source_tab">
             <?php 
                 wp_nonce_field( $builder_args['id'], $builder_args['id'] . '_nonce' );
                 $tabid = 1;
