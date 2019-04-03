@@ -307,6 +307,10 @@ class NotificationX_Admin {
 	* @return void
 	*/
 	public function menu_page(){
+
+		if( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
 		
 		$settings_class = new NotificationX_Settings();
 		
