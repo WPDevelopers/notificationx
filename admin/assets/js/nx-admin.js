@@ -46,8 +46,8 @@
 
 	$( window ).load(function(){
 		$('body').on('change', '#nx_meta_display_type', function(){
+			$.notificationx.linkOptions( this );
 			var type = $(this).val();
-			// NotificationX_Admin.shownPreview( type );
 			if( type == 'conversions' ) {
 				$('#nx_meta_conversion_from').trigger('change');
 			}
@@ -94,6 +94,9 @@
 				$.notificationx.groupToggle( this );
 			}
 		});
+		$('body').delegate( '.nx-group-field .nx-group-clone', 'click', function() {
+			$.notificationx.cloneGroup(this);
+		} );
 		$('body').delegate( '.nx-group-field .nx-group-remove', 'click', function() {
 			$.notificationx.removeGroup(this);
 		});
@@ -109,6 +112,21 @@
 			e.preventDefault();
 			$.notificationx.removeMedia(this);
 		});
+
+		/**
+		 * Settings Tab
+		 */
+		$('body').delegate( '.nx-settings-menu li', 'click', function( e ) {
+			$.notificationx.settingsTab( this );
+		} );
+		$('body').delegate( '.nx-submit-general', 'click', function( e ) {
+			e.preventDefault();
+			$.notificationx.submitSettings( this );
+		} );
+
+		$('body').delegate( '.nx-opt-alert', 'click', function( e ) {
+			$.notificationx.fieldAlert( this );
+		} );
 	};
 	/**
 	 * This function is responsible for 
@@ -415,8 +433,42 @@
 
 		clone.attr('data-id', nextGroupID);
 		clone.insertAfter(group);
-		// $.notificationx.resetFieldIds( parent.find('.nx-group-field') );
+		$.notificationx.resetFieldIds( parent.find('.nx-group-field') );
 	};
+
+	$.notificationx.resetFieldIds = function( groups ){
+		var groupID = 1;
+				
+		groups.each(function() {
+			var group       = $(this),
+				fieldName   = group.data('field-name'),
+				fieldId     = 'nx-' + fieldName,
+				groupInfo   = group.find('.nx-group-field-info').data('info'),
+				subFields   = groupInfo.group_sub_fields;
+
+			group.data('id', groupID);
+
+			subFields.forEach(function( item ){
+				var table_row = group.find('tr.nx-field[id="nx-' + item.field_name + '"]');
+
+				table_row.find('[name*="'+item.field_name+'"]').each(function(){
+					var name = $(this).attr('name'),
+						prefix  = name.split(item.field_name)[0],
+						suffix  = '';
+
+					if ( undefined === prefix ) {
+						prefix = '';
+					}
+					
+					name = name.replace( name, prefix + fieldName + '[' + groupID + '][' + item.original_name + ']' + suffix );
+					$(this).attr('name', name).attr('id', name);
+				});
+
+				group.find('tr.nx-field[id="nx-' + item.field_name + '"]').attr('id', fieldId + '[' + groupID + '][' + item.original_name + ']');
+			});
+			groupID++;
+		});
+	}
 
 	$.notificationx.initMediaField = function( button ){
 		var button = $( button ),
@@ -470,5 +522,80 @@
 		button.addClass('hidden'); // Hide the remove button first
 		uploadButton.removeClass('hidden'); // Show the uplaod button
 	};
+
+	$.notificationx.fieldAlert = function( button ){
+		var premium_content = document.createElement("p");
+		var premium_anchor = document.createElement("a");
+			
+		premium_anchor.setAttribute( 'href', 'https://wpdeveloper.net/in/notificationx-pro' );
+		premium_anchor.innerText = 'Premium';
+		premium_anchor.style.color = 'red';
+		premium_content.innerHTML = 'You need to upgrade to the <strong>'+ premium_anchor.outerHTML +' </strong> Version to use this feature';
+		
+		swal({
+			title     : "Opps...",
+			content   :  premium_content,
+			icon      : "warning",
+			buttons   : [false, "Close"],
+			dangerMode: true,
+		});
+	};
+
+	$.notificationx.settingsTab = function( button ){
+		var button = $(button),
+			tabToGo = button.data('tab');
+
+		button.addClass('active').siblings().removeClass('active');
+		$('#nx-'+tabToGo).addClass('active').siblings().removeClass('active');
+	};
+
+	$.notificationx.submitSettings = function( button ){
+		var button = $(button),
+			submitKey = button.data('key'),
+			nonce = button.data('nonce'),
+			form = button.parent('#nx-settings-general-form'),
+			formData = $( form ).serializeArray();
+
+		$.ajax({
+			type: 'POST',
+			url: ajaxurl,
+			data: {
+				action: 'nx_general_settings',
+				key: submitKey,
+				nonce: nonce,
+				form_data: formData
+			},
+			success: function(res) {
+				if ( res === 'success' ) {
+					swal({
+						title     : "Settings Saved!",
+						text      : "Click OK to continue",
+						icon      : "success",
+						buttons   : [false, "Ok"],
+					});
+				} else {
+					swal({
+						title     : "Settings Not Saved!",
+						text      : "Click OK to continue",
+						icon      : "success",
+						buttons   : [false, "Ok"],
+					});
+				}
+			}
+		});
+	};
+
+	$.notificationx.linkOptions = function(){
+		var type = $('#nx_meta_display_type').val();
+		if( type == 'conversions' ) {
+			var from = $('#nx_meta_conversion_from').val();
+			$('#nx_meta_notx_url').val('product_page').trigger('change');
+		}
+		if( type == 'comments' ) {
+			$('#nx_meta_notx_url').val('comment_url').trigger('change');
+		}
+	}
+
+
 
 })( jQuery );
