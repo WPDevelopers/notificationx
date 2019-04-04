@@ -38,7 +38,8 @@ function notificationx_metabox_args(){
                                 'options'  => NotificationX_Helper::conversion_from(),
                                 'priority' => 60,
                                 'dependency' => array(
-                                    'woocommerce' => NotificationX_Helper::conversions_toggle_data()
+                                    'woocommerce' => NotificationX_Helper::conversions_toggle_data(),
+                                    'edd' => NotificationX_Helper::conversions_toggle_data()
                                 )
                             ))
                         ),
@@ -244,10 +245,12 @@ function notificationx_metabox_args(){
                                     1 => [
                                         'fields' => [ 'border_size', 'border_style', 'border_color' ]
                                     ],
+                                ),
+                                'hide' => array(
                                     0 => [
                                         'fields' => [ 'border_size', 'border_style', 'border_color' ]
                                     ]
-                                ),
+                                )
                             ),
                             'border_size' => array(
                                 'type'      => 'number',
@@ -301,6 +304,8 @@ function notificationx_metabox_args(){
                                     1 => [
                                         'fields' => [ 'comment_border_size', 'comment_border_style', 'comment_border_color' ]
                                     ],
+                                ),
+                                'hide' => array(
                                     0 => [
                                         'fields' => [ 'comment_border_size', 'comment_border_style', 'comment_border_color' ]
                                     ]

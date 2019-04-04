@@ -180,7 +180,8 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
     public function builder_toggle_fields( $options ) {
         $fields = $this->init_fields();
         unset( $fields[ $this->template ] );
-        $options['source_tab']['sections']['config']['fields']['conversion_from']['toggle'][ $this->type ]['fields'] = array_keys( $fields );
+        $old_fields = $options['source_tab']['sections']['config']['fields']['conversion_from']['dependency'][ $this->type ]['fields'];
+        $options['source_tab']['sections']['config']['fields']['conversion_from']['dependency'][ $this->type ]['fields'] = array_merge( array_keys( $fields ), $old_fields);
         return $options;
     }
     /**

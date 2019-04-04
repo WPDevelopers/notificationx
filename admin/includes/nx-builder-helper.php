@@ -38,7 +38,8 @@ function notificationx_builder_args() {
                                 'options'  => NotificationX_Helper::conversion_from(),
                                 'priority' => 60,
                                 'dependency' => array(
-                                    'woocommerce' => NotificationX_Helper::conversions_toggle_data()
+                                    'woocommerce' => NotificationX_Helper::conversions_toggle_data(),
+                                    'edd' => NotificationX_Helper::conversions_toggle_data(),
                                 )
                             ),
                             'press_content' => array(
