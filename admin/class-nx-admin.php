@@ -162,9 +162,48 @@ class NotificationX_Admin {
 		);
 		wp_enqueue_script( 
 			$this->plugin_name, 
-			NOTIFICATIONX_ADMIN_URL . 'assets/js/nx-admin.min.js', 
+			NOTIFICATIONX_ADMIN_URL . 'assets/js/nx-admin.js', 
 			array( 'jquery' ), $this->version, true 
 		);
+
+		wp_localize_script( $this->plugin_name, 'notificationx', self::toggleFields() );
+	}
+
+	public function toggleFields( $builder = false ){
+		$args = NotificationX_MetaBox::get_args();
+		if( $builder ) {
+			$args = NotificationX_MetaBox::get_builder_args();
+		}
+
+		$toggleFields = $hideFields = $conditions = array();
+
+		$tabs = $args[ 'tabs' ];
+		if( ! empty( $tabs ) ) {
+			foreach( $tabs as $tab_id => $tab ) {
+				$sections = isset( $tab['sections'] ) ? $tab[ 'sections' ] : [];
+				if( ! empty( $sections ) ) {
+					foreach( $sections as $section_id => $section ) {
+						$fields = isset( $section['fields'] ) ? $section[ 'fields' ] : [];
+						if( ! empty( $fields ) ) {
+							foreach( $fields as $field_key => $field ) {
+								if( isset( $field['hide'] ) && ! empty( $field['hide'] ) && is_array( $field['hide'] ) ) {
+									foreach( $field['hide'] as $key => $hide ) {
+										$hideFields[ $field_key ][ $key ] = $hide;
+									}
+								}
+								if( isset( $field['dependency'] ) && ! empty( $field['dependency'] ) && is_array( $field['dependency'] ) ) {
+									foreach( $field['dependency'] as $key => $dependency ) {
+										$conditions[ $field_key ][ $key ] = $dependency;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return array( 'toggleFields' => $conditions, 'hideFields' => $hideFields );
 	}
 	
 	public function custom_columns( $columns ) {

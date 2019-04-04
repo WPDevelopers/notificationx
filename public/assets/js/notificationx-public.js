@@ -67,7 +67,6 @@ function notificationX_showBar( bar, bar_id ){
 	if( bar === '' ) {
 		bar = document.querySelector( '.nx-bar ' + '.nx-bar-' + bar_id );
 	}
-	console.log( bar_id, Cookies.get( 'notificationx_nx-bar-' + bar_id ) );
 	if( Cookies.get( 'notificationx_nx-bar-' + bar_id ) ) {
 		return false;
 	}

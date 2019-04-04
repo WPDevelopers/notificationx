@@ -167,8 +167,8 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         $fields = array_merge( [ 'show_product_image' ], $fields );
 
 
-        $options['toggle'][ $this->type ]['fields'] = $fields;
-        $options['toggle'][ $this->type ]['sections'] = [ 'image' ];
+        $options['dependency'][ $this->type ]['fields'] = array_merge( $fields, $options['dependency'][ $this->type ]['fields']);
+        $options['dependency'][ $this->type ]['sections'] = array_merge( [ 'image' ], $options['dependency'][ $this->type ]['sections']);
         return $options;
     }
     /**

@@ -93,14 +93,9 @@ class NotificationX_MetaBox {
 
         $class  = 'nx-meta-field';
         $row_class = self::get_row_class( $file_name );
-
-        if( isset( $field['toggle'] ) && in_array( $file_name, array( 'checkbox', 'select', 'toggle', 'theme', 'adv_checkbox' ) ) ) {
-            $attrs .= ' data-toggle="' . esc_attr( json_encode( $field['toggle'] ) ) . '"';
-        }
-
-        if( isset( $field['hide'] ) && $file_name == 'select' ) {
-            $attrs .= ' data-hide="' . esc_attr( json_encode( $field['hide'] ) ) . '"';
-        }
+        $row_class .= ' nx-' . $key;
+                
+        $attrs .= ' data-key="' . esc_attr( $key ) . '"';
 
         if( isset( $field['tab'] ) && $file_name == 'select' ) {
             $attrs .= ' data-tab="' . esc_attr( json_encode( $field['tab'] ) ) . '"';

@@ -283,7 +283,7 @@ class NotificationX_Helper {
                 'conversion_size'
             ],
         ));
-    }  
+    }
 
     public static function hide_data( $types = 'display_types' ){
         if( $types == 'display_types' ) {
@@ -293,8 +293,8 @@ class NotificationX_Helper {
                     'fields' => [ 'custom_template', 'custom_contents', 'show_custom_image', 'show_product_image', 'image_url' ]
                 ),
                 'press_bar' => array(
-                    'sections' => [ 'link_options', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography' ],
-                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'notification_preview', 'image_url', 'conversion_size' ]
+                    'sections' => [ 'image', 'link_options', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography' ],
+                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'notification_preview', 'image_url', 'conversion_size', 'conversion_position' ]
                 ),
                 'conversions' => array(
                     'sections' => [ 'bar_themes', 'bar_design', 'bar_typography', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography' ], 
