@@ -315,13 +315,14 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
     protected function buyer( WC_Order $order ){
         $user = $order->get_user();
         if( $user ) {
+            $main_user = get_userdata( $user->ID );
             return array(
-                'name' => $user->display_name,
+                'name' => $main_user->first_name . ' ' . substr($main_user->last_name, 0, 1),
                 'user_id' => $user->ID,
             );
         }
         return array(
-            'name' => $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
+            'name' => $order->get_billing_first_name() . ' ' . substr($order->get_billing_last_name(), 0, 1),
         );
     }
     /**

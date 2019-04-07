@@ -312,14 +312,14 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
     protected function buyer( $user_info ) {
         if( empty( $user_info ) ) return;
         $buyer_data = [];
-        $buyer_data['name'] = $user_info['first_name'] . ' ' . $user_info['last_name'];
-        if( $user_info['id'] ) {
-            $user = new WP_User( $user_info['id'] );
-            if( $user->exists() ) {
-                $buyer_data['user_id'] = $user->ID;
-                $buyer_data['name']    = $user->display_name;
-            }
-        }
+        $buyer_data['name'] = $user_info['first_name'] . ' ' . substr( $user_info['last_name'], 0, 1 );
+        // if( $user_info['id'] ) {
+        //     $user = new WP_User( $user_info['id'] );
+        //     if( $user->exists() ) {
+        //         $buyer_data['user_id'] = $user->ID;
+        //         $buyer_data['name']    = $user->first_name . ' ' . substr( $user->last_name, 0, 1 );
+        //     }
+        // }
         return $buyer_data;
     }
     /**
