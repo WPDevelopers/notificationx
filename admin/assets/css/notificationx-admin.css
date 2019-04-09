@@ -314,6 +314,14 @@ Form Input CSS
     width: 400px;
 }
 
+.nx-meta-template .nx-meta-template-editable {
+    padding: 10px;
+    line-height: 25px;
+    border: 2px solid #ececec;
+    background: #f2f2f2;
+    font-size: 14px;
+}
+
 input[type="text"].nx-meta-field, input[type="text"].nx-settings-field, input[type="number"].nx-meta-field, .nx-countdown-input > input[type="number"] {
     box-shadow: none;
     border: 1px solid #f2f2f2;

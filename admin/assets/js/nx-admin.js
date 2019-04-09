@@ -212,7 +212,10 @@
 				});
 			}
 		}
-        $.notificationx.groupField();
+		$.notificationx.groupField();
+		
+		$.notificationx.template();
+		$('.nx-meta-template-editable').trigger('blur');
 	};
 
 	$.notificationx.groupField = function(){
@@ -596,6 +599,42 @@
 		}
 	}
 
+	$.notificationx.template = function( e ){
+		$('.nx-meta-template-editable').prop('disabled',true);
+
+		$('.nx-meta-template-editable').on('blur', function(){
+			var editable = $(this),
+				template = editable[0].innerText,
+				splitedTemplate = template.trim().split("\n"),
+				res, newItemLine = [], final;
+			var nextSiblingsChild = editable[0].nextElementSibling.children;
+			
+			if( splitedTemplate != null ) {
+				splitedTemplate.forEach(function( item, i ){
+					if( item != '' ) {
+						var pattern = /\{\{[^\s]*\}\}/g;
+						var templateVar = item.match( pattern );
+
+						$(nextSiblingsChild[i]).val( item ); // set value in hidden field!
+
+						if( templateVar != null ) {
+							templateVar.forEach(function( childParam, iterator ){
+								if( iterator > 0 ) {
+									res = res.replace( childParam, '<span style="color:red">' + childParam + '</span>' );
+								} else {
+									res = item.replace( childParam, '<span style="color:red">' + childParam + '</span>' );
+								}
+							});
+
+							newItemLine.push( res );
+						}
+					}
+				});
+			}
+			final = newItemLine.join( '<br>' );
+			editable.html( final );
+		});
+	};
 
 
 })( jQuery );
