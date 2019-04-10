@@ -167,8 +167,8 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         $fields = array_merge( [ 'show_product_image' ], $fields );
 
 
-        $options['toggle'][ $this->type ]['fields'] = $fields;
-        $options['toggle'][ $this->type ]['sections'] = [ 'image' ];
+        $options['dependency'][ $this->type ]['fields'] = array_merge( $fields, $options['dependency'][ $this->type ]['fields']);
+        $options['dependency'][ $this->type ]['sections'] = array_merge( [ 'image' ], $options['dependency'][ $this->type ]['sections']);
         return $options;
     }
     /**
@@ -180,7 +180,8 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
     public function builder_toggle_fields( $options ) {
         $fields = $this->init_fields();
         unset( $fields[ $this->template ] );
-        $options['source_tab']['sections']['config']['fields']['conversion_from']['toggle'][ $this->type ]['fields'] = array_keys( $fields );
+        $old_fields = $options['source_tab']['sections']['config']['fields']['conversion_from']['dependency'][ $this->type ]['fields'];
+        $options['source_tab']['sections']['config']['fields']['conversion_from']['dependency'][ $this->type ]['fields'] = array_merge( array_keys( $fields ), $old_fields);
         return $options;
     }
     /**
@@ -296,6 +297,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         $date = $order->get_date_created();
 
         if( ! empty( $product_data = $this->ready_product_data( $item->get_data() ) ) ) {
+            $new_order['id']   = is_int( $order_id ) ? $order_id : $order_id->get_id();
             $new_order['product_id'] = $item->get_product_id();
             $new_order['title']      = $product_data['title'];
             $new_order['link']       = $product_data['link'];
@@ -314,13 +316,14 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
     protected function buyer( WC_Order $order ){
         $user = $order->get_user();
         if( $user ) {
+            $main_user = get_userdata( $user->ID );
             return array(
-                'name' => $user->display_name,
+                'name' => $main_user->first_name . ' ' . substr($main_user->last_name, 0, 1),
                 'user_id' => $user->ID,
             );
         }
         return array(
-            'name' => $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
+            'name' => $order->get_billing_first_name() . ' ' . substr($order->get_billing_last_name(), 0, 1),
         );
     }
     /**

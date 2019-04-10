@@ -4,7 +4,7 @@ if( isset( $field['disable'] ) && $field['disable'] === true ) {
     $opt_alert_class = 'nx-opt-alert';
 }
 ?>
-<tr id="<?php echo esc_attr( $id ); ?>" class="nx-field <?php echo $row_class; ?>">
+<tr data-id="<?php echo $key; ?>" id="<?php echo esc_attr( $id ); ?>" class="nx-field <?php echo $row_class; ?>">
     <?php if( empty( $field['label'] ) ) : ?>
         <td class="nx-control" colspan="2">
     <?php else : ?>

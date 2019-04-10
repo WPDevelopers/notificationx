@@ -24,7 +24,9 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
         <ul>
             <?php 
                 $tid = 1;
+                $tabids = array();
                 foreach( $tabs as $id => $tab ) {
+                    $tabids[] = $id;
                     $active = $current_tab === $id ? ' active' : '';
                     $class = isset( $tab['icon'] ) ? ' nx-has-icon' : '';
                     $class .= $active;
@@ -63,7 +65,7 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
                             $fields = NotificationX_Helper::sorter( $section['fields'], 'priority', 'ASC' );
                             if( ! empty( $fields ) )  :
                         ?>
-                            <div id="nx-meta-section-<?php echo $sec_id; ?>" class="nx-meta-section">
+                            <div id="nx-meta-section-<?php echo $sec_id; ?>" class="nx-meta-section <?php echo 'nx-' . $sec_id; ?>">
                                 <h2 class="nx-meta-section-title">
                                     <?php 
                                         echo $section['title']; 
@@ -86,7 +88,7 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
                         do_action( 'nx_after_metabox_tab_section', $sec_id, $id, $section );
                     }
                 ?>
-                <button class="nx-meta-next" data-tab="<?php echo $id; ?>" data-tabid="<?php echo ++$tabid; ?>">
+                <button class="nx-meta-next" data-tab="<?php echo isset( $tabids[ $tabid ] ) ? $tabids[ $tabid ] : ''; ?>" data-tabid="<?php echo ++$tabid; ?>">
                     <?php
                         if( $totaltabs < $tabid ) {
                             _e( 'Publish', 'notificationx' );

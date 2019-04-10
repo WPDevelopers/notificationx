@@ -169,8 +169,8 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         $fields = array_keys( $this->init_fields() );
         $fields = array_merge( [ 'show_product_image' ], $fields );
 
-        $options['toggle'][ $this->type ]['fields'] = $fields;
-        $options['toggle'][ $this->type ]['sections'] = [ 'image' ];
+        $options['dependency'][ $this->type ]['fields'] = array_merge( $fields, $options['dependency'][ $this->type ]['fields']);
+        $options['dependency'][ $this->type ]['sections'] = array_merge( [ 'image' ], $options['dependency'][ $this->type ]['sections']);
         return $options;
     }
     /**
@@ -182,7 +182,8 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
     public function builder_toggle_fields( $options ) {
         $fields = $this->init_fields();
         unset( $fields[ $this->template ] );
-        $options['source_tab']['sections']['config']['fields']['conversion_from']['toggle'][ $this->type ]['fields'] = array_keys( $fields );
+        $old_fields = $options['source_tab']['sections']['config']['fields']['conversion_from']['dependency'][ $this->type ]['fields'];
+        $options['source_tab']['sections']['config']['fields']['conversion_from']['dependency'][ $this->type ]['fields'] = array_merge( array_keys( $fields ), $old_fields );
         return $options;
     }
     /**
@@ -311,14 +312,14 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
     protected function buyer( $user_info ) {
         if( empty( $user_info ) ) return;
         $buyer_data = [];
-        $buyer_data['name'] = $user_info['first_name'] . ' ' . $user_info['last_name'];
-        if( $user_info['id'] ) {
-            $user = new WP_User( $user_info['id'] );
-            if( $user->exists() ) {
-                $buyer_data['user_id'] = $user->ID;
-                $buyer_data['name']    = $user->display_name;
-            }
-        }
+        $buyer_data['name'] = $user_info['first_name'] . ' ' . substr( $user_info['last_name'], 0, 1 );
+        // if( $user_info['id'] ) {
+        //     $user = new WP_User( $user_info['id'] );
+        //     if( $user->exists() ) {
+        //         $buyer_data['user_id'] = $user->ID;
+        //         $buyer_data['name']    = $user->first_name . ' ' . substr( $user->last_name, 0, 1 );
+        //     }
+        // }
         return $buyer_data;
     }
     /**

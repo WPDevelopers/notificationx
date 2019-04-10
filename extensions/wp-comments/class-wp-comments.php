@@ -38,11 +38,11 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
      */
     public function display_tab_section( $options ){
         $options['image']['fields']['show_avatar'] = array(
-            'label'       => __( 'Show Avatar', 'notificationx' ),
+            'label'       => __( 'Show Gravatar', 'notificationx' ),
             'priority'    => 20,
             'type'        => 'checkbox',
             'default'     => true,
-            'description' => __( 'Show the commenter avatar in notification', 'notificationx' ),
+            'description' => __( 'Show the commenter gravatar in notification', 'notificationx' ),
         );
 
         return $options;
@@ -167,17 +167,19 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         if( ! $comment instanceof WP_Comment ) {
             $comment = get_comment( intval( $comment ), 'OBJECT' );  
         }
-
+        
+        $comment_data['id']         = $comment->comment_ID;
         $comment_data['link']       = get_comment_link( $comment->comment_ID );
         $comment_data['post_title'] = get_the_title( $comment->comment_post_ID );
         $comment_data['post_link']  = get_permalink( $comment->comment_post_ID );
         $comment_data['timestamp']  = strtotime( $comment->comment_date );
+        // $comment_data['name'] = get_comment_author( $comment->comment_ID );
         
         if( $comment->user_id )  {
             $comment_data['user_id'] = $comment->user_id;
-            // $comment_data['author_link'] = get_the_author_link( $comment->user_id );
+            $user = get_userdata( $comment->user_id );
+            $comment_data['name'] = $user->first_name . ' ' . substr( $user->last_name );
         }
-        $comment_data['name'] = get_comment_author( $comment->comment_ID );
         return $comment_data;
     }
     /**

@@ -23,13 +23,13 @@ function notificationx_metabox_args(){
                                 'label'     => __('I would like to display' , 'notificationx'),
                                 'default'   => 'press_bar',
                                 'options'   => NotificationX_Helper::notification_types(),
-                                'toggle'   => [
+                                'hide'     => NotificationX_Helper::hide_data( 'display_types' ),
+                                'priority' => 50,
+                                'dependency' => array(
                                     'comments'    => NotificationX_Helper::comments_toggle_data(),
                                     'press_bar'   => NotificationX_Helper::press_bar_toggle_data(),
-                                    'conversions' => NotificationX_Helper::conversions_toggle_data(),
-                                ],
-                                'hide'     => NotificationX_Helper::hide_data( 'display_types' ),
-                                'priority' => 50
+                                    'conversions' => NotificationX_Helper::conversions_toggle_data()
+                                )
                             ) ),
                             'conversion_from'  => apply_filters('nx_conversion_from', array(
                                 'type'     => 'select',
@@ -37,7 +37,10 @@ function notificationx_metabox_args(){
                                 'default'  => 'custom',
                                 'options'  => NotificationX_Helper::conversion_from(),
                                 'priority' => 60,
-                                'toggle'   => NotificationX_Helper::conversion_toggle(),
+                                'dependency' => array(
+                                    'woocommerce' => NotificationX_Helper::conversions_toggle_data(),
+                                    'edd' => NotificationX_Helper::conversions_toggle_data()
+                                )
                             ))
                         ),
                     ),
@@ -73,20 +76,33 @@ function notificationx_metabox_args(){
                             'enable_countdown' => array(
                                 'label' => __('Enable Countdown', 'notificationx'),
                                 'type'  => 'checkbox',
-                                'toggle'  => [
-                                    '1' => [
-                                        'fields' => ['countdown_text', 'countdown_time']
+                                'dependency'  => [
+                                    1 => [
+                                        'fields' => ['countdown_text', 'countdown_start_date', 'countdown_end_date', 'close_forever']
                                     ]
                                 ],
+                                'hide' => array(
+                                    0 => [
+                                        'fields' => ['countdown_text', 'countdown_start_date', 'countdown_end_date', 'close_forever']
+                                    ]
+                                )
                             ),
                             'countdown_text' => array(
                                 'label' => __('Countdown Text', 'notificationx'),
                                 'type'  => 'text',
                             ),
-                            'countdown_time' => array(
-                                'label' => __('Countdown Time', 'notificationx'),
-                                'type'  => 'time',
-                            )
+                            'countdown_start_date' => array(
+                                'label' => __('Start Date', 'notificationx'),
+                                'type'  => 'datepicker',
+                            ),
+                            'countdown_end_date' => array(
+                                'label' => __('End Date', 'notificationx'),
+                                'type'  => 'datepicker',
+                            ),
+                            'close_forever' => array(
+                                'label' => __('Permanent Close', 'notificationx'),
+                                'type'  => 'checkbox',
+                            ),
                         )
                     ),
                     'link_options' => array(
@@ -101,19 +117,8 @@ function notificationx_metabox_args(){
                                     'none'             => __('None', 'notificationx'),
                                     'product_page' => __( 'Product Page', 'notificationx' ),
                                     'comment_url'      => __( 'Comment URL', 'notificationx' ),
-                                    'custom'           => __('Custom', 'notificationx'),
                                 )),
-                                'toggle' => [
-                                    'custom' => [
-                                        'fields' => ['notx_url_custom']
-                                    ]
-                                ]
                             ),
-                            'notx_url_custom' => array(
-                                'label' => __('Custom URL', 'notificationx'),
-                                'type'  => 'text',
-                                'priority'	=> 15,
-                            )
                         )
                     ),
                 ))
@@ -136,11 +141,16 @@ function notificationx_metabox_args(){
                                 'type'      => 'adv_checkbox',
                                 'priority'	=> 10,
                                 'default'	=> 0,
-                                'toggle' => [
+                                'dependency' => array(
                                     1 => [
                                         'sections' => ['bar_design', 'bar_typography']
                                     ]
-                                ]
+                                ),
+                                'hide' => array(
+                                    0 => [
+                                        'sections' => ['bar_design', 'bar_typography']
+                                    ]
+                                )
                             ),
                         )
                     ),
@@ -158,11 +168,16 @@ function notificationx_metabox_args(){
                                 'type'      => 'adv_checkbox',
                                 'priority'	=> 10,
                                 'default'	=> 0,
-                                'toggle' => [
+                                'dependency' => array(
                                     1 => [
                                         'sections' => ['comment_design', 'comment_image_design', 'comment_typography']
                                     ]
-                                ]
+                                ),
+                                'hide' => array(
+                                    0 => [
+                                        'sections' => ['comment_design', 'comment_image_design', 'comment_typography']
+                                    ]
+                                )
                             ),
                         )
                     ),
@@ -180,11 +195,16 @@ function notificationx_metabox_args(){
                                 'type'      => 'adv_checkbox',
                                 'priority'	=> 10,
                                 'default'	=> 0,
-                                'toggle' => [
+                                'dependency' => array(
                                     1 => [
                                         'sections' => ['design', 'image_design', 'typography']
                                     ]
-                                ]
+                                ),
+                                'hide' => array(
+                                    0 => [
+                                        'sections' => ['design', 'image_design', 'typography']
+                                    ]
+                                ),
                             ),
                         )
                     ),
@@ -210,11 +230,16 @@ function notificationx_metabox_args(){
                                 'label'     => __('Want Border?' , 'notificationx'),
                                 'priority'	=> 15,
                                 'default'	=> 0,
-                                'toggle'	=> [
-                                    '1' => [
+                                'dependency' => array(
+                                    1 => [
+                                        'fields' => [ 'border_size', 'border_style', 'border_color' ]
+                                    ],
+                                ),
+                                'hide' => array(
+                                    0 => [
                                         'fields' => [ 'border_size', 'border_style', 'border_color' ]
                                     ]
-                                ],
+                                )
                             ),
                             'border_size' => array(
                                 'type'      => 'number',
@@ -264,11 +289,16 @@ function notificationx_metabox_args(){
                                 'label'     => __('Want Border?' , 'notificationx'),
                                 'priority'	=> 15,
                                 'default'	=> 0,
-                                'toggle'	=> [
-                                    '1' => [
+                                'dependency' => array(
+                                    1 => [
+                                        'fields' => [ 'comment_border_size', 'comment_border_style', 'comment_border_color' ]
+                                    ],
+                                ),
+                                'hide' => array(
+                                    0 => [
                                         'fields' => [ 'comment_border_size', 'comment_border_style', 'comment_border_color' ]
                                     ]
-                                ],
+                                ),
                             ),
                             'comment_border_size' => array(
                                 'type'      => 'number',
@@ -462,11 +492,16 @@ function notificationx_metabox_args(){
                                 'type'      => 'checkbox',
                                 'label'     => __('Show Default Image' , 'notificationx'),
                                 'priority'	=> 5,
-                                'toggle'	=> [
-                                    '1' => [
+                                'dependency' => array(
+                                    0 => array(
                                         'fields' => [ 'image_url' ]
-                                    ]
-                                ],
+                                    ),
+                                ),
+                                'dependency' => array(
+                                    1 => array(
+                                        'fields' => [ 'image_url' ]
+                                    ),
+                                ),
                                 'description' => __('If checked, this will show in notifications.', 'notificationx'),
                             ),
                             'image_url'  => array(
@@ -496,14 +531,14 @@ function notificationx_metabox_args(){
                                     'on_selected'      => __('Show On Selected' , 'notificationx'),
                                     'hide_on_selected' => __('Hide On Selected' , 'notificationx'),
                                 ],
-                                'toggle' => [
-                                    'on_selected' => [ 
+                                'dependency' => array(
+                                    'on_selected' => [
                                         'fields' => [ 'all_locations' ]
                                     ],
-                                    'hide_on_selected' => [ 
+                                    'hide_on_selected' => [
                                         'fields' => [ 'all_locations' ]
                                     ]
-                                ],
+                                ),
                                 'hide' => [
                                     'everywhere' => [ 
                                         'fields' => [ 'all_locations' ]
@@ -613,11 +648,16 @@ function notificationx_metabox_args(){
                                 'label'       => __('Auto Hide' , 'notificationx'),
                                 'description' => __('If checked, notification bar will be hidden after the time set below.', 'notificationx'),
                                 'priority'    => 50,
-                                'toggle'	=> [
-                                    '1' => [
+                                'dependency' => array(
+                                    1 => [
                                         'fields' => [ 'hide_after' ]
-                                    ]
-                                ],
+                                    ],
+                                ),
+                                'hide' => array(
+                                    0 => [
+                                        'fields' => [ 'hide_after' ]
+                                    ],
+                                ),
                                 'default'     => false,
                             ),
                             'hide_after'  => array(

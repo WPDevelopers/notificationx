@@ -18,7 +18,9 @@
         <ul>
             <?php 
                 $tid = 1;
+                $tabids = array();
                 foreach( $tabs as $id => $tab ) {
+                    $tabids[] = $id;
                     $active = $current_tab === $id ? ' active' : '';
                     $class = isset( $tab['icon'] ) ? ' nx-has-icon' : '';
                     $class .= $active;
@@ -43,7 +45,7 @@
 
     <div class="nx-builder-content-wrapper nx-metatab-wrapper" data-totaltab="<?php echo $totaltabs; ?>">
         <form method="post" id="nx-builder-form" action="<?php echo self::get_form_action( '', true ); ?>">
-            <input type="hidden" name="nx_builder_current_tab" value="source_tab">
+            <input id="nx_builder_current_tab" type="hidden" name="nx_builder_current_tab" value="source_tab">
             <?php 
                 wp_nonce_field( $builder_args['id'], $builder_args['id'] . '_nonce' );
                 $tabid = 1;
@@ -91,8 +93,8 @@
                     ?>
                     <input id="publish" style="display:none" class="quick-builder-submit-btn" name="nx_builder_add_submit" type="submit" value="Create Notification">
                     <div class="quick-builder-submit-btn-wrap">
-                        <button data-tab="<?php echo $id; ?>" data-tabid="<?php echo ($tabid - 1); ?>" class="quick-builder-submit-btn nx-quick-builder-btn btn-prev"><?php _e( 'Previous', 'notificationx' ); ?></button>
-                        <button data-tab="<?php echo $id; ?>" data-tabid="<?php echo ++$tabid; ?>" class="quick-builder-submit-btn nx-quick-builder-btn btn-next">
+                        <button data-tab="<?php echo isset( $tabids[ $tabid - 1 ] ) ? $tabids[ $tabid - 1 ] : ''; ?>" data-tabid="<?php echo ($tabid - 1); ?>" class="quick-builder-submit-btn nx-quick-builder-btn btn-prev"><?php _e( 'Previous', 'notificationx' ); ?></button>
+                        <button data-tab="<?php echo isset( $tabids[ $tabid ] ) ? $tabids[ $tabid ] : ''; ?>" data-tabid="<?php echo ++$tabid; ?>" class="quick-builder-submit-btn nx-quick-builder-btn btn-next">
                             <?php
                                 if( $totaltabs < $tabid ) {
                                     _e( 'Launch', 'notificationx' );

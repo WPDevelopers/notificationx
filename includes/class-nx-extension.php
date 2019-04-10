@@ -169,9 +169,6 @@ class NotificationX_Extension {
                     if( in_array( $settings->notx_url, apply_filters('nx_notification_url', array('product_page', 'comment_url')) ) ) {
                         $output .= '<a class="notificationx-link" href="'. self::get_link( $data ) .'"></a>';
                     }
-                    if( $settings->notx_url == 'custom' && ! empty( $settings->notx_url_custom ) ) {
-                        $output .= '<a class="notificationx-link" href="'. esc_url( $settings->notx_url_custom ) .'"></a>';
-                    }
                 }
             endif;
         $output .= '</div>';

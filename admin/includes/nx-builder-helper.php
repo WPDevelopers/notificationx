@@ -23,11 +23,11 @@ function notificationx_builder_args() {
                                 'label'     => __('I would like to display' , 'notificationx'),
                                 'default'   => 'press_bar',
                                 'options'   => NotificationX_Helper::notification_types(),
-                                'toggle'   => [
+                                'dependency' => array(
                                     'comments'    => NotificationX_Helper::comments_toggle_data(),
                                     'press_bar'   => NotificationX_Helper::press_bar_toggle_data(),
-                                    'conversions' => NotificationX_Helper::conversions_toggle_data(),
-                                ],
+                                    'conversions' => NotificationX_Helper::conversions_toggle_data()
+                                ),
                                 'hide' => NotificationX_Helper::hide_data( 'display_types' ),
                                 'priority' => 50
                             ),
@@ -37,7 +37,10 @@ function notificationx_builder_args() {
                                 'default'  => 'custom',
                                 'options'  => NotificationX_Helper::conversion_from(),
                                 'priority' => 60,
-                                'toggle'   => NotificationX_Helper::conversion_toggle(),
+                                'dependency' => array(
+                                    'woocommerce' => NotificationX_Helper::conversions_toggle_data(),
+                                    'edd' => NotificationX_Helper::conversions_toggle_data(),
+                                )
                             ),
                             'press_content' => array(
                                 'type'     => 'editor',
@@ -131,19 +134,19 @@ function notificationx_builder_args() {
                                     'on_selected'      => __('Show On Selected' , 'notificationx'),
                                     'hide_on_selected' => __('Hide On Selected' , 'notificationx'),
                                 ],
-                                'toggle' => [
-                                    'on_selected' => [ 
-                                        'fields' => [ 'all_locations' ]
-                                    ],
-                                    'hide_on_selected' => [ 
-                                        'fields' => [ 'all_locations' ]
-                                    ]
-                                ],
                                 'hide' => [
                                     'everywhere' => [ 
                                         'fields' => [ 'all_locations' ]
                                     ],
                                 ],
+                                'dependency' => array(
+                                    'on_selected' => [
+                                        'fields' => [ 'all_locations' ]
+                                    ],
+                                    'hide_on_selected' => [
+                                        'fields' => [ 'all_locations' ]
+                                    ]
+                                ),
                             ),
                             'all_locations'  => array(
                                 'type'      => 'select',
