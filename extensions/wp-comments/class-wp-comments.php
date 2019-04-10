@@ -38,11 +38,11 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
      */
     public function display_tab_section( $options ){
         $options['image']['fields']['show_avatar'] = array(
-            'label'       => __( 'Show Avatar', 'notificationx' ),
+            'label'       => __( 'Show Gravatar', 'notificationx' ),
             'priority'    => 20,
             'type'        => 'checkbox',
             'default'     => true,
-            'description' => __( 'Show the commenter avatar in notification', 'notificationx' ),
+            'description' => __( 'Show the commenter gravatar in notification', 'notificationx' ),
         );
 
         return $options;

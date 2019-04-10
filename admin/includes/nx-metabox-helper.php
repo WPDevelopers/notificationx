@@ -117,19 +117,8 @@ function notificationx_metabox_args(){
                                     'none'             => __('None', 'notificationx'),
                                     'product_page' => __( 'Product Page', 'notificationx' ),
                                     'comment_url'      => __( 'Comment URL', 'notificationx' ),
-                                    'custom'           => __('Custom', 'notificationx'),
                                 )),
-                                'dependency' => array(
-                                    'custom'    => [
-                                        'fields' => ['notx_url_custom']
-                                    ],
-                                )
                             ),
-                            'notx_url_custom' => array(
-                                'label' => __('Custom URL', 'notificationx'),
-                                'type'  => 'text',
-                                'priority'	=> 15,
-                            )
                         )
                     ),
                 ))
