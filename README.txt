@@ -5,7 +5,7 @@ Tags: notification, fomo, notifier, fomo notification, sales notification, socia
 Requires at least: 4.0
 Tested up to: 5.1
 Requires PHP: 5.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -93,7 +93,14 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 1.0.0 =
+= 1.0.1 - 10/04/2019 =
+
+- Timezone issue fixed
+- Scripts updated to vanila JS for better performance
+- Few bugfix and improvements
+
+= 1.0.0 - 20/03/2019 =
+
 * initial release.
 
 
