@@ -126,11 +126,8 @@ class NotificationX_Helper {
 		}
 		
         $offset = get_option('gmt_offset'); // Time offset in seconds
-		$timestamp = $time;
-		$local_time = $timestamp + $offset;
-
+        $local_time = $time + $offset;
         $time = human_time_diff( $local_time, current_time('timestamp') );
-    
         ob_start();
         ?>
             <small><?php echo esc_html__( 'About', 'notificationx' ) . ' ' . esc_html( $time ) . ' ' . esc_html__( 'ago', 'notificationx' ) ?></small>

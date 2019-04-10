@@ -167,7 +167,8 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         if( ! $comment instanceof WP_Comment ) {
             $comment = get_comment( intval( $comment ), 'OBJECT' );  
         }
-
+        
+        $comment_data['id']         = $comment->comment_ID;
         $comment_data['link']       = get_comment_link( $comment->comment_ID );
         $comment_data['post_title'] = get_the_title( $comment->comment_post_ID );
         $comment_data['post_link']  = get_permalink( $comment->comment_post_ID );

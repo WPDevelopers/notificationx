@@ -297,6 +297,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         $date = $order->get_date_created();
 
         if( ! empty( $product_data = $this->ready_product_data( $item->get_data() ) ) ) {
+            $new_order['id']   = is_int( $order_id ) ? $order_id : $order_id->get_id();
             $new_order['product_id'] = $item->get_product_id();
             $new_order['title']      = $product_data['title'];
             $new_order['link']       = $product_data['link'];
