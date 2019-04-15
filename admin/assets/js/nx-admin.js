@@ -81,6 +81,8 @@
 	};
 
 	$.notificationx.bindEvents = function(){
+		$('#nx_meta_show_on').trigger('change');
+
 		$('body').on('click', '.nx-single-theme-wrapper', function(){
 			$.notificationx.selectTheme( this )
 		});
@@ -251,9 +253,13 @@
                     lastGroup   = $this.find('.nx-group-field:last'),
                     clone       = $( $this.find('.nx-group-template').html() ),
                     groupId     = parseInt( lastGroup.data('id') ),
-                    nextGroupId = groupId + 1,
-                    title       = clone.data('group-title');
-
+                    nextGroupId = 1,
+					title       = clone.data('group-title');
+					
+				if( ! isNaN( groupId ) ) {
+					nextGroupId = groupId + 1;
+				}
+			
                 groups.each(function() {
                     $(this).removeClass('open');
                 });
@@ -416,7 +422,8 @@
 
 	$.notificationx.removeGroup = function( button ){
 		var groupId = $(button).parents('.nx-group-field').data('id'),
-			group   = $(button).parents('.nx-group-field[data-id="'+groupId+'"]');
+			group   = $(button).parents('.nx-group-field[data-id="'+groupId+'"]'),
+			parent  = group.parent();
 
 		group.fadeOut({
 			duration: 300,
@@ -424,6 +431,7 @@
 				$(this).remove();
 			}
 		});
+		$.notificationx.resetFieldIds( parent.find('.nx-group-field') );
 	};
 
 	$.notificationx.cloneGroup = function( button ){
@@ -434,14 +442,16 @@
 			parent  = group.parent(),
 			nextGroupID = $( lastGroup ).data('id') + 1;
 
+		group.removeClass('open');
+
 		clone.attr('data-id', nextGroupID);
-		clone.insertAfter(group);
+		clone.insertAfter( group );
 		$.notificationx.resetFieldIds( parent.find('.nx-group-field') );
 	};
 
 	$.notificationx.resetFieldIds = function( groups ){
 		var groupID = 1;
-				
+	
 		groups.each(function() {
 			var group       = $(this),
 				fieldName   = group.data('field-name'),
@@ -449,7 +459,7 @@
 				groupInfo   = group.find('.nx-group-field-info').data('info'),
 				subFields   = groupInfo.group_sub_fields;
 
-			group.data('id', groupID);
+			group.attr('data-id', groupID);
 
 			subFields.forEach(function( item ){
 				var table_row = group.find('tr.nx-field[id="nx-' + item.field_name + '"]');

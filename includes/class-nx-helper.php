@@ -356,7 +356,7 @@ class NotificationX_Helper {
 
     public static function conversion_toggle(){
         return apply_filters('nx_conversion_toggle' , array(
-            'custom'        => array(
+            'custom_notification'        => array(
                 'sections' => [ 'image' ],
                 'fields' => [ 'custom_template', 'custom_contents' ]
             ),

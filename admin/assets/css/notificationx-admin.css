@@ -657,11 +657,12 @@ label.nx-adv-checkbox-label:hover {
 }
 
 .nx-single-theme-wrapper.nx-meta-field {
-    padding: 0px;
+    padding: 10px;
     border: 0;
-    background: none;
+    background: 0 0;
     width: auto;
     cursor: pointer;
+    margin: 5px;
 }
 
 .nx-single-theme-wrapper > img {

@@ -34,7 +34,7 @@ function notificationx_builder_args() {
                             'conversion_from'  => array(
                                 'type'     => 'select',
                                 'label'    => __('From' , 'notificationx'),
-                                'default'  => 'custom',
+                                'default'  => 'woocommerce',
                                 'options'  => NotificationX_Helper::conversion_from(),
                                 'priority' => 60,
                                 'dependency' => array(

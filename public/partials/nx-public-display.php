@@ -22,7 +22,7 @@ if( 'conversions' === $type ) {
 }
 $from = strtotime( '-' . intval( $settings->display_from ) . ' days');
 
-if( $settings->display_type == 'conversions' && $settings->conversion_from == 'custom' ) {
+if( $settings->display_type == 'conversions' && $settings->conversion_from == 'custom_notification' ) {
     $data[ $key ] = $settings->custom_contents;
 }
 if( ! empty( $data[ $key ] ) ) {
