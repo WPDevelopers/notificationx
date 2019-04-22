@@ -26,7 +26,8 @@ if( $settings->display_type == 'conversions' && $settings->conversion_from == 'c
     $data[ $key ] = $settings->custom_contents;
 }
 if( ! empty( $data[ $key ] ) ) {
-    $new_data = NotificationX_Helper::sortBy( $data[ $key ], $key );
+    $new_data = apply_filters( 'nx_filtered_data', NotificationX_Helper::sortBy( $data[ $key ], $key ), $settings );
+
     foreach( $new_data as $value ) {
         /**
          * It will break the loop when the 
@@ -37,6 +38,7 @@ if( ! empty( $data[ $key ] ) ) {
                 break;
             }
         }
+
         echo get_extension_frontend( $key, $value, $settings );
     }
 }

@@ -509,13 +509,15 @@ function notificationx_metabox_args(){
                                 'label'     => __('Default Image' , 'notificationx'),
                                 'priority'	=> 10,
                             ),
-                            'show_product_image' => array(
-                                'label'       => __( 'Show Product Image', 'notificationx' ),
-                                'priority'    => 15,
-                                'type'        => 'checkbox',
-                                'default'     => true,
-                                'description' => __( 'Show the product image in notification', 'notificationx' ),
-                            )
+                            'show_notification_image'  => array(
+                                'type'      => 'select',
+                                'label'     => __('Image' , 'notificationx'),
+                                'priority'	=> 15,
+                                'options'   => apply_filters('nx_show_image_options', array(
+                                    'gravatar'      => __('Gravatar' , 'notificationx'),
+                                    'none'          => __('None' , 'notificationx'),
+                                )),
+                            ),
                         )
                     ),
                     'visibility'        => array(

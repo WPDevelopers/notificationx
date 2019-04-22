@@ -173,13 +173,15 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         $comment_data['post_title'] = get_the_title( $comment->comment_post_ID );
         $comment_data['post_link']  = get_permalink( $comment->comment_post_ID );
         $comment_data['timestamp']  = strtotime( $comment->comment_date );
-        // $comment_data['name'] = get_comment_author( $comment->comment_ID );
         
         if( $comment->user_id )  {
             $comment_data['user_id'] = $comment->user_id;
             $user = get_userdata( $comment->user_id );
             $comment_data['name'] = $user->first_name . ' ' . substr( $user->last_name );
+        } else {
+            $comment_data['name'] = get_comment_author( $comment->comment_ID );
         }
+        $comment_data['email'] = get_comment_author_email( $comment->comment_ID );
         return $comment_data;
     }
     /**

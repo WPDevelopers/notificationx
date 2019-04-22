@@ -287,7 +287,7 @@ class NotificationX_Helper {
             return apply_filters("nx_display_types_hide_data", array(
                 'comments' => array(
                     'sections' => [ 'bar_themes', 'bar_design', 'bar_typography', 'themes', 'design', 'image_design', 'typography' ],
-                    'fields' => [ 'custom_template', 'custom_contents', 'show_custom_image', 'show_product_image', 'image_url' ]
+                    'fields' => [ 'custom_template', 'custom_contents', 'show_custom_image', 'show_notification_image', 'image_url' ]
                 ),
                 'press_bar' => array(
                     'sections' => [ 'image', 'link_options', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography' ],

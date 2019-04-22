@@ -1,12 +1,24 @@
 <?php 
     $class .= ' nx-select';
+
+    $multiple = isset( $field['multiple'] ) ? 'multiple' : '';
+
+    if( $multiple ) {
+        $name .= "[]";
+    }
+
 ?>
-<select class="<?php echo esc_attr( $class ); ?>" name="<?php echo $name; ?>" id="<?php echo $name; ?>" <?php echo $attrs; ?>>
+<select class="<?php echo esc_attr( $class ); ?>" <?php echo $multiple; ?> name="<?php echo $name; ?>" id="<?php echo $name; ?>" <?php echo $attrs; ?>>
     <?php 
         foreach( $field['options'] as $opt_id => $option ) {
-            $selected = ( $value == $opt_id ) ? 'selected="true"' : '';
-            echo '<option value="'. $opt_id .'" '. $selected .'>'. $option .'</option>';
 
+            if( is_array( $value ) ) {
+                $selected = in_array( $opt_id, $value ) ? 'selected="true"' : '';
+            } else {
+                $selected = ( $value == $opt_id ) ? 'selected="true"' : '';
+            }
+
+            echo '<option value="'. $opt_id .'" '. $selected .'>'. $option .'</option>';
         }
     ?>
 </select>

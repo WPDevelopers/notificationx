@@ -226,9 +226,15 @@ function notificationX_show( notification, configuration, count ){
 	notification.style.bottom = '30px';
 	notification.style.opacity = 1;
 	notificationX_save( configuration.id, count );
-	document.querySelector('.notificationx-close').addEventListener('click', function( event ){
-		notificationX_hide( event.currentTarget.offsetParent );
-	});
+
+	var nxClose = document.querySelector('.notificationx-close');
+	if( nxClose != null ) {
+		nxClose.addEventListener('click', function( event ){
+			var close = jQuery(this);
+			var parent = jQuery( close[0] ).parents('.nx-notification');
+			notificationX_hide( parent );
+		});
+	}
 }
 
 function notificationX_hide( notification ){

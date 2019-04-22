@@ -99,7 +99,7 @@
 		$('body').delegate( '.nx-group-field .nx-group-clone', 'click', function() {
 			$.notificationx.cloneGroup(this);
 		} );
-		$('body').delegate( '.nx-group-field .nx-group-remove', 'click', function() {
+		$('body').on( 'click', '.nx-group-field .nx-group-remove', function() {
 			$.notificationx.removeGroup(this);
 		});
 
@@ -286,7 +286,9 @@
                     $(this).attr('id', nextFieldId);
                 });
 
-                clone.insertBefore( $( this ) );
+				clone.insertBefore( $( this ) );
+				
+				$.notificationx.resetFieldIds( $('.nx-group-field') );
             });
 
         });
@@ -421,7 +423,7 @@
 	};
 
 	$.notificationx.removeGroup = function( button ){
-		var groupId = $(button).parents('.nx-group-field').data('id'),
+		var groupId = $(button).parents('.nx-group-field').attr('data-id'),
 			group   = $(button).parents('.nx-group-field[data-id="'+groupId+'"]'),
 			parent  = group.parent();
 
@@ -431,17 +433,18 @@
 				$(this).remove();
 			}
 		});
+
 		$.notificationx.resetFieldIds( parent.find('.nx-group-field') );
 	};
 
 	$.notificationx.cloneGroup = function( button ){
-		var groupId = $(button).parents('.nx-group-field').data('id'),
+		var groupId = $(button).parents('.nx-group-field').attr('data-id'),
 			group   = $(button).parents('.nx-group-field[data-id="'+groupId+'"]'),
 			clone   = $( group.clone() ),
 			lastGroup   = $( button ).parents('.nx-group-fields-wrapper').find('.nx-group-field:last'),
 			parent  = group.parent(),
 			nextGroupID = $( lastGroup ).data('id') + 1;
-
+			
 		group.removeClass('open');
 
 		clone.attr('data-id', nextGroupID);
@@ -450,37 +453,83 @@
 	};
 
 	$.notificationx.resetFieldIds = function( groups ){
-		var groupID = 1;
-	
-		groups.each(function() {
-			var group       = $(this),
-				fieldName   = group.data('field-name'),
-				fieldId     = 'nx-' + fieldName,
-				groupInfo   = group.find('.nx-group-field-info').data('info'),
-				subFields   = groupInfo.group_sub_fields;
+		if( groups.length <= 0 ) {
+			return;
+		}
+		var groupID = 0;
 
-			group.attr('data-id', groupID);
+		groups.map(function( iterator, item ){
 
-			subFields.forEach(function( item ){
-				var table_row = group.find('tr.nx-field[id="nx-' + item.field_name + '"]');
+			var item = $(item),
+				fieldName = item.data('field-name'),
+				groupInfo = item.find( '.nx-group-field-info' ).data('info'),
+				subFields = groupInfo.group_sub_fields;
 
-				table_row.find('[name*="'+item.field_name+'"]').each(function(){
-					var name = $(this).attr('name'),
-						prefix  = name.split(item.field_name)[0],
-						suffix  = '';
+			item.attr('data-id', groupID);
 
-					if ( undefined === prefix ) {
-						prefix = '';
-					}
-					
-					name = name.replace( name, prefix + fieldName + '[' + groupID + '][' + item.original_name + ']' + suffix );
-					$(this).attr('name', name).attr('id', name);
-				});
+			var table_row = item.find('tr.nx-field');
+			
+			table_row.each(function( i, child ){
 
-				group.find('tr.nx-field[id="nx-' + item.field_name + '"]').attr('id', fieldId + '[' + groupID + '][' + item.original_name + ']');
+				var child = $( $( child )[0] ),
+					childInput = child.find( '[name*="nx_meta_'+fieldName+'"]' ),
+					key = childInput.attr('data-key'),
+					subKey = subFields[i].original_name,
+					dataID = fieldName + "["+ groupID + "][" + subKey + "]",
+					idName = 'nx-meta-' + dataID,
+					inputName = 'nx_meta_' + dataID;
+
+				child.attr( 'data-id', dataID );
+				child.attr( 'id', idName );
+
+				childInput.attr('id', inputName);
+				childInput.attr('name', inputName);
+				childInput.attr('data-key', dataID);
+
+				// if( childInput.length > 1 ) {
+				// 	childInput.each(function(i, subInput){
+						
+
+
+				// 	});
+				// }
 			});
+
 			groupID++;
 		});
+		
+		// groups.each(function() {
+		// 	var group       = $(this),
+		// 		fieldName   = group.attr('data-field-name'),
+		// 		fieldId     = 'nx-meta-' + fieldName,
+		// 		groupInfo   = group.find('.nx-group-field-info').data('info'),
+		// 		subFields   = groupInfo.group_sub_fields;
+
+		// 	group.attr('data-id', groupID);
+
+		// 	subFields.forEach(function( item ){
+		// 		var table_row = group.find('tr.nx-field[id="nx-meta-' + item.field_name + '"]');
+
+		// 		table_row.find('[name*="nx_meta_'+item.field_name+'"]').each(function(){
+		// 			var name = $(this).attr('name'),
+		// 				prefix  = name.split(item.field_name)[0],
+		// 				suffix  = '';
+
+		// 			if ( undefined === prefix ) {
+		// 				prefix = '';
+		// 			}
+
+		// 			console.log( 'old name', name );
+		// 			name = name.replace( name, prefix + fieldName + '[' + groupID + '][' + item.original_name + ']' + suffix );
+		// 			console.log( 'new name', name );
+					
+		// 			$(this).attr('name', name).attr('id', name);
+		// 		});
+
+		// 		group.find('tr.nx-field[id="nx-meta-' + item.field_name + '"]').attr('id', fieldId + '[' + groupID + '][' + item.original_name + ']');
+		// 	});
+		// 	groupID = groupID + 1;
+		// });
 	}
 
 	$.notificationx.initMediaField = function( button ){

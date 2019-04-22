@@ -24,6 +24,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
      * Main Screen Hooks
      */
     public function init_hooks(){
+        add_filter( 'nx_show_image_options', array( $this, 'image_options' ) );
         add_filter( 'nx_metabox_tabs', array( $this, 'add_fields' ) );
         add_filter( 'nx_display_types_hide_data', array( $this, 'hide_fields' ) );
         add_filter( 'nx_conversion_from', array( $this, 'toggle_fields' ) );
@@ -36,7 +37,21 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         add_filter( 'nx_display_types_hide_data', array( $this, 'hide_builder_fields' ) );
         add_filter( 'nx_builder_tabs', array( $this, 'builder_toggle_fields' ) );
     }
-
+    /**
+     * Image Options
+     *
+     * @param array $options
+     * @return void
+     */
+    public function image_options( $options ){
+        if( class_exists( 'WooCommerce' ) ) {
+            $new = array(
+                'product_image' => __('Product Image' , 'notificationx')
+            );
+            return array_merge( $new, $options );
+        }
+        return $options;
+    }
     /**
      * Needed Fields
      */
@@ -164,8 +179,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
      */
     public function toggle_fields( $options ) {
         $fields = array_keys( $this->init_fields() );
-        $fields = array_merge( [ 'show_product_image' ], $fields );
-
+        $fields = array_merge( [ 'show_notification_image' ], $fields );
 
         $options['dependency'][ $this->type ]['fields'] = array_merge( $fields, $options['dependency'][ $this->type ]['fields']);
         $options['dependency'][ $this->type ]['sections'] = array_merge( [ 'image' ], $options['dependency'][ $this->type ]['sections']);
@@ -260,13 +274,12 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
      * @return void
      */
     public function save_new_orders( $item_id,  $item,  $order_id ){   
-        
         if( count( $this->notifications ) === $this->cache_limit ) {
             $sorted_data = NotificationX_Helper::sorter( $this->notifications, 'timestamp' );
             array_pop( $sorted_data );
             $this->notifications = $sorted_data;
         }
-      
+
         $this->notifications[ $order_id . '-' . $item_id ] = $this->ordered_product( $item_id, $item, $order_id );
         $this->save( $this->type, $this->notifications );
     }
@@ -320,10 +333,12 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             return array(
                 'name' => $main_user->first_name . ' ' . substr($main_user->last_name, 0, 1),
                 'user_id' => $user->ID,
+                'email' => $order->user_email,
             );
         }
         return array(
             'name' => $order->get_billing_first_name() . ' ' . substr($order->get_billing_last_name(), 0, 1),
+            'email' => $order->get_billing_email(),
         );
     }
     /**

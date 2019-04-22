@@ -141,10 +141,14 @@ class NotificationX_Extension {
         extract( $args );
         $settings->themeName = $settings->{ $themeName };
 
+
         $output = '';
         $unique_id = uniqid( 'notificationx-' ); 
         $image_data = self::get_image_url( $data, $settings );
         $output .= '<div id="'. esc_attr( $unique_id ) .'" class="nx-notification '. self::get_classes( $settings ) .'">';
+        $output .= '<svg height="100" id="nx-svg-mask" viewBox="0 0 370 144"> <defs> <clipPath id="themeFiveContentMask"><path id="bg_" data-name="bg " class="cls-1" d="m10,1 h333 a15,15,0,0,1,15,15 v115 a15,15,0,0,1-15,15 h-340 s36.376 -15.654, 36 -77 c0, -54, -29, -68, -29, -68z"/></clipPath> </defs> </svg>';
+        $output .= '<svg id="nx-img-mask" viewBox="0 0 150 175"> <defs> <clipPath id="themeFiveImgMask"><path id="bg_" data-name="bg " class="cls-1" 
+        d="m72 0 a72, 72, 0, 0, 0, 0, 144.3 v31 l48.2-49.309 m-48.2, 18.309 a72, 72, 0, 0, 0, 0, -144.5z"/></clipPath></defs> </svg>';
             $output .= '<div class="notificationx-inner '. self::get_classes( $settings, 'inner' ) .'">';
                 if( $image_data ) :
                     $output .= '<div class="notificationx-image">';
@@ -167,7 +171,7 @@ class NotificationX_Extension {
             if( self::is_link_visible( $settings ) ) :
                 if( $settings->notx_url != 'none' ) {
                     if( in_array( $settings->notx_url, apply_filters('nx_notification_url', array('product_page', 'comment_url')) ) ) {
-                        $output .= '<a class="notificationx-link" href="'. self::get_link( $data ) .'"></a>';
+                        $output .= '<a class="notificationx-link" href="'. self::get_link( $data, $settings ) .'"></a>';
                     }
                 }
             endif;
@@ -288,32 +292,52 @@ class NotificationX_Extension {
             case 'comments' :
                 if( $settings->show_avatar ) {
                     $avatar = '';
-                    if( isset( $data['user_id'] ) ) {
-                        $avatar = get_avatar_url( $data['user_id'], array(
-                            'size' => '60'    
+                    if( isset( $data['email'] ) ) {
+                        $avatar = get_avatar_url( $data['email'], array(
+                            'size' => '100',
+                            'default' => 'monsterid'    
                         ));
                     }
                     $image_url = $avatar;
                 }
                 break;
             case 'conversions' :
-                if( $settings->conversion_from != 'custom_notification' ) {
-                    if( $settings->show_product_image && has_post_thumbnail( $data['product_id'] ) ) {
-                        $product_image = wp_get_attachment_image_src( get_post_thumbnail_id( $data['product_id'] ), '_nx_notification_thumb', false );
-                        $image_url = is_array( $product_image ) ? $product_image[0] : '';
-                    }
-                }
-                if( $settings->conversion_from == 'custom_notification' ) {
-                    if( ! empty( $data ) ) {
-                        $image_url = $alt_title = '';
-                        if( isset( $data['image'] ) && ! empty( $data['image'] ) ) {
-                            $product_image = wp_get_attachment_image_src( $data['image']['id'], '_nx_notification_thumb', false );
-                            $image_url = is_array( $product_image ) ? $product_image[0] : '';
+                switch( $settings->show_notification_image ) {
+                    case 'product_image' : 
+                        if( $settings->conversion_from != 'custom_notification' ) {
+                            if( has_post_thumbnail( $data['product_id'] ) ) {
+                                $product_image = wp_get_attachment_image_src( 
+                                    get_post_thumbnail_id( $data['product_id'] ), '_nx_notification_thumb', false 
+                                );
+                                $image_url = is_array( $product_image ) ? $product_image[0] : '';
+                            }
                         }
-                        if( isset( $data['title'] ) && ! empty( $data['title'] ) ) {
-                            $alt_title = $data['title'];
+                        if( $settings->conversion_from == 'custom_notification' ) {
+                            if( ! empty( $data ) ) {
+                                $image_url = $alt_title = '';
+                                if( isset( $data['image'] ) && ! empty( $data['image'] ) ) {
+                                    $product_image = wp_get_attachment_image_src( $data['image']['id'], '_nx_notification_thumb', false );
+                                    $image_url = is_array( $product_image ) ? $product_image[0] : '';
+                                }
+                                if( isset( $data['title'] ) && ! empty( $data['title'] ) ) {
+                                    $alt_title = $data['title'];
+                                }
+                            }
                         }
-                    }
+                        break;
+                    case 'gravatar' : 
+                        $avatar = '';
+                        if( isset( $data['email'] ) ) {
+                            $avatar = get_avatar_url( $data['email'], array(
+                                'size' => '100',
+                                'default' => 'mysteryman'    
+                            ));
+                        }
+                        $image_url = $avatar;
+                        break;
+                    case 'none' : 
+                        $image_url = '';
+                        break;
                 }
                 break;
         }

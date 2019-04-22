@@ -194,6 +194,7 @@ class NotificationX_MetaBox {
                 return $post_id;
             }
         }
+        
         /**
          * Save all meta!
          */        
@@ -219,6 +220,7 @@ class NotificationX_MetaBox {
                     $value = '0';
                 }
             }
+
 
             update_post_meta( $post_id, "_{$field_id}", $value );
             $data[ "_{$field_id}" ] = $new_settings->{ $name } = $value;

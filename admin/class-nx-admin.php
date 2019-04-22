@@ -175,6 +175,8 @@ class NotificationX_Admin {
 			$args = NotificationX_MetaBox::get_builder_args();
 		}
 
+		// dump( $args['tabs']['source_tab']['sections']['config']['fields']['display_type']['hide'] );
+
 		$toggleFields = $hideFields = $conditions = array();
 
 		$tabs = $args[ 'tabs' ];
