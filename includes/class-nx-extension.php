@@ -146,9 +146,10 @@ class NotificationX_Extension {
         $unique_id = uniqid( 'notificationx-' ); 
         $image_data = self::get_image_url( $data, $settings );
         $output .= '<div id="'. esc_attr( $unique_id ) .'" class="nx-notification '. self::get_classes( $settings ) .'">';
-        $output .= '<svg height="100" id="nx-svg-mask" viewBox="0 0 370 144"> <defs> <clipPath id="themeFiveContentMask"><path id="bg_" data-name="bg " class="cls-1" d="m10,1 h333 a15,15,0,0,1,15,15 v115 a15,15,0,0,1-15,15 h-340 s36.376 -15.654, 36 -77 c0, -54, -29, -68, -29, -68z"/></clipPath> </defs> </svg>';
-        $output .= '<svg id="nx-img-mask" viewBox="0 0 150 175"> <defs> <clipPath id="themeFiveImgMask"><path id="bg_" data-name="bg " class="cls-1" 
-        d="m72 0 a72, 72, 0, 0, 0, 0, 144.3 v31 l48.2-49.309 m-48.2, 18.309 a72, 72, 0, 0, 0, 0, -144.5z"/></clipPath></defs> </svg>';
+            $file .= apply_filters( 'nx_frontend_before_inner', '', $settings->themeName );
+            if( ! empty( $file ) ) {
+                $output .= $file;
+            }
             $output .= '<div class="notificationx-inner '. self::get_classes( $settings, 'inner' ) .'">';
                 if( $image_data ) :
                     $output .= '<div class="notificationx-image">';
