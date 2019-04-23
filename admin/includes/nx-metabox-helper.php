@@ -177,6 +177,20 @@ function notificationx_metabox_args(){
                                 'priority'	=> 5,
                                 'default'	=> 'theme-one',
                                 'options'   => NotificationX_Helper::comment_colored_themes(),
+                                'dependency' => array(
+                                    'theme-one' => [
+                                        'fields' => [ 'comment_advance_edit' ]
+                                    ],
+                                    'theme-two' => [
+                                        'fields' => [ 'comment_advance_edit' ]
+                                    ],
+                                    'theme-three' => [
+                                        'fields' => [ 'comment_advance_edit' ]
+                                    ],
+                                    'theme-four' => [
+                                        'fields' => [ 'comment_advance_edit' ]
+                                    ]
+                                ),
                             ),
                             'comment_advance_edit' => array(
                                 'type'      => 'adv_checkbox',
@@ -204,6 +218,20 @@ function notificationx_metabox_args(){
                                 'priority'	=> 5,
                                 'default'	=> 'theme-one',
                                 'options'   => NotificationX_Helper::colored_themes(),
+                                'dependency' => array(
+                                    'theme-one' => [
+                                        'fields' => [ 'advance_edit' ]
+                                    ],
+                                    'theme-two' => [
+                                        'fields' => [ 'advance_edit' ]
+                                    ],
+                                    'theme-three' => [
+                                        'fields' => [ 'advance_edit' ]
+                                    ],
+                                    'theme-four' => [
+                                        'fields' => [ 'advance_edit' ]
+                                    ]
+                                ),
                             ),
                             'advance_edit' => array(
                                 'type'      => 'adv_checkbox',
