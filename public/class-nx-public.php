@@ -281,7 +281,7 @@ class NotificationX_Public {
 				$max_width[] = ! empty( $settings->conversion_size ) ? 'max-width: ' . $settings->conversion_size .'px !important' : '';
 			}
 			if( $settings->advance_edit ) {
-				$style[] = ! empty( $settings->bg_color ) ? 'background-color: ' . $settings->bg_color : '';
+				$style[] = ! empty( $settings->bg_color ) ? 'background-color: ' . $settings->bg_color . '!important' : '';
 				$style[] = ! empty( $settings->text_color ) ? 'color: ' . $settings->text_color : '';
 				
 				if( $settings->border ){

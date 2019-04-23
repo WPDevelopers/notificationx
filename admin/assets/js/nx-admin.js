@@ -129,6 +129,14 @@
 		$('body').delegate( '.nx-opt-alert', 'click', function( e ) {
 			$.notificationx.fieldAlert( this );
 		} );
+
+		/**
+		 * Reset Section Settings
+		 */
+		$('body').delegate( '.nx-section-reset', 'click', function( e ) {
+			e.preventDefault();
+			$.notificationx.resetSection( this );
+		} );
 	};
 	/**
 	 * This function is responsible for 
@@ -600,6 +608,29 @@
 			icon      : "warning",
 			buttons   : [false, "Close"],
 			dangerMode: true,
+		});
+	};
+
+	$.notificationx.resetSection = function( button ){
+		var button = $( button ),
+			parent = button.parents('.nx-meta-section'),
+			fields = parent.find('.nx-meta-field'), updateFields = [];
+		
+		window.fieldsss = fields;
+		fields.map(function(iterator, item){ 
+			var item = $( item ),
+				default_value = item.data( 'default' );
+
+			item.val( default_value );
+
+			if( item.hasClass('wp-color-picker') ) {
+				item.parents('.wp-picker-container').find('.wp-color-result').removeAttr('style')
+			}
+			if( item[0].id == 'nx_meta_border' ){
+				item.trigger('click');
+			} else {
+				item.trigger('change');
+			}
 		});
 	};
 

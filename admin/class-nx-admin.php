@@ -175,8 +175,6 @@ class NotificationX_Admin {
 			$args = NotificationX_MetaBox::get_builder_args();
 		}
 
-		// dump( $args['tabs']['source_tab']['sections']['config']['fields']['display_type']['hide'] );
-
 		$toggleFields = $hideFields = $conditions = array();
 
 		$tabs = $args[ 'tabs' ];
@@ -508,10 +506,10 @@ class NotificationX_Admin {
 		);
 			
 		$unique_id = uniqid( 'notificationx-' ); 
-		$output = '<div id="'. esc_attr( $unique_id ) .'" class="nx-notification '. NotificationX_Extension::get_classes( $settings ) .'">';
-		$output .= '<div '. NotificationX_Public::generate_preview_css( $settings ) .' class="notificationx-inner '. NotificationX_Extension::get_classes( $settings, 'inner' ) .'">';
+		$output = '<div id="'. esc_attr( $unique_id ) .'" class="nx-notification '. implode( ' ', NotificationX_Extension::get_classes( $settings ) ) .'">';
+		$output .= '<div '. NotificationX_Public::generate_preview_css( $settings ) .' class="notificationx-inner '. implode( ' ', NotificationX_Extension::get_classes( $settings, 'inner' ) ) .'">';
 		$output .= '<div class="notificationx-image nx-preview-image">';
-		$output .= '<img class="'. NotificationX_Extension::get_classes( $settings, 'img' ) .'" src="'. NOTIFICATIONX_ADMIN_URL . 'assets/img/placeholder-300x300.png" alt="">';
+		$output .= '<img class="'. implode( ' ', NotificationX_Extension::get_classes( $settings, 'img' ) ) .'" src="'. NOTIFICATIONX_ADMIN_URL . 'assets/img/placeholder-300x300.png" alt="">';
 		$output .= '</div>';
 		$output .= '<div class="notificationx-content">';
 		if( $type === 'conversion' ) :
