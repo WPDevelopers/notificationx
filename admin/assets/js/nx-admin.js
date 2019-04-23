@@ -682,10 +682,10 @@
 		var type = $('#nx_meta_display_type').val();
 		if( type == 'conversions' ) {
 			var from = $('#nx_meta_conversion_from').val();
-			$('#nx_meta_notx_url').val('product_page').trigger('change');
+			$('#nx_meta_conversion_url').val('product_page').trigger('change');
 		}
 		if( type == 'comments' ) {
-			$('#nx_meta_notx_url').val('comment_url').trigger('change');
+			$('#nx_meta_comments_url').val('comment_url').trigger('change');
 		}
 	}
 

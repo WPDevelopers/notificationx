@@ -190,10 +190,9 @@ class NotificationX_Extension {
                 $output .= '</div>';
             $output .= '</div>';
             if( self::is_link_visible( $settings ) ) :
-                if( $settings->notx_url != 'none' ) {
-                    if( in_array( $settings->notx_url, apply_filters('nx_notification_url', array('product_page', 'comment_url')) ) ) {
-                        $output .= '<a class="notificationx-link" href="'. self::get_link( $data, $settings ) .'"></a>';
-                    }
+                $notx_link = self::get_link( $data, $settings );
+                if( ! empty( $notx_link ) ) {
+                    $output .= '<a class="notificationx-link" href="'. esc_url( $notx_link ) .'"></a>';
                 }
             endif;
         $output .= '</div>';
@@ -316,7 +315,6 @@ class NotificationX_Extension {
                     if( isset( $data['email'] ) ) {
                         $avatar = get_avatar_url( $data['email'], array(
                             'size' => '100',
-                            'default' => 'monsterid'    
                         ));
                     }
                     $image_url = $avatar;
@@ -351,7 +349,6 @@ class NotificationX_Extension {
                         if( isset( $data['email'] ) ) {
                             $avatar = get_avatar_url( $data['email'], array(
                                 'size' => '100',
-                                'default' => 'mysteryman'    
                             ));
                         }
                         $image_url = $avatar;

@@ -108,15 +108,29 @@ function notificationx_metabox_args(){
                     'link_options' => array(
                         'title' => __('Link Options', 'notificationx'),
                         'fields' => array(
-                            'notx_url' => array(
+                            'comments_url' => array(
                                 'label' => __('Link Type', 'notificationx'),
                                 'type'  => 'select',
                                 'priority'	=> 10,
                                 'default'	=> 'none',
-                                'options'	=> apply_filters('nx_link_options', array(
+                                'options'	=> apply_filters('nx_comment_link_options', array(
+                                    'none'             => __('None', 'notificationx'),
+                                    'comment_url'      => __( 'Comment URL', 'notificationx' ),
+                                )),
+                            ),
+                        )
+                    ),
+                    'conversion_link_options' => array(
+                        'title' => __('Link Options', 'notificationx'),
+                        'fields' => array(
+                            'conversion_url' => array(
+                                'label' => __('Link Type', 'notificationx'),
+                                'type'  => 'select',
+                                'priority'	=> 10,
+                                'default'	=> 'none',
+                                'options'	=> apply_filters('nx_conversion_link_options', array(
                                     'none'             => __('None', 'notificationx'),
                                     'product_page' => __( 'Product Page', 'notificationx' ),
-                                    'comment_url'      => __( 'Comment URL', 'notificationx' ),
                                 )),
                             ),
                         )

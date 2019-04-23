@@ -12,6 +12,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         parent::__construct();
         $this->notifications = $this->get_notifications( $this->type );
 
+        add_filter( 'nx_notification_link', array( $this, 'notification_link' ), 10, 2 );
     }
     /**
      * This functions is hooked
@@ -203,4 +204,10 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         }
     }
 
+    public function notification_link( $link, $settings ){
+        if( $settings->display_type == 'comments' && $settings->comments_url == 'none' ) {
+            return '';
+        }
+        return $link;
+    }
 }

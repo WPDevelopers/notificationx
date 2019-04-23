@@ -98,6 +98,7 @@ span.notificationx-close > svg {
 
 .notificationx-content {
     float: left;
+    min-width: 200px;
 }
 .notificationx-content > span {
     display: block;
