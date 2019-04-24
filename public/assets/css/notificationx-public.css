@@ -199,6 +199,12 @@ a.nx-bar-button:hover {
     left: 0;
 }
 
+.nx-sticky-bar {
+    position: fixed;
+    width: 100%;
+}
+
+
 /*
     NotificationX CountDown CSS
 */

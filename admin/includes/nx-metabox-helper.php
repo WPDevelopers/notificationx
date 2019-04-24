@@ -78,12 +78,12 @@ function notificationx_metabox_args(){
                                 'type'  => 'checkbox',
                                 'dependency'  => [
                                     1 => [
-                                        'fields' => ['countdown_text', 'countdown_start_date', 'countdown_end_date', 'close_forever']
+                                        'fields' => ['countdown_text', 'countdown_start_date', 'countdown_end_date']
                                     ]
                                 ],
                                 'hide' => array(
                                     0 => [
-                                        'fields' => ['countdown_text', 'countdown_start_date', 'countdown_end_date', 'close_forever']
+                                        'fields' => ['countdown_text', 'countdown_start_date', 'countdown_end_date']
                                     ]
                                 )
                             ),
