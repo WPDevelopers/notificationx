@@ -135,9 +135,9 @@
 	};
 	
 	$.notificationx.hideBar = function( id ){
-		var bar = document.querySelector( '.nx-bar#' + id ),
-			html = document.querySelector( 'html' ),
-			close_forever = bar.dataset.close_forever;
+		var bar = $( '.nx-bar#' + id ),
+			html = $( 'html' ),
+			close_forever = bar[0].dataset.close_forever;
 	
 		if( close_forever ) {
 			var date = new Date(),
@@ -146,14 +146,11 @@
 			Cookies.set( 'notificationx_' + id,  true, { expires: expired_date, path: '/' } );
 		}
 	
-		html.classList.remove( 'nx-bar-active' );
-		html.style.paddingTop = 0;
-		bar.animate([
-			{ height: bar.offsetHeight + 'px' }, 
-			{ height:  0 + 'px' }, 
-		], { duration: 300 });
-		// bar.style.height = 0;
-		bar.classList.remove( 'nx-bar-visible' );
+		html.removeClass( 'nx-bar-active' );
+		html.css('padding-top', 0);
+		
+		bar.animate({ height:  0 + 'px' }, 300);
+		bar.removeClass( 'nx-bar-visible' );
 		$.notificationx.active_pressbar = 0;
 	};
 
