@@ -103,8 +103,11 @@ if( $settings->sticky_bar ) {
             <?php endif; ?>
             <div class="nx-inner-content-wrapper">
                 <div class="nx-bar-content"><?php echo $settings->press_content; ?></div>
-                <?php if( $settings->button_url != '' ) : ?>
-                    <a class="nx-bar-button" href="<?php echo esc_url( $settings->button_url ); ?>" <?php echo $attrs; ?>>
+                <?php 
+                    if( $settings->button_url != '' ) :
+                        $pressbar_url = apply_filters( 'nx_pressbar_link', $settings->button_url, $settings );
+                ?>
+                    <a class="nx-bar-button" href="<?php echo esc_url( $pressbar_url ); ?>" <?php echo $attrs; ?>>
                         <?php echo esc_html_e( $settings->button_text, 'notificationx' ); ?>
                     </a>
                 <?php endif; ?>
