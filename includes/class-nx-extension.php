@@ -166,7 +166,7 @@ class NotificationX_Extension {
         $unique_id = uniqid( 'notificationx-' ); 
         $image_data = self::get_image_url( $data, $settings );
         $output .= '<div id="'. esc_attr( $unique_id ) .'" class="'. implode( ' ', $frontend_classes['wrapper'] ) .'">';
-            $file .= apply_filters( 'nx_frontend_before_inner', '', $settings->themeName );
+            $file = apply_filters( 'nx_frontend_before_inner', '', $settings->themeName );
             if( ! empty( $file ) ) {
                 $output .= $file;
             }
