@@ -99,13 +99,33 @@ class NotificationX_Extension {
      * @param array $data - notification data to save.
      * @return boolean
      */
-    protected function save( $type = '', array $data = [] ){
+    protected function save( $type = '', $data = [], $key = '' ){
         if( empty( $type ) ) {
             return;
         }
         $notifications = NotificationX_DB::get_notifications();
-        $notifications[ $type ] = $data;
+
+        if( ! empty( $notifications[ $type ] ) ) {
+            $input = $notifications[ $type ];
+        } else {
+            $input = array();
+        }
+
+        $limiter = new NotificationX_Array( $input, 'timestamp' );
+        $limiter->setLimit( NotificationX_DB::get_settings( 'cache_limit' ) );
+        $limiter->append( $data, $key );
+
+        $notifications[ $type ] = $limiter->values();
+
         return NotificationX_DB::update_notifications( $notifications );
+    }
+
+    protected function update_notifications( $type = '', $values = array() ){
+        $notifications = NotificationX_DB::get_notifications();
+        if( isset( $notifications[ $type ] ) && ! empty( $values ) ) {
+            $notifications[ $type ] = $values;
+            return NotificationX_DB::update_notifications( $notifications );
+        }
     }
     /**
      * This function will convert all the data key into double curly braces format

@@ -185,7 +185,7 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         if( ! $this->is_created( $this->type ) ) {
             return;
         }
-        add_action( 'edd_complete_purchase', array( $this, 'update_notifications' ) );
+        add_action( 'edd_complete_purchase', array( $this, 'save_notifications' ) );
     }
     /**
      * Some toggleData & hideData manipulation.
@@ -229,7 +229,7 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         if( $this->type === $type ) {
             $orders = $this->get_orders( $data );
             if( is_array( $orders ) ) {
-                $this->save( $this->type, $orders );
+                $this->update_notifications( $this->type, $orders );
             }
         }
     }
@@ -262,15 +262,8 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
      * @param int $payment_id
      * @return void
      */
-    public function update_notifications( $payment_id ){
-        if( count( $this->notifications ) === $this->cache_limit ) {
-            $sorted_data = NotificationX_Helper::sorter( $this->notifications, 'timestamp' );
-            array_pop( $sorted_data );
-            $this->notifications = $sorted_data;
-        }
-        $this->ordered_products = $this->notifications;
+    public function save_notifications( $payment_id ){
         $this->ordered_products( $payment_id );
-        $this->save( $this->type, $this->ordered_products );
     }
     /**
      * Get all the orders from database using a date query
@@ -304,14 +297,16 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         $payment_meta = edd_get_payment_meta( $payment_id );
         $payment_key  = $payment_meta['key'];
         $date         = $payment_meta['date'];
-        $time['timestamp']  = strtotime( $date );
+        $offset       = get_option('gmt_offset');
+        $time['timestamp']  = strtotime( $date ) - ( $offset * 60 * 60 );
         $buyer        = $this->buyer( $payment_meta['user_info'] );
 
         $cart_items = edd_get_payment_meta_cart_details( $payment_id );                
         if( is_array( $cart_items ) && ! empty( $cart_items ) ) {
             foreach( $cart_items as $item ) {
+                $key = $payment_key . '-' . $item['id'];
                 $product_data = $this->product_data( $item );
-                $this->ordered_products[ $payment_key . '-' . $item['id'] ] = array_merge( $buyer, $product_data, $time );
+                $this->save( $this->type, array_merge( $buyer, $product_data, $time ), $key );
             }
         }
     }

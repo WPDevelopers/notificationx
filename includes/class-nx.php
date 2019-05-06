@@ -98,6 +98,7 @@ final class NotificationX {
 		 * NotificationX Helper
 		 */
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-helper.php';
+		
 		/**
 		 * NotificationX Messages
 		 */
@@ -134,6 +135,7 @@ final class NotificationX {
 		 * The class responsible for defining extensions functionality
 		 * of the plugin.
 		 */
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-array.php';
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-extension-factory.php';
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-extension.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'press-bar/class-press-bar.php';

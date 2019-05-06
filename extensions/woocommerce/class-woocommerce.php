@@ -222,7 +222,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         }
         if( $this->type === $type ) {
             if( ! is_null( $orders = $this->get_orders( $data ) ) ) {
-                $this->save( $this->type, $orders );
+                $this->update_notifications( $this->type, $orders );
             }
         }
     }
@@ -232,22 +232,29 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         $items = $order->get_items();
         $status = [ 'on-hold', 'cancelled', 'refunded', 'failed', 'pending' ];
         $done = [ 'completed', 'processing' ];
+
+
+
         if( in_array( $from, $done ) && in_array( $to, $status ) ) {
             foreach( $items as $item ) {
-                if( ! isset( $this->notifications[ $id . '-' . $item->get_id() ] ) ) continue;
-                unset( $this->notifications[ $id . '-' . $item->get_id() ] );
+                $key = $id . '-' . $item->get_id();
+                if( ! isset( $this->notifications[ $key ] ) ) continue;
+                unset( $this->notifications[ $key ] );
             }
-            $this->save( $this->type, $this->notifications );
+            $this->update_notifications( $this->type, $this->notifications );
         }
 
         if( in_array( $from, $status ) && in_array( $to, $done ) ) {
             $orders = [];
 
             foreach( $items as $item ) {
-                if( isset( $this->notifications[ $id . '-' . $item->get_id() ] ) ) continue;
-                $this->notifications[ $id . '-' . $item->get_id() ] = $this->ordered_product( $item->get_id(), $item, $order );
+                $key = $id . '-' . $item->get_id();
+                if( isset( $this->notifications[ $key ] ) ) continue;
+                $single_notification = $this->ordered_product( $item->get_id(), $item, $order );
+                if( ! empty( $single_notification ) ) {
+                    $this->save( $this->type, $single_notification, $key );
+                }
             }
-            $this->save( $this->type, $this->notifications );
         }
 
         return;
@@ -284,15 +291,13 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
      * @param int $order_id
      * @return void
      */
-    public function save_new_orders( $item_id,  $item,  $order_id ){   
-        if( count( $this->notifications ) === $this->cache_limit ) {
-            $sorted_data = NotificationX_Helper::sorter( $this->notifications, 'timestamp' );
-            array_pop( $sorted_data );
-            $this->notifications = $sorted_data;
-        }
+    public function save_new_orders( $item_id,  $item,  $order_id ){    
+        $single_notification = $this->ordered_product( $item_id, $item, $order_id );
 
-        $this->notifications[ $order_id . '-' . $item_id ] = $this->ordered_product( $item_id, $item, $order_id );
-        $this->save( $this->type, $this->notifications );
+        if( ! empty( $single_notification ) ) {
+            $key = $order_id . '-' . $item_id;
+            $this->save( $this->type, $single_notification, $key );
+        }
     }
     /**
      * This function is responsible for making ready the orders data.
