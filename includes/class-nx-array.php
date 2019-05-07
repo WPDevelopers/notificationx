@@ -8,18 +8,15 @@ class NotificationX_Array {
     private $limit = 5;
     private $values;
     private $priority = [];
-    private $sortBy = 'priority';
+    public $sortBy = 'priority';
 
-    public function __construct( $input, $sortBy = 'priority' ){
-        $this->values = $input;
-        $this->sortBy = $sortBy;
-
-        // $this->limit = NotificationX_DB::get_settings('cache_limit');
-
+    public function setValues( $values ) {
+        $this->values = $values;
         $this->sort();
     }
 
     public function values() {
+        $this->values = array_slice( $this->values, 0, $this->limit );
         return $this->values;
     }
     public function setLimit( $limit = 5 ) {
@@ -38,6 +35,7 @@ class NotificationX_Array {
             $this->priority[ $key ] = $value[ $this->sortBy ];
         }
         array_multisort( $this->priority, $flags, $this->values );
+        $this->priority = [];
         return $this;
     }
 

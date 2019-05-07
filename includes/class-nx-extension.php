@@ -35,10 +35,16 @@ class NotificationX_Extension {
     public static $active_items = [];
 
     public static $powered_by = null;
+
+    protected $limiter;
     /**
      * Constructor of extension for ready the settings and cache limit.
      */
     public function __construct( ){
+        $this->limiter = new NotificationX_Array();
+        $this->limiter->setLimit( NotificationX_DB::get_settings( 'cache_limit' ) );
+        $this->limiter->sortBy = 'timestamp';
+
         self::$settings      = NotificationX_DB::get_settings();
 
         if( ! empty( self::$settings ) && isset( self::$settings['cache_limit'] ) ) {
@@ -111,21 +117,19 @@ class NotificationX_Extension {
             $input = array();
         }
 
-        $limiter = new NotificationX_Array( $input, 'timestamp' );
-        $limiter->setLimit( NotificationX_DB::get_settings( 'cache_limit' ) );
-        $limiter->append( $data, $key );
-
-        $notifications[ $type ] = $limiter->values();
-
+        $this->limiter->setValues( $input );
+        $this->limiter->append( $data, $key );
+        $notifications[ $type ] = $this->limiter->values();
+        
         return NotificationX_DB::update_notifications( $notifications );
     }
 
     protected function update_notifications( $type = '', $values = array() ){
         $notifications = NotificationX_DB::get_notifications();
-        if( isset( $notifications[ $type ] ) && ! empty( $values ) ) {
-            $notifications[ $type ] = $values;
-            return NotificationX_DB::update_notifications( $notifications );
-        }
+        $this->limiter->setValues( $values );
+
+        $notifications[ $type ] = $this->limiter->values();
+        return NotificationX_DB::update_notifications( $notifications );
     }
     /**
      * This function will convert all the data key into double curly braces format
