@@ -332,6 +332,7 @@ class NotificationX_Extension {
     protected static function get_image_url( $data = [], $settings ) {
         $image_url = $alt_title = '';
         $alt_title = isset( $data['name'] ) ? $data['name'] : $data['title'];
+
         switch( $settings->display_type ) {
             case 'comments' :
                 if( $settings->show_avatar ) {
@@ -387,12 +388,15 @@ class NotificationX_Extension {
         if( isset( $settings->show_default_image ) && $settings->show_default_image && $image_url == '' ) {
             $product_image = wp_get_attachment_image_src( $settings->image_url['id'], '_nx_notification_thumb', false );
             $image_url = is_array( $product_image ) ? $product_image[0] : '';
-        }       
+        }     
+        
+        do_action( 'nx_notification_image_action' );
+        $image_data = apply_filters( 'nx_notification_image', [ 'url' => $image_url, 'alt' => $alt_title ], $data, $settings );
 
-        if( $image_url ) {
-            return [ 'url' => $image_url, 'alt' => $alt_title ];
+        if( ! empty( $image_data['url'] ) ) {
+            return $image_data;
         }
-
+        
         return false;
     }
 }

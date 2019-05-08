@@ -351,23 +351,23 @@
 			var currentTheme = current.parents('.nx-theme-control-wrapper').data('name');
 			value = $( '#' + currentTheme ).val();
 		}
+
 		
-		if ( ! notificationx.toggleFields.hasOwnProperty( id ) ) {
-			return;
-		}
-
-		var canShow = notificationx.toggleFields[id].hasOwnProperty( value );
-		if( notificationx.toggleFields.hasOwnProperty( id ) ) {
-			$.each(notificationx.toggleFields[id], function( key, array ){
-				$.notificationx.toggle(array.fields, 'hide', '#nx-meta-', '', id);
-				$.notificationx.toggle(array.sections, 'hide', '#nx-meta-section-', '', id);
-			})
-
-		}
-
-		if( canShow ) {
-			$.notificationx.toggle(notificationx.toggleFields[id][value].fields, 'show', '#nx-meta-', '', id);
-			$.notificationx.toggle(notificationx.toggleFields[id][value].sections, 'show', '#nx-meta-section-', '', id);
+		if ( notificationx.toggleFields.hasOwnProperty( id ) ) {
+			// return;
+			var canShow = notificationx.toggleFields[id].hasOwnProperty( value );
+			if( notificationx.toggleFields.hasOwnProperty( id ) ) {
+				$.each(notificationx.toggleFields[id], function( key, array ){
+					$.notificationx.toggle(array.fields, 'hide', '#nx-meta-', '', id);
+					$.notificationx.toggle(array.sections, 'hide', '#nx-meta-section-', '', id);
+				})
+	
+			}
+	
+			if( canShow ) {
+				$.notificationx.toggle(notificationx.toggleFields[id][value].fields, 'show', '#nx-meta-', '', id);
+				$.notificationx.toggle(notificationx.toggleFields[id][value].sections, 'show', '#nx-meta-section-', '', id);
+			}
 		}
 
 		if( notificationx.hideFields.hasOwnProperty( id ) ) {
@@ -469,48 +469,12 @@
 
 				// if( childInput.length > 1 ) {
 				// 	childInput.each(function(i, subInput){
-						
-
-
 				// 	});
 				// }
 			});
 
 			groupID++;
 		});
-		
-		// groups.each(function() {
-		// 	var group       = $(this),
-		// 		fieldName   = group.attr('data-field-name'),
-		// 		fieldId     = 'nx-meta-' + fieldName,
-		// 		groupInfo   = group.find('.nx-group-field-info').data('info'),
-		// 		subFields   = groupInfo.group_sub_fields;
-
-		// 	group.attr('data-id', groupID);
-
-		// 	subFields.forEach(function( item ){
-		// 		var table_row = group.find('tr.nx-field[id="nx-meta-' + item.field_name + '"]');
-
-		// 		table_row.find('[name*="nx_meta_'+item.field_name+'"]').each(function(){
-		// 			var name = $(this).attr('name'),
-		// 				prefix  = name.split(item.field_name)[0],
-		// 				suffix  = '';
-
-		// 			if ( undefined === prefix ) {
-		// 				prefix = '';
-		// 			}
-
-		// 			console.log( 'old name', name );
-		// 			name = name.replace( name, prefix + fieldName + '[' + groupID + '][' + item.original_name + ']' + suffix );
-		// 			console.log( 'new name', name );
-					
-		// 			$(this).attr('name', name).attr('id', name);
-		// 		});
-
-		// 		group.find('tr.nx-field[id="nx-meta-' + item.field_name + '"]').attr('id', fieldId + '[' + groupID + '][' + item.original_name + ']');
-		// 	});
-		// 	groupID = groupID + 1;
-		// });
 	}
 
 	$.notificationx.initMediaField = function( button ){

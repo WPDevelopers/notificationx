@@ -162,7 +162,7 @@ class NotificationX_Admin {
 		);
 		wp_enqueue_script( 
 			$this->plugin_name, 
-			NOTIFICATIONX_ADMIN_URL . 'assets/js/nx-admin.js', 
+			NOTIFICATIONX_ADMIN_URL . 'assets/js/nx-admin.min.js', 
 			array( 'jquery' ), $this->version, true 
 		);
 

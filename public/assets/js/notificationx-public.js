@@ -72,13 +72,21 @@
 		window.localStorage.removeItem('nx_notifications');
 	
 		if ( notificationx.conversions.length > 0 ) {
-			$.notificationx.process( notificationx.conversions[0] );
+
+			if( notificationx.conversions.length > 1 ) {
+				notificationx.conversions.map(function( id ){
+					$.notificationx.process( id );
+				});
+			} else {
+				$.notificationx.process( notificationx.conversions[0] );
+			}
+
 		}
 		
 		if ( notificationx.comments.length > 0 ) {
 			$.notificationx.process( notificationx.comments[0] );
 		}
-	
+		
 		if( notificationx.pro_ext.length > 0 ) {
 			notificationx.pro_ext.map(function( item, i ){
 				$.notificationx.process( item[0] );
