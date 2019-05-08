@@ -319,7 +319,7 @@ class NotificationX_Helper {
         $types = apply_filters('nx_notification_types', $types );
 
         if( $type ){
-            return $types[ $type ];
+            return isset( $types[ $type ] ) ? $types[ $type ] : '';
         }
         return $types;
     }
