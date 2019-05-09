@@ -42,7 +42,11 @@ class NotificationX_Extension {
      */
     public function __construct( ){
         $this->limiter = new NotificationX_Array();
-        $this->limiter->setLimit( NotificationX_DB::get_settings( 'cache_limit' ) );
+        $limit = intval( NotificationX_DB::get_settings( 'cache_limit' ) );
+        if( $limit <= 0 ) {
+            $limit = 100;
+        }
+        $this->limiter->setLimit( $limit );
         $this->limiter->sortBy = 'timestamp';
 
         self::$settings      = NotificationX_DB::get_settings();
@@ -116,6 +120,7 @@ class NotificationX_Extension {
         } else {
             $input = array();
         }
+
 
         $this->limiter->setValues( $input );
         $this->limiter->append( $data, $key );
