@@ -89,7 +89,7 @@
 		
 		if( notificationx.pro_ext.length > 0 ) {
 			notificationx.pro_ext.map(function( item, i ){
-				$.notificationx.process( item[0] );
+				$.notificationx.process( item );
 			});
 		}
 	};

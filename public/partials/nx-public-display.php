@@ -11,16 +11,21 @@
  * @package    NotificationX
  * @subpackage NotificationX/public/partials
  */
-$type = $key = $settings->display_type;
+$type = $extension_name = $key = $settings->display_type;
 $data = apply_filters('nx_fields_data', $data, $settings->id );
+
 /**
  * Set the key
  * which is use to get data out of it!
  */
 if( 'conversions' === $type ) {
     $key = $settings->conversion_from;
+    $extension_name = $key;
 }
+
 $from = strtotime( '-' . intval( $settings->display_from ) . ' days');
+
+$key = apply_filters( 'nx_data_key', $key, $settings );
 
 if( $settings->display_type == 'conversions' && $settings->conversion_from == 'custom_notification' ) {
     $data[ $key ] = $settings->custom_contents;
@@ -39,7 +44,7 @@ if( ! empty( $data[ $key ] ) ) {
             }
         }
 
-        echo get_extension_frontend( $key, $value, $settings );
+        echo get_extension_frontend( $extension_name, $value, $settings );
     }
 }
 
