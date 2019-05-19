@@ -37,10 +37,19 @@ class NotificationX_Extension {
     public static $powered_by = null;
 
     protected $limiter;
+    
+    /**
+     * Default data
+     * @var array
+     */
+    public $defaults = array();
     /**
      * Constructor of extension for ready the settings and cache limit.
      */
     public function __construct( ){
+        $this->defaults = apply_filters('nx_fallback_data', array(
+            'name' => __('Someone', 'notificationx')
+        ));
         $this->limiter = new NotificationX_Array();
         $limit = intval( NotificationX_DB::get_settings( 'cache_limit' ) );
         if( $limit <= 0 ) {
@@ -121,6 +130,7 @@ class NotificationX_Extension {
             $input = array();
         }
 
+        $data = wp_parse_args( $data, $this->defaults );
 
         $this->limiter->setValues( $input );
         $this->limiter->append( $data, $key );
@@ -136,6 +146,28 @@ class NotificationX_Extension {
         $notifications[ $type ] = $this->limiter->values();
         return NotificationX_DB::update_notifications( $notifications );
     }
+
+    protected function remote_get( $url, $args = array() ){
+        $defaults = array(
+            'timeout'     => 20,
+            'redirection' => 5,
+            'httpversion' => '1.1',
+            'user-agent'  => 'NotificationX/'. NOTIFICATIONX_VERSION .'; ' . home_url(),
+            'body'        => null,
+            'sslverify'   => false,
+            'stream'      => false,
+            'filename'    => null
+        );
+        $args = wp_parse_args( $args, $defaults );
+
+        $request = wp_remote_get( $url, $args );
+        if( is_wp_error( $request ) ) {
+            return false;
+        }
+
+        return json_decode( $request['body'] );
+    }
+
     /**
      * This function will convert all the data key into double curly braces format
      * {{key}} = $value
