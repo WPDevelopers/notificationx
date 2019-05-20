@@ -324,9 +324,13 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         }
 
         $date = $order->get_date_created();
+        $countries = new WC_Countries();
+        $new_order['country'] = $countries->countries[ $order->get_shipping_country() ];
+        $new_order['state'] = isset( $countries->states[ $order->get_shipping_country() ][ $order->get_shipping_state() ] ) ? $countries->states[ $order->get_shipping_country() ][ $order->get_shipping_state() ] : $order->get_shipping_state();
+
 
         if( ! empty( $product_data = $this->ready_product_data( $item->get_data() ) ) ) {
-            $new_order['id']   = is_int( $order_id ) ? $order_id : $order_id->get_id();
+            $new_order['id']         = is_int( $order_id ) ? $order_id : $order_id->get_id();
             $new_order['product_id'] = $item->get_product_id();
             $new_order['title']      = $product_data['title'];
             $new_order['link']       = $product_data['link'];
@@ -347,12 +351,16 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         if( $user ) {
             $main_user = get_userdata( $user->ID );
             return array(
+                // 'first_name' => $main_user->first_name,
+                // 'last_name' => $main_user->last_name,
                 'name' => $main_user->first_name . ' ' . substr($main_user->last_name, 0, 1),
                 'user_id' => $user->ID,
                 'email' => $order->user_email,
             );
         }
         return array(
+            // 'first_name' => $order->get_billing_first_name(),
+            // 'last_name' => $order->get_billing_last_name(),
             'name' => $order->get_billing_first_name() . ' ' . substr($order->get_billing_last_name(), 0, 1),
             'email' => $order->get_billing_email(),
         );

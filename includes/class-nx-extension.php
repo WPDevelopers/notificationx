@@ -130,8 +130,6 @@ class NotificationX_Extension {
             $input = array();
         }
 
-        $data = wp_parse_args( $data, $this->defaults );
-
         $this->limiter->setValues( $input );
         $this->limiter->append( $data, $key );
         $notifications[ $type ] = $this->limiter->values();
@@ -164,8 +162,11 @@ class NotificationX_Extension {
         if( is_wp_error( $request ) ) {
             return false;
         }
-
-        return json_decode( $request['body'] );
+        $response = json_decode( $request['body'] );
+        if( $response->status == 'fail' ) {
+            return false;
+        }
+        return $response;
     }
 
     /**
@@ -199,6 +200,8 @@ class NotificationX_Extension {
         if( ! is_object( $settings ) || empty( $data ) ) {
             return;
         }
+        $data = wp_parse_args( $data, $this->defaults );
+
         extract( $args );
         $settings->themeName = $settings->{ $themeName };
 

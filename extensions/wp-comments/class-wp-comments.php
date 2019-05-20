@@ -82,7 +82,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
     public function get_notification_ready( $type, $data = array() ){
         if( $this->type === $type ) {
             if( ! is_null( $comments = $this->get_comments( $data ) ) ) {
-                $this->save( $this->type, $comments );
+                $this->update_notifications( $this->type, $comments );
             }
         }
     }
@@ -152,7 +152,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
              * Save the data to 
              * notificationx_data ( options DB. )
              */
-            $this->save( $this->type, $this->notifications );
+            $this->save( $this->type, $this->add( $comment_ID ), $comment_ID );
         }
         return;
     }
@@ -174,11 +174,18 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         $comment_data['post_title'] = get_the_title( $comment->comment_post_ID );
         $comment_data['post_link']  = get_permalink( $comment->comment_post_ID );
         $comment_data['timestamp']  = strtotime( $comment->comment_date );
-        
+
+        $user_ip_data = $this->remote_get('http://ip-api.com/json/' . $comment->comment_author_IP );
+
+        if( $user_ip_data ) {
+            $comment_data['country'] = $user_ip_data->country;
+            $comment_data['city']    = $user_ip_data->city;
+        }
+
         if( $comment->user_id )  {
             $comment_data['user_id'] = $comment->user_id;
             $user = get_userdata( $comment->user_id );
-            $comment_data['name'] = $user->first_name . ' ' . substr( $user->last_name );
+            $comment_data['name'] = $user->first_name . ' ' . substr( $user->last_name, 0, 1 );
         } else {
             $comment_data['name'] = get_comment_author( $comment->comment_ID );
         }
@@ -200,7 +207,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
              * Delete the data from 
              * notificationx_data ( options DB. )
              */
-            $this->save( $this->type, $this->notifications );
+            $this->update_notifications( $this->type, $this->notifications );
         }
     }
 
