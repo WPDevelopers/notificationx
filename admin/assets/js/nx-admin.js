@@ -351,10 +351,8 @@
 			var currentTheme = current.parents('.nx-theme-control-wrapper').data('name');
 			value = $( '#' + currentTheme ).val();
 		}
-
 		
 		if ( notificationx.toggleFields.hasOwnProperty( id ) ) {
-			// return;
 			var canShow = notificationx.toggleFields[id].hasOwnProperty( value );
 			if( notificationx.toggleFields.hasOwnProperty( id ) ) {
 				$.each(notificationx.toggleFields[id], function( key, array ){

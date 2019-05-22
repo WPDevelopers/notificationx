@@ -133,7 +133,8 @@ class NotificationX_Extension {
         $this->limiter->setValues( $input );
         $this->limiter->append( $data, $key );
         $notifications[ $type ] = $this->limiter->values();
-        
+        // hook anythings on save
+        do_action( 'nx_before_data_save', $type, $data, $key );
         return NotificationX_DB::update_notifications( $notifications );
     }
 
@@ -157,8 +158,8 @@ class NotificationX_Extension {
             'filename'    => null
         );
         $args = wp_parse_args( $args, $defaults );
-
         $request = wp_remote_get( $url, $args );
+
         if( is_wp_error( $request ) ) {
             return false;
         }

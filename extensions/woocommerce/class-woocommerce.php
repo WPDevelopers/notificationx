@@ -326,8 +326,8 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         $date = $order->get_date_created();
         $countries = new WC_Countries();
         $new_order['country'] = $countries->countries[ $order->get_shipping_country() ];
-        $new_order['state'] = isset( $countries->states[ $order->get_shipping_country() ][ $order->get_shipping_state() ] ) ? $countries->states[ $order->get_shipping_country() ][ $order->get_shipping_state() ] : $order->get_shipping_state();
-
+        $new_order['city'] = isset( $countries->states[ $order->get_shipping_country() ][ $order->get_shipping_state() ] ) ? $countries->states[ $order->get_shipping_country() ][ $order->get_shipping_state() ] : $order->get_shipping_state();
+        $new_order['ip'] = $order->get_customer_ip_address();
 
         if( ! empty( $product_data = $this->ready_product_data( $item->get_data() ) ) ) {
             $new_order['id']         = is_int( $order_id ) ? $order_id : $order_id->get_id();

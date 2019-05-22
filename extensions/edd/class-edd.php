@@ -301,12 +301,24 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         $time['timestamp']  = strtotime( $date ) - ( $offset * 60 * 60 );
         $buyer        = $this->buyer( $payment_meta['user_info'] );
 
+        $notification = array();
+
+        $notification['ip'] = edd_get_payment_user_ip( $payment_id );
+
+        $user_ip_data = $this->remote_get('http://ip-api.com/json/' . $notification['ip'] );
+        if( $user_ip_data ) {
+            $comment_data['country'] = $user_ip_data->country;
+            $comment_data['city']    = $user_ip_data->city;
+        }
+
         $cart_items = edd_get_payment_meta_cart_details( $payment_id );                
         if( is_array( $cart_items ) && ! empty( $cart_items ) ) {
             foreach( $cart_items as $item ) {
                 $key = $payment_key . '-' . $item['id'];
                 $product_data = $this->product_data( $item );
-                $this->save( $this->type, array_merge( $buyer, $product_data, $time ), $key );
+                $notification = array_merge( $notification, $product_data, $buyer, $time );
+
+                $this->save( $this->type, $notification, $key );
             }
         }
     }
