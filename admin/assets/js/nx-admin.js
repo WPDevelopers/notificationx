@@ -95,7 +95,8 @@
 		} );
 		$('body').delegate( '.nx-submit-general', 'click', function( e ) {
 			e.preventDefault();
-			$.notificationx.submitSettings( this );
+			var form = $( this ).parent('#nx-settings-general-form');
+			$.notificationx.submitSettings( this, form );
 		} );
 
 		$('body').delegate( '.nx-opt-alert', 'click', function( e ) {
@@ -577,11 +578,10 @@
 		$('#nx-'+tabToGo).addClass('active').siblings().removeClass('active');
 	};
 
-	$.notificationx.submitSettings = function( button ){
+	$.notificationx.submitSettings = function( button, form ){
 		var button = $(button),
 			submitKey = button.data('key'),
 			nonce = button.data('nonce'),
-			form = button.parent('#nx-settings-general-form'),
 			formData = $( form ).serializeArray();
 
 		$.ajax({
