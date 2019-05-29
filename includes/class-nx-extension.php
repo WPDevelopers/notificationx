@@ -164,7 +164,7 @@ class NotificationX_Extension {
             return false;
         }
         $response = json_decode( $request['body'] );
-        if( $response->status == 'fail' ) {
+        if( isset( $response->status ) && $response->status == 'fail' ) {
             return false;
         }
         return $response;
