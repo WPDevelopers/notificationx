@@ -318,13 +318,18 @@
 		);
 	};
 
-	$.notificationx.toggle = function( array, func, prefix, suffix ) {
+	$.notificationx.toggle = function( array, func, prefix, suffix, id) {
 		var i = 0;
 		suffix = 'undefined' == typeof suffix ? '' : suffix;
 
 		if(typeof array !== 'undefined') {
 			for( ; i < array.length; i++) {
-				$(prefix + array[i] + suffix)[func]();
+				var selector = prefix + array[i] + suffix;
+				if( id == 'comments_template' ) {
+					selector = "#nx_meta_" + id + "_" + array[i] + suffix;
+				}
+
+				$(selector)[func]();
 			}
 		}
 	};
@@ -346,34 +351,44 @@
 			} else {
 				value = 1;
 			}
-		} 
+		}
 
 		if ( current.hasClass('nx-theme-selected') ) {
 			var currentTheme = current.parents('.nx-theme-control-wrapper').data('name');
 			value = $( '#' + currentTheme ).val();
 		}
-		
+
+		var mainid = id;
+
+		if( id === 'comments_template' ) {
+			id = current.data('subkey');
+		}
+
 		if ( notificationx.toggleFields.hasOwnProperty( id ) ) {
 			var canShow = notificationx.toggleFields[id].hasOwnProperty( value );
-			if( notificationx.toggleFields.hasOwnProperty( id ) ) {
+			var canHide = true;
+			if( notificationx.hideFields[id] ) {
+				var canHide = notificationx.hideFields[id].hasOwnProperty( value );
+			}
+			
+			if( notificationx.toggleFields.hasOwnProperty( id ) && canHide ) {
 				$.each(notificationx.toggleFields[id], function( key, array ){
-					$.notificationx.toggle(array.fields, 'hide', '#nx-meta-', '', id);
-					$.notificationx.toggle(array.sections, 'hide', '#nx-meta-section-', '', id);
+					$.notificationx.toggle(array.fields, 'hide', '#nx-meta-', '', mainid);
+					$.notificationx.toggle(array.sections, 'hide', '#nx-meta-section-', '', mainid);
 				})
-	
 			}
 	
 			if( canShow ) {
-				$.notificationx.toggle(notificationx.toggleFields[id][value].fields, 'show', '#nx-meta-', '', id);
-				$.notificationx.toggle(notificationx.toggleFields[id][value].sections, 'show', '#nx-meta-section-', '', id);
+				$.notificationx.toggle(notificationx.toggleFields[id][value].fields, 'show', '#nx-meta-', '', mainid);
+				$.notificationx.toggle(notificationx.toggleFields[id][value].sections, 'show', '#nx-meta-section-', '', mainid);
 			}
 		}
 
 		if( notificationx.hideFields.hasOwnProperty( id ) ) {
 			var hideFields = notificationx.hideFields[id];
 			if( hideFields.hasOwnProperty( value ) ) {
-				$.notificationx.toggle(hideFields[ value ].fields, 'hide', '#nx-meta-', '', id);
-				$.notificationx.toggle(hideFields[ value ].sections, 'hide', '#nx-meta-section-', '', id);
+				$.notificationx.toggle(hideFields[ value ].fields, 'hide', '#nx-meta-', '', mainid);
+				$.notificationx.toggle(hideFields[ value ].sections, 'hide', '#nx-meta-section-', '', mainid);
 			}
 		}
 

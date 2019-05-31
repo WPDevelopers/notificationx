@@ -89,7 +89,17 @@ class NotificationX_Admin {
 		if ( count( $posts ) ) {
 			foreach ( $posts as $post ) {
 				$settings = NotificationX_MetaBox::get_metabox_settings( $post->ID );
-				$type = ( $settings->display_type != 'conversions' ) ? $settings->display_type : $settings->conversion_from;
+				// $type = ( $settings->display_type != 'conversions' ) ? $settings->display_type : $settings->conversion_from;
+
+				switch( $settings->display_type ) {
+					case 'comments' : 
+						$type = $settings->comments_source;
+						break;
+					case 'conversions' : 
+						$type = $settings->conversion_from;
+						break;
+				}
+
 				
 				$active[ $type ][] = $post->ID;
 			}
@@ -186,6 +196,21 @@ class NotificationX_Admin {
 						$fields = isset( $section['fields'] ) ? $section[ 'fields' ] : [];
 						if( ! empty( $fields ) ) {
 							foreach( $fields as $field_key => $field ) {
+								if( isset( $field['fields'] ) ) {
+									foreach( $field['fields'] as $inner_field_key => $inner_field ) {
+										if( isset( $inner_field['hide'] ) && ! empty( $inner_field['hide'] ) && is_array( $inner_field['hide'] ) ) {
+											foreach( $inner_field['hide'] as $key => $hide ) {
+												$hideFields[ $inner_field_key ][ $key ] = $hide;
+											}
+										}
+										if( isset( $inner_field['dependency'] ) && ! empty( $inner_field['dependency'] ) && is_array( $inner_field['dependency'] ) ) {
+											foreach( $inner_field['dependency'] as $key => $dependency ) {
+												$conditions[ $inner_field_key ][ $key ] = $dependency;
+											}
+										}
+									}
+								}
+
 								if( isset( $field['hide'] ) && ! empty( $field['hide'] ) && is_array( $field['hide'] ) ) {
 									foreach( $field['hide'] as $key => $hide ) {
 										$hideFields[ $field_key ][ $key ] = $hide;

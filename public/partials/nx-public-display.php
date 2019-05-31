@@ -11,7 +11,20 @@
  * @package    NotificationX
  * @subpackage NotificationX/public/partials
  */
-$type = $extension_name = $key = $settings->display_type;
+$type = $extension_name = $key = '';
+
+switch( $settings->display_type ) {
+    case 'press_bar' : 
+        $type = $extension_name = $key = $settings->display_type;
+        break;
+    case 'comments' : 
+        $type = $extension_name = $key = $settings->comments_source;
+        break;
+    case 'conversions' : 
+        $type = $extension_name = $key = $settings->conversion_from;
+        break;
+}
+
 $data = apply_filters('nx_fields_data', $data, $settings->id );
 
 /**
@@ -30,6 +43,7 @@ $key = apply_filters( 'nx_data_key', $key, $settings );
 if( $settings->display_type == 'conversions' && $settings->conversion_from == 'custom_notification' ) {
     $data[ $key ] = $settings->custom_contents;
 }
+
 if( ! empty( $data[ $key ] ) ) {
     $new_data = apply_filters( 'nx_filtered_data', NotificationX_Helper::sortBy( $data[ $key ], $key ), $settings );
 

@@ -210,6 +210,21 @@ class NotificationX_Helper {
         return $forms;
     }
     /**
+     * This function is responsible for all conversion from data
+     * @param string $from
+     * @return array|string
+     */
+    public static function comments_source( $from = '' ) {
+        $froms = [
+            'wp_comments' => __('WordPress' , 'notificationx'),
+        ];
+        $forms = apply_filters('nx_comments_source_options', $froms );
+        if( $from ){
+            return $froms[ $from ];
+        }
+        return $forms;
+    }
+    /**
      * This function is responsible for press_bar toggle data
      * @return array
      */
@@ -242,6 +257,7 @@ class NotificationX_Helper {
                 'link_options'
             ],
             'fields'   => [
+                'comments_source',
                 'conversion_position',
                 'comments_template',
                 'show_avatar',
@@ -311,9 +327,11 @@ class NotificationX_Helper {
      */
     public static function notification_types( $type = '' ) {
         $types = [
-            'press_bar'   => __('Notification Bar' , 'notificationx'),
-            'comments'    => __('WP Comments' , 'notificationx'),
-            'conversions' => __('Sales Notification' , 'notificationx'),
+            'press_bar'      => __('Notification Bar' , 'notificationx'),
+            'comments'       => __('Comments' , 'notificationx'),
+            'conversions'    => __('Sales Notification' , 'notificationx'),
+            'review'         => __('Review' , 'notificationx'),
+            'download_stats' => __('Download Stats' , 'notificationx'),
         ];
 
         $types = apply_filters('nx_notification_types', $types );

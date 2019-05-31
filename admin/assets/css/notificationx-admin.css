@@ -314,6 +314,19 @@ Form Input CSS
     width: 400px;
 }
 
+.nx-meta-field.nx-select.nx-template-field {
+    /* max-width: 200px; */
+}
+
+.template-items {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.template-items > * {
+    flex: 1;
+}
+
 .nx-meta-template .nx-meta-template-editable {
     padding: 10px;
     line-height: 25px;

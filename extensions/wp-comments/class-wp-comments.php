@@ -2,7 +2,7 @@
 
 class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
 
-    public $type = 'comments';
+    public $type = 'wp_comments';
     public $template = 'comments_template';
     public $themeName = 'comment_theme';
 
@@ -59,15 +59,82 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
 
         $options['content_config']['fields']['comments_template'] = array(
             'type'     => 'template',
+            'fields' => array(
+                'first_param' => array(
+                    'type'     => 'select',
+                    'label'    => __('Notification Template' , 'notificationx'),
+                    'priority' => 1,
+                    'options'  => array(
+                        'name' => __('Full Name' , 'notificationx'),
+                        'first_name' => __('First Name' , 'notificationx'),
+                        'last_name' => __('Last Name' , 'notificationx'),
+                        'anonymous' => __('Anonymous' , 'notificationx'),
+                        'custom' => __('Custom' , 'notificationx'),
+                    ),
+                    'dependency' => array(
+                        'custom' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        )
+                    ),
+                    'hide' => array(
+                        'name' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
+                        'first_name' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
+                        'last_name' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
+                        'anonymous' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
+                    ),
+                    'default' => 'name'
+                ),
+                'custom_first_param' => array(
+                    'type'     => 'text',
+                    'priority' => 2,
+                ),
+                'second_param' => array(
+                    'type'     => 'text',
+                    'priority' => 3,
+                    'default' => __('posted comment on' , 'notificationx')
+                ),
+                'third_param' => array(
+                    'type'     => 'select',
+                    'priority' => 4,
+                    'options'  => array(
+                        'post_title'       => __('Post Title' , 'notificationx'),
+                        'anonymous_post' => __('Anonymous Post' , 'notificationx'),
+                    ),
+                    'default' => 'post_title'
+                ),
+                'fourth_param' => array(
+                    'type'     => 'select',
+                    'priority' => 5,
+                    'options'  => array(
+                        'definite_time'       => __('Definite Time' , 'notificationx'),
+                        'sometime' => __('Sometimes ago' , 'notificationx'),
+                    ),
+                    'default' => 'post_title'
+                ),
+            ),
             'label'    => __('Notification Template' , 'notificationx'),
             'priority' => 80,
-            'defaults' => [
-                __('{{name}} posted comment on', 'notificationx'), '{{post_title}}', '{{time}}'
-            ],
-            'variables' => [
-                '{{name}}', '{{time}}', '{{post_title}}'
-            ],
         );
+
+        // $options['content_config']['fields']['comments_template'] = array(
+        //     'type'     => 'template',
+        //     'label'    => __('Notification Template' , 'notificationx'),
+        //     'priority' => 80,
+        //     'defaults' => [
+        //         __('{{name}} posted comment on', 'notificationx'), '{{post_title}}', '{{time}}'
+        //     ],
+        //     'variables' => [
+        //         '{{name}}', '{{time}}', '{{post_title}}'
+        //     ],
+        // );
 
         return $options;
     }
@@ -185,9 +252,11 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         }
 
         if( $comment->user_id )  {
-            $comment_data['user_id'] = $comment->user_id;
-            $user = get_userdata( $comment->user_id );
-            $comment_data['name'] = $user->first_name . ' ' . substr( $user->last_name, 0, 1 );
+            $comment_data['user_id']    = $comment->user_id;
+            $user                       = get_userdata( $comment->user_id );
+            $comment_data['first_name'] = $user->first_name;
+            $comment_data['last_name']  = $user->last_name;
+            $comment_data['name']       = $user->first_name . ' ' . substr( $user->last_name, 0, 1 );
         } else {
             $comment_data['name'] = get_comment_author( $comment->comment_ID );
         }
@@ -214,7 +283,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
     }
 
     public function notification_link( $link, $settings ){
-        if( $settings->display_type == 'comments' && $settings->comments_url == 'none' ) {
+        if( $settings->display_type == 'comments' && $settings->comments_source == 'wp_comments' && $settings->comments_url == 'none' ) {
             return '';
         }
         return $link;

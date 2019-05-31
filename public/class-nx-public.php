@@ -177,14 +177,14 @@ class NotificationX_Public {
 			
 			switch ( $settings->display_type ) {
 				case "press_bar":
-				NotificationX_PressBar_Extension::display( $settings );
-				break;
+					NotificationX_PressBar_Extension::display( $settings );
+					break;
 				case "conversions":
-				$conversion_ids[] = $id;
-				break;
+					$conversion_ids[] = $id;
+					break;
 				case "comments":
-				$comments_id[] = $id;
-				break;
+					$comments_id[] = $id;
+					break;
 			}
 			
 			self::generate_css( $settings );

@@ -66,6 +66,7 @@ class NotificationX_MetaBox {
             $post_id   = $idd;
         }
         $name      = self::$prefix . $key;
+        $field_id  = $name;
         $id        = self::get_row_id( $key );
         $file_name = isset( $field['type'] ) ? $field['type'] : '';
         
@@ -198,6 +199,8 @@ class NotificationX_MetaBox {
         /**
          * Save all meta!
          */        
+
+
         self::save_data( $_POST, $post_id);
         do_action('notificationx_save_post'); 
     }
@@ -221,17 +224,20 @@ class NotificationX_MetaBox {
                 }
             }
 
-
             update_post_meta( $post_id, "_{$field_id}", $value );
             $data[ "_{$field_id}" ] = $new_settings->{ $name } = $value;
         }
         update_post_meta( $post_id, '_nx_meta_active_check', true );
 
         $d_type = get_post_meta( $post_id, '_nx_meta_current_data_ready_for', true );
-        $type = $posts['nx_meta_display_type'];
-        
-        if( $type == 'conversions' ) {
-            $type = $posts['nx_meta_conversion_from'];
+
+        switch( $posts['nx_meta_display_type'] ) {
+            case 'comments' : 
+                $type = $posts['nx_meta_comments_source'];
+                break;
+            case 'conversions' : 
+                $type = $posts['nx_meta_conversion_from'];
+                break;
         }
 
         if( self::check_any_changes( $old_settings, $new_settings ) ) {
