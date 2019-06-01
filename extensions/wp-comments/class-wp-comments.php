@@ -5,14 +5,23 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
     public $type = 'wp_comments';
     public $template = 'comments_template';
     public $themeName = 'comment_theme';
+    public $default_data;
 
     protected $notifications = [];
 
     public function __construct() {    
-        parent::__construct();
+        parent::__construct( $this->template );
         $this->notifications = $this->get_notifications( $this->type );
 
+        add_filter( 'nx_fallback_data', array( $this, 'comments_fallback_data' ) );
         add_filter( 'nx_notification_link', array( $this, 'notification_link' ), 10, 2 );
+    }
+
+    public function comments_fallback_data( $data ){
+        $data['anonymous_post'] = __( 'No Post Title', 'notificationx' );
+        $data['sometime'] = __( 'Sometimes ago', 'notificationx' );
+
+        return $data;
     }
     /**
      * This functions is hooked
@@ -95,7 +104,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
                 'second_param' => array(
                     'type'     => 'text',
                     'priority' => 3,
-                    'default' => __('posted comment on' , 'notificationx')
+                    'default' => __('commented on' , 'notificationx')
                 ),
                 'third_param' => array(
                     'type'     => 'select',
@@ -119,18 +128,6 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
             'label'    => __('Notification Template' , 'notificationx'),
             'priority' => 80,
         );
-
-        // $options['content_config']['fields']['comments_template'] = array(
-        //     'type'     => 'template',
-        //     'label'    => __('Notification Template' , 'notificationx'),
-        //     'priority' => 80,
-        //     'defaults' => [
-        //         __('{{name}} posted comment on', 'notificationx'), '{{post_title}}', '{{time}}'
-        //     ],
-        //     'variables' => [
-        //         '{{name}}', '{{time}}', '{{post_title}}'
-        //     ],
-        // );
 
         return $options;
     }

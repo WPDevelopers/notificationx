@@ -325,7 +325,7 @@
 		if(typeof array !== 'undefined') {
 			for( ; i < array.length; i++) {
 				var selector = prefix + array[i] + suffix;
-				if( id == 'comments_template' ) {
+				if( notificationx.template.indexOf( id ) >= 0 ) {
 					selector = "#nx_meta_" + id + "_" + array[i] + suffix;
 				}
 
@@ -360,7 +360,7 @@
 
 		var mainid = id;
 
-		if( id === 'comments_template' ) {
+		if( notificationx.template.indexOf( id ) >= 0 ) {
 			id = current.data('subkey');
 		}
 

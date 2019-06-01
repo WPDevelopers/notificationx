@@ -52,6 +52,10 @@ class Extension_Factory {
                     add_action( 'nx_admin_action', array( $object, 'admin_actions' ) );
                 }
 
+                if( method_exists( $object, 'template_name' ) ) {
+                    add_filter( 'nx_template_name', array( $object, 'template_name' ) );
+                }
+
                 if( method_exists( $object, 'public_actions' ) ) {
                     add_action( 'nx_public_action', array( $object, 'public_actions' ) );
                 }

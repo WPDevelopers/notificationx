@@ -37,6 +37,8 @@ class NotificationX_Extension {
     public static $powered_by = null;
 
     protected $limiter;
+
+    protected $template_name;
     
     /**
      * Default data
@@ -46,7 +48,7 @@ class NotificationX_Extension {
     /**
      * Constructor of extension for ready the settings and cache limit.
      */
-    public function __construct( ){
+    public function __construct( $template = '' ){
         $this->defaults = apply_filters('nx_fallback_data', array(
             'name' => __('Someone', 'notificationx')
         ));
@@ -67,10 +69,21 @@ class NotificationX_Extension {
         if( ! empty( self::$settings ) && isset( self::$settings['disable_powered_by'] ) ) {
             self::$powered_by = intval( self::$settings['disable_powered_by'] );
         }
+
+        $this->template_name = $template;
+
         /**
          * Get all Active Notification Items
          */
         self::$active_items = NotificationX_Admin::get_active_items();
+    }
+
+    public function template_name( $data ){
+        if( $this->template_name ) {
+            $data[] = $this->template_name;
+        }
+
+        return $data;
     }
     /**
      * This function is responsible for making hide option.

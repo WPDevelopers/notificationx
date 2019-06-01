@@ -22,7 +22,7 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
     protected $notifications = [];
 
     public function __construct() {
-        parent::__construct();
+        parent::__construct( $this->template );
         $this->notifications = $this->get_notifications( $this->type );
 
         add_filter( 'nx_notification_link', array( $this, 'notification_link' ), 10, 2 );

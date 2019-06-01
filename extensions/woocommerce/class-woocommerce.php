@@ -17,10 +17,11 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
     protected $notifications = [];
 
     public function __construct() {
-        parent::__construct();
+        parent::__construct( $this->template );
         $this->notifications = $this->get_notifications( $this->type );
 
         add_filter( 'nx_notification_link', array( $this, 'notification_link' ), 10, 2 );
+        add_filter( 'nx_template_name', array( $this, 'template_name' ) );
     }
     /**
      * Main Screen Hooks
@@ -79,15 +80,78 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
 
         $fields['woo_template'] = array(
             'type'     => 'template',
+            'fields' => array(
+                'first_param' => array(
+                    'type'     => 'select',
+                    'label'    => __('Notification Template' , 'notificationx'),
+                    'priority' => 1,
+                    'options'  => array(
+                        'tag_name' => __('Full Name' , 'notificationx'),
+                        'tag_first_name' => __('First Name' , 'notificationx'),
+                        'tag_last_name' => __('Last Name' , 'notificationx'),
+                        'tag_custom' => __('Custom' , 'notificationx'),
+                    ),
+                    'dependency' => array(
+                        'tag_custom' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        )
+                    ),
+                    'hide' => array(
+                        'tag_name' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
+                        'tag_first_name' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
+                        'tag_last_name' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
+                    ),
+                    'default' => 'tag_name'
+                ),
+                'custom_first_param' => array(
+                    'type'     => 'text',
+                    'priority' => 2,
+                ),
+                'second_param' => array(
+                    'type'     => 'text',
+                    'priority' => 3,
+                    'default' => __('recently purchased' , 'notificationx')
+                ),
+                'third_param' => array(
+                    'type'     => 'select',
+                    'priority' => 4,
+                    'options'  => array(
+                        'tag_title'       => __('Product Title' , 'notificationx'),
+                        'tag_anonymous_post' => __('Anonymous Product' , 'notificationx'),
+                    ),
+                    'default' => 'tag_title'
+                ),
+                'fourth_param' => array(
+                    'type'     => 'select',
+                    'priority' => 5,
+                    'options'  => array(
+                        'tag_time'       => __('Definite Time' , 'notificationx'),
+                        'sometime' => __('Sometimes ago' , 'notificationx'),
+                    ),
+                    'default' => 'tag_time'
+                ),
+            ),
             'label'    => __('Notification Template' , 'notificationx'),
             'priority' => 90,
-            'defaults' => [
-                __('{{name}} recently purchased', 'notificationx'), '{{title}}', '{{time}}'
-            ],
-            'variables' => [
-                '{{name}}', '{{title}}', '{{time}}'
-            ],
         );
+
+        // $fields['woo_template'] = array(
+        //     'type'     => 'template',
+        //     'label'    => __('Notification Template' , 'notificationx'),
+        //     'priority' => 90,
+        //     'defaults' => [
+        //         __('{{name}} recently purchased', 'notificationx'), '{{title}}', '{{time}}'
+        //     ],
+        //     'variables' => [
+        //         '{{name}}', '{{title}}', '{{time}}'
+        //     ],
+        // );
 
         return $fields;
     }

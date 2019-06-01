@@ -228,7 +228,7 @@ class NotificationX_Admin {
 			}
 		}
 
-		return array( 'toggleFields' => $conditions, 'hideFields' => $hideFields );
+		return array( 'toggleFields' => $conditions, 'hideFields' => $hideFields, 'template' => apply_filters( 'nx_template_name', array() ) );
 	}
 	
 	public function custom_columns( $columns ) {
