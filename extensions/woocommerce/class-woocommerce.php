@@ -21,8 +21,16 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         $this->notifications = $this->get_notifications( $this->type );
 
         add_filter( 'nx_notification_link', array( $this, 'notification_link' ), 10, 2 );
-        add_filter( 'nx_template_name', array( $this, 'template_name' ) );
     }
+
+
+    public function fallback_data( $data ){
+        $data['anonymous_post'] = __( 'No Product Title', 'notificationx' );
+        $data['sometime'] = __( 'Sometimes ago', 'notificationx' );
+
+        return $data;
+    }
+
     /**
      * Main Screen Hooks
      */

@@ -13,11 +13,10 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         parent::__construct( $this->template );
         $this->notifications = $this->get_notifications( $this->type );
 
-        add_filter( 'nx_fallback_data', array( $this, 'comments_fallback_data' ) );
         add_filter( 'nx_notification_link', array( $this, 'notification_link' ), 10, 2 );
     }
 
-    public function comments_fallback_data( $data ){
+    public function fallback_data( $data ){
         $data['anonymous_post'] = __( 'No Post Title', 'notificationx' );
         $data['sometime'] = __( 'Sometimes ago', 'notificationx' );
 
