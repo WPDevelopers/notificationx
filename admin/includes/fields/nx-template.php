@@ -26,7 +26,7 @@
                 if( $file_name === 'select' ) {
                     $field['options'] = isset( $inner_field['options'] ) ? $inner_field['options'] : '';
                 }
-                $value = isset( $main_value[ $key ] ) ? $main_value[ $key ] : isset( $inner_field[ 'default'] ) ? $inner_field[ 'default'] : '' ;
+                $value = isset( $main_value[ $key ] ) ? $main_value[ $key ] : ( isset( $inner_field[ 'default'] ) ? $inner_field[ 'default'] : '' ) ;
                 
                 if( $file_name ) {
                     include NOTIFICATIONX_ADMIN_DIR_PATH . 'includes/fields/nx-'. $file_name .'.php';
