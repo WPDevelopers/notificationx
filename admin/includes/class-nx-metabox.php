@@ -198,11 +198,29 @@ class NotificationX_MetaBox {
         
         /**
          * Save all meta!
-         */        
-
-
+         */ 
         self::save_data( $_POST, $post_id);
         do_action('notificationx_save_post'); 
+    }
+
+    protected static function template_generate( $template ){
+        $template_string = '';
+
+        if( ! empty( $template ) ) {
+            foreach( $template as $key => $value ) {
+                if( strpos( $value, 'tag_' ) === 0 ) {
+                    $tag = str_replace( 'tag_', '', $value );
+                    if( $tag == 'custom' ) {
+                        continue;
+                    }
+                    $template_string .= "{{{$tag}}} ";
+                } else {
+                    $template_string .= $value . " ";
+                }
+            }
+        }
+        
+        return $template_string;
     }
 
     public static function save_data( $posts, $post_id ){
@@ -222,6 +240,11 @@ class NotificationX_MetaBox {
                 if ( 'checkbox' == $field['type'] ) {
                     $value = '0';
                 }
+            }
+
+            if( strpos( $field_id, 'template', -8 ) >= 0 ) {
+                $template_string = self::template_generate( $posts['nx_meta_comments_template'] );
+                update_post_meta( $post_id, "_nx_meta_temp_string", $template_string );    
             }
 
             update_post_meta( $post_id, "_{$field_id}", $value );
@@ -307,6 +330,11 @@ class NotificationX_MetaBox {
             }
 
             $settings->{$name} = $value;
+        }
+
+        if( metadata_exists( 'post', $id, "_nx_meta_temp_string" ) ) {
+            $value  = get_post_meta( $id, "_nx_meta_temp_string", true );
+            $settings->temp_string = $value;
         }
 
         $settings->id = $id;

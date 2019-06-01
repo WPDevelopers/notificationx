@@ -65,32 +65,28 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
                     'label'    => __('Notification Template' , 'notificationx'),
                     'priority' => 1,
                     'options'  => array(
-                        'name' => __('Full Name' , 'notificationx'),
-                        'first_name' => __('First Name' , 'notificationx'),
-                        'last_name' => __('Last Name' , 'notificationx'),
-                        'anonymous' => __('Anonymous' , 'notificationx'),
-                        'custom' => __('Custom' , 'notificationx'),
+                        'tag_name' => __('Full Name' , 'notificationx'),
+                        'tag_first_name' => __('First Name' , 'notificationx'),
+                        'tag_last_name' => __('Last Name' , 'notificationx'),
+                        'tag_custom' => __('Custom' , 'notificationx'),
                     ),
                     'dependency' => array(
-                        'custom' => array(
+                        'tag_custom' => array(
                             'fields' => [ 'custom_first_param' ]
                         )
                     ),
                     'hide' => array(
-                        'name' => array(
+                        'tag_name' => array(
                             'fields' => [ 'custom_first_param' ]
                         ),
-                        'first_name' => array(
+                        'tag_first_name' => array(
                             'fields' => [ 'custom_first_param' ]
                         ),
-                        'last_name' => array(
-                            'fields' => [ 'custom_first_param' ]
-                        ),
-                        'anonymous' => array(
+                        'tag_last_name' => array(
                             'fields' => [ 'custom_first_param' ]
                         ),
                     ),
-                    'default' => 'name'
+                    'default' => 'tag_name'
                 ),
                 'custom_first_param' => array(
                     'type'     => 'text',
@@ -105,19 +101,19 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
                     'type'     => 'select',
                     'priority' => 4,
                     'options'  => array(
-                        'post_title'       => __('Post Title' , 'notificationx'),
-                        'anonymous_post' => __('Anonymous Post' , 'notificationx'),
+                        'tag_post_title'       => __('Post Title' , 'notificationx'),
+                        'tag_anonymous_post' => __('Anonymous Post' , 'notificationx'),
                     ),
-                    'default' => 'post_title'
+                    'default' => 'tag_post_title'
                 ),
                 'fourth_param' => array(
                     'type'     => 'select',
                     'priority' => 5,
                     'options'  => array(
-                        'definite_time'       => __('Definite Time' , 'notificationx'),
+                        'tag_time'       => __('Definite Time' , 'notificationx'),
                         'sometime' => __('Sometimes ago' , 'notificationx'),
                     ),
-                    'default' => 'post_title'
+                    'default' => 'tag_time'
                 ),
             ),
             'label'    => __('Notification Template' , 'notificationx'),

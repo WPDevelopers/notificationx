@@ -458,7 +458,8 @@ function get_extension_frontend( $key, $data, $settings = false ){
     if( class_exists( $extension_name ) ) {
         $extension = new $extension_name;
         $args = [
-            'template' => $extension->template,
+            // 'template' => $extension->template,
+            'template' => "temp_string",
             'themeName' => $extension->themeName,
         ];
         return $extension->frontend_html( $data, $settings, $args );
