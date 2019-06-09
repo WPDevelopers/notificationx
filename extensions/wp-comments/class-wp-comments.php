@@ -22,6 +22,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
 
         return $data;
     }
+
     /**
      * This functions is hooked
      * 

@@ -226,6 +226,7 @@ final class NotificationX {
 		add_action( 'nx_builder_before_tab', array( $plugin_admin->metabox, 'finalize_builder'), 10, 2 );
 		add_action( 'admin_menu', array( $plugin_admin, 'menu_page') );
 		// add_action( 'admin_footer', array( $plugin_admin, 'notification_preview') );
+		add_filter( 'nx_template_name', 'NotificationX_Helper::new_template_name', 10, 2 );
 		add_filter( 'manage_notificationx_posts_columns', array( $plugin_admin, 'custom_columns') );
 		add_action( 'manage_notificationx_posts_custom_column', array( $plugin_admin, 'manage_custom_columns' ), 10, 2 );
 		add_action( 'wp_ajax_notifications_toggle_status', array( $plugin_admin, 'notification_status') );

@@ -381,4 +381,13 @@ class NotificationX_Helper {
             ),
         ));
     }
+
+    public static function new_template_name( $data ){
+        $data = array(
+            'comments_template_new',
+            'edd_template_new',
+            'woo_template_new',
+        );
+        return $data;
+    }
 }
