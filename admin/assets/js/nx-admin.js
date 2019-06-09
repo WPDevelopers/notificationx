@@ -23,8 +23,20 @@
 				$('#nx_meta_conversion_from').trigger('change');
 			}
 		});
+		$('body').on('change', '#nx_meta_conversion_from', function(){
+			var conv_source = $(this).val();
 
-		$('body').on('change', '#nx_meta_display_type.nx-select', function( e ){
+			switch( conv_source ) {
+				case 'woocommerce' : 
+					$('#nx_meta_woo_template_adv').trigger('change');
+					break;
+				case 'edd' : 
+					$('#nx_meta_edd_template_adv').trigger('change');
+					break;
+			}
+		});
+
+		$('body').on('change', '.nx-builder-content-wrapper #nx_meta_display_type.nx-select', function( e ){
 			var type = $(this).val(),
 				title = e.currentTarget.selectedOptions[0].innerText,
 				options = { year: 'numeric', month: 'short', day: 'numeric' },
@@ -342,7 +354,6 @@
 			container = current.parents( '.nx-field:first' ),
 			id = container.data( 'id' ),
 			value = current.val();
-
 		
 		if ( 'checkbox' === current.attr('type') ) {
 			if( ! current.is(':checked') ) {
@@ -375,6 +386,11 @@
 					$.notificationx.toggle(array.fields, 'hide', '#nx-meta-', '', mainid);
 					$.notificationx.toggle(array.sections, 'hide', '#nx-meta-section-', '', mainid);
 				})
+			}
+
+			if( id === 'woo_template_adv' ) {
+				// console.log( canShow );
+				// console.log( notificationx.toggleFields[id][value].fields );
 			}
 	
 			if( canShow ) {

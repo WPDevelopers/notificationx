@@ -24,6 +24,13 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
     }
 
     /**
+     * Main Screen Hooks
+     */
+    public function init_hooks(){
+        add_filter( 'nx_metabox_tabs', array( $this, 'add_fields' ) );
+    }
+
+    /**
      * This functions is hooked
      * 
      * @hooked nx_public_action
@@ -57,16 +64,11 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
 
         return $options;
     }
-    /**
-     * This function is responsible for the some fields of 
-     * wp comments notification in display tab
-     *
-     * @param array $options
-     * @return void
-     */
-    public function content_tab_section( $options ){
 
-        $options['content_config']['fields']['comments_template_new'] = array(
+    protected function init_fields(){
+        $fields = array();
+
+        $fields['comments_template_new'] = array(
             'type'     => 'template',
             'fields' => array(
                 'first_param' => array(
@@ -129,7 +131,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
             'priority' => 80,
         );
 
-        $options['content_config']['fields']['comments_template_adv'] = array(
+        $fields['comments_template_adv'] = array(
             'type'     => 'adv_checkbox',
             'priority' => 81,
             'button_text' => __('Advance Template' , 'notificationx'),
@@ -141,7 +143,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
             ),
         );
 
-        $options['content_config']['fields']['comments_template'] = array(
+        $fields['comments_template'] = array(
             'type'     => 'template',
             'label'    => __('' , 'notificationx'),
             'priority' => 82,
@@ -152,6 +154,16 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
                 '{{name}}', '{{first_name}}', '{{last_name}}', '{{post_title}}', '{{time}}'
             ],
         );
+
+        return $fields;
+    }
+
+    public function add_fields( $options ){
+        $fields = $this->init_fields();
+
+        foreach ( $fields as $name => $field ) {
+            $options[ 'content_tab' ]['sections']['content_config']['fields'][ $name ] = $field;
+        }
 
         return $options;
     }

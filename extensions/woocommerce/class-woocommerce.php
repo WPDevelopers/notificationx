@@ -203,6 +203,8 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
     public function add_builder_fields( $options ){
         $fields = $this->init_fields();
         unset( $fields[ $this->template ] );
+        unset( $fields[ 'woo_template_new' ] );
+        unset( $fields[ 'woo_template_adv' ] );
         
         foreach ( $fields as $name => $field ) {
             $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;

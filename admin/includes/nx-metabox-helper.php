@@ -47,8 +47,12 @@ function notificationx_metabox_args(){
                                 'options'  => NotificationX_Helper::conversion_from(),
                                 'priority' => 60,
                                 'dependency' => array(
-                                    'woocommerce' => NotificationX_Helper::conversions_toggle_data(),
-                                    'edd' => NotificationX_Helper::conversions_toggle_data()
+                                    'woocommerce' => NotificationX_ToggleFields::woocommerce(),
+                                    'edd' => NotificationX_ToggleFields::edd()
+                                ),
+                                'hide' => array(
+                                    'woocommerce' => NotificationX_ToggleFields::woocommerce_hide(),
+                                    'edd' => NotificationX_ToggleFields::edd_hide()
                                 ),
                             ))
                         ),
