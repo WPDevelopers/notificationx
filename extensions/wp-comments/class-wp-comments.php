@@ -65,7 +65,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
      */
     public function content_tab_section( $options ){
 
-        $options['content_config']['fields']['comments_template'] = array(
+        $options['content_config']['fields']['comments_template_new'] = array(
             'type'     => 'template',
             'fields' => array(
                 'first_param' => array(
@@ -126,6 +126,29 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
             ),
             'label'    => __('Notification Template' , 'notificationx'),
             'priority' => 80,
+        );
+
+        $options['content_config']['fields']['advanced_template'] = array(
+            'type'     => 'adv_checkbox',
+            'priority' => 81,
+            'button_text' => __('Advance Template' , 'notificationx'),
+            'dependency' => array(
+                1 => array(
+                    'fields' => [ 'comments_template' ]
+                )
+            ),
+        );
+
+        $options['content_config']['fields']['comments_template'] = array(
+            'type'     => 'template',
+            'label'    => __('' , 'notificationx'),
+            'priority' => 82,
+            'defaults' => [
+                __('{{name}} commented on', 'notificationx'), '{{title}}', '{{time}}'
+            ],
+            'variables' => [
+                '{{name}}', '{{title}}', '{{time}}'
+            ],
         );
 
         return $options;

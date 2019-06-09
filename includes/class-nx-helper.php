@@ -259,7 +259,8 @@ class NotificationX_Helper {
             'fields'   => [
                 'comments_source',
                 'conversion_position',
-                'comments_template',
+                'comments_template_new',
+                // 'comments_template',
                 'show_avatar',
                 'display_last',
                 'display_from',
@@ -307,7 +308,7 @@ class NotificationX_Helper {
                 ),
                 'press_bar' => array(
                     'sections' => [ 'image', 'link_options', 'conversion_link_options', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography' ],
-                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'notification_preview', 'image_url', 'conversion_size', 'conversion_position' ]
+                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'notification_preview', 'image_url', 'conversion_size', 'conversion_position', 'comments_template_new' ]
                 ),
                 'conversions' => array(
                     'sections' => [ 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography' ], 

@@ -86,7 +86,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             );
         }
 
-        $fields['woo_template'] = array(
+        $fields['woo_template_new'] = array(
             'type'     => 'template',
             'fields' => array(
                 'first_param' => array(
@@ -149,17 +149,17 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             'priority' => 90,
         );
 
-        // $fields['woo_template'] = array(
-        //     'type'     => 'template',
-        //     'label'    => __('Notification Template' , 'notificationx'),
-        //     'priority' => 90,
-        //     'defaults' => [
-        //         __('{{name}} recently purchased', 'notificationx'), '{{title}}', '{{time}}'
-        //     ],
-        //     'variables' => [
-        //         '{{name}}', '{{title}}', '{{time}}'
-        //     ],
-        // );
+        $fields['woo_template'] = array(
+            'type'     => 'template',
+            'label'    => __('Notification Template' , 'notificationx'),
+            'priority' => 90,
+            'defaults' => [
+                __('{{name}} recently purchased', 'notificationx'), '{{title}}', '{{time}}'
+            ],
+            'variables' => [
+                '{{name}}', '{{title}}', '{{time}}'
+            ],
+        );
 
         return $fields;
     }

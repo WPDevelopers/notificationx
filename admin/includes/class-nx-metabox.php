@@ -243,7 +243,7 @@ class NotificationX_MetaBox {
             }
 
             
-            if( strpos( $field_id, 'template', -8 ) !== false && strpos( $field_id, 'template', -8 ) >= 0 ) {
+            if( strpos( $field_id, 'template_new', -8 ) !== false && strpos( $field_id, 'template_new', -8 ) >= 0 ) {
                 $template_string = self::template_generate( $posts[ $field_id ] );
                 update_post_meta( $post_id, "_nx_meta_temp_string", $template_string );    
             }
