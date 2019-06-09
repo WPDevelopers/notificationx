@@ -49,7 +49,7 @@ function notificationx_metabox_args(){
                                 'dependency' => array(
                                     'woocommerce' => NotificationX_Helper::conversions_toggle_data(),
                                     'edd' => NotificationX_Helper::conversions_toggle_data()
-                                )
+                                ),
                             ))
                         ),
                     ),

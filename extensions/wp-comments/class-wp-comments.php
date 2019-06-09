@@ -129,7 +129,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
             'priority' => 80,
         );
 
-        $options['content_config']['fields']['advanced_template'] = array(
+        $options['content_config']['fields']['comments_template_adv'] = array(
             'type'     => 'adv_checkbox',
             'priority' => 81,
             'button_text' => __('Advance Template' , 'notificationx'),

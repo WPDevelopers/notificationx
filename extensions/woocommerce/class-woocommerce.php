@@ -131,7 +131,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
                     'priority' => 4,
                     'options'  => array(
                         'tag_title'       => __('Product Title' , 'notificationx'),
-                        'tag_anonymous_post' => __('Anonymous Product' , 'notificationx'),
+                        'tag_anonymous_title' => __('Anonymous Product' , 'notificationx'),
                     ),
                     'default' => 'tag_title'
                 ),
@@ -149,10 +149,21 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             'priority' => 90,
         );
 
+        $fields['woo_template_adv'] = array(
+            'type'        => 'adv_checkbox',
+            'priority'    => 91,
+            'button_text' => __('Advance Template' , 'notificationx'),
+            'side'        => 'right',
+            'dependency'  => array(
+                1 => array(
+                    'fields' => [ 'woo_template' ]
+                )
+            ),
+        );
+
         $fields['woo_template'] = array(
             'type'     => 'template',
-            'label'    => __('Notification Template' , 'notificationx'),
-            'priority' => 90,
+            'priority' => 92,
             'defaults' => [
                 __('{{name}} recently purchased', 'notificationx'), '{{title}}', '{{time}}'
             ],
@@ -176,7 +187,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             if( $name === 'has_no_woo' ) {
                 $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
             }
-            if( $name === 'woo_template' ) {
+            if( in_array( $name, array( 'woo_template_new', 'woo_template', 'woo_template_adv' ) ) ) {
                 $options[ 'content_tab' ]['sections']['content_config']['fields'][ $name ] = $field;
             }
         }
@@ -261,7 +272,8 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
      * @return void
      */
     public function toggle_fields( $options ) {
-        $fields = array_keys( $this->init_fields() );
+        $fields = $this->init_fields();
+        $fields = array_keys( $fields );
         $fields = array_merge( [ 'show_notification_image' ], $fields );
 
         $options['dependency'][ $this->type ]['fields'] = array_merge( $fields, $options['dependency'][ $this->type ]['fields']);

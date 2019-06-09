@@ -218,7 +218,7 @@ class NotificationX_Extension {
 
         extract( $args );
         $settings->themeName = $settings->{ $themeName };
-        if( empty( $settings->advanced_template ) ) {
+        if( empty( $settings->{ $template . '_adv' } ) ) {
             $template = 'temp_string';
         }
         $template = apply_filters( 'nx_template_id' , $template, $settings);
