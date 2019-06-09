@@ -204,18 +204,27 @@ class NotificationX_MetaBox {
     }
 
     protected static function template_generate( $template ){
-        $template_string = '';
-
+        $template_string = [];
+        $temp_val = '';
+        
         if( ! empty( $template ) ) {
+            $i = $j = 0;
             foreach( $template as $key => $value ) {
+                if( in_array( $key, array( 'third_param', 'fourth_param' ) ) ) {
+                    $i++;
+                }
                 if( strpos( $value, 'tag_' ) === 0 ) {
                     $tag = str_replace( 'tag_', '', $value );
                     if( $tag == 'custom' ) {
                         continue;
                     }
-                    $template_string .= "{{{$tag}}} ";
+                    $template_string[ $i ] = "{{{$tag}}} ";
                 } else {
-                    $template_string .= $value . " ";
+                    if( $template_string[ $i ] != ' ' || $template_string[ $i ] != '' ) {
+                        $temp_val = trim( $template_string[ $i ] ) . ' ';
+                    }
+
+                    $template_string[ $i ] =  $temp_val . $value . " ";
                 }
             }
         }
@@ -243,7 +252,7 @@ class NotificationX_MetaBox {
             }
 
             
-            if( strpos( $field_id, 'template_new', -8 ) !== false && strpos( $field_id, 'template_new', -8 ) >= 0 ) {
+            if( strpos( $field_id, 'template_new', -12 ) !== false && strpos( $field_id, 'template_new', -12 ) >= 0 ) {
                 $template_string = self::template_generate( $posts[ $field_id ] );
                 update_post_meta( $post_id, "_nx_meta_temp_string", $template_string );    
             }
