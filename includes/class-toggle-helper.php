@@ -6,7 +6,6 @@ class NotificationX_ToggleFields {
 
     public static function common_fields(){
         return array(
-            'conversion_from',
             'conversion_position',
             'delay_before',
             'display_last',
@@ -22,15 +21,20 @@ class NotificationX_ToggleFields {
     public static function common_sections(){
         return array(
             'image',
-            'themes',
-            'conversion_link_options'
         );
     }
 
     public static function woocommerce(){
+
+        $fields = self::common_fields();
+        $fields[] = 'conversion_from';
+        $sections = self::common_sections();
+        $sections[] = 'themes';
+        $sections[] = 'conversion_link_options';
+
         return apply_filters( 'nx_woocommerce_toggle_fields', array(
-            'fields' => self::common_fields(),
-            'sections' => self::common_sections(),
+            'fields' => $fields,
+            'sections' => $sections,
         ));
     }
 
@@ -42,9 +46,16 @@ class NotificationX_ToggleFields {
     }
 
     public static function edd(){
+        $fields = self::common_fields();
+        $fields[] = 'conversion_from';
+
+        $sections = self::common_sections();
+        $sections[] = 'themes';
+        $sections[] = 'conversion_link_options';
+
         return apply_filters( 'nx_edd_toggle_fields', array(
-            'fields' => self::common_fields(),
-            'sections' => self::common_sections(),
+            'fields' => $fields,
+            'sections' => $sections,
         ));
     }
 
@@ -52,6 +63,15 @@ class NotificationX_ToggleFields {
         return apply_filters( 'nx_edd_toggle_fields', array(
             'fields' => [ 'comments_template' ],
             'sections' => [],
+        ));
+    }
+
+    public static function reviews(){
+        $fields = self::common_fields();
+
+        return apply_filters( 'nx_review_toggle_fields', array(
+            'fields' => array_merge( $fields, array( 'reviews_source' ) ),
+            'sections' => array( 'image' )
         ));
     }
 

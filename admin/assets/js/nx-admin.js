@@ -19,19 +19,37 @@
 	$( window ).load(function(){
 		$('body').on('change', '#nx_meta_display_type', function(){
 			var type = $(this).val();
-			if( type == 'conversions' ) {
-				$('#nx_meta_conversion_from').trigger('change');
+			switch( type ) {
+				case 'conversions' : 
+					$('#nx_meta_conversion_from').trigger('change');
+					break;
+				case 'comments' : 
+					$('#nx_meta_comments_source').trigger('change');
+					break;
+				case 'reviews' : 
+					$('#nx_meta_reviews_source').trigger('change');
+					break;
 			}
 		});
+
 		$('body').on('change', '#nx_meta_conversion_from', function(){
 			var conv_source = $(this).val();
-
 			switch( conv_source ) {
 				case 'woocommerce' : 
 					$('#nx_meta_woo_template_adv').trigger('change');
 					break;
 				case 'edd' : 
 					$('#nx_meta_edd_template_adv').trigger('change');
+					break;
+			}
+		});
+
+		$('body').on('change', '#nx_meta_reviews_source', function(){
+			var source = $(this).val();
+			switch( source ) {
+				case 'wp_reviews' : 
+					$('#nx_meta_wp_reviews_template_adv').trigger('change');
+					$('#nx_meta_wporg_advance_edit').trigger('change');
 					break;
 			}
 		});
@@ -387,11 +405,6 @@
 					$.notificationx.toggle(array.sections, 'hide', '#nx-meta-section-', '', mainid);
 				})
 			}
-
-			if( id === 'woo_template_adv' ) {
-				// console.log( canShow );
-				// console.log( notificationx.toggleFields[id][value].fields );
-			}
 	
 			if( canShow ) {
 				$.notificationx.toggle(notificationx.toggleFields[id][value].fields, 'show', '#nx-meta-', '', mainid);
@@ -401,6 +414,7 @@
 
 		if( notificationx.hideFields.hasOwnProperty( id ) ) {
 			var hideFields = notificationx.hideFields[id];
+
 			if( hideFields.hasOwnProperty( value ) ) {
 				$.notificationx.toggle(hideFields[ value ].fields, 'hide', '#nx-meta-', '', mainid);
 				$.notificationx.toggle(hideFields[ value ].sections, 'hide', '#nx-meta-section-', '', mainid);

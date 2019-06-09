@@ -26,21 +26,41 @@ function notificationx_builder_args() {
                                 'dependency' => array(
                                     'comments'    => NotificationX_Helper::comments_toggle_data(),
                                     'press_bar'   => NotificationX_Helper::press_bar_toggle_data(),
-                                    'conversions' => NotificationX_Helper::conversions_toggle_data()
+                                    'conversions' => NotificationX_Helper::conversions_toggle_data(),
+                                    'reviews'      => NotificationX_ToggleFields::reviews(),
+                                    // 'stats'       => NotificationX_Helper::stats_toggle_data(),
                                 ),
                                 'hide' => NotificationX_Helper::hide_data( 'display_types' ),
                                 'priority' => 50
                             ),
+                            'reviews_source'  => apply_filters('nx_reviews_source', array(
+                                'type'     => 'select',
+                                'label'    => __('Review Source' , 'notificationx'),
+                                'default'  => 'wp_reviews',
+                                'options'  => NotificationX_Helper::reviews_source(),
+                                'priority' => 51,
+                            )),
+                            'comments_source'  => apply_filters('nx_comments_source', array(
+                                'type'     => 'select',
+                                'label'    => __('Comments Source' , 'notificationx'),
+                                'default'  => 'wp_comments',
+                                'options'  => NotificationX_Helper::comments_source(),
+                                'priority' => 52,
+                            )),
                             'conversion_from'  => array(
                                 'type'     => 'select',
-                                'label'    => __('From' , 'notificationx'),
+                                'label'    => __('Source' , 'notificationx'),
                                 'default'  => 'woocommerce',
                                 'options'  => NotificationX_Helper::conversion_from(),
                                 'priority' => 60,
                                 'dependency' => array(
-                                    'woocommerce' => NotificationX_Helper::conversions_toggle_data(),
-                                    'edd' => NotificationX_Helper::conversions_toggle_data(),
-                                )
+                                    'woocommerce' => NotificationX_ToggleFields::woocommerce(),
+                                    'edd' => NotificationX_ToggleFields::edd()
+                                ),
+                                'hide' => array(
+                                    'woocommerce' => NotificationX_ToggleFields::woocommerce_hide(),
+                                    'edd' => NotificationX_ToggleFields::edd_hide()
+                                ),
                             ),
                             'press_content' => array(
                                 'type'     => 'editor',

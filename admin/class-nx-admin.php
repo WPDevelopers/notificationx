@@ -89,7 +89,6 @@ class NotificationX_Admin {
 		if ( count( $posts ) ) {
 			foreach ( $posts as $post ) {
 				$settings = NotificationX_MetaBox::get_metabox_settings( $post->ID );
-				// $type = ( $settings->display_type != 'conversions' ) ? $settings->display_type : $settings->conversion_from;
 
 				switch( $settings->display_type ) {
 					case 'comments' : 
@@ -97,6 +96,9 @@ class NotificationX_Admin {
 						break;
 					case 'conversions' : 
 						$type = $settings->conversion_from;
+						break;
+					case 'reviews' : 
+						$type = $settings->reviews_source;
 						break;
 				}
 

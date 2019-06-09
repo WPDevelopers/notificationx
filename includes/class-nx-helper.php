@@ -225,6 +225,21 @@ class NotificationX_Helper {
         return $forms;
     }
     /**
+     * This function is responsible for all conversion from data
+     * @param string $from
+     * @return array|string
+     */
+    public static function reviews_source( $from = '' ) {
+        $froms = [
+            'wp_reviews' => __('WordPress' , 'notificationx'),
+        ];
+        $forms = apply_filters('nx_reviews_source_options', $froms );
+        if( $from ){
+            return $froms[ $from ];
+        }
+        return $forms;
+    }
+    /**
      * This function is responsible for press_bar toggle data
      * @return array
      */
@@ -314,6 +329,10 @@ class NotificationX_Helper {
                 'conversions' => array(
                     'sections' => [ 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography' ], 
                 ),
+                'reviews' => array(
+                    'fields' => [ 'comments_source', 'conversion_from' ], 
+                    'sections' => [  ], 
+                ),
             ));
         }
         if( $types == 'conversion_from' ) {
@@ -332,7 +351,7 @@ class NotificationX_Helper {
             'press_bar'      => __('Notification Bar' , 'notificationx'),
             'comments'       => __('Comments' , 'notificationx'),
             'conversions'    => __('Sales Notification' , 'notificationx'),
-            'review'         => __('Review' , 'notificationx'),
+            'reviews'         => __('Review' , 'notificationx'),
             'download_stats' => __('Download Stats' , 'notificationx'),
         ];
 
@@ -386,6 +405,7 @@ class NotificationX_Helper {
     public static function new_template_name( $data ){
         $data = array(
             'comments_template_new',
+            'wp_reviews_template_new',
             'edd_template_new',
             'woo_template_new',
         );
