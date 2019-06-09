@@ -133,6 +133,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
             'type'     => 'adv_checkbox',
             'priority' => 81,
             'button_text' => __('Advance Template' , 'notificationx'),
+            'side' => 'right',
             'dependency' => array(
                 1 => array(
                     'fields' => [ 'comments_template' ]
@@ -145,10 +146,10 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
             'label'    => __('' , 'notificationx'),
             'priority' => 82,
             'defaults' => [
-                __('{{name}} commented on', 'notificationx'), '{{title}}', '{{time}}'
+                __('{{name}} commented on', 'notificationx'), '{{post_title}}', '{{time}}'
             ],
             'variables' => [
-                '{{name}}', '{{title}}', '{{time}}'
+                '{{name}}', '{{first_name}}', '{{last_name}}', '{{post_title}}', '{{time}}'
             ],
         );
 

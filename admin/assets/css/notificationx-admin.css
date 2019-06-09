@@ -384,6 +384,10 @@ input.nx-template-field {
     z-index: 9999;
 }
 
+.adv-btn-right {
+    text-align: right;
+}
+
 label.nx-adv-checkbox-label {
     background: #fff;
     color: #6c63ff;

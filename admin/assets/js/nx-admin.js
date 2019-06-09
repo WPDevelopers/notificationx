@@ -18,7 +18,6 @@
 
 	$( window ).load(function(){
 		$('body').on('change', '#nx_meta_display_type', function(){
-			$.notificationx.linkOptions( this );
 			var type = $(this).val();
 			if( type == 'conversions' ) {
 				$('#nx_meta_conversion_from').trigger('change');
@@ -627,17 +626,6 @@
 			}
 		});
 	};
-
-	$.notificationx.linkOptions = function(){
-		var type = $('#nx_meta_display_type').val();
-		if( type == 'conversions' ) {
-			var from = $('#nx_meta_conversion_from').val();
-			$('#nx_meta_conversion_url').val('product_page').trigger('change');
-		}
-		if( type == 'comments' ) {
-			$('#nx_meta_comments_url').val('comment_url').trigger('change');
-		}
-	}
 
 	$.notificationx.template = function( e ){
 		$('.nx-meta-template-editable').prop('disabled',true);

@@ -478,7 +478,7 @@ function notificationx_metabox_args(){
                                 'label' => __('Link Type', 'notificationx'),
                                 'type'  => 'select',
                                 'priority'	=> 10,
-                                'default'	=> 'none',
+                                'default'	=> 'comment_url',
                                 'options'	=> apply_filters('nx_comment_link_options', array(
                                     'none'             => __('None', 'notificationx'),
                                     'comment_url'      => __( 'Comment URL', 'notificationx' ),
@@ -493,7 +493,7 @@ function notificationx_metabox_args(){
                                 'label' => __('Link Type', 'notificationx'),
                                 'type'  => 'select',
                                 'priority'	=> 10,
-                                'default'	=> 'none',
+                                'default'	=> 'product_page',
                                 'options'	=> apply_filters('nx_conversion_link_options', array(
                                     'none'             => __('None', 'notificationx'),
                                     'product_page' => __( 'Product Page', 'notificationx' ),
