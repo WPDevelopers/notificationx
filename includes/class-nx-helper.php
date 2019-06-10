@@ -239,6 +239,16 @@ class NotificationX_Helper {
         }
         return $forms;
     }
+    public static function stats_source( $from = '' ) {
+        $froms = [
+            'wp_stats' => __('WordPress' , 'notificationx'),
+        ];
+        $forms = apply_filters('nx_stats_source_options', $froms );
+        if( $from ){
+            return $froms[ $from ];
+        }
+        return $forms;
+    }
     /**
      * This function is responsible for press_bar toggle data
      * @return array
@@ -333,6 +343,10 @@ class NotificationX_Helper {
                     'fields' => [ 'comments_source', 'conversion_from' ], 
                     'sections' => [  ], 
                 ),
+                'download_stats' => array(
+                    'fields' => [ 'comments_source', 'conversion_from', 'reviews_source' ], 
+                    'sections' => [  ], 
+                ),
             ));
         }
         if( $types == 'conversion_from' ) {
@@ -406,6 +420,7 @@ class NotificationX_Helper {
         $data = array(
             'comments_template_new',
             'wp_reviews_template_new',
+            'wp_stats_template_new',
             'edd_template_new',
             'woo_template_new',
         );

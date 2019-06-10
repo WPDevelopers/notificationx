@@ -30,7 +30,7 @@ function notificationx_metabox_args(){
                                     'press_bar'   => NotificationX_Helper::press_bar_toggle_data(),
                                     'conversions' => NotificationX_Helper::conversions_toggle_data(),
                                     'reviews'      => NotificationX_ToggleFields::reviews(),
-                                    // 'stats'       => NotificationX_Helper::stats_toggle_data(),
+                                    'download_stats'       => NotificationX_ToggleFields::stats(),
                                 )
                             ) ),
                             'reviews_source'  => apply_filters('nx_reviews_source', array(
@@ -40,12 +40,19 @@ function notificationx_metabox_args(){
                                 'options'  => NotificationX_Helper::reviews_source(),
                                 'priority' => 51,
                             )),
+                            'stats_source'  => apply_filters('nx_stats_source', array(
+                                'type'     => 'select',
+                                'label'    => __('Stats Source' , 'notificationx'),
+                                'default'  => 'wp_stats',
+                                'options'  => NotificationX_Helper::stats_source(),
+                                'priority' => 52,
+                            )),
                             'comments_source'  => apply_filters('nx_comments_source', array(
                                 'type'     => 'select',
                                 'label'    => __('Comments Source' , 'notificationx'),
                                 'default'  => 'wp_comments',
                                 'options'  => NotificationX_Helper::comments_source(),
-                                'priority' => 52,
+                                'priority' => 53,
                             )),
                             'conversion_from'  => apply_filters('nx_conversion_from', array(
                                 'type'     => 'select',

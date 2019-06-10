@@ -141,8 +141,8 @@ final class NotificationX {
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-extension.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'press-bar/class-press-bar.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'wp-comments/class-wp-comments.php';
-		require_once NOTIFICATIONX_EXT_DIR_PATH . 'wporg/class-wporg.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'wporg/class-wporg-review.php';
+		require_once NOTIFICATIONX_EXT_DIR_PATH . 'wporg/class-wporg-stats.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'woocommerce/class-woocommerce.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'edd/class-edd.php';
 		/**
@@ -179,8 +179,8 @@ final class NotificationX {
 		$extensions = [
 			'NotificationX_PressBar_Extension',
 			'NotificationX_WP_Comments_Extension',
-			// 'NotificationXPro_WPOrg_Extension',
 			'NotificationXPro_WPOrgReview_Extension',
+			'NotificationXPro_WPOrgStats_Extension',
 			'NotificationX_WooCommerce_Extension',
 			'NotificationX_EDD_Extension',
 		];

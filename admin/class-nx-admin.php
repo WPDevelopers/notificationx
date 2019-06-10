@@ -100,6 +100,9 @@ class NotificationX_Admin {
 					case 'reviews' : 
 						$type = $settings->reviews_source;
 						break;
+					case 'download_stats' : 
+						$type = $settings->stats_source;
+						break;
 				}
 
 				

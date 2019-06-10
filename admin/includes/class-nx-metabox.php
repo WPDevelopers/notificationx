@@ -280,6 +280,9 @@ class NotificationX_MetaBox {
             case 'reviews' : 
                 $type = $posts['nx_meta_reviews_source'];
                 break;
+            case 'download_stats' : 
+                $type = $posts['nx_meta_stats_source'];
+                break;
         }
 
         if( self::check_any_changes( $old_settings, $new_settings ) ) {

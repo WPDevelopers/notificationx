@@ -69,8 +69,17 @@ class NotificationX_ToggleFields {
     public static function reviews(){
         $fields = self::common_fields();
 
-        return apply_filters( 'nx_review_toggle_fields', array(
+        return apply_filters( 'nx_reviews_toggle_fields', array(
             'fields' => array_merge( $fields, array( 'reviews_source' ) ),
+            'sections' => array( 'image' )
+        ));
+    }
+
+    public static function stats(){
+        $fields = self::common_fields();
+
+        return apply_filters( 'nx_stats_toggle_fields', array(
+            'fields' => array_merge( $fields, array( 'stats_source' ) ),
             'sections' => array( 'image' )
         ));
     }

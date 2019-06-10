@@ -29,6 +29,9 @@
 				case 'reviews' : 
 					$('#nx_meta_reviews_source').trigger('change');
 					break;
+				case 'download_stats' : 
+					$('#nx_meta_stats_source').trigger('change');
+					break;
 			}
 		});
 
@@ -50,6 +53,16 @@
 				case 'wp_reviews' : 
 					$('#nx_meta_wp_reviews_template_adv').trigger('change');
 					$('#nx_meta_wporg_advance_edit').trigger('change');
+					break;
+			}
+		});
+
+		$('body').on('change', '#nx_meta_stats_source', function(){
+			var source = $(this).val();
+			switch( source ) {
+				case 'wp_stats' : 
+					$('#nx_meta_wp_stats_template_adv').trigger('change');
+					$('#nx_meta_wpstats_advance_edit').trigger('change');
 					break;
 			}
 		});
