@@ -102,6 +102,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
                 'custom_first_param' => array(
                     'type'     => 'text',
                     'priority' => 2,
+                    'default' => __('Someone' , 'notificationx')
                 ),
                 'second_param' => array(
                     'type'     => 'text',
