@@ -81,10 +81,24 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             return;
         }
 
-        $plugin_info = $this->get_plugins_data( $post_id );
+        $reviews = $this->get_plugins_data( $post_id );
+
+        NotificationX_Admin::update_post_meta( $post_id, $this->meta_key, $reviews );
+    }
+
+    /**
+     * This functions is hooked
+     * 
+     * @hooked nx_public_action
+     *
+     * @return void
+     */
+    public function public_actions(){
+        if( ! $this->is_created( $this->type ) ) {
+            return;
+        }
         
-        // NotificationX_Admin::update_post_meta( $post_id, "{$this->meta_key}_reviews", $reviews );
-        // NotificationX_Admin::update_post_meta( $post_id, "{$this->meta_key}_total_info", $reviews );
+        add_filter( 'nx_fields_data', array( $this, 'conversion_data' ), 10, 2 );
     }
 
     public function conversion_data( $data, $id ){
@@ -115,11 +129,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         $reviews_html = $this->helper->get_reviews( $plugin_slug );
         $reviews = $this->helper->extract_reviews_from_html( $reviews_html );
 
-
-        // dump( $reviews );
-        // die;
-
-        return $data;
+        return $reviews;
     }
 
     public function cache_duration( $schedules ) {
@@ -158,9 +168,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                     'label'    => __('Notification Template' , 'notificationx'),
                     'priority' => 1,
                     'options'  => array(
-                        'tag_name' => __('Full Name' , 'notificationx'),
-                        'tag_first_name' => __('First Name' , 'notificationx'),
-                        'tag_last_name' => __('Last Name' , 'notificationx'),
+                        'tag_username' => __('Username' , 'notificationx'),
                         'tag_custom' => __('Custom' , 'notificationx'),
                     ),
                     'dependency' => array(
@@ -169,17 +177,11 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                         )
                     ),
                     'hide' => array(
-                        'tag_name' => array(
-                            'fields' => [ 'custom_first_param' ]
-                        ),
-                        'tag_first_name' => array(
-                            'fields' => [ 'custom_first_param' ]
-                        ),
-                        'tag_last_name' => array(
+                        'tag_username' => array(
                             'fields' => [ 'custom_first_param' ]
                         ),
                     ),
-                    'default' => 'tag_name'
+                    'default' => 'tag_username'
                 ),
                 'custom_first_param' => array(
                     'type'     => 'text',
@@ -188,14 +190,14 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                 'second_param' => array(
                     'type'     => 'text',
                     'priority' => 3,
-                    'default' => __('recently reviewed' , 'notificationx')
+                    'default' => __('just reviewed' , 'notificationx')
                 ),
                 'third_param' => array(
                     'type'     => 'select',
                     'priority' => 4,
                     'options'  => array(
-                        'tag_title'       => __('Product Title' , 'notificationx'),
-                        'tag_anonymous_title' => __('Anonymous Product' , 'notificationx'),
+                        'tag_plugin_name'       => __('Plugin/Theme Name' , 'notificationx'),
+                        'tag_anonymous_title' => __('Anonymous Title' , 'notificationx'),
                     ),
                     'default' => 'tag_title'
                 ),
@@ -229,10 +231,10 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             'type'     => 'template',
             'priority' => 85,
             'defaults' => [
-                __('{{name}} recently reviewed', 'notificationx-pro'), '{{title}}', '{{time}}'
+                __('{{username}} recently reviewed', 'notificationx-pro'), '{{plugin_name}}', '{{time}}'
             ],
             'variables' => [
-                '{{name}}', '{{title}}', '{{time}}'
+                '{{username}}', '{{plugin_name}}', '{{title}}', '{{time}}'
             ],
         );
         

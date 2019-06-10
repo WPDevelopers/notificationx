@@ -220,16 +220,22 @@ class NotificationX_MetaBox {
                     }
                     $template_string[ $i ] = "{{{$tag}}} ";
                 } else {
-                    if( $template_string[ $i ] != ' ' || $template_string[ $i ] != '' ) {
+                    if( ! empty( trim( $template_string[ $i ] ) ) ) {
                         $temp_val = trim( $template_string[ $i ] ) . ' ';
                     }
-
+                    if( ! empty( $temp_val ) && strpos( $key, 'custom_' ) === 0 ) {
+                        $value = '';
+                    }
                     $template_string[ $i ] =  $temp_val . $value . " ";
                 }
+                $temp_val = $value = '';
             }
         }
         
-        return $template_string;
+        $saved_template = $template_string;
+        $template_string = [];
+
+        return $saved_template;
     }
 
     public static function save_data( $posts, $post_id ){
@@ -251,12 +257,12 @@ class NotificationX_MetaBox {
                 }
             }
 
-            
             if( strpos( $field_id, 'template_new', -12 ) !== false && strpos( $field_id, 'template_new', -12 ) >= 0 ) {
-                $template_string = self::template_generate( $posts[ $field_id ] );
-                update_post_meta( $post_id, "_nx_meta_temp_string", $template_string );    
+                if( $field_id === 'nx_meta_wp_reviews_template_new' ) {
+                    $template_string = self::template_generate( $posts[ $field_id ] );
+                }
+                update_post_meta( $post_id, "_{$field_id}_string", $template_string );
             }
-
             update_post_meta( $post_id, "_{$field_id}", $value );
             $data[ "_{$field_id}" ] = $new_settings->{ $name } = $value;
         }
@@ -270,6 +276,9 @@ class NotificationX_MetaBox {
                 break;
             case 'conversions' : 
                 $type = $posts['nx_meta_conversion_from'];
+                break;
+            case 'reviews' : 
+                $type = $posts['nx_meta_reviews_source'];
                 break;
         }
 
@@ -331,6 +340,12 @@ class NotificationX_MetaBox {
 
             if( isset( $field['type'] ) && $field['type'] == 'template' ) {
                 $default    = isset( $field['defaults'] ) ? $field['defaults'] : [];
+
+                if( strpos( $name, 'template_new', -12 ) >= 0 && metadata_exists( 'post', $id, "_{$field_id}_string" ) ) {
+                    $value  = get_post_meta( $id, "_{$field_id}_string", true );
+                    $settings->{ "{$name}_string" } = $value;
+                }
+
             }
 
             if ( metadata_exists( 'post', $id, "_{$field_id}" ) ) {
@@ -341,12 +356,7 @@ class NotificationX_MetaBox {
 
             $settings->{$name} = $value;
         }
-
-        if( metadata_exists( 'post', $id, "_nx_meta_temp_string" ) ) {
-            $value  = get_post_meta( $id, "_nx_meta_temp_string", true );
-            $settings->temp_string = $value;
-        }
-
+        
         $settings->id = $id;
 
         return $settings;

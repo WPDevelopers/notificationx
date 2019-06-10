@@ -23,6 +23,9 @@ switch( $settings->display_type ) {
     case 'conversions' : 
         $type = $extension_name = $key = $settings->conversion_from;
         break;
+    case 'reviews' : 
+        $type = $extension_name = $key = $settings->reviews_source;
+        break;
 }
 
 $data = apply_filters('nx_fields_data', $data, $settings->id );

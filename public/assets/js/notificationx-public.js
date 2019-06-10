@@ -69,6 +69,7 @@
 		if ( 'undefined' === typeof notificationx ) {
 			return;
 		}
+
 		window.localStorage.removeItem('nx_notifications');
 	
 		if ( notificationx.conversions.length > 0 ) {
@@ -79,6 +80,18 @@
 				});
 			} else {
 				$.notificationx.process( notificationx.conversions[0] );
+			}
+
+		}
+
+		if ( notificationx.reviews.length > 0 ) {
+
+			if( notificationx.reviews.length > 1 ) {
+				notificationx.reviews.map(function( id ){
+					$.notificationx.process( id );
+				});
+			} else {
+				$.notificationx.process( notificationx.reviews[0] );
 			}
 
 		}

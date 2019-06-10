@@ -117,8 +117,9 @@ class NotificationXPro_WPOrg_Helper {
         $data  = array();
 		$links = $this->get_links( $review, true );
 
-		$data['username']['text'] = isset( $links[1] ) ? $links[1] : '';
-		$data['username']['href'] = $this->get_link_href( $review );
+		$data['username']         = isset( $links[1] ) ? $links[1] : '';
+		// $data['username']['text'] = isset( $links[1] ) ? $links[1] : '';
+		// $data['username']['href'] = $this->get_link_href( $review );
 		$data['avatar']['src']    = $this->get_image_src( $review );
 		$data['content']          = iconv("UTF-8", 'ISO-8859-1', $this->get_node_content( $review, 'review-body' ));
 		$data['plugin_name']      = $this->plugin_information->name;
@@ -141,7 +142,6 @@ class NotificationXPro_WPOrg_Helper {
         foreach ( $nodes as $node ) {
             $raw_review = $node->ownerDocument->saveXML( $node );
 			$review     = $this->extract_review_data( $raw_review );
-
             $extracted_reviews[] = $review;
 		}
 

@@ -219,7 +219,7 @@ class NotificationX_Extension {
         extract( $args );
         $settings->themeName = $settings->{ $themeName };
         if( empty( $settings->{ $template . '_adv' } ) ) {
-            $template = 'temp_string';
+            $template =  $template . '_new_string';
         }
         $template = apply_filters( 'nx_template_id' , $template, $settings);
 
@@ -475,7 +475,6 @@ function get_extension_frontend( $key, $data, $settings = false ){
         $extension = new $extension_name;
         $args = [
             'template' => $extension->template,
-            // 'template' => "temp_string",
             'themeName' => $extension->themeName,
         ];
         return $extension->frontend_html( $data, $settings, $args );
