@@ -401,13 +401,9 @@
 
 		var mainid = id;
 		
-		console.log( id );
-
 		if( notificationx.template.indexOf( id ) >= 0 ) {
 			id = current.data('subkey');
 		}
-		
-		console.log( id );
 
 		if ( notificationx.toggleFields.hasOwnProperty( id ) ) {
 			var canShow = notificationx.toggleFields[id].hasOwnProperty( value );
@@ -700,8 +696,9 @@
 									res = item.replace( childParam, '<span style="color:red">' + childParam + '</span>' );
 								}
 							});
-
 							newItemLine.push( res );
+						} else {
+							newItemLine.push( item );
 						}
 					}
 				});
