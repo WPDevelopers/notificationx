@@ -56,6 +56,10 @@ class Extension_Factory {
                     add_filter( 'nx_template_name', array( $object, 'template_name' ) );
                 }
 
+                if( method_exists( $object, 'fallback_data' ) ) {
+                    add_filter( 'nx_fallback_data', array( $object, 'fallback_data' ) );
+                }
+
                 if( method_exists( $object, 'public_actions' ) ) {
                     add_action( 'nx_public_action', array( $object, 'public_actions' ) );
                 }

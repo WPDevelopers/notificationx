@@ -3,6 +3,7 @@
 class NotificationXPro_WPOrg_Helper {
 
     public $plugin_information;
+    public $theme_information;
 
     protected function get_links( $html, $strip_tags = false ) {
 
@@ -158,4 +159,55 @@ class NotificationXPro_WPOrg_Helper {
         return $this->plugin_information->sections['reviews'];
     }
 
+    public function get_plugin_stats( $plugin_slug ){
+        if( ! function_exists('plugins_api') ) {
+            require_once ABSPATH . '/wp-admin/includes/plugin-install.php';
+        }
+
+		$this->plugin_information = plugins_api( 'plugin_information', array( 'slug' => $plugin_slug, 'fields' => array( 'downloaded' => true, 'icons' => true, 'historical_summary' => true ) ) );
+		
+		$needed_key = array(
+			'name', 'slug', 'num_ratings', 'rating', 'homepage', 'version', 'downloaded', 'icons', 'active_installs', 'author_profile', 'author'
+		);
+		$new_data = [];
+
+		foreach( $needed_key as $key => $value ) {
+			if( isset( $this->plugin_information->$value ) ) {
+				$new_data[ $value ] = $this->plugin_information->$value;
+			}
+		}
+
+		if( isset( $new_data['homepage'] ) ) {
+			$new_data['link'] = $new_data['homepage'];
+			unset( $new_data['homepage'] );
+		}
+
+        return $new_data;
+	}
+
+    public function get_theme_stats( $theme_slug ){
+        if( ! function_exists('themes_api') ) {
+            require_once ABSPATH . '/wp-admin/includes/theme.php';
+        }
+
+		$this->theme_information = themes_api( 'theme_information', array( 'slug' => $theme_slug, 'fields' => array( 'downloaded' => true, 'sections' => true, 'theme_url' => true, 'photon_screenshots' => true, 'screenshot_url' => true ) ) );
+
+		$needed_key = array(
+			'name', 'slug', 'num_ratings', 'rating', 'homepage', 'version', 'downloaded', 'screenshot_url', 
+		);
+		$new_data = [];
+
+		foreach( $needed_key as $key => $value ) {
+			if( isset( $this->theme_information->$value ) ) {
+				$new_data[ $value ] = $this->theme_information->$value;
+			}
+		}
+
+		if( isset( $new_data['homepage'] ) ) {
+			$new_data['link'] = $new_data['homepage'];
+			unset( $new_data['homepage'] );
+		}
+
+		return $new_data;
+	}
 }

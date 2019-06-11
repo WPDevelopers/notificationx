@@ -136,7 +136,7 @@ class NotificationX_Public {
 			return;
 		}
 		$activeItems = self::$active;
-		$conversion_ids = $comments_id = array();
+		$conversion_ids = $comments_id = $reviews_id = $download_stats_id = array();
 		
 		foreach( self::$active as $id ) {
 			
@@ -188,6 +188,9 @@ class NotificationX_Public {
 				case "reviews":
 					$reviews_id[] = $id;
 					break;
+				case "download_stats":
+					$download_stats_id[] = $id;
+					break;
 			}
 			
 			self::generate_css( $settings );
@@ -201,11 +204,12 @@ class NotificationX_Public {
 		/**
 		* Filtered Active IDs
 		*/
-		$conversion_ids = apply_filters('nx_conversions_id', $conversion_ids );
-		$comments_id = apply_filters('nx_comments_id', $comments_id );
-		$reviews_id = apply_filters('nx_reviews_id', $reviews_id );
+		$conversion_ids              = apply_filters('nx_conversions_id', $conversion_ids );
+		$comments_id                 = apply_filters('nx_comments_id', $comments_id );
+		$reviews_id                  = apply_filters('nx_reviews_id', $reviews_id );
+		$reviedownload_stats_idws_id = apply_filters('nx_download_stats_id', $download_stats_id );
 		
-		if( ! empty( $conversion_ids ) || ! empty( $comments_id ) || ! empty( $pro_ext ) || ! empty( $reviews_id ) ) :
+		if( ! empty( $conversion_ids ) || ! empty( $comments_id ) || ! empty( $pro_ext ) || ! empty( $reviews_id ) || ! empty( $download_stats_id ) ) :
 			?>
 			<script type="text/javascript">
 			var notificationx = {
@@ -214,6 +218,7 @@ class NotificationX_Public {
 				conversions: <?php echo json_encode( $conversion_ids ); ?>,
 				comments   : <?php echo json_encode( $comments_id ); ?>,
 				reviews   : <?php echo json_encode( $reviews_id ); ?>,
+				stats   : <?php echo json_encode( $download_stats_id ); ?>,
 				pro_ext   : <?php echo json_encode( $pro_ext ); ?>,
 			};
 			</script>

@@ -34,6 +34,13 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         add_filter( 'cron_schedules', array( $this, 'cache_duration' ) );
     }
 
+    public function fallback_data( $data ){
+        $data['today_text'] = __( 'Try it out', 'notificationx' );
+        $data['last_week_text'] = __( 'in last 7 days', 'notificationx' );
+
+        return $data;
+    }
+
     public function load_dependencies(){
         if( ! class_exists( 'NotificationXPro_WPOrg_Helper' ) ) {
             require_once __DIR__ . '/class-wporg-helper.php';
@@ -55,10 +62,12 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         $avatar = '';
         $alt_title = isset( $data['name'] ) ? $data['name'] : $data['title'];
 
-        if( isset( $data['email'] ) ) {
-            $avatar = get_avatar_url( $data['email'], array(
-                'size' => '100',
-            ));
+        if( isset( $data['icons'] ) && $settings->wp_stats_product_type === 'plugin' ) {
+            $avatar = $data['icons']['2x'];
+        }
+
+        if( isset( $data['screenshot_url'] ) && $settings->wp_stats_product_type === 'theme' ) {
+            $avatar = $data['screenshot_url'];
         }
 
         $image_data['url'] = $avatar;
@@ -81,9 +90,8 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
             return;
         }
 
-        $reviews = $this->get_plugins_data( $post_id );
-
-        NotificationX_Admin::update_post_meta( $post_id, $this->meta_key, $reviews );
+        $plugins_data = $this->get_plugins_data( $post_id );
+        NotificationX_Admin::update_post_meta( $post_id, $this->meta_key, $plugins_data );
     }
 
     /**
@@ -120,16 +128,29 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
             return;
         }
 
+        $product_type = NotificationX_Admin::get_post_meta( intval( $post_id ), 'wp_stats_product_type', true );
         $plugin_slug = NotificationX_Admin::get_post_meta( intval( $post_id ), 'wp_stats_slug', true );
 
         if( ! $plugin_slug ) {
             return;
         }
 
-        $reviews_html = $this->helper->get_reviews( $plugin_slug );
-        $reviews = $this->helper->extract_reviews_from_html( $reviews_html );
+        if( $product_type == 'plugin' ) {
+            $raw_stats              = $this->helper->get_plugin_stats( $plugin_slug );
+            $raw_historical_summary = $this->remote_get('https://api.wordpress.org/stats/plugin/1.0/downloads.php?slug='. $plugin_slug .'&historical_summary=1');
+            $historical_summary     = json_decode( json_encode( $raw_historical_summary ), true );
+            $total_stats            = array_merge( $raw_stats, $historical_summary );
+            $total_stats['link'] = "https://wordpress.org/plugins/" . $total_stats['slug'];
+        }
 
-        return $reviews;
+        if( $product_type == 'theme' ) {
+            $stats              = $this->helper->get_theme_stats( $plugin_slug );
+            $raw_historical_summary = $this->remote_get('https://api.wordpress.org/stats/themes/1.0/downloads.php?slug='. $plugin_slug .'&historical_summary=1');
+            $historical_summary     = json_decode( json_encode( $raw_historical_summary ), true );
+            $total_stats            = array_merge( $stats, $historical_summary );
+        }
+
+        return array( $total_stats );
     }
 
     public function cache_duration( $schedules ) {
@@ -139,13 +160,13 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
             $custom_duration = 45;
         }
 
-        if ( $custom_duration < 5 ) {
-            $custom_duration = 5;
+        if ( $custom_duration < 3 ) {
+            $custom_duration = 3;
         }
 
         $schedules['nx_cache_interval'] = array(
             'interval'	=> $custom_duration * 60,
-            'display'	=> sprintf( __('Every %s minutes', 'notificationx-pro'), $custom_duration )
+            'display'	=> sprintf( __('Every %s minutes', 'notificationx'), $custom_duration )
         );
 
         return $schedules;
@@ -153,10 +174,20 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
 
     private function init_fields(){
         $fields = [];
+
+        $fields['wp_stats_product_type'] = array(
+            'type'     => 'select',
+            'label'    => __('Product Type' , 'notificationx'),
+            'priority' => 79,
+            'options' => array(
+                'plugin' => __('Plugin' , 'notificationx'),
+                'theme' => __('Theme' , 'notificationx'),
+            )
+        );
         
         $fields['wp_stats_slug'] = array(
             'type'     => 'text',
-            'label'    => __('Plugin/Theme Slug' , 'notificationx-pro'),
+            'label'    => __('Slug' , 'notificationx'),
             'priority' => 80,
         );
 
@@ -168,7 +199,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
                     'label'    => __('Notification Template' , 'notificationx'),
                     'priority' => 1,
                     'options'  => array(
-                        'tag_username' => __('Username' , 'notificationx'),
+                        'tag_name' => __('Plugin/Theme Name' , 'notificationx'),
                         'tag_custom' => __('Custom' , 'notificationx'),
                     ),
                     'dependency' => array(
@@ -177,39 +208,62 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
                         )
                     ),
                     'hide' => array(
-                        'tag_username' => array(
+                        'tag_name' => array(
                             'fields' => [ 'custom_first_param' ]
                         ),
                     ),
-                    'default' => 'tag_username'
+                    'default' => 'tag_name'
                 ),
                 'custom_first_param' => array(
                     'type'     => 'text',
                     'priority' => 2,
-                    'default' => __('Someone' , 'notificationx')
                 ),
                 'second_param' => array(
                     'type'     => 'text',
-                    'priority' => 3,
-                    'default' => __('just reviewed' , 'notificationx')
+                    'priority' => 4,
+                    'default' => __('has been downloaded' , 'notificationx')
                 ),
                 'third_param' => array(
                     'type'     => 'select',
-                    'priority' => 4,
+                    'priority' => 5,
                     'options'  => array(
-                        'tag_plugin_name'       => __('Plugin/Theme Name' , 'notificationx'),
-                        'tag_anonymous_title' => __('Anonymous Title' , 'notificationx'),
+                        'tag_today'       => __('Today' , 'notificationx'),
+                        'tag_last_week'       => __('In last 7 days' , 'notificationx'),
+                        'tag_all_time'       => __('Total' , 'notificationx'),
+                        'tag_custom_stats' => __('Custom' , 'notificationx'),
                     ),
-                    'default' => 'tag_title'
+                    'dependency' => array(
+                        'tag_custom_stats' => array(
+                            'fields' => [ 'custom_third_param' ]
+                        )
+                    ),
+                    'hide' => array(
+                        'tag_today' => array(
+                            'fields' => [ 'custom_third_param' ]
+                        ),
+                        'tag_last_week' => array(
+                            'fields' => [ 'custom_third_param' ]
+                        ),
+                        'tag_all_time' => array(
+                            'fields' => [ 'custom_third_param' ]
+                        ),
+                    ),
+                    'default' => 'tag_all_time'
+                ),
+                'custom_third_param' => array(
+                    'type'     => 'text',
+                    'priority' => 6,
                 ),
                 'fourth_param' => array(
                     'type'     => 'select',
-                    'priority' => 5,
+                    'priority' => 7,
                     'options'  => array(
-                        'tag_time'       => __('Definite Time' , 'notificationx'),
-                        'sometime' => __('Sometimes ago' , 'notificationx'),
+                        'tag_today_text'           => __('today. Try it out' , 'notificationx'),
+                        'tag_last_week_text'       => __('in last 7 days' , 'notificationx'),
+                        'tag_all_time_text'        => __('in total' , 'notificationx'),
+                        'tag_active_installs_text' => __('in total active' , 'notificationx'),
                     ),
-                    'default' => 'tag_time'
+                    'default' => 'tag_today_text'
                 ),
             ),
             'label'    => __('Notification Template' , 'notificationx'),
@@ -232,10 +286,10 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
             'type'     => 'template',
             'priority' => 85,
             'defaults' => [
-                __('{{username}} recently reviewed', 'notificationx-pro'), '{{plugin_name}}', '{{time}}'
+                __('{{name}}', 'notificationx'), 'has been downloaded {{all_time}} times', 'Why not you?'
             ],
             'variables' => [
-                '{{username}}', '{{plugin_name}}', '{{title}}', '{{time}}'
+                '{{name}}', '{{today}}', '{{last_week}}', '{{yesterday}}', '{{all_time}}', '{{active_installs}}'
             ],
         );
         
@@ -245,7 +299,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         $sections = [];
 
         $sections['wpstats_themes'] = array(
-            'title'      => __('Themes', 'notificationx-pro'),
+            'title'      => __('Themes', 'notificationx'),
             'priority' => 14,
             'fields'   => array(
                 'wpstats_theme' => array(
@@ -267,25 +321,25 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         );
 
         $sections['wpstats_theme_design'] = array(
-            'title'    => __('Design', 'notificationx-pro'),
+            'title'    => __('Design', 'notificationx'),
             'priority' => 15,
             'reset'    => true,
             'fields'   => array(
                 'wpstats_bg_color' => array(
                     'type'      => 'colorpicker',
-                    'label'     => __('Background Color' , 'notificationx-pro'),
+                    'label'     => __('Background Color' , 'notificationx'),
                     'priority'	=> 5,
                     'default'	=> ''
                 ),
                 'wpstats_text_color' => array(
                     'type'      => 'colorpicker',
-                    'label'     => __('Text Color' , 'notificationx-pro'),
+                    'label'     => __('Text Color' , 'notificationx'),
                     'priority'	=> 10,
                     'default'	=> ''
                 ),
                 'wpstats_border' => array(
                     'type'      => 'checkbox',
-                    'label'     => __('Want Border?' , 'notificationx-pro'),
+                    'label'     => __('Want Border?' , 'notificationx'),
                     'priority'	=> 15,
                     'default'	=> 0,
                     'dependency'	=> [
@@ -296,25 +350,25 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
                 ),
                 'wpstats_border_size' => array(
                     'type'      => 'number',
-                    'label'     => __('Border Size' , 'notificationx-pro'),
+                    'label'     => __('Border Size' , 'notificationx'),
                     'priority'	=> 20,
                     'default'	=> '1',
                     'description'	=> 'px',
                 ),
                 'wpstats_border_style' => array(
                     'type'      => 'select',
-                    'label'     => __('Border Style' , 'notificationx-pro'),
+                    'label'     => __('Border Style' , 'notificationx'),
                     'priority'	=> 25,
                     'default'	=> 'solid',
                     'options'	=> [
-                        'solid' => __('Solid', 'notificationx-pro'),
-                        'dashed' => __('Dashed', 'notificationx-pro'),
-                        'dotted' => __('Dotted', 'notificationx-pro'),
+                        'solid' => __('Solid', 'notificationx'),
+                        'dashed' => __('Dashed', 'notificationx'),
+                        'dotted' => __('Dotted', 'notificationx'),
                     ],
                 ),
                 'wpstats_border_color' => array(
                     'type'      => 'colorpicker',
-                    'label'     => __('Border Color' , 'notificationx-pro'),
+                    'label'     => __('Border Color' , 'notificationx'),
                     'priority'	=> 30,
                     'default'	=> ''
                 ),
@@ -322,33 +376,33 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         );
 
         $sections['wpstats_theme_typography'] = array(
-            'title'      => __('Typography', 'notificationx-pro'),
+            'title'      => __('Typography', 'notificationx'),
             'priority' => 16,
             'reset'    => true,
             'fields'   => array(
                 'wpstats_first_font_size' => array(
                     'type'      => 'number',
-                    'label'     => __('Font Size' , 'notificationx-pro'),
+                    'label'     => __('Font Size' , 'notificationx'),
                     'priority'	=> 5,
                     'default'	=> '13',
                     'description'	=> 'px',
-                    'help'	=> __( 'This font size will be applied for <mark>first</mark> row', 'notificationx-pro' ),
+                    'help'	=> __( 'This font size will be applied for <mark>first</mark> row', 'notificationx' ),
                 ),
                 'wpstats_second_font_size' => array(
                     'type'      => 'number',
-                    'label'     => __('Font Size' , 'notificationx-pro'),
+                    'label'     => __('Font Size' , 'notificationx'),
                     'priority'	=> 10,
                     'default'	=> '14',
                     'description'	=> 'px',
-                    'help'	=> __( 'This font size will be applied for <mark>second</mark> row', 'notificationx-pro' ),
+                    'help'	=> __( 'This font size will be applied for <mark>second</mark> row', 'notificationx' ),
                 ),
                 'wpstats_third_font_size' => array(
                     'type'      => 'number',
-                    'label'     => __('Font Size' , 'notificationx-pro'),
+                    'label'     => __('Font Size' , 'notificationx'),
                     'priority'	=> 15,
                     'default'	=> '11',
                     'description'	=> 'px',
-                    'help'	=> __( 'This font size will be applied for <mark>third</mark> row', 'notificationx-pro' ),
+                    'help'	=> __( 'This font size will be applied for <mark>third</mark> row', 'notificationx' ),
                 ),
             )
         );
@@ -497,15 +551,16 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         $sections = $this->init_sections();
         unset( $fields[ $this->template ] );
         $old_fields = [];
-        $options['source_tab']['sections']['config']['fields']['reviews_source']['dependency'][ $this->type ]['fields'] = array_keys( $fields );
+        $options['source_tab']['sections']['config']['fields']['stats_source']['dependency'][ $this->type ]['fields'] = array_keys( $fields );
         return $options;
     }
 
     public function themes(){
         return apply_filters('nxpro_stats_themes', array(
-            'theme-one' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/reviewed.png',
-            'theme-two' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/saying-review.png',
-            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/total-rated.png',
+            'theme-one' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/today-download.png',
+            'theme-two' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/7day-download.png',
+            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/actively-using.png',
+            'theme-four' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/total-download.png',
         ));
     }
 

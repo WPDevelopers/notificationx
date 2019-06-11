@@ -5,6 +5,7 @@
     endif;
 
     $inner_fields = isset( $field['fields'] ) ? $field['fields'] : false;   
+    $subkey = '';
 ?>
 <div id="<?php echo $name; ?>">
     <?php if( $inner_fields ) :
@@ -14,10 +15,11 @@
             <?php 
                 foreach( $inner_fields as $key => $inner_field ) {
                     $main_name = $name;
-                    $field_id = $name . "_" . $key;
-                    $name = $name . "[" . $key . "]";
+                    $subkey = $key;
+                    $field_id = $name . "_" . $subkey;
+                    $name = $name . "[" . $subkey . "]";
 
-                    $attrs .= ' data-subkey="' . esc_attr( $key ) . '"';
+                    $attrs = ' data-subkey="' . esc_attr( $subkey ) . '"'; // easy fix removing . before =;
 
                     $file_name = $inner_field['type'];
                     if( $file_name === 'select' ) {
@@ -27,6 +29,8 @@
                     
                     if( $file_name ) {
                         include NOTIFICATIONX_ADMIN_DIR_PATH . 'includes/fields/nx-'. $file_name .'.php';
+                        $subkey = '';
+                        $class = 'nx-meta-field';
                     }
                     $name = $main_name;
                 }

@@ -400,10 +400,14 @@
 		}
 
 		var mainid = id;
+		
+		console.log( id );
 
 		if( notificationx.template.indexOf( id ) >= 0 ) {
 			id = current.data('subkey');
 		}
+		
+		console.log( id );
 
 		if ( notificationx.toggleFields.hasOwnProperty( id ) ) {
 			var canShow = notificationx.toggleFields[id].hasOwnProperty( value );
