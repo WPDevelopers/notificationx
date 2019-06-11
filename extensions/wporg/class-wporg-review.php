@@ -120,14 +120,20 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             return;
         }
 
+        $product_type = NotificationX_Admin::get_post_meta( intval( $post_id ), 'wp_reviews_product_type', true );
         $plugin_slug = NotificationX_Admin::get_post_meta( intval( $post_id ), 'wp_reviews_slug', true );
+
+        $reviews = [];
 
         if( ! $plugin_slug ) {
             return;
         }
 
-        $reviews_html = $this->helper->get_reviews( $plugin_slug );
-        $reviews = $this->helper->extract_reviews_from_html( $reviews_html );
+        if( $product_type == 'plugin' ) { 
+            $reviews_html = $this->helper->get_plugin_reviews( $plugin_slug );
+            $reviews = $this->helper->extract_reviews_from_html( $reviews_html );
+        }
+        
 
         return $reviews;
     }
@@ -145,7 +151,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
 
         $schedules['nx_cache_interval'] = array(
             'interval'	=> $custom_duration * 60,
-            'display'	=> sprintf( __('Every %s minutes', 'notificationx-pro'), $custom_duration )
+            'display'	=> sprintf( __('Every %s minutes', 'notificationx'), $custom_duration )
         );
 
         return $schedules;
@@ -153,10 +159,19 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
 
     private function init_fields(){
         $fields = [];
+
+        $fields['wp_reviews_product_type'] = array(
+            'type'     => 'select',
+            'label'    => __('Product Type' , 'notificationx'),
+            'priority' => 79,
+            'options' => array(
+                'plugin' => __('Plugin' , 'notificationx'),
+            )
+        );
         
         $fields['wp_reviews_slug'] = array(
             'type'     => 'text',
-            'label'    => __('Plugin Slug' , 'notificationx-pro'),
+            'label'    => __('Slug' , 'notificationx'),
             'priority' => 80,
         );
 
@@ -232,7 +247,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             'type'     => 'template',
             'priority' => 85,
             'defaults' => [
-                __('{{username}} recently reviewed', 'notificationx-pro'), '{{plugin_name}}', '{{time}}'
+                __('{{username}} recently reviewed', 'notificationx'), '{{plugin_name}}', '{{time}}'
             ],
             'variables' => [
                 '{{username}}', '{{plugin_name}}', '{{title}}', '{{time}}'
@@ -245,7 +260,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         $sections = [];
 
         $sections['wporg_themes'] = array(
-            'title'      => __('Themes', 'notificationx-pro'),
+            'title'      => __('Themes', 'notificationx'),
             'priority' => 14,
             'fields'   => array(
                 'wporg_theme' => array(
@@ -267,25 +282,25 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         );
 
         $sections['wporg_design'] = array(
-            'title'    => __('Design', 'notificationx-pro'),
+            'title'    => __('Design', 'notificationx'),
             'priority' => 15,
             'reset'    => true,
             'fields'   => array(
                 'wporg_bg_color' => array(
                     'type'      => 'colorpicker',
-                    'label'     => __('Background Color' , 'notificationx-pro'),
+                    'label'     => __('Background Color' , 'notificationx'),
                     'priority'	=> 5,
                     'default'	=> ''
                 ),
                 'wporg_text_color' => array(
                     'type'      => 'colorpicker',
-                    'label'     => __('Text Color' , 'notificationx-pro'),
+                    'label'     => __('Text Color' , 'notificationx'),
                     'priority'	=> 10,
                     'default'	=> ''
                 ),
                 'wporg_border' => array(
                     'type'      => 'checkbox',
-                    'label'     => __('Want Border?' , 'notificationx-pro'),
+                    'label'     => __('Want Border?' , 'notificationx'),
                     'priority'	=> 15,
                     'default'	=> 0,
                     'dependency'	=> [
@@ -296,25 +311,25 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                 ),
                 'wporg_border_size' => array(
                     'type'      => 'number',
-                    'label'     => __('Border Size' , 'notificationx-pro'),
+                    'label'     => __('Border Size' , 'notificationx'),
                     'priority'	=> 20,
                     'default'	=> '1',
                     'description'	=> 'px',
                 ),
                 'wporg_border_style' => array(
                     'type'      => 'select',
-                    'label'     => __('Border Style' , 'notificationx-pro'),
+                    'label'     => __('Border Style' , 'notificationx'),
                     'priority'	=> 25,
                     'default'	=> 'solid',
                     'options'	=> [
-                        'solid' => __('Solid', 'notificationx-pro'),
-                        'dashed' => __('Dashed', 'notificationx-pro'),
-                        'dotted' => __('Dotted', 'notificationx-pro'),
+                        'solid' => __('Solid', 'notificationx'),
+                        'dashed' => __('Dashed', 'notificationx'),
+                        'dotted' => __('Dotted', 'notificationx'),
                     ],
                 ),
                 'wporg_border_color' => array(
                     'type'      => 'colorpicker',
-                    'label'     => __('Border Color' , 'notificationx-pro'),
+                    'label'     => __('Border Color' , 'notificationx'),
                     'priority'	=> 30,
                     'default'	=> ''
                 ),
@@ -322,33 +337,33 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         );
 
         $sections['wporg_typography'] = array(
-            'title'      => __('Typography', 'notificationx-pro'),
+            'title'      => __('Typography', 'notificationx'),
             'priority' => 16,
             'reset'    => true,
             'fields'   => array(
                 'wporg_first_font_size' => array(
                     'type'      => 'number',
-                    'label'     => __('Font Size' , 'notificationx-pro'),
+                    'label'     => __('Font Size' , 'notificationx'),
                     'priority'	=> 5,
                     'default'	=> '13',
                     'description'	=> 'px',
-                    'help'	=> __( 'This font size will be applied for <mark>first</mark> row', 'notificationx-pro' ),
+                    'help'	=> __( 'This font size will be applied for <mark>first</mark> row', 'notificationx' ),
                 ),
                 'wporg_second_font_size' => array(
                     'type'      => 'number',
-                    'label'     => __('Font Size' , 'notificationx-pro'),
+                    'label'     => __('Font Size' , 'notificationx'),
                     'priority'	=> 10,
                     'default'	=> '14',
                     'description'	=> 'px',
-                    'help'	=> __( 'This font size will be applied for <mark>second</mark> row', 'notificationx-pro' ),
+                    'help'	=> __( 'This font size will be applied for <mark>second</mark> row', 'notificationx' ),
                 ),
                 'wporg_third_font_size' => array(
                     'type'      => 'number',
-                    'label'     => __('Font Size' , 'notificationx-pro'),
+                    'label'     => __('Font Size' , 'notificationx'),
                     'priority'	=> 15,
                     'default'	=> '11',
                     'description'	=> 'px',
-                    'help'	=> __( 'This font size will be applied for <mark>third</mark> row', 'notificationx-pro' ),
+                    'help'	=> __( 'This font size will be applied for <mark>third</mark> row', 'notificationx' ),
                 ),
             )
         );

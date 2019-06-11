@@ -95,6 +95,18 @@
 			}
 
 		}
+
+		if ( notificationx.stats.length > 0 ) {
+
+			if( notificationx.stats.length > 1 ) {
+				notificationx.stats.map(function( id ){
+					$.notificationx.process( id );
+				});
+			} else {
+				$.notificationx.process( notificationx.stats[0] );
+			}
+
+		}
 		
 		if ( notificationx.comments.length > 0 ) {
 			$.notificationx.process( notificationx.comments[0] );

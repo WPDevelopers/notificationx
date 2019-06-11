@@ -149,7 +149,7 @@ class NotificationXPro_WPOrg_Helper {
 		return $extracted_reviews;
     }
 
-    public function get_reviews( $plugin_slug ){
+    public function get_plugin_reviews( $plugin_slug ){
         if( ! function_exists('plugins_api') ) {
             require_once ABSPATH . '/wp-admin/includes/plugin-install.php';
         }
@@ -157,6 +157,16 @@ class NotificationXPro_WPOrg_Helper {
         $this->plugin_information = plugins_api( 'plugin_information', array( 'slug' => $plugin_slug, 'fields' => array( 'reviews' => true ) ) );
 
         return $this->plugin_information->sections['reviews'];
+	}
+	
+	public function get_theme_reviews( $theme_slug ){
+        if( ! function_exists('themes_api') ) {
+            require_once ABSPATH . '/wp-admin/includes/themes.php';
+        }
+
+        // $this->theme_information = themes_api( 'theme_information', array( 'slug' => $theme_slug, 'fields' => array( 'reviews' => true ) ) );
+
+        return [];
     }
 
     public function get_plugin_stats( $plugin_slug ){
