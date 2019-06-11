@@ -258,9 +258,7 @@ class NotificationX_MetaBox {
             }
 
             if( strpos( $field_id, 'template_new', -12 ) !== false && strpos( $field_id, 'template_new', -12 ) >= 0 ) {
-                if( $field_id === 'nx_meta_wp_reviews_template_new' ) {
-                    $template_string = self::template_generate( $posts[ $field_id ] );
-                }
+                $template_string = self::template_generate( $posts[ $field_id ] );
                 update_post_meta( $post_id, "_{$field_id}_string", $template_string );
             }
             update_post_meta( $post_id, "_{$field_id}", $value );
