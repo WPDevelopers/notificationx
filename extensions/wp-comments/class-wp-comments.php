@@ -30,7 +30,9 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
     }
 
     public function fallback_data( $data ){
-        $data['anonymous_post'] = __( 'No Post Title', 'notificationx' );
+        $data['first_name'] = __( 'Someone', 'notificationx' );
+        $data['last_name'] = __( 'Someone', 'notificationx' );
+        $data['anonymous_post'] = __( 'Anonymous Post', 'notificationx' );
         $data['sometime'] = __( 'Sometimes ago', 'notificationx' );
 
         return $data;
