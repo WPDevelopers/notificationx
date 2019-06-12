@@ -91,6 +91,9 @@ class NotificationX_Admin {
 				$settings = NotificationX_MetaBox::get_metabox_settings( $post->ID );
 
 				switch( $settings->display_type ) {
+					case 'press_bar' : 
+						$type = $settings->display_type;
+						break;
 					case 'comments' : 
 						$type = $settings->comments_source;
 						break;
@@ -427,7 +430,7 @@ class NotificationX_Admin {
 					'post_type'   => 'notificationx',
 					'post_title'  => $title . ' - ' . date( get_option( 'date_format' ), current_time( 'timestamp' ) ),
 					'post_status' => 'publish',
-					'post_author' => get_current_user_id()
+					'post_author' => get_current_user_id(),
 				);
 				
 				$p_id = wp_insert_post($postdata);
