@@ -23,9 +23,26 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         add_filter( 'nx_notification_link', array( $this, 'notification_link' ), 10, 2 );
     }
 
+    public function template_string_by_theme( $template, $old_template, $posts_data ){
+        if( $posts_data['nx_meta_display_type'] === 'conversions' && $posts_data['nx_meta_conversion_from'] === $this->type ) {
+            $theme = $posts_data['nx_meta_theme'];
 
-    public function fallback_data( $data ){
-        $data['anonymous_post'] = __( 'No Product Title', 'notificationx' );
+            switch( $theme ) {
+                default : 
+                    $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'third_param', 'fourth_param' ] ) );
+                    break;
+            }
+
+            return $template;
+        }
+        return $template;
+    }
+
+
+    public function fallback_data( $data, $saved_data ){
+        $data['first_name'] = __( 'Someone', 'notificationx' );
+        $data['last_name'] = __( 'Someone', 'notificationx' );
+        $data['anonymous_title'] = __( 'Anonymous Product', 'notificationx' );
         $data['sometime'] = __( 'Sometimes ago', 'notificationx' );
 
         return $data;

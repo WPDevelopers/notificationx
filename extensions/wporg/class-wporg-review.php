@@ -39,14 +39,8 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             $theme = $posts_data['nx_meta_wporg_theme'];
 
             switch( $theme ) {
-                case 'theme-one' : 
-                    $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'third_param', 'fourth_param' ] ) );
-                    break;
-                case 'theme-two' : 
-                    $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'third_param', 'fourth_param' ] ) );
-                    break;
                 default : 
-                    $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
+                    $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'third_param', 'fourth_param' ] ) );
                     break;
             }
 
