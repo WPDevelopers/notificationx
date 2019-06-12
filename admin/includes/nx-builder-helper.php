@@ -40,12 +40,19 @@ function notificationx_builder_args() {
                                 'options'  => NotificationX_Helper::reviews_source(),
                                 'priority' => 51,
                             )),
+                            'stats_source'  => apply_filters('nx_stats_source', array(
+                                'type'     => 'select',
+                                'label'    => __('Stats Source' , 'notificationx'),
+                                'default'  => 'wp_stats',
+                                'options'  => NotificationX_Helper::stats_source(),
+                                'priority' => 52,
+                            )),
                             'comments_source'  => apply_filters('nx_comments_source', array(
                                 'type'     => 'select',
                                 'label'    => __('Comments Source' , 'notificationx'),
                                 'default'  => 'wp_comments',
                                 'options'  => NotificationX_Helper::comments_source(),
-                                'priority' => 52,
+                                'priority' => 53,
                             )),
                             'conversion_from'  => array(
                                 'type'     => 'select',

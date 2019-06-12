@@ -612,6 +612,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         unset( $fields[ $this->template ] );
         unset( $fields[ $this->template . '_new' ] );
         unset( $fields[ $this->template . '_adv' ] );
+        unset( $fields['actively_using_template_new'] );
         unset( $sections['wpstats_theme_design'] );
         unset( $sections['wpstats_themes']['fields']['wpstats_advance_edit'] );
         unset( $sections['wpstats_theme_typography'] );
