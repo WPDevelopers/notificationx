@@ -32,9 +32,55 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         add_action( 'nx_cron_update_data', array( $this, 'update_data' ), 10, 1 );
         add_action( 'nx_admin_action', array( $this, 'admin_save' ) );
         add_filter( 'cron_schedules', array( $this, 'cache_duration' ) );
+        add_filter( 'nx_template_settings_by_theme', array( $this, 'settings_by_theme' ) );
+        add_filter( 'nx_template_string_generate', function( $posts_data ){
+            if( $posts_data['nx_meta_display_type'] != 'download_stats' && $posts_data['nx_meta_stats_source'] != $this->type ) {
+                return $posts_data;
+            }
+            
+            $theme = $posts_data['nx_meta_wpstats_theme'];
+            $new_template = $posts_data['nx_meta_wp_stats_template_new'];
+            $new_template_string = [];
+
+            switch( $theme ) {
+                case 'theme-one' : 
+                    $template = NotificationX_Helper::regenerate_the_theme( $new_template, array( 'br_before' => [ 2, 5 ] ) );
+                    break;
+                case 'theme-two' : 
+                    $template = NotificationX_Helper::regenerate_the_theme( $new_template, array( 'br_before' => [ 2, 3 ] ) );
+                    break;
+            }
+
+            return $template;
+        } );
     }
 
-    public function fallback_data( $data ){
+    public function settings_by_theme( $data ){
+        $data['nx_meta_wp_stats_template_new'] = array(
+            'theme-one' => array(
+                'first_param' => 'tag_name',
+                'third_param' => 'tag_today',
+                'fourth_param' => 'tag_today_text',
+            ),
+            'theme-two' => array(
+                'first_param' => 'tag_name',
+                'third_param' => 'tag_last_week',
+                'fourth_param' => 'tag_last_week_text',
+            ),
+            'theme-four' => array(
+                'first_param' => 'tag_name',
+                'third_param' => 'tag_all_time',
+                'fourth_param' => 'tag_all_time_text',
+            )
+        );
+
+        return $data;
+    }
+
+    public function fallback_data( $data, $saved_data ){
+
+        unset( $data['name'] );
+
         $data['today_text'] = __( 'Try it out', 'notificationx' );
         $data['last_week_text'] = __( 'in last 7 days', 'notificationx' );
 
@@ -227,10 +273,11 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
                     'type'     => 'select',
                     'priority' => 5,
                     'options'  => array(
-                        'tag_today'       => __('Today' , 'notificationx'),
+                        'tag_today'           => __('Today' , 'notificationx'),
                         'tag_last_week'       => __('In last 7 days' , 'notificationx'),
-                        'tag_all_time'       => __('Total' , 'notificationx'),
-                        'tag_custom_stats' => __('Custom' , 'notificationx'),
+                        'tag_all_time'        => __('Total' , 'notificationx'),
+                        'tag_active_installs' => __('Total Active Install' , 'notificationx'),
+                        'tag_custom_stats'    => __('Custom' , 'notificationx'),
                     ),
                     'dependency' => array(
                         'tag_custom_stats' => array(

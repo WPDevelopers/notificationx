@@ -426,4 +426,44 @@ class NotificationX_Helper {
         );
         return $data;
     }
+
+    public static function regenerate_the_theme( $template_data, $desire_data ){
+        $template_string = [];
+
+        if( ! empty( $template_data ) ) {
+            $i = $j = 0;
+            foreach( $template_data as $key => $value ) {
+                if( strpos( $value, 'tag_' ) === 0 ) {
+                    $tag = str_replace( 'tag_', '', $value );
+                    if( $tag == 'custom' ) {
+                        continue;
+                    }
+                    $template_string[ $i ] = "{{{$tag}}} ";
+                } else {
+                    if( ! empty( trim( $template_string[ $i ] ) ) ) {
+                        $temp_val = trim( $template_string[ $i ] ) . ' ';
+                    }
+                    if( ! empty( $temp_val ) && strpos( $key, 'custom_' ) === 0 ) {
+                        $value = '';
+                    }
+                    $template_string[ $i ] =  $temp_val . $value . " ";
+                }
+                $temp_val = $value = '';
+                $i++;
+            }
+        }
+        $count = count( $template_string );
+        $new_template_str = [];
+        for( $i = 0, $j = 0; $i < $count; $i++ ) {
+            if( in_array( $i, $desire_data['br_before'] ) ) {
+                $j++;
+            }
+            if( empty( $template_string[ $i ] ) ) {
+                continue;
+            }
+            $new_template_str[ $j ] .= $template_string[ $i ];
+        }
+        
+        return $new_template_str;
+    }
 }

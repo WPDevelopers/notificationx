@@ -233,7 +233,12 @@ class NotificationX_Admin {
 			}
 		}
 
-		return array( 'toggleFields' => $conditions, 'hideFields' => $hideFields, 'template' => apply_filters( 'nx_template_name', array() ) );
+		return array( 
+			'toggleFields' => $conditions, 
+			'hideFields' => $hideFields, 
+			'template' => apply_filters( 'nx_template_name', array() ),
+			'template_settings' => apply_filters( 'nx_template_settings_by_theme', array() ),
+		);
 	}
 	
 	public function custom_columns( $columns ) {

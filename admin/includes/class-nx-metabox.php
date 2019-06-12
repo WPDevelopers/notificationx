@@ -203,9 +203,16 @@ class NotificationX_MetaBox {
         do_action('notificationx_save_post'); 
     }
 
-    protected static function template_generate( $template ){
+    protected static function template_generate( $template, $posts_data = [] ){
+        if( empty( $posts_data ) ) {
+            return '';
+        }
         $template_string = [];
         $temp_val = '';
+
+        if( $posts_data ) {
+            return apply_filters( 'nx_template_string_generate', $posts_data );
+        }
         
         if( ! empty( $template ) ) {
             $i = $j = 0;
@@ -258,7 +265,7 @@ class NotificationX_MetaBox {
             }
 
             if( strpos( $field_id, 'template_new', -12 ) !== false && strpos( $field_id, 'template_new', -12 ) >= 0 ) {
-                $template_string = self::template_generate( $posts[ $field_id ] );
+                $template_string = self::template_generate( $posts[ $field_id ], $posts );
                 update_post_meta( $post_id, "_{$field_id}_string", $template_string );
             }
             update_post_meta( $post_id, "_{$field_id}", $value );

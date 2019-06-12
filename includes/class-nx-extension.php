@@ -49,9 +49,6 @@ class NotificationX_Extension {
      * Constructor of extension for ready the settings and cache limit.
      */
     public function __construct( $template = '' ){
-        $this->defaults = apply_filters('nx_fallback_data', array(
-            'name' => __('Someone', 'notificationx')
-        ));
         $this->limiter = new NotificationX_Array();
         $limit = intval( NotificationX_DB::get_settings( 'cache_limit' ) );
         if( $limit <= 0 ) {
@@ -214,7 +211,11 @@ class NotificationX_Extension {
         if( ! is_object( $settings ) || empty( $data ) ) {
             return;
         }
-        $data = wp_parse_args( $data, $this->defaults );
+        $this->defaults = apply_filters('nx_fallback_data', array(
+            'name' => __('Someone', 'notificationx')
+        ), $data );
+
+        $data = array_merge( $data, $this->defaults );
 
         extract( $args );
         $settings->themeName = $settings->{ $themeName };

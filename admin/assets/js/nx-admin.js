@@ -14,6 +14,11 @@
 			e.preventDefault();
 			$.notificationx.tabChanger( this );
 		});
+		$('body').on('click', '.nx-single-theme-wrapper', 
+		function(e){
+			e.preventDefault();
+			$.notificationx.templateForTheme();
+		});
 	});
 
 	$( window ).load(function(){
@@ -33,6 +38,8 @@
 					$('#nx_meta_stats_source').trigger('change');
 					break;
 			}
+
+			$.notificationx.templateForTheme();
 		});
 
 		$('body').on('change', '#nx_meta_conversion_from', function(){
@@ -92,6 +99,61 @@
 		$.notificationx.toggleFields();
 		$.notificationx.bindEvents();
 		$.notificationx.initializeFields();
+	};
+
+	$.notificationx.templateForTheme = function(){
+		var source, templateID, themeID,
+			type = $('#nx_meta_display_type').val();
+		switch( type ) {
+			case 'download_stats' : 
+				themeID = $('#nx_meta_wpstats_theme').val();
+				source = $('#nx_meta_stats_source').val();
+				break;
+			case 'reviews' : 
+				themeID = $('#nx_meta_wporg_theme').val();
+				source = $('#nx_meta_reviews_source').val();
+				break;
+			case 'comments' : 
+				themeID = $('#nx_meta_comment_theme').val();
+				source = $('#nx_meta_comments_source').val();
+				break;
+			case 'conversions' : 
+				themeID = $('#nx_meta_theme').val();
+				source = $('#nx_meta_conversion_from').val();
+				break;
+		}
+
+		if( source == 'woocommerce' ) {
+			templateID = $('#nx_meta_woo_template_new');
+		} else {
+			templateID = $('#nx_meta_'+ source +'_template_new');
+		}
+
+		if( source == 'wp_comments' ) {
+			templateID = $('#nx_meta_comments_template_new');
+		}
+
+		var obj = {
+			'nx_meta_wp_stats_template_new' : {
+				'theme-one' : {
+					'first_param' : 'tag_custom',
+				},
+				'theme-two' : {
+					'third_param' : 'tag_last_week',
+				}
+			}
+		};
+
+		var templateDivID = templateID.attr('id');
+		if( Object.keys( notificationx.template_settings ).indexOf( templateDivID ) >= 0 && Object.keys( notificationx.template_settings[templateDivID] ).indexOf( themeID ) >= 0 ) {
+			var themeOBJ = notificationx.template_settings[templateDivID][themeID];
+			templateID.find('input, select').each(function( i, item ){
+				var subKey = $( item ).data('subkey');
+				if( Object.keys( themeOBJ ).indexOf( subKey ) >= 0 ) {
+					$( item ).val( themeOBJ[ subKey ] ).trigger('change');
+				}
+			});
+		}
 	};
 
 	$.notificationx.bindEvents = function(){
