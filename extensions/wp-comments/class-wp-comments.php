@@ -17,11 +17,11 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
     }
 
     public function template_string_by_theme( $template, $old_template, $posts_data ){
-        if( $posts_data['nx_meta_comments_source'] === $this->type ) {
+        if( $posts_data['nx_meta_display_type'] === 'comments' && $posts_data['nx_meta_comments_source'] === $this->type ) {
             $theme = $posts_data['nx_meta_comment_theme'];
             switch( $theme ) {
                 default : 
-                $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
+                $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'third_param', 'fourth_param' ] ) );
                 break;
             }
             return $template;
