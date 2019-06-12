@@ -34,31 +34,30 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         add_filter( 'cron_schedules', array( $this, 'cache_duration' ) );
     }
 
-    public function template_string_by_theme( $template, $posts_data ){
+    public function template_string_by_theme( $template, $old_template, $posts_data ){
         if( $posts_data['nx_meta_display_type'] === 'download_stats' && $posts_data['nx_meta_stats_source'] === $this->type ) {
             $theme = $posts_data['nx_meta_wpstats_theme'];
-            $new_template = $posts_data['nx_meta_wp_stats_template_new'];
-            $new_template_string = [];
 
             switch( $theme ) {
                 case 'theme-one' : 
-                    $template = NotificationX_Helper::regenerate_the_theme( $new_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
+                    $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
                     break;
                 case 'theme-two' : 
-                    $template = NotificationX_Helper::regenerate_the_theme( $new_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
+                    $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
                     break;
                 case 'actively_using' : 
-                    $new_template = $posts_data['nx_meta_actively_using_template_new'];
-                    $template = NotificationX_Helper::regenerate_the_theme( $new_template, array( 'br_before' => [ 'third_param' ] ) );
+                    $old_template = $posts_data['nx_meta_actively_using_template_new'];
+                    $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'third_param' ] ) );
                     break;
                 default : 
-                    $new_template = $posts_data['nx_meta_wp_stats_template_new'];
-                    $template = NotificationX_Helper::regenerate_the_theme( $new_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
+                    $old_template = $posts_data['nx_meta_wp_stats_template_new'];
+                    $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
                     break;
             }
 
             return $template;
         }
+        return $template;
     }
 
     public function settings_by_theme( $data ){

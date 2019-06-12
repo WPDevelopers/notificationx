@@ -456,7 +456,6 @@ class NotificationX_Helper {
         $previous_key = $previous_value = '';
 
         $j = 0;
-        dump( $template_string );
 
         foreach( $template_string as $s_key => $s_value ) {
             if( in_array( $s_key, $desire_data['br_before'] ) ) {

@@ -203,11 +203,12 @@ class NotificationX_MetaBox {
         do_action('notificationx_save_post'); 
     }
 
-    protected static function template_generate( $template, $posts_data = [] ){
+    protected static function template_generate( $main_template, $posts_data = [] ){
         if( empty( $posts_data ) ) {
             return '';
         }
-        return apply_filters( 'nx_template_string_generate', $template, $posts_data );
+        $template = apply_filters( 'nx_template_string_generate', array(), $main_template, $posts_data );
+        return $template;
     }
 
     public static function save_data( $posts, $post_id ){
@@ -217,25 +218,6 @@ class NotificationX_MetaBox {
         $data         = [];
         $theme_name   = 'theme-one';
         $new_settings = new stdClass();
-
-        switch( $posts['nx_meta_display_type'] ) {
-            case 'comments' : 
-                $type       = $posts['nx_meta_comments_source'];
-                $theme_name = $posts['nx_meta_comment_theme'];
-                break;
-            case 'conversions' : 
-                $type = $posts['nx_meta_conversion_from'];
-                $theme_name = $posts['nx_meta_theme'];
-                break;
-            case 'reviews' : 
-                $type = $posts['nx_meta_reviews_source'];
-                $theme_name = $posts['nx_meta_wporg_theme'];
-                break;
-            case 'download_stats' : 
-                $type = $posts['nx_meta_stats_source'];
-                $theme_name = $posts['nx_meta_wpstats_theme'];
-                break;
-        }
 
         foreach ( $fields as $name => $field ) {
             $field_id = $prefix . $name;
@@ -260,6 +242,20 @@ class NotificationX_MetaBox {
 
         $d_type = get_post_meta( $post_id, '_nx_meta_current_data_ready_for', true );
 
+        switch( $posts['nx_meta_display_type'] ) {
+            case 'comments' : 
+                $type       = $posts['nx_meta_comments_source'];
+                break;
+            case 'conversions' : 
+                $type = $posts['nx_meta_conversion_from'];
+                break;
+            case 'reviews' : 
+                $type = $posts['nx_meta_reviews_source'];
+                break;
+            case 'download_stats' : 
+                $type = $posts['nx_meta_stats_source'];
+                break;
+        }
 
         if( self::check_any_changes( $old_settings, $new_settings ) ) {
             do_action( 'nx_get_conversions_ready', $type, $data );

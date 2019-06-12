@@ -64,7 +64,7 @@ class Extension_Factory {
                     add_filter( 'nx_template_settings_by_theme', array( $object, 'settings_by_theme' ) );
                 }
                 if( method_exists( $object, 'template_string_by_theme' ) ) {
-                    add_filter( 'nx_template_string_generate', array( $object, 'template_string_by_theme'), 10, 2 );
+                    add_filter( 'nx_template_string_generate', array( $object, 'template_string_by_theme'), 10, 3 );
                 }
 
                 if( method_exists( $object, 'public_actions' ) ) {
