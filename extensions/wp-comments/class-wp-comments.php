@@ -16,6 +16,27 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         add_filter( 'nx_notification_link', array( $this, 'notification_link' ), 10, 2 );
     }
 
+    public function template_string_by_theme( $template, $posts_data ){
+        if( $posts_data['nx_meta_display_type'] === 'comments' && $posts_data['nx_meta_comments_source'] === $this->type ) {
+            $theme = $posts_data['nx_meta_comment_theme'];
+            $new_template = $posts_data['nx_meta_comments_template_new'];
+            $new_template_string = [];
+
+            switch( $theme ) {
+                case 'theme-one' : 
+                    $template = NotificationX_Helper::regenerate_the_theme( $new_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
+                    break;
+                case 'theme-two' : 
+                    $template = NotificationX_Helper::regenerate_the_theme( $new_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
+                    break;
+                default : 
+                    $template = NotificationX_Helper::regenerate_the_theme( $new_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
+                    break;
+            }
+            return $template;
+        }
+    }
+
     public function fallback_data( $data ){
         $data['anonymous_post'] = __( 'No Post Title', 'notificationx' );
         $data['sometime'] = __( 'Sometimes ago', 'notificationx' );

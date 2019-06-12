@@ -133,17 +133,6 @@
 			templateID = $('#nx_meta_comments_template_new');
 		}
 
-		var obj = {
-			'nx_meta_wp_stats_template_new' : {
-				'theme-one' : {
-					'first_param' : 'tag_custom',
-				},
-				'theme-two' : {
-					'third_param' : 'tag_last_week',
-				}
-			}
-		};
-
 		var templateDivID = templateID.attr('id');
 		if( Object.keys( notificationx.template_settings ).indexOf( templateDivID ) >= 0 && Object.keys( notificationx.template_settings[templateDivID] ).indexOf( themeID ) >= 0 ) {
 			var themeOBJ = notificationx.template_settings[templateDivID][themeID];

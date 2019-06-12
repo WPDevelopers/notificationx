@@ -421,6 +421,7 @@ class NotificationX_Helper {
             'comments_template_new',
             'wp_reviews_template_new',
             'wp_stats_template_new',
+            'actively_using_template_new',
             'edd_template_new',
             'woo_template_new',
         );
@@ -429,41 +430,65 @@ class NotificationX_Helper {
 
     public static function regenerate_the_theme( $template_data, $desire_data ){
         $template_string = [];
-
         if( ! empty( $template_data ) ) {
             $i = $j = 0;
             foreach( $template_data as $key => $value ) {
                 if( strpos( $value, 'tag_' ) === 0 ) {
                     $tag = str_replace( 'tag_', '', $value );
-                    if( $tag == 'custom' ) {
-                        continue;
-                    }
-                    $template_string[ $i ] = "{{{$tag}}} ";
+                    $template_string[ $key ] = "{{{$tag}}} ";
                 } else {
-                    if( ! empty( trim( $template_string[ $i ] ) ) ) {
-                        $temp_val = trim( $template_string[ $i ] ) . ' ';
+                    if( isset( $template_string[ $key ] ) && ! empty( trim( $template_string[ $key ] ) ) ) {
+                        $temp_val = trim( $template_string[ $key ] ) . ' ';
                     }
                     if( ! empty( $temp_val ) && strpos( $key, 'custom_' ) === 0 ) {
                         $value = '';
                     }
-                    $template_string[ $i ] =  $temp_val . $value . " ";
+                    $template_string[ $key ] =  $temp_val . $value . " ";
                 }
                 $temp_val = $value = '';
                 $i++;
             }
         }
-        $count = count( $template_string );
+
         $new_template_str = [];
-        for( $i = 0, $j = 0; $i < $count; $i++ ) {
-            if( in_array( $i, $desire_data['br_before'] ) ) {
+
+        $hasCustomAsValue = $hasCustomAsKey = $hasCustomAsValueinPrev = false;
+        $previous_key = $previous_value = '';
+
+        $j = 0;
+        dump( $template_string );
+
+        foreach( $template_string as $s_key => $s_value ) {
+            if( in_array( $s_key, $desire_data['br_before'] ) ) {
                 $j++;
             }
-            if( empty( $template_string[ $i ] ) ) {
+            if( trim($previous_value) === '{{custom}}' ) { 
+                $hasCustomAsValueinPrev = true;
+            }
+            if( trim($s_value) === '{{custom}}' ) { 
+                $hasCustomAsValue = true;
+            }
+            if( strpos( $s_key, 'custom_' ) === 0 ) { 
+                $hasCustomAsKey = true;
+            }
+
+            if( $hasCustomAsValue === true ) {
+                $previous_value = $s_value;
+                $hasCustomAsValue = false;
                 continue;
             }
-            $new_template_str[ $j ] .= $template_string[ $i ];
+
+            if( $hasCustomAsKey === true && $hasCustomAsValueinPrev === false ) {
+                $previous_value = $s_value;
+                $hasCustomAsKey = false;
+                continue;
+            }
+
+            $previous_value = $s_value;
+            $new_template_str[ $j ] .= $s_value;
+            // $new_template_str[ $j ] = isset( $new_template_str[ $j ] ) ? $new_template_str[ $j ] : '' . $s_value;
         }
-        
+
         return $new_template_str;
     }
 }

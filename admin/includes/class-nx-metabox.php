@@ -207,42 +207,7 @@ class NotificationX_MetaBox {
         if( empty( $posts_data ) ) {
             return '';
         }
-        $template_string = [];
-        $temp_val = '';
-
-        if( $posts_data ) {
-            return apply_filters( 'nx_template_string_generate', $posts_data );
-        }
-        
-        if( ! empty( $template ) ) {
-            $i = $j = 0;
-            foreach( $template as $key => $value ) {
-                if( in_array( $key, array( 'third_param', 'fourth_param' ) ) ) {
-                    $i++;
-                }
-                if( strpos( $value, 'tag_' ) === 0 ) {
-                    $tag = str_replace( 'tag_', '', $value );
-                    if( $tag == 'custom' ) {
-                        continue;
-                    }
-                    $template_string[ $i ] = "{{{$tag}}} ";
-                } else {
-                    if( ! empty( trim( $template_string[ $i ] ) ) ) {
-                        $temp_val = trim( $template_string[ $i ] ) . ' ';
-                    }
-                    if( ! empty( $temp_val ) && strpos( $key, 'custom_' ) === 0 ) {
-                        $value = '';
-                    }
-                    $template_string[ $i ] =  $temp_val . $value . " ";
-                }
-                $temp_val = $value = '';
-            }
-        }
-        
-        $saved_template = $template_string;
-        $template_string = [];
-
-        return $saved_template;
+        return apply_filters( 'nx_template_string_generate', $template, $posts_data );
     }
 
     public static function save_data( $posts, $post_id ){
@@ -250,7 +215,27 @@ class NotificationX_MetaBox {
         $fields       = self::get_metabox_fields();
         $old_settings = self::get_metabox_settings( $post_id );
         $data         = [];
+        $theme_name   = 'theme-one';
         $new_settings = new stdClass();
+
+        switch( $posts['nx_meta_display_type'] ) {
+            case 'comments' : 
+                $type       = $posts['nx_meta_comments_source'];
+                $theme_name = $posts['nx_meta_comment_theme'];
+                break;
+            case 'conversions' : 
+                $type = $posts['nx_meta_conversion_from'];
+                $theme_name = $posts['nx_meta_theme'];
+                break;
+            case 'reviews' : 
+                $type = $posts['nx_meta_reviews_source'];
+                $theme_name = $posts['nx_meta_wporg_theme'];
+                break;
+            case 'download_stats' : 
+                $type = $posts['nx_meta_stats_source'];
+                $theme_name = $posts['nx_meta_wpstats_theme'];
+                break;
+        }
 
         foreach ( $fields as $name => $field ) {
             $field_id = $prefix . $name;
@@ -275,20 +260,6 @@ class NotificationX_MetaBox {
 
         $d_type = get_post_meta( $post_id, '_nx_meta_current_data_ready_for', true );
 
-        switch( $posts['nx_meta_display_type'] ) {
-            case 'comments' : 
-                $type = $posts['nx_meta_comments_source'];
-                break;
-            case 'conversions' : 
-                $type = $posts['nx_meta_conversion_from'];
-                break;
-            case 'reviews' : 
-                $type = $posts['nx_meta_reviews_source'];
-                break;
-            case 'download_stats' : 
-                $type = $posts['nx_meta_stats_source'];
-                break;
-        }
 
         if( self::check_any_changes( $old_settings, $new_settings ) ) {
             do_action( 'nx_get_conversions_ready', $type, $data );

@@ -32,27 +32,33 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         add_action( 'nx_cron_update_data', array( $this, 'update_data' ), 10, 1 );
         add_action( 'nx_admin_action', array( $this, 'admin_save' ) );
         add_filter( 'cron_schedules', array( $this, 'cache_duration' ) );
-        add_filter( 'nx_template_settings_by_theme', array( $this, 'settings_by_theme' ) );
-        add_filter( 'nx_template_string_generate', function( $posts_data ){
-            if( $posts_data['nx_meta_display_type'] != 'download_stats' && $posts_data['nx_meta_stats_source'] != $this->type ) {
-                return $posts_data;
-            }
-            
+    }
+
+    public function template_string_by_theme( $template, $posts_data ){
+        if( $posts_data['nx_meta_display_type'] === 'download_stats' && $posts_data['nx_meta_stats_source'] === $this->type ) {
             $theme = $posts_data['nx_meta_wpstats_theme'];
             $new_template = $posts_data['nx_meta_wp_stats_template_new'];
             $new_template_string = [];
 
             switch( $theme ) {
                 case 'theme-one' : 
-                    $template = NotificationX_Helper::regenerate_the_theme( $new_template, array( 'br_before' => [ 2, 5 ] ) );
+                    $template = NotificationX_Helper::regenerate_the_theme( $new_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
                     break;
                 case 'theme-two' : 
-                    $template = NotificationX_Helper::regenerate_the_theme( $new_template, array( 'br_before' => [ 2, 3 ] ) );
+                    $template = NotificationX_Helper::regenerate_the_theme( $new_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
+                    break;
+                case 'actively_using' : 
+                    $new_template = $posts_data['nx_meta_actively_using_template_new'];
+                    $template = NotificationX_Helper::regenerate_the_theme( $new_template, array( 'br_before' => [ 'third_param' ] ) );
+                    break;
+                default : 
+                    $new_template = $posts_data['nx_meta_wp_stats_template_new'];
+                    $template = NotificationX_Helper::regenerate_the_theme( $new_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
                     break;
             }
 
             return $template;
-        } );
+        }
     }
 
     public function settings_by_theme( $data ){
@@ -78,11 +84,14 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
     }
 
     public function fallback_data( $data, $saved_data ){
-
         unset( $data['name'] );
-
+        $data['today'] = __( $saved_data['today'] . ' times today', 'notificationx' );
+        $data['last_week'] = __( $saved_data['last_week'] . ' times in last 7 days', 'notificationx' );
+        $data['all_time'] = __( $saved_data['all_time'] . ' times', 'notificationx' );
+        
         $data['today_text'] = __( 'Try it out', 'notificationx' );
-        $data['last_week_text'] = __( 'in last 7 days', 'notificationx' );
+        $data['last_week_text'] = __( 'Get started free.', 'notificationx' );
+        $data['all_time_text'] = __( 'why not you?', 'notificationx' );
 
         return $data;
     }
@@ -317,6 +326,78 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
             'priority' => 83,
         );
 
+        $fields['actively_using_template_new'] = array(
+            'type'     => 'template',
+            'fields' => array(
+                'first_param' => array(
+                    'type'     => 'select',
+                    'label'    => __('Notification Template' , 'notificationx'),
+                    'priority' => 1,
+                    'options'  => array(
+                        'tag_today'           => __('Today' , 'notificationx'),
+                        'tag_last_week'       => __('In last 7 days' , 'notificationx'),
+                        'tag_all_time'        => __('Total' , 'notificationx'),
+                        'tag_active_installs' => __('Total Active Install' , 'notificationx'),
+                        'tag_custom'    => __('Custom' , 'notificationx'),
+                    ),
+                    'dependency' => array(
+                        'tag_custom' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        )
+                    ),
+                    'hide' => array(
+                        'tag_today' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
+                        'tag_last_week' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
+                        'tag_all_time' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
+                        'tag_active_installs' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
+                    ),
+                    'default' => 'tag_active_installs'
+                ),
+                'custom_first_param' => array(
+                    'type'     => 'text',
+                    'priority' => 2,
+                ),
+                'second_param' => array(
+                    'type'     => 'text',
+                    'priority' => 4,
+                    'default' => __('people are actively using' , 'notificationx')
+                ),
+                'third_param' => array(
+                    'type'     => 'select',
+                    'priority' => 5,
+                    'options'  => array(
+                        'tag_name' => __('Plugin/Theme Name' , 'notificationx'),
+                        'tag_custom_stats' => __('Custom' , 'notificationx'),
+                    ),
+                    'dependency' => array(
+                        'tag_custom_stats' => array(
+                            'fields' => [ 'custom_third_param' ]
+                        )
+                    ),
+                    'hide' => array(
+                        'tag_name' => array(
+                            'fields' => [ 'custom_third_param' ]
+                        ),
+                    ),
+                    'default' => 'tag_name'
+                ),
+                'custom_third_param' => array(
+                    'type'     => 'text',
+                    'priority' => 6,
+                ),
+            ),
+            'label'    => __('Notification Template' , 'notificationx'),
+            'priority' => 83,
+        );
+
         $fields['wp_stats_template_adv'] = array(
             'type'        => 'adv_checkbox',
             'priority'    => 84,
@@ -354,6 +435,34 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
                     'priority'	=> 3,
                     'default'	=> 'theme-one',
                     'options'   => $this->themes(),
+                    'hide' => [
+                        'theme-two' => [
+                            'fields' => ['actively_using_template_new']
+                        ],
+                        'theme-four' => [
+                            'fields' => ['actively_using_template_new']
+                        ],
+                        'theme-one' => [
+                            'fields' => ['actively_using_template_new']
+                        ],
+                        'actively_using' => [
+                            'fields' => ['wp_stats_template_new']
+                        ],
+                    ],
+                    'dependency' => [
+                        'actively_using' => [
+                            'fields' => ['actively_using_template_new']
+                        ],
+                        'theme-two' => [
+                            'fields' => ['wp_stats_template_new']
+                        ],
+                        'theme-four' => [
+                            'fields' => ['wp_stats_template_new']
+                        ],
+                        'theme-one' => [
+                            'fields' => ['wp_stats_template_new']
+                        ],
+                    ],
                 ),
                 'wpstats_advance_edit' => array(
                     'type'      => 'adv_checkbox',
@@ -606,7 +715,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         return apply_filters('nxpro_stats_themes', array(
             'theme-one' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/today-download.png',
             'theme-two' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/7day-download.png',
-            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/actively-using.png',
+            'actively_using' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/actively-using.png',
             'theme-four' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/total-download.png',
         ));
     }

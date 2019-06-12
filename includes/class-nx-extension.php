@@ -221,8 +221,15 @@ class NotificationX_Extension {
         $settings->themeName = $settings->{ $themeName };
         if( empty( $settings->{ $template . '_adv' } ) ) {
             $template =  $template . '_new_string';
+            if( $settings->themeName == 'actively_using' ) {
+                $template =  $settings->themeName . '_template_new_string';
+            }
         }
+
         $template = apply_filters( 'nx_template_id' , $template, $settings);
+        
+        dump( $settings );
+        dump( $template ); die;
 
         $wrapper_class = apply_filters( 'nx_frontend_wrapper_classes', array_merge( 
             ['nx-notification'], self::get_classes( $settings ) 

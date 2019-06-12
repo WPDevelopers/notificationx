@@ -394,3 +394,12 @@ a.nx-powered-by:hover {
     top: 50%;
     margin-top: -4px;
 }
+
+.nx-download_stats .nx-notification-theme-two {}
+.nx-download_stats .notificationx-content .nx-first-row {
+    font-weight: 700;
+}
+.nx-download_stats .notificationx-content .nx-second-row {
+    font-size: 12px;
+    font-weight: 400;
+}
