@@ -34,6 +34,41 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         add_filter( 'cron_schedules', array( $this, 'cache_duration' ) );
     }
 
+    public function template_string_by_theme( $template, $old_template, $posts_data ){
+        if( $posts_data['nx_meta_display_type'] === 'reviews' && $posts_data['nx_meta_reviews_source'] === $this->type ) {
+            $theme = $posts_data['nx_meta_wporg_theme'];
+
+            switch( $theme ) {
+                case 'theme-one' : 
+                    $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'third_param', 'fourth_param' ] ) );
+                    break;
+                case 'theme-two' : 
+                    $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'third_param', 'fourth_param' ] ) );
+                    break;
+                default : 
+                    $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
+                    break;
+            }
+
+            return $template;
+        }
+        return $template;
+    }
+
+    public function fallback_data( $data, $saved_data ){
+        unset( $data['name'] );
+        $star = '';
+        if( ! empty( $saved_data['rating'] ) ) {
+            for( $i = 1; $i <= $saved_data['rating']; $i++ ) {
+                $star .= '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="13" viewBox="0 0 14 13"><metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?><x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c138 79.159824, 2016/09/14-01:09:01"><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about=""/></rdf:RDF></x:xmpmeta><?xpacket end="w"?></metadata><image id="Capa_1_copy" data-name="Capa 1 copy" width="14" height="13" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAMAAACuAq9NAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAn1BMVEXtihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihkAAAALB0bHAAAAM3RSTlMAAYjPGfNomdENAytlBJKtx+b87dKzpeIHvOksC6/eJPX6NzoaZ2PufFnbqlx/EgZXzp2UDFIsAAAAAWJLR0Q0qbHp/QAAAAlwSFlzAAALEgAACxIB0t1+/AAAAAd0SU1FB+MGDA4JMRMQH+0AAABvSURBVAjXY2AAAUYmZgYkwMJqzIbEZTc25uCEcbi4jYGAhxfE5uMXEBQCcY2FRUTFGMSNkQGDhCSCIyXNwCAjC+PJyYONUoDwFJUgJsNklcE8FRhXFcxVMzZW19DUMjbWBnN1BHX1GBj0DQyNGBgA1A4SzLVFctoAAAAASUVORK5CYII="/></svg> ';
+            }
+        }
+        
+        $data['rating'] = $star;
+
+        return $data;
+    }
+
     public function load_dependencies(){
         if( ! class_exists( 'NotificationXPro_WPOrg_Helper' ) ) {
             require_once __DIR__ . '/class-wporg-helper.php';
@@ -53,12 +88,11 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         }
     
         $avatar = '';
-        $alt_title = isset( $data['name'] ) ? $data['name'] : $data['title'];
+        $alt_title = isset( $data['username'] ) ? $data['username'] : $data['title'];
 
-        if( isset( $data['email'] ) ) {
-            $avatar = get_avatar_url( $data['email'], array(
-                'size' => '100',
-            ));
+        if( isset( $data['avatar'] ) ) {
+            $avatar = $data['avatar']['src'];
+            $avatar = add_query_arg( 's', '200', $avatar );
         }
 
         $image_data['url'] = $avatar;
@@ -109,12 +143,6 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         return $data;
     }
 
-    private function member( $data, $title ){
-        $member['link'] = '';
-        
-        return $member;
-    }
-
     public function get_plugins_data( $post_id ) {
         if( ! $post_id ) {
             return;
@@ -131,7 +159,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
 
         if( $product_type == 'plugin' ) { 
             $reviews_html = $this->helper->get_plugin_reviews( $plugin_slug );
-            $reviews = $this->helper->extract_reviews_from_html( $reviews_html );
+            $reviews = $this->helper->extract_reviews_from_html( $reviews_html, $plugin_slug );
         }
         
 
@@ -221,10 +249,11 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                     'type'     => 'select',
                     'priority' => 5,
                     'options'  => array(
+                        'tag_rating'       => __('Rating' , 'notificationx'),
                         'tag_time'       => __('Definite Time' , 'notificationx'),
                         'sometime' => __('Sometimes ago' , 'notificationx'),
                     ),
-                    'default' => 'tag_time'
+                    'default' => 'tag_rating'
                 ),
             ),
             'label'    => __('Notification Template' , 'notificationx'),
