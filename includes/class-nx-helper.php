@@ -341,11 +341,11 @@ class NotificationX_Helper {
                 ),
                 'reviews' => array(
                     'fields' => [ 'comments_source', 'conversion_from' ], 
-                    'sections' => [  ], 
+                    'sections' => [ 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography' ], 
                 ),
                 'download_stats' => array(
                     'fields' => [ 'comments_source', 'conversion_from', 'reviews_source' ], 
-                    'sections' => [  ], 
+                    'sections' => [ 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography' ], 
                 ),
             ));
         }
@@ -484,7 +484,11 @@ class NotificationX_Helper {
             }
 
             $previous_value = $s_value;
-            $new_template_str[ $j ] .= $s_value;
+            if( isset( $new_template_str[ $j ] ) ) {
+                $new_template_str[ $j ] .= $s_value;
+            } else {
+                $new_template_str[ $j ] = $s_value;
+            }
             // $new_template_str[ $j ] = isset( $new_template_str[ $j ] ) ? $new_template_str[ $j ] : '' . $s_value;
         }
 
