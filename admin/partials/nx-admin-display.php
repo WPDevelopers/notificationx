@@ -13,7 +13,8 @@
  */
 
 $current_tab = get_post_meta( $post->ID, '_nx_builder_current_tab', true );
-if( ! $current_tab === array_search( $current_tab, array_keys( $tabs) ) ) {
+$current_tab = empty( $current_tab ) ? true : $current_tab;
+if( ! $current_tab == array_search( $current_tab, array_keys( $tabs) ) ) {
     $current_tab = 'source_tab';
 }
 $totaltabs = count( $tabs );
