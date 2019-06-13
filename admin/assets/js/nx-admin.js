@@ -81,8 +81,7 @@
 				date = ( new Date() ).toLocaleDateString('en-US', options);
 			if( type === 'conversions' ) {
 				$('body').on('change', '#nx_meta_conversion_from.nx-select', function( e ){
-					var type = $(this).val(),
-						title = e.currentTarget.selectedOptions[0].innerText;
+					var title = e.currentTarget.selectedOptions[0].innerText;
 					$('.finalize_notificationx_name').text("NotificationX - " + title + ' - ' + date);
 				});
 				$('#nx_meta_conversion_from.nx-select').trigger('change');
@@ -104,6 +103,11 @@
 	$.notificationx.templateForTheme = function(){
 		var source, templateID, themeID,
 			type = $('#nx_meta_display_type').val();
+
+		if( type === 'press_bar' ) {
+			return;
+		}
+
 		switch( type ) {
 			case 'download_stats' : 
 				themeID = $('#nx_meta_wpstats_theme').val();
