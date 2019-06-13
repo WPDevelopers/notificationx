@@ -416,6 +416,8 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             return;
         }
 
+        $new_order = [];
+
         if( is_int( $order_id ) ) {
             $order = new WC_Order( $order_id );
             $status = $order->get_status();
@@ -452,22 +454,35 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
      */
     protected function buyer( WC_Order $order ){
         $user = $order->get_user();
+
+        $first_name = $last_name = $email = '';
+        $buyer_data = [];
+
         if( $user ) {
-            $main_user = get_userdata( $user->ID );
-            return array(
-                // 'first_name' => $main_user->first_name,
-                // 'last_name' => $main_user->last_name,
-                'name' => $main_user->first_name . ' ' . substr($main_user->last_name, 0, 1),
-                'user_id' => $user->ID,
-                'email' => $order->user_email,
-            );
+            $first_name = $user->first_name;
+            $last_name  = $user->last_name;
+            $email = $user->user_email;
+            $buyer_data['user_id'] = $user->ID;
         }
-        return array(
-            // 'first_name' => $order->get_billing_first_name(),
-            // 'last_name' => $order->get_billing_last_name(),
-            'name' => $order->get_billing_first_name() . ' ' . substr($order->get_billing_last_name(), 0, 1),
-            'email' => $order->get_billing_email(),
-        );
+
+        if( empty( $first_name ) ) {
+            $first_name = $order->get_billing_first_name();
+        }
+
+        if( empty( $last_name ) ) {
+            $first_name = $order->get_billing_last_name();
+        }
+
+        if( empty( $email ) ) {
+            $email = $order->get_billing_email();
+        }
+
+        $buyer_data['first_name'] = $first_name;
+        $buyer_data['last_name'] = $last_name;
+        $buyer_data['name'] = $first_name . ' ' . substr($last_name, 0, 1);
+        $buyer_data['email'] = $email;
+
+        return $buyer_data;
     }
     /**
      * It will take an array to make data clean
