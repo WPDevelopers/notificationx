@@ -317,6 +317,35 @@ class NotificationX_Public {
 					// }
 				}
 				break;
+			case 'download_stats' : 
+				if( $settings->conversion_size ) {
+					$max_width[] = ! empty( $settings->conversion_size ) ? 'max-width: ' . $settings->conversion_size .'px !important' : '';
+				}
+				if( $settings->wpstats_advance_edit ) {
+					$style[] = ! empty( $settings->wpstats_bg_color ) ? 'background-color: ' . $settings->wpstats_bg_color . '!important' : '';
+					$style[] = ! empty( $settings->wpstats_text_color ) ? 'color: ' . $settings->wpstats_text_color : '';
+					
+					if( $settings->wpstats_border ){
+						$style[] = 'border-width: ' . $settings->wpstats_border_size . 'px !important';
+						$style[] = 'border-style: ' . $settings->wpstats_border_style . '!important';
+						$style[] = 'border-color: ' . $settings->wpstats_border_color . '!important';
+					}
+					
+					if( ! empty( $settings->wpstats_first_font_size ) ) {
+						$first_row_font[] = 'font-size: ' . $settings->wpstats_first_font_size . 'px';
+					}
+					if( ! empty( $settings->wpstats_second_font_size ) ) {
+						$second_row_font[] = 'font-size: ' . $settings->wpstats_second_font_size . 'px';
+					}
+					if( ! empty( $settings->wpstats_third_font_size ) ) {
+						$third_row_font[] = 'font-size: ' . $settings->wpstats_third_font_size . 'px';
+					}
+					
+					// if( $settings->image_position == 'right' ) {
+					// 	$style[] = 'flex-direction: row-reverse';
+					// }
+				}
+				break;
 			case 'conversions' : 
 				if( $settings->conversion_size ) {
 					$max_width[] = ! empty( $settings->conversion_size ) ? 'max-width: ' . $settings->conversion_size .'px !important' : '';
