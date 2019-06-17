@@ -211,7 +211,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
     }
 
     public function cache_duration( $schedules ) {
-        $custom_duration = NotificationX_DB::get_settings( 'wporg_cache_duration' );
+        $custom_duration = NotificationX_DB::get_settings( 'reviews_cache_duration' );
 
         if ( ! $custom_duration || empty( $custom_duration ) ) {
             $custom_duration = 45;

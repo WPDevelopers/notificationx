@@ -205,6 +205,11 @@
 			var form = $( this ).parent('#nx-settings-general-form');
 			$.notificationx.submitSettings( this, form );
 		} );
+		$('body').delegate( '.nx-submit-cache_settings_tab', 'click', function( e ) {
+			e.preventDefault();
+			var form = $( this ).parent('#nx-settings-cache_settings_tab-form');
+			$.notificationx.submitSettings( this, form );
+		} );
 
 		$('body').delegate( '.nx-opt-alert', 'click', function( e ) {
 			$.notificationx.fieldAlert( this );
