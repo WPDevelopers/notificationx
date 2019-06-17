@@ -171,12 +171,12 @@ class NotificationXPro_WPOrg_Helper {
 		$this->plugin_information = plugins_api( 'plugin_information', array( 'slug' => $plugin_slug, 'fields' => array( 'reviews' => true, 'icons' => true ) ) );
 		
 		$data = array();
-		$data['slug'] = $this->plugin_information->slug;
-		$data['icons'] = $this->plugin_information->icons;
-		$data['name'] = $this->plugin_information->name;
-		$data['ratings'] = $this->plugin_information->ratings;
-		$data['rated'] = $this->plugin_information->num_ratings;
-		$data['reviews'] = $this->plugin_information->sections['reviews'];
+		$data['slug'] = isset( $this->plugin_information->slug ) ? $this->plugin_information->slug : '';
+		$data['icons'] = isset( $this->plugin_information->icons ) ? $this->plugin_information->icons : ''; 
+		$data['name'] = isset( $this->plugin_information->name ) ? $this->plugin_information->name : '';
+		$data['ratings'] = isset( $this->plugin_information->ratings ) ? $this->plugin_information->ratings : '';
+		$data['rated'] = isset( $this->plugin_information->num_ratings ) ? $this->plugin_information->num_ratings : '';
+		$data['reviews'] = isset( $this->plugin_information->sections ) ? $this->plugin_information->sections['reviews'] : '';
         return $data;
 	}
 	

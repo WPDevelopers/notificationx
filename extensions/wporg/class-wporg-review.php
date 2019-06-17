@@ -170,18 +170,18 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             $design = NotificationX_Admin::get_post_meta( intval( $id ), 'wporg_theme', true );
             $saved_data = NotificationX_Admin::get_post_meta( intval( $id ), $this->meta_key, true );
             if( $design === 'theme-one' ) {
-                $new_data['rated'] = $saved_data['ratings']['5'];
+                $new_data['rated'] = isset( $saved_data['ratings'] ) ? $saved_data['ratings']['5'] : '';
                 $new_data['rating'] = '5';
                 unset( $saved_data['reviews'] );
-                $new_data['slug'] = $saved_data['slug'];
-                $new_data['icons'] = $saved_data['icons'];
-                $new_data['plugin_name'] = $saved_data['name'];
+                $new_data['slug'] = isset( $saved_data['slug'] ) ? $saved_data['slug'] : '';
+                $new_data['icons'] = isset( $saved_data['icons'] ) ? $saved_data['icons'] : '';
+                $new_data['plugin_name'] = isset( $saved_data['name'] ) ? $saved_data['name'] : '';
                 if( $product_type == 'plugin' && isset( $saved_data['slug'] ) ) {
                     $new_data['link'] = 'https://wordpress.org/plugins/' . $saved_data['slug'];
                 } 
                 $data[ $this->type ] = array( $new_data );
             } else {
-                $data[ $this->type ] = $saved_data['reviews'];
+                $data[ $this->type ] = isset( $saved_data['reviews'] ) ? $saved_data['reviews'] : array();
             }
         }
 
