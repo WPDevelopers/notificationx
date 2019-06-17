@@ -38,8 +38,17 @@
 					$('#nx_meta_stats_source').trigger('change');
 					break;
 			}
-
+			
 			$.notificationx.templateForTheme();
+		});
+
+		$('body').on('change', '#nx_meta_wp_stats_template_new #nx_meta_wp_stats_template_new_third_param', function(){
+			var value = $(this).val();
+			if( value == 'tag_custom_stats' ) {
+				return '';
+			}
+			
+			$('#nx_meta_wp_stats_template_new #nx_meta_wp_stats_template_new_fourth_param').val( value + '_text' ).trigger('change');
 		});
 
 		$('body').on('change', '#nx_meta_conversion_from', function(){

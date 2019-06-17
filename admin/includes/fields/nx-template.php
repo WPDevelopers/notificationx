@@ -20,6 +20,9 @@
                     $name = $name . "[" . $subkey . "]";
 
                     $attrs = ' data-subkey="' . esc_attr( $subkey ) . '"'; // easy fix removing . before =;
+                    if( isset( $inner_field['disable'] ) && $inner_field['disable'] === true ) {
+                        $attrs .= ' disabled';
+                    }
 
                     $file_name = $inner_field['type'];
                     if( $file_name === 'select' ) {

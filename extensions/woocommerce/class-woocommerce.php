@@ -39,7 +39,11 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
     }
 
 
-    public function fallback_data( $data, $saved_data ){
+    public function fallback_data( $data, $saved_data, $type ){
+        if( $type !== $this->type ) {
+            return $data;
+        }
+
         $data['first_name'] = __( 'Someone', 'notificationx' );
         $data['last_name'] = __( 'Someone', 'notificationx' );
         $data['anonymous_title'] = __( 'Anonymous Product', 'notificationx' );

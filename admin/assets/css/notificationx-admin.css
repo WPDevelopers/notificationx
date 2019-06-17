@@ -529,7 +529,8 @@ label.nx-adv-checkbox-label:hover {
     border: 25px solid #fff;
 }
 
-.nx-builder-content select.nx-meta-field {
+.nx-builder-content select.nx-meta-field,
+.nx-builder-content input.nx-meta-field {
     border-color: rgba(0,0,0, .1);
     background-color: #fff !important;
 }

@@ -29,7 +29,13 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         return $template;
     }
 
-    public function fallback_data( $data ){
+    public function fallback_data( $data, $saved_data, $type ){
+        if( $type !== $this->type ) {
+            return $data;
+        }
+
+        $data['name'] = __( 'Someone', 'notificationx' );
+
         $data['first_name'] = __( 'Someone', 'notificationx' );
         $data['last_name'] = __( 'Someone', 'notificationx' );
         $data['anonymous_post'] = __( 'Anonymous Post', 'notificationx' );

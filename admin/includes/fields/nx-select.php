@@ -6,6 +6,10 @@
     if( $multiple ) {
         $name .= "[]";
     }
+
+    if( isset( $field['disable'] ) && $field['disable'] == true ) {
+        $attrs .= ' disabled';
+    }
     
 ?>
 <select class="<?php echo esc_attr( $class ); ?>" <?php echo $multiple; ?> name="<?php echo $name; ?>" id="<?php echo $field_id; ?>" <?php echo $attrs; ?>>

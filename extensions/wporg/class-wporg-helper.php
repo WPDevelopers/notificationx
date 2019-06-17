@@ -131,11 +131,13 @@ class NotificationXPro_WPOrg_Helper {
 		return $data;
     }
 
-    public function extract_reviews_from_html( $reviews, $plugin_slug = '' ){
+    public function extract_reviews_from_html( $data, $plugin_slug = '' ){
         $extracted_reviews = array();
 
-        $dom           = new DOMDocument();
-        $dom->loadHTML('<?xml encoding="UTF-8">' . $reviews);
+		$dom           = new DOMDocument();
+		$slug = $data['slug'];
+		$icons = $data['icons'];
+        $dom->loadHTML('<?xml encoding="UTF-8">' . $data['reviews']);
         
         $finder        = new DomXPath( $dom );
         $nodes         = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' review ')]");
@@ -147,11 +149,18 @@ class NotificationXPro_WPOrg_Helper {
 			if( $plugin_slug ) {
 				$review['link'] = 'https://wordpress.org/plugins/' . $plugin_slug;
 			}
+			$review['slug'] = $slug;
+			$review['icons'] = $icons;
 
             $extracted_reviews[] = $review;
 		}
 
-		return $extracted_reviews;
+		unset( $data['reviews'] );
+
+		if( ! empty( $data ) && ! empty( $extracted_reviews ) ) {
+			return array_merge( $data, array( 'reviews' => $extracted_reviews ) );
+		}
+		return array();
     }
 
     public function get_plugin_reviews( $plugin_slug ){
@@ -159,18 +168,23 @@ class NotificationXPro_WPOrg_Helper {
             require_once ABSPATH . '/wp-admin/includes/plugin-install.php';
         }
 
-        $this->plugin_information = plugins_api( 'plugin_information', array( 'slug' => $plugin_slug, 'fields' => array( 'reviews' => true ) ) );
-
-        return $this->plugin_information->sections['reviews'];
+		$this->plugin_information = plugins_api( 'plugin_information', array( 'slug' => $plugin_slug, 'fields' => array( 'reviews' => true, 'icons' => true ) ) );
+		
+		$data = array();
+		$data['slug'] = $this->plugin_information->slug;
+		$data['icons'] = $this->plugin_information->icons;
+		$data['name'] = $this->plugin_information->name;
+		$data['ratings'] = $this->plugin_information->ratings;
+		$data['rated'] = $this->plugin_information->num_ratings;
+		$data['reviews'] = $this->plugin_information->sections['reviews'];
+        return $data;
 	}
 	
+	// TODO: Themes Review ( Upcoming )
 	public function get_theme_reviews( $theme_slug ){
         if( ! function_exists('themes_api') ) {
             require_once ABSPATH . '/wp-admin/includes/themes.php';
         }
-
-        // $this->theme_information = themes_api( 'theme_information', array( 'slug' => $theme_slug, 'fields' => array( 'reviews' => true ) ) );
-
         return [];
     }
 
@@ -180,11 +194,15 @@ class NotificationXPro_WPOrg_Helper {
         }
 
 		$this->plugin_information = plugins_api( 'plugin_information', array( 'slug' => $plugin_slug, 'fields' => array( 'downloaded' => true, 'icons' => true, 'historical_summary' => true ) ) );
+		$new_data = [];
+
+		if( is_wp_error( $this->plugin_information ) ) {
+			return $new_data;
+		}
 		
 		$needed_key = array(
 			'name', 'slug', 'num_ratings', 'rating', 'homepage', 'version', 'downloaded', 'icons', 'active_installs', 'author_profile', 'author'
 		);
-		$new_data = [];
 
 		foreach( $needed_key as $key => $value ) {
 			if( isset( $this->plugin_information->$value ) ) {
@@ -207,10 +225,13 @@ class NotificationXPro_WPOrg_Helper {
 
 		$this->theme_information = themes_api( 'theme_information', array( 'slug' => $theme_slug, 'fields' => array( 'downloaded' => true, 'sections' => true, 'theme_url' => true, 'photon_screenshots' => true, 'screenshot_url' => true ) ) );
 
+		$new_data = array();
+		if( is_wp_error( $this->theme_information ) ) {
+			return $new_data;
+		}
 		$needed_key = array(
-			'name', 'slug', 'num_ratings', 'rating', 'homepage', 'version', 'downloaded', 'screenshot_url', 
+			'name', 'slug', 'num_ratings', 'rating', 'homepage', 'version', 'downloaded', 'screenshot_url', 'active_installs' 
 		);
-		$new_data = [];
 
 		foreach( $needed_key as $key => $value ) {
 			if( isset( $this->theme_information->$value ) ) {

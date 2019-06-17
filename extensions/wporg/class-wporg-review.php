@@ -49,17 +49,11 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         return $template;
     }
 
-    public function fallback_data( $data, $saved_data ){
-        unset( $data['name'] );
-        $star = '';
-        if( ! empty( $saved_data['rating'] ) ) {
-            for( $i = 1; $i <= $saved_data['rating']; $i++ ) {
-                $star .= '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="13" viewBox="0 0 14 13"><metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?><x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c138 79.159824, 2016/09/14-01:09:01"><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about=""/></rdf:RDF></x:xmpmeta><?xpacket end="w"?></metadata><image id="Capa_1_copy" data-name="Capa 1 copy" width="14" height="13" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAMAAACuAq9NAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAn1BMVEXtihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihkAAAALB0bHAAAAM3RSTlMAAYjPGfNomdENAytlBJKtx+b87dKzpeIHvOksC6/eJPX6NzoaZ2PufFnbqlx/EgZXzp2UDFIsAAAAAWJLR0Q0qbHp/QAAAAlwSFlzAAALEgAACxIB0t1+/AAAAAd0SU1FB+MGDA4JMRMQH+0AAABvSURBVAjXY2AAAUYmZgYkwMJqzIbEZTc25uCEcbi4jYGAhxfE5uMXEBQCcY2FRUTFGMSNkQGDhCSCIyXNwCAjC+PJyYONUoDwFJUgJsNklcE8FRhXFcxVMzZW19DUMjbWBnN1BHX1GBj0DQyNGBgA1A4SzLVFctoAAAAASUVORK5CYII="/></svg> ';
-            }
+    public function fallback_data( $data, $saved_data, $type ){
+        if( $type !== $this->type ) {
+            return $data;
         }
-        
-        $data['rating'] = $star;
-
+        unset( $data['name'] );
         return $data;
     }
 
@@ -80,16 +74,20 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         if( $settings->display_type != 'reviews' || $settings->reviews_source != $this->type ) { 
             return $image_data;
         }
-    
-        $avatar = '';
-        $alt_title = isset( $data['username'] ) ? $data['username'] : $data['title'];
-
-        if( isset( $data['avatar'] ) ) {
-            $avatar = $data['avatar']['src'];
-            $avatar = add_query_arg( 's', '200', $avatar );
+        $avatar = $image_url =  '';
+        switch( $settings->show_notification_image ) {
+            case 'product_image' : 
+                $image_url = $data['icons']['2x'];
+                break;
+            case 'gravatar' : 
+                if( isset( $data['avatar'] ) ) {
+                    $avatar = $data['avatar']['src'];
+                    $image_url = add_query_arg( 's', '200', $avatar );
+                }
+                break;
         }
-
-        $image_data['url'] = $avatar;
+        $alt_title = isset( $data['username'] ) ? $data['username'] : $data['plugin_name'];
+        $image_data['url'] = $image_url;
         $image_data['alt'] = $alt_title;
 
         return $image_data;
@@ -133,7 +131,31 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         if( ! $id ) {
             return $data;
         }
-        $data[ $this->type ] = NotificationX_Admin::get_post_meta( intval( $id ), $this->meta_key, true );
+
+        $new_data = array();
+
+        $display_type = NotificationX_Admin::get_post_meta( intval( $id ), 'reviews_source', true );
+        $product_type = NotificationX_Admin::get_post_meta( intval( $id ), 'wp_reviews_product_type', true );
+
+        if( $display_type === $this->type ) {
+            $design = NotificationX_Admin::get_post_meta( intval( $id ), 'wporg_theme', true );
+            $saved_data = NotificationX_Admin::get_post_meta( intval( $id ), $this->meta_key, true );
+            if( $design === 'theme-three' ) {
+                $new_data['rated'] = $saved_data['ratings']['5'];
+                $new_data['rating'] = '5';
+                unset( $saved_data['reviews'] );
+                $new_data['slug'] = $saved_data['slug'];
+                $new_data['icons'] = $saved_data['icons'];
+                $new_data['plugin_name'] = $saved_data['name'];
+                if( $product_type == 'plugin' && isset( $saved_data['slug'] ) ) {
+                    $new_data['link'] = 'https://wordpress.org/plugins/' . $saved_data['slug'];
+                } 
+                $data[ $this->type ] = array( $new_data );
+            } else {
+                $data[ $this->type ] = $saved_data['reviews'];
+            }
+        }
+
         return $data;
     }
 
@@ -156,7 +178,6 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             $reviews = $this->helper->extract_reviews_from_html( $reviews_html, $plugin_slug );
         }
         
-
         return $reviews;
     }
 
@@ -206,7 +227,8 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                     'priority' => 1,
                     'options'  => array(
                         'tag_username' => __('Username' , 'notificationx'),
-                        'tag_custom' => __('Custom' , 'notificationx'),
+                        'tag_rated'    => __('Rated' , 'notificationx'),
+                        'tag_custom'   => __('Custom' , 'notificationx'),
                     ),
                     'dependency' => array(
                         'tag_custom' => array(
@@ -217,24 +239,27 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                         'tag_username' => array(
                             'fields' => [ 'custom_first_param' ]
                         ),
+                        'tag_rated' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
                     ),
                     'default' => 'tag_username'
                 ),
                 'custom_first_param' => array(
                     'type'     => 'text',
                     'priority' => 2,
-                    'default' => __('Someone' , 'notificationx')
+                    'default'  => __('Someone' , 'notificationx')
                 ),
                 'second_param' => array(
                     'type'     => 'text',
                     'priority' => 3,
-                    'default' => __('just reviewed' , 'notificationx')
+                    'default'  => __('just reviewed' , 'notificationx')
                 ),
                 'third_param' => array(
                     'type'     => 'select',
                     'priority' => 4,
                     'options'  => array(
-                        'tag_plugin_name'       => __('Plugin/Theme Name' , 'notificationx'),
+                        'tag_plugin_name'     => __('Plugin' , 'notificationx'),
                         'tag_anonymous_title' => __('Anonymous Title' , 'notificationx'),
                     ),
                     'default' => 'tag_title'
@@ -243,9 +268,9 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                     'type'     => 'select',
                     'priority' => 5,
                     'options'  => array(
-                        'tag_rating'       => __('Rating' , 'notificationx'),
-                        'tag_time'       => __('Definite Time' , 'notificationx'),
-                        'sometime' => __('Sometimes ago' , 'notificationx'),
+                        'tag_rating'      => __('Rating' , 'notificationx'),
+                        'tag_time'        => __('Definite Time' , 'notificationx'),
+                        'sometime'        => __('Sometimes ago' , 'notificationx'),
                     ),
                     'default' => 'tag_rating'
                 ),
@@ -548,6 +573,17 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
     }
 
     public function frontend_html( $data = [], $settings = false, $args = [] ){
+
+        $data = array_merge( $data, $this->defaults );
+
+        $star = '';
+        if( ! empty( $data['rating'] ) ) {
+            for( $i = 1; $i <= $data['rating']; $i++ ) {
+                $star .= '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="13" viewBox="0 0 14 13"><metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?><x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c138 79.159824, 2016/09/14-01:09:01"><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about=""/></rdf:RDF></x:xmpmeta><?xpacket end="w"?></metadata><image id="Capa_1_copy" data-name="Capa 1 copy" width="14" height="13" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAMAAACuAq9NAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAn1BMVEXtihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihntihkAAAALB0bHAAAAM3RSTlMAAYjPGfNomdENAytlBJKtx+b87dKzpeIHvOksC6/eJPX6NzoaZ2PufFnbqlx/EgZXzp2UDFIsAAAAAWJLR0Q0qbHp/QAAAAlwSFlzAAALEgAACxIB0t1+/AAAAAd0SU1FB+MGDA4JMRMQH+0AAABvSURBVAjXY2AAAUYmZgYkwMJqzIbEZTc25uCEcbi4jYGAhxfE5uMXEBQCcY2FRUTFGMSNkQGDhCSCIyXNwCAjC+PJyYONUoDwFJUgJsNklcE8FRhXFcxVMzZW19DUMjbWBnN1BHX1GBj0DQyNGBgA1A4SzLVFctoAAAAASUVORK5CYII="/></svg> ';
+            }
+            $data['rating'] = $star;
+        }
+
         return parent::frontend_html( $data, $settings, $args );
     }
 

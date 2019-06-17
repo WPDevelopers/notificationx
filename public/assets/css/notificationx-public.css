@@ -132,7 +132,7 @@ span.notificationx-close > svg {
 .nx-bar {
     background: #ddd;
     position: absolute;
-    z-index: 9;
+    z-index: 999999;
     visibility: hidden;
     width: 100%;
     left: 0;

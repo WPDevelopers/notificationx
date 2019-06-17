@@ -211,12 +211,8 @@ class NotificationX_Extension {
         if( ! is_object( $settings ) || empty( $data ) ) {
             return;
         }
-        $this->defaults = apply_filters('nx_fallback_data', array(
-            'name' => __('Someone', 'notificationx')
-        ), $data );
-
-        $data = array_merge( $data, $this->defaults );
-
+        $this->defaults = apply_filters('nx_fallback_data', array(), $data, NotificationX_Helper::get_type( $settings ) );
+        $data = array_merge( $this->defaults, $data );
         extract( $args );
         $settings->themeName = $settings->{ $themeName };
         if( empty( $settings->{ $template . '_adv' } ) ) {
@@ -227,7 +223,7 @@ class NotificationX_Extension {
         }
 
         $template = apply_filters( 'nx_template_id' , $template, $settings);
-        
+
         $wrapper_class = apply_filters( 'nx_frontend_wrapper_classes', array_merge( 
             ['nx-notification'], self::get_classes( $settings ) 
         ), $settings );
@@ -396,8 +392,14 @@ class NotificationX_Extension {
         $image_url = $alt_title = '';
         $alt_title = isset( $data['name'] ) ? $data['name'] : $data['title'];
 
+        $type = NotificationX_Helper::get_type( $settings );
+
         switch( $settings->display_type ) {
-            case 'comments' :
+
+        }
+
+        switch( $type ) {
+            case 'wp_comments' :
                 if( $settings->show_avatar ) {
                     $avatar = '';
                     if( isset( $data['email'] ) ) {

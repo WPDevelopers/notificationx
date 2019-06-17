@@ -242,20 +242,7 @@ class NotificationX_MetaBox {
 
         $d_type = get_post_meta( $post_id, '_nx_meta_current_data_ready_for', true );
 
-        switch( $posts['nx_meta_display_type'] ) {
-            case 'comments' : 
-                $type       = $posts['nx_meta_comments_source'];
-                break;
-            case 'conversions' : 
-                $type = $posts['nx_meta_conversion_from'];
-                break;
-            case 'reviews' : 
-                $type = $posts['nx_meta_reviews_source'];
-                break;
-            case 'download_stats' : 
-                $type = $posts['nx_meta_stats_source'];
-                break;
-        }
+        $type = NotificationX_Helper::get_type( $posts );
 
         if( self::check_any_changes( $old_settings, $new_settings ) ) {
             do_action( 'nx_get_conversions_ready', $type, $data );

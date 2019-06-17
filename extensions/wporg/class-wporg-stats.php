@@ -82,7 +82,13 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         return $data;
     }
 
-    public function fallback_data( $data, $saved_data ){
+    public function fallback_data( $data, $saved_data, $type ){
+        if( $type !== $this->type ) {
+            return $data;
+        }
+
+
+
         unset( $data['name'] );
         $data['today'] = __( $saved_data['today'] . ' times today', 'notificationx' );
         $data['last_week'] = __( $saved_data['last_week'] . ' times in last 7 days', 'notificationx' );
@@ -91,6 +97,9 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         $data['today_text'] = __( 'Try it out', 'notificationx' );
         $data['last_week_text'] = __( 'Get started free.', 'notificationx' );
         $data['all_time_text'] = __( 'why not you?', 'notificationx' );
+
+        // dump( $data );
+        // die;
 
         return $data;
     }
@@ -188,6 +197,8 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         if( ! $plugin_slug ) {
             return;
         }
+
+        $total_stats = array();
 
         if( $product_type == 'plugin' ) {
             $raw_stats              = $this->helper->get_plugin_stats( $plugin_slug );
@@ -302,6 +313,9 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
                         'tag_all_time' => array(
                             'fields' => [ 'custom_third_param' ]
                         ),
+                        'tag_active_installs' => array(
+                            'fields' => [ 'custom_third_param' ]
+                        ),
                     ),
                     'default' => 'tag_all_time'
                 ),
@@ -312,6 +326,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
                 'fourth_param' => array(
                     'type'     => 'select',
                     'priority' => 7,
+                    'disable' => true, //TODO: Template Input which is Disable is not submitted to save.
                     'options'  => array(
                         'tag_today_text'           => __('today. Try it out' , 'notificationx'),
                         'tag_last_week_text'       => __('in last 7 days' , 'notificationx'),

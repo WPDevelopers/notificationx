@@ -285,6 +285,9 @@ class NotificationX_Public {
 		$style = $image_style = $content_style = $first_row_font = $second_row_font = $third_row_font = $max_width = [];
 		$css_string = $css = '';
 		
+		//TODO: Re-write this class to generate ADV CSS for notification
+		//TODO: Not working for stats and reviews only
+
 		switch( $settings->display_type ){
 			case 'conversions' : 
 			if( $settings->conversion_size ) {

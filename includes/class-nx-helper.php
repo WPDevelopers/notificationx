@@ -494,4 +494,47 @@ class NotificationX_Helper {
 
         return $new_template_str;
     }
+
+    public static function remove_prefix( $value, $key ){
+        global $new_array;
+        $key = str_replace( 'nx_meta_', '', $key );
+        $new_array[ $key ] = $value;
+    }
+
+    public static function get_type( $settings ){
+        if( empty( $settings ) ) {
+            return 'press_bar';
+        }
+    
+        $type = '';
+    
+        if( is_array( $settings ) ) {
+            $new_array = [];
+            global $new_array;
+            
+            array_walk( $settings, 'NotificationX_Helper::remove_prefix'  );
+            $settings = ( object ) $new_array;
+        }
+    
+        switch( $settings->display_type ) {
+            case 'press_bar' : 
+                $type = $settings->display_type;
+            case 'comments' : 
+                $type = $settings->comments_source;
+                break;
+            case 'conversions' : 
+                $type = $settings->conversion_from;
+                break;
+            case 'reviews' : 
+                $type = $settings->reviews_source;
+                break;
+            case 'download_stats' : 
+                $type = $settings->stats_source;
+                break;
+            default: 
+                $type = $settings->display_type;
+                break;
+        }
+        return $type;
+    }
 }
