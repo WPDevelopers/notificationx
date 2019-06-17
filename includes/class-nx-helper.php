@@ -344,7 +344,7 @@ class NotificationX_Helper {
                     'sections' => [ 'image', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography' ], 
                 ),
                 'download_stats' => array(
-                    'fields' => [ 'comments_source', 'conversion_from', 'reviews_source', 'show_notification_image' ], 
+                    'fields' => [ 'comments_source', 'conversion_from', 'reviews_source', 'show_notification_image', 'wp_reviews_template_new' ], 
                     'sections' => [ 'image', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography' ], 
                 ),
             ));
@@ -422,6 +422,7 @@ class NotificationX_Helper {
             'wp_reviews_template_new',
             'wp_stats_template_new',
             'actively_using_template_new',
+            'review_saying_template_new',
             'edd_template_new',
             'woo_template_new',
         );

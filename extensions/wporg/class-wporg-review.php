@@ -281,7 +281,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                         'tag_plugin_name'     => __('Plugin' , 'notificationx'),
                         'tag_anonymous_title' => __('Anonymous Title' , 'notificationx'),
                     ),
-                    'default' => 'tag_title'
+                    'default' => 'tag_plugin_name'
                 ),
                 'fourth_param' => array(
                     'type'     => 'select',
@@ -292,6 +292,104 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                         'sometime'        => __('Sometimes ago' , 'notificationx'),
                     ),
                     'default' => 'tag_rating'
+                ),
+            ),
+            'label'    => __('Notification Template' , 'notificationx'),
+            'priority' => 83,
+        );
+
+        $fields['review_saying_template_new'] = array(
+            'type'     => 'template',
+            'fields' => array(
+                'first_param' => array(
+                    'type'     => 'select',
+                    'label'    => __('Notification Template' , 'notificationx'),
+                    'priority' => 1,
+                    'options'  => array(
+                        'tag_username' => __('Username' , 'notificationx'),
+                        'tag_custom'   => __('Custom' , 'notificationx'),
+                    ),
+                    'dependency' => array(
+                        'tag_custom' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        )
+                    ),
+                    'hide' => array(
+                        'tag_username' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
+                    ),
+                    'default' => 'tag_username'
+                ),
+                'custom_first_param' => array(
+                    'type'     => 'text',
+                    'priority' => 2,
+                    'default'  => __('Someone' , 'notificationx')
+                ),
+                'second_param' => array(
+                    'type'     => 'text',
+                    'priority' => 3,
+                    'default'  => __('saying' , 'notificationx')
+                ),
+                'third_param' => array(
+                    'type'     => 'select',
+                    'priority' => 4,
+                    'options'  => array(
+                        'tag_title'     => __('Review Title' , 'notificationx'),
+                        'tag_anonymous_title' => __('Anonymous Title' , 'notificationx'),
+                    ),
+                    'default' => 'tag_title'
+                ),
+                'fourth_param' => array(
+                    'type'     => 'text',
+                    'priority' => 4,
+                    'default' => __('about', 'notificationx')
+                ),
+                'fifth_param' => array(
+                    'type'     => 'select',
+                    'priority' => 5,
+                    'options'  => array(
+                        'tag_plugin_name'        => __('Plugin Name' , 'notificationx'),
+                        'tag_custom_plugin_name' => __('Custom' , 'notificationx'),
+                    ),
+                    'default' => 'tag_plugin_name',
+                    'dependency' => array(
+                        'tag_custom_plugin_name' => array(
+                            'fields' => [ 'custom_fifth_param' ]
+                        )
+                    ),
+                    'hide' => array(
+                        'tag_plugin_name' => array(
+                            'fields' => [ 'custom_fifth_param' ]
+                        ),
+                    ),
+                ),
+                'custom_fifth_param' => array(
+                    'type'     => 'text',
+                    'priority' => 6,
+                ),
+                'sixth_param' => array(
+                    'type'     => 'select',
+                    'priority' => 7,
+                    'options'  => array(
+                        'tag_plugin_name_text'        => __('Try it now' , 'notificationx'),
+                        'tag_custom_sixth_param_text' => __('Custom' , 'notificationx'),
+                    ),
+                    'default' => 'tag_plugin_name_text',
+                    'dependency' => array(
+                        'tag_custom_sixth_param_text' => array(
+                            'fields' => [ 'custom_sixth_param' ]
+                        )
+                    ),
+                    'hide' => array(
+                        'tag_plugin_name_text' => array(
+                            'fields' => [ 'custom_sixth_param' ]
+                        ),
+                    ),
+                ),
+                'custom_sixth_param' => array(
+                    'type'     => 'text',
+                    'priority' => 6,
                 ),
             ),
             'label'    => __('Notification Template' , 'notificationx'),
@@ -335,6 +433,28 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                     'priority'	=> 3,
                     'default'	=> 'theme-one',
                     'options'   => $this->themes(),
+                    'hide' => [
+                        'theme-one' => [
+                            'fields' => ['review_saying_template_new']
+                        ],
+                        'theme-three' => [
+                            'fields' => ['review_saying_template_new']
+                        ],
+                        'review_saying' => [
+                            'fields' => ['wp_reviews_template_new']
+                        ],
+                    ],
+                    'dependency' => [
+                        'review_saying' => [
+                            'fields' => ['review_saying_template_new']
+                        ],
+                        'theme-three' => [
+                            'fields' => ['wp_reviews_template_new']
+                        ],
+                        'theme-one' => [
+                            'fields' => ['wp_reviews_template_new']
+                        ],
+                    ],
                 ),
                 'wporg_advance_edit' => array(
                     'type'      => 'adv_checkbox',
@@ -585,9 +705,9 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
 
     public function themes(){
         return apply_filters('nxpro_wporg_themes', array(
-            'theme-one' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/reviewed.png',
-            'theme-two' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/saying-review.png',
-            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/total-rated.png',
+            'theme-one'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/reviewed.png',
+            'review_saying' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/saying-review.png',
+            'theme-three'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/total-rated.png',
         ));
     }
 

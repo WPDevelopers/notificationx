@@ -218,7 +218,7 @@ class NotificationX_Extension {
         $settings->themeName = $settings->{ $themeName };
         if( empty( $settings->{ $template . '_adv' } ) ) {
             $template =  $template . '_new_string';
-            if( $settings->themeName === 'actively_using' ) {
+            if( in_array( $settings->themeName, array( 'review_saying', 'actively_using' ) ) ) {
                 $template =  $settings->themeName . '_template_new_string';
             }
         }

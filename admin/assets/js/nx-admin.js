@@ -33,10 +33,11 @@
 					break;
 				case 'reviews' : 
 					$('#nx_meta_reviews_source').trigger('change');
+					$('.nx-wporg_theme .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
 					break;
 				case 'download_stats' : 
 					$('#nx_meta_stats_source').trigger('change');
-					$('.nx-single-theme-wrapper.nx-theme-selected').trigger('change');
+					$('.nx-wpstats_theme .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
 					break;
 			}
 			$.notificationx.templateForTheme();
