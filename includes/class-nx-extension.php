@@ -222,7 +222,6 @@ class NotificationX_Extension {
                 $template =  $settings->themeName . '_template_new_string';
             }
         }
-
         $template = apply_filters( 'nx_template_id' , $template, $settings);
 
         $wrapper_class = apply_filters( 'nx_frontend_wrapper_classes', array_merge( 
@@ -393,7 +392,7 @@ class NotificationX_Extension {
         $image_url = $alt_title = '';
         $alt_title = isset( $data['name'] ) ? $data['name'] : $data['title'];
 
-        $type = NotificationX_Helper::get_type( $settings );
+        $type = NotificationX_Helper::get_type( $settings ); //TODO: something has to do in future.
 
         switch( $settings->display_type ) {
             case 'comments' :
@@ -446,8 +445,6 @@ class NotificationX_Extension {
                 }
                 break;
         }
-
-        // dump( $image_url, false ); die; //TODO: die;
 
         if( isset( $settings->show_default_image ) && $settings->show_default_image && $image_url == '' ) {
             $product_image = wp_get_attachment_image_src( $settings->image_url['id'], '_nx_notification_thumb', false );

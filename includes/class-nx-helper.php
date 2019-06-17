@@ -471,7 +471,7 @@ class NotificationX_Helper {
             if( strpos( $s_key, 'custom_' ) === 0 ) { 
                 $hasCustomAsKey = true;
             }
-
+            
             if( $hasCustomAsValue === true ) {
                 $previous_value = $s_value;
                 $hasCustomAsValue = false;
@@ -490,7 +490,6 @@ class NotificationX_Helper {
             } else {
                 $new_template_str[ $j ] = $s_value;
             }
-            // $new_template_str[ $j ] = isset( $new_template_str[ $j ] ) ? $new_template_str[ $j ] : '' . $s_value;
         }
 
         return $new_template_str;

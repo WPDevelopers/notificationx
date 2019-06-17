@@ -56,6 +56,9 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             $theme = $posts_data['nx_meta_wporg_theme'];
 
             switch( $theme ) {
+                case 'review_saying': 
+                    $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'fifth_param', 'sixth_param' ] ) );
+                    break;
                 default : 
                     $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'third_param', 'fourth_param' ] ) );
                     break;
@@ -73,6 +76,10 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         if( isset( $data['name'] ) ) {
             unset( $data['name'] );
         }
+
+        $data['plugin_name_text'] = __('try it out', 'notificationx');
+        $data['anonymous_title'] = __('Anonymous', 'notificationx');
+
         return $data;
     }
 
@@ -350,46 +357,16 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                     'priority' => 5,
                     'options'  => array(
                         'tag_plugin_name'        => __('Plugin Name' , 'notificationx'),
-                        'tag_custom_plugin_name' => __('Custom' , 'notificationx'),
                     ),
                     'default' => 'tag_plugin_name',
-                    'dependency' => array(
-                        'tag_custom_plugin_name' => array(
-                            'fields' => [ 'custom_fifth_param' ]
-                        )
-                    ),
-                    'hide' => array(
-                        'tag_plugin_name' => array(
-                            'fields' => [ 'custom_fifth_param' ]
-                        ),
-                    ),
-                ),
-                'custom_fifth_param' => array(
-                    'type'     => 'text',
-                    'priority' => 6,
                 ),
                 'sixth_param' => array(
                     'type'     => 'select',
                     'priority' => 7,
                     'options'  => array(
                         'tag_plugin_name_text'        => __('Try it now' , 'notificationx'),
-                        'tag_custom_sixth_param_text' => __('Custom' , 'notificationx'),
                     ),
                     'default' => 'tag_plugin_name_text',
-                    'dependency' => array(
-                        'tag_custom_sixth_param_text' => array(
-                            'fields' => [ 'custom_sixth_param' ]
-                        )
-                    ),
-                    'hide' => array(
-                        'tag_plugin_name_text' => array(
-                            'fields' => [ 'custom_sixth_param' ]
-                        ),
-                    ),
-                ),
-                'custom_sixth_param' => array(
-                    'type'     => 'text',
-                    'priority' => 6,
                 ),
             ),
             'label'    => __('Notification Template' , 'notificationx'),
