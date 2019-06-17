@@ -36,12 +36,12 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
 
     public function settings_by_theme( $data ){
         $data['nx_meta_wp_reviews_template_new'] = array(
-            'theme-one' => array(
+            'theme-two' => array(
                 'first_param' => 'tag_username',
                 'third_param' => 'tag_plugin_name',
                 'fourth_param' => 'tag_rating',
             ),
-            'theme-three' => array(
+            'theme-one' => array(
                 'first_param' => 'tag_rated',
                 'third_param' => 'tag_plugin_name',
                 'fourth_param' => 'tag_rating',
@@ -100,6 +100,9 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         if( $settings->display_type != 'reviews' || $settings->reviews_source != $this->type ) { 
             return $image_data;
         }
+
+        // dump( $data ); die;
+
         $avatar = $image_url =  '';
         switch( $settings->show_notification_image ) {
             case 'product_image' : 
@@ -166,7 +169,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         if( $display_type === $this->type ) {
             $design = NotificationX_Admin::get_post_meta( intval( $id ), 'wporg_theme', true );
             $saved_data = NotificationX_Admin::get_post_meta( intval( $id ), $this->meta_key, true );
-            if( $design === 'theme-three' ) {
+            if( $design === 'theme-one' ) {
                 $new_data['rated'] = $saved_data['ratings']['5'];
                 $new_data['rating'] = '5';
                 unset( $saved_data['reviews'] );
@@ -414,7 +417,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                         'theme-one' => [
                             'fields' => ['review_saying_template_new']
                         ],
-                        'theme-three' => [
+                        'theme-two' => [
                             'fields' => ['review_saying_template_new']
                         ],
                         'review_saying' => [
@@ -425,7 +428,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                         'review_saying' => [
                             'fields' => ['review_saying_template_new']
                         ],
-                        'theme-three' => [
+                        'theme-two' => [
                             'fields' => ['wp_reviews_template_new']
                         ],
                         'theme-one' => [
@@ -682,9 +685,9 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
 
     public function themes(){
         return apply_filters('nxpro_wporg_themes', array(
-            'theme-one'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/reviewed.png',
+            'theme-two'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/reviewed.png',
             'review_saying' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/saying-review.png',
-            'theme-three'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/total-rated.png',
+            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/total-rated.png',
         ));
     }
 

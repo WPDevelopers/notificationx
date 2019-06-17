@@ -314,6 +314,16 @@ class NotificationX_Extension {
                     }
                 }
                 break;
+            case 'reviews' : 
+                if( $settings->wporg_advance_edit ) {
+                    $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
+                }
+                break;
+            case 'download_stats' : 
+                if( $settings->wpstats_advance_edit ) {
+                    $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
+                }
+                break;
             case 'press_bar' : 
                 if( $settings->bar_advance_edit ) {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
@@ -390,7 +400,11 @@ class NotificationX_Extension {
      */
     protected static function get_image_url( $data = [], $settings ) {
         $image_url = $alt_title = '';
-        $alt_title = isset( $data['name'] ) ? $data['name'] : $data['title'];
+        $alt_title = isset( $data['name'] ) ? $data['name'] : '';
+
+        if( empty( $alt_title ) ) {
+            $alt_title = isset( $data['title'] ) ? $data['title'] : '';
+        }
 
         $type = NotificationX_Helper::get_type( $settings ); //TODO: something has to do in future.
 

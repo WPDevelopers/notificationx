@@ -141,6 +141,7 @@ class NotificationX_Public {
 		foreach( self::$active as $id ) {
 			
 			$settings = NotificationX_MetaBox::get_metabox_settings( $id );
+			self::generate_css( $settings );
 			
 			$logged_in = is_user_logged_in();
 			$show_on_display = $settings->show_on_display;
@@ -192,8 +193,6 @@ class NotificationX_Public {
 					$download_stats_id[] = $id;
 					break;
 			}
-			
-			self::generate_css( $settings );
 			unset( $activeItems[ $id ] );
 		}
 		function pro_extension_ids() {
@@ -289,71 +288,100 @@ class NotificationX_Public {
 		//TODO: Not working for stats and reviews only
 
 		switch( $settings->display_type ){
+			case 'reviews' : 
+				if( $settings->conversion_size ) {
+					$max_width[] = ! empty( $settings->conversion_size ) ? 'max-width: ' . $settings->conversion_size .'px !important' : '';
+				}
+				if( $settings->wporg_advance_edit ) {
+					$style[] = ! empty( $settings->wporg_bg_color ) ? 'background-color: ' . $settings->wporg_bg_color . '!important' : '';
+					$style[] = ! empty( $settings->wporg_text_color ) ? 'color: ' . $settings->wporg_text_color : '';
+					
+					if( $settings->wporg_border ){
+						$style[] = 'border-width: ' . $settings->wporg_border_size . 'px !important';
+						$style[] = 'border-style: ' . $settings->wporg_border_style . '!important';
+						$style[] = 'border-color: ' . $settings->wporg_border_color . '!important';
+					}
+					
+					if( ! empty( $settings->wporg_first_font_size ) ) {
+						$first_row_font[] = 'font-size: ' . $settings->wporg_first_font_size . 'px';
+					}
+					if( ! empty( $settings->wporg_second_font_size ) ) {
+						$second_row_font[] = 'font-size: ' . $settings->wporg_second_font_size . 'px';
+					}
+					if( ! empty( $settings->wporg_third_font_size ) ) {
+						$third_row_font[] = 'font-size: ' . $settings->wporg_third_font_size . 'px';
+					}
+					
+					// if( $settings->image_position == 'right' ) {
+					// 	$style[] = 'flex-direction: row-reverse';
+					// }
+				}
+				break;
 			case 'conversions' : 
-			if( $settings->conversion_size ) {
-				$max_width[] = ! empty( $settings->conversion_size ) ? 'max-width: ' . $settings->conversion_size .'px !important' : '';
-			}
-			if( $settings->advance_edit ) {
-				$style[] = ! empty( $settings->bg_color ) ? 'background-color: ' . $settings->bg_color . '!important' : '';
-				$style[] = ! empty( $settings->text_color ) ? 'color: ' . $settings->text_color : '';
-				
-				if( $settings->border ){
-					$style[] = 'border-width: ' . $settings->border_size . 'px !important';
-					$style[] = 'border-style: ' . $settings->border_style . '!important';
-					$style[] = 'border-color: ' . $settings->border_color . '!important';
+				if( $settings->conversion_size ) {
+					$max_width[] = ! empty( $settings->conversion_size ) ? 'max-width: ' . $settings->conversion_size .'px !important' : '';
 				}
-				
-				if( ! empty( $settings->first_font_size ) ) {
-					$first_row_font[] = 'font-size: ' . $settings->first_font_size . 'px';
+				if( $settings->advance_edit ) {
+					$style[] = ! empty( $settings->bg_color ) ? 'background-color: ' . $settings->bg_color . '!important' : '';
+					$style[] = ! empty( $settings->text_color ) ? 'color: ' . $settings->text_color : '';
+					
+					if( $settings->border ){
+						$style[] = 'border-width: ' . $settings->border_size . 'px !important';
+						$style[] = 'border-style: ' . $settings->border_style . '!important';
+						$style[] = 'border-color: ' . $settings->border_color . '!important';
+					}
+					
+					if( ! empty( $settings->first_font_size ) ) {
+						$first_row_font[] = 'font-size: ' . $settings->first_font_size . 'px';
+					}
+					if( ! empty( $settings->second_font_size ) ) {
+						$second_row_font[] = 'font-size: ' . $settings->second_font_size . 'px';
+					}
+					if( ! empty( $settings->third_font_size ) ) {
+						$third_row_font[] = 'font-size: ' . $settings->third_font_size . 'px';
+					}
+					
+					if( $settings->image_position == 'right' ) {
+						$style[] = 'flex-direction: row-reverse';
+					}
 				}
-				if( ! empty( $settings->second_font_size ) ) {
-					$second_row_font[] = 'font-size: ' . $settings->second_font_size . 'px';
-				}
-				if( ! empty( $settings->third_font_size ) ) {
-					$third_row_font[] = 'font-size: ' . $settings->third_font_size . 'px';
-				}
-				
-				if( $settings->image_position == 'right' ) {
-					$style[] = 'flex-direction: row-reverse';
-				}
-			}
-			break;
+				break;
 			case 'comments' : 
-			if( $settings->conversion_size ) {
-				$max_width[] = ! empty( $settings->conversion_size ) ? 'max-width: ' . $settings->conversion_size .'px !important' : '';
-			}
-			if( $settings->comment_advance_edit ) {
-				$style[] = ! empty( $settings->comment_bg_color ) ? 'background-color: ' . $settings->comment_bg_color : '';
-				$style[] = ! empty( $settings->comment_text_color ) ? 'color: ' . $settings->comment_text_color : '';
-				
-				if( $settings->comment_border ){
-					$style[] = 'border-width: ' . $settings->comment_border_size . 'px !important';
-					$style[] = 'border-style: ' . $settings->comment_border_style . ' !important';
-					$style[] = 'border-color: ' . $settings->comment_border_color . '!important';
+				if( $settings->conversion_size ) {
+					$max_width[] = ! empty( $settings->conversion_size ) ? 'max-width: ' . $settings->conversion_size .'px !important' : '';
 				}
-				
-				if( ! empty( $settings->comment_first_font_size ) ) {
-					$first_row_font[] = 'font-size: ' . $settings->comment_first_font_size . 'px';
+				if( $settings->comment_advance_edit ) {
+					$style[] = ! empty( $settings->comment_bg_color ) ? 'background-color: ' . $settings->comment_bg_color : '';
+					$style[] = ! empty( $settings->comment_text_color ) ? 'color: ' . $settings->comment_text_color : '';
+					
+					if( $settings->comment_border ){
+						$style[] = 'border-width: ' . $settings->comment_border_size . 'px !important';
+						$style[] = 'border-style: ' . $settings->comment_border_style . ' !important';
+						$style[] = 'border-color: ' . $settings->comment_border_color . '!important';
+					}
+					
+					if( ! empty( $settings->comment_first_font_size ) ) {
+						$first_row_font[] = 'font-size: ' . $settings->comment_first_font_size . 'px';
+					}
+					if( ! empty( $settings->comment_second_font_size ) ) {
+						$second_row_font[] = 'font-size: ' . $settings->comment_second_font_size . 'px';
+					}
+					if( ! empty( $settings->comment_third_font_size ) ) {
+						$third_row_font[] = 'font-size: ' . $settings->comment_third_font_size . 'px';
+					}
+					
+					if( $settings->comment_image_position == 'right' ) {
+						$style[] = 'flex-direction: row-reverse';
+					}
 				}
-				if( ! empty( $settings->comment_second_font_size ) ) {
-					$second_row_font[] = 'font-size: ' . $settings->comment_second_font_size . 'px';
-				}
-				if( ! empty( $settings->comment_third_font_size ) ) {
-					$third_row_font[] = 'font-size: ' . $settings->comment_third_font_size . 'px';
-				}
-				
-				if( $settings->comment_image_position == 'right' ) {
-					$style[] = 'flex-direction: row-reverse';
-				}
-			}
-			break;
+				break;
 			case 'press_bar' : 
-			if( $settings->bar_advance_edit ) {
-				$style[] = ! empty( $settings->bar_bg_color ) ? 'background-color: ' . $settings->bar_bg_color . ' !important' : '';
-				$style[] = ! empty( $settings->bar_text_color ) ? 'color: ' . $settings->bar_text_color . ' !important': '';
-				$style[] = ! empty( $settings->bar_font_size ) ? 'font-size: ' . $settings->bar_font_size . 'px' . ' !important': '';
-			}
-			break;
+				if( $settings->bar_advance_edit ) {
+					$style[] = ! empty( $settings->bar_bg_color ) ? 'background-color: ' . $settings->bar_bg_color . ' !important' : '';
+					$style[] = ! empty( $settings->bar_text_color ) ? 'color: ' . $settings->bar_text_color . ' !important': '';
+					$style[] = ! empty( $settings->bar_font_size ) ? 'font-size: ' . $settings->bar_font_size . 'px' . ' !important': '';
+				}
+				break;
 		}
 		
 		
