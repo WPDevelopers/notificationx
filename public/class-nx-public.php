@@ -311,10 +311,6 @@ class NotificationX_Public {
 					if( ! empty( $settings->wporg_third_font_size ) ) {
 						$third_row_font[] = 'font-size: ' . $settings->wporg_third_font_size . 'px';
 					}
-					
-					// if( $settings->image_position == 'right' ) {
-					// 	$style[] = 'flex-direction: row-reverse';
-					// }
 				}
 				break;
 			case 'download_stats' : 
@@ -340,10 +336,6 @@ class NotificationX_Public {
 					if( ! empty( $settings->wpstats_third_font_size ) ) {
 						$third_row_font[] = 'font-size: ' . $settings->wpstats_third_font_size . 'px';
 					}
-					
-					// if( $settings->image_position == 'right' ) {
-					// 	$style[] = 'flex-direction: row-reverse';
-					// }
 				}
 				break;
 			case 'conversions' : 
