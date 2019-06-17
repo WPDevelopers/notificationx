@@ -396,11 +396,7 @@ class NotificationX_Extension {
         $type = NotificationX_Helper::get_type( $settings );
 
         switch( $settings->display_type ) {
-
-        }
-
-        switch( $type ) {
-            case 'wp_comments' :
+            case 'comments' :
                 if( $settings->show_avatar ) {
                     $avatar = '';
                     if( isset( $data['email'] ) ) {
@@ -450,6 +446,8 @@ class NotificationX_Extension {
                 }
                 break;
         }
+
+        // dump( $image_url, false ); die; //TODO: die;
 
         if( isset( $settings->show_default_image ) && $settings->show_default_image && $image_url == '' ) {
             $product_image = wp_get_attachment_image_src( $settings->image_url['id'], '_nx_notification_thumb', false );

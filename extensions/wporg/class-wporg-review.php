@@ -34,6 +34,23 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         add_filter( 'cron_schedules', array( $this, 'cache_duration' ) );
     }
 
+    public function settings_by_theme( $data ){
+        $data['nx_meta_wp_reviews_template_new'] = array(
+            'theme-one' => array(
+                'first_param' => 'tag_username',
+                'third_param' => 'tag_plugin_name',
+                'fourth_param' => 'tag_rating',
+            ),
+            'theme-three' => array(
+                'first_param' => 'tag_rated',
+                'third_param' => 'tag_plugin_name',
+                'fourth_param' => 'tag_rating',
+            )
+        );
+
+        return $data;
+    }
+
     public function template_string_by_theme( $template, $old_template, $posts_data ){
         if( $posts_data['nx_meta_display_type'] === 'reviews' && $posts_data['nx_meta_reviews_source'] === $this->type ) {
             $theme = $posts_data['nx_meta_wporg_theme'];
@@ -53,7 +70,9 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         if( $type !== $this->type ) {
             return $data;
         }
-        unset( $data['name'] );
+        if( isset( $data['name'] ) ) {
+            unset( $data['name'] );
+        }
         return $data;
     }
 
