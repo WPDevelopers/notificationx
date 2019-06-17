@@ -23,6 +23,9 @@
                     if( isset( $inner_field['disable'] ) && $inner_field['disable'] === true ) {
                         $attrs .= ' disabled';
                     }
+                    // if( isset( $inner_field['readonly'] ) && $inner_field['readonly'] === true ) {
+                    //     $attrs .= ' readonly="readonly"';
+                    // }
 
                     $file_name = $inner_field['type'];
                     if( $file_name === 'select' ) {

@@ -212,7 +212,8 @@ class NotificationX_Extension {
             return;
         }
         $this->defaults = apply_filters('nx_fallback_data', array(), $data, NotificationX_Helper::get_type( $settings ) );
-        $data = array_merge( $this->defaults, $data );
+        $data = array_merge( $data, $this->defaults );
+
         extract( $args );
         $settings->themeName = $settings->{ $themeName };
         if( empty( $settings->{ $template . '_adv' } ) ) {
