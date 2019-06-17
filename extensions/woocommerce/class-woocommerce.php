@@ -176,22 +176,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             'priority'    => 91,
             'button_text' => __('Advance Template' , 'notificationx'),
             'side'        => 'right',
-            'dependency'  => array(
-                1 => array(
-                    'fields' => [ 'woo_template' ]
-                )
-            ),
-        );
-
-        $fields['woo_template'] = array(
-            'type'     => 'template',
-            'priority' => 92,
-            'defaults' => [
-                __('{{name}} recently purchased', 'notificationx'), '{{title}}', '{{time}}'
-            ],
-            'variables' => [
-                '{{name}}', '{{title}}', '{{time}}'
-            ],
+            'swal'        => true
         );
 
         return $fields;

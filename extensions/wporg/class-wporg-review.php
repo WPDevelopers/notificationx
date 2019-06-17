@@ -381,22 +381,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             'priority'    => 84,
             'button_text' => __('Advance Template' , 'notificationx'),
             'side'        => 'right',
-            'dependency'  => array(
-                1 => array(
-                    'fields' => [ 'wp_reviews_template' ]
-                )
-            ),
-        );
-
-        $fields['wp_reviews_template'] = array(
-            'type'     => 'template',
-            'priority' => 85,
-            'defaults' => [
-                __('{{username}} recently reviewed', 'notificationx'), '{{plugin_name}}', '{{time}}'
-            ],
-            'variables' => [
-                '{{username}}', '{{plugin_name}}', '{{title}}', '{{time}}'
-            ],
+            'swal'        => true,
         );
         
         return $fields;

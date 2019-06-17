@@ -414,22 +414,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
             'priority'    => 84,
             'button_text' => __('Advance Template' , 'notificationx'),
             'side'        => 'right',
-            'dependency'  => array(
-                1 => array(
-                    'fields' => [ 'wp_stats_template' ]
-                )
-            ),
-        );
-
-        $fields['wp_stats_template'] = array(
-            'type'     => 'template',
-            'priority' => 85,
-            'defaults' => [
-                __('{{name}}', 'notificationx'), 'has been downloaded {{all_time}} times', 'Why not you?'
-            ],
-            'variables' => [
-                '{{name}}', '{{today}}', '{{last_week}}', '{{yesterday}}', '{{all_time}}', '{{active_installs}}'
-            ],
+            'swal'        => true,
         );
         
         return $fields;

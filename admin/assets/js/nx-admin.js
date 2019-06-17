@@ -166,6 +166,28 @@
 			$.notificationx.selectTheme( this )
 		});
 
+		//Advance Checkbox with SweetAlear
+		$('body').on('click', '.nx-adv-checkbox-wrap label', function( e ){
+			if( typeof $(this)[0].dataset.swal != 'undefined' ) {
+				e.preventDefault();
+			}
+			var premium_content = document.createElement("p");
+			var premium_anchor = document.createElement("a");
+				
+			premium_anchor.setAttribute( 'href', 'https://notificationx.com' );
+			premium_anchor.innerText = 'Premium';
+			premium_anchor.style.color = 'red';
+			premium_content.innerHTML = 'You need to upgrade to the <strong>'+ premium_anchor.outerHTML +' </strong> Version to use this feature';
+			
+			swal({
+				title     : "Opps...",
+				content   :  premium_content,
+				icon      : "warning",
+				buttons   : [false, "Close"],
+				dangerMode: true,
+			});
+		});
+
 		/**
 		 * Group Field Events
 		 */

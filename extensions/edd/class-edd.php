@@ -178,22 +178,7 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
             'priority'    => 89,
             'button_text' => __('Advance Template' , 'notificationx'),
             'side'        => 'right',
-            'dependency'  => array(
-                1 => array(
-                    'fields' => [ 'edd_template' ]
-                )
-            ),
-        );
-
-        $fields['edd_template'] = array(
-            'type'     => 'template',
-            'priority' => 90,
-            'defaults' => [
-                __('{{name}} recently purchased', 'notificationx'), '{{title}}', '{{time}}'
-            ],
-            'variables' => [
-                '{{name}}', '{{title}}', '{{time}}'
-            ],
+            'swal'        => true,
         );
 
         return $fields;
