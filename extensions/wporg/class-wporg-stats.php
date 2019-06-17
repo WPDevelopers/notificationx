@@ -85,8 +85,10 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
     public function fallback_data( $data, $saved_data, $type ){
         if( $type !== $this->type ) {
             return $data;
-        }        
-        unset( $data['name'] );
+        }      
+        if( isset( $data['name'] ) ) {
+            unset( $data['name'] );
+        }
         $data['today'] = __( $saved_data['today'] . ' times today', 'notificationx' );
         $data['yesterday'] = __( $saved_data['yesterday'] . ' times', 'notificationx' );
         $data['last_week'] = __( $saved_data['last_week'] . ' times in last 7 days', 'notificationx' );
