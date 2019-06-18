@@ -101,8 +101,6 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             return $image_data;
         }
 
-        // dump( $data ); die;
-
         $avatar = $image_url =  '';
         switch( $settings->show_notification_image ) {
             case 'product_image' : 
