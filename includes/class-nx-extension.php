@@ -222,6 +222,7 @@ class NotificationX_Extension {
                 $template =  $settings->themeName . '_template_new_string';
             }
         }
+
         $template = apply_filters( 'nx_template_id' , $template, $settings);
 
         $wrapper_class = apply_filters( 'nx_frontend_wrapper_classes', array_merge( 
@@ -342,27 +343,9 @@ class NotificationX_Extension {
         
 		$classes[ 'wrapper' ][] = 'nx-' . $settings->display_type;
 
-		$classes[ 'inner' ][] = 'nx-notification-' . esc_attr( self::get_theme( $settings ) );
+		$classes[ 'inner' ][] = 'nx-notification-' . esc_attr( NotificationX_Helper::get_theme( $settings ) );
 
 		return $classes[ $type ];
-    }
-
-    private static function get_theme( $settings ){
-        $theme_name = '';
-        switch( $settings->display_type ) {
-            case 'comments' : 
-                $theme_name = $settings->comment_theme;
-                break;
-            case 'conversions' : 
-                $theme_name = $settings->theme;
-                break;
-            default: 
-                    if( ! empty( $settings->themeName ) ) :
-                        $theme_name = $settings->themeName;
-                    endif;
-                break;
-        }
-        return $theme_name;
     }
     /**
      * This function is responsible for checking, is the notification is visible or not.
@@ -473,6 +456,20 @@ class NotificationX_Extension {
         }
         
         return false;
+    }
+
+    public function template_string_by_theme( $template, $old_template, $posts_data ){
+        if( NotificationX_Helper::get_type( $posts_data ) === $this->type ) {
+            $theme = NotificationX_Helper::get_theme( $posts_data );
+            $breaks_data = apply_filters( 'nx_theme_breaks_data', array( 'br_before' => [ 'third_param', 'fourth_param' ] ));
+            switch( $theme ) {
+                default : 
+                    $template = NotificationX_Helper::regenerate_the_theme( $old_template, $breaks_data );
+                    break;
+            }
+            return $template;
+        }
+        return $template;
     }
 }
 

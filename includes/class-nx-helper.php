@@ -515,26 +515,53 @@ class NotificationX_Helper {
             array_walk( $settings, 'NotificationX_Helper::remove_prefix'  );
             $settings = ( object ) $new_array;
         }
-    
-        switch( $settings->display_type ) {
-            case 'press_bar' : 
-                $type = $settings->display_type;
-            case 'comments' : 
-                $type = $settings->comments_source;
-                break;
-            case 'conversions' : 
-                $type = $settings->conversion_from;
-                break;
-            case 'reviews' : 
-                $type = $settings->reviews_source;
-                break;
-            case 'download_stats' : 
-                $type = $settings->stats_source;
-                break;
-            default: 
-                $type = $settings->display_type;
-                break;
+
+        $source_types = self::source_types();
+
+        if( array_key_exists( $settings->display_type, $source_types ) ) {
+            $type = $settings->{ $source_types[ $settings->display_type ] };
         }
         return $type;
+    }
+
+    public static function source_types(){
+        return apply_filters( 'nx_source_types', array( 
+            'press_bar'      => 'display_type',
+            'comments'       => 'comments_source',
+            'conversions'    => 'conversion_from',
+            'reviews'        => 'reviews_source',
+            'download_stats' => 'stats_source',
+        ));
+    }
+
+    public static function get_theme( $settings ){
+        if( empty( $settings ) ) {
+            return 'theme-one';
+        }
+        $theme = '';
+        if( is_array( $settings ) ) {
+            $new_array = [];
+            global $new_array;
+            
+            array_walk( $settings, 'NotificationX_Helper::remove_prefix'  );
+            $settings = ( object ) $new_array;
+        }
+        $type = self::get_type( $settings );
+        $theme_types = self::theme_types();
+        if( array_key_exists( $type, $theme_types ) ) {
+            $theme = $settings->{ $theme_types[ $type ] };
+        }
+        return $theme;
+    }
+
+    public static function theme_types(){
+        return apply_filters( 'nx_themes_types', array( 
+            'press_bar'   => 'bar_theme',
+            'wp_comments' => 'comment_theme',
+            'woocommerce' => 'theme',
+            'edd'         => 'theme',
+            'wp_reviews'  => 'wporg_theme',
+            'wp_stats'  => 'wpstats_theme',
+        ));
     }
 }

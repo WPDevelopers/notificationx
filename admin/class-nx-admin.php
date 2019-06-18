@@ -65,7 +65,7 @@ class NotificationX_Admin {
 	* @param      string    $version    The version of this plugin.
 	*/
 	public function __construct( $plugin_name, $version ) {
-		
+
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 		self::$settings = NotificationX_DB::get_settings();
@@ -77,6 +77,7 @@ class NotificationX_Admin {
 	*/
 	public static function get_active_items() {
 		// WP Query arguments.
+		$source_types = NotificationX_Helper::source_types();
 		$args = array(
 			'post_type'         => 'notificationx',
 			'posts_per_page'    => '-1',
@@ -85,30 +86,13 @@ class NotificationX_Admin {
 		$active = [];
 		// Get the notification posts.
 		$posts = get_posts( $args );
-		
 		if ( count( $posts ) ) {
 			foreach ( $posts as $post ) {
 				$settings = NotificationX_MetaBox::get_metabox_settings( $post->ID );
-
-				switch( $settings->display_type ) {
-					case 'press_bar' : 
-						$type = $settings->display_type;
-						break;
-					case 'comments' : 
-						$type = $settings->comments_source;
-						break;
-					case 'conversions' : 
-						$type = $settings->conversion_from;
-						break;
-					case 'reviews' : 
-						$type = $settings->reviews_source;
-						break;
-					case 'download_stats' : 
-						$type = $settings->stats_source;
-						break;
+				$type = '';
+				if( array_key_exists( $settings->display_type, $source_types ) ) {
+					$type = $settings->{ $source_types[ $settings->display_type ] };
 				}
-
-				
 				$active[ $type ][] = $post->ID;
 			}
 		}
@@ -523,7 +507,7 @@ class NotificationX_Admin {
 		
 		include NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-admin-preview.php';
 	}
-	
+	//TODO: Notification Preview Not Visible for now.
 	public function preview_html( $settings, $type = 'conversion' ){
 		$data = array(
 			'comment' => array(
