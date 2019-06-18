@@ -168,6 +168,9 @@
 
 		//Advance Checkbox with SweetAlear
 		$('body').on('click', '.nx-adv-checkbox-wrap label', function( e ){
+			if( typeof $(this)[0].dataset.swal == 'undefined' ) {
+				return;
+			}
 			if( typeof $(this)[0].dataset.swal != 'undefined' ) {
 				e.preventDefault();
 			}
