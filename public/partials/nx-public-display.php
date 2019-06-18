@@ -12,25 +12,7 @@
  * @subpackage NotificationX/public/partials
  */
 $type = $extension_name = $key = '';
-
-switch( $settings->display_type ) {
-    case 'press_bar' : 
-        $type = $extension_name = $key = $settings->display_type;
-        break;
-    case 'comments' : 
-        $type = $extension_name = $key = $settings->comments_source;
-        break;
-    case 'conversions' : 
-        $type = $extension_name = $key = $settings->conversion_from;
-        break;
-    case 'reviews' : 
-        $type = $extension_name = $key = $settings->reviews_source;
-        break;
-    case 'download_stats' : 
-        $type = $extension_name = $key = $settings->stats_source;
-        break;
-}
-
+$type = $extension_name = $key = NotificationX_Helper::get_type( $settings );
 $data = apply_filters('nx_fields_data', $data, $settings->id );
 
 /**
