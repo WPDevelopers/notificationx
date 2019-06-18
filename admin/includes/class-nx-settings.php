@@ -138,7 +138,7 @@ class NotificationX_Settings {
             $attrs .= ' data-hide="' . esc_attr( json_encode( $field['hide'] ) ) . '"';
         }
 
-        $field_id = $id;
+        $field_id = $name;
 
         include NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-field-display.php';
     }
