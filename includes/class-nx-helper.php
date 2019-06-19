@@ -491,9 +491,6 @@ class NotificationX_Helper {
                 $new_template_str[ $j ] = $s_value;
             }
         }
-        error_log( implode( ', ', $new_template_str ) );
-        // die;
-
         return $new_template_str;
     }
 
