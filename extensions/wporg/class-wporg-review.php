@@ -69,8 +69,8 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         return $template;
     }
 
-    public function fallback_data( $data, $saved_data, $type ){
-        if( $type !== $this->type ) {
+    public function fallback_data( $data, $saved_data, $settings ){
+        if( NotificationX_Helper::get_type( $settings ) !== $this->type ) {
             return $data;
         }
         if( isset( $data['name'] ) ) {
@@ -175,8 +175,9 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                 $new_data['icons'] = isset( $saved_data['icons'] ) ? $saved_data['icons'] : '';
                 $new_data['plugin_name'] = isset( $saved_data['name'] ) ? $saved_data['name'] : '';
                 if( $product_type == 'plugin' && isset( $saved_data['slug'] ) ) {
+                    //TODO: Its has to be specific comments link.
                     $new_data['link'] = 'https://wordpress.org/plugins/' . $saved_data['slug'];
-                } 
+                }
                 $data[ $this->type ] = array( $new_data );
             } else {
                 $data[ $this->type ] = isset( $saved_data['reviews'] ) ? $saved_data['reviews'] : array();

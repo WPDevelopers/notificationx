@@ -211,7 +211,7 @@ class NotificationX_Extension {
         if( ! is_object( $settings ) || empty( $data ) ) {
             return;
         }
-        $this->defaults = apply_filters('nx_fallback_data', array(), $data, NotificationX_Helper::get_type( $settings ) );
+        $this->defaults = apply_filters('nx_fallback_data', array(), $data, $settings );
         $data = array_merge( $data, $this->defaults );
 
         extract( $args );

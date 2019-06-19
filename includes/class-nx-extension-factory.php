@@ -60,6 +60,10 @@ class Extension_Factory {
                     add_filter( 'nx_fallback_data', array( $object, 'fallback_data' ), 11, 3 );
                 }
 
+                if( method_exists( $object, 'save_post' ) ) {
+                    add_action( 'save_post', array( $object, 'save_post' ), 10, 3 );
+                }
+
                 if( method_exists( $object, 'settings_by_theme' ) ) {
                     add_filter( 'nx_template_settings_by_theme', array( $object, 'settings_by_theme' ) );
                 }

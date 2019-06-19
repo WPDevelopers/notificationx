@@ -82,8 +82,8 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         return $data;
     }
 
-    public function fallback_data( $data, $saved_data, $type ){
-        if( $type !== $this->type ) {
+    public function fallback_data( $data, $saved_data, $settings ){
+        if( NotificationX_Helper::get_type( $settings ) !== $this->type ) {
             return $data;
         }      
         if( isset( $data['name'] ) ) {

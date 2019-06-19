@@ -39,8 +39,8 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
     }
 
 
-    public function fallback_data( $data, $saved_data, $type ){
-        if( $type !== $this->type ) {
+    public function fallback_data( $data, $saved_data, $settings ){
+        if( NotificationX_Helper::get_type( $settings ) !== $this->type ) {
             return $data;
         }
 

@@ -504,19 +504,15 @@ class NotificationX_Helper {
         if( empty( $settings ) ) {
             return 'press_bar';
         }
-    
-        $type = '';
-    
+        $type = 'press_bar';
         if( is_array( $settings ) ) {
             $new_array = [];
             global $new_array;
-            
             array_walk( $settings, 'NotificationX_Helper::remove_prefix'  );
             $settings = ( object ) $new_array;
         }
 
         $source_types = self::source_types();
-
         if( array_key_exists( $settings->display_type, $source_types ) ) {
             $type = $settings->{ $source_types[ $settings->display_type ] };
         }
@@ -541,14 +537,17 @@ class NotificationX_Helper {
         if( is_array( $settings ) ) {
             $new_array = [];
             global $new_array;
-            
             array_walk( $settings, 'NotificationX_Helper::remove_prefix'  );
             $settings = ( object ) $new_array;
         }
         $type = self::get_type( $settings );
         $theme_types = self::theme_types();
         if( array_key_exists( $type, $theme_types ) ) {
-            $theme = $settings->{ $theme_types[ $type ] };
+            if( is_array( $theme_types[ $type ] ) ) {
+                $theme = $settings->{ $theme_types[ $type ][ $settings->display_type ] };
+            } else {
+                $theme = $settings->{ $theme_types[ $type ] };
+            }
         }
         return $theme;
     }
@@ -556,6 +555,40 @@ class NotificationX_Helper {
     public static function theme_types(){
         return apply_filters( 'nx_themes_types', array( 
             'press_bar'   => 'bar_theme',
+            'wp_comments' => 'comment_theme',
+            'woocommerce' => 'theme',
+            'edd'         => 'theme',
+            'wp_reviews'  => 'wporg_theme',
+            'wp_stats'  => 'wpstats_theme',
+        ));
+    }
+
+    public static function get_template_key( $settings ){
+        if( empty( $settings ) ) {
+            return '';
+        }
+        $template = '';
+        if( is_array( $settings ) ) {
+            $new_array = [];
+            global $new_array;
+            array_walk( $settings, 'NotificationX_Helper::remove_prefix'  );
+            $settings = ( object ) $new_array;
+        }
+        $theme = self::get_theme( $settings );
+        $template_types = self::template_types();
+        if( array_key_exists( $type, $theme_types ) ) {
+            if( is_array( $theme_types[ $type ] ) ) {
+                $template = $settings->{ $theme_types[ $type ][ $settings->display_type ] };
+            } else {
+                $template = $settings->{ $theme_types[ $type ] };
+            }
+        }
+        return $template;
+    }
+
+    public static function template_types(){
+        return apply_filters( 'nx_templates_types', array( 
+            'theme-one'   => 'bar_theme',
             'wp_comments' => 'comment_theme',
             'woocommerce' => 'theme',
             'edd'         => 'theme',
