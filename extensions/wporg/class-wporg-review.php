@@ -297,7 +297,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                     'options'  => array(
                         'tag_rating'      => __('Rating' , 'notificationx'),
                         'tag_time'        => __('Definite Time' , 'notificationx'),
-                        'sometime'        => __('Sometimes ago' , 'notificationx'),
+                        'tag_sometime'        => __('Sometimes ago' , 'notificationx'),
                     ),
                     'default' => 'tag_rating'
                 ),

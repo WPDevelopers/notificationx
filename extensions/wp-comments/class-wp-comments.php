@@ -17,7 +17,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
     }
 
     public function template_string_by_theme( $template, $old_template, $posts_data ){
-        if( $posts_data['nx_meta_display_type'] === 'comments' && $posts_data['nx_meta_comments_source'] === $this->type ) {
+        if( NotificationX_Helper::get_type( $posts_data ) === $this->type ) {
             $theme = $posts_data['nx_meta_comment_theme'];
             switch( $theme ) {
                 default : 
@@ -143,7 +143,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
                     'priority' => 5,
                     'options'  => array(
                         'tag_time'       => __('Definite Time' , 'notificationx'),
-                        'sometime' => __('Sometimes ago' , 'notificationx'),
+                        'tag_sometime' => __('Sometimes ago' , 'notificationx'),
                     ),
                     'default' => 'tag_time'
                 ),

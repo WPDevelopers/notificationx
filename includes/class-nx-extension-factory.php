@@ -57,7 +57,7 @@ class Extension_Factory {
                 }
 
                 if( method_exists( $object, 'fallback_data' ) ) {
-                    add_filter( 'nx_fallback_data', array( $object, 'fallback_data' ), 10, 3 );
+                    add_filter( 'nx_fallback_data', array( $object, 'fallback_data' ), 11, 3 );
                 }
 
                 if( method_exists( $object, 'settings_by_theme' ) ) {
