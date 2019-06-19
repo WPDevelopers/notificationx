@@ -33,7 +33,6 @@
 					break;
 				case 'reviews' : 
 					$('#nx_meta_reviews_source').trigger('change');
-					$('.nx-wporg_theme .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
 					break;
 				case 'download_stats' : 
 					$('#nx_meta_stats_source').trigger('change');
@@ -70,6 +69,7 @@
 				case 'wp_reviews' : 
 					$('#nx_meta_wp_reviews_template_adv').trigger('change');
 					$('#nx_meta_wporg_advance_edit').trigger('change');
+					$('.nx-wporg_theme .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
 					break;
 			}
 		});
