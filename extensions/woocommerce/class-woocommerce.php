@@ -44,8 +44,8 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             return $data;
         }
 
-        $data['first_name'] = __( 'Someone', 'notificationx' );
-        $data['last_name'] = __( 'Someone', 'notificationx' );
+        $data['first_name'] = isset( $saved_data['first_name'] ) ? $saved_data['first_name'] : __( 'Someone', 'notificationx' );
+        $data['last_name'] = isset( $saved_data['last_name'] ) ? $saved_data['last_name'] : __( 'Someone', 'notificationx' );
         $data['anonymous_title'] = __( 'Anonymous Product', 'notificationx' );
         $data['sometime'] = __( 'Sometimes ago', 'notificationx' );
 
