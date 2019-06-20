@@ -221,7 +221,7 @@ class NotificationX_Admin {
 		}
 
 		return array( 
-			'toggleFields' => $conditions, 
+			'toggleFields' => $conditions, // TODO: toggling system has to be more optimized! 
 			'hideFields' => $hideFields, 
 			'template' => apply_filters( 'nx_template_name', array() ),
 			'template_settings' => apply_filters( 'nx_template_settings_by_theme', array() ),

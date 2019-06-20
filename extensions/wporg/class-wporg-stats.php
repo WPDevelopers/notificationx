@@ -432,13 +432,13 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
                     'default'	=> 'theme-one',
                     'options'   => $this->themes(),
                     'hide' => [
+                        'theme-one' => [
+                            'fields' => ['actively_using_template_new']
+                        ],
                         'theme-two' => [
                             'fields' => ['actively_using_template_new']
                         ],
                         'theme-four' => [
-                            'fields' => ['actively_using_template_new']
-                        ],
-                        'theme-one' => [
                             'fields' => ['actively_using_template_new']
                         ],
                         'actively_using' => [
@@ -449,13 +449,13 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
                         'actively_using' => [
                             'fields' => ['actively_using_template_new']
                         ],
+                        'theme-one' => [
+                            'fields' => ['wp_stats_template_new']
+                        ],
                         'theme-two' => [
                             'fields' => ['wp_stats_template_new']
                         ],
                         'theme-four' => [
-                            'fields' => ['wp_stats_template_new']
-                        ],
-                        'theme-one' => [
                             'fields' => ['wp_stats_template_new']
                         ],
                     ],

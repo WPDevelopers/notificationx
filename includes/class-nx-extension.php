@@ -218,13 +218,14 @@ class NotificationX_Extension {
         $settings->themeName = $settings->{ $themeName };
         if( empty( $settings->{ $template . '_adv' } ) ) {
             $template =  $template . '_new_string';
-            if( in_array( $settings->themeName, array( 'review_saying', 'actively_using' ) ) ) {
+            $theme_names = apply_filters( 'nx_themes_for_template', array( 'review_saying', 'actively_using' ));
+            if( in_array( $settings->themeName, $theme_names ) ) {
                 $template =  $settings->themeName . '_template_new_string';
             }
         }
 
         $template = apply_filters( 'nx_template_id' , $template, $settings);
-
+        
         $wrapper_class = apply_filters( 'nx_frontend_wrapper_classes', array_merge( 
             ['nx-notification'], self::get_classes( $settings ) 
         ), $settings );
