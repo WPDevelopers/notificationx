@@ -405,7 +405,7 @@ class NotificationX_Extension {
             case 'conversions' :
                 switch( $settings->show_notification_image ) {
                     case 'product_image' : 
-                        if( $settings->conversion_from != 'custom_notification' ) {
+                        if( $settings->conversion_from == 'woocommerce' || $settings->conversion_from == 'edd' ) {
                             if( has_post_thumbnail( $data['product_id'] ) ) {
                                 $product_image = wp_get_attachment_image_src( 
                                     get_post_thumbnail_id( $data['product_id'] ), '_nx_notification_thumb', false 
