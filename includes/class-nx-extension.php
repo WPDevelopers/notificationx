@@ -368,9 +368,8 @@ class NotificationX_Extension {
         if( empty( $data ) ) {
             return false;
         }
-
-        $link = apply_filters('nx_notification_link', $data['link'], $settings );
-
+        $link = isset( $data['link'] ) ? $data['link'] : '';
+        $link = apply_filters('nx_notification_link', $link, $settings );
         return $link;
     }
     /**
