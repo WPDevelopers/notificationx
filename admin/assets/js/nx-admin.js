@@ -117,34 +117,24 @@
 		if( type === 'press_bar' ) {
 			return;
 		}
-
-		switch( type ) {
-			case 'download_stats' : 
-				themeID = $('#nx_meta_wpstats_theme').val();
-				source = $('#nx_meta_stats_source').val();
-				break;
-			case 'reviews' : 
-				themeID = $('#nx_meta_wporg_theme').val();
-				source = $('#nx_meta_reviews_source').val();
-				break;
-			case 'comments' : 
-				themeID = $('#nx_meta_comment_theme').val();
-				source = $('#nx_meta_comments_source').val();
-				break;
-			case 'conversions' : 
-				themeID = $('#nx_meta_theme').val();
-				source = $('#nx_meta_conversion_from').val();
-				break;
+		source = $('#nx_meta_' + notificationx.source_types[type]).val();
+		if( notificationx.theme_sources.hasOwnProperty( source ) ) {
+			if( typeof notificationx.theme_sources[ source ] === 'object' ) {
+				themeID = $( '#nx_meta_' + notificationx.theme_sources[ source ][ type ] ).val();
+			} else {
+				themeID = $( '#nx_meta_' + notificationx.theme_sources[ source ] ).val();
+			}
+		}
+		if( notificationx.template_keys.hasOwnProperty( source ) ) {
+			if( typeof notificationx.template_keys[ source ] === 'object' ) {
+				templateID = $( '#nx_meta_' + notificationx.template_keys[ source ][ type ] );
+			} else {
+				templateID = $( '#nx_meta_' + notificationx.template_keys[ source ] );
+			}
 		}
 
-		if( source == 'woocommerce' ) {
-			templateID = $('#nx_meta_woo_template_new');
-		} else {
-			templateID = $('#nx_meta_'+ source +'_template_new');
-		}
-
-		if( source == 'wp_comments' ) {
-			templateID = $('#nx_meta_comments_template_new');
+		if( templateID.length <= 0 ) {
+			return;
 		}
 
 		var templateDivID = templateID.attr('id');

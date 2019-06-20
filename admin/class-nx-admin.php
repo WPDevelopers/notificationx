@@ -225,6 +225,9 @@ class NotificationX_Admin {
 			'hideFields' => $hideFields, 
 			'template' => apply_filters( 'nx_template_name', array() ),
 			'template_settings' => apply_filters( 'nx_template_settings_by_theme', array() ),
+			'source_types' => NotificationX_Helper::source_types(),
+			'theme_sources' => NotificationX_Helper::theme_sources(),
+			'template_keys' => NotificationX_Helper::template_keys(),
 		);
 	}
 	

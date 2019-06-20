@@ -541,18 +541,18 @@ class NotificationX_Helper {
             $settings = ( object ) $new_array;
         }
         $type = self::get_type( $settings );
-        $theme_types = self::theme_types();
-        if( array_key_exists( $type, $theme_types ) ) {
-            if( is_array( $theme_types[ $type ] ) ) {
-                $theme = $settings->{ $theme_types[ $type ][ $settings->display_type ] };
+        $theme_sources = self::theme_sources();
+        if( array_key_exists( $type, $theme_sources ) ) {
+            if( is_array( $theme_sources[ $type ] ) ) {
+                $theme = $settings->{ $theme_sources[ $type ][ $settings->display_type ] };
             } else {
-                $theme = $settings->{ $theme_types[ $type ] };
+                $theme = $settings->{ $theme_sources[ $type ] };
             }
         }
         return $theme;
     }
 
-    public static function theme_types(){
+    public static function theme_sources(){
         return apply_filters( 'nx_themes_types', array( 
             'press_bar'   => 'bar_theme',
             'wp_comments' => 'comment_theme',
@@ -575,7 +575,7 @@ class NotificationX_Helper {
             $settings = ( object ) $new_array;
         }
         $theme = self::get_theme( $settings );
-        $template_types = self::template_types();
+        $template_types = self::template_keys();
         if( array_key_exists( $type, $theme_types ) ) {
             if( is_array( $theme_types[ $type ] ) ) {
                 $template = $settings->{ $theme_types[ $type ][ $settings->display_type ] };
@@ -586,14 +586,13 @@ class NotificationX_Helper {
         return $template;
     }
 
-    public static function template_types(){
-        return apply_filters( 'nx_templates_types', array( 
-            'theme-one'   => 'bar_theme',
-            'wp_comments' => 'comment_theme',
-            'woocommerce' => 'theme',
-            'edd'         => 'theme',
-            'wp_reviews'  => 'wporg_theme',
-            'wp_stats'  => 'wpstats_theme',
+    public static function template_keys(){
+        return apply_filters( 'nx_template_keys', array( 
+            'wp_comments' => 'comments_template_new',
+            'woocommerce' => 'woo_template_new',
+            'edd'         => 'edd_template_new',
+            'wp_reviews'  => 'wp_reviews_template_new',
+            'wp_stats'  => 'wp_stats_template_new',
         ));
     }
 }
