@@ -97,11 +97,11 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
     }
 
     public function notification_image( $image_data, $data, $settings ){
-        if( $settings->display_type != 'reviews' || $settings->reviews_source != $this->type ) { 
+    if( $settings->display_type != 'reviews' || $settings->reviews_source != $this->type ) { 
             return $image_data;
         }
 
-        $avatar = $image_url =  '';
+        $avatar = $image_url = $alt_title =  '';
         switch( $settings->show_notification_image ) {
             case 'product_image' : 
                 $image_url = $data['icons']['2x'];
@@ -113,7 +113,10 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                 }
                 break;
         }
-        $alt_title = isset( $data['username'] ) ? $data['username'] : $data['plugin_name'];
+
+        $alt_title = isset( $data['plugin_name'] ) ? $data['plugin_name'] : '';
+        $alt_title = empty( $alt_title ) && isset( $data['username'] ) ? $data['username'] : $alt_title;
+
         $image_data['url'] = $image_url;
         $image_data['alt'] = $alt_title;
 

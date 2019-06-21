@@ -34,7 +34,9 @@ if( $settings->display_type == 'conversions' && $settings->conversion_from == 'c
 
 if( ! empty( $data[ $key ] ) ) {
     $new_data = apply_filters( 'nx_filtered_data', NotificationX_Helper::sortBy( $data[ $key ], $key ), $settings );
-
+    if( ! is_array( $new_data ) ) {
+        return;
+    }
     foreach( $new_data as $value ) {
         /**
          * It will break the loop when the 

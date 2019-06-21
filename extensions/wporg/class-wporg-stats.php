@@ -119,8 +119,9 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
             return $image_data;
         }
     
-        $avatar = '';
-        $alt_title = isset( $data['name'] ) ? $data['name'] : $data['title'];
+        $avatar = $alt_title = '';
+        $alt_title = isset( $data['title'] ) ? $data['title'] : '';
+        $alt_title = empty( $alt_title ) && isset( $data['name'] ) ? $data['name'] : $alt_title;
 
         if( isset( $data['icons'] ) && $settings->wp_stats_product_type === 'plugin' ) {
             $avatar = $data['icons']['2x'];
