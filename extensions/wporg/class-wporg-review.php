@@ -569,9 +569,9 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
     public function add_builder_fields( $options ){
         $fields = $this->get_fields();
         $sections = $this->get_sections();
-        unset( $fields[ $this->template ] );
-        unset( $fields[ $this->template . '_new' ] );
-        unset( $fields[ $this->template . '_adv' ] );
+        unset( $fields[ 'wp_reviews_template' ] );
+        unset( $fields[ 'wp_reviews_template_new' ] );
+        unset( $fields[ 'wp_reviews_template_adv' ] );
         unset( $sections['wporg_design'] );
         unset( $sections['wporg_themes']['fields']['wporg_advance_edit'] );
         unset( $sections['wporg_typography'] );

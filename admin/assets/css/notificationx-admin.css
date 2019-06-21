@@ -124,6 +124,33 @@
 .nx-meta-contents {
     background: #fff;
 }
+.nx-metatab-inner-wrapper {
+    display: none;
+}
+
+@keyframes nxloadunload {
+    10% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.nx-preloader {
+    text-align: center;
+}
+.nx-preloader img {
+    width: 200px;
+    animation-duration: 1s;
+    animation-name: nxloadunload;
+    animation-iteration-count: infinite;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-name: nxloadunload;
+    -webkit-animation-iteration-count: infinite;
+}
 
 .nx-metatab-content {
     display: none;

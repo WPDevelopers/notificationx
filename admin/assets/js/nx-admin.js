@@ -22,6 +22,12 @@
 	});
 
 	$( window ).load(function(){
+		$('.nx-preloader').fadeOut({
+			complete: function(){
+				$('.nx-metatab-inner-wrapper').fadeIn();
+			}
+		});
+
 		$('body').on('change', '#nx_meta_display_type', function(){
 			var type = $(this).val();
 			switch( type ) {
