@@ -143,7 +143,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
 
     public function save_post( $post_id ) {
         $this->update_data( $post_id );
-		NotificationX_Cron::set_cron( $post_id );
+		NotificationX_Cron::set_cron( $post_id, 'nx_wp_stats_interval' );
     }
 
     public function update_data( $post_id ){
@@ -218,20 +218,19 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
 
     public function cache_duration( $schedules ) {
         $custom_duration = NotificationX_DB::get_settings( 'download_stats_cache_duration' ); 
-
         if ( ! $custom_duration || empty( $custom_duration ) ) {
-            $custom_duration = 45;
-        }
-
-        if ( $custom_duration < 3 ) {
             $custom_duration = 3;
         }
-
-        $schedules['nx_cache_interval'] = array(
+        
+        if ( $custom_duration < 3 ) {
+            $custom_duration = 2;
+        }
+        
+        $schedules['nx_wp_stats_interval'] = array(
             'interval'	=> $custom_duration * 60,
             'display'	=> sprintf( __('Every %s minutes', 'notificationx'), $custom_duration )
         );
-
+        
         return $schedules;
     }
 

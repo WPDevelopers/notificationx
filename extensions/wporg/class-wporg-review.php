@@ -129,7 +129,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
 
     public function save_post( $post_id ) {
         $this->update_data( $post_id );
-		NotificationX_Cron::set_cron( $post_id );
+		NotificationX_Cron::set_cron( $post_id, 'nx_wp_review_interval' );
     }
 
     public function update_data( $post_id ){
@@ -214,16 +214,14 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
 
     public function cache_duration( $schedules ) {
         $custom_duration = NotificationX_DB::get_settings( 'reviews_cache_duration' );
-
         if ( ! $custom_duration || empty( $custom_duration ) ) {
-            $custom_duration = 45;
+            $custom_duration = 3;
+        }
+        if ( $custom_duration < 3 ) {
+            $custom_duration = 2;
         }
 
-        if ( $custom_duration < 5 ) {
-            $custom_duration = 5;
-        }
-
-        $schedules['nx_cache_interval'] = array(
+        $schedules['nx_wp_review_interval'] = array(
             'interval'	=> $custom_duration * 60,
             'display'	=> sprintf( __('Every %s minutes', 'notificationx'), $custom_duration )
         );
