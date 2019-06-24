@@ -336,15 +336,12 @@ class NotificationX_Extension {
 		if( $settings->close_button ) {
 			$classes[ 'inner' ][] = 'nx-has-close-btn';
         }
-        if( $settings->display_type !== 'comments' ) {
-            $classes[ 'wrapper' ][] = 'nx-' . esc_attr( $settings->conversion_from );
-        }
+
+        $classes[ 'wrapper' ][] = 'nx-' . NotificationX_Helper::get_type( $settings );
 		$classes[ 'wrapper' ][] = 'nx-' . esc_attr( $settings->conversion_position );
         $classes[ 'wrapper' ][] = 'notificationx-' . $settings->id;
-        
 		$classes[ 'wrapper' ][] = 'nx-' . $settings->display_type;
-
-		$classes[ 'inner' ][] = 'nx-notification-' . esc_attr( NotificationX_Helper::get_theme( $settings ) );
+        $classes[ 'inner' ][] = 'nx-notification-' . esc_attr( NotificationX_Helper::get_theme( $settings ) );
 
 		return $classes[ $type ];
     }

@@ -407,8 +407,7 @@ class NotificationX_Public {
 		
 		
 		
-		$style = apply_filters('nx_style', $style );
-		do_action( 'nx_style_generation' );
+		$style = apply_filters('nx_style', $style, $settings );
 		
 		if( ! empty( $max_width ) ) {
 			$css_string .= '.notificationx-inner {' . implode( ';', $max_width ) . '}';
@@ -437,7 +436,8 @@ class NotificationX_Public {
 			$css .= $css_string;
 			$css .= '</style>';
 		}
-		
+		do_action( 'nx_style_generation' );
+		$css = apply_filters('nx_style_string', $css, $settings );
 		echo ! empty( $css ) ? $css : '';
 	}
 	/**

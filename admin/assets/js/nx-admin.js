@@ -33,15 +33,19 @@
 			switch( type ) {
 				case 'conversions' : 
 					$('#nx_meta_conversion_from').trigger('change');
+					$('#nx_meta_advance_edit').trigger('change');
 					break;
 				case 'comments' : 
 					$('#nx_meta_comments_source').trigger('change');
+					$('#nx_meta_comment_advance_edit').trigger('change');
 					break;
 				case 'reviews' : 
 					$('#nx_meta_reviews_source').trigger('change');
+					$('#nx_meta_wporg_advance_edit').trigger('change');
 					break;
 				case 'download_stats' : 
 					$('#nx_meta_stats_source').trigger('change');
+					$('#nx_meta_wpstats_advance_edit').trigger('change');
 					$('.nx-wpstats_theme .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
 					break;
 			}
@@ -74,7 +78,6 @@
 			switch( source ) {
 				case 'wp_reviews' : 
 					$('#nx_meta_wp_reviews_template_adv').trigger('change');
-					$('#nx_meta_wporg_advance_edit').trigger('change');
 					$('.nx-wporg_theme .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
 					break;
 			}
@@ -85,7 +88,6 @@
 			switch( source ) {
 				case 'wp_stats' : 
 					$('#nx_meta_wp_stats_template_adv').trigger('change');
-					$('#nx_meta_wpstats_advance_edit').trigger('change');
 					break;
 			}
 		});
