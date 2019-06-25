@@ -200,6 +200,20 @@ class NotificationX_Extension {
         }
         return $new_data;
     }
+
+    public function trimed( &$value ) {
+        $value = trim( $value );
+    }
+
+    protected function notEmpty( $key, $data ){
+        if( isset( $data[ $key ] ) ) {
+            if( ! empty( $data[ $key ] ) ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * This function responsible for all
      *
@@ -211,6 +225,8 @@ class NotificationX_Extension {
         if( ! is_object( $settings ) || empty( $data ) ) {
             return;
         }
+
+        array_walk( $data, array( $this, 'trimed' ) );
         $this->defaults = apply_filters('nx_fallback_data', array(), $data, $settings );
         $data = array_merge( $data, $this->defaults );
 
@@ -251,6 +267,7 @@ class NotificationX_Extension {
         $unique_id = uniqid( 'notificationx-' ); 
         $image_data = self::get_image_url( $data, $settings );
         $output .= '<div id="'. esc_attr( $unique_id ) .'" class="'. implode( ' ', $frontend_classes['wrapper'] ) .'">';
+            $output .= apply_filters( 'nx_frontend_before_html', '', $settings );
             $file = apply_filters( 'nx_frontend_before_inner', '', $settings->themeName );
             if( ! empty( $file ) ) {
                 $output .= $file;
@@ -280,7 +297,9 @@ class NotificationX_Extension {
                     $output .= '<a class="notificationx-link" href="'. esc_url( $notx_link ) .'"></a>';
                 }
             endif;
+            $output .= apply_filters( 'nx_frontend_after_html', '', $settings );
         $output .= '</div>';
+
         return $output;
     }
     /**

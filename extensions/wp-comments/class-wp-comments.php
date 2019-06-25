@@ -34,9 +34,9 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
             return $data;
         }
 
-        $data['name'] = __( isset( $saved_data['name'] ) ? $saved_data['name'] : 'Someone', 'notificationx' );
-        $data['first_name'] = __( isset( $saved_data['first_name'] ) ? $saved_data['first_name'] : 'Someone', 'notificationx' );
-        $data['last_name'] = __( isset( $saved_data['last_name'] ) ? $saved_data['last_name'] : 'Someone', 'notificationx' );
+        $data['name'] = __( $this->notEmpty( 'name', $saved_data ) ? $saved_data['name'] : 'Someone', 'notificationx' );
+        $data['first_name'] = __( $this->notEmpty( 'first_name', $saved_data ) ? $saved_data['first_name'] : 'Someone', 'notificationx' );
+        $data['last_name'] = __( $this->notEmpty( 'last_name', $saved_data ) ? $saved_data['last_name'] : 'Someone', 'notificationx' );
         $data['anonymous_post'] = __( 'Anonymous Post', 'notificationx' );
         $data['sometime'] = __( 'Sometimes ago', 'notificationx' );
 
@@ -291,6 +291,11 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
             $comment_data['first_name'] = $user->first_name;
             $comment_data['last_name']  = $user->last_name;
             $comment_data['name']       = $user->first_name . ' ' . substr( $user->last_name, 0, 1 );
+
+            if( empty( trim( $comment_data['name'] ) ) ) {
+                $comment_data['name'] = $user->user_nicename;
+            }
+
         } else {
             $comment_data['name'] = get_comment_author( $comment->comment_ID );
         }

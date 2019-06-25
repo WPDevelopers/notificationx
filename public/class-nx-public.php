@@ -240,14 +240,14 @@ class NotificationX_Public {
 		
 		$settings = NotificationX_MetaBox::get_metabox_settings( $ids );
 		
-		$echo['config'] = array(
+		$echo['config'] = apply_filters('nx_frontend_config', array(
 			'delay_before'  => ( ! empty( $settings->delay_before ) ) ? intval( $settings->delay_before ) * 1000 : 0,
 			'display_for'   => ( ! empty( $settings->display_for ) ) ? intval( $settings->display_for ) * 1000 : 0,
 			'delay_between' => ( ! empty( $settings->delay_between ) ) ? intval( $settings->delay_between ) * 1000 : 0,
 			'loop'          => ( ! empty( $settings->loop ) ) ? $settings->loop : 0,
 			'id'            => $ids,
-		);
-		
+		), $settings);
+
 		ob_start();
 		include NOTIFICATIONX_PUBLIC_PATH . 'partials/nx-public-display.php';
 		$content = ob_get_clean();

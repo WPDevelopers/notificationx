@@ -5,7 +5,7 @@
 class NotificationX_ToggleFields {
 
     public static function common_fields(){
-        return array(
+        $common_fields = apply_filters( 'nx_meta_common_fields', array(
             'conversion_position',
             'delay_before',
             'display_last',
@@ -15,13 +15,15 @@ class NotificationX_ToggleFields {
             'loop',
             'notification_preview',
             'conversion_size'
-        );
+        ) );
+        return $common_fields;
     }
 
     public static function common_sections(){
-        return array(
+        $common_sections = apply_filters( 'nx_meta_common_fields', array(
             'image',
-        );
+        ) );
+        return $common_sections;
     }
 
     public static function woocommerce(){

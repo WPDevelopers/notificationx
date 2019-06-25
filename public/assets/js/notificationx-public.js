@@ -254,14 +254,15 @@
 	
 		var body = $('body');
 		body.append( notification );
-
 		$( notification ).animate({
 			'bottom' : '30px',
 			'opacity' : 1
 		}, 500 );
+		
+		body.trigger('nx_frontedn_jquery', [ configuration, notification ]);
 
 		$.notificationx.save( configuration.id, count );
-	
+
 		var nxClose = $('.notificationx-close');
 		if( nxClose != null ) {
 			nxClose.on('click', function( event ){
