@@ -20,7 +20,7 @@ class NotificationX_ToggleFields {
     }
 
     public static function common_sections(){
-        $common_sections = apply_filters( 'nx_meta_common_fields', array(
+        $common_sections = apply_filters( 'nx_meta_common_sections', array(
             'image',
         ) );
         return $common_sections;
