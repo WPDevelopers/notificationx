@@ -97,6 +97,7 @@ final class NotificationX {
 		/**
 		 * NotificationX Helper
 		 */
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-const.php';
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-helper.php';
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-toggle-helper.php';
 		
