@@ -434,11 +434,21 @@ class NotificationX_Admin {
 				}
 			}
 		endif;
-		add_menu_page( 'NotificationX', 'NotificationX', 'delete_users', 'notificationx', '', NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon.png', 80 );
+		add_menu_page( 'NotificationX', 'NotificationX', 'delete_users', 'nx-admin', array( $this, 'notificationx' ), NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon.png', 80 );
 		foreach( $settings as $slug => $setting ) {
 			$cap  = isset( $setting['capability'] ) ? $setting['capability'] : 'delete_users';
-			$hook = add_submenu_page( 'notificationx', $setting['title'], $setting['title'], $cap, $slug, $setting['callback'] );
+			$hook = add_submenu_page( 'nx-admin', $setting['title'], $setting['title'], $cap, $slug, $setting['callback'] );
 		}
+	}
+
+	public function notificationx(){
+		$notificationx = new WP_Query(array(
+			'post_type' => 'notificationx',
+			'post_status' => array('publish', 'trash', 'draft'),
+			'numberposts' => -1,
+		));
+
+		include_once NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-admin.php';
 	}
 				
 	public function quick_builder(){
