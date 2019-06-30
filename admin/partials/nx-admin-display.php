@@ -51,7 +51,7 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
 
     <div class="nx-meta-contents nx-metatab-wrapper" data-totaltab="<?php echo $totaltabs; ?>">
         <div class="nx-preloader">
-            <img src="<?php echo NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon.png'; ?>" alt="">
+            <img src="<?php echo NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon-colored-large.png'; ?>" alt="">
         </div>
         <div class="nx-metatab-inner-wrapper">
             <input id="nx_builder_current_tab" type="hidden" name="nx_builder_current_tab" value="<?php echo $current_tab; ?>">

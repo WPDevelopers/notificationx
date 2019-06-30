@@ -97,8 +97,8 @@ final class NotificationX {
 		/**
 		 * NotificationX Helper
 		 */
-		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-const.php';
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-helper.php';
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-const.php';
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-toggle-helper.php';
 		
 		/**
@@ -231,6 +231,8 @@ final class NotificationX {
 		add_action( 'add_meta_boxes', array( $plugin_admin->metabox, 'add_meta_boxes') );
 		add_action( 'nx_builder_before_tab', array( $plugin_admin->metabox, 'finalize_builder'), 10, 2 );
 		add_action( 'admin_menu', array( $plugin_admin, 'menu_page') );
+		add_filter( 'parent_file', array(&$plugin_admin, 'highlight_admin_menu'));
+		add_filter( 'submenu_file', array(&$plugin_admin, 'highlight_admin_submenu'), 10, 2);
 		// add_action( 'admin_footer', array( $plugin_admin, 'notification_preview') );
 		add_filter( 'nx_template_name', 'NotificationX_Helper::new_template_name', 10, 2 );
 		add_filter( 'manage_notificationx_posts_columns', array( $plugin_admin, 'custom_columns') );

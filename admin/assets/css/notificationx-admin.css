@@ -141,7 +141,13 @@
 }
 .nx-preloader {
     text-align: center;
+    padding: 40px 50px 50px;
 }
+
+.nx-builder-content-wrapper .nx-preloader {
+    padding: 0;
+}
+
 .nx-preloader img {
     width: 200px;
     animation-duration: 1s;

@@ -397,7 +397,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                     'type'      => 'theme',
                     'priority'	=> 3,
                     'default'	=> 'theme-one',
-                    'options'   => $this->themes(),
+                    'options'   => NotificationX_Helper::designs_for_review(),
                     'hide' => [
                         'theme-one' => [
                             'fields' => ['review_saying_template_new']
@@ -666,14 +666,6 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         $old_fields = [];
         $options['source_tab']['sections']['config']['fields']['reviews_source']['dependency'][ $this->type ]['fields'] = array_keys( $fields );
         return $options;
-    }
-
-    public function themes(){
-        return apply_filters('nxpro_wporg_themes', array(
-            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/total-rated.png',
-            'theme-two'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/reviewed.png',
-            'review_saying' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/saying-review.png',
-        ));
     }
 
     public function frontend_html( $data = [], $settings = false, $args = [] ){

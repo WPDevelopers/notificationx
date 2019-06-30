@@ -195,6 +195,7 @@
 	margin-bottom: 20px;
 	background-color: #fff;
 	vertical-align: middle;
+	color: #313236;
 }
 
 .nx-admin-type, 
@@ -220,12 +221,18 @@
 	background-size: 13px 15px;
 	padding-left: 20px;
 	margin-right: 20px;
+	color: #555555;
 }
 .nx-admin-title .nx-admin-title-edit {
 	background-image: url('../img/icons/edit.png');
 }
 .nx-admin-title .nx-admin-title-duplicate {
 	background-image: url('../img/icons/duplicate.png');
+}
+.nx-admin-title .nx-admin-title-restore {
+	background-size: 16px 16px;
+	padding-left: 22px;
+	background-image: url('../img/icons/restore.png');
 }
 .nx-admin-title .nx-admin-title-trash {
 	color: #c4434e;
@@ -249,6 +256,14 @@
 .nx-admin-status-title {
 	margin-bottom: 8px;
 	display: none;
+}
+
+.nx-admin-status-title.nxast-enable {
+	color: #5614d5;
+}
+
+.nx-admin-not-found {
+	color: #c4434e;
 }
 
 .nx-admin-status-title.active {

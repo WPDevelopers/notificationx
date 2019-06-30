@@ -398,14 +398,31 @@ class NotificationX_Helper {
     }
 
     public static function bar_colored_themes(){
-
         return apply_filters('nx_bar_colored_themes', array(
             'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-bar-theme-3.jpg',
             'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-bar-theme-1.jpg',
             'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-bar-theme-2.jpg',
         ));
-
     }
+
+    public static function designs_for_review(){
+        return apply_filters('nxpro_wporg_themes', array(
+            'theme-one'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/total-rated.png',
+            'theme-two'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/reviewed.png',
+            'review_saying' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/saying-review.png',
+        ));
+    }
+
+    public static function designs_for_stats(){
+        return apply_filters('nxpro_stats_themes', array(
+            'theme-one'      => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/today-download.png',
+            'theme-two'      => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/7day-download.png',
+            'actively_using' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/actively-using.png',
+            'theme-four'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/total-download.png',
+        ));
+    }
+
+    
 
     public static function conversion_toggle(){
         return apply_filters('nx_conversion_toggle' , array(

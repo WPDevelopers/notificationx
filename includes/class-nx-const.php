@@ -36,4 +36,31 @@ class NX_CONSTANTS {
         'exclude_products',
         'conversion_url',
     );
+
+    public static function themeSource( $name, $type = 'press_bar' ) {
+        switch( $type ) {
+            case 'comments' : 
+                $source = NotificationX_Helper::comment_colored_themes();
+                break;
+            case 'conversions' : 
+                $source = NotificationX_Helper::colored_themes();
+                break;
+            case 'reviews' : 
+                $source = NotificationX_Helper::designs_for_review();
+                break;
+            case 'download_stats' : 
+                $source = NotificationX_Helper::designs_for_stats();
+                break;
+            case 'press_bar' : 
+                $source = NotificationX_Helper::bar_colored_themes();
+                break;
+            default : 
+                $source = apply_filters( 'nx_theme_source', array(), $type );
+                break;
+        }
+
+        if( ! empty( $source ) && isset( $source[ $name ] ) ) {
+            return $source[ $name ];
+        }
+    }
 }

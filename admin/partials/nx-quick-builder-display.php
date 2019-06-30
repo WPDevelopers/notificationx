@@ -45,7 +45,7 @@
 
     <div class="nx-builder-content-wrapper nx-metatab-wrapper" data-totaltab="<?php echo $totaltabs; ?>">
         <div class="nx-preloader">
-            <img src="<?php echo NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon.png'; ?>" alt="">
+            <img src="<?php echo NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon-colored-large.png'; ?>" alt="">
         </div>
         <div class="nx-metatab-inner-wrapper">
             <form method="post" id="nx-builder-form" action="<?php echo self::get_form_action( '', true ); ?>">

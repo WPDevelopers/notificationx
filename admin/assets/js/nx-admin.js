@@ -251,20 +251,21 @@
 	 * enabling and disabling the notificationXs
 	 */
 	$.notificationx.enabledDisabled = function(){
-		$('.wp-list-table .column-notification_status img').off('click').on('click', function(e) {
+		$('.nx-admin-status label').on('click', function(e) {
             e.stopPropagation();
             var $this       = $(this),
-                isActive    = $this.attr('src').indexOf('active1.png') >= 0,
                 postID      = $this.data('post'),
-                nonce       = $this.data('nonce');
+				nonce       = $this.data('nonce'),
+				siblings = $this.siblings('input'),
+				isActive = siblings.is(':checked');
 
             if ( isActive ) {
-                $this.attr('src', $this.attr('src').replace('active1.png', 'active0.png'));
-                $this.attr('title', 'Inactive').attr('alt', 'Inactive');
+                $this.siblings('.nx-admin-status-title.nxast-enable').removeClass('active');
+                $this.siblings('.nx-admin-status-title.nxast-disable').addClass('active');
             } else {
-                $this.attr('src', $this.attr('src').replace('active0.png', 'active1.png'));
-                $this.attr('title', 'Active').attr('alt', 'Active');
-            }
+                $this.siblings('.nx-admin-status-title.nxast-disable').removeClass('active');
+                $this.siblings('.nx-admin-status-title.nxast-enable').addClass('active');
+			}
 
             $.ajax({
                 type: 'post',

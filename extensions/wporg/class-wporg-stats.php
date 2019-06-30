@@ -430,7 +430,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
                     'type'      => 'theme',
                     'priority'	=> 3,
                     'default'	=> 'theme-one',
-                    'options'   => $this->themes(),
+                    'options'   => NotificationX_Helper::designs_for_stats(),
                     'hide' => [
                         'theme-one' => [
                             'fields' => ['actively_using_template_new']
@@ -706,15 +706,6 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         $old_fields = [];
         $options['source_tab']['sections']['config']['fields']['stats_source']['dependency'][ $this->type ]['fields'] = array_keys( $fields );
         return $options;
-    }
-
-    public function themes(){
-        return apply_filters('nxpro_stats_themes', array(
-            'theme-one' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/today-download.png',
-            'theme-two' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/7day-download.png',
-            'actively_using' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/actively-using.png',
-            'theme-four' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/total-download.png',
-        ));
     }
 
     public function frontend_html( $data = [], $settings = false, $args = [] ){
