@@ -209,7 +209,8 @@
 	font-size: 14px;
 }
 
-.nx-admin-title > strong {
+.nx-admin-title > strong,
+.nx-admin-title > strong a {
 	color: #5614d5;
 	font-weight: 500;
 }
