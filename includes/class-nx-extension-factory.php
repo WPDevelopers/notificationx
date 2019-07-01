@@ -16,7 +16,7 @@ class Extension_Factory {
      * @param string $extension
      * @return void
      */
-    public function register( string $extension ){
+    public function register( $extension = '' ){
         if ( empty( $extension ) ) {
 			return;
         }
@@ -112,8 +112,11 @@ class Extension_Factory {
      * @param string $key
      * @return void
      */
-    public function get_extension( string $key ){
-        return $this->loaded_extensions[ $key ];
+    public function get_extension( $key ){
+        if( empty( $key ) ) {
+            return false;
+        }
+        return isset( $this->loaded_extensions[ $key ] ) ? $this->loaded_extensions[ $key ] : false;
     }
 }
 /**
@@ -126,7 +129,10 @@ $GLOBALS['nx_extension_factory'] = new Extension_Factory();
  * @param string $extension
  * @return void
  */
-function nx_register_extension( string $extension ){
+function nx_register_extension( $extension = '' ){
+    if( empty( $extension ) ) {
+        return false;
+    }
     global $nx_extension_factory;
     $nx_extension_factory->register( $extension );
 }
