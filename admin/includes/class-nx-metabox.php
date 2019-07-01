@@ -230,8 +230,7 @@ class NotificationX_MetaBox {
                     $value = '0';
                 }
             }
-
-            if( strpos( $field_id, 'template_new', -12 ) !== false && strpos( $field_id, 'template_new', -12 ) >= 0 ) {
+            if( strrpos( $field_id, 'template_new' ) !== false && strrpos( $field_id, 'template_new' ) >= 0 ) {
                 $template_string = self::template_generate( $posts[ $field_id ], $posts );
                 update_post_meta( $post_id, "_{$field_id}_string", $template_string );
             }
@@ -302,18 +301,16 @@ class NotificationX_MetaBox {
 
             if( isset( $field['type'] ) && $field['type'] == 'template' ) {
                 $default    = isset( $field['defaults'] ) ? $field['defaults'] : [];
-
-                if( strpos( $name, 'template_new', -12 ) >= 0 && metadata_exists( 'post', $id, "_{$field_id}_string" ) ) {
+                if( strrpos( $name, 'template_new' ) >= 0 && metadata_exists( 'post', $id, "_{$field_id}_string" ) ) {
                     $value  = get_post_meta( $id, "_{$field_id}_string", true );
                     $settings->{ "{$name}_string" } = $value;
-                }
-
-            }
-
-            if ( metadata_exists( 'post', $id, "_{$field_id}" ) ) {
-                $value  = get_post_meta( $id, "_{$field_id}", true );
+                }    
             } else {
-                $value  = $default;
+                if ( metadata_exists( 'post', $id, "_{$field_id}" ) ) {
+                    $value  = get_post_meta( $id, "_{$field_id}", true );
+                } else {
+                    $value  = $default;
+                }
             }
 
             $settings->{$name} = $value;
