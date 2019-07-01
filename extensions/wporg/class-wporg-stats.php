@@ -118,7 +118,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         if( $settings->display_type != 'download_stats' || $settings->stats_source != $this->type ) { 
             return $image_data;
         }
-    
+
         $avatar = $alt_title = '';
         $alt_title = isset( $data['title'] ) ? $data['title'] : '';
         $alt_title = empty( $alt_title ) && isset( $data['name'] ) ? $data['name'] : $alt_title;
@@ -130,7 +130,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         if( isset( $data['screenshot_url'] ) && $settings->wp_stats_product_type === 'theme' ) {
             $avatar = $data['screenshot_url'];
         }
-
+        
         $image_data['url'] = $avatar;
         $image_data['alt'] = $alt_title;
 
@@ -174,14 +174,9 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         if( ! $id ) {
             return $data;
         }
+
         $data[ $this->type ] = NotificationX_Admin::get_post_meta( intval( $id ), $this->meta_key, true );
         return $data;
-    }
-
-    private function member( $data, $title ){
-        $member['link'] = '';
-        
-        return $member;
     }
 
     public function get_plugins_data( $post_id ) {

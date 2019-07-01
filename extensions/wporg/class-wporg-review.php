@@ -647,7 +647,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         $sections = array_keys( $sections );
         $fields = array_keys( $fields );
 
-        $options['dependency'][ $this->type ]['fields'] = $fields;
+        $options['dependency'][ $this->type ]['fields'] = array_merge( $fields, array( 'show_notification_image' ) );
         $options['dependency'][ $this->type ]['sections'] = $sections;
 
         return $options;

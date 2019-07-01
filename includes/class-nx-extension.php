@@ -202,7 +202,11 @@ class NotificationX_Extension {
     }
 
     public function trimed( &$value ) {
-        $value = trim( $value );
+        if( ! is_array( $value ) ) {
+            $value = trim( $value );
+        } else {
+            $value = $value;
+        }
     }
 
     protected function notEmpty( $key, $data ){

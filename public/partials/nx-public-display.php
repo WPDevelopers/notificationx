@@ -47,7 +47,6 @@ if( ! empty( $data[ $key ] ) ) {
                 break;
             }
         }
-
         echo get_extension_frontend( $extension_name, $value, $settings );
     }
 }

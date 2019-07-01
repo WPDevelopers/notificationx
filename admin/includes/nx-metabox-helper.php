@@ -199,21 +199,21 @@ function notificationx_metabox_args(){
                                 'description'	=> 'px',
                             ),
                             'border_style' => array(
-                                'type'      => 'select',
-                                'label'     => __('Border Style' , 'notificationx'),
-                                'priority'	=> 25,
-                                'default'	=> 'solid',
-                                'options'	=> [
-                                    'solid' => __('Solid', 'notificationx'),
+                                'type'     => 'select',
+                                'label'    => __('Border Style' , 'notificationx'),
+                                'priority' => 25,
+                                'default'  => 'solid',
+                                'options'  => [
+                                    'solid'  => __('Solid', 'notificationx'),
                                     'dashed' => __('Dashed', 'notificationx'),
                                     'dotted' => __('Dotted', 'notificationx'),
                                 ],
                             ),
                             'border_color' => array(
-                                'type'      => 'colorpicker',
-                                'label'     => __('Border Color' , 'notificationx'),
-                                'priority'	=> 30,
-                                'default'	=> ''
+                                'type'     => 'colorpicker',
+                                'label'    => __('Border Color' , 'notificationx'),
+                                'priority' => 30,
+                                'default'  => ''
                             ),
                         )
                     ),

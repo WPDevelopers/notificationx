@@ -263,7 +263,7 @@
 
 		$.notificationx.save( configuration.id, count );
 
-		var nxClose = $('.notificationx-close');
+		var nxClose = $(notification).find('.notificationx-close');
 		if( nxClose != null ) {
 			nxClose.on('click', function( event ){
 				var close = $(this);

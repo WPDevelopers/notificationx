@@ -109,7 +109,7 @@ if( isset( $_GET['action'], $_GET['post'], $_GET['nx_duplicate_nonce'] ) && $_GE
                                 <tr>
                                     <td>
                                         <div class="nx-admin-title">
-                                            <strong><?php echo get_the_title(); ?></strong>
+                                            <strong><a href="post.php?action=edit&post=<?php echo $idd; ?>"><?php echo get_the_title(); ?></a></strong>
                                             <div class="nx-admin-title-actions">
                                                 <?php if( ! $trash_page ) : ?>
                                                     <a class="nx-admin-title-edit" href="post.php?action=edit&post=<?php echo $idd; ?>"><?php _e( 'Edit', 'notificationx' ); ?></a>
