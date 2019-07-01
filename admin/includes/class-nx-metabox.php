@@ -21,7 +21,7 @@ class NotificationX_MetaBox {
 
     public function finalize_builder( $id, $tab ){
         if( $id === 'finalize_tab' ) {
-            echo __( 'You are about to publish <strong class="finalize_notificationx_name"></strong>. You can rename this and edit everything whenever you want from <a href="'. admin_url('edit.php?post_type=notificationx') .'">NotificationX</a> Page.', 'notificationx' );
+            echo __( 'You are about to publish <strong class="finalize_notificationx_name"></strong>. You can rename this and edit everything whenever you want from <a href="'. admin_url('admin.php?page=nx-admin') .'">NotificationX</a> Page.', 'notificationx' );
         }
     }
 
