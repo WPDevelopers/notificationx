@@ -479,7 +479,6 @@ class NotificationX_Extension {
     }
 
     public function template_string_by_theme( $template, $old_template, $posts_data ){
-        error_log( $this->type );
         if( NotificationX_Helper::get_type( $posts_data ) === $this->type ) {
             $theme = NotificationX_Helper::get_theme( $posts_data );
             $breaks_data = apply_filters( 'nx_theme_breaks_data', array( 'br_before' => [ 'third_param', 'fourth_param' ] ));
