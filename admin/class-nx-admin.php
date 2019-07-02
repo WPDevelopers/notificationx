@@ -454,8 +454,8 @@ class NotificationX_Admin {
 					* Safely Redirect to NotificationX Page
 					*/
 					wp_safe_redirect( add_query_arg( array(
-						'post_type' => 'notificationx',
-					), admin_url( 'edit.php' ) ) );
+						'page' => 'nx-admin',
+					), admin_url( 'admin.php' ) ) );
 				}
 			}
 		endif;
