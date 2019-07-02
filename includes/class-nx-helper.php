@@ -29,9 +29,9 @@ class NotificationX_Helper {
                 $value = sanitize_email( $value );
                 break;
             default:
+                return $value;
                 break;
         }
-
         return $value;
     }
     /**

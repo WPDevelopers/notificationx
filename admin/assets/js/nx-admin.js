@@ -274,19 +274,12 @@
                     action: 'notifications_toggle_status',
                     post_id: postID,
                     nonce: nonce,
-                    status: isActive ? 'inactive' : 'active'
+					status: isActive ? 'inactive' : 'active',
+					url : window.location.href
                 },
                 success: function(res) {
                     if ( res !== 'success' ) {
-                        alert( res );
-                        isActive = $this.attr('src').indexOf('active1.png') >= 0;
-                        if ( isActive ) {
-                            $this.attr('src', $this.attr('src').replace('active1.png', 'active0.png'));
-                            $this.attr('title', 'Inactive').attr('alt', 'Inactive');
-                        } else {
-                            $this.attr('src', $this.attr('src').replace('active0.png', 'active1.png'));
-                            $this.attr('title', 'Active').attr('alt', 'Active');
-                        }
+                        window.location.href = window.location.href;
                     }
                 }
             });

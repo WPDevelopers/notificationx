@@ -304,7 +304,10 @@ class NotificationX_MetaBox {
                 if( strrpos( $name, 'template_new' ) >= 0 && metadata_exists( 'post', $id, "_{$field_id}_string" ) ) {
                     $value  = get_post_meta( $id, "_{$field_id}_string", true );
                     $settings->{ "{$name}_string" } = $value;
-                }    
+                } else {
+                    $value  = get_post_meta( $id, "_{$field_id}", true );
+                    $settings->{ "{$name}" } = $value;
+                }
             } else {
                 if ( metadata_exists( 'post', $id, "_{$field_id}" ) ) {
                     $value  = get_post_meta( $id, "_{$field_id}", true );

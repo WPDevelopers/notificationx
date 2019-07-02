@@ -37,7 +37,6 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
     public function template_string_by_theme( $template, $old_template, $posts_data ){
         if( $posts_data['nx_meta_display_type'] === 'download_stats' && $posts_data['nx_meta_stats_source'] === $this->type ) {
             $theme = $posts_data['nx_meta_wpstats_theme'];
-
             switch( $theme ) {
                 case 'theme-one' : 
                     $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );

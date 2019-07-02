@@ -1,15 +1,42 @@
-<?php 
+<?php
 global $pagenow;
-$post_status = wp_count_posts('notificationx');
+$post_status           = self::count_posts();
 $publish_notificationx = isset( $post_status->publish ) ? $post_status->publish : 0;
-$trash_notificationx = isset( $post_status->trash ) ? $post_status->trash : 0;
-$total_notificationx = ( $notificationx->post_count > $trash_notificationx ) ? $notificationx->post_count - $trash_notificationx : 0;
-$current_url = admin_url('admin.php?page=nx-admin');
-$publish_url = add_query_arg('post_status', 'publish', $current_url);
-$trash_url = add_query_arg('post_status', 'trash', $current_url);
+$trash_notificationx   = $post_status->trash;
+$current_url           = admin_url('admin.php?page=nx-admin');
+$publish_url           = add_query_arg('status', 'enabled', $current_url);
+$disabled_url          = add_query_arg('status', 'disabled', $current_url);
+$trash_url             = add_query_arg('status', 'trash', $current_url);
+$get_enabled_post      = $post_status->enabled;
+$get_disabled_post     = $post_status->disabled;
+$total_notificationx   = $get_enabled_post + $get_disabled_post;
 
-if( isset( $_GET['post_status'] ) && $_GET['post_status'] === 'trash' && $trash_notificationx === 0 ) {
-    wp_safe_redirect( $current_url, 200 );
+$all_active_class = '';
+$enabled_active_class = '';
+$disabled_active_class = '';
+$trash_active_class = '';
+
+if( isset( $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
+    $all_active_class = 'class="active"';
+    if( isset( $_GET['status'] ) && $_GET['status'] == 'enabled' ) {
+        $enabled_active_class = 'class="active"';
+        $all_active_class = '';
+    }
+    if( isset( $_GET['status'] ) && $_GET['status'] == 'disabled' ) {
+        $disabled_active_class = 'class="active"';
+        $all_active_class = '';
+    }
+    if( isset( $_GET['status'] ) && $_GET['status'] == 'trash' ) {
+        $trash_active_class = 'class="active"';
+        $all_active_class = '';
+    }
+}
+
+
+if( isset( $_GET['status'], $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
+    if( ( $_GET['status'] == 'disabled' && $get_disabled_post == 0 ) || ( $_GET['status'] == 'trash' && $trash_notificationx == 0 ) ) {
+        wp_safe_redirect( $current_url, 200 );
+    }
 }
 
 if( isset( $_GET['action'], $_GET['post'], $_GET['nx_duplicate_nonce'] ) && $_GET['action'] === 'nxduplicate' ) {
@@ -46,12 +73,15 @@ if( isset( $_GET['action'], $_GET['post'], $_GET['nx_duplicate_nonce'] ) && $_GE
 
     <div class="nx-admin-menu">
         <ul>
-            <li class="active"><a href="<?php echo esc_url( $current_url ); ?>">All (<?php echo $total_notificationx; ?>)</a></li>
-            <?php if( $publish_notificationx > 0 ) : ?>
-            <li><a href="<?php echo esc_url( $publish_url ); ?>">Published (<?php echo $publish_notificationx; ?>)</a></li>
+            <li <?php echo $all_active_class; ?>><a href="<?php echo esc_url( $current_url ); ?>">All (<?php echo $total_notificationx; ?>)</a></li>
+            <?php if( $get_enabled_post > 0 ) : ?>
+            <li <?php echo $enabled_active_class; ?>><a href="<?php echo esc_url( $publish_url ); ?>"><?php _e( 'Enabled', 'notificationx' ); ?> (<?php echo $get_enabled_post; ?>)</a></li>
+            <?php endif; ?>
+            <?php if( $get_disabled_post > 0 ) : ?>
+            <li <?php echo $disabled_active_class; ?>><a href="<?php echo esc_url( $disabled_url ); ?>"><?php _e( 'Disabled', 'notificationx' ); ?> (<?php echo $get_disabled_post; ?>)</a></li>
             <?php endif; ?>
             <?php if( $trash_notificationx > 0 ) : ?>
-                <li><a href="<?php echo esc_url( $trash_url ); ?>">Trash (<?php echo $trash_notificationx; ?>)</a></li>
+                <li <?php echo $trash_active_class; ?>><a href="<?php echo esc_url( $trash_url ); ?>"><?php _e( 'Trash', 'notificationx' ); ?> (<?php echo $trash_notificationx; ?>)</a></li>
             <?php endif; ?>
         </ul>
     </div>
@@ -87,15 +117,19 @@ if( isset( $_GET['action'], $_GET['post'], $_GET['nx_duplicate_nonce'] ) && $_GE
                             $type = NotificationX_Helper::notification_types( $settings->display_type );
                             $status = get_post_status( $idd );
                             if( $pagenow === 'admin.php' && isset( $_GET['page'] ) && $_GET['page'] === 'nx-admin' ) {
-                                if( isset( $_GET['post_status'] ) && $_GET['post_status'] === 'trash' ) {
+                                if( isset( $_GET['status'] ) && $_GET['status'] === 'trash' ) {
                                     $trash_page = true;
                                     $trashed = true;
                                     if( $status !== 'trash' ) {
                                         continue;
                                     }
                                     $trash_btn_title = __( 'Delete Permanently', 'notificationx' );
-                                } elseif( isset( $_GET['post_status'] ) && $_GET['post_status'] === 'publish' ){
-                                    if( $status !== 'publish' ) {
+                                } elseif( isset( $_GET['status'] ) && $_GET['status'] === 'enabled' ){
+                                    if( $status !== 'publish' || $is_enabled != 1 ) {
+                                        continue;
+                                    }
+                                } elseif( isset( $_GET['status'] ) && $_GET['status'] === 'disabled' ){
+                                    if( $status !== 'publish' || $is_enabled != 0 ) {
                                         continue;
                                     }
                                 } else {

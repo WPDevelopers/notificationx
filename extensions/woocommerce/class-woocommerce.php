@@ -44,11 +44,11 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             return $data;
         }
 
-        $data['name'] = $this->notEmpty( 'name', $saved_data ) ? $saved_data['name'] : __( 'Someone', 'notificationx' );
-        $data['first_name'] = $this->notEmpty( 'first_name', $saved_data ) ? $saved_data['first_name'] : __( 'Someone', 'notificationx' );
-        $data['last_name'] = $this->notEmpty( 'last_name', $saved_data ) ? $saved_data['last_name'] : __( 'Someone', 'notificationx' );
+        $data['name']            = $this->notEmpty( 'name', $saved_data ) ? $saved_data['name'] : __( 'Someone', 'notificationx' );
+        $data['first_name']      = $this->notEmpty( 'first_name', $saved_data ) ? $saved_data['first_name'] : __( 'Someone', 'notificationx' );
+        $data['last_name']       = $this->notEmpty( 'last_name', $saved_data ) ? $saved_data['last_name'] : __( 'Someone', 'notificationx' );
         $data['anonymous_title'] = __( 'Anonymous Product', 'notificationx' );
-        $data['sometime'] = __( 'Sometimes ago', 'notificationx' );
+        $data['sometime']        = __( 'Sometimes ago', 'notificationx' );
 
         return $data;
     }
@@ -57,7 +57,6 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
      * Main Screen Hooks
      */
     public function init_hooks(){
-        add_filter( 'nx_show_image_options', array( $this, 'image_options' ) );
         add_filter( 'nx_metabox_tabs', array( $this, 'add_fields' ) );
         add_filter( 'nx_display_types_hide_data', array( $this, 'hide_fields' ) );
         add_filter( 'nx_conversion_from', array( $this, 'toggle_fields' ) );
@@ -77,22 +76,6 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         }
 
         return $link;
-    }
-
-    /**
-     * Image Options
-     *
-     * @param array $options
-     * @return void
-     */
-    public function image_options( $options ){
-        if( class_exists( 'WooCommerce' ) ) {
-            $new = array(
-                'product_image' => __('Product Image' , 'notificationx')
-            );
-            return array_merge( $new, $options );
-        }
-        return $options;
     }
     /**
      * Needed Fields

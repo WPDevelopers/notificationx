@@ -157,11 +157,12 @@
 	text-decoration: none;
 }
 
-.nx-admin-menu ul li a.active {
-	font-weight: 500;
+.nx-admin-menu ul li.active a {
+	/* font-weight: 500; */
+	color: #313236;
 }
 
-.nx-admin-menu ul li:last-of-type a {
+.nx-admin-menu ul li a {
 	color: #5614d5;
 }
 

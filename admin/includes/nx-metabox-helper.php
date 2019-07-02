@@ -555,6 +555,7 @@ function notificationx_metabox_args(){
                                 'label'     => __('Image' , 'notificationx'),
                                 'priority'	=> 15,
                                 'options'   => apply_filters('nx_show_image_options', array(
+                                    'product_image' => __('Product Image' , 'notificationx'),
                                     'gravatar'      => __('Gravatar' , 'notificationx'),
                                     'none'          => __('None' , 'notificationx'),
                                 )),
