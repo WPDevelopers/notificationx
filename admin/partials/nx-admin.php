@@ -162,8 +162,8 @@ if( isset( $_GET['action'], $_GET['post'], $_GET['nx_duplicate_nonce'] ) && $_GE
                                     </td>
                                     <td>
                                         <div class="nx-admin-status">
-                                            <span class="nx-admin-status-title nxast-enable <?php echo $is_enabled ? 'active' : ''; ?>"><?php echo _e( 'Enable', 'notificationx' ); ?></span>
-                                            <span class="nx-admin-status-title nxast-disable <?php echo $is_enabled ? '' : 'active'; ?>"><?php echo _e( 'Disable', 'notificationx' ); ?></span>
+                                            <span class="nx-admin-status-title nxast-enable <?php echo $is_enabled ? 'active' : ''; ?>"><?php echo _e( 'Enabled', 'notificationx' ); ?></span>
+                                            <span class="nx-admin-status-title nxast-disable <?php echo $is_enabled ? '' : 'active'; ?>"><?php echo _e( 'Disabled', 'notificationx' ); ?></span>
                                             <input type="checkbox" id="nx-toggle-<?php echo $idd; ?>" name="_nx_meta_active_check" <?php echo $is_enabled ? 'checked="checked"' : ''; ?>>
                                             <label data-post="<?php echo $idd; ?>" data-nonce="<?php echo wp_create_nonce('notificationx_status_nonce'); ?>" for="nx-toggle-<?php echo $idd; ?>"></label>
                                         </div>

@@ -415,10 +415,10 @@ class NotificationX_Helper {
 
     public static function designs_for_stats(){
         return apply_filters('nxpro_stats_themes', array(
-            'theme-one'      => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/today-download.png',
-            'theme-two'      => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/7day-download.png',
+            'today-download' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/today-download.png',
+            '7day-download'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/7day-download.png',
             'actively_using' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/actively-using.png',
-            'theme-four'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/total-download.png',
+            'total-download' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/total-download.png',
         ));
     }
 

@@ -38,10 +38,10 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         if( $posts_data['nx_meta_display_type'] === 'download_stats' && $posts_data['nx_meta_stats_source'] === $this->type ) {
             $theme = $posts_data['nx_meta_wpstats_theme'];
             switch( $theme ) {
-                case 'theme-one' : 
+                case 'today-download' : 
                     $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
                     break;
-                case 'theme-two' : 
+                case '7day-download' : 
                     $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
                     break;
                 case 'actively_using' : 
@@ -61,23 +61,22 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
 
     public function settings_by_theme( $data ){
         $data['nx_meta_wp_stats_template_new'] = array(
-            'theme-one' => array(
+            'today-download' => array(
                 'first_param' => 'tag_name',
                 'third_param' => 'tag_today',
                 'fourth_param' => 'tag_today_text',
             ),
-            'theme-two' => array(
+            '7day-download' => array(
                 'first_param' => 'tag_name',
                 'third_param' => 'tag_last_week',
                 'fourth_param' => 'tag_last_week_text',
             ),
-            'theme-four' => array(
+            'total-download' => array(
                 'first_param' => 'tag_name',
                 'third_param' => 'tag_all_time',
                 'fourth_param' => 'tag_all_time_text',
             )
         );
-
         return $data;
     }
 
@@ -423,16 +422,16 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
                 'wpstats_theme' => array(
                     'type'      => 'theme',
                     'priority'	=> 3,
-                    'default'	=> 'theme-one',
+                    'default'	=> 'today-download',
                     'options'   => NotificationX_Helper::designs_for_stats(),
                     'hide' => [
-                        'theme-one' => [
+                        'today-download' => [
                             'fields' => ['actively_using_template_new']
                         ],
-                        'theme-two' => [
+                        '7day-download' => [
                             'fields' => ['actively_using_template_new']
                         ],
-                        'theme-four' => [
+                        'total-download' => [
                             'fields' => ['actively_using_template_new']
                         ],
                         'actively_using' => [
@@ -443,13 +442,13 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
                         'actively_using' => [
                             'fields' => ['actively_using_template_new']
                         ],
-                        'theme-one' => [
+                        'today-download' => [
                             'fields' => ['wp_stats_template_new']
                         ],
-                        'theme-two' => [
+                        '7day-download' => [
                             'fields' => ['wp_stats_template_new']
                         ],
-                        'theme-four' => [
+                        'total-download' => [
                             'fields' => ['wp_stats_template_new']
                         ],
                     ],

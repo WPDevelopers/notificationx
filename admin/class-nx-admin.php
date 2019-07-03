@@ -66,7 +66,7 @@ class NotificationX_Admin {
 	*/
 	public static $counts;
 	public function __construct( $plugin_name, $version ) {
-
+		
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 		self::$settings = NotificationX_DB::get_settings();
@@ -230,11 +230,14 @@ class NotificationX_Admin {
 			}
 		}
 
+		$template = apply_filters( 'nx_template_name', array() );
+		$template_settings = apply_filters( 'nx_template_settings_by_theme', array() );
+
 		return array( 
 			'toggleFields' => $conditions, // TODO: toggling system has to be more optimized! 
 			'hideFields' => $hideFields, 
-			'template' => apply_filters( 'nx_template_name', array() ),
-			'template_settings' => apply_filters( 'nx_template_settings_by_theme', array() ),
+			'template' => $template,
+			'template_settings' => $template_settings,
 			'source_types' => NotificationX_Helper::source_types(),
 			'theme_sources' => NotificationX_Helper::theme_sources(),
 			'template_keys' => NotificationX_Helper::template_keys(),
