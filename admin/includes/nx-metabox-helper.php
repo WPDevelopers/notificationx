@@ -598,10 +598,10 @@ function notificationx_metabox_args(){
                             ),
                             'show_on_display'  => array(
                                 'type'      => 'select',
-                                'label'     => __('Display' , 'notificationx'),
+                                'label'     => __('Display For' , 'notificationx'),
                                 'priority'	=> 200,
                                 'options'   => [
-                                    'always'          => __('Always' , 'notificationx'),
+                                    'always'          => __('Everyone' , 'notificationx'),
                                     'logged_out_user' => __('Logged Out User' , 'notificationx'),
                                     'logged_in_user'  => __('Logged In User' , 'notificationx'),
                                 ],

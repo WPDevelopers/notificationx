@@ -36,13 +36,15 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
 
     public function settings_by_theme( $data ){
         $data['nx_meta_wp_reviews_template_new'] = array(
-            'theme-two' => array(
+            'reviewed' => array(
                 'first_param' => 'tag_username',
                 'third_param' => 'tag_plugin_name',
+                'second_param' => 'just reviewed',
                 'fourth_param' => 'tag_rating',
             ),
-            'theme-one' => array(
+            'total-rated' => array(
                 'first_param' => 'tag_rated',
+                'second_param' => 'people rated',
                 'third_param' => 'tag_plugin_name',
                 'fourth_param' => 'tag_rating',
             )
@@ -54,7 +56,6 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
     public function template_string_by_theme( $template, $old_template, $posts_data ){
         if( $posts_data['nx_meta_display_type'] === 'reviews' && $posts_data['nx_meta_reviews_source'] === $this->type ) {
             $theme = $posts_data['nx_meta_wporg_theme'];
-
             switch( $theme ) {
                 case 'review_saying': 
                     $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'fifth_param', 'sixth_param' ] ) );
@@ -170,7 +171,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         if( $display_type === $this->type ) {
             $design = NotificationX_Admin::get_post_meta( intval( $id ), 'wporg_theme', true );
             $saved_data = NotificationX_Admin::get_post_meta( intval( $id ), $this->meta_key, true );
-            if( $design === 'theme-one' ) {
+            if( $design === 'total-rated' ) {
                 $new_data['rated'] = isset( $saved_data['ratings'] ) ? $saved_data['ratings']['5'] : '';
                 $new_data['rating'] = '5';
                 unset( $saved_data['reviews'] );
@@ -396,13 +397,13 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                 'wporg_theme' => array(
                     'type'      => 'theme',
                     'priority'	=> 3,
-                    'default'	=> 'theme-one',
+                    'default'	=> 'total-rated',
                     'options'   => NotificationX_Helper::designs_for_review(),
                     'hide' => [
-                        'theme-one' => [
+                        'total-rated' => [
                             'fields' => ['review_saying_template_new']
                         ],
-                        'theme-two' => [
+                        'reviewed' => [
                             'fields' => ['review_saying_template_new']
                         ],
                         'review_saying' => [
@@ -413,10 +414,10 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                         'review_saying' => [
                             'fields' => ['review_saying_template_new']
                         ],
-                        'theme-two' => [
+                        'reviewed' => [
                             'fields' => ['wp_reviews_template_new']
                         ],
-                        'theme-one' => [
+                        'total-rated' => [
                             'fields' => ['wp_reviews_template_new']
                         ],
                     ],

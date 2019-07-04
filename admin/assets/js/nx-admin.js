@@ -151,7 +151,11 @@
 			templateID.find('input, select').each(function( i, item ){
 				var subKey = $( item ).data('subkey');
 				if( Object.keys( themeOBJ ).indexOf( subKey ) >= 0 ) {
-					$( item ).val( themeOBJ[ subKey ] ).trigger('change');
+					if( item.type === 'text' && item.nodeName === 'INPUT' ) {
+						$( item ).val( themeOBJ[ subKey ] );
+					} else {
+						$( item ).val( themeOBJ[ subKey ] ).trigger('change');
+					}
 				}
 			});
 		}

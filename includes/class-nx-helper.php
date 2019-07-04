@@ -407,8 +407,8 @@ class NotificationX_Helper {
 
     public static function designs_for_review(){
         return apply_filters('nxpro_wporg_themes', array(
-            'theme-one'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/total-rated.png',
-            'theme-two'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/reviewed.png',
+            'total-rated'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/total-rated.png',
+            'reviewed'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/reviewed.png',
             'review_saying' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/saying-review.png',
         ));
     }
