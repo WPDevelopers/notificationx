@@ -421,6 +421,27 @@ class NotificationX_Admin {
 				wp_safe_redirect( $current_url, 200 );
 			}
 		}
+		// Duplicating NotificationX
+		if( isset( $_GET['action'], $_GET['page'], $_GET['post'], $_GET['nx_duplicate_nonce'] ) && $_GET['action'] === 'nxduplicate' && $_GET['page'] === 'nx-admin' ) {
+		    if( wp_verify_nonce( $_GET['nx_duplicate_nonce'], 'nx_duplicate_nonce' ) ) {
+		        $nx_post_id = intval( $_GET['post'] );
+		        $get_post = get_post( $nx_post_id );
+		        $post_data = json_decode( json_encode( $get_post ), true );
+		        unset( $post_data['ID'] );
+		        $post_data['post_title'] = $post_data['post_title'] . ' - Copy';
+		        $duplicate_post_id = wp_insert_post( $post_data );
+		        $get_post_meta = get_metadata( 'post', $nx_post_id );
+		        if( ! empty( $get_post_meta ) ) {
+		            foreach( $get_post_meta as $key => $value ){
+		                if( in_array( $key, array( '_edit_lock', '_edit_last' ) ) ) {
+		                    continue;
+		                }
+		                add_post_meta( intval( $duplicate_post_id ), $key, $value[0], true );
+		            }
+		        }
+		        wp_safe_redirect( $current_url, 200 );
+		    }
+		}
 
 		/**
 		* Add Submit
