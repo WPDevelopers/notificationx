@@ -7,6 +7,7 @@ $current_url           = admin_url('admin.php?page=nx-admin');
 $publish_url           = add_query_arg('status', 'enabled', $current_url);
 $disabled_url          = add_query_arg('status', 'disabled', $current_url);
 $trash_url             = add_query_arg('status', 'trash', $current_url);
+$empty_trash_url       = add_query_arg('delete_all', true, $current_url);
 $get_enabled_post      = $post_status->enabled;
 $get_disabled_post     = $post_status->disabled;
 $total_notificationx   = $get_enabled_post + $get_disabled_post;
@@ -31,7 +32,6 @@ if( isset( $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
         $all_active_class = '';
     }
 }
-
 
 if( isset( $_GET['status'], $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
     if( ( $_GET['status'] == 'disabled' && $get_disabled_post == 0 ) || ( $_GET['status'] == 'trash' && $trash_notificationx == 0 ) ) {
@@ -61,6 +61,9 @@ if( isset( $_GET['status'], $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
             <?php endif; ?>
             <?php if( $trash_notificationx > 0 ) : ?>
                 <li <?php echo $trash_active_class; ?>><a href="<?php echo esc_url( $trash_url ); ?>"><?php _e( 'Trash', 'notificationx' ); ?> (<?php echo $trash_notificationx; ?>)</a></li>
+                <?php if( isset( $_GET['status'] ) && $_GET['status'] === 'trash' ) : ?>
+                    <li class="nx-empty-trash-btn"><a href="<?php echo esc_url( $empty_trash_url ); ?>"><?php _e( 'Empty Trash', 'notificationx' ); ?></a></li>
+                <?php endif; ?>
             <?php endif; ?>
         </ul>
     </div>
@@ -117,12 +120,17 @@ if( isset( $_GET['status'], $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
                                     }
                                 }
                             }
-
                             ?>
                                 <tr>
                                     <td>
                                         <div class="nx-admin-title">
-                                            <strong><a href="post.php?action=edit&post=<?php echo $idd; ?>"><?php echo get_the_title(); ?></a></strong>
+                                            <strong>
+                                                <?php 
+                                                    if( ! $trashed ) echo '<a href="post.php?action=edit&post='. $idd .'">';
+                                                    echo get_the_title(); 
+                                                    if( ! $trashed ) echo '</a>';
+                                                ?>
+                                            </strong>
                                             <div class="nx-admin-title-actions">
                                                 <?php if( ! $trash_page ) : ?>
                                                     <a class="nx-admin-title-edit" href="post.php?action=edit&post=<?php echo $idd; ?>"><?php _e( 'Edit', 'notificationx' ); ?></a>

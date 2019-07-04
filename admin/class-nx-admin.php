@@ -443,6 +443,21 @@ class NotificationX_Admin {
 		    }
 		}
 
+		if( isset( $_GET['delete_all'], $_GET['page'] ) && boolval( $_GET['delete_all'] ) === true && $_GET['page'] == 'nx-admin' ) {
+			$notificationx = new WP_Query(array(
+				'post_type' => 'notificationx',
+				'post_status' => array('trash'),
+				'numberposts' => -1,
+			));
+			if( $notificationx->have_posts() ) {
+				while( $notificationx->have_posts() ) : $notificationx->the_post(); 
+					$iddd = get_the_ID();
+					wp_delete_post( $iddd );
+				endwhile;
+				wp_safe_redirect( $current_url, 200 );
+			}
+		}
+
 		/**
 		* Add Submit
 		*/
