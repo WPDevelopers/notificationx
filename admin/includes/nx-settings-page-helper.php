@@ -44,16 +44,18 @@ function notificationx_settings_args(){
                     'priority' => 5,
                     'fields' => array(
                         'download_stats_cache_duration' => array(
-                            'type'      => 'text',
-                            'label'     => __('Download Stats Cache Duration' , 'notificationx'),
-                            'default'   => '3',
-                            'priority'	=> 3
+                            'type'        => 'text',
+                            'label'       => __('Download Stats Cache Duration' , 'notificationx'),
+                            'description' => __(' minutes (Schedule Duration to fetch new data).' , 'notificationx'),
+                            'default'     => '3',
+                            'priority'    => 3
                         ),
                         'reviews_cache_duration' => array(
-                            'type'      => 'text',
-                            'label'     => __('Reviews Cache Duration' , 'notificationx'),
-                            'default'   => '3',
-                            'priority'	=> 3
+                            'type'        => 'text',
+                            'label'       => __('Reviews Cache Duration' , 'notificationx'),
+                            'description' => __(' minutes (Schedule Duration to fetch new data).' , 'notificationx'),
+                            'default'     => '3',
+                            'priority'    => 3
                         )
                     ),
                 )),
