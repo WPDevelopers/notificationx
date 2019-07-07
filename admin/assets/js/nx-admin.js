@@ -2,35 +2,7 @@
 	'use strict';
 
 	/**
-	 * All of the code for your admin-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
-
-	/**
-	 * TODO: NEW STYLE OF CODE
+	 * NotificationX Admin JS
 	 */
 
 	$.notificationx = $.notificationx || {};
@@ -42,26 +14,92 @@
 			e.preventDefault();
 			$.notificationx.tabChanger( this );
 		});
+		$('body').on('click', '.nx-single-theme-wrapper', 
+		function(e){
+			e.preventDefault();
+			$.notificationx.templateForTheme();
+		});
 	});
 
 	$( window ).load(function(){
-		$('body').on('change', '#nx_meta_display_type', function(){
-			$.notificationx.linkOptions( this );
-			var type = $(this).val();
-			if( type == 'conversions' ) {
-				$('#nx_meta_conversion_from').trigger('change');
+		$('.nx-preloader').fadeOut({
+			complete: function(){
+				$('.nx-metatab-inner-wrapper').fadeIn();
 			}
 		});
 
-		$('body').on('change', '#nx_meta_display_type.nx-select', function( e ){
+		$('body').on('change', '#nx_meta_display_type', function(){
+			var type = $(this).val();
+			switch( type ) {
+				case 'conversions' : 
+					$('#nx_meta_conversion_from').trigger('change');
+					$('#nx_meta_advance_edit').trigger('change');
+					break;
+				case 'comments' : 
+					$('#nx_meta_comments_source').trigger('change');
+					$('#nx_meta_comment_advance_edit').trigger('change');
+					break;
+				case 'reviews' : 
+					$('#nx_meta_reviews_source').trigger('change');
+					$('#nx_meta_wporg_advance_edit').trigger('change');
+					break;
+				case 'download_stats' : 
+					$('#nx_meta_stats_source').trigger('change');
+					$('#nx_meta_wpstats_advance_edit').trigger('change');
+					$('.nx-wpstats_theme .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
+					break;
+			}
+			$.notificationx.templateForTheme();
+		});
+
+		$('body').on('change', '#nx_meta_wp_stats_template_new #nx_meta_wp_stats_template_new_third_param', function(){
+			var value = $(this).val();
+			if( value == 'tag_custom_stats' ) {
+				return '';
+			}
+			
+			$('#nx_meta_wp_stats_template_new #nx_meta_wp_stats_template_new_fourth_param').val( value + '_text' ).trigger('change');
+		});
+
+		$('body').on('change', '#nx_meta_conversion_from', function(){
+			var conv_source = $(this).val();
+			switch( conv_source ) {
+				case 'woocommerce' : 
+					$('#nx_meta_woo_template_adv').trigger('change');
+					break;
+				case 'edd' : 
+					$('#nx_meta_edd_template_adv').trigger('change');
+					break;
+			}
+		});
+
+		$('body').on('change', '#nx_meta_reviews_source', function(){
+			var source = $(this).val();
+			switch( source ) {
+				case 'wp_reviews' : 
+					$('#nx_meta_wp_reviews_template_adv').trigger('change');
+					$('.nx-wporg_theme .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
+					break;
+			}
+		});
+
+		$('body').on('change', '#nx_meta_stats_source', function(){
+			var source = $(this).val();
+			switch( source ) {
+				case 'wp_stats' : 
+					$('#nx_meta_wp_stats_template_adv').trigger('change');
+					break;
+			}
+		});
+
+		$('body').on('change', '.nx-builder-content-wrapper #nx_meta_display_type.nx-select', function( e ){
 			var type = $(this).val(),
 				title = e.currentTarget.selectedOptions[0].innerText,
 				options = { year: 'numeric', month: 'short', day: 'numeric' },
 				date = ( new Date() ).toLocaleDateString('en-US', options);
 			if( type === 'conversions' ) {
 				$('body').on('change', '#nx_meta_conversion_from.nx-select', function( e ){
-					var type = $(this).val(),
-						title = e.currentTarget.selectedOptions[0].innerText;
+					var title = e.currentTarget.selectedOptions[0].innerText;
 					$('.finalize_notificationx_name').text("NotificationX - " + title + ' - ' + date);
 				});
 				$('#nx_meta_conversion_from.nx-select').trigger('change');
@@ -80,9 +118,79 @@
 		$.notificationx.initializeFields();
 	};
 
+	$.notificationx.templateForTheme = function(){
+		var source, templateID, themeID,
+			type = $('#nx_meta_display_type').val();
+
+		if( type === 'press_bar' ) {
+			return;
+		}
+		source = $('#nx_meta_' + notificationx.source_types[type]).val();
+		if( notificationx.theme_sources.hasOwnProperty( source ) ) {
+			if( typeof notificationx.theme_sources[ source ] === 'object' ) {
+				themeID = $( '#nx_meta_' + notificationx.theme_sources[ source ][ type ] ).val();
+			} else {
+				themeID = $( '#nx_meta_' + notificationx.theme_sources[ source ] ).val();
+			}
+		}
+		if( notificationx.template_keys.hasOwnProperty( source ) ) {
+			if( typeof notificationx.template_keys[ source ] === 'object' ) {
+				templateID = $( '#nx_meta_' + notificationx.template_keys[ source ][ type ] );
+			} else {
+				templateID = $( '#nx_meta_' + notificationx.template_keys[ source ] );
+			}
+		}
+
+		if( templateID.length <= 0 ) {
+			return;
+		}
+
+		var templateDivID = templateID.attr('id');
+		if( Object.keys( notificationx.template_settings ).indexOf( templateDivID ) >= 0 && Object.keys( notificationx.template_settings[templateDivID] ).indexOf( themeID ) >= 0 ) {
+			var themeOBJ = notificationx.template_settings[templateDivID][themeID];
+			templateID.find('input, select').each(function( i, item ){
+				var subKey = $( item ).data('subkey');
+				if( Object.keys( themeOBJ ).indexOf( subKey ) >= 0 ) {
+					if( item.type === 'text' && item.nodeName === 'INPUT' ) {
+						$( item ).val( themeOBJ[ subKey ] );
+					} else {
+						$( item ).val( themeOBJ[ subKey ] ).trigger('change');
+					}
+				}
+			});
+		}
+	};
+
 	$.notificationx.bindEvents = function(){
+		$('#nx_meta_show_on').trigger('change');
+
 		$('body').on('click', '.nx-single-theme-wrapper', function(){
 			$.notificationx.selectTheme( this )
+		});
+
+		//Advance Checkbox with SweetAlear
+		$('body').on('click', '.nx-adv-checkbox-wrap label', function( e ){
+			if( typeof $(this)[0].dataset.swal == 'undefined' ) {
+				return;
+			}
+			if( typeof $(this)[0].dataset.swal != 'undefined' ) {
+				e.preventDefault();
+			}
+			var premium_content = document.createElement("p");
+			var premium_anchor = document.createElement("a");
+				
+			premium_anchor.setAttribute( 'href', 'https://notificationx.com' );
+			premium_anchor.innerText = 'Premium';
+			premium_anchor.style.color = 'red';
+			premium_content.innerHTML = 'You need to upgrade to the <strong>'+ premium_anchor.outerHTML +' </strong> Version to use this feature';
+			
+			swal({
+				title     : "Opps...",
+				content   :  premium_content,
+				icon      : "warning",
+				buttons   : [false, "Close"],
+				dangerMode: true,
+			});
 		});
 
 		/**
@@ -97,7 +205,7 @@
 		$('body').delegate( '.nx-group-field .nx-group-clone', 'click', function() {
 			$.notificationx.cloneGroup(this);
 		} );
-		$('body').delegate( '.nx-group-field .nx-group-remove', 'click', function() {
+		$('body').on( 'click', '.nx-group-field .nx-group-remove', function() {
 			$.notificationx.removeGroup(this);
 		});
 
@@ -121,11 +229,25 @@
 		} );
 		$('body').delegate( '.nx-submit-general', 'click', function( e ) {
 			e.preventDefault();
-			$.notificationx.submitSettings( this );
+			var form = $( this ).parent('#nx-settings-general-form');
+			$.notificationx.submitSettings( this, form );
+		} );
+		$('body').delegate( '.nx-submit-cache_settings_tab', 'click', function( e ) {
+			e.preventDefault();
+			var form = $( this ).parent('#nx-settings-cache_settings_tab-form');
+			$.notificationx.submitSettings( this, form );
 		} );
 
 		$('body').delegate( '.nx-opt-alert', 'click', function( e ) {
 			$.notificationx.fieldAlert( this );
+		} );
+
+		/**
+		 * Reset Section Settings
+		 */
+		$('body').delegate( '.nx-section-reset', 'click', function( e ) {
+			e.preventDefault();
+			$.notificationx.resetSection( this );
 		} );
 	};
 	/**
@@ -133,20 +255,21 @@
 	 * enabling and disabling the notificationXs
 	 */
 	$.notificationx.enabledDisabled = function(){
-		$('.wp-list-table .column-notification_status img').off('click').on('click', function(e) {
+		$('.nx-admin-status label').on('click', function(e) {
             e.stopPropagation();
             var $this       = $(this),
-                isActive    = $this.attr('src').indexOf('active1.png') >= 0,
                 postID      = $this.data('post'),
-                nonce       = $this.data('nonce');
+				nonce       = $this.data('nonce'),
+				siblings = $this.siblings('input'),
+				isActive = siblings.is(':checked');
 
             if ( isActive ) {
-                $this.attr('src', $this.attr('src').replace('active1.png', 'active0.png'));
-                $this.attr('title', 'Inactive').attr('alt', 'Inactive');
+                $this.siblings('.nx-admin-status-title.nxast-enable').removeClass('active');
+                $this.siblings('.nx-admin-status-title.nxast-disable').addClass('active');
             } else {
-                $this.attr('src', $this.attr('src').replace('active0.png', 'active1.png'));
-                $this.attr('title', 'Active').attr('alt', 'Active');
-            }
+                $this.siblings('.nx-admin-status-title.nxast-disable').removeClass('active');
+                $this.siblings('.nx-admin-status-title.nxast-enable').addClass('active');
+			}
 
             $.ajax({
                 type: 'post',
@@ -155,19 +278,12 @@
                     action: 'notifications_toggle_status',
                     post_id: postID,
                     nonce: nonce,
-                    status: isActive ? 'inactive' : 'active'
+					status: isActive ? 'inactive' : 'active',
+					url : window.location.href
                 },
                 success: function(res) {
                     if ( res !== 'success' ) {
-                        alert( res );
-                        isActive = $this.attr('src').indexOf('active1.png') >= 0;
-                        if ( isActive ) {
-                            $this.attr('src', $this.attr('src').replace('active1.png', 'active0.png'));
-                            $this.attr('title', 'Inactive').attr('alt', 'Inactive');
-                        } else {
-                            $this.attr('src', $this.attr('src').replace('active0.png', 'active1.png'));
-                            $this.attr('title', 'Active').attr('alt', 'Active');
-                        }
+                        window.location.href = window.location.href;
                     }
                 }
             });
@@ -251,9 +367,13 @@
                     lastGroup   = $this.find('.nx-group-field:last'),
                     clone       = $( $this.find('.nx-group-template').html() ),
                     groupId     = parseInt( lastGroup.data('id') ),
-                    nextGroupId = groupId + 1,
-                    title       = clone.data('group-title');
-
+                    nextGroupId = 1,
+					title       = clone.data('group-title');
+					
+				if( ! isNaN( groupId ) ) {
+					nextGroupId = groupId + 1;
+				}
+			
                 groups.each(function() {
                     $(this).removeClass('open');
                 });
@@ -280,7 +400,9 @@
                     $(this).attr('id', nextFieldId);
                 });
 
-                clone.insertBefore( $( this ) );
+				clone.insertBefore( $( this ) );
+				
+				$.notificationx.resetFieldIds( $('.nx-group-field') );
             });
 
         });
@@ -329,12 +451,18 @@
 		);
 	};
 
-	$.notificationx.toggle = function( array, func, prefix, suffix ) {
+	$.notificationx.toggle = function( array, func, prefix, suffix, id) {
 		var i = 0;
 		suffix = 'undefined' == typeof suffix ? '' : suffix;
+
 		if(typeof array !== 'undefined') {
 			for( ; i < array.length; i++) {
-				$(prefix + array[i] + suffix)[func]();
+				var selector = prefix + array[i] + suffix;
+				if( notificationx.template.indexOf( id ) >= 0 ) {
+					selector = "#nx_meta_" + id + "_" + array[i] + suffix;
+				}
+
+				$(selector)[func]();
 			}
 		}
 	};
@@ -348,7 +476,6 @@
 			container = current.parents( '.nx-field:first' ),
 			id = container.data( 'id' ),
 			value = current.val();
-
 		
 		if ( 'checkbox' === current.attr('type') ) {
 			if( ! current.is(':checked') ) {
@@ -356,36 +483,45 @@
 			} else {
 				value = 1;
 			}
-		} 
+		}
 
 		if ( current.hasClass('nx-theme-selected') ) {
 			var currentTheme = current.parents('.nx-theme-control-wrapper').data('name');
 			value = $( '#' + currentTheme ).val();
 		}
+
+		var mainid = id;
 		
-		if ( ! notificationx.toggleFields.hasOwnProperty( id ) ) {
-			return;
+		if( notificationx.template.indexOf( id ) >= 0 ) {
+			id = current.data('subkey');
 		}
 
-		var canShow = notificationx.toggleFields[id].hasOwnProperty( value );
-		if( notificationx.toggleFields.hasOwnProperty( id ) ) {
-			$.each(notificationx.toggleFields[id], function( key, array ){
-				$.notificationx.toggle(array.fields, 'hide', '#nx-meta-', '', id);
-				$.notificationx.toggle(array.sections, 'hide', '#nx-meta-section-', '', id);
-			})
-
-		}
-
-		if( canShow ) {
-			$.notificationx.toggle(notificationx.toggleFields[id][value].fields, 'show', '#nx-meta-', '', id);
-			$.notificationx.toggle(notificationx.toggleFields[id][value].sections, 'show', '#nx-meta-section-', '', id);
+		if ( notificationx.toggleFields.hasOwnProperty( id ) ) {
+			var canShow = notificationx.toggleFields[id].hasOwnProperty( value );
+			var canHide = true;
+			if( notificationx.hideFields[id] ) {
+				var canHide = notificationx.hideFields[id].hasOwnProperty( value );
+			}
+			
+			if( notificationx.toggleFields.hasOwnProperty( id ) && canHide ) {
+				$.each(notificationx.toggleFields[id], function( key, array ){
+					$.notificationx.toggle(array.fields, 'hide', '#nx-meta-', '', mainid);
+					$.notificationx.toggle(array.sections, 'hide', '#nx-meta-section-', '', mainid);
+				})
+			}
+	
+			if( canShow ) {
+				$.notificationx.toggle(notificationx.toggleFields[id][value].fields, 'show', '#nx-meta-', '', mainid);
+				$.notificationx.toggle(notificationx.toggleFields[id][value].sections, 'show', '#nx-meta-section-', '', mainid);
+			}
 		}
 
 		if( notificationx.hideFields.hasOwnProperty( id ) ) {
 			var hideFields = notificationx.hideFields[id];
+
 			if( hideFields.hasOwnProperty( value ) ) {
-				$.notificationx.toggle(hideFields[ value ].fields, 'hide', '#nx-meta-', '', id);
-				$.notificationx.toggle(hideFields[ value ].sections, 'hide', '#nx-meta-section-', '', id);
+				$.notificationx.toggle(hideFields[ value ].fields, 'hide', '#nx-meta-', '', mainid);
+				$.notificationx.toggle(hideFields[ value ].sections, 'hide', '#nx-meta-section-', '', mainid);
 			}
 		}
 
@@ -415,8 +551,9 @@
 	};
 
 	$.notificationx.removeGroup = function( button ){
-		var groupId = $(button).parents('.nx-group-field').data('id'),
-			group   = $(button).parents('.nx-group-field[data-id="'+groupId+'"]');
+		var groupId = $(button).parents('.nx-group-field').attr('data-id'),
+			group   = $(button).parents('.nx-group-field[data-id="'+groupId+'"]'),
+			parent  = group.parent();
 
 		group.fadeOut({
 			duration: 300,
@@ -424,51 +561,65 @@
 				$(this).remove();
 			}
 		});
+
+		$.notificationx.resetFieldIds( parent.find('.nx-group-field') );
 	};
 
 	$.notificationx.cloneGroup = function( button ){
-		var groupId = $(button).parents('.nx-group-field').data('id'),
+		var groupId = $(button).parents('.nx-group-field').attr('data-id'),
 			group   = $(button).parents('.nx-group-field[data-id="'+groupId+'"]'),
 			clone   = $( group.clone() ),
 			lastGroup   = $( button ).parents('.nx-group-fields-wrapper').find('.nx-group-field:last'),
 			parent  = group.parent(),
 			nextGroupID = $( lastGroup ).data('id') + 1;
+			
+		group.removeClass('open');
 
 		clone.attr('data-id', nextGroupID);
-		clone.insertAfter(group);
+		clone.insertAfter( group );
 		$.notificationx.resetFieldIds( parent.find('.nx-group-field') );
 	};
 
 	$.notificationx.resetFieldIds = function( groups ){
-		var groupID = 1;
-				
-		groups.each(function() {
-			var group       = $(this),
-				fieldName   = group.data('field-name'),
-				fieldId     = 'nx-' + fieldName,
-				groupInfo   = group.find('.nx-group-field-info').data('info'),
-				subFields   = groupInfo.group_sub_fields;
+		if( groups.length <= 0 ) {
+			return;
+		}
+		var groupID = 0;
 
-			group.data('id', groupID);
+		groups.map(function( iterator, item ){
 
-			subFields.forEach(function( item ){
-				var table_row = group.find('tr.nx-field[id="nx-' + item.field_name + '"]');
+			var item = $(item),
+				fieldName = item.data('field-name'),
+				groupInfo = item.find( '.nx-group-field-info' ).data('info'),
+				subFields = groupInfo.group_sub_fields;
 
-				table_row.find('[name*="'+item.field_name+'"]').each(function(){
-					var name = $(this).attr('name'),
-						prefix  = name.split(item.field_name)[0],
-						suffix  = '';
+			item.attr('data-id', groupID);
 
-					if ( undefined === prefix ) {
-						prefix = '';
-					}
-					
-					name = name.replace( name, prefix + fieldName + '[' + groupID + '][' + item.original_name + ']' + suffix );
-					$(this).attr('name', name).attr('id', name);
-				});
+			var table_row = item.find('tr.nx-field');
+			
+			table_row.each(function( i, child ){
 
-				group.find('tr.nx-field[id="nx-' + item.field_name + '"]').attr('id', fieldId + '[' + groupID + '][' + item.original_name + ']');
+				var child = $( $( child )[0] ),
+					childInput = child.find( '[name*="nx_meta_'+fieldName+'"]' ),
+					key = childInput.attr('data-key'),
+					subKey = subFields[i].original_name,
+					dataID = fieldName + "["+ groupID + "][" + subKey + "]",
+					idName = 'nx-meta-' + dataID,
+					inputName = 'nx_meta_' + dataID;
+
+				child.attr( 'data-id', dataID );
+				child.attr( 'id', idName );
+
+				childInput.attr('id', inputName);
+				childInput.attr('name', inputName);
+				childInput.attr('data-key', dataID);
+
+				// if( childInput.length > 1 ) {
+				// 	childInput.each(function(i, subInput){
+				// 	});
+				// }
 			});
+
 			groupID++;
 		});
 	}
@@ -544,6 +695,29 @@
 		});
 	};
 
+	$.notificationx.resetSection = function( button ){
+		var button = $( button ),
+			parent = button.parents('.nx-meta-section'),
+			fields = parent.find('.nx-meta-field'), updateFields = [];
+		
+		window.fieldsss = fields;
+		fields.map(function(iterator, item){ 
+			var item = $( item ),
+				default_value = item.data( 'default' );
+
+			item.val( default_value );
+
+			if( item.hasClass('wp-color-picker') ) {
+				item.parents('.wp-picker-container').find('.wp-color-result').removeAttr('style')
+			}
+			if( item[0].id == 'nx_meta_border' ){
+				item.trigger('click');
+			} else {
+				item.trigger('change');
+			}
+		});
+	};
+
 	$.notificationx.settingsTab = function( button ){
 		var button = $(button),
 			tabToGo = button.data('tab');
@@ -552,11 +726,10 @@
 		$('#nx-'+tabToGo).addClass('active').siblings().removeClass('active');
 	};
 
-	$.notificationx.submitSettings = function( button ){
+	$.notificationx.submitSettings = function( button, form ){
 		var button = $(button),
 			submitKey = button.data('key'),
 			nonce = button.data('nonce'),
-			form = button.parent('#nx-settings-general-form'),
 			formData = $( form ).serializeArray();
 
 		$.ajax({
@@ -588,17 +761,6 @@
 		});
 	};
 
-	$.notificationx.linkOptions = function(){
-		var type = $('#nx_meta_display_type').val();
-		if( type == 'conversions' ) {
-			var from = $('#nx_meta_conversion_from').val();
-			$('#nx_meta_notx_url').val('product_page').trigger('change');
-		}
-		if( type == 'comments' ) {
-			$('#nx_meta_notx_url').val('comment_url').trigger('change');
-		}
-	}
-
 	$.notificationx.template = function( e ){
 		$('.nx-meta-template-editable').prop('disabled',true);
 
@@ -625,8 +787,9 @@
 									res = item.replace( childParam, '<span style="color:red">' + childParam + '</span>' );
 								}
 							});
-
 							newItemLine.push( res );
+						} else {
+							newItemLine.push( item );
 						}
 					}
 				});

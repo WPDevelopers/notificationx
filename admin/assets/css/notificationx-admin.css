@@ -40,6 +40,9 @@
 
 .notificationx-metabox-wrapper {}
 
+.nx-builder-hidden {
+    display: none !important;
+}
 .nx-metatab-menu {
     background: #fff;
     padding: 30px;
@@ -123,6 +126,39 @@
 
 .nx-meta-contents {
     background: #fff;
+}
+.nx-metatab-inner-wrapper {
+    display: none;
+}
+
+@keyframes nxloadunload {
+    10% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.nx-preloader {
+    text-align: center;
+    padding: 40px 50px 50px;
+}
+
+.nx-builder-content-wrapper .nx-preloader {
+    padding: 0;
+}
+
+.nx-preloader img {
+    width: 200px;
+    animation-duration: 1s;
+    animation-name: nxloadunload;
+    animation-iteration-count: infinite;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-name: nxloadunload;
+    -webkit-animation-iteration-count: infinite;
 }
 
 .nx-metatab-content {
@@ -314,6 +350,19 @@ Form Input CSS
     width: 400px;
 }
 
+.nx-meta-field.nx-select.nx-template-field {
+    /* max-width: 200px; */
+}
+
+.template-items {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.template-items > * {
+    flex: 1;
+}
+
 .nx-meta-template .nx-meta-template-editable {
     padding: 10px;
     line-height: 25px;
@@ -369,6 +418,10 @@ input.nx-template-field {
     height: 100%;
     content: "";
     z-index: 9999;
+}
+
+.adv-btn-right {
+    text-align: right;
 }
 
 label.nx-adv-checkbox-label {
@@ -512,7 +565,8 @@ label.nx-adv-checkbox-label:hover {
     border: 25px solid #fff;
 }
 
-.nx-builder-content select.nx-meta-field {
+.nx-builder-content select.nx-meta-field,
+.nx-builder-content input.nx-meta-field {
     border-color: rgba(0,0,0, .1);
     background-color: #fff !important;
 }
@@ -657,11 +711,12 @@ label.nx-adv-checkbox-label:hover {
 }
 
 .nx-single-theme-wrapper.nx-meta-field {
-    padding: 0px;
+    padding: 10px;
     border: 0;
-    background: none;
+    background: 0 0;
     width: auto;
     cursor: pointer;
+    margin: 5px;
 }
 
 .nx-single-theme-wrapper > img {

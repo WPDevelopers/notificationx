@@ -93,6 +93,12 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
+= 1.0.2 - 08/05/2019 =
+
+- IE issue fixed ( Scripts Updated )
+- Cache Issue Fixed
+- Few bugfix and improvements
+
 = 1.0.1 - 10/04/2019 =
 
 - Timezone issue fixed

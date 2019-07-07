@@ -136,11 +136,12 @@ class NotificationX_Public {
 			return;
 		}
 		$activeItems = self::$active;
-		$conversion_ids = $comments_id = array();
+		$conversion_ids = $comments_id = $reviews_id = $download_stats_id = array();
 		
 		foreach( self::$active as $id ) {
 			
 			$settings = NotificationX_MetaBox::get_metabox_settings( $id );
+			self::generate_css( $settings );
 			
 			$logged_in = is_user_logged_in();
 			$show_on_display = $settings->show_on_display;
@@ -177,17 +178,21 @@ class NotificationX_Public {
 			
 			switch ( $settings->display_type ) {
 				case "press_bar":
-				NotificationX_PressBar_Extension::display( $settings );
-				break;
+					NotificationX_PressBar_Extension::display( $settings );
+					break;
 				case "conversions":
-				$conversion_ids[] = $id;
-				break;
+					$conversion_ids[] = $id;
+					break;
 				case "comments":
-				$comments_id[] = $id;
-				break;
+					$comments_id[] = $id;
+					break;
+				case "reviews":
+					$reviews_id[] = $id;
+					break;
+				case "download_stats":
+					$download_stats_id[] = $id;
+					break;
 			}
-			
-			self::generate_css( $settings );
 			unset( $activeItems[ $id ] );
 		}
 		function pro_extension_ids() {
@@ -198,10 +203,12 @@ class NotificationX_Public {
 		/**
 		* Filtered Active IDs
 		*/
-		$conversion_ids = apply_filters('nx_conversions_id', $conversion_ids );
-		$comments_id = apply_filters('nx_comments_id', $comments_id );
+		$conversion_ids              = apply_filters('nx_conversions_id', $conversion_ids );
+		$comments_id                 = apply_filters('nx_comments_id', $comments_id );
+		$reviews_id                  = apply_filters('nx_reviews_id', $reviews_id );
+		$reviedownload_stats_idws_id = apply_filters('nx_download_stats_id', $download_stats_id );
 		
-		if( ! empty( $conversion_ids ) || ! empty( $comments_id ) || ! empty( $pro_ext ) ) :
+		if( ! empty( $conversion_ids ) || ! empty( $comments_id ) || ! empty( $pro_ext ) || ! empty( $reviews_id ) || ! empty( $download_stats_id ) ) :
 			?>
 			<script type="text/javascript">
 			var notificationx = {
@@ -209,6 +216,8 @@ class NotificationX_Public {
 				ajaxurl    : '<?php echo admin_url('admin-ajax.php'); ?>',
 				conversions: <?php echo json_encode( $conversion_ids ); ?>,
 				comments   : <?php echo json_encode( $comments_id ); ?>,
+				reviews   : <?php echo json_encode( $reviews_id ); ?>,
+				stats   : <?php echo json_encode( $download_stats_id ); ?>,
 				pro_ext   : <?php echo json_encode( $pro_ext ); ?>,
 			};
 			</script>
@@ -231,14 +240,14 @@ class NotificationX_Public {
 		
 		$settings = NotificationX_MetaBox::get_metabox_settings( $ids );
 		
-		$echo['config'] = array(
+		$echo['config'] = apply_filters('nx_frontend_config', array(
 			'delay_before'  => ( ! empty( $settings->delay_before ) ) ? intval( $settings->delay_before ) * 1000 : 0,
 			'display_for'   => ( ! empty( $settings->display_for ) ) ? intval( $settings->display_for ) * 1000 : 0,
 			'delay_between' => ( ! empty( $settings->delay_between ) ) ? intval( $settings->delay_between ) * 1000 : 0,
 			'loop'          => ( ! empty( $settings->loop ) ) ? $settings->loop : 0,
 			'id'            => $ids,
-		);
-		
+		), $settings);
+
 		ob_start();
 		include NOTIFICATIONX_PUBLIC_PATH . 'partials/nx-public-display.php';
 		$content = ob_get_clean();
@@ -275,78 +284,130 @@ class NotificationX_Public {
 		$style = $image_style = $content_style = $first_row_font = $second_row_font = $third_row_font = $max_width = [];
 		$css_string = $css = '';
 		
+		//TODO: Re-write this class to generate ADV CSS for notification
+		//TODO: Not working for stats and reviews only
+
 		switch( $settings->display_type ){
+			case 'reviews' : 
+				if( $settings->conversion_size ) {
+					$max_width[] = ! empty( $settings->conversion_size ) ? 'max-width: ' . $settings->conversion_size .'px !important' : '';
+				}
+				if( $settings->wporg_advance_edit ) {
+					$style[] = ! empty( $settings->wporg_bg_color ) ? 'background-color: ' . $settings->wporg_bg_color . '!important' : '';
+					$style[] = ! empty( $settings->wporg_text_color ) ? 'color: ' . $settings->wporg_text_color : '';
+					
+					if( $settings->wporg_border ){
+						$style[] = 'border-width: ' . $settings->wporg_border_size . 'px !important';
+						$style[] = 'border-style: ' . $settings->wporg_border_style . '!important';
+						$style[] = 'border-color: ' . $settings->wporg_border_color . '!important';
+					}
+					
+					if( ! empty( $settings->wporg_first_font_size ) ) {
+						$first_row_font[] = 'font-size: ' . $settings->wporg_first_font_size . 'px';
+					}
+					if( ! empty( $settings->wporg_second_font_size ) ) {
+						$second_row_font[] = 'font-size: ' . $settings->wporg_second_font_size . 'px';
+					}
+					if( ! empty( $settings->wporg_third_font_size ) ) {
+						$third_row_font[] = 'font-size: ' . $settings->wporg_third_font_size . 'px';
+					}
+				}
+				break;
+			case 'download_stats' : 
+				if( $settings->conversion_size ) {
+					$max_width[] = ! empty( $settings->conversion_size ) ? 'max-width: ' . $settings->conversion_size .'px !important' : '';
+				}
+				if( $settings->wpstats_advance_edit ) {
+					$style[] = ! empty( $settings->wpstats_bg_color ) ? 'background-color: ' . $settings->wpstats_bg_color . '!important' : '';
+					$style[] = ! empty( $settings->wpstats_text_color ) ? 'color: ' . $settings->wpstats_text_color : '';
+					
+					if( $settings->wpstats_border ){
+						$style[] = 'border-width: ' . $settings->wpstats_border_size . 'px !important';
+						$style[] = 'border-style: ' . $settings->wpstats_border_style . '!important';
+						$style[] = 'border-color: ' . $settings->wpstats_border_color . '!important';
+					}
+					
+					if( ! empty( $settings->wpstats_first_font_size ) ) {
+						$first_row_font[] = 'font-size: ' . $settings->wpstats_first_font_size . 'px';
+					}
+					if( ! empty( $settings->wpstats_second_font_size ) ) {
+						$second_row_font[] = 'font-size: ' . $settings->wpstats_second_font_size . 'px';
+					}
+					if( ! empty( $settings->wpstats_third_font_size ) ) {
+						$third_row_font[] = 'font-size: ' . $settings->wpstats_third_font_size . 'px';
+					}
+				}
+				break;
 			case 'conversions' : 
-			if( $settings->conversion_size ) {
-				$max_width[] = ! empty( $settings->conversion_size ) ? 'max-width: ' . $settings->conversion_size .'px !important' : '';
-			}
-			if( $settings->advance_edit ) {
-				$style[] = ! empty( $settings->bg_color ) ? 'background-color: ' . $settings->bg_color : '';
-				$style[] = ! empty( $settings->text_color ) ? 'color: ' . $settings->text_color : '';
-				
-				if( $settings->border ){
-					$style[] = 'border-width: ' . $settings->border_size . 'px !important';
-					$style[] = 'border-style: ' . $settings->border_style . '!important';
-					$style[] = 'border-color: ' . $settings->border_color . '!important';
+				if( $settings->conversion_size ) {
+					$max_width[] = ! empty( $settings->conversion_size ) ? 'max-width: ' . $settings->conversion_size .'px !important' : '';
 				}
-				
-				if( ! empty( $settings->first_font_size ) ) {
-					$first_row_font[] = 'font-size: ' . $settings->first_font_size . 'px';
+				if( $settings->advance_edit ) {
+					$style[] = ! empty( $settings->bg_color ) ? 'background-color: ' . $settings->bg_color . '!important' : '';
+					$style[] = ! empty( $settings->text_color ) ? 'color: ' . $settings->text_color : '';
+					
+					if( $settings->border ){
+						$style[] = 'border-width: ' . $settings->border_size . 'px !important';
+						$style[] = 'border-style: ' . $settings->border_style . '!important';
+						$style[] = 'border-color: ' . $settings->border_color . '!important';
+					}
+					
+					if( ! empty( $settings->first_font_size ) ) {
+						$first_row_font[] = 'font-size: ' . $settings->first_font_size . 'px';
+					}
+					if( ! empty( $settings->second_font_size ) ) {
+						$second_row_font[] = 'font-size: ' . $settings->second_font_size . 'px';
+					}
+					if( ! empty( $settings->third_font_size ) ) {
+						$third_row_font[] = 'font-size: ' . $settings->third_font_size . 'px';
+					}
+					
+					if( $settings->image_position == 'right' ) {
+						$style[] = 'flex-direction: row-reverse';
+					}
 				}
-				if( ! empty( $settings->second_font_size ) ) {
-					$second_row_font[] = 'font-size: ' . $settings->second_font_size . 'px';
-				}
-				if( ! empty( $settings->third_font_size ) ) {
-					$third_row_font[] = 'font-size: ' . $settings->third_font_size . 'px';
-				}
-				
-				if( $settings->image_position == 'right' ) {
-					$style[] = 'flex-direction: row-reverse';
-				}
-			}
-			break;
+				break;
 			case 'comments' : 
-			if( $settings->conversion_size ) {
-				$max_width[] = ! empty( $settings->conversion_size ) ? 'max-width: ' . $settings->conversion_size .'px !important' : '';
-			}
-			if( $settings->comment_advance_edit ) {
-				$style[] = ! empty( $settings->comment_bg_color ) ? 'background-color: ' . $settings->comment_bg_color : '';
-				$style[] = ! empty( $settings->comment_text_color ) ? 'color: ' . $settings->comment_text_color : '';
-				
-				if( $settings->comment_border ){
-					$style[] = 'border-width: ' . $settings->comment_border_size . 'px !important';
-					$style[] = 'border-style: ' . $settings->comment_border_style . ' !important';
-					$style[] = 'border-color: ' . $settings->comment_border_color . '!important';
+				if( $settings->conversion_size ) {
+					$max_width[] = ! empty( $settings->conversion_size ) ? 'max-width: ' . $settings->conversion_size .'px !important' : '';
 				}
-				
-				if( ! empty( $settings->comment_first_font_size ) ) {
-					$first_row_font[] = 'font-size: ' . $settings->comment_first_font_size . 'px';
+				if( $settings->comment_advance_edit ) {
+					$style[] = ! empty( $settings->comment_bg_color ) ? 'background-color: ' . $settings->comment_bg_color : '';
+					$style[] = ! empty( $settings->comment_text_color ) ? 'color: ' . $settings->comment_text_color : '';
+					
+					if( $settings->comment_border ){
+						$style[] = 'border-width: ' . $settings->comment_border_size . 'px !important';
+						$style[] = 'border-style: ' . $settings->comment_border_style . ' !important';
+						$style[] = 'border-color: ' . $settings->comment_border_color . '!important';
+					}
+					
+					if( ! empty( $settings->comment_first_font_size ) ) {
+						$first_row_font[] = 'font-size: ' . $settings->comment_first_font_size . 'px';
+					}
+					if( ! empty( $settings->comment_second_font_size ) ) {
+						$second_row_font[] = 'font-size: ' . $settings->comment_second_font_size . 'px';
+					}
+					if( ! empty( $settings->comment_third_font_size ) ) {
+						$third_row_font[] = 'font-size: ' . $settings->comment_third_font_size . 'px';
+					}
+					
+					if( $settings->comment_image_position == 'right' ) {
+						$style[] = 'flex-direction: row-reverse';
+					}
 				}
-				if( ! empty( $settings->comment_second_font_size ) ) {
-					$second_row_font[] = 'font-size: ' . $settings->comment_second_font_size . 'px';
-				}
-				if( ! empty( $settings->comment_third_font_size ) ) {
-					$third_row_font[] = 'font-size: ' . $settings->comment_third_font_size . 'px';
-				}
-				
-				if( $settings->comment_image_position == 'right' ) {
-					$style[] = 'flex-direction: row-reverse';
-				}
-			}
-			break;
+				break;
 			case 'press_bar' : 
-			if( $settings->bar_advance_edit ) {
-				$style[] = ! empty( $settings->bar_bg_color ) ? 'background-color: ' . $settings->bar_bg_color . ' !important' : '';
-				$style[] = ! empty( $settings->bar_text_color ) ? 'color: ' . $settings->bar_text_color . ' !important': '';
-				$style[] = ! empty( $settings->bar_font_size ) ? 'font-size: ' . $settings->bar_font_size . 'px' . ' !important': '';
-			}
-			break;
+				if( $settings->bar_advance_edit ) {
+					$style[] = ! empty( $settings->bar_bg_color ) ? 'background-color: ' . $settings->bar_bg_color . ' !important' : '';
+					$style[] = ! empty( $settings->bar_text_color ) ? 'color: ' . $settings->bar_text_color . ' !important': '';
+					$style[] = ! empty( $settings->bar_font_size ) ? 'font-size: ' . $settings->bar_font_size . 'px' . ' !important': '';
+				}
+				break;
 		}
 		
 		
 		
-		$style = apply_filters('nx_style', $style );
-		do_action( 'nx_style_generation' );
+		$style = apply_filters('nx_style', $style, $settings );
 		
 		if( ! empty( $max_width ) ) {
 			$css_string .= '.notificationx-inner {' . implode( ';', $max_width ) . '}';
@@ -375,7 +436,8 @@ class NotificationX_Public {
 			$css .= $css_string;
 			$css .= '</style>';
 		}
-		
+		do_action( 'nx_style_generation' );
+		$css = apply_filters('nx_style_string', $css, $settings );
 		echo ! empty( $css ) ? $css : '';
 	}
 	/**

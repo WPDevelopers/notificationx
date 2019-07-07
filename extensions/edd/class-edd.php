@@ -22,13 +22,43 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
     protected $notifications = [];
 
     public function __construct() {
-        parent::__construct();
+        parent::__construct( $this->template );
         $this->notifications = $this->get_notifications( $this->type );
+
+        add_filter( 'nx_notification_link', array( $this, 'notification_link' ), 10, 2 );
+    }
+
+    public function template_string_by_theme( $template, $old_template, $posts_data ){
+        if( $posts_data['nx_meta_display_type'] === 'conversions' && $posts_data['nx_meta_conversion_from'] === $this->type ) {
+            $theme = $posts_data['nx_meta_theme'];
+            switch( $theme ) {
+                default : 
+                    $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'third_param', 'fourth_param' ] ) );
+                    break;
+            }
+            return $template;
+        }
+        return $template;
+    }
+
+    public function fallback_data( $data, $saved_data, $settings ){
+        if( NotificationX_Helper::get_type( $settings ) !== $this->type ) {
+            return $data;
+        }
+
+        $data['name'] = $this->notEmpty( 'name', $saved_data ) ? $saved_data['name'] : __( 'Someone', 'notificationx' );
+        $data['first_name'] = $this->notEmpty( 'first_name', $saved_data ) ? $saved_data['first_name'] : __( 'Someone', 'notificationx' );
+        $data['last_name'] = $this->notEmpty( 'last_name', $saved_data ) ? $saved_data['last_name'] : __( 'Someone', 'notificationx' );
+        $data['anonymous_title'] = __( 'Anonymous Product', 'notificationx' );
+        $data['sometime'] = __( 'Sometimes ago', 'notificationx' );
+
+        return $data;
     }
     /**
      * Main Screen Hooks
      */
     public function init_hooks(){
+        add_filter( 'nx_show_image_options', array( $this, 'image_options' ) );
         add_filter( 'nx_metabox_tabs', array( $this, 'add_fields' ) );
         add_filter( 'nx_display_types_hide_data', array( $this, 'hide_fields' ) );
         add_filter( 'nx_conversion_from', array( $this, 'toggle_fields' ) );
@@ -41,6 +71,31 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         add_filter( 'nx_display_types_hide_data', array( $this, 'hide_builder_fields' ) );
         add_filter( 'nx_builder_tabs', array( $this, 'builder_toggle_fields' ) );
     }
+
+    public function notification_link( $link, $settings ){
+        if( $settings->display_type === 'conversions' && $settings->conversion_url === 'none' ) {
+            return '';
+        }
+
+        return $link;
+    }
+
+    /**
+     * Image Options
+     *
+     * @param array $options
+     * @return void
+     */
+    public function image_options( $options ){
+        if( class_exists( 'Easy_Digital_Downloads' ) ) {
+            $new = array(
+                'product_image' => __('Product Image' , 'notificationx')
+            );
+            return array_merge( $new, $options );
+        }
+        return $options;
+    }
+
     /**
      * Needed Fields
      */
@@ -55,16 +110,78 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
             );
         }
 
-        $fields['edd_template'] = array(
+        $fields['edd_template_new'] = array(
             'type'     => 'template',
+            'builder_hidden' => true,
+            'fields' => array(
+                'first_param' => array(
+                    'type'     => 'select',
+                    'label'    => __('Notification Template' , 'notificationx'),
+                    'priority' => 1,
+                    'options'  => array(
+                        'tag_name' => __('Full Name' , 'notificationx'),
+                        'tag_first_name' => __('First Name' , 'notificationx'),
+                        'tag_last_name' => __('Last Name' , 'notificationx'),
+                        'tag_custom' => __('Custom' , 'notificationx'),
+                    ),
+                    'dependency' => array(
+                        'tag_custom' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        )
+                    ),
+                    'hide' => array(
+                        'tag_name' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
+                        'tag_first_name' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
+                        'tag_last_name' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
+                    ),
+                    'default' => 'tag_name'
+                ),
+                'custom_first_param' => array(
+                    'type'     => 'text',
+                    'priority' => 2,
+                    'default' => __('Someone' , 'notificationx')
+                ),
+                'second_param' => array(
+                    'type'     => 'text',
+                    'priority' => 3,
+                    'default' => __('recently purchased' , 'notificationx')
+                ),
+                'third_param' => array(
+                    'type'     => 'select',
+                    'priority' => 4,
+                    'options'  => array(
+                        'tag_title'       => __('Product Title' , 'notificationx'),
+                        'tag_anonymous_title' => __('Anonymous Product' , 'notificationx'),
+                    ),
+                    'default' => 'tag_title'
+                ),
+                'fourth_param' => array(
+                    'type'     => 'select',
+                    'priority' => 5,
+                    'options'  => array(
+                        'tag_time'       => __('Definite Time' , 'notificationx'),
+                        'sometime' => __('Sometimes ago' , 'notificationx'),
+                    ),
+                    'default' => 'tag_time'
+                ),
+            ),
             'label'    => __('Notification Template' , 'notificationx'),
-            'priority' => 90,
-            'defaults' => [
-                __('{{name}} recently purchased', 'notificationx'), '{{title}}', '{{time}}'
-            ],
-            'variables' => [
-                '{{name}}', '{{title}}', '{{time}}'
-            ],
+            'priority' => 88,
+        );
+
+        $fields['edd_template_adv'] = array(
+            'builder_hidden' => true,
+            'type'        => 'adv_checkbox',
+            'priority'    => 89,
+            'button_text' => __('Advance Template' , 'notificationx'),
+            'side'        => 'right',
+            'swal'        => true,
         );
 
         return $fields;
@@ -82,7 +199,7 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
             if( $name === 'has_no_edd' ) {
                 $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
             }
-            if( $name === 'edd_template' ) {
+            if( in_array( $name, array( 'edd_template', 'edd_template_new', 'edd_template_adv' ) ) ) {
                 $options[ 'content_tab' ]['sections']['content_config']['fields'][ $name ] = $field;
             }
         }
@@ -97,6 +214,7 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
     public function add_builder_fields( $options ){
         $fields = $this->init_fields();
         unset( $fields[ $this->template ] );
+        unset( $fields[ 'edd_template_adv' ] );
         
         foreach ( $fields as $name => $field ) {
             $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
@@ -111,11 +229,13 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
      */
     public function hide_fields( $options ) {
         $fields = $this->init_fields();
+
         foreach ( $fields as $name => $field ) {
             foreach( $options as $opt_key => $opt_value ) {
                 $options[ $opt_key ][ 'fields' ][] = $name;
             }
         }
+
         return $options;
     }
     /**
@@ -157,7 +277,7 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         if( ! $this->is_created( $this->type ) ) {
             return;
         }
-        add_action( 'edd_complete_purchase', array( $this, 'update_notifications' ) );
+        add_action( 'edd_complete_purchase', array( $this, 'save_notifications' ) );
     }
     /**
      * Some toggleData & hideData manipulation.
@@ -167,7 +287,7 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
      */
     public function toggle_fields( $options ) {
         $fields = array_keys( $this->init_fields() );
-        $fields = array_merge( [ 'show_product_image' ], $fields );
+        $fields = array_merge( [ 'show_notification_image' ], $fields );
 
         $options['dependency'][ $this->type ]['fields'] = array_merge( $fields, $options['dependency'][ $this->type ]['fields']);
         $options['dependency'][ $this->type ]['sections'] = array_merge( [ 'image' ], $options['dependency'][ $this->type ]['sections']);
@@ -201,7 +321,7 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         if( $this->type === $type ) {
             $orders = $this->get_orders( $data );
             if( is_array( $orders ) ) {
-                $this->save( $this->type, $orders );
+                $this->update_notifications( $this->type, $orders );
             }
         }
     }
@@ -234,15 +354,8 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
      * @param int $payment_id
      * @return void
      */
-    public function update_notifications( $payment_id ){
-        if( count( $this->notifications ) === $this->cache_limit ) {
-            $sorted_data = NotificationX_Helper::sorter( $this->notifications, 'timestamp' );
-            array_pop( $sorted_data );
-            $this->notifications = $sorted_data;
-        }
-        $this->ordered_products = $this->notifications;
+    public function save_notifications( $payment_id ){
         $this->ordered_products( $payment_id );
-        $this->save( $this->type, $this->ordered_products );
     }
     /**
      * Get all the orders from database using a date query
@@ -256,13 +369,11 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         $days     = $data['_nx_meta_display_from'];
         $amount   = $data['_nx_meta_display_last'];
         $payments = $this->get_payments( $days, $amount );
-      
         if( is_array( $payments ) && ! empty( $payments ) ) {
             foreach( $payments as $payment ) {
                 $this->ordered_products( $payment->ID );
             }
         }
-
         return $this->ordered_products;
     }
     /**
@@ -276,14 +387,28 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         $payment_meta = edd_get_payment_meta( $payment_id );
         $payment_key  = $payment_meta['key'];
         $date         = $payment_meta['date'];
-        $time['timestamp']  = strtotime( $date );
+        $offset       = get_option('gmt_offset');
+        $time['timestamp']  = strtotime( $date ) - ( $offset * 60 * 60 );
         $buyer        = $this->buyer( $payment_meta['user_info'] );
+
+        $notification = array();
+
+        $notification['ip'] = edd_get_payment_user_ip( $payment_id );
+
+        $user_ip_data = $this->remote_get('http://ip-api.com/json/' . $notification['ip'] );
+        if( $user_ip_data ) {
+            $comment_data['country'] = $user_ip_data->country;
+            $comment_data['city']    = $user_ip_data->city;
+        }
 
         $cart_items = edd_get_payment_meta_cart_details( $payment_id );                
         if( is_array( $cart_items ) && ! empty( $cart_items ) ) {
             foreach( $cart_items as $item ) {
+                $key = $payment_key . '-' . $item['id'];
                 $product_data = $this->product_data( $item );
-                $this->ordered_products[ $payment_key . '-' . $item['id'] ] = array_merge( $buyer, $product_data, $time );
+                $notification = array_merge( $notification, $product_data, $buyer, $time );
+
+                $this->save( $this->type, $notification, $key );
             }
         }
     }
@@ -313,13 +438,9 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         if( empty( $user_info ) ) return;
         $buyer_data = [];
         $buyer_data['name'] = $user_info['first_name'] . ' ' . substr( $user_info['last_name'], 0, 1 );
-        // if( $user_info['id'] ) {
-        //     $user = new WP_User( $user_info['id'] );
-        //     if( $user->exists() ) {
-        //         $buyer_data['user_id'] = $user->ID;
-        //         $buyer_data['name']    = $user->first_name . ' ' . substr( $user->last_name, 0, 1 );
-        //     }
-        // }
+        $buyer_data['first_name'] = $user_info['first_name'];
+        $buyer_data['last_name'] = $user_info['last_name'];
+        // $buyer_data['email'] = $user_info['email'];
         return $buyer_data;
     }
     /**

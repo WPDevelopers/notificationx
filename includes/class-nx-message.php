@@ -25,6 +25,7 @@ class NotificationX_Notice {
      */
     public $cne_time = '2 day';
     public $maybe_later_time = '7 day';
+    public $finish_time = [];
     /**
      * Plugin Name
      *
@@ -119,6 +120,7 @@ class NotificationX_Notice {
     public function hooks(){
         add_action( 'wpdeveloper_notice_clicked_for_' . $this->plugin_name, array( $this, 'clicked' ) );
         add_action( 'wp_ajax_wpdeveloper_upsale_notice_dissmiss_for_' . $this->plugin_name, array( $this, 'upsale_notice_dissmiss' ) );
+        add_action( 'wp_ajax_wpdeveloper_notice_dissmiss_for_' . $this->plugin_name, array( $this, 'notice_dissmiss' ) );
         add_action( 'wpdeveloper_before_notice_for_' . $this->plugin_name, array( $this, 'before' ) );
         add_action( 'wpdeveloper_after_notice_for_' . $this->plugin_name, array( $this, 'after' ) );
         add_action( 'wpdeveloper_before_upsale_notice_for_' . $this->plugin_name, array( $this, 'before_upsale' ) );
@@ -158,20 +160,34 @@ class NotificationX_Notice {
                     $this->maybe_later( $current_notice );
                     $notice_time = false;
                 }
+
+                if( isset( $this->finish_time[ $current_notice ] ) ) {
+                    if( $this->timestamp >= strtotime( $this->finish_time[ $current_notice ] ) ) {
+                        unset( $options_data[ $this->plugin_name ]['notice_will_show'][ $current_notice ] );
+                        $this->update_options_data( $options_data[ $this->plugin_name ] );
+                        $notice_time = false;
+                    }
+                }
+                
                 if( $notice_time != false ) {
                     if( $notice_time <= $this->timestamp ) {
                         if( $current_notice === 'upsale' ) {
                             $upsale_args = $this->get_upsale_args();
-                            if ( ! function_exists( 'get_plugins' ) ) {
-                                include ABSPATH . '/wp-admin/includes/plugin.php';
+                            if( empty( $upsale_args  ) ) {
+                                unset( $options_data[ $this->plugin_name ]['notice_will_show'][ $current_notice ] );
+                                $this->update_options_data( $options_data[ $this->plugin_name ] );
+                            } else {
+                                if ( ! function_exists( 'get_plugins' ) ) {
+                                    include ABSPATH . '/wp-admin/includes/plugin.php';
+                                }
+                                $plugins = get_plugins();
+                                $pkey = $upsale_args['slug'] . '/' . $upsale_args['file'];
+                                if( isset( $plugins[ $pkey ] ) ) {
+                                    $this->update( $current_notice );
+                                    return;
+                                }
+                                add_action( 'admin_notices', array( $this, 'upsale_notice' ) );
                             }
-                            $plugins = get_plugins();
-                            $pkey = $upsale_args['slug'] . '/' . $upsale_args['file'];
-                            if( isset( $plugins[ $pkey ] ) ) {
-                                $this->update( $current_notice );
-                                return;
-                            }
-                            add_action( 'admin_notices', array( $this, 'upsale_notice' ) );
                         } else {
                             add_action( 'admin_notices', array( $this, 'admin_notices' ) );
                         }
@@ -187,7 +203,7 @@ class NotificationX_Notice {
      * @return integer
      */
     public function makeTime( $current, $time ) {
-        return intval( strtotime( date('Y-m-d H:i:s', $current) . " +$time" ) );
+        return intval( strtotime( date('Y-m-d h:i:s', $current) . " +$time" ) );
     }
     /**
      * Automatice Maybe Later.
@@ -226,6 +242,7 @@ class NotificationX_Notice {
                     break;
 
                 case 'update' : 
+                    $dismiss = ( isset( $plugin_action ) ) ? $plugin_action : false ;
                     $later_time = $this->makeTime( $this->timestamp,  $this->maybe_later_time );
                     break;
 
@@ -318,6 +335,7 @@ class NotificationX_Notice {
                 do_action( 'wpdeveloper_update_notice_for_' . $this->plugin_name );
                 $this->get_thumbnail( 'update' );
                 $this->get_message( 'update' );
+                $this->dismiss_button_scripts();
                 break;
             case 'review' : 
                 do_action( 'wpdeveloper_review_notice_for_' . $this->plugin_name );
@@ -364,7 +382,7 @@ class NotificationX_Notice {
         if( empty( $plugin_slug ) ) {
             return;
         }
-        echo '<a href="https://wpdeveloper.net/in/notificationx-pro" class="button button-primary notificationx-notice-cta" target="_blank">'. __( 'Upgrade to Pro!', $this->text_domain ) .'</a>';
+        echo '<button data-slug="'. $plugin_slug .'" id="plugin-install-core-'. $this->plugin_name .'" class="button button-primary">'. __( 'Install Now!', $this->text_domain ) .'</button>';
     }
     /**
      * This methods is responsible for get notice image.
@@ -392,7 +410,7 @@ class NotificationX_Notice {
             return false;
         }
         if( isset( $this->data['thumbnail'] ) && isset( $this->data['thumbnail'][ $msg_for ] ) ) {
-            return true;
+           return true;
         }
         return false;
     }
@@ -684,6 +702,27 @@ class NotificationX_Notice {
         // Set users meta, not to show again current_version notice.
         update_user_meta( get_current_user_id(), self::ADMIN_UPDATE_NOTICE_KEY, $user_notices);
     }
+
+    public function notice_dissmiss(){
+        if( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['_wpnonce'] ) ), 'wpdeveloper_notice_dissmiss' ) ) {
+            return;
+        }
+        
+        if( ! isset( $_POST['action'] ) || ( $_POST['action'] !== 'wpdeveloper_notice_dissmiss_for_' . $this->plugin_name ) ) {
+            return;
+        }
+        
+        $dismiss = isset( $_POST['dismiss'] ) ? $_POST['dismiss'] : false;
+        $notice = isset( $_POST['notice'] ) ? $_POST['notice'] : false;
+        if( $dismiss ) { 
+            $this->update( $notice );
+            echo 'success';
+        } else {
+            echo 'failed';
+        }
+        die();
+    }
+
     /**
      * This function is responsible for do action when 
      * the dismiss button clicked in upsale notice.
@@ -707,6 +746,43 @@ class NotificationX_Notice {
         }
         die();
     }
+
+    public function dismiss_button_scripts(){
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready( function($) {
+                if( $('.notice').length > 0 ) {
+                    if( $('.notice').find('.notice-dismiss').length > 0 ) {
+                        $('.notice').on('click', 'button.notice-dismiss', function (e) {
+                            e.preventDefault();
+                            $.ajax({
+                                url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
+                                type: 'post',
+                                data: {
+                                    action: 'wpdeveloper_notice_dissmiss_for_<?php echo $this->plugin_name; ?>',
+                                    _wpnonce: '<?php echo wp_create_nonce('wpdeveloper_notice_dissmiss'); ?>',
+                                    dismiss: true,
+                                    notice: $(this).data('notice'),
+                                },
+                                success: function(response) {
+                                    $('.notice').hide();
+                                    console.log('Successfully saved!');
+                                },
+                                error: function(error) {
+                                    console.log('Something went wrong!');
+                                },
+                                complete: function() {
+                                    console.log('Its Complete.');
+                                }
+                            });
+                        });
+                    }
+                }
+            } );
+        </script>
+        <?php
+    }
+
     /**
      * Upsale Button Script.
      * When install button is clicked, it will do its own things.
@@ -735,7 +811,7 @@ class NotificationX_Notice {
                         type: 'POST',
                         data: {
                             action: 'wpdeveloper_upsale_core_install_<?php echo $this->plugin_name; ?>',
-                            _wpnonce: '<?php echo wp_create_nonce('wpdeveloper_upsale_core_install_' . $this->plugin_name ); ?>',
+                            _wpnonce: '<?php echo wp_create_nonce('wpdeveloper_upsale_core_install_' . $this->plugin_name); ?>',
                             slug : '<?php echo $plugin_slug; ?>',
                             file : '<?php echo $plugin_file; ?>'
                         },
@@ -760,6 +836,8 @@ class NotificationX_Notice {
 
                 $('.wpdeveloper-upsale-notice').on('click', 'button.notice-dismiss', function (e) {
                     e.preventDefault();
+                    console.log( e );
+                    return;
                     $.ajax({
                         url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
                         type: 'post',
@@ -769,7 +847,7 @@ class NotificationX_Notice {
                             dismiss: true
                         },
                         success: function(response) {
-                            console.log('Success fully saved!');
+                            console.log('Successfully saved!');
                         },
                         error: function(error) {
                             console.log('Something went wrong!');
@@ -866,7 +944,7 @@ $notice->options_args = array(
     'notice_will_show' => [
         'opt_in' => $notice->timestamp,
         'review' => $notice->makeTime( $notice->timestamp, '7 Day' ), // after 4 days
-        'upsale' => $notice->makeTime( $notice->timestamp, '4 Day' ), // will be after 2 hours
+        // 'upsale' => $notice->makeTime( $notice->timestamp, '4 Day' ), // will be after 4 day
     ]
 );
 

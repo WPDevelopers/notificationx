@@ -1,5 +1,6 @@
 #adminmenu .menu-icon-notificationx img,
-.toplevel_page_notificationx .wp-menu-image img {
+.toplevel_page_notificationx .wp-menu-image img,
+.toplevel_page_nx-admin .wp-menu-image img {
 	width: 20px;
 	margin-top: 7px;
 	margin-left: 2px;
@@ -114,4 +115,216 @@
 .wpdeveloper-upsale-notice .wpdeveloper-notice-thumbnail {
 	padding: 0;
 	width: 80px;
+}
+
+/* CSS for Admin Page */
+.nx-admin-wrapper {
+	padding: 30px 15px;
+}
+.nx-admin-header {
+	display: flex;
+	align-items: center;
+}
+.nx-admin-header a.nx-add-new-btn {
+	margin-left: 40px;
+	background-color: #fff;
+	color: #5614d5;
+	border: 0px;
+	padding: 10px 20px;
+	cursor: pointer;
+	text-decoration: none;
+	font-size: 12px;
+	transition: all 0.3s ease-in-out 0s;
+}
+
+.nx-admin-header a.nx-add-new-btn:hover {
+	color: #fff;
+	background-color: #5614d5;
+}
+
+.nx-admin-header a.nx-add-new-btn:focus,
+.nx-admin-header a.nx-add-new-btn:visited,
+.nx-admin-header a.nx-add-new-btn:active {
+	outline: none;
+}
+
+.nx-admin-menu {
+	margin-top: 30px;
+	margin-bottom: 0px;
+}
+.nx-admin-menu ul {
+	margin-bottom: 0px;
+}
+.nx-admin-menu ul li {
+	display: inline-block;
+}
+.nx-admin-menu ul li a {
+	margin-right: 25px;
+	text-decoration: none;
+}
+
+.nx-admin-menu ul li.active a {
+	/* font-weight: 500; */
+	color: #5614d5;
+}
+
+.nx-admin-menu ul li a {
+	color: #313236;
+}
+
+.nx-admin-menu ul li.nx-empty-trash-btn a {
+	background-color: #fafafa;
+	color: #dd7474;
+	padding: 5px 10px;
+}
+
+.nx-admin-items {
+	font-family: Roboto;
+}
+.nx-admin-items table {
+	border-spacing: 0 20px;
+	border: 0px;
+	background: none;
+	box-shadow: none;
+}
+.nx-admin-items table thead {
+	background-color: #fafafa;
+}
+.nx-admin-items table tbody {
+	transform: translateY(-20px);
+}
+.nx-admin-items table thead td,
+.nx-admin-items table tbody td {
+	padding: 15px 25px;
+	font-size: 15px;
+}
+
+.nx-admin-items table tbody tr { 
+	border-spacing:0 30px; 
+	box-shadow: 0px 10px 22px 0px rgba(0, 4, 32, 0.05);
+	vertical-align: middle;
+}
+.nx-admin-items table tbody tr > td  {
+	margin-bottom: 20px;
+	background-color: #fff;
+	vertical-align: middle;
+	color: #313236;
+}
+
+.nx-admin-type, 
+.nx-admin-date .nx-admin-publish-status, 
+.nx-admin-title > strong {
+	font-size: 16px;
+}
+
+.nx-admin-date .nx-admin-publish-date,
+.nx-admin-title .nx-admin-title-actions > a  {
+	font-size: 14px;
+}
+
+.nx-admin-title > strong,
+.nx-admin-title > strong a {
+	color: #5614d5;
+	font-weight: 400;
+}
+.nx-admin-title-actions {
+	margin-top: 15px;
+}
+.nx-admin-title-actions > a {
+	background-repeat: no-repeat;
+	background-size: 13px 15px;
+	padding-left: 20px;
+	margin-right: 20px;
+	color: #555555;
+}
+.nx-admin-title .nx-admin-title-edit {
+	background-image: url('../img/icons/edit.png');
+}
+.nx-admin-title .nx-admin-title-duplicate {
+	background-image: url('../img/icons/duplicate.png');
+}
+.nx-admin-title .nx-admin-title-restore {
+	background-size: 16px 16px;
+	padding-left: 22px;
+	background-image: url('../img/icons/restore.png');
+}
+.nx-admin-title .nx-admin-title-trash {
+	color: #c4434e;
+	background-image: url('../img/icons/trash.png');
+}
+
+.nx-admin-preview > img {
+	display: inline-block;
+}
+
+.nx-admin-status label {
+    width: 2em;
+    height: 1em;
+    position: relative;
+    cursor: pointer;
+	display: block;
+	font-size: 24px;
+	margin-left: -3px;
+}
+
+.nx-admin-status-title {
+	margin-bottom: 8px;
+	display: none;
+}
+
+.nx-admin-status-title.nxast-enable {
+	color: #5614d5;
+}
+
+.nx-admin-not-found {
+	color: #c4434e;
+}
+
+.nx-admin-status-title.active {
+	display: block;
+}
+
+.nx-admin-status input[type="checkbox"] {
+    visibility: hidden;
+    display: none;
+}
+
+.nx-admin-status input[type="checkbox"]:checked + label::before {
+    background: #5614d5;
+    border: 1px solid #5614d5;
+}
+
+.nx-admin-status label:before {}
+
+.nx-admin-status label:before {
+    content: "";
+    position: absolute;
+    width: 2em;
+    height: 1em;
+    left: 0.1em;
+    transition: background 0.1s 0.1s ease;
+    background: #cbcfd0;
+    border: 1px solid #cbcfd0;
+    border-radius: 50px;
+}
+
+.nx-admin-status input[type="checkbox"]:checked + label::after {
+    left: 1.2em;
+    background: #ffffff;
+    animation: switch-on 0.3s ease-out;
+}
+
+.nx-admin-status label:after {
+    content: "";
+    position: absolute;
+    width: 0.8em;
+    height: 0.8em;
+    border-radius: 100%;
+    left: 0.2em;
+    top: 0.14em;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 0 5px #fcfff4 inset;
+    background: #fff;
+    z-index: 2;
+    animation: switch-off 0.3s ease-out;
 }

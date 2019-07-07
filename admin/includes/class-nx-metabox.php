@@ -21,7 +21,7 @@ class NotificationX_MetaBox {
 
     public function finalize_builder( $id, $tab ){
         if( $id === 'finalize_tab' ) {
-            echo __( 'You are about to publish <strong class="finalize_notificationx_name"></strong>. You can rename this and edit everything whenever you want from <a href="'. admin_url('edit.php?post_type=notificationx') .'">NotificationX</a> Page.', 'notificationx' );
+            echo __( 'You are about to publish <strong class="finalize_notificationx_name"></strong>. You can rename this and edit everything whenever you want from <a href="'. admin_url('admin.php?page=nx-admin') .'">NotificationX</a> Page.', 'notificationx' );
         }
     }
 
@@ -60,12 +60,14 @@ class NotificationX_MetaBox {
     }
 
     public static function render_meta_field( $key = '', $field = [], $value = '', $idd = null ) {
+        global $pagenow;
         $post_id   = self::$post_id;
-        $attrs = '';
+        $attrs = $wrapper_attrs = '';
         if( ! is_null( $idd ) ){
             $post_id   = $idd;
         }
         $name      = self::$prefix . $key;
+        $field_id  = $name;
         $id        = self::get_row_id( $key );
         $file_name = isset( $field['type'] ) ? $field['type'] : '';
         
@@ -99,6 +101,10 @@ class NotificationX_MetaBox {
 
         if( isset( $field['tab'] ) && $file_name == 'select' ) {
             $attrs .= ' data-tab="' . esc_attr( json_encode( $field['tab'] ) ) . '"';
+        }
+
+        if( isset( $field['builder_hidden'] ) && $field['builder_hidden'] && $pagenow == 'admin.php' ) {
+            $row_class .= ' nx-builder-hidden';
         }
 
         include NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-field-display.php';
@@ -194,11 +200,20 @@ class NotificationX_MetaBox {
                 return $post_id;
             }
         }
+        
         /**
          * Save all meta!
-         */        
+         */ 
         self::save_data( $_POST, $post_id);
         do_action('notificationx_save_post'); 
+    }
+
+    protected static function template_generate( $main_template, $posts_data = [] ){
+        if( empty( $posts_data ) ) {
+            return '';
+        }
+        $template = apply_filters( 'nx_template_string_generate', array(), $main_template, $posts_data );
+        return $template;
     }
 
     public static function save_data( $posts, $post_id ){
@@ -206,6 +221,7 @@ class NotificationX_MetaBox {
         $fields       = self::get_metabox_fields();
         $old_settings = self::get_metabox_settings( $post_id );
         $data         = [];
+        $theme_name   = 'theme-one';
         $new_settings = new stdClass();
 
         foreach ( $fields as $name => $field ) {
@@ -220,17 +236,18 @@ class NotificationX_MetaBox {
                 }
             }
 
+            if( strrpos( $field_id, 'template_new' ) !== false && strrpos( $field_id, 'template_new' ) >= 0 ) {
+                $template_string = self::template_generate( $posts[ $field_id ], $posts );
+                update_post_meta( $post_id, "_{$field_id}_string", $template_string );
+            }
             update_post_meta( $post_id, "_{$field_id}", $value );
             $data[ "_{$field_id}" ] = $new_settings->{ $name } = $value;
         }
         update_post_meta( $post_id, '_nx_meta_active_check', true );
 
         $d_type = get_post_meta( $post_id, '_nx_meta_current_data_ready_for', true );
-        $type = $posts['nx_meta_display_type'];
-        
-        if( $type == 'conversions' ) {
-            $type = $posts['nx_meta_conversion_from'];
-        }
+
+        $type = NotificationX_Helper::get_type( $posts );
 
         if( self::check_any_changes( $old_settings, $new_settings ) ) {
             do_action( 'nx_get_conversions_ready', $type, $data );
@@ -290,17 +307,24 @@ class NotificationX_MetaBox {
 
             if( isset( $field['type'] ) && $field['type'] == 'template' ) {
                 $default    = isset( $field['defaults'] ) ? $field['defaults'] : [];
-            }
-
-            if ( metadata_exists( 'post', $id, "_{$field_id}" ) ) {
-                $value  = get_post_meta( $id, "_{$field_id}", true );
+                if( strrpos( $name, 'template_new' ) >= 0 && metadata_exists( 'post', $id, "_{$field_id}_string" ) ) {
+                    $value  = get_post_meta( $id, "_{$field_id}_string", true );
+                    $settings->{ "{$name}_string" } = $value;
+                } else {
+                    $value  = get_post_meta( $id, "_{$field_id}", true );
+                    $settings->{ "{$name}" } = $value;
+                }
             } else {
-                $value  = $default;
+                if ( metadata_exists( 'post', $id, "_{$field_id}" ) ) {
+                    $value  = get_post_meta( $id, "_{$field_id}", true );
+                } else {
+                    $value  = $default;
+                }
             }
 
             $settings->{$name} = $value;
         }
-
+        
         $settings->id = $id;
 
         return $settings;

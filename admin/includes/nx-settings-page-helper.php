@@ -34,7 +34,32 @@ function notificationx_settings_args(){
                     ),
                 ))
             )),
+        ),
+        'cache_settings_tab' => array(
+            'title' => __( 'Cache Settings', 'notificationx' ),
+            'priority' => 11,
+            'button_text' => __( 'Save Settings' ),
+            'sections' => apply_filters('nx_cache_settings_sections', array(
+                'cache_settings' => apply_filters('nx_cache_settings_tab', array(
+                    'priority' => 5,
+                    'fields' => array(
+                        'download_stats_cache_duration' => array(
+                            'type'        => 'text',
+                            'label'       => __('Download Stats Cache Duration' , 'notificationx'),
+                            'description' => __(' minutes (Schedule Duration to fetch new data).' , 'notificationx'),
+                            'default'     => '3',
+                            'priority'    => 3
+                        ),
+                        'reviews_cache_duration' => array(
+                            'type'        => 'text',
+                            'label'       => __('Reviews Cache Duration' , 'notificationx'),
+                            'description' => __(' minutes (Schedule Duration to fetch new data).' , 'notificationx'),
+                            'default'     => '3',
+                            'priority'    => 3
+                        )
+                    ),
+                )),
+            )),
         )
-    
     ));
 }
