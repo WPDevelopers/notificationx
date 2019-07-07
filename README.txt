@@ -3,9 +3,9 @@ Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul
 Donate link: http://notificationx.com
 Tags: notification, fomo, notifier, fomo notification, sales notification, social proof, live sales feed, recent sales notification, woocommerce sales, recent purchase, popups, boost sales, 
 Requires at least: 4.0
-Tested up to: 5.1
+Tested up to: 5.2
 Requires PHP: 5.4
-Stable tag: 1.0.1
+Stable tag: 1.1.0
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -92,6 +92,20 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 
 == Changelog ==
+
+= 1.1.0 - 07/07/2019 =
+
+- Reshaped the UI for better UX
+- Templating system revamped for better performance
+- Added : Download Stats for WP( Plugins and Themes)
+- Added : Reviews for WP Plugins
+- Lots of minor bugfix and improvement
+
+= 1.0.3 – 17/06/2019 = 
+
+- Fixed : WooCommerce User Data Issue
+- Fixed : Advance Design issue for Stats
+- Lots of minor bugfix and improvements
 
 = 1.0.2 - 08/05/2019 =
 
