@@ -40,6 +40,9 @@
 
 .notificationx-metabox-wrapper {}
 
+.nx-builder-hidden {
+    display: none !important;
+}
 .nx-metatab-menu {
     background: #fff;
     padding: 30px;

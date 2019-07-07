@@ -50,6 +50,10 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         add_filter( 'nx_metabox_tabs', array( $this, 'add_fields' ) );
     }
 
+    public function init_builder_hooks(){
+        add_filter( 'nx_builder_tabs', array( $this, 'add_builder_fields' ) );
+    }
+
     /**
      * This functions is hooked
      * 
@@ -89,8 +93,9 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         $fields = array();
 
         $fields['comments_template_new'] = array(
-            'type'     => 'template',
-            'fields' => array(
+            'type'           => 'template',
+            'builder_hidden' => true,
+            'fields'         => array(
                 'first_param' => array(
                     'type'     => 'select',
                     'label'    => __('Notification Template' , 'notificationx'),
@@ -153,6 +158,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         );
 
         $fields['comments_template_adv'] = array(
+            'builder_hidden'     => true,
             'type'        => 'adv_checkbox',
             'priority'    => 81,
             'button_text' => __('Advance Template' , 'notificationx'),
@@ -168,6 +174,15 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
 
         foreach ( $fields as $name => $field ) {
             $options[ 'content_tab' ]['sections']['content_config']['fields'][ $name ] = $field;
+        }
+
+        return $options;
+    }
+    public function add_builder_fields( $options ){
+        $fields = $this->init_fields();
+
+        foreach ( $fields as $name => $field ) {
+            $options[ 'design_tab' ]['sections']['comment_themes']['fields'][ $name ] = $field;
         }
 
         return $options;

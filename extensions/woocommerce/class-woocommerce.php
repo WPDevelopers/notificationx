@@ -93,6 +93,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
 
         $fields['woo_template_new'] = array(
             'type'     => 'template',
+            'builder_hidden' => true,
             'fields' => array(
                 'first_param' => array(
                     'type'     => 'select',
@@ -194,7 +195,6 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
     public function add_builder_fields( $options ){
         $fields = $this->init_fields();
         unset( $fields[ $this->template ] );
-        unset( $fields[ 'woo_template_new' ] );
         unset( $fields[ 'woo_template_adv' ] );
         
         foreach ( $fields as $name => $field ) {
@@ -478,7 +478,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         );
     }
 
-    public function frontend_html( $data = [], $settings = false, $args = [] ){
+    public function frontend_html( $data = [], $settings = false, $args = [] ){    
         if( class_exists( 'WooCommerce' ) ) {
             return parent::frontend_html( $data, $settings, $args );
         }

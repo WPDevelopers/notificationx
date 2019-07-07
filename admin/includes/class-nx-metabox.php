@@ -61,7 +61,7 @@ class NotificationX_MetaBox {
 
     public static function render_meta_field( $key = '', $field = [], $value = '', $idd = null ) {
         $post_id   = self::$post_id;
-        $attrs = '';
+        $attrs = $wrapper_attrs = '';
         if( ! is_null( $idd ) ){
             $post_id   = $idd;
         }
@@ -100,6 +100,10 @@ class NotificationX_MetaBox {
 
         if( isset( $field['tab'] ) && $file_name == 'select' ) {
             $attrs .= ' data-tab="' . esc_attr( json_encode( $field['tab'] ) ) . '"';
+        }
+
+        if( isset( $field['builder_hidden'] ) && $field['builder_hidden'] ) {
+            $row_class .= ' nx-builder-hidden';
         }
 
         include NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-field-display.php';
@@ -230,6 +234,7 @@ class NotificationX_MetaBox {
                     $value = '0';
                 }
             }
+
             if( strrpos( $field_id, 'template_new' ) !== false && strrpos( $field_id, 'template_new' ) >= 0 ) {
                 $template_string = self::template_generate( $posts[ $field_id ], $posts );
                 update_post_meta( $post_id, "_{$field_id}_string", $template_string );

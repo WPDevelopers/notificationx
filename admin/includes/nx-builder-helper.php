@@ -190,7 +190,19 @@ function notificationx_builder_args() {
                                     'logged_out_user' => __('Logged Out User' , 'notificationx'),
                                     'logged_in_user'  => __('Logged In User' , 'notificationx'),
                                 ],
-                            )
+                            ),
+                            'show_notification_image'  => array(
+                                'type'           => 'select',
+                                'builder_hidden' => true,
+                                'label'          => __('Image' , 'notificationx'),
+                                'priority'       => 201,
+                                'defualt'        => 'product_image',
+                                'options'        => apply_filters('nx_show_image_options', array(
+                                    'product_image' => __('Product Image' , 'notificationx'),
+                                    'gravatar'      => __('Gravatar' , 'notificationx'),
+                                    'none'          => __('None' , 'notificationx'),
+                                )),
+                            ),
                         ),
                     ),
                 )

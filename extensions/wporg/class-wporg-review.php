@@ -250,6 +250,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
 
         $fields['wp_reviews_template_new'] = array(
             'type'     => 'template',
+            'builder_hidden' => true,
             'fields' => array(
                 'first_param' => array(
                     'type'     => 'select',
@@ -311,6 +312,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
 
         $fields['review_saying_template_new'] = array(
             'type'     => 'template',
+            'builder_hidden' => true,
             'fields' => array(
                 'first_param' => array(
                     'type'     => 'select',
@@ -569,7 +571,6 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         $fields = $this->get_fields();
         $sections = $this->get_sections();
         unset( $fields[ 'wp_reviews_template' ] );
-        unset( $fields[ 'wp_reviews_template_new' ] );
         unset( $fields[ 'wp_reviews_template_adv' ] );
         unset( $sections['wporg_design'] );
         unset( $sections['wporg_themes']['fields']['wporg_advance_edit'] );

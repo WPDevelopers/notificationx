@@ -49,6 +49,7 @@
         </div>
         <div class="nx-metatab-inner-wrapper">
             <form method="post" id="nx-builder-form" action="<?php echo self::get_form_action( '', true ); ?>">
+                <input id="is_quick_builder" type="hidden" name="is_quick_builder" value="true">
                 <input id="nx_builder_current_tab" type="hidden" name="nx_builder_current_tab" value="source_tab">
                 <?php 
                     wp_nonce_field( $builder_args['id'], $builder_args['id'] . '_nonce' );

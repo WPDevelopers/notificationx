@@ -443,7 +443,7 @@ class NotificationX_Admin {
 		    }
 		}
 
-		if( isset( $_GET['delete_all'], $_GET['page'] ) && boolval( $_GET['delete_all'] ) === true && $_GET['page'] == 'nx-admin' ) {
+		if( isset( $_GET['delete_all'], $_GET['page'] ) && $_GET['delete_all'] == true && $_GET['page'] == 'nx-admin' ) {
 			$notificationx = new WP_Query(array(
 				'post_type' => 'notificationx',
 				'post_status' => array('trash'),

@@ -112,6 +112,7 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
 
         $fields['edd_template_new'] = array(
             'type'     => 'template',
+            'builder_hidden' => true,
             'fields' => array(
                 'first_param' => array(
                     'type'     => 'select',
@@ -175,6 +176,7 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         );
 
         $fields['edd_template_adv'] = array(
+            'builder_hidden' => true,
             'type'        => 'adv_checkbox',
             'priority'    => 89,
             'button_text' => __('Advance Template' , 'notificationx'),
@@ -212,7 +214,6 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
     public function add_builder_fields( $options ){
         $fields = $this->init_fields();
         unset( $fields[ $this->template ] );
-        unset( $fields[ 'edd_template_new' ] );
         unset( $fields[ 'edd_template_adv' ] );
         
         foreach ( $fields as $name => $field ) {

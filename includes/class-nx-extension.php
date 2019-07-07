@@ -432,6 +432,7 @@ class NotificationX_Extension {
                                     get_post_thumbnail_id( $data['product_id'] ), '_nx_notification_thumb', false 
                                 );
                                 $image_url = is_array( $product_image ) ? $product_image[0] : '';
+                                var_dump( $image_url );
                             }
                         }
                         if( $settings->conversion_from == 'custom_notification' ) {

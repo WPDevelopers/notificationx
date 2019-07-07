@@ -248,6 +248,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
 
         $fields['wp_stats_template_new'] = array(
             'type'     => 'template',
+            'builder_hidden' => true,
             'fields' => array(
                 'first_param' => array(
                     'type'     => 'select',
@@ -332,6 +333,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
 
         $fields['actively_using_template_new'] = array(
             'type'     => 'template',
+            'builder_hidden' => true,
             'fields' => array(
                 'first_param' => array(
                     'type'     => 'select',
@@ -404,6 +406,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
 
         $fields['wp_stats_template_adv'] = array(
             'type'        => 'adv_checkbox',
+            'builder_hidden' => true,
             'priority'    => 84,
             'button_text' => __('Advance Template' , 'notificationx'),
             'side'        => 'right',
@@ -600,9 +603,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         $fields = $this->get_fields();
         $sections = $this->get_sections();
         unset( $fields[ 'wp_stats_template' ] );
-        unset( $fields[ 'wp_stats_template_new' ] );
         unset( $fields[ 'wp_stats_template_adv' ] );
-        unset( $fields['actively_using_template_new'] );
         unset( $sections['wpstats_theme_design'] );
         unset( $sections['wpstats_themes']['fields']['wpstats_advance_edit'] );
         unset( $sections['wpstats_theme_typography'] );
