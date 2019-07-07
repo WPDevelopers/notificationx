@@ -193,7 +193,7 @@ class NotificationXPro_WPOrg_Helper {
             require_once ABSPATH . '/wp-admin/includes/plugin-install.php';
         }
 
-		$this->plugin_information = plugins_api( 'plugin_information', array( 'slug' => $plugin_slug, 'fields' => array( 'downloaded' => true, 'icons' => true, 'historical_summary' => true ) ) );
+		$this->plugin_information = plugins_api( 'plugin_information', array( 'slug' => $plugin_slug, 'fields' => array( 'downloaded' => true, 'icons' => true, 'historical_summary' => true, 'active_installs' => true ) ) );
 		$new_data = [];
 
 		if( is_wp_error( $this->plugin_information ) ) {
@@ -223,7 +223,7 @@ class NotificationXPro_WPOrg_Helper {
             require_once ABSPATH . '/wp-admin/includes/theme.php';
         }
 
-		$this->theme_information = themes_api( 'theme_information', array( 'slug' => $theme_slug, 'fields' => array( 'downloaded' => true, 'sections' => true, 'theme_url' => true, 'photon_screenshots' => true, 'screenshot_url' => true ) ) );
+		$this->theme_information = themes_api( 'theme_information', array( 'slug' => $theme_slug, 'fields' => array( 'downloaded' => true, 'sections' => true, 'theme_url' => true, 'photon_screenshots' => true, 'screenshot_url' => true, 'active_installs' => true ) ) );
 
 		$new_data = array();
 		if( is_wp_error( $this->theme_information ) ) {
