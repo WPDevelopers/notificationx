@@ -402,17 +402,18 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
 
         $date = $order->get_date_created();
         $countries = new WC_Countries();
-
-        if( ! empty( $order->get_shipping_country() ) ) {
+        $shipping_countries = $order->get_shipping_country();
+        if( ! empty( $shipping_countries ) ) {
             $new_order['country'] = isset( $countries->countries[ $order->get_shipping_country() ] ) ? $countries->countries[ $order->get_shipping_country() ]: '';
-            if( ! empty( $order->get_shipping_state() ) ) {
+            $shipping_states = $order->get_shipping_state();
+            if( ! empty( $shipping_states ) ) {
                 $new_order['city'] = isset( $countries->states[ $order->get_shipping_country() ], $countries->states[ $order->get_shipping_country() ][ $order->get_shipping_state() ] ) ? $countries->states[ $order->get_shipping_country() ][ $order->get_shipping_state() ] : $order->get_shipping_state();
             }
         }
 
         $new_order['ip'] = $order->get_customer_ip_address();
-
-        if( ! empty( $product_data = $this->ready_product_data( $item->get_data() ) ) ) {
+        $product_data = $this->ready_product_data( $item->get_data() );
+        if( ! empty( $product_data ) ) {
             $new_order['id']         = is_int( $order_id ) ? $order_id : $order_id->get_id();
             $new_order['product_id'] = $item->get_product_id();
             $new_order['title']      = $product_data['title'];

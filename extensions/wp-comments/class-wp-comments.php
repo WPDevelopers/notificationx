@@ -267,7 +267,8 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         $comment_data = [];
 
         if( ! $comment instanceof WP_Comment ) {
-            $comment = get_comment( intval( $comment ), 'OBJECT' );  
+            $comment_id = intval( $comment );
+            $comment = get_comment( $comment_id, 'OBJECT' );  
         }
         
         $comment_data['id']         = $comment->comment_ID;
@@ -291,8 +292,8 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
             $comment_data['first_name'] = $user->first_name;
             $comment_data['last_name']  = $user->last_name;
             $comment_data['name']       = $user->first_name . ' ' . substr( $user->last_name, 0, 1 );
-
-            if( empty( trim( $comment_data['name'] ) ) ) {
+            $trimed = trim( $comment_data['name'] );
+            if( empty( $trimed ) ) {
                 $comment_data['name'] = $user->user_nicename;
             }
 

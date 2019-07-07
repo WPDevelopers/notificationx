@@ -455,7 +455,8 @@ class NotificationX_Helper {
                     $tag = str_replace( 'tag_', '', $value );
                     $template_string[ $key ] = "{{{$tag}}} ";
                 } else {
-                    if( isset( $template_string[ $key ] ) && ! empty( trim( $template_string[ $key ] ) ) ) {
+                    $trimed = isset( $template_string[ $key ] ) ? trim( $template_string[ $key ] ) : '';
+                    if( ! empty( $trimed ) ) {
                         $temp_val = trim( $template_string[ $key ] ) . ' ';
                     }
                     if( ! empty( $temp_val ) && strpos( $key, 'custom_' ) === 0 ) {
