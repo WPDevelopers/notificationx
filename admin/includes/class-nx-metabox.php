@@ -60,6 +60,7 @@ class NotificationX_MetaBox {
     }
 
     public static function render_meta_field( $key = '', $field = [], $value = '', $idd = null ) {
+        global $pagenow;
         $post_id   = self::$post_id;
         $attrs = $wrapper_attrs = '';
         if( ! is_null( $idd ) ){
@@ -102,7 +103,7 @@ class NotificationX_MetaBox {
             $attrs .= ' data-tab="' . esc_attr( json_encode( $field['tab'] ) ) . '"';
         }
 
-        if( isset( $field['builder_hidden'] ) && $field['builder_hidden'] ) {
+        if( isset( $field['builder_hidden'] ) && $field['builder_hidden'] && $pagenow == 'admin.php' ) {
             $row_class .= ' nx-builder-hidden';
         }
 
