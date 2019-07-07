@@ -205,7 +205,10 @@ class NotificationX_MetaBox {
          * Save all meta!
          */ 
         self::save_data( $_POST, $post_id);
-        do_action('notificationx_save_post'); 
+        do_action('notificationx_save_post');
+        // TODO: have to redirect main admin page.
+        // $current_url = admin_url('admin.php?page=nx-admin');
+		// wp_safe_redirect( $current_url, 200 );
     }
 
     protected static function template_generate( $main_template, $posts_data = [] ){
@@ -243,11 +246,20 @@ class NotificationX_MetaBox {
             update_post_meta( $post_id, "_{$field_id}", $value );
             $data[ "_{$field_id}" ] = $new_settings->{ $name } = $value;
         }
-        update_post_meta( $post_id, '_nx_meta_active_check', true );
+
+        $type = NotificationX_Helper::get_type( $posts );
+        if( $type != 'press_bar' ) {
+            $is_created = NotificationX_Extension::is_enabled( $type );
+            $is_created = $is_created == true ? false : true;
+            $is_created = apply_filters( 'nx_enable_notificationx', $is_created );
+        } else {
+            $is_created = true;
+        }
+
+        update_post_meta( $post_id, '_nx_meta_active_check', $is_created );
 
         $d_type = get_post_meta( $post_id, '_nx_meta_current_data_ready_for', true );
 
-        $type = NotificationX_Helper::get_type( $posts );
 
         if( self::check_any_changes( $old_settings, $new_settings ) ) {
             do_action( 'nx_get_conversions_ready', $type, $data );

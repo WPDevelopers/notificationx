@@ -257,11 +257,31 @@
 	$.notificationx.enabledDisabled = function(){
 		$('.nx-admin-status label').on('click', function(e) {
             e.stopPropagation();
-            var $this       = $(this),
-                postID      = $this.data('post'),
-				nonce       = $this.data('nonce'),
-				siblings = $this.siblings('input'),
+            var $this    = $(this),
+                postID   = $this.data('post'),
+                nonce    = $this.data('nonce'),
+                siblings = $this.siblings('input'),
+                $swal     = $this.data('swal'),
 				isActive = siblings.is(':checked');
+				
+			if( $swal ) {
+				var premium_content = document.createElement("p");
+				var premium_anchor = document.createElement("a");
+					
+				premium_anchor.setAttribute( 'href', 'https://wpdeveloper.net/in/notificationx-pro' );
+				premium_anchor.innerText = 'Premium';
+				premium_anchor.style.color = 'red';
+				premium_content.innerHTML = 'You need to upgrade to the <strong>'+ premium_anchor.outerHTML +' </strong> Version to use multiple notification for same type.';
+				
+				swal({
+					title     : "Opps...",
+					content   :  premium_content,
+					icon      : "warning",
+					buttons   : [false, "Close"],
+					dangerMode: true,
+				});
+				return;
+			}
 
             if ( isActive ) {
                 $this.siblings('.nx-admin-status-title.nxast-enable').removeClass('active');

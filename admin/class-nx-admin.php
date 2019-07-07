@@ -100,6 +100,33 @@ class NotificationX_Admin {
 		
 		return $active;
 	}
+
+	public static function get_enabled_types() {
+		// WP Query arguments.
+		$source_types = NotificationX_Helper::source_types();
+		$args = array(
+			'post_type'      => 'notificationx',
+			'posts_per_page' => '-1',
+			'post_status'    => 'publish',
+			'meta_key'       => '_nx_meta_active_check',
+			'meta_value'     => 1
+		);
+		$active = [];
+		// Get the notification posts.
+		$posts = get_posts( $args );
+		if ( count( $posts ) ) {
+			foreach ( $posts as $post ) {
+				$settings = NotificationX_MetaBox::get_metabox_settings( $post->ID );
+				$type = '';
+				if( array_key_exists( $settings->display_type, $source_types ) ) {
+					$type = $settings->{ $source_types[ $settings->display_type ] };
+				}
+				$active[ $type ][] = $post->ID;
+			}
+		}
+		
+		return $active;
+	}
 	/**
 	* Register the stylesheets for the admin area.
 	*
@@ -147,6 +174,11 @@ class NotificationX_Admin {
 		}
 
 		if( $hook === 'toplevel_page_nx-admin' ) {
+			wp_enqueue_script( 
+				$this->plugin_name . '-sweetalert', 
+				NOTIFICATIONX_ADMIN_URL . 'assets/js/sweetalert.min.js', 
+				array( 'jquery' ), $this->version, true 
+			);
 			wp_enqueue_script( 
 				$this->plugin_name, 
 				NOTIFICATIONX_ADMIN_URL . 'assets/js/nx-admin.min.js', 

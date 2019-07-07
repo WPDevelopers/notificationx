@@ -97,6 +97,15 @@ if( isset( $_GET['status'], $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
                             $settings = NotificationX_MetaBox::get_metabox_settings( $idd );
                             $theme_name = NotificationX_Helper::get_theme( $settings );
                             $type = NotificationX_Helper::notification_types( $settings->display_type );
+                            $nx_type = NotificationX_Helper::get_type( $settings );
+                            $is_enabled_before = false;
+                            if( $nx_type !== 'press_bar' ) {
+                                $is_enabled_before = NotificationX_Extension::is_enabled( $nx_type );
+                                if( $is_enabled == true ) {
+                                    $is_enabled_before = $is_enabled_before == true ? false : true;
+                                }
+                                $is_enabled_before = apply_filters('nx_enabled_disabled_item', $is_enabled_before);
+                            }
                             $status = get_post_status( $idd );
                             if( $pagenow === 'admin.php' && isset( $_GET['page'] ) && $_GET['page'] === 'nx-admin' ) {
                                 if( isset( $_GET['status'] ) && $_GET['status'] === 'trash' ) {
@@ -152,7 +161,12 @@ if( isset( $_GET['status'], $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
                                             <span class="nx-admin-status-title nxast-enable <?php echo $is_enabled ? 'active' : ''; ?>"><?php echo _e( 'Enabled', 'notificationx' ); ?></span>
                                             <span class="nx-admin-status-title nxast-disable <?php echo $is_enabled ? '' : 'active'; ?>"><?php echo _e( 'Disabled', 'notificationx' ); ?></span>
                                             <input type="checkbox" id="nx-toggle-<?php echo $idd; ?>" name="_nx_meta_active_check" <?php echo $is_enabled ? 'checked="checked"' : ''; ?>>
-                                            <label data-post="<?php echo $idd; ?>" data-nonce="<?php echo wp_create_nonce('notificationx_status_nonce'); ?>" for="nx-toggle-<?php echo $idd; ?>"></label>
+                                            <?php 
+                                            if( $is_enabled_before ) : ?>
+                                                <label data-swal="true" data-post="<?php echo $idd; ?>" data-nonce="<?php echo wp_create_nonce('notificationx_status_nonce'); ?>" for="nx-toggle-disable-<?php echo $idd; ?>"></label>
+                                            <?php else :  ?>
+                                                <label data-swal="false" data-post="<?php echo $idd; ?>" data-nonce="<?php echo wp_create_nonce('notificationx_status_nonce'); ?>" for="nx-toggle-<?php echo $idd; ?>"></label>
+                                            <?php endif; ?>
                                         </div>
                                     </td>
                                     <td>
