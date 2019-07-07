@@ -33,6 +33,7 @@ class NotificationX_Extension {
      * @var array
      */
     public static $active_items = [];
+    public static $enabled_types = [];
 
     public static $powered_by = null;
 
@@ -73,6 +74,7 @@ class NotificationX_Extension {
          * Get all Active Notification Items
          */
         self::$active_items = NotificationX_Admin::get_active_items();
+        self::$enabled_types = NotificationX_Admin::get_enabled_types();
     }
 
     public function template_name( $data ){
@@ -106,6 +108,30 @@ class NotificationX_Extension {
         } else {
             return false;
         }
+    }
+
+    public static function is_enabled( $type = '' ){
+        if( empty( $type ) ) {
+            return false;
+        }
+
+        if( $type == 'press_bar' ) {
+            return true;
+        }
+
+        $types = array(
+            'wp_comments',
+            'wp_stats', 
+            'wp_reviews', 
+            'woocommerce',
+            'edd',
+        );
+        foreach( $types as $type ) {
+            if( in_array( $type, array_keys( self::$enabled_types ) ) ) {
+                return true;
+            }
+        }
+        return false;
     }
     /**
      * This method is responsible for get all 
