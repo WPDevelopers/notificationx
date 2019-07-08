@@ -115,6 +115,17 @@ class NotificationX_Admin {
 		}
 	}
 
+	public function redirect_after_publish( $post_ID, $post, $update ){
+		if( isset( $post->post_type ) && $post->post_type == 'notificationx' ) {
+			if( isset( $post->post_status ) && $post->post_status == 'publish' ) {
+				$current_url = admin_url('admin.php?page=nx-admin');
+				wp_safe_redirect( $current_url, 200 );
+				exit;
+			}
+		}
+		return $post_ID;
+	}
+
 	public static function get_enabled_types() {
 		// WP Query arguments.
 		$source_types = NotificationX_Helper::source_types();

@@ -244,6 +244,7 @@ final class NotificationX {
 
 		add_action( 'save_post', array( $plugin_admin->metabox, 'save_metabox') );
 		add_action( 'load-edit.php', array( $plugin_admin, 'trashed_notificationx') );
+		add_action( 'wp_insert_post', array( $plugin_admin, 'redirect_after_publish'), 9999, 3 );
 
 		/**
 		 * Initializing NotificationX_Settings
