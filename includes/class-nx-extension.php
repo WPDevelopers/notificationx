@@ -256,6 +256,7 @@ class NotificationX_Extension {
             return;
         }
 
+        $raw_data = $data;
         array_walk( $data, array( $this, 'trimed' ) );
         $this->defaults = apply_filters('nx_fallback_data', array(), $data, $settings );
         $data = array_merge( $data, $this->defaults );
@@ -295,7 +296,7 @@ class NotificationX_Extension {
 
         $output = '';
         $unique_id = uniqid( 'notificationx-' ); 
-        $image_data = self::get_image_url( $data, $settings );
+        $image_data = self::get_image_url( $raw_data, $settings );
         $output .= '<div id="'. esc_attr( $unique_id ) .'" class="'. implode( ' ', $frontend_classes['wrapper'] ) .'">';
             $output .= apply_filters( 'nx_frontend_before_html', '', $settings );
             $file = apply_filters( 'nx_frontend_before_inner', '', $settings->themeName );
@@ -304,7 +305,8 @@ class NotificationX_Extension {
             }
             $output .= '<div class="'. implode( ' ', $frontend_classes['inner'] ) .'">';
                 if( $image_data ) :
-                    $output .= '<div class="notificationx-image">';
+                    $img_attr = isset( $image_data['attr'] ) ? implode( ' ', $image_data['attr'] ) : '';
+                    $output .= '<div class="notificationx-image" '. $img_attr .'>';
                         $output .= '<img class="'. implode( ' ', $frontend_classes['image'] ) .'" src="'. $image_data['url'] .'" alt="'. esc_attr( $image_data['alt'] ) .'">';
                     $output .= '</div>';
                 endif;
