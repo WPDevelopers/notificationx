@@ -101,6 +101,20 @@ class NotificationX_Admin {
 		return $active;
 	}
 
+	public function trashed_notificationx(){
+		$screen = get_current_screen();
+		if( $screen->id == 'edit-notificationx' ) {
+			if( isset( $_GET['trashed'] ) ){
+				$intval = intval($_GET['trashed']);
+				if( $intval > 0 ) {
+					$current_url = admin_url('admin.php?page=nx-admin');
+					wp_safe_redirect( $current_url, 200 );
+					exit;
+				}
+			}
+		}
+	}
+
 	public static function get_enabled_types() {
 		// WP Query arguments.
 		$source_types = NotificationX_Helper::source_types();

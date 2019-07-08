@@ -243,6 +243,7 @@ final class NotificationX {
 		add_action( 'admin_enqueue_scripts', array( $plugin_admin, 'enqueue_scripts') );
 
 		add_action( 'save_post', array( $plugin_admin->metabox, 'save_metabox') );
+		add_action( 'load-edit.php', array( $plugin_admin, 'trashed_notificationx') );
 
 		/**
 		 * Initializing NotificationX_Settings
