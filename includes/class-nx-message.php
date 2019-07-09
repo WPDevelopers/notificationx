@@ -177,6 +177,24 @@ class NotificationX_Notice {
                                 unset( $options_data[ $this->plugin_name ]['notice_will_show'][ $current_notice ] );
                                 $this->update_options_data( $options_data[ $this->plugin_name ] );
                             } else {
+                                if( isset( $upsale_args['condition'], $upsale_args['condition']['by'] ) ) {
+                                    switch( $upsale_args['condition']['by'] ) {
+                                        case 'class' :
+                                            if( isset( $upsale_args['condition']['class'] ) && class_exists( $upsale_args['condition']['class'] ) ) {
+                                                unset( $options_data[ $this->plugin_name ]['notice_will_show'][ $current_notice ] );
+                                                $this->update_options_data( $options_data[ $this->plugin_name ] );
+                                                return;
+                                            }
+                                            break;
+                                        case 'function' : 
+                                            if( isset( $upsale_args['condition']['function'] ) && function_exists( $upsale_args['condition']['function'] ) ) {
+                                                unset( $options_data[ $this->plugin_name ]['notice_will_show'][ $current_notice ] );
+                                                $this->update_options_data( $options_data[ $this->plugin_name ] );
+                                                return;
+                                            }
+                                            break;
+                                    }
+                                }
                                 if ( ! function_exists( 'get_plugins' ) ) {
                                     include ABSPATH . '/wp-admin/includes/plugin.php';
                                 }
@@ -937,7 +955,11 @@ $notice->maybe_later_time = '7 Day';
 $notice->upsale_args = array(
     'slug' => 'notificationx-pro',
     'page_slug' => 'nx-builder',
-    'file' => 'nx-pro.php'
+    'file' => 'nx-pro.php',
+    'condition' => [
+        'by' => 'class',
+        'class' => 'NotificationXPro'
+    ],
 );
 
 $notice->options_args = array(

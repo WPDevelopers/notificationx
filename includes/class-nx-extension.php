@@ -69,12 +69,6 @@ class NotificationX_Extension {
         }
 
         $this->template_name = $template;
-
-        /**
-         * Get all Active Notification Items
-         */
-        self::$active_items = NotificationX_Admin::get_active_items();
-        self::$enabled_types = NotificationX_Admin::get_enabled_types();
     }
 
     public function template_name( $data ){
@@ -85,14 +79,6 @@ class NotificationX_Extension {
         return $data;
     }
     /**
-     * This function is responsible for making hide option.
-     *
-     * @return void
-     */
-    // public function hide_field(){
-        // add_filter( 'nx_display_types_hide_data', array( $this, 'hide_fields' ) );
-    // }
-    /**
      * this function is responsible for check a type of notification is created or not
      *
      * @param string $type
@@ -101,6 +87,10 @@ class NotificationX_Extension {
     public static function is_created( $type = '' ){
         if( empty( $type ) ) {
             return false;
+        }
+
+        if( empty( self::$active_items ) ) {
+            self::$active_items = NotificationX_Public::get_active_items();
         }
 
         if( ! empty( self::$active_items ) ) {
@@ -126,6 +116,12 @@ class NotificationX_Extension {
             'woocommerce',
             'edd',
         );
+
+        self::$enabled_types = NotificationX_Admin::$enabled_types;
+        if( empty( self::$enabled_types ) ) {
+            self::$enabled_types = NotificationX_Admin::get_enabled_types();
+        }
+
         foreach( $types as $type ) {
             if( in_array( $type, array_keys( self::$enabled_types ) ) ) {
                 return true;

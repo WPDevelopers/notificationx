@@ -65,6 +65,10 @@ class NotificationX_Admin {
 	* @param      string    $version    The version of this plugin.
 	*/
 	public static $counts;
+	
+	public static $enabled_types = [];
+	public static $active_items = [];
+
 	public function __construct( $plugin_name, $version ) {
 		
 		$this->plugin_name = $plugin_name;
@@ -84,7 +88,7 @@ class NotificationX_Admin {
 			'posts_per_page'    => '-1',
 			'post_status'		=> 'publish',
 		);
-		$active = [];
+		self::$active_items = [];
 		// Get the notification posts.
 		$posts = get_posts( $args );
 		if ( count( $posts ) ) {
@@ -94,11 +98,11 @@ class NotificationX_Admin {
 				if( array_key_exists( $settings->display_type, $source_types ) ) {
 					$type = $settings->{ $source_types[ $settings->display_type ] };
 				}
-				$active[ $type ][] = $post->ID;
+				self::$active_items[ $type ][] = $post->ID;
 			}
 		}
 		
-		return $active;
+		return self::$active_items;
 	}
 
 	public function trashed_notificationx(){
@@ -136,7 +140,7 @@ class NotificationX_Admin {
 			'meta_key'       => '_nx_meta_active_check',
 			'meta_value'     => 1
 		);
-		$active = [];
+		self::$enabled_types = [];
 		// Get the notification posts.
 		$posts = get_posts( $args );
 		if ( count( $posts ) ) {
@@ -146,11 +150,11 @@ class NotificationX_Admin {
 				if( array_key_exists( $settings->display_type, $source_types ) ) {
 					$type = $settings->{ $source_types[ $settings->display_type ] };
 				}
-				$active[ $type ][] = $post->ID;
+				self::$enabled_types[ $type ][] = $post->ID;
 			}
 		}
 		
-		return $active;
+		return self::$enabled_types;
 	}
 	/**
 	* Register the stylesheets for the admin area.
@@ -435,6 +439,10 @@ class NotificationX_Admin {
 		
 		register_post_type( $this->type, $args );
 		add_image_size( "_nx_notification_thumb", 100, 100, true );
+	}
+
+	public function upgrade_notificationx(){
+		
 	}
 			
 	/**
