@@ -67,7 +67,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         }
         add_action( 'comment_post', array( $this, 'post_comment' ), 10, 2 );
         add_action( 'trash_comment', array( $this, 'delete_comment' ), 10, 2 );
-        add_action( 'delete_comment', array( $this, 'delete_comment' ), 10, 2 );
+        add_action( 'deleted_comment', array( $this, 'delete_comment' ), 10, 2 );
         add_action( 'transition_comment_status', array( $this, 'transition_comment_status' ), 10, 3 );
     }
     /**
@@ -327,12 +327,12 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
      * @return void
      */
     public function delete_comment( $comment_ID, $comment ){
-        if( isset( $this->notifications[ $comment_ID ] ) ) {
-            unset( $this->notifications[ $comment_ID ] );
-            /**
-             * Delete the data from 
-             * notificationx_data ( options DB. )
-             */
+        if( ! empty( $this->notifications ) ) {
+            foreach( $this->notifications as $key => $notification ) {
+                if( isset( $notification['id'] ) && $notification['id'] === $comment_ID ) {
+                    unset( $this->notifications[ $key ] );
+                }
+            }
             $this->update_notifications( $this->type, $this->notifications );
         }
     }

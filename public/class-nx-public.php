@@ -40,7 +40,7 @@ class NotificationX_Public {
 	*/
 	private $version;
 	
-	public static $active;
+	public static $active = [];
 	
 	public $notifications = [];
 	
@@ -128,6 +128,8 @@ class NotificationX_Public {
 				self::$active[] = $post->ID;
 			}
 		}
+
+		return self::$active;
 	}
 			
 	public function generate_active_notificationx(){
