@@ -109,7 +109,7 @@ class NotificationX_Public {
 	* @since 1.0.0
 	* @return void
 	*/
-	public function get_active_items() {
+	public static function get_active_items() {
 		$args = array(
 			'post_type'         => 'notificationx',
 			'posts_per_page'    => '-1',
