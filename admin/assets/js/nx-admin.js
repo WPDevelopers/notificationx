@@ -68,7 +68,7 @@
 					$('#nx_meta_woo_template_adv').trigger('change');
 					break;
 				case 'edd' : 
-					$('#nx_meta_edd_template_adv').trigger('change');
+					$('#nx_meta_woo_template_adv').trigger('change');
 					break;
 			}
 		});

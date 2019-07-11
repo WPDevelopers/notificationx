@@ -440,7 +440,7 @@ class NotificationX_Helper {
             'wp_stats_template_new',
             'actively_using_template_new',
             'review_saying_template_new',
-            'edd_template_new',
+            // 'edd_template_new',
             'woo_template_new',
         );
         return $data;
@@ -608,7 +608,7 @@ class NotificationX_Helper {
         return apply_filters( 'nx_template_keys', array( 
             'wp_comments' => 'comments_template_new',
             'woocommerce' => 'woo_template_new',
-            'edd'         => 'edd_template_new',
+            'edd'         => 'woo_template_new',
             'wp_reviews'  => 'wp_reviews_template_new',
             'wp_stats'  => 'wp_stats_template_new',
         ));

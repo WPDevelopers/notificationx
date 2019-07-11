@@ -49,6 +49,8 @@ class NotificationX_ToggleFields {
 
     public static function edd(){
         $fields = self::common_fields();
+        $fields[] = 'woo_template_new';
+        $fields[] = 'woo_template_adv';
         $fields[] = 'conversion_from';
 
         $sections = self::common_sections();
