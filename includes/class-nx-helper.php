@@ -271,35 +271,6 @@ class NotificationX_Helper {
         ));
     }
     /**
-     * This function is responsible for comments toggle data
-     * @return array
-     */
-    public static function comments_toggle_data(){
-        return apply_filters('nx_comments_toggle_data', array(
-            'sections' => [
-                'image',
-                'comment_themes',
-                'link_options'
-            ],
-            'fields'   => [
-                'comments_source',
-                'conversion_position',
-                'comments_template_new',
-                'comments_template_adv',
-                // 'comments_template',
-                'show_avatar',
-                'display_last',
-                'display_from',
-                'delay_before',
-                'display_for',
-                'delay_between',
-                'loop',
-                'notification_preview',
-                'conversion_size'
-            ],
-        ));
-    }
-    /**
      * This function is responsible for conversion toggle data
      * @return array
      */

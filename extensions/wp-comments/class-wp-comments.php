@@ -16,19 +16,6 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         add_filter( 'nx_notification_link', array( $this, 'notification_link' ), 10, 2 );
     }
 
-    public function template_string_by_theme( $template, $old_template, $posts_data ){
-        if( NotificationX_Helper::get_type( $posts_data ) === $this->type ) {
-            $theme = $posts_data['nx_meta_comment_theme'];
-            switch( $theme ) {
-                default : 
-                $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'third_param', 'fourth_param' ] ) );
-                break;
-            }
-            return $template;
-        }
-        return $template;
-    }
-
     public function fallback_data( $data, $saved_data, $settings ){
         if( NotificationX_Helper::get_type( $settings ) !== $this->type ) {
             return $data;
