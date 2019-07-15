@@ -584,4 +584,29 @@ class NotificationX_Helper {
             'wp_stats'  => 'wp_stats_template_new',
         ));
     }
+
+    public static function sound_section( $sec_id, $id, $section ){
+        if( $sec_id === 'appearance' ) {
+            global $post;
+            $checked = get_post_meta( $post->ID, '_nx_meta_sound_checkbox', true );
+            $checked = $checked ? 'checked="true"' : '';
+            $is_pro = class_exists( 'NotificationXPro' ) ? '' : 'data-swal="true"';
+            if( $is_pro ) {
+                $checked = '';
+            }
+            ?>
+                <div id="nx-meta-section-sound" class="nx-sound-appearance nx-flex nx-align-items-center">
+                    <div class="nx-left">
+                        <p><?php _e( 'Enabled Sound', 'notificationx' );?></p>
+                    </div>
+                    <div class="nx-right">
+                        <div class="nx-styled-checkbox">
+                            <input <?php echo $is_pro; ?> type="checkbox" name="nx_meta_sound_checkbox" id="nx_sound_checkbox" <?php echo $checked; ?>>
+                            <label for="nx_sound_checkbox"></label>
+                        </div>
+                    </div>
+                </div>
+            <?php
+        }
+    }
 }

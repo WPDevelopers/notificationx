@@ -526,13 +526,12 @@ class NotificationX_Admin {
 		/**
 		* Add Submit
 		*/
-		if( isset( $_POST[ 'nx_builder_add_submit' ] ) ) :
+		if( isset( $_POST[ 'nx_builder_add_submit' ], $_POST['is_quick_builder'] ) && $_POST['is_quick_builder'] ) :
 			if ( ! isset( $_POST[$this->metabox_id . '_nonce'] ) || ! wp_verify_nonce( $_POST[$this->metabox_id . '_nonce'], $this->metabox_id ) ) {
 				$flag = false;
 			}
-			
+
 			if( $flag ) {
-				
 				if( $_POST['nx_meta_display_type'] == 'press_bar' )  {
 					$title = __('NotificationX - Notification Bar', 'notificationx');
 				} elseif( $_POST['nx_meta_display_type'] == 'comments' )  {
@@ -540,6 +539,9 @@ class NotificationX_Admin {
 				} elseif( $_POST['nx_meta_display_type'] == 'conversions' )  {
 					$conversions = NotificationX_Helper::conversion_from();
 					$title = 'NotificationX - ' . $conversions[$_POST['nx_meta_conversion_from']];
+				} else {
+					$title_temp = NotificationX_Helper::notification_types( $_POST['nx_meta_display_type'] );
+					$title = 'NotificationX - ' . $title_temp;
 				}
 				$_POST['post_type'] = 'notificationx';
 				$postdata = array(

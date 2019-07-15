@@ -39,6 +39,15 @@
     padding: 0;
 }
 
+/* NX FLEX */
+.nx-flex {
+    display: flex;
+}
+
+.nx-align-items-center {
+    align-items: center;
+}
+
 .notificationx-metabox-wrapper {}
 
 .nx-builder-hidden {
@@ -968,8 +977,18 @@ body.post-type-notificationx .select2-container--default .select2-search--dropdo
     margin: 30px 15px 0 0;
 }
 
+.nx-settings-section table {
+    width: 100%;
+}
+
+.nx-settings-section input.nx-settings-field[type="text"] {
+    width: 50%;
+}
+
 .nx-settings-section tr th {
     padding-right: 15px;
+    width: 25%;
+    text-align: left;
 }
 
 .nx-settings-section tr td {
@@ -1671,4 +1690,83 @@ body.wp-admin.rtl .ui-datepicker {
 .ui-datepicker td .ui-state-hover {
     background: #5f56f0;
     color: #fff;
+}
+
+/* Styled Checkbox */
+.nx-sound-appearance {
+    padding: 0 30px;
+    border: 1px solid #8369ff;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.nx-sound-appearance>div {}
+
+.nx-sound-appearance>div.nx-left>p {
+    font-size: 18px;
+    margin-right: 30px;
+    letter-spacing: 1px;
+}
+
+.nx-sound-appearance>div.nx-right label {
+    width: 2em;
+    height: 1em;
+    position: relative;
+    cursor: pointer;
+    display: block;
+    font-size: 24px;
+    margin-left: -3px;
+}
+
+.nx-admin-status-title {
+    margin-bottom: 8px;
+    display: none;
+}
+
+.nx-admin-status-title.nxast-enable {
+    color: #5614d5;
+}
+
+
+.nx-sound-appearance>div.nx-right input[type="checkbox"] {
+    visibility: hidden;
+    display: none;
+}
+
+.nx-sound-appearance>div.nx-right input[type="checkbox"]:checked+label::before {
+    background: #5614d5;
+    border: 1px solid #5614d5;
+}
+
+.nx-sound-appearance>div.nx-right label:before {
+    content: "";
+    position: absolute;
+    width: 2em;
+    height: 1em;
+    left: 0.1em;
+    transition: background 0.1s 0.1s ease;
+    background: #cbcfd0;
+    border: 1px solid #cbcfd0;
+    border-radius: 50px;
+}
+
+.nx-sound-appearance>div.nx-right input[type="checkbox"]:checked+label::after {
+    left: 1.2em;
+    background: #ffffff;
+    animation: switch-on 0.3s ease-out;
+}
+
+.nx-sound-appearance>div.nx-right label:after {
+    content: "";
+    position: absolute;
+    width: 0.8em;
+    height: 0.8em;
+    border-radius: 100%;
+    left: 0.2em;
+    top: 0.14em;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 0 5px #fcfff4 inset;
+    background: #fff;
+    z-index: 2;
+    animation: switch-off 0.3s ease-out;
 }

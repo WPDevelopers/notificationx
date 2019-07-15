@@ -664,6 +664,12 @@ function notificationx_metabox_args(){
                                 'default'     => 0,
                                 'description' => __(' It will hide the notification on mobile devices.', 'notificationx'),
                             ),
+                            'sound_checkbox'  => array(
+                                'type'     => 'checkbox',
+                                'priority' => 201,
+                                'default'  => 0,
+                                'class'    => 'hidden',
+                            ),
                         ),
                     ),
                     'timing'        => array(

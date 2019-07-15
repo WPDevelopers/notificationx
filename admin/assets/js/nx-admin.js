@@ -183,7 +183,7 @@
 		});
 
 		//Advance Checkbox with SweetAlear
-		$('body').on('click', '.nx-adv-checkbox-wrap label', function (e) {
+		$('body').on('click', '.nx-adv-checkbox-wrap label, #nx_sound_checkbox', function (e) {
 			if (typeof $(this)[0].dataset.swal == 'undefined') {
 				return;
 			}
