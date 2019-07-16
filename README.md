@@ -93,6 +93,9 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
+= 1.1.1 =
+* Lots of minor issue fixed
+
 = 1.1.0 =
 * Reshape the UI
 * Lots of minor issue fixed
