@@ -131,7 +131,10 @@ class NotificationX_Public {
 
 		return self::$active;
 	}
-			
+
+	public function pro_extension_ids() {
+		return apply_filters('nx_pro_extetion_ids', array());
+	}
 	public function generate_active_notificationx(){
 		
 		if( empty( self::$active ) ) {
@@ -197,11 +200,8 @@ class NotificationX_Public {
 			}
 			unset( $activeItems[ $id ] );
 		}
-		function pro_extension_ids() {
-			return apply_filters('nx_pro_extetion_ids', array());
-		}
 		do_action( 'nx_active_notificationx', $activeItems );
-		$pro_ext = pro_extension_ids();
+		$pro_ext = $this->pro_extension_ids();
 		/**
 		* Filtered Active IDs
 		*/
