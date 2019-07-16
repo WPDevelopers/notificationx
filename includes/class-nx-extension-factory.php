@@ -16,7 +16,7 @@ class Extension_Factory {
      * @param string $extension
      * @return void
      */
-    public function register( string $extension ){
+    public function register( $extension = '' ){
         if ( empty( $extension ) ) {
 			return;
         }
@@ -50,6 +50,25 @@ class Extension_Factory {
                  */
                 if( method_exists( $object, 'admin_actions' ) ) {
                     add_action( 'nx_admin_action', array( $object, 'admin_actions' ) );
+                }
+
+                if( method_exists( $object, 'template_name' ) ) {
+                    add_filter( 'nx_template_name', array( $object, 'template_name' ) );
+                }
+
+                if( method_exists( $object, 'fallback_data' ) ) {
+                    add_filter( 'nx_fallback_data', array( $object, 'fallback_data' ), 11, 3 );
+                }
+
+                if( method_exists( $object, 'save_post' ) ) {
+                    add_action( 'save_post', array( $object, 'save_post' ), 10, 3 );
+                }
+
+                if( method_exists( $object, 'settings_by_theme' ) ) {
+                    add_filter( 'nx_template_settings_by_theme', array( $object, 'settings_by_theme' ) );
+                }
+                if( method_exists( $object, 'template_string_by_theme' ) ) {
+                    add_filter( 'nx_template_string_generate', array( $object, 'template_string_by_theme'), 10, 3 );
                 }
 
                 if( method_exists( $object, 'public_actions' ) ) {
@@ -93,8 +112,11 @@ class Extension_Factory {
      * @param string $key
      * @return void
      */
-    public function get_extension( string $key ){
-        return $this->loaded_extensions[ $key ];
+    public function get_extension( $key ){
+        if( empty( $key ) ) {
+            return false;
+        }
+        return isset( $this->loaded_extensions[ $key ] ) ? $this->loaded_extensions[ $key ] : false;
     }
 }
 /**
@@ -107,7 +129,10 @@ $GLOBALS['nx_extension_factory'] = new Extension_Factory();
  * @param string $extension
  * @return void
  */
-function nx_register_extension( string $extension ){
+function nx_register_extension( $extension = '' ){
+    if( empty( $extension ) ) {
+        return false;
+    }
     global $nx_extension_factory;
     $nx_extension_factory->register( $extension );
 }

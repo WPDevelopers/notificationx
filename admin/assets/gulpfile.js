@@ -19,7 +19,7 @@ var paths = {
 		dest: 'js/'
 	},
 	pStyles: {
-		src: '../../public/assets/css/notificationx-*.css',
+		src: '../../public/assets/css/notificationx-public.css',
 		dest: '../../public/assets/css/'
 	},
 	pScripts: {

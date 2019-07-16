@@ -18,8 +18,23 @@ if( $settings->hide_after ) {
     $wrapper_attrs .= ' data-hide_after="'. $settings->hide_after .'"';
 }
 
+if( $settings->countdown_start_date ) {
+    $wrapper_attrs .= ' data-start_date="'. $settings->countdown_start_date .'"';
+}
+if( $settings->countdown_end_date ) {
+    $wrapper_attrs .= ' data-end_date="'. $settings->countdown_end_date .'"';
+}
+
+if( $settings->close_forever ) {
+    $wrapper_attrs .= ' data-close_forever="'. $settings->close_forever .'"';
+}
+
 if( $settings->auto_hide ) {
     $wrapper_attrs .= ' data-auto_hide="'. $settings->auto_hide .'"';
+}
+
+if( $settings->sticky_bar ) {
+    $wrapper_attrs .= ' data-sticky_bar="'. $settings->sticky_bar .'"';
 }
 
 if( $settings->id ) {
@@ -37,7 +52,7 @@ if( is_admin_bar_showing() ) {
 
 if( $settings->enable_countdown ) {
     $countdown = [];
-    if( $settings->countdown_time ) {
+    if( property_exists( $settings, 'countdown_time' ) ) {
         foreach( $settings->countdown_time as $key => $time ) {
             $time = empty( $time ) ? 0 : $time;
             $countdown[ $key ] = $time < 10 ? '0' . $time : $time;
@@ -47,6 +62,9 @@ if( $settings->enable_countdown ) {
 
 if( $settings->bar_advance_edit ) {
     $class = ' nx-customize-style-' . $settings->id;
+}
+if( $settings->sticky_bar ) {
+    $class = ' nx-sticky-bar';
 }
 
 ?>
@@ -85,8 +103,11 @@ if( $settings->bar_advance_edit ) {
             <?php endif; ?>
             <div class="nx-inner-content-wrapper">
                 <div class="nx-bar-content"><?php echo $settings->press_content; ?></div>
-                <?php if( $settings->button_url != '' ) : ?>
-                    <a class="nx-bar-button" href="<?php echo esc_url( $settings->button_url ); ?>" <?php echo $attrs; ?>>
+                <?php 
+                    if( $settings->button_url != '' ) :
+                        $pressbar_url = apply_filters( 'nx_pressbar_link', $settings->button_url, $settings );
+                ?>
+                    <a class="nx-bar-button" href="<?php echo esc_url( $pressbar_url ); ?>" <?php echo $attrs; ?>>
                         <?php echo esc_html_e( $settings->button_text, 'notificationx' ); ?>
                     </a>
                 <?php endif; ?>

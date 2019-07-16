@@ -98,6 +98,9 @@ final class NotificationX {
 		 * NotificationX Helper
 		 */
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-helper.php';
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-const.php';
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-toggle-helper.php';
+		
 		/**
 		 * NotificationX Messages
 		 */
@@ -134,10 +137,13 @@ final class NotificationX {
 		 * The class responsible for defining extensions functionality
 		 * of the plugin.
 		 */
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-array.php';
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-extension-factory.php';
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-extension.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'press-bar/class-press-bar.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'wp-comments/class-wp-comments.php';
+		require_once NOTIFICATIONX_EXT_DIR_PATH . 'wporg/class-wporg-review.php';
+		require_once NOTIFICATIONX_EXT_DIR_PATH . 'wporg/class-wporg-stats.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'woocommerce/class-woocommerce.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'edd/class-edd.php';
 		/**
@@ -172,10 +178,12 @@ final class NotificationX {
 		global $nx_extension_factory;
 
 		$extensions = [
-			'NotificationX_EDD_Extension',
 			'NotificationX_PressBar_Extension',
 			'NotificationX_WP_Comments_Extension',
+			'NotificationXPro_WPOrgReview_Extension',
+			'NotificationXPro_WPOrgStats_Extension',
 			'NotificationX_WooCommerce_Extension',
+			'NotificationX_EDD_Extension',
 		];
 
 		foreach( $extensions as $extension ) {
@@ -219,10 +227,15 @@ final class NotificationX {
 		$plugin_admin->metabox = new NotificationX_MetaBox;
 		
 		add_action( 'init', array( $plugin_admin, 'register') );
-		add_action( 'init', array( $plugin_admin, 'get_active_items') );
+		// add_action( 'init', array( $plugin_admin, 'get_active_items') );
+		add_action( 'admin_init', array( $plugin_admin, 'get_enabled_types') );
 		add_action( 'add_meta_boxes', array( $plugin_admin->metabox, 'add_meta_boxes') );
+		add_action( 'nx_builder_before_tab', array( $plugin_admin->metabox, 'finalize_builder'), 10, 2 );
 		add_action( 'admin_menu', array( $plugin_admin, 'menu_page') );
-		add_action( 'admin_footer', array( $plugin_admin, 'notification_preview') );
+		add_filter( 'parent_file', array(&$plugin_admin, 'highlight_admin_menu'));
+		add_filter( 'submenu_file', array(&$plugin_admin, 'highlight_admin_submenu'), 10, 2);
+		// add_action( 'admin_footer', array( $plugin_admin, 'notification_preview') );
+		add_filter( 'nx_template_name', 'NotificationX_Helper::new_template_name', 10, 2 );
 		add_filter( 'manage_notificationx_posts_columns', array( $plugin_admin, 'custom_columns') );
 		add_action( 'manage_notificationx_posts_custom_column', array( $plugin_admin, 'manage_custom_columns' ), 10, 2 );
 		add_action( 'wp_ajax_notifications_toggle_status', array( $plugin_admin, 'notification_status') );
@@ -231,6 +244,9 @@ final class NotificationX {
 		add_action( 'admin_enqueue_scripts', array( $plugin_admin, 'enqueue_scripts') );
 
 		add_action( 'save_post', array( $plugin_admin->metabox, 'save_metabox') );
+		add_action( 'load-edit.php', array( $plugin_admin, 'trashed_notificationx') );
+		add_action( 'wp_insert_post', array( $plugin_admin, 'redirect_after_publish'), 9999, 3 );
+		add_action( 'upgrader_process_complete', array( $plugin_admin, 'upgrade_notificationx'), 9999, 3 );
 
 		/**
 		 * Initializing NotificationX_Settings
@@ -251,10 +267,8 @@ final class NotificationX {
 		$plugin_public = new NotificationX_Public( $this->get_plugin_name(), $this->get_version() );
 
 		do_action( 'nx_public_action' );
-
 		add_action( 'wp_enqueue_scripts', array( $plugin_public, 'enqueue_styles') );
 		add_action( 'wp_enqueue_scripts', array( $plugin_public, 'enqueue_scripts') );
-		add_action( 'wp', array( $plugin_public, 'get_active_items') );
 		add_action( 'wp_footer', array( $plugin_public, 'generate_active_notificationx') );
 		add_action( 'wp_ajax_nx_get_conversions', array( $plugin_public, 'generate_conversions') );
 		add_action( 'wp_ajax_nopriv_nx_get_conversions', array( $plugin_public, 'generate_conversions') );

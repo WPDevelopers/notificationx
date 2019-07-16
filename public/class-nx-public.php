@@ -1,114 +1,114 @@
 <?php
 
 /**
- * The public-facing functionality of the plugin.
- *
- * @link       https://wpdeveloper.net
- * @since      1.0.0
- *
- * @package    NotificationX
- * @subpackage NotificationX/public
- */
+* The public-facing functionality of the plugin.
+*
+* @link       https://wpdeveloper.net
+* @since      1.0.0
+*
+* @package    NotificationX
+* @subpackage NotificationX/public
+*/
 
 /**
- * The public-facing functionality of the plugin.
- *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the public-facing stylesheet and JavaScript.
- *
- * @package    NotificationX
- * @subpackage NotificationX/public
- * @author     WPDeveloper <support@wpdeveloper.net>
- */
+* The public-facing functionality of the plugin.
+*
+* Defines the plugin name, version, and two examples hooks for how to
+* enqueue the public-facing stylesheet and JavaScript.
+*
+* @package    NotificationX
+* @subpackage NotificationX/public
+* @author     WPDeveloper <support@wpdeveloper.net>
+*/
 class NotificationX_Public {
-
+	
 	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
-	 */
+	* The ID of this plugin.
+	*
+	* @since    1.0.0
+	* @access   private
+	* @var      string    $plugin_name    The ID of this plugin.
+	*/
 	private $plugin_name;
-
+	
 	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
+	* The version of this plugin.
+	*
+	* @since    1.0.0
+	* @access   private
+	* @var      string    $version    The current version of this plugin.
+	*/
 	private $version;
-
-	public static $active;
-
+	
+	public static $active = [];
+	
 	public $notifications = [];
-
+	
 	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
-	 */
+	* Initialize the class and set its properties.
+	*
+	* @since    1.0.0
+	* @param      string    $plugin_name       The name of the plugin.
+	* @param      string    $version    The version of this plugin.
+	*/
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name   = $plugin_name;
 		$this->version       = $version;
 		
 		$this->notifications = get_option('notificationx_data');
 	}
-
+	
 	/**
-	 * Register the stylesheets for the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 */
+	* Register the stylesheets for the public-facing side of the site.
+	*
+	* @since    1.0.0
+	*/
 	public function enqueue_styles() {
-
+		
 		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in NotificationX_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The NotificationX_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
+		* This function is provided for demonstration purposes only.
+		*
+		* An instance of this class should be passed to the run() function
+		* defined in NotificationX_Loader as all of the hooks are defined
+		* in that particular class.
+		*
+		* The NotificationX_Loader will then create the relationship
+		* between the defined hooks and the functions defined in this
+		* class.
+		*/
+		
 		wp_enqueue_style( $this->plugin_name, NOTIFICATIONX_PUBLIC_URL . 'assets/css/notificationx-public.min.css', array(), $this->version, 'all' );
 	}
-
+	
 	/**
-	 * Register the JavaScript for the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 */
+	* Register the JavaScript for the public-facing side of the site.
+	*
+	* @since    1.0.0
+	*/
 	public function enqueue_scripts() {
-
+		
 		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in NotificationX_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The NotificationX_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
+		* This function is provided for demonstration purposes only.
+		*
+		* An instance of this class should be passed to the run() function
+		* defined in NotificationX_Loader as all of the hooks are defined
+		* in that particular class.
+		*
+		* The NotificationX_Loader will then create the relationship
+		* between the defined hooks and the functions defined in this
+		* class.
+		*/
+		
 		wp_enqueue_script( $this->plugin_name . '-cookie', NOTIFICATIONX_PUBLIC_URL . 'assets/js/Cookies.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( $this->plugin_name, NOTIFICATIONX_PUBLIC_URL . 'assets/js/notificationx-public.min.js', array( 'jquery' ), $this->version, true );
 	}
-
+	
 	/**
-	 * Get all active notifications.
-	 *
-	 * @since 1.0.0
-	 * @return void
-	 */
+	* Get all active notifications.
+	*
+	* @since 1.0.0
+	* @return void
+	*/
 	public function get_active_items() {
 		$args = array(
 			'post_type'         => 'notificationx',
@@ -128,35 +128,38 @@ class NotificationX_Public {
 				self::$active[] = $post->ID;
 			}
 		}
-	}
-	
-	public function generate_active_notificationx(){
 
+		return self::$active;
+	}
+			
+	public function generate_active_notificationx(){
+		
 		if( empty( self::$active ) ) {
 			return;
 		}
 		$activeItems = self::$active;
-		$conversion_ids = $comments_id = array();
-
+		$conversion_ids = $comments_id = $reviews_id = $download_stats_id = array();
+		
 		foreach( self::$active as $id ) {
 			
 			$settings = NotificationX_MetaBox::get_metabox_settings( $id );
-
+			self::generate_css( $settings );
+			
 			$logged_in = is_user_logged_in();
 			$show_on_display = $settings->show_on_display;
-
+			
 			if( ( $logged_in && 'logged_out_user' == $show_on_display ) || ( ! $logged_in && 'logged_in_user' == $show_on_display ) ) {
 				continue;
 			}
-
+			
 			$locations = $settings->all_locations;
-
+			
 			$check_location = false;
-
+			
 			if( ! empty( $locations ) ) {
 				$check_location = NotificationX_Locations::check_location( array( $locations ) );
 			}
-
+			
 			if( $settings->show_on == 'on_selected' ) {
 				// show if the page is on selected
 				if ( ! $check_location ) {
@@ -169,12 +172,12 @@ class NotificationX_Public {
 				}
 			}
 			/**
-			 * Check for hiding in mobile device
-			 */
+			* Check for hiding in mobile device
+			*/
 			if( wp_is_mobile() && $settings->hide_on_mobile ) {
 				continue;
 			}
-
+			
 			switch ( $settings->display_type ) {
 				case "press_bar":
 					NotificationX_PressBar_Extension::display( $settings );
@@ -185,9 +188,13 @@ class NotificationX_Public {
 				case "comments":
 					$comments_id[] = $id;
 					break;
+				case "reviews":
+					$reviews_id[] = $id;
+					break;
+				case "download_stats":
+					$download_stats_id[] = $id;
+					break;
 			}
-			
-			self::generate_css( $settings );
 			unset( $activeItems[ $id ] );
 		}
 		function pro_extension_ids() {
@@ -196,58 +203,62 @@ class NotificationX_Public {
 		do_action( 'nx_active_notificationx', $activeItems );
 		$pro_ext = pro_extension_ids();
 		/**
-		 * Filtered Active IDs
-		 */
-		$conversion_ids = apply_filters('nx_conversions_id', $conversion_ids );
-		$comments_id = apply_filters('nx_comments_id', $comments_id );
-
-		if( ! empty( $conversion_ids ) || ! empty( $comments_id ) || ! empty( $pro_ext ) ) :
-		?>
+		* Filtered Active IDs
+		*/
+		$conversion_ids              = apply_filters('nx_conversions_id', $conversion_ids );
+		$comments_id                 = apply_filters('nx_comments_id', $comments_id );
+		$reviews_id                  = apply_filters('nx_reviews_id', $reviews_id );
+		$reviedownload_stats_idws_id = apply_filters('nx_download_stats_id', $download_stats_id );
+		
+		if( ! empty( $conversion_ids ) || ! empty( $comments_id ) || ! empty( $pro_ext ) || ! empty( $reviews_id ) || ! empty( $download_stats_id ) ) :
+			?>
 			<script type="text/javascript">
-				var notificationx = {
-					nonce      : '<?php echo wp_create_nonce('nx_frontend_nonce'); ?>',
-					ajaxurl    : '<?php echo admin_url('admin-ajax.php'); ?>',
-					conversions: <?php echo json_encode( $conversion_ids ); ?>,
-					comments   : <?php echo json_encode( $comments_id ); ?>,
-					pro_ext   : <?php echo json_encode( $pro_ext ); ?>,
-				};
+			var notificationx = {
+				nonce      : '<?php echo wp_create_nonce('nx_frontend_nonce'); ?>',
+				ajaxurl    : '<?php echo admin_url('admin-ajax.php'); ?>',
+				conversions: <?php echo json_encode( $conversion_ids ); ?>,
+				comments   : <?php echo json_encode( $comments_id ); ?>,
+				reviews   : <?php echo json_encode( $reviews_id ); ?>,
+				stats   : <?php echo json_encode( $download_stats_id ); ?>,
+				pro_ext   : <?php echo json_encode( $pro_ext ); ?>,
+			};
 			</script>
-		<?php	
+			<?php	
 		endif;
 	}
-
+			
 	public function generate_conversions() {
-
+		
 		if( ! isset( $_POST['nonce'] ) && ! wp_verify_nonce( $_POST['nonce'], 'nx_frontend_nonce' ) ) {
 			return;
 		}
-
+		
 		$ids = $_POST['ids'];
-
+		
 		$echo = $data = [];
 		if( ! empty( $this->notifications ) ) {
 			$data = $this->notifications;
 		}
-
+		
 		$settings = NotificationX_MetaBox::get_metabox_settings( $ids );
-
-		$echo['config'] = array(
+		
+		$echo['config'] = apply_filters('nx_frontend_config', array(
 			'delay_before'  => ( ! empty( $settings->delay_before ) ) ? intval( $settings->delay_before ) * 1000 : 0,
 			'display_for'   => ( ! empty( $settings->display_for ) ) ? intval( $settings->display_for ) * 1000 : 0,
 			'delay_between' => ( ! empty( $settings->delay_between ) ) ? intval( $settings->delay_between ) * 1000 : 0,
 			'loop'          => ( ! empty( $settings->loop ) ) ? $settings->loop : 0,
 			'id'            => $ids,
-		);
+		), $settings);
 
 		ob_start();
 		include NOTIFICATIONX_PUBLIC_PATH . 'partials/nx-public-display.php';
 		$content = ob_get_clean();
 		$echo['content'] = $content;
-
+		
 		echo json_encode( $echo );
 		wp_die();
 	}
-
+			
 	public function get_client_ip() {
 		$ip = '';
 		
@@ -266,19 +277,75 @@ class NotificationX_Public {
 		} else {
 			$ip = "UNKNOWN";
 		}
-
+		
 		return $ip;
 	}
-
+			
 	public static function generate_css( $settings ){
 		if( empty( $settings ) ) return;
-		$style = $image_style = $content_style = $first_row_font = $second_row_font = $third_row_font = [];
+		$style = $image_style = $content_style = $first_row_font = $second_row_font = $third_row_font = $max_width = [];
 		$css_string = $css = '';
+		
+		//TODO: Re-write this class to generate ADV CSS for notification
+		//TODO: Not working for stats and reviews only
 
 		switch( $settings->display_type ){
+			case 'reviews' : 
+				if( $settings->conversion_size ) {
+					$max_width[] = ! empty( $settings->conversion_size ) ? 'max-width: ' . $settings->conversion_size .'px !important' : '';
+				}
+				if( $settings->wporg_advance_edit ) {
+					$style[] = ! empty( $settings->wporg_bg_color ) ? 'background-color: ' . $settings->wporg_bg_color . '!important' : '';
+					$style[] = ! empty( $settings->wporg_text_color ) ? 'color: ' . $settings->wporg_text_color : '';
+					
+					if( $settings->wporg_border ){
+						$style[] = 'border-width: ' . $settings->wporg_border_size . 'px !important';
+						$style[] = 'border-style: ' . $settings->wporg_border_style . '!important';
+						$style[] = 'border-color: ' . $settings->wporg_border_color . '!important';
+					}
+					
+					if( ! empty( $settings->wporg_first_font_size ) ) {
+						$first_row_font[] = 'font-size: ' . $settings->wporg_first_font_size . 'px';
+					}
+					if( ! empty( $settings->wporg_second_font_size ) ) {
+						$second_row_font[] = 'font-size: ' . $settings->wporg_second_font_size . 'px';
+					}
+					if( ! empty( $settings->wporg_third_font_size ) ) {
+						$third_row_font[] = 'font-size: ' . $settings->wporg_third_font_size . 'px';
+					}
+				}
+				break;
+			case 'download_stats' : 
+				if( $settings->conversion_size ) {
+					$max_width[] = ! empty( $settings->conversion_size ) ? 'max-width: ' . $settings->conversion_size .'px !important' : '';
+				}
+				if( $settings->wpstats_advance_edit ) {
+					$style[] = ! empty( $settings->wpstats_bg_color ) ? 'background-color: ' . $settings->wpstats_bg_color . '!important' : '';
+					$style[] = ! empty( $settings->wpstats_text_color ) ? 'color: ' . $settings->wpstats_text_color : '';
+					
+					if( $settings->wpstats_border ){
+						$style[] = 'border-width: ' . $settings->wpstats_border_size . 'px !important';
+						$style[] = 'border-style: ' . $settings->wpstats_border_style . '!important';
+						$style[] = 'border-color: ' . $settings->wpstats_border_color . '!important';
+					}
+					
+					if( ! empty( $settings->wpstats_first_font_size ) ) {
+						$first_row_font[] = 'font-size: ' . $settings->wpstats_first_font_size . 'px';
+					}
+					if( ! empty( $settings->wpstats_second_font_size ) ) {
+						$second_row_font[] = 'font-size: ' . $settings->wpstats_second_font_size . 'px';
+					}
+					if( ! empty( $settings->wpstats_third_font_size ) ) {
+						$third_row_font[] = 'font-size: ' . $settings->wpstats_third_font_size . 'px';
+					}
+				}
+				break;
 			case 'conversions' : 
+				if( $settings->conversion_size ) {
+					$max_width[] = ! empty( $settings->conversion_size ) ? 'max-width: ' . $settings->conversion_size .'px !important' : '';
+				}
 				if( $settings->advance_edit ) {
-					$style[] = ! empty( $settings->bg_color ) ? 'background-color: ' . $settings->bg_color : '';
+					$style[] = ! empty( $settings->bg_color ) ? 'background-color: ' . $settings->bg_color . '!important' : '';
 					$style[] = ! empty( $settings->text_color ) ? 'color: ' . $settings->text_color : '';
 					
 					if( $settings->border ){
@@ -286,7 +353,7 @@ class NotificationX_Public {
 						$style[] = 'border-style: ' . $settings->border_style . '!important';
 						$style[] = 'border-color: ' . $settings->border_color . '!important';
 					}
-		
+					
 					if( ! empty( $settings->first_font_size ) ) {
 						$first_row_font[] = 'font-size: ' . $settings->first_font_size . 'px';
 					}
@@ -296,13 +363,16 @@ class NotificationX_Public {
 					if( ! empty( $settings->third_font_size ) ) {
 						$third_row_font[] = 'font-size: ' . $settings->third_font_size . 'px';
 					}
-		
+					
 					if( $settings->image_position == 'right' ) {
 						$style[] = 'flex-direction: row-reverse';
 					}
 				}
 				break;
 			case 'comments' : 
+				if( $settings->conversion_size ) {
+					$max_width[] = ! empty( $settings->conversion_size ) ? 'max-width: ' . $settings->conversion_size .'px !important' : '';
+				}
 				if( $settings->comment_advance_edit ) {
 					$style[] = ! empty( $settings->comment_bg_color ) ? 'background-color: ' . $settings->comment_bg_color : '';
 					$style[] = ! empty( $settings->comment_text_color ) ? 'color: ' . $settings->comment_text_color : '';
@@ -312,7 +382,7 @@ class NotificationX_Public {
 						$style[] = 'border-style: ' . $settings->comment_border_style . ' !important';
 						$style[] = 'border-color: ' . $settings->comment_border_color . '!important';
 					}
-		
+					
 					if( ! empty( $settings->comment_first_font_size ) ) {
 						$first_row_font[] = 'font-size: ' . $settings->comment_first_font_size . 'px';
 					}
@@ -322,7 +392,7 @@ class NotificationX_Public {
 					if( ! empty( $settings->comment_third_font_size ) ) {
 						$third_row_font[] = 'font-size: ' . $settings->comment_third_font_size . 'px';
 					}
-		
+					
 					if( $settings->comment_image_position == 'right' ) {
 						$style[] = 'flex-direction: row-reverse';
 					}
@@ -336,20 +406,23 @@ class NotificationX_Public {
 				}
 				break;
 		}
-
 		
-
-		$style = apply_filters('nx_style', $style );
-		do_action( 'nx_style_generation' );
-
+		
+		
+		$style = apply_filters('nx_style', $style, $settings );
+		
+		if( ! empty( $max_width ) ) {
+			$css_string .= '.notificationx-inner {' . implode( ';', $max_width ) . '}';
+		}
+		
 		if( ! empty( $style ) ) {
 			$css_string .= '.nx-customize-style-' . $settings->id . '{' . implode( ';', $style ) . '}';
 		}
-
+		
 		if( ! empty( $content_style ) ) {
 			$css_string .= '.nx-customize-style-' . $settings->id . ' .notificationx-content {' . implode( ';', $content_style ) . '}';
 		}
-
+		
 		if( ! empty( $first_row_font ) ) {
 			$css_string .= '.nx-customize-style-' . $settings->id . ' .nx-first-row {' . implode( ';', $first_row_font ) . '}';
 		}
@@ -359,27 +432,28 @@ class NotificationX_Public {
 		if( ! empty( $third_row_font ) ) {
 			$css_string .= '.nx-customize-style-' . $settings->id . ' .nx-third-row {' . implode( ';', $third_row_font ) . '}';
 		}
-
+		
 		if( ! empty( $css_string ) ) {
 			$css .= '<style type="text/css">';
-				$css .= $css_string;
+			$css .= $css_string;
 			$css .= '</style>';
 		}
-
+		do_action( 'nx_style_generation' );
+		$css = apply_filters('nx_style_string', $css, $settings );
 		echo ! empty( $css ) ? $css : '';
 	}
 	/**
-	 * This function is responsible for generate css for preview
-	 * 
-	 * @param stdClass $settings
-	 * @param string $key
-	 * @return string
-	 */
+	* This function is responsible for generate css for preview
+	* 
+	* @param stdClass $settings
+	* @param string $key
+	* @return string
+	*/
 	public static function generate_preview_css( $settings, $key = 'wrapper' ){
 		if( empty( $settings ) ) return;
 		$style = $image_style = $content_style = $first_row_font = $second_row_font = $third_row_font = [];
 		$css_string = $css = '';
-
+		
 		switch( $settings->display_type ) {
 			case 'conversions' : 
 				if( $settings->advance_edit ) {
@@ -391,7 +465,7 @@ class NotificationX_Public {
 						$style[ 'wrapper' ][] = ! empty( $settings->border_style ) ? 'border-style: ' . $settings->border_style . ' !important': '';
 						$style[ 'wrapper' ][] = ! empty( $settings->border_color ) ? 'border-color: ' . $settings->border_color  . ' !important': '';
 					}
-		
+					
 					if( ! empty( $settings->first_font_size ) ) {
 						$style['first-row'][] = 'font-size: ' . $settings->first_font_size . 'px';
 					}
@@ -401,7 +475,7 @@ class NotificationX_Public {
 					if( ! empty( $settings->third_font_size ) ) {
 						$style['third-row'][] = 'font-size: ' . $settings->third_font_size . 'px';
 					}
-		
+					
 					return 'style="'. implode( '; ', $style[ $key ] ) .'"';
 				}
 				break;
@@ -415,7 +489,7 @@ class NotificationX_Public {
 						$style[ 'wrapper' ][] = ! empty( $settings->comment_border_style ) ? 'border-style: ' . $settings->comment_border_style . ' !important' : '';
 						$style[ 'wrapper' ][] = ! empty( $settings->comment_border_color ) ? 'border-color: ' . $settings->comment_border_color . ' !important' : '';
 					}
-		
+					
 					if( ! empty( $settings->comment_first_font_size ) ) {
 						$style['first-row'][] = 'font-size: ' . $settings->comment_first_font_size . 'px';
 					}
@@ -434,17 +508,17 @@ class NotificationX_Public {
 		}
 	}
 	/**
-	 * This function is responsible for generate css for preview
-	 * its use when advance edit button is clicked.
-	 * @param stdClass $settings
-	 * @param string $key
-	 * @return string
-	 */
+	* This function is responsible for generate css for preview
+	* its use when advance edit button is clicked.
+	* @param stdClass $settings
+	* @param string $key
+	* @return string
+	*/
 	public static function generate_css_for_preview( $settings, $key = 'wrapper' ){
 		if( empty( $settings ) ) return;
 		$style = $image_style = $content_style = $first_row_font = $second_row_font = $third_row_font = [];
 		$css_string = $css = '';
-
+		
 		switch( $settings->display_type ) {
 			case 'conversions' : 
 				$style[ 'wrapper' ][] = ! empty( $settings->bg_color ) ? 'background-color: ' . $settings->bg_color : '';
@@ -455,7 +529,7 @@ class NotificationX_Public {
 					$style[ 'wrapper' ][] = ! empty( $settings->border_style ) ? 'border-style: ' . $settings->border_style : '';
 					$style[ 'wrapper' ][] = ! empty( $settings->border_color ) ? 'border-color: ' . $settings->border_color : '';
 				}
-	
+				
 				if( ! empty( $settings->first_font_size ) ) {
 					$style['first-row'][] = 'font-size: ' . $settings->first_font_size . 'px';
 				}
@@ -476,7 +550,7 @@ class NotificationX_Public {
 					$style[ 'wrapper' ][] = ! empty( $settings->comment_border_style ) ? 'border-style: ' . $settings->comment_border_style : '';
 					$style[ 'wrapper' ][] = ! empty( $settings->comment_border_color ) ? 'border-color: ' . $settings->comment_border_color : '';
 				}
-	
+				
 				if( ! empty( $settings->comment_first_font_size ) ) {
 					$style['first-row'][] = 'font-size: ' . $settings->comment_first_font_size . 'px';
 				}

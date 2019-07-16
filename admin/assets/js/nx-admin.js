@@ -2,186 +2,184 @@
 	'use strict';
 
 	/**
-	 * All of the code for your admin-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
+	 * NotificationX Admin JS
 	 */
 
-	var NotificationX_Admin = {
+	$.notificationx = $.notificationx || {};
 
-		init: function(){
-			NotificationX_Admin.notificationStatus();
-			NotificationX_Admin.bindEvents();
-			NotificationX_Admin.initFields();
-		},
+	$(document).ready(function(){
+		$.notificationx.init();
+		$('body').on('click', '.nx-metatab-menu li, .nx-builder-tab-menu li, .nx-meta-next, .nx-quick-builder-btn', 
+		function(e){
+			e.preventDefault();
+			$.notificationx.tabChanger( this );
+		});
+		$('body').on('click', '.nx-single-theme-wrapper', 
+		function(e){
+			e.preventDefault();
+			$.notificationx.templateForTheme();
+		});
+	});
 
-		initFields: function(){
-			NotificationX_Admin.initSelect2();
-			$('.notificationx-metabox-wrapper .nx-meta-field:not(#nx_meta_conversion_from)').trigger('change');
-			NotificationX_Admin.initColorField();
-			NotificationX_Admin.initGroupField();
-		},
+	$( window ).load(function(){
+		$('.nx-preloader').fadeOut({
+			complete: function(){
+				$('.nx-metatab-inner-wrapper').fadeIn();
+			}
+		});
 
-		bindEvents: function(){
-			$('body').delegate( '.nx-settings-menu li', 'click', function( e ) {
-				NotificationX_Admin.settingsTab( this );
-            } );
-			$('body').delegate( '.nx-submit-general', 'click', function( e ) {
-				e.preventDefault();
-				NotificationX_Admin.submitSettings( this );
-            } );
-			$('body').delegate( '.nx-opt-alert', 'click', function( e ) {
-				NotificationX_Admin.fieldAlert( this );
-            } );
-			$('body').delegate( '.nx-section-reset', 'click', function( e ) {
-				e.preventDefault();
-				NotificationX_Admin.resetSection( this );
-            } );
-			$('body').delegate( '.nx-meta-field', 'change', function( ) {
-				NotificationX_Admin.fieldChange( this );
-            } );
-			$('body').delegate( '.nx-meta-next, .nx-quick-builder-btn', 'click', function(e) {
-				e.preventDefault();
-				NotificationX_Admin.tabChanger( this );
-            } );
-			$('body').delegate( '.nx-single-theme-wrapper', 'click', function(e) {
-				e.preventDefault();
-				NotificationX_Admin.selectImage( this );
-            } );
-			$('body').delegate( '.nx-group-field .nx-group-field-title', 'click', function(e) {
-				e.preventDefault();
-				if( $( e.srcElement ).hasClass( 'nx-group-field-title' ) ) {
-					NotificationX_Admin.groupToggle( this );
-				}
-			} );
-			$('body').delegate( '.nx-group-field .nx-group-remove', 'click', function() {
-				NotificationX_Admin.removeGroup(this);
-			} );
-			$('body').delegate( '.nx-group-field .nx-group-clone', 'click', function() {
-                NotificationX_Admin.cloneGroup(this);
-            } );
-			$('body').delegate( '.nx-media-field-wrapper .nx-media-upload-button', 'click', function(e) {
-				e.preventDefault();
-                NotificationX_Admin.initMediaField(this);
-            } );
-			$('body').delegate( '.nx-media-field-wrapper .nx-media-remove-button', 'click', function(e) {
-				e.preventDefault();
-                NotificationX_Admin.removeMedia(this);
-			} );
-			$('body').delegate( '.nx-optin-button', 'click', function(e) {
-				e.preventDefault();
-                NotificationX_Admin.optinAllowOrNot(this);
-			} );
-		},
+		$('body').on('change', '#nx_meta_display_type', function(){
+			var type = $(this).val();
+			switch( type ) {
+				case 'conversions' : 
+					$('#nx_meta_conversion_from').trigger('change');
+					$('#nx_meta_advance_edit').trigger('change');
+					break;
+				case 'comments' : 
+					$('#nx_meta_comments_source').trigger('change');
+					$('#nx_meta_comment_advance_edit').trigger('change');
+					break;
+				case 'reviews' : 
+					$('#nx_meta_reviews_source').trigger('change');
+					$('#nx_meta_wporg_advance_edit').trigger('change');
+					break;
+				case 'download_stats' : 
+					$('#nx_meta_stats_source').trigger('change');
+					$('#nx_meta_wpstats_advance_edit').trigger('change');
+					$('.nx-wpstats_theme .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
+					break;
+			}
+			$.notificationx.templateForTheme();
+		});
 
-		initSelect2 : function(){
-			$('.nx-meta-field').map(function( iterator, item ){
-				var node = item.nodeName;
+		$('body').on('change', '#nx_meta_wp_stats_template_new #nx_meta_wp_stats_template_new_third_param', function(){
+			var value = $(this).val();
+			if( value == 'tag_custom_stats' ) {
+				return '';
+			}
+			
+			$('#nx_meta_wp_stats_template_new #nx_meta_wp_stats_template_new_fourth_param').val( value + '_text' ).trigger('change');
+		});
 
-				if( node === 'SELECT' ) {
-					$(item).select2();
+		$('body').on('change', '#nx_meta_conversion_from', function(){
+			var conv_source = $(this).val();
+			switch( conv_source ) {
+				case 'woocommerce' : 
+					$('#nx_meta_woo_template_adv').trigger('change');
+					break;
+				case 'edd' : 
+					$('#nx_meta_edd_template_adv').trigger('change');
+					break;
+			}
+		});
+
+		$('body').on('change', '#nx_meta_reviews_source', function(){
+			var source = $(this).val();
+			switch( source ) {
+				case 'wp_reviews' : 
+					$('#nx_meta_wp_reviews_template_adv').trigger('change');
+					$('.nx-wporg_theme .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
+					break;
+			}
+		});
+
+		$('body').on('change', '#nx_meta_stats_source', function(){
+			var source = $(this).val();
+			switch( source ) {
+				case 'wp_stats' : 
+					$('#nx_meta_wp_stats_template_adv').trigger('change');
+					break;
+			}
+		});
+
+		$('body').on('change', '.nx-builder-content-wrapper #nx_meta_display_type.nx-select', function( e ){
+			var type = $(this).val(),
+				title = e.currentTarget.selectedOptions[0].innerText,
+				options = { year: 'numeric', month: 'short', day: 'numeric' },
+				date = ( new Date() ).toLocaleDateString('en-US', options);
+			if( type === 'conversions' ) {
+				$('body').on('change', '#nx_meta_conversion_from.nx-select', function( e ){
+					var title = e.currentTarget.selectedOptions[0].innerText;
+					$('.finalize_notificationx_name').text("NotificationX - " + title + ' - ' + date);
+				});
+				$('#nx_meta_conversion_from.nx-select').trigger('change');
+			} else {
+				$('.finalize_notificationx_name').text("NotificationX - " + title + ' - ' + date);
+			}
+		});
+
+		$('#nx_meta_display_type').trigger('change');
+	});
+
+	$.notificationx.init = function(){
+		$.notificationx.enabledDisabled();
+		$.notificationx.toggleFields();
+		$.notificationx.bindEvents();
+		$.notificationx.initializeFields();
+	};
+
+	$.notificationx.templateForTheme = function(){
+		var source, templateID, themeID,
+			type = $('#nx_meta_display_type').val();
+
+		if( type === 'press_bar' ) {
+			return;
+		}
+		source = $('#nx_meta_' + notificationx.source_types[type]).val();
+		if( notificationx.theme_sources.hasOwnProperty( source ) ) {
+			if( typeof notificationx.theme_sources[ source ] === 'object' ) {
+				themeID = $( '#nx_meta_' + notificationx.theme_sources[ source ][ type ] ).val();
+			} else {
+				themeID = $( '#nx_meta_' + notificationx.theme_sources[ source ] ).val();
+			}
+		}
+		if( notificationx.template_keys.hasOwnProperty( source ) ) {
+			if( typeof notificationx.template_keys[ source ] === 'object' ) {
+				templateID = $( '#nx_meta_' + notificationx.template_keys[ source ][ type ] );
+			} else {
+				templateID = $( '#nx_meta_' + notificationx.template_keys[ source ] );
+			}
+		}
+
+		if( templateID.length <= 0 ) {
+			return;
+		}
+
+		var templateDivID = templateID.attr('id');
+		if( Object.keys( notificationx.template_settings ).indexOf( templateDivID ) >= 0 && Object.keys( notificationx.template_settings[templateDivID] ).indexOf( themeID ) >= 0 ) {
+			var themeOBJ = notificationx.template_settings[templateDivID][themeID];
+			templateID.find('input, select').each(function( i, item ){
+				var subKey = $( item ).data('subkey');
+				if( Object.keys( themeOBJ ).indexOf( subKey ) >= 0 ) {
+					if( item.type === 'text' && item.nodeName === 'INPUT' ) {
+						$( item ).val( themeOBJ[ subKey ] );
+					} else {
+						$( item ).val( themeOBJ[ subKey ] ).trigger('change');
+					}
 				}
 			});
-		},
+		}
+	};
 
-		tabChanger : function( button ){
-			var button = $( button ),
-				totalTab = button.parents('.nx-metatab-wrapper').data('totaltab'),
-				tabID = button.data('tabid'),
-				tab = $( '#nx-' + button.data('tab') );
+	$.notificationx.bindEvents = function(){
+		$('#nx_meta_show_on').trigger('change');
 
-			if( totalTab + 1 == tabID ){
-				$('#publish').trigger('click');
+		$('body').on('click', '.nx-single-theme-wrapper', function(){
+			$.notificationx.selectTheme( this )
+		});
+
+		//Advance Checkbox with SweetAlear
+		$('body').on('click', '.nx-adv-checkbox-wrap label', function( e ){
+			if( typeof $(this)[0].dataset.swal == 'undefined' ) {
 				return;
 			}
-
-			$('.nx-metatab-menu li[data-tabid="'+ tabID +'"]').trigger('click');
-			$('.nx-builder-tab-menu li[data-tabid="'+ tabID +'"]').trigger('click');
-		},
-
-		selectImage : function( image ){
-			var imgParent = $( image ),
-				img = imgParent.find('img'),
-				value = img.data('theme'),
-				wrapper = $( imgParent.parents('.nx-theme-control-wrapper') ),
-				inputID = wrapper.data('name');
-
-			imgParent.addClass('nx-theme-selected').siblings().removeClass('nx-theme-selected');
-			$('#' + inputID).val( value );
-			imgParent.trigger('change');
-		},
-
-		notificationStatus : function(){
-			$('.wp-list-table .column-notification_status img').off('click').on('click', function(e) {
-				e.stopPropagation();
-				var $this       = $(this),
-					isActive    = $(this).attr('src').indexOf('active1.png') >= 0,
-					postID      = $(this).data('post'),
-					nonce       = $(this).data('nonce');
-	
-				if ( isActive ) {
-					$this.attr('src', $this.attr('src').replace('active1.png', 'active0.png'));
-					$this.attr('title', 'Inactive').attr('alt', 'Inactive');
-				} else {
-					$this.attr('src', $this.attr('src').replace('active0.png', 'active1.png'));
-					$this.attr('title', 'Active').attr('alt', 'Active');
-				}
-	
-				$.ajax({
-					type: 'post',
-					url: ajaxurl,
-					data: {
-						action: 'notifications_toggle_status',
-						post_id: postID,
-						nonce: nonce,
-						status: isActive ? 'inactive' : 'active'
-					},
-					success: function(res) {
-						if ( res !== 'success' ) {
-							alert( res );
-							isActive = $this.attr('src').indexOf('active1.png') >= 0;
-							if ( isActive ) {
-								$this.attr('src', $this.attr('src').replace('active1.png', 'active0.png'));
-								$this.attr('title', 'Inactive').attr('alt', 'Inactive');
-							} else {
-								$this.attr('src', $this.attr('src').replace('active0.png', 'active1.png'));
-								$this.attr('title', 'Active').attr('alt', 'Active');
-							}
-						}
-					}
-				});
-			});
-		},
-
-		fieldAlert: function( element ){
-			// var element = $( element );
-
+			if( typeof $(this)[0].dataset.swal != 'undefined' ) {
+				e.preventDefault();
+			}
 			var premium_content = document.createElement("p");
 			var premium_anchor = document.createElement("a");
 				
-			premium_anchor.setAttribute( 'href', 'https://wpdeveloper.net/in/notificationx-pro' );
+			premium_anchor.setAttribute( 'href', 'https://notificationx.com' );
 			premium_anchor.innerText = 'Premium';
 			premium_anchor.style.color = 'red';
 			premium_content.innerHTML = 'You need to upgrade to the <strong>'+ premium_anchor.outerHTML +' </strong> Version to use this feature';
@@ -193,718 +191,633 @@
 				buttons   : [false, "Close"],
 				dangerMode: true,
 			});
-		},
+		});
 
-		resetSection: function( button ){
-			var button = $( button ),
-				parent = button.parents('.nx-meta-section'),
-				fields = parent.find('.nx-meta-field'), updateFields = [];
-			
-			window.fieldsss = fields;
-			fields.map(function(iterator, item){ 
-				var item = $( item ),
-					default_value = item.data( 'default' );
-
-				item.val( default_value );
-
-				if( item.hasClass('wp-color-picker') ) {
-					item.parents('.wp-picker-container').find('.wp-color-result').removeAttr('style')
-				}
-				if( item[0].id == 'nx_meta_border' ){
-					item.trigger('click');
-				} else {
-					item.trigger('change');
-				}
-			});
-		},
-
-		fieldChange: function( input ){
-			var field   = $(input),
-                id  = field.attr('id'),
-                toggle  = field.data('toggle'),
-                hide    = field.data('hide'),
-                val     = field.val(),
-				i       = 0;
-
-			if ( 'checkbox' === field.attr('type') ) {
-				if( ! field.is(':checked') ) {
-					val = 0;
-				} else {
-					val = 1;
-				}
-			} 
-
-			if ( field.hasClass('nx-theme-selected') ) {
-				id = field.parents('.nx-theme-control-wrapper').data('name');
-				val = $( '#' + id ).val();
+		/**
+		 * Group Field Events
+		 */
+		$('body').delegate( '.nx-group-field .nx-group-field-title', 'click', function(e) {
+			e.preventDefault();
+			if( $( e.srcElement ).hasClass( 'nx-group-field-title' ) ) {
+				$.notificationx.groupToggle( this );
 			}
+		});
+		$('body').delegate( '.nx-group-field .nx-group-clone', 'click', function() {
+			$.notificationx.cloneGroup(this);
+		} );
+		$('body').on( 'click', '.nx-group-field .nx-group-remove', function() {
+			$.notificationx.removeGroup(this);
+		});
 
-			// TOGGLE sections or fields.
-			if ( typeof toggle !== 'undefined' ) {
+		/**
+		 * Media Field
+		 */
+		$('body').delegate( '.nx-media-field-wrapper .nx-media-upload-button', 'click', function(e) {
+			e.preventDefault();
+			$.notificationx.initMediaField( this );
+		});
+		$('body').delegate( '.nx-media-field-wrapper .nx-media-remove-button', 'click', function(e) {
+			e.preventDefault();
+			$.notificationx.removeMedia(this);
+		});
 
-				if ( typeof toggle !== 'object' ) {
-					toggle = JSON.parse(toggle);
-				}
-				for(i in toggle) {
-					NotificationX_Admin.fieldToggle(toggle[i].fields, 'hide', '#nx-meta-', '', id);
-					NotificationX_Admin.fieldToggle(toggle[i].sections, 'hide', '#nx-meta-section-', '', id);
-				}
+		/**
+		 * Settings Tab
+		 */
+		$('body').delegate( '.nx-settings-menu li', 'click', function( e ) {
+			$.notificationx.settingsTab( this );
+		} );
+		$('body').delegate( '.nx-submit-general', 'click', function( e ) {
+			e.preventDefault();
+			var form = $( this ).parent('#nx-settings-general-form');
+			$.notificationx.submitSettings( this, form );
+		} );
+		$('body').delegate( '.nx-submit-cache_settings_tab', 'click', function( e ) {
+			e.preventDefault();
+			var form = $( this ).parent('#nx-settings-cache_settings_tab-form');
+			$.notificationx.submitSettings( this, form );
+		} );
 
-				if(typeof toggle[val] !== 'undefined') {
-					NotificationX_Admin.fieldToggle(toggle[val].fields, 'show', '#nx-meta-', '', id);
-					NotificationX_Admin.fieldToggle(toggle[val].sections, 'show', '#nx-meta-section-', '', id);
-				}
+		$('body').delegate( '.nx-opt-alert', 'click', function( e ) {
+			$.notificationx.fieldAlert( this );
+		} );
 
-			}
-
-			// HIDE sections or fields.
-    		if ( typeof hide !== 'undefined' ) {
-
-                if ( typeof hide !== 'object' ) {
-    			    hide = JSON.parse(hide);
-				}
+		/**
+		 * Reset Section Settings
+		 */
+		$('body').delegate( '.nx-section-reset', 'click', function( e ) {
+			e.preventDefault();
+			$.notificationx.resetSection( this );
+		} );
+	};
+	/**
+	 * This function is responsible for 
+	 * enabling and disabling the notificationXs
+	 */
+	$.notificationx.enabledDisabled = function(){
+		$('.nx-admin-status label').on('click', function(e) {
+            e.stopPropagation();
+            var $this    = $(this),
+                postID   = $this.data('post'),
+                nonce    = $this.data('nonce'),
+                siblings = $this.siblings('input'),
+                $swal     = $this.data('swal'),
+				isActive = siblings.is(':checked');
 				
-    			if(typeof hide[val] !== 'undefined') {
-    				NotificationX_Admin.fieldToggle(hide[val].fields, 'hide', '#nx-meta-', '', id);
-    				NotificationX_Admin.fieldToggle(hide[val].sections, 'hide', '#nx-meta-section-', '', id);
-    			}
-			}
-		},
-
-		fieldToggle: function( array, func, prefix, suffix  ){
-			var i = 0;
-			
-			suffix = 'undefined' == typeof suffix ? '' : suffix;
-    		if(typeof array !== 'undefined') {
-    			for( ; i < array.length; i++) {
-    				$(prefix + array[i] + suffix)[func]();
-    			}
-    		}
-		},
-
-		initColorField: function(){
-			if ( 'undefined' !== typeof $.fn.wpColorPicker ) {
-                // Add Color Picker to all inputs that have 'mbt-color-picker' class.
-                $( '.nx-colorpicker-field' ).each(function() {
-                    var color = $(this).val();
-                    $(this).wpColorPicker({
-                        change: function(event, ui) {
-                            var element = event.target;
-                            var color = ui.color.toString();
-							$(element).parents('.wp-picker-container').find('input.nx-colorpicker-field').val(color).trigger('change');
-                        }
-                    }).parents('.wp-picker-container').find('.wp-color-result').css('background-color', '#' + color);
-                });
-            }
-		},
-		initGroupField : function(){
-
-			if( $('.nx-group-field-wrapper').length < 0 ) {
+			if( $swal ) {
+				var premium_content = document.createElement("p");
+				var premium_anchor = document.createElement("a");
+					
+				premium_anchor.setAttribute( 'href', 'https://wpdeveloper.net/in/notificationx-pro' );
+				premium_anchor.innerText = 'Premium';
+				premium_anchor.style.color = 'red';
+				premium_content.innerHTML = 'You need to upgrade to the <strong>'+ premium_anchor.outerHTML +' </strong> Version to use multiple notification for same type.';
+				
+				swal({
+					title     : "Opps...",
+					content   :  premium_content,
+					icon      : "warning",
+					buttons   : [false, "Close"],
+					dangerMode: true,
+				});
 				return;
 			}
 
-			var fields = $('.nx-group-field-wrapper');
-
-			fields.each(function(){
-
-				var $this  = $( this ),
-					groups = $this.find('.nx-group-field'),
-					firstGroup   = $this.find('.nx-group-field:first'),
-					lastGroup   = $this.find('.nx-group-field:last');
-
-				groups.each(function() {
-					var groupContent = $(this).find('.nx-group-field-title:not(.open)').next();
-					if ( groupContent.is(':visible') ) {
-						groupContent.addClass('open');
-					}
-				});
-
-				$this.find('.nx-group-field-add').on('click', function( e ){
-					e.preventDefault();
-
-					var fieldId     = $this.attr('id'),
-					    dataId      = $this.data( 'name' ),
-					    wrapper     = $this.find( '.nx-group-fields-wrapper' ),
-					    groups      = $this.find('.nx-group-field'),
-					    firstGroup  = $this.find('.nx-group-field:first'),
-					    lastGroup   = $this.find('.nx-group-field:last'),
-					    clone       = $( $this.find('.nx-group-template').html() ),
-					    groupId     = parseInt( lastGroup.data('id') ),
-					    nextGroupId = groupId + 1,
-					    title       = clone.data('group-title');
-
-					groups.each(function() {
-						$(this).removeClass('open');
-					});
-
-					// Reset all data of clone object.
-					clone.attr('data-id', nextGroupId);
-					clone.addClass('open');
-					// clone.find('.nx-group-field-title > span').html(title + ' ' + nextGroupId);
-					clone.find('tr.nx-field[id*='+fieldId+']').each(function() {
-						var fieldName       = dataId;
-						var fieldNameSuffix = $(this).attr('id').split('[1]')[1];
-						var nextFieldId     = fieldName + '[' + nextGroupId + ']' + fieldNameSuffix;
-						var label           = $(this).find('th label');
-
-						$(this).find('[name*="'+fieldName+'[1]"]').each(function() {
-							var inputName       = $(this).attr('name').split('[1]');
-							var inputNamePrefix = inputName[0];
-							var inputNameSuffix = inputName[1];
-							var newInputName    = inputNamePrefix + '[' + nextGroupId + ']' + inputNameSuffix;
-							$(this).attr('id', newInputName).attr('name', newInputName);
-							label.attr('for', newInputName);
-						});
-
-						$(this).attr('id', nextFieldId);
-					});
-
-					clone.insertBefore( $( this ) );
-				});
-
-			});
-
-		},
-		setDate : function( item ){
-			var date    = new Date();
-			item.find('.nx-group-field-timestamp').val( date.getTime() );
-		},
-		groupToggle : function( input ){
-			var input = $(input),
-				wrapper = input.parents('.nx-group-field');
-
-			if( wrapper.hasClass('open') ) {
-				wrapper.removeClass( 'open' );
-			} else {
-				wrapper.addClass('open').siblings().removeClass('open');
+            if ( isActive ) {
+                $this.siblings('.nx-admin-status-title.nxast-enable').removeClass('active');
+                $this.siblings('.nx-admin-status-title.nxast-disable').addClass('active');
+            } else {
+                $this.siblings('.nx-admin-status-title.nxast-disable').removeClass('active');
+                $this.siblings('.nx-admin-status-title.nxast-enable').addClass('active');
 			}
-		},
-		removeGroup : function( button ){
-			var groupId = $(button).parents('.nx-group-field').data('id'),
-                group   = $(button).parents('.nx-group-field[data-id="'+groupId+'"]');
 
-            group.fadeOut({
-                duration: 300,
-                complete: function() {
-                    $(this).remove();
+            $.ajax({
+                type: 'post',
+                url: window.ajaxurl,
+                data: {
+                    action: 'notifications_toggle_status',
+                    post_id: postID,
+                    nonce: nonce,
+					status: isActive ? 'inactive' : 'active',
+					url : window.location.href
+                },
+                success: function(res) {
+                    if ( res !== 'success' ) {
+                        window.location.href = window.location.href;
+                    }
                 }
             });
-		},
-		cloneGroup : function( button ){
-			var groupId = $(button).parents('.nx-group-field').data('id'),
-				group   = $(button).parents('.nx-group-field[data-id="'+groupId+'"]'),
-				clone   = $( group.clone() ),
-				lastGroup   = $( button ).parents('.nx-group-fields-wrapper').find('.nx-group-field:last'),
-				parent  = group.parent(),
-				nextGroupID = $( lastGroup ).data('id') + 1;
+        });
+	};
 
-			clone.attr('data-id', nextGroupID);
-			clone.insertAfter(group);
-			NotificationX_Admin.resetFieldIds( parent.find('.nx-group-field') );
-		},
-		resetFieldIds : function( groups ){
-			var groupID = 1;
-				
-			groups.each(function() {
-				var group       = $(this),
-					fieldName   = group.data('field-name'),
-					fieldId     = 'nx-' + fieldName,
-					groupInfo   = group.find('.nx-group-field-info').data('info'),
-					subFields   = groupInfo.group_sub_fields;
-
-				group.data('id', groupID);
-
-				subFields.forEach(function( item ){
-					var table_row = group.find('tr.nx-field[id="nx-' + item.field_name + '"]');
-
-					table_row.find('[name*="'+item.field_name+'"]').each(function(){
-						var name = $(this).attr('name'),
-							prefix  = name.split(item.field_name)[0],
-							suffix  = '';
-
-						if ( undefined === prefix ) {
-							prefix = '';
-						}
-						
-						name = name.replace( name, prefix + fieldName + '[' + groupID + '][' + item.original_name + ']' + suffix );
-						$(this).attr('name', name).attr('id', name);
-					});
-
-					group.find('tr.nx-field[id="nx-' + item.field_name + '"]').attr('id', fieldId + '[' + groupID + '][' + item.original_name + ']');
-				});
-				groupID++;
-			});
-		},
-		initMediaField : function( button ){
-
-			var button = $( button ),
-				wrapper = button.parents('.nx-media-field-wrapper'),
-				removeButton = wrapper.find('.nx-media-remove-button'),
-				imgContainer = wrapper.find('.nx-thumb-container'),
-				idField = wrapper.find('.nx-media-id'),
-				urlField = wrapper.find('.nx-media-url');
-
-			// Create a new media frame
-            var frame = wp.media({
-                title: 'Upload Photo',
-                button: {
-                    text: 'Use this photo'
-                },
-                multiple: false  // Set to true to allow multiple files to be selected
-			});
-
-            // When an image is selected in the media frame...
-            frame.on( 'select', function() {
-                // Get media attachment details from the frame state
-                var attachment = frame.state().get('selection').first().toJSON();
-
-                /**
-				 * Set image to the image container
-				 */
-                imgContainer.addClass('nx-has-thumb').append( '<img src="'+attachment.url+'" alt="" style="max-width:100%;"/>' );
-                idField.val( attachment.id ); // set image id
-                urlField.val( attachment.url ); // set image url
-
-                // Hide the upload button
-                button.addClass( 'hidden' );
-
-                // Show the remove button
-                removeButton.removeClass( 'hidden' );
-            });
-
-            // Finally, open the modal on click
-            frame.open();
-		},
-		removeMedia : function( button ) {
-			var button = $( button ),
-				wrapper = button.parents('.nx-media-field-wrapper'),
-				uploadButton = wrapper.find('.nx-media-upload-button'),
-				imgContainer = wrapper.find('.nx-has-thumb'),
-				idField = wrapper.find('.nx-media-id'),
-				urlField = wrapper.find('.nx-media-url');
-
-			imgContainer.removeClass('nx-has-thumb').find('img').remove();
-
-			urlField.val(''); // URL field has to be empty
-			idField.val(''); // ID field has to empty as well
-
-			button.addClass('hidden'); // Hide the remove button first
-			uploadButton.removeClass('hidden'); // Show the uplaod button
-		},
-		shownPreview : function( type ) {
-			if ( type === 'press_bar' ) {
-				$('#nx-notification-preview').hide();
-			} else {
-				$('#nx-notification-preview').removeClass('nx-notification-preview-comments').removeClass('nx-notification-preview-conversions');
-				$('#nx-notification-preview').show().addClass('nx-notification-preview-' + type);
-			}
-		},
-		updatePreview: function( fields ){
-
-			fields.map(function(item, i){
-				var event = item.event || 'change';
-
-				$( item.id ).each(function(){
-
-					$( this ).on( event, function(){
-						var val = $( this ).val(),
-							suffix = '',
-							selector = '.notificationx-inner';
-
-						if( typeof item.selector != 'undefined' ) {
-							selector = item.selector;
-						}
-	
-						if( typeof item.unit != 'undefined' ) {
-							suffix = item.unit;
-						}
-
-						/**
-						 * This lines of code use for removing & adding the border css 
-						 * on CLICK to want border.
-						 */
-						if( event == 'click' && item.field == 'border' ) {
-							window.itemshide = item.hide;
-							if( ! $( this ).is(":checked") ) {
-								item.hide.forEach(function(item){
-									if( item.property == 'border-width' ) {
-										$( selector ).css( item.property, '0px' );
-									} else {
-										$( selector ).css( item.property, '' );
-									}
-								});
-							} else {
-								item.hide.forEach(function(item){
-									var oval = $(item.key).val();
-									$( selector ).css( item.property, oval );
-								});
-							}
-						}
-
-						/**
-						 * For theme changed
-						 */
-						if( item.field == 'nx_theme' ) {
-							var themeField = $( this ).find( 'input' ),
-								theme_name = themeField.val(),
-								prev_theme = themeField.data('prev_theme'),
-								prev_className = 'nx-notification-' + prev_theme,
-								class_name = 'nx-notification-' + theme_name;
-
-							$( selector ).removeClass( prev_className );
-							$( selector ).addClass( class_name );
-							themeField.data( 'prev_theme',  theme_name );
-						}
-	
-						if( typeof item.property != 'undefined' ) {
-							$( selector ).css( item.property, val + suffix );
-						}
-						
-						if( 'image_shape' == item.field || 'comment_image_shape' == item.field ) {
-							$( selector ).removeClass( 'nx-img-circle nx-img-rounded nx-img-square' );
-						}
-						if( 'image_position' == item.field || 'comment_image_position' == item.field ) {
-							$( selector ).removeClass( 'nx-img-left nx-img-right' );
-						}
-	
-						if( ( item.field == 'image_shape' || 'image_position' == item.field ) || ( item.field == 'comment_image_shape' || 'comment_image_position' == item.field ) ) {
-							$( selector ).addClass( 'nx-img-' + val ); 
-							/**
-							 * This lines of code use for layouting the notification preview
-							 */
-							if( 'image_position' == item.field || 'comment_image_position' == item.field ) {
-								if( val == 'left' ) {
-									$( '.notificationx-inner' ).removeClass( 'nx-flex-reverse' );
-								} else {
-									$( '.notificationx-inner' ).addClass( 'nx-flex-reverse' );
-								}
-							}
-						}
-					})
-
-				});
-			});
-		},
-		optinAllowOrNot : function( button ){
-			var button = $( button ),
-			    args   = button.data('args'),
-			    parent = button.parents('.nx-opt-in'),
-			    inputs = parent.find('.nx-single-opt input'),
-			    values = {};
-
-			inputs.each(function(){
-				var input = $(this)[0],
-					id = input.id;
-				if( $( input ).is(':checked') ) {
-					values[ id ] = true;
-				} else {
-					values[ id ] = false;
+	$.notificationx.initializeFields = function(){
+		// NotificationX_Admin.initSelect2();
+		if( $('.nx-meta-field').length > 0 ) {
+			$('.nx-meta-field').map(function( iterator, item ){
+				var node = item.nodeName;
+				if( node === 'SELECT' ) {
+					$(item).select2();
 				}
-			});
-
-			values  = Object.assign(values, args);
-
-			$.ajax({
-				type: 'post',
-				url: ajaxurl,
-				data: {
-					action: 'nx_optin_check',
-					fields : values
-				},
-				success: function(res) {
-					if( res == 'true' || res == 'false' ) {
-						parent.slideToggle( '500' );
-					}
-				}
-			});
-			
-		},
-		settingsTab : function( button ){
-			var button = $(button),
-				tabToGo = button.data('tab');
-
-			button.addClass('active').siblings().removeClass('active');
-			$('#fs-'+tabToGo).addClass('active').siblings().removeClass('active');
-		},
-		submitSettings : function( button ){
-			var button = $(button),
-				submitKey = button.data('key'),
-				nonce = button.data('nonce'),
-				form = button.parent('#nx-settings-general-form'),
-				formData = $( form ).serializeArray();
-		
-			$.ajax({
-				type: 'POST',
-				url: ajaxurl,
-				data: {
-					action: 'nx_general_settings',
-					key: submitKey,
-					nonce: nonce,
-					form_data: formData
-				},
-				success: function(res) {
-					if ( res === 'success' ) {
-						swal({
-							title     : "Settings Saved!",
-							text      : "Click OK to continue",
-							icon      : "success",
-							buttons   : [false, "Ok"],
-						});
-					} else {
-						swal({
-							title     : "Settings Not Saved!",
-							text      : "Click OK to continue",
-							icon      : "success",
-							buttons   : [false, "Ok"],
-						});
-					}
-				}
-			});			
-		},
-		createTitle : function( selector ){
-			$('body').on('change', selector, function( e ){
-				var type = $(this).val(),
-					title = e.currentTarget.selectedOptions[0].innerText,
-					options = { year: 'numeric', month: 'short', day: 'numeric' },
-					date = ( new Date() ).toLocaleDateString('en-US', options);
-				return [ type, title, date ];
 			});
 		}
+		// NotificationX_Admin.initDatepicker();
+		if( $('.nx-countdown-datepicker').length > 0 ) {
+			$('.nx-countdown-datepicker').each(function(){
+				$(this).find('input').datepicker({
+					changeMonth: true,
+					changeYear: true,
+					dateFormat : 'DD, d MM, yy'
+				});
+			});
+		}
+        
+		$('.notificationx-metabox-wrapper .nx-meta-field:not(#nx_meta_conversion_from)').trigger('change');
+		
+		// NotificationX_Admin.initColorField();
+		if( $( '.nx-colorpicker-field' ).length > 0 ){
+			if ( 'undefined' !== typeof $.fn.wpColorPicker ) {
+				$( '.nx-colorpicker-field' ).each(function() {
+					var color = $(this).val();
+					$(this).wpColorPicker({
+						change: function(event, ui) {
+							var element = event.target;
+							var color = ui.color.toString();
+							$(element).parents('.wp-picker-container').find('input.nx-colorpicker-field').val(color).trigger('change');
+						}
+					}).parents('.wp-picker-container').find('.wp-color-result').css('background-color', '#' + color);
+				});
+			}
+		}
+		$.notificationx.groupField();
+		
+		$.notificationx.template();
+		$('.nx-meta-template-editable').trigger('blur');
+	};
+
+	$.notificationx.groupField = function(){
+
+        if( $('.nx-group-field-wrapper').length < 0 ) {
+            return;
+        }
+
+        var fields = $('.nx-group-field-wrapper');
+
+        fields.each(function(){
+
+            var $this  = $( this ),
+                groups = $this.find('.nx-group-field'),
+                firstGroup   = $this.find('.nx-group-field:first'),
+                lastGroup   = $this.find('.nx-group-field:last');
+
+            groups.each(function() {
+                var groupContent = $(this).find('.nx-group-field-title:not(.open)').next();
+                if ( groupContent.is(':visible') ) {
+                    groupContent.addClass('open');
+                }
+            });
+
+            $this.find('.nx-group-field-add').on('click', function( e ){
+                e.preventDefault();
+
+                var fieldId     = $this.attr('id'),
+                    dataId      = $this.data( 'name' ),
+                    wrapper     = $this.find( '.nx-group-fields-wrapper' ),
+                    groups      = $this.find('.nx-group-field'),
+                    firstGroup  = $this.find('.nx-group-field:first'),
+                    lastGroup   = $this.find('.nx-group-field:last'),
+                    clone       = $( $this.find('.nx-group-template').html() ),
+                    groupId     = parseInt( lastGroup.data('id') ),
+                    nextGroupId = 1,
+					title       = clone.data('group-title');
+					
+				if( ! isNaN( groupId ) ) {
+					nextGroupId = groupId + 1;
+				}
+			
+                groups.each(function() {
+                    $(this).removeClass('open');
+                });
+
+                // Reset all data of clone object.
+                clone.attr('data-id', nextGroupId);
+                clone.addClass('open');
+                // clone.find('.nx-group-field-title > span').html(title + ' ' + nextGroupId);
+                clone.find('tr.nx-field[id*='+fieldId+']').each(function() {
+                    var fieldName       = dataId;
+                    var fieldNameSuffix = $(this).attr('id').split('[1]')[1];
+                    var nextFieldId     = fieldName + '[' + nextGroupId + ']' + fieldNameSuffix;
+                    var label           = $(this).find('th label');
+
+                    $(this).find('[name*="'+fieldName+'[1]"]').each(function() {
+                        var inputName       = $(this).attr('name').split('[1]');
+                        var inputNamePrefix = inputName[0];
+                        var inputNameSuffix = inputName[1];
+                        var newInputName    = inputNamePrefix + '[' + nextGroupId + ']' + inputNameSuffix;
+                        $(this).attr('id', newInputName).attr('name', newInputName);
+                        label.attr('for', newInputName);
+                    });
+
+                    $(this).attr('id', nextFieldId);
+                });
+
+				clone.insertBefore( $( this ) );
+				
+				$.notificationx.resetFieldIds( $('.nx-group-field') );
+            });
+
+        });
+
 	};
 
 	/**
-	 * NotificationX Admin Fired
-	 * when the document is ready.
+	 * This function will change tab 
+	 * with menu click & Next Previous Button Click
 	 */
-	$(document).ready(function() {
-		/**
-		 * Current Tab Manage
-		 */
-		var $tabMenu = $('.nx-metatab-menu, .nx-builder-tab-menu');
-		$tabMenu.on( 'click', 'li', function(){
-			var $tab = $(this).data( 'tab' ),
-				tabID = $(this).data('tabid') - 1;
-			$('#nx_builder_current_tab').val( $tab );
+	$.notificationx.tabChanger = function( buttonName ){
+		var button = $( buttonName ),
+			tabID = button.data('tabid'),
+			tabKey = button.data('tab'), tab;
 
-			$tabMenu.find('li').each(function(i){
+		if( tabKey != '' ) {
+			tab = $( '#nx-' + tabKey );
+			$('#nx_builder_current_tab').val( tabKey );
+		}
+	
+		if( buttonName.nodeName !== 'BUTTON' ) {
+			button.parent().find('li').each(function( i ){
 				if( i < tabID ) {
-					$(this).addClass('nx-complete');
+					$( this ).addClass('nx-complete');
 				} else {
-					$(this).removeClass('nx-complete');
+					$( this ).removeClass('nx-complete');
 				}
 			});
-			$(this).addClass( 'active' ).siblings().removeClass('active');
-			$('#nx-' + $tab).addClass( 'active' ).siblings().removeClass('active');
-		});
 
-		NotificationX_Admin.init();
-	});
-	
-	$( window ).load(function(){
-		$('body').on('change', '#nx_meta_display_type', function(){
-			var type = $(this).val();
-			NotificationX_Admin.shownPreview( type );
-			if( type == 'conversions' ) {
-				$('#nx_meta_conversion_from').trigger('change');
-			}
-		});
+			button.addClass( 'active' ).siblings().removeClass('active');
+			tab.addClass( 'active' ).siblings().removeClass('active');
+			return;
+		}
+		if( tab === undefined ){
+			$('#publish').trigger('click');
+			return;
+		}
+		$('.nx-metatab-menu li[data-tabid="'+ tabID +'"]').trigger('click');
+		$('.nx-builder-tab-menu li[data-tabid="'+ tabID +'"]').trigger('click');
+	};
 
-		$('body').on('change', '#nx_meta_display_type.nx-select', function( e ){
-			var type = $(this).val(),
-				title = e.currentTarget.selectedOptions[0].innerText,
-				options = { year: 'numeric', month: 'short', day: 'numeric' },
-				date = ( new Date() ).toLocaleDateString('en-US', options);
-			if( type === 'conversions' ) {
-				$('body').on('change', '#nx_meta_conversion_from.nx-select', function( e ){
-					var type = $(this).val(),
-						title = e.currentTarget.selectedOptions[0].innerText;
-					$('.finalize_notificationx_name').text("NotificationX - " + title + ' - ' + date);
-				});
-				$('#nx_meta_conversion_from.nx-select').trigger('change');
-			} else {
-				$('.finalize_notificationx_name').text("NotificationX - " + title + ' - ' + date);
-			}
-		});
+	$.notificationx.toggleFields = function(){
+		$( "body" ).delegate( '.nx-meta-field', 'change', function( e ) {
+                $.notificationx.checkDependencies( this );
+            }
+		);
+	};
 
-		$('#nx_meta_display_type').trigger('change');
+	$.notificationx.toggle = function( array, func, prefix, suffix, id) {
+		var i = 0;
+		suffix = 'undefined' == typeof suffix ? '' : suffix;
 
-		var fields = [
-			{
-				id: [ "#nx_meta_bg_color", "#nx_meta_comment_bg_color" ],
-				field: "bg_color",
-				property : "background-color",
-			},
-			{
-				id: [ "#nx_meta_text_color", "#nx_meta_comment_text_color" ],
-				field: "text_color",
-				property : "color",
-			},
-			{
-				id: [ "#nx_meta_border", "#nx_meta_comment_border" ],
-				field: "border",
-				event : "click",
-				selector : ".notificationx-inner",
-				hide : [
-					{ 'key': '#nx_meta_border_size', 'property' : 'border-width' }, 
-					{ 'key': '#nx_meta_border_style', 'property' : 'border-style' }, 
-					{ 'key': '#nx_meta_border_color', 'property' : 'border-color' },
-					{ 'key': '#nx_meta_comment_border_size', 'property' : 'border-width' }, 
-					{ 'key': '#nx_meta_comment_border_style', 'property' : 'border-style' }, 
-					{ 'key': '#nx_meta_comment_border_color', 'property' : 'border-color' }, 
-				],
-			},
-			{
-				id: [ "#nx_meta_border_size", "#nx_meta_comment_border_size" ],
-				field: "border_size",
-				event : "keyup",
-				property : "border-width",
-				selector : ".notificationx-inner",
-				unit : "px",
-			},
-			{
-				id: [ "#nx_meta_border_style", "#nx_meta_comment_border_style" ],
-				field: "border_style",
-				property : "border-style",
-				selector : ".notificationx-inner",
-			},
-			{
-				id: [ "#nx_meta_border_color", "#nx_meta_comment_border_color" ],
-				field: "border_color",
-				property : "border-color",
-				selector : ".notificationx-inner",
-			},
-			{
-				id: [ "#nx_meta_image_shape", "#nx_meta_comment_image_shape" ],
-				field: "image_shape",
-				selector: ".nx-preview-image > img",
-			},
-			{
-				id: [ "#nx_meta_image_position", "#nx_meta_comment_image_position" ],
-				field: "image_position",
-				selector: ".notificationx-inner",
-			},
-			{
-				id: [ "#nx_meta_first_font_size", "#nx_meta_comment_first_font_size" ],
-				field: "first_font_size",
-				selector: ".nx-first-row",
-				property : "font-size",
-				event : "keyup",
-				unit : "px",
-			},
-			{
-				id: [ "#nx_meta_second_font_size", "#nx_meta_comment_second_font_size" ],
-				field: "second_font_size",
-				selector: ".nx-second-row",
-				property : "font-size",
-				event : "keyup",
-				unit : "px",
-			},
-			{
-				id: [ "#nx_meta_third_font_size", "#nx_meta_comment_third_font_size" ],
-				field: "third_font_size",
-				selector: ".nx-third-row",
-				property : "font-size",
-				event : "keyup",
-				unit : "px",
-			},
-			{
-				id: [ "#nx-meta-theme", "#nx-meta-comment_theme" ],
-				field: "nx_theme",
-				event : "change",
-				selector: ".notificationx-inner",
-			},
-		];
-
-		NotificationX_Admin.updatePreview( fields );
-
-
-		/**
-		 * TODO: Advance Edit Preview 
-		 * have to done with a better way, 
-		 * FIXME: Multiple id not working, precedence problem maybe. 
-		 */
-		var defaultsAdvancedDesign = [
-			{
-				id: [ '#nx_meta_image_shape', '#nx_meta_bg_color', '#nx_meta_text_color', '#nx_meta_image_position' ],
-				event : "change",
-				type: 'conversions'
-			},
-			{
-				id: [ '#nx_meta_border_color', '#nx_meta_border_style' ],
-				event : "change",
-				type: 'conversions',
-				dependency: '#nx_meta_border'
-			},
-			{
-				id: [ '#nx_meta_border_size' ],
-				event : "keyup",
-				type: 'conversions',
-				dependency: '#nx_meta_border'
-			},
-			{
-				id: [ '#nx_meta_first_font_size', '#nx_meta_second_font_size', '#nx_meta_third_font_size' ],
-				event : "keyup",
-				type: 'conversions',
-			},
-			{
-				id: [ '#nx_meta_comment_image_shape', '#nx_meta_comment_bg_color', '#nx_meta_comment_text_color', '#nx_meta_comment_image_position' ],
-				event : "change",
-				type: 'comments'
-			},
-			{
-				id: [ '#nx_meta_comment_border_color', '#nx_meta_comment_border_style' ],
-				event : "change",
-				type: 'comments',
-				dependency: '#nx_meta_comment_border'
-			},
-			{
-				id: [ '#nx_meta_comment_border_size' ],
-				event : "keyup",
-				type: 'comments',
-				dependency: '#nx_meta_comment_border'
-			},
-			{
-				id: [ '#nx_meta_comment_first_font_size', '#nx_meta_comment_second_font_size', '#nx_meta_comment_third_font_size' ],
-				event : "keyup",
-				type: 'comments',
-			}
-		];
-
-		$('.nx-meta-adv_checkbox').each(function(){
-			var buttonAdv = $(this);
-			
-			buttonAdv.on('click', 'label', function( e ){
-				var checked = false, i, j;
-				var listItems = defaultsAdvancedDesign.length;
-				if( $(buttonAdv).find('input').is(":checked") ) {
-					$('.notificationx-inner').removeAttr('style');
-					$('.notificationx-inner').removeClass('nx-img-left nx-img-right nx-flex-reverse');
-					$('.notificationx-image > img').removeClass();
-					return;
+		if(typeof array !== 'undefined') {
+			for( ; i < array.length; i++) {
+				var selector = prefix + array[i] + suffix;
+				if( notificationx.template.indexOf( id ) >= 0 ) {
+					selector = "#nx_meta_" + id + "_" + array[i] + suffix;
 				}
 
-				for( i = 0; i < listItems; i++ ) {
-					var itemD = defaultsAdvancedDesign[ i ];
-					var itemLen = itemD.id.length;
-					for( j = 0; j < itemLen; j++ ) {
-						var cItem = $( itemD.id[j] );
-						var type = $( '#nx_meta_display_type' ).val();
-						if( type === itemD.type ) { 
-							if( typeof itemD.dependency != 'undefined' ) {
-								checked = $( itemD.dependency + ':checked' ).length > 0 ? true : false;
-								if( checked ) {
-									$( cItem ).trigger( itemD.event );
-									return;
+				$(selector)[func]();
+			}
+		}
+	};
+
+	$.notificationx.checkDependencies = function( variable ){
+		if ( notificationx.toggleFields === null ) {
+			return;
+		}
+
+		var current = $( variable ),
+			container = current.parents( '.nx-field:first' ),
+			id = container.data( 'id' ),
+			value = current.val();
+		
+		if ( 'checkbox' === current.attr('type') ) {
+			if( ! current.is(':checked') ) {
+				value = 0;
+			} else {
+				value = 1;
+			}
+		}
+
+		if ( current.hasClass('nx-theme-selected') ) {
+			var currentTheme = current.parents('.nx-theme-control-wrapper').data('name');
+			value = $( '#' + currentTheme ).val();
+		}
+
+		var mainid = id;
+		
+		if( notificationx.template.indexOf( id ) >= 0 ) {
+			id = current.data('subkey');
+		}
+
+		if ( notificationx.toggleFields.hasOwnProperty( id ) ) {
+			var canShow = notificationx.toggleFields[id].hasOwnProperty( value );
+			var canHide = true;
+			if( notificationx.hideFields[id] ) {
+				var canHide = notificationx.hideFields[id].hasOwnProperty( value );
+			}
+			
+			if( notificationx.toggleFields.hasOwnProperty( id ) && canHide ) {
+				$.each(notificationx.toggleFields[id], function( key, array ){
+					$.notificationx.toggle(array.fields, 'hide', '#nx-meta-', '', mainid);
+					$.notificationx.toggle(array.sections, 'hide', '#nx-meta-section-', '', mainid);
+				})
+			}
+	
+			if( canShow ) {
+				$.notificationx.toggle(notificationx.toggleFields[id][value].fields, 'show', '#nx-meta-', '', mainid);
+				$.notificationx.toggle(notificationx.toggleFields[id][value].sections, 'show', '#nx-meta-section-', '', mainid);
+			}
+		}
+
+		if( notificationx.hideFields.hasOwnProperty( id ) ) {
+			var hideFields = notificationx.hideFields[id];
+
+			if( hideFields.hasOwnProperty( value ) ) {
+				$.notificationx.toggle(hideFields[ value ].fields, 'hide', '#nx-meta-', '', mainid);
+				$.notificationx.toggle(hideFields[ value ].sections, 'hide', '#nx-meta-section-', '', mainid);
+			}
+		}
+
+	};
+
+	$.notificationx.selectTheme = function( image ){
+		var imgParent = $( image ),
+			img = imgParent.find('img'),
+			value = img.data('theme'),
+			wrapper = $( imgParent.parents('.nx-theme-control-wrapper') ),
+			inputID = wrapper.data('name');
+
+		imgParent.addClass('nx-theme-selected').siblings().removeClass('nx-theme-selected');
+		$('#' + inputID).val( value );
+		imgParent.trigger('change');
+	};
+
+	$.notificationx.groupToggle = function( group ){
+		var input = $( group ),
+			wrapper = input.parents('.nx-group-field');
+
+		if( wrapper.hasClass('open') ) {
+			wrapper.removeClass( 'open' );
+		} else {
+			wrapper.addClass('open').siblings().removeClass('open');
+		}
+	};
+
+	$.notificationx.removeGroup = function( button ){
+		var groupId = $(button).parents('.nx-group-field').attr('data-id'),
+			group   = $(button).parents('.nx-group-field[data-id="'+groupId+'"]'),
+			parent  = group.parent();
+
+		group.fadeOut({
+			duration: 300,
+			complete: function() {
+				$(this).remove();
+			}
+		});
+
+		$.notificationx.resetFieldIds( parent.find('.nx-group-field') );
+	};
+
+	$.notificationx.cloneGroup = function( button ){
+		var groupId = $(button).parents('.nx-group-field').attr('data-id'),
+			group   = $(button).parents('.nx-group-field[data-id="'+groupId+'"]'),
+			clone   = $( group.clone() ),
+			lastGroup   = $( button ).parents('.nx-group-fields-wrapper').find('.nx-group-field:last'),
+			parent  = group.parent(),
+			nextGroupID = $( lastGroup ).data('id') + 1;
+			
+		group.removeClass('open');
+
+		clone.attr('data-id', nextGroupID);
+		clone.insertAfter( group );
+		$.notificationx.resetFieldIds( parent.find('.nx-group-field') );
+	};
+
+	$.notificationx.resetFieldIds = function( groups ){
+		if( groups.length <= 0 ) {
+			return;
+		}
+		var groupID = 0;
+
+		groups.map(function( iterator, item ){
+
+			var item = $(item),
+				fieldName = item.data('field-name'),
+				groupInfo = item.find( '.nx-group-field-info' ).data('info'),
+				subFields = groupInfo.group_sub_fields;
+
+			item.attr('data-id', groupID);
+
+			var table_row = item.find('tr.nx-field');
+			
+			table_row.each(function( i, child ){
+
+				var child = $( $( child )[0] ),
+					childInput = child.find( '[name*="nx_meta_'+fieldName+'"]' ),
+					key = childInput.attr('data-key'),
+					subKey = subFields[i].original_name,
+					dataID = fieldName + "["+ groupID + "][" + subKey + "]",
+					idName = 'nx-meta-' + dataID,
+					inputName = 'nx_meta_' + dataID;
+
+				child.attr( 'data-id', dataID );
+				child.attr( 'id', idName );
+
+				childInput.attr('id', inputName);
+				childInput.attr('name', inputName);
+				childInput.attr('data-key', dataID);
+
+				// if( childInput.length > 1 ) {
+				// 	childInput.each(function(i, subInput){
+				// 	});
+				// }
+			});
+
+			groupID++;
+		});
+	}
+
+	$.notificationx.initMediaField = function( button ){
+		var button = $( button ),
+			wrapper = button.parents('.nx-media-field-wrapper'),
+			removeButton = wrapper.find('.nx-media-remove-button'),
+			imgContainer = wrapper.find('.nx-thumb-container'),
+			idField = wrapper.find('.nx-media-id'),
+			urlField = wrapper.find('.nx-media-url');
+
+		// Create a new media frame
+		var frame = wp.media({
+			title: 'Upload Photo',
+			button: {
+				text: 'Use this photo'
+			},
+			multiple: false  // Set to true to allow multiple files to be selected
+		});
+
+		// When an image is selected in the media frame...
+		frame.on( 'select', function() {
+			// Get media attachment details from the frame state
+			var attachment = frame.state().get('selection').first().toJSON();
+			/**
+			 * Set image to the image container
+			 */
+			imgContainer.addClass('nx-has-thumb').append( '<img src="'+attachment.url+'" alt="" style="max-width:100%;"/>' );
+			idField.val( attachment.id ); // set image id
+			urlField.val( attachment.url ); // set image url
+			// Hide the upload button
+			button.addClass( 'hidden' );
+			// Show the remove button
+			removeButton.removeClass( 'hidden' );
+		});
+		// Finally, open the modal on click
+		frame.open();
+	};
+
+	$.notificationx.removeMedia = function( button ){
+		var button = $( button ),
+			wrapper = button.parents('.nx-media-field-wrapper'),
+			uploadButton = wrapper.find('.nx-media-upload-button'),
+			imgContainer = wrapper.find('.nx-has-thumb'),
+			idField = wrapper.find('.nx-media-id'),
+			urlField = wrapper.find('.nx-media-url');
+
+		imgContainer.removeClass('nx-has-thumb').find('img').remove();
+
+		urlField.val(''); // URL field has to be empty
+		idField.val(''); // ID field has to empty as well
+
+		button.addClass('hidden'); // Hide the remove button first
+		uploadButton.removeClass('hidden'); // Show the uplaod button
+	};
+
+	$.notificationx.fieldAlert = function( button ){
+		var premium_content = document.createElement("p");
+		var premium_anchor = document.createElement("a");
+			
+		premium_anchor.setAttribute( 'href', 'https://wpdeveloper.net/in/notificationx-pro' );
+		premium_anchor.innerText = 'Premium';
+		premium_anchor.style.color = 'red';
+		premium_content.innerHTML = 'You need to upgrade to the <strong>'+ premium_anchor.outerHTML +' </strong> Version to use this feature';
+		
+		swal({
+			title     : "Opps...",
+			content   :  premium_content,
+			icon      : "warning",
+			buttons   : [false, "Close"],
+			dangerMode: true,
+		});
+	};
+
+	$.notificationx.resetSection = function( button ){
+		var button = $( button ),
+			parent = button.parents('.nx-meta-section'),
+			fields = parent.find('.nx-meta-field'), updateFields = [];
+		
+		window.fieldsss = fields;
+		fields.map(function(iterator, item){ 
+			var item = $( item ),
+				default_value = item.data( 'default' );
+
+			item.val( default_value );
+
+			if( item.hasClass('wp-color-picker') ) {
+				item.parents('.wp-picker-container').find('.wp-color-result').removeAttr('style')
+			}
+			if( item[0].id == 'nx_meta_border' ){
+				item.trigger('click');
+			} else {
+				item.trigger('change');
+			}
+		});
+	};
+
+	$.notificationx.settingsTab = function( button ){
+		var button = $(button),
+			tabToGo = button.data('tab');
+
+		button.addClass('active').siblings().removeClass('active');
+		$('#nx-'+tabToGo).addClass('active').siblings().removeClass('active');
+	};
+
+	$.notificationx.submitSettings = function( button, form ){
+		var button = $(button),
+			submitKey = button.data('key'),
+			nonce = button.data('nonce'),
+			formData = $( form ).serializeArray();
+
+		$.ajax({
+			type: 'POST',
+			url: ajaxurl,
+			data: {
+				action: 'nx_general_settings',
+				key: submitKey,
+				nonce: nonce,
+				form_data: formData
+			},
+			success: function(res) {
+				if ( res === 'success' ) {
+					swal({
+						title     : "Settings Saved!",
+						text      : "Click OK to continue",
+						icon      : "success",
+						buttons   : [false, "Ok"],
+					});
+				} else {
+					swal({
+						title     : "Settings Not Saved!",
+						text      : "Click OK to continue",
+						icon      : "success",
+						buttons   : [false, "Ok"],
+					});
+				}
+			}
+		});
+	};
+
+	$.notificationx.template = function( e ){
+		$('.nx-meta-template-editable').prop('disabled',true);
+
+		$('.nx-meta-template-editable').on('blur', function(){
+			var editable = $(this),
+				template = editable[0].innerText,
+				splitedTemplate = template.trim().split("\n"),
+				res, newItemLine = [], final;
+			var nextSiblingsChild = editable[0].nextElementSibling.children;
+			
+			if( splitedTemplate != null ) {
+				splitedTemplate.forEach(function( item, i ){
+					if( item != '' ) {
+						var pattern = /\{\{[^\s]*\}\}/g;
+						var templateVar = item.match( pattern );
+
+						$(nextSiblingsChild[i]).val( item ); // set value in hidden field!
+
+						if( templateVar != null ) {
+							templateVar.forEach(function( childParam, iterator ){
+								if( iterator > 0 ) {
+									res = res.replace( childParam, '<span style="color:red">' + childParam + '</span>' );
 								} else {
-									continue;
+									res = item.replace( childParam, '<span style="color:red">' + childParam + '</span>' );
 								}
-							}
-							$( cItem ).trigger( itemD.event );
+							});
+							newItemLine.push( res );
+						} else {
+							newItemLine.push( item );
 						}
 					}
-				}
-			});
+				});
+			}
+			final = newItemLine.join( '<br>' );
+			editable.html( final );
 		});
+	};
 
-	});
+
 })( jQuery );

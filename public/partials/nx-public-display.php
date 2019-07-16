@@ -11,22 +11,32 @@
  * @package    NotificationX
  * @subpackage NotificationX/public/partials
  */
-$type = $key = $settings->display_type;
+$type = $extension_name = $key = '';
+$type = $extension_name = $key = NotificationX_Helper::get_type( $settings );
 $data = apply_filters('nx_fields_data', $data, $settings->id );
+
 /**
  * Set the key
  * which is use to get data out of it!
  */
 if( 'conversions' === $type ) {
     $key = $settings->conversion_from;
+    $extension_name = $key;
 }
+
 $from = strtotime( '-' . intval( $settings->display_from ) . ' days');
 
-if( $settings->display_type == 'conversions' && $settings->conversion_from == 'custom' ) {
+$key = apply_filters( 'nx_data_key', $key, $settings );
+
+if( $settings->display_type == 'conversions' && $settings->conversion_from == 'custom_notification' ) {
     $data[ $key ] = $settings->custom_contents;
 }
+
 if( ! empty( $data[ $key ] ) ) {
-    $new_data = NotificationX_Helper::sortBy( $data[ $key ], $key );
+    $new_data = apply_filters( 'nx_filtered_data', NotificationX_Helper::sortBy( $data[ $key ], $key ), $settings );
+    if( ! is_array( $new_data ) ) {
+        return;
+    }
     foreach( $new_data as $value ) {
         /**
          * It will break the loop when the 
@@ -37,7 +47,7 @@ if( ! empty( $data[ $key ] ) ) {
                 break;
             }
         }
-        echo get_extension_frontend( $key, $value, $settings );
+        echo get_extension_frontend( $extension_name, $value, $settings );
     }
 }
 

@@ -23,21 +23,51 @@ function notificationx_builder_args() {
                                 'label'     => __('I would like to display' , 'notificationx'),
                                 'default'   => 'press_bar',
                                 'options'   => NotificationX_Helper::notification_types(),
-                                'toggle'   => [
-                                    'comments'    => NotificationX_Helper::comments_toggle_data(),
-                                    'press_bar'   => NotificationX_Helper::press_bar_toggle_data(),
-                                    'conversions' => NotificationX_Helper::conversions_toggle_data(),
-                                ],
+                                'dependency' => array(
+                                    'comments'       => NotificationX_Helper::comments_toggle_data(),
+                                    'press_bar'      => NotificationX_Helper::press_bar_toggle_data(),
+                                    'conversions'    => NotificationX_Helper::conversions_toggle_data(),
+                                    'reviews'        => NotificationX_ToggleFields::reviews(),
+                                    'download_stats' => NotificationX_ToggleFields::stats(),
+                                ),
                                 'hide' => NotificationX_Helper::hide_data( 'display_types' ),
                                 'priority' => 50
                             ),
+                            'reviews_source'  => apply_filters('nx_reviews_source', array(
+                                'type'     => 'select',
+                                'label'    => __('Source' , 'notificationx'),
+                                'default'  => 'wp_reviews',
+                                'options'  => NotificationX_Helper::reviews_source(),
+                                'priority' => 51,
+                            )),
+                            'stats_source'  => apply_filters('nx_stats_source', array(
+                                'type'     => 'select',
+                                'label'    => __('Source' , 'notificationx'),
+                                'default'  => 'wp_stats',
+                                'options'  => NotificationX_Helper::stats_source(),
+                                'priority' => 52,
+                            )),
+                            'comments_source'  => apply_filters('nx_comments_source', array(
+                                'type'     => 'select',
+                                'label'    => __('Source' , 'notificationx'),
+                                'default'  => 'wp_comments',
+                                'options'  => NotificationX_Helper::comments_source(),
+                                'priority' => 53,
+                            )),
                             'conversion_from'  => array(
                                 'type'     => 'select',
-                                'label'    => __('From' , 'notificationx'),
-                                'default'  => 'custom',
+                                'label'    => __('Source' , 'notificationx'),
+                                'default'  => 'woocommerce',
                                 'options'  => NotificationX_Helper::conversion_from(),
                                 'priority' => 60,
-                                'toggle'   => NotificationX_Helper::conversion_toggle(),
+                                'dependency' => array(
+                                    'woocommerce' => NotificationX_ToggleFields::woocommerce(),
+                                    'edd' => NotificationX_ToggleFields::edd()
+                                ),
+                                'hide' => array(
+                                    'woocommerce' => NotificationX_ToggleFields::woocommerce_hide(),
+                                    'edd' => NotificationX_ToggleFields::edd_hide()
+                                ),
                             ),
                             'press_content' => array(
                                 'type'     => 'editor',
@@ -131,19 +161,19 @@ function notificationx_builder_args() {
                                     'on_selected'      => __('Show On Selected' , 'notificationx'),
                                     'hide_on_selected' => __('Hide On Selected' , 'notificationx'),
                                 ],
-                                'toggle' => [
-                                    'on_selected' => [ 
-                                        'fields' => [ 'all_locations' ]
-                                    ],
-                                    'hide_on_selected' => [ 
-                                        'fields' => [ 'all_locations' ]
-                                    ]
-                                ],
                                 'hide' => [
                                     'everywhere' => [ 
                                         'fields' => [ 'all_locations' ]
                                     ],
                                 ],
+                                'dependency' => array(
+                                    'on_selected' => [
+                                        'fields' => [ 'all_locations' ]
+                                    ],
+                                    'hide_on_selected' => [
+                                        'fields' => [ 'all_locations' ]
+                                    ]
+                                ),
                             ),
                             'all_locations'  => array(
                                 'type'      => 'select',
@@ -153,14 +183,26 @@ function notificationx_builder_args() {
                             ),
                             'show_on_display'  => array(
                                 'type'      => 'select',
-                                'label'     => __('Display' , 'notificationx'),
+                                'label'     => __('Display For' , 'notificationx'),
                                 'priority'	=> 200,
                                 'options'   => [
-                                    'always'          => __('Always' , 'notificationx'),
+                                    'always'          => __('Everyone' , 'notificationx'),
                                     'logged_out_user' => __('Logged Out User' , 'notificationx'),
                                     'logged_in_user'  => __('Logged In User' , 'notificationx'),
                                 ],
-                            )
+                            ),
+                            'show_notification_image'  => array(
+                                'type'           => 'select',
+                                'builder_hidden' => true,
+                                'label'          => __('Image' , 'notificationx'),
+                                'priority'       => 201,
+                                'defualt'        => 'product_image',
+                                'options'        => apply_filters('nx_show_image_options', array(
+                                    'product_image' => __('Product Image' , 'notificationx'),
+                                    'gravatar'      => __('Gravatar' , 'notificationx'),
+                                    'none'          => __('None' , 'notificationx'),
+                                )),
+                            ),
                         ),
                     ),
                 )
@@ -169,7 +211,6 @@ function notificationx_builder_args() {
                 'title'         => __('Finalize', 'notificationx'),
                 'icon'          => 'cog.svg',
                 'sections'      => array(
-                    
                 )
             ),
         ))

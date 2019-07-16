@@ -29,7 +29,11 @@ class NotificationX_DB {
      * @param string $name
      * @return array
      */
-    public static function get_settings( $name = '' ){
+    public static function get_settings( $name = '', $key = '' ){
+        if( ! empty( $key ) ) {
+            $settings = get_option( $key );
+            return $settings;
+        }
         $settings = get_option( 'notificationx_settings', true );
         
         if( ! empty( $name ) && isset( $settings[ $name ] ) ) {
@@ -47,7 +51,10 @@ class NotificationX_DB {
      * @param array $value
      * @return boolean
      */
-    public static function update_settings( $value ){
+    public static function update_settings( $value, $key = '' ){
+        if( ! empty( $key ) ) {
+            return update_option( $key, $value );
+        }
         return update_option( 'notificationx_settings', $value );
     }
 }

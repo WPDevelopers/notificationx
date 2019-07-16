@@ -13,7 +13,7 @@
 
 <div class="nx-group-field-wrapper" id="<?php echo $id; ?>" data-name="<?php echo $name; ?>">
     <script type="text/html" class="nx-group-template">
-        <div class="nx-group-field" data-id="1" data-field-name="<?php echo $parent_key;?>">
+        <div class="nx-group-field" data-id="0" data-field-name="<?php echo $parent_key;?>">
             <h4 class="nx-group-field-title">
                 <span><?php echo _e( $group_title ); ?></span>
                 <div class="nx-group-controls">
@@ -25,7 +25,7 @@
                 <table>
                     <?php 
                         foreach( $fields as $inner_key => $inner_field ) {
-                            $name = $parent_key . '[1][' . $inner_key . ']';
+                            $name = $parent_key . '[0][' . $inner_key . ']';
                             $group_field_info['group_field'] = $parent_key;
                             $group_field_info['group_sub_fields'][] = array(
                                 'field_name'    => $name,
@@ -42,7 +42,7 @@
 
     <div class="nx-group-fields-wrapper">
         <?php if( empty( $group_value ) ) : ?>
-            <div class="nx-group-field" data-id="1" data-field-name="<?php echo $parent_key;?>">
+            <div class="nx-group-field" data-id="0" data-field-name="<?php echo $parent_key;?>">
                 <h4 class="nx-group-field-title">
                     <span><?php echo _e( $group_title ); ?></span>
                     <div class="nx-group-controls">
@@ -55,7 +55,7 @@
                         <?php 
                             $group_field_info = array();
                             foreach( $fields as $inner_key => $inner_field ) {
-                                $name = $parent_key . '[1][' . $inner_key . ']';
+                                $name = $parent_key . '[0][' . $inner_key . ']';
 
                                 $group_field_info['group_field'] = $parent_key;
                                 $group_field_info['group_sub_fields'][] = array(

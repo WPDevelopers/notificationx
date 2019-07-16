@@ -4,18 +4,18 @@ class NotificationX_Locations {
 
     public static function locations( $type = 'global' ) {
         $locations = array(
-			'is_front_page'  => __( 'Front page', 'notificationx' ),
-			'is_home'        => __( 'Blog page', 'notificationx' ),
-			'is_singular'    => __( 'All posts, pages and custom post types', 'notificationx' ),
-			'is_single'      => __( 'All posts', 'notificationx' ),
-			'is_page'        => __( 'All pages', 'notificationx' ),
-			'is_attachment'  => __( 'All attachments', 'notificationx' ),
-			'is_search'      => __( 'Search results', 'notificationx' ),
-			'is_404'         => __( '404 error page', 'notificationx' ),
-			'is_archive'     => __( 'All archives', 'notificationx' ),
-			'is_category'    => __( 'All category archives', 'notificationx' ),
-			'is_tag'         => __( 'All tag archives', 'notificationx' ),
-		);
+            'is_front_page'  => __( 'Front page', 'notificationx' ),
+            'is_home'        => __( 'Blog page', 'notificationx' ),
+            'is_singular'    => __( 'All posts, pages and custom post types', 'notificationx' ),
+            'is_single'      => __( 'All posts', 'notificationx' ),
+            'is_page'        => __( 'All pages', 'notificationx' ),
+            'is_attachment'  => __( 'All attachments', 'notificationx' ),
+            'is_search'      => __( 'Search results', 'notificationx' ),
+            'is_404'         => __( '404 error page', 'notificationx' ),
+            'is_archive'     => __( 'All archives', 'notificationx' ),
+            'is_category'    => __( 'All category archives', 'notificationx' ),
+            'is_tag'         => __( 'All tag archives', 'notificationx' ),
+        );
 
         if ( 'global' == $type ) {
             return $locations;

@@ -14,6 +14,7 @@ a.notificationx-link {
     width: 100%;
     height: 100%;
     outline: none;
+    /* z-index: 999; */
 }
 .nx-notification.nx-bottom_right {
     right: 30px;
@@ -97,16 +98,18 @@ span.notificationx-close > svg {
 
 .notificationx-content {
     float: left;
+    min-width: 200px;
 }
 .notificationx-content > span {
     display: block;
 }
 .nx-first-row {
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.2;
 }
 .nx-second-row {
-    font-size: 15px;
+    margin: 5px 0;
+    font-size: 14px;
     font-weight: bolder;
     line-height: 1.5;
 }
@@ -129,11 +132,12 @@ span.notificationx-close > svg {
 .nx-bar {
     background: #ddd;
     position: absolute;
-    z-index: 9;
+    z-index: 999999;
     visibility: hidden;
     width: 100%;
     left: 0;
     text-align: center;
+    transition: height 0.3s ease-in-out 0s;
 }
 .nx-bar .nx-bar-inner {
     padding: 20px;
@@ -194,6 +198,12 @@ a.nx-bar-button:hover {
     position: absolute;
     left: 0;
 }
+
+.nx-sticky-bar {
+    position: fixed;
+    width: 100%;
+}
+
 
 /*
     NotificationX CountDown CSS
@@ -303,10 +313,16 @@ a.nx-bar-button:hover {
 }
 .nx-branding svg {
     position: relative;
-    top: 3px;
+    top: 4px;
 }
 a.nx-powered-by {
     cursor: pointer;
+    color: #5614D5;
+    transition: all .3s ease-in-out;
+    text-decoration: none;
+}
+a.nx-powered-by:hover {
+    color: #21D8A3;
 }
 
 /* Theme specific CSS */
@@ -315,18 +331,51 @@ a.nx-powered-by {
     border: 1px solid #f2f2f2;
 }
 
-.notificationx-inner.nx-notification-theme-two {
+.notificationx-inner.nx-notification-theme-two,
+.notificationx-inner.nx-notification-total-download,
+.notificationx-inner.nx-notification-review_saying,
+.notificationx-inner.nx-notification-reviewed {
     border-radius: 50px;
     padding-right: 50px;
 }
 
-.notificationx-inner.nx-notification-theme-two span.notificationx-close {
+.notificationx-inner.nx-notification-theme-two span.notificationx-close,
+.notificationx-inner.nx-notification-review_saying span.notificationx-close,
+.notificationx-inner.nx-notification-reviewed span.notificationx-close,
+.notificationx-inner.nx-notification-total-download span.notificationx-close {
     right: 20px;
     top: 25px;
 }
 
-.nx-notification-theme-two .nx-branding {
+.nx-notification-theme-two .nx-branding, 
+.nx-notification-review_saying .nx-branding, 
+.nx-notification-reviewed .nx-branding, 
+.nx-notification-total-download .nx-branding {
     right: 20px;
+}
+.nx-notification-total-download .notificationx-content .nx-first-row,
+.nx-notification-today-download .notificationx-content .nx-first-row,
+.nx-notification-7day-download .notificationx-content .nx-first-row,
+.nx-notification-actively_using .notificationx-content .nx-second-row,
+.nx-notification-review_saying .notificationx-content .nx-second-row {
+    color: #6c63ff;
+}
+
+.nx-download_stats .nx-notification-actively_using .notificationx-content .nx-first-row {
+    font-weight: 400;
+}
+.nx-download_stats .nx-notification-actively_using .notificationx-content .nx-second-row {
+    font-weight: 700;
+}
+
+.nx-notification-total-download .notificationx-content .nx-third-row,
+.nx-notification-today-download .notificationx-content .nx-third-row,
+.nx-notification-7day-download .notificationx-content .nx-third-row {
+    color: #999;
+}
+
+.nx-notification-review_saying .notificationx-content {
+    max-width: 250px;
 }
 
 /* Comments Theme Three */
@@ -377,4 +426,13 @@ a.nx-powered-by {
     left: 19px;
     top: 50%;
     margin-top: -4px;
+}
+
+.nx-download_stats .nx-notification-theme-two {}
+.nx-download_stats .notificationx-content .nx-first-row {
+    font-weight: 700;
+}
+.nx-download_stats .notificationx-content .nx-second-row {
+    font-size: 12px;
+    font-weight: 400;
 }

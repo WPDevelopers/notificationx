@@ -6,6 +6,7 @@ class NotificationX_Template {
 		/**
 		 * If template is in array format, lets break it down and make HTML markup.
 		 */
+		
 		if ( is_array( $template ) ) {
 			$html = '';
 			for ( $i = 0; $i < count( $template ); $i++ ) {
