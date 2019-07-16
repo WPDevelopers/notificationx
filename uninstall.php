@@ -22,7 +22,7 @@
  * @link       https://wpdeveloper.net
  * @since      1.0.0
  *
- * @package    FomoPress
+ * @package    NotificationX
  */
 
 // If uninstall not called from WordPress, then exit.

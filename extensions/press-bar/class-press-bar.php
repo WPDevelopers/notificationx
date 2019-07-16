@@ -1,6 +1,6 @@
 <?php
 
-class FomoPress_PressBar_Extension extends FomoPress_Extension {
+class NotificationX_PressBar_Extension extends NotificationX_Extension {
     /**
      *  Type of notification.
      *

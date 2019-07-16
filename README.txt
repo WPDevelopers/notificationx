@@ -1,78 +1,148 @@
-=== WPFomo - Fomo Notification for WordPress ===
-Contributors: re_enter_rupok, Asif2BD
-Donate link: https://wpdeveloper.net
-Tags: fomo, notifier, fomo notification
+=== NotificationX - Ultimate Free Social Proof & FOMO Plugin ===
+Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul
+Donate link: http://notificationx.com
+Tags: sales notification, fomo, social proof, live sales feed, recent sales notification, woocommerce sales, recent purchase, popups, boost sales
 Requires at least: 4.0
-Tested up to: 4.8.2
-Stable tag: 1.0.0
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tested up to: 5.2
+Requires PHP: 5.4
+Stable tag: 1.1.1
+License: GPLv3
+License URI: https://opensource.org/licenses/GPL-3.0
 
-Fomo notification for WordPress.
+Want to build instant credibility for your business and boost your conversion rate right away? 97% of your total website visitors don’t buy the product due to the lack of trust and credibility.
 
 == Description ==
 
-This is a simple plugin, does a very interesting task. Activate this plugin, it will create a viral effect on your site.
-
-Fomo is the short version of "Fear of Missing Out", It teases your user, showing others are active on your site. You could use this plugin for various purpose and could deliver an important message in an amazing way as well.
-
-Just activate the plugin, head over to the WPFomo setting menu, add your messages, and enjoy the "Fomo" effects.
+Want to build instant credibility for your business and boost your conversion rate right away? 97% of your total website visitors don’t buy the product due to the lack of trust and credibility.
 
 
-**Basic Features:**
+## Influence Your Visitors’ Action Using Social Proof Notification ##
 
-*   **[New]** Ability to add a custom message.
-*   **[New]** Ability to add custom images.
-*   **[New]** Ability to add multiple notices.
+People don’t like being left behind and they love to follow the trends. If your visitors know what other people are buying, reading, commenting then it's more likely that they will get the confidence instantly and they will want to buy it as well. 
 
 
-**Check Our Other Plugins:**
+What is 'FOMO'?
+FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular!
 
-* **[Twitter Cards Meta](https://wordpress.org/plugins/twitter-cards-meta/)** 
-* **[Facebook Secret Meta](https://wordpress.org/plugins/facebook-secret-meta/)** 
-* **[Essential Addons For Elementor](https://wordpress.org/plugins/essential-addons-for-elementor-lite/)** 
-* **[Analytify - Ultimate Google Analytics Dashboard](https://wordpress.org/plugins/wp-analytify/)**
-* **[WP Scheduled Posts](https://wordpress.org/plugins/wp-scheduled-posts/)**
+## Use FOMO to Increase Your Leads, Sales & Engagements ##
+
+[NotificationX](https://notificationx.com) helps you to grab the attention of your website visitors and gain their trust instantly by showing real-time sales and engagement notifications. It creates urgency among your visitors in order to purchase your products right now. 
+
+### FEATURES: ###
+
+- Super simple and easy to set up
+- Customization option to the display locations/pages where you want to show notification 
+- Support WooCommerce and Easy Digital Download
+- Works out of the box with WooCommerce, Easy Digital Downloads.
+- Ability to show across the site, on specific posts, pages or exclude from the specific location
+
+## Boost Conversion Rates Using 6 Different Types of Notification ##
+
+
+1. **Notification Bar:** With “Notification Bar”, you can easily display nice looking special discount offer or important notice on your website. Besides, you can even use a countdown timer to create a sense of urgency among your customers or users to hurry up.
+
+2. **WP Comments:** WP Comments lets you show the recent comments made by users on your posts as a notification alert. This is helpful to gain immediate attention from your visitors to check out the specified posts.
+
+3. **Sales Notifications:** With NotificationX, you can easily design attention-grabbing Sales Notifications to increase your sales rate. If you have WooCommerce or Easy Digital Downloads installed, you can display the recent purchases activity by other customers to influence the website visitors.
+
+4. **WordPress Review:** Showcase your Plugin/Theme reviews from WordPress.org & build credibility. [Source: WordPress, Freemius]
+
+5. **WordPress Download Count:** Display how many people have downloaded your product from WordPress.org recently. [Source: WordPress, Freemius]
+
+6. **Email Subscriptions [PRO]:** MailChimp notification lets you showcase the users who have subscribed to your MailChimp list as a popup on your website. [Source: MailChimp]
+
+### Documentation and Support ###
+
+- For documentation and tutorials go to our [Documentation](https://notificationx.com/docs)
+- If you have any more questions, visit our support on the [Plugin’s Forum](https://wordpress.org/support/plugin/notificationx/)
+- For more information about features, FAQs and documentation, check out our website at [NotificationX](https://notificationx.com)
+
+### Liked Notification X? ###
+
+- Join our Facebook Group
+- Learn from our tutorials on [Youtube Channel](https://wpdeveloper.net/go/youtube-channel)
+- Or rate us on WordPress 
+
+
 == Installation ==
 
 = Modern Way: =
 1. Go to the WordPress Dashboard "Add New Plugin" section.
-2. Search For "WPFomo". 
+2. Search For "NotificationX". 
 3. Install, then Activate it.
 
 = Old Way: =
-1. Upload `wpfomo` to the `/wp-content/plugins/` directory
+1. Upload `notificationx` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 
 
 == Frequently Asked Questions ==
 
-= Does it need any theme customization or anything? =
+= Do I need coding skills to use NotificationX? =
 
-Yes. After activating, headover to the WPFomo setting menu, add your messages, and enjoy the "Fomo" effects.
+Not at all! NotificationX has simple and super user-friendly setup wizard to help you configure the notification without any need of code intervention.
 
+= Can I use NotificationX on non eCommerce websites?
+
+Yes, NotificationX can be used to display comment activity, promotional announcements and more which can be use on any website.
+
+= Do I need to edit my current WordPress theme?
+
+No, NotificationX works seamlessly with any WordPress themes. You just need to install the plugin and you will get the direction for the rest.
+
+= Is our website’s data legally safe with NotificationX?
+
+Yes. Your data is legally safe and we guarantee to not make use of your data under any circumstances.
 
 == Screenshots ==
-
-1. Example Fomo
-2. Option menu (fomo template).
-3. Option menu (fomo items).
-
+1. Overview of few notification
+2. Sales Notification
+3. Comment Notification
+4. Plugin Download Stats
+5. Plugin Review Teaser
+6. Email Subscription Alert
+7. Notification Bar with Countdown
 
 == Changelog ==
 
-= 1.0.0 =
-* A initial release.
+= 1.1.1 - 16/07/2019 =
 
+- WooCommerce and EDD templates improved
+- Quick Builder improved
+- Few minor bugfix and improvement
+
+= 1.1.0 - 07/07/2019 =
+
+- Reshaped the UI for better UX
+- Templating system revamped for better performance
+- Added : Download Stats for WP( Plugins and Themes)
+- Added : Reviews for WP Plugins
+- Lots of minor bugfix and improvement
+
+= 1.0.3 – 17/06/2019 = 
+
+- Fixed : WooCommerce User Data Issue
+- Fixed : Advance Design issue for Stats
+- Lots of minor bugfix and improvements
+
+= 1.0.2 - 08/05/2019 =
+
+- IE issue fixed ( Scripts Updated )
+- Cache Issue Fixed
+- Few bugfix and improvements
+
+= 1.0.1 - 10/04/2019 =
+
+- Timezone issue fixed
+- Scripts updated to vanila JS for better performance
+- Few bugfix and improvements
+
+= 1.0.0 - 20/03/2019 =
+
+* initial release.
 
 
 == Upgrade Notice ==
 
-= 1.0 =
-Initial release.
 
-
-== Donation ==
-
-You may donate to WordPress Foundation.
