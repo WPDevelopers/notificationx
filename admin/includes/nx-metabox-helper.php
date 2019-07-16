@@ -26,11 +26,11 @@ function notificationx_metabox_args(){
                                 'hide'     => NotificationX_Helper::hide_data( 'display_types' ),
                                 'priority' => 50,
                                 'dependency' => array(
-                                    'comments'    => NotificationX_Helper::comments_toggle_data(),
-                                    'press_bar'   => NotificationX_Helper::press_bar_toggle_data(),
-                                    'conversions' => NotificationX_Helper::conversions_toggle_data(),
-                                    'reviews'      => NotificationX_ToggleFields::reviews(),
-                                    'download_stats'       => NotificationX_ToggleFields::stats(),
+                                    'comments'       => NotificationX_ToggleFields::comments(),
+                                    'press_bar'      => NotificationX_Helper::press_bar_toggle_data(),
+                                    'conversions'    => NotificationX_Helper::conversions_toggle_data(),
+                                    'reviews'        => NotificationX_ToggleFields::reviews(),
+                                    'download_stats' => NotificationX_ToggleFields::stats(),
                                 )
                             ) ),
                             'reviews_source'  => apply_filters('nx_reviews_source', array(
@@ -663,6 +663,12 @@ function notificationx_metabox_args(){
                                 'priority'    => 200,
                                 'default'     => 0,
                                 'description' => __(' It will hide the notification on mobile devices.', 'notificationx'),
+                            ),
+                            'sound_checkbox'  => array(
+                                'type'     => 'checkbox',
+                                'priority' => 201,
+                                'default'  => 0,
+                                'class'    => 'hidden',
                             ),
                         ),
                     ),

@@ -271,35 +271,6 @@ class NotificationX_Helper {
         ));
     }
     /**
-     * This function is responsible for comments toggle data
-     * @return array
-     */
-    public static function comments_toggle_data(){
-        return apply_filters('nx_comments_toggle_data', array(
-            'sections' => [
-                'image',
-                'comment_themes',
-                'link_options'
-            ],
-            'fields'   => [
-                'comments_source',
-                'conversion_position',
-                'comments_template_new',
-                'comments_template_adv',
-                // 'comments_template',
-                'show_avatar',
-                'display_last',
-                'display_from',
-                'delay_before',
-                'display_for',
-                'delay_between',
-                'loop',
-                'notification_preview',
-                'conversion_size'
-            ],
-        ));
-    }
-    /**
      * This function is responsible for conversion toggle data
      * @return array
      */
@@ -440,7 +411,7 @@ class NotificationX_Helper {
             'wp_stats_template_new',
             'actively_using_template_new',
             'review_saying_template_new',
-            'edd_template_new',
+            // 'edd_template_new',
             'woo_template_new',
         );
         return $data;
@@ -608,9 +579,39 @@ class NotificationX_Helper {
         return apply_filters( 'nx_template_keys', array( 
             'wp_comments' => 'comments_template_new',
             'woocommerce' => 'woo_template_new',
-            'edd'         => 'edd_template_new',
+            'edd'         => 'woo_template_new',
             'wp_reviews'  => 'wp_reviews_template_new',
             'wp_stats'  => 'wp_stats_template_new',
         ));
+    }
+
+    public static function sound_section( $sec_id, $id, $section ){
+        if( $sec_id === 'appearance' ) {
+            global $post;
+            $checked = get_post_meta( $post->ID, '_nx_meta_sound_checkbox', true );
+            $checked = $checked ? 'checked="true"' : '';
+            $is_pro = class_exists( 'NotificationXPro' ) ? '' : 'data-swal="true"';
+            if( $is_pro ) {
+                $checked = '';
+            }
+
+            $active_class = '';
+            $active_class = 'nx-sound-active';
+
+            ?>
+                <div id="nx-meta-section-sound" class="nx-sound-appearance nx-flex nx-align-items-center">
+                    <div class="nx-left">
+                        <span class="nx-sound-enable <?php echo ! $checked ? $active_class : ''; ?>"><?php _e( 'Enable Sound', 'notificationx' );?></span>
+                        <span class="nx-sound-disable <?php echo $checked ? $active_class : ''; ?>"><?php _e( 'Disable Sound', 'notificationx' );?></span>
+                    </div>
+                    <div class="nx-right">
+                        <div class="nx-styled-checkbox">
+                            <input <?php echo $is_pro; ?> type="checkbox" name="nx_meta_sound_checkbox" id="nx_sound_checkbox" <?php echo $checked; ?>>
+                            <label for="nx_sound_checkbox"></label>
+                        </div>
+                    </div>
+                </div>
+            <?php
+        }
     }
 }

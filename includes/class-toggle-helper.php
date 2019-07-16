@@ -22,6 +22,7 @@ class NotificationX_ToggleFields {
     public static function common_sections(){
         $common_sections = apply_filters( 'nx_meta_common_sections', array(
             'image',
+            'sound',
         ) );
         return $common_sections;
     }
@@ -49,6 +50,8 @@ class NotificationX_ToggleFields {
 
     public static function edd(){
         $fields = self::common_fields();
+        $fields[] = 'woo_template_new';
+        $fields[] = 'woo_template_adv';
         $fields[] = 'conversion_from';
 
         $sections = self::common_sections();
@@ -70,19 +73,31 @@ class NotificationX_ToggleFields {
 
     public static function reviews(){
         $fields = self::common_fields();
+        $sections = self::common_sections();
 
         return apply_filters( 'nx_reviews_toggle_fields', array(
             'fields' => array_merge( $fields, array( 'reviews_source' ) ),
-            'sections' => array( 'image' )
+            'sections' => $sections,
         ));
     }
 
     public static function stats(){
         $fields = self::common_fields();
+        $sections = self::common_sections();
 
         return apply_filters( 'nx_stats_toggle_fields', array(
             'fields' => array_merge( $fields, array( 'stats_source' ) ),
-            'sections' => array( 'image' )
+            'sections' => $sections,
+        ));
+    }
+
+    public static function comments(){
+        $fields = self::common_fields();
+        $sections = self::common_sections();
+
+        return apply_filters( 'nx_comments_toggle_data', array(
+            'fields' => array_merge( $fields, array( 'comments_source', 'comments_template_new', 'comments_template_adv', 'show_avatar' ) ),
+            'sections' => array_merge( $sections, array( 'link_options', 'comment_themes' ) ),
         ));
     }
 

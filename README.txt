@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, live sales feed, recent sales noti
 Requires at least: 4.0
 Tested up to: 5.2
 Requires PHP: 5.4
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -105,6 +105,12 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 7. Notification Bar with Countdown
 
 == Changelog ==
+
+= 1.1.1 - 16/07/2019 =
+
+- WooCommerce and EDD templates improved
+- Quick Builder improved
+- Few minor bugfix and improvement
 
 = 1.1.0 - 07/07/2019 =
 

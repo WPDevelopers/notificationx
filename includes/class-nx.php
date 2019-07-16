@@ -229,7 +229,9 @@ final class NotificationX {
 		add_action( 'init', array( $plugin_admin, 'register') );
 		// add_action( 'init', array( $plugin_admin, 'get_active_items') );
 		add_action( 'admin_init', array( $plugin_admin, 'get_enabled_types') );
+		add_action( 'admin_init', array( $plugin_admin, 'admin_init') );
 		add_action( 'add_meta_boxes', array( $plugin_admin->metabox, 'add_meta_boxes') );
+		add_action( 'nx_before_metabox_tab_section', 'NotificationX_Helper::sound_section', 10, 3 );
 		add_action( 'nx_builder_before_tab', array( $plugin_admin->metabox, 'finalize_builder'), 10, 2 );
 		add_action( 'admin_menu', array( $plugin_admin, 'menu_page') );
 		add_filter( 'parent_file', array(&$plugin_admin, 'highlight_admin_menu'));

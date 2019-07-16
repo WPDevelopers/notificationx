@@ -231,7 +231,7 @@ class NotificationX_Extension {
         }
     }
 
-    protected function notEmpty( $key, $data ){
+    public static function notEmpty( $key, $data ){
         if( isset( $data[ $key ] ) ) {
             if( ! empty( $data[ $key ] ) ) {
                 return true;
@@ -456,7 +456,6 @@ class NotificationX_Extension {
                                     get_post_thumbnail_id( $data['product_id'] ), '_nx_notification_thumb', false 
                                 );
                                 $image_url = is_array( $product_image ) ? $product_image[0] : '';
-                                var_dump( $image_url );
                             }
                         }
                         if( $settings->conversion_from == 'custom_notification' ) {
@@ -505,13 +504,8 @@ class NotificationX_Extension {
 
     public function template_string_by_theme( $template, $old_template, $posts_data ){
         if( NotificationX_Helper::get_type( $posts_data ) === $this->type ) {
-            $theme = NotificationX_Helper::get_theme( $posts_data );
             $breaks_data = apply_filters( 'nx_theme_breaks_data', array( 'br_before' => [ 'third_param', 'fourth_param' ] ));
-            switch( $theme ) {
-                default : 
-                    $template = NotificationX_Helper::regenerate_the_theme( $old_template, $breaks_data );
-                    break;
-            }
+            $template = NotificationX_Helper::regenerate_the_theme( $old_template, $breaks_data );
             return $template;
         }
         return $template;
