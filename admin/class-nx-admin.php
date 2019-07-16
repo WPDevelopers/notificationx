@@ -771,7 +771,6 @@ class NotificationX_Admin {
 				$duplicate_post_id = wp_insert_post( $post_data );
 				$duplicate_post_id = intval( $duplicate_post_id );
 				$get_post_meta = get_metadata( 'post', $nx_post_id );
-				var_dump( $get_post_meta );
 				if( ! empty( $get_post_meta ) ) {
 					foreach( $get_post_meta as $key => $value ){
 						if( in_array( $key, array( '_edit_lock', '_edit_last' ) ) ) {

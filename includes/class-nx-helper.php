@@ -594,10 +594,15 @@ class NotificationX_Helper {
             if( $is_pro ) {
                 $checked = '';
             }
+
+            $active_class = '';
+            $active_class = 'nx-sound-active';
+
             ?>
                 <div id="nx-meta-section-sound" class="nx-sound-appearance nx-flex nx-align-items-center">
                     <div class="nx-left">
-                        <p><?php _e( 'Enabled Sound', 'notificationx' );?></p>
+                        <span class="nx-sound-enable <?php echo ! $checked ? $active_class : ''; ?>"><?php _e( 'Enable Sound', 'notificationx' );?></span>
+                        <span class="nx-sound-disable <?php echo $checked ? $active_class : ''; ?>"><?php _e( 'Disable Sound', 'notificationx' );?></span>
                     </div>
                     <div class="nx-right">
                         <div class="nx-styled-checkbox">

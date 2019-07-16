@@ -1694,18 +1694,24 @@ body.wp-admin.rtl .ui-datepicker {
 
 /* Styled Checkbox */
 .nx-sound-appearance {
-    padding: 0 30px;
+    padding: 10px 30px;
     border: 1px solid #8369ff;
     margin-bottom: 5px;
     border-radius: 5px;
 }
 
-.nx-sound-appearance>div {}
+/* .nx-sound-appearance>div {} */
 
-.nx-sound-appearance>div.nx-left>p {
+.nx-sound-appearance>div.nx-left>span {
     font-size: 18px;
     margin-right: 30px;
+    display: inline-block;
     letter-spacing: 1px;
+    display: none;
+}
+
+.nx-sound-appearance>div.nx-left>span.nx-sound-active {
+    display: inline-block;
 }
 
 .nx-sound-appearance>div.nx-right label {
