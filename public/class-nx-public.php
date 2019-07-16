@@ -109,7 +109,7 @@ class NotificationX_Public {
 	* @since 1.0.0
 	* @return void
 	*/
-	public function get_active_items() {
+	public static function get_active_items() {
 		$args = array(
 			'post_type'         => 'notificationx',
 			'posts_per_page'    => '-1',
@@ -131,7 +131,10 @@ class NotificationX_Public {
 
 		return self::$active;
 	}
-			
+
+	public function pro_extension_ids() {
+		return apply_filters('nx_pro_extetion_ids', array());
+	}
 	public function generate_active_notificationx(){
 		
 		if( empty( self::$active ) ) {
@@ -197,11 +200,8 @@ class NotificationX_Public {
 			}
 			unset( $activeItems[ $id ] );
 		}
-		function pro_extension_ids() {
-			return apply_filters('nx_pro_extetion_ids', array());
-		}
 		do_action( 'nx_active_notificationx', $activeItems );
-		$pro_ext = pro_extension_ids();
+		$pro_ext = $this->pro_extension_ids();
 		/**
 		* Filtered Active IDs
 		*/

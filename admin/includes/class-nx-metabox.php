@@ -95,6 +95,10 @@ class NotificationX_MetaBox {
 
         $class  = 'nx-meta-field';
         $row_class = self::get_row_class( $file_name );
+
+        if( isset( $field['class'] ) && ! empty( $field['class'] ) ) {
+            $row_class .= ' ' . $field['class'];
+        }
         $row_class .= ' nx-' . $key;
                 
         $attrs .= ' data-key="' . esc_attr( $key ) . '"';
@@ -200,15 +204,11 @@ class NotificationX_MetaBox {
                 return $post_id;
             }
         }
-        
         /**
          * Save all meta!
          */ 
         self::save_data( $_POST, $post_id);
         do_action('notificationx_save_post');
-        // TODO: have to redirect main admin page.
-        // $current_url = admin_url('admin.php?page=nx-admin');
-		// wp_safe_redirect( $current_url, 200 );
     }
 
     protected static function template_generate( $main_template, $posts_data = [] ){

@@ -24,7 +24,7 @@ function notificationx_builder_args() {
                                 'default'   => 'press_bar',
                                 'options'   => NotificationX_Helper::notification_types(),
                                 'dependency' => array(
-                                    'comments'       => NotificationX_Helper::comments_toggle_data(),
+                                    'comments'       => NotificationX_ToggleFields::comments(),
                                     'press_bar'      => NotificationX_Helper::press_bar_toggle_data(),
                                     'conversions'    => NotificationX_Helper::conversions_toggle_data(),
                                     'reviews'        => NotificationX_ToggleFields::reviews(),
