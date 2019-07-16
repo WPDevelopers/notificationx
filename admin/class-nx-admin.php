@@ -120,6 +120,9 @@ class NotificationX_Admin {
 	}
 
 	public function redirect_after_publish( $post_ID, $post, $update ){
+		if( ( isset( $_POST['is_quick_builder'] ) && $_POST['is_quick_builder'] == true ) || ( isset( $_GET['action'], $_GET['page'] ) && $_GET['action'] == 'nxduplicate' ) ) {
+			return;
+		}
 		if( isset( $post->post_type ) && $post->post_type == 'notificationx' ) {
 			if( isset( $post->post_status ) && $post->post_status == 'publish' ) {
 				$current_url = admin_url('admin.php?page=nx-admin');
@@ -452,6 +455,9 @@ class NotificationX_Admin {
 	*/
 	public function menu_page(){
 
+		$this->builder_args = NotificationX_MetaBox::get_builder_args();
+		$this->metabox_id   = $this->builder_args['id'];
+
 		if( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
@@ -471,100 +477,6 @@ class NotificationX_Admin {
 			),
 		) );
 
-		$this->builder_args = NotificationX_MetaBox::get_builder_args();
-		$this->metabox_id   = $this->builder_args['id'];
-		$flag               = true;
-		
-		// Enable Disable Redirect for - nx-admin.php in notificationx();
-		$post_status           = self::count_posts();
-		$get_enabled_post      = $post_status->enabled;
-		$get_disabled_post     = $post_status->disabled;
-		$trash_notificationx   = $post_status->trash;
-		$current_url           = admin_url('admin.php?page=nx-admin');
-		if( isset( $_GET['status'], $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
-			if( ( $_GET['status'] == 'disabled' && $get_disabled_post == 0 ) || ( $_GET['status'] == 'trash' && $trash_notificationx == 0 ) || ( $_GET['status'] == 'enabled' && $get_enabled_post == 0 )) {
-				wp_safe_redirect( $current_url, 200 );
-			}
-		}
-		// Duplicating NotificationX
-		if( isset( $_GET['action'], $_GET['page'], $_GET['post'], $_GET['nx_duplicate_nonce'] ) && $_GET['action'] === 'nxduplicate' && $_GET['page'] === 'nx-admin' ) {
-		    if( wp_verify_nonce( $_GET['nx_duplicate_nonce'], 'nx_duplicate_nonce' ) ) {
-		        $nx_post_id = intval( $_GET['post'] );
-		        $get_post = get_post( $nx_post_id );
-		        $post_data = json_decode( json_encode( $get_post ), true );
-		        unset( $post_data['ID'] );
-		        $post_data['post_title'] = $post_data['post_title'] . ' - Copy';
-		        $duplicate_post_id = wp_insert_post( $post_data );
-		        $get_post_meta = get_metadata( 'post', $nx_post_id );
-		        if( ! empty( $get_post_meta ) ) {
-		            foreach( $get_post_meta as $key => $value ){
-		                if( in_array( $key, array( '_edit_lock', '_edit_last' ) ) ) {
-		                    continue;
-		                }
-		                add_post_meta( intval( $duplicate_post_id ), $key, $value[0], true );
-		            }
-		        }
-		        wp_safe_redirect( $current_url, 200 );
-		    }
-		}
-
-		if( isset( $_GET['delete_all'], $_GET['page'] ) && $_GET['delete_all'] == true && $_GET['page'] == 'nx-admin' ) {
-			$notificationx = new WP_Query(array(
-				'post_type' => 'notificationx',
-				'post_status' => array('trash'),
-				'numberposts' => -1,
-			));
-			if( $notificationx->have_posts() ) {
-				while( $notificationx->have_posts() ) : $notificationx->the_post(); 
-					$iddd = get_the_ID();
-					wp_delete_post( $iddd );
-				endwhile;
-				wp_safe_redirect( $current_url, 200 );
-			}
-		}
-
-		/**
-		* Add Submit
-		*/
-		if( isset( $_POST[ 'nx_builder_add_submit' ], $_POST['is_quick_builder'] ) && $_POST['is_quick_builder'] ) :
-			if ( ! isset( $_POST[$this->metabox_id . '_nonce'] ) || ! wp_verify_nonce( $_POST[$this->metabox_id . '_nonce'], $this->metabox_id ) ) {
-				$flag = false;
-			}
-
-			if( $flag ) {
-				if( $_POST['nx_meta_display_type'] == 'press_bar' )  {
-					$title = __('NotificationX - Notification Bar', 'notificationx');
-				} elseif( $_POST['nx_meta_display_type'] == 'comments' )  {
-					$title = __('NotificationX - WP Comments', 'notificationx');
-				} elseif( $_POST['nx_meta_display_type'] == 'conversions' )  {
-					$conversions = NotificationX_Helper::conversion_from();
-					$title = 'NotificationX - ' . $conversions[$_POST['nx_meta_conversion_from']];
-				} else {
-					$title_temp = NotificationX_Helper::notification_types( $_POST['nx_meta_display_type'] );
-					$title = 'NotificationX - ' . $title_temp;
-				}
-				$_POST['post_type'] = 'notificationx';
-				$postdata = array(
-					'post_type'   => 'notificationx',
-					'post_title'  => $title . ' - ' . date( get_option( 'date_format' ), current_time( 'timestamp' ) ),
-					'post_status' => 'publish',
-					'post_author' => get_current_user_id(),
-				);
-				
-				$p_id = wp_insert_post($postdata);
-				if( $p_id || ! is_wp_error( $p_id ) ) {
-					do_action( 'nx_before_builder_submit', $_POST );
-					// saving builder meta data with post
-					NotificationX_MetaBox::save_data( $this->builder_data( $_POST ), $p_id );
-					/**
-					* Safely Redirect to NotificationX Page
-					*/
-					wp_safe_redirect( add_query_arg( array(
-						'page' => 'nx-admin',
-					), admin_url( 'admin.php' ) ) );
-				}
-			}
-		endif;
 		add_menu_page( 'NotificationX', 'NotificationX', 'delete_users', 'nx-admin', array( $this, 'notificationx' ), NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon-colored.png', 80 );
 		foreach( $settings as $slug => $setting ) {
 			$cap  = isset( $setting['capability'] ) ? $setting['capability'] : 'delete_users';
@@ -762,5 +674,164 @@ class NotificationX_Admin {
 	}
 	public static function update_post_meta( $post_id, $key, $value ) {
 		update_post_meta( $post_id, '_nx_meta_' . $key, $value );
+	}
+	/**
+	 * Admin Init For User Interactions
+	 * @return void
+	 */
+	public function admin_init( $hook ){
+		/**
+		 * NotificationX Admin URL
+		 */
+		$current_url = admin_url('admin.php?page=nx-admin');
+		/**
+		 * For Duplicate NotificationX
+		 */
+		$this->duplicate_notificationx( $current_url );
+		/**
+		 * For Empty Trash
+		 */
+		$this->empty_trash( $current_url );
+		/**
+		 * For Enable And Disable
+		 */
+		$this->enable_disable( $current_url );
+		/**
+		 * For Quick Builder Submit
+		 */
+		$this->quick_builder_submit( $current_url );
+	}
+	/**
+	 * For Empty Trash
+	 * @return void
+	 */
+	protected function empty_trash( $current_url = '' ) {
+		if( empty( $current_url ) ) {
+			return;
+		}
+		if( isset( $_GET['delete_all'], $_GET['page'] ) && $_GET['delete_all'] == true && $_GET['page'] == 'nx-admin' ) {
+			$notificationx = new WP_Query(array(
+				'post_type' => 'notificationx',
+				'post_status' => array('trash'),
+				'numberposts' => -1,
+			));
+			if( $notificationx->have_posts() ) {
+				while( $notificationx->have_posts() ) : $notificationx->the_post(); 
+					$iddd = get_the_ID();
+					wp_delete_post( $iddd );
+				endwhile;
+				wp_safe_redirect( $current_url, 200 ); // TODO: after all remove trash redirect.
+				die;
+			}
+		}
+	}
+	/**
+	 * For Enable and Disable NotificationX.
+	 * @param string $current_url
+	 * @return void
+	 */
+	protected function enable_disable( $current_url = '' ){
+		if( empty( $current_url ) ) {
+			return;
+		}
+		// For Enable & Disable
+		if( isset( $_GET['status'], $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
+			$post_status         = self::count_posts();
+			$get_enabled_post    = $post_status->enabled;
+			$get_disabled_post   = $post_status->disabled;
+			$trash_notificationx = $post_status->trash;
+
+			if( ( $_GET['status'] == 'disabled' && $get_disabled_post == 0 ) 
+				|| ( $_GET['status'] == 'trash' && $trash_notificationx == 0 ) 
+				|| ( $_GET['status'] == 'enabled' && $get_enabled_post == 0 )
+			) {
+				wp_safe_redirect( $current_url, 200 );
+				die;
+			}
+		}
+	}
+	/**
+	 * For Duplicate NotificationX
+	 * @param string $current_url
+	 * @return void
+	 */
+	protected function duplicate_notificationx( $current_url = '' ){
+		if( empty( $current_url ) ) {
+			return;
+		}
+		// Duplicating NotificationX
+		if( isset( $_GET['action'], $_GET['page'], $_GET['post'], $_GET['nx_duplicate_nonce'] ) 
+		&& $_GET['action'] === 'nxduplicate' && $_GET['page'] === 'nx-admin' ) {
+			if( wp_verify_nonce( $_GET['nx_duplicate_nonce'], 'nx_duplicate_nonce' ) ) {
+				$nx_post_id = intval( $_GET['post'] );
+				$get_post = get_post( $nx_post_id );
+				$post_data = json_decode( json_encode( $get_post ), true );
+				unset( $post_data['ID'] );
+				$post_data['post_title'] = $post_data['post_title'] . ' - Copy';
+				$duplicate_post_id = wp_insert_post( $post_data );
+				$duplicate_post_id = intval( $duplicate_post_id );
+				$get_post_meta = get_metadata( 'post', $nx_post_id );
+				var_dump( $get_post_meta );
+				if( ! empty( $get_post_meta ) ) {
+					foreach( $get_post_meta as $key => $value ){
+						if( in_array( $key, array( '_edit_lock', '_edit_last' ) ) ) {
+							continue;
+						}
+						add_post_meta( $duplicate_post_id, $key, $value[0] );
+					}
+				}
+				wp_safe_redirect( $current_url, 200 );
+				exit;
+			}
+		}
+	}
+	/**
+	 * For Quick Builder Submit
+	 * @return void
+	 */
+	protected function quick_builder_submit( $current_url = '' ){ 
+		if( empty( $current_url ) ) {
+			return;
+		}
+		if( isset( $_POST[ 'nx_builder_add_submit' ], $_POST['is_quick_builder'] ) && $_POST['is_quick_builder'] ) :
+			$flag = true;
+			if ( ! isset( $_POST[$this->metabox_id . '_nonce'] ) || ! wp_verify_nonce( $_POST[$this->metabox_id . '_nonce'], $this->metabox_id ) ) {
+				$flag = false;
+				return;
+			}
+
+			if( $flag ) {
+				if( $_POST['nx_meta_display_type'] == 'press_bar' )  {
+					$title = __('NotificationX - Notification Bar', 'notificationx');
+				} elseif( $_POST['nx_meta_display_type'] == 'comments' )  {
+					$title = __('NotificationX - WP Comments', 'notificationx');
+				} elseif( $_POST['nx_meta_display_type'] == 'conversions' )  {
+					$conversions = NotificationX_Helper::conversion_from();
+					$title = 'NotificationX - ' . $conversions[$_POST['nx_meta_conversion_from']];
+				} else {
+					$title_temp = NotificationX_Helper::notification_types( $_POST['nx_meta_display_type'] );
+					$title = 'NotificationX - ' . $title_temp;
+				}
+				$_POST['post_type'] = 'notificationx';
+				$postdata = array(
+					'post_type'   => 'notificationx',
+					'post_title'  => $title . ' - ' . date( get_option( 'date_format' ), current_time( 'timestamp' ) ),
+					'post_status' => 'publish',
+					'post_author' => get_current_user_id(),
+				);
+				$p_id = null;
+				$p_id = wp_insert_post($postdata);
+				if( ( $p_id || ! is_wp_error( $p_id ) ) && ! is_null( $p_id ) ) {
+					do_action( 'nx_before_builder_submit', $_POST );
+					// saving builder meta data with post
+					NotificationX_MetaBox::save_data( $this->builder_data( $_POST ), $p_id );
+					/**
+					* Safely Redirect to NotificationX Page
+					*/
+					wp_safe_redirect( $current_url, 200 );
+					exit;
+				}
+			}
+		endif;
 	}
 }

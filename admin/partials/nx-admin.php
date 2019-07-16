@@ -32,13 +32,6 @@ if( isset( $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
         $all_active_class = '';
     }
 }
-
-if( isset( $_GET['status'], $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
-    if( ( $_GET['status'] == 'disabled' && $get_disabled_post == 0 ) || ( $_GET['status'] == 'trash' && $trash_notificationx == 0 ) ) {
-        wp_safe_redirect( $current_url, 200 );
-    }
-}
-
 ?>
 <div class="nx-admin-wrapper">
     <div class="nx-admin-header">
