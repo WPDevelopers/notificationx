@@ -112,7 +112,7 @@ class NotificationX_Admin {
 				$intval = intval($_GET['trashed']);
 				if( $intval > 0 ) {
 					$current_url = admin_url('admin.php?page=nx-admin');
-					wp_safe_redirect( $current_url, 200 );
+					wp_safe_redirect( $current_url );
 					exit;
 				}
 			}
@@ -126,7 +126,7 @@ class NotificationX_Admin {
 		if( isset( $post->post_type ) && $post->post_type == 'notificationx' ) {
 			if( isset( $post->post_status ) && $post->post_status == 'publish' ) {
 				$current_url = admin_url('admin.php?page=nx-admin');
-				wp_safe_redirect( $current_url, 200 );
+				wp_safe_redirect( $current_url );
 				exit;
 			}
 		}
@@ -391,7 +391,7 @@ class NotificationX_Admin {
 		
 		update_post_meta( $post_id, '_nx_meta_active_check', $status );
 		if( isset( $_POST['url'] ) ) {
-			wp_safe_redirect( $_POST['url'], 200 );
+			wp_safe_redirect( $_POST['url'] );
 		}
 		echo 'success';
 		die();
@@ -720,7 +720,7 @@ class NotificationX_Admin {
 					$iddd = get_the_ID();
 					wp_delete_post( $iddd );
 				endwhile;
-				wp_safe_redirect( $current_url, 200 ); // TODO: after all remove trash redirect.
+				wp_safe_redirect( $current_url ); // TODO: after all remove trash redirect.
 				die;
 			}
 		}
@@ -745,7 +745,7 @@ class NotificationX_Admin {
 				|| ( $_GET['status'] == 'trash' && $trash_notificationx == 0 ) 
 				|| ( $_GET['status'] == 'enabled' && $get_enabled_post == 0 )
 			) {
-				wp_safe_redirect( $current_url, 200 );
+				wp_safe_redirect( $current_url );
 				die;
 			}
 		}
@@ -779,7 +779,7 @@ class NotificationX_Admin {
 						add_post_meta( $duplicate_post_id, $key, $value[0] );
 					}
 				}
-				wp_safe_redirect( $current_url, 200 );
+				wp_safe_redirect( $current_url );
 				exit;
 			}
 		}
@@ -827,7 +827,7 @@ class NotificationX_Admin {
 					/**
 					* Safely Redirect to NotificationX Page
 					*/
-					wp_safe_redirect( $current_url, 200 );
+					wp_safe_redirect( $current_url );
 					exit;
 				}
 			}
