@@ -65,11 +65,13 @@ if( isset( $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
         <table class="wp-list-table widefat fixed striped notificationx-list">
             <thead>
                 <tr>
-                    <td>NotificationX Title</td>
-                    <td><?php _e('Preview', 'notificationx'); ?></td>
-                    <td><?php _e('Status', 'notificationx'); ?></td>
-                    <td><?php _e('Type', 'notificationx'); ?></td>
-                    <td><?php _e('Date', 'notificationx'); ?></td>
+                    <?php 
+                        if( ! empty( $table_header ) ) {
+                            foreach( $table_header as $title ) {
+                                echo '<td>' . $title . '</td>';
+                            }
+                        }
+                    ?>
                 </tr>
             </thead>
             <tbody>
@@ -163,9 +165,10 @@ if( isset( $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="nx-admin-type">
-                                            <?php echo $type; ?>
-                                        </div>
+                                        <div class="nx-admin-type"><?php echo $type; ?></div>
+                                    </td>
+                                    <td>
+                                        <div class="nx-admin-stats"><?php $this->get_stats( $idd ); ?></div>
                                     </td>
                                     <td>
                                         <div class="nx-admin-date">

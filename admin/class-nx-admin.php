@@ -548,7 +548,25 @@ class NotificationX_Admin {
 			'numberposts' => -1,
 		));
 
+		$table_header = apply_filters( 'nx_admin_table_header', array(
+			'NotificationX Title',
+			__('Preview', 'notificationx'),
+			__('Status', 'notificationx'),
+			__('Type', 'notificationx'),
+			__('Stats', 'notificationx'),
+			__('Date', 'notificationx'),
+		));
 		include_once NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-admin.php';
+	}
+
+	public function get_stats( $idd ){
+		$from_pro = apply_filters('nx_admin_table_stats', '', $idd );
+		if( $from_pro == '' ) {
+			echo '<span data-swal="true" class="nx-stats-tease">';
+			echo __( 'Only in Pro', 'notificationx' );
+			echo '</span>';
+		}
+		echo $from_pro;
 	}
 				
 	public function quick_builder(){
