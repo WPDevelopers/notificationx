@@ -30,7 +30,6 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
 
         add_action( 'nx_notification_image_action', array( $this, 'image_action' ) ); // Image Action for gravatar
         add_action( 'nx_cron_update_data', array( $this, 'update_data' ), 10, 1 );
-        add_action( 'nx_admin_action', array( $this, 'admin_save' ) );
         add_filter( 'cron_schedules', array( $this, 'cache_duration' ) );
     }
 
@@ -135,11 +134,18 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         return $image_data;
     }
 
-    public function admin_save(){
-        add_action( 'save_post', array( $this, 'save_post' ), 10, 1 );
-    }
-
-    public function save_post( $post_id ) {
+    public function save_post( $post_id, $post, $update ) {
+        if( $post->post_type !== 'notificationx' || ! $update ) {
+            return;
+        }
+        $settings = NotificationX_MetaBox::get_metabox_settings( $post_id );
+        if( $this->type !== NotificationX_Helper::get_type( $settings ) ) {
+            return;
+        }
+        if( $post->post_status === 'trash' ) {
+            NotificationX_Cron::clear_schedule( array( 'post_id' => $post_id ) );
+            return;
+        }
         $this->update_data( $post_id );
 		NotificationX_Cron::set_cron( $post_id, 'nx_wp_stats_interval' );
     }
@@ -148,7 +154,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         if ( empty( $post_id ) ) {
             return;
         }
-
+        
         $plugins_data = $this->get_plugins_data( $post_id );
         NotificationX_Admin::update_post_meta( $post_id, $this->meta_key, $plugins_data );
     }

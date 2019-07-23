@@ -61,7 +61,7 @@ class Extension_Factory {
                 }
 
                 if( method_exists( $object, 'save_post' ) ) {
-                    add_action( 'save_post', array( $object, 'save_post' ), 10, 3 );
+                    add_action( 'save_post', array( $object, 'save_post' ), 11, 3 );
                 }
 
                 if( method_exists( $object, 'settings_by_theme' ) ) {
