@@ -30,8 +30,6 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
 
         add_action( 'nx_notification_image_action', array( $this, 'image_action' ) ); // Image Action for gravatar
         add_action( 'nx_cron_update_data', array( $this, 'update_data' ), 10, 1 );
-        add_action( 'nx_admin_action', array( $this, 'admin_save' ) );
-        add_filter( 'cron_schedules', array( $this, 'cache_duration' ) );
     }
 
     public function settings_by_theme( $data ){
@@ -124,11 +122,17 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         return $image_data;
     }
 
-    public function admin_save(){
-        add_action( 'save_post', array( $this, 'save_post' ), 10, 1 );
-    }
-
-    public function save_post( $post_id ) {
+    public function save_post( $post_id , $post, $update) {
+        if( $post->post_type !== 'notificationx' || ! $update ) {
+            return;
+        }
+        if( ! $this->check_type( $post_id ) ) {
+            return;
+        }
+        if( $post->post_status === 'trash' ) {
+            NotificationX_Cron::clear_schedule( array( 'post_id' => $post_id ) );
+            return;
+        }
         $this->update_data( $post_id );
 		NotificationX_Cron::set_cron( $post_id, 'nx_wp_review_interval' );
     }
@@ -137,9 +141,10 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         if ( empty( $post_id ) ) {
             return;
         }
-
+        if( ! $this->check_type( $post_id ) ) {
+            return;
+        }
         $reviews = $this->get_plugins_data( $post_id );
-
         NotificationX_Admin::update_post_meta( $post_id, $this->meta_key, $reviews );
     }
 
@@ -165,8 +170,10 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
 
         $new_data = array();
 
-        $display_type = NotificationX_Admin::get_post_meta( intval( $id ), 'reviews_source', true );
-        $product_type = NotificationX_Admin::get_post_meta( intval( $id ), 'wp_reviews_product_type', true );
+        $settings = NotificationX_MetaBox::get_metabox_settings( $id );
+
+        $display_type = NotificationX_Helper::get_type( $settings );
+        $product_type = $settings->wp_reviews_product_type;
 
         if( $display_type === $this->type ) {
             $design = NotificationX_Admin::get_post_meta( intval( $id ), 'wporg_theme', true );
@@ -211,23 +218,6 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         }
         
         return $reviews;
-    }
-
-    public function cache_duration( $schedules ) {
-        $custom_duration = NotificationX_DB::get_settings( 'reviews_cache_duration' );
-        if ( ! $custom_duration || empty( $custom_duration ) ) {
-            $custom_duration = 3;
-        }
-        if ( $custom_duration < 3 ) {
-            $custom_duration = 2;
-        }
-
-        $schedules['nx_wp_review_interval'] = array(
-            'interval'	=> $custom_duration * 60,
-            'display'	=> sprintf( __('Every %s minutes', 'notificationx'), $custom_duration )
-        );
-
-        return $schedules;
     }
 
     private function init_fields(){

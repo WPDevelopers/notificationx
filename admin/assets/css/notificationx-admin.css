@@ -977,6 +977,10 @@ body.post-type-notificationx .select2-container--default .select2-search--dropdo
     margin: 30px 15px 0 0;
 }
 
+.nx-settings-section>table {
+    border-spacing: 0px 10px;
+}
+
 .nx-settings-section table {
     width: 100%;
 }
