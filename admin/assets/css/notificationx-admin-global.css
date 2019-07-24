@@ -239,7 +239,8 @@
 }
 
 .nx-admin-title>strong,
-.nx-admin-title>strong a {
+.nx-admin-title>strong a,
+.nx-admin-stats>a {
 	color: #5614d5;
 	font-weight: 400;
 }
