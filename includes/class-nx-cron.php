@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * This class is responsible for Cron Jobs 
+ * for NotificationX & NotificationX Pro
+ */
 class NotificationX_Cron {
     /**
 	 * Holds cron hook.
@@ -38,4 +41,36 @@ class NotificationX_Cron {
 		}
 		return wp_clear_scheduled_hook( self::$hook, $args );
 	}
+	/**
+     * This method is responsible for cron schedules
+     *
+     * @param array $schedules
+     * @return array
+	 * @since 1.1.3
+     */
+    public static function cron_schedule( $schedules ){
+        $download_stats_cache_duration = NotificationX_DB::get_settings( 'download_stats_cache_duration' ); 
+		$reviews_cache_duration = NotificationX_DB::get_settings( 'reviews_cache_duration' );
+
+        if ( ! $download_stats_cache_duration || empty( $download_stats_cache_duration ) ) {
+            $download_stats_cache_duration = 3;
+        }
+        if ( ! $reviews_cache_duration || empty( $reviews_cache_duration ) ) {
+            $reviews_cache_duration = 3;
+        }
+        
+        $schedules['nx_wp_stats_interval'] = array(
+            'interval'	=> MINUTE_IN_SECONDS * $download_stats_cache_duration,
+            'display'	=> sprintf( __('Every %s minutes', 'notificationx'), $download_stats_cache_duration )
+		);
+		
+        $schedules['nx_wp_review_interval'] = array(
+            'interval'	=> MINUTE_IN_SECONDS * $reviews_cache_duration,
+            'display'	=> sprintf( __('Every %s minutes', 'notificationx'), $reviews_cache_duration )
+		);
+		
+		$schedules = apply_filters('nx_cron_schedules', $schedules);
+        
+        return $schedules;
+    }
 }

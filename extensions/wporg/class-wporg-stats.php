@@ -30,7 +30,6 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
 
         add_action( 'nx_notification_image_action', array( $this, 'image_action' ) ); // Image Action for gravatar
         add_action( 'nx_cron_update_data', array( $this, 'update_data' ), 10, 1 );
-        add_filter( 'cron_schedules', array( $this, 'cache_duration' ) );
     }
 
     public function template_string_by_theme( $template, $old_template, $posts_data ){
@@ -138,8 +137,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         if( $post->post_type !== 'notificationx' || ! $update ) {
             return;
         }
-        $settings = NotificationX_MetaBox::get_metabox_settings( $post_id );
-        if( $this->type !== NotificationX_Helper::get_type( $settings ) ) {
+        if( ! $this->check_type( $post_id ) ) {
             return;
         }
         if( $post->post_status === 'trash' ) {
@@ -154,7 +152,9 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         if ( empty( $post_id ) ) {
             return;
         }
-        
+        if( ! $this->check_type( $post_id ) ) {
+            return;
+        }
         $plugins_data = $this->get_plugins_data( $post_id );
         NotificationX_Admin::update_post_meta( $post_id, $this->meta_key, $plugins_data );
     }
@@ -213,24 +213,6 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         }
 
         return array( $total_stats );
-    }
-
-    public function cache_duration( $schedules ) {
-        $custom_duration = NotificationX_DB::get_settings( 'download_stats_cache_duration' ); 
-        if ( ! $custom_duration || empty( $custom_duration ) ) {
-            $custom_duration = 3;
-        }
-        
-        if ( $custom_duration < 3 ) {
-            $custom_duration = 2;
-        }
-        
-        $schedules['nx_wp_stats_interval'] = array(
-            'interval'	=> $custom_duration * 60,
-            'display'	=> sprintf( __('Every %s minutes', 'notificationx'), $custom_duration )
-        );
-        
-        return $schedules;
     }
 
     private function init_fields(){
