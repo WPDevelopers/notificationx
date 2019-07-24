@@ -7,6 +7,7 @@
     left: 30px;
     z-index: 9999;
 }
+
 a.notificationx-link {
     position: absolute;
     left: 0;
@@ -16,6 +17,7 @@ a.notificationx-link {
     outline: none;
     /* z-index: 999; */
 }
+
 .nx-notification.nx-bottom_right {
     right: 30px;
     left: auto;
@@ -49,7 +51,7 @@ span.notificationx-close {
     height: 8px;
 }
 
-span.notificationx-close > svg {
+span.notificationx-close>svg {
     fill: #000000;
     position: absolute;
 }
@@ -66,23 +68,29 @@ span.notificationx-close > svg {
     display: flex;
     align-items: center;
 }
+
 .nx-img-right .notificationx-image {
     margin-left: 15px;
     margin-right: 0px;
 }
+
 .notificationx-image img.nx-img-square {
     border-radius: 0px !important;
 }
+
 .notificationx-image img.nx-img-circle,
-.notificationx-image > img {
+.notificationx-image>img {
     border-radius: 50% !important;
 }
+
 .notificationx-image img.nx-img-rounded {
     border-radius: 5px !important;
 }
-.notificationx-image > img {
+
+.notificationx-image>img {
     width: auto;
 }
+
 /*
     Notification Content CSS
 */
@@ -90,7 +98,8 @@ span.notificationx-close > svg {
     display: flex;
     flex-direction: column;
 }
-.notificationx-inner.nx-img-right .notificationx-content .nx-branding{
+
+.notificationx-inner.nx-img-right .notificationx-content .nx-branding {
     position: static;
     margin-left: 0px;
     padding: 5px 0px 0px
@@ -100,19 +109,23 @@ span.notificationx-close > svg {
     float: left;
     min-width: 200px;
 }
-.notificationx-content > span {
+
+.notificationx-content>span {
     display: block;
 }
+
 .nx-first-row {
     font-size: 12px;
     line-height: 1.2;
 }
+
 .nx-second-row {
     margin: 5px 0;
     font-size: 14px;
     font-weight: bolder;
     line-height: 1.5;
 }
+
 .nx-third-row {
     font-size: 11px;
     line-height: 1;
@@ -125,7 +138,7 @@ span.notificationx-close > svg {
     font-weight: 600;
 }
 
-.nx-time { 
+.nx-time {
     display: block;
 }
 
@@ -139,6 +152,7 @@ span.notificationx-close > svg {
     text-align: center;
     transition: height 0.3s ease-in-out 0s;
 }
+
 .nx-bar .nx-bar-inner {
     padding: 20px;
     display: inline-block;
@@ -159,6 +173,7 @@ span.notificationx-close > svg {
     position: fixed;
     bottom: 0;
 }
+
 .nx-bar.nx-position-top {
     top: 0;
 }
@@ -175,6 +190,7 @@ a.nx-bar-button {
     color: #fff;
     border-radius: 3px;
 }
+
 a.nx-bar-button:hover {
     color: #fff;
 }
@@ -194,7 +210,7 @@ a.nx-bar-button:hover {
     font-size: 14px;
 }
 
-.nx-close > svg {
+.nx-close>svg {
     position: absolute;
     left: 0;
 }
@@ -239,16 +255,17 @@ a.nx-bar-button:hover {
     top: 9px;
     line-height: 1;
 }
+
 .nx-time-section:last-of-type:after {
     display: none;
 }
 
-.nx-time-section > span {
+.nx-time-section>span {
     display: block;
     line-height: 1;
 }
 
-.nx-time-section > span.nx-countdown-time-text {
+.nx-time-section>span.nx-countdown-time-text {
     display: none;
     font-size: 14px;
 }
@@ -256,7 +273,8 @@ a.nx-bar-button:hover {
 .nx-countdown.nx-expired .nx-time-section {
     background-color: #262626;
 }
-.nx-countdown.nx-expired .nx-time-section > span,
+
+.nx-countdown.nx-expired .nx-time-section>span,
 .nx-countdown .nx-expired-text {
     display: none;
 }
@@ -268,33 +286,40 @@ a.nx-bar-button:hover {
 /* Nx Bar Theme CSS */
 
 .nx-bar {}
+
 .nx-bar.theme-two {
     background-color: #5704A2;
     color: #FFF;
 }
+
 .nx-bar.theme-three {
     background-color: #3F4462;
     color: #FFF;
 }
+
 .nx-bar.theme-three .nx-time-section,
 .nx-bar.theme-three a.nx-bar-button {
     background-color: #6549FE;
 }
+
 .nx-bar.theme-three .nx-time-section:after {
     content: '';
 }
+
 .nx-bar.theme-three .nx-countdown {
     background-color: transparent;
 }
+
 .nx-bar.theme-three .nx-time-section {
     width: 55px;
 }
-.nx-bar.theme-three .nx-time-section > span.nx-countdown-time-text {
+
+.nx-bar.theme-three .nx-time-section>span.nx-countdown-time-text {
     display: block;
 }
 
-.nx-bar.theme-three p.nx-close > svg,
-.nx-bar.theme-two p.nx-close > svg {
+.nx-bar.theme-three p.nx-close>svg,
+.nx-bar.theme-two p.nx-close>svg {
     fill: #FFF;
 }
 
@@ -311,16 +336,19 @@ a.nx-bar-button:hover {
     z-index: 9999;
     padding: 5px;
 }
+
 .nx-branding svg {
     position: relative;
     top: 4px;
 }
+
 a.nx-powered-by {
     cursor: pointer;
     color: #5614D5;
     transition: all .3s ease-in-out;
     text-decoration: none;
 }
+
 a.nx-powered-by:hover {
     color: #21D8A3;
 }
@@ -347,12 +375,13 @@ a.nx-powered-by:hover {
     top: 25px;
 }
 
-.nx-notification-theme-two .nx-branding, 
-.nx-notification-review_saying .nx-branding, 
-.nx-notification-reviewed .nx-branding, 
+.nx-notification-theme-two .nx-branding,
+.nx-notification-review_saying .nx-branding,
+.nx-notification-reviewed .nx-branding,
 .nx-notification-total-download .nx-branding {
     right: 20px;
 }
+
 .nx-notification-total-download .notificationx-content .nx-first-row,
 .nx-notification-today-download .notificationx-content .nx-first-row,
 .nx-notification-7day-download .notificationx-content .nx-first-row,
@@ -364,6 +393,7 @@ a.nx-powered-by:hover {
 .nx-download_stats .nx-notification-actively_using .notificationx-content .nx-first-row {
     font-weight: 400;
 }
+
 .nx-download_stats .nx-notification-actively_using .notificationx-content .nx-second-row {
     font-weight: 700;
 }
@@ -382,6 +412,7 @@ a.nx-powered-by:hover {
 .notificationx-inner.nx-notification-theme-three {
     padding: 0px;
 }
+
 .notificationx-inner.nx-notification-theme-three .notificationx-image {
     width: 80px;
     height: 80px;
@@ -429,10 +460,17 @@ a.nx-powered-by:hover {
 }
 
 .nx-download_stats .nx-notification-theme-two {}
+
 .nx-download_stats .notificationx-content .nx-first-row {
     font-weight: 700;
 }
+
 .nx-download_stats .notificationx-content .nx-second-row {
     font-size: 12px;
     font-weight: 400;
+}
+
+.nx-download_stats .notificationx-image>img,
+.nx-reviews .notificationx-image>img {
+    width: 100%;
 }

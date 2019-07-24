@@ -239,6 +239,21 @@ class NotificationX_Extension {
         }
         return false;
     }
+    /**
+     * For checking type
+     *
+     * @param [type] $post_id
+     * @return boolean
+     * 
+     * @since 1.1.3
+     */
+    public function check_type( $post_id ){
+        $settings = NotificationX_MetaBox::get_metabox_settings( $post_id );
+        if( $this->type !== NotificationX_Helper::get_type( $settings ) ) {
+            return false;
+        }
+        return true;
+    }
 
     /**
      * This function responsible for all

@@ -477,7 +477,7 @@ class NotificationX_Admin {
 			),
 		) );
 
-		add_menu_page( 'NotificationX', 'NotificationX', 'delete_users', 'nx-admin', array( $this, 'notificationx' ), NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon-colored.png', 80 );
+		add_menu_page( 'NotificationX', 'NotificationX', 'delete_users', 'nx-admin', array( $this, 'notificationx' ), NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon.png', 80 );
 		foreach( $settings as $slug => $setting ) {
 			$cap  = isset( $setting['capability'] ) ? $setting['capability'] : 'delete_users';
 			$hook = add_submenu_page( 'nx-admin', $setting['title'], $setting['title'], $cap, $slug, $setting['callback'] );
@@ -548,7 +548,23 @@ class NotificationX_Admin {
 			'numberposts' => -1,
 		));
 
+		$table_header = apply_filters( 'nx_admin_table_header', array(
+			'NotificationX Title',
+			__('Preview', 'notificationx'),
+			__('Status', 'notificationx'),
+			__('Type', 'notificationx'),
+			__('Stats', 'notificationx'),
+			__('Date', 'notificationx'),
+		));
 		include_once NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-admin.php';
+	}
+
+	public function get_stats( $idd ){
+		$from_pro = apply_filters('nx_admin_table_stats', '', $idd );
+		if( $from_pro == '' ) {
+			echo '<img data-swal="true" class="nx-stats-tease" width="45" src="'. NOTIFICATIONX_ADMIN_URL .'/assets/img/pro.svg"/>';
+		}
+		echo $from_pro;
 	}
 				
 	public function quick_builder(){
