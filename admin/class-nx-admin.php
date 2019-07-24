@@ -477,7 +477,7 @@ class NotificationX_Admin {
 			),
 		) );
 
-		add_menu_page( 'NotificationX', 'NotificationX', 'delete_users', 'nx-admin', array( $this, 'notificationx' ), NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon-colored.png', 80 );
+		add_menu_page( 'NotificationX', 'NotificationX', 'delete_users', 'nx-admin', array( $this, 'notificationx' ), NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon.png', 80 );
 		foreach( $settings as $slug => $setting ) {
 			$cap  = isset( $setting['capability'] ) ? $setting['capability'] : 'delete_users';
 			$hook = add_submenu_page( 'nx-admin', $setting['title'], $setting['title'], $cap, $slug, $setting['callback'] );
