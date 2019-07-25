@@ -120,7 +120,11 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         $alt_title = empty( $alt_title ) && isset( $data['name'] ) ? $data['name'] : $alt_title;
 
         if( isset( $data['icons'] ) && $settings->wp_stats_product_type === 'plugin' ) {
-            $avatar = $data['icons']['2x'];
+            if( isset( $data['icons']['2x'] ) ) {
+                $avatar = $data['icons']['2x'];
+            } else {
+                $avatar = isset( $data['icons']['1x'] ) ? $data['icons']['1x'] : '';
+            }
         }
 
         if( isset( $data['screenshot_url'] ) && $settings->wp_stats_product_type === 'theme' ) {

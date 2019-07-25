@@ -103,7 +103,11 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         $avatar = $image_url = $alt_title =  '';
         switch( $settings->show_notification_image ) {
             case 'product_image' : 
-                $image_url = $data['icons']['2x'];
+                if( isset( $data['icons']['2x'] ) ) {
+                    $image_url = $data['icons']['2x'];
+                } else {
+                    $image_url = isset( $data['icons']['1x'] ) ? $data['icons']['1x'] : '';
+                }
                 break;
             case 'gravatar' : 
                 if( isset( $data['avatar'] ) ) {

@@ -88,7 +88,7 @@ span.notificationx-close>svg {
 }
 
 .notificationx-image>img {
-    width: auto;
+    width: 100%;
 }
 
 /*
