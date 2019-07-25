@@ -110,80 +110,6 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
             );
         }
 
-        // $fields['edd_template_new'] = array(
-        //     'type'     => 'template',
-        //     'builder_hidden' => true,
-        //     'fields' => array(
-        //         'first_param' => array(
-        //             'type'     => 'select',
-        //             'label'    => __('Notification Template' , 'notificationx'),
-        //             'priority' => 1,
-        //             'options'  => array(
-        //                 'tag_name' => __('Full Name' , 'notificationx'),
-        //                 'tag_first_name' => __('First Name' , 'notificationx'),
-        //                 'tag_last_name' => __('Last Name' , 'notificationx'),
-        //                 'tag_custom' => __('Custom' , 'notificationx'),
-        //             ),
-        //             'dependency' => array(
-        //                 'tag_custom' => array(
-        //                     'fields' => [ 'custom_first_param' ]
-        //                 )
-        //             ),
-        //             'hide' => array(
-        //                 'tag_name' => array(
-        //                     'fields' => [ 'custom_first_param' ]
-        //                 ),
-        //                 'tag_first_name' => array(
-        //                     'fields' => [ 'custom_first_param' ]
-        //                 ),
-        //                 'tag_last_name' => array(
-        //                     'fields' => [ 'custom_first_param' ]
-        //                 ),
-        //             ),
-        //             'default' => 'tag_name'
-        //         ),
-        //         'custom_first_param' => array(
-        //             'type'     => 'text',
-        //             'priority' => 2,
-        //             'default' => __('Someone' , 'notificationx')
-        //         ),
-        //         'second_param' => array(
-        //             'type'     => 'text',
-        //             'priority' => 3,
-        //             'default' => __('recently purchased' , 'notificationx')
-        //         ),
-        //         'third_param' => array(
-        //             'type'     => 'select',
-        //             'priority' => 4,
-        //             'options'  => array(
-        //                 'tag_title'       => __('Product Title' , 'notificationx'),
-        //                 'tag_anonymous_title' => __('Anonymous Product' , 'notificationx'),
-        //             ),
-        //             'default' => 'tag_title'
-        //         ),
-        //         'fourth_param' => array(
-        //             'type'     => 'select',
-        //             'priority' => 5,
-        //             'options'  => array(
-        //                 'tag_time'       => __('Definite Time' , 'notificationx'),
-        //                 'sometime' => __('Sometimes ago' , 'notificationx'),
-        //             ),
-        //             'default' => 'tag_time'
-        //         ),
-        //     ),
-        //     'label'    => __('Notification Template' , 'notificationx'),
-        //     'priority' => 88,
-        // );
-
-        // $fields['edd_template_adv'] = array(
-        //     'builder_hidden' => true,
-        //     'type'        => 'adv_checkbox',
-        //     'priority'    => 89,
-        //     'button_text' => __('Advance Template' , 'notificationx'),
-        //     'side'        => 'right',
-        //     'swal'        => true,
-        // );
-
         return $fields;
     }
     /**
@@ -199,9 +125,6 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
             if( $name === 'has_no_edd' ) {
                 $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
             }
-            // if( in_array( $name, array( 'edd_template', 'edd_template_new', 'edd_template_adv' ) ) ) {
-            //     $options[ 'content_tab' ]['sections']['content_config']['fields'][ $name ] = $field;
-            // }
         }
         return $options;
     }
@@ -214,7 +137,6 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
     public function add_builder_fields( $options ){
         $fields = $this->init_fields();
         unset( $fields[ $this->template ] );
-        // unset( $fields[ 'edd_template_adv' ] );
         
         foreach ( $fields as $name => $field ) {
             $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
