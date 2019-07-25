@@ -189,7 +189,7 @@ if( isset( $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
                     endif;
 
                     if( ! $total_notificationx && ! $trashed ) {
-                        echo '<tr><td colspan="5"><div class="nx-admin-not-found">'. __('No NotificationX is found.', 'notificationx') .'</div></td></tr>';
+                        echo '<tr><td colspan="6"><div class="nx-admin-not-found">'. __('No NotificationX is found.', 'notificationx') .'</div></td></tr>';
                     }
                 ?>
                 <!-- <tr><td><p>No NotificationX is found.</p></td></tr> -->
