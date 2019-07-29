@@ -5,22 +5,15 @@ function notificationx_settings_args(){
         'general' => array(
             'title' => __( 'General', 'notificationx' ),
             'priority' => 10,
+            'form' => true,
             'button_text' => __( 'Save Settings' ),
             'sections' => apply_filters('nx_general_settings_sections', array(
-                'notification' => apply_filters('nx_notification_settings', array(
-                    'title' => __( 'Notification', 'notificationx' ),
-                    'priority' => 10,
-                    'fields' => array(
-                        'cache_limit' => array(
-                            'type'      => 'text',
-                            'label'     => __('Cache Limit' , 'notificationx'),
-                            'default'   => '100',
-                            'priority'	=> 10
-                        )
-                    ),
-                )),
+                'modules_sections' => array(
+                    'title'       => __('Modules' , 'notificationx'),
+                    'priority'    => 1,
+                    'views' => 'NotificationX_Settings::modules'
+                ),
                 'powered_by' => apply_filters('nx_powered_by_settings', array(
-                    'title' => __( 'Powered By', 'notificationx' ),
                     'priority' => 15,
                     'fields' => array(
                         'disable_powered_by' => array(
@@ -38,17 +31,24 @@ function notificationx_settings_args(){
         'cache_settings_tab' => array(
             'title' => __( 'Cache Settings', 'notificationx' ),
             'priority' => 11,
+            'form' => true,
             'button_text' => __( 'Save Settings' ),
             'sections' => apply_filters('nx_cache_settings_sections', array(
                 'cache_settings' => apply_filters('nx_cache_settings_tab', array(
                     'priority' => 5,
                     'fields' => array(
+                        'cache_limit' => array(
+                            'type'      => 'text',
+                            'label'     => __('Cache Limit' , 'notificationx'),
+                            'default'   => '100',
+                            'priority'	=> 1
+                        ),
                         'download_stats_cache_duration' => array(
                             'type'        => 'text',
                             'label'       => __('Download Stats Cache Duration' , 'notificationx'),
                             'description' => __(' minutes (Schedule Duration to fetch new data).' , 'notificationx'),
                             'default'     => '3',
-                            'priority'    => 3
+                            'priority'    => 2
                         ),
                         'reviews_cache_duration' => array(
                             'type'        => 'text',
@@ -60,6 +60,16 @@ function notificationx_settings_args(){
                     ),
                 )),
             )),
+        ),
+        'api_integrations_tab' => array(
+            'title' => __( 'API Integrations', 'notificationx' ),
+            'priority' => 12,
+            'views' => 'NotificationX_Settings::integrations'
+        ),
+        'go_premium_tab' => array(
+            'title' => __( 'Go Premium', 'notificationx' ),
+            'priority' => 13,
+            'views' => 'NotificationX_Settings::integrations'
         )
     ));
 }

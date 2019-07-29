@@ -66,11 +66,13 @@ class NotificationX_Settings {
         $new_fields = [];
 
         foreach( $settings as $setting ) {
-            $sections = $setting['sections'];
-            foreach( $sections as $section ) {
-                $fields = $section['fields'];
-                foreach( $fields as $id => $field ) {
-                    $new_fields[ $id ] = $field;
+            $sections = isset( $setting['sections'] ) ? $setting['sections'] : [];
+            if( ! empty( $sections ) ) {
+                foreach( $sections as $section ) {
+                    $fields = $section['fields'];
+                    foreach( $fields as $id => $field ) {
+                        $new_fields[ $id ] = $field;
+                    }
                 }
             }
         }
@@ -189,5 +191,199 @@ class NotificationX_Settings {
         }
 
         die;
+    }
+
+    public static function integrations(){
+        $sections = apply_filters('nx_api_integration_sections', array(
+            'mailchimp_settings_section' => array(
+                'title' => __( 'MailChimp Settings', 'notificationx' ),
+                'fields' => array(
+                    'mailchimp_api_key' => array(
+                        'type'        => 'text',
+                        'label'       => __('MailChimp API Key' , 'notificationx-pro'),
+                        'default'     => __('Connect', 'notificationx'),
+                        'priority'    => 5,
+                        'description' => '<a href="https://mailchimp.com/help/about-api-keys/">Click Here</a> to get your API KEY',
+                    ),
+                    'mailchimp_cache_duration' => array(
+                        'type'        => 'text',
+                        'label'       => __('Cache Duration' , 'notificationx-pro'),
+                        'default'     => 5,
+                        'priority'    => 5,
+                        'description' => 'minutes, scheduled duration for collect new data',
+                    )
+                )
+            ),
+            'convertkit_settings_section' => array(
+                'title' => __( 'ConvertKit Settings', 'notificationx' ),
+                'fields' => array(
+                    'convertkit_api_key' => array(
+                        'type'        => 'text',
+                        'label'       => __('API Key' , 'notificationx-pro'),
+                        'default'     => '',
+                        'priority'    => 5,
+                        'description' => '<a href="https://developers.convertkit.com">Click Here</a> to get API KEY.',
+                    ),
+                    'convertkit_api_secret' => array(
+                        'type'        => 'text',
+                        'label'       => __('API Secret' , 'notificationx-pro'),
+                        'default'     => '',
+                        'priority'    => 5,
+                        'description' => '<a href="https://developers.convertkit.com">Click Here</a> to get API Secret.',
+                    ),
+                    'convertkit_cache_duration' => array(
+                        'type'        => 'text',
+                        'label'       => __('Cache Duration' , 'notificationx-pro'),
+                        'default'     => 3,
+                        'priority'    => 5,
+                        'description' => 'Minutes',
+                    )
+                )
+            ),
+            'freemius_settings_section' => array(
+                'title' => __( 'Freemius Settings', 'notificationx' ),
+                'fields' => array(
+                    'freemius_dev_id' => array(
+                        'type'        => 'text',
+                        'label'       => __('Developer ID' , 'notificationx-pro'),
+                        'priority'    => 5,
+                        'default'     => '',
+                        'description' => '<a href="https://dashboard.freemius.com">Click Here</a> to get Developer ID.',
+                    ),
+                    'freemius_dev_pk' => array(
+                        'type'      => 'text',
+                        'label'     => __('Developer Public Key' , 'notificationx-pro'),
+                        'priority'	=> 6,
+                        'default'	=> '',
+                        'description' => '<a href="https://dashboard.freemius.com">Click Here</a> to get Developer Public KEY.',
+                    ),
+                    'freemius_dev_sk' => array(
+                        'type'      => 'text',
+                        'label'     => __('Developer Secret Key' , 'notificationx-pro'),
+                        'priority'	=> 7,
+                        'default'	=> '',
+                        'description' => '<a href="https://dashboard.freemius.com">Click Here</a> to get Developer Secret KEY.',
+                    ),
+                    'freemius_cache_duration' => array(
+                        'type'      => 'text',
+                        'label'     => __('Cache Duration' , 'notificationx-pro'),
+                        'default'	=> 5,
+                        'priority'	=> 5,
+                        'description'	=> 'Minutes',
+                    )
+                )
+            ),
+            'zapier_settings_section' => array(
+                'title' => __( 'Zapier Settings', 'notificationx' ),
+                'fields' => array(
+                    'zapier_api_key' => array(
+                        'type'      => 'text',
+                        'label'     => __('API Key' , 'notificationx-pro'),
+                        'default'	=> md5( home_url() ),
+                        'priority'	=> 5,
+                        'readonly' => true
+                    )
+                )
+            ),
+
+        ));
+
+        if( ! empty( $sections ) ) {
+            foreach( $sections as $section_key => $section ) {
+                $opacity = ! class_exists('NotificationXPro') ? true : false;
+                $fields = isset( $section['fields'] ) ? $section['fields'] : [];
+                ?>
+                <div class="nx-api-integration-settings <?php echo  $section_key . ( $opacity ? ' ' : ' nx-api-opec' ); ?>" data-opec="Only In Pro">
+                    <?php 
+                        echo isset( $section['title'] ) ? '<h3>' . $section['title'] . ' <sup class="pro-label">Pro</sup></h3>' : '';
+                        if( ! empty( $fields ) ) {
+                            ?>
+                            <div class="nx-api-integration-inner">
+                                <table>
+                                    <tbody>
+                                    <?php 
+                                        foreach( $fields as $field_key => $field ) :
+                                            self::render_field( $field_key, $field );
+                                        endforeach;
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <?php
+                        }
+                    ?>
+                </div>
+                <?php
+            }
+        }
+
+    }
+    public static function modules(){
+        $modules = apply_filters('nx_modules', array(
+            'bar' => __('Notification Bar', 'notificationx'),
+            'comments' => array(
+                'title' => __('Comments', 'notificationx'),
+                'modules' => array(
+                    'wp_comments' => __('WP Comments', 'notificationx'),
+                )
+            ),
+            'comments' => array(
+                'title' => __('Comments', 'notificationx'),
+                'modules' => array(
+                    'wp_comments' => __('WP Comments', 'notificationx'),
+                )
+            ),
+            'conversions' => array(
+                'title' => __('Sales Notification', 'notificationx'),
+                'modules' => array(
+                    'woocommerce' => __('WooCommerce', 'notificationx'),
+                    'edd' => __('Easy Digital Downloads', 'notificationx'),
+                    'freemius' => array(
+                        'is_pro' => true,
+                        'title' => __('Freemius', 'notificationx'),
+                    ),
+                    'custom_notification' => array(
+                        'is_pro' => true,
+                        'title' => __('Custom Notification', 'notificationx'),
+                    ),
+                )
+            ),
+            'reviews' => array(
+                'title' => __('Reviews', 'notificationx'),
+                'modules' => array(
+                    'wp_reviews' => __('WP.org', 'notificationx'),
+                    'freemius' => array(
+                        'is_pro' => true,
+                        'title'  => __('Freemius', 'notificationx'),
+                    ),
+                )
+            ),
+            'statistics' => array(
+                'title' => __('Statistics', 'notificationx'),
+                'modules' => array(
+                    'wp_stats' => __('WP.org', 'notificationx'),
+                    'freemius' => array(
+                        'is_pro' => true,
+                        'title'  => __('Freemius', 'notificationx'),
+                    ),
+                ),
+                
+            ),
+            'email_subscription' => array(
+                'title' => __('Email Subscription', 'notificationx'),
+                'is_pro' => true,
+                'modules' => array(
+                    'mailchimp'  => __('MailChimp', 'notificationx'),
+                    'convertkit' => __('ConvertKit', 'notificationx'),
+                    'zapier'     => __('Zapier', 'notificationx'),
+                ),
+            ),
+        ));
+
+        if( ! empty( $modules ) ) {
+            foreach( $modules as $module_key => $module ) {
+                include NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-module-display.php';
+            }
+        }
     }
 }

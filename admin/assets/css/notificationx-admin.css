@@ -977,25 +977,30 @@ body.post-type-notificationx .select2-container--default .select2-search--dropdo
     margin: 30px 15px 0 0;
 }
 
-.nx-settings-section>table {
+.nx-settings-section>table,
+.nx-api-integration-settings>table {
     border-spacing: 0px 10px;
 }
 
-.nx-settings-section table {
+.nx-settings-section table,
+.nx-api-integration-settings table {
     width: 100%;
 }
 
-.nx-settings-section input.nx-settings-field[type="text"] {
+.nx-settings-section input.nx-settings-field[type="text"],
+.nx-api-integration-settings input.nx-settings-field[type="text"] {
     width: 50%;
 }
 
-.nx-settings-section tr th {
+.nx-settings-section tr th,
+.nx-api-integration-settings tr th {
     padding-right: 15px;
     width: 25%;
     text-align: left;
 }
 
-.nx-settings-section tr td {
+.nx-settings-section tr td,
+.nx-api-integration-settings tr td {
     padding-left: 15px;
 }
 
@@ -1012,6 +1017,36 @@ input.nx-settings-field {
     flex-flow: row nowrap;
     justify-content: space-between;
 }
+
+.nx-api-opec {
+    position: relative;
+}
+
+.nx-api-opec::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.nx-api-opec::after {
+    content: attr(data-opec);
+    position: absolute;
+    top: 40%;
+    color: red;
+    z-index: 99;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.nx-left-right-settings>div {
+    flex: 1;
+}
+
 
 .nx-settings-left {
     max-width: 80em;
@@ -1779,4 +1814,52 @@ body.wp-admin.rtl .ui-datepicker {
     background: #fff;
     z-index: 2;
     animation: switch-off 0.3s ease-out;
+}
+
+/* API Integration CSS */
+.nx-api-integration-settings {}
+
+.nx-api-integration-settings>h3 {
+    box-shadow: 0 0 40px 0px rgba(0, 0, 0, .07);
+    padding: 20px 50px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+}
+
+.nx-api-integration-settings .nx-api-integration-inner {
+    display: none;
+}
+
+.nx-api-integration-settings .nx-api-integration-inner.open {
+    display: block;
+}
+
+.nx-api-integration-settings .pro-label {
+    font-size: 11px;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-align: center;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    position: absolute;
+    top: 6px;
+    left: -25px;
+    width: 80px;
+    background-image: -moz-linear-gradient(-122deg,
+            rgb(146, 113, 255) 0%,
+            rgb(87, 37, 255) 100%);
+    background-image: -webkit-linear-gradient(-122deg,
+            rgb(146, 113, 255) 0%,
+            rgb(87, 37, 255) 100%);
+    background-image: -ms-linear-gradient(-122deg,
+            rgb(146, 113, 255) 0%,
+            rgb(87, 37, 255) 100%);
+    background-image: linear-gradient(-122deg,
+            rgb(146, 113, 255) 0%,
+            rgb(87, 37, 255) 100%);
+    box-shadow: 0px 3px 7px 0px rgba(0, 5, 41, 0.1);
+    color: #fff;
 }
