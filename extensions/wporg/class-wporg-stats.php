@@ -30,6 +30,14 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
 
         add_action( 'nx_notification_image_action', array( $this, 'image_action' ) ); // Image Action for gravatar
         add_action( 'nx_cron_update_data', array( $this, 'update_data' ), 10, 1 );
+        add_filter( 'nx_notification_link', array( $this, 'notification_link' ), 10, 2 );
+    }
+
+    public function notification_link( $link, $settings ){
+        if( $settings->display_type == 'download_stats' && $settings->stats_source == 'wp_stats' && $settings->rs_url == 'none' ) {
+            return '';
+        }
+        return $link;
     }
 
     public function template_string_by_theme( $template, $old_template, $posts_data ){

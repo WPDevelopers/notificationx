@@ -30,6 +30,14 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
 
         add_action( 'nx_notification_image_action', array( $this, 'image_action' ) ); // Image Action for gravatar
         add_action( 'nx_cron_update_data', array( $this, 'update_data' ), 10, 1 );
+        add_filter( 'nx_notification_link', array( $this, 'notification_link' ), 10, 2 );
+    }
+
+    public function notification_link( $link, $settings ){
+        if( $settings->display_type == 'reviews' && $settings->reviews_source == 'wp_reviews' && $settings->rs_url == 'none' ) {
+            return '';
+        }
+        return $link;
     }
 
     public function settings_by_theme( $data ){

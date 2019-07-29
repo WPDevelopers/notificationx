@@ -519,6 +519,21 @@ function notificationx_metabox_args(){
                             ),
                         )
                     ),
+                    'rs_link_options' => array(
+                        'title' => __('Link Options', 'notificationx'),
+                        'fields' => array(
+                            'rs_url' => array(
+                                'label' => __('Link Type', 'notificationx'),
+                                'type'  => 'select',
+                                'priority'	=> 10,
+                                'default'	=> 'product_page',
+                                'options'	=> apply_filters('nx_rs_link_options', array(
+                                    'none'             => __('None', 'notificationx'),
+                                    'product_page' => __( 'Product Page', 'notificationx' ),
+                                )),
+                            ),
+                        )
+                    ),
                 ))
             ),
             'display_tab' => array(
