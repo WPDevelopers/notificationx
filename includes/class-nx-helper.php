@@ -291,7 +291,7 @@ class NotificationX_Helper {
                 'delay_between',
                 'loop',
                 'notification_preview',
-                'conversion_size'
+                'conversion_size',
             ],
         ));
     }
@@ -301,11 +301,11 @@ class NotificationX_Helper {
             return apply_filters("nx_display_types_hide_data", array(
                 'comments' => array(
                     'sections' => [ 'bar_themes', 'conversion_link_options', 'bar_design', 'bar_typography', 'themes', 'design', 'image_design', 'typography' ],
-                    'fields' => [ 'custom_template', 'custom_contents', 'show_custom_image', 'show_notification_image', 'image_url' ]
+                    'fields' => [ 'custom_contents', 'show_custom_image', 'show_notification_image', 'image_url' ]
                 ),
                 'press_bar' => array(
                     'sections' => [ 'image', 'link_options', 'conversion_link_options', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography' ],
-                    'fields' => [ 'custom_template', 'comments_template', 'custom_contents', 'notification_preview', 'image_url', 'conversion_size', 'conversion_position', 'comments_template_new', 'comments_template_adv', 'wp_stats_template_new' ]
+                    'fields' => [ 'comments_template', 'custom_contents', 'notification_preview', 'image_url', 'conversion_size', 'conversion_position', 'comments_template_new', 'comments_template_adv', 'wp_stats_template_new' ]
                 ),
                 'conversions' => array(
                     'sections' => [ 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography' ], 
@@ -393,17 +393,6 @@ class NotificationX_Helper {
         ));
     }
 
-    
-
-    public static function conversion_toggle(){
-        return apply_filters('nx_conversion_toggle' , array(
-            'custom_notification'        => array(
-                'sections' => [ 'image' ],
-                'fields' => [ 'custom_template', 'custom_contents' ]
-            ),
-        ));
-    }
-
     public static function new_template_name( $data ){
         $data = array(
             'comments_template_new',
@@ -411,7 +400,6 @@ class NotificationX_Helper {
             'wp_stats_template_new',
             'actively_using_template_new',
             'review_saying_template_new',
-            // 'edd_template_new',
             'woo_template_new',
         );
         return $data;

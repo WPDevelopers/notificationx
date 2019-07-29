@@ -101,4 +101,13 @@ class NotificationX_ToggleFields {
         ));
     }
 
+    public static function conversions(){
+        $fields = self::common_fields();
+        $sections = self::common_sections();
+        
+        return apply_filters( 'nx_conversions_toggle_data', array(
+            'fields' => array_merge( $fields, array( 'conversion_from' ) ),
+            'sections' => array_merge( $sections, array( 'themes', 'conversion_link_options' ) ),
+        ));
+    }
 }

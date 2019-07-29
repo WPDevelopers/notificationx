@@ -34,7 +34,7 @@ class NX_CONSTANTS {
         'product_exclude_by',
         'exclude_categories',
         'exclude_products',
-        'conversion_url',
+        'conversion_link_options',
     );
 
     public static function themeSource( $name, $type = 'press_bar' ) {

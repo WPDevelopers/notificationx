@@ -46,7 +46,6 @@
 				case 'download_stats':
 					$('#nx_meta_stats_source').trigger('change');
 					$('#nx_meta_wpstats_advance_edit').trigger('change');
-					$('.nx-wpstats_theme .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
 					break;
 			}
 			$.notificationx.templateForTheme();
@@ -82,7 +81,6 @@
 			switch (source) {
 				case 'wp_reviews':
 					$('#nx_meta_wp_reviews_template_adv').trigger('change');
-					$('.nx-wporg_theme .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
 					break;
 			}
 		});

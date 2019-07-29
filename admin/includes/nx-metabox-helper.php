@@ -28,7 +28,7 @@ function notificationx_metabox_args(){
                                 'dependency' => array(
                                     'comments'       => NotificationX_ToggleFields::comments(),
                                     'press_bar'      => NotificationX_Helper::press_bar_toggle_data(),
-                                    'conversions'    => NotificationX_Helper::conversions_toggle_data(),
+                                    'conversions'    => NotificationX_ToggleFields::conversions(),
                                     'reviews'        => NotificationX_ToggleFields::reviews(),
                                     'download_stats' => NotificationX_ToggleFields::stats(),
                                 )
