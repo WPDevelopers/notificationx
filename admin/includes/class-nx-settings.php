@@ -3,6 +3,7 @@
  * This class is responsible for all settings things happening in NotificationX Plugin
  */
 class NotificationX_Settings {
+
     public static function init(){
         add_action( 'notificationx_before_settings_form', array( __CLASS__, 'notice_template' ), 9 );
         add_action( 'notificationx_settings_header', array( __CLASS__, 'header_template' ), 10 );
@@ -69,9 +70,24 @@ class NotificationX_Settings {
             $sections = isset( $setting['sections'] ) ? $setting['sections'] : [];
             if( ! empty( $sections ) ) {
                 foreach( $sections as $section ) {
-                    $fields = $section['fields'];
-                    foreach( $fields as $id => $field ) {
-                        $new_fields[ $id ] = $field;
+                    $fields = isset( $section['fields'] ) ? $section['fields'] : [];
+                    if( ! empty( $fields ) ) {
+                        foreach( $fields as $id => $field ) {
+                            if( isset( $section['modules'] ) && $section['modules'] == true ) {
+                                if( is_array( $field ) ) {
+                                    $field['type'] = 'modules';
+                                } else {
+                                    $field = array(
+                                        'type' => 'modules',
+                                        'title' => $field
+                                    );
+                                }
+                                $new_fields[ 'nx_modules' ][ $id ] = $field;
+                                unset( $field['type'] );
+                            } else {
+                                $new_fields[ $id ] = $field;
+                            }
+                        }
                     }
                 }
             }
@@ -98,7 +114,7 @@ class NotificationX_Settings {
 	 */
     public static function settings_page(){
         $settings_args = self::settings_args();
-		$value = NotificationX_DB::get_settings();
+        $value = NotificationX_DB::get_settings();
 		include_once NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-settings-display.php';
 	}
     /**
@@ -154,8 +170,11 @@ class NotificationX_Settings {
      */
     public static function save_settings( $posted_fields = [] ){
 		$settings_args = self::settings_args();
-		$fields = self::get_settings_fields( $settings_args );
+        $fields = self::get_settings_fields( $settings_args );
         $data = [];
+
+        dump( $posted_fields );
+        dump( $fields );
 
 		foreach( $posted_fields as $posted_field ) {
 			if( array_key_exists( $posted_field['name'], $fields ) ) {
@@ -166,10 +185,11 @@ class NotificationX_Settings {
                     $posted_value = $fields[ $posted_field['name'] ]['default'];
                 }
                 $posted_value = NotificationX_Helper::sanitize_field( $fields[ $posted_field['name'] ], $posted_field['value'] );
-
-				$data[ $posted_field['name'] ] = $posted_value;
+                $data[ $posted_field['name'] ] = $posted_value;
 			}
         }
+        dump( $data );
+        die;
         
 		NotificationX_DB::update_settings( $data );
     }
@@ -318,72 +338,24 @@ class NotificationX_Settings {
         }
 
     }
-    public static function modules(){
-        $modules = apply_filters('nx_modules', array(
-            'bar' => __('Notification Bar', 'notificationx'),
-            'comments' => array(
-                'title' => __('Comments', 'notificationx'),
-                'modules' => array(
-                    'wp_comments' => __('WP Comments', 'notificationx'),
-                )
-            ),
-            'comments' => array(
-                'title' => __('Comments', 'notificationx'),
-                'modules' => array(
-                    'wp_comments' => __('WP Comments', 'notificationx'),
-                )
-            ),
-            'conversions' => array(
-                'title' => __('Sales Notification', 'notificationx'),
-                'modules' => array(
-                    'woocommerce' => __('WooCommerce', 'notificationx'),
-                    'edd' => __('Easy Digital Downloads', 'notificationx'),
-                    'freemius' => array(
-                        'is_pro' => true,
-                        'title' => __('Freemius', 'notificationx'),
-                    ),
-                    'custom_notification' => array(
-                        'is_pro' => true,
-                        'title' => __('Custom Notification', 'notificationx'),
-                    ),
-                )
-            ),
-            'reviews' => array(
-                'title' => __('Reviews', 'notificationx'),
-                'modules' => array(
-                    'wp_reviews' => __('WP.org', 'notificationx'),
-                    'freemius' => array(
-                        'is_pro' => true,
-                        'title'  => __('Freemius', 'notificationx'),
-                    ),
-                )
-            ),
-            'statistics' => array(
-                'title' => __('Statistics', 'notificationx'),
-                'modules' => array(
-                    'wp_stats' => __('WP.org', 'notificationx'),
-                    'freemius' => array(
-                        'is_pro' => true,
-                        'title'  => __('Freemius', 'notificationx'),
-                    ),
-                ),
-                
-            ),
-            'email_subscription' => array(
-                'title' => __('Email Subscription', 'notificationx'),
-                'is_pro' => true,
-                'modules' => array(
-                    'mailchimp'  => __('MailChimp', 'notificationx'),
-                    'convertkit' => __('ConvertKit', 'notificationx'),
-                    'zapier'     => __('Zapier', 'notificationx'),
-                ),
-            ),
-        ));
-
+    public static function modules( $modules ){
+        $free_modules = [];
         if( ! empty( $modules ) ) {
+            foreach( $modules as $module_key => $module ) {
+                $is_pro_module = is_array( $module ) && isset( $module['is_pro'] ) ? $module['is_pro'] : false;
+                $free_modules[ $module_key ] = ! $is_pro_module ? 'on' : '';
+            }
+        }
+        $active_modules = NotificationX_DB::get_settings();
+        dump( $active_modules['nx_modules'] );
+        $active_modules = empty( $active_modules ) ? $free_modules : wp_parse_args( $active_modules, $free_modules );
+        dump( $active_modules );
+        if( ! empty( $modules ) ) {
+            echo '<div class="nx-checkbox-area">';
             foreach( $modules as $module_key => $module ) {
                 include NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-module-display.php';
             }
+            echo '</div>';
         }
     }
 }

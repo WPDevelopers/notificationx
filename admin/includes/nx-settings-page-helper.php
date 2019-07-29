@@ -9,8 +9,35 @@ function notificationx_settings_args(){
             'button_text' => __( 'Save Settings' ),
             'sections' => apply_filters('nx_general_settings_sections', array(
                 'modules_sections' => array(
-                    'title'       => __('Modules' , 'notificationx'),
-                    'priority'    => 1,
+                    'title'    => __('Modules' , 'notificationx'),
+                    'priority' => 1,
+                    'modules' => true,
+                    'fields'   => apply_filters('nx_modules', array(
+                        'bar' => __('Notification Bar', 'notificationx'),
+                        'wordpress' => __('WordPress', 'notificationx'),
+                        'woocommerce' => __('WooCommerce', 'notificationx'),
+                        'edd' => __('Easy Digital Downloads', 'notificationx'),
+                        'freemius' => array(
+                            'is_pro' => true,
+                            'title' => __('Freemius', 'notificationx'),
+                        ),
+                        'custom_notification' => array(
+                            'is_pro' => true,
+                            'title' => __('Custom Notification', 'notificationx'),
+                        ),
+                        'mailchimp' => array(
+                            'is_pro' => true,
+                            'title' => __('MailChimp', 'notificationx'),
+                        ),
+                        'convertkit' => array(
+                            'is_pro' => true,
+                            'title' => __('ConvertKit', 'notificationx'),
+                        ),
+                        'zapier' => array(
+                            'is_pro' => true,
+                            'title' => __('Zapier', 'notificationx'),
+                        ),
+                    )),
                     'views' => 'NotificationX_Settings::modules'
                 ),
                 'powered_by' => apply_filters('nx_powered_by_settings', array(

@@ -52,13 +52,14 @@
                                         if( isset( $section['title'] ) ) {
                                             echo '<h2>'. $section['title'] .'</h2>';
                                         }
-                                        if( empty( $fields ) && isset( $section['views'] ) ) {
-                                            call_user_func_array( $section['views'], array() );
+                                        if( isset( $section['views'] ) && ! empty( $section['views'] ) ) {
+                                            call_user_func_array( $section['views'], 
+                                                isset( $section['fields'] ) ? array( 'fields' => $section['fields'] ) : [] );
                                         }
                                         /**
                                          * Every Section Field Rendering
                                          */
-                                        if( ! empty( $fields ) ) : ?>
+                                        if( ! empty( $fields ) && ! isset( $section['views'] ) ) : ?>
                                         <table>
                                             <tbody>
                                             <?php 

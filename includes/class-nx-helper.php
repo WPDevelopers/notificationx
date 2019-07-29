@@ -18,20 +18,25 @@ class NotificationX_Helper {
             return $value;
         }
 
-        switch ( $field['type'] ) {
-            case 'text':
-                $value = sanitize_text_field( $value );
-                break;
-            case 'textarea':
-                $value = sanitize_textarea_field( $value );
-                break;
-            case 'email':
-                $value = sanitize_email( $value );
-                break;
-            default:
-                return $value;
-                break;
+        if( is_array( $field ) && isset( $field['type'] ) ) {
+            switch ( $field['type'] ) {
+                case 'text':
+                    $value = sanitize_text_field( $value );
+                    break;
+                case 'textarea':
+                    $value = sanitize_textarea_field( $value );
+                    break;
+                case 'email':
+                    $value = sanitize_email( $value );
+                    break;
+                default:
+                    return $value;
+                    break;
+            }
+        } else {
+            $value = sanitize_text_field( $value );
         }
+
         return $value;
     }
     /**

@@ -1,21 +1,23 @@
-<div class="nx-module-section <?php echo esc_attr( $module_key ); ?>">
-    <?php 
-        if( ! is_array( $module ) ) :
-            echo '<h5>'. $module .'</h5>';
-        else :
-            echo '<h5>'. $module['title'] .'</h5>';
-            $inner_modules = isset( $module['modules'] ) ? $module['modules'] : [];
-            if( ! empty( $inner_modules ) ) : 
-                foreach( $inner_modules as $inner_module_key => $inner_module ) :
-            ?>
+<?php 
+    $module_on = isset( $active_modules[ $module_key ] ) ? $active_modules[ $module_key ] : '';
+    if( ! is_array( $module ) ) :
+        ?>
             <div class="nx-checkbox">
-                <input type="checkbox" id="<?php echo $inner_module_key; ?>" name="" disabled="">
-                <label for="<?php echo $inner_module_key; ?>" class="eael-get-pro"></label>
-                <p class="nx-module-title">Testimonial Slider<sup class="pro-label">Pro</sup></p>
+                <input type="checkbox" <?php checked( $module_on, 'on' ); ?> id="<?php echo $module; ?>" name="<?php echo $module_key; ?>">
+                <label for="<?php echo $module; ?>"></label>
+                <p class="nx-module-title"><?php echo $module; ?></p>
             </div>
-            <?php
-                endforeach;
-            endif;
+        <?php
+    else :
+        if( ! empty( $module['title'] ) ) : 
+            $is_pro_module = isset( $module['is_pro'] ) && $module['is_pro'] == true ? true : false;
+        ?>
+            <div class="nx-checkbox">
+                <input <?php echo $is_pro_module == true ? 'disabled' : ''; ?> type="checkbox" <?php checked( $module_on, 'on' ); ?> id="<?php echo $module_key; ?>" name="<?php echo $module_key; ?>">
+                <label for="<?php echo $module_key; ?>"></label>
+                <p class="nx-module-title"><?php echo $module['title']; ?><?php echo $is_pro_module ? '<sup class="pro-label">Pro</sup>' : ''; ?></p>
+            </div>
+        <?php
         endif;
-    ?>
-</div>
+    endif;
+?>

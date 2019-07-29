@@ -18,6 +18,18 @@
     display: block;
 }
 
+@keyframes switch-on {
+    50% {
+        transform: scaleX(1.3);
+    }
+}
+
+@keyframes switch-off {
+    50% {
+        transform: scaleX(1.3);
+    }
+}
+
 .nx-notification-preview {
     position: fixed;
     right: 20px;
@@ -1816,6 +1828,106 @@ body.wp-admin.rtl .ui-datepicker {
     animation: switch-off 0.3s ease-out;
 }
 
+/* Settings Page CSS */
+
+.nx-module-section>h5 {
+    font-size: 16px;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    color: #724fb6;
+    font-weight: 500;
+    margin: 0px 0px 20px 0px;
+}
+
+.nx-module-section {
+    margin-bottom: 20px;
+}
+
+.nx-checkbox-area {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+.nx-checkbox {
+    overflow: hidden;
+    display: flex;
+    flex-basis: 330px;
+    flex-flow: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 20px;
+    padding: 15px 30px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 5px 18px 0px rgba(0, 4, 32, 0.08);
+    position: relative;
+}
+
+.nx-checkbox label {
+    width: 2em;
+    height: 1em;
+    position: relative;
+    cursor: pointer;
+    display: block;
+}
+
+.nx-checkbox label:before,
+.nx-checkbox label:after {
+    content: "";
+    position: absolute;
+    background: #cbcfd0;
+}
+
+.nx-checkbox label:before {
+    width: 2em;
+    height: 1em;
+    left: 0.1em;
+    transition: background 0.1s 0.1s ease;
+    border: 1px solid #cbcfd0;
+    border-radius: 50px;
+}
+
+.nx-checkbox input[type="checkbox"]:checked+label::before {
+    background: #5614d5;
+    border: 1px solid #5614d5;
+}
+
+.nx-checkbox input[type="checkbox"]:checked+label::after {
+    left: 1.2em;
+    background: #ffffff;
+    animation: switch-on 0.3s ease-out;
+}
+
+.nx-checkbox label:after {
+    width: 0.8em;
+    height: 0.8em;
+    border-radius: 100%;
+    left: 0.2em;
+    top: 0.14em;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 0 5px #fcfff4 inset;
+    z-index: 2;
+    animation: switch-off 0.3s ease-out;
+}
+
+.nx-checkbox input[type="checkbox"] {
+    visibility: hidden;
+    display: none;
+}
+
+.nx-checkbox p.nx-module-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    margin: 0.5em;
+}
+
 /* API Integration CSS */
 .nx-api-integration-settings {}
 
@@ -1835,8 +1947,9 @@ body.wp-admin.rtl .ui-datepicker {
     display: block;
 }
 
-.nx-api-integration-settings .pro-label {
-    font-size: 11px;
+.nx-api-integration-settings .pro-label,
+.nx-checkbox .pro-label {
+    font-size: 14px;
     color: #ffffff;
     text-transform: uppercase;
     text-align: center;
@@ -1845,8 +1958,8 @@ body.wp-admin.rtl .ui-datepicker {
     -ms-transform: rotate(-45deg);
     -o-transform: rotate(-45deg);
     position: absolute;
-    top: 6px;
-    left: -25px;
+    top: 8px;
+    left: -20px;
     width: 80px;
     background-image: -moz-linear-gradient(-122deg,
             rgb(146, 113, 255) 0%,
