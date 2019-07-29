@@ -1,11 +1,11 @@
-=== NotificationX - Ultimate Free Social Proof & FOMO Plugin ===
+=== NotificationX - Free Social Proof & FOMO Plugin ===
 Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul
 Donate link: http://notificationx.com
 Tags: sales notification, fomo, social proof, live sales feed, recent sales notification, woocommerce sales, recent purchase, popups, boost sales
 Requires at least: 4.0
 Tested up to: 5.2
 Requires PHP: 5.4
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -105,6 +105,12 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 7. Notification Bar with Countdown
 
 == Changelog ==
+
+= 1.1.4 - 29/07/2019 =
+
+- Added : Option to disable powered by
+- Fixes : Stats And Review Image Issue
+- Few minor bugfix and improvement
 
 = 1.1.3 - 24/07/2019 =
 
