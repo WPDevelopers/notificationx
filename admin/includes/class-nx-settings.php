@@ -3,6 +3,8 @@
  * This class is responsible for all settings things happening in NotificationX Plugin
  */
 class NotificationX_Settings {
+    public static $pro_modules;
+    public static $free_modules;
 
     public static function init(){
         add_action( 'notificationx_before_settings_form', array( __CLASS__, 'notice_template' ), 9 );
@@ -185,11 +187,18 @@ class NotificationX_Settings {
 			}
         }
 
-        $default_modules = array_keys( $settings_args['general']['sections']['modules_sections']['fields'] );
-        $default_modules = array_fill_keys( $default_modules, false );
+        $modules = self::get_modules( $settings_args['general']['sections']['modules_sections']['fields'] );
 
+        if( ! NX_CONSTANTS::is_pro() ) {
+            $default_modules = $modules[0];
+        } else {
+            $default_modules = array_merge( $modules[0], $modules[1] );
+        }
+        
         if( isset( $data['nx_modules'] ) ) {
             $data['nx_modules'] = wp_parse_args( $data['nx_modules'], $default_modules );
+        } else {
+            $data['nx_modules'] = $default_modules;
         }
 
 		NotificationX_DB::update_settings( $data );
@@ -247,6 +256,9 @@ class NotificationX_Settings {
                                     ?>
                                     </tbody>
                                 </table>
+                                <?php if( isset( $section['has_button'] ) && $section['has_button'] ) : ?>
+                                <button data-api="<?php echo esc_attr( $section_key ); ?>" class="nx-api-settings-button nx-settings-button"><?php _e( 'Connect', 'notificationx-pro' ); ?></button>
+                                <?php endif; ?>
                             </div>
                             <?php
                         }
@@ -257,22 +269,41 @@ class NotificationX_Settings {
             }
         }
     }
+
+    public static function get_modules( $modules ) {
+        if( ! empty( $modules ) ) {
+            foreach( $modules as $module_key => $module ) {
+                $is_pro_module = is_array( $module ) && isset( $module['is_pro'] ) ? true : false;
+                if( $is_pro_module ) {
+                    self::$pro_modules[ $module_key ] = false;
+                } else {
+                    self::$free_modules[ $module_key ] = false;
+                }
+            }
+            return array(
+                self::$free_modules,
+                self::$pro_modules
+            );
+        }
+        return [];
+    }
+
     public static function modules( $modules ){
-        $free_modules = $pro_modules = [];
+        self::$free_modules = self::$pro_modules = [];
         if( ! empty( $modules ) ) {
             foreach( $modules as $module_key => $module ) {
                 $is_pro_module = is_array( $module ) && isset( $module['is_pro'] ) ? $module['is_pro'] : false;
-                $free_modules[ $module_key ] = ! $is_pro_module ? true : false;
+                self::$free_modules[ $module_key ] = ! $is_pro_module ? true : false;
                 if( $is_pro_module ) {
-                    $pro_modules[ $module_key ] = false;
+                    self::$pro_modules[ $module_key ] = false;
                 }
             }
         }
 
         $active_modules = NotificationX_DB::get_settings('nx_modules');
-        $active_modules = empty( $active_modules ) ? $free_modules : $active_modules;
+        $active_modules = empty( $active_modules ) ? self::$free_modules : $active_modules;
         if( ! NX_CONSTANTS::is_pro() ) {
-            $active_modules = array_merge( $active_modules, $pro_modules );
+            $active_modules = array_merge( $active_modules, self::$pro_modules );
         }
 
         if( ! empty( $modules ) ) {
