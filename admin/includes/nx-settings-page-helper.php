@@ -13,27 +13,27 @@ function notificationx_settings_args(){
                     'priority' => 1,
                     'modules' => true,
                     'fields'   => apply_filters('nx_modules', array(
-                        'bar' => __('Notification Bar', 'notificationx'),
-                        'wordpress' => __('WordPress', 'notificationx'),
-                        'woocommerce' => __('WooCommerce', 'notificationx'),
-                        'edd' => __('Easy Digital Downloads', 'notificationx'),
-                        'freemius' => array(
+                        'modules_bar' => __('Notification Bar', 'notificationx'),
+                        'modules_wordpress' => __('WordPress', 'notificationx'),
+                        'modules_woocommerce' => __('WooCommerce', 'notificationx'),
+                        'modules_edd' => __('Easy Digital Downloads', 'notificationx'),
+                        'modules_freemius' => array(
                             'is_pro' => true,
                             'title' => __('Freemius', 'notificationx'),
                         ),
-                        'custom_notification' => array(
+                        'modules_custom_notification' => array(
                             'is_pro' => true,
                             'title' => __('Custom Notification', 'notificationx'),
                         ),
-                        'mailchimp' => array(
+                        'modules_mailchimp' => array(
                             'is_pro' => true,
                             'title' => __('MailChimp', 'notificationx'),
                         ),
-                        'convertkit' => array(
+                        'modules_convertkit' => array(
                             'is_pro' => true,
                             'title' => __('ConvertKit', 'notificationx'),
                         ),
-                        'zapier' => array(
+                        'modules_zapier' => array(
                             'is_pro' => true,
                             'title' => __('Zapier', 'notificationx'),
                         ),
@@ -93,10 +93,10 @@ function notificationx_settings_args(){
             'priority' => 12,
             'views' => 'NotificationX_Settings::integrations'
         ),
-        'go_premium_tab' => array(
-            'title' => __( 'Go Premium', 'notificationx' ),
-            'priority' => 13,
-            'views' => 'NotificationX_Settings::integrations'
-        )
+        // 'go_premium_tab' => array(
+        //     'title' => __( 'Go Premium', 'notificationx' ),
+        //     'priority' => 13,
+        //     'views' => 'NotificationX_Settings::integrations'
+        // )
     ));
 }

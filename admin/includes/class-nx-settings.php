@@ -73,20 +73,7 @@ class NotificationX_Settings {
                     $fields = isset( $section['fields'] ) ? $section['fields'] : [];
                     if( ! empty( $fields ) ) {
                         foreach( $fields as $id => $field ) {
-                            if( isset( $section['modules'] ) && $section['modules'] == true ) {
-                                if( is_array( $field ) ) {
-                                    $field['type'] = 'modules';
-                                } else {
-                                    $field = array(
-                                        'type' => 'modules',
-                                        'title' => $field
-                                    );
-                                }
-                                $new_fields[ 'nx_modules' ][ $id ] = $field;
-                                unset( $field['type'] );
-                            } else {
-                                $new_fields[ $id ] = $field;
-                            }
+                            $new_fields[ $id ] = $field;
                         }
                     }
                 }
@@ -115,6 +102,10 @@ class NotificationX_Settings {
     public static function settings_page(){
         $settings_args = self::settings_args();
         $value = NotificationX_DB::get_settings();
+
+        dump( $value );
+        // dump( $settings_args );
+
 		include_once NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-settings-display.php';
 	}
     /**
@@ -172,10 +163,7 @@ class NotificationX_Settings {
 		$settings_args = self::settings_args();
         $fields = self::get_settings_fields( $settings_args );
         $data = [];
-
-        dump( $posted_fields );
-        dump( $fields );
-
+        
 		foreach( $posted_fields as $posted_field ) {
 			if( array_key_exists( $posted_field['name'], $fields ) ) {
                 if( empty( $posted_field['value'] ) ) {
@@ -185,12 +173,24 @@ class NotificationX_Settings {
                     $posted_value = $fields[ $posted_field['name'] ]['default'];
                 }
                 $posted_value = NotificationX_Helper::sanitize_field( $fields[ $posted_field['name'] ], $posted_field['value'] );
-                $data[ $posted_field['name'] ] = $posted_value;
+
+                // If is module then save it under a domain.
+                $is_module = strpos( $posted_field['name'], 'modules_' );
+                if( $is_module !== false && $is_module === 0 ) {
+                    $data[ 'nx_modules' ][ $posted_field['name'] ] = true;
+                } else {
+                    $data[ $posted_field['name'] ] = $posted_value;
+                }
 			}
         }
-        dump( $data );
-        die;
-        
+
+        $default_modules = array_keys( $settings_args['general']['sections']['modules_sections']['fields'] );
+        $default_modules = array_fill_keys( $default_modules, false );
+
+        if( isset( $data['nx_modules'] ) ) {
+            $data['nx_modules'] = wp_parse_args( $data['nx_modules'], $default_modules );
+        }
+
 		NotificationX_DB::update_settings( $data );
     }
     
@@ -343,13 +343,13 @@ class NotificationX_Settings {
         if( ! empty( $modules ) ) {
             foreach( $modules as $module_key => $module ) {
                 $is_pro_module = is_array( $module ) && isset( $module['is_pro'] ) ? $module['is_pro'] : false;
-                $free_modules[ $module_key ] = ! $is_pro_module ? 'on' : '';
+                $free_modules[ $module_key ] = ! $is_pro_module ? true : false;
             }
         }
-        $active_modules = NotificationX_DB::get_settings();
-        dump( $active_modules['nx_modules'] );
-        $active_modules = empty( $active_modules ) ? $free_modules : wp_parse_args( $active_modules, $free_modules );
-        dump( $active_modules );
+
+        $active_modules = NotificationX_DB::get_settings('nx_modules');
+        $active_modules = empty( $active_modules ) ? $free_modules : $active_modules;
+
         if( ! empty( $modules ) ) {
             echo '<div class="nx-checkbox-area">';
             foreach( $modules as $module_key => $module ) {
