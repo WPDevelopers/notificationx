@@ -60,8 +60,6 @@
     align-items: center;
 }
 
-.notificationx-metabox-wrapper {}
-
 .nx-builder-hidden {
     display: none !important;
 }
@@ -396,10 +394,6 @@ Form Input CSS
     width: 400px;
 }
 
-.nx-meta-field.nx-select.nx-template-field {
-    /* max-width: 200px; */
-}
-
 .template-items {
     display: flex;
     align-items: center;
@@ -514,14 +508,12 @@ label.nx-adv-checkbox-label:hover {
 }
 
 /* Group Field */
-.nx-group-row {}
 
 .nx-group-row td.nx-control {
     padding-left: 0;
     padding-right: 0;
 }
 
-.nx-group-field-wrapper {}
 
 .nx-group-field-wrapper .nx-group-field {
     border: 1px solid #f2f2f2;
@@ -582,7 +574,6 @@ label.nx-adv-checkbox-label:hover {
     height: 100px;
 }
 
-.nx-media-content {}
 
 .nx-media-content>input {
     display: block;
@@ -1408,8 +1399,6 @@ NotificationX CountDown CSS
 
 /* Nx Bar Theme CSS */
 
-.nx-bar {}
-
 .nx-bar.theme-two {
     background-color: #5704A2;
     color: #FFF;
@@ -1652,7 +1641,6 @@ body.wp-admin.rtl .ui-datepicker {
     font: normal 20px/34px 'dashicons';
     padding-left: 7px;
     color: #fff;
-    speak: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     width: 34px;
@@ -1929,7 +1917,6 @@ body.wp-admin.rtl .ui-datepicker {
 }
 
 /* API Integration CSS */
-.nx-api-integration-settings {}
 
 .nx-api-integration-settings>h3 {
     box-shadow: 0 0 40px 0px rgba(0, 0, 0, .07);
@@ -1978,6 +1965,7 @@ body.wp-admin.rtl .ui-datepicker {
     -moz-transform: rotate(-45deg);
     -ms-transform: rotate(-45deg);
     -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
     position: absolute;
     top: 8px;
     left: -20px;
