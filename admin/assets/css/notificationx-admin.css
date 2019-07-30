@@ -1030,7 +1030,7 @@ input.nx-settings-field {
     justify-content: space-between;
 }
 
-.nx-api-opec {
+/* .nx-api-opec {
     position: relative;
 }
 
@@ -1042,9 +1042,9 @@ input.nx-settings-field {
     left: 0;
     top: 0;
     background-color: rgba(255, 255, 255, 0.8);
-}
+} */
 
-.nx-api-opec::after {
+/* .nx-api-opec::after {
     content: attr(data-opec);
     position: absolute;
     top: 40%;
@@ -1053,7 +1053,7 @@ input.nx-settings-field {
     width: 100%;
     height: 100%;
     text-align: center;
-}
+} */
 
 .nx-left-right-settings>div {
     flex: 1;
@@ -1937,14 +1937,35 @@ body.wp-admin.rtl .ui-datepicker {
     cursor: pointer;
     overflow: hidden;
     position: relative;
+    margin-bottom: 0px;
+    background: #fff;
+    z-index: 99;
 }
 
 .nx-api-integration-settings .nx-api-integration-inner {
     display: none;
+    padding: 20px;
+    border-bottom: 1px solid #f2f2f2;
+    border-left: 1px solid #f2f2f2;
+    border-right: 1px solid #f2f2f2;
+    box-shadow: 0 0 40px 0 rgba(0, 0, 0, .07);
 }
 
 .nx-api-integration-settings .nx-api-integration-inner.open {
     display: block;
+}
+
+.nx-api-integration-settings .nx-api-integration-inner table {
+    border-spacing: 0 10px;
+}
+
+.nx-api-integration-settings:last-child {
+    margin-bottom: 10px;
+}
+
+.nx-api-integration-settings .nx-api-integration-inner .nx-field-description {
+    margin-left: 10px;
+    font-size: 12px;
 }
 
 .nx-api-integration-settings .pro-label,

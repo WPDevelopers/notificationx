@@ -181,7 +181,7 @@ class NotificationX_Helper {
 				'objects'
 			);
         } else {
-		    $taxonomies = get_object_taxonomies( $post_type, 'objects' );
+            $taxonomies = get_object_taxonomies( $post_type, 'objects' );
         }
         
         $data = array();
@@ -209,6 +209,8 @@ class NotificationX_Helper {
             'edd'         => __('Easy Digital Downloads' , 'notificationx'),
         ];
         $forms = apply_filters('nx_conversions_from', $froms );
+        $forms = self::active_modules( $forms );
+
         if( $from ){
             return $froms[ $from ];
         }
@@ -224,6 +226,7 @@ class NotificationX_Helper {
             'wp_comments' => __('WordPress' , 'notificationx'),
         ];
         $forms = apply_filters('nx_comments_source_options', $froms );
+        $forms = self::active_modules( $forms );
         if( $from ){
             return $froms[ $from ];
         }
@@ -239,6 +242,7 @@ class NotificationX_Helper {
             'wp_reviews' => __('WordPress' , 'notificationx'),
         ];
         $forms = apply_filters('nx_reviews_source_options', $froms );
+        $forms = self::active_modules( $forms );
         if( $from ){
             return $froms[ $from ];
         }
@@ -249,6 +253,7 @@ class NotificationX_Helper {
             'wp_stats' => __('WordPress' , 'notificationx'),
         ];
         $forms = apply_filters('nx_stats_source_options', $froms );
+        $forms = self::active_modules( $forms );
         if( $from ){
             return $froms[ $from ];
         }
@@ -344,13 +349,71 @@ class NotificationX_Helper {
             'reviews'         => __('Review' , 'notificationx'),
             'download_stats' => __('Download Stats' , 'notificationx'),
         ];
-
         $types = apply_filters('nx_notification_types', $types );
+
+        $types = self::active_modules( $types );
 
         if( $type ){
             return isset( $types[ $type ] ) ? $types[ $type ] : '';
         }
         return $types;
+    }
+
+    public static function active_modules( $types ) {
+        $active_modules = NotificationX_DB::get_settings('nx_modules');
+        if( isset( $active_modules['modules_bar'] ) && $active_modules['modules_bar'] == false ) {
+            unset( $types['press_bar'] );
+        }
+        $module_source = self::modules();
+
+        if( ! empty( $module_source ) ) {
+            foreach( $module_source as $parent_type => $module ) {
+                if( is_array( $module ) ) {
+                    $module_counter = count( $module );
+                    foreach( $module as $source_key => $single_module ) {
+                        if( isset( $active_modules[ $single_module ] ) && $active_modules[ $single_module ] == false ) {
+                            $module_counter--;
+                        }
+                    }
+                    if( $module_counter === 0 ) {
+                        if( isset( $types[ $parent_type ] ) ) {
+                            unset( $types[ $parent_type ] );
+                        } 
+                    }
+                } else {
+                    if( isset( $active_modules[ $module ] ) && $active_modules[ $module ] == false ) {
+                        if( isset( $types[ $parent_type ] ) ) {
+                            unset( $types[ $parent_type ] );
+                        } 
+                    }
+                }
+            }
+        }
+        return $types;
+    }
+
+    public static function modules(){
+        return apply_filters( 'nx_modules_source', array(
+            'press_bar' => 'modules_bar',
+            'comments' => array(
+                'modules_wordpress'
+            ),
+            'wp_comments' => 'modules_wordpress',
+            'wp_stats' => 'modules_wordpress',
+            'wp_reviews' => 'modules_wordpress',
+            'conversions' => array(
+                'modules_woocommerce',
+                'modules_edd'
+            ),
+            'download_stats' => array(
+                'modules_wordpress',
+            ),
+            'reviews' => array(
+                'modules_wordpress',
+            ),
+            'woocommerce' => 'modules_woocommerce',
+            'edd' => 'modules_edd',
+        ));
     }
 
     public static function colored_themes(){

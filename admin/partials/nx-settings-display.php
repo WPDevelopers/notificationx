@@ -10,6 +10,9 @@
                         $i = 1;
                         foreach( $settings_args as $key => $setting ) {
                             $active = $i++ === 1 ? 'active ' : '';
+                            if( isset( $setting['is_pro'] ) && $setting['is_pro'] ) {
+                                continue;
+                            }
                             echo '<li class="'. $active .'" data-tab="'. $key .'"><a href="#'. $key .'">'. $setting['title'] .'</a></li>';
                         }
                     ?>
@@ -17,6 +20,7 @@
             </div> <!-- Settings Menu End -->
             <!-- Settings Content -->
             <div class="nx-settings-content">
+                <form method="post" id="nx-settings-form" action="#">
             <?php 
                 $i = 1;
                 /**
@@ -32,11 +36,11 @@
                     id="nx-<?php echo esc_attr( $tab_key ); ?>" 
                     class="nx-settings-tab nx-settings-<?php echo esc_attr( $key );?> <?php echo $active; ?>">
                     <?php 
-                            if( empty( $sections ) && isset( $setting['views'] ) ) {
-                                call_user_func_array( $setting['views'], array() );
+                            if( isset( $setting['views'] ) && ! empty( $setting['views'] ) ) {
+                                call_user_func_array( $setting['views'], isset( $setting['sections'] ) ? array( 'sections' => $setting['sections'] ) : [] );
                             }
-                            echo $is_form ? '<form method="post" id="nx-settings-'. $tab_key .'-form" action="#">' : '';
-                            if( ! empty( $sections ) ) :
+                            // echo $is_form ? '<form method="post" id="nx-settings-'. $tab_key .'-form" action="#">' : '';
+                            if( ! empty( $sections ) && ! isset( $setting['views'] ) ) :
                                 /**
                                  * Every Section of a tab 
                                  * Rendering.
@@ -81,10 +85,11 @@
                         <button type="submit" class="nx-settings-button nx-submit-<?php echo $tab_key; ?>" data-nonce="<?php echo wp_create_nonce('nx_'. $tab_key .'_nonce'); ?>" data-key="<?php echo $tab_key; ?>" id="nx-submit-<?php echo $tab_key; ?>"><?php _e( $setting['button_text'], 'notificationx' ); ?></button>
                     <?php 
                             endif; 
-                        echo $is_form ? '</form>' : '';
+                        // echo $is_form ? '</form>' : '';
                     ?>
                 </div>
                 <?php } ?>
+                </form>
             </div> <!-- Settings Content End -->
         </div>
     </div>

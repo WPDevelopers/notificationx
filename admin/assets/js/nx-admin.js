@@ -239,14 +239,9 @@
 		$('body').delegate('.nx-settings-menu li', 'click', function (e) {
 			$.notificationx.settingsTab(this);
 		});
-		$('body').delegate('.nx-submit-general', 'click', function (e) {
+		$('body').delegate('.nx-submit-general, .nx-submit-cache_settings_tab', 'click', function (e) {
 			e.preventDefault();
-			var form = $(this).parent('#nx-settings-general-form');
-			$.notificationx.submitSettings(this, form);
-		});
-		$('body').delegate('.nx-submit-cache_settings_tab', 'click', function (e) {
-			e.preventDefault();
-			var form = $(this).parent('#nx-settings-cache_settings_tab-form');
+			var form = $(this).parents('#nx-settings-form');
 			$.notificationx.submitSettings(this, form);
 		});
 
