@@ -257,7 +257,7 @@ class NotificationX_Settings {
                                     </tbody>
                                 </table>
                                 <?php if( isset( $section['has_button'] ) && $section['has_button'] ) : ?>
-                                <button data-api="<?php echo esc_attr( $section_key ); ?>" class="nx-api-settings-button nx-settings-button"><?php _e( 'Connect', 'notificationx-pro' ); ?></button>
+                                <button data-key="<?php echo $section_key; ?>" data-nonce="<?php echo wp_create_nonce('nx_'. $section_key .'_nonce'); ?>" data-api="<?php echo esc_attr( $section_key ); ?>" class="nx-api-settings-button nx-settings-button <?php echo esc_attr( $section_key ); ?>"><?php _e( 'Connect', 'notificationx-pro' ); ?></button>
                                 <?php endif; ?>
                             </div>
                             <?php

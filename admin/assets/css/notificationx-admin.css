@@ -910,7 +910,7 @@ body.post-type-notificationx .select2-container--default .select2-search--dropdo
 
 .nx-settings-header .nx-admin-logo-inline {
     box-shadow: 1px 0 0 0 rgba(0, 0, 0, 0.1);
-    padding: 15px 10px 10px 13px;
+    padding: 25px 20px 20px 23px;
     margin-right: 10px;
 }
 
@@ -924,6 +924,7 @@ body.post-type-notificationx .select2-container--default .select2-search--dropdo
     color: #444;
     font-weight: 600;
     margin: 0px;
+    padding-left: 10px;
     line-height: 1;
 }
 
@@ -963,10 +964,7 @@ body.post-type-notificationx .select2-container--default .select2-search--dropdo
 }
 
 .nx-settings-tab {
-    background: #fff;
-    margin-top: 5px;
     padding: 15px 25px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
     border-top: none;
     position: relative;
     display: none;
@@ -1070,7 +1068,6 @@ input.nx-settings-field {
     width: 100%;
     padding: 50px 20px;
     margin-top: 34px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1950,7 +1947,8 @@ body.wp-admin.rtl .ui-datepicker {
     margin-bottom: 10px;
 }
 
-.nx-api-integration-settings .nx-api-integration-inner .nx-field-description {
+.nx-api-integration-settings .nx-api-integration-inner .nx-field-description,
+.nx-field-description {
     margin-left: 10px;
     font-size: 12px;
 }
@@ -1984,4 +1982,60 @@ body.wp-admin.rtl .ui-datepicker {
             rgb(87, 37, 255) 100%);
     box-shadow: 0px 3px 7px 0px rgba(0, 5, 41, 0.1);
     color: #fff;
+}
+
+.nx-settings-content {
+    display: flex;
+}
+
+.nx-settings-form-wrapper {
+    flex: 6;
+}
+
+.nx-settings-right {
+    flex: 3;
+    background: #fff;
+    margin: 6px 0px 0px 10px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .07);
+}
+
+.nx-settings-form-wrapper {
+    margin-top: 5px;
+    background-color: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .07);
+}
+
+#nx-settings-modules_sections {
+    margin-bottom: 20px;
+    border-bottom: 2px dashed #f2f2f2;
+    padding-bottom: 20px;
+}
+
+.nx-settings-section>h2 {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+.nx-settings-section>h2:before {
+    content: attr(data-text);
+    position: absolute;
+    width: auto;
+    height: 100%;
+    background: #fff;
+    padding-right: 10px;
+}
+
+.nx-settings-section>h2:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    left: 0;
+    top: 50%;
+    height: 0px;
+    border-top: 2px dashed #f2f2f2;
+    margin-top: -1px;
+    z-index: -1;
 }

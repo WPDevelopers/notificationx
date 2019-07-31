@@ -47,8 +47,14 @@ function notificationx_settings_args(){
                             'type'        => 'checkbox',
                             'label'       => __('Disable Powered By' , 'notificationx'),
                             'default'     => 0,
-                            'disable'     => true,
                             'priority'    => 10,
+                            'description' => __('Click, if you want to disable powered by text from notification' , 'notificationx'),
+                        ),
+                        'affiliate_link' => array(
+                            'type'        => 'text',
+                            'label'       => __('Affiliate Link' , 'notificationx'),
+                            'priority'    => 11,
+                            'disable'    => true,
                             'description' => __('Click, if you want to disable powered by text from notification' , 'notificationx'),
                         )
                     ),
