@@ -546,6 +546,7 @@ class NotificationX_Admin {
 			'post_type' => 'notificationx',
 			'post_status' => array('publish', 'trash', 'draft'),
 			'numberposts' => -1,
+			'posts_per_page' => -1,
 		));
 
 		$table_header = apply_filters( 'nx_admin_table_header', array(
