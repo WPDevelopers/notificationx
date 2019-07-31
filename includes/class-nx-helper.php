@@ -641,6 +641,50 @@ class NotificationX_Helper {
         ));
     }
 
+    public static function nice_number($n) {
+        // first strip any formatting;
+        $n = ( 0 + str_replace(",", "", $n ) );
+        // is this a number?
+        if( ! is_numeric( $n ) ) return 0;
+        $number = 0;
+        $suffix = '';
+        switch( $n ) {
+            case $n >= 1000000000000 : 
+                $number = round( ( $n / 1000000000000 ), 1 );
+                $suffix = 'T';
+                if( $n > 1000000000000 ) {
+                    $suffix = 'T+';
+                }
+                break;
+            case $n >= 1000000000 : 
+                $number = round( ( $n / 1000000000 ), 1 );
+                $suffix = 'B';
+                if( $n > 1000000000 ) {
+                    $suffix = 'B+';
+                }
+                break;
+            case $n >= 1000000 : 
+                $number = round( ( $n / 1000000 ), 1 );
+                $suffix = 'M';
+                if( $n > 1000000 ) {
+                    $suffix = 'M+';
+                }
+                break;
+            case $n >= 1000 : 
+                $number = round( ( $n / 1000 ), 1 );
+                $suffix = 'K';
+                if( $n > 1000 ) {
+                    $suffix = 'K+';
+                }
+                break;
+            default: 
+                $number = $n;
+                break;
+        }
+        $number = number_format($number);
+        return $number . $suffix;
+    }
+
     public static function sound_section( $sec_id, $id, $section ){
         if( $sec_id === 'appearance' ) {
             global $post;

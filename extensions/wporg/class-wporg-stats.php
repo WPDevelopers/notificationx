@@ -82,13 +82,14 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         if( NotificationX_Helper::get_type( $settings ) !== $this->type ) {
             return $data;
         }      
+
         if( isset( $data['name'] ) ) {
             unset( $data['name'] );
         }
-        $data['today'] = __( $saved_data['today'] . ' times today', 'notificationx' );
-        $data['yesterday'] = __( $saved_data['yesterday'] . ' times', 'notificationx' );
-        $data['last_week'] = __( $saved_data['last_week'] . ' times in last 7 days', 'notificationx' );
-        $data['all_time'] = __( $saved_data['all_time'] . ' times', 'notificationx' );
+        $data['today'] = __( NotificationX_Helper::nice_number( $saved_data['today'] ) . ' times today', 'notificationx' );
+        $data['yesterday'] = __( NotificationX_Helper::nice_number( $saved_data['yesterday'] ) . ' times', 'notificationx' );
+        $data['last_week'] = __( NotificationX_Helper::nice_number( $saved_data['last_week'] ) . ' times in last 7 days', 'notificationx' );
+        $data['all_time'] = __( NotificationX_Helper::nice_number( $saved_data['all_time'] ) . ' times', 'notificationx' );
         
         $data['today_text'] = __( 'Try it out', 'notificationx' );
         $data['last_week_text'] = __( 'Get started free.', 'notificationx' );

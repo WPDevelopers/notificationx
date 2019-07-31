@@ -22,7 +22,9 @@
             <div class="nx-settings-content">
                 <?php 
                     include NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-settings-form.php';
-                    include NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-settings-sidebar.php';
+                    if( ! NX_CONSTANTS::is_pro() ) {
+                        include NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-settings-sidebar.php';
+                    }
                 ?>
             </div> <!-- Settings Content End -->
         </div>

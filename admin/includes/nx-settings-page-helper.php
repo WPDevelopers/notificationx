@@ -94,10 +94,5 @@ function notificationx_settings_args(){
                 )),
             )),
         ),
-        // 'go_premium_tab' => array(
-        //     'title' => __( 'Go Premium', 'notificationx' ),
-        //     'priority' => 13,
-        //     'views' => 'NotificationX_Settings::integrations'
-        // )
     ));
 }

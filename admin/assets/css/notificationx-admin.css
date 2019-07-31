@@ -2039,3 +2039,78 @@ body.wp-admin.rtl .ui-datepicker {
     margin-top: -1px;
     z-index: -1;
 }
+
+#nx-go_license_tab .nx-settings-right {
+    display: block;
+    box-shadow: none;
+}
+
+#nx-go_license_tab .nx-settings-right,
+#nx-go_license_tab .nx-sidebar {
+    margin: 0px;
+}
+
+#nx-go_license_tab .nx-sidebar {
+    width: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+
+    border-bottom: 2px dashed #f2f2f2;
+    margin-bottom: 50px;
+}
+
+#nx-go_license_tab .nx-sidebar .nx-sidebar-block.nx-license-block {
+    order: 1;
+}
+
+#nx-go_license_tab .nx-sidebar .nx-sidebar-block {
+    margin: 1em 0;
+    order: 2;
+    flex: 1;
+}
+
+.nx-settings-documentation {
+    display: flex;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.nx-admin-block {
+    flex-basis: 25%;
+    padding: 25px;
+    box-shadow: 0 0 20px 0px #f2f2f2;
+    margin-left: 15px;
+    margin-right: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+header.nx-admin-block-header {
+    display: flex;
+    align-items: center;
+}
+
+.nx-admin-block-header-icon {
+    width: 35px;
+}
+
+h4.nx-admin-title {
+    margin: 0 15px;
+    font-size: 17px;
+}
+
+.nx-admin-block-content {
+    flex: 1;
+}
+
+.nx-admin-block-content>a {
+    color: #fff;
+    display: inline-block;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    background-image: -webkit-linear-gradient(-169deg, rgb(146, 113, 255) 0%, rgb(87, 37, 255) 100%);
+}
