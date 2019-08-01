@@ -338,7 +338,11 @@ class NotificationX_Extension {
             if( self::is_link_visible( $settings ) ) :
                 $notx_link = self::get_link( $data, $settings );
                 if( ! empty( $notx_link ) ) {
-                    $output .= '<a class="notificationx-link" href="'. esc_url( $notx_link ) .'"></a>';
+                    if( $settings->link_open ) {
+                        $output .= '<a class="notificationx-link" target="_blank" href="'. esc_url( $notx_link ) .'"></a>';
+                    } else {
+                        $output .= '<a class="notificationx-link" href="'. esc_url( $notx_link ) .'"></a>';
+                    }
                 }
             endif;
             $output .= apply_filters( 'nx_frontend_after_html', '', $settings );
