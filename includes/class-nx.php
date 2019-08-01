@@ -246,7 +246,7 @@ final class NotificationX {
 		add_action( 'admin_enqueue_scripts', array( $plugin_admin, 'enqueue_styles') );
 		add_action( 'admin_enqueue_scripts', array( $plugin_admin, 'enqueue_scripts') );
 
-		add_action( 'save_post', array( $plugin_admin->metabox, 'save_metabox') );
+		add_action( 'save_post_notificationx', array( $plugin_admin->metabox, 'save_metabox') );
 		add_action( 'load-edit.php', array( $plugin_admin, 'trashed_notificationx') );
 		add_action( 'wp_insert_post', array( $plugin_admin, 'redirect_after_publish'), 9999, 3 );
 		add_action( 'upgrader_process_complete', array( $plugin_admin, 'upgrade_notificationx'), 9999, 3 );
