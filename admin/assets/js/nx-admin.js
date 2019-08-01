@@ -242,6 +242,26 @@
 
 		var saveButton = $('.nx-settings-button');
 
+		$('body').on('click', '.nx-pro-checkbox', function (e) {
+			e.preventDefault();
+			var premium_content = document.createElement("p");
+			var premium_anchor = document.createElement("a");
+
+			premium_anchor.setAttribute('href', 'https://wpdeveloper.net/in/notificationx-pro');
+			premium_anchor.innerText = 'Premium';
+			premium_anchor.style.color = 'red';
+			premium_content.innerHTML = 'You need to upgrade to the <strong>' + premium_anchor.outerHTML + ' </strong> Version to use this module.';
+
+			swal({
+				title: "Opps...",
+				content: premium_content,
+				icon: "warning",
+				buttons: [false, "Close"],
+				dangerMode: true,
+			});
+			return;
+		});
+
 		$(".nx-checkbox-area .nx-checkbox input:enabled, .nx-settings-field").on(
 			"click",
 			function (e) {

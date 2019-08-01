@@ -56,13 +56,6 @@ function notificationx_settings_args(){
                             'priority'    => 10,
                             'description' => __('Click, if you want to disable powered by text from notification' , 'notificationx'),
                         ),
-                        'affiliate_link' => array(
-                            'type'        => 'text',
-                            'label'       => __('Affiliate Link' , 'notificationx'),
-                            'priority'    => 11,
-                            'disable'    => true,
-                            'description' => __('Click, if you want to disable powered by text from notification' , 'notificationx'),
-                        )
                     ),
                 ))
             ))
@@ -78,20 +71,21 @@ function notificationx_settings_args(){
                         'cache_limit' => array(
                             'type'      => 'text',
                             'label'     => __('Cache Limit' , 'notificationx'),
+                            'description' => __('Number of Notification Data to be saved in Database.' , 'notificationx'),
                             'default'   => '100',
                             'priority'	=> 1
                         ),
                         'download_stats_cache_duration' => array(
                             'type'        => 'text',
                             'label'       => __('Download Stats Cache Duration' , 'notificationx'),
-                            'description' => __(' minutes (Schedule Duration to fetch new data).' , 'notificationx'),
+                            'description' => __('Minutes (Schedule Duration to fetch new data).' , 'notificationx'),
                             'default'     => '3',
                             'priority'    => 2
                         ),
                         'reviews_cache_duration' => array(
                             'type'        => 'text',
                             'label'       => __('Reviews Cache Duration' , 'notificationx'),
-                            'description' => __(' minutes (Schedule Duration to fetch new data).' , 'notificationx'),
+                            'description' => __('Minutes (Schedule Duration to fetch new data).' , 'notificationx'),
                             'default'     => '3',
                             'priority'    => 3
                         )

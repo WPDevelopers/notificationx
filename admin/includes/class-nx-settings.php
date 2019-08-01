@@ -170,10 +170,10 @@ class NotificationX_Settings {
 		foreach( $posted_fields as $posted_field ) {
 			if( array_key_exists( $posted_field['name'], $fields ) ) {
                 if( empty( $posted_field['value'] ) ) {
-					$posted_value = $fields[ $posted_field['name'] ]['default'];
+					$posted_value = isset( $fields[ $posted_field['name'] ]['default'] ) ? $fields[ $posted_field['name'] ]['default'] : '';
                 }
                 if( isset( $fields[ $posted_field['name'] ]['disable'] ) && $fields[ $posted_field['name'] ]['disable'] === true ) {
-                    $posted_value = $fields[ $posted_field['name'] ]['default'];
+                    $posted_value = isset( $fields[ $posted_field['name'] ]['default'] ) ? $fields[ $posted_field['name'] ]['default'] : '';
                 }
                 $posted_value = NotificationX_Helper::sanitize_field( $fields[ $posted_field['name'] ], $posted_field['value'] );
 
