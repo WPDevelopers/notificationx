@@ -18,7 +18,6 @@
                     if( isset( $setting['views'] ) && ! empty( $setting['views'] ) ) {
                         call_user_func_array( $setting['views'], isset( $setting['sections'] ) ? array( 'sections' => $setting['sections'] ) : [] );
                     }
-                    // echo $is_form ? '<form method="post" id="nx-settings-'. $tab_key .'-form" action="#">' : '';
                     if( ! empty( $sections ) && ! isset( $setting['views'] ) ) :
                         /**
                          * Every Section of a tab 
@@ -61,11 +60,8 @@
                     // Submit Button
                     if( isset( $setting['button_text'] ) && ! empty( $setting['button_text'] ) ) :
                 ?>
-                <button type="submit" class="nx-settings-button nx-submit-<?php echo $tab_key; ?>" data-nonce="<?php echo wp_create_nonce('nx_'. $tab_key .'_nonce'); ?>" data-key="<?php echo $tab_key; ?>" id="nx-submit-<?php echo $tab_key; ?>"><?php _e( $setting['button_text'], 'notificationx' ); ?></button>
-            <?php 
-                    endif; 
-                // echo $is_form ? '</form>' : '';
-            ?>
+                <button type="submit" class="btn-settings nx-settings-button nx-submit-<?php echo $tab_key; ?>" data-nonce="<?php echo wp_create_nonce('nx_'. $tab_key .'_nonce'); ?>" data-key="<?php echo $tab_key; ?>" id="nx-submit-<?php echo $tab_key; ?>"><?php _e( $setting['button_text'], 'notificationx' ); ?></button>
+            <?php endif; ?>
         </div>
     <?php } ?>
     </form>

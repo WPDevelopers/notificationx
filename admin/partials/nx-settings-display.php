@@ -27,6 +27,7 @@
                     }
                 ?>
             </div> <!-- Settings Content End -->
+            <?php include NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-settings-blocks.php'; ?>
         </div>
     </div>
 </div>

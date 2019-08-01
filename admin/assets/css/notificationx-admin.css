@@ -751,7 +751,7 @@ label.nx-adv-checkbox-label:hover {
 
 .quick-builder-submit-btn,
 .nx-meta-next,
-.nx-settings-button {
+.btn-settings {
     background-color: #6648FE;
     color: #fff;
     border: 0;
@@ -963,6 +963,10 @@ body.post-type-notificationx .select2-container--default .select2-search--dropdo
     border-top: 2px solid #6648FE;
 }
 
+.nx-settings-menu li[data-tab="api_integrations_tab"] {
+    display: none;
+}
+
 .nx-settings-tab {
     padding: 15px 25px;
     border-top: none;
@@ -976,6 +980,9 @@ body.post-type-notificationx .select2-container--default .select2-search--dropdo
 
 .nx-settings-button {
     margin: 30px 15px 0 0;
+    padding: 16px 30px;
+    display: flex;
+    align-items: center;
 }
 
 .nx-settings-section>table,
@@ -2007,8 +2014,6 @@ body.wp-admin.rtl .ui-datepicker {
 
 #nx-settings-modules_sections {
     margin-bottom: 20px;
-    border-bottom: 2px dashed #f2f2f2;
-    padding-bottom: 20px;
 }
 
 .nx-settings-section>h2 {
@@ -2055,9 +2060,6 @@ body.wp-admin.rtl .ui-datepicker {
     flex-direction: row;
     align-items: center;
     justify-content: start;
-
-    border-bottom: 2px dashed #f2f2f2;
-    margin-bottom: 50px;
 }
 
 #nx-go_license_tab .nx-sidebar .nx-sidebar-block.nx-license-block {
@@ -2071,6 +2073,12 @@ body.wp-admin.rtl .ui-datepicker {
 }
 
 .nx-settings-documentation {
+    margin-top: 10px;
+    background: #fff;
+    padding: 30px 30px;
+}
+
+.nx-settings-row {
     display: flex;
     margin-left: -15px;
     margin-right: -15px;
@@ -2113,4 +2121,64 @@ h4.nx-admin-title {
     border-radius: 5px;
     margin-top: 20px;
     background-image: -webkit-linear-gradient(-169deg, rgb(146, 113, 255) 0%, rgb(87, 37, 255) 100%);
+}
+
+.nx-save-now {
+    background-color: #e74c3c;
+}
+
+#nx-spinner {
+    width: 18px;
+    display: inline-block;
+    float: left;
+    margin: 3px 5px 0 0;
+
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 1.2s;
+    transition-duration: 1.2s;
+    -webkit-animation-name: rotate;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+
+    -moz-transition-property: -moz-transform;
+    -moz-animation-name: rotate;
+    -moz-animation-duration: 1.2s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+
+    transition-property: transform;
+    animation-name: rotate;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@-webkit-keyframes rotate {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes rotate {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }

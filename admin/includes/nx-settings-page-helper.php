@@ -5,7 +5,6 @@ function notificationx_settings_args(){
         'general' => array(
             'title' => __( 'General', 'notificationx' ),
             'priority' => 10,
-            'form' => true,
             'button_text' => __( 'Save Settings' ),
             'sections' => apply_filters('nx_general_settings_sections', array(
                 'modules_sections' => array(
@@ -40,6 +39,13 @@ function notificationx_settings_args(){
                     )),
                     'views' => 'NotificationX_Settings::modules'
                 ),
+            )),
+        ),
+        'advanced_settings_tab' => array(
+            'title' => __('Advance Settings', 'notificationx'),
+            'button_text' => __('Save Settings', 'notificationx'),
+            'priority' => 10,
+            'sections' => apply_filters( 'nx_advanced_settings_sections', array(
                 'powered_by' => apply_filters('nx_powered_by_settings', array(
                     'priority' => 15,
                     'fields' => array(
@@ -59,12 +65,11 @@ function notificationx_settings_args(){
                         )
                     ),
                 ))
-            )),
+            ))
         ),
         'cache_settings_tab' => array(
             'title' => __( 'Cache Settings', 'notificationx' ),
             'priority' => 11,
-            'form' => true,
             'button_text' => __( 'Save Settings' ),
             'sections' => apply_filters('nx_cache_settings_sections', array(
                 'cache_settings' => apply_filters('nx_cache_settings_tab', array(

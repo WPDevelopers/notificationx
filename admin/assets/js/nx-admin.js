@@ -239,7 +239,20 @@
 		$('body').delegate('.nx-settings-menu li', 'click', function (e) {
 			$.notificationx.settingsTab(this);
 		});
-		$('body').delegate('.nx-submit-general, .nx-submit-cache_settings_tab', 'click', function (e) {
+
+		var saveButton = $('.nx-settings-button');
+
+		$(".nx-checkbox-area .nx-checkbox input:enabled, .nx-settings-field").on(
+			"click",
+			function (e) {
+				saveButton
+					.addClass("nx-save-now")
+					.removeAttr("disabled")
+					.css("cursor", "pointer");
+			}
+		);
+
+		$('body').delegate('.nx-settings-button', 'click', function (e) {
 			e.preventDefault();
 			var form = $(this).parents('#nx-settings-form');
 			$.notificationx.submitSettings(this, form);
@@ -637,14 +650,27 @@
 				child.attr('data-id', dataID);
 				child.attr('id', idName);
 
-				childInput.attr('id', inputName);
-				childInput.attr('name', inputName);
-				childInput.attr('data-key', dataID);
+				if (key != undefined) {
+					childInput.attr('id', inputName);
+					childInput.attr('name', inputName);
+					childInput.attr('data-key', dataID);
+				} else {
+					if (childInput.length > 1) {
+						childInput.each(function (i, subInput) {
+							if (subInput.type === 'text') {
+								var subInputName = inputName + '[url]';
+							}
+							if (subInput.type === 'hidden') {
+								var subInputName = inputName + '[id]';
+							}
+							subInput = $(subInput);
+							subInput.attr('id', subInputName);
+							subInput.attr('name', subInputName);
+							subInput.attr('data-key', dataID);
+						});
+					}
+				}
 
-				// if( childInput.length > 1 ) {
-				// 	childInput.each(function(i, subInput){
-				// 	});
-				// }
 			});
 
 			groupID++;
@@ -769,14 +795,22 @@
 				nonce: nonce,
 				form_data: formData
 			},
+			beforeSend: function () {
+				button.html(
+					'<svg id="nx-spinner" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48"><circle cx="24" cy="4" r="4" fill="#fff"/><circle cx="12.19" cy="7.86" r="3.7" fill="#fffbf2"/><circle cx="5.02" cy="17.68" r="3.4" fill="#fef7e4"/><circle cx="5.02" cy="30.32" r="3.1" fill="#fef3d7"/><circle cx="12.19" cy="40.14" r="2.8" fill="#feefc9"/><circle cx="24" cy="44" r="2.5" fill="#feebbc"/><circle cx="35.81" cy="40.14" r="2.2" fill="#fde7af"/><circle cx="42.98" cy="30.32" r="1.9" fill="#fde3a1"/><circle cx="42.98" cy="17.68" r="1.6" fill="#fddf94"/><circle cx="35.81" cy="7.86" r="1.3" fill="#fcdb86"/></svg><span>Saving...</span>'
+				);
+			},
 			success: function (res) {
+				button.html('Save Settings');
 				if (res === 'success') {
 					swal({
 						title: "Settings Saved!",
 						text: "Click OK to continue",
 						icon: "success",
 						buttons: [false, "Ok"],
+						timer: 2000
 					});
+					$('.nx-save-now').removeClass("nx-save-now");
 				} else {
 					swal({
 						title: "Settings Not Saved!",
