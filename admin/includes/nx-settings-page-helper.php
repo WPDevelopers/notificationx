@@ -42,7 +42,7 @@ function notificationx_settings_args(){
             )),
         ),
         'advanced_settings_tab' => array(
-            'title' => __('Advance Settings', 'notificationx'),
+            'title' => __('Advanced Settings', 'notificationx'),
             'button_text' => __('Save Settings', 'notificationx'),
             'priority' => 10,
             'sections' => apply_filters( 'nx_advanced_settings_sections', array(
