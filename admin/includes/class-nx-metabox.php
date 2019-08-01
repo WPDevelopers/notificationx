@@ -250,8 +250,16 @@ class NotificationX_MetaBox {
         $type = NotificationX_Helper::get_type( $posts );
         if( $type != 'press_bar' ) {
             $is_created = NotificationX_Extension::is_enabled( $type );
-            $is_created = $is_created == true ? false : true;
-            $is_created = apply_filters( 'nx_enable_notificationx', $is_created );
+            $is_created_meta = get_post_meta( $post_id, '_nx_meta_active_check', true );
+            if( ! NX_CONSTANTS::is_pro() && $is_created ) {
+                $is_created = false;
+            }
+            if( ! NX_CONSTANTS::is_pro() && ! $is_created ) {
+                $is_created = true;
+            }
+            if ( $is_created_meta != '' ) {
+                $is_created = $is_created_meta;
+            }
         } else {
             $is_created = true;
         }

@@ -348,7 +348,7 @@ class NotificationX_Admin {
 		do_action( 'nx_post_columns_content', $column, $post_id );
 	}
 			
-	public static function notification_toggle( $status = '1', $post_id ){
+	public static function notification_toggle( $status = true, $post_id ){
 		$text           = __('Active', 'notificationx');
 		$img_active     = NOTIFICATIONX_ADMIN_URL . 'assets/img/active1.png';
 		$img_inactive   = NOTIFICATIONX_ADMIN_URL . 'assets/img/active0.png';
