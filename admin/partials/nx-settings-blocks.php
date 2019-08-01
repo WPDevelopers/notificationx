@@ -39,13 +39,13 @@
         <div class="nx-admin-block nx-admin-block-community">
             <header class="nx-admin-block-header">
                 <div class="nx-admin-block-header-icon">
-                    <img src="<?php echo NOTIFICATIONX_ADMIN_URL; ?>/assets/img/icons/icon-join-community.svg" alt="notificationx-commuinity">
+                    <img src="<?php echo NOTIFICATIONX_ADMIN_URL; ?>/assets/img/icons/icon-show-love.svg" alt="notificationx-commuinity">
                 </div>
-                <h4 class="nx-admin-title"><?php _e( 'Join the Community', 'notificationx' ); ?></h4>
+                <h4 class="nx-admin-title"><?php _e( 'Show Your Love', 'notificationx' ); ?></h4>
             </header>
             <div class="nx-admin-block-content">
-                <p><?php _e( 'Join the Facebook community and discuss with fellow developers and users. Best way to connect with people and get feedback on your projects.', 'notificationx' ); ?></p>
-                <a href="https://www.facebook.com/NotificationXforWP/" class="nx-button" target="_blank"><?php _e( 'Join Facebook Community', 'notificationx' ); ?></a>
+                <p><?php _e( 'We love to have you in NotificationX family. We are making it more awesome everyday. Take your 2 minutes to review the plugin and spread the love to encourage us to keep it going.', 'notificationx' ); ?></p>
+                <a href="https://wpdeveloper.net/review-notificationx" class="nx-button" target="_blank"><?php _e( 'Leave a Review', 'notificationx' ); ?></a>
             </div>
         </div>
     </div>
