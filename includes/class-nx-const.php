@@ -37,6 +37,10 @@ class NX_CONSTANTS {
         'conversion_link_options',
     );
 
+    public static function is_pro() {
+        return class_exists('NotificationXPro');
+    }
+
     public static function themeSource( $name, $type = 'press_bar' ) {
         switch( $type ) {
             case 'comments' : 

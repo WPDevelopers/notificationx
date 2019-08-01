@@ -18,20 +18,25 @@ class NotificationX_Helper {
             return $value;
         }
 
-        switch ( $field['type'] ) {
-            case 'text':
-                $value = sanitize_text_field( $value );
-                break;
-            case 'textarea':
-                $value = sanitize_textarea_field( $value );
-                break;
-            case 'email':
-                $value = sanitize_email( $value );
-                break;
-            default:
-                return $value;
-                break;
+        if( is_array( $field ) && isset( $field['type'] ) ) {
+            switch ( $field['type'] ) {
+                case 'text':
+                    $value = sanitize_text_field( $value );
+                    break;
+                case 'textarea':
+                    $value = sanitize_textarea_field( $value );
+                    break;
+                case 'email':
+                    $value = sanitize_email( $value );
+                    break;
+                default:
+                    return $value;
+                    break;
+            }
+        } else {
+            $value = sanitize_text_field( $value );
         }
+
         return $value;
     }
     /**
@@ -176,7 +181,7 @@ class NotificationX_Helper {
 				'objects'
 			);
         } else {
-		    $taxonomies = get_object_taxonomies( $post_type, 'objects' );
+            $taxonomies = get_object_taxonomies( $post_type, 'objects' );
         }
         
         $data = array();
@@ -204,6 +209,8 @@ class NotificationX_Helper {
             'edd'         => __('Easy Digital Downloads' , 'notificationx'),
         ];
         $forms = apply_filters('nx_conversions_from', $froms );
+        $forms = self::active_modules( $forms );
+
         if( $from ){
             return $froms[ $from ];
         }
@@ -219,6 +226,7 @@ class NotificationX_Helper {
             'wp_comments' => __('WordPress' , 'notificationx'),
         ];
         $forms = apply_filters('nx_comments_source_options', $froms );
+        $forms = self::active_modules( $forms );
         if( $from ){
             return $froms[ $from ];
         }
@@ -234,6 +242,7 @@ class NotificationX_Helper {
             'wp_reviews' => __('WordPress' , 'notificationx'),
         ];
         $forms = apply_filters('nx_reviews_source_options', $froms );
+        $forms = self::active_modules( $forms );
         if( $from ){
             return $froms[ $from ];
         }
@@ -244,6 +253,7 @@ class NotificationX_Helper {
             'wp_stats' => __('WordPress' , 'notificationx'),
         ];
         $forms = apply_filters('nx_stats_source_options', $froms );
+        $forms = self::active_modules( $forms );
         if( $from ){
             return $froms[ $from ];
         }
@@ -300,15 +310,15 @@ class NotificationX_Helper {
         if( $types == 'display_types' ) {
             return apply_filters("nx_display_types_hide_data", array(
                 'comments' => array(
-                    'sections' => [ 'bar_themes', 'conversion_link_options', 'bar_design', 'bar_typography', 'themes', 'design', 'image_design', 'typography' ],
+                    'sections' => [ 'bar_themes', 'conversion_link_options', 'bar_design', 'bar_typography', 'themes', 'design', 'image_design', 'typography', 'rs_link_options' ],
                     'fields' => [ 'custom_contents', 'show_custom_image', 'show_notification_image', 'image_url' ]
                 ),
                 'press_bar' => array(
-                    'sections' => [ 'image', 'link_options', 'conversion_link_options', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography' ],
+                    'sections' => [ 'image', 'link_options', 'conversion_link_options', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'rs_link_options' ],
                     'fields' => [ 'comments_template', 'custom_contents', 'notification_preview', 'image_url', 'conversion_size', 'conversion_position', 'comments_template_new', 'comments_template_adv', 'wp_stats_template_new' ]
                 ),
                 'conversions' => array(
-                    'sections' => [ 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography' ], 
+                    'sections' => [ 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'rs_link_options' ], 
                 ),
                 'reviews' => array(
                     'fields' => [ 'comments_source', 'conversion_from' ], 
@@ -339,13 +349,71 @@ class NotificationX_Helper {
             'reviews'         => __('Review' , 'notificationx'),
             'download_stats' => __('Download Stats' , 'notificationx'),
         ];
-
         $types = apply_filters('nx_notification_types', $types );
+
+        $types = self::active_modules( $types );
 
         if( $type ){
             return isset( $types[ $type ] ) ? $types[ $type ] : '';
         }
         return $types;
+    }
+
+    public static function active_modules( $types ) {
+        $active_modules = NotificationX_DB::get_settings('nx_modules');
+        if( isset( $active_modules['modules_bar'] ) && $active_modules['modules_bar'] == false ) {
+            unset( $types['press_bar'] );
+        }
+        $module_source = self::modules();
+
+        if( ! empty( $module_source ) ) {
+            foreach( $module_source as $parent_type => $module ) {
+                if( is_array( $module ) ) {
+                    $module_counter = count( $module );
+                    foreach( $module as $source_key => $single_module ) {
+                        if( isset( $active_modules[ $single_module ] ) && $active_modules[ $single_module ] == false ) {
+                            $module_counter--;
+                        }
+                    }
+                    if( $module_counter === 0 ) {
+                        if( isset( $types[ $parent_type ] ) ) {
+                            unset( $types[ $parent_type ] );
+                        } 
+                    }
+                } else {
+                    if( isset( $active_modules[ $module ] ) && $active_modules[ $module ] == false ) {
+                        if( isset( $types[ $parent_type ] ) ) {
+                            unset( $types[ $parent_type ] );
+                        } 
+                    }
+                }
+            }
+        }
+        return $types;
+    }
+
+    public static function modules(){
+        return apply_filters( 'nx_modules_source', array(
+            'press_bar' => 'modules_bar',
+            'comments' => array(
+                'modules_wordpress'
+            ),
+            'wp_comments' => 'modules_wordpress',
+            'wp_stats' => 'modules_wordpress',
+            'wp_reviews' => 'modules_wordpress',
+            'conversions' => array(
+                'modules_woocommerce',
+                'modules_edd'
+            ),
+            'download_stats' => array(
+                'modules_wordpress',
+            ),
+            'reviews' => array(
+                'modules_wordpress',
+            ),
+            'woocommerce' => 'modules_woocommerce',
+            'edd' => 'modules_edd',
+        ));
     }
 
     public static function colored_themes(){
@@ -571,6 +639,50 @@ class NotificationX_Helper {
             'wp_reviews'  => 'wp_reviews_template_new',
             'wp_stats'  => 'wp_stats_template_new',
         ));
+    }
+
+    public static function nice_number($n) {
+        // first strip any formatting;
+        $n = ( 0 + str_replace(",", "", $n ) );
+        // is this a number?
+        if( ! is_numeric( $n ) ) return 0;
+        $number = 0;
+        $suffix = '';
+        switch( $n ) {
+            case $n >= 1000000000000 : 
+                $number = round( ( $n / 1000000000000 ), 1 );
+                $suffix = 'T';
+                if( $n > 1000000000000 ) {
+                    $suffix = 'T+';
+                }
+                break;
+            case $n >= 1000000000 : 
+                $number = round( ( $n / 1000000000 ), 1 );
+                $suffix = 'B';
+                if( $n > 1000000000 ) {
+                    $suffix = 'B+';
+                }
+                break;
+            case $n >= 1000000 : 
+                $number = round( ( $n / 1000000 ), 1 );
+                $suffix = 'M';
+                if( $n > 1000000 ) {
+                    $suffix = 'M+';
+                }
+                break;
+            case $n >= 1000 : 
+                $number = round( ( $n / 1000 ), 1 );
+                $suffix = 'K';
+                if( $n > 1000 ) {
+                    $suffix = 'K+';
+                }
+                break;
+            default: 
+                $number = $n;
+                break;
+        }
+        $number = number_format($number);
+        return $number . $suffix;
     }
 
     public static function sound_section( $sec_id, $id, $section ){
