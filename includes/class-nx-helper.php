@@ -431,7 +431,8 @@ class NotificationX_Helper {
         return apply_filters('nx_comment_colored_themes', array(
             'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-2.jpg',
             'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-1.jpg',
-            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-3.jpg'
+            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-3.jpg',
+            'theme-four' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-4.jpg'
         ));
 
     }
