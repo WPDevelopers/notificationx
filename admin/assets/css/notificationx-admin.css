@@ -73,6 +73,7 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
+    display: flex;
 }
 
 .nx-metatab-menu ul li,
@@ -86,7 +87,10 @@
     cursor: pointer;
     background-color: #edeff0;
 }
-
+.nx-metatab-menu ul li{
+    padding: 15px 20px 15px 35px;
+    text-align: center;
+}
 .nx-metatab-menu ul li:after,
 .nx-metatab-menu ul li:before {
     position: absolute;

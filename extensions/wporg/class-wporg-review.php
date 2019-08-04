@@ -413,6 +413,9 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                         'review_saying' => [
                             'fields' => ['wp_reviews_template_new']
                         ],
+                        'review-comment' => [
+                            'fields' => ['review_saying_template_new']
+                        ]
                     ],
                     'dependency' => [
                         'review_saying' => [
@@ -424,6 +427,9 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                         'total-rated' => [
                             'fields' => ['wp_reviews_template_new']
                         ],
+                        'review-comment' => [
+                            'fields' => ['wp_reviews_template_new']
+                        ]
                     ],
                 ),
                 'wporg_advance_edit' => array(
