@@ -83,10 +83,9 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         if( isset( $data['name'] ) ) {
             unset( $data['name'] );
         }
-
         $data['plugin_name_text'] = __('try it out', 'notificationx');
         $data['anonymous_title'] = __('Anonymous', 'notificationx');
-
+        $data['plugin_review'] = !empty($saved_data['content']) ? $saved_data['content'] : 'Some review content';
         return $data;
     }
 
@@ -292,7 +291,8 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                     'type'     => 'select',
                     'priority' => 4,
                     'options'  => array(
-                        'tag_plugin_name'     => __('Plugin' , 'notificationx'),
+                        'tag_plugin_name'     => __('Plugin Name' , 'notificationx'),
+                        'tag_plugin_review'     => __('Review' , 'notificationx'),
                         'tag_anonymous_title' => __('Anonymous Title' , 'notificationx'),
                     ),
                     'default' => 'tag_plugin_name'

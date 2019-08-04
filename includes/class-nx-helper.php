@@ -450,6 +450,7 @@ class NotificationX_Helper {
             'total-rated'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/total-rated.png',
             'reviewed'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/reviewed.png',
             'review_saying' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/saying-review.png',
+            'review-comment' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/review-with-comment.jpg',
         ));
     }
 

@@ -354,3 +354,9 @@
 	color: #888888;
 	cursor: pointer;
 }
+.nx-admin-preview{
+	margin: -20px;
+}
+.nx-admin-preview img{
+	max-width: 100%;
+}
