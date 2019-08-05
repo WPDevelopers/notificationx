@@ -1,4 +1,5 @@
 <?php 
+    $options = '';
     if( isset( $field['options'] ) && ! empty( $field['options'] ) ) {
         $options = $field['options'];
     }
