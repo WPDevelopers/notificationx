@@ -298,13 +298,14 @@ class NotificationX_Admin {
 		$template_settings = apply_filters( 'nx_template_settings_by_theme', array() );
 
 		return array( 
-			'toggleFields' => $conditions, // TODO: toggling system has to be more optimized! 
-			'hideFields' => $hideFields, 
-			'template' => $template,
+			'toggleFields'      => $conditions, // TODO: toggling system has to be more optimized! 
+			'hideFields'        => $hideFields,
+			'template'          => $template,
 			'template_settings' => $template_settings,
-			'source_types' => NotificationX_Helper::source_types(),
-			'theme_sources' => NotificationX_Helper::theme_sources(),
-			'template_keys' => NotificationX_Helper::template_keys(),
+			'title_of_types'    => NotificationX_Helper::types_title(),
+			'source_types'      => NotificationX_Helper::source_types(),
+			'theme_sources'     => NotificationX_Helper::theme_sources(),
+			'template_keys'     => NotificationX_Helper::template_keys(),
 		);
 	}
 	

@@ -605,6 +605,15 @@ class NotificationX_Helper {
             'download_stats' => 'stats_source',
         ));
     }
+    public static function types_title(){
+        return apply_filters( 'nx_source_types_title', array( 
+            'press_bar'      => __('Notification Bar', 'notificationx'),
+            'comments'       => __('Comments', 'notificationx'),
+            'conversions'    => __('Sales Notification', 'notificationx'),
+            'reviews'        => __('Reviews', 'notificationx'),
+            'download_stats' => __('Download Stats', 'notificationx'),
+        ));
+    }
 
     public static function get_theme( $settings ){
         if( empty( $settings ) ) {

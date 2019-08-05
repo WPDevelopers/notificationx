@@ -636,6 +636,7 @@ label.nx-adv-checkbox-label:hover {
 .nx-builder-content .nx-single-theme-wrapper {
     margin: 10px;
     background-color: #fff;
+    width: 228px;
 }
 
 .nx-builder-header {

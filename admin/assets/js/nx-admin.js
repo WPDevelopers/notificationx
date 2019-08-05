@@ -32,19 +32,19 @@
 			var type = $(this).val();
 			switch (type) {
 				case 'conversions':
-					$('.nx_meta_conversion_from:checked').trigger('change');
+					$.notificationx.trigger('.nx_meta_conversion_from');
 					$('#nx_meta_advance_edit').trigger('change');
 					break;
 				case 'comments':
-					$('.nx_meta_comments_source:checked').trigger('change');
+					$.notificationx.trigger('.nx_meta_comments_source');
 					$('#nx_meta_comment_advance_edit').trigger('change');
 					break;
 				case 'reviews':
-					$('.nx_meta_reviews_source:checked').trigger('change');
+					$.notificationx.trigger('.nx_meta_reviews_source');
 					$('#nx_meta_wporg_advance_edit').trigger('change');
 					break;
 				case 'download_stats':
-					$('.nx_meta_stats_source:checked').trigger('change');
+					$.notificationx.trigger('.nx_meta_stats_source');
 					$('#nx_meta_wpstats_advance_edit').trigger('change');
 					break;
 			}
@@ -60,7 +60,7 @@
 			$('#nx_meta_wp_stats_template_new #nx_meta_wp_stats_template_new_fourth_param').val(value + '_text').trigger('change');
 		});
 
-		$('body').on('change', '.nx_meta_conversion_from', function () {
+		$('body').on('change', '.nx_meta_conversion_from', function (e) {
 			var conv_source = $(this).val();
 			$('.nx-themes .nx_meta_theme:checked').trigger('change');
 			switch (conv_source) {
@@ -95,24 +95,25 @@
 			}
 		});
 
-		$('body').on('change', '.nx-builder-content-wrapper #nx_meta_display_type.nx-select', function (e) {
-			var type = $(this).val(),
-				title = e.currentTarget.selectedOptions[0].innerText,
+		$('body').on('change', '.nx-builder-content-wrapper .nx_meta_display_type', function (e) {
+			var type = e.currentTarget.value,
+				title = notificationx.title_of_types[type],
 				options = {
 					year: 'numeric',
 					month: 'short',
 					day: 'numeric'
 				},
 				date = (new Date()).toLocaleDateString('en-US', options);
-			if (type === 'conversions') {
-				$('body').on('change', '#nx_meta_conversion_from.nx-select', function (e) {
-					var title = e.currentTarget.selectedOptions[0].innerText;
-					$('.finalize_notificationx_name').text("NotificationX - " + title + ' - ' + date);
-				});
-				$('#nx_meta_conversion_from.nx-select').trigger('change');
-			} else {
-				$('.finalize_notificationx_name').text("NotificationX - " + title + ' - ' + date);
-			}
+
+			// if (type === 'conversions') {
+			// 	$('body').on('change', '.nx_meta_conversion_from', function (e) {
+			// 		var title = notificationx.title_of_types[e.currentTarget.value];
+			// 		$('.finalize_notificationx_name').text("NotificationX - " + title + ' - ' + date);
+			// 	});
+			// 	$('.nx_meta_conversion_from').trigger('change');
+			// } else {
+			// }
+			$('.finalize_notificationx_name').text("NotificationX - " + title + ' - ' + date);
 		});
 
 		$('.nx_meta_display_type:checked').trigger('change');
@@ -123,6 +124,15 @@
 		$.notificationx.toggleFields();
 		$.notificationx.bindEvents();
 		$.notificationx.initializeFields();
+	};
+	// @since 1.2.1
+	$.notificationx.trigger = function (selector) {
+		var source = $(selector + ':checked').val();
+		if (source == undefined) {
+			$(selector + ':first').trigger('click');
+		} else {
+			$(selector + ':checked').trigger('change');
+		}
 	};
 
 	$.notificationx.templateForTheme = function () {
@@ -375,7 +385,7 @@
 			});
 		}
 
-		$('.notificationx-metabox-wrapper .nx-meta-field:not(#nx_meta_conversion_from)').trigger('change');
+		$('.notificationx-metabox-wrapper .nx-meta-field:not(.nx_meta_conversion_from)').trigger('change');
 
 		// NotificationX_Admin.initColorField();
 		if ($('.nx-colorpicker-field').length > 0) {
