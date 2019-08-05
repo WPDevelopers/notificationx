@@ -83,14 +83,29 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         if( isset( $data['name'] ) ) {
             unset( $data['name'] );
         }
-        $nx_trimmed_length = apply_filters('nx_text_trim_length', 100,$settings);
+        $trim_length = 100;
         $review_content = 'Some review content';
+        if($settings->wporg_theme == 'review-comment-2' || $settings->wporg_theme == 'review-comment-3'){
+            $trim_length = 80;
+            $username = $saved_data['username'];
+            if(explode(' ',$username) >= 1){
+                $name = ucfirst(explode(' ',$username)[0]);
+                if(!empty($surname = explode(' ', $username)[1])){
+
+                    if (ctype_alpha(substr($surname,0, 1)) !== false){
+                        $name .= ' '.substr($surname,0, 1).'.';
+                    }
+                }
+            }
+        }
+        $nx_trimmed_length = apply_filters('nx_text_trim_length', $trim_length,$settings);
         if(!empty($saved_data['content'])){
             $review_content = $saved_data['content'];
             if(strlen($review_content) > $nx_trimmed_length){
                 $review_content = substr($saved_data['content'],0, $nx_trimmed_length).'...';
             }
         }
+        $data['username'] = $name;
         $data['plugin_name_text'] = __('try it out', 'notificationx');
         $data['anonymous_title'] = __('Anonymous', 'notificationx');
         $data['plugin_review'] = $review_content;
@@ -423,6 +438,12 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                         ],
                         'review-comment' => [
                             'fields' => ['review_saying_template_new']
+                        ],
+                        'review-comment-2' => [
+                            'fields' => ['review_saying_template_new']
+                        ],
+                        'review-comment-3' => [
+                            'fields' => ['review_saying_template_new']
                         ]
                     ],
                     'dependency' => [
@@ -436,6 +457,12 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                             'fields' => ['wp_reviews_template_new']
                         ],
                         'review-comment' => [
+                            'fields' => ['wp_reviews_template_new']
+                        ],
+                        'review-comment-2' => [
+                            'fields' => ['wp_reviews_template_new']
+                        ],
+                        'review-comment-3' => [
                             'fields' => ['wp_reviews_template_new']
                         ]
                     ],

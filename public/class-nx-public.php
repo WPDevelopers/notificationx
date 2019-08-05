@@ -416,21 +416,21 @@ class NotificationX_Public {
 		}
 		
 		if( ! empty( $style ) ) {
-			$css_string .= '.nx-customize-style-' . $settings->id . '{' . implode( ';', $style ) . '}';
+			$css_string .= '.notificationx-inner.nx-customize-style-' . $settings->id . '{' . implode( ';', $style ) . '}';
 		}
 		
 		if( ! empty( $content_style ) ) {
-			$css_string .= '.nx-customize-style-' . $settings->id . ' .notificationx-content {' . implode( ';', $content_style ) . '}';
+			$css_string .= '.notificationx-inner.nx-customize-style-' . $settings->id . ' .notificationx-content {' . implode( ';', $content_style ) . '}';
 		}
 		
 		if( ! empty( $first_row_font ) ) {
-			$css_string .= '.nx-customize-style-' . $settings->id . ' .nx-first-row {' . implode( ';', $first_row_font ) . '}';
+			$css_string .= '.notificationx-inner.nx-customize-style-' . $settings->id . ' .notificationx-content .nx-first-row {' . implode( ';', $first_row_font ) . '}';
 		}
 		if( ! empty( $second_row_font ) ) {
-			$css_string .= '.nx-customize-style-' . $settings->id . ' .nx-second-row {' . implode( ';', $second_row_font ) . '}';
+			$css_string .= '.notificationx-inner.nx-customize-style-' . $settings->id . ' .notificationx-content .nx-second-row {' . implode( ';', $second_row_font ) . '}';
 		}
 		if( ! empty( $third_row_font ) ) {
-			$css_string .= '.nx-customize-style-' . $settings->id . ' .nx-third-row {' . implode( ';', $third_row_font ) . '}';
+			$css_string .= '.notificationx-inner.nx-customize-style-' . $settings->id . ' .notificationx-content .nx-third-row {' . implode( ';', $third_row_font ) . '}';
 		}
 		
 		if( ! empty( $css_string ) ) {

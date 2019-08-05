@@ -453,6 +453,8 @@ class NotificationX_Helper {
             'reviewed'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/reviewed.png',
             'review_saying' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/saying-review.png',
             'review-comment' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/review-with-comment.jpg',
+            'review-comment-2' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/review-with-comment-2.jpg',
+            'review-comment-3' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/review-with-comment-3.jpg',
         ));
     }
 
