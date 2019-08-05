@@ -204,6 +204,11 @@
 	background-color: #fafafa;
 }
 
+.nx-admin-items table thead tr>td:nth-child(1),
+.nx-admin-items table thead tr>td:nth-child(2) {
+	width: 25%;
+}
+
 .nx-admin-items table tbody {
 	transform: translateY(-20px);
 }
