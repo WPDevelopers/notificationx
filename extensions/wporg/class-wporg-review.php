@@ -104,6 +104,9 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                 $review_content = substr($saved_data['content'],0, $nx_trimmed_length).'...';
             }
         }
+        if($settings->wporg_theme == 'review-comment-2'){
+            $review_content = '" '.$review_content.' "';
+        }
         $data['username'] = $name;
         $data['plugin_name_text'] = __('try it out', 'notificationx');
         $data['anonymous_title'] = __('Anonymous', 'notificationx');
