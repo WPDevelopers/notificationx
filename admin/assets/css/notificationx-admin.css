@@ -847,6 +847,7 @@ label.nx-adv-checkbox-label:hover {
 .nx-builder-content-wrapper .nx-comment_theme .nx-single-theme-wrapper,
 .nx-builder-content-wrapper .nx-theme .nx-single-theme-wrapper {
     width: 228px;
+    flex-basis: 208px;
 }
 
 .nx-bar_theme .nx-single-theme-wrapper {
@@ -2313,8 +2314,3 @@ h4.nx-admin-title {
     background-color: #0ccf9f;
     color: #fff;
 }
-
-/* .nx-builder-content-wrapper .nx-display_type .nx-single-theme-wrapper>input:checked+label,
-.nx-display_type .nx-single-theme-wrapper>input:checked+label {
-    display: block;
-} */
