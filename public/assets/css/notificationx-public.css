@@ -553,34 +553,12 @@ a.nx-powered-by:hover {
 .notificationx-inner.nx-notification-review-comment .notificationx-content .nx-second-row{
     font-weight: 400;
     font-size: 14px;
-    height: 23px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
     margin-bottom: 7px;
-    padding: 0 5px 0 10px;
-    position: relative;
-    color: #697097;
-}
-.nx-wp_comments .notificationx-inner.nx-notification-theme-four .notificationx-content .nx-second-row:before,
-.notificationx-inner.nx-notification-review-comment .notificationx-content .nx-second-row:before{
-    content: '"';
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: #697097;
-}
-.nx-wp_comments .notificationx-inner.nx-notification-theme-four .notificationx-content .nx-second-row:after,
-.notificationx-inner.nx-notification-review-comment .notificationx-content .nx-second-row:after{
-    content: '"';
-    position: absolute;
-    right: 0;
-    top: 0;
     color: #697097;
 }
 .notificationx-inner.nx-notification-theme-four .nx-branding,
 .notificationx-inner.nx-notification-review-comment .nx-branding{
-    bottom: 10px;
+    bottom: 12px;
     padding-top: 0;
     right: 15px;
 }

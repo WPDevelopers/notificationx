@@ -20,13 +20,20 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         if( NotificationX_Helper::get_type( $settings ) !== $this->type ) {
             return $data;
         }
+        $nx_trimmed_length = apply_filters('nx_text_trim_length', 100,$settings);
+        $comment = 'Some comment';
+        if($this->notEmpty('id',$saved_data)){
+            $comment = get_comment($saved_data['id'])->comment_content;
+            if(strlen($comment) > $nx_trimmed_length){
+                $comment = substr($comment,0, $nx_trimmed_length).'...';
+            }
+        }
         $data['name'] = __( $this->notEmpty( 'name', $saved_data ) ? $saved_data['name'] : 'Someone', 'notificationx' );
         $data['first_name'] = __( $this->notEmpty( 'first_name', $saved_data ) ? $saved_data['first_name'] : 'Someone', 'notificationx' );
         $data['last_name'] = __( $this->notEmpty( 'last_name', $saved_data ) ? $saved_data['last_name'] : 'Someone', 'notificationx' );
         $data['anonymous_post'] = __( 'Anonymous Post', 'notificationx' );
         $data['sometime'] = __( 'Sometimes ago', 'notificationx' );
-        $data['post_comment'] = $this->notEmpty('id',$saved_data) ? get_comment($saved_data['id'])->comment_content : 'Some comment';
-
+        $data['post_comment'] = $comment;
         return $data;
     }
 

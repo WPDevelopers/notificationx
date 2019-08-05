@@ -83,9 +83,17 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         if( isset( $data['name'] ) ) {
             unset( $data['name'] );
         }
+        $nx_trimmed_length = apply_filters('nx_text_trim_length', 100,$settings);
+        $review_content = 'Some review content';
+        if(!empty($saved_data['content'])){
+            $review_content = $saved_data['content'];
+            if(strlen($review_content) > $nx_trimmed_length){
+                $review_content = substr($saved_data['content'],0, $nx_trimmed_length).'...';
+            }
+        }
         $data['plugin_name_text'] = __('try it out', 'notificationx');
         $data['anonymous_title'] = __('Anonymous', 'notificationx');
-        $data['plugin_review'] = !empty($saved_data['content']) ? $saved_data['content'] : 'Some review content';
+        $data['plugin_review'] = $review_content;
         return $data;
     }
 
