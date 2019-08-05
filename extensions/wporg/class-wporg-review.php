@@ -84,14 +84,13 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             unset( $data['name'] );
         }
         $trim_length = 100;
+        $name = $saved_data['username'];
         $review_content = 'Some review content';
         if($settings->wporg_theme == 'review-comment-2' || $settings->wporg_theme == 'review-comment-3'){
             $trim_length = 80;
-            $username = $saved_data['username'];
-            if(explode(' ',$username) >= 1){
-                $name = ucfirst(explode(' ',$username)[0]);
-                if(!empty($surname = explode(' ', $username)[1])){
-
+            if(explode(' ',$saved_data['username']) >= 1){
+                $name = ucfirst(explode(' ',$saved_data['username'])[0]);
+                if(!empty($surname = explode(' ', $saved_data['username'])[1])){
                     if (ctype_alpha(substr($surname,0, 1)) !== false){
                         $name .= ' '.substr($surname,0, 1).'.';
                     }
