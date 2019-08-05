@@ -2240,7 +2240,7 @@ h4.nx-admin-title {
 }
 
 .nx-single-theme-wrapper>label {
-    display: inline-block;
+    display: block;
     border-radius: 5px;
 }
 
@@ -2312,9 +2312,9 @@ h4.nx-admin-title {
 .nx-display_type .nx-single-theme-wrapper>input:checked+label {
     background-color: #0ccf9f;
     color: #fff;
-    height: 82px;
 }
 
-.nx-builder-content-wrapper .nx-display_type .nx-single-theme-wrapper>input:checked+label {
-    height: 82px;
-}
+/* .nx-builder-content-wrapper .nx-display_type .nx-single-theme-wrapper>input:checked+label,
+.nx-display_type .nx-single-theme-wrapper>input:checked+label {
+    display: block;
+} */
