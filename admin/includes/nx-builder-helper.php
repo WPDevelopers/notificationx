@@ -19,11 +19,12 @@ function notificationx_builder_args() {
                         'title'             => __('Select Source', 'notificationx'),
                         'fields'            => array(
                             'display_type'  => array(
-                                'type'      => 'select',
-                                'label'     => __('I would like to display' , 'notificationx'),
-                                'default'   => 'press_bar',
-                                'options'   => NotificationX_Helper::notification_types(),
-                                'dependency' => array(
+                                'type'         => 'theme',
+                                'type_content' => 'text',
+                                'inner_title'        => __('I would like to display' , 'notificationx'),
+                                'default'      => 'conversions',
+                                'options'      => NotificationX_Helper::notification_types(),
+                                'dependency'   => array(
                                     'comments'       => NotificationX_ToggleFields::comments(),
                                     'press_bar'      => NotificationX_Helper::press_bar_toggle_data(),
                                     'conversions'    => NotificationX_ToggleFields::conversions(),
@@ -34,29 +35,29 @@ function notificationx_builder_args() {
                                 'priority' => 50
                             ),
                             'reviews_source'  => apply_filters('nx_reviews_source', array(
-                                'type'     => 'select',
-                                'label'    => __('Source' , 'notificationx'),
+                                'type'     => 'theme',
+                                'inner_title'    => __('Source' , 'notificationx'),
                                 'default'  => 'wp_reviews',
                                 'options'  => NotificationX_Helper::reviews_source(),
                                 'priority' => 51,
                             )),
                             'stats_source'  => apply_filters('nx_stats_source', array(
-                                'type'     => 'select',
-                                'label'    => __('Source' , 'notificationx'),
+                                'type'     => 'theme',
+                                'inner_title'    => __('Source' , 'notificationx'),
                                 'default'  => 'wp_stats',
                                 'options'  => NotificationX_Helper::stats_source(),
                                 'priority' => 52,
                             )),
                             'comments_source'  => apply_filters('nx_comments_source', array(
-                                'type'     => 'select',
-                                'label'    => __('Source' , 'notificationx'),
+                                'type'     => 'theme',
+                                'inner_title'    => __('Source' , 'notificationx'),
                                 'default'  => 'wp_comments',
                                 'options'  => NotificationX_Helper::comments_source(),
                                 'priority' => 53,
                             )),
                             'conversion_from'  => array(
-                                'type'     => 'select',
-                                'label'    => __('Source' , 'notificationx'),
+                                'type'     => 'theme',
+                                'inner_title'    => __('Source' , 'notificationx'),
                                 'default'  => 'woocommerce',
                                 'options'  => NotificationX_Helper::conversion_from(),
                                 'priority' => 60,

@@ -14,11 +14,11 @@
 				e.preventDefault();
 				$.notificationx.tabChanger(this);
 			});
-		// $('body').on('change', '.nx-single-theme-wrapper > input:checked',
-		// 	function (e) {
-		// 		e.preventDefault();
-		// 		$.notificationx.templateForTheme();
-		// 	});
+		$('body').on('change', '.nx-single-theme-wrapper > input:checked',
+			function (e) {
+				e.preventDefault();
+				$.notificationx.templateForTheme();
+			});
 	});
 
 	$(window).load(function () {
@@ -32,19 +32,19 @@
 			var type = $(this).val();
 			switch (type) {
 				case 'conversions':
-					$('#nx_meta_conversion_from').trigger('change');
+					$('.nx_meta_conversion_from:checked').trigger('change');
 					$('#nx_meta_advance_edit').trigger('change');
 					break;
 				case 'comments':
-					$('#nx_meta_comments_source').trigger('change');
+					$('.nx_meta_comments_source:checked').trigger('change');
 					$('#nx_meta_comment_advance_edit').trigger('change');
 					break;
 				case 'reviews':
-					$('#nx_meta_reviews_source').trigger('change');
+					$('.nx_meta_reviews_source:checked').trigger('change');
 					$('#nx_meta_wporg_advance_edit').trigger('change');
 					break;
 				case 'download_stats':
-					$('#nx_meta_stats_source').trigger('change');
+					$('.nx_meta_stats_source:checked').trigger('change');
 					$('#nx_meta_wpstats_advance_edit').trigger('change');
 					break;
 			}
@@ -60,9 +60,9 @@
 			$('#nx_meta_wp_stats_template_new #nx_meta_wp_stats_template_new_fourth_param').val(value + '_text').trigger('change');
 		});
 
-		$('body').on('change', '#nx_meta_conversion_from', function () {
+		$('body').on('change', '.nx_meta_conversion_from', function () {
 			var conv_source = $(this).val();
-			$('.nx-theme .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
+			$('.nx-themes .nx_meta_theme:checked').trigger('change');
 			switch (conv_source) {
 				case 'woocommerce' || 'edd':
 					$('#nx_meta_woo_template_adv').trigger('change');
@@ -70,12 +70,12 @@
 			}
 		});
 
-		$('body').on('change', '#nx_meta_comments_source', function () {
+		$('body').on('change', '.nx_meta_comments_source', function () {
 			var comment_source = $(this).val();
 			$('.nx-comment_themes .nx_meta_comment_theme:checked').trigger('change');
 		});
 
-		$('body').on('change', '#nx_meta_reviews_source', function () {
+		$('body').on('change', '.nx_meta_reviews_source', function () {
 			var source = $(this).val();
 			$('.nx-wporg_themes .nx_meta_wporg_theme:checked').trigger('change');
 			switch (source) {
@@ -85,7 +85,7 @@
 			}
 		});
 
-		$('body').on('change', '#nx_meta_stats_source', function () {
+		$('body').on('change', '.nx_meta_stats_source', function () {
 			var source = $(this).val();
 			$('.nx-wpstats_themes .nx_meta_wpstats_theme:checked').trigger('change');
 			switch (source) {
@@ -132,14 +132,15 @@
 		if (type === 'press_bar') {
 			return;
 		}
-		source = $('#nx_meta_' + notificationx.source_types[type]).val();
+		source = $('.nx_meta_' + notificationx.source_types[type]).val();
 		if (notificationx.theme_sources.hasOwnProperty(source)) {
 			if (typeof notificationx.theme_sources[source] === 'object') {
-				themeID = $('#nx_meta_' + notificationx.theme_sources[source][type]).val();
+				themeID = $('.nx_meta_' + notificationx.theme_sources[source][type] + ':checked').val();
 			} else {
-				themeID = $('#nx_meta_' + notificationx.theme_sources[source]).val();
+				themeID = $('.nx_meta_' + notificationx.theme_sources[source] + ':checked').val();
 			}
 		}
+
 		if (notificationx.template_keys.hasOwnProperty(source)) {
 			if (typeof notificationx.template_keys[source] === 'object') {
 				templateID = $('#nx_meta_' + notificationx.template_keys[source][type]);
@@ -245,7 +246,7 @@
 
 		var saveButton = $('.nx-settings-button');
 
-		$('body').on('click', '.nx-pro-checkbox', function (e) {
+		$('body').on('click', '.nx-pro-checkbox, .nx-radio-pro', function (e) {
 			e.preventDefault();
 			var premium_content = document.createElement("p");
 			var premium_anchor = document.createElement("a");

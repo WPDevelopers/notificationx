@@ -204,9 +204,22 @@ class NotificationX_Helper {
      * @return array|string
      */
     public static function conversion_from( $from = '' ) {
+        $is_pro = ! NX_CONSTANTS::is_pro();
         $froms = [
-            'woocommerce' => __('WooCommerce' , 'notificationx'),
-            'edd'         => __('Easy Digital Downloads' , 'notificationx'),
+            'woocommerce' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/woocommerce.jpg',
+            'edd'         => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/edd.jpg',
+            'freemius'    => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg',
+                'is_pro' => $is_pro,
+            ),
+            'zapier'    => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.jpg',
+                'is_pro' => $is_pro,
+            ),
+            'custom_notification'    => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/custom.jpg',
+                'is_pro' => $is_pro,
+            ),
         ];
         $forms = apply_filters('nx_conversions_from', $froms );
         $forms = self::active_modules( $forms );
@@ -223,7 +236,7 @@ class NotificationX_Helper {
      */
     public static function comments_source( $from = '' ) {
         $froms = [
-            'wp_comments' => __('WordPress' , 'notificationx'),
+            'wp_comments' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
         ];
         $forms = apply_filters('nx_comments_source_options', $froms );
         $forms = self::active_modules( $forms );
@@ -238,8 +251,17 @@ class NotificationX_Helper {
      * @return array|string
      */
     public static function reviews_source( $from = '' ) {
+        $is_pro = ! NX_CONSTANTS::is_pro();
         $froms = [
-            'wp_reviews' => __('WordPress' , 'notificationx'),
+            'wp_reviews' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+            'freemius' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg'
+            ),
+            'zapier'    => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.jpg',
+                'is_pro' => $is_pro
+            ),
         ];
         $forms = apply_filters('nx_reviews_source_options', $froms );
         $forms = self::active_modules( $forms );
@@ -249,8 +271,13 @@ class NotificationX_Helper {
         return $forms;
     }
     public static function stats_source( $from = '' ) {
+        $is_pro = ! NX_CONSTANTS::is_pro();
         $froms = [
-            'wp_stats' => __('WordPress' , 'notificationx'),
+            'wp_stats' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+            'freemius' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg'
+            ),
         ];
         $forms = apply_filters('nx_stats_source_options', $froms );
         $forms = self::active_modules( $forms );
@@ -342,12 +369,17 @@ class NotificationX_Helper {
      * @return array|string
      */
     public static function notification_types( $type = '' ) {
+        $is_pro = ! NX_CONSTANTS::is_pro();
         $types = [
-            'press_bar'      => NOTIFICATIONX_ADMIN_URL . 'assets/img/types/press_bar.jpg',
-            'comments'       => NOTIFICATIONX_ADMIN_URL . 'assets/img/types/comments.jpg',
-            'conversions'    => NOTIFICATIONX_ADMIN_URL . 'assets/img/types/conversions.jpg',
-            'reviews'        => NOTIFICATIONX_ADMIN_URL . 'assets/img/types/reviews.jpg',
-            'download_stats' => NOTIFICATIONX_ADMIN_URL . 'assets/img/types/download_stats.jpg',
+            'conversions'    => __( 'Sales Notification', 'notificationx' ),
+            'comments'       => __( 'Comments', 'notificationx' ),
+            'reviews'        => __( 'Reviews', 'notificationx' ),
+            'download_stats' => __( 'Download Stats', 'notificationx' ),
+            'press_bar'      => __( 'Notification Bar', 'notificationx' ),
+            'email_subscription' => array(
+                'source' => __( 'Email Subscription', 'notificationx' ),
+                'is_pro' => $is_pro
+            ),
         ];
         $types = apply_filters('nx_notification_types', $types );
 

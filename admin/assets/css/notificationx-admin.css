@@ -635,6 +635,7 @@ label.nx-adv-checkbox-label:hover {
 
 .nx-builder-content .nx-single-theme-wrapper {
     margin: 10px;
+    background-color: #fff;
 }
 
 .nx-builder-header {
@@ -803,8 +804,63 @@ label.nx-adv-checkbox-label:hover {
     max-width: 100%;
 }
 
+.nx-theme-field-inner {
+    margin: 0 -15px;
+}
+
 .nx-single-theme-wrapper {
-    margin: 0 5px;
+    margin: 0 15px;
+    position: relative;
+    box-shadow: 0 0 25px 0px rgba(0, 9, 78, .08);
+    border-radius: 5px;
+    transition: background 0.3s ease 0s;
+}
+
+.nx-mailchimp_themes .nx-single-theme-wrapper,
+.nx-wpstats_theme .nx-single-theme-wrapper,
+.nx-wporg_theme .nx-single-theme-wrapper,
+.nx-comment_theme .nx-single-theme-wrapper,
+.nx-theme .nx-single-theme-wrapper {
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    flex-wrap: wrap;
+}
+
+.nx-mailchimp_themes .nx-single-theme-wrapper,
+.nx-wpstats_theme .nx-single-theme-wrapper,
+.nx-wporg_theme .nx-single-theme-wrapper,
+.nx-comment_theme .nx-single-theme-wrapper,
+.nx-theme .nx-single-theme-wrapper {
+    width: 295px;
+    height: auto;
+    padding: 10px;
+    background-color: #f1f1f1;
+    /* box-shadow: 0 0 40px -30px black; */
+    flex-basis: 275px;
+}
+
+.nx-builder-content-wrapper .nx-mailchimp_themes .nx-single-theme-wrapper,
+.nx-builder-content-wrapper .nx-wpstats_theme .nx-single-theme-wrapper,
+.nx-builder-content-wrapper .nx-wporg_theme .nx-single-theme-wrapper,
+.nx-builder-content-wrapper .nx-comment_theme .nx-single-theme-wrapper,
+.nx-builder-content-wrapper .nx-theme .nx-single-theme-wrapper {
+    width: 228px;
+}
+
+.nx-bar_theme .nx-single-theme-wrapper {
+    width: 100%;
+    height: auto;
+}
+
+.nx-bar_theme .nx-single-theme-wrapper>label>img,
+.nx-mailchimp_themes .nx-single-theme-wrapper>label>img,
+.nx-wpstats_theme .nx-single-theme-wrapper>label>img,
+.nx-wporg_theme .nx-single-theme-wrapper>label>img,
+.nx-comment_theme .nx-single-theme-wrapper>label>img,
+.nx-theme .nx-single-theme-wrapper>label>img {
+    width: 100%;
+    max-width: 100%;
 }
 
 .nx-single-theme-wrapper.nx-theme-selected {
@@ -1961,6 +2017,7 @@ body.wp-admin.rtl .ui-datepicker {
 }
 
 .nx-api-integration-settings .pro-label,
+.nx-single-theme-wrapper .pro-label,
 .nx-checkbox .pro-label {
     font-size: 14px;
     color: #ffffff;
@@ -2130,9 +2187,7 @@ h4.nx-admin-title {
 #nx-spinner {
     width: 18px;
     display: inline-block;
-    float: left;
     margin: 3px 5px 0 0;
-
     -webkit-transition-property: -webkit-transform;
     -webkit-transition-duration: 1.2s;
     transition-duration: 1.2s;
@@ -2185,6 +2240,7 @@ h4.nx-admin-title {
 
 .nx-single-theme-wrapper>label {
     display: inline-block;
+    border-radius: 5px;
 }
 
 .nx-single-theme-wrapper>input {
@@ -2192,9 +2248,71 @@ h4.nx-admin-title {
 }
 
 .nx-single-theme-wrapper>input:checked+label {
-    background: red;
+    position: relative;
 }
 
 .nx-single-theme-wrapper>label>img {
-    width: 200px;
+    vertical-align: middle;
+    max-width: 80%;
+}
+
+.nx-single-theme-wrapper>input:checked+label:before {
+    content: "";
+    position: absolute;
+    right: -15px;
+    top: -15px;
+    left: auto;
+    width: 30px;
+    height: 30px;
+    border: 0;
+    box-sizing: border-box;
+    transition: all .3s ease 0s;
+    background: #09dca8;
+    border-radius: 50%;
+}
+
+.nx-single-theme-wrapper>input:checked+label::after {
+    content: "";
+    display: inline-block;
+    transform: rotate(45deg);
+    height: 12px;
+    width: 6px;
+    border-bottom: 3.5px solid #fff;
+    border-right: 3.5px solid #fff;
+    position: absolute;
+    right: -5px;
+    top: -10px;
+}
+
+.nx-radio-pro {
+    overflow: hidden;
+}
+
+.nx-single-theme-wrapper {
+    font-size: 18px;
+    width: 225px;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.nx-single-theme-wrapper>label {
+    width: 100%;
+}
+
+.nx-single-theme-wrapper .pro-label {
+    height: 30px;
+    line-height: 30px;
+    left: -29px;
+    width: 100px;
+}
+
+.nx-display_type .nx-single-theme-wrapper>input:checked+label {
+    background-color: #0ccf9f;
+    color: #fff;
+}
+
+.nx-builder-content-wrapper .nx-display_type .nx-single-theme-wrapper>input:checked+label {
+    height: 82px;
 }
