@@ -432,7 +432,9 @@ class NotificationX_Helper {
             'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-2.jpg',
             'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-1.jpg',
             'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-3.jpg',
-            'theme-four' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-4.jpg'
+            'theme-four' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-4.jpg',
+            'theme-five' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-5.jpg',
+            'theme-six' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-6.jpg',
         ));
 
     }

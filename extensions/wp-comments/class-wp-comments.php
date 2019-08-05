@@ -20,15 +20,30 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         if( NotificationX_Helper::get_type( $settings ) !== $this->type ) {
             return $data;
         }
-        $nx_trimmed_length = apply_filters('nx_text_trim_length', 100,$settings);
+        ;
+        $name = $this->notEmpty( 'name', $saved_data ) ? $saved_data['name'] : 'Someone';
         $comment = 'Some comment';
+        $trim_length = 100;
+        if($settings->comment_theme == 'theme-five' || $settings->comment_theme == 'theme-six'){
+            $trim_length = 80;
+            if(explode(' ',$name) >= 1){
+                $name = ucfirst(explode(' ',$name)[0]);
+                if(!empty(explode(' ', $name)[1])){
+                    $name .= ' '.substr(explode(' ', $name)[1],0, 1).'.';
+                }
+            }
+        }
+        $nx_trimmed_length = apply_filters('nx_text_trim_length', $trim_length, $settings);
         if($this->notEmpty('id',$saved_data)){
             $comment = get_comment($saved_data['id'])->comment_content;
             if(strlen($comment) > $nx_trimmed_length){
                 $comment = substr($comment,0, $nx_trimmed_length).'...';
             }
         }
-        $data['name'] = __( $this->notEmpty( 'name', $saved_data ) ? $saved_data['name'] : 'Someone', 'notificationx' );
+        if($settings->comment_theme == 'theme-five'){
+            $comment = '" '.$comment.' "';
+        }
+        $data['name'] = __( $name, 'notificationx' );
         $data['first_name'] = __( $this->notEmpty( 'first_name', $saved_data ) ? $saved_data['first_name'] : 'Someone', 'notificationx' );
         $data['last_name'] = __( $this->notEmpty( 'last_name', $saved_data ) ? $saved_data['last_name'] : 'Someone', 'notificationx' );
         $data['anonymous_post'] = __( 'Anonymous Post', 'notificationx' );

@@ -521,7 +521,7 @@ a.nx-powered-by:hover {
     width: 20px;
     right: 0;
     bottom: 0;
-    box-shadow: 0 20px 30px 0 rgba(36,30,157,.12);
+    box-shadow: 0 20px 30px rgba(36,30,157,.12);
     z-index: 1;
 }
 .nx-wp_comments .notificationx-inner.nx-notification-theme-four .notificationx-image img,
@@ -536,7 +536,7 @@ a.nx-powered-by:hover {
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 0 30px 0 rgba(36,30,157,.12);
+    box-shadow: 0 0 30px rgba(36,30,157,.12);
     font-family: 'Roboto',sans-serif;
 }
 .nx-wp_comments .notificationx-inner.nx-notification-theme-four .notificationx-content .nx-first-row,
@@ -565,4 +565,95 @@ a.nx-powered-by:hover {
 .notificationx-inner.nx-notification-theme-four span.notificationx-close,
 .notificationx-inner.nx-notification-review-comment span.notificationx-close{
     right: 15px;
+}
+/*Comment theme five, Comment theme six*/
+.notificationx-inner.nx-notification-theme-five,
+.notificationx-inner.nx-notification-theme-six{
+    border-radius: 120px;
+    padding: 0;
+    overflow: visible;
+    max-height: 120px;
+    min-width: 400px;
+    box-shadow: 0 0 25px rgba(36,30,157,.12);
+}
+.notificationx-inner.nx-notification-theme-five .notificationx-image,
+.notificationx-inner.nx-notification-theme-six .notificationx-image{
+    flex-shrink: 0;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    position: relative;
+    overflow: visible;
+}
+.notificationx-inner.nx-notification-theme-five .notificationx-image{
+    background-color: #fae8f4;
+}
+.notificationx-inner.nx-notification-theme-six .notificationx-image{
+    background-color: #f0edff;
+}
+.notificationx-inner.nx-notification-theme-five .notificationx-image:before,
+.notificationx-inner.nx-notification-theme-six .notificationx-image:before{
+    content: '';
+    width: 28px;
+    height: 28px;
+    background-image: url("../img/nx-quote-icon.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 55%;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    box-shadow: 0 0 10px rgba(36,30,157,.12);
+    z-index: 1;
+}
+.notificationx-inner.nx-notification-theme-five .notificationx-image:before{
+    background-color: #fe67b7;
+}
+.notificationx-inner.nx-notification-theme-six .notificationx-image:before{
+    background-color: #7253ec;
+}
+.notificationx-inner.nx-notification-theme-five .notificationx-content,
+.notificationx-inner.nx-notification-theme-six .notificationx-content{
+    padding: 15px 0;
+    font-family: "Roboto", sans-serif;
+}
+.notificationx-inner.nx-notification-theme-five .notificationx-content .nx-first-row,
+.notificationx-inner.nx-notification-theme-six .notificationx-content .nx-first-row{
+    font-size: 16px;
+    font-weight: 700;
+    color: #484d6b;
+    padding-right: 15px;
+}
+.notificationx-inner.nx-notification-theme-five .notificationx-content .title{
+    color: #fe67b7;
+}
+.notificationx-inner.nx-notification-theme-six .notificationx-content .title{
+    color: #7253ec;
+}
+.notificationx-inner.nx-notification-theme-five .notificationx-content .nx-second-row,
+.notificationx-inner.nx-notification-theme-six .notificationx-content .nx-second-row{
+    font-weight: 400;
+    font-size: 13px;
+    margin-bottom: 7px;
+    color: #4b5171;
+    line-height: 1.4;
+    font-style: italic;
+}
+.notificationx-inner.nx-notification-theme-five .notificationx-content .notificationx-close,
+.notificationx-inner.nx-notification-theme-six .notificationx-content .notificationx-close{
+    right: 35px;
+    top: 17px;
+}
+.notificationx-inner.nx-notification-theme-five .notificationx-content .nx-branding,
+.notificationx-inner.nx-notification-theme-six .notificationx-content .nx-branding{
+    padding: 0;
+    right: 40px;
+    bottom: 12px;
+}
+.notificationx-inner.nx-notification-theme-six .notificationx-content{
+    background-image: url("../img/nx-quote-bg.png");
+    background-repeat: no-repeat;
+    background-position: left 53%;
 }
