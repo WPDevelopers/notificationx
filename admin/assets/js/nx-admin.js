@@ -14,11 +14,11 @@
 				e.preventDefault();
 				$.notificationx.tabChanger(this);
 			});
-		$('body').on('click', '.nx-single-theme-wrapper',
-			function (e) {
-				e.preventDefault();
-				$.notificationx.templateForTheme();
-			});
+		// $('body').on('change', '.nx-single-theme-wrapper > input:checked',
+		// 	function (e) {
+		// 		e.preventDefault();
+		// 		$.notificationx.templateForTheme();
+		// 	});
 	});
 
 	$(window).load(function () {
@@ -28,7 +28,7 @@
 			}
 		});
 
-		$('body').on('change', '#nx_meta_display_type', function () {
+		$('body').on('change', '.nx_meta_display_type', function () {
 			var type = $(this).val();
 			switch (type) {
 				case 'conversions':
@@ -72,12 +72,12 @@
 
 		$('body').on('change', '#nx_meta_comments_source', function () {
 			var comment_source = $(this).val();
-			$('.nx-comment_themes .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
+			$('.nx-comment_themes .nx_meta_comment_theme:checked').trigger('change');
 		});
 
 		$('body').on('change', '#nx_meta_reviews_source', function () {
 			var source = $(this).val();
-			$('.nx-wporg_themes .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
+			$('.nx-wporg_themes .nx_meta_wporg_theme:checked').trigger('change');
 			switch (source) {
 				case 'wp_reviews':
 					$('#nx_meta_wp_reviews_template_adv').trigger('change');
@@ -87,7 +87,7 @@
 
 		$('body').on('change', '#nx_meta_stats_source', function () {
 			var source = $(this).val();
-			$('.nx-wpstats_theme .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
+			$('.nx-wpstats_themes .nx_meta_wpstats_theme:checked').trigger('change');
 			switch (source) {
 				case 'wp_stats':
 					$('#nx_meta_wp_stats_template_adv').trigger('change');
@@ -115,7 +115,7 @@
 			}
 		});
 
-		$('#nx_meta_display_type').trigger('change');
+		$('.nx_meta_display_type:checked').trigger('change');
 	});
 
 	$.notificationx.init = function () {
@@ -127,7 +127,7 @@
 
 	$.notificationx.templateForTheme = function () {
 		var source, templateID, themeID,
-			type = $('#nx_meta_display_type').val();
+			type = $('.nx_meta_display_type:checked').val();
 
 		if (type === 'press_bar') {
 			return;
@@ -176,8 +176,11 @@
 	$.notificationx.bindEvents = function () {
 		$('#nx_meta_show_on').trigger('change');
 
-		$('body').on('click', '.nx-single-theme-wrapper', function () {
-			$.notificationx.selectTheme(this)
+		$('body').on('change', '.nx-single-theme-wrapper > input', function () {
+			// $.notificationx.selectTheme(this);
+			var themes = $(this).val();
+			// console.log(themes);
+			// $('.' + themes + ':checked').trigger('change');
 		});
 
 		//Advance Checkbox with SweetAlear
@@ -507,6 +510,12 @@
 
 	$.notificationx.toggleFields = function () {
 		$("body").delegate('.nx-meta-field', 'change', function (e) {
+			if (this.type == 'radio') {
+				if (this.checked) {
+					$.notificationx.checkDependencies(this);
+				}
+				return;
+			}
 			$.notificationx.checkDependencies(this);
 		});
 	};
@@ -550,12 +559,19 @@
 			value = $('#' + currentTheme).val();
 		}
 
+		// console.log('id', id);
+		// console.log('value', value);
+
 		var mainid = id;
 
 		if (notificationx.template.indexOf(id) >= 0) {
 			id = current.data('subkey');
 		}
 
+		// console.log('id toggle', id, notificationx.toggleFields.hasOwnProperty(id));
+		// console.log('id hide', id, notificationx.hideFields.hasOwnProperty(id));
+
+		// return;
 		if (notificationx.toggleFields.hasOwnProperty(id)) {
 			var canShow = notificationx.toggleFields[id].hasOwnProperty(value);
 			var canHide = true;
@@ -578,6 +594,7 @@
 
 		if (notificationx.hideFields.hasOwnProperty(id)) {
 			var hideFields = notificationx.hideFields[id];
+
 
 			if (hideFields.hasOwnProperty(value)) {
 				$.notificationx.toggle(hideFields[value].fields, 'hide', '#nx-meta-', '', mainid);

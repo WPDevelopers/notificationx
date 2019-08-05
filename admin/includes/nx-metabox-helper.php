@@ -19,8 +19,8 @@ function notificationx_metabox_args(){
                         'title'             => __('Select Source', 'notificationx'),
                         'fields'            => array(
                             'display_type'  => apply_filters( 'nx_display_type', array(
-                                'type'      => 'select',
-                                'label'     => __('Notification Type' , 'notificationx'),
+                                'type'      => 'theme',
+                                'inner_title'     => __('Notification Type' , 'notificationx'),
                                 'default'   => 'press_bar',
                                 'options'   => NotificationX_Helper::notification_types(),
                                 'hide'     => NotificationX_Helper::hide_data( 'display_types' ),

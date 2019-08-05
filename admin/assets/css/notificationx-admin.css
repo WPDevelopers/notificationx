@@ -2182,3 +2182,19 @@ h4.nx-admin-title {
         transform: rotate(360deg);
     }
 }
+
+.nx-single-theme-wrapper>label {
+    display: inline-block;
+}
+
+.nx-single-theme-wrapper>input {
+    display: none;
+}
+
+.nx-single-theme-wrapper>input:checked+label {
+    background: red;
+}
+
+.nx-single-theme-wrapper>label>img {
+    width: 200px;
+}

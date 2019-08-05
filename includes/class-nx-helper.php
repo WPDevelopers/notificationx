@@ -343,11 +343,11 @@ class NotificationX_Helper {
      */
     public static function notification_types( $type = '' ) {
         $types = [
-            'press_bar'      => __('Notification Bar' , 'notificationx'),
-            'comments'       => __('Comments' , 'notificationx'),
-            'conversions'    => __('Sales Notification' , 'notificationx'),
-            'reviews'         => __('Review' , 'notificationx'),
-            'download_stats' => __('Download Stats' , 'notificationx'),
+            'press_bar'      => NOTIFICATIONX_ADMIN_URL . 'assets/img/types/press_bar.jpg',
+            'comments'       => NOTIFICATIONX_ADMIN_URL . 'assets/img/types/comments.jpg',
+            'conversions'    => NOTIFICATIONX_ADMIN_URL . 'assets/img/types/conversions.jpg',
+            'reviews'        => NOTIFICATIONX_ADMIN_URL . 'assets/img/types/reviews.jpg',
+            'download_stats' => NOTIFICATIONX_ADMIN_URL . 'assets/img/types/download_stats.jpg',
         ];
         $types = apply_filters('nx_notification_types', $types );
 
