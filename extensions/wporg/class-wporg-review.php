@@ -718,7 +718,6 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
     public function frontend_html( $data = [], $settings = false, $args = [] ){
 
         $data = array_merge( $data, $this->defaults );
-
         $star = '';
         if( ! empty( $data['rating'] ) ) {
             for( $i = 1; $i <= $data['rating']; $i++ ) {
@@ -726,7 +725,9 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             }
             $data['rating'] = $star;
         }
-
+        if(!empty($data['link'])){
+            $data['link'] = $data['link'].'/#reviews';
+        }
         return parent::frontend_html( $data, $settings, $args );
     }
 

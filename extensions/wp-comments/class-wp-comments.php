@@ -21,15 +21,16 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
             return $data;
         }
         ;
-        $name = $this->notEmpty( 'name', $saved_data ) ? $saved_data['name'] : 'Someone';
+        $name = $this->notEmpty( 'name', $saved_data ) ? ucfirst($saved_data['name']) : 'Someone';
         $comment = 'Some comment';
         $trim_length = 100;
-        if($settings->comment_theme == 'theme-five' || $settings->comment_theme == 'theme-six'){
+        if($settings->comment_theme == 'theme-seven-free' || $settings->comment_theme == 'theme-eight-free'){
             $trim_length = 80;
             if(explode(' ',$name) >= 1){
-                $name = ucfirst(explode(' ',$name)[0]);
-                if(!empty(explode(' ', $name)[1])){
-                    $name .= ' '.substr(explode(' ', $name)[1],0, 1).'.';
+                $username = explode(' ',$name);
+                $name = ucfirst($username[0]);
+                if(!empty($username[1])){
+                    $name .= ' '.substr($username[1],0, 1).'.';
                 }
             }
         }
@@ -40,7 +41,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
                 $comment = substr($comment,0, $nx_trimmed_length).'...';
             }
         }
-        if($settings->comment_theme == 'theme-five'){
+        if($settings->comment_theme == 'theme-seven-free'){
             $comment = '" '.$comment.' "';
         }
         $data['name'] = __( $name, 'notificationx' );
