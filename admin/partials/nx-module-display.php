@@ -1,11 +1,20 @@
 <?php 
     $module_on = isset( $active_modules[ $module_key ] ) ? $active_modules[ $module_key ] : false;
+    if( is_array( $module ) ) {
+        if( isset( $module['link'] ) && ! empty( $module['link'] ) ) {
+            $module_title = sprintf('<a href="%1$s">%2$s</a>', $module['link'], $module['title']);
+        } else {
+            $module_title = $module['title'];
+        }
+    } else {
+        $module_title = $module;
+    }
     if( ! is_array( $module ) ) :
         ?>
             <div class="nx-checkbox" data-id="<?php echo $module_key; ?>">
                 <input type="checkbox" <?php checked( $module_on, true ); ?> id="<?php echo $module_key; ?>" name="<?php echo $module_key; ?>">
                 <label for="<?php echo $module_key; ?>"></label>
-                <p class="nx-module-title"><?php echo $module; ?></p>
+                <p class="nx-module-title"><?php echo $module_title; ?></p>
             </div>
         <?php
     else :
@@ -15,7 +24,7 @@
             <div class="nx-checkbox <?php echo $is_pro_module ? 'nx-pro-checkbox' : ''; ?>" data-id="<?php echo $module_key; ?>">
                 <input <?php echo $is_pro_module == true ? 'disabled' : ''; ?> type="checkbox" <?php checked( $module_on, true ); ?> id="<?php echo $module_key; ?>" name="<?php echo $module_key; ?>">
                 <label for="<?php echo $module_key; ?>"></label>
-                <p class="nx-module-title"><?php echo $module['title']; ?><?php echo $is_pro_module ? '<sup class="pro-label">Pro</sup>' : ''; ?></p>
+                <p class="nx-module-title"><?php echo $module_title; ?><?php echo $is_pro_module ? '<sup class="pro-label">Pro</sup>' : ''; ?></p>
             </div>
         <?php
         endif;
