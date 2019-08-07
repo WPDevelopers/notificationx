@@ -284,6 +284,9 @@
 .nx-admin-preview img {
 	display: block;
 	max-width: 100%;
+	background-color: #5621d51a;
+	padding: 5px;
+	box-shadow: 0 0 30px 0px #5621d50d;
 }
 
 .nx-admin-status label {
@@ -362,5 +365,5 @@
 }
 
 .nx-admin-preview {
-	margin: -20px;
+	margin: -10px;
 }

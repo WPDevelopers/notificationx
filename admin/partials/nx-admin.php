@@ -152,8 +152,8 @@ if( isset( $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
                                                 $theme_preview = NX_CONSTANTS::themeSource( $theme_name, $settings->display_type );
                                                 if( ! empty( $theme_preview ) ) : 
                                             ?>
-                                            <img width="250px" src="<?php echo NX_CONSTANTS::themeSource( $theme_name, $settings->display_type ); ?>" alt="<?php echo get_the_title(); ?>">
-                                            <?php endif; ?>
+                                            <img width="250px" src="<?php echo $theme_preview; ?>" alt="<?php echo get_the_title(); ?>">
+                                            <?php $theme_preview = ''; endif;?>
                                         </div>
                                     </td>
                                     <td>
