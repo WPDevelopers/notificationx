@@ -449,11 +449,24 @@ class NotificationX_Helper {
     }
 
     public static function colored_themes(){
+        $is_pro = ! NX_CONSTANTS::is_pro();
 
         return apply_filters('nx_colored_themes', array(
             'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-2.jpg',
             'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-1.jpg',
-            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-3.jpg'
+            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-3.jpg',
+            'theme-four' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-four.png'
+            ), 
+            'theme-five' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-five.png'
+            ), 
+            'maps_theme' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/maps-theme.png'
+            ), 
         ));
 
     }
@@ -467,7 +480,15 @@ class NotificationX_Helper {
             'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-3.jpg',
             'theme-four' => array(
                 'is_pro' => $is_pro,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-3.jpg'
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-comment-theme-four.png'
+            ),
+            'theme-five' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-comment-theme-five.png'
+            ),
+            'maps_theme' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/maps-theme-comments.png'
             ),
         ));
 
