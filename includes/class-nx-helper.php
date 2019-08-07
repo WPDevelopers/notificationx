@@ -463,6 +463,10 @@ class NotificationX_Helper {
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-five.png'
             ), 
+            'conv-theme-six' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-6.jpg'
+            ), 
             'maps_theme' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/maps-theme.png'
@@ -478,6 +482,9 @@ class NotificationX_Helper {
             'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-2.jpg',
             'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-1.jpg',
             'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-3.jpg',
+            'theme-six-free' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-4.jpg',
+            'theme-seven-free' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-5.jpg',
+            'theme-eight-free' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-6.jpg',
             'theme-four' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-comment-theme-four.png'
@@ -490,9 +497,6 @@ class NotificationX_Helper {
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/maps-theme-comments.png'
             ),
-            'theme-six-free' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-4.jpg',
-            'theme-seven-free' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-5.jpg',
-            'theme-eight-free' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-6.jpg',
         ));
 
     }
