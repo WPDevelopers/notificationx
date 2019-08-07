@@ -83,10 +83,34 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         if( isset( $data['name'] ) ) {
             unset( $data['name'] );
         }
-
+        $trim_length = 100;
+        $name = $saved_data['username'];
+        $review_content = 'Some review content';
+        if($settings->wporg_theme == 'review-comment-2' || $settings->wporg_theme == 'review-comment-3'){
+            $trim_length = 80;
+            if(explode(' ',$saved_data['username']) >= 1){
+                $name = ucfirst(explode(' ',$saved_data['username'])[0]);
+                if(!empty($surname = explode(' ', $saved_data['username'])[1])){
+                    if (ctype_alpha(substr($surname,0, 1)) !== false){
+                        $name .= ' '.substr($surname,0, 1).'.';
+                    }
+                }
+            }
+        }
+        $nx_trimmed_length = apply_filters('nx_text_trim_length', $trim_length,$settings);
+        if(!empty($saved_data['content'])){
+            $review_content = $saved_data['content'];
+            if(strlen($review_content) > $nx_trimmed_length){
+                $review_content = substr($saved_data['content'],0, $nx_trimmed_length).'...';
+            }
+        }
+        if($settings->wporg_theme == 'review-comment-2'){
+            $review_content = '" '.$review_content.' "';
+        }
+        $data['username'] = $name;
         $data['plugin_name_text'] = __('try it out', 'notificationx');
         $data['anonymous_title'] = __('Anonymous', 'notificationx');
-
+        $data['plugin_review'] = $review_content;
         return $data;
     }
 
@@ -292,7 +316,8 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                     'type'     => 'select',
                     'priority' => 4,
                     'options'  => array(
-                        'tag_plugin_name'     => __('Plugin' , 'notificationx'),
+                        'tag_plugin_name'     => __('Plugin Name' , 'notificationx'),
+                        'tag_plugin_review'     => __('Review' , 'notificationx'),
                         'tag_anonymous_title' => __('Anonymous Title' , 'notificationx'),
                     ),
                     'default' => 'tag_plugin_name'
@@ -413,6 +438,15 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                         'review_saying' => [
                             'fields' => ['wp_reviews_template_new']
                         ],
+                        'review-comment' => [
+                            'fields' => ['review_saying_template_new']
+                        ],
+                        'review-comment-2' => [
+                            'fields' => ['review_saying_template_new']
+                        ],
+                        'review-comment-3' => [
+                            'fields' => ['review_saying_template_new']
+                        ]
                     ],
                     'dependency' => [
                         'review_saying' => [
@@ -424,6 +458,15 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                         'total-rated' => [
                             'fields' => ['wp_reviews_template_new']
                         ],
+                        'review-comment' => [
+                            'fields' => ['wp_reviews_template_new']
+                        ],
+                        'review-comment-2' => [
+                            'fields' => ['wp_reviews_template_new']
+                        ],
+                        'review-comment-3' => [
+                            'fields' => ['wp_reviews_template_new']
+                        ]
                     ],
                 ),
                 'wporg_advance_edit' => array(
@@ -675,7 +718,6 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
     public function frontend_html( $data = [], $settings = false, $args = [] ){
 
         $data = array_merge( $data, $this->defaults );
-
         $star = '';
         if( ! empty( $data['rating'] ) ) {
             for( $i = 1; $i <= $data['rating']; $i++ ) {
@@ -683,7 +725,9 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             }
             $data['rating'] = $star;
         }
-
+        if(!empty($data['link'])){
+            $data['link'] = $data['link'].'/#reviews';
+        }
         return parent::frontend_html( $data, $settings, $args );
     }
 

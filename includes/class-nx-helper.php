@@ -490,6 +490,9 @@ class NotificationX_Helper {
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/maps-theme-comments.png'
             ),
+            'theme-six-free' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-4.jpg',
+            'theme-seven-free' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-5.jpg',
+            'theme-eight-free' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-6.jpg',
         ));
 
     }
@@ -507,6 +510,9 @@ class NotificationX_Helper {
             'total-rated'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/total-rated.png',
             'reviewed'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/reviewed.png',
             'review_saying' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/saying-review.png',
+            'review-comment' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/review-with-comment.jpg',
+            'review-comment-2' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/review-with-comment-2.jpg',
+            'review-comment-3' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/review-with-comment-3.jpg',
         ));
     }
 

@@ -41,6 +41,7 @@
                         </label>
                     </div>
                     <?php
+                    $is_pro = false;
                 }
             }
         ?>

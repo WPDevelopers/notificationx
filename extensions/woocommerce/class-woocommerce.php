@@ -43,7 +43,6 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         if( NotificationX_Helper::get_type( $settings ) !== $this->type ) {
             return $data;
         }
-
         $data['name']            = $this->notEmpty( 'name', $saved_data ) ? $saved_data['name'] : __( 'Someone', 'notificationx' );
         $data['first_name']      = $this->notEmpty( 'first_name', $saved_data ) ? $saved_data['first_name'] : __( 'Someone', 'notificationx' );
         $data['last_name']       = $this->notEmpty( 'last_name', $saved_data ) ? $saved_data['last_name'] : __( 'Someone', 'notificationx' );
@@ -432,7 +431,6 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
      */
     protected function buyer( WC_Order $order ){
         $user = $order->get_user();
-
         $first_name = $last_name = $email = '';
         $buyer_data = [];
 

@@ -11,10 +11,11 @@ class NotificationX_Template {
 			$html = '';
 			for ( $i = 0; $i < count( $template ); $i++ ) {
 				if ( $i == 0 ) {
+				    $content = explode(' ',$template[$i]);
 					if( is_admin() && ! empty( $settings ) ) {
-						$html .= '<span class="nx-first-row" '. NotificationX_Public::generate_preview_css( $settings, 'first-row' ) .'>' . $template[$i] . '</span>';
+						$html .= '<span class="nx-first-row" '. NotificationX_Public::generate_preview_css( $settings, 'first-row' ) .'><span class="title">' . $content[0] . '</span><span class="sub"> ' . trim(implode(' ',array_slice($content,1))) . '</span></span>';
 					} else {
-						$html .= '<span class="nx-first-row">' . $template[$i] . '</span>';
+						$html .= '<span class="nx-first-row"> <span class="title">' . $content[0] . '</span><span class="sub"> ' . trim(implode(' ',array_slice($content,1))) . '</span></span>';
 					}
 				}
 				if ( $i == 1 ) {

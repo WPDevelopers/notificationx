@@ -281,8 +281,9 @@
 	background-image: url('../img/icons/trash.png');
 }
 
-.nx-admin-preview>img {
-	display: inline-block;
+.nx-admin-preview img {
+	display: block;
+	max-width: 100%;
 }
 
 .nx-admin-status label {
@@ -358,4 +359,8 @@
 .nx-stats-tease {
 	color: #888888;
 	cursor: pointer;
+}
+
+.nx-admin-preview {
+	margin: -20px;
 }
