@@ -459,11 +459,16 @@ class NotificationX_Helper {
     }
 
     public static function comment_colored_themes(){
+        $is_pro = ! NX_CONSTANTS::is_pro();
 
         return apply_filters('nx_comment_colored_themes', array(
             'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-2.jpg',
             'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-1.jpg',
-            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-3.jpg'
+            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-3.jpg',
+            'theme-four' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-3.jpg'
+            ),
         ));
 
     }
@@ -645,7 +650,7 @@ class NotificationX_Helper {
             'woocommerce' => 'theme',
             'edd'         => 'theme',
             'wp_reviews'  => 'wporg_theme',
-            'wp_stats'  => 'wpstats_theme',
+            'wp_stats'    => 'wpstats_theme',
         ));
     }
 
