@@ -14,24 +14,24 @@ function notificationx_settings_args(){
                     'fields'   => apply_filters('nx_modules', array(
                         'modules_bar' => array(
                             'title' => __('Notification Bar', 'notificationx'),
-                            'link' => '/docs/notification-bar/'
+                            'link' => 'https://notificationx.com/docs/notification-bar/'
                         ),
                         'modules_wordpress' =>  array (
                             'title' => __('WordPress', 'notificationx'),
-                            'link' => '/docs-category/configurations/'
+                            'link' => 'https://notificationx.com/docs-category/configurations/'
                         ),
                         'modules_woocommerce' => array(
                             'title' => __('WooCommerce', 'notificationx'),
-                            'link' => '/docs/woocommerce-sales-notifications/'
+                            'link' => 'https://notificationx.com/docs/woocommerce-sales-notifications/'
                         ),
                         'modules_edd' => array(
                             'title' => __('Easy Digital Downloads', 'notificationx'),
-                            'link' => '/docs/notificationx-easy-digital-downloads/'
+                            'link' => 'https://notificationx.com/docs/notificationx-easy-digital-downloads/'
                         ),
                         'modules_freemius' => array(
                             'is_pro' => true,
                             'title' => __('Freemius', 'notificationx'),
-                            'link' => '/docs/freemius-sales-notification/'
+                            'link' => 'https://notificationx.com/docs/freemius-sales-notification/'
                         ),
                         'modules_custom_notification' => array(
                             'is_pro' => true,
@@ -40,17 +40,17 @@ function notificationx_settings_args(){
                         'modules_mailchimp' => array(
                             'is_pro' => true,
                             'title' => __('MailChimp', 'notificationx'),
-                            'link' => '/docs/mailchimp-email-subscription-alert/'
+                            'link' => 'https://notificationx.com/docs/mailchimp-email-subscription-alert/'
                         ),
                         'modules_convertkit' => array(
                             'is_pro' => true,
                             'title' => __('ConvertKit', 'notificationx'),
-                            'link' => '/docs/convertkit-alert/'
+                            'link' => 'https://notificationx.com/docs/convertkit-alert/'
                         ),
                         'modules_zapier' => array(
                             'is_pro' => true,
                             'title' => __('Zapier', 'notificationx'),
-                            'link' => '/docs/zapier-notification-alert/'
+                            'link' => 'https://notificationx.com/docs/zapier-notification-alert/'
                         ),
                     )),
                     'views' => 'NotificationX_Settings::modules'
