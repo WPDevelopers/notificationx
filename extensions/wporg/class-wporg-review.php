@@ -85,23 +85,27 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         }
         $trim_length = 100;
         $name = $saved_data['username'];
-        $review_content = 'Some review content';
+        $review_content = __( 'Some review content', 'notificationx' );
         if($settings->wporg_theme == 'review-comment-2' || $settings->wporg_theme == 'review-comment-3'){
             $trim_length = 80;
-            if(explode(' ',$saved_data['username']) >= 1){
-                $name = ucfirst(explode(' ',$saved_data['username'])[0]);
-                if(!empty($surname = explode(' ', $saved_data['username'])[1])){
-                    if (ctype_alpha(substr($surname,0, 1)) !== false){
-                        $name .= ' '.substr($surname,0, 1).'.';
+            $exploded_username = explode(' ',$saved_data['username']);
+            if($exploded_username >= 1){
+                $name = ucfirst($exploded_username[0]);
+                if( isset( $exploded_username[1] ) ) {
+                    if( ! empty( $surname = $exploded_username[1] ) ){
+                        $surname_substr = substr( $surname, 0, 1 );
+                        if (ctype_alpha( $surname_substr ) !== false){
+                            $name .= ' '. $surname_substr . '.';
+                        }
                     }
                 }
             }
         }
-        $nx_trimmed_length = apply_filters('nx_text_trim_length', $trim_length,$settings);
-        if(!empty($saved_data['content'])){
+        $nx_trimmed_length = apply_filters('nx_text_trim_length', $trim_length, $settings);
+        if( ! empty( $saved_data['content'] ) ){
             $review_content = $saved_data['content'];
-            if(strlen($review_content) > $nx_trimmed_length){
-                $review_content = substr($saved_data['content'],0, $nx_trimmed_length).'...';
+            if( strlen( $review_content ) > $nx_trimmed_length ) {
+                $review_content = substr($saved_data['content'], 0, $nx_trimmed_length).'...';
             }
         }
         if($settings->wporg_theme == 'review-comment-2'){
