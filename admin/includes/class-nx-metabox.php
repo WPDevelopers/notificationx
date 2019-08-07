@@ -255,7 +255,7 @@ class NotificationX_MetaBox {
             if( ! NX_CONSTANTS::is_pro() && $is_created ) {
                 $is_created = false;
             }
-            if( ! NX_CONSTANTS::is_pro() && ! $is_created ) {
+            if( NX_CONSTANTS::is_pro() ) {
                 $is_created = true;
             }
             if ( $is_created_meta != '' ) {
@@ -263,6 +263,10 @@ class NotificationX_MetaBox {
             }
         } else {
             $is_created = true;
+        }
+
+        if( isset( $posts['post_status'] ) && $posts['post_status'] != 'publish' ) {
+            $is_created = false;
         }
 
         update_post_meta( $post_id, '_nx_meta_active_check', $is_created );
