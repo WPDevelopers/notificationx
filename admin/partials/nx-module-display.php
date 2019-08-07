@@ -2,7 +2,7 @@
     $module_on = isset( $active_modules[ $module_key ] ) ? $active_modules[ $module_key ] : false;
     if( is_array( $module ) ) {
         if( isset( $module['link'] ) && ! empty( $module['link'] ) ) {
-            $module_title = sprintf('<a href="%1$s">%2$s</a>', $module['link'], $module['title']);
+            $module_title = sprintf('<a target="_blank" href="%1$s">%2$s</a>', $module['link'], $module['title']);
         } else {
             $module_title = $module['title'];
         }
