@@ -574,7 +574,7 @@ a.nx-powered-by:hover {
     border-radius: 120px;
     padding: 0;
     overflow: visible;
-    max-height: 110px;
+    max-height: 105px;
     min-width: 400px;
     box-shadow: 0 0 25px rgba(36,30,157,.12);
     background-color: #fff;
@@ -585,8 +585,8 @@ a.nx-powered-by:hover {
 .notificationx-inner.nx-notification-review-comment-2 .notificationx-image,
 .notificationx-inner.nx-notification-review-comment-3 .notificationx-image{
     flex-shrink: 0;
-    width: 110px;
-    height: 110px;
+    width: 105px;
+    height: 105px;
     border-radius: 50%;
     position: relative;
     overflow: visible;
@@ -613,8 +613,8 @@ a.nx-powered-by:hover {
     border: 3px solid #fff;
     border-radius: 50%;
     position: absolute;
-    left: 2px;
-    top: 2px;
+    left: -2px;
+    top: 0;
     box-shadow: 0 0 10px rgba(36,30,157,.12);
     z-index: 1;
 }
@@ -630,7 +630,7 @@ a.nx-powered-by:hover {
 .notificationx-inner.nx-notification-theme-eight-free .notificationx-content,
 .notificationx-inner.nx-notification-review-comment-2 .notificationx-content,
 .notificationx-inner.nx-notification-review-comment-3 .notificationx-content{
-    padding: 15px 0;
+    padding: 13px 0;
     font-family: "Roboto", sans-serif;
 }
 .notificationx-inner.nx-notification-theme-seven-free .notificationx-content .nx-first-row,
@@ -661,12 +661,18 @@ a.nx-powered-by:hover {
     line-height: 1.4;
     font-style: italic;
 }
+.notificationx-inner.nx-notification-theme-seven-free .notificationx-content .nx-third-row,
+.notificationx-inner.nx-notification-theme-eight-free .notificationx-content .nx-third-row,
+.notificationx-inner.nx-notification-review-comment-2 .notificationx-content .nx-third-row,
+.notificationx-inner.nx-notification-review-comment-3 .notificationx-content .nx-third-row{
+    font-size: 13px;
+}
 .notificationx-inner.nx-notification-theme-seven-free .notificationx-content .notificationx-close,
 .notificationx-inner.nx-notification-theme-eight-free .notificationx-content .notificationx-close,
 .notificationx-inner.nx-notification-review-comment-2 .notificationx-content .notificationx-close,
 .notificationx-inner.nx-notification-review-comment-3 .notificationx-content .notificationx-close{
-    right: 35px;
-    top: 17px;
+    right: 30px;
+    top: 19px;
 }
 .notificationx-inner.nx-notification-theme-seven-free .notificationx-content .nx-branding,
 .notificationx-inner.nx-notification-theme-eight-free .notificationx-content .nx-branding,
@@ -674,7 +680,7 @@ a.nx-powered-by:hover {
 .notificationx-inner.nx-notification-review-comment-3 .notificationx-content .nx-branding{
     padding: 0;
     right: 40px;
-    bottom: 12px;
+    bottom: 10px;
 }
 .notificationx-inner.nx-notification-theme-eight-free .notificationx-content,
 .notificationx-inner.nx-notification-review-comment-3 .notificationx-content{
