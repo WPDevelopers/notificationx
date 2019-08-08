@@ -148,7 +148,15 @@ if( isset( $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
                                     </td>
                                     <td>
                                         <div class="nx-admin-preview">
-                                            <img width="250px" src="<?php echo NX_CONSTANTS::themeSource( $theme_name, $settings->display_type ); ?>" alt="<?php echo get_the_title(); ?>">
+                                            <?php 
+                                                $theme_preview = NX_CONSTANTS::themeSource( $theme_name, $settings->display_type );
+                                                if( is_array( $theme_preview ) ) {
+                                                    $theme_preview = $theme_preview['source'];
+                                                }
+                                                if( ! empty( $theme_preview ) ) : 
+                                            ?>
+                                            <img width="250px" src="<?php echo $theme_preview; ?>" alt="<?php echo get_the_title(); ?>">
+                                            <?php $theme_preview = ''; endif;?>
                                         </div>
                                     </td>
                                     <td>
@@ -165,7 +173,7 @@ if( isset( $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="nx-admin-type"><?php echo $type; ?></div>
+                                        <div class="nx-admin-type"><?php echo is_array( $type ) ? $type['source'] : $type; ?></div>
                                     </td>
                                     <td>
                                         <div class="nx-admin-stats"><?php $this->get_stats( $idd ); ?></div>

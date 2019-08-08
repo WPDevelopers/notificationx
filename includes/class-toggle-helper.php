@@ -75,9 +75,12 @@ class NotificationX_ToggleFields {
         $fields = self::common_fields();
         $sections = self::common_sections();
         $sections[] = 'rs_link_options';
+        // $sections = array_merge( $sections, array( 'rs_link_options', 'wporg_themes', 'wporg_design', 'wporg_typography' ));
+        // $fields = array_merge( $fields, array( 'wp_reviews_product_type', 'wp_reviews_slug', 'wp_reviews_template_new', 'review_saying_template_new', 'wp_reviews_template_adv', 'reviews_source', 'show_notification_image' ));
+        $fields = array_merge( $fields, array( 'reviews_source' ));
 
         return apply_filters( 'nx_reviews_toggle_fields', array(
-            'fields' => array_merge( $fields, array( 'reviews_source' ) ),
+            'fields' => $fields,
             'sections' => $sections,
         ));
     }

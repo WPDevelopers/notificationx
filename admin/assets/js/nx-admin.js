@@ -14,7 +14,7 @@
 				e.preventDefault();
 				$.notificationx.tabChanger(this);
 			});
-		$('body').on('click', '.nx-single-theme-wrapper',
+		$('body').on('change', '.nx-single-theme-wrapper > input:checked',
 			function (e) {
 				e.preventDefault();
 				$.notificationx.templateForTheme();
@@ -28,23 +28,23 @@
 			}
 		});
 
-		$('body').on('change', '#nx_meta_display_type', function () {
+		$('body').on('change', '.nx_meta_display_type', function () {
 			var type = $(this).val();
 			switch (type) {
 				case 'conversions':
-					$('#nx_meta_conversion_from').trigger('change');
+					$.notificationx.trigger('.nx_meta_conversion_from');
 					$('#nx_meta_advance_edit').trigger('change');
 					break;
 				case 'comments':
-					$('#nx_meta_comments_source').trigger('change');
+					$.notificationx.trigger('.nx_meta_comments_source');
 					$('#nx_meta_comment_advance_edit').trigger('change');
 					break;
 				case 'reviews':
-					$('#nx_meta_reviews_source').trigger('change');
+					$.notificationx.trigger('.nx_meta_reviews_source');
 					$('#nx_meta_wporg_advance_edit').trigger('change');
 					break;
 				case 'download_stats':
-					$('#nx_meta_stats_source').trigger('change');
+					$.notificationx.trigger('.nx_meta_stats_source');
 					$('#nx_meta_wpstats_advance_edit').trigger('change');
 					break;
 			}
@@ -60,9 +60,9 @@
 			$('#nx_meta_wp_stats_template_new #nx_meta_wp_stats_template_new_fourth_param').val(value + '_text').trigger('change');
 		});
 
-		$('body').on('change', '#nx_meta_conversion_from', function () {
+		$('body').on('change', '.nx_meta_conversion_from', function (e) {
 			var conv_source = $(this).val();
-			$('.nx-theme .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
+			$('.nx-themes .nx_meta_theme:checked').trigger('change');
 			switch (conv_source) {
 				case 'woocommerce' || 'edd':
 					$('#nx_meta_woo_template_adv').trigger('change');
@@ -70,14 +70,14 @@
 			}
 		});
 
-		$('body').on('change', '#nx_meta_comments_source', function () {
+		$('body').on('change', '.nx_meta_comments_source', function () {
 			var comment_source = $(this).val();
-			$('.nx-comment_themes .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
+			$('.nx-comment_themes .nx_meta_comment_theme:checked').trigger('change');
 		});
 
-		$('body').on('change', '#nx_meta_reviews_source', function () {
+		$('body').on('change', '.nx_meta_reviews_source', function () {
 			var source = $(this).val();
-			$('.nx-wporg_themes .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
+			$('.nx-wporg_themes .nx_meta_wporg_theme:checked').trigger('change');
 			switch (source) {
 				case 'wp_reviews':
 					$('#nx_meta_wp_reviews_template_adv').trigger('change');
@@ -85,9 +85,9 @@
 			}
 		});
 
-		$('body').on('change', '#nx_meta_stats_source', function () {
+		$('body').on('change', '.nx_meta_stats_source', function () {
 			var source = $(this).val();
-			$('.nx-wpstats_theme .nx-single-theme-wrapper.nx-theme-selected').trigger('change');
+			$('.nx-wpstats_themes .nx_meta_wpstats_theme:checked').trigger('change');
 			switch (source) {
 				case 'wp_stats':
 					$('#nx_meta_wp_stats_template_adv').trigger('change');
@@ -95,27 +95,28 @@
 			}
 		});
 
-		$('body').on('change', '.nx-builder-content-wrapper #nx_meta_display_type.nx-select', function (e) {
-			var type = $(this).val(),
-				title = e.currentTarget.selectedOptions[0].innerText,
+		$('body').on('change', '.nx-builder-content-wrapper .nx_meta_display_type', function (e) {
+			var type = e.currentTarget.value,
+				title = notificationx.title_of_types[type],
 				options = {
 					year: 'numeric',
 					month: 'short',
 					day: 'numeric'
 				},
 				date = (new Date()).toLocaleDateString('en-US', options);
-			if (type === 'conversions') {
-				$('body').on('change', '#nx_meta_conversion_from.nx-select', function (e) {
-					var title = e.currentTarget.selectedOptions[0].innerText;
-					$('.finalize_notificationx_name').text("NotificationX - " + title + ' - ' + date);
-				});
-				$('#nx_meta_conversion_from.nx-select').trigger('change');
-			} else {
-				$('.finalize_notificationx_name').text("NotificationX - " + title + ' - ' + date);
-			}
+
+			// if (type === 'conversions') {
+			// 	$('body').on('change', '.nx_meta_conversion_from', function (e) {
+			// 		var title = notificationx.title_of_types[e.currentTarget.value];
+			// 		$('.finalize_notificationx_name').text("NotificationX - " + title + ' - ' + date);
+			// 	});
+			// 	$('.nx_meta_conversion_from').trigger('change');
+			// } else {
+			// }
+			$('.finalize_notificationx_name').text("NotificationX - " + title + ' - ' + date);
 		});
 
-		$('#nx_meta_display_type').trigger('change');
+		$('.nx_meta_display_type:checked').trigger('change');
 	});
 
 	$.notificationx.init = function () {
@@ -124,22 +125,32 @@
 		$.notificationx.bindEvents();
 		$.notificationx.initializeFields();
 	};
+	// @since 1.2.1
+	$.notificationx.trigger = function (selector) {
+		var source = $(selector + ':checked').val();
+		if (source == undefined) {
+			$(selector + ':first').trigger('click');
+		} else {
+			$(selector + ':checked').trigger('change');
+		}
+	};
 
 	$.notificationx.templateForTheme = function () {
 		var source, templateID, themeID,
-			type = $('#nx_meta_display_type').val();
+			type = $('.nx_meta_display_type:checked').val();
 
 		if (type === 'press_bar') {
 			return;
 		}
-		source = $('#nx_meta_' + notificationx.source_types[type]).val();
+		source = $('.nx_meta_' + notificationx.source_types[type]).val();
 		if (notificationx.theme_sources.hasOwnProperty(source)) {
 			if (typeof notificationx.theme_sources[source] === 'object') {
-				themeID = $('#nx_meta_' + notificationx.theme_sources[source][type]).val();
+				themeID = $('.nx_meta_' + notificationx.theme_sources[source][type] + ':checked').val();
 			} else {
-				themeID = $('#nx_meta_' + notificationx.theme_sources[source]).val();
+				themeID = $('.nx_meta_' + notificationx.theme_sources[source] + ':checked').val();
 			}
 		}
+
 		if (notificationx.template_keys.hasOwnProperty(source)) {
 			if (typeof notificationx.template_keys[source] === 'object') {
 				templateID = $('#nx_meta_' + notificationx.template_keys[source][type]);
@@ -175,10 +186,6 @@
 
 	$.notificationx.bindEvents = function () {
 		$('#nx_meta_show_on').trigger('change');
-
-		$('body').on('click', '.nx-single-theme-wrapper', function () {
-			$.notificationx.selectTheme(this)
-		});
 
 		//Advance Checkbox with SweetAlear
 		$('body').on('click', '.nx-adv-checkbox-wrap label, #nx_sound_checkbox, .nx-stats-tease', function (e) {
@@ -242,7 +249,7 @@
 
 		var saveButton = $('.nx-settings-button');
 
-		$('body').on('click', '.nx-pro-checkbox', function (e) {
+		$('body').on('click', '.nx-pro-checkbox, .nx-radio-pro', function (e) {
 			e.preventDefault();
 			var premium_content = document.createElement("p");
 			var premium_anchor = document.createElement("a");
@@ -371,7 +378,7 @@
 			});
 		}
 
-		$('.notificationx-metabox-wrapper .nx-meta-field:not(#nx_meta_conversion_from)').trigger('change');
+		$('.notificationx-metabox-wrapper .nx-meta-field:not(.nx_meta_conversion_from)').trigger('change');
 
 		// NotificationX_Admin.initColorField();
 		if ($('.nx-colorpicker-field').length > 0) {
@@ -507,6 +514,12 @@
 
 	$.notificationx.toggleFields = function () {
 		$("body").delegate('.nx-meta-field', 'change', function (e) {
+			if (this.type == 'radio') {
+				if (this.checked) {
+					$.notificationx.checkDependencies(this);
+				}
+				return;
+			}
 			$.notificationx.checkDependencies(this);
 		});
 	};
@@ -550,12 +563,19 @@
 			value = $('#' + currentTheme).val();
 		}
 
+		// console.log('id', id);
+		// console.log('value', value);
+
 		var mainid = id;
 
 		if (notificationx.template.indexOf(id) >= 0) {
 			id = current.data('subkey');
 		}
 
+		// console.log('id toggle', id, notificationx.toggleFields.hasOwnProperty(id));
+		// console.log('id hide', id, notificationx.hideFields.hasOwnProperty(id));
+
+		// return;
 		if (notificationx.toggleFields.hasOwnProperty(id)) {
 			var canShow = notificationx.toggleFields[id].hasOwnProperty(value);
 			var canHide = true;
@@ -578,6 +598,7 @@
 
 		if (notificationx.hideFields.hasOwnProperty(id)) {
 			var hideFields = notificationx.hideFields[id];
+
 
 			if (hideFields.hasOwnProperty(value)) {
 				$.notificationx.toggle(hideFields[value].fields, 'hide', '#nx-meta-', '', mainid);

@@ -53,6 +53,24 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                 'second_param' => 'people rated',
                 'third_param' => 'tag_plugin_name',
                 'fourth_param' => 'tag_rating',
+            ),
+            'review-comment' => array(
+                'first_param' => 'tag_username',
+                'second_param' => 'just reviewed',
+                'third_param' => 'tag_plugin_review',
+                'fourth_param' => 'tag_rating',
+            ),
+            'review-comment-2' => array(
+                'first_param' => 'tag_username',
+                'second_param' => 'just reviewed',
+                'third_param' => 'tag_plugin_review',
+                'fourth_param' => 'tag_rating',
+            ),
+            'review-comment-3' => array(
+                'first_param' => 'tag_username',
+                'second_param' => 'just reviewed',
+                'third_param' => 'tag_plugin_review',
+                'fourth_param' => 'tag_time',
             )
         );
 
@@ -83,10 +101,39 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         if( isset( $data['name'] ) ) {
             unset( $data['name'] );
         }
-
+        $trim_length = 100;
+        $name = $saved_data['username'];
+        $review_content = __( 'Some review content', 'notificationx' );
+        if($settings->wporg_theme == 'review-comment-2' || $settings->wporg_theme == 'review-comment-3'){
+            $trim_length = 80;
+            $exploded_username = explode(' ',$saved_data['username']);
+            if($exploded_username >= 1){
+                $name = ucfirst($exploded_username[0]);
+                if( isset( $exploded_username[1] ) ) {
+                    $surname = $exploded_username[1];
+                    if( ! empty( $surname ) ){
+                        $surname_substr = substr( $surname, 0, 1 );
+                        if (ctype_alpha( $surname_substr ) !== false){
+                            $name .= ' '. $surname_substr . '.';
+                        }
+                    }
+                }
+            }
+        }
+        $nx_trimmed_length = apply_filters('nx_text_trim_length', $trim_length, $settings);
+        if( ! empty( $saved_data['content'] ) ){
+            $review_content = $saved_data['content'];
+            if( strlen( $review_content ) > $nx_trimmed_length ) {
+                $review_content = substr($saved_data['content'], 0, $nx_trimmed_length).'...';
+            }
+        }
+        if($settings->wporg_theme == 'review-comment-2'){
+            $review_content = '" '.$review_content.' "';
+        }
+        $data['username'] = $name;
         $data['plugin_name_text'] = __('try it out', 'notificationx');
         $data['anonymous_title'] = __('Anonymous', 'notificationx');
-
+        $data['plugin_review'] = $review_content;
         return $data;
     }
 
@@ -127,6 +174,8 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
 
         $alt_title = isset( $data['plugin_name'] ) ? $data['plugin_name'] : '';
         $alt_title = empty( $alt_title ) && isset( $data['username'] ) ? $data['username'] : $alt_title;
+
+        $image_data['classes'] = $settings->show_notification_image;
 
         $image_data['url'] = $image_url;
         $image_data['alt'] = $alt_title;
@@ -190,20 +239,29 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         if( $display_type === $this->type ) {
             $design = NotificationX_Admin::get_post_meta( intval( $id ), 'wporg_theme', true );
             $saved_data = NotificationX_Admin::get_post_meta( intval( $id ), $this->meta_key, true );
+            $new_data['rated'] = isset( $saved_data['ratings'] ) ? $saved_data['ratings']['5'] : '';
+            $new_data['rating'] = '5';
+            $new_data['slug'] = isset( $saved_data['slug'] ) ? $saved_data['slug'] : '';
+            $new_data['icons'] = isset( $saved_data['icons'] ) ? $saved_data['icons'] : '';
+            $new_data['plugin_name'] = isset( $saved_data['name'] ) ? $saved_data['name'] : '';
+            
+            if( $product_type == 'plugin' && isset( $saved_data['slug'] ) ) {
+                //TODO: Its has to be specific reviews link.
+                $new_data['link'] = 'https://wordpress.org/plugins/' . $saved_data['slug'];
+            }
+
             if( $design === 'total-rated' ) {
-                $new_data['rated'] = isset( $saved_data['ratings'] ) ? $saved_data['ratings']['5'] : '';
-                $new_data['rating'] = '5';
                 unset( $saved_data['reviews'] );
-                $new_data['slug'] = isset( $saved_data['slug'] ) ? $saved_data['slug'] : '';
-                $new_data['icons'] = isset( $saved_data['icons'] ) ? $saved_data['icons'] : '';
-                $new_data['plugin_name'] = isset( $saved_data['name'] ) ? $saved_data['name'] : '';
-                if( $product_type == 'plugin' && isset( $saved_data['slug'] ) ) {
-                    //TODO: Its has to be specific comments link.
-                    $new_data['link'] = 'https://wordpress.org/plugins/' . $saved_data['slug'];
-                }
                 $data[ $this->type ] = array( $new_data );
             } else {
-                $data[ $this->type ] = isset( $saved_data['reviews'] ) ? $saved_data['reviews'] : array();
+                $data[ $this->type ] = array();
+                if( isset( $saved_data['reviews'] ) && ! empty( $saved_data['reviews'] ) ) {
+                    $this->new_data = $new_data;
+                    $new_reviews = array_map( function( $ar ){
+                        return array_merge( $ar, $this->new_data);
+                    }, $saved_data['reviews'] );
+                    $data[ $this->type ] = $new_reviews;
+                }
             }
         }
 
@@ -292,7 +350,8 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                     'type'     => 'select',
                     'priority' => 4,
                     'options'  => array(
-                        'tag_plugin_name'     => __('Plugin' , 'notificationx'),
+                        'tag_plugin_name'     => __('Plugin Name' , 'notificationx'),
+                        'tag_plugin_review'     => __('Review' , 'notificationx'),
                         'tag_anonymous_title' => __('Anonymous Title' , 'notificationx'),
                     ),
                     'default' => 'tag_plugin_name'
@@ -413,6 +472,15 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                         'review_saying' => [
                             'fields' => ['wp_reviews_template_new']
                         ],
+                        'review-comment' => [
+                            'fields' => ['review_saying_template_new']
+                        ],
+                        'review-comment-2' => [
+                            'fields' => ['review_saying_template_new']
+                        ],
+                        'review-comment-3' => [
+                            'fields' => ['review_saying_template_new']
+                        ]
                     ],
                     'dependency' => [
                         'review_saying' => [
@@ -424,6 +492,15 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                         'total-rated' => [
                             'fields' => ['wp_reviews_template_new']
                         ],
+                        'review-comment' => [
+                            'fields' => ['wp_reviews_template_new']
+                        ],
+                        'review-comment-2' => [
+                            'fields' => ['wp_reviews_template_new']
+                        ],
+                        'review-comment-3' => [
+                            'fields' => ['wp_reviews_template_new']
+                        ]
                     ],
                 ),
                 'wporg_advance_edit' => array(
@@ -431,7 +508,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                     'priority'	=> 10,
                     'dependency' => [
                         1 => [
-                            'sections' => ['wporg_design', 'wporg_typography']
+                            'sections' => ['wporg_design', 'wporg_image_design', 'wporg_typography']
                         ]
                     ],
                 ),
@@ -489,6 +566,35 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                     'label'     => __('Border Color' , 'notificationx'),
                     'priority'	=> 30,
                     'default'	=> ''
+                ),
+            )
+        );
+
+        $sections['wporg_image_design'] = array(
+            'title'      => __('Image Appearance', 'notificationx'),
+            'priority' => 9,
+            'reset'    => true,
+            'fields'   => array(
+                'wporg_image_shape' => array(
+                    'type'      => 'select',
+                    'label'     => __('Image Shape' , 'notificationx'),
+                    'priority'	=> 5,
+                    'default'	=> 'circle',
+                    'options'	=> [
+                        'circle' => __('Circle', 'notificationx'),
+                        'rounded' => __('Rounded', 'notificationx'),
+                        'square' => __('Square', 'notificationx'),
+                    ],
+                ),
+                'wporg_image_position' => array(
+                    'type'      => 'select',
+                    'label'     => __('Position' , 'notificationx'),
+                    'priority'	=> 10,
+                    'default'	=> 'left',
+                    'options'	=> [
+                        'left' => __('Left', 'notificationx'),
+                        'right' => __('Right', 'notificationx'),
+                    ],
                 ),
             )
         );
@@ -572,9 +678,11 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
     public function add_builder_fields( $options ){
         $fields = $this->get_fields();
         $sections = $this->get_sections();
-        unset( $fields[ 'wp_reviews_template' ] );
+        unset( $fields[ $this->template ] );
         unset( $fields[ 'wp_reviews_template_adv' ] );
+
         unset( $sections['wporg_design'] );
+        unset( $sections['wporg_image_design'] );
         unset( $sections['wporg_themes']['fields']['wporg_advance_edit'] );
         unset( $sections['wporg_typography'] );
         
@@ -620,8 +728,8 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
     public function hide_builder_fields( $options ) {
         $fields = array_merge( $this->get_fields(), [] );
         $sections = $this->get_sections();
-        unset( $sections['wporg_design'] );
-        unset( $sections['wporg_typography'] );
+        // unset( $sections['wporg_design'] );
+        // unset( $sections['wporg_typography'] );
 
         // Hide fields from other field types.
         foreach( $fields as $field_key => $field_value ) {
@@ -675,7 +783,6 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
     public function frontend_html( $data = [], $settings = false, $args = [] ){
 
         $data = array_merge( $data, $this->defaults );
-
         $star = '';
         if( ! empty( $data['rating'] ) ) {
             for( $i = 1; $i <= $data['rating']; $i++ ) {
@@ -683,7 +790,9 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             }
             $data['rating'] = $star;
         }
-
+        if(!empty($data['link'])){
+            $data['link'] = $data['link'].'/#reviews';
+        }
         return parent::frontend_html( $data, $settings, $args );
     }
 

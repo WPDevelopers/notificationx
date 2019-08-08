@@ -9,7 +9,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
 
     protected $notifications = [];
 
-    public function __construct() {    
+    public function __construct() {
         parent::__construct( $this->template );
         $this->notifications = $this->get_notifications( $this->type );
 
@@ -20,13 +20,36 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         if( NotificationX_Helper::get_type( $settings ) !== $this->type ) {
             return $data;
         }
-
-        $data['name'] = __( $this->notEmpty( 'name', $saved_data ) ? $saved_data['name'] : 'Someone', 'notificationx' );
+        ;
+        $name = $this->notEmpty( 'name', $saved_data ) ? ucfirst($saved_data['name']) : 'Someone';
+        $comment = 'Some comment';
+        $trim_length = 100;
+        if($settings->comment_theme == 'theme-seven-free' || $settings->comment_theme == 'theme-eight-free'){
+            $trim_length = 80;
+            if(explode(' ',$name) >= 1){
+                $username = explode(' ',$name);
+                $name = ucfirst($username[0]);
+                if(!empty($username[1])){
+                    $name .= ' '.substr($username[1],0, 1).'.';
+                }
+            }
+        }
+        $nx_trimmed_length = apply_filters('nx_text_trim_length', $trim_length, $settings);
+        if($this->notEmpty('id',$saved_data)){
+            $comment = get_comment($saved_data['id'])->comment_content;
+            if(strlen($comment) > $nx_trimmed_length){
+                $comment = substr($comment,0, $nx_trimmed_length).'...';
+            }
+        }
+        if($settings->comment_theme == 'theme-seven-free'){
+            $comment = '" '.$comment.' "';
+        }
+        $data['name'] = __( $name, 'notificationx' );
         $data['first_name'] = __( $this->notEmpty( 'first_name', $saved_data ) ? $saved_data['first_name'] : 'Someone', 'notificationx' );
         $data['last_name'] = __( $this->notEmpty( 'last_name', $saved_data ) ? $saved_data['last_name'] : 'Someone', 'notificationx' );
         $data['anonymous_post'] = __( 'Anonymous Post', 'notificationx' );
         $data['sometime'] = __( 'Sometimes ago', 'notificationx' );
-
+        $data['post_comment'] = $comment;
         return $data;
     }
 
@@ -43,7 +66,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
 
     /**
      * This functions is hooked
-     * 
+     *
      * @hooked nx_public_action
      *
      * @return void
@@ -58,7 +81,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         add_action( 'transition_comment_status', array( $this, 'transition_comment_status' ), 10, 3 );
     }
     /**
-     * This function is responsible for the some fields of 
+     * This function is responsible for the some fields of
      * wp comments notification in display tab
      *
      * @param array $options
@@ -108,6 +131,9 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
                         'tag_last_name' => array(
                             'fields' => [ 'custom_first_param' ]
                         ),
+                        'tag_post_title' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
                     ),
                     'default' => 'tag_name'
                 ),
@@ -126,7 +152,8 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
                     'priority' => 4,
                     'options'  => array(
                         'tag_post_title'       => __('Post Title' , 'notificationx'),
-                        'tag_anonymous_post' => __('Anonymous Post' , 'notificationx'),
+                        'tag_post_comment'     => __('Post Comment' , 'notificationx'),
+                        'tag_anonymous_post'   => __('Anonymous Post' , 'notificationx'),
                     ),
                     'default' => 'tag_post_title'
                 ),
@@ -218,7 +245,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         return $new_comments;
     }
     /**
-     * This function is responsible for transition comment status 
+     * This function is responsible for transition comment status
      * from approved to unapproved or unapproved to approved
      *
      * @param string $new_status
@@ -248,11 +275,11 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
             array_pop( $sorted_data );
             $this->notifications = $sorted_data;
         }
-        
+
         if( 1 === $comment_approved ){
             $this->notifications[ $comment_ID ] = $this->add( $comment_ID );
             /**
-             * Save the data to 
+             * Save the data to
              * notificationx_data ( options DB. )
              */
             $this->save( $this->type, $this->add( $comment_ID ), $comment_ID );
@@ -270,9 +297,9 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
 
         if( ! $comment instanceof WP_Comment ) {
             $comment_id = intval( $comment );
-            $comment = get_comment( $comment_id, 'OBJECT' );  
+            $comment = get_comment( $comment_id, 'OBJECT' );
         }
-        
+
         $comment_data['id']         = $comment->comment_ID;
         $comment_data['link']       = get_comment_link( $comment->comment_ID );
         $comment_data['post_title'] = get_the_title( $comment->comment_post_ID );

@@ -204,9 +204,22 @@ class NotificationX_Helper {
      * @return array|string
      */
     public static function conversion_from( $from = '' ) {
+        $is_pro = ! NX_CONSTANTS::is_pro();
         $froms = [
-            'woocommerce' => __('WooCommerce' , 'notificationx'),
-            'edd'         => __('Easy Digital Downloads' , 'notificationx'),
+            'woocommerce' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/woocommerce.jpg',
+            'edd'         => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/edd.jpg',
+            'freemius'    => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg',
+                'is_pro' => $is_pro,
+            ),
+            'zapier'    => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.jpg',
+                'is_pro' => $is_pro,
+            ),
+            'custom_notification'    => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/custom.jpg',
+                'is_pro' => $is_pro,
+            ),
         ];
         $forms = apply_filters('nx_conversions_from', $froms );
         $forms = self::active_modules( $forms );
@@ -223,7 +236,7 @@ class NotificationX_Helper {
      */
     public static function comments_source( $from = '' ) {
         $froms = [
-            'wp_comments' => __('WordPress' , 'notificationx'),
+            'wp_comments' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
         ];
         $forms = apply_filters('nx_comments_source_options', $froms );
         $forms = self::active_modules( $forms );
@@ -238,8 +251,17 @@ class NotificationX_Helper {
      * @return array|string
      */
     public static function reviews_source( $from = '' ) {
+        $is_pro = ! NX_CONSTANTS::is_pro();
         $froms = [
-            'wp_reviews' => __('WordPress' , 'notificationx'),
+            'wp_reviews' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+            'freemius' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg'
+            ),
+            'zapier'    => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.jpg',
+                'is_pro' => $is_pro
+            ),
         ];
         $forms = apply_filters('nx_reviews_source_options', $froms );
         $forms = self::active_modules( $forms );
@@ -249,8 +271,13 @@ class NotificationX_Helper {
         return $forms;
     }
     public static function stats_source( $from = '' ) {
+        $is_pro = ! NX_CONSTANTS::is_pro();
         $froms = [
-            'wp_stats' => __('WordPress' , 'notificationx'),
+            'wp_stats' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+            'freemius' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg'
+            ),
         ];
         $forms = apply_filters('nx_stats_source_options', $froms );
         $forms = self::active_modules( $forms );
@@ -342,12 +369,17 @@ class NotificationX_Helper {
      * @return array|string
      */
     public static function notification_types( $type = '' ) {
+        $is_pro = ! NX_CONSTANTS::is_pro();
         $types = [
-            'press_bar'      => __('Notification Bar' , 'notificationx'),
-            'comments'       => __('Comments' , 'notificationx'),
-            'conversions'    => __('Sales Notification' , 'notificationx'),
-            'reviews'         => __('Review' , 'notificationx'),
-            'download_stats' => __('Download Stats' , 'notificationx'),
+            'conversions'    => __( 'Sales Notification', 'notificationx' ),
+            'comments'       => __( 'Comments', 'notificationx' ),
+            'reviews'        => __( 'Reviews', 'notificationx' ),
+            'download_stats' => __( 'Download Stats', 'notificationx' ),
+            'press_bar'      => __( 'Notification Bar', 'notificationx' ),
+            'email_subscription' => array(
+                'source' => __( 'Email Subscription', 'notificationx' ),
+                'is_pro' => $is_pro
+            ),
         ];
         $types = apply_filters('nx_notification_types', $types );
 
@@ -417,21 +449,54 @@ class NotificationX_Helper {
     }
 
     public static function colored_themes(){
+        $is_pro = ! NX_CONSTANTS::is_pro();
 
         return apply_filters('nx_colored_themes', array(
             'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-2.jpg',
             'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-1.jpg',
-            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-3.jpg'
+            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-3.jpg',
+            'theme-four' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-four.png'
+            ), 
+            'theme-five' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-five.png'
+            ), 
+            'conv-theme-six' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-6.jpg'
+            ), 
+            'maps_theme' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/maps-theme.png'
+            ), 
         ));
 
     }
 
     public static function comment_colored_themes(){
+        $is_pro = ! NX_CONSTANTS::is_pro();
 
         return apply_filters('nx_comment_colored_themes', array(
             'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-2.jpg',
             'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-1.jpg',
-            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-3.jpg'
+            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-3.jpg',
+            'theme-six-free' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-4.jpg',
+            'theme-seven-free' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-5.jpg',
+            'theme-eight-free' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-comment-theme-6.jpg',
+            'theme-four' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-comment-theme-four.png'
+            ),
+            'theme-five' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-comment-theme-five.png'
+            ),
+            'maps_theme' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/maps-theme-comments.png'
+            ),
         ));
 
     }
@@ -449,6 +514,9 @@ class NotificationX_Helper {
             'total-rated'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/total-rated.png',
             'reviewed'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/reviewed.png',
             'review_saying' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/saying-review.png',
+            'review-comment' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/review-with-comment.jpg',
+            'review-comment-2' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/review-with-comment-2.jpg',
+            'review-comment-3' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/review-with-comment-3.jpg',
         ));
     }
 
@@ -573,6 +641,15 @@ class NotificationX_Helper {
             'download_stats' => 'stats_source',
         ));
     }
+    public static function types_title(){
+        return apply_filters( 'nx_source_types_title', array( 
+            'press_bar'      => __('Notification Bar', 'notificationx'),
+            'comments'       => __('Comments', 'notificationx'),
+            'conversions'    => __('Sales Notification', 'notificationx'),
+            'reviews'        => __('Reviews', 'notificationx'),
+            'download_stats' => __('Download Stats', 'notificationx'),
+        ));
+    }
 
     public static function get_theme( $settings ){
         if( empty( $settings ) ) {
@@ -604,7 +681,7 @@ class NotificationX_Helper {
             'woocommerce' => 'theme',
             'edd'         => 'theme',
             'wp_reviews'  => 'wporg_theme',
-            'wp_stats'  => 'wpstats_theme',
+            'wp_stats'    => 'wpstats_theme',
         ));
     }
 

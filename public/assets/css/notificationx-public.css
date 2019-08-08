@@ -67,6 +67,7 @@ span.notificationx-close>svg {
     margin-right: 15px;
     display: flex;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .nx-img-right .notificationx-image {
@@ -101,17 +102,25 @@ span.notificationx-close>svg {
 
 .notificationx-inner.nx-img-right .notificationx-content .nx-branding {
     position: static;
-    margin-left: 0px;
-    padding: 5px 0px 0px
+    margin-left: 15px;
+    padding: 0px;
 }
 
 .notificationx-content {
     float: left;
     min-width: 200px;
+    display: flex;
+    flex-direction: column;
 }
 
 .notificationx-content>span {
     display: block;
+}
+
+.notificationx-content>span.nx-third-row {
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
 }
 
 .nx-first-row {
@@ -330,11 +339,14 @@ a.nx-bar-button:hover {
     color: #999;
     margin-left: 2px;
     vertical-align: middle;
-    position: absolute;
-    right: 5px;
-    bottom: 5px;
     z-index: 9999;
-    padding: 5px;
+    float: right;
+    position: relative;
+    top: -4px;
+}
+
+.nx-img-right .nx-branding {
+    float: none;
 }
 
 .nx-branding svg {
@@ -428,6 +440,7 @@ a.nx-powered-by:hover {
     border-right: 0px;
 }
 
+.notificationx-inner.nx-img-right.nx-notification-reviewed .notificationx-content,
 .notificationx-inner.nx-img-right.nx-notification-theme-three .notificationx-content {
     padding-left: 15px;
 }
@@ -448,10 +461,12 @@ a.nx-powered-by:hover {
     padding-right: 20px !important;
 }
 
+.notificationx-inner.nx-img-right.nx-notification-reviewed.nx-has-close-btn .notificationx-content,
 .notificationx-inner.nx-notification-theme-two.nx-img-right.nx-has-close-btn .notificationx-content {
     padding-left: 25px;
 }
 
+.notificationx-inner.nx-notification-reviewed.nx-img-right span.notificationx-close,
 .notificationx-inner.nx-notification-theme-two.nx-img-right span.notificationx-close {
     right: auto;
     left: 19px;
@@ -473,4 +488,280 @@ a.nx-powered-by:hover {
 .nx-download_stats .notificationx-image>img,
 .nx-reviews .notificationx-image>img {
     width: 100%;
+}
+
+/* Comment theme four, Review theme review-comment*/
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free,
+.notificationx-inner.nx-notification-review-comment {
+    background-color: transparent !important;
+    box-shadow: none;
+    padding: 0;
+    overflow: visible;
+    align-items: stretch;
+    color: #697097;
+}
+
+.nx-has-close-btn.notificationx-inner.nx-notification-theme-six-free,
+.nx-has-close-btn.notificationx-inner.nx-notification-review-comment {
+    padding-right: 0 !important;
+}
+
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .notificationx-image,
+.notificationx-inner.nx-notification-review-comment .notificationx-image {
+    width: auto;
+    padding: 10px;
+    box-shadow: 0 0 30px 0 rgba(36, 30, 157, .12);
+    flex-shrink: 0;
+    height: auto;
+    border-radius: 10px;
+    background-color: #fff;
+    position: relative;
+    overflow: visible;
+    border-bottom-right-radius: 0;
+}
+
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .notificationx-image:after,
+.notificationx-inner.nx-notification-review-comment .notificationx-image:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 30px solid #fff;
+    width: 56px;
+    height: 39px;
+    z-index: 2;
+}
+
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .notificationx-image:before,
+.notificationx-inner.nx-notification-review-comment .notificationx-image:before {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 20px;
+    right: 0;
+    bottom: 0;
+    box-shadow: 0 20px 30px rgba(36, 30, 157, .12);
+    z-index: 1;
+}
+
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .notificationx-image img,
+.notificationx-inner.nx-notification-review-comment .notificationx-image img {
+    width: 100%;
+    max-width: 100px;
+    position: relative;
+    z-index: 3;
+}
+
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .notificationx-content,
+.notificationx-inner.nx-notification-review-comment .notificationx-content {
+    padding: 10px 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(36, 30, 157, .12);
+    font-family: 'Roboto', sans-serif;
+}
+
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .notificationx-content .nx-first-row,
+.notificationx-inner.nx-notification-review-comment .notificationx-content .nx-first-row {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .notificationx-content .nx-first-row .title,
+.notificationx-inner.nx-notification-review-comment .notificationx-content .nx-first-row .title {
+    color: #4f06ce;
+}
+
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .notificationx-content .nx-second-row,
+.notificationx-inner.nx-notification-review-comment .notificationx-content .nx-second-row {
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .nx-branding,
+.notificationx-inner.nx-notification-review-comment .nx-branding {
+    bottom: 12px;
+    padding-top: 0;
+    right: 15px;
+    color: inherit;
+}
+
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free span.notificationx-close,
+.notificationx-inner.nx-notification-review-comment span.notificationx-close {
+    right: 15px;
+}
+
+/*Comment theme five, Comment theme six, Review theme review-comment-2, Review theme review-comment-3*/
+.notificationx-inner.nx-notification-theme-seven-free,
+.notificationx-inner.nx-notification-theme-eight-free,
+.notificationx-inner.nx-notification-review-comment-2,
+.notificationx-inner.nx-notification-review-comment-3 {
+    border-radius: 120px;
+    padding: 0;
+    overflow: visible;
+    max-height: 105px;
+    min-width: 400px;
+    box-shadow: 0 0 25px rgba(36, 30, 157, .12);
+    background-color: #fff;
+    color: #484d6b;
+}
+
+.notificationx-inner.nx-notification-theme-seven-free .notificationx-image,
+.notificationx-inner.nx-notification-theme-eight-free .notificationx-image,
+.notificationx-inner.nx-notification-review-comment-2 .notificationx-image,
+.notificationx-inner.nx-notification-review-comment-3 .notificationx-image {
+    flex-shrink: 0;
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    position: relative;
+    overflow: visible;
+}
+
+.notificationx-inner.nx-notification-theme-seven-free .notificationx-image,
+.notificationx-inner.nx-notification-review-comment-2 .notificationx-image {
+    background-color: #fae8f4;
+}
+
+.notificationx-inner.nx-notification-theme-eight-free .notificationx-image,
+.notificationx-inner.nx-notification-review-comment-3 .notificationx-image {
+    background-color: #f0edff;
+}
+
+.notificationx-inner.nx-notification-theme-seven-free .notificationx-image:before,
+.notificationx-inner.nx-notification-theme-eight-free .notificationx-image:before,
+.notificationx-inner.nx-notification-review-comment-2 .notificationx-image:before,
+.notificationx-inner.nx-notification-review-comment-3 .notificationx-image:before {
+    content: '';
+    width: 28px;
+    height: 28px;
+    background-image: url("../img/nx-quote-icon.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 55%;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    position: absolute;
+    left: -2px;
+    top: 0;
+    box-shadow: 0 0 10px rgba(36, 30, 157, .12);
+    z-index: 1;
+}
+
+.notificationx-inner.nx-notification-theme-seven-free .notificationx-image:before,
+.notificationx-inner.nx-notification-review-comment-2 .notificationx-image:before {
+    background-color: #fe67b7;
+}
+
+.notificationx-inner.nx-notification-theme-eight-free .notificationx-image:before,
+.notificationx-inner.nx-notification-review-comment-3 .notificationx-image:before {
+    background-color: #7253ec;
+}
+
+.notificationx-inner.nx-notification-theme-seven-free .notificationx-content,
+.notificationx-inner.nx-notification-theme-eight-free .notificationx-content,
+.notificationx-inner.nx-notification-review-comment-2 .notificationx-content,
+.notificationx-inner.nx-notification-review-comment-3 .notificationx-content {
+    padding: 13px 0;
+    font-family: "Roboto", sans-serif;
+}
+
+.notificationx-inner.nx-notification-theme-seven-free .notificationx-content .nx-first-row,
+.notificationx-inner.nx-notification-theme-eight-free .notificationx-content .nx-first-row,
+.notificationx-inner.nx-notification-review-comment-2 .notificationx-content .nx-first-row,
+.notificationx-inner.nx-notification-review-comment-3 .notificationx-content .nx-first-row {
+    font-size: 15px;
+    font-weight: 700;
+    color: inherit;
+    padding-right: 15px;
+}
+
+.notificationx-inner.nx-notification-theme-seven-free .notificationx-content .title,
+.notificationx-inner.nx-notification-review-comment-2 .notificationx-content .title {
+    color: #fe67b7;
+}
+
+.notificationx-inner.nx-notification-theme-eight-free .notificationx-content .title,
+.notificationx-inner.nx-notification-review-comment-3 .notificationx-content .title {
+    color: #7253ec;
+}
+
+.notificationx-inner.nx-notification-theme-seven-free .notificationx-content .nx-second-row,
+.notificationx-inner.nx-notification-theme-eight-free .notificationx-content .nx-second-row,
+.notificationx-inner.nx-notification-review-comment-2 .notificationx-content .nx-second-row,
+.notificationx-inner.nx-notification-review-comment-3 .notificationx-content .nx-second-row {
+    font-weight: 400;
+    font-size: 13px;
+    margin-bottom: 7px;
+    color: inherit;
+    line-height: 1.4;
+    font-style: italic;
+}
+
+.notificationx-inner.nx-notification-theme-seven-free .notificationx-content .nx-third-row,
+.notificationx-inner.nx-notification-theme-eight-free .notificationx-content .nx-third-row,
+.notificationx-inner.nx-notification-review-comment-2 .notificationx-content .nx-third-row,
+.notificationx-inner.nx-notification-review-comment-3 .notificationx-content .nx-third-row {
+    font-size: 13px;
+}
+
+.notificationx-inner.nx-notification-theme-seven-free .notificationx-content .notificationx-close,
+.notificationx-inner.nx-notification-theme-eight-free .notificationx-content .notificationx-close,
+.notificationx-inner.nx-notification-review-comment-2 .notificationx-content .notificationx-close,
+.notificationx-inner.nx-notification-review-comment-3 .notificationx-content .notificationx-close {
+    right: 30px;
+    top: 19px;
+}
+
+.notificationx-inner.nx-notification-theme-seven-free .notificationx-content .nx-branding,
+.notificationx-inner.nx-notification-theme-eight-free .notificationx-content .nx-branding,
+.notificationx-inner.nx-notification-review-comment-2 .notificationx-content .nx-branding,
+.notificationx-inner.nx-notification-review-comment-3 .notificationx-content .nx-branding {
+    padding: 0;
+    right: 40px;
+    bottom: 10px;
+}
+
+.notificationx-inner.nx-notification-theme-eight-free .notificationx-content,
+.notificationx-inner.nx-notification-review-comment-3 .notificationx-content {
+    background-image: url("../img/nx-quote-bg.png");
+    background-repeat: no-repeat;
+    background-position: left 53%;
+}
+
+/* Theme 7, 8 CSS for Comments */
+.nx-notification-theme-eight-free.nx-img-right.nx-has-close-btn.notificationx-inner,
+.nx-notification-theme-seven-free.nx-img-right.nx-has-close-btn.notificationx-inner {
+    padding-right: 0px !important;
+    padding-left: 50px;
+}
+
+.nx-notification-theme-eight-free.nx-img-right.nx-has-close-btn.notificationx-inner .notificationx-close,
+.nx-notification-theme-seven-free.nx-img-right.nx-has-close-btn.notificationx-inner .notificationx-close {
+    right: auto;
+    left: 20px;
+    top: 50%;
+    margin-top: -4px;
+}
+
+.notificationx-inner.nx-notification-theme-six-free .notificationx-image img {
+    border-radius: 0px !important;
+}
+
+.nx-reviews .notificationx-image.product_image>img {
+    width: 80px;
+    margin: 0 auto;
+}
+
+.notificationx-inner.has-no-image.nx-notification-theme-three {
+    padding: 15px;
+}
+
+.notificationx-inner.has-no-image.nx-notification-theme-two,
+.notificationx-inner.has-no-image.nx-notification-theme-seven-free,
+.notificationx-inner.has-no-image.nx-notification-theme-eight-free {
+    padding-left: 30px;
 }

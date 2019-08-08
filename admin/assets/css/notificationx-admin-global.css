@@ -204,6 +204,11 @@
 	background-color: #fafafa;
 }
 
+.nx-admin-items table thead tr>td:nth-child(1),
+.nx-admin-items table thead tr>td:nth-child(2) {
+	width: 25%;
+}
+
 .nx-admin-items table tbody {
 	transform: translateY(-20px);
 }
@@ -276,8 +281,12 @@
 	background-image: url('../img/icons/trash.png');
 }
 
-.nx-admin-preview>img {
-	display: inline-block;
+.nx-admin-preview img {
+	display: block;
+	max-width: 100%;
+	background-color: #5621d51a;
+	padding: 5px;
+	box-shadow: 0 0 30px 0px #5621d50d;
 }
 
 .nx-admin-status label {
@@ -353,4 +362,8 @@
 .nx-stats-tease {
 	color: #888888;
 	cursor: pointer;
+}
+
+.nx-admin-preview {
+	margin: -10px;
 }

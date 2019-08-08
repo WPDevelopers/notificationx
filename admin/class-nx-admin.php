@@ -298,13 +298,14 @@ class NotificationX_Admin {
 		$template_settings = apply_filters( 'nx_template_settings_by_theme', array() );
 
 		return array( 
-			'toggleFields' => $conditions, // TODO: toggling system has to be more optimized! 
-			'hideFields' => $hideFields, 
-			'template' => $template,
+			'toggleFields'      => $conditions, // TODO: toggling system has to be more optimized! 
+			'hideFields'        => $hideFields,
+			'template'          => $template,
 			'template_settings' => $template_settings,
-			'source_types' => NotificationX_Helper::source_types(),
-			'theme_sources' => NotificationX_Helper::theme_sources(),
-			'template_keys' => NotificationX_Helper::template_keys(),
+			'title_of_types'    => NotificationX_Helper::types_title(),
+			'source_types'      => NotificationX_Helper::source_types(),
+			'theme_sources'     => NotificationX_Helper::theme_sources(),
+			'template_keys'     => NotificationX_Helper::template_keys(),
 		);
 	}
 	
@@ -478,6 +479,10 @@ class NotificationX_Admin {
 		) );
 
 		add_menu_page( 'NotificationX', 'NotificationX', 'delete_users', 'nx-admin', array( $this, 'notificationx' ), NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon.png', 80 );
+		/**
+		 * @since 1.2.1
+		 */
+		add_submenu_page( 'nx-admin', __('Add New', 'notificationx'), __('Add New', 'notificationx'), 'delete_users', 'post-new.php?post_type=notificationx');
 		foreach( $settings as $slug => $setting ) {
 			$cap  = isset( $setting['capability'] ) ? $setting['capability'] : 'delete_users';
 			$hook = add_submenu_page( 'nx-admin', $setting['title'], $setting['title'], $cap, $slug, $setting['callback'] );
