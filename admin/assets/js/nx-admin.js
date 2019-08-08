@@ -187,13 +187,6 @@
 	$.notificationx.bindEvents = function () {
 		$('#nx_meta_show_on').trigger('change');
 
-		$('body').on('change', '.nx-single-theme-wrapper > input', function () {
-			// $.notificationx.selectTheme(this);
-			var themes = $(this).val();
-			// console.log(themes);
-			// $('.' + themes + ':checked').trigger('change');
-		});
-
 		//Advance Checkbox with SweetAlear
 		$('body').on('click', '.nx-adv-checkbox-wrap label, #nx_sound_checkbox, .nx-stats-tease', function (e) {
 			if (typeof $(this)[0].dataset.swal == 'undefined') {

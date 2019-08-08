@@ -48,7 +48,6 @@ class NotificationX_MetaBox {
             require NOTIFICATIONX_ADMIN_DIR_PATH . 'includes/nx-metabox-helper.php';
         }
         do_action( 'nx_before_metabox_load' );
-        // dump(notificationx_metabox_args()['tabs']['source_tab']['sections']['config']['fields']['display_type']); die;
         return notificationx_metabox_args();
     }
     
