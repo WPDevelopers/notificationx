@@ -102,8 +102,8 @@ span.notificationx-close>svg {
 
 .notificationx-inner.nx-img-right .notificationx-content .nx-branding {
     position: static;
-    margin-left: 0px;
-    padding: 5px 0px 0px
+    margin-left: 15px;
+    padding: 0px;
 }
 
 .notificationx-content {
@@ -113,6 +113,12 @@ span.notificationx-close>svg {
 
 .notificationx-content>span {
     display: block;
+}
+
+.notificationx-content>span.nx-third-row {
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
 }
 
 .nx-first-row {
@@ -331,11 +337,12 @@ a.nx-bar-button:hover {
     color: #999;
     margin-left: 2px;
     vertical-align: middle;
-    position: absolute;
-    right: 5px;
-    bottom: 5px;
     z-index: 9999;
-    padding: 5px;
+    float: right;
+}
+
+.nx-img-right .nx-branding {
+    float: none;
 }
 
 .nx-branding svg {
@@ -735,4 +742,9 @@ a.nx-powered-by:hover {
 
 .notificationx-inner.nx-notification-theme-six-free .notificationx-image img {
     border-radius: 0px !important;
+}
+
+.nx-reviews .notificationx-image.product_image>img {
+    width: 80px;
+    margin: 0 auto;
 }
