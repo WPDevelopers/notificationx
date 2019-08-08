@@ -843,8 +843,7 @@ label.nx-adv-checkbox-label:hover {
     height: auto;
     padding: 10px;
     background-color: #f1f1f1;
-    /* box-shadow: 0 0 40px -30px black; */
-    flex-basis: 275px;
+    flex-basis: 29.3333%;
 }
 
 .nx-builder-content-wrapper .nx-mailchimp_themes .nx-single-theme-wrapper,
