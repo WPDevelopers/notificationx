@@ -1982,6 +1982,27 @@ body.wp-admin.rtl .ui-datepicker {
     font-weight: 600;
     color: #333;
     margin: 0.5em;
+    display: flex;
+}
+
+.nx-checkbox p.nx-module-title>a {
+    border: 1px solid #000;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    text-align: center;
+    line-height: 10px;
+    margin-left: 10px;
+    opacity: 0.3;
+    transition: opacity 0.3s ease 0s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nx-checkbox p.nx-module-title>a:hover {
+    opacity: 1;
 }
 
 /* API Integration CSS */
