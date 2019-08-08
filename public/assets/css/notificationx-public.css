@@ -755,3 +755,13 @@ a.nx-powered-by:hover {
     width: 80px;
     margin: 0 auto;
 }
+
+.notificationx-inner.has-no-image.nx-notification-theme-three {
+    padding: 15px;
+}
+
+.notificationx-inner.has-no-image.nx-notification-theme-two,
+.notificationx-inner.has-no-image.nx-notification-theme-seven-free,
+.notificationx-inner.has-no-image.nx-notification-theme-eight-free {
+    padding-left: 30px;
+}

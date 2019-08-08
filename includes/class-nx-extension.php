@@ -308,13 +308,17 @@ class NotificationX_Extension {
         $output = '';
         $unique_id = uniqid( 'notificationx-' ); 
         $image_data = self::get_image_url( $raw_data, $settings );
+        $has_no_image = '';
+        if( $image_data == false || empty( $image_data ) ) {
+            $has_no_image = 'has-no-image';
+        }
         $output .= '<div id="'. esc_attr( $unique_id ) .'" class="'. implode( ' ', $frontend_classes['wrapper'] ) .'">';
             $output .= apply_filters( 'nx_frontend_before_html', '', $settings );
             $file = apply_filters( 'nx_frontend_before_inner', '', $settings->themeName );
             if( ! empty( $file ) ) {
                 $output .= $file;
             }
-            $output .= '<div class="'. implode( ' ', $frontend_classes['inner'] ) .'">';
+            $output .= '<div class="'. implode( ' ', $frontend_classes['inner'] ) .' '. $has_no_image .'">';
                 if( $image_data ) :
                     $img_attr = isset( $image_data['attr'] ) ? implode( ' ', $image_data['attr'] ) : '';
                     $img_classes = isset( $image_data['classes'] ) ? $image_data['classes'] : '';

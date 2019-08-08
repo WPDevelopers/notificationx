@@ -53,6 +53,24 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                 'second_param' => 'people rated',
                 'third_param' => 'tag_plugin_name',
                 'fourth_param' => 'tag_rating',
+            ),
+            'review-comment' => array(
+                'first_param' => 'tag_username',
+                'second_param' => 'just reviewed',
+                'third_param' => 'tag_plugin_review',
+                'fourth_param' => 'tag_rating',
+            ),
+            'review-comment-2' => array(
+                'first_param' => 'tag_username',
+                'second_param' => 'just reviewed',
+                'third_param' => 'tag_plugin_review',
+                'fourth_param' => 'tag_rating',
+            ),
+            'review-comment-3' => array(
+                'first_param' => 'tag_username',
+                'second_param' => 'just reviewed',
+                'third_param' => 'tag_plugin_review',
+                'fourth_param' => 'tag_time',
             )
         );
 
