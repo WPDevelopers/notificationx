@@ -270,7 +270,10 @@
 		if ('undefined' === typeof notification || 0 === notification.length) {
 			return;
 		}
-
+		/* Check if notification is closed by user */
+		if(Cookies.get('nx-close-for-session')){
+			return;
+		}
 		var body = $('body');
 		body.append(notification);
 		$(notification).animate({
@@ -286,6 +289,10 @@
 		if (nxClose != null) {
 			nxClose.on('click', function (event) {
 				var close = $(this);
+
+				/* Set cookie for stop showing notification for current session */
+				Cookies.set("nx-close-for-session", 1);
+
 				var parent = $(close[0]).parents('.nx-notification');
 				$.notificationx.hide(parent);
 			});
@@ -296,7 +303,9 @@
 		if (notification === undefined) {
 			return;
 		}
-
+		if(Cookies.get('nx-close-for-session')){
+			return;
+		}
 		$(notification).animate({
 			'bottom': '0px',
 			'opacity': 0
