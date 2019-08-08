@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, live sales feed, recent sales noti
 Requires at least: 4.0
 Tested up to: 5.2
 Requires PHP: 5.4
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -22,11 +22,11 @@ People don’t like being left behind and they love to follow the trends. If you
 
 
 What is 'FOMO'?
-FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular!
+FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing technique to make your visitors eager to buy from your site leveraging the sense of urgency. 
 
 ## Use FOMO to Increase Your Leads, Sales & Engagements ##
 
-[NotificationX](https://notificationx.com) helps you to grab the attention of your website visitors and gain their trust instantly by showing real-time sales and engagement notifications. It creates urgency among your visitors in order to purchase your products right now. 
+[NotificationX](https://notificationx.com) helps you to grab the attention of your website visitors and gain their trust instantly by showing real-time sales and engagement notifications. It creates urgency among your visitors in order to purchase your products right now. No one wants to be left out, after all.
 
 ### FEATURES: ###
 
@@ -105,6 +105,12 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 7. Notification Bar with Countdown
 
 == Changelog ==
+
+= 1.2.1 - 08/08/2019 =
+
+- Added : New comment templates
+- Fixed : Issue with WP review template
+- Lots of minor bugfix and improvement
 
 = 1.2.0 - 01/08/2019 =
 

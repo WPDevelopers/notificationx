@@ -23,7 +23,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'NOTIFICATIONX_VERSION', '1.2.0' );
+define( 'NOTIFICATIONX_VERSION', '1.2.1' );
 define( 'NOTIFICATIONX_PLUGIN_URL', 'https://notificationx.com' );
 
 define( 'NOTIFICATIONX_URL', plugins_url( '/', __FILE__ ) );
