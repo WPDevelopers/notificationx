@@ -651,8 +651,8 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
     public function hide_builder_fields( $options ) {
         $fields = array_merge( $this->get_fields(), [] );
         $sections = $this->get_sections();
-        unset( $sections['wporg_design'] );
-        unset( $sections['wporg_typography'] );
+        // unset( $sections['wpstats_theme'] );
+        // unset( $sections['wpstats_theme_typography'] );
 
         // Hide fields from other field types.
         foreach( $fields as $field_key => $field_value ) {

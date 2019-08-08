@@ -92,7 +92,8 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             if($exploded_username >= 1){
                 $name = ucfirst($exploded_username[0]);
                 if( isset( $exploded_username[1] ) ) {
-                    if( ! empty( $surname = $exploded_username[1] ) ){
+                    $surname = $exploded_username[1];
+                    if( ! empty( $surname ) ){
                         $surname_substr = substr( $surname, 0, 1 );
                         if (ctype_alpha( $surname_substr ) !== false){
                             $name .= ' '. $surname_substr . '.';
@@ -478,7 +479,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                     'priority'	=> 10,
                     'dependency' => [
                         1 => [
-                            'sections' => ['wporg_design', 'wporg_typography']
+                            'sections' => ['wporg_design', 'wporg_image_design', 'wporg_typography']
                         ]
                     ],
                 ),
@@ -536,6 +537,35 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                     'label'     => __('Border Color' , 'notificationx'),
                     'priority'	=> 30,
                     'default'	=> ''
+                ),
+            )
+        );
+
+        $sections['wporg_image_design'] = array(
+            'title'      => __('Image Appearance', 'notificationx'),
+            'priority' => 9,
+            'reset'    => true,
+            'fields'   => array(
+                'wporg_image_shape' => array(
+                    'type'      => 'select',
+                    'label'     => __('Image Shape' , 'notificationx'),
+                    'priority'	=> 5,
+                    'default'	=> 'circle',
+                    'options'	=> [
+                        'circle' => __('Circle', 'notificationx'),
+                        'rounded' => __('Rounded', 'notificationx'),
+                        'square' => __('Square', 'notificationx'),
+                    ],
+                ),
+                'wporg_image_position' => array(
+                    'type'      => 'select',
+                    'label'     => __('Position' , 'notificationx'),
+                    'priority'	=> 10,
+                    'default'	=> 'left',
+                    'options'	=> [
+                        'left' => __('Left', 'notificationx'),
+                        'right' => __('Right', 'notificationx'),
+                    ],
                 ),
             )
         );
@@ -667,8 +697,8 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
     public function hide_builder_fields( $options ) {
         $fields = array_merge( $this->get_fields(), [] );
         $sections = $this->get_sections();
-        unset( $sections['wporg_design'] );
-        unset( $sections['wporg_typography'] );
+        // unset( $sections['wporg_design'] );
+        // unset( $sections['wporg_typography'] );
 
         // Hide fields from other field types.
         foreach( $fields as $field_key => $field_value ) {
