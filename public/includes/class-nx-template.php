@@ -2,7 +2,7 @@
 
 class NotificationX_Template {
     public static function get_template_ready( $template, $tags, $settings = '', $branding = true ){
-        $html = $template;
+		$html = $template;
 		/**
 		 * If template is in array format, lets break it down and make HTML markup.
 		 */
