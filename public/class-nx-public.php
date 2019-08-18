@@ -241,7 +241,6 @@ class NotificationX_Public {
 		}
 		
 		$settings = NotificationX_MetaBox::get_metabox_settings( $ids );
-		
 		$echo['config'] = apply_filters('nx_frontend_config', array(
 			'delay_before'  => ( ! empty( $settings->delay_before ) ) ? intval( $settings->delay_before ) * 1000 : 0,
 			'display_for'   => ( ! empty( $settings->display_for ) ) ? intval( $settings->display_for ) * 1000 : 0,

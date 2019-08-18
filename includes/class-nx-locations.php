@@ -98,7 +98,6 @@ class NotificationX_Locations {
                 $status_flag = true;
             }
         }
-
         return $status_flag;
     }
 }
