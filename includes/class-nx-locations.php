@@ -47,24 +47,26 @@ class NotificationX_Locations {
         return $locations;
     }
 
-    public static function check_location( $locations = array() ) {
+    public static function check_location( $locations = array(), $custom_ids = '' ) {
         if ( empty( $locations ) ) {
             return true;
         }
 
         $status = array(
-			'is_front_page'  => is_front_page(),
-			'is_home'        => is_home(),
-			'is_singular'    => is_singular(),
-			'is_single'      => is_singular( 'post' ),
-			'is_page'        => ( is_page() && ! is_front_page() ),
-			'is_attachment'  => is_attachment(),
-			'is_search'      => is_search(),
-			'is_404'         => is_404(),
-			'is_archive'     => is_archive(),
-			'is_category'    => is_category(),
-			'is_tag'         => is_tag(),
-		);
+			'is_front_page' => is_front_page(),
+			'is_home'       => is_home(),
+			'is_singular'   => is_singular(),
+			'is_single'     => is_singular( 'post' ),
+			'is_page'       => ( is_page() && ! is_front_page() ),
+			'is_attachment' => is_attachment(),
+			'is_search'     => is_search(),
+			'is_404'        => is_404(),
+			'is_archive'    => is_archive(),
+			'is_category'   => is_category(),
+			'is_tag'        => is_tag(),
+        );
+        
+        $status = apply_filters('nx_location_status', $status, $custom_ids);
 
         $post_types = NotificationX_Helper::post_types();
         $taxonomies = NotificationX_Helper::taxonomies();
@@ -89,12 +91,11 @@ class NotificationX_Locations {
         }
 
         $status_flag = false;
-
+        
         foreach ( $locations as $location ) {
             if ( ! isset( $status[$location] ) || ! $status[$location] ) {
                 continue;
-            }
-            else {
+            } else {
                 $status_flag = true;
             }
         }

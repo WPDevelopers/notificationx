@@ -271,7 +271,7 @@
 			return;
 		}
 		/* Check if notification is closed by user */
-		if(Cookies.get('nx-close-for-session')){
+		if (Cookies.get('nx-close-for-session')) {
 			return;
 		}
 		var body = $('body');
@@ -289,12 +289,10 @@
 		if (nxClose != null) {
 			nxClose.on('click', function (event) {
 				var close = $(this);
-
-				/* Set cookie for stop showing notification for current session */
-				Cookies.set("nx-close-for-session", 1);
-
 				var parent = $(close[0]).parents('.nx-notification');
 				$.notificationx.hide(parent);
+				/* Set cookie for stop showing notification for current session */
+				Cookies.set("nx-close-for-session", 1);
 			});
 		}
 	};
@@ -303,7 +301,7 @@
 		if (notification === undefined) {
 			return;
 		}
-		if(Cookies.get('nx-close-for-session')){
+		if (Cookies.get('nx-close-for-session')) {
 			return;
 		}
 		$(notification).animate({
