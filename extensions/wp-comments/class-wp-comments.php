@@ -114,7 +114,6 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
                         'tag_name' => __('Full Name' , 'notificationx'),
                         'tag_first_name' => __('First Name' , 'notificationx'),
                         'tag_last_name' => __('Last Name' , 'notificationx'),
-                        'tag_post_title' => __('Post Title' , 'notificationx'),
                         'tag_custom' => __('Custom' , 'notificationx'),
                     ),
                     'dependency' => array(

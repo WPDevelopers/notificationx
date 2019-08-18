@@ -2,7 +2,7 @@
     $module_on = isset( $active_modules[ $module_key ] ) ? $active_modules[ $module_key ] : false;
     if( is_array( $module ) ) {
         if( isset( $module['link'] ) && ! empty( $module['link'] ) ) {
-            $module_title = sprintf('<a target="_blank" href="%1$s">%2$s</a>', $module['link'], $module['title']);
+            $module_title = sprintf('%2$s<a target="_blank" href="%1$s"><img width="6px" src="%3$s" alt="%2$s"/></a>', $module['link'], $module['title'], NOTIFICATIONX_ADMIN_URL . 'assets/img/icons/question.svg');
         } else {
             $module_title = $module['title'];
         }

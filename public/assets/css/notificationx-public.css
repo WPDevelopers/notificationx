@@ -102,17 +102,25 @@ span.notificationx-close>svg {
 
 .notificationx-inner.nx-img-right .notificationx-content .nx-branding {
     position: static;
-    margin-left: 0px;
-    padding: 5px 0px 0px
+    margin-left: 15px;
+    padding: 0px;
 }
 
 .notificationx-content {
     float: left;
     min-width: 200px;
+    display: flex;
+    flex-direction: column;
 }
 
 .notificationx-content>span {
     display: block;
+}
+
+.notificationx-content>span.nx-third-row {
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
 }
 
 .nx-first-row {
@@ -331,11 +339,14 @@ a.nx-bar-button:hover {
     color: #999;
     margin-left: 2px;
     vertical-align: middle;
-    position: absolute;
-    right: 5px;
-    bottom: 5px;
     z-index: 9999;
-    padding: 5px;
+    float: right;
+    position: relative;
+    top: -4px;
+}
+
+.nx-img-right .nx-branding {
+    float: none;
 }
 
 .nx-branding svg {
@@ -429,6 +440,7 @@ a.nx-powered-by:hover {
     border-right: 0px;
 }
 
+.notificationx-inner.nx-img-right.nx-notification-reviewed .notificationx-content,
 .notificationx-inner.nx-img-right.nx-notification-theme-three .notificationx-content {
     padding-left: 15px;
 }
@@ -449,10 +461,12 @@ a.nx-powered-by:hover {
     padding-right: 20px !important;
 }
 
+.notificationx-inner.nx-img-right.nx-notification-reviewed.nx-has-close-btn .notificationx-content,
 .notificationx-inner.nx-notification-theme-two.nx-img-right.nx-has-close-btn .notificationx-content {
     padding-left: 25px;
 }
 
+.notificationx-inner.nx-notification-reviewed.nx-img-right span.notificationx-close,
 .notificationx-inner.nx-notification-theme-two.nx-img-right span.notificationx-close {
     right: auto;
     left: 19px;
@@ -735,4 +749,9 @@ a.nx-powered-by:hover {
 
 .notificationx-inner.nx-notification-theme-six-free .notificationx-image img {
     border-radius: 0px !important;
+}
+
+.nx-reviews .notificationx-image.product_image>img {
+    width: 80px;
+    margin: 0 auto;
 }

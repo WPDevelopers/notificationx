@@ -462,7 +462,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
                     'priority'	=> 10,
                     'dependency' => [
                         1 => [
-                            'sections' => ['wpstats_theme_design', 'wpstats_theme_typography']
+                            'sections' => ['wpstats_theme_design', 'wpstats_theme_image_design', 'wpstats_theme_typography']
                         ]
                     ],
                 ),
@@ -520,6 +520,24 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
                     'label'     => __('Border Color' , 'notificationx'),
                     'priority'	=> 30,
                     'default'	=> ''
+                ),
+            )
+        );
+
+        $sections['wpstats_theme_image_design'] = array(
+            'title'      => __('Image Appearance', 'notificationx'),
+            'priority' => 9,
+            'reset'    => true,
+            'fields'   => array(
+                'wpstats_image_position' => array(
+                    'type'      => 'select',
+                    'label'     => __('Position' , 'notificationx'),
+                    'priority'	=> 10,
+                    'default'	=> 'left',
+                    'options'	=> [
+                        'left' => __('Left', 'notificationx'),
+                        'right' => __('Right', 'notificationx'),
+                    ],
                 ),
             )
         );
@@ -651,8 +669,8 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
     public function hide_builder_fields( $options ) {
         $fields = array_merge( $this->get_fields(), [] );
         $sections = $this->get_sections();
-        unset( $sections['wporg_design'] );
-        unset( $sections['wporg_typography'] );
+        // unset( $sections['wpstats_theme'] );
+        // unset( $sections['wpstats_theme_typography'] );
 
         // Hide fields from other field types.
         foreach( $fields as $field_key => $field_value ) {

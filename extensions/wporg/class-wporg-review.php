@@ -92,7 +92,8 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             if($exploded_username >= 1){
                 $name = ucfirst($exploded_username[0]);
                 if( isset( $exploded_username[1] ) ) {
-                    if( ! empty( $surname = $exploded_username[1] ) ){
+                    $surname = $exploded_username[1];
+                    if( ! empty( $surname ) ){
                         $surname_substr = substr( $surname, 0, 1 );
                         if (ctype_alpha( $surname_substr ) !== false){
                             $name .= ' '. $surname_substr . '.';
@@ -156,6 +157,8 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         $alt_title = isset( $data['plugin_name'] ) ? $data['plugin_name'] : '';
         $alt_title = empty( $alt_title ) && isset( $data['username'] ) ? $data['username'] : $alt_title;
 
+        $image_data['classes'] = $settings->show_notification_image;
+
         $image_data['url'] = $image_url;
         $image_data['alt'] = $alt_title;
 
@@ -218,20 +221,29 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         if( $display_type === $this->type ) {
             $design = NotificationX_Admin::get_post_meta( intval( $id ), 'wporg_theme', true );
             $saved_data = NotificationX_Admin::get_post_meta( intval( $id ), $this->meta_key, true );
+            $new_data['rated'] = isset( $saved_data['ratings'] ) ? $saved_data['ratings']['5'] : '';
+            $new_data['rating'] = '5';
+            $new_data['slug'] = isset( $saved_data['slug'] ) ? $saved_data['slug'] : '';
+            $new_data['icons'] = isset( $saved_data['icons'] ) ? $saved_data['icons'] : '';
+            $new_data['plugin_name'] = isset( $saved_data['name'] ) ? $saved_data['name'] : '';
+            
+            if( $product_type == 'plugin' && isset( $saved_data['slug'] ) ) {
+                //TODO: Its has to be specific reviews link.
+                $new_data['link'] = 'https://wordpress.org/plugins/' . $saved_data['slug'];
+            }
+
             if( $design === 'total-rated' ) {
-                $new_data['rated'] = isset( $saved_data['ratings'] ) ? $saved_data['ratings']['5'] : '';
-                $new_data['rating'] = '5';
                 unset( $saved_data['reviews'] );
-                $new_data['slug'] = isset( $saved_data['slug'] ) ? $saved_data['slug'] : '';
-                $new_data['icons'] = isset( $saved_data['icons'] ) ? $saved_data['icons'] : '';
-                $new_data['plugin_name'] = isset( $saved_data['name'] ) ? $saved_data['name'] : '';
-                if( $product_type == 'plugin' && isset( $saved_data['slug'] ) ) {
-                    //TODO: Its has to be specific comments link.
-                    $new_data['link'] = 'https://wordpress.org/plugins/' . $saved_data['slug'];
-                }
                 $data[ $this->type ] = array( $new_data );
             } else {
-                $data[ $this->type ] = isset( $saved_data['reviews'] ) ? $saved_data['reviews'] : array();
+                $data[ $this->type ] = array();
+                if( isset( $saved_data['reviews'] ) && ! empty( $saved_data['reviews'] ) ) {
+                    $this->new_data = $new_data;
+                    $new_reviews = array_map( function( $ar ){
+                        return array_merge( $ar, $this->new_data);
+                    }, $saved_data['reviews'] );
+                    $data[ $this->type ] = $new_reviews;
+                }
             }
         }
 
@@ -478,7 +490,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                     'priority'	=> 10,
                     'dependency' => [
                         1 => [
-                            'sections' => ['wporg_design', 'wporg_typography']
+                            'sections' => ['wporg_design', 'wporg_image_design', 'wporg_typography']
                         ]
                     ],
                 ),
@@ -536,6 +548,35 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                     'label'     => __('Border Color' , 'notificationx'),
                     'priority'	=> 30,
                     'default'	=> ''
+                ),
+            )
+        );
+
+        $sections['wporg_image_design'] = array(
+            'title'      => __('Image Appearance', 'notificationx'),
+            'priority' => 9,
+            'reset'    => true,
+            'fields'   => array(
+                'wporg_image_shape' => array(
+                    'type'      => 'select',
+                    'label'     => __('Image Shape' , 'notificationx'),
+                    'priority'	=> 5,
+                    'default'	=> 'circle',
+                    'options'	=> [
+                        'circle' => __('Circle', 'notificationx'),
+                        'rounded' => __('Rounded', 'notificationx'),
+                        'square' => __('Square', 'notificationx'),
+                    ],
+                ),
+                'wporg_image_position' => array(
+                    'type'      => 'select',
+                    'label'     => __('Position' , 'notificationx'),
+                    'priority'	=> 10,
+                    'default'	=> 'left',
+                    'options'	=> [
+                        'left' => __('Left', 'notificationx'),
+                        'right' => __('Right', 'notificationx'),
+                    ],
                 ),
             )
         );
@@ -619,9 +660,11 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
     public function add_builder_fields( $options ){
         $fields = $this->get_fields();
         $sections = $this->get_sections();
-        unset( $fields[ 'wp_reviews_template' ] );
+        unset( $fields[ $this->template ] );
         unset( $fields[ 'wp_reviews_template_adv' ] );
+
         unset( $sections['wporg_design'] );
+        unset( $sections['wporg_image_design'] );
         unset( $sections['wporg_themes']['fields']['wporg_advance_edit'] );
         unset( $sections['wporg_typography'] );
         
@@ -667,8 +710,8 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
     public function hide_builder_fields( $options ) {
         $fields = array_merge( $this->get_fields(), [] );
         $sections = $this->get_sections();
-        unset( $sections['wporg_design'] );
-        unset( $sections['wporg_typography'] );
+        // unset( $sections['wporg_design'] );
+        // unset( $sections['wporg_typography'] );
 
         // Hide fields from other field types.
         foreach( $fields as $field_key => $field_value ) {
