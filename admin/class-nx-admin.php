@@ -480,6 +480,10 @@ class NotificationX_Admin {
 
 		add_menu_page( 'NotificationX', 'NotificationX', 'delete_users', 'nx-admin', array( $this, 'notificationx' ), NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon.png', 80 );
 		/**
+		 * @since 1.2.2
+		 */
+		add_submenu_page( 'nx-admin', '', 'All NotificationX', 'delete_users', 'nx-admin' );
+		/**
 		 * @since 1.2.1
 		 */
 		add_submenu_page( 'nx-admin', __('Add New', 'notificationx'), __('Add New', 'notificationx'), 'delete_users', 'post-new.php?post_type=notificationx');
@@ -497,7 +501,7 @@ class NotificationX_Admin {
 	}
 	public function highlight_admin_submenu( $submenu_file, $parent_file ){
 		if( $parent_file == 'nx-admin' && $submenu_file == 'edit.php?post_type=notificationx' ) {
-			return "nx-admin";
+			return "post-new.php?post_type=notificationx";
 		}
 		return $submenu_file;
 	}
