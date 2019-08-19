@@ -284,7 +284,7 @@ class NotificationX_Public {
 			
 	public static function generate_css( $settings ){
 		if( empty( $settings ) ) return;
-		$style = $image_style = $content_style = $first_row_font = $second_row_font = $third_row_font = $max_width = [];
+		$style = $bar_btn = $bar_counter = $image_style = $content_style = $first_row_font = $second_row_font = $third_row_font = $max_width = [];
 		$css_string = $css = '';
 		
 		//TODO: Re-write this class to generate ADV CSS for notification
@@ -404,11 +404,14 @@ class NotificationX_Public {
 					$style[] = ! empty( $settings->bar_bg_color ) ? 'background-color: ' . $settings->bar_bg_color . ' !important' : '';
 					$style[] = ! empty( $settings->bar_text_color ) ? 'color: ' . $settings->bar_text_color . ' !important': '';
 					$style[] = ! empty( $settings->bar_font_size ) ? 'font-size: ' . $settings->bar_font_size . 'px' . ' !important': '';
+					$bar_btn[] = ! empty( $settings->bar_btn_bg ) ? 'background-color: ' . $settings->bar_btn_bg  . ' !important': '';
+					$bar_btn[] = ! empty( $settings->bar_btn_text_color ) ? 'color: ' . $settings->bar_btn_text_color  . ' !important': '';
+					$bar_btn[] = ! empty( $settings->bar_btn_font_size ) ? 'font-size: ' . $settings->bar_btn_font_size . 'px' . ' !important': '';
+					$bar_counter[] = ! empty( $settings->bar_counter_bg ) ? 'background-color: ' . $settings->bar_counter_bg  . ' !important': '';
+					$bar_counter[] = ! empty( $settings->bar_counter_text_color ) ? 'color: ' . $settings->bar_counter_text_color  . ' !important': '';
 				}
 				break;
 		}
-		
-		
 		
 		$style = apply_filters('nx_style', $style, $settings );
 		
@@ -417,7 +420,17 @@ class NotificationX_Public {
 		}
 		
 		if( ! empty( $style ) ) {
-			$css_string .= '.nx-notification .notificationx-inner.nx-customize-style-' . $settings->id . '{' . implode( ';', $style ) . '}';
+			if( $settings->display_type == 'press_bar' ) {
+				$css_string .= '.nx-bar.nx-customize-style-' . $settings->id . '{' . implode( ';', $style ) . '}';
+				if( ! empty( $bar_btn ) ) {
+					$css_string .= '.nx-bar.nx-customize-style-' . $settings->id . ' a.nx-bar-button {' . implode( ';', $bar_btn ) . '}';
+				}
+				if( ! empty( $bar_counter ) ) {
+					$css_string .= '.nx-bar.nx-customize-style-' . $settings->id . ' .nx-time-section {' . implode( ';', $bar_counter ) . '}';
+				}
+			} else {
+				$css_string .= '.nx-notification .notificationx-inner.nx-customize-style-' . $settings->id . '{' . implode( ';', $style ) . '}';
+			}
 		}
 		
 		if( ! empty( $content_style ) ) {
