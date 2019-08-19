@@ -717,48 +717,39 @@ class NotificationX_Helper {
             'wp_stats'  => 'wp_stats_template_new',
         ));
     }
-
+    /**
+     * Formating Number in a Nice way
+     * @since 1.2.1
+     * @param int|string $n
+     * @return string
+     */
     public static function nice_number($n) {
-        // first strip any formatting;
         $n = ( 0 + str_replace(",", "", $n ) );
-        // is this a number?
         if( ! is_numeric( $n ) ) return 0;
         $number = 0;
         $suffix = '';
         switch( $n ) {
             case $n >= 1000000000000 : 
                 $number = round( ( $n / 1000000000000 ), 1 );
-                $suffix = 'T';
-                if( $n > 1000000000000 ) {
-                    $suffix = 'T+';
-                }
+                $suffix = $n > 1000000000000 ? 'T+' : 'T';
                 break;
             case $n >= 1000000000 : 
                 $number = round( ( $n / 1000000000 ), 1 );
-                $suffix = 'B';
-                if( $n > 1000000000 ) {
-                    $suffix = 'B+';
-                }
+                $suffix = $n > 1000000000 ? 'B+' : 'B';
                 break;
             case $n >= 1000000 : 
                 $number = round( ( $n / 1000000 ), 1 );
-                $suffix = 'M';
-                if( $n > 1000000 ) {
-                    $suffix = 'M+';
-                }
+                $suffix = $n > 1000000 ? 'M+' : 'M';
                 break;
             case $n >= 1000 : 
                 $number = round( ( $n / 1000 ), 1 );
-                $suffix = 'K';
-                if( $n > 1000 ) {
-                    $suffix = 'K+';
-                }
+                $suffix = $n > 1000 ? 'K+' : 'K';
                 break;
             default: 
                 $number = $n;
                 break;
         }
-        $number = number_format($number);
+        $number = number_format($number, 1);
         return $number . $suffix;
     }
 
