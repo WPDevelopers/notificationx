@@ -7,9 +7,9 @@
             <div class="nx-admin-sidebar-cta">
                 <?php     
                     if(class_exists('NotificationXPro')) {
-                        printf( __( '<a href="%s" target="_blank">Manage License</a>', 'notificationx' ), 'https://wpdeveloper.net/account' ); 
+                        printf( __( '<a rel="nofollow" href="%s" target="_blank">Manage License</a>', 'notificationx' ), 'https://wpdeveloper.net/account' ); 
                     }else{
-                        printf( __( '<a href="%s" target="_blank">Upgrade to Pro</a>', 'notificationx' ), 'https://wpdeveloper.net/in/notificationx-pro' );
+                        printf( __( '<a rel="nofollow" href="%s" target="_blank">Upgrade to Pro</a>', 'notificationx' ), 'https://wpdeveloper.net/in/notificationx-pro' );
                     }
                 ?>
             </div>
