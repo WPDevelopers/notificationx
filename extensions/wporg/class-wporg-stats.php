@@ -409,7 +409,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
             'type'        => 'adv_checkbox',
             'builder_hidden' => true,
             'priority'    => 84,
-            'button_text' => __('Advance Template' , 'notificationx'),
+            'button_text' => __('Advanced Template' , 'notificationx'),
             'side'        => 'right',
             'swal'        => true,
         );

@@ -443,7 +443,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         $fields['wp_reviews_template_adv'] = array(
             'type'        => 'adv_checkbox',
             'priority'    => 84,
-            'button_text' => __('Advance Template' , 'notificationx'),
+            'button_text' => __('Advanced Template' , 'notificationx'),
             'side'        => 'right',
             'swal'        => true,
         );
