@@ -450,6 +450,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         
         return $fields;
     }
+
     private function init_sections(){
         $sections = [];
 

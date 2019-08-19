@@ -2340,3 +2340,7 @@ h4.nx-admin-title {
     background-color: #0ccf9f;
     color: #fff;
 }
+input[type="text"] + .nx-field-description{
+    display: block;
+    margin: 5px 0 0;
+}

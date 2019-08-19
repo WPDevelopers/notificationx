@@ -135,6 +135,7 @@ class NotificationX_Public {
 	public function pro_extension_ids() {
 		return apply_filters('nx_pro_extetion_ids', array());
 	}
+
 	public function generate_active_notificationx(){
 		
 		if( empty( self::$active ) ) {
