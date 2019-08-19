@@ -99,9 +99,9 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         $data['last_week'] = __( NotificationX_Helper::nice_number( $saved_data['last_week'] ) . ' times in last 7 days', 'notificationx' );
         $data['all_time'] = __( NotificationX_Helper::nice_number( $saved_data['all_time'] ) . ' times', 'notificationx' );
         
-        $data['today_text'] = __( 'Try it out', 'notificationx' );
-        $data['last_week_text'] = __( 'Get started free.', 'notificationx' );
-        $data['all_time_text'] = __( 'why not you?', 'notificationx' );
+        $data['today_text'] = __( 'Try It Out', 'notificationx' );
+        $data['last_week_text'] = __( 'Get Started for Free.', 'notificationx' );
+        $data['all_time_text'] = __( 'Why Don\'t You?', 'notificationx' );
 
         return $data;
     }
