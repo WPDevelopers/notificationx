@@ -262,11 +262,31 @@ class NotificationX_Admin {
 						$fields = isset( $section['fields'] ) ? $section[ 'fields' ] : [];
 						if( ! empty( $fields ) ) {
 							foreach( $fields as $field_key => $field ) {
+								$options = isset( $field['options'] ) ? $field['options'] : [];
 								if( isset( $field['fields'] ) ) {
 									foreach( $field['fields'] as $inner_field_key => $inner_field ) {
+										$options = isset( $inner_field['options'] ) ? $inner_field['options'] : [];
 										if( isset( $inner_field['hide'] ) && ! empty( $inner_field['hide'] ) && is_array( $inner_field['hide'] ) ) {
 											foreach( $inner_field['hide'] as $key => $hide ) {
-												$hideFields[ $inner_field_key ][ $key ] = $hide;
+												if( strpos( $key, '!', 0 ) === 0 ) {
+													if( ! empty( $options ) ) {
+														$ignored_key = substr( $key, 1, strlen( $key ) );
+														unset( $options[ $ignored_key ] );
+														foreach( $options as $dkey => $value ) {
+															if( empty( $hideFields[ $inner_field_key ][ $dkey ] ) ) {
+																$hideFields[ $inner_field_key ][ $dkey ] = $hide;
+															} else {
+																$hideFields[ $inner_field_key ][ $dkey ] = array_merge_recursive( $hideFields[ $inner_field_key ][ $dkey ], $hide );
+															}
+														}
+													}
+													continue;
+												}
+												if( isset( $hideFields[ $inner_field_key ][ $key ] ) ) {
+													$hideFields[ $inner_field_key ][ $key ] = array_merge_recursive( $hideFields[ $inner_field_key ][ $key ], $hide );
+												} else {
+													$hideFields[ $inner_field_key ][ $key ] = $hide;
+												}
 											}
 										}
 										if( isset( $inner_field['dependency'] ) && ! empty( $inner_field['dependency'] ) && is_array( $inner_field['dependency'] ) ) {
@@ -276,7 +296,6 @@ class NotificationX_Admin {
 										}
 									}
 								}
-
 								if( isset( $field['hide'] ) && ! empty( $field['hide'] ) && is_array( $field['hide'] ) ) {
 									foreach( $field['hide'] as $key => $hide ) {
 										$hideFields[ $field_key ][ $key ] = $hide;
@@ -284,7 +303,25 @@ class NotificationX_Admin {
 								}
 								if( isset( $field['dependency'] ) && ! empty( $field['dependency'] ) && is_array( $field['dependency'] ) ) {
 									foreach( $field['dependency'] as $key => $dependency ) {
-										$conditions[ $field_key ][ $key ] = $dependency;
+										if( strpos( $key, '!', 0 ) === 0 ) {
+											if( ! empty( $options ) ) {
+												$ignored_key = substr( $key, 1, strlen( $key ) );
+												unset( $options[ $ignored_key ] );
+												foreach( $options as $key => $value ) {
+													if( empty( $conditions[ $field_key ][ $key ] ) ) {
+														$conditions[ $field_key ][ $key ] = $dependency;
+													} else {
+														$conditions[ $field_key ][ $key ] = array_merge_recursive( $conditions[ $field_key ][ $key ], $dependency );
+													}
+												}
+											}
+											continue;
+										}
+										if( isset( $conditions[ $field_key ][ $key ] ) ) {
+											$conditions[ $field_key ][ $key ] = array_merge_recursive( $conditions[ $field_key ][ $key ], $dependency );
+										} else {
+											$conditions[ $field_key ][ $key ] = $dependency;
+										}
 									}
 								}
 							}
