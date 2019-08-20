@@ -1,11 +1,11 @@
-=== NotificationX - Free Social Proof & FOMO Plugin ===
+=== NotificationX - Best Social Proof & FOMO Plugin ===
 Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul
 Donate link: http://notificationx.com
-Tags: sales notification, fomo, social proof, live sales feed, recent sales notification, woocommerce sales, recent purchase, popups, boost sales
+Tags: sales notification, fomo, social proof, live sales feed, recent sales notification, woocommerce sales, recent purchase, popups, boost sales, email subscription, increase engagement
 Requires at least: 4.0
 Tested up to: 5.2
 Requires PHP: 5.4
-Stable tag: 1.2.2
+Stable tag: 1.2.1
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -35,6 +35,7 @@ FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing tec
 - Support WooCommerce and Easy Digital Download
 - Works out of the box with WooCommerce, Easy Digital Downloads.
 - Ability to show across the site, on specific posts, pages or exclude from the specific location
+- With our Zapier App, you could connect **NotificationX** to absolutely anything!
 
 ## Boost Conversion Rates Using 6 Different Types of Notification ##
 
@@ -59,9 +60,9 @@ FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing tec
 
 ### Liked Notification X? ###
 
-- Join our Facebook Group
+- Join our [Facebook Group](https://www.facebook.com/groups/NotificationX.Community/)
 - Learn from our tutorials on [Youtube Channel](https://wpdeveloper.net/go/youtube-channel)
-- Or rate us on WordPress 
+- Or [rate us](https://notificationx.com/go/review-nx) on WordPress 
 
 
 == Installation ==
