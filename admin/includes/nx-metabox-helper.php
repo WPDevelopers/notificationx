@@ -412,6 +412,30 @@ function notificationx_metabox_args(){
                                 'priority'	=> 10,
                                 'default'	=> ''
                             ),
+                            'bar_btn_bg' => array(
+                                'type'      => 'colorpicker',
+                                'label'     => __('Button Background Color' , 'notificationx'),
+                                'priority'	=> 11,
+                                'default'	=> ''
+                            ),
+                            'bar_btn_text_color' => array(
+                                'type'      => 'colorpicker',
+                                'label'     => __('Button Text Color' , 'notificationx'),
+                                'priority'	=> 12,
+                                'default'	=> ''
+                            ),
+                            'bar_counter_bg' => array(
+                                'type'      => 'colorpicker',
+                                'label'     => __('Countdown Background Color' , 'notificationx'),
+                                'priority'	=> 13,
+                                'default'	=> ''
+                            ),
+                            'bar_counter_text_color' => array(
+                                'type'      => 'colorpicker',
+                                'label'     => __('Countdown Text Color' , 'notificationx'),
+                                'priority'	=> 14,
+                                'default'	=> ''
+                            ),
                         )
                     ),
                     'bar_typography' => array(

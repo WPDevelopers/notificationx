@@ -175,7 +175,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
             'builder_hidden'     => true,
             'type'        => 'adv_checkbox',
             'priority'    => 81,
-            'button_text' => __('Advance Template' , 'notificationx'),
+            'button_text' => __('Advanced Template' , 'notificationx'),
             'side'        => 'right',
             'swal'        => true
         );

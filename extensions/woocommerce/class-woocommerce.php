@@ -158,7 +158,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         $fields['woo_template_adv'] = array(
             'type'        => 'adv_checkbox',
             'priority'    => 91,
-            'button_text' => __('Advance Template' , 'notificationx'),
+            'button_text' => __('Advanced Template' , 'notificationx'),
             'side'        => 'right',
             'swal'        => true
         );

@@ -101,6 +101,9 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         if( isset( $data['name'] ) ) {
             unset( $data['name'] );
         }
+        if( isset( $saved_data['title'] ) ) {
+            $data['title'] = htmlspecialchars( $saved_data['title'] );
+        }
         $trim_length = 100;
         $name = $saved_data['username'];
         $review_content = __( 'Some review content', 'notificationx' );
@@ -133,7 +136,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         $data['username'] = $name;
         $data['plugin_name_text'] = __('try it out', 'notificationx');
         $data['anonymous_title'] = __('Anonymous', 'notificationx');
-        $data['plugin_review'] = $review_content;
+        $data['plugin_review'] = htmlspecialchars( $review_content );
         return $data;
     }
 
@@ -443,7 +446,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         $fields['wp_reviews_template_adv'] = array(
             'type'        => 'adv_checkbox',
             'priority'    => 84,
-            'button_text' => __('Advance Template' , 'notificationx'),
+            'button_text' => __('Advanced Template' , 'notificationx'),
             'side'        => 'right',
             'swal'        => true,
         );

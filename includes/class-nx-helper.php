@@ -216,6 +216,10 @@ class NotificationX_Helper {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.jpg',
                 'is_pro' => $is_pro,
             ),
+            'learndash'    => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/learndash.png',
+                'is_pro' => $is_pro,
+            ),
             'custom_notification'    => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/custom.jpg',
                 'is_pro' => $is_pro,
@@ -503,9 +507,9 @@ class NotificationX_Helper {
 
     public static function bar_colored_themes(){
         return apply_filters('nx_bar_colored_themes', array(
-            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-bar-theme-3.jpg',
-            'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-bar-theme-1.jpg',
-            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-bar-theme-2.jpg',
+            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-bar-theme-one.jpg',
+            'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-bar-theme-two.jpg',
+            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-bar-theme-three.jpg',
         ));
     }
 
@@ -717,48 +721,39 @@ class NotificationX_Helper {
             'wp_stats'  => 'wp_stats_template_new',
         ));
     }
-
+    /**
+     * Formating Number in a Nice way
+     * @since 1.2.1
+     * @param int|string $n
+     * @return string
+     */
     public static function nice_number($n) {
-        // first strip any formatting;
         $n = ( 0 + str_replace(",", "", $n ) );
-        // is this a number?
         if( ! is_numeric( $n ) ) return 0;
         $number = 0;
         $suffix = '';
         switch( $n ) {
             case $n >= 1000000000000 : 
                 $number = round( ( $n / 1000000000000 ), 1 );
-                $suffix = 'T';
-                if( $n > 1000000000000 ) {
-                    $suffix = 'T+';
-                }
+                $suffix = $n > 1000000000000 ? 'T+' : 'T';
                 break;
             case $n >= 1000000000 : 
                 $number = round( ( $n / 1000000000 ), 1 );
-                $suffix = 'B';
-                if( $n > 1000000000 ) {
-                    $suffix = 'B+';
-                }
+                $suffix = $n > 1000000000 ? 'B+' : 'B';
                 break;
             case $n >= 1000000 : 
                 $number = round( ( $n / 1000000 ), 1 );
-                $suffix = 'M';
-                if( $n > 1000000 ) {
-                    $suffix = 'M+';
-                }
+                $suffix = $n > 1000000 ? 'M+' : 'M';
                 break;
             case $n >= 1000 : 
                 $number = round( ( $n / 1000 ), 1 );
-                $suffix = 'K';
-                if( $n > 1000 ) {
-                    $suffix = 'K+';
-                }
+                $suffix = $n > 1000 ? 'K+' : 'K';
                 break;
             default: 
                 $number = $n;
                 break;
         }
-        $number = number_format($number);
+        $number = number_format($number, 1);
         return $number . $suffix;
     }
 

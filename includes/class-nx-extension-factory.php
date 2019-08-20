@@ -16,11 +16,11 @@ class Extension_Factory {
      * @param string $extension
      * @return void
      */
-    public function register( $extension = '' ){
-        if ( empty( $extension ) ) {
+    public function register( $extension = '', $key = '' ){
+        if ( empty( $extension ) || empty( $key ) ) {
 			return;
         }
-        $this->extensions = $this->add( $this->extensions, $extension );
+        $this->extensions = $this->add( $this->extensions, $extension, $key );
     }
     /**
      * This function is responsible for adding an extension to the extensions array!
@@ -29,8 +29,8 @@ class Extension_Factory {
      * @param string $classname
      * @return void
      */
-    protected function add( $extensions, $classname ) {
-		$extensions[] = $classname;
+    protected function add( $extensions, $classname, $key ) {
+		$extensions[ $key ] = $classname;
 		return $extensions;
     }
     /**
@@ -40,8 +40,10 @@ class Extension_Factory {
      * @return void
      */
     public function load(){
-        if( ! empty( $this->extensions ) ) {
-            foreach( $this->extensions as $extension ) {
+        $extensions = $this->extensions;
+        $extensions = NotificationX_Helper::active_modules( $extensions );
+        if( ! empty( $extensions ) ) {
+            foreach( $extensions as $extension ) {
                 $object = new $extension;
                 $this->loaded_extensions[ $object->type ] = $extension;
                 /**
@@ -129,10 +131,10 @@ $GLOBALS['nx_extension_factory'] = new Extension_Factory();
  * @param string $extension
  * @return bool|void
  */
-function nx_register_extension( $extension = '' ){
-    if( empty( $extension ) ) {
+function nx_register_extension( $extension = '', $key = '' ){
+    if( empty( $extension ) || empty( $key ) ) {
         return false;
     }
     global $nx_extension_factory;
-    $nx_extension_factory->register( $extension );
+    $nx_extension_factory->register( $extension, $key );
 }

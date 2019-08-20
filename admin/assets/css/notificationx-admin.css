@@ -2213,9 +2213,9 @@ h4.nx-admin-title {
 }
 
 #nx-spinner {
-    width: 18px;
+    width: 16px;
+    height: 16px;
     display: inline-block;
-    margin: 3px 5px 0 0;
     -webkit-transition-property: -webkit-transform;
     -webkit-transition-duration: 1.2s;
     transition-duration: 1.2s;
@@ -2234,6 +2234,10 @@ h4.nx-admin-title {
     animation-duration: 1.2s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+}
+
+#nx-spinner+span {
+    margin-left: 5px;
 }
 
 @-webkit-keyframes rotate {
@@ -2339,8 +2343,4 @@ h4.nx-admin-title {
 .nx-display_type .nx-single-theme-wrapper>input:checked+label {
     background-color: #0ccf9f;
     color: #fff;
-}
-input[type="text"] + .nx-field-description{
-    display: block;
-    margin: 5px 0 0;
 }

@@ -178,19 +178,19 @@ final class NotificationX {
 		global $nx_extension_factory;
 
 		$extensions = [
-			'NotificationX_PressBar_Extension',
-			'NotificationX_WP_Comments_Extension',
-			'NotificationXPro_WPOrgReview_Extension',
-			'NotificationXPro_WPOrgStats_Extension',
-			'NotificationX_WooCommerce_Extension',
-			'NotificationX_EDD_Extension',
+			'press_bar'   => 'NotificationX_PressBar_Extension',
+			'wp_comments' => 'NotificationX_WP_Comments_Extension',
+			'wp_reviews'  => 'NotificationXPro_WPOrgReview_Extension',
+			'wp_stats'    => 'NotificationXPro_WPOrgStats_Extension',
+			'woocommerce' => 'NotificationX_WooCommerce_Extension',
+			'edd'         => 'NotificationX_EDD_Extension',
 		];
 
-		foreach( $extensions as $extension ) {
+		foreach( $extensions as $key => $extension ) {
 			/**
 			 * Register the extension
 			 */
-			nx_register_extension( $extension );
+			nx_register_extension( $extension, $key );
 		}
 		/**
 		 * Init all extensions here.
