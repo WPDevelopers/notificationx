@@ -216,6 +216,10 @@ class NotificationX_Helper {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.jpg',
                 'is_pro' => $is_pro,
             ),
+            'learndash'    => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/learndash.png',
+                'is_pro' => $is_pro,
+            ),
             'custom_notification'    => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/custom.jpg',
                 'is_pro' => $is_pro,
