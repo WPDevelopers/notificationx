@@ -247,7 +247,6 @@
 	};
 
 	$.notificationx.process = function (ids) {
-		console.log(notificationx);
 		fetch(notificationx.ajaxurl, {
 				method: 'POST',
 				credentials: 'same-origin',
