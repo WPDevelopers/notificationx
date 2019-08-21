@@ -57,6 +57,11 @@ function notificationx_settings_args(){
                             'title' => __('Envato', 'notificationx'),
                             'link' => '#'
                         ),
+                        'modules_learndash' => array(
+                            'is_pro' => true,
+                            'title' => __('LearnDash', 'notificationx'),
+                            'link' => '#'
+                        ),
                     )),
                     'views' => 'NotificationX_Settings::modules'
                 ),
