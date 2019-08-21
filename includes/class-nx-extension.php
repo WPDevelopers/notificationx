@@ -480,7 +480,7 @@ class NotificationX_Extension {
                         if( $settings->conversion_from == 'woocommerce' || $settings->conversion_from == 'edd' ) {
                             if( has_post_thumbnail( $data['product_id'] ) ) {
                                 $product_image = wp_get_attachment_image_src( 
-                                    get_post_thumbnail_id( $data['product_id'] ), '_nx_notification_thumb', false 
+                                    get_post_thumbnail_id( $data['product_id'] ), 'medium', false 
                                 );
                                 $image_url = is_array( $product_image ) ? $product_image[0] : '';
                             }
@@ -489,7 +489,7 @@ class NotificationX_Extension {
                             if( ! empty( $data ) ) {
                                 $image_url = $alt_title = '';
                                 if( isset( $data['image'] ) && ! empty( $data['image'] ) ) {
-                                    $product_image = wp_get_attachment_image_src( $data['image']['id'], '_nx_notification_thumb', false );
+                                    $product_image = wp_get_attachment_image_src( $data['image']['id'], 'medium', false );
                                     $image_url = is_array( $product_image ) ? $product_image[0] : '';
                                 }
                                 if( isset( $data['title'] ) && ! empty( $data['title'] ) ) {

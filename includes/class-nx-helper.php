@@ -212,15 +212,19 @@ class NotificationX_Helper {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg',
                 'is_pro' => $is_pro,
             ),
-            'zapier'    => array(
+            'zapier' => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.jpg',
                 'is_pro' => $is_pro,
             ),
-            'learndash'    => array(
+            'learndash' => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/learndash.png',
                 'is_pro' => $is_pro,
             ),
-            'custom_notification'    => array(
+            'envato' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/envato.png',
+                'is_pro' => $is_pro,
+            ),
+            'custom_notification' => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/custom.jpg',
                 'is_pro' => $is_pro,
             ),
