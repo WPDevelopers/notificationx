@@ -496,13 +496,13 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                             'fields' => ['wp_reviews_template_new']
                         ],
                         'review-comment' => [
-                            'fields' => ['wp_reviews_template_new']
+                            'fields' => ['wp_reviews_template_new', 'content_trim_length']
                         ],
                         'review-comment-2' => [
-                            'fields' => ['wp_reviews_template_new']
+                            'fields' => ['wp_reviews_template_new', 'content_trim_length']
                         ],
                         'review-comment-3' => [
-                            'fields' => ['wp_reviews_template_new']
+                            'fields' => ['wp_reviews_template_new', 'content_trim_length']
                         ]
                     ],
                 ),
