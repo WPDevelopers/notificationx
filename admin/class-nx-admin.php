@@ -74,6 +74,8 @@ class NotificationX_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 		self::$settings = NotificationX_DB::get_settings();
+        add_action( 'plugin_action_links_' . NOTIFICATIONX_BASENAME, array($this, 'nx_action_links'), 10, 1);
+        add_filter( 'plugin_row_meta', array( $this, 'nx_row_meta' ), 10, 2 );
 	}
 	/**
 	* Get all active items.
@@ -763,6 +765,7 @@ class NotificationX_Admin {
 		 * For Quick Builder Submit
 		 */
 		$this->quick_builder_submit( $current_url );
+
 	}
 	/**
 	 * For Empty Trash
@@ -896,4 +899,35 @@ class NotificationX_Admin {
 			}
 		endif;
 	}
+
+    /**
+     * This function is hooked
+     * @hooked plugin_action_links_
+     * @param array $links
+     * @return array
+     * @since 1.2.4
+     */
+    public function nx_action_links($links)
+    {
+        if(!is_plugin_active('notificationx-pro/notificationx-pro.php')){
+            $links[] = '<a href="' . esc_url('https://notificationx.com/#pricing') . '" target="_blank" style="color: #349e34;"><b>' . __('Go pro','notificationx') .'</b></a>';
+        }
+        return $links;
+    }
+
+    /**
+     * This function is hooked
+     * @hooked plugin_row_meta
+     * @param array $links
+     * @param string $file
+     * @return array
+     * @since 1.2.4
+     */
+    public function nx_row_meta($links, $file)
+    {
+        if(NOTIFICATIONX_BASENAME == $file){
+            $links['docs'] = '<a href="' . esc_url('https://notificationx.com/docs/') . '" target="_blank">' . __('Docs & FAQ','notificationx') .'</a>';
+        }
+        return $links;
+    }
 }
