@@ -112,7 +112,7 @@ class Extension_Factory {
      * This function is responsible for getting the extension from loaded extension.
      *
      * @param string $key
-     * @return void
+     * @return bool|void
      */
     public function get_extension( $key ){
         if( empty( $key ) ) {
@@ -129,7 +129,7 @@ $GLOBALS['nx_extension_factory'] = new Extension_Factory();
  * This function is responsible for register an extension.
  *
  * @param string $extension
- * @return void
+ * @return bool|void
  */
 function nx_register_extension( $extension = '', $key = '' ){
     if( empty( $extension ) || empty( $key ) ) {

@@ -383,11 +383,10 @@ a.nx-powered-by:hover {
 .notificationx-inner.nx-notification-review_saying span.notificationx-close,
 .notificationx-inner.nx-notification-reviewed span.notificationx-close,
 .notificationx-inner.nx-notification-total-download span.notificationx-close {
-    right: 20px;
-    top: 25px;
+    right: 30px;
+    top: 18px;
 }
 
-.nx-notification-theme-two .nx-branding,
 .nx-notification-review_saying .nx-branding,
 .nx-notification-reviewed .nx-branding,
 .nx-notification-total-download .nx-branding {
@@ -763,4 +762,7 @@ a.nx-powered-by:hover {
 .notificationx-inner.has-no-image.nx-notification-theme-seven-free,
 .notificationx-inner.has-no-image.nx-notification-theme-eight-free {
     padding-left: 30px;
+}
+.nx-notification .notificationx-inner.nx-notification-theme-two .notificationx-content .nx-first-row{
+    padding-right: 10px;
 }

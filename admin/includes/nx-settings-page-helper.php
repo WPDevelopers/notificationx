@@ -52,6 +52,16 @@ function notificationx_settings_args(){
                             'title' => __('Zapier', 'notificationx'),
                             'link' => 'https://notificationx.com/docs/zapier-notification-alert/'
                         ),
+                        'modules_envato' => array(
+                            'is_pro' => true,
+                            'title' => __('Envato', 'notificationx'),
+                            'link' => '#'
+                        ),
+                        'modules_learndash' => array(
+                            'is_pro' => true,
+                            'title' => __('LearnDash', 'notificationx'),
+                            'link' => '#'
+                        ),
                     )),
                     'views' => 'NotificationX_Settings::modules'
                 ),

@@ -400,6 +400,11 @@ Form Input CSS
     width: 400px;
 }
 
+.nx-control-wrapper .select2-container--default .select2-selection--multiple {
+    border: 1px solid #ABB9D6 !important;
+    border-radius: 0px;
+}
+
 .template-items {
     display: flex;
     align-items: center;

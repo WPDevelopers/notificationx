@@ -74,6 +74,8 @@ class NotificationX_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 		self::$settings = NotificationX_DB::get_settings();
+        add_action( 'plugin_action_links_' . NOTIFICATIONX_BASENAME, array($this, 'nx_action_links'), 10, 1);
+        add_filter( 'plugin_row_meta', array( $this, 'nx_row_meta' ), 10, 2 );
 	}
 	/**
 	* Get all active items.
@@ -262,11 +264,31 @@ class NotificationX_Admin {
 						$fields = isset( $section['fields'] ) ? $section[ 'fields' ] : [];
 						if( ! empty( $fields ) ) {
 							foreach( $fields as $field_key => $field ) {
+								$options = isset( $field['options'] ) ? $field['options'] : [];
 								if( isset( $field['fields'] ) ) {
 									foreach( $field['fields'] as $inner_field_key => $inner_field ) {
+										$options = isset( $inner_field['options'] ) ? $inner_field['options'] : [];
 										if( isset( $inner_field['hide'] ) && ! empty( $inner_field['hide'] ) && is_array( $inner_field['hide'] ) ) {
 											foreach( $inner_field['hide'] as $key => $hide ) {
-												$hideFields[ $inner_field_key ][ $key ] = $hide;
+												if( strpos( $key, '!', 0 ) === 0 ) {
+													if( ! empty( $options ) ) {
+														$ignored_key = substr( $key, 1, strlen( $key ) );
+														unset( $options[ $ignored_key ] );
+														foreach( $options as $dkey => $value ) {
+															if( empty( $hideFields[ $inner_field_key ][ $dkey ] ) ) {
+																$hideFields[ $inner_field_key ][ $dkey ] = $hide;
+															} else {
+																$hideFields[ $inner_field_key ][ $dkey ] = array_merge_recursive( $hideFields[ $inner_field_key ][ $dkey ], $hide );
+															}
+														}
+													}
+													continue;
+												}
+												if( isset( $hideFields[ $inner_field_key ][ $key ] ) ) {
+													$hideFields[ $inner_field_key ][ $key ] = array_merge_recursive( $hideFields[ $inner_field_key ][ $key ], $hide );
+												} else {
+													$hideFields[ $inner_field_key ][ $key ] = $hide;
+												}
 											}
 										}
 										if( isset( $inner_field['dependency'] ) && ! empty( $inner_field['dependency'] ) && is_array( $inner_field['dependency'] ) ) {
@@ -276,7 +298,6 @@ class NotificationX_Admin {
 										}
 									}
 								}
-
 								if( isset( $field['hide'] ) && ! empty( $field['hide'] ) && is_array( $field['hide'] ) ) {
 									foreach( $field['hide'] as $key => $hide ) {
 										$hideFields[ $field_key ][ $key ] = $hide;
@@ -284,7 +305,25 @@ class NotificationX_Admin {
 								}
 								if( isset( $field['dependency'] ) && ! empty( $field['dependency'] ) && is_array( $field['dependency'] ) ) {
 									foreach( $field['dependency'] as $key => $dependency ) {
-										$conditions[ $field_key ][ $key ] = $dependency;
+										if( strpos( $key, '!', 0 ) === 0 ) {
+											if( ! empty( $options ) ) {
+												$ignored_key = substr( $key, 1, strlen( $key ) );
+												unset( $options[ $ignored_key ] );
+												foreach( $options as $key => $value ) {
+													if( empty( $conditions[ $field_key ][ $key ] ) ) {
+														$conditions[ $field_key ][ $key ] = $dependency;
+													} else {
+														$conditions[ $field_key ][ $key ] = array_merge_recursive( $conditions[ $field_key ][ $key ], $dependency );
+													}
+												}
+											}
+											continue;
+										}
+										if( isset( $conditions[ $field_key ][ $key ] ) ) {
+											$conditions[ $field_key ][ $key ] = array_merge_recursive( $conditions[ $field_key ][ $key ], $dependency );
+										} else {
+											$conditions[ $field_key ][ $key ] = $dependency;
+										}
 									}
 								}
 							}
@@ -443,10 +482,6 @@ class NotificationX_Admin {
 		
 		register_post_type( $this->type, $args );
 		add_image_size( "_nx_notification_thumb", 100, 100, true );
-	}
-
-	public function upgrade_notificationx(){
-		
 	}
 			
 	/**
@@ -726,6 +761,7 @@ class NotificationX_Admin {
 		 * For Quick Builder Submit
 		 */
 		$this->quick_builder_submit( $current_url );
+
 	}
 	/**
 	 * For Empty Trash
@@ -859,4 +895,39 @@ class NotificationX_Admin {
 			}
 		endif;
 	}
+
+    /**
+     * This function is hooked
+     * @hooked plugin_action_links_
+     * @param array $links
+     * @return array
+     * @since 1.2.4
+     */
+    public function nx_action_links($links)
+    {
+        $deactivate_link = $links['deactivate'];
+        unset($links['deactivate']);
+        $links['settings'] = '<a href="' . admin_url('admin.php?page=nx-settings') . '">' . __('Settings','notificationx') .'</a>';
+        $links['deactivate'] = $deactivate_link;
+        if(!is_plugin_active('notificationx-pro/notificationx-pro.php')){
+            $links['pro'] = '<a href="' . esc_url('http://wpdeveloper.net/in/upgrade-notificationx') . '" target="_blank" style="color: #349e34;"><b>' . __('Go Pro','notificationx') .'</b></a>';
+        }
+        return $links;
+    }
+
+    /**
+     * This function is hooked
+     * @hooked plugin_row_meta
+     * @param array $links
+     * @param string $file
+     * @return array
+     * @since 1.2.4
+     */
+    public function nx_row_meta($links, $file)
+    {
+        if(NOTIFICATIONX_BASENAME == $file){
+            $links['docs'] = '<a href="' . esc_url('https://notificationx.com/docs/?utm_medium=admin&utm_source=wp.org&utm_term=nx') . '" target="_blank">' . __('Docs & FAQ','notificationx') .'</a>';
+        }
+        return $links;
+    }
 }
