@@ -909,9 +909,13 @@ class NotificationX_Admin {
      */
     public function nx_action_links($links)
     {
+        $deactivate_link = $links['deactivate'];
+        unset($links['deactivate']);
+        $links['settings'] = '<a href="' . admin_url('admin.php?page=nx-settings') . '">' . __('Settings','notificationx') .'</a>';
         if(!is_plugin_active('notificationx-pro/notificationx-pro.php')){
-            $links[] = '<a href="' . esc_url('http://wpdeveloper.net/in/upgrade-notificationx') . '" target="_blank" style="color: #349e34;"><b>' . __('Go pro','notificationx') .'</b></a>';
+            $links['pro'] = '<a href="' . esc_url('http://wpdeveloper.net/in/upgrade-notificationx') . '" target="_blank" style="color: #349e34;"><b>' . __('Go pro','notificationx') .'</b></a>';
         }
+        $links['deactivate'] = $deactivate_link;
         return $links;
     }
 
