@@ -398,20 +398,29 @@ class NotificationX_Helper {
         }
         return $types;
     }
-
+    /**
+     * Check Active Modules or Not
+     *
+     * @param array $types
+     * @return array
+     * @since 1.2.2
+     */
     public static function active_modules( $types ) {
         $active_modules = NotificationX_DB::get_settings('nx_modules');
         if( isset( $active_modules['modules_bar'] ) && $active_modules['modules_bar'] == false ) {
             unset( $types['press_bar'] );
         }
         $module_source = self::modules();
-
+        
         if( ! empty( $module_source ) ) {
             foreach( $module_source as $parent_type => $module ) {
                 if( is_array( $module ) ) {
                     $module_counter = count( $module );
                     foreach( $module as $source_key => $single_module ) {
                         if( isset( $active_modules[ $single_module ] ) && $active_modules[ $single_module ] == false ) {
+                            $module_counter--;
+                        }
+                        if( ! isset( $active_modules[ $single_module ] ) ) {
                             $module_counter--;
                         }
                     }
@@ -426,9 +435,15 @@ class NotificationX_Helper {
                             unset( $types[ $parent_type ] );
                         } 
                     }
+                    if( ! isset( $active_modules[ $module ] ) ) {
+                        if( isset( $types[ $parent_type ] ) ) {
+                            unset( $types[ $parent_type ] );
+                        }
+                    }
                 }
             }
         }
+
         return $types;
     }
 
