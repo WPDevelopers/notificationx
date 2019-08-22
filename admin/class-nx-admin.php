@@ -483,10 +483,6 @@ class NotificationX_Admin {
 		register_post_type( $this->type, $args );
 		add_image_size( "_nx_notification_thumb", 100, 100, true );
 	}
-
-	public function upgrade_notificationx(){
-		
-	}
 			
 	/**
 	* Admin Menu Page
