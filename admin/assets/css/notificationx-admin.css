@@ -2081,6 +2081,11 @@ body.wp-admin.rtl .ui-datepicker {
     color: #fff;
 }
 
+sup.pro-label.has-to-update {
+    font-size: 10px;
+    line-height: 20px;
+}
+
 .nx-settings-content {
     display: flex;
 }

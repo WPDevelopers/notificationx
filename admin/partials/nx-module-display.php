@@ -19,12 +19,29 @@
         <?php
     else :
         if( ! empty( $module['title'] ) ) : 
-            $is_pro_module = isset( $module['is_pro'] ) && $module['is_pro'] == true ? true : false;
+            $is_pro_module = $is_pro_check = isset( $module['is_pro'] ) && $module['is_pro'] == true ? true : false;
+            /**
+             * @since 1.2.4
+             */
+            if( isset( $module['version'] ) ) {
+                if( $is_pro_module == false 
+                    && defined('NOTIFICATIONX_PRO_VERSION') 
+                    && ! version_compare( NOTIFICATIONX_PRO_VERSION, $module['version'], '>=' ) ) {
+                    $is_pro_check = true;
+                } 
+            }
         ?>
-            <div class="nx-checkbox <?php echo $is_pro_module ? 'nx-pro-checkbox' : ''; ?>" data-id="<?php echo $module_key; ?>">
-                <input <?php echo $is_pro_module == true ? 'disabled' : ''; ?> type="checkbox" <?php checked( $module_on, true ); ?> id="<?php echo $module_key; ?>" name="<?php echo $module_key; ?>">
+            <div class="nx-checkbox <?php echo $is_pro_check ? 'nx-pro-checkbox' : ''; ?>" data-id="<?php echo $module_key; ?>">
+                <input <?php echo $is_pro_check == true ? 'disabled' : ''; ?> type="checkbox" <?php checked( $module_on, true ); ?> id="<?php echo $module_key; ?>" name="<?php echo $module_key; ?>">
                 <label for="<?php echo $module_key; ?>"></label>
-                <p class="nx-module-title"><?php echo $module_title; ?><?php echo $is_pro_module ? '<sup class="pro-label">Pro</sup>' : ''; ?></p>
+                <p class="nx-module-title"><?php echo $module_title; ?>
+                <?php 
+                    if( $is_pro_check ) {
+                        echo '<sup class="pro-label has-to-update"> >='. $module['version'] .'</sup>'; 
+                    }
+                    echo $is_pro_module ? '<sup class="pro-label">Pro</sup>' : ''; 
+                ?>
+                </p>
             </div>
         <?php
         endif;

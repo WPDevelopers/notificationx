@@ -55,11 +55,13 @@ function notificationx_settings_args(){
                         'modules_envato' => array(
                             'is_pro' => true,
                             'title' => __('Envato', 'notificationx'),
+                            'version' => '1.1.4',
                             'link' => 'https://notificationx.com/docs/envato-sales-notification'
                         ),
                         'modules_learndash' => array(
                             'is_pro' => true,
                             'title' => __('LearnDash', 'notificationx'),
+                            'version' => '1.1.4',
                             'link' => 'https://notificationx.com/docs/how-to-display-learndash-course-enrollment-alert-using-notificationx'
                         ),
                     )),
