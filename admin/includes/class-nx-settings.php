@@ -279,6 +279,9 @@ class NotificationX_Settings {
                 $is_pro_module = is_array( $module ) && isset( $module['is_pro'] ) ? true : false;
                 if( $is_pro_module ) {
                     self::$pro_modules[ $module_key ] = false;
+                    if( isset( $module['version'] ) ) {
+                        self::$pro_modules[ $module_key ] = $module['version'];
+                    }
                 } else {
                     self::$free_modules[ $module_key ] = false;
                 }
