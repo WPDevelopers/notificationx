@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, live sales feed, recent sales noti
 Requires at least: 4.0
 Tested up to: 5.2
 Requires PHP: 5.4
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -44,7 +44,7 @@ FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing tec
 
 2. **WP Comments:** WP Comments lets you show the recent comments made by users on your posts as a notification alert. This is helpful to gain immediate attention from your visitors to check out the specified posts.
 
-3. **Sales Notifications:** With NotificationX, you can easily design attention-grabbing Sales Notifications to increase your sales rate. If you have WooCommerce or Easy Digital Downloads installed, you can display the recent purchases activity by other customers to influence the website visitors.
+3. **Sales Notifications:** With NotificationX, you can easily design attention-grabbing Sales Notifications to increase your sales rate. If you have WooCommerce or Easy Digital Downloads installed, you can display the recent purchases activity by other customers to influence the website visitors. [More source in Pro : LearnDash, Envato (Themeforest, CodeCanyon)]
 
 4. **WordPress Review:** Showcase your Plugin/Theme reviews from WordPress.org & build credibility. [Source: WordPress, Freemius]
 
@@ -107,7 +107,11 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 1.2.2 - 20/08/2019 =
+= 1.2.3 - 22/08/2019 =
+
+- Added : Support for LearnDash and Envato integration
+- Improved : Few theming issue
+- Few minor bugfix and improvement
 
 - Fixed : Close cookie issue
 - Fixed : Notification Bar advanced design issue
