@@ -28,6 +28,7 @@
                     && defined('NOTIFICATIONX_PRO_VERSION') 
                     && ! version_compare( NOTIFICATIONX_PRO_VERSION, $module['version'], '>=' ) ) {
                     $is_pro_check = true;
+                    $module_on = false;
                 } 
             }
         ?>
