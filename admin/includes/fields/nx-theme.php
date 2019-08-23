@@ -28,10 +28,11 @@
                         if( isset( $opt_value['version'] ) && ! $is_pro && defined( 'NOTIFICATIONX_PRO_VERSION' ) ) {
                             $is_pro = version_compare( NOTIFICATIONX_PRO_VERSION, $opt_value['version'], '<=' );
                             $is_version = '>' . $opt_value['version'];
+                            if( $is_pro ) {
+                                continue;
+                            }
                         }
-                    
                         $opt_value = isset( $opt_value['source'] ) ? $opt_value['source'] : '';
-
                     }
                     ?>
                     <div class="nx-single-theme-wrapper <?php echo $is_pro ? 'nx-radio-pro' : ''; ?>">
