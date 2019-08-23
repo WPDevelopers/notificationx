@@ -334,7 +334,11 @@ class NotificationX_Admin {
 		}
 
 		$template = apply_filters( 'nx_template_name', array() );
-		$template_settings = apply_filters( 'nx_template_settings_by_theme', array() );
+		$template_settings = array();
+		global $post;
+		if( is_object( $post ) ) {
+			$template_settings = apply_filters( 'nx_template_settings_by_theme', array() );
+		}
 
 		return array( 
 			'toggleFields'      => $conditions, // TODO: toggling system has to be more optimized! 
