@@ -407,6 +407,9 @@ class NotificationX_Helper {
      */
     public static function active_modules( $types ) {
         $active_modules = NotificationX_DB::get_settings('nx_modules');
+        if( empty( $active_modules ) ) {
+            return $types;
+        }
         if( isset( $active_modules['modules_bar'] ) && $active_modules['modules_bar'] == false ) {
             unset( $types['press_bar'] );
         }
