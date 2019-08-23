@@ -777,7 +777,10 @@ class NotificationX_Helper {
                 $number = $n;
                 break;
         }
-        $number = number_format($number, 1);
+        $number = number_format($number);
+        if( strpos( $number, '.') !== false && strpos( $number, '.') >= 0 ) {
+            $number = number_format($number, 1 );
+        }
         return $number . $suffix;
     }
 
