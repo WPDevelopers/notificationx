@@ -38,7 +38,7 @@
                 <p class="nx-module-title"><?php echo $module_title; ?>
                 <?php 
                     if( $is_pro_check && isset( $module['version'] ) ) {
-                        echo '<sup class="pro-label has-to-update"> >='. $module['version'] .'</sup>'; 
+                        echo '<sup class="pro-label has-to-update"> >'. $module['version'] .'</sup>'; 
                     }
                     echo $is_pro_module ? '<sup class="pro-label">Pro</sup>' : ''; 
                 ?>

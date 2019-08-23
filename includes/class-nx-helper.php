@@ -217,12 +217,14 @@ class NotificationX_Helper {
                 'is_pro' => $is_pro,
             ),
             'learndash' => array(
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/learndash.png',
-                'is_pro' => $is_pro,
+                'source'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/learndash.png',
+                'is_pro'  => $is_pro,
+                'version' => '1.2.0',
             ),
             'envato' => array(
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/envato.png',
-                'is_pro' => $is_pro,
+                'source'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/envato.png',
+                'is_pro'  => $is_pro,
+                'version' => '1.2.0',
             ),
             'custom_notification' => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/custom.jpg',
