@@ -1000,6 +1000,11 @@ body.post-type-notificationx .select2-container--default .select2-search--dropdo
     text-align: right;
 }
 
+.nx-settings-header .nx-header-right>span {
+    display: block;
+    padding-right: 25px;
+}
+
 .nx-settings-header .nx-header-left,
 .nx-settings-header .nx-header-right {
     flex: 1 1 auto;

@@ -56,6 +56,12 @@ class NotificationX_Settings {
                     </div>
                     <h2 class="title"><?php _e( 'NotificationX Settings', 'notificationx' ); ?></h2>
                 </div>
+                <div class="nx-header-right">
+                    <span><?php _e( 'Version', 'notificationx' ); ?>: <strong><?php echo NOTIFICATIONX_VERSION; ?></strong></span>
+                    <?php if( defined('NOTIFICATIONX_PRO_VERSION') ) : ?>
+                        <span><?php _e( 'Pro Version', 'notificationx' ); ?>: <strong><?php echo NOTIFICATIONX_PRO_VERSION; ?></strong> </span>
+                    <?php endif; ?>
+                </div>
             </div>
         <?php
     }
