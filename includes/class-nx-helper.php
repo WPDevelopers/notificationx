@@ -206,29 +206,40 @@ class NotificationX_Helper {
     public static function conversion_from( $from = '' ) {
         $is_pro = ! NX_CONSTANTS::is_pro();
         $froms = [
-            'woocommerce' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/woocommerce.jpg',
-            'edd'         => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/edd.jpg',
+            'woocommerce' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/woocommerce.jpg',
+                'title' => 'WooCommerce'
+            ),
+            'edd'         => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/edd.jpg',
+                'title' => 'Easy Digital Downloads'
+            ),
             'freemius'    => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg',
                 'is_pro' => $is_pro,
+                'title' => 'Freemius'
             ),
             'zapier' => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.jpg',
                 'is_pro' => $is_pro,
+                'title' => 'Zapier'
             ),
             'learndash' => array(
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/learndash.png',
                 'is_pro'  => $is_pro,
                 'version' => '1.2.0',
+                'title' => 'LearnDash'
             ),
             'envato' => array(
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/envato.png',
                 'is_pro'  => $is_pro,
                 'version' => '1.2.0',
+                'title' => 'Envato'
             ),
             'custom_notification' => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/custom.jpg',
                 'is_pro' => $is_pro,
+                'title' => __( 'Custom Notification', 'notificationx' )
             ),
         ];
         $forms = apply_filters('nx_conversions_from', $froms );
@@ -246,7 +257,10 @@ class NotificationX_Helper {
      */
     public static function comments_source( $from = '' ) {
         $froms = [
-            'wp_comments' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+            'wp_comments' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+                'title' => 'WP Comments'
+            ),
         ];
         $forms = apply_filters('nx_comments_source_options', $froms );
         $forms = self::active_modules( $forms );
@@ -263,14 +277,19 @@ class NotificationX_Helper {
     public static function reviews_source( $from = '' ) {
         $is_pro = ! NX_CONSTANTS::is_pro();
         $froms = [
-            'wp_reviews' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+            'wp_reviews' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+                'title' => 'WP.Org Reviews'
+            ),
             'freemius' => array(
                 'is_pro' => $is_pro,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg'
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg',
+                'title' => 'Freemius'
             ),
             'zapier'    => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.jpg',
-                'is_pro' => $is_pro
+                'is_pro' => $is_pro,
+                'title' => 'Zapier'
             ),
         ];
         $forms = apply_filters('nx_reviews_source_options', $froms );
@@ -283,10 +302,14 @@ class NotificationX_Helper {
     public static function stats_source( $from = '' ) {
         $is_pro = ! NX_CONSTANTS::is_pro();
         $froms = [
-            'wp_stats' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+            'wp_stats' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+                'title' => 'WP.Org Stats'
+            ),
             'freemius' => array(
                 'is_pro' => $is_pro,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg'
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg',
+                'title' => 'Freemius'
             ),
         ];
         $forms = apply_filters('nx_stats_source_options', $froms );
