@@ -287,6 +287,9 @@ class NotificationX_Settings {
                     self::$pro_modules[ $module_key ] = false;
                     if( isset( $module['version'] ) ) {
                         self::$pro_modules[ $module_key ] = $module['version'];
+                        if( defined( 'NOTIFICATIONX_PRO_VERSION' ) && version_compare( NOTIFICATIONX_PRO_VERSION, $module['version'], '>=' ) ) {
+                            self::$pro_modules[ $module_key ] = false;
+                        }
                     }
                 } else {
                     self::$free_modules[ $module_key ] = false;
