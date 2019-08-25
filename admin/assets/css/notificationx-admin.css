@@ -2359,3 +2359,18 @@ h4.nx-admin-title {
     background-color: #0ccf9f;
     color: #fff;
 }
+
+.nx-no-module-on {
+    padding: 50px;
+    background-color: #fff;
+}
+
+.nx-no-module-on img {
+    width: 200px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.nx-no-module-on p {
+    font-size: 20px;
+}
