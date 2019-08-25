@@ -357,6 +357,10 @@ h2.nx-meta-section-title .nx-section-reset {
     color: #403E3C;
 }
 
+.nx-info-message a {
+    color: #6c63ff;
+}
+
 /*
 Form Input CSS
 */
