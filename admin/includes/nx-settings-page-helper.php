@@ -64,6 +64,12 @@ function notificationx_settings_args(){
                             'version' => '1.2.0',
                             'link' => 'https://notificationx.com/docs/how-to-display-learndash-course-enrollment-alert-using-notificationx'
                         ),
+                        'modules_give' => array(
+                            'is_pro' => true,
+                            'title' => __('Give', 'notificationx'),
+                            'version' => '1.2.0',
+                            'link' => 'https://notificationx.com/docs/'
+                        ),
                     )),
                     'views' => 'NotificationX_Settings::modules'
                 ),
