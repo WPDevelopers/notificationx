@@ -28,6 +28,14 @@
 			}
 		});
 
+		var qVars = $.notificationx.get_query_vars('page');
+		if (qVars != undefined) {
+			if (qVars.indexOf('nx-settings') >= 0) {
+				var cSettingsTab = qVars.split('#');
+				$('.nx-settings-menu li[data-tab="' + cSettingsTab[1] + '"]').trigger('click');
+			}
+		}
+
 		$('body').on('change', '.nx_meta_display_type', function () {
 			var type = $(this).val();
 			switch (type) {
@@ -905,6 +913,17 @@
 			final = newItemLine.join('<br>');
 			editable.html(final);
 		});
+	};
+
+	$.notificationx.get_query_vars = function (name) {
+		var vars = {};
+		window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+			vars[key] = value;
+		});
+		if (name != '') {
+			return vars[name];
+		}
+		return vars;
 	};
 
 
