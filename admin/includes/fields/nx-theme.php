@@ -9,7 +9,10 @@
     
     $theme_title = '';
     $type_content = isset( $field['type_content'] ) ? $field['type_content'] : false;
-    $value = isset( $options[ $value ] ) ? $value : key( $options );
+    $value = isset( $options[ $value ] ) ? $value : $options;
+    if( is_array( $value ) ) {
+        $value = key( $value );
+    }
 ?>
 
 <div class="nx-theme-control-wrapper" data-name="<?php echo $name; ?>">
