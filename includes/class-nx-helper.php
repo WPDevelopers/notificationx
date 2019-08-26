@@ -220,7 +220,7 @@ class NotificationX_Helper {
                 'title' => 'Freemius'
             ),
             'zapier' => array(
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.jpg',
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.png',
                 'is_pro' => $is_pro,
                 'title' => 'Zapier'
             ),
@@ -287,7 +287,7 @@ class NotificationX_Helper {
                 'title' => 'Freemius'
             ),
             'zapier'    => array(
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.jpg',
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.png',
                 'is_pro' => $is_pro,
                 'title' => 'Zapier'
             ),
