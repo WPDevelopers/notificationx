@@ -488,7 +488,7 @@ class NotificationX_Helper {
             }
         }
         if( ! empty( $modules ) ) {
-            $modules_we_can_run = [];
+            $modules_we_can_run = null;
             foreach( $modules as $key => $s_module ) {
                 if( $s_module ) {
                     if( isset( $modules_we_have[ $key ] ) ) {
