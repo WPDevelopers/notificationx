@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, live sales feed, recent sales noti
 Requires at least: 4.0
 Tested up to: 5.2
 Requires PHP: 5.4
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -107,11 +107,20 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
+= 1.2.4 - 26/08/2019 =
+
+- Fixed : Module settings and activation issue
+- Fixed : Module settings and activation issue
+- Improved : Theme options selection
+- Few minor bugfix and improvement
+
 = 1.2.3 - 22/08/2019 =
 
 - Added : Support for LearnDash and Envato integration
 - Improved : Few theming issue
 - Few minor bugfix and improvement
+
+= 1.2.2 - 20/08/2019 =
 
 - Fixed : Close cookie issue
 - Fixed : Notification Bar advanced design issue
