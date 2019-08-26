@@ -40,18 +40,22 @@
 			var type = $(this).val();
 			switch (type) {
 				case 'conversions':
+					$('.nx-themes .nx_meta_theme:checked').trigger('change');
 					$.notificationx.trigger('.nx_meta_conversion_from');
 					$('#nx_meta_advance_edit').trigger('change');
 					break;
 				case 'comments':
+					$('.nx-comment_themes .nx_meta_comment_theme:checked').trigger('change');
 					$.notificationx.trigger('.nx_meta_comments_source');
 					$('#nx_meta_comment_advance_edit').trigger('change');
 					break;
 				case 'reviews':
+					$('.nx-wporg_themes .nx_meta_wporg_theme:checked').trigger('change');
 					$.notificationx.trigger('.nx_meta_reviews_source');
 					$('#nx_meta_wporg_advance_edit').trigger('change');
 					break;
 				case 'download_stats':
+					$('.nx-wpstats_themes .nx_meta_wpstats_theme:checked').trigger('change');
 					$.notificationx.trigger('.nx_meta_stats_source');
 					$('#nx_meta_wpstats_advance_edit').trigger('change');
 					break;
@@ -139,7 +143,11 @@
 		if (source == undefined) {
 			$(selector + ':first').trigger('click');
 		} else {
-			$(selector + ':checked').trigger('change');
+			if ($(selector + ':checked').is(':disabled')) {
+				$('.nx-radio-pro').trigger('click');
+			} else {
+				$(selector + ':checked').trigger('change');
+			}
 		}
 	};
 
