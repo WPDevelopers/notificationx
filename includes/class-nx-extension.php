@@ -70,6 +70,25 @@ class NotificationX_Extension {
 
         $this->template_name = $template;
     }
+    /**
+     * To check plugins installed or not
+     * @param string $plugin_file
+     * @return boolean
+     * @since 1.2.4
+     */
+    public function plugins( $plugin_file = '' ){
+        if( empty( $plugin_file ) ) {
+            return false;
+        }
+        if( ! function_exists( 'get_plugins' ) ) {
+            require ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+        $plugins = get_plugins();
+        if( isset( $plugins[ $plugin_file ] ) ) {
+            return true;
+        }
+        return false;
+    }
 
     public function template_name( $data ){
         if( $this->template_name ) {

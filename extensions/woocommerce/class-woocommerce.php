@@ -83,9 +83,11 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         $fields = [];
 
         if( ! class_exists( 'WooCommerce' ) ) {
+            $installed = $this->plugins( 'woocommerce/woocommerce.php' );
+            $url = admin_url('plugin-install.php?s=woocommerce&tab=search&type=term');
             $fields['has_no_woo'] = array(
                 'type'     => 'message',
-                'message'    => __('You have to install WooCommerce plugin first.' , 'notificationx'),
+                'message'    => __('You have to install <a href="'. $url .'">WooCommerce</a> plugin first.' , 'notificationx'),
                 'priority' => 0,
             );
         }

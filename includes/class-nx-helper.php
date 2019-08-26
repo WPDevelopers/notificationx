@@ -206,27 +206,40 @@ class NotificationX_Helper {
     public static function conversion_from( $from = '' ) {
         $is_pro = ! NX_CONSTANTS::is_pro();
         $froms = [
-            'woocommerce' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/woocommerce.jpg',
-            'edd'         => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/edd.jpg',
+            'woocommerce' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/woocommerce.jpg',
+                'title' => 'WooCommerce'
+            ),
+            'edd'         => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/edd.jpg',
+                'title' => 'Easy Digital Downloads'
+            ),
             'freemius'    => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg',
                 'is_pro' => $is_pro,
+                'title' => 'Freemius'
             ),
             'zapier' => array(
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.jpg',
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.png',
                 'is_pro' => $is_pro,
+                'title' => 'Zapier'
             ),
             'learndash' => array(
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/learndash.png',
-                'is_pro' => $is_pro,
+                'source'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/learndash.png',
+                'is_pro'  => $is_pro,
+                'version' => '1.2.0',
+                'title' => 'LearnDash'
             ),
             'envato' => array(
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/envato.png',
-                'is_pro' => $is_pro,
+                'source'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/envato.png',
+                'is_pro'  => $is_pro,
+                'version' => '1.2.0',
+                'title' => 'Envato'
             ),
             'custom_notification' => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/custom.jpg',
                 'is_pro' => $is_pro,
+                'title' => __( 'Custom Notification', 'notificationx' )
             ),
         ];
         $forms = apply_filters('nx_conversions_from', $froms );
@@ -244,7 +257,10 @@ class NotificationX_Helper {
      */
     public static function comments_source( $from = '' ) {
         $froms = [
-            'wp_comments' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+            'wp_comments' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+                'title' => 'WP Comments'
+            ),
         ];
         $forms = apply_filters('nx_comments_source_options', $froms );
         $forms = self::active_modules( $forms );
@@ -261,14 +277,19 @@ class NotificationX_Helper {
     public static function reviews_source( $from = '' ) {
         $is_pro = ! NX_CONSTANTS::is_pro();
         $froms = [
-            'wp_reviews' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+            'wp_reviews' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+                'title' => 'WP.Org Reviews'
+            ),
             'freemius' => array(
                 'is_pro' => $is_pro,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg'
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg',
+                'title' => 'Freemius'
             ),
             'zapier'    => array(
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.jpg',
-                'is_pro' => $is_pro
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.png',
+                'is_pro' => $is_pro,
+                'title' => 'Zapier'
             ),
         ];
         $forms = apply_filters('nx_reviews_source_options', $froms );
@@ -281,10 +302,14 @@ class NotificationX_Helper {
     public static function stats_source( $from = '' ) {
         $is_pro = ! NX_CONSTANTS::is_pro();
         $froms = [
-            'wp_stats' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+            'wp_stats' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+                'title' => 'WP.Org Stats'
+            ),
             'freemius' => array(
                 'is_pro' => $is_pro,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg'
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg',
+                'title' => 'Freemius'
             ),
         ];
         $forms = apply_filters('nx_stats_source_options', $froms );
@@ -398,20 +423,32 @@ class NotificationX_Helper {
         }
         return $types;
     }
-
+    /**
+     * Check Active Modules or Not
+     *
+     * @param array $types
+     * @return array
+     * @since 1.2.2
+     */
     public static function active_modules( $types ) {
         $active_modules = NotificationX_DB::get_settings('nx_modules');
+        if( empty( $active_modules ) ) {
+            return $types;
+        }
         if( isset( $active_modules['modules_bar'] ) && $active_modules['modules_bar'] == false ) {
             unset( $types['press_bar'] );
         }
         $module_source = self::modules();
-
+        
         if( ! empty( $module_source ) ) {
             foreach( $module_source as $parent_type => $module ) {
                 if( is_array( $module ) ) {
                     $module_counter = count( $module );
                     foreach( $module as $source_key => $single_module ) {
                         if( isset( $active_modules[ $single_module ] ) && $active_modules[ $single_module ] == false ) {
+                            $module_counter--;
+                        }
+                        if( ! isset( $active_modules[ $single_module ] ) ) {
                             $module_counter--;
                         }
                     }
@@ -426,10 +463,42 @@ class NotificationX_Helper {
                             unset( $types[ $parent_type ] );
                         } 
                     }
+                    if( ! isset( $active_modules[ $module ] ) ) {
+                        if( isset( $types[ $parent_type ] ) ) {
+                            unset( $types[ $parent_type ] );
+                        }
+                    }
                 }
             }
         }
+
         return $types;
+    }
+
+    public static function modules_in_action( $modules ){
+        $module_source = self::modules();
+        $modules_we_have = [];
+        foreach( $module_source as $module ){
+            if( is_array( $module ) ) {
+                foreach( $module as $i_module ){
+                    $modules_we_have[ $i_module ] = '';
+                }
+            } else {
+                $modules_we_have[ $module ] = '';
+            }
+        }
+        if( ! empty( $modules ) ) {
+            $modules_we_can_run = null;
+            foreach( $modules as $key => $s_module ) {
+                if( $s_module ) {
+                    if( isset( $modules_we_have[ $key ] ) ) {
+                        $modules_we_can_run[ $key ] = true;
+                    }
+                }
+            }
+            return $modules_we_can_run;
+        }
+        return null;
     }
 
     public static function modules(){
@@ -757,7 +826,10 @@ class NotificationX_Helper {
                 $number = $n;
                 break;
         }
-        $number = number_format($number, 1);
+        $number = number_format($number);
+        if( strpos( $number, '.') !== false && strpos( $number, '.') >= 0 ) {
+            $number = number_format($number, 1 );
+        }
         return $number . $suffix;
     }
 

@@ -66,21 +66,24 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
     }
 
     public function settings_by_theme( $data ){
+        global $post, $pagenow;
+        $save_field = get_post_meta( $post->ID, '_nx_meta_wp_stats_template_new', true );
+
         $data['nx_meta_wp_stats_template_new'] = array(
             'today-download' => array(
-                'first_param' => 'tag_name',
-                'third_param' => 'tag_today',
-                'fourth_param' => 'tag_today_text',
+                'first_param'  => isset( $save_field['first_param'] ) ? $save_field['first_param'] : 'tag_name',
+                'third_param'  => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_today',
+                'fourth_param' => isset( $save_field['fourth_param'] ) ? $save_field['fourth_param'] : 'tag_today_text',
             ),
             '7day-download' => array(
-                'first_param' => 'tag_name',
-                'third_param' => 'tag_last_week',
-                'fourth_param' => 'tag_last_week_text',
+                'first_param'  => isset( $save_field['first_param'] ) ? $save_field['first_param'] : 'tag_name',
+                'third_param'  => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_last_week',
+                'fourth_param' => isset( $save_field['fourth_param'] ) ? $save_field['fourth_param'] : 'tag_last_week_text',
             ),
             'total-download' => array(
-                'first_param' => 'tag_name',
-                'third_param' => 'tag_all_time',
-                'fourth_param' => 'tag_all_time_text',
+                'first_param'  => isset( $save_field['first_param'] ) ? $save_field['first_param'] : 'tag_name',
+                'third_param'  => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_all_time',
+                'fourth_param' => isset( $save_field['fourth_param'] ) ? $save_field['fourth_param'] : 'tag_all_time_text',
             )
         );
         return $data;
@@ -98,6 +101,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         $data['yesterday'] = __( NotificationX_Helper::nice_number( $saved_data['yesterday'] ) . ' times', 'notificationx' );
         $data['last_week'] = __( NotificationX_Helper::nice_number( $saved_data['last_week'] ) . ' times in last 7 days', 'notificationx' );
         $data['all_time'] = __( NotificationX_Helper::nice_number( $saved_data['all_time'] ) . ' times', 'notificationx' );
+        $data['active_installs'] = __( NotificationX_Helper::nice_number( $saved_data['active_installs'] ), 'notificationx' );
         
         $data['today_text'] = __( 'Try It Out', 'notificationx' );
         $data['last_week_text'] = __( 'Get Started for Free.', 'notificationx' );
@@ -382,10 +386,10 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
                     'priority' => 5,
                     'options'  => array(
                         'tag_name' => __('Plugin/Theme Name' , 'notificationx'),
-                        'tag_custom_stats' => __('Custom' , 'notificationx'),
+                        'tag_custom' => __('Custom' , 'notificationx'),
                     ),
                     'dependency' => array(
-                        'tag_custom_stats' => array(
+                        'tag_custom' => array(
                             'fields' => [ 'custom_third_param' ]
                         )
                     ),

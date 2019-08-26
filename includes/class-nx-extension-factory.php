@@ -41,7 +41,6 @@ class Extension_Factory {
      */
     public function load(){
         $extensions = $this->extensions;
-        $extensions = NotificationX_Helper::active_modules( $extensions );
         if( ! empty( $extensions ) ) {
             foreach( $extensions as $extension ) {
                 $object = new $extension;

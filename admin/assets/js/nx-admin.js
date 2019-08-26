@@ -28,6 +28,14 @@
 			}
 		});
 
+		var qVars = $.notificationx.get_query_vars('page');
+		if (qVars != undefined) {
+			if (qVars.indexOf('nx-settings') >= 0) {
+				var cSettingsTab = qVars.split('#');
+				$('.nx-settings-menu li[data-tab="' + cSettingsTab[1] + '"]').trigger('click');
+			}
+		}
+
 		$('body').on('change', '.nx_meta_display_type', function () {
 			var type = $(this).val();
 			switch (type) {
@@ -257,6 +265,10 @@
 			premium_anchor.setAttribute('href', 'https://wpdeveloper.net/in/notificationx-pro');
 			premium_anchor.innerText = 'Premium';
 			premium_anchor.style.color = 'red';
+			var pro_label = $(this).find('.nx-pro-label');
+			if (pro_label.hasClass('has-to-update')) {
+				premium_anchor.innerText = 'Latest Pro v' + pro_label.text().toString().replace(/[ >=<]/g, '');
+			}
 			premium_content.innerHTML = 'You need to upgrade to the <strong>' + premium_anchor.outerHTML + ' </strong> Version to use this module.';
 
 			swal({
@@ -901,6 +913,17 @@
 			final = newItemLine.join('<br>');
 			editable.html(final);
 		});
+	};
+
+	$.notificationx.get_query_vars = function (name) {
+		var vars = {};
+		window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+			vars[key] = value;
+		});
+		if (name != '') {
+			return vars[name];
+		}
+		return vars;
 	};
 
 

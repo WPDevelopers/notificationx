@@ -334,7 +334,11 @@ class NotificationX_Admin {
 		}
 
 		$template = apply_filters( 'nx_template_name', array() );
-		$template_settings = apply_filters( 'nx_template_settings_by_theme', array() );
+		$template_settings = array();
+		global $post;
+		if( is_object( $post ) ) {
+			$template_settings = apply_filters( 'nx_template_settings_by_theme', array() );
+		}
 
 		return array( 
 			'toggleFields'      => $conditions, // TODO: toggling system has to be more optimized! 
@@ -862,13 +866,17 @@ class NotificationX_Admin {
 			}
 
 			if( $flag ) {
+				/**
+				 * TODO: it has to be update in a new way! more dynamic way!
+				 */
 				if( $_POST['nx_meta_display_type'] == 'press_bar' )  {
 					$title = __('NotificationX - Notification Bar', 'notificationx');
 				} elseif( $_POST['nx_meta_display_type'] == 'comments' )  {
 					$title = __('NotificationX - WP Comments', 'notificationx');
 				} elseif( $_POST['nx_meta_display_type'] == 'conversions' )  {
 					$conversions = NotificationX_Helper::conversion_from();
-					$title = 'NotificationX - ' . $conversions[$_POST['nx_meta_conversion_from']];
+					$sub = isset( $conversions[$_POST['nx_meta_conversion_from']]['title'] ) ? $conversions[$_POST['nx_meta_conversion_from']]['title'] : '';
+					$title = 'NotificationX - ' . $sub;
 				} else {
 					$title_temp = NotificationX_Helper::notification_types( $_POST['nx_meta_display_type'] );
 					$title = 'NotificationX - ' . $title_temp;

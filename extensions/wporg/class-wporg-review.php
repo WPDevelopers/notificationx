@@ -41,36 +41,39 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
     }
 
     public function settings_by_theme( $data ){
+        global $post, $pagenow;
+        $save_field = get_post_meta( $post->ID, '_nx_meta_wp_reviews_template_new', true );
+        
         $data['nx_meta_wp_reviews_template_new'] = array(
             'reviewed' => array(
-                'first_param' => 'tag_username',
-                'third_param' => 'tag_plugin_name',
-                'second_param' => 'just reviewed',
-                'fourth_param' => 'tag_rating',
+                'first_param' => isset( $save_field['first_param'] ) ? $save_field['first_param'] : 'tag_username',
+                'second_param' => isset( $save_field['second_param'] ) ? $save_field['second_param'] : 'just reviewed',
+                'third_param' => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_plugin_name',
+                'fourth_param' => isset( $save_field['fourth_param'] ) ? $save_field['fourth_param'] : 'tag_rating',
             ),
             'total-rated' => array(
-                'first_param' => 'tag_rated',
-                'second_param' => 'people rated',
-                'third_param' => 'tag_plugin_name',
-                'fourth_param' => 'tag_rating',
+                'first_param' => isset( $save_field['first_param'] ) ? $save_field['first_param'] : 'tag_rated',
+                'second_param' => isset( $save_field['second_param'] ) ? $save_field['second_param'] : 'people rated',
+                'third_param' => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_plugin_name',
+                'fourth_param' => isset( $save_field['fourth_param'] ) ? $save_field['fourth_param'] : 'tag_rating',
             ),
             'review-comment' => array(
-                'first_param' => 'tag_username',
-                'second_param' => 'just reviewed',
-                'third_param' => 'tag_plugin_review',
-                'fourth_param' => 'tag_rating',
+                'first_param' => isset( $save_field['first_param'] ) ? $save_field['first_param'] : 'tag_username',
+                'second_param' => isset( $save_field['second_param'] ) ? $save_field['second_param'] : 'just reviewed',
+                'third_param' => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_plugin_review',
+                'fourth_param' => isset( $save_field['fourth_param'] ) ? $save_field['fourth_param'] : 'tag_rating',
             ),
             'review-comment-2' => array(
-                'first_param' => 'tag_username',
-                'second_param' => 'just reviewed',
-                'third_param' => 'tag_plugin_review',
-                'fourth_param' => 'tag_rating',
+                'first_param' => isset( $save_field['first_param'] ) ? $save_field['first_param'] : 'tag_username',
+                'second_param' => isset( $save_field['second_param'] ) ? $save_field['second_param'] : 'just reviewed',
+                'third_param' => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_plugin_review',
+                'fourth_param' => isset( $save_field['fourth_param'] ) ? $save_field['fourth_param'] : 'tag_rating',
             ),
             'review-comment-3' => array(
-                'first_param' => 'tag_username',
-                'second_param' => 'just reviewed',
-                'third_param' => 'tag_plugin_review',
-                'fourth_param' => 'tag_time',
+                'first_param' => isset( $save_field['first_param'] ) ? $save_field['first_param'] : 'tag_username',
+                'second_param' => isset( $save_field['second_param'] ) ? $save_field['second_param'] : 'just reviewed',
+                'third_param' => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_plugin_review',
+                'fourth_param' => isset( $save_field['fourth_param'] ) ? $save_field['fourth_param'] : 'tag_time',
             )
         );
 
