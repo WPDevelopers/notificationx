@@ -110,7 +110,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 = 1.2.4 - 26/08/2019 =
 
 - Fixed : Module settings and activation issue
-- Fixed : Module settings and activation issue
+- Fixed : Quick builder issue
 - Improved : Theme options selection
 - Few minor bugfix and improvement
 
