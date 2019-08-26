@@ -39,9 +39,10 @@
                 <?php 
                     if( $is_pro_check && isset( $module['version'] ) ) {
                         echo '<sup class="nx-pro-label has-to-update"> >'. $module['version'] .'</sup>'; 
+                    } else {
+                        echo ! $is_pro_module && isset( $module['is_pro'] ) ? '<sup class="nx-pro-label nx-pro-access">Pro</sup>' : ''; 
                     }
                     echo $is_pro_module ? '<sup class="nx-pro-label">Pro</sup>' : ''; 
-                    echo ! $is_pro_module && isset( $module['is_pro'] ) ? '<sup class="nx-pro-label nx-pro-access">Pro</sup>' : ''; 
                 ?>
                 </p>
             </div>

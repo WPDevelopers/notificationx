@@ -6,12 +6,24 @@
 
     $totaltabs = count( $tabs );
     $position = intval( array_search( $current_tab, array_keys( $tabs ) ) + 1 );
+
+    $active_modules = NotificationX_Helper::modules_in_action( NotificationX_DB::get_settings('nx_modules') );
+    $flag = empty( $active_modules ) && ! is_null( $active_modules ) ? true : false;
+    if( ! empty( $active_modules ) ) {
+        foreach( $active_modules as $module ) {
+            if( $module == true ) {
+                $flag = true;
+            }
+        }
+    }
 ?>
 <div class="nx-builder-wrapper">
 
     <div class="nx-builder-header">
         <h1><?php _e( 'NotificationX Quick Builder', 'notificationx' ); ?></h1>
     </div>
+
+    <?php if( $flag ) : ?>
 
     <div class="nx-builder-tab-menu">
     <?php if( ! empty( $tabs ) ) : ?>
@@ -118,4 +130,10 @@
 
         </div>
     </div>
+    <?php else : ?>
+    <style> #publish.button.button-primary.button-large {display: none;}</style>
+    <div class="nx-no-module-on">
+        <p><img src="<?php echo NOTIFICATIONX_URL; ?>/admin/assets/img/nx-logo.png" alt=""><?php _e( 'Make sure you have module on from your NotificationX <a href="'. admin_url('admin.php?page=nx-settings') .'">settings</a>.', 'notificationx' ); ?></p>
+    </div>
+    <?php endif; ?>
 </div>
