@@ -2098,7 +2098,7 @@ body.wp-admin.rtl .ui-datepicker {
 }
 
 .nx-display_type .nx-single-theme-wrapper>input:checked+label+.nx-pro-label-wrapper .nx-pro-label.nx-pro-access {
-    z-index: 1;
+    z-index: 9;
     background-color: #05b589;
 }
 

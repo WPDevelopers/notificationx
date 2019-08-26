@@ -19,11 +19,13 @@ if( ! $current_tab == array_search( $current_tab, array_keys( $tabs) ) ) {
 }
 $totaltabs = count( $tabs );
 $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
-$active_modules = array_values( NotificationX_DB::get_settings('nx_modules') );
-$flag = false;
-foreach( $active_modules as $module ) {
-    if( $module == true ) {
-        $flag = true;
+$active_modules = NotificationX_Helper::modules_in_action( NotificationX_DB::get_settings('nx_modules') );
+$flag = empty( $active_modules ) ? true : false;
+if( ! empty( $active_modules ) ) {
+    foreach( $active_modules as $module ) {
+        if( $module == true ) {
+            $flag = true;
+        }
     }
 }
 ?>

@@ -475,6 +475,32 @@ class NotificationX_Helper {
         return $types;
     }
 
+    public static function modules_in_action( $modules ){
+        $module_source = self::modules();
+        $modules_we_have = [];
+        foreach( $module_source as $module ){
+            if( is_array( $module ) ) {
+                foreach( $module as $i_module ){
+                    $modules_we_have[ $i_module ] = '';
+                }
+            } else {
+                $modules_we_have[ $module ] = '';
+            }
+        }
+        if( ! empty( $modules ) ) {
+            $modules_we_can_run = [];
+            foreach( $modules as $key => $s_module ) {
+                if( $s_module ) {
+                    if( isset( $modules_we_have[ $key ] ) ) {
+                        $modules_we_can_run[ $key ] = true;
+                    }
+                }
+            }
+            return $modules_we_can_run;
+        }
+        return null;
+    }
+
     public static function modules(){
         return apply_filters( 'nx_modules_source', array(
             'press_bar' => 'modules_bar',
