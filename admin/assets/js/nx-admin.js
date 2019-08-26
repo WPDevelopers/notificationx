@@ -265,7 +265,7 @@
 			premium_anchor.setAttribute('href', 'https://wpdeveloper.net/in/notificationx-pro');
 			premium_anchor.innerText = 'Premium';
 			premium_anchor.style.color = 'red';
-			var pro_label = $(this).find('.pro-label');
+			var pro_label = $(this).find('.nx-pro-label');
 			if (pro_label.hasClass('has-to-update')) {
 				premium_anchor.innerText = 'Latest Pro v' + pro_label.text().toString().replace(/[ >=<]/g, '');
 			}

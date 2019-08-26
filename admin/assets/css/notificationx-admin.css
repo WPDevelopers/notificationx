@@ -2058,9 +2058,9 @@ body.wp-admin.rtl .ui-datepicker {
     font-size: 12px;
 }
 
-.nx-api-integration-settings .pro-label,
-.nx-single-theme-wrapper .pro-label,
-.nx-checkbox .pro-label {
+.nx-api-integration-settings .nx-pro-label,
+.nx-single-theme-wrapper .nx-pro-label,
+.nx-checkbox .nx-pro-label {
     font-size: 14px;
     color: #ffffff;
     text-transform: uppercase;
@@ -2090,7 +2090,14 @@ body.wp-admin.rtl .ui-datepicker {
     color: #fff;
 }
 
-sup.pro-label.has-to-update {
+.nx-api-integration-settings .nx-pro-label.nx-pro-access,
+.nx-single-theme-wrapper .nx-pro-label.nx-pro-access,
+.nx-checkbox .nx-pro-label.nx-pro-access {
+    background-color: #0ccf9f;
+    background-image: none;
+}
+
+sup.nx-pro-label.has-to-update {
     font-size: 10px;
     line-height: 20px;
 }
@@ -2352,7 +2359,7 @@ h4.nx-admin-title {
     width: 100%;
 }
 
-.nx-single-theme-wrapper .pro-label {
+.nx-single-theme-wrapper .nx-pro-label {
     height: 30px;
     line-height: 30px;
     left: -29px;

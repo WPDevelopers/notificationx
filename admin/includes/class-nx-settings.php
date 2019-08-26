@@ -246,7 +246,7 @@ class NotificationX_Settings {
                         if( isset( $section['title'] ) ) {
                             $title = $section['title'];
                             if( ! NX_CONSTANTS::is_pro() ) {
-                                $title .= '<sup class="pro-label">Pro</sup>';
+                                $title .= '<sup class="nx-pro-label">Pro</sup>';
                             }
                         }
                         echo !empty( $title ) ? '<h3 class="nx-api-integration-header">' . $title . '</h3>' : '';
