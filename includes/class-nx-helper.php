@@ -214,6 +214,11 @@ class NotificationX_Helper {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/edd.jpg',
                 'title' => 'Easy Digital Downloads'
             ),
+            'give' => array(
+                'source'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/give.png',
+                'version' => '1.2.5',
+                'title' => 'Give'
+            ),
             'freemius'    => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg',
                 'is_pro' => $is_pro,
@@ -512,7 +517,8 @@ class NotificationX_Helper {
             'wp_reviews' => 'modules_wordpress',
             'conversions' => array(
                 'modules_woocommerce',
-                'modules_edd'
+                'modules_edd',
+                'modules_give'
             ),
             'download_stats' => array(
                 'modules_wordpress',
@@ -522,6 +528,7 @@ class NotificationX_Helper {
             ),
             'woocommerce' => 'modules_woocommerce',
             'edd' => 'modules_edd',
+            'give' => 'modules_give',
         ));
     }
 
@@ -759,6 +766,7 @@ class NotificationX_Helper {
             'edd'         => 'theme',
             'wp_reviews'  => 'wporg_theme',
             'wp_stats'    => 'wpstats_theme',
+            'give'         => 'theme',
         ));
     }
 
@@ -792,6 +800,7 @@ class NotificationX_Helper {
             'edd'         => 'woo_template_new',
             'wp_reviews'  => 'wp_reviews_template_new',
             'wp_stats'  => 'wp_stats_template_new',
+            'give' => 'woo_template_new'
         ));
     }
     /**

@@ -29,8 +29,12 @@
                     if( is_array( $opt_value ) ) {
                         $is_pro = isset( $opt_value['is_pro'] ) ? $opt_value['is_pro'] : $is_pro;
                         $is_version = 'Pro';
-                        if( isset( $opt_value['version'] ) && ! $is_pro && defined( 'NOTIFICATIONX_PRO_VERSION' ) ) {
-                            $is_pro = version_compare( NOTIFICATIONX_PRO_VERSION, $opt_value['version'], '<=' );
+                        if( isset( $opt_value['version'] ) && isset( $module['is_pro'] ) && ! $is_pro && defined( 'NOTIFICATIONX_PRO_VERSION' ) ) {
+                            $is_pro = version_compare( NOTIFICATIONX_PRO_VERSION, $opt_value['version'], '<' );
+                            $is_version = '>' . $opt_value['version'];
+                        }
+                        if( isset( $opt_value['version'] ) && ! $is_pro && defined( 'NOTIFICATIONX_VERSION' ) ) {
+                            $is_pro = version_compare( NOTIFICATIONX_VERSION, $opt_value['version'], '<' );
                             $is_version = '>' . $opt_value['version'];
                         }
                         $opt_value = isset( $opt_value['source'] ) ? $opt_value['source'] : '';
