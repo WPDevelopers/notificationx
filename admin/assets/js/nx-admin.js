@@ -67,6 +67,9 @@
 				case 'woocommerce' || 'edd':
 					$('#nx_meta_woo_template_adv').trigger('change');
 					break;
+				case 'give':
+					$('#nx_meta_give_forms_control').trigger('change');
+					break;
 			}
 		});
 

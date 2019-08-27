@@ -146,6 +146,7 @@ final class NotificationX {
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'wporg/class-wporg-stats.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'woocommerce/class-woocommerce.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'edd/class-edd.php';
+		require_once NOTIFICATIONX_EXT_DIR_PATH . 'give/class-give.php';
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
@@ -184,6 +185,7 @@ final class NotificationX {
 			'wp_stats'    => 'NotificationXPro_WPOrgStats_Extension',
 			'woocommerce' => 'NotificationX_WooCommerce_Extension',
 			'edd'         => 'NotificationX_EDD_Extension',
+			'give'        => 'NotificationX_Give_Extension',
 		];
 
 		foreach( $extensions as $key => $extension ) {
