@@ -79,8 +79,7 @@ span.notificationx-close>svg {
     border-radius: 0px !important;
 }
 
-.notificationx-image img.nx-img-circle,
-.notificationx-image>img {
+.notificationx-image img.nx-img-circle {
     border-radius: 50% !important;
 }
 
@@ -88,7 +87,7 @@ span.notificationx-close>svg {
     border-radius: 5px !important;
 }
 
-.notificationx-image>img {
+.notificationx-image > img {
     width: 100%;
 }
 
@@ -111,6 +110,7 @@ span.notificationx-close>svg {
     min-width: 200px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 .notificationx-content>span {
@@ -560,6 +560,7 @@ a.nx-powered-by:hover {
     border-radius: 10px;
     box-shadow: 0 0 30px rgba(36, 30, 157, .12);
     font-family: 'Roboto', sans-serif;
+    min-width: 250px;
 }
 
 .nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .notificationx-content .nx-first-row,
@@ -745,8 +746,15 @@ a.nx-powered-by:hover {
     margin-top: -4px;
 }
 
-.notificationx-inner.nx-notification-theme-six-free .notificationx-image img {
-    border-radius: 0px !important;
+.notificationx-inner.nx-notification-theme-six-free .notificationx-image img,
+.notificationx-inner.nx-notification-theme-six-free .notificationx-image img.nx-img-square {
+    border-radius: 0px;
+}
+.notificationx-inner.nx-notification-theme-six-free .notificationx-image img.nx-img-circle {
+    border-radius: 50%;
+}
+.notificationx-inner.nx-notification-theme-six-free .notificationx-image img.nx-img-rounded {
+    border-radius: 5px;
 }
 
 .nx-reviews .notificationx-image.product_image>img {
