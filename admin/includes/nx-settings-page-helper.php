@@ -31,7 +31,7 @@ function notificationx_settings_args(){
                         'modules_give' => array(
                             'title' => __('Give', 'notificationx'),
                             'version' => '1.2.5',
-                            'link' => 'https://notificationx.com/docs/give'
+                            'link' => 'https://notificationx.com/docs/givewp-donation-alert/'
                         ),
                         'modules_freemius' => array(
                             'is_pro' => true,
