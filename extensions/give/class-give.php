@@ -372,17 +372,15 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
         $user_data['email'] = $donation->email;
         $user_data['country'] = $donation->address['country'];
         $user_data['city'] = $donation->address['city'];
-        if(isset( $_SERVER['REMOTE_ADDR'])){
-            $user_data['ip'] = $_SERVER['REMOTE_ADDR'];
-            if(empty($user_data['country']) || empty($user_data['city'])){
-                $user_ip_data = $this->remote_get('http://ip-api.com/json/' . $user_data['ip']);
-                if($user_ip_data){
-                    if(empty($user_data['country'])){
-                        $user_data['country'] = $user_ip_data->country;
-                    }
-                    if(empty($user_data['city'])){
-                        $user_data['city'] = $user_ip_data->city;
-                    }
+        $user_data['ip'] = give_get_payment_user_ip( $donation->ID );
+        if( ( empty( $user_data['country'] ) || empty( $user_data['city'] ) ) && ! empty( $user_data['ip'] ) ) {
+            $user_ip_data = $this->remote_get('http://ip-api.com/json/' . $user_data['ip']);
+            if( $user_ip_data ) {
+                if( empty( $user_data['country'] ) ) {
+                    $user_data['country'] = $user_ip_data->country;
+                }
+                if(empty($user_data['city'])){
+                    $user_data['city'] = $user_ip_data->city;
                 }
             }
         }
