@@ -15,6 +15,41 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
 
         add_filter( 'nx_notification_link', array( $this, 'notification_link' ), 10, 2 );
     }
+    /**
+     * Template Settings By Theme
+     *  @since 1.2.5
+     */
+    public function settings_by_theme( $data ){
+        global $post, $pagenow;
+        $save_field = get_post_meta( $post->ID, '_nx_meta_comments_template_new', true );
+        $data['nx_meta_comments_template_new'] = array(
+            'theme-one' => array(
+                'third_param'  => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_post_title',
+            ),
+            'theme-two' => array(
+                'third_param'  => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_post_title',
+            ),
+            'theme-three' => array(
+                'third_param'  => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_post_title',
+            ),
+            'theme-four' => array(
+                'third_param'  => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_post_title',
+            ),
+            'theme-five' => array(
+                'third_param'  => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_post_title',
+            ),
+            'theme-six-free' => array(
+                'third_param'  => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_post_comment',
+            ),
+            'theme-seven-free' => array(
+                'third_param'  => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_post_comment',
+            ),
+            'theme-eight-free' => array(
+                'third_param'  => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_post_comment',
+            ),
+        );
+        return $data;
+    }
 
     public function fallback_data( $data, $saved_data, $settings ){
         if( NotificationX_Helper::get_type( $settings ) !== $this->type ) {
