@@ -28,6 +28,11 @@ function notificationx_settings_args(){
                             'title' => __('Easy Digital Downloads', 'notificationx'),
                             'link' => 'https://notificationx.com/docs/notificationx-easy-digital-downloads/'
                         ),
+                        'modules_give' => array(
+                            'title' => __('Give', 'notificationx'),
+                            'version' => '1.2.5',
+                            'link' => 'https://notificationx.com/docs/givewp-donation-alert/'
+                        ),
                         'modules_freemius' => array(
                             'is_pro' => true,
                             'title' => __('Freemius', 'notificationx'),

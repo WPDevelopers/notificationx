@@ -134,6 +134,7 @@ class NotificationX_Extension {
             'wp_reviews', 
             'woocommerce',
             'edd',
+            'give',
         );
 
         self::$enabled_types = NotificationX_Admin::$enabled_types;

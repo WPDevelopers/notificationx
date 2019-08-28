@@ -122,6 +122,9 @@ class NotificationX_Admin {
 	}
 
 	public function redirect_after_publish( $post_ID, $post, $update ){
+		if( defined('NOTIFICATIONX_DEBUG') && NOTIFICATIONX_DEBUG ) {
+			return;
+		}
 		if( ( isset( $_POST['is_quick_builder'] ) && $_POST['is_quick_builder'] == true ) || ( isset( $_GET['action'], $_GET['page'] ) && $_GET['action'] == 'nxduplicate' ) ) {
 			return;
 		}

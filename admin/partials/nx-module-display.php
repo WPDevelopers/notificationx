@@ -24,12 +24,14 @@
              * @since 1.2.4
              */
             if( isset( $module['version'] ) ) {
-                if( $is_pro_module == false 
+                if( ( $is_pro_module == false && isset( $module['is_pro'] )
                     && defined('NOTIFICATIONX_PRO_VERSION') 
-                    && ! version_compare( NOTIFICATIONX_PRO_VERSION, $module['version'], '>=' ) ) {
+                    && version_compare( NOTIFICATIONX_PRO_VERSION, $module['version'], '<' ) ) || ( $is_pro_module == false 
+                    && defined('NOTIFICATIONX_VERSION') 
+                    && version_compare( NOTIFICATIONX_VERSION, $module['version'], '<' ) ) ) {
                     $is_pro_check = true;
                     $module_on = false;
-                } 
+                }
             }
         ?>
             <div class="nx-checkbox <?php echo $is_pro_check ? 'nx-pro-checkbox' : ''; ?>" data-id="<?php echo $module_key; ?>">
