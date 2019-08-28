@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, live sales feed, recent sales noti
 Requires at least: 4.0
 Tested up to: 5.2
 Requires PHP: 5.4
-Stable tag: 1.2.4
+Stable tag: 1.2.5
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -50,7 +50,9 @@ FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing tec
 
 5. **WordPress Download Count:** Display how many people have downloaded your product from WordPress.org recently. [Source: WordPress, Freemius]
 
-6. **Email Subscriptions [PRO]:** MailChimp notification lets you showcase the users who have subscribed to your MailChimp list as a popup on your website. [Source: MailChimp]
+6. **GiveWP Donation Notification:** Display how many people are donating to your cause through GiveWP.
+
+7. **Email Subscriptions [PRO]:** MailChimp notification lets you showcase the users who have subscribed to your MailChimp list as a popup on your website. [Source: MailChimp]
 
 ### Documentation and Support ###
 
@@ -106,6 +108,11 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 7. Notification Bar with Countdown
 
 == Changelog ==
+
+= 1.2.5 - 28/08/2019 =
+
+- Added : GiveWP Donation Notification
+- Few minor bugfix and improvement
 
 = 1.2.4 - 26/08/2019 =
 
