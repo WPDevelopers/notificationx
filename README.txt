@@ -3,7 +3,7 @@ Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul
 Donate link: http://notificationx.com
 Tags: sales notification, fomo, social proof, live sales feed, recent sales notification, woocommerce sales, recent purchase, popups, boost sales, email subscription, increase engagement
 Requires at least: 4.0
-Tested up to: 5.2
+Tested up to: 5.2.2
 Requires PHP: 5.4
 Stable tag: 1.2.5
 License: GPLv3
@@ -66,20 +66,20 @@ FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing tec
 
 2. **Easy Digital Downloads:** Display your clients’ live sales update on the website to build credibility and gather more traffic to boost business growth. 
 
-3. **Freemius[PRO]:** Lets you showcase your customers' real-time sales and review activities through live notification pop up from the Freemius account to your website.
+3. **Freemius [PRO]:** Lets you showcase your customers' real-time sales and review activities through live notification pop up from the Freemius account to your website.
 
 
 4. **GiveWP:** Showcase your donor live notification popup on the website to influence others to make more donations.
 
-5. **Zapier[PRO]:** Integrate Zapier with NotificationX to pull data from supported apps and display custom popups of users real-time notification to convert your visitors into your permanent client. 
+5. **Zapier [PRO]:** Integrate Zapier with NotificationX to pull data from supported apps and display custom popups of users real-time notification to convert your visitors into your permanent client. 
 
-6. **MailChimp[PRO]:** Create urgency among your visitors to signup your email list to get updates and increase your overall engagement rates.  
+6. **MailChimp [PRO]:** Create urgency among your visitors to signup your email list to get updates and increase your overall engagement rates.  
 
-7. **ConvertKit[PRO]:** Enhance your email marketing strategy by showcasing real-time signup activities from ConvertKit and boost site engagement rate instantly.
+7. **ConvertKit [PRO]:** Enhance your email marketing strategy by showcasing real-time signup activities from ConvertKit and boost site engagement rate instantly.
 
-8. **LearnDash[PRO]:** Showcase your course enrollment activities to gain credibility and influence others to signup for your next online course.
+8. **LearnDash [PRO]:** Showcase your course enrollment activities to gain credibility and influence others to signup for your next online course.
 
-9. **Envato[PRO]:** Display your download or sales notification from Envato (Themeforest/CodeCanyon) and increase conversion rates.  
+9. **Envato [PRO]:** Display your download or sales notification from Envato (Themeforest/CodeCanyon) and increase conversion rates.  
 
 
 ## 🏆 FEATURED IN TOP PUBLICATIONS ##
