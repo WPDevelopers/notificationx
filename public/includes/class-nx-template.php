@@ -1,36 +1,60 @@
 <?php
-
+/**
+ * NotificationX_Template is responsible for making NotificationX themes html with 
+ * respective dynamic data
+ * @since 1.0.0
+ */
 class NotificationX_Template {
+	/**
+	 * Row Classes added
+	 * @since 1.2.6
+	 */
+	protected static $row_classes = [
+		'nx-first-row',
+		'nx-second-row',
+		'nx-third-row',
+	];
+	/**
+	 * Word Classes Added
+	 * @since 1.2.6
+	 */
+	protected static $word_classes = [
+		'nx-first-word',
+		'nx-second-word',
+		'nx-third-word',
+		'nx-fourth-word',
+		'nx-fifth-word',
+		'nx-sixth-word',
+		'nx-seventh-word',
+		'nx-eighth-word',
+		'nx-nineth-word',
+		'nx-tenth-word',
+	];
+	/**
+	 * For making template for each notificaion from an array of tag content
+	 * @return html
+	 */
     public static function get_template_ready( $template, $tags, $settings = '', $branding = true ){
 		$html = $template;
 		/**
 		 * If template is in array format, lets break it down and make HTML markup.
 		 */
 		if ( is_array( $template ) ) {
-			$html = '';
-			for ( $i = 0; $i < count( $template ); $i++ ) {
-				if ( $i == 0 ) {
-				    $content = explode(' ',$template[$i]);
-					if( is_admin() && ! empty( $settings ) ) {
-						$html .= '<span class="nx-first-row" '. NotificationX_Public::generate_preview_css( $settings, 'first-row' ) .'><span class="title">' . $content[0] . '</span><span class="sub"> ' . trim(implode(' ',array_slice($content,1))) . '</span></span>';
-					} else {
-						$html .= '<span class="nx-first-row"> <span class="title">' . $content[0] . '</span><span class="sub"> ' . trim(implode(' ',array_slice($content,1))) . '</span></span>';
-					}
+			/**
+			 * New Templating Approach 
+			 * @since 1.2.6
+			 */
+			$html = ''; $template_count = count( $template );
+			for ( $i = 0; $i < $template_count; $i++ ) {
+				$template_content = explode( ' ', trim( $template[$i] ) );
+				$html .= '<div class="'. self::$row_classes[ $i ] .'">';
+				foreach( $template_content as $temp_w_key => $template_word ) {
+					$html .= '<span class="'. self::$word_classes[$temp_w_key] .'">'. $template_word .'</span> ';
 				}
-				if ( $i == 1 ) {
-					if( is_admin() && ! empty( $settings ) ) {
-						$html .= '<span class="nx-second-row" '. NotificationX_Public::generate_preview_css( $settings, 'second-row' ) .'>' . $template[$i] . '</span>';	
-					} else {
-						$html .= '<span class="nx-second-row">' . $template[$i] . '</span>';	
-					}
+				if( $i === ( $template_count - 1 ) ) {
+					$html .= self::branding( $branding );
 				}
-				if ( $i == 2 ) {
-					if( is_admin() && ! empty( $settings ) ) {
-						$html .= '<span class="nx-third-row" '. NotificationX_Public::generate_preview_css( $settings, 'third-row' ) .'>' . $template[$i] . self::branding( $branding ) . '</span>';	
-					} else {
-						$html .= '<span class="nx-third-row">' . $template[$i] . self::branding( $branding ) . '</span>';	
-					}
-				}
+				$html .= '</div>';
 			}
 		}
 		/**
@@ -115,10 +139,12 @@ class NotificationX_Template {
         }
 
         $html = str_replace( '\\', '', $html );
-
         return $html;
 	}
-	
+	/**
+	 * Branding Logo HTML
+	 * @since 1.0.0
+	 */
 	protected static function branding( $branding ) {
 		$output = '';
 		if( $branding ) :
@@ -128,7 +154,6 @@ class NotificationX_Template {
 				$output .= ' by <a href="'. esc_url( $branding_url ) .'" rel="nofollow" target="_blank" class="nx-powered-by">NotificationX</a>';
 			$output .= '</small>';
 		endif;
-
 		return $output;
 	}
 }

@@ -294,8 +294,6 @@ a.nx-bar-button:hover {
 
 /* Nx Bar Theme CSS */
 
-.nx-bar {}
-
 .nx-bar.theme-two {
     background-color: #5704A2;
     color: #FFF;
@@ -472,8 +470,6 @@ a.nx-powered-by:hover {
     top: 50%;
     margin-top: -4px;
 }
-
-.nx-download_stats .nx-notification-theme-two {}
 
 .nx-download_stats .notificationx-content .nx-first-row {
     font-weight: 700;

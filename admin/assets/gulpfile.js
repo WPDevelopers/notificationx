@@ -4,6 +4,9 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var autoprefixer = require('autoprefixer');
 var cleanCSS = require('gulp-clean-css');
+var sass = require('gulp-sass');
+
+sass.compiler = require('node-sass');
 
 var paths = {
 	styles: {
@@ -25,8 +28,20 @@ var paths = {
 	pScripts: {
 		src: '../../public/assets/js/notificationx-public.js',
 		dest: '../../public/assets/js/'
-	}
+	},
+	pSass: {
+		src: '../../public/assets/scss/main.scss',
+		dest: '../../public/assets/b-css/'
+	},
 };
+
+// SASS
+function nx_sass() {
+	return gulp.src(paths.pSass.src)
+	.pipe(postcss( [ autoprefixer() ] ))
+	.pipe(sass().on('error', sass.logError)) 
+	.pipe(gulp.dest(paths.pSass.dest));
+}
 
 function styles() {
 	return gulp.src(paths.styles.src)
@@ -74,12 +89,13 @@ function watch() {
 
 	gulp.watch(paths.pScripts.src, pScripts);
 	gulp.watch(paths.pStyles.src, pStyles);
+	gulp.watch(paths.pSass.src, nx_sass);
 }
 
 /*
  * Specify if tasks run in series or parallel using `gulp.series` and `gulp.parallel`
  */
-var build = gulp.parallel(styles, scripts, gStyles, pStyles, pScripts);
+var build = gulp.parallel(styles, scripts, gStyles, pStyles, pScripts, nx_sass);
 
 /*
  * You can still use `gulp.task` to expose tasks
