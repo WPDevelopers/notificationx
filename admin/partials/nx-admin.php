@@ -176,7 +176,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                     endif;
 
                     if( ! $total_notificationx && ! $trashed ) {
-                        echo '<tr><td colspan="6"><div class="nx-admin-not-found">'. __('No NotificationX is found.', 'notificationx') .'</div></td></tr>';
+                        echo '<tr><td colspan="6"><div class="nx-admin-not-found"><p>'. __('No NotificationX is found.', 'notificationx') .'</p></div></td></tr>';
                     }
                 ?>
                 <!-- <tr><td><p>No NotificationX is found.</p></td></tr> -->
