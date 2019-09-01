@@ -139,7 +139,7 @@ if( isset( $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
                                                 <?php if( ! $trash_page ) : ?>
                                                     <a class="nx-admin-title-edit" href="post.php?action=edit&post=<?php echo $idd; ?>"><?php _e( 'Edit', 'notificationx' ); ?></a>
                                                     <a class="nx-admin-title-duplicate" href="<?php echo esc_url( $duplicate_url ); ?>"><?php _e( 'Duplicate', 'notificationx' ); ?></a>
-                                                <?php else :  ?>
+                                                <?php do_action('nx_admin_title_actions', $idd); else :  ?>
                                                     <a class="nx-admin-title-restore" href="<?php echo wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=untrash', $idd ) ), 'untrash-post_' . $idd ); ?>"><?php _e( 'Restore', 'notificationx' ); ?></a>
                                                 <?php endif; ?>
                                                 <a class="nx-admin-title-trash" href="<?php echo get_delete_post_link( $idd, '', $trashed ); ?>"><?php echo $trash_btn_title; ?></a>

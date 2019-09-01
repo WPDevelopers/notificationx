@@ -183,7 +183,9 @@ class NotificationX_Public {
 				continue;
 			}
 			
-			switch ( $settings->display_type ) {
+			$add_in_list = apply_filters( 'nx_add_in_queue', $settings->display_type, $settings );
+
+			switch ( $add_in_list  ) {
 				case "press_bar":
 					NotificationX_PressBar_Extension::display( $settings );
 					break;

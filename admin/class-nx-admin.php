@@ -177,7 +177,7 @@ class NotificationX_Admin {
 			NOTIFICATIONX_ADMIN_URL . 'assets/css/nx-admin-global.min.css', 
 			array(), $this->version, 'all' 
 		);
-		if( $hook == 'notificationx_page_nx-builder' || $hook == 'notificationx_page_nx-settings' ) {
+		if( $hook == 'notificationx_page_nx-builder' || $hook == 'notificationx_page_nx-settings' || $hook === 'toplevel_page_nx-admin' ) {
 			$page_status = true;
 		}
 		
@@ -206,23 +206,9 @@ class NotificationX_Admin {
 		global $post_type;
 		$page_status = false;
 		
-		if( $hook == 'notificationx_page_nx-builder' || $hook == 'notificationx_page_nx-settings' ) {
+		if( $hook == 'notificationx_page_nx-builder' || $hook == 'notificationx_page_nx-settings' || $hook === 'toplevel_page_nx-admin' ) {
 			$page_status = true;
-		}
-
-		if( $hook === 'toplevel_page_nx-admin' ) {
-			wp_enqueue_script( 
-				$this->plugin_name . '-sweetalert', 
-				NOTIFICATIONX_ADMIN_URL . 'assets/js/sweetalert.min.js', 
-				array( 'jquery' ), $this->version, true 
-			);
-			wp_enqueue_script( 
-				$this->plugin_name, 
-				NOTIFICATIONX_ADMIN_URL . 'assets/js/nx-admin.min.js', 
-				array( 'jquery' ), $this->version, true 
-			);
-		}
-		
+		}		
 
 		if( $post_type != $this->type && ! $page_status ) {
 			return;
