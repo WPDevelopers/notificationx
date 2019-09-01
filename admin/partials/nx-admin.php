@@ -14,7 +14,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
 ?>
 <div class="nx-admin-wrapper">
     <div class="nx-admin-header">
-        <img src="<?php echo NOTIFICATIONX_URL; ?>/admin/assets/img/nx-black-white-logo.png" alt="">
+        <img src="<?php echo NOTIFICATIONX_URL; ?>/admin/assets/img/logo.svg" alt="NotificationX">
         <a class="nx-add-new-btn" href="post-new.php?post_type=notificationx"><?php echo _e('Add New', 'notificationx'); ?></a>
     </div>
 

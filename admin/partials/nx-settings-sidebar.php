@@ -2,7 +2,7 @@
     <div class="nx-sidebar">
         <div class="nx-sidebar-block">
             <div class="nx-admin-sidebar-logo">
-                <img src="<?php echo plugins_url( '/', __FILE__ ).'../assets/img/nx-logo.png'; ?>">
+                <img alt="NotificationX" src="<?php echo plugins_url( '/', __FILE__ ).'../assets/img/logo.svg'; ?>">
             </div>
             <div class="nx-admin-sidebar-cta">
                 <?php     

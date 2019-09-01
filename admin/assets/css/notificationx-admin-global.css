@@ -125,12 +125,16 @@
 
 /* CSS for Admin Page */
 .nx-admin-wrapper {
-	padding: 30px 15px;
+	padding: 30px 20px 30px 15px;
 }
 
 .nx-admin-header {
 	display: flex;
 	align-items: center;
+}
+
+.nx-admin-header > img {
+	width: 300px;
 }
 
 .nx-admin-header a.nx-add-new-btn {
@@ -233,7 +237,7 @@
 }
 
 .nx-admin-items-pagination ul {
-	margin-top: 0px;
+	margin: 0px;
 	display: flex;
 	align-items: center;
 }
@@ -242,6 +246,10 @@
 	display: inline-block;
 	margin-right: 5px;
 	margin-bottom: 0px;
+}
+.nx-admin-items-pagination ul > li > a:focus {
+	outline: none;
+	box-shadow: none;
 }
 .nx-admin-items-pagination ul > li > a {
 	display: flex;
@@ -256,9 +264,13 @@
     line-height: 30px;
 	color: #5614d5;
 	border-radius: 3px;
+	transition: all 0.1s ease-in;
 }
-.nx-admin-items-pagination ul > li.nx-current-page > a {
-	background-color: #5614d5;
+
+.nx-admin-items-pagination ul > li.nx-current-page > a,
+.nx-admin-items-pagination ul > li > a:hover {
+	background-color: #2ec7ad;
+	border-color: #2ec7ad;
 	color: #fff;
 }
 
