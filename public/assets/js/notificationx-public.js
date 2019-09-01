@@ -241,7 +241,7 @@
 							count++;
 						}
 					}, configuration.display_for);
-				}, delayBetween );
+				}, delayBetween + configuration.display_for);
 			}, configuration.display_for);
 		}, configuration.delay_before);
 	};
