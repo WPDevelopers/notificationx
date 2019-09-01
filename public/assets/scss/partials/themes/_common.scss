@@ -1,0 +1,268 @@
+/* Common and combined css applied to multiple themes*/
+.notificationx-inner.nx-img-right.nx-notification-reviewed .notificationx-content,
+.notificationx-inner.nx-img-right.nx-notification-theme-three .notificationx-content {
+	padding-left: 15px;
+}
+
+.notificationx-inner.nx-img-right.nx-notification-reviewed.nx-has-close-btn .notificationx-content,
+.notificationx-inner.nx-notification-theme-two.nx-img-right.nx-has-close-btn .notificationx-content {
+	padding-left: 25px;
+}
+
+.notificationx-inner.nx-notification-reviewed.nx-img-right span.notificationx-close,
+.notificationx-inner.nx-notification-theme-two.nx-img-right span.notificationx-close {
+	right: auto;
+	left: 19px;
+	top: 50%;
+	margin-top: -4px;
+}
+
+.nx-download_stats .notificationx-image > img,
+.nx-reviews .notificationx-image > img {
+	width: 100%;
+}
+
+/* Comment theme four, Review theme review-comment*/
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free,
+.notificationx-inner.nx-notification-review-comment {
+	background-color: transparent !important;
+	box-shadow: none;
+	padding: 0;
+	overflow: visible;
+	align-items: stretch;
+	color: #697097;
+}
+
+.nx-has-close-btn.notificationx-inner.nx-notification-theme-six-free,
+.nx-has-close-btn.notificationx-inner.nx-notification-review-comment {
+	padding-right: 0 !important;
+}
+
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .notificationx-image,
+.notificationx-inner.nx-notification-review-comment .notificationx-image {
+	width: auto;
+	padding: 10px;
+	box-shadow: 0 0 30px 0 rgba(36, 30, 157, .12);
+	flex-shrink: 0;
+	height: auto;
+	border-radius: 10px;
+	background-color: #fff;
+	position: relative;
+	overflow: visible;
+	border-bottom-right-radius: 0;
+}
+
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .notificationx-image:after,
+.notificationx-inner.nx-notification-review-comment .notificationx-image:after {
+	content: '';
+	position: absolute;
+	bottom: -10px;
+	right: 0;
+	border-top: 15px solid transparent;
+	border-bottom: 15px solid transparent;
+	border-right: 30px solid #fff;
+	width: 56px;
+	height: 39px;
+	z-index: 2;
+}
+
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .notificationx-image:before,
+.notificationx-inner.nx-notification-review-comment .notificationx-image:before {
+	content: '';
+	position: absolute;
+	height: 2px;
+	width: 20px;
+	right: 0;
+	bottom: 0;
+	box-shadow: 0 20px 30px rgba(36, 30, 157, .12);
+	z-index: 1;
+}
+
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .notificationx-image img,
+.notificationx-inner.nx-notification-review-comment .notificationx-image img {
+	width: 100%;
+	max-width: 100px;
+	position: relative;
+	z-index: 3;
+}
+
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .notificationx-content,
+.notificationx-inner.nx-notification-review-comment .notificationx-content {
+	padding: 10px 20px;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 0 30px rgba(36, 30, 157, .12);
+	font-family: $base_font;
+	justify-content: center;
+}
+
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .notificationx-content .nx-first-row,
+.notificationx-inner.nx-notification-review-comment .notificationx-content .nx-first-row {
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .notificationx-content .nx-first-row .title,
+.notificationx-inner.nx-notification-review-comment .notificationx-content .nx-first-row .title {
+	color: #4f06ce;
+}
+
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .notificationx-content .nx-second-row,
+.notificationx-inner.nx-notification-review-comment .notificationx-content .nx-second-row {
+	font-weight: 400;
+	font-size: 13px;
+	margin-bottom: 7px;
+}
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .notificationx-content .nx-third-row,
+.notificationx-inner.nx-notification-review-comment .notificationx-content .nx-third-row{
+	font-size: 14px;
+}
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free .nx-branding,
+.notificationx-inner.nx-notification-review-comment .nx-branding {
+	bottom: 0;
+	padding-top: 0;
+	right: 1px;
+	color: inherit;
+}
+
+.nx-wp_comments .notificationx-inner.nx-notification-theme-six-free span.notificationx-close,
+.notificationx-inner.nx-notification-review-comment span.notificationx-close {
+	right: 15px;
+}
+.notificationx-inner{
+	&.nx-notification-theme-one {
+		border: 1px solid #f2f2f2;
+	}
+	&.nx-notification-theme-two,
+	&.nx-notification-total-download,
+	&.nx-notification-review_saying,
+	&.nx-notification-reviewed {
+		border-radius: 50px;
+		padding-right: 50px;
+		span.notificationx-close {
+			right: 20px;
+			top: 25px;
+		}
+		.nx-branding {
+			right: 20px;
+		}
+	}
+	/*Comment theme seven, Comment theme eight, Review theme review-comment-2, Review theme review-comment-3*/
+	&.nx-notification-theme-seven-free,
+	&.nx-notification-theme-eight-free,
+	&.nx-notification-review-comment-2,
+	&.nx-notification-review-comment-3{
+		border-radius: 120px;
+		padding: 0;
+		overflow: visible;
+		max-height: 105px;
+		min-width: 400px;
+		box-shadow: $nx_wrapper_shadow;
+		background-color: #fff;
+		color: $dark_blue;
+		.notificationx-image{
+			flex-shrink: 0;
+			width: 105px;
+			height: 105px;
+			border-radius: 50%;
+			position: relative;
+			overflow: visible;
+			&:before{
+				@include quote_icon(28px)
+			}
+		}
+		.notificationx-content{
+			.nx-first-row {
+				font-size: 15px;
+				font-weight: 700;
+				color: inherit;
+				padding-right: 15px;
+			}
+			.nx-second-row {
+				font-weight: 400;
+				font-size: 13px;
+				margin-bottom: 7px;
+				color: inherit;
+				line-height: 1.4;
+				font-style: italic;
+			}
+			.nx-third-row {
+				font-size: 13px;
+			}
+			.notificationx-close {
+				right: 30px;
+				top: 17px;
+			}
+			.nx-branding {
+				padding: 0;
+				right: 5px;
+				bottom: 10px;
+			}
+		}
+	}
+
+	/*Comment theme seven, Review theme review-comment-2*/
+	&.nx-notification-theme-seven-free,
+	&.nx-notification-review-comment-2{
+		.notificationx-image {
+			background-color: #fae8f4;
+			&:before {
+				background-color: $pink;
+			}
+		}
+		.notificationx-content {
+			padding: 13px 0;
+			font-family: $base_font;
+			.nx-first-row{
+				.nx-first-word {
+					color: #fe67b7;
+				}
+			}
+		}
+	}
+	/*Comment theme eight, Review theme review-comment-3*/
+	&.nx-notification-theme-eight-free,
+	&.nx-notification-review-comment-3{
+		.notificationx-image {
+			background-color: #f0edff;
+			&:before {
+				background-color: $blue;
+			}
+		}
+		.notificationx-content{
+			background-image: url("../img/nx-quote-bg.png");
+			background-repeat: no-repeat;
+			background-position: left 53%;
+			.nx-first-row{
+				.nx-first-word {
+					color: #7253ec;
+				}
+			}
+		}
+	}
+}
+.nx-notification-total-download .notificationx-content .nx-first-row,
+.nx-notification-today-download .notificationx-content .nx-first-row,
+.nx-notification-7day-download .notificationx-content .nx-first-row,
+.nx-notification-actively_using .notificationx-content .nx-second-row,
+.nx-notification-review_saying .notificationx-content .nx-second-row {
+	color: #6c63ff;
+}
+
+.nx-notification-review_saying .notificationx-content {
+	max-width: 250px;
+}
+.nx-reviews .notificationx-image.product_image > img {
+	width: 80px;
+	margin: 0 auto;
+}
+
+.notificationx-inner.has-no-image.nx-notification-theme-three {
+	padding: 15px;
+}
+
+.notificationx-inner.has-no-image.nx-notification-theme-two,
+.notificationx-inner.has-no-image.nx-notification-theme-seven-free,
+.notificationx-inner.has-no-image.nx-notification-theme-eight-free {
+	padding-left: 30px;
+}

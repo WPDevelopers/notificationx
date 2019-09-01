@@ -1,0 +1,55 @@
+.notificationx-inner{
+	/* Theme 2 */
+	&.nx-notification-theme-two.nx-img-right.nx-has-close-btn {
+		padding-right: 20px !important;
+	}
+	/* Theme 3 */
+	&.nx-notification-theme-three {
+		padding: 0;
+		.notificationx-image {
+			width: 80px;
+			height: 80px;
+			padding: 10px;
+			border-right: 1px solid #f2f2f2;
+		}
+		&.nx-img-right{
+			.notificationx-image {
+				height: auto;
+				display: flex;
+				align-items: center;
+				align-self: stretch;
+				border-left: 1px solid #f2f2f2;
+				border-right: 0;
+			}
+			.notificationx-content {
+				padding-top: 15px;
+				padding-bottom: 15px;
+			}
+		}
+	}
+	/* Theme 6 */
+	&.nx-notification-theme-six-free{
+		.notificationx-image{
+			img {
+				border-radius: 5px !important;
+			}
+		}
+		.notificationx-content{
+			min-width: 232px;
+		}
+	}
+	/* Theme 7, 8 */
+	&.nx-notification-theme-eight-free,
+	&.nx-notification-theme-seven-free{
+		&.nx-img-right.nx-has-close-btn{
+			padding-right: 0 !important;
+			padding-left: 50px;
+			&.notificationx-close{
+				right: auto;
+				left: 20px;
+				top: 50%;
+				margin-top: -4px;
+			}
+		}
+	}
+}

@@ -1,0 +1,25 @@
+.nx-download_stats{
+	.nx-notification-actively_using{
+		.notificationx-content{
+			.nx-first-row {
+				font-weight: 400;
+			}
+			.nx-second-row {
+				font-weight: 700;
+			}
+		}
+	}
+}
+.nx-notification-total-download .notificationx-content .nx-third-row,
+.nx-notification-today-download .notificationx-content .nx-third-row,
+.nx-notification-7day-download .notificationx-content .nx-third-row {
+	color: #999;
+}
+.nx-download_stats .notificationx-content .nx-first-row {
+	font-weight: 700;
+}
+
+.nx-download_stats .notificationx-content .nx-second-row {
+	font-size: 12px;
+	font-weight: 400;
+}
