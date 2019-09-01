@@ -11,27 +11,6 @@ $empty_trash_url       = add_query_arg('delete_all', true, $current_url);
 $get_enabled_post      = $post_status->enabled;
 $get_disabled_post     = $post_status->disabled;
 $total_notificationx   = $get_enabled_post + $get_disabled_post;
-
-$all_active_class = '';
-$enabled_active_class = '';
-$disabled_active_class = '';
-$trash_active_class = '';
-
-if( isset( $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
-    $all_active_class = 'class="active"';
-    if( isset( $_GET['status'] ) && $_GET['status'] == 'enabled' ) {
-        $enabled_active_class = 'class="active"';
-        $all_active_class = '';
-    }
-    if( isset( $_GET['status'] ) && $_GET['status'] == 'disabled' ) {
-        $disabled_active_class = 'class="active"';
-        $all_active_class = '';
-    }
-    if( isset( $_GET['status'] ) && $_GET['status'] == 'trash' ) {
-        $trash_active_class = 'class="active"';
-        $all_active_class = '';
-    }
-}
 ?>
 <div class="nx-admin-wrapper">
     <div class="nx-admin-header">
@@ -204,5 +183,29 @@ if( isset( $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
             </tbody>
         </table>
     </div>
-
+    <?php 
+    /**
+     * Pagination
+     * @since 1.2.6
+     */
+    if( $total_page > 1 ) : ?>
+        <div class="nx-admin-items-pagination">
+            <ul>
+                <?php 
+                    if( $total_page > 1 ) {
+                        if( $paged > 1 ) {
+                            echo '<li class="nx-prev-page"><a href="'. $pagination_current_url .'&paged='. ($paged - 1) .'"><span class="dashicons dashicons-arrow-left-alt2"></span></a></li>';
+                        }
+                        for( $i = 1; $i <= $total_page; $i++ ) {
+                            $active_page = $paged == $i ? 'class="nx-current-page"' : '';
+                            echo '<li '. $active_page .'><a href="'. $pagination_current_url .'&paged='. $i .'">'. $i .'</a></li>';
+                        }
+                        if( $total_page > $paged ) {
+                            echo '<li class="nx-next-page"><a href="'. $pagination_current_url .'&paged='. ($paged + 1) .'"><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>';
+                        }
+                    }
+                ?>
+            </ul>
+        </div>
+    <?php endif; ?>
 </div>

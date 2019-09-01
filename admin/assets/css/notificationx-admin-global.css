@@ -232,6 +232,36 @@
 	color: #313236;
 }
 
+.nx-admin-items-pagination ul {
+	margin-top: 0px;
+	display: flex;
+	align-items: center;
+}
+
+.nx-admin-items-pagination ul > li {
+	display: inline-block;
+	margin-right: 5px;
+	margin-bottom: 0px;
+}
+.nx-admin-items-pagination ul > li > a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+    width: 30px;
+	height: 30px;
+	border: 1px solid #5614d5;
+	text-align: center;
+	font-weight: 600;
+	text-decoration: none;
+    line-height: 30px;
+	color: #5614d5;
+	border-radius: 3px;
+}
+.nx-admin-items-pagination ul > li.nx-current-page > a {
+	background-color: #5614d5;
+	color: #fff;
+}
+
 .nx-admin-type,
 .nx-admin-date .nx-admin-publish-status,
 .nx-admin-title>strong {
