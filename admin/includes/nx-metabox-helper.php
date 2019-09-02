@@ -692,17 +692,17 @@ function notificationx_metabox_args(){
                             ),
                             'close_button'  => array(
                                 'type'        => 'checkbox',
-                                'label'       => __('Show Close Button' , 'notificationx'),
+                                'label'       => __('Display Close Option' , 'notificationx'),
                                 'default'     => true,
                                 'priority'    => 70,
-                                'description' => __('It will display the close button at the top right corner.', 'notificationx'),
+                                'description' => __('Display a close button.', 'notificationx'),
                             ),
                             'hide_on_mobile'  => array(
                                 'type'        => 'checkbox',
-                                'label'       => __('Hide On Mobile' , 'notificationx'),
+                                'label'       => __('Mobile Visibility' , 'notificationx'),
                                 'priority'    => 200,
                                 'default'     => 0,
-                                'description' => __(' It will hide the notification on mobile devices.', 'notificationx'),
+                                'description' => __('Hide NotificationX on mobile.', 'notificationx'),
                             ),
                             'sound_checkbox'  => array(
                                 'type'     => 'checkbox',
@@ -719,7 +719,7 @@ function notificationx_metabox_args(){
                         'fields'      => array(
                             'delay_before'  => array(
                                 'type'        => 'number',
-                                'label'       => __('Delay before 1st notification' , 'notificationx'),
+                                'label'       => __('Delay Before First Notification' , 'notificationx'),
                                 'description' => __('seconds', 'notificationx'),
                                 'help'        => __('Initial Delay', 'notificationx'),
                                 'priority'    => 40,
@@ -783,7 +783,7 @@ function notificationx_metabox_args(){
                         'fields'      => array(
                             'display_last'  => array(
                                 'type'        => 'number',
-                                'label'       => __('Display the last' , 'notificationx'),
+                                'label'       => __('Display The Last' , 'notificationx'),
                                 'description' => 'conversions',
                                 'default'     => 20,
                                 'priority'    => 40,
@@ -798,13 +798,13 @@ function notificationx_metabox_args(){
                             ),
                             'loop'  => array(
                                 'type'        => 'checkbox',
-                                'label'       => __('Loop notification' , 'notificationx'),
+                                'label'       => __('Loop Notification' , 'notificationx'),
                                 'priority'    => 50,
                                 'default'     => true,
                             ),
                             'link_open'  => array(
                                 'type'        => 'checkbox',
-                                'label'       => __('Open link in new tab' , 'notificationx'),
+                                'label'       => __('Open Link In New Tab' , 'notificationx'),
                                 'priority'    => 60,
                                 'default'     => false,
                             ),
