@@ -22,7 +22,7 @@ function notificationx_metabox_args(){
                                 'type'         => 'theme',
                                 'type_content' => 'text',
                                 'inner_title'  => __('Notification Type' , 'notificationx'),
-                                'default'      => 'conversions',
+                                'default'      => 'comments',
                                 'options'      => NotificationX_Helper::notification_types(),
                                 'hide'         => NotificationX_Helper::hide_data( 'display_types' ),
                                 'priority'     => 50,
