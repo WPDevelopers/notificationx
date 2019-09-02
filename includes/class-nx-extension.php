@@ -307,16 +307,17 @@ class NotificationX_Extension {
         $wrapper_class = apply_filters( 'nx_frontend_wrapper_classes', array_merge( 
             ['nx-notification'], self::get_classes( $settings ) 
         ), $settings );
-        
+
+        $image_class = apply_filters( 'nx_frontend_image_classes', self::get_classes( $settings, 'img' ), $settings );
+
         $inner_class = apply_filters( 'nx_frontend_inner_classes', array_merge(
-            ['notificationx-inner'], self::get_classes( $settings, 'inner' )
+            ['notificationx-inner'], self::get_classes( $settings, 'inner' ), $image_class
         ), $settings );
 
         $content_class = apply_filters( 'nx_frontend_content_classes', array(
             'notificationx-content'
         ), $settings );
         
-        $image_class = apply_filters( 'nx_frontend_image_classes', self::get_classes( $settings, 'img' ), $settings );
 
         $frontend_classes = apply_filters( 'nx_frontend_classes', array( 
             'wrapper' => $wrapper_class,
@@ -343,7 +344,7 @@ class NotificationX_Extension {
                     $img_attr = isset( $image_data['attr'] ) ? implode( ' ', $image_data['attr'] ) : '';
                     $img_classes = isset( $image_data['classes'] ) ? $image_data['classes'] : '';
                     $output .= '<div class="notificationx-image '. $img_classes .'" '. $img_attr .'>';
-                        $output .= '<img class="'. implode( ' ', $frontend_classes['image'] ) .'" src="'. $image_data['url'] .'" alt="'. esc_attr( $image_data['alt'] ) .'">';
+                        $output .= '<img src="'. $image_data['url'] .'" alt="'. esc_attr( $image_data['alt'] ) .'">';
                     $output .= '</div>';
                 endif;
                 $output .= '<div class="'. implode( ' ', $frontend_classes['content'] ) .'">';
