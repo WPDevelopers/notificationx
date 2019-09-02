@@ -345,31 +345,6 @@ class NotificationX_Helper {
             ],
         ));
     }
-    /**
-     * This function is responsible for conversion toggle data
-     * @return array
-     */
-    public static function conversions_toggle_data(){
-        return apply_filters('nx_conversions_toggle_data', array(
-            'sections' => [
-                'image',
-                'themes',
-                'conversion_link_options'
-            ],
-            'fields'   => [
-                'conversion_from',
-                'conversion_position',
-                'delay_before',
-                'display_last',
-                'display_from',
-                'display_for',
-                'delay_between',
-                'loop',
-                'notification_preview',
-                'conversion_size',
-            ],
-        ));
-    }
 
     public static function hide_data( $types = 'display_types' ){
         if( $types == 'display_types' ) {
@@ -856,7 +831,7 @@ class NotificationX_Helper {
             $active_class = 'nx-sound-active';
 
             ?>
-                <div id="nx-meta-section-sound" class="nx-sound-appearance nx-flex nx-align-items-center">
+                <div id="nx-meta-section-sound_checkbox_wrap" class="nx-sound-appearance nx-flex nx-align-items-center">
                     <div class="nx-left">
                         <span class="nx-sound-enable <?php echo ! $checked ? $active_class : ''; ?>"><?php _e( 'Enable Sound', 'notificationx' );?></span>
                         <span class="nx-sound-disable <?php echo $checked ? $active_class : ''; ?>"><?php _e( 'Disable Sound', 'notificationx' );?></span>

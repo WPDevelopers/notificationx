@@ -57,7 +57,7 @@
 
     <div class="nx-builder-content-wrapper nx-metatab-wrapper" data-totaltab="<?php echo $totaltabs; ?>">
         <div class="nx-preloader">
-            <img src="<?php echo NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon-colored-large.png'; ?>" alt="">
+            <img src="<?php echo NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon-colored-large.png'; ?>" alt="NotificationX">
         </div>
         <div class="nx-metatab-inner-wrapper">
             <form method="post" id="nx-builder-form" action="<?php echo self::get_form_action( '', true ); ?>">
@@ -133,7 +133,7 @@
     <?php else : ?>
     <style> #publish.button.button-primary.button-large {display: none;}</style>
     <div class="nx-no-module-on">
-        <p><img src="<?php echo NOTIFICATIONX_URL; ?>/admin/assets/img/nx-logo.png" alt=""><?php _e( 'Make sure you have module on from your NotificationX <a href="'. admin_url('admin.php?page=nx-settings') .'">settings</a>.', 'notificationx' ); ?></p>
+        <p><img src="<?php echo NOTIFICATIONX_URL; ?>/admin/assets/img/logo.svg" alt="NotificationX"><?php _e( 'Make sure you have module on from your NotificationX <a href="'. admin_url('admin.php?page=nx-settings') .'">settings</a>.', 'notificationx' ); ?></p>
     </div>
     <?php endif; ?>
 </div>

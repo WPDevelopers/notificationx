@@ -762,7 +762,7 @@
 			/**
 			 * Set image to the image container
 			 */
-			imgContainer.addClass('nx-has-thumb').append('<img src="' + attachment.url + '" alt="" style="max-width:100%;"/>');
+			imgContainer.addClass('nx-has-thumb').append('<img src="' + attachment.url + '" alt="NotificationX" style="max-width:100%;"/>');
 			idField.val(attachment.id); // set image id
 			urlField.val(attachment.url); // set image url
 			// Hide the upload button

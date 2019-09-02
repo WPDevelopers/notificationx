@@ -125,12 +125,16 @@
 
 /* CSS for Admin Page */
 .nx-admin-wrapper {
-	padding: 30px 15px;
+	padding: 30px 20px 30px 15px;
 }
 
 .nx-admin-header {
 	display: flex;
 	align-items: center;
+}
+
+.nx-admin-header > img {
+	width: 300px;
 }
 
 .nx-admin-header a.nx-add-new-btn {
@@ -230,6 +234,44 @@
 	background-color: #fff;
 	vertical-align: middle;
 	color: #313236;
+}
+
+.nx-admin-items-pagination ul {
+	margin: 0px;
+	display: flex;
+	align-items: center;
+}
+
+.nx-admin-items-pagination ul > li {
+	display: inline-block;
+	margin-right: 5px;
+	margin-bottom: 0px;
+}
+.nx-admin-items-pagination ul > li > a:focus {
+	outline: none;
+	box-shadow: none;
+}
+.nx-admin-items-pagination ul > li > a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+    width: 30px;
+	height: 30px;
+	border: 1px solid #5614d5;
+	text-align: center;
+	font-weight: 600;
+	text-decoration: none;
+    line-height: 30px;
+	color: #5614d5;
+	border-radius: 3px;
+	transition: all 0.1s ease-in;
+}
+
+.nx-admin-items-pagination ul > li.nx-current-page > a,
+.nx-admin-items-pagination ul > li > a:hover {
+	background-color: #2ec7ad;
+	border-color: #2ec7ad;
+	color: #fff;
 }
 
 .nx-admin-type,
