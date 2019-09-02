@@ -51,9 +51,15 @@ class NotificationX_Template {
 				foreach( $template_content as $temp_w_key => $template_word ) {
 					$html .= '<span class="'. self::$word_classes[$temp_w_key] .'">'. $template_word .'</span> ';
 				}
-				if( $i === ( $template_count - 1 ) ) {
+				if( $i === 2 ) {
 					$html .= self::branding( $branding );
 				}
+				$html .= '</div>';
+			}
+
+			if( $template_count === 2 && $branding ) {
+				$html .= '<div class="'. self::$row_classes[ $template_count ] .'">';
+					$html .= self::branding( $branding );
 				$html .= '</div>';
 			}
 		}
