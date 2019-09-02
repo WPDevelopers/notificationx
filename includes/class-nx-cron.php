@@ -5,18 +5,15 @@
  */
 class NotificationX_Cron {
     /**
-	 * Holds cron hook.
-	 * 
-	 * @since 1.1.2
+	 * Cron hook.
 	 * @var string $hook
 	 */
 	public static $hook = 'nx_cron_update_data';
 
 	/**
 	 * Schedule cron jobs.
-	 * 
-	 * @since 1.1.2
 	 * @param int $post_id
+	 * @param string $cache_key
 	 */
 	public static function set_cron( $post_id, $cache_key = 'nx_cache_interval' ) {
 		if ( ! $post_id || empty( $post_id ) ) {
