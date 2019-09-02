@@ -1,32 +1,93 @@
 var gulp = require('gulp'),
 	sass = require('gulp-sass'),
-	cleanCss = require('gulp-clean-css'),
+	cleanCSS = require('gulp-clean-css'),
 	concat = require('gulp-concat'),
+	autoprefixer = require('autoprefixer'),
+	postcss = require('gulp-postcss'),
+	uglify = require('gulp-uglify'),
 	sourcemaps = require('gulp-sourcemaps');
 var paths = {
 	pAssets: 'public/assets/',
+	adminStyles: {
+		src: 'admin/assets/css/notificationx-admin.css',
+		dest: 'admin/assets/css/'
+	},
+	gAdminStyles: {
+		src: 'admin/assets/css/notificationx-admin-global.css',
+		dest: 'admin/assets/css/'
+	},
+	adminScripts: {
+		src: 'admin/assets/js/nx-admin.js',
+		dest: 'admin/assets/js/'
+	},
+	pScripts: {
+		src: 'public/assets/js/notificationx-public.js',
+		dest: 'public/assets/js/'
+	},
 	pStyles: {
 		src: 'public/assets/scss/*.scss',
 		dest: 'public/assets/css/'
 	}
 };
-gulp.task('pSass', function(){
+function adminStyles(){
+	return gulp
+		.src(paths.adminStyles.src)
+		.pipe(postcss( [ autoprefixer() ] ))
+		.pipe(cleanCSS())
+		.pipe(concat('nx-admin.min.css'))
+		.pipe(gulp.dest(paths.adminStyles.dest));
+}
+function gAdminStyles(){
+	return gulp.src(paths.gAdminStyles.src)
+		.pipe(postcss( [ autoprefixer() ] ))
+		.pipe(cleanCSS())
+		.pipe(concat('nx-admin-global.min.css'))
+		.pipe(gulp.dest(paths.gAdminStyles.dest));
+}
+function adminScripts(){
+	return gulp.src(paths.adminScripts.src, { sourcemaps: true })
+		.pipe(uglify())
+		.pipe(concat('nx-admin.min.js'))
+		.pipe(gulp.dest(paths.adminScripts.dest));
+}
+function pSass(){
 	return gulp.src( paths.pStyles.src )
 		.pipe(sourcemaps.init())
-		.pipe( sass())
-		.pipe(cleanCss({format: 'beautify',level: 0}))
+		.pipe(postcss( [ autoprefixer() ] ))
+		.pipe( sass().on('error', sass.logError))
+		.pipe(cleanCSS({format: 'beautify',level: 0}))
 		.pipe(sourcemaps.write(''))
 		.pipe( gulp.dest( paths.pStyles.dest ));
-});
-gulp.task('pConcat',function () {
+}
+function pConcat() {
 	return gulp.src(paths.pAssets + 'css/notificationx-public.css')
 		.pipe(sourcemaps.init())
 		.pipe(concat('notificationx-public.min.css'))
-		.pipe(cleanCss())
+		.pipe(cleanCSS())
 		.pipe(sourcemaps.write(''))
 		.pipe( gulp.dest( paths.pStyles.dest ));
-});
-gulp.task('watch', function() {
-	gulp.watch( paths.pAssets + 'scss/**/*.scss',  gulp.series('pSass'));
-	gulp.watch( paths.pAssets + 'css/notificationx-public.css',  gulp.series('pConcat'));
-});
+}
+function pScripts() {
+	return gulp.src(paths.pScripts.src, { sourcemaps: true })
+		.pipe(uglify())
+		.pipe(concat('notificationx-public.min.js'))
+		.pipe(gulp.dest(paths.pScripts.dest));
+}
+function watch() {
+	gulp.watch( paths.adminStyles.src, adminStyles);
+	gulp.watch( paths.gAdminStyles.src, gAdminStyles);
+	gulp.watch( paths.adminScripts.src, adminScripts);
+	gulp.watch( paths.pAssets + 'scss/**/*.scss', pSass);
+	gulp.watch( paths.pAssets + 'css/notificationx-public.css', pConcat);
+	gulp.watch( paths.pScripts.src, pScripts);
+}
+var build = gulp.parallel(adminStyles, gAdminStyles, adminScripts, pSass, pConcat, pScripts);
+gulp.task('build', build);
+/*
+ * watch task
+ */
+gulp.task('watch', watch);
+/*
+ * Define default task that can be called by just running `gulp` from cli
+ */
+gulp.task('default', build);
