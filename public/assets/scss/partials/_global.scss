@@ -61,9 +61,6 @@
 				@extend %flex-align-center;
 				justify-content: space-between;
 				font-size: 13px;
-				& small {
-					font-size: 85%;
-				}
 			}
 			min-width: 250px;
 			@extend %flex;
@@ -87,6 +84,23 @@
 			width: 80px;
 			height: 80px;
 			margin: 10px;
+		}
+		&.nx-img-circle {
+			& .notificationx-image {
+				border-radius: 50%;
+				overflow: hidden;
+			}
+		}
+		&.nx-img-square {
+			& .notificationx-image, & .notificationx-image > img {
+				border-radius: 0px;
+			}
+		}
+		&.nx-img-rounded {
+			& .notificationx-image {
+				border-radius: 5px;
+				overflow: hidden;
+			}
 		}
 	}
 }

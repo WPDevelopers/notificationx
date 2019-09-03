@@ -62,7 +62,7 @@
 
 @mixin clearfix {
 	&:before, &:after {
-		content: '';
+		@extend %content;
 		display: table;
 	}
 	&:after {
@@ -75,21 +75,22 @@
 	-o-object-fit: cover;
 }
 
-@mixin quote_icon($size) {
-	content: '';
+@mixin quote_icon($size, $bgColor : #fff, $borderColor : #fff) {
+	@extend %content;
 	width: $size;
 	height: $size;
 	background-image: url("../img/nx-quote-icon.png");
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 55%;
-	border: 3px solid #fff;
+	border: 3px solid $borderColor;
 	border-radius: 50%;
 	position: absolute;
-	left: -2px;
-	top: 0;
+	left: 4px;
+	top: 4px;
 	box-shadow: 0 0 10px rgba(36, 30, 157, .12);
 	z-index: 1;
+	background-color: $bgColor;
 }
 
 @mixin fontWeight( $weight ) {

@@ -1,3 +1,6 @@
+%content {
+	content: '';
+}
 %posa {
 	position: absolute;
 }
@@ -37,4 +40,8 @@
     overflow: hidden;
     width: 220px;
     display: inline-block;
+}
+
+%bgnone {
+    background: none;
 }

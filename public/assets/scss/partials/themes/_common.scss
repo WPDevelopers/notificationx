@@ -1,0 +1,104 @@
+// COMMON THEME CSS
+.nx-notification.nx-comments, .nx-notification.nx-conversions {
+	// TWO
+	& .nx-notification-theme-two {
+		border-radius: 50px;
+		& span.notificationx-close {
+			right: 20px;
+			top: 20px;
+		}
+		&.nx-img-right { 
+			& > .notificationx-content {
+				padding-left: 40px;
+				padding-right: 10px;
+			}
+			& span.notificationx-close {
+				right: auto;
+				top: 50%;
+				left: 20px;
+				margin-top: -4px;
+			}
+		}
+	}
+	// ONE, TWO, THREE
+	& .nx-notification-theme-one, & .nx-notification-theme-two, & .nx-notification-theme-three {
+		& .notificationx-content  {
+			& .nx-first-row {
+				& .nx-first-word {
+					@include fontWeight( 500 );
+				}
+			}
+			& .nx-second-row {
+				& .nx-first-word {
+					@include fontWeight( 600 );
+					@extend %text-ellipsis;
+				}
+			}
+		}
+	}
+	// ONE, TWO
+	& .nx-notification-theme-one, & .nx-notification-theme-two {
+		background-color: #fff;
+		& .notificationx-image  {
+			border-radius: 50%;
+			overflow: hidden;
+		}
+	}
+	// TWO
+	& .nx-notification-theme-two {
+		background-color: #fff;
+		&.nx-img-rounded  {
+			& .notificationx-image {
+				padding: 10px;
+				overflow: visible;
+				margin-right: 0px;
+				& > img {
+					border-radius: 5px;
+				}
+			}
+		}
+		&.nx-img-square  {
+			& .notificationx-image {
+				padding: 10px;
+				overflow: visible;
+				margin-right: 0px;
+				& > img {
+					border-radius: 0px;
+				}
+			}
+		}
+		&.nx-img-circle  {
+			& .notificationx-image {
+				overflow: hidden;
+				padding: 0px;
+			}
+		}
+		&.nx-img-right {
+			&.nx-img-rounded  {
+				& .notificationx-image {
+					margin-left: 0px;
+					margin-right: 10px;
+				}
+			}
+			&.nx-img-square  {
+				& .notificationx-image {
+					margin-left: 0px;
+					margin-right: 10px;
+				}
+			}
+		}
+	}
+	// THREE
+	& .nx-notification-theme-three {
+		background-color: #fff;
+		& .notificationx-content  {
+			@include border(1px, solid, #ddd);
+		}
+		&.nx-img-right { 
+			& .notificationx-content  {
+				border-left: none;
+				@include border(1px, solid, #ddd, 'right');
+			}	
+		}
+	}
+}
