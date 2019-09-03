@@ -1,0 +1,92 @@
+/**
+ * global css for all notifications
+ */
+.nx-notification {
+	position: fixed;
+	left: 30px;
+	z-index: 9999;
+	span.notificationx-close {
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		z-index: 999;
+		cursor: pointer;
+		width: 8px;
+		height: 8px;
+		display: none;
+		svg {
+			fill: #000000;
+			position: absolute;
+		}
+	} 
+	& a.notificationx-link {
+		@extend %posa;
+		@extend %wh100;
+		@extend %lr0;
+		@extend %outline;
+	}
+	& .notificationx-inner {
+		@extend %flex;
+		@extend %flex-align-center;
+		background-color: #fff;
+		&.nx-has-close-btn {
+			span.notificationx-close {
+				display: block;
+			}
+			& > .notificationx-content {
+				padding-right: 30px;
+			}
+			// &.nx-img-right { future plan
+			// 	& > .notificationx-content {
+			// 		padding-left: 30px;
+			// 	}
+			// }
+		}
+		&.nx-img-right {
+			flex-direction: row-reverse;
+			& > .notificationx-content {
+				padding-right: 10px;
+				padding-left: 15px;
+			}
+		}
+		& .notificationx-content  {
+			& > .nx-first-row {
+				font-size: 13px;
+			}
+			& > .nx-second-row {
+				font-size: 14px;
+			}
+			& > .nx-third-row {
+				@extend %flex;
+				@extend %flex-align-center;
+				justify-content: space-between;
+				font-size: 13px;
+				& small {
+					font-size: 85%;
+				}
+			}
+			min-width: 250px;
+			@extend %flex;
+			@extend %flex-direction-column;
+			@extend %self-stretch;
+			@extend %flex-justify-center;
+			padding: 15px 10px 15px;
+			& .nx-branding {
+				@extend %flex;
+				@extend %flex-align-center;
+				& > svg {
+					margin-right: 3px;
+				}
+				& > a {
+					margin-left: 3px;
+				}
+			}
+		}
+		& .notificationx-image  {
+			background-color: #fff;
+			width: 80px;
+			height: 80px;
+			margin: 10px;
+		}
+	}
+}

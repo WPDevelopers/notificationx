@@ -1,0 +1,77 @@
+/* Nx Bar Theme CSS */
+.nx-bar {
+	background: #ddd;
+	position: absolute;
+	z-index: 999999;
+	visibility: hidden;
+	width: 100%;
+	left: 0;
+	text-align: center;
+	transition: height 0.3s ease-in-out 0s;
+	&.nx-bar.nx-position-top {
+		top: 0;
+	}
+	&.nx-position-bottom {
+		position: fixed;
+		bottom: 0;
+	}
+
+	.nx-bar-inner {
+		padding: 20px;
+		display: inline-block;
+	}
+	.theme-two {
+		background-color: #5704A2;
+		color: #FFF;
+		.nx-time-section, a.nx-bar-button {
+			background-color: #6549FE;
+		}
+		p.nx-close > svg {
+			fill: #FFF;
+		}
+	}
+	.theme-three {
+		background-color: #3F4462;
+		color: #FFF;
+		.nx-time-section:after {
+			content: '';
+		}
+		.nx-countdown {
+			background-color: transparent;
+		}
+		.nx-time-section {
+			width: 55px;
+			& > span.nx-countdown-time-text {
+				display: block;
+			}
+		}
+		p.nx-close > svg {
+			fill: #FFF;
+		}
+
+	}
+}.nx-bar-content-wrap {
+	 display: flex;
+	 align-items: center;
+ }
+
+.nx-bar-content {
+	display: inline-block;
+	margin-left: 15px;
+}
+.nx-bar-visible {
+	visibility: visible;
+}
+
+a.nx-bar-button {
+	font-size: 14px;
+	padding: 6px 15px;
+	margin-left: 15px;
+	background-color: #262626;
+	color: #fff;
+	border-radius: 3px;
+}
+
+a.nx-bar-button:hover {
+	color: #fff;
+}

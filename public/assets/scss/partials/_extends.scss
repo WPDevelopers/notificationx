@@ -1,0 +1,40 @@
+%posa {
+	position: absolute;
+}
+%posr {
+	position: relative;
+}
+%flex {
+    display: flex;
+}
+%flex-direction-column {
+    flex-direction: column;
+}
+%flex-align-center {
+	align-items: center;
+}
+%flex-justify-center {
+	justify-content: center;
+}
+%self-stretch {
+	align-self: stretch;
+}
+
+%wh100 {
+    width: 100%; 
+    height: 100%;
+}
+%lr0 {
+    left: 0;
+    right: 0;
+}
+%outline {
+    outline: none;
+}
+%text-ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 220px;
+    display: inline-block;
+}
