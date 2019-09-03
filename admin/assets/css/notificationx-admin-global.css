@@ -350,8 +350,9 @@
 	color: #5614d5;
 }
 
-.nx-admin-not-found {
+.nx-admin-not-found, td .nx-admin-not-found p {
 	color: #c4434e;
+	margin: 0px;
 }
 
 .nx-admin-status-title.active {

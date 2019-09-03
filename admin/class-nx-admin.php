@@ -611,13 +611,14 @@ class NotificationX_Admin {
 		$pagenow = '';
 		$paged = 1;
 
-		$count_posts = self::count_posts();
-		$screen      = get_current_screen();
-		$user        = get_current_user_id();
-		$option      = $screen->get_option('per_page', 'option');
-		$per_page    = get_user_meta($user, $option, true);
-		$total_page  = ceil( $count_posts->publish / $per_page );
-		$pagination_current_url           = admin_url('admin.php?page=nx-admin');
+		$count_posts            = self::count_posts();
+		$screen                 = get_current_screen();
+		$user                   = get_current_user_id();
+		$option                 = $screen->get_option('per_page', 'option');
+		$per_page               = get_user_meta($user, $option, true);
+		$per_page               = empty( $per_page ) ? 10 : $per_page;
+		$total_page             = ceil( $count_posts->publish / $per_page );
+		$pagination_current_url = admin_url('admin.php?page=nx-admin');
 
 		$post_args = array(
 			'post_type' => 'notificationx',
