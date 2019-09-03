@@ -265,7 +265,7 @@
 
 		var saveButton = $('.nx-settings-button');
 
-		$('body').on('click', '.nx-pro-checkbox, .nx-radio-pro', function (e) {
+		$('body').on('click', '.nx-pro-checkbox > label, .nx-radio-pro', function (e) {
 			e.preventDefault();
 			var premium_content = document.createElement("p");
 			var premium_anchor = document.createElement("a");
