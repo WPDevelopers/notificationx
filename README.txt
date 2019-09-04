@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, live sales feed, recent sales noti
 Requires at least: 4.0
 Tested up to: 5.2.2
 Requires PHP: 5.4
-Stable tag: 1.2.6
+Stable tag: 1.2.7
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -84,9 +84,13 @@ FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing tec
 
 ## 🏆 FEATURED IN TOP PUBLICATIONS ##
 
-[WPMayor](https://wpmayor.com/notificationx-review-add-fomo-inducing-notifications-to-wordpress/): NotificationX is a freemium WordPress plugin that helps bring those two marketing strategies to your WordPress site, with eye-catching notification alerts for new sales, comments, reviews, and more. The designs are modern and nice-looking right out of the box, and I like how it supports different notification types, which makes it work for an eCommerce store, blog, WordPress theme/plugin shop, and more.
+[WPMayor](https://wpmayor.com/notificationx-review-add-fomo-inducing-notifications-to-wordpress/): 
+> 'NotificationX is a freemium WordPress plugin that helps bring those two marketing strategies to your WordPress site, with eye-catching notification alerts for new sales, comments, reviews, and more. The designs are modern and nice-looking right out of the box, and I like how it supports different notification types, which makes it work for an eCommerce store, blog, WordPress theme/plugin shop, and more.'
 
-[BobWP](https://bobwp.com/notification-display-woocommerce-notificationx-plugin/): The power of NotificationX lies in its integrations. The integration with WordPress.org makes it slick to pull in download numbers and reviews. This is a perfect option if you are selling freemium plugins and themes. The plugin is intuitive and easy to set up. With the various notifications, you can get creative and go beyond product sales with your WooCommerce store.
+[BobWP](https://bobwp.com/notification-display-woocommerce-notificationx-plugin/): 
+> 'The power of NotificationX lies in its integrations. The integration with WordPress.org makes it slick to pull in download numbers and reviews. This is a perfect option if you are selling freemium plugins and themes. The plugin is intuitive and easy to set up. With the various notifications, you can get creative and go beyond product sales with your WooCommerce store.'
+
+**Thanks:** This project is inspired by WPFomify, Puneet & his team did amazing work, and we are very thankful to them. They are one of the first to do Fomo in WordPress right way, we are passionately taking it to whole different level!
 
 
 ### Documentation and Support ###
@@ -95,7 +99,7 @@ FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing tec
 - If you have any more questions, visit our support on the [Plugin’s Forum](https://wordpress.org/support/plugin/notificationx/)
 - For more information about features, FAQs and documentation, check out our website at [NotificationX](https://notificationx.com)
 
-### Liked Notification X? ###
+### Liked NotificationX? ###
 
 - Join our [Facebook Group](https://www.facebook.com/groups/NotificationX.Community/)
 - Learn from our tutorials on [Youtube Channel](https://wpdeveloper.net/go/youtube-channel)
@@ -141,6 +145,15 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 5. Plugin Review Teaser
 6. Email Subscription Alert
 7. Notification Bar with Countdown
+
+== Changelog ==
+
+= 1.2.7 - 03/09/2019 =
+
+- Fixed : No Notification Found text color
+- Fixed : Default Settings issue
+- Fixed : Possible blank page issue on builder
+- Few minor bugfix and improvement
 
 == Changelog ==
 
