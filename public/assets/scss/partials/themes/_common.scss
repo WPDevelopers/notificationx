@@ -13,10 +13,7 @@
 				padding-right: 10px;
 			}
 			& span.notificationx-close {
-				right: auto;
-				top: 50%;
-				left: 20px;
-				margin-top: -4px;
+				@extend %left-center-close;
 			}
 		}
 	}

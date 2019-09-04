@@ -1,25 +1,82 @@
-.nx-download_stats{
-	.nx-notification-actively_using{
-		.notificationx-content{
-			.nx-first-row {
-				font-weight: 400;
+// DOWNLOAD STATS THEMES CSS
+.nx-notification.nx-download_stats {
+	& .nx-notification-today-download, & .nx-notification-7day-download {
+		& .notificationx-content {
+			& .nx-first-row {
+				color: #7253ec;
+				@include fontWeight( 700 );
 			}
-			.nx-second-row {
-				font-weight: 700;
+			& .nx-third-row {
+				& .nx-first-word {
+					color: #45c9b1;
+				}
 			}
 		}
 	}
-}
-.nx-notification-total-download .notificationx-content .nx-third-row,
-.nx-notification-today-download .notificationx-content .nx-third-row,
-.nx-notification-7day-download .notificationx-content .nx-third-row {
-	color: #999;
-}
-.nx-download_stats .notificationx-content .nx-first-row {
-	font-weight: 700;
-}
 
-.nx-download_stats .notificationx-content .nx-second-row {
-	font-size: 12px;
-	font-weight: 400;
+	& .nx-notification-7day-download, & .nx-notification-actively_using {
+		border-radius: 10px;
+		& .notificationx-content {
+			justify-content: space-between;
+			& .nx-third-row {
+				& .nx-first-word {
+					color: #999;
+				}
+			}
+		}
+	}
+
+	& .nx-notification-actively_using {
+		& .notificationx-content {
+			justify-content: space-evenly;
+			& .nx-second-row {
+				& .nx-first-word {
+					color: #7253ec;
+					@include fontWeight(700);
+				}
+			}
+		}
+	}
+
+	& .nx-notification-total-download {
+		border-radius: 200px;
+		& .notificationx-image {
+			border-radius: 50%;
+			padding: 5px;
+			margin-right: 0px;
+		}
+		& span.notificationx-close {
+			right: 20px;
+			top: 20px;
+		}
+		& .notificationx-content {
+			padding-left: 0;
+			& .nx-first-row {
+				& .nx-first-word {
+					color: #7253ec;
+					@include fontWeight(700);
+				}
+			}
+			& .nx-third-row {
+				font-size: 11px;
+				& .nx-first-word {
+					color: #999;
+				}
+			}
+		}
+
+		&.nx-img-right {
+			& .notificationx-image {
+				margin-left: 0px;
+				margin-right: 10px;
+			}
+			& .notificationx-content { 
+				padding-left: 40px;
+				& span.notificationx-close {
+					@extend %left-center-close;
+				}
+			}
+		}
+	}
+
 }
