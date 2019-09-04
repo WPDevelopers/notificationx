@@ -1,5 +1,5 @@
 // Reviews Themes CSS
-.nx-notification.nx-reviews {
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews, .nx-notification.nx-reviews {
     & .nx-notification-total-rated {
         & .notificationx-content {
             & .nx-first-row, & .nx-second-row {
@@ -55,7 +55,7 @@
 }
 
 // REVIEW THEMES LIKE COMMENTS
-.nx-notification.nx-reviews {
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews, .nx-notification.nx-reviews {
 	// SIX
 	& .nx-notification-review-comment {
 		@extend %bgnone;
