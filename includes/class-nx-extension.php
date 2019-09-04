@@ -303,20 +303,18 @@ class NotificationX_Extension {
         }
         
         $template = apply_filters( 'nx_template_id' , $template, $settings);
+
+        $image_class = apply_filters( 'nx_frontend_image_classes', self::get_classes( $settings, 'img' ), $settings );
+
+        $content_class = apply_filters( 'nx_frontend_content_classes', array(), $settings );
+
+        $inner_class = apply_filters( 'nx_frontend_inner_classes', array_merge(
+            ['notificationx-inner'], self::get_classes( $settings, 'inner' ), $image_class
+        ), $settings );
         
         $wrapper_class = apply_filters( 'nx_frontend_wrapper_classes', array_merge( 
             ['nx-notification'], self::get_classes( $settings ) 
         ), $settings );
-        
-        $inner_class = apply_filters( 'nx_frontend_inner_classes', array_merge(
-            ['notificationx-inner'], self::get_classes( $settings, 'inner' )
-        ), $settings );
-
-        $content_class = apply_filters( 'nx_frontend_content_classes', array(
-            'notificationx-content'
-        ), $settings );
-        
-        $image_class = apply_filters( 'nx_frontend_image_classes', self::get_classes( $settings, 'img' ), $settings );
 
         $frontend_classes = apply_filters( 'nx_frontend_classes', array( 
             'wrapper' => $wrapper_class,
@@ -343,16 +341,24 @@ class NotificationX_Extension {
                     $img_attr = isset( $image_data['attr'] ) ? implode( ' ', $image_data['attr'] ) : '';
                     $img_classes = isset( $image_data['classes'] ) ? $image_data['classes'] : '';
                     $output .= '<div class="notificationx-image '. $img_classes .'" '. $img_attr .'>';
-                        $output .= '<img class="'. implode( ' ', $frontend_classes['image'] ) .'" src="'. $image_data['url'] .'" alt="'. esc_attr( $image_data['alt'] ) .'">';
+                        $before_image = apply_filters( 'nx_frontend_before_image', '', $settings->themeName );
+                        if( ! empty( $before_image ) ) {
+                            $output .= $before_image;
+                        }
+                        $output .= '<img src="'. $image_data['url'] .'" alt="'. esc_attr( $image_data['alt'] ) .'">';
                     $output .= '</div>';
                 endif;
-                $output .= '<div class="'. implode( ' ', $frontend_classes['content'] ) .'">';
+                $output .= '<div class="notificationx-content '. implode(' ', $frontend_classes['content'] ) .'">';
+                    $before_content = apply_filters( 'nx_frontend_before_content', '', $settings->themeName );
+                    if( ! empty( $before_content ) ) {
+                        $output .= $before_content;
+                    }
                     $output .= NotificationX_Template::get_template_ready( $settings->{ $template }, self::newData( $data ), $settings, is_null( self::$powered_by ) );
 
-                    if( $settings->close_button ) :
-                        $output .= '<span class="notificationx-close"><svg width="8px" height="8px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd"><g id="close" fill-rule="nonzero"><path d="M28.228,23.986 L47.092,5.122 C48.264,3.951 48.264,2.051 47.092,0.88 C45.92,-0.292 44.022,-0.292 42.85,0.88 L23.986,19.744 L5.121,0.88 C3.949,-0.292 2.051,-0.292 0.879,0.88 C-0.293,2.051 -0.293,3.951 0.879,5.122 L19.744,23.986 L0.879,42.85 C-0.293,44.021 -0.293,45.921 0.879,47.092 C1.465,47.677 2.233,47.97 3,47.97 C3.767,47.97 4.535,47.677 5.121,47.091 L23.986,28.227 L42.85,47.091 C43.436,47.677 44.204,47.97 44.971,47.97 C45.738,47.97 46.506,47.677 47.092,47.091 C48.264,45.92 48.264,44.02 47.092,42.849 L28.228,23.986 Z" id="Shape"></path></g></g></svg></span>';
-                    endif;
                 $output .= '</div>';
+                if( $settings->close_button ) :
+                    $output .= '<span class="notificationx-close"><svg width="8px" height="8px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd"><g id="close" fill-rule="nonzero"><path d="M28.228,23.986 L47.092,5.122 C48.264,3.951 48.264,2.051 47.092,0.88 C45.92,-0.292 44.022,-0.292 42.85,0.88 L23.986,19.744 L5.121,0.88 C3.949,-0.292 2.051,-0.292 0.879,0.88 C-0.293,2.051 -0.293,3.951 0.879,5.122 L19.744,23.986 L0.879,42.85 C-0.293,44.021 -0.293,45.921 0.879,47.092 C1.465,47.677 2.233,47.97 3,47.97 C3.767,47.97 4.535,47.677 5.121,47.091 L23.986,28.227 L42.85,47.091 C43.436,47.677 44.204,47.97 44.971,47.97 C45.738,47.97 46.506,47.677 47.092,47.091 C48.264,45.92 48.264,44.02 47.092,42.849 L28.228,23.986 Z" id="Shape"></path></g></g></svg></span>';
+                endif;
             $output .= '</div>';
             if( self::is_link_visible( $settings ) ) :
                 $notx_link = self::get_link( $data, $settings );
@@ -406,6 +412,7 @@ class NotificationX_Extension {
                 if( $settings->wporg_advance_edit ) {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
                     $classes[ 'inner' ][] =  'nx-img-' . $settings->wporg_image_position;
+                    $classes[ 'img' ][] = 'nx-img-' . $settings->wporg_image_shape;
                     if( $settings->wporg_image_position == 'right' ) {
                         $classes[ 'inner' ][] =  'nx-flex-reverse';
                     }

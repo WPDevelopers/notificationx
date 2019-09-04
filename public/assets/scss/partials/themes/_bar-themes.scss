@@ -1,0 +1,142 @@
+// NX PRESS BAR CSS
+.notificationx-shortcode-wrapper > .nx-bar, .nx-bar {
+	@extend %posa;
+	left: 0;
+	top: 0;
+	width: 100%;
+	background-color: #ddd;
+	text-align: center;
+	visibility: hidden;
+	&.nx-bar-visible {
+		visibility: visible;
+	}
+	&.nx-sticky-bar {
+		position: fixed;
+		width: 100%;
+	}
+	& .nx-bar-inner {
+		padding: 20px;
+		display: inline-block;
+		& .nx-bar-content-wrap {
+			@extend %flex;
+			@extend %flex-align-center;
+			& .nx-countdown-wrapper {
+				@extend %flex;
+				@extend %flex-align-center;
+				& .nx-countdown-text {
+					margin-right: 10px;
+				}
+				& .nx-countdown {
+					overflow: hidden;
+					background-color: #262626;
+					color: #fff;
+					& .nx-time-section {
+						float: left;
+						margin: 0 5px;
+						padding: 10px;
+						position: relative;
+						width: 40px;
+						& > span {
+							line-height: 1;
+							display: block;
+						}
+						& .nx-countdown-time-text {
+							display: none;
+							font-size: 14px;
+						}
+						&:after {
+							content : ':';
+							@extend %posa;
+							right: -6px;
+							top: 9px;
+							line-height: 1;
+						}
+						&:last-of-type:after {
+							display: none;
+						}
+					}
+					& .nx-expired-text {
+						display: none;
+					}
+					&.nx-expired {
+						& .nx-expired-text {
+							display: block;
+						}
+						& .nx-time-section {
+							& > span {
+								display: none;
+							}
+						}
+					}
+				}
+			}
+			& .nx-bar-content {
+				display: inline-block;
+				margin-left: 15px;
+			}
+			& a.nx-bar-button {
+				font-size: 14px;
+				padding: 6px 15px;
+				margin-left: 15px;
+				background-color: #262626;
+				color: #fff;
+				border-radius: 3px;
+			}
+		}
+		& .nx-close {
+			margin: 0;
+			@extend %posa;
+			right: 30px;
+			margin-top: -10px;
+			cursor: pointer;
+			top: 50%;
+			color: #fff;
+			border-radius: 50%;
+			width: 10px;
+			height: 10px;
+			line-height: 17px;
+			font-size: 14px;
+		}
+	}
+
+	// TWO
+	&.theme-two {
+		background-color: #5704a2;
+		color: #fff;
+		& .nx-bar-inner {
+			& .nx-close {
+				fill: #fff;
+			}
+		}
+	}
+	// THREE
+	&.theme-three {
+		background-color: #3f4462;
+		color: #fff;
+		& .nx-bar-inner {
+			& .nx-close {
+				fill: #fff;
+			}
+			& a.nx-bar-button {
+				background-color: #6549fe;
+			}
+			& .nx-bar-content-wrap {
+				& .nx-countdown-wrapper {
+					& .nx-countdown {
+						background: none;
+						& .nx-time-section {
+							width: 55px;
+							background-color: #6549fe;
+							&:after {
+								@extend %content;
+							}
+							& > span.nx-countdown-time-text {
+								display: block;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
