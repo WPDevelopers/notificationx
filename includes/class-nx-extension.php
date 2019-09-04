@@ -412,6 +412,7 @@ class NotificationX_Extension {
                 if( $settings->wporg_advance_edit ) {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
                     $classes[ 'inner' ][] =  'nx-img-' . $settings->wporg_image_position;
+                    $classes[ 'img' ][] = 'nx-img-' . $settings->wporg_image_shape;
                     if( $settings->wporg_image_position == 'right' ) {
                         $classes[ 'inner' ][] =  'nx-flex-reverse';
                     }

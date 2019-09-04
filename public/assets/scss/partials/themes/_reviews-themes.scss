@@ -125,7 +125,6 @@
 	& .nx-notification-review-comment-2, & .nx-notification-review-comment-3 {
 		border-radius: 200px;
         color: #484d6b;
-        // @extend %posr;
         &:before {
             @include quote_icon( 28px, #fe67b7 );
         }
@@ -141,6 +140,7 @@
 			margin: 0;
 			flex-basis: 120px;
 			overflow: hidden;
+			background: none;
 			@extend %posr;
 			& > img {
 				@extend %posa;
@@ -175,10 +175,39 @@
 			& .notificationx-content  {
                 padding-left: 40px;
                 background-position: 40px 53%;
-				& span.notificationx-close {
-					@extend %left-center-close;
-				}
 			}	
+			& span.notificationx-close {
+				@extend %left-center-close;
+			}
+		}
+		&.nx-img-circle { 
+			& .notificationx-image {
+				& > img {
+					border-radius: 50%;
+				}
+			}
+		}
+		&.nx-img-rounded { 
+			& .notificationx-image {
+				& > img {
+					width: 60%;
+					height: 60%;
+					left: 25px;
+					top: 25px;
+					border-radius: 10px;
+				}
+			}
+		}
+		&.nx-img-square { 
+			& .notificationx-image {
+				& > img {
+					width: 60%;
+					height: 60%;
+					left: 25px;
+					top: 25px;
+					border-radius: 0px;
+				}
+			}
 		}
 	}
 	// EIGHT

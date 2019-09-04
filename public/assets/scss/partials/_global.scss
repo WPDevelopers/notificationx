@@ -5,6 +5,18 @@
 	position: fixed;
 	left: 30px;
 	z-index: 9999;
+	& .nx-branding {
+		& > a > svg {
+			width: 80px;
+			fill: #5614d5;
+			height: 16px;
+			display: block;
+		}
+		& > a:hover > svg {
+			fill: lighten(#5614d5, 30%);
+			transition: fill 0.3s ease 0s;
+		}
+	}
 	span.notificationx-close {
 		position: absolute;
 		right: 10px;

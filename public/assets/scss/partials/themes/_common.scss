@@ -40,6 +40,16 @@
 			border-radius: 50%;
 			overflow: hidden;
 		}
+		&.nx-img-rounded  {
+			& .notificationx-image {
+				border-radius: 5px;
+			}
+		}
+		&.nx-img-square  {
+			& .notificationx-image {
+				border-radius: 0px;
+			}
+		}
 	}
 	// TWO
 	& .nx-notification-theme-two {
@@ -49,6 +59,7 @@
 				padding: 10px;
 				overflow: visible;
 				margin-right: 0px;
+				background: none;
 				& > img {
 					border-radius: 5px;
 				}
@@ -59,6 +70,7 @@
 				padding: 10px;
 				overflow: visible;
 				margin-right: 0px;
+				background: none;
 				& > img {
 					border-radius: 0px;
 				}
