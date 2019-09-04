@@ -4,3 +4,4 @@
 **/node_modules
 admin/assets/package-lock.json
 **/package-lock.json
+**/*.map
