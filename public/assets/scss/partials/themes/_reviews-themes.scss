@@ -59,7 +59,9 @@
 	// SIX
 	& .nx-notification-review-comment {
 		@extend %bgnone;
+		@extend %box-shadow-none;
 		& .notificationx-image {
+			@extend %box-shadow;
 			border-radius: 10px;
 			align-self: stretch;
 			@extend %posr;
@@ -95,6 +97,7 @@
 			background-color: #fff;
 			border-radius: 10px;
 			padding: 15px; 
+			@extend %box-shadow;
 			& .nx-first-row {
 				font-size: 16px;
 				@include fontWeight(700);

@@ -2,7 +2,9 @@
 	// SIX
 	& .nx-notification-theme-six-free {
 		@extend %bgnone;
+		@extend %box-shadow-none;
 		& .notificationx-image {
+			@extend %box-shadow;
 			border-radius: 10px;
 			align-self: stretch;
 			@extend %posr;
@@ -36,6 +38,7 @@
 		}
 		& .notificationx-content {
 			background-color: #fff;
+			@extend %box-shadow;
 			border-radius: 10px;
 			padding: 15px; 
 			& .nx-first-row {

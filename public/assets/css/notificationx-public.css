@@ -181,6 +181,24 @@
   left: 20px;
   margin-top: -4px
 }
+.nx-notification .notificationx-inner,
+.notificationx-shortcode-wrapper > .nx-notification .notificationx-inner,
+.notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-six-free .notificationx-image,
+.nx-notification.nx-comments .nx-notification-theme-six-free .notificationx-image,
+.notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-six-free .notificationx-content,
+.nx-notification.nx-comments .nx-notification-theme-six-free .notificationx-content,
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment .notificationx-image,
+.nx-notification.nx-reviews .nx-notification-review-comment .notificationx-image,
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment .notificationx-content,
+.nx-notification.nx-reviews .nx-notification-review-comment .notificationx-content {
+  box-shadow: 0 0 10px 0px #f2f2f2
+}
+.notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-six-free,
+.nx-notification.nx-comments .nx-notification-theme-six-free,
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment,
+.nx-notification.nx-reviews .nx-notification-review-comment {
+  box-shadow: none
+}
 /**
  * global css for all notifications
  */
@@ -498,7 +516,7 @@
 .nx-notification.nx-comments .nx-notification-theme-three .notificationx-content,
 .nx-notification.nx-conversions .nx-notification-theme-three .notificationx-content,
 .nx-notification.nx-email_subscription .nx-notification-theme-three .notificationx-content {
-  border-left: 1px solid #dddddd
+  border-left: 1px solid #f2f2f2
 }
 .notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-three.nx-img-right .notificationx-content,
 .notificationx-shortcode-wrapper > .nx-notification.nx-conversions .nx-notification-theme-three.nx-img-right .notificationx-content,
@@ -507,7 +525,7 @@
 .nx-notification.nx-conversions .nx-notification-theme-three.nx-img-right .notificationx-content,
 .nx-notification.nx-email_subscription .nx-notification-theme-three.nx-img-right .notificationx-content {
   border-left: none;
-  border-right: 1px solid #dddddd
+  border-right: 1px solid #f2f2f2
 }
 .notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-six-free .notificationx-image,
 .nx-notification.nx-comments .nx-notification-theme-six-free .notificationx-image {

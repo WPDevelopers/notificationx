@@ -41,6 +41,7 @@
 		@extend %flex;
 		@extend %flex-align-center;
 		background-color: #fff;
+		@extend %box-shadow;
 		&.nx-has-close-btn {
 			span.notificationx-close {
 				display: block;
