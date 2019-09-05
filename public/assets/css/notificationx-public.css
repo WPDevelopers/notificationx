@@ -1042,7 +1042,8 @@
   width: 100%;
   background-color: #ddd;
   text-align: center;
-  visibility: hidden
+  visibility: hidden;
+  z-index: 999999
 }
 .notificationx-shortcode-wrapper > .nx-bar.nx-bar-visible,
 .nx-bar.nx-bar-visible {
