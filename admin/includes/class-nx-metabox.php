@@ -309,7 +309,6 @@ class NotificationX_MetaBox {
 
         return $status;
     }
-
     /**
      * Get all the meta settings of a noitification post
      *

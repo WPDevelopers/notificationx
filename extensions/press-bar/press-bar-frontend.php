@@ -61,10 +61,10 @@ if( $settings->enable_countdown ) {
 }
 
 if( $settings->bar_advance_edit ) {
-    $class = ' nx-customize-style-' . $settings->id;
+    $class .= ' nx-customize-style-' . $settings->id;
 }
 if( $settings->sticky_bar ) {
-    $class = ' nx-sticky-bar';
+    $class .= ' nx-sticky-bar';
 }
 
 ?>
