@@ -56,6 +56,8 @@ class NotificationX_Public {
 		$this->version       = $version;
 		
 		$this->notifications = get_option('notificationx_data');
+
+		add_filter('body_class', array($this,'body_class'), 10, 1);
 	}
 	
 	/**
@@ -183,7 +185,9 @@ class NotificationX_Public {
 				continue;
 			}
 			
-			switch ( $settings->display_type ) {
+			$add_in_list = apply_filters( 'nx_add_in_queue', $settings->display_type, $settings );
+
+			switch ( $add_in_list  ) {
 				case "press_bar":
 					NotificationX_PressBar_Extension::display( $settings );
 					break;
@@ -581,4 +585,24 @@ class NotificationX_Public {
 				break;
 		}
 	}
+    /**
+     * This function added css class in body for bar theme
+     * @hooked body_class
+     * @param array $classes
+     * @return array
+     */
+    public function body_class($classes){
+
+        if(!empty(self::$active)){
+            foreach (self::$active as $active_nx){
+                $type = get_post_meta($active_nx, '_nx_meta_display_type', true);
+                if($type == 'press_bar'){
+                    $classes[] = 'nx-'. $type . '-active';
+                    $classes[] = 'nx-'. $type . '-active-' . $active_nx;
+                }
+            }
+        }
+
+	    return $classes;
+    }
 }

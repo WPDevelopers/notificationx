@@ -357,6 +357,10 @@ h2.nx-meta-section-title .nx-section-reset {
     color: #403E3C;
 }
 
+.nx-info-message a {
+    color: #6c63ff;
+}
+
 /*
 Form Input CSS
 */
@@ -2054,9 +2058,9 @@ body.wp-admin.rtl .ui-datepicker {
     font-size: 12px;
 }
 
-.nx-api-integration-settings .pro-label,
-.nx-single-theme-wrapper .pro-label,
-.nx-checkbox .pro-label {
+.nx-api-integration-settings .nx-pro-label,
+.nx-single-theme-wrapper .nx-pro-label,
+.nx-checkbox .nx-pro-label {
     font-size: 14px;
     color: #ffffff;
     text-transform: uppercase;
@@ -2086,7 +2090,19 @@ body.wp-admin.rtl .ui-datepicker {
     color: #fff;
 }
 
-sup.pro-label.has-to-update {
+.nx-api-integration-settings .nx-pro-label.nx-pro-access,
+.nx-single-theme-wrapper .nx-pro-label.nx-pro-access,
+.nx-checkbox .nx-pro-label.nx-pro-access {
+    background-color: #0ccf9f;
+    background-image: none;
+}
+
+.nx-display_type .nx-single-theme-wrapper>input:checked+label+.nx-pro-label-wrapper .nx-pro-label.nx-pro-access {
+    z-index: 9;
+    background-color: #05b589;
+}
+
+sup.nx-pro-label.has-to-update {
     font-size: 10px;
     line-height: 20px;
 }
@@ -2331,10 +2347,6 @@ h4.nx-admin-title {
     top: -10px;
 }
 
-.nx-radio-pro {
-    overflow: hidden;
-}
-
 .nx-single-theme-wrapper {
     font-size: 18px;
     width: 230px;
@@ -2342,20 +2354,48 @@ h4.nx-admin-title {
     line-height: 80px;
     text-align: center;
     margin-bottom: 30px;
+    /* overflow: hidden; */
+}
+
+.nx-pro-label-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
 }
 
 .nx-single-theme-wrapper>label {
     width: 100%;
+    position: relative;
+    z-index: 2;
 }
 
-.nx-single-theme-wrapper .pro-label {
+.nx-single-theme-wrapper .nx-pro-label {
     height: 30px;
     line-height: 30px;
     left: -29px;
     width: 100px;
+    z-index: 9;
 }
 
 .nx-display_type .nx-single-theme-wrapper>input:checked+label {
     background-color: #0ccf9f;
     color: #fff;
+}
+
+.nx-no-module-on {
+    padding: 50px;
+    background-color: #fff;
+}
+
+.nx-no-module-on img {
+    width: 200px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.nx-no-module-on p {
+    font-size: 20px;
 }

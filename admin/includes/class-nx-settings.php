@@ -57,9 +57,9 @@ class NotificationX_Settings {
                     <h2 class="title"><?php _e( 'NotificationX Settings', 'notificationx' ); ?></h2>
                 </div>
                 <div class="nx-header-right">
-                    <span><?php _e( 'Version', 'notificationx' ); ?>: <strong><?php echo NOTIFICATIONX_VERSION; ?></strong></span>
+                    <span><?php _e( 'NotificationX', 'notificationx' ); ?>: <strong><?php echo NOTIFICATIONX_VERSION; ?></strong></span>
                     <?php if( defined('NOTIFICATIONX_PRO_VERSION') ) : ?>
-                        <span><?php _e( 'Pro Version', 'notificationx' ); ?>: <strong><?php echo NOTIFICATIONX_PRO_VERSION; ?></strong> </span>
+                        <span><?php _e( 'NotificationX Pro', 'notificationx' ); ?>: <strong><?php echo NOTIFICATIONX_PRO_VERSION; ?></strong> </span>
                     <?php endif; ?>
                 </div>
             </div>
@@ -246,7 +246,7 @@ class NotificationX_Settings {
                         if( isset( $section['title'] ) ) {
                             $title = $section['title'];
                             if( ! NX_CONSTANTS::is_pro() ) {
-                                $title .= '<sup class="pro-label">Pro</sup>';
+                                $title .= '<sup class="nx-pro-label">Pro</sup>';
                             }
                         }
                         echo !empty( $title ) ? '<h3 class="nx-api-integration-header">' . $title . '</h3>' : '';
@@ -287,6 +287,9 @@ class NotificationX_Settings {
                     self::$pro_modules[ $module_key ] = false;
                     if( isset( $module['version'] ) ) {
                         self::$pro_modules[ $module_key ] = $module['version'];
+                        if( defined( 'NOTIFICATIONX_PRO_VERSION' ) && version_compare( NOTIFICATIONX_PRO_VERSION, $module['version'], '>=' ) ) {
+                            self::$pro_modules[ $module_key ] = false;
+                        }
                     }
                 } else {
                     self::$free_modules[ $module_key ] = false;

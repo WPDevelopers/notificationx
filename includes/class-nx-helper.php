@@ -216,7 +216,7 @@ class NotificationX_Helper {
             ),
             'give' => array(
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/give.png',
-                'version' => '1.2.0',
+                'version' => '1.2.5',
                 'title' => 'Give'
             ),
             'freemius'    => array(
@@ -225,7 +225,7 @@ class NotificationX_Helper {
                 'title' => 'Freemius'
             ),
             'zapier' => array(
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.jpg',
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.png',
                 'is_pro' => $is_pro,
                 'title' => 'Zapier'
             ),
@@ -292,7 +292,7 @@ class NotificationX_Helper {
                 'title' => 'Freemius'
             ),
             'zapier'    => array(
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.jpg',
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.png',
                 'is_pro' => $is_pro,
                 'title' => 'Zapier'
             ),
@@ -342,31 +342,6 @@ class NotificationX_Helper {
                 'sticky_bar',
                 'initial_delay',
                 'auto_hide',
-            ],
-        ));
-    }
-    /**
-     * This function is responsible for conversion toggle data
-     * @return array
-     */
-    public static function conversions_toggle_data(){
-        return apply_filters('nx_conversions_toggle_data', array(
-            'sections' => [
-                'image',
-                'themes',
-                'conversion_link_options'
-            ],
-            'fields'   => [
-                'conversion_from',
-                'conversion_position',
-                'delay_before',
-                'display_last',
-                'display_from',
-                'display_for',
-                'delay_between',
-                'loop',
-                'notification_preview',
-                'conversion_size',
             ],
         ));
     }
@@ -480,6 +455,32 @@ class NotificationX_Helper {
         return $types;
     }
 
+    public static function modules_in_action( $modules ){
+        $module_source = self::modules();
+        $modules_we_have = [];
+        foreach( $module_source as $module ){
+            if( is_array( $module ) ) {
+                foreach( $module as $i_module ){
+                    $modules_we_have[ $i_module ] = '';
+                }
+            } else {
+                $modules_we_have[ $module ] = '';
+            }
+        }
+        if( ! empty( $modules ) ) {
+            $modules_we_can_run = null;
+            foreach( $modules as $key => $s_module ) {
+                if( $s_module ) {
+                    if( isset( $modules_we_have[ $key ] ) ) {
+                        $modules_we_can_run[ $key ] = true;
+                    }
+                }
+            }
+            return $modules_we_can_run;
+        }
+        return null;
+    }
+
     public static function modules(){
         return apply_filters( 'nx_modules_source', array(
             'press_bar' => 'modules_bar',
@@ -502,6 +503,7 @@ class NotificationX_Helper {
             ),
             'woocommerce' => 'modules_woocommerce',
             'edd' => 'modules_edd',
+            'give' => 'modules_give',
         ));
     }
 
@@ -527,7 +529,7 @@ class NotificationX_Helper {
             'maps_theme' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/maps-theme.png'
-            ),
+            ), 
             'conv-theme-seven' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-7.png'
@@ -841,7 +843,7 @@ class NotificationX_Helper {
             $active_class = 'nx-sound-active';
 
             ?>
-                <div id="nx-meta-section-sound" class="nx-sound-appearance nx-flex nx-align-items-center">
+                <div id="nx-meta-section-sound_checkbox_wrap" class="nx-sound-appearance nx-flex nx-align-items-center">
                     <div class="nx-left">
                         <span class="nx-sound-enable <?php echo ! $checked ? $active_class : ''; ?>"><?php _e( 'Enable Sound', 'notificationx' );?></span>
                         <span class="nx-sound-disable <?php echo $checked ? $active_class : ''; ?>"><?php _e( 'Disable Sound', 'notificationx' );?></span>

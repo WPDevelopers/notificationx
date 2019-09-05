@@ -2,7 +2,7 @@
 /**
  * This Class is responsible for Give donation integration.
  *
- * @since 1.2.1
+ * @since 1.2.5
  */
 class NotificationX_Give_Extension extends NotificationX_Extension {
     /**
@@ -22,7 +22,6 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
     public $themeName = 'theme';
     /**
      * An array of all notifications
-     * @var [type]
      */
     protected $notifications = [];
 
@@ -34,7 +33,6 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
         $this->notifications = $this->get_notifications( $this->type );
         add_filter( 'nx_notification_link', array( $this, 'notification_link' ), 10, 2 );
         add_action( 'nx_notification_image_action', array( $this, 'image_action' ) );
-        add_filter( 'nx_filtered_data', array( $this, 'filtered_data' ), 10, 2 );
     }
     /**
      * @param array $data
@@ -143,54 +141,14 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
     private function init_fields(){
         $fields = [];
         if( ! class_exists( 'Give' ) ) {
+            $url = admin_url('plugin-install.php?s=give&tab=search&type=term');
             $fields['has_no_give'] = array(
                 'type'     => 'message',
-                'message'    => __('You have to install Give Donation plugin first.' , 'notificationx-pro'),
+                'message'    => __('You have to install <a href="'. $url .'">GiveWP</a> Donation plugin first.' , 'notificationx-pro'),
                 'priority' => 0,
             );
         }
-        $fields['give_forms_control'] = array(
-            'label'    => __('Show Notification Of', 'notificationx-pro'),
-            'type'     => 'select',
-            'priority' => 200,
-            'default'  => 'none',
-            'options'  => array(
-                'none'      => __('All', 'notificationx-pro'),
-                'give_form' => __('By Form', 'notificationx-pro'),
-            ),
-            'dependency' => array(
-                'give_form' => array(
-                    'fields' => array( 'give_form_list' )
-                ),
-            )
-        );
-        $fields['give_form_list'] = array(
-            'label'    => __('Select Donation Form', 'notificationx-pro'),
-            'type'     => 'select',
-            'multiple' => true,
-            'priority' => 201,
-            'options'  => self::donation_forms()
-        );
-
         return $fields;
-    }
-
-    /**
-     * Get donation forms
-     * @return array
-     */
-    protected static function donation_forms(){
-        $forms = get_posts(array(
-            'post_type' => 'give_forms',
-            'numberposts' => -1,
-        ));
-        $forms_list = [];
-        if( ! empty( $forms ) ) {
-            foreach( $forms as $form ) {
-                $forms_list[ $form->ID ] = $form->post_title;
-            }
-        }
-        return $forms_list;
     }
     /**
      * This function is responsible for adding fields in main screen
@@ -199,7 +157,6 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
      * @return array
      */
     public function add_fields( $options ){
-
         $fields = $this->init_fields();
         if( empty( $fields ) ) {
             return $options;
@@ -221,16 +178,12 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
      */
     public function add_builder_fields( $options ){
         $fields = $this->init_fields();
-        unset( $fields['give_forms_control'] );
-        unset( $fields['give_form_list'] );
         if( empty( $fields ) ) {
             return $options;
         }
-
         foreach ( $fields as $name => $field ) {
             $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
         }
-
         return $options;
     }
     /**
@@ -245,18 +198,6 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
         }
         // public actions will be here
         add_action( 'give_complete_donation', [ $this, 'save_new_donation' ], 10, 1 );
-    }
-    /**
-     * This functions is hooked
-     *
-     * @hooked nx_admin_action
-     * @return void
-     */
-    public function admin_actions(){
-        if( ! $this->is_created( $this->type ) ) {
-            return;
-        }
-        // admin actions will be here ...
     }
     /**
      * This function is responsible for hide fields in main screen
@@ -299,10 +240,10 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
         $fields = $this->init_fields();
         $fields = array_keys( $fields );
         $sales_fields = NotificationX_ToggleFields::woocommerce();
-        $fields = array_merge( $sales_fields['fields'], $fields, array('show_notification_image', 'woo_template_new') );
+        $fields = array_merge( $sales_fields['fields'], $fields, array('show_notification_image', 'woo_template_new', 'woo_template_adv') );
         $sales_fields['fields'] = $fields;
         $options['dependency'][ $this->type ] = $sales_fields;
-        $options['hide'][ $this->type ][ 'fields' ] = [ 'woo_template', 'has_no_edd','has_no_ld', 'has_no_woo', 'product_control', 'product_exclude_by', 'product_list', 'category_list', 'exclude_categories', 'exclude_products', 'edd_product_control', 'edd_product_exclude_by', 'edd_product_list', 'edd_category_list', 'edd_exclude_categories', 'edd_exclude_products', 'custom_contents', 'show_custom_image' ];
+        $options['hide'][ $this->type ][ 'fields' ] = [ 'has_no_edd', 'has_no_woo' ];
 
         return $options;
     }
@@ -431,60 +372,25 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
         $user_data['email'] = $donation->email;
         $user_data['country'] = $donation->address['country'];
         $user_data['city'] = $donation->address['city'];
-        if(isset( $_SERVER['REMOTE_ADDR'])){
-            $user_data['ip'] = $_SERVER['REMOTE_ADDR'];
-            if(empty($user_data['country']) || empty($user_data['city'])){
-                $user_ip_data = $this->remote_get('http://ip-api.com/json/' . $user_data['ip']);
-                if($user_ip_data){
-                    if(empty($user_data['country'])){
-                        $user_data['country'] = $user_ip_data->country;
-                    }
-                    if(empty($user_data['city'])){
-                        $user_data['city'] = $user_ip_data->city;
-                    }
+        $user_data['ip'] = give_get_payment_user_ip( $donation->ID );
+        if( ( empty( $user_data['country'] ) || empty( $user_data['city'] ) ) && ! empty( $user_data['ip'] ) ) {
+            $user_ip_data = $this->remote_get('http://ip-api.com/json/' . $user_data['ip']);
+            if( $user_ip_data ) {
+                if( empty( $user_data['country'] ) ) {
+                    $user_data['country'] = $user_ip_data->country;
+                }
+                if(empty($user_data['city'])){
+                    $user_data['city'] = $user_ip_data->city;
                 }
             }
         }
 
         return $user_data;
     }
-    /**
-     * This function is hooked
-     * @hooked 'nx_filtered_data'
-     * @param array $data
-     * @param stdClass $settings
-     * @return array
-     */
-    public function filtered_data( $data, $settings ){
-        if( $settings->display_type != 'conversions' ) {
-            return $data;
-        }
-        if( $settings->conversion_from != 'give' ) {
-            return $data;
-        }
-        if( empty( $settings->give_forms_control ) || $settings->give_form_list === 'none' ) {
-            return $data;
-        }
-
-        if( empty( $settings->give_form_list ) ){
-            return $data;
-        }
-        $new_data_array = [];
-        if( ! empty( $data ) ) {
-            foreach( $data as $key => $single ) {
-                if( in_array( $single['give_form_id'], $settings->give_form_list ) ) {
-                    $new_data_array[ $key ] = $single;
-                }
-            }
-        }
-
-        return $new_data_array;
-    }
 
     public function frontend_html( $data = [], $settings = false, $args = [] ){
         if( class_exists( 'Give' ) ) {
             return parent::frontend_html( $data, $settings, $args );
         }
-        return '';
     }
 }

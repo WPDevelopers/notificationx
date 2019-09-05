@@ -11,31 +11,10 @@ $empty_trash_url       = add_query_arg('delete_all', true, $current_url);
 $get_enabled_post      = $post_status->enabled;
 $get_disabled_post     = $post_status->disabled;
 $total_notificationx   = $get_enabled_post + $get_disabled_post;
-
-$all_active_class = '';
-$enabled_active_class = '';
-$disabled_active_class = '';
-$trash_active_class = '';
-
-if( isset( $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
-    $all_active_class = 'class="active"';
-    if( isset( $_GET['status'] ) && $_GET['status'] == 'enabled' ) {
-        $enabled_active_class = 'class="active"';
-        $all_active_class = '';
-    }
-    if( isset( $_GET['status'] ) && $_GET['status'] == 'disabled' ) {
-        $disabled_active_class = 'class="active"';
-        $all_active_class = '';
-    }
-    if( isset( $_GET['status'] ) && $_GET['status'] == 'trash' ) {
-        $trash_active_class = 'class="active"';
-        $all_active_class = '';
-    }
-}
 ?>
 <div class="nx-admin-wrapper">
     <div class="nx-admin-header">
-        <img src="<?php echo NOTIFICATIONX_URL; ?>/admin/assets/img/nx-black-white-logo.png" alt="">
+        <img src="<?php echo NOTIFICATIONX_URL; ?>/admin/assets/img/logo.svg" alt="NotificationX">
         <a class="nx-add-new-btn" href="post-new.php?post_type=notificationx"><?php echo _e('Add New', 'notificationx'); ?></a>
     </div>
 
@@ -139,7 +118,7 @@ if( isset( $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
                                                 <?php if( ! $trash_page ) : ?>
                                                     <a class="nx-admin-title-edit" href="post.php?action=edit&post=<?php echo $idd; ?>"><?php _e( 'Edit', 'notificationx' ); ?></a>
                                                     <a class="nx-admin-title-duplicate" href="<?php echo esc_url( $duplicate_url ); ?>"><?php _e( 'Duplicate', 'notificationx' ); ?></a>
-                                                <?php else :  ?>
+                                                <?php do_action('nx_admin_title_actions', $idd); else :  ?>
                                                     <a class="nx-admin-title-restore" href="<?php echo wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=untrash', $idd ) ), 'untrash-post_' . $idd ); ?>"><?php _e( 'Restore', 'notificationx' ); ?></a>
                                                 <?php endif; ?>
                                                 <a class="nx-admin-title-trash" href="<?php echo get_delete_post_link( $idd, '', $trashed ); ?>"><?php echo $trash_btn_title; ?></a>
@@ -197,12 +176,36 @@ if( isset( $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
                     endif;
 
                     if( ! $total_notificationx && ! $trashed ) {
-                        echo '<tr><td colspan="6"><div class="nx-admin-not-found">'. __('No NotificationX is found.', 'notificationx') .'</div></td></tr>';
+                        echo '<tr><td colspan="6"><div class="nx-admin-not-found"><p>'. __('No NotificationX is found.', 'notificationx') .'</p></div></td></tr>';
                     }
                 ?>
                 <!-- <tr><td><p>No NotificationX is found.</p></td></tr> -->
             </tbody>
         </table>
     </div>
-
+    <?php 
+    /**
+     * Pagination
+     * @since 1.2.6
+     */
+    if( $total_page > 1 ) : ?>
+        <div class="nx-admin-items-pagination">
+            <ul>
+                <?php 
+                    if( $total_page > 1 ) {
+                        if( $paged > 1 ) {
+                            echo '<li class="nx-prev-page"><a href="'. $pagination_current_url .'&paged='. ($paged - 1) .'"><span class="dashicons dashicons-arrow-left-alt2"></span></a></li>';
+                        }
+                        for( $i = 1; $i <= $total_page; $i++ ) {
+                            $active_page = $paged == $i ? 'class="nx-current-page"' : '';
+                            echo '<li '. $active_page .'><a href="'. $pagination_current_url .'&paged='. $i .'">'. $i .'</a></li>';
+                        }
+                        if( $total_page > $paged ) {
+                            echo '<li class="nx-next-page"><a href="'. $pagination_current_url .'&paged='. ($paged + 1) .'"><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>';
+                        }
+                    }
+                ?>
+            </ul>
+        </div>
+    <?php endif; ?>
 </div>

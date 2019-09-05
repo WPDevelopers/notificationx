@@ -28,22 +28,34 @@
 			}
 		});
 
+		var qVars = $.notificationx.get_query_vars('page');
+		if (qVars != undefined) {
+			if (qVars.indexOf('nx-settings') >= 0) {
+				var cSettingsTab = qVars.split('#');
+				$('.nx-settings-menu li[data-tab="' + cSettingsTab[1] + '"]').trigger('click');
+			}
+		}
+
 		$('body').on('change', '.nx_meta_display_type', function () {
 			var type = $(this).val();
 			switch (type) {
 				case 'conversions':
+					$('.nx-themes .nx_meta_theme:checked').trigger('change');
 					$.notificationx.trigger('.nx_meta_conversion_from');
 					$('#nx_meta_advance_edit').trigger('change');
 					break;
 				case 'comments':
+					$('.nx-comment_themes .nx_meta_comment_theme:checked').trigger('change');
 					$.notificationx.trigger('.nx_meta_comments_source');
 					$('#nx_meta_comment_advance_edit').trigger('change');
 					break;
 				case 'reviews':
+					$('.nx-wporg_themes .nx_meta_wporg_theme:checked').trigger('change');
 					$.notificationx.trigger('.nx_meta_reviews_source');
 					$('#nx_meta_wporg_advance_edit').trigger('change');
 					break;
 				case 'download_stats':
+					$('.nx-wpstats_themes .nx_meta_wpstats_theme:checked').trigger('change');
 					$.notificationx.trigger('.nx_meta_stats_source');
 					$('#nx_meta_wpstats_advance_edit').trigger('change');
 					break;
@@ -66,9 +78,6 @@
 			switch (conv_source) {
 				case 'woocommerce' || 'edd':
 					$('#nx_meta_woo_template_adv').trigger('change');
-					break;
-				case 'give':
-					$('#nx_meta_give_forms_control').trigger('change');
 					break;
 			}
 		});
@@ -134,7 +143,11 @@
 		if (source == undefined) {
 			$(selector + ':first').trigger('click');
 		} else {
-			$(selector + ':checked').trigger('change');
+			if ($(selector + ':checked').is(':disabled')) {
+				$('.nx-radio-pro').trigger('click');
+			} else {
+				$(selector + ':checked').trigger('change');
+			}
 		}
 	};
 
@@ -252,7 +265,7 @@
 
 		var saveButton = $('.nx-settings-button');
 
-		$('body').on('click', '.nx-pro-checkbox, .nx-radio-pro', function (e) {
+		$('body').on('click', '.nx-pro-checkbox > label, .nx-radio-pro', function (e) {
 			e.preventDefault();
 			var premium_content = document.createElement("p");
 			var premium_anchor = document.createElement("a");
@@ -260,7 +273,7 @@
 			premium_anchor.setAttribute('href', 'https://wpdeveloper.net/in/notificationx-pro');
 			premium_anchor.innerText = 'Premium';
 			premium_anchor.style.color = 'red';
-			var pro_label = $(this).find('.pro-label');
+			var pro_label = $(this).find('.nx-pro-label');
 			if (pro_label.hasClass('has-to-update')) {
 				premium_anchor.innerText = 'Latest Pro v' + pro_label.text().toString().replace(/[ >=<]/g, '');
 			}
@@ -749,7 +762,7 @@
 			/**
 			 * Set image to the image container
 			 */
-			imgContainer.addClass('nx-has-thumb').append('<img src="' + attachment.url + '" alt="" style="max-width:100%;"/>');
+			imgContainer.addClass('nx-has-thumb').append('<img src="' + attachment.url + '" alt="NotificationX" style="max-width:100%;"/>');
 			idField.val(attachment.id); // set image id
 			urlField.val(attachment.url); // set image url
 			// Hide the upload button
@@ -908,6 +921,17 @@
 			final = newItemLine.join('<br>');
 			editable.html(final);
 		});
+	};
+
+	$.notificationx.get_query_vars = function (name) {
+		var vars = {};
+		window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+			vars[key] = value;
+		});
+		if (name != '') {
+			return vars[name];
+		}
+		return vars;
 	};
 
 

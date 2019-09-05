@@ -423,7 +423,7 @@ class NotificationX_Notice {
         $output = '';
         if( isset( $this->data['thumbnail'] ) && isset( $this->data['thumbnail'][ $msg_for ] ) ) {
             $output = '<div class="wpdeveloper-notice-thumbnail">';
-                $output .= '<img src="'. $this->data['thumbnail'][ $msg_for ] .'" alt="">';
+                $output .= '<img src="'. $this->data['thumbnail'][ $msg_for ] .'" alt="NotificationX">';
             $output .= '</div>';
         }
         echo $output;

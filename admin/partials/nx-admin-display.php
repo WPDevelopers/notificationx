@@ -19,8 +19,18 @@ if( ! $current_tab == array_search( $current_tab, array_keys( $tabs) ) ) {
 }
 $totaltabs = count( $tabs );
 $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
+$active_modules = NotificationX_Helper::modules_in_action( NotificationX_DB::get_settings('nx_modules') );
+$flag = empty( $active_modules ) ? true : false;
+if( ! empty( $active_modules ) ) {
+    foreach( $active_modules as $module ) {
+        if( $module == true ) {
+            $flag = true;
+        }
+    }
+}
 ?>
 <div class="notificationx-metabox-wrapper">
+    <?php if( $flag ) : ?>
     <div class="nx-metatab-menu">
         <ul>
             <?php 
@@ -51,7 +61,7 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
 
     <div class="nx-meta-contents nx-metatab-wrapper" data-totaltab="<?php echo $totaltabs; ?>">
         <div class="nx-preloader">
-            <img src="<?php echo NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon-colored-large.png'; ?>" alt="">
+            <img src="<?php echo NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon-colored-large.png'; ?>" alt="NotificationX">
         </div>
         <div class="nx-metatab-inner-wrapper">
             <input id="nx_builder_current_tab" type="hidden" name="nx_builder_current_tab" value="<?php echo $current_tab; ?>">
@@ -109,6 +119,10 @@ $position = intval( array_search( $current_tab, array_keys( $tabs) ) + 1 );
             ?>
         </div>
     </div>
+    <?php else : ?>
+    <style> #publish.button.button-primary.button-large {display: none;}</style>
+    <div class="nx-no-module-on">
+        <p><img src="<?php echo NOTIFICATIONX_URL; ?>/admin/assets/img/logo.svg" alt="NotificationX"><?php _e( 'Make sure you have module on from your NotificationX <a href="'. admin_url('admin.php?page=nx-settings') .'">settings</a>.', 'notificationx' ); ?></p>
+    </div>
+    <?php endif; ?>
 </div>
-
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->

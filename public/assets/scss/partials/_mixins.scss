@@ -1,0 +1,102 @@
+@mixin placeholder {
+	&::-webkit-input-placeholder {
+		@content
+	}
+	&:-moz-placeholder {
+		@content
+	}
+	&::-moz-placeholder {
+		@content
+	}
+	&:-ms-input-placeholder {
+		@content
+	}
+}
+
+@mixin transition($value) {
+	-webkit-transition: $value;
+	-moz-transition: $value;
+	-o-transition: $value;
+	transition: $value;
+}
+
+@mixin transform($value) {
+	-ms-transform: $value;
+	-webkit-transform: $value;
+	transform: $value;
+}
+
+@mixin filter($value) {
+	-webkit-filter: $value;
+	filter: $value;
+}
+
+@mixin animation($value) {
+	-moz-animation: $value;
+	-webkit-animation: $value;
+	-o-animation: $value;
+	animation: $value;
+}
+
+@mixin animation-fill($value) {
+	-moz-animation-fill-mode: $value;
+	-webkit-animation-fill-mode: $value;
+	-o-animation-fill-mode: $value;
+	animation-fill-mode: $value;
+}
+
+@mixin keyframes($name) {
+	@-webkit-keyframes #{$name}{
+		@content
+	}
+	@-moz-keyframes #{$name}{
+		@content
+	}
+	@-o-keyframes #{$name}{
+		@content
+	}
+	@keyframes #{$name}{
+		@content
+	}
+}
+
+@mixin clearfix {
+	&:before, &:after {
+		@extend %content;
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+@mixin object_fit() {
+	object-fit: cover;
+	-o-object-fit: cover;
+}
+
+@mixin quote_icon($size, $bgColor : #fff, $borderColor : #fff) {
+	@extend %content;
+	width: $size;
+	height: $size;
+	background-image: url("../img/nx-quote-icon.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 55%;
+	border: 3px solid $borderColor;
+	border-radius: 50%;
+	position: absolute;
+	left: 4px;
+	top: 4px;
+	box-shadow: 0 0 10px rgba(36, 30, 157, .12);
+	z-index: 1;
+	background-color: $bgColor;
+}
+
+@mixin fontWeight( $weight ) {
+	font-weight: $weight;
+}
+
+@mixin border( $size, $style, $color, $dir : left, $brightness : 0 ) {
+	border-#{$dir}: $size $style lighten( $color, $brightness );
+}

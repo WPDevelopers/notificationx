@@ -21,8 +21,8 @@ function notificationx_builder_args() {
                             'display_type'  => array(
                                 'type'         => 'theme',
                                 'type_content' => 'text',
-                                'inner_title'        => __('I would like to display' , 'notificationx'),
-                                'default'      => 'conversions',
+                                'inner_title'  => __('Notification Type' , 'notificationx'),
+                                'default'      => 'comments',
                                 'options'      => NotificationX_Helper::notification_types(),
                                 'dependency'   => array(
                                     'comments'       => NotificationX_ToggleFields::comments(),

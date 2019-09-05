@@ -70,12 +70,15 @@ class NotificationX_Admin {
 	public static $active_items = [];
 
 	public function __construct( $plugin_name, $version ) {
-		
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 		self::$settings = NotificationX_DB::get_settings();
         add_action( 'plugin_action_links_' . NOTIFICATIONX_BASENAME, array($this, 'nx_action_links'), 10, 1);
-        add_filter( 'plugin_row_meta', array( $this, 'nx_row_meta' ), 10, 2 );
+		add_filter( 'plugin_row_meta', array( $this, 'nx_row_meta' ), 10, 2 );
+		/**
+		 * @since 1.2.6
+		 */
+		add_filter('set-screen-option', array( $this, 'save_screen_options' ), 10, 3);
 	}
 	/**
 	* Get all active items.
@@ -122,6 +125,9 @@ class NotificationX_Admin {
 	}
 
 	public function redirect_after_publish( $post_ID, $post, $update ){
+		if( defined('NOTIFICATIONX_DEBUG') && NOTIFICATIONX_DEBUG ) {
+			return;
+		}
 		if( ( isset( $_POST['is_quick_builder'] ) && $_POST['is_quick_builder'] == true ) || ( isset( $_GET['action'], $_GET['page'] ) && $_GET['action'] == 'nxduplicate' ) ) {
 			return;
 		}
@@ -174,7 +180,7 @@ class NotificationX_Admin {
 			NOTIFICATIONX_ADMIN_URL . 'assets/css/nx-admin-global.min.css', 
 			array(), $this->version, 'all' 
 		);
-		if( $hook == 'notificationx_page_nx-builder' || $hook == 'notificationx_page_nx-settings' ) {
+		if( $hook == 'notificationx_page_nx-builder' || $hook == 'notificationx_page_nx-settings' || $hook === 'toplevel_page_nx-admin' ) {
 			$page_status = true;
 		}
 		
@@ -203,23 +209,9 @@ class NotificationX_Admin {
 		global $post_type;
 		$page_status = false;
 		
-		if( $hook == 'notificationx_page_nx-builder' || $hook == 'notificationx_page_nx-settings' ) {
+		if( $hook == 'notificationx_page_nx-builder' || $hook == 'notificationx_page_nx-settings' || $hook === 'toplevel_page_nx-admin' ) {
 			$page_status = true;
-		}
-
-		if( $hook === 'toplevel_page_nx-admin' ) {
-			wp_enqueue_script( 
-				$this->plugin_name . '-sweetalert', 
-				NOTIFICATIONX_ADMIN_URL . 'assets/js/sweetalert.min.js', 
-				array( 'jquery' ), $this->version, true 
-			);
-			wp_enqueue_script( 
-				$this->plugin_name, 
-				NOTIFICATIONX_ADMIN_URL . 'assets/js/nx-admin.min.js', 
-				array( 'jquery' ), $this->version, true 
-			);
-		}
-		
+		}		
 
 		if( $post_type != $this->type && ! $page_status ) {
 			return;
@@ -517,7 +509,8 @@ class NotificationX_Admin {
 			),
 		) );
 
-		add_menu_page( 'NotificationX', 'NotificationX', 'delete_users', 'nx-admin', array( $this, 'notificationx' ), NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon.png', 80 );
+		$hook = add_menu_page( 'NotificationX', 'NotificationX', 'delete_users', 'nx-admin', array( $this, 'notificationx' ), NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon.png', 80 );
+		add_action('load-' . $hook, array( $this, 'screen_options' ) );
 		/**
 		 * @since 1.2.2
 		 */
@@ -531,7 +524,28 @@ class NotificationX_Admin {
 			$hook = add_submenu_page( 'nx-admin', $setting['title'], $setting['title'], $cap, $slug, $setting['callback'] );
 		}
 	}
-
+	/**
+	 * Render screen options
+	 * @since 1.2.6
+	 */
+	public function screen_options(){
+		$option = 'per_page';
+		$args = array(
+			'label' => __('Number of Notification Per Page', 'notificationx'),
+			'default' => 10,
+			'option' => 'notification_per_page'
+		);
+		
+		add_screen_option( $option, $args );
+	}
+	/**
+	 * Save screen option
+	 * @since 1.2.6
+	 */
+	public function save_screen_options($status, $option, $value) {
+		if ( 'notification_per_page' == $option ) return $value;
+		return $status;
+	}
 	public function highlight_admin_menu( $parent_file ){
 		if( $parent_file === 'notificationx' ) {
 			return 'nx-admin';
@@ -590,12 +604,76 @@ class NotificationX_Admin {
 	}
 
 	public function notificationx(){
-		$notificationx = new WP_Query(array(
+		$all_active_class = '';
+		$enabled_active_class = '';
+		$disabled_active_class = '';
+		$trash_active_class = '';
+		$pagenow = '';
+		$paged = 1;
+
+		$count_posts            = self::count_posts();
+		$screen                 = get_current_screen();
+		$user                   = get_current_user_id();
+		$option                 = $screen->get_option('per_page', 'option');
+		$per_page               = get_user_meta($user, $option, true);
+		$per_page               = empty( $per_page ) ? 10 : $per_page;
+		$total_page             = ceil( $count_posts->publish / $per_page );
+		$pagination_current_url = admin_url('admin.php?page=nx-admin');
+
+		$post_args = array(
 			'post_type' => 'notificationx',
-			'post_status' => array('publish', 'trash', 'draft'),
 			'numberposts' => -1,
-			'posts_per_page' => -1,
-		));
+			'posts_per_page' => $per_page,
+		);
+
+		if( isset( $_GET['page'] ) && $_GET['page'] == 'nx-admin' ) {
+			$all_active_class = 'class="active"';
+			$pagenow = 'publish, draft';
+			if( isset( $_GET['status'] ) && $_GET['status'] == 'enabled' ) {
+				$pagination_current_url = add_query_arg('status', 'enabled', $pagination_current_url);
+				$enabled_active_class   = 'class="active"';
+				$all_active_class       = '';
+				$pagenow                = 'publish';
+				$total_page  = ceil( $count_posts->enabled / $per_page );
+				$post_args = array_merge( $post_args, array( 'meta_query' => array(
+					array(
+						'key'     => '_nx_meta_active_check',
+						'value'   => 1,
+						'compare' => '=',
+					),
+				)));
+			}
+			if( isset( $_GET['status'] ) && $_GET['status'] == 'disabled' ) {
+				$pagination_current_url = add_query_arg('status', 'disabled', $pagination_current_url);
+				$disabled_active_class  = 'class="active"';
+				$all_active_class       = '';
+				$pagenow                = 'publish';
+				$total_page  = ceil( $count_posts->disabled / $per_page );
+				$post_args = array_merge( $post_args, array( 'meta_query' => array(
+					array(
+						'key'     => '_nx_meta_active_check',
+						'value'   => 0,
+						'compare' => '=',
+					),
+				)));
+			}
+			if( isset( $_GET['status'] ) && $_GET['status'] == 'trash' ) {
+				$pagination_current_url = add_query_arg('status', 'trash', $pagination_current_url);
+				$trash_active_class     = 'class="active"';
+				$all_active_class       = '';
+				$pagenow                = 'trash';
+				$total_page  = ceil( $count_posts->trash / $per_page );
+			}
+			if( isset( $_GET['paged'] ) ) {
+				if( intval( $_GET['paged'] ) > 0 ) {
+					$paged = intval( $_GET['paged'] );
+				}
+			}
+		}
+
+		$post_args = array_merge( $post_args, array( 'post_status' => explode(', ', $pagenow), 'offset' => ( ( $paged - 1 ) * $per_page ) ));
+
+		$notificationx = new WP_Query( $post_args );
 
 		$table_header = apply_filters( 'nx_admin_table_header', array(
 			'NotificationX Title',
@@ -709,7 +787,7 @@ class NotificationX_Admin {
 		$output = '<div id="'. esc_attr( $unique_id ) .'" class="nx-notification '. implode( ' ', NotificationX_Extension::get_classes( $settings ) ) .'">';
 		$output .= '<div '. NotificationX_Public::generate_preview_css( $settings ) .' class="notificationx-inner '. implode( ' ', NotificationX_Extension::get_classes( $settings, 'inner' ) ) .'">';
 		$output .= '<div class="notificationx-image nx-preview-image">';
-		$output .= '<img class="'. implode( ' ', NotificationX_Extension::get_classes( $settings, 'img' ) ) .'" src="'. NOTIFICATIONX_ADMIN_URL . 'assets/img/placeholder-300x300.png" alt="">';
+		$output .= '<img class="'. implode( ' ', NotificationX_Extension::get_classes( $settings, 'img' ) ) .'" src="'. NOTIFICATIONX_ADMIN_URL . 'assets/img/placeholder-300x300.png" alt="NotificationX">';
 		$output .= '</div>';
 		$output .= '<div class="notificationx-content">';
 		if( $type === 'conversion' ) :

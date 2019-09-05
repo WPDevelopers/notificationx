@@ -3,5 +3,5 @@
 ?>
 
 <div class="nx-info-message">
-    <?php echo esc_html_e( $message ); ?>
+    <?php echo $message; ?>
 </div>

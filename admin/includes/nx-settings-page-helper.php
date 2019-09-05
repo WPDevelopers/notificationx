@@ -28,6 +28,11 @@ function notificationx_settings_args(){
                             'title' => __('Easy Digital Downloads', 'notificationx'),
                             'link' => 'https://notificationx.com/docs/notificationx-easy-digital-downloads/'
                         ),
+                        'modules_give' => array(
+                            'title' => __('Give', 'notificationx'),
+                            'version' => '1.2.5',
+                            'link' => 'https://notificationx.com/docs/givewp-donation-alert/'
+                        ),
                         'modules_freemius' => array(
                             'is_pro' => true,
                             'title' => __('Freemius', 'notificationx'),
@@ -63,11 +68,6 @@ function notificationx_settings_args(){
                             'title' => __('LearnDash', 'notificationx'),
                             'version' => '1.2.0',
                             'link' => 'https://notificationx.com/docs/how-to-display-learndash-course-enrollment-alert-using-notificationx'
-                        ),
-                        'modules_give' => array(
-                            'title' => __('Give', 'notificationx'),
-                            'version' => '1.2.0',
-                            'link' => 'https://notificationx.com/docs/'
                         ),
                     )),
                     'views' => 'NotificationX_Settings::modules'
