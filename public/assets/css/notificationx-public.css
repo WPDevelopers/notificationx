@@ -1043,7 +1043,7 @@
   background-color: #ddd;
   text-align: center;
   visibility: hidden;
-  z-index: 999999
+  z-index: 99999
 }
 .notificationx-shortcode-wrapper > .nx-bar.nx-bar-visible,
 .nx-bar.nx-bar-visible {
