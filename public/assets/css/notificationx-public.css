@@ -847,7 +847,12 @@ body.nx-press_bar-active {
 }
 .notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment .notificationx-content .nx-second-row,
 .nx-notification.nx-reviews .nx-notification-review-comment .notificationx-content .nx-second-row {
-  color: #697097
+  color: #697097;
+  max-width: 280px
+}
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment .notificationx-content .nx-third-row,
+.nx-notification.nx-reviews .nx-notification-review-comment .notificationx-content .nx-third-row {
+  margin-top: 5px
 }
 .notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment.nx-img-circle .notificationx-image > img,
 .nx-notification.nx-reviews .nx-notification-review-comment.nx-img-circle .notificationx-image > img {
@@ -940,13 +945,20 @@ body.nx-press_bar-active {
   margin-top: 5px;
   color: inherit;
   line-height: 1.4;
-  font-style: italic
+  font-style: italic;
+  max-width: 280px
 }
 .notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment-2 .notificationx-content .nx-branding,
 .notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment-3 .notificationx-content .nx-branding,
 .nx-notification.nx-reviews .nx-notification-review-comment-2 .notificationx-content .nx-branding,
 .nx-notification.nx-reviews .nx-notification-review-comment-3 .notificationx-content .nx-branding {
   margin-right: 10px
+}
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment-2 .notificationx-content .nx-third-row,
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment-3 .notificationx-content .nx-third-row,
+.nx-notification.nx-reviews .nx-notification-review-comment-2 .notificationx-content .nx-third-row,
+.nx-notification.nx-reviews .nx-notification-review-comment-3 .notificationx-content .nx-third-row {
+  margin-top: 5px
 }
 .notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment-2.nx-img-right .notificationx-content,
 .notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment-3.nx-img-right .notificationx-content,

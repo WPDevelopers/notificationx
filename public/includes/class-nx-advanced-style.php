@@ -26,6 +26,12 @@ class NotificationX_Advanced_Style {
             if( $settings->display_type === 'comments' ) {
                 $css_string = self::comments_edit( $settings, $theme );
             }
+            if( $settings->display_type === 'reviews' ) {
+                $css_string = self::reviews_edit( $settings, $theme );
+            }
+            if( $settings->display_type === 'download_stats' ) {
+                $css_string = self::stats_edit( $settings, $theme );
+            }
         }
 
         if( ! empty( $css_string ) ) {
@@ -34,6 +40,146 @@ class NotificationX_Advanced_Style {
 
         do_action( 'nx_style_generation' );
 		$css_string = apply_filters('nx_style_string', $css_string, $settings );
+
+        return $css_string;
+    }
+    public static function stats_edit( $settings, $theme = 'theme-one' ){
+        $css_object = [];
+        $css_string = '';
+
+        if( ! empty( $settings->wpstats_bg_color ) ) {
+            $css_object[ 'wrapper' ][] = 'background-color:' . $settings->wpstats_bg_color;
+            $css_object['shadow']['color'] = $settings->wpstats_bg_color;
+        }
+        if( ! empty( $settings->wpstats_text_color ) ) {
+            $css_object[ 'wrapper' ][] = 'color:' . $settings->wpstats_text_color;
+            $css_object[ 'color' ][] = 'color:' . $settings->wpstats_text_color;
+        }
+        if( $settings->wpstats_border ) {
+            if( ! empty( $settings->wpstats_border_size ) ) {
+                $css_object[ 'border' ][] = 'border-width:' . $settings->wpstats_border_size . 'px';
+                if( ! empty( $settings->wpstats_border_style ) ) {
+                    $css_object[ 'border' ][] = 'border-style:' . $settings->wpstats_border_style;
+                }
+                if( ! empty( $settings->wpstats_border_color ) ) {
+                    $css_object[ 'border' ][] = 'border-color:' . $settings->wpstats_border_color;
+                    $css_object[ 'shadow' ]['border-color'] = $settings->wpstats_border_color;
+                }
+            }
+        }
+
+        if( ! empty( $settings->wpstats_first_font_size ) ) {
+            $css_object[ 'first_row' ][] = 'font-size:' . $settings->wpstats_first_font_size . 'px';
+        }
+        if( ! empty( $settings->wpstats_second_font_size ) ) {
+            $css_object[ 'second_row' ][] = 'font-size:' . $settings->wpstats_second_font_size . 'px';
+        }
+        if( ! empty( $settings->wpstats_third_font_size ) ) {
+            $css_object[ 'second_row' ][] = 'font-size:' . $settings->wpstats_third_font_size . 'px';
+        }
+
+        $custom_class = '.nx-notification.nx-' . $settings->display_type . ' .nx-customize-style-' . $settings->id;
+        $inner_class = $custom_class . '.nx-notification-' . $theme . '.notificationx-inner';
+        $content_class = $inner_class . ' .notificationx-content';
+        $image_class = $inner_class . ' .notificationx-image';
+
+        if( ! empty( $css_object['wrapper'] ) ) {
+            $wrapper_css = $inner_class . '{' . implode( ';', $css_object['wrapper'] ) . '}';
+            $wrapper_css .= $image_class . '{' . implode( ';', $css_object['wrapper'] ) . '}';
+            $css_string .= $wrapper_css;
+        }
+        if( ! empty( $css_object['border'] ) ) {
+            $border_css = $inner_class . '{' . implode( ';', $css_object['border'] ) . '}';
+            $css_string .= $border_css;
+        }
+        if( ! empty( $css_object['first_row'] ) ) {
+            $css_string .= $content_class . ' .nx-first-row{' . implode( ';', $css_object['first_row'] ) . '}';
+        }
+        if( ! empty( $css_object['second_row'] ) ) {
+            $css_string .= $content_class . ' .nx-second-row{' . implode( ';', $css_object['second_row'] ) . '}';
+        }
+        if( ! empty( $css_object['third_row'] ) ) {
+            $css_string .= $content_class . ' .nx-third-row{' . implode( ';', $css_object['third_row'] ) . '}';
+        }
+        if( ! empty( $css_object[ 'color' ] ) ) {
+            $css_string .= $content_class . ' > div {' . implode( ';', $css_object['color'] ) . '}';
+            $css_string .= $content_class . ' > div > span {' . implode( ';', $css_object['color'] ) . '}';
+        }
+
+        return $css_string;
+    }
+    public static function reviews_edit( $settings, $theme = 'theme-one' ){
+        $css_object = [];
+        $css_string = '';
+
+        if( ! empty( $settings->wporg_bg_color ) ) {
+            $css_object[ 'wrapper' ][] = 'background-color:' . $settings->wporg_bg_color;
+            $css_object['shadow']['color'] = $settings->wporg_bg_color;
+        }
+        if( ! empty( $settings->wporg_text_color ) ) {
+            $css_object[ 'wrapper' ][] = 'color:' . $settings->wporg_text_color;
+            $css_object[ 'color' ][] = 'color:' . $settings->wporg_text_color;
+        }
+        if( $settings->wporg_border ) {
+            if( ! empty( $settings->wporg_border_size ) ) {
+                $css_object[ 'border' ][] = 'border-width:' . $settings->wporg_border_size . 'px';
+                if( ! empty( $settings->wporg_border_style ) ) {
+                    $css_object[ 'border' ][] = 'border-style:' . $settings->wporg_border_style;
+                }
+                if( ! empty( $settings->wporg_border_color ) ) {
+                    $css_object[ 'border' ][] = 'border-color:' . $settings->wporg_border_color;
+                    $css_object[ 'shadow' ]['border-color'] = $settings->wporg_border_color;
+                }
+            }
+        }
+
+        if( ! empty( $settings->wporg_first_font_size ) ) {
+            $css_object[ 'first_row' ][] = 'font-size:' . $settings->wporg_first_font_size . 'px';
+        }
+        if( ! empty( $settings->wporg_second_font_size ) ) {
+            $css_object[ 'second_row' ][] = 'font-size:' . $settings->wporg_second_font_size . 'px';
+        }
+        if( ! empty( $settings->wporg_third_font_size ) ) {
+            $css_object[ 'second_row' ][] = 'font-size:' . $settings->wporg_third_font_size . 'px';
+        }
+
+        $custom_class = '.nx-notification.nx-' . $settings->display_type . ' .nx-customize-style-' . $settings->id;
+        $inner_class = $custom_class . '.nx-notification-' . $theme . '.notificationx-inner';
+        $content_class = $inner_class . ' .notificationx-content';
+        $image_class = $inner_class . ' .notificationx-image';
+
+        if( ! empty( $css_object['wrapper'] ) ) {
+            $wrapper_css = $inner_class . '{' . implode( ';', $css_object['wrapper'] ) . '}';
+            $wrapper_css .= $image_class . '{' . implode( ';', $css_object['wrapper'] ) . '}';
+            // THEME SIX
+            if( $theme === 'review-comment' ) {
+                $wrapper_css = $content_class . '{' . implode( ';', $css_object['wrapper'] ) . '}';
+                $wrapper_css .= $image_class . '{' . implode( ';', $css_object['wrapper'] ) . '}';
+                $wrapper_css .= $image_class . ':after{border-right-color: '. $css_object['shadow']['color'] .' }';
+            }
+            $css_string .= $wrapper_css;
+        }
+        if( ! empty( $css_object['border'] ) ) {
+            $border_css = $inner_class . '{' . implode( ';', $css_object['border'] ) . '}';
+            if( $theme === 'review-comment' ) {
+                $border_css = $content_class . '{' . implode( ';', $css_object['border'] ) . '}';
+                $border_css .= $image_class . '{' . implode( ';', $css_object['border'] ) . '}';
+            }
+            $css_string .= $border_css;
+        }
+        if( ! empty( $css_object['first_row'] ) ) {
+            $css_string .= $content_class . ' .nx-first-row{' . implode( ';', $css_object['first_row'] ) . '}';
+        }
+        if( ! empty( $css_object['second_row'] ) ) {
+            $css_string .= $content_class . ' .nx-second-row{' . implode( ';', $css_object['second_row'] ) . '}';
+        }
+        if( ! empty( $css_object['third_row'] ) ) {
+            $css_string .= $content_class . ' .nx-third-row{' . implode( ';', $css_object['third_row'] ) . '}';
+        }
+        if( ! empty( $css_object[ 'color' ] ) ) {
+            $css_string .= $content_class . ' > div {' . implode( ';', $css_object['color'] ) . '}';
+            $css_string .= $content_class . ' > div > span {' . implode( ';', $css_object['color'] ) . '}';
+        }
 
         return $css_string;
     }
@@ -153,25 +299,10 @@ class NotificationX_Advanced_Style {
 
         if( ! empty( $css_object['wrapper'] ) ) {
             $wrapper_css = $inner_class . '{' . implode( ';', $css_object['wrapper'] ) . '}';
-            if( $theme === 'theme-four' ) {
-                $wrapper_css = $content_class . '{' . implode( ';', $css_object['wrapper'] ) . '}';
-                if( ! empty( $css_object['shadow']['color'] ) ) {
-                    $box_shadow = '0 0 0px 10px ' . $css_object['shadow']['color'];
-                }
-                if( ! empty( $css_object['shadow']['border-color'] ) ) {
-                    $box_shadow .= ',0 0 0px 11px ' . $css_object['shadow']['border-color'];
-                }
-                $box_shadow .= ',-10px 0px 30px -20px #b3b3b3';
-
-                $wrapper_css .= $image_class . '{box-shadow: '. $box_shadow .'}';
-            }
             $css_string .= $wrapper_css;
         }
         if( ! empty( $css_object['border'] ) ) {
             $border_css = $inner_class . '{' . implode( ';', $css_object['border'] ) . '}';
-            if( $theme === 'theme-four' ) {
-                $border_css = $content_class . '{' . implode( ';', $css_object['border'] ) . '}';
-            }
             $css_string .= $border_css;
         }
         if( ! empty( $css_object['first_row'] ) ) {

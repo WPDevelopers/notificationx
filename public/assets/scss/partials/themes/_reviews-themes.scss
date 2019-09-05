@@ -107,6 +107,10 @@
 			}
 			& .nx-second-row {
 				color: #697097;
+				max-width: 280px;
+			}
+			& .nx-third-row {
+				margin-top: 5px;
 			}
 		}
 		&.nx-img-circle {
@@ -169,9 +173,13 @@
 				color: inherit;
 				line-height: 1.4;
 				font-style: italic;
+				max-width: 280px;
 			}
 			& .nx-branding {
 				margin-right: 10px
+			}
+			& .nx-third-row {
+				margin-top: 5px;
 			}
 		}
 		&.nx-img-right { 
