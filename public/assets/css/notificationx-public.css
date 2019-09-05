@@ -299,7 +299,7 @@
 .nx-notification .notificationx-inner.nx-img-square .notificationx-image > img,
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner.nx-img-square .notificationx-image,
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner.nx-img-square .notificationx-image > img {
-  border-radius: 0px
+  border-radius: 0
 }
 .nx-notification .notificationx-inner.nx-img-rounded .notificationx-image,
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner.nx-img-rounded .notificationx-image {
@@ -1067,6 +1067,7 @@ body.nx-press_bar-active {
 }
 .notificationx-shortcode-wrapper > .nx-bar.nx-position-bottom,
 .nx-bar.nx-position-bottom {
+  position: fixed;
   top: auto;
   bottom: 0
 }
