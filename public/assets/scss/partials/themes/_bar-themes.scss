@@ -7,12 +7,21 @@
 	background-color: #ddd;
 	text-align: center;
 	visibility: hidden;
+	z-index: 99999;
+	font-size: 14px;
+	box-shadow: 0 0 70px -30px lighten(#000, 50%);
+	@include transition(all 0.2s ease-in);
 	&.nx-bar-visible {
 		visibility: visible;
 	}
 	&.nx-sticky-bar {
 		position: fixed;
 		width: 100%;
+	}
+	&.nx-position-bottom{
+		position: fixed;
+		top: auto;
+		bottom: 0;
 	}
 	& .nx-bar-inner {
 		padding: 20px;

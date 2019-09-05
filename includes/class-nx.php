@@ -151,6 +151,7 @@ final class NotificationX {
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'public/includes/class-nx-advanced-style.php';
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'public/class-nx-public.php';
 		do_action('notificationx_load_depedencies');
 	}

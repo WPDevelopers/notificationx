@@ -1,7 +1,6 @@
 <?php
 $attrs = $wrapper_attrs = $class = '';
 $pos_class = 'nx-position-top';
-
 if( $settings->link_open ) {
     $attrs .= ' target="_blank"';
 }
@@ -40,6 +39,9 @@ if( $settings->sticky_bar ) {
 if( $settings->id ) {
     $wrapper_attrs .= ' data-press_id="'. $settings->id .'"';
 }
+if( $settings->pressbar_position ) {
+    $wrapper_attrs .= ' data-position="'. $settings->pressbar_position .'"';
+}
 
 if( 'bottom' == $settings->pressbar_position ) {
     $pos_class = '';
@@ -61,10 +63,10 @@ if( $settings->enable_countdown ) {
 }
 
 if( $settings->bar_advance_edit ) {
-    $class = ' nx-customize-style-' . $settings->id;
+    $class .= ' nx-customize-style-' . $settings->id;
 }
 if( $settings->sticky_bar ) {
-    $class = ' nx-sticky-bar';
+    $class .= ' nx-sticky-bar';
 }
 
 ?>

@@ -52,3 +52,11 @@
     left: 20px;
     margin-top: -4px;
 }
+
+%box-shadow {
+    box-shadow: 0 0 10px 0px #f2f2f2;
+}
+
+%box-shadow-none {
+    box-shadow: none;
+}

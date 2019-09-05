@@ -22,6 +22,22 @@
 	$.notificationx.pressbar = function () {
 		var bars = $('.nx-bar');
 		if (bars.length > 0) {
+			var barHeight = bars.height(),
+				initialDelay = bars[0].dataset.initial_delay * 1000,
+				autoHide = bars[0].dataset.auto_hide,
+				position = bars[0].dataset.position;
+
+			/* add padding in body after initial delay */
+			setTimeout(function () {
+				$('body').addClass('has-nx-bar').css('padding-' + position, barHeight);
+			}, initialDelay);
+			/* remove padding in body after if auto hide is enable */
+			if(autoHide) {
+				var duration = bars[0].dataset.hide_after * 1000;
+				setTimeout(function () {
+					$('body').css('padding-' + position, 0).removeClass('has-nx-bar');
+				}, duration);
+			}
 			bars.each(function (i, bar) {
 				var id = bar.dataset.press_id,
 					duration = bar.dataset.hide_after,
@@ -123,11 +139,13 @@
 		var barClose = $('.nx-bar .nx-close');
 		if (barClose !== null) {
 			barClose.on('click', function (event) {
+				var position = $('#' + event.currentTarget.offsetParent.id).data('position');
 				$.notificationx.active_pressbar = 0;
 				$.notificationx.hideBar(event.currentTarget.offsetParent.id);
+				$('body').css('padding-' + position, 0 ).removeClass('has-nx-bar');
 			});
 		}
-	}
+	};
 
 	$.notificationx.showBar = function (bar, bar_id) {
 		// if( bar === '' ) {

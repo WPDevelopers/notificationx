@@ -59,7 +59,9 @@
 	// SIX
 	& .nx-notification-review-comment {
 		@extend %bgnone;
+		@extend %box-shadow-none;
 		& .notificationx-image {
+			@extend %box-shadow;
 			border-radius: 10px;
 			align-self: stretch;
 			@extend %posr;
@@ -95,6 +97,7 @@
 			background-color: #fff;
 			border-radius: 10px;
 			padding: 15px; 
+			@extend %box-shadow;
 			& .nx-first-row {
 				font-size: 16px;
 				@include fontWeight(700);
@@ -104,6 +107,10 @@
 			}
 			& .nx-second-row {
 				color: #697097;
+				max-width: 280px;
+			}
+			& .nx-third-row {
+				margin-top: 5px;
 			}
 		}
 		&.nx-img-circle {
@@ -166,9 +173,13 @@
 				color: inherit;
 				line-height: 1.4;
 				font-style: italic;
+				max-width: 280px;
 			}
 			& .nx-branding {
 				margin-right: 10px
+			}
+			& .nx-third-row {
+				margin-top: 5px;
 			}
 		}
 		&.nx-img-right { 

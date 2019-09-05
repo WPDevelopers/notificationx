@@ -104,12 +104,12 @@
 	& .nx-notification-theme-three {
 		background-color: #fff;
 		& .notificationx-content  {
-			@include border(1px, solid, #ddd);
+			@include border(1px, solid, #f2f2f2);
 		}
 		&.nx-img-right { 
 			& .notificationx-content  {
 				border-left: none;
-				@include border(1px, solid, #ddd, 'right');
+				@include border(1px, solid, #f2f2f2, 'right');
 			}	
 		}
 	}

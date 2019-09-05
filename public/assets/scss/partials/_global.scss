@@ -5,7 +5,16 @@
 	position: fixed;
 	left: 30px;
 	z-index: 9999;
+	& .notificationx-link {
+		@extend %posa;
+		@extend %wh100;
+		@extend %lr0;
+		top: 0px;
+	}
 	& .nx-branding {
+		& > a {
+			z-index: 999;
+		}
 		& > a > svg {
 			width: 80px;
 			fill: #5614d5;
@@ -41,6 +50,7 @@
 		@extend %flex;
 		@extend %flex-align-center;
 		background-color: #fff;
+		@extend %box-shadow;
 		&.nx-has-close-btn {
 			span.notificationx-close {
 				display: block;
@@ -100,7 +110,7 @@
 		}
 		&.nx-img-square {
 			& .notificationx-image, & .notificationx-image > img {
-				border-radius: 0px;
+				border-radius: 0;
 			}
 		}
 		&.nx-img-rounded {
@@ -110,4 +120,7 @@
 			}
 		}
 	}
+}
+body.has-nx-bar, body.nx-press_bar-active{
+	@include transition(padding 0.2s ease-in);
 }

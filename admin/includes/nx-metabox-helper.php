@@ -436,6 +436,12 @@ function notificationx_metabox_args(){
                                 'priority'	=> 14,
                                 'default'	=> ''
                             ),
+                            'bar_close_color' => array(
+                                'type'      => 'colorpicker',
+                                'label'     => __('Close Button Color' , 'notificationx'),
+                                'priority'	=> 15,
+                                'default'	=> ''
+                            ),
                         )
                     ),
                     'bar_typography' => array(
