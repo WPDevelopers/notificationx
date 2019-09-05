@@ -110,7 +110,7 @@
 		}
 		&.nx-img-square {
 			& .notificationx-image, & .notificationx-image > img {
-				border-radius: 0px;
+				border-radius: 0;
 			}
 		}
 		&.nx-img-rounded {
@@ -120,4 +120,7 @@
 			}
 		}
 	}
+}
+body.has-nx-bar, body.nx-press_bar-active{
+	@include transition(padding 0.2s ease-in);
 }

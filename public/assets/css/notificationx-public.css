@@ -313,12 +313,19 @@
 .nx-notification .notificationx-inner.nx-img-square .notificationx-image > img,
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner.nx-img-square .notificationx-image,
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner.nx-img-square .notificationx-image > img {
-  border-radius: 0px
+  border-radius: 0
 }
 .nx-notification .notificationx-inner.nx-img-rounded .notificationx-image,
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner.nx-img-rounded .notificationx-image {
   border-radius: 5px;
   overflow: hidden
+}
+body.has-nx-bar,
+body.nx-press_bar-active {
+  -webkit-transition: padding 0.2s ease-in;
+  -moz-transition: padding 0.2s ease-in;
+  -o-transition: padding 0.2s ease-in;
+  transition: padding 0.2s ease-in
 }
 .notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-two,
 .notificationx-shortcode-wrapper > .nx-notification.nx-conversions .nx-notification-theme-two,
@@ -1059,7 +1066,11 @@
   visibility: hidden;
   z-index: 99999;
   box-shadow: 0 0 70px -30px #000;
-  font-size: 14px
+  font-size: 14px;
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in
 }
 .notificationx-shortcode-wrapper > .nx-bar.nx-bar-visible,
 .nx-bar.nx-bar-visible {
@@ -1069,6 +1080,12 @@
 .nx-bar.nx-sticky-bar {
   position: fixed;
   width: 100%
+}
+.notificationx-shortcode-wrapper > .nx-bar.nx-position-bottom,
+.nx-bar.nx-position-bottom {
+  position: fixed;
+  top: auto;
+  bottom: 0
 }
 .notificationx-shortcode-wrapper > .nx-bar .nx-bar-inner,
 .nx-bar .nx-bar-inner {
