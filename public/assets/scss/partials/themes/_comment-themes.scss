@@ -16,6 +16,7 @@
 			margin: 0;
 			padding: 20px;
 			margin-right: 15px;
+			overflow: visible;
 			&:after {
 				@extend %posa;
 				@extend %content;
@@ -50,6 +51,7 @@
 			}
 			& .nx-second-row {
 				color: #697097;
+				max-width: 280px;
 			}
 			& .nx-third-row {
 				margin-top: 5px;
@@ -110,6 +112,7 @@
 				color: inherit;
 				line-height: 1.4;
 				font-style: italic;
+				max-width: 280px;
 			}
 			& .nx-branding {
 				margin-right: 10px
@@ -118,10 +121,30 @@
 		&.nx-img-right { 
 			& .notificationx-content  {
 				padding-left: 40px;
-				& span.notificationx-close {
-					@extend %left-center-close;
-				}
 			}	
+			& span.notificationx-close {
+				@extend %left-center-close;
+			}
+		}
+		&.nx-img-circle {}
+		&.nx-img-rounded, &.nx-img-square {
+			& .notificationx-image {
+				border-radius: 0px;
+				overflow: visible;
+				padding: 25px;
+				background: none;
+				& > img {
+					position: static;
+					border-radius: 5px;
+				}
+			}
+		}
+		&.nx-img-square {
+			& .notificationx-image {
+				& > img {
+					border-radius: 0px;
+				}
+			}
 		}
 	}
 	// EIGHT
