@@ -1,7 +1,7 @@
 === NotificationX - Best Social Proof & FOMO Plugin ===
 Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul
 Donate link: http://notificationx.com
-Tags: sales notification, fomo, social proof, live sales feed, recent sales notification, woocommerce sales, recent purchase, popups, boost sales, email subscription, increase engagement
+Tags: sales notification, fomo, social proof, woocommerce sales, recent purchase, popups, boost sales, email subscription, increase engagement, recent sales notification, live sales feed, marketing tools, givewp, learndash, edd
 Requires at least: 4.0
 Tested up to: 5.2.2
 Requires PHP: 5.4
@@ -135,7 +135,7 @@ No, NotificationX works seamlessly with any WordPress themes. You just need to i
 
 = Is our website’s data legally safe with NotificationX?
 
-Yes. Your data is legally safe and we guarantee to not make use of your data under any circumstances.
+Yes. Your data is legally safe and we guarantee to not make use of your data under any circumstances. And your data stays at your site, so zero risk, its not like other SaaS based solution.
 
 == Screenshots ==
 1. Overview of few notification
@@ -167,8 +167,6 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 - Fixed : Default Settings issue
 - Fixed : Possible blank page issue on builder
 - Few minor bugfix and improvement
-
-== Changelog ==
 
 = 1.2.6 - 02/09/2019 =
 
@@ -270,4 +268,4 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Upgrade Notice ==
 
-
+Must Update, fix template css related issue
