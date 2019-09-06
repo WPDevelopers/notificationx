@@ -214,6 +214,11 @@
   left: 30px;
   z-index: 9999999
 }
+.nx-notification.nx-bottom_right,
+.notificationx-shortcode-wrapper > .nx-notification.nx-bottom_right {
+  left: auto;
+  right: 30px
+}
 .nx-notification .notificationx-link,
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-link {
   top: 0px
