@@ -368,7 +368,7 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
         } else {
             $user_data['last_name'] = '';
         }
-        $user_data['name'] = trim( $user_data[ 'first_name' ].' '.$user_data[ 'last_name' ] );
+        $user_data['name'] = trim( $user_data[ 'first_name' ] . ' ' . substr( $user_data[ 'last_name' ], 0, 1 ) );
         $user_data['email'] = $donation->email;
         $user_data['country'] = $donation->address['country'];
         $user_data['city'] = $donation->address['city'];
