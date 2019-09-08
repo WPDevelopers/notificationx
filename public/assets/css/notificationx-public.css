@@ -340,6 +340,14 @@ body.nx-press_bar-active {
 .nx-notification.nx-email_subscription .nx-notification-theme-two {
   border-radius: 50px
 }
+.notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-two.has-no-image .notificationx-content,
+.notificationx-shortcode-wrapper > .nx-notification.nx-conversions .nx-notification-theme-two.has-no-image .notificationx-content,
+.notificationx-shortcode-wrapper > .nx-notification.nx-email_subscription .nx-notification-theme-two.has-no-image .notificationx-content,
+.nx-notification.nx-comments .nx-notification-theme-two.has-no-image .notificationx-content,
+.nx-notification.nx-conversions .nx-notification-theme-two.has-no-image .notificationx-content,
+.nx-notification.nx-email_subscription .nx-notification-theme-two.has-no-image .notificationx-content {
+  padding-left: 30px
+}
 .notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-two span.notificationx-close,
 .notificationx-shortcode-wrapper > .nx-notification.nx-conversions .nx-notification-theme-two span.notificationx-close,
 .notificationx-shortcode-wrapper > .nx-notification.nx-email_subscription .nx-notification-theme-two span.notificationx-close,

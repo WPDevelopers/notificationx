@@ -917,7 +917,7 @@ class NotificationX_Admin {
 				$get_post_meta = get_metadata( 'post', $nx_post_id );
 				if( ! empty( $get_post_meta ) ) {
 					foreach( $get_post_meta as $key => $value ){
-						if( in_array( $key, array( '_edit_lock', '_edit_last' ) ) ) {
+						if( in_array( $key, array( '_edit_lock', '_edit_last', '_nx_meta_impression_per_day', '_nx_meta_views' ) ) ) {
 							continue;
 						}
 						add_post_meta( $duplicate_post_id, $key, $value[0] );

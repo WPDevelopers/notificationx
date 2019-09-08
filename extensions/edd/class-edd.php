@@ -317,7 +317,7 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
 
         $notification['ip'] = edd_get_payment_user_ip( $payment_id );
 
-        $user_ip_data = $this->remote_get('http://ip-api.com/json/' . $notification['ip'] );
+        $user_ip_data = self::remote_get('http://ip-api.com/json/' . $notification['ip'] );
         if( $user_ip_data ) {
             $buyer['country'] = $user_ip_data->country;
             $buyer['city']    = $user_ip_data->city;

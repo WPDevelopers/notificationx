@@ -198,7 +198,7 @@ class NotificationX_Extension {
         return NotificationX_DB::update_notifications( $notifications );
     }
 
-    protected function remote_get( $url, $args = array() ){
+    public static function remote_get( $url, $args = array() ){
         $defaults = array(
             'timeout'     => 20,
             'redirection' => 5,
@@ -510,18 +510,6 @@ class NotificationX_Extension {
                                     get_post_thumbnail_id( $data['product_id'] ), 'medium', false 
                                 );
                                 $image_url = is_array( $product_image ) ? $product_image[0] : '';
-                            }
-                        }
-                        if( $settings->conversion_from == 'custom_notification' ) {
-                            if( ! empty( $data ) ) {
-                                $image_url = $alt_title = '';
-                                if( isset( $data['image'] ) && ! empty( $data['image'] ) ) {
-                                    $product_image = wp_get_attachment_image_src( $data['image']['id'], 'medium', false );
-                                    $image_url = is_array( $product_image ) ? $product_image[0] : '';
-                                }
-                                if( isset( $data['title'] ) && ! empty( $data['title'] ) ) {
-                                    $alt_title = $data['title'];
-                                }
                             }
                         }
                         break;

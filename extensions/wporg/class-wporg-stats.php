@@ -216,7 +216,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
 
         if( $product_type == 'plugin' ) {
             $raw_stats              = $this->helper->get_plugin_stats( $plugin_slug );
-            $raw_historical_summary = $this->remote_get('https://api.wordpress.org/stats/plugin/1.0/downloads.php?slug='. $plugin_slug .'&historical_summary=1');
+            $raw_historical_summary = self::remote_get('https://api.wordpress.org/stats/plugin/1.0/downloads.php?slug='. $plugin_slug .'&historical_summary=1');
             $historical_summary     = json_decode( json_encode( $raw_historical_summary ), true );
             $total_stats            = array_merge( $raw_stats, $historical_summary );
             $total_stats['link'] = "https://wordpress.org/plugins/" . $total_stats['slug'];
@@ -224,7 +224,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
 
         if( $product_type == 'theme' ) {
             $stats              = $this->helper->get_theme_stats( $plugin_slug );
-            $raw_historical_summary = $this->remote_get('https://api.wordpress.org/stats/themes/1.0/downloads.php?slug='. $plugin_slug .'&historical_summary=1');
+            $raw_historical_summary = self::remote_get('https://api.wordpress.org/stats/themes/1.0/downloads.php?slug='. $plugin_slug .'&historical_summary=1');
             $historical_summary     = json_decode( json_encode( $raw_historical_summary ), true );
             $total_stats            = array_merge( $stats, $historical_summary );
         }

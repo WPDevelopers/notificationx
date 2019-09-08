@@ -342,7 +342,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         $comment_data['timestamp']  = strtotime( $comment->comment_date );
         
         $comment_data['ip']  = $comment->comment_author_IP;
-        $user_ip_data = $this->remote_get('http://ip-api.com/json/' . $comment->comment_author_IP );
+        $user_ip_data = self::remote_get('http://ip-api.com/json/' . $comment->comment_author_IP );
         if( $user_ip_data ) {
             $comment_data['country'] = $user_ip_data->country;
             $comment_data['city']    = $user_ip_data->city;

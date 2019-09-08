@@ -6,6 +6,11 @@
 	// TWO
 	& .nx-notification-theme-two {
 		border-radius: 50px;
+		&.has-no-image {
+			& .notificationx-content {
+				padding-left: 30px;
+			}
+		}
 		& span.notificationx-close {
 			right: 20px;
 			top: 20px;
