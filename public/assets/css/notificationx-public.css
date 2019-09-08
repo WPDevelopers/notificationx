@@ -197,7 +197,7 @@
 .nx-notification.nx-reviews .nx-notification-review-comment .notificationx-image,
 .notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment .notificationx-content,
 .nx-notification.nx-reviews .nx-notification-review-comment .notificationx-content {
-  box-shadow: 0 0 10px 0px #f2f2f2
+  box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.1)
 }
 .notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-six-free,
 .nx-notification.nx-comments .nx-notification-theme-six-free,
