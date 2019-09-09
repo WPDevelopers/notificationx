@@ -103,6 +103,9 @@ class NotificationX_Public {
 		
 		wp_enqueue_script( $this->plugin_name . '-cookie', NOTIFICATIONX_PUBLIC_URL . 'assets/js/Cookies.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( $this->plugin_name, NOTIFICATIONX_PUBLIC_URL . 'assets/js/notificationx-public.min.js', array( 'jquery' ), $this->version, true );
+		wp_localize_script( $this->plugin_name, 'NotificationX', array(
+			'ajaxurl' => admin_url('admin-ajax.php')
+		) );
 	}
 	
 	/**

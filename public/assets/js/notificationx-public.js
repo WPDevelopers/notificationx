@@ -149,10 +149,6 @@
 	};
 
 	$.notificationx.showBar = function (bar, bar_id) {
-		// if( bar === '' ) {
-		// 	bar = $( '.nx-bar ' + '.nx-bar-' + bar_id );
-		// }
-
 		if (Cookies.get('notificationx_nx-bar-' + bar_id)) {
 			return false;
 		}
@@ -192,6 +188,8 @@
 				$(bar).css('top', xAdminBarHeight + 'px');
 			}
 			$(bar).addClass('nx-bar-visible');
+			var body = $('body');
+				body.trigger('nx_frontend_bar_show', [bar, bar_id]);
 			$.notificationx.active_pressbar = 1;
 		}, delay * 1000);
 	};

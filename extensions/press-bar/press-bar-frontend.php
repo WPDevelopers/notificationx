@@ -44,6 +44,7 @@ if( $settings->id ) {
 if( $settings->pressbar_position ) {
     $wrapper_attrs .= ' data-position="'. $settings->pressbar_position .'"';
 }
+$wrapper_attrs .= ' data-nonce="'. wp_create_nonce( '_notificationx_bar_nonce' ) .'"';
 
 if( 'bottom' == $settings->pressbar_position ) {
     $pos_class = '';
