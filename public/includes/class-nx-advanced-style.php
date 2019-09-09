@@ -79,15 +79,9 @@ class NotificationX_Advanced_Style {
             }
         }
 
-        if( ! empty( $settings->wpstats_first_font_size ) ) {
-            $css_object[ 'first_row' ][] = 'font-size:' . $settings->wpstats_first_font_size . 'px';
-        }
-        if( ! empty( $settings->wpstats_second_font_size ) ) {
-            $css_object[ 'second_row' ][] = 'font-size:' . $settings->wpstats_second_font_size . 'px';
-        }
-        if( ! empty( $settings->wpstats_third_font_size ) ) {
-            $css_object[ 'third_row' ][] = 'font-size:' . $settings->wpstats_third_font_size . 'px';
-        }
+        $css_object[ 'first_row' ][]  = 'font-size:' . $settings->wpstats_first_font_size . 'px';
+        $css_object[ 'second_row' ][] = 'font-size:' . $settings->wpstats_second_font_size . 'px';
+        $css_object[ 'third_row' ][]  = 'font-size:' . $settings->wpstats_third_font_size . 'px';
 
         $custom_class = '.nx-notification.nx-' . $settings->display_type . ' .nx-customize-style-' . $settings->id;
         $inner_class = $custom_class . '.nx-notification-' . $theme . '.notificationx-inner';
@@ -147,15 +141,9 @@ class NotificationX_Advanced_Style {
             }
         }
 
-        if( ! empty( $settings->wporg_first_font_size ) ) {
-            $css_object[ 'first_row' ][] = 'font-size:' . $settings->wporg_first_font_size . 'px';
-        }
-        if( ! empty( $settings->wporg_second_font_size ) ) {
-            $css_object[ 'second_row' ][] = 'font-size:' . $settings->wporg_second_font_size . 'px';
-        }
-        if( ! empty( $settings->wporg_third_font_size ) ) {
-            $css_object[ 'third_row' ][] = 'font-size:' . $settings->wporg_third_font_size . 'px';
-        }
+        $css_object[ 'first_row' ][]  = 'font-size:' . $settings->wporg_first_font_size . 'px';
+        $css_object[ 'second_row' ][] = 'font-size:' . $settings->wporg_second_font_size . 'px';
+        $css_object[ 'third_row' ][]  = 'font-size:' . $settings->wporg_third_font_size . 'px';
 
         $custom_class = '.nx-notification.nx-' . $settings->display_type . ' .nx-customize-style-' . $settings->id;
         $inner_class = $custom_class . '.nx-notification-' . $theme . '.notificationx-inner';
@@ -229,15 +217,9 @@ class NotificationX_Advanced_Style {
             }
         }
 
-        if( ! empty( $settings->comment_first_font_size ) ) {
-            $css_object[ 'first_row' ][] = 'font-size:' . $settings->comment_first_font_size . 'px';
-        }
-        if( ! empty( $settings->comment_second_font_size ) ) {
-            $css_object[ 'second_row' ][] = 'font-size:' . $settings->comment_second_font_size . 'px';
-        }
-        if( ! empty( $settings->comment_third_font_size ) ) {
-            $css_object[ 'third_row' ][] = 'font-size:' . $settings->comment_third_font_size . 'px';
-        }
+        $css_object[ 'first_row' ][]  = 'font-size:' . $settings->comment_first_font_size . 'px';
+        $css_object[ 'second_row' ][] = 'font-size:' . $settings->comment_second_font_size . 'px';
+        $css_object[ 'third_row' ][]  = 'font-size:' . $settings->comment_third_font_size . 'px';
 
         $custom_class = '.nx-notification.nx-' . $settings->display_type . ' .nx-customize-style-' . $settings->id;
         $inner_class = $custom_class . '.nx-notification-' . $theme . '.notificationx-inner';
@@ -310,15 +292,9 @@ class NotificationX_Advanced_Style {
             }
         }
 
-        if( ! empty( $settings->first_font_size ) ) {
-            $css_object[ 'first_row' ][] = 'font-size:' . $settings->first_font_size . 'px';
-        }
-        if( ! empty( $settings->second_font_size ) ) {
-            $css_object[ 'second_row' ][] = 'font-size:' . $settings->second_font_size . 'px';
-        }
-        if( ! empty( $settings->third_font_size ) ) {
-            $css_object[ 'third_row' ][] = 'font-size:' . $settings->third_font_size . 'px';
-        }
+        $css_object[ 'first_row' ][]  = 'font-size:' . $settings->first_font_size . 'px';
+        $css_object[ 'second_row' ][] = 'font-size:' . $settings->second_font_size . 'px';
+        $css_object[ 'third_row' ][]  = 'font-size:' . $settings->third_font_size . 'px';
 
         $custom_class = '.nx-notification.nx-' . $settings->display_type . ' .nx-customize-style-' . $settings->id;
         $inner_class = $custom_class . '.nx-notification-' . $theme . '.notificationx-inner';
