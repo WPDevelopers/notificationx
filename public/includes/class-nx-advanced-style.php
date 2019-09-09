@@ -86,7 +86,7 @@ class NotificationX_Advanced_Style {
             $css_object[ 'second_row' ][] = 'font-size:' . $settings->wpstats_second_font_size . 'px';
         }
         if( ! empty( $settings->wpstats_third_font_size ) ) {
-            $css_object[ 'second_row' ][] = 'font-size:' . $settings->wpstats_third_font_size . 'px';
+            $css_object[ 'third_row' ][] = 'font-size:' . $settings->wpstats_third_font_size . 'px';
         }
 
         $custom_class = '.nx-notification.nx-' . $settings->display_type . ' .nx-customize-style-' . $settings->id;
@@ -154,7 +154,7 @@ class NotificationX_Advanced_Style {
             $css_object[ 'second_row' ][] = 'font-size:' . $settings->wporg_second_font_size . 'px';
         }
         if( ! empty( $settings->wporg_third_font_size ) ) {
-            $css_object[ 'second_row' ][] = 'font-size:' . $settings->wporg_third_font_size . 'px';
+            $css_object[ 'third_row' ][] = 'font-size:' . $settings->wporg_third_font_size . 'px';
         }
 
         $custom_class = '.nx-notification.nx-' . $settings->display_type . ' .nx-customize-style-' . $settings->id;
@@ -236,7 +236,7 @@ class NotificationX_Advanced_Style {
             $css_object[ 'second_row' ][] = 'font-size:' . $settings->comment_second_font_size . 'px';
         }
         if( ! empty( $settings->comment_third_font_size ) ) {
-            $css_object[ 'second_row' ][] = 'font-size:' . $settings->comment_third_font_size . 'px';
+            $css_object[ 'third_row' ][] = 'font-size:' . $settings->comment_third_font_size . 'px';
         }
 
         $custom_class = '.nx-notification.nx-' . $settings->display_type . ' .nx-customize-style-' . $settings->id;
@@ -317,7 +317,7 @@ class NotificationX_Advanced_Style {
             $css_object[ 'second_row' ][] = 'font-size:' . $settings->second_font_size . 'px';
         }
         if( ! empty( $settings->third_font_size ) ) {
-            $css_object[ 'second_row' ][] = 'font-size:' . $settings->third_font_size . 'px';
+            $css_object[ 'third_row' ][] = 'font-size:' . $settings->third_font_size . 'px';
         }
 
         $custom_class = '.nx-notification.nx-' . $settings->display_type . ' .nx-customize-style-' . $settings->id;
