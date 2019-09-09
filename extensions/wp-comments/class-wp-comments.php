@@ -55,7 +55,6 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         if( NotificationX_Helper::get_type( $settings ) !== $this->type ) {
             return $data;
         }
-        ;
         $name = $this->notEmpty( 'name', $saved_data ) ? ucfirst($saved_data['name']) : 'Someone';
         $comment = 'Some comment';
         $trim_length = 100;
@@ -360,7 +359,16 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
             }
 
         } else {
-            $comment_data['name'] = get_comment_author( $comment->comment_ID );
+            $commenter_name = get_comment_author( $comment->comment_ID );
+            $comment_data['name'] = $commenter_name;
+            $commenter_name = explode(' ', $commenter_name);
+            if( isset( $commenter_name[0] ) ) {
+                $comment_data['first_name'] = $commenter_name[0];
+            }
+            $commenter_count = count( $commenter_name );
+            if( isset( $commenter_name[ $commenter_count - 1 ] ) ) {
+                $comment_data['last_name'] = $commenter_name[ $commenter_count - 1 ];
+            }
         }
         $comment_data['email'] = get_comment_author_email( $comment->comment_ID );
         return $comment_data;

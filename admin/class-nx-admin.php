@@ -509,7 +509,7 @@ class NotificationX_Admin {
 			),
 		) );
 
-		$hook = add_menu_page( 'NotificationX', 'NotificationX', 'delete_users', 'nx-admin', array( $this, 'notificationx' ), NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon.png', 80 );
+		$hook = add_menu_page( 'NotificationX', 'NotificationX', 'delete_users', 'nx-admin', array( $this, 'notificationx' ), NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-logo.svg', 80 );
 		add_action('load-' . $hook, array( $this, 'screen_options' ) );
 		/**
 		 * @since 1.2.2
