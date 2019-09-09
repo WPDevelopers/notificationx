@@ -252,7 +252,7 @@
 						$.notificationx.hide(notifications[count]);
 						if (count >= notifications.length - 1) {
 							count = 0;
-							if (configuration.loop === 0) {
+							if (configuration.loop == 0) {
 								clearInterval(nextNotification);
 							}
 						} else {
