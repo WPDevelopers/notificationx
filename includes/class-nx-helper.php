@@ -393,6 +393,10 @@ class NotificationX_Helper {
                 'source' => __( 'Email Subscription', 'notificationx' ),
                 'is_pro' => $is_pro
             ),
+            'custom' => array(
+                'source' => __( 'Custom Notification', 'notificationx' ),
+                'is_pro' => $is_pro
+            ),
         ];
         $types = apply_filters('nx_notification_types', $types );
 
