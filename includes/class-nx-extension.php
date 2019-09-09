@@ -311,9 +311,9 @@ class NotificationX_Extension {
         $inner_class = apply_filters( 'nx_frontend_inner_classes', array_merge(
             ['notificationx-inner'], self::get_classes( $settings, 'inner' ), $image_class
         ), $settings );
-        
+        $if_is_mobile = wp_is_mobile() ? 'nx-mobile-notification' : '';
         $wrapper_class = apply_filters( 'nx_frontend_wrapper_classes', array_merge( 
-            ['nx-notification'], self::get_classes( $settings ) 
+            ['nx-notification'], self::get_classes( $settings ), array( $if_is_mobile )
         ), $settings );
 
         $frontend_classes = apply_filters( 'nx_frontend_classes', array( 
