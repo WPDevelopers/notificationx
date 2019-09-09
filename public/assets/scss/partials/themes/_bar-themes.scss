@@ -68,10 +68,13 @@
 						display: none;
 					}
 					&.nx-expired {
+						padding: 10px;
+						letter-spacing: 1px;
 						& .nx-expired-text {
 							display: block;
 						}
 						& .nx-time-section {
+							display: none;
 							& > span {
 								display: none;
 							}

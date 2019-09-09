@@ -195,6 +195,11 @@ class NotificationX_Admin {
 			array(), $this->version, 'all' 
 		);
 		wp_enqueue_style( 
+			$this->plugin_name . '-flatfickr', 
+			NOTIFICATIONX_ADMIN_URL . 'assets/css/flatfickr.min.css', 
+			array(), $this->version, 'all' 
+		);
+		wp_enqueue_style( 
 			$this->plugin_name, 
 			NOTIFICATIONX_ADMIN_URL . 'assets/css/nx-admin.min.css', 
 			array(), $this->version, 'all' 
@@ -228,6 +233,11 @@ class NotificationX_Admin {
 		wp_enqueue_script( 
 			$this->plugin_name . '-select2', 
 			NOTIFICATIONX_ADMIN_URL . 'assets/js/select2.min.js', 
+			array( 'jquery' ), $this->version, true 
+		);
+		wp_enqueue_script( 
+			$this->plugin_name . '-flatfickr', 
+			NOTIFICATIONX_ADMIN_URL . 'assets/js/flatfickr.min.js', 
 			array( 'jquery' ), $this->version, true 
 		);
 		wp_enqueue_script( 

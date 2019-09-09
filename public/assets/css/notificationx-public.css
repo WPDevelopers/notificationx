@@ -1193,9 +1193,18 @@ body.nx-press_bar-active {
 .nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-countdown .nx-expired-text {
   display: none
 }
+.notificationx-shortcode-wrapper > .nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-countdown.nx-expired,
+.nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-countdown.nx-expired {
+  padding: 10px;
+  letter-spacing: 1px
+}
 .notificationx-shortcode-wrapper > .nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-countdown.nx-expired .nx-expired-text,
 .nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-countdown.nx-expired .nx-expired-text {
   display: block
+}
+.notificationx-shortcode-wrapper > .nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-countdown.nx-expired .nx-time-section,
+.nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-countdown.nx-expired .nx-time-section {
+  display: none
 }
 .notificationx-shortcode-wrapper > .nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-countdown.nx-expired .nx-time-section > span,
 .nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-countdown.nx-expired .nx-time-section > span {

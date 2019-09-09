@@ -49,7 +49,6 @@
 					end_timestamp = end_date.getTime(),
 					current_date = new Date(),
 					current_timestamp = current_date.getTime();
-
 				if (current_timestamp > start_timestamp && current_timestamp < end_timestamp) {
 					var bar_interval = setInterval(function () {
 						var current_timestamp = new Date().getTime(),
@@ -68,6 +67,8 @@
 							bar.querySelector('.nx-countdown').classList.add('nx-expired');
 						}
 					}, 1000);
+				} else {
+					bar.querySelector('.nx-countdown').classList.add('nx-expired');
 				}
 
 				$.notificationx.showBar(bar, id);

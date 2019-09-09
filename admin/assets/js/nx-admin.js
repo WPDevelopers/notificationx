@@ -390,10 +390,9 @@
 		// NotificationX_Admin.initDatepicker();
 		if ($('.nx-countdown-datepicker').length > 0) {
 			$('.nx-countdown-datepicker').each(function () {
-				$(this).find('input').datepicker({
-					changeMonth: true,
-					changeYear: true,
-					dateFormat: 'DD, d MM, yy'
+				$(this).find('input').flatpickr({
+					enableTime: true,
+					dateFormat: 'D, d M, y h:i K'
 				});
 			});
 		}

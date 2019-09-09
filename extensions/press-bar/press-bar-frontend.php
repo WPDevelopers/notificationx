@@ -19,6 +19,8 @@ if( $settings->hide_after ) {
 
 if( $settings->countdown_start_date ) {
     $wrapper_attrs .= ' data-start_date="'. $settings->countdown_start_date .'"';
+} else {
+    $wrapper_attrs .= ' data-start_date="'. date('l, d F, Y', time() ) .'"';
 }
 if( $settings->countdown_end_date ) {
     $wrapper_attrs .= ' data-end_date="'. $settings->countdown_end_date .'"';
