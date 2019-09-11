@@ -2,7 +2,9 @@
 .notificationx-shortcode-wrapper > .nx-notification.nx-comments, 
 .notificationx-shortcode-wrapper > .nx-notification.nx-conversions, 
 .notificationx-shortcode-wrapper > .nx-notification.nx-email_subscription, 
-.nx-notification.nx-comments, .nx-notification.nx-conversions, .nx-notification.nx-email_subscription  {
+.notificationx-shortcode-wrapper > .nx-notification.nx-custom, 
+.nx-notification.nx-custom, .nx-notification.nx-comments, 
+.nx-notification.nx-conversions, .nx-notification.nx-email_subscription  {
 	// TWO
 	& .nx-notification-theme-two {
 		border-radius: 50px;

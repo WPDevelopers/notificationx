@@ -158,7 +158,7 @@
 		if (type === 'press_bar') {
 			return;
 		}
-		source = $('.nx_meta_' + notificationx.source_types[type]).val();
+		source = $('.nx_meta_' + notificationx.source_types[type] + ':checked').val();
 		if (notificationx.theme_sources.hasOwnProperty(source)) {
 			if (typeof notificationx.theme_sources[source] === 'object') {
 				themeID = $('.nx_meta_' + notificationx.theme_sources[source][type] + ':checked').val();
@@ -582,19 +582,12 @@
 			value = $('#' + currentTheme).val();
 		}
 
-		// console.log('id', id);
-		// console.log('value', value);
-
 		var mainid = id;
 
 		if (notificationx.template.indexOf(id) >= 0) {
 			id = current.data('subkey');
 		}
 
-		// console.log('id toggle', id, notificationx.toggleFields.hasOwnProperty(id));
-		// console.log('id hide', id, notificationx.hideFields.hasOwnProperty(id));
-
-		// return;
 		if (notificationx.toggleFields.hasOwnProperty(id)) {
 			var canShow = notificationx.toggleFields[id].hasOwnProperty(value);
 			var canHide = true;

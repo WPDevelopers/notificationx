@@ -280,7 +280,7 @@
 				$.notificationx.render(response.config, response.content);
 			})
 			.catch(function (err) {
-				// console.log('AJAX error, Something went wrong! Please, Contact support team.')
+				console.log('AJAX error, Something went wrong! Please, Contact support team.')
 			});
 	};
 
