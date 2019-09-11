@@ -37,7 +37,15 @@ if( ! empty( $data[ $key ] ) ) {
     if( ! is_array( $new_data ) ) {
         return;
     }
+    $last_count = intval( $settings->display_last );
     foreach( $new_data as $value ) {
+        /**
+         * Fallback Check 
+         * Display Last
+         */
+        if( $last_count === 0 ) {
+            break;
+        }
         /**
          * It will break the loop when the 
          * display from the last value isset.
@@ -48,6 +56,7 @@ if( ! empty( $data[ $key ] ) ) {
             }
         }
         echo get_extension_frontend( $extension_name, $value, $settings );
+        $last_count--;
     }
 }
 

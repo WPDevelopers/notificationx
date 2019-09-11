@@ -325,6 +325,38 @@
   border-radius: 5px;
   overflow: hidden
 }
+@media only screen and (max-width: 786px) {
+  .nx-notification,
+  .notificationx-shortcode-wrapper > .nx-notification {
+    left: 10px;
+    right: 10px;
+    bottom: 10px
+  }
+  .nx-notification .notificationx-inner .notificationx-image,
+  .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner .notificationx-image {
+    width: 60px;
+    height: 50px
+  }
+  .nx-notification .notificationx-inner .notificationx-content,
+  .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner .notificationx-content {
+    min-width: 200px
+  }
+  .nx-notification .notificationx-inner .notificationx-content .nx-branding > svg,
+  .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner .notificationx-content .nx-branding > svg {
+    width: 10px
+  }
+  .nx-notification .notificationx-inner .notificationx-content .nx-branding > a > svg,
+  .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner .notificationx-content .nx-branding > a > svg {
+    width: 60px
+  }
+}
+@media only screen and (min-width: 480px) and (max-width: 786px) {
+  .nx-notification,
+  .notificationx-shortcode-wrapper > .nx-notification {
+    left: 20px;
+    right: auto
+  }
+}
 body.has-nx-bar,
 body.nx-press_bar-active {
   -webkit-transition: padding 0.2s ease-in;
@@ -623,6 +655,12 @@ body.nx-press_bar-active {
 .nx-notification.nx-comments .nx-notification-theme-six-free.nx-img-rounded .notificationx-image > img {
   border-radius: 10px
 }
+@media only screen and (max-width: 786px) {
+  .notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-six-free .notificationx-image,
+  .nx-notification.nx-comments .nx-notification-theme-six-free .notificationx-image {
+    display: none
+  }
+}
 .notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-seven-free,
 .notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-eight-free,
 .nx-notification.nx-comments .nx-notification-theme-seven-free,
@@ -738,6 +776,27 @@ body.nx-press_bar-active {
 .nx-notification.nx-comments .nx-notification-theme-seven-free.nx-img-square .notificationx-image > img,
 .nx-notification.nx-comments .nx-notification-theme-eight-free.nx-img-square .notificationx-image > img {
   border-radius: 0px
+}
+@media only screen and (max-width: 786px) {
+  .notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-seven-free .notificationx-image,
+  .notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-eight-free .notificationx-image,
+  .nx-notification.nx-comments .nx-notification-theme-seven-free .notificationx-image,
+  .nx-notification.nx-comments .nx-notification-theme-eight-free .notificationx-image {
+    min-width: 60px;
+    width: 60px;
+    height: 60px;
+    flex-basis: 60px;
+    margin: 5px
+  }
+  .notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-seven-free .notificationx-image > img,
+  .notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-eight-free .notificationx-image > img,
+  .nx-notification.nx-comments .nx-notification-theme-seven-free .notificationx-image > img,
+  .nx-notification.nx-comments .nx-notification-theme-eight-free .notificationx-image > img {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0
+  }
 }
 .notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-eight-free:before,
 .nx-notification.nx-comments .nx-notification-theme-eight-free:before {
@@ -875,6 +934,12 @@ body.nx-press_bar-active {
 .nx-notification.nx-reviews .nx-notification-review-comment.nx-img-rounded .notificationx-image > img {
   border-radius: 10px
 }
+@media only screen and (max-width: 786px) {
+  .notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment .notificationx-image,
+  .nx-notification.nx-reviews .nx-notification-review-comment .notificationx-image {
+    display: none
+  }
+}
 .notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment-2,
 .notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment-3,
 .nx-notification.nx-reviews .nx-notification-review-comment-2,
@@ -1005,6 +1070,27 @@ body.nx-press_bar-active {
   left: 25px;
   top: 25px;
   border-radius: 0px
+}
+@media only screen and (max-width: 786px) {
+  .notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment-2 .notificationx-image,
+  .notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment-3 .notificationx-image,
+  .nx-notification.nx-reviews .nx-notification-review-comment-2 .notificationx-image,
+  .nx-notification.nx-reviews .nx-notification-review-comment-3 .notificationx-image {
+    min-width: 60px;
+    width: 60px;
+    height: 60px;
+    flex-basis: 60px;
+    margin: 5px
+  }
+  .notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment-2 .notificationx-image > img,
+  .notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment-3 .notificationx-image > img,
+  .nx-notification.nx-reviews .nx-notification-review-comment-2 .notificationx-image > img,
+  .nx-notification.nx-reviews .nx-notification-review-comment-3 .notificationx-image > img {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0
+  }
 }
 .notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment-3:before,
 .nx-notification.nx-reviews .nx-notification-review-comment-3:before {
@@ -1221,6 +1307,7 @@ body.nx-press_bar-active {
   padding: 6px 15px;
   margin-left: 15px;
   background-color: #262626;
+  display: inline-block;
   color: #fff;
   border-radius: 3px
 }
@@ -1272,5 +1359,43 @@ body.nx-press_bar-active {
 .notificationx-shortcode-wrapper > .nx-bar.theme-three .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-countdown .nx-time-section > span.nx-countdown-time-text,
 .nx-bar.theme-three .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-countdown .nx-time-section > span.nx-countdown-time-text {
   display: block
+}
+@media only screen and (max-width: 786px) {
+  .notificationx-shortcode-wrapper > .nx-bar .nx-bar-inner .nx-bar-content-wrap,
+  .nx-bar .nx-bar-inner .nx-bar-content-wrap {
+    flex-direction: column
+  }
+  .notificationx-shortcode-wrapper > .nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper,
+  .nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper {
+    margin-bottom: 15px
+  }
+  .notificationx-shortcode-wrapper > .nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-inner-content-wrapper,
+  .nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-inner-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center
+  }
+  .notificationx-shortcode-wrapper > .nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-inner-content-wrapper .nx-bar-content,
+  .nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-inner-content-wrapper .nx-bar-content {
+    margin-left: 0px
+  }
+  .notificationx-shortcode-wrapper > .nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-inner-content-wrapper .nx-bar-button,
+  .nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-inner-content-wrapper .nx-bar-button {
+    margin-top: 10px
+  }
+  .notificationx-shortcode-wrapper > .nx-bar .nx-bar-inner .nx-close,
+  .nx-bar .nx-bar-inner .nx-close {
+    top: auto;
+    bottom: 15px;
+    right: 15px
+  }
+  .notificationx-shortcode-wrapper > .nx-bar.theme-three .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper,
+  .nx-bar.theme-three .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper {
+    flex-direction: column
+  }
+  .notificationx-shortcode-wrapper > .nx-bar.theme-three .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-countdown-text,
+  .nx-bar.theme-three .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-countdown-text {
+    margin-bottom: 10px
+  }
 }
 /*# sourceMappingURL=notificationx-public.css.map */

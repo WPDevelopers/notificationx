@@ -91,6 +91,7 @@
 				padding: 6px 15px;
 				margin-left: 15px;
 				background-color: #262626;
+				display: inline-block;
 				color: #fff;
 				border-radius: 3px;
 			}
@@ -150,5 +151,48 @@
 				}
 			}
 		}
+	}
+
+	@media only screen and (max-width: 786px) {
+		& .nx-bar-inner {
+			& .nx-bar-content-wrap {
+				flex-direction: column;
+				& .nx-countdown-wrapper {
+					margin-bottom: 15px;
+				}
+				& .nx-inner-content-wrapper {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					& .nx-bar-content {
+						margin-left: 0px;
+					}
+					& .nx-bar-button {
+						margin-top: 10px;
+					}
+				}
+			}
+			& .nx-close {
+				top: auto;
+				bottom: 15px;
+				right: 15px;
+			}
+		}
+
+		&.theme-three {
+			& .nx-bar-inner {
+				& .nx-bar-content-wrap {
+					& .nx-countdown-wrapper {
+						flex-direction: column;
+						& .nx-countdown-text {
+							margin-bottom: 10px;
+						}
+					}
+				}
+			}
+		}
+	}
+	@media only screen and (min-width: 480px) and (max-width: 786px) {
+		
 	}
 }

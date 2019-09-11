@@ -14,6 +14,7 @@
 	});
 
 	$.notificationx.init = function () {
+		$.notificationx.windowWidth = $(window).outerWidth();
 		$.notificationx.pressbar();
 		$.notificationx.conversions();
 		$.notificationx.events();
@@ -291,10 +292,20 @@
 		if (Cookies.get('nx-close-for-session')) {
 			return;
 		}
-		var body = $('body');
+		var body = $('body'), 
+			isMobile = notification.classList.value.indexOf('nx-mobile-notification') != -1,
+			bottomCss = isMobile ? '10px' : '30px';
 		body.append(notification);
+		
+		if( $.notificationx.windowWidth > 480 && isMobile ) {
+			bottomCss = '20px';
+		}
+		if( $.notificationx.windowWidth > 786 ) {
+			bottomCss = '30px';
+		}
+
 		$(notification).animate({
-			'bottom': '30px',
+			'bottom': bottomCss,
 			'opacity': 1
 		}, 500);
 
