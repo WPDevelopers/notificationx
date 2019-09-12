@@ -69,7 +69,10 @@
 						}
 					}, 1000);
 				} else {
-					bar.querySelector('.nx-countdown').classList.add('nx-expired');
+					var countdown = bar.querySelector('.nx-countdown');
+					if( countdown != null ) {
+						countdown.classList.add('nx-expired');
+					}
 				}
 
 				$.notificationx.showBar(bar, id);
