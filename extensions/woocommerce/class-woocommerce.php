@@ -432,23 +432,15 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
      * @return void
      */
     protected function buyer( WC_Order $order ){
-        $user = $order->get_user();
         $first_name = $last_name = $email = '';
         $buyer_data = [];
-
-        if( $user ) {
-            $first_name = $user->first_name;
-            $last_name  = $user->last_name;
-            $email = $user->user_email;
-            $buyer_data['user_id'] = $user->ID;
-        }
 
         if( empty( $first_name ) ) {
             $first_name = $order->get_billing_first_name();
         }
 
         if( empty( $last_name ) ) {
-            $first_name = $order->get_billing_last_name();
+            $last_name = $order->get_billing_last_name();
         }
 
         if( empty( $email ) ) {
