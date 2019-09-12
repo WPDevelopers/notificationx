@@ -40,6 +40,12 @@
     overflow: hidden;
     width: 220px;
     display: inline-block;
+    @media only screen and (max-width: 786px) { 
+        width: 180px;
+    }
+    @media only screen and ( min-width: 480px ) and (max-width: 786px) { 
+        width: 200px;
+    }
 }
 
 %bgnone {

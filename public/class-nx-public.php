@@ -214,10 +214,10 @@ class NotificationX_Public {
 		/**
 		* Filtered Active IDs
 		*/
-		$conversion_ids              = apply_filters('nx_conversions_id', $conversion_ids );
-		$comments_id                 = apply_filters('nx_comments_id', $comments_id );
-		$reviews_id                  = apply_filters('nx_reviews_id', $reviews_id );
-		$reviedownload_stats_idws_id = apply_filters('nx_download_stats_id', $download_stats_id );
+		$conversion_ids    = apply_filters('nx_conversions_id', $conversion_ids );
+		$comments_id       = apply_filters('nx_comments_id', $comments_id );
+		$reviews_id        = apply_filters('nx_reviews_id', $reviews_id );
+		$download_stats_id = apply_filters('nx_download_stats_id', $download_stats_id );
 		
 		if( ! empty( $conversion_ids ) || ! empty( $comments_id ) || ! empty( $pro_ext ) || ! empty( $reviews_id ) || ! empty( $download_stats_id ) ) :
 			?>
