@@ -277,7 +277,8 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
      * @return void
      */
     public function save_notifications( $payment_id ){
-        $this->ordered_products( $payment_id );
+        $offset = get_option('gmt_offset');
+        $this->single_order( $payment_id, $offset );
     }
     /**
      * Get all the orders from database using a date query
@@ -292,11 +293,9 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         $amount   = $data['_nx_meta_display_last'];
         $payments = $this->get_payments( $days, $amount );
         if( is_array( $payments ) && ! empty( $payments ) ) {
-            foreach( $payments as $payment ) {
-                $this->ordered_products( $payment->ID );
-            }
+            $notifications = $this->ordered_products( $payments, true );
         }
-        return $this->ordered_products;
+        return $notifications;
     }
     /**
      * This function is responsible for 
@@ -305,16 +304,22 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
      * @param int $payment_id
      * @return void
      */
-    protected function ordered_products( $payment_id ){
+    protected function ordered_products( $payments, $ready = false ){
+        $offset = get_option('gmt_offset');
+        $notifications = [];
+        foreach( $payments as $payment ) :
+            $notifications = $this->single_order( $payment->ID, $offset, $ready );
+        endforeach;
+        return $notifications;
+    }
+
+    protected function single_order( $payment_id, $offset = null, $ready = false ){
+        $notifications = [];
         $payment_meta = edd_get_payment_meta( $payment_id );
         $payment_key  = $payment_meta['key'];
         $date         = $payment_meta['date'];
-        $offset       = get_option('gmt_offset');
-        $time['timestamp']  = strtotime( $date ) - ( $offset * 60 * 60 );
         $buyer        = $this->buyer( $payment_meta['user_info'] );
-
-        $notification = array();
-
+        $time['timestamp']  = strtotime( $date ) - ( $offset * 60 * 60 );
         $notification['ip'] = edd_get_payment_user_ip( $payment_id );
 
         $user_ip_data = self::remote_get('http://ip-api.com/json/' . $notification['ip'] );
@@ -329,10 +334,16 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
                 $key = $payment_key . '-' . $item['id'];
                 $product_data = $this->product_data( $item );
                 $notification = array_merge( $notification, $product_data, $buyer, $time );
-
-                $this->save( $this->type, $notification, $key );
+                $notifications[ $key ] = $notification;
+                if( ! $ready ) {
+                    $this->save( $this->type, $notification, $key );
+                }
+            }
+            if( ! $ready ) {
+                return;
             }
         }
+        return $notifications;
     }
     /**
      * This function is responsible for 
