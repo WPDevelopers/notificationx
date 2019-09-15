@@ -174,14 +174,13 @@
 				templateID = $('#nx_meta_' + notificationx.template_keys[source]);
 			}
 		}
-
 		if (templateID.length <= 0) {
 			return;
 		}
 
 		var templateDivID = templateID.attr('id');
 
-		if (themeID === 'maps_theme') {
+		if ( themeID === 'maps_theme' || themeID === 'comments-maps_theme' || themeID === 'subs-maps_theme' || themeID === 'conv-theme-six' ) {
 			templateID = $('#nx_meta_maps_theme_template_new');
 		}
 
@@ -426,6 +425,8 @@
 			return;
 		}
 
+		$('.nx-group-field-wrapper').find('div.nx-group-field:last-of-type').addClass('open');
+
 		var fields = $('.nx-group-field-wrapper');
 
 		fields.each(function () {
@@ -611,7 +612,7 @@
 		if (notificationx.hideFields.hasOwnProperty(id)) {
 			var hideFields = notificationx.hideFields[id];
 
-
+			
 			if (hideFields.hasOwnProperty(value)) {
 				$.notificationx.toggle(hideFields[value].fields, 'hide', '#nx-meta-', '', mainid);
 				$.notificationx.toggle(hideFields[value].sections, 'hide', '#nx-meta-section-', '', mainid);
