@@ -56,7 +56,8 @@
 }
 
 // REVIEW THEMES LIKE COMMENTS
-.notificationx-shortcode-wrapper > .nx-notification.nx-reviews, .nx-notification.nx-reviews {
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews, .nx-notification.nx-reviews,
+.notificationx-shortcode-wrapper > .nx-notification.nx-custom, .nx-notification.nx-custom {
 	// SIX
 	& .nx-notification-review-comment {
 		@extend %bgnone;
