@@ -488,8 +488,7 @@
 				});
 
 				clone.insertBefore($(this));
-
-				$.notificationx.resetFieldIds($('.nx-group-field'));
+				$.notificationx.resetFieldIds( $(this).parents('.nx-group-fields-wrapper').find('.nx-group-field') );
 			});
 
 		});
@@ -681,7 +680,7 @@
 		var groupID = 0;
 
 		groups.map(function (iterator, item) {
-
+			
 			var item = $(item),
 				fieldName = item.data('field-name'),
 				groupInfo = item.find('.nx-group-field-info').data('info'),

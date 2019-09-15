@@ -746,7 +746,7 @@ class NotificationX_Helper {
                 $theme = $settings->{ $theme_sources[ $type ] };
             }
         }
-        return $theme;
+        return apply_filters( 'nx_get_theme', $theme, $settings );
     }
 
     public static function theme_sources(){
