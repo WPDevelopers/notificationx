@@ -800,8 +800,13 @@ class NotificationX_Helper {
      * @param int|string $n
      * @return string
      */
-    public static function nice_number($n) {
-        $n = ( 0 + str_replace(",", "", $n ) );
+    public static function nice_number( $n ) {
+        $temp_number = str_replace(",", "", $n );
+        if( ! empty( $temp_number ) ) {
+            $n = ( 0 + $temp_number );
+        } else {
+            $n = $n;
+        }
         if( ! is_numeric( $n ) ) return 0;
         $number = 0;
         $suffix = '';
