@@ -66,12 +66,20 @@
 						if (difference < 0) {
 							clearInterval(bar_interval);
 							bar.querySelector('.nx-countdown').classList.add('nx-expired');
+							var endText = bar.querySelector('.nx-countdown-text');
+							if( endText != null ) {
+								endText.classList.add('nx-expired');
+							}
 						}
 					}, 1000);
 				} else {
 					var countdown = bar.querySelector('.nx-countdown');
 					if( countdown != null ) {
 						countdown.classList.add('nx-expired');
+					}
+					var endText = bar.querySelector('.nx-countdown-text');
+					if( endText != null ) {
+						endText.classList.add('nx-expired');
 					}
 				}
 

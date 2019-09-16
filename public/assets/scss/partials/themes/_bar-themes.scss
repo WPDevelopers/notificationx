@@ -34,6 +34,9 @@
 				@extend %flex-align-center;
 				& .nx-countdown-text {
 					margin-right: 10px;
+					&.nx-expired {
+						display: none;
+					}
 				}
 				& .nx-countdown {
 					overflow: hidden;
@@ -111,6 +114,14 @@
 			font-size: 14px;
 		}
 	}
+	&.nx-close-left {
+		& .nx-bar-inner {
+			& .nx-close {
+				left: 30px;
+				right: auto;
+			}
+		}
+	}
 
 	// TWO
 	&.theme-two {
@@ -176,6 +187,17 @@
 				top: auto;
 				bottom: 15px;
 				right: 15px;
+			}
+			
+		}
+		&.nx-close-left {
+			& .nx-bar-inner {
+				& .nx-close {
+					top: auto;
+					bottom: 15px;
+					left: 15px;
+					right: auto;
+				}
 			}
 		}
 

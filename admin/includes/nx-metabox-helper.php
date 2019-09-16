@@ -442,6 +442,16 @@ function notificationx_metabox_args(){
                                 'priority'	=> 15,
                                 'default'	=> ''
                             ),
+                            'bar_close_position' => array(
+                                'type'      => 'select',
+                                'label'     => __('Close Button Position' , 'notificationx'),
+                                'priority'	=> 15,
+                                'default'	=> 'right',
+                                'options'	=> [
+                                    'left' => __('Left', 'notificationx'),
+                                    'right' => __('Right', 'notificationx'),
+                                ]
+                            ),
                         )
                     ),
                     'bar_typography' => array(
@@ -493,18 +503,23 @@ function notificationx_metabox_args(){
                                 'type'  => 'checkbox',
                                 'dependency'  => [
                                     1 => [
-                                        'fields' => ['countdown_text', 'countdown_start_date', 'countdown_end_date']
+                                        'fields' => ['countdown_text', 'countdown_start_date', 'countdown_end_date', 'countdown_expired_text']
                                     ]
                                 ],
                                 'hide' => array(
                                     0 => [
-                                        'fields' => ['countdown_text', 'countdown_start_date', 'countdown_end_date']
+                                        'fields' => ['countdown_text', 'countdown_start_date', 'countdown_end_date', 'countdown_expired_text']
                                     ]
                                 )
                             ),
                             'countdown_text' => array(
                                 'label' => __('Countdown Text', 'notificationx'),
                                 'type'  => 'text',
+                            ),
+                            'countdown_expired_text' => array(
+                                'label' => __('Expired Text', 'notificationx'),
+                                'type'  => 'text',
+                                'default'  => __('Expired', 'notificationx-pro'),
                             ),
                             'countdown_start_date' => array(
                                 'label' => __('Start Date', 'notificationx'),

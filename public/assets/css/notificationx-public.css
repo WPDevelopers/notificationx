@@ -1783,6 +1783,10 @@ body.nx-press_bar-active {
 .nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-countdown-text {
   margin-right: 10px
 }
+.notificationx-shortcode-wrapper > .nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-countdown-text.nx-expired,
+.nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-countdown-text.nx-expired {
+  display: none
+}
 .notificationx-shortcode-wrapper > .nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-countdown,
 .nx-bar .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-countdown {
   overflow: hidden;
@@ -1868,6 +1872,11 @@ body.nx-press_bar-active {
   line-height: 17px;
   font-size: 14px
 }
+.notificationx-shortcode-wrapper > .nx-bar.nx-close-left .nx-bar-inner .nx-close,
+.nx-bar.nx-close-left .nx-bar-inner .nx-close {
+  left: 30px;
+  right: auto
+}
 .notificationx-shortcode-wrapper > .nx-bar.theme-two,
 .nx-bar.theme-two {
   background-color: #5704a2;
@@ -1931,6 +1940,13 @@ body.nx-press_bar-active {
     top: auto;
     bottom: 15px;
     right: 15px
+  }
+  .notificationx-shortcode-wrapper > .nx-bar.nx-close-left .nx-bar-inner .nx-close,
+  .nx-bar.nx-close-left .nx-bar-inner .nx-close {
+    top: auto;
+    bottom: 15px;
+    left: 15px;
+    right: auto
   }
   .notificationx-shortcode-wrapper > .nx-bar.theme-three .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper,
   .nx-bar.theme-three .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper {
