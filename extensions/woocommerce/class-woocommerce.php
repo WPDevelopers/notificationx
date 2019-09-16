@@ -300,6 +300,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         }
         if( $this->type === $type ) {
             if( ! is_null( $orders = $this->get_orders( $data ) ) ) {
+                $orders = NotificationX_Helper::sortBy( $orders, 'woocommerce' );
                 $this->update_notifications( $this->type, $orders );
             }
         }

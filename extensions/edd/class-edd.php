@@ -243,6 +243,7 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         if( $this->type === $type ) {
             $orders = $this->get_orders( $data );
             if( is_array( $orders ) ) {
+                $orders = NotificationX_Helper::sortBy( $orders, 'edd' );
                 $this->update_notifications( $this->type, $orders );
             }
         }

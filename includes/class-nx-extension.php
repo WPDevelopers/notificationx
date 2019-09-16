@@ -193,7 +193,7 @@ class NotificationX_Extension {
     protected function update_notifications( $type = '', $values = array() ){
         $notifications = NotificationX_DB::get_notifications();
         $this->limiter->setValues( $values );
-
+        
         $notifications[ $type ] = $this->limiter->values();
         return NotificationX_DB::update_notifications( $notifications );
     }

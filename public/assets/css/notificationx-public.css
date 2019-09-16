@@ -468,7 +468,9 @@
 }
 .nx-notification .notificationx-inner .notificationx-image > img,
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner .notificationx-image > img {
-  max-height: 100%
+  object-fit: cover;
+  max-height: 100%;
+  min-width: 100%
 }
 .nx-notification .notificationx-inner.nx-img-circle .notificationx-image,
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner.nx-img-circle .notificationx-image {
