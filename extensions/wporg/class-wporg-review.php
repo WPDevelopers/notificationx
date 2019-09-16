@@ -40,46 +40,6 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         return $link;
     }
 
-    public function settings_by_theme( $data ){
-        global $post, $pagenow;
-        $save_field = get_post_meta( $post->ID, '_nx_meta_wp_reviews_template_new', true );
-        
-        $data['nx_meta_wp_reviews_template_new'] = array(
-            'reviewed' => array(
-                'first_param' => isset( $save_field['first_param'] ) ? $save_field['first_param'] : 'tag_username',
-                'second_param' => isset( $save_field['second_param'] ) ? $save_field['second_param'] : 'just reviewed',
-                'third_param' => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_plugin_name',
-                'fourth_param' => isset( $save_field['fourth_param'] ) ? $save_field['fourth_param'] : 'tag_rating',
-            ),
-            'total-rated' => array(
-                'first_param' => isset( $save_field['first_param'] ) ? $save_field['first_param'] : 'tag_rated',
-                'second_param' => isset( $save_field['second_param'] ) ? $save_field['second_param'] : 'people rated',
-                'third_param' => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_plugin_name',
-                'fourth_param' => isset( $save_field['fourth_param'] ) ? $save_field['fourth_param'] : 'tag_rating',
-            ),
-            'review-comment' => array(
-                'first_param' => isset( $save_field['first_param'] ) ? $save_field['first_param'] : 'tag_username',
-                'second_param' => isset( $save_field['second_param'] ) ? $save_field['second_param'] : 'just reviewed',
-                'third_param' => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_plugin_review',
-                'fourth_param' => isset( $save_field['fourth_param'] ) ? $save_field['fourth_param'] : 'tag_rating',
-            ),
-            'review-comment-2' => array(
-                'first_param' => isset( $save_field['first_param'] ) ? $save_field['first_param'] : 'tag_username',
-                'second_param' => isset( $save_field['second_param'] ) ? $save_field['second_param'] : 'just reviewed',
-                'third_param' => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_plugin_review',
-                'fourth_param' => isset( $save_field['fourth_param'] ) ? $save_field['fourth_param'] : 'tag_rating',
-            ),
-            'review-comment-3' => array(
-                'first_param' => isset( $save_field['first_param'] ) ? $save_field['first_param'] : 'tag_username',
-                'second_param' => isset( $save_field['second_param'] ) ? $save_field['second_param'] : 'just reviewed',
-                'third_param' => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_plugin_review',
-                'fourth_param' => isset( $save_field['fourth_param'] ) ? $save_field['fourth_param'] : 'tag_time',
-            )
-        );
-
-        return $data;
-    }
-
     public function template_string_by_theme( $template, $old_template, $posts_data ){
         if( $posts_data['nx_meta_display_type'] === 'reviews' && $posts_data['nx_meta_reviews_source'] === $this->type ) {
             $theme = $posts_data['nx_meta_wporg_theme'];
@@ -370,7 +330,25 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                         'tag_time'        => __('Definite Time' , 'notificationx'),
                         'tag_sometime'        => __('Sometimes ago' , 'notificationx'),
                     ),
-                    'default' => 'tag_rating'
+                    'default' => 'tag_rating',
+                    'dependency' => array(
+                        'tag_sometime' => array(
+                            'fields' => [ 'custom_fourth_param' ]
+                        )
+                    ),
+                    'hide' => array(
+                        'tag_time' => array(
+                            'fields' => [ 'custom_fourth_param' ]
+                        ),
+                        'tag_rating' => array(
+                            'fields' => [ 'custom_fourth_param' ]
+                        ),
+                    ),
+                ),
+                'custom_fourth_param' => array(
+                    'type'     => 'text',
+                    'priority' => 6,
+                    'default' => __( 'Sometimes ago', 'notificationx' )
                 ),
             ),
             'label'    => __('Notification Template' , 'notificationx'),

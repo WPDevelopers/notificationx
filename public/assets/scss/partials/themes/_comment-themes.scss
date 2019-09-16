@@ -96,11 +96,12 @@
 			margin: 0;
 			flex-basis: 120px;
 			overflow: hidden;
+			border-radius: 200px;
 			@extend %posr;
 			& > img {
-				@extend %posa;
-				@extend %wh100;
-				@extend %lr0;
+				// @extend %posa;
+				// @extend %wh100;
+				// @extend %lr0;
 				border-radius: 50%;
 			}
 		}
@@ -136,7 +137,6 @@
 		&.nx-img-rounded, &.nx-img-square {
 			& .notificationx-image {
 				border-radius: 0px;
-				overflow: visible;
 				padding: 25px;
 				background: none;
 				& > img {

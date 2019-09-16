@@ -18,7 +18,7 @@
                     $subkey = $key;
                     $field_id = $name . "_" . $subkey;
                     $name = $name . "[" . $subkey . "]";
-
+                    
                     $attrs = ' data-subkey="' . esc_attr( $subkey ) . '"'; // easy fix removing . before =;
                     if( isset( $inner_field['disable'] ) && $inner_field['disable'] === true ) {
                         $attrs .= ' disabled';
@@ -32,7 +32,7 @@
                         $field['options'] = isset( $inner_field['options'] ) ? $inner_field['options'] : '';
                     }
                     $value = isset( $main_value[ $key ] ) ? $main_value[ $key ] : ( isset( $inner_field[ 'default'] ) ? $inner_field[ 'default'] : '' ) ;
-                    
+
                     if( $file_name ) {
                         include NOTIFICATIONX_ADMIN_DIR_PATH . 'includes/fields/nx-'. $file_name .'.php';
                         $subkey = '';

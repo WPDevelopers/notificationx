@@ -48,8 +48,14 @@ class NotificationX_Template {
 			for ( $i = 0; $i < $template_count; $i++ ) {
 				$template_content = explode( ' ', trim( $template[$i] ) );
 				$html .= '<div class="'. self::$row_classes[ $i ] .'">';
+				if( $i === 2 ) {
+					$html .= '<div class="third-row-inner-wrapper">';
+				}
 				foreach( $template_content as $temp_w_key => $template_word ) {
 					$html .= '<span class="'. self::$word_classes[$temp_w_key] .'">'. $template_word .'</span> ';
+				}
+				if( $i === 2 ) {
+					$html .= '</div>';
 				}
 				if( $i === 2 ) {
 					$html .= self::branding( $branding );

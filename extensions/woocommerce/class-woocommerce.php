@@ -43,12 +43,11 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         if( NotificationX_Helper::get_type( $settings ) !== $this->type ) {
             return $data;
         }
+
         $data['name']            = $this->notEmpty( 'name', $saved_data ) ? $saved_data['name'] : __( 'Someone', 'notificationx' );
         $data['first_name']      = $this->notEmpty( 'first_name', $saved_data ) ? $saved_data['first_name'] : __( 'Someone', 'notificationx' );
         $data['last_name']       = $this->notEmpty( 'last_name', $saved_data ) ? $saved_data['last_name'] : __( 'Someone', 'notificationx' );
         $data['anonymous_title'] = __( 'Anonymous Product', 'notificationx' );
-        $data['sometime']        = __( 'Sometimes ago', 'notificationx' );
-
         return $data;
     }
 
@@ -150,7 +149,22 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
                         'tag_time'       => __('Definite Time' , 'notificationx'),
                         'tag_sometime' => __('Sometimes ago' , 'notificationx'),
                     ),
-                    'default' => 'tag_time'
+                    'default' => 'tag_time',
+                    'dependency' => array(
+                        'tag_sometime' => array(
+                            'fields' => [ 'custom_fourth_param' ]
+                        )
+                    ),
+                    'hide' => array(
+                        'tag_time' => array(
+                            'fields' => [ 'custom_fourth_param' ]
+                        ),
+                    ),
+                ),
+                'custom_fourth_param' => array(
+                    'type'     => 'text',
+                    'priority' => 6,
+                    'default' => __( 'Sometimes ago', 'notificationx' )
                 ),
             ),
             'label'    => __('Notification Template' , 'notificationx'),

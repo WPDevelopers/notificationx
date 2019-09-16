@@ -79,6 +79,10 @@ class NotificationX_Admin {
 		 * @since 1.2.6
 		 */
 		add_filter('set-screen-option', array( $this, 'save_screen_options' ), 10, 3);
+		/**
+		 * @since 1.3.5
+		 */
+		add_filter('nx_template_settings_by_theme', array( 'NotificationX_Helper', 'settings_by_themes' ), 10, 2);
 	}
 	/**
 	* Get all active items.
@@ -339,7 +343,7 @@ class NotificationX_Admin {
 		$template_settings = array();
 		global $post;
 		if( is_object( $post ) ) {
-			$template_settings = apply_filters( 'nx_template_settings_by_theme', array() );
+			$template_settings = apply_filters( 'nx_template_settings_by_theme', array(), $post );
 		}
 
 		return array( 
