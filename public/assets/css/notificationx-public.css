@@ -100,6 +100,8 @@
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner .notificationx-content,
 .nx-notification .notificationx-inner .notificationx-content .nx-branding,
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner .notificationx-content .nx-branding,
+.nx-notification .notificationx-inner .notificationx-image,
+.notificationx-shortcode-wrapper > .nx-notification .notificationx-inner .notificationx-image,
 .notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-six-free .notificationx-image,
 .nx-notification.nx-comments .nx-notification-theme-six-free .notificationx-image,
 .notificationx-shortcode-wrapper > .nx-notification.nx-custom .nx-notification-theme-six-free .notificationx-image,
@@ -124,6 +126,8 @@
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner .notificationx-content > .nx-third-row,
 .nx-notification .notificationx-inner .notificationx-content .nx-branding,
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner .notificationx-content .nx-branding,
+.nx-notification .notificationx-inner .notificationx-image,
+.notificationx-shortcode-wrapper > .nx-notification .notificationx-inner .notificationx-image,
 .notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-six-free .notificationx-image,
 .nx-notification.nx-comments .nx-notification-theme-six-free .notificationx-image,
 .notificationx-shortcode-wrapper > .nx-notification.nx-custom .nx-notification-theme-six-free .notificationx-image,
@@ -140,6 +144,8 @@
 }
 .nx-notification .notificationx-inner .notificationx-content,
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner .notificationx-content,
+.nx-notification .notificationx-inner .notificationx-image,
+.notificationx-shortcode-wrapper > .nx-notification .notificationx-inner .notificationx-image,
 .notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-six-free .notificationx-image,
 .nx-notification.nx-comments .nx-notification-theme-six-free .notificationx-image,
 .notificationx-shortcode-wrapper > .nx-notification.nx-custom .nx-notification-theme-six-free .notificationx-image,
@@ -454,15 +460,26 @@
 }
 .nx-notification .notificationx-inner .notificationx-image,
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner .notificationx-image {
+  flex-basis: 80px;
   background-color: #fff;
   width: 80px;
   height: 80px;
   margin: 10px
 }
+.nx-notification .notificationx-inner .notificationx-image > img,
+.notificationx-shortcode-wrapper > .nx-notification .notificationx-inner .notificationx-image > img {
+  max-height: 100%
+}
 .nx-notification .notificationx-inner.nx-img-circle .notificationx-image,
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner.nx-img-circle .notificationx-image {
   border-radius: 50%;
   overflow: hidden
+}
+.nx-notification .notificationx-inner.nx-img-circle .notificationx-image > img,
+.notificationx-shortcode-wrapper > .nx-notification .notificationx-inner.nx-img-circle .notificationx-image > img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover
 }
 .nx-notification .notificationx-inner.nx-img-square .notificationx-image,
 .nx-notification .notificationx-inner.nx-img-square .notificationx-image > img,
@@ -474,6 +491,10 @@
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner.nx-img-rounded .notificationx-image {
   border-radius: 5px;
   overflow: hidden
+}
+.nx-notification .notificationx-inner.nx-img-rounded .notificationx-image > img,
+.notificationx-shortcode-wrapper > .nx-notification .notificationx-inner.nx-img-rounded .notificationx-image > img {
+  border-radius: 5px
 }
 @media only screen and (max-width: 786px) {
   .nx-notification,
@@ -1192,6 +1213,62 @@ body.nx-press_bar-active {
 .nx-notification.nx-custom .nx-notification-review_saying .notificationx-image {
   border-radius: 50%
 }
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-reviewed .notificationx-image > img,
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review_saying .notificationx-image > img,
+.nx-notification.nx-reviews .nx-notification-reviewed .notificationx-image > img,
+.nx-notification.nx-reviews .nx-notification-review_saying .notificationx-image > img,
+.notificationx-shortcode-wrapper > .nx-notification.nx-custom .nx-notification-reviewed .notificationx-image > img,
+.notificationx-shortcode-wrapper > .nx-notification.nx-custom .nx-notification-review_saying .notificationx-image > img,
+.nx-notification.nx-custom .nx-notification-reviewed .notificationx-image > img,
+.nx-notification.nx-custom .nx-notification-review_saying .notificationx-image > img {
+  border-radius: 50%
+}
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-reviewed.nx-img-rounded .notificationx-image,
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-reviewed.nx-img-square .notificationx-image,
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review_saying.nx-img-rounded .notificationx-image,
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review_saying.nx-img-square .notificationx-image,
+.nx-notification.nx-reviews .nx-notification-reviewed.nx-img-rounded .notificationx-image,
+.nx-notification.nx-reviews .nx-notification-reviewed.nx-img-square .notificationx-image,
+.nx-notification.nx-reviews .nx-notification-review_saying.nx-img-rounded .notificationx-image,
+.nx-notification.nx-reviews .nx-notification-review_saying.nx-img-square .notificationx-image,
+.notificationx-shortcode-wrapper > .nx-notification.nx-custom .nx-notification-reviewed.nx-img-rounded .notificationx-image,
+.notificationx-shortcode-wrapper > .nx-notification.nx-custom .nx-notification-reviewed.nx-img-square .notificationx-image,
+.notificationx-shortcode-wrapper > .nx-notification.nx-custom .nx-notification-review_saying.nx-img-rounded .notificationx-image,
+.notificationx-shortcode-wrapper > .nx-notification.nx-custom .nx-notification-review_saying.nx-img-square .notificationx-image,
+.nx-notification.nx-custom .nx-notification-reviewed.nx-img-rounded .notificationx-image,
+.nx-notification.nx-custom .nx-notification-reviewed.nx-img-square .notificationx-image,
+.nx-notification.nx-custom .nx-notification-review_saying.nx-img-rounded .notificationx-image,
+.nx-notification.nx-custom .nx-notification-review_saying.nx-img-square .notificationx-image {
+  padding: 10px
+}
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-reviewed.nx-img-rounded .notificationx-image > img,
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-reviewed.nx-img-square .notificationx-image > img,
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review_saying.nx-img-rounded .notificationx-image > img,
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review_saying.nx-img-square .notificationx-image > img,
+.nx-notification.nx-reviews .nx-notification-reviewed.nx-img-rounded .notificationx-image > img,
+.nx-notification.nx-reviews .nx-notification-reviewed.nx-img-square .notificationx-image > img,
+.nx-notification.nx-reviews .nx-notification-review_saying.nx-img-rounded .notificationx-image > img,
+.nx-notification.nx-reviews .nx-notification-review_saying.nx-img-square .notificationx-image > img,
+.notificationx-shortcode-wrapper > .nx-notification.nx-custom .nx-notification-reviewed.nx-img-rounded .notificationx-image > img,
+.notificationx-shortcode-wrapper > .nx-notification.nx-custom .nx-notification-reviewed.nx-img-square .notificationx-image > img,
+.notificationx-shortcode-wrapper > .nx-notification.nx-custom .nx-notification-review_saying.nx-img-rounded .notificationx-image > img,
+.notificationx-shortcode-wrapper > .nx-notification.nx-custom .nx-notification-review_saying.nx-img-square .notificationx-image > img,
+.nx-notification.nx-custom .nx-notification-reviewed.nx-img-rounded .notificationx-image > img,
+.nx-notification.nx-custom .nx-notification-reviewed.nx-img-square .notificationx-image > img,
+.nx-notification.nx-custom .nx-notification-review_saying.nx-img-rounded .notificationx-image > img,
+.nx-notification.nx-custom .nx-notification-review_saying.nx-img-square .notificationx-image > img {
+  border-radius: 5px
+}
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-reviewed.nx-img-square .notificationx-image > img,
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review_saying.nx-img-square .notificationx-image > img,
+.nx-notification.nx-reviews .nx-notification-reviewed.nx-img-square .notificationx-image > img,
+.nx-notification.nx-reviews .nx-notification-review_saying.nx-img-square .notificationx-image > img,
+.notificationx-shortcode-wrapper > .nx-notification.nx-custom .nx-notification-reviewed.nx-img-square .notificationx-image > img,
+.notificationx-shortcode-wrapper > .nx-notification.nx-custom .nx-notification-review_saying.nx-img-square .notificationx-image > img,
+.nx-notification.nx-custom .nx-notification-reviewed.nx-img-square .notificationx-image > img,
+.nx-notification.nx-custom .nx-notification-review_saying.nx-img-square .notificationx-image > img {
+  border-radius: 0px
+}
 .notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review_saying .notificationx-content,
 .nx-notification.nx-reviews .nx-notification-review_saying .notificationx-content,
 .notificationx-shortcode-wrapper > .nx-notification.nx-custom .nx-notification-review_saying .notificationx-content,
@@ -1234,7 +1311,8 @@ body.nx-press_bar-active {
   height: auto;
   margin: 0;
   padding: 20px;
-  margin-right: 15px
+  margin-right: 15px;
+  overflow: visible
 }
 .notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment .notificationx-image:after,
 .nx-notification.nx-reviews .nx-notification-review-comment .notificationx-image:after,
@@ -1466,6 +1544,7 @@ body.nx-press_bar-active {
 .nx-notification.nx-custom .nx-notification-review-comment-2.nx-img-right .notificationx-content,
 .nx-notification.nx-custom .nx-notification-review-comment-3.nx-img-right .notificationx-content {
   padding-left: 40px;
+  padding-right: 0px;
   background-position: 40px 53%
 }
 .notificationx-shortcode-wrapper > .nx-notification.nx-reviews .nx-notification-review-comment-2.nx-img-circle .notificationx-image > img,

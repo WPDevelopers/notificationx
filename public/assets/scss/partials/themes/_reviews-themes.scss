@@ -7,7 +7,7 @@
                 @include fontWeight(700);
             }
             & .nx-second-row {
-                color: #7253ec;
+				color: #7253ec;
             }
         }
     }
@@ -26,8 +26,26 @@
             }
         }
         & .notificationx-image {
-            border-radius: 50%;
-        }
+			border-radius: 50%;
+			& > img {
+				border-radius: 50%;
+			}
+		}
+		&.nx-img-rounded, &.nx-img-square {
+			& .notificationx-image {
+				padding: 10px;
+				& > img {
+					border-radius: 5px;
+				}
+			}
+		}
+		&.nx-img-square {
+			& .notificationx-image {
+				& > img {
+					border-radius: 0px;
+				}
+			}
+		}
     }
 
     & .nx-notification-review_saying {
@@ -75,6 +93,7 @@
 			margin: 0;
 			padding: 20px;
 			margin-right: 15px;
+			overflow: visible;
 			&:after {
 				@extend %posa;
 				@extend %content;
@@ -192,7 +211,8 @@
 		}
 		&.nx-img-right { 
 			& .notificationx-content  {
-                padding-left: 40px;
+				padding-left: 40px;
+				padding-right: 0px;
                 background-position: 40px 53%;
 			}	
 			& span.notificationx-close {

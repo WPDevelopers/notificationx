@@ -101,15 +101,27 @@
 			}
 		}
 		& .notificationx-image  {
+			@extend %flex;
+			@extend %flex-align-center;
+			@extend %flex-justify-center;
+			flex-basis: 80px;
 			background-color: #fff;
 			width: 80px;
 			height: 80px;
 			margin: 10px;
+			& > img {
+				max-height: 100%;
+			}
 		}
 		&.nx-img-circle {
 			& .notificationx-image {
 				border-radius: 50%;
 				overflow: hidden;
+				& > img {
+					height: 100%;
+					width: 100%;
+					object-fit: cover;
+				}
 			}
 		}
 		&.nx-img-square {
@@ -121,6 +133,9 @@
 			& .notificationx-image {
 				border-radius: 5px;
 				overflow: hidden;
+				& > img {
+					border-radius: 5px;
+				}
 			}
 		}
 	}
