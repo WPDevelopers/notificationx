@@ -388,8 +388,8 @@
 		}
 		// NotificationX_Admin.initDatepicker();
 		if ($('.nx-countdown-datepicker').length > 0) {
-			$('.nx-countdown-datepicker').each(function () {
-				$(this).find('input').flatpickr({
+			$('body .nx-control').find('.nx-countdown-datepicker').each(function ( i, item ) {
+				$(item).find('input').flatpickr({
 					enableTime: true,
 					dateFormat: 'D, d M, y h:i K'
 				});
@@ -489,6 +489,14 @@
 
 				clone.insertBefore($(this));
 				$.notificationx.resetFieldIds( $(this).parents('.nx-group-fields-wrapper').find('.nx-group-field') );
+				if ($('.nx-countdown-datepicker').length > 0) {
+					$('body .nx-group-field').find('.nx-countdown-datepicker').each(function ( i, item ) {
+						$(item).find('input').flatpickr({
+							enableTime: true,
+							dateFormat: 'D, d M, y h:i K'
+						});
+					});
+				}
 			});
 
 		});
