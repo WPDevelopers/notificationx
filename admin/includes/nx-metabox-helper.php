@@ -596,15 +596,27 @@ function notificationx_metabox_args(){
                                 'priority'	=> 5,
                                 'dependency' => array(
                                     0 => array(
-                                        'fields' => [ 'image_url' ]
+                                        'fields' => [ 'image_url', 'default_avatar' ]
                                     ),
                                 ),
                                 'dependency' => array(
                                     1 => array(
-                                        'fields' => [ 'image_url' ]
+                                        'fields' => [ 'image_url', 'default_avatar' ]
                                     ),
                                 ),
                                 'description' => __('If checked, this will show in notifications.', 'notificationx'),
+                            ),
+                            'default_avatar'  => array(
+                                'type'      => 'theme',
+                                'label'     => __('Choose an Image' , 'notificationx'),
+                                'priority'	=> 6,
+                                'description' => __('If checked, this will show in notifications.', 'notificationx'),
+                                'options' => array(
+                                    'tick' => array(
+                                        'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+                                        'title' => 'TiCK'
+                                    ),
+                                )
                             ),
                             'image_url'  => array(
                                 'type'      => 'media',
