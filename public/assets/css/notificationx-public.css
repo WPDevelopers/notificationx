@@ -447,8 +447,8 @@
 }
 .nx-notification .notificationx-inner.nx-img-circle .notificationx-image > img,
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner.nx-img-circle .notificationx-image > img {
-  height: 100px;
-  width: 100%;
+  height: 200px;
+  width: 200px;
   object-fit: cover
 }
 .nx-notification .notificationx-inner.nx-img-square .notificationx-image,
