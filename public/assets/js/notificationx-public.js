@@ -23,22 +23,6 @@
 	$.notificationx.pressbar = function () {
 		var bars = $('.nx-bar');
 		if (bars.length > 0) {
-			var barHeight = bars.height(),
-				initialDelay = bars[0].dataset.initial_delay * 1000,
-				autoHide = bars[0].dataset.auto_hide,
-				position = bars[0].dataset.position;
-
-			/* add padding in body after initial delay */
-			setTimeout(function () {
-				$('body').addClass('has-nx-bar').css('padding-' + position, barHeight);
-			}, initialDelay);
-			/* remove padding in body after if auto hide is enable */
-			if(autoHide) {
-				var duration = bars[0].dataset.hide_after * 1000;
-				setTimeout(function () {
-					$('body').css('padding-' + position, 0).removeClass('has-nx-bar');
-				}, duration);
-			}
 			bars.each(function (i, bar) {
 				var id = bar.dataset.press_id,
 					duration = bar.dataset.hide_after,
@@ -49,7 +33,22 @@
 					start_timestamp = start_date.getTime(),
 					end_timestamp = end_date.getTime(),
 					current_date = new Date(),
-					current_timestamp = current_date.getTime();
+					current_timestamp = current_date.getTime(),
+					barHeight = $(bar).outerHeight(),
+					initialDelay = bar.dataset.initial_delay * 1000,
+					position = bar.dataset.position;
+	
+				/* add padding in body after initial delay */
+				setTimeout(function () {
+					$('body').addClass('has-nx-bar').css('padding-' + position, barHeight);
+				}, initialDelay);
+				/* remove padding in body after if auto hide is enable */
+				if(parseInt(auto_hide)) {
+					setTimeout(function () {
+						$('body').css('padding-' + position, 0).removeClass('has-nx-bar');
+					}, parseInt(duration) * 1000);
+				}
+
 				if (current_timestamp > start_timestamp && current_timestamp < end_timestamp) {
 					var bar_interval = setInterval(function () {
 						var current_timestamp = new Date().getTime(),
