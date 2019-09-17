@@ -178,10 +178,18 @@
 			return;
 		}
 
+		var templateAdv = notificationx.template_keys[source][type].replace('_new', '_adv');
+
 		var templateDivID = templateID.attr('id');
 
 		if ( themeID === 'maps_theme' || themeID === 'comments-maps_theme' || themeID === 'subs-maps_theme' || themeID === 'conv-theme-six' ) {
 			templateID = $('#nx_meta_maps_theme_template_new');
+			templateAdv = 'maps_theme_template_adv';
+		}
+
+		templateAdv = $('#nx_meta_' + templateAdv );
+		if( templateAdv[0].checked === true ) {
+			templateAdv.trigger('change');
 		}
 
 		if (Object.keys(notificationx.template_settings).indexOf(templateDivID) >= 0 && Object.keys(notificationx.template_settings[templateDivID]).indexOf(themeID) >= 0) {
@@ -561,7 +569,7 @@
 				if (notificationx.template.indexOf(id) >= 0) {
 					selector = "#nx_meta_" + id + "_" + array[i] + suffix;
 				}
-
+				
 				$(selector)[func]();
 			}
 		}
