@@ -75,6 +75,7 @@
 		$('body').on('change', '.nx_meta_conversion_from', function (e) {
 			var conv_source = $(this).val();
 			$('.nx-themes .nx_meta_theme:checked').trigger('change');
+			$('#nx_meta_woo_template_adv').trigger('change');
 			switch (conv_source) {
 				case 'woocommerce' || 'edd':
 					$('#nx_meta_woo_template_adv').trigger('change');
@@ -90,6 +91,7 @@
 		$('body').on('change', '.nx_meta_reviews_source', function () {
 			var source = $(this).val();
 			$('.nx-wporg_themes .nx_meta_wporg_theme:checked').trigger('change');
+			$('#nx_meta_wp_reviews_template_adv').trigger('change');
 			switch (source) {
 				case 'wp_reviews':
 					$('#nx_meta_wp_reviews_template_adv').trigger('change');
@@ -100,6 +102,7 @@
 		$('body').on('change', '.nx_meta_stats_source', function () {
 			var source = $(this).val();
 			$('.nx-wpstats_themes .nx_meta_wpstats_theme:checked').trigger('change');
+			$('#nx_meta_wp_stats_template_adv').trigger('change');
 			switch (source) {
 				case 'wp_stats':
 					$('#nx_meta_wp_stats_template_adv').trigger('change');
