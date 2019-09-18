@@ -620,6 +620,10 @@ function notificationx_metabox_args(){
                                         'source' => NOTIFICATIONX_PUBLIC_URL . 'assets/img/icons/flames.svg',
                                         'title' => __( 'Flames', 'notificationx' )
                                     ),
+                                    'pink-face-looped.gif' => array(
+                                        'source' => NOTIFICATIONX_PUBLIC_URL . 'assets/img/icons/pink-face-looped.gif',
+                                        'title' => __( 'Flames', 'notificationx' )
+                                    ),
                                 )
                             ),
                             'image_url'  => array(
