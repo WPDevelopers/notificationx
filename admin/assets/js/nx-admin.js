@@ -75,7 +75,6 @@
 		$('body').on('change', '.nx_meta_conversion_from', function (e) {
 			var conv_source = $(this).val();
 			$('.nx-themes .nx_meta_theme:checked').trigger('change');
-			$('#nx_meta_woo_template_adv').trigger('change');
 			switch (conv_source) {
 				case 'woocommerce' || 'edd':
 					$('#nx_meta_woo_template_adv').trigger('change');
@@ -169,22 +168,57 @@
 				themeID = $('.nx_meta_' + notificationx.theme_sources[source] + ':checked').val();
 			}
 		}
+		
+		var temp_template_name = '';
 
 		if (notificationx.template_keys.hasOwnProperty(source)) {
 			if (typeof notificationx.template_keys[source] === 'object') {
 				templateID = $('#nx_meta_' + notificationx.template_keys[source][type]);
+				temp_template_name = notificationx.template_keys[source][type];
 			} else {
 				templateID = $('#nx_meta_' + notificationx.template_keys[source]);
+				temp_template_name = notificationx.template_keys[source];
 			}
 		}
 		if (templateID.length <= 0) {
 			return;
 		}
 
-		var templateDivID = templateID.attr('id');
+		if( themeID.indexOf('comments-') >= 0 ) {
+			temp_template_name = 'comments_template_new';
+		}
+		if( themeID.indexOf('subs-') >= 0 ) {
+			temp_template_name = 'mailchimp_template_new';
+		}
+		if( themeID.indexOf('reviews-') >= 0 ) {
+			temp_template_name = 'wp_reviews_template_new';
+		}
+		if( themeID.indexOf('stats-') >= 0 ) {
+			temp_template_name = 'wp_stats_template_new';
+		}
 
+		var templateAdv = '';
+		if( temp_template_name != undefined ) {
+			var templateAdv = temp_template_name.replace('_new', '_adv');
+			var advTemplate = temp_template_name.replace('_new', '');
+				templateAdv = $('#nx_meta_' + templateAdv );
+				advTemplate = $('#nx_meta_' + advTemplate );
+		}
+
+		var templateDivID = templateID.attr('id');
 		if ( themeID === 'maps_theme' || themeID === 'comments-maps_theme' || themeID === 'subs-maps_theme' || themeID === 'conv-theme-six' ) {
+			advTemplate.hide();
 			templateID = $('#nx_meta_maps_theme_template_new');
+			templateAdv = 'maps_theme_template_adv';
+			templateAdv = $('#nx_meta_' + templateAdv );
+		} else {
+			advTemplate.show();
+		}
+
+		if( temp_template_name != undefined ) {
+			if( templateAdv[0].checked === true ) {
+				templateAdv.trigger('change');
+			}
 		}
 
 		if (Object.keys(notificationx.template_settings).indexOf(templateDivID) >= 0 && Object.keys(notificationx.template_settings[templateDivID]).indexOf(themeID) >= 0) {
@@ -564,7 +598,7 @@
 				if (notificationx.template.indexOf(id) >= 0) {
 					selector = "#nx_meta_" + id + "_" + array[i] + suffix;
 				}
-
+				
 				$(selector)[func]();
 			}
 		}
