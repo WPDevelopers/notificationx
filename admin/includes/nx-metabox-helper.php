@@ -612,9 +612,13 @@ function notificationx_metabox_args(){
                                 'priority'	=> 6,
                                 'description' => __('If checked, this will show in notifications.', 'notificationx'),
                                 'options' => array(
-                                    'tick' => array(
-                                        'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
-                                        'title' => 'TiCK'
+                                    'verified.svg' => array(
+                                        'source' => NOTIFICATIONX_PUBLIC_URL . 'assets/img/icons/verified.svg',
+                                        'title' => __( 'Verified', 'notificationx' )
+                                    ),
+                                    'flames.svg' => array(
+                                        'source' => NOTIFICATIONX_PUBLIC_URL . 'assets/img/icons/flames.svg',
+                                        'title' => __( 'Flames', 'notificationx' )
                                     ),
                                 )
                             ),

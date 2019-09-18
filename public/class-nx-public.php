@@ -58,6 +58,7 @@ class NotificationX_Public {
 		$this->notifications = get_option('notificationx_data');
 
 		add_filter('body_class', array($this,'body_class'), 10, 1);
+		add_action( 'nx_notification_image_action', array( $this, 'image_action' ), 999 ); // Image Action for gravatar
 	}
 	
 	/**
@@ -435,6 +436,26 @@ class NotificationX_Public {
             }
         }
 
-	    return $classes;
+		return $classes;
+	}
+
+
+    /**
+     * Image Action
+     */
+    public function image_action(){
+        add_filter( 'nx_notification_image', array( $this, 'notification_image' ), 999, 3 );
+    }
+
+    public function notification_image( $image_data, $data, $settings ){
+        if( $settings->display_type  === 'press_bar' ) { 
+            return [];
+		}
+		if( $settings->show_default_image ) {
+			$default_avatar = $settings->default_avatar;
+			$image_data['url'] = NOTIFICATIONX_PUBLIC_URL . 'assets/img/icons/' . $default_avatar;
+		}
+		$image_data['alt'] = '';
+        return $image_data;
     }
 }

@@ -2403,3 +2403,20 @@ h4.nx-admin-title {
 .nx-no-module-on p {
     font-size: 20px;
 }
+
+.nx-default_avatar .nx-theme-field-inner,
+.nx-default_avatar .nx-single-theme-wrapper { 
+    margin: 0px;
+}
+
+.nx-default_avatar .nx-single-theme-wrapper {
+    font-size: 18px;
+    width: 100px;
+    height: auto;
+    line-height: auto;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #f2f2f2;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
