@@ -145,6 +145,9 @@ class NotificationXPro_WPOrg_Helper {
         foreach ( $nodes as $node ) {
             $raw_review = $node->ownerDocument->saveXML( $node );
 			$review     = $this->extract_review_data( $raw_review );
+			if( isset( $review['rating'] ) && intval( $review['rating'] ) < 3 ) {
+				continue;
+			}
 
 			if( $plugin_slug ) {
 				$review['link'] = 'https://wordpress.org/plugins/' . $plugin_slug;
