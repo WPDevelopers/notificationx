@@ -451,9 +451,24 @@ class NotificationX_Public {
         if( $settings->display_type  === 'press_bar' ) { 
             return [];
 		}
-		if( $settings->show_default_image ) {
+
+		$is_default_enabled = true;
+		if( $settings->show_notification_image != 'none' ) {
+			if( isset( $image_data['url'] ) && ! empty( $image_data['url'] ) ) {
+				$is_default_enabled = false;
+			}
+		}
+
+		if( $settings->show_default_image && $is_default_enabled ) {
 			$default_avatar = $settings->default_avatar;
-			$image_data['url'] = NOTIFICATIONX_PUBLIC_URL . 'assets/img/icons/' . $default_avatar;
+			if( $default_avatar === 'none' ) {
+				if( ! empty( $settings->image_url['url'] ) ) {
+					$image = wp_get_attachment_image_src( $settings->image_url['id'], 'medium', true );
+					$image_data['url'] = $image[0];
+				}
+			} else {
+				$image_data['url'] = NOTIFICATIONX_PUBLIC_URL . 'assets/img/icons/' . $default_avatar;
+			}
 		}
 		$image_data['alt'] = '';
         return $image_data;

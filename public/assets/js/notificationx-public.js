@@ -302,10 +302,20 @@
 		if (Cookies.get('nx-close-for-session')) {
 			return;
 		}
+
+		var image = $( notification ).find('img');
+			image = image[0];
+		var imgSrc = image.src,
+			isGIF = image.src.indexOf('.gif');
+
 		var body = $('body'), 
 			isMobile = notification.classList.value.indexOf('nx-mobile-notification') != -1,
 			bottomCss = isMobile ? '10px' : '30px';
 		body.append(notification);
+
+		if( isGIF > 0 ) {
+			image.src = imgSrc;
+		}
 		
 		if( $.notificationx.windowWidth > 480 && isMobile ) {
 			bottomCss = '20px';

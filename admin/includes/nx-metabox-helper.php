@@ -622,8 +622,13 @@ function notificationx_metabox_args(){
                                     ),
                                     'pink-face-looped.gif' => array(
                                         'source' => NOTIFICATIONX_PUBLIC_URL . 'assets/img/icons/pink-face-looped.gif',
-                                        'title' => __( 'Flames', 'notificationx' )
+                                        'title' => __( 'Pink Face', 'notificationx' )
                                     ),
+                                    'blue-face-non-looped.gif' => array(
+                                        'source' => NOTIFICATIONX_PUBLIC_URL . 'assets/img/icons/blue-face-non-looped.gif',
+                                        'title' => __( 'Blue Face', 'notificationx' )
+                                    ),
+                                    //TODO: none
                                 )
                             ),
                             'image_url'  => array(
