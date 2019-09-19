@@ -418,12 +418,15 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
 
         $date = $order->get_date_created();
         $countries = new WC_Countries();
-        $shipping_countries = $order->get_shipping_country();
-        if( ! empty( $shipping_countries ) ) {
-            $new_order['country'] = isset( $countries->countries[ $order->get_shipping_country() ] ) ? $countries->countries[ $order->get_shipping_country() ]: '';
-            $shipping_states = $order->get_shipping_state();
-            if( ! empty( $shipping_states ) ) {
-                $new_order['state'] = isset( $countries->states[ $order->get_shipping_country() ], $countries->states[ $order->get_shipping_country() ][ $order->get_shipping_state() ] ) ? $countries->states[ $order->get_shipping_country() ][ $order->get_shipping_state() ] : $order->get_shipping_state();
+        $shipping_country = $order->get_billing_country();
+        if( empty( $shipping_country ) ) {
+            $shipping_country = $order->get_shipping_country();
+        }
+        if( ! empty( $shipping_country ) ) {
+            $new_order['country'] = isset( $countries->countries[ $shipping_country ] ) ? $countries->countries[ $shipping_country ]: '';
+            $shipping_state = $order->get_shipping_state();
+            if( ! empty( $shipping_state ) ) {
+                $new_order['state'] = isset( $countries->states[ $shipping_country ], $countries->states[ $shipping_country ][ $shipping_state ] ) ? $countries->states[ $shipping_country ][ $shipping_state ] : $shipping_state;
             }
         }
         $new_order['city'] = $order->get_billing_city();
