@@ -323,7 +323,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
     public function status_transition( $id, $from, $to, $order ){
         
         $items = $order->get_items();
-        $status = [ 'on-hold', 'cancelled', 'refunded', 'failed', 'pending' ];
+        $status = [ 'on-hold', 'cancelled', 'refunded', 'failed', 'pending', 'wcf-main-order' ];
         $done = [ 'completed', 'processing' ];
 
         if( in_array( $from, $done ) && in_array( $to, $status ) ) {
@@ -426,7 +426,10 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
                 $new_order['state'] = isset( $countries->states[ $order->get_shipping_country() ], $countries->states[ $order->get_shipping_country() ][ $order->get_shipping_state() ] ) ? $countries->states[ $order->get_shipping_country() ][ $order->get_shipping_state() ] : $order->get_shipping_state();
             }
         }
-        $new_order['city'] = $order->get_shipping_city();
+        $new_order['city'] = $order->get_billing_city();
+        if( empty( $new_order['city'] ) ) {
+            $new_order['city'] = $order->get_shipping_city();
+        }
 
         $new_order['ip'] = $order->get_customer_ip_address();
         $product_data = $this->ready_product_data( $item->get_data() );
