@@ -351,7 +351,7 @@ class NotificationX_Helper {
             return apply_filters("nx_display_types_hide_data", array(
                 'comments' => array(
                     'sections' => [ 'bar_themes', 'conversion_link_options', 'bar_design', 'bar_typography', 'themes', 'design', 'image_design', 'typography', 'rs_link_options' ],
-                    'fields' => [ 'custom_contents', 'show_custom_image', 'show_notification_image', 'image_url' ]
+                    'fields' => [ 'custom_contents', 'show_custom_image', 'show_notification_image', 'image_url', 'wp_reviews_template' ]
                 ),
                 'press_bar' => array(
                     'sections' => [ 'image', 'link_options', 'conversion_link_options', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'rs_link_options' ],
@@ -359,13 +359,14 @@ class NotificationX_Helper {
                 ),
                 'conversions' => array(
                     'sections' => [ 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'rs_link_options' ], 
+                    'fields' => [ 'wp_reviews_template' ]
                 ),
                 'reviews' => array(
                     'fields' => [ 'comments_source', 'conversion_from' ], 
                     'sections' => [ 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography' ], 
                 ),
                 'download_stats' => array(
-                    'fields' => [ 'comments_source', 'conversion_from', 'reviews_source', 'show_notification_image', 'wp_reviews_template_new' ], 
+                    'fields' => [ 'comments_source', 'conversion_from', 'reviews_source', 'show_notification_image', 'wp_reviews_template_new', 'wp_reviews_template' ], 
                     'sections' => [ 'image', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography' ], 
                 ),
             ));
