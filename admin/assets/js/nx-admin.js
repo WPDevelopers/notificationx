@@ -428,7 +428,7 @@
 			$('body .nx-control').find('.nx-countdown-datepicker').each(function ( i, item ) {
 				$(item).find('input').flatpickr({
 					enableTime: true,
-					dateFormat: 'D, d M, y h:i K'
+					dateFormat: 'D, M d, Y h:i K'
 				});
 			});
 		}

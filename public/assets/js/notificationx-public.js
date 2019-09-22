@@ -37,7 +37,7 @@
 					barHeight = $(bar).outerHeight(),
 					initialDelay = bar.dataset.initial_delay * 1000,
 					position = bar.dataset.position;
-	
+
 				/* add padding in body after initial delay */
 				setTimeout(function () {
 					$('body').addClass('has-nx-bar').css('padding-' + position, barHeight);
@@ -51,7 +51,7 @@
 
 				if (current_timestamp > start_timestamp && current_timestamp < end_timestamp) {
 					var bar_interval = setInterval(function () {
-						var current_timestamp = new Date().getTime(),
+						var current_timestamp = Date.now(),
 							difference = end_timestamp - current_timestamp,
 							days = Math.floor(difference / (1000 * 60 * 60 * 24)),
 							hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
