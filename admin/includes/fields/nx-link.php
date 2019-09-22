@@ -4,4 +4,4 @@
     $classes = isset( $field['css_class'] ) && !empty($field['css_class']) ? $field['css_class'] : '';
 ?>
 
-<a href="<?php echo $link?>" class="button-primary <?php echo $classes; ?>"><?php echo $label?></a>
+<a href="<?php echo $link?>" class="btn-settings <?php echo $classes; ?>"><?php echo $label?></a>

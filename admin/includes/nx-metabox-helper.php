@@ -31,7 +31,7 @@ function notificationx_metabox_args(){
                                     'press_bar'      => NotificationX_Helper::press_bar_toggle_data(),
                                     'conversions'    => NotificationX_ToggleFields::conversions(),
                                     'reviews'        => NotificationX_ToggleFields::reviews(),
-                                    'download_stats' => NotificationX_ToggleFields::stats(),
+                                    'download_stats' => NotificationX_ToggleFields::stats()
                                 )
                             ) ),
                             'reviews_source'  => apply_filters('nx_reviews_source', array(
