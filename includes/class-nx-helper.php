@@ -351,7 +351,7 @@ class NotificationX_Helper {
             return apply_filters("nx_display_types_hide_data", array(
                 'comments' => array(
                     'sections' => [ 'bar_themes', 'conversion_link_options', 'bar_design', 'bar_typography', 'themes', 'design', 'image_design', 'typography', 'rs_link_options' ],
-                    'fields' => [ 'custom_contents', 'show_custom_image', 'show_notification_image', 'image_url' ]
+                    'fields' => [ 'custom_contents', 'show_custom_image', 'show_notification_image', 'image_url', 'wp_reviews_template' ]
                 ),
                 'press_bar' => array(
                     'sections' => [ 'image', 'link_options', 'conversion_link_options', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'rs_link_options' ],
@@ -359,13 +359,14 @@ class NotificationX_Helper {
                 ),
                 'conversions' => array(
                     'sections' => [ 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'rs_link_options' ], 
+                    'fields' => [ 'wp_reviews_template' ]
                 ),
                 'reviews' => array(
                     'fields' => [ 'comments_source', 'conversion_from' ], 
                     'sections' => [ 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography' ], 
                 ),
                 'download_stats' => array(
-                    'fields' => [ 'comments_source', 'conversion_from', 'reviews_source', 'show_notification_image', 'wp_reviews_template_new' ], 
+                    'fields' => [ 'comments_source', 'conversion_from', 'reviews_source', 'show_notification_image', 'wp_reviews_template_new', 'wp_reviews_template' ], 
                     'sections' => [ 'image', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography' ], 
                 ),
             ));
@@ -395,6 +396,10 @@ class NotificationX_Helper {
             ),
             'page_analytics' => array(
                 'source' => __( 'Page Analytics', 'notificationx' ),
+                'is_pro' => $is_pro
+            ),
+            'custom' => array(
+                'source' => __( 'Custom Notification', 'notificationx' ),
                 'is_pro' => $is_pro
             ),
         ];
@@ -650,10 +655,10 @@ class NotificationX_Helper {
             if( in_array( $s_key, $desire_data['br_before'] ) ) {
                 $j++;
             }
-            if( trim($previous_value) === '{{custom}}' ) { 
+            if( trim($previous_value) === '{{custom}}' || trim($s_value) === '{{sometime}}' || trim($s_value) === '{{custom_stats}}' ) { 
                 $hasCustomAsValueinPrev = true;
             }
-            if( trim($s_value) === '{{custom}}' ) { 
+            if( trim($s_value) === '{{custom}}' || trim($s_value) === '{{sometime}}' || trim($s_value) === '{{custom_stats}}' ) { 
                 $hasCustomAsValue = true;
             }
             if( strpos( $s_key, 'custom_' ) === 0 ) { 
@@ -746,7 +751,7 @@ class NotificationX_Helper {
                 $theme = $settings->{ $theme_sources[ $type ] };
             }
         }
-        return $theme;
+        return apply_filters( 'nx_get_theme', $theme, $settings );
     }
 
     public static function theme_sources(){
@@ -800,8 +805,13 @@ class NotificationX_Helper {
      * @param int|string $n
      * @return string
      */
-    public static function nice_number($n) {
-        $n = ( 0 + str_replace(",", "", $n ) );
+    public static function nice_number( $n ) {
+        $temp_number = str_replace(",", "", $n );
+        if( ! empty( $temp_number ) ) {
+            $n = ( 0 + $temp_number );
+        } else {
+            $n = $n;
+        }
         if( ! is_numeric( $n ) ) return 0;
         $number = 0;
         $suffix = '';
@@ -861,5 +871,116 @@ class NotificationX_Helper {
                 </div>
             <?php
         }
+    }
+    /**
+     * Settings By Themes
+     */
+    public static function settings_by_themes( $data, $post = null ) {
+        if( $post === null || $post->post_type !== 'notificationx' ) {
+            return [];
+        }
+        /**
+         * Sales Template Settins
+         */
+
+        $sales_field = get_post_meta( $post->ID, '_nx_meta_woo_template_new', true );        
+        $data['nx_meta_woo_template_new'] = array(
+            'theme-one' => array(
+                'first_param' => isset( $sales_field['first_param'] ) ? $sales_field['first_param'] : 'tag_name',
+                'second_param' => isset( $sales_field['second_param'] ) ? $sales_field['second_param'] : 'just purchased',
+                'third_param' => isset( $sales_field['third_param'] ) ? $sales_field['third_param'] : 'tag_title',
+                'fourth_param' => isset( $sales_field['fourth_param'] ) ? $sales_field['fourth_param'] : 'tag_time',
+            ),
+        );
+
+        // Commnets Template Settings
+        $comments_fields = get_post_meta( $post->ID, '_nx_meta_comments_template_new', true );
+        $data['nx_meta_comments_template_new'] = array(
+            'theme-one' => array(
+                'third_param'  => isset( $comments_fields['third_param'] ) ? $comments_fields['third_param'] : 'tag_post_title',
+            ),
+            'theme-two' => array(
+                'third_param'  => isset( $comments_fields['third_param'] ) ? $comments_fields['third_param'] : 'tag_post_title',
+            ),
+            'theme-three' => array(
+                'third_param'  => isset( $comments_fields['third_param'] ) ? $comments_fields['third_param'] : 'tag_post_title',
+            ),
+            'theme-four' => array(
+                'third_param'  => isset( $comments_fields['third_param'] ) ? $comments_fields['third_param'] : 'tag_post_title',
+            ),
+            'theme-five' => array(
+                'third_param'  => isset( $comments_fields['third_param'] ) ? $comments_fields['third_param'] : 'tag_post_title',
+            ),
+            'theme-six-free' => array(
+                'third_param'  => isset( $comments_fields['third_param'] ) ? $comments_fields['third_param'] : 'tag_post_comment',
+            ),
+            'theme-seven-free' => array(
+                'third_param'  => isset( $comments_fields['third_param'] ) ? $comments_fields['third_param'] : 'tag_post_comment',
+            ),
+            'theme-eight-free' => array(
+                'third_param'  => isset( $comments_fields['third_param'] ) ? $comments_fields['third_param'] : 'tag_post_comment',
+            ),
+        );
+
+        /**
+         * Reviews Template Settings
+         */
+        $reviews_field = get_post_meta( $post->ID, '_nx_meta_wp_reviews_template_new', true );
+        $data['nx_meta_wp_reviews_template_new'] = array(
+            'reviewed' => array(
+                'first_param' => isset( $reviews_field['first_param'] ) ? $reviews_field['first_param'] : 'tag_username',
+                'second_param' => isset( $reviews_field['second_param'] ) ? $reviews_field['second_param'] : 'just reviewed',
+                'third_param' => isset( $reviews_field['third_param'] ) ? $reviews_field['third_param'] : 'tag_plugin_name',
+                'fourth_param' => isset( $reviews_field['fourth_param'] ) ? $reviews_field['fourth_param'] : 'tag_rating',
+            ),
+            'total-rated' => array(
+                'first_param' => isset( $reviews_field['first_param'] ) ? $reviews_field['first_param'] : 'tag_rated',
+                'second_param' => isset( $reviews_field['second_param'] ) ? $reviews_field['second_param'] : 'people rated',
+                'third_param' => isset( $reviews_field['third_param'] ) ? $reviews_field['third_param'] : 'tag_plugin_name',
+                'fourth_param' => isset( $reviews_field['fourth_param'] ) ? $reviews_field['fourth_param'] : 'tag_rating',
+            ),
+            'review-comment' => array(
+                'first_param' => isset( $reviews_field['first_param'] ) ? $reviews_field['first_param'] : 'tag_username',
+                'second_param' => isset( $reviews_field['second_param'] ) ? $reviews_field['second_param'] : 'just reviewed',
+                'third_param' => isset( $reviews_field['third_param'] ) ? $reviews_field['third_param'] : 'tag_plugin_review',
+                'fourth_param' => isset( $reviews_field['fourth_param'] ) ? $reviews_field['fourth_param'] : 'tag_rating',
+            ),
+            'review-comment-2' => array(
+                'first_param' => isset( $reviews_field['first_param'] ) ? $reviews_field['first_param'] : 'tag_username',
+                'second_param' => isset( $reviews_field['second_param'] ) ? $reviews_field['second_param'] : 'just reviewed',
+                'third_param' => isset( $reviews_field['third_param'] ) ? $reviews_field['third_param'] : 'tag_plugin_review',
+                'fourth_param' => isset( $reviews_field['fourth_param'] ) ? $reviews_field['fourth_param'] : 'tag_rating',
+            ),
+            'review-comment-3' => array(
+                'first_param' => isset( $reviews_field['first_param'] ) ? $reviews_field['first_param'] : 'tag_username',
+                'second_param' => isset( $reviews_field['second_param'] ) ? $reviews_field['second_param'] : 'just reviewed',
+                'third_param' => isset( $reviews_field['third_param'] ) ? $reviews_field['third_param'] : 'tag_plugin_review',
+                'fourth_param' => isset( $reviews_field['fourth_param'] ) ? $reviews_field['fourth_param'] : 'tag_time',
+            )
+        );
+
+        /**
+         * Stats Template Settings
+         */
+        $stats_field = get_post_meta( $post->ID, '_nx_meta_wp_stats_template_new', true );
+        $data['nx_meta_wp_stats_template_new'] = array(
+            'today-download' => array(
+                'first_param'  => isset( $stats_field['first_param'] ) ? $stats_field['first_param'] : 'tag_name',
+                'third_param'  => isset( $stats_field['third_param'] ) ? $stats_field['third_param'] : 'tag_today',
+                'fourth_param' => isset( $stats_field['fourth_param'] ) ? $stats_field['fourth_param'] : 'tag_today_text',
+            ),
+            '7day-download' => array(
+                'first_param'  => isset( $stats_field['first_param'] ) ? $stats_field['first_param'] : 'tag_name',
+                'third_param'  => isset( $stats_field['third_param'] ) ? $stats_field['third_param'] : 'tag_last_week',
+                'fourth_param' => isset( $stats_field['fourth_param'] ) ? $stats_field['fourth_param'] : 'tag_last_week_text',
+            ),
+            'total-download' => array(
+                'first_param'  => isset( $stats_field['first_param'] ) ? $stats_field['first_param'] : 'tag_name',
+                'third_param'  => isset( $stats_field['third_param'] ) ? $stats_field['third_param'] : 'tag_all_time',
+                'fourth_param' => isset( $stats_field['fourth_param'] ) ? $stats_field['fourth_param'] : 'tag_all_time_text',
+            )
+        );
+
+        return $data;
     }
 }

@@ -101,15 +101,29 @@
 			}
 		}
 		& .notificationx-image  {
+			@extend %flex;
+			@extend %flex-align-center;
+			@extend %flex-justify-center;
+			flex-basis: 80px;
 			background-color: #fff;
 			width: 80px;
 			height: 80px;
 			margin: 10px;
+			& > img {
+				object-fit: cover;
+				max-height: 100%;
+				min-width: 100%;
+			}
 		}
 		&.nx-img-circle {
 			& .notificationx-image {
 				border-radius: 50%;
 				overflow: hidden;
+				& > img {
+					height: 200px;
+					width: 200px;
+					object-fit: cover;
+				}
 			}
 		}
 		&.nx-img-square {
@@ -121,6 +135,9 @@
 			& .notificationx-image {
 				border-radius: 5px;
 				overflow: hidden;
+				& > img {
+					border-radius: 5px;
+				}
 			}
 		}
 	}
@@ -146,11 +163,20 @@
 				}
 			}
 		}
+		&.nx-bottom_right {
+			left: 10px;
+			right: 10px;
+			bottom: 10px;
+		}
 	}
 
 	@media only screen and (min-width: 480px) and (max-width: 786px) {
 		left: 20px;
 		right: auto;
+		&.nx-bottom_right {
+			left: auto;
+			right: 20px;
+		}
 	}
 }
 body.has-nx-bar, body.nx-press_bar-active{

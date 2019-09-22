@@ -79,6 +79,10 @@ class NotificationX_Admin {
 		 * @since 1.2.6
 		 */
 		add_filter('set-screen-option', array( $this, 'save_screen_options' ), 10, 3);
+		/**
+		 * @since 1.3.5
+		 */
+		add_filter('nx_template_settings_by_theme', array( 'NotificationX_Helper', 'settings_by_themes' ), 10, 2);
 	}
 	/**
 	* Get all active items.
@@ -339,7 +343,7 @@ class NotificationX_Admin {
 		$template_settings = array();
 		global $post;
 		if( is_object( $post ) ) {
-			$template_settings = apply_filters( 'nx_template_settings_by_theme', array() );
+			$template_settings = apply_filters( 'nx_template_settings_by_theme', array(), $post );
 		}
 
 		return array( 
@@ -999,13 +1003,14 @@ class NotificationX_Admin {
      * @return array
      * @since 1.2.4
      */
-    public function nx_action_links($links)
-    {
-        $deactivate_link = $links['deactivate'];
+    public function nx_action_links( $links ) {
+        $deactivate_link = isset( $links['deactivate'] ) ? $links['deactivate'] : '';
         unset($links['deactivate']);
-        $links['settings'] = '<a href="' . admin_url('admin.php?page=nx-settings') . '">' . __('Settings','notificationx') .'</a>';
-        $links['deactivate'] = $deactivate_link;
-        if(!is_plugin_active('notificationx-pro/notificationx-pro.php')){
+		$links['settings'] = '<a href="' . admin_url('admin.php?page=nx-settings') . '">' . __('Settings','notificationx') .'</a>';
+		if( ! empty( $deactivate_link ) ) {
+			$links['deactivate'] = $deactivate_link;
+		}
+        if( ! is_plugin_active('notificationx-pro/notificationx-pro.php' ) ) {
             $links['pro'] = '<a href="' . esc_url('http://wpdeveloper.net/in/upgrade-notificationx') . '" target="_blank" style="color: #349e34;"><b>' . __('Go Pro','notificationx') .'</b></a>';
         }
         return $links;
@@ -1019,9 +1024,8 @@ class NotificationX_Admin {
      * @return array
      * @since 1.2.4
      */
-    public function nx_row_meta($links, $file)
-    {
-        if(NOTIFICATIONX_BASENAME == $file){
+    public function nx_row_meta($links, $file) {
+        if( NOTIFICATIONX_BASENAME == $file ){
             $links['docs'] = '<a href="' . esc_url('https://notificationx.com/docs/?utm_medium=admin&utm_source=wp.org&utm_term=nx') . '" target="_blank">' . __('Docs & FAQ','notificationx') .'</a>';
         }
         return $links;

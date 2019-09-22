@@ -55,6 +55,7 @@ final class NotificationX {
 		add_action( 'plugins_loaded', array( $this, 'load_extensions' ) );
 		add_action( 'plugins_loaded', array( $this, 'define_admin_hooks' ) );
 		add_action( 'plugins_loaded', array( $this, 'define_public_hooks' ) );
+		add_action( 'init', array( $this, 'migration' ) );
 		add_action( 'admin_init', array( $this, 'redirect' ) );
 	}
 
@@ -314,5 +315,38 @@ final class NotificationX {
 	 */
 	public function get_version() {
 		return $this->version;
+	}
+	/**
+	 * Version data migration if have something changed from previous version to current version
+	 * @return void
+	 */
+	public function migration(){
+		$version = get_option( 'nx_free_version', false );
+		if( $version === false && version_compare( NOTIFICATIONX_VERSION, '1.3.6', '>') ) {
+			update_option( 'nx_free_version', NOTIFICATIONX_VERSION );
+
+			$notificationx = get_posts(array(
+				'post_type' => 'notificationx',
+				'posts_per_page' => -1,
+				'meta_key' => '_nx_meta_display_type',
+				'meta_value' => 'press_bar'
+			));
+
+			if( ! empty( $notificationx ) ) {
+				foreach( $notificationx as $single_notification ) {
+					$start_date = strtotime( get_post_meta( $single_notification->ID, '_nx_meta_countdown_start_date', true ) );
+					$end_date   = strtotime( get_post_meta( $single_notification->ID, '_nx_meta_countdown_end_date', true ) );
+
+					if( $start_date ) {
+						$start_date = date('D, M d, Y h:i A', $start_date );
+						update_post_meta( $single_notification->ID, '_nx_meta_countdown_start_date',  $start_date);
+					}
+					if( $end_date ) {
+						$end_date = date('D, M d, Y h:i A', $end_date );
+						update_post_meta( $single_notification->ID, '_nx_meta_countdown_end_date',  $end_date);
+					}
+				}
+			}
+		}
 	}
 }

@@ -3,9 +3,9 @@ Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul
 Donate link: http://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce sales, recent purchase, popups, boost sales, email subscription, increase engagement, recent sales notification, live sales feed, marketing tools, givewp, learndash, edd
 Requires at least: 4.0
-Tested up to: 5.2.2
+Tested up to: 5.2
 Requires PHP: 5.4
-Stable tag: 1.3.4
+Stable tag: 1.3.6
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -147,6 +147,23 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 7. Notification Bar with Countdown
 
 == Changelog ==
+
+= 1.3.6 - 20/09/2019 =
+
+- Added : Default Avatar type of Image
+- Added : CartFlows Order Status
+- Fixed : WooCommerce Country issue
+- Fixed : JS Issue With Template Toggling
+- Few minor bugfix and improvement
+
+= 1.3.5 - 16/09/2019 =
+
+- Added : Independent Custom Notification
+- Added : Bar Close Button Position 
+- Added : New control added for Expired Text
+- Fixed : Bottom Right Notification Responsive Issue
+- Improved : WooCommerce and EDD Sorting Issue
+- Few minor bugfix and improvement
 
 = 1.3.4 - 09/09/2019 =
 

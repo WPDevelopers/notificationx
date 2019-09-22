@@ -141,22 +141,24 @@ class NotificationXPro_WPOrg_Helper {
         
         $finder        = new DomXPath( $dom );
         $nodes         = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' review ')]");
-        
+		
+		$conditioned_filter = apply_filters( 'nx_wp_reviews_rating_condition', 3 );
+		
         foreach ( $nodes as $node ) {
             $raw_review = $node->ownerDocument->saveXML( $node );
 			$review     = $this->extract_review_data( $raw_review );
-
+			if( isset( $review['rating'] ) && intval( $review['rating'] ) < $conditioned_filter ) {
+				continue;
+			}
 			if( $plugin_slug ) {
 				$review['link'] = 'https://wordpress.org/plugins/' . $plugin_slug;
 			}
 			$review['slug'] = $slug;
 			$review['icons'] = $icons;
-
             $extracted_reviews[] = $review;
 		}
 
 		unset( $data['reviews'] );
-
 		if( ! empty( $data ) && ! empty( $extracted_reviews ) ) {
 			return array_merge( $data, array( 'reviews' => $extracted_reviews ) );
 		}

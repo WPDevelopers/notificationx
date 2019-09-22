@@ -23,22 +23,6 @@
 	$.notificationx.pressbar = function () {
 		var bars = $('.nx-bar');
 		if (bars.length > 0) {
-			var barHeight = bars.height(),
-				initialDelay = bars[0].dataset.initial_delay * 1000,
-				autoHide = bars[0].dataset.auto_hide,
-				position = bars[0].dataset.position;
-
-			/* add padding in body after initial delay */
-			setTimeout(function () {
-				$('body').addClass('has-nx-bar').css('padding-' + position, barHeight);
-			}, initialDelay);
-			/* remove padding in body after if auto hide is enable */
-			if(autoHide) {
-				var duration = bars[0].dataset.hide_after * 1000;
-				setTimeout(function () {
-					$('body').css('padding-' + position, 0).removeClass('has-nx-bar');
-				}, duration);
-			}
 			bars.each(function (i, bar) {
 				var id = bar.dataset.press_id,
 					duration = bar.dataset.hide_after,
@@ -49,10 +33,25 @@
 					start_timestamp = start_date.getTime(),
 					end_timestamp = end_date.getTime(),
 					current_date = new Date(),
-					current_timestamp = current_date.getTime();
+					current_timestamp = current_date.getTime(),
+					barHeight = $(bar).outerHeight(),
+					initialDelay = bar.dataset.initial_delay * 1000,
+					position = bar.dataset.position;
+
+				/* add padding in body after initial delay */
+				setTimeout(function () {
+					$('body').addClass('has-nx-bar').css('padding-' + position, barHeight);
+				}, initialDelay);
+				/* remove padding in body after if auto hide is enable */
+				if(parseInt(auto_hide)) {
+					setTimeout(function () {
+						$('body').css('padding-' + position, 0).removeClass('has-nx-bar');
+					}, parseInt(duration) * 1000);
+				}
+
 				if (current_timestamp > start_timestamp && current_timestamp < end_timestamp) {
 					var bar_interval = setInterval(function () {
-						var current_timestamp = new Date().getTime(),
+						var current_timestamp = Date.now(),
 							difference = end_timestamp - current_timestamp,
 							days = Math.floor(difference / (1000 * 60 * 60 * 24)),
 							hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
@@ -66,10 +65,21 @@
 						if (difference < 0) {
 							clearInterval(bar_interval);
 							bar.querySelector('.nx-countdown').classList.add('nx-expired');
+							var endText = bar.querySelector('.nx-countdown-text');
+							if( endText != null ) {
+								endText.classList.add('nx-expired');
+							}
 						}
 					}, 1000);
 				} else {
-					bar.querySelector('.nx-countdown').classList.add('nx-expired');
+					var countdown = bar.querySelector('.nx-countdown');
+					if( countdown != null ) {
+						countdown.classList.add('nx-expired');
+					}
+					var endText = bar.querySelector('.nx-countdown-text');
+					if( endText != null ) {
+						endText.classList.add('nx-expired');
+					}
 				}
 
 				$.notificationx.showBar(bar, id);
@@ -280,7 +290,7 @@
 				$.notificationx.render(response.config, response.content);
 			})
 			.catch(function (err) {
-				// console.log('AJAX error, Something went wrong! Please, Contact support team.')
+				console.log('AJAX error, Something went wrong! Please, Contact support team.')
 			});
 	};
 
@@ -292,10 +302,20 @@
 		if (Cookies.get('nx-close-for-session')) {
 			return;
 		}
+
+		var image = $( notification ).find('img');
+			image = image[0];
+		var imgSrc = image.src,
+			isGIF = image.src.indexOf('.gif');
+
 		var body = $('body'), 
 			isMobile = notification.classList.value.indexOf('nx-mobile-notification') != -1,
 			bottomCss = isMobile ? '10px' : '30px';
 		body.append(notification);
+
+		if( isGIF > 0 ) {
+			image.src = imgSrc;
+		}
 		
 		if( $.notificationx.windowWidth > 480 && isMobile ) {
 			bottomCss = '20px';

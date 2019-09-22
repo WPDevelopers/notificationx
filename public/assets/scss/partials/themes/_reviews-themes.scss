@@ -1,12 +1,13 @@
 // Reviews Themes CSS
-.notificationx-shortcode-wrapper > .nx-notification.nx-reviews, .nx-notification.nx-reviews {
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews, .nx-notification.nx-reviews,
+.notificationx-shortcode-wrapper > .nx-notification.nx-custom, .nx-notification.nx-custom {
     & .nx-notification-total-rated {
         & .notificationx-content {
             & .nx-first-row, & .nx-second-row {
                 @include fontWeight(700);
             }
             & .nx-second-row {
-                color: #7253ec;
+				color: #7253ec;
             }
         }
     }
@@ -25,8 +26,26 @@
             }
         }
         & .notificationx-image {
-            border-radius: 50%;
-        }
+			border-radius: 50%;
+			& > img {
+				border-radius: 50%;
+			}
+		}
+		&.nx-img-rounded, &.nx-img-square {
+			& .notificationx-image {
+				padding: 10px;
+				& > img {
+					border-radius: 5px;
+				}
+			}
+		}
+		&.nx-img-square {
+			& .notificationx-image {
+				& > img {
+					border-radius: 0px;
+				}
+			}
+		}
     }
 
     & .nx-notification-review_saying {
@@ -55,7 +74,8 @@
 }
 
 // REVIEW THEMES LIKE COMMENTS
-.notificationx-shortcode-wrapper > .nx-notification.nx-reviews, .nx-notification.nx-reviews {
+.notificationx-shortcode-wrapper > .nx-notification.nx-reviews, .nx-notification.nx-reviews,
+.notificationx-shortcode-wrapper > .nx-notification.nx-custom, .nx-notification.nx-custom {
 	// SIX
 	& .nx-notification-review-comment {
 		@extend %bgnone;
@@ -73,6 +93,7 @@
 			margin: 0;
 			padding: 20px;
 			margin-right: 15px;
+			overflow: visible;
 			&:after {
 				@extend %posa;
 				@extend %content;
@@ -117,6 +138,7 @@
 			& .notificationx-image {
 				& > img {
 					border-radius: 50%;
+					height: auto;
 				}
 			}
 		}
@@ -156,11 +178,12 @@
 			background: none;
 			@extend %posr;
 			& > img {
-				@extend %posa;
-				width: 75%;
-                height: 75%;
-                left: 15px;
-                top: 15px;
+				// @extend %posa;
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+				// left: 15px;
+                // top: 15px;
 			}
 		}
 		& .notificationx-content {
@@ -190,7 +213,8 @@
 		}
 		&.nx-img-right { 
 			& .notificationx-content  {
-                padding-left: 40px;
+				padding-left: 40px;
+				padding-right: 0px;
                 background-position: 40px 53%;
 			}	
 			& span.notificationx-close {
@@ -204,13 +228,14 @@
 				}
 			}
 		}
+		&.nx-img-rounded, &.nx-img-square {
+			& .notificationx-image { 
+				padding: 20px;
+			}
+		}
 		&.nx-img-rounded { 
 			& .notificationx-image {
 				& > img {
-					width: 60%;
-					height: 60%;
-					left: 25px;
-					top: 25px;
 					border-radius: 10px;
 				}
 			}
@@ -218,10 +243,6 @@
 		&.nx-img-square { 
 			& .notificationx-image {
 				& > img {
-					width: 60%;
-					height: 60%;
-					left: 25px;
-					top: 25px;
 					border-radius: 0px;
 				}
 			}
@@ -235,10 +256,10 @@
 				flex-basis: 60px;
 				margin: 5px;
 				& > img {
-					width: 100%;
-					height: 100%;
-					left: 0;
-					top: 0;
+					// width: 100%;
+					// height: 100%;
+					// left: 0;
+					// top: 0;
 				}
 			}
 		}

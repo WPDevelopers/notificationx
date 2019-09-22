@@ -836,6 +836,7 @@ label.nx-adv-checkbox-label:hover {
 .nx-wpstats_theme .nx-single-theme-wrapper,
 .nx-wporg_theme .nx-single-theme-wrapper,
 .nx-comment_theme .nx-single-theme-wrapper,
+.nx-custom_theme .nx-single-theme-wrapper,
 .nx-theme .nx-single-theme-wrapper {
     display: flex;
     align-items: stretch;
@@ -847,6 +848,7 @@ label.nx-adv-checkbox-label:hover {
 .nx-wpstats_theme .nx-single-theme-wrapper,
 .nx-wporg_theme .nx-single-theme-wrapper,
 .nx-comment_theme .nx-single-theme-wrapper,
+.nx-custom_theme .nx-single-theme-wrapper,
 .nx-theme .nx-single-theme-wrapper {
     width: 295px;
     height: auto;
@@ -859,6 +861,7 @@ label.nx-adv-checkbox-label:hover {
 .nx-builder-content-wrapper .nx-wpstats_theme .nx-single-theme-wrapper,
 .nx-builder-content-wrapper .nx-wporg_theme .nx-single-theme-wrapper,
 .nx-builder-content-wrapper .nx-comment_theme .nx-single-theme-wrapper,
+.nx-builder-content-wrapper .nx-custom_theme .nx-single-theme-wrapper,
 .nx-builder-content-wrapper .nx-theme .nx-single-theme-wrapper {
     width: 228px;
     flex-basis: 208px;
@@ -874,6 +877,7 @@ label.nx-adv-checkbox-label:hover {
 .nx-wpstats_theme .nx-single-theme-wrapper>label>img,
 .nx-wporg_theme .nx-single-theme-wrapper>label>img,
 .nx-comment_theme .nx-single-theme-wrapper>label>img,
+.nx-custom_theme .nx-single-theme-wrapper>label>img,
 .nx-theme .nx-single-theme-wrapper>label>img {
     width: 100%;
     max-width: 100%;
@@ -2398,4 +2402,21 @@ h4.nx-admin-title {
 
 .nx-no-module-on p {
     font-size: 20px;
+}
+
+.nx-default_avatar .nx-theme-field-inner,
+.nx-default_avatar .nx-single-theme-wrapper { 
+    margin: 0px;
+}
+
+.nx-default_avatar .nx-single-theme-wrapper {
+    font-size: 18px;
+    width: 100px;
+    height: auto;
+    line-height: auto;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #f2f2f2;
+    margin-right: 10px;
+    margin-bottom: 20px;
 }

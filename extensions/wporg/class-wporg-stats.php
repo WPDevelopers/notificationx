@@ -65,30 +65,6 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         return $template;
     }
 
-    public function settings_by_theme( $data ){
-        global $post, $pagenow;
-        $save_field = get_post_meta( $post->ID, '_nx_meta_wp_stats_template_new', true );
-
-        $data['nx_meta_wp_stats_template_new'] = array(
-            'today-download' => array(
-                'first_param'  => isset( $save_field['first_param'] ) ? $save_field['first_param'] : 'tag_name',
-                'third_param'  => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_today',
-                'fourth_param' => isset( $save_field['fourth_param'] ) ? $save_field['fourth_param'] : 'tag_today_text',
-            ),
-            '7day-download' => array(
-                'first_param'  => isset( $save_field['first_param'] ) ? $save_field['first_param'] : 'tag_name',
-                'third_param'  => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_last_week',
-                'fourth_param' => isset( $save_field['fourth_param'] ) ? $save_field['fourth_param'] : 'tag_last_week_text',
-            ),
-            'total-download' => array(
-                'first_param'  => isset( $save_field['first_param'] ) ? $save_field['first_param'] : 'tag_name',
-                'third_param'  => isset( $save_field['third_param'] ) ? $save_field['third_param'] : 'tag_all_time',
-                'fourth_param' => isset( $save_field['fourth_param'] ) ? $save_field['fourth_param'] : 'tag_all_time_text',
-            )
-        );
-        return $data;
-    }
-
     public function fallback_data( $data, $saved_data, $settings ){
         if( NotificationX_Helper::get_type( $settings ) !== $this->type ) {
             return $data;

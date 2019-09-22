@@ -43,12 +43,11 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         if( NotificationX_Helper::get_type( $settings ) !== $this->type ) {
             return $data;
         }
+
         $data['name']            = $this->notEmpty( 'name', $saved_data ) ? $saved_data['name'] : __( 'Someone', 'notificationx' );
         $data['first_name']      = $this->notEmpty( 'first_name', $saved_data ) ? $saved_data['first_name'] : __( 'Someone', 'notificationx' );
         $data['last_name']       = $this->notEmpty( 'last_name', $saved_data ) ? $saved_data['last_name'] : __( 'Someone', 'notificationx' );
         $data['anonymous_title'] = __( 'Anonymous Product', 'notificationx' );
-        $data['sometime']        = __( 'Sometimes ago', 'notificationx' );
-
         return $data;
     }
 
@@ -150,7 +149,22 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
                         'tag_time'       => __('Definite Time' , 'notificationx'),
                         'tag_sometime' => __('Sometimes ago' , 'notificationx'),
                     ),
-                    'default' => 'tag_time'
+                    'default' => 'tag_time',
+                    'dependency' => array(
+                        'tag_sometime' => array(
+                            'fields' => [ 'custom_fourth_param' ]
+                        )
+                    ),
+                    'hide' => array(
+                        'tag_time' => array(
+                            'fields' => [ 'custom_fourth_param' ]
+                        ),
+                    ),
+                ),
+                'custom_fourth_param' => array(
+                    'type'     => 'text',
+                    'priority' => 6,
+                    'default' => __( 'Sometimes ago', 'notificationx' )
                 ),
             ),
             'label'    => __('Notification Template' , 'notificationx'),
@@ -300,6 +314,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         }
         if( $this->type === $type ) {
             if( ! is_null( $orders = $this->get_orders( $data ) ) ) {
+                $orders = NotificationX_Helper::sortBy( $orders, 'woocommerce' );
                 $this->update_notifications( $this->type, $orders );
             }
         }
@@ -308,7 +323,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
     public function status_transition( $id, $from, $to, $order ){
         
         $items = $order->get_items();
-        $status = [ 'on-hold', 'cancelled', 'refunded', 'failed', 'pending' ];
+        $status = [ 'on-hold', 'cancelled', 'refunded', 'failed', 'pending', 'wcf-main-order' ];
         $done = [ 'completed', 'processing' ];
 
         if( in_array( $from, $done ) && in_array( $to, $status ) ) {
@@ -403,13 +418,20 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
 
         $date = $order->get_date_created();
         $countries = new WC_Countries();
-        $shipping_countries = $order->get_shipping_country();
-        if( ! empty( $shipping_countries ) ) {
-            $new_order['country'] = isset( $countries->countries[ $order->get_shipping_country() ] ) ? $countries->countries[ $order->get_shipping_country() ]: '';
-            $shipping_states = $order->get_shipping_state();
-            if( ! empty( $shipping_states ) ) {
-                $new_order['city'] = isset( $countries->states[ $order->get_shipping_country() ], $countries->states[ $order->get_shipping_country() ][ $order->get_shipping_state() ] ) ? $countries->states[ $order->get_shipping_country() ][ $order->get_shipping_state() ] : $order->get_shipping_state();
+        $shipping_country = $order->get_billing_country();
+        if( empty( $shipping_country ) ) {
+            $shipping_country = $order->get_shipping_country();
+        }
+        if( ! empty( $shipping_country ) ) {
+            $new_order['country'] = isset( $countries->countries[ $shipping_country ] ) ? $countries->countries[ $shipping_country ]: '';
+            $shipping_state = $order->get_shipping_state();
+            if( ! empty( $shipping_state ) ) {
+                $new_order['state'] = isset( $countries->states[ $shipping_country ], $countries->states[ $shipping_country ][ $shipping_state ] ) ? $countries->states[ $shipping_country ][ $shipping_state ] : $shipping_state;
             }
+        }
+        $new_order['city'] = $order->get_billing_city();
+        if( empty( $new_order['city'] ) ) {
+            $new_order['city'] = $order->get_shipping_city();
         }
 
         $new_order['ip'] = $order->get_customer_ip_address();
@@ -432,23 +454,15 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
      * @return void
      */
     protected function buyer( WC_Order $order ){
-        $user = $order->get_user();
         $first_name = $last_name = $email = '';
         $buyer_data = [];
-
-        if( $user ) {
-            $first_name = $user->first_name;
-            $last_name  = $user->last_name;
-            $email = $user->user_email;
-            $buyer_data['user_id'] = $user->ID;
-        }
 
         if( empty( $first_name ) ) {
             $first_name = $order->get_billing_first_name();
         }
 
         if( empty( $last_name ) ) {
-            $first_name = $order->get_billing_last_name();
+            $last_name = $order->get_billing_last_name();
         }
 
         if( empty( $email ) ) {

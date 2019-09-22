@@ -90,6 +90,7 @@
 		$('body').on('change', '.nx_meta_reviews_source', function () {
 			var source = $(this).val();
 			$('.nx-wporg_themes .nx_meta_wporg_theme:checked').trigger('change');
+			$('#nx_meta_wp_reviews_template_adv').trigger('change');
 			switch (source) {
 				case 'wp_reviews':
 					$('#nx_meta_wp_reviews_template_adv').trigger('change');
@@ -100,6 +101,7 @@
 		$('body').on('change', '.nx_meta_stats_source', function () {
 			var source = $(this).val();
 			$('.nx-wpstats_themes .nx_meta_wpstats_theme:checked').trigger('change');
+			$('#nx_meta_wp_stats_template_adv').trigger('change');
 			switch (source) {
 				case 'wp_stats':
 					$('#nx_meta_wp_stats_template_adv').trigger('change');
@@ -158,7 +160,7 @@
 		if (type === 'press_bar') {
 			return;
 		}
-		source = $('.nx_meta_' + notificationx.source_types[type]).val();
+		source = $('.nx_meta_' + notificationx.source_types[type] + ':checked').val();
 		if (notificationx.theme_sources.hasOwnProperty(source)) {
 			if (typeof notificationx.theme_sources[source] === 'object') {
 				themeID = $('.nx_meta_' + notificationx.theme_sources[source][type] + ':checked').val();
@@ -166,23 +168,57 @@
 				themeID = $('.nx_meta_' + notificationx.theme_sources[source] + ':checked').val();
 			}
 		}
+		
+		var temp_template_name = '';
 
 		if (notificationx.template_keys.hasOwnProperty(source)) {
 			if (typeof notificationx.template_keys[source] === 'object') {
 				templateID = $('#nx_meta_' + notificationx.template_keys[source][type]);
+				temp_template_name = notificationx.template_keys[source][type];
 			} else {
 				templateID = $('#nx_meta_' + notificationx.template_keys[source]);
+				temp_template_name = notificationx.template_keys[source];
 			}
 		}
-
 		if (templateID.length <= 0) {
 			return;
 		}
 
-		var templateDivID = templateID.attr('id');
+		if( themeID.indexOf('comments-') >= 0 ) {
+			temp_template_name = 'comments_template_new';
+		}
+		if( themeID.indexOf('subs-') >= 0 ) {
+			temp_template_name = 'mailchimp_template_new';
+		}
+		if( themeID.indexOf('reviews-') >= 0 ) {
+			temp_template_name = 'wp_reviews_template_new';
+		}
+		if( themeID.indexOf('stats-') >= 0 ) {
+			temp_template_name = 'wp_stats_template_new';
+		}
 
-		if (themeID === 'maps_theme') {
+		var templateAdv = '';
+		if( temp_template_name != undefined ) {
+			var templateAdv = temp_template_name.replace('_new', '_adv');
+			var advTemplate = temp_template_name.replace('_new', '');
+				templateAdv = $('#nx_meta_' + templateAdv );
+				advTemplate = $('#nx_meta_' + advTemplate );
+		}
+
+		var templateDivID = templateID.attr('id');
+		if ( themeID === 'maps_theme' || themeID === 'comments-maps_theme' || themeID === 'subs-maps_theme' || themeID === 'conv-theme-six' ) {
+			advTemplate.hide();
 			templateID = $('#nx_meta_maps_theme_template_new');
+			templateAdv = 'maps_theme_template_adv';
+			templateAdv = $('#nx_meta_' + templateAdv );
+		} else {
+			advTemplate.show();
+		}
+
+		if( temp_template_name != undefined ) {
+			if( templateAdv[0].checked === true ) {
+				templateAdv.trigger('change');
+			}
 		}
 
 		if (Object.keys(notificationx.template_settings).indexOf(templateDivID) >= 0 && Object.keys(notificationx.template_settings[templateDivID]).indexOf(themeID) >= 0) {
@@ -389,10 +425,10 @@
 		}
 		// NotificationX_Admin.initDatepicker();
 		if ($('.nx-countdown-datepicker').length > 0) {
-			$('.nx-countdown-datepicker').each(function () {
-				$(this).find('input').flatpickr({
+			$('body .nx-control').find('.nx-countdown-datepicker').each(function ( i, item ) {
+				$(item).find('input').flatpickr({
 					enableTime: true,
-					dateFormat: 'D, d M, y h:i K'
+					dateFormat: 'D, M d, Y h:i K'
 				});
 			});
 		}
@@ -425,6 +461,8 @@
 		if ($('.nx-group-field-wrapper').length < 0) {
 			return;
 		}
+
+		$('.nx-group-field-wrapper').find('div.nx-group-field:last-of-type').addClass('open');
 
 		var fields = $('.nx-group-field-wrapper');
 
@@ -487,8 +525,15 @@
 				});
 
 				clone.insertBefore($(this));
-
-				$.notificationx.resetFieldIds($('.nx-group-field'));
+				$.notificationx.resetFieldIds( $(this).parents('.nx-group-fields-wrapper').find('.nx-group-field') );
+				if ($('.nx-countdown-datepicker').length > 0) {
+					$('body .nx-group-field').find('.nx-countdown-datepicker').each(function ( i, item ) {
+						$(item).find('input').flatpickr({
+							enableTime: true,
+							dateFormat: 'D, d M, y h:i K'
+						});
+					});
+				}
 			});
 
 		});
@@ -553,7 +598,7 @@
 				if (notificationx.template.indexOf(id) >= 0) {
 					selector = "#nx_meta_" + id + "_" + array[i] + suffix;
 				}
-
+				
 				$(selector)[func]();
 			}
 		}
@@ -582,19 +627,12 @@
 			value = $('#' + currentTheme).val();
 		}
 
-		// console.log('id', id);
-		// console.log('value', value);
-
 		var mainid = id;
 
 		if (notificationx.template.indexOf(id) >= 0) {
 			id = current.data('subkey');
 		}
 
-		// console.log('id toggle', id, notificationx.toggleFields.hasOwnProperty(id));
-		// console.log('id hide', id, notificationx.hideFields.hasOwnProperty(id));
-
-		// return;
 		if (notificationx.toggleFields.hasOwnProperty(id)) {
 			var canShow = notificationx.toggleFields[id].hasOwnProperty(value);
 			var canHide = true;
@@ -618,7 +656,7 @@
 		if (notificationx.hideFields.hasOwnProperty(id)) {
 			var hideFields = notificationx.hideFields[id];
 
-
+			
 			if (hideFields.hasOwnProperty(value)) {
 				$.notificationx.toggle(hideFields[value].fields, 'hide', '#nx-meta-', '', mainid);
 				$.notificationx.toggle(hideFields[value].sections, 'hide', '#nx-meta-section-', '', mainid);
@@ -687,7 +725,7 @@
 		var groupID = 0;
 
 		groups.map(function (iterator, item) {
-
+			
 			var item = $(item),
 				fieldName = item.data('field-name'),
 				groupInfo = item.find('.nx-group-field-info').data('info'),

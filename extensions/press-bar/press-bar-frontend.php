@@ -5,6 +5,10 @@ if( $settings->link_open ) {
     $attrs .= ' target="_blank"';
 }
 
+if( isset( $settings->bar_close_position ) && ! empty( $settings->bar_close_position ) ) {
+    $pos_class .= ' nx-close-' . $settings->bar_close_position;
+}
+
 if( $settings->initial_delay ) {
     $wrapper_attrs .= ' data-initial_delay="'. $settings->initial_delay .'"';
 }
@@ -20,7 +24,7 @@ if( $settings->hide_after ) {
 if( $settings->countdown_start_date ) {
     $wrapper_attrs .= ' data-start_date="'. $settings->countdown_start_date .'"';
 } else {
-    $wrapper_attrs .= ' data-start_date="'. date('l, d F, Y', time() ) .'"';
+    $wrapper_attrs .= ' data-start_date="'. date('D, M d, Y h:i A', time() ) .'"';
 }
 if( $settings->countdown_end_date ) {
     $wrapper_attrs .= ' data-end_date="'. $settings->countdown_end_date .'"';
@@ -81,9 +85,7 @@ if( $settings->sticky_bar ) {
             <?php if( $settings->enable_countdown ) : ?>
                 <div class="nx-countdown-wrapper">
                     <?php if( $settings->countdown_text ) : ?>
-                        <div class="nx-countdown-text">
-                            <?php echo esc_html__( $settings->countdown_text, 'notificationx' ); ?>
-                        </div>
+                        <div class="nx-countdown-text"><?php echo esc_html_e( $settings->countdown_text, 'notificationx' ); ?></div>
                     <?php endif; ?>             
                     <div class="nx-countdown" data-countdown="<?php echo esc_attr( json_encode( $countdown ) ); ?>">
                         <div class="nx-time-section">
@@ -102,7 +104,7 @@ if( $settings->sticky_bar ) {
                             <span class="nx-seconds">00</span>
                             <span class="nx-countdown-time-text"><?php esc_html_e('Secs', 'notificationx'); ?></span>
                         </div>
-                        <span class="nx-expired-text"><?php esc_html_e('Expired!', 'notificationx'); ?></span>
+                        <span class="nx-expired-text"><?php esc_html_e( trim( $settings->countdown_expired_text ), 'notificationx'); ?></span>
                     </div>
                 </div>
             <?php endif; ?>

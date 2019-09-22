@@ -442,6 +442,16 @@ function notificationx_metabox_args(){
                                 'priority'	=> 15,
                                 'default'	=> ''
                             ),
+                            'bar_close_position' => array(
+                                'type'      => 'select',
+                                'label'     => __('Close Button Position' , 'notificationx'),
+                                'priority'	=> 15,
+                                'default'	=> 'right',
+                                'options'	=> [
+                                    'left' => __('Left', 'notificationx'),
+                                    'right' => __('Right', 'notificationx'),
+                                ]
+                            ),
                         )
                     ),
                     'bar_typography' => array(
@@ -493,18 +503,23 @@ function notificationx_metabox_args(){
                                 'type'  => 'checkbox',
                                 'dependency'  => [
                                     1 => [
-                                        'fields' => ['countdown_text', 'countdown_start_date', 'countdown_end_date']
+                                        'fields' => ['countdown_text', 'countdown_start_date', 'countdown_end_date', 'countdown_expired_text']
                                     ]
                                 ],
                                 'hide' => array(
                                     0 => [
-                                        'fields' => ['countdown_text', 'countdown_start_date', 'countdown_end_date']
+                                        'fields' => ['countdown_text', 'countdown_start_date', 'countdown_end_date', 'countdown_expired_text']
                                     ]
                                 )
                             ),
                             'countdown_text' => array(
                                 'label' => __('Countdown Text', 'notificationx'),
                                 'type'  => 'text',
+                            ),
+                            'countdown_expired_text' => array(
+                                'label' => __('Expired Text', 'notificationx'),
+                                'type'  => 'text',
+                                'default'  => __('Expired', 'notificationx-pro'),
                             ),
                             'countdown_start_date' => array(
                                 'label' => __('Start Date', 'notificationx'),
@@ -581,15 +596,40 @@ function notificationx_metabox_args(){
                                 'priority'	=> 5,
                                 'dependency' => array(
                                     0 => array(
-                                        'fields' => [ 'image_url' ]
+                                        'fields' => [ 'image_url', 'default_avatar' ]
                                     ),
                                 ),
                                 'dependency' => array(
                                     1 => array(
-                                        'fields' => [ 'image_url' ]
+                                        'fields' => [ 'image_url', 'default_avatar' ]
                                     ),
                                 ),
                                 'description' => __('If checked, this will show in notifications.', 'notificationx'),
+                            ),
+                            'default_avatar'  => array(
+                                'type'      => 'theme',
+                                'label'     => __('Choose an Image' , 'notificationx'),
+                                'priority'	=> 6,
+                                'description' => __('If checked, this will show in notifications.', 'notificationx'),
+                                'options' => array(
+                                    'verified.svg' => array(
+                                        'source' => NOTIFICATIONX_PUBLIC_URL . 'assets/img/icons/verified.svg',
+                                        'title' => __( 'Verified', 'notificationx' )
+                                    ),
+                                    'flames.svg' => array(
+                                        'source' => NOTIFICATIONX_PUBLIC_URL . 'assets/img/icons/flames.svg',
+                                        'title' => __( 'Flames', 'notificationx' )
+                                    ),
+                                    'pink-face-looped.gif' => array(
+                                        'source' => NOTIFICATIONX_PUBLIC_URL . 'assets/img/icons/pink-face-looped.gif',
+                                        'title' => __( 'Pink Face', 'notificationx' )
+                                    ),
+                                    'blue-face-non-looped.gif' => array(
+                                        'source' => NOTIFICATIONX_PUBLIC_URL . 'assets/img/icons/blue-face-non-looped.gif',
+                                        'title' => __( 'Blue Face', 'notificationx' )
+                                    ),
+                                    //TODO: none
+                                )
                             ),
                             'image_url'  => array(
                                 'type'      => 'media',
