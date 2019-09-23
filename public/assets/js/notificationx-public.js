@@ -304,9 +304,11 @@
 		}
 
 		var image = $( notification ).find('img');
-			image = image[0];
-		var imgSrc = image.src,
-			isGIF = image.src.indexOf('.gif');
+			image = image[0], isGIF = -1;
+		if( image != undefined ) {
+			var imgSrc = image.src,
+				isGIF = image.src.indexOf('.gif');
+		}
 
 		var body = $('body'), 
 			isMobile = notification.classList.value.indexOf('nx-mobile-notification') != -1,

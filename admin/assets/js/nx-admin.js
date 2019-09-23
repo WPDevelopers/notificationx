@@ -183,7 +183,7 @@
 		if (templateID.length <= 0) {
 			return;
 		}
-
+		
 		if( themeID.indexOf('comments-') >= 0 ) {
 			temp_template_name = 'comments_template_new';
 		}
