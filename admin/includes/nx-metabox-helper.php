@@ -736,6 +736,12 @@ function notificationx_metabox_args(){
                                 'default'     => 0,
                                 'description' => __('If checked, this will fixed Notification Bar at top or bottom.', 'notificationx'),
                             ),
+                            'pressbar_body'  => array(
+                                'type'      => 'checkbox',
+                                'label'     => __('Display Overlapping' , 'notificationx'),
+                                'priority'	=> 61,
+                                'description' => __('Show Notificaiton Bar Overlapping Content.', 'notificationx'),
+                            ),
                             'close_button'  => array(
                                 'type'        => 'checkbox',
                                 'label'       => __('Display Close Option' , 'notificationx'),

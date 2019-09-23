@@ -36,17 +36,20 @@
 					current_timestamp = current_date.getTime(),
 					barHeight = $(bar).outerHeight(),
 					initialDelay = bar.dataset.initial_delay * 1000,
-					position = bar.dataset.position;
+					position = bar.dataset.position,
+					body_push = bar.dataset.body_push;
 
-				/* add padding in body after initial delay */
-				setTimeout(function () {
-					$('body').addClass('has-nx-bar').css('padding-' + position, barHeight);
-				}, initialDelay);
-				/* remove padding in body after if auto hide is enable */
-				if(parseInt(auto_hide)) {
+				if( body_push == 'pushed' || body_push == undefined ) {
+					/* add padding in body after initial delay */
 					setTimeout(function () {
-						$('body').css('padding-' + position, 0).removeClass('has-nx-bar');
-					}, parseInt(duration) * 1000);
+						$('body').addClass('has-nx-bar').css('padding-' + position, barHeight);
+					}, initialDelay);
+					/* remove padding in body after if auto hide is enable */
+					if(parseInt(auto_hide)) {
+						setTimeout(function () {
+							$('body').css('padding-' + position, 0).removeClass('has-nx-bar');
+						}, parseInt(duration) * 1000);
+					}
 				}
 
 				if (current_timestamp > start_timestamp && current_timestamp < end_timestamp) {

@@ -29,6 +29,10 @@ if( $settings->countdown_start_date ) {
 if( $settings->countdown_end_date ) {
     $wrapper_attrs .= ' data-end_date="'. $settings->countdown_end_date .'"';
 }
+// $wrapper_attrs .= ' data-body_push="pushed"';
+if( $settings->pressbar_body == 1 ) {
+    $wrapper_attrs .= ' data-body_push="overlap"';
+}
 
 if( $settings->close_forever ) {
     $wrapper_attrs .= ' data-close_forever="'. $settings->close_forever .'"';
