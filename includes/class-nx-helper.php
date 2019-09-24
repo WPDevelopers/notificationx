@@ -241,6 +241,12 @@ class NotificationX_Helper {
                 'version' => '1.2.0',
                 'title' => 'Envato'
             ),
+            'tutor' => array(
+                'source'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/tutor.png',
+                'is_pro'  => $is_pro,
+                'version' => '1.3.0',
+                'title' => 'Tutor'
+            ),
             'custom_notification' => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/custom.jpg',
                 'is_pro' => $is_pro,
