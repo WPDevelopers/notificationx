@@ -342,6 +342,7 @@ class NotificationX_Helper {
                 'sticky_bar',
                 'initial_delay',
                 'auto_hide',
+                'pressbar_body'
             ],
         ));
     }
