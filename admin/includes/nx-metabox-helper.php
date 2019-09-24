@@ -740,7 +740,7 @@ function notificationx_metabox_args(){
                                 'type'      => 'checkbox',
                                 'label'     => __('Display Overlapping' , 'notificationx'),
                                 'priority'	=> 61,
-                                'description' => __('Show Notificaiton Bar Overlapping Content.', 'notificationx'),
+                                'description' => __('Show Notification Bar overlapping content instead of pushing', 'notificationx'),
                             ),
                             'close_button'  => array(
                                 'type'        => 'checkbox',
