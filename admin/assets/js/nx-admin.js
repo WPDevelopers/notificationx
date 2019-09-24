@@ -598,7 +598,14 @@
 				if (notificationx.template.indexOf(id) >= 0) {
 					selector = "#nx_meta_" + id + "_" + array[i] + suffix;
 				}
-				
+
+				var mainSelector = $(selector);
+				if( mainSelector[0] != undefined ) {
+					var selectorType = mainSelector[0].nodeName;
+					if( selectorType === 'SELECT' ) {
+						mainSelector.next()[func]();
+					}
+				}
 				$(selector)[func]();
 			}
 		}
