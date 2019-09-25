@@ -528,9 +528,12 @@
 				$.notificationx.resetFieldIds( $(this).parents('.nx-group-fields-wrapper').find('.nx-group-field') );
 				if ($('.nx-countdown-datepicker').length > 0) {
 					$('body .nx-group-field').find('.nx-countdown-datepicker').each(function ( i, item ) {
-						$(item).find('input').flatpickr({
+						var input = $(item).find('input'),
+							inputVal = input.val();
+						input.flatpickr({
 							enableTime: true,
-							dateFormat: 'D, d M, y h:i K'
+							defaultDate: inputVal,
+							dateFormat: 'D, M d, Y h:i K'
 						});
 					});
 				}
@@ -716,6 +719,17 @@
 		clone.attr('data-id', nextGroupID);
 		clone.insertAfter(group);
 		$.notificationx.resetFieldIds(parent.find('.nx-group-field'));
+		if ($('.nx-countdown-datepicker').length > 0) {
+			$('body .nx-group-field').find('.nx-countdown-datepicker').each(function ( i, item ) {
+				var input = $(item).find('input'),
+					inputVal = input.val();
+				input.flatpickr({
+					enableTime: true,
+					defaultDate: inputVal,
+					dateFormat: 'D, M d, Y h:i K'
+				});
+			});
+		}
 	};
 
 	$.notificationx.resetFieldIds = function (groups) {
