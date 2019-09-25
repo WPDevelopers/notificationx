@@ -396,11 +396,13 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
      */
     public function save_new_orders( $item_id,  $item,  $order_id ){    
         $tutor_product = metadata_exists( 'post', $item->get_product_id(), "_tutor_product" );
-        $single_notification = $this->ordered_product( $item_id, $item, $order_id );
-        if( ! empty( $single_notification ) && ! $tutor_product ) {
-            $key = $order_id . '-' . $item_id;
-            $this->save( $this->type, $single_notification, $key );
-            return true;
+        if( $tutor_product != true ) {
+            $single_notification = $this->ordered_product( $item_id, $item, $order_id );
+            if( ! empty( $single_notification ) ) {
+                $key = $order_id . '-' . $item_id;
+                $this->save( $this->type, $single_notification, $key );
+                return true;
+            }
         }
         return false;
     }
@@ -420,7 +422,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         if( is_int( $order_id ) ) {
             $order = new WC_Order( $order_id );
             $status = $order->get_status();
-            $done = [ 'completed', 'processing' ];
+            $done = [ 'completed', 'processing', 'pending' ];
             if( ! in_array( $status, $done ) ){
                 return false;
             }
