@@ -328,6 +328,10 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
 
         if( in_array( $from, $done ) && in_array( $to, $status ) ) {
             foreach( $items as $item ) {
+                $tutor_product = metadata_exists( 'post', $item->get_product_id(), "_tutor_product" );
+                if( $tutor_product ) {
+                    continue;
+                }
                 $key = $id . '-' . $item->get_id();
                 if( ! isset( $this->notifications[ $key ] ) ) continue;
                 unset( $this->notifications[ $key ] );
@@ -340,6 +344,10 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
 
             foreach( $items as $item ) {
                 $key = $id . '-' . $item->get_id();
+                $tutor_product = metadata_exists( 'post', $item->get_product_id(), "_tutor_product" );
+                if( $tutor_product ) {
+                    continue;
+                }
                 if( isset( $this->notifications[ $key ] ) ) continue;
                 $single_notification = $this->ordered_product( $item->get_id(), $item, $order );
                 if( ! empty( $single_notification ) ) {
@@ -348,7 +356,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             }
         }
 
-        return;
+        return true;
     }
     /**
      * Get all the orders from database using a date query
@@ -368,6 +376,10 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         foreach( $wc_orders as $order ) {
             $items = $order->get_items();
             foreach( $items as $item ) {
+                $tutor_product = metadata_exists( 'post', $item->get_product_id(), "_tutor_product" );
+                if( $tutor_product ) {
+                    continue;
+                }
                 $orders[ $order->get_id() . '-' . $item->get_id() ] = $this->ordered_product( $item->get_id(), $item, $order );
             }
         }
@@ -383,12 +395,14 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
      * @return void
      */
     public function save_new_orders( $item_id,  $item,  $order_id ){    
+        $tutor_product = metadata_exists( 'post', $item->get_product_id(), "_tutor_product" );
         $single_notification = $this->ordered_product( $item_id, $item, $order_id );
-
-        if( ! empty( $single_notification ) ) {
+        if( ! empty( $single_notification ) && ! $tutor_product ) {
             $key = $order_id . '-' . $item_id;
             $this->save( $this->type, $single_notification, $key );
+            return true;
         }
+        return false;
     }
     /**
      * This function is responsible for making ready the orders data.
@@ -400,17 +414,15 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
      */
     public function ordered_product( $item_id, $item, $order_id ) {
         if( $item instanceof WC_Order_Item_Shipping ) {
-            return;
+            return false;
         }
-
         $new_order = [];
-
         if( is_int( $order_id ) ) {
             $order = new WC_Order( $order_id );
             $status = $order->get_status();
             $done = [ 'completed', 'processing' ];
             if( ! in_array( $status, $done ) ){
-                return;
+                return false;
             }
         } else {
             $order = $order_id;
@@ -443,7 +455,6 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             $new_order['link']       = $product_data['link'];
         }
         $new_order['timestamp'] = $date->getTimestamp();
-
         return array_merge( $new_order, $this->buyer( $order ));
     }
     /**
@@ -497,5 +508,4 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             return parent::frontend_html( $data, $settings, $args );
         }
     }
-
 }
