@@ -15,6 +15,7 @@ $type = $extension_name = $key = '';
 $type = $extension_name = $key = NotificationX_Helper::get_type( $settings );
 $data = apply_filters('nx_fields_data', $data, $settings->id );
 
+
 /**
  * Set the key
  * which is use to get data out of it!

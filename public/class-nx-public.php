@@ -238,7 +238,6 @@ class NotificationX_Public {
 	}
 			
 	public function generate_conversions() {
-		
 		if( ! isset( $_POST['nonce'] ) && ! wp_verify_nonce( $_POST['nonce'], 'nx_frontend_nonce' ) ) {
 			return;
 		}
