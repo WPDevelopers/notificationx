@@ -72,7 +72,7 @@ function notificationx_settings_args(){
                         'modules_tutor' => array(
                             'is_pro' => true,
                             'title' => __('Tutor', 'notificationx'),
-                            'version' => '1.3.0', // TODO: Version Has to update
+                            'version' => '1.3.1',
                             'link' => 'https://notificationx.com/docs/how-to-display-tutor-course-enrollment-alert-using-notificationx'
                         ),
                     )),

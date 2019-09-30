@@ -244,7 +244,7 @@ class NotificationX_Helper {
             'tutor' => array(
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/tutor.png',
                 'is_pro'  => $is_pro,
-                'version' => '1.3.0',
+                'version' => '1.3.1',
                 'title' => 'Tutor'
             ),
             'custom_notification' => array(
