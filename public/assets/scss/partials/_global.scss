@@ -5,6 +5,7 @@
 	position: fixed;
 	left: 30px;
 	z-index: 9999999;
+	line-height: 1.5;
 	&.nx-bottom_right {
 		left: auto;
 		right: 30px;
@@ -181,4 +182,8 @@
 }
 body.has-nx-bar, body.nx-press_bar-active{
 	@include transition(padding 0.2s ease-in);
+}
+
+.notificationx-shortcode-wrapper > .nx-notification {
+	z-index: 9;
 }

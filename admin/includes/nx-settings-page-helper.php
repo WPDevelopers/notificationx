@@ -33,6 +33,10 @@ function notificationx_settings_args(){
                             'version' => '1.2.5',
                             'link' => 'https://notificationx.com/docs/givewp-donation-alert/'
                         ),
+                        'modules_tutor' => array(
+                            'title' => __('Tutor', 'notificationx'),
+                            'link' => 'https://notificationx.com/docs/how-to-display-tutor-course-enrollment-alert-using-notificationx'
+                        ),
                         'modules_freemius' => array(
                             'is_pro' => true,
                             'title' => __('Freemius', 'notificationx'),

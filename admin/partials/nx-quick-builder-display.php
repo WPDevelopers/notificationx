@@ -133,7 +133,7 @@
     <?php else : ?>
     <style> #publish.button.button-primary.button-large {display: none;}</style>
     <div class="nx-no-module-on">
-        <p><img src="<?php echo NOTIFICATIONX_URL; ?>/admin/assets/img/logo.svg" alt="NotificationX"><?php _e( 'Make sure you have module on from your NotificationX <a href="'. admin_url('admin.php?page=nx-settings') .'">settings</a>.', 'notificationx' ); ?></p>
+        <p><img src="<?php echo NOTIFICATIONX_URL; ?>/admin/assets/img/logo.svg" alt="NotificationX"><?php echo sprintf( '%s <a href="%s">%s</a>', __( 'Make sure you have module on from your NotificationX', 'notificationx' ), esc_url( admin_url('admin.php?page=nx-settings') ), __( 'Settings', 'notificationx' ) ); ?></p>
     </div>
     <?php endif; ?>
 </div>

@@ -552,6 +552,18 @@ class NotificationX_Extension {
         }
         return $template;
     }
+    /**
+     * Generating Full Name with one letter from last name
+     * @since 1.3.9
+     * @param string $first_name
+     * @param string $last_name
+     * @return string
+     */
+    protected function name( $first_name = '', $last_name = '' ){
+        $name = $first_name;
+        $name .= ! empty( $last_name ) ? ' ' . substr( $last_name, 0, 1 ) : '';
+        return $name;
+    }
 }
 
 /**

@@ -8,7 +8,7 @@
                 <h4 class="nx-admin-title"><?php _e( 'Documentation', 'notificationx' ); ?></h4>
             </header>
             <div class="nx-admin-block-content">
-                <p><?php _e('Get started by spending some time with the documentation to get familiar with Essential Addons. Build awesome websites for you or your clients with ease.', 'notificationx');?></p>
+                <p><?php _e('Get started by spending some time with the documentation to get familiar with NotificationX. Build awesome websites for you or your clients with ease.', 'notificationx');?></p>
                 <a rel="nofollow" href="https://notificationx.com/docs/" class="nx-button" target="_blank"><?php _e( 'Documentation', 'notificationx' ); ?></a>
             </div>
         </div>

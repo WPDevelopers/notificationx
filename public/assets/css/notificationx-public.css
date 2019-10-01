@@ -336,7 +336,8 @@
 .notificationx-shortcode-wrapper > .nx-notification {
   position: fixed;
   left: 30px;
-  z-index: 9999999
+  z-index: 9999999;
+  line-height: 1.5
 }
 .nx-notification.nx-bottom_right,
 .notificationx-shortcode-wrapper > .nx-notification.nx-bottom_right {
@@ -515,6 +516,9 @@ body.nx-press_bar-active {
   -moz-transition: padding 0.2s ease-in;
   -o-transition: padding 0.2s ease-in;
   transition: padding 0.2s ease-in
+}
+.notificationx-shortcode-wrapper > .nx-notification {
+  z-index: 9
 }
 .notificationx-shortcode-wrapper > .nx-notification.nx-comments .nx-notification-theme-two,
 .notificationx-shortcode-wrapper > .nx-notification.nx-conversions .nx-notification-theme-two,

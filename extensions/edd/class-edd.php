@@ -332,6 +332,13 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         $cart_items = edd_get_payment_meta_cart_details( $payment_id );                
         if( is_array( $cart_items ) && ! empty( $cart_items ) ) {
             foreach( $cart_items as $item ) {
+                $if_has_course = false;
+                if( function_exists( 'tutor_utils' ) ) {
+                    $if_has_course = tutor_utils()->product_belongs_with_course( $item['id'] );
+                }
+                if( $if_has_course ) {
+                    continue;
+                }
                 $key = $payment_key . '-' . $item['id'];
                 $product_data = $this->product_data( $item );
                 $notification = array_merge( $notification, $product_data, $buyer, $time );

@@ -38,10 +38,14 @@ class NotificationX_Advanced_Style {
             }
         }
 
+        if( ! empty( $settings->conversion_size ) ) {
+            $css_string .= '.nx-notification {' . 'max-width: ' . $settings->conversion_size .'px' . '; }';
+        }
+
         if( ! empty( $css_string ) ) {
             $css_string = '<style type="text/css">' . $css_string . '</style>';
         }
-
+        
         do_action( 'nx_style_generation' );
 		$css_string = apply_filters('nx_style_string', $css_string, $settings );
 
