@@ -265,7 +265,7 @@ class NotificationXPro_Tutor_Extension extends NotificationX_Extension {
         $fields = $this->init_fields();
         $fields = array_keys( $fields );
         $sales_fields = NotificationX_ToggleFields::woocommerce();
-        $fields = array_merge( $sales_fields['fields'], $fields, array('show_notification_image') );
+        $fields = array_merge( $sales_fields['fields'], $fields, array('show_notification_image', 'woo_template_new', 'woo_template_adv' ) );
         $sales_fields['fields'] = $fields;
         $options['dependency'][ $this->type ] = $sales_fields;
         $options['hide'][ $this->type ][ 'fields' ] = [ 'woo_template', 'has_no_edd', 'has_no_woo', 'product_control', 'product_exclude_by', 'product_list', 'category_list', 'exclude_categories', 'exclude_products', 'edd_product_control', 'edd_product_exclude_by', 'edd_product_list', 'edd_category_list', 'edd_exclude_categories', 'edd_exclude_products', 'custom_contents', 'show_custom_image' ];
