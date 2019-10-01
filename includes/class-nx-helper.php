@@ -486,6 +486,10 @@ class NotificationX_Helper {
                     if( isset( $modules_we_have[ $key ] ) ) {
                         $modules_we_can_run[ $key ] = true;
                     }
+                } else {
+                    if( isset( $modules_we_have[ $key ] ) ) {
+                        $modules_we_can_run[ $key ] = false;
+                    }
                 }
             }
             return $modules_we_can_run;
