@@ -35,7 +35,7 @@ function notificationx_settings_args(){
                         ),
                         'modules_tutor' => array(
                             'title' => __('Tutor', 'notificationx'),
-                            'link' => 'https://notificationx.com/docs/how-to-display-tutor-course-enrollment-alert-using-notificationx'
+                            'link' => 'https://notificationx.com/docs/tutor-lms-course-enrollment-alert'
                         ),
                         'modules_freemius' => array(
                             'is_pro' => true,
