@@ -770,6 +770,7 @@ class NotificationX_Helper {
             'wp_reviews'  => 'wporg_theme',
             'wp_stats'    => 'wpstats_theme',
             'give'         => 'theme',
+            'tutor'         => 'theme',
         ));
     }
 
@@ -803,7 +804,8 @@ class NotificationX_Helper {
             'edd'         => 'woo_template_new',
             'wp_reviews'  => 'wp_reviews_template_new',
             'wp_stats'  => 'wp_stats_template_new',
-            'give' => 'woo_template_new'
+            'give' => 'woo_template_new',
+            'tutor' => 'woo_template_new',
         ));
     }
     /**
