@@ -33,6 +33,10 @@ function notificationx_settings_args(){
                             'version' => '1.2.5',
                             'link' => 'https://notificationx.com/docs/givewp-donation-alert/'
                         ),
+                        'modules_tutor' => array(
+                            'title' => __('Tutor', 'notificationx'),
+                            'link' => 'https://notificationx.com/docs/how-to-display-tutor-course-enrollment-alert-using-notificationx'
+                        ),
                         'modules_freemius' => array(
                             'is_pro' => true,
                             'title' => __('Freemius', 'notificationx'),
@@ -68,12 +72,6 @@ function notificationx_settings_args(){
                             'title' => __('LearnDash', 'notificationx'),
                             'version' => '1.2.0',
                             'link' => 'https://notificationx.com/docs/how-to-display-learndash-course-enrollment-alert-using-notificationx'
-                        ),
-                        'modules_tutor' => array(
-                            'is_pro' => true,
-                            'title' => __('Tutor', 'notificationx'),
-                            'version' => '1.3.1',
-                            'link' => 'https://notificationx.com/docs/how-to-display-tutor-course-enrollment-alert-using-notificationx'
                         ),
                     )),
                     'views' => 'NotificationX_Settings::modules'

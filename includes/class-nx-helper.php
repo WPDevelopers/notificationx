@@ -219,6 +219,10 @@ class NotificationX_Helper {
                 'version' => '1.2.5',
                 'title' => 'Give'
             ),
+            'tutor' => array(
+                'source'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/tutor.png',
+                'title' => 'Tutor'
+            ),
             'freemius'    => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg',
                 'is_pro' => $is_pro,
@@ -240,12 +244,6 @@ class NotificationX_Helper {
                 'is_pro'  => $is_pro,
                 'version' => '1.2.0',
                 'title' => 'Envato'
-            ),
-            'tutor' => array(
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/tutor.png',
-                'is_pro'  => $is_pro,
-                'version' => '1.3.1',
-                'title' => 'Tutor'
             ),
             'custom_notification' => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/custom.jpg',
@@ -509,7 +507,8 @@ class NotificationX_Helper {
             'conversions' => array(
                 'modules_woocommerce',
                 'modules_edd',
-                'modules_give'
+                'modules_give',
+                'modules_tutor'
             ),
             'download_stats' => array(
                 'modules_wordpress',
@@ -520,6 +519,7 @@ class NotificationX_Helper {
             'woocommerce' => 'modules_woocommerce',
             'edd' => 'modules_edd',
             'give' => 'modules_give',
+            'tutor' => 'modules_tutor',
         ));
     }
 
