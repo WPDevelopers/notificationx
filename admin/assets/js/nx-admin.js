@@ -160,6 +160,7 @@
 		if (type === 'press_bar') {
 			return;
 		}
+
 		source = $('.nx_meta_' + notificationx.source_types[type] + ':checked').val();
 		if (notificationx.theme_sources.hasOwnProperty(source)) {
 			if (typeof notificationx.theme_sources[source] === 'object') {
@@ -216,8 +217,10 @@
 		}
 
 		if( temp_template_name != undefined ) {
-			if( templateAdv[0].checked === true ) {
-				templateAdv.trigger('change');
+			if( templateAdv[0] != undefined ) {
+				if( templateAdv[0].checked === true ) {
+					templateAdv.trigger('change');
+				}
 			}
 		}
 

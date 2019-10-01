@@ -604,9 +604,10 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         unset( $fields[ 'wp_stats_template' ] );
         unset( $fields[ 'wp_stats_template_adv' ] );
         unset( $sections['wpstats_theme_design'] );
+        unset( $sections['wpstats_theme_image_design'] );
         unset( $sections['wpstats_themes']['fields']['wpstats_advance_edit'] );
         unset( $sections['wpstats_theme_typography'] );
-        
+    
         foreach ( $fields as $name => $field ) {
             $options['source_tab']['sections']['config']['fields'][ $name ] = $field;
         }
