@@ -135,6 +135,7 @@ class NotificationX_Extension {
             'woocommerce',
             'edd',
             'give',
+            'tutor',
         );
 
         self::$enabled_types = NotificationX_Admin::$enabled_types;
