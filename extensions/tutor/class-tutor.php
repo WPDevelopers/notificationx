@@ -1,7 +1,7 @@
 <?php
 /**
  * This Class is responsible for Tutor LMS integration.
- * @since 1.3.0
+ * @since 1.3.9
  */
 class NotificationXPro_Tutor_Extension extends NotificationX_Extension {
     /**
