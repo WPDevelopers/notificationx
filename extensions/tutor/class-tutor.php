@@ -201,7 +201,11 @@ class NotificationXPro_Tutor_Extension extends NotificationX_Extension {
         if( class_exists( 'Easy_Digital_Downloads' ) && $monetize_by === 'edd' ) {
             add_action('edd_update_payment_status', array($this, 'save_new_enroll_payment_status'), 10, 3);
         }
-        if( $monetize_by === 'free' || ! class_exists( 'WooCommerce' ) || ! class_exists( 'Easy_Digital_Downloads' ) ) {
+        
+        if( 
+            $monetize_by === 'free' || 
+            ( ! class_exists( 'WooCommerce' ) && $monetize_by === 'wc' ) || 
+            ( ! class_exists( 'Easy_Digital_Downloads' ) && $monetize_by === 'edd' ) ) {
             add_action( 'tutor_after_enroll', array( $this, 'do_enroll' ), 10, 2 );
         }
     }
