@@ -178,19 +178,6 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
     }
     /**
      * This functions is hooked
-     * @hooked nx_public_action
-     *
-     * @return void
-     */
-    public function public_actions(){
-        if( ! $this->is_created( $this->type ) ) {
-            return;
-        }
-
-        // some code will be here
-    }
-    /**
-     * This functions is hooked
      * @hooked nx_admin_action
      * 
      * @return void
@@ -199,7 +186,10 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         if( ! $this->is_created( $this->type ) ) {
             return;
         }
-        add_action( 'edd_complete_purchase', array( $this, 'save_notifications' ) );
+        /**
+         * @since 1.3.9
+         */
+        add_action( 'edd_update_payment_status', array( $this, 'update_payment_status' ), 10, 3 );
     }
     /**
      * Some toggleData & hideData manipulation.
@@ -229,6 +219,28 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         return $options;
     }
     /**
+     * Update Payment Status
+     *
+     * @param int $payment_id
+     * @param string $new_status
+     * @param string $old_status
+     * @return void
+     * @since 1.3.9
+     */
+    public function update_payment_status( $payment_id, $new_status, $old_status ){
+        if ( $new_status !== 'publish' ){
+			return;
+        }
+        $offset = get_option('gmt_offset');
+        $temp_notifications = $this->single_order( $payment_id, $offset );
+        if( is_array( $temp_notifications ) ) {
+            foreach( $temp_notifications as $notification ) {
+                $key = uniqid('edd-') . '-' . $notification['product_id'];
+                $this->save( $this->type, $notification, $key );
+            }
+        }
+    }
+    /**
      * This function is responsible for making the notification ready for first time we make the notification.
      *
      * @param string $type
@@ -239,7 +251,6 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         if( ! class_exists( 'Easy_Digital_Downloads' ) ) {
             return;
         }
-
         if( $this->type === $type ) {
             $orders = $this->get_orders( $data );
             if( is_array( $orders ) ) {
@@ -272,16 +283,6 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         return edd_get_payments( $args );
     }
     /**
-     * This function is responsible for update notification
-     *
-     * @param int $payment_id
-     * @return void
-     */
-    public function save_notifications( $payment_id ){
-        $offset = get_option('gmt_offset');
-        $this->single_order( $payment_id, $offset );
-    }
-    /**
      * Get all the orders from database using a date query
      * for limitation.
      *
@@ -309,80 +310,60 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         $offset = get_option('gmt_offset');
         $notifications = [];
         foreach( $payments as $payment ) :
-            $notifications = $this->single_order( $payment->ID, $offset, $ready );
+            $temp_notifications = $this->single_order( $payment->ID, $offset );
+            if( is_array( $temp_notifications ) ) {
+                foreach( $temp_notifications as $notification ) {
+                    $notifications[] = $notification;
+                }
+            }
         endforeach;
         return $notifications;
     }
 
-    protected function single_order( $payment_id, $offset = null, $ready = false ){
-        $notifications = [];
-        $payment_meta = edd_get_payment_meta( $payment_id );
-        $payment_key  = $payment_meta['key'];
-        $date         = $payment_meta['date'];
-        $buyer        = $this->buyer( $payment_meta['user_info'] );
-        $time['timestamp']  = strtotime( $date ) - ( $offset * 60 * 60 );
-        $notification['ip'] = edd_get_payment_user_ip( $payment_id );
-
-        $user_ip_data = self::remote_get('http://ip-api.com/json/' . $notification['ip'] );
-        if( $user_ip_data ) {
-            $buyer['country'] = $user_ip_data->country;
-            $buyer['city']    = $user_ip_data->city;
+    protected function single_order( $payment_id, $offset = 0 ){
+        if( empty( $payment_id ) ) {
+            return null;
         }
+        $data         = [];
+        $payment      = new EDD_Payment( $payment_id );
+        $cart_details = $payment->cart_details;
+        $user_info    = $payment->user_info;
+        
+        unset( $user_info['id'] );
+        unset( $user_info['discount'] );
+        unset( $user_info['address'] );
 
-        $cart_items = edd_get_payment_meta_cart_details( $payment_id );                
-        if( is_array( $cart_items ) && ! empty( $cart_items ) ) {
-            foreach( $cart_items as $item ) {
+        $user_info['name'] = $this->name( $user_info['first_name'], $user_info['last_name'] );
+        $user_info['timestamp']  = strtotime( $payment->date ) - ( $offset * 60 * 60 );
+        $user_info['ip']  = $payment->ip;
+        if( ! empty( $user_info['ip'] ) ) {
+            $user_ip_data = self::remote_get('http://ip-api.com/json/' . $user_info['ip'] );
+            if( $user_ip_data ) {
+                $user_info['country'] = $user_ip_data->country;
+                $user_info['city']    = $user_ip_data->city;
+                $user_info['state']    = $user_ip_data->state;
+            }
+        }
+        if ( is_array( $cart_details ) ) {
+            foreach ( $cart_details as $cart_index => $download ) {
                 $if_has_course = false;
-                if( function_exists( 'tutor_utils' ) ) {
-                    $if_has_course = tutor_utils()->product_belongs_with_course( $item['id'] );
+                if( function_exists('tutor_utils') ) {
+                    $if_has_course = tutor_utils()->product_belongs_with_course( $download['id'] );
                 }
                 if( $if_has_course ) {
                     continue;
                 }
-                $key = $payment_key . '-' . $item['id'];
-                $product_data = $this->product_data( $item );
-                $notification = array_merge( $notification, $product_data, $buyer, $time );
-                $notifications[ $key ] = $notification;
-                if( ! $ready ) {
-                    $this->save( $this->type, $notification, $key );
+				if ( ! $if_has_course ){
+                    $data['title'] = $download['name'];
+                    $data['link'] = get_permalink( $download['id'] );
+                    $data['product_id'] = $download['id'];
+                    $key = $payment->key . '-' . $download['id'];
+                    $notification = array_merge( $user_info, $data );
+                    $notifications[] = $notification;
                 }
-            }
-            if( ! $ready ) {
-                return;
-            }
+			}
         }
         return $notifications;
-    }
-    /**
-     * This function is responsible for 
-     * making ready the product array
-     *
-     * @param array $item
-     * @return array
-     */
-    protected function product_data( $item ){
-        if( empty( $item ) ) return;
-        $data = [];
-        $data['product_id'] = $item['id'];
-        $data['title']      = $item['name'];
-        $data['link']       = get_permalink( $item['id'] );
-        return $data;
-    }
-    /**
-     * This function is responsible 
-     * for making buyer array ready
-     *
-     * @param array $user_info
-     * @return void
-     */
-    protected function buyer( $user_info ) {
-        if( empty( $user_info ) ) return;
-        $buyer_data = [];
-        $buyer_data['name'] = $user_info['first_name'] . ' ' . substr( $user_info['last_name'], 0, 1 );
-        $buyer_data['first_name'] = $user_info['first_name'];
-        $buyer_data['last_name'] = $user_info['last_name'];
-        $buyer_data['email'] = $user_info['email'];
-        return $buyer_data;
     }
     /**
      * This function is responsible for making ready the front of notifications
