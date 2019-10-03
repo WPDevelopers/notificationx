@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce sales, recent purchase
 Requires at least: 4.0
 Tested up to: 5.2
 Requires PHP: 5.4
-Stable tag: 1.3.8
+Stable tag: 1.3.9
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -147,6 +147,14 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 7. Notification Bar with Countdown
 
 == Changelog ==
+
+= 1.3.9 - 03/10/2019 =
+
+- Added : Tutor LMS Integration
+- Fixed: Quick Builder Type Select Issue
+- Fixed: Notification Max Width Issue
+- Enhanced: EDD Notification
+- Few minor bugfix and improvement
 
 = 1.3.8 - 24/09/2019 =
 
