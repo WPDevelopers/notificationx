@@ -224,7 +224,7 @@ class NotificationX_Notice {
      * @return integer
      */
     public function makeTime( $current, $time ) {
-        return intval( strtotime( date('Y-m-d h:i:s', $current) . " +$time" ) );
+        return intval( strtotime( date('r', $current) . " +$time" ) );
     }
     /**
      * Automatice Maybe Later.
