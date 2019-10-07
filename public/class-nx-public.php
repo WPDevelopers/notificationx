@@ -143,9 +143,8 @@ class NotificationX_Public {
 	}
 
 	public function generate_active_notificationx(){
-		
 		if( empty( self::$active ) ) {
-			return;
+			self::$active = self::get_active_items();
 		}
 		$activeItems = self::$active;
 		$conversion_ids = $comments_id = $reviews_id = $download_stats_id = array();
