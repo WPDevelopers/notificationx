@@ -1,7 +1,7 @@
 === NotificationX - Best Social Proof & FOMO Plugin ===
 Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul
 Donate link: http://notificationx.com
-Tags: sales notification, fomo, social proof, woocommerce sales, recent purchase, popups, boost sales, email subscription, increase engagement, recent sales notification, live sales feed, marketing tools, givewp, learndash, edd
+Tags: sales notification, fomo, social proof, woocommerce sales, sales popups, popups, boost sales, email subscription, recent sales popup, woocommerce notification, woo popups,  wordpress marketing, marketing, increase engagement, woocommerce
 Requires at least: 4.0
 Tested up to: 5.2
 Requires PHP: 5.4
