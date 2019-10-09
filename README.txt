@@ -138,6 +138,7 @@ No, NotificationX works seamlessly with any WordPress themes. You just need to i
 Yes. Your data is legally safe and we guarantee to not make use of your data under any circumstances. And your data stays at your site, so zero risk, its not like other SaaS based solution.
 
 == Screenshots ==
+
 1. Overview of few notification
 2. Sales Notification
 3. Comment Notification
@@ -147,6 +148,12 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 7. Notification Bar with Countdown
 
 == Changelog ==
+
+= 1.3.10 - 08/10/2019 =
+
+- WooCommerce checkout (with & without coupon) conflict fixed
+- API Integration links updated
+- Few minor bugfix and improvement
 
 = 1.3.9 - 03/10/2019 =
 
