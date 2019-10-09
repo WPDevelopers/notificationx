@@ -109,7 +109,7 @@ class NotificationX_Extension {
         }
 
         if( empty( self::$active_items ) ) {
-            self::$active_items = NotificationX_Public::get_active_items();
+            self::$active_items = NotificationX_Admin::get_active_items();
         }
 
         if( ! empty( self::$active_items ) ) {

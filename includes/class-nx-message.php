@@ -127,7 +127,10 @@ class NotificationX_Notice {
         add_action( 'wpdeveloper_after_upsale_notice_for_' . $this->plugin_name, array( $this, 'after' ) );
         add_action( $this->do_notice_action, array( $this, 'content' ) );
         if( current_user_can( 'install_plugins' ) ) {
-            if( isset( $_GET['plugin'] ) &&  $_GET['plugin'] == $this->plugin_name ) {
+            if( isset( $_GET['plugin'] ) && $_GET['plugin'] == $this->plugin_name ) {
+                if( isset( $_GET['tab'] ) && $_GET['tab'] === 'plugin-information' ) {
+                    return;
+                }
                 do_action( 'wpdeveloper_notice_clicked_for_' . $this->plugin_name );
                 /**
                  * Redirect User To the Current URL, but without set query arguments.
@@ -221,7 +224,7 @@ class NotificationX_Notice {
      * @return integer
      */
     public function makeTime( $current, $time ) {
-        return intval( strtotime( date('Y-m-d h:i:s', $current) . " +$time" ) );
+        return intval( strtotime( date('r', $current) . " +$time" ) );
     }
     /**
      * Automatice Maybe Later.

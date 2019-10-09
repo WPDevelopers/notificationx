@@ -20,7 +20,7 @@
                 <h4 class="nx-admin-title"><?php _e( 'Contribute to NotificationX', 'notificationx' ); ?></h4>
             </header>
             <div class="nx-admin-block-content">
-                <p><?php echo sprintf( '%1$s <a rel="nofollow" href="%2$s">Github</a>.', __( 'You can contribute to make NotificationX better reporting bugs, creating issues, pull requests at', 'notificationx' ), 'https://github.com/WPDevelopers/notificationx' ); ?></p>
+                <p><?php echo sprintf( '%1$s <a target="_blank" rel="nofollow" href="%2$s">Github</a>.', __( 'You can contribute to make NotificationX better reporting bugs, creating issues, pull requests at', 'notificationx' ), 'https://github.com/WPDevelopers/notificationx' ); ?></p>
                 <a rel="nofollow" href="https://github.com/WPDevelopers/notificationx/issues/new" class="nx-button" target="_blank"><?php _e( 'Report a bug', 'notificationx' ); ?></a>
             </div>
         </div>
