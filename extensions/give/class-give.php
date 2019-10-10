@@ -377,10 +377,10 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
             $user_ip_data = self::remote_get('http://ip-api.com/json/' . $user_data['ip']);
             if( $user_ip_data ) {
                 if( empty( $user_data['country'] ) ) {
-                    $user_data['country'] = $user_ip_data->country;
+                    $user_data['country'] = isset( $user_ip_data->country ) ? $user_ip_data->country : '';
                 }
                 if(empty($user_data['city'])){
-                    $user_data['city'] = $user_ip_data->city;
+                    $user_data['city']    = isset( $user_ip_data->city ) ? $user_ip_data->city : '';
                 }
             }
         }

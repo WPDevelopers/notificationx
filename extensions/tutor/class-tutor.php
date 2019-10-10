@@ -323,9 +323,9 @@ class NotificationXPro_Tutor_Extension extends NotificationX_Extension {
         if( ! empty( $user_info['ip'] ) ) {
             $user_ip_data = self::remote_get('http://ip-api.com/json/' . $user_info['ip'] );
             if( $user_ip_data ) {
-                $user_info['country'] = $user_ip_data->country;
-                $user_info['city']    = $user_ip_data->city;
-                $user_info['state']    = $user_ip_data->state;
+                $user_info['country'] = isset( $user_ip_data->country ) ? $user_ip_data->country : '';
+                $user_info['city']    = isset( $user_ip_data->city ) ? $user_ip_data->city : '';
+                $user_info['state']    = isset( $user_ip_data->state ) ? $user_ip_data->state : '';
             }
         }
         
@@ -354,9 +354,9 @@ class NotificationXPro_Tutor_Extension extends NotificationX_Extension {
             if( ! empty( $user_ip ) ) {
                 $user_ip_data = self::remote_get('http://ip-api.com/json/' . $user_ip );
                 if( $user_ip_data ) {
-                    $data['country'] = $user_ip_data->country;
-                    $data['city']    = $user_ip_data->city;
-                    $data['state']   = isset( $user_ip_data->state ) ? $user_ip_data->state : '';
+                    $data['country'] = isset( $user_ip_data->country ) ? $user_ip_data->country : '';
+                    $data['city']    = isset( $user_ip_data->city ) ? $user_ip_data->city : '';
+                    $data['state']    = isset( $user_ip_data->state ) ? $user_ip_data->state : '';
                 }
             }
         }
