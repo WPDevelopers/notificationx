@@ -29,13 +29,13 @@ function notificationx_settings_args(){
                             'link' => 'https://notificationx.com/docs/notificationx-easy-digital-downloads/'
                         ),
                         'modules_give' => array(
-                            'title' => __('Give', 'notificationx'),
+                            'title'   => __('Give', 'notificationx'),
                             'version' => '1.2.5',
-                            'link' => 'https://notificationx.com/docs/givewp-donation-alert/'
+                            'link'    => 'https://notificationx.com/docs/givewp-donation-alert/'
                         ),
                         'modules_tutor' => array(
                             'title' => __('Tutor', 'notificationx'),
-                            'link' => 'https://notificationx.com/docs/how-to-display-tutor-course-enrollment-alert-using-notificationx'
+                            'link'  => 'https://notificationx.com/docs/tutor-lms/'
                         ),
                         'modules_freemius' => array(
                             'is_pro' => true,

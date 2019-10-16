@@ -417,7 +417,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
      * @return void
      */
     public function ordered_product( $item_id, $item, $order_id ) {
-        if( $item instanceof WC_Order_Item_Shipping ) {
+        if( ! $item instanceof WC_Order_Item_Product ) {
             return false;
         }
         $if_has_course = false;

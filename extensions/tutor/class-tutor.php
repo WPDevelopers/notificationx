@@ -1,7 +1,7 @@
 <?php
 /**
  * This Class is responsible for Tutor LMS integration.
- * @since 1.3.0
+ * @since 1.3.9
  */
 class NotificationXPro_Tutor_Extension extends NotificationX_Extension {
     /**
@@ -201,7 +201,11 @@ class NotificationXPro_Tutor_Extension extends NotificationX_Extension {
         if( class_exists( 'Easy_Digital_Downloads' ) && $monetize_by === 'edd' ) {
             add_action('edd_update_payment_status', array($this, 'save_new_enroll_payment_status'), 10, 3);
         }
-        if( $monetize_by === 'free' || ! class_exists( 'WooCommerce' ) || ! class_exists( 'Easy_Digital_Downloads' ) ) {
+        
+        if( 
+            $monetize_by === 'free' || 
+            ( ! class_exists( 'WooCommerce' ) && $monetize_by === 'wc' ) || 
+            ( ! class_exists( 'Easy_Digital_Downloads' ) && $monetize_by === 'edd' ) ) {
             add_action( 'tutor_after_enroll', array( $this, 'do_enroll' ), 10, 2 );
         }
     }
@@ -265,7 +269,7 @@ class NotificationXPro_Tutor_Extension extends NotificationX_Extension {
         $fields = $this->init_fields();
         $fields = array_keys( $fields );
         $sales_fields = NotificationX_ToggleFields::woocommerce();
-        $fields = array_merge( $sales_fields['fields'], $fields, array('show_notification_image') );
+        $fields = array_merge( $sales_fields['fields'], $fields, array('show_notification_image', 'woo_template_new', 'woo_template_adv' ) );
         $sales_fields['fields'] = $fields;
         $options['dependency'][ $this->type ] = $sales_fields;
         $options['hide'][ $this->type ][ 'fields' ] = [ 'woo_template', 'has_no_edd', 'has_no_woo', 'product_control', 'product_exclude_by', 'product_list', 'category_list', 'exclude_categories', 'exclude_products', 'edd_product_control', 'edd_product_exclude_by', 'edd_product_list', 'edd_category_list', 'edd_exclude_categories', 'edd_exclude_products', 'custom_contents', 'show_custom_image' ];
@@ -319,9 +323,9 @@ class NotificationXPro_Tutor_Extension extends NotificationX_Extension {
         if( ! empty( $user_info['ip'] ) ) {
             $user_ip_data = self::remote_get('http://ip-api.com/json/' . $user_info['ip'] );
             if( $user_ip_data ) {
-                $user_info['country'] = $user_ip_data->country;
-                $user_info['city']    = $user_ip_data->city;
-                $user_info['state']    = $user_ip_data->state;
+                $user_info['country'] = isset( $user_ip_data->country ) ? $user_ip_data->country : '';
+                $user_info['city']    = isset( $user_ip_data->city ) ? $user_ip_data->city : '';
+                $user_info['state']    = isset( $user_ip_data->state ) ? $user_ip_data->state : '';
             }
         }
         
@@ -350,9 +354,9 @@ class NotificationXPro_Tutor_Extension extends NotificationX_Extension {
             if( ! empty( $user_ip ) ) {
                 $user_ip_data = self::remote_get('http://ip-api.com/json/' . $user_ip );
                 if( $user_ip_data ) {
-                    $data['country'] = $user_ip_data->country;
-                    $data['city']    = $user_ip_data->city;
-                    $data['state']   = isset( $user_ip_data->state ) ? $user_ip_data->state : '';
+                    $data['country'] = isset( $user_ip_data->country ) ? $user_ip_data->country : '';
+                    $data['city']    = isset( $user_ip_data->city ) ? $user_ip_data->city : '';
+                    $data['state']    = isset( $user_ip_data->state ) ? $user_ip_data->state : '';
                 }
             }
         }
