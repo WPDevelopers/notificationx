@@ -113,4 +113,15 @@ class NotificationX_ToggleFields {
             'sections' => array_merge( $sections, array( 'themes', 'conversion_link_options' ) ),
         ));
     }
+
+    public static function elearning(){
+        $fields = self::common_fields();
+        $sections = self::common_sections();
+        // $sections[] = 'rs_link_options';
+
+        return apply_filters( 'nx_elearning_toggle_fields', array(
+            'fields' => array_merge( $fields, array( 'stats_source' ) ),
+            'sections' => $sections,
+        ));
+    }
 }
