@@ -88,6 +88,10 @@ class Extension_Factory {
                     add_filter( 'nx_display_type', array( $object, 'display_type' ) );
                 }
 
+                if( method_exists( $object, 'settings_init_hook' ) ) {
+                    add_action( 'nx_before_settings_load', array( $object, 'settings_init_hook' ) );
+                }
+
                 if( method_exists( $object, 'init_hooks' ) ) {
                     add_action( 'nx_before_metabox_load', array( $object, 'init_hooks' ) );
                 }
