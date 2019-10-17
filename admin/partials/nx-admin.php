@@ -13,6 +13,7 @@ $get_disabled_post     = $post_status->disabled;
 $total_notificationx   = $get_enabled_post + $get_disabled_post;
 ?>
 <div class="nx-admin-wrapper">
+    <?php do_action( 'notificationx_settings_header' ); ?>
     <div class="nx-admin-header">
         <img src="<?php echo NOTIFICATIONX_URL; ?>/admin/assets/img/logo.svg" alt="NotificationX">
         <a class="nx-add-new-btn" href="post-new.php?post_type=notificationx"><?php echo _e('Add New', 'notificationx'); ?></a>

@@ -83,6 +83,12 @@ class NotificationX_Admin {
 		 * @since 1.3.5
 		 */
 		add_filter('nx_template_settings_by_theme', array( 'NotificationX_Helper', 'settings_by_themes' ), 10, 2);
+		add_action('admin_notices', function(){
+			if( get_post_type() !== 'notificationx' ) {{
+				return false;
+			}}
+			do_action( 'notificationx_settings_header' );
+		});
 	}
 	/**
 	* Get all active items.

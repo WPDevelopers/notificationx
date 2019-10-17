@@ -978,6 +978,13 @@ body.post-type-notificationx .select2-container--default .select2-search--dropdo
     margin-bottom: 20px;
 }
 
+.nx-header-for-post-new.nx-settings-header,
+.nx-header-for-post.nx-settings-header {
+    margin-top: 40px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
 .nx-settings-header .nx-header-left {
     display: flex;
     align-content: center;

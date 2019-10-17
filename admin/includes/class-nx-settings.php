@@ -30,8 +30,13 @@ class NotificationX_Settings {
      * @return void
      */
     public static function header_template(){
+        global $pagenow;
+        $class = '';
+        if( ! empty( $pagenow ) ) {
+            $class = 'nx-header-for-' . str_replace('.php', '', $pagenow);
+        }
         ?>
-            <div class="nx-settings-header">
+            <div class="nx-settings-header <?php echo esc_attr( $class ); ?>">
                 <div class="nx-header-left">
                     <div class="nx-admin-logo-inline">
                         <svg width="387px" height="392px" viewBox="0 0 387 392" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
