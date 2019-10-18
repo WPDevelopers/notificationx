@@ -144,6 +144,7 @@ class NotificationX_ToggleFields {
         $fields = self::common_fields();
         $sections = self::common_sections();
         $sections[] = 'rs_link_options';
+        $sections[] = 'donation_themes';
 
         return apply_filters( 'nx_donation_toggle_fields', array(
             'fields' => array_merge( $fields, array( 'donation_source', 'donation_template_new', 'donation_template_adv', 'show_notification_image' ) ),
