@@ -131,10 +131,11 @@
 .nx-admin-header {
 	display: flex;
 	align-items: center;
+	padding: 20px;
 }
 
 .nx-admin-header > img {
-	width: 300px;
+	width: 200px;
 }
 
 .nx-admin-header a.nx-add-new-btn {
@@ -147,6 +148,7 @@
 	text-decoration: none;
 	font-size: 12px;
 	transition: all 0.3s ease-in-out 0s;
+	border: 1px solid;
 }
 
 .nx-admin-header a.nx-add-new-btn:hover {

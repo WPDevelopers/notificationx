@@ -87,9 +87,35 @@ class NotificationX_Admin {
 			if( get_post_type() !== 'notificationx' ) {{
 				return false;
 			}}
-			do_action( 'notificationx_settings_header' );
+			do_action( 'notificationx_admin_header' );
 		});
+		add_action('notificationx_admin_header', array( $this, 'header_template' ));
 	}
+    public static function header_template(){
+        global $pagenow;
+        $class = '';
+        if( ! empty( $pagenow ) ) {
+            $class = 'nx-header-for-' . str_replace('.php', '', $pagenow);
+        }
+        ?>
+            <div class="nx-settings-header <?php echo esc_attr( $class ); ?>">
+                <div class="nx-header-left">
+					<div class="nx-admin-header">
+						<img src="<?php echo NOTIFICATIONX_URL; ?>/admin/assets/img/logo.svg" alt="NotificationX">
+						<?php if( $pagenow === 'admin.php' ) : ?>
+							<a class="nx-add-new-btn" href="post-new.php?post_type=notificationx"><?php echo _e('Add New', 'notificationx'); ?></a>
+						<?php endif; ?>
+					</div>
+                </div>
+                <div class="nx-header-right">
+                    <span><?php _e( 'NotificationX', 'notificationx' ); ?>: <strong><?php echo NOTIFICATIONX_VERSION; ?></strong></span>
+                    <?php if( defined('NOTIFICATIONX_PRO_VERSION') ) : ?>
+                        <span><?php _e( 'NotificationX Pro', 'notificationx' ); ?>: <strong><?php echo NOTIFICATIONX_PRO_VERSION; ?></strong> </span>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php
+    }
 	/**
 	* Get all active items.
 	*
