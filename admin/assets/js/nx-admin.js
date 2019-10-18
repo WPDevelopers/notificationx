@@ -59,6 +59,16 @@
 					$.notificationx.trigger('.nx_meta_stats_source');
 					$('#nx_meta_wpstats_advance_edit').trigger('change');
 					break;
+				case 'elearning':
+					$('.nx-elearning_themes .nx_meta_elearning_theme:checked').trigger('change');
+					$.notificationx.trigger('.nx_meta_elearning_source');
+					$('#nx_meta_elearning_advance_edit').trigger('change');
+					break;
+				case 'donation':
+					$('.nx-donation_themes .nx_meta_donation_theme:checked').trigger('change');
+					$.notificationx.trigger('.nx_meta_donation_source');
+					$('#nx_meta_donation_advance_edit').trigger('change');
+					break;
 			}
 			$.notificationx.templateForTheme();
 		});

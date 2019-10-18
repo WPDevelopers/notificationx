@@ -14,12 +14,12 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
      * Template name
      * @var string
      */
-    public $template = 'woo_template';
+    public $template = 'donation_template';
     /**
      * Theme name
      * @var string
      */
-    public $themeName = 'theme';
+    public $themeName = 'donation_theme';
     /**
      * An array of all notifications
      */
@@ -58,7 +58,7 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
     public function init_hooks(){
         add_filter( 'nx_metabox_tabs', array( $this, 'add_fields' ) );
         add_filter( 'nx_display_types_hide_data', array( $this, 'hide_fields' ) );
-        add_filter( 'nx_conversion_from', array( $this, 'toggle_fields' ) );
+        add_filter( 'nx_donation_source', array( $this, 'toggle_fields' ) );
     }
     /**
      * Builder Hooks
@@ -76,7 +76,7 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
      * @return string
      */
     public function notification_link( $link, $settings ){
-        if( $settings->display_type === 'conversions' && $settings->conversion_url === 'none' ) {
+        if( $settings->display_type === 'donation' && $settings->conversion_url === 'none' ) {
             return '';
         }
 
@@ -98,7 +98,7 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
      * @return array
      */
     public function notification_image( $image_data, $data, $settings ){
-        if( $settings->display_type != 'conversions' || $settings->conversion_from != $this->type ) {
+        if( $settings->display_type != 'donation' || $settings->donation_source != $this->type ) {
             return $image_data;
         }
         $image_url = $alt_title =  '';
@@ -148,6 +148,94 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
                 'priority' => 0,
             );
         }
+        $fields['donation_template_new'] = array(
+            'type'     => 'template',
+            'builder_hidden' => true,
+            'fields' => array(
+                'first_param' => array(
+                    'type'     => 'select',
+                    'label'    => __('Notification Template' , 'notificationx'),
+                    'priority' => 1,
+                    'options'  => array(
+                        'tag_name' => __('Full Name' , 'notificationx'),
+                        'tag_first_name' => __('First Name' , 'notificationx'),
+                        'tag_last_name' => __('Last Name' , 'notificationx'),
+                        'tag_custom' => __('Custom' , 'notificationx'),
+                    ),
+                    'dependency' => array(
+                        'tag_custom' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        )
+                    ),
+                    'hide' => array(
+                        'tag_name' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
+                        'tag_first_name' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
+                        'tag_last_name' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
+                    ),
+                    'default' => 'tag_name'
+                ),
+                'custom_first_param' => array(
+                    'type'     => 'text',
+                    'priority' => 2,
+                    'default' => __('Someone' , 'notificationx')
+                ),
+                'second_param' => array(
+                    'type'     => 'text',
+                    'priority' => 3,
+                    'default' => __('recently donated for' , 'notificationx')
+                ),
+                'third_param' => array(
+                    'type'     => 'select',
+                    'priority' => 4,
+                    'options'  => array(
+                        'tag_title'       => __('Donation For Title' , 'notificationx'),
+                        'tag_anonymous_title' => __('Anonymous Title' , 'notificationx'),
+                    ),
+                    'default' => 'tag_title'
+                ),
+                'fourth_param' => array(
+                    'type'     => 'select',
+                    'priority' => 5,
+                    'options'  => array(
+                        'tag_time'       => __('Definite Time' , 'notificationx'),
+                        'tag_sometime' => __('Sometimes ago' , 'notificationx'),
+                    ),
+                    'default' => 'tag_time',
+                    'dependency' => array(
+                        'tag_sometime' => array(
+                            'fields' => [ 'custom_fourth_param' ]
+                        )
+                    ),
+                    'hide' => array(
+                        'tag_time' => array(
+                            'fields' => [ 'custom_fourth_param' ]
+                        ),
+                    ),
+                ),
+                'custom_fourth_param' => array(
+                    'type'     => 'text',
+                    'priority' => 6,
+                    'default' => __( 'Sometimes ago', 'notificationx' )
+                ),
+            ),
+            'label'    => __('Notification Template' , 'notificationx'),
+            'priority' => 90,
+        );
+
+        $fields['donation_template_adv'] = array(
+            'type'        => 'adv_checkbox',
+            'priority'    => 91,
+            'button_text' => __('Advanced Template' , 'notificationx'),
+            'side'        => 'right',
+            'swal'        => true
+        );
+
         return $fields;
     }
     /**
@@ -239,12 +327,8 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
     public function toggle_fields( $options ) {
         $fields = $this->init_fields();
         $fields = array_keys( $fields );
-        $sales_fields = NotificationX_ToggleFields::woocommerce();
-        $fields = array_merge( $sales_fields['fields'], $fields, array('show_notification_image', 'woo_template_new', 'woo_template_adv') );
-        $sales_fields['fields'] = $fields;
-        $options['dependency'][ $this->type ] = $sales_fields;
-        $options['hide'][ $this->type ][ 'fields' ] = [ 'has_no_edd', 'has_no_woo' ];
-
+        $options['dependency'][ $this->type ]['fields'] = array_merge( $fields, $options['dependency'][ $this->type ]['fields'] );
+        $options['dependency'][ $this->type ]['sections'] = array_merge( [ 'image' ], $options['dependency'][ $this->type ]['sections']);
         return $options;
     }
     /**

@@ -199,7 +199,7 @@ function notificationx_builder_args() {
                                 'priority'       => 201,
                                 'defualt'        => 'product_image',
                                 'options'        => apply_filters('nx_show_image_options', array(
-                                    'product_image' => __('Product Image' , 'notificationx'),
+                                    'product_image' => __('Featured Image' , 'notificationx'),
                                     'gravatar'      => __('Gravatar' , 'notificationx'),
                                     'none'          => __('None' , 'notificationx'),
                                 )),

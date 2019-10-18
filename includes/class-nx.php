@@ -324,29 +324,56 @@ final class NotificationX {
 	 */
 	public function migration(){
 		$version = get_option( 'nx_free_version', false );
-		if( $version === false && version_compare( NOTIFICATIONX_VERSION, '1.3.6', '>') ) {
+		$version_migration = get_option( 'nx_version_migration_140', false );
+		if( $version_migration === false && version_compare( NOTIFICATIONX_VERSION, '1.4.0', '==') ) {
 			update_option( 'nx_free_version', NOTIFICATIONX_VERSION );
+			update_option( 'nx_version_migration_140', true );
 
-			$notificationx = get_posts(array(
-				'post_type' => 'notificationx',
-				'posts_per_page' => -1,
-				'meta_key' => '_nx_meta_display_type',
-				'meta_value' => 'press_bar'
-			));
+			global $wpdb;
+			
+			$inner_query_sql = "SELECT posts.ID, meta.meta_value as val FROM $wpdb->posts AS posts INNER JOIN $wpdb->postmeta AS meta ON meta.post_id = posts.ID WHERE post_type = '%s' AND post_status = '%s' AND meta.meta_value = '%s' AND meta.meta_key = '%s'";
 
-			if( ! empty( $notificationx ) ) {
-				foreach( $notificationx as $single_notification ) {
-					$start_date = strtotime( get_post_meta( $single_notification->ID, '_nx_meta_countdown_start_date', true ) );
-					$end_date   = strtotime( get_post_meta( $single_notification->ID, '_nx_meta_countdown_end_date', true ) );
+			$query_sql = "SELECT nx_posts.ID, imeta.meta_value as source FROM ( $inner_query_sql ) AS nx_posts right JOIN $wpdb->postmeta AS imeta ON imeta.post_id = nx_posts.ID WHERE imeta.meta_key = '%s' AND imeta.meta_value IN ( 'tutor', 'learndash' )";
 
-					if( $start_date ) {
-						$start_date = date('D, M d, Y h:i A', $start_date );
-						update_post_meta( $single_notification->ID, '_nx_meta_countdown_start_date',  $start_date);
+			$main_query = "SELECT * FROM $wpdb->postmeta as nx_meta INNER JOIN ( $query_sql ) as nx_mig on nx_meta.post_id = nx_mig.ID WHERE nx_meta.meta_key = '%s'";
+
+			$query = $wpdb->prepare(
+				$main_query, 
+				array(
+					'notificationx',
+					'publish',
+					'conversions',
+					'_nx_meta_display_type',
+					'_nx_meta_conversion_from',
+					'_nx_meta_woo_template_new_string'
+				)
+			);
+
+			$results = $wpdb->get_results( $query );
+
+			$format = [ '%s' ];
+			$where_format = [ '%d', '%s' ];
+
+			if( ! empty( $results ) && is_array( $results ) ) {
+				foreach( $results  as $nx ) {
+					$where = [ 'post_id' => $nx->ID, 'meta_key' => '_nx_meta_display_type' ];
+					if( in_array( $nx->source, array( 'tutor', 'learndash' ) ) ) {
+						$data = [ 'meta_value' => 'elearning' ];
+						$wpdb->insert( $wpdb->postmeta, array(
+							'post_id' => $nx->ID,
+							'meta_key' => '_nx_meta_elearning_template_new_string',
+							'meta_value' => $nx->meta_value,
+						), array( '%d', '%s', '%s' ) );
 					}
-					if( $end_date ) {
-						$end_date = date('D, M d, Y h:i A', $end_date );
-						update_post_meta( $single_notification->ID, '_nx_meta_countdown_end_date',  $end_date);
+					if( $nx->source === 'give' ) {
+						$data = [ 'meta_value' => 'donation' ];
+						$wpdb->insert( $wpdb->postmeta, array(
+							'post_id' => $nx->ID,
+							'meta_key' => '_nx_meta_donation_template_new_string',
+							'meta_value' => $nx->meta_value,
+						), array( '%d', '%s', '%s' ) );
 					}
+					$wpdb->update( $wpdb->postmeta, $data, $where, $format, $where_format );
 				}
 			}
 		}

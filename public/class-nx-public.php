@@ -194,7 +194,7 @@ class NotificationX_Public {
 				case "press_bar":
 					NotificationX_PressBar_Extension::display( $settings );
 					break;
-				case "conversions":
+				case "conversions" || 'elearning' || 'donation':
 					$conversion_ids[] = $id;
 					break;
 				case "comments":

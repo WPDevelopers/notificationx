@@ -214,15 +214,6 @@ class NotificationX_Helper {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/edd.jpg',
                 'title' => 'Easy Digital Downloads'
             ),
-            'give' => array(
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/give.png',
-                'version' => '1.2.5',
-                'title' => 'Give'
-            ),
-            'tutor' => array(
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/tutor.png',
-                'title' => 'Tutor'
-            ),
             'freemius'    => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg',
                 'is_pro' => $is_pro,
@@ -232,12 +223,6 @@ class NotificationX_Helper {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/zapier.png',
                 'is_pro' => $is_pro,
                 'title' => 'Zapier'
-            ),
-            'learndash' => array(
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/learndash.png',
-                'is_pro'  => $is_pro,
-                'version' => '1.2.0',
-                'title' => 'LearnDash'
             ),
             'envato' => array(
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/envato.png',
@@ -328,6 +313,43 @@ class NotificationX_Helper {
         }
         return $forms;
     }
+
+    public static function elearning_source( $from = '' ) {
+        $is_pro = ! NX_CONSTANTS::is_pro();
+        $froms = [
+            'tutor' => array(
+                'source'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/tutor.png',
+                'title' => 'Tutor'
+            ),
+            'learndash' => array(
+                'is_pro' => $is_pro,
+                'source'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/learndash.png',
+                'title' => 'LearnDash'
+            ),
+        ];
+        $forms = apply_filters('nx_elarning_source_options', $froms );
+        $forms = self::active_modules( $forms );
+        if( $from ){
+            return $froms[ $from ];
+        }
+        return $forms;
+    }
+    public static function donation_source( $from = '' ) {
+        $is_pro = ! NX_CONSTANTS::is_pro();
+        $froms = [
+            'give' => array(
+                'source'  => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/give.png',
+                'version' => '1.2.5',
+                'title' => 'Give'
+            ),
+        ];
+        $forms = apply_filters('nx_elarning_source_options', $froms );
+        $forms = self::active_modules( $forms );
+        if( $from ){
+            return $froms[ $from ];
+        }
+        return $forms;
+    }
     /**
      * This function is responsible for press_bar toggle data
      * @return array
@@ -370,6 +392,8 @@ class NotificationX_Helper {
                     'fields' => [ 'comments_source', 'conversion_from' ], 
                     'sections' => [ 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography' ], 
                 ),
+                'elearning' => array(),
+                'donation' => array(),
                 'download_stats' => array(
                     'fields' => [ 'comments_source', 'conversion_from', 'reviews_source', 'show_notification_image', 'wp_reviews_template_new', 'wp_reviews_template' ], 
                     'sections' => [ 'image', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography' ], 
@@ -509,14 +533,18 @@ class NotificationX_Helper {
             'conversions' => array(
                 'modules_woocommerce',
                 'modules_edd',
-                'modules_give',
-                'modules_tutor'
             ),
             'download_stats' => array(
                 'modules_wordpress',
             ),
             'reviews' => array(
                 'modules_wordpress',
+            ),
+            'elearning' => array(
+                'modules_tutor',
+            ),
+            'donation' => array(
+                'modules_give',
             ),
             'woocommerce' => 'modules_woocommerce',
             'edd' => 'modules_edd',
@@ -526,6 +554,84 @@ class NotificationX_Helper {
     }
 
     public static function colored_themes(){
+        $is_pro = ! NX_CONSTANTS::is_pro();
+
+        return apply_filters('nx_colored_themes', array(
+            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-2.jpg',
+            'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-1.jpg',
+            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-3.jpg',
+            'theme-four' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-four.png'
+            ), 
+            'theme-five' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-five.png'
+            ), 
+            'conv-theme-six' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-6.jpg'
+            ), 
+            'maps_theme' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/maps-theme.png'
+            ), 
+            'conv-theme-seven' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-7.png'
+            ),
+            'conv-theme-eight' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-8.png'
+            ),
+            'conv-theme-nine' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-9.png'
+            ),
+        ));
+
+    }
+
+    public static function elearning_themes(){
+        $is_pro = ! NX_CONSTANTS::is_pro();
+
+        return apply_filters('nx_colored_themes', array(
+            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-2.jpg',
+            'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-1.jpg',
+            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-3.jpg',
+            'theme-four' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-four.png'
+            ), 
+            'theme-five' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-five.png'
+            ), 
+            'conv-theme-six' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-6.jpg'
+            ), 
+            'maps_theme' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/maps-theme.png'
+            ), 
+            'conv-theme-seven' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-7.png'
+            ),
+            'conv-theme-eight' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-8.png'
+            ),
+            'conv-theme-nine' => array(
+                'is_pro' => $is_pro,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-9.png'
+            ),
+        ));
+
+    }
+
+    public static function donation_themes(){
         $is_pro = ! NX_CONSTANTS::is_pro();
 
         return apply_filters('nx_colored_themes', array(
@@ -626,6 +732,8 @@ class NotificationX_Helper {
             'actively_using_template_new',
             'review_saying_template_new',
             'woo_template_new',
+            'elearning_template_new',
+            'donation_template_new',
         );
         return $data;
     }
@@ -728,6 +836,8 @@ class NotificationX_Helper {
             'conversions'    => 'conversion_from',
             'reviews'        => 'reviews_source',
             'download_stats' => 'stats_source',
+            'elearning'      => 'elearning_source',
+            'donation'       => 'donation_source',
         ));
     }
     public static function types_title(){
@@ -737,6 +847,8 @@ class NotificationX_Helper {
             'conversions'    => __('Sales Notification', 'notificationx'),
             'reviews'        => __('Reviews', 'notificationx'),
             'download_stats' => __('Download Stats', 'notificationx'),
+            'elearning'      => __('eLearning', 'notificationx'),
+            'donation'       => __('Donation', 'notificationx'),
         ));
     }
 
@@ -771,8 +883,8 @@ class NotificationX_Helper {
             'edd'         => 'theme',
             'wp_reviews'  => 'wporg_theme',
             'wp_stats'    => 'wpstats_theme',
-            'give'        => 'theme',
-            'tutor'       => 'theme',
+            'give'        => 'donation_theme',
+            'tutor'       => 'elearning_theme',
         ));
     }
 
@@ -806,8 +918,8 @@ class NotificationX_Helper {
             'edd'         => 'woo_template_new',
             'wp_reviews'  => 'wp_reviews_template_new',
             'wp_stats'    => 'wp_stats_template_new',
-            'give'        => 'woo_template_new',
-            'tutor'       => 'woo_template_new',
+            'give'        => 'donation_template_new',
+            'tutor'       => 'elearning_template_new',
         ));
     }
     /**
@@ -890,6 +1002,33 @@ class NotificationX_Helper {
         if( $post === null || $post->post_type !== 'notificationx' ) {
             return [];
         }
+        /**
+         * Donation Template Settins
+         */
+
+        $sales_field = get_post_meta( $post->ID, '_nx_meta_donation_template_new', true );        
+        $data['nx_meta_donation_template_new'] = array(
+            'theme-one' => array(
+                'first_param' => isset( $sales_field['first_param'] ) ? $sales_field['first_param'] : 'tag_name',
+                'second_param' => isset( $sales_field['second_param'] ) ? $sales_field['second_param'] : 'just enrolled',
+                'third_param' => isset( $sales_field['third_param'] ) ? $sales_field['third_param'] : 'tag_title',
+                'fourth_param' => isset( $sales_field['fourth_param'] ) ? $sales_field['fourth_param'] : 'tag_time',
+            ),
+        );
+        /**
+         * eLearning Template Settins
+         */
+
+        $sales_field = get_post_meta( $post->ID, '_nx_meta_elearning_template_new', true );        
+        $data['nx_meta_elearning_template_new'] = array(
+            'theme-one' => array(
+                'first_param' => isset( $sales_field['first_param'] ) ? $sales_field['first_param'] : 'tag_name',
+                'second_param' => isset( $sales_field['second_param'] ) ? $sales_field['second_param'] : 'just enrolled',
+                'third_param' => isset( $sales_field['third_param'] ) ? $sales_field['third_param'] : 'tag_title',
+                'fourth_param' => isset( $sales_field['fourth_param'] ) ? $sales_field['fourth_param'] : 'tag_time',
+            ),
+        );
+
         /**
          * Sales Template Settins
          */

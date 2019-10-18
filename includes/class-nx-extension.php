@@ -292,7 +292,7 @@ class NotificationX_Extension {
         array_walk( $data, array( $this, 'trimed' ) );
         $this->defaults = apply_filters('nx_fallback_data', array(), $data, $settings );
         $data = array_merge( $data, $this->defaults );
-
+        
         extract( $args );
         $settings->themeName = $settings->{ $themeName };
         if( empty( $settings->{ $template . '_adv' } ) ) {
@@ -401,6 +401,26 @@ class NotificationX_Extension {
                 break;
             case 'conversions' : 
                 if( $settings->advance_edit ) {
+                    $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
+                    $classes[ 'inner' ][] =  'nx-img-' . $settings->image_position;
+                    $classes[ 'img' ][] = 'nx-img-' . $settings->image_shape;
+                    if( $settings->image_position == 'right' ) {
+                        $classes[ 'inner' ][] =  'nx-flex-reverse';
+                    }
+                }
+                break;
+            case 'elearning' : 
+                if( $settings->elearning_advance_edit ) {
+                    $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
+                    $classes[ 'inner' ][] =  'nx-img-' . $settings->image_position;
+                    $classes[ 'img' ][] = 'nx-img-' . $settings->image_shape;
+                    if( $settings->image_position == 'right' ) {
+                        $classes[ 'inner' ][] =  'nx-flex-reverse';
+                    }
+                }
+                break;
+            case 'donation' : 
+                if( $settings->donation_advance_edit ) {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
                     $classes[ 'inner' ][] =  'nx-img-' . $settings->image_position;
                     $classes[ 'img' ][] = 'nx-img-' . $settings->image_shape;

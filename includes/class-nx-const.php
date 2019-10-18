@@ -58,6 +58,12 @@ class NX_CONSTANTS {
             case 'press_bar' : 
                 $source = NotificationX_Helper::bar_colored_themes();
                 break;
+            case 'elearning' : 
+                $source = NotificationX_Helper::elearning_themes();
+                break;
+            case 'donation' : 
+                $source = NotificationX_Helper::donation_themes();
+                break;
             default : 
                 $source = apply_filters( 'nx_theme_source', array(), $type );
                 break;

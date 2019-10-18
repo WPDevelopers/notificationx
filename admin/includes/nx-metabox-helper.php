@@ -32,6 +32,8 @@ function notificationx_metabox_args(){
                                     'conversions'    => NotificationX_ToggleFields::conversions(),
                                     'reviews'        => NotificationX_ToggleFields::reviews(),
                                     'download_stats' => NotificationX_ToggleFields::stats(),
+                                    'elearning'      => NotificationX_ToggleFields::elearning(),
+                                    'donation'      => NotificationX_ToggleFields::donation(),
                                 )
                             ) ),
                             'reviews_source'  => apply_filters('nx_reviews_source', array(
@@ -48,12 +50,32 @@ function notificationx_metabox_args(){
                                 'options'     => NotificationX_Helper::stats_source(),
                                 'priority'    => 52,
                             )),
+                            'elearning_source'  => apply_filters('nx_elearning_source', array(
+                                'type'        => 'theme',
+                                'inner_title' => __('Source' , 'notificationx'),
+                                'default'     => 'tutor',
+                                'options'     => NotificationX_Helper::elearning_source(),
+                                'priority'    => 53,
+                                'dependency'  => array(
+                                    'tutor' => NotificationX_ToggleFields::tutor(),
+                                ),
+                            )),
+                            'donation_source'  => apply_filters('nx_donation_source', array(
+                                'type'        => 'theme',
+                                'inner_title' => __('Source' , 'notificationx'),
+                                'default'     => 'give',
+                                'options'     => NotificationX_Helper::donation_source(),
+                                'priority'    => 53,
+                                'dependency'  => array(
+                                    'give' => NotificationX_ToggleFields::give(),
+                                ),
+                            )),
                             'comments_source'  => apply_filters('nx_comments_source', array(
                                 'type'         => 'theme',
                                 'inner_title'  => __('Source' , 'notificationx'),
                                 'default'      => 'wp_comments',
                                 'options'      => NotificationX_Helper::comments_source(),
-                                'priority'     => 53,
+                                'priority'     => 54,
                             )),
                             'conversion_from'  => apply_filters('nx_conversion_from', array(
                                 'type'        => 'theme',
@@ -143,6 +165,60 @@ function notificationx_metabox_args(){
                                 'options'   => NotificationX_Helper::colored_themes(),
                             ),
                             'advance_edit' => array(
+                                'type'      => 'adv_checkbox',
+                                'priority'	=> 10,
+                                'default'	=> 0,
+                                'dependency' => array(
+                                    1 => [
+                                        'sections' => ['design', 'image_design', 'typography']
+                                    ]
+                                ),
+                                'hide' => array(
+                                    0 => [
+                                        'sections' => ['design', 'image_design', 'typography']
+                                    ]
+                                ),
+                            ),
+                        )
+                    ),
+                    'elearning_themes' => array(
+                        'title'      => __('Themes', 'notificationx'),
+                        'priority' => 5,
+                        'fields'   => array(
+                            'elearning_theme' => array(
+                                'type'      => 'theme',
+                                'priority'	=> 5,
+                                'default'	=> 'theme-one',
+                                'options'   => NotificationX_Helper::colored_themes(),
+                            ),
+                            'elearning_advance_edit' => array(
+                                'type'      => 'adv_checkbox',
+                                'priority'	=> 10,
+                                'default'	=> 0,
+                                'dependency' => array(
+                                    1 => [
+                                        'sections' => ['design', 'image_design', 'typography']
+                                    ]
+                                ),
+                                'hide' => array(
+                                    0 => [
+                                        'sections' => ['design', 'image_design', 'typography']
+                                    ]
+                                ),
+                            ),
+                        )
+                    ),
+                    'donation_themes' => array(
+                        'title'      => __('Themes', 'notificationx'),
+                        'priority' => 5,
+                        'fields'   => array(
+                            'donation_theme' => array(
+                                'type'      => 'theme',
+                                'priority'	=> 5,
+                                'default'	=> 'theme-one',
+                                'options'   => NotificationX_Helper::colored_themes(),
+                            ),
+                            'donation_advance_edit' => array(
                                 'type'      => 'adv_checkbox',
                                 'priority'	=> 10,
                                 'default'	=> 0,
@@ -641,7 +717,7 @@ function notificationx_metabox_args(){
                                 'label'     => __('Image' , 'notificationx'),
                                 'priority'	=> 15,
                                 'options'   => apply_filters('nx_show_image_options', array(
-                                    'product_image' => __('Product Image' , 'notificationx'),
+                                    'product_image' => __('Featured Image' , 'notificationx'),
                                     'gravatar'      => __('Gravatar' , 'notificationx'),
                                     'none'          => __('None' , 'notificationx'),
                                 )),
