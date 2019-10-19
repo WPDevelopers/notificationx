@@ -80,11 +80,6 @@ class NotificationX_Settings {
         $new_fields = [];
 
         foreach( $settings as $setting ) {
-
-            // if( isset( $setting['fields'] ) ) {
-
-            // }
-
             $sections = isset( $setting['sections'] ) ? $setting['sections'] : [];
             if( ! empty( $sections ) ) {
                 foreach( $sections as $section ) {
@@ -174,7 +169,7 @@ class NotificationX_Settings {
      * @return void
      */
     public static function save_settings( $posted_fields = [] ){
-		$settings_args = self::settings_args();
+        $settings_args = self::settings_args();
         $fields = self::get_settings_fields( $settings_args );
         $data = [];
 

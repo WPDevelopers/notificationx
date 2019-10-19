@@ -304,7 +304,7 @@ class NotificationX_Helper {
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg',
                 'title' => 'Freemius'
-            ),
+            )
         ];
         $forms = apply_filters('nx_stats_source_options', $froms );
         $forms = self::active_modules( $forms );
@@ -425,6 +425,10 @@ class NotificationX_Helper {
             'press_bar'          => __( 'Notification Bar', 'notificationx' ),
             'email_subscription' => array(
                 'source' => __( 'Email Subscription', 'notificationx' ),
+                'is_pro' => $is_pro
+            ),
+            'page_analytics' => array(
+                'source' => __( 'Page Analytics', 'notificationx' ),
                 'is_pro' => $is_pro
             ),
             'custom' => array(
