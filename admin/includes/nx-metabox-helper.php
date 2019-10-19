@@ -656,6 +656,36 @@ function notificationx_metabox_args(){
                             ),
                         )
                     ),
+                    'elearning_link_options' => array(
+                        'title' => __('Link Options', 'notificationx'),
+                        'fields' => array(
+                            'elearning_url' => array(
+                                'label' => __('Link Type', 'notificationx'),
+                                'type'  => 'select',
+                                'priority'	=> 10,
+                                'default'	=> 'product_page',
+                                'options'	=> apply_filters('nx_elearning_link_options', array(
+                                    'none'             => __('None', 'notificationx'),
+                                    'product_page' => __( 'Course Page', 'notificationx' ),
+                                )),
+                            ),
+                        )
+                    ),
+                    'donation_link_options' => array(
+                        'title' => __('Link Options', 'notificationx'),
+                        'fields' => array(
+                            'donation_url' => array(
+                                'label' => __('Link Type', 'notificationx'),
+                                'type'  => 'select',
+                                'priority'	=> 10,
+                                'default'	=> 'product_page',
+                                'options'	=> apply_filters('nx_donation_link_options', array(
+                                    'none'         => __('None', 'notificationx'),
+                                    'product_page' => __( 'Donation Form Page', 'notificationx' ),
+                                )),
+                            ),
+                        )
+                    ),
                 ))
             ),
             'display_tab' => array(

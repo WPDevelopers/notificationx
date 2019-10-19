@@ -76,7 +76,7 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
      * @return string
      */
     public function notification_link( $link, $settings ){
-        if( $settings->display_type === 'donation' && $settings->conversion_url === 'none' ) {
+        if( $settings->display_type === 'donation' && $settings->donation_url === 'none' ) {
             return '';
         }
 

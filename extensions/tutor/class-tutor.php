@@ -69,7 +69,7 @@ class NotificationXPro_Tutor_Extension extends NotificationX_Extension {
         add_filter( 'nx_builder_tabs', array( $this, 'builder_toggle_fields' ) );
     }
     public function notification_link( $link, $settings ){
-        if( $settings->display_type === 'elearning' && $settings->conversion_url === 'none' ) {
+        if( $settings->display_type === 'elearning' && $settings->elearning_url === 'none' ) {
             return '';
         }
         return $link;

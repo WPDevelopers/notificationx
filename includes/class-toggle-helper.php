@@ -118,7 +118,7 @@ class NotificationX_ToggleFields {
         $fields = self::common_fields();
         $sections = self::common_sections();
         $sections[] = 'elearning_themes';
-        $sections[] = 'rs_link_options';
+        $sections[] = 'elearning_link_options';
 
         return apply_filters( 'nx_elearning_toggle_fields', array(
             'fields' => array_merge( $fields, array( 'elearning_source', 'elearning_template_new', 'elearning_template_adv', 'show_notification_image' ) ),
@@ -132,7 +132,7 @@ class NotificationX_ToggleFields {
         $fields[] = 'elearning_template_new';
         $fields[] = 'elearning_template_adv';
         $sections = self::common_sections();
-        $sections[] = 'rs_link_options';
+        $sections[] = 'elearning_link_options';
 
         return apply_filters( 'nx_tutor_toggle_fields', array(
             'fields' => $fields,
@@ -143,7 +143,7 @@ class NotificationX_ToggleFields {
     public static function donation(){
         $fields = self::common_fields();
         $sections = self::common_sections();
-        $sections[] = 'rs_link_options';
+        $sections[] = 'donation_link_options';
         $sections[] = 'donation_themes';
 
         return apply_filters( 'nx_donation_toggle_fields', array(
@@ -157,7 +157,7 @@ class NotificationX_ToggleFields {
         $fields[] = 'donation_template_new';
         $fields[] = 'donation_template_adv';
         $sections = self::common_sections();
-        $sections[] = 'rs_link_options';
+        $sections[] = 'donation_link_options';
 
         return apply_filters( 'nx_give_toggle_fields', array(
             'fields' => $fields,
