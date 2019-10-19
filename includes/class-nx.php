@@ -335,7 +335,7 @@ final class NotificationX {
 
 			$query_sql = "SELECT nx_posts.ID, imeta.meta_value as source FROM ( $inner_query_sql ) AS nx_posts right JOIN $wpdb->postmeta AS imeta ON imeta.post_id = nx_posts.ID WHERE imeta.meta_key = '%s' AND imeta.meta_value IN ( 'tutor', 'learndash' )";
 
-			$main_query = "SELECT * FROM $wpdb->postmeta as nx_meta INNER JOIN ( $query_sql ) as nx_mig on nx_meta.post_id = nx_mig.ID WHERE nx_meta.meta_key = '%s'";
+			$main_query = "SELECT * FROM $wpdb->postmeta as nx_meta INNER JOIN ( $query_sql ) as nx_mig on nx_meta.post_id = nx_mig.ID WHERE nx_meta.meta_key IN ( '_nx_meta_woo_template_new_string', '_nx_meta_woo_template_new' )";
 
 			$query = $wpdb->prepare(
 				$main_query, 
@@ -345,7 +345,6 @@ final class NotificationX {
 					'conversions',
 					'_nx_meta_display_type',
 					'_nx_meta_conversion_from',
-					'_nx_meta_woo_template_new_string'
 				)
 			);
 
@@ -355,25 +354,39 @@ final class NotificationX {
 			$where_format = [ '%d', '%s' ];
 
 			if( ! empty( $results ) && is_array( $results ) ) {
+				$temp_id = 0; $meta_key = '';
 				foreach( $results  as $nx ) {
-					$where = [ 'post_id' => $nx->ID, 'meta_key' => '_nx_meta_display_type' ];
 					if( in_array( $nx->source, array( 'tutor', 'learndash' ) ) ) {
 						$data = [ 'meta_value' => 'elearning' ];
-						$wpdb->insert( $wpdb->postmeta, array(
-							'post_id' => $nx->ID,
-							'meta_key' => '_nx_meta_elearning_template_new_string',
-							'meta_value' => $nx->meta_value,
-						), array( '%d', '%s', '%s' ) );
+						if( $nx->meta_key == '_nx_meta_woo_template_new' ) {
+							$meta_key = '_nx_meta_elearning_template_new';
+						}
+						if( $nx->meta_key == '_nx_meta_woo_template_new_string' ) {
+							$meta_key = '_nx_meta_elearning_template_new_string';
+						}
 					}
 					if( $nx->source === 'give' ) {
 						$data = [ 'meta_value' => 'donation' ];
+						if( $nx->meta_key == '_nx_meta_woo_template_new' ) {
+							$meta_key = '_nx_meta_donation_template_new';
+						}
+						if( $nx->meta_key == '_nx_meta_woo_template_new_string' ) {
+							$meta_key = '_nx_meta_donation_template_new_string';
+						}
+					}
+
+					if( ! empty( $meta_key ) ) {
 						$wpdb->insert( $wpdb->postmeta, array(
 							'post_id' => $nx->ID,
-							'meta_key' => '_nx_meta_donation_template_new_string',
+							'meta_key' => $meta_key,
 							'meta_value' => $nx->meta_value,
 						), array( '%d', '%s', '%s' ) );
 					}
-					$wpdb->update( $wpdb->postmeta, $data, $where, $format, $where_format );
+					if( $temp_id != $nx->ID ) {
+						$where = [ 'post_id' => $nx->ID, 'meta_key' => '_nx_meta_display_type' ];
+						$wpdb->update( $wpdb->postmeta, $data, $where, $format, $where_format );
+					}
+					$temp_id = $nx->ID;
 				}
 			}
 		}
