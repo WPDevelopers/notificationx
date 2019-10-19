@@ -878,6 +878,11 @@ class NotificationX_Admin {
 		 */
 		$this->duplicate_notificationx( $current_url );
 		/**
+		 * For Re-generate Notifications for current notification type
+		 * @since 1.4.0
+		 */
+		$this->regenerate_notifications( $current_url );
+		/**
 		 * For Empty Trash
 		 */
 		$this->empty_trash( $current_url );
@@ -968,6 +973,38 @@ class NotificationX_Admin {
 						}
 						add_post_meta( $duplicate_post_id, $key, $value[0] );
 					}
+				}
+				wp_safe_redirect( $current_url );
+				exit;
+			}
+		}
+	}
+	/**
+	 * This method is responsible for re generating notification for single type.
+	 * @param string $current_url
+	 * @since 1.4.0
+	 */
+	protected function regenerate_notifications( $current_url = '' ){
+		if( empty( $current_url ) ) {
+			return;
+		}
+		// Duplicating NotificationX
+		if( isset( $_GET['action'], $_GET['page'], $_GET['nx_type'], $_GET['nx_regenerate_nonce'] ) 
+		&& $_GET['action'] === 'nx_regenerate' && $_GET['page'] === 'nx-admin' ) {
+			if( wp_verify_nonce( $_GET['nx_regenerate_nonce'], 'nx_regenerate_nonce' ) ) {
+				$nx_type = $_GET['nx_type'];
+				$from = isset( $_GET['from'] ) ? intval( $_GET['from'] ) : 2;
+				$last = isset( $_GET['last'] ) ? intval( $_GET['last'] ) : 20;
+				global $nx_extension_factory;
+				$extension_class = $nx_extension_factory->get_extension( $nx_type );
+				if( ! empty( $extension_class ) ) {
+					$extension = new $extension_class();
+					$nx_notificationx = NotificationX_DB::get_notifications();
+					if( isset( $nx_notificationx[ $nx_type ] ) ) {
+						unset( $nx_notificationx[ $nx_type ] );
+						NotificationX_DB::update_notifications( $nx_notificationx );
+					}
+					$extension->get_notification_ready( $nx_type, ['_nx_meta_display_from' => $from, '_nx_meta_display_last' => $last ] );
 				}
 				wp_safe_redirect( $current_url );
 				exit;

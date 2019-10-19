@@ -69,6 +69,18 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                             $theme_name = NotificationX_Helper::get_theme( $settings );
                             $type = NotificationX_Helper::notification_types( $settings->display_type );
                             $nx_type = NotificationX_Helper::get_type( $settings );
+                            /**
+                             * @since 1.4.0
+                             * re-generating system
+                             */
+                            $regenerate_url = add_query_arg(array(
+                                'action' => 'nx_regenerate',
+                                'nx_type' => $nx_type,
+                                'from' => $settings->display_from,
+                                'last' => $settings->display_last,
+                                'nx_regenerate_nonce' => wp_create_nonce( 'nx_regenerate_nonce' ),
+                            ), $current_url);
+
                             $is_enabled_before = false;
                             if( $nx_type !== 'press_bar' ) {
                                 $is_enabled_before = NotificationX_Extension::is_enabled( $nx_type );
@@ -112,6 +124,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                                                 ?>
                                             </strong>
                                             <div class="nx-admin-title-actions">
+                                                <a class="nx-admin-title-edit" href="<?php echo esc_url( $regenerate_url ); ?>"><?php _e( 'Re Generate', 'notificationx' ); ?></a>
                                                 <?php if( ! $trash_page ) : ?>
                                                     <a class="nx-admin-title-edit" href="post.php?action=edit&post=<?php echo $idd; ?>"><?php _e( 'Edit', 'notificationx' ); ?></a>
                                                     <a class="nx-admin-title-duplicate" href="<?php echo esc_url( $duplicate_url ); ?>"><?php _e( 'Duplicate', 'notificationx' ); ?></a>
