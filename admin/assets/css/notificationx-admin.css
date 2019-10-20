@@ -836,6 +836,7 @@ label.nx-adv-checkbox-label:hover {
 .nx-wpstats_theme .nx-single-theme-wrapper,
 .nx-elearning_theme .nx-single-theme-wrapper,
 .nx-donation_theme .nx-single-theme-wrapper,
+.nx-page_analytics_theme .nx-single-theme-wrapper,
 .nx-wporg_theme .nx-single-theme-wrapper,
 .nx-comment_theme .nx-single-theme-wrapper,
 .nx-custom_theme .nx-single-theme-wrapper,
@@ -850,6 +851,7 @@ label.nx-adv-checkbox-label:hover {
 .nx-wpstats_theme .nx-single-theme-wrapper,
 .nx-elearning_theme .nx-single-theme-wrapper,
 .nx-donation_theme .nx-single-theme-wrapper,
+.nx-page_analytics_theme .nx-single-theme-wrapper,
 .nx-wporg_theme .nx-single-theme-wrapper,
 .nx-comment_theme .nx-single-theme-wrapper,
 .nx-custom_theme .nx-single-theme-wrapper,
@@ -868,6 +870,7 @@ label.nx-adv-checkbox-label:hover {
 .nx-builder-content-wrapper .nx-custom_theme .nx-single-theme-wrapper,
 .nx-builder-content-wrapper .nx-elearning_theme .nx-single-theme-wrapper,
 .nx-builder-content-wrapper .nx-donation_theme .nx-single-theme-wrapper,
+.nx-builder-content-wrapper .nx-page_analytics_theme .nx-single-theme-wrapper,
 .nx-builder-content-wrapper .nx-theme .nx-single-theme-wrapper {
     width: 228px;
     flex-basis: 208px;
@@ -885,6 +888,7 @@ label.nx-adv-checkbox-label:hover {
 .nx-comment_theme .nx-single-theme-wrapper>label>img,
 .nx-elearning_theme .nx-single-theme-wrapper>label>img,
 .nx-donation_theme .nx-single-theme-wrapper>label>img,
+.nx-page_analytics_theme .nx-single-theme-wrapper>label>img,
 .nx-custom_theme .nx-single-theme-wrapper>label>img,
 .nx-theme .nx-single-theme-wrapper>label>img {
     width: 100%;
