@@ -601,37 +601,37 @@ class NotificationX_Helper {
     public static function elearning_themes(){
         $is_pro = ! NX_CONSTANTS::is_pro();
 
-        return apply_filters('nx_colored_themes', array(
-            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-2.jpg',
-            'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-1.jpg',
-            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-3.jpg',
+        return apply_filters('nx_elearning_themes', array(
+            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/elearning/elearning-theme-1.jpg',
+            'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/elearning/elearning-theme-2.jpg',
+            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/elearning/elearning-theme-3.jpg',
             'theme-four' => array(
                 'is_pro' => $is_pro,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-four.png'
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/elearning/elearning-theme-4.png'
             ), 
             'theme-five' => array(
                 'is_pro' => $is_pro,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-five.png'
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/elearning/elearning-theme-5.png'
             ), 
             'conv-theme-six' => array(
                 'is_pro' => $is_pro,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-6.jpg'
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/elearning/elearning-theme-6.png'
             ), 
             'maps_theme' => array(
                 'is_pro' => $is_pro,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/maps-theme.png'
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/elearning/maps-theme.png'
             ), 
             'conv-theme-seven' => array(
                 'is_pro' => $is_pro,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-7.png'
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/elearning/elearning-theme-7.png'
             ),
             'conv-theme-eight' => array(
                 'is_pro' => $is_pro,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-8.png'
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/elearning/elearning-theme-8.png'
             ),
             'conv-theme-nine' => array(
                 'is_pro' => $is_pro,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-9.png'
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/elearning/elearning-theme-9.png'
             ),
         ));
 
@@ -640,37 +640,37 @@ class NotificationX_Helper {
     public static function donation_themes(){
         $is_pro = ! NX_CONSTANTS::is_pro();
 
-        return apply_filters('nx_colored_themes', array(
-            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-2.jpg',
-            'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-1.jpg',
-            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-conv-theme-3.jpg',
+        return apply_filters('nx_donation_themes', array(
+            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/donation/donation-theme-1.jpg',
+            'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/donation/donation-theme-2.jpg',
+            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/donation/donation-theme-3.jpg',
             'theme-four' => array(
                 'is_pro' => $is_pro,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-four.png'
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/donation/donation-theme-4.png'
             ), 
             'theme-five' => array(
                 'is_pro' => $is_pro,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-five.png'
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/donation/donation-theme-5.png'
             ), 
             'conv-theme-six' => array(
                 'is_pro' => $is_pro,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-6.jpg'
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/donation/donation-theme-6.jpg'
             ), 
             'maps_theme' => array(
                 'is_pro' => $is_pro,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/maps-theme.png'
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/donation/maps-theme.png'
             ), 
             'conv-theme-seven' => array(
                 'is_pro' => $is_pro,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-7.png'
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/donation/donation-theme-7.png'
             ),
             'conv-theme-eight' => array(
                 'is_pro' => $is_pro,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-8.png'
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/donation/donation-theme-8.png'
             ),
             'conv-theme-nine' => array(
                 'is_pro' => $is_pro,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-9.png'
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/donation/donation-theme-9.png'
             ),
         ));
 

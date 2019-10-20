@@ -189,7 +189,7 @@ function notificationx_metabox_args(){
                                 'type'      => 'theme',
                                 'priority'	=> 5,
                                 'default'	=> 'theme-one',
-                                'options'   => NotificationX_Helper::colored_themes(),
+                                'options'   => NotificationX_Helper::elearning_themes(),
                             ),
                             'elearning_advance_edit' => array(
                                 'type'      => 'adv_checkbox',
@@ -216,7 +216,7 @@ function notificationx_metabox_args(){
                                 'type'      => 'theme',
                                 'priority'	=> 5,
                                 'default'	=> 'theme-one',
-                                'options'   => NotificationX_Helper::colored_themes(),
+                                'options'   => NotificationX_Helper::donation_themes(),
                             ),
                             'donation_advance_edit' => array(
                                 'type'      => 'adv_checkbox',
