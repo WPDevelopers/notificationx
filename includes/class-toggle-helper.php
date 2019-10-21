@@ -28,7 +28,6 @@ class NotificationX_ToggleFields {
     }
 
     public static function woocommerce(){
-
         $fields = self::common_fields();
         $fields[] = 'conversion_from';
         $sections = self::common_sections();
@@ -117,21 +116,19 @@ class NotificationX_ToggleFields {
     public static function elearning(){
         $fields = self::common_fields();
         $sections = self::common_sections();
-        $sections[] = 'elearning_themes';
-        $sections[] = 'elearning_link_options';
-
+        
         return apply_filters( 'nx_elearning_toggle_fields', array(
-            'fields' => array_merge( $fields, array( 'elearning_source', 'elearning_template_new', 'elearning_template_adv', 'show_notification_image' ) ),
-            'sections' => $sections,
+            'fields' => array_merge( $fields, array( 'elearning_source', 'show_notification_image' ) ),
+            'sections' => array_merge( $sections, array( 'elearning_themes', 'elearning_link_options' ) ),
         ));
     }
 
     public static function tutor(){
         $fields = self::common_fields();
         $fields[] = 'elearning_source';
-        $fields[] = 'elearning_template_new';
-        $fields[] = 'elearning_template_adv';
+        $fields[] = 'show_notification_image';
         $sections = self::common_sections();
+        $sections[] = 'elearning_themes';
         $sections[] = 'elearning_link_options';
 
         return apply_filters( 'nx_tutor_toggle_fields', array(
