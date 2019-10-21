@@ -441,7 +441,7 @@
 }
 
 .nx-header-analytics-counter  > a {
-	color: #5614D5;
+	color: #4c4d57;
 	padding: 45px;
 	display: block;
 	text-decoration: none;
@@ -461,6 +461,5 @@
 .nx-header-analytics-counter > a span.nx-counter-label {
     font-size: 20px;
     line-height: 1;
-	color: #5614D5;
 	letter-spacing: 1px;
 }
