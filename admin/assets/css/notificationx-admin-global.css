@@ -435,24 +435,32 @@
 	padding-right: 15px;
 }
 .nx-header-analytics-counter {
-	background-color: #5614D5;
+	background-color: #FFF;
 	color: #fff;
+	border-radius: 5px;
 }
 
 .nx-header-analytics-counter  > a {
-	color: #fff;
-	padding: 20px;
+	color: #5614D5;
+	padding: 45px;
 	display: block;
 	text-decoration: none;
+	display: flex;
+	align-items: center;
 }
 
+.nx-header-analytics-counter > a span.nx-counter-icon { 
+	margin-right: 20px;
+}
 .nx-header-analytics-counter > a span.nx-counter-number {
-    font-size: 54px;
+    font-size: 50px;
 	line-height: 1;
+	letter-spacing: 2px;
 	display: block;
 }
 .nx-header-analytics-counter > a span.nx-counter-label {
-    font-size: 18px;
+    font-size: 20px;
     line-height: 1;
-    color: #fff;
+	color: #5614D5;
+	letter-spacing: 1px;
 }
