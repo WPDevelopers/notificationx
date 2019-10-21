@@ -327,7 +327,7 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
     public function toggle_fields( $options ) {
         $fields = $this->init_fields();
         $fields = array_keys( $fields );
-        $options['dependency'][ $this->type ]['fields'] = array_merge( $fields, $options['dependency'][ $this->type ]['fields'] );
+        $options['dependency'][ $this->type ]['fields'] = array_merge( $options['dependency'][ $this->type ]['fields'] );
         $options['dependency'][ $this->type ]['sections'] = array_merge( [ 'image' ], $options['dependency'][ $this->type ]['sections']);
         return $options;
     }

@@ -144,16 +144,16 @@ class NotificationX_ToggleFields {
         $sections[] = 'donation_themes';
 
         return apply_filters( 'nx_donation_toggle_fields', array(
-            'fields' => array_merge( $fields, array( 'donation_source', 'donation_template_new', 'donation_template_adv', 'show_notification_image' ) ),
+            'fields' => array_merge( $fields, array( 'donation_source', 'show_notification_image' ) ),
             'sections' => $sections,
         ));
     }
     public static function give(){
         $fields = self::common_fields();
         $fields[] = 'donation_source';
-        $fields[] = 'donation_template_new';
-        $fields[] = 'donation_template_adv';
+        $fields[] = 'show_notification_image';
         $sections = self::common_sections();
+        $sections[] = 'elearning_themes';
         $sections[] = 'donation_link_options';
 
         return apply_filters( 'nx_give_toggle_fields', array(
