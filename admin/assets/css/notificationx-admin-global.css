@@ -210,7 +210,9 @@
 	background-color: #fafafa;
 }
 
-.nx-admin-items table thead tr>td:nth-child(1),
+.nx-admin-items table thead tr>td:nth-child(1) {
+	width: 30%;
+}
 .nx-admin-items table thead tr>td:nth-child(2) {
 	width: 25%;
 }
@@ -306,6 +308,9 @@
 	color: #555555;
 }
 
+.nx-admin-title .nx-admin-title-regenerate {
+	background-image: url('../img/icons/regenerate.png');
+}
 .nx-admin-title .nx-admin-title-edit {
 	background-image: url('../img/icons/edit.png');
 }

@@ -124,10 +124,10 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                                                 ?>
                                             </strong>
                                             <div class="nx-admin-title-actions">
-                                                <a class="nx-admin-title-edit" href="<?php echo esc_url( $regenerate_url ); ?>"><?php _e( 'Re Generate', 'notificationx' ); ?></a>
                                                 <?php if( ! $trash_page ) : ?>
                                                     <a class="nx-admin-title-edit" href="post.php?action=edit&post=<?php echo $idd; ?>"><?php _e( 'Edit', 'notificationx' ); ?></a>
                                                     <a class="nx-admin-title-duplicate" href="<?php echo esc_url( $duplicate_url ); ?>"><?php _e( 'Duplicate', 'notificationx' ); ?></a>
+                                                    <a class="nx-admin-title-regenerate" href="<?php echo esc_url( $regenerate_url ); ?>"><?php _e( 'Re Generate', 'notificationx' ); ?></a>
                                                 <?php do_action('nx_admin_title_actions', $idd); else :  ?>
                                                     <a class="nx-admin-title-restore" href="<?php echo wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=untrash', $idd ) ), 'untrash-post_' . $idd ); ?>"><?php _e( 'Restore', 'notificationx' ); ?></a>
                                                 <?php endif; ?>
