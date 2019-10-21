@@ -779,10 +779,10 @@ class NotificationX_Helper {
             if( in_array( $s_key, $desire_data['br_before'] ) ) {
                 $j++;
             }
-            if( trim($previous_value) === '{{custom}}' || trim($s_value) === '{{sometime}}' || trim($s_value) === '{{custom_stats}}' ) { 
+            if( trim($previous_value) === '{{custom}}' || trim($s_value) === '{{sometime}}' || trim($s_value) === '{{custom_stats}}' || trim($s_value) === '{{this_page}}' ) { 
                 $hasCustomAsValueinPrev = true;
             }
-            if( trim($s_value) === '{{custom}}' || trim($s_value) === '{{sometime}}' || trim($s_value) === '{{custom_stats}}' ) { 
+            if( trim($s_value) === '{{custom}}' || trim($s_value) === '{{sometime}}' || trim($s_value) === '{{custom_stats}}' || trim($s_value) === '{{this_page}}' ) { 
                 $hasCustomAsValue = true;
             }
             if( strpos( $s_key, 'custom_' ) === 0 ) { 
