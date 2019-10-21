@@ -746,6 +746,7 @@ class NotificationX_Helper {
 
     public static function regenerate_the_theme( $template_data, $desire_data ){
         $template_string = [];
+        $temp_val = '';
         if( ! empty( $template_data ) ) {
             $i = $j = 0;
             foreach( $template_data as $key => $value ) {

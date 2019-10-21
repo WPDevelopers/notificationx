@@ -92,6 +92,27 @@
 			}
 		});
 
+		$('body').on('change', '.nx_meta_elearning_source', function () {
+			var conv_source = $(this).val();
+			switch (conv_source) {
+				case 'learndash':
+					$('#nx_meta_ld_product_control').trigger('change');
+					break;
+				case 'tutor':
+					$('#nx_meta_tutor_product_control').trigger('change');
+					break;
+			}
+		});
+
+		$('body').on('change', '.nx_meta_donation_source', function () {
+			var conv_source = $(this).val();
+			switch (conv_source) {
+				case 'give':
+					$('#nx_meta_give_forms_control').trigger('change');
+					break;
+			}
+		});
+
 		$('body').on('change', '.nx_meta_comments_source', function () {
 			var comment_source = $(this).val();
 			$('.nx-comment_themes .nx_meta_comment_theme:checked').trigger('change');
