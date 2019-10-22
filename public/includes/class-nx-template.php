@@ -63,7 +63,7 @@ class NotificationX_Template {
 				$html .= '</div>';
 			}
 
-			if( $template_count === 2 && $branding ) {
+			if( $template_count === 2 && $branding || $template_count === 1 && $branding ) {
 				$html .= '<div class="'. self::$row_classes[ $template_count ] .'">';
 					$html .= self::branding( $branding );
 				$html .= '</div>';

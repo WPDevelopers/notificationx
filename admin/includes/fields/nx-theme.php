@@ -24,6 +24,7 @@
             if( is_array( $options ) ) {
                 $is_pro = false;
                 foreach( $options as $opt_key => $opt_value ) {
+                    $id_name = str_replace( '.', '_', $opt_key );
                     $selected = ( $value == $opt_key ) ? 'checked="true"' : '';
                     $main_value = $opt_value;
                     if( is_array( $opt_value ) ) {
@@ -41,8 +42,8 @@
                     }
                     ?>
                     <div class="nx-single-theme-wrapper <?php echo $is_pro ? 'nx-radio-pro' : ''; ?>">
-                        <input <?php echo $is_pro ? 'disabled' : ''; ?> <?php echo $selected; ?> class="nx-meta-radio nx-meta-field <?php echo $name; ?>" id="<?php echo $opt_key . '_' . $name; ?>" type="radio" name="<?php echo $name; ?>" value="<?php echo $opt_key; ?>">
-                        <label for="<?php echo $opt_key . '_' . $name; ?>">
+                        <input <?php echo $is_pro ? 'disabled' : ''; ?> <?php echo $selected; ?> class="nx-meta-radio nx-meta-field <?php echo $name; ?>" id="<?php echo $id_name . '_' . $name; ?>" type="radio" name="<?php echo $name; ?>" value="<?php echo $opt_key; ?>">
+                        <label for="<?php echo $id_name . '_' . $name; ?>">
                             <?php 
                                 if( $type_content != 'text' ) {
                                     echo '<img src="'. $opt_value .'" alt="'. $theme_title .'">';
