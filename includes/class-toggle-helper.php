@@ -153,7 +153,7 @@ class NotificationX_ToggleFields {
         $fields[] = 'donation_source';
         $fields[] = 'show_notification_image';
         $sections = self::common_sections();
-        $sections[] = 'elearning_themes';
+        $sections[] = 'donation_themes';
         $sections[] = 'donation_link_options';
 
         return apply_filters( 'nx_give_toggle_fields', array(

@@ -377,28 +377,30 @@ class NotificationX_Helper {
         if( $types == 'display_types' ) {
             return apply_filters("nx_display_types_hide_data", array(
                 'comments' => array(
-                    'sections' => [ 'bar_themes', 'conversion_link_options', 'bar_design', 'bar_typography', 'themes', 'design', 'image_design', 'typography', 'rs_link_options', 'donation_themes' ],
+                    'sections' => [ 'bar_themes', 'conversion_link_options', 'bar_design', 'bar_typography', 'themes', 'design', 'image_design', 'typography', 'rs_link_options', 'donation_themes', 'elearning_themes' ],
                     'fields' => [ 'custom_contents', 'show_custom_image', 'show_notification_image', 'image_url', 'wp_reviews_template' ]
                 ),
                 'press_bar' => array(
-                    'sections' => [ 'image', 'link_options', 'conversion_link_options', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'rs_link_options', 'donation_themes' ],
+                    'sections' => [ 'image', 'link_options', 'conversion_link_options', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'rs_link_options', 'donation_themes', 'elearning_themes' ],
                     'fields' => [ 'comments_template', 'custom_contents', 'notification_preview', 'image_url', 'conversion_size', 'conversion_position', 'comments_template_new', 'comments_template_adv', 'wp_stats_template_new' ]
                 ),
                 'conversions' => array(
-                    'sections' => [ 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'rs_link_options', 'donation_themes' ], 
+                    'sections' => [ 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'rs_link_options', 'donation_themes', 'elearning_themes' ], 
                     'fields' => [ 'wp_reviews_template' ]
                 ),
                 'reviews' => array(
                     'fields' => [ 'comments_source', 'conversion_from' ], 
-                    'sections' => [ 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'donation_themes' ], 
+                    'sections' => [ 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'donation_themes', 'elearning_themes' ], 
                 ),
                 'elearning' => array( 
                     'sections' => ['donation_themes']
                 ),
-                'donation' => array(),
+                'donation' => array(
+                    'sections' => ['elearning_themes']
+                ),
                 'download_stats' => array(
                     'fields' => [ 'comments_source', 'conversion_from', 'reviews_source', 'show_notification_image', 'wp_reviews_template_new', 'wp_reviews_template' ], 
-                    'sections' => [ 'image', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'donation_themes' ], 
+                    'sections' => [ 'image', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'donation_themes', 'elearning_themes' ], 
                 ),
             ));
         }

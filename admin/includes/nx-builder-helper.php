@@ -55,6 +55,26 @@ function notificationx_builder_args() {
                                 'options'  => NotificationX_Helper::comments_source(),
                                 'priority' => 53,
                             )),
+                            'elearning_source'  => apply_filters('nx_elearning_source', array(
+                                'type'        => 'theme',
+                                'inner_title' => __('Source' , 'notificationx'),
+                                'default'     => 'tutor',
+                                'options'     => NotificationX_Helper::elearning_source(),
+                                'priority'    => 54,
+                                'dependency'  => array(
+                                    'tutor' => NotificationX_ToggleFields::tutor(),
+                                ),
+                            )),
+                            'donation_source'  => apply_filters('nx_donation_source', array(
+                                'type'        => 'theme',
+                                'inner_title' => __('Source' , 'notificationx'),
+                                'default'     => 'give',
+                                'options'     => NotificationX_Helper::donation_source(),
+                                'priority'    => 55,
+                                'dependency'  => array(
+                                    'give' => NotificationX_ToggleFields::give(),
+                                ),
+                            )),
                             'conversion_from'  => array(
                                 'type'     => 'theme',
                                 'inner_title'    => __('Source' , 'notificationx'),
@@ -108,7 +128,7 @@ function notificationx_builder_args() {
                         )
                     ),
                     'themes' => array(
-                        'title'      => __('Themes', 'notificationx'),
+                        'title'    => __('Themes', 'notificationx'),
                         'priority' => 5,
                         'fields'   => array(
                             'theme' => array(
@@ -116,6 +136,30 @@ function notificationx_builder_args() {
                                 'priority'	=> 5,
                                 'default'	=> 'theme-one',
                                 'options'   => NotificationX_Helper::colored_themes(),
+                            ),
+                        )
+                    ),
+                    'elearning_themes' => array(
+                        'title'    => __('Themes', 'notificationx'),
+                        'priority' => 6,
+                        'fields'   => array(
+                            'elearning_theme' => array(
+                                'type'      => 'theme',
+                                'priority'	=> 5,
+                                'default'	=> 'theme-one',
+                                'options'   => NotificationX_Helper::elearning_themes(),
+                            ),
+                        )
+                    ),
+                    'donation_themes' => array(
+                        'title'    => __('Themes', 'notificationx'),
+                        'priority' => 7,
+                        'fields'   => array(
+                            'donation_theme' => array(
+                                'type'      => 'theme',
+                                'priority'	=> 5,
+                                'default'	=> 'theme-one',
+                                'options'   => NotificationX_Helper::donation_themes(),
                             ),
                         )
                     ),
