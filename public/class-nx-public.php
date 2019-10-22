@@ -190,11 +190,18 @@ class NotificationX_Public {
 			
 			$add_in_list = apply_filters( 'nx_add_in_queue', $settings->display_type, $settings );
 
+
 			switch ( $add_in_list  ) {
 				case "press_bar":
 					NotificationX_PressBar_Extension::display( $settings );
 					break;
-				case "conversions" || 'elearning' || 'donation':
+				case "conversions" :
+					$conversion_ids[] = $id;
+					break;
+				case 'elearning':
+					$conversion_ids[] = $id;
+					break;
+				case 'donation':
 					$conversion_ids[] = $id;
 					break;
 				case "comments":
