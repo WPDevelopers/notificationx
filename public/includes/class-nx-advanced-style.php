@@ -114,7 +114,9 @@ class NotificationX_Advanced_Style {
             $css_string .= $content_class . ' > div {' . implode( ';', $css_object['color'] ) . '}';
             $css_string .= $content_class . ' > div > span {' . implode( ';', $css_object['color'] ) . '}';
         }
-
+        if( ! empty( $settings->wpstats_text_color ) ) {
+            $css_string .= $content_class . ' .nx-branding > a > svg { fill: ' . $settings->wpstats_text_color . '}';
+        }
         return $css_string;
     }
     /**
@@ -185,6 +187,9 @@ class NotificationX_Advanced_Style {
         if( ! empty( $css_object[ 'color' ] ) ) {
             $css_string .= $content_class . ' > div {' . implode( ';', $css_object['color'] ) . '}';
             $css_string .= $content_class . ' > div > span {' . implode( ';', $css_object['color'] ) . '}';
+        }
+        if( ! empty( $settings->wporg_text_color ) ) {
+            $css_string .= $content_class . ' .nx-branding > a > svg { fill: ' . $settings->wporg_text_color . '}';
         }
 
         return $css_string;
@@ -261,6 +266,9 @@ class NotificationX_Advanced_Style {
             $css_string .= $content_class . ' > div {' . implode( ';', $css_object['color'] ) . '}';
             $css_string .= $content_class . ' > div > span {' . implode( ';', $css_object['color'] ) . '}';
         }
+        if( ! empty( $settings->comment_text_color ) ) {
+            $css_string .= $content_class . ' .nx-branding > a > svg { fill: ' . $settings->comment_text_color . '}';
+        }
 
         return $css_string;
     }
@@ -324,6 +332,9 @@ class NotificationX_Advanced_Style {
         }
         if( ! empty( $css_object[ 'color' ] ) ) {
             $css_string .= $content_class . ' > div {' . implode( ';', $css_object['color'] ) . '}';
+        }
+        if( ! empty( $settings->text_color ) ) {
+            $css_string .= $content_class . ' .nx-branding > a > svg { fill: ' . $settings->text_color . '}';
         }
 
         return $css_string;
