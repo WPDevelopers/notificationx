@@ -77,7 +77,7 @@ function notificationx_settings_args(){
                             'is_pro' => true,
                             'title' => __('Google Analytics', 'notificationx'),
                             'version' => '1.4.0',
-                            'link' => 'https://notificationx.com/docs/how-to-display-learndash-course-enrollment-alert-using-notificationx'
+                            'link' => 'https://notificationx.com/docs/google-analytics/'
                         ),
                     )),
                     'views' => 'NotificationX_Settings::modules'
