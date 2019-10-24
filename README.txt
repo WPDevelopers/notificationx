@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce sales, sales popups, p
 Requires at least: 4.0
 Tested up to: 5.2
 Requires PHP: 5.4
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -149,7 +149,12 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 1.4.0 - 24/10/2019 =
+= 1.4.1 - 24/10/2019 =
+
+- Enhancement: New Animated Flames Icon for Default Avatar
+- Few minor bugfix and improvement
+
+= 1.4.0 - 23/10/2019 =
 
 - Introducing Google Analytics
 - Introducing new types ( eLearning, Donation )
