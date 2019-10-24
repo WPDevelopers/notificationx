@@ -726,6 +726,10 @@ function notificationx_metabox_args(){
                                         'source' => NOTIFICATIONX_PUBLIC_URL . 'assets/img/icons/flames.svg',
                                         'title' => __( 'Flames', 'notificationx' )
                                     ),
+                                    'flames.gif' => array(
+                                        'source' => NOTIFICATIONX_PUBLIC_URL . 'assets/img/icons/flames.gif',
+                                        'title' => __( 'Flames GIF', 'notificationx' )
+                                    ),
                                     'pink-face-looped.gif' => array(
                                         'source' => NOTIFICATIONX_PUBLIC_URL . 'assets/img/icons/pink-face-looped.gif',
                                         'title' => __( 'Pink Face', 'notificationx' )
