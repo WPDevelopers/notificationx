@@ -83,13 +83,14 @@ class NotificationX_Admin {
 		 * @since 1.3.5
 		 */
 		add_filter('nx_template_settings_by_theme', array( 'NotificationX_Helper', 'settings_by_themes' ), 10, 2);
-		/*add_action('admin_notices', function(){
+		add_action('admin_notices', function(){
 			if( get_post_type() !== 'notificationx' ) {{
 				return false;
 			}}
-			do_action( 'notificationx_admin_header' );
-		});*/
+			do_action( 'notificationx_admin_new_header' );
+		});
 		add_action('notificationx_admin_header', array( $this, 'header_template' ));
+		add_action('notificationx_admin_new_header', array( $this, 'header_template' ));
 	}
     public static function header_template(){
         global $pagenow;
