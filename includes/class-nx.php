@@ -390,5 +390,17 @@ final class NotificationX {
 				}
 			}
 		}
+		if(version_compare( NOTIFICATIONX_VERSION, '1.4.1', '==')){
+            $version_migration = get_option( 'nx_version_migration_141', false );
+            if(!$version_migration){
+                update_option('nx_version_migration_141', true);
+                $settings = NotificationX_DB::get_settings();
+                if(!$settings['nx_modules']['modules_google_analytics']){
+                    $settings['nx_modules']['modules_google_analytics'] = true;
+                    NotificationX_DB::update_settings($settings);
+                }
+            }
+        }
+
 	}
 }
