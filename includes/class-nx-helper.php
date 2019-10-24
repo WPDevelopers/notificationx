@@ -947,7 +947,7 @@ class NotificationX_Helper {
         if( ! is_numeric( $n ) ) return 0;
         $number = 0;
         $suffix = '';
-        switch( $n ) {
+        switch( true ) {
             case $n >= 1000000000000 : 
                 $number = round( ( $n / 1000000000000 ), 1 );
                 $suffix = $n > 1000000000000 ? 'T+' : 'T';

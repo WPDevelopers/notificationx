@@ -69,6 +69,9 @@ class NotificationX_MetaBox {
         $name      = self::$prefix . $key;
         $field_id  = $name;
         $id        = self::get_row_id( $key );
+        if( isset( $field['row_id'] ) ) {
+            $id =  $field['row_id'];
+        }
         $file_name = isset( $field['type'] ) ? $field['type'] : '';
         
         if( 'template' === $file_name ) {
