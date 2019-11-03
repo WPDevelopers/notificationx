@@ -475,6 +475,12 @@ class NotificationX_Public {
 				$image_data['url'] = NOTIFICATIONX_PUBLIC_URL . 'assets/img/icons/' . $default_avatar;
 			}
 		}
+		// Fallback for uploaded Image.
+		if( isset( $settings->image_url ) && ! empty( $settings->image_url['url'] ) ) {
+			$image = wp_get_attachment_image_src( $settings->image_url['id'], 'medium', true );
+			$image_data['url'] = $image[0];
+		}
+
 		$image_data['alt'] = '';
         return $image_data;
     }
