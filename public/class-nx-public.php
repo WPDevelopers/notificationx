@@ -476,7 +476,7 @@ class NotificationX_Public {
 			}
 		}
 		// Fallback for uploaded Image.
-		if( isset( $settings->image_url ) && ! empty( $settings->image_url['url'] ) ) {
+		if( $settings->show_default_image && isset( $settings->image_url ) && ! empty( $settings->image_url['url'] ) ) {
 			$image = wp_get_attachment_image_src( $settings->image_url['id'], 'medium', true );
 			$image_data['url'] = $image[0];
 		}
