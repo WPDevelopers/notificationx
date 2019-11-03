@@ -39,6 +39,10 @@
 					position = bar.dataset.position,
 					body_push = bar.dataset.body_push;
 
+				if (Cookies.get('notificationx_nx-bar-' + id)) {
+					return false;
+				}
+
 				if( body_push == 'pushed' || body_push == undefined ) {
 					/* add padding in body after initial delay */
 					setTimeout(function () {
