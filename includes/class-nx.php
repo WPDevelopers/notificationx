@@ -394,7 +394,7 @@ final class NotificationX {
             $version_migration = get_option( 'nx_version_migration_141', false );
             if( ! $version_migration ) {
                 update_option('nx_version_migration_141', true);
-                $settings = NotificationX_DB::get_settings();
+				$settings = NotificationX_DB::get_settings();
                 if( ! isset( $settings['nx_modules']['modules_google_analytics'] ) ){
                     $settings['nx_modules']['modules_google_analytics'] = true;
                     NotificationX_DB::update_settings( $settings );
