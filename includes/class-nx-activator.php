@@ -34,6 +34,16 @@ class NotificationX_Activator {
 		if( current_user_can( 'delete_users' ) ) {
 			set_transient( '_nx_meta_activation_notice', true, 30 );
 		}
+
+		if( ! get_option( 'nx_free_version', false ) ) {
+			$saved_settings = NotificationX_DB::get_settings();
+			$settings_args = NotificationX_Settings::settings_args();
+			$modules = NotificationX_Settings::get_modules( $settings_args['general']['sections']['modules_sections']['fields'] );
+			$default_modules = $modules[0];
+			$active_modules = array_fill_keys( array_keys( $default_modules ), true );
+			$saved_settings['nx_modules'] = $active_modules;
+			NotificationX_DB::update_settings( $saved_settings );
+		}
 		/**
 		 * Reqrite the rules on activation.
 		 */

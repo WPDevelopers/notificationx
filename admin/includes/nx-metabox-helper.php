@@ -700,7 +700,7 @@ function notificationx_metabox_args(){
                                 'type'      => 'checkbox',
                                 'label'     => __('Show Default Image' , 'notificationx'),
                                 'priority'	=> 5,
-                                'dependency' => array(
+                                'hide' => array(
                                     0 => array(
                                         'fields' => [ 'image_url', 'default_avatar' ]
                                     ),
@@ -743,7 +743,7 @@ function notificationx_metabox_args(){
                             ),
                             'image_url'  => array(
                                 'type'      => 'media',
-                                'label'     => __('Default Image' , 'notificationx'),
+                                'label'     => __('Upload an Image' , 'notificationx'),
                                 'priority'	=> 10,
                             ),
                             'show_notification_image'  => array(
