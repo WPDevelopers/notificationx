@@ -375,7 +375,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         $orders = [];
         $from = strtotime( date( get_option( 'date_format' ), strtotime( '-' . intval( $data[ '_nx_meta_display_from' ] ) . ' days') ) );
         $wc_orders = wc_get_orders( [
-            'status' => 'processing',
+            'status' => array( 'processing', 'completed', 'pending' ),
             'date_created' => '>' . $from,
         ] );
         foreach( $wc_orders as $order ) {
