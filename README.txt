@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce sales, sales popups, p
 Requires at least: 4.0
 Tested up to: 5.2
 Requires PHP: 5.4
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -148,6 +148,13 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 7. Notification Bar with Countdown
 
 == Changelog ==
+
+= 1.4.2 - 06/11/2019 =
+
+- Fix: Default uploaded image issue
+- Fix: WooCommerce order status compatibility
+- Fix: Modules get disabled by default in settings
+- Few minor bugfix and improvement
 
 = 1.4.1 - 24/10/2019 =
 
