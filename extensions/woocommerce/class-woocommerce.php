@@ -377,6 +377,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         $wc_orders = wc_get_orders( [
             'status' => array( 'processing', 'completed', 'pending' ),
             'date_created' => '>' . $from,
+            'numberposts' => isset( $data['_nx_meta_display_last'] ) ? intval( $data['_nx_meta_display_last'] ) : 10,
         ] );
         foreach( $wc_orders as $order ) {
             $items = $order->get_items();
