@@ -149,6 +149,7 @@ final class NotificationX {
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'edd/class-edd.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'give/class-give.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'tutor/class-tutor.php'; // @since 1.3.9
+		require_once NOTIFICATIONX_EXT_DIR_PATH . 'form/class-cf7.php'; // @since 1.3.9
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
@@ -190,6 +191,7 @@ final class NotificationX {
 			'edd'         => 'NotificationX_EDD_Extension',
 			'give'        => 'NotificationX_Give_Extension',
 			'tutor'       => 'NotificationXPro_Tutor_Extension',
+			'cf7'       => 'NotificationXPro_CF7_Extension',
 		];
 
 		foreach( $extensions as $key => $extension ) {

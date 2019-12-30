@@ -293,6 +293,21 @@ class NotificationX_Helper {
         }
         return $forms;
     }
+    public static function form_source( $from = '' ) {
+        $is_pro = ! NX_CONSTANTS::is_pro();
+        $froms = [
+            'cf7' => array(
+                // 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+                'title' => 'CF7'
+            ),
+        ];
+        $forms = apply_filters('nx_form_source_options', $froms );
+        $forms = self::active_modules( $forms );
+        if( $from ){
+            return $froms[ $from ];
+        }
+        return $forms;
+    }
     public static function stats_source( $from = '' ) {
         $is_pro = ! NX_CONSTANTS::is_pro();
         $froms = [
@@ -398,6 +413,9 @@ class NotificationX_Helper {
                 'donation' => array(
                     'sections' => ['elearning_themes']
                 ),
+                'form' => array(
+
+                ),
                 'download_stats' => array(
                     'fields' => [ 'comments_source', 'conversion_from', 'reviews_source', 'show_notification_image', 'wp_reviews_template_new', 'wp_reviews_template' ], 
                     'sections' => [ 'image', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'donation_themes', 'elearning_themes' ], 
@@ -425,6 +443,7 @@ class NotificationX_Helper {
             'elearning'          => __( 'eLearning', 'notificationx' ),
             'donation'           => __( 'Donations', 'notificationx' ),
             'press_bar'          => __( 'Notification Bar', 'notificationx' ),
+            'form'               => __( 'Contact Form', 'notificationx' ),
             'email_subscription' => array(
                 'source' => __( 'Email Subscription', 'notificationx' ),
                 'is_pro' => $is_pro
@@ -712,6 +731,14 @@ class NotificationX_Helper {
         ));
     }
 
+    public static function form_themes(){
+        return apply_filters('nx_form_colored_themes', array(
+            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-bar-theme-one.jpg',
+            'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-bar-theme-two.jpg',
+            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-bar-theme-three.jpg',
+        ));
+    }
+
     public static function designs_for_review(){
         return apply_filters('nxpro_wporg_themes', array(
             'total-rated'     => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/wporg/total-rated.png',
@@ -742,6 +769,7 @@ class NotificationX_Helper {
             'woo_template_new',
             'elearning_template_new',
             'donation_template_new',
+            'form_template_new',
         );
         return $data;
     }
@@ -847,6 +875,7 @@ class NotificationX_Helper {
             'download_stats' => 'stats_source',
             'elearning'      => 'elearning_source',
             'donation'       => 'donation_source',
+            'form'           => 'form_source',
         ));
     }
     public static function types_title(){
@@ -858,6 +887,7 @@ class NotificationX_Helper {
             'download_stats' => __('Download Stats', 'notificationx'),
             'elearning'      => __('eLearning', 'notificationx'),
             'donation'       => __('Donation', 'notificationx'),
+            'form'           => __('Contact Form', 'notificationx'),
         ));
     }
 
@@ -894,6 +924,7 @@ class NotificationX_Helper {
             'wp_stats'    => 'wpstats_theme',
             'give'        => 'donation_theme',
             'tutor'       => 'elearning_theme',
+            'cf7'         => 'form_theme',
         ));
     }
 
@@ -929,6 +960,7 @@ class NotificationX_Helper {
             'wp_stats'    => 'wp_stats_template_new',
             'give'        => 'donation_template_new',
             'tutor'       => 'elearning_template_new',
+            'cf7'       => 'form_template_new',
         ));
     }
     /**

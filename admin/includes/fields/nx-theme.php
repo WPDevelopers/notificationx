@@ -38,17 +38,24 @@
                             $is_pro = version_compare( NOTIFICATIONX_VERSION, $opt_value['version'], '<' );
                             $is_version = '>' . $opt_value['version'];
                         }
-                        $opt_value = isset( $opt_value['source'] ) ? $opt_value['source'] : '';
+                        $opt_value = isset( $opt_value['source'] ) ? $opt_value['source'] : false;
                     }
                     ?>
                     <div class="nx-single-theme-wrapper <?php echo $is_pro ? 'nx-radio-pro' : ''; ?>">
                         <input <?php echo $is_pro ? 'disabled' : ''; ?> <?php echo $selected; ?> class="nx-meta-radio nx-meta-field <?php echo $name; ?>" id="<?php echo $id_name . '_' . $name; ?>" type="radio" name="<?php echo $name; ?>" value="<?php echo $opt_key; ?>">
                         <label for="<?php echo $id_name . '_' . $name; ?>">
                             <?php 
-                                if( $type_content != 'text' ) {
+                                if( $type_content != 'text' && $opt_value ) {
                                     echo '<img src="'. $opt_value .'" alt="'. $theme_title .'">';
                                 } else {
-                                    echo $opt_value;
+
+                                    $title = $main_value;
+                                    if( is_array( $main_value ) ) {
+                                        $title = isset( $main_value['source'] ) ? $main_value['source'] : false;
+                                        $title = ! $title && isset( $main_value['title'] ) ? $main_value['title'] : $title;
+                                    }
+
+                                    echo $title;
                                 }
                             ?>
                         </label>

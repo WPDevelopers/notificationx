@@ -69,6 +69,11 @@
 					$.notificationx.trigger('.nx_meta_donation_source');
 					$('#nx_meta_donation_advance_edit').trigger('change');
 					break;
+				case 'form':
+					$('.nx-form_themes .nx_meta_form_theme:checked').trigger('change');
+					$.notificationx.trigger('.nx_meta_form_source');
+					// $('#nx_meta_donation_advance_edit').trigger('change');
+					break;
 			}
 			$.notificationx.templateForTheme();
 		});
@@ -191,7 +196,7 @@
 		if (type === 'press_bar') {
 			return;
 		}
-
+		
 		source = $('.nx_meta_' + notificationx.source_types[type] + ':checked').val();
 		if (notificationx.theme_sources.hasOwnProperty(source)) {
 			if (typeof notificationx.theme_sources[source] === 'object') {

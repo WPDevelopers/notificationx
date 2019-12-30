@@ -161,4 +161,15 @@ class NotificationX_ToggleFields {
             'sections' => $sections,
         ));
     }
+
+    public static function form(){
+        $fields = self::common_fields();
+        $sections = self::common_sections();
+        $sections[] = 'form_themes';
+
+        return apply_filters( 'nx_form_toggle_fields', array(
+            'fields' => array_merge( $fields, array( 'form_source', 'show_notification_image' ) ),
+            'sections' => $sections,
+        ));
+    }
 }

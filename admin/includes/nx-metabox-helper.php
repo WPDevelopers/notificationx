@@ -34,8 +34,16 @@ function notificationx_metabox_args(){
                                     'download_stats' => NotificationX_ToggleFields::stats(),
                                     'elearning'      => NotificationX_ToggleFields::elearning(),
                                     'donation'      => NotificationX_ToggleFields::donation(),
+                                    'form'          => NotificationX_ToggleFields::form()
                                 )
                             ) ),
+                            'form_source' => apply_filters('nx_form_source', array(
+                                'type'        => 'theme',
+                                'inner_title' => __('Source' , 'notificationx'),
+                                'default'     => 'cf7',
+                                'options'     => NotificationX_Helper::form_source(),
+                                'priority'    => 50.1,
+                            )),
                             'reviews_source'  => apply_filters('nx_reviews_source', array(
                                 'type'        => 'theme',
                                 'inner_title' => __('Source' , 'notificationx'),
@@ -102,7 +110,7 @@ function notificationx_metabox_args(){
                 'sections'   => apply_filters('nx_design_tab_sections', array(
                     'bar_themes' => array(
                         'title'      => __('Themes', 'notificationx'),
-                        'priority' => 3,
+                        'priority' => 2,
                         'fields'   => array(
                             'bar_theme' => array(
                                 'type'      => 'theme',
@@ -122,6 +130,33 @@ function notificationx_metabox_args(){
                                 'hide' => array(
                                     0 => [
                                         'sections' => ['bar_design', 'bar_typography']
+                                    ]
+                                )
+                            ),
+                        )
+                    ),
+                    'form_themes' => array(
+                        'title'      => __('Themes', 'notificationx'),
+                        'priority' => 3,
+                        'fields'   => array(
+                            'form_theme' => array(
+                                'type'      => 'theme',
+                                'priority'	=> 5,
+                                'default'	=> 'theme-one',
+                                'options'   => NotificationX_Helper::form_themes(),
+                            ),
+                            'form_advance_edit' => array(
+                                'type'      => 'adv_checkbox',
+                                'priority'	=> 10,
+                                'default'	=> 0,
+                                'dependency' => array(
+                                    1 => [
+                                        'sections' => ['form_design', 'form_image_design', 'form_typography']
+                                    ]
+                                ),
+                                'hide' => array(
+                                    0 => [
+                                        'sections' => ['form_design', 'form_image_design', 'form_typography']
                                     ]
                                 )
                             ),
@@ -294,6 +329,65 @@ function notificationx_metabox_args(){
                             ),
                         )
                     ),
+                    'form_design' => array(
+                        'title'    => __('Design', 'notificationx'),
+                        'priority' => 6,
+                        'reset'    => true,
+                        'fields'   => array(
+                            'form_bg_color' => array(
+                                'type'      => 'colorpicker',
+                                'label'     => __('Background Color' , 'notificationx'),
+                                'priority'	=> 5,
+                                'default'	=> ''
+                            ),
+                            'form_text_color' => array(
+                                'type'      => 'colorpicker',
+                                'label'     => __('Text Color' , 'notificationx'),
+                                'priority'	=> 10,
+                                'default'	=> ''
+                            ),
+                            'form_border' => array(
+                                'type'      => 'checkbox',
+                                'label'     => __('Want Border?' , 'notificationx'),
+                                'priority'	=> 15,
+                                'default'	=> 0,
+                                'dependency' => array(
+                                    1 => [
+                                        'fields' => [ 'form_border_size', 'form_border_style', 'form_border_color' ]
+                                    ],
+                                ),
+                                'hide' => array(
+                                    0 => [
+                                        'fields' => [ 'form_border_size', 'form_border_style', 'form_border_color' ]
+                                    ]
+                                )
+                            ),
+                            'form_border_size' => array(
+                                'type'      => 'number',
+                                'label'     => __('Border Size' , 'notificationx'),
+                                'priority'	=> 20,
+                                'default'	=> '1',
+                                'description'	=> 'px',
+                            ),
+                            'form_border_style' => array(
+                                'type'     => 'select',
+                                'label'    => __('Border Style' , 'notificationx'),
+                                'priority' => 25,
+                                'default'  => 'solid',
+                                'options'  => [
+                                    'solid'  => __('Solid', 'notificationx'),
+                                    'dashed' => __('Dashed', 'notificationx'),
+                                    'dotted' => __('Dotted', 'notificationx'),
+                                ],
+                            ),
+                            'form_border_color' => array(
+                                'type'     => 'colorpicker',
+                                'label'    => __('Border Color' , 'notificationx'),
+                                'priority' => 30,
+                                'default'  => ''
+                            ),
+                        )
+                    ),
                     'comment_design' => array(
                         'title'    => __('Design', 'notificationx'),
                         'priority' => 7,
@@ -381,6 +475,34 @@ function notificationx_metabox_args(){
                             ),
                         )
                     ),
+                    'form_image_design' => array(
+                        'title'      => __('Image Appearance', 'notificationx'),
+                        'priority' => 8,
+                        'reset'    => true,
+                        'fields'   => array(
+                            'form_image_shape' => array(
+                                'type'      => 'select',
+                                'label'     => __('Image Shape' , 'notificationx'),
+                                'priority'	=> 5,
+                                'default'	=> 'circle',
+                                'options'	=> [
+                                    'circle' => __('Circle', 'notificationx'),
+                                    'rounded' => __('Rounded', 'notificationx'),
+                                    'square' => __('Square', 'notificationx'),
+                                ],
+                            ),
+                            'form_image_position' => array(
+                                'type'      => 'select',
+                                'label'     => __('Position' , 'notificationx'),
+                                'priority'	=> 10,
+                                'default'	=> 'left',
+                                'options'	=> [
+                                    'left' => __('Left', 'notificationx'),
+                                    'right' => __('Right', 'notificationx'),
+                                ],
+                            ),
+                        )
+                    ),
                     'comment_image_design' => array(
                         'title'      => __('Image Appearance', 'notificationx'),
                         'priority' => 9,
@@ -431,6 +553,37 @@ function notificationx_metabox_args(){
                                 'help'	=> __( 'This font size will be applied for <mark>second</mark> row', 'notificationx' ),
                             ),
                             'third_font_size' => array(
+                                'type'      => 'number',
+                                'label'     => __('Font Size' , 'notificationx'),
+                                'priority'	=> 15,
+                                'default'	=> '11',
+                                'description'	=> 'px',
+                                'help'	=> __( 'This font size will be applied for <mark>third</mark> row', 'notificationx' ),
+                            ),
+                        )
+                    ),
+                    'form_typography' => array(
+                        'title'      => __('Typography', 'notificationx'),
+                        'priority' => 10,
+                        'reset'    => true,
+                        'fields'   => array(
+                            'form_first_font_size' => array(
+                                'type'      => 'number',
+                                'label'     => __('Font Size' , 'notificationx'),
+                                'priority'	=> 5,
+                                'default'	=> '13',
+                                'description'	=> 'px',
+                                'help'	=> __( 'This font size will be applied for <mark>first</mark> row', 'notificationx' ),
+                            ),
+                            'form_second_font_size' => array(
+                                'type'      => 'number',
+                                'label'     => __('Font Size' , 'notificationx'),
+                                'priority'	=> 10,
+                                'default'	=> '14',
+                                'description'	=> 'px',
+                                'help'	=> __( 'This font size will be applied for <mark>second</mark> row', 'notificationx' ),
+                            ),
+                            'form_third_font_size' => array(
                                 'type'      => 'number',
                                 'label'     => __('Font Size' , 'notificationx'),
                                 'priority'	=> 15,

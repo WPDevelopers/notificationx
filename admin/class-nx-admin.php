@@ -1005,7 +1005,9 @@ class NotificationX_Admin {
 						unset( $nx_notificationx[ $nx_type ] );
 						NotificationX_DB::update_notifications( $nx_notificationx );
 					}
-					$extension->get_notification_ready( $nx_type, ['_nx_meta_display_from' => $from, '_nx_meta_display_last' => $last ] );
+					if( method_exists( $extension, 'get_notification_ready' ) ) {
+						$extension->get_notification_ready( $nx_type, ['_nx_meta_display_from' => $from, '_nx_meta_display_last' => $last ] );
+					}
 				}
 				wp_safe_redirect( $current_url );
 				exit;
