@@ -131,6 +131,16 @@
 
 		}
 
+		if (notificationx.form.length > 0) {
+			if (notificationx.form.length > 1) {
+				notificationx.form.map(function (id) {
+					$.notificationx.process(id);
+				});
+			} else {
+				$.notificationx.process(notificationx.form[0]);
+			}
+		}
+
 		if (notificationx.stats.length > 0) {
 
 			if (notificationx.stats.length > 1) {

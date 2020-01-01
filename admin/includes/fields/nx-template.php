@@ -14,6 +14,7 @@
         <div class="template-items">
             <?php 
                 foreach( $inner_fields as $key => $inner_field ) {
+                    $field = $inner_field;
                     $main_name = $name;
                     $subkey = $key;
                     $field_id = $name . "_" . $subkey;

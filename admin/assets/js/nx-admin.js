@@ -458,7 +458,53 @@
 			$('.nx-meta-field').map(function (iterator, item) {
 				var node = item.nodeName;
 				if (node === 'SELECT') {
-					$(item).select2();
+					var ajaxArgs = {
+						ajax: {
+							url: ajaxurl,
+							method: 'GET',
+							dataType: 'json',
+							cache: true,
+							data : function( params ){
+								return {
+									action: 'nx_cf7_keys',
+									form_id: $("#nx_meta_" + $(item).data('nxajax')).val()
+								}
+							},
+							processResults: function( data ) {
+								return { results : data }
+							}
+						},
+					};
+					var selectArgs = {};
+
+					if( $(item).data('nxajax') ) {
+						selectArgs = $.extend( selectArgs, ajaxArgs );
+					}
+
+					$(item).select2( selectArgs );
+					if( Object.keys( selectArgs ).length > 0 ) {
+						$.ajax({
+							type: 'GET',
+							url: ajaxurl,
+							data : {
+								action: 'nx_cf7_keys',
+								form_id: $("#nx_meta_" + $(item).data('nxajax')).val()
+							}
+						}).then(function( data ){
+							var tData = JSON.parse( data );
+							var sData = tData.filter(function( m ){
+								return m.id === $(item).data('value');
+							});
+							var option = new Option( sData[0].text, $(item).data('value'), true, true );
+							$(item).append(option).trigger('change');
+							$(item).trigger({
+								type: 'select2:select',
+								params: {
+									data: data
+								}
+							});
+						});
+					}
 				}
 			});
 		}

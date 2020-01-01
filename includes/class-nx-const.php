@@ -64,6 +64,9 @@ class NX_CONSTANTS {
             case 'donation' : 
                 $source = NotificationX_Helper::donation_themes();
                 break;
+            case 'form' : 
+                $source = NotificationX_Helper::form_themes();
+                break;
             default : 
                 $source = apply_filters( 'nx_theme_source', array(), $type );
                 break;

@@ -2,6 +2,7 @@
     $class .= ' nx-select';
 
     $multiple = isset( $field['multiple'] ) ? 'multiple' : '';
+    $ajax = isset( $field['ajax'] ) ? $field['ajax'] : 'false';
 
     if( $multiple ) {
         $name .= "[]";
@@ -11,7 +12,7 @@
         $attrs .= ' disabled';
     }
 ?>
-<select data-value="<?php echo is_array( $value ) ? implode( ',', $value ) : $value; ?>" class="<?php echo esc_attr( $class ); ?>" <?php echo $multiple; ?> name="<?php echo $name; ?>" id="<?php echo $field_id; ?>" <?php echo $attrs; ?>>
+<select data-nxajax="<?php echo $ajax; ?>" data-value="<?php echo is_array( $value ) ? implode( ',', $value ) : $value; ?>" class="<?php echo esc_attr( $class ); ?>" <?php echo $multiple; ?> name="<?php echo $name; ?>" id="<?php echo $field_id; ?>" <?php echo $attrs; ?>>
     <?php 
         if( ! empty( $field['options'] ) ) :
             foreach( $field['options'] as $opt_id => $option ) {

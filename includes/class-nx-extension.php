@@ -346,7 +346,11 @@ class NotificationX_Extension {
                         if( ! empty( $before_image ) ) {
                             $output .= $before_image;
                         }
-                        $output .= '<img src="'. $image_data['url'] .'" alt="'. esc_attr( $image_data['alt'] ) .'">';
+                        if( isset( $image_data['gravatar'] ) && $image_data['gravatar'] ) {
+                            $output .= $image_data['url'];
+                        } else {
+                            $output .= '<img src="'. $image_data['url'] .'" alt="'. esc_attr( $image_data['alt'] ) .'">';
+                        }
                     $output .= '</div>';
                 endif;
                 $output .= '<div class="notificationx-content '. implode(' ', $frontend_classes['content'] ) .'">';
@@ -537,10 +541,12 @@ class NotificationX_Extension {
                     case 'gravatar' : 
                         $avatar = '';
                         if( isset( $data['email'] ) ) {
-                            $avatar = get_avatar_url( $data['email'], array(
-                                'size' => '100',
-                            ));
+                            // $avatar = get_avatar_url( $data['email'], array(
+                            //     'size' => '100',
+                            // ));
+                            $avatar = get_avatar( $data['email'], 100, '', $alt_title, array( 'extra_attr' => 'title="'. $alt_title .'"' ) );
                         }
+                        $image_data['gravatar'] = true;
                         $image_url = $avatar;
                         break;
                     case 'none' : 

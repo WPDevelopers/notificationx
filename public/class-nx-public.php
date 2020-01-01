@@ -147,7 +147,7 @@ class NotificationX_Public {
 			self::$active = self::get_active_items();
 		}
 		$activeItems = self::$active;
-		$conversion_ids = $comments_id = $reviews_id = $download_stats_id = array();
+		$conversion_ids = $comments_id = $reviews_id = $download_stats_id = $form_id = array();
 		
 		foreach( self::$active as $id ) {
 			
@@ -213,6 +213,9 @@ class NotificationX_Public {
 				case "download_stats":
 					$download_stats_id[] = $id;
 					break;
+				case "form":
+					$form_id[] = $id;
+					break;
 			}
 			unset( $activeItems[ $id ] );
 		}
@@ -225,8 +228,9 @@ class NotificationX_Public {
 		$comments_id       = apply_filters('nx_comments_id', $comments_id );
 		$reviews_id        = apply_filters('nx_reviews_id', $reviews_id );
 		$download_stats_id = apply_filters('nx_download_stats_id', $download_stats_id );
+		$form_id 		   = apply_filters('nx_form_id', $form_id );
 		
-		if( ! empty( $conversion_ids ) || ! empty( $comments_id ) || ! empty( $pro_ext ) || ! empty( $reviews_id ) || ! empty( $download_stats_id ) ) :
+		if( ! empty( $form_id ) || ! empty( $conversion_ids ) || ! empty( $comments_id ) || ! empty( $pro_ext ) || ! empty( $reviews_id ) || ! empty( $download_stats_id ) ) :
 			?>
 			<script type="text/javascript">
 			var notificationx = {
@@ -236,6 +240,7 @@ class NotificationX_Public {
 				comments   : <?php echo json_encode( $comments_id ); ?>,
 				reviews   : <?php echo json_encode( $reviews_id ); ?>,
 				stats   : <?php echo json_encode( $download_stats_id ); ?>,
+				form   : <?php echo json_encode( $form_id ); ?>,
 				pro_ext   : <?php echo json_encode( $pro_ext ); ?>,
 			};
 			</script>
@@ -479,6 +484,16 @@ class NotificationX_Public {
 		if( $settings->show_default_image && isset( $settings->image_url ) && ! empty( $settings->image_url['url'] ) ) {
 			$image = wp_get_attachment_image_src( $settings->image_url['id'], 'medium', true );
 			$image_data['url'] = $image[0];
+		}
+
+		if( ! $settings->show_default_image ) {
+			if( $settings->show_notification_image === 'gravatar' ) {
+				if( isset( $data['email'] ) ) {
+					$avatar = get_avatar( $data['email'], 100, '', $alt_title, array( 'extra_attr' => 'title="'. $alt_title .'"' ) );
+				}
+				$image_data['gravatar'] = true;
+				$image_data['url'] = $avatar;
+			}
 		}
 
 		$image_data['alt'] = '';

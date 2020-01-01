@@ -24,6 +24,54 @@ class NotificationXPro_CF7_Extension extends NotificationX_Extension {
 
     public function __construct(){
         parent::__construct( $this->template );
+        add_action( 'wp_ajax_nx_cf7_keys', array( $this, 'keys' ) );
+    }
+
+    public function keys(){
+        if( isset( $_GET['action'] ) && $_GET['action'] == 'nx_cf7_keys' ) {
+            if( isset( $_GET['form_id'] ) ) {
+                $form_id = intval( $_GET['form_id'] );
+
+                $form = get_post( $form_id );
+
+                $keys = $this->keys_generator( $form->post_content );
+
+                $returned_keys = array();
+
+                if( is_array( $keys ) && ! empty( $keys ) ) {
+                    foreach( $keys as $key ) {
+                        $returned_keys[] = array(
+                            'text' => ucwords( str_replace( '_', ' ', str_replace( '-', ' ', $key ) ) ),
+                            'id' => "tag_$key",
+                        );
+                    }
+
+                    $returned_keys[] = array(
+                        'text' => 'Custom',
+                        'id' => 'tag_custom',
+                    );
+
+                    echo json_encode( $returned_keys );
+                }
+            }
+        }
+        wp_die();
+    }
+
+    public function keys_generator( $fieldsString ){
+        $fieldsString = substr($fieldsString, 0, strpos($fieldsString, 'submit') - 2);
+        preg_match_all('/\[(.+?)\]/', $fieldsString, $parsed_fields);
+        $fields = array();
+        if (!empty($parsed_fields[1])) {
+            foreach ($parsed_fields[1] as $field) {
+                if (strpos($field, 'submit') !== false) {
+                    continue;
+                } else {
+                    $fields[] = explode(' ', $field)[1];
+                }
+            }
+        }
+        return $fields;
     }
 
     public function cf7_forms(){
@@ -69,10 +117,11 @@ class NotificationXPro_CF7_Extension extends NotificationX_Extension {
             'fields' => array(
                 'first_param' => array(
                     'type'     => 'select',
+                    'ajax'     => 'cf7_form',
                     'label'    => __('Notification Template' , 'notificationx'),
                     'priority' => 1,
                     'options'  => array(
-                        'tag_name' => __('Full Name' , 'notificationx'),
+                        'tag_name' => __('Select A Tag' , 'notificationx'),
                         'tag_first_name' => __('First Name' , 'notificationx'),
                         'tag_last_name' => __('Last Name' , 'notificationx'),
                         'tag_custom' => __('Custom' , 'notificationx'),
@@ -211,5 +260,42 @@ class NotificationXPro_CF7_Extension extends NotificationX_Extension {
             }
         }
         return $options;
+    }
+    /**
+     * This functions is hooked
+     * 
+     * @hooked nx_public_action
+     * @return void
+     */
+    public function public_actions(){
+        if( ! $this->is_created( $this->type ) ) {
+            return;
+        }
+        add_action( 'wpcf7_mail_sent', array( $this, 'save_new_records' ) );
+    }
+
+    public function save_new_records( $contact_form ){
+        $submission   = WPCF7_Submission::get_instance();
+        $tags = $contact_form->scan_form_tags();
+        $data = array();
+        if( ! empty( $tags ) ) {
+            foreach( $tags as $tag ) {
+                if( ! empty( $tag->name ) ){
+                    $tagged_value = $submission->get_posted_data( $tag->name );
+                    $data[ $tag->name ] = $tagged_value;
+                    if( strpos( $tag->name, 'email' ) ) {
+                        $data[ 'email' ] = $tagged_value;
+                    }
+                }
+            }
+            $data['title'] = $contact_form->title();
+            $data['timestamp'] = time();
+        }
+
+        if( ! empty( $data ) ) {
+            $this->save( $this->type, $data, $data['timestamp'] );
+            return true;
+        }
+        return false;
     }
 }
