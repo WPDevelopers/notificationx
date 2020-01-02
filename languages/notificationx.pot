@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NotificationX 1.4.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
-"POT-Creation-Date: 2020-01-01 06:34:20+00:00\n"
+"POT-Creation-Date: 2020-01-02 07:30:34+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -57,7 +57,7 @@ msgstr ""
 msgid "There is an error updating status."
 msgstr ""
 
-#: admin/class-nx-admin.php:494 admin/partials/nx-admin.php:128
+#: admin/class-nx-admin.php:494 admin/partials/nx-admin.php:129
 msgid "Edit"
 msgstr ""
 
@@ -83,7 +83,7 @@ msgstr ""
 
 #: admin/class-nx-admin.php:548 admin/class-nx-admin.php:1081
 #: admin/partials/nx-admin-display.php:125
-#: admin/partials/nx-quick-builder-display.php:136
+#: admin/partials/nx-quick-builder-display.php:138
 msgid "Settings"
 msgstr ""
 
@@ -148,12 +148,13 @@ msgid "Pro"
 msgstr ""
 
 #: admin/includes/nx-builder-helper.php:15
-#: admin/includes/nx-builder-helper.php:39
-#: admin/includes/nx-builder-helper.php:46
-#: admin/includes/nx-builder-helper.php:53
-#: admin/includes/nx-builder-helper.php:60
-#: admin/includes/nx-builder-helper.php:70
-#: admin/includes/nx-builder-helper.php:80
+#: admin/includes/nx-builder-helper.php:40
+#: admin/includes/nx-builder-helper.php:47
+#: admin/includes/nx-builder-helper.php:54
+#: admin/includes/nx-builder-helper.php:61
+#: admin/includes/nx-builder-helper.php:68
+#: admin/includes/nx-builder-helper.php:78
+#: admin/includes/nx-builder-helper.php:88
 #: admin/includes/nx-metabox-helper.php:15
 #: admin/includes/nx-metabox-helper.php:42
 #: admin/includes/nx-metabox-helper.php:49
@@ -175,153 +176,152 @@ msgstr ""
 msgid "Notification Type"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:95
+#: admin/includes/nx-builder-helper.php:103
 #: admin/includes/nx-metabox-helper.php:704
 #: admin/includes/nx-metabox-helper.php:708
 #: admin/includes/nx-metabox-helper.php:712
 msgid "Content"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:103
+#: admin/includes/nx-builder-helper.php:111
 #: admin/includes/nx-metabox-helper.php:108
 #: admin/includes/nx-metabox-helper.php:274
-#: admin/includes/nx-metabox-helper.php:333
 #: admin/includes/nx-metabox-helper.php:392
 #: admin/includes/nx-metabox-helper.php:628
-#: extensions/wporg/class-wporg-review.php:504
+#: extensions/wporg/class-wporg-review.php:529
 #: extensions/wporg/class-wporg-stats.php:453
 msgid "Design"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:107
-#: admin/includes/nx-builder-helper.php:131
-#: admin/includes/nx-builder-helper.php:143
-#: admin/includes/nx-builder-helper.php:155
+#: admin/includes/nx-builder-helper.php:115
+#: admin/includes/nx-builder-helper.php:127
+#: admin/includes/nx-builder-helper.php:151
+#: admin/includes/nx-builder-helper.php:163
+#: admin/includes/nx-builder-helper.php:175
 #: admin/includes/nx-metabox-helper.php:112
 #: admin/includes/nx-metabox-helper.php:139
 #: admin/includes/nx-metabox-helper.php:166
 #: admin/includes/nx-metabox-helper.php:193
 #: admin/includes/nx-metabox-helper.php:220
 #: admin/includes/nx-metabox-helper.php:247
-#: extensions/wporg/class-wporg-review.php:442
+#: extensions/wporg/class-wporg-review.php:467
 #: extensions/wporg/class-wporg-stats.php:403
 msgid "Themes"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:119
+#: admin/includes/nx-builder-helper.php:139
 msgid "Comments Themes"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:169
+#: admin/includes/nx-builder-helper.php:189
 #: admin/includes/nx-metabox-helper.php:845
 msgid "Display"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:173
+#: admin/includes/nx-builder-helper.php:193
 #: admin/includes/nx-metabox-helper.php:967
 msgid "Appearance"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:178
-#: admin/includes/nx-builder-helper.php:187
+#: admin/includes/nx-builder-helper.php:198
+#: admin/includes/nx-builder-helper.php:207
 #: admin/includes/nx-metabox-helper.php:468
-#: admin/includes/nx-metabox-helper.php:496
 #: admin/includes/nx-metabox-helper.php:524
 #: admin/includes/nx-metabox-helper.php:972
 #: admin/includes/nx-metabox-helper.php:981
-#: extensions/wporg/class-wporg-review.php:576
+#: extensions/wporg/class-wporg-review.php:601
 #: extensions/wporg/class-wporg-stats.php:514
 msgid "Position"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:181
+#: admin/includes/nx-builder-helper.php:201
 #: admin/includes/nx-metabox-helper.php:975
 msgid "Top"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:182
+#: admin/includes/nx-builder-helper.php:202
 #: admin/includes/nx-metabox-helper.php:976
 msgid "Bottom"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:190
+#: admin/includes/nx-builder-helper.php:210
 #: admin/includes/nx-metabox-helper.php:984
 msgid "Bottom Left"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:191
+#: admin/includes/nx-builder-helper.php:211
 #: admin/includes/nx-metabox-helper.php:985
 msgid "Bottom Right"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:197
+#: admin/includes/nx-builder-helper.php:217
 #: admin/includes/nx-metabox-helper.php:915
 msgid "Visibility"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:202
+#: admin/includes/nx-builder-helper.php:222
 #: admin/includes/nx-metabox-helper.php:920
 msgid "Show On"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:205
+#: admin/includes/nx-builder-helper.php:225
 #: admin/includes/nx-metabox-helper.php:923
 msgid "Show Everywhere"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:206
+#: admin/includes/nx-builder-helper.php:226
 #: admin/includes/nx-metabox-helper.php:924
 msgid "Show On Selected"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:207
+#: admin/includes/nx-builder-helper.php:227
 #: admin/includes/nx-metabox-helper.php:925
 msgid "Hide On Selected"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:225
+#: admin/includes/nx-builder-helper.php:245
 #: admin/includes/nx-metabox-helper.php:944
 msgid "Locations"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:231
+#: admin/includes/nx-builder-helper.php:251
 #: admin/includes/nx-metabox-helper.php:950
 #: admin/includes/nx-metabox-helper.php:1078
 msgid "Display For"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:234
+#: admin/includes/nx-builder-helper.php:254
 #: admin/includes/nx-metabox-helper.php:953
 msgid "Everyone"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:235
+#: admin/includes/nx-builder-helper.php:255
 #: admin/includes/nx-metabox-helper.php:954
 msgid "Logged Out User"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:236
+#: admin/includes/nx-builder-helper.php:256
 #: admin/includes/nx-metabox-helper.php:955
 msgid "Logged In User"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:242
+#: admin/includes/nx-builder-helper.php:262
 #: admin/includes/nx-metabox-helper.php:849
 #: admin/includes/nx-metabox-helper.php:904
 msgid "Image"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:246
+#: admin/includes/nx-builder-helper.php:266
 #: admin/includes/nx-metabox-helper.php:907
 msgid "Featured Image"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:247
+#: admin/includes/nx-builder-helper.php:267
 #: admin/includes/nx-metabox-helper.php:908
 msgid "Gravatar"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:248
+#: admin/includes/nx-builder-helper.php:268
 #: admin/includes/nx-metabox-helper.php:776
 #: admin/includes/nx-metabox-helper.php:791
 #: admin/includes/nx-metabox-helper.php:806
@@ -331,143 +331,126 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: admin/includes/nx-builder-helper.php:256
+#: admin/includes/nx-builder-helper.php:276
 msgid "Finalize"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:280
-#: admin/includes/nx-metabox-helper.php:339
 #: admin/includes/nx-metabox-helper.php:398
 #: admin/includes/nx-metabox-helper.php:634
-#: extensions/wporg/class-wporg-review.php:510
+#: extensions/wporg/class-wporg-review.php:535
 #: extensions/wporg/class-wporg-stats.php:459
 msgid "Background Color"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:286
-#: admin/includes/nx-metabox-helper.php:345
 #: admin/includes/nx-metabox-helper.php:404
 #: admin/includes/nx-metabox-helper.php:640
-#: extensions/wporg/class-wporg-review.php:516
+#: extensions/wporg/class-wporg-review.php:541
 #: extensions/wporg/class-wporg-stats.php:465
 msgid "Text Color"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:292
-#: admin/includes/nx-metabox-helper.php:351
 #: admin/includes/nx-metabox-helper.php:410
-#: extensions/wporg/class-wporg-review.php:522
+#: extensions/wporg/class-wporg-review.php:547
 #: extensions/wporg/class-wporg-stats.php:471
 msgid "Want Border?"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:308
-#: admin/includes/nx-metabox-helper.php:367
 #: admin/includes/nx-metabox-helper.php:426
-#: extensions/wporg/class-wporg-review.php:533
+#: extensions/wporg/class-wporg-review.php:558
 #: extensions/wporg/class-wporg-stats.php:482
 msgid "Border Size"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:315
-#: admin/includes/nx-metabox-helper.php:374
 #: admin/includes/nx-metabox-helper.php:433
-#: extensions/wporg/class-wporg-review.php:540
+#: extensions/wporg/class-wporg-review.php:565
 #: extensions/wporg/class-wporg-stats.php:489
 msgid "Border Style"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:319
-#: admin/includes/nx-metabox-helper.php:378
 #: admin/includes/nx-metabox-helper.php:437
-#: extensions/wporg/class-wporg-review.php:544
+#: extensions/wporg/class-wporg-review.php:569
 #: extensions/wporg/class-wporg-stats.php:493
 msgid "Solid"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:320
-#: admin/includes/nx-metabox-helper.php:379
 #: admin/includes/nx-metabox-helper.php:438
-#: extensions/wporg/class-wporg-review.php:545
+#: extensions/wporg/class-wporg-review.php:570
 #: extensions/wporg/class-wporg-stats.php:494
 msgid "Dashed"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:321
-#: admin/includes/nx-metabox-helper.php:380
 #: admin/includes/nx-metabox-helper.php:439
-#: extensions/wporg/class-wporg-review.php:546
+#: extensions/wporg/class-wporg-review.php:571
 #: extensions/wporg/class-wporg-stats.php:495
 msgid "Dotted"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:326
-#: admin/includes/nx-metabox-helper.php:385
 #: admin/includes/nx-metabox-helper.php:444
-#: extensions/wporg/class-wporg-review.php:551
+#: extensions/wporg/class-wporg-review.php:576
 #: extensions/wporg/class-wporg-stats.php:500
 msgid "Border Color"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:451
-#: admin/includes/nx-metabox-helper.php:479
 #: admin/includes/nx-metabox-helper.php:507
-#: extensions/wporg/class-wporg-review.php:559
+#: extensions/wporg/class-wporg-review.php:584
 #: extensions/wporg/class-wporg-stats.php:508
 msgid "Image Appearance"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:457
-#: admin/includes/nx-metabox-helper.php:485
 #: admin/includes/nx-metabox-helper.php:513
-#: extensions/wporg/class-wporg-review.php:565
+#: extensions/wporg/class-wporg-review.php:590
 msgid "Image Shape"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:461
-#: admin/includes/nx-metabox-helper.php:489
 #: admin/includes/nx-metabox-helper.php:517
-#: extensions/wporg/class-wporg-review.php:569
+#: extensions/wporg/class-wporg-review.php:594
 msgid "Circle"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:462
-#: admin/includes/nx-metabox-helper.php:490
 #: admin/includes/nx-metabox-helper.php:518
-#: extensions/wporg/class-wporg-review.php:570
+#: extensions/wporg/class-wporg-review.php:595
 msgid "Rounded"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:463
-#: admin/includes/nx-metabox-helper.php:491
 #: admin/includes/nx-metabox-helper.php:519
-#: extensions/wporg/class-wporg-review.php:571
+#: extensions/wporg/class-wporg-review.php:596
 msgid "Square"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:472
-#: admin/includes/nx-metabox-helper.php:500
 #: admin/includes/nx-metabox-helper.php:528
 #: admin/includes/nx-metabox-helper.php:680
-#: extensions/wporg/class-wporg-review.php:580
+#: extensions/wporg/class-wporg-review.php:605
 #: extensions/wporg/class-wporg-stats.php:518
 msgid "Left"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:473
-#: admin/includes/nx-metabox-helper.php:501
 #: admin/includes/nx-metabox-helper.php:529
 #: admin/includes/nx-metabox-helper.php:681
-#: extensions/wporg/class-wporg-review.php:581
+#: extensions/wporg/class-wporg-review.php:606
 #: extensions/wporg/class-wporg-stats.php:519
 msgid "Right"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:535
-#: admin/includes/nx-metabox-helper.php:566
 #: admin/includes/nx-metabox-helper.php:597
 #: admin/includes/nx-metabox-helper.php:687
-#: extensions/wporg/class-wporg-review.php:588
+#: extensions/wporg/class-wporg-review.php:613
 #: extensions/wporg/class-wporg-stats.php:526
 msgid "Typography"
 msgstr ""
@@ -475,16 +458,13 @@ msgstr ""
 #: admin/includes/nx-metabox-helper.php:541
 #: admin/includes/nx-metabox-helper.php:549
 #: admin/includes/nx-metabox-helper.php:557
-#: admin/includes/nx-metabox-helper.php:572
-#: admin/includes/nx-metabox-helper.php:580
-#: admin/includes/nx-metabox-helper.php:588
 #: admin/includes/nx-metabox-helper.php:603
 #: admin/includes/nx-metabox-helper.php:611
 #: admin/includes/nx-metabox-helper.php:619
 #: admin/includes/nx-metabox-helper.php:693
-#: extensions/wporg/class-wporg-review.php:594
-#: extensions/wporg/class-wporg-review.php:602
-#: extensions/wporg/class-wporg-review.php:610
+#: extensions/wporg/class-wporg-review.php:619
+#: extensions/wporg/class-wporg-review.php:627
+#: extensions/wporg/class-wporg-review.php:635
 #: extensions/wporg/class-wporg-stats.php:532
 #: extensions/wporg/class-wporg-stats.php:540
 #: extensions/wporg/class-wporg-stats.php:548
@@ -492,26 +472,23 @@ msgid "Font Size"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:545
-#: admin/includes/nx-metabox-helper.php:576
 #: admin/includes/nx-metabox-helper.php:607
 #: admin/includes/nx-metabox-helper.php:697
-#: extensions/wporg/class-wporg-review.php:598
+#: extensions/wporg/class-wporg-review.php:623
 #: extensions/wporg/class-wporg-stats.php:536
 msgid "This font size will be applied for <mark>first</mark> row"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:553
-#: admin/includes/nx-metabox-helper.php:584
 #: admin/includes/nx-metabox-helper.php:615
-#: extensions/wporg/class-wporg-review.php:606
+#: extensions/wporg/class-wporg-review.php:631
 #: extensions/wporg/class-wporg-stats.php:544
 msgid "This font size will be applied for <mark>second</mark> row"
 msgstr ""
 
 #: admin/includes/nx-metabox-helper.php:561
-#: admin/includes/nx-metabox-helper.php:592
 #: admin/includes/nx-metabox-helper.php:623
-#: extensions/wporg/class-wporg-review.php:614
+#: extensions/wporg/class-wporg-review.php:639
 #: extensions/wporg/class-wporg-stats.php:552
 msgid "This font size will be applied for <mark>third</mark> row"
 msgstr ""
@@ -878,20 +855,20 @@ msgid "Publish"
 msgstr ""
 
 #: admin/partials/nx-admin-display.php:111
-#: admin/partials/nx-quick-builder-display.php:119
+#: admin/partials/nx-quick-builder-display.php:121
 msgid "Next"
 msgstr ""
 
 #: admin/partials/nx-admin-display.php:125
-#: admin/partials/nx-quick-builder-display.php:136
+#: admin/partials/nx-quick-builder-display.php:138
 msgid "Make sure you have module on from your NotificationX"
 msgstr ""
 
-#: admin/partials/nx-admin.php:26 admin/partials/nx-admin.php:155
+#: admin/partials/nx-admin.php:26 admin/partials/nx-admin.php:156
 msgid "Enabled"
 msgstr ""
 
-#: admin/partials/nx-admin.php:29 admin/partials/nx-admin.php:156
+#: admin/partials/nx-admin.php:29 admin/partials/nx-admin.php:157
 msgid "Disabled"
 msgstr ""
 
@@ -903,35 +880,35 @@ msgstr ""
 msgid "Empty Trash"
 msgstr ""
 
-#: admin/partials/nx-admin.php:100
+#: admin/partials/nx-admin.php:101
 msgid "Delete Permanently"
 msgstr ""
 
-#: admin/partials/nx-admin.php:129
+#: admin/partials/nx-admin.php:130
 msgid "Duplicate"
 msgstr ""
 
-#: admin/partials/nx-admin.php:131
+#: admin/partials/nx-admin.php:132
 msgid "Re Generate"
 msgstr ""
 
-#: admin/partials/nx-admin.php:134
+#: admin/partials/nx-admin.php:135
 msgid "Restore"
 msgstr ""
 
-#: admin/partials/nx-admin.php:176
+#: admin/partials/nx-admin.php:177
 msgid "Published"
 msgstr ""
 
-#: admin/partials/nx-admin.php:176 admin/partials/nx-admin.php:179
+#: admin/partials/nx-admin.php:177 admin/partials/nx-admin.php:180
 msgid "Y/m/d"
 msgstr ""
 
-#: admin/partials/nx-admin.php:179
+#: admin/partials/nx-admin.php:180
 msgid "Last Modified"
 msgstr ""
 
-#: admin/partials/nx-admin.php:191
+#: admin/partials/nx-admin.php:192
 msgid "No NotificationX is found."
 msgstr ""
 
@@ -939,11 +916,11 @@ msgstr ""
 msgid "NotificationX Quick Builder"
 msgstr ""
 
-#: admin/partials/nx-quick-builder-display.php:113
+#: admin/partials/nx-quick-builder-display.php:115
 msgid "Previous"
 msgstr ""
 
-#: admin/partials/nx-quick-builder-display.php:117
+#: admin/partials/nx-quick-builder-display.php:119
 msgid "Launch"
 msgstr ""
 
@@ -1009,7 +986,7 @@ msgid "<a rel=\"nofollow\" href=\"%s\" target=\"_blank\">Upgrade to Pro</a>"
 msgstr ""
 
 #: extensions/edd/class-edd.php:49 extensions/edd/class-edd.php:50
-#: extensions/edd/class-edd.php:51 extensions/form/class-cf7.php:150
+#: extensions/edd/class-edd.php:51 extensions/form/class-cf7.php:145
 #: extensions/give/class-give.php:47 extensions/give/class-give.php:48
 #: extensions/give/class-give.php:49 extensions/give/class-give.php:186
 #: extensions/tutor/class-tutor.php:48 extensions/tutor/class-tutor.php:49
@@ -1018,9 +995,9 @@ msgstr ""
 #: extensions/woocommerce/class-woocommerce.php:48
 #: extensions/woocommerce/class-woocommerce.php:49
 #: extensions/woocommerce/class-woocommerce.php:129
-#: extensions/wp-comments/class-wp-comments.php:142
-#: extensions/wporg/class-wporg-review.php:308
-#: extensions/wporg/class-wporg-review.php:385
+#: extensions/wp-comments/class-wp-comments.php:147
+#: extensions/wporg/class-wporg-review.php:333
+#: extensions/wporg/class-wporg-review.php:410
 msgid "Someone"
 msgstr ""
 
@@ -1031,17 +1008,17 @@ msgstr ""
 msgid "Anonymous Product"
 msgstr ""
 
-#: extensions/edd/class-edd.php:53 extensions/form/class-cf7.php:186
-#: extensions/form/class-cf7.php:203 extensions/give/class-give.php:51
+#: extensions/edd/class-edd.php:53 extensions/form/class-cf7.php:181
+#: extensions/form/class-cf7.php:198 extensions/give/class-give.php:51
 #: extensions/give/class-give.php:207 extensions/give/class-give.php:224
 #: extensions/tutor/class-tutor.php:196 extensions/tutor/class-tutor.php:213
 #: extensions/woocommerce/class-woocommerce.php:150
 #: extensions/woocommerce/class-woocommerce.php:167
-#: extensions/wp-comments/class-wp-comments.php:50
-#: extensions/wp-comments/class-wp-comments.php:164
-#: extensions/wp-comments/class-wp-comments.php:181
-#: extensions/wporg/class-wporg-review.php:331
-#: extensions/wporg/class-wporg-review.php:351
+#: extensions/wp-comments/class-wp-comments.php:51
+#: extensions/wp-comments/class-wp-comments.php:169
+#: extensions/wp-comments/class-wp-comments.php:186
+#: extensions/wporg/class-wporg-review.php:356
+#: extensions/wporg/class-wporg-review.php:376
 msgid "Sometimes ago"
 msgstr ""
 
@@ -1053,17 +1030,17 @@ msgstr ""
 msgid "Select a Form"
 msgstr ""
 
-#: extensions/form/class-cf7.php:121 extensions/form/class-cf7.php:206
+#: extensions/form/class-cf7.php:122 extensions/form/class-cf7.php:201
 #: extensions/give/class-give.php:157 extensions/give/class-give.php:227
 #: extensions/tutor/class-tutor.php:146 extensions/tutor/class-tutor.php:216
 #: extensions/woocommerce/class-woocommerce.php:100
 #: extensions/woocommerce/class-woocommerce.php:170
-#: extensions/wp-comments/class-wp-comments.php:110
-#: extensions/wp-comments/class-wp-comments.php:184
-#: extensions/wporg/class-wporg-review.php:283
-#: extensions/wporg/class-wporg-review.php:354
-#: extensions/wporg/class-wporg-review.php:364
-#: extensions/wporg/class-wporg-review.php:423
+#: extensions/wp-comments/class-wp-comments.php:111
+#: extensions/wp-comments/class-wp-comments.php:189
+#: extensions/wporg/class-wporg-review.php:308
+#: extensions/wporg/class-wporg-review.php:379
+#: extensions/wporg/class-wporg-review.php:389
+#: extensions/wporg/class-wporg-review.php:448
 #: extensions/wporg/class-wporg-stats.php:236
 #: extensions/wporg/class-wporg-stats.php:311
 #: extensions/wporg/class-wporg-stats.php:321
@@ -1071,30 +1048,30 @@ msgstr ""
 msgid "Notification Template"
 msgstr ""
 
-#: extensions/form/class-cf7.php:124
+#: extensions/form/class-cf7.php:125
 msgid "Select A Tag"
 msgstr ""
 
-#: extensions/form/class-cf7.php:125 extensions/give/class-give.php:161
+#: extensions/form/class-cf7.php:126 extensions/give/class-give.php:161
 #: extensions/tutor/class-tutor.php:150
 #: extensions/woocommerce/class-woocommerce.php:104
-#: extensions/wp-comments/class-wp-comments.php:114
+#: extensions/wp-comments/class-wp-comments.php:115
 msgid "First Name"
 msgstr ""
 
-#: extensions/form/class-cf7.php:126 extensions/give/class-give.php:162
+#: extensions/form/class-cf7.php:127 extensions/give/class-give.php:162
 #: extensions/tutor/class-tutor.php:151
 #: extensions/woocommerce/class-woocommerce.php:105
-#: extensions/wp-comments/class-wp-comments.php:115
+#: extensions/wp-comments/class-wp-comments.php:116
 msgid "Last Name"
 msgstr ""
 
-#: extensions/form/class-cf7.php:127 extensions/give/class-give.php:163
+#: extensions/form/class-cf7.php:128 extensions/give/class-give.php:163
 #: extensions/tutor/class-tutor.php:152
 #: extensions/woocommerce/class-woocommerce.php:106
-#: extensions/wp-comments/class-wp-comments.php:116
-#: extensions/wporg/class-wporg-review.php:288
-#: extensions/wporg/class-wporg-review.php:368
+#: extensions/wp-comments/class-wp-comments.php:118
+#: extensions/wporg/class-wporg-review.php:313
+#: extensions/wporg/class-wporg-review.php:393
 #: extensions/wporg/class-wporg-stats.php:240
 #: extensions/wporg/class-wporg-stats.php:271
 #: extensions/wporg/class-wporg-stats.php:328
@@ -1102,29 +1079,29 @@ msgstr ""
 msgid "Custom"
 msgstr ""
 
-#: extensions/form/class-cf7.php:155
+#: extensions/form/class-cf7.php:150
 msgid "recently contacted via"
 msgstr ""
 
-#: extensions/form/class-cf7.php:161
+#: extensions/form/class-cf7.php:156
 msgid "Form Title"
 msgstr ""
 
-#: extensions/form/class-cf7.php:162
+#: extensions/form/class-cf7.php:157
 msgid "Custom Title"
 msgstr ""
 
-#: extensions/form/class-cf7.php:185 extensions/give/class-give.php:206
+#: extensions/form/class-cf7.php:180 extensions/give/class-give.php:206
 #: extensions/tutor/class-tutor.php:195
 #: extensions/woocommerce/class-woocommerce.php:149
-#: extensions/wp-comments/class-wp-comments.php:163
-#: extensions/wporg/class-wporg-review.php:330
+#: extensions/wp-comments/class-wp-comments.php:168
+#: extensions/wporg/class-wporg-review.php:355
 msgid "Definite Time"
 msgstr ""
 
 #: extensions/give/class-give.php:160 extensions/tutor/class-tutor.php:149
 #: extensions/woocommerce/class-woocommerce.php:103
-#: extensions/wp-comments/class-wp-comments.php:113
+#: extensions/wp-comments/class-wp-comments.php:114
 msgid "Full Name"
 msgstr ""
 
@@ -1137,15 +1114,15 @@ msgid "Donation For Title"
 msgstr ""
 
 #: extensions/give/class-give.php:198
-#: extensions/wporg/class-wporg-review.php:321
-#: extensions/wporg/class-wporg-review.php:397
+#: extensions/wporg/class-wporg-review.php:346
+#: extensions/wporg/class-wporg-review.php:422
 msgid "Anonymous Title"
 msgstr ""
 
 #: extensions/give/class-give.php:234 extensions/tutor/class-tutor.php:223
 #: extensions/woocommerce/class-woocommerce.php:177
-#: extensions/wp-comments/class-wp-comments.php:192
-#: extensions/wporg/class-wporg-review.php:430
+#: extensions/wp-comments/class-wp-comments.php:197
+#: extensions/wporg/class-wporg-review.php:455
 #: extensions/wporg/class-wporg-stats.php:392
 msgid "Advanced Template"
 msgstr ""
@@ -1186,28 +1163,32 @@ msgstr ""
 msgid "Product Title"
 msgstr ""
 
-#: extensions/wp-comments/class-wp-comments.php:49
-#: extensions/wp-comments/class-wp-comments.php:155
+#: extensions/wp-comments/class-wp-comments.php:50
+#: extensions/wp-comments/class-wp-comments.php:160
 msgid "Anonymous Post"
 msgstr ""
 
-#: extensions/wp-comments/class-wp-comments.php:91
+#: extensions/wp-comments/class-wp-comments.php:92
 msgid "Show Gravatar"
 msgstr ""
 
-#: extensions/wp-comments/class-wp-comments.php:95
+#: extensions/wp-comments/class-wp-comments.php:96
 msgid "Show the commenter gravatar in notification"
 msgstr ""
 
-#: extensions/wp-comments/class-wp-comments.php:147
+#: extensions/wp-comments/class-wp-comments.php:117
+msgid "Display Name"
+msgstr ""
+
+#: extensions/wp-comments/class-wp-comments.php:152
 msgid "commented on"
 msgstr ""
 
-#: extensions/wp-comments/class-wp-comments.php:153
+#: extensions/wp-comments/class-wp-comments.php:158
 msgid "Post Title"
 msgstr ""
 
-#: extensions/wp-comments/class-wp-comments.php:154
+#: extensions/wp-comments/class-wp-comments.php:159
 msgid "Post Comment"
 msgstr ""
 
@@ -1223,60 +1204,60 @@ msgstr ""
 msgid "Anonymous"
 msgstr ""
 
-#: extensions/wporg/class-wporg-review.php:264
+#: extensions/wporg/class-wporg-review.php:289
 #: extensions/wporg/class-wporg-stats.php:216
 msgid "Product Type"
 msgstr ""
 
-#: extensions/wporg/class-wporg-review.php:267
+#: extensions/wporg/class-wporg-review.php:292
 #: extensions/wporg/class-wporg-stats.php:219
 msgid "Plugin"
 msgstr ""
 
-#: extensions/wporg/class-wporg-review.php:273
+#: extensions/wporg/class-wporg-review.php:298
 #: extensions/wporg/class-wporg-stats.php:226
 msgid "Slug"
 msgstr ""
 
-#: extensions/wporg/class-wporg-review.php:286
-#: extensions/wporg/class-wporg-review.php:367
+#: extensions/wporg/class-wporg-review.php:311
+#: extensions/wporg/class-wporg-review.php:392
 msgid "Username"
 msgstr ""
 
-#: extensions/wporg/class-wporg-review.php:287
+#: extensions/wporg/class-wporg-review.php:312
 msgid "Rated"
 msgstr ""
 
-#: extensions/wporg/class-wporg-review.php:313
+#: extensions/wporg/class-wporg-review.php:338
 msgid "just reviewed"
 msgstr ""
 
-#: extensions/wporg/class-wporg-review.php:319
-#: extensions/wporg/class-wporg-review.php:410
+#: extensions/wporg/class-wporg-review.php:344
+#: extensions/wporg/class-wporg-review.php:435
 msgid "Plugin Name"
 msgstr ""
 
-#: extensions/wporg/class-wporg-review.php:320
+#: extensions/wporg/class-wporg-review.php:345
 msgid "Review"
 msgstr ""
 
-#: extensions/wporg/class-wporg-review.php:329
+#: extensions/wporg/class-wporg-review.php:354
 msgid "Rating"
 msgstr ""
 
-#: extensions/wporg/class-wporg-review.php:390
+#: extensions/wporg/class-wporg-review.php:415
 msgid "saying"
 msgstr ""
 
-#: extensions/wporg/class-wporg-review.php:396
+#: extensions/wporg/class-wporg-review.php:421
 msgid "Review Title"
 msgstr ""
 
-#: extensions/wporg/class-wporg-review.php:404
+#: extensions/wporg/class-wporg-review.php:429
 msgid "about"
 msgstr ""
 
-#: extensions/wporg/class-wporg-review.php:418
+#: extensions/wporg/class-wporg-review.php:443
 msgid "Try it now"
 msgstr ""
 
