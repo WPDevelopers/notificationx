@@ -234,6 +234,31 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         return $data;
     }
 
+    /**
+     * This function is responsible for making the notification ready for first time we make the notification.
+     *
+     * @param string $type
+     * @param array $data
+     * @return void
+     */
+    public function get_notification_ready( $type, $data = array() ){
+        if( $this->type === $type ) {
+            global $post;
+            $post_id = null;
+            if( ! is_null( $post ) && $post instanceof WP_Post ) {
+                $post_id = $post->ID;
+            } else {
+                if( isset( $_GET['post'] ) ) {
+                    $post_id = intval( $_GET['post'] );
+                }
+            }
+            if( ! is_null( $post_id ) ) {
+                $reviews = $this->get_plugins_data( $post_id );
+                NotificationX_Admin::update_post_meta( $post_id, $this->meta_key, $reviews );
+            }
+        }
+    }
+
     public function get_plugins_data( $post_id ) {
         if( ! $post_id ) {
             return;

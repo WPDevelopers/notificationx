@@ -76,6 +76,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                             $regenerate_url = add_query_arg(array(
                                 'action' => 'nx_regenerate',
                                 'nx_type' => $nx_type,
+                                'post' => $idd,
                                 'from' => $settings->display_from,
                                 'last' => $settings->display_last,
                                 'nx_regenerate_nonce' => wp_create_nonce( 'nx_regenerate_nonce' ),
