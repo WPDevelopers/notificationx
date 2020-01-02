@@ -24,7 +24,7 @@ class NotificationX_Advanced_Style {
             if( $settings->display_type === 'press_bar' ) {
                 $css_string = self::press_bar_edit( $settings, $theme );
             }
-            if( in_array( $settings->display_type, array( 'conversions', 'elearning', 'donation' )) ) {
+            if( in_array( $settings->display_type, array( 'conversions', 'elearning', 'donation', 'form' ) ) ) {
                 $css_string = self::conversions_edit( $settings, $theme );
             }
             if( $settings->display_type === 'comments' ) {
@@ -423,6 +423,8 @@ class NotificationX_Advanced_Style {
                 break;
             case 'donation' : 
                 return $settings->donation_advance_edit;
+            case 'form' : 
+                return $settings->form_advance_edit;
                 break;
         }
     }

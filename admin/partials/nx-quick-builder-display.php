@@ -107,8 +107,10 @@
                                  */
                                 do_action( 'nx_builder_after_section', $sec_id, $section, $id );
                             }
+                            if( $tabid === 1 ) : 
                         ?>
-                        <input id="publish" style="display:none" class="quick-builder-submit-btn" name="nx_builder_add_submit" type="submit" value="Create Notification">
+                            <input id="publish" style="display:none" class="quick-builder-submit-btn" name="nx_builder_add_submit" type="submit" value="Create Notification">
+                        <?php endif; ?>
                         <div class="quick-builder-submit-btn-wrap">
                             <button data-tab="<?php echo isset( $tabids[ $tabid - 1 ] ) ? $tabids[ $tabid - 1 ] : ''; ?>" data-tabid="<?php echo ($tabid - 1); ?>" class="quick-builder-submit-btn nx-quick-builder-btn btn-prev"><?php _e( 'Previous', 'notificationx' ); ?></button>
                             <button data-tab="<?php echo isset( $tabids[ $tabid ] ) ? $tabids[ $tabid ] : ''; ?>" data-tabid="<?php echo ++$tabid; ?>" class="quick-builder-submit-btn nx-quick-builder-btn btn-next">

@@ -453,7 +453,6 @@
 	};
 
 	$.notificationx.initializeFields = function () {
-		// NotificationX_Admin.initSelect2();
 		if ($('.nx-meta-field').length > 0) {
 			$('.nx-meta-field').map(function (iterator, item) {
 				var node = item.nodeName;
@@ -495,6 +494,9 @@
 							var sData = tData.filter(function( m ){
 								return m.id === $(item).data('value');
 							});
+							if( sData.length === 0 ) {
+								sData = tData;
+							}
 							var option = new Option( sData[0].text, $(item).data('value'), true, true );
 							$(item).append(option).trigger('change');
 							$(item).trigger({

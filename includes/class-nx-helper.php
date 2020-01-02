@@ -733,9 +733,9 @@ class NotificationX_Helper {
 
     public static function form_themes(){
         return apply_filters('nx_form_colored_themes', array(
-            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-bar-theme-one.jpg',
-            'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-bar-theme-two.jpg',
-            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/nx-bar-theme-three.jpg',
+            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/form/cf7-theme-one.jpg',
+            'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/form/cf7-theme-two.jpg',
+            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/form/cf7-theme-three.jpg',
         ));
     }
 
