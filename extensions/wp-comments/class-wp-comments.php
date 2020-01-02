@@ -46,6 +46,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         $data['name'] = __( $name, 'notificationx' );
         $data['first_name'] = __( $this->notEmpty( 'first_name', $saved_data ) ? $saved_data['first_name'] : 'Someone', 'notificationx' );
         $data['last_name'] = __( $this->notEmpty( 'last_name', $saved_data ) ? $saved_data['last_name'] : 'Someone', 'notificationx' );
+        $data['display_name'] = __( $this->notEmpty( 'display_name', $saved_data ) ? $saved_data['display_name'] : 'Someone', 'notificationx' );
         $data['anonymous_post'] = __( 'Anonymous Post', 'notificationx' );
         $data['sometime'] = __( 'Sometimes ago', 'notificationx' );
         $data['post_comment'] = $comment;
@@ -113,6 +114,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
                         'tag_name' => __('Full Name' , 'notificationx'),
                         'tag_first_name' => __('First Name' , 'notificationx'),
                         'tag_last_name' => __('Last Name' , 'notificationx'),
+                        'tag_display_name' => __('Display Name' , 'notificationx'),
                         'tag_custom' => __('Custom' , 'notificationx'),
                     ),
                     'dependency' => array(
@@ -128,6 +130,9 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
                             'fields' => [ 'custom_first_param' ]
                         ),
                         'tag_last_name' => array(
+                            'fields' => [ 'custom_first_param' ]
+                        ),
+                        'tag_display_name' => array(
                             'fields' => [ 'custom_first_param' ]
                         ),
                         'tag_post_title' => array(
@@ -333,6 +338,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
             $user                       = get_userdata( $comment->user_id );
             $comment_data['first_name'] = $user->first_name;
             $comment_data['last_name']  = $user->last_name;
+            $comment_data['display_name']  = $user->display_name;
             $comment_data['name']       = $user->first_name . ' ' . substr( $user->last_name, 0, 1 );
             $trimed = trim( $comment_data['name'] );
             if( empty( $trimed ) ) {
