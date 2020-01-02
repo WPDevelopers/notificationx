@@ -465,7 +465,7 @@
 							cache: true,
 							data : function( params ){
 								return {
-									action: 'nx_cf7_keys',
+									action: $(item).data('ajax_action'),
 									form_id: $("#nx_meta_" + $(item).data('nxajax')).val()
 								}
 							},
@@ -476,17 +476,17 @@
 					};
 					var selectArgs = {};
 
-					if( $(item).data('nxajax') ) {
+					if( $(item).data('nxajax') && $(item).data('ajax_action').length > 0 ) {
 						selectArgs = $.extend( selectArgs, ajaxArgs );
 					}
 
 					$(item).select2( selectArgs );
-					if( Object.keys( selectArgs ).length > 0 ) {
+					if( Object.keys( selectArgs ).length > 0 && $(item).data('ajax_action').length > 0 ) {
 						$.ajax({
 							type: 'GET',
 							url: ajaxurl,
 							data : {
-								action: 'nx_cf7_keys',
+								action: $(item).data('ajax_action'),
 								form_id: $("#nx_meta_" + $(item).data('nxajax')).val()
 							}
 						}).then(function( data ){

@@ -118,6 +118,7 @@ class NotificationXPro_CF7_Extension extends NotificationX_Extension {
                 'first_param' => array(
                     'type'     => 'select',
                     'ajax'     => 'cf7_form',
+                    'ajax_action' => 'nx_cf7_keys',
                     'label'    => __('Notification Template' , 'notificationx'),
                     'priority' => 80,
                     'options'  => array(
