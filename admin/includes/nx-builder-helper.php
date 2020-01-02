@@ -30,10 +30,18 @@ function notificationx_builder_args() {
                                     'conversions'    => NotificationX_ToggleFields::conversions(),
                                     'reviews'        => NotificationX_ToggleFields::reviews(),
                                     'download_stats' => NotificationX_ToggleFields::stats(),
+                                    'form'          => NotificationX_ToggleFields::form()
                                 ),
                                 'hide' => NotificationX_Helper::hide_data( 'display_types' ),
                                 'priority' => 50
                             ),
+                            'form_source' => apply_filters('nx_form_source', array(
+                                'type'        => 'theme',
+                                'inner_title' => __('Source' , 'notificationx'),
+                                'default'     => 'cf7',
+                                'options'     => NotificationX_Helper::form_source(),
+                                'priority'    => 50.1,
+                            )),
                             'reviews_source'  => apply_filters('nx_reviews_source', array(
                                 'type'     => 'theme',
                                 'inner_title'    => __('Source' , 'notificationx'),
@@ -112,6 +120,18 @@ function notificationx_builder_args() {
                                 'priority'	=> 5,
                                 'default'	=> 'theme-one',
                                 'options'   => NotificationX_Helper::bar_colored_themes(),
+                            ),
+                        )
+                    ),
+                    'form_themes' => array(
+                        'title'      => __('Themes', 'notificationx'),
+                        'priority' => 3.1,
+                        'fields'   => array(
+                            'form_theme' => array(
+                                'type'      => 'theme',
+                                'priority'	=> 5,
+                                'default'	=> 'theme-one',
+                                'options'   => NotificationX_Helper::form_themes(),
                             ),
                         )
                     ),

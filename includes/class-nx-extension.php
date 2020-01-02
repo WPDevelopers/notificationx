@@ -456,6 +456,10 @@ class NotificationX_Extension {
                 if( $settings->bar_advance_edit ) {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
                 }
+            case 'form' : 
+                if( $settings->form_advance_edit ) {
+                    $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
+                }
                 break;
         }
 

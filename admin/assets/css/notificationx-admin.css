@@ -855,6 +855,7 @@ label.nx-adv-checkbox-label:hover {
 .nx-wporg_theme .nx-single-theme-wrapper,
 .nx-comment_theme .nx-single-theme-wrapper,
 .nx-custom_theme .nx-single-theme-wrapper,
+.nx-form_theme .nx-single-theme-wrapper,
 .nx-theme .nx-single-theme-wrapper {
     width: 295px;
     height: auto;
@@ -871,6 +872,7 @@ label.nx-adv-checkbox-label:hover {
 .nx-builder-content-wrapper .nx-elearning_theme .nx-single-theme-wrapper,
 .nx-builder-content-wrapper .nx-donation_theme .nx-single-theme-wrapper,
 .nx-builder-content-wrapper .nx-page_analytics_theme .nx-single-theme-wrapper,
+.nx-builder-content-wrapper .nx-form_theme .nx-single-theme-wrapper,
 .nx-builder-content-wrapper .nx-theme .nx-single-theme-wrapper {
     width: 228px;
     flex-basis: 208px;
@@ -890,7 +892,8 @@ label.nx-adv-checkbox-label:hover {
 .nx-donation_theme .nx-single-theme-wrapper>label>img,
 .nx-page_analytics_theme .nx-single-theme-wrapper>label>img,
 .nx-custom_theme .nx-single-theme-wrapper>label>img,
-.nx-theme .nx-single-theme-wrapper>label>img {
+.nx-theme .nx-single-theme-wrapper>label>img,
+.nx-form_theme .nx-single-theme-wrapper>label>img {
     width: 100%;
     max-width: 100%;
 }

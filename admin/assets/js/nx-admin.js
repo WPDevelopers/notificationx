@@ -453,7 +453,6 @@
 	};
 
 	$.notificationx.initializeFields = function () {
-		// NotificationX_Admin.initSelect2();
 		if ($('.nx-meta-field').length > 0) {
 			$('.nx-meta-field').map(function (iterator, item) {
 				var node = item.nodeName;
@@ -466,7 +465,7 @@
 							cache: true,
 							data : function( params ){
 								return {
-									action: 'nx_cf7_keys',
+									action: $(item).data('ajax_action'),
 									form_id: $("#nx_meta_" + $(item).data('nxajax')).val()
 								}
 							},
@@ -477,17 +476,17 @@
 					};
 					var selectArgs = {};
 
-					if( $(item).data('nxajax') ) {
+					if( $(item).data('nxajax') && $(item).data('ajax_action').length > 0 ) {
 						selectArgs = $.extend( selectArgs, ajaxArgs );
 					}
 
 					$(item).select2( selectArgs );
-					if( Object.keys( selectArgs ).length > 0 ) {
+					if( Object.keys( selectArgs ).length > 0 && $(item).data('ajax_action').length > 0 ) {
 						$.ajax({
 							type: 'GET',
 							url: ajaxurl,
 							data : {
-								action: 'nx_cf7_keys',
+								action: $(item).data('ajax_action'),
 								form_id: $("#nx_meta_" + $(item).data('nxajax')).val()
 							}
 						}).then(function( data ){
@@ -495,6 +494,9 @@
 							var sData = tData.filter(function( m ){
 								return m.id === $(item).data('value');
 							});
+							if( sData.length === 0 ) {
+								sData = tData;
+							}
 							var option = new Option( sData[0].text, $(item).data('value'), true, true );
 							$(item).append(option).trigger('change');
 							$(item).trigger({

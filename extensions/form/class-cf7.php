@@ -108,7 +108,7 @@ class NotificationXPro_CF7_Extension extends NotificationX_Extension {
             'type' => 'select',
             'label' => __( 'Select a Form', 'notificationx' ),
             'options' => $this->cf7_forms(),
-            'priority' => 0,
+            'priority' => 79,
         );
 
         $fields['form_template_new'] = array(
@@ -118,8 +118,9 @@ class NotificationXPro_CF7_Extension extends NotificationX_Extension {
                 'first_param' => array(
                     'type'     => 'select',
                     'ajax'     => 'cf7_form',
+                    'ajax_action' => 'nx_cf7_keys',
                     'label'    => __('Notification Template' , 'notificationx'),
-                    'priority' => 1,
+                    'priority' => 80,
                     'options'  => array(
                         'tag_name' => __('Select A Tag' , 'notificationx'),
                         'tag_first_name' => __('First Name' , 'notificationx'),
@@ -132,17 +133,11 @@ class NotificationXPro_CF7_Extension extends NotificationX_Extension {
                         )
                     ),
                     'hide' => array(
-                        'tag_name' => array(
-                            'fields' => [ 'custom_first_param' ]
-                        ),
-                        'tag_first_name' => array(
-                            'fields' => [ 'custom_first_param' ]
-                        ),
-                        'tag_last_name' => array(
+                        '!tag_custom' => array(
                             'fields' => [ 'custom_first_param' ]
                         ),
                     ),
-                    'default' => 'tag_name'
+                    'default' => 'tag_custom'
                 ),
                 'custom_first_param' => array(
                     'type'     => 'text',
@@ -232,6 +227,14 @@ class NotificationXPro_CF7_Extension extends NotificationX_Extension {
         add_filter( 'nx_display_types_hide_data', array( $this, 'hide_fields' ) );
         add_filter( 'nx_form_source', array( $this, 'toggle_fields' ) );
     }
+    /**
+     * Builder Hooks
+     */
+    public function init_builder_hooks(){
+        add_filter( 'nx_builder_tabs', array( $this, 'add_builder_fields' ) );
+        add_filter( 'nx_display_types_hide_data', array( $this, 'hide_builder_fields' ) );
+        add_filter( 'nx_builder_tabs', array( $this, 'builder_toggle_fields' ) );
+    }
 
     /**
      * Some toggleData & hideData manipulation.
@@ -297,5 +300,51 @@ class NotificationXPro_CF7_Extension extends NotificationX_Extension {
             return true;
         }
         return false;
+    }
+
+    /**
+     * This function is responsible for adding fields in builder
+     *
+     * @param array $options
+     * @return void
+     */
+    public function add_builder_fields( $options ){
+        $fields = $this->init_fields();
+        unset( $fields[ $this->template ] );
+        
+        foreach ( $fields as $name => $field ) {
+            $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
+        }
+
+        return $options;
+    }
+    /**
+     * This function is reponsible for hide fields on toggle
+     * in builder
+     *
+     * @param array $options
+     * @return void
+     */
+    public function hide_builder_fields( $options ) {
+        $fields = $this->init_fields();
+        foreach ( $fields as $name => $field ) {
+            foreach( $options as $opt_key => $opt_value ) {
+                $options[ $opt_key ][ 'fields' ][] = $name;
+            }
+        }
+        return $options;
+    }
+    /**
+     * This function is responsible for builder fields
+     *
+     * @param array $options
+     * @return void
+     */
+    public function builder_toggle_fields( $options ) {
+        $fields = $this->init_fields();
+        unset( $fields[ $this->template ] );
+        $old_fields = $options['source_tab']['sections']['config']['fields']['form_source']['dependency'][ $this->type ]['fields'];
+        $options['source_tab']['sections']['config']['fields']['form_source']['dependency'][ $this->type ]['fields'] = array_merge( array_keys( $fields ), $old_fields);
+        return $options;
     }
 }
