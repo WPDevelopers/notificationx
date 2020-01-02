@@ -805,14 +805,23 @@ class NotificationX_Helper {
 
         $j = 0;
 
+        $custom_tag = array(
+            '{{custom}}', 
+            '{{sometime}}',
+            '{{custom_stats}}',
+            '{{this_page}}',
+            '{{custom_form_title}}'
+        );
+
         foreach( $template_string as $s_key => $s_value ) {
             if( in_array( $s_key, $desire_data['br_before'] ) ) {
                 $j++;
             }
-            if( trim($previous_value) === '{{custom}}' || trim($s_value) === '{{sometime}}' || trim($s_value) === '{{custom_stats}}' || trim($s_value) === '{{this_page}}' ) { 
+            if( in_array( trim( $previous_value ), $custom_tag ) || in_array( trim( $s_value ), $custom_tag ) ) { 
                 $hasCustomAsValueinPrev = true;
             }
-            if( trim($s_value) === '{{custom}}' || trim($s_value) === '{{sometime}}' || trim($s_value) === '{{custom_stats}}' || trim($s_value) === '{{this_page}}' ) { 
+            // if( trim($s_value) === '{{custom}}' || trim($s_value) === '{{sometime}}' || trim($s_value) === '{{custom_stats}}' || trim($s_value) === '{{this_page}}' ) { 
+            if( in_array( trim( $s_value ), $custom_tag ) ) { 
                 $hasCustomAsValue = true;
             }
             if( strpos( $s_key, 'custom_' ) === 0 ) { 
