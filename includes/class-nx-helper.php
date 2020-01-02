@@ -774,6 +774,8 @@ class NotificationX_Helper {
             'elearning_template_new',
             'donation_template_new',
             'form_template_new',
+            'wpf_template_new',
+            
         );
         return $data;
     }

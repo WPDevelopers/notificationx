@@ -10,7 +10,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
      * Template name
      * @var string
      */
-    public $template = 'form_template';
+    public $template = 'wpf_template';
     /**
      * Theme name
      * @var string
@@ -32,14 +32,17 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
             if( isset( $_GET['form_id'] ) ) {
                 $form_id = intval( $_GET['form_id'] );
 
-                $form = get_post( $form_id );
+                $form = get_post( $form_id );                
 
                 $keys = $this->keys_generator( $form->post_content );
+
+                // var_dump($keys);
 
                 $returned_keys = array();
 
                 if( is_array( $keys ) && ! empty( $keys ) ) {
                     foreach( $keys as $key ) {
+                        $key = $key['0'];
                         $returned_keys[] = array(
                             'text' => ucwords( str_replace( '_', ' ', str_replace( '-', ' ', $key ) ) ),
                             'id' => "tag_$key",
@@ -59,15 +62,16 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
     }
 
     public function keys_generator( $fieldsString ){
-        $fieldsString = substr($fieldsString, 0, strpos($fieldsString, 'submit') - 2);
-        preg_match_all('/\[(.+?)\]/', $fieldsString, $parsed_fields);
         $fields = array();
-        if (!empty($parsed_fields[1])) {
-            foreach ($parsed_fields[1] as $field) {
-                if (strpos($field, 'submit') !== false) {
-                    continue;
-                } else {
-                    $fields[] = explode(' ', $field)[1];
+        $fieldsdata = json_decode($fieldsString, true);;
+        if (!empty($fieldsdata)) {
+            foreach ( $fieldsdata as $key => $field ) {
+                if ($key =="fields") {
+                    if (!empty($field)) {
+                        foreach ( $field as $key => $fielditem ) {
+                            $fields[] = explode(' ', $fielditem['label']);
+                        }
+                    }
                 }
             }
         }
@@ -111,16 +115,17 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
             'priority' => 0,
         );
 
-        $fields['form_template_new'] = array(
+        $fields['wpf_template_new'] = array(
             'type'     => 'template',
             'builder_hidden' => true,
             'fields' => array(
                 'first_param' => array(
-                    'type'     => 'select',
-                    'ajax'     => 'wpf_form',
-                    'label'    => __('Notification Template' , 'notificationx'),
-                    'priority' => 1,
-                    'options'  => array(
+                    'type'          => 'select',
+                    'ajax'          => 'wpf_form',
+                    'ajax_action'   => 'nx_wpf_keys',
+                    'label'         => __('Notification Template' , 'notificationx'),
+                    'priority'      => 1,
+                    'options'       => array(
                         'tag_name' => __('Select A Tag' , 'notificationx'),
                         'tag_first_name' => __('First Name' , 'notificationx'),
                         'tag_last_name' => __('Last Name' , 'notificationx'),
@@ -272,26 +277,31 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
         if( ! $this->is_created( $this->type ) ) {
             return;
         }
-        add_action( 'wpwpf_mail_sent', array( $this, 'save_new_records' ) );
+        add_action( 'wpforms_process_complete', array( $this, 'save_new_records' ), 10, 4 );
     }
 
-    public function save_new_records( $contact_form ){
-        $submission   = WPCF7_Submission::get_instance();
-        $tags = $contact_form->scan_form_tags();
-        $data = array();
-        if( ! empty( $tags ) ) {
-            foreach( $tags as $tag ) {
-                if( ! empty( $tag->name ) ){
-                    $tagged_value = $submission->get_posted_data( $tag->name );
-                    $data[ $tag->name ] = $tagged_value;
-                    if( strpos( $tag->name, 'email' ) ) {
-                        $data[ 'email' ] = $tagged_value;
-                    }
-                }
-            }
-            $data['title'] = $contact_form->title();
-            $data['timestamp'] = time();
-        }
+    public function save_new_records( $fields, $entry, $form_data, $entry_id ){
+        // $submission   = WPForms_Process::get_instance();
+        // $tags = $contact_form->scan_form_tags();
+        // $data = array();
+        // if( ! empty( $tags ) ) {
+        //     foreach( $tags as $tag ) {
+        //         if( ! empty( $tag->name ) ){
+        //             $tagged_value = $submission->get_posted_data( $tag->name );
+        //             $data[ $tag->name ] = $tagged_value;
+        //             if( strpos( $tag->name, 'email' ) ) {
+        //                 $data[ 'email' ] = $tagged_value;
+        //             }
+        //         }
+        //     }
+        //     $data[ 'email' ] = $tagged_value;
+        //     $data['title'] = $form_data['form_title'];
+        //     $data['timestamp'] = time();
+        // }
+
+        $data[ 'email' ] = $fields['email'];
+        $data['title'] = $form_data['form_title'];
+        $data['timestamp'] = time();
 
         if( ! empty( $data ) ) {
             $this->save( $this->type, $data, $data['timestamp'] );
