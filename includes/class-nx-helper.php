@@ -300,6 +300,10 @@ class NotificationX_Helper {
                 // 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
                 'title' => 'CF7'
             ),
+            'wpf' => array(
+                // 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+                'title' => 'WPForms'
+            ),
         ];
         $forms = apply_filters('nx_form_source_options', $froms );
         $forms = self::active_modules( $forms );
