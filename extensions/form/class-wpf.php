@@ -280,7 +280,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
 
     public function save_new_records( $fields, $entry, $form_data, $entry_id ){
         foreach ($fields as $field) {   
-            $arr = explode(' ',trim($field['name']));
+            $arr = explode(' ',trim($field['name'])); //Trim only First word of String
             $data[ucwords( str_replace( '_', ' ', str_replace( '-', ' ', $arr[0] ) ) )] = $field['value'];
             $data['email'] = $field['email'];
         }
