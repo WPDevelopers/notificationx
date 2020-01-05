@@ -573,10 +573,14 @@ class NotificationX_Helper {
             'donation' => array(
                 'modules_give',
             ),
+            'form' => array(
+                'modules_cf7',
+            ),
             'woocommerce' => 'modules_woocommerce',
             'edd' => 'modules_edd',
             'give' => 'modules_give',
             'tutor' => 'modules_tutor',
+            'cf7' => 'modules_cf7',
         ));
     }
 

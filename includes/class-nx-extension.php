@@ -152,6 +152,7 @@ class NotificationX_Extension {
             'edd',
             'give',
             'tutor',
+            'cf7'
         );
 
         self::$enabled_types = NotificationX_Admin::$enabled_types;

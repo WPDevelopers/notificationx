@@ -402,6 +402,17 @@ final class NotificationX {
                     NotificationX_DB::update_settings( $settings );
                 }
             }
+		}
+		if(version_compare( NOTIFICATIONX_VERSION, '1.4.3', '==')){
+			$version_migration = get_option( 'nx_version_migration_143', false );
+            if( ! $version_migration ) {
+                update_option('nx_version_migration_143', true);
+				$settings = NotificationX_DB::get_settings();
+                if( ! isset( $settings['nx_modules']['modules_cf7'] ) ){
+                    $settings['nx_modules']['modules_cf7'] = true;
+                    NotificationX_DB::update_settings( $settings );
+                }
+            }
         }
 	}
 }
