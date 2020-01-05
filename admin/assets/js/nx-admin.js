@@ -72,7 +72,7 @@
 				case 'form':
 					$('.nx-form_themes .nx_meta_form_theme:checked').trigger('change');
 					$.notificationx.trigger('.nx_meta_form_source');
-					// $('#nx_meta_donation_advance_edit').trigger('change');
+					$('#nx_meta_form_advance_edit').trigger('change');
 					break;
 			}
 			$.notificationx.templateForTheme();
