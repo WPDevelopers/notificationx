@@ -812,40 +812,38 @@ class NotificationX_Helper {
             '{{this_page}}',
             '{{custom_form_title}}'
         );
-
         foreach( $template_string as $s_key => $s_value ) {
             if( in_array( $s_key, $desire_data['br_before'] ) ) {
                 $j++;
             }
-            if( in_array( trim( $previous_value ), $custom_tag ) || in_array( trim( $s_value ), $custom_tag ) ) { 
-                $hasCustomAsValueinPrev = true;
-            }
-            // if( trim($s_value) === '{{custom}}' || trim($s_value) === '{{sometime}}' || trim($s_value) === '{{custom_stats}}' || trim($s_value) === '{{this_page}}' ) { 
             if( in_array( trim( $s_value ), $custom_tag ) ) { 
                 $hasCustomAsValue = true;
+                continue;
             }
-            if( strpos( $s_key, 'custom_' ) === 0 ) { 
-                $hasCustomAsKey = true;
+            // if( in_array( trim( $s_value ), $custom_tag ) ) { 
+            //     $hasCustomAsValue = true;
+            // }
+            if( strpos( $s_key, 'custom_' ) === 0 && ! $hasCustomAsValue ) { 
+                // $hasCustomAsKey = true;
+                continue;
             }
             
-            if( $hasCustomAsValue === true ) {
-                $previous_value = $s_value;
-                $hasCustomAsValue = false;
-                continue;
-            }
+            // if( $hasCustomAsValue === true ) {
+            //     $hasCustomAsValue = false;
+            //     continue;
+            // }
 
-            if( $hasCustomAsKey === true && $hasCustomAsValueinPrev === false ) {
-                $previous_value = $s_value;
-                $hasCustomAsKey = false;
-                continue;
-            }
+            // if( $hasCustomAsKey === true && $hasCustomAsValueinPrev === false ) {
+            //     $hasCustomAsKey = false;
+            //     continue;
+            // }
 
-            $previous_value = $s_value;
             if( isset( $new_template_str[ $j ] ) ) {
                 $new_template_str[ $j ] .= $s_value;
             } else {
                 $new_template_str[ $j ] = $s_value;
             }
+            $hasCustomAsValue = false;
         }
         return $new_template_str;
     }
