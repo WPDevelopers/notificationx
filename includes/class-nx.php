@@ -151,6 +151,7 @@ final class NotificationX {
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'tutor/class-tutor.php'; // @since 1.3.9
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'form/class-cf7.php'; // @since 1.3.9
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'form/class-wpf.php'; // @since 1.3.9
+		require_once NOTIFICATIONX_EXT_DIR_PATH . 'form/class-ninjaform.php'; // @since 1.3.9
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
@@ -194,6 +195,7 @@ final class NotificationX {
 			'tutor'       	=> 'NotificationXPro_Tutor_Extension',
 			'cf7'       	=> 'NotificationXPro_CF7_Extension',
 			'wpf'       	=> 'NotificationXPro_WPForms_Extension',
+			'njf'       	=> 'NotificationXPro_NinjaForms_Extension',
 		];
 
 		foreach( $extensions as $key => $extension ) {
