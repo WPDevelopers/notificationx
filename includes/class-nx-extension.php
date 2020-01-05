@@ -403,8 +403,8 @@ class NotificationX_Extension {
                     }
                 }
                 break;
-            case 'conversions' : 
-                if( $settings->advance_edit ) {
+            case 'conversions' || 'form' : 
+                if( $settings->advance_edit || $settings->form_advance_edit ) {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
                     $classes[ 'inner' ][] =  'nx-img-' . $settings->image_position;
                     $classes[ 'img' ][] = 'nx-img-' . $settings->image_shape;
@@ -456,11 +456,6 @@ class NotificationX_Extension {
                 if( $settings->bar_advance_edit ) {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
                 }
-            case 'form' : 
-                if( $settings->form_advance_edit ) {
-                    $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
-                }
-                break;
         }
 
 		if( $settings->close_button ) {
