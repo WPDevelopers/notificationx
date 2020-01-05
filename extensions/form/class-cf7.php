@@ -353,7 +353,7 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
     public function builder_toggle_fields( $options ) {
         $fields = $this->init_fields();
         unset( $fields[ $this->template ] );
-        $old_fields = $options['source_tab']['sections']['config']['fields']['form_source']['dependency'][ $this->type ]['fields'];
+        $old_fields = isset( $options['source_tab']['sections']['config']['fields']['form_source']['dependency'][ $this->type ]['fields'] ) ? $options['source_tab']['sections']['config']['fields']['form_source']['dependency'][ $this->type ]['fields'] : [];
         $options['source_tab']['sections']['config']['fields']['form_source']['dependency'][ $this->type ]['fields'] = array_merge( array_keys( $fields ), $old_fields);
         return $options;
     }

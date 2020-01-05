@@ -414,6 +414,7 @@ class NotificationX_Admin {
 				$type = get_post_meta( $post_id, '_nx_meta_display_type', true );
 				if ( $type ) {
 					$type = NotificationX_Helper::notification_types( $type );
+					$type = is_array( $type ) ? $type['source'] : $type;
 					if( $type !== 'Conversions' ) {
 						echo $type;
 					} else {
