@@ -3,7 +3,7 @@
  * This Class is responsible for Tutor LMS integration.
  * @since 1.3.9
  */
-class NotificationXPro_Tutor_Extension extends NotificationX_Extension {
+class NotificationX_Tutor_Extension extends NotificationX_Extension {
     /**
      * Type of notification.
      * @var string

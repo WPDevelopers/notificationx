@@ -190,8 +190,8 @@ final class NotificationX {
 			'woocommerce' => 'NotificationX_WooCommerce_Extension',
 			'edd'         => 'NotificationX_EDD_Extension',
 			'give'        => 'NotificationX_Give_Extension',
-			'tutor'       => 'NotificationXPro_Tutor_Extension',
-			'cf7'       => 'NotificationXPro_CF7_Extension',
+			'tutor'       => 'NotificationX_Tutor_Extension',
+			'cf7'       => 'NotificationX_CF7_Extension',
 		];
 
 		foreach( $extensions as $key => $extension ) {

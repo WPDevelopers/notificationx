@@ -1,6 +1,6 @@
 <?php 
 
-class NotificationXPro_CF7_Extension extends NotificationX_Extension {
+class NotificationX_CF7_Extension extends NotificationX_Extension {
     /**
      * Type of notification.
      * @var string
