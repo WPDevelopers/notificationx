@@ -36,13 +36,10 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
 
                 $keys = $this->keys_generator( $form->post_content );
 
-                // var_dump($keys);
-
                 $returned_keys = array();
 
                 if( is_array( $keys ) && ! empty( $keys ) ) {
                     foreach( $keys as $key ) {
-                        $key = $key['0'];
                         $returned_keys[] = array(
                             'text' => ucwords( str_replace( '_', ' ', str_replace( '-', ' ', $key ) ) ),
                             'id' => "tag_$key",
@@ -69,7 +66,8 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
                 if ($key =="fields") {
                     if (!empty($field)) {
                         foreach ( $field as $key => $fielditem ) {
-                            $fields[] = explode(' ', $fielditem['label']);
+                            $arr = explode(' ',trim($fielditem['label']));
+                            $fields[] = $arr[0];
                         }
                     }
                 }
@@ -281,26 +279,12 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
     }
 
     public function save_new_records( $fields, $entry, $form_data, $entry_id ){
-        // $submission   = WPForms_Process::get_instance();
-        // $tags = $contact_form->scan_form_tags();
-        // $data = array();
-        // if( ! empty( $tags ) ) {
-        //     foreach( $tags as $tag ) {
-        //         if( ! empty( $tag->name ) ){
-        //             $tagged_value = $submission->get_posted_data( $tag->name );
-        //             $data[ $tag->name ] = $tagged_value;
-        //             if( strpos( $tag->name, 'email' ) ) {
-        //                 $data[ 'email' ] = $tagged_value;
-        //             }
-        //         }
-        //     }
-        //     $data[ 'email' ] = $tagged_value;
-        //     $data['title'] = $form_data['form_title'];
-        //     $data['timestamp'] = time();
-        // }
-
-        $data[ 'email' ] = $fields['email'];
-        $data['title'] = $form_data['form_title'];
+        foreach ($fields as $field) {   
+            $arr = explode(' ',trim($field['name']));
+            $data[ucwords( str_replace( '_', ' ', str_replace( '-', ' ', $arr[0] ) ) )] = $field['value'];
+            $data['email'] = $field['email'];
+        }
+        $data['title'] = $form_data['settings']['form_title'];
         $data['timestamp'] = time();
 
         if( ! empty( $data ) ) {
