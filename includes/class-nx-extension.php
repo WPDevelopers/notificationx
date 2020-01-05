@@ -11,6 +11,11 @@
  */
 class NotificationX_Extension {
     /**
+     * NotificationX_Extension or null
+     * @var NotificationX_Extension
+     */
+    protected static $_instance = null;
+    /**
      * Settings options for all notifications we saw
      * @var array
      */
@@ -46,6 +51,17 @@ class NotificationX_Extension {
      * @var array
      */
     public $defaults = array();
+    /**
+     * Get instance of NotificationX_Extension
+     * @return NotificationX_Extension
+     */
+    public static function get_instance(){
+        $class = get_called_class();
+        if( ! isset( self::$_instance[ $class ] ) || self::$_instance[ $class ] === null ) {
+            self::$_instance[ $class ] = new $class;
+        }
+        return self::$_instance[ $class ];
+    }
     /**
      * Constructor of extension for ready the settings and cache limit.
      */
