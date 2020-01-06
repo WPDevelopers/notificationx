@@ -57,6 +57,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                     $trashed = false;
                     if( $notificationx->have_posts() ) :
                         $post_type_object = get_post_type_object( 'notificationx' );
+                        global $nx_extension_factory;
                         while( $notificationx->have_posts() ) : $notificationx->the_post(); 
                             $idd = get_the_ID();
                             $duplicate_url = add_query_arg(array(
@@ -69,6 +70,11 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                             $theme_name = NotificationX_Helper::get_theme( $settings );
                             $type = NotificationX_Helper::notification_types( $settings->display_type );
                             $nx_type = NotificationX_Helper::get_type( $settings );
+                            $extension_class = $nx_extension_factory->get_extension( $nx_type );
+                            $extension = null;
+                            if( ! empty( $extension_class ) ) {
+                                $extension = $extension_class::get_instance();
+                            }
                             /**
                              * @since 1.4.0
                              * re-generating system
@@ -80,7 +86,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                                 'from' => $settings->display_from,
                                 'last' => $settings->display_last,
                                 'nx_regenerate_nonce' => wp_create_nonce( 'nx_regenerate_nonce' ),
-                            ), $current_url);
+                            ), $current_url );
 
                             $is_enabled_before = false;
                             if( $nx_type !== 'press_bar' ) {
@@ -128,7 +134,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                                                 <?php if( ! $trash_page ) : ?>
                                                     <a class="nx-admin-title-edit" href="post.php?action=edit&post=<?php echo $idd; ?>"><?php _e( 'Edit', 'notificationx' ); ?></a>
                                                     <a class="nx-admin-title-duplicate" href="<?php echo esc_url( $duplicate_url ); ?>"><?php _e( 'Duplicate', 'notificationx' ); ?></a>
-                                                    <?php if( $settings->display_type != 'press_bar' ) : ?>
+                                                    <?php if( $settings->display_type != 'press_bar' && ! is_null( $extension ) && method_exists( $extension, 'get_notification_ready' ) ) : ?>
                                                         <a class="nx-admin-title-regenerate" href="<?php echo esc_url( $regenerate_url ); ?>"><?php _e( 'Re Generate', 'notificationx' ); ?></a>
                                                     <?php endif; ?>
                                                 <?php do_action('nx_admin_title_actions', $idd); else :  ?>

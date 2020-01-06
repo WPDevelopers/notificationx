@@ -3,7 +3,7 @@
  * This Class is responsible for Tutor LMS integration.
  * @since 1.3.9
  */
-class NotificationXPro_Tutor_Extension extends NotificationX_Extension {
+class NotificationX_Tutor_Extension extends NotificationX_Extension {
     /**
      * Type of notification.
      * @var string
@@ -358,7 +358,7 @@ class NotificationXPro_Tutor_Extension extends NotificationX_Extension {
         $fields = $this->init_fields();
         $fields = array_keys( $fields );
         // FIXME: $fields is removed for Template issue, but it should work if exists.
-        $options['dependency'][ $this->type ]['fields'] = array_merge( $options['dependency'][ $this->type ]['fields'] );
+        $options['dependency'][ $this->type ]['fields'] = array_merge($fields, $options['dependency'][ $this->type ]['fields'] );
         $options['dependency'][ $this->type ]['sections'] = array_merge( [ 'image' ], $options['dependency'][ $this->type ]['sections']);
         return $options;
     }

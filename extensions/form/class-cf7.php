@@ -1,6 +1,6 @@
 <?php 
 
-class NotificationXPro_CF7_Extension extends NotificationX_Extension {
+class NotificationX_CF7_Extension extends NotificationX_Extension {
     /**
      * Type of notification.
      * @var string
@@ -25,6 +25,14 @@ class NotificationXPro_CF7_Extension extends NotificationX_Extension {
     public function __construct(){
         parent::__construct( $this->template );
         add_action( 'wp_ajax_nx_cf7_keys', array( $this, 'keys' ) );
+        add_filter( 'nx_data_key', array( $this, 'key' ), 10, 2 );
+    }
+
+    public function key( $key, $settings ){
+        if( $settings->display_type === 'form' && $settings->form_source === 'cf7' ) {
+            $key = $key . '_' . $settings->cf7_form;
+        }
+        return $key;
     }
 
     public function keys(){
@@ -289,13 +297,61 @@ class NotificationXPro_CF7_Extension extends NotificationX_Extension {
                 }
             }
             $data['title'] = $contact_form->title();
+            $data['id'] = $contact_form->id();
             $data['timestamp'] = time();
         }
 
         if( ! empty( $data ) ) {
-            $this->save( $this->type, $data, $data['timestamp'] );
+            $key = $this->type . '_' . $contact_form->id();
+            $this->save( $key, $data, $data['timestamp'] );
             return true;
         }
         return false;
+    }
+
+    /**
+     * This function is responsible for adding fields in builder
+     *
+     * @param array $options
+     * @return void
+     */
+    public function add_builder_fields( $options ){
+        $fields = $this->init_fields();
+        unset( $fields[ $this->template ] );
+        
+        foreach ( $fields as $name => $field ) {
+            $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
+        }
+
+        return $options;
+    }
+    /**
+     * This function is reponsible for hide fields on toggle
+     * in builder
+     *
+     * @param array $options
+     * @return void
+     */
+    public function hide_builder_fields( $options ) {
+        $fields = $this->init_fields();
+        foreach ( $fields as $name => $field ) {
+            foreach( $options as $opt_key => $opt_value ) {
+                $options[ $opt_key ][ 'fields' ][] = $name;
+            }
+        }
+        return $options;
+    }
+    /**
+     * This function is responsible for builder fields
+     *
+     * @param array $options
+     * @return void
+     */
+    public function builder_toggle_fields( $options ) {
+        $fields = $this->init_fields();
+        unset( $fields[ $this->template ] );
+        $old_fields = isset( $options['source_tab']['sections']['config']['fields']['form_source']['dependency'][ $this->type ]['fields'] ) ? $options['source_tab']['sections']['config']['fields']['form_source']['dependency'][ $this->type ]['fields'] : [];
+        $options['source_tab']['sections']['config']['fields']['form_source']['dependency'][ $this->type ]['fields'] = array_merge( array_keys( $fields ), $old_fields);
+        return $options;
     }
 }

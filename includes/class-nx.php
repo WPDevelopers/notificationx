@@ -185,15 +185,15 @@ final class NotificationX {
 		global $nx_extension_factory;
 
 		$extensions = [
-			'press_bar'   	=> 'NotificationX_PressBar_Extension',
-			'wp_comments' 	=> 'NotificationX_WP_Comments_Extension',
-			'wp_reviews'  	=> 'NotificationXPro_WPOrgReview_Extension',
-			'wp_stats'    	=> 'NotificationXPro_WPOrgStats_Extension',
-			'woocommerce' 	=> 'NotificationX_WooCommerce_Extension',
-			'edd'         	=> 'NotificationX_EDD_Extension',
-			'give'        	=> 'NotificationX_Give_Extension',
-			'tutor'       	=> 'NotificationXPro_Tutor_Extension',
-			'cf7'       	=> 'NotificationXPro_CF7_Extension',
+			'press_bar'   => 'NotificationX_PressBar_Extension',
+			'wp_comments' => 'NotificationX_WP_Comments_Extension',
+			'wp_reviews'  => 'NotificationXPro_WPOrgReview_Extension',
+			'wp_stats'    => 'NotificationXPro_WPOrgStats_Extension',
+			'woocommerce' => 'NotificationX_WooCommerce_Extension',
+			'edd'         => 'NotificationX_EDD_Extension',
+			'give'        => 'NotificationX_Give_Extension',
+			'tutor'       => 'NotificationX_Tutor_Extension',
+			'cf7'       => 'NotificationX_CF7_Extension',
 			'wpf'       	=> 'NotificationXPro_WPForms_Extension',
 			'njf'       	=> 'NotificationXPro_NinjaForms_Extension',
 		];
@@ -403,6 +403,17 @@ final class NotificationX {
 				$settings = NotificationX_DB::get_settings();
                 if( ! isset( $settings['nx_modules']['modules_google_analytics'] ) ){
                     $settings['nx_modules']['modules_google_analytics'] = true;
+                    NotificationX_DB::update_settings( $settings );
+                }
+            }
+		}
+		if(version_compare( NOTIFICATIONX_VERSION, '1.4.3', '==')){
+			$version_migration = get_option( 'nx_version_migration_143', false );
+            if( ! $version_migration ) {
+                update_option('nx_version_migration_143', true);
+				$settings = NotificationX_DB::get_settings();
+                if( ! isset( $settings['nx_modules']['modules_cf7'] ) ){
+                    $settings['nx_modules']['modules_cf7'] = true;
                     NotificationX_DB::update_settings( $settings );
                 }
             }

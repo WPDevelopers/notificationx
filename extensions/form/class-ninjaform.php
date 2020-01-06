@@ -28,6 +28,9 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
     }
 
     public function keys(){
+        if( ! class_exists( 'Ninja_Forms' ) ) {
+            return [];
+        }
         if( isset( $_GET['action'] ) && $_GET['action'] == 'nx_njf_keys' ) {
             if( isset( $_GET['form_id'] ) ) {
                 $form_id = intval( $_GET['form_id'] );
@@ -79,6 +82,9 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
 
     public function njf_forms(){
         $forms = [];
+        if( ! class_exists( 'Ninja_Forms' ) ) {
+            return [];
+        }
         global $wpdb;
         $formresult = $wpdb->get_results( 'SELECT id, title FROM `' . $wpdb->prefix . 'nf3_forms` ORDER BY title' );
         if( !empty( $formresult )) {
@@ -93,7 +99,7 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
     public function init_fields(){
         $fields = [];
 
-        if( ! class_exists( 'NF_Actions_Save' ) ) {
+        if( ! class_exists( 'Ninja_Forms' ) ) {
             $installed = $this->plugins( 'ninja-forms/ninja-forms.php' );
             $url = admin_url('plugin-install.php?s=ninja+forms&tab=search&type=term');
             $fields['has_no_njf'] = array(

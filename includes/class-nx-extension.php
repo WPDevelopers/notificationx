@@ -11,6 +11,11 @@
  */
 class NotificationX_Extension {
     /**
+     * NotificationX_Extension or null
+     * @var NotificationX_Extension
+     */
+    protected static $_instance = null;
+    /**
      * Settings options for all notifications we saw
      * @var array
      */
@@ -46,6 +51,17 @@ class NotificationX_Extension {
      * @var array
      */
     public $defaults = array();
+    /**
+     * Get instance of NotificationX_Extension
+     * @return NotificationX_Extension
+     */
+    public static function get_instance(){
+        $class = get_called_class();
+        if( ! isset( self::$_instance[ $class ] ) || self::$_instance[ $class ] === null ) {
+            self::$_instance[ $class ] = new $class;
+        }
+        return self::$_instance[ $class ];
+    }
     /**
      * Constructor of extension for ready the settings and cache limit.
      */
@@ -136,6 +152,7 @@ class NotificationX_Extension {
             'edd',
             'give',
             'tutor',
+            'cf7'
         );
 
         self::$enabled_types = NotificationX_Admin::$enabled_types;
@@ -403,8 +420,8 @@ class NotificationX_Extension {
                     }
                 }
                 break;
-            case 'conversions' : 
-                if( $settings->advance_edit ) {
+            case 'conversions' || 'form' : 
+                if( $settings->advance_edit || $settings->form_advance_edit ) {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
                     $classes[ 'inner' ][] =  'nx-img-' . $settings->image_position;
                     $classes[ 'img' ][] = 'nx-img-' . $settings->image_shape;
@@ -456,11 +473,6 @@ class NotificationX_Extension {
                 if( $settings->bar_advance_edit ) {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
                 }
-            case 'form' : 
-                if( $settings->form_advance_edit ) {
-                    $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
-                }
-                break;
         }
 
 		if( $settings->close_button ) {

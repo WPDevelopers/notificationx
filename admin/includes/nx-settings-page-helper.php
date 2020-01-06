@@ -37,6 +37,10 @@ function notificationx_settings_args(){
                             'title' => __('Tutor', 'notificationx'),
                             'link'  => 'https://notificationx.com/docs/tutor-lms/'
                         ),
+                        'modules_cf7' => array(
+                            'title' => __('Contact Form 7', 'notificationx'),
+                            'link'  => 'https://notificationx.com/docs/contact-form-submission-alert/'
+                        ),
                         'modules_freemius' => array(
                             'is_pro' => true,
                             'title' => __('Freemius', 'notificationx'),

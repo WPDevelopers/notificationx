@@ -414,6 +414,7 @@ class NotificationX_Admin {
 				$type = get_post_meta( $post_id, '_nx_meta_display_type', true );
 				if ( $type ) {
 					$type = NotificationX_Helper::notification_types( $type );
+					$type = is_array( $type ) ? $type['source'] : $type;
 					if( $type !== 'Conversions' ) {
 						echo $type;
 					} else {
@@ -1000,12 +1001,12 @@ class NotificationX_Admin {
 				$extension_class = $nx_extension_factory->get_extension( $nx_type );
 				if( ! empty( $extension_class ) ) {
 					$extension = new $extension_class();
-					$nx_notificationx = NotificationX_DB::get_notifications();
-					if( isset( $nx_notificationx[ $nx_type ] ) ) {
-						unset( $nx_notificationx[ $nx_type ] );
-						NotificationX_DB::update_notifications( $nx_notificationx );
-					}
 					if( method_exists( $extension, 'get_notification_ready' ) ) {
+						$nx_notificationx = NotificationX_DB::get_notifications();
+						if( isset( $nx_notificationx[ $nx_type ] ) ) {
+							unset( $nx_notificationx[ $nx_type ] );
+							NotificationX_DB::update_notifications( $nx_notificationx );
+						}
 						$extension->get_notification_ready( $nx_type, ['_nx_meta_display_from' => $from, '_nx_meta_display_last' => $last ] );
 					}
 				}

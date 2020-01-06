@@ -581,10 +581,14 @@ class NotificationX_Helper {
             'donation' => array(
                 'modules_give',
             ),
+            'form' => array(
+                'modules_cf7',
+            ),
             'woocommerce' => 'modules_woocommerce',
             'edd' => 'modules_edd',
             'give' => 'modules_give',
             'tutor' => 'modules_tutor',
+            'cf7' => 'modules_cf7',
         ));
     }
 
@@ -741,8 +745,8 @@ class NotificationX_Helper {
 
     public static function form_themes(){
         return apply_filters('nx_form_colored_themes', array(
-            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/form/cf7-theme-one.jpg',
-            'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/form/cf7-theme-two.jpg',
+            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/form/cf7-theme-two.jpg',
+            'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/form/cf7-theme-one.jpg',
             'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/form/cf7-theme-three.jpg',
         ));
     }
@@ -779,7 +783,7 @@ class NotificationX_Helper {
             'donation_template_new',
             'form_template_new',
             'wpf_template_new',
-            
+            'njf_template_new'
         );
         return $data;
     }
@@ -815,38 +819,45 @@ class NotificationX_Helper {
 
         $j = 0;
 
+        $custom_tag = array(
+            '{{custom}}', 
+            '{{sometime}}',
+            '{{custom_stats}}',
+            '{{this_page}}',
+            '{{custom_form_title}}'
+        );
         foreach( $template_string as $s_key => $s_value ) {
             if( in_array( $s_key, $desire_data['br_before'] ) ) {
                 $j++;
             }
-            if( trim($previous_value) === '{{custom}}' || trim($s_value) === '{{sometime}}' || trim($s_value) === '{{custom_stats}}' || trim($s_value) === '{{this_page}}' ) { 
-                $hasCustomAsValueinPrev = true;
-            }
-            if( trim($s_value) === '{{custom}}' || trim($s_value) === '{{sometime}}' || trim($s_value) === '{{custom_stats}}' || trim($s_value) === '{{this_page}}' ) { 
+            if( in_array( trim( $s_value ), $custom_tag ) ) { 
                 $hasCustomAsValue = true;
+                continue;
             }
-            if( strpos( $s_key, 'custom_' ) === 0 ) { 
-                $hasCustomAsKey = true;
+            // if( in_array( trim( $s_value ), $custom_tag ) ) { 
+            //     $hasCustomAsValue = true;
+            // }
+            if( strpos( $s_key, 'custom_' ) === 0 && ! $hasCustomAsValue ) { 
+                // $hasCustomAsKey = true;
+                continue;
             }
             
-            if( $hasCustomAsValue === true ) {
-                $previous_value = $s_value;
-                $hasCustomAsValue = false;
-                continue;
-            }
+            // if( $hasCustomAsValue === true ) {
+            //     $hasCustomAsValue = false;
+            //     continue;
+            // }
 
-            if( $hasCustomAsKey === true && $hasCustomAsValueinPrev === false ) {
-                $previous_value = $s_value;
-                $hasCustomAsKey = false;
-                continue;
-            }
+            // if( $hasCustomAsKey === true && $hasCustomAsValueinPrev === false ) {
+            //     $hasCustomAsKey = false;
+            //     continue;
+            // }
 
-            $previous_value = $s_value;
             if( isset( $new_template_str[ $j ] ) ) {
                 $new_template_str[ $j ] .= $s_value;
             } else {
                 $new_template_str[ $j ] = $s_value;
             }
+            $hasCustomAsValue = false;
         }
         return $new_template_str;
     }
@@ -971,8 +982,8 @@ class NotificationX_Helper {
             'give'          => 'donation_template_new',
             'tutor'         => 'elearning_template_new',
             'cf7'           => 'form_template_new',
-            'wpf'           => 'form_template_new',
-            'njf'           => 'form_template_new',
+            'wpf'           => 'wpf_template_new',
+            'njf'           => 'njf_template_new',
         ));
     }
     /**
