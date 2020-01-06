@@ -32,9 +32,12 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
             if( isset( $_GET['form_id'] ) ) {
                 $form_id = intval( $_GET['form_id'] );
 
-                $form = get_post( $form_id );                
+                global $wpdb;
+                $queryresult = $wpdb->get_results( 'SELECT meta_value FROM `' . $wpdb->prefix . 'nf3_form_meta` WHERE parent_id = '.$form_id.' AND meta_key = "formContentData"' );
 
-                $keys = $this->keys_generator( $form->post_content );
+                $formdata = $queryresult[0]->meta_value;
+                
+                $keys = $this->keys_generator( $formdata );
 
                 $returned_keys = array();
 
@@ -60,16 +63,14 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
 
     public function keys_generator( $fieldsString ){
         $fields = array();
-        $fieldsdata = json_decode($fieldsString, true);;
+        $fieldsdata = unserialize($fieldsString);
         if (!empty($fieldsdata)) {
-            foreach ( $fieldsdata as $key => $field ) {
-                if ($key =="fields") {
-                    if (!empty($field)) {
-                        foreach ( $field as $key => $fielditem ) {
-                            $arr = explode(' ',trim($fielditem['label']));
-                            $fields[] = $arr[0];
-                        }
-                    }
+            foreach ( $fieldsdata as $field ) {                  
+                $arr = explode('_',$field);
+                if ( $arr[0] == "submit" ) {
+                    continue;
+                } else {
+                    $fields[] = $arr[0];
                 }
             }
         }
@@ -271,16 +272,15 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
         if( ! $this->is_created( $this->type ) ) {
             return;
         }
-        add_action( 'njforms_process_complete', array( $this, 'save_new_records' ), 10, 4 );
+        add_action( 'ninja_forms_after_submission', array( $this, 'save_new_records' ));
     }
 
-    public function save_new_records( $fields, $entry, $form_data, $entry_id ){
-        foreach ($fields as $field) {   
-            $arr = explode(' ',trim($field['name'])); //Trim only First word of String
-            $data[ucwords( str_replace( '_', ' ', str_replace( '-', ' ', $arr[0] ) ) )] = $field['value'];
-            $data['email'] = $field['email'];
+    public function save_new_records( $form_data ){
+        foreach ($form_data['fields'] as $field) {
+            $arr = explode('_',trim($field['key']));
+            $data[$arr[0]] = $field['value'];
         }
-        $data['title'] = $form_data['settings']['form_title'];
+        $data['title'] = $form_data['settings']['title'];
         $data['timestamp'] = time();
 
         if( ! empty( $data ) ) {

@@ -963,14 +963,16 @@ class NotificationX_Helper {
 
     public static function template_keys(){
         return apply_filters( 'nx_template_keys', array( 
-            'wp_comments' => 'comments_template_new',
-            'woocommerce' => 'woo_template_new',
-            'edd'         => 'woo_template_new',
-            'wp_reviews'  => 'wp_reviews_template_new',
-            'wp_stats'    => 'wp_stats_template_new',
-            'give'        => 'donation_template_new',
-            'tutor'       => 'elearning_template_new',
-            'cf7'       => 'form_template_new',
+            'wp_comments'   => 'comments_template_new',
+            'woocommerce'   => 'woo_template_new',
+            'edd'           => 'woo_template_new',
+            'wp_reviews'    => 'wp_reviews_template_new',
+            'wp_stats'      => 'wp_stats_template_new',
+            'give'          => 'donation_template_new',
+            'tutor'         => 'elearning_template_new',
+            'cf7'           => 'form_template_new',
+            'wpf'           => 'form_template_new',
+            'njf'           => 'form_template_new',
         ));
     }
     /**
@@ -1057,7 +1059,7 @@ class NotificationX_Helper {
          * Donation Template Settins
          */
 
-        $sales_field = get_post_meta( $post->ID, '_nx_meta_donation_template_new', true );        
+        $sales_field = get_post_meta( $post->ID, '_nx_meta_donation_template_new', true );
         $data['nx_meta_donation_template_new'] = array(
             'theme-one' => array(
                 'first_param' => isset( $sales_field['first_param'] ) ? $sales_field['first_param'] : 'tag_name',
@@ -1070,7 +1072,7 @@ class NotificationX_Helper {
          * eLearning Template Settins
          */
 
-        $sales_field = get_post_meta( $post->ID, '_nx_meta_elearning_template_new', true );        
+        $sales_field = get_post_meta( $post->ID, '_nx_meta_elearning_template_new', true );
         $data['nx_meta_elearning_template_new'] = array(
             'theme-one' => array(
                 'first_param' => isset( $sales_field['first_param'] ) ? $sales_field['first_param'] : 'tag_name',
@@ -1084,7 +1086,7 @@ class NotificationX_Helper {
          * Sales Template Settins
          */
 
-        $sales_field = get_post_meta( $post->ID, '_nx_meta_woo_template_new', true );        
+        $sales_field = get_post_meta( $post->ID, '_nx_meta_woo_template_new', true );
         $data['nx_meta_woo_template_new'] = array(
             'theme-one' => array(
                 'first_param' => isset( $sales_field['first_param'] ) ? $sales_field['first_param'] : 'tag_name',
