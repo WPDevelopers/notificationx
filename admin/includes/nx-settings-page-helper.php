@@ -39,7 +39,7 @@ function notificationx_settings_args(){
                         ),
                         'modules_cf7' => array(
                             'title' => __('Contact Form 7', 'notificationx'),
-                            'link'  => 'https://notificationx.com/docs/contact-form/'
+                            'link'  => 'https://notificationx.com/docs/contact-form-submission-alert/'
                         ),
                         'modules_freemius' => array(
                             'is_pro' => true,
