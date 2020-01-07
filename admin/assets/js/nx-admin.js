@@ -453,8 +453,8 @@
 	};
 
 	$.notificationx.initializeFields = function () {
-		if ($('.nx-meta-field').length > 0) {
-			$('.nx-meta-field').map(function (iterator, item) {
+		if ($('.nx-meta-field, .nx-settings-field').length > 0) {
+			$('.nx-meta-field, .nx-settings-field').map(function (iterator, item) {
 				var node = item.nodeName;
 				if (node === 'SELECT') {
 					var ajaxArgs = {
