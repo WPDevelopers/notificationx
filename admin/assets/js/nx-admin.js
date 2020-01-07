@@ -692,7 +692,7 @@
 	};
 
 	$.notificationx.toggleFields = function () {
-		$("body").delegate('.nx-meta-field', 'change', function (e) {
+		$("body").delegate('.nx-meta-field, .nx-settings-field', 'change', function (e) {
 			if (this.type == 'radio') {
 				if (this.checked) {
 					$.notificationx.checkDependencies(this);

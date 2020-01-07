@@ -283,10 +283,10 @@ class NotificationX_Admin {
 			array( 'jquery' ), $this->version, true 
 		);
 
-		wp_localize_script( $this->plugin_name, 'notificationx', self::toggleFields() );
+		wp_localize_script( $this->plugin_name, 'notificationx', self::toggleFields( $hook ) );
 	}
 
-	public function toggleFields( $builder = false ){
+	public function toggleFields( $hook, $builder = false ){
 		$args = NotificationX_MetaBox::get_args();
 		if( $builder ) {
 			$args = NotificationX_MetaBox::get_builder_args();
@@ -295,6 +295,11 @@ class NotificationX_Admin {
 		$toggleFields = $hideFields = $conditions = array();
 
 		$tabs = $args[ 'tabs' ];
+
+		if( $hook === 'notificationx_page_nx-settings' ) {
+			$tabs = NotificationX_Settings::settings_args();
+		}
+
 		if( ! empty( $tabs ) ) {
 			foreach( $tabs as $tab_id => $tab ) {
 				$sections = isset( $tab['sections'] ) ? $tab[ 'sections' ] : [];
