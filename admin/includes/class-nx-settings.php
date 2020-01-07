@@ -168,47 +168,47 @@ class NotificationX_Settings {
      * @param array $values
      * @return void
      */
-    // public static function old_save_settings( $posted_fields = [] ){
-    //     $settings_args = self::settings_args();
-    //     $fields = self::get_settings_fields( $settings_args );
-    //     $data = [];
+    public static function old_save_settings( $posted_fields = [] ){
+        $settings_args = self::settings_args();
+        $fields = self::get_settings_fields( $settings_args );
+        $data = [];
 
-	// 	foreach( $posted_fields as $posted_field ) {
-	// 		if( array_key_exists( $posted_field['name'], $fields ) ) {
-    //             if( empty( $posted_field['value'] ) ) {
-	// 				$posted_value = isset( $fields[ $posted_field['name'] ]['default'] ) ? $fields[ $posted_field['name'] ]['default'] : '';
-    //             }
-    //             if( isset( $fields[ $posted_field['name'] ]['disable'] ) && $fields[ $posted_field['name'] ]['disable'] === true ) {
-    //                 $posted_value = isset( $fields[ $posted_field['name'] ]['default'] ) ? $fields[ $posted_field['name'] ]['default'] : '';
-    //             }
-    //             $posted_value = NotificationX_Helper::sanitize_field( $fields[ $posted_field['name'] ], $posted_field['value'] );
+		foreach( $posted_fields as $posted_field ) {
+			if( array_key_exists( $posted_field['name'], $fields ) ) {
+                if( empty( $posted_field['value'] ) ) {
+					$posted_value = isset( $fields[ $posted_field['name'] ]['default'] ) ? $fields[ $posted_field['name'] ]['default'] : '';
+                }
+                if( isset( $fields[ $posted_field['name'] ]['disable'] ) && $fields[ $posted_field['name'] ]['disable'] === true ) {
+                    $posted_value = isset( $fields[ $posted_field['name'] ]['default'] ) ? $fields[ $posted_field['name'] ]['default'] : '';
+                }
+                $posted_value = NotificationX_Helper::sanitize_field( $fields[ $posted_field['name'] ], $posted_field['value'] );
 
-    //             // If is module then save it under a domain.
-    //             $is_module = strpos( $posted_field['name'], 'modules_' );
-    //             if( $is_module !== false && $is_module === 0 ) {
-    //                 $data[ 'nx_modules' ][ $posted_field['name'] ] = true;
-    //             } else {
-    //                 $data[ $posted_field['name'] ] = $posted_value;
-    //             }
-	// 		}
-    //     }
+                // If is module then save it under a domain.
+                $is_module = strpos( $posted_field['name'], 'modules_' );
+                if( $is_module !== false && $is_module === 0 ) {
+                    $data[ 'nx_modules' ][ $posted_field['name'] ] = true;
+                } else {
+                    $data[ $posted_field['name'] ] = $posted_value;
+                }
+			}
+        }
 
-    //     $modules = self::get_modules( $settings_args['general']['sections']['modules_sections']['fields'] );
+        $modules = self::get_modules( $settings_args['general']['sections']['modules_sections']['fields'] );
 
-    //     if( ! NX_CONSTANTS::is_pro() ) {
-    //         $default_modules = $modules[0];
-    //     } else {
-    //         $default_modules = array_merge( $modules[0], $modules[1] );
-    //     }
+        if( ! NX_CONSTANTS::is_pro() ) {
+            $default_modules = $modules[0];
+        } else {
+            $default_modules = array_merge( $modules[0], $modules[1] );
+        }
         
-    //     if( isset( $data['nx_modules'] ) ) {
-    //         $data['nx_modules'] = wp_parse_args( $data['nx_modules'], $default_modules );
-    //     } else {
-    //         $data['nx_modules'] = $default_modules;
-    //     }
+        if( isset( $data['nx_modules'] ) ) {
+            $data['nx_modules'] = wp_parse_args( $data['nx_modules'], $default_modules );
+        } else {
+            $data['nx_modules'] = $default_modules;
+        }
 
-	// 	NotificationX_DB::update_settings( $data );
-    // }
+		NotificationX_DB::update_settings( $data );
+    }
     public static function save_settings( $posted_fields = [] ){
 		$settings_args = self::settings_args();
         $fields = self::get_settings_fields( $settings_args );
@@ -230,7 +230,7 @@ class NotificationX_Settings {
                 }
             }
         }
-        $fields_keys = array_fill_keys( array_keys( $fields ), 'off' );
+        $fields_keys = array_fill_keys( array_keys( $fields ), '' );
 
 		foreach( $new_posted_fields as $key => $new_posted_field ) {
 			if( array_key_exists( $key, $fields ) ) {
@@ -242,16 +242,38 @@ class NotificationX_Settings {
                     $posted_value = isset( $fields[ $key ]['default'] ) ? $fields[ $key ]['default'] : '';
                 }
                 $posted_value = NotificationX_Helper::sanitize_field( $fields[ $key ], $new_posted_field );
-                if( isset( $data[ $key ] ) ) {
-                    if( is_array( $data[ $key ] ) ) {
-                        $data[ $key ][] = $posted_value;
-                    } else {
-                        $data[ $key ] = array( $posted_value, $data[ $key ] );
-                    }
+            
+                // If is module then save it under a domain.
+                $is_module = strpos( $key, 'modules_' );
+                if( $is_module !== false && $is_module === 0 ) {
+                    $data[ 'nx_modules' ][ $key ] = true;
                 } else {
-                    $data[ $key ] = $posted_value;
+                    if( isset( $data[ $key ] ) ) {
+                        if( is_array( $data[ $key ] ) ) {
+                            $data[ $key ][] = $posted_value;
+                        } else {
+                            $data[ $key ] = array( $posted_value, $data[ $key ] );
+                        }
+                    } else {
+                        $data[ $key ] = $posted_value;
+                    }
                 }
+
             }
+        }
+
+        $modules = self::get_modules( $settings_args['general']['sections']['modules_sections']['fields'] );
+
+        if( ! NX_CONSTANTS::is_pro() ) {
+            $default_modules = $modules[0];
+        } else {
+            $default_modules = array_merge( $modules[0], $modules[1] );
+        }
+        
+        if( isset( $data['nx_modules'] ) ) {
+            $data['nx_modules'] = wp_parse_args( $data['nx_modules'], $default_modules );
+        } else {
+            $data['nx_modules'] = $default_modules;
         }
 
         $data = array_merge( $fields_keys, $data );
