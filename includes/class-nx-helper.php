@@ -1197,4 +1197,57 @@ class NotificationX_Helper {
 
         return $data;
     }
+
+    /**
+     * Contact Forms Key Name filter for Name Selectbox
+     * @since 1.4.*
+     * @param string
+     * @return boolean
+     */
+    public static function filter_contactform_key_names( $name ) {
+        $validKey = true;
+        $filterWords = array(
+            "checkbox", 
+            "color", 
+            "date", 
+            "datetime-local", 
+            "file",
+            "image", 
+            "month", 
+            "number", 
+            "password", 
+            "radio",
+            "range",
+            "reset",
+            "submit",
+            "tel",
+            "time",
+            "week",
+            "Comment",
+            "message",
+            "address",
+            "phone",
+        );
+        foreach ( $filterWords as $word ) {
+            if (strpos($name, $word) === false) {
+                $validKey = true;
+            }
+            else {
+                $validKey = false;
+                break;
+            }
+        }
+        return $validKey;
+    }
+
+    /**
+     * Contact Forms Key Name remove special characters and meaningless words for Name Selectbox
+     * @since 1.4.*
+     * @param string
+     * @return string
+     */
+    public static function rename_contactform_key_names( $name ) {
+        $result = preg_split("/[_,\- ]+/", $name);
+        return $result[0];
+    }
 }
