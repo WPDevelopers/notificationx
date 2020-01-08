@@ -230,11 +230,9 @@ class NotificationX_Settings {
                 }
             }
         }
-        $fields_keys = array_fill_keys( array_keys( $fields ), '' );
 
 		foreach( $new_posted_fields as $key => $new_posted_field ) {
 			if( array_key_exists( $key, $fields ) ) {
-                unset( $fields_keys[ $key ] );
                 if( empty( $new_posted_field ) ) {
 					$posted_value = isset( $fields[ $key ]['default'] ) ? $fields[ $key ]['default'] : '';
                 }
@@ -275,8 +273,7 @@ class NotificationX_Settings {
         } else {
             $data['nx_modules'] = $default_modules;
         }
-
-        $data = array_merge( $fields_keys, $data );
+        
 		NotificationX_DB::update_settings( $data );
     }
     
