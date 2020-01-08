@@ -66,8 +66,9 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
                 if ($key =="fields") {
                     if (!empty($field)) {
                         foreach ( $field as $key => $fielditem ) {
-                            $arr = explode(' ',trim($fielditem['label']));
-                            $fields[] = $arr[0];
+                            if (NotificationX_Helper::filter_contactform_key_names($fielditem['label'])){
+                                $fields[] = NotificationX_Helper::rename_contactform_key_names($fielditem['label']);
+                            }
                         }
                     }
                 }
@@ -280,8 +281,8 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
 
     public function save_new_records( $fields, $entry, $form_data, $entry_id ){
         foreach ($fields as $field) {   
-            $arr = explode(' ',trim($field['name'])); //Trim only First word of String
-            $data[ucwords( str_replace( '_', ' ', str_replace( '-', ' ', $arr[0] ) ) )] = $field['value'];
+            $arr = NotificationX_Helper::rename_contactform_key_names($field['name']);
+            $data[$arr] = $field['value'];
             $data['email'] = $field['email'];
         }
         $data['title'] = $form_data['settings']['form_title'];

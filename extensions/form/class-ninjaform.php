@@ -68,12 +68,10 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
         $fields = array();
         $fieldsdata = unserialize($fieldsString);
         if (!empty($fieldsdata)) {
+            // var_dump($fieldsdata);
             foreach ( $fieldsdata as $field ) {                  
-                $arr = explode('_',$field);
-                if ( $arr[0] == "submit" ) {
-                    continue;
-                } else {
-                    $fields[] = $arr[0];
+                if (NotificationX_Helper::filter_contactform_key_names($field)){
+                    $fields[] = NotificationX_Helper::rename_contactform_key_names($field);
                 }
             }
         }
@@ -283,8 +281,8 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
 
     public function save_new_records( $form_data ){
         foreach ($form_data['fields'] as $field) {
-            $arr = explode('_',trim($field['key']));
-            $data[$arr[0]] = $field['value'];
+            $arr = NotificationX_Helper::rename_contactform_key_names($field['key']);
+            $data[$arr] = $field['value'];
         }
         $data['title'] = $form_data['settings']['title'];
         $data['timestamp'] = time();
