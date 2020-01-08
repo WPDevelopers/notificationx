@@ -37,7 +37,7 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
 
                 global $wpdb;
                 $queryresult = $wpdb->get_results( 'SELECT meta_value FROM `' . $wpdb->prefix . 'nf3_form_meta` WHERE parent_id = '.$form_id.' AND meta_key = "formContentData"' );
-
+               
                 $formdata = $queryresult[0]->meta_value;
                 
                 $keys = $this->keys_generator( $formdata );
@@ -68,7 +68,6 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
         $fields = array();
         $fieldsdata = unserialize($fieldsString);
         if (!empty($fieldsdata)) {
-            // var_dump($fieldsdata);
             foreach ( $fieldsdata as $field ) {                  
                 if (NotificationX_Helper::filter_contactform_key_names($field)){
                     $fields[] = NotificationX_Helper::rename_contactform_key_names($field);

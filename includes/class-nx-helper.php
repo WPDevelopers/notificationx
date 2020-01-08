@@ -308,6 +308,11 @@ class NotificationX_Helper {
                 // 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
                 'title' => 'Ninja Forms'
             ),
+            'grvf' => array(
+                'is_pro' => $is_pro,
+                // 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+                'title' => 'Gravity Forms'
+            ),
         ];
         $forms = apply_filters('nx_form_source_options', $froms );
         $forms = self::active_modules( $forms );
@@ -783,7 +788,8 @@ class NotificationX_Helper {
             'donation_template_new',
             'form_template_new',
             'wpf_template_new',
-            'njf_template_new'
+            'njf_template_new',
+            'grvf_template_new'
         );
         return $data;
     }
@@ -937,17 +943,18 @@ class NotificationX_Helper {
 
     public static function theme_sources(){
         return apply_filters( 'nx_themes_types', array( 
-            'press_bar'   => 'bar_theme',
-            'wp_comments' => 'comment_theme',
-            'woocommerce' => 'theme',
-            'edd'         => 'theme',
-            'wp_reviews'  => 'wporg_theme',
-            'wp_stats'    => 'wpstats_theme',
-            'give'        => 'donation_theme',
-            'tutor'       => 'elearning_theme',
-            'cf7'         => 'form_theme',
-            'wpf'         => 'form_theme',
-            'njf'         => 'form_theme',
+            'press_bar'     => 'bar_theme',
+            'wp_comments'   => 'comment_theme',
+            'woocommerce'   => 'theme',
+            'edd'           => 'theme',
+            'wp_reviews'    => 'wporg_theme',
+            'wp_stats'      => 'wpstats_theme',
+            'give'          => 'donation_theme',
+            'tutor'         => 'elearning_theme',
+            'cf7'           => 'form_theme',
+            'wpf'           => 'form_theme',
+            'njf'           => 'form_theme',
+            'grvf'          => 'form_theme',
         ));
     }
 
@@ -986,6 +993,7 @@ class NotificationX_Helper {
             'cf7'           => 'form_template_new',
             'wpf'           => 'wpf_template_new',
             'njf'           => 'njf_template_new',
+            'grvf'          => 'grvf_template_new',
         ));
     }
     /**
