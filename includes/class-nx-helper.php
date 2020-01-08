@@ -946,6 +946,8 @@ class NotificationX_Helper {
             'give'        => 'donation_theme',
             'tutor'       => 'elearning_theme',
             'cf7'         => 'form_theme',
+            'wpf'         => 'form_theme',
+            'njf'         => 'form_theme',
         ));
     }
 
