@@ -521,6 +521,7 @@
 		}
 
 		$('.notificationx-metabox-wrapper .nx-meta-field:not(.nx_meta_conversion_from)').trigger('change');
+		$('.nx-settings .nx-settings-field').trigger('change');
 
 		// NotificationX_Admin.initColorField();
 		if ($('.nx-colorpicker-field').length > 0) {
