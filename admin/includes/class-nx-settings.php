@@ -168,7 +168,7 @@ class NotificationX_Settings {
      * @param array $values
      * @return void
      */
-    public static function save_settings( $posted_fields = [] ){
+    public static function old_save_settings( $posted_fields = [] ){
         $settings_args = self::settings_args();
         $fields = self::get_settings_fields( $settings_args );
         $data = [];
@@ -207,6 +207,73 @@ class NotificationX_Settings {
             $data['nx_modules'] = $default_modules;
         }
 
+		NotificationX_DB::update_settings( $data );
+    }
+    public static function save_settings( $posted_fields = [] ){
+		$settings_args = self::settings_args();
+        $fields = self::get_settings_fields( $settings_args );
+        $data = [];
+        if( ! empty( $posted_fields ) ) {
+            $new_posted_fields = [];
+            foreach( $posted_fields as $posted_field ) {
+                preg_match("/(.*)\[(.*)\]/", $posted_field['name'], $matches);
+                if( ! empty( $matches ) ) {
+                    $name = $matches[1];
+                    $sub_name = $matches[2];
+                    if( ! empty( $sub_name ) ) {
+                        $new_posted_fields[ $name ][ $sub_name ] = $posted_field['value'];
+                    } else {
+                        $new_posted_fields[ $name ][] = $posted_field['value'];
+                    }
+                } else {
+                    $new_posted_fields[ $posted_field['name'] ] = $posted_field['value'];
+                }
+            }
+        }
+
+		foreach( $new_posted_fields as $key => $new_posted_field ) {
+			if( array_key_exists( $key, $fields ) ) {
+                if( empty( $new_posted_field ) ) {
+					$posted_value = isset( $fields[ $key ]['default'] ) ? $fields[ $key ]['default'] : '';
+                }
+                if( isset( $fields[ $key ]['disable'] ) && $fields[ $key ]['disable'] === true ) {
+                    $posted_value = isset( $fields[ $key ]['default'] ) ? $fields[ $key ]['default'] : '';
+                }
+                $posted_value = NotificationX_Helper::sanitize_field( $fields[ $key ], $new_posted_field );
+            
+                // If is module then save it under a domain.
+                $is_module = strpos( $key, 'modules_' );
+                if( $is_module !== false && $is_module === 0 ) {
+                    $data[ 'nx_modules' ][ $key ] = true;
+                } else {
+                    if( isset( $data[ $key ] ) ) {
+                        if( is_array( $data[ $key ] ) ) {
+                            $data[ $key ][] = $posted_value;
+                        } else {
+                            $data[ $key ] = array( $posted_value, $data[ $key ] );
+                        }
+                    } else {
+                        $data[ $key ] = $posted_value;
+                    }
+                }
+
+            }
+        }
+
+        $modules = self::get_modules( $settings_args['general']['sections']['modules_sections']['fields'] );
+
+        if( ! NX_CONSTANTS::is_pro() ) {
+            $default_modules = $modules[0];
+        } else {
+            $default_modules = array_merge( $modules[0], $modules[1] );
+        }
+        
+        if( isset( $data['nx_modules'] ) ) {
+            $data['nx_modules'] = wp_parse_args( $data['nx_modules'], $default_modules );
+        } else {
+            $data['nx_modules'] = $default_modules;
+        }
+        
 		NotificationX_DB::update_settings( $data );
     }
     
@@ -328,5 +395,15 @@ class NotificationX_Settings {
             }
             echo '</div>';
         }
+    }
+    /**
+     * Get All Roles
+     * dynamically
+     * @return array
+     */
+    public static function get_roles(){
+        $roles = wp_roles()->role_names;
+        unset( $roles['subscriber'] );
+        return $roles;
     }
 }

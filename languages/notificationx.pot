@@ -2,9 +2,9 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 1.4.2\n"
+"Project-Id-Version: NotificationX 1.4.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
-"POT-Creation-Date: 2020-01-02 07:30:34+00:00\n"
+"POT-Creation-Date: 2020-01-06 12:05:44+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,8 +24,8 @@ msgstr ""
 "X-Poedit-Bookmarks: \n"
 "X-Textdomain-Support: yes\n"
 
-#: admin/class-nx-admin.php:107 admin/class-nx-admin.php:492
-#: admin/class-nx-admin.php:493 admin/class-nx-admin.php:568
+#: admin/class-nx-admin.php:107 admin/class-nx-admin.php:493
+#: admin/class-nx-admin.php:494 admin/class-nx-admin.php:569
 msgid "Add New"
 msgstr ""
 
@@ -41,89 +41,89 @@ msgstr ""
 msgid "Enable / Disable"
 msgstr ""
 
-#: admin/class-nx-admin.php:404 admin/class-nx-admin.php:729
+#: admin/class-nx-admin.php:404 admin/class-nx-admin.php:730
 msgid "Type"
 msgstr ""
 
-#: admin/class-nx-admin.php:435
+#: admin/class-nx-admin.php:436
 msgid "Active"
 msgstr ""
 
-#: admin/class-nx-admin.php:442
+#: admin/class-nx-admin.php:443
 msgid "Inactive"
 msgstr ""
 
-#: admin/class-nx-admin.php:468
+#: admin/class-nx-admin.php:469
 msgid "There is an error updating status."
 msgstr ""
 
-#: admin/class-nx-admin.php:494 admin/partials/nx-admin.php:129
+#: admin/class-nx-admin.php:495 admin/partials/nx-admin.php:135
 msgid "Edit"
 msgstr ""
 
-#: admin/class-nx-admin.php:495
+#: admin/class-nx-admin.php:496
 msgid "New"
 msgstr ""
 
-#: admin/class-nx-admin.php:496
+#: admin/class-nx-admin.php:497
 msgid "View"
 msgstr ""
 
-#: admin/class-nx-admin.php:497
+#: admin/class-nx-admin.php:498
 msgid "Search"
 msgstr ""
 
-#: admin/class-nx-admin.php:498
+#: admin/class-nx-admin.php:499
 msgid "No notification x is found"
 msgstr ""
 
-#: admin/class-nx-admin.php:499
+#: admin/class-nx-admin.php:500
 msgid "No notification x is found in Trash"
 msgstr ""
 
-#: admin/class-nx-admin.php:548 admin/class-nx-admin.php:1081
+#: admin/class-nx-admin.php:549 admin/class-nx-admin.php:1082
 #: admin/partials/nx-admin-display.php:125
 #: admin/partials/nx-quick-builder-display.php:138
 msgid "Settings"
 msgstr ""
 
-#: admin/class-nx-admin.php:553
+#: admin/class-nx-admin.php:554
 msgid "Quick Builder"
 msgstr ""
 
-#: admin/class-nx-admin.php:581
+#: admin/class-nx-admin.php:582
 msgid "Number of Notification Per Page"
 msgstr ""
 
-#: admin/class-nx-admin.php:727
+#: admin/class-nx-admin.php:728
 msgid "Preview"
 msgstr ""
 
-#: admin/class-nx-admin.php:728
+#: admin/class-nx-admin.php:729
 msgid "Status"
 msgstr ""
 
-#: admin/class-nx-admin.php:730
+#: admin/class-nx-admin.php:731
 msgid "Stats"
 msgstr ""
 
-#: admin/class-nx-admin.php:731
+#: admin/class-nx-admin.php:732
 msgid "Date"
 msgstr ""
 
-#: admin/class-nx-admin.php:1037
+#: admin/class-nx-admin.php:1038
 msgid "NotificationX - Notification Bar"
 msgstr ""
 
-#: admin/class-nx-admin.php:1039
+#: admin/class-nx-admin.php:1040
 msgid "NotificationX - WP Comments"
 msgstr ""
 
-#: admin/class-nx-admin.php:1086
+#: admin/class-nx-admin.php:1087
 msgid "Go Pro"
 msgstr ""
 
-#: admin/class-nx-admin.php:1101
+#: admin/class-nx-admin.php:1102
 msgid "Docs & FAQ"
 msgstr ""
 
@@ -746,8 +746,8 @@ msgid "General"
 msgstr ""
 
 #: admin/includes/nx-settings-page-helper.php:8
-#: admin/includes/nx-settings-page-helper.php:89
-#: admin/includes/nx-settings-page-helper.php:109
+#: admin/includes/nx-settings-page-helper.php:93
+#: admin/includes/nx-settings-page-helper.php:113
 msgid "Save Settings"
 msgstr ""
 
@@ -756,7 +756,7 @@ msgid "Modules"
 msgstr ""
 
 #: admin/includes/nx-settings-page-helper.php:16
-#: includes/class-nx-helper.php:445 includes/class-nx-helper.php:883
+#: includes/class-nx-helper.php:445 includes/class-nx-helper.php:894
 msgid "Notification Bar"
 msgstr ""
 
@@ -780,73 +780,77 @@ msgstr ""
 msgid "Tutor"
 msgstr ""
 
-#: admin/includes/nx-settings-page-helper.php:42
+#: admin/includes/nx-settings-page-helper.php:41
+msgid "Contact Form 7"
+msgstr ""
+
+#: admin/includes/nx-settings-page-helper.php:46
 msgid "Freemius"
 msgstr ""
 
-#: admin/includes/nx-settings-page-helper.php:47
+#: admin/includes/nx-settings-page-helper.php:51
 #: includes/class-nx-helper.php:236 includes/class-nx-helper.php:456
 msgid "Custom Notification"
 msgstr ""
 
-#: admin/includes/nx-settings-page-helper.php:51
+#: admin/includes/nx-settings-page-helper.php:55
 msgid "MailChimp"
 msgstr ""
 
-#: admin/includes/nx-settings-page-helper.php:56
+#: admin/includes/nx-settings-page-helper.php:60
 msgid "ConvertKit"
 msgstr ""
 
-#: admin/includes/nx-settings-page-helper.php:61
+#: admin/includes/nx-settings-page-helper.php:65
 msgid "Zapier"
 msgstr ""
 
-#: admin/includes/nx-settings-page-helper.php:66
+#: admin/includes/nx-settings-page-helper.php:70
 msgid "Envato"
 msgstr ""
 
-#: admin/includes/nx-settings-page-helper.php:72
+#: admin/includes/nx-settings-page-helper.php:76
 msgid "LearnDash"
 msgstr ""
 
-#: admin/includes/nx-settings-page-helper.php:78
+#: admin/includes/nx-settings-page-helper.php:82
 msgid "Google Analytics"
 msgstr ""
 
-#: admin/includes/nx-settings-page-helper.php:88
+#: admin/includes/nx-settings-page-helper.php:92
 msgid "Advanced Settings"
 msgstr ""
 
-#: admin/includes/nx-settings-page-helper.php:97
+#: admin/includes/nx-settings-page-helper.php:101
 msgid "Disable Powered By"
 msgstr ""
 
-#: admin/includes/nx-settings-page-helper.php:100
+#: admin/includes/nx-settings-page-helper.php:104
 msgid "Click, if you want to disable powered by text from notification"
 msgstr ""
 
-#: admin/includes/nx-settings-page-helper.php:107
+#: admin/includes/nx-settings-page-helper.php:111
 msgid "Cache Settings"
 msgstr ""
 
-#: admin/includes/nx-settings-page-helper.php:116
+#: admin/includes/nx-settings-page-helper.php:120
 msgid "Cache Limit"
 msgstr ""
 
-#: admin/includes/nx-settings-page-helper.php:117
+#: admin/includes/nx-settings-page-helper.php:121
 msgid "Number of Notification Data to be saved in Database."
 msgstr ""
 
-#: admin/includes/nx-settings-page-helper.php:123
+#: admin/includes/nx-settings-page-helper.php:127
 msgid "Download Stats Cache Duration"
 msgstr ""
 
-#: admin/includes/nx-settings-page-helper.php:124
-#: admin/includes/nx-settings-page-helper.php:131
+#: admin/includes/nx-settings-page-helper.php:128
+#: admin/includes/nx-settings-page-helper.php:135
 msgid "Minutes (Schedule Duration to fetch new data)."
 msgstr ""
 
-#: admin/includes/nx-settings-page-helper.php:130
+#: admin/includes/nx-settings-page-helper.php:134
 msgid "Reviews Cache Duration"
 msgstr ""
 
@@ -864,11 +868,11 @@ msgstr ""
 msgid "Make sure you have module on from your NotificationX"
 msgstr ""
 
-#: admin/partials/nx-admin.php:26 admin/partials/nx-admin.php:156
+#: admin/partials/nx-admin.php:26 admin/partials/nx-admin.php:162
 msgid "Enabled"
 msgstr ""
 
-#: admin/partials/nx-admin.php:29 admin/partials/nx-admin.php:157
+#: admin/partials/nx-admin.php:29 admin/partials/nx-admin.php:163
 msgid "Disabled"
 msgstr ""
 
@@ -880,35 +884,35 @@ msgstr ""
 msgid "Empty Trash"
 msgstr ""
 
-#: admin/partials/nx-admin.php:101
+#: admin/partials/nx-admin.php:107
 msgid "Delete Permanently"
 msgstr ""
 
-#: admin/partials/nx-admin.php:130
+#: admin/partials/nx-admin.php:136
 msgid "Duplicate"
 msgstr ""
 
-#: admin/partials/nx-admin.php:132
+#: admin/partials/nx-admin.php:138
 msgid "Re Generate"
 msgstr ""
 
-#: admin/partials/nx-admin.php:135
+#: admin/partials/nx-admin.php:141
 msgid "Restore"
 msgstr ""
 
-#: admin/partials/nx-admin.php:177
+#: admin/partials/nx-admin.php:183
 msgid "Published"
 msgstr ""
 
-#: admin/partials/nx-admin.php:177 admin/partials/nx-admin.php:180
+#: admin/partials/nx-admin.php:183 admin/partials/nx-admin.php:186
 msgid "Y/m/d"
 msgstr ""
 
-#: admin/partials/nx-admin.php:180
+#: admin/partials/nx-admin.php:186
 msgid "Last Modified"
 msgstr ""
 
-#: admin/partials/nx-admin.php:192
+#: admin/partials/nx-admin.php:198
 msgid "No NotificationX is found."
 msgstr ""
 
@@ -986,7 +990,7 @@ msgid "<a rel=\"nofollow\" href=\"%s\" target=\"_blank\">Upgrade to Pro</a>"
 msgstr ""
 
 #: extensions/edd/class-edd.php:49 extensions/edd/class-edd.php:50
-#: extensions/edd/class-edd.php:51 extensions/form/class-cf7.php:145
+#: extensions/edd/class-edd.php:51 extensions/form/class-cf7.php:153
 #: extensions/give/class-give.php:47 extensions/give/class-give.php:48
 #: extensions/give/class-give.php:49 extensions/give/class-give.php:186
 #: extensions/tutor/class-tutor.php:48 extensions/tutor/class-tutor.php:49
@@ -1008,8 +1012,8 @@ msgstr ""
 msgid "Anonymous Product"
 msgstr ""
 
-#: extensions/edd/class-edd.php:53 extensions/form/class-cf7.php:181
-#: extensions/form/class-cf7.php:198 extensions/give/class-give.php:51
+#: extensions/edd/class-edd.php:53 extensions/form/class-cf7.php:189
+#: extensions/form/class-cf7.php:206 extensions/give/class-give.php:51
 #: extensions/give/class-give.php:207 extensions/give/class-give.php:224
 #: extensions/tutor/class-tutor.php:196 extensions/tutor/class-tutor.php:213
 #: extensions/woocommerce/class-woocommerce.php:150
@@ -1026,11 +1030,11 @@ msgstr ""
 msgid "Product Image"
 msgstr ""
 
-#: extensions/form/class-cf7.php:109
+#: extensions/form/class-cf7.php:117
 msgid "Select a Form"
 msgstr ""
 
-#: extensions/form/class-cf7.php:122 extensions/form/class-cf7.php:201
+#: extensions/form/class-cf7.php:130 extensions/form/class-cf7.php:209
 #: extensions/give/class-give.php:157 extensions/give/class-give.php:227
 #: extensions/tutor/class-tutor.php:146 extensions/tutor/class-tutor.php:216
 #: extensions/woocommerce/class-woocommerce.php:100
@@ -1048,25 +1052,25 @@ msgstr ""
 msgid "Notification Template"
 msgstr ""
 
-#: extensions/form/class-cf7.php:125
+#: extensions/form/class-cf7.php:133
 msgid "Select A Tag"
 msgstr ""
 
-#: extensions/form/class-cf7.php:126 extensions/give/class-give.php:161
+#: extensions/form/class-cf7.php:134 extensions/give/class-give.php:161
 #: extensions/tutor/class-tutor.php:150
 #: extensions/woocommerce/class-woocommerce.php:104
 #: extensions/wp-comments/class-wp-comments.php:115
 msgid "First Name"
 msgstr ""
 
-#: extensions/form/class-cf7.php:127 extensions/give/class-give.php:162
+#: extensions/form/class-cf7.php:135 extensions/give/class-give.php:162
 #: extensions/tutor/class-tutor.php:151
 #: extensions/woocommerce/class-woocommerce.php:105
 #: extensions/wp-comments/class-wp-comments.php:116
 msgid "Last Name"
 msgstr ""
 
-#: extensions/form/class-cf7.php:128 extensions/give/class-give.php:163
+#: extensions/form/class-cf7.php:136 extensions/give/class-give.php:163
 #: extensions/tutor/class-tutor.php:152
 #: extensions/woocommerce/class-woocommerce.php:106
 #: extensions/wp-comments/class-wp-comments.php:118
@@ -1079,19 +1083,19 @@ msgstr ""
 msgid "Custom"
 msgstr ""
 
-#: extensions/form/class-cf7.php:150
+#: extensions/form/class-cf7.php:158
 msgid "recently contacted via"
 msgstr ""
 
-#: extensions/form/class-cf7.php:156
+#: extensions/form/class-cf7.php:164
 msgid "Form Title"
 msgstr ""
 
-#: extensions/form/class-cf7.php:157
+#: extensions/form/class-cf7.php:165
 msgid "Custom Title"
 msgstr ""
 
-#: extensions/form/class-cf7.php:180 extensions/give/class-give.php:206
+#: extensions/form/class-cf7.php:188 extensions/give/class-give.php:206
 #: extensions/tutor/class-tutor.php:195
 #: extensions/woocommerce/class-woocommerce.php:149
 #: extensions/wp-comments/class-wp-comments.php:168
@@ -1346,23 +1350,23 @@ msgstr ""
 msgid "ago"
 msgstr ""
 
-#: includes/class-nx-helper.php:439 includes/class-nx-helper.php:885
+#: includes/class-nx-helper.php:439 includes/class-nx-helper.php:896
 msgid "Sales Notification"
 msgstr ""
 
-#: includes/class-nx-helper.php:440 includes/class-nx-helper.php:884
+#: includes/class-nx-helper.php:440 includes/class-nx-helper.php:895
 msgid "Comments"
 msgstr ""
 
-#: includes/class-nx-helper.php:441 includes/class-nx-helper.php:886
+#: includes/class-nx-helper.php:441 includes/class-nx-helper.php:897
 msgid "Reviews"
 msgstr ""
 
-#: includes/class-nx-helper.php:442 includes/class-nx-helper.php:887
+#: includes/class-nx-helper.php:442 includes/class-nx-helper.php:898
 msgid "Download Stats"
 msgstr ""
 
-#: includes/class-nx-helper.php:443 includes/class-nx-helper.php:888
+#: includes/class-nx-helper.php:443 includes/class-nx-helper.php:899
 msgid "eLearning"
 msgstr ""
 
@@ -1370,7 +1374,7 @@ msgstr ""
 msgid "Donations"
 msgstr ""
 
-#: includes/class-nx-helper.php:446 includes/class-nx-helper.php:890
+#: includes/class-nx-helper.php:446 includes/class-nx-helper.php:901
 msgid "Contact Form"
 msgstr ""
 
@@ -1382,15 +1386,15 @@ msgstr ""
 msgid "Page Analytics"
 msgstr ""
 
-#: includes/class-nx-helper.php:889
+#: includes/class-nx-helper.php:900
 msgid "Donation"
 msgstr ""
 
-#: includes/class-nx-helper.php:1026
+#: includes/class-nx-helper.php:1037
 msgid "Enable Sound"
 msgstr ""
 
-#: includes/class-nx-helper.php:1027
+#: includes/class-nx-helper.php:1038
 msgid "Disable Sound"
 msgstr ""
 

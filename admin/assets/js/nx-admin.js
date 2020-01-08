@@ -453,8 +453,8 @@
 	};
 
 	$.notificationx.initializeFields = function () {
-		if ($('.nx-meta-field').length > 0) {
-			$('.nx-meta-field').map(function (iterator, item) {
+		if ($('.nx-meta-field, .nx-settings-field').length > 0) {
+			$('.nx-meta-field, .nx-settings-field').map(function (iterator, item) {
 				var node = item.nodeName;
 				if (node === 'SELECT') {
 					var ajaxArgs = {
@@ -692,7 +692,7 @@
 	};
 
 	$.notificationx.toggleFields = function () {
-		$("body").delegate('.nx-meta-field', 'change', function (e) {
+		$("body").delegate('.nx-meta-field, .nx-settings-field', 'change', function (e) {
 			if (this.type == 'radio') {
 				if (this.checked) {
 					$.notificationx.checkDependencies(this);

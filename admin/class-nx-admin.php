@@ -283,10 +283,10 @@ class NotificationX_Admin {
 			array( 'jquery' ), $this->version, true 
 		);
 
-		wp_localize_script( $this->plugin_name, 'notificationx', self::toggleFields() );
+		wp_localize_script( $this->plugin_name, 'notificationx', self::toggleFields( $hook ) );
 	}
 
-	public function toggleFields( $builder = false ){
+	public function toggleFields( $hook, $builder = false ){
 		$args = NotificationX_MetaBox::get_args();
 		if( $builder ) {
 			$args = NotificationX_MetaBox::get_builder_args();
@@ -295,6 +295,11 @@ class NotificationX_Admin {
 		$toggleFields = $hideFields = $conditions = array();
 
 		$tabs = $args[ 'tabs' ];
+
+		if( $hook === 'notificationx_page_nx-settings' ) {
+			$tabs = NotificationX_Settings::settings_args();
+		}
+
 		if( ! empty( $tabs ) ) {
 			foreach( $tabs as $tab_id => $tab ) {
 				$sections = isset( $tab['sections'] ) ? $tab[ 'sections' ] : [];
@@ -500,7 +505,7 @@ class NotificationX_Admin {
 			'not_found_in_trash'  => esc_html__( 'No notification x is found in Trash', 'notificationx' ),
 			'menu_name'           => 'NotificationX',
 		);
-		
+		$nx_create_notification = apply_filters( 'nx_create_notification', 'edit_posts', 'notification_roles' );
 		$args = array(
 			'labels'              => $labels,
 			'hierarchical'        => false,
@@ -509,7 +514,7 @@ class NotificationX_Admin {
 			'public'              => false,
 			'show_ui'             => true,
 			'show_in_menu'        => 'notificationx',
-			'show_in_admin_bar'   => true,
+			'show_in_admin_bar'   => $nx_create_notification,
 			'show_in_rest'        => false,
 			'menu_position'       => 80,
 			'menu_icon'           => NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-icon-colored.png',
@@ -538,35 +543,34 @@ class NotificationX_Admin {
 		$this->builder_args = NotificationX_MetaBox::get_builder_args();
 		$this->metabox_id   = $this->builder_args['id'];
 
-		if( ! current_user_can( 'manage_options' ) ) {
-			return;
-		}
-		
 		$settings_class = new NotificationX_Settings();
-		
+
+		$nx_create_notification = apply_filters( 'nx_create_notification', 'edit_posts', 'notification_roles' );
+		$nx_settings_caps = apply_filters( 'nx_settings_caps', 'delete_users', 'settings_roles' );
+
 		$settings = apply_filters( 'notificationx_admin_menu', array(
 			'nx-settings'   => array(
 				'title'      => __('Settings', 'notificationx'),
-				'capability' => 'delete_users',
+				'capability' => $nx_settings_caps,
 				'callback'   => array( $settings_class, 'settings_page' )
 			),
 			'nx-builder'   => array(
 				'title'      => __('Quick Builder', 'notificationx'),
-				'capability' => 'delete_users',
+				'capability' => $nx_create_notification,
 				'callback'   => array( $this, 'quick_builder' )
 			),
 		) );
 
-		$hook = add_menu_page( 'NotificationX', 'NotificationX', 'delete_users', 'nx-admin', array( $this, 'notificationx' ), NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-logo.svg', 80 );
+		$hook = add_menu_page( 'NotificationX', 'NotificationX', $nx_create_notification, 'nx-admin', array( $this, 'notificationx' ), NOTIFICATIONX_ADMIN_URL . 'assets/img/nx-menu-logo.svg', 80 );
 		add_action('load-' . $hook, array( $this, 'screen_options' ) );
 		/**
 		 * @since 1.2.2
 		 */
-		add_submenu_page( 'nx-admin', '', 'All NotificationX', 'delete_users', 'nx-admin' );
+		add_submenu_page( 'nx-admin', '', 'All NotificationX', $nx_create_notification, 'nx-admin' );
 		/**
 		 * @since 1.2.1
 		 */
-		add_submenu_page( 'nx-admin', __('Add New', 'notificationx'), __('Add New', 'notificationx'), 'delete_users', 'post-new.php?post_type=notificationx');
+		add_submenu_page( 'nx-admin', __('Add New', 'notificationx'), __('Add New', 'notificationx'), $nx_create_notification, 'post-new.php?post_type=notificationx');
 		foreach( $settings as $slug => $setting ) {
 			$cap  = isset( $setting['capability'] ) ? $setting['capability'] : 'delete_users';
 			$hook = add_submenu_page( 'nx-admin', $setting['title'], $setting['title'], $cap, $slug, $setting['callback'] );
