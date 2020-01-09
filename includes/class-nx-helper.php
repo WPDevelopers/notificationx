@@ -1257,7 +1257,8 @@ class NotificationX_Helper {
      * @return string
      */
     public static function rename_contactform_key_names( $name ) {
-        $result = preg_split("/[_,\- ]+/", $name);
-        return $result[0];
+        $result = preg_split("/[_,\-]+/", $name);
+        $returnName = ucfirst($result[0]);
+        return $returnName;
     }
 }

@@ -67,29 +67,30 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
         wp_die();
     }
 
-    public function check_label( $field ){
-        $returned_label = '';
-        if( isset( $field['type'] ) ) {
-            $returned_field = ucfirst( $field['type'] );
-            if( isset( $field['label'] ) && ! empty( $field['label'] ) ){
-                $returned_field = $field['label'];
-            }
-        }
-        return $returned_field;
-    }
+    // public function check_label( $field ){
+    //     if( isset( $field['type'] ) ) {
+    //         $returned_field = ucfirst( $field['type'] );
+    //         if( isset( $field['label'] ) && ! empty( $field['label'] ) ){
+    //             $returned_field = $field['label'];
+    //         }
+    //     }
+    //     return $returned_field;
+    // }
 
     public function keys_generator( $fieldsString ){
         $fields = array();
         $fieldsdata = json_decode( $fieldsString, true );
         if ( ! empty( $fieldsdata ) && isset( $fieldsdata['fields'] ) && ! empty( $fieldsdata['fields'] ) ) {
             foreach ( $fieldsdata['fields'] as $key => $fielditem ) {
-                if( isset( $fielditem['type'] ) && $fielditem['type'] === 'name' ) {
-                    $format = explode( '-',  $fielditem['format'] );
-                    foreach( $format as $fKey ) {
-                        $fields[ $key . '_' . $fKey . '_name' ] = ucfirst( $fKey ) . ' Name';
+                if (NotificationX_Helper::filter_contactform_key_names($fielditem['label'])){
+                    if( isset( $fielditem['type'] ) && $fielditem['type'] === 'name' ) {
+                        $format = explode( '-',  $fielditem['format'] );
+                        foreach( $format as $fKey ) {
+                            $fields[ $key . '_' . $fKey . '_name' ] = ucfirst( $fKey ) . ' Name';
+                        }
                     }
-                }
-                $fields[ $key . "_" . $fielditem['type'] ] = $this->check_label( $fielditem );
+                    $fields[ $key . "_" . $fielditem['type'] ] = NotificationX_Helper::rename_contactform_key_names( $fielditem['label'] );
+                }                
             }
         }
         return $fields;
