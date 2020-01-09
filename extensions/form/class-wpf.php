@@ -25,6 +25,14 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
     public function __construct(){
         parent::__construct( $this->template );
         add_action( 'wp_ajax_nx_wpf_keys', array( $this, 'keys' ) );
+        add_filter( 'nx_data_key', array( $this, 'key' ), 10, 2 );
+    }
+
+    public function key( $key, $settings ){
+        if( $settings->display_type === 'form' && $settings->form_source === 'wpf' ) {
+            $key = $key . '_' . $settings->wpf_form;
+        }
+        return $key;
     }
 
     public function keys(){
@@ -39,9 +47,10 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
                 $returned_keys = array();
 
                 if( is_array( $keys ) && ! empty( $keys ) ) {
-                    foreach( $keys as $key ) {
+                    foreach( $keys as $key => $value ) {
                         $returned_keys[] = array(
-                            'text' => ucwords( str_replace( '_', ' ', str_replace( '-', ' ', $key ) ) ),
+                            // 'text' => ucwords( str_replace( '_', ' ', str_replace( '-', ' ', $key ) ) ),
+                            'text' => $value,
                             'id' => "tag_$key",
                         );
                     }
@@ -58,20 +67,29 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
         wp_die();
     }
 
+    public function check_label( $field ){
+        $returned_label = '';
+        if( isset( $field['type'] ) ) {
+            $returned_field = ucfirst( $field['type'] );
+            if( isset( $field['label'] ) && ! empty( $field['label'] ) ){
+                $returned_field = $field['label'];
+            }
+        }
+        return $returned_field;
+    }
+
     public function keys_generator( $fieldsString ){
         $fields = array();
-        $fieldsdata = json_decode($fieldsString, true);
-        if (!empty($fieldsdata)) {
-            foreach ( $fieldsdata as $key => $field ) {
-                if ($key =="fields") {
-                    if (!empty($field)) {
-                        foreach ( $field as $key => $fielditem ) {
-                            if (NotificationX_Helper::filter_contactform_key_names($fielditem['label'])){
-                                $fields[] = NotificationX_Helper::rename_contactform_key_names($fielditem['label']);
-                            }
-                        }
+        $fieldsdata = json_decode( $fieldsString, true );
+        if ( ! empty( $fieldsdata ) && isset( $fieldsdata['fields'] ) && ! empty( $fieldsdata['fields'] ) ) {
+            foreach ( $fieldsdata['fields'] as $key => $fielditem ) {
+                if( isset( $fielditem['type'] ) && $fielditem['type'] === 'name' ) {
+                    $format = explode( '-',  $fielditem['format'] );
+                    foreach( $format as $fKey ) {
+                        $fields[ $key . '_' . $fKey . '_name' ] = ucfirst( $fKey ) . ' Name';
                     }
                 }
+                $fields[ $key . "_" . $fielditem['type'] ] = $this->check_label( $fielditem );
             }
         }
         return $fields;
@@ -146,7 +164,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
                             'fields' => [ 'custom_first_param' ]
                         ),
                     ),
-                    'default' => 'tag_name'
+                    // 'default' => 'tag_name'
                 ),
                 'custom_first_param' => array(
                     'type'     => 'text',
@@ -280,16 +298,28 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
     }
 
     public function save_new_records( $fields, $entry, $form_data, $entry_id ){
-        foreach ($fields as $field) {   
-            $arr = NotificationX_Helper::rename_contactform_key_names($field['name']);
-            $data[$arr] = $field['value'];
-            $data['email'] = $field['email'];
+        foreach ( $fields as $field ) {
+            if( $field['type'] === 'checkbox' ) {
+                continue;
+            }
+            if( $field['type'] === 'name' ) {
+                if( ! empty( $entry['fields'][ $field['id'] ] ) ) {
+                    foreach( $entry['fields'][ $field['id'] ] as $nKey => $n ) {
+                        $data[ $field['id'] . '_'. $nKey . '_name' ] = $n;
+                    }
+                }
+            }
+            if( $field['type'] === 'email' ) {
+                $data[ 'email' ] = $field['value'];
+            }
+            $data[ $field['id'] . '_'. $field['type'] ] = $field['value'];
         }
         $data['title'] = $form_data['settings']['form_title'];
         $data['timestamp'] = time();
-
+        $data['id'] = $form_data['id'];
         if( ! empty( $data ) ) {
-            $this->save( $this->type, $data, $data['timestamp'] );
+            $key = $this->type . '_' . $form_data['id'];
+            $this->save( $key, $data, $data['timestamp'] );
             return true;
         }
         return false;

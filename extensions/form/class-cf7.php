@@ -126,12 +126,11 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
                 'first_param' => array(
                     'type'     => 'select',
                     'ajax'     => 'cf7_form',
+                    'ajax_action' => 'nx_cf7_keys',
                     'label'    => __('Notification Template' , 'notificationx'),
                     'priority' => 1,
                     'options'  => array(
                         'tag_name' => __('Select A Tag' , 'notificationx'),
-                        'tag_first_name' => __('First Name' , 'notificationx'),
-                        'tag_last_name' => __('Last Name' , 'notificationx'),
                         'tag_custom' => __('Custom' , 'notificationx'),
                     ),
                     'dependency' => array(
@@ -150,7 +149,7 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
                             'fields' => [ 'custom_first_param' ]
                         ),
                     ),
-                    'default' => 'tag_name'
+                    // 'default' => 'tag_name'
                 ),
                 'custom_first_param' => array(
                     'type'     => 'text',
