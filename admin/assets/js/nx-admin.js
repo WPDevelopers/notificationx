@@ -486,6 +486,7 @@
 					$(item).select2( selectArgs );
 
 					if( form_id != undefined ) {
+						var tag_default_value = $(item).data('value');
 						if( Object.keys( selectArgs ).length > 0 && $(item).data('ajax_action').length > 0 ) {
 							$.ajax({
 								type: 'GET',
@@ -500,12 +501,15 @@
 									return;
 								}
 								var sData = tData.filter(function( m ){
-									return m.id === $(item).data('value');
+									return m.id === tag_default_value;
 								});
 								if( sData.length === 0 ) {
 									sData = tData;
 								}
-								var option = new Option( sData[0].text, $(item).data('value'), true, true );
+								if( tag_default_value.length === 0 ) {
+									tag_default_value = sData[0].id;
+								}
+								var option = new Option( sData[0].text, tag_default_value, true, true );
 								$(item).append(option).trigger('change');
 								$(item).trigger({
 									type: 'select2:select',

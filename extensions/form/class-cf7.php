@@ -149,7 +149,7 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
                             'fields' => [ 'custom_first_param' ]
                         ),
                     ),
-                    'default' => 'tag_name'
+                    // 'default' => 'tag_name'
                 ),
                 'custom_first_param' => array(
                     'type'     => 'text',

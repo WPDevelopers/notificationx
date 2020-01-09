@@ -25,6 +25,14 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
     public function __construct(){
         parent::__construct( $this->template );
         add_action( 'wp_ajax_nx_wpf_keys', array( $this, 'keys' ) );
+        add_filter( 'nx_data_key', array( $this, 'key' ), 10, 2 );
+    }
+
+    public function key( $key, $settings ){
+        if( $settings->display_type === 'form' && $settings->form_source === 'wpf' ) {
+            $key = $key . '_' . $settings->wpf_form;
+        }
+        return $key;
     }
 
     public function keys(){
@@ -156,7 +164,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
                             'fields' => [ 'custom_first_param' ]
                         ),
                     ),
-                    'default' => 'tag_name'
+                    // 'default' => 'tag_name'
                 ),
                 'custom_first_param' => array(
                     'type'     => 'text',
@@ -290,7 +298,6 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
     }
 
     public function save_new_records( $fields, $entry, $form_data, $entry_id ){
-
         foreach ( $fields as $field ) {
             if( $field['type'] === 'checkbox' ) {
                 continue;
@@ -309,9 +316,10 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
         }
         $data['title'] = $form_data['settings']['form_title'];
         $data['timestamp'] = time();
-
+        $data['id'] = $form_data['id'];
         if( ! empty( $data ) ) {
-            $this->save( $this->type, $data, $data['timestamp'] );
+            $key = $this->type . '_' . $form_data['id'];
+            $this->save( $key, $data, $data['timestamp'] );
             return true;
         }
         return false;
