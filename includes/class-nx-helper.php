@@ -1239,7 +1239,7 @@ class NotificationX_Helper {
             "phone",
         );
         foreach ( $filterWords as $word ) {
-            if (strpos($name, $word) === false) {
+            if ( !empty($name) && stripos($name, $word) === false) {
                 $validKey = true;
             }
             else {
