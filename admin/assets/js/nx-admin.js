@@ -457,55 +457,64 @@
 			$('.nx-meta-field, .nx-settings-field').map(function (iterator, item) {
 				var node = item.nodeName;
 				if (node === 'SELECT') {
-					var ajaxArgs = {
-						ajax: {
-							url: ajaxurl,
-							method: 'GET',
-							dataType: 'json',
-							cache: true,
-							data : function( params ){
-								return {
-									action: $(item).data('ajax_action'),
-									form_id: $("#nx_meta_" + $(item).data('nxajax')).val()
+					var selectArgs = {};
+					var form_id = $("#nx_meta_" + $(item).data('nxajax')).val();
+
+					if( form_id != undefined ) {
+						var ajaxArgs = {
+							ajax: {
+								url: ajaxurl,
+								method: 'GET',
+								dataType: 'json',
+								cache: true,
+								data : function( params ){
+									return {
+										action: $(item).data('ajax_action'),
+										form_id: form_id
+									}
+								},
+								processResults: function( data ) {
+									return { results : data }
 								}
 							},
-							processResults: function( data ) {
-								return { results : data }
-							}
-						},
-					};
-					var selectArgs = {};
-
-					if( $(item).data('nxajax') && $(item).data('ajax_action').length > 0 ) {
-						selectArgs = $.extend( selectArgs, ajaxArgs );
+						};
+						if( $(item).data('nxajax') && $(item).data('ajax_action').length > 0 ) {
+							selectArgs = $.extend( selectArgs, ajaxArgs );
+						}
 					}
 
 					$(item).select2( selectArgs );
-					if( Object.keys( selectArgs ).length > 0 && $(item).data('ajax_action').length > 0 ) {
-						$.ajax({
-							type: 'GET',
-							url: ajaxurl,
-							data : {
-								action: $(item).data('ajax_action'),
-								form_id: $("#nx_meta_" + $(item).data('nxajax')).val()
-							}
-						}).then(function( data ){
-							var tData = JSON.parse( data );
-							var sData = tData.filter(function( m ){
-								return m.id === $(item).data('value');
-							});
-							if( sData.length === 0 ) {
-								sData = tData;
-							}
-							var option = new Option( sData[0].text, $(item).data('value'), true, true );
-							$(item).append(option).trigger('change');
-							$(item).trigger({
-								type: 'select2:select',
-								params: {
-									data: data
+
+					if( form_id != undefined ) {
+						if( Object.keys( selectArgs ).length > 0 && $(item).data('ajax_action').length > 0 ) {
+							$.ajax({
+								type: 'GET',
+								url: ajaxurl,
+								data : {
+									action: $(item).data('ajax_action'),
+									form_id: form_id
 								}
+							}).then(function( data ){
+								var tData = JSON.parse( data );
+								if( typeof tData !== 'object' ) {
+									return;
+								}
+								var sData = tData.filter(function( m ){
+									return m.id === $(item).data('value');
+								});
+								if( sData.length === 0 ) {
+									sData = tData;
+								}
+								var option = new Option( sData[0].text, $(item).data('value'), true, true );
+								$(item).append(option).trigger('change');
+								$(item).trigger({
+									type: 'select2:select',
+									params: {
+										data: data
+									}
+								});
 							});
-						});
+						}
 					}
 				}
 			});
