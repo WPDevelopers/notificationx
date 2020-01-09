@@ -60,7 +60,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
 
     public function keys_generator( $fieldsString ){
         $fields = array();
-        $fieldsdata = json_decode($fieldsString, true);;
+        $fieldsdata = json_decode($fieldsString, true);
         if (!empty($fieldsdata)) {
             foreach ( $fieldsdata as $key => $field ) {
                 if ($key =="fields") {
