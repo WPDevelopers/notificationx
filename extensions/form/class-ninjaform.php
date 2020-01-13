@@ -25,6 +25,14 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
     public function __construct(){
         parent::__construct( $this->template );
         add_action( 'wp_ajax_nx_njf_keys', array( $this, 'keys' ) );
+        add_filter( 'nx_data_key', array( $this, 'key' ), 10, 2 );
+    }
+
+    public function key( $key, $settings ){
+        if( $settings->display_type === 'form' && $settings->form_source === 'grvf' ) {
+            $key = $key . '_' . $settings->grvf_form;
+        }
+        return $key;
     }
 
     public function keys(){
@@ -125,8 +133,6 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
                     'priority'      => 1,
                     'options'       => array(
                         'tag_name' => __('Select A Tag' , 'notificationx'),
-                        'tag_first_name' => __('First Name' , 'notificationx'),
-                        'tag_last_name' => __('Last Name' , 'notificationx'),
                         'tag_custom' => __('Custom' , 'notificationx'),
                     ),
                     'dependency' => array(
@@ -145,7 +151,6 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
                             'fields' => [ 'custom_first_param' ]
                         ),
                     ),
-                    'default' => 'tag_name'
                 ),
                 'custom_first_param' => array(
                     'type'     => 'text',
@@ -287,7 +292,8 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
         $data['timestamp'] = time();
 
         if( ! empty( $data ) ) {
-            $this->save( $this->type, $data, $data['timestamp'] );
+            $key = $this->type . '_' . $form_data['form_id'];
+            $this->save( $key, $data, $data['timestamp'] );
             return true;
         }
         return false;
