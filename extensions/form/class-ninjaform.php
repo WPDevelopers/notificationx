@@ -29,8 +29,8 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
     }
 
     public function key( $key, $settings ){
-        if( $settings->display_type === 'form' && $settings->form_source === 'grvf' ) {
-            $key = $key . '_' . $settings->grvf_form;
+        if( $settings->display_type === 'form' && $settings->form_source === 'njf' ) {
+            $key = $key . '_' . $settings->njf_form;
         }
         return $key;
     }
@@ -45,7 +45,7 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
 
                 global $wpdb;
                 $queryresult = $wpdb->get_results( 'SELECT meta_value FROM `' . $wpdb->prefix . 'nf3_form_meta` WHERE parent_id = '.$form_id.' AND meta_key = "formContentData"' );
-               
+                
                 $formdata = $queryresult[0]->meta_value;
                 
                 $keys = $this->keys_generator( $formdata );
