@@ -4,7 +4,7 @@
             <div class="nx-header-analytics-counter">
                 <a href="<?php echo esc_url( $views_link );?> ">
                     <span class="nx-counter-icon">
-                        <img src="<?php echo NOTIFICATIONX_PRO_ADMIN_URL . 'assets/images/views-icon.png'; ?>" alt="<?php _e( 'Total Views' ); ?>">
+                        <img src="<?php echo NOTIFICATIONX_ADMIN_URL . 'assets/img/views-icon.png'; ?>" alt="<?php _e( 'Total Views' ); ?>">
                     </span>
                     <div>
                         <span class="nx-counter-number"><?php _e( $views ) ?></span>
@@ -17,7 +17,7 @@
             <div class="nx-header-analytics-counter">
                 <a href="<?php echo esc_url( $clicks_link );?> ">
                     <span class="nx-counter-icon">
-                        <img src="<?php echo NOTIFICATIONX_PRO_ADMIN_URL . 'assets/images/clicks-icon.png'; ?>" alt="<?php _e( 'Total Clicks' ); ?>">
+                        <img src="<?php echo NOTIFICATIONX_ADMIN_URL . 'assets/img/clicks-icon.png'; ?>" alt="<?php _e( 'Total Clicks' ); ?>">
                     </span>
                     <div>
                         <span class="nx-counter-number"><?php _e( $clicks ) ?></span>
@@ -30,7 +30,7 @@
             <div class="nx-header-analytics-counter">
                 <a href="<?php echo esc_url( $ctr_link );?> ">
                     <span class="nx-counter-icon">
-                        <img src="<?php echo NOTIFICATIONX_PRO_ADMIN_URL . 'assets/images/ctr-icon.png'; ?>" alt="<?php _e( 'Click-Through-Rate' ); ?>">
+                        <img src="<?php echo NOTIFICATIONX_ADMIN_URL . 'assets/img/ctr-icon.png'; ?>" alt="<?php _e( 'Click-Through-Rate' ); ?>">
                     </span>
                     <div>
                         <span class="nx-counter-number"><?php _e( $ctr ) ?></span>
