@@ -168,8 +168,8 @@ class NotificationX_Analytics {
         $clicks_link = admin_url( 'admin.php?page=nx-analytics&comparison_factor=clicks' );
         $ctr_link = admin_url( 'admin.php?page=nx-analytics&comparison_factor=ctr' );
         
-        if( file_exists( NOTIFICATIONX_ADMIN_URL . 'partials/nx-admin-analytics-counter.php' ) ) {
-            return include_once NOTIFICATIONX_ADMIN_URL . 'partials/nx-admin-analytics-counter.php';
+        if( file_exists( NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-admin-analytics-counter.php' ) ) {
+            return include_once NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-admin-analytics-counter.php';
         }
     }
 
