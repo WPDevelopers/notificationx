@@ -1981,6 +1981,14 @@ body.nx-press_bar-active {
 .nx-notification.nx-custom .nx-notification-total-download.nx-img-rounded .notificationx-image > img {
   border-radius: 5px
 }
+.notificationx-shortcode-wrapper > .nx-notification.nx-form .nx-notification-theme-one .notificationx-content .nx-second-row .nx-first-word,
+.notificationx-shortcode-wrapper > .nx-notification.nx-form .nx-notification-theme-two .notificationx-content .nx-second-row .nx-first-word,
+.notificationx-shortcode-wrapper > .nx-notification.nx-form .nx-notification-theme-three .notificationx-content .nx-second-row .nx-first-word,
+.nx-notification.nx-form .nx-notification-theme-one .notificationx-content .nx-second-row .nx-first-word,
+.nx-notification.nx-form .nx-notification-theme-two .notificationx-content .nx-second-row .nx-first-word,
+.nx-notification.nx-form .nx-notification-theme-three .notificationx-content .nx-second-row .nx-first-word {
+  display: inline
+}
 .notificationx-shortcode-wrapper > .nx-bar,
 .nx-bar {
   left: 0;
