@@ -105,14 +105,13 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
 			'order' => 'ASC',
 			'posts_per_page' => -1,
         );
-        $the_query = new \WP_Query($args);
+        $the_query = get_posts( $args );
         $forms = [];
-        if( $the_query->have_posts() ) {
-            foreach ($the_query->posts as $form) {
+        if( ! empty( $the_query ) ) {
+            foreach ($the_query as $form) {
                 $forms[ $form->ID ] = $form->post_title;
             }
         }
-        wp_reset_postdata();
         return $forms;
     }
 
@@ -133,7 +132,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
             'type' => 'select',
             'label' => __( 'Select a Form', 'notificationx' ),
             'options' => $this->wpf_forms(),
-            'priority' => 0,
+            'priority' => 89.5,
         );
 
         $fields['wpf_template_new'] = array(
@@ -259,7 +258,14 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
         add_filter( 'nx_display_types_hide_data', array( $this, 'hide_fields' ) );
         add_filter( 'nx_form_source', array( $this, 'toggle_fields' ) );
     }
-
+    /**
+     * Builder Hooks
+     */
+    public function init_builder_hooks(){
+        add_filter( 'nx_builder_tabs', array( $this, 'add_builder_fields' ) );
+        add_filter( 'nx_display_types_hide_data', array( $this, 'hide_builder_fields' ) );
+        add_filter( 'nx_builder_tabs', array( $this, 'builder_toggle_fields' ) );
+    }
     /**
      * Some toggleData & hideData manipulation.
      *
@@ -327,5 +333,50 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
             return true;
         }
         return false;
+    }
+    /**
+     * This function is responsible for adding fields in builder
+     *
+     * @param array $options
+     * @return void
+     */
+    public function add_builder_fields( $options ){
+        $fields = $this->init_fields();
+        unset( $fields[ $this->template ] );
+        
+        foreach ( $fields as $name => $field ) {
+            $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
+        }
+
+        return $options;
+    }
+    /**
+     * This function is reponsible for hide fields on toggle
+     * in builder
+     *
+     * @param array $options
+     * @return void
+     */
+    public function hide_builder_fields( $options ) {
+        $fields = $this->init_fields();
+        foreach ( $fields as $name => $field ) {
+            foreach( $options as $opt_key => $opt_value ) {
+                $options[ $opt_key ][ 'fields' ][] = $name;
+            }
+        }
+        return $options;
+    }
+    /**
+     * This function is responsible for builder fields
+     *
+     * @param array $options
+     * @return void
+     */
+    public function builder_toggle_fields( $options ) {
+        $fields = $this->init_fields();
+        unset( $fields[ $this->template ] );
+        $old_fields = isset( $options['source_tab']['sections']['config']['fields']['form_source']['dependency'][ $this->type ]['fields'] ) ? $options['source_tab']['sections']['config']['fields']['form_source']['dependency'][ $this->type ]['fields'] : [];
+        $options['source_tab']['sections']['config']['fields']['form_source']['dependency'][ $this->type ]['fields'] = array_merge( array_keys( $fields ), $old_fields);
+        return $options;
     }
 }
