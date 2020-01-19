@@ -39,10 +39,13 @@ class NotificationX_Analytics {
     );
 
     public function __construct() {
+        add_action( 'nx_before_settings_load', array( $this, 'add_settings' ) );
+        if( NotificationX_DB::get_settings( 'enable_analytics' ) != 1 && NotificationX_DB::get_settings( 'enable_analytics' ) !== '' ) {
+            return;
+        }
         add_action( 'admin_init', array( $this, 'notificationx' ) );
         add_action( 'notificationx_admin_menu', array( $this, 'add_analytics_menu' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueues' ) );
-        add_action( 'nx_before_settings_load', array( $this, 'add_settings' ) );
         add_action( 'wp_ajax_notificationx_pro_analytics', array( $this, 'analytics_data' ) );
         add_action( 'wp_ajax_nopriv_notificationx_pro_analytics', array( $this, 'analytics_data' ) );
         add_action( 'wp_ajax_nx_analytics_calc', array( $this, 'analytics_calc' ) );
