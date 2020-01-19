@@ -98,8 +98,8 @@ class NotificationX_Analytics {
             'ctr' => 'CTR',
         );
 
-        if( file_exists( NOTIFICATIONX_ADMIN_URL . 'partials/nx-admin-analytics-display.php' ) ) {
-            return include_once NOTIFICATIONX_ADMIN_URL . 'partials/nx-admin-analytics-display.php';
+        if( file_exists( NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-admin-analytics-display.php' ) ) {
+            return include_once NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-admin-analytics-display.php';
         }
     }
     /**
