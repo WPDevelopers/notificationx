@@ -588,12 +588,16 @@ class NotificationX_Helper {
             ),
             'form' => array(
                 'modules_cf7',
+                'modules_wpf',
+                'modules_njf'
             ),
             'woocommerce' => 'modules_woocommerce',
             'edd' => 'modules_edd',
             'give' => 'modules_give',
             'tutor' => 'modules_tutor',
             'cf7' => 'modules_cf7',
+            'wpf' => 'modules_wpf',
+            'njf' => 'modules_njf',
         ));
     }
 

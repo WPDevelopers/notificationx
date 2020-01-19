@@ -43,6 +43,20 @@ function notificationx_settings_args(){
                             'title' => __('Contact Form 7', 'notificationx'),
                             'link'  => 'https://notificationx.com/docs/contact-form-submission-alert/'
                         ),
+                        'modules_wpf' => array(
+                            'title' => __('WPForms', 'notificationx'),
+                            'link'  => 'https://notificationx.com/docs/contact-form-submission-alert/'
+                        ),
+                        'modules_njf' => array(
+                            'title' => __('Ninja Forms', 'notificationx'),
+                            'link'  => 'https://notificationx.com/docs/contact-form-submission-alert/'
+                        ),
+                        'modules_grvf' => array(
+                            'is_pro' => true,
+                            'title' => __('Gravity Forms', 'notificationx'),
+                            'version' => '1.4.4',
+                            'link' => 'https://notificationx.com/docs/envato-sales-notification'
+                        ),
                         'modules_freemius' => array(
                             'is_pro' => true,
                             'title' => __('Freemius', 'notificationx'),
