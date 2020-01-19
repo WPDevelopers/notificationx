@@ -105,7 +105,12 @@ final class NotificationX {
 		/**
 		 * NotificationX Analytics Report
 		 */
-        require_once NOTIFICATIONX_ROOT_DIR_PATH . 'admin/class-nxpro-analytics.php';
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'admin/reports/class-nxpro-analytics.php';
+		
+		/**
+		 * NotificationX Report Email
+		 */
+        require_once NOTIFICATIONX_ROOT_DIR_PATH . 'admin/reports/email/class-nx-email-reporting.php';
 		
 		/**
 		 * NotificationX Messages
