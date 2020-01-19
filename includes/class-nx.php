@@ -422,6 +422,16 @@ final class NotificationX {
                     NotificationX_DB::update_settings( $settings );
                 }
             }
+		}
+		if(version_compare( NOTIFICATIONX_VERSION, '1.4.4', '==')){
+			$version_migration = get_option( 'nx_version_migration_144', false );
+            if( ! $version_migration ) {
+                update_option('nx_version_migration_144', true);
+				$settings = NotificationX_DB::get_settings();
+				$settings['nx_modules']['modules_wpf'] = true;
+				$settings['nx_modules']['modules_njf'] = true;
+				NotificationX_DB::update_settings( $settings );
+            }
         }
 	}
 }

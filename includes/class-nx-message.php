@@ -290,6 +290,7 @@ class NotificationX_Notice {
                     $options_data[ $this->plugin_name ]['notice_will_show'][ $clicked_from ] = $later_time;
                 }
                 if( isset( $dismiss ) && $dismiss == true ) { 
+                    update_user_meta( get_current_user_id(), $this->plugin_name . '_' . $clicked_from, true );
                     $this->update( $clicked_from );
                 }
                 $this->update_options_data( $options_data[ $this->plugin_name ] );
@@ -351,7 +352,6 @@ class NotificationX_Notice {
     public function content(){
         $options_data = $this->get_options_data();
         $notice = current( $this->next_notice() );
-
         switch( $notice ) {
             case 'opt_in' :
                 do_action('wpdeveloper_optin_notice_for_' . $this->plugin_name );
@@ -513,6 +513,9 @@ class NotificationX_Notice {
      */
     public function admin_notices(){
         $current_notice = current( $this->next_notice() );
+        if( get_user_meta( get_current_user_id(), $this->plugin_name . '_' . $current_notice, true ) ) {
+            return;
+        }
         if( $current_notice == 'opt_in' ) {
             do_action( $this->do_notice_action );
             return;

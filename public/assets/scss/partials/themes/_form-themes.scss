@@ -1,0 +1,12 @@
+.notificationx-shortcode-wrapper > .nx-notification.nx-form, 
+.nx-notification.nx-form {
+    & .nx-notification-theme-one, & .nx-notification-theme-two, & .nx-notification-theme-three { 
+        & .notificationx-content  {
+            & .nx-second-row {
+                & .nx-first-word {
+                    display: inline;
+                }
+            }
+        }
+    }
+}

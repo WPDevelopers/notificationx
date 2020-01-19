@@ -88,14 +88,13 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
 			'order' => 'ASC',
 			'posts_per_page' => -1,
         );
-        $the_query = new \WP_Query($args);
+        $the_query = get_posts( $args );
         $forms = [];
-        if( $the_query->have_posts() ) {
-            foreach ($the_query->posts as $form) {
+        if( ! empty( $the_query ) ) {
+            foreach ($the_query as $form) {
                 $forms[ $form->ID ] = $form->post_title;
             }
         }
-        wp_reset_postdata();
         return $forms;
     }
 
@@ -116,7 +115,7 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
             'type' => 'select',
             'label' => __( 'Select a Form', 'notificationx' ),
             'options' => $this->cf7_forms(),
-            'priority' => 0,
+            'priority' => 89,
         );
 
         $fields['form_template_new'] = array(
@@ -239,7 +238,14 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
         add_filter( 'nx_display_types_hide_data', array( $this, 'hide_fields' ) );
         add_filter( 'nx_form_source', array( $this, 'toggle_fields' ) );
     }
-
+    /**
+     * Builder Hooks
+     */
+    public function init_builder_hooks(){
+        add_filter( 'nx_builder_tabs', array( $this, 'add_builder_fields' ) );
+        add_filter( 'nx_display_types_hide_data', array( $this, 'hide_builder_fields' ) );
+        add_filter( 'nx_builder_tabs', array( $this, 'builder_toggle_fields' ) );
+    }
     /**
      * Some toggleData & hideData manipulation.
      *
