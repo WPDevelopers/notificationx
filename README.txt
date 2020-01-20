@@ -3,9 +3,9 @@ Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul
 Donate link: http://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce sales, sales popups, popups, boost sales, email subscription, recent sales popup, woocommerce notification, woo popups,  wordpress marketing, marketing, increase engagement, woocommerce
 Requires at least: 4.0
-Tested up to: 5.2
+Tested up to: 5.3
 Requires PHP: 5.4
-Stable tag: 1.4.3
+Stable tag: 1.4.4
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -150,6 +150,13 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 7. Notification Bar with Countdown
 
 == Changelog ==
+
+= 1.4.4 - 20/01/2020 =
+
+- Added: WPForms integration
+- Added: Ninja Forms integration
+- Enhancement: Role Management
+- Fix: Compatibility issue with PIKLIST plugin
 
 = 1.4.3 - 07/01/2020 =
 
