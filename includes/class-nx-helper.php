@@ -300,6 +300,19 @@ class NotificationX_Helper {
                 // 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
                 'title' => 'CF7'
             ),
+            'wpf' => array(
+                // 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+                'title' => 'WPForms'
+            ),
+            'njf' => array(
+                // 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+                'title' => 'Ninja Forms'
+            ),
+            'grvf' => array(
+                'is_pro' => $is_pro,
+                // 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
+                'title' => 'Gravity Forms'
+            ),
         ];
         $forms = apply_filters('nx_form_source_options', $froms );
         $forms = self::active_modules( $forms );
@@ -575,12 +588,16 @@ class NotificationX_Helper {
             ),
             'form' => array(
                 'modules_cf7',
+                'modules_wpf',
+                'modules_njf'
             ),
             'woocommerce' => 'modules_woocommerce',
             'edd' => 'modules_edd',
             'give' => 'modules_give',
             'tutor' => 'modules_tutor',
             'cf7' => 'modules_cf7',
+            'wpf' => 'modules_wpf',
+            'njf' => 'modules_njf',
         ));
     }
 
@@ -774,6 +791,9 @@ class NotificationX_Helper {
             'elearning_template_new',
             'donation_template_new',
             'form_template_new',
+            'wpf_template_new',
+            'njf_template_new',
+            'grvf_template_new'
         );
         return $data;
     }
@@ -927,15 +947,18 @@ class NotificationX_Helper {
 
     public static function theme_sources(){
         return apply_filters( 'nx_themes_types', array( 
-            'press_bar'   => 'bar_theme',
-            'wp_comments' => 'comment_theme',
-            'woocommerce' => 'theme',
-            'edd'         => 'theme',
-            'wp_reviews'  => 'wporg_theme',
-            'wp_stats'    => 'wpstats_theme',
-            'give'        => 'donation_theme',
-            'tutor'       => 'elearning_theme',
-            'cf7'         => 'form_theme',
+            'press_bar'     => 'bar_theme',
+            'wp_comments'   => 'comment_theme',
+            'woocommerce'   => 'theme',
+            'edd'           => 'theme',
+            'wp_reviews'    => 'wporg_theme',
+            'wp_stats'      => 'wpstats_theme',
+            'give'          => 'donation_theme',
+            'tutor'         => 'elearning_theme',
+            'cf7'           => 'form_theme',
+            'wpf'           => 'form_theme',
+            'njf'           => 'form_theme',
+            'grvf'          => 'form_theme',
         ));
     }
 
@@ -964,14 +987,17 @@ class NotificationX_Helper {
 
     public static function template_keys(){
         return apply_filters( 'nx_template_keys', array( 
-            'wp_comments' => 'comments_template_new',
-            'woocommerce' => 'woo_template_new',
-            'edd'         => 'woo_template_new',
-            'wp_reviews'  => 'wp_reviews_template_new',
-            'wp_stats'    => 'wp_stats_template_new',
-            'give'        => 'donation_template_new',
-            'tutor'       => 'elearning_template_new',
-            'cf7'       => 'form_template_new',
+            'wp_comments'   => 'comments_template_new',
+            'woocommerce'   => 'woo_template_new',
+            'edd'           => 'woo_template_new',
+            'wp_reviews'    => 'wp_reviews_template_new',
+            'wp_stats'      => 'wp_stats_template_new',
+            'give'          => 'donation_template_new',
+            'tutor'         => 'elearning_template_new',
+            'cf7'           => 'form_template_new',
+            'wpf'           => 'wpf_template_new',
+            'njf'           => 'njf_template_new',
+            'grvf'          => 'grvf_template_new',
         ));
     }
     /**
@@ -1058,7 +1084,7 @@ class NotificationX_Helper {
          * Donation Template Settins
          */
 
-        $sales_field = get_post_meta( $post->ID, '_nx_meta_donation_template_new', true );        
+        $sales_field = get_post_meta( $post->ID, '_nx_meta_donation_template_new', true );
         $data['nx_meta_donation_template_new'] = array(
             'theme-one' => array(
                 'first_param' => isset( $sales_field['first_param'] ) ? $sales_field['first_param'] : 'tag_name',
@@ -1071,7 +1097,7 @@ class NotificationX_Helper {
          * eLearning Template Settins
          */
 
-        $sales_field = get_post_meta( $post->ID, '_nx_meta_elearning_template_new', true );        
+        $sales_field = get_post_meta( $post->ID, '_nx_meta_elearning_template_new', true );
         $data['nx_meta_elearning_template_new'] = array(
             'theme-one' => array(
                 'first_param' => isset( $sales_field['first_param'] ) ? $sales_field['first_param'] : 'tag_name',
@@ -1085,7 +1111,7 @@ class NotificationX_Helper {
          * Sales Template Settins
          */
 
-        $sales_field = get_post_meta( $post->ID, '_nx_meta_woo_template_new', true );        
+        $sales_field = get_post_meta( $post->ID, '_nx_meta_woo_template_new', true );
         $data['nx_meta_woo_template_new'] = array(
             'theme-one' => array(
                 'first_param' => isset( $sales_field['first_param'] ) ? $sales_field['first_param'] : 'tag_name',
@@ -1184,5 +1210,59 @@ class NotificationX_Helper {
         );
 
         return $data;
+    }
+
+    /**
+     * Contact Forms Key Name filter for Name Selectbox
+     * @since 1.4.*
+     * @param string
+     * @return boolean
+     */
+    public static function filter_contactform_key_names( $name ) {
+        $validKey = true;
+        $filterWords = array(
+            "checkbox", 
+            "color", 
+            "date", 
+            "datetime-local", 
+            "file",
+            "image", 
+            "month", 
+            "number", 
+            "password", 
+            "radio",
+            "range",
+            "reset",
+            "submit",
+            "tel",
+            "time",
+            "week",
+            "Comment",
+            "message",
+            "address",
+            "phone",
+        );
+        foreach ( $filterWords as $word ) {
+            if ( !empty($name) && stripos($name, $word) === false) {
+                $validKey = true;
+            }
+            else {
+                $validKey = false;
+                break;
+            }
+        }
+        return $validKey;
+    }
+
+    /**
+     * Contact Forms Key Name remove special characters and meaningless words for Name Selectbox
+     * @since 1.4.*
+     * @param string
+     * @return string
+     */
+    public static function rename_contactform_key_names( $name ) {
+        $result = preg_split("/[_,\-]+/", $name);
+        $returnName = ucfirst($result[0]);
+        return $returnName;
     }
 }

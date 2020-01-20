@@ -150,6 +150,8 @@ final class NotificationX {
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'give/class-give.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'tutor/class-tutor.php'; // @since 1.3.9
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'form/class-cf7.php'; // @since 1.3.9
+		require_once NOTIFICATIONX_EXT_DIR_PATH . 'form/class-wpf.php'; // @since 1.4.*
+		require_once NOTIFICATIONX_EXT_DIR_PATH . 'form/class-ninjaform.php'; // @since 1.4.*
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
@@ -183,15 +185,17 @@ final class NotificationX {
 		global $nx_extension_factory;
 
 		$extensions = [
-			'press_bar'   => 'NotificationX_PressBar_Extension',
-			'wp_comments' => 'NotificationX_WP_Comments_Extension',
-			'wp_reviews'  => 'NotificationXPro_WPOrgReview_Extension',
-			'wp_stats'    => 'NotificationXPro_WPOrgStats_Extension',
-			'woocommerce' => 'NotificationX_WooCommerce_Extension',
-			'edd'         => 'NotificationX_EDD_Extension',
-			'give'        => 'NotificationX_Give_Extension',
-			'tutor'       => 'NotificationX_Tutor_Extension',
-			'cf7'       => 'NotificationX_CF7_Extension',
+			'press_bar'   	=> 'NotificationX_PressBar_Extension',
+			'wp_comments' 	=> 'NotificationX_WP_Comments_Extension',
+			'wp_reviews'  	=> 'NotificationXPro_WPOrgReview_Extension',
+			'wp_stats'    	=> 'NotificationXPro_WPOrgStats_Extension',
+			'woocommerce' 	=> 'NotificationX_WooCommerce_Extension',
+			'edd'         	=> 'NotificationX_EDD_Extension',
+			'give'        	=> 'NotificationX_Give_Extension',
+			'tutor'       	=> 'NotificationX_Tutor_Extension',
+			'cf7'       	=> 'NotificationX_CF7_Extension',
+			'wpf'       	=> 'NotificationXPro_WPForms_Extension',
+			'njf'       	=> 'NotificationXPro_NinjaForms_Extension',
 		];
 
 		foreach( $extensions as $key => $extension ) {
@@ -412,6 +416,16 @@ final class NotificationX {
                     $settings['nx_modules']['modules_cf7'] = true;
                     NotificationX_DB::update_settings( $settings );
                 }
+            }
+		}
+		if(version_compare( NOTIFICATIONX_VERSION, '1.4.4', '==')){
+			$version_migration = get_option( 'nx_version_migration_144', false );
+            if( ! $version_migration ) {
+                update_option('nx_version_migration_144', true);
+				$settings = NotificationX_DB::get_settings();
+				$settings['nx_modules']['modules_wpf'] = true;
+				$settings['nx_modules']['modules_njf'] = true;
+				NotificationX_DB::update_settings( $settings );
             }
         }
 	}

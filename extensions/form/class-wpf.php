@@ -1,16 +1,16 @@
 <?php 
 
-class NotificationX_CF7_Extension extends NotificationX_Extension {
+class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
     /**
      * Type of notification.
      * @var string
      */
-    public $type = 'cf7';
+    public $type = 'wpf';
     /**
      * Template name
      * @var string
      */
-    public $template = 'form_template';
+    public $template = 'wpf_template';
     /**
      * Theme name
      * @var string
@@ -24,32 +24,33 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
 
     public function __construct(){
         parent::__construct( $this->template );
-        add_action( 'wp_ajax_nx_cf7_keys', array( $this, 'keys' ) );
+        add_action( 'wp_ajax_nx_wpf_keys', array( $this, 'keys' ) );
         add_filter( 'nx_data_key', array( $this, 'key' ), 10, 2 );
     }
 
     public function key( $key, $settings ){
-        if( $settings->display_type === 'form' && $settings->form_source === 'cf7' ) {
-            $key = $key . '_' . $settings->cf7_form;
+        if( $settings->display_type === 'form' && $settings->form_source === 'wpf' ) {
+            $key = $key . '_' . $settings->wpf_form;
         }
         return $key;
     }
 
     public function keys(){
-        if( isset( $_GET['action'] ) && $_GET['action'] == 'nx_cf7_keys' ) {
+        if( isset( $_GET['action'] ) && $_GET['action'] == 'nx_wpf_keys' ) {
             if( isset( $_GET['form_id'] ) ) {
                 $form_id = intval( $_GET['form_id'] );
 
-                $form = get_post( $form_id );
+                $form = get_post( $form_id );                
 
                 $keys = $this->keys_generator( $form->post_content );
 
                 $returned_keys = array();
 
                 if( is_array( $keys ) && ! empty( $keys ) ) {
-                    foreach( $keys as $key ) {
+                    foreach( $keys as $key => $value ) {
                         $returned_keys[] = array(
-                            'text' => ucwords( str_replace( '_', ' ', str_replace( '-', ' ', $key ) ) ),
+                            // 'text' => ucwords( str_replace( '_', ' ', str_replace( '-', ' ', $key ) ) ),
+                            'text' => $value,
                             'id' => "tag_$key",
                         );
                     }
@@ -66,25 +67,41 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
         wp_die();
     }
 
+    public function check_label( $field ){
+        $returned_field = '';
+        if( isset( $field['label'] ) && ! empty( $field['label'] ) ){
+            $returned_field = $field['label'];
+            return $returned_field;
+        }
+        if( isset( $field['type'] ) ) {
+            $returned_field = ucfirst( $field['type'] );
+            return $returned_field;
+        }
+        return $returned_field;
+    }
+
     public function keys_generator( $fieldsString ){
-        $fieldsString = substr($fieldsString, 0, strpos($fieldsString, 'submit') - 2);
-        preg_match_all('/\[(.+?)\]/', $fieldsString, $parsed_fields);
         $fields = array();
-        if (!empty($parsed_fields[1])) {
-            foreach ($parsed_fields[1] as $field) {
-                if (strpos($field, 'submit') !== false) {
-                    continue;
-                } else {
-                    $fields[] = explode(' ', $field)[1];
-                }
+        $fieldsdata = json_decode( $fieldsString, true );
+        if ( ! empty( $fieldsdata ) && isset( $fieldsdata['fields'] ) && ! empty( $fieldsdata['fields'] ) ) {
+            foreach ( $fieldsdata['fields'] as $key => $fielditem ) {
+                // if (NotificationX_Helper::filter_contactform_key_names($fielditem['label'])){
+                    if( isset( $fielditem['type'] ) && $fielditem['type'] === 'name' ) {
+                        $format = explode( '-',  $fielditem['format'] );
+                        foreach( $format as $fKey ) {
+                            $fields[ $key . '_' . $fKey . '_name' ] = ucfirst( $fKey ) . ' Name';
+                        }
+                    }
+                    $fields[ $key . "_" . $fielditem['type'] ] = $this->check_label( $fielditem );
+                // }                
             }
         }
         return $fields;
     }
 
-    public function cf7_forms(){
+    public function wpf_forms(){
         $args = array(
-			'post_type' => 'wpcf7_contact_form',
+			'post_type' => 'wpforms',
 			'order' => 'ASC',
 			'posts_per_page' => -1,
         );
@@ -101,35 +118,37 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
     public function init_fields(){
         $fields = [];
 
-        if( ! class_exists( 'WPCF7_ContactForm' ) ) {
-            $installed = $this->plugins( 'contact-form-7/wp-contact-form-7.php' );
-            $url = admin_url('plugin-install.php?s=contact+form+7&tab=search&type=term');
-            $fields['has_no_cf7'] = array(
+        if( ! class_exists( 'WPForms_Form_Handler' ) ) {
+            $installed = $this->plugins( 'wpforms-lite/wpforms.php' );
+            $url = admin_url('plugin-install.php?s=wp+form&tab=search&type=term');
+            $fields['has_no_wpf'] = array(
                 'type'     => 'message',
-                'message'    => __('You have to install <a href="'. $url .'">Contact Form 7</a> plugin first.' , 'notificationx'),
+                'message'    => __('You have to install <a href="'. $url .'">WP Forms</a> plugin first.' , 'notificationx'),
                 'priority' => 0,
             );
         }
 
-        $fields['cf7_form'] = array(
+        $fields['wpf_form'] = array(
             'type' => 'select',
             'label' => __( 'Select a Form', 'notificationx' ),
-            'options' => $this->cf7_forms(),
-            'priority' => 89,
+            'options' => $this->wpf_forms(),
+            'priority' => 89.5,
         );
 
-        $fields['form_template_new'] = array(
+        $fields['wpf_template_new'] = array(
             'type'     => 'template',
             'builder_hidden' => true,
             'fields' => array(
                 'first_param' => array(
-                    'type'     => 'select',
-                    'ajax'     => 'cf7_form',
-                    'ajax_action' => 'nx_cf7_keys',
-                    'label'    => __('Notification Template' , 'notificationx'),
-                    'priority' => 1,
-                    'options'  => array(
+                    'type'          => 'select',
+                    'ajax'          => 'wpf_form',
+                    'ajax_action'   => 'nx_wpf_keys',
+                    'label'         => __('Notification Template' , 'notificationx'),
+                    'priority'      => 1,
+                    'options'       => array(
                         'tag_name' => __('Select A Tag' , 'notificationx'),
+                        'tag_first_name' => __('First Name' , 'notificationx'),
+                        'tag_last_name' => __('Last Name' , 'notificationx'),
                         'tag_custom' => __('Custom' , 'notificationx'),
                     ),
                     'dependency' => array(
@@ -213,6 +232,7 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
             'priority' => 90,
         );
 
+        // var_dump($fields);
         return $fields;
     }
 
@@ -220,7 +240,7 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
         $fields = $this->init_fields();
 
         foreach ( $fields as $name => $field ) {
-            if( $name === 'has_no_cf7' ) {
+            if( $name === 'has_no_wpf' ) {
                 $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
                 continue;
             }
@@ -284,36 +304,36 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
         if( ! $this->is_created( $this->type ) ) {
             return;
         }
-        add_action( 'wpcf7_mail_sent', array( $this, 'save_new_records' ) );
+        add_action( 'wpforms_process_complete', array( $this, 'save_new_records' ), 10, 4 );
     }
 
-    public function save_new_records( $contact_form ){
-        $submission   = WPCF7_Submission::get_instance();
-        $tags = $contact_form->scan_form_tags();
-        $data = array();
-        if( ! empty( $tags ) ) {
-            foreach( $tags as $tag ) {
-                if( ! empty( $tag->name ) ){
-                    $tagged_value = $submission->get_posted_data( $tag->name );
-                    $data[ $tag->name ] = $tagged_value;
-                    if( strpos( $tag->name, 'email' ) ) {
-                        $data[ 'email' ] = $tagged_value;
+    public function save_new_records( $fields, $entry, $form_data, $entry_id ){
+        foreach ( $fields as $field ) {
+            if( $field['type'] === 'checkbox' ) {
+                continue;
+            }
+            if( $field['type'] === 'name' ) {
+                if( ! empty( $entry['fields'][ $field['id'] ] ) ) {
+                    foreach( $entry['fields'][ $field['id'] ] as $nKey => $n ) {
+                        $data[ $field['id'] . '_'. $nKey . '_name' ] = $n;
                     }
                 }
             }
-            $data['title'] = $contact_form->title();
-            $data['id'] = $contact_form->id();
-            $data['timestamp'] = time();
+            if( $field['type'] === 'email' ) {
+                $data[ 'email' ] = $field['value'];
+            }
+            $data[ $field['id'] . '_'. $field['type'] ] = $field['value'];
         }
-
+        $data['title'] = $form_data['settings']['form_title'];
+        $data['timestamp'] = time();
+        $data['id'] = $form_data['id'];
         if( ! empty( $data ) ) {
-            $key = $this->type . '_' . $contact_form->id();
+            $key = $this->type . '_' . $form_data['id'];
             $this->save( $key, $data, $data['timestamp'] );
             return true;
         }
         return false;
     }
-
     /**
      * This function is responsible for adding fields in builder
      *

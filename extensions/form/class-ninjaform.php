@@ -1,16 +1,16 @@
 <?php 
 
-class NotificationX_CF7_Extension extends NotificationX_Extension {
+class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
     /**
      * Type of notification.
      * @var string
      */
-    public $type = 'cf7';
+    public $type = 'njf';
     /**
      * Template name
      * @var string
      */
-    public $template = 'form_template';
+    public $template = 'njf_template';
     /**
      * Theme name
      * @var string
@@ -24,25 +24,31 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
 
     public function __construct(){
         parent::__construct( $this->template );
-        add_action( 'wp_ajax_nx_cf7_keys', array( $this, 'keys' ) );
+        add_action( 'wp_ajax_nx_njf_keys', array( $this, 'keys' ) );
         add_filter( 'nx_data_key', array( $this, 'key' ), 10, 2 );
     }
 
     public function key( $key, $settings ){
-        if( $settings->display_type === 'form' && $settings->form_source === 'cf7' ) {
-            $key = $key . '_' . $settings->cf7_form;
+        if( $settings->display_type === 'form' && $settings->form_source === 'njf' ) {
+            $key = $key . '_' . $settings->njf_form;
         }
         return $key;
     }
 
     public function keys(){
-        if( isset( $_GET['action'] ) && $_GET['action'] == 'nx_cf7_keys' ) {
+        if( ! class_exists( 'Ninja_Forms' ) ) {
+            return [];
+        }
+        if( isset( $_GET['action'] ) && $_GET['action'] == 'nx_njf_keys' ) {
             if( isset( $_GET['form_id'] ) ) {
                 $form_id = intval( $_GET['form_id'] );
 
-                $form = get_post( $form_id );
-
-                $keys = $this->keys_generator( $form->post_content );
+                global $wpdb;
+                $queryresult = $wpdb->get_results( 'SELECT meta_value FROM `' . $wpdb->prefix . 'nf3_form_meta` WHERE parent_id = '.$form_id.' AND meta_key = "formContentData"' );
+                
+                $formdata = $queryresult[0]->meta_value;
+                
+                $keys = $this->keys_generator( $formdata );
 
                 $returned_keys = array();
 
@@ -67,68 +73,65 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
     }
 
     public function keys_generator( $fieldsString ){
-        $fieldsString = substr($fieldsString, 0, strpos($fieldsString, 'submit') - 2);
-        preg_match_all('/\[(.+?)\]/', $fieldsString, $parsed_fields);
         $fields = array();
-        if (!empty($parsed_fields[1])) {
-            foreach ($parsed_fields[1] as $field) {
-                if (strpos($field, 'submit') !== false) {
-                    continue;
-                } else {
-                    $fields[] = explode(' ', $field)[1];
+        $fieldsdata = unserialize($fieldsString);
+        if (!empty($fieldsdata)) {
+            foreach ( $fieldsdata as $field ) {                  
+                if (NotificationX_Helper::filter_contactform_key_names($field)){
+                    $fields[] = NotificationX_Helper::rename_contactform_key_names($field);
                 }
             }
         }
         return $fields;
     }
 
-    public function cf7_forms(){
-        $args = array(
-			'post_type' => 'wpcf7_contact_form',
-			'order' => 'ASC',
-			'posts_per_page' => -1,
-        );
-        $the_query = get_posts( $args );
+    public function njf_forms(){
         $forms = [];
-        if( ! empty( $the_query ) ) {
-            foreach ($the_query as $form) {
-                $forms[ $form->ID ] = $form->post_title;
+        if( ! class_exists( 'Ninja_Forms' ) ) {
+            return [];
+        }
+        global $wpdb;
+        $formresult = $wpdb->get_results( 'SELECT id, title FROM `' . $wpdb->prefix . 'nf3_forms` ORDER BY title' );
+        if( !empty( $formresult )) {
+            foreach ($formresult as $form) {
+                $forms[ $form->id ] = $form->title;
             }
         }
+
         return $forms;
     }
 
     public function init_fields(){
         $fields = [];
 
-        if( ! class_exists( 'WPCF7_ContactForm' ) ) {
-            $installed = $this->plugins( 'contact-form-7/wp-contact-form-7.php' );
-            $url = admin_url('plugin-install.php?s=contact+form+7&tab=search&type=term');
-            $fields['has_no_cf7'] = array(
+        if( ! class_exists( 'Ninja_Forms' ) ) {
+            $installed = $this->plugins( 'ninja-forms/ninja-forms.php' );
+            $url = admin_url('plugin-install.php?s=ninja+forms&tab=search&type=term');
+            $fields['has_no_njf'] = array(
                 'type'     => 'message',
-                'message'    => __('You have to install <a href="'. $url .'">Contact Form 7</a> plugin first.' , 'notificationx'),
+                'message'    => __('You have to install <a href="'. $url .'">Ninja Forms</a> plugin first.' , 'notificationx'),
                 'priority' => 0,
             );
         }
 
-        $fields['cf7_form'] = array(
+        $fields['njf_form'] = array(
             'type' => 'select',
             'label' => __( 'Select a Form', 'notificationx' ),
-            'options' => $this->cf7_forms(),
-            'priority' => 89,
+            'options' => $this->njf_forms(),
+            'priority' => 90,
         );
 
-        $fields['form_template_new'] = array(
+        $fields['njf_template_new'] = array(
             'type'     => 'template',
             'builder_hidden' => true,
             'fields' => array(
                 'first_param' => array(
-                    'type'     => 'select',
-                    'ajax'     => 'cf7_form',
-                    'ajax_action' => 'nx_cf7_keys',
-                    'label'    => __('Notification Template' , 'notificationx'),
-                    'priority' => 1,
-                    'options'  => array(
+                    'type'          => 'select',
+                    'ajax'          => 'njf_form',
+                    'ajax_action'   => 'nx_njf_keys',
+                    'label'         => __('Notification Template' , 'notificationx'),
+                    'priority'      => 1,
+                    'options'       => array(
                         'tag_name' => __('Select A Tag' , 'notificationx'),
                         'tag_custom' => __('Custom' , 'notificationx'),
                     ),
@@ -148,7 +151,6 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
                             'fields' => [ 'custom_first_param' ]
                         ),
                     ),
-                    // 'default' => 'tag_name'
                 ),
                 'custom_first_param' => array(
                     'type'     => 'text',
@@ -213,6 +215,7 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
             'priority' => 90,
         );
 
+        // var_dump($fields);
         return $fields;
     }
 
@@ -220,7 +223,7 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
         $fields = $this->init_fields();
 
         foreach ( $fields as $name => $field ) {
-            if( $name === 'has_no_cf7' ) {
+            if( $name === 'has_no_njf' ) {
                 $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
                 continue;
             }
@@ -284,36 +287,24 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
         if( ! $this->is_created( $this->type ) ) {
             return;
         }
-        add_action( 'wpcf7_mail_sent', array( $this, 'save_new_records' ) );
+        add_action( 'ninja_forms_after_submission', array( $this, 'save_new_records' ));
     }
 
-    public function save_new_records( $contact_form ){
-        $submission   = WPCF7_Submission::get_instance();
-        $tags = $contact_form->scan_form_tags();
-        $data = array();
-        if( ! empty( $tags ) ) {
-            foreach( $tags as $tag ) {
-                if( ! empty( $tag->name ) ){
-                    $tagged_value = $submission->get_posted_data( $tag->name );
-                    $data[ $tag->name ] = $tagged_value;
-                    if( strpos( $tag->name, 'email' ) ) {
-                        $data[ 'email' ] = $tagged_value;
-                    }
-                }
-            }
-            $data['title'] = $contact_form->title();
-            $data['id'] = $contact_form->id();
-            $data['timestamp'] = time();
+    public function save_new_records( $form_data ){
+        foreach ($form_data['fields'] as $field) {
+            $arr = NotificationX_Helper::rename_contactform_key_names($field['key']);
+            $data[$arr] = $field['value'];
         }
+        $data['title'] = $form_data['settings']['title'];
+        $data['timestamp'] = time();
 
         if( ! empty( $data ) ) {
-            $key = $this->type . '_' . $contact_form->id();
+            $key = $this->type . '_' . $form_data['form_id'];
             $this->save( $key, $data, $data['timestamp'] );
             return true;
         }
         return false;
     }
-
     /**
      * This function is responsible for adding fields in builder
      *

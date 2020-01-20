@@ -1,6 +1,8 @@
 <?php
 
 function notificationx_settings_args(){
+    $wp_roles = NotificationX_Settings::get_roles();
+
     return apply_filters('notificationx_settings_tab', array(
         'general' => array(
             'title' => __( 'General', 'notificationx' ),
@@ -40,6 +42,20 @@ function notificationx_settings_args(){
                         'modules_cf7' => array(
                             'title' => __('Contact Form 7', 'notificationx'),
                             'link'  => 'https://notificationx.com/docs/contact-form-submission-alert/'
+                        ),
+                        'modules_wpf' => array(
+                            'title' => __('WPForms', 'notificationx'),
+                            'link'  => 'https://notificationx.com/docs/contact-form-submission-alert/'
+                        ),
+                        'modules_njf' => array(
+                            'title' => __('Ninja Forms', 'notificationx'),
+                            'link'  => 'https://notificationx.com/docs/contact-form-submission-alert/'
+                        ),
+                        'modules_grvf' => array(
+                            'is_pro' => true,
+                            'title' => __('Gravity Forms', 'notificationx'),
+                            'version' => '1.4.4',
+                            'link' => 'https://notificationx.com/docs/contact-form-submission-alert/'
                         ),
                         'modules_freemius' => array(
                             'is_pro' => true,
@@ -104,7 +120,40 @@ function notificationx_settings_args(){
                             'description' => __('Click, if you want to disable powered by text from notification' , 'notificationx'),
                         ),
                     ),
-                ))
+                )),
+                'role_management' => array(
+                    'title' => __('Role Management', 'notificationx'),
+                    'priority'    => 30,
+                    'fields' => array(
+                        'notification_roles' => array(
+                            'type'        => 'select',
+                            'label'       => __('Who Can Create Notification?', 'notificationx'),
+                            'priority'    => 1,
+                            'multiple' => true,
+                            'disable' => true,
+                            'default' => 'administrator',
+                            'options' => $wp_roles
+                        ),
+                        'settings_roles' => array(
+                            'type'        => 'select',
+                            'label'       => __('Who Can Edit Settings?', 'notificationx'),
+                            'priority'    => 1,
+                            'multiple' => true,
+                            'disable' => true,
+                            'default' => 'administrator',
+                            'options' => $wp_roles
+                        ),
+                        'analytics_roles' => array(
+                            'type'        => 'select',
+                            'label'       => __('Who Can Check Analytics?', 'notificationx'),
+                            'priority'    => 1,
+                            'multiple' => true,
+                            'disable' => true,
+                            'default' => 'administrator',
+                            'options' => $wp_roles
+                        ),
+                    )
+                )
             ))
         ),
         'cache_settings_tab' => array(
