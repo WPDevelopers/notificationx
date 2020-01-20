@@ -55,7 +55,7 @@ function notificationx_settings_args(){
                             'is_pro' => true,
                             'title' => __('Gravity Forms', 'notificationx'),
                             'version' => '1.4.4',
-                            'link' => 'https://notificationx.com/docs/envato-sales-notification'
+                            'link' => 'https://notificationx.com/docs/contact-form-submission-alert/'
                         ),
                         'modules_freemius' => array(
                             'is_pro' => true,
