@@ -4,6 +4,9 @@
  * 
  * @since 1.4.4
  */
+
+include plugin_dir_path( __FILE__ ) . 'templates/nxm-header.php';
+
 class NotificationX_Report_Email {
     /**
      * Get a single Instance of Analytics
@@ -23,7 +26,9 @@ class NotificationX_Report_Email {
     }
 
     public function test_function() {
-        
+        // $html = email_template();
+        // echo $html;
+        // error_log(print_r($html, TRUE)); 
         // die;
     }
 
@@ -83,8 +88,12 @@ class NotificationX_Report_Email {
                 foreach ($impressiondata_array as $key=>$value) {
                     $thisDate = strtotime($key);
                     if ($thisDate >= $targeted_date) {
-                        $totalviews = $totalviews + $value['impressions'];
-                        $totalclicks = $totalclicks + $value['clicks'];
+                        if ( isset($value['impressions']) ) {
+                            $totalviews = $totalviews + $value['impressions'];
+                        }
+                        if ( isset($value['clicks']) ) {
+                            $totalclicks = $totalclicks + $value['clicks'];
+                        }                        
                     }
                 }
             }
@@ -153,32 +162,10 @@ class NotificationX_Report_Email {
         $click_through_rate = $totalviews/$totalclicks;
         $impression_data = self::get_impression_data();
 
-        $html = "
-                <p>Your Weekly Report</p>
-                <table border='1'>
-                    <thead>
-                        <tr>
-                            <th>Total Views</th>
-                            <th>Total Clicks</th>
-                            <th>Click Through Rate</th>
-                            <th>Total Views(Last 7 Days)</th>
-                            <th>Total Clicks(Last 7 Days)</th>
-                        </tr>                        
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>".$totalviews."</td>
-                            <td>".$totalclicks."</td>
-                            <td>".$click_through_rate."</td>
-                            <td>".$impression_data['totalviews']."</td>
-                            <td>".$impression_data['totalclicks']."</td>
-                        </tr>
-                    </tbody>
-                </table>
-                ";
+        $html = email_template();
+        // $html = "<h1>email_template</h1>";
 
-
-        return $html;
+        return (string)$html;
     }
 
     /**
@@ -197,13 +184,12 @@ class NotificationX_Report_Email {
      * Hook: admin_init
      */
     function send_email_weekly() {
-        $to = self::receiver_email_address();
-        $subject = self::email_subject();
-        $message = self::email_body();
+        $to = $this->receiver_email_address();
+        $subject = $this->email_subject();
+        $message = $this->email_body();
         $headers = array('Content-Type: text/html; charset=UTF-8');
-        $attachments = "";
-
-        wp_mail( $to, $subject, $message, $headers );
+        
+        wp_mail( $to, $subject, $message, $headers );          
     }    
 
     /**
