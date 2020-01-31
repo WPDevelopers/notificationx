@@ -240,7 +240,7 @@ final class NotificationX {
 		
 		add_action( 'init', array( $plugin_admin, 'register') );
 		// add_action( 'init', array( $plugin_admin, 'get_active_items') );
-		add_action( 'cron_schedules', 'NotificationX_Cron::cron_schedule', 10, 1 );
+		add_filter( 'cron_schedules', 'NotificationX_Cron::cron_schedule', 10, 1 );
 		add_action( 'admin_init', array( $plugin_admin, 'get_enabled_types') );
 		add_action( 'admin_init', array( $plugin_admin, 'admin_init') );
 		add_action( 'add_meta_boxes', array( $plugin_admin->metabox, 'add_meta_boxes') );
