@@ -196,7 +196,7 @@ NXTEMBODY;
             return $carry;
         } );
         $last_wk_views = array_reduce( $args, function( $carry, $item ) {
-            $carry += $item['last_wk_views'];
+            $carry += $item['last_views'];
             return $carry;
         } );
 
@@ -205,7 +205,7 @@ NXTEMBODY;
             return $carry;
         } );
         $last_wk_clicks = array_reduce( $args, function( $carry, $item ) {
-            $carry += $item['last_wk_clicks'];
+            $carry += $item['last_clicks'];
             return $carry;
         } );
 

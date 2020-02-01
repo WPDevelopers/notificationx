@@ -357,6 +357,11 @@ h2.nx-meta-section-title .nx-section-reset {
     color: #403E3C;
 }
 
+.nx-warning {
+    border-color: #f1e11d;
+    background-color: #fcffd4;
+}
+
 .nx-info-message a {
     color: #6c63ff;
 }

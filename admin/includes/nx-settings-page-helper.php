@@ -217,7 +217,32 @@ function notificationx_settings_args(){
                                 'nx_daily'         => __( 'Once Daily', 'notificationx' ),
                                 'nx_weekly'         => __( 'Once Weekly', 'notificationx' ),
                                 'nx_monthly'         => __( 'Once Monthly', 'notificationx' ),
+                            ),
+                            'hide' => array(
+                                'nx_daily' => array(
+                                    'fields' => array( 'reporting_day', 'reporting_monthly_help_text' )
+                                ),
+                                'nx_weekly' => array(
+                                    'fields' => array( 'reporting_monthly_help_text' )
+                                ),
+                                'nx_monthly' => array(
+                                    'fields' => array( 'reporting_day' )
+                                ),
+                            ),
+                            'dependency' => array(
+                                'nx_weekly' => array(
+                                    'fields' => array( 'reporting_day' )
+                                ),
+                                'nx_monthly' => array(
+                                    'fields' => array( 'reporting_monthly_help_text' )
+                                ),
                             )
+                        ),
+                        'reporting_monthly_help_text' => array(
+                            'type' => 'message',
+                            'class' => 'nx-warning',
+                            'priority'    => 1.5,
+                            'message' => __( 'It will trigger first day of next month.', 'notificationx' )
                         ),
                         'reporting_day' => array(
                             'type'        => 'select',
