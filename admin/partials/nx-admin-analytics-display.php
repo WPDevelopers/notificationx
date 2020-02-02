@@ -37,6 +37,11 @@
             $dummy_output = '
                 <div class="analytics-display-area nx-stats-tease" data-swal="true">
                     <img src="'. NOTIFICATIONX_ADMIN_URL .'assets/img/analytics-image.png" alt="Analytics Data">
+                    <div class="nx-stats-pro-tease">
+                        <a href="https://wpdeveloper.net/in/notificationx">
+                            <p>Get PRO to Unlock</p>
+                        </a>
+                    </div>
                 </div>
             ';
             echo $dummy_output;
