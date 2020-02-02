@@ -39,14 +39,14 @@ class NotificationX_Analytics {
     );
 
     public function __construct() {
+        add_action( 'nx_before_settings_load', array( $this, 'add_settings' ) );
+        if( NotificationX_DB::get_settings( 'enable_analytics' ) != 1 && NotificationX_DB::get_settings( 'enable_analytics' ) !== '' ) {
+            return;
+        }
         if( defined( 'NOTIFICATIONX_PRO_VERSION' ) ) {
             if( version_compare( NOTIFICATIONX_PRO_VERSION, '1.4.6', '<' ) ) {
                 return;
             }
-        }
-        add_action( 'nx_before_settings_load', array( $this, 'add_settings' ) );
-        if( NotificationX_DB::get_settings( 'enable_analytics' ) != 1 && NotificationX_DB::get_settings( 'enable_analytics' ) !== '' ) {
-            return;
         }
         add_action( 'admin_init', array( $this, 'notificationx' ) );
         add_action( 'notificationx_admin_menu', array( $this, 'add_analytics_menu' ) );
@@ -180,53 +180,19 @@ class NotificationX_Analytics {
      * @return void
      */
     public function add_settings(){
-        add_filter( 'notificationx_settings_tab', array( $this, 'add_settings_tab' ) );
+        // add_filter( 'notificationx_settings_tab', array( $this, 'add_settings_tab' ) );
     }
 
     public function add_settings_tab( $options ){
-        $options['analytics_reporting'] = [
-            'title' => __( 'Analytics & Reporting', 'notificationx' ),
+        $options['email_analytics_reporting'] = [
+            'title' => __( 'Email Reporting', 'notificationx' ),
             'button_text' => __( 'Save Settings' ),
         ];
-        $general = $options['analytics_reporting'];
-        $general['sections']['analytics'] = array(
+        $general = $options['email_analytics_reporting'];
+        $general['sections']['email_reporting'] = array(
             'priority' => 20,
-            'title'    => __('Analytics', 'notificationx'),
+            'title'    => __('Reporting', 'notificationx'),
             'fields'   => array(
-                'enable_analytics' => array(
-                    'type'    => 'checkbox',
-                    'label'   => __( 'Enable Analytics', 'notificationx' ),
-                    'default'  => 1,
-                    'priority' => 0,
-                    'dependency' => array(
-                        1 => array( 
-                            'fields' => array( 'analytics_from', 'exclude_bot_analytics' )
-                        )
-                    ),
-                    'hide' => array(
-                        0 => array( 
-                            'fields' => array( 'analytics_from', 'exclude_bot_analytics' )
-                        )
-                    )
-                ),
-                'analytics_from' => array(
-                    'type'    => 'select',
-                    'label'   => __( 'Analytics From', 'notificationx' ),
-                    'options' => array( 
-                        'everyone'         => __( 'Everyone', 'notificationx' ),
-                        'guests'           => __( 'Guests Only', 'notificationx' ),
-                        'registered_users' => __( 'Registered Users Only', 'notificationx' ),
-                    ),
-                    'default'  => 'everyone',
-                    'priority' => 1,
-                ),
-                'exclude_bot_analytics' => array(
-                    'type'        => 'checkbox',
-                    'label'       => __( 'Exclude Bot Analytics', 'notificationx' ),
-                    'default'     => 1,
-                    'priority'    => 1,
-                    'description' => __( 'Select if you want to exclude bot analytics.', 'notificationx' ),
-                ),
                 'reporting_day' => array(
                     'type'        => 'select',
                     'label'       => __( 'Select Reporting Day', 'notificationx' ),
@@ -262,7 +228,7 @@ class NotificationX_Analytics {
             ),
         );
 
-        $options['analytics_reporting'] = $general;
+        $options['email_analytics_reporting'] = $general;
         return $options;
     }
 

@@ -107,7 +107,7 @@ function notificationx_settings_args(){
         'advanced_settings_tab' => array(
             'title' => __('Advanced Settings', 'notificationx'),
             'button_text' => __('Save Settings', 'notificationx'),
-            'priority' => 10,
+            'priority' => 20,
             'sections' => apply_filters( 'nx_advanced_settings_sections', array(
                 'powered_by' => apply_filters('nx_powered_by_settings', array(
                     'priority' => 15,
@@ -121,6 +121,46 @@ function notificationx_settings_args(){
                         ),
                     ),
                 )),
+                'analytics' => array(
+                    'priority' => 20,
+                    'title'    => __('Analytics', 'notificationx'),
+                    'fields'   => array(
+                        'enable_analytics' => array(
+                            'type'    => 'checkbox',
+                            'label'   => __( 'Enable Analytics', 'notificationx' ),
+                            'default'  => 1,
+                            'priority' => 0,
+                            'dependency' => array(
+                                1 => array( 
+                                    'fields' => array( 'analytics_from', 'exclude_bot_analytics' )
+                                )
+                            ),
+                            'hide' => array(
+                                0 => array( 
+                                    'fields' => array( 'analytics_from', 'exclude_bot_analytics' )
+                                )
+                            )
+                        ),
+                        'analytics_from' => array(
+                            'type'    => 'select',
+                            'label'   => __( 'Analytics From', 'notificationx' ),
+                            'options' => array( 
+                                'everyone'         => __( 'Everyone', 'notificationx' ),
+                                'guests'           => __( 'Guests Only', 'notificationx' ),
+                                'registered_users' => __( 'Registered Users Only', 'notificationx' ),
+                            ),
+                            'default'  => 'everyone',
+                            'priority' => 1,
+                        ),
+                        'exclude_bot_analytics' => array(
+                            'type'        => 'checkbox',
+                            'label'       => __( 'Exclude Bot Analytics', 'notificationx' ),
+                            'default'     => 1,
+                            'priority'    => 1,
+                            'description' => __( 'Select if you want to exclude bot analytics.', 'notificationx' ),
+                        ),
+                    ),
+                ),
                 'role_management' => array(
                     'title' => __('Role Management', 'notificationx'),
                     'priority'    => 30,
@@ -158,7 +198,7 @@ function notificationx_settings_args(){
         ),
         'cache_settings_tab' => array(
             'title' => __( 'Cache Settings', 'notificationx' ),
-            'priority' => 11,
+            'priority' => 30,
             'button_text' => __( 'Save Settings' ),
             'sections' => apply_filters('nx_cache_settings_sections', array(
                 'cache_settings' => apply_filters('nx_cache_settings_tab', array(
