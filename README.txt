@@ -3,9 +3,9 @@ Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul
 Donate link: http://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce sales, sales popups, popups, boost sales, email subscription, recent sales popup, woocommerce notification, woo popups,  wordpress marketing, marketing, increase engagement, woocommerce
 Requires at least: 4.0
-Tested up to: 5.2
+Tested up to: 5.3
 Requires PHP: 5.4
-Stable tag: 1.4.2
+Stable tag: 1.4.4
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -112,10 +112,12 @@ FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing tec
 1. Go to the WordPress Dashboard "Add New Plugin" section.
 2. Search For "NotificationX". 
 3. Install, then Activate it.
+4. Follow the [Documentation](https://notificationx.com/docs/)
 
 = Old Way: =
 1. Upload `notificationx` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Follow the [Documentation](https://notificationx.com/docs/)
 
 
 
@@ -148,6 +150,21 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 7. Notification Bar with Countdown
 
 == Changelog ==
+
+= 1.4.4 - 20/01/2020 =
+
+- Added: WPForms integration
+- Added: Ninja Forms integration
+- Enhancement: Role Management
+- Fix: Compatibility issue with PIKLIST plugin
+
+= 1.4.3 - 07/01/2020 =
+
+- New type introduced - Contact Form
+- Added : Contact Form 7 integration
+- Fix: Donation & eLearning content tab disappearing issue
+- Fix: Reviews & Download stats regenerating issue 
+- Some minor improvements
 
 = 1.4.2 - 06/11/2019 =
 
