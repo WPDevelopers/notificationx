@@ -55,6 +55,8 @@ class NotificationX_Analytics {
         add_action( 'notificationx_admin_header', array( $this, 'stats_counter' ), 11 );
         add_action( 'notificationx_after_analytics_header', array( $this, 'stats_counter' ), 11 );
         add_filter( 'nx_frontend_after_html', array( $this, 'add_nonce' ), 11 , 2 );
+        add_action( 'wp_ajax_notificationx_pro_analytics', array( $this, 'analytics_data' ) );
+        add_action( 'wp_ajax_nopriv_notificationx_pro_analytics', array( $this, 'analytics_data' ) );
     }
     public static function notificationx(){
         $notificationx = new WP_Query(array(
@@ -239,7 +241,159 @@ class NotificationX_Analytics {
         return $output;
     }
 
-    
+    public function analytics_data(){
+        /**
+         * Verify the Nonce
+         */
+        $nonce_key = isset( $_POST['nonce_key'] ) && $_POST['nonce_key'] !== 'false' ? $_POST['nonce_key'] : '_notificationx_pro_analytics_nonce';
+        
+        if ( ! isset( $_POST['nonce'] ) || ! isset( $_POST['id'] ) || ! wp_verify_nonce( $_POST['nonce'], $nonce_key ) ) {
+            return;
+        }
+
+        global $user_ID;
+
+        $analytics_from =  NotificationX_DB::get_settings( 'analytics_from' );
+        $analytics_from = empty( $analytics_from ) ? 'everyone' : $analytics_from;
+
+        $should_count = false;
+        /**
+         * Inspired from WP-Postviews for 
+         * this pece of code. 
+         */
+        switch( $analytics_from ) {
+            case 'everyone':
+                $should_count = true;
+                break;
+            case 'guests':
+                if( empty( $_COOKIE[ USER_COOKIE ] ) && (int) $user_ID === 0 ) {
+                    $should_count = true;
+                }
+                break;
+            case 'registered_users':
+                if( (int) $user_ID > 0 ) {
+                    $should_count = true;
+                }
+                break;
+        }
+
+        if( $should_count === false ) {
+            wp_die();
+        }
+
+        $exclude_bot_analytics =  NotificationX_DB::get_settings( 'exclude_bot_analytics' );
+
+        if ( $exclude_bot_analytics == 1 ) {
+            /**
+             * Inspired from WP-Postviews for 
+             * this piece of code. 
+             */
+            $bots = array(
+                'Google Bot' => 'google',
+                'MSN' => 'msnbot',
+                'Alex' => 'ia_archiver',
+                'Lycos' => 'lycos',
+                'Ask Jeeves' => 'jeeves',
+                'Altavista' => 'scooter',
+                'AllTheWeb' => 'fast-webcrawler',
+                'Inktomi' => 'slurp@inktomi',
+                'Turnitin.com' => 'turnitinbot',
+                'Technorati' => 'technorati',
+                'Yahoo' => 'yahoo',
+                'Findexa' => 'findexa',
+                'NextLinks' => 'findlinks',
+                'Gais' => 'gaisbo',
+                'WiseNut' => 'zyborg',
+                'WhoisSource' => 'surveybot',
+                'Bloglines' => 'bloglines',
+                'BlogSearch' => 'blogsearch',
+                'PubSub' => 'pubsub',
+                'Syndic8' => 'syndic8',
+                'RadioUserland' => 'userland',
+                'Gigabot' => 'gigabot',
+                'Become.com' => 'become.com',
+                'Baidu' => 'baiduspider',
+                'so.com' => '360spider',
+                'Sogou' => 'spider',
+                'soso.com' => 'sosospider',
+                'Yandex' => 'yandex'
+            );
+            $useragent = isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '';
+            foreach ( $bots as $name => $lookfor ) {
+                if ( ! empty( $useragent ) && ( false !== stripos( $useragent, $lookfor ) ) ) {
+                    $should_count = false;
+                    break;
+                }
+            }
+        }
+
+        if( $should_count === false ) {
+            wp_die();
+        }
+        /**
+         * Save Impressions
+         */
+        $post_id = intval( $_POST['id'] );
+        /**
+         * For Per Click Data
+         */
+        $todays_date = date( 'd-m-Y', time() );
+        if( isset( $_POST['clicked'] ) && $_POST['clicked'] == 'true' ) {
+            $clicks = get_post_meta( $post_id, '_nx_meta_clicks', true );
+            if( $clicks === null ) {
+                add_post_meta( $post_id, '_nx_meta_clicks', 1 );
+            } else {
+                update_post_meta( $post_id, '_nx_meta_clicks', ++$clicks );
+            }
+            /**
+             * For Per Pop Up Click
+             */
+            $idd = intval( $_POST['id'] );
+            $impressions = get_post_meta( $idd, '_nx_meta_impression_per_day', true );
+            if( empty( $impressions ) ) {
+                $impressions = [];
+                $impressions[ $todays_date ][ 'clicks' ] = 1;
+                add_post_meta( $idd, '_nx_meta_impression_per_day', $impressions );
+            } else {
+                if( isset( $impressions[ $todays_date ] ) ) {
+                    $clicks_data = isset( $impressions[ $todays_date ]['clicks'] ) ? ++$impressions[ $todays_date ]['clicks'] : 1;
+                    $impressions[ $todays_date ][ 'clicks' ] = $clicks_data;
+                } else {
+                    $impressions[ $todays_date ][ 'clicks' ] = 1;
+                }
+                update_post_meta( $idd, '_nx_meta_impression_per_day', $impressions );
+                echo 'Success';
+            }
+            wp_die(); // die here
+        }
+
+        $views = get_post_meta( $post_id, '_nx_meta_views', true );
+        if( $views === null ) {
+            add_post_meta( $post_id, '_nx_meta_views', 1 );
+        } else {
+            update_post_meta( $post_id, '_nx_meta_views', ++$views );
+        }
+
+        /**
+         * For Per Pop Up
+         */
+        $impressions = get_post_meta( $post_id, '_nx_meta_impression_per_day', true );
+        if( empty( $impressions )  ) {
+            $impressions = [];
+            $impressions[ $todays_date ]['impressions'] = 1;
+            add_post_meta( $post_id, '_nx_meta_impression_per_day', $impressions );
+        } else {
+            if( isset( $impressions[ $todays_date ] ) ) {
+                $impressions_data = isset( $impressions[ $todays_date ]['impressions'] ) ? ++$impressions[ $todays_date ]['impressions'] : 1;
+                $impressions[ $todays_date ]['impressions'] = $impressions_data;
+            } else {
+                $impressions[ $todays_date ]['impressions'] = 1;
+            }
+            update_post_meta( $post_id, '_nx_meta_impression_per_day', $impressions );
+            echo 'Success';
+        }
+        wp_die();
+    }
 }
 
 NotificationX_Analytics::get_instance();

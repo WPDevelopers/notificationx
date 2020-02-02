@@ -17,7 +17,75 @@
 		$.notificationx.windowWidth = $(window).outerWidth();
 		$.notificationx.pressbar();
 		$.notificationx.conversions();
+		$.notificationx.analytics();
 		$.notificationx.events();
+	};
+
+    $.notificationx.Ajaxlytics = function (data) {
+        if (data == {} || data == undefined ) {
+            return;
+        }
+        if( typeof notificationx != 'undefined' ) {
+            if( data.nonce == undefined ) {
+                return;
+            }
+            jQuery.ajax({
+                type: 'POST',
+                url: notificationx.ajaxurl,
+                data: {
+                    action: 'notificationx_pro_analytics',
+                    nonce: data.nonce,
+                    id: data.id,
+                    clicked: data.clicked || false,
+                    nonce_key : data.nonce_key || false
+                },
+                success: function (response) {
+                    // Response Code
+                }
+            });
+        }
+    };
+
+	$.notificationx.analytics = function(){
+		var data = {};
+        // Bar Analytics nx_frontend_bar_show
+        $('body').on('nx_frontend_bar_show', function (event, bar, bar_id) {
+            var nonce = $(bar).data('nonce');
+                data.nonce = nonce;
+                data.id = bar_id;
+                data.nonce_key = '_notificationx_bar_nonce';
+            if( nonce != undefined ) {
+                $.notificationx.Ajaxlytics(data);
+                $(bar).on('click', function (e) {
+                    data.clicked = true;
+                    $.notificationx.Ajaxlytics(data);
+                    data.clicked = false;
+                });
+            }
+        });
+
+        $('body').on('nx_before_render', function (event, configuration, html) {
+            if (configuration.id) {
+                var nonce = $(html).find('.notificationx-analytics').val();
+                data.nonce = nonce;
+                data.id = configuration.id;
+                data.nonce_key = '_notificationx_pro_analytics_nonce';
+                $.notificationx.Ajaxlytics(data);
+            }
+        });
+        $('body').on('nx_frontend_jquery', function (event, configuration, notification) {
+            if (configuration.id) {
+                $(notification).on('click', function (e) {
+                    var nonce = $(this).find('.notificationx-analytics').val();
+                    data.nonce = nonce;
+                    data.id = configuration.id;
+                    data.nonce_key = '_notificationx_pro_analytics_nonce';
+                    data.clicked = true;
+                    $.notificationx.Ajaxlytics(data);
+                    data.clicked = false;
+                });
+            }
+        });
 	};
 
 	$.notificationx.pressbar = function () {
