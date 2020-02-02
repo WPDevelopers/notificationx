@@ -1018,26 +1018,25 @@ class NotificationX_Helper {
         $suffix = '';
         switch( true ) {
             case $n >= 1000000000000 : 
-                $number = round( ( $n / 1000000000000 ), 1 );
+                $number = ( $n / 1000000000000 );
                 $suffix = $n > 1000000000000 ? 'T+' : 'T';
                 break;
             case $n >= 1000000000 : 
-                $number = round( ( $n / 1000000000 ), 1 );
+                $number = ( $n / 1000000000 );
                 $suffix = $n > 1000000000 ? 'B+' : 'B';
                 break;
             case $n >= 1000000 : 
-                $number = round( ( $n / 1000000 ), 1 );
+                $number = ( $n / 1000000 );
                 $suffix = $n > 1000000 ? 'M+' : 'M';
                 break;
             case $n >= 1000 : 
-                $number = round( ( $n / 1000 ), 1 );
+                $number = ( $n / 1000 );
                 $suffix = $n > 1000 ? 'K+' : 'K';
                 break;
             default: 
                 $number = $n;
                 break;
         }
-        $number = number_format($number);
         if( strpos( $number, '.') !== false && strpos( $number, '.') >= 0 ) {
             $number = number_format($number, 1 );
         }
