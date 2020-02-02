@@ -39,6 +39,11 @@ class NotificationX_Analytics {
     );
 
     public function __construct() {
+        if( defined( 'NOTIFICATIONX_PRO_VERSION' ) ) {
+            if( version_compare( NOTIFICATIONX_PRO_VERSION, '1.4.6', '<' ) ) {
+                return;
+            }
+        }
         add_action( 'nx_before_settings_load', array( $this, 'add_settings' ) );
         if( NotificationX_DB::get_settings( 'enable_analytics' ) != 1 && NotificationX_DB::get_settings( 'enable_analytics' ) !== '' ) {
             return;
