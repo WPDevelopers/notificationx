@@ -184,8 +184,11 @@ class NotificationX_Analytics {
     }
 
     public function add_settings_tab( $options ){
-        $general = $options['advanced_settings_tab'];
-
+        $options['analytics_reporting'] = [
+            'title' => __( 'Analytics & Reporting', 'notificationx' ),
+            'button_text' => __( 'Save Settings' ),
+        ];
+        $general = $options['analytics_reporting'];
         $general['sections']['analytics'] = array(
             'priority' => 20,
             'title'    => __('Analytics', 'notificationx'),
@@ -224,10 +227,42 @@ class NotificationX_Analytics {
                     'priority'    => 1,
                     'description' => __( 'Select if you want to exclude bot analytics.', 'notificationx' ),
                 ),
+                'reporting_day' => array(
+                    'type'        => 'select',
+                    'label'       => __( 'Select Reporting Day', 'notificationx' ),
+                    'default'     => 'monday',
+                    'priority'    => 2,
+                    'options' => array( 
+                        'sunday'         => __( 'Sunday', 'notificationx' ),
+                        'monday'         => __( 'Monday', 'notificationx' ),
+                        'tuesday'        => __( 'Tuesday', 'notificationx' ),
+                        'wednesday'      => __( 'Wednesday', 'notificationx' ),
+                        'thursday'       => __( 'Thursday', 'notificationx' ),
+                        'friday'         => __( 'Friday', 'notificationx' ),
+                    ),
+                    'description' => __( 'Select a Day for Email Report.', 'notificationx' ),
+                ),
+                'reporting_email' => array(
+                    'type'        => 'text',
+                    'label'       => __( 'Reporting Email', 'notificationx' ),
+                    'default'     => get_option( 'admin_email' ),
+                    'priority'    => 3,
+                ),
+                'reporting_frequency' => array(
+                    'type'        => 'select',
+                    'label'       => __( 'Reporting Frequency', 'notificationx' ),
+                    'default'     => 'nx_weekly',
+                    'priority'    => 4,
+                    // 'disable'     => true,
+                    'options' => array( 
+                        'nx_weekly'         => __( 'Once Weekly', 'notificationx' ),
+                        'hourly'         => __( 'Once Hourly', 'notificationx' ),
+                    )
+                )
             ),
         );
 
-        $options['advanced_settings_tab'] = $general;
+        $options['analytics_reporting'] = $general;
         return $options;
     }
 

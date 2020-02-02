@@ -13,23 +13,24 @@ class NotificationX_Report_Email {
      * @var NotificationX_Report_Email
      */
     private static $_instance = null;
-
+    protected $settings = null;
     public function __construct() {
+
+        $this->settings = NotificationX_DB::get_settings();
+
         add_filter( 'cron_schedules', array( $this, 'custom_cron_schedule_weekly' ) );
         // register_activation_hook(__FILE__, array( $this, 'mail_report_activation' ));
         add_action('admin_init', array( $this, 'mail_report_activation' ));
         add_action('weekly_email_reporting', array( $this, 'send_email_weekly' ));
-        register_deactivation_hook(__FILE__, array( $this, 'mail_report_deactivation' ));
-
-
-        add_action('admin_init', array( $this, 'test_function' ));
+        // register_deactivation_hook(__FILE__, array( $this, 'mail_report_deactivation' ));
+        // add_action('admin_init', array( $this, 'test_function' ));
     }
 
     public function test_function() {
         // $html = email_template();
         // echo $html;
-        // error_log(print_r($html, TRUE)); 
-        // die;
+        dump( $this->receiver_email_address(), false );
+        die;
     }
 
     /**
@@ -137,7 +138,10 @@ class NotificationX_Report_Email {
      * @return email||String
      */
     public function receiver_email_address() {
-        $email = get_option( 'admin_email' );
+        $email = NotificationX_DB::get_settings( 'reporting_email' );
+        if( empty( $email ) ) {
+            $email = get_option( 'admin_email' );
+        }
         return $email;
     }
     
@@ -157,25 +161,36 @@ class NotificationX_Report_Email {
      * @return String
      */
     public function email_body() {
-        $totalviews = self::get_total_views();
-        $totalclicks = self::get_total_clicks();
-        $click_through_rate = $totalviews/$totalclicks;
-        $impression_data = self::get_impression_data();
+        // $totalviews = self::get_total_views();
+        // $totalclicks = self::get_total_clicks();
+        // $click_through_rate = $totalviews / $totalclicks;
+        // $impression_data = self::get_impression_data();
 
         $html = email_template();
         // $html = "<h1>email_template</h1>";
 
         return (string)$html;
     }
+    protected function reporting_frequency(){
+        $frequency = 'nx_weekly';
+        if( isset( $this->settings['reporting_frequency'] ) && ! empty( $this->settings['reporting_frequency'] ) && is_string( $this->settings['reporting_frequency'] ) ) {
+            $frequency = $this->settings['reporting_frequency'];
+        }
 
+        return $frequency;
+    }
     /**
      * Enable Cron Function
      * Hook: admin_init
      */
     function mail_report_activation() {
-        $datetime = strtotime("+7 days"); //Set Initial Date to 7 Days on setup
-        if (! wp_next_scheduled ( 'weekly_email_reporting' )) {
-            wp_schedule_event( $datetime, 'nx_weekly', 'weekly_email_reporting' );
+        $day = "monday";
+        if( isset( $this->settings['reporting_day'] ) ) {
+            $day = $this->settings['reporting_day'];
+        }
+        $datetime = strtotime( "+7days next $day 9AM" );
+        if ( ! wp_next_scheduled ( 'weekly_email_reporting' ) ) {
+            wp_schedule_event( $datetime, $this->reporting_frequency(), 'weekly_email_reporting' );
         }
     }
 
@@ -189,6 +204,7 @@ class NotificationX_Report_Email {
         $message = $this->email_body();
         $headers = array('Content-Type: text/html; charset=UTF-8');
         
+        // error_log( $message );
         wp_mail( $to, $subject, $message, $headers );          
     }    
 

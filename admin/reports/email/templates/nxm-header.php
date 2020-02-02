@@ -2,1105 +2,461 @@
 /**
  * Email Template HTML
  */
-
 function email_template() {
-    ob_start();
-    ?>
-        <style>
-            #outlook a {
-            padding: 0;
-            }            
-            
-            .ExternalClass {
-            width: 100% !important;
+    $logo = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/logo.png';
+    $graph = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/graph.jpg';
+    $bgShade = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/bg-shade.jpg';
+
+    $output = <<<TEMPLATE
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
+    <head>
+    <!--[if gte mso 9]><xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width" name="viewport"/>
+    <!--[if !mso]><!-->
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <!--<![endif]-->
+    <title></title>
+    <!--[if !mso]><!-->
+    <!--<![endif]-->
+    <style type="text/css">
+            body {
+                margin: 0;
+                padding: 0;
             }
-            .ExternalClass,
-            .ExternalClass p,
-            .ExternalClass span,
-            .ExternalClass font,
-            .ExternalClass td, 
-            .ExternalClass div {
-            line-height: 100%;
-            }            
-            
-            img {
-            outline: none;
-            text-decoration: none;
-            -ms-interpolation-mode: bicubic;
-            margin: 0 0 0 0 !important;
-            }
-            a img {
-            border: none !important;
-            margin: 0 0 0 0 !important;
-            }
-            
-            
-            .applelinks a {
-            color: #222222;
-            text-decoration: none;
-            }
-            @import url("https://fonts.googleapis.com/css?family=Lato:300,400,700|Montserrat:300,400,700&display=swap");
-        </style>
-        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-            <tr>
-                <td align="center" valign="top">
-                <table width="800" border="0" cellspacing="0" cellpadding="0">                    
-                
-                    <tr>
-                        <td align="center" valign="top">
-                            <table width="580" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td align="center" valign="top">
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        
-                                    
-                                        <tr>
-                                        <td align="center" valign="top">
-                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                <tr>
-                                                    <td align="center" valign="top" height="5" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="center" valign="middle" style="font-size:12px;line-height:16px;color:#666666;font-weight:normal;font-family: Montserrat, sans-serif;">Your Daily Report for October %%DATE%% - <a href="#" style="color:#666666;text-decoration:underline;">View Online</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="center" valign="top" height="20" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="left" valign="top">
-                                                    <table width="586" border="0" cellspacing="0" cellpadding="0">
-                                                        <tr>
-                                                            <td width="200" align="left" valign="top" style="padding:8px 0 0 0px;"><a href="#"><img src="http://temcdn.com/thrust/acuity/acuity-report/images/acuity-logo.png" width="200" height="59" alt="logo"></a></td>
-                                                            <td align="center" valign="top" width="118">&nbsp;</td>
-                                                            <td width="268" align="right" valign="top">
-                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                <tr>
-                                                                    <td align="center" valign="top" height="5" style="font-size:5px;line-height:5px;">&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td align="center" valign="middle" style="font-size:18px;line-height:21px;color:#4fa1da;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing:0px;">Weekly Performance Report</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td align="center" valign="middle" style="font-size:16px;line-height:20px;color:#4fa1da;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing:0px;">October 8-13, 2018</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td align="center" valign="top" height="1" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td align="center" valign="middle" style="font-size:16px;line-height:16px;color:#666666;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: -0.1px;"><a href="#" target="_blank" style="color:#666666;text-decoration:none;">www.westmountain.com</a></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td align="center" valign="top" height="42" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        </tr>                                        
-                                        
-                                        <tr>
-                                        <td align="center" valign="top">
-                                            <table width="560" border="0" cellspacing="0" cellpadding="0">
-                                                <tr>
-                                                    <td align="center" valign="middle" style="font-size:31px;line-height:33px;color:#4ea1da;font-weight:bold;font-family: Montserrat, sans-serif;">BROADCAST CAMPAIGNS</td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="center" valign="top" height="16" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="center" valign="middle" style="font-size:24px;line-height:19px;color:#3c3c3c;font-weight:normal;font-family:Montserrat, sans-serif;">Weekly Campaign Performance</td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="center" valign="top" height="24" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="center" valign="top">
-                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                        <tr>
-                                                            <td align="center" valign="top" style="bgcolor:#346038;">
-                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                <tr>
-                                                                    <td align="center" valign="top">
-                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                            <tr>
-                                                                            <td align="left" valign="top" width="211" height="57"><img src="http://temcdn.com/thrust/acuity/acuity-report/images/profit.jpg" width="211" height="57" alt="img"  border="0" style="padding:0;margin:0;display:block;"></td>
-                                                                            <td align="left" valign="top" width="367" height="57" bgcolor=#346038>
-                                                                                <table width="330" border="0" cellspacing="0" cellpadding="0" align="center">
-                                                                                    <tr>
-                                                                                        <td align="center" valign="top" >
-                                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                            <tr>
-                                                                                                <td align="center" valign="top" height="6" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td align="center" valign="top">
-                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                    <tr>
-                                                                                                        <td align="left" valign="top" style="font-size:19px;line-height:25px;color:#ffffff;font-weight:bold;font-family: Montserrat, sans-serif;padding: 7px 0 0 0;
-                                                                                                            letter-spacing: 0px;text-align:right;"><span style="color:#ffffff;font-weight:normal;font-family: Montserrat, sans-serif;font-size:20px;line-height:22px;">Revenue:</span> $12,542</td>
-                                                                                                        <td align="right" valign="top">
-                                                                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                                <tr>
-                                                                                                                <td align="right" valign="top">
-                                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-                                                                                                                        <tr>
-                                                                                                                            <td align="right" valign="top">
-                                                                                                                                <span style="color:#ffffff;font-size:14px;line-height:18px;font-weight:normal;letter-spacing: 0.8px;
-                                                                                                                    vertical-align: top;font-family: Montserrat, sans-serif;">Prev Wk:</span>
-                                                                                                                            </td>
-                                                                                                                            <td align="right" valign="top">
-                                                                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                                                    <tr>
-                                                            <td align="center" valign="top">
-                                                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td align="center" valign="middle" height="18" bgcolor="#ffffff" style="font-family:Montserrat, sans-serif;font-weight:bold; font-size:14px; color:#ffffff;border-radius:20px;">
-                                                                            <span style="color:#2d9e36;font-size:14px;line-height:18px;font-family:Montserrat, sans-serif;font-weight:bold;"><img src="http://temcdn.com/thrust/acuity/acuity-report/images/arrow.png" width="12" height="10">+2.5%</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-
-                                                                                                                                </table>
-                                                                                                                            </td>
-                                                                                                                        </tr>
-                                                                                                                    </table></td>
-                                                                                                                </tr>
-                                                                                                                <tr>
-                                                                                                                <td align="center" valign="top" height="2" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                                                                </tr>
-                                                                                                                <tr>
-                                                                                                                <td align="right" valign="top">
-                                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-                                                                                                                        <tbody><tr>
-                                                                                                                            <td align="right" valign="top">
-                                                                                                                                <span style="color:#ffffff;font-size:14px;line-height:18px;font-weight:normal;letter-spacing: 1.5px;
-                                                                                                                    vertical-align: top;font-family:Montserrat, sans-serif;">Prev Yr:</span>
-                                                                                                                            </td>
-                                                                                                                            <td align="right" valign="top">
-                                                                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                                                    <tbody><tr>
-                                                            <td align="center" valign="top">
-                                                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td align="center" valign="middle" height="18" bgcolor="#ffffff" style="font-family:Montserrat, sans-serif;font-weight:bold; font-size:14px; color:#ffffff;border-radius:20px;">
-                                                                            <span style="color:#2d9e36;font-size:14px;line-height:18px;font-family:Montserrat, sans-serif;font-weight:bold;"><img src="http://temcdn.com/thrust/acuity/acuity-report/images/arrow.png" width="12" height="10">+3.2%</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-
-                                                                                                                                </tbody></table>
-                                                                                                                            </td>
-                                                                                                                        </tr>
-                                                                                                                    </tbody></table></td>
-                                                                                                                </tr>
-                                                                                                            </table>
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                    </table>
-                                                                                                </td>
-                                                                                            </tr>
-        
-                                                                                        </table>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="center" valign="top" style="border:1px solid #ebecef;border-top:none;background: #ffffff;">
-                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                <tr>
-                                                                    <td align="center" valign="top" height="13" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td align="left" valign="middle" width="24.8%" style="border-right:1px solid #c7c6c6;">
-                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:14px;line-height:15px;color:#4fa1da;font-weight:bold;font-family:Montserrat, sans-serif;text-align:center;">Cost Of Ad Spend</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" height="6" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:24px;line-height:25px;color:#666666;font-weight:bold;font-family: Montserrat, sans-serif;text-align:center;">$247</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" height="3" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:14px;line-height:18px;color:#666666;font-weight:normal;font-family:Montserrat, sans-serif;text-align:center;">Prev Wk: <span style="color:#ff5a5f;font-size:14px;line-height:18px;font-weight:bold;font-family:Montserrat, sans-serif;">-6.4%</span></td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                    <td align="left" valign="middle" width="25.1%" style="border-right:1px solid #c7c6c6;">
-                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:14px;line-height:15px;color:#4fa1da;font-weight:bold;font-family:Montserrat, sans-serif;text-align:center;">Margin Dollars</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" height="6" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:24px;line-height:25px;color:#666666;font-weight:bold;font-family: Montserrat, sans-serif;text-align:center;">$7,356</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" height="3" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:14px;line-height:18px;color:#666666;font-weight:normal;font-family: Montserrat, sans-serif;text-align:center;">Prev Wk: <span style="color:#3b8141;font-size:14px;line-height:18px;font-weight:bold;font-family: Montserrat, sans-serif;">+3.1%</span></td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                    <td align="left" valign="middle" width="25.1%" style="border-right:1px solid #c7c6c6;">
-                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:14px;line-height:15px;color:#4fa1da;font-weight:bold;font-family: Montserrat, sans-serif;text-align:center;">AOV</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" height="6" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:24px;line-height:25px;color:#666666;font-weight:bold;font-family: Montserrat, sans-serif;text-align:center;">$21.45</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" height="3" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:14px;line-height:18px;color:#666666;font-weight:normal;font-family: Montserrat, sans-serif;text-align:center;">Prev Wk: <span style="color:#ff5a5f;font-size:14px;line-height:18px;font-weight:bold;font-family: Montserrat, sans-serif;">-1.4%</span></td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                    <td align="left" valign="middle">
-                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:14px;line-height:15px;color:#4fa1da;font-weight:bold;font-family: Montserrat, sans-serif;text-align:center;">Orders</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" height="6" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:24px;line-height:25px;color:#666666;font-weight:bold;font-family: Montserrat, sans-serif;text-align:center;">265</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" height="3" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:14px;line-height:18px;color:#666666;font-weight:normal;font-family: Montserrat, sans-serif;text-align:center;">Prev Wk: <span style="color:#3b8141;font-size:14px;line-height:18px;font-weight:bold;font-family: Montserrat, sans-serif;">+5.4%</span></td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td align="center" valign="top" height="15" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="center" valign="top" height="15" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="center" valign="top">
-                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                        <tr>
-                                                            <td align="center" valign="top" style="bgcolor:#315b78" height="57">
-                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                <tr>
-                                                                    <td align="center" valign="top">
-                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                            <tr>
-                                                                            <td align="left" valign="top" width="211"><img src="http://temcdn.com/thrust/acuity/acuity-report/images/engg.jpg" width="211" height="57" alt="img" style="padding:0;margin:0;display:block;"></td>
-                                                                            <td align="left" valign="top" width="367" height="57" bgcolor=#315b78 style="padding:0;margin:0;display:block;">
-                                                                                <table width="330" border="0" cellspacing="0" cellpadding="0" align="center">
-                                                                                    <tr>
-                                                                                        <td align="center" valign="top" >
-                                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                            <tr>
-                                                                                                <td align="center" valign="top" height="6" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td align="center" valign="top">
-                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                    <tr>
-                                                                                                        <td align="left" valign="top" style="font-size:20px;line-height:25px;color:#ffffff;font-weight:bold;font-family: Montserrat, sans-serif;padding: 7px 0 0 0;
-                                                                                                            letter-spacing: 0.3px;text-align:right;"><span style="color:#ffffff;font-weight:normal;font-family: Montserrat, sans-serif;">Total Clicks:</span> 2,375</td>
-                                                                                                        <td align="right" valign="top">
-                                                                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                                <tr>
-                                                                                                                <td align="right" valign="top">
-                                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-                                                                                                                        <tr>
-                                                                                                                            <td align="right" valign="top">
-                                                                                                                                <span style="color:#ffffff;font-size:14px;line-height:18px;font-weight:normal;letter-spacing: 0.8px;
-                                                                                                                    vertical-align: top;font-family: Montserrat, sans-serif;">Prev Wk:</span>
-                                                                                                                            </td>
-                                                                                                                            <td align="right" valign="top">
-                                                                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                                                    <tr>
-                                                            <td align="center" valign="top">
-                                                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td align="center" valign="middle" height="18" bgcolor="#ffffff" style="font-family:Montserrat, sans-serif; font-size:14px; color:#ffffff; font-weight:bold;border-radius:20px;">
-                                                                            <span style="color:#2d9e36;font-size:14px;line-height:18px;font-family:Montserrat, sans-serif;font-eight:
-        bold;"><img src="http://temcdn.com/thrust/acuity/acuity-report/images/arrow.png" width="12" height="10">+2.5%</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-
-                                                                                                                                </table>
-                                                                                                                            </td>
-                                                                                                                        </tr>
-                                                                                                                    </table></td>
-                                                                                                                </tr>
-                                                                                                                <tr>
-                                                                                                                <td align="center" valign="top" height="2" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                                                                </tr>
-                                                                                                                <tr>
-                                                                                                                <td align="right" valign="top">
-                                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-                                                                                                                        <tr>
-                                                                                                                <td align="right" valign="top">
-                                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-                                                                                                                        <tbody><tr>
-                                                                                                                            <td align="right" valign="top">
-                                                                                                                                <span style="color:#ffffff;font-size:14px;line-height:18px;font-weight:normal;letter-spacing: 1.5px;
-                                                                                                                    vertical-align: top;font-family:Montserrat, sans-serif;">Prev Yr:</span>
-                                                                                                                            </td>
-                                                                                                                            <td align="right" valign="top">
-                                                                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                                                    <tbody><tr>
-                                                            <td align="center" valign="top">
-                                                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td align="center" valign="middle" height="18" bgcolor="#ffffff" style="font-family:Montserrat, sans-serif; font-size:14px; color:#ffffff; font-weight:bold;border-radius:20px;">
-                                                                            <span style="color:#2d9e36;font-size:14px;line-height:18px;font-family:Montserrat, sans-serif;font-weight:bold;"><img src="http://temcdn.com/thrust/acuity/acuity-report/images/arrow.png" width="12" height="10">+3.2%</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-
-                                                                                                                                </tbody></table>
-                                                                                                                            </td>
-                                                                                                                        </tr>
-                                                                                                                    </tbody></table></td>
-                                                                                                                </tr>
-                                                                                                                    </table></td>
-                                                                                                                </tr>
-                                                                                                            </table>
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                    </table>
-                                                                                                </td>
-                                                                                            </tr>
-        
-                                                                                        </table>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="center" valign="top" style="border:1px solid #ebecef;border-top:none;background: #ffffff">
-                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                <tr>
-                                                                    <td align="center" valign="top" height="13" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td align="left" valign="middle" width="24.8%" style="border-right:1px solid #c7c6c6;">
-                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:14px;line-height:15px;color:#4fa1da;font-weight:bold;font-family: Montserrat, sans-serif;text-align:center;">Open Rate</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" height="6" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:24px;line-height:25px;color:#666666;font-weight:bold;    font-family: Montserrat, sans-serif;text-align:center;">13.6%</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" height="3" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:14px;line-height:18px;color:#666666;font-weight:normal;    font-family: Montserrat, sans-serif;text-align:center;">Prev Wk: <span style="color:#ff5a5f;font-size:14px;line-height:18px;font-weight:bold;font-family: Montserrat, sans-serif;">-6.4%</span></td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                    <td align="left" valign="middle" width="25.1%" style="border-right:1px solid #c7c6c6;">
-                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:14px;line-height:15px;color:#4fa1da;font-weight:bold;font-family: Montserrat, sans-serif;text-align:center;">Click Rate</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" height="6" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:24px;line-height:25px;color:#666666;font-weight:bold;font-family: Montserrat, sans-serif;text-align:center;">3.4%</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" height="3" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:14px;line-height:18px;color:#666666;font-weight:normal;font-family: Montserrat, sans-serif;text-align:center;">Prev Wk: <span style="color:#3b8141;font-size:14px;line-height:18px;font-weight:bold;font-family: Montserrat, sans-serif;">+3.1%</span></td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                    <td align="left" valign="middle" width="25.1%" style="border-right:1px solid #c7c6c6;">
-                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:14px;line-height:15px;color:#4fa1da;font-weight:bold;font-family: Montserrat, sans-serif;text-align:center;">Delivered Emails</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" height="6" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:24px;line-height:25px;color:#666666;font-weight:bold;font-family: Montserrat, sans-serif;text-align:center;">34,245</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" height="3" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:14px;line-height:18px;color:#666666;font-weight:normal;font-family: Montserrat, sans-serif;text-align:center;">Prev Wk: <span style="color:#ff5a5f;font-size:14px;line-height:18px;font-weight:bold;font-family: Montserrat, sans-serif;">-1.4%</span></td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                    <td align="left" valign="middle">
-                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:14px;line-height:15px;color:#4fa1da;font-weight:bold;font-family: Montserrat, sans-serif;text-align:center;">Clicks / Orders</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" height="6" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:24px;line-height:25px;color:#666666;font-weight:bold;font-family: Montserrat, sans-serif;text-align:center;">4.5%</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" height="3" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="font-size:14px;line-height:18px;color:#666666;font-weight:normal;font-family: Montserrat, sans-serif;text-align:center;">Prev Wk: <span style="color:#3b8141;font-size:14px;line-height:18px;font-weight:bold;font-family: Montserrat, sans-serif;">+5.4%</span></td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td align="center" valign="top" height="15" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="center" valign="top" height="17" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="center" valign="top">
-                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                        <tr>
-                                                            <td align="center" valign="top" style="bgcolor:#c14d51" height="57">
-                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                <tr>
-                                                                    <td align="center" valign="top">
-                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                            <tr>
-                                                                            <td align="left" valign="top" width="211"><img src="http://temcdn.com/thrust/acuity/acuity-report/images/audi.jpg" width="211" height="57" alt="img"></td>
-                                                                            <td align="left" valign="top" width="367" height="57" bgcolor=#c14d51>
-                                                                                <table width="330" border="0" cellspacing="0" cellpadding="0" align="center">
-                                                                                    <tr>
-                                                                                        <td align="center" valign="top" >
-                                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                            <tr>
-                                                                                                <td align="center" valign="top" height="6" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td align="center" valign="top">
-                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                    <tr>
-                                                                                                        <td align="left" valign="top" style="font-size:20px;line-height:25px;color:#ffffff;font-weight:bold;    font-family: Montserrat, sans-serif;padding: 7px 0 0 0;
-                                                                                                            letter-spacing: 0.3px;text-align:right;"><span style="color:#ffffff;font-weight:normal;    font-family: Montserrat, sans-serif;">List Growth:</span> 2.4%</td>
-                                                                                                        <td align="right" valign="top">
-                                                                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                                <tr>
-                                                                                                                <td align="right" valign="top">
-                                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-                                                                                                                        <tr>
-                                                                                                                            <td align="right" valign="top">
-                                                                                                                                <span style="color:#ffffff;font-size:14px;line-height:18px;font-weight:normal;letter-spacing: 0.8px;
-                                                                                                                    vertical-align: top;font-family: Montserrat, sans-serif;">Prev Wk:</span>
-                                                                                                                            </td>
-                                                                                                                            <td align="right" valign="top">
-                                                                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                                                    <tr>
-                                                            <td align="center" valign="top">
-                                                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td align="center" valign="middle" height="18" bgcolor="#ffffff" style="font-family: Montserrat, sans-serif; font-size:14px; color:#ffffff; font-weight:bold;border-radius:20px;">
-                                                                            <span style="color:#2d9e36;font-size:14px;line-height:18px;font-family:Montserrat, sans-serif;font-weight:bold;"><img src="http://temcdn.com/thrust/acuity/acuity-report/images/arrow.png" width="12" height="10">+2.5%</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-
-                                                                                                                                </table>
-                                                                                                                            </td>
-                                                                                                                        </tr>
-                                                                                                                    </table></td>
-                                                                                                                </tr>
-                                                                                                                <tr>
-                                                                                                                <td align="center" valign="top" height="2" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                                                                </tr>
-                                                                                                                <tr>
-                                                                                                                <td align="right" valign="top">
-                                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-                                                                                                                        <tr>
-                                                                                                                <td align="right" valign="top">
-                                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-                                                                                                                        <tbody><tr>
-                                                                                                                            <td align="right" valign="top">
-                                                                                                                                <span style="color:#ffffff;font-size:14px;line-height:18px;font-weight:normal;letter-spacing: 1.5px;
-                                                                                                                    vertical-align: top;font-family: Montserrat, sans-serif;">Prev Yr:</span>
-                                                                                                                            </td>
-                                                                                                                            <td align="right" valign="top">
-                                                                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                                                    <tbody><tr>
-                                                            <td align="center" valign="top">
-                                                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td align="center" valign="middle" height="18" bgcolor="#ffffff" style="font-family: Montserrat, sans-serif;font-size:14px; color:#ffffff; font-weight:bold;border-radius:20px;">
-                                                                            <span style="color:#2d9e36;font-size:14px;line-height:18px;font-family:Montserrat, sans-serif;font-weight:bold;"><img src="http://temcdn.com/thrust/acuity/acuity-report/images/arrow.png" width="12" height="10">+3.2%</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-
-                                                                                                                                </tbody></table>
-                                                                                                                            </td>
-                                                                                                                        </tr>
-                                                                                                                    </tbody></table></td>
-                                                                                                                </tr>
-                                                                                                                    </table></td>
-                                                                                                                </tr>
-                                                                                                            </table>
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                    </table>
-                                                                                                </td>
-                                                                                            </tr>        
-                                                                                            
-                                                                                        </table>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="center" valign="top" style="border:1px solid #ebecef;border-top:none;background: #ffffff">
-                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                <tr>
-                                                                    <td align="center" valign="top" height="5" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td align="center" valign="top">
-                                                                        <table width="524" border="0" cellspacing="0" cellpadding="0">
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="border-bottom:1px solid #c7c6c6;">
-                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                    <tr>
-                                                                                        <td align="left" valign="top" width="154" style="font-size:14px;line-height:30px;color:#4fa1da;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        Segment Name
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="87" style="font-size:14px;line-height:30px;color:#4fa1da;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;padding:0 6px;">
-                                                                                        Size
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="113" style="font-size:14px;line-height:30px;color:#4fa1da;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        Growth %	
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="94" style="font-size:14px;line-height:30px;color:#4fa1da;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        AOV	
-                                                                                        </td>
-                                                                                        <td align="left" valign="top"  style="font-size:14px;line-height:30px;color:#4fa1da;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        LTV
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="border-bottom:1px solid #c7c6c6;">
-                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                    <tr>
-                                                                                        <td align="left" valign="top" width="150" style="font-size:14px;line-height:30px;color:#666666;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        Active AA
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="112" style="font-size:14px;line-height:30px;color:#666666;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        24,356
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="94" style="font-size:14px;line-height:30px;color:#2d9e36;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        +3.4%	
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="96" style="font-size:14px;line-height:30px;color:#666666;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        $23.45 	
-                                                                                        </td>
-                                                                                        <td align="left" valign="top"  style="font-size:14px;line-height:30px;color:#666666;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        $24,365
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" >
-                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                    <tr>
-                                                                                        <td align="left" valign="top" width="150" style="font-size:14px;line-height:30px;color:#666666;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        Re-active B
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="112" style="font-size:14px;line-height:30px;color:#666666;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        14,236
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="94" style="font-size:14px;line-height:30px;color:#2d9e36;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        +1.4%	
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="96" style="font-size:14px;line-height:30px;color:#666666;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        $18.34  	
-                                                                                        </td>
-                                                                                        <td align="left" valign="top"  style="font-size:14px;line-height:30px;color:#666666;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        $16,232
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" height="8" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="center" valign="top" height="17" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="center" valign="top">
-                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                        <tr>
-                                                            <td align="center" valign="top" style="bgcolor:#ce8f1c">
-                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                <tr>
-                                                                    <td align="center" valign="top">
-                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                            <tr>
-                                                                            <td align="left" valign="top" width="211"><img src="http://temcdn.com/thrust/acuity/acuity-report/images/inbox.jpg" width="211" height="57" alt="img"></td>
-                                                                            <td align="left" valign="top" width="367" bgcolor=#ce8f1c>
-                                                                                <table width="330" border="0" cellspacing="0" cellpadding="0" align="center">
-                                                                                    <tr>
-                                                                                        <td align="center" valign="top" >
-                                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                            <tr>
-                                                                                                <td align="center" valign="top" height="6" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td align="center" valign="top">
-                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                    <tr>
-                                                                                                        <td align="center" valign="top" width="53">&nbsp;</td>
-                                                                                                        <td align="left" valign="top" style="font-size:20px;line-height:25px;color:#ffffff;font-weight:bold;font-family: Montserrat, sans-serif;padding: 7px 0 0 0;
-                                                                                                            letter-spacing: 0.3px;text-align:right;"><span style="color:#ffffff;font-weight:normal;    font-family: Montserrat, sans-serif;">Gmail: </span> 89.3%</td>
-                                                                                                        <td align="right" valign="top">
-                                                                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-
-                                                                                                                
-                                                                                                                <tr>
-                                                                                                                <td align="right" valign="top">
-                                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-                                                                                                                        <tbody><tr>
-                                                                                                                            <td align="right" valign="top">
-                                                                                                                                <span style="color:#ffffff;font-size:14px;line-height:18px;font-weight:normal;letter-spacing: 0.8px;
-                                                                                                                    vertical-align: top;font-family: Montserrat, sans-serif;">Prev Wk:</span>
-                                                                                                                            </td>
-                                                                                                                            <td align="right" valign="top">
-                                                                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                                                    <tbody><tr>
-                                                            <td align="center" valign="top">
-                                                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td align="center" valign="middle" height="18" bgcolor="#ffffff" style="font-family: Montserrat, sans-serif; font-size:14px; color:#ffffff; font-weight:bold;border-radius:20px;">
-                                                                            <span style="color:#2d9e36;font-size:14px;line-height:18px;font-family:Montserrat, sans-serif;font-weight:bold;"><img src="http://temcdn.com/thrust/acuity/acuity-report/images/arrow.png" width="12" height="10">+2.5%</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-
-                                                                                                                                </tbody></table>
-                                                                                                                            </td>
-                                                                                                                        </tr>
-                                                                                                                    </tbody></table></td>
-                                                                                                                </tr>
-                                                                                                                <tr>
-                                                                                                                <td align="center" valign="top" height="2" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                                                                </tr>
-                                                                                                                <tr>
-                                                                                                                <td align="right" valign="top">
-                                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-                                                                                                                        <tbody><tr>
-                                                                                                                            <td align="right" valign="top">
-                                                                                                                                <span style="color:#ffffff;font-size:14px;line-height:18px;font-weight:normal;letter-spacing: 1.5px;
-                                                                                                                    vertical-align: top;font-family: Montserrat, sans-serif;">Prev Yr:</span>
-                                                                                                                            </td>
-                                                                                                                            <td align="right" valign="top">
-                                                                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                                                    <tbody><tr>
-                                                            <td align="center" valign="top">
-                                                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td align="center" valign="middle" height="18" bgcolor="#ffffff" style="    font-family: Montserrat, sans-serif; font-size:14px; color:#ffffff; font-weight:bold;border-radius:20px;">
-                                                                            <span style="color:#2d9e36;font-size:14px;line-height:18px;font-family:Montserrat, sans-serif;font-weight:bold;"><img src="http://temcdn.com/thrust/acuity/acuity-report/images/arrow.png" width="12" height="10">+3.2%</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-
-                                                                                                                                </tbody></table>
-                                                                                                                            </td>
-                                                                                                                        </tr>
-                                                                                                                    </tbody></table></td>
-                                                                                                                </tr>
-                                                                                                            </table>
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                    </table>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        </table>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="center" valign="top" style="border:1px solid #ebecef;border-top:none;background: #ffffff">
-                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                <tr>
-                                                                    <td align="center" valign="top" height="5" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td align="center" valign="top">
-                                                                        <table width="522" border="0" cellspacing="0" cellpadding="0">
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="border-bottom:1px solid #c7c6c6;">
-                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                    <tr>
-                                                                                        <td align="left" valign="top" width="78" style="font-size:14px;line-height:30px;color:#4fa1da;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        Date 
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="108" style="font-size:14px;line-height:30px;color:#4fa1da;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        Name	
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="56" style="font-size:14px;line-height:30px;color:#4fa1da;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        AOL		
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="82" style="font-size:14px;line-height:30px;color:#4fa1da;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        Comcast	
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="68" style="font-size:14px;line-height:30px;color:#4fa1da;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        Gmail
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="81" style="font-size:14px;line-height:30px;color:#4fa1da;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        Yahoo    
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" style="font-size:14px;line-height:30px;color:#4fa1da;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        ALL
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="border-bottom:1px solid #c7c6c6;">
-                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                    <tr>
-                                                                                        <td align="left" valign="top" width="80" style="font-size:12px;line-height:32px;color:#666666;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        10/08/18   
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="103" style="font-size:14px;line-height:32px;color:#666666;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: -0.5px;">
-                                                                                        Flash Sale	
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="68" style="font-size:14px;line-height:32px;color:#2d9e36;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        80.5%  		
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="72" style="font-size:14px;line-height:32px;color:#2d9e36;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        83.5%		
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="72" style="font-size:14px;line-height:32px;color:#2d9e36;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        91.2%	
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="72" style="font-size:14px;line-height:32px;color:#2d9e36;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        87.5%	   
-                                                                                        </td>
-                                                                                        <td align="left" valign="top"  style="font-size:14px;line-height:32px;color:#2d9e36;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        93.1%
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="border-bottom:1px solid #c7c6c6;">
-                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                    <tr>
-                                                                                        <td align="left" valign="top" width="80" style="font-size:12px;line-height:30px;color:#666666;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        10/10/18    
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="103" style="font-size:14px;line-height:30px;color:#666666;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        Free Shipping	
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="68" style="font-size:14px;line-height:30px;color:#2d9e36;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        81.5%  		
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="72" style="font-size:14px;line-height:30px;color:#2d9e36;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        82.5%		
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="72" style="font-size:14px;line-height:32px;color:#2d9e36;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        90.4%	
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="72" style="font-size:14px;line-height:30px;color:#2d9e36;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        88.5%	   
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" style="font-size:14px;line-height:30px;color:#2d9e36;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        95.1%
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" style="border-bottom:1px solid #c7c6c6;">
-                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                    <tr>
-                                                                                        <td align="left" valign="top" width="80" style="font-size:12px;line-height:30px;color:#666666;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        10/11/18     
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="103" style="font-size:14px;line-height:30px;color:#666666;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        10% Sitewide	
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="68" style="font-size:14px;line-height:30px;color:#2d9e36;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        83.5%  		
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="72" style="font-size:14px;line-height:30px;color:#2d9e36;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        89.5%		
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="72" style="font-size:14px;line-height:30px;color:#2d9e36;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        96.4%	
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="72" style="font-size:14px;line-height:30px;color:#ff696e;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        67.5%	   
-                                                                                        </td>
-                                                                                        <td align="left" valign="top"  style="font-size:14px;line-height:30px;color:#2d9e36;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        92.1%
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top">
-                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                    <tr>
-                                                                                        <td align="left" valign="top" width="80" style="font-size:12px;line-height:30px;color:#666666;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        10/13/18     
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="103" style="font-size:14px;line-height:30px;color:#666666;font-weight:bold;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        Tiered Sale	
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="68" style="font-size:14px;line-height:30px;color:#2d9e36;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        82.5%  		
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="72" style="font-size:14px;line-height:30px;color:#2d9e36;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        85.5%		
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="72" style="font-size:14px;line-height:30px;color:#2d9e36;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        92.7%	
-                                                                                        </td>
-                                                                                        <td align="left" valign="top" width="72" style="font-size:14px;line-height:30px;color:#2d9e36;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        89.5%	   
-                                                                                        </td>
-                                                                                        <td align="left" valign="top"  style="font-size:14px;line-height:30px;color:#2d9e36;font-weight:normal;font-family: Montserrat, sans-serif;letter-spacing: 0.3px;">
-                                                                                        90.1%
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td align="center" valign="top" height="8" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top" height="22" style="font-size:1px; line-height:1px;">&nbsp;</td>
-                                                        </tr>
-                                                    </table>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        </tr>
-                                        
-                                        
-                                        <tr>
-                                        <td align="center" valign="top">
-                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                <tr>
-                                                    <td align="center" valign="top" height="44" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="center" valign="top">
-                                                    <table width="556" border="0" cellspacing="0" cellpadding="0">
-                                                        <tr>
-                                                            <td align="left" valign="top">
-                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                <tr>
-                                                                    <td align="left" valign="top"  style="font-size:26px;line-height:27px;color:#48a1da;font-weight:normal;font-family:Montserrat, sans-serif;letter-spacing:-1.2px;">
-                                                                        Supercharge Your Conversion Rate! 
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td align="center" valign="top" height="9" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td align="left" valign="top"  style="font-size:14px;line-height:18px;color:#3c3c3c;font-weight:normal;font-family:Montserrat, sans-serif;letter-spacing:0px;">
-                                                                        Use our <span style="font-weight:bold;">Dynamic Banner Management System</span> to deliver a<br> top-notch user experience and increase your conversion rate on<br> email, paid search, and social media marketing campaigns. 
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td align="left" valign="top"  style="font-size:14px;line-height:18px;color:#4ea1da;font-weight:bold;font-family:Montserrat, sans-serif;letter-spacing:0px;">
-                                                                        <a href="#" style="color:#4ea1da;text-decoration:underline;">Learn more</a> 
-                                                                    </td>
-                                                                </tr>
-                                                                </table>
-                                                            </td>
-                                                            <td align="right" valign="top"><img src="http://temcdn.com/thrust/acuity/acuity-report/images/super.png" width="115" height="115" alt="img"></td>
-                                                        </tr>
-                                                    </table>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="center" valign="top" height="38" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        </tr>
-                                        
-                                        
-                                    </table>
-                                </td>
-                            </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    
-                    
-                    <tr>
-                        <td align="center" valign="top" bgcolor="#34414a">
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td align="center" valign="top" height="26" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td align="center" valign="top" style="padding:0 8px 0 0;"><a href="#"><img src="http://temcdn.com/thrust/acuity/acuity-report/images/footerlogo.png" width="160" height="38" alt="logo" style="padding:0;margin:0;"></a></td>
-                            </tr>
-                            <tr>
-                                <td align="center" valign="top" height="28" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td align="center" valign="top" style="font-size:11px;line-height:18px;color:#ffffff;font-weight:bold;font-family:Montserrat, sans-serif;letter-spacing:0px;"><a href="#" style="color:#ffffff;text-decoration:underline;">Manage Your Email Preferences</a></td>
-                            </tr>
-                            <tr>
-                                <td align="center" valign="top" height="55" style="font-size:1px;line-height:1px;">&nbsp;</td>
-                            </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    
-
-                </table>
-                </td>
-            </tr>
-        </table>
-    <?php
-    $output = ob_get_clean();
-    ob_flush();
     
+            table,
+            td,
+            tr {
+                vertical-align: top;
+                border-collapse: collapse;
+            }
+    
+            * {
+                line-height: inherit;
+            }
+    
+            a[x-apple-data-detectors=true] {
+                color: inherit !important;
+                text-decoration: none !important;
+            }
+        </style>
+    <style id="media-query" type="text/css">
+            @media (max-width: 660px) {
+    
+                .block-grid,
+                .col {
+                    min-width: 320px !important;
+                    max-width: 100% !important;
+                    display: block !important;
+                }
+    
+                .block-grid {
+                    width: 100% !important;
+                }
+    
+                .col {
+                    width: 100% !important;
+                }
+    
+                .col>div {
+                    margin: 0 auto;
+                }
+    
+                img.fullwidth,
+                img.fullwidthOnMobile {
+                    max-width: 100% !important;
+                }
+    
+                .no-stack .col {
+                    min-width: 0 !important;
+                    display: table-cell !important;
+                }
+    
+                .no-stack.two-up .col {
+                    width: 50% !important;
+                }
+    
+                .no-stack .col.num4 {
+                    width: 33% !important;
+                }
+    
+                .no-stack .col.num8 {
+                    width: 66% !important;
+                }
+    
+                .no-stack .col.num4 {
+                    width: 33% !important;
+                }
+    
+                .no-stack .col.num3 {
+                    width: 25% !important;
+                }
+    
+                .no-stack .col.num6 {
+                    width: 50% !important;
+                }
+    
+                .no-stack .col.num9 {
+                    width: 75% !important;
+                }
+    
+                .video-block {
+                    max-width: none !important;
+                }
+    
+                .mobile_hide {
+                    min-height: 0px;
+                    max-height: 0px;
+                    max-width: 0px;
+                    display: none;
+                    overflow: hidden;
+                    font-size: 0px;
+                }
+    
+                .desktop_hide {
+                    display: block !important;
+                    max-height: none !important;
+                }
+            }
+        </style>
+    </head>
+    <body class="clean-body" style="margin: 0; padding: 0; -webkit-text-size-adjust: 100%; background-color: #f3f2f3;">
+    <!--[if IE]><div class="ie-browser"><![endif]-->
+    <table bgcolor="#f3f2f3" cellpadding="0" cellspacing="0" class="nl-container" role="presentation" style="table-layout: fixed; vertical-align: top; margin: 0 auto; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f3f2f3;" valign="top" width="100%">
+    <tbody>
+    <tr style="vertical-align: top;" valign="top">
+    <td style="word-break: break-word; vertical-align: top;" valign="top">
+    <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" style="background-color:#f3f2f3"><![endif]-->
+    <div style="background-color:transparent;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #ffffff;">
+    <div style="border-collapse: collapse;display: table;width: 100%;background-color:#ffffff;">
+    <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:transparent;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:640px"><tr class="layout-full-width" style="background-color:#ffffff"><![endif]-->
+    <!--[if (mso)|(IE)]><td align="center" width="640" style="background-color:#ffffff;width:640px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px;"><![endif]-->
+    <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+    <div style="width:100% !important;">
+    <!--[if (!mso)&(!IE)]><!-->
+    <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+    <!--<![endif]-->
+    <div class="mobile_hide">
+    <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+    <tbody>
+    <tr style="vertical-align: top;" valign="top">
+    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;" valign="top">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 30px solid #F3F2F3; width: 100%;" valign="top" width="100%">
+    <tbody>
+    <tr style="vertical-align: top;" valign="top">
+    <td style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top"><span></span></td>
+    </tr>
+    </tbody>
+    </table>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    <!--[if (!mso)&(!IE)]><!-->
+    </div>
+    <!--<![endif]-->
+    </div>
+    </div>
+    <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+    <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
+    </div>
+    </div>
+    </div>
+    <div style="background-color:transparent;">
+    <div class="block-grid three-up" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;">
+    <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
+    <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:transparent;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:640px"><tr class="layout-full-width" style="background-color:transparent"><![endif]-->
+    <!--[if (mso)|(IE)]><td align="center" width="213" style="background-color:transparent;width:213px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px;"><![endif]-->
+    <div class="col num4" style="max-width: 320px; min-width: 213px; display: table-cell; vertical-align: top; width: 213px;">
+    <div style="width:100% !important;">
+    <!--[if (!mso)&(!IE)]><!-->
+    <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+    <!--<![endif]-->
+    <div></div>
+    <!--[if (!mso)&(!IE)]><!-->
+    </div>
+    <!--<![endif]-->
+    </div>
+    </div>
+    <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+    <!--[if (mso)|(IE)]></td><td align="center" width="213" style="background-color:transparent;width:213px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px;"><![endif]-->
+    <div class="col num4" style="max-width: 320px; min-width: 213px; display: table-cell; vertical-align: top; width: 213px;">
+    <div style="width:100% !important;">
+    <!--[if (!mso)&(!IE)]><!-->
+    <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+    <!--<![endif]-->
+    <div align="center" class="img-container center autowidth" style="padding-right: 0px;padding-left: 0px;">
+    <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px"><td style="padding-right: 0px;padding-left: 0px;" align="center"><![endif]-->
+    <div style="font-size:1px;line-height:20px"></div><img align="center" alt="Image" border="0" class="center autowidth" src="$logo" style="text-decoration: none; -ms-interpolation-mode: bicubic; border: 0; height: auto; width: 100%; max-width: 198px; display: block;" title="Image" width="198"/>
+    <div style="font-size:1px;line-height:20px"> </div>
+    <!--[if mso]></td></tr></table><![endif]-->
+    </div>
+    <!--[if (!mso)&(!IE)]><!-->
+    </div>
+    <!--<![endif]-->
+    </div>
+    </div>
+    <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+    <!--[if (mso)|(IE)]></td><td align="center" width="213" style="background-color:transparent;width:213px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px;"><![endif]-->
+    <div class="col num4" style="max-width: 320px; min-width: 213px; display: table-cell; vertical-align: top; width: 213px;">
+    <div style="width:100% !important;">
+    <!--[if (!mso)&(!IE)]><!-->
+    <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+    <!--<![endif]-->
+    <div></div>
+    <!--[if (!mso)&(!IE)]><!-->
+    </div>
+    <!--<![endif]-->
+    </div>
+    </div>
+    <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+    <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
+    </div>
+    </div>
+    </div>
+    <div style="background-color:transparent;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #f3f2f3;">
+    <div style="border-collapse: collapse;display: table;width: 100%;background-color:#f3f2f3;">
+    <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:transparent;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:640px"><tr class="layout-full-width" style="background-color:#f3f2f3"><![endif]-->
+    <!--[if (mso)|(IE)]><td align="center" width="640" style="background-color:#f3f2f3;width:640px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px;"><![endif]-->
+    <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+    <div style="width:100% !important;">
+    <!--[if (!mso)&(!IE)]><!-->
+    <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+    <!--<![endif]-->
+    <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+    <tbody>
+    <tr style="vertical-align: top;" valign="top">
+    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;" valign="top">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" height="1" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 1px solid transparent; height: 1px; width: 100%;" valign="top" width="100%">
+    <tbody>
+    <tr style="vertical-align: top;" valign="top">
+    <td height="1" style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top"><span></span></td>
+    </tr>
+    </tbody>
+    </table>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    <!--[if (!mso)&(!IE)]><!-->
+    </div>
+    <!--<![endif]-->
+    </div>
+    </div>
+    <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+    <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
+    </div>
+    </div>
+    </div>
+    <div style="background-color:transparent;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #ffffff;">
+    <div style="border-collapse: collapse;display: table;width: 100%;background-color:#ffffff;background-image:url('$bgShade');background-position:center top;background-repeat:repeat">
+    <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:transparent;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:640px"><tr class="layout-full-width" style="background-color:#ffffff"><![endif]-->
+    <!--[if (mso)|(IE)]><td align="center" width="640" style="background-color:#ffffff;width:640px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:60px; padding-bottom:0px;"><![endif]-->
+    <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+    <div style="width:100% !important;">
+    <!--[if (!mso)&(!IE)]><!-->
+    <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:60px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+    <!--<![endif]-->
+    <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 50px; padding-top: 0px; padding-bottom: 0px; font-family: Arial, sans-serif"><![endif]-->
+    <div style="color:#555555;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;line-height:1.2;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:50px;">
+    <div style="line-height: 1.2; font-size: 12px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; color: #555555; mso-line-height-alt: 14px;">
+    <p style="font-size: 16px; line-height: 1.2; word-break: break-word; text-align: left; font-family: inherit; mso-line-height-alt: 19px; margin: 0;"><span style="color: #004afd;"><strong>Hi John Doe</strong></span></p>
+    </div>
+    </div>
+    <!--[if mso]></td></tr></table><![endif]-->
+    <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 38px; padding-left: 50px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
+    <div style="color:#555555;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;line-height:1.8;padding-top:10px;padding-right:38px;padding-bottom:10px;padding-left:50px;">
+    <div style="line-height: 1.8; font-size: 12px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; color: #555555; mso-line-height-alt: 22px;">
+    <p style="line-height: 1.8; word-break: break-word; text-align: left; font-family: inherit; font-size: 15px; mso-line-height-alt: 27px; margin: 0;"><span style="font-size: 15px;">Alright Alright! Your NotificationX Analytics Report for 01/01/2020 - 08/01/2020 is ready and it shows great progress.</span></p>
+    </div>
+    </div>
+    <!--[if mso]></td></tr></table><![endif]-->
+    <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 50px; padding-top: 20px; padding-bottom: 20px; font-family: Arial, sans-serif"><![endif]-->
+    <div style="color:#555555;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;line-height:1.2;padding-top:20px;padding-right:0px;padding-bottom:20px;padding-left:50px;">
+    <div style="font-size: 14px; line-height: 1.2; color: #555555; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; mso-line-height-alt: 17px;">
+    <p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;">In the last 7 days Your NotificationX messages,</p>
+    </div>
+    </div>
+    <!--[if mso]></td></tr></table><![endif]-->
+    <!--[if (!mso)&(!IE)]><!-->
+    </div>
+    <!--<![endif]-->
+    </div>
+    </div>
+    <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+    <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
+    </div>
+    </div>
+    </div>
+    <div style="background-color:transparent;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #ffffff;">
+    <div style="border-collapse: collapse;display: table;width: 100%;background-color:#ffffff;">
+    <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:transparent;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:640px"><tr class="layout-full-width" style="background-color:#ffffff"><![endif]-->
+    <!--[if (mso)|(IE)]><td align="center" width="640" style="background-color:#ffffff;width:640px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:5px; padding-bottom:30px;"><![endif]-->
+    <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+    <div style="width:100% !important;">
+    <!--[if (!mso)&(!IE)]><!-->
+    <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:30px; padding-right: 0px; padding-left: 0px;">
+    <!--<![endif]-->
+    <div style="font-size:16px;text-align:center;font-family:Helvetica Neue, Helvetica, Arial, sans-serif">
+    <div class="our-class" style="text-align: center;background-color: #f6f9fc; padding: 50px; margin: 0px 50px">
+    <p style="margin-bottom: 10px; font-weight: 700">Had a total view of 150 ^ </p>
+    <p style="margin-bottom: 10px; font-weight: 700">Had a total click of 150 ^ </p>
+    <p style="font-weight: 700;">Had a total CTR of 150 ^ </p>
+    </div>
+    </div>
+    <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 50px; padding-left: 50px; padding-top: 20px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
+    <div style="color:#555555;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;line-height:1.2;padding-top:20px;padding-right:50px;padding-bottom:10px;padding-left:50px;">
+    <div style="font-size: 14px; line-height: 1.2; color: #555555; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; mso-line-height-alt: 17px;">
+    <p style="font-size: 15px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 18px; margin: 0;"><span style="font-size: 15px;">Do you find NotificationX Analytics report useful?</span></p>
+    </div>
+    </div>
+    <!--[if mso]></td></tr></table><![endif]-->
+    <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 50px; padding-left: 50px; padding-top: 0px; padding-bottom: 20px; font-family: Arial, sans-serif"><![endif]-->
+    <div style="color:#555555;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;line-height:1.8;padding-top:0px;padding-right:50px;padding-bottom:20px;padding-left:50px;">
+    <div style="font-size: 14px; line-height: 1.8; color: #555555; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; mso-line-height-alt: 25px;">
+    <p style="font-size: 15px; line-height: 1.8; word-break: break-word; mso-line-height-alt: 27px; margin: 0;"><span style="color: #8c939b; font-size: 15px;">With the PRO package of NotificationX, you get additional data, you can even compare analytics data with that of previous month/week. </span></p>
+    </div>
+    </div>
+    <!--[if mso]></td></tr></table><![endif]-->
+    <div align="center" class="img-container center autowidth" style="padding-right: 50px;padding-left: 50px;">
+    <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px"><td style="padding-right: 50px;padding-left: 50px;" align="center"><![endif]--><img align="center" alt="Image" border="0" class="center autowidth" src="$graph" style="text-decoration: none; -ms-interpolation-mode: bicubic; border: 0; height: auto; width: 100%; max-width: 499px; display: block;" title="Image" width="499"/>
+    <div style="font-size:1px;line-height:30px"> </div>
+    <!--[if mso]></td></tr></table><![endif]-->
+    </div>
+    <div align="center" class="button-container" style="padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
+    <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://mukul.me" style="height:39pt; width:225.75pt; v-text-anchor:middle;" arcsize="8%" stroke="false" fillcolor="#6125d5"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:16px"><![endif]--><a href="https://mukul.me" style="-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #6125d5; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #6125d5; border-right: 1px solid #6125d5; border-bottom: 1px solid #6125d5; border-left: 1px solid #6125d5; padding-top: 10px; padding-bottom: 10px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;" target="_blank"><span style="padding-left:30px;padding-right:30px;font-size:16px;display:inline-block;"><span style="font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;">Visit Analytics Dashboard</span></span></a>
+    <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
+    </div>
+    <!--[if (!mso)&(!IE)]><!-->
+    </div>
+    <!--<![endif]-->
+    </div>
+    </div>
+    <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+    <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
+    </div>
+    </div>
+    </div>
+    <div style="background-color:transparent;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #f3f2f3;">
+    <div style="border-collapse: collapse;display: table;width: 100%;background-color:#f3f2f3;">
+    <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:transparent;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:640px"><tr class="layout-full-width" style="background-color:#f3f2f3"><![endif]-->
+    <!--[if (mso)|(IE)]><td align="center" width="640" style="background-color:#f3f2f3;width:640px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 15px; padding-left: 15px; padding-top:15px; padding-bottom:15px;"><![endif]-->
+    <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+    <div style="width:100% !important;">
+    <!--[if (!mso)&(!IE)]><!-->
+    <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:15px; padding-bottom:15px; padding-right: 15px; padding-left: 15px;">
+    <!--<![endif]-->
+    <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+    <tbody>
+    <tr style="vertical-align: top;" valign="top">
+    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;" valign="top">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" height="1" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 1px solid transparent; height: 1px; width: 100%;" valign="top" width="100%">
+    <tbody>
+    <tr style="vertical-align: top;" valign="top">
+    <td height="1" style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top"><span></span></td>
+    </tr>
+    </tbody>
+    </table>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    <!--[if (!mso)&(!IE)]><!-->
+    </div>
+    <!--<![endif]-->
+    </div>
+    </div>
+    <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+    <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
+    </div>
+    </div>
+    </div>
+    <div style="background-color:transparent;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #ffffff;">
+    <div style="border-collapse: collapse;display: table;width: 100%;background-color:#ffffff;">
+    <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:transparent;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:640px"><tr class="layout-full-width" style="background-color:#ffffff"><![endif]-->
+    <!--[if (mso)|(IE)]><td align="center" width="640" style="background-color:#ffffff;width:640px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:5px; padding-bottom:30px;"><![endif]-->
+    <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+    <div style="width:100% !important;">
+    <!--[if (!mso)&(!IE)]><!-->
+    <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:30px; padding-right: 0px; padding-left: 0px;">
+    <!--<![endif]-->
+    <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 50px; padding-left: 50px; padding-top: 50px; padding-bottom: 30px; font-family: Arial, sans-serif"><![endif]-->
+    <div style="color:#555555;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;line-height:1.5;padding-top:50px;padding-right:50px;padding-bottom:30px;padding-left:50px;">
+    <div style="font-size: 14px; line-height: 1.5; color: #555555; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; mso-line-height-alt: 21px;">
+    <p style="font-size: 15px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 23px; margin: 0;"><span style="font-size: 15px; color: #8c939b;">If you want more detailed NotificationX Analytics Reports? Upgrade to a NotificationX PRO plan and make more informed managerial decisions. </span></p>
+    <p style="font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
+    <p style="font-size: 15px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 23px; margin: 0;"><span style="font-size: 15px;">If you have any suggestion regarding the NotificationX Analytics Report, do not hesitate to reach out to our support team.</span></p>
+    </div>
+    </div>
+    <!--[if mso]></td></tr></table><![endif]-->
+    <div align="center" class="button-container" style="padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
+    <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://mukul.me" style="height:39pt; width:210.75pt; v-text-anchor:middle;" arcsize="8%" stroke="false" fillcolor="#6125d5"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:16px"><![endif]--><a href="https://mukul.me" style="-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #6125d5; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #6125d5; border-right: 1px solid #6125d5; border-bottom: 1px solid #6125d5; border-left: 1px solid #6125d5; padding-top: 10px; padding-bottom: 10px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;" target="_blank"><span style="padding-left:30px;padding-right:30px;font-size:16px;display:inline-block;"><span style="font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;">Buy NotificationX PRO</span></span></a>
+    <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
+    </div>
+    <!--[if (!mso)&(!IE)]><!-->
+    </div>
+    <!--<![endif]-->
+    </div>
+    </div>
+    <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+    <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
+    </div>
+    </div>
+    </div>
+    <div style="background-color:transparent;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #f3f2f3;">
+    <div style="border-collapse: collapse;display: table;width: 100%;background-color:#f3f2f3;">
+    <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:transparent;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:640px"><tr class="layout-full-width" style="background-color:#f3f2f3"><![endif]-->
+    <!--[if (mso)|(IE)]><td align="center" width="640" style="background-color:#f3f2f3;width:640px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px;"><![endif]-->
+    <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+    <div style="width:100% !important;">
+    <!--[if (!mso)&(!IE)]><!-->
+    <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+    <!--<![endif]-->
+    <div class="mobile_hide">
+    <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+    <tbody>
+    <tr style="vertical-align: top;" valign="top">
+    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 15px; padding-right: 15px; padding-bottom: 15px; padding-left: 15px;" valign="top">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 0px solid #BBBBBB; width: 100%;" valign="top" width="100%">
+    <tbody>
+    <tr style="vertical-align: top;" valign="top">
+    <td style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top"><span></span></td>
+    </tr>
+    </tbody>
+    </table>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    <!--[if (!mso)&(!IE)]><!-->
+    </div>
+    <!--<![endif]-->
+    </div>
+    </div>
+    <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+    <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
+    </div>
+    </div>
+    </div>
+    <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    <!--[if (IE)]></div><![endif]-->
+    </body>
+    </html>
+TEMPLATE;
     return $output;
 }
-?>
