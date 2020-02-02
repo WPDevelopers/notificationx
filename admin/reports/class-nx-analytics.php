@@ -57,7 +57,27 @@ class NotificationX_Analytics {
         add_filter( 'nx_frontend_after_html', array( $this, 'add_nonce' ), 11 , 2 );
         add_action( 'wp_ajax_notificationx_pro_analytics', array( $this, 'analytics_data' ) );
         add_action( 'wp_ajax_nopriv_notificationx_pro_analytics', array( $this, 'analytics_data' ) );
+        add_filter( 'nx_admin_table_stats', array( $this, 'stats_output' ), 11 , 2 ); 
     }
+
+    /**
+     * This method is responsible for output the stats value in admin table
+     * @return void
+     */
+    public function stats_output( $output, $idd ){
+        if( empty( $idd ) ) {
+            return 0;
+        }
+        $output = get_post_meta( $idd, '_nx_meta_views', true );
+        $analytics_url = admin_url( 'admin.php?page=nx-analytics&notificationx=' . $idd . '&comparison_factor=views,clicks,ctr' );
+        $format = '<a href="'. esc_url( $analytics_url ) .'">%s</a>';
+
+        if( empty( $output ) ) {
+            return sprintf( $format, '0 views');
+        }
+        return sprintf( $format, $output . __(' views', 'notificationx') );
+    }
+
     public static function notificationx(){
         $notificationx = new WP_Query(array(
             'post_type'      => 'notificationx',
