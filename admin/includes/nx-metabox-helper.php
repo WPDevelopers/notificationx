@@ -748,7 +748,7 @@ function notificationx_metabox_args(){
                             'countdown_expired_text' => array(
                                 'label' => __('Expired Text', 'notificationx'),
                                 'type'  => 'text',
-                                'default'  => __('Expired', 'notificationx-pro'),
+                                'default'  => __('Expired', 'notificationx'),
                             ),
                             'countdown_start_date' => array(
                                 'label' => __('Start Date', 'notificationx'),

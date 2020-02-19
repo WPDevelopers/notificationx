@@ -7,7 +7,7 @@ function notificationx_settings_args(){
         'general' => array(
             'title' => __( 'General', 'notificationx' ),
             'priority' => 10,
-            'button_text' => __( 'Save Settings' ),
+            'button_text' => __( 'Save Settings', 'notificationx' ),
             'sections' => apply_filters('nx_general_settings_sections', array(
                 'modules_sections' => array(
                     'title'    => __('Modules' , 'notificationx'),
@@ -121,46 +121,6 @@ function notificationx_settings_args(){
                         ),
                     ),
                 )),
-                'analytics' => array(
-                    'priority' => 20,
-                    'title'    => __('Analytics', 'notificationx'),
-                    'fields'   => array(
-                        'enable_analytics' => array(
-                            'type'    => 'checkbox',
-                            'label'   => __( 'Enable Analytics', 'notificationx' ),
-                            'default'  => 1,
-                            'priority' => 0,
-                            'dependency' => array(
-                                1 => array( 
-                                    'fields' => array( 'analytics_from', 'exclude_bot_analytics' )
-                                )
-                            ),
-                            'hide' => array(
-                                0 => array( 
-                                    'fields' => array( 'analytics_from', 'exclude_bot_analytics' )
-                                )
-                            )
-                        ),
-                        'analytics_from' => array(
-                            'type'    => 'select',
-                            'label'   => __( 'Analytics From', 'notificationx' ),
-                            'options' => array( 
-                                'everyone'         => __( 'Everyone', 'notificationx' ),
-                                'guests'           => __( 'Guests Only', 'notificationx' ),
-                                'registered_users' => __( 'Registered Users Only', 'notificationx' ),
-                            ),
-                            'default'  => 'everyone',
-                            'priority' => 1,
-                        ),
-                        'exclude_bot_analytics' => array(
-                            'type'        => 'checkbox',
-                            'label'       => __( 'Exclude Bot Analytics', 'notificationx' ),
-                            'default'     => 1,
-                            'priority'    => 1,
-                            'description' => __( 'Select if you want to exclude bot analytics.', 'notificationx' ),
-                        ),
-                    ),
-                ),
                 'role_management' => array(
                     'title' => __('Role Management', 'notificationx'),
                     'priority'    => 30,
@@ -196,10 +156,97 @@ function notificationx_settings_args(){
                 )
             ))
         ),
+        'email_analytics_reporting' => array(
+            'title' => __('Analytics & Reporting', 'notificationx'),
+            'button_text' => __('Save Settings', 'notificationx'),
+            'priority' => 20,
+            'sections' => apply_filters( 'nx_email_analytics_reporting_sections', array(
+                'analytics' => array(
+                    'priority' => 20,
+                    'title'    => __('Analytics', 'notificationx'),
+                    'fields'   => array(
+                        'enable_analytics' => array(
+                            'type'    => 'checkbox',
+                            'label'   => __( 'Enable Analytics', 'notificationx' ),
+                            'default'  => 1,
+                            'priority' => 0,
+                            'dependency' => array(
+                                1 => array( 
+                                    'fields' => array( 'analytics_from', 'exclude_bot_analytics' ),
+                                    'sections' => array( 'email_reporting' ),
+                                )
+                            ),
+                            'hide' => array(
+                                0 => array( 
+                                    'fields' => array( 'analytics_from', 'exclude_bot_analytics' ),
+                                    'sections' => array( 'email_reporting' ),
+                                )
+                            )
+                        ),
+                        'analytics_from' => array(
+                            'type'    => 'select',
+                            'label'   => __( 'Analytics From', 'notificationx' ),
+                            'options' => array( 
+                                'everyone'         => __( 'Everyone', 'notificationx' ),
+                                'guests'           => __( 'Guests Only', 'notificationx' ),
+                                'registered_users' => __( 'Registered Users Only', 'notificationx' ),
+                            ),
+                            'default'  => 'everyone',
+                            'priority' => 1,
+                        ),
+                        'exclude_bot_analytics' => array(
+                            'type'        => 'checkbox',
+                            'label'       => __( 'Exclude Bot Analytics', 'notificationx' ),
+                            'default'     => 1,
+                            'priority'    => 1,
+                            'description' => __( 'Select if you want to exclude bot analytics.', 'notificationx' ),
+                        ),
+                    ),
+                ),
+                'email_reporting' => array(
+                    'priority' => 20,
+                    'title'    => __('Reporting', 'notificationx'),
+                    'fields'   => array(
+                        'reporting_day' => array(
+                            'type'        => 'select',
+                            'label'       => __( 'Select Reporting Day', 'notificationx' ),
+                            'default'     => 'monday',
+                            'priority'    => 2,
+                            'options' => array( 
+                                'sunday'         => __( 'Sunday', 'notificationx' ),
+                                'monday'         => __( 'Monday', 'notificationx' ),
+                                'tuesday'        => __( 'Tuesday', 'notificationx' ),
+                                'wednesday'      => __( 'Wednesday', 'notificationx' ),
+                                'thursday'       => __( 'Thursday', 'notificationx' ),
+                                'friday'         => __( 'Friday', 'notificationx' ),
+                            ),
+                            'description' => __( 'Select a Day for Email Report.', 'notificationx' ),
+                        ),
+                        'reporting_email' => array(
+                            'type'        => 'text',
+                            'label'       => __( 'Reporting Email', 'notificationx' ),
+                            'default'     => get_option( 'admin_email' ),
+                            'priority'    => 3,
+                        ),
+                        'reporting_frequency' => array(
+                            'type'        => 'select',
+                            'label'       => __( 'Reporting Frequency', 'notificationx' ),
+                            'default'     => 'nx_weekly',
+                            'priority'    => 4,
+                            'disable'     => true,
+                            'options' => array( 
+                                'nx_weekly'         => __( 'Once Weekly', 'notificationx' ),
+                                'hourly'         => __( 'Once Hourly', 'notificationx' ),
+                            )
+                        )
+                    ),
+                )
+            ))
+        ),
         'cache_settings_tab' => array(
             'title' => __( 'Cache Settings', 'notificationx' ),
             'priority' => 30,
-            'button_text' => __( 'Save Settings' ),
+            'button_text' => __( 'Save Settings', 'notificationx' ),
             'sections' => apply_filters('nx_cache_settings_sections', array(
                 'cache_settings' => apply_filters('nx_cache_settings_tab', array(
                     'priority' => 5,

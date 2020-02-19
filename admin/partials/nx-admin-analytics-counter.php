@@ -4,11 +4,11 @@
             <div class="nx-header-analytics-counter">
                 <a href="<?php echo esc_url( $views_link );?> ">
                     <span class="nx-counter-icon">
-                        <img src="<?php echo NOTIFICATIONX_ADMIN_URL . 'assets/img/views-icon.png'; ?>" alt="<?php _e( 'Total Views' ); ?>">
+                        <img src="<?php echo NOTIFICATIONX_ADMIN_URL . 'assets/img/views-icon.png'; ?>" alt="<?php _e( 'Total Views', 'notificationx' ); ?>">
                     </span>
                     <div>
-                        <span class="nx-counter-number"><?php _e( $views ) ?></span>
-                        <span class="nx-counter-label"><?php _e( 'Total Views', 'notificationx-pro' ); ?></span>
+                        <span class="nx-counter-number"><?php _e( $views, 'notificationx' ) ?></span>
+                        <span class="nx-counter-label"><?php _e( 'Total Views', 'notificationx' ); ?></span>
                     </div>
                 </a>
             </div>
@@ -17,11 +17,11 @@
             <div class="nx-header-analytics-counter">
                 <a href="<?php echo esc_url( $clicks_link );?> ">
                     <span class="nx-counter-icon">
-                        <img src="<?php echo NOTIFICATIONX_ADMIN_URL . 'assets/img/clicks-icon.png'; ?>" alt="<?php _e( 'Total Clicks' ); ?>">
+                        <img src="<?php echo NOTIFICATIONX_ADMIN_URL . 'assets/img/clicks-icon.png'; ?>" alt="<?php _e( 'Total Clicks', 'notificationx' ); ?>">
                     </span>
                     <div>
-                        <span class="nx-counter-number"><?php _e( $clicks ) ?></span>
-                        <span class="nx-counter-label"><?php _e( 'Total Clicks', 'notificationx-pro' ); ?></span>
+                        <span class="nx-counter-number"><?php _e( $clicks, 'notificationx' ) ?></span>
+                        <span class="nx-counter-label"><?php _e( 'Total Clicks', 'notificationx' ); ?></span>
                     </div>
                 </a>
             </div>
@@ -30,11 +30,11 @@
             <div class="nx-header-analytics-counter">
                 <a href="<?php echo esc_url( $ctr_link );?> ">
                     <span class="nx-counter-icon">
-                        <img src="<?php echo NOTIFICATIONX_ADMIN_URL . 'assets/img/ctr-icon.png'; ?>" alt="<?php _e( 'Click-Through-Rate' ); ?>">
+                        <img src="<?php echo NOTIFICATIONX_ADMIN_URL . 'assets/img/ctr-icon.png'; ?>" alt="<?php _e( 'Click-Through-Rate', 'notificationx' ); ?>">
                     </span>
                     <div>
-                        <span class="nx-counter-number"><?php _e( $ctr ) ?></span>
-                        <span class="nx-counter-label"><?php _e( 'Click-Through-Rate', 'notificationx-pro' ); ?></span>
+                        <span class="nx-counter-number"><?php _e( $ctr, 'notificationx' ) ?></span>
+                        <span class="nx-counter-label"><?php _e( 'Click-Through-Rate', 'notificationx' ); ?></span>
                     </div>
                 </a>
             </div>

@@ -180,10 +180,10 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                                         <div class="nx-admin-date">
                                             <?php 
                                                 if( get_post_status( get_the_ID() ) === 'publish' ) {
-                                                    echo '<span class="nx-admin-publish-status">' . _e('Published', 'notificationx') . '</span><br><span class="nx-admin-publish-date">' . get_the_time( __( 'Y/m/d' ) ). '</span>';
+                                                    echo '<span class="nx-admin-publish-status">' . _e('Published', 'notificationx') . '</span><br><span class="nx-admin-publish-date">' . get_the_time( __( 'Y/m/d', 'notificationx' ) ). '</span>';
                                                 }
                                                 if( get_post_status( get_the_ID() ) === 'trash' ) {
-                                                    echo '<span class="nx-admin-publish-status">' . _e('Last Modified', 'notificationx') . '</span><br><span class="nx-admin-publish-date">' . get_the_time( __( 'Y/m/d' ) ). '</span>';
+                                                    echo '<span class="nx-admin-publish-status">' . _e('Last Modified', 'notificationx') . '</span><br><span class="nx-admin-publish-date">' . get_the_time( __( 'Y/m/d', 'notificationx' ) ). '</span>';
                                                 }
                                             ?>
                                         </div>

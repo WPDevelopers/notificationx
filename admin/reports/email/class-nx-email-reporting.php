@@ -4,9 +4,6 @@
  * 
  * @since 1.4.4
  */
-
-include plugin_dir_path( __FILE__ ) . 'templates/nxm-header.php';
-
 class NotificationX_Report_Email {
     /**
      * Get a single Instance of Analytics
@@ -14,39 +11,100 @@ class NotificationX_Report_Email {
      */
     private static $_instance = null;
     protected $settings = null;
+    /**
+     * Initially Invoked by Default.
+     */
     public function __construct() {
-
         $this->settings = NotificationX_DB::get_settings();
-
         add_filter( 'cron_schedules', array( $this, 'custom_cron_schedule_weekly' ) );
-        // register_activation_hook(__FILE__, array( $this, 'mail_report_activation' ));
         add_action('admin_init', array( $this, 'mail_report_activation' ));
         add_action('weekly_email_reporting', array( $this, 'send_email_weekly' ));
+        // register_activation_hook(__FILE__, array( $this, 'mail_report_activation' ));
         // register_deactivation_hook(__FILE__, array( $this, 'mail_report_deactivation' ));
         // add_action('admin_init', array( $this, 'test_function' ));
     }
 
     public function test_function() {
-        // $html = email_template();
-        // echo $html;
-        dump( $this->receiver_email_address(), false );
-        die;
+        // dump();
+        // die;
     }
-
     /**
      * Calculate Total NotificationX Views
      * @return int
      */
-    public function get_total_views() {
+    public function get_weekly_data() {
         $totalviews = 0;
         global $wpdb;
-        $viewsForEachPost = $wpdb->get_results( 'SELECT post_id, meta_value FROM ' . $wpdb->prefix . 'postmeta WHERE meta_key = "_nx_meta_views"'  );
-        if ( !empty($viewsForEachPost) && is_array($viewsForEachPost) ) {
-            foreach ( $viewsForEachPost as $view ) {
-                $totalviews = $totalviews + $view->meta_value;
-            }
+        $viewsForEachPost = $wpdb->get_results( 'SELECT post_id, meta_value FROM ' . $wpdb->prefix . 'postmeta WHERE meta_key = "_nx_meta_impression_per_day"'  );
+
+        return $this->collect_last_week_data( $viewsForEachPost );
+    }
+
+    public function collect_last_week_data( $data = array() ){
+        if( empty( $data ) ) {
+            return [];
         }
-        return $totalviews;
+        global $wpdb;
+        $new_data = [];
+
+        array_walk( $data, function( $value, $key ) use ( &$new_data, $wpdb ) {
+            if( isset( $value->meta_value ) ) {
+                $nx_id = $value->post_id;
+                $meta_value = unserialize( $value->meta_value );
+                ksort( $meta_value );
+                $i = 1;
+
+                $wk_wise_meta = array_chunk( $meta_value, 7, true );
+                $metaSettings = NotificationX_MetaBox::get_metabox_settings( $nx_id );
+                $type = NotificationX_Helper::get_type( $metaSettings );
+                
+                if( ! empty( $wk_wise_meta ) && isset( $wk_wise_meta[0] ) && is_array( $wk_wise_meta[0] ) ) {
+                    $views = $clicks = $ctr = $last_wk_clicks = $last_wk_views = 0;
+
+                    $from_date = $to_date = '';
+                    
+                    array_walk( $wk_wise_meta[0], function( $wk_value, $wk_key ) use( $nx_id, &$i, &$views, &$clicks, &$from_date, &$to_date ) {
+                        if( $i === 1 ) {
+                            $from_date = $wk_key;
+                        }
+                        if( $i === 7 ) {
+                            $to_date = $wk_key;
+                        }
+                        $i++;
+                        if( ! empty( $wk_value ) ) {
+                            $views = isset( $wk_value['impressions'] ) ? $views + $wk_value['impressions'] : 0;
+                            $clicks = isset( $wk_value['clicks'] ) ? $views + $wk_value['clicks'] : 0;
+                        }
+                    } );
+                    if( isset( $wk_wise_meta[1] ) && is_array( $wk_wise_meta[1] ) ){
+                        array_walk( $wk_wise_meta[1], function( $wk_value, $wk_key ) use( &$last_wk_views, &$last_wk_clicks ) {
+                            if( ! empty( $wk_value ) ) {
+                                $last_wk_views = isset( $wk_value['impressions'] ) ? $last_wk_views + $wk_value['impressions'] : 0;
+                                $last_wk_clicks = isset( $wk_value['clicks'] ) ? $last_wk_clicks + $wk_value['clicks'] : 0;
+                            }
+                        } );
+                    }
+                    $ctr = $views > 0 ? number_format( ( intval( $clicks ) / intval( $views ) ) * 100, 2) : 0;
+                    $last_wk_ctr = $last_wk_views > 0 ? number_format( ( intval( $last_wk_clicks ) / intval( $last_wk_views ) ) * 100, 2) : 0;
+                    $new_data[ $nx_id ] = array(
+                        'views' => $views,
+                        'last_wk_views' => $last_wk_views,
+                        'clicks' => $clicks,
+                        'last_wk_clicks' => $last_wk_clicks,
+                        'percentage_views' => $last_wk_views > 0 ? number_format( ( ( $views - $last_wk_views ) / $last_wk_views ) * 100, 2 ) : 0,
+                        'percentage_clicks' => $last_wk_clicks > 0 ? number_format( ( ( $clicks - $last_wk_clicks ) / $last_wk_clicks ) * 100, 2 ) : 0,
+                        'ctr' => $ctr,
+                        'percentage_ctr' => $last_wk_ctr > 0 ? number_format( ( ( $ctr - $last_wk_ctr ) / $last_wk_ctr ) * 100, 2 ) : 0,
+                        'type' => $type,
+                        'from_date' => $from_date,
+                        'to_date' => $to_date,
+                        'title' => get_the_title( $nx_id )
+                    );
+                }
+            }
+        } );
+
+        return $new_data;
     }
 
     /**
@@ -105,7 +163,6 @@ class NotificationX_Report_Email {
 
         return $impression_data;
     }
-
     /**
      * Adds a custom cron schedule for Weekly.
      *
@@ -115,11 +172,10 @@ class NotificationX_Report_Email {
     function custom_cron_schedule_weekly( $schedules = array() ) {
         $schedules['nx_weekly'] = array(
             'interval' => 604800,
-            'display'  => __( 'Once Weekly', 'NotificationX' )
+            'display'  => __( 'Once Weekly', 'notificationx' )
         );
         return $schedules;
     }
-
     /**
      * Get || Making a Single Instance of Analytics
      * @return self
@@ -130,7 +186,6 @@ class NotificationX_Report_Email {
         }
         return self::$_instance;
     }
-
     /**
      * Set Email Receiver mail address
      * By Default, Admin Email Address
@@ -141,7 +196,11 @@ class NotificationX_Report_Email {
         $email = NotificationX_DB::get_settings( 'reporting_email' );
         if( empty( $email ) ) {
             $email = get_option( 'admin_email' );
-        }
+        } // else { //TODO: in next version.
+        //     if( strpos( $email, ',' ) !== false ) {
+        //         $email = explode( ',', $email );
+        //     }
+        // }
         return $email;
     }
     
@@ -156,27 +215,11 @@ class NotificationX_Report_Email {
         return $subject;
     }
     
-    /**
-     * Generate Email HTML
-     * @return String
-     */
-    public function email_body() {
-        // $totalviews = self::get_total_views();
-        // $totalclicks = self::get_total_clicks();
-        // $click_through_rate = $totalviews / $totalclicks;
-        // $impression_data = self::get_impression_data();
-
-        $html = email_template();
-        // $html = "<h1>email_template</h1>";
-
-        return (string)$html;
-    }
     protected function reporting_frequency(){
         $frequency = 'nx_weekly';
         if( isset( $this->settings['reporting_frequency'] ) && ! empty( $this->settings['reporting_frequency'] ) && is_string( $this->settings['reporting_frequency'] ) ) {
             $frequency = $this->settings['reporting_frequency'];
         }
-
         return $frequency;
     }
     /**
@@ -201,11 +244,13 @@ class NotificationX_Report_Email {
     function send_email_weekly() {
         $to = $this->receiver_email_address();
         $subject = $this->email_subject();
-        $message = $this->email_body();
-        $headers = array('Content-Type: text/html; charset=UTF-8');
-        
-        // error_log( $message );
-        wp_mail( $to, $subject, $message, $headers );          
+        if( ! class_exists( 'NotificationX_Email_Template' ) ) {
+            require_once NOTIFICATIONX_ROOT_DIR_PATH . 'admin/reports/email/class-nx-email-template.php';
+        }
+        $template = new NotificationX_Email_Template();
+        $message = $template->template_body( $this->get_weekly_data() );
+        $headers = array( 'Content-Type: text/html; charset=UTF-8', "From: NotificationX <support@wpdeveloper.net>" );
+        wp_mail( $to, $subject, $message, $headers );
     }    
 
     /**
@@ -215,7 +260,6 @@ class NotificationX_Report_Email {
     function mail_report_deactivation() {
         wp_clear_scheduled_hook('weekly_email_reporting');
     }
-
 }
 
 NotificationX_Report_Email::get_instance();

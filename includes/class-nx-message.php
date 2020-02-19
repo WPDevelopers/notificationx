@@ -414,7 +414,7 @@ class NotificationX_Notice {
         if( empty( $plugin_slug ) ) {
             return;
         }
-        echo '<button data-slug="'. $plugin_slug .'" id="plugin-install-core-'. $this->plugin_name .'" class="button button-primary">'. __( 'Install Now!', $this->text_domain ) .'</button>';
+        echo '<button data-slug="'. $plugin_slug .'" id="plugin-install-core-'. $this->plugin_name .'" class="button button-primary">'. __( 'Install Now!', $this->text_domain, 'notificationx' ) .'</button>';
     }
     /**
      * This methods is responsible for get notice image.
@@ -906,12 +906,12 @@ $notice->links = [
         'later' => array(
             'link' => 'https://wpdeveloper.net/review-notificationx',
             'target' => '_blank',
-            'label' => __( 'Ok, you deserve it!', $notice->text_domain ),
+            'label' => __( 'Ok, you deserve it!', $notice->text_domain, 'notificationx' ),
             'icon_class' => 'dashicons dashicons-external',
         ),
         'allready' => array(
             'link' => $url,
-            'label' => __( 'I already did', $notice->text_domain ),
+            'label' => __( 'I already did', $notice->text_domain, 'notificationx' ),
             'icon_class' => 'dashicons dashicons-smiley',
             'data_args' => [
                 'dismiss' => true,
@@ -919,7 +919,7 @@ $notice->links = [
         ),
         'maybe_later' => array(
             'link' => $url,
-            'label' => __( 'Maybe Later', $notice->text_domain ),
+            'label' => __( 'Maybe Later', $notice->text_domain, 'notificationx' ),
             'icon_class' => 'dashicons dashicons-calendar-alt',
             'data_args' => [
                 'later' => true,
@@ -927,12 +927,12 @@ $notice->links = [
         ),
         'support' => array(
             'link' => 'https://wpdeveloper.net/support',
-            'label' => __( 'I need help', $notice->text_domain ),
+            'label' => __( 'I need help', $notice->text_domain, 'notificationx' ),
             'icon_class' => 'dashicons dashicons-sos',
         ),
         'never_show_again' => array(
             'link' => $url,
-            'label' => __( 'Never show again', $notice->text_domain ),
+            'label' => __( 'Never show again', $notice->text_domain, 'notificationx' ),
             'icon_class' => 'dashicons dashicons-dismiss',
             'data_args' => [
                 'dismiss' => true,
@@ -947,13 +947,13 @@ $notice->links = [
  * Message message for showing.
  */
 $notice->classes( 'upsale', 'notice is-dismissible' );
-$notice->message( 'upsale', '<p>'. __( 'Get the missing feature for NotificationX by installing PRO!', $notice->text_domain ) .'</p>' );
+$notice->message( 'upsale', '<p>'. __( 'Get the missing feature for NotificationX by installing PRO!', $notice->text_domain, 'notificationx' ) .'</p>' );
 $notice->thumbnail( 'upsale', plugins_url( 'admin/assets/img/nx-icon.svg', NOTIFICATIONX_BASENAME ) );
 
 /**
  * This is review message and thumbnail.
  */
-$notice->message( 'review', '<p>'. __( 'We hope you\'re enjoying NotificationX! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', $notice->text_domain ) .'</p>' );
+$notice->message( 'review', '<p>'. __( 'We hope you\'re enjoying NotificationX! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', $notice->text_domain, 'notificationx' ) .'</p>' );
 $notice->thumbnail( 'review', plugins_url( 'admin/assets/img/nx-icon.svg', NOTIFICATIONX_BASENAME ) );
 
 /**

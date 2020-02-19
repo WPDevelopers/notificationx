@@ -109,7 +109,8 @@ final class NotificationX {
 		/**
 		 * NotificationX Report Email
 		 */
-        // require_once NOTIFICATIONX_ROOT_DIR_PATH . 'admin/reports/email/class-nx-email-reporting.php';
+        require_once NOTIFICATIONX_ROOT_DIR_PATH . 'admin/reports/email/class-nx-email-template.php';
+        require_once NOTIFICATIONX_ROOT_DIR_PATH . 'admin/reports/email/class-nx-email-reporting.php';
 		
 		/**
 		 * NotificationX Messages

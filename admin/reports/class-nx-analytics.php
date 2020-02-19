@@ -39,7 +39,7 @@ class NotificationX_Analytics {
     );
 
     public function __construct() {
-        add_action( 'nx_before_settings_load', array( $this, 'add_settings' ) );
+        
         if( NotificationX_DB::get_settings( 'enable_analytics' ) != 1 && NotificationX_DB::get_settings( 'enable_analytics' ) !== '' ) {
             return;
         }
@@ -193,67 +193,6 @@ class NotificationX_Analytics {
 			array( 'jquery' ), '1.0.1', true 
 		);
     }
-
-    protected function clicks(){
-
-    }
-    /**
-     * Add Settings Options
-     * @return void
-     */
-    public function add_settings(){
-        // add_filter( 'notificationx_settings_tab', array( $this, 'add_settings_tab' ) );
-    }
-
-    public function add_settings_tab( $options ){
-        $options['email_analytics_reporting'] = [
-            'title' => __( 'Email Reporting', 'notificationx' ),
-            'button_text' => __( 'Save Settings' ),
-        ];
-        $general = $options['email_analytics_reporting'];
-        $general['sections']['email_reporting'] = array(
-            'priority' => 20,
-            'title'    => __('Reporting', 'notificationx'),
-            'fields'   => array(
-                'reporting_day' => array(
-                    'type'        => 'select',
-                    'label'       => __( 'Select Reporting Day', 'notificationx' ),
-                    'default'     => 'monday',
-                    'priority'    => 2,
-                    'options' => array( 
-                        'sunday'         => __( 'Sunday', 'notificationx' ),
-                        'monday'         => __( 'Monday', 'notificationx' ),
-                        'tuesday'        => __( 'Tuesday', 'notificationx' ),
-                        'wednesday'      => __( 'Wednesday', 'notificationx' ),
-                        'thursday'       => __( 'Thursday', 'notificationx' ),
-                        'friday'         => __( 'Friday', 'notificationx' ),
-                    ),
-                    'description' => __( 'Select a Day for Email Report.', 'notificationx' ),
-                ),
-                'reporting_email' => array(
-                    'type'        => 'text',
-                    'label'       => __( 'Reporting Email', 'notificationx' ),
-                    'default'     => get_option( 'admin_email' ),
-                    'priority'    => 3,
-                ),
-                'reporting_frequency' => array(
-                    'type'        => 'select',
-                    'label'       => __( 'Reporting Frequency', 'notificationx' ),
-                    'default'     => 'nx_weekly',
-                    'priority'    => 4,
-                    // 'disable'     => true,
-                    'options' => array( 
-                        'nx_weekly'         => __( 'Once Weekly', 'notificationx' ),
-                        'hourly'         => __( 'Once Hourly', 'notificationx' ),
-                    )
-                )
-            ),
-        );
-
-        $options['email_analytics_reporting'] = $general;
-        return $options;
-    }
-
 
     public function add_nonce( $output, $settings ){
         $nonce = wp_create_nonce( '_notificationx_pro_analytics_nonce' );
