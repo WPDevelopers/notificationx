@@ -152,7 +152,15 @@ NXBODYHEADER;
             return '';
         }
         $body_header = $this->body_header( $args );
-        $analytics_box = $this->analytics_box( $args );
+
+        $analytics_box = '';
+
+        if( is_array( $args ) ) {
+            foreach( $args as $analytics_key => $analytics_value ) {
+                $analytics_box .= $this->analytics_box( $analytics_value );
+            }
+        }
+
         $pro_msg = $this->pro_message();
         $overall_promo_text = $this->promo( $args );
 
@@ -167,6 +175,8 @@ NXTEMBODY;
 
     public function template_body( $args ){
         $output = $this->header() . $this->body( $args ) . $this->footer();
+        // FOR TEST
+        // file_put_contents( '/Users/priyomukul/Sites/html/test/test-nx.html', $output );
         return $output;
     }
 
@@ -175,14 +185,35 @@ NXTEMBODY;
             return false;
         }
 
-        $args = current( $args );
+        // $args = current( $args );
 
-        $views = $args[ 'views' ];
-        $percentage_views = $args[ 'percentage_views' ];
-        $clicks = $args[ 'clicks' ];
-        $percentage_clicks = $args[ 'percentage_clicks' ];
-        $ctr = $args[ 'ctr' ];
-        $percentage_ctr = $args[ 'percentage_ctr' ];
+        $views = array_reduce( $args, function( $carry, $item ) {
+            $carry += $item['views'];
+            return $carry;
+        } );
+        $last_wk_views = array_reduce( $args, function( $carry, $item ) {
+            $carry += $item['last_wk_views'];
+            return $carry;
+        } );
+
+        $clicks = array_reduce( $args, function( $carry, $item ) {
+            $carry += $item['clicks'];
+            return $carry;
+        } );
+        $last_wk_clicks = array_reduce( $args, function( $carry, $item ) {
+            $carry += $item['last_wk_clicks'];
+            return $carry;
+        } );
+
+        $ctr = array_reduce( $args, function( $carry, $item ) {
+            $carry += $item['ctr'];
+            return $carry;
+        } );
+
+        $last_wk_ctr = $last_wk_views > 0 ? number_format( ( intval( $last_wk_clicks ) / intval( $last_wk_views ) ) * 100, 2) : 0;
+        $percentage_views = $last_wk_views > 0 ? number_format( ( ( $views - $last_wk_views ) / $last_wk_views ) * 100, 2 ) : 0;
+        $percentage_clicks = $last_wk_clicks > 0 ? number_format( ( ( $clicks - $last_wk_clicks ) / $last_wk_clicks ) * 100, 2 ) : 0;
+        $percentage_ctr = $last_wk_ctr > 0 ? number_format( ( ( $ctr - $last_wk_ctr ) / $last_wk_ctr ) * 100, 2 ) : 0;
 
         $up_arrow = $v_arrow = $c_arrow = $ctr_arrow = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/nx-template-up.png';
         $down_arrow = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/nx-template-down.png';
@@ -204,7 +235,7 @@ NXTEMBODY;
         $output = <<<NXPROMO
 <tr>
     <td class="nx-mobile-font" style="line-height: 1.5;">
-        <p style="margin: 0px;"><font color="#555555">Over the last 7 Days NotificationX helped you, have site visits of <font color="$v_color">$views <img src="$v_arrow" alt="" style="padding-left: 5px; width:19px; vertical-align: text-bottom;" class="nx-mobile-icon"></font>, total Click of <font color="$c_color">$clicks <img src="$c_arrow" alt="" class="nx-mobile-icon" style="padding-left: 5px; width:19px; vertical-align: text-bottom;"></font>, and total CTR of <font color="$ctr_color">$ctr<img src="$ctr_arrow" alt="" class="nx-mobile-icon" style="padding-left: 5px; width:19px; vertical-align: text-bottom;"></font></font></p>
+        <p style="margin: 0px;"><font color="#555555">In the last 7 Days NotificationX helped you have site visits of <font color="$v_color">$views <img src="$v_arrow" alt="" style="padding-left: 5px; width:19px; vertical-align: text-bottom;" class="nx-mobile-icon"></font>, total Click of <font color="$c_color">$clicks <img src="$c_arrow" alt="" class="nx-mobile-icon" style="padding-left: 5px; width:19px; vertical-align: text-bottom;"></font>, and total CTR of <font color="$ctr_color">$ctr<img src="$ctr_arrow" alt="" class="nx-mobile-icon" style="padding-left: 5px; width:19px; vertical-align: text-bottom;"></font></font></p>
     </td>
 </tr> <!-- Overall Text -->
 NXPROMO;
@@ -216,8 +247,9 @@ NXPROMO;
             return false;
         }
 
-        $args = current( $args );
 
+        $type = $args['type'];
+        $title = $args[ 'title' ];
         $views = $args[ 'views' ];
         $percentage_views = $args[ 'percentage_views' ];
         $clicks = $args[ 'clicks' ];
@@ -245,11 +277,22 @@ NXPROMO;
         $percentage_clicks = NotificationX_Helper::nice_number( $args[ 'percentage_clicks' ] );
         $percentage_ctr = NotificationX_Helper::nice_number( $args[ 'percentage_ctr' ] );
 
+        if( is_array( $type ) ) {
+            $type_name = $type['source'];
+        } else {
+            $type_name = $type;
+        }
+
         $output = <<<NXBOXTEM
 <tr>
     <td  class="nx-box-analytics-parent">
         <table class="nx-box-analytics" cellspacing="10" cellpadding="0" border="0" align="center" width="100%">
             <tbody>
+                <tr>
+                    <td align="left" class="nx-mobile-font" colspan="3" style="font-size: 13px;">
+                    <strong>$type_name</strong> > $title
+                    </td>
+                </tr>
                 <tr>
                     <td style="border:1px solid #e5ecf2" width="33.333%">
                         <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fff">

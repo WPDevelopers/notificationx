@@ -207,6 +207,17 @@ function notificationx_settings_args(){
                     'priority' => 20,
                     'title'    => __('Reporting', 'notificationx'),
                     'fields'   => array(
+                        'reporting_frequency' => array(
+                            'type'        => 'select',
+                            'label'       => __( 'Reporting Frequency', 'notificationx' ),
+                            'default'     => 'nx_weekly',
+                            'priority'    => 1,
+                            'disable'     => true,
+                            'options' => array( 
+                                'nx_weekly'         => __( 'Once Weekly', 'notificationx' ),
+                                'hourly'         => __( 'Once Hourly', 'notificationx' ),
+                            )
+                        ),
                         'reporting_day' => array(
                             'type'        => 'select',
                             'label'       => __( 'Select Reporting Day', 'notificationx' ),
@@ -228,16 +239,16 @@ function notificationx_settings_args(){
                             'default'     => get_option( 'admin_email' ),
                             'priority'    => 3,
                         ),
-                        'reporting_frequency' => array(
-                            'type'        => 'select',
-                            'label'       => __( 'Reporting Frequency', 'notificationx' ),
-                            'default'     => 'nx_weekly',
+                        'reporting_subject' => array(
+                            'type'        => 'text',
+                            'label'       => __( 'Reporting Email Subject', 'notificationx' ),
+                            'default'     => __( 'Your Weekly Engagement Summary from NotificationX', 'notificationx' ),
                             'priority'    => 4,
-                            'disable'     => true,
-                            'options' => array( 
-                                'nx_weekly'         => __( 'Once Weekly', 'notificationx' ),
-                                'hourly'         => __( 'Once Hourly', 'notificationx' ),
-                            )
+                        ),
+                        'test_report' => array(
+                            'label' => __( 'Reporting Test', 'notificationx' ),
+                            'view' => 'NotificationX_Report_Email::test_report',
+                            'priority' => 5
                         )
                     ),
                 )
