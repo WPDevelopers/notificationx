@@ -294,6 +294,7 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         $days     = $data['_nx_meta_display_from'];
         $amount   = $data['_nx_meta_display_last'];
         $payments = $this->get_payments( $days, $amount );
+        $notifications = [];
         if( is_array( $payments ) && ! empty( $payments ) ) {
             $notifications = $this->ordered_products( $payments, true );
         }
