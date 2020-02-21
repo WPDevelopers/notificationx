@@ -11,11 +11,6 @@ class NotificationX_Analytics {
      */
     private static $_instance = null;
     /**
-     * List of NotificationX
-     * @var arrau
-     */
-    private static $notificationx = array();
-    /**
      * Colors for Bar
      */
     private $colors = array(
@@ -48,7 +43,6 @@ class NotificationX_Analytics {
                 return;
             }
         }
-        add_action( 'admin_init', array( $this, 'notificationx' ) );
         add_action( 'notificationx_admin_menu', array( $this, 'add_analytics_menu' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueues' ) );
         add_action( 'notificationx_settings_header', array( $this, 'stats_counter' ), 11 );
@@ -76,15 +70,6 @@ class NotificationX_Analytics {
             return sprintf( $format, '0 views');
         }
         return sprintf( $format, $output . __(' views', 'notificationx') );
-    }
-
-    public static function notificationx(){
-        $notificationx = new WP_Query(array(
-            'post_type'      => 'notificationx',
-            'posts_per_page' => -1,
-        ));
-
-        return self::$notificationx = $notificationx->posts;
     }
 
     /**
