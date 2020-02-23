@@ -68,7 +68,7 @@ class NotificationX_Report_Email {
             if( isset( $value->meta_value ) ) {
                 $nx_id = $value->post_id;
                 $meta_value = unserialize( $value->meta_value );
-                ksort( $meta_value );
+                $meta_value = array_reverse( $meta_value );
                 $i = 1;
 
                 $wk_wise_meta = array_chunk( $meta_value, $frequency_days, true );

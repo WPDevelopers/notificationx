@@ -181,8 +181,6 @@ NXTEMBODY;
 
     public function template_body( $args, $frequency ){
         $output = $this->header() . $this->body( $args, $frequency ) . $this->footer();
-        // FOR TEST
-        // file_put_contents( '/Users/priyomukul/Sites/html/test/test-nx.html', $output );
         return $output;
     }
 
