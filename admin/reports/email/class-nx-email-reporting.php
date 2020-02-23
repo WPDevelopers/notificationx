@@ -64,7 +64,7 @@ class NotificationX_Report_Email {
             $frequency_days = cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));;
         }
 
-        array_walk( $data, function( $value, $key ) use ( &$new_data, $wpdb ) {
+        array_walk( $data, function( $value, $key ) use ( &$new_data, $wpdb, $frequency_days, $meta_index, $last_meta_index ) {
             if( isset( $value->meta_value ) ) {
                 $nx_id = $value->post_id;
                 $meta_value = unserialize( $value->meta_value );
@@ -82,7 +82,7 @@ class NotificationX_Report_Email {
 
                         $from_date = $to_date = '';
                         
-                        array_walk( $wk_wise_meta[ $meta_index ], function( $wk_value, $wk_key ) use( $nx_id, &$i, &$views, &$clicks, &$from_date, &$to_date ) {
+                        array_walk( $wk_wise_meta[ $meta_index ], function( $wk_value, $wk_key ) use( $nx_id, &$i, &$views, &$clicks, &$from_date, &$to_date, $last_meta_index ) {
                             if( $i === 1 ) {
                                 $from_date = $wk_key;
                             }
@@ -315,7 +315,7 @@ class NotificationX_Report_Email {
             require_once NOTIFICATIONX_ROOT_DIR_PATH . 'admin/reports/email/class-nx-email-template.php';
         }
         $template = new NotificationX_Email_Template();
-        $message = $template->template_body( $data );
+        $message = $template->template_body( $data, $frequency );
         $headers = array( 'Content-Type: text/html; charset=UTF-8', "From: NotificationX <support@wpdeveloper.net>" );
         return wp_mail( $to, $subject, $message, $headers );
     }
@@ -339,6 +339,8 @@ class NotificationX_Report_Email {
         echo '<button class="nx-email-test">'. __( 'Test Report' ) .'</button>';
     }
     public function email_test_report(){
+        // dump( $this->reporting_frequency() );
+        // die;
         if( $this->send_email_weekly( $this->reporting_frequency() ) ) {
             wp_send_json_success( __( 'Successfully Sent an Email', 'notificationx' ) );
         }

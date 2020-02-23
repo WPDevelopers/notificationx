@@ -116,7 +116,7 @@ NXTEMFOOTER;
         return $output;
     }
 
-    public function body_header( $args = array() ){
+    public function body_header( $args = array(), $frequency ){
         $args = current( $args );
         $logo = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/logo.png';
         $from_date = isset( $args['from_date'] ) ? date( 'M j, Y', strtotime( $args['from_date'] ) ) : '';
@@ -124,6 +124,12 @@ NXTEMFOOTER;
 
         if( empty( $from_date ) || empty( $to_date ) ) {
             return '';
+        }
+
+        if( $frequency !== 'nx_daily' ) {
+            $to_date = "- " . $to_date;
+        } else {
+            $to_date = '';
         }
 
         $output = <<<NXBODYHEADER
@@ -136,7 +142,7 @@ NXTEMFOOTER;
                         <a href=""><img class="nx-email-logo" style="display: block; max-width: 100%;" src="$logo" alt=""></a>
                     </td>
                     <td class="nx-mobile-font" align="right" style="font:normal 14px 'Roboto',sans-serif">
-                        <font color="#848484">Your Analytics <span class="il">Report</span></font><br><font color="#444444">$from_date - $to_date</font>
+                        <font color="#848484">Your Analytics <span class="il">Report</span></font><br><font color="#444444">$from_date $to_date</font>
                     </td>
                 </tr>
             </tbody>
@@ -147,11 +153,11 @@ NXBODYHEADER;
         return $output;
     }
 
-    public function body( $args = array() ){
+    public function body( $args = array(), $frequency ){
         if( empty( $args ) ) {
             return '';
         }
-        $body_header = $this->body_header( $args );
+        $body_header = $this->body_header( $args, $frequency );
 
         $analytics_box = '';
 
@@ -162,7 +168,7 @@ NXBODYHEADER;
         }
 
         $pro_msg = $this->pro_message();
-        $overall_promo_text = $this->promo( $args );
+        $overall_promo_text = $this->promo( $args, $frequency );
 
         $output = <<<NXTEMBODY
 $body_header
@@ -173,14 +179,14 @@ NXTEMBODY;
         return $output;
     }
 
-    public function template_body( $args ){
-        $output = $this->header() . $this->body( $args ) . $this->footer();
+    public function template_body( $args, $frequency ){
+        $output = $this->header() . $this->body( $args, $frequency ) . $this->footer();
         // FOR TEST
         // file_put_contents( '/Users/priyomukul/Sites/html/test/test-nx.html', $output );
         return $output;
     }
 
-    public function promo( $args = array() ){
+    public function promo( $args = array(), $frequency ){
         if( empty( $args ) ) {
             return false;
         }
@@ -232,10 +238,21 @@ NXTEMBODY;
             $ctr_arrow = $down_arrow;
             $ctr_color = '#ff616c';
         }
+
+        $text_lead = 'In the last 7 Days';
+
+        if( $frequency === 'nx_daily' ) {
+            $text_lead = 'In yesterday';
+        }
+
+        if( $frequency === 'nx_monthly' ) {
+            $text_lead = 'In the last month';
+        }
+
         $output = <<<NXPROMO
 <tr>
     <td class="nx-mobile-font" style="line-height: 1.5;">
-        <p style="margin: 0px;"><font color="#555555">In the last 7 Days NotificationX helped you have site visits of <font color="$v_color">$views <img src="$v_arrow" alt="" style="padding-left: 5px; width:19px; vertical-align: text-bottom;" class="nx-mobile-icon"></font>, total Click of <font color="$c_color">$clicks <img src="$c_arrow" alt="" class="nx-mobile-icon" style="padding-left: 5px; width:19px; vertical-align: text-bottom;"></font>, and total CTR of <font color="$ctr_color">$ctr<img src="$ctr_arrow" alt="" class="nx-mobile-icon" style="padding-left: 5px; width:19px; vertical-align: text-bottom;"></font></font></p>
+        <p style="margin: 0px;"><font color="#555555">$text_lead NotificationX helped you have site visits of <font color="$v_color">$views <img src="$v_arrow" alt="" style="padding-left: 5px; width:19px; vertical-align: text-bottom;" class="nx-mobile-icon"></font>, total Click of <font color="$c_color">$clicks <img src="$c_arrow" alt="" class="nx-mobile-icon" style="padding-left: 5px; width:19px; vertical-align: text-bottom;"></font>, and total CTR of <font color="$ctr_color">$ctr<img src="$ctr_arrow" alt="" class="nx-mobile-icon" style="padding-left: 5px; width:19px; vertical-align: text-bottom;"></font></font></p>
     </td>
 </tr> <!-- Overall Text -->
 NXPROMO;
