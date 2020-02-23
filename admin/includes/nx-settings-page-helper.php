@@ -214,8 +214,9 @@ function notificationx_settings_args(){
                             'priority'    => 1,
                             'disable'     => true,
                             'options' => array( 
+                                'nx_daily'         => __( 'Once Daily', 'notificationx' ),
                                 'nx_weekly'         => __( 'Once Weekly', 'notificationx' ),
-                                'hourly'         => __( 'Once Hourly', 'notificationx' ),
+                                'nx_monthly'         => __( 'Once Monthly', 'notificationx' ),
                             )
                         ),
                         'reporting_day' => array(
