@@ -19,8 +19,6 @@ class NotificationX_Report_Email {
         add_filter( 'cron_schedules', array( $this, 'custom_cron_schedule_weekly' ) );
         add_action('admin_init', array( $this, 'mail_report_activation' ));
         add_action('weekly_email_reporting', array( $this, 'send_email_weekly' ));
-        add_action('monthly_email_reporting', array( $this, 'send_email_monthly' ));
-        add_action('daily_email_reporting', array( $this, 'send_email_daily' ));
         add_action('wp_ajax_nx_email_report_test', array( $this, 'email_test_report' ));
         // register_activation_hook(__FILE__, array( $this, 'mail_report_activation' ));
         // register_deactivation_hook(__FILE__, array( $this, 'mail_report_deactivation' ));
