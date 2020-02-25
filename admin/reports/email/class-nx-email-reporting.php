@@ -29,6 +29,7 @@ class NotificationX_Report_Email {
     }
 
     public function test_function() {
+        // dump( $this->get_data( 'nx_weekly' ) );
         // die;
     }
     /**
@@ -70,6 +71,9 @@ class NotificationX_Report_Email {
         $end_date = new DateTime(  date( 'd-m-Y', $current_timestamp ) );
         $interval = $start_date->diff( $end_date, true );
         $frequency_days = $interval->days + 1;
+        if( $frequency === 'nx_daily' ) {
+            $frequency_days = $interval->days;
+        }
         $new_data = $this->generate_data( $data, $frequency_days, $current_timestamp, $initial_timestamp, $last_timestamp, $days_in_month, $days_in_last_month );
         return $new_data;
     }
