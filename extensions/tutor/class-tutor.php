@@ -132,7 +132,7 @@ class NotificationX_Tutor_Extension extends NotificationX_Extension {
 
             $fields['has_no_tutor'] = array(
                 'type'     => 'message',
-                'message'    =>  __('You have to install <a href="'. $url .'">Tutor LMS</a> plugin first.' , 'notificationx-pro'),
+                'message'    =>  __('You have to install <a href="'. $url .'">Tutor LMS</a> plugin first.' , 'notificationx'),
                 'priority' => 0,
             );
         }

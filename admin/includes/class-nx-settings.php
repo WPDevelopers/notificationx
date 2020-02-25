@@ -128,7 +128,7 @@ class NotificationX_Settings {
         $post_id   = '';
         $name      = $key;
         $id        = NotificationX_Metabox::get_row_id( $key );
-        $file_name = isset( $field['type'] ) ? $field['type'] : 'text';
+        $file_name = isset( $field['type'] ) ? $field['type'] : '';
         
         if( 'template' === $file_name ) {
             $default = isset( $field['defaults'] ) ? $field['defaults'] : [];

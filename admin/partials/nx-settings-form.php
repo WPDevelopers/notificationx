@@ -28,7 +28,7 @@
                             $fields = NotificationX_Helper::sorter( $fields, 'priority', 'ASC' );
                             ?>                                 
                             <div 
-                                id="nx-settings-<?php echo esc_attr( $sec_key ); ?>" 
+                                id="nx-meta-section-<?php echo esc_attr( $sec_key ); ?>" 
                                 class="nx-settings-section nx-<?php echo esc_attr( $sec_key ); ?>">
                                 <?php 
                                 if( isset( $section['title'] ) ) {

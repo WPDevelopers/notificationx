@@ -19,6 +19,10 @@
 				e.preventDefault();
 				$.notificationx.templateForTheme();
 			});
+		$('body').on('click', '.nx-email-test', function( e ){
+			e.preventDefault();
+			$.notificationx.testReport();
+		});
 	});
 
 	$(window).load(function () {
@@ -1116,6 +1120,35 @@
 			return vars[name];
 		}
 		return vars;
+	};
+
+	$.notificationx.testReport = function(){
+		$.ajax({
+			type: 'post',
+			url: window.ajaxurl,
+			data: {
+				action: 'nx_email_report_test'
+			},
+			success: function (res) {
+				if( res.success ) {
+					swal({
+						title: "",
+						text: "Successfully Sent a Test Report in Your Email.",
+						icon: "success",
+						buttons: [false, "Ok"],
+						timer: 2000
+					});
+				} else {
+					swal({
+						title: "",
+						text: "Something went wrong regarding sending email.",
+						icon: "error",
+						buttons: [false, "Ok"],
+						timer: 2000
+					});
+				}
+			}
+		});
 	};
 
 

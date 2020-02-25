@@ -357,6 +357,11 @@ h2.nx-meta-section-title .nx-section-reset {
     color: #403E3C;
 }
 
+.nx-warning {
+    border-color: #f1e11d;
+    background-color: #fcffd4;
+}
+
 .nx-info-message a {
     color: #6c63ff;
 }
@@ -768,7 +773,7 @@ label.nx-adv-checkbox-label:hover {
 
 .quick-builder-submit-btn,
 .nx-meta-next,
-.btn-settings {
+.btn-settings, .nx-email-test {
     background-color: #6648FE;
     color: #fff;
     border: 0;
@@ -1081,7 +1086,7 @@ body.post-type-notificationx .select2-container--default .select2-search--dropdo
     display: block;
 }
 
-.nx-settings-button {
+.nx-settings-button, .nx-email-test {
     margin: 30px 15px 0 0;
     padding: 16px 30px;
     display: flex;
@@ -2441,4 +2446,10 @@ h4.nx-admin-title {
     border: 1px solid #f2f2f2;
     margin-right: 10px;
     margin-bottom: 20px;
+}
+
+.nx-email-test {
+    padding: 12px 20px;
+    font-size: 10px;
+    background-color: #4cb55d;
 }

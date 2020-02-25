@@ -1014,6 +1014,11 @@ class NotificationX_Helper {
             $n = $n;
         }
         if( ! is_numeric( $n ) ) return 0;
+        $is_neg = false;
+        if( $n < 0 ) {
+            $is_neg = true;
+            $n = abs( $n );
+        }
         $number = 0;
         $suffix = '';
         switch( true ) {
@@ -1040,7 +1045,7 @@ class NotificationX_Helper {
         if( strpos( $number, '.') !== false && strpos( $number, '.') >= 0 ) {
             $number = number_format($number, 1 );
         }
-        return $number . $suffix;
+        return ( $is_neg ? '-' : '' ) . $number . $suffix;
     }
 
     public static function sound_section( $sec_id, $id, $section ){

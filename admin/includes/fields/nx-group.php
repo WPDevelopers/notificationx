@@ -15,7 +15,7 @@
     <script type="text/html" class="nx-group-template">
         <div class="nx-group-field" data-id="0" data-field-name="<?php echo $parent_key;?>">
             <h4 class="nx-group-field-title">
-                <span><?php echo _e( $group_title ); ?></span>
+                <span><?php echo _e( $group_title, 'notificationx' ); ?></span>
                 <div class="nx-group-controls">
                     <a href="#" class="nx-group-clone" data-tooltip="Duplicate"><span class="dashicons dashicons-admin-page"></span></a>
                     <a href="#" class="nx-group-remove" data-tooltip="Remove"><span class="dashicons dashicons-trash"></span></a>
@@ -44,7 +44,7 @@
         <?php if( empty( $group_value ) ) : ?>
             <div class="nx-group-field" data-id="0" data-field-name="<?php echo $parent_key;?>">
                 <h4 class="nx-group-field-title">
-                    <span><?php echo _e( $group_title ); ?></span>
+                    <span><?php echo _e( $group_title, 'notificationx' ); ?></span>
                     <div class="nx-group-controls">
                         <a href="#" class="nx-group-clone" data-tooltip="Duplicate"><span class="dashicons dashicons-admin-page"></span></a>
                         <a href="#" class="nx-group-remove" data-tooltip="Remove"><span class="dashicons dashicons-trash"></span></a>
@@ -76,7 +76,7 @@
                 foreach( $group_value as $group_id => $field_data ) : ?>
             <div class="nx-group-field" data-id="<?php echo $group_id; ?>" data-field-name="<?php echo $parent_key;?>">
                 <h4 class="nx-group-field-title">
-                    <span><?php echo _e( $group_title ); ?></span>
+                    <span><?php echo _e( $group_title, 'notificationx' ); ?></span>
                     <div class="nx-group-controls">
                         <a href="#" class="nx-group-clone" data-tooltip="Duplicate"><span class="dashicons dashicons-admin-page"></span></a>
                         <a href="#" class="nx-group-remove" data-tooltip="Remove"><span class="dashicons dashicons-trash"></span></a>
