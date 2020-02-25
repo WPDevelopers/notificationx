@@ -71,14 +71,17 @@ class NotificationX_Report_Email {
         $end_date = new DateTime(  date( 'd-m-Y', $current_timestamp ) );
         $interval = $start_date->diff( $end_date, true );
         $frequency_days = $interval->days;
-        $new_data = $this->generate_data( $data, $frequency_days, $current_timestamp, $initial_timestamp, $last_timestamp, $days_in_month, $days_in_last_month );
+        $new_data = $this->generate_data( $data, $frequency, $frequency_days, $current_timestamp, $initial_timestamp, $last_timestamp, $days_in_month, $days_in_last_month );
         return $new_data;
     }
 
-    public function generate_data( $data, $frequency_days, $current_timestamp, $initial_timestamp, $last_timestamp, $days_in_month, $days_in_last_month ){
+    public function generate_data( $data, $frequency, $frequency_days, $current_timestamp, $initial_timestamp, $last_timestamp, $days_in_month, $days_in_last_month ){
         $new_data = array();
         $from_date = date('d-m-Y', $initial_timestamp );
         $to_date = date('d-m-Y', strtotime( "-1day", $current_timestamp ) );
+        if( $frequency === 'nx_monthly' ) {
+            $to_date = date('d-m-Y', strtotime( "last day of last month", $current_timestamp ) );
+        }
         $initial_timestamp = strtotime( date('d-m-Y', $initial_timestamp ) );
         $last_timestamp = strtotime( date('d-m-Y', $last_timestamp ) );
         $current_timestamp = strtotime( date('d-m-Y', $current_timestamp ) );
