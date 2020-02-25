@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce sales, sales popups, p
 Requires at least: 4.0
 Tested up to: 5.3
 Requires PHP: 5.4
-Stable tag: 1.5.0
+Stable tag: 1.6.0
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -151,9 +151,12 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
+= 1.6.0 - 25/02/2020 =
+
+- Added: Introducing Email Reporting
+
 = 1.5.0 - 03/02/2020 =
 
-- Added: Email templates
 - Improved: Analytics & Reporting
 - Fix: Compatibility issue with PIKLIST plugin
 
