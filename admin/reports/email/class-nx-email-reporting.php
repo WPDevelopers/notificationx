@@ -182,7 +182,8 @@ class NotificationX_Report_Email {
      * @return subject||String
      */
     public function email_subject() {
-        $subject = __( "Your Weekly Engagement Summary from NotificationX", 'notificationx' );
+        $site_name = get_bloginfo( 'name' );
+        $subject = __( "Weekly Engagement Summary of ‘{$site_name}’", 'notificationx' );
         if( isset( $this->settings['reporting_subject'] ) && ! empty( $this->settings['reporting_subject'] ) ) {
             $subject = $this->settings['reporting_subject'];
         }

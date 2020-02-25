@@ -2,6 +2,7 @@
 
 function notificationx_settings_args(){
     $wp_roles = NotificationX_Settings::get_roles();
+    $site_name = get_bloginfo( 'name' );
 
     return apply_filters('notificationx_settings_tab', array(
         'general' => array(
@@ -268,8 +269,9 @@ function notificationx_settings_args(){
                         'reporting_subject' => array(
                             'type'        => 'text',
                             'label'       => __( 'Reporting Email Subject', 'notificationx' ),
-                            'default'     => __( 'Your Weekly Engagement Summary from NotificationX', 'notificationx' ),
+                            'default'     => __( "Weekly Engagement Summary of ‘{$site_name}’", 'notificationx' ),
                             'priority'    => 4,
+                            'disable'     => true,
                         ),
                         'test_report' => array(
                             'label' => __( 'Reporting Test', 'notificationx' ),
