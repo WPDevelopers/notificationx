@@ -20,11 +20,9 @@ class NotificationX_Report_Email {
         add_action('admin_init', array( $this, 'mail_report_activation' ));
         add_action('weekly_email_reporting', array( $this, 'send_email_weekly' ));
         add_action('wp_ajax_nx_email_report_test', array( $this, 'email_test_report' ));
-        // add_action('admin_init', array( $this, 'test_function' ));
     }
 
     public function test_function() {
-        // dump( $this->get_data( 'nx_monthly') );
         // die;
     }
     /**
@@ -215,7 +213,14 @@ class NotificationX_Report_Email {
         }
 
         if( $this->reporting_frequency() === 'nx_weekly' ) {
-            $datetime = strtotime( "+7days next $day 9AM" );
+            $datetime = strtotime( "next $day 9AM", current_time('timestamp') );
+            $triggered = NotificationX_DB::get_settings( '', "{$frequency}_mail_sent" );
+            if ( $triggered === 1 ) {
+                $this->mail_report_deactivation( 'weekly_email_reporting' );
+            }
+            if( ! $triggered ) {
+                $datetime = strtotime( "+1hour", current_time('timestamp') );
+            }
             $this->mail_report_deactivation( 'daily_email_reporting' );
             $this->mail_report_deactivation( 'monthly_email_reporting' );
             if ( ! wp_next_scheduled ( 'weekly_email_reporting' ) ) {

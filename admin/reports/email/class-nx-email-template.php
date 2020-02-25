@@ -163,7 +163,7 @@ NXBODYHEADER;
 
         if( is_array( $args ) ) {
             foreach( $args as $analytics_key => $analytics_value ) {
-                $analytics_box .= $this->analytics_box( $analytics_value );
+                $analytics_box .= $this->analytics_box( $analytics_value, $frequency );
             }
         }
 
@@ -181,6 +181,7 @@ NXTEMBODY;
 
     public function template_body( $args, $frequency ){
         $output = $this->header() . $this->body( $args, $frequency ) . $this->footer();
+        // file_put_contents('/Users/priyomukul/Sites/html/test/test-nx.html', $output);
         return $output;
     }
 
@@ -188,8 +189,6 @@ NXTEMBODY;
         if( empty( $args ) ) {
             return false;
         }
-
-        // $args = current( $args );
 
         $views = array_reduce( $args, function( $carry, $item ) {
             $carry += $item['views'];
@@ -240,7 +239,7 @@ NXTEMBODY;
         $text_lead = 'In the last 7 Days';
 
         if( $frequency === 'nx_daily' ) {
-            $text_lead = 'In yesterday';
+            $text_lead = 'Yesterday';
         }
 
         if( $frequency === 'nx_monthly' ) {
@@ -257,11 +256,10 @@ NXPROMO;
         return $output;
     }
 
-    public static function analytics_box( $args = array() ){
+    public static function analytics_box( $args = array(), $frequency = 'nx_weekly' ){
         if( empty( $args ) ) {
             return false;
         }
-
 
         $type = $args['type'];
         $title = $args[ 'title' ];
@@ -298,6 +296,20 @@ NXPROMO;
             $type_name = $type;
         }
 
+        switch( $frequency ) {
+            case 'nx_weekly' : 
+                $days_ago = '7 days ago';
+                break;
+            case 'nx_daily' : 
+                $days_ago = '1 days ago';
+                break;
+            case 'nx_monthly' : 
+                $initial_timestamp = strtotime('first day of last month', current_time('timestamp'));
+                $days_in_last_month = cal_days_in_month(CAL_GREGORIAN, date( 'm', $initial_timestamp ), date( 'Y', $initial_timestamp ));
+                $days_ago = $days_in_last_month . ' days ago';
+                break;
+        }
+
         $output = <<<NXBOXTEM
 <tr>
     <td  class="nx-box-analytics-parent">
@@ -325,7 +337,7 @@ NXPROMO;
                                 <tr>
                                     <td class="nx-mobile-font" style="padding:3px 10px 10px;font:700 10px" align="center">
                                         <font color="$v_color"><img class="nx-mobile-icon" src="$v_arrow" alt="" style="padding-right:5px; width:19px; vertical-align: text-bottom;">$percentage_views%</font>
-                                        <br><font color="#909090">7 days ago</font>
+                                        <br><font color="#909090">$days_ago</font>
                                     </td>
                                 </tr>
                             </tbody>
@@ -347,7 +359,7 @@ NXPROMO;
                                 <tr>
                                     <td class="nx-mobile-font" style="padding:3px 10px 10px;font:700 10px" align="center">
                                         <font color="$c_color"><img class="nx-mobile-icon" src="$c_arrow" alt="" style="padding-right:5px; width:19px; vertical-align: text-bottom;">$percentage_clicks%</font>
-                                        <br><font color="#909090">7 days ago</font>
+                                        <br><font color="#909090">$days_ago</font>
                                     </td>
                                 </tr>
                             </tbody>
@@ -369,7 +381,7 @@ NXPROMO;
                                 <tr>
                                     <td class="nx-mobile-font" style="padding:3px 10px 10px;font:700 10px" align="center">
                                         <font color="$ctr_color"><img class="nx-mobile-icon" src="$ctr_arrow" alt="" style="padding-right:5px; width:19px; vertical-align: text-bottom;">$percentage_ctr%</font>
-                                        <br><font color="#909090">7 days ago</font>
+                                        <br><font color="#909090">$days_ago</font>
                                     </td>
                                 </tr>
                             </tbody>
@@ -387,8 +399,17 @@ NXBOXTEM;
     public static function pro_message(){
         $is_pro = defined( 'NOTIFICATIONX_PRO_VERSION' );
         $graph = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/graph.gif';
+        $admin_analytics_url = admin_url('admin.php?page=nx-analytics');
         if( $is_pro ) {
-            return '';
+            $output = <<<NXPROMSG
+<tr>
+    <td class="nx-mobile-font nx-pro-message" align="center" style="font-size: 15px; line-height: 1.7; color: #737373;">
+        <img style="display: block; max-width: 100%; padding: 15px 0 0" src="$graph" alt="">
+        <a style="margin-top: 20px; background-color: #6125d5; color: #FFF; display: inline-block; padding: 10px 20px; text-decoration: none; border-radius: 5px;" href="$admin_analytics_url">Visit Dashboard</a>
+    </td>
+</tr>
+NXPROMSG;
+            return $output;
         }
 
         $output = <<<NXPROMSG

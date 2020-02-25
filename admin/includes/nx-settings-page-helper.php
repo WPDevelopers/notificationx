@@ -242,7 +242,7 @@ function notificationx_settings_args(){
                             'type' => 'message',
                             'class' => 'nx-warning',
                             'priority'    => 1.5,
-                            'message' => __( 'It will trigger first day of next month.', 'notificationx' )
+                            'message' => __( 'It will be triggered on the first day of next month.', 'notificationx' )
                         ),
                         'reporting_day' => array(
                             'type'        => 'select',
