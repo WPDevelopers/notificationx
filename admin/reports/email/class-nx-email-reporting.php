@@ -212,7 +212,9 @@ class NotificationX_Report_Email {
             $day = $this->settings['reporting_day'];
         }
 
-        if( $this->reporting_frequency() === 'nx_weekly' ) {
+        $frequency = $this->reporting_frequency();
+
+        if( $frequency === 'nx_weekly' ) {
             $datetime = strtotime( "next $day 9AM", current_time('timestamp') );
             $triggered = NotificationX_DB::get_settings( '', "{$frequency}_mail_sent" );
             if ( $triggered === 1 ) {
@@ -224,7 +226,7 @@ class NotificationX_Report_Email {
             $this->mail_report_deactivation( 'daily_email_reporting' );
             $this->mail_report_deactivation( 'monthly_email_reporting' );
             if ( ! wp_next_scheduled ( 'weekly_email_reporting' ) ) {
-                wp_schedule_event( $datetime, $this->reporting_frequency(), 'weekly_email_reporting' );
+                wp_schedule_event( $datetime, $frequency, 'weekly_email_reporting' );
             }
         }
         
