@@ -276,8 +276,19 @@ function notificationx_settings_args(){
                         'test_report' => array(
                             'label' => __( 'Reporting Test', 'notificationx' ),
                             'view' => 'NotificationX_Report_Email::test_report',
-                            'priority' => 5
-                        )
+                            'priority' => 6
+                        ),
+                        'disable_reporting' => array(
+                            'label' => __( 'Disable Reporting', 'notificationx' ),
+                            'type'        => 'checkbox',
+                            'priority' => 6,
+                            'default' => 0,
+                            'dependency' => array(
+                                0 => array(
+                                    'fields' => array( 'test_report', 'reporting_subject', 'reporting_email', 'reporting_day', 'reporting_monthly_help_text', 'reporting_frequency' )
+                                ),
+                            )
+                        ),
                     ),
                 )
             ))

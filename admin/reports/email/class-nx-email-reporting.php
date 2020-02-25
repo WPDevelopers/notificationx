@@ -16,6 +16,12 @@ class NotificationX_Report_Email {
      */
     public function __construct() {
         $this->settings = NotificationX_DB::get_settings();
+        if( ( isset( $this->settings['enable_analytics'] ) && ! $this->settings['enable_analytics'] ) || ( isset( $this->settings['disable_reporting'] ) && $this->settings['disable_reporting'] ) ) {
+            $this->mail_report_deactivation( 'daily_email_reporting' );
+            $this->mail_report_deactivation( 'weekly_email_reporting' );
+            $this->mail_report_deactivation( 'monthly_email_reporting' );
+            return;
+        }
         add_filter( 'cron_schedules', array( $this, 'schedules_cron' ) );
         add_action('admin_init', array( $this, 'mail_report_activation' ));
         add_action('weekly_email_reporting', array( $this, 'send_email_weekly' ));
@@ -202,12 +208,6 @@ class NotificationX_Report_Email {
      * Hook: admin_init
      */
     function mail_report_activation() {
-        if( isset( $this->settings['enable_analytics'] ) && ! $this->settings['enable_analytics'] ) {
-            $this->mail_report_deactivation( 'daily_email_reporting' );
-            $this->mail_report_deactivation( 'weekly_email_reporting' );
-            $this->mail_report_deactivation( 'monthly_email_reporting' );
-            return;
-        }
         $day = "monday";
         if( isset( $this->settings['reporting_day'] ) ) {
             $day = $this->settings['reporting_day'];
