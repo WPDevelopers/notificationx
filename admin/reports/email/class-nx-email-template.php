@@ -417,7 +417,7 @@ NXPROMSG;
         <p style="text-align: left; margin-top: 0px;">Resolve doubts from the minds of your users using NotificaitonX- the best Social Proof and FOMO Plugin for WordPress.</p>
         <p style="text-align: left; margin-top: 0px;">Get everything NotificationX has to offer by upgrading to a PRO plan. </p>
         <img style="display: block; max-width: 100%; padding: 15px 0 0" src="$graph" alt="">
-        <a style="margin-top: 20px; background-color: #6125d5; color: #FFF; display: inline-block; padding: 10px 20px; text-decoration: none; border-radius: 5px;" href="https://wpdevelopert.net/in/notificationx">Get More Data</a>
+        <a style="margin-top: 20px; background-color: #6125d5; color: #FFF; display: inline-block; padding: 10px 20px; text-decoration: none; border-radius: 5px;" href="https://wpdeveloper.net/in/notificationx">Get More Data</a>
     </td>
 </tr>
 NXPROMSG;
