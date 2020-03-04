@@ -22,16 +22,16 @@
 	};
 
     $.notificationx.Ajaxlytics = function (data) {
-        if (data == {} || data == undefined ) {
-            return;
+		if (data == {} || data == undefined ) {
+			return;
         }
-        if( typeof notificationx != 'undefined' ) {
+        if( typeof NotificationX != 'undefined' ) {
             if( data.nonce == undefined ) {
                 return;
             }
             jQuery.ajax({
                 type: 'POST',
-                url: notificationx.ajaxurl,
+                url: NotificationX.ajaxurl,
                 data: {
                     action: 'notificationx_pro_analytics',
                     nonce: data.nonce,
@@ -56,10 +56,12 @@
                 data.nonce_key = '_notificationx_bar_nonce';
             if( nonce != undefined ) {
                 $.notificationx.Ajaxlytics(data);
-                $(bar).on('click', function (e) {
+                $(bar).find('a.nx-bar-button').on('click', function (e) {
+					e.preventDefault();
                     data.clicked = true;
                     $.notificationx.Ajaxlytics(data);
-                    data.clicked = false;
+					data.clicked = false;
+					window.location.href = $(this).attr('href');
                 });
             }
         });
@@ -236,10 +238,8 @@
 		var barClose = $('.nx-bar .nx-close');
 		if (barClose !== null) {
 			barClose.on('click', function (event) {
-				var position = $('#' + event.currentTarget.offsetParent.id).data('position');
 				$.notificationx.active_pressbar = 0;
 				$.notificationx.hideBar(event.currentTarget.offsetParent.id);
-				$('body').css('padding-' + position, 0 ).removeClass('has-nx-bar');
 			});
 		}
 	};
@@ -293,7 +293,8 @@
 	$.notificationx.hideBar = function (id) {
 		var bar = $('.nx-bar#' + id),
 			html = $('html'),
-			close_forever = bar[0].dataset.close_forever;
+			close_forever = bar[0].dataset.close_forever,
+			position = $('#' + id).data('position');
 
 		if (close_forever) {
 			var date = new Date(),
@@ -307,10 +308,7 @@
 
 		html.removeClass('nx-bar-active');
 		html.css('padding-top', 0);
-
-		bar.animate({
-			height: 0 + 'px'
-		}, 300);
+		bar.addClass('nx-bar-out').parents('body').css('padding-' + position, 0 ).removeClass('has-nx-bar');
 		bar.removeClass('nx-bar-visible');
 		$.notificationx.active_pressbar = 0;
 	};

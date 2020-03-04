@@ -18,10 +18,18 @@
 		position: fixed;
 		width: 100%;
 	}
+	&.nx-position-top{
+		&.nx-bar-out {
+			top: -100% !important;
+		}
+	}
 	&.nx-position-bottom{
 		position: fixed;
 		top: auto;
 		bottom: 0;
+		&.nx-bar-out {
+			bottom: -100%;
+		}
 	}
 	& .nx-bar-inner {
 		padding: 20px;

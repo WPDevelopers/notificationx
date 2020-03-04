@@ -2014,11 +2014,19 @@ body.nx-press_bar-active {
   position: fixed;
   width: 100%
 }
+.notificationx-shortcode-wrapper > .nx-bar.nx-position-top.nx-bar-out,
+.nx-bar.nx-position-top.nx-bar-out {
+  top: -100% !important
+}
 .notificationx-shortcode-wrapper > .nx-bar.nx-position-bottom,
 .nx-bar.nx-position-bottom {
   position: fixed;
   top: auto;
   bottom: 0
+}
+.notificationx-shortcode-wrapper > .nx-bar.nx-position-bottom.nx-bar-out,
+.nx-bar.nx-position-bottom.nx-bar-out {
+  bottom: -100%
 }
 .notificationx-shortcode-wrapper > .nx-bar .nx-bar-inner,
 .nx-bar .nx-bar-inner {
