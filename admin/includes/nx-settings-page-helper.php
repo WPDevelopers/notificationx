@@ -208,6 +208,12 @@ function notificationx_settings_args(){
                     'priority' => 20,
                     'title'    => __('Reporting', 'notificationx'),
                     'fields'   => array(
+                        'disable_reporting' => array(
+                            'label' => __( 'Disable Reporting', 'notificationx' ),
+                            'type'        => 'checkbox',
+                            'priority' => 0,
+                            'default' => 0
+                        ),
                         'reporting_frequency' => array(
                             'type'        => 'select',
                             'label'       => __( 'Reporting Frequency', 'notificationx' ),
@@ -276,13 +282,7 @@ function notificationx_settings_args(){
                         'test_report' => array(
                             'label' => __( 'Reporting Test', 'notificationx' ),
                             'view' => 'NotificationX_Report_Email::test_report',
-                            'priority' => 6
-                        ),
-                        'disable_reporting' => array(
-                            'label' => __( 'Disable Reporting', 'notificationx' ),
-                            'type'        => 'checkbox',
-                            'priority' => 6,
-                            'default' => 0
+                            'priority' => 5
                         ),
                     ),
                 )
