@@ -211,7 +211,7 @@ class NotificationX_Report_Email {
         $site_name = get_bloginfo( 'name' );
         $subject = __( "Weekly Engagement Summary of ‘{$site_name}’", 'notificationx' );
         if( isset( $this->settings['reporting_subject'] ) && ! empty( $this->settings['reporting_subject'] ) ) {
-            $subject = $this->settings['reporting_subject'];
+            $subject = stripcslashes( $this->settings['reporting_subject'] );
         }
         return $subject;
     }
@@ -268,10 +268,10 @@ class NotificationX_Report_Email {
         if( empty( $to ) ) {
             return false;
         }
-        $subject = $this->email_subject();
         if( ! class_exists( 'NotificationX_Email_Template' ) ) {
             require_once NOTIFICATIONX_ROOT_DIR_PATH . 'admin/reports/email/class-nx-email-template.php';
         }
+        $subject = $this->email_subject();
         $template = new NotificationX_Email_Template();
         $message = $template->template_body( $data, $frequency );
         $headers = array( 'Content-Type: text/html; charset=UTF-8', "From: NotificationX <support@wpdeveloper.net>" );
