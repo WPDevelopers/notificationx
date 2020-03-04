@@ -141,27 +141,12 @@ class NotificationX_Settings {
         if( $saved_value === '' ) {
             $value = $default;
         }
-        // if( ! empty( $saved_value ) ) {
-        //     $value = $saved_value;
-        // } else {
-        //     $value = $default;
-        // }
         
         $class  = 'nx-settings-field';
-        $row_class = NotificationX_Metabox::get_row_class( $file_name );
+        $row_class = ! empty( $file_name ) ? NotificationX_Metabox::get_row_class( $file_name ) : '';
 
         $attrs = '';
-
-        if( isset( $field['toggle'] ) && in_array( $file_name, array( 'checkbox', 'select', 'toggle', 'theme' ) ) ) {
-            $attrs .= ' data-toggle="' . esc_attr( json_encode( $field['toggle'] ) ) . '"';
-        }
-
-        if( isset( $field['hide'] ) && $file_name == 'select' ) {
-            $attrs .= ' data-hide="' . esc_attr( json_encode( $field['hide'] ) ) . '"';
-        }
-
-        $field_id = $name;
-
+        $field_id = "nx_meta_" . $name;
         include NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-field-display.php';
     }
     /**

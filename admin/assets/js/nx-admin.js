@@ -101,6 +101,12 @@
 			}
 		});
 
+		$('body').on('change', '#nx_meta_disable_reporting', function (e) {
+			if( ! $(this).is(':checked') ) {
+				$('#nx_meta_reporting_frequency').trigger('change');
+			}
+		});
+
 		$('body').on('change', '.nx_meta_elearning_source', function () {
 			var conv_source = $(this).val();
 			switch (conv_source) {
@@ -1127,7 +1133,8 @@
 			type: 'post',
 			url: window.ajaxurl,
 			data: {
-				action: 'nx_email_report_test'
+				action: 'nx_email_report_test',
+				email: $('#nx_meta_reporting_email').val()
 			},
 			success: function (res) {
 				if( res.success ) {

@@ -10,7 +10,7 @@ class NotificationX_Email_Template {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>NotificationX Email Template</title>
-        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
         <style type="text/css">
             .nx-email-body, .nx-wrapper-body {
                 font-size: 14px;
@@ -193,47 +193,53 @@ NXTEMBODY;
             $carry += $item['views'];
             return $carry;
         } );
-        $last_wk_views = array_reduce( $args, function( $carry, $item ) {
-            $carry += $item['last_views'];
-            return $carry;
-        } );
+
+        // $last_wk_views = array_reduce( $args, function( $carry, $item ) {
+        //     $carry += $item['last_views'];
+        //     return $carry;
+        // } );
 
         $clicks = array_reduce( $args, function( $carry, $item ) {
             $carry += $item['clicks'];
             return $carry;
         } );
-        $last_wk_clicks = array_reduce( $args, function( $carry, $item ) {
-            $carry += $item['last_clicks'];
-            return $carry;
-        } );
+
+        // $last_wk_clicks = array_reduce( $args, function( $carry, $item ) {
+        //     $carry += $item['last_clicks'];
+        //     return $carry;
+        // } );
 
         $ctr = array_reduce( $args, function( $carry, $item ) {
             $carry += $item['ctr'];
             return $carry;
         } );
 
-        $last_wk_ctr = $last_wk_views > 0 ? number_format( ( intval( $last_wk_clicks ) / intval( $last_wk_views ) ) * 100, 2) : 0;
-        $percentage_views = $last_wk_views > 0 ? number_format( ( ( $views - $last_wk_views ) / $last_wk_views ) * 100, 2 ) : 0;
-        $percentage_clicks = $last_wk_clicks > 0 ? number_format( ( ( $clicks - $last_wk_clicks ) / $last_wk_clicks ) * 100, 2 ) : 0;
-        $percentage_ctr = $last_wk_ctr > 0 ? number_format( ( ( $ctr - $last_wk_ctr ) / $last_wk_ctr ) * 100, 2 ) : 0;
+        $views = number_format( $views );
+        $clicks = number_format( $clicks );
+        $ctr = number_format( $ctr );
 
-        $up_arrow = $v_arrow = $c_arrow = $ctr_arrow = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/nx-template-up.png';
-        $down_arrow = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/nx-template-down.png';
+        // $last_wk_ctr = $last_wk_views > 0 ? number_format( ( intval( $last_wk_clicks ) / intval( $last_wk_views ) ) * 100, 2) : 0;
+        // $percentage_views = $last_wk_views > 0 ? number_format( ( ( $views - $last_wk_views ) / $last_wk_views ) * 100, 2 ) : 0;
+        // $percentage_clicks = $last_wk_clicks > 0 ? number_format( ( ( $clicks - $last_wk_clicks ) / $last_wk_clicks ) * 100, 2 ) : 0;
+        // $percentage_ctr = $last_wk_ctr > 0 ? number_format( ( ( $ctr - $last_wk_ctr ) / $last_wk_ctr ) * 100, 2 ) : 0;
 
-        $v_color = $c_color = $ctr_color = '#34cf8a';
+        // $up_arrow = $v_arrow = $c_arrow = $ctr_arrow = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/nx-template-up.png';
+        // $down_arrow = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/nx-template-down.png';
 
-        if( $percentage_views < 0 ) {
-            $v_arrow = $down_arrow;
-            $v_color = '#ff616c';
-        }
-        if( $percentage_clicks < 0 ) {
-            $c_arrow = $down_arrow;
-            $c_color = '#ff616c';
-        }
-        if( $percentage_ctr < 0 ) {
-            $ctr_arrow = $down_arrow;
-            $ctr_color = '#ff616c';
-        }
+        // $v_color = $c_color = $ctr_color = '#34cf8a';
+
+        // if( $percentage_views < 0 ) {
+        //     $v_arrow = $down_arrow;
+        //     $v_color = '#ff616c';
+        // }
+        // if( $percentage_clicks < 0 ) {
+        //     $c_arrow = $down_arrow;
+        //     $c_color = '#ff616c';
+        // }
+        // if( $percentage_ctr < 0 ) {
+        //     $ctr_arrow = $down_arrow;
+        //     $ctr_color = '#ff616c';
+        // }
 
         $text_lead = 'In the last 7 Days';
 
@@ -248,7 +254,7 @@ NXTEMBODY;
         $output = <<<NXPROMO
 <tr>
     <td class="nx-mobile-font" style="line-height: 1.5;">
-        <p style="margin: 0px;"><font color="#555555">$text_lead NotificationX helped you have site visits of <font color="$v_color">$views <img src="$v_arrow" alt="" style="padding-left: 5px; width:19px; vertical-align: text-bottom;" class="nx-mobile-icon"></font>, total Click of <font color="$c_color">$clicks <img src="$c_arrow" alt="" class="nx-mobile-icon" style="padding-left: 5px; width:19px; vertical-align: text-bottom;"></font>, and total CTR of <font color="$ctr_color">$ctr<img src="$ctr_arrow" alt="" class="nx-mobile-icon" style="padding-left: 5px; width:19px; vertical-align: text-bottom;"></font></font></p>
+        <p style="margin: 0px; color:#555555">$text_lead NotificationX helped you have site visits of <b>$views</b>, total Click of <b>$clicks</b>, and total CTR of <b>$ctr</b></p>
     </td>
 </tr> <!-- Overall Text -->
 NXPROMO;
@@ -262,11 +268,11 @@ NXPROMO;
 
         $type = $args['type'];
         $title = $args[ 'title' ];
-        $views = $args[ 'views' ];
+        $views = number_format( $args[ 'views' ] );
         $percentage_views = $args[ 'percentage_views' ];
-        $clicks = $args[ 'clicks' ];
+        $clicks = number_format( $args[ 'clicks' ] );
         $percentage_clicks = $args[ 'percentage_clicks' ];
-        $ctr = $args[ 'ctr' ];
+        $ctr = number_format( $args[ 'ctr' ] );
         $percentage_ctr = $args[ 'percentage_ctr' ];
 
         $up_arrow = $v_arrow = $c_arrow = $ctr_arrow = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/nx-template-up.png';
@@ -403,7 +409,7 @@ NXBOXTEM;
             $output = <<<NXPROMSG
 <tr>
     <td class="nx-mobile-font nx-pro-message" align="center" style="font-size: 15px; line-height: 1.7; color: #737373;">
-        <img style="display: block; max-width: 100%; padding: 15px 0 0" src="$graph" alt="">
+        <a href="$admin_analytics_url" target="_blank"><img style="display: block; max-width: 100%; padding: 15px 0 0" src="$graph" alt="Visit Dashboard"></a>
         <a style="margin-top: 20px; background-color: #6125d5; color: #FFF; display: inline-block; padding: 10px 20px; text-decoration: none; border-radius: 5px;" href="$admin_analytics_url">Visit Dashboard</a>
     </td>
 </tr>
@@ -416,8 +422,8 @@ NXPROMSG;
     <td class="nx-mobile-font nx-pro-message" align="center" style="font-size: 15px; line-height: 1.7; color: #737373;">
         <p style="text-align: left; margin-top: 0px;">Resolve doubts from the minds of your users using NotificaitonX- the best Social Proof and FOMO Plugin for WordPress.</p>
         <p style="text-align: left; margin-top: 0px;">Get everything NotificationX has to offer by upgrading to a PRO plan. </p>
-        <img style="display: block; max-width: 100%; padding: 15px 0 0" src="$graph" alt="">
-        <a style="margin-top: 20px; background-color: #6125d5; color: #FFF; display: inline-block; padding: 10px 20px; text-decoration: none; border-radius: 5px;" href="https://wpdeveloper.net/in/notificationx">Get More Data</a>
+        <a target="_blank" href="https://notificationx.com/in/advanced-reports"><img style="display: block; max-width: 100%; padding: 15px 0 0" src="$graph" alt=""></a>
+        <a style="margin-top: 20px; background-color: #6125d5; color: #FFF; display: inline-block; padding: 10px 20px; text-decoration: none; border-radius: 5px;" target="_blank" href="https://notificationx.com/in/advanced-reports">Get More Data</a>
     </td>
 </tr>
 NXPROMSG;

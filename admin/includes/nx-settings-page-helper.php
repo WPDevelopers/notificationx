@@ -212,7 +212,17 @@ function notificationx_settings_args(){
                             'label' => __( 'Disable Reporting', 'notificationx' ),
                             'type'        => 'checkbox',
                             'priority' => 0,
-                            'default' => 0
+                            'default' => 0,
+                            'hide' => array(
+                                1 => array(
+                                    'fields' => array( 'reporting_day', 'reporting_frequency', 'reporting_monthly_help_text', 'reporting_email', 'reporting_subject', 'test_report' )
+                                ),
+                            ),
+                            'dependency' => array(
+                                0 => array(
+                                    'fields' => array( 'reporting_frequency', 'reporting_email', 'reporting_subject', 'test_report' )
+                                ),
+                            ),
                         ),
                         'reporting_frequency' => array(
                             'type'        => 'select',

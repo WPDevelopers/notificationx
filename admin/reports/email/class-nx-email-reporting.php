@@ -22,6 +22,7 @@ class NotificationX_Report_Email {
             $this->mail_report_deactivation( 'monthly_email_reporting' );
             return;
         }
+        $this->migration();
         add_filter( 'cron_schedules', array( $this, 'schedules_cron' ) );
         add_action('admin_init', array( $this, 'mail_report_activation' ));
         add_action('weekly_email_reporting', array( $this, 'send_email_weekly' ));
@@ -31,6 +32,18 @@ class NotificationX_Report_Email {
     public function test_function() {
         // dump( $this->get_data( 'nx_weekly' ) );
         // die;
+    }
+    /**
+     * Just for correct timing purpose.
+     */
+    public function migration(){
+        $version_migration = get_option( 'nx_version_migration_161', false );
+        if( $version_migration === false && version_compare( NOTIFICATIONX_VERSION, '1.6.1', '==') ) { 
+            update_option( 'nx_version_migration_161', true );
+            $this->mail_report_deactivation( 'daily_email_reporting' );
+            $this->mail_report_deactivation( 'weekly_email_reporting' );
+            $this->mail_report_deactivation( 'monthly_email_reporting' );
+        }
     }
     /**
      * Calculate Total NotificationX Views
@@ -172,15 +185,18 @@ class NotificationX_Report_Email {
      * Admin can set Custom email from NotificationX Advanced Settings Panel
      * @return email||String
      */
-    public function receiver_email_address() {
-        $email = NotificationX_DB::get_settings( 'reporting_email' );
+    public function receiver_email_address( $email = '' ) {
         if( empty( $email ) ) {
-            $email = get_option( 'admin_email' );
-        } else {
-            if( strpos( $email, ',' ) !== false ) {
-                $email = str_replace( ' ', '', $email );
-                $email = explode(',', $email );
+            $email = NotificationX_DB::get_settings( 'reporting_email' );
+            if( empty( $email ) ) {
+                $email = get_option( 'admin_email' );
             }
+        }
+        if( strpos( $email, ',' ) !== false ) {
+            $email = str_replace( ' ', '', $email );
+            $email = explode(',', $email );
+        } else {
+            $email = trim( $email );
         }
         return $email;
     }
@@ -218,11 +234,10 @@ class NotificationX_Report_Email {
         }
 
         $frequency = $this->reporting_frequency();
-
         if( $frequency === 'nx_weekly' ) {
             $datetime = strtotime( "next $day 9AM", current_time('timestamp') );
             $triggered = NotificationX_DB::get_settings( '', "{$frequency}_mail_sent" );
-            if ( $triggered === 1 ) {
+            if ( $triggered == 1 ) {
                 $this->mail_report_deactivation( 'weekly_email_reporting' );
             }
             if( ! $triggered ) {
@@ -241,7 +256,7 @@ class NotificationX_Report_Email {
      * Execute Cron Function
      * Hook: admin_init
      */
-    public function send_email_weekly( $frequency = 'nx_weekly', $test = false ) {
+    public function send_email_weekly( $frequency = 'nx_weekly', $test = false, $email = null ) {
         $data = $this->get_data( $frequency );
         if( empty( $data ) ) {
             return false;
@@ -249,7 +264,10 @@ class NotificationX_Report_Email {
         if( isset( $this->settings['enable_analytics'] ) && ! $this->settings['enable_analytics'] ) {
             return false;
         }
-        $to = $this->receiver_email_address();
+        $to = is_null( $email ) ? $this->receiver_email_address() : $email;
+        if( empty( $to ) ) {
+            return false;
+        }
         $subject = $this->email_subject();
         if( ! class_exists( 'NotificationX_Email_Template' ) ) {
             require_once NOTIFICATIONX_ROOT_DIR_PATH . 'admin/reports/email/class-nx-email-template.php';
@@ -277,9 +295,14 @@ class NotificationX_Report_Email {
         echo '<button class="nx-email-test">'. __( 'Test Report' ) .'</button>';
     }
     public function email_test_report(){
-        if( $this->send_email_weekly( $this->reporting_frequency(), true ) ) {
-            wp_send_json_success( __( 'Successfully Sent an Email', 'notificationx' ) );
+        $email = isset( $_POST['email'] ) ? $this->receiver_email_address( sanitize_text_field( $_POST['email'] ) ) : '';
+
+        if( ! empty( $email ) ) {
+            if( $this->send_email_weekly( $this->reporting_frequency(), true, $email ) ) {
+                wp_send_json_success( __( 'Successfully Sent an Email', 'notificationx' ) );
+            }
         }
+
         wp_send_json_error( __( 'Something went wrong.', 'notificationx' ) );
     }
 }
