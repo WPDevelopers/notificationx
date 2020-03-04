@@ -115,13 +115,15 @@
 
 				if( body_push == 'pushed' || body_push == undefined ) {
 					/* add padding in body after initial delay */
-					setTimeout(function () {
+					var initTimeout = setTimeout(function () {
 						$('body').addClass('has-nx-bar').css('padding-' + position, barHeight);
+						clearTimeout(initTimeout);
 					}, initialDelay);
 					/* remove padding in body after if auto hide is enable */
 					if(parseInt(auto_hide)) {
-						setTimeout(function () {
+						var timeoutAutoHide = setTimeout(function () {
 							$('body').css('padding-' + position, 0).removeClass('has-nx-bar');
+							clearTimeout(timeoutAutoHide);
 						}, parseInt(duration) * 1000);
 					}
 				}
@@ -162,8 +164,9 @@
 				$.notificationx.showBar(bar, id);
 
 				if (('' !== duration || undefined !== duration) && parseInt(auto_hide)) {
-					setTimeout(function () {
+					var durationTimeout = setTimeout(function () {
 						$.notificationx.hideBar('nx-bar-' + id, close_forever);
+						clearTimeout( durationTimeout );
 					}, parseInt(duration) * 1000);
 				}
 			});
@@ -258,7 +261,7 @@
 			delay = 0;
 		}
 
-		setTimeout(function () {
+		var showBarTimeout = setTimeout(function () {
 			var html = $('html');
 			html.addClass('nx-bar-active');
 			if ($(bar).hasClass('nx-position-top')) {
@@ -287,6 +290,7 @@
 			var body = $('body');
 				body.trigger('nx_frontend_bar_show', [bar, bar_id]);
 			$.notificationx.active_pressbar = 1;
+			clearTimeout( showBarTimeout );
 		}, delay * 1000);
 	};
 
