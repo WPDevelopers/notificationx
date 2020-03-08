@@ -375,7 +375,7 @@ class NotificationX_Extension {
                     if( ! empty( $before_content ) ) {
                         $output .= $before_content;
                     }
-                    $output .= NotificationX_Template::get_template_ready( $settings->{ $template }, self::newData( $data ), $settings, is_null( self::$powered_by ) );
+                    $output .= NotificationX_Template::get_template_ready( $settings->{ $template }, self::newData( $data ), $settings, ! self::$powered_by );
 
                 $output .= '</div>';
                 if( $settings->close_button ) :
