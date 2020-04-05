@@ -27,10 +27,11 @@ class NotificationX_Report_Email {
         add_action('admin_init', array( $this, 'mail_report_activation' ));
         add_action('weekly_email_reporting', array( $this, 'send_email_weekly' ));
         add_action('wp_ajax_nx_email_report_test', array( $this, 'email_test_report' ));
+        // add_action('admin_init', array( $this, 'test_function' ));
     }
 
     public function test_function() {
-        // dump( $this->get_data( 'nx_weekly' ) );
+        // dump( $this->get_data( 'nx_monthly' ) );
         // die;
     }
     /**
@@ -106,8 +107,9 @@ class NotificationX_Report_Email {
                 $meta_value = unserialize( $value->meta_value );
                 $meta_value = array_reverse( $meta_value );
                 $wk_wise_meta = array_slice( $meta_value, 0, $frequency_days );
-                $previous_month_data = array_slice( array_reverse( $wk_wise_meta ), $days_in_month, $days_in_last_month );
-                $last_month_data = array_slice( array_reverse( $wk_wise_meta ), 0, $days_in_month );
+                $previous_month_data = array_slice( $wk_wise_meta, 1, $days_in_last_month );
+                $last_month_data = array_slice( $wk_wise_meta, $days_in_last_month + 1, $days_in_month );
+
                 $metaSettings = NotificationX_MetaBox::get_metabox_settings( $nx_id );
                 $type = NotificationX_Helper::get_type( $metaSettings );
                 if( ! empty( $previous_month_data ) && is_array( $previous_month_data ) ) {
@@ -218,7 +220,7 @@ class NotificationX_Report_Email {
     
     public function reporting_frequency(){
         $frequency = 'nx_weekly';
-        if( isset( $this->settings['reporting_frequency'] ) && ! empty( $this->settings['reporting_frequency'] ) && is_string( $this->settings['reporting_frequency'] ) ) {
+        if( class_exists('NotificationXPro') && isset( $this->settings['reporting_frequency'] ) && ! empty( $this->settings['reporting_frequency'] ) && is_string( $this->settings['reporting_frequency'] ) ) {
             $frequency = $this->settings['reporting_frequency'];
         }
         return $frequency;
