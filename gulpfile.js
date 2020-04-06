@@ -6,6 +6,11 @@ var gulp = require('gulp'),
 	postcss = require('gulp-postcss'),
 	uglify = require('gulp-uglify'),
 	sourcemaps = require('gulp-sourcemaps');
+const { src, dest, series } = require('gulp');
+const zip = require('gulp-zip');
+const clean = require('gulp-clean');
+const run = require('gulp-run');
+
 var paths = {
 	pAssets: 'public/assets/',
 	adminStyles: {
@@ -81,6 +86,8 @@ function watch() {
 	gulp.watch( paths.pAssets + 'css/notificationx-public.css', pConcat);
 	gulp.watch( paths.pScripts.src, pScripts);
 }
+
+
 var build = gulp.parallel(adminStyles, gAdminStyles, adminScripts, pSass, pConcat, pScripts);
 gulp.task('build', build);
 /*
@@ -91,3 +98,35 @@ gulp.task('watch', watch);
  * Define default task that can be called by just running `gulp` from cli
  */
 gulp.task('default', build);
+
+function buildJS(){
+    return run('gulp build').exec();
+}
+
+function cleanDist() {
+    return src( './dist', { read: false, allowEmpty: true } ).pipe( clean() );
+}
+
+function makeDist() {
+    return src([
+        './**/*.*',
+        '!./dist/**/*.*',
+        '!./node_modules/**/*.*',
+        '!./**/*.zip',
+        '!./Gruntfile.js',
+        '!./gulpfile.js',
+        '!./.gitignore',
+        '!./package-lock.json',
+        '!./package.json',
+    ]).pipe( dest( 'dist/notificationx/' ) );
+}
+
+function cleanZip() {
+    return src( './notificationx.zip', { read: false, allowEmpty: true } ).pipe( clean() );
+}
+
+function makeZip() {
+    return src( './dist/**/*.*' ).pipe( zip( '../notificationx.zip' ) ).pipe( dest( './' ) );
+}
+
+gulp.task('makeZip', series( cleanDist, cleanZip, buildJS, makeDist, makeZip, cleanDist ));
