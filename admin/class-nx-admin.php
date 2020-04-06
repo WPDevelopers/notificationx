@@ -185,8 +185,10 @@ class NotificationX_Admin {
 			'post_type'      => 'notificationx',
 			'posts_per_page' => '-1',
 			'post_status'    => 'publish',
-			'meta_key'       => '_nx_meta_active_check',
-			'meta_value'     => 1
+			'meta_query' => [
+				'meta_key'       => '_nx_meta_active_check',
+				'meta_value'     => 1
+			]
 		);
 		self::$enabled_types = [];
 		// Get the notification posts.
