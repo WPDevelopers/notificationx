@@ -15,6 +15,7 @@ Want to build instant credibility for your business and boost your conversion ra
 
 Want to build instant credibility for your business and boost your conversion rate right away? 97% of your total website visitors don’t buy the product due to the lack of trust and credibility.
 
+https://www.youtube.com/watch?v=E-QR1QdRUrg
 
 ## BUILD INSTANT CREDIBILITY USING SOCIAL PROOF NOTIFICATION ##
 
@@ -27,6 +28,9 @@ FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing tec
 
 [NotificationX](https://notificationx.com) helps you to grab the attention of your website visitors and gain their trust instantly by showing real-time sales and engagement notifications. It creates urgency among your visitors in order to purchase your products right now. No one wants to be left out, after all.
 
+https://www.youtube.com/watch?v=J-1m27V4pEE
+
+
 ### 🔝 FEATURES: ###
 
 - Super simple interface and easy to set up the notifications alert
@@ -36,6 +40,7 @@ FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing tec
 - Connect NotificationX with **Zapier** to build absolutely anything
 - Check the results from **Analytics tool** [PRO] and see how many times a certain notification popup has been viewed, clicked or even its Click-through Rate
 - Option to deactivate unnecessary integrations to keep the site lite
+
 
 ## 🚀 BOOST CONVERSIONS WITH DIFFERENT NOTIFICATIONS ##
 
@@ -59,6 +64,7 @@ FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing tec
 
 7. **CUSTOM NOTIFICATIONS [PRO]:** You can create advanced and customized notifications just the way you want using these options.
 
+
 ## 🔥 POWER UP WITH ADVANCED INTEGRATIONS ##
 
 1. **WooCommerce:** Showcase your product sales alert and customer activities live on the website with an automated process to increase your eCommerce site conversions rates.
@@ -67,7 +73,6 @@ FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing tec
 2. **Easy Digital Downloads:** Display your clients’ live sales update on the website to build credibility and gather more traffic to boost business growth. 
 
 3. **Freemius [PRO]:** Lets you showcase your customers' real-time sales and review activities through live notification pop up from the Freemius account to your website.
-
 
 4. **GiveWP:** Showcase your donor live notification popup on the website to influence others to make more donations.
 
@@ -84,6 +89,8 @@ FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing tec
 
 ## 🏆 FEATURED IN TOP PUBLICATIONS ##
 
+https://www.youtube.com/watch?v=75vntaHp9Y4
+
 [WPMayor](https://wpmayor.com/notificationx-review-add-fomo-inducing-notifications-to-wordpress/): 
 > 'NotificationX is a freemium WordPress plugin that helps bring those two marketing strategies to your WordPress site, with eye-catching notification alerts for new sales, comments, reviews, and more. The designs are modern and nice-looking right out of the box, and I like how it supports different notification types, which makes it work for an eCommerce store, blog, WordPress theme/plugin shop, and more.'
 
@@ -99,7 +106,7 @@ FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing tec
 - If you have any more questions, visit our support on the [Plugin’s Forum](https://wordpress.org/support/plugin/notificationx/)
 - For more information about features, FAQs and documentation, check out our website at [NotificationX](https://notificationx.com)
 
-### Liked NotificationX? ###
+### Loving NotificationX? ###
 
 - Join our [Facebook Group](https://www.facebook.com/groups/NotificationX.Community/)
 - Learn from our tutorials on [Youtube Channel](https://wpdeveloper.net/go/youtube-channel)
