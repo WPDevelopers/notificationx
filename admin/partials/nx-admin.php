@@ -89,7 +89,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                             ), $current_url );
 
                             $is_enabled_before = false;
-                            if( $nx_type !== 'press_bar' ) {
+                            if( $nx_type !== 'press_bar' && ! NX_CONSTANTS::is_pro() ) {
                                 $is_enabled_before = NotificationX_Extension::is_enabled( $nx_type );
                                 if( $is_enabled == true ) {
                                     $is_enabled_before = $is_enabled_before == true ? false : true;

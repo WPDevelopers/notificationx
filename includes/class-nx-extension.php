@@ -156,16 +156,16 @@ class NotificationX_Extension {
         );
 
         self::$enabled_types = NotificationX_Admin::$enabled_types;
-        if( empty( self::$enabled_types ) ) {
-            self::$enabled_types = NotificationX_Admin::get_enabled_types();
-        }
 
-        foreach( $types as $type ) {
-            if( in_array( $type, array_keys( self::$enabled_types ) ) ) {
-                return true;
+        if( ! empty( self::$enabled_types ) ) {
+            foreach( $types as $type ) {
+                if( in_array( $type, array_keys( self::$enabled_types ) ) ) {
+                    return true;
+                }
             }
+        } else {
+            return false;
         }
-        return false;
     }
     /**
      * This method is responsible for get all 

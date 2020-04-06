@@ -250,21 +250,25 @@ class NotificationX_MetaBox {
             $data[ "_{$field_id}" ] = $new_settings->{ $name } = $value;
         }
 
-        $type = NotificationX_Helper::get_type( $posts );
-        if( $type != 'press_bar' ) {
-            $is_created = NotificationX_Extension::is_enabled( $type );
-            $is_created_meta = get_post_meta( $post_id, '_nx_meta_active_check', true );
-            if( ! NX_CONSTANTS::is_pro() && $is_created ) {
-                $is_created = false;
-            }
-            if( NX_CONSTANTS::is_pro() ) {
-                $is_created = true;
-            }
-            if ( $is_created_meta != '' ) {
-                $is_created = $is_created_meta;
-            }
-        } else {
+        if( NX_CONSTANTS::is_pro() ) {
             $is_created = true;
+        } else {
+            $type = NotificationX_Helper::get_type( $posts );
+            if( $type === 'press_bar' ) {
+                $is_created = true;
+            } else {
+                $is_created = NotificationX_Extension::is_enabled( $type );
+                if( ! $is_created ) {
+                    $is_created = true;
+                } else {
+                    $is_created = false;
+                }
+            }
+        }
+
+        $is_created_meta = get_post_meta( $post_id, '_nx_meta_active_check', true );
+        if ( $is_created_meta != '' ) {
+            $is_created = $is_created_meta;
         }
 
         if( isset( $posts['post_status'] ) && $posts['post_status'] != 'publish' ) {
@@ -274,7 +278,6 @@ class NotificationX_MetaBox {
         update_post_meta( $post_id, '_nx_meta_active_check', $is_created );
 
         $d_type = get_post_meta( $post_id, '_nx_meta_current_data_ready_for', true );
-
 
         if( self::check_any_changes( $old_settings, $new_settings ) ) {
             do_action( 'nx_get_conversions_ready', $type, $data );
