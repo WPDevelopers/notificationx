@@ -155,6 +155,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 - Improve Reporting
 - Dashboard News feed added
+- Fix: Default Notification Status
 
 = 1.6.2 - 08/03/2020 =
 
