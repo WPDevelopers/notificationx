@@ -165,7 +165,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 1.6.4 - 06/09/2020 =
+= 1.6.4 - 09/04/2020 =
 
 - Dashboard Feed Class Code Refactor
 
