@@ -60,11 +60,6 @@ register_deactivation_hook( __FILE__, 'deactivate_notificationx' );
  */
 require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx.php';
 /**
- * The code adds wpdev-dashboard-widget.php
- * It will show a wpdeveloper.net news feed in dashboard.
- */
-require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/wpdev-dashboard-widget.php';
-/**
  * Begins execution of the plugin.
  *
  * Since everything within the plugin is registered via hooks,

@@ -92,6 +92,11 @@ final class NotificationX {
 	 */
 	private function load_dependencies() {
 		/**
+		 * The code adds wpdev-dashboard-widget.php
+		 * It will show a wpdeveloper.net news feed in dashboard.
+		 */
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-wpdev-dashboard-widget.php';
+		/**
 		 * NotificationX DB
 		 */
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-db.php';
@@ -247,6 +252,10 @@ final class NotificationX {
 		
 		$plugin_admin          = new NotificationX_Admin( $this->get_plugin_name(), $this->get_version() );
 		$plugin_admin->metabox = new NotificationX_MetaBox;
+
+		if( class_exists( 'WPDeveloper_Dashboard_Widget' ) ) {
+			WPDeveloper_Dashboard_Widget::instance();
+		}
 		
 		add_action( 'init', array( $plugin_admin, 'register') );
 		// add_action( 'init', array( $plugin_admin, 'get_active_items') );
