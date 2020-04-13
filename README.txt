@@ -1,11 +1,11 @@
-=== NotificationX - Best FOMO Social Proof & Notification Bar Plugin ===
+=== NotificationX - Best FOMO, Social Proof & Notification Bar Plugin ===
 Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul
 Donate link: http://notificationx.com
-Tags: sales notification, fomo, social proof, woocommerce sales, sales popups, popups, boost sales, email subscription, recent sales popup, woocommerce notification, woo popups,  wordpress marketing, marketing, increase engagement, woocommerce
+Tags: sales notification, fomo, social proof, woocommerce sales, notification bar, sales popups, popups, boost sales, email subscription, recent sales popup, woocommerce notification, woo popups,  wordpress marketing, marketing, increase engagement, woocommerce
 Requires at least: 4.0
 Tested up to: 5.4
 Requires PHP: 5.4
-Stable tag: 1.6.3
+Stable tag: 1.6.4
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -29,6 +29,13 @@ FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing tec
 [NotificationX](https://notificationx.com) helps you to grab the attention of your website visitors and gain their trust instantly by showing real-time sales and engagement notifications. It creates urgency among your visitors in order to purchase your products right now. No one wants to be left out, after all.
 
 https://www.youtube.com/watch?v=J-1m27V4pEE
+
+## 📌 BEST NOTIFICATION BAR PLUGIN FOR WORDPRESS ##
+
+Let the visitors know about your special offers, deals, announcement, etc. with a call to action. **NotificationX** brings the [best notification bar](https://notificationx.com/features/) solution for WordPress, and it's absolutely free. You could turn on the end, start time, you will get detail analytics how your notification bar performed as well.
+
+
+https://www.youtube.com/watch?v=l7s9FXgzbEM
 
 
 ### 🔝 FEATURES: ###
@@ -157,6 +164,10 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 7. Notification Bar with Countdown
 
 == Changelog ==
+
+= 1.6.4 - 06/09/2020 =
+
+- Dashboard Feed Class Code Refactor
 
 = 1.6.3 - 06/04/2020 =
 
@@ -397,4 +408,4 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Upgrade Notice ==
 
-Must Update, reporting issue fix
+Must Update: Dashboard Feed Class Code Refactor
