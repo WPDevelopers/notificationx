@@ -5,10 +5,6 @@ if( $settings->link_open ) {
     $attrs .= ' target="_blank"';
 }
 
-if( isset( $settings->bar_close_position ) && ! empty( $settings->bar_close_position ) ) {
-    $pos_class .= ' nx-close-' . $settings->bar_close_position;
-}
-
 if( $settings->initial_delay ) {
     $wrapper_attrs .= ' data-initial_delay="'. $settings->initial_delay .'"';
 }
@@ -55,8 +51,11 @@ if( $settings->pressbar_position ) {
 $wrapper_attrs .= ' data-nonce="'. wp_create_nonce( '_notificationx_bar_nonce' ) .'"';
 
 if( 'bottom' == $settings->pressbar_position ) {
-    $pos_class = '';
-    $pos_class = ' nx-position-bottom';
+    $pos_class = 'nx-position-bottom';
+}
+
+if( isset( $settings->bar_close_position ) && ! empty( $settings->bar_close_position ) ) {
+    $pos_class .= ' nx-close-' . $settings->bar_close_position;
 }
 
 if( is_admin_bar_showing() ) {
