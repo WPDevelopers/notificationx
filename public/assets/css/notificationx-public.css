@@ -2116,7 +2116,7 @@ body.nx-press_bar-active {
 .nx-bar .nx-bar-inner .nx-close {
   margin: 0;
   right: 30px;
-  margin-top: -10px;
+  margin-top: -5px;
   cursor: pointer;
   top: 50%;
   color: #fff;
