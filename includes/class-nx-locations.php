@@ -21,7 +21,6 @@ class NotificationX_Locations {
             return $locations;
         }
 
-        $locations = array();
         $post_types = NotificationX_Helper::post_types();
         $taxonomies = NotificationX_Helper::taxonomies();
 
@@ -29,6 +28,7 @@ class NotificationX_Locations {
 
             unset( $post_types['post'] );
             unset( $post_types['page'] );
+            unset( $post_types['elementor_library'] );
 
             foreach ( $post_types as $slug => $type ) {
 

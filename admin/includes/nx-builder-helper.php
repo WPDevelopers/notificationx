@@ -249,7 +249,7 @@ function notificationx_builder_args() {
                                 'type'      => 'select',
                                 'label'     => __('Locations' , 'notificationx'),
                                 'priority'	=> 20,
-                                'options'   => NotificationX_Locations::locations(),
+                                'options'   => NotificationX_Locations::locations( '' ),
                             ),
                             'show_on_display'  => array(
                                 'type'      => 'select',
