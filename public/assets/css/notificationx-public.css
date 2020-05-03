@@ -479,6 +479,10 @@
   justify-content: space-between;
   font-size: 13px
 }
+.nx-notification .notificationx-inner .notificationx-content > .nx-third-row span.nx-first-word > svg,
+.notificationx-shortcode-wrapper > .nx-notification .notificationx-inner .notificationx-content > .nx-third-row span.nx-first-word > svg {
+  display: inline-block
+}
 .nx-notification .notificationx-inner .notificationx-content .nx-branding > svg,
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner .notificationx-content .nx-branding > svg {
   margin-right: 3px
