@@ -113,7 +113,7 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
                     __( 'You have to install', 'notificationx' ),
                     $url,
                     __( 'Ninja Forms', 'notificationx' ),
-                    __( 'plugin first.', 'notificationx' ),
+                    __( 'plugin first.', 'notificationx' )
                 ),
                 'priority' => 0,
             );

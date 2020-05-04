@@ -90,7 +90,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
                     __( 'You have to install', 'notificationx' ),
                     $url,
                     __( 'WooCommerce', 'notificationx' ),
-                    __( 'plugin first.', 'notificationx' ),
+                    __( 'plugin first.', 'notificationx' )
                 ),
                 'priority' => 0,
             );

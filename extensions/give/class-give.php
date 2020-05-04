@@ -148,7 +148,7 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
                     __( 'You have to install', 'notificationx' ),
                     $url,
                     __( 'GiveWP Donation', 'notificationx' ),
-                    __( 'plugin first.', 'notificationx' ),
+                    __( 'plugin first.', 'notificationx' )
                 ),
                 'priority' => 0,
             );

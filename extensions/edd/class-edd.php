@@ -109,7 +109,7 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
                     __( 'You have to install', 'notificationx' ),
                     admin_url('plugin-install.php?s=easy-digital-downloads&tab=search&type=term'),
                     __( 'Easy Digital Downloads', 'notificationx' ),
-                    __( 'plugin first.', 'notificationx' ),
+                    __( 'plugin first.', 'notificationx' )
                 ),
                 'priority' => 0,
             );
