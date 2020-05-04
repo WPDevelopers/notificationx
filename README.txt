@@ -1,7 +1,7 @@
 === NotificationX - Best FOMO, Social Proof, Sales Popup & WooCommerce Notification Bar Plugin ===
 Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul
 Donate link: http://notificationx.com
-Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, email subscription, recent sales popup, woo popups, wordpress marketing, marketing, increase engagement, woocommerce
+Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, email subscription, recent sales popup, woo popups, wordpress marketing, marketing, increase engagement, woocommerces
 Requires at least: 4.0
 Tested up to: 5.4
 Requires PHP: 5.4
@@ -96,7 +96,7 @@ https://www.youtube.com/watch?v=l7s9FXgzbEM
 
 9. **[Envato [PRO]](https://notificationx.com/integrations/envato/):** Display your download or sales notification from Envato (Themeforest/CodeCanyon) and increase conversion rates.  
 
-10. **[Google Analytics[PRO]](https://notificationx.com/integrations/google-analytics/):** Display Google Analytics insights and visitor counts with more marketing inisght to engage your potential buyers.
+10. **[Google Analytics[PRO]](https://notificationx.com/integrations/google-analytics/):** Display Google Analytics insights and visitor counts with more marketing insight to engage your potential buyers.
 
 
 ## 🏆 FEATURED IN TOP PUBLICATIONS ##
@@ -173,9 +173,9 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 = 1.6.5 - 04/05/2020 =
 
 - Fix: Start Rating CSS fix
-- Fix: All Notificaiton Page Title fix
+- Fix: All Notification Page Title fix
 - Fix: Close Button issue fix
-- Fix: Stats Copy isssue fix
+- Fix: Stats Copy issue fix
 - Fix: Translation update and fix
 - Added: CRON error message added
 
