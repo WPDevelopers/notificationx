@@ -1,7 +1,7 @@
-=== NotificationX - Best FOMO, Social Proof & Notification Bar Plugin ===
+=== NotificationX - Best FOMO, Social Proof, Sales Popup & WooCommerce Notification Bar Plugin ===
 Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul
 Donate link: http://notificationx.com
-Tags: sales notification, fomo, social proof, woocommerce sales, notification bar, sales popups, popups, boost sales, email subscription, recent sales popup, woocommerce notification, woo popups,  wordpress marketing, marketing, increase engagement, woocommerce
+Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, email subscription, recent sales popup, , woo popups,  wordpress marketing, marketing, increase engagement, woocommerce
 Requires at least: 4.0
 Tested up to: 5.4
 Requires PHP: 5.4
@@ -13,7 +13,7 @@ Want to build instant credibility for your business and boost your conversion ra
 
 == Description ==
 
-Want to build instant credibility for your business and boost your conversion rate right away? 97% of your total website visitors don’t buy the product due to the lack of trust and credibility.
+Want to build instant credibility for your business and boost your conversion rate right away? **97%** of your total website visitors don’t buy the product due to the lack of trust and credibility. Get instant success with **WooCommerce Sales Notification**!
 
 https://www.youtube.com/watch?v=E-QR1QdRUrg
 
@@ -29,6 +29,9 @@ FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing tec
 [NotificationX](https://notificationx.com) helps you to grab the attention of your website visitors and gain their trust instantly by showing real-time sales and engagement notifications. It creates urgency among your visitors in order to purchase your products right now. No one wants to be left out, after all.
 
 https://www.youtube.com/watch?v=J-1m27V4pEE
+
+**Sales Notification & Popup Solution for WooCommerce, EDD, Freemius, Envato & More.**
+
 
 ## 📌 BEST NOTIFICATION BAR PLUGIN FOR WORDPRESS ##
 
@@ -165,7 +168,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 1.6.4 - 06/09/2020 =
+= 1.6.4 - 09/04/2020 =
 
 - Dashboard Feed Class Code Refactor
 
