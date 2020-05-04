@@ -75,23 +75,23 @@ class NotificationX_Locations {
 
             unset( $post_types['post'] );
             unset( $post_types['page'] );
+            unset( $post_types['elementor_library'] );
 
             foreach ( $post_types as $slug => $type ) {
 
                 $status[ 'is_singular-' . $slug ] = is_singular( $slug );
 
                 if ( $type->has_archive ) {
-                    $locations[ 'is_archive-' . $slug ] = is_post_type_archive( $slug );
+                    $status[ 'is_archive-' . $slug ] = is_post_type_archive( $slug );
                 }
             }
 
             foreach ( $taxonomies as $slug => $tax ) {
-                $locations[ 'is_tax-' . $slug ] = is_tax( $slug );
+                $status[ 'is_tax-' . $slug ] = is_tax( $slug );
             }
         }
 
         $status_flag = false;
-        
         foreach ( $locations as $location ) {
             if ( ! isset( $status[$location] ) || ! $status[$location] ) {
                 continue;
