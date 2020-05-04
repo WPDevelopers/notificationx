@@ -109,7 +109,7 @@ https://www.youtube.com/watch?v=75vntaHp9Y4
 [BobWP](https://bobwp.com/notification-display-woocommerce-notificationx-plugin/): 
 > 'The power of NotificationX lies in its integrations. The integration with WordPress.org makes it slick to pull in download numbers and reviews. This is a perfect option if you are selling freemium plugins and themes. The plugin is intuitive and easy to set up. With the various notifications, you can get creative and go beyond product sales with your WooCommerce store.'
 
-**Thanks:** This project is inspired by WPFomify, Puneet & his team did amazing work, and we are very thankful to them. They are one of the first to do Fomo in WordPress right way, we are passionately taking it to whole different level!
+**Thanks:** This project is inspired by WPFomify, Puneet & his team did amazing work, and we are very thankful to them. They are one of the first to do Fomo in WordPress right way, we are passionately taking it to whole different level and loved to see we are inspiring them as well, thats the beauty of OpenSource!
 
 
 ### Documentation and Support ###
