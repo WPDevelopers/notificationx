@@ -168,6 +168,8 @@ class NotificationX_Public {
 			if( ! empty( $locations ) ) {
 				$check_location = NotificationX_Locations::check_location( array( $locations ) );
 			}
+			dump( $check_location, false );
+			die;
 			$check_location = apply_filters( 'nx_check_location', $check_location, $settings );
 			
 			if( $settings->show_on == 'on_selected' ) {
