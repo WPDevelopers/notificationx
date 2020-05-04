@@ -959,7 +959,8 @@ function notificationx_metabox_args(){
                                     'logged_out_user' => __('Logged Out User' , 'notificationx'),
                                     'logged_in_user'  => __('Logged In User' , 'notificationx'),
                                 ],
-                            )
+                                'help' => sprintf('<a target="_blank" rel="nofollow" href="https://notificationx.com/in/pro-display-control">%s</a>', __('More Control in Pro', 'notificationx') )
+                            ),
                         ),
                     ),
                 ))

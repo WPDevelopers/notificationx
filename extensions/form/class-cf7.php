@@ -106,7 +106,12 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
             $url = admin_url('plugin-install.php?s=contact+form+7&tab=search&type=term');
             $fields['has_no_cf7'] = array(
                 'type'     => 'message',
-                'message'    => __('You have to install <a href="'. $url .'">Contact Form 7</a> plugin first.' , 'notificationx'),
+                'message'    => sprintf( '%s <a href="%s">%s</a> %s', 
+                    __( 'You have to install', 'notificationx' ),
+                    $url,
+                    __( 'Contact Form 7', 'notificationx' ),
+                    __( 'plugin first.', 'notificationx' ),
+                ),
                 'priority' => 0,
             );
         }
