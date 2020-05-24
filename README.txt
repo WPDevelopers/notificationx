@@ -1,11 +1,11 @@
 === NotificationX - Best FOMO, Social Proof, Sales Popup & WooCommerce Notification Bar Plugin ===
 Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul
 Donate link: http://notificationx.com
-Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, email subscription, recent sales popup, woo popups, wordpress marketing, marketing, increase engagement, woocommerce
+Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, email subscription, recent sales popup, woo popups, wordpress marketing, marketing, increase engagement, woocommerce, envato, freemius, givewp, leardash
 Requires at least: 4.0
 Tested up to: 5.4
 Requires PHP: 5.4
-Stable tag: 1.6.5
+Stable tag: 1.6.6
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -169,6 +169,11 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 7. Notification Bar with Countdown
 
 == Changelog ==
+
+= 1.6.6 - 24/05/2020 =
+
+- Improvement: Removed Source Map from Code
+- Fix: Minor Bug Fix
 
 = 1.6.5 - 04/05/2020 =
 
@@ -422,4 +427,4 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Upgrade Notice ==
 
-Must Update: Dashboard Feed Class Code Refactor
+Minor Update: Bug Fix
