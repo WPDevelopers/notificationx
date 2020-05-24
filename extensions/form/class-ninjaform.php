@@ -109,7 +109,12 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
             $url = admin_url('plugin-install.php?s=ninja+forms&tab=search&type=term');
             $fields['has_no_njf'] = array(
                 'type'     => 'message',
-                'message'    => __('You have to install <a href="'. $url .'">Ninja Forms</a> plugin first.' , 'notificationx'),
+                'message'    => sprintf( '%s <a href="%s">%s</a> %s', 
+                    __( 'You have to install', 'notificationx' ),
+                    $url,
+                    __( 'Ninja Forms', 'notificationx' ),
+                    __( 'plugin first.', 'notificationx' )
+                ),
                 'priority' => 0,
             );
         }

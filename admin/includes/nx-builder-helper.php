@@ -18,6 +18,11 @@ function notificationx_builder_args() {
                     'config'        => array(
                         'title'             => __('Select Source', 'notificationx'),
                         'fields'            => array(
+                            'has_no_cron' => array(
+                                'type'     => 'message',
+                                'message'    => __('You have cron disabled. To use this extension make sure CRON is enabled in your WordPress Setup. <a href="URL">Click Here To Learn How To Enable</a>.', 'notificationx'),
+                                'priority' => 0,
+                            ),
                             'display_type'  => array(
                                 'type'         => 'theme',
                                 'type_content' => 'text',

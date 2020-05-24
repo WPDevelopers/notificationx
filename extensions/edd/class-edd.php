@@ -105,7 +105,12 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         if( ! class_exists( 'Easy_Digital_Downloads' ) ) {
             $fields['has_no_edd'] = array(
                 'type'     => 'message',
-                'message'    => __('You have to install <a href="'. admin_url('plugin-install.php?s=easy-digital-downloads&tab=search&type=term') .'">Easy Digital Downloads</a> plugin first.', 'notificationx'),
+                'message'    => sprintf( '%s <a href="%s">%s</a> %s', 
+                    __( 'You have to install', 'notificationx' ),
+                    admin_url('plugin-install.php?s=easy-digital-downloads&tab=search&type=term'),
+                    __( 'Easy Digital Downloads', 'notificationx' ),
+                    __( 'plugin first.', 'notificationx' )
+                ),
                 'priority' => 0,
             );
         }

@@ -144,7 +144,12 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
             $url = admin_url('plugin-install.php?s=give&tab=search&type=term');
             $fields['has_no_give'] = array(
                 'type'     => 'message',
-                'message'    => __('You have to install <a href="'. $url .'">GiveWP</a> Donation plugin first.' , 'notificationx'),
+                'message'    => sprintf( '%s <a href="%s">%s</a> %s', 
+                    __( 'You have to install', 'notificationx' ),
+                    $url,
+                    __( 'GiveWP Donation', 'notificationx' ),
+                    __( 'plugin first.', 'notificationx' )
+                ),
                 'priority' => 0,
             );
         }

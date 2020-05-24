@@ -123,7 +123,12 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
             $url = admin_url('plugin-install.php?s=wp+form&tab=search&type=term');
             $fields['has_no_wpf'] = array(
                 'type'     => 'message',
-                'message'    => __('You have to install <a href="'. $url .'">WP Forms</a> plugin first.' , 'notificationx'),
+                'message'    => sprintf( '%s <a href="%s">%s</a> %s', 
+                    __( 'You have to install', 'notificationx' ),
+                    $url,
+                    __( 'WP Forms', 'notificationx' ),
+                    __( 'plugin first.', 'notificationx' )
+                ),
                 'priority' => 0,
             );
         }

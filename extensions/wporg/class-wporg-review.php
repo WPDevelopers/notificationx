@@ -769,6 +769,10 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         $sections = array_keys( $sections );
         $fields = array_keys( $fields );
 
+        if ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON ) {
+            $fields[] = 'has_no_cron';
+        }
+
         $options['dependency'][ $this->type ]['fields'] = array_merge( $fields, array( 'show_notification_image' ) );
         $options['dependency'][ $this->type ]['sections'] = $sections;
 
@@ -786,7 +790,11 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         $sections = $this->init_sections();
         unset( $fields[ $this->template ] );
         $old_fields = [];
-        $options['source_tab']['sections']['config']['fields']['reviews_source']['dependency'][ $this->type ]['fields'] = array_keys( $fields );
+        $fields = array_keys( $fields );
+        if ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON ) {
+            $fields[] = 'has_no_cron';
+        }
+        $options['source_tab']['sections']['config']['fields']['reviews_source']['dependency'][ $this->type ]['fields'] = $fields;
         return $options;
     }
 

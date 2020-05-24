@@ -566,7 +566,7 @@ class NotificationX_Admin {
 		/**
 		 * @since 1.2.2
 		 */
-		add_submenu_page( 'nx-admin', '', 'All NotificationX', $nx_create_notification, 'nx-admin' );
+		add_submenu_page( 'nx-admin', 'All NotificationX', 'All NotificationX', $nx_create_notification, 'nx-admin' );
 		/**
 		 * @since 1.2.1
 		 */
@@ -968,16 +968,22 @@ class NotificationX_Admin {
 				$get_post = get_post( $nx_post_id );
 				$post_data = json_decode( json_encode( $get_post ), true );
 				unset( $post_data['ID'] );
+				unset( $post_data['post_date'] );
+				unset( $post_data['post_date_gmt'] );
 				$post_data['post_title'] = $post_data['post_title'] . ' - Copy';
 				$duplicate_post_id = wp_insert_post( $post_data );
 				$duplicate_post_id = intval( $duplicate_post_id );
 				$get_post_meta = get_metadata( 'post', $nx_post_id );
 				if( ! empty( $get_post_meta ) ) {
 					foreach( $get_post_meta as $key => $value ){
-						if( in_array( $key, array( '_edit_lock', '_edit_last', '_nx_meta_impression_per_day', '_nx_meta_views' ) ) ) {
+						if( in_array( $key, array( '_edit_lock', '_edit_last', '_nx_meta_views', '_nx_meta_active_check' ) ) ) {
 							continue;
 						}
-						add_post_meta( $duplicate_post_id, $key, $value[0] );
+						if( $key === '_nx_meta_impression_per_day' ) {
+							add_post_meta( $duplicate_post_id, $key, array() );
+						} else {
+							add_post_meta( $duplicate_post_id, $key, $value[0] );
+						}
 					}
 				}
 				wp_safe_redirect( $current_url );

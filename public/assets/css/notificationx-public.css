@@ -479,6 +479,10 @@
   justify-content: space-between;
   font-size: 13px
 }
+.nx-notification .notificationx-inner .notificationx-content > .nx-third-row span.nx-first-word > svg,
+.notificationx-shortcode-wrapper > .nx-notification .notificationx-inner .notificationx-content > .nx-third-row span.nx-first-word > svg {
+  display: inline-block
+}
 .nx-notification .notificationx-inner .notificationx-content .nx-branding > svg,
 .notificationx-shortcode-wrapper > .nx-notification .notificationx-inner .notificationx-content .nx-branding > svg {
   margin-right: 3px
@@ -2116,7 +2120,7 @@ body.nx-press_bar-active {
 .nx-bar .nx-bar-inner .nx-close {
   margin: 0;
   right: 30px;
-  margin-top: -10px;
+  margin-top: -5px;
   cursor: pointer;
   top: 50%;
   color: #fff;

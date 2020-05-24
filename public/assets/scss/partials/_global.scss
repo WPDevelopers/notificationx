@@ -83,6 +83,11 @@
 				@extend %flex-align-center;
 				justify-content: space-between;
 				font-size: 13px;
+				& span.nx-first-word {
+					& > svg {
+						display: inline-block;
+					}
+				}
 			}
 			min-width: 250px;
 			@extend %flex;

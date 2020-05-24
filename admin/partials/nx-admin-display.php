@@ -81,14 +81,20 @@ if( ! empty( $active_modules ) ) {
                                 if( ! empty( $fields ) )  :
                             ?>
                                 <div id="nx-meta-section-<?php echo $sec_id; ?>" class="nx-meta-section <?php echo 'nx-' . $sec_id; ?>">
-                                    <h2 class="nx-meta-section-title">
-                                        <?php 
-                                            echo $section['title']; 
-                                            if( isset( $section['reset'] ) && $section['reset'] ) {
-                                                echo '<div class="nx-section-reset" data-tooltip="Reset"><span class="dashicons dashicons-image-rotate"></span></div>';
-                                            }
-                                        ?>
-                                    </h2>
+                                    <?php 
+                                        if( isset( $section['title'] ) ) {
+                                            ?>
+                                                <h2 class="nx-meta-section-title">
+                                                    <?php 
+                                                        echo $section['title']; 
+                                                        if( isset( $section['reset'] ) && $section['reset'] ) {
+                                                            echo '<div class="nx-section-reset" data-tooltip="Reset"><span class="dashicons dashicons-image-rotate"></span></div>';
+                                                        }
+                                                    ?>
+                                                </h2>
+                                            <?php
+                                        }
+                                    ?>
                                     <table>
                                         <?php 
                                             foreach( $fields as $key => $field ) {

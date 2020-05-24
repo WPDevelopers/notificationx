@@ -250,10 +250,10 @@ class NotificationX_MetaBox {
             $data[ "_{$field_id}" ] = $new_settings->{ $name } = $value;
         }
 
+        $type = NotificationX_Helper::get_type( $posts );
         if( NX_CONSTANTS::is_pro() ) {
             $is_created = true;
         } else {
-            $type = NotificationX_Helper::get_type( $posts );
             if( $type === 'press_bar' ) {
                 $is_created = true;
             } else {

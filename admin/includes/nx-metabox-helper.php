@@ -18,6 +18,11 @@ function notificationx_metabox_args(){
                     'config'        => array(
                         'title'             => __('Select Source', 'notificationx'),
                         'fields'            => array(
+                            'has_no_cron' => array(
+                                'type'     => 'message',
+                                'message'    => __('You have cron disabled. To use this extension make sure CRON is enabled in your WordPress Setup. <a href="URL">Click Here To Learn How To Enable</a>.', 'notificationx'),
+                                'priority' => 0,
+                            ),
                             'display_type'  => apply_filters( 'nx_display_type', array(
                                 'type'         => 'theme',
                                 'type_content' => 'text',
@@ -954,7 +959,8 @@ function notificationx_metabox_args(){
                                     'logged_out_user' => __('Logged Out User' , 'notificationx'),
                                     'logged_in_user'  => __('Logged In User' , 'notificationx'),
                                 ],
-                            )
+                                'help' => sprintf('<a target="_blank" rel="nofollow" href="https://notificationx.com/in/pro-display-control">%s</a>', __('More Control in Pro', 'notificationx') )
+                            ),
                         ),
                     ),
                 ))
