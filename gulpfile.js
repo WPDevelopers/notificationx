@@ -66,7 +66,6 @@ function pSass(){
 }
 function pConcat() {
 	return gulp.src(paths.pAssets + 'css/notificationx-public.css')
-		.pipe(sourcemaps.init())
 		.pipe(concat('notificationx-public.min.css'))
 		.pipe(cleanCSS())
 		.pipe(sourcemaps.write(''))
@@ -113,6 +112,8 @@ function makeDist() {
         '!./dist/**/*.*',
         '!./node_modules/**/*.*',
         '!./**/*.zip',
+        '!./public/assets/css/notificationx-public.css.map',
+        '!./public/assets/css/notificationx-public.min.css.map',
         '!./Gruntfile.js',
         '!./gulpfile.js',
         '!./.gitignore',
