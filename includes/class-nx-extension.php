@@ -149,6 +149,7 @@ class NotificationX_Extension {
             'wp_stats', 
             'wp_reviews', 
             'woocommerce',
+            'woo_reviews',
             'edd',
             'give',
             'tutor',
