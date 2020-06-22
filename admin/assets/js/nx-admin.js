@@ -50,6 +50,14 @@
 
 		$("body").on("change", ".nx_meta_display_type", function () {
 			var type = $(this).val();
+			// Array.from(
+			// 	document.querySelectorAll("#nx-instructions .nxins-type")
+			// ).forEach(function (item) {
+			// 	item.style.display = "none";
+			// 	if (item.classList.contains(type)) {
+			// 		item.style.display = "block";
+			// 	}
+			// });
 			switch (type) {
 				case "conversions":
 					$(".nx-themes .nx_meta_theme:checked").trigger("change");
@@ -360,7 +368,7 @@
 		//Advance Checkbox with SweetAlear
 		$("body").on(
 			"click",
-			".nx-adv-checkbox-wrap label, #nx_sound_checkbox, .nx-stats-tease",
+			".nx-adv-checkbox-wrap label, #nx_sound_checkbox, .nx-stats-tease, .nx-cmo-conf",
 			function (e) {
 				if (typeof $(this)[0].dataset.swal == "undefined") {
 					return;

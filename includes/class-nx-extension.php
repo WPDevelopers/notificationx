@@ -86,6 +86,10 @@ class NotificationX_Extension {
 
         $this->template_name = $template;
     }
+    public function sort_data( $data ){
+        $this->limiter->setValues( $data );
+        return $this->limiter->values();
+    }
     /**
      * To check plugins installed or not
      * @param string $plugin_file

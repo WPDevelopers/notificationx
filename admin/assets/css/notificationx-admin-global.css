@@ -410,10 +410,15 @@ td .nx-admin-not-found p {
     animation: switch-off 0.3s ease-out;
 }
 
-.nx-stats-tease {
+.nx-stats-tease,
+.nx-cmo-conf {
     color: #888888;
     cursor: pointer;
     position: relative;
+}
+
+.nx-cmo-conf {
+    color: #5614d5;
 }
 
 .nx-stats-tease>img {
@@ -514,4 +519,10 @@ td .nx-admin-not-found p {
     font-size: 20px;
     line-height: 1;
     letter-spacing: 1px;
+}
+#nx-instructions {
+    display: block;
+}
+.nx-type-instructions-wrapper .nxins-type {
+    display: none;
 }
