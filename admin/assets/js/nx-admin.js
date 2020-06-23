@@ -130,6 +130,7 @@
 		$("body").on("change", ".nx_meta_conversion_from", function (e) {
 			var conv_source = $(this).val();
 			$(".nx-themes .nx_meta_theme:checked").trigger("change");
+			$("#nx_meta_combine_multiorder:checked").trigger("change");
 			switch (conv_source) {
 				case "woocommerce" || "edd":
 					$("#nx_meta_woo_template_adv").trigger("change");
