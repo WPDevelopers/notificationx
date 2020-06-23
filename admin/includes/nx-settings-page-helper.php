@@ -166,11 +166,18 @@ function notificationx_settings_args(){
                     'priority' => 20,
                     'title'    => __('Analytics', 'notificationx'),
                     'fields'   => array(
+                        'disable_dashboard_widget' => array(
+                            'type'        => 'checkbox',
+                            'label'       => __('Disable Dashboard Widget' , 'notificationx'),
+                            'default'     => 0,
+                            'priority'    => 0,
+                            'description' => __('Click, if you want to disable dashboard widget of analytics only.' , 'notificationx'),
+                        ),
                         'enable_analytics' => array(
                             'type'    => 'checkbox',
                             'label'   => __( 'Enable Analytics', 'notificationx' ),
                             'default'  => 1,
-                            'priority' => 0,
+                            'priority' => 5,
                             'dependency' => array(
                                 1 => array( 
                                     'fields' => array( 'analytics_from', 'exclude_bot_analytics' ),
@@ -193,13 +200,13 @@ function notificationx_settings_args(){
                                 'registered_users' => __( 'Registered Users Only', 'notificationx' ),
                             ),
                             'default'  => 'everyone',
-                            'priority' => 1,
+                            'priority' => 10,
                         ),
                         'exclude_bot_analytics' => array(
                             'type'        => 'checkbox',
                             'label'       => __( 'Exclude Bot Analytics', 'notificationx' ),
                             'default'     => 1,
-                            'priority'    => 1,
+                            'priority'    => 15,
                             'description' => __( 'Select if you want to exclude bot analytics.', 'notificationx' ),
                         ),
                     ),

@@ -23,6 +23,9 @@ class NotificationX_Dashboard_Widget {
         if( NotificationX_DB::get_settings( 'enable_analytics' ) != 1 && NotificationX_DB::get_settings( 'enable_analytics' ) !== '' ) {
             return;
         }
+        if( NotificationX_DB::get_settings( 'disable_dashboard_widget' ) === '1' && NotificationX_DB::get_settings( 'disable_dashboard_widget' ) !== '' ) {
+            return;
+        }
         $this->widget_name = __( 'NotificationX Analytics', 'notificationx' );
         add_action( 'wp_dashboard_setup', array( $this, 'widget_action' ) );
     }
