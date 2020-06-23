@@ -62,7 +62,7 @@ class NotificationX_WooCommerceReview_Extension extends NotificationX_Extension 
         $review_content = __( 'Some review content', 'notificationx' );
         if($settings->wporg_theme == 'review-comment-2' || $settings->wporg_theme == 'review-comment-3'){
             $trim_length = 80;
-            $exploded_username = explode(' ',$saved_data['username']);
+            $exploded_username = explode(' ', $saved_data['username']);
             if($exploded_username >= 1){
                 $name = ucfirst($exploded_username[0]);
                 if( isset( $exploded_username[1] ) ) {
@@ -87,6 +87,7 @@ class NotificationX_WooCommerceReview_Extension extends NotificationX_Extension 
             $review_content = '" '.$review_content.' "';
         }
         $data['username'] = $name;
+        $data['plugin_name'] = $saved_data['post_title'];
         $data['plugin_name_text'] = __('try it out', 'notificationx');
         $data['anonymous_title'] = __('Anonymous', 'notificationx');
         $data['plugin_review'] = htmlspecialchars( $review_content );
@@ -148,7 +149,66 @@ class NotificationX_WooCommerceReview_Extension extends NotificationX_Extension 
         add_action( 'deleted_comment', array( $this, 'delete_comment' ), 10, 2 );
         add_action( 'transition_comment_status', array( $this, 'transition_comment_status' ), 10, 3 );
     }
+    /**
+     * This function is responsible for making comment notifications ready if comments is approved.
+     *
+     * @param int $comment_ID
+     * @param bool $comment_approved
+     * @return void
+     */
+    public function post_comment( $comment_ID, $comment_approved ){
 
+        if( count( $this->notifications ) === $this->cache_limit ) {
+            $sorted_data = NotificationX_Helper::sorter( $this->notifications, 'key' );
+            array_pop( $sorted_data );
+            $this->notifications = $sorted_data;
+        }
+
+        if( 1 === $comment_approved ){
+            $this->notifications[ $comment_ID ] = $this->add( $comment_ID );
+            /**
+             * Save the data to
+             * notificationx_data ( options DB. )
+             */
+            $this->save( $this->type, $this->add( $comment_ID ), $comment_ID );
+        }
+        return;
+    }
+        /**
+     * This function is responsible for transition comment status
+     * from approved to unapproved or unapproved to approved
+     *
+     * @param string $new_status
+     * @param string $old_status
+     * @param WP_Comment $comment
+     * @return void
+     */
+    public function transition_comment_status( $new_status, $old_status, $comment ){
+        if( 'unapproved' === $new_status ) {
+            $this->delete_comment( $comment->comment_ID, $comment );
+        }
+        if( 'approved' === $new_status ) {
+            $this->post_comment( $comment->comment_ID, 1 );
+        }
+    }
+/**
+     * If a comment delete, than the notifications data set has to be updated as well.
+     * this function is responsible for doing this.
+     *
+     * @param int $comment_ID
+     * @param WP_Comment $comment
+     * @return void
+     */
+    public function delete_comment( $comment_ID, $comment ){
+        if( ! empty( $this->notifications ) ) {
+            foreach( $this->notifications as $key => $notification ) {
+                if( isset( $notification['id'] ) && $notification['id'] === $comment_ID ) {
+                    unset( $this->notifications[ $key ] );
+                }
+            }
+            $this->update_notifications( $this->type, $this->notifications );
+        }
+    }
     /**
      * This function is responsible for making the notification ready for first time we make the notification.
      *
@@ -208,11 +268,12 @@ class NotificationX_WooCommerceReview_Extension extends NotificationX_Extension 
         }
 
         $comment_data['id']         = $comment->comment_ID;
+        $comment_data['content']    = $comment->comment_content;
         $comment_data['link']       = get_comment_link( $comment->comment_ID );
         $comment_data['post_title'] = get_the_title( $comment->comment_post_ID );
         $comment_data['post_link']  = get_permalink( $comment->comment_post_ID );
         $comment_data['timestamp']  = strtotime( $comment->comment_date );
-        $comment_data['rating']  = get_comment_meta( $comment->comment_ID, 'rating', true );
+        $comment_data['rating']     = get_comment_meta( $comment->comment_ID, 'rating', true );
         
         $comment_data['ip']  = $comment->comment_author_IP;
         $user_ip_data = self::remote_get('http://ip-api.com/json/' . $comment->comment_author_IP );
@@ -248,130 +309,8 @@ class NotificationX_WooCommerceReview_Extension extends NotificationX_Extension 
         $comment_data['email'] = get_comment_author_email( $comment->comment_ID );
         return $comment_data;
     }
-
-    private function init_fields(){
-        $fields = [];
-        
-        return $fields;
-    }
-
-    private function init_sections(){
-        $sections = [];
-        
-        return $sections;
-    }
-
-    private function get_fields(){
-        return $this->init_fields();
-    }
-
-    private function get_sections(){
-        return $this->init_sections();
-    }
-
     public function init_hooks(){
-        add_filter( 'nx_metabox_tabs', array( $this, 'add_fields' ) );
-        add_filter( 'nx_display_types_hide_data', array( $this, 'hide_fields' ) );
         add_filter( 'nx_reviews_source', array( $this, 'toggle_fields' ) );
-    }
-
-    public function init_builder_hooks(){
-        add_filter( 'nx_builder_tabs', array( $this, 'add_builder_fields' ) );
-        add_filter( 'nx_display_types_hide_data', array( $this, 'hide_builder_fields' ) );
-        add_filter( 'nx_builder_tabs', array( $this, 'builder_toggle_fields' ) );
-    }
-
-    /**
-     * This function is responsible for adding fields to helper files.
-     *
-     * @param array $options
-     * @return void
-     */
-    public function add_fields( $options ){
-        $fields = $this->get_fields();
-
-        foreach ( $fields as $name => $field ) {
-            $options[ 'content_tab' ]['sections']['content_config']['fields'][ $name ] = $field;
-        }
-
-        $sections = $this->get_sections();
-        foreach ( $sections as $parent_key => $section ) {
-            $options[ 'design_tab' ]['sections'][ $parent_key ] = $section;
-        }
-
-        return $options;
-    }
-
-    public function add_builder_fields( $options ){
-        $fields = $this->get_fields();
-        $sections = $this->get_sections();
-        // unset( $fields[ $this->template ] );
-        // unset( $fields[ 'wp_reviews_template_adv' ] );
-
-        // unset( $sections['wporg_design'] );
-        // unset( $sections['wporg_image_design'] );
-        // unset( $sections['wporg_themes']['fields']['wporg_advance_edit'] );
-        // unset( $sections['wporg_typography'] );
-        
-        // foreach ( $fields as $name => $field ) {
-        //     $options['source_tab']['sections']['config']['fields'][ $name ] = $field;
-        // }
-        // foreach ( $sections as $sec_name => $section ) {
-        //     $options['design_tab']['sections'][ $sec_name ] = $section;
-        // }
-
-        return $options;
-    }
-
-    /**
-     * This function is responsible for hide fields when others type selected.
-     *
-     * @param array $options
-     * @return void
-     */
-    public function hide_fields( $options ) {
-        $fields = $this->get_fields();
-        $sections = $this->get_sections();
-
-        foreach ( $fields as $name => $field ) {
-            foreach( $options as $opt_key => $opt_value ) {
-                if( $opt_key != $this->type ) {
-                    $options[ $opt_key ][ 'fields' ][] = $name;
-                }
-            }
-        }
-
-        foreach ( $sections as $section_name => $section ) {
-            foreach( $options as $opt_key => $opt_value ) {
-                if( $opt_key != $this->type ) { 
-                    $options[ $opt_key ][ 'sections' ][] = $section_name;
-                }
-            }
-        }
-
-        return $options;
-    }
-
-    public function hide_builder_fields( $options ) {
-        $fields = array_merge( $this->get_fields(), [] );
-        $sections = $this->get_sections();
-        // unset( $sections['wporg_design'] );
-        // unset( $sections['wporg_typography'] );
-
-        // Hide fields from other field types.
-        foreach( $fields as $field_key => $field_value ) {
-            foreach( $options as $opt_key => $opt_value ) {
-                $options[ $opt_key ][ 'fields' ][] = $field_key;
-            }
-        }
-
-        foreach( $sections as $sec_key => $sec_value ) {
-            foreach( $options as $opt_key => $opt_value ) {
-                $options[ $opt_key ][ 'sections' ][] = $sec_key;
-            }
-        }
-        
-        return $options;
     }
     /**
      * This function is responsible for render toggle data for conversion
@@ -380,31 +319,11 @@ class NotificationX_WooCommerceReview_Extension extends NotificationX_Extension 
      * @return void
      */
     public function toggle_fields( $options ) {
-
-        $fields = $this->init_fields();
-        $sections = $this->init_sections();
-        $sections = array_keys( $sections );
-        $fields = array_keys( $fields );
-
-        $options['dependency'][ $this->type ]['fields'] = array_merge( $fields, array( 'show_notification_image', 'wp_reviews_template_adv' ) );
+        $sections = [];
+        $fields = [];
+        $options['dependency'][ $this->type ]['fields'] = array_merge( $fields, array( 'show_notification_image', 'wp_reviews_template_adv', 'has_no_woo' ) );
         $options['dependency'][ $this->type ]['sections'] = ['wporg_themes'];
 
-        return $options;
-    }
-
-    /**
-     * This function is responsible for builder fields
-     *
-     * @param array $options
-     * @return void
-     */
-    public function builder_toggle_fields( $options ) {
-        $fields = $this->init_fields();
-        $sections = $this->init_sections();
-        unset( $fields[ $this->template ] );
-        $old_fields = [];
-        $fields = array_keys( $fields );
-        $options['source_tab']['sections']['config']['fields']['reviews_source']['dependency'][ $this->type ]['fields'] = $fields;
         return $options;
     }
 
