@@ -181,6 +181,18 @@
 			switch (source) {
 				case "wp_reviews":
 					$("#nx_meta_wp_reviews_template_adv").trigger("change");
+					var thirdParam = $(
+						"#nx_meta_wp_reviews_template_new_third_param"
+					);
+					thirdParam[0][0].innerText = "Plugin Name";
+					thirdParam.select2();
+					break;
+				case "woo_reviews":
+					var thirdParam = $(
+						"#nx_meta_wp_reviews_template_new_third_param"
+					);
+					thirdParam[0][0].innerText = "Product Name";
+					thirdParam.select2();
 					break;
 			}
 		});

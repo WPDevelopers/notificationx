@@ -102,17 +102,18 @@ class NotificationX_WooCommerceReview_Extension extends NotificationX_Extension 
     }
 
     public function notification_image( $image_data, $data, $settings ){
-    if( $settings->display_type != 'reviews' || $settings->reviews_source != $this->type ) { 
+        if( $settings->display_type != 'reviews' || $settings->reviews_source != $this->type ) { 
             return $image_data;
         }
 
         $avatar = $image_url = $alt_title =  '';
         switch( $settings->show_notification_image ) {
             case 'product_image' : 
-                if( isset( $data['icons']['2x'] ) ) {
-                    $image_url = $data['icons']['2x'];
-                } else {
-                    $image_url = isset( $data['icons']['1x'] ) ? $data['icons']['1x'] : '';
+                if( has_post_thumbnail( $data['product_id'] ) ) {
+                    $product_image = wp_get_attachment_image_src( 
+                        get_post_thumbnail_id( $data['product_id'] ), 'medium', false 
+                    );
+                    $image_url = is_array( $product_image ) ? $product_image[0] : '';
                 }
                 break;
             case 'gravatar' : 
@@ -148,6 +149,60 @@ class NotificationX_WooCommerceReview_Extension extends NotificationX_Extension 
         add_action( 'trash_comment', array( $this, 'delete_comment' ), 10, 2 );
         add_action( 'deleted_comment', array( $this, 'delete_comment' ), 10, 2 );
         add_action( 'transition_comment_status', array( $this, 'transition_comment_status' ), 10, 3 );
+        add_filter( 'nx_fields_data', array( $this, 'conversion_data' ), 10, 2 );
+    }
+    public function conversion_data( $data, $id ){
+        if( ! $id ) {
+            return $data;
+        }
+        $new_data = array();
+        $settings = NotificationX_MetaBox::get_metabox_settings( $id );
+        $display_type = NotificationX_Helper::get_type( $settings );
+
+        if( $display_type !== 'woo_reviews' ) {
+            return;
+        }
+
+        $from = isset( $settings->display_from ) ? intval( $settings->display_from ) : 0;
+        $needed = isset( $settings->display_last ) ? intval( $settings->display_last ) : 0;
+
+        $comments = get_comments([
+            'status'     => 'approve',
+            'number'     => $needed,
+            'post_type'  => 'product',
+            'date_query' => [
+                'after'     => $from .' days ago',
+                'inclusive' => true,
+            ]
+        ]);
+        $typed_data = $data[ $this->type ];
+        $this->ratings = [];
+        unset( $data[ $this->type ] );
+        $this->data = $data;
+        array_walk( $comments, function( $item ){
+            $rating = get_comment_meta( $item->comment_ID, 'rating', true );
+            if( $rating === '5' ) {
+                if( isset( $this->ratings[ $item->comment_post_ID ] ) ) {
+                    $this->ratings[ $item->comment_post_ID ] = [
+                        'comment_ID' => $item->comment_ID,
+                        'rated' => ++$this->ratings[ $item->comment_post_ID ]['rated']
+                    ];
+                } else {
+                    $this->ratings[ $item->comment_post_ID ] = [
+                        'comment_ID' => $item->comment_ID,
+                        'rated' => 1
+                    ];
+                }
+            }
+        });
+        array_walk( $this->ratings, function( $item, $key ){
+            $data = $this->add( $item['comment_ID'] );
+            $data['rated'] = $item['rated'];
+
+            $this->data[ $this->type ][] = $data;
+        });
+
+        return $this->data;
     }
     /**
      * This function is responsible for making comment notifications ready if comments is approved.
@@ -266,8 +321,12 @@ class NotificationX_WooCommerceReview_Extension extends NotificationX_Extension 
             $comment_id = intval( $comment );
             $comment = get_comment( $comment_id, 'OBJECT' );
         }
+        if( $comment->comment_type !== 'review' ) {
+            return;
+        }
 
         $comment_data['id']         = $comment->comment_ID;
+        $comment_data['product_id'] = $comment->comment_post_ID;
         $comment_data['content']    = $comment->comment_content;
         $comment_data['link']       = get_comment_link( $comment->comment_ID );
         $comment_data['post_title'] = get_the_title( $comment->comment_post_ID );
