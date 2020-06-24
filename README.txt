@@ -1,11 +1,11 @@
 === NotificationX - Best FOMO, Social Proof, Sales Popup & WooCommerce Notification Bar Plugin ===
 Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul
 Donate link: http://notificationx.com
-Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, email subscription, recent sales popup, woo popups, wordpress marketing, marketing, increase engagement, woocommerce, envato, freemius, givewp, leardash
+Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, email subscription, recent sales popup, woo popups, woocommerce review, wordpress marketing, marketing, increase engagement, woocommerce, envato, freemius, givewp, learndash
 Requires at least: 4.0
 Tested up to: 5.4
 Requires PHP: 5.4
-Stable tag: 1.6.6
+Stable tag: 1.7.0
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -60,7 +60,7 @@ https://www.youtube.com/watch?v=l7s9FXgzbEM
 2. **WP Comments:** Lets you show the recent comments made by users on your WordPress posts as a notification alert. This is helpful to gain immediate attention from your visitors to check out the specified posts.
 
 
-3. **WordPress Review:** Showcase your Plugin/Theme reviews from WordPress.org & build credibility. [Source: WordPress, Freemius]
+3. **WordPress/Woocommerce Review:** Showcase your Plugin/Theme reviews from WordPress.org & build credibility. [Source: WordPress, Freemius & Woocommerce]
 
 
 4. **WordPress Download Count:** Display how many people have downloaded your product from WordPress.org recently. [Source: WooCommerce, EDD, Freemius, Envato]
@@ -77,7 +77,7 @@ https://www.youtube.com/watch?v=l7s9FXgzbEM
 
 ## 🔥 POWER UP WITH ADVANCED INTEGRATIONS ##
 
-1. **[WooCommerce[(https://notificationx.com/integrations/woocommerce/):** Showcase your product sales alert and customer activities live on the website with an automated process to increase your eCommerce site conversions rates.
+1. **[WooCommerce[(https://notificationx.com/integrations/woocommerce/):** Showcase your product sales alert and customer activities live on the website with an automated process to increase your eCommerce site conversions rates. **From V 1.7.0 we now support WooCommerce Product reviews as well.**
 
 
 2. **[Easy Digital Downloads](https://notificationx.com/integrations/easy-digital-downloads/):** Display your clients’ live sales update on the website to build credibility and gather more traffic to boost business growth. 
@@ -169,6 +169,15 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 7. Notification Bar with Countdown
 
 == Changelog ==
+
+= 1.7.0 - 24/06/2020 =
+
+- Added: WooCommerce Product Review Alerts
+- Added: Dashboard Widget for Analytics
+- Added: Multiple Order Handling for Sales Notifications
+- Fixed: Images not loading for Custom Notifications
+- Fixed: Elementor Template Shortcode not rendering inside Notification Bar
+- Few minor bugfix and improvements
 
 = 1.6.6 - 24/05/2020 =
 
