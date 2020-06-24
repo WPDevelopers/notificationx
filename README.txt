@@ -77,7 +77,7 @@ https://www.youtube.com/watch?v=l7s9FXgzbEM
 
 ## 🔥 POWER UP WITH ADVANCED INTEGRATIONS ##
 
-1. **[WooCommerce[(https://notificationx.com/integrations/woocommerce/):** Showcase your product sales alert and customer activities live on the website with an automated process to increase your eCommerce site conversions rates.
+1. **[WooCommerce](https://notificationx.com/integrations/woocommerce/):** Showcase your product sales alert and customer activities live on the website with an automated process to increase your eCommerce site conversions rates.
 
 
 2. **[Easy Digital Downloads](https://notificationx.com/integrations/easy-digital-downloads/):** Display your clients’ live sales update on the website to build credibility and gather more traffic to boost business growth. 
@@ -86,7 +86,7 @@ https://www.youtube.com/watch?v=l7s9FXgzbEM
 
 4. **[GiveWP](https://notificationx.com/integrations/givewp/):** Showcase your donor live notification popup on the website to influence others to make more donations.
 
-5. **[Zapier [PRO]](https://notificationx.com/integrations/convertkit/):** Integrate Zapier with NotificationX to pull data from supported apps and display custom popups of users real-time notification to convert your visitors into your permanent client. 
+5. **[Zapier [PRO]](https://notificationx.com/integrations/zapier/):** Integrate Zapier with NotificationX to pull data from supported apps and display custom popups of users real-time notification to convert your visitors into your permanent client. 
 
 6. **[MailChimp [PRO]](https://notificationx.com/integrations/mailchimp/):** Create urgency among your visitors to signup your email list to get updates and increase your overall engagement rates.  
 
