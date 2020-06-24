@@ -435,4 +435,4 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Upgrade Notice ==
 
-Minor Update: Bug Fix
+Major Update: New Feature & Bug Fix
