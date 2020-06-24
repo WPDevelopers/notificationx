@@ -1338,6 +1338,7 @@
 			},
 			success: function (res) {
 				button.html("Save Settings");
+				res = res.trim();
 				if (res === "success") {
 					swal({
 						title: "Settings Saved!",
@@ -1351,7 +1352,7 @@
 					swal({
 						title: "Settings Not Saved!",
 						text: "Click OK to continue",
-						icon: "success",
+						icon: "error",
 						buttons: [false, "Ok"],
 					});
 				}
