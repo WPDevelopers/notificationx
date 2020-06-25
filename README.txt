@@ -77,7 +77,7 @@ https://www.youtube.com/watch?v=l7s9FXgzbEM
 
 ## 🔥 POWER UP WITH ADVANCED INTEGRATIONS ##
 
-1. **[WooCommerce[(https://notificationx.com/integrations/woocommerce/):** Showcase your product sales alert and customer activities live on the website with an automated process to increase your eCommerce site conversions rates. **From V 1.7.0 we now support WooCommerce Product reviews as well.**
+1. **[WooCommerce](https://notificationx.com/integrations/woocommerce/):** Showcase your product sales alert and customer activities live on the website with an automated process to increase your eCommerce site conversions rates. **From V 1.7.0 we now support WooCommerce Product reviews as well.**
 
 2. **[Easy Digital Downloads](https://notificationx.com/integrations/easy-digital-downloads/):** Display your clients’ live sales update on the website to build credibility and gather more traffic to boost business growth. 
 
