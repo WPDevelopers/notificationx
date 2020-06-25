@@ -169,7 +169,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 1.7.0 - 24/06/2020 =
+= 1.7.1 - 25/06/2020 =
 
 - Fixed: PHP 5.6 conflict Fatal Error.
 
