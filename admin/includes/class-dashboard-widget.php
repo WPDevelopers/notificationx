@@ -9,7 +9,7 @@ class NotificationX_Dashboard_Widget {
      * Widget ID
      * @constant string
      */
-    protected const WIDGET_ID = 'nx_analytics_dashboard_widget';
+    protected static $WIDGET_ID = 'nx_analytics_dashboard_widget';
     /**
      * Widget Title
      * @var string
@@ -35,7 +35,7 @@ class NotificationX_Dashboard_Widget {
      * @return void
      */
     public function widget_action(){
-        wp_add_dashboard_widget( self::WIDGET_ID, $this->widget_name, array( $this, 'widget_output' ) );
+        wp_add_dashboard_widget( self::$WIDGET_ID, $this->widget_name, array( $this, 'widget_output' ) );
     }
     /**
      * Get all analytics data
