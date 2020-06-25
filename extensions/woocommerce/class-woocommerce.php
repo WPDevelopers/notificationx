@@ -142,7 +142,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
                     'type'     => 'select',
                     'priority' => 4,
                     'options'  => array(
-                        'tag_title'       => __('Product Title' , 'notificationx'),
+                        'tag_title'           => __('Product Title' , 'notificationx'),
                         'tag_anonymous_title' => __('Anonymous Product' , 'notificationx'),
                     ),
                     'default' => 'tag_title'
@@ -184,6 +184,24 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             'swal'        => true
         );
 
+        $fields['combine_multiorder'] = array(
+            'label'    => __('Combine Multi Order', 'notificationx'),
+            'type'     => 'checkbox',
+            'priority' => 100,
+            'default' => 1,
+            'description' => __('Combine order like, 2 more products.', 'notificationx') . ' <span data-swal="true" class="nx-cmo-conf">Configure</span>',
+            'dependency' => array(
+                1 => array(
+                    'fields' => array( 'combine_multiorder_text' )
+                ),
+            ),
+            'hide' => array(
+                0 => array(
+                    'fields' => array( 'combine_multiorder_text' )
+                ),
+            ),
+        );
+
         return $fields;
     }
     /**
@@ -199,7 +217,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             if( $name === 'has_no_woo' ) {
                 $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
             }
-            if( in_array( $name, array( 'woo_template_new', 'woo_template', 'woo_template_adv' ) ) ) {
+            if( in_array( $name, array( 'woo_template_new', 'woo_template', 'woo_template_adv', 'combine_multiorder' ) ) ) {
                 $options[ 'content_tab' ]['sections']['content_config']['fields'][ $name ] = $field;
             }
         }
@@ -234,6 +252,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             return;
         }
         add_action( 'woocommerce_new_order_item', array( $this, 'save_new_orders' ), 10, 3 );
+        add_filter( 'nx_filtered_data', array( $this, 'multiorder_combine' ), 10, 2 );
     }
     /**
      * This functions is hooked
@@ -289,7 +308,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         $fields = array_keys( $fields );
         $fields = array_merge( [ 'show_notification_image' ], $fields );
 
-        $options['dependency'][ $this->type ]['fields'] = array_merge( $fields, $options['dependency'][ $this->type ]['fields']);
+        $options['dependency'][ $this->type ]['fields'] = array_merge( $fields, $options['dependency'][ $this->type ]['fields'] );
         $options['dependency'][ $this->type ]['sections'] = array_merge( [ 'image' ], $options['dependency'][ $this->type ]['sections']);
         return $options;
     }
@@ -378,7 +397,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
     public function get_orders( $data = array() ) {
         if( empty( $data ) ) return null;
         $orders = [];
-        $from = strtotime( date( get_option( 'date_format' ), strtotime( '-' . intval( $data[ '_nx_meta_display_from' ] ) . ' days') ) );
+        $from = strtotime( date( 'Y-m-d', strtotime( '-' . intval( $data[ '_nx_meta_display_from' ] ) . ' days') ) );
         $wc_orders = wc_get_orders( [
             'status' => array( 'processing', 'completed', 'pending' ),
             'date_created' => '>' . $from,
@@ -413,6 +432,34 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             return true;
         }
         return false;
+    }
+    
+    public function multiorder_combine( $data, $settings ){
+        if( $settings->display_type != 'conversions' ) {
+            return $data;
+        }
+        if( $settings->conversion_from != 'woocommerce' ) {
+            return $data;
+        }
+        if( empty( $settings->combine_multiorder ) || $settings->combine_multiorder !== '1' ) {
+            return $data;
+        }
+        $this->items = [];
+        $this->item_counts = [];
+        array_walk( $data, function( $item, $key ){
+            if( ! isset( $this->items[ $item['id'] ] ) ) {
+                $this->items[ $item['id'] ] = $item;
+            } else {
+                $this->item_counts[ $item['id'] ] = isset( $this->item_counts[ $item['id'] ] ) ? ++$this->item_counts[ $item['id'] ] : 1;
+            }
+        });
+        
+        $products_more_title = isset( $settings->combine_multiorder_text ) && ! empty( $settings->combine_multiorder_text ) ? __( $settings->combine_multiorder_text, 'notificationx' ) : ' ' . __( 'more products', 'notificationx' );
+        array_walk( $this->item_counts, function( $item, $key ) use ( $products_more_title ) {
+            $this->items[ $key ][ 'title' ] = $this->items[ $key ][ 'title' ] . ' & ' . $item . ' ' . $products_more_title;
+        });
+
+        return $this->sort_data( $this->items );
     }
     /**
      * This function is responsible for making ready the orders data.

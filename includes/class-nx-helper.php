@@ -275,6 +275,10 @@ class NotificationX_Helper {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/wordpress.jpg',
                 'title' => 'WP.Org Reviews'
             ),
+            'woo_reviews' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/woocommerce.jpg',
+                'title' => 'WooCommerce Reviews'
+            ),
             'freemius' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/freemius.jpg',
@@ -572,6 +576,7 @@ class NotificationX_Helper {
             'wp_comments' => 'modules_wordpress',
             'wp_stats' => 'modules_wordpress',
             'wp_reviews' => 'modules_wordpress',
+            'woo_reviews' => 'modules_woocommerce',
             'conversions' => array(
                 'modules_woocommerce',
                 'modules_edd',
@@ -581,6 +586,7 @@ class NotificationX_Helper {
             ),
             'reviews' => array(
                 'modules_wordpress',
+                'modules_woocommerce'
             ),
             'elearning' => array(
                 'modules_tutor',
@@ -949,18 +955,19 @@ class NotificationX_Helper {
 
     public static function theme_sources(){
         return apply_filters( 'nx_themes_types', array( 
-            'press_bar'     => 'bar_theme',
-            'wp_comments'   => 'comment_theme',
-            'woocommerce'   => 'theme',
-            'edd'           => 'theme',
-            'wp_reviews'    => 'wporg_theme',
-            'wp_stats'      => 'wpstats_theme',
-            'give'          => 'donation_theme',
-            'tutor'         => 'elearning_theme',
-            'cf7'           => 'form_theme',
-            'wpf'           => 'form_theme',
-            'njf'           => 'form_theme',
-            'grvf'          => 'form_theme',
+            'press_bar'   => 'bar_theme',
+            'wp_comments' => 'comment_theme',
+            'woocommerce' => 'theme',
+            'edd'         => 'theme',
+            'wp_reviews'  => 'wporg_theme',
+            'woo_reviews' => 'wporg_theme',
+            'wp_stats'    => 'wpstats_theme',
+            'give'        => 'donation_theme',
+            'tutor'       => 'elearning_theme',
+            'cf7'         => 'form_theme',
+            'wpf'         => 'form_theme',
+            'njf'         => 'form_theme',
+            'grvf'        => 'form_theme',
         ));
     }
 
@@ -989,17 +996,18 @@ class NotificationX_Helper {
 
     public static function template_keys(){
         return apply_filters( 'nx_template_keys', array( 
-            'wp_comments'   => 'comments_template_new',
-            'woocommerce'   => 'woo_template_new',
-            'edd'           => 'woo_template_new',
-            'wp_reviews'    => 'wp_reviews_template_new',
-            'wp_stats'      => 'wp_stats_template_new',
-            'give'          => 'donation_template_new',
-            'tutor'         => 'elearning_template_new',
-            'cf7'           => 'form_template_new',
-            'wpf'           => 'wpf_template_new',
-            'njf'           => 'njf_template_new',
-            'grvf'          => 'grvf_template_new',
+            'wp_comments' => 'comments_template_new',
+            'woocommerce' => 'woo_template_new',
+            'edd'         => 'woo_template_new',
+            'wp_reviews'  => 'wp_reviews_template_new',
+            'woo_reviews' => 'wp_reviews_template_new',
+            'wp_stats'    => 'wp_stats_template_new',
+            'give'        => 'donation_template_new',
+            'tutor'       => 'elearning_template_new',
+            'cf7'         => 'form_template_new',
+            'wpf'         => 'wpf_template_new',
+            'njf'         => 'njf_template_new',
+            'grvf'        => 'grvf_template_new',
         ));
     }
     /**

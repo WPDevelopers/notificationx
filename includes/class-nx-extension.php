@@ -86,6 +86,10 @@ class NotificationX_Extension {
 
         $this->template_name = $template;
     }
+    public function sort_data( $data ){
+        $this->limiter->setValues( $data );
+        return $this->limiter->values();
+    }
     /**
      * To check plugins installed or not
      * @param string $plugin_file
@@ -149,6 +153,7 @@ class NotificationX_Extension {
             'wp_stats', 
             'wp_reviews', 
             'woocommerce',
+            'woo_reviews',
             'edd',
             'give',
             'tutor',

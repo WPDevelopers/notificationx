@@ -773,7 +773,8 @@ label.nx-adv-checkbox-label:hover {
 
 .quick-builder-submit-btn,
 .nx-meta-next,
-.btn-settings, .nx-email-test {
+.btn-settings,
+.nx-email-test {
     background-color: #6648FE;
     color: #fff;
     border: 0;
@@ -1086,7 +1087,8 @@ body.post-type-notificationx .select2-container--default .select2-search--dropdo
     display: block;
 }
 
-.nx-settings-button, .nx-email-test {
+.nx-settings-button,
+.nx-email-test {
     margin: 30px 15px 0 0;
     padding: 16px 30px;
     display: flex;
@@ -2432,7 +2434,7 @@ h4.nx-admin-title {
 }
 
 .nx-default_avatar .nx-theme-field-inner,
-.nx-default_avatar .nx-single-theme-wrapper { 
+.nx-default_avatar .nx-single-theme-wrapper {
     margin: 0px;
 }
 

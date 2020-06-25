@@ -318,6 +318,9 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
             $comment_id = intval( $comment );
             $comment = get_comment( $comment_id, 'OBJECT' );
         }
+        if( $comment->comment_type !== '' ) {
+            return;
+        }
 
         $comment_data['id']         = $comment->comment_ID;
         $comment_data['link']       = get_comment_link( $comment->comment_ID );

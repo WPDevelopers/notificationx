@@ -101,6 +101,10 @@ final class NotificationX {
 		 */
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-db.php';
 		/**
+		 * Analytics Dashboard Widgets
+		 */
+		require_once NOTIFICATIONX_ADMIN_DIR_PATH . 'includes/class-dashboard-widget.php';
+		/**
 		 * NotificationX Helper
 		 */
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-helper.php';
@@ -161,6 +165,7 @@ final class NotificationX {
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'wporg/class-wporg-review.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'wporg/class-wporg-stats.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'woocommerce/class-woocommerce.php';
+		require_once NOTIFICATIONX_EXT_DIR_PATH . 'woocommerce/class-woocommerce-reviews.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'edd/class-edd.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'give/class-give.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'tutor/class-tutor.php'; // @since 1.3.9
@@ -200,17 +205,18 @@ final class NotificationX {
 		global $nx_extension_factory;
 
 		$extensions = [
-			'press_bar'   	=> 'NotificationX_PressBar_Extension',
-			'wp_comments' 	=> 'NotificationX_WP_Comments_Extension',
-			'wp_reviews'  	=> 'NotificationXPro_WPOrgReview_Extension',
-			'wp_stats'    	=> 'NotificationXPro_WPOrgStats_Extension',
-			'woocommerce' 	=> 'NotificationX_WooCommerce_Extension',
-			'edd'         	=> 'NotificationX_EDD_Extension',
-			'give'        	=> 'NotificationX_Give_Extension',
-			'tutor'       	=> 'NotificationX_Tutor_Extension',
-			'cf7'       	=> 'NotificationX_CF7_Extension',
-			'wpf'       	=> 'NotificationXPro_WPForms_Extension',
-			'njf'       	=> 'NotificationXPro_NinjaForms_Extension',
+			'press_bar'   => 'NotificationX_PressBar_Extension',
+			'wp_comments' => 'NotificationX_WP_Comments_Extension',
+			'wp_reviews'  => 'NotificationXPro_WPOrgReview_Extension',
+			'wp_stats'    => 'NotificationXPro_WPOrgStats_Extension',
+			'woocommerce' => 'NotificationX_WooCommerce_Extension',
+			'edd'         => 'NotificationX_EDD_Extension',
+			'give'        => 'NotificationX_Give_Extension',
+			'tutor'       => 'NotificationX_Tutor_Extension',
+			'cf7'         => 'NotificationX_CF7_Extension',
+			'wpf'         => 'NotificationXPro_WPForms_Extension',
+			'njf'         => 'NotificationXPro_NinjaForms_Extension',
+			'woo_reviews' => 'NotificationX_WooCommerceReview_Extension',
 		];
 
 		foreach( $extensions as $key => $extension ) {

@@ -40,6 +40,45 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         }
         return $template;
     }
+/**
+     * This functions is hooked
+     * 
+     * @hooked nx_public_action
+     * @return void
+     */
+    public function public_actions(){
+        if( ! $this->is_created( $this->type ) ) {
+            return;
+        }
+        add_filter( 'nx_filtered_data', array( $this, 'multiorder_combine' ), 10, 2 );
+    }
+    public function multiorder_combine( $data, $settings ){
+        if( $settings->display_type != 'conversions' ) {
+            return $data;
+        }
+        if( $settings->conversion_from != 'edd' ) {
+            return $data;
+        }
+        if( empty( $settings->combine_multiorder ) || $settings->combine_multiorder !== '1' ) {
+            return $data;
+        }
+        $this->items = [];
+        $this->item_counts = [];
+        array_walk( $data, function( $item, $key ){
+            if( ! isset( $this->items[ $item['id'] ] ) ) {
+                $this->items[ $item['id'] ] = $item;
+            } else {
+                $this->item_counts[ $item['id'] ] = isset( $this->item_counts[ $item['id'] ] ) ? ++$this->item_counts[ $item['id'] ] : 1;
+            }
+        });
+
+        $products_more_title = isset( $settings->combine_multiorder_text ) && ! empty( $settings->combine_multiorder_text ) ? __( $settings->combine_multiorder_text, 'notificationx' ) : ' ' . __( 'more products', 'notificationx' );
+        array_walk( $this->item_counts, function( $item, $key ) use ( $products_more_title ) {
+            $this->items[ $key ][ 'title' ] = $this->items[ $key ][ 'title' ] . ' & ' . $item . ' ' . $products_more_title;
+        });
+
+        return $this->sort_data( $this->items );
+    }
 
     public function fallback_data( $data, $saved_data, $settings ){
         if( NotificationX_Helper::get_type( $settings ) !== $this->type ) {
@@ -129,6 +168,8 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         foreach ( $fields as $name => $field ) {
             if( $name === 'has_no_edd' ) {
                 $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
+            } else {
+                $options[ 'content_tab' ]['sections']['content_config']['fields'][ $name ] = $field;
             }
         }
         return $options;
@@ -342,6 +383,7 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         $user_info['name'] = $this->name( $user_info['first_name'], $user_info['last_name'] );
         $user_info['timestamp']  = strtotime( $payment->date ) - ( $offset * 60 * 60 );
         $user_info['ip']  = $payment->ip;
+        $user_info['id']  = $payment_id;
         if( ! empty( $user_info['ip'] ) ) {
             $user_ip_data = self::remote_get('http://ip-api.com/json/' . $user_info['ip'] );
             if( $user_ip_data ) {

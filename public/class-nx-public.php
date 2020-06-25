@@ -463,6 +463,8 @@ class NotificationX_Public {
             return [];
 		}
 
+		$alt_title = '';
+
 		$is_default_enabled = true;
 		if( $settings->show_notification_image != 'none' ) {
 			if( isset( $image_data['url'] ) && ! empty( $image_data['url'] ) ) {

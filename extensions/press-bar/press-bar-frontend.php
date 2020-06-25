@@ -112,7 +112,7 @@ if( $settings->sticky_bar ) {
                 </div>
             <?php endif; ?>
             <div class="nx-inner-content-wrapper">
-                <div class="nx-bar-content"><?php echo $settings->press_content; ?></div>
+                <div class="nx-bar-content"><?php echo do_shortcode( $settings->press_content ); ?></div>
                 <?php 
                     if( $settings->button_url != '' ) :
                         $pressbar_url = apply_filters( 'nx_pressbar_link', $settings->button_url, $settings );

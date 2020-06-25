@@ -51,6 +51,7 @@ class NotificationX_ToggleFields {
         $fields = self::common_fields();
         $fields[] = 'woo_template_new';
         $fields[] = 'woo_template_adv';
+        $fields[] = 'combine_multiorder';
         $fields[] = 'conversion_from';
 
         $sections = self::common_sections();

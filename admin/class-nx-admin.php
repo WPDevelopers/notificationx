@@ -91,6 +91,24 @@ class NotificationX_Admin {
 		});
 		add_action('notificationx_admin_header', array( $this, 'header_template' ));
 		add_action('notificationx_admin_new_header', array( $this, 'header_template' ));
+		// add_action( 'add_meta_boxes',array( $this, 'add_metabox' ) );
+	}
+	public function add_metabox(){
+		add_meta_box( 'nx-instructions', __( 'NotificationX Instructions', 'notificationx' ), array( $this, 'metabox_content' ), 'notificationx', 'side' );
+	}
+	public function metabox_content(){
+		ob_start();
+        ?>
+        <div class="nx-type-instructions-wrapper">
+			<div class="conversions nxins-type">
+				<p>Hello Conversions</p>
+			</div>
+			<div class="comments nxins-type">
+				<p>Hello Comments</p>
+			</div>
+		</div>
+		<?php
+        return ob_get_flush();
 	}
     public static function header_template(){
         global $pagenow;
