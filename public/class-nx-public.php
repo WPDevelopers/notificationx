@@ -60,7 +60,17 @@ class NotificationX_Public {
 		add_filter('body_class', array($this,'body_class'), 10, 1);
 		add_action( 'nx_notification_image_action', array( $this, 'image_action' ), 999 ); // Image Action for gravatar
 	}
-	
+    /**
+     * Some process take long time to execute 
+     * for that need to raise the limit.
+     */
+    public static function raise_limits() {
+		wp_raise_memory_limit( 'admin' );
+		if ( wp_is_ini_value_changeable( 'max_execution_time' ) ) {
+			ini_set( 'max_execution_time', 0 );
+		}
+		@ set_time_limit( 0 );
+	}
 	/**
 	* Register the stylesheets for the public-facing side of the site.
 	*
@@ -147,7 +157,7 @@ class NotificationX_Public {
 			self::$active = self::get_active_items();
 		}
 		$activeItems = self::$active;
-		$conversion_ids = $comments_id = $reviews_id = $download_stats_id = $form_id = array();
+		$conversion_ids = $comments_id = $reviews_id = $download_stats_id = $form_id = $active_notifications = $global_notifications = array();
 		
 		foreach( self::$active as $id ) {
 			
@@ -191,31 +201,39 @@ class NotificationX_Public {
 			
 			$add_in_list = apply_filters( 'nx_add_in_queue', $settings->display_type, $settings );
 
-
+			$active_global_queue = boolval( $settings->global_queue_active );
+			
 			switch ( $add_in_list  ) {
 				case "press_bar":
 					NotificationX_PressBar_Extension::display( $settings );
 					break;
-				case "conversions" :
-					$conversion_ids[] = $id;
-					break;
-				case 'elearning':
-					$conversion_ids[] = $id;
-					break;
-				case 'donation':
-					$conversion_ids[] = $id;
-					break;
-				case "comments":
-					$comments_id[] = $id;
-					break;
-				case "reviews":
-					$reviews_id[] = $id;
-					break;
-				case "download_stats":
-					$download_stats_id[] = $id;
-					break;
-				case "form":
-					$form_id[] = $id;
+				// case "conversions" :
+				// 	$conversion_ids[] = $id;
+				// 	break;
+				// case 'elearning':
+				// 	$conversion_ids[] = $id;
+				// 	break;
+				// case 'donation':
+				// 	$conversion_ids[] = $id;
+				// 	break;
+				// case "comments":
+				// 	$comments_id[] = $id;
+				// 	break;
+				// case "reviews":
+				// 	$reviews_id[] = $id;
+				// 	break;
+				// case "download_stats":
+				// 	$download_stats_id[] = $id;
+				// 	break;
+				// case "form":
+				// 	$form_id[] = $id;
+				// 	break;
+				default: 
+					if( $active_global_queue ) {
+						$global_notifications[] = $id;
+					} else {
+						$active_notifications[] = $id;
+					}
 					break;
 			}
 			unset( $activeItems[ $id ] );
@@ -231,22 +249,24 @@ class NotificationX_Public {
 		$download_stats_id = apply_filters('nx_download_stats_id', $download_stats_id );
 		$form_id 		   = apply_filters('nx_form_id', $form_id );
 		
-		if( ! empty( $form_id ) || ! empty( $conversion_ids ) || ! empty( $comments_id ) || ! empty( $pro_ext ) || ! empty( $reviews_id ) || ! empty( $download_stats_id ) ) :
+		// if( ! empty( $form_id ) || ! empty( $conversion_ids ) || ! empty( $comments_id ) || ! empty( $pro_ext ) || ! empty( $reviews_id ) || ! empty( $download_stats_id ) ) :
 			?>
 			<script type="text/javascript">
 			var notificationx = {
-				nonce      : '<?php echo wp_create_nonce('nx_frontend_nonce'); ?>',
-				ajaxurl    : '<?php echo admin_url('admin-ajax.php'); ?>',
-				conversions: <?php echo json_encode( $conversion_ids ); ?>,
-				comments   : <?php echo json_encode( $comments_id ); ?>,
-				reviews   : <?php echo json_encode( $reviews_id ); ?>,
-				stats   : <?php echo json_encode( $download_stats_id ); ?>,
-				form   : <?php echo json_encode( $form_id ); ?>,
-				pro_ext   : <?php echo json_encode( $pro_ext ); ?>,
+				nonce               : '<?php echo wp_create_nonce('nx_frontend_nonce'); ?>',
+				ajaxurl             : '<?php echo admin_url('admin-ajax.php'); ?>',
+				notificatons        : <?php echo json_encode( $active_notifications ); ?>,
+				global_notifications: <?php echo json_encode( $global_notifications ); ?>,
+				conversions         : <?php echo json_encode( $conversion_ids ); ?>,
+				comments            : <?php echo json_encode( $comments_id ); ?>,
+				reviews             : <?php echo json_encode( $reviews_id ); ?>,
+				stats               : <?php echo json_encode( $download_stats_id ); ?>,
+				form                : <?php echo json_encode( $form_id ); ?>,
+				pro_ext             : <?php echo json_encode( $pro_ext ); ?>,
 			};
 			</script>
 			<?php	
-		endif;
+		// endif;
 	}
 			
 	public function generate_conversions() {
@@ -260,23 +280,103 @@ class NotificationX_Public {
 		if( ! empty( $this->notifications ) ) {
 			$data = $this->notifications;
 		}
-		
-		$settings = NotificationX_MetaBox::get_metabox_settings( $ids );
-		$echo['config'] = apply_filters('nx_frontend_config', array(
-			'delay_before'  => ( ! empty( $settings->delay_before ) ) ? intval( $settings->delay_before ) * 1000 : 0,
-			'display_for'   => ( ! empty( $settings->display_for ) ) ? intval( $settings->display_for ) * 1000 : 0,
-			'delay_between' => ( ! empty( $settings->delay_between ) ) ? intval( $settings->delay_between ) * 1000 : 0,
-			'loop'          => ( ! empty( $settings->loop ) ) ? $settings->loop : 0,
-			'id'            => $ids,
-		), $settings);
 
-		ob_start();
-		include NOTIFICATIONX_PUBLIC_PATH . 'partials/nx-public-display.php';
-		$content = ob_get_clean();
-		$echo['content'] = $content;
+		$global = isset( $_POST['global'] ) ? boolval( $_POST['global'] ) : false;
+
+		// dump( $_POST );
+		// die;
 		
-		echo json_encode( $echo );
-		wp_die();
+		self::raise_limits();
+
+		if( ! $global ) {
+			$settings = NotificationX_MetaBox::get_metabox_settings( $ids );
+			$echo['config'] = apply_filters('nx_frontend_config', array(
+				'delay_before'  => ( ! empty( $settings->delay_before ) ) ? intval( $settings->delay_before ) * 1000 : 0,
+				'display_for'   => ( ! empty( $settings->display_for ) ) ? intval( $settings->display_for ) * 1000 : 0,
+				'delay_between' => ( ! empty( $settings->delay_between ) ) ? intval( $settings->delay_between ) * 1000 : 0,
+				'loop'          => ( ! empty( $settings->loop ) ) ? $settings->loop : 0,
+				'id'            => $ids,
+			), $settings);
+
+			ob_start();
+			include NOTIFICATIONX_PUBLIC_PATH . 'partials/nx-public-display.php';
+			$content = ob_get_clean();
+			$echo['content'] = $content;
+			echo json_encode( $echo );
+			wp_die();
+		} else {
+			$ids = explode( ',',  $ids);
+			if( ! empty( $ids ) ) {
+
+				$all_data = [];
+				$this->single_data = [];
+
+				foreach( $ids as $id ) {
+					$settings = $this->settings = NotificationX_MetaBox::get_metabox_settings( $id );
+					$type = $extension_name = $key = '';
+					$type = $extension_name = $key = NotificationX_Helper::get_type( $settings );
+					$data = apply_filters('nx_fields_data', $data, $settings->id );
+					/**
+					 * Set the key
+					 * which is use to get data out of it!
+					 */
+					if( 'conversions' === $type ) {
+						$key = $settings->conversion_from;
+						$extension_name = $key;
+					}
+					
+					$from = strtotime( '-' . intval( $settings->display_from ) . ' days');
+					$key = apply_filters( 'nx_data_key', $key, $settings );
+
+					if( $settings->display_type == 'conversions' && $settings->conversion_from == 'custom_notification' ) {
+						$data[ $key ] = $settings->custom_contents;
+					}
+
+					if( ! empty( $data[ $key ] ) ) {
+						$new_data = apply_filters( 'nx_filtered_data', NotificationX_Helper::sortBy( $data[ $key ], $key ), $settings );
+					}
+
+					array_walk( $new_data, function( $item, $key ) {
+						$this->single_data[ $key ] = $item;
+						$this->single_data[ $key ]['settings'] = $this->settings;
+					});
+					// $this->single_data = $new_data;
+
+					if( empty( $all_data ) ) {
+						$all_data = $this->single_data;
+					} else {
+						$all_data = array_merge( $all_data, $this->single_data );
+					}
+				}
+
+				// sorting
+				$this->limiter = new NotificationX_Array();
+				$limit = intval( NotificationX_DB::get_settings( 'cache_limit' ) );
+				if( $limit <= 0 ) {
+					$limit = 100;
+				}
+				$this->limiter->setLimit( $limit );
+				$this->limiter->sortBy = 'timestamp';
+				$this->limiter->setValues( $all_data );
+				$all_data = $this->limiter->values();
+
+				ob_start();
+				include NOTIFICATIONX_PUBLIC_PATH . 'partials/nx-public-global-display.php';
+				$content = ob_get_clean();
+				$echo['content'] = $content;
+			}
+
+			$echo['config'] = apply_filters('nx_frontend_config', array(
+				'delay_before'  => 0,
+				'display_for'   => 2000,
+				'delay_between' => 3000,
+				'loop'          => 1,
+				'id'            => null,
+			), []);
+
+			echo json_encode( $echo );
+			wp_die();
+		}
 	}
 			
 	public function get_client_ip() {

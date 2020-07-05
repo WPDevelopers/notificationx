@@ -82,6 +82,17 @@ if( ! empty( $active_modules ) ) {
                             ?>
                                 <div id="nx-meta-section-<?php echo $sec_id; ?>" class="nx-meta-section <?php echo 'nx-' . $sec_id; ?>">
                                     <?php 
+                                        if( isset( $section['is_pro'] ) && $section['is_pro'] ) {
+                                            ?>
+                                    <div class="nx-stats-pro-tease">
+                                        <a href="https://wpdeveloper.net/in/notificationx">
+                                            <p>Get PRO to Unlock</p>
+                                        </a>
+                                    </div>
+                                            <?php
+                                        }
+                                    ?>
+                                    <?php 
                                         if( isset( $section['title'] ) ) {
                                             ?>
                                                 <h2 class="nx-meta-section-title">

@@ -218,6 +218,7 @@
     margin-bottom: 20px;
     border: 1px solid #f7f7f7;
     padding-bottom: 20px;
+    position: relative;
 }
 
 #notificationx_metabox_wrapper .nx-metatab-content h2.nx-meta-section-title {

@@ -434,6 +434,7 @@ td .nx-admin-not-found p {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: rgba(255, 255, 255, 0.4);
 }
 .nx-stats-pro-tease>a {
     background-color: #6648fe;

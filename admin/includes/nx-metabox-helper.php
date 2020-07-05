@@ -1033,6 +1033,31 @@ function notificationx_metabox_args(){
                             ),
                         ),
                     ),
+                    'queue_management' => array(
+                        'title' => __( 'Queue Management', 'notificationx' ),
+                        'priority' => 150,
+                        'is_pro' => true,
+                        'fields' => array(
+                            'global_queue_active' => array(
+                                'type'        => 'checkbox',
+                                'label'       => __('Enable Global Queue' , 'notificationx'),
+                                'help'        => __('Activate global queue system for this notification.', 'notificationx'),
+                                'priority'    => 0,
+                                'default'     => 0,
+                                'is_pro' => true,
+                                'dependency' => array(
+                                    0 => array(
+                                        'sections' => array( 'timing' )
+                                    )
+                                ),
+                                'hide' => array(
+                                    1 => array(
+                                        'sections' => array( 'timing' )
+                                    )
+                                )
+                            )
+                        )
+                    ),
                     'timing'        => array(
                         'title'       => __('Timing', 'notificationx'),
                         'priority'    => 200,

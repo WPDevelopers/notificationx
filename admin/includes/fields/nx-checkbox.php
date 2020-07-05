@@ -1,11 +1,20 @@
 <?php
 
     if ( absint( $value ) == 1 ) {
-        $attrs .= ' checked="checked"';
+        if( isset( $field['is_pro'] ) && ! $field['is_pro'] ) {
+            $attrs .= ' checked="checked"';
+        }
+        if( ! isset( $field['is_pro'] ) ) {
+            $attrs .= ' checked="checked"';
+        }
     }
 
     if( isset( $field['disable'] ) && $field['disable'] === true ) {
         $attrs .= ' disabled';
+    }
+
+    if( isset( $field['is_pro'] ) && $field['is_pro'] ) {
+        $attrs .= ' data-swal="true"';
     }
 ?>
 

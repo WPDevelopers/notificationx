@@ -122,6 +122,36 @@ function notificationx_settings_args(){
                         ),
                     ),
                 )),
+                'global_queue_management' => array(
+                    'title' => __( 'Global Queue Management', 'notificationx' ),
+                    'priority' => 20,
+                    'fields' => array(
+                        'delay_before' => array(
+                            'type'        => 'number',
+                            'label'       => __('Delay Before First Notification' , 'notificationx'),
+                            'description' => __('seconds', 'notificationx'),
+                            'help'        => __('Initial Delay', 'notificationx'),
+                            'priority'    => 1,
+                            'default'     => 5,
+                        ),
+                        'display_for' => array(
+                            'type'        => 'number',
+                            'label'       => __('Display For' , 'notificationx'),
+                            'description' => __('seconds', 'notificationx'),
+                            'help'        => __('Display each notification for * seconds', 'notificationx'),
+                            'priority'    => 2,
+                            'default'     => 5,
+                        ),
+                        'delay_between' => array(
+                            'type'        => 'number',
+                            'label'       => __('Delay Between' , 'notificationx'),
+                            'description' => __('seconds', 'notificationx'),
+                            'help'        => __('Delay between each notification', 'notificationx'),
+                            'priority'    => 70,
+                            'default'     => 5,
+                        )
+                    )
+                ),
                 'role_management' => array(
                     'title' => __('Role Management', 'notificationx'),
                     'priority'    => 30,
