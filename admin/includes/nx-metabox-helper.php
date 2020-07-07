@@ -767,6 +767,61 @@ function notificationx_metabox_args(){
                                 'label' => __('Permanent Close', 'notificationx'),
                                 'type'  => 'checkbox',
                             ),
+                            'evergreen_timer' => array(
+                                'label' => __('Evergreen Timer', 'notificationx'),
+                                'type'  => 'checkbox',
+                                'is_pro' => true,
+                                'switch' => true,
+                                'hide' => array(
+                                    0 => [
+                                        'fields' => [ 'time_rotation', 'time_randomize', 'sticky_timing', 'time_reset', 'time_randomize_between' ]
+                                    ],
+                                ),
+                                'dependency' => array(
+                                    1 => [
+                                        'fields' => [ 'time_rotation', 'time_randomize', 'sticky_timing', 'time_reset' ]
+                                    ],
+                                )
+                            ),
+                            'time_rotation' => array(
+                                'label' => __('Time Rotation', 'notificationx'),
+                                'type'  => 'text',
+                                'description' => 'hours'
+                            ),
+                            'time_randomize' => array(
+                                'label' => __('Randomize', 'notificationx'),
+                                'type'  => 'checkbox'
+                            ),
+                            'time_randomize_between' => array(
+                                'label' => __('Time Between', 'notificationx'),
+                                'type'  => 'datepicker',
+                                'multiple' => true,
+                                'fields'   => [
+                                    'start_time' => array(
+                                        'type'     => 'number',
+                                        'only'  => 'timepicker',
+                                        'label'    => __('Start Time' , 'notificationx-pro'),
+                                        'priority' => 0,
+                                        'default' => 6
+                                    ),
+                                    'end_time' => array(
+                                        'type'     => 'number',
+                                        'only'  => 'timepicker',
+                                        'label'    => __('End Time' , 'notificationx-pro'),
+                                        'priority' => 1,
+                                        'default' => 12
+                                    ),
+                                ]
+                            ),
+                            'sticky_timing' => array(
+                                'label' => __('Sticky Timing', 'notificationx'),
+                                'type'  => 'checkbox',
+                                'default' => 1
+                            ),
+                            'time_reset' => array(
+                                'label' => __('Daily Time Reset', 'notificationx'),
+                                'type'  => 'checkbox',
+                            ),
                         )
                     ),
                     'link_options' => array(
@@ -1036,7 +1091,6 @@ function notificationx_metabox_args(){
                     'queue_management' => array(
                         'title' => __( 'Queue Management', 'notificationx' ),
                         'priority' => 150,
-                        'is_pro' => true,
                         'fields' => array(
                             'global_queue_active' => array(
                                 'type'        => 'checkbox',

@@ -19,3 +19,10 @@
 ?>
 
 <input class="<?php echo esc_attr( $class ); ?>" type="checkbox" id="<?php echo $field_id; ?>" name="<?php echo $name; ?>" value="1" <?php echo $attrs; ?>/>
+<?php
+if( isset( $field['switch'] ) && $field['switch'] ) {
+    ?>
+    <label for="<?php echo $field_id; ?>" class="nx-meta-checkbox-label-switch"></label>
+    <?php
+}
+?>

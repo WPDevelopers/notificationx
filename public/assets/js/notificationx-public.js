@@ -113,7 +113,8 @@
 					barHeight = $(bar).outerHeight(),
 					initialDelay = bar.dataset.initial_delay * 1000,
 					position = bar.dataset.position,
-					body_push = bar.dataset.body_push;
+					body_push = bar.dataset.body_push,
+					evergreen = Boolean(bar.dataset.evergreen);
 
 				if (Cookies.get("notificationx_nx-bar-" + id)) {
 					return false;
@@ -165,25 +166,29 @@
 						bar.querySelector(".nx-seconds").innerHTML = seconds;
 						if (difference < 0) {
 							clearInterval(bar_interval);
-							bar.querySelector(".nx-countdown").classList.add(
-								"nx-expired"
-							);
-							var endText = bar.querySelector(
-								".nx-countdown-text"
-							);
-							if (endText != null) {
-								endText.classList.add("nx-expired");
+							if (!evergreen) {
+								bar.querySelector(
+									".nx-countdown"
+								).classList.add("nx-expired");
+								var endText = bar.querySelector(
+									".nx-countdown-text"
+								);
+								if (endText != null) {
+									endText.classList.add("nx-expired");
+								}
 							}
 						}
 					}, 1000);
 				} else {
 					var countdown = bar.querySelector(".nx-countdown");
-					if (countdown != null) {
-						countdown.classList.add("nx-expired");
-					}
-					var endText = bar.querySelector(".nx-countdown-text");
-					if (endText != null) {
-						endText.classList.add("nx-expired");
+					if (!evergreen) {
+						if (countdown != null) {
+							countdown.classList.add("nx-expired");
+						}
+						var endText = bar.querySelector(".nx-countdown-text");
+						if (endText != null) {
+							endText.classList.add("nx-expired");
+						}
 					}
 				}
 
@@ -206,8 +211,6 @@
 		if ("undefined" === typeof notificationx) {
 			return;
 		}
-
-		console.log("notificationx", notificationx);
 
 		window.localStorage.removeItem("nx_notifications");
 

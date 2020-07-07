@@ -413,7 +413,7 @@ class NotificationX_Helper {
                     'fields' => [ 'custom_contents', 'show_custom_image', 'show_notification_image', 'wp_reviews_template', 'has_no_cron' ]
                 ),
                 'press_bar' => array(
-                    'sections' => [ 'image', 'link_options', 'conversion_link_options', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'rs_link_options', 'donation_themes', 'elearning_themes' ],
+                    'sections' => [ 'image', 'link_options', 'conversion_link_options', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'rs_link_options', 'donation_themes', 'elearning_themes', 'queue_management' ],
                     'fields' => [ 'comments_template', 'custom_contents', 'notification_preview', 'image_url', 'conversion_size', 'conversion_position', 'comments_template_new', 'comments_template_adv', 'wp_stats_template_new', 'has_no_cron' ]
                 ),
                 'conversions' => array(

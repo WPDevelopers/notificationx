@@ -696,10 +696,19 @@
 			$("body .nx-control")
 				.find(".nx-countdown-datepicker")
 				.each(function (i, item) {
-					$(item).find("input").flatpickr({
-						enableTime: true,
-						dateFormat: "D, M d, Y h:i K",
-					});
+					var onlyPicker = $(item).find("input").data("only");
+					if (onlyPicker === "timepicker") {
+						$(item).find("input").flatpickr({
+							enableTime: true,
+							noCalendar: true,
+							dateFormat: "h:i K",
+						});
+					} else {
+						$(item).find("input").flatpickr({
+							enableTime: true,
+							dateFormat: "D, M d, Y h:i K",
+						});
+					}
 				});
 		}
 
@@ -933,6 +942,17 @@
 					return;
 				}
 				$.notificationx.checkDependencies(this);
+			}
+		);
+		$("body").delegate(
+			".nx-meta-field, .nx-settings-field",
+			"click",
+			function (e) {
+				if (this.dataset.hasOwnProperty("swal") && this.dataset.swal) {
+					$.notificationx.fieldAlert(this);
+					e.preventDefault();
+					return;
+				}
 			}
 		);
 	};
