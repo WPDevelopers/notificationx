@@ -229,7 +229,7 @@ class NotificationX_Public {
 				// 	$form_id[] = $id;
 				// 	break;
 				default: 
-					if( $active_global_queue ) {
+					if( $active_global_queue && NX_CONSTANTS::is_pro() ) {
 						$global_notifications[] = $id;
 					} else {
 						$active_notifications[] = $id;
@@ -281,11 +281,8 @@ class NotificationX_Public {
 			$data = $this->notifications;
 		}
 
-		$global = isset( $_POST['global'] ) ? boolval( $_POST['global'] ) : false;
+		$global = isset( $_POST['global'] ) ? boolval( $_POST['global'] ) && NX_CONSTANTS::is_pro() : false;
 
-		// dump( $_POST );
-		// die;
-		
 		self::raise_limits();
 
 		if( ! $global ) {

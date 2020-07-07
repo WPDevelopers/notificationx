@@ -220,55 +220,54 @@
 			});
 		}
 		if (notificationx.global_notifications.length > 0) {
-			$.notificationx.process(notificationx.global_notifications, true);
+			$.notificationx.process(notificationx.global_notifications);
 		}
 
-		return;
-		if (notificationx.conversions.length > 0) {
-			notificationx.conversions.map(function (id) {
-				$.notificationx.process(id);
-			});
-		}
+		// if (notificationx.conversions.length > 0) {
+		// 	notificationx.conversions.map(function (id) {
+		// 		$.notificationx.process(id);
+		// 	});
+		// }
 
-		if (notificationx.reviews.length > 0) {
-			if (notificationx.reviews.length > 1) {
-				notificationx.reviews.map(function (id) {
-					$.notificationx.process(id);
-				});
-			} else {
-				$.notificationx.process(notificationx.reviews[0]);
-			}
-		}
+		// if (notificationx.reviews.length > 0) {
+		// 	if (notificationx.reviews.length > 1) {
+		// 		notificationx.reviews.map(function (id) {
+		// 			$.notificationx.process(id);
+		// 		});
+		// 	} else {
+		// 		$.notificationx.process(notificationx.reviews[0]);
+		// 	}
+		// }
 
-		if (notificationx.form.length > 0) {
-			if (notificationx.form.length > 1) {
-				notificationx.form.map(function (id) {
-					$.notificationx.process(id);
-				});
-			} else {
-				$.notificationx.process(notificationx.form[0]);
-			}
-		}
+		// if (notificationx.form.length > 0) {
+		// 	if (notificationx.form.length > 1) {
+		// 		notificationx.form.map(function (id) {
+		// 			$.notificationx.process(id);
+		// 		});
+		// 	} else {
+		// 		$.notificationx.process(notificationx.form[0]);
+		// 	}
+		// }
 
-		if (notificationx.stats.length > 0) {
-			if (notificationx.stats.length > 1) {
-				notificationx.stats.map(function (id) {
-					$.notificationx.process(id);
-				});
-			} else {
-				$.notificationx.process(notificationx.stats[0]);
-			}
-		}
+		// if (notificationx.stats.length > 0) {
+		// 	if (notificationx.stats.length > 1) {
+		// 		notificationx.stats.map(function (id) {
+		// 			$.notificationx.process(id);
+		// 		});
+		// 	} else {
+		// 		$.notificationx.process(notificationx.stats[0]);
+		// 	}
+		// }
 
-		if (notificationx.comments.length > 0) {
-			$.notificationx.process(notificationx.comments[0]);
-		}
+		// if (notificationx.comments.length > 0) {
+		// 	$.notificationx.process(notificationx.comments[0]);
+		// }
 
-		if (notificationx.pro_ext.length > 0) {
-			notificationx.pro_ext.map(function (item, i) {
-				$.notificationx.process(item);
-			});
-		}
+		// if (notificationx.pro_ext.length > 0) {
+		// 	notificationx.pro_ext.map(function (item, i) {
+		// 		$.notificationx.process(item);
+		// 	});
+		// }
 	};
 
 	$.notificationx.events = function () {
