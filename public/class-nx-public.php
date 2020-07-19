@@ -281,8 +281,7 @@ class NotificationX_Public {
 			$data = $this->notifications;
 		}
 
-		$global = isset( $_POST['global'] ) ? boolval( $_POST['global'] ) && NX_CONSTANTS::is_pro() : false;
-
+		$global = ( isset( $_POST['global'] ) && $_POST['global'] === "true" ) ? true && NX_CONSTANTS::is_pro() : false;
 		self::raise_limits();
 
 		if( ! $global ) {
@@ -293,6 +292,7 @@ class NotificationX_Public {
 				'delay_between' => ( ! empty( $settings->delay_between ) ) ? intval( $settings->delay_between ) * 1000 : 0,
 				'loop'          => ( ! empty( $settings->loop ) ) ? $settings->loop : 0,
 				'id'            => $ids,
+				'analytics'     => boolval( NotificationX_DB::get_settings( 'enable_analytics' ) )
 			), $settings);
 
 			ob_start();
@@ -363,12 +363,15 @@ class NotificationX_Public {
 				$echo['content'] = $content;
 			}
 
+			$saved_settings = NotificationX_DB::get_settings();
+
 			$echo['config'] = apply_filters('nx_frontend_config', array(
-				'delay_before'  => 0,
-				'display_for'   => 2000,
-				'delay_between' => 3000,
+				'delay_before'  => isset( $saved_settings['delay_before'] ) ? intval( $saved_settings['delay_before'] ) * 1000 : 0,
+				'display_for'   => isset( $saved_settings['display_for'] ) ? intval( $saved_settings['display_for'] ) * 1000 : 0,
+				'delay_between' => isset( $saved_settings['delay_between'] ) ? intval( $saved_settings['delay_between'] ) * 1000 : 0,
 				'loop'          => 1,
 				'id'            => null,
+				'analytics'     => boolval( NotificationX_DB::get_settings( 'enable_analytics' ) )
 			), []);
 
 			echo json_encode( $echo );

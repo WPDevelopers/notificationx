@@ -50,11 +50,12 @@
 		var data = {};
 		// Bar Analytics nx_frontend_bar_show
 		$("body").on("nx_frontend_bar_show", function (event, bar, bar_id) {
-			var nonce = $(bar).data("nonce");
+			var nonce = $(bar).data("nonce"),
+				analytics = $(bar).data("analytics") == true;
 			data.nonce = nonce;
 			data.id = bar_id;
 			data.nonce_key = "_notificationx_bar_nonce";
-			if (nonce != undefined) {
+			if (nonce != undefined && analytics) {
 				$.notificationx.Ajaxlytics(data);
 				$(bar)
 					.find("a.nx-bar-button")
@@ -69,7 +70,7 @@
 		});
 
 		$("body").on("nx_before_render", function (event, configuration, html) {
-			if (configuration.id) {
+			if (configuration.id && configuration.analytics) {
 				var nonce = $(html).find(".notificationx-analytics").val();
 				data.nonce = nonce;
 				data.id = configuration.id;
@@ -82,7 +83,7 @@
 			configuration,
 			notification
 		) {
-			if (configuration.id) {
+			if (configuration.id && configuration.analytics) {
 				$(notification).on("click", function (e) {
 					var nonce = $(this).find(".notificationx-analytics").val();
 					data.nonce = nonce;
@@ -422,6 +423,7 @@
 			idx = idx.toString();
 			global = true;
 		}
+
 		fetch(notificationx.ajaxurl, {
 			method: "POST",
 			credentials: "same-origin",

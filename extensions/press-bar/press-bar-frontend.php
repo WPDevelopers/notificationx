@@ -5,6 +5,12 @@ if( $settings->link_open ) {
     $attrs .= ' target="_blank"';
 }
 
+if( NotificationX_DB::get_settings( 'enable_analytics' ) != 1 && NotificationX_DB::get_settings( 'enable_analytics' ) !== '' ) {
+    $wrapper_attrs .= ' data-analytics="false"';
+} else {
+    $wrapper_attrs .= ' data-analytics="true"';
+}
+
 if( $settings->initial_delay ) {
     $wrapper_attrs .= ' data-initial_delay="'. $settings->initial_delay .'"';
 }
