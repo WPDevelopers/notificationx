@@ -755,11 +755,14 @@ class NotificationX_Admin {
 		));
 		include_once NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-admin.php';
 	}
-
 	public function get_stats( $idd ){
 		$from_pro = apply_filters('nx_admin_table_stats', '', $idd );
 		if( $from_pro == '' ) {
-			echo '<img data-swal="true" class="nx-stats-tease" width="45" src="'. NOTIFICATIONX_ADMIN_URL .'/assets/img/pro.svg"/>';
+			if( ! NX_CONSTANTS::is_pro() ) {
+				echo '<img data-swal="true" class="nx-stats-tease" width="45" src="'. NOTIFICATIONX_ADMIN_URL .'/assets/img/pro.svg"/>';
+			} else {
+				echo sprintf('<a href="%s">%s</a>', admin_url('admin.php?page=nx-settings#email_analytics_reporting'), __('Disabled', 'notificationx'));
+			}
 		}
 		echo $from_pro;
 	}
