@@ -22,8 +22,11 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
      */
     protected $notifications = [];
 
+    private $forms = [];
+
     public function __construct(){
         parent::__construct( $this->template );
+        $this->forms = $this->cf7_forms();
         add_action( 'wp_ajax_nx_cf7_keys', array( $this, 'keys' ) );
         add_filter( 'nx_data_key', array( $this, 'key' ), 10, 2 );
     }
@@ -119,7 +122,7 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
         $fields['cf7_form'] = array(
             'type' => 'select',
             'label' => __( 'Select a Form', 'notificationx' ),
-            'options' => $this->cf7_forms(),
+            'options' => $this->forms,
             'priority' => 89,
         );
 
