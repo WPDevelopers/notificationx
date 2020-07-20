@@ -353,7 +353,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                     'options'  => array(
                         'tag_rating'      => __('Rating' , 'notificationx'),
                         'tag_time'        => __('Definite Time' , 'notificationx'),
-                        'tag_sometime'        => __('Sometimes ago' , 'notificationx'),
+                        'tag_sometime'        => __('Some time ago' , 'notificationx'),
                     ),
                     'default' => 'tag_rating',
                     'dependency' => array(
@@ -373,7 +373,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                 'custom_fourth_param' => array(
                     'type'     => 'text',
                     'priority' => 6,
-                    'default' => __( 'Sometimes ago', 'notificationx' )
+                    'default' => __( 'Some time ago', 'notificationx' )
                 ),
             ),
             'label'    => __('Notification Template' , 'notificationx'),

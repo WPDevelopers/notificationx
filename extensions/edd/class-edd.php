@@ -89,7 +89,7 @@ class NotificationX_EDD_Extension extends NotificationX_Extension {
         $data['first_name'] = $this->notEmpty( 'first_name', $saved_data ) ? $saved_data['first_name'] : __( 'Someone', 'notificationx' );
         $data['last_name'] = $this->notEmpty( 'last_name', $saved_data ) ? $saved_data['last_name'] : __( 'Someone', 'notificationx' );
         $data['anonymous_title'] = __( 'Anonymous Product', 'notificationx' );
-        $data['sometime'] = __( 'Sometimes ago', 'notificationx' );
+        $data['sometime'] = __( 'Some time ago', 'notificationx' );
 
         return $data;
     }

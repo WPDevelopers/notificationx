@@ -48,7 +48,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         $data['last_name'] = __( $this->notEmpty( 'last_name', $saved_data ) ? $saved_data['last_name'] : 'Someone', 'notificationx' );
         $data['display_name'] = __( $this->notEmpty( 'display_name', $saved_data ) ? $saved_data['display_name'] : 'Someone', 'notificationx' );
         $data['anonymous_post'] = __( 'Anonymous Post', 'notificationx' );
-        $data['sometime'] = __( 'Sometimes ago', 'notificationx' );
+        $data['sometime'] = __( 'Some time ago', 'notificationx' );
         $data['post_comment'] = $comment;
         return $data;
     }
@@ -166,7 +166,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
                     'priority' => 5,
                     'options'  => array(
                         'tag_time'       => __('Definite Time' , 'notificationx'),
-                        'tag_sometime' => __('Sometimes ago' , 'notificationx'),
+                        'tag_sometime' => __('Some time ago' , 'notificationx'),
                     ),
                     'default' => 'tag_time',
                     'dependency' => array(
@@ -183,7 +183,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
                 'custom_fourth_param' => array(
                     'type'     => 'text',
                     'priority' => 6,
-                    'default' => __( 'Sometimes ago', 'notificationx' )
+                    'default' => __( 'Some time ago', 'notificationx' )
                 ),
             ),
             'label'    => __('Notification Template' , 'notificationx'),
