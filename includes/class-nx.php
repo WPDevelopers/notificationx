@@ -52,7 +52,7 @@ final class NotificationX {
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->start_plugin_tracking();
-		add_action( 'plugins_loaded', array( $this, 'load_extensions' ) );
+		add_action( 'init', array( $this, 'load_extensions' ) );
 		add_action( 'plugins_loaded', array( $this, 'define_admin_hooks' ) );
 		add_action( 'plugins_loaded', array( $this, 'define_public_hooks' ) );
 		add_action( 'init', array( $this, 'migration' ) );
