@@ -91,7 +91,7 @@ class NotificationX_Admin {
 		});
 		add_action('notificationx_admin_header', array( $this, 'header_template' ));
 		add_action('notificationx_admin_new_header', array( $this, 'header_template' ));
-		// add_action( 'add_meta_boxes',array( $this, 'add_metabox' ) );
+		add_action( 'add_meta_boxes',array( $this, 'add_metabox' ) );
 	}
 	public function add_metabox(){
 		add_meta_box( 'nx-instructions', __( 'NotificationX Instructions', 'notificationx' ), array( $this, 'metabox_content' ), 'notificationx', 'side' );
@@ -101,10 +101,137 @@ class NotificationX_Admin {
         ?>
         <div class="nx-type-instructions-wrapper">
 			<div class="conversions nxins-type">
-				<p>Hello Conversions</p>
+				<div class="woocommerce nxins-type-source">
+					<p>Make sure that you have <a target="_blank" href="https://wordpress.org/plugins/woocommerce/">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/woocommerce-sales-notifications/">documentation</a>.</p>
+					<p>🎦 <a href="https://www.youtube.com/watch?v=dVthd36hJ-E&t=1s" target="_blank">Watch video tutorial</a> to learn quickly</p>
+					<p>⭐ NotificationX Integration with WooCommerce</p>
+					<p><strong>Recommended Blog:</strong></p>
+					<p>🔥 Why NotificationX is The <a target="_blank" href="https://notificationx.com/integrations/woocommerce/">Best FOMO and Social Proof Plugin</a> for WooCommerce?</p>
+					<p>🚀 How to <a target="_blank" href="https://notificationx.com/blog/best-fomo-and-social-proof-plugin-for-woocommerce/">boost WooCommerce Sales</a> Using NotificationX</p>
+				</div>
+				<div class="edd nxins-type-source">
+					<p>Make sure that you have <a href="https://wordpress.org/plugins/easy-digital-downloads/" target="_blank">Easy Digital Downloads installed & activated</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/notificationx-easy-digital-downloads/">documentation</a>.</p> 
+					<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/easy-digital-downloads/">Integration with Easy Digital Downloads</a></p>
+					<p><strong>Recommended Blog:</strong></p>
+					<p>🔥 How Does <a target="_blank" href="https://wpdeveloper.net/notificationx-increase-sales-wordpress/">NotificationX Increase Sales on WordPress</a> Websites?</p>
+				</div>
+				<div class="nxins-type-source envato">
+					<p>Make sure that you have <a target="_blank" href="https://account.envato.com/sign_in?to=envato-api">created & signed in to Envato account</a> to use its campaign & product sales data.  For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/envato-sales-notification/">documentation</a>.</p>
+					<p>🎦 <a target="_blank" href="https://youtu.be/-df_6KHgr7I">Watch video tutorial</a> to learn quickly</p>
+					<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/envato/">Integration with Envato</a></p>
+				</div>
+				<div class="nxins-type-source custom_notification">
+					<p>You can make custom notification for its all types of campaign. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/custom-notification/">documentation</a>.</p>
+					<p>🎦 Watch <a target="_blank" href="https://www.youtube.com/watch?v=OuTmDZ0_TEw">video tutorial</a> to learn quickly</p>
+					<p><strong>Recommended Blog:</strong></p>
+					<p>🔥 How to <a target="_blank" href="https://wpdeveloper.net/custom-notificationx-alert-fomo/">Display Custom Notification Alerts</a> On Your Website Using NotificationX</p>
+				</div>
 			</div>
-			<div class="comments nxins-type">
-				<p>Hello Comments</p>
+			<div class="elearning nxins-type">
+				<div class="nxins-type-source tutor">
+					<p>Make sure that you have <a href="https://wordpress.org/plugins/tutor/" target="_blank">Tutor LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/tutor-lms/">documentation</a>.</p>
+					<p>🎦 Watch <a target="_blank" href="https://www.youtube.com/watch?v=EMrjLfL563Q">video tutorial</a> to learn quickly</p>
+					<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/tutor-lms/">Integration with Tutor LMS</a></p>
+				</div>
+				<div class="nxins-type-source learndash">
+					<p>Make sure that you have <a target="_blank" href="https://www.learndash.com/">LearnDash installed & configured</a> to use its campaign & course selling data.  For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/how-to-display-learndash-course-enrollment-alert-using-notificationx">documentation</a>.</p>
+					<p>🎦 <a target="_blank" href="https://www.youtube.com/watch?v=sTbBt2DVsIA">Watch video tutorial</a> to learn quickly</p>
+					<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/learndash/">Integration with LearnDash</a> </p>
+					<p><strong>Recommended Blog:</strong></p>
+					<p>🔥 How to Increase Your <a target="_blank" href="https://wpdeveloper.net/learndash-course-enrollment-rate-notificationx/">LearnDash Course Enrollment Rates</a> With NotificationX</p>
+				</div>
+			</div>
+			<div class="donation nxins-type">
+				<div class="nxins-type-source give">
+					<p>Make sure that you have <a target="_blank" href="https://wordpress.org/plugins/give/">GiveWP installed & configured</a> to use its campaign & donars data. For further assistance, check out our step by step <a href="https://notificationx.com/docs/givewp-donation-alert/">documentation</a>.</p>
+					<p>🎦 <a target="_blank" href="https://www.youtube.com/watch?v=8EFgHSA8mOg">Watch video tutorial</a> to learn quickly</p>
+					<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/givewp/">Integration with GiveWP</a></p>
+					<p><strong>Recommended Blog:</strong></p>
+					<p>🔥 How Does <a target="_blank" href="https://wpdeveloper.net/notificationx-increase-sales-wordpress/">NotificationX Increase Sales on WordPress</a> Websites?"</p>
+				</div>
+			</div>
+			<div class="nxins-type form">
+				<div class="nxins-type-source cf7">
+					<p>Make sure that you have <a target="_blank" href="https://wordpress.org/plugins/contact-form-7/">Contact Form 7 installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/contact-form-submission-alert/">documentation</a>.</p>
+					<p>🎦 <a target="_blank" href="https://youtu.be/SP9NXMioIK8">Watch video tutorial</a> to learn quickly</p>
+					<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/contact-form-7/">Integration with Contact Form 7</a></p>
+					<p><strong>Recommended Blog:</strong></p>
+					<p>🔥 Hacks to Increase Your <a target="_blank" href="https://notificationx.com/blog/wordpress-contact-forms/">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>
+				</div>
+				<div class="nxins-type-source njf">
+					<p>Make sure that you have <a target="_blank" href="https://wordpress.org/plugins/ninja-forms/">Ninja Forms installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/ninja-forms/">documentation</a>.</p>
+					<p>🎦 <a target="_blank" href="https://www.youtube.com/watch?v=Ibv84iGcBHE">Watch video tutorial</a> to learn quickly</p>
+					<p>⭐ Check how it looks in <a target="_blank" href="https://demo.notificationx.com/woocommerce/">LIVE Demo</a></p>
+					<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/ninja-forms/">Integration with Ninja Forms</a></p>
+					<p><strong>Recommended Blog:</strong></p>
+					<p>🔥 Hacks to Increase Your <a target="_blank" href="https://notificationx.com/blog/wordpress-contact-forms/">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>
+				</div>
+				<div class="nxins-type-source wpf">
+					<p>Make sure that you have <a target="_blank" href="https://wordpress.org/plugins/wpforms-lite/">WPForms installed & configured</a>  to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/wpforms/">documentation</a>.</p>
+					<p>🎦 <a target="_blank" href="https://www.youtube.com/watch?v=8tk7_ZawJN8">Watch video tutorial</a> to learn quickly</p>
+					<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/wpforms/">Integration with WPForms</a></p>
+					<p><strong>Recommended Blogs:</strong></p>
+					<p>🔥Hacks to Increase Your <a target="_blank" href="https://notificationx.com/blog/wordpress-contact-forms/">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>
+				</div>
+				<div class="nxins-type-source grvf">
+					<p>Make sure that you have <a target="_blank" href="https://www.gravityforms.com/">Gravity Forms installed & configured</a>, to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/gravity-forms/">documentation</a>.</p>
+					<p>🎦 <a target="_blank" href="https://www.youtube.com/watch?v=1Gl3XRd1TxY">Watch video tutorial</a> to learn quickly</p>
+					<p>👉NotificationX <a target="_blank" href="https://notificationx.com/integrations/gravity-forms/">Integration with Ninja Forms</a></p>
+					<p><strong>Recommended Blog:</strong></p>
+					<p>🔥Hacks to Increase Your <a target="_blank" href="https://notificationx.com/blog/wordpress-contact-forms/">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>
+				</div>
+			</div>
+			<div class="nxins-type press_bar">
+				<p>You can showcase the notification bar to do instant popup campaign on WordPress site. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/notification-bar/">documentation</a>.</p>
+				<p>🎦 Watch <a target="_blank" href="https://www.youtube.com/watch?v=l7s9FXgzbEM">video tutorial</a> to learn quickly</p>
+				<p><strong>Recommended Blog:</strong></p>
+				<p>🔥 Introducing NotificationX: <a target="_blank" href="https://wpdeveloper.net/notificationx-social-proof-fomo/">Social Proof & FOMO Marketing Solution</a> for WordPress</p>
+			</div>
+			<div class="nxins-type reviews download_stats comments">
+				<div class="nxins-type-source wp_reviews wp_stats wp_comments">
+					<p>Make sure that you have a <a target="_blank" href="https://wordpress.org/">wordpress.org</a> account to use its campaign on blog comments, reviews and download stats data. For further assistance, check out our step by step documentation on <a target="_blank" href="https://notificationx.com/docs/wordpress-comment-popup-alert/">comments popup</a>, <a target="_blank" href="https://notificationx.com/docs/wordpress-plugin-review-notificationx/">plugin reviews</a> & <a target="_blank" href="https://notificationx.com/docs/wordpress-plugin-download-stats/">downloads stats</a>.</p>
+					<p>🎦 Watch video tutorial on <a target="_blank" href="https://www.youtube.com/watch?v=wZKAUKH9XQY">blog comments</a>, <a target="_blank" href="https://www.youtube.com/watch?v=wZKAUKH9XQY">reviews</a> & <a target="_blank" href="https://www.youtube.com/watch?v=wZKAUKH9XQY">downloads stats</a> to learn quickly</p>
+					<p><strong>Recommended Blogs:</strong></p>
+					<p>🔥 Proven Hacks To <a target="_blank" href="https://notificationx.com/blog/hacks-to-get-more-comments-wordpress/">Get More Comments on Your WordPress Blog</a> Posts</p>
+					<p>🚀 How To Increase <a target="_blank" href="https://wpdeveloper.net/wordpress-plugin-download/">WordPress Plugin Download Rates & Increase Sales</a> in 2020</p>
+				</div>
+			</div>
+			<div class="nxins-type reviews download_stats conversions">
+				<div class="nxins-type-source freemius">
+					<p>Make sure that you have <a target="_blank" href="https://dashboard.freemius.com/login/">created & signed in to Freemius account</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/freemius-sales-notification/">documentation</a>.</p>
+					<p>🎦 <a target="_blank" href="https://youtu.be/0uANsOSFmtw">Watch video tutorial</a> to learn quickly</p>
+					<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/freemius/">Integration with Freemius</a></p>
+				</div>
+			</div>
+			<div class="nxins-type custom">
+				<p>You can make custom notification for its all types of campaign. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/custom-notification/">documentation</a>.</p>
+				<p>🎦 Watch <a target="_blank" href="https://www.youtube.com/watch?v=OuTmDZ0_TEw">video tutorial</a> to learn quickly</p>
+				<p><strong>Recommended Blog:</strong></p>
+				<p>🔥 How to <a target="_blank" href="https://wpdeveloper.net/custom-notificationx-alert-fomo/">Display Custom Notification Alerts</a> On Your Website Using NotificationX</p>
+			</div>
+			<div class="nxins-type page_analytics">
+				<div class="nxins-type-source google">
+					<p>Make sure that you have <a target="_blank" href="https://analytics.google.com/analytics/web/">signed in to Google Analytics site</a>, to use its campaign & page analytics data. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/google-analytics/">documentation</a>.</p>
+					<p>🎦 <a target="_blank" href="https://www.youtube.com/watch?v=zZPF5nJD4mo">Watch video tutorial</a> to learn quickly</p>
+					<p>👉NotificationX <a target="_blank" href="https://notificationx.com/docs/google-analytics/">Integration with Google Analytics</a></p>
+				</div>
+			</div>
+			<div class="nxins-type email_subscription">
+				<div class="nxins-type-source mailchimp">
+					<p>Make sure that you have <a target="_blank" href="https://mailchimp.com/help/about-api-keys/">signed in & retrieved API key from MailChimp account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/mailchimp-email-subscription-alert/">documentation</a>.</p>
+					<p>🎦 <a target="_blank" href="https://youtu.be/WvX8feM5DBw">Watch video tutorial</a> to learn quickly</p>
+					<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/mailchimp/">Integration with MailChimp</a></p>
+					<p><strong>Recommended Blogs:</strong></p>
+					<p>🔥 How To Improve Your <a target="_blank" href="https://wpdeveloper.net/email-marketing-social-proof/">Email Marketing Strategy</a> With Social Proof</p>
+					<p>🚀 Hacks To Grow Your <a target="_blank" href="https://wpdeveloper.net/email-subscription-list-wordpress/">Email Subscription List</a> On WordPress Website</p>
+				</div>
+				<div class="nxins-type-source convertkit">
+					<p>Make sure that you have <a target="_blank" href="https://app.convertkit.com/users/login">signed in & retrieved your API key from ConvertKit account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/convertkit-alert/">documentation</a>.</p>
+					<p>🎦 <a target="_blank" href="https://youtu.be/lk_KMSBkEbY">Watch video tutorial</a> to learn quickly</p>
+					<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/convertkit/">Integration with ConvertKit</a></p>
+					<p><strong>Recommended Blog:</strong></p>
+					<p>🔥 Connect <a target="_blank" href="https://wpdeveloper.net/convertkit-social-proof/">NotificationX With ConvertKit</a>: Grow Your Audience By Leveraging Social Proof</p>
+				</div>
 			</div>
 		</div>
 		<?php

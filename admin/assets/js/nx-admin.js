@@ -50,14 +50,7 @@
 
 		$("body").on("change", ".nx_meta_display_type", function () {
 			var type = $(this).val();
-			// Array.from(
-			// 	document.querySelectorAll("#nx-instructions .nxins-type")
-			// ).forEach(function (item) {
-			// 	item.style.display = "none";
-			// 	if (item.classList.contains(type)) {
-			// 		item.style.display = "block";
-			// 	}
-			// });
+			$.notificationx.get_instructions_enabled(type, false);
 			switch (type) {
 				case "conversions":
 					$(".nx-themes .nx_meta_theme:checked").trigger("change");
@@ -129,6 +122,7 @@
 
 		$("body").on("change", ".nx_meta_conversion_from", function (e) {
 			var conv_source = $(this).val();
+			$.notificationx.get_instructions_enabled(false, conv_source);
 			$(".nx-themes .nx_meta_theme:checked").trigger("change");
 			$("#nx_meta_combine_multiorder:checked").trigger("change");
 			switch (conv_source) {
@@ -146,6 +140,7 @@
 
 		$("body").on("change", ".nx_meta_elearning_source", function () {
 			var conv_source = $(this).val();
+			$.notificationx.get_instructions_enabled(false, conv_source);
 			switch (conv_source) {
 				case "learndash":
 					$("#nx_meta_ld_product_control").trigger("change");
@@ -158,6 +153,7 @@
 
 		$("body").on("change", ".nx_meta_donation_source", function () {
 			var conv_source = $(this).val();
+			$.notificationx.get_instructions_enabled(false, conv_source);
 			switch (conv_source) {
 				case "give":
 					$("#nx_meta_give_forms_control").trigger("change");
@@ -165,8 +161,14 @@
 			}
 		});
 
+		$("body").on("change", ".nx_meta_form_source", function () {
+			var conv_source = $(this).val();
+			$.notificationx.get_instructions_enabled(false, conv_source);
+		});
+
 		$("body").on("change", ".nx_meta_comments_source", function () {
 			var comment_source = $(this).val();
+			$.notificationx.get_instructions_enabled(false, comment_source);
 			$(".nx-comment_themes .nx_meta_comment_theme:checked").trigger(
 				"change"
 			);
@@ -174,6 +176,7 @@
 
 		$("body").on("change", ".nx_meta_reviews_source", function () {
 			var source = $(this).val();
+			$.notificationx.get_instructions_enabled(false, source);
 			$(".nx-wporg_themes .nx_meta_wporg_theme:checked").trigger(
 				"change"
 			);
@@ -199,6 +202,7 @@
 
 		$("body").on("change", ".nx_meta_stats_source", function () {
 			var source = $(this).val();
+			$.notificationx.get_instructions_enabled(false, source);
 			$(".nx-wpstats_themes .nx_meta_wpstats_theme:checked").trigger(
 				"change"
 			);
@@ -239,6 +243,48 @@
 
 		$(".nx_meta_display_type:checked").trigger("change");
 	});
+
+	$.notificationx.get_instructions_enabled = function (type, forSource) {
+		var hasInstructions = false;
+		if (!forSource && type != false) {
+			Array.from(
+				document.querySelectorAll("#nx-instructions .nxins-type")
+			).forEach(function (item) {
+				item.style.display = "none";
+				if (item.classList.contains(type)) {
+					item.style.display = "block";
+					hasInstructions = true;
+				}
+			});
+			// Array.from(
+			// 	document.querySelectorAll(
+			// 		"#nx-instructions .nxins-type .nxins-type-source"
+			// 	)
+			// ).forEach(function (item) {
+			// 	item.style.display = "none";
+			// });
+		} else {
+			if (hasInstructions) {
+				hasInstructions = false;
+			}
+			Array.from(
+				document.querySelectorAll(
+					"#nx-instructions .nxins-type .nxins-type-source"
+				)
+			).forEach(function (item) {
+				item.style.display = "none";
+				if (item.classList.contains(forSource)) {
+					item.style.display = "block";
+					hasInstructions = true;
+				}
+			});
+		}
+		if (!hasInstructions) {
+			$("#nx-instructions").hide();
+		} else {
+			$("#nx-instructions").show();
+		}
+	};
 
 	$.notificationx.init = function () {
 		$.notificationx.enabledDisabled();
@@ -1198,8 +1244,6 @@
 								var subInputName = inputName + "[id]";
 							}
 
-							console.log("subInputName", subInputName);
-
 							subInput = $(subInput);
 							subInput.attr("id", subInputName);
 							subInput.attr("name", subInputName);
@@ -1229,9 +1273,6 @@
 			},
 			multiple: false, // Set to true to allow multiple files to be selected
 		});
-
-		console.log("button", button);
-		console.dir("wrapper", wrapper);
 
 		// When an image is selected in the media frame...
 		frame.on("select", function () {

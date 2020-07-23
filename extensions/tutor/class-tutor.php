@@ -365,6 +365,7 @@ class NotificationX_Tutor_Extension extends NotificationX_Extension {
         // FIXME: $fields is removed for Template issue, but it should work if exists.
         $options['dependency'][ $this->type ]['fields'] = array_merge($fields, $options['dependency'][ $this->type ]['fields'] );
         $options['dependency'][ $this->type ]['sections'] = array_merge( [ 'image' ], $options['dependency'][ $this->type ]['sections']);
+        $options['hide'][ $this->type ][ 'fields' ] = [ 'woo_template', 'has_no_edd', 'has_no_ld', 'has_no_woo', 'product_control', 'product_exclude_by', 'product_list', 'category_list', 'exclude_categories', 'exclude_products', 'edd_product_control', 'edd_product_exclude_by', 'edd_product_list', 'edd_category_list', 'edd_exclude_categories', 'edd_exclude_products', 'custom_contents', 'show_custom_image' ];
         return $options;
     }
     /**
