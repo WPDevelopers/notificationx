@@ -195,6 +195,12 @@ class NotificationX_Admin {
 					<p>🔥 Proven Hacks To <a target="_blank" href="https://notificationx.com/blog/hacks-to-get-more-comments-wordpress/">Get More Comments on Your WordPress Blog</a> Posts</p>
 					<p>🚀 How To Increase <a target="_blank" href="https://wpdeveloper.net/wordpress-plugin-download/">WordPress Plugin Download Rates & Increase Sales</a> in 2020</p>
 				</div>
+				<div class="nxins-type-source woo_reviews">
+					<p>Make sure that you have <a target="_blank" href="https://wordpress.org/plugins/woocommerce/">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/woocommerce-product-reviews/">documentation</a>.</p>
+					<p>🎦 Watch <a target="_blank" href="https://www.youtube.com/watch?v=bHuaOs9JWvI">video tutorial</a> to learn quickly</p>
+					<p><strong>Recommended Blog:</strong></p>
+					<p>🚀 How to <a target="_blank" href="https://wpdeveloper.net/ecommerce-sales-social-proof/">boost WooCommerce Sales</a> Using NotificationX</p>
+				</div>
 			</div>
 			<div class="nxins-type reviews download_stats conversions">
 				<div class="nxins-type-source freemius">
