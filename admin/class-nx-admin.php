@@ -283,7 +283,7 @@ class NotificationX_Admin {
 		);
 		self::$active_items = [];
 		// Get the notification posts.
-		$posts = get_posts( $args );
+		$posts = query_posts( $args );
 		if ( count( $posts ) ) {
 			foreach ( $posts as $post ) {
 				$settings = NotificationX_MetaBox::get_metabox_settings( $post->ID );

@@ -91,7 +91,7 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
 			'order' => 'ASC',
 			'posts_per_page' => -1,
         );
-        $the_query = get_posts( $args );
+        $the_query = query_posts( $args );
         $forms = [];
         if( ! empty( $the_query ) ) {
             foreach ($the_query as $form) {
