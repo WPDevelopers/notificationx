@@ -483,13 +483,14 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         $new_order = [];
         if( is_int( $order_id ) ) {
             $order = new WC_Order( $order_id );
-            $status = $order->get_status();
-            $done = [ 'completed', 'processing', 'pending' ];
-            if( ! in_array( $status, $done ) ){
-                return false;
-            }
         } else {
             $order = $order_id;
+        }
+
+        $status = $order->get_status();
+        $done = [ 'completed', 'processing' ];
+        if( ! in_array( $status, $done ) ){
+            return false;
         }
 
         $date = $order->get_date_created();

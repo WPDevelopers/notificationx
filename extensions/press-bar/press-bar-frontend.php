@@ -43,8 +43,9 @@ if( $settings->evergreen_timer == '1' ) {
     $wrapper_attrs .= ' data-time_reset="'. $settings->time_reset .'"';
 
     if( is_array( $settings->time_randomize_between ) ) {
-        $wrapper_attrs .= ' data-random_time_start="'. $settings->time_randomize_between['start_time'] .'"';
-        $wrapper_attrs .= ' data-random_time_end="'. $settings->time_randomize_between['end_time'] .'"';
+        $random_number = rand($settings->time_randomize_between['start_time'], $settings->time_randomize_between['end_time']);
+        $random_number = $random_number * 60 * 60 * 1000;
+        $wrapper_attrs .= ' data-duration_timestamp="'. $random_number .'"';
     }
 }
 
@@ -110,7 +111,7 @@ if( $settings->sticky_bar ) {
         <div class="nx-bar-content-wrap">
             <?php if( boolval($settings->enable_countdown) || boolval( $settings->evergreen_timer ) ) : ?>
                 <div class="nx-countdown-wrapper">
-                    <?php if( $settings->countdown_text ) : ?>
+                    <?php if( $settings->countdown_text && ! boolval( $settings->evergreen_timer ) ) : ?>
                         <div class="nx-countdown-text"><?php echo esc_html_e( $settings->countdown_text, 'notificationx' ); ?></div>
                     <?php endif; ?>             
                     <div class="nx-countdown" data-countdown="<?php echo esc_attr( json_encode( $countdown ) ); ?>">

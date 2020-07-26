@@ -8,6 +8,7 @@
 	$.notificationx = $.notificationx || {};
 
 	$.notificationx.active_pressbar = 0;
+	$.notificationx.countdownInterval = null;
 
 	$(document).ready(function () {
 		$.notificationx.init();
@@ -15,6 +16,7 @@
 
 	$.notificationx.init = function () {
 		$.notificationx.windowWidth = $(window).outerWidth();
+		// $.notificationx.countdownWrapper();
 		$.notificationx.pressbar();
 		$.notificationx.conversions();
 		$.notificationx.analytics();
@@ -97,6 +99,62 @@
 		});
 	};
 
+	$.notificationx.countdown = function (args) {
+		if (!args.end_date) {
+			return;
+		}
+		var firstSeen = new Date(1595737503 * 1000);
+		var currentTime = new Date();
+		var expiredTime = args.end_date.getTime();
+		var time = 0;
+		time = parseInt((expiredTime - currentTime) / 1000);
+		if (time <= 0) {
+			if ($.notificationx.countdownInterval) {
+				clearInterval($.notificationx.countdownInterval);
+			}
+			time = 0;
+			if (!args.evergreen) {
+				args.bar
+					.querySelector(".nx-countdown")
+					.classList.add("nx-expired");
+				var endText = args.bar.querySelector(".nx-countdown-text");
+				if (endText != null) {
+					endText.classList.add("nx-expired");
+				}
+			} else {
+				args.bar.querySelector(".nx-countdown").style.display = "none";
+			}
+		}
+
+		var days,
+			hours,
+			minutes,
+			seconds = 0;
+
+		seconds = time % 60;
+		time = (time - seconds) / 60;
+		minutes = time % 60;
+		time = (time - minutes) / 60;
+		hours = time % 24;
+		days = (time - hours) / 24;
+
+		days = (days < 10 ? "0" : "") + days;
+		hours = (hours < 10 ? "0" : "") + hours;
+		minutes = (minutes < 10 ? "0" : "") + minutes;
+		seconds = (seconds < 10 ? "0" : "") + seconds;
+
+		args.days.innerHTML = days;
+		args.hours.innerHTML = hours;
+		args.minutes.innerHTML = minutes;
+		args.seconds.innerHTML = seconds;
+	};
+	$.notificationx.countdownWrapper = function (args) {
+		$.notificationx.countdownInterval = setInterval(function () {
+			$.notificationx.countdown(args);
+		}, 1000);
+		$.notificationx.countdown(args);
+	};
+
 	$.notificationx.pressbar = function () {
 		var bars = $(".nx-bar");
 		if (bars.length > 0) {
@@ -105,12 +163,12 @@
 					duration = bar.dataset.hide_after,
 					auto_hide = bar.dataset.auto_hide,
 					close_forever = bar.dataset.close_forever,
-					start_date = new Date(bar.dataset.start_date),
-					end_date = new Date(bar.dataset.end_date),
-					start_timestamp = start_date.getTime(),
-					end_timestamp = end_date.getTime(),
-					current_date = new Date(),
-					current_timestamp = current_date.getTime(),
+					start_date = bar.dataset.start_date
+						? new Date(bar.dataset.start_date)
+						: false,
+					end_date = bar.dataset.end_date
+						? new Date(bar.dataset.end_date)
+						: false,
 					barHeight = $(bar).outerHeight(),
 					initialDelay = bar.dataset.initial_delay * 1000,
 					position = bar.dataset.position,
@@ -140,60 +198,19 @@
 					}
 				}
 
-				if (
-					current_timestamp > start_timestamp &&
-					current_timestamp < end_timestamp
-				) {
-					var bar_interval = setInterval(function () {
-						var current_timestamp = Date.now(),
-							difference = end_timestamp - current_timestamp,
-							days = Math.floor(
-								difference / (1000 * 60 * 60 * 24)
-							),
-							hours = Math.floor(
-								(difference % (1000 * 60 * 60 * 24)) /
-									(1000 * 60 * 60)
-							),
-							minutes = Math.floor(
-								(difference % (1000 * 60 * 60)) / (1000 * 60)
-							),
-							seconds = Math.floor(
-								(difference % (1000 * 60)) / 1000
-							);
-
-						bar.querySelector(".nx-days").innerHTML = days;
-						bar.querySelector(".nx-hours").innerHTML = hours;
-						bar.querySelector(".nx-minutes").innerHTML = minutes;
-						bar.querySelector(".nx-seconds").innerHTML = seconds;
-						if (difference < 0) {
-							clearInterval(bar_interval);
-							if (!evergreen) {
-								bar.querySelector(
-									".nx-countdown"
-								).classList.add("nx-expired");
-								var endText = bar.querySelector(
-									".nx-countdown-text"
-								);
-								if (endText != null) {
-									endText.classList.add("nx-expired");
-								}
-							}
-						}
-					}, 1000);
-				} else {
-					var countdown = bar.querySelector(".nx-countdown");
-					if (!evergreen) {
-						if (countdown != null) {
-							countdown.classList.add("nx-expired");
-						}
-						var endText = bar.querySelector(".nx-countdown-text");
-						if (endText != null) {
-							endText.classList.add("nx-expired");
-						}
-					}
-				}
+				var cdWargs = {
+					bar: bar,
+					end_date: end_date,
+					evergreen: evergreen,
+					start_date: start_date,
+					days: bar.querySelector(".nx-days"),
+					hours: bar.querySelector(".nx-hours"),
+					minutes: bar.querySelector(".nx-minutes"),
+					seconds: bar.querySelector(".nx-seconds"),
+				};
 
 				$.notificationx.showBar(bar, id);
+				$.notificationx.countdownWrapper(cdWargs);
 
 				if (
 					("" !== duration || undefined !== duration) &&
