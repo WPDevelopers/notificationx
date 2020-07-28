@@ -35,6 +35,8 @@
 			$(".nx-time_rotation").hide();
 
 			if (!$("#nx_meta_enable_countdown").is(":checked")) {
+				$(".nx-time_randomize").hide();
+				$(".nx-time_reset").hide();
 				return;
 			}
 
@@ -63,6 +65,8 @@
 				!$("#nx_meta_enable_countdown").is(":checked") ||
 				!$("#nx_meta_evergreen_timer").is(":checked")
 			) {
+				$(".nx-time_randomize").hide();
+				$(".nx-time_reset").hide();
 				return;
 			}
 
