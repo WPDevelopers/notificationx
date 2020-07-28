@@ -31,22 +31,23 @@ if( $settings->enable_countdown == '1' ) {
     if( $settings->countdown_end_date ) {
         $wrapper_attrs .= ' data-end_date="'. $settings->countdown_end_date .'"';
     }
-}
 
-if( $settings->evergreen_timer == '1' ) {
-    $wrapper_attrs .= ' data-evergreen="true"';
-    $c_timestamps = current_time('timestamp');
-    $wrapper_attrs .= ' data-start_date="'. date('D, M d, Y h:i A', $c_timestamps ) .'"';
-    $wrapper_attrs .= ' data-eg_expire_in="'. ( $settings->time_rotation * 60 * 60 * 1000 ) .'"';
-    $wrapper_attrs .= ' data-time_randomize="'. $settings->time_randomize .'"';
-    $wrapper_attrs .= ' data-time_reset="'. $settings->time_reset .'"';
-
-    if( is_array( $settings->time_randomize_between ) ) {
-        $random_number = rand($settings->time_randomize_between['start_time'], $settings->time_randomize_between['end_time']);
-        $random_number = $random_number * 60 * 60 * 1000;
-        $wrapper_attrs .= ' data-duration_timestamp="'. $random_number .'"';
+    if( $settings->evergreen_timer == '1' && NX_CONSTANTS::is_pro() ) {
+        $wrapper_attrs .= ' data-evergreen="true"';
+        $c_timestamps = current_time('timestamp');
+        $wrapper_attrs .= ' data-start_date="'. date('D, M d, Y h:i A', $c_timestamps ) .'"';
+        $wrapper_attrs .= ' data-eg_expire_in="'. ( $settings->time_rotation * 60 * 60 * 1000 ) .'"';
+        $wrapper_attrs .= ' data-time_randomize="'. $settings->time_randomize .'"';
+        $wrapper_attrs .= ' data-time_reset="'. $settings->time_reset .'"';
+    
+        if( is_array( $settings->time_randomize_between ) ) {
+            $random_number = rand($settings->time_randomize_between['start_time'], $settings->time_randomize_between['end_time']);
+            $random_number = $random_number * 60 * 60 * 1000;
+            $wrapper_attrs .= ' data-duration_timestamp="'. $random_number .'"';
+        }
     }
 }
+
 
 // $wrapper_attrs .= ' data-body_push="pushed"';
 if( $settings->pressbar_body == 1 ) {

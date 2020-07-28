@@ -29,6 +29,57 @@
 			e.preventDefault();
 			$.notificationx.testReport();
 		});
+
+		$("body").on("change", "#nx_meta_evergreen_timer", function () {
+			$(".nx-time_randomize_between").hide();
+			$(".nx-time_rotation").hide();
+
+			if (!$("#nx_meta_enable_countdown").is(":checked")) {
+				return;
+			}
+
+			if ($("#nx_meta_time_randomize").is(":checked") && this.checked) {
+				$(".nx-time_rotation").hide();
+				$(".nx-time_randomize_between").show();
+			} else {
+				if (this.checked) {
+					$(".nx-time_rotation").show();
+					$(".nx-time_randomize_between").hide();
+				}
+			}
+			if (!this.checked) {
+				$(".nx-countdown_start_date").show();
+				$(".nx-countdown_end_date").show();
+			} else {
+				$(".nx-countdown_start_date").hide();
+				$(".nx-countdown_end_date").hide();
+			}
+		});
+		$("body").on("change", "#nx_meta_time_randomize", function () {
+			$(".nx-time_randomize_between").hide();
+			$(".nx-time_rotation").hide();
+
+			if (
+				!$("#nx_meta_enable_countdown").is(":checked") ||
+				!$("#nx_meta_evergreen_timer").is(":checked")
+			) {
+				return;
+			}
+
+			if (this.checked) {
+				$(".nx-time_rotation").hide();
+				$(".nx-time_randomize_between").show();
+			} else {
+				$(".nx-time_rotation").show();
+				$(".nx-time_randomize_between").hide();
+			}
+		});
+		$("body").on("change", "#nx_meta_enable_countdown", function () {
+			$("#nx_meta_evergreen_timer").trigger("change");
+			$("#nx_meta_time_randomize").trigger("change");
+		});
+		$("#nx_meta_evergreen_timer").trigger("change");
+		$("#nx_meta_time_randomize").trigger("change");
 	});
 
 	$(window).load(function () {
