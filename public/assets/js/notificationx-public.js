@@ -103,7 +103,6 @@
 		if (!args.end_date) {
 			return;
 		}
-		var firstSeen = new Date(1595737503 * 1000);
 		var currentTime = new Date();
 		var expiredTime = args.end_date.getTime();
 		var time = 0;
@@ -169,7 +168,7 @@
 					end_date = bar.dataset.end_date
 						? new Date(bar.dataset.end_date)
 						: false,
-					barHeight = $(bar).outerHeight(),
+					barHeight = bar.querySelector(".nx-bar-inner").offsetHeight,
 					initialDelay = bar.dataset.initial_delay * 1000,
 					position = bar.dataset.position,
 					body_push = bar.dataset.body_push,
