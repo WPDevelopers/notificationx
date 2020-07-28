@@ -737,13 +737,29 @@ function notificationx_metabox_args(){
                                 'type'  => 'checkbox',
                                 'dependency'  => [
                                     1 => [
-                                        'fields' => ['countdown_text', 'countdown_start_date', 'countdown_end_date', 'countdown_expired_text']
+                                        'fields' => ['countdown_text', 'countdown_expired_text', 'evergreen_timer', 'countdown_start_date', 'countdown_end_date']
                                     ]
                                 ],
                                 'hide' => array(
                                     0 => [
-                                        'fields' => ['countdown_text', 'countdown_start_date', 'countdown_end_date', 'countdown_expired_text']
+                                        'fields' => ['countdown_text', 'countdown_expired_text', 'evergreen_timer', 'countdown_start_date', 'countdown_end_date', 'time_rotation', 'time_randomize', 'time_reset' ]
                                     ]
+                                )
+                            ),
+                            'evergreen_timer' => array(
+                                'label' => __('Evergreen Timer', 'notificationx'),
+                                'type'  => 'checkbox',
+                                'is_pro' => true,
+                                'switch' => true,
+                                'hide' => array(
+                                    0 => [
+                                        'fields' => [ 'time_rotation', 'time_randomize', 'time_reset' ]
+                                    ],
+                                ),
+                                'dependency' => array(
+                                    1 => [
+                                        'fields' => [ 'time_rotation', 'time_randomize', 'time_reset' ]
+                                    ],
                                 )
                             ),
                             'countdown_text' => array(
@@ -762,26 +778,6 @@ function notificationx_metabox_args(){
                             'countdown_end_date' => array(
                                 'label' => __('End Date', 'notificationx'),
                                 'type'  => 'datepicker',
-                            ),
-                            'close_forever' => array(
-                                'label' => __('Permanent Close', 'notificationx'),
-                                'type'  => 'checkbox',
-                            ),
-                            'evergreen_timer' => array(
-                                'label' => __('Evergreen Timer', 'notificationx'),
-                                'type'  => 'checkbox',
-                                'is_pro' => true,
-                                'switch' => true,
-                                'hide' => array(
-                                    0 => [
-                                        'fields' => [ 'time_rotation', 'time_randomize', 'sticky_timing', 'time_reset', 'time_randomize_between' ]
-                                    ],
-                                ),
-                                'dependency' => array(
-                                    1 => [
-                                        'fields' => [ 'time_rotation', 'time_randomize', 'sticky_timing', 'time_reset' ]
-                                    ],
-                                )
                             ),
                             'time_rotation' => array(
                                 'label' => __('Time Rotation', 'notificationx'),
@@ -813,13 +809,12 @@ function notificationx_metabox_args(){
                                     ),
                                 ]
                             ),
-                            'sticky_timing' => array(
-                                'label' => __('Sticky Timing', 'notificationx'),
-                                'type'  => 'checkbox',
-                                'default' => 1
-                            ),
                             'time_reset' => array(
                                 'label' => __('Daily Time Reset', 'notificationx'),
+                                'type'  => 'checkbox',
+                            ),
+                            'close_forever' => array(
+                                'label' => __('Permanent Close', 'notificationx'),
                                 'type'  => 'checkbox',
                             ),
                         )

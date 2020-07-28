@@ -13,11 +13,12 @@
 	$(document).ready(function () {
 		$.notificationx.init();
 	});
+	$(window).load(function () {
+		$.notificationx.pressbar();
+	});
 
 	$.notificationx.init = function () {
 		$.notificationx.windowWidth = $(window).outerWidth();
-		// $.notificationx.countdownWrapper();
-		$.notificationx.pressbar();
 		$.notificationx.conversions();
 		$.notificationx.analytics();
 		$.notificationx.events();
@@ -121,7 +122,7 @@
 					endText.classList.add("nx-expired");
 				}
 			} else {
-				args.bar.querySelector(".nx-countdown").style.display = "none";
+				$.notificationx.hideBar("nx-bar-" + args.id, true);
 			}
 		}
 
@@ -198,6 +199,7 @@
 				}
 
 				var cdWargs = {
+					id: id,
 					bar: bar,
 					end_date: end_date,
 					evergreen: evergreen,
@@ -209,7 +211,9 @@
 				};
 
 				$.notificationx.showBar(bar, id);
-				$.notificationx.countdownWrapper(cdWargs);
+				if (!evergreen) {
+					$.notificationx.countdownWrapper(cdWargs);
+				}
 
 				if (
 					("" !== duration || undefined !== duration) &&
