@@ -1091,7 +1091,7 @@ function notificationx_metabox_args(){
                             'global_queue_active' => array(
                                 'type'        => 'checkbox',
                                 'label'       => __('Enable Global Queue' , 'notificationx'),
-                                'description' => __('Activate global queue system for this notification.', 'notificationx'),
+                                'description' => sprintf('%s <a href="%s" target="_blank">%s</a>', __('Activate global queue system for this notification.', 'notificationx'), 'https://notificationx.com/docs/centralized-queue', 'Check out this doc.'),
                                 'priority'    => 0,
                                 'default'     => 0,
                                 'is_pro'      => true,
