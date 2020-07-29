@@ -52,9 +52,11 @@
 			if (!this.checked) {
 				$(".nx-countdown_start_date").show();
 				$(".nx-countdown_end_date").show();
+				$(".nx-countdown_expired_text").show();
 			} else {
 				$(".nx-countdown_start_date").hide();
 				$(".nx-countdown_end_date").hide();
+				$(".nx-countdown_expired_text").hide();
 			}
 		});
 		$("body").on("change", "#nx_meta_time_randomize", function () {
