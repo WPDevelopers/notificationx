@@ -751,7 +751,7 @@ function notificationx_metabox_args(){
                                 'type'        => 'checkbox',
                                 'is_pro'      => true,
                                 'switch'      => true,
-                                'description' => sprintf( '%s, <a target="_blank" href="%s">%s</a>', __( 'To configure Evergreen Countdown', 'notificationx' ), 'https://notificationx.com/docs/evergreen-countdown/', 'check out this doc' ),
+                                'description' => sprintf( '%s, <a target="_blank" href="%s">%s</a>', __( 'To configure Evergreen Timer', 'notificationx' ), 'https://notificationx.com/docs/evergreen-timer/', 'check out this doc' ),
                                 'hide'        => array(
                                     0 => [
                                         'fields' => [ 'time_rotation', 'time_randomize', 'time_reset' ]
