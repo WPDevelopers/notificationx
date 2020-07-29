@@ -747,11 +747,12 @@ function notificationx_metabox_args(){
                                 )
                             ),
                             'evergreen_timer' => array(
-                                'label' => __('Evergreen Timer', 'notificationx'),
-                                'type'  => 'checkbox',
-                                'is_pro' => true,
-                                'switch' => true,
-                                'hide' => array(
+                                'label'       => __('Evergreen Timer', 'notificationx'),
+                                'type'        => 'checkbox',
+                                'is_pro'      => true,
+                                'switch'      => true,
+                                'description' => sprintf( '%s, <a href="%s">%s</a>', __( 'To configure Evergreen Countdown', 'notificationx' ), 'http://notificationx.com/docs/evergreen-countdown-bar', 'check out this doc' ),
+                                'hide'        => array(
                                     0 => [
                                         'fields' => [ 'time_rotation', 'time_randomize', 'time_reset' ]
                                     ],
@@ -1090,11 +1091,11 @@ function notificationx_metabox_args(){
                             'global_queue_active' => array(
                                 'type'        => 'checkbox',
                                 'label'       => __('Enable Global Queue' , 'notificationx'),
-                                'help'        => __('Activate global queue system for this notification.', 'notificationx'),
+                                'description' => __('Activate global queue system for this notification.', 'notificationx'),
                                 'priority'    => 0,
                                 'default'     => 0,
-                                'is_pro' => true,
-                                'dependency' => array(
+                                'is_pro'      => true,
+                                'dependency'  => array(
                                     0 => array(
                                         'sections' => array( 'timing' )
                                     )
