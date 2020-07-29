@@ -12,7 +12,7 @@
  * Author:            WPDeveloper
  * Author URI:        https://wpdeveloper.net
  * License:           GPL-3.0+
- * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
+ * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       notificationx
  * Domain Path:       /languages
  */

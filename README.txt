@@ -1,13 +1,13 @@
 === NotificationX - Best FOMO, Social Proof, Sales Popup & WooCommerce Notification Bar Plugin ===
-Contributors: wpdevteam, re_enter_rupok, Asif2BD, priyomukul
-Donate link: http://notificationx.com
-Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, email subscription, recent sales popup, woo popups, woocommerce review, wordpress marketing, marketing, increase engagement, woocommerce, envato, freemius, givewp, learndash
+Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok
+Donate link: https://notificationx.com
+Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, email subscription, recent sales popup, woo popups, woocommerce review, wordpress marketing, marketing, evergreen notice, increase engagement, woocommerce, envato, freemius, givewp, learndash
 Requires at least: 4.0
-Tested up to: 5.4
+Tested up to: 5.5
 Requires PHP: 5.4
-Stable tag: 1.7.1
-License: GPLv3
-License URI: https://opensource.org/licenses/GPL-3.0
+Stable tag: 1.8.0
+License: GPL-3.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Want to build instant credibility for your business and boost your conversion rate right away? 97% of your total website visitors don’t buy the product due to the lack of trust and credibility.
 
@@ -124,6 +124,26 @@ https://www.youtube.com/watch?v=75vntaHp9Y4
 - Or [rate us](https://notificationx.com/go/review-nx) on WordPress 
 
 
+🔥 GET FREEBIES FOR YOUR WORDPRESS SITE
+
+Consider checking out our other WordPress solutions & boost your WordPress website:
+
+🔝 [Essential Addons For Elementor](https://wordpress.org/plugins/essential-addons-for-elementor-lite/): Most popular Elementor addons with 70+ widgets & ready blocks
+
+📄 [EmbedPress](https://wordpress.org/plugins/embedpress/): EmbedPress lets you embed videos, images, posts, audio, maps and upload PDF, DOC, PPT & all other types of content into your WordPress site with one-click and showcase it beautifully for the visitors. 
+
+☁ [Templately](https://wordpress.org/plugins/templately/): Free templates library for Elementor & Gutenberg along with the cloud collaboration for WordPress.
+
+📚 [BetterDocs](https://wordpress.org/plugins/betterdocs/): Best Documentation & Knowledge Base Plugin for WordPress reduce manual support tickets & improve user experience.
+
+⏰ [WP Scheduled Posts](https://wordpress.org/plugins/wp-scheduled-posts/): Advanced editorial calendar & complete solution for WordPress Post Scheduling, social sharing, missed scheduled alerts and more.
+
+⭐ [ReviewX](https://wordpress.org/plugins/reviewx/): WooCommerce Product review plugin that allows users to submit product reviews with multiple criteria, photos, video and more.
+
+⚡ [Flexia](http://wordpress.org/plugins/flexia): Most lightweight, customizable & multi purpose theme for WordPress.
+
+
+
 == Installation ==
 
 = Modern Way: =
@@ -169,9 +189,19 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
+= 1.8.0 - 29/07/2020 =
+
+- Added: Documentation notices inside each notifications
+- Fixed: Woo Sales Notification | showing Failed orders
+- Fixed: Notification Bar adding blank spaces when WP Rocket is enabled
+- Removed: Unnecessary Duplicate Queries
+- Few minor bugfix and improvements
+
+
 = 1.7.1 - 25/06/2020 =
 
 - Fixed: PHP 5.6 conflict Fatal Error.
+
 
 = 1.7.0 - 24/06/2020 =
 
@@ -181,6 +211,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 - Fixed: Images not loading for Custom Notifications
 - Fixed: Elementor Template Shortcode not rendering inside Notification Bar
 - Few minor bugfix and improvements
+
 
 = 1.6.6 - 24/05/2020 =
 
