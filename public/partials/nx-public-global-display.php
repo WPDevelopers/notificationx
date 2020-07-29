@@ -3,6 +3,8 @@ if( ! is_array( $all_data ) ) {
     return;
 }
 
+$last_count = [];
+
 foreach( $all_data as $value ) {
     $settings = $value['settings'];
     unset( $value['settings'] );
@@ -11,12 +13,14 @@ foreach( $all_data as $value ) {
         $key = $settings->conversion_from;
         $extension_name = $key;
     }
-    $last_count = intval( $settings->display_last );
+    if( ! isset( $last_count[ $extension_name ] ) ) {
+        $last_count[ $extension_name ] = intval( $settings->display_last );
+    }
     /**
      * Fallback Check 
      * Display Last
      */
-    if( $last_count === 0 ) {
+    if( $last_count[ $extension_name ] === 0 ) {
         break;
     }
     /**
@@ -29,6 +33,6 @@ foreach( $all_data as $value ) {
         }
     }
     echo get_extension_frontend( $extension_name, $value, $settings );
-    $last_count--;
+    $last_count[ $extension_name ]--;
 }
 
