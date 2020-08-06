@@ -114,13 +114,13 @@ final class NotificationX {
 		/**
 		 * NotificationX Analytics Report
 		 */
-		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'admin/reports/class-nx-analytics.php';		
+		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'admin/reports/class-nx-analytics.php';
 		/**
 		 * NotificationX Report Email
 		 */
         require_once NOTIFICATIONX_ROOT_DIR_PATH . 'admin/reports/email/class-nx-email-template.php';
         require_once NOTIFICATIONX_ROOT_DIR_PATH . 'admin/reports/email/class-nx-email-reporting.php';
-		
+
 		/**
 		 * NotificationX Messages
 		 */
@@ -132,7 +132,7 @@ final class NotificationX {
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
-		 * 
+		 *
 		 * TODO: do something with loader
 		 */
 		// require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-loader.php';
@@ -143,7 +143,7 @@ final class NotificationX {
 		 */
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-i18n.php';
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-plugin-usage-tracker.php';
-		
+
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'public/includes/class-nx-template.php';
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-locations.php';
 		/**
@@ -152,7 +152,7 @@ final class NotificationX {
 		require_once NOTIFICATIONX_ADMIN_DIR_PATH . 'includes/class-nx-metabox.php';
 		require_once NOTIFICATIONX_ADMIN_DIR_PATH . 'includes/class-nx-settings.php';
 		require_once NOTIFICATIONX_ADMIN_DIR_PATH . 'class-nx-admin.php';
-		
+
 		/**
 		 * The class responsible for defining extensions functionality
 		 * of the plugin.
@@ -166,6 +166,7 @@ final class NotificationX {
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'wporg/class-wporg-stats.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'woocommerce/class-woocommerce.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'woocommerce/class-woocommerce-reviews.php';
+		require_once NOTIFICATIONX_EXT_DIR_PATH . 'woocommerce/class-reviewx.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'edd/class-edd.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'give/class-give.php';
 		require_once NOTIFICATIONX_EXT_DIR_PATH . 'tutor/class-tutor.php'; // @since 1.3.9
@@ -217,6 +218,7 @@ final class NotificationX {
 			'wpf'         => 'NotificationXPro_WPForms_Extension',
 			'njf'         => 'NotificationXPro_NinjaForms_Extension',
 			'woo_reviews' => 'NotificationX_WooCommerceReview_Extension',
+			'reviewx'     => 'NotificationX_ReviewX_Extension',
 		];
 
 		foreach( $extensions as $key => $extension ) {
@@ -255,14 +257,14 @@ final class NotificationX {
 	 * @access   private
 	 */
 	public function define_admin_hooks() {
-		
+
 		$plugin_admin          = new NotificationX_Admin( $this->get_plugin_name(), $this->get_version() );
 		$plugin_admin->metabox = new NotificationX_MetaBox;
 
 		if( class_exists( 'WPDeveloper_Dashboard_Widget' ) ) {
 			WPDeveloper_Dashboard_Widget::instance();
 		}
-		
+
 		add_action( 'init', array( $plugin_admin, 'register') );
 		// add_action( 'init', array( $plugin_admin, 'get_active_items') );
 		add_filter( 'cron_schedules', 'NotificationX_Cron::cron_schedule', 10, 1 );
@@ -279,7 +281,7 @@ final class NotificationX {
 		add_filter( 'manage_notificationx_posts_columns', array( $plugin_admin, 'custom_columns') );
 		add_action( 'manage_notificationx_posts_custom_column', array( $plugin_admin, 'manage_custom_columns' ), 10, 2 );
 		add_action( 'wp_ajax_notifications_toggle_status', array( $plugin_admin, 'notification_status') );
-		
+
 		add_action( 'admin_enqueue_scripts', array( $plugin_admin, 'enqueue_styles') );
 		add_action( 'admin_enqueue_scripts', array( $plugin_admin, 'enqueue_scripts') );
 
@@ -335,7 +337,7 @@ final class NotificationX {
 	 *
 	 * @since     1.0.0
 	 * @return    NotificationX_Loader    Orchestrates the hooks of the plugin.
-	 * TODO: remove this or do others 
+	 * TODO: remove this or do others
 	 */
 	public function get_loader() {
 		return $this->loader;
@@ -361,7 +363,7 @@ final class NotificationX {
 			update_option( 'nx_version_migration_140', true );
 
 			global $wpdb;
-			
+
 			$inner_query_sql = "SELECT posts.ID, meta.meta_value as val FROM $wpdb->posts AS posts INNER JOIN $wpdb->postmeta AS meta ON meta.post_id = posts.ID WHERE post_type = '%s' AND post_status = '%s' AND meta.meta_value = '%s' AND meta.meta_key = '%s'";
 
 			$query_sql = "SELECT nx_posts.ID, imeta.meta_value as source FROM ( $inner_query_sql ) AS nx_posts right JOIN $wpdb->postmeta AS imeta ON imeta.post_id = nx_posts.ID WHERE imeta.meta_key = '%s' AND imeta.meta_value IN ( 'tutor', 'learndash' )";
@@ -369,7 +371,7 @@ final class NotificationX {
 			$main_query = "SELECT * FROM $wpdb->postmeta as nx_meta INNER JOIN ( $query_sql ) as nx_mig on nx_meta.post_id = nx_mig.ID WHERE nx_meta.meta_key IN ( '_nx_meta_woo_template_new_string', '_nx_meta_woo_template_new' )";
 
 			$query = $wpdb->prepare(
-				$main_query, 
+				$main_query,
 				array(
 					'notificationx',
 					'publish',

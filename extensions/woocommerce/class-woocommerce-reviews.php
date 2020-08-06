@@ -34,10 +34,10 @@ class NotificationX_WooCommerceReview_Extension extends NotificationX_Extension 
         if( $posts_data['nx_meta_display_type'] === 'reviews' && $posts_data['nx_meta_reviews_source'] === $this->type ) {
             $theme = $posts_data['nx_meta_wporg_theme'];
             switch( $theme ) {
-                case 'review_saying': 
+                case 'review_saying':
                     $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'fifth_param', 'sixth_param' ] ) );
                     break;
-                default : 
+                default :
                     $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'third_param', 'fourth_param' ] ) );
                     break;
             }
@@ -102,21 +102,21 @@ class NotificationX_WooCommerceReview_Extension extends NotificationX_Extension 
     }
 
     public function notification_image( $image_data, $data, $settings ){
-        if( $settings->display_type != 'reviews' || $settings->reviews_source != $this->type ) { 
+        if( $settings->display_type != 'reviews' || $settings->reviews_source != $this->type ) {
             return $image_data;
         }
 
         $avatar = $image_url = $alt_title =  '';
         switch( $settings->show_notification_image ) {
-            case 'product_image' : 
+            case 'product_image' :
                 if( has_post_thumbnail( $data['product_id'] ) ) {
-                    $product_image = wp_get_attachment_image_src( 
-                        get_post_thumbnail_id( $data['product_id'] ), 'medium', false 
+                    $product_image = wp_get_attachment_image_src(
+                        get_post_thumbnail_id( $data['product_id'] ), 'medium', false
                     );
                     $image_url = is_array( $product_image ) ? $product_image[0] : '';
                 }
                 break;
-            case 'gravatar' : 
+            case 'gravatar' :
                 if( isset( $data['avatar'] ) ) {
                     $avatar = $data['avatar']['src'];
                     $image_url = add_query_arg( 's', '200', $avatar );
@@ -136,7 +136,7 @@ class NotificationX_WooCommerceReview_Extension extends NotificationX_Extension 
     }
     /**
      * This functions is hooked
-     * 
+     *
      * @hooked nx_public_action
      *
      * @return void
@@ -215,7 +215,7 @@ class NotificationX_WooCommerceReview_Extension extends NotificationX_Extension 
      * @return void
      */
     public function post_comment( $comment_ID, $comment_approved ){
-
+        dlog( 'test post-comment: ' . $this->type );
         if( count( $this->notifications ) === $this->cache_limit ) {
             $sorted_data = NotificationX_Helper::sorter( $this->notifications, 'key' );
             array_pop( $sorted_data );
@@ -336,7 +336,7 @@ class NotificationX_WooCommerceReview_Extension extends NotificationX_Extension 
         $comment_data['post_link']  = get_permalink( $comment->comment_post_ID );
         $comment_data['timestamp']  = strtotime( $comment->comment_date );
         $comment_data['rating']     = get_comment_meta( $comment->comment_ID, 'rating', true );
-        
+
         $comment_data['ip']  = $comment->comment_author_IP;
         $user_ip_data = self::remote_get('http://ip-api.com/json/' . $comment->comment_author_IP );
         if( $user_ip_data ) {

@@ -9,6 +9,7 @@
 
 	$(document).ready(function () {
 		$.notificationx.init();
+		$.notificationx.installPlugin();
 		$("body").on(
 			"click",
 			".nx-metatab-menu li, .nx-builder-tab-menu li, .nx-meta-next, .nx-quick-builder-btn",
@@ -87,6 +88,43 @@
 		$("#nx_meta_evergreen_timer").trigger("change");
 		$("#nx_meta_time_randomize").trigger("change");
 	});
+
+	$.notificationx.installPlugin = function () {
+		$(".nx-on-click-install").each(function (e) {
+			$(this).on("click", function (e) {
+				e.preventDefault();
+				var self = $(this);
+				self.addClass("install-now updating-message");
+				self.text("Installing...");
+
+				var nonce = self.data("nonce"),
+					slug = self.data("slug"),
+					plugin_file = self.data("plugin_file");
+
+				$.ajax({
+					url: ajaxurl,
+					type: "POST",
+					data: {
+						action: "wpdeveloper_upsale_core_install_notificationx",
+						_wpnonce: nonce,
+						slug: slug,
+						file: plugin_file,
+					},
+					success: function (response) {
+						self.text("Installed");
+					},
+					error: function (error) {
+						self.removeClass("install-now updating-message");
+						alert(error);
+					},
+					complete: function () {
+						self.attr("disabled", "disabled");
+						self.removeClass("install-now updating-message");
+					},
+				});
+			});
+		});
+	};
 
 	$(window).load(function () {
 		$(".nx-preloader").fadeOut({
