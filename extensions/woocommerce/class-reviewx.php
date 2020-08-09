@@ -43,7 +43,7 @@ class NotificationX_ReviewX_Extension extends NotificationX_WooCommerceReview_Ex
                     __( 'ReviewX', 'notificationx' ),
                     __( 'plugin first.', 'notificationx' ),
                     wp_create_nonce('wpdeveloper_upsale_core_install_notificationx'),
-                    __( 'Click Here To Install.', 'notificationx' ),
+                    __( 'Click Here To Install', 'notificationx' ),
                 ),
                 'priority' => 0,
             );

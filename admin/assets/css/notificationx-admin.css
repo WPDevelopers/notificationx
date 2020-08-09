@@ -2511,3 +2511,11 @@ h4.nx-admin-title {
     -webkit-animation: switch-on .3s ease-out;
     animation: switch-on .3s ease-out;
 }
+button.nx-on-click-install {
+    background: #6c63ff;
+    color: #fff;
+    border: 0;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
