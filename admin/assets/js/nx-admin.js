@@ -112,6 +112,9 @@
 					},
 					success: function (response) {
 						self.text("Installed");
+						setTimeout(function () {
+							self.parents(".nx-field").hide();
+						}, 2000);
 					},
 					error: function (error) {
 						self.removeClass("install-now updating-message");

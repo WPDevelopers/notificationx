@@ -27,6 +27,10 @@ function notificationx_settings_args(){
                             'title' => __('WooCommerce', 'notificationx'),
                             'link' => 'https://notificationx.com/docs/woocommerce-sales-notifications/'
                         ),
+                        'modules_reviewx' => array(
+                            'title'      => __('ReviewX', 'notificationx'),
+                            'link'       => 'https://notificationx.com/docs/reviewx-notification-alerts'
+                        ),
                         'modules_edd' => array(
                             'title' => __('Easy Digital Downloads', 'notificationx'),
                             'link' => 'https://notificationx.com/docs/notificationx-easy-digital-downloads/'
@@ -179,13 +183,13 @@ function notificationx_settings_args(){
                             'default'  => 1,
                             'priority' => 5,
                             'dependency' => array(
-                                1 => array( 
+                                1 => array(
                                     'fields' => array( 'analytics_from', 'exclude_bot_analytics' ),
                                     'sections' => array( 'email_reporting' ),
                                 )
                             ),
                             'hide' => array(
-                                0 => array( 
+                                0 => array(
                                     'fields' => array( 'analytics_from', 'exclude_bot_analytics' ),
                                     'sections' => array( 'email_reporting' ),
                                 )
@@ -194,7 +198,7 @@ function notificationx_settings_args(){
                         'analytics_from' => array(
                             'type'    => 'select',
                             'label'   => __( 'Analytics From', 'notificationx' ),
-                            'options' => array( 
+                            'options' => array(
                                 'everyone'         => __( 'Everyone', 'notificationx' ),
                                 'guests'           => __( 'Guests Only', 'notificationx' ),
                                 'registered_users' => __( 'Registered Users Only', 'notificationx' ),
@@ -237,7 +241,7 @@ function notificationx_settings_args(){
                             'default'     => 'nx_weekly',
                             'priority'    => 1,
                             'disable'     => true,
-                            'options' => array( 
+                            'options' => array(
                                 'nx_daily'         => __( 'Once Daily', 'notificationx' ),
                                 'nx_weekly'         => __( 'Once Weekly', 'notificationx' ),
                                 'nx_monthly'         => __( 'Once Monthly', 'notificationx' ),
@@ -273,7 +277,7 @@ function notificationx_settings_args(){
                             'label'       => __( 'Select Reporting Day', 'notificationx' ),
                             'default'     => 'monday',
                             'priority'    => 2,
-                            'options' => array( 
+                            'options' => array(
                                 'sunday'         => __( 'Sunday', 'notificationx' ),
                                 'monday'         => __( 'Monday', 'notificationx' ),
                                 'tuesday'        => __( 'Tuesday', 'notificationx' ),

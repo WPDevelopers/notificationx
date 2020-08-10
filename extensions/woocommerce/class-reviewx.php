@@ -5,8 +5,7 @@ class NotificationX_ReviewX_Extension extends NotificationX_WooCommerceReview_Ex
 
     public function __construct() {
         parent::__construct();
-
-        $this->notifications = $this->get_notifications();
+        $this->notifications = $this->get_notifications( $this->type );
 
         // dump( $this->notifications );
     }
@@ -41,7 +40,7 @@ class NotificationX_ReviewX_Extension extends NotificationX_WooCommerceReview_Ex
                     __( 'You have to install', 'notificationx' ),
                     $url,
                     __( 'ReviewX', 'notificationx' ),
-                    __( 'plugin first.', 'notificationx' ),
+                    __( 'plugin.', 'notificationx' ),
                     wp_create_nonce('wpdeveloper_upsale_core_install_notificationx'),
                     __( 'Click Here To Install', 'notificationx' ),
                 ),
@@ -77,7 +76,7 @@ class NotificationX_ReviewX_Extension extends NotificationX_WooCommerceReview_Ex
     public function toggle_fields( $options ) {
         $sections = [];
         $fields = array_keys( $this->init_fields() );
-        $options['dependency'][ $this->type ]['fields'] = array_merge( $fields, array( 'show_notification_image', 'wp_reviews_template_adv' ) );
+        $options['dependency'][ $this->type ]['fields'] = array_merge( $fields, array( 'show_notification_image', 'wp_reviews_template_adv', 'has_no_woo' ) );
         $options['dependency'][ $this->type ]['sections'] = ['wporg_themes'];
 
         return $options;

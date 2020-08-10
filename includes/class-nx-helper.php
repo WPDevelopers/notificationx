@@ -578,9 +578,10 @@ class NotificationX_Helper {
                 'modules_wordpress'
             ),
             'wp_comments' => 'modules_wordpress',
-            'wp_stats' => 'modules_wordpress',
-            'wp_reviews' => 'modules_wordpress',
+            'wp_stats'    => 'modules_wordpress',
+            'wp_reviews'  => 'modules_wordpress',
             'woo_reviews' => 'modules_woocommerce',
+            'reviewx'     => 'modules_reviewx',
             'conversions' => array(
                 'modules_woocommerce',
                 'modules_edd',
@@ -590,7 +591,8 @@ class NotificationX_Helper {
             ),
             'reviews' => array(
                 'modules_wordpress',
-                'modules_woocommerce'
+                'modules_woocommerce',
+                'modules_reviewx'
             ),
             'elearning' => array(
                 'modules_tutor',
@@ -604,12 +606,12 @@ class NotificationX_Helper {
                 'modules_njf'
             ),
             'woocommerce' => 'modules_woocommerce',
-            'edd' => 'modules_edd',
-            'give' => 'modules_give',
-            'tutor' => 'modules_tutor',
-            'cf7' => 'modules_cf7',
-            'wpf' => 'modules_wpf',
-            'njf' => 'modules_njf',
+            'edd'         => 'modules_edd',
+            'give'        => 'modules_give',
+            'tutor'       => 'modules_tutor',
+            'cf7'         => 'modules_cf7',
+            'wpf'         => 'modules_wpf',
+            'njf'         => 'modules_njf',
         ));
     }
 

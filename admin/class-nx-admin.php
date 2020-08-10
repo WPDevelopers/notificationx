@@ -11,7 +11,7 @@
 */
 
 class NotificationX_Admin {
-	
+
 	/**
 	* The ID of this plugin.
 	*
@@ -32,7 +32,7 @@ class NotificationX_Admin {
 	* @var string
 	*/
 	private $metabox_id;
-	
+
 	/**
 	* The version of this plugin.
 	*
@@ -41,7 +41,7 @@ class NotificationX_Admin {
 	* @var      string    $version    The current version of this plugin.
 	*/
 	private $version;
-	
+
 	/**
 	* The type.
 	*
@@ -50,13 +50,13 @@ class NotificationX_Admin {
 	* @var string the post type of notificationx.
 	*/
 	public $type = 'notificationx';
-	
+
 	public $metabox;
-	
+
 	public static $prefix = 'nx_meta_';
-	
+
 	public static $settings;
-	
+
 	/**
 	* Initialize the class and set its properties.
 	*
@@ -65,7 +65,7 @@ class NotificationX_Admin {
 	* @param      string    $version    The version of this plugin.
 	*/
 	public static $counts;
-	
+
 	public static $enabled_types = [];
 	public static $active_items = [];
 
@@ -110,7 +110,7 @@ class NotificationX_Admin {
 					<p>🚀 How to <a target="_blank" href="https://notificationx.com/blog/best-fomo-and-social-proof-plugin-for-woocommerce/">boost WooCommerce Sales</a> Using NotificationX</p>
 				</div>
 				<div class="edd nxins-type-source">
-					<p>Make sure that you have <a href="https://wordpress.org/plugins/easy-digital-downloads/" target="_blank">Easy Digital Downloads installed & activated</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/notificationx-easy-digital-downloads/">documentation</a>.</p> 
+					<p>Make sure that you have <a href="https://wordpress.org/plugins/easy-digital-downloads/" target="_blank">Easy Digital Downloads installed & activated</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/notificationx-easy-digital-downloads/">documentation</a>.</p>
 					<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/easy-digital-downloads/">Integration with Easy Digital Downloads</a></p>
 					<p><strong>Recommended Blog:</strong></p>
 					<p>🔥 How Does <a target="_blank" href="https://wpdeveloper.net/notificationx-increase-sales-wordpress/">NotificationX Increase Sales on WordPress</a> Websites?</p>
@@ -198,6 +198,11 @@ class NotificationX_Admin {
 				<div class="nxins-type-source woo_reviews">
 					<p>Make sure that you have <a target="_blank" href="https://wordpress.org/plugins/woocommerce/">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/woocommerce-product-reviews/">documentation</a>.</p>
 					<p>🎦 Watch <a target="_blank" href="https://www.youtube.com/watch?v=bHuaOs9JWvI">video tutorial</a> to learn quickly</p>
+					<p><strong>Recommended Blog:</strong></p>
+					<p>🚀 How to <a target="_blank" href="https://wpdeveloper.net/ecommerce-sales-social-proof/">boost WooCommerce Sales</a> Using NotificationX</p>
+				</div>
+				<div class="nxins-type-source reviewx">
+					<p>Make sure that you have <a target="_blank" href="https://wordpress.org/plugins/woocommerce/">WooCommerce</a> & <a target="_blank" href="https://wordpress.org/plugins/reviewx/">ReviewX</a> installed & activated to use this campaign. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/reviewx-notification-alerts">documentation</a>.</p>
 					<p><strong>Recommended Blog:</strong></p>
 					<p>🚀 How to <a target="_blank" href="https://wpdeveloper.net/ecommerce-sales-social-proof/">boost WooCommerce Sales</a> Using NotificationX</p>
 				</div>
@@ -294,7 +299,7 @@ class NotificationX_Admin {
 				self::$active_items[ $type ][] = $post->ID;
 			}
 		}
-		
+
 		return self::$active_items;
 	}
 
@@ -352,7 +357,7 @@ class NotificationX_Admin {
 				self::$enabled_types[ $type ][] = $post->ID;
 			}
 		}
-		
+
 		return self::$enabled_types;
 	}
 	/**
@@ -363,34 +368,34 @@ class NotificationX_Admin {
 	public function enqueue_styles( $hook ) {
 		global $post_type;
 		$page_status = false;
-		wp_enqueue_style( 
-			$this->plugin_name . '-admin-global', 
-			NOTIFICATIONX_ADMIN_URL . 'assets/css/nx-admin-global.min.css', 
-			array(), $this->version, 'all' 
+		wp_enqueue_style(
+			$this->plugin_name . '-admin-global',
+			NOTIFICATIONX_ADMIN_URL . 'assets/css/nx-admin-global.min.css',
+			array(), $this->version, 'all'
 		);
 		if( $hook == 'notificationx_page_nx-builder' || $hook == 'notificationx_page_nx-settings' || $hook === 'toplevel_page_nx-admin' ) {
 			$page_status = true;
 		}
-		
+
 		if( $post_type != $this->type && ! $page_status ) {
 			return;
 		}
-		
+
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( 
-			$this->plugin_name . '-select2', 
-			NOTIFICATIONX_ADMIN_URL . 'assets/css/select2.min.css', 
-			array(), $this->version, 'all' 
+		wp_enqueue_style(
+			$this->plugin_name . '-select2',
+			NOTIFICATIONX_ADMIN_URL . 'assets/css/select2.min.css',
+			array(), $this->version, 'all'
 		);
-		wp_enqueue_style( 
-			$this->plugin_name . '-flatfickr', 
-			NOTIFICATIONX_ADMIN_URL . 'assets/css/flatfickr.min.css', 
-			array(), $this->version, 'all' 
+		wp_enqueue_style(
+			$this->plugin_name . '-flatfickr',
+			NOTIFICATIONX_ADMIN_URL . 'assets/css/flatfickr.min.css',
+			array(), $this->version, 'all'
 		);
-		wp_enqueue_style( 
-			$this->plugin_name, 
-			NOTIFICATIONX_ADMIN_URL . 'assets/css/nx-admin.min.css', 
-			array(), $this->version, 'all' 
+		wp_enqueue_style(
+			$this->plugin_name,
+			NOTIFICATIONX_ADMIN_URL . 'assets/css/nx-admin.min.css',
+			array(), $this->version, 'all'
 		);
 	}
 	/**
@@ -401,37 +406,37 @@ class NotificationX_Admin {
 	public function enqueue_scripts( $hook ) {
 		global $post_type;
 		$page_status = false;
-		
+
 		if( $hook == 'notificationx_page_nx-builder' || $hook == 'notificationx_page_nx-settings' || $hook === 'toplevel_page_nx-admin' ) {
 			$page_status = true;
-		}		
+		}
 
 		if( $post_type != $this->type && ! $page_status ) {
 			return;
 		}
-		
+
 		wp_enqueue_script( 'wp-color-picker' );
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 		wp_enqueue_media();
-		wp_enqueue_script( 
-			$this->plugin_name . '-sweetalert', 
-			NOTIFICATIONX_ADMIN_URL . 'assets/js/sweetalert.min.js', 
-			array( 'jquery' ), $this->version, true 
+		wp_enqueue_script(
+			$this->plugin_name . '-sweetalert',
+			NOTIFICATIONX_ADMIN_URL . 'assets/js/sweetalert.min.js',
+			array( 'jquery' ), $this->version, true
 		);
-		wp_enqueue_script( 
-			$this->plugin_name . '-select2', 
-			NOTIFICATIONX_ADMIN_URL . 'assets/js/select2.min.js', 
-			array( 'jquery' ), $this->version, true 
+		wp_enqueue_script(
+			$this->plugin_name . '-select2',
+			NOTIFICATIONX_ADMIN_URL . 'assets/js/select2.min.js',
+			array( 'jquery' ), $this->version, true
 		);
-		wp_enqueue_script( 
-			$this->plugin_name . '-flatfickr', 
-			NOTIFICATIONX_ADMIN_URL . 'assets/js/flatfickr.min.js', 
-			array( 'jquery' ), $this->version, true 
+		wp_enqueue_script(
+			$this->plugin_name . '-flatfickr',
+			NOTIFICATIONX_ADMIN_URL . 'assets/js/flatfickr.min.js',
+			array( 'jquery' ), $this->version, true
 		);
-		wp_enqueue_script( 
-			$this->plugin_name, 
-			NOTIFICATIONX_ADMIN_URL . 'assets/js/nx-admin.min.js', 
-			array( 'jquery' ), $this->version, true 
+		wp_enqueue_script(
+			$this->plugin_name,
+			NOTIFICATIONX_ADMIN_URL . 'assets/js/nx-admin.min.js',
+			array( 'jquery' ), $this->version, true
 		);
 
 		wp_localize_script( $this->plugin_name, 'notificationx', self::toggleFields( $hook ) );
@@ -535,8 +540,8 @@ class NotificationX_Admin {
 			$template_settings = apply_filters( 'nx_template_settings_by_theme', array(), $post );
 		}
 
-		return array( 
-			'toggleFields'      => $conditions, // TODO: toggling system has to be more optimized! 
+		return array(
+			'toggleFields'      => $conditions, // TODO: toggling system has to be more optimized!
 			'hideFields'        => $hideFields,
 			'template'          => $template,
 			'template_settings' => $template_settings,
@@ -546,24 +551,24 @@ class NotificationX_Admin {
 			'template_keys'     => NotificationX_Helper::template_keys(),
 		);
 	}
-	
+
 	public function custom_columns( $columns ) {
 		$title_column = $columns['title'];
 		$date_column = $columns['date'];
-		
+
 		unset( $columns['title'] );
 		unset( $columns['date'] );
-		
+
 		$columns['notification_status'] = __('Enable / Disable', 'notificationx');
 		$columns['title'] = $title_column;
-		
+
 		$columns['notification_type']   = __('Type', 'notificationx');
-		
+
 		$columns['date'] = $date_column;
-		
+
 		return apply_filters('nx_post_columns', $columns );
 	}
-	
+
 	public function manage_custom_columns( $column, $post_id ){
 		switch ( $column ) {
 			case 'notification_type':
@@ -584,51 +589,51 @@ class NotificationX_Admin {
 				self::notification_toggle( $status, $post_id );
 				break;
 		}
-				
+
 		do_action( 'nx_post_columns_content', $column, $post_id );
 	}
-			
+
 	public static function notification_toggle( $status = true, $post_id ){
 		$text           = __('Active', 'notificationx');
 		$img_active     = NOTIFICATIONX_ADMIN_URL . 'assets/img/active1.png';
 		$img_inactive   = NOTIFICATIONX_ADMIN_URL . 'assets/img/active0.png';
 		$active         = 'true';
 		$img            = $img_active;
-		
+
 		if ( ! $status ) {
 			$text   = __('Inactive', 'notificationx');
 			$img    = $img_inactive;
 			$active = 'false';
 		}
 		?>
-		<img 
-		src="<?php echo $img; ?>" 
-		style="cursor: pointer; height: 16px; vertical-align: middle;" 
-		alt="<?php echo $text; ?>" title="<?php echo $text; ?>" 
-		data-nonce="<?php echo wp_create_nonce('notificationx_status_nonce'); ?>" 
+		<img
+		src="<?php echo $img; ?>"
+		style="cursor: pointer; height: 16px; vertical-align: middle;"
+		alt="<?php echo $text; ?>" title="<?php echo $text; ?>"
+		data-nonce="<?php echo wp_create_nonce('notificationx_status_nonce'); ?>"
 		data-post="<?php echo $post_id; ?>" />
 		<?php
 	}
-			
+
 	public function notification_status(){
 		$error = false;
-		
+
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'notificationx_status_nonce' ) ) {
 			$error = true;
 		}
-		
+
 		if ( ! isset( $_POST['post_id'] ) || empty( $_POST['post_id'] ) || ! absint( $_POST['post_id'] ) ) {
 			$error = true;
 		}
-		
+
 		if ( $error ) {
 			echo __('There is an error updating status.', 'notificationx');
 			die();
 		}
-		
+
 		$post_id = absint( $_POST['post_id'] );
 		$status = $_POST['status'] == 'active' ? '1' : '0';
-		
+
 		update_post_meta( $post_id, '_nx_meta_active_check', $status );
 		if( isset( $_POST['url'] ) ) {
 			wp_safe_redirect( $_POST['url'] );
@@ -642,7 +647,7 @@ class NotificationX_Admin {
 	* @since	1.0.0
 	*/
 	public function register(){
-		
+
 		$labels = array(
 			'name'                => 'NotificationX',
 			'singular_name'       => 'NotificationX',
@@ -679,11 +684,11 @@ class NotificationX_Admin {
 			'capability_type'     => 'post',
 			'supports'            => array( 'title' ),
 		);
-		
+
 		register_post_type( $this->type, $args );
 		add_image_size( "_nx_notification_thumb", 100, 100, true );
 	}
-			
+
 	/**
 	* Admin Menu Page
 	*
@@ -738,7 +743,7 @@ class NotificationX_Admin {
 			'default' => 10,
 			'option' => 'notification_per_page'
 		);
-		
+
 		add_screen_option( $option, $args );
 	}
 	/**
@@ -899,7 +904,7 @@ class NotificationX_Admin {
 		}
 		echo $from_pro;
 	}
-				
+
 	public function quick_builder(){
 		$builder_args = $this->builder_args;
 		$tabs         = $this->builder_args['tabs'];
@@ -931,7 +936,7 @@ class NotificationX_Admin {
 				$post_data[ $meta_key ] = $data[ $meta_key ];
 			} else {
 				$post_data[ $meta_key ] = '';
-				
+
 				if( isset( $meta_field['defaults'] ) ) {
 					$post_data[ $meta_key ] = $meta_field['defaults'];
 				}
@@ -940,23 +945,23 @@ class NotificationX_Admin {
 				}
 			}
 		}
-		
+
 		return array_merge( $post_data, $data );
 	}
-				
+
 	public static function get_form_action( $query_var = '', $builder_form = false ) {
 		$page = '/admin.php?page=nx-settings';
 		if( $builder_form ) {
 			$page = '/admin.php?page=nx-builder';
 		}
-		
+
 		if ( is_network_admin() ) {
 			return network_admin_url( $page . $query_var );
 		} else {
 			return admin_url( $page . $query_var );
 		}
 	}
-				
+
 	public function notification_preview(){
 		global $pagenow, $post_type, $post;
 		if ( ! in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) ) {
@@ -966,7 +971,7 @@ class NotificationX_Admin {
 			return false;
 		}
 		$display_type = get_post_meta( $post->ID, '_nx_meta_display_type', true );
-		
+
 		include NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-admin-preview.php';
 	}
 	//TODO: Notification Preview Not Visible for now.
@@ -988,8 +993,8 @@ class NotificationX_Admin {
 				'name' => 'John D',
 			)
 		);
-			
-		$unique_id = uniqid( 'notificationx-' ); 
+
+		$unique_id = uniqid( 'notificationx-' );
 		$output = '<div id="'. esc_attr( $unique_id ) .'" class="nx-notification '. implode( ' ', NotificationX_Extension::get_classes( $settings ) ) .'">';
 		$output .= '<div '. NotificationX_Public::generate_preview_css( $settings ) .' class="notificationx-inner '. implode( ' ', NotificationX_Extension::get_classes( $settings, 'inner' ) ) .'">';
 		$output .= '<div class="notificationx-image nx-preview-image">';
@@ -1014,10 +1019,10 @@ class NotificationX_Admin {
 		$output .= '</div>';
 		$output .= '</div>';
 		$output .= '</div>';
-			
+
 		return $output;
 	}
-						
+
 	public static function get_post_meta( $post_id, $key, $single = true ) {
 		return get_post_meta( $post_id, '_nx_meta_' . $key, $single );
 	}
@@ -1071,7 +1076,7 @@ class NotificationX_Admin {
 				'numberposts' => -1,
 			));
 			if( $notificationx->have_posts() ) {
-				while( $notificationx->have_posts() ) : $notificationx->the_post(); 
+				while( $notificationx->have_posts() ) : $notificationx->the_post();
 					$iddd = get_the_ID();
 					wp_delete_post( $iddd );
 				endwhile;
@@ -1096,8 +1101,8 @@ class NotificationX_Admin {
 			$get_disabled_post   = $post_status->disabled;
 			$trash_notificationx = $post_status->trash;
 
-			if( ( $_GET['status'] == 'disabled' && $get_disabled_post == 0 ) 
-				|| ( $_GET['status'] == 'trash' && $trash_notificationx == 0 ) 
+			if( ( $_GET['status'] == 'disabled' && $get_disabled_post == 0 )
+				|| ( $_GET['status'] == 'trash' && $trash_notificationx == 0 )
 				|| ( $_GET['status'] == 'enabled' && $get_enabled_post == 0 )
 			) {
 				wp_safe_redirect( $current_url );
@@ -1115,7 +1120,7 @@ class NotificationX_Admin {
 			return;
 		}
 		// Duplicating NotificationX
-		if( isset( $_GET['action'], $_GET['page'], $_GET['post'], $_GET['nx_duplicate_nonce'] ) 
+		if( isset( $_GET['action'], $_GET['page'], $_GET['post'], $_GET['nx_duplicate_nonce'] )
 		&& $_GET['action'] === 'nxduplicate' && $_GET['page'] === 'nx-admin' ) {
 			if( wp_verify_nonce( $_GET['nx_duplicate_nonce'], 'nx_duplicate_nonce' ) ) {
 				$nx_post_id = intval( $_GET['post'] );
@@ -1155,7 +1160,7 @@ class NotificationX_Admin {
 			return;
 		}
 		// Duplicating NotificationX
-		if( isset( $_GET['action'], $_GET['page'], $_GET['nx_type'], $_GET['nx_regenerate_nonce'] ) 
+		if( isset( $_GET['action'], $_GET['page'], $_GET['nx_type'], $_GET['nx_regenerate_nonce'] )
 		&& $_GET['action'] === 'nx_regenerate' && $_GET['page'] === 'nx-admin' ) {
 			if( wp_verify_nonce( $_GET['nx_regenerate_nonce'], 'nx_regenerate_nonce' ) ) {
 				$nx_type = $_GET['nx_type'];
@@ -1183,7 +1188,7 @@ class NotificationX_Admin {
 	 * For Quick Builder Submit
 	 * @return void
 	 */
-	protected function quick_builder_submit( $current_url = '' ){ 
+	protected function quick_builder_submit( $current_url = '' ){
 		if( empty( $current_url ) ) {
 			return;
 		}

@@ -2518,4 +2518,5 @@ button.nx-on-click-install {
     padding: 10px 15px;
     border-radius: 5px;
     margin-left: 10px;
+    cursor: pointer;
 }
