@@ -454,6 +454,19 @@ final class NotificationX {
 				$settings['nx_modules']['modules_njf'] = true;
 				NotificationX_DB::update_settings( $settings );
             }
-        }
+		}
+
+		if(version_compare( NOTIFICATIONX_VERSION, '1.8.1', '==')){
+            $version_migration = get_option( 'nx_version_migration_181', false );
+            if( ! $version_migration ) {
+                update_option('nx_version_migration_181', true);
+				$settings = NotificationX_DB::get_settings();
+                if( ! isset( $settings['nx_modules']['modules_reviewx'] ) ){
+                    $settings['nx_modules']['modules_reviewx'] = true;
+                    NotificationX_DB::update_settings( $settings );
+                }
+            }
+		}
+
 	}
 }
