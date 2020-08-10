@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce notification, notifica
 Requires at least: 4.0
 Tested up to: 5.5
 Requires PHP: 5.4
-Stable tag: 1.8.0
+Stable tag: 1.8.1
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,7 +13,7 @@ Want to build instant credibility for your business and boost your conversion ra
 
 == Description ==
 
-Want to build instant credibility for your business and boost your conversion rate right away? **97%** of your total website visitors don’t buy the product due to the lack of trust and credibility. Get instant success with **WooCommerce Sales Notification**!
+Want to build instant credibility for your business and boost your conversion rate right away? **97%** of your total website visitors don’t buy the product due to the lack of trust and credibility. Get instant success with **WooCommerce Sales Popup Notification**!
 
 https://www.youtube.com/watch?v=E-QR1QdRUrg
 
@@ -26,7 +26,7 @@ FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing tec
 
 ## 🌟 USE FOMO TO INCREASE YOUR LEADS, SALES & ENGAGEMENTS ##
 
-[NotificationX](https://notificationx.com) helps you to grab the attention of your website visitors and gain their trust instantly by showing real-time sales and engagement notifications. It creates urgency among your visitors in order to purchase your products right now. No one wants to be left out, after all.
+[NotificationX](https://notificationx.com) helps you to grab the attention of your website visitors and gain their trust instantly by showing real-time sales popup and engagement notifications. It creates urgency among your visitors in order to purchase your products right now. No one wants to be left out, after all.
 
 https://www.youtube.com/watch?v=J-1m27V4pEE
 
@@ -50,6 +50,7 @@ https://www.youtube.com/watch?v=l7s9FXgzbEM
 - Connect NotificationX with **Zapier** to build absolutely anything
 - Check the results from **Analytics tool** [PRO] and see how many times a certain notification popup has been viewed, clicked or even its Click-through Rate
 - Option to deactivate unnecessary integrations to keep the site lite
+- Review Popup will increase your engagement and credibility.
 
 
 ## 🚀 BOOST CONVERSIONS WITH DIFFERENT NOTIFICATIONS ##
@@ -60,7 +61,7 @@ https://www.youtube.com/watch?v=l7s9FXgzbEM
 2. **WP Comments:** Lets you show the recent comments made by users on your WordPress posts as a notification alert. This is helpful to gain immediate attention from your visitors to check out the specified posts.
 
 
-3. **WordPress/Woocommerce Review:** Showcase your Plugin/Theme reviews from WordPress.org & build credibility. [Source: WordPress, Freemius & Woocommerce]
+3. **WordPress/Woocommerce Reviews:** Showcase your Plugin/Theme reviews from WordPress.org & build credibility. [Source: WordPress, Freemius, WooCommerce & also ReviewX]
 
 
 4. **WordPress Download Count:** Display how many people have downloaded your product from WordPress.org recently. [Source: WooCommerce, EDD, Freemius, Envato]
@@ -73,6 +74,7 @@ https://www.youtube.com/watch?v=l7s9FXgzbEM
 
 
 7. **CUSTOM NOTIFICATIONS [PRO]:** You can create advanced and customized notifications just the way you want using these options.
+
 
 
 ## 🔥 POWER UP WITH ADVANCED INTEGRATIONS ##
@@ -96,6 +98,8 @@ https://www.youtube.com/watch?v=l7s9FXgzbEM
 9. **[Envato [PRO]](https://notificationx.com/integrations/envato/):** Display your download or sales notification from Envato (Themeforest/CodeCanyon) and increase conversion rates.  
 
 10. **[Google Analytics[PRO]](https://notificationx.com/integrations/google-analytics/):** Display Google Analytics insights and visitor counts with more marketing insight to engage your potential buyers.
+
+11. **[ReviewX](https://reviewx.io/):** Display beautiful reviews from ReviewX. Currently it supports WooCommerce, and you could showcase your multi-criteria reviews.
 
 
 ## 🏆 FEATURED IN TOP PUBLICATIONS ##
@@ -188,6 +192,12 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 7. Notification Bar with Countdown
 
 == Changelog ==
+
+= 1.8.1 - 10/08/2020 =
+
+- Added: ReviewX Notification Alerts
+- Few minor bugfix and imporvements
+
 
 = 1.8.0 - 29/07/2020 =
 
