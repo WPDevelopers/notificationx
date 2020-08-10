@@ -195,8 +195,8 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 = 1.8.1 - 10/08/2020 =
 
-- Added: ReviewX Notification Alerts
-- Few minor bugfix and imporvements
+- Added: ReviewX Review Popups
+- Few minor bug-fix and improvements
 
 
 = 1.8.0 - 29/07/2020 =
