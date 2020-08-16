@@ -2,7 +2,9 @@
 * All of the CSS for your admin-specific functionality should be
 * included in this file.
 */
-
+#notificationx_metabox_wrapper .postbox-header {
+    display: none;
+}
 .fixed .column-notification_status {
     width: 10%;
 }
