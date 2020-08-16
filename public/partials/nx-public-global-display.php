@@ -17,14 +17,14 @@ foreach( $all_data as $value ) {
         $last_count[ $extension_name ] = intval( $settings->display_last );
     }
     /**
-     * Fallback Check 
+     * Fallback Check
      * Display Last
      */
     if( $last_count[ $extension_name ] === 0 ) {
         break;
     }
     /**
-     * It will break the loop when the 
+     * It will break the loop when the
      * display from the last value isset.
      */
     if( isset( $value['timestamp'] ) ) {

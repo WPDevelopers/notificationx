@@ -244,17 +244,25 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
     public function get_comments( $data ) {
         if( empty( $data ) ) return null;
 
+        global $wp_version;
+
         $from = isset( $data[ '_nx_meta_display_from' ] ) ? intval( $data[ '_nx_meta_display_from' ] ) : 0;
         $needed = isset( $data[ '_nx_meta_display_last' ] ) ? intval( $data[ '_nx_meta_display_last' ] ) : 0;
 
-        $comments = get_comments([
-            'status' => 'approve',
-                'number'=> $needed,
-                'date_query' => [
-                    'after' => $from .' days ago',
-                    'inclusive' => true,
-                ]
-        ]);
+        $args = [
+            'status'     => 'approve',
+            'number'     => $needed,
+            'date_query' => [
+                'after' => $from .' days ago',
+                'inclusive' => true,
+            ]
+        ];
+
+        if( version_compare( $wp_version, '5.5', '==' ) ) {
+            $args['type'] = 'comment';
+        }
+
+        $comments = get_comments( $args );
 
         if( empty( $comments ) ) return null;
         $new_comments = [];
@@ -296,12 +304,15 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         }
 
         if( 1 === $comment_approved ){
-            $this->notifications[ $comment_ID ] = $this->add( $comment_ID );
-            /**
-             * Save the data to
-             * notificationx_data ( options DB. )
-             */
-            $this->save( $this->type, $this->add( $comment_ID ), $comment_ID );
+            $comment = $this->add( $comment_ID );
+            if( is_array( $comment ) ) {
+                $this->notifications[ $comment_ID ] = $comment;
+                /**
+                 * Save the data to
+                 * notificationx_data ( options DB. )
+                 */
+                $this->save( $this->type, $comment, $comment_ID );
+            }
         }
         return;
     }
@@ -312,13 +323,17 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
      * @return void
      */
     public function add( $comment ){
+        global $wp_version;
         $comment_data = [];
 
         if( ! $comment instanceof WP_Comment ) {
             $comment_id = intval( $comment );
             $comment = get_comment( $comment_id, 'OBJECT' );
         }
-        if( $comment->comment_type !== '' ) {
+        if(
+            ( $comment->comment_type !== '' && version_compare( $wp_version, '5.5', '<' ) ) ||
+            ( $comment->comment_type !== 'comment' && version_compare( $wp_version, '5.5', '>=' ) )
+        ) {
             return;
         }
 
@@ -327,7 +342,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
         $comment_data['post_title'] = get_the_title( $comment->comment_post_ID );
         $comment_data['post_link']  = get_permalink( $comment->comment_post_ID );
         $comment_data['timestamp']  = strtotime( $comment->comment_date );
-        
+
         $comment_data['ip']  = $comment->comment_author_IP;
         $user_ip_data = self::remote_get('http://ip-api.com/json/' . $comment->comment_author_IP );
         if( $user_ip_data ) {

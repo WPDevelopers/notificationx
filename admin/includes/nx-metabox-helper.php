@@ -989,7 +989,7 @@ function notificationx_metabox_args(){
                                     ]
                                 ),
                                 'hide' => [
-                                    'everywhere' => [ 
+                                    'everywhere' => [
                                         'fields' => [ 'all_locations' ]
                                     ],
                                 ],
