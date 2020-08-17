@@ -2522,3 +2522,25 @@ button.nx-on-click-install {
     margin-left: 10px;
     cursor: pointer;
 }
+
+.nx-ele-bar-button {
+    background: #fff;
+    color: #6c63ff;
+    padding: 8px 15px;
+    display: inline-block;
+    border-radius: 0;
+    letter-spacing: 1px;
+    border: 1px solid #6c63ff;
+    transition: all .3s;
+    margin-right: 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.nx-ele-bar-button:hover,
+.nx-ele-bar-button:visited,
+.nx-ele-bar-button:active {
+    outline: none;
+    color: #6c63ff;
+    border-color: #6c63ff;
+}

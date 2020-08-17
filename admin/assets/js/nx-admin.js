@@ -389,6 +389,49 @@
 		$.notificationx.toggleFields();
 		$.notificationx.bindEvents();
 		$.notificationx.initializeFields();
+		$.notificationx.create_nx_bar();
+	};
+	$.notificationx.create_nx_bar = function () {
+		$(".nx-bar_with_elementor").on("click", function () {
+			var self = $(this),
+				nonce = self.data("nonce"),
+				bar_id = self.data("the_post");
+
+			$.ajax({
+				type: "post",
+				url: window.ajaxurl,
+				data: {
+					action: "nx_create_bar",
+					nonce: nonce,
+					bar_id: bar_id,
+				},
+				success: function (res) {
+					console.log(res);
+				},
+			});
+		});
+
+		$(".nx-bar_with_elementor-remove").on("click", function () {
+			var self = $(this),
+				nonce = self.data("nonce"),
+				bar_id = self.data("bar_id"),
+				post_id = self.data("post_id");
+
+			$.ajax({
+				type: "post",
+				url: window.ajaxurl,
+				data: {
+					action: "nx_create_bar_remove",
+					nonce: nonce,
+					bar_id: bar_id,
+					post_id: post_id,
+				},
+				success: function (res) {
+					// do something.
+					console.log(res);
+				},
+			});
+		});
 	};
 	// @since 1.2.1
 	$.notificationx.trigger = function (selector) {

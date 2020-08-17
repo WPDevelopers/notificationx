@@ -257,7 +257,6 @@ final class NotificationX {
 	 * @access   private
 	 */
 	public function define_admin_hooks() {
-
 		$plugin_admin          = new NotificationX_Admin( $this->get_plugin_name(), $this->get_version() );
 		$plugin_admin->metabox = new NotificationX_MetaBox;
 
