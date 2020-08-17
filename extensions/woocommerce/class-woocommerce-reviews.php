@@ -215,7 +215,6 @@ class NotificationX_WooCommerceReview_Extension extends NotificationX_Extension 
      * @return void
      */
     public function post_comment( $comment_ID, $comment_approved ){
-        dlog( 'test post-comment: ' . $this->type );
         if( count( $this->notifications ) === $this->cache_limit ) {
             $sorted_data = NotificationX_Helper::sorter( $this->notifications, 'key' );
             array_pop( $sorted_data );
