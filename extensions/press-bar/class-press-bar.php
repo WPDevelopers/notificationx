@@ -25,7 +25,6 @@ class NotificationX_PressBar_Extension extends NotificationX_Extension {
         $bar_id = $the_post->ID;
 
         $post_meta = get_post_meta( $bar_id, '_nx_bar_elementor_type_id', true );
-
         if( is_numeric( $post_meta ) ) {
             $edit_link = get_edit_post_link( $post_meta );
             $output = '<a class="nx-ele-bar-button" href="'. esc_url( $edit_link ) .'">';

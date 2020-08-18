@@ -392,7 +392,8 @@
 		$.notificationx.create_nx_bar();
 	};
 	$.notificationx.create_nx_bar = function () {
-		$(".nx-bar_with_elementor").on("click", function () {
+		$(".nx-bar_with_elementor").on("click", function (e) {
+			e.preventDefault();
 			var self = $(this),
 				nonce = self.data("nonce"),
 				bar_id = self.data("the_post");
@@ -407,6 +408,7 @@
 				},
 				success: function (res) {
 					console.log(res);
+					window.location.href = res.data.link;
 				},
 			});
 		});
