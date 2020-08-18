@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce notification, notifica
 Requires at least: 4.0
 Tested up to: 5.5
 Requires PHP: 5.4
-Stable tag: 1.8.1
+Stable tag: 1.8.2
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -22,7 +22,7 @@ https://www.youtube.com/watch?v=E-QR1QdRUrg
 People don’t like being left behind and they love to follow the trends. If your visitors know what other people are buying, reading, commenting then it’s more likely that they will get the confidence instantly and they will want to buy it as well because of FOMO effect.
 
 #### **What is 'FOMO'?** ####
-FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing technique to make your visitors eager to buy from your site leveraging the sense of urgency. 
+FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing technique to make your visitors eager to buy from your site leveraging the sense of urgency.
 
 ## 🌟 USE FOMO TO INCREASE YOUR LEADS, SALES & ENGAGEMENTS ##
 
@@ -46,7 +46,7 @@ https://www.youtube.com/watch?v=l7s9FXgzbEM
 - Super simple interface and easy to set up the notifications alert
 - Supports WooCommerce, Easy Digital Download, Freemius, Envato
 - Customization option to the display across the site, on specific posts, pages or exclude from the specific location
-- Advanced **9+ integrations** to power up your social proof marketing strategies 
+- Advanced **9+ integrations** to power up your social proof marketing strategies
 - Connect NotificationX with **Zapier** to build absolutely anything
 - Check the results from **Analytics tool** [PRO] and see how many times a certain notification popup has been viewed, clicked or even its Click-through Rate
 - Option to deactivate unnecessary integrations to keep the site lite
@@ -81,21 +81,21 @@ https://www.youtube.com/watch?v=l7s9FXgzbEM
 
 1. **[WooCommerce](https://notificationx.com/integrations/woocommerce/):** Showcase your product sales alert and customer activities live on the website with an automated process to increase your eCommerce site conversions rates. **From V 1.7.0 we now support WooCommerce Product reviews as well.**
 
-2. **[Easy Digital Downloads](https://notificationx.com/integrations/easy-digital-downloads/):** Display your clients’ live sales update on the website to build credibility and gather more traffic to boost business growth. 
+2. **[Easy Digital Downloads](https://notificationx.com/integrations/easy-digital-downloads/):** Display your clients’ live sales update on the website to build credibility and gather more traffic to boost business growth.
 
 3. **[Freemius [PRO]](https://notificationx.com/integrations/freemius/):** Lets you showcase your customers' real-time sales and review activities through live notification pop up from the Freemius account to your website.
 
 4. **[GiveWP](https://notificationx.com/integrations/givewp/):** Showcase your donor live notification popup on the website to influence others to make more donations.
 
-5. **[Zapier [PRO]](https://notificationx.com/integrations/zapier/):** Integrate Zapier with NotificationX to pull data from supported apps and display custom popups of users real-time notification to convert your visitors into your permanent client. 
+5. **[Zapier [PRO]](https://notificationx.com/integrations/zapier/):** Integrate Zapier with NotificationX to pull data from supported apps and display custom popups of users real-time notification to convert your visitors into your permanent client.
 
-6. **[MailChimp [PRO]](https://notificationx.com/integrations/mailchimp/):** Create urgency among your visitors to signup your email list to get updates and increase your overall engagement rates.  
+6. **[MailChimp [PRO]](https://notificationx.com/integrations/mailchimp/):** Create urgency among your visitors to signup your email list to get updates and increase your overall engagement rates.
 
 7. **[ConvertKit [PRO]](https://notificationx.com/integrations/convertkit/):** Enhance your email marketing strategy by showcasing real-time signup activities from ConvertKit and boost site engagement rate instantly.
 
 8. **[LearnDash [PRO]](https://notificationx.com/integrations/learndash/):** Showcase your course enrollment activities to gain credibility and influence others to signup for your next online course.
 
-9. **[Envato [PRO]](https://notificationx.com/integrations/envato/):** Display your download or sales notification from Envato (Themeforest/CodeCanyon) and increase conversion rates.  
+9. **[Envato [PRO]](https://notificationx.com/integrations/envato/):** Display your download or sales notification from Envato (Themeforest/CodeCanyon) and increase conversion rates.
 
 10. **[Google Analytics[PRO]](https://notificationx.com/integrations/google-analytics/):** Display Google Analytics insights and visitor counts with more marketing insight to engage your potential buyers.
 
@@ -106,10 +106,10 @@ https://www.youtube.com/watch?v=l7s9FXgzbEM
 
 https://www.youtube.com/watch?v=75vntaHp9Y4
 
-[WPMayor](https://wpmayor.com/notificationx-review-add-fomo-inducing-notifications-to-wordpress/): 
+[WPMayor](https://wpmayor.com/notificationx-review-add-fomo-inducing-notifications-to-wordpress/):
 > 'NotificationX is a freemium WordPress plugin that helps bring those two marketing strategies to your WordPress site, with eye-catching notification alerts for new sales, comments, reviews, and more. The designs are modern and nice-looking right out of the box, and I like how it supports different notification types, which makes it work for an eCommerce store, blog, WordPress theme/plugin shop, and more.'
 
-[BobWP](https://bobwp.com/notification-display-woocommerce-notificationx-plugin/): 
+[BobWP](https://bobwp.com/notification-display-woocommerce-notificationx-plugin/):
 > 'The power of NotificationX lies in its integrations. The integration with WordPress.org makes it slick to pull in download numbers and reviews. This is a perfect option if you are selling freemium plugins and themes. The plugin is intuitive and easy to set up. With the various notifications, you can get creative and go beyond product sales with your WooCommerce store.'
 
 **Thanks:** This project is inspired by WPFomify, Puneet & his team did amazing work, and we are very thankful to them. They are one of the first to do Fomo in WordPress right way, we are passionately taking it to whole different level and loved to see we are inspiring them as well, thats the beauty of OpenSource!
@@ -125,7 +125,7 @@ https://www.youtube.com/watch?v=75vntaHp9Y4
 
 - Join our [Facebook Group](https://www.facebook.com/groups/NotificationX.Community/)
 - Learn from our tutorials on [Youtube Channel](https://wpdeveloper.net/go/youtube-channel)
-- Or [rate us](https://notificationx.com/go/review-nx) on WordPress 
+- Or [rate us](https://notificationx.com/go/review-nx) on WordPress
 
 
 🔥 GET FREEBIES FOR YOUR WORDPRESS SITE
@@ -134,7 +134,7 @@ Consider checking out our other WordPress solutions & boost your WordPress websi
 
 🔝 [Essential Addons For Elementor](https://wordpress.org/plugins/essential-addons-for-elementor-lite/): Most popular Elementor addons with 70+ widgets & ready blocks
 
-📄 [EmbedPress](https://wordpress.org/plugins/embedpress/): EmbedPress lets you embed videos, images, posts, audio, maps and upload PDF, DOC, PPT & all other types of content into your WordPress site with one-click and showcase it beautifully for the visitors. 
+📄 [EmbedPress](https://wordpress.org/plugins/embedpress/): EmbedPress lets you embed videos, images, posts, audio, maps and upload PDF, DOC, PPT & all other types of content into your WordPress site with one-click and showcase it beautifully for the visitors.
 
 ☁ [Templately](https://wordpress.org/plugins/templately/): Free templates library for Elementor & Gutenberg along with the cloud collaboration for WordPress.
 
@@ -152,7 +152,7 @@ Consider checking out our other WordPress solutions & boost your WordPress websi
 
 = Modern Way: =
 1. Go to the WordPress Dashboard "Add New Plugin" section.
-2. Search For "NotificationX". 
+2. Search For "NotificationX".
 3. Install, then Activate it.
 4. Follow the [Documentation](https://notificationx.com/docs/)
 
@@ -192,6 +192,13 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 7. Notification Bar with Countdown
 
 == Changelog ==
+
+= 1.8.2 - 18/08/2020 =
+
+- Fixed: ReviewX Compatibility Issue.
+- Enhancement: WPComments Extension enhanced based on WP5.5.
+- Few minor bug-fix and improvements
+
 
 = 1.8.1 - 10/08/2020 =
 
@@ -277,7 +284,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 - New type introduced - Contact Form
 - Added : Contact Form 7 integration
 - Fix: Donation & eLearning content tab disappearing issue
-- Fix: Reviews & Download stats regenerating issue 
+- Fix: Reviews & Download stats regenerating issue
 - Some minor improvements
 
 = 1.4.2 - 06/11/2019 =
@@ -335,7 +342,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 = 1.3.5 - 16/09/2019 =
 
 - Added : Independent Custom Notification
-- Added : Bar Close Button Position 
+- Added : Bar Close Button Position
 - Added : New control added for Expired Text
 - Fixed : Bottom Right Notification Responsive Issue
 - Improved : WooCommerce and EDD Sorting Issue
@@ -420,7 +427,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 - Improved : New Settings page for better UX
 - Added : Modular Control for integrations
-- Added : Affiliate link compatibility 
+- Added : Affiliate link compatibility
 - Fixed : Link Options fix for WP Review and Stats
 - Few minor bugfix and improvement
 
@@ -455,7 +462,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 - Added : Reviews for WP Plugins
 - Lots of minor bugfix and improvement
 
-= 1.0.3 – 17/06/2019 = 
+= 1.0.3 – 17/06/2019 =
 
 - Fixed : WooCommerce User Data Issue
 - Fixed : Advance Design issue for Stats
