@@ -193,9 +193,10 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 1.8.2 - 18/08/2020 =
+= 1.8.2 - 19/08/2020 =
 
 - Fixed: ReviewX Compatibility Issue.
+- Fixed: WooCommerce 4.4.0 Compatibility Issue.
 - Enhancement: WPComments Extension enhanced based on WP5.5.
 - Few minor bug-fix and improvements
 
