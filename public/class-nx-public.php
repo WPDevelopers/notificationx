@@ -305,8 +305,7 @@ class NotificationX_Public {
 			$ids = explode( ',',  $ids);
 			if( ! empty( $ids ) ) {
 
-				$all_data = [];
-				$this->single_data = [];
+				$all_data = $this->single_data = $new_data = [];
 
 				foreach( $ids as $id ) {
 					$settings = $this->settings = NotificationX_MetaBox::get_metabox_settings( $id );
@@ -332,11 +331,13 @@ class NotificationX_Public {
 					if( ! empty( $data[ $key ] ) ) {
 						$new_data = apply_filters( 'nx_filtered_data', NotificationX_Helper::sortBy( $data[ $key ], $key ), $settings );
 					}
+					if( is_array( $new_data ) && ! empty( $new_data ) ) {
+						array_walk( $new_data, function( $item, $key ) {
+							$this->single_data[ $key ] = $item;
+							$this->single_data[ $key ]['settings'] = $this->settings;
+						});
+					}
 
-					array_walk( $new_data, function( $item, $key ) {
-						$this->single_data[ $key ] = $item;
-						$this->single_data[ $key ]['settings'] = $this->settings;
-					});
 					// $this->single_data = $new_data;
 
 					if( empty( $all_data ) ) {
