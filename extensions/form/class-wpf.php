@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
     /**
@@ -43,7 +43,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
             if( isset( $_GET['form_id'] ) ) {
                 $form_id = intval( $_GET['form_id'] );
 
-                $form = get_post( $form_id );                
+                $form = get_post( $form_id );
 
                 $keys = $this->keys_generator( $form->post_content );
 
@@ -96,7 +96,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
                         }
                     }
                     $fields[ $key . "_" . $fielditem['type'] ] = $this->check_label( $fielditem );
-                // }                
+                // }
             }
         }
         return $fields;
@@ -108,13 +108,14 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
 			'order' => 'ASC',
 			'posts_per_page' => -1,
         );
-        $the_query = query_posts( $args );
+        $the_query = get_posts( $args );
         $forms = [];
         if( ! empty( $the_query ) ) {
             foreach ($the_query as $form) {
                 $forms[ $form->ID ] = $form->post_title;
             }
         }
+        wp_reset_postdata();
         return $forms;
     }
 
@@ -126,7 +127,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
             $url = admin_url('plugin-install.php?s=wp+form&tab=search&type=term');
             $fields['has_no_wpf'] = array(
                 'type'     => 'message',
-                'message'    => sprintf( '%s <a href="%s">%s</a> %s', 
+                'message'    => sprintf( '%s <a href="%s">%s</a> %s',
                     __( 'You have to install', 'notificationx' ),
                     $url,
                     __( 'WP Forms', 'notificationx' ),
@@ -304,7 +305,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
     }
     /**
      * This functions is hooked
-     * 
+     *
      * @hooked nx_public_action
      * @return void
      */
@@ -351,7 +352,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
     public function add_builder_fields( $options ){
         $fields = $this->init_fields();
         unset( $fields[ $this->template ] );
-        
+
         foreach ( $fields as $name => $field ) {
             $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
         }

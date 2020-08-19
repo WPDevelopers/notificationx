@@ -288,7 +288,7 @@ class NotificationX_Admin {
 		);
 		self::$active_items = [];
 		// Get the notification posts.
-		$posts = query_posts( $args );
+		$posts = get_posts( $args );
 		if ( count( $posts ) ) {
 			foreach ( $posts as $post ) {
 				$settings = NotificationX_MetaBox::get_metabox_settings( $post->ID );
@@ -299,6 +299,8 @@ class NotificationX_Admin {
 				self::$active_items[ $type ][] = $post->ID;
 			}
 		}
+
+		wp_reset_postdata();
 
 		return self::$active_items;
 	}
