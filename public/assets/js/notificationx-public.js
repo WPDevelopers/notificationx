@@ -444,28 +444,37 @@
 			global = true;
 		}
 
-		fetch(notificationx.ajaxurl, {
-			method: "POST",
-			credentials: "same-origin",
-			headers: new Headers({
-				// "Content-Type": "application/json",
-				"Content-Type": "application/x-www-form-urlencoded",
-			}),
-			body:
-				"action=nx_get_conversions&nonce=" +
-				notificationx.nonce +
-				"&ids=" +
-				idx +
-				"&global=" +
-				global,
-		})
-			.then(function (response) {
-				return response.json();
+		jQuery
+			.post({
+				url: notificationx.ajaxurl,
+				method: "POST",
+				credentials: "same-origin",
+				headers: new Headers({
+					// "Content-Type": "application/json",
+					"Content-Type": "application/x-www-form-urlencoded",
+				}),
+				data: {
+					action: "nx_get_conversions",
+					nonce: notificationx.nonce,
+					ids: idx,
+					global: global,
+				},
+				// body:
+				// 	"action=nx_get_conversions&nonce=" +
+				// 	notificationx.nonce +
+				// 	"&ids=" +
+				// 	idx +
+				// 	"&global=" +
+				// 	global,
 			})
+			// .then(function (response) {
+			// 	return response.json();
+			// })
 			.then(function (response) {
-				$.notificationx.render(response.config, response.content);
+				var res = JSON.parse(response);
+				$.notificationx.render(res.config, res.content);
 			})
-			.catch(function (err) {
+			.fail(function (err) {
 				console.log(err);
 				console.log(
 					"AJAX error, Something went wrong! Please, Contact support team."
