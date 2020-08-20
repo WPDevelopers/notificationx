@@ -2135,6 +2135,15 @@ body.nx-press_bar-active {
   left: 30px;
   right: auto
 }
+.notificationx-shortcode-wrapper > .nx-bar.nx-bar-has-elementor .nx-bar-inner,
+.nx-bar.nx-bar-has-elementor .nx-bar-inner {
+  display: block;
+  padding: 0
+}
+.notificationx-shortcode-wrapper > .nx-bar.nx-bar-has-elementor .nx-bar-inner .nx-bar-content-wrap,
+.nx-bar.nx-bar-has-elementor .nx-bar-inner .nx-bar-content-wrap {
+  display: block
+}
 .notificationx-shortcode-wrapper > .nx-bar.theme-two,
 .nx-bar.theme-two {
   background-color: #5704a2;
