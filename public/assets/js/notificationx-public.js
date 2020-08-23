@@ -182,6 +182,11 @@
 				if (body_push == "pushed" || body_push == undefined) {
 					/* add padding in body after initial delay */
 					var initTimeout = setTimeout(function () {
+						if ($(bar).hasClass('nx-bar-out')) {
+							clearTimeout(initTimeout);
+							return;
+						}
+						
 						$("body")
 							.addClass("has-nx-bar")
 							.css("padding-" + position, barHeight);
@@ -316,6 +321,11 @@
 		}
 
 		var showBarTimeout = setTimeout(function () {
+			if ($(bar).hasClass("nx-bar-out")) {
+				clearTimeout(showBarTimeout);
+				return;
+			}
+
 			var html = $("html");
 			html.addClass("nx-bar-active");
 			if ($(bar).hasClass("nx-position-top")) {
