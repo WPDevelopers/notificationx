@@ -1244,7 +1244,7 @@ msgstr ""
 #: extensions/wp-comments/class-wp-comments.php:186
 #: extensions/wporg/class-wporg-review.php:356
 #: extensions/wporg/class-wporg-review.php:376
-msgid "Sometimes ago"
+msgid "Some time ago"
 msgstr ""
 
 #: extensions/edd/class-edd.php:92

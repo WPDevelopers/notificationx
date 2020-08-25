@@ -5,6 +5,12 @@ if( $settings->link_open ) {
     $attrs .= ' target="_blank"';
 }
 
+if( NotificationX_DB::get_settings( 'enable_analytics' ) != 1 && NotificationX_DB::get_settings( 'enable_analytics' ) !== '' ) {
+    $wrapper_attrs .= ' data-analytics="false"';
+} else {
+    $wrapper_attrs .= ' data-analytics="true"';
+}
+
 if( $settings->initial_delay ) {
     $wrapper_attrs .= ' data-initial_delay="'. $settings->initial_delay .'"';
 }
@@ -16,15 +22,33 @@ if( $settings->close_button ) {
 if( $settings->hide_after ) {
     $wrapper_attrs .= ' data-hide_after="'. $settings->hide_after .'"';
 }
+if( $settings->enable_countdown == '1' ) {
+    if( $settings->countdown_start_date ) {
+        $wrapper_attrs .= ' data-start_date="'. $settings->countdown_start_date .'"';
+    } else {
+        $wrapper_attrs .= ' data-start_date="'. date('D, M d, Y h:i A', time() ) .'"';
+    }
+    if( $settings->countdown_end_date ) {
+        $wrapper_attrs .= ' data-end_date="'. $settings->countdown_end_date .'"';
+    }
 
-if( $settings->countdown_start_date ) {
-    $wrapper_attrs .= ' data-start_date="'. $settings->countdown_start_date .'"';
-} else {
-    $wrapper_attrs .= ' data-start_date="'. date('D, M d, Y h:i A', time() ) .'"';
+    if( $settings->evergreen_timer == '1' && NX_CONSTANTS::is_pro() ) {
+        $wrapper_attrs .= ' data-evergreen="true"';
+        $c_timestamps = current_time('timestamp');
+        $wrapper_attrs .= ' data-start_date="'. date('D, M d, Y h:i A', $c_timestamps ) .'"';
+        $wrapper_attrs .= ' data-eg_expire_in="'. ( $settings->time_rotation * 60 * 60 * 1000 ) .'"';
+        $wrapper_attrs .= ' data-time_randomize="'. $settings->time_randomize .'"';
+        $wrapper_attrs .= ' data-time_reset="'. $settings->time_reset .'"';
+    
+        if( is_array( $settings->time_randomize_between ) ) {
+            $random_number = rand($settings->time_randomize_between['start_time'], $settings->time_randomize_between['end_time']);
+            $random_number = $random_number * 60 * 60 * 1000;
+            $wrapper_attrs .= ' data-duration_timestamp="'. $random_number .'"';
+        }
+    }
 }
-if( $settings->countdown_end_date ) {
-    $wrapper_attrs .= ' data-end_date="'. $settings->countdown_end_date .'"';
-}
+
+
 // $wrapper_attrs .= ' data-body_push="pushed"';
 if( $settings->pressbar_body == 1 ) {
     $wrapper_attrs .= ' data-body_push="overlap"';
@@ -62,8 +86,8 @@ if( is_admin_bar_showing() ) {
     $class .= 'nx-admin';
 }
 
+$countdown = [];
 if( $settings->enable_countdown ) {
-    $countdown = [];
     if( property_exists( $settings, 'countdown_time' ) ) {
         foreach( $settings->countdown_time as $key => $time ) {
             $time = empty( $time ) ? 0 : $time;
@@ -85,7 +109,7 @@ if( $settings->sticky_bar ) {
     class="nx-bar <?php echo $settings->bar_theme; ?> nx-bar-<?php echo $settings->id; ?> <?php echo esc_attr( $pos_class ); ?> <?php echo esc_attr( $class ); ?>" <?php echo $wrapper_attrs; ?>>
     <div class="nx-bar-inner">
         <div class="nx-bar-content-wrap">
-            <?php if( $settings->enable_countdown ) : ?>
+            <?php if( boolval($settings->enable_countdown) || boolval( $settings->evergreen_timer ) ) : ?>
                 <div class="nx-countdown-wrapper">
                     <?php if( $settings->countdown_text ) : ?>
                         <div class="nx-countdown-text"><?php echo esc_html_e( $settings->countdown_text, 'notificationx' ); ?></div>

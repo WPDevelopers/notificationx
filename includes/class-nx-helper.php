@@ -102,7 +102,7 @@ class NotificationX_Helper {
         return $index;
     }
     /**
-     * Sorting Data 
+     * Sorting Data
      * by their type
      *
      * @param array $value
@@ -111,10 +111,10 @@ class NotificationX_Helper {
      */
     public static function sortBy( &$value, $key = 'comments' ) {
         switch( $key ){
-            case 'comments' : 
+            case 'comments' :
                 return self::sorter( $value, 'key', 'DESC' );
                 break;
-            default: 
+            default:
                 return self::sorter( $value, 'timestamp', 'DESC' );
                 break;
         }
@@ -129,7 +129,7 @@ class NotificationX_Helper {
         if ( ! $time ) {
             return;
 		}
-		
+
         $offset = get_option('gmt_offset'); // Time offset in hours
         $local_time = $time + ($offset * 60 * 60 ); // added offset in seconds
         $time = human_time_diff( $local_time, current_time('timestamp') );
@@ -151,9 +151,9 @@ class NotificationX_Helper {
 			'public'	=> true,
 			'show_ui'	=> true
         ), 'objects');
-        
+
         unset( $post_types['attachment'] );
-        
+
         if ( count( $exclude ) ) {
             foreach ( $exclude as $type ) {
                 if ( isset( $post_types[$type] ) ) {
@@ -183,7 +183,7 @@ class NotificationX_Helper {
         } else {
             $taxonomies = get_object_taxonomies( $post_type, 'objects' );
         }
-        
+
         $data = array();
         if( is_array( $taxonomies ) ) {
             foreach ( $taxonomies as $tax_slug => $tax ) {
@@ -278,6 +278,10 @@ class NotificationX_Helper {
             'woo_reviews' => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/woocommerce.jpg',
                 'title' => 'WooCommerce Reviews'
+            ),
+            'reviewx' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/sources/reviewx.png',
+                'title' => 'ReviewX'
             ),
             'freemius' => array(
                 'is_pro' => $is_pro,
@@ -413,18 +417,18 @@ class NotificationX_Helper {
                     'fields' => [ 'custom_contents', 'show_custom_image', 'show_notification_image', 'wp_reviews_template', 'has_no_cron' ]
                 ),
                 'press_bar' => array(
-                    'sections' => [ 'image', 'link_options', 'conversion_link_options', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'rs_link_options', 'donation_themes', 'elearning_themes' ],
+                    'sections' => [ 'image', 'link_options', 'conversion_link_options', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'rs_link_options', 'donation_themes', 'elearning_themes', 'queue_management' ],
                     'fields' => [ 'comments_template', 'custom_contents', 'notification_preview', 'image_url', 'conversion_size', 'conversion_position', 'comments_template_new', 'comments_template_adv', 'wp_stats_template_new', 'has_no_cron' ]
                 ),
                 'conversions' => array(
-                    'sections' => [ 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'rs_link_options', 'donation_themes', 'elearning_themes' ], 
+                    'sections' => [ 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'rs_link_options', 'donation_themes', 'elearning_themes' ],
                     'fields' => [ 'wp_reviews_template', 'has_no_cron' ]
                 ),
                 'reviews' => array(
-                    'fields' => [ 'comments_source', 'conversion_from', 'has_no_cron' ], 
-                    'sections' => [ 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'donation_themes', 'elearning_themes' ], 
+                    'fields' => [ 'comments_source', 'conversion_from', 'has_no_cron' ],
+                    'sections' => [ 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'donation_themes', 'elearning_themes' ],
                 ),
-                'elearning' => array( 
+                'elearning' => array(
                     'sections' => ['donation_themes'],
                     'fields' => ['has_no_cron']
                 ),
@@ -436,8 +440,8 @@ class NotificationX_Helper {
                     'fields' => ['has_no_cron']
                 ),
                 'download_stats' => array(
-                    'fields' => [ 'comments_source', 'conversion_from', 'reviews_source', 'show_notification_image', 'wp_reviews_template_new', 'wp_reviews_template', 'has_no_cron' ], 
-                    'sections' => [ 'image', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'donation_themes', 'elearning_themes' ], 
+                    'fields' => [ 'comments_source', 'conversion_from', 'reviews_source', 'show_notification_image', 'wp_reviews_template_new', 'wp_reviews_template', 'has_no_cron' ],
+                    'sections' => [ 'image', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'donation_themes', 'elearning_themes' ],
                 ),
             ));
         }
@@ -501,7 +505,7 @@ class NotificationX_Helper {
             unset( $types['press_bar'] );
         }
         $module_source = self::modules();
-        
+
         if( ! empty( $module_source ) ) {
             foreach( $module_source as $parent_type => $module ) {
                 if( is_array( $module ) ) {
@@ -517,13 +521,13 @@ class NotificationX_Helper {
                     if( $module_counter === 0 ) {
                         if( isset( $types[ $parent_type ] ) ) {
                             unset( $types[ $parent_type ] );
-                        } 
+                        }
                     }
                 } else {
                     if( isset( $active_modules[ $module ] ) && $active_modules[ $module ] == false ) {
                         if( isset( $types[ $parent_type ] ) ) {
                             unset( $types[ $parent_type ] );
-                        } 
+                        }
                     }
                     if( ! isset( $active_modules[ $module ] ) ) {
                         if( isset( $types[ $parent_type ] ) ) {
@@ -574,9 +578,10 @@ class NotificationX_Helper {
                 'modules_wordpress'
             ),
             'wp_comments' => 'modules_wordpress',
-            'wp_stats' => 'modules_wordpress',
-            'wp_reviews' => 'modules_wordpress',
+            'wp_stats'    => 'modules_wordpress',
+            'wp_reviews'  => 'modules_wordpress',
             'woo_reviews' => 'modules_woocommerce',
+            'reviewx'     => 'modules_reviewx',
             'conversions' => array(
                 'modules_woocommerce',
                 'modules_edd',
@@ -586,7 +591,8 @@ class NotificationX_Helper {
             ),
             'reviews' => array(
                 'modules_wordpress',
-                'modules_woocommerce'
+                'modules_woocommerce',
+                'modules_reviewx'
             ),
             'elearning' => array(
                 'modules_tutor',
@@ -600,12 +606,12 @@ class NotificationX_Helper {
                 'modules_njf'
             ),
             'woocommerce' => 'modules_woocommerce',
-            'edd' => 'modules_edd',
-            'give' => 'modules_give',
-            'tutor' => 'modules_tutor',
-            'cf7' => 'modules_cf7',
-            'wpf' => 'modules_wpf',
-            'njf' => 'modules_njf',
+            'edd'         => 'modules_edd',
+            'give'        => 'modules_give',
+            'tutor'       => 'modules_tutor',
+            'cf7'         => 'modules_cf7',
+            'wpf'         => 'modules_wpf',
+            'njf'         => 'modules_njf',
         ));
     }
 
@@ -619,19 +625,19 @@ class NotificationX_Helper {
             'theme-four' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-four.png'
-            ), 
+            ),
             'theme-five' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-five.png'
-            ), 
+            ),
             'conv-theme-six' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-6.jpg'
-            ), 
+            ),
             'maps_theme' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/maps-theme.png'
-            ), 
+            ),
             'conv-theme-seven' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/pro/nx-conv-theme-7.png'
@@ -658,19 +664,19 @@ class NotificationX_Helper {
             'theme-four' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/elearning/elearning-theme-4.png'
-            ), 
+            ),
             'theme-five' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/elearning/elearning-theme-5.png'
-            ), 
+            ),
             'conv-theme-six' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/elearning/elearning-theme-6.png'
-            ), 
+            ),
             'maps_theme' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/elearning/maps-theme.png'
-            ), 
+            ),
             'conv-theme-seven' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/elearning/elearning-theme-7.png'
@@ -697,19 +703,19 @@ class NotificationX_Helper {
             'theme-four' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/donation/donation-theme-4.png'
-            ), 
+            ),
             'theme-five' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/donation/donation-theme-5.png'
-            ), 
+            ),
             'conv-theme-six' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/donation/donation-theme-6.jpg'
-            ), 
+            ),
             'maps_theme' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/donation/maps-theme.png'
-            ), 
+            ),
             'conv-theme-seven' => array(
                 'is_pro' => $is_pro,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/donation/donation-theme-7.png'
@@ -838,7 +844,7 @@ class NotificationX_Helper {
         $j = 0;
 
         $custom_tag = array(
-            '{{custom}}', 
+            '{{custom}}',
             '{{sometime}}',
             '{{custom_stats}}',
             '{{this_page}}',
@@ -848,18 +854,18 @@ class NotificationX_Helper {
             if( in_array( $s_key, $desire_data['br_before'] ) ) {
                 $j++;
             }
-            if( in_array( trim( $s_value ), $custom_tag ) ) { 
+            if( in_array( trim( $s_value ), $custom_tag ) ) {
                 $hasCustomAsValue = true;
                 continue;
             }
-            // if( in_array( trim( $s_value ), $custom_tag ) ) { 
+            // if( in_array( trim( $s_value ), $custom_tag ) ) {
             //     $hasCustomAsValue = true;
             // }
-            if( strpos( $s_key, 'custom_' ) === 0 && ! $hasCustomAsValue ) { 
+            if( strpos( $s_key, 'custom_' ) === 0 && ! $hasCustomAsValue ) {
                 // $hasCustomAsKey = true;
                 continue;
             }
-            
+
             // if( $hasCustomAsValue === true ) {
             //     $hasCustomAsValue = false;
             //     continue;
@@ -906,7 +912,7 @@ class NotificationX_Helper {
     }
 
     public static function source_types(){
-        return apply_filters( 'nx_source_types', array( 
+        return apply_filters( 'nx_source_types', array(
             'press_bar'      => 'display_type',
             'comments'       => 'comments_source',
             'conversions'    => 'conversion_from',
@@ -918,7 +924,7 @@ class NotificationX_Helper {
         ));
     }
     public static function types_title(){
-        return apply_filters( 'nx_source_types_title', array( 
+        return apply_filters( 'nx_source_types_title', array(
             'press_bar'      => __('Notification Bar', 'notificationx'),
             'comments'       => __('Comments', 'notificationx'),
             'conversions'    => __('Sales Notification', 'notificationx'),
@@ -954,13 +960,14 @@ class NotificationX_Helper {
     }
 
     public static function theme_sources(){
-        return apply_filters( 'nx_themes_types', array( 
+        return apply_filters( 'nx_themes_types', array(
             'press_bar'   => 'bar_theme',
             'wp_comments' => 'comment_theme',
             'woocommerce' => 'theme',
             'edd'         => 'theme',
             'wp_reviews'  => 'wporg_theme',
             'woo_reviews' => 'wporg_theme',
+            'reviewx'     => 'wporg_theme',
             'wp_stats'    => 'wpstats_theme',
             'give'        => 'donation_theme',
             'tutor'       => 'elearning_theme',
@@ -995,12 +1002,13 @@ class NotificationX_Helper {
     }
 
     public static function template_keys(){
-        return apply_filters( 'nx_template_keys', array( 
+        return apply_filters( 'nx_template_keys', array(
             'wp_comments' => 'comments_template_new',
             'woocommerce' => 'woo_template_new',
             'edd'         => 'woo_template_new',
             'wp_reviews'  => 'wp_reviews_template_new',
             'woo_reviews' => 'wp_reviews_template_new',
+            'reviewx'     => 'wp_reviews_template_new',
             'wp_stats'    => 'wp_stats_template_new',
             'give'        => 'donation_template_new',
             'tutor'       => 'elearning_template_new',
@@ -1032,23 +1040,23 @@ class NotificationX_Helper {
         $number = 0;
         $suffix = '';
         switch( true ) {
-            case $n >= 1000000000000 : 
+            case $n >= 1000000000000 :
                 $number = ( $n / 1000000000000 );
                 $suffix = $n > 1000000000000 ? 'T+' : 'T';
                 break;
-            case $n >= 1000000000 : 
+            case $n >= 1000000000 :
                 $number = ( $n / 1000000000 );
                 $suffix = $n > 1000000000 ? 'B+' : 'B';
                 break;
-            case $n >= 1000000 : 
+            case $n >= 1000000 :
                 $number = ( $n / 1000000 );
                 $suffix = $n > 1000000 ? 'M+' : 'M';
                 break;
-            case $n >= 1000 : 
+            case $n >= 1000 :
                 $number = ( $n / 1000 );
                 $suffix = $n > 1000 ? 'K+' : 'K';
                 break;
-            default: 
+            default:
                 $number = $n;
                 break;
         }
@@ -1235,15 +1243,15 @@ class NotificationX_Helper {
     public static function filter_contactform_key_names( $name ) {
         $validKey = true;
         $filterWords = array(
-            "checkbox", 
-            "color", 
-            "date", 
-            "datetime-local", 
+            "checkbox",
+            "color",
+            "date",
+            "datetime-local",
             "file",
-            "image", 
-            "month", 
-            "number", 
-            "password", 
+            "image",
+            "month",
+            "number",
+            "password",
             "radio",
             "range",
             "reset",

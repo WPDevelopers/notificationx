@@ -31,7 +31,7 @@ class NotificationX_Tutor_Extension extends NotificationX_Extension {
     public function __construct() {
         parent::__construct( $this->template );
         $this->notifications = $this->get_notifications( $this->type );
-        
+
         add_filter( 'nx_notification_link', array( $this, 'notification_link' ), 10, 2 );
         add_action( 'nx_notification_image_action', array( $this, 'image_action' ) );
     }
@@ -132,7 +132,7 @@ class NotificationX_Tutor_Extension extends NotificationX_Extension {
 
             $fields['has_no_tutor'] = array(
                 'type'     => 'message',
-                'message'    => sprintf( '%s <a href="%s">%s</a> %s', 
+                'message'    => sprintf( '%s <a href="%s">%s</a> %s',
                     __( 'You have to install', 'notificationx' ),
                     $url,
                     __( 'Tutor LMS', 'notificationx' ),
@@ -198,7 +198,7 @@ class NotificationX_Tutor_Extension extends NotificationX_Extension {
                     'priority' => 5,
                     'options'  => array(
                         'tag_time'       => __('Definite Time' , 'notificationx'),
-                        'tag_sometime' => __('Sometimes ago' , 'notificationx'),
+                        'tag_sometime' => __('Some time ago' , 'notificationx'),
                     ),
                     'default' => 'tag_time',
                     'dependency' => array(
@@ -215,7 +215,7 @@ class NotificationX_Tutor_Extension extends NotificationX_Extension {
                 'custom_fourth_param' => array(
                     'type'     => 'text',
                     'priority' => 6,
-                    'default' => __( 'Sometimes ago', 'notificationx' )
+                    'default' => __( 'Some time ago', 'notificationx' )
                 ),
             ),
             'label'    => __('Notification Template' , 'notificationx'),
@@ -274,7 +274,7 @@ class NotificationX_Tutor_Extension extends NotificationX_Extension {
     }
     /**
      * This functions is hooked
-     * 
+     *
      * @hooked nx_public_action
      * @return void
      */
@@ -295,17 +295,17 @@ class NotificationX_Tutor_Extension extends NotificationX_Extension {
         if( class_exists( 'Easy_Digital_Downloads' ) && $monetize_by === 'edd' ) {
             add_action('edd_update_payment_status', array($this, 'save_new_enroll_payment_status'), 10, 3);
         }
-        
-        if( 
-            $monetize_by === 'free' || 
-            ( ! class_exists( 'WooCommerce' ) && $monetize_by === 'wc' ) || 
+
+        if(
+            $monetize_by === 'free' ||
+            ( ! class_exists( 'WooCommerce' ) && $monetize_by === 'wc' ) ||
             ( ! class_exists( 'Easy_Digital_Downloads' ) && $monetize_by === 'edd' ) ) {
             add_action( 'tutor_after_enroll', array( $this, 'do_enroll' ), 10, 2 );
         }
     }
     /**
      * This functions is hooked
-     * 
+     *
      * @hooked nx_admin_action
      * @return void
      */
@@ -317,7 +317,7 @@ class NotificationX_Tutor_Extension extends NotificationX_Extension {
         if( function_exists( 'tutils' ) ) {
             $monetize_by = tutils()->get_option('monetize_by');
         }
-        // admin actions will be here ... 
+        // admin actions will be here ...
         if( class_exists('WooCommerce') && $monetize_by == 'wc' ) {
             add_action( 'woocommerce_order_status_changed', array( $this, 'status_transition' ), 10, 4 );
         }
@@ -365,6 +365,7 @@ class NotificationX_Tutor_Extension extends NotificationX_Extension {
         // FIXME: $fields is removed for Template issue, but it should work if exists.
         $options['dependency'][ $this->type ]['fields'] = array_merge($fields, $options['dependency'][ $this->type ]['fields'] );
         $options['dependency'][ $this->type ]['sections'] = array_merge( [ 'image' ], $options['dependency'][ $this->type ]['sections']);
+        $options['hide'][ $this->type ][ 'fields' ] = [ 'woo_template', 'has_no_edd', 'has_no_ld', 'has_no_woo', 'product_control', 'product_exclude_by', 'product_list', 'category_list', 'exclude_categories', 'exclude_products', 'edd_product_control', 'edd_product_exclude_by', 'edd_product_list', 'edd_category_list', 'edd_exclude_categories', 'edd_exclude_products', 'custom_contents', 'show_custom_image' ];
         return $options;
     }
     /**
@@ -397,13 +398,13 @@ class NotificationX_Tutor_Extension extends NotificationX_Extension {
         if ($new_status !== 'publish'){
 			return;
         }
-        
+
         $data         = [];
         $offset       = get_option('gmt_offset');
         $payment      = new \EDD_Payment( $payment_id );
         $cart_details = $payment->cart_details;
         $user_info    = $payment->user_info;
-        
+
         unset( $user_info['id'] );
         unset( $user_info['discount'] );
         unset( $user_info['address'] );
@@ -419,7 +420,7 @@ class NotificationX_Tutor_Extension extends NotificationX_Extension {
                 $user_info['state']    = isset( $user_ip_data->state ) ? $user_ip_data->state : '';
             }
         }
-        
+
         if ( is_array( $cart_details ) ) {
 			foreach ( $cart_details as $cart_index => $download ) {
                 $if_has_course = tutor_utils()->product_belongs_with_course( $download['id'] );
@@ -520,7 +521,7 @@ class NotificationX_Tutor_Extension extends NotificationX_Extension {
             if( is_array( $payment_meta ) ) {
                 $userinfo     = $payment_meta['user_info'];
                 $date         = $payment_meta['date'];
-    
+
                 $data['name']       = $this->name( $user_info['first_name'], $user_info['last_name'] );
                 $data['first_name'] = $user_info['first_name'];
                 $data['last_name']  = $user_info['last_name'];
@@ -564,7 +565,7 @@ class NotificationX_Tutor_Extension extends NotificationX_Extension {
                 if( ! $if_has_course ) {
                     continue;
                 }
-                
+
                 if( isset( $this->notifications[ $key ] ) ) continue;
                 $single_notification = $this->ordered_product( $item->get_id(), $item, $order );
                 if( ! empty( $single_notification ) ) {
@@ -653,7 +654,7 @@ class NotificationX_Tutor_Extension extends NotificationX_Extension {
         );
     }
     /**
-     * This function is responsible for getting 
+     * This function is responsible for getting
      * the buyer name from order.
      *
      * @param WC_Order $order
@@ -712,7 +713,7 @@ class NotificationX_Tutor_Extension extends NotificationX_Extension {
         if( empty( $data ) ) return null;
         $orders = [];
         $from =  date( get_option( 'date_format' ), strtotime( '-' . intval( $data[ '_nx_meta_display_from' ] ) . ' days') );
-        $enrolled = query_posts( [
+        $enrolled = get_posts( [
             'post_type' => 'tutor_enrolled',
             'post_status' => 'completed',
             'date_query' => array(
@@ -726,7 +727,7 @@ class NotificationX_Tutor_Extension extends NotificationX_Extension {
         foreach( $enrolled as $single_enroll ) {
             $orders[ $single_enroll->post_parent . '-' . $single_enroll->ID ] = $this->ready_enrolled_data( $single_enroll );
         }
-        wp_reset_query();
+        wp_reset_postdata();
         return $orders;
     }
     public function frontend_html( $data = [], $settings = false, $args = [] ){

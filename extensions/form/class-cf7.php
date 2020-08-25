@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class NotificationX_CF7_Extension extends NotificationX_Extension {
     /**
@@ -22,8 +22,11 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
      */
     protected $notifications = [];
 
+    private $forms = [];
+
     public function __construct(){
         parent::__construct( $this->template );
+        $this->forms = $this->cf7_forms();
         add_action( 'wp_ajax_nx_cf7_keys', array( $this, 'keys' ) );
         add_filter( 'nx_data_key', array( $this, 'key' ), 10, 2 );
     }
@@ -95,6 +98,7 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
                 $forms[ $form->ID ] = $form->post_title;
             }
         }
+        wp_reset_postdata();
         return $forms;
     }
 
@@ -106,7 +110,7 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
             $url = admin_url('plugin-install.php?s=contact+form+7&tab=search&type=term');
             $fields['has_no_cf7'] = array(
                 'type'     => 'message',
-                'message'    => sprintf( '%s <a href="%s">%s</a> %s', 
+                'message'    => sprintf( '%s <a href="%s">%s</a> %s',
                     __( 'You have to install', 'notificationx' ),
                     $url,
                     __( 'Contact Form 7', 'notificationx' ),
@@ -119,7 +123,7 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
         $fields['cf7_form'] = array(
             'type' => 'select',
             'label' => __( 'Select a Form', 'notificationx' ),
-            'options' => $this->cf7_forms(),
+            'options' => $this->forms,
             'priority' => 89,
         );
 
@@ -194,7 +198,7 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
                     'priority' => 5,
                     'options'  => array(
                         'tag_time'       => __('Definite Time' , 'notificationx'),
-                        'tag_sometime' => __('Sometimes ago' , 'notificationx'),
+                        'tag_sometime' => __('Some time ago' , 'notificationx'),
                     ),
                     'default' => 'tag_time',
                     'dependency' => array(
@@ -211,7 +215,7 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
                 'custom_fourth_param' => array(
                     'type'     => 'text',
                     'priority' => 6,
-                    'default' => __( 'Sometimes ago', 'notificationx' )
+                    'default' => __( 'Some time ago', 'notificationx' )
                 ),
             ),
             'label'    => __('Notification Template' , 'notificationx'),
@@ -281,7 +285,7 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
     }
     /**
      * This functions is hooked
-     * 
+     *
      * @hooked nx_public_action
      * @return void
      */
@@ -328,7 +332,7 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
     public function add_builder_fields( $options ){
         $fields = $this->init_fields();
         unset( $fields[ $this->template ] );
-        
+
         foreach ( $fields as $name => $field ) {
             $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
         }

@@ -1,10 +1,10 @@
 <?php
 /**
  * Register all extensions for the plugin.
- * 
+ *
  * @link       https://wpdeveloper.net
  * @since      1.0.0
- * 
+ *
  * @package    NotificationX
  * @subpackage    NotificationX/extensions
  * @author     WPDeveloper <support@wpdeveloper.net>
@@ -45,7 +45,7 @@ class NotificationX_Extension {
     protected $limiter;
 
     protected $template_name;
-    
+
     /**
      * Default data
      * @var array
@@ -150,8 +150,8 @@ class NotificationX_Extension {
 
         $types = array(
             'wp_comments',
-            'wp_stats', 
-            'wp_reviews', 
+            'wp_stats',
+            'wp_reviews',
             'woocommerce',
             'woo_reviews',
             'edd',
@@ -173,7 +173,7 @@ class NotificationX_Extension {
         }
     }
     /**
-     * This method is responsible for get all 
+     * This method is responsible for get all
      * the notifications we have stored
      *
      * @param string $type
@@ -181,7 +181,10 @@ class NotificationX_Extension {
      */
     public function get_notifications( $type = '' ){
         $notifications = NotificationX_DB::get_notifications();
-        if( empty( $type ) || empty( $notifications ) || ! isset( $notifications[ $type ] ) ) {
+        if( empty( $type ) ) {
+            return $notifications;
+        }
+        if( empty( $notifications ) || ! isset( $notifications[ $type ] ) ) {
             return [];
         }
         return $notifications[ $type ];
@@ -216,7 +219,7 @@ class NotificationX_Extension {
     protected function update_notifications( $type = '', $values = array() ){
         $notifications = NotificationX_DB::get_notifications();
         $this->limiter->setValues( $values );
-        
+
         $notifications[ $type ] = $this->limiter->values();
         return NotificationX_DB::update_notifications( $notifications );
     }
@@ -287,7 +290,7 @@ class NotificationX_Extension {
      *
      * @param [type] $post_id
      * @return boolean
-     * 
+     *
      * @since 1.1.3
      */
     public function check_type( $post_id ){
@@ -314,7 +317,7 @@ class NotificationX_Extension {
         array_walk( $data, array( $this, 'trimed' ) );
         $this->defaults = apply_filters('nx_fallback_data', array(), $data, $settings );
         $data = array_merge( $data, $this->defaults );
-        
+
         extract( $args );
         $settings->themeName = $settings->{ $themeName };
         if( empty( $settings->{ $template . '_adv' } ) ) {
@@ -324,7 +327,7 @@ class NotificationX_Extension {
                 $template =  $settings->themeName . '_template_new_string';
             }
         }
-        
+
         $template = apply_filters( 'nx_template_id' , $template, $settings);
 
         $image_class = apply_filters( 'nx_frontend_image_classes', self::get_classes( $settings, 'img' ), $settings );
@@ -335,11 +338,11 @@ class NotificationX_Extension {
             ['notificationx-inner'], self::get_classes( $settings, 'inner' ), $image_class
         ), $settings );
         $if_is_mobile = wp_is_mobile() ? 'nx-mobile-notification' : '';
-        $wrapper_class = apply_filters( 'nx_frontend_wrapper_classes', array_merge( 
+        $wrapper_class = apply_filters( 'nx_frontend_wrapper_classes', array_merge(
             ['nx-notification'], self::get_classes( $settings ), array( $if_is_mobile )
         ), $settings );
 
-        $frontend_classes = apply_filters( 'nx_frontend_classes', array( 
+        $frontend_classes = apply_filters( 'nx_frontend_classes', array(
             'wrapper' => $wrapper_class,
             'inner' => $inner_class,
             'content' => $content_class,
@@ -347,7 +350,7 @@ class NotificationX_Extension {
         ), $settings );
 
         $output = '';
-        $unique_id = uniqid( 'notificationx-' ); 
+        $unique_id = uniqid( 'notificationx-' );
         $image_data = self::get_image_url( $raw_data, $settings );
         $has_no_image = '';
         if( $image_data == false || empty( $image_data ) ) {
@@ -413,9 +416,9 @@ class NotificationX_Extension {
 		if( empty( $settings ) ) return;
         $classes = [];
         $classes[ 'img' ] = [];
-        
+
         switch( $settings->display_type ) {
-            case 'comments' : 
+            case 'comments' :
                 if( $settings->comment_advance_edit ) {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
                     $classes[ 'inner' ][] =  'nx-img-' . $settings->comment_image_position;
@@ -425,7 +428,7 @@ class NotificationX_Extension {
                     }
                 }
                 break;
-            case 'conversions' || 'form' : 
+            case 'conversions' || 'form' :
                 if( $settings->advance_edit || $settings->form_advance_edit ) {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
                     $classes[ 'inner' ][] =  'nx-img-' . $settings->image_position;
@@ -435,7 +438,7 @@ class NotificationX_Extension {
                     }
                 }
                 break;
-            case 'elearning' : 
+            case 'elearning' :
                 if( $settings->elearning_advance_edit ) {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
                     $classes[ 'inner' ][] =  'nx-img-' . $settings->image_position;
@@ -445,7 +448,7 @@ class NotificationX_Extension {
                     }
                 }
                 break;
-            case 'donation' : 
+            case 'donation' :
                 if( $settings->donation_advance_edit ) {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
                     $classes[ 'inner' ][] =  'nx-img-' . $settings->image_position;
@@ -455,7 +458,7 @@ class NotificationX_Extension {
                     }
                 }
                 break;
-            case 'reviews' : 
+            case 'reviews' :
                 if( $settings->wporg_advance_edit ) {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
                     $classes[ 'inner' ][] =  'nx-img-' . $settings->wporg_image_position;
@@ -465,7 +468,7 @@ class NotificationX_Extension {
                     }
                 }
                 break;
-            case 'download_stats' : 
+            case 'download_stats' :
                 if( $settings->wpstats_advance_edit ) {
                     $classes[ 'inner' ][] =  'nx-img-' . $settings->wpstats_image_position;
                     if( $settings->wpstats_image_position == 'right' ) {
@@ -474,7 +477,7 @@ class NotificationX_Extension {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
                 }
                 break;
-            case 'press_bar' : 
+            case 'press_bar' :
                 if( $settings->bar_advance_edit ) {
                     $classes[ 'inner' ][] = 'nx-customize-style-' . $settings->id;
                 }
@@ -518,7 +521,7 @@ class NotificationX_Extension {
         return $link;
     }
     /**
-     * This function is responsible for getting the image url 
+     * This function is responsible for getting the image url
      * using Product ID or from default image settings.
      *
      * @param array $data
@@ -549,17 +552,17 @@ class NotificationX_Extension {
                 break;
             case 'conversions' :
                 switch( $settings->show_notification_image ) {
-                    case 'product_image' : 
+                    case 'product_image' :
                         if( $settings->conversion_from == 'woocommerce' || $settings->conversion_from == 'edd' ) {
                             if( has_post_thumbnail( $data['product_id'] ) ) {
-                                $product_image = wp_get_attachment_image_src( 
-                                    get_post_thumbnail_id( $data['product_id'] ), 'medium', false 
+                                $product_image = wp_get_attachment_image_src(
+                                    get_post_thumbnail_id( $data['product_id'] ), 'medium', false
                                 );
                                 $image_url = is_array( $product_image ) ? $product_image[0] : '';
                             }
                         }
                         break;
-                    case 'gravatar' : 
+                    case 'gravatar' :
                         $avatar = '';
                         if( isset( $data['email'] ) ) {
                             // $avatar = get_avatar_url( $data['email'], array(
@@ -570,7 +573,7 @@ class NotificationX_Extension {
                         $image_data['gravatar'] = true;
                         $image_url = $avatar;
                         break;
-                    case 'none' : 
+                    case 'none' :
                         $image_url = '';
                         break;
                 }
@@ -581,14 +584,14 @@ class NotificationX_Extension {
             $product_image = wp_get_attachment_image_src( $settings->image_url['id'], '_nx_notification_thumb', false );
             $image_url = is_array( $product_image ) ? $product_image[0] : '';
         }
-        
+
         do_action( 'nx_notification_image_action' );
         $image_data = apply_filters( 'nx_notification_image', [ 'url' => $image_url, 'alt' => $alt_title ], $data, $settings );
 
         if( ! empty( $image_data['url'] ) ) {
             return $image_data;
         }
-        
+
         return false;
     }
 
@@ -617,7 +620,7 @@ class NotificationX_Extension {
 /**
  * This function is responsible for getting frontend
  * html to generate the output.
- * 
+ *
  * @param string $key
  * @param array $data
  * @param stdObject $settings

@@ -737,13 +737,30 @@ function notificationx_metabox_args(){
                                 'type'  => 'checkbox',
                                 'dependency'  => [
                                     1 => [
-                                        'fields' => ['countdown_text', 'countdown_start_date', 'countdown_end_date', 'countdown_expired_text']
+                                        'fields' => ['countdown_text', 'countdown_expired_text', 'evergreen_timer', 'countdown_start_date', 'countdown_end_date']
                                     ]
                                 ],
                                 'hide' => array(
                                     0 => [
-                                        'fields' => ['countdown_text', 'countdown_start_date', 'countdown_end_date', 'countdown_expired_text']
+                                        'fields' => ['countdown_text', 'countdown_expired_text', 'evergreen_timer', 'countdown_start_date', 'countdown_end_date', 'time_rotation', 'time_randomize', 'time_reset' ]
                                     ]
+                                )
+                            ),
+                            'evergreen_timer' => array(
+                                'label'       => __('Evergreen Timer', 'notificationx'),
+                                'type'        => 'checkbox',
+                                'is_pro'      => true,
+                                'switch'      => true,
+                                'description' => sprintf( '%s, <a target="_blank" href="%s">%s</a>', __( 'To configure Evergreen Timer', 'notificationx' ), 'https://notificationx.com/docs/evergreen-timer/', 'check out this doc' ),
+                                'hide'        => array(
+                                    0 => [
+                                        'fields' => [ 'time_rotation', 'time_randomize', 'time_reset' ]
+                                    ],
+                                ),
+                                'dependency' => array(
+                                    1 => [
+                                        'fields' => [ 'time_rotation', 'time_randomize', 'time_reset' ]
+                                    ],
                                 )
                             ),
                             'countdown_text' => array(
@@ -762,6 +779,40 @@ function notificationx_metabox_args(){
                             'countdown_end_date' => array(
                                 'label' => __('End Date', 'notificationx'),
                                 'type'  => 'datepicker',
+                            ),
+                            'time_rotation' => array(
+                                'label' => __('Time Rotation', 'notificationx'),
+                                'type'  => 'text',
+                                'description' => 'hours'
+                            ),
+                            'time_randomize' => array(
+                                'label' => __('Randomize', 'notificationx'),
+                                'type'  => 'checkbox'
+                            ),
+                            'time_randomize_between' => array(
+                                'label' => __('Time Between', 'notificationx'),
+                                'type'  => 'datepicker',
+                                'multiple' => true,
+                                'fields'   => [
+                                    'start_time' => array(
+                                        'type'     => 'number',
+                                        'only'  => 'timepicker',
+                                        'label'    => __('Start Time' , 'notificationx-pro'),
+                                        'priority' => 0,
+                                        'default' => 6
+                                    ),
+                                    'end_time' => array(
+                                        'type'     => 'number',
+                                        'only'  => 'timepicker',
+                                        'label'    => __('End Time' , 'notificationx-pro'),
+                                        'priority' => 1,
+                                        'default' => 12
+                                    ),
+                                ]
+                            ),
+                            'time_reset' => array(
+                                'label' => __('Daily Time Reset', 'notificationx'),
+                                'type'  => 'checkbox',
                             ),
                             'close_forever' => array(
                                 'label' => __('Permanent Close', 'notificationx'),
@@ -938,7 +989,7 @@ function notificationx_metabox_args(){
                                     ]
                                 ),
                                 'hide' => [
-                                    'everywhere' => [ 
+                                    'everywhere' => [
                                         'fields' => [ 'all_locations' ]
                                     ],
                                 ],
@@ -1032,6 +1083,30 @@ function notificationx_metabox_args(){
                                 'class'    => 'hidden',
                             ),
                         ),
+                    ),
+                    'queue_management' => array(
+                        'title' => __( 'Queue Management', 'notificationx' ),
+                        'priority' => 150,
+                        'fields' => array(
+                            'global_queue_active' => array(
+                                'type'        => 'checkbox',
+                                'label'       => __('Enable Global Queue' , 'notificationx'),
+                                'description' => sprintf('%s <a href="%s" target="_blank">%s</a>', __('Activate global queue system for this notification.', 'notificationx'), 'https://notificationx.com/docs/centralized-queue', 'Check out this doc.'),
+                                'priority'    => 0,
+                                'default'     => 0,
+                                'is_pro'      => true,
+                                'dependency'  => array(
+                                    0 => array(
+                                        'sections' => array( 'timing' )
+                                    )
+                                ),
+                                'hide' => array(
+                                    1 => array(
+                                        'sections' => array( 'timing' )
+                                    )
+                                )
+                            )
+                        )
                     ),
                     'timing'        => array(
                         'title'       => __('Timing', 'notificationx'),

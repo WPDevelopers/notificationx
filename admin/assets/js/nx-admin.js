@@ -9,6 +9,7 @@
 
 	$(document).ready(function () {
 		$.notificationx.init();
+		$.notificationx.installPlugin();
 		$("body").on(
 			"click",
 			".nx-metatab-menu li, .nx-builder-tab-menu li, .nx-meta-next, .nx-quick-builder-btn",
@@ -29,7 +30,104 @@
 			e.preventDefault();
 			$.notificationx.testReport();
 		});
+
+		$("body").on("change", "#nx_meta_evergreen_timer", function () {
+			$(".nx-time_randomize_between").hide();
+			$(".nx-time_rotation").hide();
+
+			if (!$("#nx_meta_enable_countdown").is(":checked")) {
+				$(".nx-time_randomize").hide();
+				$(".nx-time_reset").hide();
+				return;
+			}
+
+			if ($("#nx_meta_time_randomize").is(":checked") && this.checked) {
+				$(".nx-time_rotation").hide();
+				$(".nx-time_randomize_between").show();
+			} else {
+				if (this.checked) {
+					$(".nx-time_rotation").show();
+					$(".nx-time_randomize_between").hide();
+				}
+			}
+			if (!this.checked) {
+				$(".nx-countdown_start_date").show();
+				$(".nx-countdown_end_date").show();
+				$(".nx-countdown_expired_text").show();
+			} else {
+				$(".nx-countdown_start_date").hide();
+				$(".nx-countdown_end_date").hide();
+				$(".nx-countdown_expired_text").hide();
+			}
+		});
+		$("body").on("change", "#nx_meta_time_randomize", function () {
+			$(".nx-time_randomize_between").hide();
+			$(".nx-time_rotation").hide();
+
+			if (
+				!$("#nx_meta_enable_countdown").is(":checked") ||
+				!$("#nx_meta_evergreen_timer").is(":checked")
+			) {
+				$(".nx-time_randomize").hide();
+				$(".nx-time_reset").hide();
+				return;
+			}
+
+			if (this.checked) {
+				$(".nx-time_rotation").hide();
+				$(".nx-time_randomize_between").show();
+			} else {
+				$(".nx-time_rotation").show();
+				$(".nx-time_randomize_between").hide();
+			}
+		});
+		$("body").on("change", "#nx_meta_enable_countdown", function () {
+			$("#nx_meta_evergreen_timer").trigger("change");
+			$("#nx_meta_time_randomize").trigger("change");
+		});
+		$("#nx_meta_evergreen_timer").trigger("change");
+		$("#nx_meta_time_randomize").trigger("change");
 	});
+
+	$.notificationx.installPlugin = function () {
+		$(".nx-on-click-install").each(function (e) {
+			$(this).on("click", function (e) {
+				e.preventDefault();
+				var self = $(this);
+				self.addClass("install-now updating-message");
+				self.text("Installing...");
+
+				var nonce = self.data("nonce"),
+					slug = self.data("slug"),
+					plugin_file = self.data("plugin_file");
+
+				$.ajax({
+					url: ajaxurl,
+					type: "POST",
+					data: {
+						action: "wpdeveloper_upsale_core_install_notificationx",
+						_wpnonce: nonce,
+						slug: slug,
+						file: plugin_file,
+					},
+					success: function (response) {
+						self.text("Installed");
+						setTimeout(function () {
+							self.parents(".nx-field").hide();
+						}, 2000);
+					},
+					error: function (error) {
+						self.removeClass("install-now updating-message");
+						alert(error);
+					},
+					complete: function () {
+						self.attr("disabled", "disabled");
+						self.removeClass("install-now updating-message");
+					},
+				});
+			});
+		});
+	};
 
 	$(window).load(function () {
 		$(".nx-preloader").fadeOut({
@@ -50,14 +148,7 @@
 
 		$("body").on("change", ".nx_meta_display_type", function () {
 			var type = $(this).val();
-			// Array.from(
-			// 	document.querySelectorAll("#nx-instructions .nxins-type")
-			// ).forEach(function (item) {
-			// 	item.style.display = "none";
-			// 	if (item.classList.contains(type)) {
-			// 		item.style.display = "block";
-			// 	}
-			// });
+			$.notificationx.get_instructions_enabled(type, false);
 			switch (type) {
 				case "conversions":
 					$(".nx-themes .nx_meta_theme:checked").trigger("change");
@@ -129,6 +220,7 @@
 
 		$("body").on("change", ".nx_meta_conversion_from", function (e) {
 			var conv_source = $(this).val();
+			$.notificationx.get_instructions_enabled(false, conv_source);
 			$(".nx-themes .nx_meta_theme:checked").trigger("change");
 			$("#nx_meta_combine_multiorder:checked").trigger("change");
 			switch (conv_source) {
@@ -146,6 +238,7 @@
 
 		$("body").on("change", ".nx_meta_elearning_source", function () {
 			var conv_source = $(this).val();
+			$.notificationx.get_instructions_enabled(false, conv_source);
 			switch (conv_source) {
 				case "learndash":
 					$("#nx_meta_ld_product_control").trigger("change");
@@ -158,6 +251,7 @@
 
 		$("body").on("change", ".nx_meta_donation_source", function () {
 			var conv_source = $(this).val();
+			$.notificationx.get_instructions_enabled(false, conv_source);
 			switch (conv_source) {
 				case "give":
 					$("#nx_meta_give_forms_control").trigger("change");
@@ -165,8 +259,14 @@
 			}
 		});
 
+		$("body").on("change", ".nx_meta_form_source", function () {
+			var conv_source = $(this).val();
+			$.notificationx.get_instructions_enabled(false, conv_source);
+		});
+
 		$("body").on("change", ".nx_meta_comments_source", function () {
 			var comment_source = $(this).val();
+			$.notificationx.get_instructions_enabled(false, comment_source);
 			$(".nx-comment_themes .nx_meta_comment_theme:checked").trigger(
 				"change"
 			);
@@ -174,6 +274,7 @@
 
 		$("body").on("change", ".nx_meta_reviews_source", function () {
 			var source = $(this).val();
+			$.notificationx.get_instructions_enabled(false, source);
 			$(".nx-wporg_themes .nx_meta_wporg_theme:checked").trigger(
 				"change"
 			);
@@ -199,6 +300,7 @@
 
 		$("body").on("change", ".nx_meta_stats_source", function () {
 			var source = $(this).val();
+			$.notificationx.get_instructions_enabled(false, source);
 			$(".nx-wpstats_themes .nx_meta_wpstats_theme:checked").trigger(
 				"change"
 			);
@@ -239,6 +341,48 @@
 
 		$(".nx_meta_display_type:checked").trigger("change");
 	});
+
+	$.notificationx.get_instructions_enabled = function (type, forSource) {
+		var hasInstructions = false;
+		if (!forSource && type != false) {
+			Array.from(
+				document.querySelectorAll("#nx-instructions .nxins-type")
+			).forEach(function (item) {
+				item.style.display = "none";
+				if (item.classList.contains(type)) {
+					item.style.display = "block";
+					hasInstructions = true;
+				}
+			});
+			// Array.from(
+			// 	document.querySelectorAll(
+			// 		"#nx-instructions .nxins-type .nxins-type-source"
+			// 	)
+			// ).forEach(function (item) {
+			// 	item.style.display = "none";
+			// });
+		} else {
+			if (hasInstructions) {
+				hasInstructions = false;
+			}
+			Array.from(
+				document.querySelectorAll(
+					"#nx-instructions .nxins-type .nxins-type-source"
+				)
+			).forEach(function (item) {
+				item.style.display = "none";
+				if (item.classList.contains(forSource)) {
+					item.style.display = "block";
+					hasInstructions = true;
+				}
+			});
+		}
+		if (!hasInstructions) {
+			$("#nx-instructions").hide();
+		} else {
+			$("#nx-instructions").show();
+		}
+	};
 
 	$.notificationx.init = function () {
 		$.notificationx.enabledDisabled();
@@ -696,10 +840,19 @@
 			$("body .nx-control")
 				.find(".nx-countdown-datepicker")
 				.each(function (i, item) {
-					$(item).find("input").flatpickr({
-						enableTime: true,
-						dateFormat: "D, M d, Y h:i K",
-					});
+					var onlyPicker = $(item).find("input").data("only");
+					if (onlyPicker === "timepicker") {
+						$(item).find("input").flatpickr({
+							enableTime: true,
+							noCalendar: true,
+							dateFormat: "h:i K",
+						});
+					} else {
+						$(item).find("input").flatpickr({
+							enableTime: true,
+							dateFormat: "D, M d, Y h:i K",
+						});
+					}
 				});
 		}
 
@@ -933,6 +1086,17 @@
 					return;
 				}
 				$.notificationx.checkDependencies(this);
+			}
+		);
+		$("body").delegate(
+			".nx-meta-field, .nx-settings-field",
+			"click",
+			function (e) {
+				if (this.dataset.hasOwnProperty("swal") && this.dataset.swal) {
+					$.notificationx.fieldAlert(this);
+					e.preventDefault();
+					return;
+				}
 			}
 		);
 	};
@@ -1178,8 +1342,6 @@
 								var subInputName = inputName + "[id]";
 							}
 
-							console.log("subInputName", subInputName);
-
 							subInput = $(subInput);
 							subInput.attr("id", subInputName);
 							subInput.attr("name", subInputName);
@@ -1209,9 +1371,6 @@
 			},
 			multiple: false, // Set to true to allow multiple files to be selected
 		});
-
-		console.log("button", button);
-		console.dir("wrapper", wrapper);
 
 		// When an image is selected in the media frame...
 		frame.on("select", function () {

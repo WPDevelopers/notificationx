@@ -6,7 +6,7 @@ var gulp = require("gulp"),
 	postcss = require("gulp-postcss"),
 	uglify = require("gulp-uglify"),
 	sourcemaps = require("gulp-sourcemaps");
-const { src, dest, series } = require("gulp");
+const { src, dest, series, watch } = require("gulp");
 const zip = require("gulp-zip");
 const clean = require("gulp-clean");
 const run = require("gulp-run");
@@ -82,13 +82,13 @@ function pScripts() {
 		.pipe(concat("notificationx-public.min.js"))
 		.pipe(gulp.dest(paths.pScripts.dest));
 }
-function watch() {
-	gulp.watch(paths.gAdminStyles.src, gAdminStyles);
-	gulp.watch(paths.adminStyles.src, adminStyles);
-	gulp.watch(paths.adminScripts.src, adminScripts);
-	gulp.watch(paths.pAssets + "scss/**/*.scss", pSass);
-	gulp.watch(paths.pAssets + "css/notificationx-public.css", pConcat);
-	gulp.watch(paths.pScripts.src, pScripts);
+function nxwatch() {
+	watch(paths.gAdminStyles.src, gAdminStyles);
+	watch(paths.adminStyles.src, adminStyles);
+	watch(paths.adminScripts.src, adminScripts);
+	watch(paths.pAssets + "scss/**/*.scss", pSass);
+	watch(paths.pAssets + "css/notificationx-public.css", pConcat);
+	watch(paths.pScripts.src, pScripts);
 }
 
 var build = gulp.parallel(
@@ -103,7 +103,7 @@ gulp.task("build", build);
 /*
  * watch task
  */
-gulp.task("watch", watch);
+gulp.task("watch", nxwatch);
 /*
  * Define default task that can be called by just running `gulp` from cli
  */

@@ -28,7 +28,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             $theme = $posts_data['nx_meta_theme'];
 
             switch( $theme ) {
-                default : 
+                default :
                     $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'third_param', 'fourth_param' ] ) );
                     break;
             }
@@ -86,7 +86,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             $url = admin_url('plugin-install.php?s=woocommerce&tab=search&type=term');
             $fields['has_no_woo'] = array(
                 'type'     => 'message',
-                'message'    => sprintf( '%s <a href="%s">%s</a> %s', 
+                'message'    => sprintf( '%s <a href="%s">%s</a> %s',
                     __( 'You have to install', 'notificationx' ),
                     $url,
                     __( 'WooCommerce', 'notificationx' ),
@@ -152,7 +152,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
                     'priority' => 5,
                     'options'  => array(
                         'tag_time'       => __('Definite Time' , 'notificationx'),
-                        'tag_sometime' => __('Sometimes ago' , 'notificationx'),
+                        'tag_sometime' => __('Some time ago' , 'notificationx'),
                     ),
                     'default' => 'tag_time',
                     'dependency' => array(
@@ -169,7 +169,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
                 'custom_fourth_param' => array(
                     'type'     => 'text',
                     'priority' => 6,
-                    'default' => __( 'Sometimes ago', 'notificationx' )
+                    'default' => __( 'Some time ago', 'notificationx' )
                 ),
             ),
             'label'    => __('Notification Template' , 'notificationx'),
@@ -234,7 +234,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         $fields = $this->init_fields();
         unset( $fields[ $this->template ] );
         unset( $fields[ 'woo_template_adv' ] );
-        
+
         foreach ( $fields as $name => $field ) {
             $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
         }
@@ -243,7 +243,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
     }
     /**
      * This functions is hooked
-     * 
+     *
      * @hooked nx_public_action
      * @return void
      */
@@ -256,7 +256,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
     }
     /**
      * This functions is hooked
-     * 
+     *
      * @hooked nx_admin_action
      * @return void
      */
@@ -433,7 +433,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         }
         return false;
     }
-    
+
     public function multiorder_combine( $data, $settings ){
         if( $settings->display_type != 'conversions' ) {
             return $data;
@@ -453,7 +453,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
                 $this->item_counts[ $item['id'] ] = isset( $this->item_counts[ $item['id'] ] ) ? ++$this->item_counts[ $item['id'] ] : 1;
             }
         });
-        
+
         $products_more_title = isset( $settings->combine_multiorder_text ) && ! empty( $settings->combine_multiorder_text ) ? __( $settings->combine_multiorder_text, 'notificationx' ) : ' ' . __( 'more products', 'notificationx' );
         array_walk( $this->item_counts, function( $item, $key ) use ( $products_more_title ) {
             $this->items[ $key ][ 'title' ] = $this->items[ $key ][ 'title' ] . ' & ' . $item . ' ' . $products_more_title;
@@ -483,13 +483,18 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         $new_order = [];
         if( is_int( $order_id ) ) {
             $order = new WC_Order( $order_id );
-            $status = $order->get_status();
-            $done = [ 'completed', 'processing', 'pending' ];
-            if( ! in_array( $status, $done ) ){
-                return false;
-            }
         } else {
             $order = $order_id;
+        }
+
+        if( ! $order instanceof WC_Order ) {
+            return false;
+        }
+
+        $status = $order->get_status();
+        $done = [ 'completed', 'processing' ];
+        if( ! in_array( $status, $done ) ){
+            return false;
         }
 
         $date = $order->get_date_created();
@@ -522,7 +527,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         return array_merge( $new_order, $this->buyer( $order ));
     }
     /**
-     * This function is responsible for getting 
+     * This function is responsible for getting
      * the buyer name from order.
      *
      * @param WC_Order $order
@@ -567,7 +572,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         );
     }
 
-    public function frontend_html( $data = [], $settings = false, $args = [] ){    
+    public function frontend_html( $data = [], $settings = false, $args = [] ){
         if( class_exists( 'WooCommerce' ) ) {
             return parent::frontend_html( $data, $settings, $args );
         }

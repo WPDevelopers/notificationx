@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
     /**
@@ -22,8 +22,11 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
      */
     protected $notifications = [];
 
+    private $forms = [];
+
     public function __construct(){
         parent::__construct( $this->template );
+        $this->forms = $this->wpf_forms();
         add_action( 'wp_ajax_nx_wpf_keys', array( $this, 'keys' ) );
         add_filter( 'nx_data_key', array( $this, 'key' ), 10, 2 );
     }
@@ -40,7 +43,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
             if( isset( $_GET['form_id'] ) ) {
                 $form_id = intval( $_GET['form_id'] );
 
-                $form = get_post( $form_id );                
+                $form = get_post( $form_id );
 
                 $keys = $this->keys_generator( $form->post_content );
 
@@ -93,7 +96,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
                         }
                     }
                     $fields[ $key . "_" . $fielditem['type'] ] = $this->check_label( $fielditem );
-                // }                
+                // }
             }
         }
         return $fields;
@@ -112,6 +115,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
                 $forms[ $form->ID ] = $form->post_title;
             }
         }
+        wp_reset_postdata();
         return $forms;
     }
 
@@ -123,7 +127,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
             $url = admin_url('plugin-install.php?s=wp+form&tab=search&type=term');
             $fields['has_no_wpf'] = array(
                 'type'     => 'message',
-                'message'    => sprintf( '%s <a href="%s">%s</a> %s', 
+                'message'    => sprintf( '%s <a href="%s">%s</a> %s',
                     __( 'You have to install', 'notificationx' ),
                     $url,
                     __( 'WP Forms', 'notificationx' ),
@@ -136,7 +140,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
         $fields['wpf_form'] = array(
             'type' => 'select',
             'label' => __( 'Select a Form', 'notificationx' ),
-            'options' => $this->wpf_forms(),
+            'options' => $this->forms,
             'priority' => 89.5,
         );
 
@@ -213,7 +217,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
                     'priority' => 5,
                     'options'  => array(
                         'tag_time'       => __('Definite Time' , 'notificationx'),
-                        'tag_sometime' => __('Sometimes ago' , 'notificationx'),
+                        'tag_sometime' => __('Some time ago' , 'notificationx'),
                     ),
                     'default' => 'tag_time',
                     'dependency' => array(
@@ -230,7 +234,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
                 'custom_fourth_param' => array(
                     'type'     => 'text',
                     'priority' => 6,
-                    'default' => __( 'Sometimes ago', 'notificationx' )
+                    'default' => __( 'Some time ago', 'notificationx' )
                 ),
             ),
             'label'    => __('Notification Template' , 'notificationx'),
@@ -301,7 +305,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
     }
     /**
      * This functions is hooked
-     * 
+     *
      * @hooked nx_public_action
      * @return void
      */
@@ -348,7 +352,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
     public function add_builder_fields( $options ){
         $fields = $this->init_fields();
         unset( $fields[ $this->template ] );
-        
+
         foreach ( $fields as $name => $field ) {
             $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
         }

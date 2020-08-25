@@ -21,9 +21,11 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
      * @var [type]
      */
     protected $notifications = [];
+    private $forms = [];
 
     public function __construct(){
         parent::__construct( $this->template );
+        $this->forms = $this->njf_forms();
         add_action( 'wp_ajax_nx_njf_keys', array( $this, 'keys' ) );
         add_filter( 'nx_data_key', array( $this, 'key' ), 10, 2 );
     }
@@ -122,7 +124,7 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
         $fields['njf_form'] = array(
             'type' => 'select',
             'label' => __( 'Select a Form', 'notificationx' ),
-            'options' => $this->njf_forms(),
+            'options' => $this->forms,
             'priority' => 90,
         );
 
@@ -196,7 +198,7 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
                     'priority' => 5,
                     'options'  => array(
                         'tag_time'       => __('Definite Time' , 'notificationx'),
-                        'tag_sometime' => __('Sometimes ago' , 'notificationx'),
+                        'tag_sometime' => __('Some time ago' , 'notificationx'),
                     ),
                     'default' => 'tag_time',
                     'dependency' => array(
@@ -213,7 +215,7 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
                 'custom_fourth_param' => array(
                     'type'     => 'text',
                     'priority' => 6,
-                    'default' => __( 'Sometimes ago', 'notificationx' )
+                    'default' => __( 'Some time ago', 'notificationx' )
                 ),
             ),
             'label'    => __('Notification Template' , 'notificationx'),

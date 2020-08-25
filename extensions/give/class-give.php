@@ -48,7 +48,7 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
         $data['first_name']      = $this->notEmpty( 'first_name', $saved_data ) ? $saved_data['first_name'] : __( 'Someone', 'notificationx' );
         $data['last_name']       = $this->notEmpty( 'last_name', $saved_data ) ? $saved_data['last_name'] : __( 'Someone', 'notificationx' );
         $data['anonymous_title'] = __( 'Anonymous Product', 'notificationx' );
-        $data['sometime']        = __( 'Sometimes ago', 'notificationx' );
+        $data['sometime']        = __( 'Some time ago', 'notificationx' );
 
         return $data;
     }
@@ -209,7 +209,7 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
                     'priority' => 5,
                     'options'  => array(
                         'tag_time'       => __('Definite Time' , 'notificationx'),
-                        'tag_sometime' => __('Sometimes ago' , 'notificationx'),
+                        'tag_sometime' => __('Some time ago' , 'notificationx'),
                     ),
                     'default' => 'tag_time',
                     'dependency' => array(
@@ -226,7 +226,7 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
                 'custom_fourth_param' => array(
                     'type'     => 'text',
                     'priority' => 6,
-                    'default' => __( 'Sometimes ago', 'notificationx' )
+                    'default' => __( 'Some time ago', 'notificationx' )
                 ),
             ),
             'label'    => __('Notification Template' , 'notificationx'),

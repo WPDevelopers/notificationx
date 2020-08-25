@@ -2,7 +2,9 @@
 * All of the CSS for your admin-specific functionality should be
 * included in this file.
 */
-
+#notificationx_metabox_wrapper .postbox-header {
+    display: none;
+}
 .fixed .column-notification_status {
     width: 10%;
 }
@@ -218,6 +220,7 @@
     margin-bottom: 20px;
     border: 1px solid #f7f7f7;
     padding-bottom: 20px;
+    position: relative;
 }
 
 #notificationx_metabox_wrapper .nx-metatab-content h2.nx-meta-section-title {
@@ -2454,4 +2457,68 @@ h4.nx-admin-title {
     padding: 12px 20px;
     font-size: 10px;
     background-color: #4cb55d;
+}
+
+.nx-meta-checkbox-label-switch {
+    width: 2em;
+    height: 1em;
+    position: relative;
+    cursor: pointer;
+    display: block;
+    font-size: 24px;
+    margin-left: -3px;
+    display: inline-block;
+}
+
+.nx-meta-checkbox-label-switch:before {
+    content: "";
+    position: absolute;
+    width: 2em;
+    height: 1em;
+    left: .1em;
+    transition: background .1s .1s ease;
+    background: #cbcfd0;
+    border: 1px solid #cbcfd0;
+    border-radius: 50px;
+}
+
+.nx-meta-checkbox-label-switch:after {
+    content: "";
+    position: absolute;
+    width: .8em;
+    height: .8em;
+    border-radius: 100%;
+    left: .2em;
+    top: .14em;
+    transition: all .2s ease;
+    box-shadow: 0 0 0 5px #fcfff4 inset;
+    background: #fff;
+    z-index: 2;
+    -webkit-animation: switch-off .3s ease-out;
+    animation: switch-off .3s ease-out;
+}
+
+#nx_meta_evergreen_timer {
+    display: none;
+}
+
+.nx-control-wrapper input[type=checkbox]:checked+label.nx-meta-checkbox-label-switch::before {
+    background: #5614d5;
+    border: 1px solid #5614d5;
+}
+
+.nx-control-wrapper input[type=checkbox]:checked+label.nx-meta-checkbox-label-switch::after {
+    left: 1.2em;
+    background: #fff;
+    -webkit-animation: switch-on .3s ease-out;
+    animation: switch-on .3s ease-out;
+}
+button.nx-on-click-install {
+    background: #6c63ff;
+    color: #fff;
+    border: 0;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-left: 10px;
+    cursor: pointer;
 }
