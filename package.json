@@ -1,32 +1,32 @@
 {
-  "name": "notificationx-assets",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "WPDeveloper",
-  "license": "ISC",
-  "devDependencies": {
-    "autoprefixer": "^9.7.6",
-    "css-minify": "^1.0.1",
-    "grunt": "^1.1.0",
-    "grunt-wp-i18n": "^1.0.3",
-    "grunt-wp-readme-to-markdown": "~1.0.0",
-    "gulp": "^4.0.2",
-    "gulp-clean-css": "^4.3.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-postcss": "^8.0.0",
-    "gulp-sass": "^4.1.0",
-    "gulp-sourcemaps": "^2.6.5",
-    "gulp-uglify": "^3.0.2",
-    "node-sass": "^4.14.1",
-    "uglify-js": "^3.9.1"
-  },
-  "dependencies": {
-    "gulp-clean": "^0.4.0",
-    "gulp-run": "^1.7.1",
-    "gulp-zip": "^5.0.1"
-  }
+	"name": "notificationx-assets",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "WPDeveloper",
+	"license": "ISC",
+	"devDependencies": {
+		"autoprefixer": "^9.7.6",
+		"css-minify": "^1.0.1",
+		"grunt": "^1.1.0",
+		"grunt-wp-i18n": "^1.0.3",
+		"grunt-wp-readme-to-markdown": "~1.0.0",
+		"gulp": "^4.0.2",
+		"gulp-clean-css": "^4.3.0",
+		"gulp-concat": "^2.6.1",
+		"gulp-postcss": "^8.0.0",
+		"gulp-sass": "^4.1.0",
+		"gulp-sourcemaps": "^2.6.5",
+		"gulp-uglify": "^3.0.2",
+		"node-sass": "^4.14.1",
+		"uglify-js": "^3.9.1"
+	},
+	"dependencies": {
+		"gulp-clean": "^0.4.0",
+		"gulp-run": "^1.7.1",
+		"gulp-zip": "^5.0.1"
+	}
 }
