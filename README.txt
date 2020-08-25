@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce notification, notifica
 Requires at least: 4.0
 Tested up to: 5.5
 Requires PHP: 5.4
-Stable tag: 1.8.2
+Stable tag: 1.8.3
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -193,13 +193,16 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
+= 1.8.3 - 25/08/2020 =
+
+- Fixed: Nonce Security Fault
+
 = 1.8.2 - 19/08/2020 =
 
 - Fixed: ReviewX Compatibility Issue.
 - Fixed: WooCommerce 4.4.0 Compatibility Issue.
 - Enhancement: WPComments Extension enhanced based on WP5.5.
 - Few minor bug-fix and improvements
-
 
 = 1.8.1 - 10/08/2020 =
 
