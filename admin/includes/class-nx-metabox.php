@@ -33,8 +33,17 @@ class NotificationX_MetaBox {
         $prefix     = self::$prefix;
         $metabox_id = self::$args['id'];
 
+        $nx_elementor_id = get_post_meta( self::$post_id, '_nx_bar_elementor_type_id', true );
+
+        if( is_numeric( $nx_elementor_id ) ) {
+            unset( $tabs['design_tab']['sections']['bar_themes']['fields']['bar_advance_edit'] );
+            unset( $tabs['design_tab']['sections']['bar_design'] );
+            unset( $tabs['design_tab']['sections']['bar_typography'] );
+            unset( $tabs['content_tab'] );
+        }
+
         $tabnumber	= isset( self::$args['tabnumber'] ) && self::$args['tabnumber'] ? true : false;
-        
+
         wp_nonce_field( $metabox_id, $metabox_id . '_nonce' );
         include_once NOTIFICATIONX_ADMIN_DIR_PATH . 'partials/nx-admin-display.php';
     }
@@ -50,7 +59,7 @@ class NotificationX_MetaBox {
         do_action( 'nx_before_metabox_load' );
         return notificationx_metabox_args();
     }
-    
+
     public static function get_builder_args() {
         if( ! function_exists( 'notificationx_builder_args' ) ) {
             require NOTIFICATIONX_ADMIN_DIR_PATH . 'includes/nx-builder-helper.php';
@@ -73,7 +82,7 @@ class NotificationX_MetaBox {
             $id =  $field['row_id'];
         }
         $file_name = isset( $field['type'] ) ? $field['type'] : '';
-        
+
         if( 'template' === $file_name ) {
             $default = isset( $field['defaults'] ) ? $field['defaults'] : [];
         } else {
@@ -103,7 +112,7 @@ class NotificationX_MetaBox {
             $row_class .= ' ' . $field['class'];
         }
         $row_class .= ' nx-' . $key;
-                
+
         $attrs .= ' data-key="' . esc_attr( $key ) . '"';
 
         if( isset( $field['tab'] ) && $file_name == 'select' ) {
@@ -178,13 +187,13 @@ class NotificationX_MetaBox {
                 $fields = $section['fields'];
                 foreach( $fields as $id => $field ) {
                     $new_fields[ $prefix . $id ] = $field;
-                }    
+                }
             }
         }
 
         return apply_filters('nx_meta_fields', $new_fields );
     }
-    
+
     public static function save_metabox( $post_id ) {
         $args = self::get_args();
 
@@ -200,7 +209,7 @@ class NotificationX_MetaBox {
         if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
             return $post_id;
         }
-        
+
         // Check permissions to edit pages and/or posts
         if ( in_array( $_POST['post_type'], $object_types ) ) {
             if ( ! current_user_can( 'edit_page', $post_id ) || ! current_user_can( 'edit_post', $post_id ) ) {
@@ -209,7 +218,7 @@ class NotificationX_MetaBox {
         }
         /**
          * Save all meta!
-         */ 
+         */
         self::save_data( $_POST, $post_id);
         do_action('notificationx_save_post');
     }
@@ -353,7 +362,7 @@ class NotificationX_MetaBox {
 
             $settings->{$name} = $value;
         }
-        
+
         $settings->id = $id;
 
         return $settings;

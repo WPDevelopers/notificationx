@@ -82,14 +82,35 @@ function pScripts() {
 		.pipe(concat("notificationx-public.min.js"))
 		.pipe(gulp.dest(paths.pScripts.dest));
 }
-function nxwatch() {
+var globalcss = function () {
 	watch(paths.gAdminStyles.src, gAdminStyles);
+};
+var admincss = function () {
 	watch(paths.adminStyles.src, adminStyles);
+};
+var adminscript = function () {
 	watch(paths.adminScripts.src, adminScripts);
+};
+var pscss = function () {
 	watch(paths.pAssets + "scss/**/*.scss", pSass);
+};
+var pcss = function () {
 	watch(paths.pAssets + "css/notificationx-public.css", pConcat);
+};
+var pscript = function () {
 	watch(paths.pScripts.src, pScripts);
-}
+};
+// function nxwatch() {
+// }
+
+var nxwatch = gulp.parallel(
+	globalcss,
+	admincss,
+	adminscript,
+	pscss,
+	pcss,
+	pscript
+);
 
 var build = gulp.parallel(
 	adminStyles,

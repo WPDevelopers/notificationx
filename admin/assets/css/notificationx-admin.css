@@ -2537,10 +2537,25 @@ button.nx-on-click-install {
     text-decoration: none;
 }
 
+.nx-ele-bar-button.active {
+    background-color: #6c63ff;
+    color: #fff;
+}
+
 .nx-ele-bar-button:hover,
-.nx-ele-bar-button:visited,
 .nx-ele-bar-button:active {
     outline: none;
     color: #6c63ff;
     border-color: #6c63ff;
+}
+
+.nx-ele-bar-button.active:hover,
+.nx-ele-bar-button.active:active {
+    color: #fff;
+}
+
+.nx-ele-bar-button.nx-bar_with_elementor-remove {
+    background-color: #fb4c4c;
+    border-color: #fb4c4c;
+    color: #fff;
 }

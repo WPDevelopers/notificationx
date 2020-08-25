@@ -25,9 +25,9 @@ class NotificationX_PressBar_Extension extends NotificationX_Extension {
         $bar_id = $the_post->ID;
 
         $post_meta = get_post_meta( $bar_id, '_nx_bar_elementor_type_id', true );
-        if( is_numeric( $post_meta ) ) {
-            $edit_link = get_edit_post_link( $post_meta );
-            $output = '<a class="nx-ele-bar-button" href="'. esc_url( $edit_link ) .'">';
+        if( is_numeric( $post_meta ) && class_exists( '\Elementor\Plugin' ) ) {
+            $edit_link = \Elementor\Plugin::$instance->documents->get( $post_meta )->get_edit_url();
+            $output = '<a class="active nx-ele-bar-button" href="'. esc_url( $edit_link ) .'">';
                 $output .= __('Edit With Elementor', 'notificationx');
             $output .= '</a>';
             $output .= '<button class="nx-ele-bar-button nx-bar_with_elementor-remove" data-nonce="'. $nonce .'" data-post_id="'. $post_meta .'" data-bar_id="'. $bar_id .'">';
@@ -119,6 +119,6 @@ class NotificationX_PressBar_Extension extends NotificationX_Extension {
      * @return void
      */
     public static function display( $settings ){
-        require plugin_dir_path( __FILE__ ) . 'press-bar-frontend.php';
+        require_once plugin_dir_path( __FILE__ ) . 'press-bar-frontend.php';
     }
 }
