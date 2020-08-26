@@ -34,7 +34,6 @@ class NotificationX_MetaBox {
         $metabox_id = self::$args['id'];
 
         $nx_elementor_id = get_post_meta( self::$post_id, '_nx_bar_elementor_type_id', true );
-
         if( is_numeric( $nx_elementor_id ) ) {
             unset( $tabs['design_tab']['sections']['bar_themes']['fields']['bar_advance_edit'] );
             unset( $tabs['design_tab']['sections']['bar_design'] );
@@ -251,7 +250,7 @@ class NotificationX_MetaBox {
                 }
             }
 
-            if( strrpos( $field_id, 'template_new' ) !== false && strrpos( $field_id, 'template_new' ) >= 0 ) {
+            if( strrpos( $field_id, 'template_new' ) !== false && strrpos( $field_id, 'template_new' ) >= 0 && isset( $posts[ $field_id ] ) ) {
                 $template_string = self::template_generate( $posts[ $field_id ], $posts );
                 update_post_meta( $post_id, "_{$field_id}_string", $template_string );
             }

@@ -37,9 +37,16 @@ class NotificationX_PressBar_Extension extends NotificationX_Extension {
             $output = '<button class="nx-ele-bar-button nx-bar_with_elementor" data-nonce="'. $nonce .'" data-the_post="'. $bar_id .'">';
                 $output .= __('Build With Elementor', 'notificationx');
             $output .= '</button>';
+
+            ob_start();
+            include_once __DIR__ . '/modal.php';
+            $output .= ob_get_clean();
         }
 
         echo $output;
+    }
+    public function template(){
+        return NotificationX_Helper::bar_colored_themes();
     }
     /**
      * Register Post Type for NotificationX Bar.

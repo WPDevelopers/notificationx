@@ -394,6 +394,16 @@
 	$.notificationx.create_nx_bar = function () {
 		$(".nx-bar_with_elementor").on("click", function (e) {
 			e.preventDefault();
+			$(".nx-press-bar-modal-wrapper").addClass("active");
+		});
+		$(".nx-modal-close").on("click", function (e) {
+			e.preventDefault();
+			$(".nx-press-bar-modal-wrapper").removeClass("active");
+		});
+
+		$(".nx-bar_with_elementor-import").on("click", function (e) {
+			e.preventDefault();
+
 			var self = $(this),
 				nonce = self.data("nonce"),
 				bar_id = self.data("the_post");

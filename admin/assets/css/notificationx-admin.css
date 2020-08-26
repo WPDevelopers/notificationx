@@ -2559,3 +2559,67 @@ button.nx-on-click-install {
     border-color: #fb4c4c;
     color: #fff;
 }
+
+/* NX PRESS BAR MODAL */
+.nx-press-bar-modal-wrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99999999;
+    display: none;
+}
+.nx-press-bar-modal-wrapper.active {
+    display: block;
+}
+
+.nx-press-bar-modal {
+    width: 1000px;
+    height: 600px;
+    position: absolute;
+    left: 50%;
+    margin-left: -500px;
+    top: 50%;
+    margin-top: -300px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.nx-press-bar-modal-header {
+    position: relative;
+    margin-bottom: 30px;
+}
+.nx-press-bar-modal-header>h3 {
+    margin: 0;
+    display: inline-block;
+}
+.nx-modal-close {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #fb4c4c;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+}
+
+.nx-press-bar-modal-content {
+    overflow-y: auto;
+    height: 100%;
+}
+
+.nx-press-single-template {
+    border: 1px solid #f2f2f2;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+.nx-press-single-template img {
+    max-width: 100%;
+}
