@@ -182,11 +182,11 @@
 				if (body_push == "pushed" || body_push == undefined) {
 					/* add padding in body after initial delay */
 					var initTimeout = setTimeout(function () {
-						if ($(bar).hasClass('nx-bar-out')) {
+						if ($(bar).hasClass("nx-bar-out")) {
 							clearTimeout(initTimeout);
 							return;
 						}
-						
+
 						$("body")
 							.addClass("has-nx-bar")
 							.css("padding-" + position, barHeight);
@@ -459,34 +459,20 @@
 				url: notificationx.ajaxurl,
 				method: "POST",
 				credentials: "same-origin",
-				headers: new Headers({
-					// "Content-Type": "application/json",
-					"Content-Type": "application/x-www-form-urlencoded",
-				}),
 				data: {
 					action: "nx_get_conversions",
 					nonce: notificationx.nonce,
 					ids: idx,
 					global: global,
 				},
-				// body:
-				// 	"action=nx_get_conversions&nonce=" +
-				// 	notificationx.nonce +
-				// 	"&ids=" +
-				// 	idx +
-				// 	"&global=" +
-				// 	global,
-			})
-			// .then(function (response) {
-			// 	return response.json();
-			// })
-			.then(function (response) {
-				var res = JSON.parse(response);
-				$.notificationx.render(res.config, res.content);
+				success: function (response) {
+					var res = JSON.parse(response);
+					$.notificationx.render(res.config, res.content);
+				},
 			})
 			.fail(function (err) {
-				console.log(err);
-				console.log(
+				console.error(err);
+				console.error(
 					"AJAX error, Something went wrong! Please, Contact support team."
 				);
 			});
