@@ -2623,3 +2623,7 @@ button.nx-on-click-install {
 .nx-press-single-template img {
     max-width: 100%;
 }
+.nx-bar_with_elementor-import:hover {
+    background-color: #6c63ff;
+    color: #FFF;
+}

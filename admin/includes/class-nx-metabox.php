@@ -215,10 +215,19 @@ class NotificationX_MetaBox {
                 return $post_id;
             }
         }
+        #We conditionally exit so we don't return the full wp-admin load if nx_bar_ajax is true
+        if( isset( $_POST['nx_bar_ajax'] ) && $_POST['nx_bar_ajax'] === true){
+            header('Content-type: application/json');
+            #Send a response
+            echo json_encode(array('success' => true));
+            exit;
+            #You should keep this conditional to degrade gracefully for no JS
+        }
+
         /**
          * Save all meta!
          */
-        self::save_data( $_POST, $post_id);
+        self::save_data( $_POST, $post_id );
         do_action('notificationx_save_post');
     }
 

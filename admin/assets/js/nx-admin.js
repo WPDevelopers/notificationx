@@ -392,10 +392,10 @@
 		$.notificationx.create_nx_bar();
 	};
 	$.notificationx.create_nx_bar = function () {
-		$(".nx-bar_with_elementor").on("click", function (e) {
-			e.preventDefault();
-			$(".nx-press-bar-modal-wrapper").addClass("active");
-		});
+		// $(".nx-bar_with_elementor").on("click", function (e) {
+		// 	e.preventDefault();
+		// 	$(".nx-press-bar-modal-wrapper").addClass("active");
+		// });
 		$(".nx-modal-close").on("click", function (e) {
 			e.preventDefault();
 			$(".nx-press-bar-modal-wrapper").removeClass("active");
@@ -405,7 +405,9 @@
 			e.preventDefault();
 
 			var self = $(this),
+				theme = self.data("theme"),
 				nonce = self.data("nonce"),
+				post_data = $("#post").serializeArray(),
 				bar_id = self.data("the_post");
 
 			$.ajax({
@@ -415,11 +417,14 @@
 					action: "nx_create_bar",
 					nonce: nonce,
 					bar_id: bar_id,
+					theme: theme,
+					post_data: post_data,
 				},
 				success: function (res) {
-					console.log(res);
-					window.location.href = res.data.link;
+					window.location.href = res.data.elementor_edit_link;
 				},
+			}).fail(function (err) {
+				console.log(err);
 			});
 		});
 

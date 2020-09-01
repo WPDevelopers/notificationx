@@ -16,7 +16,11 @@
                         ?>
                             <div class="nx-press-single-template">
                                 <img src="<?php echo $image_source; ?>" alt=""/>
-                                <button class="nx-bar_with_elementor-import nx-ele-bar-button">Import</button>
+                                <button
+                                    class="nx-bar_with_elementor-import nx-ele-bar-button"
+                                    data-theme="<?php echo $key; ?>"
+                                    data-nonce="<?php echo $nonce; ?>"
+                                    data-the_post="<?php echo $bar_id; ?>">Import</button>
                             </div>
                         <?php
                     }

@@ -1,0 +1,37 @@
+{
+    "version": "0.4",
+    "title": "NxBar Test",
+    "type": "section",
+    "content": [{
+        "id": "21622da",
+        "settings": [],
+        "elements": [{
+            "id": "159c5f5f",
+            "settings": {
+                "_column_size": 100,
+                "_inline_size": null
+            },
+            "elements": [{
+                "id": "478bab32",
+                "settings": {
+                    "title": "Hello World, This CAMP will ends in 2 days.",
+                    "align": "center",
+                    "eael_tooltip_section_content": "I am a tooltip",
+                    "eael_ext_content_protection_password_placeholder": "Enter Password",
+                    "eael_ext_content_protection_password_submit_btn_txt": "Submit"
+                },
+                "elements": [],
+                "isInner": false,
+                "widgetType": "heading",
+                "elType": "widget"
+            }],
+            "isInner": false,
+            "elType": "column"
+        }],
+        "isInner": false,
+        "elType": "section"
+    }],
+    "page_settings": {
+        "template": "elementor_canvas"
+    }
+}
