@@ -144,7 +144,7 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
             $url = admin_url('plugin-install.php?s=give&tab=search&type=term');
             $fields['has_no_give'] = array(
                 'type'     => 'message',
-                'message'    => sprintf( '%s <a href="%s">%s</a> %s', 
+                'message'    => sprintf( '%s <a href="%s">%s</a> %s',
                     __( 'You have to install', 'notificationx' ),
                     $url,
                     __( 'GiveWP Donation', 'notificationx' ),
@@ -194,6 +194,15 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
                     'type'     => 'text',
                     'priority' => 3,
                     'default' => __('recently donated for' , 'notificationx')
+                ),
+                'amount_param' => array(
+                    'type'     => 'select',
+                    'priority' => 4,
+                    'options'  => array(
+                        'tag_amount'       => __('Donation Amount' , 'notificationx'),
+                        'tag_none' => __('None' , 'notificationx'),
+                    ),
+                    'default' => 'tag_none'
                 ),
                 'third_param' => array(
                     'type'     => 'select',
@@ -369,6 +378,7 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
                 $donation_data = array_merge(array(
                     'id'=> $result->ID,
                     'title' => $result->form_title,
+                    'amount' => $result->total . ' ' . __( 'for', 'notificationx' ),
                     'link' => $result->payment_meta['_give_current_url'],
                     'give_form_id' => $result->form_id,
                     'give_page_id' => $result->payment_meta['_give_current_page_id'],
@@ -428,6 +438,7 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
                         'title' => $result->form_title,
                         'link' => $result->payment_meta['_give_current_url'],
                         'give_form_id' => $result->form_id,
+                        'amount' => $result->total . ' ' . __( 'for', 'notificationx' ),
                         'give_page_id' => $result->payment_meta['_give_current_page_id'],
                         'timestamp' => strtotime( $result->date),
                     ),
