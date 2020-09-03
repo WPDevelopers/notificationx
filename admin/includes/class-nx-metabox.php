@@ -216,7 +216,7 @@ class NotificationX_MetaBox {
             }
         }
         #We conditionally exit so we don't return the full wp-admin load if nx_bar_ajax is true
-        if( isset( $_POST['nx_bar_ajax'] ) && $_POST['nx_bar_ajax'] === true){
+        if( isset( $_POST['nx_bar_ajax'] ) && $_POST['nx_bar_ajax'] == true){
             header('Content-type: application/json');
             #Send a response
             echo json_encode(array('success' => true));

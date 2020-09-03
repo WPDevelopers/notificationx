@@ -25,7 +25,7 @@ class NotificationX_PressBar_Extension extends NotificationX_Extension {
             <script>
                 jQuery(document).ready(function($){
                     //Click handler - you might have to bind this click event another way
-                    $('button.nx-bar_with_elementor').click(function(e){
+                    $('input#publish').click(function(e){
                         e.preventDefault();
                         //Post to post.php
                         var postURL = '$post_url';
@@ -36,14 +36,15 @@ class NotificationX_PressBar_Extension extends NotificationX_Extension {
                         //Set a trigger for our save_post action
                         data.push({ name: 'nx_bar_ajax', value: true });
                         data.push({ name: 'post_status', value: 'publish' });
-                        console.log( data );
                         //The XHR Goodness
                         $.post(postURL, data, function(response){
-                            var obj = $.parseJSON(response);
+                            console.log( response );
+                            // var obj = $.parseJSON(response);
+                            var obj = response;
                             if(obj.success)
-                                alert('Successfully saved post!');
+                                console.log('Successfully saved post!');
                             else
-                                alert('Something went wrong. ' + response);
+                                console.log('Something went wrong. ' + response);
                         });
                         $('.nx-press-bar-modal-wrapper').addClass('active');
                         return false;

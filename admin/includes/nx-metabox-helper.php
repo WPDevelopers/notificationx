@@ -123,6 +123,12 @@ function notificationx_metabox_args(){
                                 'default'	=> 'theme-one',
                                 'options'   => NotificationX_Helper::bar_colored_themes(),
                             ),
+                            'bar_with_elementor' => array(
+                                'type'      => 'adv_checkbox',
+                                'priority'	=> 10,
+                                'default'	=> 0,
+                                'button_text' => 'Build With Elementor'
+                            ),
                             'bar_advance_edit' => array(
                                 'type'      => 'adv_checkbox',
                                 'priority'	=> 10,
