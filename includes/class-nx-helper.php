@@ -820,6 +820,9 @@ class NotificationX_Helper {
             foreach( $template_data as $key => $value ) {
                 if( strpos( $value, 'tag_' ) === 0 ) {
                     $tag = str_replace( 'tag_', '', $value );
+                    if( $tag === 'none' ) {
+                        continue;
+                    }
                     $template_string[ $key ] = "{{{$tag}}} ";
                 } else {
                     $trimed = isset( $template_string[ $key ] ) ? trim( $template_string[ $key ] ) : '';

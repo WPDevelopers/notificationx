@@ -13,7 +13,7 @@
 	$(document).ready(function () {
 		$.notificationx.init();
 	});
-	$(window).load(function () {
+	$(window).on("on", function (e) {
 		$.notificationx.pressbar();
 	});
 
