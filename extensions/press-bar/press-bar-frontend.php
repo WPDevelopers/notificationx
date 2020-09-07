@@ -36,10 +36,13 @@ if( $settings->enable_countdown == '1' ) {
         $wrapper_attrs .= ' data-evergreen="true"';
         $c_timestamps = current_time('timestamp');
         $wrapper_attrs .= ' data-start_date="'. date('D, M d, Y h:i A', $c_timestamps ) .'"';
+        if( empty( $settings->time_rotation ) ) {
+            $settings->time_rotation = 1;
+        }
         $wrapper_attrs .= ' data-eg_expire_in="'. ( $settings->time_rotation * 60 * 60 * 1000 ) .'"';
         $wrapper_attrs .= ' data-time_randomize="'. $settings->time_randomize .'"';
         $wrapper_attrs .= ' data-time_reset="'. $settings->time_reset .'"';
-    
+
         if( is_array( $settings->time_randomize_between ) ) {
             $random_number = rand($settings->time_randomize_between['start_time'], $settings->time_randomize_between['end_time']);
             $random_number = $random_number * 60 * 60 * 1000;
@@ -104,7 +107,7 @@ if( $settings->sticky_bar ) {
 }
 
 ?>
-<div 
+<div
     id="nx-bar-<?php echo $settings->id; ?>"
     class="nx-bar <?php echo $settings->bar_theme; ?> nx-bar-<?php echo $settings->id; ?> <?php echo esc_attr( $pos_class ); ?> <?php echo esc_attr( $class ); ?>" <?php echo $wrapper_attrs; ?>>
     <div class="nx-bar-inner">
@@ -113,7 +116,7 @@ if( $settings->sticky_bar ) {
                 <div class="nx-countdown-wrapper">
                     <?php if( $settings->countdown_text ) : ?>
                         <div class="nx-countdown-text"><?php echo esc_html_e( $settings->countdown_text, 'notificationx' ); ?></div>
-                    <?php endif; ?>             
+                    <?php endif; ?>
                     <div class="nx-countdown" data-countdown="<?php echo esc_attr( json_encode( $countdown ) ); ?>">
                         <div class="nx-time-section">
                             <span class="nx-days">00</span>
@@ -137,7 +140,7 @@ if( $settings->sticky_bar ) {
             <?php endif; ?>
             <div class="nx-inner-content-wrapper">
                 <div class="nx-bar-content"><?php echo do_shortcode( $settings->press_content ); ?></div>
-                <?php 
+                <?php
                     if( $settings->button_url != '' ) :
                         $pressbar_url = apply_filters( 'nx_pressbar_link', $settings->button_url, $settings );
                 ?>
