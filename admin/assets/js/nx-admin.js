@@ -392,18 +392,34 @@
 		$.notificationx.create_nx_bar();
 	};
 	$.notificationx.create_nx_bar = function () {
-		// $(".nx-bar_with_elementor").on("click", function (e) {
-		// 	e.preventDefault();
-		// 	$(".nx-press-bar-modal-wrapper").addClass("active");
-		// });
+		$(".nx-bar_with_elementor").on("click", function (e) {
+			e.preventDefault();
+			$(this).addClass("active");
+			$(".nx-press-bar-modal-wrapper").addClass("active");
+			$(".nx-metatab-menu > ul > li[data-tab='content_tab']").hide();
+			$("#nx-design_tab .nx-meta-next").data("tab", "display_tab");
+			$("#nx-design_tab .nx-meta-next").data("tabid", "4");
+		});
 		$(".nx-modal-close").on("click", function (e) {
 			e.preventDefault();
+
+			if (!e.currentTarget.classList.contains("nx-template-imported")) {
+				$(".nx-metatab-menu > ul > li[data-tab='content_tab']").show();
+				$("#nx-design_tab .nx-meta-next").data("tab", "content_tab");
+				$("#nx-design_tab .nx-meta-next").data("tabid", "3");
+				$(".nx-bar_with_elementor").removeClass("active");
+			}
+
 			$(".nx-press-bar-modal-wrapper").removeClass("active");
 		});
 
 		$(".nx-bar_with_elementor-import").on("click", function (e) {
 			e.preventDefault();
 
+			$(".nx-press-bar-modal-preload").addClass("active");
+			$(".nx-press-bar-modal-preload-text").text(
+				"Importing the choosen template."
+			);
 			var self = $(this),
 				theme = self.data("theme"),
 				nonce = self.data("nonce"),
@@ -421,7 +437,17 @@
 					post_data: post_data,
 				},
 				success: function (res) {
-					window.location.href = res.data.elementor_edit_link;
+					console.log("res", res);
+					$(".nx-modal-close").addClass("nx-template-imported");
+					// $(".nx-bar_with_elementor").addClass(
+					// 	"nx-template-imported"
+					// ); remove this button and add edit button.
+					$(".nx-press-bar-modal-preload-text").text(
+						"Successfully Imported. Please Close this popup and Complete Other Step then Publish, after publish it will be redirected to Edit with Elementor page for Imported Template."
+					);
+					// $(".nx-press-bar-modal-wrapper").removeClass("active");
+					// window.location.href = res.data.elementor_edit_link;
+					// $(".nx-press-bar-modal-wrapper").removeClass("active");
 				},
 			}).fail(function (err) {
 				console.log(err);
@@ -1103,6 +1129,7 @@
 			return;
 		}
 		if (tab === undefined) {
+			console.log("add popup");
 			$("#publish").trigger("click");
 			return;
 		}

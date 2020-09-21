@@ -2560,6 +2560,12 @@ button.nx-on-click-install {
     color: #fff;
 }
 
+.nx-ele-bar-button.nx-bar_with_elementor.active {
+    background-color: #6c63ff;
+    border-color: #6c63ff;
+    color: #fff;
+}
+
 /* NX PRESS BAR MODAL */
 .nx-press-bar-modal-wrapper {
     position: fixed;
@@ -2626,4 +2632,20 @@ button.nx-on-click-install {
 .nx-bar_with_elementor-import:hover {
     background-color: #6c63ff;
     color: #FFF;
+}
+
+.nx-press-bar-modal-preload {
+    display: none;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background: #FFF;
+}
+.nx-press-bar-modal-preload.active {
+    display: flex;
 }

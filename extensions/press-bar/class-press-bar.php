@@ -1,5 +1,4 @@
 <?php
-
 class NotificationX_PressBar_Extension extends NotificationX_Extension {
     /**
      *  Type of notification.
@@ -8,51 +7,32 @@ class NotificationX_PressBar_Extension extends NotificationX_Extension {
      */
     public $type = 'press_bar';
 
+    private $nx_elementor_id = null;
+
     public function __construct() {
         parent::__construct();
         add_action( 'nx_field_after_wrapper', [ $this, 'add_button_for_elementor' ], 10, 4 );
         add_action( 'init', [ $this, 'register_post_type' ] );
         add_action( 'wp_ajax_nx_create_bar', [ $this, 'create_bar_of_type_bar_with_elementor' ] );
         add_action( 'wp_ajax_nx_create_bar_remove', [ $this, 'remove_bar_from_elementor' ] );
-        add_action('admin_head-post.php', [ $this, 'my_post_type_xhr'] );
-        add_action('admin_head-post-new.php', [ $this, 'my_post_type_xhr'] );
+        add_action( 'after_delete_post', [ $this, 'after_delete_post' ], 10, 2 );
+        add_action( 'before_delete_post', [ $this, 'before_delete_post' ] );
     }
-    function my_post_type_xhr(){
-        global $post;
-        if('notificationx' === $post->post_type){
-            $post_url = admin_url('post.php'); #In case we're on post-new.php
-            echo "
-            <script>
-                jQuery(document).ready(function($){
-                    //Click handler - you might have to bind this click event another way
-                    $('input#publish').click(function(e){
-                        e.preventDefault();
-                        //Post to post.php
-                        var postURL = '$post_url';
 
-                        //Collate all post form data
-                        var data = $('form#post').serializeArray();
+    public function before_delete_post( $postid ){
+        $post_meta = get_post_meta( $postid, '_nx_bar_elementor_type_id', true );
+        $this->nx_elementor_id = [
+            'post_meta' => $post_meta,
+            'postid' => $postid,
+        ];
+    }
 
-                        //Set a trigger for our save_post action
-                        data.push({ name: 'nx_bar_ajax', value: true });
-                        data.push({ name: 'post_status', value: 'publish' });
-                        //The XHR Goodness
-                        $.post(postURL, data, function(response){
-                            console.log( response );
-                            // var obj = $.parseJSON(response);
-                            var obj = response;
-                            if(obj.success)
-                                console.log('Successfully saved post!');
-                            else
-                                console.log('Something went wrong. ' + response);
-                        });
-                        $('.nx-press-bar-modal-wrapper').addClass('active');
-                        return false;
-                    });
-                });
-            </script>";
+    public function after_delete_post( $postid, $post ){
+        if( ! is_null( $this->nx_elementor_id ) && isset( $this->nx_elementor_id['post_meta'] ) && is_numeric( $this->nx_elementor_id['post_meta'] ) && isset( $this->nx_elementor_id['postid'] ) && $this->nx_elementor_id['postid'] === $postid ) {
+            wp_delete_post( $this->nx_elementor_id['post_meta'], true );
         }
     }
+
     public function add_button_for_elementor( $name, $value, $field, $post_id ){
         if( $name !== 'nx_meta_bar_theme' ) {
             return;
@@ -96,11 +76,11 @@ class NotificationX_PressBar_Extension extends NotificationX_Extension {
         $args = [
             'label' => __( 'NotificationX Bar', 'notificationx' ),
             'public' => true,
-            // 'show_ui' => false,
+            'show_ui' => false,
 			'rewrite' => false,
 			'menu_icon' => 'dashicons-admin-page',
-			'show_ui' => true,
-			'show_in_menu' => true,
+			'show_ui' => false,
+			'show_in_menu' => false,
 			'show_in_nav_menus' => false,
 			'exclude_from_search' => true,
 			'capability_type' => 'post',

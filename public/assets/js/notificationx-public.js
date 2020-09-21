@@ -13,7 +13,8 @@
 	$(document).ready(function () {
 		$.notificationx.init();
 	});
-	$(window).on("on", function (e) {
+
+	window.addEventListener("load", function () {
 		$.notificationx.pressbar();
 	});
 
@@ -214,7 +215,6 @@
 					minutes: bar.querySelector(".nx-minutes"),
 					seconds: bar.querySelector(".nx-seconds"),
 				};
-
 				$.notificationx.showBar(bar, id);
 				if (!evergreen) {
 					$.notificationx.countdownWrapper(cdWargs);

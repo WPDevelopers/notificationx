@@ -41,7 +41,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
         <table class="wp-list-table widefat fixed striped notificationx-list">
             <thead>
                 <tr>
-                    <?php 
+                    <?php
                         if( ! empty( $table_header ) ) {
                             foreach( $table_header as $title ) {
                                 echo '<td>' . $title . '</td>';
@@ -51,14 +51,14 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                 </tr>
             </thead>
             <tbody>
-                <?php 
+                <?php
                     $trash_btn_title = __( 'Trash', 'notificationx' );
                     $trash_page = false;
                     $trashed = false;
                     if( $notificationx->have_posts() ) :
                         $post_type_object = get_post_type_object( 'notificationx' );
                         global $nx_extension_factory;
-                        while( $notificationx->have_posts() ) : $notificationx->the_post(); 
+                        while( $notificationx->have_posts() ) : $notificationx->the_post();
                             $idd = get_the_ID();
                             $duplicate_url = add_query_arg(array(
                                 'action' => 'nxduplicate',
@@ -96,6 +96,14 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                                 }
                                 $is_enabled_before = apply_filters('nx_enabled_disabled_item', $is_enabled_before);
                             }
+                            $edit_with_elementor = false;
+                            if( $nx_type === 'press_bar' ) {
+                                $post_meta = get_post_meta( $idd, '_nx_bar_elementor_type_id', true );
+                                if( is_numeric( $post_meta ) && class_exists( '\Elementor\Plugin' ) ) {
+                                    $edit_with_elementor = \Elementor\Plugin::$instance->documents->get( $post_meta )->get_edit_url();
+                                }
+                            }
+
                             $status = get_post_status( $idd );
                             if( $pagenow === 'admin.php' && isset( $_GET['page'] ) && $_GET['page'] === 'nx-admin' ) {
                                 if( isset( $_GET['status'] ) && $_GET['status'] === 'trash' ) {
@@ -124,15 +132,18 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                                     <td>
                                         <div class="nx-admin-title">
                                             <strong>
-                                                <?php 
+                                                <?php
                                                     if( ! $trashed ) echo '<a href="post.php?action=edit&post='. $idd .'">';
-                                                    echo get_the_title(); 
+                                                    echo get_the_title();
                                                     if( ! $trashed ) echo '</a>';
                                                 ?>
                                             </strong>
                                             <div class="nx-admin-title-actions">
                                                 <?php if( ! $trash_page ) : ?>
                                                     <a class="nx-admin-title-edit" href="post.php?action=edit&post=<?php echo $idd; ?>"><?php _e( 'Edit', 'notificationx' ); ?></a>
+                                                    <?php if( $edit_with_elementor !== false ) : ?>
+                                                    <a class="nx-admin-title-edit" href="<?php echo $edit_with_elementor; ?>"><?php _e( 'Edit with Elementor', 'notificationx' ); ?></a>
+                                                    <?php endif; ?>
                                                     <a class="nx-admin-title-duplicate" href="<?php echo esc_url( $duplicate_url ); ?>"><?php _e( 'Duplicate', 'notificationx' ); ?></a>
                                                     <?php if( $settings->display_type != 'press_bar' && ! is_null( $extension ) && method_exists( $extension, 'get_notification_ready' ) ) : ?>
                                                         <a class="nx-admin-title-regenerate" href="<?php echo esc_url( $regenerate_url ); ?>"><?php _e( 'Re Generate', 'notificationx' ); ?></a>
@@ -146,12 +157,12 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                                     </td>
                                     <td>
                                         <div class="nx-admin-preview">
-                                            <?php 
+                                            <?php
                                                 $theme_preview = NX_CONSTANTS::themeSource( $theme_name, $settings->display_type );
                                                 if( is_array( $theme_preview ) ) {
                                                     $theme_preview = $theme_preview['source'];
                                                 }
-                                                if( ! empty( $theme_preview ) ) : 
+                                                if( ! empty( $theme_preview ) ) :
                                             ?>
                                             <img width="250px" src="<?php echo $theme_preview; ?>" alt="<?php echo get_the_title(); ?>">
                                             <?php $theme_preview = ''; endif;?>
@@ -162,7 +173,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                                             <span class="nx-admin-status-title nxast-enable <?php echo $is_enabled ? 'active' : ''; ?>"><?php echo _e( 'Enabled', 'notificationx' ); ?></span>
                                             <span class="nx-admin-status-title nxast-disable <?php echo $is_enabled ? '' : 'active'; ?>"><?php echo _e( 'Disabled', 'notificationx' ); ?></span>
                                             <input type="checkbox" id="nx-toggle-<?php echo $idd; ?>" name="_nx_meta_active_check" <?php echo $is_enabled ? 'checked="checked"' : ''; ?>>
-                                            <?php 
+                                            <?php
                                             if( $is_enabled_before ) : ?>
                                                 <label data-swal="true" data-post="<?php echo $idd; ?>" data-nonce="<?php echo wp_create_nonce('notificationx_status_nonce'); ?>" for="nx-toggle-disable-<?php echo $idd; ?>"></label>
                                             <?php else :  ?>
@@ -178,7 +189,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                                     </td>
                                     <td>
                                         <div class="nx-admin-date">
-                                            <?php 
+                                            <?php
                                                 if( get_post_status( get_the_ID() ) === 'publish' ) {
                                                     echo '<span class="nx-admin-publish-status">' . _e('Published', 'notificationx') . '</span><br><span class="nx-admin-publish-date">' . get_the_time( __( 'Y/m/d', 'notificationx' ) ). '</span>';
                                                 }
@@ -189,7 +200,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                                         </div>
                                     </td>
                                 </tr>
-                            
+
                             <?php
                         endwhile;
                     endif;
@@ -202,7 +213,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
             </tbody>
         </table>
     </div>
-    <?php 
+    <?php
     /**
      * Pagination
      * @since 1.2.6
@@ -210,7 +221,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
     if( $total_page > 1 ) : ?>
         <div class="nx-admin-items-pagination">
             <ul>
-                <?php 
+                <?php
                     if( $total_page > 1 ) {
                         if( $paged > 1 ) {
                             echo '<li class="nx-prev-page"><a href="'. $pagination_current_url .'&paged='. ($paged - 1) .'"><span class="dashicons dashicons-arrow-left-alt2"></span></a></li>';
