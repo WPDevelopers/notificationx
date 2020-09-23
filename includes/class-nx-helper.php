@@ -135,7 +135,7 @@ class NotificationX_Helper {
         $time = human_time_diff( $local_time, current_time('timestamp') );
         ob_start();
         ?>
-            <small><?php echo esc_html__( 'About', 'notificationx' ) . ' ' . esc_html( $time ) . ' ' . esc_html__( 'ago', 'notificationx' ) ?></small>
+            <small><?php echo esc_html__( 'About', 'notificationx' ) . ' ' . esc_html__( $time, 'notificationx' ) . ' ' . esc_html__( 'ago', 'notificationx' ); ?></small>
         <?php
         $time_ago = ob_get_clean();
         return $time_ago;

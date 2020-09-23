@@ -49,6 +49,9 @@ class NotificationX_Give_Extension extends NotificationX_Extension {
         $data['last_name']       = $this->notEmpty( 'last_name', $saved_data ) ? $saved_data['last_name'] : __( 'Someone', 'notificationx' );
         $data['anonymous_title'] = __( 'Anonymous Product', 'notificationx' );
         $data['sometime']        = __( 'Some time ago', 'notificationx' );
+        if( isset( $saved_data['amount'] ) ) {
+            $data['amount']      = give_currency_filter( $saved_data['amount'] ) ;
+        }
 
         return $data;
     }

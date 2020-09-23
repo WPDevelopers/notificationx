@@ -651,7 +651,7 @@
 			"click",
 			function (e) {
 				e.preventDefault();
-				if ($(e.srcElement).hasClass("nx-group-field-title")) {
+				if ($(e.currentTarget).hasClass("nx-group-field-title")) {
 					$.notificationx.groupToggle(this);
 				}
 			}
