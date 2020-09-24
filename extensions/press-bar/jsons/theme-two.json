@@ -1,16 +1,16 @@
 {
     "version": "0.4",
-    "title": "Nx Theme One",
+    "title": "Nx Theme Two",
     "type": "section",
     "content": [{
-        "id": "55786e32",
+        "id": "37ea097f",
         "settings": {
             "gap": "narrow",
             "content_position": "middle",
             "stretch_section": "section-stretched",
             "structure": "40",
             "background_background": "classic",
-            "background_color": "#EEEFF1",
+            "background_color": "#5701A2",
             "padding": {
                 "unit": "px",
                 "top": "10",
@@ -21,7 +21,7 @@
             }
         },
         "elements": [{
-            "id": "b2e7a53",
+            "id": "b53c4d5",
             "settings": {
                 "_column_size": 25,
                 "_inline_size": 20,
@@ -31,18 +31,18 @@
             "isInner": false,
             "elType": "column"
         }, {
-            "id": "3a112ab8",
+            "id": "6797f4b2",
             "settings": {
                 "_column_size": 25,
                 "_inline_size": 40
             },
             "elements": [{
-                "id": "1febaa04",
+                "id": "44222782",
                 "settings": {
-                    "title": "Save Big & Get Lifetime Unlimited <strong>NotificationX<\/strong> for $99",
+                    "title": "We're excited to introduced something new! \ud83c\udf89",
                     "header_size": "p",
-                    "align": "center",
-                    "title_color": "#00090C",
+                    "align": "right",
+                    "title_color": "#FFFFFF",
                     "typography_typography": "custom",
                     "typography_font_family": "Roboto",
                     "typography_font_size": {
@@ -60,17 +60,17 @@
             "isInner": false,
             "elType": "column"
         }, {
-            "id": "528b368a",
+            "id": "4c10d958",
             "settings": {
                 "_column_size": 25,
                 "_inline_size": 20
             },
             "elements": [{
-                "id": "24b5079f",
+                "id": "71b716eb",
                 "settings": {
-                    "text": "Get Offer",
+                    "text": "Show Me!",
                     "size": "xs",
-                    "background_color": "#000000"
+                    "background_color": "#9E29FF"
                 },
                 "elements": [],
                 "isInner": false,
@@ -80,7 +80,7 @@
             "isInner": false,
             "elType": "column"
         }, {
-            "id": "33e894b9",
+            "id": "42df80c3",
             "settings": {
                 "_column_size": 25,
                 "_inline_size": 20

@@ -18,6 +18,13 @@
 				$.notificationx.tabChanger(this);
 			}
 		);
+
+		$("body").on("click", ".nx-meta-modal-next", function (e) {
+			e.preventDefault();
+			$(".nx-press-bar-modal-wrapper.active").removeClass("active");
+			$.notificationx.tabChanger(this);
+		});
+
 		$("body").on(
 			"change",
 			".nx-single-theme-wrapper > input:checked",
@@ -417,9 +424,9 @@
 			e.preventDefault();
 
 			$(".nx-press-bar-modal-preload").addClass("active");
-			$(".nx-press-bar-modal-preload-text").text(
-				"Importing the choosen template."
-			);
+			$(
+				".nx-press-bar-modal-preload.active .nx-modal-loading-text"
+			).addClass("active");
 			var self = $(this),
 				theme = self.data("theme"),
 				nonce = self.data("nonce"),
@@ -439,15 +446,9 @@
 				success: function (res) {
 					console.log("res", res);
 					$(".nx-modal-close").addClass("nx-template-imported");
-					// $(".nx-bar_with_elementor").addClass(
-					// 	"nx-template-imported"
-					// ); remove this button and add edit button.
-					$(".nx-press-bar-modal-preload-text").text(
-						"Successfully Imported. Please Close this popup and Complete Other Step then Publish, after publish it will be redirected to Edit with Elementor page for Imported Template."
-					);
-					// $(".nx-press-bar-modal-wrapper").removeClass("active");
-					// window.location.href = res.data.elementor_edit_link;
-					// $(".nx-press-bar-modal-wrapper").removeClass("active");
+					$(
+						".nx-press-bar-modal-preload.active .nx-modal-success-text"
+					).addClass("active");
 				},
 			}).fail(function (err) {
 				console.log(err);

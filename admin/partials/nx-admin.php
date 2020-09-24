@@ -100,7 +100,12 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                             if( $nx_type === 'press_bar' ) {
                                 $post_meta = get_post_meta( $idd, '_nx_bar_elementor_type_id', true );
                                 if( is_numeric( $post_meta ) && class_exists( '\Elementor\Plugin' ) ) {
-                                    $edit_with_elementor = \Elementor\Plugin::$instance->documents->get( $post_meta )->get_edit_url();
+
+                                    $documents = \Elementor\Plugin::$instance->documents->get( $post_meta );
+                                    if( $documents ) {
+                                        $edit_with_elementor = $documents->get_edit_url();
+                                    }
+
                                 }
                             }
 

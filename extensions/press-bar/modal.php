@@ -5,7 +5,21 @@
 <div class="nx-press-bar-modal-wrapper">
     <div class="nx-press-bar-modal">
         <div class="nx-press-bar-modal-preload">
-            <span class="nx-press-bar-modal-preload-text"><?php _e('Loading...', 'notificationx'); ?></span>
+            <div class="nx-press-bar-modal-preload-text">
+                <span class="nx-modal-loading-text">
+                    <span class="nx-modal-loader"></span>
+                    <?php _e('Loading...', 'notificationx'); ?>
+                </span>
+                <div class="nx-modal-success-text">
+                    <?php _e('Successfully Imported. Please Close this popup and Complete Other Step then Publish, after publish it will be redirected to Edit with Elementor page for Imported Template.', 'notificationx'); ?>
+                    <span>
+                        <input type="checkbox" name="_nx_elementor_auto_redirect" checked id="nx_elementor_auto_redirect">
+                        <label for="nx_elementor_auto_redirect"><?php _e('Redirect To Edit With Elementor', 'notificationx');?></label>
+                    </span>
+
+                    <button class="nx-meta-modal-next nx-ele-bar-button" data-tab="display_tab" data-tabid="4"><?php _e( 'Next', 'notificationx' ); ?></button>
+                </div>
+            </div>
         </div>
         <div class="nx-press-bar-modal-header">
             <h3><?php _e('Choose your template', 'notificationx'); ?></h3>

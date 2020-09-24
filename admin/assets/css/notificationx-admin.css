@@ -2625,9 +2625,17 @@ button.nx-on-click-install {
     border: 1px solid #f2f2f2;
     padding: 30px;
     margin-bottom: 30px;
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+.nx-press-single-template .nx-ele-bar-button {
+    margin-right: 0;
+    margin-left: 15px;
 }
 .nx-press-single-template img {
     max-width: 100%;
+    flex: 1;
 }
 .nx-bar_with_elementor-import:hover {
     background-color: #6c63ff;
@@ -2648,4 +2656,24 @@ button.nx-on-click-install {
 }
 .nx-press-bar-modal-preload.active {
     display: flex;
+}
+.nx-press-bar-modal-preload.active .nx-press-bar-modal-preload-text {
+    width: 50%;
+}
+.nx-press-bar-modal-preload.active .nx-press-bar-modal-preload-text>* {
+    display: none;
+}
+.nx-press-bar-modal-preload.active .nx-press-bar-modal-preload-text .nx-modal-loading-text.active,
+.nx-press-bar-modal-preload.active .nx-press-bar-modal-preload-text .nx-modal-success-text.active {
+    display: block;
+}
+
+.nx-press-bar-modal-preload.active .nx-press-bar-modal-preload-text .nx-modal-success-text>span {
+    display: block;
+    margin-top: 20px;
+}
+
+.nx-meta-modal-next.nx-ele-bar-button {
+    margin-top: 10px;
+    margin-right: 0px;
 }

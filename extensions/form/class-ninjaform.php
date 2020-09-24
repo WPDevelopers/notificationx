@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
     /**
@@ -47,9 +47,9 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
 
                 global $wpdb;
                 $queryresult = $wpdb->get_results( 'SELECT meta_value FROM `' . $wpdb->prefix . 'nf3_form_meta` WHERE parent_id = '.$form_id.' AND meta_key = "formContentData"' );
-                
+
                 $formdata = $queryresult[0]->meta_value;
-                
+
                 $keys = $this->keys_generator( $formdata );
 
                 $returned_keys = array();
@@ -78,7 +78,7 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
         $fields = array();
         $fieldsdata = unserialize($fieldsString);
         if (!empty($fieldsdata)) {
-            foreach ( $fieldsdata as $field ) {                  
+            foreach ( $fieldsdata as $field ) {
                 if (NotificationX_Helper::filter_contactform_key_names($field)){
                     $fields[] = NotificationX_Helper::rename_contactform_key_names($field);
                 }
@@ -111,7 +111,7 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
             $url = admin_url('plugin-install.php?s=ninja+forms&tab=search&type=term');
             $fields['has_no_njf'] = array(
                 'type'     => 'message',
-                'message'    => sprintf( '%s <a href="%s">%s</a> %s', 
+                'message'    => sprintf( '%s <a href="%s">%s</a> %s',
                     __( 'You have to install', 'notificationx' ),
                     $url,
                     __( 'Ninja Forms', 'notificationx' ),
@@ -222,7 +222,6 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
             'priority' => 90,
         );
 
-        // var_dump($fields);
         return $fields;
     }
 
@@ -286,7 +285,7 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
     }
     /**
      * This functions is hooked
-     * 
+     *
      * @hooked nx_public_action
      * @return void
      */
@@ -321,7 +320,7 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
     public function add_builder_fields( $options ){
         $fields = $this->init_fields();
         unset( $fields[ $this->template ] );
-        
+
         foreach ( $fields as $name => $field ) {
             $options[ 'source_tab' ]['sections']['config']['fields'][ $name ] = $field;
         }

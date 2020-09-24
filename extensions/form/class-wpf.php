@@ -241,7 +241,6 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
             'priority' => 90,
         );
 
-        // var_dump($fields);
         return $fields;
     }
 

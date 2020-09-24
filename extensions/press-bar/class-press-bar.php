@@ -65,7 +65,11 @@ class NotificationX_PressBar_Extension extends NotificationX_Extension {
         echo $output;
     }
     public function template(){
-        return NotificationX_Helper::bar_colored_themes();
+        return apply_filters('nx_bar_colored_elementor_themes', array(
+            'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/bar-elementor/theme-one.jpg',
+            'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/bar-elementor/theme-two.jpg',
+            'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/bar-elementor/theme-three.jpg',
+        ));;
     }
     /**
      * Register Post Type for NotificationX Bar.
@@ -79,7 +83,6 @@ class NotificationX_PressBar_Extension extends NotificationX_Extension {
             'show_ui' => false,
 			'rewrite' => false,
 			'menu_icon' => 'dashicons-admin-page',
-			'show_ui' => false,
 			'show_in_menu' => false,
 			'show_in_nav_menus' => false,
 			'exclude_from_search' => true,

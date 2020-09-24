@@ -6,8 +6,6 @@ class NotificationX_ReviewX_Extension extends NotificationX_WooCommerceReview_Ex
     public function __construct() {
         parent::__construct();
         $this->notifications = $this->get_notifications( $this->type );
-
-        // dump( $this->notifications );
     }
 
     /**
