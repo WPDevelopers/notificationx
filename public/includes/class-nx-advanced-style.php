@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * NotificationX Advanced Style
  * @since 1.3.1
@@ -45,7 +45,7 @@ class NotificationX_Advanced_Style {
         if( ! empty( $css_string ) ) {
             $css_string = '<style type="text/css">' . $css_string . '</style>';
         }
-        
+
         do_action( 'nx_style_generation' );
 		$css_string = apply_filters('nx_style_string', $css_string, $settings );
 
@@ -376,7 +376,9 @@ class NotificationX_Advanced_Style {
         }
 
         $custom_class = '.nx-bar.nx-customize-style-' . $settings->id;
-        $css_string .= $custom_class . '.' . $theme . '{' . implode( ';', $css_object['wrapper'] ) . '}';
+        if( isset( $css_object['wrapper'] ) ) {
+            $css_string .= $custom_class . '.' . $theme . '{' . implode( ';', $css_object['wrapper'] ) . '}';
+        }
 
         if( ! empty( $css_object['button'] ) ) {
             $css_string .= '.nx-bar.nx-customize-style-' . $settings->id . ' .nx-bar-inner .nx-bar-content-wrap a.nx-bar-button {' . implode( ';', $css_object['button'] ) . '}';
@@ -403,27 +405,27 @@ class NotificationX_Advanced_Style {
      */
     public static function enabled_edit( $settings ) {
         switch( $settings->display_type ) {
-            case 'conversions' : 
+            case 'conversions' :
                 return $settings->advance_edit;
                 break;
-            case 'comments' : 
+            case 'comments' :
                 return $settings->comment_advance_edit;
                 break;
-            case 'reviews' : 
+            case 'reviews' :
                 return $settings->wporg_advance_edit;
                 break;
-            case 'download_stats' : 
+            case 'download_stats' :
                 return $settings->wpstats_advance_edit;
                 break;
-            case 'press_bar' : 
+            case 'press_bar' :
                 return $settings->bar_advance_edit;
                 break;
-            case 'elearning' : 
+            case 'elearning' :
                 return $settings->elearning_advance_edit;
                 break;
-            case 'donation' : 
+            case 'donation' :
                 return $settings->donation_advance_edit;
-            case 'form' : 
+            case 'form' :
                 return $settings->form_advance_edit;
                 break;
         }

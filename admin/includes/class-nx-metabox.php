@@ -35,8 +35,14 @@ class NotificationX_MetaBox {
 
         $nx_elementor_id = get_post_meta( self::$post_id, '_nx_bar_elementor_type_id', true );
         if( is_numeric( $nx_elementor_id ) ) {
-            unset( $tabs['design_tab']['sections']['bar_themes']['fields']['bar_advance_edit'] );
-            unset( $tabs['design_tab']['sections']['bar_design'] );
+            // unset( $tabs['design_tab']['sections']['bar_themes']['fields']['bar_advance_edit'] );
+            // unset( $tabs['design_tab']['sections']['bar_design'] );
+            foreach( $tabs['design_tab']['sections']['bar_design']['fields'] as $key => $field ) {
+                if( $key === 'bar_close_color' || $key === 'bar_close_position' ) {
+                    continue;
+                }
+                unset( $tabs['design_tab']['sections']['bar_design']['fields'][ $key ] );
+            }
             unset( $tabs['design_tab']['sections']['bar_typography'] );
             unset( $tabs['content_tab'] );
         }

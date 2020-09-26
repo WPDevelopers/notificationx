@@ -20,26 +20,28 @@ class NxImporter extends Source_Local {
 	 *
 	 * @return array Remote Template data.
 	 */
-	// public function get_data( array $args, $context = 'display' ) {
-	// 	$data = $this->get_template_content( $args );
-	// 	if ( is_wp_error( $data ) ) {
-	// 		return $data;
-	// 	}
-	// 	ElementorPlugin::$instance->editor->set_edit_mode( true );
+	public function get_data( array $args, $context = 'display' ) {
+		$data = $this->get_template_content( $args );
+		if ( is_wp_error( $data ) ) {
+			return $data;
+		}
+		ElementorPlugin::$instance->editor->set_edit_mode( true );
 
-	// 	$data['content'] = $this->replace_elements_ids( $data['content'] );
-	// 	$data['content'] = $this->process_export_import_content( $data['content'], 'on_import' );
+		$data['content'] = $this->replace_elements_ids( $data['content'] );
+		$data['content'] = $this->process_export_import_content( $data['content'], 'on_import' );
 
-	// 	$post_id  = $args['editor_post_id'];
-	// 	$document = ElementorPlugin::$instance->documents->get( $post_id );
-	// 	if ( $document ) {
-	// 		$data['content'] = $document->get_elements_raw_data( $data['content'], true );
-	// 	}
-	// 	return $data;
-	// }
+		$post_id  = isset( $args['editor_post_id'] ) ? $args['editor_post_id'] : false;
+		if( $post_id ) {
+			$document = ElementorPlugin::$instance->documents->get( $post_id );
+			if ( $document ) {
+				$data['content'] = $document->get_elements_raw_data( $data['content'], true );
+			}
+		}
+		return $data;
+	}
 
 	public function create_nx( $args ){
-		$template_data = $this->get_template_content( $args );
+		$template_data = $this->get_data( $args );
 
 		$page_settings = [];
 
