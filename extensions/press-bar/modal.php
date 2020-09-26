@@ -11,7 +11,8 @@
                     <?php _e('Loading...', 'notificationx'); ?>
                 </span>
                 <div class="nx-modal-success-text">
-                    <?php _e('Successfully Imported. Please Close this popup and Complete Other Step then Publish, after publish it will be redirected to Edit with Elementor page for Imported Template.', 'notificationx'); ?>
+                    <?php _e('Successfully Imported', 'notificationx'); ?>&nbsp;✅<br/>
+                    <?php _e('Hit on the <strong>Next</strong> Button and configure the other Settings. After Notification Bar is published, you will be automatically redirected to <strong>Edit with Elementor</strong> page for your imported Template.', 'notificationx'); ?>
                     <span>
                         <input type="checkbox" name="_nx_elementor_auto_redirect" checked id="nx_elementor_auto_redirect">
                         <label for="nx_elementor_auto_redirect"><?php _e('Redirect To Edit With Elementor', 'notificationx');?></label>
@@ -22,8 +23,8 @@
             </div>
         </div>
         <div class="nx-press-bar-modal-header">
-            <h3><?php _e('Choose your template', 'notificationx'); ?></h3>
-            <span class="nx-modal-close">x</span>
+            <h3><?php _e('Choose Your Template', 'notificationx'); ?></h3>
+            <span class="nx-modal-close"><i class="eicon-close" aria-hidden="true"></i></span>
         </div>
         <div class="nx-press-bar-modal-content">
             <?php

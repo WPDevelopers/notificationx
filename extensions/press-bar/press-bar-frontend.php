@@ -105,7 +105,7 @@
 
     $elementor_post_id = get_post_meta( $settings->id, '_nx_bar_elementor_type_id', true );
 
-    if( get_post_status( $elementor_post_id ) === 'publish' && class_exists('\Elementor\Plugin') ) {
+    if( $elementor_post_id !== '' && get_post_status( $elementor_post_id ) === 'publish' && class_exists('\Elementor\Plugin') ) {
         $class .= ' nx-bar-has-elementor';
     }
 
@@ -116,10 +116,10 @@
     <div class="nx-bar-inner">
         <div class="nx-bar-content-wrap">
             <?php
-                if( get_post_status( $elementor_post_id ) === 'publish' && class_exists('\Elementor\Plugin') ) {
+                if( $elementor_post_id !== '' && get_post_status( $elementor_post_id ) === 'publish' && class_exists('\Elementor\Plugin') ) {
                     echo \Elementor\Plugin::$instance->frontend->get_builder_content($elementor_post_id, true);
                 }
-                if( get_post_status( $elementor_post_id ) !== 'publish' ) :
+                if( $elementor_post_id === '' || get_post_status( $elementor_post_id ) !== 'publish' ) :
             ?>
                 <?php if( boolval($settings->enable_countdown) || boolval( $settings->evergreen_timer ) ) : ?>
                     <div class="nx-countdown-wrapper">

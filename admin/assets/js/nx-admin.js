@@ -444,8 +444,10 @@
 					post_data: post_data,
 				},
 				success: function (res) {
-					console.log("res", res);
 					$(".nx-modal-close").addClass("nx-template-imported");
+					$(
+						".nx-press-bar-modal-preload.active .nx-modal-loading-text.active"
+					).removeClass("active");
 					$(
 						".nx-press-bar-modal-preload.active .nx-modal-success-text"
 					).addClass("active");
