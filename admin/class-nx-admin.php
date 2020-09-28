@@ -186,6 +186,7 @@ class NotificationX_Admin {
 				<p>🎦 Watch <a target="_blank" href="https://www.youtube.com/watch?v=l7s9FXgzbEM">video tutorial</a> to learn quickly</p>
 				<p><strong>Recommended Blog:</strong></p>
 				<p>🔥 Introducing NotificationX: <a target="_blank" href="https://wpdeveloper.net/notificationx-social-proof-fomo/">Social Proof & FOMO Marketing Solution</a> for WordPress</p>
+				<p>🔥 How to <a href="https://notificationx.com/docs/notification-bar-with-elementor/" target="_blank">design Notification Bar with Elementor Page Builder</a>.</p>
 			</div>
 			<div class="nxins-type reviews download_stats comments">
 				<div class="nxins-type-source wp_reviews wp_stats wp_comments">
