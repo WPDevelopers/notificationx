@@ -3,9 +3,9 @@ Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok
 Donate link: https://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, email subscription, recent sales popup, woo popups, woocommerce review, wordpress marketing, marketing, evergreen notice, increase engagement, woocommerce, envato, freemius, givewp, learndash
 Requires at least: 4.0
-Tested up to: 5.5
+Tested up to: 5.5.1
 Requires PHP: 5.4
-Stable tag: 1.8.4
+Stable tag: 1.8.5
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -192,6 +192,10 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 7. Notification Bar with Countdown
 
 == Changelog ==
+
+= 1.8.5 - 28/09/2020 =
+- New: Notification Bar with Elementor
+- Few minor bugfix and improvements
 
 = 1.8.4 - 03/09/2020 =
 

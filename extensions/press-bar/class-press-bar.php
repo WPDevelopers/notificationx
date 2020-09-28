@@ -34,13 +34,12 @@ class NotificationX_PressBar_Extension extends NotificationX_Extension {
     }
 
     public function add_button_for_elementor( $name, $value, $field, $post_id ){
-        if( $name !== 'nx_meta_bar_theme' ) {
+        if( $name !== 'nx_meta_bar_theme' || is_null( $post_id ) ) {
             return;
         }
 
         $nonce     = wp_create_nonce( 'nx_create_bar' );
-        $the_post  = get_post();
-        $bar_id    = $the_post->ID;
+        $bar_id    = $post_id;
         $output    = '';
         $post_meta = get_post_meta( $bar_id, '_nx_bar_elementor_type_id', true );
         if( is_numeric( $post_meta ) && class_exists( '\Elementor\Plugin' ) ) {
