@@ -176,6 +176,10 @@
 					body_push = bar.dataset.body_push,
 					evergreen = Boolean(bar.dataset.evergreen);
 
+				if (bar.classList.contains("nx-bar-shortcode")) {
+					return false;
+				}
+
 				if (Cookies.get("notificationx_nx-bar-" + id)) {
 					return false;
 				}

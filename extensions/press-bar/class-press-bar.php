@@ -182,7 +182,7 @@ class NotificationX_PressBar_Extension extends NotificationX_Extension {
      *
      * @return void
      */
-    public static function display( $settings ){
+    public static function display( $settings, $is_shortcode = false ){
         require_once plugin_dir_path( __FILE__ ) . 'press-bar-frontend.php';
     }
 }

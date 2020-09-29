@@ -112,7 +112,7 @@
 ?>
 <div
     id="nx-bar-<?php echo $settings->id; ?>"
-    class="nx-bar <?php echo $settings->bar_theme; ?> nx-bar-<?php echo $settings->id; ?> <?php echo esc_attr( $pos_class ); ?> <?php echo esc_attr( $class ); ?>" <?php echo $wrapper_attrs; ?>>
+    class="nx-bar <?php echo $is_shortcode ? 'nx-bar-shortcode nx-bar-visible' : ''; ?> <?php echo $settings->bar_theme; ?> nx-bar-<?php echo $settings->id; ?> <?php echo esc_attr( $pos_class ); ?> <?php echo esc_attr( $class ); ?>" <?php echo $wrapper_attrs; ?>>
     <div class="nx-bar-inner">
         <div class="nx-bar-content-wrap">
             <?php
