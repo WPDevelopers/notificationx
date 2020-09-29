@@ -196,7 +196,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 = 1.9.0 - 29/09/2020 =
 
 - Added: Elementor Integration with Notification Bar
-- Added: Show Donation amoun for GiveWP Donation Alert
+- Added: Added: Show Donation amount for GiveWP Donation Alert
 - Fixed: Conversion editing not working with Custom Notifications
 - Few minor bugfix and improvements
 
