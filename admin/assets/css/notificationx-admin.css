@@ -2542,7 +2542,6 @@ button.nx-on-click-install.nx-ele-bar-button {
     color: #6c63ff;
     border: 1px solid #6c63ff;
     border-radius: 0;
-    margin-left: 0;
 }
 .nx-ele-bar-button.active {
     background-color: #6c63ff;
@@ -2686,4 +2685,10 @@ button.nx-on-click-install.nx-ele-bar-button {
 .nx-meta-modal-next.nx-ele-bar-button {
     margin-top: 10px;
     margin-right: 0px;
+}
+.nx-bar-install-elementor {
+    display: flex;
+}
+.nx-bar-install-elementor>.nx-bar_with_elementor_instal {
+    margin-left: 15px;
 }
