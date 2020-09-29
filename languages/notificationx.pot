@@ -1,164 +1,143 @@
 # Copyright (C) 2020 WPDeveloper
-# This file is distributed under the same license as the NotificationX plugin.
+# This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 1.8.4\n"
+"Project-Id-Version: NotificationX 1.9.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
+"POT-Creation-Date: 2020-09-29 09:19:10+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-09-27T06:44:10+00:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
-"X-Domain: notificationx\n"
-
-#. Plugin Name of the plugin
-#: admin/class-nx-admin.php:268
-#: admin/includes/class-nx-settings.php:65
-#: admin/includes/nx-builder-helper.php:6
-#: admin/includes/nx-metabox-helper.php:6
-msgid "NotificationX"
-msgstr ""
-
-#. Plugin URI of the plugin
-msgid "https://notificationx.com"
-msgstr ""
-
-#. Description of the plugin
-msgid "Social Proof & Recent Sales Popup, Comment Notification, Subscription Notification, Notification Bar and many more."
-msgstr ""
-
-#. Author of the plugin
-msgid "WPDeveloper"
-msgstr ""
-
-#. Author URI of the plugin
-msgid "https://wpdeveloper.net"
-msgstr ""
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
 
 #: admin/class-nx-admin.php:97
 msgid "NotificationX Instructions"
 msgstr ""
 
-#: admin/class-nx-admin.php:263
-#: admin/class-nx-admin.php:656
-#: admin/class-nx-admin.php:657
-#: admin/class-nx-admin.php:731
+#: admin/class-nx-admin.php:264 admin/class-nx-admin.php:657
+#: admin/class-nx-admin.php:658 admin/class-nx-admin.php:732
 msgid "Add New"
 msgstr ""
 
-#: admin/class-nx-admin.php:270
-#: admin/includes/class-nx-settings.php:67
+#. Plugin Name of the plugin/theme
+msgid "NotificationX"
+msgstr ""
+
+#: admin/class-nx-admin.php:271 admin/includes/class-nx-settings.php:67
 msgid "NotificationX Pro"
 msgstr ""
 
-#: admin/class-nx-admin.php:564
+#: admin/class-nx-admin.php:565
 msgid "Enable / Disable"
 msgstr ""
 
-#: admin/class-nx-admin.php:567
-#: admin/class-nx-admin.php:892
+#: admin/class-nx-admin.php:568 admin/class-nx-admin.php:893
 msgid "Type"
 msgstr ""
 
-#: admin/class-nx-admin.php:599
+#: admin/class-nx-admin.php:600
 msgid "Active"
 msgstr ""
 
-#: admin/class-nx-admin.php:606
+#: admin/class-nx-admin.php:607
 msgid "Inactive"
 msgstr ""
 
-#: admin/class-nx-admin.php:632
+#: admin/class-nx-admin.php:633
 msgid "There is an error updating status."
 msgstr ""
 
-#: admin/class-nx-admin.php:658
-#: admin/partials/nx-admin.php:148
+#: admin/class-nx-admin.php:659 admin/partials/nx-admin.php:148
 msgid "Edit"
 msgstr ""
 
-#: admin/class-nx-admin.php:659
+#: admin/class-nx-admin.php:660
 msgid "New"
 msgstr ""
 
-#: admin/class-nx-admin.php:660
+#: admin/class-nx-admin.php:661
 msgid "View"
 msgstr ""
 
-#: admin/class-nx-admin.php:661
+#: admin/class-nx-admin.php:662
 msgid "Search"
 msgstr ""
 
-#: admin/class-nx-admin.php:662
+#: admin/class-nx-admin.php:663
 msgid "No notification x is found"
 msgstr ""
 
-#: admin/class-nx-admin.php:663
+#: admin/class-nx-admin.php:664
 msgid "No notification x is found in Trash"
 msgstr ""
 
-#: admin/class-nx-admin.php:711
-#: admin/class-nx-admin.php:1253
+#: admin/class-nx-admin.php:712 admin/class-nx-admin.php:1254
 #: admin/partials/nx-admin-display.php:142
 #: admin/partials/nx-quick-builder-display.php:138
 msgid "Settings"
 msgstr ""
 
-#: admin/class-nx-admin.php:716
+#: admin/class-nx-admin.php:717
 msgid "Quick Builder"
 msgstr ""
 
-#: admin/class-nx-admin.php:744
+#: admin/class-nx-admin.php:745
 msgid "Number of Notification Per Page"
 msgstr ""
 
-#: admin/class-nx-admin.php:890
+#: admin/class-nx-admin.php:891
 msgid "Preview"
 msgstr ""
 
-#: admin/class-nx-admin.php:891
+#: admin/class-nx-admin.php:892
 msgid "Status"
 msgstr ""
 
-#: admin/class-nx-admin.php:893
+#: admin/class-nx-admin.php:894
 msgid "Stats"
 msgstr ""
 
-#: admin/class-nx-admin.php:894
+#: admin/class-nx-admin.php:895
 msgid "Date"
 msgstr ""
 
-#: admin/class-nx-admin.php:904
-#: admin/partials/nx-admin.php:29
+#: admin/class-nx-admin.php:905 admin/partials/nx-admin.php:29
 #: admin/partials/nx-admin.php:179
 msgid "Disabled"
 msgstr ""
 
-#: admin/class-nx-admin.php:1209
+#: admin/class-nx-admin.php:1210
 msgid "NotificationX - Notification Bar"
 msgstr ""
 
-#: admin/class-nx-admin.php:1211
+#: admin/class-nx-admin.php:1212
 msgid "NotificationX - WP Comments"
 msgstr ""
 
-#: admin/class-nx-admin.php:1258
+#: admin/class-nx-admin.php:1259
 msgid "Go Pro"
 msgstr ""
 
-#: admin/class-nx-admin.php:1273
+#: admin/class-nx-admin.php:1274
 msgid "Docs & FAQ"
 msgstr ""
 
 #: admin/includes/class-dashboard-widget.php:29
 msgid "NotificationX Analytics"
-msgstr ""
-
-#: admin/includes/class-nx-metabox.php:24
-msgid "You are about to publish <strong class=\"finalize_notificationx_name\"></strong>. You can rename this and edit everything whenever you want from <a href=\""
 msgstr ""
 
 #: admin/includes/class-nx-settings.php:62
@@ -207,7 +186,9 @@ msgstr ""
 
 #: admin/includes/nx-builder-helper.php:23
 #: admin/includes/nx-metabox-helper.php:23
-msgid "You have cron disabled. To use this extension make sure CRON is enabled in your WordPress Setup. <a href=\"URL\">Click Here To Learn How To Enable</a>."
+msgid ""
+"You have cron disabled. To use this extension make sure CRON is enabled in "
+"your WordPress Setup. <a href=\"URL\">Click Here To Learn How To Enable</a>."
 msgstr ""
 
 #: admin/includes/nx-builder-helper.php:29
@@ -367,8 +348,7 @@ msgstr ""
 #: admin/includes/nx-metabox-helper.php:862
 #: admin/includes/nx-metabox-helper.php:877
 #: admin/includes/nx-metabox-helper.php:892
-#: admin/includes/nx-metabox-helper.php:965
-#: extensions/give/class-give.php:206
+#: admin/includes/nx-metabox-helper.php:965 extensions/give/class-give.php:206
 msgid "None"
 msgstr ""
 
@@ -614,6 +594,14 @@ msgstr ""
 msgid "Time Between"
 msgstr ""
 
+#: admin/includes/nx-metabox-helper.php:800
+msgid "Start Time"
+msgstr ""
+
+#: admin/includes/nx-metabox-helper.php:807
+msgid "End Time"
+msgstr ""
+
 #: admin/includes/nx-metabox-helper.php:814
 msgid "Daily Time Reset"
 msgstr ""
@@ -838,8 +826,7 @@ msgid "Modules"
 msgstr ""
 
 #: admin/includes/nx-settings-page-helper.php:19
-#: includes/class-nx-helper.php:468
-#: includes/class-nx-helper.php:931
+#: includes/class-nx-helper.php:468 includes/class-nx-helper.php:931
 msgid "Notification Bar"
 msgstr ""
 
@@ -893,8 +880,7 @@ msgid "Freemius"
 msgstr ""
 
 #: admin/includes/nx-settings-page-helper.php:72
-#: includes/class-nx-helper.php:236
-#: includes/class-nx-helper.php:479
+#: includes/class-nx-helper.php:236 includes/class-nx-helper.php:479
 msgid "Custom Notification"
 msgstr ""
 
@@ -1129,13 +1115,11 @@ msgstr ""
 msgid "Make sure you have module on from your NotificationX"
 msgstr ""
 
-#: admin/partials/nx-admin.php:26
-#: admin/partials/nx-admin.php:178
+#: admin/partials/nx-admin.php:26 admin/partials/nx-admin.php:178
 msgid "Enabled"
 msgstr ""
 
-#: admin/partials/nx-admin.php:32
-#: admin/partials/nx-admin.php:55
+#: admin/partials/nx-admin.php:32 admin/partials/nx-admin.php:55
 msgid "Trash"
 msgstr ""
 
@@ -1167,8 +1151,7 @@ msgstr ""
 msgid "Published"
 msgstr ""
 
-#: admin/partials/nx-admin.php:199
-#: admin/partials/nx-admin.php:202
+#: admin/partials/nx-admin.php:199 admin/partials/nx-admin.php:202
 msgid "Y/m/d"
 msgstr ""
 
@@ -1198,7 +1181,10 @@ msgid "Documentation"
 msgstr ""
 
 #: admin/partials/nx-settings-blocks.php:11
-msgid "Get started by spending some time with the documentation to get familiar with NotificationX. Build awesome websites for you or your clients with ease."
+msgid ""
+"Get started by spending some time with the documentation to get familiar "
+"with NotificationX. Build awesome websites for you or your clients with "
+"ease."
 msgstr ""
 
 #: admin/partials/nx-settings-blocks.php:20
@@ -1206,7 +1192,9 @@ msgid "Contribute to NotificationX"
 msgstr ""
 
 #: admin/partials/nx-settings-blocks.php:23
-msgid "You can contribute to make NotificationX better reporting bugs, creating issues, pull requests at"
+msgid ""
+"You can contribute to make NotificationX better reporting bugs, creating "
+"issues, pull requests at"
 msgstr ""
 
 #: admin/partials/nx-settings-blocks.php:24
@@ -1230,7 +1218,10 @@ msgid "Show Your Love"
 msgstr ""
 
 #: admin/partials/nx-settings-blocks.php:47
-msgid "We love to have you in NotificationX family. We are making it more awesome everyday. Take your 2 minutes to review the plugin and spread the love to encourage us to keep it going."
+msgid ""
+"We love to have you in NotificationX family. We are making it more awesome "
+"everyday. Take your 2 minutes to review the plugin and spread the love to "
+"encourage us to keep it going."
 msgstr ""
 
 #: admin/partials/nx-settings-blocks.php:48
@@ -1249,6 +1240,10 @@ msgstr ""
 msgid " views"
 msgstr ""
 
+#: admin/reports/email/class-nx-email-reporting.php:297
+msgid "Test Report"
+msgstr ""
+
 #: admin/reports/email/class-nx-email-reporting.php:304
 msgid "Successfully Sent an Email"
 msgstr ""
@@ -1262,20 +1257,13 @@ msgstr ""
 msgid "more products"
 msgstr ""
 
-#: extensions/edd/class-edd.php:88
-#: extensions/edd/class-edd.php:89
-#: extensions/edd/class-edd.php:90
-#: extensions/form/class-cf7.php:165
-#: extensions/form/class-ninjaform.php:165
-#: extensions/form/class-wpf.php:184
-#: extensions/give/class-give.php:47
-#: extensions/give/class-give.php:48
-#: extensions/give/class-give.php:49
-#: extensions/give/class-give.php:194
-#: extensions/tutor/class-tutor.php:48
-#: extensions/tutor/class-tutor.php:49
-#: extensions/tutor/class-tutor.php:50
-#: extensions/tutor/class-tutor.php:180
+#: extensions/edd/class-edd.php:88 extensions/edd/class-edd.php:89
+#: extensions/edd/class-edd.php:90 extensions/form/class-cf7.php:165
+#: extensions/form/class-ninjaform.php:165 extensions/form/class-wpf.php:184
+#: extensions/give/class-give.php:47 extensions/give/class-give.php:48
+#: extensions/give/class-give.php:49 extensions/give/class-give.php:194
+#: extensions/tutor/class-tutor.php:48 extensions/tutor/class-tutor.php:49
+#: extensions/tutor/class-tutor.php:50 extensions/tutor/class-tutor.php:180
 #: extensions/woocommerce/class-woocommerce.php:47
 #: extensions/woocommerce/class-woocommerce.php:48
 #: extensions/woocommerce/class-woocommerce.php:49
@@ -1286,26 +1274,19 @@ msgstr ""
 msgid "Someone"
 msgstr ""
 
-#: extensions/edd/class-edd.php:91
-#: extensions/give/class-give.php:50
+#: extensions/edd/class-edd.php:91 extensions/give/class-give.php:50
 #: extensions/tutor/class-tutor.php:51
 #: extensions/woocommerce/class-woocommerce.php:50
 #: extensions/woocommerce/class-woocommerce.php:146
 msgid "Anonymous Product"
 msgstr ""
 
-#: extensions/edd/class-edd.php:92
-#: extensions/form/class-cf7.php:201
-#: extensions/form/class-cf7.php:218
-#: extensions/form/class-ninjaform.php:201
-#: extensions/form/class-ninjaform.php:218
-#: extensions/form/class-wpf.php:220
-#: extensions/form/class-wpf.php:237
-#: extensions/give/class-give.php:51
-#: extensions/give/class-give.php:224
-#: extensions/give/class-give.php:241
-#: extensions/tutor/class-tutor.php:201
-#: extensions/tutor/class-tutor.php:218
+#: extensions/edd/class-edd.php:92 extensions/form/class-cf7.php:201
+#: extensions/form/class-cf7.php:218 extensions/form/class-ninjaform.php:201
+#: extensions/form/class-ninjaform.php:218 extensions/form/class-wpf.php:220
+#: extensions/form/class-wpf.php:237 extensions/give/class-give.php:51
+#: extensions/give/class-give.php:224 extensions/give/class-give.php:241
+#: extensions/tutor/class-tutor.php:201 extensions/tutor/class-tutor.php:218
 #: extensions/woocommerce/class-woocommerce.php:155
 #: extensions/woocommerce/class-woocommerce.php:172
 #: extensions/wp-comments/class-wp-comments.php:51
@@ -1320,42 +1301,31 @@ msgstr ""
 msgid "Product Image"
 msgstr ""
 
-#: extensions/edd/class-edd.php:148
-#: extensions/form/class-cf7.php:114
-#: extensions/form/class-ninjaform.php:115
-#: extensions/form/class-wpf.php:131
-#: extensions/give/class-give.php:151
-#: extensions/tutor/class-tutor.php:136
+#: extensions/edd/class-edd.php:148 extensions/form/class-cf7.php:114
+#: extensions/form/class-ninjaform.php:115 extensions/form/class-wpf.php:131
+#: extensions/give/class-give.php:151 extensions/tutor/class-tutor.php:136
 #: extensions/woocommerce/class-reviewx.php:38
 #: extensions/woocommerce/class-woocommerce.php:90
 msgid "You have to install"
 msgstr ""
 
-#: extensions/edd/class-edd.php:151
-#: extensions/form/class-cf7.php:117
-#: extensions/form/class-ninjaform.php:118
-#: extensions/form/class-wpf.php:134
-#: extensions/give/class-give.php:154
-#: extensions/tutor/class-tutor.php:139
+#: extensions/edd/class-edd.php:151 extensions/form/class-cf7.php:117
+#: extensions/form/class-ninjaform.php:118 extensions/form/class-wpf.php:134
+#: extensions/give/class-give.php:154 extensions/tutor/class-tutor.php:139
 #: extensions/woocommerce/class-woocommerce.php:93
 msgid "plugin first."
 msgstr ""
 
-#: extensions/form/class-cf7.php:125
-#: extensions/form/class-ninjaform.php:126
+#: extensions/form/class-cf7.php:125 extensions/form/class-ninjaform.php:126
 #: extensions/form/class-wpf.php:142
 msgid "Select a Form"
 msgstr ""
 
-#: extensions/form/class-cf7.php:138
-#: extensions/form/class-cf7.php:221
+#: extensions/form/class-cf7.php:138 extensions/form/class-cf7.php:221
 #: extensions/form/class-ninjaform.php:139
-#: extensions/form/class-ninjaform.php:221
-#: extensions/form/class-wpf.php:155
-#: extensions/form/class-wpf.php:240
-#: extensions/give/class-give.php:165
-#: extensions/give/class-give.php:244
-#: extensions/tutor/class-tutor.php:151
+#: extensions/form/class-ninjaform.php:221 extensions/form/class-wpf.php:155
+#: extensions/form/class-wpf.php:240 extensions/give/class-give.php:165
+#: extensions/give/class-give.php:244 extensions/tutor/class-tutor.php:151
 #: extensions/tutor/class-tutor.php:221
 #: extensions/woocommerce/class-woocommerce.php:105
 #: extensions/woocommerce/class-woocommerce.php:175
@@ -1372,16 +1342,13 @@ msgstr ""
 msgid "Notification Template"
 msgstr ""
 
-#: extensions/form/class-cf7.php:141
-#: extensions/form/class-ninjaform.php:142
+#: extensions/form/class-cf7.php:141 extensions/form/class-ninjaform.php:142
 #: extensions/form/class-wpf.php:158
 msgid "Select A Tag"
 msgstr ""
 
-#: extensions/form/class-cf7.php:142
-#: extensions/form/class-ninjaform.php:143
-#: extensions/form/class-wpf.php:161
-#: extensions/give/class-give.php:171
+#: extensions/form/class-cf7.php:142 extensions/form/class-ninjaform.php:143
+#: extensions/form/class-wpf.php:161 extensions/give/class-give.php:171
 #: extensions/tutor/class-tutor.php:157
 #: extensions/woocommerce/class-woocommerce.php:111
 #: extensions/wp-comments/class-wp-comments.php:118
@@ -1394,28 +1361,23 @@ msgstr ""
 msgid "Custom"
 msgstr ""
 
-#: extensions/form/class-cf7.php:170
-#: extensions/form/class-ninjaform.php:170
+#: extensions/form/class-cf7.php:170 extensions/form/class-ninjaform.php:170
 #: extensions/form/class-wpf.php:189
 msgid "recently contacted via"
 msgstr ""
 
-#: extensions/form/class-cf7.php:176
-#: extensions/form/class-ninjaform.php:176
+#: extensions/form/class-cf7.php:176 extensions/form/class-ninjaform.php:176
 #: extensions/form/class-wpf.php:195
 msgid "Form Title"
 msgstr ""
 
-#: extensions/form/class-cf7.php:177
-#: extensions/form/class-ninjaform.php:177
+#: extensions/form/class-cf7.php:177 extensions/form/class-ninjaform.php:177
 #: extensions/form/class-wpf.php:196
 msgid "Custom Title"
 msgstr ""
 
-#: extensions/form/class-cf7.php:200
-#: extensions/form/class-ninjaform.php:200
-#: extensions/form/class-wpf.php:219
-#: extensions/give/class-give.php:223
+#: extensions/form/class-cf7.php:200 extensions/form/class-ninjaform.php:200
+#: extensions/form/class-wpf.php:219 extensions/give/class-give.php:223
 #: extensions/tutor/class-tutor.php:200
 #: extensions/woocommerce/class-woocommerce.php:154
 #: extensions/wp-comments/class-wp-comments.php:168
@@ -1427,16 +1389,14 @@ msgstr ""
 msgid "WP Forms"
 msgstr ""
 
-#: extensions/form/class-wpf.php:159
-#: extensions/give/class-give.php:169
+#: extensions/form/class-wpf.php:159 extensions/give/class-give.php:169
 #: extensions/tutor/class-tutor.php:155
 #: extensions/woocommerce/class-woocommerce.php:109
 #: extensions/wp-comments/class-wp-comments.php:115
 msgid "First Name"
 msgstr ""
 
-#: extensions/form/class-wpf.php:160
-#: extensions/give/class-give.php:170
+#: extensions/form/class-wpf.php:160 extensions/give/class-give.php:170
 #: extensions/tutor/class-tutor.php:156
 #: extensions/woocommerce/class-woocommerce.php:110
 #: extensions/wp-comments/class-wp-comments.php:116
@@ -1447,8 +1407,7 @@ msgstr ""
 msgid "GiveWP Donation"
 msgstr ""
 
-#: extensions/give/class-give.php:168
-#: extensions/tutor/class-tutor.php:154
+#: extensions/give/class-give.php:168 extensions/tutor/class-tutor.php:154
 #: extensions/woocommerce/class-woocommerce.php:108
 #: extensions/wp-comments/class-wp-comments.php:114
 msgid "Full Name"
@@ -1472,8 +1431,7 @@ msgstr ""
 msgid "Anonymous Title"
 msgstr ""
 
-#: extensions/give/class-give.php:251
-#: extensions/tutor/class-tutor.php:228
+#: extensions/give/class-give.php:251 extensions/tutor/class-tutor.php:228
 #: extensions/woocommerce/class-woocommerce.php:182
 #: extensions/wp-comments/class-wp-comments.php:197
 #: extensions/wporg/class-wporg-review.php:455
@@ -1481,24 +1439,28 @@ msgstr ""
 msgid "Advanced Template"
 msgstr ""
 
-#: extensions/give/class-give.php:384
-#: extensions/give/class-give.php:444
+#: extensions/give/class-give.php:384 extensions/give/class-give.php:444
 msgid "for"
 msgstr ""
 
-#: extensions/press-bar/class-press-bar.php:49
+#: extensions/press-bar/class-press-bar.php:48
 msgid "Edit With Elementor"
 msgstr ""
 
-#: extensions/press-bar/class-press-bar.php:52
+#: extensions/press-bar/class-press-bar.php:51
 msgid "Remove Elementor Design"
 msgstr ""
 
-#: extensions/press-bar/class-press-bar.php:57
+#: extensions/press-bar/class-press-bar.php:56
+#: extensions/press-bar/class-press-bar.php:72
 msgid "Build With Elementor"
 msgstr ""
 
-#: extensions/press-bar/class-press-bar.php:81
+#: extensions/press-bar/class-press-bar.php:65
+msgid "Install Elementor"
+msgstr ""
+
+#: extensions/press-bar/class-press-bar.php:93
 msgid "NotificationX Bar"
 msgstr ""
 
@@ -1511,7 +1473,10 @@ msgid "Successfully Imported"
 msgstr ""
 
 #: extensions/press-bar/modal.php:15
-msgid "Hit on the <strong>Next</strong> Button and configure the other Settings. After Notification Bar is published, you will be automatically redirected to <strong>Edit with Elementor</strong> page for your imported Template."
+msgid ""
+"Hit on the <strong>Next</strong> Button and configure the other Settings. "
+"After Notification Bar is published, you will be automatically redirected "
+"to <strong>Edit with Elementor</strong> page for your imported Template."
 msgstr ""
 
 #: extensions/press-bar/modal.php:18
@@ -1748,7 +1713,7 @@ msgstr ""
 msgid "people are actively using"
 msgstr ""
 
-#: includes/class-nx-core-installer.php:55
+#: includes/class-nx-core-installer.php:54
 msgid "You don't have permission to install the plugins"
 msgstr ""
 
@@ -1756,8 +1721,7 @@ msgstr ""
 msgid "You don't have set any slug and file name to install the plugins"
 msgstr ""
 
-#: includes/class-nx-cron.php:61
-#: includes/class-nx-cron.php:66
+#: includes/class-nx-cron.php:61 includes/class-nx-cron.php:66
 msgid "Every %s minutes"
 msgstr ""
 
@@ -1769,28 +1733,23 @@ msgstr ""
 msgid "ago"
 msgstr ""
 
-#: includes/class-nx-helper.php:462
-#: includes/class-nx-helper.php:933
+#: includes/class-nx-helper.php:462 includes/class-nx-helper.php:933
 msgid "Sales Notification"
 msgstr ""
 
-#: includes/class-nx-helper.php:463
-#: includes/class-nx-helper.php:932
+#: includes/class-nx-helper.php:463 includes/class-nx-helper.php:932
 msgid "Comments"
 msgstr ""
 
-#: includes/class-nx-helper.php:464
-#: includes/class-nx-helper.php:934
+#: includes/class-nx-helper.php:464 includes/class-nx-helper.php:934
 msgid "Reviews"
 msgstr ""
 
-#: includes/class-nx-helper.php:465
-#: includes/class-nx-helper.php:935
+#: includes/class-nx-helper.php:465 includes/class-nx-helper.php:935
 msgid "Download Stats"
 msgstr ""
 
-#: includes/class-nx-helper.php:466
-#: includes/class-nx-helper.php:936
+#: includes/class-nx-helper.php:466 includes/class-nx-helper.php:936
 msgid "eLearning"
 msgstr ""
 
@@ -1798,8 +1757,7 @@ msgstr ""
 msgid "Donations"
 msgstr ""
 
-#: includes/class-nx-helper.php:469
-#: includes/class-nx-helper.php:938
+#: includes/class-nx-helper.php:469 includes/class-nx-helper.php:938
 msgid "Contact Form"
 msgstr ""
 
@@ -1879,20 +1837,71 @@ msgstr ""
 msgid "All %s taxonomy archives"
 msgstr ""
 
+#: includes/class-nx-message.php:417
+msgid "Install Now!"
+msgstr ""
+
+#: includes/class-nx-message.php:909
+msgid "Ok, you deserve it!"
+msgstr ""
+
+#: includes/class-nx-message.php:914
+msgid "I already did"
+msgstr ""
+
+#: includes/class-nx-message.php:922
+msgid "Maybe Later"
+msgstr ""
+
+#: includes/class-nx-message.php:930
+msgid "I need help"
+msgstr ""
+
+#: includes/class-nx-message.php:935
+msgid "Never show again"
+msgstr ""
+
+#: includes/class-nx-message.php:950
+msgid "Get the missing feature for NotificationX by installing PRO!"
+msgstr ""
+
+#: includes/class-nx-message.php:956
+msgid ""
+"We hope you're enjoying NotificationX! Could you please do us a BIG favor "
+"and give it a 5-star rating on WordPress to help us spread the word and "
+"boost our motivation?"
+msgstr ""
+
 #: includes/class-plugin-usage-tracker.php:253
-msgid "We can't detect any plugin information. This is most probably because you have not included the code in the plugin main file."
+msgid ""
+"We can't detect any plugin information. This is most probably because you "
+"have not included the code in the plugin main file."
 msgstr ""
 
 #: includes/class-plugin-usage-tracker.php:632
-msgid "Thank you for installing our plugin. We would like to track its usage on your site. We don't record any sensitive data, only information regarding the WordPress environment and plugin settings, which we will use to help us make improvements to the plugin. Tracking is completely optional."
+msgid ""
+"Thank you for installing our plugin. We would like to track its usage on "
+"your site. We don't record any sensitive data, only information regarding "
+"the WordPress environment and plugin settings, which we will use to help us "
+"make improvements to the plugin. Tracking is completely optional."
 msgstr ""
 
 #: includes/class-plugin-usage-tracker.php:635
-msgid "Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage. <a class=\"notificationx-insights-data-we-collect\" href=\"#\">What we collect.</a>"
+msgid ""
+"Want to help make <strong>NotificationX</strong> even more awesome? You can "
+"get a <strong>10% discount coupon</strong> for Premium extensions if you "
+"allow us to track the usage. <a "
+"class=\"notificationx-insights-data-we-collect\" href=\"#\">What we "
+"collect.</a>"
 msgstr ""
 
 #: includes/class-plugin-usage-tracker.php:643
-msgid "We collect non-sensitive diagnostic data and plugin usage information. Your site URL, WordPress & PHP version, plugins & themes and email address to send you the discount coupon. This data lets us make sure this plugin always stays compatible with the most popular plugins and themes. No spam, I promise."
+msgid ""
+"We collect non-sensitive diagnostic data and plugin usage information. Your "
+"site URL, WordPress & PHP version, plugins & themes and email address to "
+"send you the discount coupon. This data lets us make sure this plugin "
+"always stays compatible with the most popular plugins and themes. No spam, "
+"I promise."
 msgstr ""
 
 #: includes/class-plugin-usage-tracker.php:646
@@ -1904,7 +1913,10 @@ msgid "No Thanks"
 msgstr ""
 
 #: includes/class-plugin-usage-tracker.php:686
-msgid "Thank you for opting in to tracking. Would you like to receive occasional news about this plugin, including details of new features and special offers?"
+msgid ""
+"Thank you for opting in to tracking. Would you like to receive occasional "
+"news about this plugin, including details of new features and special "
+"offers?"
 msgstr ""
 
 #: includes/class-plugin-usage-tracker.php:693
@@ -1920,7 +1932,9 @@ msgid "Sorry to see you go"
 msgstr ""
 
 #: includes/class-plugin-usage-tracker.php:728
-msgid "Before you deactivate the plugin, would you quickly give us your reason for doing so?"
+msgid ""
+"Before you deactivate the plugin, would you quickly give us your reason for "
+"doing so?"
 msgstr ""
 
 #: includes/class-plugin-usage-tracker.php:731
@@ -1977,4 +1991,22 @@ msgstr ""
 
 #: includes/class-wpdev-dashboard-widget.php:76
 msgid "Keep Your Eyes on"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://notificationx.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Social Proof & Recent Sales Popup, Comment Notification, Subscription "
+"Notification, Notification Bar and many more."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WPDeveloper"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://wpdeveloper.net"
 msgstr ""

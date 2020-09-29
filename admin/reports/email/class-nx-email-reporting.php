@@ -294,7 +294,7 @@ class NotificationX_Report_Email {
     }
 
     public static function test_report(){
-        echo '<button class="nx-email-test">'. __( 'Test Report' ) .'</button>';
+        echo '<button class="nx-email-test">'. __( 'Test Report', 'notificationx' ) .'</button>';
     }
     public function email_test_report(){
         $email = isset( $_POST['email'] ) ? $this->receiver_email_address( sanitize_text_field( $_POST['email'] ) ) : '';

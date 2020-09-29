@@ -797,14 +797,14 @@ function notificationx_metabox_args(){
                                     'start_time' => array(
                                         'type'     => 'number',
                                         'only'  => 'timepicker',
-                                        'label'    => __('Start Time' , 'notificationx-pro'),
+                                        'label'    => __('Start Time' , 'notificationx'),
                                         'priority' => 0,
                                         'default' => 6
                                     ),
                                     'end_time' => array(
                                         'type'     => 'number',
                                         'only'  => 'timepicker',
-                                        'label'    => __('End Time' , 'notificationx-pro'),
+                                        'label'    => __('End Time' , 'notificationx'),
                                         'priority' => 1,
                                         'default' => 12
                                     ),
