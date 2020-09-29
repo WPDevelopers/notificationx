@@ -50,10 +50,10 @@ if ( ! class_exists( 'NotificationX_Core_Installer' ) ) :
          */
         public function core_install() {
             check_ajax_referer( 'wpdeveloper_upsale_core_install_' . $this->plugin_basename );
-
             if ( ! current_user_can( 'manage_options' ) ) {
                 wp_send_json_error( __( 'You don\'t have permission to install the plugins', 'notificationx' ) );
             }
+            NotificationX_Public::raise_limits();
 
             $plugin_slug = ( isset( $_POST['slug'] ) ) ? $_POST['slug'] : '';
             $plugin_file = ( isset( $_POST['file'] ) ) ? $_POST['file'] : '';
@@ -78,6 +78,8 @@ if ( ! class_exists( 'NotificationX_Core_Installer' ) ) :
         public function install_plugin( $slug, $file ) {
             include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
             include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+
+            NotificationX_Public::raise_limits();
 
             $plugin_basename = $slug . '/' . $file;
 

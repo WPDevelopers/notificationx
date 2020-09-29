@@ -119,11 +119,21 @@
 					},
 					success: function (response) {
 						self.text("Installed");
-						setTimeout(function () {
-							self.parents(".nx-field").hide();
-						}, 2000);
+						if (!self.hasClass("nx-bar_with_elementor_install")) {
+							setTimeout(function () {
+								self.parents(".nx-field").hide();
+							}, 2000);
+						} else {
+							setTimeout(function () {
+								$(".nx-bar-install-elementor").remove();
+								$(".nx-bar_with_elementor").removeClass(
+									"hidden"
+								);
+							}, 2000);
+						}
 					},
 					error: function (error) {
+						console.log(error);
 						self.removeClass("install-now updating-message");
 						alert(error);
 					},
@@ -399,7 +409,7 @@
 		$.notificationx.create_nx_bar();
 	};
 	$.notificationx.create_nx_bar = function () {
-		$(".nx-bar_with_elementor").on("click", function (e) {
+		$("body").on("click", ".nx-bar_with_elementor", function (e) {
 			e.preventDefault();
 			$(this).addClass("active");
 			$(".nx-press-bar-modal-wrapper").addClass("active");

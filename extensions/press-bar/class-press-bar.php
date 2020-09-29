@@ -58,6 +58,19 @@ class NotificationX_PressBar_Extension extends NotificationX_Extension {
                 ob_start();
                 include_once __DIR__ . '/modal.php';
                 $output .= ob_get_clean();
+            } else {
+                $output = '<div class="nx-bar-install-elementor">';
+                    $output .= '<p>Install Elementor if you wants to design bar with Elementor</p>';
+                    $output .= '<button data-nonce="'. wp_create_nonce('wpdeveloper_upsale_core_install_notificationx') .'" data-slug="elementor" data-plugin_file="elementor.php" class="nx-ele-bar-button nx-bar_with_elementor_install nx-on-click-install">';
+                    $output .= __('Install Elementor', 'notificationx');
+                    $output .= '</button>';
+                $output .= '</div>';
+                ob_start();
+                include_once __DIR__ . '/modal.php';
+                $output .= ob_get_clean();
+                $output .= '<button class="nx-ele-bar-button nx-bar_with_elementor hidden" data-nonce="'. $nonce .'" data-the_post="'. $bar_id .'">';
+                    $output .= __('Build With Elementor', 'notificationx');
+                $output .= '</button>';
             }
         }
 

@@ -2537,9 +2537,19 @@ button.nx-on-click-install {
     text-decoration: none;
 }
 
+button.nx-on-click-install.nx-ele-bar-button {
+    background-color: #fff;
+    color: #6c63ff;
+    border: 1px solid #6c63ff;
+    border-radius: 0;
+    margin-left: 0;
+}
 .nx-ele-bar-button.active {
     background-color: #6c63ff;
     color: #fff;
+}
+.nx-ele-bar-button.hidden {
+    display: none;
 }
 
 .nx-ele-bar-button:hover,
