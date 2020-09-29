@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce notification, notifica
 Requires at least: 4.0
 Tested up to: 5.5.1
 Requires PHP: 5.4
-Stable tag: 1.8.5
+Stable tag: 1.9.0
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -193,8 +193,11 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 1.8.5 - 28/09/2020 =
-- New: Notification Bar with Elementor
+= 1.9.0 - 29/09/2020 =
+
+- Added: Elementor Integration with Notification Bar
+- Added: Show Donation amoun for GiveWP Donation Alert
+- Fixed: Conversion editing not working with Custom Notifications
 - Few minor bugfix and improvements
 
 = 1.8.4 - 03/09/2020 =
