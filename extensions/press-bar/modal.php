@@ -24,7 +24,7 @@
         </div>
         <div class="nx-press-bar-modal-header">
             <h3><?php _e('Choose Your Template', 'notificationx'); ?></h3>
-            <span class="nx-modal-close"><i class="eicon-close" aria-hidden="true"></i></span>
+            <span class="nx-modal-close"><span class="dashicons dashicons-no-alt"></span></span>
         </div>
         <div class="nx-press-bar-modal-content">
             <?php
