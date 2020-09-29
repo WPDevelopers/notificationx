@@ -32,6 +32,10 @@ class NotificationX_Array {
             return $this;
         }
         foreach( $this->values as $key => $value ) {
+            if( ! isset( $value[ $this->sortBy ] ) ) {
+                unset( $this->values[ $key ] );
+                continue;
+            }
             $this->priority[ $key ] = $value[ $this->sortBy ];
         }
         array_multisort( $this->priority, $flags, $this->values );
@@ -59,7 +63,7 @@ class NotificationX_Array {
             array_pop( $this->values );
         }
 
-        if( $key === null ) { 
+        if( $key === null ) {
             array_unshift( $this->values, $value );
         } else {
             $this->values = [ $key => $value ] + $this->values;
