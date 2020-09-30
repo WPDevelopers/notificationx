@@ -1,7 +1,7 @@
-=== NotificationX - Best FOMO, Social Proof, Sales Popup & WooCommerce Notification Bar Plugin ===
+=== NotificationX - Best FOMO, Social Proof, Sales Popup & WooCommerce Notification Bar With Elementor Support ===
 Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok
 Donate link: https://notificationx.com
-Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, email subscription, recent sales popup, woo popups, woocommerce review, wordpress marketing, marketing, evergreen notice, increase engagement, woocommerce, envato, freemius, givewp, learndash
+Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, elementor, email subscription, recent sales popup, woo popups, woocommerce review, wordpress marketing, marketing, evergreen notice, increase engagement, woocommerce, envato, freemius, givewp, learndash
 Requires at least: 4.0
 Tested up to: 5.5.1
 Requires PHP: 5.4
@@ -193,7 +193,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 1.9.0 - 29/09/2020 =
+= 1.9.0 - 30/09/2020 =
 
 - Added: Elementor Integration with Notification Bar
 - Added: Added: Show Donation amount for GiveWP Donation Alert
