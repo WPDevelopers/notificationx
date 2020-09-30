@@ -1,7 +1,8 @@
 === NotificationX - Best FOMO, Social Proof, Sales Popup & WooCommerce Notification Bar With Elementor Support ===
 Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok
 Donate link: https://notificationx.com
-Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, elementor, email subscription, recent sales popup, woo popups, woocommerce review, wordpress marketing, marketing, evergreen notice, increase engagement, woocommerce, envato, freemius, givewp, learndash
+Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, elementor, email subscription, recent sales popup, woo popups, woocommerce review, wordpress marketing, marketing, evergreen notice, increase engagement, woocommerce, envato, freemius, givewp, learndash, bottom bar, top bar, marketing plugin, alert, email marketing, conversion, gamification, 
+
 Requires at least: 4.0
 Tested up to: 5.5.1
 Requires PHP: 5.4
@@ -19,7 +20,7 @@ https://www.youtube.com/watch?v=E-QR1QdRUrg
 
 ## BUILD INSTANT CREDIBILITY USING SOCIAL PROOF NOTIFICATION ##
 
-People don’t like being left behind and they love to follow the trends. If your visitors know what other people are buying, reading, commenting then it’s more likely that they will get the confidence instantly and they will want to buy it as well because of FOMO effect.
+People don’t like being left behind and they love to follow the trends. If your visitors know what other people are buying, reading, commenting then it’s more likely that they will get the confidence instantly and they will want to buy it as well because of the FOMO effect.
 
 #### **What is 'FOMO'?** ####
 FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing technique to make your visitors eager to buy from your site leveraging the sense of urgency.
@@ -35,7 +36,7 @@ https://www.youtube.com/watch?v=J-1m27V4pEE
 
 ## 📌 BEST NOTIFICATION BAR PLUGIN FOR WORDPRESS ##
 
-Let the visitors know about your special offers, deals, announcement, etc. with a call to action. **NotificationX** brings the [best notification bar](https://notificationx.com/features/) solution for WordPress, and it's absolutely free. You could turn on the end, start time, you will get detail analytics how your notification bar performed as well.
+Let the visitors know about your special offers, deals, announcement, etc. with a call to action. **NotificationX** brings the [best notification bar](https://notificationx.com/features/) solution for WordPress, and it's absolutely free. You could turn on the end, start time, you will get detailed analytics on how your notification bar performed as well.
 
 
 https://www.youtube.com/watch?v=l7s9FXgzbEM
@@ -48,7 +49,7 @@ https://www.youtube.com/watch?v=l7s9FXgzbEM
 - Customization option to the display across the site, on specific posts, pages or exclude from the specific location
 - Advanced **9+ integrations** to power up your social proof marketing strategies
 - Connect NotificationX with **Zapier** to build absolutely anything
-- Check the results from **Analytics tool** [PRO] and see how many times a certain notification popup has been viewed, clicked or even its Click-through Rate
+- Check the results from **Analytics tool** [PRO] and see how many times a certain notification popup has been viewed, clicked, or even its Click-through Rate
 - Option to deactivate unnecessary integrations to keep the site lite
 - Review Popup will increase your engagement and credibility.
 
@@ -101,6 +102,8 @@ https://www.youtube.com/watch?v=l7s9FXgzbEM
 
 11. **[ReviewX](https://reviewx.io/):** Display beautiful reviews from ReviewX. Currently it supports WooCommerce, and you could showcase your multi-criteria reviews.
 
+11. **[Elementor](https://wordpress.org/plugins/elementor/):** With the introduction of Elementor integration, you can create & design stunning Notification Bars quite easily. You can choose from various pre-set layouts and customize the layout any way you want.
+
 
 ## 🏆 FEATURED IN TOP PUBLICATIONS ##
 
@@ -112,7 +115,7 @@ https://www.youtube.com/watch?v=75vntaHp9Y4
 [BobWP](https://bobwp.com/notification-display-woocommerce-notificationx-plugin/):
 > 'The power of NotificationX lies in its integrations. The integration with WordPress.org makes it slick to pull in download numbers and reviews. This is a perfect option if you are selling freemium plugins and themes. The plugin is intuitive and easy to set up. With the various notifications, you can get creative and go beyond product sales with your WooCommerce store.'
 
-**Thanks:** This project is inspired by WPFomify, Puneet & his team did amazing work, and we are very thankful to them. They are one of the first to do Fomo in WordPress right way, we are passionately taking it to whole different level and loved to see we are inspiring them as well, thats the beauty of OpenSource!
+**Thanks:** This project is inspired by WPFomify, Puneet & his team did amazing work, and we are very thankful to them. They are one of the first to do Fomo in WordPress right way, we are passionately taking it to a whole different level and loved to see we are inspiring them as well, that's the beauty of OpenSource!
 
 
 ### Documentation and Support ###
@@ -128,21 +131,22 @@ https://www.youtube.com/watch?v=75vntaHp9Y4
 - Or [rate us](https://notificationx.com/go/review-nx) on WordPress
 
 
-🔥 GET FREEBIES FOR YOUR WORDPRESS SITE
+### 🎁 GET FREEBIES FOR YOUR WORDPRESS SITE ###
 
 Consider checking out our other WordPress solutions & boost your WordPress website:
 
-🔝 [Essential Addons For Elementor](https://wordpress.org/plugins/essential-addons-for-elementor-lite/): Most popular Elementor addons with 70+ widgets & ready blocks
+🔝 [Essential Addons For Elementor](https://wordpress.org/plugins/essential-addons-for-elementor-lite/): Most popular Elementor extensions with 700,000+ active users in the WordPress repository 
 
 📄 [EmbedPress](https://wordpress.org/plugins/embedpress/): EmbedPress lets you embed videos, images, posts, audio, maps and upload PDF, DOC, PPT & all other types of content into your WordPress site with one-click and showcase it beautifully for the visitors.
 
-☁ [Templately](https://wordpress.org/plugins/templately/): Free templates library for Elementor & Gutenberg along with the cloud collaboration for WordPress.
+☁ [Templately](https://wordpress.org/plugins/templately/): Ultimate Template clouds with 400+ ready templates for Elementor & Gutenberg along with FREE cloud collaboration with your team
+
 
 📚 [BetterDocs](https://wordpress.org/plugins/betterdocs/): Best Documentation & Knowledge Base Plugin for WordPress reduce manual support tickets & improve user experience.
 
 ⏰ [WP Scheduled Posts](https://wordpress.org/plugins/wp-scheduled-posts/): Advanced editorial calendar & complete solution for WordPress Post Scheduling, social sharing, missed scheduled alerts and more.
 
-⭐ [ReviewX](https://wordpress.org/plugins/reviewx/): WooCommerce Product review plugin that allows users to submit product reviews with multiple criteria, photos, video and more.
+⭐ [ReviewX](https://wordpress.org/plugins/reviewx/): WooCommerce Product review plugin that allows users to submit product reviews with multiple criteria, photos, videos, and more.
 
 ⚡ [Flexia](http://wordpress.org/plugins/flexia): Most lightweight, customizable & multi purpose theme for WordPress.
 
@@ -167,11 +171,11 @@ Consider checking out our other WordPress solutions & boost your WordPress websi
 
 = Do I need coding skills to use NotificationX? =
 
-Not at all! NotificationX has simple and super user-friendly setup wizard to help you configure the notification without any need of code intervention.
+Not at all! NotificationX has a simple and super user-friendly setup wizard to help you configure the notification without any need for code intervention.
 
 = Can I use NotificationX on non eCommerce websites?
 
-Yes, NotificationX can be used to display comment activity, promotional announcements and more which can be use on any website.
+Yes, NotificationX can be used to display comment activity, promotional announcements and more which can be used on any website.
 
 = Do I need to edit my current WordPress theme?
 
@@ -179,11 +183,11 @@ No, NotificationX works seamlessly with any WordPress themes. You just need to i
 
 = Is our website’s data legally safe with NotificationX?
 
-Yes. Your data is legally safe and we guarantee to not make use of your data under any circumstances. And your data stays at your site, so zero risk, its not like other SaaS based solution.
+Yes. Your data is legally safe and we guarantee to not make use of your data under any circumstances. And your data stays at your site, so zero risks, it's not like other SaaS-based solutions.
 
 == Screenshots ==
 
-1. Overview of few notification
+1. Overview of few notifications
 2. Sales Notification
 3. Comment Notification
 4. Plugin Download Stats
