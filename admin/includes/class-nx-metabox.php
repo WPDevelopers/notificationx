@@ -357,28 +357,31 @@ class NotificationX_MetaBox {
             return;
         }
 
-        foreach ( $fields as $name => $field ) {
-            $field_id   = $prefix . $name;
-            $default    = isset( $field['default'] ) ? $field['default'] : '';
+        $metadata = get_metadata( 'post', $id );
 
-            if( isset( $field['type'] ) && $field['type'] == 'template' ) {
-                $default    = isset( $field['defaults'] ) ? $field['defaults'] : [];
-                if( strrpos( $name, 'template_new' ) >= 0 && metadata_exists( 'post', $id, "_{$field_id}_string" ) ) {
-                    $value  = get_post_meta( $id, "_{$field_id}_string", true );
-                    $settings->{ "{$name}_string" } = $value;
+        foreach( $metadata as $meta_key => $meta_value ) {
+            $name   = str_replace( "_{$prefix}", '', $meta_key );
+            if( isset( $fields[ $name ] ) ) {
+                $field = $fields[ $name ];
+                $default    = isset( $field['default'] ) ? $field['default'] : '';
+                if( isset( $field['type'] ) && $field['type'] == 'template' ) {
+                    $default    = isset( $field['defaults'] ) ? $field['defaults'] : [];
+                    if( strrpos( $name, 'template_new' ) >= 0 && metadata_exists( 'post', $id, "_nx_meta_{$name}_string" ) ) {
+                        $value  = get_post_meta( $id, "_nx_meta_{$name}_string", true );
+                        $settings->{ "{$name}_string" } = $value;
+                    } else {
+                        $value  = $meta_value[0];
+                        $settings->{ "{$name}" } = $value;
+                    }
                 } else {
-                    $value  = get_post_meta( $id, "_{$field_id}", true );
-                    $settings->{ "{$name}" } = $value;
+                    if ( metadata_exists( 'post', $id, "$meta_key" ) ) {
+                        $value  = $meta_value[0];
+                    } else {
+                        $value  = $default;
+                    }
                 }
-            } else {
-                if ( metadata_exists( 'post', $id, "_{$field_id}" ) ) {
-                    $value  = get_post_meta( $id, "_{$field_id}", true );
-                } else {
-                    $value  = $default;
-                }
+                $settings->{$name} = $value;
             }
-
-            $settings->{$name} = $value;
         }
 
         $settings->id = $id;

@@ -884,7 +884,7 @@ class NotificationX_Admin {
 
 		$post_args = array_merge( $post_args, array( 'post_status' => explode(', ', $pagenow), 'offset' => ( ( $paged - 1 ) * $per_page ) ));
 
-		$notificationx = new WP_Query( $post_args );
+		$notificationx = get_posts( $post_args );
 
 		$table_header = apply_filters( 'nx_admin_table_header', array(
 			'NotificationX Title',
