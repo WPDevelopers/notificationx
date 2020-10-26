@@ -167,6 +167,10 @@ class NotificationX_Public {
 			$logged_in = is_user_logged_in();
 			$show_on_display = $settings->show_on_display;
 
+			if( $settings->show_on === 'only_shortcode' ) {
+				continue;
+			}
+
 			if( ( $logged_in && 'logged_out_user' == $show_on_display ) || ( ! $logged_in && 'logged_in_user' == $show_on_display ) ) {
 				continue;
 			}
