@@ -52,9 +52,9 @@ final class NotificationX {
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->start_plugin_tracking();
-		add_action( 'plugins_loaded', array( $this, 'load_extensions' ) );
+		add_action( 'init', array( $this, 'load_extensions' ) );
 		add_action( 'plugins_loaded', array( $this, 'define_admin_hooks' ) );
-		add_action( 'plugins_loaded', array( $this, 'define_public_hooks' ) );
+		add_action( 'init', array( $this, 'define_public_hooks' ) );
 		add_action( 'init', array( $this, 'migration' ) );
 		add_action( 'admin_init', array( $this, 'redirect' ) );
 	}
@@ -202,7 +202,7 @@ final class NotificationX {
 	 *
 	 * @return void
 	 */
-	public function load_extensions(){
+	public function load_extensions( $hook ){
 		global $nx_extension_factory;
 
 		$extensions = [
@@ -256,7 +256,7 @@ final class NotificationX {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	public function define_admin_hooks() {
+	public function define_admin_hooks( $hook ) {
 		$plugin_admin          = new NotificationX_Admin( $this->get_plugin_name(), $this->get_version() );
 		$plugin_admin->metabox = new NotificationX_MetaBox;
 

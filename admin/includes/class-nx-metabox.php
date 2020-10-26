@@ -381,6 +381,13 @@ class NotificationX_MetaBox {
                     }
                 }
                 $settings->{$name} = $value;
+            } else {
+                if( $meta_key === '_nx_meta_active_check' ) {
+                    $settings->active_check = $meta_value[0];
+                }
+                if( $meta_key === '_nx_bar_elementor_type_id' ) {
+                    $settings->elementor_type_id = $meta_value[0];
+                }
             }
         }
 

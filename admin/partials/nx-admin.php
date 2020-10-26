@@ -65,10 +65,8 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                                 'post' => $idd,
                                 'nx_duplicate_nonce' => wp_create_nonce( 'nx_duplicate_nonce' ),
                             ), $current_url);
-                            $is_enabled = get_post_meta( $idd, '_nx_meta_active_check', true );
                             $settings = NotificationX_MetaBox::get_metabox_settings( $idd );
-                            // dlog( $settings );
-                            // die('die');
+                            $is_enabled = $settings->active_check;
                             $theme_name = NotificationX_Helper::get_theme( $settings );
                             $type = NotificationX_Helper::notification_types( $settings->display_type );
                             $nx_type = NotificationX_Helper::get_type( $settings );
@@ -100,7 +98,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                             }
                             $edit_with_elementor = false;
                             if( $nx_type === 'press_bar' ) {
-                                $post_meta = get_post_meta( $idd, '_nx_bar_elementor_type_id', true );
+                                $post_meta = isset( $settings->elementor_type_id ) ? $settings->elementor_type_id : false;
                                 if( is_numeric( $post_meta ) && class_exists( '\Elementor\Plugin' ) ) {
 
                                     $documents = \Elementor\Plugin::$instance->documents->get( $post_meta );
