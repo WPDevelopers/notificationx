@@ -29,7 +29,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
                 $username = explode(' ',$name);
                 $name = ucfirst($username[0]);
                 if(!empty($username[1])){
-                    $name .= ' '.substr($username[1],0, 1).'.';
+                    $name .= ' '.mb_substr($username[1],0, 1).'.';
                 }
             }
         }
@@ -357,7 +357,7 @@ class NotificationX_WP_Comments_Extension extends NotificationX_Extension {
             $comment_data['first_name'] = $user->first_name;
             $comment_data['last_name']  = $user->last_name;
             $comment_data['display_name']  = $user->display_name;
-            $comment_data['name']       = $user->first_name . ' ' . substr( $user->last_name, 0, 1 );
+            $comment_data['name']       = $user->first_name . ' ' . mb_substr( $user->last_name, 0, 1 );
             $trimed = trim( $comment_data['name'] );
             if( empty( $trimed ) ) {
                 $comment_data['name'] = $user->user_nicename;
