@@ -42,7 +42,7 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
             return [];
         }
         if( isset( $_GET['action'] ) && $_GET['action'] == 'nx_njf_keys' ) {
-            if( isset( $_GET['form_id'] ) ) {
+            if( !empty( $_GET['form_id'] ) ) {
                 $form_id = intval( $_GET['form_id'] );
 
                 global $wpdb;
