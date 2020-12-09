@@ -68,7 +68,13 @@
 						data.clicked = true;
 						$.notificationx.Ajaxlytics(data);
 						data.clicked = false;
-						window.location.href = $(this).attr("href");
+						if (
+							e.currentTarget.attributes.hasOwnProperty("target")
+						) {
+							window.open($(this).attr("href"));
+						} else {
+							window.location.href = $(this).attr("href");
+						}
 					});
 			}
 		});
@@ -426,7 +432,7 @@
 			$.notificationx.show(notifications[count], configuration, count);
 
 			setTimeout(function () {
-				$.notificationx.hide(notifications[count]);
+				$.notificationx.hide(notifications[count], configuration.id);
 				count++;
 				var nextNotification = setInterval(function () {
 					$.notificationx.show(
@@ -435,7 +441,10 @@
 						count
 					);
 					setTimeout(function () {
-						$.notificationx.hide(notifications[count]);
+						$.notificationx.hide(
+							notifications[count],
+							configuration.id
+						);
 						if (count >= notifications.length - 1) {
 							count = 0;
 							if (configuration.loop == 0) {
@@ -487,8 +496,17 @@
 			return;
 		}
 		/* Check if notification is closed by user */
-		if (Cookies.get("nx-close-for-session")) {
-			return;
+		var nxCookies = Cookies.get("nx-close-for-session");
+		if (nxCookies != undefined) {
+			nxCookies = JSON.parse(nxCookies);
+			if (
+				nxCookies.hasOwnProperty(configuration.id) &&
+				nxCookies[configuration.id] == true
+			) {
+				return;
+			}
+		} else {
+			nxCookies = {};
 		}
 
 		var image = $(notification).find("img");
@@ -534,18 +552,27 @@
 			nxClose.on("click", function (event) {
 				var close = $(this);
 				var parent = $(close[0]).parents(".nx-notification");
-				$.notificationx.hide(parent);
+				$.notificationx.hide(parent, configuration.id);
+				nxCookies[configuration.id] = true;
 				/* Set cookie for stop showing notification for current session */
-				Cookies.set("nx-close-for-session", 1);
+				Cookies.set("nx-close-for-session", JSON.stringify(nxCookies));
 			});
 		}
 	};
 
-	$.notificationx.hide = function (notification) {
+	$.notificationx.hide = function (notification, nx_id) {
 		if (notification === undefined) {
 			return;
 		}
-		if (Cookies.get("nx-close-for-session")) {
+
+		var nxCookies = Cookies.get("nx-close-for-session");
+
+		if (
+			nxCookies != undefined &&
+			nx_id != undefined &&
+			nxCookies.hasOwnProperty(nx_id) &&
+			nxCookies[nx_id] == true
+		) {
 			return;
 		}
 		$(notification).animate(

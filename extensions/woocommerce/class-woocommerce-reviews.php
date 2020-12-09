@@ -68,7 +68,7 @@ class NotificationX_WooCommerceReview_Extension extends NotificationX_Extension 
                 if( isset( $exploded_username[1] ) ) {
                     $surname = $exploded_username[1];
                     if( ! empty( $surname ) ){
-                        $surname_substr = substr( $surname, 0, 1 );
+                        $surname_substr = mb_substr( $surname, 0, 1 );
                         if (ctype_alpha( $surname_substr ) !== false){
                             $name .= ' '. $surname_substr . '.';
                         }
@@ -350,7 +350,7 @@ class NotificationX_WooCommerceReview_Extension extends NotificationX_Extension 
             $comment_data['first_name'] = $user->first_name;
             $comment_data['last_name']  = $user->last_name;
             $comment_data['username']  = $user->display_name;
-            $comment_data['name']       = $user->first_name . ' ' . substr( $user->last_name, 0, 1 );
+            $comment_data['name']       = $user->first_name . ' ' . mb_substr( $user->last_name, 0, 1 );
             $trimed = trim( $comment_data['name'] );
             if( empty( $trimed ) ) {
                 $comment_data['name'] = $user->user_nicename;

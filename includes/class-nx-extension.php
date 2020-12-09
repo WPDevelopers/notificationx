@@ -612,7 +612,7 @@ class NotificationX_Extension {
      */
     protected function name( $first_name = '', $last_name = '' ){
         $name = $first_name;
-        $name .= ! empty( $last_name ) ? ' ' . substr( $last_name, 0, 1 ) : '';
+        $name .= ! empty( $last_name ) ? ' ' . mb_substr( $last_name, 0, 1 ) : '';
         return $name;
     }
 }

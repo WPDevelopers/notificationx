@@ -551,7 +551,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
 
         $buyer_data['first_name'] = $first_name;
         $buyer_data['last_name'] = $last_name;
-        $buyer_data['name'] = $first_name . ' ' . substr($last_name, 0, 1);
+        $buyer_data['name'] = $first_name . ' ' . mb_substr($last_name, 0, 1);
         $buyer_data['email'] = $email;
 
         return $buyer_data;

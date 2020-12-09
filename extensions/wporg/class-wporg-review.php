@@ -44,10 +44,10 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         if( $posts_data['nx_meta_display_type'] === 'reviews' && $posts_data['nx_meta_reviews_source'] === $this->type ) {
             $theme = $posts_data['nx_meta_wporg_theme'];
             switch( $theme ) {
-                case 'review_saying': 
+                case 'review_saying':
                     $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'fifth_param', 'sixth_param' ] ) );
                     break;
-                default : 
+                default :
                     $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'third_param', 'fourth_param' ] ) );
                     break;
             }
@@ -78,7 +78,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                 if( isset( $exploded_username[1] ) ) {
                     $surname = $exploded_username[1];
                     if( ! empty( $surname ) ){
-                        $surname_substr = substr( $surname, 0, 1 );
+                        $surname_substr = mb_substr( $surname, 0, 1 );
                         if (ctype_alpha( $surname_substr ) !== false){
                             $name .= ' '. $surname_substr . '.';
                         }
@@ -117,20 +117,20 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
     }
 
     public function notification_image( $image_data, $data, $settings ){
-    if( $settings->display_type != 'reviews' || $settings->reviews_source != $this->type ) { 
+    if( $settings->display_type != 'reviews' || $settings->reviews_source != $this->type ) {
             return $image_data;
         }
 
         $avatar = $image_url = $alt_title =  '';
         switch( $settings->show_notification_image ) {
-            case 'product_image' : 
+            case 'product_image' :
                 if( isset( $data['icons']['2x'] ) ) {
                     $image_url = $data['icons']['2x'];
                 } else {
                     $image_url = isset( $data['icons']['1x'] ) ? $data['icons']['1x'] : '';
                 }
                 break;
-            case 'gravatar' : 
+            case 'gravatar' :
                 if( isset( $data['avatar'] ) ) {
                     $avatar = $data['avatar']['src'];
                     $image_url = add_query_arg( 's', '200', $avatar );
@@ -177,7 +177,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
 
     /**
      * This functions is hooked
-     * 
+     *
      * @hooked nx_public_action
      *
      * @return void
@@ -186,7 +186,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         if( ! $this->is_created( $this->type ) ) {
             return;
         }
-        
+
         add_filter( 'nx_fields_data', array( $this, 'conversion_data' ), 10, 2 );
     }
 
@@ -210,7 +210,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             $new_data['slug'] = isset( $saved_data['slug'] ) ? $saved_data['slug'] : '';
             $new_data['icons'] = isset( $saved_data['icons'] ) ? $saved_data['icons'] : '';
             $new_data['plugin_name'] = isset( $saved_data['name'] ) ? $saved_data['name'] : '';
-            
+
             if( $product_type == 'plugin' && isset( $saved_data['slug'] ) ) {
                 //TODO: Its has to be specific reviews link.
                 $new_data['link'] = 'https://wordpress.org/plugins/' . $saved_data['slug'];
@@ -273,11 +273,11 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             return;
         }
 
-        if( $product_type == 'plugin' ) { 
+        if( $product_type == 'plugin' ) {
             $reviews_html = $this->helper->get_plugin_reviews( $plugin_slug );
             $reviews = $this->helper->extract_reviews_from_html( $reviews_html, $plugin_slug );
         }
-        
+
         return $reviews;
     }
 
@@ -292,7 +292,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                 'plugin' => __('Plugin' , 'notificationx'),
             )
         );
-        
+
         $fields['wp_reviews_slug'] = array(
             'type'     => 'text',
             'label'    => __('Slug' , 'notificationx'),
@@ -456,7 +456,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             'side'        => 'right',
             'swal'        => true,
         );
-        
+
         return $fields;
     }
 
@@ -640,7 +640,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                 ),
             )
         );
-        
+
         return $sections;
     }
 
@@ -695,7 +695,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
         unset( $sections['wporg_image_design'] );
         unset( $sections['wporg_themes']['fields']['wporg_advance_edit'] );
         unset( $sections['wporg_typography'] );
-        
+
         foreach ( $fields as $name => $field ) {
             $options['source_tab']['sections']['config']['fields'][ $name ] = $field;
         }
@@ -726,7 +726,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
 
         foreach ( $sections as $section_name => $section ) {
             foreach( $options as $opt_key => $opt_value ) {
-                if( $opt_key != $this->type ) { 
+                if( $opt_key != $this->type ) {
                     $options[ $opt_key ][ 'sections' ][] = $section_name;
                 }
             }
@@ -753,7 +753,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
                 $options[ $opt_key ][ 'sections' ][] = $sec_key;
             }
         }
-        
+
         return $options;
     }
     /**
