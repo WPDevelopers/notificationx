@@ -860,30 +860,28 @@
 					var selectArgs = {};
 					var form_id = $("#nx_meta_" + $(item).data("nxajax")).val();
 
-					if (form_id != undefined) {
-						var ajaxArgs = {
-							ajax: {
-								url: ajaxurl,
-								method: "GET",
-								dataType: "json",
-								cache: true,
-								data: function (params) {
-									return {
-										action: $(item).data("ajax_action"),
-										form_id: form_id,
-									};
-								},
-								processResults: function (data) {
-									return { results: data };
-								},
+					var ajaxArgs = {
+						ajax: {
+							url: ajaxurl,
+							method: "GET",
+							dataType: "json",
+							cache: true,
+							data: function (params) {
+								return {
+									action: $(item).data("ajax_action"),
+									form_id: $("#nx_meta_" + $(item).data("nxajax")).val(),
+								};
 							},
-						};
-						if (
-							$(item).data("nxajax") &&
-							$(item).data("ajax_action").length > 0
-						) {
-							selectArgs = $.extend(selectArgs, ajaxArgs);
-						}
+							processResults: function (data) {
+								return { results: data };
+							},
+						},
+					};
+					if (
+						$(item).data("nxajax") &&
+						$(item).data("ajax_action").length > 0
+					) {
+						selectArgs = $.extend(selectArgs, ajaxArgs);
 					}
 
 					$(item).select2(selectArgs);
