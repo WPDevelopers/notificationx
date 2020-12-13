@@ -150,6 +150,10 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
     }
 
     public function save_post( $post_id , $post, $update) {
+        // Verify if this is an auto save routine.
+        if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
+            return $post_id;
+        }
         if( $post->post_type !== 'notificationx' || ! $update ) {
             return;
         }

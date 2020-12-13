@@ -44,17 +44,17 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         if( $posts_data['nx_meta_display_type'] === 'download_stats' && $posts_data['nx_meta_stats_source'] === $this->type ) {
             $theme = $posts_data['nx_meta_wpstats_theme'];
             switch( $theme ) {
-                case 'today-download' : 
+                case 'today-download' :
                     $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
                     break;
-                case '7day-download' : 
+                case '7day-download' :
                     $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
                     break;
-                case 'actively_using' : 
+                case 'actively_using' :
                     $old_template = $posts_data['nx_meta_actively_using_template_new'];
                     $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'third_param' ] ) );
                     break;
-                default : 
+                default :
                     $old_template = $posts_data['nx_meta_wp_stats_template_new'];
                     $template = NotificationX_Helper::regenerate_the_theme( $old_template, array( 'br_before' => [ 'second_param', 'fourth_param' ] ) );
                     break;
@@ -68,7 +68,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
     public function fallback_data( $data, $saved_data, $settings ){
         if( NotificationX_Helper::get_type( $settings ) !== $this->type ) {
             return $data;
-        }      
+        }
 
         if( isset( $data['name'] ) ) {
             unset( $data['name'] );
@@ -78,7 +78,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         $data['last_week'] = __( NotificationX_Helper::nice_number( $saved_data['last_week'] ) . ' times in last 7 days', 'notificationx' );
         $data['all_time'] = __( NotificationX_Helper::nice_number( $saved_data['all_time'] ) . ' times', 'notificationx' );
         $data['active_installs'] = __( NotificationX_Helper::nice_number( $saved_data['active_installs'] ), 'notificationx' );
-        
+
         $data['today_text'] = __( 'Try It Out', 'notificationx' );
         $data['last_week_text'] = __( 'Get Started for Free.', 'notificationx' );
         $data['all_time_text'] = __( 'Why Don\'t You?', 'notificationx' );
@@ -100,7 +100,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
     }
 
     public function notification_image( $image_data, $data, $settings ){
-        if( $settings->display_type != 'download_stats' || $settings->stats_source != $this->type ) { 
+        if( $settings->display_type != 'download_stats' || $settings->stats_source != $this->type ) {
             return $image_data;
         }
 
@@ -119,7 +119,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         if( isset( $data['screenshot_url'] ) && $settings->wp_stats_product_type === 'theme' ) {
             $avatar = $data['screenshot_url'];
         }
-        
+
         $image_data['url'] = $avatar;
         $image_data['alt'] = $alt_title;
 
@@ -127,6 +127,10 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
     }
 
     public function save_post( $post_id, $post, $update ) {
+        // Verify if this is an auto save routine.
+        if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
+            return $post_id;
+        }
         if( $post->post_type !== 'notificationx' || ! $update ) {
             return;
         }
@@ -154,7 +158,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
 
     /**
      * This functions is hooked
-     * 
+     *
      * @hooked nx_public_action
      *
      * @return void
@@ -163,7 +167,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         if( ! $this->is_created( $this->type ) ) {
             return;
         }
-        
+
         add_filter( 'nx_fields_data', array( $this, 'conversion_data' ), 10, 2 );
     }
 
@@ -220,7 +224,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
                 'theme' => __('Theme' , 'notificationx'),
             )
         );
-        
+
         $fields['wp_stats_slug'] = array(
             'type'     => 'text',
             'label'    => __('Slug' , 'notificationx'),
@@ -393,7 +397,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
             'side'        => 'right',
             'swal'        => true,
         );
-        
+
         return $fields;
     }
     private function init_sections(){
@@ -553,7 +557,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
                 ),
             )
         );
-        
+
         return $sections;
     }
 
@@ -607,7 +611,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         unset( $sections['wpstats_theme_image_design'] );
         unset( $sections['wpstats_themes']['fields']['wpstats_advance_edit'] );
         unset( $sections['wpstats_theme_typography'] );
-    
+
         foreach ( $fields as $name => $field ) {
             $options['source_tab']['sections']['config']['fields'][ $name ] = $field;
         }
@@ -638,7 +642,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
 
         foreach ( $sections as $section_name => $section ) {
             foreach( $options as $opt_key => $opt_value ) {
-                if( $opt_key != $this->type ) { 
+                if( $opt_key != $this->type ) {
                     $options[ $opt_key ][ 'sections' ][] = $section_name;
                 }
             }
@@ -665,7 +669,7 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
                 $options[ $opt_key ][ 'sections' ][] = $sec_key;
             }
         }
-        
+
         return $options;
     }
     /**

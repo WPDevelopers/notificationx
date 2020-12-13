@@ -418,6 +418,10 @@ class NotificationX_Admin {
 			return;
 		}
 
+		if ( 'notificationx' == get_post_type() ) {
+			wp_dequeue_script( 'autosave' );
+		}
+
 		wp_enqueue_script( 'wp-color-picker' );
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 		wp_enqueue_media();
