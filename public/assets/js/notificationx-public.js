@@ -88,23 +88,24 @@
 				$.notificationx.Ajaxlytics(data);
 			}
 		});
-		$("body").on("nx_frontend_jquery", function (
-			event,
-			configuration,
-			notification
-		) {
-			if (configuration.id && configuration.analytics) {
-				$(notification).on("click", function (e) {
-					var nonce = $(this).find(".notificationx-analytics").val();
-					data.nonce = nonce;
-					data.id = configuration.id;
-					data.nonce_key = "_notificationx_pro_analytics_nonce";
-					data.clicked = true;
-					$.notificationx.Ajaxlytics(data);
-					data.clicked = false;
-				});
+		$("body").on(
+			"nx_frontend_jquery",
+			function (event, configuration, notification) {
+				if (configuration.id && configuration.analytics) {
+					$(notification).on("click", function (e) {
+						var nonce = $(this)
+							.find(".notificationx-analytics")
+							.val();
+						data.nonce = nonce;
+						data.id = configuration.id;
+						data.nonce_key = "_notificationx_pro_analytics_nonce";
+						data.clicked = true;
+						$.notificationx.Ajaxlytics(data);
+						data.clicked = false;
+					});
+				}
 			}
-		});
+		);
 	};
 
 	$.notificationx.countdown = function (args) {
@@ -353,19 +354,19 @@
 					}
 				);
 				html.css("padding-top", barHeight + "px");
-				$(bar).animate(
-					[
-						{
-							top: 0 + "px",
-						},
-						{
-							top: xAdminBarHeight + "px",
-						},
-					],
-					{
-						duration: 300,
-					}
-				);
+				// $(bar).animate(
+				// 	[
+				// 		{
+				// 			top: 0 + "px",
+				// 		},
+				// 		{
+				// 			top: xAdminBarHeight + "px",
+				// 		},
+				// 	],
+				// 	{
+				// 		duration: 300,
+				// 	}
+				// );
 				$(bar).css("top", xAdminBarHeight + "px");
 			}
 			$(bar).addClass("nx-bar-visible");
