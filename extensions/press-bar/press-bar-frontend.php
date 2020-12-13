@@ -152,10 +152,14 @@
                     </div>
                 <?php endif; ?>
                 <div class="nx-inner-content-wrapper">
+                <?php if( ! empty( $settings->press_content ) ) : ?>
                     <div class="nx-bar-content"><?php echo do_shortcode( $settings->press_content ); ?></div>
-                    <?php
-                        if( $settings->button_url != '' ) :
-                            $pressbar_url = apply_filters( 'nx_pressbar_link', $settings->button_url, $settings );
+                <?php else: ?>
+                    <div class="nx-bar-content"><?php esc_html_e('You should setup NX Bar properly', 'notificationx'); ?></div>
+                <?php
+                    endif;
+                    if( $settings->button_url != '' ) :
+                        $pressbar_url = apply_filters( 'nx_pressbar_link', $settings->button_url, $settings );
                     ?>
                         <a class="nx-bar-button" href="<?php echo esc_url( $pressbar_url ); ?>" <?php echo $attrs; ?>>
                             <?php echo esc_html_e( $settings->button_text, 'notificationx' ); ?>
