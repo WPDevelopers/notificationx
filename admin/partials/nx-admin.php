@@ -55,18 +55,18 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                     $trash_btn_title = __( 'Trash', 'notificationx' );
                     $trash_page = false;
                     $trashed = false;
-                    if( $notificationx->have_posts() ) :
+                    if( count( $notificationx ) > 0 ) :
                         $post_type_object = get_post_type_object( 'notificationx' );
                         global $nx_extension_factory;
-                        while( $notificationx->have_posts() ) : $notificationx->the_post();
-                            $idd = get_the_ID();
+                        foreach( $notificationx as $single_nx ) : // $notificationx->the_post();
+                            $idd = $single_nx->ID;
                             $duplicate_url = add_query_arg(array(
                                 'action' => 'nxduplicate',
                                 'post' => $idd,
                                 'nx_duplicate_nonce' => wp_create_nonce( 'nx_duplicate_nonce' ),
                             ), $current_url);
-                            $is_enabled = get_post_meta( $idd, '_nx_meta_active_check', true );
                             $settings = NotificationX_MetaBox::get_metabox_settings( $idd );
+                            $is_enabled = $settings->active_check;
                             $theme_name = NotificationX_Helper::get_theme( $settings );
                             $type = NotificationX_Helper::notification_types( $settings->display_type );
                             $nx_type = NotificationX_Helper::get_type( $settings );
@@ -98,7 +98,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                             }
                             $edit_with_elementor = false;
                             if( $nx_type === 'press_bar' ) {
-                                $post_meta = get_post_meta( $idd, '_nx_bar_elementor_type_id', true );
+                                $post_meta = isset( $settings->elementor_type_id ) ? $settings->elementor_type_id : false;
                                 if( is_numeric( $post_meta ) && class_exists( '\Elementor\Plugin' ) ) {
 
                                     $documents = \Elementor\Plugin::$instance->documents->get( $post_meta );
@@ -109,7 +109,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                                 }
                             }
 
-                            $status = get_post_status( $idd );
+                            $status = $single_nx->post_status;
                             if( $pagenow === 'admin.php' && isset( $_GET['page'] ) && $_GET['page'] === 'nx-admin' ) {
                                 if( isset( $_GET['status'] ) && $_GET['status'] === 'trash' ) {
                                     $trash_page = true;
@@ -139,7 +139,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                                             <strong>
                                                 <?php
                                                     if( ! $trashed ) echo '<a href="post.php?action=edit&post='. $idd .'">';
-                                                    echo get_the_title();
+                                                    echo $single_nx->post_title;
                                                     if( ! $trashed ) echo '</a>';
                                                 ?>
                                             </strong>
@@ -169,7 +169,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                                                 }
                                                 if( ! empty( $theme_preview ) ) :
                                             ?>
-                                            <img width="250px" src="<?php echo $theme_preview; ?>" alt="<?php echo get_the_title(); ?>">
+                                            <img width="250px" src="<?php echo $theme_preview; ?>" alt="<?php echo $single_nx->post_title; ?>">
                                             <?php $theme_preview = ''; endif;?>
                                         </div>
                                     </td>
@@ -195,11 +195,11 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                                     <td>
                                         <div class="nx-admin-date">
                                             <?php
-                                                if( get_post_status( get_the_ID() ) === 'publish' ) {
-                                                    echo '<span class="nx-admin-publish-status">' . _e('Published', 'notificationx') . '</span><br><span class="nx-admin-publish-date">' . get_the_time( __( 'Y/m/d', 'notificationx' ) ). '</span>';
+                                                if( $status === 'publish' ) {
+                                                    echo '<span class="nx-admin-publish-status">' . _e('Published', 'notificationx') . '</span><br><span class="nx-admin-publish-date">' . $single_nx->post_date. '</span>';
                                                 }
-                                                if( get_post_status( get_the_ID() ) === 'trash' ) {
-                                                    echo '<span class="nx-admin-publish-status">' . _e('Last Modified', 'notificationx') . '</span><br><span class="nx-admin-publish-date">' . get_the_time( __( 'Y/m/d', 'notificationx' ) ). '</span>';
+                                                if( $status === 'trash' ) {
+                                                    echo '<span class="nx-admin-publish-status">' . _e('Last Modified', 'notificationx') . '</span><br><span class="nx-admin-publish-date">' . $single_nx->post_date . '</span>';
                                                 }
                                             ?>
                                         </div>
@@ -207,7 +207,7 @@ $total_notificationx   = $get_enabled_post + $get_disabled_post;
                                 </tr>
 
                             <?php
-                        endwhile;
+                        endforeach;
                     endif;
 
                     if( ! $total_notificationx && ! $trashed ) {
