@@ -1167,6 +1167,7 @@ class NotificationX_Admin {
 		&& $_GET['action'] === 'nx_regenerate' && $_GET['page'] === 'nx-admin' ) {
 			if( wp_verify_nonce( $_GET['nx_regenerate_nonce'], 'nx_regenerate_nonce' ) ) {
 				$nx_type = $_GET['nx_type'];
+				$post = isset( $_GET['post'] ) ? intval( $_GET['post'] ) : null;
 				$from = isset( $_GET['from'] ) ? intval( $_GET['from'] ) : 2;
 				$last = isset( $_GET['last'] ) ? intval( $_GET['last'] ) : 20;
 				global $nx_extension_factory;
@@ -1179,7 +1180,7 @@ class NotificationX_Admin {
 							unset( $nx_notificationx[ $nx_type ] );
 							NotificationX_DB::update_notifications( $nx_notificationx );
 						}
-						$extension->get_notification_ready( $nx_type, ['_nx_meta_display_from' => $from, '_nx_meta_display_last' => $last ] );
+						$extension->get_notification_ready( $nx_type, ['_nx_meta_display_from' => $from, '_nx_meta_display_last' => $last, 'post' => $post ] );
 					}
 				}
 				wp_safe_redirect( $current_url );
