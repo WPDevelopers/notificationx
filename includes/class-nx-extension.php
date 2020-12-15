@@ -581,8 +581,10 @@ class NotificationX_Extension {
         }
 
         if( isset( $settings->show_default_image ) && $settings->show_default_image && $image_url == '' ) {
-            $product_image = wp_get_attachment_image_src( $settings->image_url['id'], '_nx_notification_thumb', false );
-            $image_url = is_array( $product_image ) ? $product_image[0] : '';
+            if( isset( $settings->image_url['id'] ) ) {
+                $product_image = wp_get_attachment_image_src( $settings->image_url['id'], '_nx_notification_thumb', false );
+                $image_url = is_array( $product_image ) ? $product_image[0] : '';
+            }
         }
 
         do_action( 'nx_notification_image_action' );

@@ -12,7 +12,6 @@ class NotificationX_PressBar_Extension extends NotificationX_Extension {
     public function __construct() {
         parent::__construct();
         add_action( 'nx_field_after_wrapper', [ $this, 'add_button_for_elementor' ], 10, 4 );
-        add_action( 'admin_init', [ $this, 'register_post_type' ] );
         add_action( 'wp_ajax_nx_create_bar', [ $this, 'create_bar_of_type_bar_with_elementor' ] );
         add_action( 'wp_ajax_nx_create_bar_remove', [ $this, 'remove_bar_from_elementor' ] );
         add_action( 'after_delete_post', [ $this, 'after_delete_post' ], 10, 2 );
@@ -88,7 +87,7 @@ class NotificationX_PressBar_Extension extends NotificationX_Extension {
      *
      * @return void
      */
-    public function register_post_type(){
+    public static function register_post_type(){
         $args = [
             'label' => __( 'NotificationX Bar', 'notificationx' ),
             'public' => true,

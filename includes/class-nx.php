@@ -276,6 +276,8 @@ final class NotificationX {
 		add_filter( 'parent_file', array(&$plugin_admin, 'highlight_admin_menu'));
 		add_filter( 'submenu_file', array(&$plugin_admin, 'highlight_admin_submenu'), 10, 2);
 		// add_action( 'admin_footer', array( $plugin_admin, 'notification_preview') );
+
+		add_filter( 'init', 'NotificationX_PressBar_Extension::register_post_type' );
 		add_filter( 'nx_template_name', 'NotificationX_Helper::new_template_name', 10, 2 );
 		add_filter( 'manage_notificationx_posts_columns', array( $plugin_admin, 'custom_columns') );
 		add_action( 'manage_notificationx_posts_custom_column', array( $plugin_admin, 'manage_custom_columns' ), 10, 2 );
