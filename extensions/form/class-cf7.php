@@ -312,7 +312,7 @@ class NotificationX_CF7_Extension extends NotificationX_Extension {
             }
             $data['title'] = $contact_form->title();
             $data['id'] = $contact_form->id();
-            $data['timestamp'] = time();
+            $data['timestamp'] = current_time('timestamp');
         }
 
         if( ! empty( $data ) ) {

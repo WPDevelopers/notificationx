@@ -302,7 +302,7 @@ class NotificationXPro_NinjaForms_Extension extends NotificationX_Extension {
             $data[$arr] = $field['value'];
         }
         $data['title'] = $form_data['settings']['title'];
-        $data['timestamp'] = time();
+        $data['timestamp'] = current_time('timestamp');
 
         if( ! empty( $data ) ) {
             $key = $this->type . '_' . $form_data['form_id'];

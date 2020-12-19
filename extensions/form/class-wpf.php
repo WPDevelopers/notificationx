@@ -333,7 +333,7 @@ class NotificationXPro_WPForms_Extension extends NotificationX_Extension {
             $data[ $field['id'] . '_'. $field['type'] ] = $field['value'];
         }
         $data['title'] = $form_data['settings']['form_title'];
-        $data['timestamp'] = time();
+        $data['timestamp'] = current_time('timestamp');
         $data['id'] = $form_data['id'];
         if( ! empty( $data ) ) {
             $key = $this->type . '_' . $form_data['id'];
