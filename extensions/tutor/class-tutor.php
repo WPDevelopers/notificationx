@@ -285,7 +285,10 @@ class NotificationX_Tutor_Extension extends NotificationX_Extension {
 
         $monetize_by = 'free';
         if( function_exists( 'tutils' ) ) {
-            $monetize_by = tutils()->get_option('monetize_by');
+            $temp_monetize_by = tutils()->get_option('monetize_by');
+            if( ! empty( $temp_monetize_by ) ) {
+                $monetize_by = tutils()->get_option('monetize_by');
+            }
         }
         // public actions will be here
         if( class_exists( 'WooCommerce' ) && $monetize_by === 'wc' ) {
@@ -459,7 +462,7 @@ class NotificationX_Tutor_Extension extends NotificationX_Extension {
         $data['title']      = get_the_title( $course_id );
         $data['link']       = get_permalink( $course_id );
         $data['product_id'] = $course_id;
-        $data['timestamp']  = time();
+        $data['timestamp']  = current_time('timestamp');
 
         if( ! empty( $data ) ) {
             $key = $course_id . '-' . $isEnrolled;
