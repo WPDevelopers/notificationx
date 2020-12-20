@@ -467,7 +467,9 @@
 			});
 		});
 
-		$(".nx-bar_with_elementor-remove").on("click", function () {
+		$(".nx-bar_with_elementor-remove").on("click", function (e) {
+			e.preventDefault();
+
 			var self = $(this),
 				nonce = self.data("nonce"),
 				bar_id = self.data("bar_id"),
@@ -483,8 +485,7 @@
 					post_id: post_id,
 				},
 				success: function (res) {
-					// do something.
-					console.log(res);
+					window.location.reload();
 				},
 			});
 		});
@@ -869,7 +870,9 @@
 							data: function (params) {
 								return {
 									action: $(item).data("ajax_action"),
-									form_id: $("#nx_meta_" + $(item).data("nxajax")).val(),
+									form_id: $(
+										"#nx_meta_" + $(item).data("nxajax")
+									).val(),
 								};
 							},
 							processResults: function (data) {
@@ -1672,13 +1675,12 @@
 
 	$.notificationx.get_query_vars = function (name) {
 		var vars = {};
-		window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (
-			m,
-			key,
-			value
-		) {
-			vars[key] = value;
-		});
+		window.location.href.replace(
+			/[?&]+([^=&]+)=([^&]*)/gi,
+			function (m, key, value) {
+				vars[key] = value;
+			}
+		);
 		if (name != "") {
 			return vars[name];
 		}
