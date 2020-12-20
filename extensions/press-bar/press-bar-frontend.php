@@ -22,7 +22,8 @@
     if( $settings->hide_after ) {
         $wrapper_attrs .= ' data-hide_after="'. $settings->hide_after .'"';
     }
-    if( $settings->enable_countdown == '1' ) {
+
+    if( $settings->enable_countdown == '1' && ! isset( $settings->elementor_type_id )  ) {
         if( $settings->countdown_start_date ) {
             $wrapper_attrs .= ' data-start_date="'. $settings->countdown_start_date .'"';
         } else {
