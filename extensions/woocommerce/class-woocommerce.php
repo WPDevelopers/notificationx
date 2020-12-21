@@ -492,7 +492,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         }
 
         $status = $order->get_status();
-        $done = [ 'completed', 'processing' ];
+        $done = [ 'completed', 'processing', 'pending' ];
         if( ! in_array( $status, $done ) ){
             return false;
         }
