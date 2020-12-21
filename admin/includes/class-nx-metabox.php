@@ -382,6 +382,9 @@ class NotificationX_MetaBox {
         }
 
         $settings->active_check = boolval( get_post_meta( $id, "_nx_meta_active_check", true ) );
+        if( $settings->display_type === 'press_bar' ) {
+            $settings->elementor_type_id = boolval( get_post_meta( $id, "_nx_bar_elementor_type_id", true ) );
+        }
 
         $settings->id = $id;
 
