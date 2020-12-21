@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce notification, notifica
 Requires at least: 4.0
 Tested up to: 5.5.1
 Requires PHP: 5.4
-Stable tag: 1.9.0
+Stable tag: 1.9.1
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -134,7 +134,7 @@ https://www.youtube.com/watch?v=75vntaHp9Y4
 
 Consider checking out our other WordPress solutions & boost your WordPress website:
 
-🔝 [Essential Addons For Elementor](https://wordpress.org/plugins/essential-addons-for-elementor-lite/): Most popular Elementor extensions with 700,000+ active users in the WordPress repository 
+🔝 [Essential Addons For Elementor](https://wordpress.org/plugins/essential-addons-for-elementor-lite/): Most popular Elementor extensions with 700,000+ active users in the WordPress repository
 
 📄 [EmbedPress](https://wordpress.org/plugins/embedpress/): EmbedPress lets you embed videos, images, posts, audio, maps and upload PDF, DOC, PPT & all other types of content into your WordPress site with one-click and showcase it beautifully for the visitors.
 
