@@ -104,7 +104,7 @@
         $class .= ' nx-sticky-bar';
     }
 
-    $elementor_post_id = get_post_meta( $settings->id, '_nx_bar_elementor_type_id', true );
+    $elementor_post_id = isset( $settings->elementor_type_id ) ? $settings->elementor_type_id : '';
 
     if( $elementor_post_id !== '' && get_post_status( $elementor_post_id ) === 'publish' && class_exists('\Elementor\Plugin') ) {
         $class .= ' nx-bar-has-elementor';
