@@ -75,7 +75,7 @@ class NotificationX_Admin {
 		self::$settings = NotificationX_DB::get_settings();
         add_action( 'plugin_action_links_' . NOTIFICATIONX_BASENAME, array($this, 'nx_action_links'), 10, 1);
 		add_filter( 'plugin_row_meta', array( $this, 'nx_row_meta' ), 10, 2 );
-		add_action( 'untrashed_post', array( $this, 'untrashed_post' ), 10, 2 );
+		add_filter( 'wp_untrash_post_status', array( $this, 'untrashed_post' ), 10, 3 );
 		/**
 		 * @since 1.2.6
 		 */
@@ -95,10 +95,11 @@ class NotificationX_Admin {
 		add_action( 'add_meta_boxes',array( $this, 'add_metabox' ) );
 	}
 
-	public function untrashed_post( $post_id, $old_status ){
-		if( $old_status == 'draft' && get_post_type( $post_id ) === 'notificationx' ) {
-			wp_update_post( [ 'ID' => $post_id, 'post_status' => 'publish' ] );
+	public function untrashed_post( $new_status, $post_id, $old_status ){
+		if( $new_status != 'publish' && get_post_type( $post_id ) === 'notificationx' ) {
+			return 'publish';
 		}
+		return $new_status;
 	}
 
 	public function add_metabox(){

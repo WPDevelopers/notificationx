@@ -405,6 +405,9 @@
 	};
 
 	$.notificationx.render = function (configuration, html) {
+		if (configuration.id == undefined) {
+			return;
+		}
 		var notificationHTML = document.createElement("div");
 		notificationHTML.classList.add("notificationx-conversions");
 		notificationHTML.insertAdjacentHTML("beforeend", html);
