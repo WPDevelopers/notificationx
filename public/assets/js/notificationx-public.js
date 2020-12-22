@@ -405,9 +405,10 @@
 	};
 
 	$.notificationx.render = function (configuration, html) {
-		if (configuration.id == undefined) {
-			return;
-		}
+		// if (configuration.id == undefined) {
+		// 	return;
+		// }
+		console.log(configuration);
 		var notificationHTML = document.createElement("div");
 		notificationHTML.classList.add("notificationx-conversions");
 		notificationHTML.insertAdjacentHTML("beforeend", html);
