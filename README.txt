@@ -196,6 +196,14 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
+= 1.9.1 - 22/12/2020 =
+
+- Fixed: Popups not working correctly in different language
+- Fixed: JS error when Notification Bar is built with Elementor
+- Fixed: Notification Bar not opening in new tab
+- Fixed: Shortcode showing on every page
+- Few minor bug fix and improvements
+
 = 1.9.0 - 30/09/2020 =
 
 - Added: Elementor Integration with Notification Bar
