@@ -1,17 +1,19 @@
 === NotificationX - Best FOMO, Social Proof, Sales Popup & WooCommerce Notification Bar With Elementor Support ===
-Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok
+Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim
 Donate link: https://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, elementor, email subscription, recent sales popup, woo popups, woocommerce review, wordpress marketing, marketing, evergreen notice, increase engagement, woocommerce, envato, freemius, givewp, learndash, bottom bar, top bar, marketing plugin, alert, email marketing, conversion, gamification
 Requires at least: 4.0
-Tested up to: 5.5.1
+Tested up to: 5.6
 Requires PHP: 5.4
 Stable tag: 1.9.1
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Want to build instant credibility for your business and boost your conversion rate right away? 97% of your total website visitors don’t buy the product due to the lack of trust and credibility.
+Want to build instant credibility for your business and boost your conversion rate right away? 97% of your total website visitors don’t buy the product due to the lack of trust and credibility. Best FOMO, Social Proof, Sales Popup & WooCommerce Notification Bar With Elementor Support
 
 == Description ==
+
+= Best FOMO, Social Proof, Sales Popup & WooCommerce Notification Bar With Elementor Support =
 
 Want to build instant credibility for your business and boost your conversion rate right away? **97%** of your total website visitors don’t buy the product due to the lack of trust and credibility. Get instant success with **WooCommerce Sales Popup Notification**!
 
@@ -196,7 +198,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 1.9.1 - 22/12/2020 =
+= 1.9.1 - 23/12/2020 =
 
 - Fixed: Popups not working correctly in different language
 - Fixed: JS error when Notification Bar is built with Elementor
