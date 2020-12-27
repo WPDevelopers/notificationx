@@ -1633,12 +1633,14 @@
 			var nextSiblingsChild = editable[0].nextElementSibling.children;
 
 			if (splitedTemplate != null) {
-				splitedTemplate.forEach(function (item, i) {
+				for(var i = 0; i <= 2; i++) {
+					var item = splitedTemplate[i] || '';
+					$(nextSiblingsChild[i]).val(item); // set value in hidden field!
+
 					if (item != "") {
 						var pattern = /\{\{[^\s]*\}\}/g;
 						var templateVar = item.match(pattern);
 
-						$(nextSiblingsChild[i]).val(item); // set value in hidden field!
 
 						if (templateVar != null) {
 							templateVar.forEach(function (
@@ -1666,7 +1668,7 @@
 							newItemLine.push(item);
 						}
 					}
-				});
+				}
 			}
 			final = newItemLine.join("<br>");
 			editable.html(final);

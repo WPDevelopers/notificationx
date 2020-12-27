@@ -104,6 +104,8 @@ class NotificationX_MetaBox {
             $value = $value;
         }
 
+        $value = apply_filters( "nx_field_value_$key", $value, $post_id );
+
         $default_attr = is_array( $default ) ? json_encode( $default ) : $default;
 
         if( ! empty( $default_attr ) ) {
