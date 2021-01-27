@@ -340,20 +340,15 @@
 			var html = $("html");
 			html.addClass("nx-bar-active");
 			if ($(bar).hasClass("nx-position-top")) {
-				$(html).animate(
-					[
-						{
-							"padding-top": 0,
-						},
-						{
-							"padding-top": barHeight + "px",
-						},
-					],
-					{
-						duration: 300,
-					}
-				);
-				html.css("padding-top", barHeight + "px");
+				// $(html).animate(
+				// 	{
+				// 		"padding-top": "0px",
+				// 	},
+				// 	{
+				// 		duration: 300,
+				// 	}
+				// );
+				// html.css("padding-top", barHeight + "px");
 				// $(bar).animate(
 				// 	[
 				// 		{
@@ -367,7 +362,7 @@
 				// 		duration: 300,
 				// 	}
 				// );
-				$(bar).css("top", xAdminBarHeight + "px");
+				// $(bar).css("top", xAdminBarHeight + "px");
 			}
 			$(bar).addClass("nx-bar-visible");
 			var body = $("body");
@@ -379,9 +374,12 @@
 
 	$.notificationx.hideBar = function (id) {
 		var bar = $(".nx-bar#" + id),
-			html = $("html"),
-			close_forever = bar[0].dataset.close_forever,
-			position = $("#" + id).data("position");
+			html = $("html");
+		if (!bar.length) {
+			return;
+		}
+		let close_forever = bar[0].dataset.close_forever;
+		let position = $("#" + id).data("position");
 
 		if (close_forever) {
 			var date = new Date(),

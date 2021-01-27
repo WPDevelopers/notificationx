@@ -579,7 +579,8 @@ body.nx-press_bar-active {
   -webkit-transition: padding 0.2s ease-in;
   -moz-transition: padding 0.2s ease-in;
   -o-transition: padding 0.2s ease-in;
-  transition: padding 0.2s ease-in
+  transition: padding 0.2s ease-in;
+  position: relative
 }
 .notificationx-shortcode-wrapper > .nx-notification {
   z-index: 9

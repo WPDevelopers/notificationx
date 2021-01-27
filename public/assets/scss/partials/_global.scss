@@ -44,7 +44,7 @@
 			fill: #000000;
 			position: absolute;
 		}
-	} 
+	}
 	& a.notificationx-link {
 		@extend %posa;
 		@extend %wh100;
@@ -187,6 +187,7 @@
 }
 body.has-nx-bar, body.nx-press_bar-active{
 	@include transition(padding 0.2s ease-in);
+	position: relative;
 }
 
 .notificationx-shortcode-wrapper > .nx-notification {
