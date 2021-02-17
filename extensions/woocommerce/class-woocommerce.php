@@ -20,6 +20,8 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         parent::__construct( $this->template );
         $this->notifications = $this->get_notifications( $this->type );
 
+        wp_send_json($this->notifications);
+
         add_filter( 'nx_notification_link', array( $this, 'notification_link' ), 10, 2 );
     }
 
@@ -265,6 +267,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             return;
         }
         add_action( 'woocommerce_order_status_changed', array( $this, 'status_transition' ), 10, 4 );
+        add_action( 'woocommerce_process_shop_order_meta', array( $this, 'manual_order' ), 10, 2 );
     }
     /**
      * This function is responsible for hide fields in main screen
@@ -577,4 +580,20 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             return parent::frontend_html( $data, $settings, $args );
         }
     }
+
+    // define the manual_order callback
+    public function manual_order( $order_id, $post ){
+        $orders = [];
+        $order = wc_get_order($order_id);
+        $items = $order->get_items();
+        foreach( $items as $item ) {
+            $tutor_product = metadata_exists('post', $item->get_product_id(), "_tutor_product");
+            if($tutor_product ) {
+                continue;
+            }
+            $orders[ $order->get_id() . '-' . $item->get_id() ] = $this->ordered_product($item->get_id(), $item, $order);
+        }
+        $this->update_notifications($this->type, $orders);
+    }
+
 }
