@@ -20,8 +20,6 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         parent::__construct( $this->template );
         $this->notifications = $this->get_notifications( $this->type );
 
-        wp_send_json($this->notifications);
-
         add_filter( 'nx_notification_link', array( $this, 'notification_link' ), 10, 2 );
     }
 
