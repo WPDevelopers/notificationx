@@ -311,7 +311,7 @@ final class NotificationX {
 		do_action( 'nx_public_action' );
 		add_action( 'wp_enqueue_scripts', array( $plugin_public, 'enqueue_styles') );
 		add_action( 'wp_enqueue_scripts', array( $plugin_public, 'enqueue_scripts') );
-		add_action( 'wp_footer', array( $plugin_public, 'generate_active_notificationx') );
+		add_action( 'wp_head', array( $plugin_public, 'generate_active_notificationx'), 100 );
 		add_action( 'wp_ajax_nx_get_conversions', array( $plugin_public, 'generate_conversions') );
 		add_action( 'wp_ajax_nopriv_nx_get_conversions', array( $plugin_public, 'generate_conversions') );
 	}
