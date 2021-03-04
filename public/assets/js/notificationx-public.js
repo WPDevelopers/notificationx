@@ -369,6 +369,23 @@
 			body.trigger("nx_frontend_bar_show", [bar, bar_id]);
 			$.notificationx.active_pressbar = 1;
 			clearTimeout(showBarTimeout);
+
+			// elementor bar accept
+			if ($(bar).find("#nx-consent-accept")) {
+				$(bar).on("click", "#nx-consent-accept", function (e) {
+					e.preventDefault();
+					console.log();
+					var date = new Date(
+							(new Date().getFullYear() + 5).toString()
+						),
+						nxBarID = "nx-bar-" + bar_id;
+					Cookies.set("notificationx_" + nxBarID, true, {
+						expires: date,
+						path: "/",
+					});
+					$.notificationx.hideBar(nxBarID);
+				});
+			}
 		}, delay * 1000);
 	};
 

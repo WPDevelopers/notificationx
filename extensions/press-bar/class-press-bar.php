@@ -80,6 +80,8 @@ class NotificationX_PressBar_Extension extends NotificationX_Extension {
             'theme-one'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/bar-elementor/theme-one.jpg',
             'theme-two'   => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/bar-elementor/theme-two.jpg',
             'theme-three' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/bar-elementor/theme-three.jpg',
+            'theme-four' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/bar-elementor/theme-four.jpg',
+            'theme-five' => NOTIFICATIONX_ADMIN_URL . 'assets/img/themes/bar-elementor/theme-five.jpg',
         ));;
     }
     /**

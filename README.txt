@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce notification, notifica
 Requires at least: 4.0
 Tested up to: 5.6
 Requires PHP: 5.4
-Stable tag: 1.9.1
+Stable tag: 1.10.0
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
