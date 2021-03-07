@@ -21,6 +21,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         $this->notifications = $this->get_notifications( $this->type );
 
         add_filter( 'nx_notification_link', array( $this, 'notification_link' ), 10, 2 );
+        add_action( 'woocommerce_process_shop_order_meta', array($this, 'manual_order'), 10, 2 );
     }
 
     public function template_string_by_theme( $template, $old_template, $posts_data ){
@@ -265,7 +266,6 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             return;
         }
         add_action( 'woocommerce_order_status_changed', array( $this, 'status_transition' ), 10, 4 );
-        add_action( 'woocommerce_process_shop_order_meta', array( $this, 'manual_order' ), 10, 2 );
     }
     /**
      * This function is responsible for hide fields in main screen
