@@ -492,13 +492,12 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             return false;
         }
 
-        $status = $order->get_status();
+        $status = isset($_POST['order_status']) ? str_replace('wc-', '', $_POST['order_status']) : $order->get_status();
         $done = [ 'completed', 'processing', 'pending' ];
         if( ! in_array( $status, $done ) ){
             return false;
         }
 
-        $date = $order->get_date_created();
         $countries = new WC_Countries();
         $shipping_country = $order->get_billing_country();
         if( empty( $shipping_country ) ) {
@@ -524,7 +523,9 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
             $new_order['title']      = $product_data['title'];
             $new_order['link']       = $product_data['link'];
         }
-        $new_order['timestamp'] = $date->getTimestamp();
+        if($date = $order->get_date_created()){
+            $new_order['timestamp'] = $date->getTimestamp();
+        }
         return array_merge( $new_order, $this->buyer( $order ));
     }
     /**
