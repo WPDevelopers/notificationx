@@ -581,17 +581,11 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
 
     // define the manual_order callback
     public function manual_order( $order_id, $post ){
-        $orders = [];
         $order = wc_get_order($order_id);
         $items = $order->get_items();
         foreach( $items as $item ) {
-            $tutor_product = metadata_exists('post', $item->get_product_id(), "_tutor_product");
-            if($tutor_product ) {
-                continue;
-            }
-            $orders[ $order->get_id() . '-' . $item->get_id() ] = $this->ordered_product($item->get_id(), $item, $order);
+            $this->save_new_orders($item->get_id(),  $item,  $order_id);
         }
-        $this->update_notifications($this->type, $orders);
     }
 
 }
