@@ -526,6 +526,9 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         if($date = $order->get_date_created()){
             $new_order['timestamp'] = $date->getTimestamp();
         }
+        else{
+            $new_order['timestamp'] = time();
+        }
         return array_merge( $new_order, $this->buyer( $order ));
     }
     /**
