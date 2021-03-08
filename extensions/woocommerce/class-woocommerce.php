@@ -426,12 +426,16 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
      * @param int $order_id
      * @return void
      */
-    public function save_new_orders( $item_id,  $item,  $order_id ){
-        $single_notification = $this->ordered_product( $item_id, $item, $order_id );
-        if( ! empty( $single_notification ) ) {
-            $key = $order_id . '-' . $item_id;
-            $this->save( $this->type, $single_notification, $key );
-            return true;
+    public function save_new_orders( $item_id,  $item,  $order_id ) {
+        $parent_order = wc_get_order(wp_get_post_parent_id($order_id));
+
+        if($parent_order == false){
+            $single_notification = $this->ordered_product( $item_id, $item, $order_id );
+            if( ! empty( $single_notification ) ) {
+                $key = $order_id . '-' . $item_id;
+                $this->save( $this->type, $single_notification, $key );
+                return true;
+            }
         }
         return false;
     }
