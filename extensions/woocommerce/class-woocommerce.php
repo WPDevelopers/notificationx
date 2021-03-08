@@ -22,6 +22,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
 
         add_filter( 'nx_notification_link', array( $this, 'notification_link' ), 10, 2 );
         add_action( 'woocommerce_process_shop_order_meta', array($this, 'manual_order'), 10, 2 );
+        add_action('nx_woocommerce_cron', array($this, 'manual_order_cron'), 10, 2 );
     }
 
     public function template_string_by_theme( $template, $old_template, $posts_data ){
@@ -585,6 +586,10 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
 
     // define the manual_order callback
     public function manual_order( $order_id, $post ){
+        wp_schedule_single_event(time(), 'nx_woocommerce_cron', [$order_id]);
+    }
+    // define the manual_order callback
+    public function manual_order_cron( $order_id ){
         $order = wc_get_order($order_id);
         $items = $order->get_items();
         foreach( $items as $item ) {
