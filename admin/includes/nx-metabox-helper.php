@@ -20,7 +20,7 @@ function notificationx_metabox_args(){
                         'fields'            => array(
                             'has_no_cron' => array(
                                 'type'     => 'message',
-                                'message'    => __('You have cron disabled. To use this extension make sure CRON is enabled in your WordPress Setup. <a href="URL">Click Here To Learn How To Enable</a>.', 'notificationx'),
+                                'message'    => sprintf(__('You have cron disabled. To use this extension make sure CRON is enabled in your WordPress Setup. <a href="%s">Click Here To Learn How To Enable</a>.', 'notificationx'), "https://emdplugins.com/questions/how-to-enable-or-disable-wp-cron/"),
                                 'priority' => 0,
                             ),
                             'display_type'  => apply_filters( 'nx_display_type', array(
