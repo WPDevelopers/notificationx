@@ -1069,6 +1069,12 @@ function notificationx_metabox_args(){
                                 'priority'    => 70,
                                 'description' => __('Display a close button.', 'notificationx'),
                             ),
+                            'close_forever_2' => array(
+                                'label'       => __('Permanent Close', 'notificationx'),
+                                'type'        => 'checkbox',
+                                'priority'    => 73,
+                                'description' => __('Hide notification from next time.', 'notificationx'),
+                            ),
                             'hide_on_mobile'  => array(
                                 'type'        => 'checkbox',
                                 'label'       => __('Mobile Visibility' , 'notificationx'),
