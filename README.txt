@@ -198,6 +198,15 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
+= 1.10.0 - 09/03/2021 =
+- Added: New Elementor Design for Notification Bar
+- Added: Random order option of notification ( WooCommerce )
+- Fixed: console.error when nx activated.
+- Fixed: Duplication on wc multivendor
+- Fixed: Conflicts with Google Language Translator Plugin
+- Fixed: Uncaught typeError conflicts with a Caching plugin
+- Few minor bug fix and improvements
+
 = 1.9.1 - 23/12/2020 =
 
 - Fixed: Popups not working correctly in different language
