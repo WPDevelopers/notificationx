@@ -404,7 +404,8 @@ class NotificationX_Helper {
                 'sticky_bar',
                 'initial_delay',
                 'auto_hide',
-                'pressbar_body'
+                'pressbar_body',
+                'close_forever_2',
             ],
         ));
     }
@@ -414,33 +415,33 @@ class NotificationX_Helper {
             return apply_filters("nx_display_types_hide_data", array(
                 'comments' => array(
                     'sections' => [ 'bar_themes', 'conversion_link_options', 'bar_design', 'bar_typography', 'themes', 'design', 'image_design', 'typography', 'rs_link_options', 'donation_themes', 'elearning_themes' ],
-                    'fields' => [ 'custom_contents', 'show_custom_image', 'show_notification_image', 'wp_reviews_template', 'has_no_cron' ]
+                    'fields' => [ 'custom_contents', 'show_custom_image', 'show_notification_image', 'wp_reviews_template', 'has_no_cron','close_forever_2', ]
                 ),
                 'press_bar' => array(
                     'sections' => [ 'image', 'link_options', 'conversion_link_options', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'rs_link_options', 'donation_themes', 'elearning_themes', 'queue_management' ],
-                    'fields' => [ 'comments_template', 'custom_contents', 'notification_preview', 'image_url', 'conversion_size', 'conversion_position', 'comments_template_new', 'comments_template_adv', 'wp_stats_template_new', 'has_no_cron' ]
+                    'fields' => [ 'comments_template', 'custom_contents', 'notification_preview', 'image_url', 'conversion_size', 'conversion_position', 'comments_template_new', 'comments_template_adv', 'wp_stats_template_new','has_no_cron']
                 ),
                 'conversions' => array(
                     'sections' => [ 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'rs_link_options', 'donation_themes', 'elearning_themes' ],
-                    'fields' => [ 'wp_reviews_template', 'has_no_cron' ]
+                    'fields' => [ 'wp_reviews_template','has_no_cron', 'close_forever_2' ]
                 ),
                 'reviews' => array(
-                    'fields' => [ 'comments_source', 'conversion_from', 'has_no_cron' ],
+                    'fields' => [ 'comments_source', 'conversion_from','has_no_cron', 'close_forever_2' ],
                     'sections' => [ 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'donation_themes', 'elearning_themes' ],
                 ),
                 'elearning' => array(
                     'sections' => ['donation_themes'],
-                    'fields' => ['has_no_cron']
+                    'fields' => ['has_no_cron', 'close_forever_2']
                 ),
                 'donation' => array(
                     'sections' => ['elearning_themes'],
-                    'fields' => ['has_no_cron']
+                    'fields' => ['has_no_cron', 'close_forever_2']
                 ),
                 'form' => array(
-                    'fields' => ['has_no_cron']
+                    'fields' => ['has_no_cron', 'close_forever_2']
                 ),
                 'download_stats' => array(
-                    'fields' => [ 'comments_source', 'conversion_from', 'reviews_source', 'show_notification_image', 'wp_reviews_template_new', 'wp_reviews_template', 'has_no_cron' ],
+                    'fields' => [ 'comments_source', 'conversion_from', 'reviews_source', 'show_notification_image', 'wp_reviews_template_new', 'wp_reviews_template','has_no_cron', 'close_forever_2' ],
                     'sections' => [ 'image', 'comment_themes', 'comment_design', 'comment_image_design', 'comment_typography', 'themes', 'design', 'image_design', 'typography', 'bar_themes', 'link_options', 'bar_design', 'bar_typography', 'donation_themes', 'elearning_themes' ],
                 ),
             ));

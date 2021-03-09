@@ -255,6 +255,7 @@ class NotificationX_MetaBox {
         $prefix       = self::$prefix;
         $fields       = self::get_metabox_fields();
         $old_settings = self::get_metabox_settings( $post_id );
+        $type         = NotificationX_Helper::get_type($posts);
         $data         = [];
         $theme_name   = 'theme-one';
         $new_settings = new stdClass();
@@ -275,11 +276,16 @@ class NotificationX_MetaBox {
                 $template_string = self::template_generate( $posts[ $field_id ], $posts );
                 update_post_meta( $post_id, "_{$field_id}_string", $template_string );
             }
+
+            if ($type === 'press_bar' && ($name == 'close_forever' || $name == 'close_forever_2') && isset($_POST['nx_meta_close_forever_3'])) {
+                $value = $_POST['nx_meta_close_forever_3'];
+            }
+
             update_post_meta( $post_id, "_{$field_id}", $value );
             $data[ "_{$field_id}" ] = $new_settings->{ $name } = $value;
         }
 
-        $type = NotificationX_Helper::get_type( $posts );
+
         if( NX_CONSTANTS::is_pro() ) {
             $is_created = true;
         } else {
