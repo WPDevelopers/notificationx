@@ -60,6 +60,7 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         add_filter( 'nx_metabox_tabs', array( $this, 'add_fields' ) );
         add_filter( 'nx_display_types_hide_data', array( $this, 'hide_fields' ) );
         add_filter( 'nx_conversion_from', array( $this, 'toggle_fields' ) );
+        add_action( 'woocommerce_order_status_changed', array($this, 'status_transition'), 10, 4 );
     }
     /**
      * Builder Hooks
@@ -266,7 +267,6 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         if( ! $this->is_created( $this->type ) ) {
             return;
         }
-        add_action( 'woocommerce_order_status_changed', array( $this, 'status_transition' ), 10, 4 );
     }
     /**
      * This function is responsible for hide fields in main screen
@@ -341,12 +341,23 @@ class NotificationX_WooCommerce_Extension extends NotificationX_Extension {
         if( $this->type === $type ) {
             if( ! is_null( $orders = $this->get_orders( $data ) ) ) {
                 $orders = NotificationX_Helper::sortBy( $orders, 'woocommerce' );
+                foreach ($orders as $key => $order) {
+                    $parent_order = wc_get_order(wp_get_post_parent_id($order['id']));
+                    if($parent_order !== false){
+                        unset($orders[$key]);
+                    }
+                }
                 $this->update_notifications( $this->type, $orders );
             }
         }
     }
 
     public function status_transition( $id, $from, $to, $order ){
+        $parent_order = wc_get_order(wp_get_post_parent_id($order->id));
+        if ($parent_order !== false) {
+            return;
+        }
+
         $items = $order->get_items();
         $status = [ 'on-hold', 'cancelled', 'refunded', 'failed', 'pending', 'wcf-main-order' ];
         $done = [ 'completed', 'processing' ];
