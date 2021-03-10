@@ -46,7 +46,24 @@ class NotificationX_Template {
 			 */
 			$html = ''; $template_count = count( $template );
 			for ( $i = 0; $i < $template_count; $i++ ) {
+				$matches = [];
+				preg_match_all('/(\{{2}.*?\}{2})/', trim($template[$i]), $matches);
+				$_template_content = [];
+				if(!empty($matches[0])){
+					foreach($matches[0] as $key => $match){
+						$_template_content["{{_param_$key}}"] = $match;
+						$template[$i] = str_replace($match, "{{_param_$key}}", $template[$i]);
+					}
+				}
+
 				$template_content = explode( ' ', trim( $template[$i] ) );
+				
+				if(!empty($_template_content)){
+					foreach ($template_content as $key => &$content) {
+						$content = str_replace(array_keys($_template_content), array_values($_template_content), $content);
+					}
+				}
+
 				$html .= '<div class="'. self::$row_classes[ $i ] .'">';
 				if( $i === 2 ) {
 					$html .= '<div class="third-row-inner-wrapper">';

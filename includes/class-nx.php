@@ -187,14 +187,19 @@ final class NotificationX {
 	 * @since v1.0.0
 	*/
 	public function start_plugin_tracking() {
-		new NotificationX_Plugin_Usage_Tracker(
-			NOTIFICATIONX_FILE,
-			'http://app.wpdeveloper.net',
-			array(),
-			true,
-			true,
-			1
-		);
+		$insights = WPInsights_Notificationx::get_instance( NOTIFICATIONX_FILE, [
+			'opt_in'       => true,
+			'goodbye_form' => true,
+			'item_id'      => '6ba8d30bc0beaddb2540'
+		] );
+		$insights->set_notice_options(array(
+			'notice' => __( 'Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage.', 'notificationx' ),
+			'extra_notice' => __( 'We collect non-sensitive diagnostic data and plugin usage information.
+			Your site URL, WordPress & PHP version, plugins & themes and email address to send you the
+			discount coupon. This data lets us make sure this plugin always stays compatible with the most
+			popular plugins and themes. No spam, I promise.', 'notificationx' ),
+		));
+		$insights->init();
 	}
 
 	/**

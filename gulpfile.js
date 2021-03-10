@@ -141,6 +141,10 @@ function cleanDist() {
 function makeDist() {
 	return src([
 		"./**/*.*",
+		"!./build.sh",
+		"!./.github",
+		"!./README.md",
+		"!./.gitattributes",
 		"!./dist/**/*.*",
 		"!./node_modules/**/*.*",
 		"!./**/*.zip",

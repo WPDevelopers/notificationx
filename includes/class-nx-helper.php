@@ -107,7 +107,7 @@ class NotificationX_Helper {
      *
      * @param array $value
      * @param string $key
-     * @return void
+     * @return array
      */
     public static function sortBy( &$value, $key = 'comments' ) {
         switch( $key ){
