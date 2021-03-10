@@ -1,11 +1,11 @@
-=== NotificationX - Best FOMO, Social Proof, Sales Popup & WooCommerce Notification Bar With Elementor Support ===
+=== NotificationX - Best FOMO, Social Proof, Sales Popup & WooCommerce Notification Bar With Elementor ===
 Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim
 Donate link: https://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, elementor, email subscription, recent sales popup, woo popups, woocommerce review, wordpress marketing, marketing, evergreen notice, increase engagement, woocommerce, envato, freemius, givewp, learndash, bottom bar, top bar, marketing plugin, alert, email marketing, conversion, gamification
 Requires at least: 4.0
-Tested up to: 5.6
+Tested up to: 5.7
 Requires PHP: 5.4
-Stable tag: 1.10.0
+Stable tag: 1.9.2
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -198,7 +198,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 1.10.0 - 09/03/2021 =
+= 1.9.2 - 09/03/2021 =
 - Added: New Elementor Design for Notification Bar
 - Fixed: console.error when nx activated.
 - Fixed: Duplication on wc multivendor
