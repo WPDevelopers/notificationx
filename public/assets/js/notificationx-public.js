@@ -408,6 +408,9 @@
 				path: "/",
 			});
 		}
+		else{
+			Cookies.set("notificationx_" + id, true);
+		}
 
 		html.removeClass("nx-bar-active");
 		html.css("padding-top", 0);
