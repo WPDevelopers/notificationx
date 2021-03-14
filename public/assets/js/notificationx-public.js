@@ -339,30 +339,8 @@
 
 			var html = $("html");
 			html.addClass("nx-bar-active");
-			if ($(bar).hasClass("nx-position-top")) {
-				// $(html).animate(
-				// 	{
-				// 		"padding-top": "0px",
-				// 	},
-				// 	{
-				// 		duration: 300,
-				// 	}
-				// );
-				// html.css("padding-top", barHeight + "px");
-				// $(bar).animate(
-				// 	[
-				// 		{
-				// 			top: 0 + "px",
-				// 		},
-				// 		{
-				// 			top: xAdminBarHeight + "px",
-				// 		},
-				// 	],
-				// 	{
-				// 		duration: 300,
-				// 	}
-				// );
-				// $(bar).css("top", xAdminBarHeight + "px");
+			if ($(bar).hasClass("nx-position-top") && $(bar).hasClass("nx-sticky-bar")) {
+				$(bar).css("top", xAdminBarHeight + "px");
 			}
 			$(bar).addClass("nx-bar-visible");
 			var body = $("body");
