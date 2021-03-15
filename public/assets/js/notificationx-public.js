@@ -339,8 +339,8 @@
 
 			var html = $("html");
 			html.addClass("nx-bar-active");
-			if ($(bar).hasClass("nx-position-top")) {
-				$(html).animate(
+			if ($(bar).hasClass("nx-sticky-bar")) {
+				html.animate(
 					{
 						"padding-top": "0px",
 					},
@@ -350,14 +350,9 @@
 				);
 				html.css("padding-top", barHeight + "px");
 				$(bar).animate(
-					[
-						{
-							top: 0 + "px",
-						},
-						{
-							top: xAdminBarHeight + "px",
-						},
-					],
+					{
+						top: xAdminBarHeight + "px",
+					},
 					{
 						duration: 300,
 					}
