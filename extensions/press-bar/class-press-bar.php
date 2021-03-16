@@ -42,7 +42,24 @@ class NotificationX_PressBar_Extension extends NotificationX_Extension {
         $output    = '';
         $post_meta = get_post_meta( $bar_id, '_nx_bar_elementor_type_id', true );
         if( is_numeric( $post_meta ) && class_exists( '\Elementor\Plugin' ) ) {
-            $edit_link = \Elementor\Plugin::$instance->documents->get( $post_meta )->get_edit_url();
+            $edit_link = \Elementor\Plugin::$instance->documents->get( $post_meta );
+            if(is_object($edit_link) && method_exists($edit_link, 'get_edit_url')){
+                $edit_link = $edit_link->get_edit_url();
+            }
+            else{
+                delete_post_meta( $bar_id, '_nx_bar_elementor_type_id' );
+                add_action('admin_print_footer_scripts', function(){
+                    ?>
+                    <script>
+                        window.location.reload(true);
+                    </script>
+                    <?php
+                });
+            }
+
+        }
+
+        if(!empty($edit_link)){
             $output .= '<a class="active nx-ele-bar-button" href="'. esc_url( $edit_link ) .'">';
                 $output .= __('Edit With Elementor', 'notificationx');
             $output .= '</a>';
