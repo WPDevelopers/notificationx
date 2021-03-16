@@ -339,8 +339,25 @@
 
 			var html = $("html");
 			html.addClass("nx-bar-active");
-			if ($(bar).hasClass("nx-position-top") && $(bar).hasClass("nx-sticky-bar")) {
-				$(bar).css("top", xAdminBarHeight + "px");
+			if ($(bar).hasClass("nx-position-top")) {
+				html.animate(
+					{
+						"padding-top": "0px",
+					},
+					{
+						duration: 300,
+					}
+				);
+				html.css("padding-top", barHeight + "px");
+				if ($(bar).hasClass("nx-sticky-bar")) {
+					$(bar).animate(
+						{
+							top: xAdminBarHeight + "px",
+						},
+						0
+					);
+					$(bar).css("top", xAdminBarHeight + "px");
+				}
 			}
 			$(bar).addClass("nx-bar-visible");
 			var body = $("body");
@@ -373,8 +390,8 @@
 		if (!bar.length) {
 			return;
 		}
-		let close_forever = bar[0].dataset.close_forever;
-		let position = $("#" + id).data("position");
+		var close_forever = bar[0].dataset.close_forever;
+		var position = $("#" + id).data("position");
 
 		if (close_forever) {
 			var date = new Date(),
@@ -385,10 +402,9 @@
 				expires: expired_date,
 				path: "/",
 			});
-		}
-		else{
+		} else {
 			Cookies.set("notificationx_" + id, true, {
-				path: '/',
+				path: "/",
 			});
 		}
 
@@ -558,7 +574,7 @@
 				nxCookies[configuration.id] = true;
 				/* Set cookie for stop showing notification for current session */
 				Cookies.set("nx-close-for-session", JSON.stringify(nxCookies), {
-					path   : '/',
+					path: "/",
 				});
 			});
 		}
