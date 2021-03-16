@@ -55,7 +55,6 @@ final class NotificationX {
 		add_action( 'init', array( $this, 'load_extensions' ) );
 		add_action( 'plugins_loaded', array( $this, 'define_admin_hooks' ) );
 		add_action( 'init', array( $this, 'define_public_hooks' ) );
-		add_action( 'init', array($this, '_define_admin_hooks') );
 		add_action( 'init', array( $this, 'migration' ) );
 		add_action( 'admin_init', array( $this, 'redirect' ) );
 	}
@@ -255,11 +254,6 @@ final class NotificationX {
 		$plugin_i18n = new NotificationX_i18n();
 		add_action( 'plugins_loaded', array( $plugin_i18n, 'load_plugin_textdomain' ) );
 	}
-
-	public function _define_admin_hooks($hook) {
-		do_action('nx_admin_action');
-	}
-
 	/**
 	 * Register all of the hooks related to the admin area functionality
 	 * of the plugin.
@@ -306,6 +300,7 @@ final class NotificationX {
 		 */
 		NotificationX_Settings::init();
 
+		do_action( 'nx_admin_action' );
 	}
 	/**
 	 * Register all of the hooks related to the public-facing functionality
