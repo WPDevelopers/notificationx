@@ -402,6 +402,10 @@
 				expires: expired_date,
 				path: "/",
 			});
+		} else {
+			Cookies.set("notificationx_" + id, true, {
+				path: "/",
+			});
 		}
 
 		html.removeClass("nx-bar-active");
@@ -569,7 +573,9 @@
 				$.notificationx.hide(parent, configuration.id);
 				nxCookies[configuration.id] = true;
 				/* Set cookie for stop showing notification for current session */
-				Cookies.set("nx-close-for-session", JSON.stringify(nxCookies));
+				Cookies.set("nx-close-for-session", JSON.stringify(nxCookies), {
+					path: "/",
+				});
 			});
 		}
 	};
