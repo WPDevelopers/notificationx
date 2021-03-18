@@ -34,21 +34,21 @@ if( $settings->display_type == 'conversions' && $settings->conversion_from == 'c
 }
 
 if( ! empty( $data[ $key ] ) ) {
-    $new_data = apply_filters( 'nx_filtered_data', NotificationX_Helper::sortBy( $data[ $key ], $key ), $settings );
+    $new_data = apply_filters( 'nx_filtered_data', NotificationX_Helper::sortBy( $data[ $key ], $key ), $settings, $data, $key );
     if( ! is_array( $new_data ) ) {
         return;
     }
     $last_count = intval( $settings->display_last );
     foreach( $new_data as $value ) {
         /**
-         * Fallback Check 
+         * Fallback Check
          * Display Last
          */
         if( $last_count === 0 ) {
             break;
         }
         /**
-         * It will break the loop when the 
+         * It will break the loop when the
          * display from the last value isset.
          */
         if( isset( $value['timestamp'] ) ) {
