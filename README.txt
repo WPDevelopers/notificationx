@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce notification, notifica
 Requires at least: 4.0
 Tested up to: 5.7
 Requires PHP: 5.4
-Stable tag: 1.9.2
+Stable tag: 1.9.3
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -136,11 +136,11 @@ https://www.youtube.com/watch?v=75vntaHp9Y4
 
 Consider checking out our other WordPress solutions & boost your WordPress website:
 
-🔝 [Essential Addons For Elementor](https://wordpress.org/plugins/essential-addons-for-elementor-lite/): Most popular Elementor extensions with 700,000+ active users in the WordPress repository
+🔝 [Essential Addons For Elementor](https://wordpress.org/plugins/essential-addons-for-elementor-lite/): Most popular Elementor extensions with 1 Million+ active users in the WordPress repository
 
 📄 [EmbedPress](https://wordpress.org/plugins/embedpress/): EmbedPress lets you embed videos, images, posts, audio, maps and upload PDF, DOC, PPT & all other types of content into your WordPress site with one-click and showcase it beautifully for the visitors.
 
-☁ [Templately](https://wordpress.org/plugins/templately/): Ultimate Template clouds with 400+ ready templates for Elementor & Gutenberg along with FREE cloud collaboration with your team
+☁ [Templately](https://wordpress.org/plugins/templately/): Ultimate Template clouds with 1000+ ready templates for Elementor & Gutenberg along with FREE cloud collaboration with your team
 
 
 📚 [BetterDocs](https://wordpress.org/plugins/betterdocs/): Best Documentation & Knowledge Base Plugin for WordPress reduce manual support tickets & improve user experience.
@@ -197,6 +197,12 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 7. Notification Bar with Countdown
 
 == Changelog ==
+
+= 1.9.3 - 16/03/2021 =
+- Fixed: NotificationX Bar Issue with Elementor Design
+- Fixed: EDD Latest Version issue
+- Fixed: New sales popups not generating automatically
+- Few minor bug fix and improvements
 
 = 1.9.2 - 09/03/2021 =
 - Added: New Elementor Design for Notification Bar
