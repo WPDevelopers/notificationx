@@ -177,6 +177,11 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
         }
 
         $data[ $this->type ] = NotificationX_Admin::get_post_meta( intval( $id ), $this->meta_key, true );
+        if(!empty($data[ $this->type ]) && is_array($data[ $this->type ])){
+            foreach ($data[ $this->type ] as $key => &$value) {
+                $value['timestamp'] = isset( $value['timestamp'] ) ? $value['timestamp'] : time();
+            }
+        }
         return $data;
     }
 
