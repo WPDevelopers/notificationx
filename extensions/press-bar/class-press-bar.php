@@ -14,7 +14,7 @@ class NotificationX_PressBar_Extension extends NotificationX_Extension {
         add_action( 'nx_field_after_wrapper', [ $this, 'add_button_for_elementor' ], 10, 4 );
         add_action( 'wp_ajax_nx_create_bar', [ $this, 'create_bar_of_type_bar_with_elementor' ] );
         add_action( 'wp_ajax_nx_create_bar_remove', [ $this, 'remove_bar_from_elementor' ] );
-        add_action( 'after_delete_post', [ $this, 'after_delete_post' ], 10, 2 );
+        add_action( 'after_delete_post', [ $this, 'after_delete_post' ], 10 );
         add_action( 'before_delete_post', [ $this, 'before_delete_post' ] );
     }
 
@@ -26,7 +26,7 @@ class NotificationX_PressBar_Extension extends NotificationX_Extension {
         ];
     }
 
-    public function after_delete_post( $postid, $post ){
+    public function after_delete_post( $postid ){
         if( ! is_null( $this->nx_elementor_id ) && isset( $this->nx_elementor_id['post_meta'] ) && is_numeric( $this->nx_elementor_id['post_meta'] ) && isset( $this->nx_elementor_id['postid'] ) && $this->nx_elementor_id['postid'] === $postid ) {
             wp_delete_post( $this->nx_elementor_id['post_meta'], true );
         }
