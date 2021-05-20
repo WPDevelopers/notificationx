@@ -214,6 +214,8 @@ class NotificationXPro_WPOrgStats_Extension extends NotificationX_Extension {
             $total_stats            = array_merge( $stats, $historical_summary );
         }
 
+        $total_stats['timestamp'] = time();
+
         return array( $total_stats );
     }
 
