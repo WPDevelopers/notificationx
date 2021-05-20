@@ -333,7 +333,7 @@ class NotificationX_Public {
 					}
 
 					if( ! empty( $data[ $key ] ) ) {
-						$new_data = apply_filters( 'nx_filtered_data', NotificationX_Helper::sortBy( $data[ $key ], $key ), $settings );
+						$new_data = apply_filters( 'nx_filtered_data', NotificationX_Helper::sortBy( $data[ $key ], $key ), $settings, $data, $key );
 					}
 					if( is_array( $new_data ) && ! empty( $new_data ) ) {
 						array_walk( $new_data, function( $item, $key ) {

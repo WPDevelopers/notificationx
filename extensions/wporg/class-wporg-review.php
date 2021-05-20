@@ -214,6 +214,7 @@ class NotificationXPro_WPOrgReview_Extension extends NotificationX_Extension {
             $new_data['slug'] = isset( $saved_data['slug'] ) ? $saved_data['slug'] : '';
             $new_data['icons'] = isset( $saved_data['icons'] ) ? $saved_data['icons'] : '';
             $new_data['plugin_name'] = isset( $saved_data['name'] ) ? $saved_data['name'] : '';
+            $new_data['timestamp'] = isset( $saved_data['timestamp'] ) ? $saved_data['timestamp'] : time();
 
             if( $product_type == 'plugin' && isset( $saved_data['slug'] ) ) {
                 //TODO: Its has to be specific reviews link.
