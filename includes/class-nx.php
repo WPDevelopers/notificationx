@@ -14,6 +14,7 @@
  * @author     WPDeveloper <support@wpdeveloper.net>
  */
 final class NotificationX {
+	private static $_instance = null;
 	/**
 	 * The unique identifier of this plugin.
 	 *
@@ -31,6 +32,13 @@ final class NotificationX {
 	 * @var      string    $version    The current version of the plugin.
 	 */
 	protected $version;
+
+	public static function get_instance(){
+		if( is_null( self::$_instance ) ) {
+			self::$_instance = new self;
+		}
+		return self::$_instance;
+	}
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -299,7 +307,7 @@ final class NotificationX {
 		 * Initializing NotificationX_Settings
 		 */
 		NotificationX_Settings::init();
-
+		// return;
 		do_action( 'nx_admin_action' );
 	}
 	/**

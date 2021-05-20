@@ -69,7 +69,6 @@ require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx.php';
  * @since    1.0.0
  */
 function run_NotificationX() {
-	$plugin = new NotificationX();
-	$plugin->run();
+	NotificationX::get_instance();
 }
 run_NotificationX();

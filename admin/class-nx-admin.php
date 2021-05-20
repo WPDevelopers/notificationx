@@ -291,14 +291,11 @@ class NotificationX_Admin {
 	public static function get_active_items() {
 		// WP Query arguments.
 		$source_types = NotificationX_Helper::source_types();
-		$args = array(
-			'post_type'         => 'notificationx',
-			'posts_per_page'    => '-1',
-			'post_status'		=> 'publish',
-		);
 		self::$active_items = [];
+		global $wpdb;
+		$statement = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}posts WHERE post_type=%s AND post_status=%s", 'notificationx', 'publish');
+		$posts = $wpdb->get_results( $statement, OBJECT );
 		// Get the notification posts.
-		$posts = get_posts( $args );
 		if ( count( $posts ) ) {
 			foreach ( $posts as $post ) {
 				$settings = NotificationX_MetaBox::get_metabox_settings( $post->ID );
@@ -309,9 +306,6 @@ class NotificationX_Admin {
 				self::$active_items[ $type ][] = $post->ID;
 			}
 		}
-
-		wp_reset_postdata();
-
 		return self::$active_items;
 	}
 
@@ -609,7 +603,10 @@ class NotificationX_Admin {
 		do_action( 'nx_post_columns_content', $column, $post_id );
 	}
 
-	public static function notification_toggle( $status = true, $post_id ){
+	public static function notification_toggle( $status = true, $post_id = null ){
+		if ( is_null( $post_id ) ) {
+			return;
+		}
 		$text           = __('Active', 'notificationx');
 		$img_active     = NOTIFICATIONX_ADMIN_URL . 'assets/img/active1.png';
 		$img_inactive   = NOTIFICATIONX_ADMIN_URL . 'assets/img/active0.png';
