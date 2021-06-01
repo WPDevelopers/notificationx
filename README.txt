@@ -199,10 +199,10 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 == Changelog ==
 
 = 1.9.4 - 01/06/2021 =
-Fixed: Popups showing in other pages even after closing them
-Fixed: Sales notifications showing canceled/pending orders
-Added: Compatibility with PHP 8.0
-Few minor bug fix and improvements
+- Fixed: Popups showing in other pages even after closing them
+- Fixed: Sales notifications showing canceled/pending orders
+- Added: Compatibility with PHP 8.0
+- Few minor bug fix and improvements
 
 = 1.9.3 - 16/03/2021 =
 - Fixed: NotificationX Bar Issue with Elementor Design
