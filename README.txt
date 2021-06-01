@@ -3,7 +3,7 @@ Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim
 Donate link: https://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, elementor, email subscription, recent sales popup, woo popups, woocommerce review, wordpress marketing, marketing, evergreen notice, increase engagement, woocommerce, envato, freemius, givewp, learndash, bottom bar, top bar, marketing plugin, alert, email marketing, conversion, gamification
 Requires at least: 4.0
-Tested up to: 5.7
+Tested up to: 5.7.2
 Requires PHP: 5.4
 Stable tag: 1.9.4
 License: GPL-3.0-or-later
@@ -199,10 +199,10 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 == Changelog ==
 
 = 1.9.4 - 01/06/2021 =
-- Fixed: PressBar Fatal Error.
-- Fixed: WordPress Org Notice Not Showing issue.
-- Fixed: PHP 8.0.* Compatibility Issue.
-- Few minor bug fix and improvements
+Fixed: Popups showing in other pages even after closing them
+Fixed: Sales notifications showing cancelled/pending orders
+Added: Compatibility with PHP 8.0
+Few minor bug fix and improvements
 
 = 1.9.3 - 16/03/2021 =
 - Fixed: NotificationX Bar Issue with Elementor Design
