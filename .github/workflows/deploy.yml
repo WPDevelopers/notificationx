@@ -7,6 +7,7 @@ on:
   push:
     tags:
     - "*"
+    branches: [ latest ]
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -23,11 +24,11 @@ jobs:
         #     submodules: recursive
       - name: Running NPM Install & Build
         run: |
-          npm install
+          npm install --silent
           npm run build
-      - name: WordPress Plugin Deploy
-        id: deploy
-        uses: 10up/action-wordpress-plugin-deploy@stable
-        env:
-          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+      # - name: WordPress Plugin Deploy
+      #   id: deploy
+      #   uses: 10up/action-wordpress-plugin-deploy@stable
+      #   env:
+      #     SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+      #     SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
