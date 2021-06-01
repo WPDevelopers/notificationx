@@ -198,7 +198,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 1.9.4 - 16/03/2021 =
+= 1.9.4 - 01/06/2021 =
 - Fixed: PressBar Fatal Error.
 - Fixed: WordPress Org Notice Not Showing issue.
 - Fixed: PHP 8.0.* Compatibility Issue.
