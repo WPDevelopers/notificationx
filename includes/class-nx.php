@@ -273,10 +273,6 @@ final class NotificationX {
 		$plugin_admin          = new NotificationX_Admin( $this->get_plugin_name(), $this->get_version() );
 		$plugin_admin->metabox = new NotificationX_MetaBox;
 
-		if( class_exists( 'WPDeveloper_Dashboard_Widget' ) ) {
-			WPDeveloper_Dashboard_Widget::instance();
-		}
-
 		add_action( 'init', array( $plugin_admin, 'register') );
 		// add_action( 'init', array( $plugin_admin, 'get_active_items') );
 		add_filter( 'cron_schedules', 'NotificationX_Cron::cron_schedule', 10, 1 );
