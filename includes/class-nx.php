@@ -100,11 +100,6 @@ final class NotificationX {
 	 */
 	private function load_dependencies() {
 		/**
-		 * The code adds wpdev-dashboard-widget.php
-		 * It will show a wpdeveloper.net news feed in dashboard.
-		 */
-		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-wpdev-dashboard-widget.php';
-		/**
 		 * NotificationX DB
 		 */
 		require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-db.php';
