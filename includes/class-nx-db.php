@@ -1,12 +1,12 @@
 <?php
 /**
  * This class responsible for database work
- * using wordpress functionality 
+ * using wordpress functionality
  * get_option and update_option.
  */
 class NotificationX_DB {
     /**
-     * Get all the notification 
+     * Get all the notification
      * saved in options table.
      * @return array
      */
@@ -20,7 +20,7 @@ class NotificationX_DB {
      * @return boolean
      */
     public static function update_notifications( $new_value ){
-        return update_option( 'notificationx_data', $new_value );
+        return update_option( 'notificationx_data', $new_value, 'no' );
     }
     /**
      * Get all settings value from options table.
@@ -35,11 +35,11 @@ class NotificationX_DB {
             return $settings;
         }
         $settings = get_option( 'notificationx_settings', true );
-        
+
         if( ! empty( $name ) && isset( $settings[ $name ] ) ) {
             return $settings[ $name ];
         }
-        
+
         if( ! empty( $name ) && ! isset( $settings[ $name ] ) ) {
             return '';
         }
@@ -47,14 +47,14 @@ class NotificationX_DB {
         return is_array( $settings ) ? $settings : [];
     }
     /**
-     * Update settings 
+     * Update settings
      * @param array $value
      * @return boolean
      */
     public static function update_settings( $value, $key = '' ){
         if( ! empty( $key ) ) {
-            return update_option( $key, $value );
+            return update_option( $key, $value, 'no' );
         }
-        return update_option( 'notificationx_settings', $value );
+        return update_option( 'notificationx_settings', $value, 'no' );
     }
 }
