@@ -33,7 +33,7 @@ class Upgrader {
             $table_posts   = Database::$table_posts;
             $table_entries = Database::$table_entries;
             $table_stats   = Database::$table_stats;
-            dbDelta( "DROP TABLE $table_posts; DROP TABLE $table_entries; DROP TABLE $table_stats" );
+            $dbDelta = dbDelta( "DROP TABLE $table_posts; DROP TABLE $table_entries; DROP TABLE $table_stats" );
 
             $this->database->update_option( 'nx_free_version', false, 'no' );
             $this->database->update_option( 'nx_db_version', false, 'no' );

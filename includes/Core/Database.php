@@ -270,7 +270,7 @@ class Database {
     public function get_option( $key, $default = false){
         $results = $this->wpdb->get_row("SELECT * FROM {$this->wpdb->options} WHERE option_name='$key' LIMIT 1");
         if( $results ) {
-            return $results->option_value;
+            return ! empty( $results->option_value ) ? $results->option_value : $default;
         }
         return $default;
     }
