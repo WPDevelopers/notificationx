@@ -1,0 +1,263 @@
+// NX PRESS BAR CSS
+#nx-bar-bottom {
+  position: relative;
+}
+
+.notificationx-shortcode-wrapper > .nx-bar,
+.nx-bar {
+    @extend %posa;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background-color: #ddd;
+    text-align: center;
+    z-index: 99997;
+    font-size: 14px;
+    box-shadow: 0 0 70px -30px lighten(#000, 50%);
+    @include transition(all 0.2s ease-in);
+    &.nx-sticky-bar {
+        position: fixed;
+        width: 100%;
+    }
+    &.nx-position-top {
+        &.nx-bar-out {
+            top: -100% !important;
+        }
+    }
+    &.nx-position-bottom {
+        position: absolute;
+        top: 0;
+        &.nx-bar-out {
+            bottom: -100%;
+        }
+        &.nx-sticky-bar {
+          position: fixed;
+          top: auto;
+          bottom: 0;
+        }
+    }
+    .nx-bar-inner {
+        padding: 20px;
+        display: inline-block;
+        .nx-bar-content-wrap {
+            @extend %flex;
+            @extend %flex-align-center;
+            .nx-countdown-wrapper {
+                @extend %flex;
+                @extend %flex-align-center;
+                .nx-countdown-text {
+                    margin-right: 10px;
+                    &.nx-expired {
+                        display: none;
+                    }
+                }
+                .nx-countdown {
+                    overflow: hidden;
+                    background-color: #262626;
+                    color: #fff;
+                    .nx-time-section {
+                        float: left;
+                        margin: 0 5px;
+                        padding: 10px;
+                        position: relative;
+                        width: 40px;
+                        > span {
+                            line-height: 1;
+                            display: block;
+                        }
+                        .nx-countdown-time-text {
+                            display: none;
+                            font-size: 14px;
+                        }
+                        &:after {
+                            content: ":";
+                            @extend %posa;
+                            right: -6px;
+                            top: 9px;
+                            line-height: 1;
+                        }
+                        &:last-of-type:after {
+                            display: none;
+                        }
+                    }
+                    .nx-expired-text {
+                        padding: 10px;
+                        display: inline-block;
+                        &:not(.nx-countdown-expired) {
+                            display: none;
+                        }
+                    }
+                    &.nx-expired {
+                        padding: 10px;
+                        letter-spacing: 1px;
+                        .nx-expired-text {
+                            display: block;
+                        }
+                        .nx-time-section {
+                            display: none;
+                            > span {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+            .nx-inner-content-wrapper {
+                @extend %flex;
+                @extend %flex-align-center;
+            }
+            .nx-bar-content {
+                display: inline-block;
+                margin-left: 15px;
+                p {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                }
+            }
+            a.nx-bar-button {
+                font-size: 14px;
+                padding: 6px 15px;
+                margin-left: 15px;
+                background-color: #262626;
+                text-decoration: none;
+                display: inline-block;
+                color: #fff;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+            &:not(:last-child) {
+                .nx-inner-content-wrapper {
+                    margin-right: 40px;
+                }
+            }
+        }
+        .notificationx-close {
+            margin: 0;
+            @extend %posa;
+            right: 30px;
+            margin-top: -5px;
+            cursor: pointer;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            line-height: 17px;
+            font-size: 14px;
+        }
+    }
+    &.nx-close-left {
+        .nx-bar-inner {
+            .notificationx-close {
+                left: 30px;
+                right: auto;
+            }
+        }
+    }
+
+    &.nx-bar-has-elementor {
+        .nx-bar-inner {
+            display: block;
+            padding: 0;
+            .nx-bar-content-wrap {
+                display: block;
+            }
+        }
+    }
+    // TWO
+    &.press_bar_theme-two {
+        background-color: #5704a2;
+        color: #fff;
+        .nx-bar-inner {
+            .notificationx-close {
+                fill: #fff;
+            }
+        }
+    }
+    // THREE
+    &.press_bar_theme-three {
+        background-color: #3f4462;
+        color: #fff;
+        .nx-bar-inner {
+            .notificationx-close {
+                fill: #fff;
+            }
+            a.nx-bar-button {
+                background-color: #6549fe;
+            }
+            .nx-bar-content-wrap {
+                .nx-countdown-wrapper {
+                    .nx-countdown {
+                        background: none!important;
+                        margin-bottom: -10px;
+                        .nx-time-section {
+                            width: 55px;
+                            margin-bottom: 10px;
+                            background-color: #6549fe;
+                            &:after {
+                                @extend %content;
+                            }
+                            > span.nx-countdown-time-text {
+                                display: block;
+                            }
+                        }
+                        .nx-expired-text {
+                            margin-bottom: 10px;
+                            background-color: #6549fe;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media only screen and (max-width: 786px) {
+        .nx-bar-inner {
+            .nx-bar-content-wrap {
+                flex-direction: column;
+                .nx-countdown-wrapper {
+                    margin-bottom: 15px;
+                }
+                .nx-inner-content-wrapper {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    .nx-bar-content {
+                        margin-left: 0px;
+                    }
+                    .nx-bar-button {
+                        margin-top: 10px;
+                    }
+                }
+            }
+            .notificationx-close {
+                top: auto;
+                bottom: 15px;
+                right: 15px;
+                transform: translateY(0px);
+            }
+        }
+        &.nx-close-left {
+            .nx-bar-inner {
+                .notificationx-close {
+                    top: auto;
+                    bottom: 15px;
+                    left: 15px;
+                    right: auto;
+                    transform: translateY(0px);
+                }
+            }
+        }
+
+        &.notification_bar_theme-three {
+            .nx-bar-inner {
+                .nx-bar-content-wrap {
+                    .nx-countdown-wrapper {
+                        flex-direction: column;
+                    }
+                }
+            }
+        }
+    }
+}

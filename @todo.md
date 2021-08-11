@@ -1,0 +1,24 @@
+- Sorting
+- Add sorter
+- Refactor themes
+- Normalize for frontend
+- Create Others/Misc type
+- Cleanup Module and Extension/Type factory/parent class.
+- Check tutor compatibility with EDD and WooCommerce.
+- Use init_fields hook.
+- IP to city, country
+- nxpro_js_scripts
+- Handle expired nonce.
+- Migration.
+- Use update_notifications
+- Error messages
+- Apply appropriate filter for custom type.
+- paging
+- pressBar with rest
+- close button
+- Regenerate
+- Reset field when change Source/Type
+- Timestamp
+- recheck fallbac data function for missed functionality.
+- GetTemplate check all themes. Give theme, etc..
+- Contact Form also load form field other field than First field.

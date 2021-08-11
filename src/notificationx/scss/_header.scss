@@ -1,0 +1,75 @@
+.nx-settings-header {
+    height: auto;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    -webkit-display: flex;
+    display: flex;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+    -webkit-align-items: center;
+    align-items: center;
+    margin-bottom: 20px;
+    .nx-admin-header {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        & > img {
+            width: 200px;
+        }
+
+        a.nx-add-new-btn {
+            margin-left: 40px;
+            background-color: #fff;
+            color: #5614d5;
+            border: 0px;
+            padding: 10px 20px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 12px;
+            transition: all 0.3s ease-in-out 0s;
+            border: 1px solid;
+            &:hover {
+                color: #fff;
+                background-color: #5614d5;
+            }
+            &:focus,
+            &:visited
+            &:active {
+                outline: none;
+            }
+        }
+    }
+    .nx-header-left {
+        display: flex;
+        align-content: center;
+        align-items: center;
+        .title {
+            font-size: 22px;
+            color: #444;
+            font-weight: 600;
+            margin: 0px;
+            padding-left: 10px;
+            line-height: 1;
+        }
+    }
+    .nx-admin-logo-inline {
+        box-shadow: 1px 0 0 0 rgba(0, 0, 0, 0.1);
+        padding: 25px 20px 20px 23px;
+        margin-right: 10px;
+        & > svg {
+            width: 31.5px;
+            height: 32px;
+        }
+    }
+    .nx-header-left,
+    .nx-header-right {
+        flex: 1 1 auto;
+    }
+    .nx-header-right {
+        text-align: right;
+        & > span {
+            display: block;
+            padding-right: 0;
+        }
+    }
+}

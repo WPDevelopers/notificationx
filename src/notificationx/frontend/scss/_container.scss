@@ -1,0 +1,42 @@
+#notificationx-frontend {
+    .nx-container {
+        position  : fixed;
+        // overflow-y: scroll;
+        // height    : 85%;
+        z-index: 99998;
+        &.nxc-bottom_left {
+			bottom: 30px;
+            left: 30px;
+        }
+        &.nxc-bottom_right {
+			bottom: 30px;
+            right: 30px;
+        }
+    }
+}
+
+@keyframes SlideBottom {
+    0% {
+        transform: translateY(0%);
+    }
+    100% {
+        transform: translateY(1000%);
+    }
+}
+
+@keyframes SlideTop {
+    0% {
+        transform: translateY(1000%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+@keyframes FadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,24 @@
+&.themes-theme-three {
+    div.notificationx-inner {
+        div.notificationx-image {
+            border-right: 1px solid #f2f2f2;
+            border-left: none;
+            &.position-right {
+                border-left: 1px solid #f2f2f2;
+                border-right: none;
+            }
+        }
+    }
+    &.themes-email_subscription_theme-three {
+        div.notificationx-inner {
+            div.notificationx-image {
+                border-right: none;
+                border-left: none;
+                &.position-right {
+                    border-left: none;
+                    border-right: none;
+                }
+            }
+        }
+    }
+}

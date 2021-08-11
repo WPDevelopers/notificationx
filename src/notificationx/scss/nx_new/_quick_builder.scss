@@ -1,0 +1,139 @@
+.nx-quick-builder-wrapper {
+    width: 100%;
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+    border: 1px solid rgba (#6a4bff, 0.5);
+    border-radius: 20px;
+    background: #fff;
+    box-sizing: border-box;
+    .nx-admin-content > .wprf-tabs-wrapper {
+        margin-top: 0 !important;
+    }
+    .wprf-tab-menu-wrapper {
+        display: flex;
+        justify-content: center;
+        .wprf-tab-nav {
+            margin-left: -5px !important;
+            margin-right: -5px !important;
+            .wprf-tab-nav-item {
+                margin-left: 5px !important;
+                margin-right: 5px !important;
+                &:not(:last-child) {
+                    position: relative;
+                    &:after {
+                        position: absolute;
+                        content: "";
+                        width: 10px;
+                        height: 2px;
+                        left: calc(100% + 2px);
+                        background: #e8e7fe;
+                        top: calc(50% - 1px);
+                    }
+                }
+                &.wprf-tab-complete {
+                    background: #6a4bff !important;
+                    border-color: #6a4bff !important;
+                    color: #fff !important;
+                    &:after {
+                        background: #6a4bff;
+                    }
+                }
+            }
+        }
+    }
+    .wprf-tab-content-wrapper {
+        &.woocommerce.conversions_conv-theme-seven,
+        &.woocommerce.conversions_conv-theme-eight,
+        &.woocommerce.conversions_conv-theme-nine,
+        &.edd.conversions_conv-theme-seven,
+        &.edd.conversions_conv-theme-eight,
+        &.edd.conversions_conv-theme-nine,
+        &.zapier_conversions,
+        &.envato,
+        &.wp_comments,
+        &.woo_reviews,
+        &.reviewx,
+        &.zapier_reviews,
+        &.tutor,
+        &.learndash,
+        &.give,
+        &.zapier_email_subscription,
+        &.google {
+            .wprf-control-section.content {
+                display: none;
+            }
+        }
+    }
+
+    .wprf-tab-content-wrapper {
+        &.custom_notification_conversions,
+        &.custom_notification {
+            #source_tab {
+                .wprf-control-section.content {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .wprf-tab-menu-wrapper {
+        &:not(.custom_notification_conversions, .custom_notification){
+            .wprf-tab-nav-item.content_tab {
+                display: none !important;
+            }
+        }
+    }
+
+    .wprf-tab-content {
+        background: #f6f7fe;
+        padding: 30px;
+        border: 1px solid rgba (#6a4bff, 0.5);
+        border-radius: 20px;
+        > h4 {
+            text-align: center;
+            line-height: 1;
+            margin-bottom: 20px !important;
+        }
+        .nx-quick-builder-message {
+            box-sizing: border-box;
+            font-size: 16px;
+            line-height: 1.4;
+            text-align: center;
+            a {
+                text-decoration: underline;
+                color: #6a4bff;
+            }
+            .nx-on-click-install {
+                display: inline-flex;
+                width: initial;
+                min-height: 36px;
+                background: transparent;
+                border: 1.5px solid #6a4bff;
+                border-radius: 4px;
+                padding: 2px 25px;
+                font-size: 16px;
+                font-weight: 500;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                outline: none;
+                background: #6a4bff;
+                color: #fff;
+                line-height: 1.15;
+                transition: 0.3s ease-in-out;
+                box-sizing: border-box;
+                cursor: pointer;
+                &:hover,
+                &:focus {
+                    color: #fff;
+                    background-color: darken(#5614d5, 1%);
+                    border-color: darken(#5614d5, 1%);
+                    outline: none;
+                    box-shadow: 0 5px 10px -5px rgba(#5614d5, 0.2);
+                }
+            }
+        }
+    }
+}

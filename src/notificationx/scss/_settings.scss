@@ -1,0 +1,75 @@
+@import './documentation';
+
+.nx-settings {
+    .nx-settings-content {
+        display: flex;
+        .nx-settings-form-wrapper {
+            flex: 6;
+        }
+    }
+    // Right Side Settings CSS
+    .nx-settings-right {
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 3;
+        background: #fff;
+        margin: 6px 0px 0px 10px;
+        margin-top: 75px;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, .07);
+        @media only screen and (max-width: 767px) {
+            padding: 0;
+        }
+        .nx-sidebar {
+            background-color: #fff;
+            width: 100%;
+            padding: 0px 20px;
+            margin-top: 34px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            .nx-sidebar-block {
+                margin: 1em auto;
+                .nx-admin-sidebar-logo {
+                    max-width: 200px;
+                    display: block;
+                    margin-left: auto!important;
+                    margin-right: auto!important;
+                    margin-top: 0!important;
+                    margin-bottom: 25px!important;
+                    svg, img {
+                        width: 100%;
+                        display: block;
+                        margin: 10px auto;
+                    }
+                }
+                .nx-admin-sidebar-cta a {
+                    font-size: 1em;
+                    color: rgba(35, 40, 45, 0.45);
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    letter-spacing: .065em;
+                    text-align: center;
+                    margin: 0 auto!important;
+                    display: block;
+                    border: 1px solid rgba(35, 40, 45, 0.185);
+                    border-radius: 4px;
+                    padding: 15px;
+                    width: 200px;
+                    outline: none;
+                    box-shadow: none;
+                    transition: all .3s;
+                    marg
+                    &:hover {
+                        color: #23282d;
+                        box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.715);
+                    }
+                }
+            }
+
+        }
+    }
+}

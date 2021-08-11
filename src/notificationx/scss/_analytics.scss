@@ -1,0 +1,47 @@
+.analytics-display-area {
+    &.nx-stats-tease {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+            width: 100%;
+        }
+        &::before {
+            position: absolute;
+            content: "";
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgb(105 74 233 / 19%);
+        }
+        .nx-stats-pro-tease {
+            position: absolute;
+            z-index: 99;
+            background-color: #6A4BFF;
+            color: #fff;
+            border: none;
+            padding: 2px 30px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+            box-sizing: border-box;
+            transition: 0.3s ease-in-out;
+            a {
+                text-decoration: none;
+                color: #fff;
+            }
+            &:hover {
+                color: #fff;
+                background-color: darken(#5614d5, 1%);
+                outline: none;
+                box-shadow: 0 15px 25px -5px rgba(#5614d5, 0.3);
+            }
+        }
+    }
+}

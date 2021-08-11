@@ -1,0 +1,50 @@
+.nx-settings-documentation {
+    margin-top: 10px;
+    background: #fff;
+    padding: 30px 30px;
+}
+
+.nx-settings-row {
+    display: flex;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.nx-admin-block {
+    flex-basis: 25%;
+    padding: 25px;
+    box-shadow: 0 0 20px 0px #f2f2f2;
+    margin-left: 15px;
+    margin-right: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+header.nx-admin-block-header {
+    display: flex;
+    align-items: center;
+}
+
+.nx-admin-block-header-icon {
+    width: 35px;
+}
+
+h4.nx-admin-title {
+    margin: 0 15px;
+    font-size: 17px;
+}
+
+.nx-admin-block-content {
+    flex: 1;
+}
+
+.nx-admin-block-content>a {
+    color: #fff;
+    display: inline-block;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    background-image: -webkit-linear-gradient(-169deg, rgb(146, 113, 255) 0%, rgb(87, 37, 255) 100%);
+}

@@ -1,0 +1,54 @@
+&.themes-theme-two,
+&.themes-page_analytics_pa-theme-three,
+&.themes-review_saying,
+&.themes-total-download,
+&.themes-reviewed {
+    border-radius: 100px;
+    .notificationx-inner{
+        border-radius: 100px;
+    }
+    &:not(.img-position-right) {
+      .notificationx-content:first-child {
+        margin-left: 25px;
+      }
+    }
+    &.img-position-right {
+      .notificationx-content:first-child {
+        margin-right: 25px;
+      }
+    }
+    .notificationx-image:not(.image-circle) {
+        flex-basis: 80px;
+        width: 80px;
+        margin: 10px;
+        margin-right: 0px;
+        padding: 15px;
+        &.position-left {
+            margin-left: 10px;
+            margin-right: 0px;
+        }
+        &.position-right {
+            margin-right: 10px;
+            margin-left: 0px;
+        }
+    }
+    div.notificationx-close {
+        align-self: center;
+        margin-top: 0px;
+    }
+    &.img-position-right {
+        div.notificationx-close{
+            order: 0;
+            padding: 10px 10px 10px 15px;
+        }
+        div.notificationx-content{
+            order: 1;
+        }
+        div.notificationx-image{
+            order: 2;
+        }
+    }
+    .notificationx-link{
+      border-radius: 100px;
+    }
+}

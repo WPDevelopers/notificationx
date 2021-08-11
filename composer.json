@@ -1,0 +1,28 @@
+{
+  "name": "wpdeveloper/notificationx",
+  "type": "wordpress-plugin",
+  "authors": [
+    {
+      "name": "Md. Alimuzzaman Alim",
+      "email": "alim@ar.com.bd"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/udx/lib-settings"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/udx/lib-utility"
+    }
+  ],
+  "require": {
+    "udx/lib-settings": "dev-master"
+  },
+  "autoload": {
+    "classmap": [
+      "includes"
+    ]
+  }
+}

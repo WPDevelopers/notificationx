@@ -1,0 +1,15 @@
+.swal2-actions {
+    &.nx-pro-alert-actions {
+        justify-content: flex-end;
+    }
+    &.nx-delete-actions {
+        button.swal2-cancel {
+            background-color: #d14529;
+            color: #fff;
+        }
+        button.swal2-confirm {
+            background-color: #6a4bff;
+            color: #fff;
+        }
+    }
+}

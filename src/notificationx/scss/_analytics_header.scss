@@ -1,0 +1,39 @@
+.nx-analytics-counter-wrapper {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: space-between;
+    margin-left: -15px;
+    margin-right: -15px;
+    & > div {
+        flex: 1;
+        flex-basis: 33.3333%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    & > div:not(:last-child) {
+        border-bottom: 1px solid #f2f2f2;
+    }
+
+    .nx-analytics-counter {
+        background-color: #fff;
+        color: #fff;
+        border-radius: 5px;
+        & > a {
+            color: #4c4d57;
+            padding: 45px;
+            display: block;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            span.nx-counter-icon {
+                margin-right: 20px;
+            }
+            span.nx-counter-number {
+                font-size: 50px;
+                line-height: 1;
+                letter-spacing: 2px;
+                display: block;
+            }
+        }
+    }
+}

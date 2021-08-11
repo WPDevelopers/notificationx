@@ -1,21 +1,21 @@
 <?php
 /**
- * @link              https://wpdeveloper.net
- * @since             1.0.0
- * @package           NotificationX
- *
- * @wordpress-plugin
  * Plugin Name:       NotificationX
  * Plugin URI:        https://notificationx.com
  * Description:       Social Proof & Recent Sales Popup, Comment Notification, Subscription Notification, Notification Bar and many more.
- * Version:           1.9.4
+ * Version:           2.0.0
  * Author:            WPDeveloper
  * Author URI:        https://wpdeveloper.net
  * License:           GPL-3.0+
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       notificationx
  * Domain Path:       /languages
+ *
+ * @package           NotificationX
+ * @link              https://wpdeveloper.net
+ * @since             1.0.0
  */
+
 /**
  * If this file is called directly, abort.
  */
@@ -25,50 +25,77 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Defines CONSTANTS for Whole plugins.
  */
-define( 'NOTIFICATIONX_VERSION', '1.9.4' );
-define( 'NOTIFICATIONX_PLUGIN_URL', 'https://notificationx.com' );
-define( 'NOTIFICATIONX_URL', plugins_url( '/', __FILE__ ) );
-define( 'NOTIFICATIONX_ADMIN_URL', NOTIFICATIONX_URL . 'admin/' );
-define( 'NOTIFICATIONX_PUBLIC_URL', NOTIFICATIONX_URL . 'public/' );
 define( 'NOTIFICATIONX_FILE', __FILE__ );
+define( 'NOTIFICATIONX_VERSION', '2.0.0' );
+define( 'NOTIFICATIONX_URL', plugins_url( '/', __FILE__ ) );
+define( 'NOTIFICATIONX_PATH', plugin_dir_path( __FILE__ ) );
 define( 'NOTIFICATIONX_BASENAME', plugin_basename( __FILE__ ) );
-define( 'NOTIFICATIONX_ROOT_DIR_PATH', plugin_dir_path( __FILE__ ) );
-define( 'NOTIFICATIONX_ADMIN_DIR_PATH', NOTIFICATIONX_ROOT_DIR_PATH . 'admin/' );
-define( 'NOTIFICATIONX_PUBLIC_PATH', NOTIFICATIONX_ROOT_DIR_PATH . 'public/' );
-define( 'NOTIFICATIONX_EXT_DIR_PATH', NOTIFICATIONX_ROOT_DIR_PATH . 'extensions/' );
+
+define( 'NOTIFICATIONX_ASSETS', NOTIFICATIONX_URL . 'assets/' );
+define( 'NOTIFICATIONX_ASSETS_PATH', NOTIFICATIONX_PATH . 'assets/' );
+define( 'NOTIFICATIONX_INCLUDES', NOTIFICATIONX_PATH . 'includes/' );
+
+
+define( 'NOTIFICATIONX_PLUGIN_URL', 'https://notificationx.com' );
+define( 'NOTIFICATIONX_ADMIN_URL', NOTIFICATIONX_ASSETS . 'admin/' );
+define( 'NOTIFICATIONX_PUBLIC_URL', NOTIFICATIONX_ASSETS . 'public/' );
+
 /**
- * The code that runs during plugin activation.
- * This action is documented in includes/class-nx-activator.php
+ * The Core Engine of the Plugin
  */
-function activate_notificationx() {
-	require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-activator.php';
-	NotificationX_Activator::activate();
+if ( ! class_exists( '\NotificationX\NotificationX' ) ) {
+    require_once NOTIFICATIONX_PATH . 'vendor/autoload.php';
+    if(nx_is_plugin_active( 'notificationx-pro/notificationx-pro.php' )){
+        if( file_exists(dirname(NOTIFICATIONX_PATH) . '/notificationx-pro/vendor/autoload.php') ) {
+            require_once dirname(NOTIFICATIONX_PATH) . '/notificationx-pro/vendor/autoload.php';
+        } else {
+            add_action('plugins_loaded', function(){
+                add_action( 'admin_notices', 'nx_free_compatibility_notice' );
+                remove_action( 'admin_notices', 'notificationx_install_core_notice' );
+                \NotificationX\Core\Helper::remove_old_notice();
+            });
+        }
+    }
+
+    function activate_notificationx() {
+        \NotificationX\NotificationX::get_instance()->activator();
+    }
+    /**
+     * Plugin Activator
+     */
+    register_activation_hook( NOTIFICATIONX_FILE, 'activate_notificationx' );
+    \NotificationX\NotificationX::get_instance();
 }
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in includes/class-nx-deactivator.php
- */
-function deactivate_notificationx() {
-	require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx-deactivator.php';
-	NotificationX_Deactivator::deactivate();
+
+function nx_free_compatibility_notice(){
+    if ( ! function_exists( 'get_plugins' ) ) {
+        require_once ABSPATH . 'wp-admin/includes/plugin.php';
+    }
+    $plugins = get_plugins();
+    if( isset( $plugins['notificationx-pro/notificationx-pro.php'], $plugins['notificationx-pro/notificationx-pro.php']['Version'] ) && version_compare( $plugins['notificationx-pro/notificationx-pro.php']['Version'], '2.0.0', '>=' ) ) {
+        return;
+    }
+    ?>
+        <div class="notice notice-warning is-dismissible">
+            <p><strong>Recommended: </strong> Seems like you haven't updated the NotificationX Pro version. Please make sure to update NotificationX Pro plugin from <a href="<?php echo esc_url( admin_url('plugins.php' ) ); ?>"><strong>wp-admin -> Plugins</strong></a>.</p>
+        </div>
+    <?php
 }
-register_activation_hook( __FILE__, 'activate_notificationx' );
-register_deactivation_hook( __FILE__, 'deactivate_notificationx' );
-/**
- * The core plugin class that is used to define internationalization,
- * admin-specific hooks, and public-facing site hooks.
- */
-require_once NOTIFICATIONX_ROOT_DIR_PATH . 'includes/class-nx.php';
-/**
- * Begins execution of the plugin.
- *
- * Since everything within the plugin is registered via hooks,
- * then kicking off the plugin from this point in the file does
- * not affect the page life cycle.
- *
- * @since    1.0.0
- */
-function run_NotificationX() {
-	NotificationX::get_instance();
+
+
+function nx_is_plugin_active( $plugin ) {
+    return in_array( $plugin, (array) get_option( 'active_plugins', array() ), true ) || nx_is_plugin_active_for_network( $plugin );
 }
-run_NotificationX();
+
+function nx_is_plugin_active_for_network( $plugin ) {
+    if ( ! is_multisite() ) {
+        return false;
+    }
+
+    $plugins = get_site_option( 'active_sitewide_plugins' );
+    if ( isset( $plugins[ $plugin ] ) ) {
+        return true;
+    }
+
+    return false;
+}

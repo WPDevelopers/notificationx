@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "outDir": "./build/",
+        "target": "es5",
+        // "lib": [
+        //     "dom",
+        //     "dom.iterable",
+        //     "esnext",
+        //     "es2015", "es2016"
+        // ],
+        "jsx": "react",
+        "module": "commonjs", // "esnext",
+        "esModuleInterop": true,
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": false,
+        "moduleResolution": "node",
+        "noUnusedLocals": false,
+        "sourceMap": true,
+        "types": ["node"],
+    },
+    "include": [
+        "**/**/*"
+    ],
+    "exclude": [ "**/**/*.svg" ]
+}

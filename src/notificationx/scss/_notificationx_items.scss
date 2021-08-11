@@ -1,0 +1,183 @@
+.notificationx-items {
+    padding: 0 20px;
+    .nx-admin-menu {
+        // margin-top: 30px;
+        // margin-bottom: 0px;
+        & > ul {
+            // margin-bottom: 0px;
+            li {
+                // display: inline-block;
+                &.active {
+                    a {
+                        color: #5614d5;
+                    }
+                }
+                a {
+                    color: #313236;
+                    margin-right: 25px;
+                    text-decoration: none;
+                }
+                &.nx-empty-trash-btn {
+                    a {
+                        background-color: #fafafa;
+                        color: #dd7474;
+                        padding: 5px 10px;
+                    }
+                }
+            }
+        }
+    }
+    // .nx-admin-not-found,
+    // .nx-admin-not-found p {
+    //     color: #c4434e;
+    //     margin: 0px;
+    // }
+    .nx-admin-items {
+        table {
+            border-spacing: 0 20px;
+            border: 0px;
+            background: none;
+            box-shadow: none;
+            td {
+                padding: 15px 25px;
+                font-size: 15px;
+            }
+            thead {
+                background-color: #fafafa;
+                tr {
+                    & > td:nth-child(1) {
+                        width: 2%;
+                    }
+                    & > td:nth-child(2) {
+                        width: 30%;
+                    }
+                    & > td:nth-child(3) {
+                        width: 25%;
+                    }
+                }
+            }
+            tbody {
+                transform: translateY(-20px);
+                tr {
+                    border-spacing: 0 30px;
+                    box-shadow: 0px 10px 22px 0px rgba(0, 4, 32, 0.05);
+                    vertical-align: middle;
+                    & > td {
+                        margin-bottom: 20px;
+                        background-color: #fff;
+                        vertical-align: middle;
+                        color: #313236;
+                    }
+                }
+            }
+        }
+        .nx-admin-title {
+            & > strong {
+                font-size: 16px;
+                @media only screen and (max-width: 1399px) {
+                  font-size: 14px;
+                }
+            }
+            .nx-admin-title-actions {
+                margin-top: 15px;
+                & > a,
+                & > button {
+                    font-size: 14px;
+                    background-repeat: no-repeat;
+                    background-size: 13px 15px;
+                    padding-left: 20px;
+                    margin-right: 10px;
+                    color: #555555;
+                    border: 0;
+                    background-color: #fff;
+                    cursor: pointer;
+                    cursor: pointer;
+                }
+                .nx-admin-title-edit {
+                    background-image: url('../../../assets/admin/images/icons/edit.png');
+                }
+                .nx-admin-title-regenerate {
+                    background-image: url('../../../assets/admin/images/icons/regenerate.png');
+                }
+                .nx-admin-title-duplicate {
+                    background-image: url('../../../assets/admin/images/icons/duplicate.png');
+                }
+                .nx-admin-title-restore {
+                    background-size: 16px 16px;
+                    padding-left: 22px;
+                    background-image: url('../../../assets/admin/images/icons/restore.png');
+                }
+                .nx-admin-title-trash {
+                    color: #c4434e;
+                    background-image: url('../../../assets/admin/images/icons/trash.png');
+                }
+                .nx-admin-title-shortcode {
+                    background-image: url('../../../assets/admin/images/icons/shortcode.png');
+                    color: #844dee;
+                }
+            }
+        }
+    //     .nx-admin-preview {
+    //         height: 90px;
+    //         img {
+    //             display: block;
+    //             max-width: 100%;
+    //             background-color: #5621d51a;
+    //             padding: 5px;
+    //             box-shadow: 0 0 30px 0px #5621d50d;
+    //             box-sizing: border-box;
+    //             max-height: 100%;
+    //         }
+    //     }
+    // }
+    // .nx-admin-status {
+    //     label {
+    //         width: 2em;
+    //         height: 1em;
+    //         position: relative;
+    //         cursor: pointer;
+    //         display: block;
+    //         font-size: 24px;
+    //         margin-left: -3px;
+    //         &:before,
+    //         &:after {
+    //             content: "";
+    //             position: absolute;
+    //         }
+    //         &:before {
+    //             width: 2em;
+    //             height: 1em;
+    //             left: 0.1em;
+    //             transition: background 0.1s 0.1s ease;
+    //             background: #cbcfd0;
+    //             border: 1px solid #cbcfd0;
+    //             border-radius: 50px;
+    //         }
+    //         &:after {
+    //             width: 0.8em;
+    //             height: 0.8em;
+    //             border-radius: 100%;
+    //             left: 0.2em;
+    //             top: 0.14em;
+    //             transition: all 0.2s ease;
+    //             box-shadow: 0 0 0 5px #fcfff4 inset;
+    //             background: #fff;
+    //             z-index: 2;
+    //             animation: switch-off 0.3s ease-out;
+    //         }
+    //     }
+    //     input[type="checkbox"] {
+    //         visibility: hidden;
+    //         display: none;
+    //         &:checked + label::before {
+    //             background: #5614d5;
+    //             border: 1px solid #5614d5;
+    //         }
+    //         &:checked + label::after {
+    //             left: 1.2em;
+    //             background: #ffffff;
+    //             animation: switch-on 0.3s ease-out;
+    //         }
+    //     }
+    }
+}
