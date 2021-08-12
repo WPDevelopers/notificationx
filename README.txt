@@ -194,17 +194,20 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Screenshots ==
 
-1. Overview of few notification
-2. Sales Notification
-3. Comment Notification
-4. Plugin Download Stats
-5. Plugin Review Teaser
-6. Email Subscription Alert
-7. Notification Bar with Countdown
+1. All NotificationX Overview
+2. Analytics Dashboard
+3. Quick Builder Overview
+4. Overview of few notification
+5. Sales Notification
+6. Comment Notification
+7. Plugin Download Stats
+8. Plugin Review Teaser
+9. Email Subscription Alert
+10. Notification Bar with Countdown
 
 == Changelog ==
 
-= 2.0.0 - 11/08/2021 =
+= 2.0.0 - 12/08/2021 =
 
 - Revamped : Rebuilt entire plugin with ReactJS
 - Revamped : Code Structure for better performance
