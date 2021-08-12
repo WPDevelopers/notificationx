@@ -125,7 +125,6 @@ class Settings extends UsabilityDynamicsSettings {
                 "tab-general" => apply_filters('nx_settings_tab_general', [
                     'id'      => "tab-general",
                     'label'   => "General",
-                    // 'icon'    => NOTIFICATIONX_ADMIN_URL . 'images/icons/pencil.svg',
                     'classes' => "tab-general",
                     'fields'  => [
                         'section-modules' => [
@@ -151,8 +150,7 @@ class Settings extends UsabilityDynamicsSettings {
                 ]),
                 "advanced-settings-tab" => apply_filters('nx_settings_tab_advanced', [
                     'id'      => "tab-advanced-settings",
-                    'label'   => "Advanced Settings",
-                    // 'icon'    => NOTIFICATIONX_ADMIN_URL . 'images/icons/pencil.svg',
+                    'label'   => __("Advanced Settings", 'notificationx'),
                     'classes' => "tab-advanced-settings",
                     'fields'  => [
                         'powered_by' => [
@@ -217,7 +215,6 @@ class Settings extends UsabilityDynamicsSettings {
                 'email-analytics-reporting' => apply_filters('nx_settings_tab_email_analytics', [
                     'label' => __('Analytics & Reporting', 'notificationx'),
                     'id'      => "email-analytics-reporting",
-                    // 'icon'    => NOTIFICATIONX_ADMIN_URL . 'images/icons/pencil.svg',
                     'classes' => "tab-advanced-settings",
                     'fields' => [
                         'analytics' => array(
