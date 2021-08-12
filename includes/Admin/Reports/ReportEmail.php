@@ -54,6 +54,8 @@ class ReportEmail {
             if( ! empty( $email ) ) {
                 if( $this->send_email_weekly( $request->get_param('reporting_frequency'), true, $email ) ) {
                     wp_send_json_success( __( 'Successfully Sent an Email', 'notificationx' ) );
+                } else {
+                    wp_send_json_error( __( 'Email cannot be sent for some reason.', 'notificationx' ) );
                 }
             }
             wp_send_json_error( __( 'Something went wrong.', 'notificationx' ) );
@@ -63,16 +65,16 @@ class ReportEmail {
     }
 
     private static function timestamps( $date = false ){
-        if( is_null( static::$current_timestamp ) ) {
-            static::$current_timestamp = current_time('timestamp');
+        if( is_null( self::$current_timestamp ) ) {
+            self::$current_timestamp = current_time('timestamp');
         }
         if( $date ) {
-            if( is_null( static::$current_date ) ) {
-                static::$current_date = current_time('Y-m-d');
+            if( is_null( self::$current_date ) ) {
+                self::$current_date = current_time('Y-m-d');
             }
-            return static::$current_date;
+            return self::$current_date;
         }
-        return static::$current_timestamp;
+        return self::$current_timestamp;
     }
 
     public function create_date($count = '-7days'){

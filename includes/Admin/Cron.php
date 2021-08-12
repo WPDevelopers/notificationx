@@ -58,7 +58,7 @@ class Cron {
 
         // If there is no next event, start cron now.
         if (!wp_next_scheduled($this->hook, array('post_id' => $post_id))) {
-            wp_schedule_single_event(time(), $this->hook, array('post_id' => $post_id));
+            wp_schedule_single_event(time() + 10, $this->hook, array('post_id' => $post_id));
         }
     }
 
