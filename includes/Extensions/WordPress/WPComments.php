@@ -27,7 +27,7 @@ class WPComments extends Extension {
 
     public $priority = 5;
     public $id       = 'wp_comments';
-    public $img      = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/wordpress.png';
+    public $img      = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/wp-comments.png';
     public $doc_link = 'https://notificationx.com/docs-category/configurations/';
     public $types    = 'comments';
     public $module   = 'modules_wordpress';
