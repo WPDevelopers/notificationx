@@ -220,6 +220,8 @@ class Migration {
         $post               = [];
         // get() function use $this->_post
         $this->_post        = $_post;
+        $nx_id              = $this->get('ID');
+
         $post['id']         = $this->get('ID');
         $post['nx_id']      = $this->get('ID');
         $post['title']      = $this->get('post_title');
@@ -322,6 +324,7 @@ class Migration {
                         $post['exclude_products']        = $this->get("_nx_meta_edd_exclude_products");
                         break;
                     case 'freemius':
+                        Cron::get_instance()->set_cron($nx_id, 'nx_freemius_interval');
                         $post['source']             = 'freemius_conversions';
                         $post['freemius_item_type'] = $this->get("_nx_meta_freemius_item_type");
                         $post['freemius_themes']    = $this->get("_nx_meta_freemius_themes");
@@ -346,6 +349,7 @@ class Migration {
                         $post['source'] = 'zapier_conversions';
                         break;
                     case 'envato':
+                        Cron::get_instance()->set_cron($nx_id, 'nx_envato_interval');
                         $sales  = $this->get('_nx_meta_envato_content');
                         $envato = Envato::get_instance();
                         if(is_array($sales)){
@@ -469,6 +473,8 @@ class Migration {
 
                 switch ($post['source']) {
                     case 'wp_reviews':
+                        Cron::get_instance()->set_cron($nx_id, 'nx_wp_review_interval');
+
                         $plugin_data = $this->get('_nx_meta_wporg_review_content');
                         if (!empty($plugin_data['reviews'])) {
                             $reviews = $plugin_data['reviews'];
@@ -507,6 +513,7 @@ class Migration {
                         # code...
                         break;
                     case 'freemius':
+                        Cron::get_instance()->set_cron($nx_id, 'nx_freemius_interval');
                         // Content Tab
                         $post['source']             = 'freemius_reviews';
                         $post['freemius_item_type'] = $this->get("_nx_meta_freemius_item_type");
@@ -590,6 +597,7 @@ class Migration {
 
                 switch ($post['source']) {
                     case 'wp_stats':
+                        Cron::get_instance()->set_cron($nx_id, 'nx_wp_stats_interval');
                         $plugin_data = $this->get('_nx_meta_wporg_stats_content');
                         if (!empty($plugin_data)) {
                             $WPS = WPOrgStats::get_instance();
@@ -609,6 +617,7 @@ class Migration {
                         # code...
                         break;
                     case 'freemius':
+                        Cron::get_instance()->set_cron($nx_id, 'nx_freemius_interval');
                         $post['source']             = 'freemius_stats';
                         $post['freemius_item_type'] = $this->get("_nx_meta_freemius_item_type");
                         $post['freemius_themes']    = $this->get("_nx_meta_freemius_themes");
@@ -859,6 +868,7 @@ class Migration {
 
                 switch ($post['source']) {
                     case 'mailchimp':
+                        Cron::get_instance()->set_cron($nx_id, 'nx_mailchimp_interval');
                         $post['mailchimp_list']                   = $this->get("_nx_meta_mailchimp_list");
                         $sales  = $this->get("_nx_meta_mailchimp_content");
                         $mailchimp = MailChimp::get_instance();
@@ -876,6 +886,7 @@ class Migration {
                         # code...
                         break;
                     case 'convertkit':
+                        Cron::get_instance()->set_cron($nx_id, 'nx_convertkit_interval');
                         $post['convertkit_form']             = $this->get("_nx_meta_convertkit_form");
                         $sales  = $this->get("_nx_meta_convertkit_content");
                         $convertkit = ConvertKit::get_instance();
@@ -900,6 +911,7 @@ class Migration {
                 }
                 break;
             case 'page_analytics':
+                Cron::get_instance()->set_cron($nx_id, 'nx_ga_cache_duration');
                 // Source Tab
                 $post['source']       = $this->get('_nx_meta_page_analytics_source');
                 $post['themes']        = $this->get('_nx_meta_page_analytics_theme');
