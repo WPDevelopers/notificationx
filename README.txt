@@ -209,6 +209,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 = 2.0.0 - 12/08/2021 =
 
+- Introducing : V2 of NotificationX
 - Revamped : Rebuilt entire plugin with ReactJS
 - Revamped : Code Structure for better performance
 - Redesigned : UI/UX Structure
