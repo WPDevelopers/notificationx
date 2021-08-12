@@ -84,10 +84,10 @@ NXTEMHEADER;
     }
 
     public function footer(){
-        $facebook = NOTIFICATIONX_PUBLIC_URL  . 'images/reports/facebook.png';
-        $twitter = NOTIFICATIONX_PUBLIC_URL  . 'images/reports/twitter.png';
-        $youtube = NOTIFICATIONX_PUBLIC_URL  . 'images/reports/youtube.png';
-        $web = NOTIFICATIONX_PUBLIC_URL  . 'images/reports/web.png';
+        $facebook = NOTIFICATIONX_PUBLIC_URL  . 'image/reports/facebook.png';
+        $twitter = NOTIFICATIONX_PUBLIC_URL  . 'image/reports/twitter.png';
+        $youtube = NOTIFICATIONX_PUBLIC_URL  . 'image/reports/youtube.png';
+        $web = NOTIFICATIONX_PUBLIC_URL  . 'image/reports/web.png';
 
         $output = <<<NXTEMFOOTER
         </tbody>
@@ -121,7 +121,7 @@ NXTEMFOOTER;
 
     public function body_header( $args = array(), $frequency ){
         $args = current( $args );
-        $logo = NOTIFICATIONX_PUBLIC_URL  . 'images/reports/logo.png';
+        $logo = NOTIFICATIONX_PUBLIC_URL  . 'image/reports/logo.png';
         $from_date = isset( $args['from_date'] ) ? date( 'M j, Y', strtotime( $args['from_date'] ) ) : '';
         $to_date = isset( $args['to_date'] ) ? date( 'M j, Y', strtotime( $args['to_date'] ) ) : '';
 
@@ -255,8 +255,8 @@ NXPROMO;
         $ctr = number_format( $args[ 'ctr' ] );
         $percentage_ctr = $args[ 'percentage_ctr' ];
 
-        $up_arrow = $v_arrow = $c_arrow = $ctr_arrow = NOTIFICATIONX_PUBLIC_URL  . 'images/reports/nx-template-up.png';
-        $down_arrow = NOTIFICATIONX_PUBLIC_URL  . 'images/reports/nx-template-down.png';
+        $up_arrow = $v_arrow = $c_arrow = $ctr_arrow = NOTIFICATIONX_PUBLIC_URL  . 'image/reports/nx-template-up.png';
+        $down_arrow = NOTIFICATIONX_PUBLIC_URL  . 'image/reports/nx-template-down.png';
         $v_color = $c_color = $ctr_color = '#34cf8a';
         if( $percentage_views < 0 ) {
             $v_color = '#ff616c';
@@ -383,7 +383,7 @@ NXBOXTEM;
 
     public static function pro_message(){
         $is_pro = defined( 'NOTIFICATIONX_PRO_VERSION' );
-        $graph = NOTIFICATIONX_PUBLIC_URL  . 'images/reports/graph.png';
+        $graph = NOTIFICATIONX_PUBLIC_URL  . 'image/reports/graph.png';
         $admin_analytics_url = admin_url('admin.php?page=nx-admin#/analytics');
         if( $is_pro ) {
             $output = <<<NXPROMSG
