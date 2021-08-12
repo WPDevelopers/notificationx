@@ -141,41 +141,43 @@ class Migration {
 
             $pid = $post['ID'];
 
-            $post_meta = $this->get_normalize_meta( $pid );
+            $is_exist = PostType::get_instance()->get_col('nx_id', ['nx_id' => $pid]);
 
-            if (!empty($post_meta)) {
+            if (empty($is_exist)) {
                 try {
-                    $meta = $post_meta;
-                    // we need to do create post first so that we can save entries.
-                    $nx_id = PostType::get_instance()->insert_post([
-                        'nx_id' => $post['ID'],
-                        'title' => $post['post_title'],
-                    ]);
-                    $post = array_merge($post, $meta, ['nx_id' => $nx_id]);
-                    $data = $this->migrate_post($post);
-                    $posts[$pid] = [ 'source' => $data['source'] ];
-                    $this->migrate_stats($post);
-                    $post_date      = (!empty($post['post_date_gmt']) && $post['post_date_gmt'] != '0000-00-00 00:00:00' ) ? $post['post_date_gmt'] : get_gmt_from_date($post['post_date']);
-                    $post_modified  = (!empty($post['post_modified_gmt']) && $post['post_modified_gmt'] != '0000-00-00 00:00:00' ) ? $post['post_modified_gmt'] : get_gmt_from_date($post['post_modified']);
-                    $status = !empty($data['enabled']) ? $data['enabled'] : false;
-                    if($post['post_status'] == 'trash'){
-                        $status = false;
-                        $data['trash'] = true;
-                        // $post['post_title'] = "Trash > " . $post['post_title'];
-                    }
+                    $post_meta = $this->get_normalize_meta( $pid );
+                    if(!empty($post_meta)){
+                        // we need to do create post first so that we can save entries.
+                        $nx_id = PostType::get_instance()->insert_post([
+                            'nx_id' => $post['ID'],
+                            'title' => $post['post_title'],
+                        ]);
+                        $post = array_merge($post, $post_meta, ['nx_id' => $nx_id]);
+                        $data = $this->migrate_post($post);
+                        $posts[$pid] = [ 'source' => $data['source'] ];
+                        $this->migrate_stats($post);
+                        $post_date      = (!empty($post['post_date_gmt']) && $post['post_date_gmt'] != '0000-00-00 00:00:00' ) ? $post['post_date_gmt'] : get_gmt_from_date($post['post_date']);
+                        $post_modified  = (!empty($post['post_modified_gmt']) && $post['post_modified_gmt'] != '0000-00-00 00:00:00' ) ? $post['post_modified_gmt'] : get_gmt_from_date($post['post_modified']);
+                        $status = !empty($data['enabled']) ? $data['enabled'] : false;
+                        if($post['post_status'] == 'trash'){
+                            $status = false;
+                            $data['trash'] = true;
+                            // $post['post_title'] = "Trash > " . $post['post_title'];
+                        }
 
-                    PostType::get_instance()->update_post([
-                        'nx_id'        => $data['nx_id'],
-                        'type'         => $data['type'],
-                        'source'       => $data['source'],
-                        'theme'        => $data['themes'],
-                        'global_queue' => !empty($data['global_queue']) ? $data['global_queue'] : false,
-                        'enabled'      => $status,
-                        'title'        => $post['post_title'],
-                        'data'         => $data,
-                        'created_at'   => $post_date,
-                        'updated_at'   => $post_modified,
-                    ], $nx_id);
+                        PostType::get_instance()->update_post([
+                            'nx_id'        => $data['nx_id'],
+                            'type'         => $data['type'],
+                            'source'       => $data['source'],
+                            'theme'        => $data['themes'],
+                            'global_queue' => !empty($data['global_queue']) ? $data['global_queue'] : false,
+                            'enabled'      => $status,
+                            'title'        => $post['post_title'],
+                            'data'         => $data,
+                            'created_at'   => $post_date,
+                            'updated_at'   => $post_modified,
+                        ], $nx_id);
+                    }
 
                 } catch (\Exception $e) {
                     //throw $th;
