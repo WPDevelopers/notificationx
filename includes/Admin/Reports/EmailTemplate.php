@@ -84,10 +84,10 @@ NXTEMHEADER;
     }
 
     public function footer(){
-        $facebook = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/facebook.png';
-        $twitter = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/twitter.png';
-        $youtube = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/youtube.png';
-        $web = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/web.png';
+        $facebook = NOTIFICATIONX_PUBLIC_URL  . 'images/reports/facebook.png';
+        $twitter = NOTIFICATIONX_PUBLIC_URL  . 'images/reports/twitter.png';
+        $youtube = NOTIFICATIONX_PUBLIC_URL  . 'images/reports/youtube.png';
+        $web = NOTIFICATIONX_PUBLIC_URL  . 'images/reports/web.png';
 
         $output = <<<NXTEMFOOTER
         </tbody>
@@ -121,7 +121,7 @@ NXTEMFOOTER;
 
     public function body_header( $args = array(), $frequency ){
         $args = current( $args );
-        $logo = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/logo.png';
+        $logo = NOTIFICATIONX_PUBLIC_URL  . 'images/reports/logo.png';
         $from_date = isset( $args['from_date'] ) ? date( 'M j, Y', strtotime( $args['from_date'] ) ) : '';
         $to_date = isset( $args['to_date'] ) ? date( 'M j, Y', strtotime( $args['to_date'] ) ) : '';
 
@@ -221,29 +221,6 @@ NXTEMBODY;
         $clicks = number_format( $clicks );
         $ctr = number_format( $ctr );
 
-        // $last_wk_ctr = $last_wk_views > 0 ? number_format( ( intval( $last_wk_clicks ) / intval( $last_wk_views ) ) * 100, 2) : 0;
-        // $percentage_views = $last_wk_views > 0 ? number_format( ( ( $views - $last_wk_views ) / $last_wk_views ) * 100, 2 ) : 0;
-        // $percentage_clicks = $last_wk_clicks > 0 ? number_format( ( ( $clicks - $last_wk_clicks ) / $last_wk_clicks ) * 100, 2 ) : 0;
-        // $percentage_ctr = $last_wk_ctr > 0 ? number_format( ( ( $ctr - $last_wk_ctr ) / $last_wk_ctr ) * 100, 2 ) : 0;
-
-        // $up_arrow = $v_arrow = $c_arrow = $ctr_arrow = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/nx-template-up.png';
-        // $down_arrow = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/nx-template-down.png';
-
-        // $v_color = $c_color = $ctr_color = '#34cf8a';
-
-        // if( $percentage_views < 0 ) {
-        //     $v_arrow = $down_arrow;
-        //     $v_color = '#ff616c';
-        // }
-        // if( $percentage_clicks < 0 ) {
-        //     $c_arrow = $down_arrow;
-        //     $c_color = '#ff616c';
-        // }
-        // if( $percentage_ctr < 0 ) {
-        //     $ctr_arrow = $down_arrow;
-        //     $ctr_color = '#ff616c';
-        // }
-
         $text_lead = 'In the last 7 Days';
 
         if( $frequency === 'nx_daily' ) {
@@ -278,8 +255,8 @@ NXPROMO;
         $ctr = number_format( $args[ 'ctr' ] );
         $percentage_ctr = $args[ 'percentage_ctr' ];
 
-        $up_arrow = $v_arrow = $c_arrow = $ctr_arrow = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/nx-template-up.png';
-        $down_arrow = NOTIFICATIONX_ADMIN_URL  . 'assets/img/reports/nx-template-down.png';
+        $up_arrow = $v_arrow = $c_arrow = $ctr_arrow = NOTIFICATIONX_PUBLIC_URL  . 'images/reports/nx-template-up.png';
+        $down_arrow = NOTIFICATIONX_PUBLIC_URL  . 'images/reports/nx-template-down.png';
         $v_color = $c_color = $ctr_color = '#34cf8a';
         if( $percentage_views < 0 ) {
             $v_color = '#ff616c';
@@ -406,7 +383,7 @@ NXBOXTEM;
 
     public static function pro_message(){
         $is_pro = defined( 'NOTIFICATIONX_PRO_VERSION' );
-        $graph = NOTIFICATIONX_ADMIN_URL  . 'images/analytics/analytics-image.png';
+        $graph = NOTIFICATIONX_PUBLIC_URL  . 'images/reports/graph.png';
         $admin_analytics_url = admin_url('admin.php?page=nx-admin#/analytics');
         if( $is_pro ) {
             $output = <<<NXPROMSG
