@@ -260,6 +260,7 @@ class Migration {
         $post['display_from']   = $this->get("_nx_meta_display_from");
         $post['loop']           = (bool) $this->get("_nx_meta_loop");
         $post['link_open']      = (bool) $this->get("_nx_meta_link_open");
+        $post['custom_ids']     = $this->get("_nx_meta_custom_ids");
         if ($this->get("_nx_meta_sound_checkbox")) {
             $post['volume']     = $this->get("_nx_meta_volume") * 100;
         }
