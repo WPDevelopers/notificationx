@@ -46,7 +46,7 @@ class Locations {
 
             foreach ( $post_types as $slug => $type ) {
 
-                $locations[ 'is_singular-' . $slug ] = sprintf( __('All <%s> posts', 'notificationx'), $type->label );
+                $locations[ 'is_singular-' . $slug ] = sprintf( __('All %s posts', 'notificationx'), $type->label );
 
                 if ( $type->has_archive ) {
                     $locations[ 'is_archive-' . $slug ] = sprintf( __('All <%s> archives', 'notificationx'), $type->label );
