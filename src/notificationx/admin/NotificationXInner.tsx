@@ -1,5 +1,4 @@
 import React from 'react'
-import { Toaster } from 'react-hot-toast';
 import SingleNotificationX from './SingleNotificationX';
 
 const NotificationXInner = ({ filteredNotice, getNotice, updateNotice, totalItems, setTotalItems }) => {
@@ -29,7 +28,6 @@ const NotificationXInner = ({ filteredNotice, getNotice, updateNotice, totalItem
                 </tbody>
             </table>
             </div>
-            <Toaster />
         </div>
     )
 }

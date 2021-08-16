@@ -12,7 +12,6 @@ const Toggle = ({ id: nxId, name, value: checked = false, ...rest }) => {
         if (rest.onChange) {
             rest.onChange(event, target.checked, rest).then(res => {
                 setIsEnabled(target.checked);
-            }).catch(err => {
             });
         }
         else{
