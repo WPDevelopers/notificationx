@@ -334,7 +334,7 @@ class FrontEnd {
 
             unset($notifications[$key]);
         }
-        do_action('nx_active_notificationx', $notifications);
+        // do_action('nx_active_notificationx', $notifications);
 
         // @todo maybe combine two hooks.
 
