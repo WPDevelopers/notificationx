@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Toggle from '../components/Toggle';
 import SingleNotificationAction from './SingleNotificationAction';
 import nxHelper, { proAlert, SweetAlert } from '../core/functions';
+import toast from 'react-hot-toast';
 
 import { __ } from '@wordpress/i18n';
 import { ThemePreview } from '../components';
@@ -20,7 +21,7 @@ const SingleNotificationX = ({ nx_id: id, title, getNotice, updateNotice, totalI
     const disabled = !builderContext.is_pro_active && builderContext.is_pro_sources?.[item.source];
     const toggleStatus = (event: Event, enabled: string, props) => {
         if (loading) {
-            return;
+            return Promise.reject();
         }
         setLoading(true);
         return nxHelper.post('nx/' + id, {
@@ -55,25 +56,65 @@ const SingleNotificationX = ({ nx_id: id, title, getNotice, updateNotice, totalI
                     }
                     return { ...val };
                 }));
-                SweetAlert({
-                    text: '',
-                    title: enabled ? "Enabled" : "Disabled",
-                    icon: 'success',
-                    timer: 2000,
-                }).fire();
+                // SweetAlert({
+                //     text: '',
+                //     title: enabled ? "Enabled" : "Disabled",
+                //     icon: 'success',
+                //     timer: 2000,
+                // }).fire();
+                toast.success((enabled ? "Enabled" : "Disabled"), {
+                    duration: 4000,
+                    position: 'bottom-right',
+                    // Styling
+                    style: {},
+                    className: '',
+                    // Custom Icon
+                    icon: '👏',
+
+                    // Change colors of success/error/loading icon
+                    iconTheme: {
+                      primary: '#000',
+                      secondary: '#fff',
+                    },
+                    // Aria
+                    ariaProps: {
+                      role: 'status',
+                      'aria-live': 'polite',
+                    },
+                  });
             }
             else {
-                proAlert(enabled ? ("You need to upgrade to the <strong><a target='_blank' href='http://wpdeveloper.net/in/upgrade-notificationx' style='color:red'>Premium Version</a></strong> to use multiple notification.") : "Disabled").fire();
+                // proAlert(enabled ? ("You need to upgrade to the <strong><a target='_blank' href='http://wpdeveloper.net/in/upgrade-notificationx' style='color:red'>Premium Version</a></strong> to use multiple notification.") : "Disabled").fire();
             }
             return res;
         }).catch(err => {
             setLoading(false);
-            SweetAlert({
-                text: 'Something went wrong.',
-                title: '!!!',
-                icon: 'error',
-                // timer: 1500,
-            }).fire();
+            // SweetAlert({
+            //     text: 'Something went wrong.',
+            //     title: '!!!',
+            //     icon: 'error',
+            //     // timer: 1500,
+            // }).fire();
+            toast.error("Something went wrong.", {
+                duration: 4000,
+                position: 'bottom-right',
+                // Styling
+                style: {},
+                className: '',
+                // Custom Icon
+                icon: '👏',
+
+                // Change colors of success/error/loading icon
+                iconTheme: {
+                  primary: '#000',
+                  secondary: '#fff',
+                },
+                // Aria
+                ariaProps: {
+                  role: 'status',
+                  'aria-live': 'polite',
+                },
+              });
             console.error('Enable/Disable Error: ', err);
         });
     }
