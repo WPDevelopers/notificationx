@@ -269,7 +269,7 @@ class FrontEnd {
 
             $check_location = false;
 
-            if(is_array($locations) && in_array('is_custom', $locations)){
+            if($locations == 'is_custom' || is_array($locations) && in_array('is_custom', $locations)){
                 $custom_ids = isset( $settings['custom_ids'] ) ? $settings['custom_ids'] : [];
             }
             if (!empty($locations)) {
