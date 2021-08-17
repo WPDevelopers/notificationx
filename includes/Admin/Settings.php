@@ -357,6 +357,7 @@ class Settings extends UsabilityDynamicsSettings {
                                             'title' => 'Successful',
                                             'text'  => 'Successfully Sent a Test Report in Your Email.',
                                             'icon'  => 'success',
+                                            'timer' => 2000
                                         ],
                                     ],
                                 ),

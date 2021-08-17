@@ -72,7 +72,7 @@ const SingleNotificationAction = ({
                 title: 'Regenerated',
                 text: "Successfully Regenerated!",
                 icon: 'success',
-                timer: 1500,
+                timer: 2000,
             },
             afterComplete: () => {
                 setRedirect('/');
