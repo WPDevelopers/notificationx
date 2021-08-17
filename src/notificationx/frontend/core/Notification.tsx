@@ -66,7 +66,7 @@ const Notification = (props) => {
             audioRef.current.volume = parseInt(settings.volume || 1) / 100;
             audioRef.current.muted = false;
             audioRef.current.play().then(res => {
-                console.log('Playing Audio Sound for NX Notice');
+                // console.log('Playing Audio Sound for NX Notice');
             }).catch(err => console.error("NX SoundError: ", err))
         }
         handleStartTimer();
