@@ -207,6 +207,11 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
+= 2.0.1 - 17/08/2021 =
+
+Fixed: DOMContentLoaded moved from window to document
+Few minor bug fix and improvements
+
 = 2.0.0 - 12/08/2021 =
 
 - Introducing : V2 of NotificationX
