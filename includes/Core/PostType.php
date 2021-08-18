@@ -57,8 +57,7 @@ class PostType {
      * @return void
      */
     public function menu() {
-        $nx_create_notification = apply_filters( 'nx_create_notification', 'edit_posts', 'notification_roles' );
-        add_submenu_page('nx-admin', 'Add New', 'Add New', $nx_create_notification, 'nx-admin#/add-new', [$this, 'new_post'], 20);
+        add_submenu_page('nx-admin', 'Add New', 'Add New', 'edit_notificationx', 'nx-admin#/add-new', [$this, 'new_post'], 20);
     }
     /**
      * Get File Modification Time or URL
@@ -102,20 +101,16 @@ class PostType {
     }
 
     public function get_localize_scripts(){
-        $nx_analytics_caps      = apply_filters( 'nx_analytics_caps', 'administrator', 'analytics_roles' );
-        $nx_create_notification = apply_filters( 'nx_create_notification', 'edit_posts', 'notification_roles' );
-        $nx_settings_caps       = apply_filters( 'nx_settings_caps', 'delete_users', 'settings_roles' );
-
         $tabs                           = NotificationX::get_instance()->normalize( GlobalFields::get_instance()->tabs() );
 
-        $tabs['createRedirect']               = !current_user_can( $nx_create_notification );
-        $tabs['analyticsRedirect']            = !current_user_can( $nx_analytics_caps );
+        $tabs['createRedirect']               = !current_user_can( 'edit_notificationx' );
+        $tabs['analyticsRedirect']            = !current_user_can( 'read_notificationx_analytics' );
         $tabs['quick_build']                  = NotificationX::get_instance()->normalize( QuickBuild::get_instance()->tabs() );
         $tabs['rest']                         = REST::get_instance()->rest_data();
         $tabs['current_page']                 = 'add-nx';
         $tabs['analytics']                    = Analytics::get_instance()->get_total_count();
         $tabs['settings']                     = Settings::get_instance()->get_form_data();
-        $tabs['settings']['settingsRedirect'] = !current_user_can( $nx_settings_caps );
+        $tabs['settings']['settingsRedirect'] = !current_user_can( 'edit_notificationx_settings' );
         $tabs['settings']['analytics']        = $tabs['analytics'];
         $tabs['assets']                       = [
             'admin' => NOTIFICATIONX_ADMIN_URL,
