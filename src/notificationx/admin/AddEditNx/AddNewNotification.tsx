@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom';
 import { CreateNx } from '.';
-import { BuilderProvider, useBuilder } from '../../../form-builder';
-import { isArray } from '../../../form-builder/src/core/utils';
+import { BuilderProvider, useBuilder } from 'quickbuilder';
+import { isArray } from 'quickbuilder';
 import { Header, WrapperWithLoader } from '../../components';
 import nxHelper from '../../core/functions';
 import withDocumentTitle from '../../core/withDocumentTitle';

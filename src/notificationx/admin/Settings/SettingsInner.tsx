@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Redirect, useLocation } from 'react-router-dom';
-import FormBuilder from '../../../form-builder';
-import { useBuilderContext } from '../../../form-builder/src/core/hooks';
+import { useBuilderContext, FormBuilder } from 'quickbuilder';
 import { Header } from '../../components'
 import nxHelper, { proAlert } from '../../core/functions';
 import { AnalyticsHeader } from '../Analytics';

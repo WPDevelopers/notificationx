@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
     BuilderProvider,
     useBuilder,
-} from "../../../form-builder/src/core/hooks";
+} from "quickbuilder";
 import { Header, WrapperWithLoader } from "../../components";
 import QuickBuild from "./QuickBuild";
 // @ts-ignore

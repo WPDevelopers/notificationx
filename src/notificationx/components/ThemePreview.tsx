@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useBuilderContext } from '../../form-builder'
 
 const ThemePreview = ({ name, preview }) => {
 

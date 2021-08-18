@@ -1,6 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom';
-import { BuilderProvider, useBuilder } from '../../../form-builder/src/core/hooks';
+import { BuilderProvider, useBuilder } from 'quickbuilder';
 import withDocumentTitle from '../../core/withDocumentTitle';
 import { useNotificationXContext } from '../../hooks';
 import SettingsInner from './SettingsInner';

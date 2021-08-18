@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Button, ButtonGroup } from "@wordpress/components";
-import { Date } from "../../form-builder/src/fields";
+import { Date } from "quickbuilder";
 import { isInTheFuture } from "@wordpress/date";
 import nxHelper, { SweetAlert } from "../core/functions";
 import { Redirect } from "react-router";

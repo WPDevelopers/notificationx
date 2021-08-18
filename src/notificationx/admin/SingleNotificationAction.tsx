@@ -2,9 +2,9 @@ import React, { useCallback, useState } from 'react'
 import { __ } from '@wordpress/i18n';
 import { Link, Redirect } from 'react-router-dom';
 import nxHelper from '../core/functions';
-import { useBuilderContext } from '../../form-builder';
+import { useBuilderContext } from 'quickbuilder';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { SweetAlert } from "../../form-builder/src/core/functions";
+import { SweetAlert } from "quickbuilder";
 import { useNotificationXContext } from '../hooks';
 
 const SingleNotificationAction = ({

@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import nxHelper from "../core/functions";
-import { isArray } from "../../form-builder/src/core/utils";
+import { isArray } from "quickbuilder";
 import NotificationXInner from "./NotificationXInner";
 import NotificationXItemsMenu from "./NotificationXItemsMenu";
 import { Redirect, useLocation } from "react-router";
 import Pagination from "rc-pagination";
-import { Link } from "react-router-dom";
 import NavLink from "../components/NavLink";
 import { SelectControl } from "@wordpress/components";
 import { WrapperWithLoader } from "../components";

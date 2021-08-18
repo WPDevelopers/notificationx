@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import FormBuilder, { useBuilderContext } from '../../../form-builder';
+import { FormBuilder, useBuilderContext } from 'quickbuilder';
 import { Content, PublishWidget, Sidebar, Instructions } from '../../components';
 import { proAlert } from '../../core/functions';
 import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon } from '../../icons'

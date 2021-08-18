@@ -4,19 +4,17 @@ import "./scss/index.scss";
 import { Admin, AddNewNotification, EditNotification, Settings, Analytics, Entries, QuickBuild } from "./admin/index";
 import { NotificationXProvider, useNotificationX } from "./hooks";
 
-// import defaultArgs from '../form-builder/config/default';
-
 const NotificationX = (props) => {
     // const builder = useBuilder(notificationxTabs);
     // const builder = useBuilder(defaultArgs);
     const [title, setTitle] = useState("")
-    if(!title){
+    if (!title) {
         let documentTitle = document.querySelector('title').text;
         documentTitle = documentTitle.replace("All NotificationX", '');
         setTitle(documentTitle);
     }
 
-    const builder = useNotificationX({...notificationxTabs, title});
+    const builder = useNotificationX({ ...notificationxTabs, title });
 
     return (
         <Router>

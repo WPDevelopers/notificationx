@@ -1,8 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom';
-import { useBuilderContext } from '../../form-builder/src/core/hooks';
 import { Header } from '../components'
-import nxHelper from '../core/functions';
 import withDocumentTitle from '../core/withDocumentTitle';
 import { useNotificationXContext } from '../hooks';
 import { AnalyticsHeader } from './Analytics';

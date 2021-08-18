@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom';
 import { EditNx } from '.';
-import { BuilderProvider, useBuilder } from '../../../form-builder';
+import { BuilderProvider, useBuilder } from 'quickbuilder';
 import { Header, WrapperWithLoader } from '../../components';
 import nxHelper from '../../core/functions';
 import withDocumentTitle from '../../core/withDocumentTitle';

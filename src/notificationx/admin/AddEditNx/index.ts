@@ -1,6 +1,5 @@
 import { GetTemplate } from '../../frontend/themes'
 import { addFilter } from '@wordpress/hooks'
-import { useBuilderContext } from '../../../form-builder'
 
 export { default as EditNx } from './EditNx'
 export { default as CreateNx } from './CreateNx'
