@@ -187,6 +187,8 @@ class Tutor extends Extension {
                 $user_info['country'] = isset($user_ip_data->country) ? $user_ip_data->country : '';
                 $user_info['city']    = isset($user_ip_data->city) ? $user_ip_data->city : '';
                 $user_info['state']   = isset($user_ip_data->state) ? $user_ip_data->state : '';
+                $user_info['lat']     = isset( $user_ip_data->lat ) ? $user_ip_data->lat : '';
+                $user_info['lon']     = isset( $user_ip_data->lon ) ? $user_ip_data->lon : '';
             }
         }
 
@@ -226,6 +228,8 @@ class Tutor extends Extension {
                     $data['country'] = isset($user_ip_data->country) ? $user_ip_data->country : '';
                     $data['city']    = isset($user_ip_data->city) ? $user_ip_data->city : '';
                     $data['state']   = isset($user_ip_data->state) ? $user_ip_data->state : '';
+                    $data['lat']     = isset( $user_ip_data->lat ) ? $user_ip_data->lat : '';
+                    $data['lon']     = isset( $user_ip_data->lon ) ? $user_ip_data->lon : '';
                 }
             }
         }

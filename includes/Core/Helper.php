@@ -446,4 +446,31 @@ class Helper {
             }
         }
     }
+
+    public static function remote_get($url, $args = array(), $raw = false) {
+        $defaults = array(
+            'timeout'     => 20,
+            'redirection' => 5,
+            'httpversion' => '1.1',
+            'user-agent'  => 'NotificationX/' . NOTIFICATIONX_VERSION . '; ' . home_url(),
+            'body'        => null,
+            'sslverify'   => false,
+            'stream'      => false,
+            'filename'    => null
+        );
+        $args = wp_parse_args($args, $defaults);
+        $request = wp_remote_get($url, $args);
+
+        if (is_wp_error($request)) {
+            return false;
+        }
+        if($raw){
+            return $request;
+        }
+        $response = json_decode($request['body']);
+        if (isset($response->status) && $response->status == 'fail') {
+            return false;
+        }
+        return $response;
+    }
 }
