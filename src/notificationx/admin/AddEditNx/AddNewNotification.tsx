@@ -16,6 +16,9 @@ const AddNewNotification = (props) => {
     const [isCreated, setIsCreated] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
     const notificationxContext = useNotificationXContext();
+    const [redirect, setRedirect] = useState(builder?.createRedirect);
+
+    console.log(notificationxContext, builder);
 
     useEffect(() => {
         if (notificationxContext.getOptions('refresh')) {
@@ -49,6 +52,7 @@ const AddNewNotification = (props) => {
 
     return (
         <BuilderProvider value={builder}>
+            {redirect && <Redirect to="/" />}
             <div>
                 {isCreated && <Redirect to={{
                     pathname: `/edit/${isCreated}`,
