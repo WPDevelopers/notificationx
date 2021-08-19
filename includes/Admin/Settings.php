@@ -41,6 +41,7 @@ class Settings extends UsabilityDynamicsSettings {
         $this->wpdb = $wpdb;
         parent::__construct($args);
         add_action('init', [$this, 'init']);
+        add_filter('user_has_cap', array($this, 'allow_admin'), 10, 4);
     }
 
     /**
@@ -429,6 +430,25 @@ class Settings extends UsabilityDynamicsSettings {
         $roles = wp_roles()->role_names;
         unset($roles['subscriber']);
         return $roles;
+    }
+    /**
+     * Get All Roles
+     * dynamically
+     * @return array
+     */
+    public function allow_admin($allcaps, $caps, $args, $user) {
+        $nx_roles = [
+            'read_notificationx',
+            'edit_notificationx',
+            'edit_notificationx_settings',
+            'read_notificationx_analytics',
+        ];
+        if(array_key_exists('administrator', $allcaps) && !array_key_exists($caps[0], $allcaps) && in_array($caps[0], $nx_roles)){
+            $role = get_role('administrator');
+            $role->add_cap($caps[0]);
+            $allcaps[$caps[0]] = true;
+        }
+        return $allcaps;
     }
 
     public function save_settings( $settings ) {
