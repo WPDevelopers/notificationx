@@ -220,7 +220,7 @@ const Analytics = (props) => {
             {
                 !builderContext?.is_pro_active &&
                 <div className="analytics-display-area nx-stats-tease" data-swal="true">
-                    <img src={`${builderContext.assets.admin}images/analytics/analytics-image.png`} alt="Analytics Data" />
+                    <img src={`${builderContext.assets.public}image/reports/graph.png`} alt="Analytics Data" />
                     <div className="nx-stats-pro-tease">
                         <a href="http://wpdeveloper.net/in/upgrade-notificationx" target="_blank">
                             <p>Get PRO to Unlock</p>
