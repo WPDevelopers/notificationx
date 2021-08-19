@@ -18,7 +18,6 @@ const AddNewNotification = (props) => {
     const notificationxContext = useNotificationXContext();
     const [redirect, setRedirect] = useState(builder?.createRedirect);
 
-    console.log(notificationxContext, builder);
 
     useEffect(() => {
         if (notificationxContext.getOptions('refresh')) {
