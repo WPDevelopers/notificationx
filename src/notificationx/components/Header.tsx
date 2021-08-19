@@ -12,6 +12,7 @@ const Version = ({ version }) => {
 const Header = ({ addNew = false, context = {} }) => {
     const builderContext = useNotificationXContext();
     const pro_version = builderContext.pro_version;
+    const version = builderContext.version;
     return (
         <div className="nx-settings-header">
             <div className="nx-header-left">
