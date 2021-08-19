@@ -62,6 +62,7 @@
     "react-draft-wysiwyg": "^1.14.7",
     "react-router-dom": "^5.2.0",
     "react-select": "^4.2.1",
+    "react-toastify": "^7.0.4",
     "sort-array": "^4.1.4",
     "sweetalert2": "^10.16.7",
     "sweetalert2-react-content": "^3.3.2",

@@ -57,11 +57,12 @@ class Entries {
         if(empty($entry['updated_at'])){
             $entry['updated_at'] = Helper::mysql_time($timestamp);
         }
+        $entry = apply_filters('nx_insert_entry', $entry);
         return Database::get_instance()->insert_post(Database::$table_entries, $entry);
     }
 
     public function insert_entries($entries) {
-        foreach ($entries as $key => &$entry) {
+        foreach ($entries as $key => $entry) {
             $timestamp = !empty($entry['data']['timestamp']) ? $entry['data']['timestamp'] : time();
             if(empty($entry['created_at'])){
                 $entry['created_at'] = Helper::mysql_time($timestamp);
@@ -69,6 +70,7 @@ class Entries {
             if(empty($entry['updated_at'])){
                 $entry['updated_at'] = Helper::mysql_time($timestamp);
             }
+            $entries[$key] = apply_filters('nx_insert_entry', $entry);
         }
         return Database::get_instance()->insert_posts(Database::$table_entries, $entries);
     }

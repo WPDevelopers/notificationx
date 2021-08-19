@@ -267,6 +267,8 @@ class Give extends Extension {
         if ((empty($user_data['country']) || empty($user_data['city'])) && !empty($user_data['ip'])) {
             $user_ip_data = $this->remote_get('http://ip-api.com/json/' . $user_data['ip']);
             if ($user_ip_data) {
+                $user_data['lat']     = isset( $user_ip_data->lat ) ? $user_ip_data->lat : '';
+                $user_data['lon']     = isset( $user_ip_data->lon ) ? $user_ip_data->lon : '';
                 if (empty($user_data['country'])) {
                     $user_data['country'] = isset($user_ip_data->country) ? $user_ip_data->country : '';
                 }

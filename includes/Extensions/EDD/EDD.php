@@ -292,6 +292,8 @@ class EDD extends Extension {
                 $user_info['country'] = isset( $user_ip_data->country ) ? $user_ip_data->country : '';
                 $user_info['city']    = isset( $user_ip_data->city ) ? $user_ip_data->city : '';
                 $user_info['state']   = isset( $user_ip_data->state ) ? $user_ip_data->state : '';
+                $user_info['lat']     = isset( $user_ip_data->lat ) ? $user_ip_data->lat : '';
+                $user_info['lon']     = isset( $user_ip_data->lon ) ? $user_ip_data->lon : '';
             }
         }
         if ( is_array( $cart_details ) ) {

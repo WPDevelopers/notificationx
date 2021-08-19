@@ -1,4 +1,6 @@
 import React from 'react'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import SingleNotificationX from './SingleNotificationX';
 
 const NotificationXInner = ({ filteredNotice, getNotice, updateNotice, totalItems, setTotalItems }) => {
@@ -28,6 +30,7 @@ const NotificationXInner = ({ filteredNotice, getNotice, updateNotice, totalItem
                 </tbody>
             </table>
             </div>
+            <ToastContainer />
         </div>
     )
 }

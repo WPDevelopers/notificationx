@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import { Link } from 'react-router-dom'
 import { applyFilters } from '@wordpress/hooks'
@@ -12,13 +12,12 @@ const Version = ({ version }) => {
 const Header = ({ addNew = false, context = {} }) => {
     const builderContext = useNotificationXContext();
     const pro_version = builderContext.pro_version;
-    const version = builderContext.version;
     return (
         <div className="nx-settings-header">
             <div className="nx-header-left">
                 <div className="nx-admin-header">
                     <Logo />
-                    {!addNew && <Link className="nx-add-new-btn" to="/add-new">{__('Add New', 'notificationx')}</Link>}
+                    {!builderContext?.createRedirect && !addNew && <Link className="nx-add-new-btn" to="/add-new">{__('Add New', 'notificationx')}</Link>}
                 </div>
             </div>
             <div className="nx-header-right">

@@ -1,90 +1,139 @@
-import React, { useState } from 'react'
-import Toggle from '../components/Toggle';
-import SingleNotificationAction from './SingleNotificationAction';
-import nxHelper, { proAlert, SweetAlert } from '../core/functions';
+import React, { useState } from "react";
+import Toggle from "../components/Toggle";
+import SingleNotificationAction from "./SingleNotificationAction";
+import nxHelper, { proAlert, SweetAlert } from "../core/functions";
+// import toast from 'react-hot-toast';
+import { toast } from "react-toastify";
 
-import { __ } from '@wordpress/i18n';
-import { ThemePreview } from '../components';
+import { __ } from "@wordpress/i18n";
+import { ThemePreview } from "../components";
 // @ts-ignore
-import { __experimentalGetSettings, isInTheFuture, date } from '@wordpress/date';
+import {
+    __experimentalGetSettings,
+    isInTheFuture,
+    date,
+} from "@wordpress/date";
 import moment from "moment";
-import { Link, NavLink } from 'react-router-dom';
-import { useNotificationXContext } from '../hooks';
-import classNames from 'classnames';
+import { Link, NavLink } from "react-router-dom";
+import { useNotificationXContext } from "../hooks";
+import classNames from "classnames";
 
-const SingleNotificationX = ({ nx_id: id, title, getNotice, updateNotice, totalItems, setTotalItems, ...item }) => {
+const SingleNotificationX = ({
+    nx_id: id,
+    title,
+    getNotice,
+    updateNotice,
+    totalItems,
+    setTotalItems,
+    ...item
+}) => {
     const builderContext = useNotificationXContext();
     const settings: any = __experimentalGetSettings();
-    const updated_at = moment.utc(item?.updated_at).utcOffset(+settings?.timezone?.offset); //
+    const updated_at = moment
+        .utc(item?.updated_at)
+        .utcOffset(+settings?.timezone?.offset); //
     const [loading, setLoading] = useState(false);
-    const disabled = !builderContext.is_pro_active && builderContext.is_pro_sources?.[item.source];
+    const disabled =
+        !builderContext.is_pro_active &&
+        builderContext.is_pro_sources?.[item.source];
     const toggleStatus = (event: Event, enabled: string, props) => {
         if (loading) {
-            return;
+            return Promise.reject();
         }
         setLoading(true);
-        return nxHelper.post('nx/' + id, {
-            source: props.source,
-            enabled,
-            nx_id: id,
-            update_status: true,
-        }).then(res => {
-            setLoading(false);
-            if (res) {
-                if (enabled) {
-                    setTotalItems(prev => {
-                        return {
-                            ...prev,
-                            enabled: Number(prev.enabled) + 1,
-                            disabled: Number(prev.disabled) - 1,
-                        }
-                    });
-                }
-                else {
-                    setTotalItems(prev => {
-                        return {
-                            ...prev,
-                            enabled: Number(prev.enabled) - 1,
-                            disabled: Number(prev.disabled) + 1,
-                        }
-                    });
-                }
-                updateNotice(prev => prev.map((val) => {
-                    if (parseInt(val.nx_id) === parseInt(id)) {
-                        return { ...val, enabled: enabled };
+        return nxHelper
+            .post("nx/" + id, {
+                source: props.source,
+                enabled,
+                nx_id: id,
+                update_status: true,
+            })
+            .then((res) => {
+                setLoading(false);
+                if (res) {
+                    if (enabled) {
+                        setTotalItems((prev) => {
+                            return {
+                                ...prev,
+                                enabled: Number(prev.enabled) + 1,
+                                disabled: Number(prev.disabled) - 1,
+                            };
+                        });
+                    } else {
+                        setTotalItems((prev) => {
+                            return {
+                                ...prev,
+                                enabled: Number(prev.enabled) - 1,
+                                disabled: Number(prev.disabled) + 1,
+                            };
+                        });
                     }
-                    return { ...val };
-                }));
-                SweetAlert({
-                    text: '',
-                    title: enabled ? "Enabled" : "Disabled",
-                    icon: 'success',
-                    timer: 2000,
-                }).fire();
-            }
-            else {
-                proAlert(enabled ? ("You need to upgrade to the <strong><a target='_blank' href='http://wpdeveloper.net/in/upgrade-notificationx' style='color:red'>Premium Version</a></strong> to use multiple notification.") : "Disabled").fire();
-            }
-            return res;
-        }).catch(err => {
-            setLoading(false);
-            SweetAlert({
-                text: 'Something went wrong.',
-                title: '!!!',
-                icon: 'error',
-                // timer: 1500,
-            }).fire();
-            console.error('Enable/Disable Error: ', err);
-        });
-    }
-
+                    updateNotice((prev) =>
+                        prev.map((val) => {
+                            if (parseInt(val.nx_id) === parseInt(id)) {
+                                return { ...val, enabled: enabled };
+                            }
+                            return { ...val };
+                        })
+                    );
+                    // SweetAlert({
+                    //     text: '',
+                    //     title: enabled ? "Enabled" : "Disabled",
+                    //     icon: 'success',
+                    //     timer: 2000,
+                    // }).fire();
+                    toast.success(enabled ? "Enabled" : "Disabled", {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                } else {
+                    // toast.error("Something went wrong.", {
+                    //     position: "bottom-right",
+                    //     autoClose: 5000,
+                    //     hideProgressBar: false,
+                    //     closeOnClick: true,
+                    //     pauseOnHover: true,
+                    //     draggable: true,
+                    //     progress: undefined,
+                    // });
+                    proAlert(
+                        enabled
+                            ? "You need to upgrade to the <strong><a target='_blank' href='http://wpdeveloper.net/in/upgrade-notificationx' style='color:red'>Premium Version</a></strong> to use multiple notification."
+                            : "Disabled"
+                    ).fire();
+                }
+                return res;
+            })
+            .catch((err) => {
+                setLoading(false);
+                toast.error("Something went wrong.", {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                console.error("Enable/Disable Error: ", err);
+            });
+    };
 
     return (
-        <tr className={classNames({
-            'disabled': disabled,
-        })}>
+        <tr
+            className={classNames({
+                disabled: disabled,
+            })}
+        >
             <td>
-                <div className="nx-item-selector"><input type="checkbox" name="" id="" /></div>
+                <div className="nx-item-selector">
+                    <input type="checkbox" name="" id="" />
+                </div>
             </td>
             <td>
                 <div className="nx-admin-title">
@@ -106,7 +155,9 @@ const SingleNotificationX = ({ nx_id: id, title, getNotice, updateNotice, totalI
                 />
             </td>
             <td>
-                <div className="nx-admin-type" title={item?.source_label}>{item?.type_label || item.type}</div>
+                <div className="nx-admin-type" title={item?.source_label}>
+                    {item?.type_label || item.type}
+                </div>
             </td>
             <td>
                 <div className="nx-admin-stats">
@@ -122,7 +173,11 @@ const SingleNotificationX = ({ nx_id: id, title, getNotice, updateNotice, totalI
                         : __("Published", "notificationx")}
                     <br />
                     <span className="nx-admin-publish-date">
-                        {date(settings?.formats?.datetime, updated_at, undefined)}
+                        {date(
+                            settings?.formats?.datetime,
+                            updated_at,
+                            undefined
+                        )}
                     </span>
                 </div>
             </td>
@@ -136,6 +191,6 @@ const SingleNotificationX = ({ nx_id: id, title, getNotice, updateNotice, totalI
             </td>
         </tr>
     );
-}
+};
 
 export default SingleNotificationX;

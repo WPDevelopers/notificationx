@@ -125,13 +125,19 @@ class Integration {
      */
     public function api_connect( \WP_REST_Request $request ){
         $params = $request->get_params();
-        $source = $params['source'];
+        $source = !empty($params['source']) ? $params['source'] : '';
         /**
          * @var Extension
          */
         $ext = ExtensionFactory::get_instance()->get($source);
         if($ext && method_exists($ext, 'connect')){
             return $ext->connect($params);
+        }
+        else{
+            $result = apply_filters("nx_api_connect_$source", null, $params);
+            if($result){
+                return $result;
+            }
         }
         return REST::get_instance()->error();
     }
