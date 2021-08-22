@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
-import { Header } from "../../components";
+import { Header, WrapperWithLoader } from "../../components";
 import nxHelper from "../../core/functions";
 import {
     AnalyticsFilters,
@@ -19,7 +19,7 @@ const Analytics = (props) => {
     const settings: any = __experimentalGetSettings();
     const builderContext = useNotificationXContext();
     const [redirect, setRedirect] = useState(builderContext?.analyticsRedirect);
-    console.log("builderContext", builderContext);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [posts, setPosts] = useState([]);
     const [rawData, setRawData] = useState([]);
@@ -64,10 +64,12 @@ const Analytics = (props) => {
     });
 
     useEffect(() => {
+        setIsLoading(true);
         nxHelper.get("analytics").then((res: any) => {
             if (res?.stats) {
                 setRawData(res.stats);
                 setPosts(res?.posts);
+                setIsLoading(false);
             }
         });
     }, []);
@@ -198,25 +200,28 @@ const Analytics = (props) => {
             {redirect && <Redirect to="/" />}
             <Header addNew={true} />
             <AnalyticsHeader assetsURL={builderContext.assets} analytics={...builderContext?.analytics} />
-            {
-                builderContext?.is_pro_active &&
-                <>
-                    <AnalyticsFilters
-                        posts={posts}
-                        filterOptions={filterOptions}
-                        setFilterOptions={setFilterOptions}
-                    />
-                    <div className="nx-analytics-graph-wrapper">
-                        <Chart
-                            // @ts-ignore
-                            options={data.options}
-                            series={data.series}
-                            type="area"
-                            height={500}
+            <WrapperWithLoader isLoading={isLoading} div={false}>
+                {
+                    builderContext?.is_pro_active &&
+                    <>
+                        <AnalyticsFilters
+                            posts={posts}
+                            filterOptions={filterOptions}
+                            setFilterOptions={setFilterOptions}
                         />
-                    </div>
-                </>
-            }
+                        <div className="nx-analytics-graph-wrapper">
+                            <Chart
+                                // @ts-ignore
+                                options={data.options}
+                                series={data.series}
+                                type="area"
+                                height={500}
+                            />
+                        </div>
+                    </>
+                }
+            </WrapperWithLoader>
+
             {
                 !builderContext?.is_pro_active &&
                 <div className="analytics-display-area nx-stats-tease" data-swal="true">
