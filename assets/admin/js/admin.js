@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
-/*!****************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
-  \****************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
+/*!********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -108,14 +108,14 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/arrayWithoutHoles.js":
-/*!*****************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
-  \*****************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/arrayWithoutHoles.js":
+/*!*********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "../wp-react-form/node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
 
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return arrayLikeToArray(arr);
@@ -126,10 +126,10 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/defineProperty.js":
-/*!**************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/defineProperty.js ***!
-  \**************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/defineProperty.js":
+/*!******************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/defineProperty.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -153,10 +153,10 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js":
-/*!********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js ***!
-  \********************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js":
+/*!************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js ***!
+  \************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -175,17 +175,17 @@ function _arrayLikeToArray(arr, len) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js":
-/*!*********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js ***!
-  \*********************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js":
+/*!*************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js ***!
+  \*************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _arrayWithoutHoles; });
-/* harmony import */ var _arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayLikeToArray.js */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js");
+/* harmony import */ var _arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayLikeToArray.js */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js");
 
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return Object(_arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(arr);
@@ -193,10 +193,10 @@ function _arrayWithoutHoles(arr) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/classCallCheck.js":
-/*!******************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/classCallCheck.js ***!
-  \******************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/classCallCheck.js":
+/*!**********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/esm/classCallCheck.js ***!
+  \**********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -211,10 +211,10 @@ function _classCallCheck(instance, Constructor) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/createClass.js":
-/*!***************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/createClass.js ***!
-  \***************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/createClass.js":
+/*!*******************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/esm/createClass.js ***!
+  \*******************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -239,10 +239,10 @@ function _createClass(Constructor, protoProps, staticProps) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/defineProperty.js":
-/*!******************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/defineProperty.js ***!
-  \******************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/defineProperty.js":
+/*!**********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/esm/defineProperty.js ***!
+  \**********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -266,10 +266,10 @@ function _defineProperty(obj, key, value) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/extends.js":
-/*!***********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/extends.js ***!
-  \***********************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/extends.js":
+/*!***************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/esm/extends.js ***!
+  \***************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -296,17 +296,17 @@ function _extends() {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/inherits.js":
-/*!************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/inherits.js ***!
-  \************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/inherits.js":
+/*!****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/esm/inherits.js ***!
+  \****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _inherits; });
-/* harmony import */ var _setPrototypeOf_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./setPrototypeOf.js */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js");
+/* harmony import */ var _setPrototypeOf_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./setPrototypeOf.js */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js");
 
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
@@ -325,10 +325,10 @@ function _inherits(subClass, superClass) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/iterableToArray.js":
-/*!*******************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/iterableToArray.js ***!
-  \*******************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/iterableToArray.js":
+/*!***********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/esm/iterableToArray.js ***!
+  \***********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -341,10 +341,10 @@ function _iterableToArray(iter) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js":
-/*!*********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js ***!
-  \*********************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js":
+/*!*************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js ***!
+  \*************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -357,17 +357,17 @@ function _nonIterableSpread() {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js":
-/*!***************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js ***!
-  \***************************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js":
+/*!*******************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js ***!
+  \*******************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _objectWithoutProperties; });
-/* harmony import */ var _objectWithoutPropertiesLoose_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./objectWithoutPropertiesLoose.js */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _objectWithoutPropertiesLoose_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./objectWithoutPropertiesLoose.js */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
 
 function _objectWithoutProperties(source, excluded) {
   if (source == null) return {};
@@ -390,10 +390,10 @@ function _objectWithoutProperties(source, excluded) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js":
-/*!********************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js ***!
-  \********************************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js":
+/*!************************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js ***!
+  \************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -417,10 +417,10 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js":
-/*!******************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js ***!
-  \******************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js":
+/*!**********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js ***!
+  \**********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -438,10 +438,10 @@ function _setPrototypeOf(o, p) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js":
-/*!*************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js ***!
-  \*************************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js":
+/*!*****************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js ***!
+  \*****************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -462,20 +462,20 @@ function _taggedTemplateLiteral(strings, raw) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js":
-/*!*********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js ***!
-  \*********************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js":
+/*!*************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js ***!
+  \*************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _toConsumableArray; });
-/* harmony import */ var _arrayWithoutHoles_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayWithoutHoles.js */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js");
-/* harmony import */ var _iterableToArray_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./iterableToArray.js */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/iterableToArray.js");
-/* harmony import */ var _unsupportedIterableToArray_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js");
-/* harmony import */ var _nonIterableSpread_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nonIterableSpread.js */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js");
+/* harmony import */ var _arrayWithoutHoles_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayWithoutHoles.js */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js");
+/* harmony import */ var _iterableToArray_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./iterableToArray.js */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/iterableToArray.js");
+/* harmony import */ var _unsupportedIterableToArray_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js");
+/* harmony import */ var _nonIterableSpread_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nonIterableSpread.js */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js");
 
 
 
@@ -486,10 +486,10 @@ function _toConsumableArray(arr) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/typeof.js":
-/*!**********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/typeof.js ***!
-  \**********************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/typeof.js":
+/*!**************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/esm/typeof.js ***!
+  \**************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -514,17 +514,17 @@ function _typeof(obj) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js":
-/*!******************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js ***!
-  \******************************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js":
+/*!**********************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js ***!
+  \**********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _unsupportedIterableToArray; });
-/* harmony import */ var _arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayLikeToArray.js */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js");
+/* harmony import */ var _arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayLikeToArray.js */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js");
 
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
@@ -537,10 +537,10 @@ function _unsupportedIterableToArray(o, minLen) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/extends.js":
-/*!*******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/extends.js ***!
-  \*******************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/extends.js":
+/*!***********************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/extends.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -568,10 +568,10 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/iterableToArray.js":
-/*!***************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/iterableToArray.js ***!
-  \***************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/iterableToArray.js":
+/*!*******************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/iterableToArray.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -584,10 +584,10 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/nonIterableSpread.js":
-/*!*****************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/nonIterableSpread.js ***!
-  \*****************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/nonIterableSpread.js":
+/*!*********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/nonIterableSpread.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -600,14 +600,14 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/objectWithoutProperties.js":
-/*!***********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/objectWithoutProperties.js ***!
-  \***********************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/objectWithoutProperties.js":
+/*!***************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/objectWithoutProperties.js ***!
+  \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var objectWithoutPropertiesLoose = __webpack_require__(/*! ./objectWithoutPropertiesLoose.js */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js");
+var objectWithoutPropertiesLoose = __webpack_require__(/*! ./objectWithoutPropertiesLoose.js */ "../wp-react-form/node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js");
 
 function _objectWithoutProperties(source, excluded) {
   if (source == null) return {};
@@ -633,10 +633,10 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js":
-/*!****************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js ***!
-  \****************************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js":
+/*!********************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -660,10 +660,10 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/taggedTemplateLiteral.js":
-/*!*********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/taggedTemplateLiteral.js ***!
-  \*********************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/taggedTemplateLiteral.js":
+/*!*************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/taggedTemplateLiteral.js ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -684,20 +684,20 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/toConsumableArray.js":
-/*!*****************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/toConsumableArray.js ***!
-  \*****************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/toConsumableArray.js":
+/*!*********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/toConsumableArray.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/arrayWithoutHoles.js");
+var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ "../wp-react-form/node_modules/@babel/runtime/helpers/arrayWithoutHoles.js");
 
-var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/iterableToArray.js");
+var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ "../wp-react-form/node_modules/@babel/runtime/helpers/iterableToArray.js");
 
-var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "../wp-react-form/node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
 
-var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/nonIterableSpread.js");
+var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ "../wp-react-form/node_modules/@babel/runtime/helpers/nonIterableSpread.js");
 
 function _toConsumableArray(arr) {
   return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
@@ -708,10 +708,10 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/typeof.js":
-/*!******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/typeof.js ***!
-  \******************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/typeof.js":
+/*!**********************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/typeof.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -740,14 +740,14 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
-/*!**************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
-  \**************************************************************************************************/
+/***/ "../wp-react-form/node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
+/*!******************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "../wp-react-form/node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
 
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
@@ -763,19 +763,19 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js":
-/*!**********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js ***!
-  \**********************************************************************************************/
+/***/ "../wp-react-form/node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js":
+/*!**************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js ***!
+  \**************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _emotion_sheet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @emotion/sheet */ "../../plugins/wp-react-form/node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js");
-/* harmony import */ var stylis__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! stylis */ "../../plugins/wp-react-form/node_modules/stylis/dist/stylis.mjs");
-/* harmony import */ var _emotion_weak_memoize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @emotion/weak-memoize */ "../../plugins/wp-react-form/node_modules/@emotion/weak-memoize/dist/weak-memoize.browser.esm.js");
-/* harmony import */ var _emotion_memoize__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @emotion/memoize */ "../../plugins/wp-react-form/node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js");
+/* harmony import */ var _emotion_sheet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @emotion/sheet */ "../wp-react-form/node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js");
+/* harmony import */ var stylis__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! stylis */ "../wp-react-form/node_modules/stylis/dist/stylis.mjs");
+/* harmony import */ var _emotion_weak_memoize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @emotion/weak-memoize */ "../wp-react-form/node_modules/@emotion/weak-memoize/dist/weak-memoize.browser.esm.js");
+/* harmony import */ var _emotion_memoize__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @emotion/memoize */ "../wp-react-form/node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js");
 
 
 
@@ -1085,10 +1085,10 @@ var createCache = function createCache(options) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@emotion/hash/dist/hash.browser.esm.js":
-/*!************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@emotion/hash/dist/hash.browser.esm.js ***!
-  \************************************************************************************/
+/***/ "../wp-react-form/node_modules/@emotion/hash/dist/hash.browser.esm.js":
+/*!****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@emotion/hash/dist/hash.browser.esm.js ***!
+  \****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1153,10 +1153,10 @@ function murmur2(str) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js":
-/*!**************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js ***!
-  \**************************************************************************************************/
+/***/ "../wp-react-form/node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js":
+/*!******************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js ***!
+  \******************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1175,10 +1175,10 @@ function memoize(fn) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@emotion/react/dist/emotion-element-a8309070.browser.esm.js":
-/*!*********************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@emotion/react/dist/emotion-element-a8309070.browser.esm.js ***!
-  \*********************************************************************************************************/
+/***/ "../wp-react-form/node_modules/@emotion/react/dist/emotion-element-a8309070.browser.esm.js":
+/*!*************************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@emotion/react/dist/emotion-element-a8309070.browser.esm.js ***!
+  \*************************************************************************************************/
 /*! exports provided: C, E, T, a, b, c, h, u, w */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1195,12 +1195,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return withEmotionCache; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _emotion_cache__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/cache */ "../../plugins/wp-react-form/node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js");
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _emotion_weak_memoize__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @emotion/weak-memoize */ "../../plugins/wp-react-form/node_modules/@emotion/weak-memoize/dist/weak-memoize.browser.esm.js");
-/* harmony import */ var _isolated_hoist_non_react_statics_do_not_use_this_in_your_code_dist_emotion_react_isolated_hoist_non_react_statics_do_not_use_this_in_your_code_browser_esm_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../isolated-hoist-non-react-statics-do-not-use-this-in-your-code/dist/emotion-react-isolated-hoist-non-react-statics-do-not-use-this-in-your-code.browser.esm.js */ "../../plugins/wp-react-form/node_modules/@emotion/react/isolated-hoist-non-react-statics-do-not-use-this-in-your-code/dist/emotion-react-isolated-hoist-non-react-statics-do-not-use-this-in-your-code.browser.esm.js");
-/* harmony import */ var _emotion_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @emotion/utils */ "../../plugins/wp-react-form/node_modules/@emotion/utils/dist/emotion-utils.browser.esm.js");
-/* harmony import */ var _emotion_serialize__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @emotion/serialize */ "../../plugins/wp-react-form/node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js");
+/* harmony import */ var _emotion_cache__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/cache */ "../wp-react-form/node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _emotion_weak_memoize__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @emotion/weak-memoize */ "../wp-react-form/node_modules/@emotion/weak-memoize/dist/weak-memoize.browser.esm.js");
+/* harmony import */ var _isolated_hoist_non_react_statics_do_not_use_this_in_your_code_dist_emotion_react_isolated_hoist_non_react_statics_do_not_use_this_in_your_code_browser_esm_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../isolated-hoist-non-react-statics-do-not-use-this-in-your-code/dist/emotion-react-isolated-hoist-non-react-statics-do-not-use-this-in-your-code.browser.esm.js */ "../wp-react-form/node_modules/@emotion/react/isolated-hoist-non-react-statics-do-not-use-this-in-your-code/dist/emotion-react-isolated-hoist-non-react-statics-do-not-use-this-in-your-code.browser.esm.js");
+/* harmony import */ var _emotion_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @emotion/utils */ "../wp-react-form/node_modules/@emotion/utils/dist/emotion-utils.browser.esm.js");
+/* harmony import */ var _emotion_serialize__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @emotion/serialize */ "../wp-react-form/node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js");
 
 
 
@@ -1386,10 +1386,10 @@ if (true) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@emotion/react/dist/emotion-react.browser.esm.js":
-/*!**********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@emotion/react/dist/emotion-react.browser.esm.js ***!
-  \**********************************************************************************************/
+/***/ "../wp-react-form/node_modules/@emotion/react/dist/emotion-react.browser.esm.js":
+/*!**************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@emotion/react/dist/emotion-react.browser.esm.js ***!
+  \**************************************************************************************/
 /*! exports provided: CacheProvider, ThemeContext, ThemeProvider, useTheme, withEmotionCache, withTheme, ClassNames, Global, createElement, css, jsx, keyframes */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1403,8 +1403,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "keyframes", function() { return keyframes; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _emotion_cache__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/cache */ "../../plugins/wp-react-form/node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js");
-/* harmony import */ var _emotion_element_a8309070_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./emotion-element-a8309070.browser.esm.js */ "../../plugins/wp-react-form/node_modules/@emotion/react/dist/emotion-element-a8309070.browser.esm.js");
+/* harmony import */ var _emotion_cache__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/cache */ "../wp-react-form/node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js");
+/* harmony import */ var _emotion_element_a8309070_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./emotion-element-a8309070.browser.esm.js */ "../wp-react-form/node_modules/@emotion/react/dist/emotion-element-a8309070.browser.esm.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CacheProvider", function() { return _emotion_element_a8309070_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__["C"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ThemeContext", function() { return _emotion_element_a8309070_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__["T"]; });
@@ -1417,15 +1417,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "withTheme", function() { return _emotion_element_a8309070_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__["b"]; });
 
-/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/extends.js");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "../wp-react-form/node_modules/@babel/runtime/helpers/extends.js");
 /* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _emotion_weak_memoize__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @emotion/weak-memoize */ "../../plugins/wp-react-form/node_modules/@emotion/weak-memoize/dist/weak-memoize.browser.esm.js");
-/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! hoist-non-react-statics */ "../../plugins/wp-react-form/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js");
+/* harmony import */ var _emotion_weak_memoize__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @emotion/weak-memoize */ "../wp-react-form/node_modules/@emotion/weak-memoize/dist/weak-memoize.browser.esm.js");
+/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! hoist-non-react-statics */ "../wp-react-form/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js");
 /* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _isolated_hoist_non_react_statics_do_not_use_this_in_your_code_dist_emotion_react_isolated_hoist_non_react_statics_do_not_use_this_in_your_code_browser_esm_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../isolated-hoist-non-react-statics-do-not-use-this-in-your-code/dist/emotion-react-isolated-hoist-non-react-statics-do-not-use-this-in-your-code.browser.esm.js */ "../../plugins/wp-react-form/node_modules/@emotion/react/isolated-hoist-non-react-statics-do-not-use-this-in-your-code/dist/emotion-react-isolated-hoist-non-react-statics-do-not-use-this-in-your-code.browser.esm.js");
-/* harmony import */ var _emotion_utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @emotion/utils */ "../../plugins/wp-react-form/node_modules/@emotion/utils/dist/emotion-utils.browser.esm.js");
-/* harmony import */ var _emotion_serialize__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @emotion/serialize */ "../../plugins/wp-react-form/node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js");
-/* harmony import */ var _emotion_sheet__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @emotion/sheet */ "../../plugins/wp-react-form/node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js");
+/* harmony import */ var _isolated_hoist_non_react_statics_do_not_use_this_in_your_code_dist_emotion_react_isolated_hoist_non_react_statics_do_not_use_this_in_your_code_browser_esm_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../isolated-hoist-non-react-statics-do-not-use-this-in-your-code/dist/emotion-react-isolated-hoist-non-react-statics-do-not-use-this-in-your-code.browser.esm.js */ "../wp-react-form/node_modules/@emotion/react/isolated-hoist-non-react-statics-do-not-use-this-in-your-code/dist/emotion-react-isolated-hoist-non-react-statics-do-not-use-this-in-your-code.browser.esm.js");
+/* harmony import */ var _emotion_utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @emotion/utils */ "../wp-react-form/node_modules/@emotion/utils/dist/emotion-utils.browser.esm.js");
+/* harmony import */ var _emotion_serialize__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @emotion/serialize */ "../wp-react-form/node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js");
+/* harmony import */ var _emotion_sheet__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @emotion/sheet */ "../wp-react-form/node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js");
 
 
 
@@ -1767,20 +1767,20 @@ if (true) {
 
 
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../NX-Plugins/notificationx/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../notificationx/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@emotion/react/isolated-hoist-non-react-statics-do-not-use-this-in-your-code/dist/emotion-react-isolated-hoist-non-react-statics-do-not-use-this-in-your-code.browser.esm.js":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@emotion/react/isolated-hoist-non-react-statics-do-not-use-this-in-your-code/dist/emotion-react-isolated-hoist-non-react-statics-do-not-use-this-in-your-code.browser.esm.js ***!
-  \**************************************************************************************************************************************************************************************************************************/
+/***/ "../wp-react-form/node_modules/@emotion/react/isolated-hoist-non-react-statics-do-not-use-this-in-your-code/dist/emotion-react-isolated-hoist-non-react-statics-do-not-use-this-in-your-code.browser.esm.js":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@emotion/react/isolated-hoist-non-react-statics-do-not-use-this-in-your-code/dist/emotion-react-isolated-hoist-non-react-statics-do-not-use-this-in-your-code.browser.esm.js ***!
+  \******************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! hoist-non-react-statics */ "../../plugins/wp-react-form/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js");
+/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! hoist-non-react-statics */ "../wp-react-form/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js");
 /* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_0__);
 
 
@@ -1797,19 +1797,19 @@ var hoistNonReactStatics = (function (targetComponent, sourceComponent) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js":
-/*!******************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js ***!
-  \******************************************************************************************************/
+/***/ "../wp-react-form/node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js":
+/*!**********************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js ***!
+  \**********************************************************************************************/
 /*! exports provided: serializeStyles */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "serializeStyles", function() { return serializeStyles; });
-/* harmony import */ var _emotion_hash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @emotion/hash */ "../../plugins/wp-react-form/node_modules/@emotion/hash/dist/hash.browser.esm.js");
-/* harmony import */ var _emotion_unitless__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/unitless */ "../../plugins/wp-react-form/node_modules/@emotion/unitless/dist/unitless.browser.esm.js");
-/* harmony import */ var _emotion_memoize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @emotion/memoize */ "../../plugins/wp-react-form/node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js");
+/* harmony import */ var _emotion_hash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @emotion/hash */ "../wp-react-form/node_modules/@emotion/hash/dist/hash.browser.esm.js");
+/* harmony import */ var _emotion_unitless__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/unitless */ "../wp-react-form/node_modules/@emotion/unitless/dist/unitless.browser.esm.js");
+/* harmony import */ var _emotion_memoize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @emotion/memoize */ "../wp-react-form/node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js");
 
 
 
@@ -2128,10 +2128,10 @@ var serializeStyles = function serializeStyles(args, registered, mergedProps) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js":
-/*!**********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js ***!
-  \**********************************************************************************************/
+/***/ "../wp-react-form/node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js":
+/*!**************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js ***!
+  \**************************************************************************************/
 /*! exports provided: StyleSheet */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2288,10 +2288,10 @@ var StyleSheet = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@emotion/unitless/dist/unitless.browser.esm.js":
-/*!********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@emotion/unitless/dist/unitless.browser.esm.js ***!
-  \********************************************************************************************/
+/***/ "../wp-react-form/node_modules/@emotion/unitless/dist/unitless.browser.esm.js":
+/*!************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@emotion/unitless/dist/unitless.browser.esm.js ***!
+  \************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2351,10 +2351,10 @@ var unitlessKeys = {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@emotion/utils/dist/emotion-utils.browser.esm.js":
-/*!**********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@emotion/utils/dist/emotion-utils.browser.esm.js ***!
-  \**********************************************************************************************/
+/***/ "../wp-react-form/node_modules/@emotion/utils/dist/emotion-utils.browser.esm.js":
+/*!**************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@emotion/utils/dist/emotion-utils.browser.esm.js ***!
+  \**************************************************************************************/
 /*! exports provided: getRegisteredStyles, insertStyles */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2406,10 +2406,10 @@ var insertStyles = function insertStyles(cache, serialized, isStringTag) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/@emotion/weak-memoize/dist/weak-memoize.browser.esm.js":
-/*!****************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/@emotion/weak-memoize/dist/weak-memoize.browser.esm.js ***!
-  \****************************************************************************************************/
+/***/ "../wp-react-form/node_modules/@emotion/weak-memoize/dist/weak-memoize.browser.esm.js":
+/*!********************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/@emotion/weak-memoize/dist/weak-memoize.browser.esm.js ***!
+  \********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2435,10 +2435,10 @@ var weakMemoize = function weakMemoize(func) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/classnames/index.js":
-/*!*****************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/classnames/index.js ***!
-  \*****************************************************************/
+/***/ "../wp-react-form/node_modules/classnames/index.js":
+/*!*********************************************************!*\
+  !*** ../wp-react-form/node_modules/classnames/index.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2503,10 +2503,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/AtomicBlockUtils.js":
-/*!******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/AtomicBlockUtils.js ***!
-  \******************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/AtomicBlockUtils.js":
+/*!**********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/AtomicBlockUtils.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2527,25 +2527,25 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var BlockMapBuilder = __webpack_require__(/*! ./BlockMapBuilder */ "../../plugins/wp-react-form/node_modules/draft-js/lib/BlockMapBuilder.js");
+var BlockMapBuilder = __webpack_require__(/*! ./BlockMapBuilder */ "../wp-react-form/node_modules/draft-js/lib/BlockMapBuilder.js");
 
-var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../../plugins/wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
+var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
 
-var ContentBlock = __webpack_require__(/*! ./ContentBlock */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlock.js");
+var ContentBlock = __webpack_require__(/*! ./ContentBlock */ "../wp-react-form/node_modules/draft-js/lib/ContentBlock.js");
 
-var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
+var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
 
-var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
+var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
+var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
 
-var gkx = __webpack_require__(/*! ./gkx */ "../../plugins/wp-react-form/node_modules/draft-js/lib/gkx.js");
+var gkx = __webpack_require__(/*! ./gkx */ "../wp-react-form/node_modules/draft-js/lib/gkx.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
-var moveBlockInContentState = __webpack_require__(/*! ./moveBlockInContentState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/moveBlockInContentState.js");
+var moveBlockInContentState = __webpack_require__(/*! ./moveBlockInContentState */ "../wp-react-form/node_modules/draft-js/lib/moveBlockInContentState.js");
 
 var experimentalTreeDataSupport = gkx('draft_tree_data_support');
 var ContentBlockRecord = experimentalTreeDataSupport ? ContentBlockNode : ContentBlock;
@@ -2631,10 +2631,10 @@ module.exports = AtomicBlockUtils;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/BlockMapBuilder.js":
-/*!*****************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/BlockMapBuilder.js ***!
-  \*****************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/BlockMapBuilder.js":
+/*!*********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/BlockMapBuilder.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2651,7 +2651,7 @@ module.exports = AtomicBlockUtils;
  */
 
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
 var OrderedMap = Immutable.OrderedMap;
 var BlockMapBuilder = {
@@ -2665,10 +2665,10 @@ module.exports = BlockMapBuilder;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/BlockTree.js":
-/*!***********************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/BlockTree.js ***!
-  \***********************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/BlockTree.js":
+/*!***************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/BlockTree.js ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2691,11 +2691,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
-var findRangesImmutable = __webpack_require__(/*! ./findRangesImmutable */ "../../plugins/wp-react-form/node_modules/draft-js/lib/findRangesImmutable.js");
+var findRangesImmutable = __webpack_require__(/*! ./findRangesImmutable */ "../wp-react-form/node_modules/draft-js/lib/findRangesImmutable.js");
 
-var getOwnObjectValues = __webpack_require__(/*! ./getOwnObjectValues */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getOwnObjectValues.js");
+var getOwnObjectValues = __webpack_require__(/*! ./getOwnObjectValues */ "../wp-react-form/node_modules/draft-js/lib/getOwnObjectValues.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
 var List = Immutable.List,
     Repeat = Immutable.Repeat,
@@ -2786,10 +2786,10 @@ module.exports = BlockTree;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js":
-/*!*******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js ***!
-  \*******************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js":
+/*!***********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2808,7 +2808,7 @@ module.exports = BlockTree;
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
-var _require = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js"),
+var _require = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js"),
     Map = _require.Map,
     OrderedSet = _require.OrderedSet,
     Record = _require.Record; // Immutable.map is typed such that the value for every key in the map
@@ -2906,10 +2906,10 @@ module.exports = CharacterMetadata;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/CompositeDraftDecorator.js":
-/*!*************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/CompositeDraftDecorator.js ***!
-  \*************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/CompositeDraftDecorator.js":
+/*!*****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/CompositeDraftDecorator.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2928,7 +2928,7 @@ module.exports = CharacterMetadata;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
 var List = Immutable.List;
 var DELIMITER = '.';
@@ -3038,10 +3038,10 @@ module.exports = CompositeDraftDecorator;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlock.js":
-/*!**************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/ContentBlock.js ***!
-  \**************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/ContentBlock.js":
+/*!******************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/ContentBlock.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3060,11 +3060,11 @@ module.exports = CompositeDraftDecorator;
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
-var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../../plugins/wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
+var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
 
-var findRangesImmutable = __webpack_require__(/*! ./findRangesImmutable */ "../../plugins/wp-react-form/node_modules/draft-js/lib/findRangesImmutable.js");
+var findRangesImmutable = __webpack_require__(/*! ./findRangesImmutable */ "../wp-react-form/node_modules/draft-js/lib/findRangesImmutable.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
 var List = Immutable.List,
     Map = Immutable.Map,
@@ -3175,10 +3175,10 @@ module.exports = ContentBlock;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js":
-/*!******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js ***!
-  \******************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js":
+/*!**********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3203,11 +3203,11 @@ module.exports = ContentBlock;
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
-var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../../plugins/wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
+var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
 
-var findRangesImmutable = __webpack_require__(/*! ./findRangesImmutable */ "../../plugins/wp-react-form/node_modules/draft-js/lib/findRangesImmutable.js");
+var findRangesImmutable = __webpack_require__(/*! ./findRangesImmutable */ "../wp-react-form/node_modules/draft-js/lib/findRangesImmutable.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
 var List = Immutable.List,
     Map = Immutable.Map,
@@ -3332,10 +3332,10 @@ module.exports = ContentBlockNode;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentState.js":
-/*!**************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/ContentState.js ***!
-  \**************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/ContentState.js":
+/*!******************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/ContentState.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3358,27 +3358,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
-var BlockMapBuilder = __webpack_require__(/*! ./BlockMapBuilder */ "../../plugins/wp-react-form/node_modules/draft-js/lib/BlockMapBuilder.js");
+var BlockMapBuilder = __webpack_require__(/*! ./BlockMapBuilder */ "../wp-react-form/node_modules/draft-js/lib/BlockMapBuilder.js");
 
-var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../../plugins/wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
+var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
 
-var ContentBlock = __webpack_require__(/*! ./ContentBlock */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlock.js");
+var ContentBlock = __webpack_require__(/*! ./ContentBlock */ "../wp-react-form/node_modules/draft-js/lib/ContentBlock.js");
 
-var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
+var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
 
-var DraftEntity = __webpack_require__(/*! ./DraftEntity */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEntity.js");
+var DraftEntity = __webpack_require__(/*! ./DraftEntity */ "../wp-react-form/node_modules/draft-js/lib/DraftEntity.js");
 
-var SelectionState = __webpack_require__(/*! ./SelectionState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/SelectionState.js");
+var SelectionState = __webpack_require__(/*! ./SelectionState */ "../wp-react-form/node_modules/draft-js/lib/SelectionState.js");
 
-var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
+var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
 
-var getOwnObjectValues = __webpack_require__(/*! ./getOwnObjectValues */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getOwnObjectValues.js");
+var getOwnObjectValues = __webpack_require__(/*! ./getOwnObjectValues */ "../wp-react-form/node_modules/draft-js/lib/getOwnObjectValues.js");
 
-var gkx = __webpack_require__(/*! ./gkx */ "../../plugins/wp-react-form/node_modules/draft-js/lib/gkx.js");
+var gkx = __webpack_require__(/*! ./gkx */ "../wp-react-form/node_modules/draft-js/lib/gkx.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
-var sanitizeDraftText = __webpack_require__(/*! ./sanitizeDraftText */ "../../plugins/wp-react-form/node_modules/draft-js/lib/sanitizeDraftText.js");
+var sanitizeDraftText = __webpack_require__(/*! ./sanitizeDraftText */ "../wp-react-form/node_modules/draft-js/lib/sanitizeDraftText.js");
 
 var List = Immutable.List,
     Record = Immutable.Record,
@@ -3577,10 +3577,10 @@ module.exports = ContentState;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentStateInlineStyle.js":
-/*!*************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/ContentStateInlineStyle.js ***!
-  \*************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/ContentStateInlineStyle.js":
+/*!*****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/ContentStateInlineStyle.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3597,9 +3597,9 @@ module.exports = ContentState;
  */
 
 
-var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../../plugins/wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
+var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
 
-var _require = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js"),
+var _require = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js"),
     Map = _require.Map;
 
 var ContentStateInlineStyle = {
@@ -3655,10 +3655,10 @@ module.exports = ContentStateInlineStyle;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DOMObserver.js":
-/*!*************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DOMObserver.js ***!
-  \*************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DOMObserver.js":
+/*!*****************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DOMObserver.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3677,17 +3677,17 @@ module.exports = ContentStateInlineStyle;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UserAgent.js");
+var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../wp-react-form/node_modules/fbjs/lib/UserAgent.js");
 
-var findAncestorOffsetKey = __webpack_require__(/*! ./findAncestorOffsetKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/findAncestorOffsetKey.js");
+var findAncestorOffsetKey = __webpack_require__(/*! ./findAncestorOffsetKey */ "../wp-react-form/node_modules/draft-js/lib/findAncestorOffsetKey.js");
 
-var getWindowForNode = __webpack_require__(/*! ./getWindowForNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getWindowForNode.js");
+var getWindowForNode = __webpack_require__(/*! ./getWindowForNode */ "../wp-react-form/node_modules/draft-js/lib/getWindowForNode.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
-var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../../plugins/wp-react-form/node_modules/fbjs/lib/nullthrows.js");
+var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../wp-react-form/node_modules/fbjs/lib/nullthrows.js");
 
 var Map = Immutable.Map;
 // Heavily based on Prosemirror's DOMObserver https://github.com/ProseMirror/prosemirror-view/blob/master/src/domobserver.js
@@ -3824,10 +3824,10 @@ module.exports = DOMObserver;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DefaultDraftBlockRenderMap.js":
-/*!****************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DefaultDraftBlockRenderMap.js ***!
-  \****************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DefaultDraftBlockRenderMap.js":
+/*!********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DefaultDraftBlockRenderMap.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3846,9 +3846,9 @@ module.exports = DOMObserver;
 
 var React = __webpack_require__(/*! react */ "react");
 
-var cx = __webpack_require__(/*! fbjs/lib/cx */ "../../plugins/wp-react-form/node_modules/fbjs/lib/cx.js");
+var cx = __webpack_require__(/*! fbjs/lib/cx */ "../wp-react-form/node_modules/fbjs/lib/cx.js");
 
-var _require = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js"),
+var _require = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js"),
     Map = _require.Map;
 
 var UL_WRAP = React.createElement("ul", {
@@ -3912,10 +3912,10 @@ module.exports = DefaultDraftBlockRenderMap;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DefaultDraftInlineStyle.js":
-/*!*************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DefaultDraftInlineStyle.js ***!
-  \*************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DefaultDraftInlineStyle.js":
+/*!*****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DefaultDraftInlineStyle.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3953,10 +3953,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/Draft.js":
-/*!*******************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/Draft.js ***!
-  \*******************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/Draft.js":
+/*!***********************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/Draft.js ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3972,53 +3972,53 @@ module.exports = {
  */
 
 
-var AtomicBlockUtils = __webpack_require__(/*! ./AtomicBlockUtils */ "../../plugins/wp-react-form/node_modules/draft-js/lib/AtomicBlockUtils.js");
+var AtomicBlockUtils = __webpack_require__(/*! ./AtomicBlockUtils */ "../wp-react-form/node_modules/draft-js/lib/AtomicBlockUtils.js");
 
-var BlockMapBuilder = __webpack_require__(/*! ./BlockMapBuilder */ "../../plugins/wp-react-form/node_modules/draft-js/lib/BlockMapBuilder.js");
+var BlockMapBuilder = __webpack_require__(/*! ./BlockMapBuilder */ "../wp-react-form/node_modules/draft-js/lib/BlockMapBuilder.js");
 
-var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../../plugins/wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
+var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
 
-var CompositeDraftDecorator = __webpack_require__(/*! ./CompositeDraftDecorator */ "../../plugins/wp-react-form/node_modules/draft-js/lib/CompositeDraftDecorator.js");
+var CompositeDraftDecorator = __webpack_require__(/*! ./CompositeDraftDecorator */ "../wp-react-form/node_modules/draft-js/lib/CompositeDraftDecorator.js");
 
-var ContentBlock = __webpack_require__(/*! ./ContentBlock */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlock.js");
+var ContentBlock = __webpack_require__(/*! ./ContentBlock */ "../wp-react-form/node_modules/draft-js/lib/ContentBlock.js");
 
-var ContentState = __webpack_require__(/*! ./ContentState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentState.js");
+var ContentState = __webpack_require__(/*! ./ContentState */ "../wp-react-form/node_modules/draft-js/lib/ContentState.js");
 
-var DefaultDraftBlockRenderMap = __webpack_require__(/*! ./DefaultDraftBlockRenderMap */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DefaultDraftBlockRenderMap.js");
+var DefaultDraftBlockRenderMap = __webpack_require__(/*! ./DefaultDraftBlockRenderMap */ "../wp-react-form/node_modules/draft-js/lib/DefaultDraftBlockRenderMap.js");
 
-var DefaultDraftInlineStyle = __webpack_require__(/*! ./DefaultDraftInlineStyle */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DefaultDraftInlineStyle.js");
+var DefaultDraftInlineStyle = __webpack_require__(/*! ./DefaultDraftInlineStyle */ "../wp-react-form/node_modules/draft-js/lib/DefaultDraftInlineStyle.js");
 
-var DraftEditor = __webpack_require__(/*! ./DraftEditor.react */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditor.react.js");
+var DraftEditor = __webpack_require__(/*! ./DraftEditor.react */ "../wp-react-form/node_modules/draft-js/lib/DraftEditor.react.js");
 
-var DraftEditorBlock = __webpack_require__(/*! ./DraftEditorBlock.react */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorBlock.react.js");
+var DraftEditorBlock = __webpack_require__(/*! ./DraftEditorBlock.react */ "../wp-react-form/node_modules/draft-js/lib/DraftEditorBlock.react.js");
 
-var DraftEntity = __webpack_require__(/*! ./DraftEntity */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEntity.js");
+var DraftEntity = __webpack_require__(/*! ./DraftEntity */ "../wp-react-form/node_modules/draft-js/lib/DraftEntity.js");
 
-var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
+var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
 
-var DraftEntityInstance = __webpack_require__(/*! ./DraftEntityInstance */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEntityInstance.js");
+var DraftEntityInstance = __webpack_require__(/*! ./DraftEntityInstance */ "../wp-react-form/node_modules/draft-js/lib/DraftEntityInstance.js");
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var KeyBindingUtil = __webpack_require__(/*! ./KeyBindingUtil */ "../../plugins/wp-react-form/node_modules/draft-js/lib/KeyBindingUtil.js");
+var KeyBindingUtil = __webpack_require__(/*! ./KeyBindingUtil */ "../wp-react-form/node_modules/draft-js/lib/KeyBindingUtil.js");
 
-var RawDraftContentState = __webpack_require__(/*! ./RawDraftContentState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/RawDraftContentState.js");
+var RawDraftContentState = __webpack_require__(/*! ./RawDraftContentState */ "../wp-react-form/node_modules/draft-js/lib/RawDraftContentState.js");
 
-var RichTextEditorUtil = __webpack_require__(/*! ./RichTextEditorUtil */ "../../plugins/wp-react-form/node_modules/draft-js/lib/RichTextEditorUtil.js");
+var RichTextEditorUtil = __webpack_require__(/*! ./RichTextEditorUtil */ "../wp-react-form/node_modules/draft-js/lib/RichTextEditorUtil.js");
 
-var SelectionState = __webpack_require__(/*! ./SelectionState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/SelectionState.js");
+var SelectionState = __webpack_require__(/*! ./SelectionState */ "../wp-react-form/node_modules/draft-js/lib/SelectionState.js");
 
-var convertFromDraftStateToRaw = __webpack_require__(/*! ./convertFromDraftStateToRaw */ "../../plugins/wp-react-form/node_modules/draft-js/lib/convertFromDraftStateToRaw.js");
+var convertFromDraftStateToRaw = __webpack_require__(/*! ./convertFromDraftStateToRaw */ "../wp-react-form/node_modules/draft-js/lib/convertFromDraftStateToRaw.js");
 
-var convertFromRawToDraftState = __webpack_require__(/*! ./convertFromRawToDraftState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/convertFromRawToDraftState.js");
+var convertFromRawToDraftState = __webpack_require__(/*! ./convertFromRawToDraftState */ "../wp-react-form/node_modules/draft-js/lib/convertFromRawToDraftState.js");
 
-var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
+var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
 
-var getDefaultKeyBinding = __webpack_require__(/*! ./getDefaultKeyBinding */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getDefaultKeyBinding.js");
+var getDefaultKeyBinding = __webpack_require__(/*! ./getDefaultKeyBinding */ "../wp-react-form/node_modules/draft-js/lib/getDefaultKeyBinding.js");
 
-var getVisibleSelectionRect = __webpack_require__(/*! ./getVisibleSelectionRect */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getVisibleSelectionRect.js");
+var getVisibleSelectionRect = __webpack_require__(/*! ./getVisibleSelectionRect */ "../wp-react-form/node_modules/draft-js/lib/getVisibleSelectionRect.js");
 
-var convertFromHTML = __webpack_require__(/*! ./convertFromHTMLToContentBlocks */ "../../plugins/wp-react-form/node_modules/draft-js/lib/convertFromHTMLToContentBlocks.js");
+var convertFromHTML = __webpack_require__(/*! ./convertFromHTMLToContentBlocks */ "../wp-react-form/node_modules/draft-js/lib/convertFromHTMLToContentBlocks.js");
 
 var DraftPublic = {
   Editor: DraftEditor,
@@ -4050,10 +4050,10 @@ module.exports = DraftPublic;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditor.react.js":
-/*!*******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftEditor.react.js ***!
-  \*******************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftEditor.react.js":
+/*!***********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftEditor.react.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4071,7 +4071,7 @@ module.exports = DraftPublic;
  */
 
 
-var _assign = __webpack_require__(/*! object-assign */ "../../plugins/wp-react-form/node_modules/object-assign/index.js");
+var _assign = __webpack_require__(/*! object-assign */ "../wp-react-form/node_modules/object-assign/index.js");
 
 function _extends() { _extends = _assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
@@ -4083,49 +4083,49 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
-var DefaultDraftBlockRenderMap = __webpack_require__(/*! ./DefaultDraftBlockRenderMap */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DefaultDraftBlockRenderMap.js");
+var DefaultDraftBlockRenderMap = __webpack_require__(/*! ./DefaultDraftBlockRenderMap */ "../wp-react-form/node_modules/draft-js/lib/DefaultDraftBlockRenderMap.js");
 
-var DefaultDraftInlineStyle = __webpack_require__(/*! ./DefaultDraftInlineStyle */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DefaultDraftInlineStyle.js");
+var DefaultDraftInlineStyle = __webpack_require__(/*! ./DefaultDraftInlineStyle */ "../wp-react-form/node_modules/draft-js/lib/DefaultDraftInlineStyle.js");
 
-var DraftEditorCompositionHandler = __webpack_require__(/*! ./DraftEditorCompositionHandler */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorCompositionHandler.js");
+var DraftEditorCompositionHandler = __webpack_require__(/*! ./DraftEditorCompositionHandler */ "../wp-react-form/node_modules/draft-js/lib/DraftEditorCompositionHandler.js");
 
-var DraftEditorContents = __webpack_require__(/*! ./DraftEditorContents.react */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorContents.react.js");
+var DraftEditorContents = __webpack_require__(/*! ./DraftEditorContents.react */ "../wp-react-form/node_modules/draft-js/lib/DraftEditorContents.react.js");
 
-var DraftEditorDragHandler = __webpack_require__(/*! ./DraftEditorDragHandler */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorDragHandler.js");
+var DraftEditorDragHandler = __webpack_require__(/*! ./DraftEditorDragHandler */ "../wp-react-form/node_modules/draft-js/lib/DraftEditorDragHandler.js");
 
-var DraftEditorEditHandler = __webpack_require__(/*! ./DraftEditorEditHandler */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorEditHandler.js");
+var DraftEditorEditHandler = __webpack_require__(/*! ./DraftEditorEditHandler */ "../wp-react-form/node_modules/draft-js/lib/DraftEditorEditHandler.js");
 
-var flushControlled = __webpack_require__(/*! ./DraftEditorFlushControlled */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorFlushControlled.js");
+var flushControlled = __webpack_require__(/*! ./DraftEditorFlushControlled */ "../wp-react-form/node_modules/draft-js/lib/DraftEditorFlushControlled.js");
 
-var DraftEditorPlaceholder = __webpack_require__(/*! ./DraftEditorPlaceholder.react */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorPlaceholder.react.js");
+var DraftEditorPlaceholder = __webpack_require__(/*! ./DraftEditorPlaceholder.react */ "../wp-react-form/node_modules/draft-js/lib/DraftEditorPlaceholder.react.js");
 
-var DraftEffects = __webpack_require__(/*! ./DraftEffects */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEffects.js");
+var DraftEffects = __webpack_require__(/*! ./DraftEffects */ "../wp-react-form/node_modules/draft-js/lib/DraftEffects.js");
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
 var React = __webpack_require__(/*! react */ "react");
 
-var Scroll = __webpack_require__(/*! fbjs/lib/Scroll */ "../../plugins/wp-react-form/node_modules/fbjs/lib/Scroll.js");
+var Scroll = __webpack_require__(/*! fbjs/lib/Scroll */ "../wp-react-form/node_modules/fbjs/lib/Scroll.js");
 
-var Style = __webpack_require__(/*! fbjs/lib/Style */ "../../plugins/wp-react-form/node_modules/fbjs/lib/Style.js");
+var Style = __webpack_require__(/*! fbjs/lib/Style */ "../wp-react-form/node_modules/fbjs/lib/Style.js");
 
-var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UserAgent.js");
+var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../wp-react-form/node_modules/fbjs/lib/UserAgent.js");
 
-var cx = __webpack_require__(/*! fbjs/lib/cx */ "../../plugins/wp-react-form/node_modules/fbjs/lib/cx.js");
+var cx = __webpack_require__(/*! fbjs/lib/cx */ "../wp-react-form/node_modules/fbjs/lib/cx.js");
 
-var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
+var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
 
-var getDefaultKeyBinding = __webpack_require__(/*! ./getDefaultKeyBinding */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getDefaultKeyBinding.js");
+var getDefaultKeyBinding = __webpack_require__(/*! ./getDefaultKeyBinding */ "../wp-react-form/node_modules/draft-js/lib/getDefaultKeyBinding.js");
 
-var getScrollPosition = __webpack_require__(/*! fbjs/lib/getScrollPosition */ "../../plugins/wp-react-form/node_modules/fbjs/lib/getScrollPosition.js");
+var getScrollPosition = __webpack_require__(/*! fbjs/lib/getScrollPosition */ "../wp-react-form/node_modules/fbjs/lib/getScrollPosition.js");
 
-var gkx = __webpack_require__(/*! ./gkx */ "../../plugins/wp-react-form/node_modules/draft-js/lib/gkx.js");
+var gkx = __webpack_require__(/*! ./gkx */ "../wp-react-form/node_modules/draft-js/lib/gkx.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
-var isHTMLElement = __webpack_require__(/*! ./isHTMLElement */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isHTMLElement.js");
+var isHTMLElement = __webpack_require__(/*! ./isHTMLElement */ "../wp-react-form/node_modules/draft-js/lib/isHTMLElement.js");
 
-var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../../plugins/wp-react-form/node_modules/fbjs/lib/nullthrows.js");
+var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../wp-react-form/node_modules/fbjs/lib/nullthrows.js");
 
 var isIE = UserAgent.isBrowser('IE'); // IE does not support the `input` event on contentEditable, so we can't
 // observe spellcheck behavior.
@@ -4727,14 +4727,14 @@ _defineProperty(DraftEditor, "defaultProps", {
 });
 
 module.exports = DraftEditor;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../NX-Plugins/notificationx/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../notificationx/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorBlock.react.js":
-/*!************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorBlock.react.js ***!
-  \************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftEditorBlock.react.js":
+/*!****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftEditorBlock.react.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4751,7 +4751,7 @@ module.exports = DraftEditor;
  */
 
 
-var _assign = __webpack_require__(/*! object-assign */ "../../plugins/wp-react-form/node_modules/object-assign/index.js");
+var _assign = __webpack_require__(/*! object-assign */ "../wp-react-form/node_modules/object-assign/index.js");
 
 function _extends() { _extends = _assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
@@ -4761,33 +4761,33 @@ function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.crea
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var DraftEditorLeaf = __webpack_require__(/*! ./DraftEditorLeaf.react */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorLeaf.react.js");
+var DraftEditorLeaf = __webpack_require__(/*! ./DraftEditorLeaf.react */ "../wp-react-form/node_modules/draft-js/lib/DraftEditorLeaf.react.js");
 
-var DraftOffsetKey = __webpack_require__(/*! ./DraftOffsetKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js");
+var DraftOffsetKey = __webpack_require__(/*! ./DraftOffsetKey */ "../wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js");
 
 var React = __webpack_require__(/*! react */ "react");
 
-var Scroll = __webpack_require__(/*! fbjs/lib/Scroll */ "../../plugins/wp-react-form/node_modules/fbjs/lib/Scroll.js");
+var Scroll = __webpack_require__(/*! fbjs/lib/Scroll */ "../wp-react-form/node_modules/fbjs/lib/Scroll.js");
 
-var Style = __webpack_require__(/*! fbjs/lib/Style */ "../../plugins/wp-react-form/node_modules/fbjs/lib/Style.js");
+var Style = __webpack_require__(/*! fbjs/lib/Style */ "../wp-react-form/node_modules/fbjs/lib/Style.js");
 
-var UnicodeBidi = __webpack_require__(/*! fbjs/lib/UnicodeBidi */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UnicodeBidi.js");
+var UnicodeBidi = __webpack_require__(/*! fbjs/lib/UnicodeBidi */ "../wp-react-form/node_modules/fbjs/lib/UnicodeBidi.js");
 
-var UnicodeBidiDirection = __webpack_require__(/*! fbjs/lib/UnicodeBidiDirection */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UnicodeBidiDirection.js");
+var UnicodeBidiDirection = __webpack_require__(/*! fbjs/lib/UnicodeBidiDirection */ "../wp-react-form/node_modules/fbjs/lib/UnicodeBidiDirection.js");
 
-var cx = __webpack_require__(/*! fbjs/lib/cx */ "../../plugins/wp-react-form/node_modules/fbjs/lib/cx.js");
+var cx = __webpack_require__(/*! fbjs/lib/cx */ "../wp-react-form/node_modules/fbjs/lib/cx.js");
 
-var getElementPosition = __webpack_require__(/*! fbjs/lib/getElementPosition */ "../../plugins/wp-react-form/node_modules/fbjs/lib/getElementPosition.js");
+var getElementPosition = __webpack_require__(/*! fbjs/lib/getElementPosition */ "../wp-react-form/node_modules/fbjs/lib/getElementPosition.js");
 
-var getScrollPosition = __webpack_require__(/*! fbjs/lib/getScrollPosition */ "../../plugins/wp-react-form/node_modules/fbjs/lib/getScrollPosition.js");
+var getScrollPosition = __webpack_require__(/*! fbjs/lib/getScrollPosition */ "../wp-react-form/node_modules/fbjs/lib/getScrollPosition.js");
 
-var getViewportDimensions = __webpack_require__(/*! fbjs/lib/getViewportDimensions */ "../../plugins/wp-react-form/node_modules/fbjs/lib/getViewportDimensions.js");
+var getViewportDimensions = __webpack_require__(/*! fbjs/lib/getViewportDimensions */ "../wp-react-form/node_modules/fbjs/lib/getViewportDimensions.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
-var isHTMLElement = __webpack_require__(/*! ./isHTMLElement */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isHTMLElement.js");
+var isHTMLElement = __webpack_require__(/*! ./isHTMLElement */ "../wp-react-form/node_modules/draft-js/lib/isHTMLElement.js");
 
-var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../../plugins/wp-react-form/node_modules/fbjs/lib/nullthrows.js");
+var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../wp-react-form/node_modules/fbjs/lib/nullthrows.js");
 
 var SCROLL_BUFFER = 10;
 
@@ -4988,10 +4988,10 @@ module.exports = DraftEditorBlock;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorBlockNode.react.js":
-/*!****************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorBlockNode.react.js ***!
-  \****************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftEditorBlockNode.react.js":
+/*!********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftEditorBlockNode.react.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5013,7 +5013,7 @@ module.exports = DraftEditorBlock;
  */
 
 
-var _assign = __webpack_require__(/*! object-assign */ "../../plugins/wp-react-form/node_modules/object-assign/index.js");
+var _assign = __webpack_require__(/*! object-assign */ "../wp-react-form/node_modules/object-assign/index.js");
 
 function _extends() { _extends = _assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
@@ -5025,27 +5025,27 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var DraftEditorNode = __webpack_require__(/*! ./DraftEditorNode.react */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorNode.react.js");
+var DraftEditorNode = __webpack_require__(/*! ./DraftEditorNode.react */ "../wp-react-form/node_modules/draft-js/lib/DraftEditorNode.react.js");
 
-var DraftOffsetKey = __webpack_require__(/*! ./DraftOffsetKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js");
+var DraftOffsetKey = __webpack_require__(/*! ./DraftOffsetKey */ "../wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js");
 
 var React = __webpack_require__(/*! react */ "react");
 
-var Scroll = __webpack_require__(/*! fbjs/lib/Scroll */ "../../plugins/wp-react-form/node_modules/fbjs/lib/Scroll.js");
+var Scroll = __webpack_require__(/*! fbjs/lib/Scroll */ "../wp-react-form/node_modules/fbjs/lib/Scroll.js");
 
-var Style = __webpack_require__(/*! fbjs/lib/Style */ "../../plugins/wp-react-form/node_modules/fbjs/lib/Style.js");
+var Style = __webpack_require__(/*! fbjs/lib/Style */ "../wp-react-form/node_modules/fbjs/lib/Style.js");
 
-var getElementPosition = __webpack_require__(/*! fbjs/lib/getElementPosition */ "../../plugins/wp-react-form/node_modules/fbjs/lib/getElementPosition.js");
+var getElementPosition = __webpack_require__(/*! fbjs/lib/getElementPosition */ "../wp-react-form/node_modules/fbjs/lib/getElementPosition.js");
 
-var getScrollPosition = __webpack_require__(/*! fbjs/lib/getScrollPosition */ "../../plugins/wp-react-form/node_modules/fbjs/lib/getScrollPosition.js");
+var getScrollPosition = __webpack_require__(/*! fbjs/lib/getScrollPosition */ "../wp-react-form/node_modules/fbjs/lib/getScrollPosition.js");
 
-var getViewportDimensions = __webpack_require__(/*! fbjs/lib/getViewportDimensions */ "../../plugins/wp-react-form/node_modules/fbjs/lib/getViewportDimensions.js");
+var getViewportDimensions = __webpack_require__(/*! fbjs/lib/getViewportDimensions */ "../wp-react-form/node_modules/fbjs/lib/getViewportDimensions.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
-var isHTMLElement = __webpack_require__(/*! ./isHTMLElement */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isHTMLElement.js");
+var isHTMLElement = __webpack_require__(/*! ./isHTMLElement */ "../wp-react-form/node_modules/draft-js/lib/isHTMLElement.js");
 
 var SCROLL_BUFFER = 10;
 var List = Immutable.List; // we should harden up the bellow flow types to make them more strict
@@ -5343,10 +5343,10 @@ module.exports = DraftEditorBlockNode;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorCompositionHandler.js":
-/*!*******************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorCompositionHandler.js ***!
-  \*******************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftEditorCompositionHandler.js":
+/*!***********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftEditorCompositionHandler.js ***!
+  \***********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5363,27 +5363,27 @@ module.exports = DraftEditorBlockNode;
  */
 
 
-var DOMObserver = __webpack_require__(/*! ./DOMObserver */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DOMObserver.js");
+var DOMObserver = __webpack_require__(/*! ./DOMObserver */ "../wp-react-form/node_modules/draft-js/lib/DOMObserver.js");
 
-var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
+var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
 
-var DraftOffsetKey = __webpack_require__(/*! ./DraftOffsetKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js");
+var DraftOffsetKey = __webpack_require__(/*! ./DraftOffsetKey */ "../wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js");
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var Keys = __webpack_require__(/*! fbjs/lib/Keys */ "../../plugins/wp-react-form/node_modules/fbjs/lib/Keys.js");
+var Keys = __webpack_require__(/*! fbjs/lib/Keys */ "../wp-react-form/node_modules/fbjs/lib/Keys.js");
 
-var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UserAgent.js");
+var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../wp-react-form/node_modules/fbjs/lib/UserAgent.js");
 
-var editOnSelect = __webpack_require__(/*! ./editOnSelect */ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnSelect.js");
+var editOnSelect = __webpack_require__(/*! ./editOnSelect */ "../wp-react-form/node_modules/draft-js/lib/editOnSelect.js");
 
-var getContentEditableContainer = __webpack_require__(/*! ./getContentEditableContainer */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getContentEditableContainer.js");
+var getContentEditableContainer = __webpack_require__(/*! ./getContentEditableContainer */ "../wp-react-form/node_modules/draft-js/lib/getContentEditableContainer.js");
 
-var getDraftEditorSelection = __webpack_require__(/*! ./getDraftEditorSelection */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getDraftEditorSelection.js");
+var getDraftEditorSelection = __webpack_require__(/*! ./getDraftEditorSelection */ "../wp-react-form/node_modules/draft-js/lib/getDraftEditorSelection.js");
 
-var getEntityKeyForSelection = __webpack_require__(/*! ./getEntityKeyForSelection */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getEntityKeyForSelection.js");
+var getEntityKeyForSelection = __webpack_require__(/*! ./getEntityKeyForSelection */ "../wp-react-form/node_modules/draft-js/lib/getEntityKeyForSelection.js");
 
-var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../../plugins/wp-react-form/node_modules/fbjs/lib/nullthrows.js");
+var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../wp-react-form/node_modules/fbjs/lib/nullthrows.js");
 
 var isIE = UserAgent.isBrowser('IE');
 /**
@@ -5581,10 +5581,10 @@ module.exports = DraftEditorCompositionHandler;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorContents-core.react.js":
-/*!********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorContents-core.react.js ***!
-  \********************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftEditorContents-core.react.js":
+/*!************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftEditorContents-core.react.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5601,7 +5601,7 @@ module.exports = DraftEditorCompositionHandler;
  */
 
 
-var _assign = __webpack_require__(/*! object-assign */ "../../plugins/wp-react-form/node_modules/object-assign/index.js");
+var _assign = __webpack_require__(/*! object-assign */ "../wp-react-form/node_modules/object-assign/index.js");
 
 function _extends() { _extends = _assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
@@ -5611,17 +5611,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
-var DraftEditorBlock = __webpack_require__(/*! ./DraftEditorBlock.react */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorBlock.react.js");
+var DraftEditorBlock = __webpack_require__(/*! ./DraftEditorBlock.react */ "../wp-react-form/node_modules/draft-js/lib/DraftEditorBlock.react.js");
 
-var DraftOffsetKey = __webpack_require__(/*! ./DraftOffsetKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js");
+var DraftOffsetKey = __webpack_require__(/*! ./DraftOffsetKey */ "../wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js");
 
 var React = __webpack_require__(/*! react */ "react");
 
-var cx = __webpack_require__(/*! fbjs/lib/cx */ "../../plugins/wp-react-form/node_modules/fbjs/lib/cx.js");
+var cx = __webpack_require__(/*! fbjs/lib/cx */ "../wp-react-form/node_modules/fbjs/lib/cx.js");
 
-var joinClasses = __webpack_require__(/*! fbjs/lib/joinClasses */ "../../plugins/wp-react-form/node_modules/fbjs/lib/joinClasses.js");
+var joinClasses = __webpack_require__(/*! fbjs/lib/joinClasses */ "../wp-react-form/node_modules/fbjs/lib/joinClasses.js");
 
-var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../../plugins/wp-react-form/node_modules/fbjs/lib/nullthrows.js");
+var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../wp-react-form/node_modules/fbjs/lib/nullthrows.js");
 
 /**
  * Provide default styling for list items. This way, lists will be styled with
@@ -5847,10 +5847,10 @@ module.exports = DraftEditorContents;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorContents.react.js":
-/*!***************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorContents.react.js ***!
-  \***************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftEditorContents.react.js":
+/*!*******************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftEditorContents.react.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5866,17 +5866,17 @@ module.exports = DraftEditorContents;
  */
 
 
-var gkx = __webpack_require__(/*! ./gkx */ "../../plugins/wp-react-form/node_modules/draft-js/lib/gkx.js");
+var gkx = __webpack_require__(/*! ./gkx */ "../wp-react-form/node_modules/draft-js/lib/gkx.js");
 
 var experimentalTreeDataSupport = gkx('draft_tree_data_support');
-module.exports = experimentalTreeDataSupport ? __webpack_require__(/*! ./DraftEditorContentsExperimental.react */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorContentsExperimental.react.js") : __webpack_require__(/*! ./DraftEditorContents-core.react */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorContents-core.react.js");
+module.exports = experimentalTreeDataSupport ? __webpack_require__(/*! ./DraftEditorContentsExperimental.react */ "../wp-react-form/node_modules/draft-js/lib/DraftEditorContentsExperimental.react.js") : __webpack_require__(/*! ./DraftEditorContents-core.react */ "../wp-react-form/node_modules/draft-js/lib/DraftEditorContents-core.react.js");
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorContentsExperimental.react.js":
-/*!***************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorContentsExperimental.react.js ***!
-  \***************************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftEditorContentsExperimental.react.js":
+/*!*******************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftEditorContentsExperimental.react.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5898,19 +5898,19 @@ module.exports = experimentalTreeDataSupport ? __webpack_require__(/*! ./DraftEd
  */
 
 
-var _assign = __webpack_require__(/*! object-assign */ "../../plugins/wp-react-form/node_modules/object-assign/index.js");
+var _assign = __webpack_require__(/*! object-assign */ "../wp-react-form/node_modules/object-assign/index.js");
 
 function _extends() { _extends = _assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
-var DraftEditorBlockNode = __webpack_require__(/*! ./DraftEditorBlockNode.react */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorBlockNode.react.js");
+var DraftEditorBlockNode = __webpack_require__(/*! ./DraftEditorBlockNode.react */ "../wp-react-form/node_modules/draft-js/lib/DraftEditorBlockNode.react.js");
 
-var DraftOffsetKey = __webpack_require__(/*! ./DraftOffsetKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js");
+var DraftOffsetKey = __webpack_require__(/*! ./DraftOffsetKey */ "../wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js");
 
 var React = __webpack_require__(/*! react */ "react");
 
-var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../../plugins/wp-react-form/node_modules/fbjs/lib/nullthrows.js");
+var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../wp-react-form/node_modules/fbjs/lib/nullthrows.js");
 
 /**
  * `DraftEditorContents` is the container component for all block components
@@ -6055,10 +6055,10 @@ module.exports = DraftEditorContentsExperimental;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorDecoratedLeaves.react.js":
-/*!**********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorDecoratedLeaves.react.js ***!
-  \**********************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftEditorDecoratedLeaves.react.js":
+/*!**************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftEditorDecoratedLeaves.react.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6078,19 +6078,19 @@ module.exports = DraftEditorContentsExperimental;
  */
 
 
-var _assign = __webpack_require__(/*! object-assign */ "../../plugins/wp-react-form/node_modules/object-assign/index.js");
+var _assign = __webpack_require__(/*! object-assign */ "../wp-react-form/node_modules/object-assign/index.js");
 
 function _extends() { _extends = _assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
-var DraftOffsetKey = __webpack_require__(/*! ./DraftOffsetKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js");
+var DraftOffsetKey = __webpack_require__(/*! ./DraftOffsetKey */ "../wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js");
 
 var React = __webpack_require__(/*! react */ "react");
 
-var UnicodeBidi = __webpack_require__(/*! fbjs/lib/UnicodeBidi */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UnicodeBidi.js");
+var UnicodeBidi = __webpack_require__(/*! fbjs/lib/UnicodeBidi */ "../wp-react-form/node_modules/fbjs/lib/UnicodeBidi.js");
 
-var UnicodeBidiDirection = __webpack_require__(/*! fbjs/lib/UnicodeBidiDirection */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UnicodeBidiDirection.js");
+var UnicodeBidiDirection = __webpack_require__(/*! fbjs/lib/UnicodeBidiDirection */ "../wp-react-form/node_modules/fbjs/lib/UnicodeBidiDirection.js");
 
 var DraftEditorDecoratedLeaves = /*#__PURE__*/function (_React$Component) {
   _inheritsLoose(DraftEditorDecoratedLeaves, _React$Component);
@@ -6137,10 +6137,10 @@ module.exports = DraftEditorDecoratedLeaves;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorDragHandler.js":
-/*!************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorDragHandler.js ***!
-  \************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftEditorDragHandler.js":
+/*!****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftEditorDragHandler.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6157,25 +6157,25 @@ module.exports = DraftEditorDecoratedLeaves;
  */
 
 
-var DataTransfer = __webpack_require__(/*! fbjs/lib/DataTransfer */ "../../plugins/wp-react-form/node_modules/fbjs/lib/DataTransfer.js");
+var DataTransfer = __webpack_require__(/*! fbjs/lib/DataTransfer */ "../wp-react-form/node_modules/fbjs/lib/DataTransfer.js");
 
-var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
+var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var findAncestorOffsetKey = __webpack_require__(/*! ./findAncestorOffsetKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/findAncestorOffsetKey.js");
+var findAncestorOffsetKey = __webpack_require__(/*! ./findAncestorOffsetKey */ "../wp-react-form/node_modules/draft-js/lib/findAncestorOffsetKey.js");
 
-var getCorrectDocumentFromNode = __webpack_require__(/*! ./getCorrectDocumentFromNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getCorrectDocumentFromNode.js");
+var getCorrectDocumentFromNode = __webpack_require__(/*! ./getCorrectDocumentFromNode */ "../wp-react-form/node_modules/draft-js/lib/getCorrectDocumentFromNode.js");
 
-var getTextContentFromFiles = __webpack_require__(/*! ./getTextContentFromFiles */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getTextContentFromFiles.js");
+var getTextContentFromFiles = __webpack_require__(/*! ./getTextContentFromFiles */ "../wp-react-form/node_modules/draft-js/lib/getTextContentFromFiles.js");
 
-var getUpdatedSelectionState = __webpack_require__(/*! ./getUpdatedSelectionState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getUpdatedSelectionState.js");
+var getUpdatedSelectionState = __webpack_require__(/*! ./getUpdatedSelectionState */ "../wp-react-form/node_modules/draft-js/lib/getUpdatedSelectionState.js");
 
-var getWindowForNode = __webpack_require__(/*! ./getWindowForNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getWindowForNode.js");
+var getWindowForNode = __webpack_require__(/*! ./getWindowForNode */ "../wp-react-form/node_modules/draft-js/lib/getWindowForNode.js");
 
-var isEventHandled = __webpack_require__(/*! ./isEventHandled */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isEventHandled.js");
+var isEventHandled = __webpack_require__(/*! ./isEventHandled */ "../wp-react-form/node_modules/draft-js/lib/isEventHandled.js");
 
-var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../../plugins/wp-react-form/node_modules/fbjs/lib/nullthrows.js");
+var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../wp-react-form/node_modules/fbjs/lib/nullthrows.js");
 /**
  * Get a SelectionState for the supplied mouse event.
  */
@@ -6299,10 +6299,10 @@ module.exports = DraftEditorDragHandler;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorEditHandler.js":
-/*!************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorEditHandler.js ***!
-  \************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftEditorEditHandler.js":
+/*!****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftEditorEditHandler.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6319,31 +6319,31 @@ module.exports = DraftEditorDragHandler;
  */
 
 
-var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UserAgent.js");
+var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../wp-react-form/node_modules/fbjs/lib/UserAgent.js");
 
-var onBeforeInput = __webpack_require__(/*! ./editOnBeforeInput */ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnBeforeInput.js");
+var onBeforeInput = __webpack_require__(/*! ./editOnBeforeInput */ "../wp-react-form/node_modules/draft-js/lib/editOnBeforeInput.js");
 
-var onBlur = __webpack_require__(/*! ./editOnBlur */ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnBlur.js");
+var onBlur = __webpack_require__(/*! ./editOnBlur */ "../wp-react-form/node_modules/draft-js/lib/editOnBlur.js");
 
-var onCompositionStart = __webpack_require__(/*! ./editOnCompositionStart */ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnCompositionStart.js");
+var onCompositionStart = __webpack_require__(/*! ./editOnCompositionStart */ "../wp-react-form/node_modules/draft-js/lib/editOnCompositionStart.js");
 
-var onCopy = __webpack_require__(/*! ./editOnCopy */ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnCopy.js");
+var onCopy = __webpack_require__(/*! ./editOnCopy */ "../wp-react-form/node_modules/draft-js/lib/editOnCopy.js");
 
-var onCut = __webpack_require__(/*! ./editOnCut */ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnCut.js");
+var onCut = __webpack_require__(/*! ./editOnCut */ "../wp-react-form/node_modules/draft-js/lib/editOnCut.js");
 
-var onDragOver = __webpack_require__(/*! ./editOnDragOver */ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnDragOver.js");
+var onDragOver = __webpack_require__(/*! ./editOnDragOver */ "../wp-react-form/node_modules/draft-js/lib/editOnDragOver.js");
 
-var onDragStart = __webpack_require__(/*! ./editOnDragStart */ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnDragStart.js");
+var onDragStart = __webpack_require__(/*! ./editOnDragStart */ "../wp-react-form/node_modules/draft-js/lib/editOnDragStart.js");
 
-var onFocus = __webpack_require__(/*! ./editOnFocus */ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnFocus.js");
+var onFocus = __webpack_require__(/*! ./editOnFocus */ "../wp-react-form/node_modules/draft-js/lib/editOnFocus.js");
 
-var onInput = __webpack_require__(/*! ./editOnInput */ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnInput.js");
+var onInput = __webpack_require__(/*! ./editOnInput */ "../wp-react-form/node_modules/draft-js/lib/editOnInput.js");
 
-var onKeyDown = __webpack_require__(/*! ./editOnKeyDown */ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnKeyDown.js");
+var onKeyDown = __webpack_require__(/*! ./editOnKeyDown */ "../wp-react-form/node_modules/draft-js/lib/editOnKeyDown.js");
 
-var onPaste = __webpack_require__(/*! ./editOnPaste */ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnPaste.js");
+var onPaste = __webpack_require__(/*! ./editOnPaste */ "../wp-react-form/node_modules/draft-js/lib/editOnPaste.js");
 
-var onSelect = __webpack_require__(/*! ./editOnSelect */ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnSelect.js");
+var onSelect = __webpack_require__(/*! ./editOnSelect */ "../wp-react-form/node_modules/draft-js/lib/editOnSelect.js");
 
 var isChrome = UserAgent.isBrowser('Chrome');
 var isFirefox = UserAgent.isBrowser('Firefox');
@@ -6372,10 +6372,10 @@ module.exports = DraftEditorEditHandler;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorFlushControlled.js":
-/*!****************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorFlushControlled.js ***!
-  \****************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftEditorFlushControlled.js":
+/*!********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftEditorFlushControlled.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6399,10 +6399,10 @@ module.exports = flushControlled;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorLeaf.react.js":
-/*!***********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorLeaf.react.js ***!
-  \***********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftEditorLeaf.react.js":
+/*!***************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftEditorLeaf.react.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6419,7 +6419,7 @@ module.exports = flushControlled;
  */
 
 
-var _assign = __webpack_require__(/*! object-assign */ "../../plugins/wp-react-form/node_modules/object-assign/index.js");
+var _assign = __webpack_require__(/*! object-assign */ "../wp-react-form/node_modules/object-assign/index.js");
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
@@ -6427,15 +6427,15 @@ function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.crea
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var DraftEditorTextNode = __webpack_require__(/*! ./DraftEditorTextNode.react */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorTextNode.react.js");
+var DraftEditorTextNode = __webpack_require__(/*! ./DraftEditorTextNode.react */ "../wp-react-form/node_modules/draft-js/lib/DraftEditorTextNode.react.js");
 
 var React = __webpack_require__(/*! react */ "react");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
-var isHTMLBRElement = __webpack_require__(/*! ./isHTMLBRElement */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isHTMLBRElement.js");
+var isHTMLBRElement = __webpack_require__(/*! ./isHTMLBRElement */ "../wp-react-form/node_modules/draft-js/lib/isHTMLBRElement.js");
 
-var setDraftEditorSelection = __webpack_require__(/*! ./setDraftEditorSelection */ "../../plugins/wp-react-form/node_modules/draft-js/lib/setDraftEditorSelection.js").setDraftEditorSelection;
+var setDraftEditorSelection = __webpack_require__(/*! ./setDraftEditorSelection */ "../wp-react-form/node_modules/draft-js/lib/setDraftEditorSelection.js").setDraftEditorSelection;
 
 /**
  * All leaf nodes in the editor are spans with single text nodes. Leaf
@@ -6570,10 +6570,10 @@ module.exports = DraftEditorLeaf;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorNode.react.js":
-/*!***********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorNode.react.js ***!
-  \***********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftEditorNode.react.js":
+/*!***************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftEditorNode.react.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6595,17 +6595,17 @@ module.exports = DraftEditorLeaf;
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
-var DraftEditorDecoratedLeaves = __webpack_require__(/*! ./DraftEditorDecoratedLeaves.react */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorDecoratedLeaves.react.js");
+var DraftEditorDecoratedLeaves = __webpack_require__(/*! ./DraftEditorDecoratedLeaves.react */ "../wp-react-form/node_modules/draft-js/lib/DraftEditorDecoratedLeaves.react.js");
 
-var DraftEditorLeaf = __webpack_require__(/*! ./DraftEditorLeaf.react */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorLeaf.react.js");
+var DraftEditorLeaf = __webpack_require__(/*! ./DraftEditorLeaf.react */ "../wp-react-form/node_modules/draft-js/lib/DraftEditorLeaf.react.js");
 
-var DraftOffsetKey = __webpack_require__(/*! ./DraftOffsetKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js");
+var DraftOffsetKey = __webpack_require__(/*! ./DraftOffsetKey */ "../wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
 var React = __webpack_require__(/*! react */ "react");
 
-var cx = __webpack_require__(/*! fbjs/lib/cx */ "../../plugins/wp-react-form/node_modules/fbjs/lib/cx.js");
+var cx = __webpack_require__(/*! fbjs/lib/cx */ "../wp-react-form/node_modules/fbjs/lib/cx.js");
 
 var List = Immutable.List;
 
@@ -6689,10 +6689,10 @@ module.exports = DraftEditorNode;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorPlaceholder.react.js":
-/*!******************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorPlaceholder.react.js ***!
-  \******************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftEditorPlaceholder.react.js":
+/*!**********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftEditorPlaceholder.react.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6713,7 +6713,7 @@ function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.crea
 
 var React = __webpack_require__(/*! react */ "react");
 
-var cx = __webpack_require__(/*! fbjs/lib/cx */ "../../plugins/wp-react-form/node_modules/fbjs/lib/cx.js");
+var cx = __webpack_require__(/*! fbjs/lib/cx */ "../wp-react-form/node_modules/fbjs/lib/cx.js");
 
 /**
  * This component is responsible for rendering placeholder text for the
@@ -6759,10 +6759,10 @@ module.exports = DraftEditorPlaceholder;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorTextNode.react.js":
-/*!***************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftEditorTextNode.react.js ***!
-  \***************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftEditorTextNode.react.js":
+/*!*******************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftEditorTextNode.react.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6787,11 +6787,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var React = __webpack_require__(/*! react */ "react");
 
-var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UserAgent.js");
+var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../wp-react-form/node_modules/fbjs/lib/UserAgent.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
-var isElement = __webpack_require__(/*! ./isElement */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isElement.js"); // In IE, spans with <br> tags render as two newlines. By rendering a span
+var isElement = __webpack_require__(/*! ./isElement */ "../wp-react-form/node_modules/draft-js/lib/isElement.js"); // In IE, spans with <br> tags render as two newlines. By rendering a span
 // with only a newline character, we can be sure to render a single line.
 
 
@@ -6914,10 +6914,10 @@ module.exports = DraftEditorTextNode;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEffects.js":
-/*!**************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftEffects.js ***!
-  \**************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftEffects.js":
+/*!******************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftEffects.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6938,10 +6938,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEntity.js":
-/*!*************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftEntity.js ***!
-  \*************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftEntity.js":
+/*!*****************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftEntity.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6962,13 +6962,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * 
  * @emails oncall+draft_js
  */
-var DraftEntityInstance = __webpack_require__(/*! ./DraftEntityInstance */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEntityInstance.js");
+var DraftEntityInstance = __webpack_require__(/*! ./DraftEntityInstance */ "../wp-react-form/node_modules/draft-js/lib/DraftEntityInstance.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
-var uuid = __webpack_require__(/*! ./uuid */ "../../plugins/wp-react-form/node_modules/draft-js/lib/uuid.js");
+var uuid = __webpack_require__(/*! ./uuid */ "../wp-react-form/node_modules/draft-js/lib/uuid.js");
 
 var Map = Immutable.Map;
 var instances = Map();
@@ -7161,10 +7161,10 @@ module.exports = DraftEntity;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEntityInstance.js":
-/*!*********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftEntityInstance.js ***!
-  \*********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftEntityInstance.js":
+/*!*************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftEntityInstance.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7184,7 +7184,7 @@ module.exports = DraftEntity;
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
 var Record = Immutable.Record;
 var DraftEntityInstanceRecord = Record({
@@ -7232,10 +7232,10 @@ module.exports = DraftEntityInstance;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEntitySegments.js":
-/*!*********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftEntitySegments.js ***!
-  \*********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftEntitySegments.js":
+/*!*************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftEntitySegments.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7341,10 +7341,10 @@ module.exports = DraftEntitySegments;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftJsDebugLogging.js":
-/*!*********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftJsDebugLogging.js ***!
-  \*********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftJsDebugLogging.js":
+/*!*************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftJsDebugLogging.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7369,10 +7369,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftModifier.js":
-/*!***************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftModifier.js ***!
-  \***************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftModifier.js":
+/*!*******************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftModifier.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7389,31 +7389,31 @@ module.exports = {
  */
 
 
-var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../../plugins/wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
+var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
 
-var ContentStateInlineStyle = __webpack_require__(/*! ./ContentStateInlineStyle */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentStateInlineStyle.js");
+var ContentStateInlineStyle = __webpack_require__(/*! ./ContentStateInlineStyle */ "../wp-react-form/node_modules/draft-js/lib/ContentStateInlineStyle.js");
 
-var applyEntityToContentState = __webpack_require__(/*! ./applyEntityToContentState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/applyEntityToContentState.js");
+var applyEntityToContentState = __webpack_require__(/*! ./applyEntityToContentState */ "../wp-react-form/node_modules/draft-js/lib/applyEntityToContentState.js");
 
-var getCharacterRemovalRange = __webpack_require__(/*! ./getCharacterRemovalRange */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getCharacterRemovalRange.js");
+var getCharacterRemovalRange = __webpack_require__(/*! ./getCharacterRemovalRange */ "../wp-react-form/node_modules/draft-js/lib/getCharacterRemovalRange.js");
 
-var getContentStateFragment = __webpack_require__(/*! ./getContentStateFragment */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getContentStateFragment.js");
+var getContentStateFragment = __webpack_require__(/*! ./getContentStateFragment */ "../wp-react-form/node_modules/draft-js/lib/getContentStateFragment.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
-var insertFragmentIntoContentState = __webpack_require__(/*! ./insertFragmentIntoContentState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/insertFragmentIntoContentState.js");
+var insertFragmentIntoContentState = __webpack_require__(/*! ./insertFragmentIntoContentState */ "../wp-react-form/node_modules/draft-js/lib/insertFragmentIntoContentState.js");
 
-var insertTextIntoContentState = __webpack_require__(/*! ./insertTextIntoContentState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/insertTextIntoContentState.js");
+var insertTextIntoContentState = __webpack_require__(/*! ./insertTextIntoContentState */ "../wp-react-form/node_modules/draft-js/lib/insertTextIntoContentState.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
-var modifyBlockForContentState = __webpack_require__(/*! ./modifyBlockForContentState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/modifyBlockForContentState.js");
+var modifyBlockForContentState = __webpack_require__(/*! ./modifyBlockForContentState */ "../wp-react-form/node_modules/draft-js/lib/modifyBlockForContentState.js");
 
-var removeEntitiesAtEdges = __webpack_require__(/*! ./removeEntitiesAtEdges */ "../../plugins/wp-react-form/node_modules/draft-js/lib/removeEntitiesAtEdges.js");
+var removeEntitiesAtEdges = __webpack_require__(/*! ./removeEntitiesAtEdges */ "../wp-react-form/node_modules/draft-js/lib/removeEntitiesAtEdges.js");
 
-var removeRangeFromContentState = __webpack_require__(/*! ./removeRangeFromContentState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/removeRangeFromContentState.js");
+var removeRangeFromContentState = __webpack_require__(/*! ./removeRangeFromContentState */ "../wp-react-form/node_modules/draft-js/lib/removeRangeFromContentState.js");
 
-var splitBlockInContentState = __webpack_require__(/*! ./splitBlockInContentState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/splitBlockInContentState.js");
+var splitBlockInContentState = __webpack_require__(/*! ./splitBlockInContentState */ "../wp-react-form/node_modules/draft-js/lib/splitBlockInContentState.js");
 
 var OrderedSet = Immutable.OrderedSet;
 /**
@@ -7527,10 +7527,10 @@ module.exports = DraftModifier;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js":
-/*!****************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js ***!
-  \****************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js":
+/*!********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7571,10 +7571,10 @@ module.exports = DraftOffsetKey;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftPasteProcessor.js":
-/*!*********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftPasteProcessor.js ***!
-  \*********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftPasteProcessor.js":
+/*!*************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftPasteProcessor.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7595,21 +7595,21 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var ContentBlock = __webpack_require__(/*! ./ContentBlock */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlock.js");
+var ContentBlock = __webpack_require__(/*! ./ContentBlock */ "../wp-react-form/node_modules/draft-js/lib/ContentBlock.js");
 
-var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
+var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
 
-var convertFromHTMLToContentBlocks = __webpack_require__(/*! ./convertFromHTMLToContentBlocks */ "../../plugins/wp-react-form/node_modules/draft-js/lib/convertFromHTMLToContentBlocks.js");
+var convertFromHTMLToContentBlocks = __webpack_require__(/*! ./convertFromHTMLToContentBlocks */ "../wp-react-form/node_modules/draft-js/lib/convertFromHTMLToContentBlocks.js");
 
-var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
+var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
 
-var getSafeBodyFromHTML = __webpack_require__(/*! ./getSafeBodyFromHTML */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getSafeBodyFromHTML.js");
+var getSafeBodyFromHTML = __webpack_require__(/*! ./getSafeBodyFromHTML */ "../wp-react-form/node_modules/draft-js/lib/getSafeBodyFromHTML.js");
 
-var gkx = __webpack_require__(/*! ./gkx */ "../../plugins/wp-react-form/node_modules/draft-js/lib/gkx.js");
+var gkx = __webpack_require__(/*! ./gkx */ "../wp-react-form/node_modules/draft-js/lib/gkx.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
-var sanitizeDraftText = __webpack_require__(/*! ./sanitizeDraftText */ "../../plugins/wp-react-form/node_modules/draft-js/lib/sanitizeDraftText.js");
+var sanitizeDraftText = __webpack_require__(/*! ./sanitizeDraftText */ "../wp-react-form/node_modules/draft-js/lib/sanitizeDraftText.js");
 
 var List = Immutable.List,
     Repeat = Immutable.Repeat;
@@ -7650,10 +7650,10 @@ module.exports = DraftPasteProcessor;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftRemovableWord.js":
-/*!********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftRemovableWord.js ***!
-  \********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftRemovableWord.js":
+/*!************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftRemovableWord.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7670,7 +7670,7 @@ module.exports = DraftPasteProcessor;
  */
 
 
-var TokenizeUtil = __webpack_require__(/*! fbjs/lib/TokenizeUtil */ "../../plugins/wp-react-form/node_modules/fbjs/lib/TokenizeUtil.js");
+var TokenizeUtil = __webpack_require__(/*! fbjs/lib/TokenizeUtil */ "../wp-react-form/node_modules/fbjs/lib/TokenizeUtil.js");
 
 var punctuation = TokenizeUtil.getPunctuation(); // The apostrophe and curly single quotes behave in a curious way: when
 // surrounded on both sides by word characters, they behave as word chars; when
@@ -7703,10 +7703,10 @@ module.exports = DraftRemovableWord;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftStringKey.js":
-/*!****************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftStringKey.js ***!
-  \****************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftStringKey.js":
+/*!********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftStringKey.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7735,10 +7735,10 @@ module.exports = DraftStringKey;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftTreeAdapter.js":
-/*!******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftTreeAdapter.js ***!
-  \******************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftTreeAdapter.js":
+/*!**********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftTreeAdapter.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7762,9 +7762,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * This is unstable and not part of the public API and should not be used by
  * production systems. This file may be update/removed without notice.
  */
-var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
+var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
 var traverseInDepthOrder = function traverseInDepthOrder(blocks, fn) {
   var stack = [].concat(blocks).reverse();
@@ -7909,10 +7909,10 @@ module.exports = DraftTreeAdapter;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftTreeInvariants.js":
-/*!*********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/DraftTreeInvariants.js ***!
-  \*********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/DraftTreeInvariants.js":
+/*!*************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/DraftTreeInvariants.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7932,7 +7932,7 @@ module.exports = DraftTreeAdapter;
  * This is unstable and not part of the public API and should not be used by
  * production systems. This file may be update/removed without notice.
  */
-var warning = __webpack_require__(/*! fbjs/lib/warning */ "../../plugins/wp-react-form/node_modules/fbjs/lib/warning.js");
+var warning = __webpack_require__(/*! fbjs/lib/warning */ "../wp-react-form/node_modules/fbjs/lib/warning.js");
 
 var DraftTreeInvariants = {
   /**
@@ -8093,10 +8093,10 @@ module.exports = DraftTreeInvariants;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorBidiService.js":
-/*!*******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/EditorBidiService.js ***!
-  \*******************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/EditorBidiService.js":
+/*!***********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/EditorBidiService.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8113,11 +8113,11 @@ module.exports = DraftTreeInvariants;
  */
 
 
-var UnicodeBidiService = __webpack_require__(/*! fbjs/lib/UnicodeBidiService */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UnicodeBidiService.js");
+var UnicodeBidiService = __webpack_require__(/*! fbjs/lib/UnicodeBidiService */ "../wp-react-form/node_modules/fbjs/lib/UnicodeBidiService.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
-var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../../plugins/wp-react-form/node_modules/fbjs/lib/nullthrows.js");
+var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../wp-react-form/node_modules/fbjs/lib/nullthrows.js");
 
 var OrderedMap = Immutable.OrderedMap;
 var bidiService;
@@ -8146,10 +8146,10 @@ module.exports = EditorBidiService;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js":
-/*!*************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js ***!
-  \*************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/EditorState.js":
+/*!*****************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/EditorState.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8170,15 +8170,15 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var BlockTree = __webpack_require__(/*! ./BlockTree */ "../../plugins/wp-react-form/node_modules/draft-js/lib/BlockTree.js");
+var BlockTree = __webpack_require__(/*! ./BlockTree */ "../wp-react-form/node_modules/draft-js/lib/BlockTree.js");
 
-var ContentState = __webpack_require__(/*! ./ContentState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentState.js");
+var ContentState = __webpack_require__(/*! ./ContentState */ "../wp-react-form/node_modules/draft-js/lib/ContentState.js");
 
-var EditorBidiService = __webpack_require__(/*! ./EditorBidiService */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorBidiService.js");
+var EditorBidiService = __webpack_require__(/*! ./EditorBidiService */ "../wp-react-form/node_modules/draft-js/lib/EditorBidiService.js");
 
-var SelectionState = __webpack_require__(/*! ./SelectionState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/SelectionState.js");
+var SelectionState = __webpack_require__(/*! ./SelectionState */ "../wp-react-form/node_modules/draft-js/lib/SelectionState.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
 var OrderedSet = Immutable.OrderedSet,
     Record = Immutable.Record,
@@ -8748,10 +8748,10 @@ module.exports = EditorState;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/KeyBindingUtil.js":
-/*!****************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/KeyBindingUtil.js ***!
-  \****************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/KeyBindingUtil.js":
+/*!********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/KeyBindingUtil.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8768,9 +8768,9 @@ module.exports = EditorState;
  */
 
 
-var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UserAgent.js");
+var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../wp-react-form/node_modules/fbjs/lib/UserAgent.js");
 
-var isSoftNewlineEvent = __webpack_require__(/*! ./isSoftNewlineEvent */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isSoftNewlineEvent.js");
+var isSoftNewlineEvent = __webpack_require__(/*! ./isSoftNewlineEvent */ "../wp-react-form/node_modules/draft-js/lib/isSoftNewlineEvent.js");
 
 var isOSX = UserAgent.isPlatform('Mac OS X');
 var KeyBindingUtil = {
@@ -8797,10 +8797,10 @@ module.exports = KeyBindingUtil;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/RawDraftContentState.js":
-/*!**********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/RawDraftContentState.js ***!
-  \**********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/RawDraftContentState.js":
+/*!**************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/RawDraftContentState.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8819,10 +8819,10 @@ module.exports = KeyBindingUtil;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/RichTextEditorUtil.js":
-/*!********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/RichTextEditorUtil.js ***!
-  \********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/RichTextEditorUtil.js":
+/*!************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/RichTextEditorUtil.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8839,13 +8839,13 @@ module.exports = KeyBindingUtil;
  */
 
 
-var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
+var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var adjustBlockDepthForContentState = __webpack_require__(/*! ./adjustBlockDepthForContentState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/adjustBlockDepthForContentState.js");
+var adjustBlockDepthForContentState = __webpack_require__(/*! ./adjustBlockDepthForContentState */ "../wp-react-form/node_modules/draft-js/lib/adjustBlockDepthForContentState.js");
 
-var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../../plugins/wp-react-form/node_modules/fbjs/lib/nullthrows.js");
+var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../wp-react-form/node_modules/fbjs/lib/nullthrows.js");
 
 var RichTextEditorUtil = {
   currentBlockContainsLink: function currentBlockContainsLink(editorState) {
@@ -9113,10 +9113,10 @@ module.exports = RichTextEditorUtil;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/SecondaryClipboard.js":
-/*!********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/SecondaryClipboard.js ***!
-  \********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/SecondaryClipboard.js":
+/*!************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/SecondaryClipboard.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9133,13 +9133,13 @@ module.exports = RichTextEditorUtil;
  */
 
 
-var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
+var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var getContentStateFragment = __webpack_require__(/*! ./getContentStateFragment */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getContentStateFragment.js");
+var getContentStateFragment = __webpack_require__(/*! ./getContentStateFragment */ "../wp-react-form/node_modules/draft-js/lib/getContentStateFragment.js");
 
-var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../../plugins/wp-react-form/node_modules/fbjs/lib/nullthrows.js");
+var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../wp-react-form/node_modules/fbjs/lib/nullthrows.js");
 
 var clipboard = null;
 /**
@@ -9197,10 +9197,10 @@ module.exports = SecondaryClipboard;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/SelectionState.js":
-/*!****************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/SelectionState.js ***!
-  \****************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/SelectionState.js":
+/*!********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/SelectionState.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9219,7 +9219,7 @@ module.exports = SecondaryClipboard;
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
 var Record = Immutable.Record;
 var defaultRecord = {
@@ -9336,10 +9336,10 @@ module.exports = SelectionState;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/adjustBlockDepthForContentState.js":
-/*!*********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/adjustBlockDepthForContentState.js ***!
-  \*********************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/adjustBlockDepthForContentState.js":
+/*!*************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/adjustBlockDepthForContentState.js ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9381,10 +9381,10 @@ module.exports = adjustBlockDepthForContentState;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/applyEntityToContentBlock.js":
-/*!***************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/applyEntityToContentBlock.js ***!
-  \***************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/applyEntityToContentBlock.js":
+/*!*******************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/applyEntityToContentBlock.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9401,7 +9401,7 @@ module.exports = adjustBlockDepthForContentState;
  */
 
 
-var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../../plugins/wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
+var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
 
 function applyEntityToContentBlock(contentBlock, startArg, end, entityKey) {
   var start = startArg;
@@ -9419,10 +9419,10 @@ module.exports = applyEntityToContentBlock;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/applyEntityToContentState.js":
-/*!***************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/applyEntityToContentState.js ***!
-  \***************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/applyEntityToContentState.js":
+/*!*******************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/applyEntityToContentState.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9439,9 +9439,9 @@ module.exports = applyEntityToContentBlock;
  */
 
 
-var applyEntityToContentBlock = __webpack_require__(/*! ./applyEntityToContentBlock */ "../../plugins/wp-react-form/node_modules/draft-js/lib/applyEntityToContentBlock.js");
+var applyEntityToContentBlock = __webpack_require__(/*! ./applyEntityToContentBlock */ "../wp-react-form/node_modules/draft-js/lib/applyEntityToContentBlock.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
 function applyEntityToContentState(contentState, selectionState, entityKey) {
   var blockMap = contentState.getBlockMap();
@@ -9469,10 +9469,10 @@ module.exports = applyEntityToContentState;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/convertFromDraftStateToRaw.js":
-/*!****************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/convertFromDraftStateToRaw.js ***!
-  \****************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/convertFromDraftStateToRaw.js":
+/*!********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/convertFromDraftStateToRaw.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9493,17 +9493,17 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var ContentBlock = __webpack_require__(/*! ./ContentBlock */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlock.js");
+var ContentBlock = __webpack_require__(/*! ./ContentBlock */ "../wp-react-form/node_modules/draft-js/lib/ContentBlock.js");
 
-var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
+var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
 
-var DraftStringKey = __webpack_require__(/*! ./DraftStringKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftStringKey.js");
+var DraftStringKey = __webpack_require__(/*! ./DraftStringKey */ "../wp-react-form/node_modules/draft-js/lib/DraftStringKey.js");
 
-var encodeEntityRanges = __webpack_require__(/*! ./encodeEntityRanges */ "../../plugins/wp-react-form/node_modules/draft-js/lib/encodeEntityRanges.js");
+var encodeEntityRanges = __webpack_require__(/*! ./encodeEntityRanges */ "../wp-react-form/node_modules/draft-js/lib/encodeEntityRanges.js");
 
-var encodeInlineStyleRanges = __webpack_require__(/*! ./encodeInlineStyleRanges */ "../../plugins/wp-react-form/node_modules/draft-js/lib/encodeInlineStyleRanges.js");
+var encodeInlineStyleRanges = __webpack_require__(/*! ./encodeInlineStyleRanges */ "../wp-react-form/node_modules/draft-js/lib/encodeInlineStyleRanges.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
 var createRawBlock = function createRawBlock(block, entityStorageMap) {
   return {
@@ -9609,10 +9609,10 @@ module.exports = convertFromDraftStateToRaw;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/convertFromHTMLToContentBlocks.js":
-/*!********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/convertFromHTMLToContentBlocks.js ***!
-  \********************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/convertFromHTMLToContentBlocks.js":
+/*!************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/convertFromHTMLToContentBlocks.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9635,38 +9635,38 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../../plugins/wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
+var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
 
-var ContentBlock = __webpack_require__(/*! ./ContentBlock */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlock.js");
+var ContentBlock = __webpack_require__(/*! ./ContentBlock */ "../wp-react-form/node_modules/draft-js/lib/ContentBlock.js");
 
-var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
+var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
 
-var DefaultDraftBlockRenderMap = __webpack_require__(/*! ./DefaultDraftBlockRenderMap */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DefaultDraftBlockRenderMap.js");
+var DefaultDraftBlockRenderMap = __webpack_require__(/*! ./DefaultDraftBlockRenderMap */ "../wp-react-form/node_modules/draft-js/lib/DefaultDraftBlockRenderMap.js");
 
-var DraftEntity = __webpack_require__(/*! ./DraftEntity */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEntity.js");
+var DraftEntity = __webpack_require__(/*! ./DraftEntity */ "../wp-react-form/node_modules/draft-js/lib/DraftEntity.js");
 
-var URI = __webpack_require__(/*! fbjs/lib/URI */ "../../plugins/wp-react-form/node_modules/fbjs/lib/URI.js");
+var URI = __webpack_require__(/*! fbjs/lib/URI */ "../wp-react-form/node_modules/fbjs/lib/URI.js");
 
-var cx = __webpack_require__(/*! fbjs/lib/cx */ "../../plugins/wp-react-form/node_modules/fbjs/lib/cx.js");
+var cx = __webpack_require__(/*! fbjs/lib/cx */ "../wp-react-form/node_modules/fbjs/lib/cx.js");
 
-var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
+var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
 
-var getSafeBodyFromHTML = __webpack_require__(/*! ./getSafeBodyFromHTML */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getSafeBodyFromHTML.js");
+var getSafeBodyFromHTML = __webpack_require__(/*! ./getSafeBodyFromHTML */ "../wp-react-form/node_modules/draft-js/lib/getSafeBodyFromHTML.js");
 
-var gkx = __webpack_require__(/*! ./gkx */ "../../plugins/wp-react-form/node_modules/draft-js/lib/gkx.js");
+var gkx = __webpack_require__(/*! ./gkx */ "../wp-react-form/node_modules/draft-js/lib/gkx.js");
 
-var _require = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js"),
+var _require = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js"),
     List = _require.List,
     Map = _require.Map,
     OrderedSet = _require.OrderedSet;
 
-var isHTMLAnchorElement = __webpack_require__(/*! ./isHTMLAnchorElement */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isHTMLAnchorElement.js");
+var isHTMLAnchorElement = __webpack_require__(/*! ./isHTMLAnchorElement */ "../wp-react-form/node_modules/draft-js/lib/isHTMLAnchorElement.js");
 
-var isHTMLBRElement = __webpack_require__(/*! ./isHTMLBRElement */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isHTMLBRElement.js");
+var isHTMLBRElement = __webpack_require__(/*! ./isHTMLBRElement */ "../wp-react-form/node_modules/draft-js/lib/isHTMLBRElement.js");
 
-var isHTMLElement = __webpack_require__(/*! ./isHTMLElement */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isHTMLElement.js");
+var isHTMLElement = __webpack_require__(/*! ./isHTMLElement */ "../wp-react-form/node_modules/draft-js/lib/isHTMLElement.js");
 
-var isHTMLImageElement = __webpack_require__(/*! ./isHTMLImageElement */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isHTMLImageElement.js");
+var isHTMLImageElement = __webpack_require__(/*! ./isHTMLImageElement */ "../wp-react-form/node_modules/draft-js/lib/isHTMLImageElement.js");
 
 var experimentalTreeDataSupport = gkx('draft_tree_data_support');
 var NBSP = '&nbsp;';
@@ -10414,10 +10414,10 @@ module.exports = convertFromHTMLToContentBlocks;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/convertFromRawToDraftState.js":
-/*!****************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/convertFromRawToDraftState.js ***!
-  \****************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/convertFromRawToDraftState.js":
+/*!********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/convertFromRawToDraftState.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10438,33 +10438,33 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var ContentBlock = __webpack_require__(/*! ./ContentBlock */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlock.js");
+var ContentBlock = __webpack_require__(/*! ./ContentBlock */ "../wp-react-form/node_modules/draft-js/lib/ContentBlock.js");
 
-var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
+var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
 
-var ContentState = __webpack_require__(/*! ./ContentState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentState.js");
+var ContentState = __webpack_require__(/*! ./ContentState */ "../wp-react-form/node_modules/draft-js/lib/ContentState.js");
 
-var DraftEntity = __webpack_require__(/*! ./DraftEntity */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEntity.js");
+var DraftEntity = __webpack_require__(/*! ./DraftEntity */ "../wp-react-form/node_modules/draft-js/lib/DraftEntity.js");
 
-var DraftTreeAdapter = __webpack_require__(/*! ./DraftTreeAdapter */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftTreeAdapter.js");
+var DraftTreeAdapter = __webpack_require__(/*! ./DraftTreeAdapter */ "../wp-react-form/node_modules/draft-js/lib/DraftTreeAdapter.js");
 
-var DraftTreeInvariants = __webpack_require__(/*! ./DraftTreeInvariants */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftTreeInvariants.js");
+var DraftTreeInvariants = __webpack_require__(/*! ./DraftTreeInvariants */ "../wp-react-form/node_modules/draft-js/lib/DraftTreeInvariants.js");
 
-var SelectionState = __webpack_require__(/*! ./SelectionState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/SelectionState.js");
+var SelectionState = __webpack_require__(/*! ./SelectionState */ "../wp-react-form/node_modules/draft-js/lib/SelectionState.js");
 
-var createCharacterList = __webpack_require__(/*! ./createCharacterList */ "../../plugins/wp-react-form/node_modules/draft-js/lib/createCharacterList.js");
+var createCharacterList = __webpack_require__(/*! ./createCharacterList */ "../wp-react-form/node_modules/draft-js/lib/createCharacterList.js");
 
-var decodeEntityRanges = __webpack_require__(/*! ./decodeEntityRanges */ "../../plugins/wp-react-form/node_modules/draft-js/lib/decodeEntityRanges.js");
+var decodeEntityRanges = __webpack_require__(/*! ./decodeEntityRanges */ "../wp-react-form/node_modules/draft-js/lib/decodeEntityRanges.js");
 
-var decodeInlineStyleRanges = __webpack_require__(/*! ./decodeInlineStyleRanges */ "../../plugins/wp-react-form/node_modules/draft-js/lib/decodeInlineStyleRanges.js");
+var decodeInlineStyleRanges = __webpack_require__(/*! ./decodeInlineStyleRanges */ "../wp-react-form/node_modules/draft-js/lib/decodeInlineStyleRanges.js");
 
-var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
+var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
 
-var gkx = __webpack_require__(/*! ./gkx */ "../../plugins/wp-react-form/node_modules/draft-js/lib/gkx.js");
+var gkx = __webpack_require__(/*! ./gkx */ "../wp-react-form/node_modules/draft-js/lib/gkx.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
 var experimentalTreeDataSupport = gkx('draft_tree_data_support');
 var List = Immutable.List,
@@ -10651,10 +10651,10 @@ module.exports = convertFromRawToDraftState;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/createCharacterList.js":
-/*!*********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/createCharacterList.js ***!
-  \*********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/createCharacterList.js":
+/*!*************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/createCharacterList.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10671,9 +10671,9 @@ module.exports = convertFromRawToDraftState;
  */
 
 
-var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../../plugins/wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
+var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
 var List = Immutable.List;
 
@@ -10692,10 +10692,10 @@ module.exports = createCharacterList;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/decodeEntityRanges.js":
-/*!********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/decodeEntityRanges.js ***!
-  \********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/decodeEntityRanges.js":
+/*!************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/decodeEntityRanges.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10712,7 +10712,7 @@ module.exports = createCharacterList;
  */
 
 
-var UnicodeUtils = __webpack_require__(/*! fbjs/lib/UnicodeUtils */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UnicodeUtils.js");
+var UnicodeUtils = __webpack_require__(/*! fbjs/lib/UnicodeUtils */ "../wp-react-form/node_modules/fbjs/lib/UnicodeUtils.js");
 
 var substr = UnicodeUtils.substr;
 /**
@@ -10742,10 +10742,10 @@ module.exports = decodeEntityRanges;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/decodeInlineStyleRanges.js":
-/*!*************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/decodeInlineStyleRanges.js ***!
-  \*************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/decodeInlineStyleRanges.js":
+/*!*****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/decodeInlineStyleRanges.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10762,9 +10762,9 @@ module.exports = decodeEntityRanges;
  */
 
 
-var UnicodeUtils = __webpack_require__(/*! fbjs/lib/UnicodeUtils */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UnicodeUtils.js");
+var UnicodeUtils = __webpack_require__(/*! fbjs/lib/UnicodeUtils */ "../wp-react-form/node_modules/fbjs/lib/UnicodeUtils.js");
 
-var _require = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js"),
+var _require = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js"),
     OrderedSet = _require.OrderedSet;
 
 var substr = UnicodeUtils.substr;
@@ -10795,10 +10795,10 @@ module.exports = decodeInlineStyleRanges;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/draftKeyUtils.js":
-/*!***************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/draftKeyUtils.js ***!
-  \***************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/draftKeyUtils.js":
+/*!*******************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/draftKeyUtils.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10827,10 +10827,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnBeforeInput.js":
-/*!*******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/editOnBeforeInput.js ***!
-  \*******************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/editOnBeforeInput.js":
+/*!***********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/editOnBeforeInput.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10847,21 +10847,21 @@ module.exports = {
  */
 
 
-var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
+var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UserAgent.js");
+var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../wp-react-form/node_modules/fbjs/lib/UserAgent.js");
 
-var getEntityKeyForSelection = __webpack_require__(/*! ./getEntityKeyForSelection */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getEntityKeyForSelection.js");
+var getEntityKeyForSelection = __webpack_require__(/*! ./getEntityKeyForSelection */ "../wp-react-form/node_modules/draft-js/lib/getEntityKeyForSelection.js");
 
-var isEventHandled = __webpack_require__(/*! ./isEventHandled */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isEventHandled.js");
+var isEventHandled = __webpack_require__(/*! ./isEventHandled */ "../wp-react-form/node_modules/draft-js/lib/isEventHandled.js");
 
-var isSelectionAtLeafStart = __webpack_require__(/*! ./isSelectionAtLeafStart */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isSelectionAtLeafStart.js");
+var isSelectionAtLeafStart = __webpack_require__(/*! ./isSelectionAtLeafStart */ "../wp-react-form/node_modules/draft-js/lib/isSelectionAtLeafStart.js");
 
-var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../../plugins/wp-react-form/node_modules/fbjs/lib/nullthrows.js");
+var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../wp-react-form/node_modules/fbjs/lib/nullthrows.js");
 
-var setImmediate = __webpack_require__(/*! fbjs/lib/setImmediate */ "../../plugins/wp-react-form/node_modules/fbjs/lib/setImmediate.js"); // When nothing is focused, Firefox regards two characters, `'` and `/`, as
+var setImmediate = __webpack_require__(/*! fbjs/lib/setImmediate */ "../wp-react-form/node_modules/fbjs/lib/setImmediate.js"); // When nothing is focused, Firefox regards two characters, `'` and `/`, as
 // commands that should open and focus the "quickfind" search bar. This should
 // *never* happen while a contenteditable is focused, but as of v28, it
 // sometimes does, even when the keypress event target is the contenteditable.
@@ -11040,10 +11040,10 @@ module.exports = editOnBeforeInput;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnBlur.js":
-/*!************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/editOnBlur.js ***!
-  \************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/editOnBlur.js":
+/*!****************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/editOnBlur.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11060,11 +11060,11 @@ module.exports = editOnBeforeInput;
  */
 
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var containsNode = __webpack_require__(/*! fbjs/lib/containsNode */ "../../plugins/wp-react-form/node_modules/fbjs/lib/containsNode.js");
+var containsNode = __webpack_require__(/*! fbjs/lib/containsNode */ "../wp-react-form/node_modules/fbjs/lib/containsNode.js");
 
-var getActiveElement = __webpack_require__(/*! fbjs/lib/getActiveElement */ "../../plugins/wp-react-form/node_modules/fbjs/lib/getActiveElement.js");
+var getActiveElement = __webpack_require__(/*! fbjs/lib/getActiveElement */ "../wp-react-form/node_modules/fbjs/lib/getActiveElement.js");
 
 function editOnBlur(editor, e) {
   // In a contentEditable element, when you select a range and then click
@@ -11105,10 +11105,10 @@ module.exports = editOnBlur;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnCompositionStart.js":
-/*!************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/editOnCompositionStart.js ***!
-  \************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/editOnCompositionStart.js":
+/*!****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/editOnCompositionStart.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11125,7 +11125,7 @@ module.exports = editOnBlur;
  */
 
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 /**
  * The user has begun using an IME input system. Switching to `composite` mode
  * allows handling composition input and disables other edit behavior.
@@ -11145,10 +11145,10 @@ module.exports = editOnCompositionStart;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnCopy.js":
-/*!************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/editOnCopy.js ***!
-  \************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/editOnCopy.js":
+/*!****************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/editOnCopy.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11165,7 +11165,7 @@ module.exports = editOnCompositionStart;
  */
 
 
-var getFragmentFromSelection = __webpack_require__(/*! ./getFragmentFromSelection */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getFragmentFromSelection.js");
+var getFragmentFromSelection = __webpack_require__(/*! ./getFragmentFromSelection */ "../wp-react-form/node_modules/draft-js/lib/getFragmentFromSelection.js");
 /**
  * If we have a selection, create a ContentState fragment and store
  * it in our internal clipboard. Subsequent paste events will use this
@@ -11189,10 +11189,10 @@ module.exports = editOnCopy;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnCut.js":
-/*!***********************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/editOnCut.js ***!
-  \***********************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/editOnCut.js":
+/*!***************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/editOnCut.js ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11209,17 +11209,17 @@ module.exports = editOnCopy;
  */
 
 
-var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
+var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var Style = __webpack_require__(/*! fbjs/lib/Style */ "../../plugins/wp-react-form/node_modules/fbjs/lib/Style.js");
+var Style = __webpack_require__(/*! fbjs/lib/Style */ "../wp-react-form/node_modules/fbjs/lib/Style.js");
 
-var getFragmentFromSelection = __webpack_require__(/*! ./getFragmentFromSelection */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getFragmentFromSelection.js");
+var getFragmentFromSelection = __webpack_require__(/*! ./getFragmentFromSelection */ "../wp-react-form/node_modules/draft-js/lib/getFragmentFromSelection.js");
 
-var getScrollPosition = __webpack_require__(/*! fbjs/lib/getScrollPosition */ "../../plugins/wp-react-form/node_modules/fbjs/lib/getScrollPosition.js");
+var getScrollPosition = __webpack_require__(/*! fbjs/lib/getScrollPosition */ "../wp-react-form/node_modules/fbjs/lib/getScrollPosition.js");
 
-var isNode = __webpack_require__(/*! ./isInstanceOfNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isInstanceOfNode.js");
+var isNode = __webpack_require__(/*! ./isInstanceOfNode */ "../wp-react-form/node_modules/draft-js/lib/isInstanceOfNode.js");
 /**
  * On `cut` events, native behavior is allowed to occur so that the system
  * clipboard is set properly. This means that we need to take steps to recover
@@ -11270,10 +11270,10 @@ module.exports = editOnCut;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnDragOver.js":
-/*!****************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/editOnDragOver.js ***!
-  \****************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/editOnDragOver.js":
+/*!********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/editOnDragOver.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11302,10 +11302,10 @@ module.exports = editOnDragOver;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnDragStart.js":
-/*!*****************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/editOnDragStart.js ***!
-  \*****************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/editOnDragStart.js":
+/*!*********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/editOnDragStart.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11334,10 +11334,10 @@ module.exports = editOnDragStart;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnFocus.js":
-/*!*************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/editOnFocus.js ***!
-  \*************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/editOnFocus.js":
+/*!*****************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/editOnFocus.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11354,9 +11354,9 @@ module.exports = editOnDragStart;
  */
 
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UserAgent.js");
+var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../wp-react-form/node_modules/fbjs/lib/UserAgent.js");
 
 function editOnFocus(editor, e) {
   var editorState = editor._latestEditorState;
@@ -11389,10 +11389,10 @@ module.exports = editOnFocus;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnInput.js":
-/*!*************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/editOnInput.js ***!
-  \*************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/editOnInput.js":
+/*!*****************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/editOnInput.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11409,22 +11409,22 @@ module.exports = editOnFocus;
  */
 
 
-var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
+var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
 
-var DraftOffsetKey = __webpack_require__(/*! ./DraftOffsetKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js");
+var DraftOffsetKey = __webpack_require__(/*! ./DraftOffsetKey */ "../wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js");
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UserAgent.js");
+var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../wp-react-form/node_modules/fbjs/lib/UserAgent.js");
 
-var _require = __webpack_require__(/*! ./draftKeyUtils */ "../../plugins/wp-react-form/node_modules/draft-js/lib/draftKeyUtils.js"),
+var _require = __webpack_require__(/*! ./draftKeyUtils */ "../wp-react-form/node_modules/draft-js/lib/draftKeyUtils.js"),
     notEmptyKey = _require.notEmptyKey;
 
-var findAncestorOffsetKey = __webpack_require__(/*! ./findAncestorOffsetKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/findAncestorOffsetKey.js");
+var findAncestorOffsetKey = __webpack_require__(/*! ./findAncestorOffsetKey */ "../wp-react-form/node_modules/draft-js/lib/findAncestorOffsetKey.js");
 
-var keyCommandPlainBackspace = __webpack_require__(/*! ./keyCommandPlainBackspace */ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandPlainBackspace.js");
+var keyCommandPlainBackspace = __webpack_require__(/*! ./keyCommandPlainBackspace */ "../wp-react-form/node_modules/draft-js/lib/keyCommandPlainBackspace.js");
 
-var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../../plugins/wp-react-form/node_modules/fbjs/lib/nullthrows.js");
+var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../wp-react-form/node_modules/fbjs/lib/nullthrows.js");
 
 var isGecko = UserAgent.isEngine('Gecko');
 var DOUBLE_NEWLINE = '\n\n';
@@ -11610,10 +11610,10 @@ module.exports = editOnInput;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnKeyDown.js":
-/*!***************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/editOnKeyDown.js ***!
-  \***************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/editOnKeyDown.js":
+/*!*******************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/editOnKeyDown.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11630,39 +11630,39 @@ module.exports = editOnInput;
  */
 
 
-var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
+var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var KeyBindingUtil = __webpack_require__(/*! ./KeyBindingUtil */ "../../plugins/wp-react-form/node_modules/draft-js/lib/KeyBindingUtil.js");
+var KeyBindingUtil = __webpack_require__(/*! ./KeyBindingUtil */ "../wp-react-form/node_modules/draft-js/lib/KeyBindingUtil.js");
 
-var Keys = __webpack_require__(/*! fbjs/lib/Keys */ "../../plugins/wp-react-form/node_modules/fbjs/lib/Keys.js");
+var Keys = __webpack_require__(/*! fbjs/lib/Keys */ "../wp-react-form/node_modules/fbjs/lib/Keys.js");
 
-var SecondaryClipboard = __webpack_require__(/*! ./SecondaryClipboard */ "../../plugins/wp-react-form/node_modules/draft-js/lib/SecondaryClipboard.js");
+var SecondaryClipboard = __webpack_require__(/*! ./SecondaryClipboard */ "../wp-react-form/node_modules/draft-js/lib/SecondaryClipboard.js");
 
-var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UserAgent.js");
+var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../wp-react-form/node_modules/fbjs/lib/UserAgent.js");
 
-var isEventHandled = __webpack_require__(/*! ./isEventHandled */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isEventHandled.js");
+var isEventHandled = __webpack_require__(/*! ./isEventHandled */ "../wp-react-form/node_modules/draft-js/lib/isEventHandled.js");
 
-var keyCommandBackspaceToStartOfLine = __webpack_require__(/*! ./keyCommandBackspaceToStartOfLine */ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandBackspaceToStartOfLine.js");
+var keyCommandBackspaceToStartOfLine = __webpack_require__(/*! ./keyCommandBackspaceToStartOfLine */ "../wp-react-form/node_modules/draft-js/lib/keyCommandBackspaceToStartOfLine.js");
 
-var keyCommandBackspaceWord = __webpack_require__(/*! ./keyCommandBackspaceWord */ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandBackspaceWord.js");
+var keyCommandBackspaceWord = __webpack_require__(/*! ./keyCommandBackspaceWord */ "../wp-react-form/node_modules/draft-js/lib/keyCommandBackspaceWord.js");
 
-var keyCommandDeleteWord = __webpack_require__(/*! ./keyCommandDeleteWord */ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandDeleteWord.js");
+var keyCommandDeleteWord = __webpack_require__(/*! ./keyCommandDeleteWord */ "../wp-react-form/node_modules/draft-js/lib/keyCommandDeleteWord.js");
 
-var keyCommandInsertNewline = __webpack_require__(/*! ./keyCommandInsertNewline */ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandInsertNewline.js");
+var keyCommandInsertNewline = __webpack_require__(/*! ./keyCommandInsertNewline */ "../wp-react-form/node_modules/draft-js/lib/keyCommandInsertNewline.js");
 
-var keyCommandMoveSelectionToEndOfBlock = __webpack_require__(/*! ./keyCommandMoveSelectionToEndOfBlock */ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandMoveSelectionToEndOfBlock.js");
+var keyCommandMoveSelectionToEndOfBlock = __webpack_require__(/*! ./keyCommandMoveSelectionToEndOfBlock */ "../wp-react-form/node_modules/draft-js/lib/keyCommandMoveSelectionToEndOfBlock.js");
 
-var keyCommandMoveSelectionToStartOfBlock = __webpack_require__(/*! ./keyCommandMoveSelectionToStartOfBlock */ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandMoveSelectionToStartOfBlock.js");
+var keyCommandMoveSelectionToStartOfBlock = __webpack_require__(/*! ./keyCommandMoveSelectionToStartOfBlock */ "../wp-react-form/node_modules/draft-js/lib/keyCommandMoveSelectionToStartOfBlock.js");
 
-var keyCommandPlainBackspace = __webpack_require__(/*! ./keyCommandPlainBackspace */ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandPlainBackspace.js");
+var keyCommandPlainBackspace = __webpack_require__(/*! ./keyCommandPlainBackspace */ "../wp-react-form/node_modules/draft-js/lib/keyCommandPlainBackspace.js");
 
-var keyCommandPlainDelete = __webpack_require__(/*! ./keyCommandPlainDelete */ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandPlainDelete.js");
+var keyCommandPlainDelete = __webpack_require__(/*! ./keyCommandPlainDelete */ "../wp-react-form/node_modules/draft-js/lib/keyCommandPlainDelete.js");
 
-var keyCommandTransposeCharacters = __webpack_require__(/*! ./keyCommandTransposeCharacters */ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandTransposeCharacters.js");
+var keyCommandTransposeCharacters = __webpack_require__(/*! ./keyCommandTransposeCharacters */ "../wp-react-form/node_modules/draft-js/lib/keyCommandTransposeCharacters.js");
 
-var keyCommandUndo = __webpack_require__(/*! ./keyCommandUndo */ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandUndo.js");
+var keyCommandUndo = __webpack_require__(/*! ./keyCommandUndo */ "../wp-react-form/node_modules/draft-js/lib/keyCommandUndo.js");
 
 var isOptionKeyCommand = KeyBindingUtil.isOptionKeyCommand;
 var isChrome = UserAgent.isBrowser('Chrome');
@@ -11841,10 +11841,10 @@ module.exports = editOnKeyDown;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnPaste.js":
-/*!*************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/editOnPaste.js ***!
-  \*************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/editOnPaste.js":
+/*!*****************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/editOnPaste.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11861,27 +11861,27 @@ module.exports = editOnKeyDown;
  */
 
 
-var BlockMapBuilder = __webpack_require__(/*! ./BlockMapBuilder */ "../../plugins/wp-react-form/node_modules/draft-js/lib/BlockMapBuilder.js");
+var BlockMapBuilder = __webpack_require__(/*! ./BlockMapBuilder */ "../wp-react-form/node_modules/draft-js/lib/BlockMapBuilder.js");
 
-var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../../plugins/wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
+var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
 
-var DataTransfer = __webpack_require__(/*! fbjs/lib/DataTransfer */ "../../plugins/wp-react-form/node_modules/fbjs/lib/DataTransfer.js");
+var DataTransfer = __webpack_require__(/*! fbjs/lib/DataTransfer */ "../wp-react-form/node_modules/fbjs/lib/DataTransfer.js");
 
-var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
+var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
 
-var DraftPasteProcessor = __webpack_require__(/*! ./DraftPasteProcessor */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftPasteProcessor.js");
+var DraftPasteProcessor = __webpack_require__(/*! ./DraftPasteProcessor */ "../wp-react-form/node_modules/draft-js/lib/DraftPasteProcessor.js");
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var RichTextEditorUtil = __webpack_require__(/*! ./RichTextEditorUtil */ "../../plugins/wp-react-form/node_modules/draft-js/lib/RichTextEditorUtil.js");
+var RichTextEditorUtil = __webpack_require__(/*! ./RichTextEditorUtil */ "../wp-react-form/node_modules/draft-js/lib/RichTextEditorUtil.js");
 
-var getEntityKeyForSelection = __webpack_require__(/*! ./getEntityKeyForSelection */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getEntityKeyForSelection.js");
+var getEntityKeyForSelection = __webpack_require__(/*! ./getEntityKeyForSelection */ "../wp-react-form/node_modules/draft-js/lib/getEntityKeyForSelection.js");
 
-var getTextContentFromFiles = __webpack_require__(/*! ./getTextContentFromFiles */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getTextContentFromFiles.js");
+var getTextContentFromFiles = __webpack_require__(/*! ./getTextContentFromFiles */ "../wp-react-form/node_modules/draft-js/lib/getTextContentFromFiles.js");
 
-var isEventHandled = __webpack_require__(/*! ./isEventHandled */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isEventHandled.js");
+var isEventHandled = __webpack_require__(/*! ./isEventHandled */ "../wp-react-form/node_modules/draft-js/lib/isEventHandled.js");
 
-var splitTextIntoTextBlocks = __webpack_require__(/*! ./splitTextIntoTextBlocks */ "../../plugins/wp-react-form/node_modules/draft-js/lib/splitTextIntoTextBlocks.js");
+var splitTextIntoTextBlocks = __webpack_require__(/*! ./splitTextIntoTextBlocks */ "../wp-react-form/node_modules/draft-js/lib/splitTextIntoTextBlocks.js");
 /**
  * Paste content.
  */
@@ -12034,10 +12034,10 @@ module.exports = editOnPaste;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/editOnSelect.js":
-/*!**************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/editOnSelect.js ***!
-  \**************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/editOnSelect.js":
+/*!******************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/editOnSelect.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12054,13 +12054,13 @@ module.exports = editOnPaste;
  */
 
 
-var DraftJsDebugLogging = __webpack_require__(/*! ./DraftJsDebugLogging */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftJsDebugLogging.js");
+var DraftJsDebugLogging = __webpack_require__(/*! ./DraftJsDebugLogging */ "../wp-react-form/node_modules/draft-js/lib/DraftJsDebugLogging.js");
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var getContentEditableContainer = __webpack_require__(/*! ./getContentEditableContainer */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getContentEditableContainer.js");
+var getContentEditableContainer = __webpack_require__(/*! ./getContentEditableContainer */ "../wp-react-form/node_modules/draft-js/lib/getContentEditableContainer.js");
 
-var getDraftEditorSelection = __webpack_require__(/*! ./getDraftEditorSelection */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getDraftEditorSelection.js");
+var getDraftEditorSelection = __webpack_require__(/*! ./getDraftEditorSelection */ "../wp-react-form/node_modules/draft-js/lib/getDraftEditorSelection.js");
 
 function editOnSelect(editor) {
   if (editor._blockSelectEvents || editor._latestEditorState !== editor.props.editorState) {
@@ -12101,10 +12101,10 @@ module.exports = editOnSelect;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/encodeEntityRanges.js":
-/*!********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/encodeEntityRanges.js ***!
-  \********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/encodeEntityRanges.js":
+/*!************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/encodeEntityRanges.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12121,9 +12121,9 @@ module.exports = editOnSelect;
  */
 
 
-var DraftStringKey = __webpack_require__(/*! ./DraftStringKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftStringKey.js");
+var DraftStringKey = __webpack_require__(/*! ./DraftStringKey */ "../wp-react-form/node_modules/draft-js/lib/DraftStringKey.js");
 
-var UnicodeUtils = __webpack_require__(/*! fbjs/lib/UnicodeUtils */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UnicodeUtils.js");
+var UnicodeUtils = __webpack_require__(/*! fbjs/lib/UnicodeUtils */ "../wp-react-form/node_modules/fbjs/lib/UnicodeUtils.js");
 
 var strlen = UnicodeUtils.strlen;
 /**
@@ -12155,10 +12155,10 @@ module.exports = encodeEntityRanges;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/encodeInlineStyleRanges.js":
-/*!*************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/encodeInlineStyleRanges.js ***!
-  \*************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/encodeInlineStyleRanges.js":
+/*!*****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/encodeInlineStyleRanges.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12175,9 +12175,9 @@ module.exports = encodeEntityRanges;
  */
 
 
-var UnicodeUtils = __webpack_require__(/*! fbjs/lib/UnicodeUtils */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UnicodeUtils.js");
+var UnicodeUtils = __webpack_require__(/*! fbjs/lib/UnicodeUtils */ "../wp-react-form/node_modules/fbjs/lib/UnicodeUtils.js");
 
-var findRangesImmutable = __webpack_require__(/*! ./findRangesImmutable */ "../../plugins/wp-react-form/node_modules/draft-js/lib/findRangesImmutable.js");
+var findRangesImmutable = __webpack_require__(/*! ./findRangesImmutable */ "../wp-react-form/node_modules/draft-js/lib/findRangesImmutable.js");
 
 var areEqual = function areEqual(a, b) {
   return a === b;
@@ -12230,10 +12230,10 @@ module.exports = encodeInlineStyleRanges;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/expandRangeToStartOfLine.js":
-/*!**************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/expandRangeToStartOfLine.js ***!
-  \**************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/expandRangeToStartOfLine.js":
+/*!******************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/expandRangeToStartOfLine.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12250,13 +12250,13 @@ module.exports = encodeInlineStyleRanges;
  * 
  * @emails oncall+draft_js
  */
-var UnicodeUtils = __webpack_require__(/*! fbjs/lib/UnicodeUtils */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UnicodeUtils.js");
+var UnicodeUtils = __webpack_require__(/*! fbjs/lib/UnicodeUtils */ "../wp-react-form/node_modules/fbjs/lib/UnicodeUtils.js");
 
-var getCorrectDocumentFromNode = __webpack_require__(/*! ./getCorrectDocumentFromNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getCorrectDocumentFromNode.js");
+var getCorrectDocumentFromNode = __webpack_require__(/*! ./getCorrectDocumentFromNode */ "../wp-react-form/node_modules/draft-js/lib/getCorrectDocumentFromNode.js");
 
-var getRangeClientRects = __webpack_require__(/*! ./getRangeClientRects */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getRangeClientRects.js");
+var getRangeClientRects = __webpack_require__(/*! ./getRangeClientRects */ "../wp-react-form/node_modules/draft-js/lib/getRangeClientRects.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 /**
  * Return the computed line height, in pixels, for the provided element.
  */
@@ -12440,10 +12440,10 @@ module.exports = expandRangeToStartOfLine;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/findAncestorOffsetKey.js":
-/*!***********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/findAncestorOffsetKey.js ***!
-  \***********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/findAncestorOffsetKey.js":
+/*!***************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/findAncestorOffsetKey.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12460,9 +12460,9 @@ module.exports = expandRangeToStartOfLine;
  */
 
 
-var getCorrectDocumentFromNode = __webpack_require__(/*! ./getCorrectDocumentFromNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getCorrectDocumentFromNode.js");
+var getCorrectDocumentFromNode = __webpack_require__(/*! ./getCorrectDocumentFromNode */ "../wp-react-form/node_modules/draft-js/lib/getCorrectDocumentFromNode.js");
 
-var getSelectionOffsetKeyForNode = __webpack_require__(/*! ./getSelectionOffsetKeyForNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getSelectionOffsetKeyForNode.js");
+var getSelectionOffsetKeyForNode = __webpack_require__(/*! ./getSelectionOffsetKeyForNode */ "../wp-react-form/node_modules/draft-js/lib/getSelectionOffsetKeyForNode.js");
 /**
  * Get the key from the node's nearest offset-aware ancestor.
  */
@@ -12488,10 +12488,10 @@ module.exports = findAncestorOffsetKey;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/findRangesImmutable.js":
-/*!*********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/findRangesImmutable.js ***!
-  \*********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/findRangesImmutable.js":
+/*!*************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/findRangesImmutable.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12539,10 +12539,10 @@ module.exports = findRangesImmutable;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/generateRandomKey.js":
-/*!*******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/generateRandomKey.js ***!
-  \*******************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/generateRandomKey.js":
+/*!***********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/generateRandomKey.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12577,10 +12577,10 @@ module.exports = generateRandomKey;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getCharacterRemovalRange.js":
-/*!**************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getCharacterRemovalRange.js ***!
-  \**************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getCharacterRemovalRange.js":
+/*!******************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getCharacterRemovalRange.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12597,11 +12597,11 @@ module.exports = generateRandomKey;
  */
 
 
-var DraftEntitySegments = __webpack_require__(/*! ./DraftEntitySegments */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEntitySegments.js");
+var DraftEntitySegments = __webpack_require__(/*! ./DraftEntitySegments */ "../wp-react-form/node_modules/draft-js/lib/DraftEntitySegments.js");
 
-var getRangesForDraftEntity = __webpack_require__(/*! ./getRangesForDraftEntity */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getRangesForDraftEntity.js");
+var getRangesForDraftEntity = __webpack_require__(/*! ./getRangesForDraftEntity */ "../wp-react-form/node_modules/draft-js/lib/getRangesForDraftEntity.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 /**
  * Given a SelectionState and a removal direction, determine the entire range
  * that should be removed from a ContentState. This is based on any entities
@@ -12705,10 +12705,10 @@ module.exports = getCharacterRemovalRange;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getContentEditableContainer.js":
-/*!*****************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getContentEditableContainer.js ***!
-  \*****************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getContentEditableContainer.js":
+/*!*********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getContentEditableContainer.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12725,9 +12725,9 @@ module.exports = getCharacterRemovalRange;
  */
 
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
-var isHTMLElement = __webpack_require__(/*! ./isHTMLElement */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isHTMLElement.js");
+var isHTMLElement = __webpack_require__(/*! ./isHTMLElement */ "../wp-react-form/node_modules/draft-js/lib/isHTMLElement.js");
 
 function getContentEditableContainer(editor) {
   var editorNode = editor.editorContainer;
@@ -12741,10 +12741,10 @@ module.exports = getContentEditableContainer;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getContentStateFragment.js":
-/*!*************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getContentStateFragment.js ***!
-  \*************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getContentStateFragment.js":
+/*!*****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getContentStateFragment.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12761,9 +12761,9 @@ module.exports = getContentEditableContainer;
  */
 
 
-var randomizeBlockMapKeys = __webpack_require__(/*! ./randomizeBlockMapKeys */ "../../plugins/wp-react-form/node_modules/draft-js/lib/randomizeBlockMapKeys.js");
+var randomizeBlockMapKeys = __webpack_require__(/*! ./randomizeBlockMapKeys */ "../wp-react-form/node_modules/draft-js/lib/randomizeBlockMapKeys.js");
 
-var removeEntitiesAtEdges = __webpack_require__(/*! ./removeEntitiesAtEdges */ "../../plugins/wp-react-form/node_modules/draft-js/lib/removeEntitiesAtEdges.js");
+var removeEntitiesAtEdges = __webpack_require__(/*! ./removeEntitiesAtEdges */ "../wp-react-form/node_modules/draft-js/lib/removeEntitiesAtEdges.js");
 
 var getContentStateFragment = function getContentStateFragment(contentState, selectionState) {
   var startKey = selectionState.getStartKey();
@@ -12811,10 +12811,10 @@ module.exports = getContentStateFragment;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getCorrectDocumentFromNode.js":
-/*!****************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getCorrectDocumentFromNode.js ***!
-  \****************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getCorrectDocumentFromNode.js":
+/*!********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getCorrectDocumentFromNode.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12843,10 +12843,10 @@ module.exports = getCorrectDocumentFromNode;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getDefaultKeyBinding.js":
-/*!**********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getDefaultKeyBinding.js ***!
-  \**********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getDefaultKeyBinding.js":
+/*!**************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getDefaultKeyBinding.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12863,11 +12863,11 @@ module.exports = getCorrectDocumentFromNode;
  */
 
 
-var KeyBindingUtil = __webpack_require__(/*! ./KeyBindingUtil */ "../../plugins/wp-react-form/node_modules/draft-js/lib/KeyBindingUtil.js");
+var KeyBindingUtil = __webpack_require__(/*! ./KeyBindingUtil */ "../wp-react-form/node_modules/draft-js/lib/KeyBindingUtil.js");
 
-var Keys = __webpack_require__(/*! fbjs/lib/Keys */ "../../plugins/wp-react-form/node_modules/fbjs/lib/Keys.js");
+var Keys = __webpack_require__(/*! fbjs/lib/Keys */ "../wp-react-form/node_modules/fbjs/lib/Keys.js");
 
-var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UserAgent.js");
+var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../wp-react-form/node_modules/fbjs/lib/UserAgent.js");
 
 var isOSX = UserAgent.isPlatform('Mac OS X'); // Firefox on OSX had a bug resulting in navigation instead of cursor movement.
 // This bug was fixed in Firefox 29. Feature detection is virtually impossible
@@ -12997,10 +12997,10 @@ module.exports = getDefaultKeyBinding;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getDraftEditorSelection.js":
-/*!*************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getDraftEditorSelection.js ***!
-  \*************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getDraftEditorSelection.js":
+/*!*****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getDraftEditorSelection.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13017,7 +13017,7 @@ module.exports = getDefaultKeyBinding;
  */
 
 
-var getDraftEditorSelectionWithNodes = __webpack_require__(/*! ./getDraftEditorSelectionWithNodes */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getDraftEditorSelectionWithNodes.js");
+var getDraftEditorSelectionWithNodes = __webpack_require__(/*! ./getDraftEditorSelectionWithNodes */ "../wp-react-form/node_modules/draft-js/lib/getDraftEditorSelectionWithNodes.js");
 /**
  * Convert the current selection range to an anchor/focus pair of offset keys
  * and values that can be interpreted by components.
@@ -13049,10 +13049,10 @@ module.exports = getDraftEditorSelection;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getDraftEditorSelectionWithNodes.js":
-/*!**********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getDraftEditorSelectionWithNodes.js ***!
-  \**********************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getDraftEditorSelectionWithNodes.js":
+/*!**************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getDraftEditorSelectionWithNodes.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13069,17 +13069,17 @@ module.exports = getDraftEditorSelection;
  */
 
 
-var findAncestorOffsetKey = __webpack_require__(/*! ./findAncestorOffsetKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/findAncestorOffsetKey.js");
+var findAncestorOffsetKey = __webpack_require__(/*! ./findAncestorOffsetKey */ "../wp-react-form/node_modules/draft-js/lib/findAncestorOffsetKey.js");
 
-var getSelectionOffsetKeyForNode = __webpack_require__(/*! ./getSelectionOffsetKeyForNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getSelectionOffsetKeyForNode.js");
+var getSelectionOffsetKeyForNode = __webpack_require__(/*! ./getSelectionOffsetKeyForNode */ "../wp-react-form/node_modules/draft-js/lib/getSelectionOffsetKeyForNode.js");
 
-var getUpdatedSelectionState = __webpack_require__(/*! ./getUpdatedSelectionState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getUpdatedSelectionState.js");
+var getUpdatedSelectionState = __webpack_require__(/*! ./getUpdatedSelectionState */ "../wp-react-form/node_modules/draft-js/lib/getUpdatedSelectionState.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
-var isElement = __webpack_require__(/*! ./isElement */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isElement.js");
+var isElement = __webpack_require__(/*! ./isElement */ "../wp-react-form/node_modules/draft-js/lib/isElement.js");
 
-var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../../plugins/wp-react-form/node_modules/fbjs/lib/nullthrows.js");
+var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../wp-react-form/node_modules/fbjs/lib/nullthrows.js");
 
 /**
  * Convert the current selection range to an anchor/focus pair of offset keys
@@ -13254,10 +13254,10 @@ module.exports = getDraftEditorSelectionWithNodes;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getEntityKeyForSelection.js":
-/*!**************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getEntityKeyForSelection.js ***!
-  \**************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getEntityKeyForSelection.js":
+/*!******************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getEntityKeyForSelection.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13274,7 +13274,7 @@ module.exports = getDraftEditorSelectionWithNodes;
  */
 
 
-var _require = __webpack_require__(/*! ./draftKeyUtils */ "../../plugins/wp-react-form/node_modules/draft-js/lib/draftKeyUtils.js"),
+var _require = __webpack_require__(/*! ./draftKeyUtils */ "../wp-react-form/node_modules/draft-js/lib/draftKeyUtils.js"),
     notEmptyKey = _require.notEmptyKey;
 /**
  * Return the entity key that should be used when inserting text for the
@@ -13329,10 +13329,10 @@ module.exports = getEntityKeyForSelection;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getFragmentFromSelection.js":
-/*!**************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getFragmentFromSelection.js ***!
-  \**************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getFragmentFromSelection.js":
+/*!******************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getFragmentFromSelection.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13349,7 +13349,7 @@ module.exports = getEntityKeyForSelection;
  */
 
 
-var getContentStateFragment = __webpack_require__(/*! ./getContentStateFragment */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getContentStateFragment.js");
+var getContentStateFragment = __webpack_require__(/*! ./getContentStateFragment */ "../wp-react-form/node_modules/draft-js/lib/getContentStateFragment.js");
 
 function getFragmentFromSelection(editorState) {
   var selectionState = editorState.getSelection();
@@ -13365,10 +13365,10 @@ module.exports = getFragmentFromSelection;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getNextDelimiterBlockKey.js":
-/*!**************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getNextDelimiterBlockKey.js ***!
-  \**************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getNextDelimiterBlockKey.js":
+/*!******************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getNextDelimiterBlockKey.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13388,7 +13388,7 @@ module.exports = getFragmentFromSelection;
  * This is unstable and not part of the public API and should not be used by
  * production systems. This file may be update/removed without notice.
  */
-var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
+var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
 
 var getNextDelimiterBlockKey = function getNextDelimiterBlockKey(block, blockMap) {
   var isExperimentalTreeBlock = block instanceof ContentBlockNode;
@@ -13427,10 +13427,10 @@ module.exports = getNextDelimiterBlockKey;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getOwnObjectValues.js":
-/*!********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getOwnObjectValues.js ***!
-  \********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getOwnObjectValues.js":
+/*!************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getOwnObjectValues.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13465,10 +13465,10 @@ module.exports = getOwnObjectValues;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getRangeBoundingClientRect.js":
-/*!****************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getRangeBoundingClientRect.js ***!
-  \****************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getRangeBoundingClientRect.js":
+/*!********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getRangeBoundingClientRect.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13485,7 +13485,7 @@ module.exports = getOwnObjectValues;
  */
 
 
-var getRangeClientRects = __webpack_require__(/*! ./getRangeClientRects */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getRangeClientRects.js");
+var getRangeClientRects = __webpack_require__(/*! ./getRangeClientRects */ "../wp-react-form/node_modules/draft-js/lib/getRangeClientRects.js");
 
 /**
  * Like range.getBoundingClientRect() but normalizes for browser bugs.
@@ -13545,10 +13545,10 @@ module.exports = getRangeBoundingClientRect;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getRangeClientRects.js":
-/*!*********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getRangeClientRects.js ***!
-  \*********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getRangeClientRects.js":
+/*!*************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getRangeClientRects.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13565,9 +13565,9 @@ module.exports = getRangeBoundingClientRect;
  */
 
 
-var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UserAgent.js");
+var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../wp-react-form/node_modules/fbjs/lib/UserAgent.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
 var isChrome = UserAgent.isBrowser('Chrome'); // In Chrome, the client rects will include the entire bounds of all nodes that
 // begin (have a start tag) within the selection, even if the selection does
@@ -13621,10 +13621,10 @@ module.exports = getRangeClientRects;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getRangesForDraftEntity.js":
-/*!*************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getRangesForDraftEntity.js ***!
-  \*************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getRangesForDraftEntity.js":
+/*!*****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getRangesForDraftEntity.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13641,7 +13641,7 @@ module.exports = getRangeClientRects;
  */
 
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 /**
  * Obtain the start and end positions of the range that has the
  * specified entity applied to it.
@@ -13670,10 +13670,10 @@ module.exports = getRangesForDraftEntity;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getSafeBodyFromHTML.js":
-/*!*********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getSafeBodyFromHTML.js ***!
-  \*********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getSafeBodyFromHTML.js":
+/*!*************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getSafeBodyFromHTML.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13690,9 +13690,9 @@ module.exports = getRangesForDraftEntity;
  */
 
 
-var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UserAgent.js");
+var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../wp-react-form/node_modules/fbjs/lib/UserAgent.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
 var isOldIE = UserAgent.isBrowser('IE <= 9'); // Provides a dom node that will not execute scripts
 // https://developer.mozilla.org/en-US/docs/Web/API/DOMImplementation.createHTMLDocument
@@ -13716,10 +13716,10 @@ module.exports = getSafeBodyFromHTML;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getSelectionOffsetKeyForNode.js":
-/*!******************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getSelectionOffsetKeyForNode.js ***!
-  \******************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getSelectionOffsetKeyForNode.js":
+/*!**********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getSelectionOffsetKeyForNode.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13740,7 +13740,7 @@ module.exports = getSafeBodyFromHTML;
  * found on the DOM tree of given node.
  */
 
-var isElement = __webpack_require__(/*! ./isElement */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isElement.js");
+var isElement = __webpack_require__(/*! ./isElement */ "../wp-react-form/node_modules/draft-js/lib/isElement.js");
 
 function getSelectionOffsetKeyForNode(node) {
   if (isElement(node)) {
@@ -13767,10 +13767,10 @@ module.exports = getSelectionOffsetKeyForNode;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getTextContentFromFiles.js":
-/*!*************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getTextContentFromFiles.js ***!
-  \*************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getTextContentFromFiles.js":
+/*!*****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getTextContentFromFiles.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13787,7 +13787,7 @@ module.exports = getSelectionOffsetKeyForNode;
  */
 
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
 var TEXT_CLIPPING_REGEX = /\.textClipping$/;
 var TEXT_TYPES = {
@@ -13860,14 +13860,14 @@ function readFile(file, callback) {
 }
 
 module.exports = getTextContentFromFiles;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../NX-Plugins/notificationx/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../notificationx/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getUpdatedSelectionState.js":
-/*!**************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getUpdatedSelectionState.js ***!
-  \**************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getUpdatedSelectionState.js":
+/*!******************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getUpdatedSelectionState.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13884,9 +13884,9 @@ module.exports = getTextContentFromFiles;
  */
 
 
-var DraftOffsetKey = __webpack_require__(/*! ./DraftOffsetKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js");
+var DraftOffsetKey = __webpack_require__(/*! ./DraftOffsetKey */ "../wp-react-form/node_modules/draft-js/lib/DraftOffsetKey.js");
 
-var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../../plugins/wp-react-form/node_modules/fbjs/lib/nullthrows.js");
+var nullthrows = __webpack_require__(/*! fbjs/lib/nullthrows */ "../wp-react-form/node_modules/fbjs/lib/nullthrows.js");
 
 function getUpdatedSelectionState(editorState, anchorKey, anchorOffset, focusKey, focusOffset) {
   var selection = nullthrows(editorState.getSelection());
@@ -13961,10 +13961,10 @@ module.exports = getUpdatedSelectionState;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getVisibleSelectionRect.js":
-/*!*************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getVisibleSelectionRect.js ***!
-  \*************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getVisibleSelectionRect.js":
+/*!*****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getVisibleSelectionRect.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13981,7 +13981,7 @@ module.exports = getUpdatedSelectionState;
  */
 
 
-var getRangeBoundingClientRect = __webpack_require__(/*! ./getRangeBoundingClientRect */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getRangeBoundingClientRect.js");
+var getRangeBoundingClientRect = __webpack_require__(/*! ./getRangeBoundingClientRect */ "../wp-react-form/node_modules/draft-js/lib/getRangeBoundingClientRect.js");
 /**
  * Return the bounding ClientRect for the visible DOM selection, if any.
  * In cases where there are no selected ranges or the bounding rect is
@@ -14018,10 +14018,10 @@ module.exports = getVisibleSelectionRect;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/getWindowForNode.js":
-/*!******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/getWindowForNode.js ***!
-  \******************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/getWindowForNode.js":
+/*!**********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/getWindowForNode.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14050,10 +14050,10 @@ module.exports = getWindowForNode;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/gkx.js":
-/*!*****************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/gkx.js ***!
-  \*****************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/gkx.js":
+/*!*********************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/gkx.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14079,10 +14079,10 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/insertFragmentIntoContentState.js":
-/*!********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/insertFragmentIntoContentState.js ***!
-  \********************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/insertFragmentIntoContentState.js":
+/*!************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/insertFragmentIntoContentState.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14099,17 +14099,17 @@ module.exports = function (name) {
  */
 
 
-var BlockMapBuilder = __webpack_require__(/*! ./BlockMapBuilder */ "../../plugins/wp-react-form/node_modules/draft-js/lib/BlockMapBuilder.js");
+var BlockMapBuilder = __webpack_require__(/*! ./BlockMapBuilder */ "../wp-react-form/node_modules/draft-js/lib/BlockMapBuilder.js");
 
-var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
+var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
-var insertIntoList = __webpack_require__(/*! ./insertIntoList */ "../../plugins/wp-react-form/node_modules/draft-js/lib/insertIntoList.js");
+var insertIntoList = __webpack_require__(/*! ./insertIntoList */ "../wp-react-form/node_modules/draft-js/lib/insertIntoList.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
-var randomizeBlockMapKeys = __webpack_require__(/*! ./randomizeBlockMapKeys */ "../../plugins/wp-react-form/node_modules/draft-js/lib/randomizeBlockMapKeys.js");
+var randomizeBlockMapKeys = __webpack_require__(/*! ./randomizeBlockMapKeys */ "../wp-react-form/node_modules/draft-js/lib/randomizeBlockMapKeys.js");
 
 var List = Immutable.List;
 
@@ -14345,10 +14345,10 @@ module.exports = insertFragmentIntoContentState;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/insertIntoList.js":
-/*!****************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/insertIntoList.js ***!
-  \****************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/insertIntoList.js":
+/*!********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/insertIntoList.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14392,10 +14392,10 @@ module.exports = insertIntoList;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/insertTextIntoContentState.js":
-/*!****************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/insertTextIntoContentState.js ***!
-  \****************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/insertTextIntoContentState.js":
+/*!********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/insertTextIntoContentState.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14412,11 +14412,11 @@ module.exports = insertIntoList;
  */
 
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
-var insertIntoList = __webpack_require__(/*! ./insertIntoList */ "../../plugins/wp-react-form/node_modules/draft-js/lib/insertIntoList.js");
+var insertIntoList = __webpack_require__(/*! ./insertIntoList */ "../wp-react-form/node_modules/draft-js/lib/insertIntoList.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
 var Repeat = Immutable.Repeat;
 
@@ -14455,10 +14455,10 @@ module.exports = insertTextIntoContentState;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/isElement.js":
-/*!***********************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/isElement.js ***!
-  \***********************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/isElement.js":
+/*!***************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/isElement.js ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14487,10 +14487,10 @@ module.exports = isElement;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/isEventHandled.js":
-/*!****************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/isEventHandled.js ***!
-  \****************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/isEventHandled.js":
+/*!********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/isEventHandled.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14519,10 +14519,10 @@ module.exports = isEventHandled;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/isHTMLAnchorElement.js":
-/*!*********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/isHTMLAnchorElement.js ***!
-  \*********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/isHTMLAnchorElement.js":
+/*!*************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/isHTMLAnchorElement.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14539,7 +14539,7 @@ module.exports = isEventHandled;
  * 
  * @emails oncall+draft_js
  */
-var isElement = __webpack_require__(/*! ./isElement */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isElement.js");
+var isElement = __webpack_require__(/*! ./isElement */ "../wp-react-form/node_modules/draft-js/lib/isElement.js");
 
 function isHTMLAnchorElement(node) {
   if (!node || !node.ownerDocument) {
@@ -14553,10 +14553,10 @@ module.exports = isHTMLAnchorElement;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/isHTMLBRElement.js":
-/*!*****************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/isHTMLBRElement.js ***!
-  \*****************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/isHTMLBRElement.js":
+/*!*********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/isHTMLBRElement.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14573,7 +14573,7 @@ module.exports = isHTMLAnchorElement;
  * 
  * @emails oncall+draft_js
  */
-var isElement = __webpack_require__(/*! ./isElement */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isElement.js");
+var isElement = __webpack_require__(/*! ./isElement */ "../wp-react-form/node_modules/draft-js/lib/isElement.js");
 
 function isHTMLBRElement(node) {
   if (!node || !node.ownerDocument) {
@@ -14587,10 +14587,10 @@ module.exports = isHTMLBRElement;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/isHTMLElement.js":
-/*!***************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/isHTMLElement.js ***!
-  \***************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/isHTMLElement.js":
+/*!*******************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/isHTMLElement.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14627,10 +14627,10 @@ module.exports = isHTMLElement;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/isHTMLImageElement.js":
-/*!********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/isHTMLImageElement.js ***!
-  \********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/isHTMLImageElement.js":
+/*!************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/isHTMLImageElement.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14647,7 +14647,7 @@ module.exports = isHTMLElement;
  * 
  * @emails oncall+draft_js
  */
-var isElement = __webpack_require__(/*! ./isElement */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isElement.js");
+var isElement = __webpack_require__(/*! ./isElement */ "../wp-react-form/node_modules/draft-js/lib/isElement.js");
 
 function isHTMLImageElement(node) {
   if (!node || !node.ownerDocument) {
@@ -14661,10 +14661,10 @@ module.exports = isHTMLImageElement;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/isInstanceOfNode.js":
-/*!******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/isInstanceOfNode.js ***!
-  \******************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/isInstanceOfNode.js":
+/*!**********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/isInstanceOfNode.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14706,10 +14706,10 @@ module.exports = isInstanceOfNode;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/isSelectionAtLeafStart.js":
-/*!************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/isSelectionAtLeafStart.js ***!
-  \************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/isSelectionAtLeafStart.js":
+/*!****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/isSelectionAtLeafStart.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14760,10 +14760,10 @@ module.exports = isSelectionAtLeafStart;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/isSoftNewlineEvent.js":
-/*!********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/isSoftNewlineEvent.js ***!
-  \********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/isSoftNewlineEvent.js":
+/*!************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/isSoftNewlineEvent.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14780,7 +14780,7 @@ module.exports = isSelectionAtLeafStart;
  */
 
 
-var Keys = __webpack_require__(/*! fbjs/lib/Keys */ "../../plugins/wp-react-form/node_modules/fbjs/lib/Keys.js");
+var Keys = __webpack_require__(/*! fbjs/lib/Keys */ "../wp-react-form/node_modules/fbjs/lib/Keys.js");
 
 function isSoftNewlineEvent(e) {
   return e.which === Keys.RETURN && (e.getModifierState('Shift') || e.getModifierState('Alt') || e.getModifierState('Control'));
@@ -14790,10 +14790,10 @@ module.exports = isSoftNewlineEvent;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandBackspaceToStartOfLine.js":
-/*!**********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/keyCommandBackspaceToStartOfLine.js ***!
-  \**********************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/keyCommandBackspaceToStartOfLine.js":
+/*!**************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/keyCommandBackspaceToStartOfLine.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14810,15 +14810,15 @@ module.exports = isSoftNewlineEvent;
  */
 
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var expandRangeToStartOfLine = __webpack_require__(/*! ./expandRangeToStartOfLine */ "../../plugins/wp-react-form/node_modules/draft-js/lib/expandRangeToStartOfLine.js");
+var expandRangeToStartOfLine = __webpack_require__(/*! ./expandRangeToStartOfLine */ "../wp-react-form/node_modules/draft-js/lib/expandRangeToStartOfLine.js");
 
-var getDraftEditorSelectionWithNodes = __webpack_require__(/*! ./getDraftEditorSelectionWithNodes */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getDraftEditorSelectionWithNodes.js");
+var getDraftEditorSelectionWithNodes = __webpack_require__(/*! ./getDraftEditorSelectionWithNodes */ "../wp-react-form/node_modules/draft-js/lib/getDraftEditorSelectionWithNodes.js");
 
-var moveSelectionBackward = __webpack_require__(/*! ./moveSelectionBackward */ "../../plugins/wp-react-form/node_modules/draft-js/lib/moveSelectionBackward.js");
+var moveSelectionBackward = __webpack_require__(/*! ./moveSelectionBackward */ "../wp-react-form/node_modules/draft-js/lib/moveSelectionBackward.js");
 
-var removeTextWithStrategy = __webpack_require__(/*! ./removeTextWithStrategy */ "../../plugins/wp-react-form/node_modules/draft-js/lib/removeTextWithStrategy.js");
+var removeTextWithStrategy = __webpack_require__(/*! ./removeTextWithStrategy */ "../wp-react-form/node_modules/draft-js/lib/removeTextWithStrategy.js");
 
 function keyCommandBackspaceToStartOfLine(editorState, e) {
   var afterRemoval = removeTextWithStrategy(editorState, function (strategyState) {
@@ -14850,10 +14850,10 @@ module.exports = keyCommandBackspaceToStartOfLine;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandBackspaceWord.js":
-/*!*************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/keyCommandBackspaceWord.js ***!
-  \*************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/keyCommandBackspaceWord.js":
+/*!*****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/keyCommandBackspaceWord.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14870,13 +14870,13 @@ module.exports = keyCommandBackspaceToStartOfLine;
  */
 
 
-var DraftRemovableWord = __webpack_require__(/*! ./DraftRemovableWord */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftRemovableWord.js");
+var DraftRemovableWord = __webpack_require__(/*! ./DraftRemovableWord */ "../wp-react-form/node_modules/draft-js/lib/DraftRemovableWord.js");
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var moveSelectionBackward = __webpack_require__(/*! ./moveSelectionBackward */ "../../plugins/wp-react-form/node_modules/draft-js/lib/moveSelectionBackward.js");
+var moveSelectionBackward = __webpack_require__(/*! ./moveSelectionBackward */ "../wp-react-form/node_modules/draft-js/lib/moveSelectionBackward.js");
 
-var removeTextWithStrategy = __webpack_require__(/*! ./removeTextWithStrategy */ "../../plugins/wp-react-form/node_modules/draft-js/lib/removeTextWithStrategy.js");
+var removeTextWithStrategy = __webpack_require__(/*! ./removeTextWithStrategy */ "../wp-react-form/node_modules/draft-js/lib/removeTextWithStrategy.js");
 /**
  * Delete the word that is left of the cursor, as well as any spaces or
  * punctuation after the word.
@@ -14910,10 +14910,10 @@ module.exports = keyCommandBackspaceWord;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandDeleteWord.js":
-/*!**********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/keyCommandDeleteWord.js ***!
-  \**********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/keyCommandDeleteWord.js":
+/*!**************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/keyCommandDeleteWord.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14930,13 +14930,13 @@ module.exports = keyCommandBackspaceWord;
  */
 
 
-var DraftRemovableWord = __webpack_require__(/*! ./DraftRemovableWord */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftRemovableWord.js");
+var DraftRemovableWord = __webpack_require__(/*! ./DraftRemovableWord */ "../wp-react-form/node_modules/draft-js/lib/DraftRemovableWord.js");
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var moveSelectionForward = __webpack_require__(/*! ./moveSelectionForward */ "../../plugins/wp-react-form/node_modules/draft-js/lib/moveSelectionForward.js");
+var moveSelectionForward = __webpack_require__(/*! ./moveSelectionForward */ "../wp-react-form/node_modules/draft-js/lib/moveSelectionForward.js");
 
-var removeTextWithStrategy = __webpack_require__(/*! ./removeTextWithStrategy */ "../../plugins/wp-react-form/node_modules/draft-js/lib/removeTextWithStrategy.js");
+var removeTextWithStrategy = __webpack_require__(/*! ./removeTextWithStrategy */ "../wp-react-form/node_modules/draft-js/lib/removeTextWithStrategy.js");
 /**
  * Delete the word that is right of the cursor, as well as any spaces or
  * punctuation before the word.
@@ -14966,10 +14966,10 @@ module.exports = keyCommandDeleteWord;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandInsertNewline.js":
-/*!*************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/keyCommandInsertNewline.js ***!
-  \*************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/keyCommandInsertNewline.js":
+/*!*****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/keyCommandInsertNewline.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14986,9 +14986,9 @@ module.exports = keyCommandDeleteWord;
  */
 
 
-var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
+var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
 function keyCommandInsertNewline(editorState) {
   var contentState = DraftModifier.splitBlock(editorState.getCurrentContent(), editorState.getSelection());
@@ -14999,10 +14999,10 @@ module.exports = keyCommandInsertNewline;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandMoveSelectionToEndOfBlock.js":
-/*!*************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/keyCommandMoveSelectionToEndOfBlock.js ***!
-  \*************************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/keyCommandMoveSelectionToEndOfBlock.js":
+/*!*****************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/keyCommandMoveSelectionToEndOfBlock.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15019,7 +15019,7 @@ module.exports = keyCommandInsertNewline;
  */
 
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 /**
  * See comment for `moveSelectionToStartOfBlock`.
  */
@@ -15046,10 +15046,10 @@ module.exports = keyCommandMoveSelectionToEndOfBlock;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandMoveSelectionToStartOfBlock.js":
-/*!***************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/keyCommandMoveSelectionToStartOfBlock.js ***!
-  \***************************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/keyCommandMoveSelectionToStartOfBlock.js":
+/*!*******************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/keyCommandMoveSelectionToStartOfBlock.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15066,7 +15066,7 @@ module.exports = keyCommandMoveSelectionToEndOfBlock;
  */
 
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 /**
  * Collapse selection at the start of the first selected block. This is used
  * for Firefox versions that attempt to navigate forward/backward instead of
@@ -15093,10 +15093,10 @@ module.exports = keyCommandMoveSelectionToStartOfBlock;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandPlainBackspace.js":
-/*!**************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/keyCommandPlainBackspace.js ***!
-  \**************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/keyCommandPlainBackspace.js":
+/*!******************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/keyCommandPlainBackspace.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15113,13 +15113,13 @@ module.exports = keyCommandMoveSelectionToStartOfBlock;
  */
 
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var UnicodeUtils = __webpack_require__(/*! fbjs/lib/UnicodeUtils */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UnicodeUtils.js");
+var UnicodeUtils = __webpack_require__(/*! fbjs/lib/UnicodeUtils */ "../wp-react-form/node_modules/fbjs/lib/UnicodeUtils.js");
 
-var moveSelectionBackward = __webpack_require__(/*! ./moveSelectionBackward */ "../../plugins/wp-react-form/node_modules/draft-js/lib/moveSelectionBackward.js");
+var moveSelectionBackward = __webpack_require__(/*! ./moveSelectionBackward */ "../wp-react-form/node_modules/draft-js/lib/moveSelectionBackward.js");
 
-var removeTextWithStrategy = __webpack_require__(/*! ./removeTextWithStrategy */ "../../plugins/wp-react-form/node_modules/draft-js/lib/removeTextWithStrategy.js");
+var removeTextWithStrategy = __webpack_require__(/*! ./removeTextWithStrategy */ "../wp-react-form/node_modules/draft-js/lib/removeTextWithStrategy.js");
 /**
  * Remove the selected range. If the cursor is collapsed, remove the preceding
  * character. This operation is Unicode-aware, so removing a single character
@@ -15149,10 +15149,10 @@ module.exports = keyCommandPlainBackspace;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandPlainDelete.js":
-/*!***********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/keyCommandPlainDelete.js ***!
-  \***********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/keyCommandPlainDelete.js":
+/*!***************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/keyCommandPlainDelete.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15169,13 +15169,13 @@ module.exports = keyCommandPlainBackspace;
  */
 
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var UnicodeUtils = __webpack_require__(/*! fbjs/lib/UnicodeUtils */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UnicodeUtils.js");
+var UnicodeUtils = __webpack_require__(/*! fbjs/lib/UnicodeUtils */ "../wp-react-form/node_modules/fbjs/lib/UnicodeUtils.js");
 
-var moveSelectionForward = __webpack_require__(/*! ./moveSelectionForward */ "../../plugins/wp-react-form/node_modules/draft-js/lib/moveSelectionForward.js");
+var moveSelectionForward = __webpack_require__(/*! ./moveSelectionForward */ "../wp-react-form/node_modules/draft-js/lib/moveSelectionForward.js");
 
-var removeTextWithStrategy = __webpack_require__(/*! ./removeTextWithStrategy */ "../../plugins/wp-react-form/node_modules/draft-js/lib/removeTextWithStrategy.js");
+var removeTextWithStrategy = __webpack_require__(/*! ./removeTextWithStrategy */ "../wp-react-form/node_modules/draft-js/lib/removeTextWithStrategy.js");
 /**
  * Remove the selected range. If the cursor is collapsed, remove the following
  * character. This operation is Unicode-aware, so removing a single character
@@ -15205,10 +15205,10 @@ module.exports = keyCommandPlainDelete;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandTransposeCharacters.js":
-/*!*******************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/keyCommandTransposeCharacters.js ***!
-  \*******************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/keyCommandTransposeCharacters.js":
+/*!***********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/keyCommandTransposeCharacters.js ***!
+  \***********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15225,11 +15225,11 @@ module.exports = keyCommandPlainDelete;
  */
 
 
-var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
+var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
-var getContentStateFragment = __webpack_require__(/*! ./getContentStateFragment */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getContentStateFragment.js");
+var getContentStateFragment = __webpack_require__(/*! ./getContentStateFragment */ "../wp-react-form/node_modules/draft-js/lib/getContentStateFragment.js");
 /**
  * Transpose the characters on either side of a collapsed cursor, or
  * if the cursor is at the end of the block, transpose the last two
@@ -15291,10 +15291,10 @@ module.exports = keyCommandTransposeCharacters;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/keyCommandUndo.js":
-/*!****************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/keyCommandUndo.js ***!
-  \****************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/keyCommandUndo.js":
+/*!********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/keyCommandUndo.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15311,7 +15311,7 @@ module.exports = keyCommandTransposeCharacters;
  */
 
 
-var EditorState = __webpack_require__(/*! ./EditorState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/EditorState.js");
+var EditorState = __webpack_require__(/*! ./EditorState */ "../wp-react-form/node_modules/draft-js/lib/EditorState.js");
 
 function keyCommandUndo(e, editorState, updateFn) {
   var undoneState = EditorState.undo(editorState); // If the last change to occur was a spellcheck change, allow the undo
@@ -15351,10 +15351,10 @@ module.exports = keyCommandUndo;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/modifyBlockForContentState.js":
-/*!****************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/modifyBlockForContentState.js ***!
-  \****************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/modifyBlockForContentState.js":
+/*!********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/modifyBlockForContentState.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15371,7 +15371,7 @@ module.exports = keyCommandUndo;
  */
 
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
 var Map = Immutable.Map;
 
@@ -15395,10 +15395,10 @@ module.exports = modifyBlockForContentState;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/moveBlockInContentState.js":
-/*!*************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/moveBlockInContentState.js ***!
-  \*************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/moveBlockInContentState.js":
+/*!*****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/moveBlockInContentState.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15415,13 +15415,13 @@ module.exports = modifyBlockForContentState;
  */
 
 
-var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
+var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
 
-var getNextDelimiterBlockKey = __webpack_require__(/*! ./getNextDelimiterBlockKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getNextDelimiterBlockKey.js");
+var getNextDelimiterBlockKey = __webpack_require__(/*! ./getNextDelimiterBlockKey */ "../wp-react-form/node_modules/draft-js/lib/getNextDelimiterBlockKey.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
 var OrderedMap = Immutable.OrderedMap,
     List = Immutable.List;
@@ -15574,10 +15574,10 @@ module.exports = moveBlockInContentState;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/moveSelectionBackward.js":
-/*!***********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/moveSelectionBackward.js ***!
-  \***********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/moveSelectionBackward.js":
+/*!***************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/moveSelectionBackward.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15594,7 +15594,7 @@ module.exports = moveBlockInContentState;
  */
 
 
-var warning = __webpack_require__(/*! fbjs/lib/warning */ "../../plugins/wp-react-form/node_modules/fbjs/lib/warning.js");
+var warning = __webpack_require__(/*! fbjs/lib/warning */ "../wp-react-form/node_modules/fbjs/lib/warning.js");
 /**
  * Given a collapsed selection, move the focus `maxDistance` backward within
  * the selected block. If the selection will go beyond the start of the block,
@@ -15640,10 +15640,10 @@ module.exports = moveSelectionBackward;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/moveSelectionForward.js":
-/*!**********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/moveSelectionForward.js ***!
-  \**********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/moveSelectionForward.js":
+/*!**************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/moveSelectionForward.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15660,7 +15660,7 @@ module.exports = moveSelectionBackward;
  */
 
 
-var warning = __webpack_require__(/*! fbjs/lib/warning */ "../../plugins/wp-react-form/node_modules/fbjs/lib/warning.js");
+var warning = __webpack_require__(/*! fbjs/lib/warning */ "../wp-react-form/node_modules/fbjs/lib/warning.js");
 /**
  * Given a collapsed selection, move the focus `maxDistance` forward within
  * the selected block. If the selection will go beyond the end of the block,
@@ -15699,10 +15699,10 @@ module.exports = moveSelectionForward;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/randomizeBlockMapKeys.js":
-/*!***********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/randomizeBlockMapKeys.js ***!
-  \***********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/randomizeBlockMapKeys.js":
+/*!***************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/randomizeBlockMapKeys.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15719,11 +15719,11 @@ module.exports = moveSelectionForward;
  */
 
 
-var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
+var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
 
-var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
+var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
 var OrderedMap = Immutable.OrderedMap;
 
@@ -15819,10 +15819,10 @@ module.exports = randomizeBlockMapKeys;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/removeEntitiesAtEdges.js":
-/*!***********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/removeEntitiesAtEdges.js ***!
-  \***********************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/removeEntitiesAtEdges.js":
+/*!***************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/removeEntitiesAtEdges.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15839,11 +15839,11 @@ module.exports = randomizeBlockMapKeys;
  */
 
 
-var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../../plugins/wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
+var CharacterMetadata = __webpack_require__(/*! ./CharacterMetadata */ "../wp-react-form/node_modules/draft-js/lib/CharacterMetadata.js");
 
-var findRangesImmutable = __webpack_require__(/*! ./findRangesImmutable */ "../../plugins/wp-react-form/node_modules/draft-js/lib/findRangesImmutable.js");
+var findRangesImmutable = __webpack_require__(/*! ./findRangesImmutable */ "../wp-react-form/node_modules/draft-js/lib/findRangesImmutable.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
 function removeEntitiesAtEdges(contentState, selectionState) {
   var blockMap = contentState.getBlockMap();
@@ -15952,10 +15952,10 @@ module.exports = removeEntitiesAtEdges;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/removeRangeFromContentState.js":
-/*!*****************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/removeRangeFromContentState.js ***!
-  \*****************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/removeRangeFromContentState.js":
+/*!*********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/removeRangeFromContentState.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15972,11 +15972,11 @@ module.exports = removeEntitiesAtEdges;
  */
 
 
-var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
+var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
 
-var getNextDelimiterBlockKey = __webpack_require__(/*! ./getNextDelimiterBlockKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getNextDelimiterBlockKey.js");
+var getNextDelimiterBlockKey = __webpack_require__(/*! ./getNextDelimiterBlockKey */ "../wp-react-form/node_modules/draft-js/lib/getNextDelimiterBlockKey.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
 var List = Immutable.List,
     Map = Immutable.Map;
@@ -16308,10 +16308,10 @@ module.exports = removeRangeFromContentState;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/removeTextWithStrategy.js":
-/*!************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/removeTextWithStrategy.js ***!
-  \************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/removeTextWithStrategy.js":
+/*!****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/removeTextWithStrategy.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16328,9 +16328,9 @@ module.exports = removeRangeFromContentState;
  */
 
 
-var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
+var DraftModifier = __webpack_require__(/*! ./DraftModifier */ "../wp-react-form/node_modules/draft-js/lib/DraftModifier.js");
 
-var gkx = __webpack_require__(/*! ./gkx */ "../../plugins/wp-react-form/node_modules/draft-js/lib/gkx.js");
+var gkx = __webpack_require__(/*! ./gkx */ "../wp-react-form/node_modules/draft-js/lib/gkx.js");
 
 var experimentalTreeDataSupport = gkx('draft_tree_data_support');
 /**
@@ -16393,10 +16393,10 @@ module.exports = removeTextWithStrategy;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/sanitizeDraftText.js":
-/*!*******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/sanitizeDraftText.js ***!
-  \*******************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/sanitizeDraftText.js":
+/*!***********************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/sanitizeDraftText.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16423,10 +16423,10 @@ module.exports = sanitizeDraftText;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/setDraftEditorSelection.js":
-/*!*************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/setDraftEditorSelection.js ***!
-  \*************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/setDraftEditorSelection.js":
+/*!*****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/setDraftEditorSelection.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16443,21 +16443,21 @@ module.exports = sanitizeDraftText;
  */
 
 
-var DraftEffects = __webpack_require__(/*! ./DraftEffects */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftEffects.js");
+var DraftEffects = __webpack_require__(/*! ./DraftEffects */ "../wp-react-form/node_modules/draft-js/lib/DraftEffects.js");
 
-var DraftJsDebugLogging = __webpack_require__(/*! ./DraftJsDebugLogging */ "../../plugins/wp-react-form/node_modules/draft-js/lib/DraftJsDebugLogging.js");
+var DraftJsDebugLogging = __webpack_require__(/*! ./DraftJsDebugLogging */ "../wp-react-form/node_modules/draft-js/lib/DraftJsDebugLogging.js");
 
-var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UserAgent.js");
+var UserAgent = __webpack_require__(/*! fbjs/lib/UserAgent */ "../wp-react-form/node_modules/fbjs/lib/UserAgent.js");
 
-var containsNode = __webpack_require__(/*! fbjs/lib/containsNode */ "../../plugins/wp-react-form/node_modules/fbjs/lib/containsNode.js");
+var containsNode = __webpack_require__(/*! fbjs/lib/containsNode */ "../wp-react-form/node_modules/fbjs/lib/containsNode.js");
 
-var getActiveElement = __webpack_require__(/*! fbjs/lib/getActiveElement */ "../../plugins/wp-react-form/node_modules/fbjs/lib/getActiveElement.js");
+var getActiveElement = __webpack_require__(/*! fbjs/lib/getActiveElement */ "../wp-react-form/node_modules/fbjs/lib/getActiveElement.js");
 
-var getCorrectDocumentFromNode = __webpack_require__(/*! ./getCorrectDocumentFromNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/getCorrectDocumentFromNode.js");
+var getCorrectDocumentFromNode = __webpack_require__(/*! ./getCorrectDocumentFromNode */ "../wp-react-form/node_modules/draft-js/lib/getCorrectDocumentFromNode.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
-var isElement = __webpack_require__(/*! ./isElement */ "../../plugins/wp-react-form/node_modules/draft-js/lib/isElement.js");
+var isElement = __webpack_require__(/*! ./isElement */ "../wp-react-form/node_modules/draft-js/lib/isElement.js");
 
 var isIE = UserAgent.isBrowser('IE');
 
@@ -16733,10 +16733,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/splitBlockInContentState.js":
-/*!**************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/splitBlockInContentState.js ***!
-  \**************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/splitBlockInContentState.js":
+/*!******************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/splitBlockInContentState.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16753,15 +16753,15 @@ module.exports = {
  */
 
 
-var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../../plugins/wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
+var ContentBlockNode = __webpack_require__(/*! ./ContentBlockNode */ "../wp-react-form/node_modules/draft-js/lib/ContentBlockNode.js");
 
-var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../../plugins/wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
+var generateRandomKey = __webpack_require__(/*! ./generateRandomKey */ "../wp-react-form/node_modules/draft-js/lib/generateRandomKey.js");
 
-var Immutable = __webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js");
+var Immutable = __webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js");
 
-var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
-var modifyBlockForContentState = __webpack_require__(/*! ./modifyBlockForContentState */ "../../plugins/wp-react-form/node_modules/draft-js/lib/modifyBlockForContentState.js");
+var modifyBlockForContentState = __webpack_require__(/*! ./modifyBlockForContentState */ "../wp-react-form/node_modules/draft-js/lib/modifyBlockForContentState.js");
 
 var List = Immutable.List,
     Map = Immutable.Map;
@@ -16879,10 +16879,10 @@ module.exports = splitBlockInContentState;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/splitTextIntoTextBlocks.js":
-/*!*************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/splitTextIntoTextBlocks.js ***!
-  \*************************************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/splitTextIntoTextBlocks.js":
+/*!*****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/splitTextIntoTextBlocks.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16909,10 +16909,10 @@ module.exports = splitTextIntoTextBlocks;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draft-js/lib/uuid.js":
-/*!******************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draft-js/lib/uuid.js ***!
-  \******************************************************************/
+/***/ "../wp-react-form/node_modules/draft-js/lib/uuid.js":
+/*!**********************************************************!*\
+  !*** ../wp-react-form/node_modules/draft-js/lib/uuid.js ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16945,10 +16945,10 @@ module.exports = uuid;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/draftjs-to-html/lib/draftjs-to-html.js":
-/*!************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/draftjs-to-html/lib/draftjs-to-html.js ***!
-  \************************************************************************************/
+/***/ "../wp-react-form/node_modules/draftjs-to-html/lib/draftjs-to-html.js":
+/*!****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/draftjs-to-html/lib/draftjs-to-html.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17677,10 +17677,10 @@ module.exports = uuid;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/DataTransfer.js":
-/*!**********************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/DataTransfer.js ***!
-  \**********************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/DataTransfer.js":
+/*!**************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/DataTransfer.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17695,11 +17695,11 @@ module.exports = uuid;
  *
  * @typechecks
  */
-var PhotosMimeType = __webpack_require__(/*! ./PhotosMimeType */ "../../plugins/wp-react-form/node_modules/fbjs/lib/PhotosMimeType.js");
+var PhotosMimeType = __webpack_require__(/*! ./PhotosMimeType */ "../wp-react-form/node_modules/fbjs/lib/PhotosMimeType.js");
 
-var createArrayFromMixed = __webpack_require__(/*! ./createArrayFromMixed */ "../../plugins/wp-react-form/node_modules/fbjs/lib/createArrayFromMixed.js");
+var createArrayFromMixed = __webpack_require__(/*! ./createArrayFromMixed */ "../wp-react-form/node_modules/fbjs/lib/createArrayFromMixed.js");
 
-var emptyFunction = __webpack_require__(/*! ./emptyFunction */ "../../plugins/wp-react-form/node_modules/fbjs/lib/emptyFunction.js");
+var emptyFunction = __webpack_require__(/*! ./emptyFunction */ "../wp-react-form/node_modules/fbjs/lib/emptyFunction.js");
 
 var CR_LF_REGEX = new RegExp("\r\n", 'g');
 var LF_ONLY = "\n";
@@ -17903,10 +17903,10 @@ module.exports = DataTransfer;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/Keys.js":
-/*!**************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/Keys.js ***!
-  \**************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/Keys.js":
+/*!******************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/Keys.js ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17947,10 +17947,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/PhotosMimeType.js":
-/*!************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/PhotosMimeType.js ***!
-  \************************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/PhotosMimeType.js":
+/*!****************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/PhotosMimeType.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17983,10 +17983,10 @@ module.exports = PhotosMimeType;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/Scroll.js":
-/*!****************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/Scroll.js ***!
-  \****************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/Scroll.js":
+/*!********************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/Scroll.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18077,10 +18077,10 @@ module.exports = Scroll;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/Style.js":
-/*!***************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/Style.js ***!
-  \***************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/Style.js":
+/*!*******************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/Style.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18095,7 +18095,7 @@ module.exports = Scroll;
  *
  * @typechecks
  */
-var getStyleProperty = __webpack_require__(/*! ./getStyleProperty */ "../../plugins/wp-react-form/node_modules/fbjs/lib/getStyleProperty.js");
+var getStyleProperty = __webpack_require__(/*! ./getStyleProperty */ "../wp-react-form/node_modules/fbjs/lib/getStyleProperty.js");
 /**
  * @param {DOMNode} element [description]
  * @param {string} name Overflow style property name.
@@ -18153,10 +18153,10 @@ module.exports = Style;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/TokenizeUtil.js":
-/*!**********************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/TokenizeUtil.js ***!
-  \**********************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/TokenizeUtil.js":
+/*!**************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/TokenizeUtil.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18195,10 +18195,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/URI.js":
-/*!*************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/URI.js ***!
-  \*************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/URI.js":
+/*!*****************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/URI.js ***!
+  \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18237,10 +18237,10 @@ module.exports = URI;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/UnicodeBidi.js":
-/*!*********************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/UnicodeBidi.js ***!
-  \*********************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/UnicodeBidi.js":
+/*!*************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/UnicodeBidi.js ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18264,9 +18264,9 @@ module.exports = URI;
  */
 
 
-var UnicodeBidiDirection = __webpack_require__(/*! ./UnicodeBidiDirection */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UnicodeBidiDirection.js");
+var UnicodeBidiDirection = __webpack_require__(/*! ./UnicodeBidiDirection */ "../wp-react-form/node_modules/fbjs/lib/UnicodeBidiDirection.js");
 
-var invariant = __webpack_require__(/*! ./invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! ./invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
 /**
  * RegExp ranges of characters with a *Strong* Bidi_Class value.
@@ -18404,10 +18404,10 @@ module.exports = UnicodeBidi;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/UnicodeBidiDirection.js":
-/*!******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/UnicodeBidiDirection.js ***!
-  \******************************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/UnicodeBidiDirection.js":
+/*!**********************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/UnicodeBidiDirection.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18437,7 +18437,7 @@ module.exports = UnicodeBidi;
  */
 
 
-var invariant = __webpack_require__(/*! ./invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! ./invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
 var NEUTRAL = 'NEUTRAL'; // No strong direction
 
@@ -18525,10 +18525,10 @@ module.exports = UnicodeBidiDirection;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/UnicodeBidiService.js":
-/*!****************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/UnicodeBidiService.js ***!
-  \****************************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/UnicodeBidiService.js":
+/*!********************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/UnicodeBidiService.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18576,11 +18576,11 @@ module.exports = UnicodeBidiDirection;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var UnicodeBidi = __webpack_require__(/*! ./UnicodeBidi */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UnicodeBidi.js");
+var UnicodeBidi = __webpack_require__(/*! ./UnicodeBidi */ "../wp-react-form/node_modules/fbjs/lib/UnicodeBidi.js");
 
-var UnicodeBidiDirection = __webpack_require__(/*! ./UnicodeBidiDirection */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UnicodeBidiDirection.js");
+var UnicodeBidiDirection = __webpack_require__(/*! ./UnicodeBidiDirection */ "../wp-react-form/node_modules/fbjs/lib/UnicodeBidiDirection.js");
 
-var invariant = __webpack_require__(/*! ./invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! ./invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
 var UnicodeBidiService =
 /*#__PURE__*/
@@ -18638,10 +18638,10 @@ module.exports = UnicodeBidiService;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/UnicodeUtils.js":
-/*!**********************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/UnicodeUtils.js ***!
-  \**********************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/UnicodeUtils.js":
+/*!**************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/UnicodeUtils.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18667,7 +18667,7 @@ module.exports = UnicodeBidiService;
  */
 
 
-var invariant = __webpack_require__(/*! ./invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js"); // These two ranges are consecutive so anything in [HIGH_START, LOW_END] is a
+var invariant = __webpack_require__(/*! ./invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js"); // These two ranges are consecutive so anything in [HIGH_START, LOW_END] is a
 // surrogate code unit.
 
 
@@ -18877,10 +18877,10 @@ module.exports = UnicodeUtils;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/UserAgent.js":
-/*!*******************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/UserAgent.js ***!
-  \*******************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/UserAgent.js":
+/*!***********************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/UserAgent.js ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18894,13 +18894,13 @@ module.exports = UnicodeUtils;
  */
 
 
-var UserAgentData = __webpack_require__(/*! ./UserAgentData */ "../../plugins/wp-react-form/node_modules/fbjs/lib/UserAgentData.js");
+var UserAgentData = __webpack_require__(/*! ./UserAgentData */ "../wp-react-form/node_modules/fbjs/lib/UserAgentData.js");
 
-var VersionRange = __webpack_require__(/*! ./VersionRange */ "../../plugins/wp-react-form/node_modules/fbjs/lib/VersionRange.js");
+var VersionRange = __webpack_require__(/*! ./VersionRange */ "../wp-react-form/node_modules/fbjs/lib/VersionRange.js");
 
-var mapObject = __webpack_require__(/*! ./mapObject */ "../../plugins/wp-react-form/node_modules/fbjs/lib/mapObject.js");
+var mapObject = __webpack_require__(/*! ./mapObject */ "../wp-react-form/node_modules/fbjs/lib/mapObject.js");
 
-var memoizeStringOnly = __webpack_require__(/*! ./memoizeStringOnly */ "../../plugins/wp-react-form/node_modules/fbjs/lib/memoizeStringOnly.js");
+var memoizeStringOnly = __webpack_require__(/*! ./memoizeStringOnly */ "../wp-react-form/node_modules/fbjs/lib/memoizeStringOnly.js");
 /**
  * Checks to see whether `name` and `version` satisfy `query`.
  *
@@ -19126,10 +19126,10 @@ module.exports = mapObject(UserAgent, memoizeStringOnly);
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/UserAgentData.js":
-/*!***********************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/UserAgentData.js ***!
-  \***********************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/UserAgentData.js":
+/*!***************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/UserAgentData.js ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19154,7 +19154,7 @@ module.exports = mapObject(UserAgent, memoizeStringOnly);
  */
 
 
-var UAParser = __webpack_require__(/*! ua-parser-js */ "../../plugins/wp-react-form/node_modules/ua-parser-js/src/ua-parser.js");
+var UAParser = __webpack_require__(/*! ua-parser-js */ "../wp-react-form/node_modules/ua-parser-js/src/ua-parser.js");
 
 var UNKNOWN = 'Unknown';
 var PLATFORM_MAP = {
@@ -19216,10 +19216,10 @@ module.exports = uaData;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/VersionRange.js":
-/*!**********************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/VersionRange.js ***!
-  \**********************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/VersionRange.js":
+/*!**************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/VersionRange.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19233,7 +19233,7 @@ module.exports = uaData;
  */
 
 
-var invariant = __webpack_require__(/*! ./invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! ./invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 
 var componentRegex = /\./;
 var orRegex = /\|\|/;
@@ -19623,10 +19623,10 @@ module.exports = VersionRange;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/camelize.js":
-/*!******************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/camelize.js ***!
-  \******************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/camelize.js":
+/*!**********************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/camelize.js ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19662,10 +19662,10 @@ module.exports = camelize;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/containsNode.js":
-/*!**********************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/containsNode.js ***!
-  \**********************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/containsNode.js":
+/*!**************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/containsNode.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19680,7 +19680,7 @@ module.exports = camelize;
  *
  * 
  */
-var isTextNode = __webpack_require__(/*! ./isTextNode */ "../../plugins/wp-react-form/node_modules/fbjs/lib/isTextNode.js");
+var isTextNode = __webpack_require__(/*! ./isTextNode */ "../wp-react-form/node_modules/fbjs/lib/isTextNode.js");
 /*eslint-disable no-bitwise */
 
 /**
@@ -19710,10 +19710,10 @@ module.exports = containsNode;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/createArrayFromMixed.js":
-/*!******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/createArrayFromMixed.js ***!
-  \******************************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/createArrayFromMixed.js":
+/*!**********************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/createArrayFromMixed.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19728,7 +19728,7 @@ module.exports = containsNode;
  *
  * @typechecks
  */
-var invariant = __webpack_require__(/*! ./invariant */ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js");
+var invariant = __webpack_require__(/*! ./invariant */ "../wp-react-form/node_modules/fbjs/lib/invariant.js");
 /**
  * Convert array-like objects to arrays.
  *
@@ -19835,10 +19835,10 @@ module.exports = createArrayFromMixed;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/cx.js":
-/*!************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/cx.js ***!
-  \************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/cx.js":
+/*!****************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/cx.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19886,10 +19886,10 @@ module.exports = cx;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/emptyFunction.js":
-/*!***********************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/emptyFunction.js ***!
-  \***********************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/emptyFunction.js":
+/*!***************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/emptyFunction.js ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19935,10 +19935,10 @@ module.exports = emptyFunction;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/getActiveElement.js":
-/*!**************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/getActiveElement.js ***!
-  \**************************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/getActiveElement.js":
+/*!******************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/getActiveElement.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19986,10 +19986,10 @@ module.exports = getActiveElement;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/getDocumentScrollElement.js":
-/*!**********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/getDocumentScrollElement.js ***!
-  \**********************************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/getDocumentScrollElement.js":
+/*!**************************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/getDocumentScrollElement.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20029,10 +20029,10 @@ module.exports = getDocumentScrollElement;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/getElementPosition.js":
-/*!****************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/getElementPosition.js ***!
-  \****************************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/getElementPosition.js":
+/*!********************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/getElementPosition.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20047,7 +20047,7 @@ module.exports = getDocumentScrollElement;
  *
  * @typechecks
  */
-var getElementRect = __webpack_require__(/*! ./getElementRect */ "../../plugins/wp-react-form/node_modules/fbjs/lib/getElementRect.js");
+var getElementRect = __webpack_require__(/*! ./getElementRect */ "../wp-react-form/node_modules/fbjs/lib/getElementRect.js");
 /**
  * Gets an element's position in pixels relative to the viewport. The returned
  * object represents the position of the element's top left corner.
@@ -20071,10 +20071,10 @@ module.exports = getElementPosition;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/getElementRect.js":
-/*!************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/getElementRect.js ***!
-  \************************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/getElementRect.js":
+/*!****************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/getElementRect.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20089,7 +20089,7 @@ module.exports = getElementPosition;
  *
  * @typechecks
  */
-var containsNode = __webpack_require__(/*! ./containsNode */ "../../plugins/wp-react-form/node_modules/fbjs/lib/containsNode.js");
+var containsNode = __webpack_require__(/*! ./containsNode */ "../wp-react-form/node_modules/fbjs/lib/containsNode.js");
 /**
  * Gets an element's bounding rect in pixels relative to the viewport.
  *
@@ -20128,10 +20128,10 @@ module.exports = getElementRect;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/getScrollPosition.js":
-/*!***************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/getScrollPosition.js ***!
-  \***************************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/getScrollPosition.js":
+/*!*******************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/getScrollPosition.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20146,9 +20146,9 @@ module.exports = getElementRect;
  */
 
 
-var getDocumentScrollElement = __webpack_require__(/*! ./getDocumentScrollElement */ "../../plugins/wp-react-form/node_modules/fbjs/lib/getDocumentScrollElement.js");
+var getDocumentScrollElement = __webpack_require__(/*! ./getDocumentScrollElement */ "../wp-react-form/node_modules/fbjs/lib/getDocumentScrollElement.js");
 
-var getUnboundedScrollPosition = __webpack_require__(/*! ./getUnboundedScrollPosition */ "../../plugins/wp-react-form/node_modules/fbjs/lib/getUnboundedScrollPosition.js");
+var getUnboundedScrollPosition = __webpack_require__(/*! ./getUnboundedScrollPosition */ "../wp-react-form/node_modules/fbjs/lib/getUnboundedScrollPosition.js");
 /**
  * Gets the scroll position of the supplied element or window.
  *
@@ -20183,10 +20183,10 @@ module.exports = getScrollPosition;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/getStyleProperty.js":
-/*!**************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/getStyleProperty.js ***!
-  \**************************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/getStyleProperty.js":
+/*!******************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/getStyleProperty.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20201,9 +20201,9 @@ module.exports = getScrollPosition;
  *
  * @typechecks
  */
-var camelize = __webpack_require__(/*! ./camelize */ "../../plugins/wp-react-form/node_modules/fbjs/lib/camelize.js");
+var camelize = __webpack_require__(/*! ./camelize */ "../wp-react-form/node_modules/fbjs/lib/camelize.js");
 
-var hyphenate = __webpack_require__(/*! ./hyphenate */ "../../plugins/wp-react-form/node_modules/fbjs/lib/hyphenate.js");
+var hyphenate = __webpack_require__(/*! ./hyphenate */ "../wp-react-form/node_modules/fbjs/lib/hyphenate.js");
 
 function asString(value)
 /*?string*/
@@ -20258,10 +20258,10 @@ module.exports = getStyleProperty;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/getUnboundedScrollPosition.js":
-/*!************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/getUnboundedScrollPosition.js ***!
-  \************************************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/getUnboundedScrollPosition.js":
+/*!****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/getUnboundedScrollPosition.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20304,10 +20304,10 @@ module.exports = getUnboundedScrollPosition;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/getViewportDimensions.js":
-/*!*******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/getViewportDimensions.js ***!
-  \*******************************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/getViewportDimensions.js":
+/*!***********************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/getViewportDimensions.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20377,10 +20377,10 @@ module.exports = getViewportDimensions;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/hyphenate.js":
-/*!*******************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/hyphenate.js ***!
-  \*******************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/hyphenate.js":
+/*!***********************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/hyphenate.js ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20417,10 +20417,10 @@ module.exports = hyphenate;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/invariant.js":
-/*!*******************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/invariant.js ***!
-  \*******************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/invariant.js":
+/*!***********************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/invariant.js ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20480,10 +20480,10 @@ module.exports = invariant;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/isNode.js":
-/*!****************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/isNode.js ***!
-  \****************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/isNode.js":
+/*!********************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/isNode.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20513,10 +20513,10 @@ module.exports = isNode;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/isTextNode.js":
-/*!********************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/isTextNode.js ***!
-  \********************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/isTextNode.js":
+/*!************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/isTextNode.js ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20531,7 +20531,7 @@ module.exports = isNode;
  *
  * @typechecks
  */
-var isNode = __webpack_require__(/*! ./isNode */ "../../plugins/wp-react-form/node_modules/fbjs/lib/isNode.js");
+var isNode = __webpack_require__(/*! ./isNode */ "../wp-react-form/node_modules/fbjs/lib/isNode.js");
 /**
  * @param {*} object The object to check.
  * @return {boolean} Whether or not the object is a DOM text node.
@@ -20546,10 +20546,10 @@ module.exports = isTextNode;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/joinClasses.js":
-/*!*********************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/joinClasses.js ***!
-  \*********************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/joinClasses.js":
+/*!*************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/joinClasses.js ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20589,10 +20589,10 @@ module.exports = joinClasses;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/mapObject.js":
-/*!*******************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/mapObject.js ***!
-  \*******************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/mapObject.js":
+/*!***********************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/mapObject.js ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20650,10 +20650,10 @@ module.exports = mapObject;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/memoizeStringOnly.js":
-/*!***************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/memoizeStringOnly.js ***!
-  \***************************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/memoizeStringOnly.js":
+/*!*******************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/memoizeStringOnly.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20687,10 +20687,10 @@ module.exports = memoizeStringOnly;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/nullthrows.js":
-/*!********************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/nullthrows.js ***!
-  \********************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/nullthrows.js":
+/*!************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/nullthrows.js ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20717,10 +20717,10 @@ module.exports = nullthrows;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/setImmediate.js":
-/*!**********************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/setImmediate.js ***!
-  \**********************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/setImmediate.js":
+/*!**************************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/setImmediate.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20735,17 +20735,17 @@ module.exports = nullthrows;
  // setimmediate adds setImmediate to the global. We want to make sure we export
 // the actual function.
 
-__webpack_require__(/*! setimmediate */ "../../plugins/wp-react-form/node_modules/setimmediate/setImmediate.js");
+__webpack_require__(/*! setimmediate */ "../wp-react-form/node_modules/setimmediate/setImmediate.js");
 
 module.exports = global.setImmediate;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../NX-Plugins/notificationx/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../notificationx/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/fbjs/lib/warning.js":
-/*!*****************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/fbjs/lib/warning.js ***!
-  \*****************************************************************/
+/***/ "../wp-react-form/node_modules/fbjs/lib/warning.js":
+/*!*********************************************************!*\
+  !*** ../wp-react-form/node_modules/fbjs/lib/warning.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20759,7 +20759,7 @@ module.exports = global.setImmediate;
  */
 
 
-var emptyFunction = __webpack_require__(/*! ./emptyFunction */ "../../plugins/wp-react-form/node_modules/fbjs/lib/emptyFunction.js");
+var emptyFunction = __webpack_require__(/*! ./emptyFunction */ "../wp-react-form/node_modules/fbjs/lib/emptyFunction.js");
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
  * This can be used to log issues in development environments in critical
@@ -20807,17 +20807,17 @@ module.exports = warning;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js":
-/*!*********************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js ***!
-  \*********************************************************************************************************/
+/***/ "../wp-react-form/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js":
+/*!*************************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var reactIs = __webpack_require__(/*! react-is */ "../../plugins/wp-react-form/node_modules/react-is/index.js");
+var reactIs = __webpack_require__(/*! react-is */ "../wp-react-form/node_modules/react-is/index.js");
 
 /**
  * Copyright 2015, Yahoo! Inc.
@@ -20922,21 +20922,21 @@ module.exports = hoistNonReactStatics;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/html-to-draftjs/dist/html-to-draftjs.js":
-/*!*************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/html-to-draftjs/dist/html-to-draftjs.js ***!
-  \*************************************************************************************/
+/***/ "../wp-react-form/node_modules/html-to-draftjs/dist/html-to-draftjs.js":
+/*!*****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/html-to-draftjs/dist/html-to-draftjs.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-!function(e,t){ true?module.exports=t(__webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js"),__webpack_require__(/*! draft-js */ "../../plugins/wp-react-form/node_modules/draft-js/lib/Draft.js")):undefined}(window,function(n,r){return o={},i.m=a=[function(e,t){e.exports=n},function(e,t){e.exports=r},function(e,t,n){e.exports=n(3)},function(e,t,n){"use strict";n.r(t);var v=n(1),u=n(0),s=function(e){var t,n=null;return document.implementation&&document.implementation.createHTMLDocument&&((t=document.implementation.createHTMLDocument("foo")).documentElement.innerHTML=e,n=t.getElementsByTagName("body")[0]),n},x=function(e,t,n){var r,i=e.textContent;return""===i.trim()?{chunk:(r=n,{text:" ",inlines:[new u.OrderedSet],entities:[r],blocks:[]})}:{chunk:{text:i,inlines:Array(i.length).fill(t),entities:Array(i.length).fill(n),blocks:[]}}},M=function(){return{text:"\n",inlines:[new u.OrderedSet],entities:new Array(1),blocks:[]}},k=function(){return{text:"",inlines:[],entities:[],blocks:[]}},E=function(e,t){return{text:"",inlines:[],entities:[],blocks:[{type:e,depth:0,data:t||new u.Map({})}]}},w=function(e,t,n){return{text:"\r",inlines:[],entities:[],blocks:[{type:e,depth:Math.max(0,Math.min(4,t)),data:n||new u.Map({})}]}},T=function(e){return{text:"\r ",inlines:[new u.OrderedSet],entities:[e],blocks:[{type:"atomic",depth:0,data:new u.Map({})}]}},L=function(e,t){return{text:e.text+t.text,inlines:e.inlines.concat(t.inlines),entities:e.entities.concat(t.entities),blocks:e.blocks.concat(t.blocks)}},A=new u.Map({"header-one":{element:"h1"},"header-two":{element:"h2"},"header-three":{element:"h3"},"header-four":{element:"h4"},"header-five":{element:"h5"},"header-six":{element:"h6"},"unordered-list-item":{element:"li",wrapper:"ul"},"ordered-list-item":{element:"li",wrapper:"ol"},blockquote:{element:"blockquote"},code:{element:"pre"},atomic:{element:"figure"},unstyled:{element:"p",aliasedElements:["div"]}});var O={code:"CODE",del:"STRIKETHROUGH",em:"ITALIC",strong:"BOLD",ins:"UNDERLINE",sub:"SUBSCRIPT",sup:"SUPERSCRIPT"};function S(e){return e.style.textAlign?new u.Map({"text-align":e.style.textAlign}):e.style.marginLeft?new u.Map({"margin-left":e.style.marginLeft}):void 0}var _=function(e){var t=void 0;if(e instanceof HTMLAnchorElement){var n={};t=e.dataset&&void 0!==e.dataset.mention?(n.url=e.href,n.text=e.innerHTML,n.value=e.dataset.value,v.Entity.__create("MENTION","IMMUTABLE",n)):(n.url=e.getAttribute&&e.getAttribute("href")||e.href,n.title=e.innerHTML,n.targetOption=e.target,v.Entity.__create("LINK","MUTABLE",n))}return t};n.d(t,"default",function(){return r});var d=" ",f=new RegExp("&nbsp;","g"),j=!0;function I(e,t,n,r,i,a){var o=e.nodeName.toLowerCase();if(a){var l=a(o,e);if(l){var c=v.Entity.__create(l.type,l.mutability,l.data||{});return{chunk:T(c)}}}if("#text"===o&&"\n"!==e.textContent)return x(e,t,i);if("br"===o)return{chunk:M()};if("img"===o&&e instanceof HTMLImageElement){var u={};u.src=e.getAttribute&&e.getAttribute("src")||e.src,u.alt=e.alt,u.height=e.style.height,u.width=e.style.width,e.style.float&&(u.alignment=e.style.float);var s=v.Entity.__create("IMAGE","MUTABLE",u);return{chunk:T(s)}}if("video"===o&&e instanceof HTMLVideoElement){var d={};d.src=e.getAttribute&&e.getAttribute("src")||e.src,d.alt=e.alt,d.height=e.style.height,d.width=e.style.width,e.style.float&&(d.alignment=e.style.float);var f=v.Entity.__create("VIDEO","MUTABLE",d);return{chunk:T(f)}}if("iframe"===o&&e instanceof HTMLIFrameElement){var m={};m.src=e.getAttribute&&e.getAttribute("src")||e.src,m.height=e.height,m.width=e.width;var p=v.Entity.__create("EMBEDDED_LINK","MUTABLE",m);return{chunk:T(p)}}var h,y=function(t,n){var e=A.filter(function(e){return e.element===t&&(!e.wrapper||e.wrapper===n)||e.wrapper===t||e.aliasedElements&&-1<e.aliasedElements.indexOf(t)}).keySeq().toSet().toArray();if(1===e.length)return e[0]}(o,r);y&&("ul"===o||"ol"===o?(r=o,n+=1):("unordered-list-item"!==y&&"ordered-list-item"!==y&&(r="",n=-1),j?(h=E(y,S(e)),j=!1):h=w(y,n,S(e)))),h=h||k(),t=function(e,t,n){var r,i=O[e];if(i)r=n.add(i).toOrderedSet();else if(t instanceof HTMLElement){var c=t;r=(r=n).withMutations(function(e){var t=c.style.color,n=c.style.backgroundColor,r=c.style.fontSize,i=c.style.fontFamily.replace(/^"|"$/g,""),a=c.style.fontWeight,o=c.style.textDecoration,l=c.style.fontStyle;t&&e.add("color-".concat(t.replace(/ /g,""))),n&&e.add("bgcolor-".concat(n.replace(/ /g,""))),r&&e.add("fontsize-".concat(r.replace(/px$/g,""))),i&&e.add("fontfamily-".concat(i)),"bold"===a&&e.add(O.strong),"underline"===o&&e.add(O.ins),"italic"===l&&e.add(O.em)}).toOrderedSet()}return r}(o,e,t);for(var b=e.firstChild;b;){var g=I(b,t,n,r,_(b)||i,a).chunk;h=L(h,g),b=b.nextSibling}return{chunk:h}}function r(e,t){var n,r,i,a=(n=t,r=e.trim().replace(f,d),(i=s(r))?(j=!0,{chunk:I(i,new u.OrderedSet,-1,"",void 0,n).chunk}):null);if(a){var o=a.chunk,l=new u.OrderedMap({});o.entities&&o.entities.forEach(function(e){e&&(l=l.set(e,v.Entity.__get(e)))});var c=0;return{contentBlocks:o.text.split("\r").map(function(e,t){var n=c+e.length,r=o&&o.inlines.slice(c,n),i=o&&o.entities.slice(c,n),a=new u.List(r.map(function(e,t){var n={style:e,entity:null};return i[t]&&(n.entity=i[t]),v.CharacterMetadata.create(n)}));return c=n,new v.ContentBlock({key:Object(v.genKey)(),type:o&&o.blocks[t]&&o.blocks[t].type||"unstyled",depth:o&&o.blocks[t]&&o.blocks[t].depth,data:o&&o.blocks[t]&&o.blocks[t].data||new u.Map({}),text:e,characterList:a})}),entityMap:l}}return null}}],i.c=o,i.d=function(e,t,n){i.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},i.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},i.t=function(t,e){if(1&e&&(t=i(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var n=Object.create(null);if(i.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var r in t)i.d(n,r,function(e){return t[e]}.bind(null,r));return n},i.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return i.d(t,"a",t),t},i.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},i.p="",i(i.s=2);function i(e){if(o[e])return o[e].exports;var t=o[e]={i:e,l:!1,exports:{}};return a[e].call(t.exports,t,t.exports,i),t.l=!0,t.exports}var a,o});
+!function(e,t){ true?module.exports=t(__webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js"),__webpack_require__(/*! draft-js */ "../wp-react-form/node_modules/draft-js/lib/Draft.js")):undefined}(window,function(n,r){return o={},i.m=a=[function(e,t){e.exports=n},function(e,t){e.exports=r},function(e,t,n){e.exports=n(3)},function(e,t,n){"use strict";n.r(t);var v=n(1),u=n(0),s=function(e){var t,n=null;return document.implementation&&document.implementation.createHTMLDocument&&((t=document.implementation.createHTMLDocument("foo")).documentElement.innerHTML=e,n=t.getElementsByTagName("body")[0]),n},x=function(e,t,n){var r,i=e.textContent;return""===i.trim()?{chunk:(r=n,{text:" ",inlines:[new u.OrderedSet],entities:[r],blocks:[]})}:{chunk:{text:i,inlines:Array(i.length).fill(t),entities:Array(i.length).fill(n),blocks:[]}}},M=function(){return{text:"\n",inlines:[new u.OrderedSet],entities:new Array(1),blocks:[]}},k=function(){return{text:"",inlines:[],entities:[],blocks:[]}},E=function(e,t){return{text:"",inlines:[],entities:[],blocks:[{type:e,depth:0,data:t||new u.Map({})}]}},w=function(e,t,n){return{text:"\r",inlines:[],entities:[],blocks:[{type:e,depth:Math.max(0,Math.min(4,t)),data:n||new u.Map({})}]}},T=function(e){return{text:"\r ",inlines:[new u.OrderedSet],entities:[e],blocks:[{type:"atomic",depth:0,data:new u.Map({})}]}},L=function(e,t){return{text:e.text+t.text,inlines:e.inlines.concat(t.inlines),entities:e.entities.concat(t.entities),blocks:e.blocks.concat(t.blocks)}},A=new u.Map({"header-one":{element:"h1"},"header-two":{element:"h2"},"header-three":{element:"h3"},"header-four":{element:"h4"},"header-five":{element:"h5"},"header-six":{element:"h6"},"unordered-list-item":{element:"li",wrapper:"ul"},"ordered-list-item":{element:"li",wrapper:"ol"},blockquote:{element:"blockquote"},code:{element:"pre"},atomic:{element:"figure"},unstyled:{element:"p",aliasedElements:["div"]}});var O={code:"CODE",del:"STRIKETHROUGH",em:"ITALIC",strong:"BOLD",ins:"UNDERLINE",sub:"SUBSCRIPT",sup:"SUPERSCRIPT"};function S(e){return e.style.textAlign?new u.Map({"text-align":e.style.textAlign}):e.style.marginLeft?new u.Map({"margin-left":e.style.marginLeft}):void 0}var _=function(e){var t=void 0;if(e instanceof HTMLAnchorElement){var n={};t=e.dataset&&void 0!==e.dataset.mention?(n.url=e.href,n.text=e.innerHTML,n.value=e.dataset.value,v.Entity.__create("MENTION","IMMUTABLE",n)):(n.url=e.getAttribute&&e.getAttribute("href")||e.href,n.title=e.innerHTML,n.targetOption=e.target,v.Entity.__create("LINK","MUTABLE",n))}return t};n.d(t,"default",function(){return r});var d=" ",f=new RegExp("&nbsp;","g"),j=!0;function I(e,t,n,r,i,a){var o=e.nodeName.toLowerCase();if(a){var l=a(o,e);if(l){var c=v.Entity.__create(l.type,l.mutability,l.data||{});return{chunk:T(c)}}}if("#text"===o&&"\n"!==e.textContent)return x(e,t,i);if("br"===o)return{chunk:M()};if("img"===o&&e instanceof HTMLImageElement){var u={};u.src=e.getAttribute&&e.getAttribute("src")||e.src,u.alt=e.alt,u.height=e.style.height,u.width=e.style.width,e.style.float&&(u.alignment=e.style.float);var s=v.Entity.__create("IMAGE","MUTABLE",u);return{chunk:T(s)}}if("video"===o&&e instanceof HTMLVideoElement){var d={};d.src=e.getAttribute&&e.getAttribute("src")||e.src,d.alt=e.alt,d.height=e.style.height,d.width=e.style.width,e.style.float&&(d.alignment=e.style.float);var f=v.Entity.__create("VIDEO","MUTABLE",d);return{chunk:T(f)}}if("iframe"===o&&e instanceof HTMLIFrameElement){var m={};m.src=e.getAttribute&&e.getAttribute("src")||e.src,m.height=e.height,m.width=e.width;var p=v.Entity.__create("EMBEDDED_LINK","MUTABLE",m);return{chunk:T(p)}}var h,y=function(t,n){var e=A.filter(function(e){return e.element===t&&(!e.wrapper||e.wrapper===n)||e.wrapper===t||e.aliasedElements&&-1<e.aliasedElements.indexOf(t)}).keySeq().toSet().toArray();if(1===e.length)return e[0]}(o,r);y&&("ul"===o||"ol"===o?(r=o,n+=1):("unordered-list-item"!==y&&"ordered-list-item"!==y&&(r="",n=-1),j?(h=E(y,S(e)),j=!1):h=w(y,n,S(e)))),h=h||k(),t=function(e,t,n){var r,i=O[e];if(i)r=n.add(i).toOrderedSet();else if(t instanceof HTMLElement){var c=t;r=(r=n).withMutations(function(e){var t=c.style.color,n=c.style.backgroundColor,r=c.style.fontSize,i=c.style.fontFamily.replace(/^"|"$/g,""),a=c.style.fontWeight,o=c.style.textDecoration,l=c.style.fontStyle;t&&e.add("color-".concat(t.replace(/ /g,""))),n&&e.add("bgcolor-".concat(n.replace(/ /g,""))),r&&e.add("fontsize-".concat(r.replace(/px$/g,""))),i&&e.add("fontfamily-".concat(i)),"bold"===a&&e.add(O.strong),"underline"===o&&e.add(O.ins),"italic"===l&&e.add(O.em)}).toOrderedSet()}return r}(o,e,t);for(var b=e.firstChild;b;){var g=I(b,t,n,r,_(b)||i,a).chunk;h=L(h,g),b=b.nextSibling}return{chunk:h}}function r(e,t){var n,r,i,a=(n=t,r=e.trim().replace(f,d),(i=s(r))?(j=!0,{chunk:I(i,new u.OrderedSet,-1,"",void 0,n).chunk}):null);if(a){var o=a.chunk,l=new u.OrderedMap({});o.entities&&o.entities.forEach(function(e){e&&(l=l.set(e,v.Entity.__get(e)))});var c=0;return{contentBlocks:o.text.split("\r").map(function(e,t){var n=c+e.length,r=o&&o.inlines.slice(c,n),i=o&&o.entities.slice(c,n),a=new u.List(r.map(function(e,t){var n={style:e,entity:null};return i[t]&&(n.entity=i[t]),v.CharacterMetadata.create(n)}));return c=n,new v.ContentBlock({key:Object(v.genKey)(),type:o&&o.blocks[t]&&o.blocks[t].type||"unstyled",depth:o&&o.blocks[t]&&o.blocks[t].depth,data:o&&o.blocks[t]&&o.blocks[t].data||new u.Map({}),text:e,characterList:a})}),entityMap:l}}return null}}],i.c=o,i.d=function(e,t,n){i.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},i.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},i.t=function(t,e){if(1&e&&(t=i(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var n=Object.create(null);if(i.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var r in t)i.d(n,r,function(e){return t[e]}.bind(null,r));return n},i.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return i.d(t,"a",t),t},i.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},i.p="",i(i.s=2);function i(e){if(o[e])return o[e].exports;var t=o[e]={i:e,l:!1,exports:{}};return a[e].call(t.exports,t,t.exports,i),t.l=!0,t.exports}var a,o});
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js":
-/*!*************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/immutable/dist/immutable.js ***!
-  \*************************************************************************/
+/***/ "../wp-react-form/node_modules/immutable/dist/immutable.js":
+/*!*****************************************************************!*\
+  !*** ../wp-react-form/node_modules/immutable/dist/immutable.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25924,10 +25924,10 @@ module.exports = hoistNonReactStatics;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/intersect/index.js":
-/*!****************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/intersect/index.js ***!
-  \****************************************************************/
+/***/ "../wp-react-form/node_modules/intersect/index.js":
+/*!********************************************************!*\
+  !*** ../wp-react-form/node_modules/intersect/index.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -25994,10 +25994,10 @@ function indexOf(arr, el) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/memoize-one/dist/memoize-one.esm.js":
-/*!*********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/memoize-one/dist/memoize-one.esm.js ***!
-  \*********************************************************************************/
+/***/ "../wp-react-form/node_modules/memoize-one/dist/memoize-one.esm.js":
+/*!*************************************************************************!*\
+  !*** ../wp-react-form/node_modules/memoize-one/dist/memoize-one.esm.js ***!
+  \*************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -26056,10 +26056,10 @@ function memoizeOne(resultFn, isEqual) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/object-assign/index.js":
-/*!********************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/object-assign/index.js ***!
-  \********************************************************************/
+/***/ "../wp-react-form/node_modules/object-assign/index.js":
+/*!************************************************************!*\
+  !*** ../wp-react-form/node_modules/object-assign/index.js ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26158,10 +26158,10 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/prop-types/checkPropTypes.js":
-/*!**************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/prop-types/checkPropTypes.js ***!
-  \**************************************************************************/
+/***/ "../wp-react-form/node_modules/prop-types/checkPropTypes.js":
+/*!******************************************************************!*\
+  !*** ../wp-react-form/node_modules/prop-types/checkPropTypes.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26178,7 +26178,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 var printWarning = function() {};
 
 if (true) {
-  var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ "../../plugins/wp-react-form/node_modules/prop-types/lib/ReactPropTypesSecret.js");
+  var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ "../wp-react-form/node_modules/prop-types/lib/ReactPropTypesSecret.js");
   var loggedTypeFailures = {};
   var has = Function.call.bind(Object.prototype.hasOwnProperty);
 
@@ -26272,10 +26272,10 @@ module.exports = checkPropTypes;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/prop-types/factoryWithTypeCheckers.js":
-/*!***********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/prop-types/factoryWithTypeCheckers.js ***!
-  \***********************************************************************************/
+/***/ "../wp-react-form/node_modules/prop-types/factoryWithTypeCheckers.js":
+/*!***************************************************************************!*\
+  !*** ../wp-react-form/node_modules/prop-types/factoryWithTypeCheckers.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26289,11 +26289,11 @@ module.exports = checkPropTypes;
 
 
 
-var ReactIs = __webpack_require__(/*! react-is */ "../../plugins/wp-react-form/node_modules/react-is/index.js");
-var assign = __webpack_require__(/*! object-assign */ "../../plugins/wp-react-form/node_modules/object-assign/index.js");
+var ReactIs = __webpack_require__(/*! react-is */ "../wp-react-form/node_modules/react-is/index.js");
+var assign = __webpack_require__(/*! object-assign */ "../wp-react-form/node_modules/object-assign/index.js");
 
-var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ "../../plugins/wp-react-form/node_modules/prop-types/lib/ReactPropTypesSecret.js");
-var checkPropTypes = __webpack_require__(/*! ./checkPropTypes */ "../../plugins/wp-react-form/node_modules/prop-types/checkPropTypes.js");
+var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ "../wp-react-form/node_modules/prop-types/lib/ReactPropTypesSecret.js");
+var checkPropTypes = __webpack_require__(/*! ./checkPropTypes */ "../wp-react-form/node_modules/prop-types/checkPropTypes.js");
 
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
 var printWarning = function() {};
@@ -26875,10 +26875,10 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/prop-types/index.js":
-/*!*****************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/prop-types/index.js ***!
-  \*****************************************************************/
+/***/ "../wp-react-form/node_modules/prop-types/index.js":
+/*!*********************************************************!*\
+  !*** ../wp-react-form/node_modules/prop-types/index.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26890,21 +26890,21 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
  */
 
 if (true) {
-  var ReactIs = __webpack_require__(/*! react-is */ "../../plugins/wp-react-form/node_modules/react-is/index.js");
+  var ReactIs = __webpack_require__(/*! react-is */ "../wp-react-form/node_modules/react-is/index.js");
 
   // By explicitly using `prop-types` you are opting into new development behavior.
   // http://fb.me/prop-types-in-prod
   var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(/*! ./factoryWithTypeCheckers */ "../../plugins/wp-react-form/node_modules/prop-types/factoryWithTypeCheckers.js")(ReactIs.isElement, throwOnDirectAccess);
+  module.exports = __webpack_require__(/*! ./factoryWithTypeCheckers */ "../wp-react-form/node_modules/prop-types/factoryWithTypeCheckers.js")(ReactIs.isElement, throwOnDirectAccess);
 } else {}
 
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/prop-types/lib/ReactPropTypesSecret.js":
-/*!************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/prop-types/lib/ReactPropTypesSecret.js ***!
-  \************************************************************************************/
+/***/ "../wp-react-form/node_modules/prop-types/lib/ReactPropTypesSecret.js":
+/*!****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/prop-types/lib/ReactPropTypesSecret.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26925,10 +26925,10 @@ module.exports = ReactPropTypesSecret;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Buttons.js":
-/*!***************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Buttons.js ***!
-  \***************************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Buttons.js":
+/*!*******************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Buttons.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26971,8 +26971,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var styles = __importStar(__webpack_require__(/*! ../styles/SweetAlertStyles */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js"));
-var SweetAlertStyles_1 = __webpack_require__(/*! ../styles/SweetAlertStyles */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js");
+var styles = __importStar(__webpack_require__(/*! ../styles/SweetAlertStyles */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js"));
+var SweetAlertStyles_1 = __webpack_require__(/*! ../styles/SweetAlertStyles */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js");
 var Buttons = /** @class */ (function (_super) {
     __extends(Buttons, _super);
     function Buttons() {
@@ -27133,10 +27133,10 @@ exports.default = Buttons;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Content.js":
-/*!***************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Content.js ***!
-  \***************************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Content.js":
+/*!*******************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Content.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27147,7 +27147,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var SweetAlertStyles_1 = __webpack_require__(/*! ../styles/SweetAlertStyles */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js");
+var SweetAlertStyles_1 = __webpack_require__(/*! ../styles/SweetAlertStyles */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js");
 var Content = function (_a) {
     var children = _a.children;
     return (react_1.default.createElement("div", { style: SweetAlertStyles_1.contentContainer }, children));
@@ -27157,10 +27157,10 @@ exports.default = Content;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/CustomIcon.js":
-/*!******************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/CustomIcon.js ***!
-  \******************************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/CustomIcon.js":
+/*!**********************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/CustomIcon.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27190,7 +27190,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var styles = __importStar(__webpack_require__(/*! ../styles/SweetAlertStyles */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js"));
+var styles = __importStar(__webpack_require__(/*! ../styles/SweetAlertStyles */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js"));
 var defaultStyle = Object.assign({}, styles.icon, styles.iconCustom);
 var CustomIcon = function (_a) {
     var iconUrl = _a.iconUrl;
@@ -27203,10 +27203,10 @@ exports.default = CustomIcon;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/ErrorIcon.js":
-/*!*****************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/ErrorIcon.js ***!
-  \*****************************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/ErrorIcon.js":
+/*!*********************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/ErrorIcon.js ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27236,7 +27236,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var styles = __importStar(__webpack_require__(/*! ../styles/SweetAlertStyles */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js"));
+var styles = __importStar(__webpack_require__(/*! ../styles/SweetAlertStyles */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js"));
 var ErrorIcon = function () { return (react_1.default.createElement("div", { style: Object.assign({}, styles.icon, styles.iconError) },
     react_1.default.createElement("span", { style: styles.iconErrorX },
         react_1.default.createElement("span", { style: Object.assign({}, styles.iconErrorLine, styles.iconErrorLineLeft) }),
@@ -27246,10 +27246,10 @@ exports.default = ErrorIcon;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/InfoIcon.js":
-/*!****************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/InfoIcon.js ***!
-  \****************************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/InfoIcon.js":
+/*!********************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/InfoIcon.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27279,7 +27279,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var styles = __importStar(__webpack_require__(/*! ../styles/SweetAlertStyles */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js"));
+var styles = __importStar(__webpack_require__(/*! ../styles/SweetAlertStyles */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js"));
 var InfoIcon = function () { return (react_1.default.createElement("div", { style: Object.assign({}, styles.icon, styles.iconInfo) },
     react_1.default.createElement("div", { style: styles.iconInfoBefore }),
     react_1.default.createElement("div", { style: styles.iconInfoAfter }))); };
@@ -27288,10 +27288,10 @@ exports.default = InfoIcon;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Input.js":
-/*!*************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Input.js ***!
-  \*************************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Input.js":
+/*!*****************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Input.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27334,7 +27334,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var styles = __importStar(__webpack_require__(/*! ../styles/SweetAlertStyles */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js"));
+var styles = __importStar(__webpack_require__(/*! ../styles/SweetAlertStyles */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js"));
 var Input = /** @class */ (function (_super) {
     __extends(Input, _super);
     function Input() {
@@ -27370,10 +27370,10 @@ exports.default = Input;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Overlay.js":
-/*!***************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Overlay.js ***!
-  \***************************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Overlay.js":
+/*!*******************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Overlay.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27408,7 +27408,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var SweetAlertStyles_1 = __webpack_require__(/*! ../styles/SweetAlertStyles */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js");
+var SweetAlertStyles_1 = __webpack_require__(/*! ../styles/SweetAlertStyles */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js");
 var Overlay = /** @class */ (function (_super) {
     __extends(Overlay, _super);
     function Overlay() {
@@ -27435,10 +27435,10 @@ exports.default = Overlay;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/SuccessIcon.js":
-/*!*******************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/SuccessIcon.js ***!
-  \*******************************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/SuccessIcon.js":
+/*!***********************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/SuccessIcon.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27468,7 +27468,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var styles = __importStar(__webpack_require__(/*! ../styles/SweetAlertStyles */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js"));
+var styles = __importStar(__webpack_require__(/*! ../styles/SweetAlertStyles */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js"));
 var SuccessIcon = function () { return (react_1.default.createElement("div", { style: Object.assign({}, styles.icon, styles.iconSuccess) },
     react_1.default.createElement("div", { style: Object.assign({}, styles.iconSuccessBeforeAfter, styles.iconSuccessBefore) }),
     react_1.default.createElement("span", { style: Object.assign({}, styles.iconSuccessLine, styles.iconSuccessLineTip) }),
@@ -27481,10 +27481,10 @@ exports.default = SuccessIcon;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/SweetAlert.js":
-/*!******************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/SweetAlert.js ***!
-  \******************************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/SweetAlert.js":
+/*!**********************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/SweetAlert.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27547,22 +27547,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // third-party
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
 // components
-var SuccessIcon_1 = __importDefault(__webpack_require__(/*! ./SuccessIcon */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/SuccessIcon.js"));
-var ErrorIcon_1 = __importDefault(__webpack_require__(/*! ./ErrorIcon */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/ErrorIcon.js"));
-var InfoIcon_1 = __importDefault(__webpack_require__(/*! ./InfoIcon */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/InfoIcon.js"));
-var WarningIcon_1 = __importDefault(__webpack_require__(/*! ./WarningIcon */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/WarningIcon.js"));
-var CustomIcon_1 = __importDefault(__webpack_require__(/*! ./CustomIcon */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/CustomIcon.js"));
-var Buttons_1 = __importDefault(__webpack_require__(/*! ./Buttons */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Buttons.js"));
-var Input_1 = __importDefault(__webpack_require__(/*! ./Input */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Input.js"));
-var ValidationMessage_1 = __importDefault(__webpack_require__(/*! ./ValidationMessage */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/ValidationMessage.js"));
-var Title_1 = __importDefault(__webpack_require__(/*! ./Title */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Title.js"));
-var Content_1 = __importDefault(__webpack_require__(/*! ./Content */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Content.js"));
-var Overlay_1 = __importDefault(__webpack_require__(/*! ./Overlay */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Overlay.js"));
+var SuccessIcon_1 = __importDefault(__webpack_require__(/*! ./SuccessIcon */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/SuccessIcon.js"));
+var ErrorIcon_1 = __importDefault(__webpack_require__(/*! ./ErrorIcon */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/ErrorIcon.js"));
+var InfoIcon_1 = __importDefault(__webpack_require__(/*! ./InfoIcon */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/InfoIcon.js"));
+var WarningIcon_1 = __importDefault(__webpack_require__(/*! ./WarningIcon */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/WarningIcon.js"));
+var CustomIcon_1 = __importDefault(__webpack_require__(/*! ./CustomIcon */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/CustomIcon.js"));
+var Buttons_1 = __importDefault(__webpack_require__(/*! ./Buttons */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Buttons.js"));
+var Input_1 = __importDefault(__webpack_require__(/*! ./Input */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Input.js"));
+var ValidationMessage_1 = __importDefault(__webpack_require__(/*! ./ValidationMessage */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/ValidationMessage.js"));
+var Title_1 = __importDefault(__webpack_require__(/*! ./Title */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Title.js"));
+var Content_1 = __importDefault(__webpack_require__(/*! ./Content */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Content.js"));
+var Overlay_1 = __importDefault(__webpack_require__(/*! ./Overlay */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Overlay.js"));
 // other
-var styles = __importStar(__webpack_require__(/*! ../styles/SweetAlertStyles */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js"));
-var Patterns = __importStar(__webpack_require__(/*! ../constants/patterns */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/constants/patterns.js"));
-var prop_types_1 = __webpack_require__(/*! ../prop-types */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/prop-types.js");
-var default_props_1 = __webpack_require__(/*! ../default-props */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/default-props.js");
+var styles = __importStar(__webpack_require__(/*! ../styles/SweetAlertStyles */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js"));
+var Patterns = __importStar(__webpack_require__(/*! ../constants/patterns */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/constants/patterns.js"));
+var prop_types_1 = __webpack_require__(/*! ../prop-types */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/prop-types.js");
+var default_props_1 = __webpack_require__(/*! ../default-props */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/default-props.js");
 var SWEET_ALERT_DEFAULT_STYLES = styles.sweetAlert;
 var _resetting = {};
 var debugLogger = function () {
@@ -27997,10 +27997,10 @@ exports.default = SweetAlert;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Title.js":
-/*!*************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Title.js ***!
-  \*************************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Title.js":
+/*!*****************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/Title.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28011,7 +28011,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var SweetAlertStyles_1 = __webpack_require__(/*! ../styles/SweetAlertStyles */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js");
+var SweetAlertStyles_1 = __webpack_require__(/*! ../styles/SweetAlertStyles */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js");
 var Title = function (_a) {
     var children = _a.children;
     return react_1.default.createElement("h2", { style: SweetAlertStyles_1.title }, children);
@@ -28021,10 +28021,10 @@ exports.default = Title;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/ValidationMessage.js":
-/*!*************************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/ValidationMessage.js ***!
-  \*************************************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/ValidationMessage.js":
+/*!*****************************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/ValidationMessage.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28054,7 +28054,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var styles = __importStar(__webpack_require__(/*! ../styles/SweetAlertStyles */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js"));
+var styles = __importStar(__webpack_require__(/*! ../styles/SweetAlertStyles */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js"));
 var defaultMessage = 'Please enter a response!';
 var emailMessage = 'Please enter a valid email!';
 var ValidationMessage = function (_a) {
@@ -28069,10 +28069,10 @@ exports.default = ValidationMessage;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/WarningIcon.js":
-/*!*******************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/WarningIcon.js ***!
-  \*******************************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/WarningIcon.js":
+/*!***********************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/WarningIcon.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28102,7 +28102,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var styles = __importStar(__webpack_require__(/*! ../styles/SweetAlertStyles */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js"));
+var styles = __importStar(__webpack_require__(/*! ../styles/SweetAlertStyles */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js"));
 exports.default = (function () { return (react_1.default.createElement("div", { style: Object.assign({}, styles.icon, styles.iconWarning) },
     react_1.default.createElement("span", { style: styles.iconWarningBody }),
     react_1.default.createElement("span", { style: styles.iconWarningDot }))); });
@@ -28110,10 +28110,10 @@ exports.default = (function () { return (react_1.default.createElement("div", { 
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/constants/patterns.js":
-/*!***************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/constants/patterns.js ***!
-  \***************************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/constants/patterns.js":
+/*!*******************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/constants/patterns.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28128,10 +28128,10 @@ exports.emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/default-props.js":
-/*!**********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/default-props.js ***!
-  \**********************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/default-props.js":
+/*!**************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/default-props.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28171,10 +28171,10 @@ exports.SWEET_ALERT_DEFAULT_PROPS = {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/index.js":
-/*!**************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/index.js ***!
-  \**************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/index.js":
+/*!******************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/index.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28184,16 +28184,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var SweetAlert_1 = __importDefault(__webpack_require__(/*! ./components/SweetAlert */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/SweetAlert.js"));
+var SweetAlert_1 = __importDefault(__webpack_require__(/*! ./components/SweetAlert */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/components/SweetAlert.js"));
 exports.default = SweetAlert_1.default;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/prop-types.js":
-/*!*******************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/prop-types.js ***!
-  \*******************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/prop-types.js":
+/*!***********************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/prop-types.js ***!
+  \***********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28204,7 +28204,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SWEET_ALERT_PROP_TYPES = void 0;
-var prop_types_1 = __importDefault(__webpack_require__(/*! prop-types */ "../../plugins/wp-react-form/node_modules/prop-types/index.js"));
+var prop_types_1 = __importDefault(__webpack_require__(/*! prop-types */ "../wp-react-form/node_modules/prop-types/index.js"));
 exports.SWEET_ALERT_PROP_TYPES = {
     type: prop_types_1.default.oneOf(["default", "info", "success", "warning", "danger", "error", "input", "custom", "controlled"]),
     // shortcut props for type
@@ -28264,10 +28264,10 @@ exports.SWEET_ALERT_PROP_TYPES = {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js":
-/*!********************************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js ***!
-  \********************************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js":
+/*!************************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/styles/SweetAlertStyles.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28584,10 +28584,10 @@ exports.closeButton = {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css":
-/*!**********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css ***!
-  \**********************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css":
+/*!**************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28595,14 +28595,14 @@ exports.closeButton = {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.js":
-/*!*********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.js ***!
-  \*********************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.js":
+/*!*************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.js ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-!function(e,t){ true?module.exports=t(__webpack_require__(/*! react */ "react"),__webpack_require__(/*! draft-js */ "../../plugins/wp-react-form/node_modules/draft-js/lib/Draft.js"),__webpack_require__(/*! immutable */ "../../plugins/wp-react-form/node_modules/immutable/dist/immutable.js")):undefined}(window,function(n,o,r){return c={},i.m=a=[function(e,t,n){e.exports=n(9)()},function(e,t){e.exports=n},function(e,t,n){var o;
+!function(e,t){ true?module.exports=t(__webpack_require__(/*! react */ "react"),__webpack_require__(/*! draft-js */ "../wp-react-form/node_modules/draft-js/lib/Draft.js"),__webpack_require__(/*! immutable */ "../wp-react-form/node_modules/immutable/dist/immutable.js")):undefined}(window,function(n,o,r){return c={},i.m=a=[function(e,t,n){e.exports=n(9)()},function(e,t){e.exports=n},function(e,t,n){var o;
 /*!
   Copyright (c) 2017 Jed Watson.
   Licensed under the MIT License (MIT), see
@@ -28612,10 +28612,10 @@ exports.closeButton = {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-input-autosize/lib/AutosizeInput.js":
-/*!***************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-input-autosize/lib/AutosizeInput.js ***!
-  \***************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-input-autosize/lib/AutosizeInput.js":
+/*!*******************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-input-autosize/lib/AutosizeInput.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28634,7 +28634,7 @@ var _react = __webpack_require__(/*! react */ "react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(/*! prop-types */ "../../plugins/wp-react-form/node_modules/prop-types/index.js");
+var _propTypes = __webpack_require__(/*! prop-types */ "../wp-react-form/node_modules/prop-types/index.js");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -28892,10 +28892,10 @@ exports.default = AutosizeInput;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-is/cjs/react-is.development.js":
-/*!**********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-is/cjs/react-is.development.js ***!
-  \**********************************************************************************/
+/***/ "../wp-react-form/node_modules/react-is/cjs/react-is.development.js":
+/*!**************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-is/cjs/react-is.development.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -29085,10 +29085,10 @@ exports.typeOf = typeOf;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-is/index.js":
-/*!***************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-is/index.js ***!
-  \***************************************************************/
+/***/ "../wp-react-form/node_modules/react-is/index.js":
+/*!*******************************************************!*\
+  !*** ../wp-react-form/node_modules/react-is/index.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -29096,16 +29096,16 @@ exports.typeOf = typeOf;
 
 
 if (false) {} else {
-  module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "../../plugins/wp-react-form/node_modules/react-is/cjs/react-is.development.js");
+  module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "../wp-react-form/node_modules/react-is/cjs/react-is.development.js");
 }
 
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-select/dist/Select-dbb12e54.esm.js":
-/*!**************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-select/dist/Select-dbb12e54.esm.js ***!
-  \**************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-select/dist/Select-dbb12e54.esm.js":
+/*!******************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-select/dist/Select-dbb12e54.esm.js ***!
+  \******************************************************************************/
 /*! exports provided: S, a, b, c, d, g, m */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -29118,17 +29118,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return defaultTheme; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getOptionValue; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return mergeStyles; });
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _index_4bd03571_esm_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index-4bd03571.esm.js */ "../../plugins/wp-react-form/node_modules/react-select/dist/index-4bd03571.esm.js");
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/classCallCheck */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/esm/createClass */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inherits */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/inherits.js");
-/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/esm/toConsumableArray */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _index_4bd03571_esm_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index-4bd03571.esm.js */ "../wp-react-form/node_modules/react-select/dist/index-4bd03571.esm.js");
+/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/classCallCheck */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/esm/createClass */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inherits */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/inherits.js");
+/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/esm/toConsumableArray */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @emotion/react */ "../../plugins/wp-react-form/node_modules/@emotion/react/dist/emotion-react.browser.esm.js");
-/* harmony import */ var memoize_one__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! memoize-one */ "../../plugins/wp-react-form/node_modules/memoize-one/dist/memoize-one.esm.js");
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutProperties */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
+/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @emotion/react */ "../wp-react-form/node_modules/@emotion/react/dist/emotion-react.browser.esm.js");
+/* harmony import */ var memoize_one__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! memoize-one */ "../wp-react-form/node_modules/memoize-one/dist/memoize-one.esm.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutProperties */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
 
 
 
@@ -31818,10 +31818,10 @@ Select.defaultProps = defaultProps;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-select/dist/index-4bd03571.esm.js":
-/*!*************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-select/dist/index-4bd03571.esm.js ***!
-  \*************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-select/dist/index-4bd03571.esm.js":
+/*!*****************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-select/dist/index-4bd03571.esm.js ***!
+  \*****************************************************************************/
 /*! exports provided: A, B, C, D, E, F, G, H, M, _, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -31863,17 +31863,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return css$1; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return valueContainerCSS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return isTouchCapable; });
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/react */ "../../plugins/wp-react-form/node_modules/@emotion/react/dist/emotion-react.browser.esm.js");
-/* harmony import */ var _babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/taggedTemplateLiteral */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutProperties */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
-/* harmony import */ var _babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/esm/typeof */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/typeof.js");
-/* harmony import */ var react_input_autosize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-input-autosize */ "../../plugins/wp-react-form/node_modules/react-input-autosize/lib/AutosizeInput.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/react */ "../wp-react-form/node_modules/@emotion/react/dist/emotion-react.browser.esm.js");
+/* harmony import */ var _babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/taggedTemplateLiteral */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutProperties */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
+/* harmony import */ var _babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/esm/typeof */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/typeof.js");
+/* harmony import */ var react_input_autosize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-input-autosize */ "../wp-react-form/node_modules/react-input-autosize/lib/AutosizeInput.js");
 /* harmony import */ var react_input_autosize__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_input_autosize__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/esm/classCallCheck */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime/helpers/esm/createClass */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inherits */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/inherits.js");
-/* harmony import */ var _babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @babel/runtime/helpers/esm/defineProperty */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/esm/classCallCheck */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime/helpers/esm/createClass */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inherits */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/inherits.js");
+/* harmony import */ var _babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @babel/runtime/helpers/esm/defineProperty */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-dom */ "react-dom");
@@ -33396,48 +33396,48 @@ var defaultComponents = function defaultComponents(props) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-select/dist/react-select.esm.js":
-/*!***********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-select/dist/react-select.esm.js ***!
-  \***********************************************************************************/
+/***/ "../wp-react-form/node_modules/react-select/dist/react-select.esm.js":
+/*!***************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-select/dist/react-select.esm.js ***!
+  \***************************************************************************/
 /*! exports provided: createFilter, defaultTheme, mergeStyles, components, default, NonceProvider */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NonceProvider", function() { return NonceProvider; });
-/* harmony import */ var _Select_dbb12e54_esm_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Select-dbb12e54.esm.js */ "../../plugins/wp-react-form/node_modules/react-select/dist/Select-dbb12e54.esm.js");
+/* harmony import */ var _Select_dbb12e54_esm_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Select-dbb12e54.esm.js */ "../wp-react-form/node_modules/react-select/dist/Select-dbb12e54.esm.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createFilter", function() { return _Select_dbb12e54_esm_js__WEBPACK_IMPORTED_MODULE_0__["c"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defaultTheme", function() { return _Select_dbb12e54_esm_js__WEBPACK_IMPORTED_MODULE_0__["d"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "mergeStyles", function() { return _Select_dbb12e54_esm_js__WEBPACK_IMPORTED_MODULE_0__["m"]; });
 
-/* harmony import */ var _stateManager_845a3300_esm_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./stateManager-845a3300.esm.js */ "../../plugins/wp-react-form/node_modules/react-select/dist/stateManager-845a3300.esm.js");
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/classCallCheck */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/esm/createClass */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inherits */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/inherits.js");
-/* harmony import */ var _index_4bd03571_esm_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./index-4bd03571.esm.js */ "../../plugins/wp-react-form/node_modules/react-select/dist/index-4bd03571.esm.js");
+/* harmony import */ var _stateManager_845a3300_esm_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./stateManager-845a3300.esm.js */ "../wp-react-form/node_modules/react-select/dist/stateManager-845a3300.esm.js");
+/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/classCallCheck */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/esm/createClass */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inherits */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/inherits.js");
+/* harmony import */ var _index_4bd03571_esm_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./index-4bd03571.esm.js */ "../wp-react-form/node_modules/react-select/dist/index-4bd03571.esm.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "components", function() { return _index_4bd03571_esm_js__WEBPACK_IMPORTED_MODULE_5__["c"]; });
 
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @emotion/react */ "../../plugins/wp-react-form/node_modules/@emotion/react/dist/emotion-react.browser.esm.js");
-/* harmony import */ var _emotion_cache__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @emotion/cache */ "../../plugins/wp-react-form/node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js");
-/* harmony import */ var memoize_one__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! memoize-one */ "../../plugins/wp-react-form/node_modules/memoize-one/dist/memoize-one.esm.js");
-/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/extends.js");
+/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @emotion/react */ "../wp-react-form/node_modules/@emotion/react/dist/emotion-react.browser.esm.js");
+/* harmony import */ var _emotion_cache__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @emotion/cache */ "../wp-react-form/node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js");
+/* harmony import */ var memoize_one__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! memoize-one */ "../wp-react-form/node_modules/memoize-one/dist/memoize-one.esm.js");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "../wp-react-form/node_modules/@babel/runtime/helpers/extends.js");
 /* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "../wp-react-form/node_modules/@babel/runtime/helpers/toConsumableArray.js");
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/objectWithoutProperties.js");
+/* harmony import */ var _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "../wp-react-form/node_modules/@babel/runtime/helpers/objectWithoutProperties.js");
 /* harmony import */ var _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/taggedTemplateLiteral.js");
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "../wp-react-form/node_modules/@babel/runtime/helpers/taggedTemplateLiteral.js");
 /* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "../wp-react-form/node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var react_input_autosize__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-input-autosize */ "../../plugins/wp-react-form/node_modules/react-input-autosize/lib/AutosizeInput.js");
+/* harmony import */ var react_input_autosize__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-input-autosize */ "../wp-react-form/node_modules/react-input-autosize/lib/AutosizeInput.js");
 /* harmony import */ var react_input_autosize__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(react_input_autosize__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "../wp-react-form/node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_16__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react-dom */ "react-dom");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_17__);
@@ -33506,22 +33506,22 @@ var index = Object(_stateManager_845a3300_esm_js__WEBPACK_IMPORTED_MODULE_1__["m
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/react-select/dist/stateManager-845a3300.esm.js":
-/*!********************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/react-select/dist/stateManager-845a3300.esm.js ***!
-  \********************************************************************************************/
+/***/ "../wp-react-form/node_modules/react-select/dist/stateManager-845a3300.esm.js":
+/*!************************************************************************************!*\
+  !*** ../wp-react-form/node_modules/react-select/dist/stateManager-845a3300.esm.js ***!
+  \************************************************************************************/
 /*! exports provided: m */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return manageState; });
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutProperties */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/classCallCheck */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/esm/createClass */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inherits */ "../../plugins/wp-react-form/node_modules/@babel/runtime/helpers/esm/inherits.js");
-/* harmony import */ var _index_4bd03571_esm_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./index-4bd03571.esm.js */ "../../plugins/wp-react-form/node_modules/react-select/dist/index-4bd03571.esm.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutProperties */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
+/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/classCallCheck */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/esm/createClass */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inherits */ "../wp-react-form/node_modules/@babel/runtime/helpers/esm/inherits.js");
+/* harmony import */ var _index_4bd03571_esm_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./index-4bd03571.esm.js */ "../wp-react-form/node_modules/react-select/dist/index-4bd03571.esm.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
 
@@ -33665,10 +33665,10 @@ var manageState = function manageState(SelectComponent) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/setimmediate/setImmediate.js":
-/*!**************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/setimmediate/setImmediate.js ***!
-  \**************************************************************************/
+/***/ "../wp-react-form/node_modules/setimmediate/setImmediate.js":
+/*!******************************************************************!*\
+  !*** ../wp-react-form/node_modules/setimmediate/setImmediate.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33859,14 +33859,14 @@ var manageState = function manageState(SelectComponent) {
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../NX-Plugins/notificationx/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../../../../NX-Plugins/notificationx/node_modules/process/browser.js */ "./node_modules/process/browser.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../notificationx/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../../../notificationx/node_modules/process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/stylis/dist/stylis.mjs":
-/*!********************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/stylis/dist/stylis.mjs ***!
-  \********************************************************************/
+/***/ "../wp-react-form/node_modules/stylis/dist/stylis.mjs":
+/*!************************************************************!*\
+  !*** ../wp-react-form/node_modules/stylis/dist/stylis.mjs ***!
+  \************************************************************/
 /*! exports provided: CHARSET, COMMENT, COUNTER_STYLE, DECLARATION, DOCUMENT, FONT_FACE, FONT_FEATURE_VALUES, IMPORT, KEYFRAMES, MEDIA, MOZ, MS, NAMESPACE, PAGE, RULESET, SUPPORTS, VIEWPORT, WEBKIT, abs, alloc, append, caret, char, character, characters, charat, column, combine, comment, commenter, compile, copy, dealloc, declaration, delimit, delimiter, escaping, from, hash, identifier, indexof, length, line, match, middleware, namespace, next, node, parse, peek, position, prefix, prefixer, prev, replace, ruleset, rulesheet, serialize, sizeof, slice, stringify, strlen, substr, token, tokenize, tokenizer, trim, whitespace */
 /***/ (function(__webpack_module__, __webpack_exports__, __webpack_require__) {
 
@@ -33946,10 +33946,10 @@ var e="-ms-";var r="-moz-";var a="-webkit-";var c="comm";var n="rule";var t="dec
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/sweetalert2/dist/sweetalert2.all.js":
-/*!*********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/sweetalert2/dist/sweetalert2.all.js ***!
-  \*********************************************************************************/
+/***/ "../wp-react-form/node_modules/sweetalert2/dist/sweetalert2.all.js":
+/*!*************************************************************************!*\
+  !*** ../wp-react-form/node_modules/sweetalert2/dist/sweetalert2.all.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -37594,10 +37594,10 @@ if (typeof this !== 'undefined' && this.Sweetalert2){  this.swal = this.sweetAle
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/tiny-warning/dist/tiny-warning.esm.js":
-/*!***********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/tiny-warning/dist/tiny-warning.esm.js ***!
-  \***********************************************************************************/
+/***/ "../wp-react-form/node_modules/tiny-warning/dist/tiny-warning.esm.js":
+/*!***************************************************************************!*\
+  !*** ../wp-react-form/node_modules/tiny-warning/dist/tiny-warning.esm.js ***!
+  \***************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -37627,10 +37627,10 @@ function warning(condition, message) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/ua-parser-js/src/ua-parser.js":
-/*!***************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/ua-parser-js/src/ua-parser.js ***!
-  \***************************************************************************/
+/***/ "../wp-react-form/node_modules/ua-parser-js/src/ua-parser.js":
+/*!*******************************************************************!*\
+  !*** ../wp-react-form/node_modules/ua-parser-js/src/ua-parser.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38537,10 +38537,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!@license
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/index.tsx":
-/*!***********************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/index.tsx ***!
-  \***********************************************************/
+/***/ "../wp-react-form/src/form-builder/index.tsx":
+/*!***************************************************!*\
+  !*** ../wp-react-form/src/form-builder/index.tsx ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38551,11 +38551,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Image = exports.Label = exports.Column = exports.Row = exports.withLabel = exports.withProps = exports.useDefaults = exports.BuilderConsumer = exports.BuilderProvider = exports.useBuilderContext = exports.useBuilder = exports.builderReducer = exports.when = void 0;
-var FormBuilder_1 = __importDefault(__webpack_require__(/*! ./src/FormBuilder */ "../../plugins/wp-react-form/src/form-builder/src/FormBuilder.tsx"));
-var core_1 = __webpack_require__(/*! ./src/core */ "../../plugins/wp-react-form/src/form-builder/src/core/index.ts");
+var FormBuilder_1 = __importDefault(__webpack_require__(/*! ./src/FormBuilder */ "../wp-react-form/src/form-builder/src/FormBuilder.tsx"));
+var core_1 = __webpack_require__(/*! ./src/core */ "../wp-react-form/src/form-builder/src/core/index.ts");
 Object.defineProperty(exports, "when", { enumerable: true, get: function () { return core_1.when; } });
 Object.defineProperty(exports, "builderReducer", { enumerable: true, get: function () { return core_1.builderReducer; } });
-var hooks_1 = __webpack_require__(/*! ./src/core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var hooks_1 = __webpack_require__(/*! ./src/core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
 Object.defineProperty(exports, "useBuilder", { enumerable: true, get: function () { return hooks_1.useBuilder; } });
 Object.defineProperty(exports, "useBuilderContext", { enumerable: true, get: function () { return hooks_1.useBuilderContext; } });
 Object.defineProperty(exports, "BuilderProvider", { enumerable: true, get: function () { return hooks_1.BuilderProvider; } });
@@ -38563,7 +38563,7 @@ Object.defineProperty(exports, "BuilderConsumer", { enumerable: true, get: funct
 Object.defineProperty(exports, "useDefaults", { enumerable: true, get: function () { return hooks_1.useDefaults; } });
 Object.defineProperty(exports, "withProps", { enumerable: true, get: function () { return hooks_1.withProps; } });
 Object.defineProperty(exports, "withLabel", { enumerable: true, get: function () { return hooks_1.withLabel; } });
-var components_1 = __webpack_require__(/*! ./src/core/components */ "../../plugins/wp-react-form/src/form-builder/src/core/components/index.ts");
+var components_1 = __webpack_require__(/*! ./src/core/components */ "../wp-react-form/src/form-builder/src/core/components/index.ts");
 Object.defineProperty(exports, "Row", { enumerable: true, get: function () { return components_1.Row; } });
 Object.defineProperty(exports, "Column", { enumerable: true, get: function () { return components_1.Column; } });
 Object.defineProperty(exports, "Label", { enumerable: true, get: function () { return components_1.Label; } });
@@ -38573,10 +38573,10 @@ exports.default = FormBuilder_1.default;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/FormBuilder.tsx":
-/*!*********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/FormBuilder.tsx ***!
-  \*********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/FormBuilder.tsx":
+/*!*************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/FormBuilder.tsx ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38598,14 +38598,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../../plugins/wp-react-form/node_modules/classnames/index.js"));
+var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../wp-react-form/node_modules/classnames/index.js"));
 /**
  * Registering a store.
  */
 var data_1 = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
-var store_1 = __importDefault(__webpack_require__(/*! ./store */ "../../plugins/wp-react-form/src/form-builder/src/store/index.ts"));
+var store_1 = __importDefault(__webpack_require__(/*! ./store */ "../wp-react-form/src/form-builder/src/store/index.ts"));
 data_1.registerStore("formbuilder", store_1.default);
-var Tab_1 = __importDefault(__webpack_require__(/*! ./tabs/Tab */ "../../plugins/wp-react-form/src/form-builder/src/tabs/Tab.tsx"));
+var Tab_1 = __importDefault(__webpack_require__(/*! ./tabs/Tab */ "../wp-react-form/src/form-builder/src/tabs/Tab.tsx"));
 var FormBuilder = function (props) {
     var _a;
     var componentClasses = classnames_1.default("wp-react-form wprf-tabs-wrapper", props === null || props === void 0 ? void 0 : props.className, {
@@ -38619,10 +38619,10 @@ exports.default = FormBuilder;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/builderReducer.ts":
-/*!****************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/builderReducer.ts ***!
-  \****************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/builderReducer.ts":
+/*!********************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/builderReducer.ts ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38641,8 +38641,8 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.builderReducer = void 0;
-var functions_1 = __webpack_require__(/*! ./functions */ "../../plugins/wp-react-form/src/form-builder/src/core/functions.ts");
-var utils_1 = __webpack_require__(/*! ./utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
+var functions_1 = __webpack_require__(/*! ./functions */ "../wp-react-form/src/form-builder/src/core/functions.ts");
+var utils_1 = __webpack_require__(/*! ./utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
 var builderReducer = function (state, action) {
     var _a;
     switch (action.type) {
@@ -38736,10 +38736,10 @@ exports.default = exports.builderReducer;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/components/Badge.tsx":
-/*!*******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/components/Badge.tsx ***!
-  \*******************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/components/Badge.tsx":
+/*!***********************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/components/Badge.tsx ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38761,8 +38761,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../../plugins/wp-react-form/node_modules/classnames/index.js"));
-var hooks_1 = __webpack_require__(/*! ../hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../wp-react-form/node_modules/classnames/index.js"));
+var hooks_1 = __webpack_require__(/*! ../hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
 var BadgeComp = function (_a) {
     var componentClasses = _a.componentClasses, label = _a.label;
     return react_1.default.createElement("div", { className: "wprf-badge" },
@@ -38802,10 +38802,10 @@ exports.default = Badge;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/components/Column.tsx":
-/*!********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/components/Column.tsx ***!
-  \********************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/components/Column.tsx":
+/*!************************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/components/Column.tsx ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38816,7 +38816,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../../plugins/wp-react-form/node_modules/classnames/index.js"));
+var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../wp-react-form/node_modules/classnames/index.js"));
 var Column = function (props) {
     var _a;
     var componentClasses = classnames_1.default("wprf-column", props === null || props === void 0 ? void 0 : props.className, (_a = {},
@@ -38830,10 +38830,10 @@ exports.default = Column;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/components/ControlField.tsx":
-/*!**************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/components/ControlField.tsx ***!
-  \**************************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/components/ControlField.tsx":
+/*!******************************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/components/ControlField.tsx ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38859,10 +38859,10 @@ exports.default = ControlField;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/components/ControlLabel.tsx":
-/*!**************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/components/ControlLabel.tsx ***!
-  \**************************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/components/ControlLabel.tsx":
+/*!******************************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/components/ControlLabel.tsx ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38905,10 +38905,10 @@ exports.default = ControlLabel;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/components/Image.tsx":
-/*!*******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/components/Image.tsx ***!
-  \*******************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/components/Image.tsx":
+/*!***********************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/components/Image.tsx ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38919,7 +38919,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../../plugins/wp-react-form/node_modules/classnames/index.js"));
+var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../wp-react-form/node_modules/classnames/index.js"));
 var Image = function (props) {
     if (!(props === null || props === void 0 ? void 0 : props.src)) {
         return react_1.default.createElement("p", null, "No Source( src ) Defined");
@@ -38932,10 +38932,10 @@ exports.default = Image;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/components/Label.tsx":
-/*!*******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/components/Label.tsx ***!
-  \*******************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/components/Label.tsx":
+/*!***********************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/components/Label.tsx ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38946,8 +38946,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../../plugins/wp-react-form/node_modules/classnames/index.js"));
-var _1 = __webpack_require__(/*! . */ "../../plugins/wp-react-form/src/form-builder/src/core/components/index.ts");
+var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../wp-react-form/node_modules/classnames/index.js"));
+var _1 = __webpack_require__(/*! . */ "../wp-react-form/src/form-builder/src/core/components/index.ts");
 var Label = function (props) {
     var _a, _b, _c;
     var componentClasses = classnames_1.default("wprf-input-label", props === null || props === void 0 ? void 0 : props.className);
@@ -38965,10 +38965,10 @@ exports.default = Label;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/components/Row.tsx":
-/*!*****************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/components/Row.tsx ***!
-  \*****************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/components/Row.tsx":
+/*!*********************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/components/Row.tsx ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38979,7 +38979,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../../plugins/wp-react-form/node_modules/classnames/index.js"));
+var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../wp-react-form/node_modules/classnames/index.js"));
 var Row = function (props) {
     var componentClasses = classnames_1.default("wprf-row clearfix wprf-flex", props === null || props === void 0 ? void 0 : props.className);
     return react_1.default.createElement("div", { className: componentClasses }, props === null || props === void 0 ? void 0 : props.children);
@@ -38989,10 +38989,10 @@ exports.default = Row;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/components/index.ts":
-/*!******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/components/index.ts ***!
-  \******************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/components/index.ts":
+/*!**********************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/components/index.ts ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39003,28 +39003,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ControlField = exports.ControlLabel = exports.Badge = exports.Image = exports.Label = exports.Column = exports.Row = void 0;
-var Row_1 = __webpack_require__(/*! ./Row */ "../../plugins/wp-react-form/src/form-builder/src/core/components/Row.tsx");
+var Row_1 = __webpack_require__(/*! ./Row */ "../wp-react-form/src/form-builder/src/core/components/Row.tsx");
 Object.defineProperty(exports, "Row", { enumerable: true, get: function () { return __importDefault(Row_1).default; } });
-var Column_1 = __webpack_require__(/*! ./Column */ "../../plugins/wp-react-form/src/form-builder/src/core/components/Column.tsx");
+var Column_1 = __webpack_require__(/*! ./Column */ "../wp-react-form/src/form-builder/src/core/components/Column.tsx");
 Object.defineProperty(exports, "Column", { enumerable: true, get: function () { return __importDefault(Column_1).default; } });
-var Label_1 = __webpack_require__(/*! ./Label */ "../../plugins/wp-react-form/src/form-builder/src/core/components/Label.tsx");
+var Label_1 = __webpack_require__(/*! ./Label */ "../wp-react-form/src/form-builder/src/core/components/Label.tsx");
 Object.defineProperty(exports, "Label", { enumerable: true, get: function () { return __importDefault(Label_1).default; } });
-var Image_1 = __webpack_require__(/*! ./Image */ "../../plugins/wp-react-form/src/form-builder/src/core/components/Image.tsx");
+var Image_1 = __webpack_require__(/*! ./Image */ "../wp-react-form/src/form-builder/src/core/components/Image.tsx");
 Object.defineProperty(exports, "Image", { enumerable: true, get: function () { return __importDefault(Image_1).default; } });
-var Badge_1 = __webpack_require__(/*! ./Badge */ "../../plugins/wp-react-form/src/form-builder/src/core/components/Badge.tsx");
+var Badge_1 = __webpack_require__(/*! ./Badge */ "../wp-react-form/src/form-builder/src/core/components/Badge.tsx");
 Object.defineProperty(exports, "Badge", { enumerable: true, get: function () { return __importDefault(Badge_1).default; } });
-var ControlLabel_1 = __webpack_require__(/*! ./ControlLabel */ "../../plugins/wp-react-form/src/form-builder/src/core/components/ControlLabel.tsx");
+var ControlLabel_1 = __webpack_require__(/*! ./ControlLabel */ "../wp-react-form/src/form-builder/src/core/components/ControlLabel.tsx");
 Object.defineProperty(exports, "ControlLabel", { enumerable: true, get: function () { return __importDefault(ControlLabel_1).default; } });
-var ControlField_1 = __webpack_require__(/*! ./ControlField */ "../../plugins/wp-react-form/src/form-builder/src/core/components/ControlField.tsx");
+var ControlField_1 = __webpack_require__(/*! ./ControlField */ "../wp-react-form/src/form-builder/src/core/components/ControlField.tsx");
 Object.defineProperty(exports, "ControlField", { enumerable: true, get: function () { return __importDefault(ControlField_1).default; } });
 
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/functions.ts":
-/*!***********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/functions.ts ***!
-  \***********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/functions.ts":
+/*!***************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/functions.ts ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39046,10 +39046,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports._extends = exports.processAjaxData = exports.wpFetch = exports.setStoreData = exports.getStoreData = exports.triggerDefaults = exports.isExists = exports.ObjectFilter = exports.SweetAlert = void 0;
-var sweetalert2_1 = __importDefault(__webpack_require__(/*! sweetalert2 */ "../../plugins/wp-react-form/node_modules/sweetalert2/dist/sweetalert2.all.js"));
+var sweetalert2_1 = __importDefault(__webpack_require__(/*! sweetalert2 */ "../wp-react-form/node_modules/sweetalert2/dist/sweetalert2.all.js"));
 var api_fetch_1 = __importDefault(__webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch"));
 var data_1 = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
-var utils_1 = __webpack_require__(/*! ./utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
+var utils_1 = __webpack_require__(/*! ./utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
 // import store from "../store";
 var SweetAlert = function (args) {
     var _a, _b, _c, _d, _e, _f;
@@ -39184,10 +39184,10 @@ exports._extends = _extends;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts":
-/*!*************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts ***!
-  \*************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/hooks/index.ts":
+/*!*****************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/hooks/index.ts ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39198,34 +39198,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.withStyles = exports.withProps = exports.withLabel = exports.useBuilder = exports.useDefaults = exports.useTrigger = exports.useOptions = exports.useAJAX = exports.BuilderConsumer = exports.BuilderProvider = exports.useBuilderContext = void 0;
-var useBuilderContext_1 = __webpack_require__(/*! ./useBuilderContext */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/useBuilderContext.ts");
+var useBuilderContext_1 = __webpack_require__(/*! ./useBuilderContext */ "../wp-react-form/src/form-builder/src/core/hooks/useBuilderContext.ts");
 Object.defineProperty(exports, "useBuilderContext", { enumerable: true, get: function () { return __importDefault(useBuilderContext_1).default; } });
 Object.defineProperty(exports, "BuilderProvider", { enumerable: true, get: function () { return useBuilderContext_1.BuilderProvider; } });
 Object.defineProperty(exports, "BuilderConsumer", { enumerable: true, get: function () { return useBuilderContext_1.BuilderConsumer; } });
-var useAJAX_1 = __webpack_require__(/*! ./useAJAX */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/useAJAX.ts");
+var useAJAX_1 = __webpack_require__(/*! ./useAJAX */ "../wp-react-form/src/form-builder/src/core/hooks/useAJAX.ts");
 Object.defineProperty(exports, "useAJAX", { enumerable: true, get: function () { return __importDefault(useAJAX_1).default; } });
-var useOptions_1 = __webpack_require__(/*! ./useOptions */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/useOptions.ts");
+var useOptions_1 = __webpack_require__(/*! ./useOptions */ "../wp-react-form/src/form-builder/src/core/hooks/useOptions.ts");
 Object.defineProperty(exports, "useOptions", { enumerable: true, get: function () { return __importDefault(useOptions_1).default; } });
-var useTrigger_1 = __webpack_require__(/*! ./useTrigger */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/useTrigger.ts");
+var useTrigger_1 = __webpack_require__(/*! ./useTrigger */ "../wp-react-form/src/form-builder/src/core/hooks/useTrigger.ts");
 Object.defineProperty(exports, "useTrigger", { enumerable: true, get: function () { return __importDefault(useTrigger_1).default; } });
-var useDefaults_1 = __webpack_require__(/*! ./useDefaults */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/useDefaults.ts");
+var useDefaults_1 = __webpack_require__(/*! ./useDefaults */ "../wp-react-form/src/form-builder/src/core/hooks/useDefaults.ts");
 Object.defineProperty(exports, "useDefaults", { enumerable: true, get: function () { return __importDefault(useDefaults_1).default; } });
-var useBuilder_1 = __webpack_require__(/*! ./useBuilder */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/useBuilder.tsx");
+var useBuilder_1 = __webpack_require__(/*! ./useBuilder */ "../wp-react-form/src/form-builder/src/core/hooks/useBuilder.tsx");
 Object.defineProperty(exports, "useBuilder", { enumerable: true, get: function () { return __importDefault(useBuilder_1).default; } });
-var withLabel_1 = __webpack_require__(/*! ./withLabel */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/withLabel.tsx");
+var withLabel_1 = __webpack_require__(/*! ./withLabel */ "../wp-react-form/src/form-builder/src/core/hooks/withLabel.tsx");
 Object.defineProperty(exports, "withLabel", { enumerable: true, get: function () { return __importDefault(withLabel_1).default; } });
-var withProps_1 = __webpack_require__(/*! ./withProps */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/withProps.tsx");
+var withProps_1 = __webpack_require__(/*! ./withProps */ "../wp-react-form/src/form-builder/src/core/hooks/withProps.tsx");
 Object.defineProperty(exports, "withProps", { enumerable: true, get: function () { return __importDefault(withProps_1).default; } });
-var withStyles_1 = __webpack_require__(/*! ./withStyles */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/withStyles.tsx");
+var withStyles_1 = __webpack_require__(/*! ./withStyles */ "../wp-react-form/src/form-builder/src/core/hooks/withStyles.tsx");
 Object.defineProperty(exports, "withStyles", { enumerable: true, get: function () { return __importDefault(withStyles_1).default; } });
 
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/useAJAX.ts":
-/*!***************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/hooks/useAJAX.ts ***!
-  \***************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/hooks/useAJAX.ts":
+/*!*******************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/hooks/useAJAX.ts ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39236,9 +39236,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.useAJAX = void 0;
-var functions_1 = __webpack_require__(/*! ../functions */ "../../plugins/wp-react-form/src/form-builder/src/core/functions.ts");
-var when_1 = __importDefault(__webpack_require__(/*! ../when */ "../../plugins/wp-react-form/src/form-builder/src/core/when.ts"));
-var useBuilderContext_1 = __importDefault(__webpack_require__(/*! ./useBuilderContext */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/useBuilderContext.ts"));
+var functions_1 = __webpack_require__(/*! ../functions */ "../wp-react-form/src/form-builder/src/core/functions.ts");
+var when_1 = __importDefault(__webpack_require__(/*! ../when */ "../wp-react-form/src/form-builder/src/core/when.ts"));
+var useBuilderContext_1 = __importDefault(__webpack_require__(/*! ./useBuilderContext */ "../wp-react-form/src/form-builder/src/core/hooks/useBuilderContext.ts"));
 var useAJAX = function (props) {
     var _a;
     var builderContext = useBuilderContext_1.default();
@@ -39271,10 +39271,10 @@ exports.default = exports.useAJAX;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/useBuilder.tsx":
-/*!*******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/hooks/useBuilder.tsx ***!
-  \*******************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/hooks/useBuilder.tsx":
+/*!***********************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/hooks/useBuilder.tsx ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39312,8 +39312,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var index_1 = __webpack_require__(/*! ../index */ "../../plugins/wp-react-form/src/form-builder/src/core/index.ts");
-var utils_1 = __webpack_require__(/*! ../utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
+var index_1 = __webpack_require__(/*! ../index */ "../wp-react-form/src/form-builder/src/core/index.ts");
+var utils_1 = __webpack_require__(/*! ../utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
 var useBuilder = function (props) {
     // Set is Mounted or NOT
     var isMounted = react_1.useRef(null);
@@ -39618,10 +39618,10 @@ exports.default = useBuilder;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/useBuilderContext.ts":
-/*!*************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/hooks/useBuilderContext.ts ***!
-  \*************************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/hooks/useBuilderContext.ts":
+/*!*****************************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/hooks/useBuilderContext.ts ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39652,7 +39652,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BuilderConsumer = exports.BuilderProvider = exports.BuilderContext = void 0;
 var React = __importStar(__webpack_require__(/*! react */ "react"));
-var tiny_warning_1 = __importDefault(__webpack_require__(/*! tiny-warning */ "../../plugins/wp-react-form/node_modules/tiny-warning/dist/tiny-warning.esm.js"));
+var tiny_warning_1 = __importDefault(__webpack_require__(/*! tiny-warning */ "../wp-react-form/node_modules/tiny-warning/dist/tiny-warning.esm.js"));
 exports.BuilderContext = React.createContext(undefined);
 exports.BuilderContext.displayName =  false ? undefined : 'BuilderContext';
 exports.BuilderProvider = exports.BuilderContext.Provider;
@@ -39667,17 +39667,17 @@ exports.default = useBuilderContext;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/useDefaults.ts":
-/*!*******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/hooks/useDefaults.ts ***!
-  \*******************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/hooks/useDefaults.ts":
+/*!***********************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/hooks/useDefaults.ts ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(/*! ../utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
+var utils_1 = __webpack_require__(/*! ../utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
 var useDefaults = function (parentName, helpers, value, trigger) {
     if (trigger != undefined && (trigger === null || trigger === void 0 ? void 0 : trigger.defaults) != undefined && !utils_1.isEmptyObj(trigger.defaults)) {
         var defaults = trigger.defaults;
@@ -39724,10 +39724,10 @@ exports.default = useDefaults;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/useOptions.ts":
-/*!******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/hooks/useOptions.ts ***!
-  \******************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/hooks/useOptions.ts":
+/*!**********************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/hooks/useOptions.ts ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39735,8 +39735,8 @@ exports.default = useDefaults;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __webpack_require__(/*! react */ "react");
-var utils_1 = __webpack_require__(/*! ../utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
-var index_1 = __webpack_require__(/*! ./index */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var utils_1 = __webpack_require__(/*! ../utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
+var index_1 = __webpack_require__(/*! ./index */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
 var useOptions = function (props, propertyName) {
     if (propertyName === void 0) { propertyName = 'fields'; }
     if (!(props === null || props === void 0 ? void 0 : props[propertyName])) {
@@ -39802,17 +39802,17 @@ exports.default = useOptions;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/useTrigger.ts":
-/*!******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/hooks/useTrigger.ts ***!
-  \******************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/hooks/useTrigger.ts":
+/*!**********************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/hooks/useTrigger.ts ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(/*! ../utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
+var utils_1 = __webpack_require__(/*! ../utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
 var useTrigger = function (props) {
     var builderContext = props.context;
     if ((props === null || props === void 0 ? void 0 : props.trigger) && utils_1.isArray(props === null || props === void 0 ? void 0 : props.trigger)) {
@@ -39840,10 +39840,10 @@ exports.default = useTrigger;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/withLabel.tsx":
-/*!******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/hooks/withLabel.tsx ***!
-  \******************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/hooks/withLabel.tsx":
+/*!**********************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/hooks/withLabel.tsx ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39876,9 +39876,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../../plugins/wp-react-form/node_modules/classnames/index.js"));
-var utils_1 = __webpack_require__(/*! ../utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
-var components_1 = __webpack_require__(/*! ../components */ "../../plugins/wp-react-form/src/form-builder/src/core/components/index.ts");
+var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../wp-react-form/node_modules/classnames/index.js"));
+var utils_1 = __webpack_require__(/*! ../utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
+var components_1 = __webpack_require__(/*! ../components */ "../wp-react-form/src/form-builder/src/core/components/index.ts");
 // import { useInstanceId } from "@wordpress/compose";
 var withLabel = function (WrappedComponent) {
     var WithLabel = function (props) {
@@ -39922,10 +39922,10 @@ exports.default = withLabel;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/withProps.tsx":
-/*!******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/hooks/withProps.tsx ***!
-  \******************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/hooks/withProps.tsx":
+/*!**********************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/hooks/withProps.tsx ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39968,8 +39968,8 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var utils_1 = __webpack_require__(/*! ../utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
-var index_1 = __webpack_require__(/*! ./index */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var utils_1 = __webpack_require__(/*! ../utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
+var index_1 = __webpack_require__(/*! ./index */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
 var withProps = function (WrappedComponent, isGeneric) {
     if (isGeneric === void 0) { isGeneric = false; }
     var WithProps = function (props) {
@@ -40044,10 +40044,10 @@ exports.default = withProps;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/withStyles.tsx":
-/*!*******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/hooks/withStyles.tsx ***!
-  \*******************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/hooks/withStyles.tsx":
+/*!***********************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/hooks/withStyles.tsx ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -40069,7 +40069,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../../plugins/wp-react-form/node_modules/classnames/index.js"));
+var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../wp-react-form/node_modules/classnames/index.js"));
 var withStyles = function (WrappedComponent) {
     var WithStyles = function (props) {
         var _a;
@@ -40087,10 +40087,10 @@ exports.default = withStyles;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/index.ts":
-/*!*******************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/index.ts ***!
-  \*******************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/index.ts":
+/*!***********************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/index.ts ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -40101,18 +40101,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.builderReducer = exports.when = void 0;
-var when_1 = __webpack_require__(/*! ./when */ "../../plugins/wp-react-form/src/form-builder/src/core/when.ts");
+var when_1 = __webpack_require__(/*! ./when */ "../wp-react-form/src/form-builder/src/core/when.ts");
 Object.defineProperty(exports, "when", { enumerable: true, get: function () { return __importDefault(when_1).default; } });
-var builderReducer_1 = __webpack_require__(/*! ./builderReducer */ "../../plugins/wp-react-form/src/form-builder/src/core/builderReducer.ts");
+var builderReducer_1 = __webpack_require__(/*! ./builderReducer */ "../wp-react-form/src/form-builder/src/core/builderReducer.ts");
 Object.defineProperty(exports, "builderReducer", { enumerable: true, get: function () { return __importDefault(builderReducer_1).default; } });
 
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts":
-/*!*******************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/utils.ts ***!
-  \*******************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/utils.ts":
+/*!***********************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/utils.ts ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -40129,8 +40129,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.merge = exports.getTime = exports.hitAAJX = exports.validFieldProps = exports.setIn = exports.objectWithoutPropertiesLoose = exports.executeChange = exports.getSelectedValues = exports.sortingFields = exports.getIn = exports.isEmptyObj = exports.withState = exports.isVisible = exports.isObject = exports.isArray = exports.isFunction = exports.isNumber = exports.isString = void 0;
 var lodash_es_1 = __webpack_require__(/*! lodash-es */ "lodash-es");
-var functions_1 = __webpack_require__(/*! ./functions */ "../../plugins/wp-react-form/src/form-builder/src/core/functions.ts");
-var when_1 = __importDefault(__webpack_require__(/*! ./when */ "../../plugins/wp-react-form/src/form-builder/src/core/when.ts"));
+var functions_1 = __webpack_require__(/*! ./functions */ "../wp-react-form/src/form-builder/src/core/functions.ts");
+var when_1 = __importDefault(__webpack_require__(/*! ./when */ "../wp-react-form/src/form-builder/src/core/when.ts"));
 // @ts-ignore
 var date_1 = __webpack_require__(/*! @wordpress/date */ "@wordpress/date");
 var moment_1 = __importDefault(__webpack_require__(/*! moment */ "moment"));
@@ -40359,10 +40359,10 @@ exports.merge = merge;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/when.ts":
-/*!******************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/when.ts ***!
-  \******************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/when.ts":
+/*!**********************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/when.ts ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -40372,8 +40372,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(/*! ./utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
-var intersect_1 = __importDefault(__webpack_require__(/*! intersect */ "../../plugins/wp-react-form/node_modules/intersect/index.js"));
+var utils_1 = __webpack_require__(/*! ./utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
+var intersect_1 = __importDefault(__webpack_require__(/*! intersect */ "../wp-react-form/node_modules/intersect/index.js"));
 var _typeof = function (obj) {
     if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
         return typeof obj;
@@ -40523,10 +40523,10 @@ exports.default = when;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/Action.tsx":
-/*!***********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/Action.tsx ***!
-  \***********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/Action.tsx":
+/*!***************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/Action.tsx ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -40546,10 +40546,10 @@ exports.default = Action;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/AdvancedTemplate.tsx":
-/*!*********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/AdvancedTemplate.tsx ***!
-  \*********************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/AdvancedTemplate.tsx":
+/*!*************************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/AdvancedTemplate.tsx ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -40595,14 +40595,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var react_draft_wysiwyg_1 = __webpack_require__(/*! react-draft-wysiwyg */ "../../plugins/wp-react-form/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.js");
-var draft_js_1 = __webpack_require__(/*! draft-js */ "../../plugins/wp-react-form/node_modules/draft-js/lib/Draft.js");
-var draftjs_to_html_1 = __importDefault(__webpack_require__(/*! draftjs-to-html */ "../../plugins/wp-react-form/node_modules/draftjs-to-html/lib/draftjs-to-html.js"));
-var html_to_draftjs_1 = __importDefault(__webpack_require__(/*! html-to-draftjs */ "../../plugins/wp-react-form/node_modules/html-to-draftjs/dist/html-to-draftjs.js"));
+var react_draft_wysiwyg_1 = __webpack_require__(/*! react-draft-wysiwyg */ "../wp-react-form/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.js");
+var draft_js_1 = __webpack_require__(/*! draft-js */ "../wp-react-form/node_modules/draft-js/lib/Draft.js");
+var draftjs_to_html_1 = __importDefault(__webpack_require__(/*! draftjs-to-html */ "../wp-react-form/node_modules/draftjs-to-html/lib/draftjs-to-html.js"));
+var html_to_draftjs_1 = __importDefault(__webpack_require__(/*! html-to-draftjs */ "../wp-react-form/node_modules/html-to-draftjs/dist/html-to-draftjs.js"));
 var hooks_1 = __webpack_require__(/*! @wordpress/hooks */ "@wordpress/hooks");
-__webpack_require__(/*! react-draft-wysiwyg/dist/react-draft-wysiwyg.css */ "../../plugins/wp-react-form/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css");
-var helpers_1 = __webpack_require__(/*! ./helpers */ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/index.ts");
-var hooks_2 = __webpack_require__(/*! ../core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
+__webpack_require__(/*! react-draft-wysiwyg/dist/react-draft-wysiwyg.css */ "../wp-react-form/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css");
+var helpers_1 = __webpack_require__(/*! ./helpers */ "../wp-react-form/src/form-builder/src/fields/helpers/index.ts");
+var hooks_2 = __webpack_require__(/*! ../core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
 var AdvancedTemplate = function (props) {
     var _a;
     var builderContext = hooks_2.useBuilderContext();
@@ -40728,10 +40728,10 @@ exports.default = AdvancedTemplate;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/Button.tsx":
-/*!***********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/Button.tsx ***!
-  \***********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/Button.tsx":
+/*!***************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/Button.tsx ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -40777,11 +40777,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../../plugins/wp-react-form/node_modules/classnames/index.js"));
-var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
-var utils_1 = __webpack_require__(/*! ../core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
-var _1 = __webpack_require__(/*! . */ "../../plugins/wp-react-form/src/form-builder/src/fields/index.ts");
-var sweetalert2_1 = __importDefault(__webpack_require__(/*! sweetalert2 */ "../../plugins/wp-react-form/node_modules/sweetalert2/dist/sweetalert2.all.js"));
+var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../wp-react-form/node_modules/classnames/index.js"));
+var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var utils_1 = __webpack_require__(/*! ../core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
+var _1 = __webpack_require__(/*! . */ "../wp-react-form/src/form-builder/src/fields/index.ts");
+var sweetalert2_1 = __importDefault(__webpack_require__(/*! sweetalert2 */ "../wp-react-form/node_modules/sweetalert2/dist/sweetalert2.all.js"));
 var Button = function (props) {
     var _a, _b, _c, _d;
     if (!(props === null || props === void 0 ? void 0 : props.text) && (props === null || props === void 0 ? void 0 : props.group) !== true) {
@@ -40862,10 +40862,10 @@ exports.default = hooks_1.withLabel(Button);
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/ColorPicker.tsx":
-/*!****************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/ColorPicker.tsx ***!
-  \****************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/ColorPicker.tsx":
+/*!********************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/ColorPicker.tsx ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -40894,7 +40894,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
 var components_1 = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 var i18n_1 = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
 var ColorPicker = function (props) {
     var value = props.value, name = props.name, id = props.id, onChange = props.onChange;
     var _a = react_1.useState(false), showPicker = _a[0], setShowPicker = _a[1];
@@ -40944,10 +40944,10 @@ exports.default = hooks_1.withLabel(ColorPicker);
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/Date.tsx":
-/*!*********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/Date.tsx ***!
-  \*********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/Date.tsx":
+/*!*************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/Date.tsx ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -40977,8 +40977,8 @@ var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
 var components_1 = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 // @ts-ignore
 var date_1 = __webpack_require__(/*! @wordpress/date */ "@wordpress/date");
-var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
-var utils_1 = __webpack_require__(/*! ../core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
+var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var utils_1 = __webpack_require__(/*! ../core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
 var DateControl = function (props) {
     var _a;
     var name = props.name, value = props.value, onChange = props.onChange;
@@ -41027,10 +41027,10 @@ exports.default = hooks_1.withLabel(DateControl);
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/Editor.tsx":
-/*!***********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/Editor.tsx ***!
-  \***********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/Editor.tsx":
+/*!***************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/Editor.tsx ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41060,13 +41060,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var react_draft_wysiwyg_1 = __webpack_require__(/*! react-draft-wysiwyg */ "../../plugins/wp-react-form/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.js");
-var draft_js_1 = __webpack_require__(/*! draft-js */ "../../plugins/wp-react-form/node_modules/draft-js/lib/Draft.js");
-var draftjs_to_html_1 = __importDefault(__webpack_require__(/*! draftjs-to-html */ "../../plugins/wp-react-form/node_modules/draftjs-to-html/lib/draftjs-to-html.js"));
-var html_to_draftjs_1 = __importDefault(__webpack_require__(/*! html-to-draftjs */ "../../plugins/wp-react-form/node_modules/html-to-draftjs/dist/html-to-draftjs.js"));
-__webpack_require__(/*! react-draft-wysiwyg/dist/react-draft-wysiwyg.css */ "../../plugins/wp-react-form/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css");
-var helpers_1 = __webpack_require__(/*! ./helpers */ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/index.ts");
-var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var react_draft_wysiwyg_1 = __webpack_require__(/*! react-draft-wysiwyg */ "../wp-react-form/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.js");
+var draft_js_1 = __webpack_require__(/*! draft-js */ "../wp-react-form/node_modules/draft-js/lib/Draft.js");
+var draftjs_to_html_1 = __importDefault(__webpack_require__(/*! draftjs-to-html */ "../wp-react-form/node_modules/draftjs-to-html/lib/draftjs-to-html.js"));
+var html_to_draftjs_1 = __importDefault(__webpack_require__(/*! html-to-draftjs */ "../wp-react-form/node_modules/html-to-draftjs/dist/html-to-draftjs.js"));
+__webpack_require__(/*! react-draft-wysiwyg/dist/react-draft-wysiwyg.css */ "../wp-react-form/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css");
+var helpers_1 = __webpack_require__(/*! ./helpers */ "../wp-react-form/src/form-builder/src/fields/helpers/index.ts");
+var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
 var Editor = function (props) {
     var _a = react_1.useState(draft_js_1.EditorState.createEmpty()), editorState = _a[0], setEditorState = _a[1];
     react_1.useEffect(function () {
@@ -41094,10 +41094,10 @@ exports.default = hooks_1.withLabel(Editor);
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/Field.tsx":
-/*!**********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/Field.tsx ***!
-  \**********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/Field.tsx":
+/*!**************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/Field.tsx ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41120,8 +41120,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GenericField = void 0;
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var _1 = __webpack_require__(/*! . */ "../../plugins/wp-react-form/src/form-builder/src/fields/index.ts");
-var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var _1 = __webpack_require__(/*! . */ "../wp-react-form/src/form-builder/src/fields/index.ts");
+var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
 var Field = function (props) {
     if (!props.type || props.type.length === 0) {
         console.error(props);
@@ -41182,10 +41182,10 @@ exports.default = hooks_1.withProps(Field);
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/Group.tsx":
-/*!**********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/Group.tsx ***!
-  \**********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/Group.tsx":
+/*!**************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/Group.tsx ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41242,10 +41242,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../../plugins/wp-react-form/node_modules/classnames/index.js"));
-var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
-var utils_1 = __webpack_require__(/*! ../core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
-var _1 = __webpack_require__(/*! . */ "../../plugins/wp-react-form/src/form-builder/src/fields/index.ts");
+var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../wp-react-form/node_modules/classnames/index.js"));
+var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var utils_1 = __webpack_require__(/*! ../core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
+var _1 = __webpack_require__(/*! . */ "../wp-react-form/src/form-builder/src/fields/index.ts");
 var Group = function (props) {
     var fieldName = props.name, fields = props.fields, rest = __rest(props, ["name", "fields"]);
     if (!fields || !utils_1.isArray(fields) || fields.length === 0) {
@@ -41278,10 +41278,10 @@ exports.default = hooks_1.withLabel(Group);
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/Input.tsx":
-/*!**********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/Input.tsx ***!
-  \**********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/Input.tsx":
+/*!**************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/Input.tsx ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41320,8 +41320,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GenericInput = void 0;
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
-var utils_1 = __webpack_require__(/*! ../core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
+var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var utils_1 = __webpack_require__(/*! ../core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
 var Input = function (props) {
     var validProps = utils_1.validFieldProps(props, ['is_pro', 'visible', 'trigger', 'disable', 'parentIndex', 'context', 'badge']);
     var handleChange = react_1.useCallback(function (event) { return validProps.onChange(event, { isPro: !!props.is_pro }); }, [validProps === null || validProps === void 0 ? void 0 : validProps.value]);
@@ -41341,10 +41341,10 @@ exports.default = hooks_1.withLabel(react_1.default.memo(Input));
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/Media.tsx":
-/*!**********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/Media.tsx ***!
-  \**********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/Media.tsx":
+/*!**************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/Media.tsx ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41372,7 +41372,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
 var media_utils_1 = __webpack_require__(/*! @wordpress/media-utils */ "@wordpress/media-utils");
-var __1 = __webpack_require__(/*! ../.. */ "../../plugins/wp-react-form/src/form-builder/index.tsx");
+var __1 = __webpack_require__(/*! ../.. */ "../wp-react-form/src/form-builder/index.tsx");
 var Media = function (props) {
     var _a;
     var _b = react_1.useState(((_a = props.value) === null || _a === void 0 ? void 0 : _a.url) ? props.value : null), imageData = _b[0], setImageData = _b[1];
@@ -41408,10 +41408,10 @@ exports.default = __1.withLabel(Media);
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/Message.tsx":
-/*!************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/Message.tsx ***!
-  \************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/Message.tsx":
+/*!****************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/Message.tsx ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41421,9 +41421,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../../plugins/wp-react-form/node_modules/classnames/index.js"));
+var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../wp-react-form/node_modules/classnames/index.js"));
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var core_1 = __webpack_require__(/*! ../core */ "../../plugins/wp-react-form/src/form-builder/src/core/index.ts");
+var core_1 = __webpack_require__(/*! ../core */ "../wp-react-form/src/form-builder/src/core/index.ts");
 var eligibleMessage = function (props) {
     if (props === null || props === void 0 ? void 0 : props.messages) {
         for (var msg in props.messages) {
@@ -41452,10 +41452,10 @@ exports.default = Message;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/Modal.tsx":
-/*!**********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/Modal.tsx ***!
-  \**********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/Modal.tsx":
+/*!**************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/Modal.tsx ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41496,9 +41496,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var _1 = __webpack_require__(/*! . */ "../../plugins/wp-react-form/src/form-builder/src/fields/index.ts");
-var helpers_1 = __webpack_require__(/*! ./helpers */ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/index.ts");
-var react_bootstrap_sweetalert_1 = __importDefault(__webpack_require__(/*! react-bootstrap-sweetalert */ "../../plugins/wp-react-form/node_modules/react-bootstrap-sweetalert/dist/index.js"));
+var _1 = __webpack_require__(/*! . */ "../wp-react-form/src/form-builder/src/fields/index.ts");
+var helpers_1 = __webpack_require__(/*! ./helpers */ "../wp-react-form/src/form-builder/src/fields/helpers/index.ts");
+var react_bootstrap_sweetalert_1 = __importDefault(__webpack_require__(/*! react-bootstrap-sweetalert */ "../wp-react-form/node_modules/react-bootstrap-sweetalert/dist/index.js"));
 var Modal = function (props) {
     var _a;
     if ((props === null || props === void 0 ? void 0 : props.body) == undefined || (props === null || props === void 0 ? void 0 : props.button) == undefined) {
@@ -41544,10 +41544,10 @@ exports.default = Modal;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/RadioCard.tsx":
-/*!**************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/RadioCard.tsx ***!
-  \**************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/RadioCard.tsx":
+/*!******************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/RadioCard.tsx ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41600,13 +41600,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
 var compose_1 = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
-var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../../plugins/wp-react-form/node_modules/classnames/index.js"));
-var components_1 = __webpack_require__(/*! ../core/components */ "../../plugins/wp-react-form/src/form-builder/src/core/components/index.ts");
-__webpack_require__(/*! ../scss/radio-card.scss */ "../../plugins/wp-react-form/src/form-builder/src/scss/radio-card.scss");
-var useOptions_1 = __importDefault(__webpack_require__(/*! ../core/hooks/useOptions */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/useOptions.ts"));
-var _1 = __webpack_require__(/*! . */ "../../plugins/wp-react-form/src/form-builder/src/fields/index.ts");
-var utils_1 = __webpack_require__(/*! ../core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
-var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../wp-react-form/node_modules/classnames/index.js"));
+var components_1 = __webpack_require__(/*! ../core/components */ "../wp-react-form/src/form-builder/src/core/components/index.ts");
+__webpack_require__(/*! ../scss/radio-card.scss */ "../wp-react-form/src/form-builder/src/scss/radio-card.scss");
+var useOptions_1 = __importDefault(__webpack_require__(/*! ../core/hooks/useOptions */ "../wp-react-form/src/form-builder/src/core/hooks/useOptions.ts"));
+var _1 = __webpack_require__(/*! . */ "../wp-react-form/src/form-builder/src/fields/index.ts");
+var utils_1 = __webpack_require__(/*! ../core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
+var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
 var RadioCard = function (props) {
     var builderContext = hooks_1.useBuilderContext();
     var _a = useOptions_1.default(props, 'options'), options = _a.options, option = _a.option;
@@ -41660,10 +41660,10 @@ exports.default = hooks_1.withLabel(RadioCard);
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/Repeater.tsx":
-/*!*************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/Repeater.tsx ***!
-  \*************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/Repeater.tsx":
+/*!*****************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/Repeater.tsx ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41695,9 +41695,9 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
-var helpers_1 = __webpack_require__(/*! ./helpers */ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/index.ts");
-var utils_1 = __webpack_require__(/*! ../core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
+var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var helpers_1 = __webpack_require__(/*! ./helpers */ "../wp-react-form/src/form-builder/src/fields/helpers/index.ts");
+var utils_1 = __webpack_require__(/*! ../core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
 var Repeater = function (props) {
     var _a, _b;
     var fieldName = props.name, fieldValue = props.value, button = props.button, fields = props.fields;
@@ -41749,10 +41749,10 @@ exports.default = Repeater;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/Section.tsx":
-/*!************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/Section.tsx ***!
-  \************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/Section.tsx":
+/*!****************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/Section.tsx ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41798,10 +41798,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var fields_1 = __webpack_require__(/*! ../fields */ "../../plugins/wp-react-form/src/form-builder/src/fields/index.ts");
-var utils_1 = __webpack_require__(/*! ../core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
-var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
-var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../../plugins/wp-react-form/node_modules/classnames/index.js"));
+var fields_1 = __webpack_require__(/*! ../fields */ "../wp-react-form/src/form-builder/src/fields/index.ts");
+var utils_1 = __webpack_require__(/*! ../core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
+var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../wp-react-form/node_modules/classnames/index.js"));
 var Section = function (props) {
     var _a;
     var builderContext = hooks_1.useBuilderContext();
@@ -41837,10 +41837,10 @@ exports.default = react_1.default.memo(Section);
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/Select.tsx":
-/*!***********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/Select.tsx ***!
-  \***********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/Select.tsx":
+/*!***************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/Select.tsx ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41875,11 +41875,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var react_select_1 = __importDefault(__webpack_require__(/*! react-select */ "../../plugins/wp-react-form/node_modules/react-select/dist/react-select.esm.js"));
-var utils_1 = __webpack_require__(/*! ../core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
-var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
-var functions_1 = __webpack_require__(/*! ../core/functions */ "../../plugins/wp-react-form/src/form-builder/src/core/functions.ts");
-var core_1 = __webpack_require__(/*! ../core */ "../../plugins/wp-react-form/src/form-builder/src/core/index.ts");
+var react_select_1 = __importDefault(__webpack_require__(/*! react-select */ "../wp-react-form/node_modules/react-select/dist/react-select.esm.js"));
+var utils_1 = __webpack_require__(/*! ../core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
+var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var functions_1 = __webpack_require__(/*! ../core/functions */ "../wp-react-form/src/form-builder/src/core/functions.ts");
+var core_1 = __webpack_require__(/*! ../core */ "../wp-react-form/src/form-builder/src/core/index.ts");
 var Select = function (props) {
     var builderContext = hooks_1.useBuilderContext();
     var id = props.id, name = props.name, multiple = props.multiple, placeholder = props.placeholder, _a = props.search, search = _a === void 0 ? false : _a, onChange = props.onChange, parentIndex = props.parentIndex;
@@ -41964,10 +41964,10 @@ exports.default = hooks_1.withLabel(Select);
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/Slider.tsx":
-/*!***********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/Slider.tsx ***!
-  \***********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/Slider.tsx":
+/*!***************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/Slider.tsx ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41995,8 +41995,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
 var components_1 = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-var components_2 = __webpack_require__(/*! ../core/components */ "../../plugins/wp-react-form/src/form-builder/src/core/components/index.ts");
-var utils_1 = __webpack_require__(/*! ../core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
+var components_2 = __webpack_require__(/*! ../core/components */ "../wp-react-form/src/form-builder/src/core/components/index.ts");
+var utils_1 = __webpack_require__(/*! ../core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
 var Slider = function (props) {
     var name = props.name, id = props.id, label = props.label, units = props.units, value = props.value, min = props.min, max = props.max, unit = props.unit, tooltip = props.tooltip, reset = props.reset;
     var _a = react_1.useState(value || 0), isValue = _a[0], setValue = _a[1];
@@ -42043,10 +42043,10 @@ exports.default = Slider;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/Test.tsx":
-/*!*********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/Test.tsx ***!
-  \*********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/Test.tsx":
+/*!*************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/Test.tsx ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42075,10 +42075,10 @@ exports.default = MyPopover;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/Textarea.tsx":
-/*!*************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/Textarea.tsx ***!
-  \*************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/Textarea.tsx":
+/*!*****************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/Textarea.tsx ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42117,8 +42117,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GenericInput = void 0;
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
-var utils_1 = __webpack_require__(/*! ../core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
+var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var utils_1 = __webpack_require__(/*! ../core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
 var Textarea = function (props) {
     var validProps = utils_1.validFieldProps(props, ['is_pro', 'visible', 'trigger', 'disable', 'parentIndex', 'context']);
     var handleChange = react_1.useCallback(function (event) { return validProps.onChange(event, { isPro: !!props.is_pro }); }, [validProps === null || validProps === void 0 ? void 0 : validProps.value]);
@@ -42130,10 +42130,10 @@ exports.default = hooks_1.withLabel(react_1.default.memo(Textarea));
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/Toggle.tsx":
-/*!***********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/Toggle.tsx ***!
-  \***********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/Toggle.tsx":
+/*!***************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/Toggle.tsx ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42172,9 +42172,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Toggle = void 0;
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var __1 = __webpack_require__(/*! ../.. */ "../../plugins/wp-react-form/src/form-builder/index.tsx");
-var utils_1 = __webpack_require__(/*! ../core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
-var helpers_1 = __webpack_require__(/*! ./helpers */ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/index.ts");
+var __1 = __webpack_require__(/*! ../.. */ "../wp-react-form/src/form-builder/index.tsx");
+var utils_1 = __webpack_require__(/*! ../core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
+var helpers_1 = __webpack_require__(/*! ./helpers */ "../wp-react-form/src/form-builder/src/fields/helpers/index.ts");
 var Toggle = function (props) {
     var passedOptions = props.options, value = props.value, multiple = props.multiple, prevStyles = props.style;
     var options = utils_1.sortingFields(passedOptions);
@@ -42224,10 +42224,10 @@ exports.default = exports.Toggle;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/GenericToggle.tsx":
-/*!**************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/helpers/GenericToggle.tsx ***!
-  \**************************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/helpers/GenericToggle.tsx":
+/*!******************************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/helpers/GenericToggle.tsx ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42268,11 +42268,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../../plugins/wp-react-form/node_modules/classnames/index.js"));
-var components_1 = __webpack_require__(/*! ../../core/components */ "../../plugins/wp-react-form/src/form-builder/src/core/components/index.ts");
-var hooks_1 = __webpack_require__(/*! ../../core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
-var _1 = __webpack_require__(/*! ../. */ "../../plugins/wp-react-form/src/form-builder/src/fields/index.ts");
-var utils_1 = __webpack_require__(/*! ../../core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
+var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../wp-react-form/node_modules/classnames/index.js"));
+var components_1 = __webpack_require__(/*! ../../core/components */ "../wp-react-form/src/form-builder/src/core/components/index.ts");
+var hooks_1 = __webpack_require__(/*! ../../core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var _1 = __webpack_require__(/*! ../. */ "../wp-react-form/src/form-builder/src/fields/index.ts");
+var utils_1 = __webpack_require__(/*! ../../core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
 var GenericToggle = function (props) {
     var _a;
     var _b, _c;
@@ -42306,10 +42306,10 @@ exports.default = hooks_1.withLabel(GenericToggle);
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/Loading.tsx":
-/*!********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/helpers/Loading.tsx ***!
-  \********************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/helpers/Loading.tsx":
+/*!************************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/helpers/Loading.tsx ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42328,10 +42328,10 @@ exports.default = Loading;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/ModalContent.tsx":
-/*!*************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/helpers/ModalContent.tsx ***!
-  \*************************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/helpers/ModalContent.tsx":
+/*!*****************************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/helpers/ModalContent.tsx ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42374,9 +42374,9 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var utils_1 = __webpack_require__(/*! ../../core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
-var _1 = __webpack_require__(/*! ../. */ "../../plugins/wp-react-form/src/form-builder/src/fields/index.ts");
-var _2 = __webpack_require__(/*! . */ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/index.ts");
+var utils_1 = __webpack_require__(/*! ../../core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
+var _1 = __webpack_require__(/*! ../. */ "../wp-react-form/src/form-builder/src/fields/index.ts");
+var _2 = __webpack_require__(/*! . */ "../wp-react-form/src/form-builder/src/fields/helpers/index.ts");
 var ModalContent = function (props) {
     var _a;
     var isLoading = props.isLoading, closeModal = props.closeModal;
@@ -42405,10 +42405,10 @@ exports.default = ModalContent;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/ModalHeader.tsx":
-/*!************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/helpers/ModalHeader.tsx ***!
-  \************************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/helpers/ModalHeader.tsx":
+/*!****************************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/helpers/ModalHeader.tsx ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42419,7 +42419,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var utils_1 = __webpack_require__(/*! ../../core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
+var utils_1 = __webpack_require__(/*! ../../core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
 var ModalHeader = function (_a) {
     var content = _a.content;
     return (react_1.default.createElement("div", { className: "wprf-modal-header" }, content && utils_1.isString(content) && react_1.default.createElement("h3", null, content)));
@@ -42429,10 +42429,10 @@ exports.default = ModalHeader;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/Popover.tsx":
-/*!********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/helpers/Popover.tsx ***!
-  \********************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/helpers/Popover.tsx":
+/*!************************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/helpers/Popover.tsx ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42491,10 +42491,10 @@ exports.default = Popover;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/RepeaterField.tsx":
-/*!**************************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/helpers/RepeaterField.tsx ***!
-  \**************************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/helpers/RepeaterField.tsx":
+/*!******************************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/helpers/RepeaterField.tsx ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42533,7 +42533,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
 var components_1 = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-var index_1 = __webpack_require__(/*! ../index */ "../../plugins/wp-react-form/src/form-builder/src/fields/index.ts");
+var index_1 = __webpack_require__(/*! ../index */ "../wp-react-form/src/form-builder/src/fields/index.ts");
 var compose_1 = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
 var RepeaterField = function (props) {
     var fields = props.fields, onChange = props.onChange, index = props.index, parent = props.parent;
@@ -42558,10 +42558,10 @@ exports.default = RepeaterField;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/index.ts":
-/*!*****************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/helpers/index.ts ***!
-  \*****************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/helpers/index.ts":
+/*!*********************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/helpers/index.ts ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42572,28 +42572,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.toolbarOptions = exports.Loading = exports.ModalHeader = exports.ModalContent = exports.GenericToggle = exports.RepeaterField = exports.Popover = void 0;
-var Popover_1 = __webpack_require__(/*! ./Popover */ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/Popover.tsx");
+var Popover_1 = __webpack_require__(/*! ./Popover */ "../wp-react-form/src/form-builder/src/fields/helpers/Popover.tsx");
 Object.defineProperty(exports, "Popover", { enumerable: true, get: function () { return __importDefault(Popover_1).default; } });
-var RepeaterField_1 = __webpack_require__(/*! ./RepeaterField */ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/RepeaterField.tsx");
+var RepeaterField_1 = __webpack_require__(/*! ./RepeaterField */ "../wp-react-form/src/form-builder/src/fields/helpers/RepeaterField.tsx");
 Object.defineProperty(exports, "RepeaterField", { enumerable: true, get: function () { return __importDefault(RepeaterField_1).default; } });
-var GenericToggle_1 = __webpack_require__(/*! ./GenericToggle */ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/GenericToggle.tsx");
+var GenericToggle_1 = __webpack_require__(/*! ./GenericToggle */ "../wp-react-form/src/form-builder/src/fields/helpers/GenericToggle.tsx");
 Object.defineProperty(exports, "GenericToggle", { enumerable: true, get: function () { return __importDefault(GenericToggle_1).default; } });
-var ModalContent_1 = __webpack_require__(/*! ./ModalContent */ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/ModalContent.tsx");
+var ModalContent_1 = __webpack_require__(/*! ./ModalContent */ "../wp-react-form/src/form-builder/src/fields/helpers/ModalContent.tsx");
 Object.defineProperty(exports, "ModalContent", { enumerable: true, get: function () { return __importDefault(ModalContent_1).default; } });
-var ModalHeader_1 = __webpack_require__(/*! ./ModalHeader */ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/ModalHeader.tsx");
+var ModalHeader_1 = __webpack_require__(/*! ./ModalHeader */ "../wp-react-form/src/form-builder/src/fields/helpers/ModalHeader.tsx");
 Object.defineProperty(exports, "ModalHeader", { enumerable: true, get: function () { return __importDefault(ModalHeader_1).default; } });
-var Loading_1 = __webpack_require__(/*! ./Loading */ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/Loading.tsx");
+var Loading_1 = __webpack_require__(/*! ./Loading */ "../wp-react-form/src/form-builder/src/fields/helpers/Loading.tsx");
 Object.defineProperty(exports, "Loading", { enumerable: true, get: function () { return __importDefault(Loading_1).default; } });
-var toolbar_1 = __webpack_require__(/*! ./toolbar */ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/toolbar.ts");
+var toolbar_1 = __webpack_require__(/*! ./toolbar */ "../wp-react-form/src/form-builder/src/fields/helpers/toolbar.ts");
 Object.defineProperty(exports, "toolbarOptions", { enumerable: true, get: function () { return toolbar_1.toolbarOptions; } });
 
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/helpers/toolbar.ts":
-/*!*******************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/helpers/toolbar.ts ***!
-  \*******************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/helpers/toolbar.ts":
+/*!***********************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/helpers/toolbar.ts ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42618,10 +42618,10 @@ exports.toolbarOptions = {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/fields/index.ts":
-/*!*********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/fields/index.ts ***!
-  \*********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/fields/index.ts":
+/*!*************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/fields/index.ts ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42632,56 +42632,56 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdvancedTemplate = exports.Test = exports.Modal = exports.Message = exports.Button = exports.Editor = exports.Media = exports.Action = exports.ColorPicker = exports.Slider = exports.Repeater = exports.Section = exports.Radio = exports.Toggle = exports.Select = exports.Group = exports.Textarea = exports.GenericInput = exports.Input = exports.Date = exports.GenericField = exports.Field = void 0;
-var Field_1 = __webpack_require__(/*! ./Field */ "../../plugins/wp-react-form/src/form-builder/src/fields/Field.tsx");
+var Field_1 = __webpack_require__(/*! ./Field */ "../wp-react-form/src/form-builder/src/fields/Field.tsx");
 Object.defineProperty(exports, "Field", { enumerable: true, get: function () { return __importDefault(Field_1).default; } });
 Object.defineProperty(exports, "GenericField", { enumerable: true, get: function () { return Field_1.GenericField; } });
-var Date_1 = __webpack_require__(/*! ./Date */ "../../plugins/wp-react-form/src/form-builder/src/fields/Date.tsx");
+var Date_1 = __webpack_require__(/*! ./Date */ "../wp-react-form/src/form-builder/src/fields/Date.tsx");
 Object.defineProperty(exports, "Date", { enumerable: true, get: function () { return __importDefault(Date_1).default; } });
-var Input_1 = __webpack_require__(/*! ./Input */ "../../plugins/wp-react-form/src/form-builder/src/fields/Input.tsx");
+var Input_1 = __webpack_require__(/*! ./Input */ "../wp-react-form/src/form-builder/src/fields/Input.tsx");
 Object.defineProperty(exports, "Input", { enumerable: true, get: function () { return __importDefault(Input_1).default; } });
 Object.defineProperty(exports, "GenericInput", { enumerable: true, get: function () { return Input_1.GenericInput; } });
-var Textarea_1 = __webpack_require__(/*! ./Textarea */ "../../plugins/wp-react-form/src/form-builder/src/fields/Textarea.tsx");
+var Textarea_1 = __webpack_require__(/*! ./Textarea */ "../wp-react-form/src/form-builder/src/fields/Textarea.tsx");
 Object.defineProperty(exports, "Textarea", { enumerable: true, get: function () { return __importDefault(Textarea_1).default; } });
-var Group_1 = __webpack_require__(/*! ./Group */ "../../plugins/wp-react-form/src/form-builder/src/fields/Group.tsx");
+var Group_1 = __webpack_require__(/*! ./Group */ "../wp-react-form/src/form-builder/src/fields/Group.tsx");
 Object.defineProperty(exports, "Group", { enumerable: true, get: function () { return __importDefault(Group_1).default; } });
-var Select_1 = __webpack_require__(/*! ./Select */ "../../plugins/wp-react-form/src/form-builder/src/fields/Select.tsx");
+var Select_1 = __webpack_require__(/*! ./Select */ "../wp-react-form/src/form-builder/src/fields/Select.tsx");
 Object.defineProperty(exports, "Select", { enumerable: true, get: function () { return __importDefault(Select_1).default; } });
-var Toggle_1 = __webpack_require__(/*! ./Toggle */ "../../plugins/wp-react-form/src/form-builder/src/fields/Toggle.tsx");
+var Toggle_1 = __webpack_require__(/*! ./Toggle */ "../wp-react-form/src/form-builder/src/fields/Toggle.tsx");
 Object.defineProperty(exports, "Toggle", { enumerable: true, get: function () { return __importDefault(Toggle_1).default; } });
-var RadioCard_1 = __webpack_require__(/*! ./RadioCard */ "../../plugins/wp-react-form/src/form-builder/src/fields/RadioCard.tsx");
+var RadioCard_1 = __webpack_require__(/*! ./RadioCard */ "../wp-react-form/src/form-builder/src/fields/RadioCard.tsx");
 Object.defineProperty(exports, "Radio", { enumerable: true, get: function () { return __importDefault(RadioCard_1).default; } });
-var Section_1 = __webpack_require__(/*! ./Section */ "../../plugins/wp-react-form/src/form-builder/src/fields/Section.tsx");
+var Section_1 = __webpack_require__(/*! ./Section */ "../wp-react-form/src/form-builder/src/fields/Section.tsx");
 Object.defineProperty(exports, "Section", { enumerable: true, get: function () { return __importDefault(Section_1).default; } });
-var Repeater_1 = __webpack_require__(/*! ./Repeater */ "../../plugins/wp-react-form/src/form-builder/src/fields/Repeater.tsx");
+var Repeater_1 = __webpack_require__(/*! ./Repeater */ "../wp-react-form/src/form-builder/src/fields/Repeater.tsx");
 Object.defineProperty(exports, "Repeater", { enumerable: true, get: function () { return __importDefault(Repeater_1).default; } });
-var Slider_1 = __webpack_require__(/*! ./Slider */ "../../plugins/wp-react-form/src/form-builder/src/fields/Slider.tsx");
+var Slider_1 = __webpack_require__(/*! ./Slider */ "../wp-react-form/src/form-builder/src/fields/Slider.tsx");
 Object.defineProperty(exports, "Slider", { enumerable: true, get: function () { return __importDefault(Slider_1).default; } });
-var ColorPicker_1 = __webpack_require__(/*! ./ColorPicker */ "../../plugins/wp-react-form/src/form-builder/src/fields/ColorPicker.tsx");
+var ColorPicker_1 = __webpack_require__(/*! ./ColorPicker */ "../wp-react-form/src/form-builder/src/fields/ColorPicker.tsx");
 Object.defineProperty(exports, "ColorPicker", { enumerable: true, get: function () { return __importDefault(ColorPicker_1).default; } });
-var Action_1 = __webpack_require__(/*! ./Action */ "../../plugins/wp-react-form/src/form-builder/src/fields/Action.tsx");
+var Action_1 = __webpack_require__(/*! ./Action */ "../wp-react-form/src/form-builder/src/fields/Action.tsx");
 Object.defineProperty(exports, "Action", { enumerable: true, get: function () { return __importDefault(Action_1).default; } });
-var Media_1 = __webpack_require__(/*! ./Media */ "../../plugins/wp-react-form/src/form-builder/src/fields/Media.tsx");
+var Media_1 = __webpack_require__(/*! ./Media */ "../wp-react-form/src/form-builder/src/fields/Media.tsx");
 Object.defineProperty(exports, "Media", { enumerable: true, get: function () { return __importDefault(Media_1).default; } });
-var Editor_1 = __webpack_require__(/*! ./Editor */ "../../plugins/wp-react-form/src/form-builder/src/fields/Editor.tsx");
+var Editor_1 = __webpack_require__(/*! ./Editor */ "../wp-react-form/src/form-builder/src/fields/Editor.tsx");
 Object.defineProperty(exports, "Editor", { enumerable: true, get: function () { return __importDefault(Editor_1).default; } });
-var Button_1 = __webpack_require__(/*! ./Button */ "../../plugins/wp-react-form/src/form-builder/src/fields/Button.tsx");
+var Button_1 = __webpack_require__(/*! ./Button */ "../wp-react-form/src/form-builder/src/fields/Button.tsx");
 Object.defineProperty(exports, "Button", { enumerable: true, get: function () { return __importDefault(Button_1).default; } });
-var Message_1 = __webpack_require__(/*! ./Message */ "../../plugins/wp-react-form/src/form-builder/src/fields/Message.tsx");
+var Message_1 = __webpack_require__(/*! ./Message */ "../wp-react-form/src/form-builder/src/fields/Message.tsx");
 Object.defineProperty(exports, "Message", { enumerable: true, get: function () { return __importDefault(Message_1).default; } });
-var Modal_1 = __webpack_require__(/*! ./Modal */ "../../plugins/wp-react-form/src/form-builder/src/fields/Modal.tsx");
+var Modal_1 = __webpack_require__(/*! ./Modal */ "../wp-react-form/src/form-builder/src/fields/Modal.tsx");
 Object.defineProperty(exports, "Modal", { enumerable: true, get: function () { return __importDefault(Modal_1).default; } });
-var Test_1 = __webpack_require__(/*! ./Test */ "../../plugins/wp-react-form/src/form-builder/src/fields/Test.tsx");
+var Test_1 = __webpack_require__(/*! ./Test */ "../wp-react-form/src/form-builder/src/fields/Test.tsx");
 Object.defineProperty(exports, "Test", { enumerable: true, get: function () { return __importDefault(Test_1).default; } });
-var AdvancedTemplate_1 = __webpack_require__(/*! ./AdvancedTemplate */ "../../plugins/wp-react-form/src/form-builder/src/fields/AdvancedTemplate.tsx");
+var AdvancedTemplate_1 = __webpack_require__(/*! ./AdvancedTemplate */ "../wp-react-form/src/form-builder/src/fields/AdvancedTemplate.tsx");
 Object.defineProperty(exports, "AdvancedTemplate", { enumerable: true, get: function () { return __importDefault(AdvancedTemplate_1).default; } });
 
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/scss/index.scss":
-/*!*********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/scss/index.scss ***!
-  \*********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/scss/index.scss":
+/*!*************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/scss/index.scss ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42689,10 +42689,10 @@ Object.defineProperty(exports, "AdvancedTemplate", { enumerable: true, get: func
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/scss/radio-card.scss":
-/*!**************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/scss/radio-card.scss ***!
-  \**************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/scss/radio-card.scss":
+/*!******************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/scss/radio-card.scss ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42700,10 +42700,10 @@ Object.defineProperty(exports, "AdvancedTemplate", { enumerable: true, get: func
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/store/index.ts":
-/*!********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/store/index.ts ***!
-  \********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/store/index.ts":
+/*!************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/store/index.ts ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42724,7 +42724,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var when_1 = __importDefault(__webpack_require__(/*! ../core/when */ "../../plugins/wp-react-form/src/form-builder/src/core/when.ts"));
+var when_1 = __importDefault(__webpack_require__(/*! ../core/when */ "../wp-react-form/src/form-builder/src/core/when.ts"));
 var DEFAULT_STATE = {
     savedValues: {
         type: "conversions",
@@ -42869,10 +42869,10 @@ exports.default = store;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/tabs/Content.tsx":
-/*!**********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/tabs/Content.tsx ***!
-  \**********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/tabs/Content.tsx":
+/*!**************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/tabs/Content.tsx ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42925,13 +42925,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
 var hooks_1 = __webpack_require__(/*! @wordpress/hooks */ "@wordpress/hooks");
-var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../../plugins/wp-react-form/node_modules/classnames/index.js"));
-var utils_1 = __webpack_require__(/*! ../core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
-var InnerContent_1 = __importDefault(__webpack_require__(/*! ./InnerContent */ "../../plugins/wp-react-form/src/form-builder/src/tabs/InnerContent.tsx"));
-var Submit_1 = __importDefault(__webpack_require__(/*! ./Submit */ "../../plugins/wp-react-form/src/form-builder/src/tabs/Submit.tsx"));
-var SteppedButton_1 = __importDefault(__webpack_require__(/*! ./SteppedButton */ "../../plugins/wp-react-form/src/form-builder/src/tabs/SteppedButton.tsx"));
-var hooks_2 = __webpack_require__(/*! ../core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
-var when_1 = __importDefault(__webpack_require__(/*! ../core/when */ "../../plugins/wp-react-form/src/form-builder/src/core/when.ts"));
+var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../wp-react-form/node_modules/classnames/index.js"));
+var utils_1 = __webpack_require__(/*! ../core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
+var InnerContent_1 = __importDefault(__webpack_require__(/*! ./InnerContent */ "../wp-react-form/src/form-builder/src/tabs/InnerContent.tsx"));
+var Submit_1 = __importDefault(__webpack_require__(/*! ./Submit */ "../wp-react-form/src/form-builder/src/tabs/Submit.tsx"));
+var SteppedButton_1 = __importDefault(__webpack_require__(/*! ./SteppedButton */ "../wp-react-form/src/form-builder/src/tabs/SteppedButton.tsx"));
+var hooks_2 = __webpack_require__(/*! ../core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var when_1 = __importDefault(__webpack_require__(/*! ../core/when */ "../wp-react-form/src/form-builder/src/core/when.ts"));
 var Content = function (_a) {
     var _b, _c, _d, _e, _f, _g;
     var tabs = _a.tabs, active = _a.active, submit = _a.submit, config = _a.config, rest = __rest(_a, ["tabs", "active", "submit", "config"]);
@@ -42971,10 +42971,10 @@ exports.default = Content;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/tabs/InnerContent.tsx":
-/*!***************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/tabs/InnerContent.tsx ***!
-  \***************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/tabs/InnerContent.tsx":
+/*!*******************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/tabs/InnerContent.tsx ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -43012,8 +43012,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var utils_1 = __webpack_require__(/*! ../core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
-var fields_1 = __webpack_require__(/*! ../fields */ "../../plugins/wp-react-form/src/form-builder/src/fields/index.ts");
+var utils_1 = __webpack_require__(/*! ../core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
+var fields_1 = __webpack_require__(/*! ../fields */ "../wp-react-form/src/form-builder/src/fields/index.ts");
 var InnerContent = function (_a) {
     var fields = _a.fields, parentIndex = _a.parentIndex, context = _a.context;
     var _b = react_1.useState([]), _fields = _b[0], setFields = _b[1];
@@ -43045,10 +43045,10 @@ exports.default = InnerContent;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/tabs/Menu.tsx":
-/*!*******************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/tabs/Menu.tsx ***!
-  \*******************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/tabs/Menu.tsx":
+/*!***********************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/tabs/Menu.tsx ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -43078,8 +43078,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../../plugins/wp-react-form/node_modules/classnames/index.js"));
-var utils_1 = __webpack_require__(/*! ../core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
+var classnames_1 = __importDefault(__webpack_require__(/*! classnames */ "../wp-react-form/node_modules/classnames/index.js"));
+var utils_1 = __webpack_require__(/*! ../core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
 var Menu = function (props) {
     var _a, _b;
     if (props.tabs === undefined) {
@@ -43111,10 +43111,10 @@ exports.default = Menu;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/tabs/SteppedButton.tsx":
-/*!****************************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/tabs/SteppedButton.tsx ***!
-  \****************************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/tabs/SteppedButton.tsx":
+/*!********************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/tabs/SteppedButton.tsx ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -43153,8 +43153,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
 var components_1 = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
-var fields_1 = __webpack_require__(/*! ../fields */ "../../plugins/wp-react-form/src/form-builder/src/fields/index.ts");
+var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var fields_1 = __webpack_require__(/*! ../fields */ "../wp-react-form/src/form-builder/src/fields/index.ts");
 var SteppedButton = function (props) {
     var _a = react_1.useState(undefined), nextTab = _a[0], setNextTab = _a[1];
     var _b = react_1.useState(undefined), prevTab = _b[0], setPrevTab = _b[1];
@@ -43182,10 +43182,10 @@ exports.default = react_1.default.memo(SteppedButton);
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/tabs/Submit.tsx":
-/*!*********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/tabs/Submit.tsx ***!
-  \*********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/tabs/Submit.tsx":
+/*!*************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/tabs/Submit.tsx ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -43224,7 +43224,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
 var components_1 = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
 var Submit = function (_a) {
     var _b = _a.label, label = _b === void 0 ? 'Save Changes' : _b, props = __rest(_a, ["label"]);
     var context = hooks_1.useBuilderContext();
@@ -43244,10 +43244,10 @@ exports.default = Submit;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/tabs/Tab.tsx":
-/*!******************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/tabs/Tab.tsx ***!
-  \******************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/tabs/Tab.tsx":
+/*!**********************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/tabs/Tab.tsx ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -43288,12 +43288,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var Menu_1 = __importDefault(__webpack_require__(/*! ./Menu */ "../../plugins/wp-react-form/src/form-builder/src/tabs/Menu.tsx"));
-var Content_1 = __importDefault(__webpack_require__(/*! ./Content */ "../../plugins/wp-react-form/src/form-builder/src/tabs/Content.tsx"));
+var Menu_1 = __importDefault(__webpack_require__(/*! ./Menu */ "../wp-react-form/src/form-builder/src/tabs/Menu.tsx"));
+var Content_1 = __importDefault(__webpack_require__(/*! ./Content */ "../wp-react-form/src/form-builder/src/tabs/Content.tsx"));
 // import { BuilderProvider } from '../core/hooks/useBuilderContext';
 // import useBuilder from '../core/hooks/useBuilder';
-__webpack_require__(/*! ../scss/index.scss */ "../../plugins/wp-react-form/src/form-builder/src/scss/index.scss");
-var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
+__webpack_require__(/*! ../scss/index.scss */ "../wp-react-form/src/form-builder/src/scss/index.scss");
+var hooks_1 = __webpack_require__(/*! ../core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
 var Tab = function (props) {
     // const builderContextState = useBuilder(props);
     var builderContext = hooks_1.useBuilderContext();
@@ -45981,6 +45981,59 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	} else {}
 }());
+
+
+/***/ }),
+
+/***/ "./node_modules/clsx/dist/clsx.m.js":
+/*!******************************************!*\
+  !*** ./node_modules/clsx/dist/clsx.m.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function toVal(mix) {
+	var k, y, str='';
+
+	if (typeof mix === 'string' || typeof mix === 'number') {
+		str += mix;
+	} else if (typeof mix === 'object') {
+		if (Array.isArray(mix)) {
+			for (k=0; k < mix.length; k++) {
+				if (mix[k]) {
+					if (y = toVal(mix[k])) {
+						str && (str += ' ');
+						str += y;
+					}
+				}
+			}
+		} else {
+			for (k in mix) {
+				if (mix[k]) {
+					str && (str += ' ');
+					str += k;
+				}
+			}
+		}
+	}
+
+	return str;
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+	var i=0, tmp, x, str='';
+	while (i < arguments.length) {
+		if (tmp = arguments[i++]) {
+			if (x = toVal(tmp)) {
+				str && (str += ' ');
+				str += x
+			}
+		}
+	}
+	return str;
+});
 
 
 /***/ }),
@@ -56757,6 +56810,1335 @@ var manageState = function manageState(SelectComponent) {
 
 /***/ }),
 
+/***/ "./node_modules/react-toastify/dist/ReactToastify.css":
+/*!************************************************************!*\
+  !*** ./node_modules/react-toastify/dist/ReactToastify.css ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./node_modules/react-toastify/dist/react-toastify.esm.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/react-toastify/dist/react-toastify.esm.js ***!
+  \****************************************************************/
+/*! exports provided: Bounce, Flip, Slide, ToastContainer, Zoom, collapseToast, cssTransition, toast, useToast, useToastContainer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Bounce", function() { return Bounce; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Flip", function() { return Flip; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Slide", function() { return Slide; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToastContainer", function() { return ToastContainer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Zoom", function() { return Zoom; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "collapseToast", function() { return collapseToast; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssTransition", function() { return cssTransition; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toast", function() { return toast; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useToast", function() { return useToast; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useToastContainer", function() { return useToastContainer; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "react-dom");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+function isNum(v) {
+  return typeof v === 'number' && !isNaN(v);
+}
+function isBool(v) {
+  return typeof v === 'boolean';
+}
+function isStr(v) {
+  return typeof v === 'string';
+}
+function isFn(v) {
+  return typeof v === 'function';
+}
+function parseClassName(v) {
+  return isStr(v) || isFn(v) ? v : null;
+}
+function isToastIdValid(toastId) {
+  return toastId === 0 || toastId;
+}
+function getAutoCloseDelay(toastAutoClose, containerAutoClose) {
+  return toastAutoClose === false || isNum(toastAutoClose) && toastAutoClose > 0 ? toastAutoClose : containerAutoClose;
+}
+var canUseDom = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+function canBeRendered(content) {
+  return Object(react__WEBPACK_IMPORTED_MODULE_0__["isValidElement"])(content) || isStr(content) || isFn(content) || isNum(content);
+}
+
+var POSITION = {
+  TOP_LEFT: 'top-left',
+  TOP_RIGHT: 'top-right',
+  TOP_CENTER: 'top-center',
+  BOTTOM_LEFT: 'bottom-left',
+  BOTTOM_RIGHT: 'bottom-right',
+  BOTTOM_CENTER: 'bottom-center'
+};
+var TYPE = {
+  INFO: 'info',
+  SUCCESS: 'success',
+  WARNING: 'warning',
+  ERROR: 'error',
+  DEFAULT: 'default',
+  DARK: 'dark'
+};
+
+/**
+ * Used to collapse toast after exit animation
+ */
+function collapseToast(node, done, duration
+/* COLLAPSE_DURATION */
+) {
+  if (duration === void 0) {
+    duration = 300;
+  }
+
+  var height = node.scrollHeight;
+  var style = node.style;
+  requestAnimationFrame(function () {
+    style.minHeight = 'initial';
+    style.height = height + 'px';
+    style.transition = "all " + duration + "ms";
+    requestAnimationFrame(function () {
+      style.height = '0';
+      style.padding = '0';
+      style.margin = '0';
+      setTimeout(done, duration);
+    });
+  });
+}
+
+/**
+ * Css animation that just work.
+ * You could use animate.css for instance
+ *
+ *
+ * ```
+ * cssTransition({
+ *   enter: "animate__animated animate__bounceIn",
+ *   exit: "animate__animated animate__bounceOut"
+ * })
+ * ```
+ *
+ */
+
+function cssTransition(_ref) {
+  var enter = _ref.enter,
+      exit = _ref.exit,
+      _ref$appendPosition = _ref.appendPosition,
+      appendPosition = _ref$appendPosition === void 0 ? false : _ref$appendPosition,
+      _ref$collapse = _ref.collapse,
+      collapse = _ref$collapse === void 0 ? true : _ref$collapse,
+      _ref$collapseDuration = _ref.collapseDuration,
+      collapseDuration = _ref$collapseDuration === void 0 ? 300 : _ref$collapseDuration;
+  return function ToastTransition(_ref2) {
+    var children = _ref2.children,
+        position = _ref2.position,
+        preventExitTransition = _ref2.preventExitTransition,
+        done = _ref2.done,
+        nodeRef = _ref2.nodeRef,
+        isIn = _ref2.isIn;
+    var enterClassName = appendPosition ? enter + "--" + position : enter;
+    var exitClassName = appendPosition ? exit + "--" + position : exit;
+    var baseClassName = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
+    var animationStep = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(0
+    /* Enter */
+    );
+    Object(react__WEBPACK_IMPORTED_MODULE_0__["useLayoutEffect"])(function () {
+      onEnter();
+    }, []);
+    Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+      if (!isIn) preventExitTransition ? onExited() : onExit();
+    }, [isIn]);
+
+    function onEnter() {
+      var node = nodeRef.current;
+      baseClassName.current = node.className;
+      node.className += " " + enterClassName;
+      node.addEventListener('animationend', onEntered);
+    }
+
+    function onEntered() {
+      var node = nodeRef.current;
+      node.removeEventListener('animationend', onEntered);
+
+      if (animationStep.current === 0
+      /* Enter */
+      ) {
+          node.className = baseClassName.current;
+        }
+    }
+
+    function onExit() {
+      animationStep.current = 1
+      /* Exit */
+      ;
+      var node = nodeRef.current;
+      node.className += " " + exitClassName;
+      node.addEventListener('animationend', onExited);
+    }
+
+    function onExited() {
+      var node = nodeRef.current;
+      node.removeEventListener('animationend', onExited);
+      collapse ? collapseToast(node, done, collapseDuration) : done();
+    }
+
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, children);
+  };
+}
+
+var eventManager = {
+  list: /*#__PURE__*/new Map(),
+  emitQueue: /*#__PURE__*/new Map(),
+  on: function on(event, callback) {
+    this.list.has(event) || this.list.set(event, []);
+    this.list.get(event).push(callback);
+    return this;
+  },
+  off: function off(event, callback) {
+    if (callback) {
+      var cb = this.list.get(event).filter(function (cb) {
+        return cb !== callback;
+      });
+      this.list.set(event, cb);
+      return this;
+    }
+
+    this.list["delete"](event);
+    return this;
+  },
+  cancelEmit: function cancelEmit(event) {
+    var timers = this.emitQueue.get(event);
+
+    if (timers) {
+      timers.forEach(clearTimeout);
+      this.emitQueue["delete"](event);
+    }
+
+    return this;
+  },
+
+  /**
+   * Enqueue the event at the end of the call stack
+   * Doing so let the user call toast as follow:
+   * toast('1')
+   * toast('2')
+   * toast('3')
+   * Without setTimemout the code above will not work
+   */
+  emit: function emit(event) {
+    var _this = this;
+
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    this.list.has(event) && this.list.get(event).forEach(function (callback) {
+      var timer = setTimeout(function () {
+        // @ts-ignore
+        callback.apply(void 0, args);
+      }, 0);
+      _this.emitQueue.has(event) || _this.emitQueue.set(event, []);
+
+      _this.emitQueue.get(event).push(timer);
+    });
+  }
+};
+
+/**
+ * `useKeeper` is a helper around `useRef`.
+ *
+ * You don't need to access the `.current`property to get the value
+ * If refresh is set to true. The ref will be updated every render
+ */
+
+function useKeeper(arg, refresh) {
+  if (refresh === void 0) {
+    refresh = false;
+  }
+
+  var ref = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(arg);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    if (refresh) ref.current = arg;
+  });
+  return ref.current;
+}
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 0
+    /* ADD */
+    :
+      return [].concat(state, [action.toastId]).filter(function (id) {
+        return id !== action.staleId;
+      });
+
+    case 1
+    /* REMOVE */
+    :
+      return isToastIdValid(action.toastId) ? state.filter(function (id) {
+        return id !== action.toastId;
+      }) : [];
+  }
+}
+
+function useToastContainer(props) {
+  var _useReducer = Object(react__WEBPACK_IMPORTED_MODULE_0__["useReducer"])(function (x) {
+    return x + 1;
+  }, 0),
+      forceUpdate = _useReducer[1];
+
+  var _useReducer2 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useReducer"])(reducer, []),
+      toast = _useReducer2[0],
+      dispatch = _useReducer2[1];
+
+  var containerRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
+  var toastCount = useKeeper(0);
+  var queue = useKeeper([]);
+  var collection = useKeeper({});
+  var instance = useKeeper({
+    toastKey: 1,
+    displayedToast: 0,
+    props: props,
+    containerId: null,
+    isToastActive: isToastActive,
+    getToast: function getToast(id) {
+      return collection[id] || null;
+    }
+  });
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    instance.containerId = props.containerId;
+    eventManager.cancelEmit(3
+    /* WillUnmount */
+    ).on(0
+    /* Show */
+    , buildToast).on(1
+    /* Clear */
+    , function (toastId) {
+      return containerRef.current && removeToast(toastId);
+    }).on(5
+    /* ClearWaitingQueue */
+    , clearWaitingQueue).emit(2
+    /* DidMount */
+    , instance);
+    return function () {
+      return eventManager.emit(3
+      /* WillUnmount */
+      , instance);
+    };
+  }, []);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    instance.isToastActive = isToastActive;
+    instance.displayedToast = toast.length;
+    eventManager.emit(4
+    /* Change */
+    , toast.length, props.containerId);
+  }, [toast]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    instance.props = props;
+  });
+
+  function isToastActive(id) {
+    return toast.indexOf(id) !== -1;
+  }
+
+  function clearWaitingQueue(_ref) {
+    var containerId = _ref.containerId;
+    var limit = instance.props.limit;
+
+    if (limit && (!containerId || instance.containerId === containerId)) {
+      toastCount -= queue.length;
+      queue = [];
+    }
+  }
+
+  function removeToast(toastId) {
+    dispatch({
+      type: 1
+      /* REMOVE */
+      ,
+      toastId: toastId
+    });
+  }
+
+  function dequeueToast() {
+    var _queue$shift = queue.shift(),
+        toastContent = _queue$shift.toastContent,
+        toastProps = _queue$shift.toastProps,
+        staleId = _queue$shift.staleId;
+
+    appendToast(toastContent, toastProps, staleId);
+  }
+  /**
+   * check if a container is attached to the dom
+   * check for multi-container, build only if associated
+   * check for duplicate toastId if no update
+   */
+
+
+  function isNotValid(_ref2) {
+    var containerId = _ref2.containerId,
+        toastId = _ref2.toastId,
+        updateId = _ref2.updateId;
+    return !containerRef.current || instance.props.enableMultiContainer && containerId !== instance.props.containerId || collection[toastId] && updateId == null ? true : false;
+  } // this function and all the function called inside needs to rely on ref(`useKeeper`)
+
+
+  function buildToast(content, _ref3) {
+    var delay = _ref3.delay,
+        staleId = _ref3.staleId,
+        options = _objectWithoutPropertiesLoose(_ref3, ["delay", "staleId"]);
+
+    if (!canBeRendered(content) || isNotValid(options)) return;
+    var toastId = options.toastId,
+        updateId = options.updateId;
+    var props = instance.props;
+
+    var closeToast = function closeToast() {
+      return removeToast(toastId);
+    };
+
+    var isNotAnUpdate = options.updateId == null;
+    if (isNotAnUpdate) toastCount++;
+    var toastProps = {
+      toastId: toastId,
+      updateId: updateId,
+      isIn: false,
+      key: options.key || instance.toastKey++,
+      type: options.type,
+      closeToast: closeToast,
+      closeButton: options.closeButton,
+      rtl: props.rtl,
+      position: options.position || props.position,
+      transition: options.transition || props.transition,
+      className: parseClassName(options.className || props.toastClassName),
+      bodyClassName: parseClassName(options.bodyClassName || props.bodyClassName),
+      style: options.style || props.toastStyle,
+      bodyStyle: options.bodyStyle || props.bodyStyle,
+      onClick: options.onClick || props.onClick,
+      pauseOnHover: isBool(options.pauseOnHover) ? options.pauseOnHover : props.pauseOnHover,
+      pauseOnFocusLoss: isBool(options.pauseOnFocusLoss) ? options.pauseOnFocusLoss : props.pauseOnFocusLoss,
+      draggable: isBool(options.draggable) ? options.draggable : props.draggable,
+      draggablePercent: isNum(options.draggablePercent) ? options.draggablePercent : props.draggablePercent,
+      draggableDirection: options.draggableDirection || props.draggableDirection,
+      closeOnClick: isBool(options.closeOnClick) ? options.closeOnClick : props.closeOnClick,
+      progressClassName: parseClassName(options.progressClassName || props.progressClassName),
+      progressStyle: options.progressStyle || props.progressStyle,
+      autoClose: getAutoCloseDelay(options.autoClose, props.autoClose),
+      hideProgressBar: isBool(options.hideProgressBar) ? options.hideProgressBar : props.hideProgressBar,
+      progress: options.progress,
+      role: isStr(options.role) ? options.role : props.role,
+      deleteToast: function deleteToast() {
+        removeFromCollection(toastId);
+      }
+    };
+    if (isFn(options.onOpen)) toastProps.onOpen = options.onOpen;
+    if (isFn(options.onClose)) toastProps.onClose = options.onClose; //  tweak for vertical dragging
+
+    if (toastProps.draggableDirection === "y"
+    /* Y */
+    && toastProps.draggablePercent === 80
+    /* DRAGGABLE_PERCENT */
+    ) {
+        toastProps.draggablePercent *= 1.5;
+      }
+
+    var closeButton = props.closeButton;
+
+    if (options.closeButton === false || canBeRendered(options.closeButton)) {
+      closeButton = options.closeButton;
+    } else if (options.closeButton === true) {
+      closeButton = canBeRendered(props.closeButton) ? props.closeButton : true;
+    }
+
+    toastProps.closeButton = closeButton;
+    var toastContent = content;
+
+    if (Object(react__WEBPACK_IMPORTED_MODULE_0__["isValidElement"])(content) && !isStr(content.type)) {
+      toastContent = Object(react__WEBPACK_IMPORTED_MODULE_0__["cloneElement"])(content, {
+        closeToast: closeToast,
+        toastProps: toastProps
+      });
+    } else if (isFn(content)) {
+      toastContent = content({
+        closeToast: closeToast,
+        toastProps: toastProps
+      });
+    } // not handling limit + delay by design. Waiting for user feedback first
+
+
+    if (props.limit && props.limit > 0 && toastCount > props.limit && isNotAnUpdate) {
+      queue.push({
+        toastContent: toastContent,
+        toastProps: toastProps,
+        staleId: staleId
+      });
+    } else if (isNum(delay) && delay > 0) {
+      setTimeout(function () {
+        appendToast(toastContent, toastProps, staleId);
+      }, delay);
+    } else {
+      appendToast(toastContent, toastProps, staleId);
+    }
+  }
+
+  function appendToast(content, toastProps, staleId) {
+    var toastId = toastProps.toastId;
+    if (staleId) delete collection[staleId];
+    collection[toastId] = {
+      content: content,
+      props: toastProps
+    };
+    dispatch({
+      type: 0
+      /* ADD */
+      ,
+      toastId: toastId,
+      staleId: staleId
+    });
+  }
+
+  function removeFromCollection(toastId) {
+    delete collection[toastId];
+    var queueLen = queue.length;
+    toastCount = isToastIdValid(toastId) ? toastCount - 1 : toastCount - instance.displayedToast;
+    if (toastCount < 0) toastCount = 0;
+
+    if (queueLen > 0) {
+      var freeSlot = isToastIdValid(toastId) ? 1 : instance.props.limit;
+
+      if (queueLen === 1 || freeSlot === 1) {
+        instance.displayedToast++;
+        dequeueToast();
+      } else {
+        var toDequeue = freeSlot > queueLen ? queueLen : freeSlot;
+        instance.displayedToast = toDequeue;
+
+        for (var i = 0; i < toDequeue; i++) {
+          dequeueToast();
+        }
+      }
+    } else {
+      forceUpdate();
+    }
+  }
+
+  function getToastToRender(cb) {
+    var toastToRender = {};
+    var toastList = props.newestOnTop ? Object.keys(collection).reverse() : Object.keys(collection);
+
+    for (var i = 0; i < toastList.length; i++) {
+      var _toast = collection[toastList[i]];
+      var position = _toast.props.position;
+      toastToRender[position] || (toastToRender[position] = []);
+      toastToRender[position].push(_toast);
+    }
+
+    return Object.keys(toastToRender).map(function (p) {
+      return cb(p, toastToRender[p]);
+    });
+  }
+
+  return {
+    getToastToRender: getToastToRender,
+    collection: collection,
+    containerRef: containerRef,
+    isToastActive: isToastActive
+  };
+}
+
+function getX(e) {
+  return e.targetTouches && e.targetTouches.length >= 1 ? e.targetTouches[0].clientX : e.clientX;
+}
+
+function getY(e) {
+  return e.targetTouches && e.targetTouches.length >= 1 ? e.targetTouches[0].clientY : e.clientY;
+}
+
+function useToast(props) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
+      isRunning = _useState[0],
+      setIsRunning = _useState[1];
+
+  var _useState2 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      preventExitTransition = _useState2[0],
+      setPreventExitTransition = _useState2[1];
+
+  var toastRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
+  var drag = useKeeper({
+    start: 0,
+    x: 0,
+    y: 0,
+    delta: 0,
+    removalDistance: 0,
+    canCloseOnClick: true,
+    canDrag: false,
+    boundingRect: null
+  });
+  var syncProps = useKeeper(props, true);
+  var autoClose = props.autoClose,
+      pauseOnHover = props.pauseOnHover,
+      closeToast = props.closeToast,
+      onClick = props.onClick,
+      closeOnClick = props.closeOnClick;
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    if (isFn(props.onOpen)) props.onOpen(Object(react__WEBPACK_IMPORTED_MODULE_0__["isValidElement"])(props.children) && props.children.props);
+    return function () {
+      if (isFn(syncProps.onClose)) syncProps.onClose(Object(react__WEBPACK_IMPORTED_MODULE_0__["isValidElement"])(syncProps.children) && syncProps.children.props);
+    };
+  }, []);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    props.draggable && bindDragEvents();
+    return function () {
+      props.draggable && unbindDragEvents();
+    };
+  }, [props.draggable]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    props.pauseOnFocusLoss && bindFocusEvents();
+    return function () {
+      props.pauseOnFocusLoss && unbindFocusEvents();
+    };
+  }, [props.pauseOnFocusLoss]);
+
+  function onDragStart(e) {
+    if (props.draggable) {
+      var toast = toastRef.current;
+      drag.canCloseOnClick = true;
+      drag.canDrag = true;
+      drag.boundingRect = toast.getBoundingClientRect();
+      toast.style.transition = '';
+      drag.x = getX(e.nativeEvent);
+      drag.y = getY(e.nativeEvent);
+
+      if (props.draggableDirection === "x"
+      /* X */
+      ) {
+          drag.start = drag.x;
+          drag.removalDistance = toast.offsetWidth * (props.draggablePercent / 100);
+        } else {
+        drag.start = drag.y;
+        drag.removalDistance = toast.offsetHeight * (props.draggablePercent / 100);
+      }
+    }
+  }
+
+  function onDragTransitionEnd() {
+    if (drag.boundingRect) {
+      var _drag$boundingRect = drag.boundingRect,
+          top = _drag$boundingRect.top,
+          bottom = _drag$boundingRect.bottom,
+          left = _drag$boundingRect.left,
+          right = _drag$boundingRect.right;
+
+      if (props.pauseOnHover && drag.x >= left && drag.x <= right && drag.y >= top && drag.y <= bottom) {
+        pauseToast();
+      } else {
+        playToast();
+      }
+    }
+  }
+
+  function playToast() {
+    setIsRunning(true);
+  }
+
+  function pauseToast() {
+    setIsRunning(false);
+  }
+
+  function bindFocusEvents() {
+    if (!document.hasFocus()) pauseToast();
+    window.addEventListener('focus', playToast);
+    window.addEventListener('blur', pauseToast);
+  }
+
+  function unbindFocusEvents() {
+    window.removeEventListener('focus', playToast);
+    window.removeEventListener('blur', pauseToast);
+  }
+
+  function bindDragEvents() {
+    document.addEventListener('mousemove', onDragMove);
+    document.addEventListener('mouseup', onDragEnd);
+    document.addEventListener('touchmove', onDragMove);
+    document.addEventListener('touchend', onDragEnd);
+  }
+
+  function unbindDragEvents() {
+    document.removeEventListener('mousemove', onDragMove);
+    document.removeEventListener('mouseup', onDragEnd);
+    document.removeEventListener('touchmove', onDragMove);
+    document.removeEventListener('touchend', onDragEnd);
+  }
+
+  function onDragMove(e) {
+    if (drag.canDrag) {
+      e.preventDefault();
+      var toast = toastRef.current;
+      if (isRunning) pauseToast();
+      drag.x = getX(e);
+      drag.y = getY(e);
+
+      if (props.draggableDirection === "x"
+      /* X */
+      ) {
+          drag.delta = drag.x - drag.start;
+        } else {
+        drag.delta = drag.y - drag.start;
+      } // prevent false positif during a toast click
+
+
+      if (drag.start !== drag.x) drag.canCloseOnClick = false;
+      toast.style.transform = "translate" + props.draggableDirection + "(" + drag.delta + "px)";
+      toast.style.opacity = "" + (1 - Math.abs(drag.delta / drag.removalDistance));
+    }
+  }
+
+  function onDragEnd() {
+    var toast = toastRef.current;
+
+    if (drag.canDrag) {
+      drag.canDrag = false;
+
+      if (Math.abs(drag.delta) > drag.removalDistance) {
+        setPreventExitTransition(true);
+        props.closeToast();
+        return;
+      }
+
+      toast.style.transition = 'transform 0.2s, opacity 0.2s';
+      toast.style.transform = "translate" + props.draggableDirection + "(0)";
+      toast.style.opacity = '1';
+    }
+  }
+
+  var eventHandlers = {
+    onMouseDown: onDragStart,
+    onTouchStart: onDragStart,
+    onMouseUp: onDragTransitionEnd,
+    onTouchEnd: onDragTransitionEnd
+  };
+
+  if (autoClose && pauseOnHover) {
+    eventHandlers.onMouseEnter = pauseToast;
+    eventHandlers.onMouseLeave = playToast;
+  } // prevent toast from closing when user drags the toast
+
+
+  if (closeOnClick) {
+    eventHandlers.onClick = function (e) {
+      onClick && onClick(e);
+      drag.canCloseOnClick && closeToast();
+    };
+  }
+
+  return {
+    playToast: playToast,
+    pauseToast: pauseToast,
+    isRunning: isRunning,
+    preventExitTransition: preventExitTransition,
+    toastRef: toastRef,
+    eventHandlers: eventHandlers
+  };
+}
+
+function CloseButton(_ref) {
+  var closeToast = _ref.closeToast,
+      type = _ref.type,
+      _ref$ariaLabel = _ref.ariaLabel,
+      ariaLabel = _ref$ariaLabel === void 0 ? 'close' : _ref$ariaLabel;
+  return Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
+    className: "Toastify"
+    /* CSS_NAMESPACE */
+    + "__close-button " + "Toastify"
+    /* CSS_NAMESPACE */
+    + "__close-button--" + type,
+    type: "button",
+    onClick: function onClick(e) {
+      e.stopPropagation();
+      closeToast(e);
+    },
+    "aria-label": ariaLabel
+  }, Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+    "aria-hidden": "true",
+    viewBox: "0 0 14 16"
+  }, Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+    fillRule: "evenodd",
+    d: "M7.71 8.23l3.75 3.75-1.48 1.48-3.75-3.75-3.75 3.75L1 11.98l3.75-3.75L1 4.48 2.48 3l3.75 3.75L9.98 3l1.48 1.48-3.75 3.75z"
+  })));
+}
+
+function ProgressBar(_ref) {
+  var _cx, _animationEvent;
+
+  var delay = _ref.delay,
+      isRunning = _ref.isRunning,
+      closeToast = _ref.closeToast,
+      type = _ref.type,
+      hide = _ref.hide,
+      className = _ref.className,
+      userStyle = _ref.style,
+      controlledProgress = _ref.controlledProgress,
+      progress = _ref.progress,
+      rtl = _ref.rtl,
+      isIn = _ref.isIn;
+
+  var style = _extends({}, userStyle, {
+    animationDuration: delay + "ms",
+    animationPlayState: isRunning ? 'running' : 'paused',
+    opacity: hide ? 0 : 1
+  });
+
+  if (controlledProgress) style.transform = "scaleX(" + progress + ")";
+  var defaultClassName = Object(clsx__WEBPACK_IMPORTED_MODULE_1__["default"])("Toastify"
+  /* CSS_NAMESPACE */
+  + "__progress-bar", controlledProgress ? "Toastify"
+  /* CSS_NAMESPACE */
+  + "__progress-bar--controlled" : "Toastify"
+  /* CSS_NAMESPACE */
+  + "__progress-bar--animated", "Toastify"
+  /* CSS_NAMESPACE */
+  + "__progress-bar--" + type, (_cx = {}, _cx["Toastify"
+  /* CSS_NAMESPACE */
+  + "__progress-bar--rtl"] = rtl, _cx));
+  var classNames = isFn(className) ? className({
+    rtl: rtl,
+    type: type,
+    defaultClassName: defaultClassName
+  }) : Object(clsx__WEBPACK_IMPORTED_MODULE_1__["default"])(defaultClassName, className); // 🧐 controlledProgress is derived from progress
+  // so if controlledProgress is set
+  // it means that this is also the case for progress
+
+  var animationEvent = (_animationEvent = {}, _animationEvent[controlledProgress && progress >= 1 ? 'onTransitionEnd' : 'onAnimationEnd'] = controlledProgress && progress < 1 ? null : function () {
+    isIn && closeToast();
+  }, _animationEvent); // TODO: add aria-valuenow, aria-valuemax, aria-valuemin
+
+  return Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", Object.assign({
+    role: "progressbar",
+    "aria-hidden": hide ? 'true' : 'false',
+    "aria-label": "notification timer",
+    className: classNames,
+    style: style
+  }, animationEvent));
+}
+ProgressBar.defaultProps = {
+  type: TYPE.DEFAULT,
+  hide: false
+};
+
+var Toast = function Toast(props) {
+  var _cx;
+
+  var _useToast = useToast(props),
+      isRunning = _useToast.isRunning,
+      preventExitTransition = _useToast.preventExitTransition,
+      toastRef = _useToast.toastRef,
+      eventHandlers = _useToast.eventHandlers;
+
+  var closeButton = props.closeButton,
+      children = props.children,
+      autoClose = props.autoClose,
+      onClick = props.onClick,
+      type = props.type,
+      hideProgressBar = props.hideProgressBar,
+      closeToast = props.closeToast,
+      Transition = props.transition,
+      position = props.position,
+      className = props.className,
+      style = props.style,
+      bodyClassName = props.bodyClassName,
+      bodyStyle = props.bodyStyle,
+      progressClassName = props.progressClassName,
+      progressStyle = props.progressStyle,
+      updateId = props.updateId,
+      role = props.role,
+      progress = props.progress,
+      rtl = props.rtl,
+      toastId = props.toastId,
+      deleteToast = props.deleteToast,
+      isIn = props.isIn;
+  var defaultClassName = Object(clsx__WEBPACK_IMPORTED_MODULE_1__["default"])("Toastify"
+  /* CSS_NAMESPACE */
+  + "__toast", "Toastify"
+  /* CSS_NAMESPACE */
+  + "__toast--" + type, (_cx = {}, _cx["Toastify"
+  /* CSS_NAMESPACE */
+  + "__toast--rtl"] = rtl, _cx));
+  var cssClasses = isFn(className) ? className({
+    rtl: rtl,
+    position: position,
+    type: type,
+    defaultClassName: defaultClassName
+  }) : Object(clsx__WEBPACK_IMPORTED_MODULE_1__["default"])(defaultClassName, className);
+  var isProgressControlled = !!progress;
+
+  function renderCloseButton(closeButton) {
+    if (!closeButton) return;
+    var props = {
+      closeToast: closeToast,
+      type: type
+    };
+    if (isFn(closeButton)) return closeButton(props);
+    if (Object(react__WEBPACK_IMPORTED_MODULE_0__["isValidElement"])(closeButton)) return Object(react__WEBPACK_IMPORTED_MODULE_0__["cloneElement"])(closeButton, props);
+  }
+
+  return Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Transition, {
+    isIn: isIn,
+    done: deleteToast,
+    position: position,
+    preventExitTransition: preventExitTransition,
+    nodeRef: toastRef
+  }, Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", Object.assign({
+    id: toastId,
+    onClick: onClick,
+    className: cssClasses
+  }, eventHandlers, {
+    style: style,
+    ref: toastRef
+  }), Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", Object.assign({}, isIn && {
+    role: role
+  }, {
+    className: isFn(bodyClassName) ? bodyClassName({
+      type: type
+    }) : Object(clsx__WEBPACK_IMPORTED_MODULE_1__["default"])("Toastify"
+    /* CSS_NAMESPACE */
+    + "__toast-body", bodyClassName),
+    style: bodyStyle
+  }), children), renderCloseButton(closeButton), (autoClose || isProgressControlled) && Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ProgressBar, Object.assign({}, updateId && !isProgressControlled ? {
+    key: "pb-" + updateId
+  } : {}, {
+    rtl: rtl,
+    delay: autoClose,
+    isRunning: isRunning,
+    isIn: isIn,
+    closeToast: closeToast,
+    hide: hideProgressBar,
+    type: type,
+    style: progressStyle,
+    className: progressClassName,
+    controlledProgress: isProgressControlled,
+    progress: progress
+  }))));
+};
+
+var Bounce = /*#__PURE__*/cssTransition({
+  enter: "Toastify"
+  /* CSS_NAMESPACE */
+  + "--animate " + "Toastify"
+  /* CSS_NAMESPACE */
+  + "__bounce-enter",
+  exit: "Toastify"
+  /* CSS_NAMESPACE */
+  + "--animate " + "Toastify"
+  /* CSS_NAMESPACE */
+  + "__bounce-exit",
+  appendPosition: true
+});
+var Slide = /*#__PURE__*/cssTransition({
+  enter: "Toastify"
+  /* CSS_NAMESPACE */
+  + "--animate " + "Toastify"
+  /* CSS_NAMESPACE */
+  + "__slide-enter",
+  exit: "Toastify"
+  /* CSS_NAMESPACE */
+  + "--animate " + "Toastify"
+  /* CSS_NAMESPACE */
+  + "__slide-exit",
+  appendPosition: true
+});
+var Zoom = /*#__PURE__*/cssTransition({
+  enter: "Toastify"
+  /* CSS_NAMESPACE */
+  + "--animate " + "Toastify"
+  /* CSS_NAMESPACE */
+  + "__zoom-enter",
+  exit: "Toastify"
+  /* CSS_NAMESPACE */
+  + "--animate " + "Toastify"
+  /* CSS_NAMESPACE */
+  + "__zoom-exit"
+});
+var Flip = /*#__PURE__*/cssTransition({
+  enter: "Toastify"
+  /* CSS_NAMESPACE */
+  + "--animate " + "Toastify"
+  /* CSS_NAMESPACE */
+  + "__flip-enter",
+  exit: "Toastify"
+  /* CSS_NAMESPACE */
+  + "--animate " + "Toastify"
+  /* CSS_NAMESPACE */
+  + "__flip-exit"
+});
+
+var ToastContainer = function ToastContainer(props) {
+  var _useToastContainer = useToastContainer(props),
+      getToastToRender = _useToastContainer.getToastToRender,
+      containerRef = _useToastContainer.containerRef,
+      isToastActive = _useToastContainer.isToastActive;
+
+  var className = props.className,
+      style = props.style,
+      rtl = props.rtl,
+      containerId = props.containerId;
+
+  function getClassName(position) {
+    var _cx;
+
+    var defaultClassName = Object(clsx__WEBPACK_IMPORTED_MODULE_1__["default"])("Toastify"
+    /* CSS_NAMESPACE */
+    + "__toast-container", "Toastify"
+    /* CSS_NAMESPACE */
+    + "__toast-container--" + position, (_cx = {}, _cx["Toastify"
+    /* CSS_NAMESPACE */
+    + "__toast-container--rtl"] = rtl, _cx));
+    return isFn(className) ? className({
+      position: position,
+      rtl: rtl,
+      defaultClassName: defaultClassName
+    }) : Object(clsx__WEBPACK_IMPORTED_MODULE_1__["default"])(defaultClassName, parseClassName(className));
+  }
+
+  return Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    ref: containerRef,
+    className: "Toastify"
+    /* CSS_NAMESPACE */
+    ,
+    id: containerId
+  }, getToastToRender(function (position, toastList) {
+    var containerStyle = toastList.length === 0 ? _extends({}, style, {
+      pointerEvents: 'none'
+    }) : _extends({}, style);
+    return Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: getClassName(position),
+      style: containerStyle,
+      key: "container-" + position
+    }, toastList.map(function (_ref) {
+      var content = _ref.content,
+          toastProps = _ref.props;
+      return Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Toast, Object.assign({}, toastProps, {
+        isIn: isToastActive(toastProps.toastId),
+        key: "toast-" + toastProps.key,
+        closeButton: toastProps.closeButton === true ? CloseButton : toastProps.closeButton
+      }), content);
+    }));
+  }));
+};
+ToastContainer.defaultProps = {
+  position: POSITION.TOP_RIGHT,
+  transition: Bounce,
+  rtl: false,
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeButton: CloseButton,
+  pauseOnHover: true,
+  pauseOnFocusLoss: true,
+  closeOnClick: true,
+  newestOnTop: false,
+  draggable: true,
+  draggablePercent: 80
+  /* DRAGGABLE_PERCENT */
+  ,
+  draggableDirection: "x"
+  /* X */
+  ,
+  role: 'alert'
+};
+
+var containers = /*#__PURE__*/new Map();
+var latestInstance;
+var containerDomNode;
+var containerConfig;
+var queue = [];
+var lazy = false;
+/**
+ * Check whether any container is currently mounted in the DOM
+ */
+
+function isAnyContainerMounted() {
+  return containers.size > 0;
+}
+/**
+ * Get the toast by id, given it's in the DOM, otherwise returns null
+ */
+
+
+function getToast(toastId, _ref) {
+  var containerId = _ref.containerId;
+  var container = containers.get(containerId || latestInstance);
+  if (!container) return null;
+  return container.getToast(toastId);
+}
+/**
+ * Generate a random toastId
+ */
+
+
+function generateToastId() {
+  return Math.random().toString(36).substr(2, 9);
+}
+/**
+ * Generate a toastId or use the one provided
+ */
+
+
+function getToastId(options) {
+  if (options && (isStr(options.toastId) || isNum(options.toastId))) {
+    return options.toastId;
+  }
+
+  return generateToastId();
+}
+/**
+ * If the container is not mounted, the toast is enqueued and
+ * the container lazy mounted
+ */
+
+
+function dispatchToast(content, options) {
+  if (isAnyContainerMounted()) {
+    eventManager.emit(0
+    /* Show */
+    , content, options);
+  } else {
+    queue.push({
+      content: content,
+      options: options
+    });
+
+    if (lazy && canUseDom) {
+      lazy = false;
+      containerDomNode = document.createElement('div');
+      document.body.appendChild(containerDomNode);
+      Object(react_dom__WEBPACK_IMPORTED_MODULE_2__["render"])(Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToastContainer, Object.assign({}, containerConfig)), containerDomNode);
+    }
+  }
+
+  return options.toastId;
+}
+/**
+ * Merge provided options with the defaults settings and generate the toastId
+ */
+
+
+function mergeOptions(type, options) {
+  return _extends({}, options, {
+    type: options && options.type || type,
+    toastId: getToastId(options)
+  });
+}
+
+var createToastByType = function createToastByType(type) {
+  return function (content, options) {
+    return dispatchToast(content, mergeOptions(type, options));
+  };
+};
+
+var toast = function toast(content, options) {
+  return dispatchToast(content, mergeOptions(TYPE.DEFAULT, options));
+};
+
+toast.success = /*#__PURE__*/createToastByType(TYPE.SUCCESS);
+toast.info = /*#__PURE__*/createToastByType(TYPE.INFO);
+toast.error = /*#__PURE__*/createToastByType(TYPE.ERROR);
+toast.warning = /*#__PURE__*/createToastByType(TYPE.WARNING);
+toast.dark = /*#__PURE__*/createToastByType(TYPE.DARK);
+toast.warn = toast.warning;
+/**
+ * Remove toast programmaticaly
+ */
+
+toast.dismiss = function (id) {
+  return eventManager.emit(1
+  /* Clear */
+  , id);
+};
+/**
+ * Clear waiting queue when limit is used
+ */
+
+
+toast.clearWaitingQueue = function (params) {
+  if (params === void 0) {
+    params = {};
+  }
+
+  return eventManager.emit(5
+  /* ClearWaitingQueue */
+  , params);
+};
+/**
+ * return true if one container is displaying the toast
+ */
+
+
+toast.isActive = function (id) {
+  var isToastActive = false;
+  containers.forEach(function (container) {
+    if (container.isToastActive && container.isToastActive(id)) {
+      isToastActive = true;
+    }
+  });
+  return isToastActive;
+};
+
+toast.update = function (toastId, options) {
+  if (options === void 0) {
+    options = {};
+  }
+
+  // if you call toast and toast.update directly nothing will be displayed
+  // this is why I defered the update
+  setTimeout(function () {
+    var toast = getToast(toastId, options);
+
+    if (toast) {
+      var oldOptions = toast.props,
+          oldContent = toast.content;
+
+      var nextOptions = _extends({}, oldOptions, options, {
+        toastId: options.toastId || toastId,
+        updateId: generateToastId()
+      });
+
+      if (nextOptions.toastId !== toastId) nextOptions.staleId = toastId;
+      var content = nextOptions.render || oldContent;
+      delete nextOptions.render;
+      dispatchToast(content, nextOptions);
+    }
+  }, 0);
+};
+/**
+ * Used for controlled progress bar.
+ */
+
+
+toast.done = function (id) {
+  toast.update(id, {
+    progress: 1
+  });
+};
+/**
+ * Track changes. The callback get the number of toast displayed
+ *
+ */
+
+
+toast.onChange = function (callback) {
+  if (isFn(callback)) {
+    eventManager.on(4
+    /* Change */
+    , callback);
+  }
+
+  return function () {
+    isFn(callback) && eventManager.off(4
+    /* Change */
+    , callback);
+  };
+};
+/**
+ * Configure the ToastContainer when lazy mounted
+ */
+
+
+toast.configure = function (config) {
+  if (config === void 0) {
+    config = {};
+  }
+
+  lazy = true;
+  containerConfig = config;
+};
+
+toast.POSITION = POSITION;
+toast.TYPE = TYPE;
+/**
+ * Wait until the ToastContainer is mounted to dispatch the toast
+ * and attach isActive method
+ */
+
+eventManager.on(2
+/* DidMount */
+, function (containerInstance) {
+  latestInstance = containerInstance.containerId || containerInstance;
+  containers.set(latestInstance, containerInstance);
+  queue.forEach(function (item) {
+    eventManager.emit(0
+    /* Show */
+    , item.content, item.options);
+  });
+  queue = [];
+}).on(3
+/* WillUnmount */
+, function (containerInstance) {
+  containers["delete"](containerInstance.containerId || containerInstance);
+
+  if (containers.size === 0) {
+    eventManager.off(0
+    /* Show */
+    ).off(1
+    /* Clear */
+    ).off(5
+    /* ClearWaitingQueue */
+    );
+  }
+
+  if (canUseDom && containerDomNode) {
+    document.body.removeChild(containerDomNode);
+  }
+});
+
+
+//# sourceMappingURL=react-toastify.esm.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/resolve-pathname/esm/resolve-pathname.js":
 /*!***************************************************************!*\
   !*** ./node_modules/resolve-pathname/esm/resolve-pathname.js ***!
@@ -60843,8 +62225,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
 var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 var _1 = __webpack_require__(/*! . */ "./src/notificationx/admin/AddEditNx/index.ts");
-var form_builder_1 = __webpack_require__(/*! ../../../form-builder */ "../../plugins/wp-react-form/src/form-builder/index.tsx");
-var utils_1 = __webpack_require__(/*! ../../../form-builder/src/core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
+var form_builder_1 = __webpack_require__(/*! ../../../form-builder */ "../wp-react-form/src/form-builder/index.tsx");
+var utils_1 = __webpack_require__(/*! ../../../form-builder/src/core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
 var components_1 = __webpack_require__(/*! ../../components */ "./src/notificationx/components/index.ts");
 var functions_1 = __importDefault(__webpack_require__(/*! ../../core/functions */ "./src/notificationx/core/functions.ts"));
 var withDocumentTitle_1 = __importDefault(__webpack_require__(/*! ../../core/withDocumentTitle */ "./src/notificationx/core/withDocumentTitle.tsx"));
@@ -60943,7 +62325,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var form_builder_1 = __importStar(__webpack_require__(/*! ../../../form-builder */ "../../plugins/wp-react-form/src/form-builder/index.tsx"));
+var form_builder_1 = __importStar(__webpack_require__(/*! ../../../form-builder */ "../wp-react-form/src/form-builder/index.tsx"));
 var components_1 = __webpack_require__(/*! ../../components */ "./src/notificationx/components/index.ts");
 var functions_1 = __webpack_require__(/*! ../../core/functions */ "./src/notificationx/core/functions.ts");
 var icons_1 = __webpack_require__(/*! ../../icons */ "./src/notificationx/icons/index.ts");
@@ -61019,7 +62401,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
 var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 var _1 = __webpack_require__(/*! . */ "./src/notificationx/admin/AddEditNx/index.ts");
-var form_builder_1 = __webpack_require__(/*! ../../../form-builder */ "../../plugins/wp-react-form/src/form-builder/index.tsx");
+var form_builder_1 = __webpack_require__(/*! ../../../form-builder */ "../wp-react-form/src/form-builder/index.tsx");
 var components_1 = __webpack_require__(/*! ../../components */ "./src/notificationx/components/index.ts");
 var functions_1 = __importDefault(__webpack_require__(/*! ../../core/functions */ "./src/notificationx/core/functions.ts"));
 var withDocumentTitle_1 = __importDefault(__webpack_require__(/*! ../../core/withDocumentTitle */ "./src/notificationx/core/withDocumentTitle.tsx"));
@@ -61121,7 +62503,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var form_builder_1 = __importStar(__webpack_require__(/*! ../../../form-builder */ "../../plugins/wp-react-form/src/form-builder/index.tsx"));
+var form_builder_1 = __importStar(__webpack_require__(/*! ../../../form-builder */ "../wp-react-form/src/form-builder/index.tsx"));
 var components_1 = __webpack_require__(/*! ../../components */ "./src/notificationx/components/index.ts");
 var functions_1 = __webpack_require__(/*! ../../core/functions */ "./src/notificationx/core/functions.ts");
 var icons_1 = __webpack_require__(/*! ../../icons */ "./src/notificationx/icons/index.ts");
@@ -61452,7 +62834,7 @@ var Analytics = function (props) {
                         options: data.options, series: data.series, type: "area", height: 500 }))),
         !(builderContext === null || builderContext === void 0 ? void 0 : builderContext.is_pro_active) &&
             react_1.default.createElement("div", { className: "analytics-display-area nx-stats-tease", "data-swal": "true" },
-                react_1.default.createElement("img", { src: builderContext.assets.admin + "images/analytics/analytics-image.png", alt: "Analytics Data" }),
+                react_1.default.createElement("img", { src: builderContext.assets.public + "image/reports/graph.png", alt: "Analytics Data" }),
                 react_1.default.createElement("div", { className: "nx-stats-pro-tease" },
                     react_1.default.createElement("a", { href: "http://wpdeveloper.net/in/upgrade-notificationx", target: "_blank" },
                         react_1.default.createElement("p", null, "Get PRO to Unlock"))))));
@@ -61545,7 +62927,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.comparisonOptions = void 0;
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
 var react_select_1 = __importDefault(__webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js"));
-var Date_1 = __importDefault(__webpack_require__(/*! ../../../form-builder/src/fields/Date */ "../../plugins/wp-react-form/src/form-builder/src/fields/Date.tsx"));
+var Date_1 = __importDefault(__webpack_require__(/*! ../../../form-builder/src/fields/Date */ "../wp-react-form/src/form-builder/src/fields/Date.tsx"));
 // @ts-ignore
 var date_1 = __webpack_require__(/*! @wordpress/date */ "@wordpress/date");
 var react_router_1 = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
@@ -61866,8 +63248,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var react_toastify_1 = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module 'react-toastify'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module 'react-toastify/dist/ReactToastify.css'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+var react_toastify_1 = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.js");
+__webpack_require__(/*! react-toastify/dist/ReactToastify.css */ "./node_modules/react-toastify/dist/ReactToastify.css");
 var SingleNotificationX_1 = __importDefault(__webpack_require__(/*! ./SingleNotificationX */ "./src/notificationx/admin/SingleNotificationX.tsx"));
 var NotificationXInner = function (_a) {
     var filteredNotice = _a.filteredNotice, getNotice = _a.getNotice, updateNotice = _a.updateNotice, totalItems = _a.totalItems, setTotalItems = _a.setTotalItems;
@@ -61931,7 +63313,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.NotificationXItems = void 0;
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
 var functions_1 = __importDefault(__webpack_require__(/*! ../core/functions */ "./src/notificationx/core/functions.ts"));
-var utils_1 = __webpack_require__(/*! ../../form-builder/src/core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
+var utils_1 = __webpack_require__(/*! ../../form-builder/src/core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
 var NotificationXInner_1 = __importDefault(__webpack_require__(/*! ./NotificationXInner */ "./src/notificationx/admin/NotificationXInner.tsx"));
 var NotificationXItemsMenu_1 = __importDefault(__webpack_require__(/*! ./NotificationXItemsMenu */ "./src/notificationx/admin/NotificationXItemsMenu.tsx"));
 var react_router_1 = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
@@ -62085,7 +63467,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var form_builder_1 = __webpack_require__(/*! ../../../form-builder */ "../../plugins/wp-react-form/src/form-builder/index.tsx");
+var form_builder_1 = __webpack_require__(/*! ../../../form-builder */ "../wp-react-form/src/form-builder/index.tsx");
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
 var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function Finalize(props) {
@@ -62147,7 +63529,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var form_builder_1 = __webpack_require__(/*! ../../../form-builder */ "../../plugins/wp-react-form/src/form-builder/index.tsx");
+var form_builder_1 = __webpack_require__(/*! ../../../form-builder */ "../wp-react-form/src/form-builder/index.tsx");
 var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 var components_1 = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 var functions_1 = __importDefault(__webpack_require__(/*! ../../core/functions */ "./src/notificationx/core/functions.ts"));
@@ -62224,7 +63606,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var form_builder_1 = __importStar(__webpack_require__(/*! ../../../form-builder */ "../../plugins/wp-react-form/src/form-builder/index.tsx"));
+var form_builder_1 = __importStar(__webpack_require__(/*! ../../../form-builder */ "../wp-react-form/src/form-builder/index.tsx"));
 var components_1 = __webpack_require__(/*! ../../components */ "./src/notificationx/components/index.ts");
 var functions_1 = __webpack_require__(/*! ../../core/functions */ "./src/notificationx/core/functions.ts");
 var react_router_1 = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
@@ -62288,7 +63670,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-var hooks_1 = __webpack_require__(/*! ../../../form-builder/src/core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var hooks_1 = __webpack_require__(/*! ../../../form-builder/src/core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
 var components_1 = __webpack_require__(/*! ../../components */ "./src/notificationx/components/index.ts");
 var QuickBuild_1 = __importDefault(__webpack_require__(/*! ./QuickBuild */ "./src/notificationx/admin/QuickBuild/QuickBuild.tsx"));
 // @ts-ignore
@@ -62468,8 +63850,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
 var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-var form_builder_1 = __importDefault(__webpack_require__(/*! ../../../form-builder */ "../../plugins/wp-react-form/src/form-builder/index.tsx"));
-var hooks_1 = __webpack_require__(/*! ../../../form-builder/src/core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var form_builder_1 = __importDefault(__webpack_require__(/*! ../../../form-builder */ "../wp-react-form/src/form-builder/index.tsx"));
+var hooks_1 = __webpack_require__(/*! ../../../form-builder/src/core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
 var components_1 = __webpack_require__(/*! ../../components */ "./src/notificationx/components/index.ts");
 var functions_1 = __importStar(__webpack_require__(/*! ../../core/functions */ "./src/notificationx/core/functions.ts"));
 var Analytics_1 = __webpack_require__(/*! ../Analytics */ "./src/notificationx/admin/Analytics/index.ts");
@@ -62547,7 +63929,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var hooks_1 = __webpack_require__(/*! ../../../form-builder/src/core/hooks */ "../../plugins/wp-react-form/src/form-builder/src/core/hooks/index.ts");
+var hooks_1 = __webpack_require__(/*! ../../../form-builder/src/core/hooks */ "../wp-react-form/src/form-builder/src/core/hooks/index.ts");
 var withDocumentTitle_1 = __importDefault(__webpack_require__(/*! ../../core/withDocumentTitle */ "./src/notificationx/core/withDocumentTitle.tsx"));
 var SettingsInner_1 = __importDefault(__webpack_require__(/*! ./SettingsInner */ "./src/notificationx/admin/Settings/SettingsInner.tsx"));
 var SettingsWrapper = function (props) {
@@ -62656,7 +64038,7 @@ var i18n_1 = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 var functions_1 = __importDefault(__webpack_require__(/*! ../core/functions */ "./src/notificationx/core/functions.ts"));
 var react_copy_to_clipboard_1 = __webpack_require__(/*! react-copy-to-clipboard */ "./node_modules/react-copy-to-clipboard/lib/index.js");
-var functions_2 = __webpack_require__(/*! ../../form-builder/src/core/functions */ "../../plugins/wp-react-form/src/form-builder/src/core/functions.ts");
+var functions_2 = __webpack_require__(/*! ../../form-builder/src/core/functions */ "../wp-react-form/src/form-builder/src/core/functions.ts");
 var hooks_1 = __webpack_require__(/*! ../hooks */ "./src/notificationx/hooks/index.ts");
 var SingleNotificationAction = function (_a) {
     var id = _a.id, getNotice = _a.getNotice, updateNotice = _a.updateNotice, regenerate = _a.regenerate;
@@ -62806,7 +64188,7 @@ var Toggle_1 = __importDefault(__webpack_require__(/*! ../components/Toggle */ "
 var SingleNotificationAction_1 = __importDefault(__webpack_require__(/*! ./SingleNotificationAction */ "./src/notificationx/admin/SingleNotificationAction.tsx"));
 var functions_1 = __importStar(__webpack_require__(/*! ../core/functions */ "./src/notificationx/core/functions.ts"));
 // import toast from 'react-hot-toast';
-var react_toastify_1 = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module 'react-toastify'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+var react_toastify_1 = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.js");
 var i18n_1 = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 var components_1 = __webpack_require__(/*! ../components */ "./src/notificationx/components/index.ts");
 // @ts-ignore
@@ -63260,7 +64642,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
 var components_1 = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-var fields_1 = __webpack_require__(/*! ../../form-builder/src/fields */ "../../plugins/wp-react-form/src/form-builder/src/fields/index.ts");
+var fields_1 = __webpack_require__(/*! ../../form-builder/src/fields */ "../wp-react-form/src/form-builder/src/fields/index.ts");
 var date_1 = __webpack_require__(/*! @wordpress/date */ "@wordpress/date");
 var functions_1 = __importDefault(__webpack_require__(/*! ../core/functions */ "./src/notificationx/core/functions.ts"));
 var react_router_1 = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
