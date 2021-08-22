@@ -443,7 +443,7 @@ class Settings extends UsabilityDynamicsSettings {
             'edit_notificationx_settings',
             'read_notificationx_analytics',
         ];
-        if(array_key_exists('administrator', $allcaps) && !array_key_exists($caps[0], $allcaps) && in_array($caps[0], $nx_roles)){
+        if(!empty($caps[0]) && array_key_exists('administrator', $allcaps) && !array_key_exists($caps[0], $allcaps) && in_array($caps[0], $nx_roles)){
             $role = get_role('administrator');
             $role->add_cap($caps[0]);
             $allcaps[$caps[0]] = true;
