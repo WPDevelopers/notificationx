@@ -82,7 +82,7 @@ const SingleNotificationX = ({
                     //     icon: 'success',
                     //     timer: 2000,
                     // }).fire();
-                    toast.success(enabled ? "Enabled" : "Disabled", {
+                    toast.info(enabled ? "Notification Alert has been Successfully Enabled" : "Notification Alert has been Successfully Disabled", {
                         position: "bottom-right",
                         autoClose: 5000,
                         hideProgressBar: false,

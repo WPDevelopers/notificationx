@@ -64063,9 +64063,10 @@ var SingleNotificationAction = function (_a) {
                 },
                 completeArgs: {
                     title: 'Complete',
-                    text: "Deleted!",
+                    text: "Notification Alert has been Successfully Deleted",
                     icon: 'success',
                     timer: 1500,
+                    showConfirmButton: false,
                 },
                 afterComplete: function () {
                     setRedirect('/');
@@ -64247,7 +64248,7 @@ var SingleNotificationX = function (_a) {
                 //     icon: 'success',
                 //     timer: 2000,
                 // }).fire();
-                react_toastify_1.toast.success(enabled ? "Enabled" : "Disabled", {
+                react_toastify_1.toast.info(enabled ? "Notification Alert has been Successfully Enabled" : "Notification Alert has been Successfully Disabled", {
                     position: "bottom-right",
                     autoClose: 5000,
                     hideProgressBar: false,
