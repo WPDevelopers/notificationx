@@ -10,6 +10,7 @@ import NavLink from "../components/NavLink";
 import { SelectControl } from "@wordpress/components";
 import { WrapperWithLoader } from "../components";
 import LargeLogoIcon from '../../../assets/admin/images/logos/large-logo-icon.png';
+import Logo from '../components/Logo';
 
 export const NotificationXItems = (props) => {
     const isMounted = useRef(null);
@@ -104,8 +105,8 @@ export const NotificationXItems = (props) => {
                 <WrapperWithLoader isLoading={isLoading} div={false}>
                     {filteredNotice.length == 0 &&
                         <div className="nx-no-items">
-                            <img src={LargeLogoIcon} />
-                            <span>No notifications are {status == 'all' ? 'found' : status}.</span>
+                            <h3>No notifications are {status == 'all' ? 'found' : status}.</h3>
+                            <Logo />
                         </div>
                     }
                     {filteredNotice.length > 0 &&

@@ -249,3 +249,34 @@
 .Toastify__toast--info {
     background: #6a4bff;
 }
+
+.nx-no-items {
+    flex: 1;
+    background-color: #fff;
+    padding: 20px 30px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0 5px 5px rgba(#000, 0.03);
+    img,
+    svg {
+        height: 35px;
+        width: initial;
+    }
+    h3 {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 18px;
+        font-weight: bold;
+        text-transform: uppercase;
+        &:not(:last-child) {
+            margin-right: 20px;
+        }
+    }
+    &:not(:first-child) {
+        margin-top: 15px;
+    }
+}
