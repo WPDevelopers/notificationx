@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import NavLink from "../components/NavLink";
 import { SelectControl } from "@wordpress/components";
 import { WrapperWithLoader } from "../components";
+import LargeLogoIcon from '../../../assets/admin/images/logos/large-logo-icon.png';
 
 export const NotificationXItems = (props) => {
     const isMounted = useRef(null);
@@ -101,39 +102,50 @@ export const NotificationXItems = (props) => {
                 />
 
                 <WrapperWithLoader isLoading={isLoading} div={false}>
-                    <NotificationXInner
-                        filteredNotice={filteredNotice}
-                        getNotice={notificationx}
-                        updateNotice={setNotificationx}
-                        totalItems={totalItems}
-                        setTotalItems={setTotalItems}
-                    />
-                    <div className="nx-admin-items-footer">
-                        <SelectControl
-                            label="Show Notifications :"
-                            value={perPage.toString()}
-                            onChange={(p) => {
-                                setPerPage(parseInt(p));
-                                setCurrentPage(1);
-                            }}
-                            options={[
-                                { value: "10", label: "10" },
-                                { value: "20", label: "20" },
-                                { value: "50", label: "50" },
-                                { value: "100", label: "100" },
-                                { value: "200", label: "200" },
-                            ]}
+                    {filteredNotice.length == 0 &&
+                        <div className="nx-no-items">
+                            <img src={LargeLogoIcon} />
+                            <span>No notifications are {status == 'all' ? 'found' : status}.</span>
+                        </div>
+                    }
+                    {filteredNotice.length > 0 &&
+                    <>
+                        <NotificationXInner
+                            filteredNotice={filteredNotice}
+                            getNotice={notificationx}
+                            updateNotice={setNotificationx}
+                            totalItems={totalItems}
+                            setTotalItems={setTotalItems}
                         />
-                        <Pagination
-                            current={currentPage}
-                            onChange={setCurrentPage}
-                            total={totalItems?.[status]}
-                            pageSize={perPage}
-                            itemRender={itemRender}
-                            showTitle={false}
-                            hideOnSinglePage
-                        />
-                    </div>
+                        <div className="nx-admin-items-footer">
+                            <SelectControl
+                                label="Show Notifications :"
+                                value={perPage.toString()}
+                                onChange={(p) => {
+                                    setPerPage(parseInt(p));
+                                    setCurrentPage(1);
+                                }}
+                                options={[
+                                    { value: "10", label: "10" },
+                                    { value: "20", label: "20" },
+                                    { value: "50", label: "50" },
+                                    { value: "100", label: "100" },
+                                    { value: "200", label: "200" },
+                                ]}
+                            />
+                            <Pagination
+                                current={currentPage}
+                                onChange={setCurrentPage}
+                                total={totalItems?.[status]}
+                                pageSize={perPage}
+                                itemRender={itemRender}
+                                showTitle={false}
+                                hideOnSinglePage
+                            />
+                        </div>
+                    </>
+                    }
+
                 </WrapperWithLoader>
             </div>
         </>
