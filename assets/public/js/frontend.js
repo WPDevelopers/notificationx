@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "../../plugins/wp-react-form/node_modules/intersect/index.js":
-/*!****************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/intersect/index.js ***!
-  \****************************************************************/
+/***/ "../wp-react-form/node_modules/intersect/index.js":
+/*!********************************************************!*\
+  !*** ../wp-react-form/node_modules/intersect/index.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -156,10 +156,10 @@ function indexOf(arr, el) {
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/node_modules/sweetalert2/dist/sweetalert2.all.js":
-/*!*********************************************************************************!*\
-  !*** D:/plugins/wp-react-form/node_modules/sweetalert2/dist/sweetalert2.all.js ***!
-  \*********************************************************************************/
+/***/ "../wp-react-form/node_modules/sweetalert2/dist/sweetalert2.all.js":
+/*!*************************************************************************!*\
+  !*** ../wp-react-form/node_modules/sweetalert2/dist/sweetalert2.all.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3804,10 +3804,10 @@ if (typeof this !== 'undefined' && this.Sweetalert2){  this.swal = this.sweetAle
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/functions.ts":
-/*!***********************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/functions.ts ***!
-  \***********************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/functions.ts":
+/*!***************************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/functions.ts ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3829,10 +3829,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports._extends = exports.processAjaxData = exports.wpFetch = exports.setStoreData = exports.getStoreData = exports.triggerDefaults = exports.isExists = exports.ObjectFilter = exports.SweetAlert = void 0;
-var sweetalert2_1 = __importDefault(__webpack_require__(/*! sweetalert2 */ "../../plugins/wp-react-form/node_modules/sweetalert2/dist/sweetalert2.all.js"));
+var sweetalert2_1 = __importDefault(__webpack_require__(/*! sweetalert2 */ "../wp-react-form/node_modules/sweetalert2/dist/sweetalert2.all.js"));
 var api_fetch_1 = __importDefault(__webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch"));
 var data_1 = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
-var utils_1 = __webpack_require__(/*! ./utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
+var utils_1 = __webpack_require__(/*! ./utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
 // import store from "../store";
 var SweetAlert = function (args) {
     var _a, _b, _c, _d, _e, _f;
@@ -3967,10 +3967,10 @@ exports._extends = _extends;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts":
-/*!*******************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/utils.ts ***!
-  \*******************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/utils.ts":
+/*!***********************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/utils.ts ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3987,8 +3987,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.merge = exports.getTime = exports.hitAAJX = exports.validFieldProps = exports.setIn = exports.objectWithoutPropertiesLoose = exports.executeChange = exports.getSelectedValues = exports.sortingFields = exports.getIn = exports.isEmptyObj = exports.withState = exports.isVisible = exports.isObject = exports.isArray = exports.isFunction = exports.isNumber = exports.isString = void 0;
 var lodash_es_1 = __webpack_require__(/*! lodash-es */ "lodash-es");
-var functions_1 = __webpack_require__(/*! ./functions */ "../../plugins/wp-react-form/src/form-builder/src/core/functions.ts");
-var when_1 = __importDefault(__webpack_require__(/*! ./when */ "../../plugins/wp-react-form/src/form-builder/src/core/when.ts"));
+var functions_1 = __webpack_require__(/*! ./functions */ "../wp-react-form/src/form-builder/src/core/functions.ts");
+var when_1 = __importDefault(__webpack_require__(/*! ./when */ "../wp-react-form/src/form-builder/src/core/when.ts"));
 // @ts-ignore
 var date_1 = __webpack_require__(/*! @wordpress/date */ "@wordpress/date");
 var moment_1 = __importDefault(__webpack_require__(/*! moment */ "moment"));
@@ -4217,10 +4217,10 @@ exports.merge = merge;
 
 /***/ }),
 
-/***/ "../../plugins/wp-react-form/src/form-builder/src/core/when.ts":
-/*!******************************************************************!*\
-  !*** D:/plugins/wp-react-form/src/form-builder/src/core/when.ts ***!
-  \******************************************************************/
+/***/ "../wp-react-form/src/form-builder/src/core/when.ts":
+/*!**********************************************************!*\
+  !*** ../wp-react-form/src/form-builder/src/core/when.ts ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4230,8 +4230,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(/*! ./utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
-var intersect_1 = __importDefault(__webpack_require__(/*! intersect */ "../../plugins/wp-react-form/node_modules/intersect/index.js"));
+var utils_1 = __webpack_require__(/*! ./utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
+var intersect_1 = __importDefault(__webpack_require__(/*! intersect */ "../wp-react-form/node_modules/intersect/index.js"));
 var _typeof = function (obj) {
     if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
         return typeof obj;
@@ -10670,7 +10670,7 @@ var react_dom_1 = __webpack_require__(/*! react-dom */ "react-dom");
 var UsePortal_1 = __importDefault(__webpack_require__(/*! ../hooks/UsePortal */ "./src/notificationx/frontend/hooks/UsePortal.tsx"));
 var react_cookies_1 = __importDefault(__webpack_require__(/*! react-cookies */ "./node_modules/react-cookies/build/cookie.js"));
 var helpers_1 = __webpack_require__(/*! ../themes/helpers */ "./src/notificationx/frontend/themes/helpers/index.ts");
-var utils_1 = __webpack_require__(/*! ../../../form-builder/src/core/utils */ "../../plugins/wp-react-form/src/form-builder/src/core/utils.ts");
+var utils_1 = __webpack_require__(/*! ../../../form-builder/src/core/utils */ "../wp-react-form/src/form-builder/src/core/utils.ts");
 /**
  * @example
  * <Portal id="modal">

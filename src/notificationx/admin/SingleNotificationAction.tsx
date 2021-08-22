@@ -38,9 +38,10 @@ const SingleNotificationAction = ({
                     },
                     completeArgs: {
                         title: 'Complete',
-                        text: "Deleted!",
+                        text: "Notification Alert has been Successfully Deleted",
                         icon: 'success',
                         timer: 1500,
+                        showConfirmButton: false,
                     },
                     afterComplete: () => {
                         setRedirect('/');
