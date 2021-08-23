@@ -55,6 +55,7 @@ class FrontEnd {
         add_action('nx_filtered_entry', [$this, 'link_url'], 10, 2);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
         add_filter('nx_fallback_data', [$this, 'fallback_data'], 10, 3);
+        add_filter('nx_filtered_data', [$this, 'filtered_data'], 9999, 2);
     }
     /**
      * Get File Modification Time or URL
@@ -473,6 +474,24 @@ class FrontEnd {
         }
         $data['title'] = isset($saved_data['post_title']) ? $saved_data['post_title'] : '';
         return $data;
+    }
+
+    /**
+     * Add NotificationX in Footer
+     *
+     * @return void
+     */
+    public function filtered_data($entries, $post){
+        if(is_array($entries)){
+            foreach ($entries as $key => $entry) {
+                foreach ($entry as $_key => $value) {
+                    if(strpos($_key, 'email') !== false){
+                        unset($entries[$key][$_key]);
+                    }
+                }
+            }
+        }
+        return $entries;
     }
 
     /**
