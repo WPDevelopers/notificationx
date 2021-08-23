@@ -10,7 +10,6 @@ import NavLink from "../components/NavLink";
 import { SelectControl } from "@wordpress/components";
 import { WrapperWithLoader } from "../components";
 import LargeLogoIcon from '../../../assets/admin/images/logos/large-logo-icon.png';
-import Logo from '../components/Logo';
 
 export const NotificationXItems = (props) => {
     const isMounted = useRef(null);
@@ -105,8 +104,16 @@ export const NotificationXItems = (props) => {
                 <WrapperWithLoader isLoading={isLoading} div={false}>
                     {filteredNotice.length == 0 &&
                         <div className="nx-no-items">
-                            <h3>No notifications are {status == 'all' ? 'found' : status}.</h3>
-                            <Logo />
+                            <img src={LargeLogoIcon} />
+                            <h4>No notifications are {status == 'all' ? 'found' : status}.</h4>
+                            <p>
+                            {status == 'all' 
+                            ? <>Seems like you haven’t created any notification alerts.<br />Hit on <b>"Add New"</b> button to get started</>
+                            : status == 'enabled' ? 
+                            <>There’s no {status} Notification Alerts.<br />Simply use the toggle switch to turn your notifications from <b>"All NotificationX"</b> page.</>
+                            : <>There’s no {status} Notification Alerts.</>
+                            }
+                            </p>
                         </div>
                     }
                     {filteredNotice.length > 0 &&

@@ -251,29 +251,31 @@
 }
 
 .nx-no-items {
-    flex: 1;
-    background-color: #fff;
-    padding: 20px 30px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    border-radius: 10px;
-    box-shadow: 0 5px 5px rgba(#000, 0.03);
+    text-align: center;
     img,
     svg {
-        height: 35px;
+        height: 70px;
         width: initial;
     }
-    h3 {
-        margin-top: 0;
+    h4 {
+        margin-top: 20px;
         margin-bottom: 0;
         font-size: 18px;
         font-weight: bold;
         text-transform: uppercase;
-        &:not(:last-child) {
-            margin-right: 20px;
+    }
+    p {
+        font-size: 14px;
+        max-width: 400px;
+        color: #7c8db5;
+        line-height: 1.7;
+        b {
+            color: #25396f;
         }
     }
     &:not(:first-child) {
