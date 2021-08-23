@@ -4,8 +4,8 @@ import { Link, Redirect } from 'react-router-dom';
 import nxHelper from '../core/functions';
 import { useBuilderContext } from '../../form-builder';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { SweetAlert } from "../../form-builder/src/core/functions";
 import { useNotificationXContext } from '../hooks';
+import { toast } from "react-toastify";
 
 const SingleNotificationAction = ({
     id,
@@ -36,12 +36,19 @@ const SingleNotificationAction = ({
                             (notice) => parseInt(notice.nx_id) !== parseInt(id)
                         ));
                     },
-                    completeArgs: {
-                        title: 'Complete',
-                        text: "Notification Alert has been Successfully Deleted",
-                        icon: 'success',
-                        timer: 1500,
-                        showConfirmButton: false,
+                    completeArgs: () => {
+                        toast.error(
+                            "Notification Alert has been Successfully Deleted!",
+                            {
+                                position: "bottom-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            }
+                        );
                     },
                     afterComplete: () => {
                         setRedirect('/');
@@ -69,11 +76,19 @@ const SingleNotificationAction = ({
             completeAction: (response) => {
 
             },
-            completeArgs: {
-                title: 'Regenerated',
-                text: "Successfully Regenerated!",
-                icon: 'success',
-                timer: 2000,
+            completeArgs: () => {
+                toast.info(
+                    "Notification Alert has been Successfully Regenerated.",
+                    {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    }
+                );
             },
             afterComplete: () => {
                 setRedirect('/');
@@ -82,14 +97,29 @@ const SingleNotificationAction = ({
         });
     };
 
-    const onCopy = () => SweetAlert({
-        showConfirmButton: false,
-        type: 'success',
-        timer: 1500,
-        title: 'Copied to clipboard',
-        text: '',
-        html: `[notificationx id=${id}]`,
-    });
+    const onCopy = () => {
+
+    // const onCopy = () => SweetAlert({
+    //     showConfirmButton: false,
+    //     type: 'success',
+    //     timer: 1500,
+    //     title: 'Copied to clipboard',
+    //     text: '',
+    //     html: `[notificationx id=${id}]`,
+    // });
+        toast.info(
+            "Successfully Copied to Clipboard.",
+            {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            }
+        );
+    }
 
     return (
         <div className="nx-admin-actions">

@@ -3,6 +3,8 @@ import { HashRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import "./scss/index.scss";
 import { Admin, AddNewNotification, EditNotification, Settings, Analytics, Entries, QuickBuild } from "./admin/index";
 import { NotificationXProvider, useNotificationX } from "./hooks";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // import defaultArgs from '../form-builder/config/default';
 
@@ -48,6 +50,7 @@ const NotificationX = (props) => {
                         <Route path="/entries/:id" exact component={Entries} />
                         <Route path="/nx-builder" exact component={QuickBuild} />
                     </Switch>
+                    <ToastContainer />
                 </NotificationXProvider>
             </div>
         </Router >

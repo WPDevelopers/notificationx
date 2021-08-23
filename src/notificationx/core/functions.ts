@@ -72,7 +72,7 @@ class NotificationXHelpers {
                 confirmedCallback().then((res) => {
                     if (res?.success) {
                         completeAction(res);
-                        Swal.fire(completeArgs).then(afterComplete);
+                        completeArgs().then(afterComplete);
                     }
                 })
                 .catch((err) => console.error("Delete Error: ", err));
@@ -89,7 +89,7 @@ export const SweetAlert = ( args: any = {} ) => {
 		type: args?.type ?? "success",
 		html: args?.html,
 		title: args?.title ?? "Title Goes Here: title",
-		text: args?.text ?? "Test Goes Here: text",
+		text: args?.text ?? "Text Goes Here: text",
 		icon: args?.icon ?? (args?.type || "success"),
 		timer: args?.timer ?? null,
 		...args,

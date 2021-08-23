@@ -6,7 +6,7 @@ import { Header } from '../../components'
 import nxHelper, { proAlert } from '../../core/functions';
 import { AnalyticsHeader } from '../Analytics';
 import { Documentation } from '.';
-import Swal from 'sweetalert2';
+import { toast } from "react-toastify";
 import { InfoIcon } from '../../icons';
 import { useNotificationXContext } from '../../hooks';
 
@@ -25,29 +25,35 @@ const SettingsInner = (props) => {
 
     builder.submit.onSubmit = useCallback(
         (event, context) => {
-            context.setSubmitting(true);
-            nxHelper.post('settings', { ...context.values }).then((res: any) => {
+        context.setSubmitting(true);
+        nxHelper.post('settings', { ...context.values }).then((res: any) => {
                 if (res?.success) {
-                    Swal.fire({
-                        text: 'Changes Saved!',
-                        title: 'Successful',
-                        icon: 'success',
-                        timer: 2000,
+                    toast.info("Changes Saved Successfully.", {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
                     });
                 }
                 else {
                     throw new Error("Something went wrong.");
                 }
             }).catch(err => {
-                Swal.fire({
-                    text: 'Something went wrong.',
-                    title: '!!!',
-                    icon: 'error',
-                    timer: 2000,
+                toast.error("Oops, Something went wrong. Please try again.", {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
                 });
             })
-        },
-        [],
+    },
+    [],
     );
 
     useEffect(() => {

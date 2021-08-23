@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import Toggle from "../components/Toggle";
 import SingleNotificationAction from "./SingleNotificationAction";
-import nxHelper, { proAlert, SweetAlert } from "../core/functions";
-// import toast from 'react-hot-toast';
+import nxHelper, { proAlert } from "../core/functions";
 import { toast } from "react-toastify";
 
 import { __ } from "@wordpress/i18n";
@@ -76,31 +75,32 @@ const SingleNotificationX = ({
                             return { ...val };
                         })
                     );
-                    // SweetAlert({
-                    //     text: '',
-                    //     title: enabled ? "Enabled" : "Disabled",
-                    //     icon: 'success',
-                    //     timer: 2000,
-                    // }).fire();
-                    toast.info(enabled ? "Notification Alert has been Successfully Enabled" : "Notification Alert has been Successfully Disabled", {
-                        position: "bottom-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
+                    toast.info(
+                        enabled
+                            ? "Notification Alert has been Successfully Enabled"
+                            : "Notification Alert has been Successfully Disabled",
+                        {
+                            position: "bottom-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
                 } else {
-                    // toast.error("Something went wrong.", {
-                    //     position: "bottom-right",
-                    //     autoClose: 5000,
-                    //     hideProgressBar: false,
-                    //     closeOnClick: true,
-                    //     pauseOnHover: true,
-                    //     draggable: true,
-                    //     progress: undefined,
-                    // });
+                    toast.error(
+                        "Oops, Something went wrong. Please try again.",
+                        {
+                            position: "bottom-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        }
+                    );
                     proAlert(
                         enabled
                             ? "You need to upgrade to the <strong><a target='_blank' href='http://wpdeveloper.net/in/upgrade-notificationx' style='color:red'>Premium Version</a></strong> to use multiple notification."
@@ -111,7 +111,7 @@ const SingleNotificationX = ({
             })
             .catch((err) => {
                 setLoading(false);
-                toast.error("Something went wrong.", {
+                toast.error("Oops, Something went wrong. Please try again.", {
                     position: "bottom-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -120,7 +120,6 @@ const SingleNotificationX = ({
                     draggable: true,
                     progress: undefined,
                 });
-                console.error("Enable/Disable Error: ", err);
             });
     };
 

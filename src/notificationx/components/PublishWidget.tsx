@@ -2,9 +2,10 @@ import React, { useCallback, useState } from "react";
 import { Button, ButtonGroup } from "@wordpress/components";
 import { Date } from "../../form-builder/src/fields";
 import { isInTheFuture } from "@wordpress/date";
-import nxHelper, { SweetAlert } from "../core/functions";
+import nxHelper from "../core/functions";
 import { Redirect } from "react-router";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const PublishWidget = (props) => {
     const { title, context, isEdit, setIsLoading, setIsCreated, id, ...rest } = props;
@@ -41,7 +42,6 @@ const PublishWidget = (props) => {
     );
 
     const handleDelete = useCallback(() => {
-        //FIXME: NEED SOME CSS FOR THIS
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -53,22 +53,34 @@ const PublishWidget = (props) => {
             reverseButtons: true,
             // target: "#notificationx",
         }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 nxHelper
                     .delete(`nx/${id}`, { nx_id: id })
                     .then((res) => {
                         if (res) {
-                            Swal.fire({
-                                title: 'Complete',
-                                text: "Deleted!",
-                                icon: 'success',
-                                timer: 2500,
-                            }).then(() => {
-                                setRedirect('/');
-                            });
+                            toast.error(
+                                "Notification Alert has been Successfully Deleted!",
+                                {
+                                    position: "bottom-right",
+                                    autoClose: 5000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                }
+                            ),
+                            setRedirect('/');
                         } else {
-                            //TODO: add sweatalert
+                            toast.error("Oops, Something went wrong. Please try again.", {
+                                position: "bottom-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            });
                         }
                     })
                     .catch((err) => console.error("Delete Error: ", err));
