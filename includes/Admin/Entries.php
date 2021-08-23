@@ -50,6 +50,9 @@ class Entries {
 
 
     public function insert_entry($entry) {
+        if(empty($entry['data'])){
+            return false;
+        }
         $timestamp = !empty($entry['data']['timestamp']) ? $entry['data']['timestamp'] : time();
         if(empty($entry['created_at'])){
             $entry['created_at'] = Helper::mysql_time($timestamp);
@@ -63,6 +66,10 @@ class Entries {
 
     public function insert_entries($entries) {
         foreach ($entries as $key => $entry) {
+            if(empty($entry['data'])){
+                unset($entries[$key]);
+                continue;
+            }
             $timestamp = !empty($entry['data']['timestamp']) ? $entry['data']['timestamp'] : time();
             if(empty($entry['created_at'])){
                 $entry['created_at'] = Helper::mysql_time($timestamp);
