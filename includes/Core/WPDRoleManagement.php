@@ -42,7 +42,7 @@ class WPDRoleManagement {
     }
 
     /**
-     * Add caps to selected roles.
+     * Add caps to selected roles on settings save.
      *
      * @param array $cap_roles
      * @return void

@@ -5,10 +5,13 @@ import { isInTheFuture } from "@wordpress/date";
 import nxHelper, { SweetAlert } from "../core/functions";
 import { Redirect } from "react-router";
 import Swal from "sweetalert2";
+import { useNotificationXContext } from "../hooks";
+import classNames from "classnames";
 
 const PublishWidget = (props) => {
     const { title, context, isEdit, setIsLoading, setIsCreated, id, ...rest } = props;
     const [redirect, setRedirect] = useState<string>()
+    const builderContext = useNotificationXContext();
 
     const handleSubmit = useCallback(
         (event) => {
@@ -109,16 +112,22 @@ const PublishWidget = (props) => {
                 <ButtonGroup>
                     {isEdit && (
                         <Button
-                            className="nx-trash nx-btn is-danger"
+                            className={classNames("nx-trash nx-btn is-danger",{
+                                disabled: builderContext?.createRedirect,
+                            })}
                             onClick={handleDelete}
+                            disabled={builderContext?.createRedirect}
                         >
                             Delete
                         </Button>
                     )}
                     <Button
                         isPrimary
-                        className="nx-save nx-btn"
+                        className={classNames("nx-save nx-btn",{
+                            disabled: builderContext?.createRedirect,
+                        })}
                         onClick={handleSubmit}
+                        disabled={builderContext?.createRedirect}
                     >
                         {isInTheFuture(context.values?.updated_at) ? "Schedule" : (isEdit ? "Update" : "Publish")}
                     </Button>

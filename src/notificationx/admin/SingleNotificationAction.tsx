@@ -6,6 +6,7 @@ import { useBuilderContext } from '../../form-builder';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { SweetAlert } from "../../form-builder/src/core/functions";
 import { useNotificationXContext } from '../hooks';
+import classNames from 'classnames';
 
 const SingleNotificationAction = ({
     id,
@@ -97,7 +98,7 @@ const SingleNotificationAction = ({
                 redirect && <Redirect to={redirect} />
             }
             <Link className="nx-admin-title-edit" title="Edit" to={`/edit/${id}`}><span>{__('Edit', 'notificationx')}</span></Link>
-            <Link className="nx-admin-title-duplicate" title="Duplicate" to={{
+            <Link className={classNames("nx-admin-title-duplicate", {hidden: builderContext?.createRedirect})} title="Duplicate" to={{
                 pathname: '/add-new',
                 state: { duplicate: true, _id: id }
             }}><span>{__('Duplicate', 'notificationx')}</span></Link>
@@ -117,7 +118,7 @@ const SingleNotificationAction = ({
                     <span>{__("Re Generate", "notificationx")}</span>
                 </button>
             )}
-            <button className="nx-admin-title-trash" title="Delete" onClick={handleDelete}>
+            <button className={classNames("nx-admin-title-trash", {hidden: builderContext?.createRedirect})} title="Delete" onClick={handleDelete}>
                 <span>{__("Delete", "notificationx")}</span>
             </button>
         </div>
