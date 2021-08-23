@@ -41,7 +41,7 @@ class Settings extends UsabilityDynamicsSettings {
         $this->wpdb = $wpdb;
         parent::__construct($args);
         add_action('init', [$this, 'init']);
-        add_filter('user_has_cap', array($this, 'allow_admin'), 10, 4);
+        // add_filter('user_has_cap', array($this, 'allow_admin'), 10, 4);
     }
 
     /**
@@ -434,6 +434,7 @@ class Settings extends UsabilityDynamicsSettings {
     /**
      * Get All Roles
      * dynamically
+     * user_has_cap
      * @return array
      */
     public function allow_admin($allcaps, $caps, $args, $user) {
@@ -465,28 +466,54 @@ class Settings extends UsabilityDynamicsSettings {
         return true;
     }
 
-    public function get_selected_roles($settings = null){
+    public function get_role_map($settings = null){
         if(empty($settings)){
-            $settings = Settings::get_instance()->get('settings', []);
+            $settings = $this->get_selected_roles();
         }
-        if(!is_array($settings['notification_view_roles'])){
-            $settings['notification_view_roles'] = [$settings['notification_view_roles']];
+        return [
+            'read_notificationx' => [
+                'roles' => $settings['notification_view_roles'],
+                'map'   => [],
+            ],
+            'edit_notificationx' => [
+                'roles' => $settings['notification_roles'],
+                'map'   => ['read_notificationx'],
+            ],
+            'edit_notificationx_settings' => [
+                'roles' => $settings['settings_roles'],
+                'map'   => ['read_notificationx'],
+            ],
+            'read_notificationx_analytics' => [
+                'roles' => $settings['analytics_roles'],
+                'map'   => ['read_notificationx'],
+            ],
+        ];
+    }
+
+    public function get_selected_roles($settings = null){
+        $notification_view_roles = isset($settings['notification_view_roles']) ? $settings['notification_view_roles'] : Settings::get_instance()->get('settings.notification_view_roles', []);
+        $notification_roles      = isset($settings['notification_roles']) ? $settings['notification_roles'] : Settings::get_instance()->get('settings.notification_roles', []);
+        $settings_roles          = isset($settings['settings_roles']) ? $settings['settings_roles'] : Settings::get_instance()->get('settings.settings_roles', []);
+        $analytics_roles         = isset($settings['analytics_roles']) ? $settings['analytics_roles'] : Settings::get_instance()->get('settings.analytics_roles', []);
+
+        if(!is_array($notification_view_roles)){
+            $notification_view_roles = [$notification_view_roles];
         }
-        if(!is_array($settings['notification_roles'])){
-            $settings['notification_roles']      = [$settings['notification_roles']];
+        if(!is_array($notification_roles)){
+            $notification_roles      = [$notification_roles];
         }
-        if(!is_array($settings['settings_roles'])){
-            $settings['settings_roles']          = [$settings['settings_roles']];
+        if(!is_array($settings_roles)){
+            $settings_roles          = [$settings_roles];
         }
-        if(!is_array($settings['analytics_roles'])){
-            $settings['analytics_roles']         = [$settings['analytics_roles']];
+        if(!is_array($analytics_roles)){
+            $analytics_roles         = [$analytics_roles];
         }
 
         return apply_filters('nx_role_management', [
-            'notification_view_roles' => array_merge(['administrator'], $settings['notification_view_roles']),
-            'notification_roles'      => array_merge(['administrator'], $settings['notification_roles']),
-            'settings_roles'          => array_merge(['administrator'], $settings['settings_roles']),
-            'analytics_roles'         => array_merge(['administrator'], $settings['analytics_roles']),
+            'notification_view_roles' => array_unique(array_merge(['administrator'], $notification_view_roles)),
+            'notification_roles'      => array_unique(array_merge(['administrator'], $notification_roles)),
+            'settings_roles'          => array_unique(array_merge(['administrator'], $settings_roles)),
+            'analytics_roles'         => array_unique(array_merge(['administrator'], $analytics_roles)),
         ]);
     }
 

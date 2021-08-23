@@ -19,6 +19,7 @@ use NotificationX\Extensions\GlobalFields;
 use NotificationX\FrontEnd\FrontEnd;
 use NotificationX\Types\TypeFactory;
 use NotificationX\Extensions\ExtensionFactory;
+use NotificationXPro\Core\WPDRoleManagement;
 
 /**
  * Plugin Engine.
@@ -50,6 +51,10 @@ class NotificationX {
             'debug'       => false,
             'store'       => 'options',
         ]);
+
+        $args = Settings::get_instance()->get_role_map();
+        new WPDRoleManagement($args);
+
         Upgrader::get_instance();
         if (is_admin() || empty($_GET['frontend']) || $_GET['frontend'] != true) {
             Admin::get_instance();

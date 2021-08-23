@@ -49,12 +49,12 @@ class Locations {
                 $locations[ 'is_singular-' . $slug ] = sprintf( __('All %s posts', 'notificationx'), $type->label );
 
                 if ( $type->has_archive ) {
-                    $locations[ 'is_archive-' . $slug ] = sprintf( __('All <%s> archives', 'notificationx'), $type->label );
+                    $locations[ 'is_archive-' . $slug ] = sprintf( __('All %s archives', 'notificationx'), $type->label );
                 }
             }
 
             foreach ( $taxonomies as $slug => $tax ) {
-                $locations[ 'is_tax-' . $slug ] = sprintf( __('All <%s> taxonomy archives', 'notificationx'), $tax->label );
+                $locations[ 'is_tax-' . $slug ] = sprintf( __('All %s taxonomy archives', 'notificationx'), $tax->label );
             }
         }
 
