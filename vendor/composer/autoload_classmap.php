@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'NotificationXPro\\Core\\WPDRoleManagement' => $baseDir . '/includes/Core/WPDRoleManagement.php',
     'NotificationX\\Admin\\Admin' => $baseDir . '/includes/Admin/Admin.php',
     'NotificationX\\Admin\\Cron' => $baseDir . '/includes/Admin/Cron.php',
     'NotificationX\\Admin\\DashboardWidget' => $baseDir . '/includes/Admin/DashboardWidget.php',

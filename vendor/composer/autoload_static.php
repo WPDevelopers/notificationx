@@ -22,6 +22,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'NotificationXPro\\Core\\WPDRoleManagement' => __DIR__ . '/../..' . '/includes/Core/WPDRoleManagement.php',
         'NotificationX\\Admin\\Admin' => __DIR__ . '/../..' . '/includes/Admin/Admin.php',
         'NotificationX\\Admin\\Cron' => __DIR__ . '/../..' . '/includes/Admin/Cron.php',
         'NotificationX\\Admin\\DashboardWidget' => __DIR__ . '/../..' . '/includes/Admin/DashboardWidget.php',
