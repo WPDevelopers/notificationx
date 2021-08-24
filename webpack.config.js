@@ -3,6 +3,8 @@ const defaultConfig = require("@wordpress/scripts/config/webpack.config");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
 
+const isProduction = process.env.NODE_ENV === "production";
+
 const plugins = defaultConfig.plugins.filter(
     (plugin) =>
         plugin.constructor.name != "MiniCssExtractPlugin" &&
@@ -40,11 +42,14 @@ const config = {
     output: {
         ...defaultConfig.output,
         filename: (pathData) => {
+            // if (!isProduction) {
+            //     return "[name].js";
+            // }
             return pathData.chunk.name == "admin"
                 ? "admin/js/[name].js"
                 : "public/js/[name].js";
         },
-        path: path.resolve(process.cwd(), "assets"),
+        path: path.resolve(process.cwd(), isProduction ? "assets" : "build"),
     },
     plugins: [
         new CleanWebpackPlugin({
@@ -65,10 +70,14 @@ const config = {
         }),
         new MiniCSSExtractPlugin({
             esModule: false,
-            moduleFilename: (chunk) =>
-                chunk.name == "admin"
+            moduleFilename: (chunk) => {
+                // if (!isProduction) {
+                //     return `${chunk.name}.css`;
+                // }
+                return chunk.name == "admin"
                     ? `admin/css/${chunk.name}.css`
-                    : `public/css/${chunk.name}.css`,
+                    : `public/css/${chunk.name}.css`;
+            },
         }),
         ...plugins,
     ],
