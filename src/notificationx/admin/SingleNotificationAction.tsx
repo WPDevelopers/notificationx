@@ -13,6 +13,8 @@ const SingleNotificationAction = ({
     getNotice,
     updateNotice,
     regenerate,
+    setTotalItems,
+    enabled,
 }) => {
     const builderContext = useNotificationXContext();
     const [redirect, setRedirect] = useState<string>()
@@ -38,6 +40,23 @@ const SingleNotificationAction = ({
                         ));
                     },
                     completeArgs: () => {
+                        if (enabled) {
+                            setTotalItems((prev) => {
+                                return {
+                                    all: Number(prev.all) - 1,
+                                    enabled: Number(prev.enabled) + 1,
+                                    disabled: Number(prev.disabled),
+                                };
+                            });
+                        } else {
+                            setTotalItems((prev) => {
+                                return {
+                                    all: Number(prev.all) - 1,
+                                    enabled: Number(prev.enabled),
+                                    disabled: Number(prev.disabled) - 1,
+                                };
+                            });
+                        }
                         toast.error(
                             "Notification Alert has been Successfully Deleted!",
                             {

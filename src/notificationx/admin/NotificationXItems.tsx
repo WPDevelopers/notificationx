@@ -107,9 +107,9 @@ export const NotificationXItems = (props) => {
                             <img src={LargeLogoIcon} />
                             <h4>No notifications are {status == 'all' ? 'found' : status}.</h4>
                             <p>
-                            {status == 'all' 
+                            {status == 'all'
                             ? <>Seems like you haven’t created any notification alerts.<br />Hit on <b>"Add New"</b> button to get started</>
-                            : status == 'enabled' ? 
+                            : status == 'enabled' ?
                             <>There’s no {status} Notification Alerts.<br />Simply use the toggle switch to turn your notifications from <b>"All NotificationX"</b> page.</>
                             : <>There’s no {status} Notification Alerts.</>
                             }
