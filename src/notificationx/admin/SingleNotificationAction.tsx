@@ -63,8 +63,8 @@ const SingleNotificationAction = ({
 
     const handleRegenerate = (event) => {
         nxHelper.swal({
-            title: 'Are you sure?',
-            text: "Regenerate",
+            title: 'Are you sure you want to Regenerate?',
+            text: "Regenerating will fetch new data based on settings",
             icon: 'question',
             showCancelButton: true,
             confirmButtonText: 'Regenerate',
@@ -99,15 +99,6 @@ const SingleNotificationAction = ({
     };
 
     const onCopy = () => {
-
-    // const onCopy = () => SweetAlert({
-    //     showConfirmButton: false,
-    //     type: 'success',
-    //     timer: 1500,
-    //     title: 'Copied to clipboard',
-    //     text: '',
-    //     html: `[notificationx id=${id}]`,
-    // });
         toast.info(
             "Successfully Copied to Clipboard.",
             {
