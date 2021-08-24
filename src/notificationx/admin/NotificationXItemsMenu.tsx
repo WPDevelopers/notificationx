@@ -26,6 +26,16 @@ const NotificationXItemsMenu = ({
                     </NavLink>
                 </li>
             </ul>
+            <div className="nx-bulk-action-wrapper">
+                <div className="bulk-action-select-wrapper">
+                    <select className="bulk-action-select">
+                        <option selected disabled>Bulk Action</option>
+                        <option value="delete">Delete</option>
+                        <option value="regenerate">Regenerate</option>
+                    </select>
+                </div>
+                <button className="nx-bulk-action-button">Apply</button>
+            </div>
         </div>
     );
 };
