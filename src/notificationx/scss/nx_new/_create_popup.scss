@@ -142,6 +142,21 @@
                                     box-shadow: 0 15px 25px -5px rgba(#f85679, 0.3);
                                 }
                             }
+                            &:disabled {
+                                color: #000;
+                                background-color: #a7b6d8;
+                                border-color: #a7b6d8;
+                                box-shadow: none;
+                                cursor: not-allowed;
+                                &:hover,
+                                &:focus {
+                                    color: #000;
+                                    background-color: #a7b6d8;
+                                    border-color: #a7b6d8;
+                                    box-shadow: none;
+                                    cursor: not-allowed;
+                                }
+                            }
                         }
                     }
                     .nxins-type {
