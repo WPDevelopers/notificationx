@@ -186,6 +186,8 @@ const SingleNotificationX = ({
                     updateNotice={updateNotice}
                     id={id}
                     regenerate={item?.can_regenerate}
+                    enabled={item.enabled}
+                    setTotalItems={setTotalItems}
                 />
             </td>
         </tr>

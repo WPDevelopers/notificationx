@@ -315,7 +315,7 @@ class WooCommerce extends Extension {
         if (!empty($product_data)) {
             $new_order['order_id']   = is_int($order_id) ? $order_id : $order_id->get_id();
             $new_order['product_id'] = $item->get_product_id();
-            $new_order['title']      = $product_data['title'];
+            $new_order['title']      = strip_tags($product_data['title']);
             $new_order['link']       = $product_data['link'];
         }
         $new_order['timestamp'] = $date->getTimestamp();
