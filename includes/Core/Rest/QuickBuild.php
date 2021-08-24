@@ -47,16 +47,19 @@ class QuickBuild {
                     'methods'             => WP_REST_Server::READABLE,
                     'callback'            => array($this, 'get_config'),
                     // maybe use
-                    'permission_callback' => '__return_true',
+                    'permission_callback' => [$this, 'update_permissions_check'],
                 ),
                 array(
                     'methods'             => WP_REST_Server::EDITABLE,
                     'callback'            => array($this, 'create_post'),
-                    'permission_callback' => '__return_true',
+                    'permission_callback' => [$this, 'update_permissions_check'],
                 ),
             )
         );
 
+    }
+    public function update_permissions_check($request) {
+        return current_user_can('edit_notificationx');
     }
 
     public function get_config($request){
