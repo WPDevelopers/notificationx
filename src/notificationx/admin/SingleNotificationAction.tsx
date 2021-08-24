@@ -65,8 +65,9 @@ const SingleNotificationAction = ({
         nxHelper.swal({
             title: 'Are you sure you want to Regenerate?',
             text: "Regenerating will fetch new data based on settings",
-            icon: 'question',
+            iconHtml: `<img alt="NotificationX" src="${builderContext.assets.admin}images/redirect.svg" style="height: 85px; width:85px" />`,
             showCancelButton: true,
+            iconColor: 'transparent',
             confirmButtonText: 'Regenerate',
             cancelButtonText: 'Cancel',
             reverseButtons: true,
