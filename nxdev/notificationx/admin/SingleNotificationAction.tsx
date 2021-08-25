@@ -58,7 +58,7 @@ const SingleNotificationAction = ({
                             });
                         }
                         toast.error(
-                            "Notification Alert has been Successfully Deleted!",
+                            "Notification Alert has been Deleted.",
                             {
                                 position: "bottom-right",
                                 autoClose: 5000,
@@ -99,7 +99,7 @@ const SingleNotificationAction = ({
             },
             completeArgs: () => {
                 toast.info(
-                    "Notification Alert has been Successfully Regenerated.",
+                    "Notification Alert has been Regenerated.",
                     {
                         position: "bottom-right",
                         autoClose: 5000,
@@ -120,7 +120,7 @@ const SingleNotificationAction = ({
 
     const onCopy = () => {
         toast.info(
-            "Successfully Copied to Clipboard.",
+            "Notification Alert has been Copied to Clipboard.",
             {
                 position: "bottom-right",
                 autoClose: 5000,
