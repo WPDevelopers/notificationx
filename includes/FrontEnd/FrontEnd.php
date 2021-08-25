@@ -76,10 +76,10 @@ class FrontEnd {
      * @return void
      */
     public function enqueue_scripts() {
-        $d = include_once  self::ASSET_PATH . '/js/frontend.asset.php';
+        $d = include_once Helper::file('public/js/frontend.asset.php');
 
-        wp_register_script( 'notificationx-public', $this->file( 'js/frontend.js', true ), $d['dependencies'], $d['version'], true);
-        wp_register_style('notificationx-public', $this->file( 'css/frontend.css', true ), [], $d['version'], 'all');
+        wp_register_script( 'notificationx-public', Helper::file( 'public/js/frontend.js', true ), $d['dependencies'], $d['version'], true);
+        wp_register_style('notificationx-public', Helper::file( 'public/css/frontend.css', true ), [], $d['version'], 'all');
 
         if( empty($_GET['elementor-preview'] ) ) {
             $nx_ids = $this->localizeScripts();
