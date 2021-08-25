@@ -1,10 +1,11 @@
-import { SelectControl } from "@wordpress/components";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import NavLink from "../components/NavLink";
 import nxHelper from "../core/functions";
 import { useNotificationXContext } from "../hooks";
+// import { SelectControl } from "@wordpress/components";
 import Select from 'react-select';
+// import Select from "../../form-builder/src/fields/Select";
 
 const NotificationXItemsMenu = ({
     notificationx,
@@ -14,10 +15,14 @@ const NotificationXItemsMenu = ({
     filteredNotice,
     setFilteredNotice,
 }) => {
-    const [action, setAction] = useState('');
     const builderContext = useNotificationXContext();
-    const bulkOptions = [
-        { value: "", label: "Bulk Action", disabled: true },
+    const defaultOption = { value: "", label: "Bulk Action", disabled: true };
+    const [action, setAction] = useState<{
+        label: string;
+        value: string;
+    }>(defaultOption);
+    const bulkOptions: any = [
+        { ...defaultOption },
         { value: "regenerate", label: "Regenerate" },
     ];
     if(!builderContext.createRedirect){
@@ -25,7 +30,7 @@ const NotificationXItemsMenu = ({
     }
 
     const bulkAction = () => {
-        if(!action){
+        if(!action.value){
             return;
         }
         // getting checked nx_id.
@@ -37,7 +42,7 @@ const NotificationXItemsMenu = ({
         if(!selectedItem.length){
             return;
         }
-        nxHelper.post(`nx/bulk-action/${action}`, {
+        nxHelper.post(`nx/bulk-action/${action.value}`, {
             ids: selectedItem,
         });
     }
@@ -60,12 +65,12 @@ const NotificationXItemsMenu = ({
                 </li>
             </ul>
             <div className="nx-bulk-action-wrapper">
-                <ReactSelect
-                <SelectControl
+                <Select
+                    name="bulk-action"
                     className="bulk-action-select"
                     value={action}
-                    onChange={(val) => {
-                        setAction(val);
+                    onChange={(value) => {
+                        setAction(value);
                     }}
                     options={bulkOptions}
                 />
