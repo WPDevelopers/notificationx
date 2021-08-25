@@ -473,6 +473,9 @@
             align-items: center;
             .components-base-control__field {
                 margin-bottom: 0;
+                .components-input-control__label {
+                    margin-right: 5px;
+                }
             }
             .components-flex {
                 flex-direction: row;
