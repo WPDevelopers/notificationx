@@ -32,12 +32,6 @@ class PostType {
     public $_edit_link = "admin.php?page=nx-edit&post=%d";
 
     /**
-     * Assets Path and URL
-     */
-    const ASSET_URL  = NOTIFICATIONX_ASSETS . 'admin/';
-    const ASSET_PATH = NOTIFICATIONX_ASSETS_PATH . 'admin/';
-
-    /**
      * Initially Invoked when initialized.
      * @hook init
      */
@@ -59,19 +53,7 @@ class PostType {
     public function menu() {
         add_submenu_page('nx-admin', 'Add New', 'Add New', 'edit_notificationx', 'nx-admin#/add-new', [$this, 'new_post'], 20);
     }
-    /**
-     * Get File Modification Time or URL
-     *
-     * @param string $file  File relative path for Admin
-     * @param boolean $url  true for URL return
-     * @return void|string|integer
-     */
-    public function file( $file, $url = false ){
-        if( $url ) {
-            return self::ASSET_URL . $file;
-        }
-        return filemtime( self::ASSET_PATH . $file );
-    }
+
     /**
      * Register scripts and styles.
      *
@@ -87,17 +69,17 @@ class PostType {
 
         $tabs = $this->get_localize_scripts();
 
-        $d = include_once self::ASSET_PATH . '/js/admin.asset.php';
+        $d = include_once Helper::file('admin/js/admin.asset.php');
 
         wp_enqueue_script(
             'notificationx-admin',
-            $this->file( 'js/admin.js', true ),
+            Helper::file( 'admin/js/admin.js', true ),
             $d['dependencies'],
             $d['version'],
             true
         );
         wp_localize_script('notificationx-admin', 'notificationxTabs', $tabs);
-        wp_enqueue_style( 'notificationx-admin', $this->file( 'css/admin.css', true ), [], $d['version'], 'all' );
+        wp_enqueue_style( 'notificationx-admin', Helper::file( 'admin/css/admin.css', true ), [], $d['version'], 'all' );
     }
 
     public function get_localize_scripts(){

@@ -46,7 +46,7 @@ class Integration {
         register_rest_route( $this->namespace, '/api-connect', array(
             'methods'   => WP_REST_Server::EDITABLE,
             'callback'  => array( $this, 'api_connect' ),
-            'permission_callback' => array($this, 'check_permission'),
+            'permission_callback' => array($this, 'settings_permission'),
         ));
 
         // calls from integration provider.
@@ -142,13 +142,7 @@ class Integration {
         return REST::get_instance()->error();
     }
 
-    /**
-     * Check if a given request has access to get items
-     *
-     * @param \WP_REST_Request $request Full data about the request.
-     * @return \WP_Error|bool
-     */
-    public function check_permission( $request ) {
-        return current_user_can( 'edit_posts' );
+    public function settings_permission( $request ) {
+        return current_user_can('edit_notificationx_settings');
     }
 }

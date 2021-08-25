@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Toggle from "../components/Toggle";
 import SingleNotificationAction from "./SingleNotificationAction";
 import nxHelper, { proAlert } from "../core/functions";
@@ -24,6 +24,8 @@ const SingleNotificationX = ({
     updateNotice,
     totalItems,
     setTotalItems,
+    checked: allChecked,
+    setChecked: setAllChecked,
     ...item
 }) => {
     const builderContext = useNotificationXContext();
@@ -32,6 +34,7 @@ const SingleNotificationX = ({
         .utc(item?.updated_at)
         .utcOffset(+settings?.timezone?.offset); //
     const [loading, setLoading] = useState(false);
+    const [checked, setChecked] = useState(false);
     const disabled =
         !builderContext.is_pro_active &&
         builderContext.is_pro_sources?.[item.source];
@@ -132,6 +135,15 @@ const SingleNotificationX = ({
                 });
             });
     };
+    const onChecked = (e) => {
+        setChecked((prev) => {
+            return !prev;
+        });
+        // setAllChecked(false);
+    }
+    useEffect(() => {
+        setChecked(allChecked);
+    }, [allChecked])
 
     return (
         <tr
@@ -141,7 +153,7 @@ const SingleNotificationX = ({
         >
             <td>
                 <div className="nx-item-selector">
-                    <input type="checkbox" name="" id="" />
+                    <input type="checkbox" name="" id="" checked={checked} onChange={onChecked} />
                 </div>
             </td>
             <td>

@@ -56,8 +56,26 @@ class REST {
      * @param \WP_REST_Request $request Full data about the request.
      * @return \WP_Error|bool
      */
-    public function check_permission( $request ) {
-        return current_user_can( 'edit_posts' );
+    public function read_permission( $request ) {
+        return current_user_can('read_notificationx');
+    }
+    public function edit_permission( $request ) {
+        return current_user_can('edit_notificationx');
+    }
+    public function settings_permission( $request ) {
+        return current_user_can('edit_notificationx_settings');
+    }
+    public function activate_plugin_permission( $request ) {
+        $params = $request->get_params();
+        if(isset($params['is_installed'])){
+            if($params['is_installed']){
+                return current_user_can('activate_plugins');
+            }
+            else{
+                return current_user_can('install_plugins');
+            }
+        }
+        return current_user_can('activate_plugins') && current_user_can('install_plugins');
     }
 
     /**
@@ -68,29 +86,29 @@ class REST {
         register_rest_route( $namespace, '/builder', array(
             'methods'   => WP_REST_Server::READABLE,
             'callback'  => array( $this, 'get_builder' ),
-            'permission_callback' => array($this, 'check_permission'),
+            'permission_callback' => array($this, 'read_permission'),
         ));
         register_rest_route( $namespace, '/core-install', array(
             'methods'   => WP_REST_Server::EDITABLE,
             'callback'  => array( $this, 'core_install' ),
-            'permission_callback' => array($this, 'check_permission'),
+            'permission_callback' => array($this, 'activate_plugin_permission'),
         ));
         // Elementor Import
         register_rest_route( $namespace, '/elementor/import', array(
             'methods'   => WP_REST_Server::EDITABLE,
             'callback'  => array( $this, 'elementor_import' ),
-            'permission_callback' => array($this, 'check_permission'),
+            'permission_callback' => array($this, 'edit_permission'),
         ));
         register_rest_route( $namespace, '/elementor/remove', array(
             'methods'   => WP_REST_Server::EDITABLE,
             'callback'  => array( $this, 'elementor_remove' ),
-            'permission_callback' => array($this, 'check_permission'),
+            'permission_callback' => array($this, 'edit_permission'),
         ));
         // Reporting Import
         register_rest_route( $namespace, '/reporting-test', array(
             'methods'   => WP_REST_Server::EDITABLE,
             'callback'  => array( $this, 'reporting_test' ),
-            'permission_callback' => array($this, 'check_permission'),
+            'permission_callback' => array($this, 'settings_permission'),
         ));
 
         // NX Settings
@@ -98,7 +116,7 @@ class REST {
             array(
                 'methods'             => WP_REST_Server::EDITABLE,
                 'callback'            => array( $this, 'save_settings' ),
-                'permission_callback' => array($this, 'check_permission'),
+                'permission_callback' => array($this, 'settings_permission'),
                 'args'                => array(),
             ),
         ));
@@ -108,7 +126,7 @@ class REST {
             array(
                 'methods'             => WP_REST_Server::EDITABLE,
                 'callback'            => array($this, 'get_data'),
-                'permission_callback' => array($this, 'check_permission'),
+                'permission_callback' => array($this, 'read_permission'),
                 'args'                => [],
             ),
         ));
@@ -117,24 +135,6 @@ class REST {
             array(
                 'methods'             => WP_REST_Server::EDITABLE,
                 'callback'            => array($this, 'notice'),
-                'permission_callback' => '__return_true',
-                'args'                => [],
-            ),
-        ));
-        // For backend analytics
-		register_rest_route($namespace, '/analytics', array(
-            array(
-                'methods'             => WP_REST_Server::READABLE,
-                'callback'            => array($this, 'get_analytics'),
-                'permission_callback' => '__return_true',
-                'args'                => [],
-            ),
-        ));
-        // For Frontend analytics
-		register_rest_route($namespace, '/analytics', array(
-            array(
-                'methods'             => WP_REST_Server::EDITABLE,
-                'callback'            => array($this, 'insert_analytics'),
                 'permission_callback' => '__return_true',
                 'args'                => [],
             ),

@@ -473,4 +473,32 @@ class Helper {
         }
         return $response;
     }
+
+    /**
+     * Get File Modification Time or URL
+     *
+     * @param string $file  File relative path for Admin
+     * @param boolean $url  true for URL return
+     * @return void|string|integer
+     */
+    public static function file( $file, $url = false ){
+        $base = '';
+        if(defined('NX_DEBUG') && NX_DEBUG){
+            if( $url ) {
+                $base = NOTIFICATIONX_DEV_ASSETS;
+            }
+            else{
+                $base = NOTIFICATIONX_DEV_ASSETS_PATH;
+            }
+        }
+        else{
+            if( $url ) {
+                $base = NOTIFICATIONX_ASSETS;
+            }
+            else{
+                $base = NOTIFICATIONX_ASSETS_PATH;
+            }
+        }
+        return path_join($base, $file);
+    }
 }

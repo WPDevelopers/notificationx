@@ -1,7 +1,7 @@
 {
   "name": "notificationx",
   "version": "2.0.0",
-  "main": "src/index.js",
+  "main": "nxdev/index.js",
   "author": "WPDeveloper",
   "scripts": {
     "start": "set NODE_ENV=development && wp-scripts start",
