@@ -14,10 +14,10 @@ const plugins = defaultConfig.plugins.filter(
 const config = {
     ...defaultConfig,
     entry: {
-        admin: path.resolve(__dirname, "src/index.tsx"),
+        admin: path.resolve(__dirname, "nxdev/index.tsx"),
         frontend: path.resolve(
             __dirname,
-            "src/notificationx/frontend/index.tsx"
+            "nxdev/notificationx/frontend/index.tsx"
         ),
     },
     module: {
