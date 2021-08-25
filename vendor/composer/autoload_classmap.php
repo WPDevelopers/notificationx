@@ -31,6 +31,7 @@ return array(
     'NotificationX\\Core\\QuickBuild' => $baseDir . '/includes/Core/QuickBuild.php',
     'NotificationX\\Core\\REST' => $baseDir . '/includes/Core/REST.php',
     'NotificationX\\Core\\Rest\\Analytics' => $baseDir . '/includes/Core/Rest/Analytics.php',
+    'NotificationX\\Core\\Rest\\BulkAction' => $baseDir . '/includes/Core/Rest/BulkAction.php',
     'NotificationX\\Core\\Rest\\Entries' => $baseDir . '/includes/Core/Rest/Entries.php',
     'NotificationX\\Core\\Rest\\Integration' => $baseDir . '/includes/Core/Rest/Integration.php',
     'NotificationX\\Core\\Rest\\Posts' => $baseDir . '/includes/Core/Rest/Posts.php',

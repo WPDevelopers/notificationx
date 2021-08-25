@@ -46,6 +46,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Core\\QuickBuild' => __DIR__ . '/../..' . '/includes/Core/QuickBuild.php',
         'NotificationX\\Core\\REST' => __DIR__ . '/../..' . '/includes/Core/REST.php',
         'NotificationX\\Core\\Rest\\Analytics' => __DIR__ . '/../..' . '/includes/Core/Rest/Analytics.php',
+        'NotificationX\\Core\\Rest\\BulkAction' => __DIR__ . '/../..' . '/includes/Core/Rest/BulkAction.php',
         'NotificationX\\Core\\Rest\\Entries' => __DIR__ . '/../..' . '/includes/Core/Rest/Entries.php',
         'NotificationX\\Core\\Rest\\Integration' => __DIR__ . '/../..' . '/includes/Core/Rest/Integration.php',
         'NotificationX\\Core\\Rest\\Posts' => __DIR__ . '/../..' . '/includes/Core/Rest/Posts.php',

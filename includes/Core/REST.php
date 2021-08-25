@@ -46,6 +46,7 @@ class REST {
         Rest\Integration::get_instance();
         Rest\Entries::get_instance();
         Rest\Analytics::get_instance();
+        Rest\BulkAction::get_instance();
 
         add_action('rest_api_init', [$this, 'register_routes']);
     }

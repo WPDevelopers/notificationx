@@ -98,9 +98,10 @@ export const NotificationXItems = (props) => {
                     status={status}
                     perPage={perPage}
                     notificationx={notificationx}
+                    updateNotice={setNotificationx}
                     totalItems={totalItems}
                     filteredNotice={filteredNotice}
-                    setFilteredNotice={setFilteredNotice}
+                    setTotalItems={setTotalItems}
                 />
 
                 <WrapperWithLoader isLoading={isLoading} div={false}>

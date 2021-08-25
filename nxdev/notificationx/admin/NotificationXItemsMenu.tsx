@@ -6,6 +6,7 @@ import { useNotificationXContext } from "../hooks";
 // import { SelectControl } from "@wordpress/components";
 import Select from 'react-select';
 // import Select from "../../form-builder/src/fields/Select";
+import { toast } from "react-toastify";
 
 const NotificationXItemsMenu = ({
     notificationx,
@@ -13,9 +14,11 @@ const NotificationXItemsMenu = ({
     perPage,
     totalItems,
     filteredNotice,
-    setFilteredNotice,
+    updateNotice,
+    setTotalItems,
 }) => {
     const builderContext = useNotificationXContext();
+    const [loading, setLoading] = useState(false);
     const defaultOption = { value: "", label: "Bulk Action", disabled: true };
     const [action, setAction] = useState<{
         label: string;
@@ -30,20 +33,89 @@ const NotificationXItemsMenu = ({
     }
 
     const bulkAction = () => {
-        if(!action.value){
+        if(!action.value || loading){
             return;
         }
+        setLoading(true);
+
         // getting checked nx_id.
         const selectedItem = filteredNotice.filter((item) => {
             return item?.checked;
         }).map((item) => {
-            return item.nx_id;
+            return parseInt(item.nx_id);
         });
         if(!selectedItem.length){
             return;
         }
-        nxHelper.post(`nx/bulk-action/${action.value}`, {
+        nxHelper.post(`bulk-action/${action.value}`, {
             ids: selectedItem,
+        }).then((result: any) => {
+            setLoading(false);
+            if(result?.success){
+                if(action.value == 'delete'){
+                    const count = {
+                        enabled : 0,
+                        disabled: 0,
+                    }
+                    updateNotice(notices => notices.filter((notice) => {
+                        const isDeleted = selectedItem.indexOf(parseInt(notice.nx_id)) !== -1;
+                        if(isDeleted){
+                            // if deleted then count them in.
+                            count.enabled  += notice.enabled ? 1 : 0;
+                            count.disabled += !notice.enabled ? 1 : 0;
+                        }
+                        return !isDeleted;
+                    }));
+
+                    setTotalItems((prev) => {
+                        return {
+                            all     : Number(prev.all) - result?.count,
+                            enabled : Number(prev.enabled)  - count.enabled,
+                            disabled: Number(prev.disabled) - count.disabled,
+                        };
+                    });
+
+                    toast.info(
+                        `${result?.count} notifications deleted.`,
+                        {
+                            position: "bottom-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        }
+                    );
+                }
+                if(action.value == 'regenerate'){
+                    toast.info(
+                        `${selectedItem.length} notifications regenerated.`,
+                        {
+                            position: "bottom-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        }
+                    );
+                }
+            }
+            else {
+                throw new Error("Something went wrong.");
+            }
+        }).catch(err => {
+            toast.error("Unable to complete bulk action.", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         });
     }
 
