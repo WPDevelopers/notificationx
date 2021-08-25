@@ -140,6 +140,7 @@ const NotificationXItemsMenu = ({
                 <Select
                     name="bulk-action"
                     className="bulk-action-select"
+                    classNamePrefix="bulk-action-select"
                     value={action}
                     onChange={(value) => {
                         setAction(value);
