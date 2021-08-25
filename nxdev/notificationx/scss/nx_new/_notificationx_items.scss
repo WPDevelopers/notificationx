@@ -100,6 +100,28 @@
                         display: none;
                     }
                 }
+                .bulk-action-select__control {
+                    height: 40px;
+                    background: #fff;
+                    border: 2px solid #e8e7fe;
+                    border-radius: 5px;
+                    min-width: 150px;
+                    .bulk-action-select__value-container {
+                        height: 37px;
+                        .bulk-action-select__input {
+                            input {
+                                min-height: 18px;
+                                box-shadow: none;
+                            }
+                        }
+                    }
+                    .bulk-action-select__indicators {
+                        height: 37px;
+                        .bulk-action-select__indicator-separator {
+                            display: none;
+                        }
+                    }
+                }
             }
             .nx-bulk-action-button {
                 background-color: #6a4bff;
@@ -445,7 +467,7 @@
         display: flex;
         margin-top: 20px;
         align-items: center;
-        > .components-base-control {
+        > .components-base-control-wrapper {
             margin-right: 10px;
             display: flex;
             align-items: center;
@@ -470,6 +492,36 @@
                         color: #25396f;
                         font-size: 14px;
                         font-weight: 500;
+                    }
+                }
+            }
+        }
+        .nx-admin-items-footer-selector-wrapper {
+            display: inline-flex;
+            margin-right: 10px;
+            align-items: center;
+            label {
+                margin-right: 10px;
+            }
+            .nx-admin-items-footer-selector__control {
+                height: 40px;
+                background: #fff;
+                border: 2px solid #e8e7fe;
+                border-radius: 5px;
+                min-width: 50px;
+                .nx-admin-items-footer-selector__value-container {
+                    height: 37px;
+                    .nx-admin-items-footer-selector__input {
+                        input {
+                            min-height: 18px;
+                            box-shadow: none;
+                        }
+                    }
+                }
+                .nx-admin-items-footer-selector__indicators {
+                    height: 37px;
+                    .nx-admin-items-footer-selector__indicator-separator {
+                        display: none;
                     }
                 }
             }
