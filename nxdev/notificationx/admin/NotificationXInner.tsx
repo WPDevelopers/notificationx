@@ -1,13 +1,31 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SingleNotificationX from './SingleNotificationX';
 
-const NotificationXInner = ({ filteredNotice, getNotice, updateNotice, totalItems, setTotalItems }) => {
+const NotificationXInner = ({ filteredNotice, setFilteredNotice, getNotice, updateNotice, totalItems, setTotalItems }) => {
     const [checked, setChecked] = useState(false);
     const selectAll = () => {
-        setChecked((prev) => {
-            return !prev;
+        const notices = filteredNotice.map((item, i) => {
+            return {...item, checked: !checked};
         });
+        setFilteredNotice(notices);
+        setChecked(!checked);
     }
+
+    const checkItem = (index) => {
+        const notices = filteredNotice.map((item, i) => {
+            if(index == i){
+                return {...item, checked: !item?.checked};
+            }
+            return {...item};
+        });
+        setFilteredNotice(notices);
+    }
+
+    // useEffect(() => {
+    //     setNotices(filteredNotice);
+    // }, [filteredNotice])
+
+
 
     return (
         <div className="nx-admin-items">
@@ -16,7 +34,7 @@ const NotificationXInner = ({ filteredNotice, getNotice, updateNotice, totalItem
                     <thead>
                         <tr>
                         <td>
-                            <div className="nx-all-selector"><input type="checkbox" onChange={selectAll} name="nx_all" id="" /></div>
+                            <div className="nx-all-selector"><input type="checkbox" checked={checked} onChange={selectAll} name="nx_all" id="" /></div>
                         </td>
                             <td>NotificationX Title</td>
                             <td>Preview</td>
@@ -29,7 +47,7 @@ const NotificationXInner = ({ filteredNotice, getNotice, updateNotice, totalItem
                     </thead>
                     <tbody>
                     {filteredNotice.map((item, i) => {
-                        return <SingleNotificationX key={`nx-${item.nx_id}`} {...item} updateNotice={updateNotice} getNotice={getNotice} totalItems={totalItems} setTotalItems={setTotalItems} checked={checked} setChecked={setChecked} />
+                        return <SingleNotificationX i={i} key={`nx-${item.nx_id}`} {...item} updateNotice={updateNotice} getNotice={getNotice} totalItems={totalItems} setTotalItems={setTotalItems} checkItem={checkItem} />
                     })}
                     </tbody>
                 </table>

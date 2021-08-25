@@ -1,4 +1,5 @@
-import React from "react";
+import { SelectControl } from "@wordpress/components";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import NavLink from "../components/NavLink";
 import nxHelper from "../core/functions";
@@ -8,7 +9,21 @@ const NotificationXItemsMenu = ({
     status,
     perPage,
     totalItems,
+    filteredNotice,
+    setFilteredNotice,
 }) => {
+    const [action, setAction] = useState('');
+    const bulkAction = () => {
+        const selectedItem = filteredNotice.filter((item) => {
+            return item?.checked;
+        }).map((item) => {
+            return item.nx_id;
+        });
+        nxHelper.post(`nx/bulk-action/${action}`, {
+            selectedItem,
+        });
+    }
+
     return (
         <div className="nx-admin-menu">
             <ul>
@@ -28,13 +43,20 @@ const NotificationXItemsMenu = ({
             </ul>
             <div className="nx-bulk-action-wrapper">
                 <div className="bulk-action-select-wrapper">
-                    <select className="bulk-action-select">
-                        <option selected disabled>Bulk Action</option>
-                        <option value="delete">Delete</option>
-                        <option value="regenerate">Regenerate</option>
-                    </select>
+                    <SelectControl
+                        className="bulk-action-select"
+                        value={action}
+                        onChange={(val) => {
+                            setAction(val);
+                        }}
+                        options={[
+                            { value: "", label: "Bulk Action" },
+                            { value: "delete", label: "Delete" },
+                            { value: "regenerate", label: "Regenerate" },
+                        ]}
+                    />
                 </div>
-                <button className="nx-bulk-action-button">Apply</button>
+                <button className="nx-bulk-action-button" onClick={bulkAction}>Apply</button>
             </div>
         </div>
     );

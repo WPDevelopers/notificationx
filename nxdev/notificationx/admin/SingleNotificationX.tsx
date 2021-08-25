@@ -18,14 +18,16 @@ import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
 
 const SingleNotificationX = ({
+    i,
     nx_id: id,
     title,
     getNotice,
     updateNotice,
     totalItems,
     setTotalItems,
-    checked: allChecked,
-    setChecked: setAllChecked,
+    checked,
+    // _checked,
+    checkItem,
     ...item
 }) => {
     const builderContext = useNotificationXContext();
@@ -34,7 +36,6 @@ const SingleNotificationX = ({
         .utc(item?.updated_at)
         .utcOffset(+settings?.timezone?.offset); //
     const [loading, setLoading] = useState(false);
-    const [checked, setChecked] = useState(false);
     const disabled =
         !builderContext.is_pro_active &&
         builderContext.is_pro_sources?.[item.source];
@@ -125,15 +126,14 @@ const SingleNotificationX = ({
                 });
             });
     };
+    // const [checked, setChecked] = useState(false);
     const onChecked = (e) => {
-        setChecked((prev) => {
-            return !prev;
-        });
+        checkItem(i);
         // setAllChecked(false);
     }
-    useEffect(() => {
-        setChecked(allChecked);
-    }, [allChecked])
+    // useEffect(() => {
+    //     setChecked(_checked);
+    // }, [_checked])
 
     return (
         <tr
@@ -143,7 +143,7 @@ const SingleNotificationX = ({
         >
             <td>
                 <div className="nx-item-selector">
-                    <input type="checkbox" name="" id="" checked={checked} onChange={onChecked} />
+                    <input type="checkbox" name={`check-${id}`} id={`check-${id}`} checked={checked} onChange={onChecked} />
                 </div>
             </td>
             <td>
