@@ -69,8 +69,8 @@ class BulkAction {
     }
 
     public function delete($request){
-        $params = $request->get_params();
         $count = 0;
+        $params = $request->get_params();
         if(!empty($params['ids']) && is_array($params['ids'])){
             foreach ($params['ids'] as $key => $nx_id) {
                 $count += PostType::get_instance()->delete_post($nx_id);
@@ -83,14 +83,16 @@ class BulkAction {
     }
 
     public function regenerate($request){
+        $count = 0;
         $params = $request->get_params();
         if(!empty($params['ids']) && is_array($params['ids'])){
             foreach ($params['ids'] as $key => $nx_id) {
-                Admin::get_instance()->regenerate_notifications(['nx_id' => $nx_id]);
+                $count += Admin::get_instance()->regenerate_notifications(['nx_id' => $nx_id]);
             }
         }
         return [
             'success' => true,
+            'count'   => $count,
         ];
     }
 }

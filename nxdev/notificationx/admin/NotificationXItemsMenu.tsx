@@ -90,7 +90,7 @@ const NotificationXItemsMenu = ({
                 }
                 if(action.value == 'regenerate'){
                     toast.info(
-                        `${selectedItem.length} notifications regenerated.`,
+                        `${result?.count} notifications regenerated.`,
                         {
                             position: "bottom-right",
                             autoClose: 5000,
