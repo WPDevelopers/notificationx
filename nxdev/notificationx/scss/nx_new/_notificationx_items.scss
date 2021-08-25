@@ -71,33 +71,34 @@
         .nx-bulk-action-wrapper {
             display: flex;
             flex-wrap: wrap;
-            .bulk-action-select-wrapper {
-                display: flex;
-                position: relative;
+            .bulk-action-select {
                 height: 40px;
-                .bulk-action-select {
-                    height: 40px;
-                    background: #fff;
-                    border: 2px solid #e8e7fe;
-                    border-radius: 5px;
-                    padding-left: 10px;
-                    padding-right: 30px;
-                    font-size: 14px;
-                    font-weight: 500;
-                    outline: none;
-                    box-shadow: none;
-                    min-width: 150px;
-                    color: #555555;
-                }
-                &:after {
-                    position: absolute;
-                    font-family: "dashicons";
-                    content: '\f347';
-                    top: 50%;
-                    right: 15px;
-                    transform: translateY(-50%);
-                    pointer-events: none;
-                    color: #7c8db5;
+                .components-input-control__container {
+                    .components-select-control__input {
+                        background: #fff;
+                        border: 2px solid #e8e7fe;
+                        border-radius: 5px;
+                        padding-left: 12px;
+                        padding-right: 30px;
+                        font-size: 14px;
+                        font-weight: 500;
+                        outline: none;
+                        box-shadow: none;
+                        min-width: 150px;
+                        color: #555555;
+                        height: 40px;
+                    }
+                    .components-input-control__suffix {
+                        > div {
+                            right: 5px;
+                            svg {
+                                fill: #7c8db5;
+                            }
+                        }
+                    }
+                    .components-input-control__backdrop {
+                        display: none;
+                    }
                 }
             }
             .nx-bulk-action-button {

@@ -42,20 +42,18 @@ const NotificationXItemsMenu = ({
                 </li>
             </ul>
             <div className="nx-bulk-action-wrapper">
-                <div className="bulk-action-select-wrapper">
-                    <SelectControl
-                        className="bulk-action-select"
-                        value={action}
-                        onChange={(val) => {
-                            setAction(val);
-                        }}
-                        options={[
-                            { value: "", label: "Bulk Action" },
-                            { value: "delete", label: "Delete" },
-                            { value: "regenerate", label: "Regenerate" },
-                        ]}
-                    />
-                </div>
+                <SelectControl
+                    className="bulk-action-select"
+                    value={action}
+                    onChange={(val) => {
+                        setAction(val);
+                    }}
+                    options={[
+                        { value: "", label: "Bulk Action" },
+                        { value: "delete", label: "Delete" },
+                        { value: "regenerate", label: "Regenerate" },
+                    ]}
+                />
                 <button className="nx-bulk-action-button" onClick={bulkAction}>Apply</button>
             </div>
         </div>
