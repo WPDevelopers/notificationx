@@ -7,7 +7,7 @@ import { Redirect, useLocation } from "react-router";
 import Pagination from "rc-pagination";
 import { Link } from "react-router-dom";
 import NavLink from "../components/NavLink";
-import { SelectControl } from "@wordpress/components";
+import Select from 'react-select';
 import { WrapperWithLoader } from "../components";
 import LargeLogoIcon from '../../../assets/admin/images/logos/large-logo-icon.png';
 
@@ -129,21 +129,25 @@ export const NotificationXItems = (props) => {
                             setTotalItems={setTotalItems}
                         />
                         <div className="nx-admin-items-footer">
-                            <SelectControl
-                                label="Show Notifications :"
-                                value={perPage.toString()}
-                                onChange={(p) => {
-                                    setPerPage(parseInt(p));
-                                    setCurrentPage(1);
-                                }}
-                                options={[
-                                    { value: "10", label: "10" },
-                                    { value: "20", label: "20" },
-                                    { value: "50", label: "50" },
-                                    { value: "100", label: "100" },
-                                    { value: "200", label: "200" },
-                                ]}
-                            />
+                            <div className="nx-admin-items-footer-selector-wrapper">
+                                <label>Show Notifications</label>
+                                <Select
+                                    className="nx-admin-items-footer-selector"
+                                    classNamePrefix="nx-admin-items-footer-selector"
+                                    // value={perPage.toString()}
+                                    // onChange={(p) => {
+                                    //     setPerPage(parseInt(p));
+                                    //     setCurrentPage(1);
+                                    // }}
+                                    options={[
+                                        { value: "10", label: "10" },
+                                        { value: "20", label: "20" },
+                                        { value: "50", label: "50" },
+                                        { value: "100", label: "100" },
+                                        { value: "200", label: "200" },
+                                    ]}
+                                />
+                            </div>
                             <Pagination
                                 current={currentPage}
                                 onChange={setCurrentPage}

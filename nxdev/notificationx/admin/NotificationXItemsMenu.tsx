@@ -1,4 +1,3 @@
-import { SelectControl } from "@wordpress/components";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import NavLink from "../components/NavLink";
@@ -60,13 +59,13 @@ const NotificationXItemsMenu = ({
                 </li>
             </ul>
             <div className="nx-bulk-action-wrapper">
-                <ReactSelect
-                <SelectControl
+                <Select
                     className="bulk-action-select"
-                    value={action}
-                    onChange={(val) => {
-                        setAction(val);
-                    }}
+                    classNamePrefix="bulk-action-select"
+                    // value={action}
+                    // onChange={(val) => {
+                    //     setAction(val);
+                    // }}
                     options={bulkOptions}
                 />
                 <button className="nx-bulk-action-button" onClick={bulkAction} disabled={!action}>Apply</button>
