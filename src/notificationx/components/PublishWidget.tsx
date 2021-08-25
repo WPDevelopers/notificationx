@@ -62,7 +62,7 @@ const PublishWidget = (props) => {
                     .then((res) => {
                         if (res) {
                             toast.error(
-                                "Notification Alert has been Successfully Deleted!",
+                                "Notification Alert has been Deleted.",
                                 {
                                     position: "bottom-right",
                                     autoClose: 5000,

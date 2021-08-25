@@ -75,10 +75,19 @@ const SingleNotificationX = ({
                             return { ...val };
                         })
                     );
-                    toast.info(
-                        enabled
-                            ? "Notification Alert has been Successfully Enabled"
-                            : "Notification Alert has been Successfully Disabled",
+                    enabled ? (
+                        toast.info("Notification Alert has been Enabled.",
+                            {
+                                position: "bottom-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            })
+                    ) : (
+                    toast.warning("Notification Alert has been Disabled.",
                         {
                             position: "bottom-right",
                             autoClose: 5000,
@@ -87,7 +96,8 @@ const SingleNotificationX = ({
                             pauseOnHover: true,
                             draggable: true,
                             progress: undefined,
-                        });
+                        })
+                    )
                 } else {
                     toast.error(
                         "Oops, Something went wrong. Please try again.",
