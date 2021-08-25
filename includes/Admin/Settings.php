@@ -510,10 +510,10 @@ class Settings extends UsabilityDynamicsSettings {
         }
 
         return apply_filters('nx_role_management', [
-            'notification_view_roles' => array_unique(array_merge(['administrator'], $notification_view_roles)),
-            'notification_roles'      => array_unique(array_merge(['administrator'], $notification_roles)),
-            'settings_roles'          => array_unique(array_merge(['administrator'], $settings_roles)),
-            'analytics_roles'         => array_unique(array_merge(['administrator'], $analytics_roles)),
+            'notification_view_roles' => array_values(array_unique(array_merge(['administrator'], $notification_view_roles))),
+            'notification_roles'      => array_values(array_unique(array_merge(['administrator'], $notification_roles))),
+            'settings_roles'          => array_values(array_unique(array_merge(['administrator'], $settings_roles))),
+            'analytics_roles'         => array_values(array_unique(array_merge(['administrator'], $analytics_roles))),
         ]);
     }
 

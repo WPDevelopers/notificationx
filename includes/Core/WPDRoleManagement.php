@@ -75,10 +75,12 @@ class WPDRoleManagement {
      */
     public function allow_admin($allcaps, $caps, $args, $user) {
         foreach ($this->cap_roles as $cap => $_role) {
+            // admin has all caps.
             if(!empty($allcaps['administrator'])){
                 $allcaps[$cap] = true;
             }
-            elseif(!empty($_role['map']) && is_array($_role['map'])){
+            // if user has cap then also add the mapped(dependency) cap.
+            elseif(!empty($allcaps[$cap]) && !empty($_role['map']) && is_array($_role['map'])){
                 foreach ($_role['map'] as $key => $map) {
                     if(in_array($map, $caps)){
                         $allcaps[$map] = true;
