@@ -75,7 +75,7 @@ const NotificationXItemsMenu = ({
                         };
                     });
 
-                    toast.info(
+                    toast.error(
                         `${result?.count} notifications deleted.`,
                         {
                             position: "bottom-right",

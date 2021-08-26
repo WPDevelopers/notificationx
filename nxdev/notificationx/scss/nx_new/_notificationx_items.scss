@@ -467,12 +467,15 @@
         display: flex;
         margin-top: 20px;
         align-items: center;
-        > .components-base-control-wrapper {
+        > .components-base-control {
             margin-right: 10px;
             display: flex;
             align-items: center;
             .components-base-control__field {
                 margin-bottom: 0;
+                .components-input-control__label {
+                    margin-right: 5px;
+                }
             }
             .components-flex {
                 flex-direction: row;
@@ -492,36 +495,6 @@
                         color: #25396f;
                         font-size: 14px;
                         font-weight: 500;
-                    }
-                }
-            }
-        }
-        .nx-admin-items-footer-selector-wrapper {
-            display: inline-flex;
-            margin-right: 10px;
-            align-items: center;
-            label {
-                margin-right: 10px;
-            }
-            .nx-admin-items-footer-selector__control {
-                height: 40px;
-                background: #fff;
-                border: 2px solid #e8e7fe;
-                border-radius: 5px;
-                min-width: 50px;
-                .nx-admin-items-footer-selector__value-container {
-                    height: 37px;
-                    .nx-admin-items-footer-selector__input {
-                        input {
-                            min-height: 18px;
-                            box-shadow: none;
-                        }
-                    }
-                }
-                .nx-admin-items-footer-selector__indicators {
-                    height: 37px;
-                    .nx-admin-items-footer-selector__indicator-separator {
-                        display: none;
                     }
                 }
             }
