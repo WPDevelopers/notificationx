@@ -184,6 +184,7 @@ class PostType {
                 // clear cron when disabled.
                 Cron::get_instance()->clear_schedule(array('post_id' => $data['nx_id']));
             }
+            $this->update_enabled_source($data);
             return $this->update_post($post, $data['nx_id']);
         }
         return false;
@@ -222,6 +223,32 @@ class PostType {
 		}
 		return $this->enabled_source;
 	}
+
+    public function update_enabled_source($post){
+        if(empty($post['source']) || empty($post['nx_id'])){
+            return;
+        }
+        if(!empty($this->enabled_source[$post['source']])){
+            foreach ($this->enabled_source as $source => $ids) {
+                if($post['enabled']){
+                    if(!in_array($post['nx_id'], $ids)){
+                        $this->enabled_source[$source][] = $post['nx_id'];
+                    }
+                }
+                else{
+                    if($key = array_search($post['nx_id'], $ids)){
+                        unset($this->enabled_source[$source][$key]);
+                    }
+                }
+
+            }
+        }
+        else{
+            if($post['enabled']){
+                $this->enabled_source[$post['source']][] = $post['nx_id'];
+            }
+        }
+    }
 
     public function is_enabled($id){
         $enabled_source = $this->get_enabled_source();

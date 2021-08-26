@@ -20,20 +20,23 @@ const NotificationXItemsMenu = ({
 }) => {
     const builderContext = useNotificationXContext();
     const [loading, setLoading] = useState(false);
-    const defaultOption = { value: "", label: "Bulk Action", disabled: true };
+    const defaultOption = { value: "", label: "Bulk Action", isDisabled: true };
     const [action, setAction] = useState<{
         label: string;
         value: string;
     }>(defaultOption);
-    const bulkOptions: any = [
+    let bulkOptions: any = [
         { ...defaultOption },
-        { value: "regenerate", label: "Regenerate" },
     ];
     if(!builderContext.createRedirect){
-        bulkOptions.splice(1, 0, { value: "delete", label: "Delete" });
-        bulkOptions.push({ value: "enable", label: "Enable" });
-        bulkOptions.push({ value: "disable", label: "Disable" });
+        bulkOptions = [
+            ...bulkOptions,
+            { value: "enable", label: "Enable" },
+            { value: "disable", label: "Disable" },
+            { value: "delete", label: "Delete" }
+        ]
     }
+    bulkOptions.splice(3, 0, { value: "regenerate", label: "Regenerate" });
 
     const bulkAction = () => {
         if(!action.value || loading){
@@ -64,7 +67,7 @@ const NotificationXItemsMenu = ({
                         disabled: 0,
                     }
                     updateNotice(notices => notices.filter((notice) => {
-                        const isDeleted = selectedItem.indexOf(parseInt(notice.nx_id)) !== -1;
+                        const isDeleted = result?.count?.[notice.nx_id] && selectedItem.indexOf(parseInt(notice.nx_id)) !== -1;
                         if(isDeleted){
                             // if deleted then count them in.
                             count.enabled  += notice.enabled ? 1 : 0;
@@ -95,6 +98,10 @@ const NotificationXItemsMenu = ({
                     );
                 }
                 if(action.value == 'regenerate'){
+                    updateNotice(notices => notices.map((notice) => {
+                        return {...notice};
+                    }));
+
                     toast.info(
                         `${result?.count} Notification Alerts have been Regenerated.`,
                         {
@@ -111,9 +118,9 @@ const NotificationXItemsMenu = ({
                 if(action.value == 'enable'){
                     let count = 0;
                     updateNotice(notices => notices.map((notice) => {
-                        const isSelected = selectedItem.indexOf(parseInt(notice.nx_id)) !== -1;
+                        const isSelected = result.count[notice.nx_id] && selectedItem.indexOf(parseInt(notice.nx_id)) !== -1;
                         if(isSelected){
-                            count  += notice.enabled ? 0 : 1;
+                            count  += notice.enabled == result.count[notice.nx_id] ? 0 : 1;
                             return {...notice, enabled: true};
                         }
                         return {...notice};
@@ -142,9 +149,9 @@ const NotificationXItemsMenu = ({
                 if(action.value == 'disable'){
                     let count = 0;
                     updateNotice(notices => notices.map((notice) => {
-                        const isSelected = selectedItem.indexOf(parseInt(notice.nx_id)) !== -1;
+                        const isSelected = result?.count?.[notice.nx_id] && selectedItem.indexOf(parseInt(notice.nx_id)) !== -1;
                         if(isSelected){
-                            count  += notice.enabled ? 1 : 0;
+                            count  += notice.enabled == result.count[notice.nx_id] ? 1 : 0;
                             return {...notice, enabled: false};
                         }
                         return {...notice};

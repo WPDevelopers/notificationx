@@ -83,11 +83,11 @@ class BulkAction {
     }
 
     public function delete($request){
-        $count = 0;
+        $count = [];
         $params = $request->get_params();
         if(!empty($params['ids']) && is_array($params['ids'])){
             foreach ($params['ids'] as $key => $nx_id) {
-                $count += PostType::get_instance()->delete_post($nx_id);
+                $count[$nx_id] = PostType::get_instance()->delete_post($nx_id);
             }
         }
         return [
@@ -111,7 +111,7 @@ class BulkAction {
     }
 
     public function enable($request){
-        $count = 0;
+        $count = [];
         $params = $request->get_params();
         if(!empty($params['ids']) && is_array($params['ids'])){
             $posts = PostType::get_instance()->get_posts([
@@ -122,7 +122,7 @@ class BulkAction {
             ], 'nx_id, source');
             if(is_array($posts)){
                 foreach ($posts as $key => $post) {
-                    $count += PostType::get_instance()->update_status([
+                    $count[$post['nx_id']] = PostType::get_instance()->update_status([
                         'nx_id'   => $post['nx_id'],
                         'source'  => $post['source'],
                         'enabled' => true,
@@ -137,7 +137,7 @@ class BulkAction {
     }
 
     public function disable($request){
-        $count = 0;
+        $count = [];
         $params = $request->get_params();
         if(!empty($params['ids']) && is_array($params['ids'])){
             $posts = PostType::get_instance()->get_posts([
@@ -148,7 +148,7 @@ class BulkAction {
             ], 'nx_id, source');
             if(is_array($posts)){
                 foreach ($posts as $key => $post) {
-                    $count += PostType::get_instance()->update_status([
+                    $count[$post['nx_id']] = PostType::get_instance()->update_status([
                         'nx_id'   => $post['nx_id'],
                         'source'  => $post['source'],
                         'enabled' => false,

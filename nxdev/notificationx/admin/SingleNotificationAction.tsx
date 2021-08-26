@@ -44,7 +44,7 @@ const SingleNotificationAction = ({
                             setTotalItems((prev) => {
                                 return {
                                     all: Number(prev.all) - 1,
-                                    enabled: Number(prev.enabled) + 1,
+                                    enabled: Number(prev.enabled) - 1,
                                     disabled: Number(prev.disabled),
                                 };
                             });
