@@ -68,7 +68,7 @@ class WPOrgStats extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-        if (!$this->is_active($this->id)) {
+        if (!$this->is_active()) {
             return;
         }
         add_action("nx_cron_update_data_{$this->id}", array($this, 'update_data'), 10, 2);
@@ -83,7 +83,7 @@ class WPOrgStats extends Extension {
      */
     public function public_actions() {
         parent::public_actions();
-        if (!$this->is_active($this->id)) {
+        if (!$this->is_active()) {
             return;
         }
 

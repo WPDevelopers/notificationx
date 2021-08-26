@@ -111,7 +111,7 @@ class PressBar extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-        if (!$this->is_active($this->id)) {
+        if (!$this->is_active()) {
             return;
         }
     }
@@ -124,7 +124,7 @@ class PressBar extends Extension {
      */
     public function public_actions() {
         parent::public_actions();
-        if (!$this->is_active($this->id)) {
+        if (!$this->is_active()) {
             return;
         }
         // add_action('wp_head', [$this, 'print_bar_notice'], 100);
