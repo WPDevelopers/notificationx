@@ -9,6 +9,8 @@ import Select from 'react-select';
 import { toast } from "react-toastify";
 import DeleteToastIcon from "../icons/Deleted";
 import RegenerateToastIcon from "../icons/Regenerated";
+import EnableToastIcon from "../icons/Enabled";
+import DisableToastIcon from "../icons/NXDisable";
 import ErrorToastIcon from "../icons/Error";
 
 const NotificationXItemsMenu = ({
@@ -135,8 +137,11 @@ const NotificationXItemsMenu = ({
                             disabled: Number(prev.disabled) - count,
                         };
                     });
-                    toast.info(
-                        `${count} Notification Alerts have been Enabled.`,
+                    const EnableMsg = <div className="nx-toast-wrapper">
+                        <EnableToastIcon />
+                        <p>{count} Notification Alerts have been Enabled.</p>
+                    </div>
+                    toast.info( EnableMsg ,
                         {
                             position: "bottom-right",
                             autoClose: 5000,
@@ -166,8 +171,11 @@ const NotificationXItemsMenu = ({
                             disabled: Number(prev.disabled) + count,
                         };
                     });
-                    toast.info(
-                        `${count} Notification Alerts have been Disabled.`,
+                    const DisableMsg = <div className="nx-toast-wrapper">
+                        <DisableToastIcon />
+                        <p>{count} Notification Alerts have been Disabled.</p>
+                    </div>
+                    toast.warning( DisableMsg,
                         {
                             position: "bottom-right",
                             autoClose: 5000,
