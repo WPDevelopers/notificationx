@@ -16,6 +16,7 @@ const NotificationXItemsMenu = ({
     filteredNotice,
     updateNotice,
     setTotalItems,
+    setCheckAll
 }) => {
     const builderContext = useNotificationXContext();
     const [loading, setLoading] = useState(false);
@@ -30,13 +31,14 @@ const NotificationXItemsMenu = ({
     ];
     if(!builderContext.createRedirect){
         bulkOptions.splice(1, 0, { value: "delete", label: "Delete" });
+        bulkOptions.push({ value: "enable", label: "Enable" });
+        bulkOptions.push({ value: "disable", label: "Disable" });
     }
 
     const bulkAction = () => {
         if(!action.value || loading){
             return;
         }
-        setLoading(true);
 
         // getting checked nx_id.
         const selectedItem = filteredNotice.filter((item) => {
@@ -47,9 +49,13 @@ const NotificationXItemsMenu = ({
         if(!selectedItem.length){
             return;
         }
+
+        setLoading(true);
         nxHelper.post(`bulk-action/${action.value}`, {
             ids: selectedItem,
         }).then((result: any) => {
+            console.log(result);
+            setCheckAll(false);
             setLoading(false);
             if(result?.success){
                 if(action.value == 'delete'){
@@ -76,7 +82,7 @@ const NotificationXItemsMenu = ({
                     });
 
                     toast.error(
-                        `${result?.count} notifications deleted.`,
+                        `${result?.count} Notification Alerts have been Deleted.`,
                         {
                             position: "bottom-right",
                             autoClose: 5000,
@@ -90,7 +96,69 @@ const NotificationXItemsMenu = ({
                 }
                 if(action.value == 'regenerate'){
                     toast.info(
-                        `${result?.count} notifications regenerated.`,
+                        `${result?.count} Notification Alerts have been Regenerated.`,
+                        {
+                            position: "bottom-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        }
+                    );
+                }
+                if(action.value == 'enable'){
+                    let count = 0;
+                    updateNotice(notices => notices.map((notice) => {
+                        const isSelected = selectedItem.indexOf(parseInt(notice.nx_id)) !== -1;
+                        if(isSelected){
+                            count  += notice.enabled ? 0 : 1;
+                            return {...notice, enabled: true};
+                        }
+                        return {...notice};
+                    }));
+
+                    setTotalItems((prev) => {
+                        return {
+                            all     : Number(prev.all),
+                            enabled : Number(prev.enabled)  + count,
+                            disabled: Number(prev.disabled) - count,
+                        };
+                    });
+                    toast.info(
+                        `${count} Notification Alerts have been Enabled.`,
+                        {
+                            position: "bottom-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        }
+                    );
+                }
+                if(action.value == 'disable'){
+                    let count = 0;
+                    updateNotice(notices => notices.map((notice) => {
+                        const isSelected = selectedItem.indexOf(parseInt(notice.nx_id)) !== -1;
+                        if(isSelected){
+                            count  += notice.enabled ? 1 : 0;
+                            return {...notice, enabled: false};
+                        }
+                        return {...notice};
+                    }));
+
+                    setTotalItems((prev) => {
+                        return {
+                            all     : Number(prev.all),
+                            enabled : Number(prev.enabled)  - count,
+                            disabled: Number(prev.disabled) + count,
+                        };
+                    });
+                    toast.info(
+                        `${count} Notification Alerts have been Disabled.`,
                         {
                             position: "bottom-right",
                             autoClose: 5000,
@@ -107,6 +175,7 @@ const NotificationXItemsMenu = ({
                 throw new Error("Something went wrong.");
             }
         }).catch(err => {
+            setLoading(false);
             toast.error("Unable to complete bulk action.", {
                 position: "bottom-right",
                 autoClose: 5000,

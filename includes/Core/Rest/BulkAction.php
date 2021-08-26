@@ -58,6 +58,20 @@ class BulkAction {
                 'permission_callback' => [$this, 'read_permission'],
             )
         );
+        register_rest_route($this->namespace, "/{$this->rest_base}/enable",
+            array(
+                'methods'             => WP_REST_Server::EDITABLE,
+                'callback'            => array($this, 'enable'),
+                'permission_callback' => [$this, 'edit_permission'],
+            )
+        );
+        register_rest_route($this->namespace, "/{$this->rest_base}/disable",
+            array(
+                'methods'             => WP_REST_Server::EDITABLE,
+                'callback'            => array($this, 'disable'),
+                'permission_callback' => [$this, 'edit_permission'],
+            )
+        );
 
     }
 
@@ -88,6 +102,58 @@ class BulkAction {
         if(!empty($params['ids']) && is_array($params['ids'])){
             foreach ($params['ids'] as $key => $nx_id) {
                 $count += Admin::get_instance()->regenerate_notifications(['nx_id' => $nx_id]);
+            }
+        }
+        return [
+            'success' => true,
+            'count'   => $count,
+        ];
+    }
+
+    public function enable($request){
+        $count = 0;
+        $params = $request->get_params();
+        if(!empty($params['ids']) && is_array($params['ids'])){
+            $posts = PostType::get_instance()->get_posts([
+                'nx_id' => [
+                    'IN',
+                    '(' . implode(', ', $params['ids']) . ')'
+                ],
+            ], 'nx_id, source');
+            if(is_array($posts)){
+                foreach ($posts as $key => $post) {
+                    $count += PostType::get_instance()->update_status([
+                        'nx_id'   => $post['nx_id'],
+                        'source'  => $post['source'],
+                        'enabled' => true,
+                    ]);
+                }
+            }
+        }
+        return [
+            'success' => true,
+            'count'   => $count,
+        ];
+    }
+
+    public function disable($request){
+        $count = 0;
+        $params = $request->get_params();
+        if(!empty($params['ids']) && is_array($params['ids'])){
+            $posts = PostType::get_instance()->get_posts([
+                'nx_id' => [
+                    'IN',
+                    '(' . implode(', ', $params['ids']) . ')'
+                ],
+            ], 'nx_id, source');
+            if(is_array($posts)){
+                foreach ($posts as $key => $post) {
+                    $count += PostType::get_instance()->update_status([
+                        'nx_id'   => $post['nx_id'],
+                        'source'  => $post['source'],
+                        'enabled' => false,
+                    ]);
+                }
             }
         }
         return [

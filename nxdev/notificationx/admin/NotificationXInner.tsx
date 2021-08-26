@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import SingleNotificationX from './SingleNotificationX';
 
-const NotificationXInner = ({ filteredNotice, setFilteredNotice, getNotice, updateNotice, totalItems, setTotalItems }) => {
-    const [checked, setChecked] = useState(false);
+const NotificationXInner = ({ filteredNotice, setFilteredNotice, getNotice, updateNotice, totalItems, setTotalItems, checkAll, setCheckAll }) => {
     const selectAll = () => {
         const notices = filteredNotice.map((item, i) => {
-            return {...item, checked: !checked};
+            return {...item, checked: !checkAll};
         });
         setFilteredNotice(notices);
-        setChecked(!checked);
+        setCheckAll(!checkAll);
     }
 
     const checkItem = (index) => {
@@ -34,7 +33,7 @@ const NotificationXInner = ({ filteredNotice, setFilteredNotice, getNotice, upda
                     <thead>
                         <tr>
                         <td>
-                            <div className="nx-all-selector"><input type="checkbox" checked={checked} onChange={selectAll} name="nx_all" id="" /></div>
+                            <div className="nx-all-selector"><input type="checkbox" checked={checkAll} onChange={selectAll} name="nx_all" id="" /></div>
                         </td>
                             <td>NotificationX Title</td>
                             <td>Preview</td>

@@ -7,7 +7,8 @@ import { NotificationXFrontEnd } from "./core";
 (function (notificationX) {
     if (!notificationX?.rest)
         return;
-    apiFetch.use(apiFetch.createNonceMiddleware(notificationX.rest.nonce));
+    // apiFetch.use(apiFetch.createNonceMiddleware(notificationX.rest.nonce));
+    apiFetch.use(apiFetch.createRootURLMiddleware(notificationX.rest.root));
 
     domReady(function () {
         ReactDOM.render(
