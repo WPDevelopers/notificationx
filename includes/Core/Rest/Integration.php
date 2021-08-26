@@ -66,6 +66,23 @@ class Integration {
                 ),
             )
         );
+        // OLD Fallback for Zapier
+        register_rest_route(
+            "notificationx",
+            '/' . $this->rest_base . '/(?P<id>[\d]+)',
+            array(
+                array(
+                    'methods'             => WP_REST_Server::READABLE,
+                    'callback'            => array($this, 'get_response'),
+                    'permission_callback' => '__return_true',
+                ),
+                array(
+                    'methods'             => WP_REST_Server::CREATABLE,
+                    'callback'            => array($this, 'save_response'),
+                    'permission_callback' => '__return_true',
+                ),
+            )
+        );
     }
 
     public function get_response( \WP_REST_Request $request ){
