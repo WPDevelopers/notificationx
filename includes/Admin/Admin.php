@@ -145,7 +145,9 @@ class Admin {
         if (!empty($extension) && method_exists($extension, 'get_notification_ready') && $extension->is_active(false)) {
             Entries::get_instance()->delete_entries($post_id);
             $result = $extension->get_notification_ready($post, $post_id);
+            return true;
         }
+        return false;
     }
 
     public function admin_notices(){

@@ -168,7 +168,7 @@ class PostType {
      * Save data on post save.
      *
      * @param int $post_id
-     * @return void
+     * @return bool
      */
     public function update_status($data) {
         $is_enabled = $this->is_enabled($data['nx_id']);

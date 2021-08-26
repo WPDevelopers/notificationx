@@ -35,7 +35,7 @@ const Analytics = (props) => {
         options: {
             chart: {
                 type: "area",
-                height: 'auto',
+                height: "auto",
                 zoom: {
                     enabled: false,
                 },
@@ -58,7 +58,7 @@ const Analytics = (props) => {
             legend: {
                 show: false,
                 horizontalAlign: "center",
-                position: 'top'
+                position: "top",
             },
         },
     });
@@ -107,7 +107,7 @@ const Analytics = (props) => {
                 date(
                     settings.formats.date,
                     new Date(startDate + index * 1000 * 24 * 60 * 60),
-                    settings.timezone.string,
+                    settings.timezone.string
                 )
             );
         }
@@ -125,15 +125,15 @@ const Analytics = (props) => {
             }
         });
 
-        mergedSeries = mergedSeries.map(element => {
+        mergedSeries = mergedSeries.map((element) => {
             return {
                 ...element,
                 created_at: date(
                     settings.formats.date,
                     new Date(element.created_at),
-                    settings.timezone.string,
-                )
-            }
+                    settings.timezone.string
+                ),
+            };
         });
 
         // merge by date and group by nx_id.
@@ -199,41 +199,48 @@ const Analytics = (props) => {
         <div>
             {redirect && <Redirect to="/" />}
             <Header addNew={true} />
-            <AnalyticsHeader assetsURL={builderContext.assets} analytics={...builderContext?.analytics} />
-            <WrapperWithLoader isLoading={isLoading} div={false}>
-                {
-                    builderContext?.is_pro_active &&
-                    <>
-                        <AnalyticsFilters
-                            posts={posts}
-                            filterOptions={filterOptions}
-                            setFilterOptions={setFilterOptions}
+            <AnalyticsHeader
+                assetsURL={builderContext.assets}
+                analytics={...builderContext?.analytics}
+            />
+            {builderContext?.is_pro_active && (
+                <WrapperWithLoader isLoading={isLoading} div={false}>
+                    <AnalyticsFilters
+                        posts={posts}
+                        filterOptions={filterOptions}
+                        setFilterOptions={setFilterOptions}
+                    />
+                    <div className="nx-analytics-graph-wrapper">
+                        <Chart
+                            // @ts-ignore
+                            options={data.options}
+                            series={data.series}
+                            type="area"
+                            height={500}
                         />
-                        <div className="nx-analytics-graph-wrapper">
-                            <Chart
-                                // @ts-ignore
-                                options={data.options}
-                                series={data.series}
-                                type="area"
-                                height={500}
-                            />
-                        </div>
-                    </>
-                }
-            </WrapperWithLoader>
+                    </div>
+                </WrapperWithLoader>
+            )}
 
-            {
-                !builderContext?.is_pro_active &&
-                <div className="analytics-display-area nx-stats-tease" data-swal="true">
-                    <img src={`${builderContext.assets.public}image/reports/graph.png`} alt="Analytics Data" />
+            {!builderContext?.is_pro_active && (
+                <div
+                    className="analytics-display-area nx-stats-tease"
+                    data-swal="true"
+                >
+                    <img
+                        src={`${builderContext.assets.public}image/reports/graph.png`}
+                        alt="Analytics Data"
+                    />
                     <div className="nx-stats-pro-tease">
-                        <a href="http://wpdeveloper.net/in/upgrade-notificationx" target="_blank">
+                        <a
+                            href="http://wpdeveloper.net/in/upgrade-notificationx"
+                            target="_blank"
+                        >
                             <p>Get PRO to Unlock</p>
                         </a>
                     </div>
                 </div>
-
-            }
+            )}
         </div>
     );
 };

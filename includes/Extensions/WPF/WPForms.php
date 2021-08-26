@@ -60,7 +60,7 @@ class WPForms extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-        if (!$this->is_active($this->id)) {
+        if (!$this->is_active()) {
             return;
         }
         add_action('wp_ajax_nx_wpf_keys', array($this, 'keys'));
@@ -74,7 +74,7 @@ class WPForms extends Extension {
      */
     public function public_actions() {
         parent::public_actions();
-        if (!$this->is_active($this->id)) {
+        if (!$this->is_active()) {
             return;
         }
     }
@@ -190,7 +190,7 @@ class WPForms extends Extension {
                 continue;
             }
             if ($field['type'] === 'name') {
-                if (!empty($entry['fields'][$field['id']])) {
+                if (!empty($entry['fields'][$field['id']]) && is_array($entry['fields'][$field['id']])) {
                     foreach ($entry['fields'][$field['id']] as $nKey => $n) {
                         $data[$field['id'] . '_' . $nKey . '_name'] = $n;
                     }

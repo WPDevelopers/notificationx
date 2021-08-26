@@ -12,6 +12,7 @@ import { WrapperWithLoader } from "../components";
 import LargeLogoIcon from '../../../assets/admin/images/logos/large-logo-icon.png';
 
 export const NotificationXItems = (props) => {
+    const [checkAll, setCheckAll] = useState(false);
     const isMounted = useRef(null);
     const loading = {
         title: "loading...",
@@ -102,6 +103,7 @@ export const NotificationXItems = (props) => {
                     totalItems={totalItems}
                     filteredNotice={filteredNotice}
                     setTotalItems={setTotalItems}
+                    setCheckAll={setCheckAll}
                 />
 
                 <WrapperWithLoader isLoading={isLoading} div={false}>
@@ -128,6 +130,8 @@ export const NotificationXItems = (props) => {
                             updateNotice={setNotificationx}
                             totalItems={totalItems}
                             setTotalItems={setTotalItems}
+                            checkAll={checkAll}
+                            setCheckAll={setCheckAll}
                         />
                         <div className="nx-admin-items-footer">
                             <SelectControl

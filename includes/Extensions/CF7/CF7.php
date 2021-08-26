@@ -62,7 +62,7 @@ class CF7 extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-        if (!$this->is_active($this->id)) {
+        if (!$this->is_active()) {
             return;
         }
         add_action('wp_ajax_nx_cf7_keys', [$this, 'keys']);
@@ -77,7 +77,7 @@ class CF7 extends Extension {
      */
     public function public_actions() {
         parent::public_actions();
-        if (!$this->is_active($this->id)) {
+        if (!$this->is_active()) {
             return;
         }
     }
