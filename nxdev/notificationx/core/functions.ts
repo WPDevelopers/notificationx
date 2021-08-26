@@ -75,7 +75,8 @@ class NotificationXHelpers {
                 confirmedCallback().then((res) => {
                     if (res?.success) {
                         completeAction(res);
-                        completeArgs().then(afterComplete);
+                        const [type, message] = completeArgs();
+                        _toastAlert(type, message).then(afterComplete);
                     }
                 })
                 .catch((err) => console.error("Delete Error: ", err));
@@ -123,42 +124,39 @@ export const proAlert = ( html = null ) => {
     });
 }
 
-
+export const _toastAlert = (type, message) => {
+    type    = type || null;
+    message = message || null;
+    const promise = new Promise((resolve, reject) => {
+        const defaultArgs: any = {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            onClose: resolve,
+        };
+        //@ts-ignore
+        if (type == 'success') {
+            console.log("Success")
+            toast.info( message || SuccessMsg, defaultArgs);
+        }
+        //@ts-ignore
+        if (type == 'error') {
+            console.log("Error")
+            toast.error( message || ErrorMsg, defaultArgs);
+        }
+        if(!type){
+            reject();
+        }
+    });
+    return promise;
+}
 
 export const toastAlert = () => {
-    return () => {
-        
-        //@ts-ignore
-        if (arguments[0] == 'success') {
-            console.log("Success")
-            return toast.info( SuccessMsg,
-                {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                }
-            );
-        }
-        //@ts-ignore
-        if (arguments[0] == 'error') {
-            console.log("Error")
-            return toast.error( ErrorMsg,
-                {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                }
-            );
-        }
-    }
+    return _toastAlert;
 }
 
 export default nxHelper;

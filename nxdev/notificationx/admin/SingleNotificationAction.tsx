@@ -41,8 +41,6 @@ const SingleNotificationAction = ({
                         updateNotice(notices => notices.filter(
                             (notice) => parseInt(notice.nx_id) !== parseInt(id)
                         ));
-                    },
-                    completeArgs: () => {
                         if (enabled) {
                             setTotalItems((prev) => {
                                 return {
@@ -60,21 +58,13 @@ const SingleNotificationAction = ({
                                 };
                             });
                         }
+                    },
+                    completeArgs: () => {
                         const DeleteMsg = <div className="nx-toast-wrapper">
                             <DeleteToastIcon />
                             <p>Notification Alert has been Deleted.</p>
                         </div>
-                        toast.error( DeleteMsg,
-                            {
-                                position: "bottom-right",
-                                autoClose: 5000,
-                                hideProgressBar: false,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                progress: undefined,
-                            }
-                        );
+                        return ['error', DeleteMsg];
                     },
                     afterComplete: () => {
                         setRedirect('/');
@@ -108,17 +98,7 @@ const SingleNotificationAction = ({
                     <RegenerateToastIcon />
                     <p>Notification Alert has been Regenerated.</p>
                 </div>
-                toast.info( RegenerateMsg,
-                    {
-                        position: "bottom-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    }
-                );
+                return ['success', RegenerateMsg];
             },
             afterComplete: () => {
                 setRedirect('/');
