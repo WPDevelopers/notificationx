@@ -1,5 +1,8 @@
+
 import apiFetch from "@wordpress/api-fetch";
 import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
+import { SuccessMsg, ErrorMsg } from './ToasterMsg'
 
 /**
  * apiFetch setup
@@ -118,6 +121,44 @@ export const proAlert = ( html = null ) => {
         denyButtonText: 'Close',
         html
     });
+}
+
+
+
+export const toastAlert = () => {
+    return () => {
+        
+        //@ts-ignore
+        if (arguments[0] == 'success') {
+            console.log("Success")
+            return toast.info( SuccessMsg,
+                {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                }
+            );
+        }
+        //@ts-ignore
+        if (arguments[0] == 'error') {
+            console.log("Error")
+            return toast.error( ErrorMsg,
+                {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                }
+            );
+        }
+    }
 }
 
 export default nxHelper;

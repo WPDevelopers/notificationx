@@ -3,12 +3,14 @@ import { Redirect, useLocation } from 'react-router-dom';
 import FormBuilder from '../../../form-builder';
 import { useBuilderContext } from '../../../form-builder/src/core/hooks';
 import { Header } from '../../components'
-import nxHelper, { proAlert } from '../../core/functions';
+import nxHelper, { proAlert, toastAlert } from '../../core/functions';
 import { AnalyticsHeader } from '../Analytics';
 import { Documentation } from '.';
-import { toast } from "react-toastify";
 import { InfoIcon } from '../../icons';
 import { useNotificationXContext } from '../../hooks';
+import { toast } from "react-toastify";
+import ConnectedToastIcon from "../../icons/ConnectedSuccessful";
+import ErrorToastIcon from "../../icons/Error";
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -28,7 +30,32 @@ const SettingsInner = (props) => {
         context.setSubmitting(true);
         nxHelper.post('settings', { ...context.values }).then((res: any) => {
                 if (res?.success) {
-                    toast.info("Changes Saved Successfully.", {
+                    const SuccessMsg = <div className="nx-toast-wrapper">
+                        <ConnectedToastIcon />
+                        <p>Changes Saved Successfully.</p>
+                    </div>
+                    toast.info(SuccessMsg, 
+                        {
+                            position: "bottom-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        }
+                    );
+                }
+                else {
+                    throw new Error("Something went wrong.");
+                }
+            }).catch(err => {
+                const ErrorMsg = <div className="nx-toast-wrapper">
+                    <ErrorToastIcon />
+                    <p>Oops, Something went wrong. Please try again.</p>
+                </div>
+                toast.error( ErrorMsg, 
+                    {
                         position: "bottom-right",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -36,21 +63,8 @@ const SettingsInner = (props) => {
                         pauseOnHover: true,
                         draggable: true,
                         progress: undefined,
-                    });
-                }
-                else {
-                    throw new Error("Something went wrong.");
-                }
-            }).catch(err => {
-                toast.error("Oops, Something went wrong. Please try again.", {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
+                    }
+                );
             })
     },
     [],
@@ -65,6 +79,7 @@ const SettingsInner = (props) => {
         // })
         builder.registerIcons('link', <InfoIcon />);
         builder.registerAlert('pro_alert', proAlert());
+        builder.registerAlert('toast', toastAlert());
     }, []);
 
     return (
