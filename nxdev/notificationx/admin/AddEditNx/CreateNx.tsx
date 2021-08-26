@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import FormBuilder, { useBuilderContext } from '../../../form-builder';
 import { Content, PublishWidget, Sidebar, Instructions } from '../../components';
-import { proAlert } from '../../core/functions';
+import { proAlert, toastAlert } from '../../core/functions';
 import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon } from '../../icons'
 
 const CreateNx = ({ setIsCreated, setIsLoading, title, setTitle }) => {
@@ -17,6 +17,7 @@ const CreateNx = ({ setIsCreated, setIsLoading, title, setTitle }) => {
         builderContext.registerIcons('tabs', iconLists);
 
         builderContext.registerAlert('pro_alert', proAlert());
+        builderContext.registerAlert('toast', toastAlert());
     }, [])
 
 

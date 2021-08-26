@@ -5,8 +5,11 @@ import nxHelper from '../core/functions';
 import { useBuilderContext } from '../../form-builder';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useNotificationXContext } from '../hooks';
-import { toast } from "react-toastify";
 import classNames from 'classnames';
+import { toast } from "react-toastify";
+import DeleteToastIcon from "../icons/Deleted";
+import RegenerateToastIcon from "../icons/Regenerated";
+import ConnectedToastIcon from "../icons/ConnectedSuccessful";
 
 const SingleNotificationAction = ({
     id,
@@ -57,8 +60,11 @@ const SingleNotificationAction = ({
                                 };
                             });
                         }
-                        toast.error(
-                            "Notification Alert has been Deleted.",
+                        const DeleteMsg = <div className="nx-toast-wrapper">
+                            <DeleteToastIcon />
+                            <p>Notification Alert has been Deleted.</p>
+                        </div>
+                        toast.error( DeleteMsg,
                             {
                                 position: "bottom-right",
                                 autoClose: 5000,
@@ -98,8 +104,11 @@ const SingleNotificationAction = ({
 
             },
             completeArgs: () => {
-                toast.info(
-                    "Notification Alert has been Regenerated.",
+                const RegenerateMsg = <div className="nx-toast-wrapper">
+                    <RegenerateToastIcon />
+                    <p>Notification Alert has been Regenerated.</p>
+                </div>
+                toast.info( RegenerateMsg,
                     {
                         position: "bottom-right",
                         autoClose: 5000,
@@ -119,8 +128,11 @@ const SingleNotificationAction = ({
     };
 
     const onCopy = () => {
-        toast.info(
-            "Notification Alert has been Copied to Clipboard.",
+        const CopyMsg = <div className="nx-toast-wrapper">
+            <ConnectedToastIcon />
+            <p>Notification Alert has been Copied to Clipboard.</p>
+        </div>
+        toast.info( CopyMsg,
             {
                 position: "bottom-right",
                 autoClose: 5000,

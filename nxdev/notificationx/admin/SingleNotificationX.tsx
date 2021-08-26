@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Toggle from "../components/Toggle";
 import SingleNotificationAction from "./SingleNotificationAction";
 import nxHelper, { proAlert } from "../core/functions";
-import { toast } from "react-toastify";
+import AlertEnableIcon from "../icons/Enabled";
 
 import { __ } from "@wordpress/i18n";
 import { ThemePreview } from "../components";
@@ -16,6 +16,10 @@ import moment from "moment";
 import { Link, NavLink } from "react-router-dom";
 import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
+import { toast } from "react-toastify";
+import EnableToastIcon from "../icons/Enabled";
+import DisableToastIcon from "../icons/NXDisable";
+import ErrorToastIcon from "../icons/Error";
 
 const SingleNotificationX = ({
     i,
@@ -79,8 +83,12 @@ const SingleNotificationX = ({
                             return { ...val };
                         })
                     );
-                    enabled ? (
-                        toast.info("Notification Alert has been Enabled.",
+                    if (enabled) {
+                        const EnableMsg = <div className="nx-toast-wrapper">
+                            <EnableToastIcon />
+                            <p>Notification Alert has been Enabled.</p>
+                        </div>
+                        toast.info( EnableMsg,
                             {
                                 position: "bottom-right",
                                 autoClose: 5000,
@@ -89,22 +97,32 @@ const SingleNotificationX = ({
                                 pauseOnHover: true,
                                 draggable: true,
                                 progress: undefined,
-                            })
-                    ) : (
-                    toast.warning("Notification Alert has been Disabled.",
-                        {
-                            position: "bottom-right",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        })
-                    )
+                            }
+                        )
+                    }
+                    else {
+                        const DisableMsg = <div className="nx-toast-wrapper">
+                            <DisableToastIcon />
+                            <p>Notification Alert has been Disabled.</p>
+                        </div>
+                        toast.warning( DisableMsg,
+                            {
+                                position: "bottom-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            }
+                        )
+                    }
                 } else {
-                    toast.error(
-                        "Oops, Something went wrong. Please try again.",
+                    const ErrorMsg = <div className="nx-toast-wrapper">
+                        <ErrorToastIcon />
+                        <p>Oops, Something went wrong. Please try again.</p>
+                    </div>
+                    toast.error( ErrorMsg,
                         {
                             position: "bottom-right",
                             autoClose: 5000,
@@ -125,15 +143,21 @@ const SingleNotificationX = ({
             })
             .catch((err) => {
                 setLoading(false);
-                toast.error("Oops, Something went wrong. Please try again.", {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
+                const ErrorMsg = <div className="nx-toast-wrapper">
+                    <ErrorToastIcon />
+                    <p>Oops, Something went wrong. Please try again.</p>
+                </div>
+                toast.error( ErrorMsg,
+                    {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    }
+                );
             });
     };
     // const [checked, setChecked] = useState(false);

@@ -1,0 +1,29 @@
+
+
+.Toastify__toast--info {
+    background: #6a4bff;
+}
+
+.Toastify__toast--error {
+    background: #e93e41;
+}
+
+.Toastify__toast--warning {
+    background: #FC9714;
+}
+
+.nx-toast-wrapper {
+    display: flex;
+    align-items: center;
+    img,
+    svg,
+    object {
+        display: inline-flex;
+        max-width: 35px;
+        fill: #fff;
+        color: #fff;
+    }
+    p {
+        margin-left: 10px;
+    }
+}

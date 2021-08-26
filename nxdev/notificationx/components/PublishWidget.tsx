@@ -8,6 +8,8 @@ import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
+import DeleteToastIcon from "../icons/Deleted";
+import ErrorToastIcon from "../icons/Error";
 
 const PublishWidget = (props) => {
     const { title, context, isEdit, setIsLoading, setIsCreated, id, ...rest } = props;
@@ -60,9 +62,12 @@ const PublishWidget = (props) => {
                 nxHelper
                     .delete(`nx/${id}`, { nx_id: id })
                     .then((res) => {
+                        const DeleteMsg = <div className="nx-toast-wrapper">
+                            <DeleteToastIcon />
+                            <p>Notification Alert has been Deleted.</p>
+                        </div>
                         if (res) {
-                            toast.error(
-                                "Notification Alert has been Deleted.",
+                            toast.error( DeleteMsg,
                                 {
                                     position: "bottom-right",
                                     autoClose: 5000,
@@ -75,15 +80,21 @@ const PublishWidget = (props) => {
                             ),
                             setRedirect('/');
                         } else {
-                            toast.error("Oops, Something went wrong. Please try again.", {
-                                position: "bottom-right",
-                                autoClose: 5000,
-                                hideProgressBar: false,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                progress: undefined,
-                            });
+                            const ErrorMsg = <div className="nx-toast-wrapper">
+                                <ErrorToastIcon />
+                                <p>Oops, Something went wrong. Please try again.</p>
+                            </div>
+                            toast.error( ErrorMsg, 
+                                {
+                                    position: "bottom-right",
+                                    autoClose: 5000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                }
+                            );
                         }
                     })
                     .catch((err) => console.error("Delete Error: ", err));
