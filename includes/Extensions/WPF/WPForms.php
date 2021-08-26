@@ -190,7 +190,7 @@ class WPForms extends Extension {
                 continue;
             }
             if ($field['type'] === 'name') {
-                if (!empty($entry['fields'][$field['id']])) {
+                if (!empty($entry['fields'][$field['id']]) && is_array($entry['fields'][$field['id']])) {
                     foreach ($entry['fields'][$field['id']] as $nKey => $n) {
                         $data[$field['id'] . '_' . $nKey . '_name'] = $n;
                     }
