@@ -3,6 +3,7 @@ import Toggle from "../components/Toggle";
 import SingleNotificationAction from "./SingleNotificationAction";
 import nxHelper, { proAlert } from "../core/functions";
 import AlertEnableIcon from "../icons/Enabled";
+import { toastDefaultArgs } from "../core/ToasterMsg";
 
 import { __ } from "@wordpress/i18n";
 import { ThemePreview } from "../components";
@@ -88,51 +89,21 @@ const SingleNotificationX = ({
                             <EnableToastIcon />
                             <p>Notification Alert has been Enabled.</p>
                         </div>
-                        toast.info( EnableMsg,
-                            {
-                                position: "bottom-right",
-                                autoClose: 5000,
-                                hideProgressBar: false,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                progress: undefined,
-                            }
-                        )
+                        toast.info( EnableMsg, toastDefaultArgs );
                     }
                     else {
                         const DisableMsg = <div className="nx-toast-wrapper">
                             <DisableToastIcon />
                             <p>Notification Alert has been Disabled.</p>
                         </div>
-                        toast.warning( DisableMsg,
-                            {
-                                position: "bottom-right",
-                                autoClose: 5000,
-                                hideProgressBar: false,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                progress: undefined,
-                            }
-                        )
+                        toast.warning( DisableMsg, toastDefaultArgs )
                     }
                 } else {
                     const ErrorMsg = <div className="nx-toast-wrapper">
                         <ErrorToastIcon />
                         <p>Oops, Something went wrong. Please try again.</p>
                     </div>
-                    toast.error( ErrorMsg,
-                        {
-                            position: "bottom-right",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        }
-                    );
+                    toast.error( ErrorMsg, toastDefaultArgs );
                     proAlert(
                         enabled
                             ? "You need to upgrade to the <strong><a target='_blank' href='http://wpdeveloper.net/in/upgrade-notificationx' style='color:red'>Premium Version</a></strong> to use multiple notification."
@@ -147,17 +118,7 @@ const SingleNotificationX = ({
                     <ErrorToastIcon />
                     <p>Oops, Something went wrong. Please try again.</p>
                 </div>
-                toast.error( ErrorMsg,
-                    {
-                        position: "bottom-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    }
-                );
+                toast.error( ErrorMsg, toastDefaultArgs );
             });
     };
     // const [checked, setChecked] = useState(false);

@@ -12,6 +12,7 @@ import RegenerateToastIcon from "../icons/Regenerated";
 import EnableToastIcon from "../icons/Enabled";
 import DisableToastIcon from "../icons/NXDisable";
 import ErrorToastIcon from "../icons/Error";
+import { toastDefaultArgs } from "../core/ToasterMsg";
 
 const NotificationXItemsMenu = ({
     notificationx,
@@ -93,17 +94,7 @@ const NotificationXItemsMenu = ({
                         <DeleteToastIcon />
                         <p>{result?.count} notification Alerts have been Deleted.</p>
                     </div>
-                    toast.error( DeleteMsg,
-                        {
-                            position: "bottom-right",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        }
-                    );
+                    toast.error( DeleteMsg, toastDefaultArgs );
                 }
                 if(action.value == 'regenerate'){
                     updateNotice(notices => notices.map((notice) => {
@@ -113,17 +104,7 @@ const NotificationXItemsMenu = ({
                         <RegenerateToastIcon />
                         <p>{selectedItem.length} Notification Alerts have been Regenerated.</p>
                     </div>
-                    toast.info( RegenerateMsg,
-                        {
-                            position: "bottom-right",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        }
-                    );
+                    toast.info( RegenerateMsg, toastDefaultArgs );
                 }
                 if(action.value == 'enable'){
                     let count = 0;
@@ -147,17 +128,7 @@ const NotificationXItemsMenu = ({
                         <EnableToastIcon />
                         <p>{count} Notification Alerts have been Enabled.</p>
                     </div>
-                    toast.info( EnableMsg ,
-                        {
-                            position: "bottom-right",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        }
-                    );
+                    toast.info( EnableMsg , toastDefaultArgs );
                 }
                 if(action.value == 'disable'){
                     let count = 0;
@@ -181,17 +152,7 @@ const NotificationXItemsMenu = ({
                         <DisableToastIcon />
                         <p>{count} Notification Alerts have been Disabled.</p>
                     </div>
-                    toast.warning( DisableMsg,
-                        {
-                            position: "bottom-right",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        }
-                    );
+                    toast.warning( DisableMsg, toastDefaultArgs );
                 }
             }
             else {
@@ -202,17 +163,7 @@ const NotificationXItemsMenu = ({
                 <ErrorToastIcon />
                 <p>Unable to complete bulk action.</p>
             </div>
-            toast.error( ErrorMsg,
-                {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                }
-            );
+            toast.error( ErrorMsg, toastDefaultArgs );
         });
     }
 

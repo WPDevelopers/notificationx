@@ -140,12 +140,10 @@ export const _toastAlert = (type, message) => {
         };
         //@ts-ignore
         if (type == 'success') {
-            console.log("Success")
             toast.info( message || SuccessMsg, defaultArgs);
         }
         //@ts-ignore
         if (type == 'error') {
-            console.log("Error")
             toast.error( message || ErrorMsg, defaultArgs);
         }
         if(!type){

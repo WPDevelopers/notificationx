@@ -10,6 +10,7 @@ import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
 import DeleteToastIcon from "../icons/Deleted";
 import ErrorToastIcon from "../icons/Error";
+import { toastDefaultArgs } from "../core/ToasterMsg";
 
 const PublishWidget = (props) => {
     const { title, context, isEdit, setIsLoading, setIsCreated, id, ...rest } = props;
@@ -67,34 +68,14 @@ const PublishWidget = (props) => {
                             <p>Notification Alert has been Deleted.</p>
                         </div>
                         if (res) {
-                            toast.error( DeleteMsg,
-                                {
-                                    position: "bottom-right",
-                                    autoClose: 5000,
-                                    hideProgressBar: false,
-                                    closeOnClick: true,
-                                    pauseOnHover: true,
-                                    draggable: true,
-                                    progress: undefined,
-                                }
-                            ),
+                            toast.error( DeleteMsg, toastDefaultArgs ),
                             setRedirect('/');
                         } else {
                             const ErrorMsg = <div className="nx-toast-wrapper">
                                 <ErrorToastIcon />
                                 <p>Oops, Something went wrong. Please try again.</p>
                             </div>
-                            toast.error( ErrorMsg, 
-                                {
-                                    position: "bottom-right",
-                                    autoClose: 5000,
-                                    hideProgressBar: false,
-                                    closeOnClick: true,
-                                    pauseOnHover: true,
-                                    draggable: true,
-                                    progress: undefined,
-                                }
-                            );
+                            toast.error( ErrorMsg, toastDefaultArgs );
                         }
                     })
                     .catch((err) => console.error("Delete Error: ", err));

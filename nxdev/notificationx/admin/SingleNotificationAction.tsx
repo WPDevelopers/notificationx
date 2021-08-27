@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import DeleteToastIcon from "../icons/Deleted";
 import RegenerateToastIcon from "../icons/Regenerated";
 import ConnectedToastIcon from "../icons/ConnectedSuccessful";
+import { toastDefaultArgs } from '../core/ToasterMsg';
 
 const SingleNotificationAction = ({
     id,
@@ -112,17 +113,7 @@ const SingleNotificationAction = ({
             <ConnectedToastIcon />
             <p>Notification Alert has been Copied to Clipboard.</p>
         </div>
-        toast.info( CopyMsg,
-            {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            }
-        );
+        toast.info( CopyMsg, toastDefaultArgs );
     }
 
     return (

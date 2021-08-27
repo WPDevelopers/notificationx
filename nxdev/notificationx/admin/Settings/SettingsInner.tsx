@@ -11,6 +11,7 @@ import { useNotificationXContext } from '../../hooks';
 import { toast } from "react-toastify";
 import ConnectedToastIcon from "../../icons/ConnectedSuccessful";
 import ErrorToastIcon from "../../icons/Error";
+import { toastDefaultArgs } from '../../core/ToasterMsg';
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -34,17 +35,7 @@ const SettingsInner = (props) => {
                         <ConnectedToastIcon />
                         <p>Changes Saved Successfully.</p>
                     </div>
-                    toast.info(SuccessMsg, 
-                        {
-                            position: "bottom-right",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        }
-                    );
+                    toast.info( SuccessMsg, toastDefaultArgs );
                 }
                 else {
                     throw new Error("Something went wrong.");
@@ -54,17 +45,7 @@ const SettingsInner = (props) => {
                     <ErrorToastIcon />
                     <p>Oops, Something went wrong. Please try again.</p>
                 </div>
-                toast.error( ErrorMsg, 
-                    {
-                        position: "bottom-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    }
-                );
+                toast.error( ErrorMsg, toastDefaultArgs );
             })
     },
     [],
