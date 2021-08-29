@@ -70,6 +70,13 @@ const useNotificationX = (props: any) => {
         if (activeNotices != null && activeNotices.length > 0) {
             activeNotices.forEach((entries) => {
                 if (entries?.length > 0) {
+                    sortArray(entries, {
+                        by: 'timestamp',
+                        order: 'desc',
+                        computed: {
+                            timestamp: row => row.data?.timestamp ? row.data.timestamp : getTime(row.data?.updated_at)
+                        }
+                    });
                     const reverseEntries = entries; //.reverse();
                     let id = 0;
                     const config = reverseEntries[id].props;
