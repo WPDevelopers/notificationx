@@ -246,7 +246,7 @@ const NotificationXItemsMenu = ({
                     }}
                     options={bulkOptions}
                 />
-                <button className="nx-bulk-action-button" onClick={bulkAction} disabled={!action}>Apply</button>
+                <button className="nx-bulk-action-button" onClick={bulkAction} disabled={!action}>{loading ? "Applying..." : "Apply"}</button>
             </div>
         </div>
     );
