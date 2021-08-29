@@ -5,8 +5,7 @@ import nxHelper from '../core/functions';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useNotificationXContext } from '../hooks';
 import classNames from 'classnames';
-import { toast } from "react-toastify";
-import { toastDefaultArgs, ToasterIcons } from '../core/ToasterMsg';
+import nxToast from "../core/ToasterMsg";
 
 const SingleNotificationAction = ({
     id,
@@ -57,11 +56,7 @@ const SingleNotificationAction = ({
                         }
                     },
                     completeArgs: () => {
-                        const DeleteMsg = <div className="nx-toast-wrapper">
-                            <img src={ToasterIcons.deleted()} alt="" />
-                            <p>Notification Alert has been Deleted.</p>
-                        </div>
-                        return ['error', DeleteMsg];
+                        return ['error', `Notification Alert has been Deleted.`];
                     },
                     afterComplete: () => {
                         setRedirect('/');
@@ -91,11 +86,7 @@ const SingleNotificationAction = ({
 
             },
             completeArgs: () => {
-                const RegenerateMsg = <div className="nx-toast-wrapper">
-                    <img src={ToasterIcons.regenerated()} alt="" />
-                    <p>Notification Alert has been Regenerated.</p>
-                </div>
-                return ['success', RegenerateMsg];
+                return ['success', 'Notification Alert has been Regenerated.'];
             },
             afterComplete: () => {
                 setRedirect('/');
@@ -105,11 +96,7 @@ const SingleNotificationAction = ({
     };
 
     const onCopy = () => {
-        const CopyMsg = <div className="nx-toast-wrapper">
-            <img src={ToasterIcons.connected()} alt="" />
-            <p>Notification Alert has been Copied to Clipboard.</p>
-        </div>
-        toast.info( CopyMsg, toastDefaultArgs );
+        nxToast.info( `Notification Alert has been Copied to Clipboard.` );
     }
 
     return (

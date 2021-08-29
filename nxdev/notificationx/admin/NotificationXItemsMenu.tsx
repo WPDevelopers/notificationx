@@ -6,8 +6,7 @@ import { useNotificationXContext } from "../hooks";
 // import { SelectControl } from "@wordpress/components";
 import Select from "react-select";
 // import Select from "../../form-builder/src/fields/Select";
-import { toast } from "react-toastify";
-import { toastDefaultArgs, ToasterIcons } from "../core/ToasterMsg";
+import nxToast from "../core/ToasterMsg";
 
 const NotificationXItemsMenu = ({
     notificationx,
@@ -36,6 +35,12 @@ const NotificationXItemsMenu = ({
         ];
     }
     bulkOptions.splice(3, 0, { value: "regenerate", label: "Regenerate" });
+
+    const request = (selectedItem) => {
+        return nxHelper.post(`bulk-action/${action.value}`, {
+            ids: selectedItem,
+        });
+    };
 
     const deleteAction = (selectedItem) => {
         nxHelper.swal({
@@ -90,16 +95,8 @@ const NotificationXItemsMenu = ({
                 }
             },
             completeArgs: (result?) => {
-                const DeleteMsg = (
-                    <div className="nx-toast-wrapper">
-                        <img src={ToasterIcons.deleted()} alt="" />
-                        <p>
-                            {result?.count} notification Alerts have been
-                            Deleted.
-                        </p>
-                    </div>
-                );
-                return ["error", DeleteMsg];
+                return ["deleted", `${result?.all || 0} notification Alerts have been
+                Deleted.`];
             },
             afterComplete: () => {},
         });
@@ -110,16 +107,8 @@ const NotificationXItemsMenu = ({
                 return { ...notice };
             })
         );
-        const RegenerateMsg = (
-            <div className="nx-toast-wrapper">
-                <img src={ToasterIcons.regenerated()} alt="" />
-                <p>
-                    {selectedItem.length} Notification Alerts have been
-                    Regenerated.
-                </p>
-            </div>
-        );
-        toast.info(RegenerateMsg, toastDefaultArgs);
+        nxToast.regenerated(`${result?.count || 0} Notification Alerts have been
+        Regenerated.`);
     };
     const enableAction = (selectedItem, result) => {
         let count = 0;
@@ -144,13 +133,7 @@ const NotificationXItemsMenu = ({
                 disabled: Number(prev.disabled) - count,
             };
         });
-        const EnableMsg = (
-            <div className="nx-toast-wrapper">
-                <img src={ToasterIcons.enabled()} alt="" />
-                <p>{count} Notification Alerts have been Enabled.</p>
-            </div>
-        );
-        toast.info(EnableMsg, toastDefaultArgs);
+        nxToast.enabled(`${count} Notification Alerts have been Enabled.`);
     };
     const disableAction = (selectedItem, result) => {
         let count = 0;
@@ -175,18 +158,7 @@ const NotificationXItemsMenu = ({
                 disabled: Number(prev.disabled) + count,
             };
         });
-        const DisableMsg = (
-            <div className="nx-toast-wrapper">
-                <img src={ToasterIcons.disabled()} alt="" />
-                <p>{count} Notification Alerts have been Disabled.</p>
-            </div>
-        );
-        toast.warning(DisableMsg, toastDefaultArgs);
-    };
-    const request = (selectedItem) => {
-        return nxHelper.post(`bulk-action/${action.value}`, {
-            ids: selectedItem,
-        });
+        nxToast.disabled(`${count} Notification Alerts have been Disabled.`);
     };
 
     const bulkAction = () => {
@@ -232,13 +204,7 @@ const NotificationXItemsMenu = ({
                 }
             })
             .catch((err) => {
-                const ErrorMsg = (
-                    <div className="nx-toast-wrapper">
-                        <img src={ToasterIcons.error()} alt="" />
-                        <p>Unable to complete bulk action.</p>
-                    </div>
-                );
-                toast.error(ErrorMsg, toastDefaultArgs);
+                nxToast.error(`Unable to complete bulk action.`);
             });
     };
 

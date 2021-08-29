@@ -5,10 +5,9 @@ import { isInTheFuture } from "@wordpress/date";
 import nxHelper from "../core/functions";
 import { Redirect } from "react-router";
 import Swal from "sweetalert2";
-import { toast } from "react-toastify";
 import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
-import { toastDefaultArgs, ToasterIcons } from "../core/ToasterMsg";
+import nxToast from "../core/ToasterMsg";
 
 const PublishWidget = (props) => {
     const { title, context, isEdit, setIsLoading, setIsCreated, id, ...rest } = props;
@@ -61,19 +60,11 @@ const PublishWidget = (props) => {
                 nxHelper
                     .delete(`nx/${id}`, { nx_id: id })
                     .then((res) => {
-                        const DeleteMsg = <div className="nx-toast-wrapper">
-                            <img src={ToasterIcons.deleted()} alt="" />
-                            <p>Notification Alert has been Deleted.</p>
-                        </div>
                         if (res) {
-                            toast.error( DeleteMsg, toastDefaultArgs ),
+                            nxToast.error( `Notification Alert has been Deleted.` ),
                             setRedirect('/');
                         } else {
-                            const ErrorMsg = <div className="nx-toast-wrapper">
-                            <img src={ToasterIcons.error()} alt="" />
-                                <p>Oops, Something went wrong. Please try again.</p>
-                            </div>
-                            toast.error( ErrorMsg, toastDefaultArgs );
+                            nxToast.error( `Oops, Something went wrong. Please try again.` );
                         }
                     })
                     .catch((err) => console.error("Delete Error: ", err));

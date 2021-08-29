@@ -363,10 +363,9 @@ class Settings extends UsabilityDynamicsSettings {
                                             'reporting_frequency' => '@reporting_frequency',
                                         ],
                                         'swal' => [
-                                            'title' => 'Successful',
-                                            'text'  => 'Successfully Sent a Test Report in Your Email.',
-                                            'icon'  => 'success',
-                                            'timer' => 2000
+                                            'text'      => 'Successfully Sent a Test Report in Your Email.',
+                                            'icon'      => 'success',
+                                            'autoClose' => 2000
                                         ],
                                     ],
                                 ),

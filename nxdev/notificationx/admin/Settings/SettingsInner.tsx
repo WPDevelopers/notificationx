@@ -3,13 +3,12 @@ import { Redirect, useLocation } from 'react-router-dom';
 import FormBuilder from '../../../form-builder';
 import { useBuilderContext } from '../../../form-builder/src/core/hooks';
 import { Header } from '../../components'
-import nxHelper, { proAlert, toastAlert } from '../../core/functions';
+import nxHelper, { proAlert } from '../../core/functions';
 import { AnalyticsHeader } from '../Analytics';
 import { Documentation } from '.';
 import { InfoIcon } from '../../icons';
 import { useNotificationXContext } from '../../hooks';
-import { toast } from "react-toastify";
-import { toastDefaultArgs, ToasterIcons } from '../../core/ToasterMsg';
+import nxToast, { ToastAlert} from "../../core/ToasterMsg";
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -29,21 +28,13 @@ const SettingsInner = (props) => {
         context.setSubmitting(true);
         nxHelper.post('settings', { ...context.values }).then((res: any) => {
                 if (res?.success) {
-                    const SuccessMsg = <div className="nx-toast-wrapper">
-                        <img src={ToasterIcons.connected()} alt="" />
-                        <p>Changes Saved Successfully.</p>
-                    </div>
-                    toast.info( SuccessMsg, toastDefaultArgs );
+                    nxToast.info( `Changes Saved Successfully.` );
                 }
                 else {
                     throw new Error("Something went wrong.");
                 }
             }).catch(err => {
-                const ErrorMsg = <div className="nx-toast-wrapper">
-                    <img src={ToasterIcons.error()} alt="" />
-                    <p>Oops, Something went wrong. Please try again.</p>
-                </div>
-                toast.error( ErrorMsg, toastDefaultArgs );
+                nxToast.error( `Oops, Something went wrong. Please try again.` );
             })
     },
     [],
@@ -58,7 +49,7 @@ const SettingsInner = (props) => {
         // })
         builder.registerIcons('link', <InfoIcon />);
         builder.registerAlert('pro_alert', proAlert());
-        builder.registerAlert('toast', toastAlert());
+        builder.registerAlert('toast', ToastAlert);
     }, []);
 
     return (

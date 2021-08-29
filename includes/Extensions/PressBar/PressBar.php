@@ -439,6 +439,10 @@ class PressBar extends Extension {
                     'file'         => "elementor.php",
                     'is_installed' => $is_installed,
                 ],
+                'swal' => [
+                    'icon' => 'success',
+                    'text' => 'Successfully Activated',
+                ],
                 'trigger' => '@is_elementor:true',
             ],
         ];

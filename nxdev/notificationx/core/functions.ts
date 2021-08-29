@@ -1,8 +1,7 @@
 
 import apiFetch from "@wordpress/api-fetch";
 import Swal from 'sweetalert2';
-import { toast } from 'react-toastify';
-import { SuccessMsg, ErrorMsg } from './ToasterMsg'
+import { ToastAlert } from './ToasterMsg'
 
 /**
  * apiFetch setup
@@ -76,7 +75,7 @@ class NotificationXHelpers {
                     if (res?.success) {
                         const result = completeAction(res);
                         const [type, message] = completeArgs(result);
-                        _toastAlert(type, message).then(afterComplete);
+                        ToastAlert(type, message).then(afterComplete);
                     }
                 })
                 .catch((err) => console.error("Delete Error: ", err));
@@ -122,39 +121,6 @@ export const proAlert = ( html = null ) => {
         denyButtonText: 'Close',
         html
     });
-}
-
-export const _toastAlert = (type, message) => {
-    type    = type || null;
-    message = message || null;
-    const promise = new Promise((resolve, reject) => {
-        const defaultArgs: any = {
-            position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            onClose: resolve,
-        };
-        //@ts-ignore
-        if (type == 'success') {
-            toast.info( message || SuccessMsg, defaultArgs);
-        }
-        //@ts-ignore
-        if (type == 'error') {
-            toast.error( message || ErrorMsg, defaultArgs);
-        }
-        if(!type){
-            reject();
-        }
-    });
-    return promise;
-}
-
-export const toastAlert = () => {
-    return _toastAlert;
 }
 
 export default nxHelper;

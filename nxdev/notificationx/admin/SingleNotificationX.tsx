@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Toggle from "../components/Toggle";
 import SingleNotificationAction from "./SingleNotificationAction";
 import nxHelper, { proAlert } from "../core/functions";
-import { toastDefaultArgs, ToasterIcons } from "../core/ToasterMsg";
+import nxToast from "../core/ToasterMsg";
 
 import { __ } from "@wordpress/i18n";
 import { ThemePreview } from "../components";
@@ -16,7 +16,6 @@ import moment from "moment";
 import { Link, NavLink } from "react-router-dom";
 import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
-import { toast } from "react-toastify";
 
 const SingleNotificationX = ({
     i,
@@ -81,18 +80,10 @@ const SingleNotificationX = ({
                         })
                     );
                     if (enabled) {
-                        const EnableMsg = <div className="nx-toast-wrapper">
-                            <img src={ToasterIcons.enabled()} alt="" />
-                            <p>Notification Alert has been Enabled.</p>
-                        </div>
-                        toast.info( EnableMsg, toastDefaultArgs );
+                        nxToast.enabled( `Notification Alert has been Enabled.` );
                     }
                     else {
-                        const DisableMsg = <div className="nx-toast-wrapper">
-                            <img src={ToasterIcons.disabled()} alt="" />
-                            <p>Notification Alert has been Disabled.</p>
-                        </div>
-                        toast.warning( DisableMsg, toastDefaultArgs )
+                        nxToast.disabled( `Notification Alert has been Disabled.` )
                     }
                 } else {
                     proAlert(
@@ -105,11 +96,7 @@ const SingleNotificationX = ({
             })
             .catch((err) => {
                 setLoading(false);
-                const ErrorMsg = <div className="nx-toast-wrapper">
-                    <img src={ToasterIcons.error()} alt="" />
-                    <p>Oops, Something went wrong. Please try again.</p>
-                </div>
-                toast.error( ErrorMsg, toastDefaultArgs );
+                nxToast.error( `Oops, Something went wrong. Please try again.` );
             });
     };
     // const [checked, setChecked] = useState(false);
