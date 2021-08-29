@@ -357,6 +357,12 @@ class FrontEnd {
         ]);
 
         foreach ($notifications as $key => $value) {
+            /**
+             * Check for hiding in mobile device
+             */
+            if (!empty($value['hide_on_mobile']) && wp_is_mobile()) {
+                continue;
+            }
             $results[$value['nx_id']] = $value;
         }
         return $results;
