@@ -99,11 +99,11 @@ const SingleNotificationX = ({
                         toast.warning( DisableMsg, toastDefaultArgs )
                     }
                 } else {
-                    const ErrorMsg = <div className="nx-toast-wrapper">
-                        <ErrorToastIcon />
-                        <p>Oops, Something went wrong. Please try again.</p>
-                    </div>
-                    toast.error( ErrorMsg, toastDefaultArgs );
+                    // const ErrorMsg = <div className="nx-toast-wrapper">
+                    //     <ErrorToastIcon />
+                    //     <p>Oops, Something went wrong. Please try again.</p>
+                    // </div>
+                    // toast.error( ErrorMsg, toastDefaultArgs );
                     proAlert(
                         enabled
                             ? "You need to upgrade to the <strong><a target='_blank' href='http://wpdeveloper.net/in/upgrade-notificationx' style='color:red'>Premium Version</a></strong> to use multiple notification."

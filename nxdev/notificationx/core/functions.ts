@@ -74,8 +74,8 @@ class NotificationXHelpers {
             if (result.isConfirmed) {
                 confirmedCallback().then((res) => {
                     if (res?.success) {
-                        completeAction(res);
-                        const [type, message] = completeArgs();
+                        const result = completeAction(res);
+                        const [type, message] = completeArgs(result);
                         _toastAlert(type, message).then(afterComplete);
                     }
                 })

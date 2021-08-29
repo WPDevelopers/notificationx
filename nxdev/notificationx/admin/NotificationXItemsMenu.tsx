@@ -44,6 +44,132 @@ const NotificationXItemsMenu = ({
     }
     bulkOptions.splice(3, 0, { value: "regenerate", label: "Regenerate" });
 
+    const deleteAction = (selectedItem) => {
+        nxHelper.swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'error',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Delete It',
+            cancelButtonText: 'No, Cancel',
+            reverseButtons: true,
+            customClass: { actions: 'nx-delete-actions' },
+            confirmedCallback: () => {
+                setLoading(true);
+                return request(selectedItem);
+            },
+            completeAction: (result) => {
+                setCheckAll(false);
+                setLoading(false);
+                if(result?.success){
+                    const count = {
+                        all : 0,
+                        enabled : 0,
+                        disabled: 0,
+                    }
+                    updateNotice(notices => notices.filter((notice) => {
+                        const isDeleted = result?.count?.[notice.nx_id] && selectedItem.indexOf(parseInt(notice.nx_id)) !== -1;
+                        if(isDeleted){
+                            // if deleted then count them in.
+                            count.all  += 1;
+                            count.enabled  += notice.enabled ? 1 : 0;
+                            count.disabled += !notice.enabled ? 1 : 0;
+                        }
+                        return !isDeleted;
+                    }));
+
+                    setTotalItems((prev) => {
+                        return {
+                            all     : Number(prev.all) - count.all,
+                            enabled : Number(prev.enabled)  - count.enabled,
+                            disabled: Number(prev.disabled) - count.disabled,
+                        };
+                    });
+
+                    return count;
+                }
+                else {
+                    throw new Error("Something went wrong.");
+                }
+            },
+            completeArgs: (result?) => {
+                const DeleteMsg = <div className="nx-toast-wrapper">
+                    <DeleteToastIcon />
+                    <p>{result?.all} notification Alerts have been Deleted.</p>
+                </div>
+                return ['error', DeleteMsg];
+            },
+            afterComplete: () => {
+            }
+
+        });
+
+    }
+    const regenerateAction = (selectedItem, result) => {
+
+        updateNotice(notices => notices.map((notice) => {
+            return {...notice};
+        }));
+        const RegenerateMsg = <div className="nx-toast-wrapper">
+            <RegenerateToastIcon />
+            <p>{result.count} Notification Alerts have been Regenerated.</p>
+        </div>
+        toast.info( RegenerateMsg, toastDefaultArgs );
+    }
+    const enableAction = (selectedItem, result) => {
+
+        let count = 0;
+        updateNotice(notices => notices.map((notice) => {
+            const isSelected = result.count[notice.nx_id] && selectedItem.indexOf(parseInt(notice.nx_id)) !== -1;
+            if(isSelected){
+                count  += notice.enabled == result.count[notice.nx_id] ? 0 : 1;
+                return {...notice, enabled: true};
+            }
+            return {...notice};
+        }));
+
+        setTotalItems((prev) => {
+            return {
+                all     : Number(prev.all),
+                enabled : Number(prev.enabled)  + count,
+                disabled: Number(prev.disabled) - count,
+            };
+        });
+        const EnableMsg = <div className="nx-toast-wrapper">
+            <EnableToastIcon />
+            <p>{count} Notification Alerts have been Enabled.</p>
+        </div>
+        toast.info( EnableMsg , toastDefaultArgs );
+    }
+    const disableAction = (selectedItem, result) => {
+
+        let count = 0;
+        updateNotice(notices => notices.map((notice) => {
+            const isSelected = result?.count?.[notice.nx_id] && selectedItem.indexOf(parseInt(notice.nx_id)) !== -1;
+            if(isSelected){
+                count  += notice.enabled == result.count[notice.nx_id] ? 1 : 0;
+                return {...notice, enabled: false};
+            }
+            return {...notice};
+        }));
+
+        setTotalItems((prev) => {
+            return {
+                all     : Number(prev.all),
+                enabled : Number(prev.enabled)  - count,
+                disabled: Number(prev.disabled) + count,
+            };
+        });
+        const DisableMsg = <div className="nx-toast-wrapper">
+            <DisableToastIcon />
+            <p>{count} Notification Alerts have been Disabled.</p>
+        </div>
+        toast.warning( DisableMsg, toastDefaultArgs );
+    }
+    const request = (selectedItem) => {
+        return nxHelper.post(`bulk-action/${action.value}`, {ids: selectedItem});
+    }
+
     const bulkAction = () => {
         if(!action.value || loading){
             return;
@@ -59,100 +185,25 @@ const NotificationXItemsMenu = ({
             return;
         }
 
+        if(action.value == 'delete'){
+            deleteAction(selectedItem);
+            return;
+        }
+
         setLoading(true);
-        nxHelper.post(`bulk-action/${action.value}`, {
-            ids: selectedItem,
-        }).then((result: any) => {
-            console.log(result);
+        request(selectedItem).then((result: any) => {
             setCheckAll(false);
             setLoading(false);
+
             if(result?.success){
-                if(action.value == 'delete'){
-                    const count = {
-                        enabled : 0,
-                        disabled: 0,
-                    }
-                    updateNotice(notices => notices.filter((notice) => {
-                        const isDeleted = result?.count?.[notice.nx_id] && selectedItem.indexOf(parseInt(notice.nx_id)) !== -1;
-                        if(isDeleted){
-                            // if deleted then count them in.
-                            count.enabled  += notice.enabled ? 1 : 0;
-                            count.disabled += !notice.enabled ? 1 : 0;
-                        }
-                        return !isDeleted;
-                    }));
-
-                    setTotalItems((prev) => {
-                        return {
-                            all     : Number(prev.all) - result?.count,
-                            enabled : Number(prev.enabled)  - count.enabled,
-                            disabled: Number(prev.disabled) - count.disabled,
-                        };
-                    });
-
-                    const DeleteMsg = <div className="nx-toast-wrapper">
-                        <DeleteToastIcon />
-                        <p>{result?.count} notification Alerts have been Deleted.</p>
-                    </div>
-                    toast.error( DeleteMsg, toastDefaultArgs );
-                }
                 if(action.value == 'regenerate'){
-                    updateNotice(notices => notices.map((notice) => {
-                        return {...notice};
-                    }));
-                    const RegenerateMsg = <div className="nx-toast-wrapper">
-                        <RegenerateToastIcon />
-                        <p>{selectedItem.length} Notification Alerts have been Regenerated.</p>
-                    </div>
-                    toast.info( RegenerateMsg, toastDefaultArgs );
+                    regenerateAction(selectedItem, result);
                 }
                 if(action.value == 'enable'){
-                    let count = 0;
-                    updateNotice(notices => notices.map((notice) => {
-                        const isSelected = result.count[notice.nx_id] && selectedItem.indexOf(parseInt(notice.nx_id)) !== -1;
-                        if(isSelected){
-                            count  += notice.enabled == result.count[notice.nx_id] ? 0 : 1;
-                            return {...notice, enabled: true};
-                        }
-                        return {...notice};
-                    }));
-
-                    setTotalItems((prev) => {
-                        return {
-                            all     : Number(prev.all),
-                            enabled : Number(prev.enabled)  + count,
-                            disabled: Number(prev.disabled) - count,
-                        };
-                    });
-                    const EnableMsg = <div className="nx-toast-wrapper">
-                        <EnableToastIcon />
-                        <p>{count} Notification Alerts have been Enabled.</p>
-                    </div>
-                    toast.info( EnableMsg , toastDefaultArgs );
+                    enableAction(selectedItem, result)
                 }
                 if(action.value == 'disable'){
-                    let count = 0;
-                    updateNotice(notices => notices.map((notice) => {
-                        const isSelected = result?.count?.[notice.nx_id] && selectedItem.indexOf(parseInt(notice.nx_id)) !== -1;
-                        if(isSelected){
-                            count  += notice.enabled == result.count[notice.nx_id] ? 1 : 0;
-                            return {...notice, enabled: false};
-                        }
-                        return {...notice};
-                    }));
-
-                    setTotalItems((prev) => {
-                        return {
-                            all     : Number(prev.all),
-                            enabled : Number(prev.enabled)  - count,
-                            disabled: Number(prev.disabled) + count,
-                        };
-                    });
-                    const DisableMsg = <div className="nx-toast-wrapper">
-                        <DisableToastIcon />
-                        <p>{count} Notification Alerts have been Disabled.</p>
-                    </div>
-                    toast.warning( DisableMsg, toastDefaultArgs );
+                    disableAction(selectedItem, result);
                 }
             }
             else {
