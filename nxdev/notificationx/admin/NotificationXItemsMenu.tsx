@@ -7,12 +7,7 @@ import { useNotificationXContext } from "../hooks";
 import Select from 'react-select';
 // import Select from "../../form-builder/src/fields/Select";
 import { toast } from "react-toastify";
-import DeleteToastIcon from "../icons/Deleted";
-import RegenerateToastIcon from "../icons/Regenerated";
-import EnableToastIcon from "../icons/Enabled";
-import DisableToastIcon from "../icons/NXDisable";
-import ErrorToastIcon from "../icons/Error";
-import { toastDefaultArgs } from "../core/ToasterMsg";
+import { toastDefaultArgs, ToasterIcons } from "../core/ToasterMsg";
 
 const NotificationXItemsMenu = ({
     notificationx,
@@ -91,7 +86,7 @@ const NotificationXItemsMenu = ({
                     });
 
                     const DeleteMsg = <div className="nx-toast-wrapper">
-                        <DeleteToastIcon />
+                        <img src={ToasterIcons.deleted()} alt="" />
                         <p>{result?.count} notification Alerts have been Deleted.</p>
                     </div>
                     toast.error( DeleteMsg, toastDefaultArgs );
@@ -101,7 +96,7 @@ const NotificationXItemsMenu = ({
                         return {...notice};
                     }));
                     const RegenerateMsg = <div className="nx-toast-wrapper">
-                        <RegenerateToastIcon />
+                        <img src={ToasterIcons.regenerated()} alt="" />
                         <p>{selectedItem.length} Notification Alerts have been Regenerated.</p>
                     </div>
                     toast.info( RegenerateMsg, toastDefaultArgs );
@@ -125,7 +120,7 @@ const NotificationXItemsMenu = ({
                         };
                     });
                     const EnableMsg = <div className="nx-toast-wrapper">
-                        <EnableToastIcon />
+                        <img src={ToasterIcons.enabled()} alt="" />
                         <p>{count} Notification Alerts have been Enabled.</p>
                     </div>
                     toast.info( EnableMsg , toastDefaultArgs );
@@ -149,7 +144,7 @@ const NotificationXItemsMenu = ({
                         };
                     });
                     const DisableMsg = <div className="nx-toast-wrapper">
-                        <DisableToastIcon />
+                        <img src={ToasterIcons.disabled()} alt="" />
                         <p>{count} Notification Alerts have been Disabled.</p>
                     </div>
                     toast.warning( DisableMsg, toastDefaultArgs );
@@ -160,7 +155,7 @@ const NotificationXItemsMenu = ({
             }
         }).catch(err => {
             const ErrorMsg = <div className="nx-toast-wrapper">
-                <ErrorToastIcon />
+                <img src={ToasterIcons.error()} alt="" />
                 <p>Unable to complete bulk action.</p>
             </div>
             toast.error( ErrorMsg, toastDefaultArgs );

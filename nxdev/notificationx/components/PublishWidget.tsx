@@ -8,9 +8,7 @@ import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
-import DeleteToastIcon from "../icons/Deleted";
-import ErrorToastIcon from "../icons/Error";
-import { toastDefaultArgs } from "../core/ToasterMsg";
+import { toastDefaultArgs, ToasterIcons } from "../core/ToasterMsg";
 
 const PublishWidget = (props) => {
     const { title, context, isEdit, setIsLoading, setIsCreated, id, ...rest } = props;
@@ -64,7 +62,7 @@ const PublishWidget = (props) => {
                     .delete(`nx/${id}`, { nx_id: id })
                     .then((res) => {
                         const DeleteMsg = <div className="nx-toast-wrapper">
-                            <DeleteToastIcon />
+                            <img src={ToasterIcons.deleted()} alt="" />
                             <p>Notification Alert has been Deleted.</p>
                         </div>
                         if (res) {
@@ -72,7 +70,7 @@ const PublishWidget = (props) => {
                             setRedirect('/');
                         } else {
                             const ErrorMsg = <div className="nx-toast-wrapper">
-                                <ErrorToastIcon />
+                            <img src={ToasterIcons.error()} alt="" />
                                 <p>Oops, Something went wrong. Please try again.</p>
                             </div>
                             toast.error( ErrorMsg, toastDefaultArgs );
