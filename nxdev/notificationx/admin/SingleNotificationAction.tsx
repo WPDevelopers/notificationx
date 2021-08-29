@@ -2,15 +2,11 @@ import React, { useCallback, useState } from 'react'
 import { __ } from '@wordpress/i18n';
 import { Link, Redirect } from 'react-router-dom';
 import nxHelper from '../core/functions';
-import { useBuilderContext } from '../../form-builder';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useNotificationXContext } from '../hooks';
 import classNames from 'classnames';
 import { toast } from "react-toastify";
-import DeleteToastIcon from "../icons/Deleted";
-import RegenerateToastIcon from "../icons/Regenerated";
-import ConnectedToastIcon from "../icons/ConnectedSuccessful";
-import { toastDefaultArgs } from '../core/ToasterMsg';
+import { toastDefaultArgs, ToasterIcons } from '../core/ToasterMsg';
 
 const SingleNotificationAction = ({
     id,
@@ -62,7 +58,7 @@ const SingleNotificationAction = ({
                     },
                     completeArgs: () => {
                         const DeleteMsg = <div className="nx-toast-wrapper">
-                            <DeleteToastIcon />
+                            <img src={ToasterIcons.deleted()} alt="" />
                             <p>Notification Alert has been Deleted.</p>
                         </div>
                         return ['error', DeleteMsg];
@@ -96,7 +92,7 @@ const SingleNotificationAction = ({
             },
             completeArgs: () => {
                 const RegenerateMsg = <div className="nx-toast-wrapper">
-                    <RegenerateToastIcon />
+                    <img src={ToasterIcons.regenerated()} alt="" />
                     <p>Notification Alert has been Regenerated.</p>
                 </div>
                 return ['success', RegenerateMsg];
@@ -110,7 +106,7 @@ const SingleNotificationAction = ({
 
     const onCopy = () => {
         const CopyMsg = <div className="nx-toast-wrapper">
-            <ConnectedToastIcon />
+            <img src={ToasterIcons.connected()} alt="" />
             <p>Notification Alert has been Copied to Clipboard.</p>
         </div>
         toast.info( CopyMsg, toastDefaultArgs );

@@ -9,9 +9,7 @@ import { Documentation } from '.';
 import { InfoIcon } from '../../icons';
 import { useNotificationXContext } from '../../hooks';
 import { toast } from "react-toastify";
-import ConnectedToastIcon from "../../icons/ConnectedSuccessful";
-import ErrorToastIcon from "../../icons/Error";
-import { toastDefaultArgs } from '../../core/ToasterMsg';
+import { toastDefaultArgs, ToasterIcons } from '../../core/ToasterMsg';
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -32,7 +30,7 @@ const SettingsInner = (props) => {
         nxHelper.post('settings', { ...context.values }).then((res: any) => {
                 if (res?.success) {
                     const SuccessMsg = <div className="nx-toast-wrapper">
-                        <ConnectedToastIcon />
+                        <img src={ToasterIcons.connected()} alt="" />
                         <p>Changes Saved Successfully.</p>
                     </div>
                     toast.info( SuccessMsg, toastDefaultArgs );
@@ -42,7 +40,7 @@ const SettingsInner = (props) => {
                 }
             }).catch(err => {
                 const ErrorMsg = <div className="nx-toast-wrapper">
-                    <ErrorToastIcon />
+                    <img src={ToasterIcons.error()} alt="" />
                     <p>Oops, Something went wrong. Please try again.</p>
                 </div>
                 toast.error( ErrorMsg, toastDefaultArgs );

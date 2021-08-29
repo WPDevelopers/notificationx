@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import Toggle from "../components/Toggle";
 import SingleNotificationAction from "./SingleNotificationAction";
 import nxHelper, { proAlert } from "../core/functions";
-import AlertEnableIcon from "../icons/Enabled";
-import { toastDefaultArgs } from "../core/ToasterMsg";
+import { toastDefaultArgs, ToasterIcons } from "../core/ToasterMsg";
 
 import { __ } from "@wordpress/i18n";
 import { ThemePreview } from "../components";
@@ -18,9 +17,6 @@ import { Link, NavLink } from "react-router-dom";
 import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
 import { toast } from "react-toastify";
-import EnableToastIcon from "../icons/Enabled";
-import DisableToastIcon from "../icons/NXDisable";
-import ErrorToastIcon from "../icons/Error";
 
 const SingleNotificationX = ({
     i,
@@ -86,24 +82,19 @@ const SingleNotificationX = ({
                     );
                     if (enabled) {
                         const EnableMsg = <div className="nx-toast-wrapper">
-                            <EnableToastIcon />
+                            <img src={ToasterIcons.enabled()} alt="" />
                             <p>Notification Alert has been Enabled.</p>
                         </div>
                         toast.info( EnableMsg, toastDefaultArgs );
                     }
                     else {
                         const DisableMsg = <div className="nx-toast-wrapper">
-                            <DisableToastIcon />
+                            <img src={ToasterIcons.disabled()} alt="" />
                             <p>Notification Alert has been Disabled.</p>
                         </div>
                         toast.warning( DisableMsg, toastDefaultArgs )
                     }
                 } else {
-                    // const ErrorMsg = <div className="nx-toast-wrapper">
-                    //     <ErrorToastIcon />
-                    //     <p>Oops, Something went wrong. Please try again.</p>
-                    // </div>
-                    // toast.error( ErrorMsg, toastDefaultArgs );
                     proAlert(
                         enabled
                             ? "You need to upgrade to the <strong><a target='_blank' href='http://wpdeveloper.net/in/upgrade-notificationx' style='color:red'>Premium Version</a></strong> to use multiple notification."
@@ -115,7 +106,7 @@ const SingleNotificationX = ({
             .catch((err) => {
                 setLoading(false);
                 const ErrorMsg = <div className="nx-toast-wrapper">
-                    <ErrorToastIcon />
+                    <img src={ToasterIcons.error()} alt="" />
                     <p>Oops, Something went wrong. Please try again.</p>
                 </div>
                 toast.error( ErrorMsg, toastDefaultArgs );
