@@ -56,7 +56,7 @@ const SingleNotificationAction = ({
                         }
                     },
                     completeArgs: () => {
-                        return ['error', `Notification Alert has been Deleted.`];
+                        return ['deleted', `Notification Alert has been Deleted.`];
                     },
                     afterComplete: () => {
                         setRedirect('/');
@@ -86,7 +86,7 @@ const SingleNotificationAction = ({
 
             },
             completeArgs: () => {
-                return ['success', 'Notification Alert has been Regenerated.'];
+                return ['regenerated', 'Notification Alert has been Regenerated.'];
             },
             afterComplete: () => {
                 setRedirect('/');
