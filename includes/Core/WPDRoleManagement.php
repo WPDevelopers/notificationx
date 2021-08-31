@@ -51,16 +51,18 @@ class WPDRoleManagement {
         global $wp_roles;
         $all_roles = $wp_roles->role_objects;
 
-        foreach($all_roles as $role_name => $role){
-            foreach ($cap_roles as $cap => $_role) {
-                if($role_name == 'administrator'){
-                    $role->add_cap($cap);
-                }
-                elseif(in_array($role_name, $_role['roles'])){
-                    $role->add_cap($cap);
-                }
-                else{
-                    $role->remove_cap($cap);
+        if(is_array($all_roles)){
+            foreach($all_roles as $role_name => $role){
+                foreach ($cap_roles as $cap => $_role) {
+                    if($role_name == 'administrator'){
+                        $role->add_cap($cap);
+                    }
+                    elseif(in_array($role_name, $_role['roles'])){
+                        $role->add_cap($cap);
+                    }
+                    else{
+                        $role->remove_cap($cap);
+                    }
                 }
             }
         }
