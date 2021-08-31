@@ -1,7 +1,5 @@
-import React, { useState } from 'react'
-import { useNotificationXContext } from '../hooks';
+import React from 'react'
 import { toast } from 'react-toastify';
-import { isObject } from '../../form-builder/src/core/utils';
 
 const getToasterIcon = (url) => {
     return (notificationxTabs?.assets?.admin + url + '?version=' + Math.random());
@@ -38,7 +36,7 @@ export const ConnectedMsg = (msg) => {
 
 export const ErrorMsg = (msg) => {
     return (
-            <div className="nx-toast-wrapper">
+        <div className="nx-toast-wrapper">
             <img src={ToasterIcons.error()} alt="" />
             <p>{msg}</p>
         </div>
@@ -82,11 +80,11 @@ export const DeletedMsg = (msg) => {
 
 
 export const ToastAlert = (type, message, args?) => {
-    type    = type || null;
+    type = type || null;
     message = message || null;
     const promise = new Promise((resolve, reject) => {
         args = args || {};
-        const defaultArgs = {...toastDefaultArgs, ...args, onClose: resolve}
+        const defaultArgs = { ...toastDefaultArgs, ...args, onClose: resolve }
         if (type == 'success' || type == 'connected') {
             toast.info(ConnectedMsg(message), defaultArgs);
         }
@@ -105,7 +103,7 @@ export const ToastAlert = (type, message, args?) => {
         if (type == 'deleted') {
             toast.error(DeletedMsg(message), defaultArgs);
         }
-        if(!type){
+        if (!type) {
             reject();
         }
     });
@@ -114,13 +112,13 @@ export const ToastAlert = (type, message, args?) => {
 
 
 const nxToast = {
-    connected  : (message, args?) => ToastAlert('connected', message, args),
-    info       : (message, args?) => ToastAlert('connected', message, args),
-    error      : (message, args?) => ToastAlert('error', message, args),
+    connected: (message, args?) => ToastAlert('connected', message, args),
+    info: (message, args?) => ToastAlert('connected', message, args),
+    error: (message, args?) => ToastAlert('error', message, args),
     regenerated: (message, args?) => ToastAlert('regenerated', message, args),
-    enabled    : (message, args?) => ToastAlert('enabled', message, args),
-    disabled   : (message, args?) => ToastAlert('disabled', message, args),
-    warning    : (message, args?) => ToastAlert('disabled', message, args),
-    deleted    : (message, args?) => ToastAlert('deleted', message, args),
+    enabled: (message, args?) => ToastAlert('enabled', message, args),
+    disabled: (message, args?) => ToastAlert('disabled', message, args),
+    warning: (message, args?) => ToastAlert('disabled', message, args),
+    deleted: (message, args?) => ToastAlert('deleted', message, args),
 }
 export default nxToast;

@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import NavLink from "../components/NavLink";
 import nxHelper from "../core/functions";
 import { useNotificationXContext } from "../hooks";
-// import { SelectControl } from "@wordpress/components";
 import Select from "react-select";
-// import Select from "../../form-builder/src/fields/Select";
 import nxToast from "../core/ToasterMsg";
 
 const NotificationXItemsMenu = ({
@@ -70,7 +67,7 @@ const NotificationXItemsMenu = ({
                             const isDeleted =
                                 result?.count?.[notice.nx_id] &&
                                 selectedItem.indexOf(parseInt(notice.nx_id)) !==
-                                    -1;
+                                -1;
                             if (isDeleted) {
                                 // if deleted then count them in.
                                 count.all += 1;
@@ -98,7 +95,7 @@ const NotificationXItemsMenu = ({
                 return ["deleted", `${result?.all || 0} notification Alerts have been
                 Deleted.`];
             },
-            afterComplete: () => {},
+            afterComplete: () => { },
         });
     };
     const regenerateAction = (selectedItem, result) => {
