@@ -76,12 +76,12 @@ class EmailSubscription extends Types {
             'mailchimp_template_new' => [
                 'first_param' => GlobalFields::get_instance()->common_name_fields(),
                 'third_param' => [
-                    'tag_title'           => __('List Title', 'notificationx-pro'),
-                    // 'tag_anonymous_title' => __('Anonymous Title' , 'notificationx-pro'),
+                    'tag_title'           => __('List Title', 'notificationx'),
+                    // 'tag_anonymous_title' => __('Anonymous Title' , 'notificationx'),
                 ],
                 'fourth_param' => [
-                    'tag_time' => __('Definite Time', 'notificationx-pro'),
-                    'tag_sometime' => __('Some time ago', 'notificationx-pro'),
+                    'tag_time' => __('Definite Time', 'notificationx'),
+                    'tag_sometime' => __('Some time ago', 'notificationx'),
                 ],
                 '_themes' => [
                     "{$this->id}_theme-one",

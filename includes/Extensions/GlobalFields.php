@@ -520,7 +520,7 @@ class GlobalFields {
                                 ],
                                 'random_order' => array(
                                     'name'        => 'random_order',
-                                    'label'       => __('Random Order', 'notificationx-pro'),
+                                    'label'       => __('Random Order', 'notificationx'),
                                     'type'        => 'checkbox',
                                     'priority'    => 93,
                                     'default'     => 0,
