@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce notification, notifica
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -207,10 +207,17 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
+= 2.0.2 - 31/08/2021 =
+- Fixed: Notification alerts showing on mobile devices despite being disabled
+- Fixed: Notification alerts showing in reversed order
+- Added: Bulk actions for all notifications
+- Updated: Toast messages
+- Few minor bug fix and improvements
+
 = 2.0.1 - 17/08/2021 =
 
-Fixed: DOMContentLoaded moved from window to document
-Few minor bug fix and improvements
+- Fixed: DOMContentLoaded moved from window to document
+- Few minor bug fix and improvements
 
 = 2.0.0 - 12/08/2021 =
 
