@@ -23,6 +23,7 @@ const config = {
     module: {
         ...defaultConfig.module,
         rules: [
+            ...defaultConfig.module.rules,
             {
                 test: /\.tsx?$/,
                 use: "ts-loader",
@@ -31,8 +32,8 @@ const config = {
             {
                 test: /\.(jpg|png|gif|svg)$/,
                 use: "url-loader",
+                type: "asset/source",
             },
-            ...defaultConfig.module.rules,
         ],
     },
     resolve: {
@@ -69,8 +70,7 @@ const config = {
             ],
         }),
         new MiniCSSExtractPlugin({
-            esModule: false,
-            moduleFilename: (chunk) => {
+            filename: ({ chunk }) => {
                 // if (!isProduction) {
                 //     return `${chunk.name}.css`;
                 // }
