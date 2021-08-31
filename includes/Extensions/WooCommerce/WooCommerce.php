@@ -303,11 +303,19 @@ class WooCommerce extends Extension {
         }
 
         $new_order['ip'] = $order->get_customer_ip_address();
+        $user_ip_data = $this->remote_get('http://ip-api.com/json/' . $new_order['ip']);
+        if ($user_ip_data) {
+            $new_order['country'] = isset($user_ip_data->country) ? $user_ip_data->country : '';
+            $new_order['city']    = isset($user_ip_data->city) ? $user_ip_data->city : '';
+            $new_order['state']   = isset($user_ip_data->state) ? $user_ip_data->state : '';
+            $new_order['lat']     = isset( $user_ip_data->lat ) ? $user_ip_data->lat : '';
+            $new_order['lon']     = isset( $user_ip_data->lon ) ? $user_ip_data->lon : '';
+        }
         $product_data = $this->ready_product_data($item->get_data());
         if (!empty($product_data)) {
             $new_order['order_id']   = is_int($order_id) ? $order_id : $order_id->get_id();
             $new_order['product_id'] = $item->get_product_id();
-            $new_order['title']      = $product_data['title'];
+            $new_order['title']      = strip_tags($product_data['title']);
             $new_order['link']       = $product_data['link'];
         }
         $new_order['timestamp'] = $date->getTimestamp();

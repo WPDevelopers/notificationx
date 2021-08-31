@@ -58,7 +58,7 @@ class WPComments extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-        if (!$this->is_active($this->id)) {
+        if (!$this->is_active()) {
             return;
         }
     }
@@ -72,7 +72,7 @@ class WPComments extends Extension {
      */
     public function public_actions() {
         parent::public_actions();
-        if (!$this->is_active($this->id)) {
+        if (!$this->is_active()) {
             return;
         }
         add_filter("nx_filtered_entry_{$this->id}", array($this, 'conversion_data'), 10, 2);
@@ -217,6 +217,8 @@ class WPComments extends Extension {
             $comment_data['country'] = isset($user_ip_data->country) ? $user_ip_data->country : '';
             $comment_data['city']    = isset($user_ip_data->city) ? $user_ip_data->city : '';
             $comment_data['state']    = isset($user_ip_data->state) ? $user_ip_data->state : '';
+            $comment_data['lat']     = isset( $user_ip_data->lat ) ? $user_ip_data->lat : '';
+            $comment_data['lon']     = isset( $user_ip_data->lon ) ? $user_ip_data->lon : '';
         }
 
         if ($comment->user_id) {

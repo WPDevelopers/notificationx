@@ -43,13 +43,11 @@ class QuickBuild {
      * @return void
      */
     public function menu() {
-		$nx_settings_caps = apply_filters( 'nx_settings_caps', 'delete_users', 'settings_roles' );
-        add_submenu_page('nx-admin', 'Quick Builder', 'Quick Builder', $nx_settings_caps, 'nx-admin#/nx-builder', '__return_null', 5);
+        add_submenu_page('nx-admin', 'Quick Builder', 'Quick Builder', 'edit_notificationx', 'nx-admin#/nx-builder', '__return_null', 5);
     }
 
     public function tabs() {
         $configs = GlobalFields::get_instance()->tabs();
-        $nx_settings_caps = apply_filters( 'nx_settings_caps', 'delete_users', 'settings_roles' );
 
         $tabs = [
             'source_tab'  => $configs['tabs']['source_tab'],
@@ -109,7 +107,7 @@ class QuickBuild {
 
         return [
             'id'            => 'notificationx_metabox_quick_builder_wrapper',
-            'redirect'      => !current_user_can( $nx_settings_caps ),
+            'redirect'      => !current_user_can( 'edit_notificationx' ),
             'title'         => __('NotificationX', 'notificationx'),
             'is_pro_active' => NotificationX::get_instance()->is_pro(),
             'config'        => [

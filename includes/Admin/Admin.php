@@ -83,17 +83,16 @@ class Admin {
      * @return void
      */
     public function menu(){
-		$nx_create_notification = apply_filters( 'nx_create_notification', 'edit_posts', 'notification_roles' );
         add_menu_page(
             'NotificationX',
             'NotificationX',
-            $nx_create_notification, // User Permision.
+            'read_notificationx', // User Permision.
             'nx-admin',
             array( $this, 'views' ),
             self::ASSET_URL . 'images/logo-icon.svg',
             80
         );
-		add_submenu_page( 'nx-admin', 'All NotificationX', 'All NotificationX', $nx_create_notification, 'nx-admin', null, 1 );
+		add_submenu_page( 'nx-admin', 'All NotificationX', 'All NotificationX', 'read_notificationx', 'nx-admin', null, 1 );
     }
 
     /**
@@ -146,7 +145,9 @@ class Admin {
         if (!empty($extension) && method_exists($extension, 'get_notification_ready') && $extension->is_active(false)) {
             Entries::get_instance()->delete_entries($post_id);
             $result = $extension->get_notification_ready($post, $post_id);
+            return true;
         }
+        return false;
     }
 
     public function admin_notices(){

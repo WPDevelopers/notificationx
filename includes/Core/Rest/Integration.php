@@ -46,12 +46,29 @@ class Integration {
         register_rest_route( $this->namespace, '/api-connect', array(
             'methods'   => WP_REST_Server::EDITABLE,
             'callback'  => array( $this, 'api_connect' ),
-            'permission_callback' => array($this, 'check_permission'),
+            'permission_callback' => array($this, 'settings_permission'),
         ));
 
         // calls from integration provider.
         register_rest_route(
             $this->namespace,
+            '/' . $this->rest_base . '/(?P<id>[\d]+)',
+            array(
+                array(
+                    'methods'             => WP_REST_Server::READABLE,
+                    'callback'            => array($this, 'get_response'),
+                    'permission_callback' => '__return_true',
+                ),
+                array(
+                    'methods'             => WP_REST_Server::CREATABLE,
+                    'callback'            => array($this, 'save_response'),
+                    'permission_callback' => '__return_true',
+                ),
+            )
+        );
+        // OLD Fallback for Zapier
+        register_rest_route(
+            "notificationx",
             '/' . $this->rest_base . '/(?P<id>[\d]+)',
             array(
                 array(
@@ -125,7 +142,7 @@ class Integration {
      */
     public function api_connect( \WP_REST_Request $request ){
         $params = $request->get_params();
-        $source = $params['source'];
+        $source = !empty($params['source']) ? $params['source'] : '';
         /**
          * @var Extension
          */
@@ -133,16 +150,16 @@ class Integration {
         if($ext && method_exists($ext, 'connect')){
             return $ext->connect($params);
         }
+        else{
+            $result = apply_filters("nx_api_connect_$source", null, $params);
+            if($result){
+                return $result;
+            }
+        }
         return REST::get_instance()->error();
     }
 
-    /**
-     * Check if a given request has access to get items
-     *
-     * @param \WP_REST_Request $request Full data about the request.
-     * @return \WP_Error|bool
-     */
-    public function check_permission( $request ) {
-        return current_user_can( 'edit_posts' );
+    public function settings_permission( $request ) {
+        return current_user_can('edit_notificationx_settings');
     }
 }

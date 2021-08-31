@@ -41,8 +41,7 @@ class Analytics {
      * @return void
      */
     public function menu() {
-        $nx_analytics_caps = apply_filters( 'nx_analytics_caps', 'administrator', 'analytics_roles' );
-        add_submenu_page('nx-admin', 'Analytics', 'Analytics', $nx_analytics_caps, 'nx-admin#/analytics', '__return_null', 3);
+        add_submenu_page('nx-admin', 'Analytics', 'Analytics', 'read_notificationx_analytics', 'nx-admin#/analytics', '__return_null', 3);
     }
 
     public function get_stats($args = []) {

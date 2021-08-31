@@ -32,12 +32,6 @@ class PostType {
     public $_edit_link = "admin.php?page=nx-edit&post=%d";
 
     /**
-     * Assets Path and URL
-     */
-    const ASSET_URL  = NOTIFICATIONX_ASSETS . 'admin/';
-    const ASSET_PATH = NOTIFICATIONX_ASSETS_PATH . 'admin/';
-
-    /**
      * Initially Invoked when initialized.
      * @hook init
      */
@@ -57,22 +51,9 @@ class PostType {
      * @return void
      */
     public function menu() {
-        $nx_create_notification = apply_filters( 'nx_create_notification', 'edit_posts', 'notification_roles' );
-        add_submenu_page('nx-admin', 'Add New', 'Add New', $nx_create_notification, 'nx-admin#/add-new', [$this, 'new_post'], 20);
+        add_submenu_page('nx-admin', 'Add New', 'Add New', 'edit_notificationx', 'nx-admin#/add-new', [$this, 'new_post'], 20);
     }
-    /**
-     * Get File Modification Time or URL
-     *
-     * @param string $file  File relative path for Admin
-     * @param boolean $url  true for URL return
-     * @return void|string|integer
-     */
-    public function file( $file, $url = false ){
-        if( $url ) {
-            return self::ASSET_URL . $file;
-        }
-        return filemtime( self::ASSET_PATH . $file );
-    }
+
     /**
      * Register scripts and styles.
      *
@@ -88,34 +69,30 @@ class PostType {
 
         $tabs = $this->get_localize_scripts();
 
-        $d = include_once self::ASSET_PATH . '/js/admin.asset.php';
+        $d = include_once Helper::file('admin/js/admin.asset.php');
 
         wp_enqueue_script(
             'notificationx-admin',
-            $this->file( 'js/admin.js', true ),
+            Helper::file( 'admin/js/admin.js', true ),
             $d['dependencies'],
             $d['version'],
             true
         );
         wp_localize_script('notificationx-admin', 'notificationxTabs', $tabs);
-        wp_enqueue_style( 'notificationx-admin', $this->file( 'css/admin.css', true ), [], $d['version'], 'all' );
+        wp_enqueue_style( 'notificationx-admin', Helper::file( 'admin/css/admin.css', true ), [], $d['version'], 'all' );
     }
 
     public function get_localize_scripts(){
-        $nx_analytics_caps      = apply_filters( 'nx_analytics_caps', 'administrator', 'analytics_roles' );
-        $nx_create_notification = apply_filters( 'nx_create_notification', 'edit_posts', 'notification_roles' );
-        $nx_settings_caps       = apply_filters( 'nx_settings_caps', 'delete_users', 'settings_roles' );
-
         $tabs                           = NotificationX::get_instance()->normalize( GlobalFields::get_instance()->tabs() );
 
-        $tabs['createRedirect']               = !current_user_can( $nx_create_notification );
-        $tabs['analyticsRedirect']            = !current_user_can( $nx_analytics_caps );
+        $tabs['createRedirect']               = !current_user_can( 'edit_notificationx' );
+        $tabs['analyticsRedirect']            = !current_user_can( 'read_notificationx_analytics' );
         $tabs['quick_build']                  = NotificationX::get_instance()->normalize( QuickBuild::get_instance()->tabs() );
         $tabs['rest']                         = REST::get_instance()->rest_data();
         $tabs['current_page']                 = 'add-nx';
         $tabs['analytics']                    = Analytics::get_instance()->get_total_count();
         $tabs['settings']                     = Settings::get_instance()->get_form_data();
-        $tabs['settings']['settingsRedirect'] = !current_user_can( $nx_settings_caps );
+        $tabs['settings']['settingsRedirect'] = !current_user_can( 'edit_notificationx_settings' );
         $tabs['settings']['analytics']        = $tabs['analytics'];
         $tabs['assets']                       = [
             'admin' => NOTIFICATIONX_ADMIN_URL,
@@ -191,7 +168,7 @@ class PostType {
      * Save data on post save.
      *
      * @param int $post_id
-     * @return void
+     * @return bool
      */
     public function update_status($data) {
         $is_enabled = $this->is_enabled($data['nx_id']);
@@ -201,12 +178,13 @@ class PostType {
         if( $this->can_enable( $data['source'] ) || ( isset( $data['enabled'] ) && $data['enabled'] == false ) ){
             $post = [
                 'enabled'    => $data['enabled'],
-                'updated_at' => Helper::mysql_time(),
+                // 'updated_at' => Helper::mysql_time(),
             ];
             if($data['enabled'] == false){
                 // clear cron when disabled.
                 Cron::get_instance()->clear_schedule(array('post_id' => $data['nx_id']));
             }
+            $this->update_enabled_source($data);
             return $this->update_post($post, $data['nx_id']);
         }
         return false;
@@ -245,6 +223,32 @@ class PostType {
 		}
 		return $this->enabled_source;
 	}
+
+    public function update_enabled_source($post){
+        if(empty($post['source']) || empty($post['nx_id'])){
+            return;
+        }
+        if(!empty($this->enabled_source[$post['source']])){
+            foreach ($this->enabled_source as $source => $ids) {
+                if($post['enabled']){
+                    if(!in_array($post['nx_id'], $ids)){
+                        $this->enabled_source[$source][] = $post['nx_id'];
+                    }
+                }
+                else{
+                    if($key = array_search($post['nx_id'], $ids)){
+                        unset($this->enabled_source[$source][$key]);
+                    }
+                }
+
+            }
+        }
+        else{
+            if($post['enabled']){
+                $this->enabled_source[$post['source']][] = $post['nx_id'];
+            }
+        }
+    }
 
     public function is_enabled($id){
         $enabled_source = $this->get_enabled_source();

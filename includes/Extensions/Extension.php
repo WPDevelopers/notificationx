@@ -78,11 +78,8 @@ abstract class Extension {
         $this->init();
 
         if($this->class_exists()){
-            add_action('init', [$this, 'admin_actions']);
-            add_action('init', [$this, 'public_actions']);
-            // if( ! is_admin() ){
-            //     // $this->public_actions();
-            // }
+            $this->admin_actions();
+            $this->public_actions();
         }
     }
 
@@ -537,28 +534,8 @@ abstract class Extension {
         return $name;
     }
 
-    public function remote_get($url, $args = array()) {
-        $defaults = array(
-            'timeout'     => 20,
-            'redirection' => 5,
-            'httpversion' => '1.1',
-            'user-agent'  => 'NotificationX/' . NOTIFICATIONX_VERSION . '; ' . home_url(),
-            'body'        => null,
-            'sslverify'   => false,
-            'stream'      => false,
-            'filename'    => null
-        );
-        $args = wp_parse_args($args, $defaults);
-        $request = wp_remote_get($url, $args);
-
-        if (is_wp_error($request)) {
-            return false;
-        }
-        $response = json_decode($request['body']);
-        if (isset($response->status) && $response->status == 'fail') {
-            return false;
-        }
-        return $response;
+    public function remote_get($url, $args = array(), $raw = false) {
+        return Helper::remote_get($url, $args, $raw);
     }
 
     /**

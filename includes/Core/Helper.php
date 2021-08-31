@@ -446,4 +446,59 @@ class Helper {
             }
         }
     }
+
+    public static function remote_get($url, $args = array(), $raw = false) {
+        $defaults = array(
+            'timeout'     => 20,
+            'redirection' => 5,
+            'httpversion' => '1.1',
+            'user-agent'  => 'NotificationX/' . NOTIFICATIONX_VERSION . '; ' . home_url(),
+            'body'        => null,
+            'sslverify'   => false,
+            'stream'      => false,
+            'filename'    => null
+        );
+        $args = wp_parse_args($args, $defaults);
+        $request = wp_remote_get($url, $args);
+
+        if (is_wp_error($request)) {
+            return false;
+        }
+        if($raw){
+            return $request;
+        }
+        $response = json_decode($request['body']);
+        if (isset($response->status) && $response->status == 'fail') {
+            return false;
+        }
+        return $response;
+    }
+
+    /**
+     * Get File Modification Time or URL
+     *
+     * @param string $file  File relative path for Admin
+     * @param boolean $url  true for URL return
+     * @return void|string|integer
+     */
+    public static function file( $file, $url = false ){
+        $base = '';
+        if(defined('NX_DEBUG') && NX_DEBUG){
+            if( $url ) {
+                $base = NOTIFICATIONX_DEV_ASSETS;
+            }
+            else{
+                $base = NOTIFICATIONX_DEV_ASSETS_PATH;
+            }
+        }
+        else{
+            if( $url ) {
+                $base = NOTIFICATIONX_ASSETS;
+            }
+            else{
+                $base = NOTIFICATIONX_ASSETS_PATH;
+            }
+        }
+        return path_join($base, $file);
+    }
 }

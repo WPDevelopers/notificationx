@@ -1,0 +1,93 @@
+.nx-settings-header {
+    background: transparent;
+    border-color: transparent;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    @media only screen and (max-width: 1399px) {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .nx-admin-header {
+        display: flex;
+        align-items: center;
+        padding: 10px 0px;
+        & > svg,
+        & > img {
+            width: 200px;
+        }
+
+        a.nx-add-new-btn {
+            margin-left: 50px;
+            background-color: #6A4BFF;
+            color: #fff;
+            border: none;
+            padding: 2px 30px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+            box-sizing: border-box;
+            transition: 0.3s ease-in-out;
+            text-align: center;
+            &:hover,
+            &:focus{
+                color: #fff;
+                background-color: darken(#5614d5, 1%);
+                outline: none;
+                box-shadow: 0 15px 25px -5px rgba(#5614d5, 0.3);
+            }
+        }
+    }
+    // .nx-header-left {
+    //     display: flex;
+    //     align-content: center;
+    //     align-items: center;
+    //     .title {
+    //         font-size: 22px;
+    //         color: #444;
+    //         font-weight: 600;
+    //         margin: 0px;
+    //         padding-left: 10px;
+    //         line-height: 1;
+    //     }
+    // }
+    // .nx-admin-logo-inline {
+    //     box-shadow: 1px 0 0 0 rgba(0, 0, 0, 0.1);
+    //     padding: 25px 20px 20px 23px;
+    //     margin-right: 10px;
+    //     & > svg {
+    //         width: 31.5px;
+    //         height: 32px;
+    //     }
+    // }
+    // .nx-header-left,
+    // .nx-header-right {
+    //     flex: 1 1 auto;
+    // }
+    // .nx-header-right {
+    //     text-align: right;
+    //     & > span {
+    //         display: block;
+    //         padding-right: 25px;
+    //     }
+    // }
+}
+.nx-admin-notice {
+    border-radius: 10px;
+    padding: 15px 25px;
+    &.success-notice {
+        background: #d4edda;
+        color: #155724;
+        border: 2px solid #c3e6cb;
+        p {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
+    &:not(:last-child) {
+      margin-bottom: 30px;
+    }
+}

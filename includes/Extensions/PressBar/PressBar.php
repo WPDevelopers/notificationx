@@ -111,7 +111,7 @@ class PressBar extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-        if (!$this->is_active($this->id)) {
+        if (!$this->is_active()) {
             return;
         }
     }
@@ -124,7 +124,7 @@ class PressBar extends Extension {
      */
     public function public_actions() {
         parent::public_actions();
-        if (!$this->is_active($this->id)) {
+        if (!$this->is_active()) {
             return;
         }
         // add_action('wp_head', [$this, 'print_bar_notice'], 100);
@@ -406,15 +406,17 @@ class PressBar extends Extension {
             ]),
         ];
 
+        $is_installed = Helper::is_plugin_installed('elementor/elementor.php');
+        $install_activate_text = $is_installed ? "Activate" : "Install";
         $fields['themes']['fields'][] = [
             'name'        => 'nx-bar_with_elementor_install',
             'type'        => 'button',
             'text'    => [
-                'normal'  => Helper::is_plugin_installed('elementor/elementor.php') ? __('Activate Elementor', 'notificationx') : __('Install Elementor', 'notificationx'),
-                'saved'   => Helper::is_plugin_installed('elementor/elementor.php') ? __('Activated Elementor', 'notificationx') : __('Installed Elementor', 'notificationx'),
-                'loading' => Helper::is_plugin_installed('elementor/elementor.php') ? __('Activating Elementor...', 'notificationx') : __('Installing Elementor...', 'notificationx'),
+                'normal'  => $is_installed ? __('Activate Elementor', 'notificationx') : __('Install Elementor', 'notificationx'),
+                'saved'   => $is_installed ? __('Activated Elementor', 'notificationx') : __('Installed Elementor', 'notificationx'),
+                'loading' => $is_installed ? __('Activating Elementor...', 'notificationx') : __('Installing Elementor...', 'notificationx'),
             ],
-            'description' => 'To Design Notification Bar with <strong>Elementor Page Builder</strong>, Click on the Following Button: &nbsp;&nbsp;&nbsp;',
+            'description' => "To Design Notification Bar with <strong>Elementor Page Builder</strong>, You need to $install_activate_text the Elementor first: &nbsp;&nbsp;&nbsp;",
             'style'       => [
                 'description' => [
                     'position' => 'left'
@@ -432,10 +434,14 @@ class PressBar extends Extension {
                 'on'   => 'click',
                 'api'  => '/notificationx/v1/core-install',
                 'data' => [
-                    'source' => $this->id,
-                    'slug'   => "elementor",
-                    'file'   => "elementor.php",
-
+                    'source'       => $this->id,
+                    'slug'         => "elementor",
+                    'file'         => "elementor.php",
+                    'is_installed' => $is_installed,
+                ],
+                'swal' => [
+                    'icon' => 'success',
+                    'text' => 'Successfully Activated',
                 ],
                 'trigger' => '@is_elementor:true',
             ],

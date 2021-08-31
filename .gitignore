@@ -24,3 +24,5 @@ build/index.js
 build/index.js.map
 **/*.map
 **/*.lock
+src/form-builder
+nxdev/form-builder

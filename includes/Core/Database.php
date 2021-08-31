@@ -206,7 +206,7 @@ class Database {
         $query = "DELETE FROM $table_name ";
         $query .= $this->get_where_query($wheres);
         $query .= " LIMIT $limit";
-        $this->wpdb->query( $query );
+        return $this->wpdb->query( $query );
     }
 
     public function serialize_data($post){

@@ -41,6 +41,7 @@ class Settings extends UsabilityDynamicsSettings {
         $this->wpdb = $wpdb;
         parent::__construct($args);
         add_action('init', [$this, 'init']);
+        // add_filter('user_has_cap', array($this, 'allow_admin'), 10, 4);
     }
 
     /**
@@ -62,8 +63,7 @@ class Settings extends UsabilityDynamicsSettings {
      * @return void
      */
     public function menu() {
-		$nx_settings_caps = apply_filters( 'nx_settings_caps', 'delete_users', 'settings_roles' );
-        add_submenu_page('nx-admin', 'Settings', 'Settings', $nx_settings_caps, 'nx-admin#/settings', '__return_null', 3);
+        add_submenu_page('nx-admin', 'Settings', 'Settings', 'edit_notificationx_settings', 'nx-admin#/settings', '__return_null', 3);
     }
 
     /**
@@ -73,9 +73,7 @@ class Settings extends UsabilityDynamicsSettings {
      * @return void
      */
     function get_form_data() {
-		$nx_settings_caps = apply_filters( 'nx_settings_caps', 'delete_users', 'settings_roles' );
         $data = NotificationX::get_instance()->normalize($this->settings_form());
-        // $data['redirect']     = !current_user_can( $nx_settings_caps );
         $data['current_page'] = 'settings';
         $data['rest']         = REST::get_instance()->rest_data();
         $data['savedValues']  = Settings::get_instance()->get('settings', false);
@@ -175,6 +173,17 @@ class Settings extends UsabilityDynamicsSettings {
                             'label' => __('Role Management', 'notificationx'),
                             'priority'    => 30,
                             'fields' => array(
+                                'notification_view_roles' => array(
+                                    'name'     => 'notification_view_roles',
+                                    'type'     => 'select',
+                                    'label'    => __('Who Can View Notification?', 'notificationx'),
+                                    'priority' => 1,
+                                    'multiple' => true,
+                                    'is_pro'   => true,
+                                    'disable'  => true,
+                                    'default'  => ['administrator'],
+                                    'options'  => $wp_roles
+                                ),
                                 'notification_roles' => array(
                                     'name'     => 'notification_roles',
                                     'type'     => 'select',
@@ -183,30 +192,30 @@ class Settings extends UsabilityDynamicsSettings {
                                     'multiple' => true,
                                     'is_pro'   => true,
                                     'disable'  => true,
-                                    'default'  => 'administrator',
+                                    'default'  => ['administrator'],
                                     'options'  => $wp_roles
                                 ),
                                 'settings_roles' => array(
-                                    'name'        => 'settings_roles',
-                                    'type'        => 'select',
-                                    'label'       => __('Who Can Edit Settings?', 'notificationx'),
-                                    'priority'    => 2,
+                                    'name'     => 'settings_roles',
+                                    'type'     => 'select',
+                                    'label'    => __('Who Can Edit Settings?', 'notificationx'),
+                                    'priority' => 2,
                                     'multiple' => true,
-                                    'is_pro' => true,
-                                    'disable' => true,
-                                    'default' => 'administrator',
-                                    'options' => $wp_roles
+                                    'is_pro'   => true,
+                                    'disable'  => true,
+                                    'default'  => ['administrator'],
+                                    'options'  => $wp_roles
                                 ),
                                 'analytics_roles' => array(
-                                    'name'        => 'analytics_roles',
-                                    'type'        => 'select',
-                                    'label'       => __('Who Can Check Analytics?', 'notificationx'),
-                                    'priority'    => 3,
+                                    'name'     => 'analytics_roles',
+                                    'type'     => 'select',
+                                    'label'    => __('Who Can Check Analytics?', 'notificationx'),
+                                    'priority' => 3,
                                     'multiple' => true,
-                                    'is_pro' => true,
-                                    'disable' => true,
-                                    'default' => 'administrator',
-                                    'options' => $wp_roles
+                                    'is_pro'   => true,
+                                    'disable'  => true,
+                                    'default'  => ['administrator'],
+                                    'options'  => $wp_roles
                                 ),
                             )
                         )
@@ -354,10 +363,9 @@ class Settings extends UsabilityDynamicsSettings {
                                             'reporting_frequency' => '@reporting_frequency',
                                         ],
                                         'swal' => [
-                                            'title' => 'Successful',
-                                            'text'  => 'Successfully Sent a Test Report in Your Email.',
-                                            'icon'  => 'success',
-                                            'timer' => 2000
+                                            'text'      => 'Successfully Sent a Test Report in Your Email.',
+                                            'icon'      => 'success',
+                                            'autoClose' => 2000
                                         ],
                                     ],
                                 ),
@@ -422,17 +430,90 @@ class Settings extends UsabilityDynamicsSettings {
         unset($roles['subscriber']);
         return $roles;
     }
+    /**
+     * Get All Roles
+     * dynamically
+     * user_has_cap
+     * @return array
+     */
+    public function allow_admin($allcaps, $caps, $args, $user) {
+        $nx_roles = [
+            'read_notificationx',
+            'edit_notificationx',
+            'edit_notificationx_settings',
+            'read_notificationx_analytics',
+        ];
+        if(!empty($caps[0]) && array_key_exists('administrator', $allcaps) && !array_key_exists($caps[0], $allcaps) && in_array($caps[0], $nx_roles)){
+            $role = get_role('administrator');
+            $role->add_cap($caps[0]);
+            $allcaps[$caps[0]] = true;
+        }
+        return $allcaps;
+    }
 
     public function save_settings( $settings ) {
-        $nx_settings_caps = apply_filters( 'nx_settings_caps', 'delete_users', 'settings_roles' );
-        if(!current_user_can( $nx_settings_caps )){
+        if(!current_user_can( 'edit_notificationx_settings' )){
             return false;
         }
+
+        $roles = $this->get_selected_roles($settings);
+        $settings = array_merge($settings, $roles);
 
         $this->set('settings', $settings);
         delete_transient( 'nx_get_field_names' );
         do_action('nx_settings_saved', $settings);
         return true;
+    }
+
+    public function get_role_map($settings = null){
+        if(empty($settings)){
+            $settings = $this->get_selected_roles();
+        }
+        return [
+            'read_notificationx' => [
+                'roles' => $settings['notification_view_roles'],
+                'map'   => [],
+            ],
+            'edit_notificationx' => [
+                'roles' => $settings['notification_roles'],
+                'map'   => ['read_notificationx'],
+            ],
+            'edit_notificationx_settings' => [
+                'roles' => $settings['settings_roles'],
+                'map'   => ['read_notificationx'],
+            ],
+            'read_notificationx_analytics' => [
+                'roles' => $settings['analytics_roles'],
+                'map'   => ['read_notificationx'],
+            ],
+        ];
+    }
+
+    public function get_selected_roles($settings = null){
+        $notification_view_roles = isset($settings['notification_view_roles']) ? $settings['notification_view_roles'] : Settings::get_instance()->get('settings.notification_view_roles', []);
+        $notification_roles      = isset($settings['notification_roles']) ? $settings['notification_roles'] : Settings::get_instance()->get('settings.notification_roles', []);
+        $settings_roles          = isset($settings['settings_roles']) ? $settings['settings_roles'] : Settings::get_instance()->get('settings.settings_roles', []);
+        $analytics_roles         = isset($settings['analytics_roles']) ? $settings['analytics_roles'] : Settings::get_instance()->get('settings.analytics_roles', []);
+
+        if(!is_array($notification_view_roles)){
+            $notification_view_roles = [$notification_view_roles];
+        }
+        if(!is_array($notification_roles)){
+            $notification_roles      = [$notification_roles];
+        }
+        if(!is_array($settings_roles)){
+            $settings_roles          = [$settings_roles];
+        }
+        if(!is_array($analytics_roles)){
+            $analytics_roles         = [$analytics_roles];
+        }
+
+        return apply_filters('nx_role_management', [
+            'notification_view_roles' => array_values(array_unique(array_merge(['administrator'], $notification_view_roles))),
+            'notification_roles'      => array_values(array_unique(array_merge(['administrator'], $notification_roles))),
+            'settings_roles'          => array_values(array_unique(array_merge(['administrator'], $settings_roles))),
+            'analytics_roles'         => array_values(array_unique(array_merge(['administrator'], $analytics_roles))),
+        ]);
     }
 
     /**

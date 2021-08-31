@@ -3,7 +3,7 @@
  * Plugin Name:       NotificationX
  * Plugin URI:        https://notificationx.com
  * Description:       Social Proof & Recent Sales Popup, Comment Notification, Subscription Notification, Notification Bar and many more.
- * Version:           2.0.1
+ * Version:           2.0.2
  * Author:            WPDeveloper
  * Author URI:        https://wpdeveloper.net
  * License:           GPL-3.0+
@@ -26,13 +26,15 @@ if ( ! defined( 'WPINC' ) ) {
  * Defines CONSTANTS for Whole plugins.
  */
 define( 'NOTIFICATIONX_FILE', __FILE__ );
-define( 'NOTIFICATIONX_VERSION', '2.0.1' );
+define( 'NOTIFICATIONX_VERSION', '2.0.2' );
 define( 'NOTIFICATIONX_URL', plugins_url( '/', __FILE__ ) );
 define( 'NOTIFICATIONX_PATH', plugin_dir_path( __FILE__ ) );
 define( 'NOTIFICATIONX_BASENAME', plugin_basename( __FILE__ ) );
 
 define( 'NOTIFICATIONX_ASSETS', NOTIFICATIONX_URL . 'assets/' );
 define( 'NOTIFICATIONX_ASSETS_PATH', NOTIFICATIONX_PATH . 'assets/' );
+define( 'NOTIFICATIONX_DEV_ASSETS', NOTIFICATIONX_URL . 'build/' );
+define( 'NOTIFICATIONX_DEV_ASSETS_PATH', NOTIFICATIONX_PATH . 'build/' );
 define( 'NOTIFICATIONX_INCLUDES', NOTIFICATIONX_PATH . 'includes/' );
 
 

@@ -51,12 +51,14 @@ class Analytics {
             $this->namespace,
             '/' . $this->rest_base,
             array(
+                // For backend analytics
                 array(
                     'methods'             => WP_REST_Server::READABLE,
                     'callback'            => array($this, 'get_analytics'),
                     // maybe use
-                    'permission_callback' => '__return_true',
+                    'permission_callback' => [$this, 'read_analytics'],
                 ),
+                // For Frontend analytics
                 array(
                     'methods'             => WP_REST_Server::EDITABLE,
                     'callback'            => array($this, 'insert_analytics'),
@@ -65,6 +67,10 @@ class Analytics {
             )
         );
 
+    }
+
+    public function read_analytics( $request ) {
+        return current_user_can('read_notificationx_analytics');
     }
 
     public function get_analytics($request){

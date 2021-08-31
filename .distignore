@@ -34,7 +34,6 @@ webpack.config.js
 wp-cli.local.yml
 yarn.lock
 tests
-src
 node_modules
 *.sql
 *.tar.gz
@@ -54,3 +53,5 @@ vendor/udx/lib-utility/*.md
 vendor/udx/lib-utility/test
 vendor/udx/lib-utility/static
 vendor/udx/lib-utility/scripts
+nxdev
+build

@@ -55,6 +55,7 @@ class FrontEnd {
         add_action('nx_filtered_entry', [$this, 'link_url'], 10, 2);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
         add_filter('nx_fallback_data', [$this, 'fallback_data'], 10, 3);
+        add_filter('nx_filtered_data', [$this, 'filtered_data'], 9999, 2);
     }
     /**
      * Get File Modification Time or URL
@@ -75,10 +76,10 @@ class FrontEnd {
      * @return void
      */
     public function enqueue_scripts() {
-        $d = include_once  self::ASSET_PATH . '/js/frontend.asset.php';
+        $d = include_once Helper::file('public/js/frontend.asset.php');
 
-        wp_register_script( 'notificationx-public', $this->file( 'js/frontend.js', true ), $d['dependencies'], $d['version'], true);
-        wp_register_style('notificationx-public', $this->file( 'css/frontend.css', true ), [], $d['version'], 'all');
+        wp_register_script( 'notificationx-public', Helper::file( 'public/js/frontend.js', true ), $d['dependencies'], $d['version'], true);
+        wp_register_style('notificationx-public', Helper::file( 'public/css/frontend.css', true ), [], $d['version'], 'all');
 
         if( empty($_GET['elementor-preview'] ) ) {
             $nx_ids = $this->localizeScripts();
@@ -356,6 +357,12 @@ class FrontEnd {
         ]);
 
         foreach ($notifications as $key => $value) {
+            /**
+             * Check for hiding in mobile device
+             */
+            if (!empty($value['hide_on_mobile']) && wp_is_mobile()) {
+                continue;
+            }
             $results[$value['nx_id']] = $value;
         }
         return $results;
@@ -473,6 +480,24 @@ class FrontEnd {
         }
         $data['title'] = isset($saved_data['post_title']) ? $saved_data['post_title'] : '';
         return $data;
+    }
+
+    /**
+     * Add NotificationX in Footer
+     *
+     * @return void
+     */
+    public function filtered_data($entries, $post){
+        if(is_array($entries)){
+            foreach ($entries as $key => $entry) {
+                foreach ($entry as $_key => $value) {
+                    if(strpos($_key, 'email') !== false){
+                        unset($entries[$key][$_key]);
+                    }
+                }
+            }
+        }
+        return $entries;
     }
 
     /**
