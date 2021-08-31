@@ -78,11 +78,8 @@ abstract class Extension {
         $this->init();
 
         if($this->class_exists()){
-            add_action('init', [$this, 'admin_actions']);
-            add_action('init', [$this, 'public_actions']);
-            // if( ! is_admin() ){
-            //     // $this->public_actions();
-            // }
+            $this->admin_actions();
+            $this->public_actions();
         }
     }
 
