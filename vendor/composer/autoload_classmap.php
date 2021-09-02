@@ -78,6 +78,7 @@ return array(
     'NotificationX\\FrontEnd\\FrontEnd' => $baseDir . '/includes/FrontEnd/FrontEnd.php',
     'NotificationX\\GetInstance' => $baseDir . '/includes/GetInstance.php',
     'NotificationX\\NotificationX' => $baseDir . '/includes/NotificationX.php',
+    'NotificationX\\ThirdParty\\WPML' => $baseDir . '/includes/ThirdParty/WPML.php',
     'NotificationX\\Types\\Comments' => $baseDir . '/includes/Types/Comments.php',
     'NotificationX\\Types\\ContactForm' => $baseDir . '/includes/Types/ContactForm.php',
     'NotificationX\\Types\\Conversions' => $baseDir . '/includes/Types/Conversions.php',

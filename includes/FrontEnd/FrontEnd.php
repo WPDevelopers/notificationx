@@ -490,6 +490,9 @@ class FrontEnd {
     public function filtered_data($entries, $post){
         if(is_array($entries)){
             foreach ($entries as $key => $entry) {
+                if(isset($entry['ip'])){
+                    unset($entries[$key]['ip']);
+                }
                 foreach ($entry as $_key => $value) {
                     if(strpos($_key, 'email') !== false){
                         unset($entries[$key][$_key]);

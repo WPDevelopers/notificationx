@@ -19,6 +19,7 @@ use NotificationX\Extensions\GlobalFields;
 use NotificationX\FrontEnd\FrontEnd;
 use NotificationX\Types\TypeFactory;
 use NotificationX\Extensions\ExtensionFactory;
+use NotificationX\ThirdParty\WPML;
 use NotificationXPro\Core\WPDRoleManagement;
 
 /**
@@ -73,6 +74,9 @@ class NotificationX {
         QuickBuild::get_instance();
 
         CoreInstaller::get_instance(basename(NOTIFICATIONX_FILE, '.php'));
+
+        // 3rd Party features.
+        WPML::get_instance();
     }
     /**
      * The Plugin Activator
@@ -113,10 +117,12 @@ class NotificationX {
          * Run All Actions and Filters
          * for GOOD.
          */
+        load_plugin_textdomain( 'notificationx', false, dirname( plugin_basename( NOTIFICATIONX_FILE ) ) . '/languages' );
 
         //  @todo remove
-        add_action('wp_ajax_nx', [$this, 'get_tabs']); // executed when logged in
-        add_action('wp_ajax_nopriv_nx', [$this, 'get_tabs']); // executed when logged out
+        if(defined('NX_DEBUG') && NX_DEBUG){
+            add_action('wp_ajax_nx', [$this, 'get_tabs']); // executed when logged in
+        }
 
         add_action( 'plugin_action_links_' . NOTIFICATIONX_BASENAME, array($this, 'nx_action_links'), 10, 1);
     }

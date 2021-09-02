@@ -1,6 +1,15 @@
 <hr class="wp-header-end"/>
 <div class="wrap">
     <div class="notificationx-admin">
+        <?php
+
+        use NotificationX\Core\PostType;
+
+        do_action('wpml_show_package_language_ui', array(
+            'kind'      => 'NotificationX',
+            'name'      => "4351",
+        ));
+        ?>
         <noscript>
             <p class="notificationx-disabled-javascript-notice">
                 <?php
