@@ -86,13 +86,13 @@ export const NotificationXItems = (props) => {
 
     React.useEffect(() => {
         if (perPage === 0) return;
-        setRedirect(`/?status=${status}&per-page=${perPage}&p=${currentPage}`);
+        setRedirect(`&status=${status}&per-page=${perPage}&p=${currentPage}`);
     }, [perPage]);
 
     return (
         <>
             {
-                redirect && <Redirect to={redirect} />
+                // redirect && <Redirect to={redirect} />
             }
             <div className="notificationx-items">
                 <NotificationXItemsMenu

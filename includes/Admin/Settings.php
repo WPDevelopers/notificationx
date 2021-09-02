@@ -63,7 +63,7 @@ class Settings extends UsabilityDynamicsSettings {
      * @return void
      */
     public function menu() {
-        add_submenu_page('nx-admin', 'Settings', 'Settings', 'edit_notificationx_settings', 'nx-admin#/settings', '__return_null', 3);
+        add_submenu_page('nx-admin', 'Settings', 'Settings', 'edit_notificationx_settings', 'nx-settings', [Admin::get_instance(), 'views'], 3);
     }
 
     /**

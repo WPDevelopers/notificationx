@@ -6,7 +6,10 @@ const AnalyticsCard = ({ type, url, icon, title, count }) => {
     return (
         <div>
             <div className="nx-analytics-counter">
-                <NavLink to={"/analytics/?comparison=" + type}>
+                <NavLink to={{
+                    pathname: '/admin.php',
+                    search  : "?page=nx-analytics&comparison=" + type,
+                }}>
                     <>
                         <span className="nx-counter-icon">
                             <img src={icon} alt={title} />

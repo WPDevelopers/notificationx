@@ -106,7 +106,8 @@ const SingleNotificationAction = ({
             }
             <Link className="nx-admin-title-edit" title="Edit" to={`/edit/${id}`}><span>{__('Edit', 'notificationx')}</span></Link>
             <Link className={classNames("nx-admin-title-duplicate", {hidden: builderContext?.createRedirect})} title="Duplicate" to={{
-                pathname: '/add-new',
+                pathname: '/admin.php',
+                search: `?page=nx-edit&clone=${id}`,
                 state: { duplicate: true, _id: id }
             }}><span>{__('Duplicate', 'notificationx')}</span></Link>
             {

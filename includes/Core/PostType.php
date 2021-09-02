@@ -51,7 +51,8 @@ class PostType {
      * @return void
      */
     public function menu() {
-        add_submenu_page('nx-admin', 'Add New', 'Add New', 'edit_notificationx', 'nx-admin#/add-new', [$this, 'new_post'], 20);
+        add_submenu_page('nx-admin', 'Add New', 'Add New', 'edit_notificationx', 'nx-edit', [Admin::get_instance(), 'views'], 20);
+        // add_submenu_page('nx-admin', 'Edit', 'Edit', 'edit_notificationx', 'nx-edit', [Admin::get_instance(), 'views'], 20);
     }
 
     /**
@@ -61,9 +62,9 @@ class PostType {
      * @return void
      */
     function admin_enqueue_scripts($hook) {
-        if ($hook !== "toplevel_page_nx-admin") {
-            return;
-        }
+        // if ($hook !== "toplevel_page_nx-admin") {
+        //     return;
+        // }
         // @todo not sure why did it. maybe remove.
         wp_enqueue_media();
 

@@ -122,7 +122,10 @@ const SingleNotificationX = ({
             <td>
                 <div className="nx-admin-title">
                     <strong>
-                        <Link to={`/edit/${id}`}>{title || id}</Link>
+                        <Link to={{
+                        pathname: '/admin.php',
+                        search: `?page=nx-edit&id=${id}`,
+                    }}>{title || id}</Link>
                     </strong>
                 </div>
             </td>

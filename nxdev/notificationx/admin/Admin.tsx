@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams, useRouteMatch } from 'react-router-dom';
 import { useBuilderContext } from '../../form-builder/src/core/hooks';
 import { Header } from '../components'
 import nxHelper from '../core/functions';
@@ -14,6 +14,14 @@ const Admin = (props) => {
     // const query = useQuery();
     const builderContext = useNotificationXContext();
 
+    // const location = useLocation();
+    // const location = useRouteMatch();
+
+    let params = useParams();
+    console.log(params);
+
+    console.log(props);
+    // return;
     return (
         <div>
             <Header />

@@ -8,6 +8,7 @@
 
 namespace NotificationX\Core;
 
+use NotificationX\Admin\Admin;
 use NotificationX\Core\Rules;
 use NotificationX\Core\Database;
 use NotificationX\Core\Locations;
@@ -43,7 +44,7 @@ class QuickBuild {
      * @return void
      */
     public function menu() {
-        add_submenu_page('nx-admin', 'Quick Builder', 'Quick Builder', 'edit_notificationx', 'nx-admin#/nx-builder', '__return_null', 5);
+        add_submenu_page('nx-admin', 'Quick Builder', 'Quick Builder', 'edit_notificationx', 'nx-builder', [Admin::get_instance(), 'views'], 5);
     }
 
     public function tabs() {
