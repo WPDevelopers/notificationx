@@ -70,12 +70,12 @@ class WPML {
                 'domain'  => "notificationx-{$entry['source']}",
                 'context' => $entry['entry_id'],
             );
-            foreach ($entry as $key => $value) {
-                if(!in_array($key, $excluded)){
-                    $key = str_replace('_', ' ', $key);
+            foreach ($entry as $_key => $value) {
+                if(!in_array($_key, $excluded)){
+                    $key = str_replace('_', ' ', $_key);
                     $key = ucwords($key);// . ' - ' . rand();
                     do_action( 'wpml_register_single_string', $context, $key, $value );
-                    $entry[$key] = apply_filters( 'wpml_translate_single_string', $value, $context, $key);
+                    $entry[$_key] = apply_filters( 'wpml_translate_single_string', $value, $context, $key);
                 }
             }
         }
