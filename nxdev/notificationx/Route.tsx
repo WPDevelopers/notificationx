@@ -128,7 +128,6 @@ function Route(props) {
         }
     }, [])
 
-    console.log(props);
 
 
     return (

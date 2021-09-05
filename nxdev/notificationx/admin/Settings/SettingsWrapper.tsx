@@ -8,11 +8,6 @@ import SettingsInner from './SettingsInner';
 const SettingsWrapper = (props) => {
     const builder = useBuilder(notificationxTabs.settings);
 
-    const location = useLocation();
-
-    console.log(location);
-    let params = useParams();
-    console.log(params);
     return (
         <BuilderProvider value={builder}>
             {/* <Redirect to="/" /> */}

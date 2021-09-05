@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Redirect, useLocation } from 'react-router-dom';
+import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import FormBuilder from '../../../form-builder';
 import { useBuilderContext } from '../../../form-builder/src/core/hooks';
 import { Header } from '../../components'
@@ -15,13 +15,40 @@ const useQuery = () => new URLSearchParams(useLocation().search);
 const SettingsInner = (props) => {
     const builder = useBuilderContext();
     const notificationxContext = useNotificationXContext();
+    const [redirect, setRedirect] = useState<string|object>();
+    const [Location, setLocation] = useState(location.search);
+    let history = useHistory();
+    history.listen(() => {
+        setLocation(location.search);
+    });
+    const getParam = (param, d?) => {
+        const query = nxHelper.useQuery(location.search);
+        return query.get(param) || d;
+    };
+
+    useEffect(() => {
+        const qTab = getParam('tab');
+        if(qTab){
+            builder.setActiveTab(qTab);
+        }
+    }, [Location])
+
+    useEffect(() => {
+        const tab = builder.config.active;
+        setRedirect({
+            pathname: '/admin.php',
+            search  : `?page=nx-settings&tab=${tab}`,
+        });
+    }, [builder.config.active]);
 
     useEffect(() => {
         notificationxContext.setOptions('refresh', true);
+        if(builder?.settingsRedirect){
+            // user don't have permission.
+            setRedirect("/");
+        }
     }, [])
 
-
-    const [redirect, setRedirect] = useState(builder?.settingsRedirect);
 
     builder.submit.onSubmit = useCallback(
         (event, context) => {
@@ -54,13 +81,13 @@ const SettingsInner = (props) => {
 
     return (
         <div>
-            {redirect && <Redirect to="/" />}
+            {redirect && <Redirect to={redirect} />}
             <Header addNew={true} />
             {builder?.analytics && <AnalyticsHeader assetsURL={builder.assets} analytics={...builder?.analytics} />}
             <div className="nx-settings">
                 <div className="nx-settings-content">
                     <div className="nx-settings-form-wrapper">
-                        <FormBuilder {...builder} />
+                        <FormBuilder {...builder} useQuery={true} />
                     </div>
                 </div>
                 <Documentation assetsUrl={builder.assets} />
