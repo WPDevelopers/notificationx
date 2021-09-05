@@ -74,9 +74,9 @@ class DashboardWidget {
             ARRAY_A
         );
 
-        $views_link = admin_url( 'admin.php?page=nx-admin#/analytics/?comparison=views' );
-        $clicks_link = admin_url( 'admin.php?page=nx-admin#/analytics/?comparison=clicks' );
-        $ctr_link = admin_url( 'admin.php?page=nx-admin#/analytics/?comparison=ctr' );
+        $views_link = admin_url( 'admin.php?page=nx-analytics&comparison=views' );
+        $clicks_link = admin_url( 'admin.php?page=nx-analytics&comparison=clicks' );
+        $ctr_link = admin_url( 'admin.php?page=nx-analytics&comparison=ctr' );
 
         $default = [
             'views_link'  => $views_link,
