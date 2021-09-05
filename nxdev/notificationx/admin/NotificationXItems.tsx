@@ -27,7 +27,7 @@ export const NotificationXItems = (props) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [notificationx, setNotificationx] = useState([loading]);
     const [filteredNotice, setFilteredNotice] = useState([loading]);
-    const [redirect, setRedirect] = useState<string>();
+    const [redirect, setRedirect] = useState<string| object>();
     const location = useLocation();
 
     const getParam = (param, d?) => {
@@ -86,7 +86,10 @@ export const NotificationXItems = (props) => {
 
     React.useEffect(() => {
         if (perPage === 0) return;
-        setRedirect(`/?status=${status}&per-page=${perPage}&p=${currentPage}`);
+        setRedirect({
+            pathname: '/admin.php',
+            search  : `?page=nx-admin&status=${status}&per-page=${perPage}&p=${currentPage}`,
+        });
     }, [perPage]);
 
     return (

@@ -18,7 +18,11 @@ const Header = ({ addNew = false, context = {} }) => {
             <div className="nx-header-left">
                 <div className="nx-admin-header">
                     <Logo />
-                    {!builderContext?.createRedirect && !addNew && <Link className="nx-add-new-btn" to="/add-new">{__('Add New', 'notificationx')}</Link>}
+                    {!builderContext?.createRedirect && !addNew && <Link className="nx-add-new-btn"
+                    to={{
+                        pathname: '/admin.php',
+                        search: `?page=nx-edit`,
+                    }}>{__('Add New', 'notificationx')}</Link>}
                 </div>
             </div>
             <div className="nx-header-right">

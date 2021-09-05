@@ -54,7 +54,8 @@ const AddNewNotification = (props) => {
             {redirect && <Redirect to="/" />}
             <div>
                 {isCreated && <Redirect to={{
-                    pathname: `/edit/${isCreated}`,
+                    pathname: '/admin.php',
+                    search: `?page=nx-edit&id=${isCreated}`,
                     state: { published: true }
                 }} />}
                 <Header addNew={true} />
