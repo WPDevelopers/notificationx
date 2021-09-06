@@ -375,6 +375,6 @@ class PostType {
     }
 
     public function get_edit_link($nx_id){
-        return admin_url("admin.php?page=nx-admin#/edit/$nx_id");
+        return admin_url("admin.php?page=nx-edit&id=$nx_id");
     }
 }

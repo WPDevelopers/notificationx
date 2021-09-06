@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { applyFilters } from '@wordpress/hooks'
 import Logo from './Logo';
 import { useNotificationXContext } from '../hooks';
+import nxHelper from '../core/functions';
 
 const Version = ({ version }) => {
     return <span>NotificationX: <strong>{version}</strong></span>
@@ -18,11 +19,7 @@ const Header = ({ addNew = false, context = {} }) => {
             <div className="nx-header-left">
                 <div className="nx-admin-header">
                     <Logo />
-                    {!builderContext?.createRedirect && !addNew && <Link className="nx-add-new-btn"
-                    to={{
-                        pathname: '/admin.php',
-                        search: `?page=nx-edit`,
-                    }}>{__('Add New', 'notificationx')}</Link>}
+                    {!builderContext?.createRedirect && !addNew && <Link className="nx-add-new-btn" to={nxHelper.getRedirect({page: `nx-edit`})}>{__('Add New', 'notificationx')}</Link>}
                 </div>
             </div>
             <div className="nx-header-right">

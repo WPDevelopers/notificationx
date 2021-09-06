@@ -14,14 +14,6 @@ const Admin = (props) => {
     // const query = useQuery();
     const builderContext = useNotificationXContext();
 
-    // const location = useLocation();
-    // const location = useRouteMatch();
-
-    let params = useParams();
-    console.log(params);
-
-    console.log(props);
-    // return;
     return (
         <div>
             <Header />

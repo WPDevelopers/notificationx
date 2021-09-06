@@ -10,8 +10,10 @@ import NavLink from "../components/NavLink";
 import { SelectControl } from "@wordpress/components";
 import { WrapperWithLoader } from "../components";
 import LargeLogoIcon from '../../../assets/admin/images/logos/large-logo-icon.png';
+import { useNotificationXContext } from "../hooks";
 
 export const NotificationXItems = (props) => {
+    const builderContext = useNotificationXContext();
     const [checkAll, setCheckAll] = useState(false);
     const isMounted = useRef(null);
     const loading = {
@@ -27,7 +29,6 @@ export const NotificationXItems = (props) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [notificationx, setNotificationx] = useState([loading]);
     const [filteredNotice, setFilteredNotice] = useState([loading]);
-    const [redirect, setRedirect] = useState<string| object>();
     const location = useLocation();
 
     const getParam = (param, d?) => {
@@ -86,17 +87,16 @@ export const NotificationXItems = (props) => {
 
     React.useEffect(() => {
         if (perPage === 0) return;
-        setRedirect({
-            pathname: '/admin.php',
-            search  : `?page=nx-admin&status=${status}&per-page=${perPage}&p=${currentPage}`,
+        builderContext.setRedirect({
+            page      : `nx-admin`,
+            status    : status,
+            p         : currentPage,
+            'per-page': perPage,
         });
     }, [perPage]);
 
     return (
         <>
-            {
-                redirect && <Redirect to={redirect} />
-            }
             <div className="notificationx-items">
                 <NotificationXItemsMenu
                     status={status}

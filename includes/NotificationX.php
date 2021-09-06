@@ -102,7 +102,7 @@ class NotificationX {
         if ( ! is_multisite() ) {
             // Redirect to the welcome page.
             wp_safe_redirect( add_query_arg( array(
-                'page'		=> 'nx-admin#/nx-builder'
+                'page'		=> 'nx-builder'
             ), admin_url( 'admin.php' ) ) );
         }
     }
@@ -137,7 +137,7 @@ class NotificationX {
     public function nx_action_links( $links ) {
         $deactivate_link = isset( $links['deactivate'] ) ? $links['deactivate'] : '';
         unset($links['deactivate']);
-		$links['settings'] = '<a href="' . admin_url('admin.php?page=nx-admin#/settings') . '">' . __('Settings','notificationx') .'</a>';
+		$links['settings'] = '<a href="' . admin_url('admin.php?page=nx-settings') . '">' . __('Settings','notificationx') .'</a>';
 		if( ! empty( $deactivate_link ) ) {
 			$links['deactivate'] = $deactivate_link;
 		}

@@ -51,6 +51,64 @@ class NotificationXHelpers {
         search = search;
         return new URLSearchParams(search);
     };
+    getParam = (param, d = null) => {
+        const query = nxHelper.useQuery(location.search);
+        return query.get(param) || d;
+    };
+    getRedirect = (params: {[key: string]: any}, keepHash = false) => {
+        const query = nxHelper.useQuery(location.search);
+        const hash = keepHash === true ? location.hash : (typeof keepHash == 'string' ? keepHash : '');
+
+        switch (params.page) {
+            case 'nx-admin':
+                query.delete('comparison');
+                query.delete('tab');
+                query.delete('id');
+                break;
+            case 'nx-edit':
+                query.delete('comparison');
+                query.delete('tab');
+                query.delete('status');
+                query.delete('per-page');
+                query.delete('p');
+
+                break;
+            case 'nx-settings':
+                query.delete('comparison');
+                query.delete('status');
+                query.delete('per-page');
+                query.delete('p');
+                query.delete('id');
+
+                break;
+            case 'nx-analytics':
+                query.delete('tab');
+                query.delete('status');
+                query.delete('per-page');
+                query.delete('p');
+                query.delete('id');
+
+                break;
+            case 'nx-builder':
+                query.delete('comparison');
+                query.delete('tab');
+                query.delete('status');
+                query.delete('per-page');
+                query.delete('p');
+                query.delete('id');
+
+                break;
+
+            default:
+                break;
+        }
+
+        for (const key in params) {
+            query.set(key, params[key]);
+        }
+
+        return '/admin.php?' + query.toString() + hash;
+    }
     filtered = (notices, status) => {
         return notices.filter((val) => {
             switch (status) {

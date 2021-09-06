@@ -8,7 +8,10 @@ function Finalize(props) {
 
     return (
         <div className="nx-quick-builder-message">
-            You are about to publish <strong>{title}</strong>. You can rename this and edit everything whenever you want from <Link to="/">NotificationX</Link> Page.
+            You are about to publish <strong>{title}</strong>. You can rename this and edit everything whenever you want from <Link to={{
+                pathname: '/admin.php',
+                search  : `?page=nx-admin`,
+            }}>NotificationX</Link> Page.
         </div>
     )
 }

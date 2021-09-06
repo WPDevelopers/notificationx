@@ -15,19 +15,14 @@ const useQuery = () => new URLSearchParams(useLocation().search);
 const SettingsInner = (props) => {
     const builder = useBuilderContext();
     const notificationxContext = useNotificationXContext();
-    const [redirect, setRedirect] = useState<string|object>();
     const [Location, setLocation] = useState(location.search);
     let history = useHistory();
     history.listen(() => {
         setLocation(location.search);
     });
-    const getParam = (param, d?) => {
-        const query = nxHelper.useQuery(location.search);
-        return query.get(param) || d;
-    };
 
     useEffect(() => {
-        const qTab = getParam('tab');
+        const qTab = nxHelper.getParam('tab');
         if(qTab){
             builder.setActiveTab(qTab);
         }
@@ -35,17 +30,28 @@ const SettingsInner = (props) => {
 
     useEffect(() => {
         const tab = builder.config.active;
-        setRedirect({
-            pathname: '/admin.php',
-            search  : `?page=nx-settings&tab=${tab}`,
+        notificationxContext.setRedirect({
+            page  : `nx-settings`,
+            tab: tab,
+            keepHash: true,
         });
+        if (location.hash) {
+            setTimeout(() => {
+                var element = document.getElementById(location.hash.replace('#', ''));
+                if(element){
+                    element.scrollIntoView({behavior: 'smooth'});
+                }
+            }, 1000);
+        }
     }, [builder.config.active]);
 
     useEffect(() => {
         notificationxContext.setOptions('refresh', true);
         if(builder?.settingsRedirect){
             // user don't have permission.
-            setRedirect("/");
+            notificationxContext.setRedirect({
+                page  : `nx-admin`,
+            });
         }
     }, [])
 
@@ -81,7 +87,6 @@ const SettingsInner = (props) => {
 
     return (
         <div>
-            {redirect && <Redirect to={redirect} />}
             <Header addNew={true} />
             {builder?.analytics && <AnalyticsHeader assetsURL={builder.assets} analytics={...builder?.analytics} />}
             <div className="nx-settings">

@@ -16,10 +16,26 @@ const AddNewNotification = (props) => {
     const [isCreated, setIsCreated] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
     const notificationxContext = useNotificationXContext();
-    const [redirect, setRedirect] = useState(builder?.createRedirect);
-
 
     useEffect(() => {
+        if(isCreated){
+            notificationxContext.setRedirect({
+                page: `nx-edit`,
+                id  : isCreated,
+                state: { published: true }
+            });
+        }
+    }, [isCreated])
+
+    useEffect(() => {
+        if(builder?.createRedirect){
+            // user don't have permission.
+            notificationxContext.setRedirect({
+                page  : `nx-admin`,
+            });
+            return;
+        }
+
         if (notificationxContext.getOptions('refresh')) {
             nxHelper.get('builder').then((res: any) => {
                 if (isArray(res?.tabs) && res?.tabs.length > 0) {
@@ -47,17 +63,12 @@ const AddNewNotification = (props) => {
                 }
             })
         }
+
     }, []);
 
     return (
         <BuilderProvider value={builder}>
-            {redirect && <Redirect to="/" />}
             <div>
-                {isCreated && <Redirect to={{
-                    pathname: '/admin.php',
-                    search: `?page=nx-edit&id=${isCreated}`,
-                    state: { published: true }
-                }} />}
                 <Header addNew={true} />
                 <WrapperWithLoader isLoading={isLoading}>
                     <CreateNx setIsLoading={setIsLoading} setIsCreated={setIsCreated} title={title} setTitle={setTitle} />

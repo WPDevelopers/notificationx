@@ -10,7 +10,6 @@ const SettingsWrapper = (props) => {
 
     return (
         <BuilderProvider value={builder}>
-            {/* <Redirect to="/" /> */}
             <SettingsInner />
         </BuilderProvider>
     )

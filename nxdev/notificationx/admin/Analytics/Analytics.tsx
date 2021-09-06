@@ -13,12 +13,10 @@ import {
 import { __experimentalGetSettings, date } from "@wordpress/date";
 import { useNotificationXContext } from "../../hooks";
 import withDocumentTitle from "../../core/withDocumentTitle";
-import { Redirect } from "react-router";
 
 const Analytics = (props) => {
     const settings: any = __experimentalGetSettings();
     const builderContext = useNotificationXContext();
-    const [redirect, setRedirect] = useState(builderContext?.analyticsRedirect);
     const [isLoading, setIsLoading] = useState(false);
 
     const [posts, setPosts] = useState([]);
@@ -64,6 +62,12 @@ const Analytics = (props) => {
     });
 
     useEffect(() => {
+        if(builderContext?.analyticsRedirect){
+            builderContext.setRedirect({
+                page  : `nx-admin`,
+            });
+            return;
+        }
         setIsLoading(true);
         nxHelper.get("analytics").then((res: any) => {
             if (res?.stats) {
@@ -197,7 +201,6 @@ const Analytics = (props) => {
 
     return (
         <div>
-            {redirect && <Redirect to="/" />}
             <Header addNew={true} />
             <AnalyticsHeader
                 assetsURL={builderContext.assets}

@@ -11,7 +11,6 @@ import nxToast from "../core/ToasterMsg";
 
 const PublishWidget = (props) => {
     const { title, context, isEdit, setIsLoading, setIsCreated, id, ...rest } = props;
-    const [redirect, setRedirect] = useState<string>()
     const builderContext = useNotificationXContext();
 
     const handleSubmit = useCallback(
@@ -61,8 +60,10 @@ const PublishWidget = (props) => {
                     .delete(`nx/${id}`, { nx_id: id })
                     .then((res) => {
                         if (res) {
-                            nxToast.error( `Notification Alert has been Deleted.` ),
-                            setRedirect('/');
+                            nxToast.error( `Notification Alert has been Deleted.` );
+                            builderContext.setRedirect({
+                                page  : `nx-admin`,
+                            });
                         } else {
                             nxToast.error( `Oops, Something went wrong. Please try again.` );
                         }
@@ -74,9 +75,6 @@ const PublishWidget = (props) => {
 
     return (
         <div className="sidebar-widget nx-widget">
-            {
-                redirect && <Redirect to={redirect} />
-            }
             <div className="nx-widget-title">
                 <h4>Publish</h4>
             </div>

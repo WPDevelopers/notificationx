@@ -15,8 +15,7 @@ const SingleNotificationAction = ({
     setTotalItems,
     enabled,
 }) => {
-    const builderContext = useNotificationXContext();
-    const [redirect, setRedirect] = useState<string>()
+    const nxContext = useNotificationXContext();
 
     const handleDelete = useCallback(
         (event) => {
@@ -59,7 +58,6 @@ const SingleNotificationAction = ({
                         return ['deleted', `Notification Alert has been Deleted.`];
                     },
                     afterComplete: () => {
-                        setRedirect('/');
                     }
 
                 });
@@ -72,7 +70,7 @@ const SingleNotificationAction = ({
         nxHelper.swal({
             title: 'Are you sure you want to Regenerate?',
             text: "Regenerating will fetch new data based on settings",
-            iconHtml: `<img alt="NotificationX" src="${builderContext.assets.admin}images/regenerate.svg" style="height: 85px; width:85px" />`,
+            iconHtml: `<img alt="NotificationX" src="${nxContext.assets.admin}images/regenerate.svg" style="height: 85px; width:85px" />`,
             showCancelButton: true,
             iconColor: 'transparent',
             confirmButtonText: 'Regenerate',
@@ -89,7 +87,7 @@ const SingleNotificationAction = ({
                 return ['regenerated', 'Notification Alert has been Regenerated.'];
             },
             afterComplete: () => {
-                setRedirect('/');
+                // setRedirect('/');
             }
 
         });
@@ -101,20 +99,17 @@ const SingleNotificationAction = ({
 
     return (
         <div className="nx-admin-actions">
-            {
-                redirect && <Redirect to={redirect} />
-            }
             <Link className="nx-admin-title-edit" title="Edit" to={{
                         pathname: '/admin.php',
                         search: `?page=nx-edit&id=${id}`,
                     }}><span>{__('Edit', 'notificationx')}</span></Link>
-            <Link className={classNames("nx-admin-title-duplicate", {hidden: builderContext?.createRedirect})} title="Duplicate" to={{
+            <Link className={classNames("nx-admin-title-duplicate", {hidden: nxContext?.createRedirect})} title="Duplicate" to={{
                 pathname: '/admin.php',
                 search: `?page=nx-edit`, //&clone=${id}
                 state: { duplicate: true, _id: id }
             }}><span>{__('Duplicate', 'notificationx')}</span></Link>
             {
-                builderContext?.is_pro_active &&
+                nxContext?.is_pro_active &&
                 <CopyToClipboard className="nx-admin-title-shortcode nx-shortcode-btn" title="Shortcode" text={`[notificationx id=${id}]`} onCopy={onCopy} >
                     <a></a>
                 </CopyToClipboard>
@@ -129,7 +124,7 @@ const SingleNotificationAction = ({
                     <span>{__("Re Generate", "notificationx")}</span>
                 </button>
             )}
-            <button className={classNames("nx-admin-title-trash", {hidden: builderContext?.createRedirect})} title="Delete" onClick={handleDelete}>
+            <button className={classNames("nx-admin-title-trash", {hidden: nxContext?.createRedirect})} title="Delete" onClick={handleDelete}>
                 <span>{__("Delete", "notificationx")}</span>
             </button>
         </div>

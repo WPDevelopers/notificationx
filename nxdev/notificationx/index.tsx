@@ -32,12 +32,12 @@ const NotificationX = (props) => {
 
 
     return (
-        <Router basename="/wp-admin/">
+        <Router basename="/wp-admin">
             <div className="notificationx-main">
                 <NotificationXProvider value={builder}>
                     {
-                        // builder?.redirect?.to &&
-                        // <Redirect to={builder?.redirect?.to} />
+                        builder.state?.redirect?.to &&
+                        <Redirect to={builder.state.redirect.to} />
                     }
                     <R  component={Route} />
                     <ToastContainer />

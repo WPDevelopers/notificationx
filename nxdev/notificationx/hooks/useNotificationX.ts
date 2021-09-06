@@ -3,6 +3,7 @@ import notificationXReducer from './notificationXReducer';
 
 // @ts-ignore
 import { __experimentalGetSettings } from "@wordpress/date";
+import nxHelper from '../core/functions';
 
 const useNotificationX = ( props ) => {
     const isMounted = useRef(null);
@@ -22,6 +23,9 @@ const useNotificationX = ( props ) => {
     const [state, dispatch] = useReducer(notificationXReducer, {
         settings: {
             time: timeSettings.current
+        },
+        redirect: {
+            to: null,
         }
     });
 
@@ -31,6 +35,18 @@ const useNotificationX = ( props ) => {
             payload: { field, value }
         })
     }
+
+    const setRedirect = (redirectData) => {
+        const {state, keepHash, ...rest} = redirectData;
+        const redirect = nxHelper.getRedirect(rest, keepHash);
+        dispatch({
+            type: 'SET_REDIRECT',
+            payload: {
+                to: redirect,
+                state
+            }
+        });
+    };
 
     const getOptions = useCallback(
         ( name ) => {
@@ -50,6 +66,7 @@ const useNotificationX = ( props ) => {
         ...props,
         state,
         dispatch,
+        setRedirect,
         getSettings: getSettings,
         setOptions: setOptions,
         getOptions: getOptions,
