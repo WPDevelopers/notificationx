@@ -95,6 +95,7 @@ class PostType {
         $tabs['settings']                     = Settings::get_instance()->get_form_data();
         $tabs['settings']['settingsRedirect'] = !current_user_can( 'edit_notificationx_settings' );
         $tabs['settings']['analytics']        = $tabs['analytics'];
+        $tabs['admin_url']                    = get_admin_url();
         $tabs['assets']                       = [
             'admin' => NOTIFICATIONX_ADMIN_URL,
             'public' => NOTIFICATIONX_PUBLIC_URL,

@@ -27,12 +27,12 @@ const NotificationX = (props) => {
         setTitle(documentTitle);
     }
 
-    const builder = useNotificationX({ ...notificationxTabs, title });
-
-
+    const builder  = useNotificationX({ ...notificationxTabs, title });
+    const url      = new URL(builder.admin_url);
+    const basename = url.pathname.replace(/\/$/, "");
 
     return (
-        <Router basename="/wp-admin">
+        <Router basename={basename}>
             <div className="notificationx-main">
                 <NotificationXProvider value={builder}>
                     {
