@@ -23,7 +23,12 @@ const NotificationX = (props) => {
     const [title, setTitle] = useState("");
     if (!title) {
         let documentTitle = document.querySelector("title").text;
-        documentTitle = documentTitle.replace("All NotificationX", "");
+        documentTitle = documentTitle
+                            .replace("All NotificationX", "")
+                            .replace("Add New", "")
+                            .replace("Settings", "")
+                            .replace("Analytics", "")
+                            .replace("Quick Builder", "");
         setTitle(documentTitle);
     }
 
