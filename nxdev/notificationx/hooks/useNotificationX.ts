@@ -42,8 +42,8 @@ const useNotificationX = ( props ) => {
         dispatch({
             type: 'SET_REDIRECT',
             payload: {
-                to: redirect,
-                state
+                ...redirect,
+                state,
             }
         });
     };

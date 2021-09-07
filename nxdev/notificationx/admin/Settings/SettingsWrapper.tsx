@@ -10,7 +10,7 @@ const SettingsWrapper = (props) => {
 
     return (
         <BuilderProvider value={builder}>
-            <SettingsInner />
+            <SettingsInner props={props} />
         </BuilderProvider>
     )
 }

@@ -41,8 +41,8 @@ const NotificationX = (props) => {
             <div className="notificationx-main">
                 <NotificationXProvider value={builder}>
                     {
-                        builder.state?.redirect?.to &&
-                        <Redirect to={builder.state.redirect.to} />
+                        builder.state?.redirect &&
+                        <Redirect to={builder.state.redirect} />
                     }
                     <R  component={Route} />
                     <ToastContainer />

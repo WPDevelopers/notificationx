@@ -107,7 +107,10 @@ class NotificationXHelpers {
             query.set(key, params[key]);
         }
 
-        return '/admin.php?' + query.toString() + hash;
+        return {
+            pathname: '/admin.php',
+            search: '?' + query.toString() + hash,
+        };
     }
     filtered = (notices, status) => {
         return notices.filter((val) => {
