@@ -1,13 +1,6 @@
 <hr class="wp-header-end"/>
 <div class="wrap">
     <div class="notificationx-admin">
-        <?php
-
-        do_action('wpml_show_package_language_ui', array(
-            'kind'      => 'NotificationX',
-            'name'      => isset($_GET['id']) ? $_GET['id'] : null,
-        ));
-        ?>
         <noscript>
             <p class="notificationx-disabled-javascript-notice">
                 <?php

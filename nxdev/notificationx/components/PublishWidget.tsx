@@ -3,7 +3,6 @@ import { Button, ButtonGroup } from "@wordpress/components";
 import { Date } from "../../form-builder/src/fields";
 import { isInTheFuture } from "@wordpress/date";
 import nxHelper from "../core/functions";
-import { Redirect } from "react-router";
 import Swal from "sweetalert2";
 import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
@@ -28,7 +27,11 @@ const PublishWidget = (props) => {
                     if (res?.nx_id) {
                         setIsLoading(false);
                         if (setIsCreated) {
-                            setIsCreated(res?.nx_id);
+                            builderContext.setRedirect({
+                                page: `nx-edit`,
+                                id  : res?.nx_id,
+                                state: { published: true }
+                            });
                         } else {
                             context.setValues(res);
                             context.setSavedValues(res);

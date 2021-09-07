@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Redirect } from 'react-router-dom';
 import { CreateNx } from '.';
 import { BuilderProvider, useBuilder } from '../../../form-builder';
 import { isArray } from '../../../form-builder/src/core/utils';
@@ -13,19 +12,8 @@ const AddNewNotification = (props) => {
     delete builderTabs.settings;
     const builder = useBuilder(builderTabs);
     const [title, setTitle] = useState('')
-    const [isCreated, setIsCreated] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
     const notificationxContext = useNotificationXContext();
-
-    useEffect(() => {
-        if(isCreated){
-            notificationxContext.setRedirect({
-                page: `nx-edit`,
-                id  : isCreated,
-                state: { published: true }
-            });
-        }
-    }, [isCreated])
 
     useEffect(() => {
         if(builder?.createRedirect){
@@ -71,7 +59,7 @@ const AddNewNotification = (props) => {
             <div>
                 <Header addNew={true} />
                 <WrapperWithLoader isLoading={isLoading}>
-                    <CreateNx setIsLoading={setIsLoading} setIsCreated={setIsCreated} title={title} setTitle={setTitle} />
+                    <CreateNx setIsLoading={setIsLoading} title={title} setTitle={setTitle} />
                 </WrapperWithLoader>
             </div>
         </BuilderProvider>

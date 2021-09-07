@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import FormBuilder, { useBuilderContext } from '../../../form-builder';
 import { Content } from '../../components';
 import { proAlert } from '../../core/functions';
-import { Redirect } from "react-router";
 import { useNotificationXContext } from '../../hooks';
 
 const QuickBuild = (props) => {
