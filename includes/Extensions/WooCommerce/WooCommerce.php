@@ -48,6 +48,7 @@ class WooCommerce extends Extension {
         add_action('woocommerce_order_status_changed', array($this, 'status_transition'), 10, 4);
         add_action('woocommerce_process_shop_order_meta', array( $this, 'manual_order'), 10, 2 );
         add_action('woocommerce_new_order_item', array($this, 'save_new_orders'), 10, 3);
+        add_filter('wpml_inclued_entry_key', array($this, 'wpml_inclued_entry_key'));
     }
 
     public function init_fields(){
@@ -484,6 +485,13 @@ class WooCommerce extends Extension {
             }
         }
         return $image_data;
+    }
+
+    public function wpml_inclued_entry_key($includes){
+        $includes = array_merge($includes, [
+            'sales_count',
+        ]);
+        return $includes;
     }
 
     public function fallback_data($data) {
