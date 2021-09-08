@@ -150,6 +150,17 @@ class PressBar extends Extension {
         return $post;
     }
 
+    public function saved_post($post, $data, $nx_id) {
+        if(!empty($data['elementor_id'])){
+            $title = !empty($post['title']) ? $post['title'] : $nx_id;
+            $my_post = array(
+                'ID'           => $data['elementor_id'],
+                'post_title'   => "NxBar: " . $title,
+            );
+            wp_update_post( $my_post );
+        }
+    }
+
     public function theme_preview($url, $post) {
         if (!empty($post['elementor_id']) && !empty($post['elementor_bar_theme']) && !empty($this->bar_themes[$post['elementor_bar_theme']])) {
             return $this->bar_themes[$post['elementor_bar_theme']]['icon'];
@@ -601,6 +612,16 @@ class PressBar extends Extension {
 
     public function delete_elementor_post($elementor_id) {
         if(!empty($elementor_id)){
+            $languages = apply_filters( 'wpml_active_languages', NULL );
+            if(is_array($languages)){
+                foreach ($languages as $lang => $val) {
+                    $elementor_post_id = apply_filters( 'wpml_object_id', $elementor_id, 'nx_bar', false, $lang);
+                    if($elementor_post_id){
+                        wp_delete_post($elementor_post_id, true);
+                    }
+                }
+                return;
+            }
             wp_delete_post($elementor_id, true);
         }
     }
@@ -842,7 +863,8 @@ class PressBar extends Extension {
         $settings = new GetData($settings, \ArrayObject::ARRAY_AS_PROPS);
         $elementor_post_id = isset($settings->elementor_id) ? $settings->elementor_id : '';
         if ($elementor_post_id != '' && get_post_status($elementor_post_id) === 'publish' && class_exists('\Elementor\Plugin')) {
-            return \Elementor\Plugin::$instance->frontend->get_builder_content($elementor_post_id, false);
+            $elementor_post_id = apply_filters( 'wpml_object_id', $elementor_post_id, 'nx_bar', true);
+            return \Elementor\Plugin::$instance->frontend->get_builder_content_for_display($elementor_post_id, false);
         } else {
             return !empty($settings->press_content) ? do_shortcode($settings->press_content) : '';
         }

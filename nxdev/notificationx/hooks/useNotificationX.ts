@@ -25,7 +25,6 @@ const useNotificationX = ( props ) => {
             time: timeSettings.current
         },
         redirect: {
-            to: null,
         }
     });
 

@@ -101,6 +101,7 @@ class PostType {
             'public' => NOTIFICATIONX_PUBLIC_URL,
         ];
 
+        $tabs = apply_filters('nx_builder_configs', $tabs);
         return $tabs;
     }
 

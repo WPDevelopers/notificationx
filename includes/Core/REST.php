@@ -256,11 +256,11 @@ class REST {
     }
 
     public function rest_data(){
-        return array(
+        return apply_filters('nx_rest_data', array(
             'root'      => rest_url(),
             'namespace' => $this->_namespace(),
             'nonce'     => wp_create_nonce( 'nx_rest' ),
-        );
+        ));
     }
 
     /**
@@ -286,7 +286,7 @@ class REST {
     public function error( $type = '' ) {
         switch( $type ) {
             case 'api':
-                return $this->formattedError( 'api_error', __( 'Unathorized Access: You have to logged in first.', 'notificationx' ), 401 );
+                return $this->formattedError( 'api_error', __( 'Unauthorized Access: You have to logged in first.', 'notificationx' ), 401 );
                 break;
             case 'type':
                 return $this->formattedError( 'type_error', __( 'Invalid Type: You have to give a type.', 'notificationx' ), 401 );

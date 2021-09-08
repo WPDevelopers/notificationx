@@ -5,7 +5,7 @@ import nxHelper from '../core/functions';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useNotificationXContext } from '../hooks';
 import classNames from 'classnames';
-import nxToast from "../core/ToasterMsg";
+import nxToast, { ToastAlert } from "../core/ToasterMsg";
 
 const SingleNotificationAction = ({
     id,
@@ -16,7 +16,8 @@ const SingleNotificationAction = ({
     enabled,
 }) => {
     const nxContext = useNotificationXContext();
-
+    // @ts-ignore
+    const ajaxurl = window.ajaxurl;
     const handleDelete = useCallback(
         (event) => {
             if (id) {
@@ -93,12 +94,28 @@ const SingleNotificationAction = ({
         });
     };
 
+    const handleTranslate = (event) => {
+        nxHelper.get(`translate/${id}`)
+            .then((response: any) => {
+                if(response?.redirect){
+                    window.location = response.redirect;
+                }
+                else{
+                    ToastAlert('error', __("Something went wrong.", 'notificationx'));
+                }
+
+            });
+    };
+
     const onCopy = () => {
         nxToast.info( `Notification Alert has been Copied to Clipboard.` );
     }
 
     return (
         <div className="nx-admin-actions">
+            <button className={classNames("nx-admin-title-edit", {hidden: !nxContext?.can_translate})} title="Translate" onClick={handleTranslate}>
+                <span>{__("Translate", "notificationx")}</span>
+            </button>
             <Link className="nx-admin-title-edit" title="Edit" to={{
                         pathname: '/admin.php',
                         search: `?page=nx-edit&id=${id}`,
