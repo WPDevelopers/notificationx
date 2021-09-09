@@ -70,7 +70,7 @@ class PostType {
 
         $tabs = $this->get_localize_scripts();
 
-        $d = include_once Helper::file('admin/js/admin.asset.php');
+        $d = include Helper::file('admin/js/admin.asset.php');
 
         wp_enqueue_script(
             'notificationx-admin',

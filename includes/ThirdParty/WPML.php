@@ -2,6 +2,8 @@
 
 namespace NotificationX\ThirdParty;
 
+use NotificationX\Admin\Settings;
+use NotificationX\Core\Helper;
 use NotificationX\Core\PostType;
 use NotificationX\Core\REST;
 use NotificationX\GetInstance;
@@ -35,7 +37,10 @@ class WPML {
      *
      */
     public function __construct() {
-        add_action('wpml_st_loaded', [$this, 'init'], 10);
+        add_action('wpml_st_loaded', [$this, 'st_loaded'], 10);
+        // localize moment even without wpml;
+        add_action('notificationx_scripts', [$this, 'localize_moment'], 10);
+
         $this->template = [
             'custom_first_param'  => __("Custom First Parameter", 'notificationx'),
             'second_param'        => __("Second Param", 'notificationx'),
@@ -57,16 +62,32 @@ class WPML {
      *
      * @return void
      */
-    public function init() {
-        // add_action('nx_filtered_entry', [$this, 'wpml_translate'], 10, 2);
+    public function st_loaded() {
+
+        add_action('init', [$this, 'init'], 10);
+
         add_action('nx_saved_post', [$this, 'register_package'], 10, 3);
-        add_filter('nx_get_post', [$this, 'translate_values'], 10);
         add_action('nx_delete_post', [$this, 'delete_translation'], 10, 2);
+        add_filter('nx_get_post', [$this, 'translate_values'], 10);
 
         add_action('rest_api_init', [$this, 'register_routes']);
         add_filter('nx_rest_data', [$this, 'rest_data']);
         add_filter('nx_builder_configs', [$this, 'builder_configs']);
 
+    }
+
+    public function init(){
+        Settings::get_instance()->_load();
+
+    }
+
+    public function localize_moment(){
+        $locale      = strtolower(str_replace('_', '-', get_locale()));
+        $locale_path = NOTIFICATIONX_ASSETS_PATH . "public/locale/$locale.js";
+        if(file_exists($locale_path)){
+            $locale_url  = NOTIFICATIONX_ASSETS . "public/locale/$locale.js";
+            wp_enqueue_script( 'nx-moment-locale', $locale_url, ['moment']);
+        }
     }
 
     public function wpml_translate($entry, $settings){

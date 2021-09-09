@@ -10,7 +10,7 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/udx/lib-settings"
+      "url": "https://github.com/WPDevelopers/lib-settings"
     },
     {
       "type": "vcs",

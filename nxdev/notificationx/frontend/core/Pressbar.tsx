@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import usePortal from "../hooks/UsePortal";
 import cookie from "react-cookies";
 import { Close } from "../themes/helpers";
-import { getTime as momentGetTime } from "../../../form-builder/src/core/utils";
+import { getTime as momentGetTime } from "./utils";
 
 /**
  * @example

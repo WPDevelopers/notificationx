@@ -80,6 +80,12 @@ abstract class Extension {
         if($this->class_exists()){
             $this->admin_actions();
             $this->public_actions();
+            if(did_action('wpml_st_loaded')){
+                $this->wpml_actions();
+            }
+            // else{
+            //     add_action('wpml_st_loaded', [$this, 'wpml_actions'], 10);
+            // }
         }
     }
 
@@ -154,6 +160,10 @@ abstract class Extension {
             return;
         }
         // add_action('nx_get_conversions_ready', array($this, 'get_notification_ready'), 10, 2);
+    }
+
+    public function wpml_actions(){
+
     }
 
     /**

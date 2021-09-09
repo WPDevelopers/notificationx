@@ -52,7 +52,6 @@ class FrontEnd {
      */
     public function init() {
         add_action('wp_footer', array($this, 'add_notificationx'));
-        add_action('nx_filtered_entry', [$this, 'link_url'], 10, 2);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
         add_filter('nx_fallback_data', [$this, 'fallback_data'], 10, 3);
         add_filter('nx_filtered_data', [$this, 'filtered_data'], 9999, 2);
@@ -76,7 +75,7 @@ class FrontEnd {
      * @return void
      */
     public function enqueue_scripts() {
-        $d = include_once Helper::file('public/js/frontend.asset.php');
+        $d = include Helper::file('public/js/frontend.asset.php');
 
         wp_register_script( 'notificationx-public', Helper::file( 'public/js/frontend.js', true ), $d['dependencies'], $d['version'], true);
         wp_register_style('notificationx-public', Helper::file( 'public/css/frontend.css', true ), [], $d['version'], 'all');
@@ -155,6 +154,7 @@ class FrontEnd {
                 $entry = apply_filters("nx_filtered_entry_$type", $entry, $settings);
                 $entry = apply_filters("nx_filtered_entry_$source", $entry, $settings);
                 $entry = apply_filters("nx_filtered_entry", $entry, $settings);
+                $entry = $this->link_url($entry, $settings);
 
                 // @todo shortcode
                 // @todo check if the current page have shortcode.

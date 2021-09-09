@@ -83,6 +83,16 @@ class WooCommerce extends Extension {
         add_filter("nx_filtered_data_{$this->id}", array($this, 'multiorder_combine'), 11, 3);
     }
 
+    public function wpml_actions(){
+        if (!$this->is_active()) {
+            return;
+        }
+
+        add_filter("nx_filtered_entry_{$this->id}", array($this, 'wpml_translate'), 11, 2);
+        add_filter("nx_notification_link_{$this->id}", [$this, 'product_link'], 10, 3);
+
+    }
+
     public function source_error_message($messages) {
         if (!$this->class_exists()) {
             $url = admin_url('plugin-install.php?s=woocommerce&tab=search&type=term');
@@ -440,6 +450,29 @@ class WooCommerce extends Extension {
         return array_merge($options, $_options);
     }
 
+
+    public function wpml_translate($entry, $settings) {
+        if(!empty($entry['product_id'])){
+            $product_id = apply_filters( 'wpml_object_id', $entry['product_id'], 'nx_bar', false);
+            if($product_id){
+                $product = wc_get_product($product_id);
+                $current_lang = apply_filters( 'wpml_current_language', NULL );
+
+                $entry['product_id'] = $product_id;
+                $entry['title']      = $product->get_name();
+            }
+        }
+
+        return $entry;
+    }
+
+
+    public function product_link($link, $post, $entry) {
+        if(!empty($entry['product_id'])){
+            $link = get_permalink($entry['product_id']);
+        }
+        return $link;
+    }
 
     public function multiorder_combine($data, $settings) {
         if (empty($settings['combine_multiorder']) || intval($settings['combine_multiorder']) != 1 )  {
