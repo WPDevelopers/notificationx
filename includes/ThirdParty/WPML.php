@@ -30,7 +30,27 @@ class WPML {
         'city_country',
     ];
 
-    private $template = [];
+    private $template = [
+        'custom_first_param'  => "Custom First Parameter",
+        'second_param'        => "Second Param",
+        'custom_third_param'  => "Custom Third Param",
+        'custom_fourth_param' => "Custom Fourth Parameter",
+        'custom_fifth_param'  => "Custom Fifth Parameter",
+        'custom_sixth_param'  => "Custom Sixth Parameter",
+        'map_fourth_param'    => "Map Fourth Parameter",
+        'ga_fourth_param'     => "Google Analytics Fourth Parameter",
+        'ga_fifth_param'      => "Google Analytics Fifth Parameter",
+        'review_fourth_param' => "Review Fourth Parameter",
+    ];
+    private $meta = [
+        'title'                   => ['Title', 'LINE'],
+        'custom_url'              => ['Custom URL', 'LINE'],
+        'advanced_template'       => ['Advance Template', 'VISUAL'],
+        'press_content'           => ['Notification Bar Content', 'VISUAL'],
+        'button_text'             => ['Button Text', 'LINE'],
+        'button_url'              => ['Button URL', 'LINE'],
+        'combine_multiorder_text' => ['Combine Multi Order Text', 'LINE'],
+    ];
 
     /**
      * Constructor.
@@ -40,20 +60,6 @@ class WPML {
         add_action('wpml_st_loaded', [$this, 'st_loaded'], 10);
         // localize moment even without wpml;
         add_action('notificationx_scripts', [$this, 'localize_moment'], 10);
-
-        $this->template = [
-            'custom_first_param'  => __("Custom First Parameter", 'notificationx'),
-            'second_param'        => __("Second Param", 'notificationx'),
-            'custom_third_param'  => __("Custom Third Param", 'notificationx'),
-            'custom_fourth_param' => __("Custom Fourth Parameter", 'notificationx'),
-            'custom_fifth_param'  => __("Custom Fifth Parameter", 'notificationx'),
-            'custom_sixth_param'  => __("Custom Sixth Parameter", 'notificationx'),
-            'map_fourth_param'    => __("Map Fourth Parameter", 'notificationx'),
-            'ga_fourth_param'     => __("Google Analytics Fourth Parameter", 'notificationx'),
-            'ga_fifth_param'      => __("Google Analytics Fifth Parameter", 'notificationx'),
-            'review_fourth_param' => __("Review Fourth Parameter", 'notificationx'),
-        ];
-
     }
 
     /**
@@ -124,9 +130,15 @@ class WPML {
         }
 
         $package = $this->generate_package($data, $nx_id);
-        do_action('wpml_register_string', $data['title'], 'title', $package, 'Title', 'LINE');
 
-        do_action('wpml_register_string', $data['advanced_template'], 'advanced_template', $package, 'Advance Template', 'VISUAL');
+        foreach ($this->meta as $key => $param) {
+            if(!empty($data[$key])){
+                $title = $param[0];
+                $type  = $param[1];
+                do_action('wpml_register_string', $data[$key], $key, $package, $title, $type);
+            }
+        }
+
         // @todo maybe keep only one.
         foreach ($this->template as $key => $param) {
             if(!empty($data['notification-template'][$key])){
@@ -138,8 +150,12 @@ class WPML {
 
     public function translate_values($post){
         $package = $this->generate_package($post, $post['nx_id']);
-        $post['title'] = apply_filters( 'wpml_translate_string', $post['title'], 'title', $package );
-        $post['advanced_template'] = apply_filters( 'wpml_translate_string', $post['advanced_template'], 'advanced_template', $package );
+
+        foreach ($this->meta as $key => $param) {
+            if(!empty($data[$key])){
+                $post[$key] = apply_filters( 'wpml_translate_string', $post[$key], $key, $package );
+            }
+        }
 
         // @todo maybe keep only one.
         foreach ($this->template as $key => $param) {
@@ -167,6 +183,7 @@ class WPML {
                     'data' => $post,
                 ], $nx_id);
 
+                // @todo mayb not required.
                 $this->register_package($post, [], $nx_id);
                 return [
                     'redirect' => admin_url("admin.php?page=wpml-string-translation/menu/string-translation.php&context=notificationx-$nx_id"),
