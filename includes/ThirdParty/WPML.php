@@ -46,10 +46,12 @@ class WPML {
         'title'                   => ['Title', 'LINE'],
         'custom_url'              => ['Custom URL', 'LINE'],
         'advanced_template'       => ['Advance Template', 'VISUAL'],
+        'combine_multiorder_text' => ['Combine Multi Order Text', 'LINE'],
         'press_content'           => ['Notification Bar Content', 'VISUAL'],
         'button_text'             => ['Button Text', 'LINE'],
         'button_url'              => ['Button URL', 'LINE'],
-        'combine_multiorder_text' => ['Combine Multi Order Text', 'LINE'],
+        'countdown_expired_text'  => ['Countdown Expired Text', 'LINE'],
+        'countdown_text'          => ['Countdown Text', 'LINE'],
     ];
 
     /**
