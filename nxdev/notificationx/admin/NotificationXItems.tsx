@@ -87,7 +87,7 @@ export const NotificationXItems = (props) => {
     React.useEffect(() => {
         if (perPage === 0) return;
         setRedirect(`/?status=${status}&per-page=${perPage}&p=${currentPage}`);
-    }, [perPage]);
+    }, [perPage, currentPage]);
 
     return (
         <>
@@ -132,6 +132,7 @@ export const NotificationXItems = (props) => {
                             setTotalItems={setTotalItems}
                             checkAll={checkAll}
                             setCheckAll={setCheckAll}
+                            setCurrentPage={setCurrentPage}
                         />
                         <div className="nx-admin-items-footer">
                             <SelectControl

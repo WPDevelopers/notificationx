@@ -152,6 +152,10 @@ class FrontEnd {
 
                 $entry = $this->apply_defaults($entry, $defaults);
                 $entry['image_data'] = $this->get_image_url($entry, $settings);
+                if(!empty($entry['title'])){
+                    $entry['title'] = strip_tags(html_entity_decode($entry['title']));
+                }
+
                 $entry = apply_filters("nx_filtered_entry_$type", $entry, $settings);
                 $entry = apply_filters("nx_filtered_entry_$source", $entry, $settings);
                 $entry = apply_filters("nx_filtered_entry", $entry, $settings);
