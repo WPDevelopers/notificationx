@@ -144,9 +144,13 @@ class WPOrgStats extends Extension {
     // @todo Frontend
     public function conversion_data($saved_data, $settings) {
 
+        // translators: %s: number of downloads today.
         $saved_data['today'] = sprintf(__( '%s times today', 'notificationx' ), Helper::nice_number( $saved_data['today'] ));
+        // translators: %s: number of downloads yesterday.
         $saved_data['yesterday'] = sprintf(__( '%s times', 'notificationx' ), Helper::nice_number( $saved_data['yesterday'] ));
+        // translators: %s: number of downloads in last 7 days.
         $saved_data['last_week'] = sprintf(__( '%s times in last 7 days', 'notificationx' ), Helper::nice_number( $saved_data['last_week'] ));
+        // translators: %s: number of downloads of all time.
         $saved_data['all_time'] = sprintf(__( '%s times', 'notificationx' ), Helper::nice_number( $saved_data['all_time'] ));
         $saved_data['active_installs'] = __( Helper::nice_number( $saved_data['active_installs'] ), 'notificationx' );
         // wp_send_json($saved_data);

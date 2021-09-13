@@ -86,6 +86,8 @@ class FrontEnd {
                 wp_enqueue_style('notificationx-public');
                 wp_enqueue_script('notificationx-public');
                 wp_localize_script('notificationx-public', 'notificationX', $nx_ids);
+                wp_set_script_translations( 'notificationx-public', 'notificationx' );
+
                 do_action('notificationx_scripts', $nx_ids);
             }
         } else {

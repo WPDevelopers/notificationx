@@ -87,11 +87,13 @@ class Cron {
 
         $schedules['nx_wp_stats_interval'] = array(
             'interval'    => MINUTE_IN_SECONDS * $download_stats_cache_duration,
+            // translators: %s: no of minutes
             'display'    => sprintf(__('Every %s minutes', 'notificationx'), $download_stats_cache_duration)
         );
 
         $schedules['nx_wp_review_interval'] = array(
             'interval'    => MINUTE_IN_SECONDS * $reviews_cache_duration,
+            // translators: %s: no of minutes
             'display'    => sprintf(__('Every %s minutes', 'notificationx'), $reviews_cache_duration)
         );
 
