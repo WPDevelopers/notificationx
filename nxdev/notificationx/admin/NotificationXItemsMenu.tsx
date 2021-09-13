@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import NavLink from "../components/NavLink";
 import nxHelper from "../core/functions";
 import { useNotificationXContext } from "../hooks";
@@ -7,6 +6,7 @@ import { useNotificationXContext } from "../hooks";
 import Select from "react-select";
 // import Select from "../../form-builder/src/fields/Select";
 import nxToast from "../core/ToasterMsg";
+import { sprintf, __ } from "@wordpress/i18n";
 
 const NotificationXItemsMenu = ({
     notificationx,
@@ -44,12 +44,12 @@ const NotificationXItemsMenu = ({
 
     const deleteAction = (selectedItem) => {
         nxHelper.swal({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "error",
+            title: __("Are you sure?", 'notificationx'),
+            text: __("You won't be able to revert this!", 'notificationx'),
+            icon: __("error", 'notificationx'),
             showCancelButton: true,
-            confirmButtonText: "Yes, Delete It",
-            cancelButtonText: "No, Cancel",
+            confirmButtonText: __("Yes, Delete It", 'notificationx'),
+            cancelButtonText: __("No, Cancel", 'notificationx'),
             reverseButtons: true,
             customClass: { actions: "nx-delete-actions" },
             confirmedCallback: () => {
@@ -91,12 +91,12 @@ const NotificationXItemsMenu = ({
 
                     return count;
                 } else {
-                    throw new Error("Something went wrong.");
+                    throw new Error(__("Something went wrong.", 'notificationx'));
                 }
             },
             completeArgs: (result?) => {
-                return ["deleted", `${result?.all || 0} notification Alerts have been
-                Deleted.`];
+                return ["deleted", sprintf(__(`%d notification Alerts have been
+                Deleted.`, 'notificationx'), (result?.all || 0))];
             },
             afterComplete: () => {},
         });
@@ -107,8 +107,7 @@ const NotificationXItemsMenu = ({
                 return { ...notice };
             })
         );
-        nxToast.regenerated(`${result?.count || 0} Notification Alerts have been
-        Regenerated.`);
+        nxToast.regenerated(sprintf(__("%d Notification Alerts have been Regenerated.", 'notificationx'), (result?.count || 0)));
     };
     const enableAction = (selectedItem, result) => {
         let count = 0;
@@ -133,7 +132,7 @@ const NotificationXItemsMenu = ({
                 disabled: Number(prev.disabled) - count,
             };
         });
-        nxToast.enabled(`${count} Notification Alerts have been Enabled.`);
+        nxToast.enabled(sprintf(__(`%d Notification Alerts have been Enabled.`, 'notificationx'), count));
     };
     const disableAction = (selectedItem, result) => {
         let count = 0;
@@ -158,7 +157,7 @@ const NotificationXItemsMenu = ({
                 disabled: Number(prev.disabled) + count,
             };
         });
-        nxToast.disabled(`${count} Notification Alerts have been Disabled.`);
+        nxToast.disabled(sprintf(__(`%d Notification Alerts have been Disabled.`, 'notificationx'), count));
     };
 
     const bulkAction = () => {
@@ -200,11 +199,11 @@ const NotificationXItemsMenu = ({
                         disableAction(selectedItem, result);
                     }
                 } else {
-                    throw new Error("Something went wrong.");
+                    throw new Error(__("Something went wrong.", 'notificationx'));
                 }
             })
             .catch((err) => {
-                nxToast.error(`Unable to complete bulk action.`);
+                nxToast.error(__(`Unable to complete bulk action.`, 'notificationx'));
             });
     };
 

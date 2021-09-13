@@ -22,12 +22,12 @@ const SingleNotificationAction = ({
         (event) => {
             if (id) {
                 nxHelper.swal({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    title: __('Are you sure?', 'notificationx'),
+                    text: __("You won't be able to revert this!", 'notificationx'),
                     icon: 'error',
                     showCancelButton: true,
-                    confirmButtonText: 'Yes, Delete It',
-                    cancelButtonText: 'No, Cancel',
+                    confirmButtonText: __('Yes, Delete It', 'notificationx'),
+                    cancelButtonText: __('No, Cancel', 'notificationx'),
                     reverseButtons: true,
                     customClass: { actions: 'nx-delete-actions' },
                     confirmedCallback: () => {
@@ -56,7 +56,7 @@ const SingleNotificationAction = ({
                         }
                     },
                     completeArgs: () => {
-                        return ['deleted', `Notification Alert has been Deleted.`];
+                        return ['deleted', __(`Notification Alert has been Deleted.`, 'notificationx')];
                     },
                     afterComplete: () => {
                     }
@@ -69,13 +69,13 @@ const SingleNotificationAction = ({
 
     const handleRegenerate = (event) => {
         nxHelper.swal({
-            title: 'Are you sure you want to Regenerate?',
-            text: "Regenerating will fetch new data based on settings",
+            title: __('Are you sure you want to Regenerate?', 'notificationx'),
+            text: __("Regenerating will fetch new data based on settings", 'notificationx'),
             iconHtml: `<img alt="NotificationX" src="${nxContext.assets.admin}images/regenerate.svg" style="height: 85px; width:85px" />`,
             showCancelButton: true,
             iconColor: 'transparent',
-            confirmButtonText: 'Regenerate',
-            cancelButtonText: 'Cancel',
+            confirmButtonText: __('Regenerate', 'notificationx'),
+            cancelButtonText: __('Cancel', 'notificationx'),
             reverseButtons: true,
             customClass: { actions: 'nx-delete-actions' },
             confirmedCallback: () => {
@@ -85,7 +85,7 @@ const SingleNotificationAction = ({
 
             },
             completeArgs: () => {
-                return ['regenerated', 'Notification Alert has been Regenerated.'];
+                return ['regenerated', __('Notification Alert has been Regenerated.', 'notificationx')];
             },
             afterComplete: () => {
                 // setRedirect('/');
@@ -108,19 +108,19 @@ const SingleNotificationAction = ({
     };
 
     const onCopy = () => {
-        nxToast.info( `Notification Alert has been Copied to Clipboard.` );
+        nxToast.info( __(`Notification Alert has been Copied to Clipboard.`, 'notificationx') );
     }
 
     return (
         <div className="nx-admin-actions">
-            <button className={classNames("nx-admin-title-translate", {hidden: !nxContext?.can_translate})} title="Translate" onClick={handleTranslate}>
+            <button className={classNames("nx-admin-title-translate", {hidden: !nxContext?.can_translate})} title={__("Translate", "notificationx")} onClick={handleTranslate}>
                 <span>{__("Translate", "notificationx")}</span>
             </button>
-            <Link className="nx-admin-title-edit" title="Edit" to={{
+            <Link className="nx-admin-title-edit" title={__('Edit', 'notificationx')} to={{
                         pathname: '/admin.php',
                         search: `?page=nx-edit&id=${id}`,
                     }}><span>{__('Edit', 'notificationx')}</span></Link>
-            <Link className={classNames("nx-admin-title-duplicate", {hidden: nxContext?.createRedirect})} title="Duplicate" to={{
+            <Link className={classNames("nx-admin-title-duplicate", {hidden: nxContext?.createRedirect})} title={__('Duplicate', 'notificationx')} to={{
                 pathname: '/admin.php',
                 search: `?page=nx-edit`, //&clone=${id}
                 state: { duplicate: true, _id: id }
@@ -136,12 +136,12 @@ const SingleNotificationAction = ({
                 <button
                     className="nx-admin-title-regenerate"
                     onClick={handleRegenerate}
-                    title="Re Generate"
+                    title={__("Re Generate", "notificationx")}
                 >
                     <span>{__("Re Generate", "notificationx")}</span>
                 </button>
             )}
-            <button className={classNames("nx-admin-title-trash", {hidden: nxContext?.createRedirect})} title="Delete" onClick={handleDelete}>
+            <button className={classNames("nx-admin-title-trash", {hidden: nxContext?.createRedirect})} title={__("Delete", "notificationx")} onClick={handleDelete}>
                 <span>{__("Delete", "notificationx")}</span>
             </button>
         </div>

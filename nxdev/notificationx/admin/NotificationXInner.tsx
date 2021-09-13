@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
 import SingleNotificationX from './SingleNotificationX';
 
@@ -35,13 +36,13 @@ const NotificationXInner = ({ filteredNotice, setFilteredNotice, getNotice, upda
                         <td>
                             <div className="nx-all-selector"><input type="checkbox" checked={checkAll} onChange={selectAll} name="nx_all" id="" /></div>
                         </td>
-                            <td>NotificationX Title</td>
-                            <td>Preview</td>
-                            <td>Status</td>
-                            <td>Type</td>
-                            <td>Stats</td>
-                            <td>Date</td>
-                            <td>Action</td>
+                            <td>{__("NotificationX Title", 'notificationx')}</td>
+                            <td>{__("Preview", 'notificationx')}</td>
+                            <td>{__("Status", 'notificationx')}</td>
+                            <td>{__("Type", 'notificationx')}</td>
+                            <td>{__("Stats", 'notificationx')}</td>
+                            <td>{__("Date", 'notificationx')}</td>
+                            <td>{__("Action", 'notificationx')}</td>
                         </tr>
                     </thead>
                     <tbody>

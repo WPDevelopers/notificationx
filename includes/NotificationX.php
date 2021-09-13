@@ -117,7 +117,7 @@ class NotificationX {
          * Run All Actions and Filters
          * for GOOD.
          */
-        load_plugin_textdomain( 'notificationx', false, dirname( plugin_basename( NOTIFICATIONX_FILE ) ) . '/languages' );
+        // load_plugin_textdomain( 'notificationx', false, dirname( plugin_basename( NOTIFICATIONX_FILE ) ) . '/languages' );
 
         //  @todo remove
         if(defined('NX_DEBUG') && NX_DEBUG){

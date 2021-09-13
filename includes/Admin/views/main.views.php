@@ -5,6 +5,7 @@
             <p class="notificationx-disabled-javascript-notice">
                 <?php
                     echo sprintf(
+                        // translators: html tags
                         __( 'To work %sNotificationX%s properly you need to %sEnable JavaScript%s in your browser or make sure you have installed updated browser in your device.', 'notificationx' ),
                         '<strong><em>', '</em></strong>',
                         '<strong>', '</strong>'

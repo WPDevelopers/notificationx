@@ -835,7 +835,7 @@ class GlobalFields {
                             'is_pro' => true,
                             'fields' => [
                                 [
-                                    'label'    => "Enable Global Queue",
+                                    'label'    => __("Enable Global Queue", 'notificationx'),
                                     'name'     => "global_queue",
                                     'type'     => "checkbox",
                                     'priority' => 0,

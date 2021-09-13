@@ -62,6 +62,7 @@ class WPML {
         add_action('wpml_st_loaded', [$this, 'st_loaded'], 10);
         // localize moment even without wpml;
         add_action('notificationx_scripts', [$this, 'localize_moment'], 10);
+        add_action('notificationx_admin_scripts', [$this, 'localize_moment'], 10);
     }
 
     /**

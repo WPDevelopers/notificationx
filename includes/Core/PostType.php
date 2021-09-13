@@ -81,6 +81,9 @@ class PostType {
         );
         wp_localize_script('notificationx-admin', 'notificationxTabs', $tabs);
         wp_enqueue_style( 'notificationx-admin', Helper::file( 'admin/css/admin.css', true ), [], $d['version'], 'all' );
+        wp_set_script_translations( 'notificationx-admin', 'notificationx' );
+        do_action('notificationx_admin_scripts');
+
     }
 
     public function get_localize_scripts(){
