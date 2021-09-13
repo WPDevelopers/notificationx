@@ -176,6 +176,7 @@ const SingleNotificationX = ({
                     regenerate={item?.can_regenerate}
                     enabled={item.enabled}
                     setTotalItems={setTotalItems}
+                    setCurrentPage={item.setCurrentPage}
                 />
             </td>
         </tr>

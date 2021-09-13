@@ -93,7 +93,7 @@ export const NotificationXItems = (props) => {
             p         : currentPage,
             'per-page': perPage,
         });
-    }, [perPage]);
+    }, [perPage, currentPage]);
 
     return (
         <>
@@ -135,6 +135,7 @@ export const NotificationXItems = (props) => {
                             setTotalItems={setTotalItems}
                             checkAll={checkAll}
                             setCheckAll={setCheckAll}
+                            setCurrentPage={setCurrentPage}
                         />
                         <div className="nx-admin-items-footer">
                             <SelectControl
