@@ -113,7 +113,7 @@ const SingleNotificationAction = ({
 
     return (
         <div className="nx-admin-actions">
-            <button className={classNames("nx-admin-title-edit", {hidden: !nxContext?.can_translate})} title="Translate" onClick={handleTranslate}>
+            <button className={classNames("nx-admin-title-translate", {hidden: !nxContext?.can_translate})} title="Translate" onClick={handleTranslate}>
                 <span>{__("Translate", "notificationx")}</span>
             </button>
             <Link className="nx-admin-title-edit" title="Edit" to={{
