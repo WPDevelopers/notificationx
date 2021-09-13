@@ -147,6 +147,19 @@ class FrontEnd {
 
                 $type = $settings['type'];
                 $source = $settings['source'];
+
+                if(!empty($entry['timestamp'])){
+                    $timestamp = $entry['timestamp'];
+                    $display_from = !empty($settings['display_from']) ? $settings['display_from'] : 2;
+                    $display_from = strtotime("-$display_from days");
+                    if(!is_int($timestamp)){
+                        $timestamp = strtotime($timestamp);
+                    }
+                    if($display_from > $timestamp){
+                        continue;
+                    }
+                }
+
                 $defaults = apply_filters("nx_fallback_data_$source", $_defaults, $entry, $settings);
                 $defaults = apply_filters("nx_fallback_data", $defaults, $entry, $settings);
 
