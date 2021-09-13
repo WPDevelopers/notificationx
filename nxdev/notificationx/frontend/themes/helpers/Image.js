@@ -7,23 +7,23 @@ const Image = ({ data, config, id, style, isSplitCss }) => {
     }
 
     const { advance_edit, image_shape, image_position, themes } = config;
-    const custom_image_shape = image_shape == 'custom' ? config?.custom_image_shape : false;
+    const custom_image_shape = advance_edit && image_shape == 'custom' ? config?.custom_image_shape : false;
     const componentClasses = classNames(
         "notificationx-image",
         data?.image_data?.classes,
         {
-            [`image-${image_shape}`]: image_shape,
+            [`image-${image_shape}`]: image_shape && advance_edit,
             [`position-${image_position}`]: image_position && advance_edit,
         }
     );
 
     let newStyle ={}
     let newStyleForSecond = {}
-    if (style && isSplitCss ) {
+    if (advance_edit && style && isSplitCss ) {
       newStyle = {...style, right: -style?.borderWidth, top: `calc( 100% + ${style?.borderWidth}px)`}
       newStyleForSecond = {...style, borderColor: style?.backgroundColor}
     }
-    
+
 
     let imgRadius = {}
     if (custom_image_shape) {
