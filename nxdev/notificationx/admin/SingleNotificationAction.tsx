@@ -98,7 +98,7 @@ const SingleNotificationAction = ({
         nxHelper.get(`translate/${id}`)
             .then((response: any) => {
                 if(response?.redirect){
-                    window.location = response.redirect;
+                    window.open(response.redirect, '_blank');
                 }
                 else{
                     ToastAlert('error', __("Something went wrong.", 'notificationx'));
