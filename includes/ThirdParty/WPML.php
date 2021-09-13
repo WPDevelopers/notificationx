@@ -62,7 +62,8 @@ class WPML {
         add_action('wpml_st_loaded', [$this, 'st_loaded'], 10);
         // localize moment even without wpml;
         add_action('notificationx_scripts', [$this, 'localize_moment'], 10);
-        add_action('notificationx_admin_scripts', [$this, 'localize_moment'], 10);
+        // can't load moment locale in admin. it cause problem in date picker.
+        // add_action('notificationx_admin_scripts', [$this, 'localize_moment'], 10);
     }
 
     /**
@@ -96,6 +97,18 @@ class WPML {
         if(file_exists($locale_path)){
             $locale_url  = NOTIFICATIONX_ASSETS . "public/locale/$locale.js";
             wp_enqueue_script( 'nx-moment-locale', $locale_url, ['moment']);
+        }
+        else{
+            $locale      = apply_filters( 'wpml_current_language', NULL );
+            if($locale){
+                $locale      = strtolower(str_replace('_', '-', $locale));
+                $locale_path = NOTIFICATIONX_ASSETS_PATH . "public/locale/$locale.js";
+                if(file_exists($locale_path)){
+                    $locale_url  = NOTIFICATIONX_ASSETS . "public/locale/$locale.js";
+                    wp_enqueue_script( 'nx-moment-locale', $locale_url, ['moment']);
+                }
+            }
+
         }
     }
 
