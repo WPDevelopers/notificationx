@@ -297,7 +297,7 @@ class FrontEnd {
                 $check_location = Locations::get_instance()->check_location($locations, $custom_ids);
             }
 
-            $check_location = apply_filters('nx_check_location', $check_location, $settings);
+            $check_location = apply_filters('nx_check_location', $check_location, $settings, $custom_ids);
 
             if ($settings['show_on'] == 'on_selected') {
                 // show if the page is on selected

@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import React from 'react'
 import { useLocation, useParams, useRouteMatch } from 'react-router-dom';
 import { useBuilderContext } from '../../form-builder/src/core/hooks';
@@ -22,4 +23,4 @@ const Admin = (props) => {
         </div>
     )
 }
-export default withDocumentTitle(Admin, "All NotificationX");
+export default withDocumentTitle(Admin, __("All NotificationX", 'notificationx'));

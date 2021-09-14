@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
 import { CreateNx } from '.';
 import { BuilderProvider, useBuilder } from '../../../form-builder';
@@ -66,4 +67,4 @@ const AddNewNotification = (props) => {
     )
 }
 
-export default withDocumentTitle(AddNewNotification, 'Add New');
+export default withDocumentTitle(AddNewNotification, __('Add New', 'notificationx'));

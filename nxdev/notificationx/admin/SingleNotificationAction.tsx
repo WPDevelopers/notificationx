@@ -14,6 +14,7 @@ const SingleNotificationAction = ({
     regenerate,
     setTotalItems,
     enabled,
+    ...item
 }) => {
     const nxContext = useNotificationXContext();
     // @ts-ignore
@@ -114,6 +115,7 @@ const SingleNotificationAction = ({
 
     return (
         <div className="nx-admin-actions">
+            {/*  || item?.elementor_id */}
             <button className={classNames("nx-admin-title-translate", {hidden: !nxContext?.can_translate})} title={__("Translate", "notificationx")} onClick={handleTranslate}>
                 <span>{__("Translate", "notificationx")}</span>
             </button>

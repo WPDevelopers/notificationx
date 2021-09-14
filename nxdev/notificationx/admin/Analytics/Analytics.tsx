@@ -13,6 +13,7 @@ import {
 import { __experimentalGetSettings, date } from "@wordpress/date";
 import { useNotificationXContext } from "../../hooks";
 import withDocumentTitle from "../../core/withDocumentTitle";
+import { __ } from "@wordpress/i18n";
 
 const Analytics = (props) => {
     const settings: any = __experimentalGetSettings();
@@ -247,4 +248,4 @@ const Analytics = (props) => {
         </div>
     );
 };
-export default withDocumentTitle(Analytics, "Analytics");
+export default withDocumentTitle(Analytics, __("Analytics", 'notificationx'));

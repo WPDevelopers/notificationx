@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import React from 'react'
 import { Redirect, useLocation, useParams } from 'react-router-dom';
 import { BuilderProvider, useBuilder } from '../../../form-builder/src/core/hooks';
@@ -14,4 +15,4 @@ const SettingsWrapper = (props) => {
         </BuilderProvider>
     )
 }
-export default withDocumentTitle(SettingsWrapper, "Settings");
+export default withDocumentTitle(SettingsWrapper, __("Settings", 'notificationx'));

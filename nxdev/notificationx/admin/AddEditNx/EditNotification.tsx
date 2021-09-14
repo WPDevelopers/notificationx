@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom';
 import { EditNx } from '.';
@@ -75,4 +76,4 @@ const EditNotification = (props) => {
     )
 }
 
-export default withDocumentTitle(EditNotification, "Edit");
+export default withDocumentTitle(EditNotification, __("Edit", 'notificationx'));

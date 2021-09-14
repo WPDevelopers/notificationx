@@ -42,17 +42,6 @@ class WPML {
         'ga_fifth_param'      => "Google Analytics Fifth Parameter",
         'review_fourth_param' => "Review Fourth Parameter",
     ];
-    private $meta = [
-        'title'                   => ['Title', 'LINE'],
-        'custom_url'              => ['Custom URL', 'LINE'],
-        'advanced_template'       => ['Advance Template', 'VISUAL'],
-        'combine_multiorder_text' => ['Combine Multi Order Text', 'LINE'],
-        'press_content'           => ['Notification Bar Content', 'VISUAL'],
-        'button_text'             => ['Button Text', 'LINE'],
-        'button_url'              => ['Button URL', 'LINE'],
-        'countdown_expired_text'  => ['Countdown Expired Text', 'LINE'],
-        'countdown_text'          => ['Countdown Text', 'LINE'],
-    ];
 
     /**
      * Constructor.
@@ -83,12 +72,40 @@ class WPML {
         add_action('rest_api_init', [$this, 'register_routes']);
         add_filter('nx_rest_data', [$this, 'rest_data']);
         add_filter('nx_builder_configs', [$this, 'builder_configs']);
+        add_filter('nx_check_location', [$this, 'check_location']);
 
     }
 
     public function init(){
+        // load translated version of the settings.
         Settings::get_instance()->_load();
 
+    }
+
+    public function get_meta($post){
+        $meta = [];
+        $meta['title'] = ['Title', 'LINE'];
+        if($post['source'] == 'press_bar'){
+            if(empty($post['elementor_id'])){
+                $meta['press_content']          = ['Notification Bar Content', 'VISUAL'];
+                $meta['button_text']            = ['Button Text', 'LINE'];
+                $meta['button_url']             = ['Button URL', 'LINE'];
+                $meta['countdown_expired_text'] = ['Countdown Expired Text', 'LINE'];
+                $meta['countdown_text']         = ['Countdown Text', 'LINE'];
+            }
+        }
+        else{
+            if($post['link_type']){
+                $meta['custom_url'] = ['Custom URL', 'LINE'];
+            }
+            if($post['template_adv']){
+                $meta['advanced_template'] = ['Advance Template', 'VISUAL'];
+            }
+            if(($post['source'] == 'edd' || $post['source'] == 'woocommerce') && $post['combine_multiorder']){
+                $meta['combine_multiorder_text'] = ['Combine Multi Order Text', 'LINE'];
+            }
+        }
+        return $meta;
     }
 
     public function localize_moment(){
@@ -112,23 +129,6 @@ class WPML {
         }
     }
 
-    public function wpml_translate($entry, $settings){
-        $included = apply_filters('wpml_inclued_entry_key', $this->inclued_entry_key, $entry, $settings);
-        if(is_array($entry)){
-            foreach ($entry as $key => $value) {
-                if(in_array($key, $included)){
-                    $context = array(
-                        'domain'  => "notificationx-entries-{$entry['source']}", //{$entry['source']}
-                        'context' => $key,
-                    );
-                    do_action( 'wpml_register_single_string', $context, $value, $value );
-                    $entry[$key] = apply_filters( 'wpml_translate_single_string', $value, $context, $value);
-                }
-            }
-        }
-        return $entry;
-    }
-
     public function generate_package($post, $nx_id){
         return array(
             'kind'      => 'NotificationX',
@@ -147,7 +147,7 @@ class WPML {
 
         $package = $this->generate_package($data, $nx_id);
 
-        foreach ($this->meta as $key => $param) {
+        foreach ($this->get_meta($data) as $key => $param) {
             if(!empty($data[$key])){
                 $title = $param[0];
                 $type  = $param[1];
@@ -155,10 +155,11 @@ class WPML {
             }
         }
 
-        // @todo maybe keep only one.
-        foreach ($this->template as $key => $param) {
-            if(!empty($data['notification-template'][$key])){
-                do_action('wpml_register_string', $data['notification-template'][$key], $key, $package, $param, 'LINE');
+        if($post['source'] != 'press_bar'){
+            foreach ($this->template as $key => $param) {
+                if(!empty($data['notification-template'][$key])){
+                    do_action('wpml_register_string', $data['notification-template'][$key], $key, $package, $param, 'LINE');
+                }
             }
         }
 
@@ -167,16 +168,17 @@ class WPML {
     public function translate_values($post){
         $package = $this->generate_package($post, $post['nx_id']);
 
-        foreach ($this->meta as $key => $param) {
-            if(!empty($data[$key])){
+        foreach ($this->get_meta($post) as $key => $param) {
+            if(!empty($post[$key])){
                 $post[$key] = apply_filters( 'wpml_translate_string', $post[$key], $key, $package );
             }
         }
 
-        // @todo maybe keep only one.
-        foreach ($this->template as $key => $param) {
-            if(!empty($post['notification-template'][$key])){
-                $post['notification-template'][$key] = apply_filters( 'wpml_translate_string', $post['notification-template'][$key], $key, $package );
+        if($post['source'] != 'press_bar'){
+            foreach ($this->template as $key => $param) {
+                if(!empty($post['notification-template'][$key])){
+                    $post['notification-template'][$key] = apply_filters( 'wpml_translate_string', $post['notification-template'][$key], $key, $package );
+                }
             }
         }
         return $post;
@@ -193,7 +195,17 @@ class WPML {
         if(!empty($params['id'])){
             $nx_id = $params['id'];
             $post = PostType::get_instance()->get_post($nx_id);
-            if($post){
+            if($post['source'] == 'press_bar' && !empty($post['elementor_id'])){
+		        $cookie = new \WPML_Cookie();
+
+				$cookie_data = filter_var( http_build_query( ['type' => 'nx_bar'] ), FILTER_SANITIZE_URL );
+				$cookie->set_cookie( 'wp-translation_dashboard_filter', $cookie_data, time() + HOUR_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN );
+                return [
+                    'redirect' => admin_url("admin.php?page=wpml-translation-management/menu/main.php&sm=dashboard"),
+                ];
+
+            }
+            else if($post){
                 $post['is_translated'] = true;
                 PostType::get_instance()->update_post([
                     'data' => $post,
@@ -248,5 +260,23 @@ class WPML {
     public function builder_configs($tabs){
         $tabs['can_translate'] = true;
         return $tabs;
+    }
+
+    public function check_location($check_location, $settings, $custom_ids){
+        if(!$check_location && $custom_ids){
+            global $post;
+            if( empty( $ids ) || empty($post) ) {
+                return false;
+            }
+            $ids = explode(',', $ids);
+            $ids = array_map('trim', $ids);
+            if( is_post_type_archive( 'product' ) ) {
+                if( in_array( get_option( 'woocommerce_shop_page_id' ), $ids ) ) {
+                    return true;
+                }
+            }
+            return in_array( $post->ID, $ids ) ? true : false;
+        }
+        return $check_location;
     }
 }

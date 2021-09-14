@@ -9,6 +9,7 @@ import QuickBuild from "./QuickBuild";
 import { __experimentalGetSettings, date } from "@wordpress/date";
 import moment from "moment";
 import withDocumentTitle from "../../core/withDocumentTitle";
+import { __ } from "@wordpress/i18n";
 
 const QuickBuildWrapper = (props) => {
     const builder = useBuilder(notificationxTabs.quick_build);
@@ -37,4 +38,4 @@ const QuickBuildWrapper = (props) => {
         </BuilderProvider>
     );
 };
-export default withDocumentTitle(QuickBuildWrapper, "Quick Builder");
+export default withDocumentTitle(QuickBuildWrapper, __("Quick Builder", 'notificationx'));
