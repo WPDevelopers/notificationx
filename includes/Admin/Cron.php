@@ -111,5 +111,8 @@ class Cron {
         if(!empty($post['source'])){
             do_action("{$this->hook}_{$post['source']}", $post_id, $post);
         }
+        else{
+            $this->clear_schedule(array('post_id' => $post_id));
+        }
     }
 }

@@ -95,6 +95,13 @@ export const NotificationXItems = (props) => {
         });
     }, [perPage, currentPage]);
 
+    useEffect(() => {
+        // if current page is empty() go to prev page.
+        if(filteredNotice.length == 0 && currentPage > 1){
+            setCurrentPage(pp => --pp);
+        }
+    }, [filteredNotice])
+
     return (
         <>
             <div className="notificationx-items">
@@ -135,7 +142,6 @@ export const NotificationXItems = (props) => {
                             setTotalItems={setTotalItems}
                             checkAll={checkAll}
                             setCheckAll={setCheckAll}
-                            setCurrentPage={setCurrentPage}
                         />
                         <div className="nx-admin-items-footer">
                             <SelectControl

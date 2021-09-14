@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-09-12T09:03:21+00:00\n"
+"POT-Creation-Date: 2021-09-14T05:57:55+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: notificationx\n"
@@ -68,10 +68,9 @@ msgid "Email cannot be sent for some reason."
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:61
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64204
-#: build/admin/js/admin.js:64304
-#: build/admin/js/admin.js:65037
+#: build/admin/js/admin.js:64210
+#: build/admin/js/admin.js:64310
+#: build/admin/js/admin.js:65043
 msgid "Something went wrong."
 msgstr ""
 
@@ -382,7 +381,7 @@ msgstr ""
 #: includes/FrontEnd/FrontEnd.php:128
 #: includes/FrontEnd/FrontEnd.php:129
 #: includes/FrontEnd/FrontEnd.php:130
-#: includes/FrontEnd/FrontEnd.php:477
+#: includes/FrontEnd/FrontEnd.php:494
 #: includes/Types/Comments.php:46
 #: includes/Types/Comments.php:59
 #: includes/Types/Comments.php:72
@@ -1721,259 +1720,234 @@ msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/public/js/frontend.js:1
-#: build/admin/js/admin.js:66979
+#: build/admin/js/admin.js:66985
 #: build/public/js/frontend.js:9517
 msgid "by"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:63891
-msgid "NotificationX Title"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:63892
-msgid "Preview"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:63893
-msgid "Status"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:63894
-msgid "Type"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:63895
-msgid "Stats"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:63896
-msgid "Date"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:63897
-msgid "Action"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:65238
+#: build/admin/js/admin.js:65244
 msgid "Scheduled For"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:65239
+#: build/admin/js/admin.js:65245
 msgid "Published"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64158
-#: build/admin/js/admin.js:64966
-msgid "Are you sure?"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64159
-#: build/admin/js/admin.js:64967
-msgid "You won't be able to revert this!"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64162
-#: build/admin/js/admin.js:64970
-msgid "Yes, Delete It"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64163
-#: build/admin/js/admin.js:64971
-msgid "No, Cancel"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64999
-msgid "Notification Alert has been Deleted."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:65045
-#: build/admin/js/admin.js:65046
-msgid "Translate"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:65047
-#: build/admin/js/admin.js:65051
+#: build/admin/js/admin.js:65053
+#: build/admin/js/admin.js:65057
 msgid "Edit"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:65052
-#: build/admin/js/admin.js:65057
+#: build/admin/js/admin.js:65058
+#: build/admin/js/admin.js:65063
 msgid "Duplicate"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:65042
-msgid "Notification Alert has been Copied to Clipboard."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:65008
-msgid "Are you sure you want to Regenerate?"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:65009
-msgid "Regenerating will fetch new data based on settings"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:65013
-msgid "Regenerate"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:65014
-msgid "Cancel"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:65023
-msgid "Notification Alert has been Regenerated."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:65061
-#: build/admin/js/admin.js:65062
+#: build/admin/js/admin.js:65067
+#: build/admin/js/admin.js:65068
 msgid "Re Generate"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:65063
-#: build/admin/js/admin.js:65064
+#: build/admin/js/admin.js:65069
+#: build/admin/js/admin.js:65070
 msgid "Delete"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64219
-msgid "%d Notification Alerts have been Regenerated."
+#: build/admin/js/admin.js:65363
+msgid "Add New"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64242
-msgid "%d Notification Alerts have been Enabled."
+#: build/admin/js/admin.js:65417
+msgid "NotificationX Instructions"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64266
-msgid "%d Notification Alerts have been Disabled."
+#: build/admin/js/admin.js:64889
+msgid "Manage License"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64308
-msgid "Unable to complete bulk action."
+#: build/admin/js/admin.js:64890
+msgid "Upgrade to Pro"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64160
+#: build/admin/js/admin.js:64669
+#: build/admin/js/admin.js:64672
+msgid "Documentation"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: build/admin/js/admin.js:64671
+msgid "Get started by spending some time with the documentation to get familiar with NotificationX. Build awesome websites for you or your clients with ease."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: build/admin/js/admin.js:64677
+msgid "Contribute to NotificationX"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: build/admin/js/admin.js:64680
+msgid "You can contribute to make NotificationX better reporting bugs, creating issues, pull requests at"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: build/admin/js/admin.js:64683
+msgid "Report a bug"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: build/admin/js/admin.js:64688
+msgid "Need Help?"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: build/admin/js/admin.js:64690
+msgid "Stuck with something? Get help from live chat or support ticket."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: build/admin/js/admin.js:64691
+msgid "Initiate a Chat"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: build/admin/js/admin.js:64696
+msgid "Show Your Love"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: build/admin/js/admin.js:64698
+msgid "We love to have you in NotificationX family. We are making it more awesome everyday. Take your 2 minutes to review the plugin and spread the love to encourage us to keep it going."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: build/admin/js/admin.js:64699
+msgid "Leave a Review"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: build/admin/js/admin.js:64452
+msgid "Publishing..."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: build/admin/js/admin.js:64453
+msgid "Publish"
+msgstr ""
+
+#: build/admin/js/admin.js:63891
+msgid "NotificationX Title"
+msgstr ""
+
+#: build/admin/js/admin.js:63892
+msgid "Preview"
+msgstr ""
+
+#: build/admin/js/admin.js:63893
+msgid "Status"
+msgstr ""
+
+#: build/admin/js/admin.js:63894
+msgid "Type"
+msgstr ""
+
+#: build/admin/js/admin.js:63895
+msgid "Stats"
+msgstr ""
+
+#: build/admin/js/admin.js:63896
+msgid "Date"
+msgstr ""
+
+#: build/admin/js/admin.js:63897
+msgid "Action"
+msgstr ""
+
+#: build/admin/js/admin.js:64164
+#: build/admin/js/admin.js:64972
+msgid "Are you sure?"
+msgstr ""
+
+#: build/admin/js/admin.js:64165
+#: build/admin/js/admin.js:64973
+msgid "You won't be able to revert this!"
+msgstr ""
+
+#: build/admin/js/admin.js:64166
 msgid "error"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64208
+#: build/admin/js/admin.js:64168
+#: build/admin/js/admin.js:64976
+msgid "Yes, Delete It"
+msgstr ""
+
+#: build/admin/js/admin.js:64169
+#: build/admin/js/admin.js:64977
+msgid "No, Cancel"
+msgstr ""
+
+#: build/admin/js/admin.js:64214
 msgid ""
 "%d notification Alerts have been\n"
 "                Deleted."
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:65357
-msgid "Add New"
+#: build/admin/js/admin.js:64225
+msgid "%d Notification Alerts have been Regenerated."
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:65411
-msgid "NotificationX Instructions"
+#: build/admin/js/admin.js:64248
+msgid "%d Notification Alerts have been Enabled."
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64883
-msgid "Manage License"
+#: build/admin/js/admin.js:64272
+msgid "%d Notification Alerts have been Disabled."
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64884
-msgid "Upgrade to Pro"
+#: build/admin/js/admin.js:64314
+msgid "Unable to complete bulk action."
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64663
-#: build/admin/js/admin.js:64666
-msgid "Documentation"
+#: build/admin/js/admin.js:65005
+msgid "Notification Alert has been Deleted."
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64665
-msgid "Get started by spending some time with the documentation to get familiar with NotificationX. Build awesome websites for you or your clients with ease."
+#: build/admin/js/admin.js:65014
+msgid "Are you sure you want to Regenerate?"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64671
-msgid "Contribute to NotificationX"
+#: build/admin/js/admin.js:65015
+msgid "Regenerating will fetch new data based on settings"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64674
-msgid "You can contribute to make NotificationX better reporting bugs, creating issues, pull requests at"
+#: build/admin/js/admin.js:65019
+msgid "Regenerate"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64677
-msgid "Report a bug"
+#: build/admin/js/admin.js:65020
+msgid "Cancel"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64682
-msgid "Need Help?"
+#: build/admin/js/admin.js:65029
+msgid "Notification Alert has been Regenerated."
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64684
-msgid "Stuck with something? Get help from live chat or support ticket."
+#: build/admin/js/admin.js:65048
+msgid "Notification Alert has been Copied to Clipboard."
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64685
-msgid "Initiate a Chat"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64690
-msgid "Show Your Love"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64692
-msgid "We love to have you in NotificationX family. We are making it more awesome everyday. Take your 2 minutes to review the plugin and spread the love to encourage us to keep it going."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64693
-msgid "Leave a Review"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64446
-msgid "Publishing..."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:64447
-msgid "Publish"
+#: build/admin/js/admin.js:65051
+#: build/admin/js/admin.js:65052
+msgid "Translate"
 msgstr ""

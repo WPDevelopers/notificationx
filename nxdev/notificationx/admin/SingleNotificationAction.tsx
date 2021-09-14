@@ -14,7 +14,6 @@ const SingleNotificationAction = ({
     regenerate,
     setTotalItems,
     enabled,
-    setCurrentPage
 }) => {
     const nxContext = useNotificationXContext();
     // @ts-ignore
@@ -35,13 +34,9 @@ const SingleNotificationAction = ({
                         return nxHelper.delete(`nx/${id}`, { nx_id: id });
                     },
                     completeAction: (response) => {
-                        updateNotice(notices => {
-                            const _notices: any[] = notices.filter((notice) => parseInt(notice.nx_id) !== parseInt(id));
-                            if(_notices.length == 0){
-                                setCurrentPage(perPage => --perPage);
-                            }
-                            return _notices;
-                        });
+                        updateNotice(notices => notices.filter(
+                            (notice) => parseInt(notice.nx_id) !== parseInt(id)
+                        ));
 
                         if (enabled) {
                             setTotalItems((prev) => {
