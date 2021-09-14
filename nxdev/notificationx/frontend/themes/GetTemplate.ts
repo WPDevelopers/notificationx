@@ -40,9 +40,6 @@ const GetTemplate = (settings) => {
         case "donation_theme-three":
         case "donation_theme-four":
         case "donation_theme-five":
-        case "donation_conv-theme-seven":
-        case "donation_conv-theme-eight":
-        case "donation_conv-theme-nine":
             return [
                 `${params?.first_param} ${params?.second_param} ${params?.third_param}`,
                 `${params?.fourth_param}`,
