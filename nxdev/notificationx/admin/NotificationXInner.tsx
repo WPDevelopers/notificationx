@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import SingleNotificationX from './SingleNotificationX';
 
-const NotificationXInner = ({ filteredNotice, setFilteredNotice, getNotice, updateNotice, totalItems, setTotalItems, checkAll, setCheckAll, setCurrentPage }) => {
+const NotificationXInner = ({ filteredNotice, setFilteredNotice, getNotice, updateNotice, totalItems, setTotalItems, checkAll, setCheckAll }) => {
     const selectAll = () => {
         const notices = filteredNotice.map((item, i) => {
             return {...item, checked: !checkAll};
@@ -46,7 +46,7 @@ const NotificationXInner = ({ filteredNotice, setFilteredNotice, getNotice, upda
                     </thead>
                     <tbody>
                     {filteredNotice.map((item, i) => {
-                        return <SingleNotificationX i={i} key={`nx-${item.nx_id}`} {...item} updateNotice={updateNotice} getNotice={getNotice} totalItems={totalItems} setTotalItems={setTotalItems} checkItem={checkItem} setCurrentPage={setCurrentPage} />
+                        return <SingleNotificationX i={i} key={`nx-${item.nx_id}`} {...item} updateNotice={updateNotice} getNotice={getNotice} totalItems={totalItems} setTotalItems={setTotalItems} checkItem={checkItem} />
                     })}
                     </tbody>
                 </table>
