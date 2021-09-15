@@ -16,8 +16,7 @@ const Image = ({ data, config, id, style, isSplitCss }) => {
             [`position-${image_position}`]: image_position && advance_edit,
         }
         );
-        
-        console.log(image_shape)
+
     let newStyle ={}
     let newStyleForSecond = {}
     if ( style && isSplitCss ) {
