@@ -97,6 +97,7 @@ class Donations extends Types {
             'conv-theme-nine' => [
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/donation/donation-theme-9.png',
+                'image_shape' => 'square',
             ],
         ];
         $this->templates = [
