@@ -66,8 +66,8 @@ const EditNotification = (props) => {
         <BuilderProvider value={builder}>
             <div>
                 <Header addNew={true} />
-                {isUpdated === 'saved' && !isLoading && <Notice message="Successfully Updated." />}
-                {isUpdated === 'published' && !isLoading && <Notice message="Successfully Created." />}
+                {isUpdated === 'saved' && !isLoading && <Notice message={__("Successfully Updated.", 'notificationx')} />}
+                {isUpdated === 'published' && !isLoading && <Notice message={__("Successfully Created.", 'notificationx')} />}
                 <WrapperWithLoader isLoading={isLoading}>
                     <EditNx id={ID} setIsUpdated={setIsUpdated} setIsLoading={setIsLoading} title={title} setTitle={setTitle} />
                 </WrapperWithLoader>

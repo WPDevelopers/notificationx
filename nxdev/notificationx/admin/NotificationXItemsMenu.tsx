@@ -20,7 +20,7 @@ const NotificationXItemsMenu = ({
 }) => {
     const builderContext = useNotificationXContext();
     const [loading, setLoading] = useState(false);
-    const defaultOption = { value: "", label: "Bulk Action", isDisabled: true };
+    const defaultOption = { value: "", label: __("Bulk Action", 'notificationx'), isDisabled: true };
     const [action, setAction] = useState<{
         label: string;
         value: string;
@@ -29,12 +29,12 @@ const NotificationXItemsMenu = ({
     if (!builderContext.createRedirect) {
         bulkOptions = [
             ...bulkOptions,
-            { value: "enable", label: "Enable" },
-            { value: "disable", label: "Disable" },
-            { value: "delete", label: "Delete" },
+            { value: "enable",  label: __("Enable", 'notificationx') },
+            { value: "disable", label: __("Disable", 'notificationx') },
+            { value: "delete",  label: __("Delete", 'notificationx') },
         ];
     }
-    bulkOptions.splice(3, 0, { value: "regenerate", label: "Regenerate" });
+    bulkOptions.splice(3, 0, { value: "regenerate", label: __("Regenerate", 'notificationx') });
 
     const request = (selectedItem) => {
         return nxHelper.post(`bulk-action/${action.value}`, {
@@ -95,6 +95,7 @@ const NotificationXItemsMenu = ({
                 }
             },
             completeArgs: (result?) => {
+                // translators: %d: Number of Notification Alerts deleted.
                 return ["deleted", sprintf(__(`%d notification Alerts have been
                 Deleted.`, 'notificationx'), (result?.all || 0))];
             },
@@ -107,6 +108,7 @@ const NotificationXItemsMenu = ({
                 return { ...notice };
             })
         );
+        // translators: %d: Number of Notification Alerts Regenerated.
         nxToast.regenerated(sprintf(__("%d Notification Alerts have been Regenerated.", 'notificationx'), (result?.count || 0)));
     };
     const enableAction = (selectedItem, result) => {
@@ -132,6 +134,7 @@ const NotificationXItemsMenu = ({
                 disabled: Number(prev.disabled) - count,
             };
         });
+        // translators: %d: Number of Notification Alerts Enabled.
         nxToast.enabled(sprintf(__(`%d Notification Alerts have been Enabled.`, 'notificationx'), count));
     };
     const disableAction = (selectedItem, result) => {
@@ -157,6 +160,7 @@ const NotificationXItemsMenu = ({
                 disabled: Number(prev.disabled) + count,
             };
         });
+        // translators: %d: Number of Notification Alerts Disabled.
         nxToast.disabled(sprintf(__(`%d Notification Alerts have been Disabled.`, 'notificationx'), count));
     };
 
@@ -212,17 +216,20 @@ const NotificationXItemsMenu = ({
             <ul>
                 <li className={status === "all" ? "nx-active" : ""}>
                     <NavLink status="all" perPage={perPage}>
-                        All ({totalItems?.all})
+                        {/* translators: %d: Number of total Notification Alerts. */}
+                        {sprintf(__("All (%d)", 'notificationx'), totalItems.all)}
                     </NavLink>
                 </li>
                 <li className={status === "enabled" ? "nx-active" : ""}>
                     <NavLink status="enabled" perPage={perPage}>
-                        Enabled ({totalItems?.enabled})
+                        {/* translators: %d: Number of total Notification Alerts enabled. */}
+                        {sprintf(__("Enabled (%d)", 'notificationx'), totalItems.enabled)}
                     </NavLink>
                 </li>
                 <li className={status === "disabled" ? "nx-active" : ""}>
                     <NavLink status="disabled" perPage={perPage}>
-                        Disabled ({totalItems?.disabled})
+                        {/* translators: %d: Number of total Notification Alerts disabled. */}
+                        {sprintf(__("Disabled (%d)", 'notificationx'), totalItems.disabled)}
                     </NavLink>
                 </li>
             </ul>
@@ -242,7 +249,7 @@ const NotificationXItemsMenu = ({
                     onClick={bulkAction}
                     disabled={!action}
                 >
-                    {loading ? "Applying..." : "Apply"}
+                    {loading ? __("Applying...", 'notificationx') : __("Apply", 'notificationx')}
                 </button>
             </div>
         </div>

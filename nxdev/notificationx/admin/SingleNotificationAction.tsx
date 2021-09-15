@@ -130,7 +130,7 @@ const SingleNotificationAction = ({
             }}><span>{__('Duplicate', 'notificationx')}</span></Link>
             {
                 nxContext?.is_pro_active &&
-                <CopyToClipboard className="nx-admin-title-shortcode nx-shortcode-btn" title="Shortcode" text={`[notificationx id=${id}]`} onCopy={onCopy} >
+                <CopyToClipboard className="nx-admin-title-shortcode nx-shortcode-btn" title={__("Shortcode", 'notificationx')} text={`[notificationx id=${id}]`} onCopy={onCopy} >
                     <a></a>
                 </CopyToClipboard>
             }

@@ -14,6 +14,7 @@ import { NotificationXProvider, useNotificationX } from "./hooks";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Route from "./Route";
+import { __ } from "@wordpress/i18n";
 
 // import defaultArgs from '../form-builder/config/default';
 
@@ -24,11 +25,11 @@ const NotificationX = (props) => {
     if (!title) {
         let documentTitle = document.querySelector("title").text;
         documentTitle = documentTitle
-                            .replace("All NotificationX", "")
-                            .replace("Add New", "")
-                            .replace("Settings", "")
-                            .replace("Analytics", "")
-                            .replace("Quick Builder", "");
+                            .replace(__("All NotificationX", 'notificationx'), "")
+                            .replace(__("Add New", 'notificationx'), "")
+                            .replace(__("Settings", 'notificationx'), "")
+                            .replace(__("Analytics", 'notificationx'), "")
+                            .replace(__("Quick Builder", 'notificationx'), "");
         setTitle(documentTitle);
     }
 

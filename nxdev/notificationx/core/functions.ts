@@ -1,5 +1,6 @@
 
 import apiFetch from "@wordpress/api-fetch";
+import { sprintf, __ } from "@wordpress/i18n";
 import Swal from 'sweetalert2';
 import { ToastAlert } from './ToasterMsg'
 
@@ -171,13 +172,13 @@ export const getThemeName = (settings) => {
 
 export const proAlert = ( html = null ) => {
     if( html === null ) {
-        html = "You need to upgrade to the <strong><a href='http://wpdeveloper.net/in/upgrade-notificationx' target='_blank'>Premium Version</a></strong> to use this feature.";
+        html = sprintf(__("You need to upgrade to the <strong><a href='%s' target='_blank'>Premium Version</a></strong> to use this feature.", 'notificationx'), 'http://wpdeveloper.net/in/upgrade-notificationx');
     }
     return SweetAlert({
         showConfirmButton: false,
         showDenyButton: true,
         type: 'warning',
-        title: 'Opps...',
+        title: __('Opps...', 'notificationx'),
         customClass: { actions: 'nx-pro-alert-actions' },
         denyButtonText: 'Close',
         html

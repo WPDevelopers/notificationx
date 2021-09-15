@@ -7,6 +7,8 @@ import Swal from "sweetalert2";
 import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
 import nxToast from "../core/ToasterMsg";
+import { __ } from "@wordpress/i18n/build-types";
+import _ from "lodash";
 
 const PublishWidget = (props) => {
     const { title, context, isEdit, setIsLoading, setIsCreated, id, ...rest } = props;
@@ -48,12 +50,12 @@ const PublishWidget = (props) => {
 
     const handleDelete = useCallback(() => {
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: __('Are you sure?', 'notificationx'),
+            text: __("You won't be able to revert this!", 'notificationx'),
             icon: 'error',
             showCancelButton: true,
-            confirmButtonText: 'Yes, Delete It',
-            cancelButtonText: 'No, Cancel',
+            confirmButtonText: __('Yes, Delete It', 'notificationx'),
+            cancelButtonText: __('No, Cancel', 'notificationx'),
             customClass: { actions: 'nx-delete-actions' },
             reverseButtons: true,
             // target: "#notificationx",
@@ -63,12 +65,12 @@ const PublishWidget = (props) => {
                     .delete(`nx/${id}`, { nx_id: id })
                     .then((res) => {
                         if (res) {
-                            nxToast.error( `Notification Alert has been Deleted.` );
+                            nxToast.error( __(`Notification Alert has been Deleted.`, 'notificationx') );
                             builderContext.setRedirect({
                                 page  : `nx-admin`,
                             });
                         } else {
-                            nxToast.error( `Oops, Something went wrong. Please try again.` );
+                            nxToast.error( __(`Oops, Something went wrong. Please try again.`, 'notificationx') );
                         }
                     })
                     .catch((err) => console.error("Delete Error: ", err));
@@ -86,8 +88,8 @@ const PublishWidget = (props) => {
                     <label htmlFor="updated_at">
 
                         {isInTheFuture(context.values?.updated_at)
-                            ? "Scheduled For"
-                            : `Publish${isEdit ? 'ed' : ""} On`
+                            ? __("Scheduled For", 'notificationx')
+                            : (isEdit ? __("Published On", 'notificationx') : __("Publish On", 'notificationx'))
                         }
                         {" "}
                         :{" "}
@@ -123,7 +125,7 @@ const PublishWidget = (props) => {
                         onClick={handleSubmit}
                         disabled={builderContext?.createRedirect}
                     >
-                        {isInTheFuture(context.values?.updated_at) ? "Schedule" : (isEdit ? "Update" : "Publish")}
+                        {isInTheFuture(context.values?.updated_at) ? __("Schedule", 'notificationx') : (isEdit ? __("Update", 'notificationx') : __("Publish", 'notificationx'))}
                     </Button>
                 </ButtonGroup>
             </div>

@@ -7,19 +7,20 @@ import AnalyticsCard from "./AnalyticsCard";
 import { __experimentalGetSettings, date } from "@wordpress/date";
 import { useLocation } from "react-router";
 import nxHelper from "../../core/functions";
+import { __ } from "@wordpress/i18n";
 
 export const comparisonOptions = {
     views: {
         value: "views",
-        label: "Views",
+        label: __("Views", 'notificationx'),
     },
     clicks: {
         value: "clicks",
-        label: "Clicks",
+        label: __("Clicks", 'notificationx'),
     },
     ctr: {
         value: "ctr",
-        label: "CTR",
+        label: __("CTR", 'notificationx'),
     },
 };
 
@@ -35,11 +36,11 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
     options = [
         {
             value: "all-combined",
-            label: "All Combined",
+            label: __("All Combined", 'notificationx'),
         },
         {
             value: "all-separated",
-            label: "All Separated",
+            label: __("All Separated", 'notificationx'),
         },
         ...options,
     ];

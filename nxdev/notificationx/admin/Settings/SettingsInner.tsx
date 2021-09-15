@@ -9,6 +9,7 @@ import { Documentation } from '.';
 import { InfoIcon } from '../../icons';
 import { useNotificationXContext } from '../../hooks';
 import nxToast, { ToastAlert} from "../../core/ToasterMsg";
+import { __ } from '@wordpress/i18n';
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -61,13 +62,13 @@ const SettingsInner = (props) => {
         context.setSubmitting(true);
         nxHelper.post('settings', { ...context.values }).then((res: any) => {
                 if (res?.success) {
-                    nxToast.info( `Changes Saved Successfully.` );
+                    nxToast.info( __(`Changes Saved Successfully.`, 'notificationx') );
                 }
                 else {
-                    throw new Error("Something went wrong.");
+                    throw new Error(__("Something went wrong.", 'notificationx'));
                 }
             }).catch(err => {
-                nxToast.error( `Oops, Something went wrong. Please try again.` );
+                nxToast.error( __(`Oops, Something went wrong. Please try again.`, 'notificationx') );
             })
     },
     [],

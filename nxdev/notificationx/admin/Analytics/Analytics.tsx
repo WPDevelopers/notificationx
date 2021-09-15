@@ -233,14 +233,14 @@ const Analytics = (props) => {
                 >
                     <img
                         src={`${builderContext.assets.public}image/reports/graph.png`}
-                        alt="Analytics Data"
+                        alt={__("Analytics Data", 'notificationx')}
                     />
                     <div className="nx-stats-pro-tease">
                         <a
                             href="http://wpdeveloper.net/in/upgrade-notificationx"
                             target="_blank"
                         >
-                            <p>Get PRO to Unlock</p>
+                            <p>{__("Get PRO to Unlock", 'notificationx')}</p>
                         </a>
                     </div>
                 </div>

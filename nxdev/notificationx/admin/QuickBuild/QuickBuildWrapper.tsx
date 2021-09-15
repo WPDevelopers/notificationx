@@ -9,7 +9,7 @@ import QuickBuild from "./QuickBuild";
 import { __experimentalGetSettings, date } from "@wordpress/date";
 import moment from "moment";
 import withDocumentTitle from "../../core/withDocumentTitle";
-import { __ } from "@wordpress/i18n";
+import { sprintf, __ } from "@wordpress/i18n";
 
 const QuickBuildWrapper = (props) => {
     const builder = useBuilder(notificationxTabs.quick_build);
@@ -26,7 +26,8 @@ const QuickBuildWrapper = (props) => {
         const title = builder.types_title?.[type];
         const _value = moment.utc().utcOffset(+settings?.timezone?.offset);  //
         const _date = date(settings.formats.date, _value, undefined);
-        setTitle("NotificationX - " + title + " - " + _date)
+        // translators: Title of the new Notification Alert. %1$s: title, %2$s: current date.
+        setTitle(sprintf(__("NotificationX - %1$s - %2$s", 'notificationx'), title, _date))
     }, [builder?.values?.type])
 
     return (

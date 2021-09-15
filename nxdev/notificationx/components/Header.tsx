@@ -7,7 +7,7 @@ import { useNotificationXContext } from '../hooks';
 import nxHelper from '../core/functions';
 
 const Version = ({ version }) => {
-    return <span>NotificationX: <strong>{version}</strong></span>
+    return <span>{__("NotificationX:", 'notificationx')}  <strong>{version}</strong></span>
 }
 
 const Header = ({ addNew = false, context = {} }) => {
@@ -24,7 +24,7 @@ const Header = ({ addNew = false, context = {} }) => {
             </div>
             <div className="nx-header-right">
                 {applyFilters('notificationx_header', <Version version={version} />)}
-                {typeof pro_version === 'string' && <span>NotificationX Pro: <strong>{pro_version}</strong></span>}
+                {typeof pro_version === 'string' && <span>{__("NotificationX Pro:", 'notificationx')} <strong>{pro_version}</strong></span>}
             </div>
         </div >
     )

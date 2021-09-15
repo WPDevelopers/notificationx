@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import React, { useCallback, useEffect, useState } from 'react'
 import FormBuilder, { useBuilderContext } from '../../../form-builder';
 import { Content, PublishWidget, Sidebar, Instructions } from '../../components';
@@ -30,7 +31,7 @@ const CreateNx = ({ setIsLoading, title, setTitle }) => {
                     type="text"
                     name="title"
                     id="nx-title"
-                    placeholder="NotificationX Title"
+                    placeholder={__("NotificationX Title", 'notificationx')}
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />
