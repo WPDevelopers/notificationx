@@ -79,7 +79,8 @@ function nx_free_compatibility_notice(){
     }
     ?>
         <div class="notice notice-warning is-dismissible">
-            <p><strong>Recommended: </strong> Seems like you haven't updated the NotificationX Pro version. Please make sure to update NotificationX Pro plugin from <a href="<?php echo esc_url( admin_url('plugins.php' ) ); ?>"><strong>wp-admin -> Plugins</strong></a>.</p>
+            <p>
+            <?php echo sprintf(__("<strong>Recommended: </strong> Seems like you haven't updated the NotificationX Pro version. Please make sure to update NotificationX Pro plugin from <a href='%s'><strong>wp-admin -> Plugins</strong></a>.", esc_url( admin_url('plugins.php' ) )));?></p>
         </div>
     <?php
 }

@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
 import nxToast from "../core/ToasterMsg";
-import { __ } from "@wordpress/i18n/build-types";
+import { __ } from "@wordpress/i18n";
 import _ from "lodash";
 
 const PublishWidget = (props) => {
