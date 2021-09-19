@@ -217,10 +217,16 @@ class WPForms extends Extension {
     }
 
     public function doc() {
-        return '<p>Make sure that you have <a target="_blank" href="https://wordpress.org/plugins/wpforms-lite/">WPForms installed & configured</a>  to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/wpforms/">documentation</a>.</p>
-		<p>🎦 <a target="_blank" href="https://www.youtube.com/watch?v=8tk7_ZawJN8">Watch video tutorial</a> to learn quickly</p>
-		<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/wpforms/">Integration with WPForms</a></p>
+        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">WPForms installed & configured</a>  to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
+		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with WPForms</a></p>
 		<p><strong>Recommended Blogs:</strong></p>
-		<p>🔥Hacks to Increase Your <a target="_blank" href="https://notificationx.com/blog/wordpress-contact-forms/">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>';
+		<p>🔥Hacks to Increase Your <a target="_blank" href="%5$s">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>', 'notificationx'),
+        'https://wordpress.org/plugins/wpforms-lite/',
+        'https://notificationx.com/docs/wpforms/',
+        'https://www.youtube.com/watch?v=8tk7_ZawJN8',
+        'https://notificationx.com/integrations/wpforms/',
+        'https://notificationx.com/blog/wordpress-contact-forms/',
+        );
     }
 }

@@ -44,7 +44,7 @@ class QuickBuild {
      * @return void
      */
     public function menu() {
-        add_submenu_page('nx-admin', 'Quick Builder', 'Quick Builder', 'edit_notificationx', 'nx-builder', [Admin::get_instance(), 'views'], 5);
+        add_submenu_page('nx-admin', __('Quick Builder', 'notificationx'), __('Quick Builder', 'notificationx'), 'edit_notificationx', 'nx-builder', [Admin::get_instance(), 'views'], 5);
     }
 
     public function tabs() {

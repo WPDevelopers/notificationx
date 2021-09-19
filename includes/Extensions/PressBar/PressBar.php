@@ -281,7 +281,7 @@ class PressBar extends Extension {
         $fields['themes']['fields'][] = [
             'name'   => 'elementor_edit_link',
             'type'   => 'button',
-            'text'   => 'Edit With Elementor',
+            'text'   => __('Edit With Elementor', 'notificationx'),
             'href'   => -1,
             'target' => '_blank',
             'rules'  => Rules::logicalRule([
@@ -295,7 +295,7 @@ class PressBar extends Extension {
         $fields['themes']['fields'][] = [
             'name'  => 'nx-bar_with_elementor-remove',
             'type'  => 'button',
-            'text'  => 'Remove Elementor Design',
+            'text'  => __('Remove Elementor Design', 'notificationx'),
             'rules' => Rules::logicalRule([
                 Rules::is('elementor_id', false, true),
                 Rules::is('is_elementor', true),
@@ -387,7 +387,7 @@ class PressBar extends Extension {
             ],
             'cancel' => "import_elementor_theme_next",
             'body'   => [
-                'header' => 'Choose Your ',
+                'header' => __('Choose Your ', 'notificationx'),
                 'fields' => [
                     'themes' => [
                         'type'  => 'radio-card',
@@ -418,7 +418,7 @@ class PressBar extends Extension {
         ];
 
         $is_installed = Helper::is_plugin_installed('elementor/elementor.php');
-        $install_activate_text = $is_installed ? "Activate" : "Install";
+        $install_activate_text = $is_installed ? __("Activate", 'notificationx') : __("Install", 'notificationx');
         $fields['themes']['fields'][] = [
             'name'        => 'nx-bar_with_elementor_install',
             'type'        => 'button',
@@ -427,7 +427,7 @@ class PressBar extends Extension {
                 'saved'   => $is_installed ? __('Activated Elementor', 'notificationx') : __('Installed Elementor', 'notificationx'),
                 'loading' => $is_installed ? __('Activating Elementor...', 'notificationx') : __('Installing Elementor...', 'notificationx'),
             ],
-            'description' => "To Design Notification Bar with <strong>Elementor Page Builder</strong>, You need to $install_activate_text the Elementor first: &nbsp;&nbsp;&nbsp;",
+            'description' => sprintf(__("To Design Notification Bar with <strong>Elementor Page Builder</strong>, You need to %s the Elementor first: &nbsp;&nbsp;&nbsp;", 'notificationx'), $install_activate_text),
             'style'       => [
                 'description' => [
                     'position' => 'left'
@@ -452,7 +452,7 @@ class PressBar extends Extension {
                 ],
                 'swal' => [
                     'icon' => 'success',
-                    'text' => 'Successfully Activated',
+                    'text' => __('Successfully Activated', 'notificationx'),
                 ],
                 'trigger' => '@is_elementor:true',
             ],
@@ -540,7 +540,7 @@ class PressBar extends Extension {
         $fields["timing"]['fields']['delay_between'] = Rules::is('source', 'press_bar', true, $fields["timing"]['fields']['delay_between']);
 
         $fields["timing"]['fields']['initial_delay'] = [
-            'label'       => "Initial Delay",
+            'label'       => __("Initial Delay", 'notificationx'),
             'name'        => "initial_delay",
             'type'        => "number",
             'priority'    => 45,
@@ -551,7 +551,7 @@ class PressBar extends Extension {
         ];
 
         $fields["timing"]['fields']['auto_hide'] = [
-            'label'       => "Auto Hide",
+            'label'       => __("Auto Hide", 'notificationx'),
             'name'        => "auto_hide",
             'type'        => "checkbox",
             'priority'    => 50,
@@ -561,7 +561,7 @@ class PressBar extends Extension {
         ];
 
         $fields["timing"]['fields']['hide_after'] = [
-            'label'       => "Hide After",
+            'label'       => __("Hide After", 'notificationx'),
             'name'        => "hide_after",
             'type'        => "number",
             'priority'    => 55,
@@ -903,10 +903,15 @@ class PressBar extends Extension {
     }
 
     public function doc() {
-        return '<p>You can showcase the notification bar to do instant popup campaign on WordPress site. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/notification-bar/">documentation</a>.</p>
-		<p>🎦 Watch <a target = "_blank" href = "https://www.youtube.com/watch?v=l7s9FXgzbEM">video tutorial</a> to learn quickly</p>
+        return sprintf(__('<p>You can showcase the notification bar to do instant popup campaign on WordPress site. For further assistance, check out our step by step <a target="_blank" href="%1$s">documentation</a>.</p>
+		<p>🎦 Watch <a target = "_blank" href = "%2$s">video tutorial</a> to learn quickly</p>
 		<p><strong>Recommended Blog                     : </strong></p>
-		<p>🔥                  Introducing NotificationX: <a target="_blank" href="https://wpdeveloper.net/notificationx-social-proof-fomo/">Social Proof & FOMO Marketing Solution</a> for WordPress</p>
-		<p>🔥 How to <a href="https://notificationx.com/docs/notification-bar-with-elementor/" target="_blank">design Notification Bar with Elementor Page Builder</a>.</p>';
+		<p>🔥                  Introducing NotificationX: <a target="_blank" href="%3$s">Social Proof & FOMO Marketing Solution</a> for WordPress</p>
+		<p>🔥 How to <a href="%4$s" target="_blank">design Notification Bar with Elementor Page Builder</a>.</p>', 'notificationx'),
+        'https://notificationx.com/docs/notification-bar/',
+        'https://www.youtube.com/watch?v=l7s9FXgzbEM',
+        'https://wpdeveloper.net/notificationx-social-proof-fomo/',
+        'https://notificationx.com/docs/notification-bar-with-elementor/'
+        );
     }
 }

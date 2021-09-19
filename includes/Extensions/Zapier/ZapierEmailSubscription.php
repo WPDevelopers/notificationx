@@ -52,18 +52,18 @@ class ZapierEmailSubscription extends Extension {
     public function _doc(){
         return '
         <ul class="email_subscription nx-template-keys">
-            <li><span>Field Name:</span> <strong>Field Key</strong></li>
-            <li><span>Full Name:</span> <strong>name</strong></li>
-            <li><span>First Name:</span> <strong>first_name</strong></li>
-            <li><span>Last Name:</span> <strong>last_name</strong></li>
-            <li><span>Email:</span> <strong>email</strong></li>
-            <li><span>Title, Product Title:</span> <strong>title</strong></li>
-            <li><span>Anonymous Title:</span> <strong>anonymous_title</strong></li>
-            <li><span>Definite Time:</span> <strong>timestamp</strong></li>
-            <li><span>Some time ago:</span> <strong>sometime</strong></li>
-            <li><span>City:</span> <strong>city</strong></li>
-            <li><span>Country:</span> <strong>country</strong></li>
-            <li><span>City,Country:</span> <strong>city_country</strong></li>
+            <li><span>' . __('Field Name:', 'notificationx') . '</span> <strong>' . __('Field Key', 'notificationx') . '</strong></li>
+            <li><span>' . __('Full Name:', 'notificationx') . '</span> <strong>name</strong></li>
+            <li><span>' . __('First Name:', 'notificationx') . '</span> <strong>first_name</strong></li>
+            <li><span>' . __('Last Name:', 'notificationx') . '</span> <strong>last_name</strong></li>
+            <li><span>' . __('Email:', 'notificationx') . '</span> <strong>email</strong></li>
+            <li><span>' . __('Title, Product Title:', 'notificationx') . '</span> <strong>title</strong></li>
+            <li><span>' . __('Anonymous Title:', 'notificationx') . '</span> <strong>anonymous_title</strong></li>
+            <li><span>' . __('Definite Time:', 'notificationx') . '</span> <strong>timestamp</strong></li>
+            <li><span>' . __('Some time ago:', 'notificationx') . '</span> <strong>sometime</strong></li>
+            <li><span>' . __('City:', 'notificationx') . '</span> <strong>city</strong></li>
+            <li><span>' . __('Country:', 'notificationx') . '</span> <strong>country</strong></li>
+            <li><span>' . __('City,Country:', 'notificationx') . '</span> <strong>city_country</strong></li>
         </ul>';
     }
 }

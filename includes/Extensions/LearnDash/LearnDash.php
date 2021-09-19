@@ -55,10 +55,16 @@ class LearnDash extends Extension {
     }
 
     public function doc(){
-        return '<p>Make sure that you have <a target="_blank" href="https://www.learndash.com/">LearnDash installed & configured</a> to use its campaign & course selling data.  For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/how-to-display-learndash-course-enrollment-alert-using-notificationx">documentation</a>.</p>
-		<p>🎦 <a target="_blank" href="https://www.youtube.com/watch?v=sTbBt2DVsIA">Watch video tutorial</a> to learn quickly</p>
-		<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/learndash/">Integration with LearnDash</a> </p>
+        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">LearnDash installed & configured</a> to use its campaign & course selling data.  For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
+		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with LearnDash</a> </p>
 		<p><strong>Recommended Blog:</strong></p>
-		<p>🔥 How to Increase Your <a target="_blank" href="https://wpdeveloper.net/learndash-course-enrollment-rate-notificationx/">LearnDash Course Enrollment Rates</a> With NotificationX</p>';
+		<p>🔥 How to Increase Your <a target="_blank" href="%5$s">LearnDash Course Enrollment Rates</a> With NotificationX</p>', 'notificationx'),
+        'https://www.learndash.com/',
+        'https://notificationx.com/docs/how-to-display-learndash-course-enrollment-alert-using-notificationx',
+        'https://www.youtube.com/watch?v=sTbBt2DVsIA',
+        'https://notificationx.com/integrations/learndash/',
+        'https://wpdeveloper.net/learndash-course-enrollment-rate-notificationx/'
+        );
     }
 }

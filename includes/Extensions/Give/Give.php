@@ -282,10 +282,16 @@ class Give extends Extension {
     }
 
     public function doc() {
-        return '<p>Make sure that you have <a target="_blank" href="https://wordpress.org/plugins/give/">GiveWP installed & configured</a> to use its campaign & donars data. For further assistance, check out our step by step <a href="https://notificationx.com/docs/givewp-donation-alert/">documentation</a>.</p>
-		<p>🎦 <a target="_blank" href="https://www.youtube.com/watch?v=8EFgHSA8mOg">Watch video tutorial</a> to learn quickly</p>
-		<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/givewp/">Integration with GiveWP</a></p>
+        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">GiveWP installed & configured</a> to use its campaign & donars data. For further assistance, check out our step by step <a href="%2$s">documentation</a>.</p>
+		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
+		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with GiveWP</a></p>
 		<p><strong>Recommended Blog:</strong></p>
-		<p>🔥 How Does <a target="_blank" href="https://wpdeveloper.net/notificationx-increase-sales-wordpress/">NotificationX Increase Sales on WordPress</a> Websites?"</p>';
+		<p>🔥 How Does <a target="_blank" href="%5$s">NotificationX Increase Sales on WordPress</a> Websites?"</p>', 'notificationx'),
+        'https://wordpress.org/plugins/give/',
+        'https://notificationx.com/docs/givewp-donation-alert/',
+        'https://www.youtube.com/watch?v=8EFgHSA8mOg',
+        'https://notificationx.com/integrations/givewp/',
+        'https://wpdeveloper.net/notificationx-increase-sales-wordpress/'
+        );
     }
 }

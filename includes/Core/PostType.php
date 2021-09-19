@@ -51,7 +51,7 @@ class PostType {
      * @return void
      */
     public function menu() {
-        add_submenu_page('nx-admin', 'Add New', 'Add New', 'edit_notificationx', 'nx-edit', [Admin::get_instance(), 'views'], 20);
+        add_submenu_page('nx-admin', __('Add New', 'notificationx'), __('Add New', 'notificationx'), 'edit_notificationx', 'nx-edit', [Admin::get_instance(), 'views'], 20);
         // add_submenu_page('nx-admin', 'Edit', 'Edit', 'edit_notificationx', 'nx-edit', [Admin::get_instance(), 'views'], 20);
     }
 

@@ -42,7 +42,7 @@ class Analytics {
      * @return void
      */
     public function menu() {
-        add_submenu_page('nx-admin', 'Analytics', 'Analytics', 'read_notificationx_analytics', 'nx-analytics', [Admin::get_instance(), 'views'], 3);
+        add_submenu_page('nx-admin', __('Analytics', 'notificationx'), __('Analytics', 'notificationx'), 'read_notificationx_analytics', 'nx-analytics', [Admin::get_instance(), 'views'], 3);
     }
 
     public function get_stats($args = []) {

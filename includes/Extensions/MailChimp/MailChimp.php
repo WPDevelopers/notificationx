@@ -50,11 +50,18 @@ class MailChimp extends Extension {
     }
 
     public function doc(){
-        return '<p>Make sure that you have <a target="_blank" href="https://mailchimp.com/help/about-api-keys/">signed in & retrieved API key from MailChimp account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/mailchimp-email-subscription-alert/">documentation</a>.</p>
-		<p>🎦 <a target="_blank" href="https://youtu.be/WvX8feM5DBw">Watch video tutorial</a> to learn quickly</p>
-		<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/mailchimp/">Integration with MailChimp</a></p>
+        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">signed in & retrieved API key from MailChimp account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
+		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with MailChimp</a></p>
 		<p><strong>Recommended Blogs:</strong></p>
-		<p>🔥 How To Improve Your <a target="_blank" href="https://wpdeveloper.net/email-marketing-social-proof/">Email Marketing Strategy</a> With Social Proof</p>
-		<p>🚀 Hacks To Grow Your <a target="_blank" href="https://wpdeveloper.net/email-subscription-list-wordpress/">Email Subscription List</a> On WordPress Website</p>';
+		<p>🔥 How To Improve Your <a target="_blank" href="%5$s">Email Marketing Strategy</a> With Social Proof</p>
+		<p>🚀 Hacks To Grow Your <a target="_blank" href="%6$s">Email Subscription List</a> On WordPress Website</p>', 'notificationx'),
+        'https://mailchimp.com/help/about-api-keys/',
+        'https://notificationx.com/docs/mailchimp-email-subscription-alert/',
+        'https://youtu.be/WvX8feM5DBw',
+        'https://notificationx.com/integrations/mailchimp/',
+        'https://wpdeveloper.net/email-marketing-social-proof/',
+        'https://wpdeveloper.net/email-subscription-list-wordpress/'
+        );
     }
 }

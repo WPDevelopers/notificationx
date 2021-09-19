@@ -58,8 +58,8 @@ class GlobalFields {
                 'step' => [
                     'show' => true,
                     'buttons' => [
-                        'prev' => 'Previous',
-                        'next' => 'Next',
+                        'prev' => __('Previous', 'notificationx'),
+                        'next' => __('Next', 'notificationx'),
                     ]
                 ],
             ],
@@ -68,7 +68,7 @@ class GlobalFields {
             ],
             'tabs'         => [
                 "source_tab" => [
-                    'label' => "Source",
+                    'label' => __("Source", 'notificationx'),
                     'id'    => "source_tab",
                     'name'  => "source_tab",
                     'icon'  => [
@@ -84,7 +84,7 @@ class GlobalFields {
                             'rules' => '',
                         ],
                         'type_section' => [
-                            'label'   => "Notification Type",
+                            'label'   => __("Notification Type", 'notificationx'),
                             'name'   => "type_section",
                             'type'   => "section",
                             'fields' => [
@@ -117,7 +117,7 @@ class GlobalFields {
                             ]
                         ],
                         'source_section' => [
-                            'label'            => "Source",
+                            'label'            => __("Source", 'notificationx'),
                             'name'   => "source_section",
                             'type'   => "section",
                             'fields' => [
@@ -212,7 +212,7 @@ class GlobalFields {
                     ]),
                 ],
                 "design_tab" => [
-                    'label' => "Design",
+                    'label' => __("Design", 'notificationx'),
                     'id'    => "design_tab",
                     'name'  => "design_tab",
                     'icon'  => [
@@ -222,7 +222,7 @@ class GlobalFields {
                     'classes' => "design_tab",
                     'fields'  => apply_filters('nx_design_tab_fields', [
                         "themes" => [
-                            'label'  => "Themes",
+                            'label'  => __("Themes", 'notificationx'),
                             'name'   => "themes",
                             'type'   => "section",
                             'fields' => [
@@ -247,7 +247,7 @@ class GlobalFields {
                                     ],
                                 ],
                                 [
-                                    'label'    => "Advanced Design",
+                                    'label'    => __("Advanced Design", 'notificationx'),
                                     'name'     => "advance_edit",
                                     'type'     => "toggle",
                                     'default'  => false,
@@ -263,39 +263,39 @@ class GlobalFields {
                             'rules' => Rules::is('advance_edit', true),
                             'fields' => [
                                 "design" => [
-                                    'label' => "Design",
+                                    'label' => __("Design", 'notificationx'),
                                     'name'  => "design",
                                     'type'  => "section",
                                     'rules' => Rules::is('advance_edit', true),
                                     // 'rules' => Rules::is( 'advance_edit', true ),
                                     'fields' => [
                                         [
-                                            'label' => "Background Color",
+                                            'label' => __("Background Color", 'notificationx'),
                                             'name'  => "bg_color",
                                             'type'  => "colorpicker",
                                             'default'  => "#fff",
                                         ],
                                         [
-                                            'label' => "Text Color",
+                                            'label' => __("Text Color", 'notificationx'),
                                             'name'  => "text_color",
                                             'type'  => "colorpicker",
                                             'default'  => "#000",
                                         ],
                                         [
-                                            'label'   => "Want Border?",
+                                            'label'   => __("Want Border?", 'notificationx'),
                                             'name'    => "border",
                                             'type'    => "checkbox",
                                             'default' => 0,
                                         ],
                                         [
-                                            'label' => "Border Size",
+                                            'label' => __("Border Size", 'notificationx'),
                                             'name'  => "border_size",
                                             'type'  => "number",
                                             'default' => 1,
                                             'rules' => Rules::is( 'border', true ),
                                         ],
                                         [
-                                            'label'   => "Border Style",
+                                            'label'   => __("Border Style", 'notificationx'),
                                             'name'    => "border_style",
                                             'type'    => "select",
                                             'default' => 'solid',
@@ -383,7 +383,7 @@ class GlobalFields {
                     ])
                 ],
                 "content_tab" => [
-                    'label' => "Content",
+                    'label' => __("Content", 'notificationx'),
                     'id'    => "content_tab",
                     'name'  => "content_tab",
                     'icon'  => [
@@ -504,7 +504,7 @@ class GlobalFields {
                                     'rules' => Rules::includes( 'source', apply_filters('nx_notification_template_dependency', []) ),
                                 ],
                                 'template_adv' => [
-                                    'label'    => "Advanced Template",
+                                    'label'    => __("Advanced Template", 'notificationx'),
                                     'name'     => "template_adv",
                                     'type'     => "toggle",
                                     'default'  => false,
@@ -551,7 +551,7 @@ class GlobalFields {
                     ]),
                 ],
                 "display_tab" => [
-                    'label' => "Display",
+                    'label' => __("Display", 'notificationx'),
                     'id'    => "display_tab",
                     'name'  => "display_tab",
                     'icon'  => [
@@ -561,7 +561,7 @@ class GlobalFields {
                     'classes' => "display_tab",
                     'fields'  => apply_filters('nx_display_fields', [
                         "image-section" => [
-                            'label' => "IMAGE",
+                            'label' => __("IMAGE", 'notificationx'),
                             'name'  => "image-section",
                             'type'  => "section",
                             // 'condition' => [
@@ -569,13 +569,13 @@ class GlobalFields {
                             // ],
                             'fields' => [
                                 [
-                                    'label' => "Show Default Image",
+                                    'label' => __("Show Default Image", 'notificationx'),
                                     'name'  => "show_default_image",
                                     'type'  => "checkbox",
                                     'default' => false,
                                 ],
                                 [
-                                    'label'       => "Choose an Image",
+                                    'label'       =>__( "Choose an Image", 'notificationx'),
                                     'name'        => "default_avatar",
                                     'type'        => "radio-card",
                                     'default'     => "verified.svg",
@@ -614,7 +614,7 @@ class GlobalFields {
                                     )
                                 ],
                                 [
-                                    'label' => "Upload an Image",
+                                    'label' => __("Upload an Image", 'notificationx'),
                                     'name'  => "image_url",
                                     'button'  => __('Upload', 'notificationx'),
                                     'type'  => "media",
@@ -622,7 +622,7 @@ class GlobalFields {
                                     'rules' => Rules::is( 'show_default_image', true ),
                                 ],
                                 [
-                                    'label'   => "Image",
+                                    'label'   => __("Image", 'notificationx'),
                                     'name'    => "show_notification_image",
                                     'type'    => "select",
                                     'default' => "none",
@@ -722,12 +722,12 @@ class GlobalFields {
                             ],
                         ],
                         "visibility" => [
-                            'label'  => "Visibility",
+                            'label'  => __("Visibility", 'notificationx'),
                             'name'   => "visibility",
                             'type'   => "section",
                             'fields' => [
                                 "show_on" => [
-                                    'label'    => "Show On",
+                                    'label'    => __("Show On", 'notificationx'),
                                     'name'     => "show_on",
                                     'type'     => "select",
                                     'default'  => "everywhere",
@@ -739,7 +739,7 @@ class GlobalFields {
                                     ]),
                                 ],
                                 "all_locations" => [
-                                    'label'    => "Locations",
+                                    'label'    => __("Locations", 'notificationx'),
                                     'name'     => "all_locations",
                                     'type'     => "select",
                                     'default'    => "",
@@ -752,7 +752,7 @@ class GlobalFields {
                                     'options' => $this->normalize_fields(Locations::get_instance()->get_locations()),
                                 ],
                                 "show_on_display" => [
-                                    'label'    => "Display For",
+                                    'label'    => __("Display For", 'notificationx'),
                                     'name'     => "show_on_display",
                                     'type'     => "select",
                                     'default'    => "always",
@@ -769,7 +769,7 @@ class GlobalFields {
                     ]),
                 ],
                 "customize_tab" => [
-                    'label' => "Customize",
+                    'label' => __("Customize", 'notificationx'),
                     'id'    => "customize_tab",
                     'name'  => "customize_tab",
                     'icon'  => [
@@ -779,7 +779,7 @@ class GlobalFields {
                     'classes' => "customize_tab",
                     'fields'  => apply_filters('nx_customize_fields', [
                         'appearance' => [
-                            'label'  => "Appearance",
+                            'label'  => __("Appearance", 'notificationx'),
                             'name'   => "appearance",
                             'type'   => "section",
                             'fields' => [

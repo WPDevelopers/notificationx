@@ -494,7 +494,8 @@ class WooCommerce extends Extension {
 
         $products_more_title = isset($settings['combine_multiorder_text']) && !empty($settings['combine_multiorder_text']) ? __($settings['combine_multiorder_text'], 'notificationx') : __('more products', 'notificationx');
         foreach ($item_counts as $key => $item) {
-            $items[$key]['title'] = $items[$key]['title'] . ' & ' . $item . ' ' . $products_more_title;
+            // translators: %1$s: title, %2$s: number of product, %3$s: Combine Multi Order Text.
+            $items[$key]['title'] = sprintf(__('%1$s & %2$s %3$s', 'notificationx'), $items[$key]['title'], $item, $products_more_title);
         }
 
         // @todo maybe sort
@@ -531,12 +532,18 @@ class WooCommerce extends Extension {
     }
 
     public function doc(){
-        return '<p>Make sure that you have <a target="_blank" href="https://wordpress.org/plugins/woocommerce/">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/woocommerce-sales-notifications/">documentation</a>.</p>
-		<p>🎦 <a href="https://www.youtube.com/watch?v=dVthd36hJ-E&t=1s" target="_blank">Watch video tutorial</a> to learn quickly</p>
+        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+		<p>🎦 <a href="%3$s" target="_blank">Watch video tutorial</a> to learn quickly</p>
 		<p>⭐ NotificationX Integration with WooCommerce</p>
 		<p><strong>Recommended Blog:</strong></p>
-		<p>🔥 Why NotificationX is The <a target="_blank" href="https://notificationx.com/integrations/woocommerce/">Best FOMO and Social Proof Plugin</a> for WooCommerce?</p>
-		<p>🚀 How to <a target="_blank" href="https://notificationx.com/blog/best-fomo-and-social-proof-plugin-for-woocommerce/">boost WooCommerce Sales</a> Using NotificationX</p>';
+		<p>🔥 Why NotificationX is The <a target="_blank" href="%4$s">Best FOMO and Social Proof Plugin</a> for WooCommerce?</p>
+		<p>🚀 How to <a target="_blank" href="%5$s">boost WooCommerce Sales</a> Using NotificationX</p>', 'notificationx'),
+        'https://wordpress.org/plugins/woocommerce/',
+        'https://notificationx.com/docs/woocommerce-sales-notifications/',
+        'https://www.youtube.com/watch?v=dVthd36hJ-E&t=1s',
+        'https://notificationx.com/integrations/woocommerce/',
+        'https://notificationx.com/blog/best-fomo-and-social-proof-plugin-for-woocommerce/'
+        );
     }
 
 }
