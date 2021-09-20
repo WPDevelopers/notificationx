@@ -166,6 +166,11 @@ class WPML {
     }
 
     public function translate_values($post){
+        if(empty($_GET['frontend'])){
+            // checking if request came from frontend.
+            return $post;
+        }
+
         $package = $this->generate_package($post, $post['nx_id']);
 
         foreach ($this->get_meta($post) as $key => $param) {

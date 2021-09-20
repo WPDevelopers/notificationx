@@ -42,9 +42,11 @@ class Donations extends Types {
             'custom_first_param'  => __('Someone', 'notificationx'),
             'second_param' => __('recently donated for', 'notificationx'),
             'third_param' => 'tag_none',
+            'custom_third_param' => __('100', 'notificationx'),
             'fourth_param' => 'tag_title',
+            'custom_fourth_param' => __('Anonymous Title', 'notificationx'),
             'fifth_param' => 'tag_time',
-            'custom_fourth_param' => __('Some time ago', 'notificationx'),
+            'custom_fifth_param' => __('Some time ago', 'notificationx'),
         );
         $this->themes = [
             'theme-one'   => [
@@ -109,7 +111,7 @@ class Donations extends Types {
                 ],
                 'fourth_param' => [ // third_param
                     'tag_title'           => __('Donation For Title', 'notificationx'),
-                    'tag_anonymous_title' => __('Anonymous Title', 'notificationx'),
+                    // 'tag_anonymous_title' => __('Anonymous Title', 'notificationx'),
                 ],
                 'fifth_param' => [ // fourth_param
                     'tag_time' => __('Definite Time', 'notificationx'),
