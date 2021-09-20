@@ -171,8 +171,8 @@ class WooReviews extends Extension {
         parent::init();
         add_filter("nx_filtered_data_{$this->id}", array($this, 'rated_woo_review'), 10, 2);
         add_action('comment_post', array($this, 'post_comment'), 10, 2);
-        add_action('trash_comment', array($this, 'delete_comment'), 10, 2);
-        add_action('deleted_comment', array($this, 'delete_comment'), 10, 2);
+        add_action('trash_comment', array($this, 'delete_comment'), 10);
+        add_action('deleted_comment', array($this, 'delete_comment'), 10);
         add_action('transition_comment_status', array($this, 'transition_comment_status'), 10, 3);
     }
 
@@ -359,7 +359,7 @@ class WooReviews extends Extension {
      * @param WP_Comment $comment
      * @return void
      */
-    public function delete_comment($comment_ID, $comment) {
+    public function delete_comment($comment_ID) {
         $this->delete_notification($comment_ID);
     }
 
