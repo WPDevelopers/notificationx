@@ -28,7 +28,7 @@ const Launch = (props) => {
                 }
             })
             .catch((err) => {
-                console.error("QuickBuilder Error: ", err);
+                console.error(__("QuickBuilder Error: ", 'notificationx'), err);
                 setIsSubmit(false);
             });
     };

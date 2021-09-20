@@ -784,7 +784,7 @@ class GlobalFields {
                             'type'   => "section",
                             'fields' => [
                                 'position' => [
-                                    'label'    => "Position",
+                                    'label'    => __("Position", 'notificationx'),
                                     'name'     => "position",      // combined "pressbar_position" && "conversion_position"
                                     'type'     => "select",
                                     'default'    => 'bottom_left',
@@ -827,7 +827,7 @@ class GlobalFields {
                             ]
                         ],
                         'queue_management' => [
-                            'label'    => "Queue Management",
+                            'label'    => __("Queue Management", 'notificationx'),
                             'name'     => "queue_management",
                             'type'     => "section",
                             'priority' => 150,
@@ -841,12 +841,12 @@ class GlobalFields {
                                     'priority' => 0,
                                     'default'  => false,
                                     'is_pro'   => true,
-                                    'description' => sprintf('%s <a href="%s" target="_blank">%s</a>', __('Activate global queue system for this notification.', 'notificationx'), 'https://notificationx.com/docs/centralized-queue', 'Check out this doc.'),
+                                    'description' => sprintf('%s <a href="%s" target="_blank">%s</a>', __('Activate global queue system for this notification.', 'notificationx'), 'https://notificationx.com/docs/centralized-queue', __('Check out this doc.', 'notificationx')),
                                 ],
                             ]
                         ],
                         'timing' => [
-                            'label'    => "Timing",
+                            'label'    => __("Timing", 'notificationx'),
                             'name'     => "timing",
                             'type'     => "section",
                             'priority' => 200,
@@ -854,7 +854,7 @@ class GlobalFields {
                             'rules'    => Rules::is( 'global_queue', true, true ),
                             'fields'   => [
                                 'delay_before' => [
-                                    'label'       => "Delay Before First Notification",
+                                    'label'       => __("Delay Before First Notification", 'notificationx'),
                                     'name'        => "delay_before",
                                     'type'        => "number",
                                     'priority'    => 40,
@@ -866,7 +866,7 @@ class GlobalFields {
                                 'display_for' => [
                                     'name'        => "display_for",
                                     'type'        => "number",
-                                    'label'       => "Display For",
+                                    'label'       => __("Display For", 'notificationx'),
                                     'description' => __('seconds', 'notificationx'),
                                     'help'        => __('Display each notification for * seconds', 'notificationx'),
                                     'priority'    => 60,
@@ -875,7 +875,7 @@ class GlobalFields {
                                 'delay_between' => [
                                     'name'        => "delay_between",
                                     'type'        => "number",
-                                    'label'       => "Delay Between",
+                                    'label'       => __("Delay Between", 'notificationx'),
                                     'description' => __('seconds', 'notificationx'),
                                     'help'        => __('Delay between each notification', 'notificationx'),
                                     'priority'    => 70,
@@ -884,7 +884,7 @@ class GlobalFields {
                             ]
                         ],
                         'behaviour' => [
-                            'label'       => "Behaviour",
+                            'label'       => __("Behaviour", 'notificationx'),
                             'name'        => "behaviour",
                             'type'        => "section",
                             'priority'    => 300,

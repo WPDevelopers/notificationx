@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import * as React from 'react';
 import invariant from 'tiny-warning';
 
@@ -11,7 +12,7 @@ export default function useNotificationXContext() {
     const notificationXContext = React.useContext(NotificationXContext);
     invariant(
         !!notificationXContext,
-        `NotificationXContext context is undefined, please verify you are calling useNotificationXContext() as child of a <NotificationX> component.`
+        __(`NotificationXContext context is undefined, please verify you are calling useNotificationXContext() as child of a <NotificationX> component.`, 'notificationx')
     );
     return notificationXContext;
 }

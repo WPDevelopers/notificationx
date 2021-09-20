@@ -47,7 +47,8 @@ const AddNewNotification = (props) => {
                     builder.setValues(res);
                     builder.setSavedValues(res);
                     builder.setActiveTab(res?.currentTab);
-                    setTitle(res?.title + " - Copy");
+                    // translators: Postfix for notice created by Quick Build.
+                    setTitle(res?.title + __(" - Copy", 'notificationx'));
                     setIsLoading(false);
                 }
             })

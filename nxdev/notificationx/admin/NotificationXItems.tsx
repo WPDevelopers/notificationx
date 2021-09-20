@@ -6,7 +6,6 @@ import NotificationXItemsMenu from "./NotificationXItemsMenu";
 import { useLocation } from "react-router";
 import Pagination from "rc-pagination";
 import localeInfo from 'rc-pagination/es/locale/en_US';
-import { Link } from "react-router-dom";
 import NavLink from "../components/NavLink";
 import { SelectControl } from "@wordpress/components";
 import { WrapperWithLoader } from "../components";
@@ -20,7 +19,7 @@ export const NotificationXItems = (props) => {
     const [checkAll, setCheckAll] = useState(false);
     const isMounted = useRef(null);
     const loading = {
-        title: "loading...",
+        title: __("loading...", 'notificationx'),
     };
     const [isLoading, setIsLoading] = useState(true);
     const [totalItems, setTotalItems] = useState({

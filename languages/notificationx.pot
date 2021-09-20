@@ -9,15 +9,17 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-09-16T08:12:23+00:00\n"
+"POT-Creation-Date: 2021-09-20T06:40:46+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: notificationx\n"
 
 #. Plugin Name of the plugin
+#. translators: %1$s: title, %2$s: link to the All NotificationX page.
 #: includes/Admin/Settings.php:104
 #: includes/Core/QuickBuild.php:112
 #: includes/Extensions/GlobalFields.php:43
+#: assets/admin/js/admin.js:11
 msgid "NotificationX"
 msgstr ""
 
@@ -35,6 +37,35 @@ msgstr ""
 
 #. Author URI of the plugin
 msgid "https://wpdeveloper.net"
+msgstr ""
+
+#: includes/Admin/Admin.php:95
+#: assets/admin/js/admin.js:11
+msgid "All NotificationX"
+msgstr ""
+
+#: includes/Admin/Admin.php:162
+msgid "Ok, you deserve it!"
+msgstr ""
+
+#: includes/Admin/Admin.php:167
+msgid "I already did"
+msgstr ""
+
+#: includes/Admin/Admin.php:175
+msgid "Maybe Later"
+msgstr ""
+
+#: includes/Admin/Admin.php:183
+msgid "I need help"
+msgstr ""
+
+#: includes/Admin/Admin.php:188
+msgid "Never show again"
+msgstr ""
+
+#: includes/Admin/Admin.php:200
+msgid "We hope you're enjoying NotificationX! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?"
 msgstr ""
 
 #: includes/Admin/Admin.php:231
@@ -59,6 +90,14 @@ msgstr ""
 msgid "NotificationX Analytics"
 msgstr ""
 
+#: includes/Admin/Notice.php:864
+msgid "Installing..."
+msgstr ""
+
+#: includes/Admin/Notice.php:876
+msgid "Installed"
+msgstr ""
+
 #: includes/Admin/Reports/ReportEmail.php:56
 msgid "Successfully Sent an Email"
 msgstr ""
@@ -69,9 +108,9 @@ msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:61
 #: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:66781
-#: build/admin/js/admin.js:66885
-#: build/admin/js/admin.js:67622
+#: assets/admin/js/admin.js:7
+#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Something went wrong."
 msgstr ""
 
@@ -106,8 +145,24 @@ msgstr ""
 msgid "No email found."
 msgstr ""
 
+#: includes/Admin/Settings.php:119
+msgid "Save Settings"
+msgstr ""
+
+#: includes/Admin/Settings.php:125
+msgid "General"
+msgstr ""
+
+#: includes/Admin/Settings.php:129
+msgid "Modules"
+msgstr ""
+
 #: includes/Admin/Settings.php:151
 msgid "Advanced Settings"
+msgstr ""
+
+#: includes/Admin/Settings.php:156
+msgid "Powered By"
 msgstr ""
 
 #: includes/Admin/Settings.php:162
@@ -143,9 +198,9 @@ msgid "Analytics & Reporting"
 msgstr ""
 
 #: includes/Admin/Settings.php:233
+#: includes/Core/Analytics.php:45
 #: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:66021
-#: build/admin/js/admin.js:70182
+#: assets/admin/js/admin.js:11
 msgid "Analytics"
 msgstr ""
 
@@ -250,6 +305,10 @@ msgstr ""
 msgid "Test Report"
 msgstr ""
 
+#: includes/Admin/Settings.php:366
+msgid "Successfully Sent a Test Report in Your Email."
+msgstr ""
+
 #: includes/Admin/Settings.php:378
 #: includes/Admin/Settings.php:385
 msgid "Cache Settings"
@@ -278,19 +337,19 @@ msgstr ""
 
 #: includes/Admin/views/analytics.views.php:7
 #: includes/Admin/views/analytics.views.php:11
-#: build/admin/js/admin.js:66247
+#: assets/admin/js/admin.js:11
 msgid "Total Views"
 msgstr ""
 
 #: includes/Admin/views/analytics.views.php:20
 #: includes/Admin/views/analytics.views.php:24
-#: build/admin/js/admin.js:66248
+#: assets/admin/js/admin.js:11
 msgid "Total Clicks"
 msgstr ""
 
 #: includes/Admin/views/analytics.views.php:33
 #: includes/Admin/views/analytics.views.php:37
-#: build/admin/js/admin.js:66249
+#: assets/admin/js/admin.js:11
 msgid "Click-Through-Rate"
 msgstr ""
 
@@ -372,9 +431,9 @@ msgstr ""
 #: includes/Extensions/Tutor/Tutor.php:552
 #: includes/Extensions/Tutor/Tutor.php:553
 #: includes/Extensions/Tutor/Tutor.php:554
-#: includes/Extensions/WooCommerce/WooCommerce.php:526
 #: includes/Extensions/WooCommerce/WooCommerce.php:527
 #: includes/Extensions/WooCommerce/WooCommerce.php:528
+#: includes/Extensions/WooCommerce/WooCommerce.php:529
 #: includes/Extensions/WooCommerce/WOOReviews.php:54
 #: includes/Extensions/WooCommerce/WOOReviews.php:66
 #: includes/Extensions/WooCommerce/WOOReviews.php:78
@@ -415,7 +474,20 @@ msgstr ""
 msgid "Someone"
 msgstr ""
 
+#: includes/Core/PostType.php:54
+#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:15
+msgid "Add New"
+msgstr ""
+
+#: includes/Core/QuickBuild.php:47
+#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
+msgid "Quick Builder"
+msgstr ""
+
 #: includes/Core/QuickBuild.php:89
+#: includes/Extensions/GlobalFields.php:386
 #: includes/Extensions/GlobalFields.php:396
 #: includes/Extensions/PressBar/PressBar.php:714
 msgid "Content"
@@ -512,6 +584,7 @@ msgstr ""
 
 #: includes/Extensions/CF7/CF7.php:40
 #: includes/Extensions/CF7/CF7.php:41
+#: includes/Extensions/CF7/CF7.php:93
 msgid "Contact Form 7"
 msgstr ""
 
@@ -540,9 +613,27 @@ msgstr ""
 msgid "plugin first."
 msgstr ""
 
+#: includes/Extensions/CF7/CF7.php:227
+msgid ""
+"<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Contact Form 7 installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
+"\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
+"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Contact Form 7</a></p>\n"
+"\t\t<p><strong>Recommended Blog:</strong></p>\n"
+"\t\t<p>🔥 Hacks to Increase Your <a target=\"_blank\" href=\"%5$s\">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>"
+msgstr ""
+
 #: includes/Extensions/ConvertKit/ConvertKit.php:37
 #: includes/Extensions/ConvertKit/ConvertKit.php:38
 msgid "ConvertKit"
+msgstr ""
+
+#: includes/Extensions/ConvertKit/ConvertKit.php:53
+msgid ""
+"<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved your API key from ConvertKit account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
+"\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
+"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with ConvertKit</a></p>\n"
+"\t\t<p><strong>Recommended Blog:</strong></p>\n"
+"\t\t<p>🔥 Connect <a target=\"_blank\" href=\"%5$s\">NotificationX With ConvertKit</a>: Grow Your Audience By Leveraging Social Proof</p>"
 msgstr ""
 
 #: includes/Extensions/CustomNotification/CustomNotification.php:39
@@ -551,6 +642,15 @@ msgstr ""
 #: includes/Extensions/CustomNotification/CustomNotificationConversions.php:38
 #: includes/Types/CustomNotification.php:35
 msgid "Custom Notification"
+msgstr ""
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:85
+#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:53
+msgid ""
+"<p>You can make custom notification for its all types of campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
+"\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%2$s\">video tutorial</a> to learn quickly</p>\n"
+"\t\t<p><strong>Recommended Blog:</strong></p>\n"
+"\t\t<p>🔥 How to <a target=\"_blank\" href=\"%3$s\">Display Custom Notification Alerts</a> On Your Website Using NotificationX</p>"
 msgstr ""
 
 #: includes/Extensions/EDD/EDD.php:41
@@ -574,14 +674,36 @@ msgstr ""
 #: includes/Extensions/EDD/EDD.php:347
 #: includes/Extensions/Give/Give.php:84
 #: includes/Extensions/Tutor/Tutor.php:555
-#: includes/Extensions/WooCommerce/WooCommerce.php:529
+#: includes/Extensions/WooCommerce/WooCommerce.php:530
 #: includes/Types/Conversions.php:60
 msgid "Anonymous Product"
+msgstr ""
+
+#: includes/Extensions/EDD/EDD.php:353
+msgid ""
+"<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">Easy Digital Downloads installed & activated</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
+"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with Easy Digital Downloads</a></p>\n"
+"\t\t<p><strong>Recommended Blog:</strong></p>\n"
+"\t\t<p>🔥 How Does <a target=\"_blank\" href=\"%4$s\">NotificationX Increase Sales on WordPress</a> Websites?</p>"
 msgstr ""
 
 #: includes/Extensions/Envato/Envato.php:38
 #: includes/Extensions/Envato/Envato.php:39
 msgid "Envato"
+msgstr ""
+
+#: includes/Extensions/Envato/Envato.php:54
+msgid ""
+"<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">created & signed in to Envato account</a> to use its campaign & product sales data.  For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
+"\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
+"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Envato</a></p>"
+msgstr ""
+
+#: includes/Extensions/Freemius/Freemius.php:20
+msgid ""
+"<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">created & signed in to Freemius account</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
+"\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
+"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Freemius</a></p>"
 msgstr ""
 
 #: includes/Extensions/Freemius/FreemiusConversions.php:37
@@ -652,8 +774,67 @@ msgstr ""
 msgid "for"
 msgstr ""
 
+#: includes/Extensions/Give/Give.php:285
+msgid ""
+"<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">GiveWP installed & configured</a> to use its campaign & donars data. For further assistance, check out our step by step <a href=\"%2$s\">documentation</a>.</p>\n"
+"\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
+"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with GiveWP</a></p>\n"
+"\t\t<p><strong>Recommended Blog:</strong></p>\n"
+"\t\t<p>🔥 How Does <a target=\"_blank\" href=\"%5$s\">NotificationX Increase Sales on WordPress</a> Websites?\"</p>"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:61
+msgid "Previous"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:62
+#: includes/Extensions/PressBar/PressBar.php:369
+msgid "Next"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:71
+#: includes/Extensions/GlobalFields.php:120
+msgid "Source"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:87
+msgid "Notification Type"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:215
+#: includes/Extensions/GlobalFields.php:266
+msgid "Design"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:225
+msgid "Themes"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:250
 #: includes/Extensions/GlobalFields.php:259
 msgid "Advanced Design"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:273
+#: includes/Extensions/PressBar/PressBar.php:214
+msgid "Background Color"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:279
+#: includes/Extensions/PressBar/PressBar.php:219
+msgid "Text Color"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:285
+msgid "Want Border?"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:291
+msgid "Border Size"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:298
+msgid "Border Style"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:303
@@ -718,6 +899,7 @@ msgid "Square"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:369
+#: includes/Extensions/GlobalFields.php:787
 msgid "Position"
 msgstr ""
 
@@ -747,6 +929,7 @@ msgstr ""
 msgid "recently purchased"
 msgstr ""
 
+#: includes/Extensions/GlobalFields.php:507
 #: includes/Extensions/GlobalFields.php:517
 msgid "Advanced Template"
 msgstr ""
@@ -774,6 +957,22 @@ msgstr ""
 msgid "None"
 msgstr ""
 
+#: includes/Extensions/GlobalFields.php:554
+msgid "Display"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:564
+msgid "IMAGE"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:572
+msgid "Show Default Image"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:578
+msgid "Choose an Image"
+msgstr ""
+
 #: includes/Extensions/GlobalFields.php:582
 msgid "If checked, this will show in notifications."
 msgstr ""
@@ -798,8 +997,16 @@ msgstr ""
 msgid "Blue Face"
 msgstr ""
 
+#: includes/Extensions/GlobalFields.php:617
+msgid "Upload an Image"
+msgstr ""
+
 #: includes/Extensions/GlobalFields.php:619
 msgid "Upload"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:625
+msgid "Image"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:661
@@ -808,6 +1015,14 @@ msgstr ""
 
 #: includes/Extensions/GlobalFields.php:691
 msgid "Gravatar"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:725
+msgid "Visibility"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:730
+msgid "Show On"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:736
@@ -822,6 +1037,15 @@ msgstr ""
 msgid "Hide On Selected"
 msgstr ""
 
+#: includes/Extensions/GlobalFields.php:742
+msgid "Locations"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:755
+#: includes/Extensions/GlobalFields.php:869
+msgid "Display For"
+msgstr ""
+
 #: includes/Extensions/GlobalFields.php:762
 msgid "Logged Out User"
 msgstr ""
@@ -832,6 +1056,14 @@ msgstr ""
 
 #: includes/Extensions/GlobalFields.php:765
 msgid "More Control in Pro"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:772
+msgid "Customize"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:782
+msgid "Appearance"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:794
@@ -866,6 +1098,10 @@ msgstr ""
 msgid "Hide NotificationX on mobile."
 msgstr ""
 
+#: includes/Extensions/GlobalFields.php:830
+msgid "Queue Management"
+msgstr ""
+
 #: includes/Extensions/GlobalFields.php:838
 msgid "Enable Global Queue"
 msgstr ""
@@ -874,7 +1110,20 @@ msgstr ""
 msgid "Activate global queue system for this notification."
 msgstr ""
 
+#: includes/Extensions/GlobalFields.php:844
+msgid "Check out this doc."
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:849
+msgid "Timing"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:857
+msgid "Delay Before First Notification"
+msgstr ""
+
 #: includes/Extensions/GlobalFields.php:862
+#: includes/Extensions/PressBar/PressBar.php:543
 #: includes/Extensions/PressBar/PressBar.php:548
 msgid "Initial Delay"
 msgstr ""
@@ -891,8 +1140,16 @@ msgstr ""
 msgid "Display each notification for * seconds"
 msgstr ""
 
+#: includes/Extensions/GlobalFields.php:878
+msgid "Delay Between"
+msgstr ""
+
 #: includes/Extensions/GlobalFields.php:880
 msgid "Delay between each notification"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:887
+msgid "Behaviour"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:896
@@ -945,10 +1202,26 @@ msgstr ""
 msgid "Google Analytics"
 msgstr ""
 
+#: includes/Extensions/Google_Analytics/Google_Analytics.php:60
+msgid ""
+"<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in to Google Analytics site</a>, to use its campaign & page analytics data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
+"\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
+"\t\t<p>👉NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Google Analytics</a></p>"
+msgstr ""
+
 #: includes/Extensions/GRVF/GravityForms.php:40
 #: includes/Extensions/GRVF/GravityForms.php:41
 #: includes/Extensions/GRVF/GravityForms.php:52
 msgid "Gravity Forms"
+msgstr ""
+
+#: includes/Extensions/GRVF/GravityForms.php:64
+msgid ""
+"<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Gravity Forms installed & configured</a>, to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
+"\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
+"\t\t<p>👉NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Ninja Forms</a></p>\n"
+"\t\t<p><strong>Recommended Blog:</strong></p>\n"
+"\t\t<p>🔥Hacks to Increase Your <a target=\"_blank\" href=\"%5$s\">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>"
 msgstr ""
 
 #: includes/Extensions/IFTTT/IFTTT.php:35
@@ -965,15 +1238,43 @@ msgstr ""
 msgid "You have to install <a target=\"_blank\" rel=\"nofollow\" href=\"https://www.learndash.com\">LearnDash</a> plugin first."
 msgstr ""
 
+#: includes/Extensions/LearnDash/LearnDash.php:58
+msgid ""
+"<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">LearnDash installed & configured</a> to use its campaign & course selling data.  For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
+"\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
+"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with LearnDash</a> </p>\n"
+"\t\t<p><strong>Recommended Blog:</strong></p>\n"
+"\t\t<p>🔥 How to Increase Your <a target=\"_blank\" href=\"%5$s\">LearnDash Course Enrollment Rates</a> With NotificationX</p>"
+msgstr ""
+
 #: includes/Extensions/MailChimp/MailChimp.php:37
 #: includes/Extensions/MailChimp/MailChimp.php:38
 msgid "MailChimp"
+msgstr ""
+
+#: includes/Extensions/MailChimp/MailChimp.php:53
+msgid ""
+"<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved API key from MailChimp account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
+"\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
+"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with MailChimp</a></p>\n"
+"\t\t<p><strong>Recommended Blogs:</strong></p>\n"
+"\t\t<p>🔥 How To Improve Your <a target=\"_blank\" href=\"%5$s\">Email Marketing Strategy</a> With Social Proof</p>\n"
+"\t\t<p>🚀 Hacks To Grow Your <a target=\"_blank\" href=\"%6$s\">Email Subscription List</a> On WordPress Website</p>"
 msgstr ""
 
 #: includes/Extensions/NJF/NinjaForms.php:41
 #: includes/Extensions/NJF/NinjaForms.php:42
 #: includes/Extensions/NJF/NinjaForms.php:92
 msgid "Ninja Forms"
+msgstr ""
+
+#: includes/Extensions/NJF/NinjaForms.php:201
+msgid ""
+"<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Ninja Forms installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
+"\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
+"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Ninja Forms</a></p>\n"
+"\t\t<p><strong>Recommended Blog:</strong></p>\n"
+"\t\t<p>🔥 Hacks to Increase Your <a target=\"_blank\" href=\"%5$s\">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>"
 msgstr ""
 
 #: includes/Extensions/PressBar/press-bar-frontend.php:135
@@ -1005,14 +1306,6 @@ msgstr ""
 msgid "Press Bar"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:214
-msgid "Background Color"
-msgstr ""
-
-#: includes/Extensions/PressBar/PressBar.php:219
-msgid "Text Color"
-msgstr ""
-
 #: includes/Extensions/PressBar/PressBar.php:224
 msgid "Button Background Color"
 msgstr ""
@@ -1037,6 +1330,14 @@ msgstr ""
 msgid "Close Button Position"
 msgstr ""
 
+#: includes/Extensions/PressBar/PressBar.php:284
+msgid "Edit With Elementor"
+msgstr ""
+
+#: includes/Extensions/PressBar/PressBar.php:298
+msgid "Remove Elementor Design"
+msgstr ""
+
 #: includes/Extensions/PressBar/PressBar.php:330
 msgid "Build With Elementor"
 msgstr ""
@@ -1050,8 +1351,16 @@ msgstr ""
 msgid "Importing..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:369
-msgid "Next"
+#: includes/Extensions/PressBar/PressBar.php:390
+msgid "Choose Your "
+msgstr ""
+
+#: includes/Extensions/PressBar/PressBar.php:421
+msgid "Activate"
+msgstr ""
+
+#: includes/Extensions/PressBar/PressBar.php:421
+msgid "Install"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:426
@@ -1078,6 +1387,14 @@ msgstr ""
 msgid "Installing Elementor..."
 msgstr ""
 
+#: includes/Extensions/PressBar/PressBar.php:430
+msgid "To Design Notification Bar with <strong>Elementor Page Builder</strong>, You need to %s the Elementor first: &nbsp;&nbsp;&nbsp;"
+msgstr ""
+
+#: includes/Extensions/PressBar/PressBar.php:455
+msgid "Successfully Activated"
+msgstr ""
+
 #: includes/Extensions/PressBar/PressBar.php:507
 msgid "Top"
 msgstr ""
@@ -1102,8 +1419,16 @@ msgstr ""
 msgid "Show Notification Bar overlapping content instead of pushing."
 msgstr ""
 
+#: includes/Extensions/PressBar/PressBar.php:554
+msgid "Auto Hide"
+msgstr ""
+
 #: includes/Extensions/PressBar/PressBar.php:559
 msgid "If checked, notification bar will be hidden after the time set below."
+msgstr ""
+
+#: includes/Extensions/PressBar/PressBar.php:564
+msgid "Hide After"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:570
@@ -1190,6 +1515,15 @@ msgstr ""
 msgid "Permanent Close"
 msgstr ""
 
+#: includes/Extensions/PressBar/PressBar.php:906
+msgid ""
+"<p>You can showcase the notification bar to do instant popup campaign on WordPress site. For further assistance, check out our step by step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
+"\t\t<p>🎦 Watch <a target = \"_blank\" href = \"%2$s\">video tutorial</a> to learn quickly</p>\n"
+"\t\t<p><strong>Recommended Blog                     : </strong></p>\n"
+"\t\t<p>🔥                  Introducing NotificationX: <a target=\"_blank\" href=\"%3$s\">Social Proof & FOMO Marketing Solution</a> for WordPress</p>\n"
+"\t\t<p>🔥 How to <a href=\"%4$s\" target=\"_blank\">design Notification Bar with Elementor Page Builder</a>.</p>"
+msgstr ""
+
 #: includes/Extensions/ReviewX/ReviewX.php:63
 #: includes/Extensions/ReviewX/ReviewX.php:64
 #: includes/Extensions/ReviewX/ReviewX.php:193
@@ -1273,7 +1607,7 @@ msgstr ""
 #: includes/Extensions/ReviewX/ReviewX.php:171
 #: includes/Extensions/WooCommerce/WOOReviews.php:133
 #: includes/Extensions/WooCommerce/WOOReviews.php:153
-#: includes/FrontEnd/FrontEnd.php:130
+#: includes/FrontEnd/FrontEnd.php:131
 #: includes/Types/Donations.php:112
 #: includes/Types/EmailSubscription.php:48
 #: includes/Types/Reviews.php:132
@@ -1303,6 +1637,13 @@ msgstr ""
 msgid "plugin."
 msgstr ""
 
+#: includes/Extensions/ReviewX/ReviewX.php:268
+msgid ""
+"<p>Make sure that you have <a target=\"_blank\" href=\"%1$S\">WooCommerce</a> & <a target=\"_blank\" href=\"%2$S\">ReviewX</a> installed & activated to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%3$S\">documentation</a>.</p>\n"
+"\t\t<p><strong>Recommended Blog:</strong></p>\n"
+"\t\t<p>🚀 How to <a target=\"_blank\" href=\"%4$s\">boost WooCommerce Sales</a> Using NotificationX</p>"
+msgstr ""
+
 #: includes/Extensions/Tutor/Tutor.php:40
 msgid "Tutor"
 msgstr ""
@@ -1312,6 +1653,13 @@ msgstr ""
 msgid "Tutor LMS"
 msgstr ""
 
+#: includes/Extensions/Tutor/Tutor.php:561
+msgid ""
+"<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">Tutor LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
+"\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
+"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Tutor LMS</a></p>"
+msgstr ""
+
 #: includes/Extensions/WooCommerce/WooCommerce.php:44
 #: includes/Extensions/WooCommerce/WooCommerce.php:45
 #: includes/Extensions/WooCommerce/WooCommerce.php:103
@@ -1319,6 +1667,21 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WOOReviews.php:47
 #: includes/Extensions/WooCommerce/WOOReviews.php:229
 msgid "WooCommerce"
+msgstr ""
+
+#. translators: %1$s: title, %2$s: number of product, %3$s: Combine Multi Order Text.
+#: includes/Extensions/WooCommerce/WooCommerce.php:498
+msgid "%1$s & %2$s %3$s"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooCommerce.php:535
+msgid ""
+"<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
+"\t\t<p>🎦 <a href=\"%3$s\" target=\"_blank\">Watch video tutorial</a> to learn quickly</p>\n"
+"\t\t<p>⭐ NotificationX Integration with WooCommerce</p>\n"
+"\t\t<p><strong>Recommended Blog:</strong></p>\n"
+"\t\t<p>🔥 Why NotificationX is The <a target=\"_blank\" href=\"%4$s\">Best FOMO and Social Proof Plugin</a> for WooCommerce?</p>\n"
+"\t\t<p>🚀 How to <a target=\"_blank\" href=\"%5$s\">boost WooCommerce Sales</a> Using NotificationX</p>"
 msgstr ""
 
 #: includes/Extensions/WooCommerce/WOOReviews.php:209
@@ -1337,6 +1700,23 @@ msgstr ""
 
 #: includes/Extensions/WooCommerce/WOOReviews.php:212
 msgid "Some review content"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WOOReviews.php:486
+msgid ""
+"<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
+"\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
+"\t\t<p><strong>Recommended Blog:</strong></p>\n"
+"\t\t<p>🚀 How to <a target=\"_blank\" href=\"%4$s\">boost WooCommerce Sales</a> Using NotificationX</p>"
+msgstr ""
+
+#: includes/Extensions/WordPress/Wordpress.php:13
+msgid ""
+"<p>Make sure that you have a <a target=\"_blank\" href=\"%1$s\">wordpress.org</a> account to use its campaign on blog comments, reviews and download stats data. For further assistance, check out our step by step documentation on <a target=\"_blank\" href=\"%2$s\">comments popup</a>, <a target=\"_blank\" href=\"%3$s\">plugin reviews</a> & <a target=\"_blank\" href=\"%4$s\">downloads stats</a>.</p>\n"
+"\t\t<p>🎦 Watch video tutorial on <a target=\"_blank\" href=\"%5$s\">blog comments</a>, <a target=\"_blank\" href=\"%6$s\">reviews</a> & <a target=\"_blank\" href=\"%6$s\">downloads stats</a> to learn quickly</p>\n"
+"\t\t<p><strong>Recommended Blogs:</strong></p>\n"
+"\t\t<p>🔥 Proven Hacks To <a target=\"_blank\" href=\"%7$s\">Get More Comments on Your WordPress Blog</a> Posts</p>\n"
+"\t\t<p>🚀 How To Increase <a target=\"_blank\" href=\"%8$s\">WordPress Plugin Download Rates & Increase Sales</a> in 2020</p>"
 msgstr ""
 
 #: includes/Extensions/WordPress/WPComments.php:39
@@ -1433,6 +1813,15 @@ msgstr ""
 msgid "WP Forms"
 msgstr ""
 
+#: includes/Extensions/WPF/WPForms.php:220
+msgid ""
+"<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WPForms installed & configured</a>  to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
+"\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
+"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with WPForms</a></p>\n"
+"\t\t<p><strong>Recommended Blogs:</strong></p>\n"
+"\t\t<p>🔥Hacks to Increase Your <a target=\"_blank\" href=\"%5$s\">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>"
+msgstr ""
+
 #: includes/Extensions/Zapier/ZapierConversions.php:37
 #: includes/Extensions/Zapier/ZapierConversions.php:38
 #: includes/Extensions/Zapier/ZapierEmailSubscription.php:37
@@ -1442,10 +1831,133 @@ msgstr ""
 msgid "Zapier"
 msgstr ""
 
+#: includes/Extensions/Zapier/ZapierConversions.php:55
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:55
+#: includes/Extensions/Zapier/ZapierReviews.php:55
+msgid "Field Name:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:55
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:55
+#: includes/Extensions/Zapier/ZapierReviews.php:55
+msgid "Field Key"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:56
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:56
+msgid "Full Name:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:57
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:57
+msgid "First Name:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:58
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:58
+msgid "Last Name:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:59
+msgid "Sales Count:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:60
+msgid "Customer Email:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:61
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:60
+msgid "Title, Product Title:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:62
+msgid "Anonymous Title, Product:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:63
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:62
+#: includes/Extensions/Zapier/ZapierReviews.php:64
+msgid "Definite Time:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:64
+msgid "Sometime:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:65
+msgid "In last 1 day:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:66
+msgid "In last 7 days:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:67
+msgid "In last 30 days:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:68
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:64
+msgid "City:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:69
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:65
+msgid "Country:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:70
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:66
+msgid "City,Country:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:59
+#: includes/Extensions/Zapier/ZapierReviews.php:57
+msgid "Email:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:61
+#: includes/Extensions/Zapier/ZapierReviews.php:62
+msgid "Anonymous Title:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:63
+#: includes/Extensions/Zapier/ZapierReviews.php:65
+msgid "Some time ago:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierReviews.php:56
+msgid "Username:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierReviews.php:58
+msgid "Rated:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierReviews.php:59
+msgid "Plugin Name:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierReviews.php:60
+msgid "Plugin Review:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierReviews.php:61
+msgid "Review Title:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierReviews.php:63
+msgid "Rating:"
+msgstr ""
+
+#: includes/FrontEnd/FrontEnd.php:532
+msgid "<div id=\"notificationx-frontend-root\"><!-- This DIV for NotificationX, It is used to show the notifications by appending them here. For more details please visit: https://notificationx.com/docs --><div id=\"notificationx-frontend\"></div>"
+msgstr ""
+
 #: includes/NotificationX.php:140
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:67428
-#: build/admin/js/admin.js:70181
+#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Settings"
 msgstr ""
 
@@ -1725,10 +2237,154 @@ msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/public/js/frontend.js:1
+msgid "Title Goes Here: title"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: assets/public/js/frontend.js:1
+msgid "Text Goes Here: text"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: assets/public/js/frontend.js:1
+msgid "You need to upgrade to the <strong><a href='%s' target='_blank'>Premium Version</a></strong> to use this feature."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: assets/public/js/frontend.js:1
+msgid "Opps..."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "\"allOf\" condition requires an array as #3 argument"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "\"anyOf\" condition requires an array as #3 argument"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "\"not\" can have only one comparison rule, multiple rules given"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Invalid comparison rule %s."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Test Goes Here: text"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: assets/public/js/frontend.js:1
 msgid "by"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+msgid "Analytics Data"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Get PRO to Unlock"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "loading..."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "NotificationX Fetch Error: "
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "No notifications are found."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Seems like you haven’t created any notification alerts."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Hit on %1$s\"Add New\"%2$s button to get started"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "No notifications are enabled."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "There’s no enabled Notification Alerts."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Simply use the toggle switch to turn your notifications from %1$s\"All NotificationX\"%2$s page."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "No notifications are disabled."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "There’s no disabled Notification Alerts."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:13
+msgid "NotificationX Title"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Preview"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Status"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Type"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Stats"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Date"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Action"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Notification Alert has been Enabled."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Notification Alert has been Disabled."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Disabled"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
+msgid "Oops, Something went wrong. Please try again."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "%s views"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:11
 msgid "Scheduled For"
 msgstr ""
 
@@ -1737,11 +2393,73 @@ msgid "Published"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:7
+#: assets/admin/js/admin.js:11
+msgid "Are you sure?"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:7
+#: assets/admin/js/admin.js:11
+msgid "You won't be able to revert this!"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:7
+#: assets/admin/js/admin.js:11
+msgid "Yes, Delete It"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:7
+#: assets/admin/js/admin.js:11
+msgid "No, Cancel"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:11
+msgid "Notification Alert has been Deleted."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Translate"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:13
 msgid "Edit"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 msgid "Duplicate"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Shortcode"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Notification Alert has been Copied to Clipboard."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Are you sure you want to Regenerate?"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Regenerating will fetch new data based on settings"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Regenerate"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Cancel"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Notification Alert has been Regenerated."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
@@ -1752,210 +2470,263 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#. translators: %d: Number of Notification Alerts Regenerated.
 #: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:66798
+msgid "Bulk Action"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Enable"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Disable"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "All (%d)"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Enabled (%d)"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Disabled (%d)"
+msgstr ""
+
+#. translators: %d: Number of Notification Alerts Regenerated.
+#: assets/admin/js/admin.js:3
 msgid "%d Notification Alerts have been Regenerated."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Enabled.
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:66822
+#: assets/admin/js/admin.js:5
 msgid "%d Notification Alerts have been Enabled."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Disabled.
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:66847
+#: assets/admin/js/admin.js:7
 msgid "%d Notification Alerts have been Disabled."
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:66889
+#: assets/admin/js/admin.js:7
 msgid "Unable to complete bulk action."
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:66737
+#: assets/admin/js/admin.js:7
 msgid "error"
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts deleted.
-#: assets/admin/js/admin.js:1
-msgid "Add New"
+#: assets/admin/js/admin.js:9
+msgid ""
+"%d notification Alerts have been\n"
+"                Deleted."
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-msgid "NotificationX Instructions"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Manage License"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Upgrade to Pro"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Documentation"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Get started by spending some time with the documentation to get familiar with NotificationX. Build awesome websites for you or your clients with ease."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Contribute to NotificationX"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "You can contribute to make NotificationX better reporting bugs, creating issues, pull requests at"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Report a bug"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Need Help?"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Stuck with something? Get help from live chat or support ticket."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Initiate a Chat"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Show Your Love"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "We love to have you in NotificationX family. We are making it more awesome everyday. Take your 2 minutes to review the plugin and spread the love to encourage us to keep it going."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Leave a Review"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Publishing..."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Publish"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: build/admin/js/admin.js:67167
-#: build/admin/js/admin.js:70183
-msgid "Quick Builder"
-msgstr ""
-
-#: build/admin/js/admin.js:65628
-msgid "Successfully Updated."
-msgstr ""
-
-#: build/admin/js/admin.js:65629
-msgid "Successfully Created."
-msgstr ""
-
-#: build/admin/js/admin.js:66016
-msgid "Analytics Data"
-msgstr ""
-
-#: build/admin/js/admin.js:66019
-msgid "Get PRO to Unlock"
-msgstr ""
-
-#: build/admin/js/admin.js:66121
-msgid "Views"
-msgstr ""
-
-#: build/admin/js/admin.js:66125
-msgid "Clicks"
-msgstr ""
-
-#: build/admin/js/admin.js:66129
-msgid "CTR"
-msgstr ""
-
-#: build/admin/js/admin.js:66144
-msgid "All Combined"
-msgstr ""
-
-#: build/admin/js/admin.js:66148
-msgid "All Separated"
-msgstr ""
-
-#: build/admin/js/admin.js:66630
-msgid "Simply use the toggle switch to turn your notifications from %1$s\"All NotificationX\"%2$s page."
-msgstr ""
-
-#: build/admin/js/admin.js:66717
-msgid "Bulk Action"
-msgstr ""
-
-#: build/admin/js/admin.js:66722
-msgid "Enable"
-msgstr ""
-
-#: build/admin/js/admin.js:66723
-msgid "Disable"
-msgstr ""
-
-#: build/admin/js/admin.js:66895
-msgid "All (%d)"
-msgstr ""
-
-#: build/admin/js/admin.js:66897
-msgid "Enabled (%d)"
-msgstr ""
-
-#: build/admin/js/admin.js:66899
-msgid "Disabled (%d)"
-msgstr ""
-
-#: build/admin/js/admin.js:66904
+#: assets/admin/js/admin.js:9
 msgid "Applying..."
 msgstr ""
 
-#: build/admin/js/admin.js:66904
+#: assets/admin/js/admin.js:9
 msgid "Apply"
 msgstr ""
 
+#: assets/admin/js/admin.js:9
+msgid "Changes Saved Successfully."
+msgstr ""
+
 #. translators: %1$s: title, %2$s: link to the All NotificationX page.
-#: build/admin/js/admin.js:66935
+#: assets/admin/js/admin.js:11
 msgid "You are about to publish %1$s. You can rename this and edit everything whenever you want from %2$s Page."
 msgstr ""
 
-#: build/admin/js/admin.js:67644
-msgid "Shortcode"
+#: assets/admin/js/admin.js:11
+msgid "NotificationXContext context is undefined, please verify you are calling useNotificationXContext() as child of a <NotificationX> component."
 msgstr ""
 
-#: build/admin/js/admin.js:67771
-msgid "Notification Alert has been Enabled."
+#: assets/admin/js/admin.js:11
+msgid "NotificationX:"
 msgstr ""
 
-#: build/admin/js/admin.js:67774
-msgid "Notification Alert has been Disabled."
+#: assets/admin/js/admin.js:11
+msgid "NotificationX Pro:"
 msgstr ""
 
-#: build/admin/js/admin.js:67778
-msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification."
+#: assets/admin/js/admin.js:11
+msgid "NX Not Created"
 msgstr ""
 
-#: build/admin/js/admin.js:67779
-msgid "Disabled"
+#: assets/admin/js/admin.js:11
+msgid "Error: "
 msgstr ""
 
-#: build/admin/js/admin.js:67785
-msgid "Oops, Something went wrong. Please try again."
+#: assets/admin/js/admin.js:11
+msgid "Delete Error: "
 msgstr ""
 
-#: build/admin/js/admin.js:67817
-msgid "%s views"
+#: assets/admin/js/admin.js:11
+msgid "Published On"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Publish On"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Schedule"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Update"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Publish"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Field must have a #type. see documentation."
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "You should give a #fields arguments to a group field."
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "There are no tabs defined!"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "There are no #tabs args defined in props."
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Not an array."
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Save Changes"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Loading..."
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "#options is a required arguments for RadioCard field."
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Reset"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Button has a required params #text."
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Modal needs button/body with it."
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "NotificationX Instructions"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Views"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Clicks"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "CTR"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "All Combined"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "All Separated"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Manage License"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Documentation"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Get started by spending some time with the documentation to get familiar with NotificationX. Build awesome websites for you or your clients with ease."
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Contribute to NotificationX"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "You can contribute to make NotificationX better reporting bugs, creating issues, pull requests at"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Report a bug"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Need Help?"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Stuck with something? Get help from live chat or support ticket."
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Initiate a Chat"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Show Your Love"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "We love to have you in NotificationX family. We are making it more awesome everyday. Take your 2 minutes to review the plugin and spread the love to encourage us to keep it going."
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Leave a Review"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "QuickBuilder Error: "
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Publishing..."
+msgstr ""
+
+#. translators: Title of the new Notification Alert. %1$s: title, %2$s: current date.
+#: assets/admin/js/admin.js:13
+msgid "NotificationX - %1$s - %2$s"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Successfully Updated."
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Successfully Created."
+msgstr ""
+
+#. translators: Postfix for notice created by Quick Build.
+#: assets/admin/js/admin.js:15
+msgid " - Copy"
 msgstr ""

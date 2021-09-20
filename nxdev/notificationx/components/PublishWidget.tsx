@@ -40,10 +40,10 @@ const PublishWidget = (props) => {
                             rest?.setIsUpdated('saved');
                         }
                     } else {
-                        console.error("NX Not Created");
+                        console.error(__("NX Not Created", 'notificationx'));
                     }
                 })
-                .catch((err) => console.error("Error: ", err));
+                .catch((err) => console.error(__("Error: ", 'notificationx'), err));
         },
         [title, context]
     );
@@ -73,7 +73,7 @@ const PublishWidget = (props) => {
                             nxToast.error( __(`Oops, Something went wrong. Please try again.`, 'notificationx') );
                         }
                     })
-                    .catch((err) => console.error("Delete Error: ", err));
+                    .catch((err) => console.error(__("Delete Error: ", 'notificationx'), err));
             }
         });
     }, [isEdit]);

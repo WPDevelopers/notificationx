@@ -11,7 +11,6 @@ import { useNotificationXContext } from '../../hooks';
 import nxToast, { ToastAlert} from "../../core/ToasterMsg";
 import { __ } from '@wordpress/i18n';
 
-const useQuery = () => new URLSearchParams(useLocation().search);
 
 const SettingsInner = (props) => {
     const builder = useBuilderContext();

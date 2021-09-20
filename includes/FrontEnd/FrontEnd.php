@@ -529,7 +529,7 @@ class FrontEnd {
      */
     public function add_notificationx(){
         $output = '';
-        $output .= '<div id="notificationx-frontend-root"><!-- This DIV for NotificationX, It is used to show the notifications by appending them here. For more details please visit: https://notificationx.com/docs --><div id="notificationx-frontend"></div>';
+        $output .= __('<div id="notificationx-frontend-root"><!-- This DIV for NotificationX, It is used to show the notifications by appending them here. For more details please visit: https://notificationx.com/docs --><div id="notificationx-frontend"></div>', 'notificationx');
         $output .= '</div>';
         echo $output;
     }
