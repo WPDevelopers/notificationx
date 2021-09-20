@@ -224,6 +224,7 @@ class CF7 extends Extension {
     // }
 
     public function doc(){
+        // translators: links
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">Contact Form 7 installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
 		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with Contact Form 7</a></p>

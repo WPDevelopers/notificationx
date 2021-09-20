@@ -43,6 +43,14 @@ class PressBar extends Extension {
         $this->module_title = __('Notification Bar', 'notificationx');
         parent::__construct();
         add_action('init', [$this, 'register_post_type']);
+		add_filter( 'get_edit_post_link', function($link, $id){
+            $post = get_post( $id );
+            if ( $post && 'nx_bar' === $post->post_type && class_exists('\Elementor\Plugin') ) {
+                return \Elementor\Plugin::$instance->documents->get($id)->get_edit_url();
+            }
+            return $link;
+        }, 10, 3 );
+
 
         $this->themes = [
             'theme-one'   => [
@@ -639,7 +647,7 @@ class PressBar extends Extension {
             'show_ui'             => false,
             'rewrite'             => false,
             'menu_icon'           => 'dashicons-admin-page',
-            'show_in_menu'        => false,
+            'show_in_menu'        => true,
             'show_in_nav_menus'   => false,
             'exclude_from_search' => true,
             'capability_type'     => 'post',
