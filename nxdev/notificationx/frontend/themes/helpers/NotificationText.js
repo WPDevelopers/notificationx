@@ -1,4 +1,5 @@
 import React from "react";
+import { __ } from '@wordpress/i18n';
 
 const NotificationText = ({ post }) => {
     const style = {};
@@ -9,7 +10,7 @@ const NotificationText = ({ post }) => {
             viewBox="0 0 78 9.5"
             style={style}
         >
-            <title>{__(NotificationX, 'notificationx')}</title>
+            <title>{__('NotificationX', 'notificationx')}</title>
             <g id="Layer_2">
                 <g id="Layer_1-2">
                     <path d="M6.2.6a.86.86,0,0,0-.6.3.76.76,0,0,0-.2.5V6.9S2.5,2.4,1.5,1A.67.67,0,0,0,.8.6.86.86,0,0,0,.2.9a.76.76,0,0,0-.2.5V8.6a1.42,1.42,0,0,0,.2.6.73.73,0,0,0,.6.2,1.42,1.42,0,0,0,.6-.2c.2-.2.2-.3.2-.6V3.1S4.5,7.5,5.4,8.9a.75.75,0,0,0,.7.4,1.42,1.42,0,0,0,.6-.2A.55.55,0,0,0,7,8.6V1.4A.76.76,0,0,0,6.8.9.86.86,0,0,0,6.2.6Z" />
