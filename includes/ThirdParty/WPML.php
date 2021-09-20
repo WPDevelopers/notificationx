@@ -72,7 +72,7 @@ class WPML {
         add_action('rest_api_init', [$this, 'register_routes']);
         add_filter('nx_rest_data', [$this, 'rest_data']);
         add_filter('nx_builder_configs', [$this, 'builder_configs']);
-        add_filter('nx_check_location', [$this, 'check_location']);
+        add_filter('nx_check_location', [$this, 'check_location'], 10, 3);
 
     }
 
