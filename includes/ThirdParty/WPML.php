@@ -235,7 +235,6 @@ class WPML {
                     'data' => $post,
                 ], $nx_id);
 
-                // @todo mayb not required.
                 $this->register_package($post, [], $nx_id);
                 wp_redirect(admin_url("admin.php?page=wpml-string-translation/menu/string-translation.php&context=notificationx-$nx_id"));
                 die;
