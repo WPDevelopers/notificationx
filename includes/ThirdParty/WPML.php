@@ -6,6 +6,7 @@ use NotificationX\Admin\Settings;
 use NotificationX\Core\Helper;
 use NotificationX\Core\PostType;
 use NotificationX\Core\REST;
+use NotificationX\Extensions\ExtensionFactory;
 use NotificationX\GetInstance;
 use WP_Error;
 use WP_REST_Server;
@@ -155,7 +156,23 @@ class WPML {
             }
         }
 
+        if($post['source'] != 'google'){
+            unset($this->template['ga_fourth_param']);
+            unset($this->template['ga_fifth_param']);
+        }
+        if(strpos($data['themes'], 'maps_theme') === false){
+            unset($this->template['map_fourth_param']);
+        }
+
         if($post['source'] != 'press_bar'){
+            // @todo when theme template have all the params.
+            // $source = $data['source'];
+            // $theme = $data['themes'];
+            // $ext = ExtensionFactory::get_instance()->get($source);
+            // $themes = $ext ? $ext->get_themes() : null;
+            // if(!empty($themes[$theme]['template'])){
+            // }
+
             foreach ($this->template as $key => $param) {
                 if(!empty($data['notification-template'][$key])){
                     do_action('wpml_register_string', $data['notification-template'][$key], $key, $package, $param, 'LINE');
