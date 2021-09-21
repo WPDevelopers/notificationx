@@ -70,10 +70,10 @@ class WPML {
         add_action('nx_delete_post', [$this, 'delete_translation'], 10, 2);
         add_filter('nx_get_post', [$this, 'translate_values'], 10);
 
-        add_action('rest_api_init', [$this, 'register_routes']);
         add_filter('nx_rest_data', [$this, 'rest_data']);
         add_filter('nx_builder_configs', [$this, 'builder_configs']);
         add_filter('nx_check_location', [$this, 'check_location'], 10, 3);
+        add_action( 'wp_ajax_nx-translate', [$this, 'translate'] );
 
     }
 
@@ -211,21 +211,23 @@ class WPML {
         do_action( 'wpml_delete_package', $package['name'], $package['kind'] );
     }
 
-
+    /**
+     * We are only translating when user click translate button.
+     *
+     * @param [type] $request
+     * @return void
+     */
     public function translate($request){
-        $params = $request->get_params();
-        if(!empty($params['id'])){
-            $nx_id = $params['id'];
+        if(!empty($_GET['id'])){
+            $nx_id = $_GET['id'];
             $post = PostType::get_instance()->get_post($nx_id);
             if($post['source'] == 'press_bar' && !empty($post['elementor_id'])){
 		        $cookie = new \WPML_Cookie();
-
 				$cookie_data = filter_var( http_build_query( ['type' => 'nx_bar'] ), FILTER_SANITIZE_URL );
 				$cookie->set_cookie( 'wp-translation_dashboard_filter', $cookie_data, time() + HOUR_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN );
-                return [
-                    'redirect' => admin_url("admin.php?page=wpml-translation-management/menu/main.php&sm=dashboard"),
-                ];
 
+                wp_redirect(admin_url("admin.php?page=wpml-translation-management/menu/main.php&sm=dashboard"));
+                die;
             }
             else if($post){
                 $post['is_translated'] = true;
@@ -235,27 +237,14 @@ class WPML {
 
                 // @todo mayb not required.
                 $this->register_package($post, [], $nx_id);
-                return [
-                    'redirect' => admin_url("admin.php?page=wpml-string-translation/menu/string-translation.php&context=notificationx-$nx_id"),
-                ];
+                wp_redirect(admin_url("admin.php?page=wpml-string-translation/menu/string-translation.php&context=notificationx-$nx_id"));
+                die;
             }
         }
 		return new WP_Error();
     }
     public function can_translate( $request ) {
         return current_user_can('wpml_manage_string_translation');
-    }
-
-    /**
-     * Register the routes for the objects of the controller.
-     */
-    public function register_routes() {
-        $namespace = REST::_namespace();
-        register_rest_route( $namespace, '/translate/(?P<id>[\d]+)', array(
-            'methods'   => WP_REST_Server::READABLE,
-            'callback'  => array( $this, 'translate' ),
-            'permission_callback' => array($this, 'can_translate'),
-        ));
     }
 
     /**

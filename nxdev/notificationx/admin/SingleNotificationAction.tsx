@@ -96,19 +96,6 @@ const SingleNotificationAction = ({
         });
     };
 
-    const handleTranslate = (event) => {
-        nxHelper.get(`translate/${id}`)
-            .then((response: any) => {
-                if(response?.redirect){
-                    window.open(response.redirect); //, '_blank'
-                }
-                else{
-                    ToastAlert('error', __("Something went wrong.", 'notificationx'));
-                }
-
-            });
-    };
-
     const onCopy = () => {
         nxToast.info( __(`Notification Alert has been Copied to Clipboard.`, 'notificationx') );
     }
@@ -116,13 +103,13 @@ const SingleNotificationAction = ({
     return (
         <div className="nx-admin-actions">
             {/*  || item?.elementor_id */}
-            <button className={classNames("nx-admin-title-translate", {hidden: !nxContext?.can_translate})} title={__("Translate", "notificationx")} onClick={handleTranslate}>
-                <span>{__("Translate", "notificationx")}</span>
-            </button>
             <Link className="nx-admin-title-edit" title={__('Edit', 'notificationx')} to={{
                         pathname: '/admin.php',
                         search: `?page=nx-edit&id=${id}`,
                     }}><span>{__('Edit', 'notificationx')}</span></Link>
+            <a className={classNames("nx-admin-title-translate", {hidden: !nxContext?.can_translate})} title={__("Translate", "notificationx")} href={`${ajaxurl}?action=nx-translate&id=${id}`}>
+                <span>{__("Translate", "notificationx")}</span>
+            </a>
             <Link className={classNames("nx-admin-title-duplicate", {hidden: nxContext?.createRedirect})} title={__('Duplicate', 'notificationx')} to={{
                 pathname: '/admin.php',
                 search: `?page=nx-edit`, //&clone=${id}

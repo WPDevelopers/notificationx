@@ -226,7 +226,7 @@ class WPForms extends Extension {
         'https://notificationx.com/docs/wpforms/',
         'https://www.youtube.com/watch?v=8tk7_ZawJN8',
         'https://notificationx.com/integrations/wpforms/',
-        'https://notificationx.com/blog/wordpress-contact-forms/',
+        'https://notificationx.com/blog/wordpress-contact-forms/'
         );
     }
 }
