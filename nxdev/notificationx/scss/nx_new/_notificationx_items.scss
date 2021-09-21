@@ -271,9 +271,9 @@
                     }
                     & > td:last-child {
                         border-top-right-radius: 10px;
-                        width: 120px;
+                        width: 150px;
                         @media only screen and (max-width: 782px) {
-                            width: 120px !important;
+                            width: 130px !important;
                         }
                     }
                 }
@@ -345,7 +345,7 @@
             }
         }
         .nx-admin-preview {
-            height: 100px;
+            height: 90px;
             border: 2px solid rgba(#0ccfc2, 0.05);
             background-color: #f6f7fe;
             display: inline-flex;
@@ -354,7 +354,7 @@
             border-radius: 10px;
             align-items: center;
             justify-content: center;
-            width: 250px;
+            width: 190px;
             @media only screen and (max-width: 1599px) {
                 width: 170px;
                 height: 70px;
