@@ -27,7 +27,6 @@ const PublishWidget = (props) => {
                 })
                 .then((res: any) => {
                     if (res?.nx_id) {
-                        setIsLoading(false);
                         if (setIsCreated) {
                             builderContext.setRedirect({
                                 page: `nx-edit`,
@@ -35,11 +34,13 @@ const PublishWidget = (props) => {
                                 state: { published: true }
                             });
                         } else {
+                            setIsLoading(false);
                             context.setValues(res);
                             context.setSavedValues(res);
                             rest?.setIsUpdated('saved');
                         }
                     } else {
+                        setIsLoading(false);
                         console.error(__("NX Not Created", 'notificationx'));
                     }
                 })
