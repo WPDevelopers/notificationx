@@ -202,6 +202,9 @@
                     border-color: #7c8db5;
                 }
             }
+            .components-datetime__time fieldset:last-child{
+                display: none;
+            }
         }
     }
 }

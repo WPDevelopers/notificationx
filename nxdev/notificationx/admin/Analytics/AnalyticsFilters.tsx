@@ -121,12 +121,14 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
                 />
                 <DateControl
                     name="startDate"
+                    type="date"
                     value={filterOptions?.startDate}
                     onChange={onValueChange}
                     format={settings.formats.date}
                 />
                 <DateControl
                     name="endDate"
+                    type="date"
                     value={filterOptions?.endDate}
                     onChange={onValueChange}
                     format={settings.formats.date}
