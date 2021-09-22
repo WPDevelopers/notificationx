@@ -8,6 +8,7 @@ import { __experimentalGetSettings, date } from "@wordpress/date";
 import { useLocation } from "react-router";
 import nxHelper from "../../core/functions";
 import { __ } from "@wordpress/i18n";
+import { getTime } from "../../frontend/core/utils";
 
 export const comparisonOptions = {
     views: {
@@ -74,10 +75,7 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
     const onValueChange = ({ target }) => {
         setFilterOptions({
             ...filterOptions,
-            [target.name]:
-                target.type == "date"
-                    ? date(settings.formats.date, target.value, settings.timezone.string)
-                    : target.value,
+            [target.name]: getTime(target.value, true),
         });
     };
 
@@ -98,12 +96,8 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
             setFilterOptions({
                 nx: [options?.[0]],
                 comparison: [comparison],
-                startDate: date(
-                    settings.formats.date,
-                    new Date(Date.now() - 6 * 24 * 60 * 60 * 1000),
-                    settings.timezone.string
-                ),
-                endDate: date(settings.formats.date, new Date(), settings.timezone.string),
+                startDate: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000),
+                endDate: new Date(),
             });
         }
         else {
