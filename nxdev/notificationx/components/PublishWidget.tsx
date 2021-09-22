@@ -66,7 +66,7 @@ const PublishWidget = (props) => {
                     .delete(`nx/${id}`, { nx_id: id })
                     .then((res) => {
                         if (res) {
-                            nxToast.error( __(`Notification Alert has been Deleted.`, 'notificationx') );
+                            nxToast.deleted( __(`Notification Alert has been Deleted.`, 'notificationx') );
                             builderContext.setRedirect({
                                 page  : `nx-admin`,
                             });
