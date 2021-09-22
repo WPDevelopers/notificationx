@@ -75,10 +75,7 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
     const onValueChange = ({ target }) => {
         setFilterOptions({
             ...filterOptions,
-            [target.name]:
-            target.type == "date"
-                ? getTime(target.value, true)
-                : target.value,
+            [target.name]: target.value,
         });
     };
 
