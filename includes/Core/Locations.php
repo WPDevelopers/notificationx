@@ -46,14 +46,17 @@ class Locations {
 
             foreach ( $post_types as $slug => $type ) {
 
+                // translators: %s: Post Type label
                 $locations[ 'is_singular-' . $slug ] = sprintf( __('All %s posts', 'notificationx'), $type->label );
 
                 if ( $type->has_archive ) {
+                    // translators: %s: Post Type label
                     $locations[ 'is_archive-' . $slug ] = sprintf( __('All %s archives', 'notificationx'), $type->label );
                 }
             }
 
             foreach ( $taxonomies as $slug => $tax ) {
+                // translators: %s: Taxonomy label
                 $locations[ 'is_tax-' . $slug ] = sprintf( __('All %s taxonomy archives', 'notificationx'), $tax->label );
             }
         }

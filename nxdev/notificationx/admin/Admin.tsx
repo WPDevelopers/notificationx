@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import React from 'react'
 import { Header } from '../components'
 import withDocumentTitle from '../core/withDocumentTitle';
@@ -19,4 +20,4 @@ const Admin = (props) => {
         </div>
     )
 }
-export default withDocumentTitle(Admin, "All NotificationX");
+export default withDocumentTitle(Admin, __("All NotificationX", 'notificationx'));

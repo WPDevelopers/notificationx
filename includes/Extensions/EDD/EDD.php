@@ -350,9 +350,14 @@ class EDD extends Extension {
     /* #endregion */
 
     public function doc(){
-        return '<p>Make sure that you have <a href="https://wordpress.org/plugins/easy-digital-downloads/" target="_blank">Easy Digital Downloads installed & activated</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/notificationx-easy-digital-downloads/">documentation</a>.</p>
-		<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/easy-digital-downloads/">Integration with Easy Digital Downloads</a></p>
+        return sprintf(__('<p>Make sure that you have <a href="%1$s" target="_blank">Easy Digital Downloads installed & activated</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+		<p>👉 NotificationX <a target="_blank" href="%3$s">Integration with Easy Digital Downloads</a></p>
 		<p><strong>Recommended Blog:</strong></p>
-		<p>🔥 How Does <a target="_blank" href="https://wpdeveloper.net/notificationx-increase-sales-wordpress/">NotificationX Increase Sales on WordPress</a> Websites?</p>';
+		<p>🔥 How Does <a target="_blank" href="%4$s">NotificationX Increase Sales on WordPress</a> Websites?</p>', 'notificationx'),
+        'https://wordpress.org/plugins/easy-digital-downloads/',
+        'https://notificationx.com/docs/notificationx-easy-digital-downloads/',
+        'https://notificationx.com/integrations/easy-digital-downloads/',
+        'https://wpdeveloper.net/notificationx-increase-sales-wordpress/'
+        );
     }
 }

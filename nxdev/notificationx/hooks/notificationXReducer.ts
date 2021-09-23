@@ -4,6 +4,8 @@ const notificationXReducer = (state: any, action: any) => {
             return {...state, settings: { ...state.settings, time: action.payload }};
         case 'SET_COMMON_OPTIONS':
             return {...state, common: { ...state.common, [action.payload.field]: action.payload.value }};
+        case 'SET_REDIRECT':
+            return { ...state, redirect: { ...state.redirect, ...action.payload } }
     }
 }
 

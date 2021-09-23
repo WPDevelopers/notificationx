@@ -384,7 +384,7 @@ NXBOXTEM;
     public static function pro_message(){
         $is_pro = defined( 'NOTIFICATIONX_PRO_VERSION' );
         $graph = NOTIFICATIONX_PUBLIC_URL  . 'image/reports/graph.png';
-        $admin_analytics_url = admin_url('admin.php?page=nx-admin#/analytics');
+        $admin_analytics_url = admin_url('admin.php?page=nx-analytics');
         if( $is_pro ) {
             $output = <<<NXPROMSG
 <tr>

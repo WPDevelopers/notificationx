@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
 import { FormBuilder, useBuilderContext } from 'quickbuilder';
 import { Content, Instructions, PublishWidget, Sidebar } from '../../components';
@@ -30,7 +31,7 @@ const EditNx = (props) => {
                     type="text"
                     name="title"
                     id="nx-title"
-                    placeholder="NotificationX Title"
+                    placeholder={__("NotificationX Title", 'notificationx')}
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />

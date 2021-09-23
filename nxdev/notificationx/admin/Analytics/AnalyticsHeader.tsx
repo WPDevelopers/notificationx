@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
 import AnalyticsCard from './AnalyticsCard'
 
@@ -7,17 +8,17 @@ const AnalyticsHeader = ({ analytics, assetsURL }) => {
             <AnalyticsCard
                 type="views"
                 icon={`${assetsURL.admin}images/analytics/views-icon.png`}
-                title="Total Views" count={analytics?.totalViews} url=""
+                title={__("Total Views", 'notificationx')} count={analytics?.totalViews} url=""
             />
             <AnalyticsCard
                 type="clicks"
                 icon={`${assetsURL.admin}images/analytics/clicks-icon.png`}
-                title="Total Clicks" count={analytics?.totalClicks} url=""
+                title={__("Total Clicks", 'notificationx')} count={analytics?.totalClicks} url=""
             />
             <AnalyticsCard
                 type="ctr"
                 icon={`${assetsURL.admin}images/analytics/ctr-icon.png`}
-                title="Click-Through-Rate" count={analytics?.totalCtr} url=""
+                title={__("Click-Through-Rate", 'notificationx')} count={analytics?.totalCtr} url=""
             />
         </div>
     )

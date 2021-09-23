@@ -93,6 +93,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\FrontEnd\\FrontEnd' => __DIR__ . '/../..' . '/includes/FrontEnd/FrontEnd.php',
         'NotificationX\\GetInstance' => __DIR__ . '/../..' . '/includes/GetInstance.php',
         'NotificationX\\NotificationX' => __DIR__ . '/../..' . '/includes/NotificationX.php',
+        'NotificationX\\ThirdParty\\WPML' => __DIR__ . '/../..' . '/includes/ThirdParty/WPML.php',
         'NotificationX\\Types\\Comments' => __DIR__ . '/../..' . '/includes/Types/Comments.php',
         'NotificationX\\Types\\ContactForm' => __DIR__ . '/../..' . '/includes/Types/ContactForm.php',
         'NotificationX\\Types\\Conversions' => __DIR__ . '/../..' . '/includes/Types/Conversions.php',

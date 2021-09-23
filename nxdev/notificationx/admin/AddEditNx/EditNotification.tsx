@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom';
 import { EditNx } from '.';
@@ -5,26 +6,31 @@ import { BuilderProvider, useBuilder } from 'quickbuilder';
 import { Header, WrapperWithLoader } from '../../components';
 import nxHelper from '../../core/functions';
 import withDocumentTitle from '../../core/withDocumentTitle';
+import { useNotificationXContext } from '../../hooks';
 import Notice from './Notice';
 
 const EditNotification = (props) => {
     const builderTabs = { ...notificationxTabs };
     delete builderTabs.settings;
     const builder = useBuilder(builderTabs);
+    const notificationxContext = useNotificationXContext();
 
     const [title, setTitle] = useState<string>(undefined)
     const [isUpdated, setIsUpdated] = useState('')
-    const [isDelete, setIsDelete] = useState(false)
     const [isLoading, setIsLoading] = useState(true);
 
     const isEdit = !!props?.match?.params?.edit;
     const ID = isEdit ? parseInt(props?.match?.params?.edit) : null;
 
-    if (ID === null) {
-        return <Redirect to='/add-new' />
-    }
 
     useEffect(() => {
+        if (ID === null) {
+            notificationxContext.setRedirect({
+                page  : `nx-edit`,
+            });
+            return;
+        }
+
         if (props?.location?.state?.published) {
             setIsUpdated('published');
         }
@@ -40,7 +46,10 @@ const EditNotification = (props) => {
                 builder.setActiveTab(currentTab || 'source_tab');
                 setIsLoading(false);
             } else {
-                setIsDelete(true); // If response is not valid than redirect to all.
+                // If response is not valid than redirect to all.
+                notificationxContext.setRedirect({
+                    page  : `nx-admin`,
+                });
             }
         })
     }, [])
@@ -56,10 +65,9 @@ const EditNotification = (props) => {
     return (
         <BuilderProvider value={builder}>
             <div>
-                {isDelete && <Redirect to='/' />}
                 <Header addNew={true} />
-                {isUpdated === 'saved' && !isLoading && <Notice message="Successfully Updated." />}
-                {isUpdated === 'published' && !isLoading && <Notice message="Successfully Created." />}
+                {isUpdated === 'saved' && !isLoading && <Notice message={__("Successfully Updated.", 'notificationx')} />}
+                {isUpdated === 'published' && !isLoading && <Notice message={__("Successfully Created.", 'notificationx')} />}
                 <WrapperWithLoader isLoading={isLoading}>
                     <EditNx id={ID} setIsUpdated={setIsUpdated} setIsLoading={setIsLoading} title={title} setTitle={setTitle} />
                 </WrapperWithLoader>
@@ -68,4 +76,4 @@ const EditNotification = (props) => {
     )
 }
 
-export default withDocumentTitle(EditNotification, "Edit");
+export default withDocumentTitle(EditNotification, __("Edit", 'notificationx'));

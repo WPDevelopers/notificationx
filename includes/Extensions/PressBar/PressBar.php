@@ -43,6 +43,14 @@ class PressBar extends Extension {
         $this->module_title = __('Notification Bar', 'notificationx');
         parent::__construct();
         add_action('init', [$this, 'register_post_type']);
+		add_filter( 'get_edit_post_link', function($link, $id){
+            $post = get_post( $id );
+            if ( $post && 'nx_bar' === $post->post_type && class_exists('\Elementor\Plugin') ) {
+                return \Elementor\Plugin::$instance->documents->get($id)->get_edit_url();
+            }
+            return $link;
+        }, 10, 3 );
+
 
         $this->themes = [
             'theme-one'   => [
@@ -148,6 +156,17 @@ class PressBar extends Extension {
         $post['data']['countdown_end_date'] = Helper::mysql_time($data['countdown_end_date']);
         $post['data']['countdown_rand'] = rand();
         return $post;
+    }
+
+    public function saved_post($post, $data, $nx_id) {
+        if(!empty($data['elementor_id'])){
+            $title = !empty($post['title']) ? $post['title'] : $nx_id;
+            $my_post = array(
+                'ID'           => $data['elementor_id'],
+                'post_title'   => "NxBar: " . $title,
+            );
+            wp_update_post( $my_post );
+        }
     }
 
     public function theme_preview($url, $post) {
@@ -270,7 +289,7 @@ class PressBar extends Extension {
         $fields['themes']['fields'][] = [
             'name'   => 'elementor_edit_link',
             'type'   => 'button',
-            'text'   => 'Edit With Elementor',
+            'text'   => __('Edit With Elementor', 'notificationx'),
             'href'   => -1,
             'target' => '_blank',
             'rules'  => Rules::logicalRule([
@@ -284,7 +303,7 @@ class PressBar extends Extension {
         $fields['themes']['fields'][] = [
             'name'  => 'nx-bar_with_elementor-remove',
             'type'  => 'button',
-            'text'  => 'Remove Elementor Design',
+            'text'  => __('Remove Elementor Design', 'notificationx'),
             'rules' => Rules::logicalRule([
                 Rules::is('elementor_id', false, true),
                 Rules::is('is_elementor', true),
@@ -376,7 +395,7 @@ class PressBar extends Extension {
             ],
             'cancel' => "import_elementor_theme_next",
             'body'   => [
-                'header' => 'Choose Your ',
+                'header' => __('Choose Your ', 'notificationx'),
                 'fields' => [
                     'themes' => [
                         'type'  => 'radio-card',
@@ -407,7 +426,7 @@ class PressBar extends Extension {
         ];
 
         $is_installed = Helper::is_plugin_installed('elementor/elementor.php');
-        $install_activate_text = $is_installed ? "Activate" : "Install";
+        $install_activate_text = $is_installed ? __("Activate", 'notificationx') : __("Install", 'notificationx');
         $fields['themes']['fields'][] = [
             'name'        => 'nx-bar_with_elementor_install',
             'type'        => 'button',
@@ -416,7 +435,7 @@ class PressBar extends Extension {
                 'saved'   => $is_installed ? __('Activated Elementor', 'notificationx') : __('Installed Elementor', 'notificationx'),
                 'loading' => $is_installed ? __('Activating Elementor...', 'notificationx') : __('Installing Elementor...', 'notificationx'),
             ],
-            'description' => "To Design Notification Bar with <strong>Elementor Page Builder</strong>, You need to $install_activate_text the Elementor first: &nbsp;&nbsp;&nbsp;",
+            'description' => sprintf(__("To Design Notification Bar with <strong>Elementor Page Builder</strong>, You need to %s the Elementor first: &nbsp;&nbsp;&nbsp;", 'notificationx'), $install_activate_text),
             'style'       => [
                 'description' => [
                     'position' => 'left'
@@ -441,7 +460,7 @@ class PressBar extends Extension {
                 ],
                 'swal' => [
                     'icon' => 'success',
-                    'text' => 'Successfully Activated',
+                    'text' => __('Successfully Activated', 'notificationx'),
                 ],
                 'trigger' => '@is_elementor:true',
             ],
@@ -529,7 +548,7 @@ class PressBar extends Extension {
         $fields["timing"]['fields']['delay_between'] = Rules::is('source', 'press_bar', true, $fields["timing"]['fields']['delay_between']);
 
         $fields["timing"]['fields']['initial_delay'] = [
-            'label'       => "Initial Delay",
+            'label'       => __("Initial Delay", 'notificationx'),
             'name'        => "initial_delay",
             'type'        => "number",
             'priority'    => 45,
@@ -540,7 +559,7 @@ class PressBar extends Extension {
         ];
 
         $fields["timing"]['fields']['auto_hide'] = [
-            'label'       => "Auto Hide",
+            'label'       => __("Auto Hide", 'notificationx'),
             'name'        => "auto_hide",
             'type'        => "checkbox",
             'priority'    => 50,
@@ -550,7 +569,7 @@ class PressBar extends Extension {
         ];
 
         $fields["timing"]['fields']['hide_after'] = [
-            'label'       => "Hide After",
+            'label'       => __("Hide After", 'notificationx'),
             'name'        => "hide_after",
             'type'        => "number",
             'priority'    => 55,
@@ -601,6 +620,16 @@ class PressBar extends Extension {
 
     public function delete_elementor_post($elementor_id) {
         if(!empty($elementor_id)){
+            $languages = apply_filters( 'wpml_active_languages', NULL );
+            if(is_array($languages)){
+                foreach ($languages as $lang => $val) {
+                    $elementor_post_id = apply_filters( 'wpml_object_id', $elementor_id, 'nx_bar', false, $lang);
+                    if($elementor_post_id){
+                        wp_delete_post($elementor_post_id, true);
+                    }
+                }
+                return;
+            }
             wp_delete_post($elementor_id, true);
         }
     }
@@ -618,7 +647,7 @@ class PressBar extends Extension {
             'show_ui'             => false,
             'rewrite'             => false,
             'menu_icon'           => 'dashicons-admin-page',
-            'show_in_menu'        => false,
+            'show_in_menu'        => true,
             'show_in_nav_menus'   => false,
             'exclude_from_search' => true,
             'capability_type'     => 'post',
@@ -770,6 +799,7 @@ class PressBar extends Extension {
                     'name'  => 'countdown_end_date',
                     'label' => __('End Date', 'notificationx'),
                     'type'  => 'date',
+                    // @todo Something
                     // 'default' => date('Y-m-d H:i:s', time() + 7 * 24 * 60 * 60),
                     'rules' => ["and", ['is', 'evergreen_timer', false], ['is', 'enable_countdown', true]],
                 ),
@@ -842,7 +872,8 @@ class PressBar extends Extension {
         $settings = new GetData($settings, \ArrayObject::ARRAY_AS_PROPS);
         $elementor_post_id = isset($settings->elementor_id) ? $settings->elementor_id : '';
         if ($elementor_post_id != '' && get_post_status($elementor_post_id) === 'publish' && class_exists('\Elementor\Plugin')) {
-            return \Elementor\Plugin::$instance->frontend->get_builder_content($elementor_post_id, false);
+            $elementor_post_id = apply_filters( 'wpml_object_id', $elementor_post_id, 'nx_bar', true);
+            return \Elementor\Plugin::$instance->frontend->get_builder_content_for_display($elementor_post_id, false);
         } else {
             return !empty($settings->press_content) ? do_shortcode($settings->press_content) : '';
         }
@@ -881,10 +912,15 @@ class PressBar extends Extension {
     }
 
     public function doc() {
-        return '<p>You can showcase the notification bar to do instant popup campaign on WordPress site. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/notification-bar/">documentation</a>.</p>
-		<p>🎦 Watch <a target = "_blank" href = "https://www.youtube.com/watch?v=l7s9FXgzbEM">video tutorial</a> to learn quickly</p>
+        return sprintf(__('<p>You can showcase the notification bar to do instant popup campaign on WordPress site. For further assistance, check out our step by step <a target="_blank" href="%1$s">documentation</a>.</p>
+		<p>🎦 Watch <a target = "_blank" href = "%2$s">video tutorial</a> to learn quickly</p>
 		<p><strong>Recommended Blog                     : </strong></p>
-		<p>🔥                  Introducing NotificationX: <a target="_blank" href="https://wpdeveloper.net/notificationx-social-proof-fomo/">Social Proof & FOMO Marketing Solution</a> for WordPress</p>
-		<p>🔥 How to <a href="https://notificationx.com/docs/notification-bar-with-elementor/" target="_blank">design Notification Bar with Elementor Page Builder</a>.</p>';
+		<p>🔥                  Introducing NotificationX: <a target="_blank" href="%3$s">Social Proof & FOMO Marketing Solution</a> for WordPress</p>
+		<p>🔥 How to <a href="%4$s" target="_blank">design Notification Bar with Elementor Page Builder</a>.</p>', 'notificationx'),
+        'https://notificationx.com/docs/notification-bar/',
+        'https://www.youtube.com/watch?v=l7s9FXgzbEM',
+        'https://wpdeveloper.net/notificationx-social-proof-fomo/',
+        'https://notificationx.com/docs/notification-bar-with-elementor/'
+        );
     }
 }

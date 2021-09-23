@@ -436,19 +436,17 @@ namespace UsabilityDynamics {
 
           case 'site_options':
 
-            $_value = json_encode( $_data, JSON_FORCE_OBJECT );
 
             if( function_exists( 'update_site_option' ) ) {
-              $_value = update_site_option( $this->_key, $_value );
+              $_value = update_site_option( $this->_key, $_data );
             }
 
           break;
 
           case 'options':
-            $_value = json_encode( $_data, JSON_FORCE_OBJECT );
 
             if( function_exists( 'update_option' ) ) {
-              $_value = update_option( $this->_key, $_value );
+              $_value = update_option( $this->_key, $_data );
             }
 
           break;

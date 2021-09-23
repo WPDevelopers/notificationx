@@ -1,5 +1,5 @@
+import { __ } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
-import { Redirect } from 'react-router-dom';
 import { CreateNx } from '.';
 import { BuilderProvider, useBuilder } from 'quickbuilder';
 import { isArray } from 'quickbuilder';
@@ -13,13 +13,18 @@ const AddNewNotification = (props) => {
     delete builderTabs.settings;
     const builder = useBuilder(builderTabs);
     const [title, setTitle] = useState('')
-    const [isCreated, setIsCreated] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
     const notificationxContext = useNotificationXContext();
-    const [redirect, setRedirect] = useState(builder?.createRedirect);
-
 
     useEffect(() => {
+        if(builder?.createRedirect){
+            // user don't have permission.
+            notificationxContext.setRedirect({
+                page  : `nx-admin`,
+            });
+            return;
+        }
+
         if (notificationxContext.getOptions('refresh')) {
             nxHelper.get('builder').then((res: any) => {
                 if (isArray(res?.tabs) && res?.tabs.length > 0) {
@@ -42,28 +47,25 @@ const AddNewNotification = (props) => {
                     builder.setValues(res);
                     builder.setSavedValues(res);
                     builder.setActiveTab(res?.currentTab);
-                    setTitle(res?.title + " - Copy");
+                    // translators: Postfix for notice created by duplicate button.
+                    setTitle(res?.title + __(" - Copy", 'notificationx'));
                     setIsLoading(false);
                 }
             })
         }
+
     }, []);
 
     return (
         <BuilderProvider value={builder}>
-            {redirect && <Redirect to="/" />}
             <div>
-                {isCreated && <Redirect to={{
-                    pathname: `/edit/${isCreated}`,
-                    state: { published: true }
-                }} />}
                 <Header addNew={true} />
                 <WrapperWithLoader isLoading={isLoading}>
-                    <CreateNx setIsLoading={setIsLoading} setIsCreated={setIsCreated} title={title} setTitle={setTitle} />
+                    <CreateNx setIsLoading={setIsLoading} title={title} setTitle={setTitle} />
                 </WrapperWithLoader>
             </div>
         </BuilderProvider>
     )
 }
 
-export default withDocumentTitle(AddNewNotification, 'Add New');
+export default withDocumentTitle(AddNewNotification, __('Add New', 'notificationx'));

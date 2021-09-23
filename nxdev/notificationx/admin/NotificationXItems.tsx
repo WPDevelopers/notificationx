@@ -3,18 +3,23 @@ import nxHelper from "../core/functions";
 import { isArray } from "quickbuilder";
 import NotificationXInner from "./NotificationXInner";
 import NotificationXItemsMenu from "./NotificationXItemsMenu";
-import { Redirect, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import Pagination from "rc-pagination";
+import localeInfo from 'rc-pagination/es/locale/en_US';
 import NavLink from "../components/NavLink";
 import { SelectControl } from "@wordpress/components";
 import { WrapperWithLoader } from "../components";
 import LargeLogoIcon from '../../../assets/admin/images/logos/large-logo-icon.png';
+import { useNotificationXContext } from "../hooks";
+import { __, sprintf } from "@wordpress/i18n";
+import parse from 'html-react-parser';
 
 export const NotificationXItems = (props) => {
+    const builderContext = useNotificationXContext();
     const [checkAll, setCheckAll] = useState(false);
     const isMounted = useRef(null);
     const loading = {
-        title: "loading...",
+        title: __("loading...", 'notificationx'),
     };
     const [isLoading, setIsLoading] = useState(true);
     const [totalItems, setTotalItems] = useState({
@@ -26,7 +31,6 @@ export const NotificationXItems = (props) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [notificationx, setNotificationx] = useState([loading]);
     const [filteredNotice, setFilteredNotice] = useState([loading]);
-    const [redirect, setRedirect] = useState<string>();
     const location = useLocation();
 
     const getParam = (param, d?) => {
@@ -36,7 +40,7 @@ export const NotificationXItems = (props) => {
     const status = getParam("status", "all");
 
     const itemRender = (current, type, element) => {
-        return <NavLink status={status} current={current} perPage={perPage}>{current}</NavLink>;
+        return <NavLink status={status} current={current} perPage={perPage}>{__(current)}</NavLink>;
     };
 
     useEffect(() => {
@@ -73,7 +77,7 @@ export const NotificationXItems = (props) => {
                 }
             }).catch(err => {
                 setIsLoading(false);
-                console.error('NotificationX Fetch Error: ', err);
+                console.error(__('NotificationX Fetch Error: ', 'notificationx'), err);
             });
     }, [currentPage, perPage, status]);
 
@@ -85,14 +89,23 @@ export const NotificationXItems = (props) => {
 
     React.useEffect(() => {
         if (perPage === 0) return;
-        setRedirect(`/?status=${status}&per-page=${perPage}&p=${currentPage}`);
-    }, [perPage]);
+        builderContext.setRedirect({
+            page: `nx-admin`,
+            status: status,
+            p: currentPage,
+            'per-page': perPage,
+        });
+    }, [perPage, currentPage]);
+
+    useEffect(() => {
+        // if current page is empty() go to prev page.
+        if (filteredNotice.length == 0 && currentPage > 1) {
+            setCurrentPage(pp => --pp);
+        }
+    }, [filteredNotice])
 
     return (
         <>
-            {
-                redirect && <Redirect to={redirect} />
-            }
             <div className="notificationx-items">
                 <NotificationXItemsMenu
                     status={status}
@@ -109,56 +122,71 @@ export const NotificationXItems = (props) => {
                     {filteredNotice.length == 0 &&
                         <div className="nx-no-items">
                             <img src={LargeLogoIcon} />
-                            <h4>No notifications are {status == 'all' ? 'found' : status}.</h4>
-                            <p>
+
                             {status == 'all'
-                            ? <>Seems like you haven’t created any notification alerts.<br />Hit on <b>"Add New"</b> button to get started</>
-                            : status == 'enabled' ?
-                            <>There’s no {status} Notification Alerts.<br />Simply use the toggle switch to turn your notifications from <b>"All NotificationX"</b> page.</>
-                            : <>There’s no {status} Notification Alerts.</>
+                                ? <>
+                                    <h4>{__("No notifications are found.", 'notificationx')}</h4>
+                                    <p>
+                                        {__(`Seems like you haven’t created any notification alerts.`, 'notificationx')}
+                                        <br />
+                                        {parse(sprintf(__(`Hit on %1$s"Add New"%2$s button to get started`, 'notificationx'), '<b>', '</b>'))}
+                                    </p>
+                                </>
+                                : status == 'enabled' ?
+                                    <>
+                                        <h4>{__("No notifications are enabled.", 'notificationx')}</h4>
+                                        <p>
+                                            {__(`There’s no enabled Notification Alerts.`, 'notificationx')}
+                                            <br />
+                                            {parse(sprintf(__(`Simply use the toggle switch to turn your notifications from %1$s"All NotificationX"%2$s page.`, 'notificationx'), '<b>', '</b>'))}</p>
+                                    </>
+                                    : <>
+                                        <h4>{__("No notifications are disabled.", 'notificationx')}</h4>
+                                        <p>{__("There’s no disabled Notification Alerts.", 'notificationx')}</p>
+                                    </>
                             }
-                            </p>
                         </div>
                     }
                     {filteredNotice.length > 0 &&
-                    <>
-                        <NotificationXInner
-                            filteredNotice={filteredNotice}
-                            setFilteredNotice={setFilteredNotice}
-                            getNotice={notificationx}
-                            updateNotice={setNotificationx}
-                            totalItems={totalItems}
-                            setTotalItems={setTotalItems}
-                            checkAll={checkAll}
-                            setCheckAll={setCheckAll}
-                        />
-                        <div className="nx-admin-items-footer">
-                            <SelectControl
-                                label="Show Notifications :"
-                                value={perPage.toString()}
-                                onChange={(p) => {
-                                    setPerPage(parseInt(p));
-                                    setCurrentPage(1);
-                                }}
-                                options={[
-                                    { value: "10", label: "10" },
-                                    { value: "20", label: "20" },
-                                    { value: "50", label: "50" },
-                                    { value: "100", label: "100" },
-                                    { value: "200", label: "200" },
-                                ]}
+                        <>
+                            <NotificationXInner
+                                filteredNotice={filteredNotice}
+                                setFilteredNotice={setFilteredNotice}
+                                getNotice={notificationx}
+                                updateNotice={setNotificationx}
+                                totalItems={totalItems}
+                                setTotalItems={setTotalItems}
+                                checkAll={checkAll}
+                                setCheckAll={setCheckAll}
                             />
-                            <Pagination
-                                current={currentPage}
-                                onChange={setCurrentPage}
-                                total={totalItems?.[status]}
-                                pageSize={perPage}
-                                itemRender={itemRender}
-                                showTitle={false}
-                                hideOnSinglePage
-                            />
-                        </div>
-                    </>
+                            <div className="nx-admin-items-footer">
+                                <SelectControl
+                                    label="Show Notifications :"
+                                    value={perPage.toString()}
+                                    onChange={(p) => {
+                                        setPerPage(parseInt(p));
+                                        setCurrentPage(1);
+                                    }}
+                                    options={[
+                                        { value: "10", label: __("10") },
+                                        { value: "20", label: __("20") },
+                                        { value: "50", label: __("50") },
+                                        { value: "100", label: __("100") },
+                                        { value: "200", label: __("200") },
+                                    ]}
+                                />
+                                <Pagination
+                                    current={currentPage}
+                                    onChange={setCurrentPage}
+                                    total={totalItems?.[status]}
+                                    pageSize={perPage}
+                                    itemRender={itemRender}
+                                    showTitle={false}
+                                    hideOnSinglePage
+                                    locale={localeInfo}
+                                />
+                            </div>
+                        </>
                     }
 
                 </WrapperWithLoader>

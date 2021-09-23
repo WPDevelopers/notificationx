@@ -52,7 +52,6 @@ class FrontEnd {
      */
     public function init() {
         add_action('wp_footer', array($this, 'add_notificationx'));
-        add_action('nx_filtered_entry', [$this, 'link_url'], 10, 2);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
         add_filter('nx_fallback_data', [$this, 'fallback_data'], 10, 3);
         add_filter('nx_filtered_data', [$this, 'filtered_data'], 9999, 2);
@@ -76,7 +75,7 @@ class FrontEnd {
      * @return void
      */
     public function enqueue_scripts() {
-        $d = include_once Helper::file('public/js/frontend.asset.php');
+        $d = include Helper::file('public/js/frontend.asset.php');
 
         wp_register_script( 'notificationx-public', Helper::file( 'public/js/frontend.js', true ), $d['dependencies'], $d['version'], true);
         wp_register_style('notificationx-public', Helper::file( 'public/css/frontend.css', true ), [], $d['version'], 'all');
@@ -87,6 +86,8 @@ class FrontEnd {
                 wp_enqueue_style('notificationx-public');
                 wp_enqueue_script('notificationx-public');
                 wp_localize_script('notificationx-public', 'notificationX', $nx_ids);
+                wp_set_script_translations( 'notificationx-public', 'notificationx' );
+
                 do_action('notificationx_scripts', $nx_ids);
             }
         } else {
@@ -147,14 +148,32 @@ class FrontEnd {
 
                 $type = $settings['type'];
                 $source = $settings['source'];
+
+                if(!empty($entry['timestamp'])){
+                    $timestamp = $entry['timestamp'];
+                    $display_from = !empty($settings['display_from']) ? $settings['display_from'] : 2;
+                    $display_from = strtotime("-$display_from days");
+                    if(!is_int($timestamp)){
+                        $timestamp = strtotime($timestamp);
+                    }
+                    if($display_from > $timestamp){
+                        continue;
+                    }
+                }
+
                 $defaults = apply_filters("nx_fallback_data_$source", $_defaults, $entry, $settings);
                 $defaults = apply_filters("nx_fallback_data", $defaults, $entry, $settings);
 
                 $entry = $this->apply_defaults($entry, $defaults);
                 $entry['image_data'] = $this->get_image_url($entry, $settings);
+                if(!empty($entry['title'])){
+                    $entry['title'] = strip_tags(html_entity_decode($entry['title']));
+                }
+
                 $entry = apply_filters("nx_filtered_entry_$type", $entry, $settings);
                 $entry = apply_filters("nx_filtered_entry_$source", $entry, $settings);
                 $entry = apply_filters("nx_filtered_entry", $entry, $settings);
+                $entry = $this->link_url($entry, $settings);
 
                 // @todo shortcode
                 // @todo check if the current page have shortcode.
@@ -278,7 +297,7 @@ class FrontEnd {
                 $check_location = Locations::get_instance()->check_location($locations, $custom_ids);
             }
 
-            $check_location = apply_filters('nx_check_location', $check_location, $settings);
+            $check_location = apply_filters('nx_check_location', $check_location, $settings, $custom_ids);
 
             if ($settings['show_on'] == 'on_selected') {
                 // show if the page is on selected
@@ -490,6 +509,9 @@ class FrontEnd {
     public function filtered_data($entries, $post){
         if(is_array($entries)){
             foreach ($entries as $key => $entry) {
+                if(isset($entry['ip'])){
+                    unset($entries[$key]['ip']);
+                }
                 foreach ($entry as $_key => $value) {
                     if(strpos($_key, 'email') !== false){
                         unset($entries[$key][$_key]);
@@ -507,7 +529,7 @@ class FrontEnd {
      */
     public function add_notificationx(){
         $output = '';
-        $output .= '<div id="notificationx-frontend-root"><!-- This DIV for NotificationX, It is used to show the notifications by appending them here. For more details please visit: https://notificationx.com/docs --><div id="notificationx-frontend"></div>';
+        $output .= __('<div id="notificationx-frontend-root"><!-- This DIV for NotificationX, It is used to show the notifications by appending them here. For more details please visit: https://notificationx.com/docs --><div id="notificationx-frontend"></div>', 'notificationx');
         $output .= '</div>';
         echo $output;
     }

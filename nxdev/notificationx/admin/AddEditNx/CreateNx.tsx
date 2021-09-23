@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import React, { useCallback, useEffect, useState } from 'react'
 import { FormBuilder, useBuilderContext } from 'quickbuilder';
 import { Content, PublishWidget, Sidebar, Instructions } from '../../components';
@@ -5,7 +6,7 @@ import { proAlert } from '../../core/functions';
 import { ToastAlert } from '../../core/ToasterMsg';
 import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon } from '../../icons'
 
-const CreateNx = ({ setIsCreated, setIsLoading, title, setTitle }) => {
+const CreateNx = ({ setIsLoading, title, setTitle }) => {
     const builderContext = useBuilderContext();
 
     useEffect(() => {
@@ -30,7 +31,7 @@ const CreateNx = ({ setIsCreated, setIsLoading, title, setTitle }) => {
                     type="text"
                     name="title"
                     id="nx-title"
-                    placeholder="NotificationX Title"
+                    placeholder={__("NotificationX Title", 'notificationx')}
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />
@@ -40,7 +41,7 @@ const CreateNx = ({ setIsCreated, setIsLoading, title, setTitle }) => {
                 <PublishWidget
                     title={title}
                     isEdit={false}
-                    setIsCreated={setIsCreated}
+                    setIsCreated={true}
                     setIsLoading={setIsLoading}
                     context={builderContext}
                 />

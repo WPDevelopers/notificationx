@@ -4,7 +4,7 @@ import SingleNotificationAction from "./SingleNotificationAction";
 import nxHelper, { proAlert } from "../core/functions";
 import nxToast from "../core/ToasterMsg";
 
-import { __ } from "@wordpress/i18n";
+import { sprintf, __ } from "@wordpress/i18n";
 import { ThemePreview } from "../components";
 // @ts-ignore
 import {
@@ -16,6 +16,7 @@ import moment from "moment";
 import { Link, NavLink } from "react-router-dom";
 import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
+import parse from 'html-react-parser';
 
 const SingleNotificationX = ({
     i,
@@ -80,23 +81,22 @@ const SingleNotificationX = ({
                         })
                     );
                     if (enabled) {
-                        nxToast.enabled( `Notification Alert has been Enabled.` );
+                        nxToast.enabled( __(`Notification Alert has been Enabled.`, "notificationx") );
                     }
                     else {
-                        nxToast.disabled( `Notification Alert has been Disabled.` )
+                        nxToast.disabled( __(`Notification Alert has been Disabled.`, "notificationx") );
                     }
                 } else {
                     proAlert(
-                        enabled
-                            ? "You need to upgrade to the <strong><a target='_blank' href='http://wpdeveloper.net/in/upgrade-notificationx' style='color:red'>Premium Version</a></strong> to use multiple notification."
-                            : "Disabled"
+                        enabled ? parse(sprintf(__("You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification.", "notificationx"), 'http://wpdeveloper.net/in/upgrade-notificationx'))
+                            : __("Disabled", "notificationx")
                     ).fire();
                 }
                 return res;
             })
             .catch((err) => {
                 setLoading(false);
-                nxToast.error( `Oops, Something went wrong. Please try again.` );
+                nxToast.error( __(`Oops, Something went wrong. Please try again.`, "notificationx") );
             });
     };
     // const [checked, setChecked] = useState(false);
@@ -122,7 +122,10 @@ const SingleNotificationX = ({
             <td>
                 <div className="nx-admin-title">
                     <strong>
-                        <Link to={`/edit/${id}`}>{title || id}</Link>
+                        <Link to={{
+                        pathname: '/admin.php',
+                        search: `?page=nx-edit&id=${id}`,
+                    }}>{title || id}</Link>
                     </strong>
                 </div>
             </td>
@@ -145,8 +148,12 @@ const SingleNotificationX = ({
             </td>
             <td>
                 <div className="nx-admin-stats">
-                    <NavLink to={"/analytics/?comparison=views"}>
-                        {item?.views || 0} views
+                    <NavLink to={{
+                        pathname: '/admin.php',
+                        search  : "?page=nx-analytics&comparison=views",
+                    }}>
+                        {/* translators: %d: Number of views for a Notification Alert. */}
+                        {sprintf(__("%s views", "notificationx"), (item?.views || 0))}
                     </NavLink>
                 </div>
             </td>
@@ -173,6 +180,7 @@ const SingleNotificationX = ({
                     regenerate={item?.can_regenerate}
                     enabled={item.enabled}
                     setTotalItems={setTotalItems}
+                    {...item}
                 />
             </td>
         </tr>

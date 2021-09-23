@@ -1,8 +1,7 @@
+import { __ } from '@wordpress/i18n';
 import React from 'react'
-import { Redirect } from 'react-router-dom';
 import { BuilderProvider, useBuilder } from 'quickbuilder';
 import withDocumentTitle from '../../core/withDocumentTitle';
-import { useNotificationXContext } from '../../hooks';
 import SettingsInner from './SettingsInner';
 
 const SettingsWrapper = (props) => {
@@ -10,9 +9,8 @@ const SettingsWrapper = (props) => {
 
     return (
         <BuilderProvider value={builder}>
-            {/* <Redirect to="/" /> */}
-            <SettingsInner />
+            <SettingsInner props={props} />
         </BuilderProvider>
     )
 }
-export default withDocumentTitle(SettingsWrapper, "Settings");
+export default withDocumentTitle(SettingsWrapper, __("Settings", 'notificationx'));

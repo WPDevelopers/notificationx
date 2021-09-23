@@ -63,7 +63,7 @@ class Settings extends UsabilityDynamicsSettings {
      * @return void
      */
     public function menu() {
-        add_submenu_page('nx-admin', 'Settings', 'Settings', 'edit_notificationx_settings', 'nx-admin#/settings', '__return_null', 3);
+        add_submenu_page('nx-admin', 'Settings', 'Settings', 'edit_notificationx_settings', 'nx-settings', [Admin::get_instance(), 'views'], 3);
     }
 
     /**
@@ -116,17 +116,17 @@ class Settings extends UsabilityDynamicsSettings {
             ],
             'submit' => [
                 'show' => true,
-                'label' => 'Save Settings',
+                'label' => __('Save Settings', 'notificationx'),
                 'class' => 'save-settings'
             ],
             'tabs'         => apply_filters('nx_settings_tab', [
                 "tab-general" => apply_filters('nx_settings_tab_general', [
                     'id'      => "tab-general",
-                    'label'   => "General",
+                    'label'   => __("General", 'notificationx'),
                     'classes' => "tab-general",
                     'fields'  => [
                         'section-modules' => [
-                            'label'   => "Modules",
+                            'label'   => __("Modules", 'notificationx'),
                             'name'    => "section-modules",
                             'type'    => "section",
                             'fields'  => [
@@ -153,7 +153,7 @@ class Settings extends UsabilityDynamicsSettings {
                     'fields'  => [
                         'powered_by' => [
                             'name' => 'powered_by',
-                            'label'   => "Powered By",
+                            'label'   => __("Powered By", 'notificationx'),
                             'type'    => "section",
                             'priority' => 15,
                             'fields'  => [
@@ -363,7 +363,7 @@ class Settings extends UsabilityDynamicsSettings {
                                             'reporting_frequency' => '@reporting_frequency',
                                         ],
                                         'swal' => [
-                                            'text'      => 'Successfully Sent a Test Report in Your Email.',
+                                            'text'      => __('Successfully Sent a Test Report in Your Email.', 'notificationx'),
                                             'icon'      => 'success',
                                             'autoClose' => 2000
                                         ],

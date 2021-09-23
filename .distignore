@@ -55,3 +55,4 @@ vendor/udx/lib-utility/static
 vendor/udx/lib-utility/scripts
 nxdev
 build
+.gitmodules

@@ -52,17 +52,17 @@ class ZapierReviews extends Extension {
     public function _doc(){
         return '
         <ul class="reviews nx-template-keys">
-            <li><span>Field Name:</span> <strong>Field Key</strong></li>
-            <li><span>Username:</span> <strong>username</strong></li>
-            <li><span>Email:</span> <strong>email</strong></li>
-            <li><span>Rated:</span> <strong>rated</strong></li>
-            <li><span>Plugin Name:</span> <strong>plugin_name</strong></li>
-            <li><span>Plugin Review:</span> <strong>plugin_review</strong></li>
-            <li><span>Review Title:</span> <strong>title</strong></li>
-            <li><span>Anonymous Title:</span> <strong>anonymous_title</strong></li>
-            <li><span>Rating:</span> <strong>rating</strong></li>
-            <li><span>Definite Time:</span> <strong>timestamp</strong></li>
-            <li><span>Some time ago:</span> <strong>sometime</strong></li>
+            <li><span>' . __('Field Name:', 'notificationx') . '</span> <strong>' . __('Field Key', 'notificationx') . '</strong></li>
+            <li><span>' . __('Username:', 'notificationx') . '</span> <strong>username</strong></li>
+            <li><span>' . __('Email:', 'notificationx') . '</span> <strong>email</strong></li>
+            <li><span>' . __('Rated:', 'notificationx') . '</span> <strong>rated</strong></li>
+            <li><span>' . __('Plugin Name:', 'notificationx') . '</span> <strong>plugin_name</strong></li>
+            <li><span>' . __('Plugin Review:', 'notificationx') . '</span> <strong>plugin_review</strong></li>
+            <li><span>' . __('Review Title:', 'notificationx') . '</span> <strong>title</strong></li>
+            <li><span>' . __('Anonymous Title:', 'notificationx') . '</span> <strong>anonymous_title</strong></li>
+            <li><span>' . __('Rating:', 'notificationx') . '</span> <strong>rating</strong></li>
+            <li><span>' . __('Definite Time:', 'notificationx') . '</span> <strong>timestamp</strong></li>
+            <li><span>' . __('Some time ago:', 'notificationx') . '</span> <strong>sometime</strong></li>
         </ul>';
     }
 }

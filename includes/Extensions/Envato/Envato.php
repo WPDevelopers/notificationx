@@ -51,8 +51,13 @@ class Envato extends Extension {
     }
 
     public function doc(){
-        return '<p>Make sure that you have <a target="_blank" href="https://account.envato.com/sign_in?to=envato-api">created & signed in to Envato account</a> to use its campaign & product sales data.  For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/envato-sales-notification/">documentation</a>.</p>
-		<p>🎦 <a target="_blank" href="https://youtu.be/-df_6KHgr7I">Watch video tutorial</a> to learn quickly</p>
-		<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/envato/">Integration with Envato</a></p>';
+        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">created & signed in to Envato account</a> to use its campaign & product sales data.  For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
+		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with Envato</a></p>', 'notificationx'),
+        'https://account.envato.com/sign_in?to=envato-api',
+        'https://notificationx.com/docs/envato-sales-notification/',
+        'https://youtu.be/-df_6KHgr7I',
+        'https://notificationx.com/integrations/envato/'
+        );
     }
 }

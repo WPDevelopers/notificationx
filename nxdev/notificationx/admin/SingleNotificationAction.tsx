@@ -5,7 +5,7 @@ import nxHelper from '../core/functions';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useNotificationXContext } from '../hooks';
 import classNames from 'classnames';
-import nxToast from "../core/ToasterMsg";
+import nxToast, { ToastAlert } from "../core/ToasterMsg";
 
 const SingleNotificationAction = ({
     id,
@@ -14,20 +14,21 @@ const SingleNotificationAction = ({
     regenerate,
     setTotalItems,
     enabled,
+    ...item
 }) => {
-    const builderContext = useNotificationXContext();
-    const [redirect, setRedirect] = useState<string>()
-
+    const nxContext = useNotificationXContext();
+    // @ts-ignore
+    const ajaxurl = window.ajaxurl;
     const handleDelete = useCallback(
         (event) => {
             if (id) {
                 nxHelper.swal({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    title: __('Are you sure?', 'notificationx'),
+                    text: __("You won't be able to revert this!", 'notificationx'),
                     icon: 'error',
                     showCancelButton: true,
-                    confirmButtonText: 'Yes, Delete It',
-                    cancelButtonText: 'No, Cancel',
+                    confirmButtonText: __('Yes, Delete It', 'notificationx'),
+                    cancelButtonText: __('No, Cancel', 'notificationx'),
                     reverseButtons: true,
                     customClass: { actions: 'nx-delete-actions' },
                     confirmedCallback: () => {
@@ -37,6 +38,7 @@ const SingleNotificationAction = ({
                         updateNotice(notices => notices.filter(
                             (notice) => parseInt(notice.nx_id) !== parseInt(id)
                         ));
+
                         if (enabled) {
                             setTotalItems((prev) => {
                                 return {
@@ -56,10 +58,9 @@ const SingleNotificationAction = ({
                         }
                     },
                     completeArgs: () => {
-                        return ['deleted', `Notification Alert has been Deleted.`];
+                        return ['deleted', __(`Notification Alert has been Deleted.`, 'notificationx')];
                     },
                     afterComplete: () => {
-                        setRedirect('/');
                     }
 
                 });
@@ -70,13 +71,13 @@ const SingleNotificationAction = ({
 
     const handleRegenerate = (event) => {
         nxHelper.swal({
-            title: 'Are you sure you want to Regenerate?',
-            text: "Regenerating will fetch new data based on settings",
-            iconHtml: `<img alt="NotificationX" src="${builderContext.assets.admin}images/regenerate.svg" style="height: 85px; width:85px" />`,
+            title: __('Are you sure you want to Regenerate?', 'notificationx'),
+            text: __("Regenerating will fetch new data based on settings", 'notificationx'),
+            iconHtml: `<img alt="NotificationX" src="${nxContext.assets.admin}images/regenerate.svg" style="height: 85px; width:85px" />`,
             showCancelButton: true,
             iconColor: 'transparent',
-            confirmButtonText: 'Regenerate',
-            cancelButtonText: 'Cancel',
+            confirmButtonText: __('Regenerate', 'notificationx'),
+            cancelButtonText: __('Cancel', 'notificationx'),
             reverseButtons: true,
             customClass: { actions: 'nx-delete-actions' },
             confirmedCallback: () => {
@@ -86,32 +87,37 @@ const SingleNotificationAction = ({
 
             },
             completeArgs: () => {
-                return ['regenerated', 'Notification Alert has been Regenerated.'];
+                return ['regenerated', __('Notification Alert has been Regenerated.', 'notificationx')];
             },
             afterComplete: () => {
-                setRedirect('/');
+                // setRedirect('/');
             }
 
         });
     };
 
     const onCopy = () => {
-        nxToast.info(`Notification Alert has been Copied to Clipboard.`);
+        nxToast.info(__(`Notification Alert has been Copied to Clipboard.`, 'notificationx'));
     }
 
     return (
         <div className="nx-admin-actions">
-            {
-                redirect && <Redirect to={redirect} />
-            }
-            <Link className="nx-admin-title-edit" title="Edit" to={`/edit/${id}`}><span>{__('Edit', 'notificationx')}</span></Link>
-            <Link className={classNames("nx-admin-title-duplicate", { hidden: builderContext?.createRedirect })} title="Duplicate" to={{
-                pathname: '/add-new',
+            {/*  || item?.elementor_id */}
+            <Link className="nx-admin-title-edit" title={__('Edit', 'notificationx')} to={{
+                pathname: '/admin.php',
+                search: `?page=nx-edit&id=${id}`,
+            }}><span>{__('Edit', 'notificationx')}</span></Link>
+            <a className={classNames("nx-admin-title-translate", { hidden: !nxContext?.can_translate })} title={__("Translate", "notificationx")} href={`${ajaxurl}?action=nx-translate&id=${id}`}>
+                <span>{__("Translate", "notificationx")}</span>
+            </a>
+            <Link className={classNames("nx-admin-title-duplicate", { hidden: nxContext?.createRedirect })} title={__('Duplicate', 'notificationx')} to={{
+                pathname: '/admin.php',
+                search: `?page=nx-edit`, //&clone=${id}
                 state: { duplicate: true, _id: id }
             }}><span>{__('Duplicate', 'notificationx')}</span></Link>
             {
-                builderContext?.is_pro_active &&
-                <CopyToClipboard className="nx-admin-title-shortcode nx-shortcode-btn" title="Shortcode" text={`[notificationx id=${id}]`} onCopy={onCopy} >
+                nxContext?.is_pro_active &&
+                <CopyToClipboard className="nx-admin-title-shortcode nx-shortcode-btn" title={__("Shortcode", 'notificationx')} text={`[notificationx id=${id}]`} onCopy={onCopy} >
                     <a></a>
                 </CopyToClipboard>
             }
@@ -120,12 +126,12 @@ const SingleNotificationAction = ({
                 <button
                     className="nx-admin-title-regenerate"
                     onClick={handleRegenerate}
-                    title="Re Generate"
+                    title={__("Re Generate", "notificationx")}
                 >
                     <span>{__("Re Generate", "notificationx")}</span>
                 </button>
             )}
-            <button className={classNames("nx-admin-title-trash", { hidden: builderContext?.createRedirect })} title="Delete" onClick={handleDelete}>
+            <button className={classNames("nx-admin-title-trash", { hidden: nxContext?.createRedirect })} title={__("Delete", "notificationx")} onClick={handleDelete}>
                 <span>{__("Delete", "notificationx")}</span>
             </button>
         </div>

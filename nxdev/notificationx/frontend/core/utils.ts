@@ -9,8 +9,12 @@ import moment from "moment";
 // apiFetch.use(apiFetch.createNonceMiddleware(notificationX.rest.nonce));
 
 export const proccesNotice = ({ config }) => {
+    let url = `notice/?frontend=true`;
+    if(config.rest?.lang){
+        url += `&lang=${config.rest.lang}`;
+    }
     return nxHelper
-        .post("notice/?frontend=true", {
+        .post(url, {
             global   : config.global,
             active   : config.active,
             pressbar : config.pressbar,

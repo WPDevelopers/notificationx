@@ -15,15 +15,14 @@ const Image = ({ data, config, id, style, isSplitCss }) => {
             [`image-${image_shape}`]: image_shape,
             [`position-${image_position}`]: image_position && advance_edit,
         }
-    );
+        );
 
     let newStyle ={}
     let newStyleForSecond = {}
-    if (style && isSplitCss ) {
+    if ( style && isSplitCss ) {
       newStyle = {...style, right: -style?.borderWidth, top: `calc( 100% + ${style?.borderWidth}px)`}
       newStyleForSecond = {...style, borderColor: style?.backgroundColor}
     }
-    
 
     let imgRadius = {}
     if (custom_image_shape) {

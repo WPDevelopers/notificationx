@@ -3,7 +3,7 @@
  * Plugin Name:       NotificationX
  * Plugin URI:        https://notificationx.com
  * Description:       Social Proof & Recent Sales Popup, Comment Notification, Subscription Notification, Notification Bar and many more.
- * Version:           2.0.2
+ * Version:           2.1.0
  * Author:            WPDeveloper
  * Author URI:        https://wpdeveloper.net
  * License:           GPL-3.0+
@@ -26,7 +26,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Defines CONSTANTS for Whole plugins.
  */
 define( 'NOTIFICATIONX_FILE', __FILE__ );
-define( 'NOTIFICATIONX_VERSION', '2.0.2' );
+define( 'NOTIFICATIONX_VERSION', '2.1.0' );
 define( 'NOTIFICATIONX_URL', plugins_url( '/', __FILE__ ) );
 define( 'NOTIFICATIONX_PATH', plugin_dir_path( __FILE__ ) );
 define( 'NOTIFICATIONX_BASENAME', plugin_basename( __FILE__ ) );
@@ -79,7 +79,8 @@ function nx_free_compatibility_notice(){
     }
     ?>
         <div class="notice notice-warning is-dismissible">
-            <p><strong>Recommended: </strong> Seems like you haven't updated the NotificationX Pro version. Please make sure to update NotificationX Pro plugin from <a href="<?php echo esc_url( admin_url('plugins.php' ) ); ?>"><strong>wp-admin -> Plugins</strong></a>.</p>
+            <p>
+            <?php echo sprintf(__("<strong>Recommended: </strong> Seems like you haven't updated the NotificationX Pro version. Please make sure to update NotificationX Pro plugin from <a href='%s'><strong>wp-admin -> Plugins</strong></a>.", esc_url( admin_url('plugins.php' ) )));?></p>
         </div>
     <?php
 }

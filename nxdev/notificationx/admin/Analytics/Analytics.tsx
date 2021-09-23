@@ -13,12 +13,11 @@ import {
 import { __experimentalGetSettings, date } from "@wordpress/date";
 import { useNotificationXContext } from "../../hooks";
 import withDocumentTitle from "../../core/withDocumentTitle";
-import { Redirect } from "react-router";
+import { __ } from "@wordpress/i18n";
 
 const Analytics = (props) => {
     const settings: any = __experimentalGetSettings();
     const builderContext = useNotificationXContext();
-    const [redirect, setRedirect] = useState(builderContext?.analyticsRedirect);
     const [isLoading, setIsLoading] = useState(false);
 
     const [posts, setPosts] = useState([]);
@@ -64,6 +63,12 @@ const Analytics = (props) => {
     });
 
     useEffect(() => {
+        if(builderContext?.analyticsRedirect){
+            builderContext.setRedirect({
+                page  : `nx-admin`,
+            });
+            return;
+        }
         setIsLoading(true);
         nxHelper.get("analytics").then((res: any) => {
             if (res?.stats) {
@@ -197,7 +202,6 @@ const Analytics = (props) => {
 
     return (
         <div>
-            {redirect && <Redirect to="/" />}
             <Header addNew={true} />
             <AnalyticsHeader
                 assetsURL={builderContext.assets}
@@ -229,14 +233,14 @@ const Analytics = (props) => {
                 >
                     <img
                         src={`${builderContext.assets.public}image/reports/graph.png`}
-                        alt="Analytics Data"
+                        alt={__("Analytics Data", 'notificationx')}
                     />
                     <div className="nx-stats-pro-tease">
                         <a
                             href="http://wpdeveloper.net/in/upgrade-notificationx"
                             target="_blank"
                         >
-                            <p>Get PRO to Unlock</p>
+                            <p>{__("Get PRO to Unlock", 'notificationx')}</p>
                         </a>
                     </div>
                 </div>
@@ -244,4 +248,4 @@ const Analytics = (props) => {
         </div>
     );
 };
-export default withDocumentTitle(Analytics, "Analytics");
+export default withDocumentTitle(Analytics, __("Analytics", 'notificationx'));

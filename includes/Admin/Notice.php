@@ -861,7 +861,7 @@ class Notice {
                     var self = $(this);
                     e.preventDefault();
                     self.addClass('install-now updating-message');
-                    self.text('<?php echo esc_js( 'Installing...' ); ?>');
+                    self.text('<?php echo __( 'Installing...', 'notificationx' ); ?>');
 
                     $.ajax({
                         url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
@@ -873,7 +873,7 @@ class Notice {
                             file : '<?php echo $plugin_file; ?>'
                         },
                         success: function(response) {
-                            self.text('<?php echo esc_js( 'Installed' ); ?>');
+                            self.text('<?php echo __( 'Installed', 'notificationx' ); ?>');
                             <?php if( ! empty( $page_slug ) ) : ?>
                                 window.location.href = '<?php echo admin_url( "admin.php?page={$page_slug}" ); ?>';
                             <?php endif; ?>

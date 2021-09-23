@@ -87,11 +87,13 @@ class Cron {
 
         $schedules['nx_wp_stats_interval'] = array(
             'interval'    => MINUTE_IN_SECONDS * $download_stats_cache_duration,
+            // translators: %s: no of minutes
             'display'    => sprintf(__('Every %s minutes', 'notificationx'), $download_stats_cache_duration)
         );
 
         $schedules['nx_wp_review_interval'] = array(
             'interval'    => MINUTE_IN_SECONDS * $reviews_cache_duration,
+            // translators: %s: no of minutes
             'display'    => sprintf(__('Every %s minutes', 'notificationx'), $reviews_cache_duration)
         );
 
@@ -108,6 +110,9 @@ class Cron {
 
         if(!empty($post['source'])){
             do_action("{$this->hook}_{$post['source']}", $post_id, $post);
+        }
+        else{
+            $this->clear_schedule(array('post_id' => $post_id));
         }
     }
 }

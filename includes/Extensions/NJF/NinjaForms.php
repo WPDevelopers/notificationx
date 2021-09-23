@@ -198,10 +198,16 @@ class NinjaForms extends Extension {
     }
 
     public function doc() {
-        return '<p>Make sure that you have <a target="_blank" href="https://wordpress.org/plugins/ninja-forms/">Ninja Forms installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/ninja-forms/">documentation</a>.</p>
-		<p>🎦 <a target="_blank" href="https://www.youtube.com/watch?v=Ibv84iGcBHE">Watch video tutorial</a> to learn quickly</p>
-		<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/ninja-forms/">Integration with Ninja Forms</a></p>
+        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">Ninja Forms installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
+		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with Ninja Forms</a></p>
 		<p><strong>Recommended Blog:</strong></p>
-		<p>🔥 Hacks to Increase Your <a target="_blank" href="https://notificationx.com/blog/wordpress-contact-forms/">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>';
+		<p>🔥 Hacks to Increase Your <a target="_blank" href="%5$s">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>', 'notificationx'),
+        'https://wordpress.org/plugins/ninja-forms/',
+        'https://notificationx.com/docs/ninja-forms/',
+        'https://www.youtube.com/watch?v=Ibv84iGcBHE',
+        'https://notificationx.com/integrations/ninja-forms/',
+        'https://notificationx.com/blog/wordpress-contact-forms/'
+        );
     }
 }

@@ -1,5 +1,6 @@
 
 import apiFetch from "@wordpress/api-fetch";
+import { sprintf, __ } from "@wordpress/i18n";
 import Swal from 'sweetalert2';
 import { ToastAlert } from './ToasterMsg'
 
@@ -51,6 +52,67 @@ class NotificationXHelpers {
         search = search;
         return new URLSearchParams(search);
     };
+    getParam = (param, d = null) => {
+        const query = nxHelper.useQuery(location.search);
+        return query.get(param) || d;
+    };
+    getRedirect = (params: {[key: string]: any}, keepHash = false) => {
+        const query = nxHelper.useQuery(location.search);
+        const hash = keepHash === true ? location.hash : (typeof keepHash == 'string' ? keepHash : '');
+
+        switch (params.page) {
+            case 'nx-admin':
+                query.delete('comparison');
+                query.delete('tab');
+                query.delete('id');
+                break;
+            case 'nx-edit':
+                query.delete('comparison');
+                query.delete('tab');
+                query.delete('status');
+                query.delete('per-page');
+                query.delete('p');
+
+                break;
+            case 'nx-settings':
+                query.delete('comparison');
+                query.delete('status');
+                query.delete('per-page');
+                query.delete('p');
+                query.delete('id');
+
+                break;
+            case 'nx-analytics':
+                query.delete('tab');
+                query.delete('status');
+                query.delete('per-page');
+                query.delete('p');
+                query.delete('id');
+
+                break;
+            case 'nx-builder':
+                query.delete('comparison');
+                query.delete('tab');
+                query.delete('status');
+                query.delete('per-page');
+                query.delete('p');
+                query.delete('id');
+
+                break;
+
+            default:
+                break;
+        }
+
+        for (const key in params) {
+            query.set(key, params[key]);
+        }
+
+        return {
+            pathname: '/admin.php',
+            search: '?' + query.toString() + hash,
+        };
+    }
     filtered = (notices, status) => {
         return notices.filter((val) => {
             switch (status) {
@@ -91,8 +153,8 @@ export const SweetAlert = ( args: any = {} ) => {
 		target: args?.target ?? "#notificationx",
 		type: args?.type ?? "success",
 		html: args?.html,
-		title: args?.title ?? "Title Goes Here: title",
-		text: args?.text ?? "Text Goes Here: text",
+		title: args?.title ?? __("Title Goes Here: title", 'notificationx'),
+		text: args?.text ?? __("Text Goes Here: text", 'notificationx'),
 		icon: args?.icon ?? (args?.type || "success"),
 		timer: args?.timer ?? null,
 		...args,
@@ -110,13 +172,13 @@ export const getThemeName = (settings) => {
 
 export const proAlert = ( html = null ) => {
     if( html === null ) {
-        html = "You need to upgrade to the <strong><a href='http://wpdeveloper.net/in/upgrade-notificationx' target='_blank'>Premium Version</a></strong> to use this feature.";
+        html = sprintf(__("You need to upgrade to the <strong><a href='%s' target='_blank'>Premium Version</a></strong> to use this feature.", 'notificationx'), 'http://wpdeveloper.net/in/upgrade-notificationx');
     }
     return SweetAlert({
         showConfirmButton: false,
         showDenyButton: true,
         type: 'warning',
-        title: 'Opps...',
+        title: __('Opps...', 'notificationx'),
         customClass: { actions: 'nx-pro-alert-actions' },
         denyButtonText: 'Close',
         html

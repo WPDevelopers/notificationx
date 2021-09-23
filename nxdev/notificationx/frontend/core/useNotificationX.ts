@@ -70,23 +70,24 @@ const useNotificationX = (props: any) => {
         if (activeNotices != null && activeNotices.length > 0) {
             activeNotices.forEach((entries) => {
                 if (entries?.length > 0) {
-                    sortArray(entries, {
-                        by: 'timestamp',
-                        order: 'desc',
-                        computed: {
-                            timestamp: row => row.data?.timestamp ? row.data.timestamp : getTime(row.data?.updated_at)
-                        }
-                    });
-                    const reverseEntries = entries; //.reverse();
                     let id = 0;
-                    const config = reverseEntries[id].props;
+                    const config = entries[id].props;
+                    if(!config?.random_order){
+                        sortArray(entries, {
+                            by: 'timestamp',
+                            order: 'desc',
+                            computed: {
+                                timestamp: row => row.data?.timestamp ? row.data.timestamp : getTime(row.data?.updated_at)
+                            }
+                        });
+                    }
                     const delayBefore = (config?.delay_before || 5) * 1000;
                     const delayBetween = (config?.delay_between || 5) * 1000;
                     const displayFor = (config?.display_for || 5) * 1000;
 
                     let args = {
                         id,
-                        count: reverseEntries?.length || 0,
+                        count: entries?.length || 0,
                         loop: config?.loop || false,
                         intervalID: null,
                         timeoutID: null,
@@ -96,11 +97,11 @@ const useNotificationX = (props: any) => {
 
                     const timeoutID = setTimeout(() => {
                         args.timeoutID = timeoutID;
-                        args.data = reverseEntries[id].data;
+                        args.data = entries[id].data;
                         dispatchNotification( args );
                         // notice
                         const intervalID = setInterval(() => {
-                            if ( id === reverseEntries?.length - 1 ) {
+                            if ( id === entries?.length - 1 ) {
                                 if (config.loop) {
                                     id = 0;
                                 } else {
@@ -111,7 +112,7 @@ const useNotificationX = (props: any) => {
                                 id++;
                             }
                             args.intervalID = intervalID;
-                            args.data = reverseEntries[id].data;
+                            args.data = entries[id].data;
                             dispatchNotification( args );
                         }, displayFor + delayBetween );
                     }, delayBefore )

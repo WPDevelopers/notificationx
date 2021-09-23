@@ -51,7 +51,8 @@ class PostType {
      * @return void
      */
     public function menu() {
-        add_submenu_page('nx-admin', 'Add New', 'Add New', 'edit_notificationx', 'nx-admin#/add-new', [$this, 'new_post'], 20);
+        add_submenu_page('nx-admin', __('Add New', 'notificationx'), __('Add New', 'notificationx'), 'edit_notificationx', 'nx-edit', [Admin::get_instance(), 'views'], 20);
+        // add_submenu_page('nx-admin', 'Edit', 'Edit', 'edit_notificationx', 'nx-edit', [Admin::get_instance(), 'views'], 20);
     }
 
     /**
@@ -61,7 +62,7 @@ class PostType {
      * @return void
      */
     function admin_enqueue_scripts($hook) {
-        if ($hook !== "toplevel_page_nx-admin") {
+        if ($hook !== "toplevel_page_nx-admin" && $hook !== "notificationx_page_nx-edit" && $hook !== "notificationx_page_nx-settings" && $hook !== "notificationx_page_nx-analytics" && $hook !== "notificationx_page_nx-builder") {
             return;
         }
         // @todo not sure why did it. maybe remove.
@@ -69,7 +70,7 @@ class PostType {
 
         $tabs = $this->get_localize_scripts();
 
-        $d = include_once Helper::file('admin/js/admin.asset.php');
+        $d = include Helper::file('admin/js/admin.asset.php');
 
         wp_enqueue_script(
             'notificationx-admin',
@@ -80,6 +81,9 @@ class PostType {
         );
         wp_localize_script('notificationx-admin', 'notificationxTabs', $tabs);
         wp_enqueue_style( 'notificationx-admin', Helper::file( 'admin/css/admin.css', true ), [], $d['version'], 'all' );
+        wp_set_script_translations( 'notificationx-admin', 'notificationx' );
+        do_action('notificationx_admin_scripts');
+
     }
 
     public function get_localize_scripts(){
@@ -94,11 +98,13 @@ class PostType {
         $tabs['settings']                     = Settings::get_instance()->get_form_data();
         $tabs['settings']['settingsRedirect'] = !current_user_can( 'edit_notificationx_settings' );
         $tabs['settings']['analytics']        = $tabs['analytics'];
+        $tabs['admin_url']                    = get_admin_url();
         $tabs['assets']                       = [
             'admin' => NOTIFICATIONX_ADMIN_URL,
             'public' => NOTIFICATIONX_PUBLIC_URL,
         ];
 
+        $tabs = apply_filters('nx_builder_configs', $tabs);
         return $tabs;
     }
 
@@ -373,4 +379,7 @@ class PostType {
         return $post;
     }
 
+    public function get_edit_link($nx_id){
+        return admin_url("admin.php?page=nx-edit&id=$nx_id");
+    }
 }

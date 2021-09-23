@@ -3,15 +3,15 @@ import { Button, ButtonGroup } from "@wordpress/components";
 import { Date } from "quickbuilder";
 import { isInTheFuture } from "@wordpress/date";
 import nxHelper from "../core/functions";
-import { Redirect } from "react-router";
 import Swal from "sweetalert2";
 import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
 import nxToast from "../core/ToasterMsg";
+import { __ } from "@wordpress/i18n";
+import _ from "lodash";
 
 const PublishWidget = (props) => {
     const { title, context, isEdit, setIsLoading, setIsCreated, id, ...rest } = props;
-    const [redirect, setRedirect] = useState<string>()
     const builderContext = useNotificationXContext();
 
     const handleSubmit = useCallback(
@@ -27,31 +27,36 @@ const PublishWidget = (props) => {
                 })
                 .then((res: any) => {
                     if (res?.nx_id) {
-                        setIsLoading(false);
                         if (setIsCreated) {
-                            setIsCreated(res?.nx_id);
+                            builderContext.setRedirect({
+                                page: `nx-edit`,
+                                id  : res?.nx_id,
+                                state: { published: true }
+                            });
                         } else {
+                            setIsLoading(false);
                             context.setValues(res);
                             context.setSavedValues(res);
                             rest?.setIsUpdated('saved');
                         }
                     } else {
-                        console.error("NX Not Created");
+                        setIsLoading(false);
+                        console.error(__("NX Not Created", 'notificationx'));
                     }
                 })
-                .catch((err) => console.error("Error: ", err));
+                .catch((err) => console.error(__("Error: ", 'notificationx'), err));
         },
         [title, context]
     );
 
     const handleDelete = useCallback(() => {
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: __('Are you sure?', 'notificationx'),
+            text: __("You won't be able to revert this!", 'notificationx'),
             icon: 'error',
             showCancelButton: true,
-            confirmButtonText: 'Yes, Delete It',
-            cancelButtonText: 'No, Cancel',
+            confirmButtonText: __('Yes, Delete It', 'notificationx'),
+            cancelButtonText: __('No, Cancel', 'notificationx'),
             customClass: { actions: 'nx-delete-actions' },
             reverseButtons: true,
             // target: "#notificationx",
@@ -61,22 +66,21 @@ const PublishWidget = (props) => {
                     .delete(`nx/${id}`, { nx_id: id })
                     .then((res) => {
                         if (res) {
-                            nxToast.error( `Notification Alert has been Deleted.` ),
-                            setRedirect('/');
+                            nxToast.deleted( __(`Notification Alert has been Deleted.`, 'notificationx') );
+                            builderContext.setRedirect({
+                                page  : `nx-admin`,
+                            });
                         } else {
-                            nxToast.error( `Oops, Something went wrong. Please try again.` );
+                            nxToast.error( __(`Oops, Something went wrong. Please try again.`, 'notificationx') );
                         }
                     })
-                    .catch((err) => console.error("Delete Error: ", err));
+                    .catch((err) => console.error(__("Delete Error: ", 'notificationx'), err));
             }
         });
     }, [isEdit]);
 
     return (
         <div className="sidebar-widget nx-widget">
-            {
-                redirect && <Redirect to={redirect} />
-            }
             <div className="nx-widget-title">
                 <h4>Publish</h4>
             </div>
@@ -85,8 +89,8 @@ const PublishWidget = (props) => {
                     <label htmlFor="updated_at">
 
                         {isInTheFuture(context.values?.updated_at)
-                            ? "Scheduled For"
-                            : `Publish${isEdit ? 'ed' : ""} On`
+                            ? __("Scheduled For", 'notificationx')
+                            : (isEdit ? __("Published On", 'notificationx') : __("Publish On", 'notificationx'))
                         }
                         {" "}
                         :{" "}
@@ -122,7 +126,7 @@ const PublishWidget = (props) => {
                         onClick={handleSubmit}
                         disabled={builderContext?.createRedirect}
                     >
-                        {isInTheFuture(context.values?.updated_at) ? "Schedule" : (isEdit ? "Update" : "Publish")}
+                        {isInTheFuture(context.values?.updated_at) ? __("Schedule", 'notificationx') : (isEdit ? __("Update", 'notificationx') : __("Publish", 'notificationx'))}
                     </Button>
                 </ButtonGroup>
             </div>

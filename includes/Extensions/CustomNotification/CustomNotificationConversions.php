@@ -50,9 +50,13 @@ class CustomNotificationConversions extends Extension {
     }
 
     public function doc(){
-        return '<p>You can make custom notification for its all types of campaign. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/custom-notification/">documentation</a>.</p>
-		<p>🎦 Watch <a target="_blank" href="https://www.youtube.com/watch?v=OuTmDZ0_TEw">video tutorial</a> to learn quickly</p>
+        return sprintf(__('<p>You can make custom notification for its all types of campaign. For further assistance, check out our step by step <a target="_blank" href="%1$s">documentation</a>.</p>
+		<p>🎦 Watch <a target="_blank" href="%2$s">video tutorial</a> to learn quickly</p>
 		<p><strong>Recommended Blog:</strong></p>
-		<p>🔥 How to <a target="_blank" href="https://wpdeveloper.net/custom-notificationx-alert-fomo/">Display Custom Notification Alerts</a> On Your Website Using NotificationX</p>';
+		<p>🔥 How to <a target="_blank" href="%3$s">Display Custom Notification Alerts</a> On Your Website Using NotificationX</p>', 'notificationx'),
+        'https://notificationx.com/docs/custom-notification/',
+        'https://www.youtube.com/watch?v=OuTmDZ0_TEw',
+        'https://wpdeveloper.net/custom-notificationx-alert-fomo/'
+        );
     }
 }

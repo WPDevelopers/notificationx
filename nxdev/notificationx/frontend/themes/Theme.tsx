@@ -1,9 +1,7 @@
 import React, { CSSProperties } from "react";
-import ReactDOM from "react-dom";
 import classNames from "classnames";
 import { Image, Content, Close } from "./helpers";
 import moment from "moment";
-import Star from "../../icons/star";
 // @ts-ignore
 import { __experimentalGetSettings, gmdateI18n, date } from "@wordpress/date";
 import { getThemeName } from "../../core/functions";

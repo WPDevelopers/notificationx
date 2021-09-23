@@ -171,8 +171,8 @@ class WooReviews extends Extension {
         parent::init();
         add_filter("nx_filtered_data_{$this->id}", array($this, 'rated_woo_review'), 10, 2);
         add_action('comment_post', array($this, 'post_comment'), 10, 2);
-        add_action('trash_comment', array($this, 'delete_comment'), 10, 2);
-        add_action('deleted_comment', array($this, 'delete_comment'), 10, 2);
+        add_action('trash_comment', array($this, 'delete_comment'), 10);
+        add_action('deleted_comment', array($this, 'delete_comment'), 10);
         add_action('transition_comment_status', array($this, 'transition_comment_status'), 10, 3);
     }
 
@@ -359,7 +359,7 @@ class WooReviews extends Extension {
      * @param WP_Comment $comment
      * @return void
      */
-    public function delete_comment($comment_ID, $comment) {
+    public function delete_comment($comment_ID) {
         $this->delete_notification($comment_ID);
     }
 
@@ -483,9 +483,14 @@ class WooReviews extends Extension {
     }
 
     public function doc() {
-        return '<p>Make sure that you have <a target="_blank" href="https://wordpress.org/plugins/woocommerce/">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/woocommerce-product-reviews/">documentation</a>.</p>
-		<p>🎦 Watch <a target="_blank" href="https://www.youtube.com/watch?v=bHuaOs9JWvI">video tutorial</a> to learn quickly</p>
+        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+		<p>🎦 Watch <a target="_blank" href="%3$s">video tutorial</a> to learn quickly</p>
 		<p><strong>Recommended Blog:</strong></p>
-		<p>🚀 How to <a target="_blank" href="https://wpdeveloper.net/ecommerce-sales-social-proof/">boost WooCommerce Sales</a> Using NotificationX</p>';
+		<p>🚀 How to <a target="_blank" href="%4$s">boost WooCommerce Sales</a> Using NotificationX</p>', 'notificationx'),
+        'https://wordpress.org/plugins/woocommerce/',
+        'https://notificationx.com/docs/woocommerce-product-reviews/',
+        'https://www.youtube.com/watch?v=bHuaOs9JWvI',
+        'https://wpdeveloper.net/ecommerce-sales-social-proof/'
+        );
     }
 }

@@ -57,8 +57,13 @@ class Google_Analytics extends Extension {
     }
 
     public function doc(){
-        return '<p>Make sure that you have <a target="_blank" href="https://analytics.google.com/analytics/web/">signed in to Google Analytics site</a>, to use its campaign & page analytics data. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/google-analytics/">documentation</a>.</p>
-		<p>🎦 <a target="_blank" href="https://www.youtube.com/watch?v=zZPF5nJD4mo">Watch video tutorial</a> to learn quickly</p>
-		<p>👉NotificationX <a target="_blank" href="https://notificationx.com/docs/google-analytics/">Integration with Google Analytics</a></p>';
+        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">signed in to Google Analytics site</a>, to use its campaign & page analytics data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
+		<p>👉NotificationX <a target="_blank" href="%4$s">Integration with Google Analytics</a></p>', 'notificationx'),
+        'https://analytics.google.com/analytics/web/',
+        'https://notificationx.com/docs/google-analytics/',
+        'https://www.youtube.com/watch?v=zZPF5nJD4mo',
+        'https://notificationx.com/docs/google-analytics/'
+        );
     }
 }

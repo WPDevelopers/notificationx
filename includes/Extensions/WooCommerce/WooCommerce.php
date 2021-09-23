@@ -33,6 +33,9 @@ class WooCommerce extends Extension {
     public $module          = 'modules_woocommerce';
     public $module_priority = 3;
     public $class           = '\WooCommerce';
+    public $wpml_included   = [
+                                'sales_count',
+                              ];
 
     /**
      * Initially Invoked when initialized.
@@ -78,6 +81,16 @@ class WooCommerce extends Extension {
             return;
         }
         add_filter("nx_filtered_data_{$this->id}", array($this, 'multiorder_combine'), 11, 3);
+    }
+
+    public function wpml_actions(){
+        if (!$this->is_active()) {
+            return;
+        }
+
+        add_filter("nx_filtered_entry_{$this->id}", array($this, 'wpml_translate'), 11, 2);
+        add_filter("nx_notification_link_{$this->id}", [$this, 'product_link'], 10, 3);
+
     }
 
     public function source_error_message($messages) {
@@ -438,6 +451,29 @@ class WooCommerce extends Extension {
     }
 
 
+    public function wpml_translate($entry, $settings) {
+        if(!empty($entry['product_id'])){
+            $product_id = apply_filters( 'wpml_object_id', $entry['product_id'], 'nx_bar', false);
+            if($product_id){
+                $product = wc_get_product($product_id);
+                $current_lang = apply_filters( 'wpml_current_language', NULL );
+
+                $entry['product_id'] = $product_id;
+                $entry['title']      = $product->get_name();
+            }
+        }
+
+        return $entry;
+    }
+
+
+    public function product_link($link, $post, $entry) {
+        if(!empty($entry['product_id'])){
+            $link = get_permalink($entry['product_id']);
+        }
+        return $link;
+    }
+
     public function multiorder_combine($data, $settings) {
         if (empty($settings['combine_multiorder']) || intval($settings['combine_multiorder']) != 1 )  {
             return $data;
@@ -458,7 +494,8 @@ class WooCommerce extends Extension {
 
         $products_more_title = isset($settings['combine_multiorder_text']) && !empty($settings['combine_multiorder_text']) ? __($settings['combine_multiorder_text'], 'notificationx') : __('more products', 'notificationx');
         foreach ($item_counts as $key => $item) {
-            $items[$key]['title'] = $items[$key]['title'] . ' & ' . $item . ' ' . $products_more_title;
+            // translators: %1$s: title, %2$s: number of product, %3$s: Combine Multi Order Text.
+            $items[$key]['title'] = sprintf(__('%1$s & %2$s %3$s', 'notificationx'), $items[$key]['title'], $item, $products_more_title);
         }
 
         // @todo maybe sort
@@ -495,12 +532,18 @@ class WooCommerce extends Extension {
     }
 
     public function doc(){
-        return '<p>Make sure that you have <a target="_blank" href="https://wordpress.org/plugins/woocommerce/">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/woocommerce-sales-notifications/">documentation</a>.</p>
-		<p>🎦 <a href="https://www.youtube.com/watch?v=dVthd36hJ-E&t=1s" target="_blank">Watch video tutorial</a> to learn quickly</p>
+        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+		<p>🎦 <a href="%3$s" target="_blank">Watch video tutorial</a> to learn quickly</p>
 		<p>⭐ NotificationX Integration with WooCommerce</p>
 		<p><strong>Recommended Blog:</strong></p>
-		<p>🔥 Why NotificationX is The <a target="_blank" href="https://notificationx.com/integrations/woocommerce/">Best FOMO and Social Proof Plugin</a> for WooCommerce?</p>
-		<p>🚀 How to <a target="_blank" href="https://notificationx.com/blog/best-fomo-and-social-proof-plugin-for-woocommerce/">boost WooCommerce Sales</a> Using NotificationX</p>';
+		<p>🔥 Why NotificationX is The <a target="_blank" href="%4$s">Best FOMO and Social Proof Plugin</a> for WooCommerce?</p>
+		<p>🚀 How to <a target="_blank" href="%5$s">boost WooCommerce Sales</a> Using NotificationX</p>', 'notificationx'),
+        'https://wordpress.org/plugins/woocommerce/',
+        'https://notificationx.com/docs/woocommerce-sales-notifications/',
+        'https://www.youtube.com/watch?v=dVthd36hJ-E&t=1s',
+        'https://notificationx.com/integrations/woocommerce/',
+        'https://notificationx.com/blog/best-fomo-and-social-proof-plugin-for-woocommerce/'
+        );
     }
 
 }

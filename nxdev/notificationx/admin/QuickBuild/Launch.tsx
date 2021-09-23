@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { useBuilderContext } from "quickbuilder";
-import { Redirect } from "react-router-dom";
 import { Button } from "@wordpress/components";
 import nxHelper from "../../core/functions";
 import { __ } from "@wordpress/i18n";
+import { useNotificationXContext } from "../../hooks";
 
 const Launch = (props) => {
     const builderContext = useBuilderContext();
-    const [isSubmitt, setIsSubmitt] = useState(false);
+    const notificationxContext = useNotificationXContext();
+    const [isSubmit, setIsSubmit] = useState(false);
     const { title } = builderContext;
-    const [isCreated, setIsCreated] = useState(false);
 
     const handleSubmit = (event) => {
         builderContext.setSubmitting(true);
-        setIsSubmitt(true);
+        setIsSubmit(true);
         nxHelper
             .post('nx', {
                 ...builderContext.values,
@@ -22,25 +22,26 @@ const Launch = (props) => {
             })
             .then((res: any) => {
                 if (res?.nx_id) {
-                    setIsCreated(true);
+                    notificationxContext.setRedirect({
+                        page: `nx-admin`,
+                    });
                 }
             })
             .catch((err) => {
-                console.error("QuickBuilder Error: ", err);
-                setIsSubmitt(false);
+                console.error(__("QuickBuilder Error: ", 'notificationx'), err);
+                setIsSubmit(false);
             });
     };
 
     return (
         <>
-            {isCreated && <Redirect push to="/" />}
             <Button
-                disabled={isSubmitt}
+                disabled={isSubmit}
                 className="wprf-btn wprf-step-btn-publish"
                 onClick={handleSubmit}
             >
-                {isSubmitt && __('Publishing...', 'notificationx')}
-                {!isSubmitt && __('Publish', 'notificationx')}
+                {isSubmit && __('Publishing...', 'notificationx')}
+                {!isSubmit && __('Publish', 'notificationx')}
             </Button>
         </>
     );

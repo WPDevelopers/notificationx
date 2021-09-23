@@ -50,10 +50,16 @@ class ConvertKit extends Extension {
     }
 
     public function doc(){
-        return '<p>Make sure that you have <a target="_blank" href="https://app.convertkit.com/users/login">signed in & retrieved your API key from ConvertKit account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target="_blank" href="https://notificationx.com/docs/convertkit-alert/">documentation</a>.</p>
-		<p>🎦 <a target="_blank" href="https://youtu.be/lk_KMSBkEbY">Watch video tutorial</a> to learn quickly</p>
-		<p>👉 NotificationX <a target="_blank" href="https://notificationx.com/integrations/convertkit/">Integration with ConvertKit</a></p>
+        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">signed in & retrieved your API key from ConvertKit account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
+		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with ConvertKit</a></p>
 		<p><strong>Recommended Blog:</strong></p>
-		<p>🔥 Connect <a target="_blank" href="https://wpdeveloper.net/convertkit-social-proof/">NotificationX With ConvertKit</a>: Grow Your Audience By Leveraging Social Proof</p>';
+		<p>🔥 Connect <a target="_blank" href="%5$s">NotificationX With ConvertKit</a>: Grow Your Audience By Leveraging Social Proof</p>', 'notificationx'),
+        'https://app.convertkit.com/users/login',
+        'https://notificationx.com/docs/convertkit-alert/',
+        'https://youtu.be/lk_KMSBkEbY',
+        'https://notificationx.com/integrations/convertkit/',
+        'https://wpdeveloper.net/convertkit-social-proof/'
+        );
     }
 }

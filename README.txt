@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce notification, notifica
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 2.0.2
+Stable tag: 2.1.0
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -41,9 +41,9 @@ https://youtu.be/6XJ2lLmH3w8?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 ## Powerful Features of NotificationX 2.0  🚀 ##
 
 - Get completely revamped & faster user interface
-- Redesigned Quick Builder to create instant notifications 
+- Redesigned Quick Builder to create instant notifications
 - Robust API-based applications for faster response time
-- Query Optimization to enhance performance 
+- Query Optimization to enhance performance
 - Set custom random order for any or all notifications[PRO]
 - Seamless performance with many improvements & bug fixes
 
@@ -91,8 +91,8 @@ https://youtu.be/AGaq1wtdd00?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 
 ## 🔥 POWER UP WITH ADVANCED INTEGRATIONS ##
 
-1. **[WooCommerce](https://notificationx.com/integrations/woocommerce/):** Showcase your product sales alert and customer activities live on the website with an automated process to increase your eCommerce site conversions rates. **From V 1.7.0 we now support WooCommerce Product reviews as well.** 
-    
+1. **[WooCommerce](https://notificationx.com/integrations/woocommerce/):** Showcase your product sales alert and customer activities live on the website with an automated process to increase your eCommerce site conversions rates. **From V 1.7.0 we now support WooCommerce Product reviews as well.**
+
     https://youtu.be/bHuaOs9JWvI?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 
 2. **[Easy Digital Downloads](https://notificationx.com/integrations/easy-digital-downloads/):** Display your clients’ live sales update on the website to build credibility and gather more traffic to boost business growth.
@@ -118,7 +118,7 @@ https://youtu.be/AGaq1wtdd00?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 12. **[Elementor](https://wordpress.org/plugins/elementor/):** With the introduction of Elementor integration, you can create & design stunning Notification Bars quite easily. You can choose from various pre-set layouts and customize the layout any way you want. Also can create a GDPR Cookie consent bar[PRO], and use an evergreen timer [PRO].
 
 https://youtu.be/lWLY72HrqDM?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
-    
+
 
 ## 🏆 FEATURED IN TOP PUBLICATIONS ##
 
@@ -161,7 +161,7 @@ NotificationX is backed by WPDeveloper, a dedicated team trusted by more than 30
 
 ⭐ [ReviewX](https://wordpress.org/plugins/reviewx/): WooCommerce Product review plugin that allows users to submit product reviews with multiple criteria, photos, videos, and more.
 
-💼 [Easy.Jobs](https://wordpress.org/plugins/easyjobs/): Smart and easy recruitment and talent sourcing solution for hiring remotely with AI-powered screening system, question sets, remote interviews, branded career pages and much more. 
+💼 [Easy.Jobs](https://wordpress.org/plugins/easyjobs/): Smart and easy recruitment and talent sourcing solution for hiring remotely with AI-powered screening system, question sets, remote interviews, branded career pages and much more.
 
 == Installation ==
 
@@ -210,6 +210,21 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 10. Notification Bar with Countdown
 
 == Changelog ==
+
+= 2.1.0 - 23/09/2021 =
+
+- Added: WPML Compatibility
+- Improved:  Query Routing inside Admin interface
+- Fixed: WooCommerce Review Alerts conflict with other plugins
+- Few minor bug fix & improvements
+
+= 2.0.3 - 16/09/2021 =
+
+- Fixed: Unable to limit days in Behaviour for Sales Notification
+- Fixed: Bulk Delete not working properly for the notification alerts
+- Fixed: Donation count template not working properly
+- Fixed: Image shape not matching properly in Donation Alerts
+- Few minor bug fix & improvements
 
 = 2.0.2 - 31/08/2021 =
 - Fixed: Notification alerts showing on mobile devices despite being disabled
@@ -575,4 +590,4 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Upgrade Notice ==
 
-Major Update: New Feature & Bug Fix
+Minor Update: Few bugfix and improvements

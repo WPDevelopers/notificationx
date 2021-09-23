@@ -1,57 +1,53 @@
 import React, { useEffect, useState } from "react";
-import { HashRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Route as R,
+    Switch,
+    Redirect,
+    useParams,
+    matchPath,
+    useHistory,
+} from "react-router-dom";
+
 import "./scss/index.scss";
-import { Admin, AddNewNotification, EditNotification, Settings, Analytics, Entries, QuickBuild } from "./admin/index";
 import { NotificationXProvider, useNotificationX } from "./hooks";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Route from "./Route";
+import { __ } from "@wordpress/i18n";
 
 const NotificationX = (props) => {
     // const builder = useBuilder(notificationxTabs);
     // const builder = useBuilder(defaultArgs);
-    const [title, setTitle] = useState("")
+    const [title, setTitle] = useState("");
     if (!title) {
-        let documentTitle = document.querySelector('title').text;
-        documentTitle = documentTitle.replace("All NotificationX", '');
+        let documentTitle = document.querySelector("title").text;
+        documentTitle = documentTitle
+            .replace(__("All NotificationX", 'notificationx'), "")
+            .replace(__("Add New", 'notificationx'), "")
+            .replace(__("Settings", 'notificationx'), "")
+            .replace(__("Analytics", 'notificationx'), "")
+            .replace(__("Quick Builder", 'notificationx'), "");
         setTitle(documentTitle);
     }
 
     const builder = useNotificationX({ ...notificationxTabs, title });
+    const url = new URL(builder.admin_url);
+    const basename = url.pathname.replace(/\/$/, "");
 
     return (
-        <Router>
+        <Router basename={basename}>
             <div className="notificationx-main">
                 <NotificationXProvider value={builder}>
                     {
-                        // builder?.redirect?.to &&
-                        // <Redirect to={builder?.redirect?.to} />
+                        builder.state?.redirect?.pathname &&
+                        <Redirect to={builder.state.redirect} />
                     }
-                    <Switch>
-                        <Route path="/" exact component={Admin} />
-                        <Route
-                            path="/add-new"
-                            exact
-                            component={AddNewNotification}
-                        />
-                        <Route
-                            path="/add-new/:clone"
-                            exact
-                            component={AddNewNotification}
-                        />
-                        <Route
-                            path="/edit/:edit"
-                            exact
-                            component={EditNotification}
-                        />
-                        <Route path="/settings" exact component={Settings} />
-                        <Route path="/analytics" exact component={Analytics} />
-                        <Route path="/entries/:id" exact component={Entries} />
-                        <Route path="/nx-builder" exact component={QuickBuild} />
-                    </Switch>
+                    <R component={Route} />
                     <ToastContainer />
                 </NotificationXProvider>
             </div>
-        </Router >
+        </Router>
     );
 };
 

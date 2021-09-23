@@ -182,13 +182,17 @@
                                                         "pp_condition_search-bot_value": "all_search_bots"
                                                     }
                                                 ],
-                                                "image_size": "full",
+                                                "image_size": "custom",
                                                 "align": "left",
                                                 "align_mobile": "center",
                                                 "width": {
                                                     "unit": "px",
                                                     "size": 50,
                                                     "sizes": []
+                                                },
+                                                "image_custom_dimension": {
+                                                  "width": "50",
+                                                  "height": ""
                                                 },
                                                 "_margin": {
                                                     "unit": "px",
