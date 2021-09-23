@@ -32,6 +32,7 @@
   "dependencies": {
     "apexcharts": "^3.28.1",
     "classnames": "^2.3.1",
+    "html-react-parser": "^1.3.0",
     "quickbuilder": "github:priyomukul/wp-react-form#npmpkg",
     "rc-pagination": "^3.1.9",
     "react-apexcharts": "^1.3.9",

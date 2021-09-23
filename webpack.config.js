@@ -30,9 +30,15 @@ const config = {
                 exclude: /node_modules/,
             },
             {
-                test: /\.(jpg|png|gif|svg)$/,
+                test: /\.(jpg|png|svg)$/,
                 use: "url-loader",
-                type: "asset/source",
+                // type: "asset/source",
+                dependency: { not: ['url'] },
+            },
+            {
+                test: /\.(gif)$/,
+                // use: "url-loader",
+				type: 'asset/resource',
             },
         ],
     },
