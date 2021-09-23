@@ -69,8 +69,7 @@ const config = {
             ],
         }),
         new MiniCSSExtractPlugin({
-            esModule: false,
-            moduleFilename: (chunk) => {
+            filename: ({chunk}) => {
                 // if (!isProduction) {
                 //     return `${chunk.name}.css`;
                 // }
