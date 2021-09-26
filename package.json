@@ -5,7 +5,8 @@
   "author": "WPDeveloper",
   "scripts": {
     "start": "set NODE_ENV=development && wp-scripts start",
-    "build": "set NODE_ENV=production && wp-scripts build"
+    "build": "set NODE_ENV=production && wp-scripts build",
+    "up": "npm install github:WPDevelopers/quickbuilder#dev"
   },
   "plugins": [
     "@babel/plugin-transform-runtime",

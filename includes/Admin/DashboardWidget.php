@@ -50,7 +50,7 @@ class DashboardWidget {
         add_action('admin_enqueue_scripts', [ $this, 'enqueue'] );
     }
     public function enqueue( $hook ){
-        wp_enqueue_style( 'nx-analytics-dashboard-widget', self::ASSET_URL . 'css/analytics-dashboard-widget.css', array(), false, 'all' );
+        wp_register_style( 'nx-analytics-dashboard-widget', self::ASSET_URL . 'css/analytics-dashboard-widget.css', array(), false, 'all' );
     }
     /**
      * Admin Action callback
@@ -109,6 +109,7 @@ class DashboardWidget {
         extract( $this->analytics_counter() );
         $class = 'nx-analytics-widget';
         if( file_exists( self::VIEWS_PATH . 'analytics.views.php' ) ) {
+            wp_enqueue_style('nx-analytics-dashboard-widget');
             return include_once self::VIEWS_PATH . 'analytics.views.php';
         }
     }

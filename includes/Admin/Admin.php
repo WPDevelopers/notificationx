@@ -72,7 +72,6 @@ class Admin {
      * @return void
      */
     public function admin_init(){
-        add_action('admin_enqueue_scripts', [$this, 'enqueue_scripts']);
         DashboardWidget::get_instance();
     }
 
@@ -116,19 +115,6 @@ class Admin {
             return self::ASSET_URL . $file;
         }
         return filemtime( self::ASSET_PATH . $file );
-    }
-
-    /**
-     * Enqueueing NotificationX Admin Scripts.
-     *
-     * @param string $hook Just page hook as string.
-     * @return void
-     */
-    public function enqueue_scripts( $hook ){
-        if ( ! in_array( $hook, array( 'toplevel_page_nx-admin' ) ) ) {
-            return;
-        }
-        wp_enqueue_style( 'notificationx', $this->file( 'css/style.css', true ), [], $this->file( 'css/style.css' ), 'all' );
     }
 
     /**
