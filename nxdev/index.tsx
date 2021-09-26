@@ -6,7 +6,7 @@ import { Sidebar } from "./notificationx/admin/Settings";
 import Loader from "./notificationx/components/Loader";
 
 (function () {
-    addFilter('wprf_tab_content', 'NotificationX', (props) => {
+    addFilter('wprf_tab_content', 'NotificationX', (x, props) => {
         return !props.is_pro_active && props.current_page === 'settings' && <Sidebar assetsUrl={props.assets} is_pro_active={props.is_pro_active} />
     })
 
