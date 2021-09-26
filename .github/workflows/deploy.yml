@@ -2,7 +2,8 @@ name: Deploy to WordPress.org
 
 on:
   push:
-    branches: [ act ]
+    tags:
+      - '*'
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -10,4 +11,16 @@ jobs:
       - uses: actions/checkout@v2
       - name: Running NPM Install & Build Silently
         run: |
-          npm install && npm run build
+          npm install --silent && npm run build
+      - name: WordPress Plugin Deploy
+        id: deploy
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        env:
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+      - name: Assets Update
+        id: assets
+        uses: 10up/action-wordpress-plugin-asset-update@stable
+        env:
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
