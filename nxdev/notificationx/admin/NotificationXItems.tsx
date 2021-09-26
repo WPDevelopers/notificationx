@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import nxHelper from "../core/functions";
+import nxHelper, { assetsURL } from "../core/functions";
 import { isArray } from "quickbuilder";
 import NotificationXInner from "./NotificationXInner";
 import NotificationXItemsMenu from "./NotificationXItemsMenu";
@@ -9,7 +9,6 @@ import localeInfo from 'rc-pagination/es/locale/en_US';
 import NavLink from "../components/NavLink";
 import { SelectControl } from "@wordpress/components";
 import { WrapperWithLoader } from "../components";
-import LargeLogoIcon from '../../../assets/admin/images/logos/large-logo-icon.png';
 import { useNotificationXContext } from "../hooks";
 import { __, sprintf } from "@wordpress/i18n";
 import parse from 'html-react-parser';
@@ -121,7 +120,7 @@ export const NotificationXItems = (props) => {
                 <WrapperWithLoader isLoading={isLoading} div={false}>
                     {filteredNotice.length == 0 &&
                         <div className="nx-no-items">
-                            <img src={LargeLogoIcon} />
+                            <img src={assetsURL('images/logos/large-logo-icon.png')} />
 
                             {status == 'all'
                                 ? <>
