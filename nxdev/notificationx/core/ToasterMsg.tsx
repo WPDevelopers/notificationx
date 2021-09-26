@@ -22,6 +22,7 @@ export const toastDefaultArgs: any = {
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
+    icon: false,
 };
 
 // export const SuccessMsg = (msg) => {
