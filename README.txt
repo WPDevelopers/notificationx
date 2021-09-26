@@ -211,7 +211,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 2.1.0 - 23/09/2021 =
+= 2.1.0 - 26/09/2021 =
 
 - Added: WPML Compatibility
 - Improved:  Query Routing inside Admin interface
