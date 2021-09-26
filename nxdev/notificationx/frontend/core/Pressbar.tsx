@@ -2,7 +2,7 @@ import { __ } from "@wordpress/i18n";
 import classNames from "classnames";
 import React, { CSSProperties, useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import usePortal from "../hooks/UsePortal";
+import usePortal from "../hooks/usePortal";
 import cookie from "react-cookies";
 import { Close } from "../themes/helpers";
 import { getTime as momentGetTime } from "./utils";
