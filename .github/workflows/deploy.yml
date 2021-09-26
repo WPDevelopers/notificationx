@@ -1,0 +1,13 @@
+name: Deploy to WordPress.org
+
+on:
+  push:
+    branches: [ act ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Running NPM Install & Build Silently
+        run: |
+          npm install && npm run build
