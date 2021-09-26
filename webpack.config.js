@@ -29,17 +29,17 @@ const config = {
                 use: "ts-loader",
                 exclude: /node_modules/,
             },
-            {
-                test: /\.(jpg|png|svg)$/,
-                use: "url-loader",
-                // type: "asset/source",
-                dependency: { not: ['url'] },
-            },
-            {
-                test: /\.(gif)$/,
-                // use: "url-loader",
-				type: 'asset/resource',
-            },
+            // {
+            //     test: /\.(jpg|png|svg)$/,
+            //     use: "url-loader",
+            //     // type: "asset/source",
+            //     dependency: { not: ['url'] },
+            // },
+            // {
+            //     test: /\.(gif)$/,
+            //     // use: "url-loader",
+			// 	type: 'asset/resource',
+            // },
         ],
     },
     resolve: {
