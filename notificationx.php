@@ -48,11 +48,11 @@ define( 'NOTIFICATIONX_PUBLIC_URL', NOTIFICATIONX_ASSETS . 'public/' );
 if ( ! class_exists( '\NotificationX\NotificationX' ) ) {
     require_once NOTIFICATIONX_PATH . 'vendor/autoload.php';
     if(nx_is_plugin_active( 'notificationx-pro/notificationx-pro.php' )){
+        add_action( 'admin_notices', 'nx_free_compatibility_notice' );
         if( file_exists(dirname(NOTIFICATIONX_PATH) . '/notificationx-pro/vendor/autoload.php') ) {
             require_once dirname(NOTIFICATIONX_PATH) . '/notificationx-pro/vendor/autoload.php';
         } else {
             add_action('plugins_loaded', function(){
-                add_action( 'admin_notices', 'nx_free_compatibility_notice' );
                 remove_action( 'admin_notices', 'notificationx_install_core_notice' );
                 \NotificationX\Core\Helper::remove_old_notice();
             });
@@ -74,7 +74,7 @@ function nx_free_compatibility_notice(){
         require_once ABSPATH . 'wp-admin/includes/plugin.php';
     }
     $plugins = get_plugins();
-    if( isset( $plugins['notificationx-pro/notificationx-pro.php'], $plugins['notificationx-pro/notificationx-pro.php']['Version'] ) && version_compare( $plugins['notificationx-pro/notificationx-pro.php']['Version'], '2.0.0', '>=' ) ) {
+    if( isset( $plugins['notificationx-pro/notificationx-pro.php'], $plugins['notificationx-pro/notificationx-pro.php']['Version'] ) && version_compare( $plugins['notificationx-pro/notificationx-pro.php']['Version'], '2.1.0', '>=' ) ) {
         return;
     }
     ?>
