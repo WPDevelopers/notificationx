@@ -44,6 +44,7 @@ https://youtu.be/6XJ2lLmH3w8?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 - Redesigned Quick Builder to create instant notifications
 - Robust API-based applications for faster response time
 - Query Optimization to enhance performance
+- Full WPML Compatibility
 - Set custom random order for any or all notifications[PRO]
 - Seamless performance with many improvements & bug fixes
 
@@ -147,7 +148,7 @@ https://www.youtube.com/watch?v=75vntaHp9Y4
 
 ### 🎁 GET FREEBIES FOR YOUR WORDPRESS SITE ###
 
-NotificationX is backed by WPDeveloper, a dedicated team trusted by more than 3000,000 users. Consider checking out our other WordPress solutions & boost your WordPress website:
+NotificationX is backed by WPDeveloper, a dedicated team trusted by more than 3,800,000 users. Consider checking out our other WordPress solutions & boost your WordPress website:
 
 🔝 [Essential Addons For Elementor](https://wordpress.org/plugins/essential-addons-for-elementor-lite/): Most popular Elementor extensions with 1 Million+ active users in the WordPress repository
 
@@ -162,6 +163,12 @@ NotificationX is backed by WPDeveloper, a dedicated team trusted by more than 30
 ⭐ [ReviewX](https://wordpress.org/plugins/reviewx/): WooCommerce Product review plugin that allows users to submit product reviews with multiple criteria, photos, videos, and more.
 
 💼 [Easy.Jobs](https://wordpress.org/plugins/easyjobs/): Smart and easy recruitment and talent sourcing solution for hiring remotely with AI-powered screening system, question sets, remote interviews, branded career pages and much more.
+
+🔗 [BetterLinks](https://wordpress.org/plugins/betterlinks/): Latest best WordPress link management plugin for link shortening, tracking & analyzing.
+
+⚡ [Flexia](https://wordpress.org/themes/flexia/): Most lightweight, customizable & multi purpose theme for WordPress.
+
+🛑 [Disable Comments](https://wordpress.org/plugins/disable-comments/) – Instantly allow or disallow comments from any post type in WordPress and gain complete control over your full website. Used by 1M+ users!
 
 == Installation ==
 
@@ -212,14 +219,12 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 == Changelog ==
 
 = 2.1.0 - 27/09/2021 =
-
 - Added: WPML Compatibility
 - Improved:  Query Routing inside Admin interface
 - Fixed: WooCommerce Review Alerts conflict with other plugins
 - Few minor bug fix & improvements
 
 = 2.0.3 - 16/09/2021 =
-
 - Fixed: Unable to limit days in Behaviour for Sales Notification
 - Fixed: Bulk Delete not working properly for the notification alerts
 - Fixed: Donation count template not working properly
@@ -234,12 +239,10 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 - Few minor bug fix and improvements
 
 = 2.0.1 - 17/08/2021 =
-
 - Fixed: DOMContentLoaded moved from window to document
 - Few minor bug fix and improvements
 
 = 2.0.0 - 12/08/2021 =
-
 - Introducing : V2 of NotificationX
 - Revamped : Rebuilt entire plugin with ReactJS
 - Revamped : Code Structure for better performance
@@ -590,4 +593,4 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Upgrade Notice ==
 
-Minor Update: Few bugfix and improvements
+[Major Update]: WPML Compatibility, bugfix and improvements.
