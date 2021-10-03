@@ -1,8 +1,13 @@
 import { __ } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
+import { useNotificationXContext } from '../../hooks';
 import AnalyticsCard from './AnalyticsCard'
 
 const AnalyticsHeader = ({ analytics, assetsURL }) => {
+    const builderContext = useNotificationXContext();
+    if(builderContext?.analyticsRedirect){
+        return <></>;
+    }
     return (
         <div className="nx-analytics-counter-wrapper">
             <AnalyticsCard

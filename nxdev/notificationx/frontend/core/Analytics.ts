@@ -4,6 +4,7 @@ const Analytics = (event, props) => {
     const nx_id = props?.data?.nx_id;
     const entry_id = props?.data?.entry_id;
     const link = props?.data?.link;
+    const enable_analytics = props?.config?.enable_analytics;
     const rest = window["notificationX"]?.rest;
 
     // @todo remove
@@ -12,6 +13,9 @@ const Analytics = (event, props) => {
     if (!link) {
         event.preventDefault();
         return false;
+    }
+    if(!enable_analytics){
+        return;
     }
 
     nxHelper
