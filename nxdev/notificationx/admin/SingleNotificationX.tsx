@@ -88,7 +88,7 @@ const SingleNotificationX = ({
                     }
                 } else {
                     proAlert(
-                        enabled ? parse(sprintf(__("You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification.", "notificationx"), 'http://wpdeveloper.net/in/upgrade-notificationx'))
+                        enabled ? sprintf(__("You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification.", "notificationx"), 'http://wpdeveloper.net/in/upgrade-notificationx')
                             : __("Disabled", "notificationx")
                     ).fire();
                 }
@@ -150,7 +150,7 @@ const SingleNotificationX = ({
                 <div className="nx-admin-stats">
                     <NavLink to={{
                         pathname: '/admin.php',
-                        search  : "?page=nx-analytics&comparison=views",
+                        search  : "?page=nx-analytics&comparison=views&nx=" + id,
                     }}>
                         {/* translators: %d: Number of views for a Notification Alert. */}
                         {sprintf(__("%s views", "notificationx"), (item?.views || 0))}

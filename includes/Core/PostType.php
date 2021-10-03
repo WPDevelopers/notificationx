@@ -277,6 +277,11 @@ class PostType {
             return true;
         }
 
+        $ext = ExtensionFactory::get_instance()->get($source);
+        if($ext && $ext->is_pro && !NotificationX::is_pro()){
+            return false;
+        }
+
         $enabled_source = $this->get_enabled_source();
         unset($enabled_source['press_bar']);
         if( count( $enabled_source ) == 0 ) {

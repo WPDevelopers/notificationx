@@ -78,21 +78,27 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
     };
 
     const location = useLocation();
+    const query = nxHelper.useQuery(location.search);
 
-    const getComparison = () => {
-        const query = nxHelper.useQuery(location.search);
-        return query.get("comparison");
+    const getNX = () => {
+        let nx = query.get("nx");
+        if(nx){
+            return options.filter(item => {
+                return item.value == nx;
+            });
+        }
+        return null;
     };
 
     useEffect(() => {
-        const selectedComparison = getComparison();
+        const selectedComparison = query.get("comparison");
         let comparison = comparisonOptions.views;
         if (selectedComparison) {
             comparison = comparisonOptions?.[selectedComparison];
         }
         if (filterOptions === null) {
             setFilterOptions({
-                nx: [options?.[0]],
+                nx: getNX() || [options?.[0]],
                 comparison: [comparison],
                 startDate: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000),
                 endDate: new Date(),
@@ -101,6 +107,7 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
         else {
             setFilterOptions({
                 ...filterOptions,
+                nx: getNX() || filterOptions.nx,
                 comparison: [comparison],
             });
         }
