@@ -100,6 +100,7 @@ class Conversions extends Types {
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/maps-theme.png',
                 'image_shape' => 'square',
+                'show_notification_image' => 'maps_image',
             ),
             'conv-theme-seven' => array(
                 'is_pro' => true,

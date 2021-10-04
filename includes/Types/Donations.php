@@ -85,6 +85,7 @@ class Donations extends Types {
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/donation/maps-theme.png',
                 'image_shape' => 'square',
+                'show_notification_image' => 'maps_image',
             ],
             'conv-theme-seven' => [
                 'is_pro' => true,

@@ -69,6 +69,7 @@ class EmailSubscription extends Types {
             'maps_theme'  => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/subscriptions/maps-theme-subscribed.png',
                 'image_shape' => 'square',
+                'show_notification_image' => 'maps_image',
             ],
         ];
 

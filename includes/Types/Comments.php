@@ -35,7 +35,6 @@ class Comments extends Types {
     public function __construct() {
         $this->title = __('Comments', 'notificationx');
 
-        $is_pro = true; // !NotificationX::is_pro();
         // nx_comment_colored_themes
         $this->themes = [
             'theme-one'        => [
@@ -117,7 +116,7 @@ class Comments extends Types {
                 ],
             ],
             'theme-four'       => array(
-                'is_pro' => $is_pro,
+                'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-comment-theme-four.png',
                 'image_shape' => 'circle',
                 'template'  => [
@@ -131,7 +130,7 @@ class Comments extends Types {
                 ],
             ),
             'theme-five' => array(
-                'is_pro' => $is_pro,
+                'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-comment-theme-five.png',
                 'image_shape' => 'circle',
                 'template'  => [
@@ -146,9 +145,10 @@ class Comments extends Types {
             ),
             // @todo pro fix
             'maps_theme' => array(
-                'is_pro' => $is_pro,
+                'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/maps-theme-comments.png',
                 'image_shape' => 'square',
+                'show_notification_image' => 'maps_image',
             ),
         ];
         $this->templates = [

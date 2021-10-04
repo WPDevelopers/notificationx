@@ -114,6 +114,7 @@ class ELearning extends Types {
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/elearning/maps-theme.png',
                 'image_shape' => 'square',
+                'show_notification_image' => 'maps_image',
             ),
         ];
         $this->templates = [
