@@ -359,9 +359,6 @@ class PostType {
         Entries::get_instance()->delete_entries($post_id);
         Database::get_instance()->delete_posts(Database::$table_stats, ['nx_id' => $post_id]);
 
-        // clear cron when deleted.
-        Cron::get_instance()->clear_schedule(array('post_id' => $post_id));
-        // @todo add action.
         do_action('nx_delete_post', $post_id, $post);
         return $results;
     }

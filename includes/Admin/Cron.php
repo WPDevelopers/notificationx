@@ -25,6 +25,7 @@ class Cron {
     public function __construct(){
         add_filter('cron_schedules', [$this, 'cron_schedule'], 10, 1);
         add_action($this->hook, array($this, 'update_data'), 10, 1);
+        add_action('nx_delete_post', array($this, 'delete_post'), 10, 1);
 
     }
 
@@ -114,5 +115,9 @@ class Cron {
         else{
             $this->clear_schedule(array('post_id' => $post_id));
         }
+    }
+
+    public function delete_post($post_id) {
+        $this->clear_schedule(array('post_id' => $post_id));
     }
 }
