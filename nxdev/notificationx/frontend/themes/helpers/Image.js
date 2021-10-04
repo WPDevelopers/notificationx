@@ -6,8 +6,12 @@ const Image = ({ data, config, id, style, isSplitCss }) => {
         return null;
     }
 
-    const { advance_edit, image_shape, image_position, themes } = config;
+    const { advance_edit, image_position, themes } = config;
+    let { image_shape } = config;
     const custom_image_shape = image_shape == 'custom' ? config?.custom_image_shape : false;
+    if(!advance_edit && config?.image_shape_default) {
+        image_shape = config.image_shape_default;
+    }
     const componentClasses = classNames(
         "notificationx-image",
         data?.image_data?.classes,
