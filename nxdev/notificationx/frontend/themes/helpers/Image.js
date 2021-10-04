@@ -30,7 +30,12 @@ const Image = ({ data, config, id, style, isSplitCss }) => {
 
     let imgRadius = {}
     if (custom_image_shape) {
-        imgRadius = {...imgRadius, borderRadius: custom_image_shape + 'px'}
+        let radiusValue = custom_image_shape.trim()
+        let radiusValueFloat = parseFloat(radiusValue);
+        if (radiusValue == radiusValueFloat) {
+            radiusValue += "px"
+        }
+        imgRadius = {...imgRadius, borderRadius: radiusValue}
     }
 
     return (
