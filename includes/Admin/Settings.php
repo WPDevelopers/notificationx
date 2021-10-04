@@ -232,23 +232,24 @@ class Settings extends UsabilityDynamicsSettings {
                             'type'    => "section",
                             'label'    => __('Analytics', 'notificationx'),
                             'fields'   => array(
-                                'disable_dashboard_widget' => array(
-                                    'name'        => 'disable_dashboard_widget',
-                                    'type'        => 'checkbox',
-                                    'label'       => __('Disable Dashboard Widget', 'notificationx'),
-                                    'default'     => false,
-                                    'priority'    => 0,
-                                    'description' => __('Click, if you want to disable dashboard widget of analytics only.', 'notificationx'),
-                                ),
                                 'enable_analytics' => array(
                                     'name'        => 'enable_analytics',
                                     'type'    => 'checkbox',
                                     'label'   => __('Enable Analytics', 'notificationx'),
                                     'default'  => true,
-                                    'priority' => 5,
+                                    'priority' => 0,
+                                ),
+                                'disable_dashboard_widget' => array(
+                                    'name'        => 'disable_dashboard_widget',
+                                    'type'        => 'checkbox',
+                                    'label'       => __('Disable Dashboard Widget', 'notificationx'),
+                                    'default'     => false,
+                                    'priority'    => 5,
+                                    'description' => __('Click, if you want to disable dashboard widget of analytics only.', 'notificationx'),
+                                    'rules'       => Rules::is( 'enable_analytics', true ),
                                 ),
                                 'analytics_from' => array(
-                                    'name'        => 'analytics_from',
+                                    'name'    => 'analytics_from',
                                     'type'    => 'select',
                                     'label'   => __('Analytics From', 'notificationx'),
                                     'options' => GlobalFields::get_instance()->normalize_fields(array(
@@ -258,7 +259,7 @@ class Settings extends UsabilityDynamicsSettings {
                                     )),
                                     'default'  => 'everyone',
                                     'priority' => 10,
-                                    'rules' => Rules::is( 'enable_analytics', true ),
+                                    'rules'    => Rules::is( 'enable_analytics', true ),
                                 ),
                                 'exclude_bot_analytics' => array(
                                     'name'        => 'exclude_bot_analytics',

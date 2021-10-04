@@ -4,7 +4,7 @@ import nxHelper from "../core/functions";
 import { useNotificationXContext } from "../hooks";
 import Select from "react-select";
 import nxToast from "../core/ToasterMsg";
-import { sprintf, __ } from "@wordpress/i18n";
+import { sprintf, _n, __ } from "@wordpress/i18n";
 
 const NotificationXItemsMenu = ({
     notificationx,
@@ -43,7 +43,7 @@ const NotificationXItemsMenu = ({
     const deleteAction = (selectedItem) => {
         nxHelper.swal({
             title: __("Are you sure?", 'notificationx'),
-            text: __("You won't be able to revert this!", 'notificationx'),
+            html: sprintf(_n("You're about to delete %s notification alert,<br />", "You're about to delete %s notification alerts,<br />", selectedItem.length, 'notificationx'), selectedItem.length) + __("You won't be able to revert this!", 'notificationx'),
             icon: __("error", 'notificationx'),
             showCancelButton: true,
             confirmButtonText: __("Yes, Delete It", 'notificationx'),
