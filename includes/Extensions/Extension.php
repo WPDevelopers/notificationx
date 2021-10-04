@@ -239,8 +239,14 @@ abstract class Extension {
                 }
                 if(!empty($theme['image_shape'])){
                     $t = "@image_shape:{$theme['image_shape']}";
-                    if(empty($triggers[$tname]) || !in_array($t, $triggers[$tname]))
+                    if(empty($triggers[$tname]) || !in_array($t, $triggers[$tname])){
                         $triggers[$tname][] = $t;
+                    }
+                    // default image shape for theme.
+                    $t = "@image_shape_default:{$theme['image_shape']}";
+                    if(empty($triggers[$tname]) || !in_array($t, $triggers[$tname])){
+                        $triggers[$tname][] = $t;
+                    }
                 }
                 if(!empty($theme['show_notification_image'])){
                     $t = "@show_notification_image:{$theme['show_notification_image']}";
