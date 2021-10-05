@@ -48,7 +48,7 @@ class ELearning extends Types {
                     'first_param'         => 'tag_name',
                     'custom_first_param'  => __('Someone' , 'notificationx'),
                     'second_param'        => __('just enrolled', 'notificationx'),
-                    'third_param'         => 'tag_title',
+                    'third_param'         => 'tag_course_title',
                     'custom_third_param'  => __('Anonymous Course' , 'notificationx'),
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
@@ -61,7 +61,7 @@ class ELearning extends Types {
                     'first_param'         => 'tag_name',
                     'custom_first_param'  => __('Someone' , 'notificationx'),
                     'second_param'        => __('recently enrolled' , 'notificationx'),
-                    'third_param'         => 'tag_title',
+                    'third_param'         => 'tag_course_title',
                     'custom_third_param'  => __('Anonymous Course' , 'notificationx'),
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
@@ -74,7 +74,7 @@ class ELearning extends Types {
                     'first_param'         => 'tag_name',
                     'custom_first_param'  => __('Someone' , 'notificationx'),
                     'second_param'        => __('recently enrolled' , 'notificationx'),
-                    'third_param'         => 'tag_title',
+                    'third_param'         => 'tag_course_title',
                     'custom_third_param'  => __('Anonymous Course' , 'notificationx'),
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
@@ -132,11 +132,22 @@ class ELearning extends Types {
                     'elearning_theme-three',
                     'elearning_theme-four',
                     'elearning_theme-five',
+                ]
+            ],
+            'elearning_template_sales_count' => [
+                'first_param' => GlobalFields::get_instance()->common_name_fields(),
+                'third_param' => [
+                    'tag_course_title' => __('Course Title', 'notificationx'),
+                ],
+                'fourth_param' => [
+                    // 'tag_time' => __('Definite Time', 'notificationx'),
+                ],
+                '_themes' => [
                     'elearning_conv-theme-seven',
                     'elearning_conv-theme-eight',
                     'elearning_conv-theme-nine',
                 ]
-            ]
+            ],
         ];
         parent::__construct();
     }

@@ -133,6 +133,17 @@ class Conversions extends Types {
                     'conversions_theme-three',
                     'conversions_theme-four',
                     'conversions_theme-five',
+                ]
+            ],
+            'woo_template_sales_count' => [
+                'first_param' => GlobalFields::get_instance()->common_name_fields(),
+                'third_param' => [
+                    'tag_product_title' => __('Product Title', 'notificationx'),
+                ],
+                'fourth_param' => [
+                    // 'tag_time' => __('Definite Time', 'notificationx'),
+                ],
+                '_themes' => [
                     'conversions_conv-theme-six',
                     'conversions_conv-theme-seven',
                     'conversions_conv-theme-eight',
