@@ -76,6 +76,7 @@ class WPForms extends Extension {
         if (!$this->is_active()) {
             return;
         }
+        add_filter("nx_filtered_data_{$this->id}", array($this, 'filter_by_form'), 11, 3);
     }
 
     public function source_error_message($messages) {
@@ -231,6 +232,24 @@ class WPForms extends Extension {
 
         }
         return $return;
+    }
+    public function filter_by_form($data, $settings){
+        if( empty( $settings['form_list'] )) {
+            return $data;
+        }
+
+        $new_data = [];
+
+        if( ! empty( $data ) ) {
+            foreach( $data as $key => $entry ) {
+                $selected_form = $settings['form_list'];
+                $form_id = $entry['entry_key'];
+                if($selected_form == $form_id){
+                    $new_data[] = $entry;
+                }
+            }
+        }
+        return $new_data;
     }
 
     public function doc() {
