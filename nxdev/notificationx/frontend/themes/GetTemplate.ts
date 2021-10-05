@@ -45,8 +45,13 @@ const GetTemplate = (settings) => {
                 `${params?.fourth_param}`,
                 `${params?.fifth_param}`,
             ];
-            break;
-
+        case "donation_conv-theme-seven":
+        case "donation_conv-theme-eight":
+        case "donation_conv-theme-nine":
+            return [
+                `${params?.first_param} ${params?.second_param}`,
+                `in ${params?.third_param} ${params?.fourth_param}`,
+            ];
     }
 
     switch (themeName) {

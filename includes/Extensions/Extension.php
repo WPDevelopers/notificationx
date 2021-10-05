@@ -485,14 +485,17 @@ abstract class Extension {
      * @return boolean
      */
     protected function save($entry, $force = true) {
-        $post_ids = PostType::get_instance()->get_col('nx_id', [
+        $posts = PostType::get_instance()->get_posts([
             'source' => $this->id,
             'enabled' => true,
         ]);
-        if (!empty($post_ids)) {
-            foreach ($post_ids as $nx_id) {
-                $entry['nx_id'] = $nx_id;
-                $this->update_notification($entry, $force);
+        if (!empty($posts)) {
+            foreach ($posts as $post) {
+                $entry['nx_id'] = $posts['nx_id'];
+                $can_entry = apply_filters("nx_can_entry_{$this->id}", true, $post);
+                if($can_entry){
+                    $this->update_notification($entry, $force);
+                }
             }
         }
     }

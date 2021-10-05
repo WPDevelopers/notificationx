@@ -124,13 +124,25 @@ class Donations extends Types {
                     'donation_theme-three',
                     'donation_theme-four',
                     'donation_theme-five',
-                    'donation_conv-theme-six',
                     'donation_maps_theme',
+                ],
+            ],
+            'donation_template_sales_count' => [
+                'first_param' => GlobalFields::get_instance()->common_name_fields(),
+                'third_param' => [ // third_param
+                    'tag_title'           => __('Donation For Title', 'notificationx'),
+                    // 'tag_anonymous_title' => __('Anonymous Title', 'notificationx'),
+                ],
+                'fourth_param' => [ // fourth_param
+                    // @todo add more options in pro version https://github.com/WPDevelopers/notificationx-pro/blob/440595540e9d3e26e9e2b674921dede7174b22eb/features/class-nxpro-sales-features.php#L290
+                ],
+                '_themes' => [
+                    'donation_conv-theme-six',
                     'donation_conv-theme-seven',
                     'donation_conv-theme-eight',
                     'donation_conv-theme-nine',
-                ]
-            ]
+                ],
+            ],
         ];
         parent::__construct();
 
