@@ -65,8 +65,8 @@ class NinjaForms extends Extension {
         if (!$this->is_active()) {
             return;
         }
-        add_action('wp_ajax_nx_njf_keys', [$this, 'keys']);
-        add_filter('nx_data_key', [$this, 'key'], 10, 2);
+
+        add_filter("nx_can_entry_{$this->id}", array($this, 'can_entry'), 10, 3);
     }
 
     /**
@@ -114,7 +114,8 @@ class NinjaForms extends Extension {
         $form_result = $wpdb->get_results('SELECT id, title FROM `' . $wpdb->prefix . 'nf3_forms` ORDER BY title');
         if (!empty($form_result)) {
             foreach ($form_result as $form) {
-                $forms["{$this->id}_{$form->id}"] = $form->title;
+                $key = $this->key($form->id);
+                $forms[$key] = $form->title;
             }
         }
 
@@ -178,7 +179,7 @@ class NinjaForms extends Extension {
         $data['timestamp'] = time();
 
         if (!empty($data)) {
-            $key = $this->id . '_' . $form_data['form_id'];
+            $key = $this->key($form_data['form_id']);
             $this->save([
                 'source'    => $this->id,
                 'entry_key' => $key,
@@ -189,12 +190,29 @@ class NinjaForms extends Extension {
         return false;
     }
 
-    // @todo frontend
-    public function key($key, $settings) {
-        if ($settings->type === 'form' && $settings->form_source === 'njf') {
-            $key = $key . '_' . $settings->njf_form;
-        }
+    public function key($key) {
+        $key = $this->id . '_' . $key;
         return $key;
+    }
+
+    /**
+     * Limit entry by selected form in 'Select a Form';
+     *
+     * @param [type] $return
+     * @param [type] $entry
+     * @param [type] $settings
+     * @return boolean
+     */
+    public function can_entry($return, $entry, $settings){
+        if(!empty($settings['form_list']) && !empty($entry['entry_key'])){
+            $selected_form = $settings['form_list'];
+            $form_id = $entry['entry_key'];
+            if($selected_form != $form_id){
+                return false;
+            }
+
+        }
+        return $return;
     }
 
     public function doc() {

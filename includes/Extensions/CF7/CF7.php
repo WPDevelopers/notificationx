@@ -65,8 +65,7 @@ class CF7 extends Extension {
         if (!$this->is_active()) {
             return;
         }
-        add_action('wp_ajax_nx_cf7_keys', [$this, 'keys']);
-        add_filter('nx_data_key', array($this, 'key'), 10, 2);
+        add_filter("nx_can_entry_{$this->id}", array($this, 'can_entry'), 10, 3);
     }
 
     /**
@@ -112,11 +111,14 @@ class CF7 extends Extension {
         return array_merge($_forms, $forms);
     }
 
-    // @todo frontend
-    public function key($key, $settings) {
-        if ($settings->type === 'form' && $settings->form_source === 'cf7') {
-            $key = $key . '_' . $settings->cf7_form;
-        }
+    /**
+     * entry_key
+     *
+     * @param string $key
+     * @return string
+     */
+    public function key($key) {
+        $key = $this->id . '_' . $key;
         return $key;
     }
 
@@ -163,7 +165,8 @@ class CF7 extends Extension {
         $forms = [];
         if (!empty($the_query)) {
             foreach ($the_query as $form) {
-                $forms["{$this->id}_{$form->ID}"] = $form->post_title;
+                $key = $this->key($form->ID);
+                $forms[$key] = $form->post_title;
             }
         }
         wp_reset_postdata();
@@ -207,7 +210,7 @@ class CF7 extends Extension {
         }
 
         if (!empty($data)) {
-            $key = $this->id . '_' . $contact_form->id();
+            $key = $this->key($contact_form->id());
             $this->save([
                 'source'    => $this->id,
                 'entry_key' => $key,
@@ -216,6 +219,26 @@ class CF7 extends Extension {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Limit entry by selected form in 'Select a Form';
+     *
+     * @param [type] $return
+     * @param [type] $entry
+     * @param [type] $settings
+     * @return boolean
+     */
+    public function can_entry($return, $entry, $settings){
+        if(!empty($settings['form_list']) && !empty($entry['entry_key'])){
+            $selected_form = $settings['form_list'];
+            $form_id = $entry['entry_key'];
+            if($selected_form != $form_id){
+                return false;
+            }
+
+        }
+        return $return;
     }
 
     // public function restResponse( $params ){

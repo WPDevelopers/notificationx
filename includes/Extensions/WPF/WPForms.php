@@ -63,8 +63,7 @@ class WPForms extends Extension {
         if (!$this->is_active()) {
             return;
         }
-        add_action('wp_ajax_nx_wpf_keys', array($this, 'keys'));
-        add_filter('nx_data_key', array($this, 'key'), 10, 2);
+        add_filter("nx_can_entry_{$this->id}", array($this, 'can_entry'), 10, 3);
     }
     /**
      * This functions is hooked
@@ -112,19 +111,12 @@ class WPForms extends Extension {
         $forms = [];
         if (!empty($the_query)) {
             foreach ($the_query as $form) {
-                $forms["{$this->id}_{$form->ID}"] = $form->post_title;
+                $key = $this->key($form->ID);
+                $forms[$key] = $form->post_title;
             }
         }
         wp_reset_postdata();
         return $forms;
-    }
-
-
-    public function key($key, $settings) {
-        if ($settings->display_type === 'form' && $settings->form_source === 'wpf') {
-            $key = $key . '_' . $settings->wpf_form;
-        }
-        return $key;
     }
 
     public function restResponse($args) {
@@ -205,7 +197,7 @@ class WPForms extends Extension {
         $data['timestamp'] = time();
         $data['id'] = $form_data['id'];
         if (!empty($data)) {
-            $key = $this->id . '_' . $form_data['id'];
+            $key = $this->key($form_data['id']);
             $this->save([
                 'source'    => $this->id,
                 'entry_key' => $key,
@@ -214,6 +206,31 @@ class WPForms extends Extension {
             return true;
         }
         return false;
+    }
+
+    public function key($key) {
+        $key = $this->id . '_' . $key;
+        return $key;
+    }
+
+    /**
+     * Limit entry by selected form in 'Select a Form';
+     *
+     * @param bool $return
+     * @param array $entry
+     * @param array $settings
+     * @return boolean
+     */
+    public function can_entry($return, $entry, $settings){
+        if(!empty($settings['form_list']) && !empty($entry['entry_key'])){
+            $selected_form = $settings['form_list'];
+            $form_id = $entry['entry_key'];
+            if($selected_form != $form_id){
+                return false;
+            }
+
+        }
+        return $return;
     }
 
     public function doc() {

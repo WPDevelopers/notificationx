@@ -453,6 +453,13 @@ abstract class Extension {
     // @todo accept multiple entries.
     public function update_notifications($entries) {
         if(is_array($entries)){
+            foreach ($entries as $key => $entry) {
+                $post = PostType::get_instance()->get_post($entry['nx_id']);
+                $can_entry = apply_filters("nx_can_entry_{$this->id}", true, $entry, $post);
+                if(!$can_entry){
+                    unset($entries[$key]);
+                }
+            }
             Limiter::get_instance()->remove($this->id, count($entries));
             Entries::get_instance()->insert_entries($entries);
         }
@@ -492,7 +499,7 @@ abstract class Extension {
         if (!empty($posts)) {
             foreach ($posts as $post) {
                 $entry['nx_id'] = $post['nx_id'];
-                $can_entry = apply_filters("nx_can_entry_{$this->id}", true, $post);
+                $can_entry = apply_filters("nx_can_entry_{$this->id}", true, $entry, $post);
                 if($can_entry){
                     $this->update_notification($entry, $force);
                 }
