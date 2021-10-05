@@ -491,7 +491,7 @@ abstract class Extension {
         ]);
         if (!empty($posts)) {
             foreach ($posts as $post) {
-                $entry['nx_id'] = $posts['nx_id'];
+                $entry['nx_id'] = $post['nx_id'];
                 $can_entry = apply_filters("nx_can_entry_{$this->id}", true, $post);
                 if($can_entry){
                     $this->update_notification($entry, $force);
