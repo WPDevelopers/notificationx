@@ -15,10 +15,6 @@
         border-radius: 100px;
     }
     .notificationx-image{
-        // transform: translateX(-2px);
-        // &.position-right {
-        //     transform: translateX(2px);
-        // }
       &:not(.image-circle) {
         padding: 19px;
       }
@@ -48,7 +44,7 @@
             box-shadow: 0 5px 10px rgba(#7052f0, 0.4);
         }
     }
-    div.notificationx-close {
+    .notificationx-close {
         align-self: center;
         margin-top: 0px;
     }

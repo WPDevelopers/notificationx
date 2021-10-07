@@ -4,183 +4,173 @@
 .themes-elearning_conv-theme-eight,
 .themes-elearning_conv-theme-nine,
 .themes-conversions_conv-theme-eight,
-.themes-conversions_conv-theme-nine{
-  .notificationx-inner {
-      .notificationx-content {
-          & > p {
-              &.nx-first-row {
-                  font-size: 14px;
-                  font-weight: 400;
-                  color: #000;
-                  .nx-first-word,
-                  .nx-second-word {
+.themes-conversions_conv-theme-nine {
+    .notificationx-inner {
+        .notificationx-content {
+            & > p {
+                &.nx-first-row {
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #000;
+                    .nx-first-word,
+                    .nx-second-word {
+                        font-weight: 500;
+                        color: #6a4bff;
+                    }
+                }
+                &.nx-second-row {
+                    font-size: 12px;
                     font-weight: 500;
-                    color: #6A4BFF;
-                  }
-              }
-              &.nx-second-row {
-                  font-size: 12px;
-                  font-weight: 500;
-                  color: #7C8DB5;
-              }
-              &.nx-third-row {
-                  font-size: 10px;
-                  color: #7C8DB5;
-              }
-          }
-      }
-  }
+                    color: #7c8db5;
+                }
+                &.nx-third-row {
+                    font-size: 10px;
+                    color: #7c8db5;
+                }
+            }
+        }
+    }
 }
 
 // color theme five
 .themes-reviews_review-comment,
 .themes-page_analytics_pa-theme-two,
-.themes-reviews_review-comment-3{
-  .notificationx-inner {
-      .notificationx-content {
-          & > p {
-              &.nx-first-row {
-                  font-size: 14px;
-                  font-weight: 400;
-                  color: #000;
-                  .nx-first-word {
+.themes-reviews_review-comment-3 {
+    .notificationx-inner {
+        .notificationx-content {
+            & > p {
+                &.nx-first-row {
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #000;
+                    .nx-first-word {
+                        font-weight: 500;
+                        color: #6a4bff;
+                    }
+                }
+                &.nx-second-row {
+                    font-size: 12px;
                     font-weight: 500;
-                    color: #6A4BFF;
-                  }
-              }
-              &.nx-second-row {
-                  font-size: 12px;
-                  font-weight: 500;
-                  color: #7C8DB5;
-              }
-              &.nx-third-row {
-                  font-size: 10px;
-                  color: #7C8DB5;
-              }
-          }
-      }
-  }
+                    color: #7c8db5;
+                }
+                &.nx-third-row {
+                    font-size: 10px;
+                    color: #7c8db5;
+                }
+            }
+        }
+    }
 }
-
 
 .themes-elearning_conv-theme-seven,
 .themes-page_analytics_pa-theme-three,
 .themes-donation_conv-theme-seven,
-.themes-conversions_conv-theme-seven{
-  .notificationx-inner {
-      .notificationx-content {
-          & > p {
-              &.nx-first-row {
-                  font-size: 14px;
-                  font-weight: 400;
-                  color: #000;
-                  .nx-first-word,
-                  .nx-second-word {
+.themes-conversions_conv-theme-seven {
+    .notificationx-content {
+        & > p {
+            &.nx-first-row {
+                font-size: 14px;
+                font-weight: 400;
+                color: #000;
+                .nx-first-word,
+                .nx-second-word {
                     font-weight: 500;
-                    color: #45C9B1;
-                  }
-              }
-              &.nx-second-row {
-                  font-size: 12px;
-                  font-weight: 500;
-                  color: #7C8DB5;
-              }
-              &.nx-third-row {
-                  font-size: 10px;
-                  color: #7C8DB5;
-              }
-          }
-      }
-  }
+                    color: #45c9b1;
+                }
+            }
+            &.nx-second-row {
+                font-size: 12px;
+                font-weight: 500;
+                color: #7c8db5;
+            }
+            &.nx-third-row {
+                font-size: 10px;
+                color: #7c8db5;
+            }
+        }
+    }
 }
 
-.themes-reviews_review-comment-2{
-  .notificationx-inner {
-      .notificationx-content {
-          & > p {
-              &.nx-first-row {
-                  font-size: 14px;
-                  font-weight: 400;
-                  color: #000;
-                  .nx-first-word {
+.themes-reviews_review-comment-2 {
+    .notificationx-content {
+        & > p {
+            &.nx-first-row {
+                font-size: 14px;
+                font-weight: 400;
+                color: #000;
+                .nx-first-word {
                     font-weight: 500;
                     color: #ff66bc;
-                  }
-              }
-              &.nx-second-row {
-                  font-size: 12px;
-                  font-weight: 500;
-                  color: #7C8DB5;
-              }
-              &.nx-third-row {
-                  font-size: 10px;
-                  color: #7C8DB5;
-              }
-          }
-      }
-  }
+                }
+            }
+            &.nx-second-row {
+                font-size: 12px;
+                font-weight: 500;
+                color: #7c8db5;
+            }
+            &.nx-third-row {
+                font-size: 10px;
+                color: #7c8db5;
+            }
+        }
+    }
 }
 
 .themes-comments_theme-six-free,
 .themes-comments_theme-eight-free {
-  .notificationx-inner {
-      .notificationx-content {
-          & > p {
-              &.nx-first-row {
-                  font-size: 14px;
-                  font-weight: 400;
-                  color: #000;
-                  .nx-first-word {
+    .notificationx-content {
+        & > p {
+            &.nx-first-row {
+                font-size: 14px;
+                font-weight: 400;
+                color: #000;
+                .nx-first-word {
                     font-weight: 500;
-                    color: #6A4BFF;
-                  }
-                  >*:last-child {
+                    color: #6a4bff;
+                }
+                > *:last-child {
                     font-weight: 500;
-                    color: #6A4BFF;
-                  }
-              }
-              &.nx-second-row {
-                  font-size: 12px;
-                  font-weight: 500;
-                  color: #7C8DB5;
-              }
-              &.nx-third-row {
-                  font-size: 10px;
-                  color: #7C8DB5;
-              }
-          }
-      }
-  }
+                    color: #6a4bff;
+                }
+            }
+            &.nx-second-row {
+                font-size: 12px;
+                font-weight: 500;
+                color: #7c8db5;
+            }
+            &.nx-third-row {
+                font-size: 10px;
+                color: #7c8db5;
+            }
+        }
+    }
 }
 
-
-.themes-comments_theme-seven-free{
-  .notificationx-inner {
-      .notificationx-content {
-          & > p {
-              &.nx-first-row {
-                  font-size: 14px;
-                  font-weight: 400;
-                  color: #000;
-                  .nx-first-word {
+.themes-comments_theme-seven-free {
+    .notificationx-content {
+        & > p {
+            &.nx-first-row {
+                font-size: 14px;
+                font-weight: 400;
+                color: #000;
+                .nx-first-word {
                     font-weight: 500;
                     color: #ff66bc;
-                  }
-                  >*:last-child {
+                }
+                > *:last-child {
                     font-weight: 500;
                     color: #ff66bc;
-                  }
-              }
-              &.nx-second-row {
-                  font-size: 12px;
-                  font-weight: 500;
-                  color: #7C8DB5;
-              }
-              &.nx-third-row {
-                  font-size: 10px;
-                  color: #7C8DB5;
-              }
-          }
-      }
-  }
+                }
+            }
+            &.nx-second-row {
+                font-size: 12px;
+                font-weight: 500;
+                color: #7c8db5;
+            }
+            &.nx-third-row {
+                font-size: 10px;
+                color: #7c8db5;
+            }
+        }
+    }
 }

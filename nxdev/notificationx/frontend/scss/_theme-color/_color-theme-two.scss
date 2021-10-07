@@ -13,28 +13,26 @@
 .themes-form_theme-one,
 .themes-conversions_theme-three,
 .themes-conversions_theme-one,
-.themes-conversions_theme-two{
-  .notificationx-inner {
-      .notificationx-content {
-          & > p {
-              &.nx-first-row {
-                  font-size: 14px;
-                  color: #7C8DB5;
-                  font-weight: 400;
-                  .nx-first-word {
+.themes-conversions_theme-two {
+    .notificationx-content {
+        & > p {
+            &.nx-first-row {
+                font-size: 14px;
+                color: #7c8db5;
+                font-weight: 400;
+                .nx-first-word {
                     font-weight: 500;
-                  }
-              }
-              &.nx-second-row {
-                  font-size: 14px;
-                  font-weight: 500;
-                  color: #000;
-              }
-              &.nx-third-row {
-                  font-size: 10px;
-                  color: #7C8DB5;
-              }
-          }
-      }
-  }
+                }
+            }
+            &.nx-second-row {
+                font-size: 14px;
+                font-weight: 500;
+                color: #000;
+            }
+            &.nx-third-row {
+                font-size: 10px;
+                color: #7c8db5;
+            }
+        }
+    }
 }
