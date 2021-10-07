@@ -452,9 +452,9 @@ abstract class Extension {
 
     // @todo accept multiple entries.
     public function update_notifications($entries) {
-        if(is_array($entries)){
+        if(is_array($entries) && !empty($entries[0]['nx_id'])){
+            $post = PostType::get_instance()->get_post($entries[0]['nx_id']);
             foreach ($entries as $key => $entry) {
-                $post = PostType::get_instance()->get_post($entry['nx_id']);
                 $can_entry = apply_filters("nx_can_entry_{$this->id}", true, $entry, $post);
                 if(!$can_entry){
                     unset($entries[$key]);
@@ -479,8 +479,13 @@ abstract class Extension {
                 ] );
                 if(!empty($is_exits[0]['count(*)'])) return false;
             }
-            Limiter::get_instance()->remove($this->id, 1);
-            Entries::get_instance()->insert_entry($entry);
+            // @todo add object caching
+            $post = PostType::get_instance()->get_post($entry['nx_id']);
+            $can_entry = apply_filters("nx_can_entry_{$this->id}", true, $entry, $post);
+            if($can_entry){
+                Limiter::get_instance()->remove($this->id, 1);
+                Entries::get_instance()->insert_entry($entry);
+            }
         }
     }
 
@@ -499,10 +504,7 @@ abstract class Extension {
         if (!empty($posts)) {
             foreach ($posts as $post) {
                 $entry['nx_id'] = $post['nx_id'];
-                $can_entry = apply_filters("nx_can_entry_{$this->id}", true, $entry, $post);
-                if($can_entry){
-                    $this->update_notification($entry, $force);
-                }
+                $this->update_notification($entry, $force);
             }
         }
     }
