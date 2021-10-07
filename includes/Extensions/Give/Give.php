@@ -186,14 +186,16 @@ class Give extends Extension {
         $donations = $this->get_give_donations($data);
         if (!empty($donations)) {
             // $this->update_notification($donations, null, $data['nx_id']);
+            $entries = [];
             foreach ($donations as $key => $donation) {
-                $this->update_notification([
+                $entries[] = [
                     'nx_id'      => $data['nx_id'],
                     'source'     => $this->id,
                     'entry_key'  => $key,
                     'data'       => $donation,
-                ]);
+                ];
             }
+            $this->update_notifications($entries);
         }
     }
     /**

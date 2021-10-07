@@ -185,15 +185,17 @@ class WPOrgReview extends Extension {
 
         // removing old notifications.
         $this->delete_notification(null, $nx_id);
+        $entries = [];
         foreach ($reviews as $review) {
             $review = array_merge($review, $plugin_data);
-            $this->update_notification([
+            $entries[] = [
                 'nx_id'      => $nx_id,
                 'source'     => $this->id,
                 'entry_key'  => $review['username'],
                 'data'       => $review,
-            ]);
+            ];
         }
+        $this->update_notifications($entries);
         return $reviews;
     }
 

@@ -377,14 +377,16 @@ class WooReviews extends Extension {
      */
     public function get_notification_ready($data = array()) {
         if (!is_null($comments = $this->get_comments($data))) {
+            $entries = [];
             foreach ($comments as $comment) {
-                $this->update_notification([
+                $entries[] = [
                     'nx_id'      => $data['nx_id'],
                     'source'     => $this->id,
                     'entry_key'  => $comment['id'],
                     'data'       => $comment,
-                ]);
+                ];
             }
+            $this->update_notifications($entries);
         }
     }
 
