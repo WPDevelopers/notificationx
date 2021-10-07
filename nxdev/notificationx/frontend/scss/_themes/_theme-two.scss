@@ -4,18 +4,18 @@
 &.themes-total-download,
 &.themes-reviewed {
     border-radius: 100px;
-    .notificationx-inner{
+    .notificationx-inner {
         border-radius: 100px;
     }
     &:not(.img-position-right) {
-      .notificationx-content:first-child {
-        margin-left: 25px;
-      }
+        .notificationx-content:first-child {
+            margin-left: 25px;
+        }
     }
     &.img-position-right {
-      .notificationx-content:first-child {
-        margin-right: 25px;
-      }
+        .notificationx-content:first-child {
+            margin-right: 25px;
+        }
     }
     .notificationx-image:not(.image-circle) {
         flex-basis: 80px;
@@ -32,23 +32,23 @@
             margin-left: 0px;
         }
     }
-    div.notificationx-close {
+    .notificationx-close {
         align-self: center;
         margin-top: 0px;
     }
     &.img-position-right {
-        div.notificationx-close{
+        .notificationx-close {
             order: 0;
             padding: 10px 10px 10px 15px;
         }
-        div.notificationx-content{
+        .notificationx-content {
             order: 1;
         }
-        div.notificationx-image{
+        .notificationx-image {
             order: 2;
         }
     }
-    .notificationx-link{
-      border-radius: 100px;
+    .notificationx-link {
+        border-radius: 100px;
     }
 }
