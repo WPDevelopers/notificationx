@@ -24,7 +24,8 @@ const Image = ({ data, config, id, style, isSplitCss }) => {
     let newStyle ={}
     let newStyleForSecond = {}
     if ( style && isSplitCss ) {
-      newStyle = {...style, right: -style?.borderWidth, top: `calc( 100% + ${style?.borderWidth}px)`}
+      newStyle = {...style, right: -style?.borderWidth, top: `calc( 100% + ${style?.borderWidth}px)`, borderTopWidth: `${13 + style?.borderWidth}px`,borderLeftWidth: `${23 + (style?.borderWidth*1.75)}px`}
+      console.log(newStyle)
       newStyleForSecond = {...style, borderColor: style?.backgroundColor}
     }
 
