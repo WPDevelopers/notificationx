@@ -164,14 +164,16 @@ class EDD extends Extension {
         $orders = $this->get_orders( $post );
         if ( is_array( $orders ) && ! empty( $orders ) ) {
             // $orders = NotificationX_Helper::sortBy($orders, 'edd');
+            $entries = [];
             foreach ( $orders as $key => $order ) {
-                $this->update_notification([
+                $entries[] = [
                     'nx_id'      => $post['nx_id'],
                     'source'     => $this->id,
                     'entry_key'  => $order['key'],
                     'data'       => $order,
-                ]);
+                ];
             }
+            $this->update_notifications($entries);
         }
     }
 
