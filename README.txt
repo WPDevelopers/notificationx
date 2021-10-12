@@ -1,4 +1,4 @@
-=== NotificationX - Best FOMO, Social Proof, Sales Popup & WooCommerce Notification Bar Plugin With Elementor ===
+=== NotificationX - Best FOMO, Social Proof, WooCommerce Sales Popup & Notification Bar Plugin With Elementor ===
 Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim, sapanmozammel
 Donate link: https://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, elementor, email subscription, recent sales popup, woo popups, woocommerce review, wordpress marketing, marketing, evergreen notice, increase engagement, woocommerce, envato, freemius, givewp, learndash, bottom bar, top bar, marketing plugin, alert, email marketing, conversion, gamification
@@ -13,7 +13,7 @@ Want to build instant credibility for your business and boost your conversion ra
 
 == Description ==
 
-= Best FOMO, Social Proof, Sales Popup & WooCommerce Notification Bar Plugin With Elementor Support =
+= Best FOMO, Social Proof, WooCommerce Sales Popup & Notification Bar Plugin With Elementor Support =
 
 Want to build instant credibility for your business and boost your conversion rate right away? **97%** of your total website visitors don’t buy the product due to the lack of trust and credibility. Get instant success with **WooCommerce Sales Popup Notification**!
 
@@ -218,7 +218,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 2.1.1 - 11/10/2021 =
+= 2.1.1 - 12/10/2021 =
 - Fixed: Donation Count with New Data
 - Fixed: Show Notification from only selected form -> Forms, Donation, eLearning
 - Fixed: Sales Count Templates for eLearning and Donation
@@ -600,4 +600,4 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Upgrade Notice ==
 
-[Major Update]: WPML Compatibility, bugfix and improvements.
+[Minor Update]: Bug-fixes and improvements.
