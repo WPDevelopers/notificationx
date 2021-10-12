@@ -4,8 +4,10 @@
   "main": "nxdev/index.js",
   "author": "WPDeveloper",
   "scripts": {
-    "start": "set NODE_ENV=development && wp-scripts start",
-    "build": "set NODE_ENV=production && wp-scripts build",
+    "start": "NODE_ENV=development wp-scripts start",
+    "build": "NODE_ENV=production wp-scripts build",
+    "cs": "NODE_ENV=development WP_NO_EXTERNALS=1 wp-scripts start --config webpack.cs.config.js",
+    "csb": "NODE_ENV=production WP_NO_EXTERNALS=1 wp-scripts build --config webpack.cs.config.js",
     "up": "npm install github:WPDevelopers/quickbuilder#dev"
   },
   "plugins": [
