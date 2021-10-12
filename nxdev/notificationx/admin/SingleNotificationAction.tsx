@@ -110,14 +110,11 @@ const SingleNotificationAction = ({
     };
 
     const onCopy = (text, result) => {
-        if(nxContext?.is_pro_active){
-            nxToast.info(__(`Notification Alert has been copied to Clipboard.`, 'notificationx'));
-        }
-        else{
-            proAlert(
-                sprintf(__("You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use XSS function.", "notificationx"), 'http://wpdeveloper.net/in/upgrade-notificationx')
-            ).fire();
-        }
+        nxToast.info(__(`Notification Alert has been copied to Clipboard.`, 'notificationx'));
+    }
+
+    const onCopyXSS = (text, result) => {
+        nxToast.info(__(`Cross Domain Tracking code has been copied to Clipboard.`, 'notificationx'));
     }
 
     return (
@@ -142,7 +139,8 @@ const SingleNotificationAction = ({
                 </CopyToClipboard>
             }
             {
-                <CopyToClipboard className="nx-admin-title-shortcode nx-shortcode-btn" title={__("XSS", 'notificationx')} text={xssText} options={{format: 'text/plain'}} onCopy={onCopy} >
+                nxContext?.is_pro_active &&
+                <CopyToClipboard className="nx-admin-title-shortcode nx-shortcode-btn" title={__("XSS", 'notificationx')} text={xssText} options={{format: 'text/plain'}} onCopy={onCopyXSS} >
                     <a></a>
                 </CopyToClipboard>
             }
