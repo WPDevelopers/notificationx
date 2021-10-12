@@ -6,20 +6,6 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
 {
-    public static $prefixLengthsPsr4 = array (
-        'C' => 
-        array (
-            'Composer\\CaBundle\\' => 18,
-        ),
-    );
-
-    public static $prefixDirsPsr4 = array (
-        'Composer\\CaBundle\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/composer/ca-bundle/src',
-        ),
-    );
-
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'NotificationXPro\\Core\\WPDRoleManagement' => __DIR__ . '/../..' . '/includes/Core/WPDRoleManagement.php',
@@ -32,6 +18,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Admin\\Reports\\EmailTemplate' => __DIR__ . '/../..' . '/includes/Admin/Reports/EmailTemplate.php',
         'NotificationX\\Admin\\Reports\\ReportEmail' => __DIR__ . '/../..' . '/includes/Admin/Reports/ReportEmail.php',
         'NotificationX\\Admin\\Settings' => __DIR__ . '/../..' . '/includes/Admin/Settings.php',
+        'NotificationX\\Admin\\XSS' => __DIR__ . '/../..' . '/includes/Admin/XSS.php',
         'NotificationX\\CoreInstaller' => __DIR__ . '/../..' . '/includes/CoreInstaller.php',
         'NotificationX\\Core\\Ajax' => __DIR__ . '/../..' . '/includes/Core/Ajax.php',
         'NotificationX\\Core\\Analytics' => __DIR__ . '/../..' . '/includes/Core/Analytics.php',
@@ -119,8 +106,6 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit89ec86686dc155609d949b902a87bbd5::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit89ec86686dc155609d949b902a87bbd5::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit89ec86686dc155609d949b902a87bbd5::$classMap;
 
         }, null, ClassLoader::class);
