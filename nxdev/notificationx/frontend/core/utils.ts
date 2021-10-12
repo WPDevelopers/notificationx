@@ -15,10 +15,11 @@ export const proccesNotice = ({ config }) => {
     }
     return nxHelper
         .post(url, {
-            global   : config.global,
-            active   : config.active,
-            pressbar : config.pressbar,
-            shortcode: config.shortcode,
+            all_active: config?.all_active || false,
+            global    : config?.global || [],
+            active    : config?.active || [],
+            pressbar  : config?.pressbar || [],
+            shortcode : config?.shortcode || [],
         })
         .then((response: any) => {
             let mergedGlobalArray = normalize(response?.global, response?.settings);

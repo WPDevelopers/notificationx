@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
-import { __ } from '@wordpress/i18n';
+import { sprintf, __ } from '@wordpress/i18n';
 import { Link, Redirect } from 'react-router-dom';
-import nxHelper from '../core/functions';
+import nxHelper, { proAlert } from '../core/functions';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useNotificationXContext } from '../hooks';
 import classNames from 'classnames';
@@ -17,6 +17,19 @@ const SingleNotificationAction = ({
     ...item
 }) => {
     const nxContext = useNotificationXContext();
+    let xssText = null;
+    if(nxContext?.is_pro_active){
+        let xss_id = {};
+        if(item.source == 'press_bar'){
+            xss_id = {pressbar: [id]};
+        }
+        else{
+            xss_id = {active: [id]};
+        }
+        const xss_data = {...nxContext.xss_data, ...xss_id};
+        xssText = sprintf(`<script>\nnotificationX = JSON.parse('%s');\n</script>%s`, JSON.stringify(xss_data), nxContext.xss_scripts);
+    }
+
     // @ts-ignore
     const ajaxurl = window.ajaxurl;
     const handleDelete = useCallback(
@@ -96,8 +109,15 @@ const SingleNotificationAction = ({
         });
     };
 
-    const onCopy = () => {
-        nxToast.info(__(`Notification Alert has been Copied to Clipboard.`, 'notificationx'));
+    const onCopy = (text, result) => {
+        if(nxContext?.is_pro_active){
+            nxToast.info(__(`Notification Alert has been copied to Clipboard.`, 'notificationx'));
+        }
+        else{
+            proAlert(
+                sprintf(__("You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use XSS function.", "notificationx"), 'http://wpdeveloper.net/in/upgrade-notificationx')
+            ).fire();
+        }
     }
 
     return (
@@ -118,6 +138,11 @@ const SingleNotificationAction = ({
             {
                 nxContext?.is_pro_active &&
                 <CopyToClipboard className="nx-admin-title-shortcode nx-shortcode-btn" title={__("Shortcode", 'notificationx')} text={`[notificationx id=${id}]`} onCopy={onCopy} >
+                    <a></a>
+                </CopyToClipboard>
+            }
+            {
+                <CopyToClipboard className="nx-admin-title-shortcode nx-shortcode-btn" title={__("XSS", 'notificationx')} text={xssText} options={{format: 'text/plain'}} onCopy={onCopy} >
                     <a></a>
                 </CopyToClipboard>
             }

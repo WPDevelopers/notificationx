@@ -8,6 +8,7 @@ use NotificationX\Admin\Entries;
 use NotificationX\Admin\Settings;
 use NotificationX\Extensions\ExtensionFactory;
 use NotificationX\Extensions\GlobalFields;
+use NotificationX\FrontEnd\FrontEnd;
 use NotificationX\GetInstance;
 use NotificationX\NotificationX;
 
@@ -100,7 +101,7 @@ class PostType {
         $tabs['settings']['analytics']        = $tabs['analytics'];
         $tabs['admin_url']                    = get_admin_url();
         $tabs['assets']                       = [
-            'admin' => NOTIFICATIONX_ADMIN_URL,
+            'admin'  => NOTIFICATIONX_ADMIN_URL,
             'public' => NOTIFICATIONX_PUBLIC_URL,
         ];
 

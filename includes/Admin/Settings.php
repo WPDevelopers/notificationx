@@ -121,10 +121,11 @@ class Settings extends UsabilityDynamicsSettings {
             ],
             'tabs'         => apply_filters('nx_settings_tab', [
                 "tab-general" => apply_filters('nx_settings_tab_general', [
-                    'id'      => "tab-general",
-                    'label'   => __("General", 'notificationx'),
-                    'classes' => "tab-general",
-                    'fields'  => [
+                    'id'       => "tab-general",
+                    'label'    => __("General", 'notificationx'),
+                    'classes'  => "tab-general",
+                    'priority' => 10,
+                    'fields'   => [
                         'section-modules' => [
                             'label'   => __("Modules", 'notificationx'),
                             'name'    => "section-modules",
@@ -147,10 +148,11 @@ class Settings extends UsabilityDynamicsSettings {
                     ],
                 ]),
                 "advanced-settings-tab" => apply_filters('nx_settings_tab_advanced', [
-                    'id'      => "tab-advanced-settings",
-                    'label'   => __("Advanced Settings", 'notificationx'),
-                    'classes' => "tab-advanced-settings",
-                    'fields'  => [
+                    'id'       => "tab-advanced-settings",
+                    'label'    => __("Advanced Settings", 'notificationx'),
+                    'classes'  => "tab-advanced-settings",
+                    'priority' => 20,
+                    'fields'   => [
                         'powered_by' => [
                             'name' => 'powered_by',
                             'label'   => __("Powered By", 'notificationx'),
@@ -222,10 +224,11 @@ class Settings extends UsabilityDynamicsSettings {
                     ],
                 ]),
                 'email-analytics-reporting' => apply_filters('nx_settings_tab_email_analytics', [
-                    'label' => __('Analytics & Reporting', 'notificationx'),
-                    'id'      => "email-analytics-reporting",
-                    'classes' => "tab-advanced-settings",
-                    'fields' => [
+                    'label'    => __('Analytics & Reporting', 'notificationx'),
+                    'id'       => "email-analytics-reporting",
+                    'classes'  => "tab-advanced-settings",
+                    'priority' => 30,
+                    'fields'   => [
                         'analytics' => array(
                             'name'        => 'analytics',
                             'priority' => 10,
@@ -375,11 +378,10 @@ class Settings extends UsabilityDynamicsSettings {
                     ],
                 ]),
                 'cache_settings_tab' => apply_filters('nx_settings_tab_cache', [
-                    'id' => 'tab-cache-settings',
-                    'label' => __('Cache Settings', 'notificationx'),
-                    'priority' => 30,
-                    // 'name' => 'cache_settings_tab',
-                    'fields' => [
+                    'id'       => 'tab-cache-settings',
+                    'label'    => __('Cache Settings', 'notificationx'),
+                    'priority' => 40,
+                    'fields'   => [
                         'cache_settings' => array(
                             'name'        => 'cache_settings',
                             'type'    => "section",
@@ -460,6 +462,7 @@ class Settings extends UsabilityDynamicsSettings {
         $roles = $this->get_selected_roles($settings);
         $settings = array_merge($settings, $roles);
 
+        $settings = apply_filters('nx_settings', $settings);
         $this->set('settings', $settings);
         delete_transient( 'nx_get_field_names' );
         do_action('nx_settings_saved', $settings);
