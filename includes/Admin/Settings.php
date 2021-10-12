@@ -416,6 +416,41 @@ class Settings extends UsabilityDynamicsSettings {
                         ),
                     ],
                 ]),
+                'tab-help-settings' => apply_filters('nx_settings_tab_help', [
+                    'id'       => 'tab-help-settings',
+                    'label'    => __('Miscellaneous', 'notificationx'),
+                    'priority' => 50,
+                    'fields'   => [
+                        'miscellaneous' => array(
+                            'name'     => 'miscellaneous',
+                            'type'     => "section",
+                            'label'    => __('Miscellaneous', 'notificationx'),
+                            'priority' => 30,
+                            'fields'   => array(
+                                'delete-settings' => array(
+                                    'name'     => 'delete-settings',
+                                    'label'    => __('Delete Settings', 'notificationx'),
+                                    'text'     => __('Delete Settings', 'notificationx'),
+                                    'type'     => 'button',
+                                    'priority' => 15,
+                                    'ajax'     => [
+                                        'on'     => 'click',
+                                        'reload' => true,
+                                        'api'    => '/notificationx/v1/settings',
+                                        'data'   => [
+                                            'delete_settings' => true,
+                                        ],
+                                        'swal' => [
+                                            'text'      => __('Successfully deleted Settings.', 'notificationx'),
+                                            'icon'      => 'deleted',
+                                            'autoClose' => 2000
+                                        ],
+                                    ],
+                                ),
+                            ),
+                        ),
+                    ],
+                ]),
             ]),
         ];
 
@@ -463,6 +498,15 @@ class Settings extends UsabilityDynamicsSettings {
         $settings = array_merge($settings, $roles);
 
         $settings = apply_filters('nx_settings', $settings);
+
+        if(isset($settings['empty'])){
+            unset($settings['empty']);
+        }
+        // need this to ensure saved value don't return empty array instead of object.
+        if(!empty($settings['delete_settings'])){
+            $settings = ['empty' => true];
+        }
+
         $this->set('settings', $settings);
         delete_transient( 'nx_get_field_names' );
         do_action('nx_settings_saved', $settings);
