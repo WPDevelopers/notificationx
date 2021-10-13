@@ -173,10 +173,12 @@ const NotificationXItemsMenu = ({
             active: [],
         };
         for(let notice of filteredNotice){
-            const id = notice.id;
+            const id = parseInt(notice.nx_id);
             if(selectedItem.includes(id)){
                 if(notice.source == 'press_bar'){
-                    xss_id.pressbar.push(id);
+                    if(!notice?.elementor_id){
+                        xss_id.pressbar.push(id);
+                    }
                 }
                 else{
                     if(notice?.global_queue){

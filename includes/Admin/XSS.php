@@ -15,7 +15,7 @@ class XSS {
 
     public function __construct() {
         add_filter('nx_settings', [$this, 'save_settings']);
-        add_filter('nx_settings_tab_help', [$this, 'settings_tab_help']);
+        add_filter('nx_settings_tab_miscellaneous', [$this, 'settings_tab_help']);
     }
 
     public function save_settings($settings) {

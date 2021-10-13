@@ -109,13 +109,13 @@ class WPML {
         return $meta;
     }
 
-    public function localize_moment(){
+    public function localize_moment($return_rul = false){
+        $locale_url = '';
         if($locale = apply_filters( 'wpml_current_language', NULL )){
             $locale      = strtolower(str_replace('_', '-', $locale));
             $locale_path = NOTIFICATIONX_ASSETS_PATH . "public/locale/$locale.js";
             if(file_exists($locale_path)){
                 $locale_url  = NOTIFICATIONX_ASSETS . "public/locale/$locale.js";
-                wp_enqueue_script( 'nx-moment-locale', $locale_url, ['moment']);
             }
         }
         else{
@@ -124,16 +124,18 @@ class WPML {
             $locale_arr  = explode('-', $locale);
             if(file_exists($locale_path)){
                 $locale_url  = NOTIFICATIONX_ASSETS . "public/locale/$locale.js";
-                wp_enqueue_script( 'nx-moment-locale', $locale_url, ['moment']);
             }
             else if(!empty($locale_arr[1])){
                 $locale_path = NOTIFICATIONX_ASSETS_PATH . "public/locale/{$locale_arr[0]}.js";
                 if(file_exists($locale_path)){
                     $locale_url  = NOTIFICATIONX_ASSETS . "public/locale/{$locale_arr[0]}.js";
-                    wp_enqueue_script( 'nx-moment-locale', $locale_url, ['moment']);
                 }
             }
         }
+        if($locale_url && !$return_rul){
+            wp_enqueue_script( 'nx-moment-locale', $locale_url, ['moment']);
+        }
+        return $locale_url;
     }
 
     public function generate_package($post, $nx_id){

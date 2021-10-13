@@ -21,7 +21,9 @@ const SingleNotificationAction = ({
     if(nxContext?.is_pro_active){
         let xss_id = {};
         if(item.source == 'press_bar'){
-            xss_id = {pressbar: [id]};
+            if(!item?.elementor_id){
+                xss_id = {pressbar: [id]};
+            }
         }
         else{
             xss_id = {active: [id]};
@@ -139,7 +141,7 @@ const SingleNotificationAction = ({
                 </CopyToClipboard>
             }
             {
-                nxContext?.is_pro_active &&
+                nxContext?.is_pro_active && !item?.elementor_id &&
                 <CopyToClipboard className="nx-admin-title-xss nx-shortcode-btn" title={__("XSS", 'notificationx')} text={xssText} options={{format: 'text/plain'}} onCopy={onCopyXSS} >
                     <a></a>
                 </CopyToClipboard>

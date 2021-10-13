@@ -101,13 +101,14 @@ class FrontEnd {
     }
 
     public function get_notifications_data($params) {
+        $_params = $params;
         $result = [
             'global'   => [],
             'active'   => [],
             'pressbar' => [],
             'shortcode' => [],
         ];
-        if(!empty($params['all_active'])){
+        if(!empty($_params['all_active'])){
             $params = $this->get_notifications_ids();
         }
         $params = wp_parse_args($params, [
@@ -220,6 +221,9 @@ class FrontEnd {
                 $elementor_post_id = isset($settings['elementor_id']) ? $settings['elementor_id'] : '';
                 if ($elementor_post_id == '' || get_post_status($elementor_post_id) !== 'publish' | !class_exists('\Elementor\Plugin')) {
                     $settings['elementor_id'] = false;
+                }
+                if(!empty($_params['all_active']) && $elementor_post_id){
+                    continue;
                 }
 
                 // $settings['button_url'] = apply_filters("nx_notification_link_{$settings['source']}", $settings['button_url'], $settings);

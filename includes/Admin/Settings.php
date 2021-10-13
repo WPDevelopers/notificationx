@@ -416,43 +416,46 @@ class Settings extends UsabilityDynamicsSettings {
                         ),
                     ],
                 ]),
-                'tab-help-settings' => apply_filters('nx_settings_tab_help', [
-                    'id'       => 'tab-help-settings',
+                'tab-miscellaneous-settings' => apply_filters('nx_settings_tab_miscellaneous', [
+                    'id'       => 'tab-miscellaneous-settings',
                     'label'    => __('Miscellaneous', 'notificationx'),
                     'priority' => 50,
-                    'fields'   => [
-                        'miscellaneous' => array(
-                            'name'     => 'miscellaneous',
-                            'type'     => "section",
-                            'label'    => __('Miscellaneous', 'notificationx'),
-                            'priority' => 30,
-                            'fields'   => array(
-                                'delete-settings' => array(
-                                    'name'     => 'delete-settings',
-                                    'label'    => __('Delete Settings', 'notificationx'),
-                                    'text'     => __('Delete Settings', 'notificationx'),
-                                    'type'     => 'button',
-                                    'priority' => 15,
-                                    'ajax'     => [
-                                        'on'     => 'click',
-                                        'reload' => true,
-                                        'api'    => '/notificationx/v1/settings',
-                                        'data'   => [
-                                            'delete_settings' => true,
-                                        ],
-                                        'swal' => [
-                                            'text'      => __('Successfully deleted Settings.', 'notificationx'),
-                                            'icon'      => 'deleted',
-                                            'autoClose' => 2000
-                                        ],
-                                    ],
-                                ),
-                            ),
-                        ),
-                    ],
+                    'fields'   => [],
                 ]),
             ]),
         ];
+
+
+        if(defined('NX_DEBUG') && NX_DEBUG){
+            $settings['tabs']['tab-miscellaneous-settings']['fields'][] = array(
+                'name'     => 'danger-zone',
+                'type'     => "section",
+                'label'    => __('Danger Zone', 'notificationx'),
+                'priority' => 200,
+                'fields'   => array(
+                    'delete-settings' => array(
+                        'name'     => 'delete-settings',
+                        'label'    => __('Delete Settings', 'notificationx'),
+                        'text'     => __('Delete Settings', 'notificationx'),
+                        'type'     => 'button',
+                        'priority' => 15,
+                        'ajax'     => [
+                            'on'     => 'click',
+                            'reload' => true,
+                            'api'    => '/notificationx/v1/settings',
+                            'data'   => [
+                                'delete_settings' => true,
+                            ],
+                            'swal' => [
+                                'text'      => __('Successfully deleted Settings.', 'notificationx'),
+                                'icon'      => 'deleted',
+                                'autoClose' => 2000
+                            ],
+                        ],
+                    ),
+                ),
+            );
+        }
 
         $settings = apply_filters('nx_settings_configs', $settings);
         return $settings;
