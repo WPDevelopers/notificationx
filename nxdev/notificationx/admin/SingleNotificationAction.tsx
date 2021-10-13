@@ -140,7 +140,7 @@ const SingleNotificationAction = ({
             }
             {
                 nxContext?.is_pro_active &&
-                <CopyToClipboard className="nx-admin-title-shortcode nx-shortcode-btn" title={__("XSS", 'notificationx')} text={xssText} options={{format: 'text/plain'}} onCopy={onCopyXSS} >
+                <CopyToClipboard className="nx-admin-title-xss nx-shortcode-btn" title={__("XSS", 'notificationx')} text={xssText} options={{format: 'text/plain'}} onCopy={onCopyXSS} >
                     <a></a>
                 </CopyToClipboard>
             }
