@@ -32,7 +32,7 @@ class ReportEmail {
      */
     public function __construct() {
         $this->settings = Settings::get_instance()->get('settings');
-        if( !Settings::get_instance()->get('settings.enable_analytics') || Settings::get_instance()->get('settings.disable_reporting')) {
+        if( !Settings::get_instance()->get('settings.enable_analytics', true) || Settings::get_instance()->get('settings.disable_reporting')) {
             $this->mail_report_deactivation( 'daily_email_reporting' );
             $this->mail_report_deactivation( 'weekly_email_reporting' );
             $this->mail_report_deactivation( 'monthly_email_reporting' );

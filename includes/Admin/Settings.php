@@ -57,7 +57,7 @@ class Settings extends UsabilityDynamicsSettings {
     }
 
     /**
-     * This method is reponsible for Admin Menu of
+     * This method is responsible for Admin Menu of
      * NotificationX
      *
      * @return void
@@ -513,8 +513,8 @@ class Settings extends UsabilityDynamicsSettings {
         return true;
     }
 
-    public function get_role_map($settings = null){
-        if(empty($settings)){
+    public function get_role_map($settings = []){
+        if(empty($settings) || count($settings) == 1){
             $settings = $this->get_selected_roles();
         }
         return [
@@ -537,7 +537,7 @@ class Settings extends UsabilityDynamicsSettings {
         ];
     }
 
-    public function get_selected_roles($settings = null){
+    public function get_selected_roles($settings = []){
         $notification_view_roles = isset($settings['notification_view_roles']) ? $settings['notification_view_roles'] : Settings::get_instance()->get('settings.notification_view_roles', []);
         $notification_roles      = isset($settings['notification_roles']) ? $settings['notification_roles'] : Settings::get_instance()->get('settings.notification_roles', []);
         $settings_roles          = isset($settings['settings_roles']) ? $settings['settings_roles'] : Settings::get_instance()->get('settings.settings_roles', []);

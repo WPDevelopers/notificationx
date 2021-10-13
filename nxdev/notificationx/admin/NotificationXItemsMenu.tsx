@@ -197,7 +197,7 @@ const NotificationXItemsMenu = ({
             onCopy: () => {
                 nxToast.info(
                     __(
-                        `Notification Alert has been copied to Clipboard.`,
+                        `Cross Domain Tracking code has been copied to Clipboard.`,
                         "notificationx"
                     )
                 );

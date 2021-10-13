@@ -236,7 +236,7 @@ class FrontEnd {
         $result['settings'] = [
             'disable_powered_by' => Settings::get_instance()->get('settings.disable_powered_by'),
             'affiliate_link'     => esc_url($branding_url),
-            'enable_analytics'   => Settings::get_instance()->get('settings.enable_analytics'),
+            'enable_analytics'   => Settings::get_instance()->get('settings.enable_analytics', true),
             'analytics_from'     => Settings::get_instance()->get('settings.analytics_from'),
             'delay_before'       => Settings::get_instance()->get('settings.delay_before', 5),
             'display_for'        => Settings::get_instance()->get('settings.display_for', 5),

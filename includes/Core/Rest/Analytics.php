@@ -71,11 +71,11 @@ class Analytics {
     }
 
     public function can_read_analytics( $request ) {
-        return current_user_can('read_notificationx_analytics') && Settings::get_instance()->get('settings.enable_analytics');
+        return current_user_can('read_notificationx_analytics') && Settings::get_instance()->get('settings.enable_analytics', true);
     }
 
     public function can_insert_analytics( $request ) {
-        return Settings::get_instance()->get('settings.enable_analytics');
+        return Settings::get_instance()->get('settings.enable_analytics', true);
     }
 
     public function get_analytics($request){

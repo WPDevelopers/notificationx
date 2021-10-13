@@ -39,10 +39,10 @@ class DashboardWidget {
      * Invoked automatically when object created
      */
     public function __construct(){
-        if( Settings::get_instance()->get('settings.disable_dashboard_widget') ) {
+        if( Settings::get_instance()->get('settings.disable_dashboard_widget', false) ) {
             return;
         }
-        if( ! Settings::get_instance()->get('settings.enable_analytics') ) {
+        if( ! Settings::get_instance()->get('settings.enable_analytics', true) ) {
             return;
         }
         $this->widget_name = __( 'NotificationX Analytics', 'notificationx' );
