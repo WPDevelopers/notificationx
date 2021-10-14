@@ -232,6 +232,34 @@
         .wprf-control-field {
             min-height: 40px;
             flex: 70%;
+            .wprf-type-textarea {
+                textarea {
+                    padding: 10px 15px;
+                    border: 1.5px solid #e6effb;
+                    border-radius: 5px;
+                    color: #25396f;
+                    font-size: 14px;
+                    font-weight: 500;
+                    width: 100%;
+                    max-width: 400px;
+                    margin-right: 10px;
+                    @media only screen and (max-width: 1599px) {
+                        padding: 8px 10px;
+                    }
+                    &::placeholder {
+                        color: #a7b6d8;
+                    }
+                    &:focus {
+                        border-color: #7c8db5;
+                        outline: none;
+                        box-shadow: none;
+                    }
+                }
+                textarea.readonly,
+                textarea[readonly] {
+                    background: rgba(#6a4bff, 0.1);
+                }
+            }
             input[type="number"],
             input[type="text"] {
                 min-height: 40px;
@@ -256,36 +284,12 @@
                     box-shadow: none;
                 }
             }
-            textarea {
-                padding: 10px 15px;
-                border: 1.5px solid #e6effb;
-                border-radius: 5px;
-                color: #25396f;
-                font-size: 14px;
-                font-weight: 500;
-                width: 100%;
-                max-width: 400px;
-                margin-right: 10px;
-                @media only screen and (max-width: 1599px) {
-                    padding: 8px 10px;
-                }
-                &::placeholder {
-                    color: #a7b6d8;
-                }
-                &:focus {
-                    border-color: #7c8db5;
-                    outline: none;
-                    box-shadow: none;
-                }
-            }
             input[type="number"] {
                 max-width: 150px;
                 padding-right: 5px;
             }
             input.readonly,
-            input[readonly],
-            textarea.readonly,
-            textarea[readonly] {
+            input[readonly] {
                 background: rgba(#6a4bff, 0.1);
             }
             .wprf-colorpicker-wrap {
@@ -670,45 +674,9 @@
         }
     }
 }
-.wprf-name-xss_code {
-    .wprf-control-field {
-        position: relative;
-        &:after {
-            content: "Click to Copy";
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: #15c7a3;
-            padding: 5px 20px;
-            color: #fff;
-            text-transform: uppercase;
-            border-radius: 5px;
-            box-shadow: 0 5px 5px rgba(#000, 0.5),
-                inset 0 5px 5px 5px rgba(#000, 0.05),
-                inset 0 -5px 5px 5px rgba(#fff, 0.1);
-            height: 30px;
-            display: flex;
-            align-items: center;
-            pointer-events: none;
-            font-weight: 600;
-        }
-    }
-    #xss_code {
-        max-width: 700px !important;
-        min-height: 300px;
-        background: #2e3246;
-        color: #eae8eb;
-        resize: none;
-        border-radius: 15px;
-        border-width: 15px;
-        border-color: transparent;
-        line-height: 1.7;
-        font-style: italic;
-        cursor: pointer;
-        &::-webkit-scrollbar {
-            display: none;
-        }
-    }
+.wprf-code-viewer {
+    width: 100%;
+    max-width: 700px;
 }
 .wprf-reporting_monthly_help_text-message {
     padding-left: 30%;

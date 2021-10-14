@@ -36,7 +36,8 @@ class XSS {
             'fields'   => array(
                 'xss_code' => array(
                     'name'        => 'xss_code',
-                    'type'        => 'textarea',
+                    'type'        => 'codeviewer',
+                    'button_text' => __('Click to Copy', 'notificationx'),
                     'is_pro'      => true,
                     'copyOnClick' => true,
                     'readOnly'    => true,
