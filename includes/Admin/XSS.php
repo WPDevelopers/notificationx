@@ -35,16 +35,17 @@ class XSS {
             'priority' => 30,
             'fields'   => array(
                 'xss_code' => array(
-                    'name'        => 'xss_code',
-                    'type'        => 'codeviewer',
-                    'button_text' => __('Click to Copy', 'notificationx'),
-                    'is_pro'      => true,
-                    'copyOnClick' => true,
-                    'readOnly'    => true,
-                    'label'       => __('Cross Domain Tracking Code', 'notificationx'),
-                    'help'        => __('Show your Notification Alerts in another site.', 'notificationx'),
-                    'default'     => apply_filters('nx_settings_xss_code_default', "<div id='notificationx-frontend'></div>\n<script>....</script>\n<script src='....../crossSite.js'></script>"),
-                    'priority'    => 1
+                    'name'         => 'xss_code',
+                    'type'         => 'codeviewer',
+                    'button_text'  => __('Click to Copy', 'notificationx'),
+                    'success_text' => __('Notification Alert has been copied to Clipboard.', 'notificationx'),
+                    'is_pro'       => true,
+                    'copyOnClick'  => true,
+                    'readOnly'     => true,
+                    'label'        => __('Cross Domain Tracking Code', 'notificationx'),
+                    'help'         => __('Show your Notification Alerts in another site.', 'notificationx'),
+                    'default'      => apply_filters('nx_settings_xss_code_default', "<div id='notificationx-frontend'></div>\n<script>....</script>\n<script src='....../crossSite.js'></script>"),
+                    'priority'     => 1
                 ),
             ),
         );
