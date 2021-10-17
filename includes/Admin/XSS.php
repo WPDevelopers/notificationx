@@ -38,7 +38,7 @@ class XSS {
                     'name'         => 'xss_code',
                     'type'         => 'codeviewer',
                     'button_text'  => __('Click to Copy', 'notificationx'),
-                    'success_text' => __('Notification Alert has been copied to Clipboard.', 'notificationx'),
+                    'success_text' => __('Cross Domain Tracking code has been copied to Clipboard.', 'notificationx'),
                     'is_pro'       => true,
                     'copyOnClick'  => true,
                     'readOnly'     => true,
