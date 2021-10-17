@@ -475,7 +475,8 @@ class WooCommerce extends Extension {
     }
 
     public function multiorder_combine($data, $settings) {
-        if (empty($settings['combine_multiorder']) || intval($settings['combine_multiorder']) != 1 )  {
+        $should_combine = apply_filters('nx_should_combine', true, $data, $settings);
+        if (!$should_combine || empty($settings['combine_multiorder']) || intval($settings['combine_multiorder']) != 1 )  {
             return $data;
         }
         $items = [];
