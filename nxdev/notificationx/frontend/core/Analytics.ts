@@ -1,11 +1,8 @@
 import nxHelper from "../../core/functions";
 
-const Analytics = (event, props) => {
-    const nx_id = props?.data?.nx_id;
-    const entry_id = props?.data?.entry_id;
-    const link = props?.data?.link;
-    const enable_analytics = props?.config?.enable_analytics;
-    const rest = window["notificationX"]?.rest;
+const Analytics = (event, link, config) => {
+    const nx_id = config?.nx_id;
+    const enable_analytics = config?.enable_analytics;
 
     // @todo remove
     // event.preventDefault();

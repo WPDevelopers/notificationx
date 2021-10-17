@@ -4,7 +4,6 @@ import { addFilter } from '@wordpress/hooks'
 import NotificationX from "./notificationx/index";
 import { Sidebar } from "./notificationx/admin/Settings";
 import Loader from "./notificationx/components/Loader";
-import apiFetch from "@wordpress/api-fetch";
 import 'quickbuilder/dist/index.css';
 
 (function () {
