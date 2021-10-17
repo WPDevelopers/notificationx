@@ -189,14 +189,12 @@ class FrontEnd {
                     }
                 }
 
-                if (in_array($nx_id, $global)) {
-                    // $result['global']['entries'][] = $entry;
-                    // $result['global']['posts'][$nx_id] = $settings;
+                if (!empty($settings['global_queue'])) {
                     if (empty($result['global'][$nx_id]['post'])) {
                         $result['global'][$nx_id]['post'] = $settings;
                     }
                     $result['global'][$nx_id]['entries'][] = $entry;
-                } else if(in_array($nx_id, $active)){
+                } else{
                     if (empty($result['active'][$nx_id]['post'])) {
                         $result['active'][$nx_id]['post'] = $settings;
                     }
