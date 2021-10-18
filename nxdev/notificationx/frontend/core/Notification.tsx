@@ -123,7 +123,7 @@ const Notification = (props) => {
                 className="notificationx-link"
                 href={props.data.link}
                 target={settings?.link_open ? "_blank" : ""}
-                onClick={e => Analytics(e, props)}
+                onClick={e => Analytics(e, props.data.link, settings)}
             />}
         </div>
     );
