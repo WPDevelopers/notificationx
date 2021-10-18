@@ -105,7 +105,7 @@
                     background: #fff;
                     border: 2px solid #e8e7fe;
                     border-radius: 5px;
-                    min-width: 150px;
+                    min-width: 175px;
                     .bulk-action-select__value-container {
                         height: 37px;
                         .bulk-action-select__input {
@@ -405,14 +405,18 @@
                     bottom: calc(100% + 5px);
                     left: 50%;
                     transform: translateX(-50%);
-                    padding: 5px 18px;
-                    line-height: 1.4;
+                    padding: 5px 10px;
+                    line-height: 1.2;
                     border-radius: 3px;
                     background: #6a4bff;
                     color: #fff;
                     text-transform: uppercase;
                     font-size: 12px;
                     font-weight: 500;
+                    display: inline-flex;
+                    justify-content: center;
+                    text-align: center;
+                    width: 95px;
                     visibility: hidden;
                     @media only screen and (max-width: 1599px) {
                         font-size: 10px;
