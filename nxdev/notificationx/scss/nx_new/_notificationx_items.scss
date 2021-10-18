@@ -399,6 +399,9 @@
                 span {
                     display: none;
                 }
+                &.nx-admin-title-xss:before{
+                    width: 95px;
+                }
                 &:before {
                     content: attr(title);
                     position: absolute;
@@ -416,7 +419,6 @@
                     display: inline-flex;
                     justify-content: center;
                     text-align: center;
-                    width: 95px;
                     visibility: hidden;
                     @media only screen and (max-width: 1599px) {
                         font-size: 10px;
