@@ -154,9 +154,9 @@ const SingleNotificationAction = ({
                 <button
                     className="nx-admin-title-regenerate"
                     onClick={handleRegenerate}
-                    title={__("Re Generate", "notificationx")}
+                    title={__("Regenerate", "notificationx")}
                 >
-                    <span>{__("Re Generate", "notificationx")}</span>
+                    <span>{__("Regenerate", "notificationx")}</span>
                 </button>
             )}
             <button className={classNames("nx-admin-title-trash", { hidden: nxContext?.createRedirect })} title={__("Delete", "notificationx")} onClick={handleDelete}>
