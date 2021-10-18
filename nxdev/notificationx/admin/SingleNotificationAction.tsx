@@ -119,7 +119,7 @@ const SingleNotificationAction = ({
     }
 
     const onCopyXSS = (text, result) => {
-        nxToast.info(__(`Cross Domain Tracking code has been copied to Clipboard.`, 'notificationx'));
+        nxToast.info(__(`Cross Domain Notice code has been copied to Clipboard.`, 'notificationx'));
     }
 
     return (
@@ -145,7 +145,7 @@ const SingleNotificationAction = ({
             }
             {
                 nxContext?.is_pro_active && !item?.elementor_id && nxContext?.xss_data &&
-                <CopyToClipboard className="nx-admin-title-xss nx-shortcode-btn" title={__("XSS", 'notificationx')} text={xssText} options={{format: 'text/plain'}} onCopy={onCopyXSS} >
+                <CopyToClipboard className="nx-admin-title-xss nx-shortcode-btn" title={__("Cross Domain Notice", 'notificationx')} text={xssText} options={{format: 'text/plain'}} onCopy={onCopyXSS} >
                     <a></a>
                 </CopyToClipboard>
             }

@@ -39,9 +39,13 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         (event) => {
             var t = event.target;
             while (t && t !== this) {
+                // on click consent accept button
                 if (t.matches?.(sel)) {
                     consentCallback.call(t, event);
                     break;
+                }
+                else if(t.matches?.('a')){
+                    Analytics(event, t.getAttribute('href'), settings);
                 }
                 t = t.parentNode;
             }

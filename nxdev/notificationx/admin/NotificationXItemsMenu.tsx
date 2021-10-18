@@ -35,7 +35,7 @@ const NotificationXItemsMenu = ({
     }
     bulkOptions.splice(3, 0, { value: "regenerate", label: __("Regenerate", 'notificationx') });
     if(builderContext?.is_pro_active){
-        bulkOptions.push({ value: "xss", label: __("Generate XSS", 'notificationx') });
+        bulkOptions.splice(4, 0, { value: "xss", label: __("Cross Domain Notice", 'notificationx') });
     }
 
     const request = (selectedItem) => {
@@ -199,7 +199,7 @@ const NotificationXItemsMenu = ({
             onCopy: () => {
                 nxToast.info(
                     __(
-                        `Cross Domain Tracking code has been copied to Clipboard.`,
+                        `Cross Domain Notice code has been copied to Clipboard.`,
                         "notificationx"
                     )
                 );
