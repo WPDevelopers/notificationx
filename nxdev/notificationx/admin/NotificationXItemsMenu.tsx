@@ -34,7 +34,7 @@ const NotificationXItemsMenu = ({
         ];
     }
     bulkOptions.splice(3, 0, { value: "regenerate", label: __("Regenerate", 'notificationx') });
-    if(builderContext?.is_pro_active){
+    if(builderContext?.is_pro_active && builderContext?.xss_data){
         bulkOptions.splice(4, 0, { value: "xss", label: __("Cross Domain Notice", 'notificationx') });
     }
 
