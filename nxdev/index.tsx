@@ -4,6 +4,7 @@ import { addFilter } from '@wordpress/hooks'
 import NotificationX from "./notificationx/index";
 import { Sidebar } from "./notificationx/admin/Settings";
 import Loader from "./notificationx/components/Loader";
+import Field from "./notificationx/fields/Field";
 
 (function () {
     addFilter('wprf_tab_content', 'NotificationX', (x, props) => {
@@ -13,6 +14,8 @@ import Loader from "./notificationx/components/Loader";
     addFilter('nxpro_preloader', 'NotificationX', (ProContent, isLoading) => {
         return isLoading ? <Loader /> : ProContent;
     })
+
+    addFilter('custom_field', 'NotificationX', Field);
 
     ReactDOM.render(
         <NotificationX />,
