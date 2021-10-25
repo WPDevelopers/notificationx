@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce notification, notifica
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 2.1.1
+Stable tag: 2.2.0
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -217,6 +217,10 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 10. Notification Bar with Countdown
 
 == Changelog ==
+
+= 2.2.0 - 26/10/2021 =
+- Fixed: Notification Bar Analytics
+- Few minor bug fix and improvements.
 
 = 2.1.1 - 12/10/2021 =
 - Fixed: Donation Count with New Data
