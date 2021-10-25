@@ -8,7 +8,8 @@
     "build": "NODE_ENV=production wp-scripts build",
     "cs": "NODE_ENV=development WP_NO_EXTERNALS=1 wp-scripts start --config webpack.cs.config.js",
     "csb": "NODE_ENV=production WP_NO_EXTERNALS=1 wp-scripts build --config webpack.cs.config.js",
-    "up": "npm install github:WPDevelopers/quickbuilder#dev"
+    "up": "npm install github:WPDevelopers/quickbuilder#dev",
+    "pot": "wp i18n make-pot . languages/notificationx.pot "
   },
   "plugins": [
     "@babel/plugin-transform-runtime",
