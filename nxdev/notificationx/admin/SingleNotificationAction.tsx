@@ -119,7 +119,14 @@ const SingleNotificationAction = ({
     }
 
     const onCopyXSS = (text, result) => {
-        nxToast.info(__(`Cross Domain Notice code has been copied to Clipboard.`, 'notificationx'));
+        if(nxContext?.is_pro_active){
+            nxToast.info(__(`Cross Domain Notice code has been copied to Clipboard.`, 'notificationx'));
+        }
+        else{
+            proAlert(
+                sprintf(__("You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use Cross Domain Notice feature.", "notificationx"), 'http://wpdeveloper.net/in/upgrade-notificationx')
+            ).fire();
+        }
     }
 
     return (
@@ -144,7 +151,7 @@ const SingleNotificationAction = ({
                 </CopyToClipboard>
             }
             {
-                nxContext?.is_pro_active && !item?.elementor_id && nxContext?.xss_data &&
+                !item?.elementor_id &&
                 <CopyToClipboard className="nx-admin-title-xss" title={__("Cross Domain Notice", 'notificationx')} text={xssText} options={{format: 'text/plain'}} onCopy={onCopyXSS} >
                     <a></a>
                 </CopyToClipboard>
