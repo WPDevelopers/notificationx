@@ -38,6 +38,7 @@
         & > img {
             object-fit: cover;
             max-height: 100%;
+            max-width: 100%;
         }
         &.image-circle {
             img {
@@ -62,6 +63,9 @@
         flex-direction: column;
         flex: 1;
         padding: 10px 0px;
+        &:first-child {
+            margin-left: 25px;
+        }
         .notificationX-theme-five-shape {
             display: none;
         }

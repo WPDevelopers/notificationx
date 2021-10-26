@@ -143,7 +143,7 @@
 
 .wprf-image-uploader {
     margin-bottom: -5px;
-    >* {
+    > * {
         margin-bottom: 5px;
     }
 }
@@ -153,7 +153,7 @@
     @media only screen and (max-width: 700px) {
         flex-direction: column;
     }
-    &:not(.wprf-style-card)>.wprf-badge-wrapper {
+    &:not(.wprf-style-card) > .wprf-badge-wrapper {
         display: flex;
         @media only screen and (max-width: 700px) {
             flex-direction: column;
@@ -232,6 +232,34 @@
         .wprf-control-field {
             min-height: 40px;
             flex: 70%;
+            .wprf-type-textarea {
+                textarea {
+                    padding: 10px 15px;
+                    border: 1.5px solid #e6effb;
+                    border-radius: 5px;
+                    color: #25396f;
+                    font-size: 14px;
+                    font-weight: 500;
+                    width: 100%;
+                    max-width: 400px;
+                    margin-right: 10px;
+                    @media only screen and (max-width: 1599px) {
+                        padding: 8px 10px;
+                    }
+                    &::placeholder {
+                        color: #a7b6d8;
+                    }
+                    &:focus {
+                        border-color: #7c8db5;
+                        outline: none;
+                        box-shadow: none;
+                    }
+                }
+                textarea.readonly,
+                textarea[readonly] {
+                    background: rgba(#6a4bff, 0.1);
+                }
+            }
             input[type="number"],
             input[type="text"] {
                 min-height: 40px;
@@ -245,29 +273,7 @@
                 max-width: 400px;
                 margin-right: 10px;
                 @media only screen and (max-width: 1599px) {
-                  padding: 2px 10px;
-                }
-                &::placeholder {
-                    color: #a7b6d8;
-                }
-                &:focus {
-                    border-color: #7c8db5;
-                    outline: none;
-                    box-shadow: none;
-                }
-            }
-            textarea {
-                padding: 10px 15px;
-                border: 1.5px solid #e6effb;
-                border-radius: 5px;
-                color: #25396f;
-                font-size: 14px;
-                font-weight: 500;
-                width: 100%;
-                max-width: 400px;
-                margin-right: 10px;
-                @media only screen and (max-width: 1599px) {
-                  padding: 8px 10px;
+                    padding: 2px 10px;
                 }
                 &::placeholder {
                     color: #a7b6d8;
@@ -283,9 +289,7 @@
                 padding-right: 5px;
             }
             input.readonly,
-            input[readonly],
-            textarea.readonly,
-            textarea[readonly] {
+            input[readonly] {
                 background: rgba(#6a4bff, 0.1);
             }
             .wprf-colorpicker-wrap {
@@ -344,7 +348,7 @@
                     font-size: 14px;
                     font-weight: 500;
                     @media only screen and (max-width: 1599px) {
-                      padding: 2px 0px 2px 10px;
+                        padding: 2px 0px 2px 10px;
                     }
                     .wprf-select__value-container {
                         padding-left: 0px;
@@ -583,10 +587,10 @@
         min-height: 80px;
         box-sizing: border-box;
         display: flex;
-        flex-direction: row!important;
+        flex-direction: row !important;
         align-items: center;
         justify-content: space-between;
-        padding: 5px 20px!important;
+        padding: 5px 20px !important;
         height: 100%;
         position: relative;
         @media only screen and (max-width: 1599px) {
@@ -650,8 +654,8 @@
                 text-align: center;
                 line-height: 10px;
                 margin-left: 10px;
-                opacity: .3;
-                transition: opacity .3s ease 0s;
+                opacity: 0.3;
+                transition: opacity 0.3s ease 0s;
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
@@ -670,7 +674,11 @@
         }
     }
 }
-.wprf-reporting_monthly_help_text-message{
+.wprf-code-viewer {
+    width: 100%;
+    max-width: 700px;
+}
+.wprf-reporting_monthly_help_text-message {
     padding-left: 30%;
     font-size: 14px;
     font-weight: 400;

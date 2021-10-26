@@ -8,6 +8,7 @@ use NotificationX\Admin\Entries;
 use NotificationX\Admin\Settings;
 use NotificationX\Extensions\ExtensionFactory;
 use NotificationX\Extensions\GlobalFields;
+use NotificationX\FrontEnd\FrontEnd;
 use NotificationX\GetInstance;
 use NotificationX\NotificationX;
 
@@ -90,7 +91,7 @@ class PostType {
         $tabs                           = NotificationX::get_instance()->normalize( GlobalFields::get_instance()->tabs() );
 
         $tabs['createRedirect']               = !current_user_can( 'edit_notificationx' );
-        $tabs['analyticsRedirect']            = !(current_user_can( 'read_notificationx_analytics' ) && Settings::get_instance()->get('settings.enable_analytics'));
+        $tabs['analyticsRedirect']            = !(current_user_can( 'read_notificationx_analytics' ) && Settings::get_instance()->get('settings.enable_analytics', true));
         $tabs['quick_build']                  = NotificationX::get_instance()->normalize( QuickBuild::get_instance()->tabs() );
         $tabs['rest']                         = REST::get_instance()->rest_data();
         $tabs['current_page']                 = 'add-nx';
@@ -100,7 +101,7 @@ class PostType {
         $tabs['settings']['analytics']        = $tabs['analytics'];
         $tabs['admin_url']                    = get_admin_url();
         $tabs['assets']                       = [
-            'admin' => NOTIFICATIONX_ADMIN_URL,
+            'admin'  => NOTIFICATIONX_ADMIN_URL,
             'public' => NOTIFICATIONX_PUBLIC_URL,
         ];
 

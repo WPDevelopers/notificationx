@@ -105,7 +105,7 @@
                     background: #fff;
                     border: 2px solid #e8e7fe;
                     border-radius: 5px;
-                    min-width: 150px;
+                    min-width: 175px;
                     .bulk-action-select__value-container {
                         height: 37px;
                         .bulk-action-select__input {
@@ -237,9 +237,9 @@
                         }
                     }
                     & > td:nth-child(4) {
-                        width: 40px;
+                        width: 50px;
                         @media only screen and (max-width: 782px) {
-                            width: 40px !important;
+                            width: 50px !important;
                         }
                     }
                     & > td:nth-child(5) {
@@ -271,9 +271,9 @@
                     }
                     & > td:last-child {
                         border-top-right-radius: 10px;
-                        width: 120px;
+                        width: 175px;
                         @media only screen and (max-width: 782px) {
-                            width: 120px !important;
+                            width: 175px !important;
                         }
                     }
                 }
@@ -354,7 +354,7 @@
             border-radius: 10px;
             align-items: center;
             justify-content: center;
-            width: 250px;
+            width: 200px;
             @media only screen and (max-width: 1599px) {
                 width: 170px;
                 height: 70px;
@@ -399,20 +399,26 @@
                 span {
                     display: none;
                 }
+                &.nx-admin-title-xss:before{
+                    width: 95px;
+                }
                 &:before {
                     content: attr(title);
                     position: absolute;
                     bottom: calc(100% + 5px);
                     left: 50%;
                     transform: translateX(-50%);
-                    padding: 5px 18px;
-                    line-height: 1.4;
+                    padding: 5px 10px;
+                    line-height: 1.2;
                     border-radius: 3px;
                     background: #6a4bff;
                     color: #fff;
                     text-transform: uppercase;
                     font-size: 12px;
                     font-weight: 500;
+                    display: inline-flex;
+                    justify-content: center;
+                    text-align: center;
                     visibility: hidden;
                     @media only screen and (max-width: 1599px) {
                         font-size: 10px;
@@ -440,29 +446,34 @@
                 }
             }
             .nx-admin-title-translate {
-                background-image: url("../../../assets/admin/images/icons/translate.png");
+                background-image: url("../icons/translate.png");
             }
             .nx-admin-title-edit {
-                background-image: url("../../../assets/admin/images/icons/edit.png");
+                background-image: url("../icons/edit.png");
             }
             .nx-admin-title-regenerate {
-                background-image: url("../../../assets/admin/images/icons/regenerate.png");
+                background-image: url("../icons/regenerate.png");
             }
             .nx-admin-title-duplicate {
-                background-image: url("../../../assets/admin/images/icons/duplicate.png");
+                background-image: url("../icons/duplicate.png");
             }
             .nx-admin-title-restore {
                 background-size: 16px 16px;
                 padding-left: 22px;
-                background-image: url("../../../assets/admin/images/icons/restore.png");
+                background-image: url("../icons/restore.png");
             }
             .nx-admin-title-trash {
                 color: #c4434e;
-                background-image: url("../../../assets/admin/images/icons/trash.png");
+                background-image: url("../icons/trash.png");
             }
             .nx-admin-title-shortcode {
-                background-image: url("../../../assets/admin/images/icons/shortcode.png");
+                background-image: url("../icons/shortcode.png");
                 color: #844dee;
+            }
+            .nx-admin-title-xss {
+                background-image: url('../icons/xss.png');
+                color: #844dee;
+                background-size: 16px;
             }
         }
     }

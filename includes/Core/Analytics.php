@@ -42,7 +42,7 @@ class Analytics {
      * @return void
      */
     public function menu() {
-        if(Settings::get_instance()->get('settings.enable_analytics')){
+        if(Settings::get_instance()->get('settings.enable_analytics', true)){
             add_submenu_page('nx-admin', __('Analytics', 'notificationx'), __('Analytics', 'notificationx'), 'read_notificationx_analytics', 'nx-analytics', [Admin::get_instance(), 'views'], 3);
         }
     }

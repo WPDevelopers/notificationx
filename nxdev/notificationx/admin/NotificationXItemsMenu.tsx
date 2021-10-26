@@ -5,6 +5,7 @@ import { useNotificationXContext } from "../hooks";
 import Select from "react-select";
 import nxToast from "../core/ToasterMsg";
 import { sprintf, _n, __ } from "@wordpress/i18n";
+import copy from "copy-to-clipboard";
 
 const NotificationXItemsMenu = ({
     notificationx,
@@ -33,6 +34,9 @@ const NotificationXItemsMenu = ({
         ];
     }
     bulkOptions.splice(3, 0, { value: "regenerate", label: __("Regenerate", 'notificationx') });
+    if(builderContext?.is_pro_active && builderContext?.xss_data){
+        bulkOptions.splice(4, 0, { value: "xss", label: __("Cross Domain Notice", 'notificationx') });
+    }
 
     const request = (selectedItem) => {
         return nxHelper.post(`bulk-action/${action.value}`, {
@@ -161,6 +165,47 @@ const NotificationXItemsMenu = ({
         // translators: %d: Number of Notification Alerts Disabled.
         nxToast.disabled(sprintf(__(`%d Notification Alerts have been Disabled.`, 'notificationx'), count));
     };
+    const generateXSS = (selectedItem) => {
+
+        let xss_id = {
+            pressbar: [],
+            global: [],
+            active: [],
+        };
+        for(let notice of filteredNotice){
+            const id = parseInt(notice.nx_id);
+            if(selectedItem.includes(id)){
+                if(notice.source == 'press_bar'){
+                    if(!notice?.elementor_id){
+                        xss_id.pressbar.push(id);
+                    }
+                }
+                else{
+                    if(notice?.global_queue){
+                        xss_id.global.push(id);
+                    }
+                    else{
+                        xss_id.active.push(id);
+                    }
+                }
+            }
+        }
+
+        const xss_data = {...builderContext.xss_data, ...xss_id};
+        const xssText = sprintf(`<script>\nnotificationX = %s;\n</script>%s`, JSON.stringify(xss_data), builderContext.xss_scripts);
+
+        copy(xssText, {
+            format: 'text/plain',
+            onCopy: () => {
+                nxToast.info(
+                    __(
+                        `Cross Domain Notice code has been copied to Clipboard.`,
+                        "notificationx"
+                    )
+                );
+            },
+        });
+    }
 
     const bulkAction = () => {
         if (!action.value || loading) {
@@ -181,6 +226,10 @@ const NotificationXItemsMenu = ({
 
         if (action.value == "delete") {
             deleteAction(selectedItem);
+            return;
+        }
+        if (action.value == "xss") {
+            generateXSS(selectedItem);
             return;
         }
 
@@ -237,6 +286,7 @@ const NotificationXItemsMenu = ({
                     className="bulk-action-select"
                     classNamePrefix="bulk-action-select"
                     value={action}
+                    isSearchable={false}
                     onChange={(value) => {
                         setAction(value);
                     }}

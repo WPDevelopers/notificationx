@@ -1,15 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap");
 #notificationx-frontend {
+    font-family: "Open Sans", sans-serif;
+    text-shadow: none;
+    color: #000;
     .nx-container {
-        position  : fixed;
+        position: fixed;
         // overflow-y: scroll;
         // height    : 85%;
         z-index: 99998;
         &.nxc-bottom_left {
-			bottom: 30px;
+            bottom: 30px;
             left: 30px;
         }
         &.nxc-bottom_right {
-			bottom: 30px;
+            bottom: 30px;
             right: 30px;
         }
     }
