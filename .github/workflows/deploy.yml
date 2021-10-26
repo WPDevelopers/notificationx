@@ -9,18 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Running NPM Install & Build Silently
-        run: |
-          npm install --silent && npm run build
+      - name: Running NPM Install
+        run: npm install --silent
+      - name: Running NPM Build For CrossDomain Notice
+        run: npm run csb
+      - name: Running NPM Build
+        run: npm run build
       - name: WordPress Plugin Deploy
         id: deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
-        env:
-          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-      - name: Assets Update
-        id: assets
-        uses: 10up/action-wordpress-plugin-asset-update@stable
         env:
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
