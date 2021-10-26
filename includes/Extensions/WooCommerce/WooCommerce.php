@@ -390,7 +390,7 @@ class WooCommerce extends Extension {
      * @return array
      */
     public function get_orders($data = array()) {
-        if (empty($data)) return null;
+        if (empty($data) || !function_exists('wc_get_orders')) return null;
         $orders = [];
         $from = strtotime(date('Y-m-d', strtotime('-' . intval($data['display_from']) . ' days')));
         $wc_orders = \wc_get_orders([
