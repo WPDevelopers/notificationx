@@ -124,7 +124,7 @@ const SingleNotificationAction = ({
         }
         else{
             proAlert(
-                sprintf(__("You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use Cross Domain Notice feature.", "notificationx"), 'http://wpdeveloper.net/in/upgrade-notificationx')
+                sprintf(__("You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use <a target='_blank' href='%s' style='color:red'>Cross Domain Notice</a> feature.", "notificationx"), 'http://wpdeveloper.net/in/upgrade-notificationx', 'https://notificationx.com/docs/notificationx-cross-domain-notice/')
             ).fire();
         }
     }
