@@ -60,6 +60,7 @@ Let the visitors know about your special offers, deals, announcements, etc. with
 - Customization option to the display across the site, on specific posts, pages or exclude from the specific location
 - Advanced **19+ integrations** to power up your social proof marketing strategies
 - Connect NotificationX with **Zapier** to build absolutely anything [PRO]
+- Showcase live notifications to any other WordPress or non-WordPress websites with [Cross Domain Notice](https://notificationx.com/docs/notificationx-cross-domain-notice/) [PRO]
 - Global Queue Management to get full control over your popup notifications [PRO]
 - Advanced Role Management to decide who can create or edit notifications & check Analytics report [PRO]
 - Check the results from **Analytics tool** [PRO] and see how many times a certain notification popup has been viewed, clicked or even its Click-through Rate
