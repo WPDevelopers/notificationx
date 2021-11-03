@@ -6,7 +6,6 @@ import AdvancedTemplate from './AdvancedTemplate';
 
 
 const Field = (r, type, props) => {
-    console.log('nx-free', props);
 
     switch (type) {
         case "advanced-template":
