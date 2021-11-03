@@ -32,8 +32,14 @@ const NotificationX = (props) => {
     }
 
     const builder = useNotificationX({ ...notificationxTabs, title });
-    const url = new URL(builder.admin_url);
-    const basename = url.pathname.replace(/\/$/, "");
+    let basename;
+    try {
+        const url = new URL(builder.admin_url);
+        basename = url.pathname.replace(/\/$/, "");
+    }
+    catch (e){
+        basename = builder.admin_url.replace(/\/$/, "");
+    }
 
     return (
         <Router basename={basename}>
