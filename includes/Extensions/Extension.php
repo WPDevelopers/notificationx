@@ -461,7 +461,7 @@ abstract class Extension {
                 }
             }
             Limiter::get_instance()->remove($this->id, count($entries));
-            Entries::get_instance()->insert_entries($entries);
+            Entries::get_instance()->insert_entries(array_values($entries));
         }
     }
 
