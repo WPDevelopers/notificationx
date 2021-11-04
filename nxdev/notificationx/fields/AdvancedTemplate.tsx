@@ -212,8 +212,8 @@ const AdvancedTemplate = (props) => {
                 builderContext.values.themes
             ) && <div className="template-example">
                 Example: {` `}
-                <code>{`{{product_title}} {{7days}}`}</code>{` or `}
-                <code>{`{{product_title}} in last {{d:7}} days`}</code>
+                <code>{`{{title}} {{7days}}`}</code>{` or `}
+                <code>{`{{title}} in last {{d:7}} days`}</code>
             </div>}
             <br />
             <div className="template-options">
