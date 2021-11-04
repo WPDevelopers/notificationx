@@ -174,10 +174,27 @@ const AdvancedTemplate = (props) => {
     };
 
     useEffect(() => {
+        // generating template for first time.
+
         if (!builderContext.savedValues?.["advanced_template"]) {
+            const theme = builderContext.values.themes;
+            let values = {...builderContext.values};
+            console.log(theme, values);
+
+            if(theme == 'page_analytics_pa-theme-two' || theme == 'page_analytics_pa-theme-one'){
+                const fifth = values['notification-template'].ga_fifth_param?.trim();
+                const sixth = values['notification-template'].sixth_param?.replace('tag_', '');
+                const custom = `{{${sixth}:${fifth}}}`;
+                values = {...values, 'notification-template': {
+                    ...values['notification-template'],
+                    ga_fifth_param: custom,
+                    sixth_param: '',
+                }};
+                console.log(values);
+            }
             const tmpl: any = applyFilters(
                 "nx_adv_template_default",
-                builderContext.values
+                values
             );
             const { contentBlocks, entityMap } = htmlToDraft(
                 tmpl.map((val) => `<p>${val}</p>`).join("\r\n")

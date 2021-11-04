@@ -24,7 +24,11 @@ const GetTemplate = (settings) => {
                 // getting value of custom params.
                 element = params?.["custom_" + param] || '';
             }
-            if (element.indexOf("tag_") === 0) {
+            if (element == 'tag_siteview' || element == 'tag_realtime_siteview') {
+                params[param] = "{{views}}";
+            } else if (element == 'ga_title') {
+                params[param] = "{{title}}";
+            }else if (element.indexOf("tag_") === 0) {
                 params[param] = "{{" + element.replace("tag_", "") + "}}";
             } else if (element.indexOf("product_") === 0) {
                 params[param] = "{{" + element.replace("product_", "") + "}}";
@@ -152,17 +156,17 @@ const GetTemplate = (settings) => {
         // PA
         case "pa-theme-one":
             return [
-                `{{views}}`,
+                `${params?.first_param}`,
                 `${params?.second_param} ${params?.third_param} ${params?.ga_fourth_param} ${params?.ga_fifth_param} ${params?.sixth_param}`,
             ];
         case "pa-theme-two":
             return [
-                `{{views}} ${params?.second_param}`,
+                `${params?.first_param} ${params?.second_param}`,
                 `${params?.third_param} ${params?.ga_fourth_param} ${params?.ga_fifth_param} ${params?.sixth_param}`,
             ];
         case "pa-theme-three":
             return [
-                `{{views}} ${params?.second_param}`,
+                `${params?.first_param} ${params?.second_param}`,
                 `${params?.third_param} ${params?.ga_fourth_param}`,
             ];
         default:
