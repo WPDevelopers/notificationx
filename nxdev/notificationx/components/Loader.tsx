@@ -1,10 +1,10 @@
 import React from 'react'
-import PreLoader from '../../../assets/admin/images/logos/logo-preloader.gif';
+import { assetsURL } from '../core/functions';
 
 const Loader = () => {
     return (
         <div className="nx-preloader">
-            <img src={PreLoader} />
+            <img src={assetsURL('images/logos/logo-preloader.gif')} />
         </div>
     )
 }

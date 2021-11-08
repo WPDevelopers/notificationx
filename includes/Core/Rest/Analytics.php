@@ -2,6 +2,7 @@
 
 namespace NotificationX\Core\Rest;
 
+use NotificationX\Admin\Settings;
 use NotificationX\Core\Analytics as CoreAnalytics;
 use NotificationX\GetInstance;
 use NotificationX\NotificationX;
@@ -56,21 +57,25 @@ class Analytics {
                     'methods'             => WP_REST_Server::READABLE,
                     'callback'            => array($this, 'get_analytics'),
                     // maybe use
-                    'permission_callback' => [$this, 'read_analytics'],
+                    'permission_callback' => [$this, 'can_read_analytics'],
                 ),
                 // For Frontend analytics
                 array(
                     'methods'             => WP_REST_Server::EDITABLE,
                     'callback'            => array($this, 'insert_analytics'),
-                    'permission_callback' => '__return_true',
+                    'permission_callback' => [$this, 'can_insert_analytics'],
                 ),
             )
         );
 
     }
 
-    public function read_analytics( $request ) {
-        return current_user_can('read_notificationx_analytics');
+    public function can_read_analytics( $request ) {
+        return current_user_can('read_notificationx_analytics') && Settings::get_instance()->get('settings.enable_analytics', true);
+    }
+
+    public function can_insert_analytics( $request ) {
+        return Settings::get_instance()->get('settings.enable_analytics', true);
     }
 
     public function get_analytics($request){
@@ -82,6 +87,6 @@ class Analytics {
     public function insert_analytics($request){
         $params = $request->get_params();
         $result = CoreAnalytics::get_instance()->insert_analytics($params['nx_id'], 'clicks');
-        wp_send_json_success($result);
+        wp_send_json_success(['success' => true]);
     }
 }

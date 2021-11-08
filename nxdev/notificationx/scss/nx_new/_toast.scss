@@ -12,6 +12,11 @@
     background: #FC9714;
 }
 
+.Toastify__close-button {
+    color: #fff;
+    opacity: 0.5;
+}
+
 .nx-toast-wrapper {
     display: flex;
     align-items: center;
@@ -26,5 +31,6 @@
     }
     p {
         margin-left: 10px;
+        color: #fff;
     }
 }

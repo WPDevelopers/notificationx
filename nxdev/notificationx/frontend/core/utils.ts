@@ -15,16 +15,17 @@ export const proccesNotice = ({ config }) => {
     }
     return nxHelper
         .post(url, {
-            global   : config.global,
-            active   : config.active,
-            pressbar : config.pressbar,
-            shortcode: config.shortcode,
+            all_active: config?.all_active || false,
+            global    : config?.global || [],
+            active    : config?.active || [],
+            pressbar  : config?.pressbar || [],
+            shortcode : config?.shortcode || [],
         })
         .then((response: any) => {
-            let mergedGlobalArray = normalize(response?.global, response?.settings);
-            let mergedActiveArray = normalize(response?.active, response?.settings);
+            let mergedGlobalArray    = normalize(response?.global, response?.settings);
+            let mergedActiveArray    = normalize(response?.active, response?.settings);
             let mergedShortcodeArray = normalize(response?.shortcode, response?.settings);
-            let pressbar          = Object.values(response?.pressbar || {})?.filter(isNotClosed);
+            let pressbar             = normalizePressBar(response?.pressbar, response?.settings);
 
             return {
                 settings: response?.settings,
@@ -75,6 +76,18 @@ const normalize = (_entries, globalSettings) => {
             else{
                 mergedArray = [...mergedArray, [...entries]];
             }
+        }
+    }
+    return mergedArray;
+}
+
+const normalizePressBar = (_entries, globalSettings) => {
+    let mergedArray = [];
+    _entries = _entries || {};
+    for (const key in _entries) {
+        let entry = _entries[key];
+        if(isNotClosed(entry)){
+            mergedArray = [...mergedArray, {...entry, post: {...globalSettings, ...entry.post}} ];
         }
     }
     return mergedArray;

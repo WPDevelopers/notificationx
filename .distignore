@@ -6,6 +6,8 @@
 .eslintignore
 .eslintrc
 .git
+.github
+.gitattributes
 .gitignore
 .gitlab-ci.yml
 .travis.yml
@@ -54,5 +56,5 @@ vendor/udx/lib-utility/test
 vendor/udx/lib-utility/static
 vendor/udx/lib-utility/scripts
 nxdev
-build
+nxbuild
 .gitmodules

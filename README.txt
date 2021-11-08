@@ -1,11 +1,11 @@
-=== NotificationX - Best FOMO, Social Proof, Sales Popup & WooCommerce Notification Bar Plugin With Elementor ===
+=== NotificationX - Best FOMO, Social Proof, WooCommerce Sales Popup & Notification Bar Plugin With Elementor ===
 Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim, sapanmozammel
 Donate link: https://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, elementor, email subscription, recent sales popup, woo popups, woocommerce review, wordpress marketing, marketing, evergreen notice, increase engagement, woocommerce, envato, freemius, givewp, learndash, bottom bar, top bar, marketing plugin, alert, email marketing, conversion, gamification
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 2.0.3
+Stable tag: 2.2.0
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,7 +13,7 @@ Want to build instant credibility for your business and boost your conversion ra
 
 == Description ==
 
-= Best FOMO, Social Proof, Sales Popup & WooCommerce Notification Bar Plugin With Elementor Support =
+= Best FOMO, Social Proof, WooCommerce Sales Popup & Notification Bar Plugin With Elementor Support =
 
 Want to build instant credibility for your business and boost your conversion rate right away? **97%** of your total website visitors don’t buy the product due to the lack of trust and credibility. Get instant success with **WooCommerce Sales Popup Notification**!
 
@@ -44,6 +44,7 @@ https://youtu.be/6XJ2lLmH3w8?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 - Redesigned Quick Builder to create instant notifications
 - Robust API-based applications for faster response time
 - Query Optimization to enhance performance
+- Full WPML Compatibility
 - Set custom random order for any or all notifications[PRO]
 - Seamless performance with many improvements & bug fixes
 
@@ -147,7 +148,7 @@ https://www.youtube.com/watch?v=75vntaHp9Y4
 
 ### 🎁 GET FREEBIES FOR YOUR WORDPRESS SITE ###
 
-NotificationX is backed by WPDeveloper, a dedicated team trusted by more than 3000,000 users. Consider checking out our other WordPress solutions & boost your WordPress website:
+NotificationX is backed by WPDeveloper, a dedicated team trusted by more than 3,800,000 users. Consider checking out our other WordPress solutions & boost your WordPress website:
 
 🔝 [Essential Addons For Elementor](https://wordpress.org/plugins/essential-addons-for-elementor-lite/): Most popular Elementor extensions with 1 Million+ active users in the WordPress repository
 
@@ -162,6 +163,12 @@ NotificationX is backed by WPDeveloper, a dedicated team trusted by more than 30
 ⭐ [ReviewX](https://wordpress.org/plugins/reviewx/): WooCommerce Product review plugin that allows users to submit product reviews with multiple criteria, photos, videos, and more.
 
 💼 [Easy.Jobs](https://wordpress.org/plugins/easyjobs/): Smart and easy recruitment and talent sourcing solution for hiring remotely with AI-powered screening system, question sets, remote interviews, branded career pages and much more.
+
+🔗 [BetterLinks](https://wordpress.org/plugins/betterlinks/): Latest best WordPress link management plugin for link shortening, tracking & analyzing.
+
+⚡ [Flexia](https://wordpress.org/themes/flexia/): Most lightweight, customizable & multi purpose theme for WordPress.
+
+🛑 [Disable Comments](https://wordpress.org/plugins/disable-comments/) – Instantly allow or disallow comments from any post type in WordPress and gain complete control over your full website. Used by 1M+ users!
 
 == Installation ==
 
@@ -211,8 +218,24 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 2.0.3 - 16/09/2021 =
+= 2.2.0 - 26/10/2021 =
+- Fixed: Notification Bar Analytics
+- Few minor bug fix and improvements.
 
+= 2.1.1 - 12/10/2021 =
+- Fixed: Donation Count with New Data
+- Fixed: Show Notification from only selected form -> Forms, Donation, eLearning
+- Fixed: Sales Count Templates for eLearning and Donation
+- Improved: Analytics & Reporting
+- Few minor bug fix and improvements.
+
+= 2.1.0 - 27/09/2021 =
+- Added: WPML Compatibility
+- Improved:  Query Routing inside Admin interface
+- Fixed: WooCommerce Review Alerts conflict with other plugins
+- Few minor bug fix & improvements
+
+= 2.0.3 - 16/09/2021 =
 - Fixed: Unable to limit days in Behaviour for Sales Notification
 - Fixed: Bulk Delete not working properly for the notification alerts
 - Fixed: Donation count template not working properly
@@ -227,12 +250,10 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 - Few minor bug fix and improvements
 
 = 2.0.1 - 17/08/2021 =
-
 - Fixed: DOMContentLoaded moved from window to document
 - Few minor bug fix and improvements
 
 = 2.0.0 - 12/08/2021 =
-
 - Introducing : V2 of NotificationX
 - Revamped : Rebuilt entire plugin with ReactJS
 - Revamped : Code Structure for better performance
@@ -583,4 +604,4 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Upgrade Notice ==
 
-Minor Update: Few bugfix and improvements
+[Minor Update]: Bug-fixes and improvements.

@@ -60,9 +60,7 @@ class NotificationX {
         if (is_admin() || empty($_GET['frontend']) || $_GET['frontend'] != true) {
             Admin::get_instance();
         }
-        if (!is_admin()) {
-            FrontEnd::get_instance();
-        }
+        FrontEnd::get_instance();
         add_action('admin_init', [$this, 'maybe_redirect'], 10);
         add_action('init', [$this, 'init'], 10);
         add_action('plugins_loaded', array($this, 'init_extension'));

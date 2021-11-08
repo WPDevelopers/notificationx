@@ -19,36 +19,32 @@
 .themes-email_subscription_theme-two,
 .themes-email_subscription_theme-three,
 .themes-email_subscription_maps_theme,
-.themes-email_subscription_theme-one{
-  .notificationx-inner {
-      .notificationx-content {
-          & > p {
-              &.nx-first-row {
-                  font-size: 13px;
-                  font-weight: 500;
-                  color: #000;
-              }
-              &.nx-second-row {
-                  font-size: 14px;
-                  font-weight: 500;
-                  color: #6A4BFF;
-              }
-              &.nx-third-row {
-                  font-size: 10px;
-                  color: #7C8DB5;
-              }
-          }
-      }
-  }
+.themes-email_subscription_theme-one {
+    .notificationx-content {
+        & > p {
+            &.nx-first-row {
+                font-size: 13px;
+                font-weight: 500;
+                color: #000;
+            }
+            &.nx-second-row {
+                font-size: 14px;
+                font-weight: 500;
+                color: #6a4bff;
+            }
+            &.nx-third-row {
+                font-size: 10px;
+                color: #7c8db5;
+            }
+        }
+    }
 }
-.themes-reviews_review_saying{
-  .notificationx-inner {
-      .notificationx-content {
-          & > p {
-              &.nx-third-row {
-                  color: #45C9B1;
-              }
-          }
-      }
-  }
+.themes-reviews_review_saying {
+    .notificationx-content {
+        & > p {
+            &.nx-third-row {
+                color: #45c9b1;
+            }
+        }
+    }
 }

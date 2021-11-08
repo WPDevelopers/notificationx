@@ -93,9 +93,7 @@ abstract class Extension {
      * common init function for admin and frontend.
      */
     public function init(){
-        if (!$this->is_active()) {
-            return;
-        }
+        // shouldn't do is_active check.
         if(method_exists($this, 'save_post')){
             add_filter("nx_save_post_{$this->id}", array($this, 'save_post'), 10, 3);
         }
@@ -241,6 +239,17 @@ abstract class Extension {
                 }
                 if(!empty($theme['image_shape'])){
                     $t = "@image_shape:{$theme['image_shape']}";
+                    if(empty($triggers[$tname]) || !in_array($t, $triggers[$tname])){
+                        $triggers[$tname][] = $t;
+                    }
+                    // default image shape for theme.
+                    $t = "@image_shape_default:{$theme['image_shape']}";
+                    if(empty($triggers[$tname]) || !in_array($t, $triggers[$tname])){
+                        $triggers[$tname][] = $t;
+                    }
+                }
+                if(!empty($theme['show_notification_image'])){
+                    $t = "@show_notification_image:{$theme['show_notification_image']}";
                     if(empty($triggers[$tname]) || !in_array($t, $triggers[$tname]))
                         $triggers[$tname][] = $t;
                 }
@@ -443,9 +452,16 @@ abstract class Extension {
 
     // @todo accept multiple entries.
     public function update_notifications($entries) {
-        if(is_array($entries)){
+        if(is_array($entries) && !empty($entries[0]['nx_id'])){
+            $post = PostType::get_instance()->get_post($entries[0]['nx_id']);
+            foreach ($entries as $key => $entry) {
+                $can_entry = apply_filters("nx_can_entry_{$this->id}", true, $entry, $post);
+                if(!$can_entry){
+                    unset($entries[$key]);
+                }
+            }
             Limiter::get_instance()->remove($this->id, count($entries));
-            Entries::get_instance()->insert_entries($entries);
+            Entries::get_instance()->insert_entries(array_values($entries));
         }
     }
 
@@ -463,8 +479,13 @@ abstract class Extension {
                 ] );
                 if(!empty($is_exits[0]['count(*)'])) return false;
             }
-            Limiter::get_instance()->remove($this->id, 1);
-            Entries::get_instance()->insert_entry($entry);
+            // @todo add object caching
+            $post = PostType::get_instance()->get_post($entry['nx_id']);
+            $can_entry = apply_filters("nx_can_entry_{$this->id}", true, $entry, $post);
+            if($can_entry){
+                Limiter::get_instance()->remove($this->id, 1);
+                Entries::get_instance()->insert_entry($entry);
+            }
         }
     }
 
@@ -476,13 +497,13 @@ abstract class Extension {
      * @return boolean
      */
     protected function save($entry, $force = true) {
-        $post_ids = PostType::get_instance()->get_col('nx_id', [
+        $posts = PostType::get_instance()->get_posts([
             'source' => $this->id,
             'enabled' => true,
         ]);
-        if (!empty($post_ids)) {
-            foreach ($post_ids as $nx_id) {
-                $entry['nx_id'] = $nx_id;
+        if (!empty($posts)) {
+            foreach ($posts as $post) {
+                $entry['nx_id'] = $post['nx_id'];
                 $this->update_notification($entry, $force);
             }
         }

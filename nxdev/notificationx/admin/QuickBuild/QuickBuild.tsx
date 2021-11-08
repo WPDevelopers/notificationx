@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import FormBuilder, { useBuilderContext } from '../../../form-builder';
+import { FormBuilder, useBuilderContext } from 'quickbuilder';
 import { Content } from '../../components';
 import { proAlert } from '../../core/functions';
 import { useNotificationXContext } from '../../hooks';

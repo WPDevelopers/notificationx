@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import React, { useCallback, useEffect, useState } from 'react'
-import FormBuilder, { useBuilderContext } from '../../../form-builder';
+import { FormBuilder, useBuilderContext } from 'quickbuilder';
 import { Content, PublishWidget, Sidebar, Instructions } from '../../components';
 import { proAlert } from '../../core/functions';
 import { ToastAlert } from '../../core/ToasterMsg';

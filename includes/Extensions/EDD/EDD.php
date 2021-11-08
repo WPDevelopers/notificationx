@@ -109,7 +109,8 @@ class EDD extends Extension {
 
 
     public function multiorder_combine($data, $settings) {
-        if (empty($settings['combine_multiorder']) || $settings['combine_multiorder'] != '1') {
+        $should_combine = apply_filters('nx_should_combine', true, $data, $settings);
+        if (!$should_combine || empty($settings['combine_multiorder']) || $settings['combine_multiorder'] != '1') {
             return $data;
         }
         $items = [];
@@ -164,14 +165,16 @@ class EDD extends Extension {
         $orders = $this->get_orders( $post );
         if ( is_array( $orders ) && ! empty( $orders ) ) {
             // $orders = NotificationX_Helper::sortBy($orders, 'edd');
+            $entries = [];
             foreach ( $orders as $key => $order ) {
-                $this->update_notification([
+                $entries[] = [
                     'nx_id'      => $post['nx_id'],
                     'source'     => $this->id,
                     'entry_key'  => $order['key'],
                     'data'       => $order,
-                ]);
+                ];
             }
+            $this->update_notifications($entries);
         }
     }
 

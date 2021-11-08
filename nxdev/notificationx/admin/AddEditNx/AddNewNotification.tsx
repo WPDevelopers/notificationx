@@ -1,8 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
 import { CreateNx } from '.';
-import { BuilderProvider, useBuilder } from '../../../form-builder';
-import { isArray } from '../../../form-builder/src/core/utils';
+import { BuilderProvider, useBuilder } from 'quickbuilder';
+import { isArray } from 'quickbuilder';
 import { Header, WrapperWithLoader } from '../../components';
 import nxHelper from '../../core/functions';
 import withDocumentTitle from '../../core/withDocumentTitle';
@@ -47,7 +47,7 @@ const AddNewNotification = (props) => {
                     builder.setValues(res);
                     builder.setSavedValues(res);
                     builder.setActiveTab(res?.currentTab);
-                    // translators: Postfix for notice created by Quick Build.
+                    // translators: Postfix for notice created by duplicate button.
                     setTitle(res?.title + __(" - Copy", 'notificationx'));
                     setIsLoading(false);
                 }

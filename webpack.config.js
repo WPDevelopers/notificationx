@@ -23,16 +23,23 @@ const config = {
     module: {
         ...defaultConfig.module,
         rules: [
+            ...defaultConfig.module.rules,
             {
                 test: /\.tsx?$/,
                 use: "ts-loader",
                 exclude: /node_modules/,
             },
-            {
-                test: /\.(jpg|png|gif|svg)$/,
-                use: "url-loader",
-            },
-            ...defaultConfig.module.rules,
+            // {
+            //     test: /\.(jpg|png|svg)$/,
+            //     use: "url-loader",
+            //     // type: "asset/source",
+            //     dependency: { not: ['url'] },
+            // },
+            // {
+            //     test: /\.(gif)$/,
+            //     // use: "url-loader",
+			// 	type: 'asset/resource',
+            // },
         ],
     },
     resolve: {
@@ -49,7 +56,7 @@ const config = {
                 ? "admin/js/[name].js"
                 : "public/js/[name].js";
         },
-        path: path.resolve(process.cwd(), isProduction ? "assets" : "build"),
+        path: path.resolve(process.cwd(), isProduction ? "assets" : "nxbuild"),
     },
     plugins: [
         new CleanWebpackPlugin({
@@ -69,8 +76,7 @@ const config = {
             ],
         }),
         new MiniCSSExtractPlugin({
-            esModule: false,
-            moduleFilename: (chunk) => {
+            filename: ({ chunk }) => {
                 // if (!isProduction) {
                 //     return `${chunk.name}.css`;
                 // }

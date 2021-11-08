@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import nxHelper from "../core/functions";
-import { isArray } from "../../form-builder/src/core/utils";
+import nxHelper, { assetsURL } from "../core/functions";
+import { isArray } from "quickbuilder";
 import NotificationXInner from "./NotificationXInner";
 import NotificationXItemsMenu from "./NotificationXItemsMenu";
 import { useLocation } from "react-router";
@@ -9,7 +9,6 @@ import localeInfo from 'rc-pagination/es/locale/en_US';
 import NavLink from "../components/NavLink";
 import { SelectControl } from "@wordpress/components";
 import { WrapperWithLoader } from "../components";
-import LargeLogoIcon from '../../../assets/admin/images/logos/large-logo-icon.png';
 import { useNotificationXContext } from "../hooks";
 import { __, sprintf } from "@wordpress/i18n";
 import parse from 'html-react-parser';
@@ -90,16 +89,16 @@ export const NotificationXItems = (props) => {
     React.useEffect(() => {
         if (perPage === 0) return;
         builderContext.setRedirect({
-            page      : `nx-admin`,
-            status    : status,
-            p         : currentPage,
+            page: `nx-admin`,
+            status: status,
+            p: currentPage,
             'per-page': perPage,
         });
     }, [perPage, currentPage]);
 
     useEffect(() => {
         // if current page is empty() go to prev page.
-        if(filteredNotice.length == 0 && currentPage > 1){
+        if (filteredNotice.length == 0 && currentPage > 1) {
             setCurrentPage(pp => --pp);
         }
     }, [filteredNotice])
@@ -121,72 +120,72 @@ export const NotificationXItems = (props) => {
                 <WrapperWithLoader isLoading={isLoading} div={false}>
                     {filteredNotice.length == 0 &&
                         <div className="nx-no-items">
-                            <img src={LargeLogoIcon} />
+                            <img src={assetsURL('images/logos/large-logo-icon.png')} />
 
                             {status == 'all'
-                            ? <>
-                                <h4>{__("No notifications are found.", 'notificationx')}</h4>
-                                <p>
-                                    {__(`Seems like you haven’t created any notification alerts.`, 'notificationx')}
-                                    <br />
-                                    {parse(sprintf(__(`Hit on %1$s"Add New"%2$s button to get started`, 'notificationx'), '<b>', '</b>'))}
-                                </p>
-                            </>
-                            : status == 'enabled' ?
-                            <>
-                                <h4>{__("No notifications are enabled.", 'notificationx')}</h4>
-                                <p>
-                                    {__(`There’s no enabled Notification Alerts.`, 'notificationx')}
-                                    <br />
-                                    {parse(sprintf(__(`Simply use the toggle switch to turn your notifications from %1$s"All NotificationX"%2$s page.`, 'notificationx'), '<b>', '</b>'))}</p>
-                            </>
-                            : <>
-                                <h4>{__("No notifications are disabled.", 'notificationx')}</h4>
-                                <p>{__("There’s no disabled Notification Alerts.", 'notificationx')}</p>
-                            </>
+                                ? <>
+                                    <h4>{__("No notifications are found.", 'notificationx')}</h4>
+                                    <p>
+                                        {__(`Seems like you haven’t created any notification alerts.`, 'notificationx')}
+                                        <br />
+                                        {parse(sprintf(__(`Hit on %1$s"Add New"%2$s button to get started`, 'notificationx'), '<b>', '</b>'))}
+                                    </p>
+                                </>
+                                : status == 'enabled' ?
+                                    <>
+                                        <h4>{__("No notifications are enabled.", 'notificationx')}</h4>
+                                        <p>
+                                            {__(`There’s no enabled Notification Alerts.`, 'notificationx')}
+                                            <br />
+                                            {parse(sprintf(__(`Simply use the toggle switch to turn your notifications from %1$s"All NotificationX"%2$s page.`, 'notificationx'), '<b>', '</b>'))}</p>
+                                    </>
+                                    : <>
+                                        <h4>{__("No notifications are disabled.", 'notificationx')}</h4>
+                                        <p>{__("There’s no disabled Notification Alerts.", 'notificationx')}</p>
+                                    </>
                             }
                         </div>
                     }
                     {filteredNotice.length > 0 &&
-                    <>
-                        <NotificationXInner
-                            filteredNotice={filteredNotice}
-                            setFilteredNotice={setFilteredNotice}
-                            getNotice={notificationx}
-                            updateNotice={setNotificationx}
-                            totalItems={totalItems}
-                            setTotalItems={setTotalItems}
-                            checkAll={checkAll}
-                            setCheckAll={setCheckAll}
-                        />
-                        <div className="nx-admin-items-footer">
-                            <SelectControl
-                                label="Show Notifications :"
-                                value={perPage.toString()}
-                                onChange={(p) => {
-                                    setPerPage(parseInt(p));
-                                    setCurrentPage(1);
-                                }}
-                                options={[
-                                    { value: "10", label: __("10") },
-                                    { value: "20", label: __("20") },
-                                    { value: "50", label: __("50") },
-                                    { value: "100", label: __("100") },
-                                    { value: "200", label: __("200") },
-                                ]}
+                        <>
+                            <NotificationXInner
+                                filteredNotice={filteredNotice}
+                                setFilteredNotice={setFilteredNotice}
+                                getNotice={notificationx}
+                                updateNotice={setNotificationx}
+                                totalItems={totalItems}
+                                setTotalItems={setTotalItems}
+                                checkAll={checkAll}
+                                setCheckAll={setCheckAll}
                             />
-                            <Pagination
-                                current={currentPage}
-                                onChange={setCurrentPage}
-                                total={totalItems?.[status]}
-                                pageSize={perPage}
-                                itemRender={itemRender}
-                                showTitle={false}
-                                hideOnSinglePage
-                                locale={localeInfo}
-                            />
-                        </div>
-                    </>
+                            <div className="nx-admin-items-footer">
+                                <SelectControl
+                                    label="Show Notifications :"
+                                    value={perPage.toString()}
+                                    onChange={(p) => {
+                                        setPerPage(parseInt(p));
+                                        setCurrentPage(1);
+                                    }}
+                                    options={[
+                                        { value: "10", label: __("10") },
+                                        { value: "20", label: __("20") },
+                                        { value: "50", label: __("50") },
+                                        { value: "100", label: __("100") },
+                                        { value: "200", label: __("200") },
+                                    ]}
+                                />
+                                <Pagination
+                                    current={currentPage}
+                                    onChange={setCurrentPage}
+                                    total={totalItems?.[status]}
+                                    pageSize={perPage}
+                                    itemRender={itemRender}
+                                    showTitle={false}
+                                    hideOnSinglePage
+                                    locale={localeInfo}
+                                />
+                            </div>
+                        </>
                     }
 
                 </WrapperWithLoader>

@@ -1,14 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Redirect, useHistory, useLocation } from 'react-router-dom';
-import FormBuilder from '../../../form-builder';
-import { useBuilderContext } from '../../../form-builder/src/core/hooks';
+import { Redirect, useLocation, useHistory } from 'react-router-dom';
+import { useBuilderContext, FormBuilder } from 'quickbuilder';
 import { Header } from '../../components'
 import nxHelper, { proAlert } from '../../core/functions';
 import { AnalyticsHeader } from '../Analytics';
 import { Documentation } from '.';
 import { InfoIcon } from '../../icons';
 import { useNotificationXContext } from '../../hooks';
-import nxToast, { ToastAlert} from "../../core/ToasterMsg";
+import nxToast, { ToastAlert } from "../../core/ToasterMsg";
 import { __ } from '@wordpress/i18n';
 
 
@@ -23,7 +22,7 @@ const SettingsInner = (props) => {
 
     useEffect(() => {
         const qTab = nxHelper.getParam('tab');
-        if(qTab){
+        if (qTab) {
             builder.setActiveTab(qTab);
         }
     }, [Location])
@@ -31,15 +30,15 @@ const SettingsInner = (props) => {
     useEffect(() => {
         const tab = builder.config.active;
         notificationxContext.setRedirect({
-            page  : `nx-settings`,
+            page: `nx-settings`,
             tab: tab,
             keepHash: true,
         });
         if (location.hash) {
             setTimeout(() => {
                 var element = document.getElementById(location.hash.replace('#', ''));
-                if(element){
-                    element.scrollIntoView({behavior: 'smooth'});
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
                 }
             }, 1000);
         }
@@ -47,10 +46,10 @@ const SettingsInner = (props) => {
 
     useEffect(() => {
         notificationxContext.setOptions('refresh', true);
-        if(builder?.settingsRedirect){
+        if (builder?.settingsRedirect) {
             // user don't have permission.
             notificationxContext.setRedirect({
-                page  : `nx-admin`,
+                page: `nx-admin`,
             });
         }
     }, [])
@@ -58,19 +57,19 @@ const SettingsInner = (props) => {
 
     builder.submit.onSubmit = useCallback(
         (event, context) => {
-        context.setSubmitting(true);
-        nxHelper.post('settings', { ...context.values }).then((res: any) => {
+            context.setSubmitting(true);
+            nxHelper.post('settings', { ...context.values }).then((res: any) => {
                 if (res?.success) {
-                    nxToast.info( __(`Changes Saved Successfully.`, 'notificationx') );
+                    nxToast.info(__(`Changes Saved Successfully.`, 'notificationx'));
                 }
                 else {
                     throw new Error(__("Something went wrong.", 'notificationx'));
                 }
             }).catch(err => {
-                nxToast.error( __(`Oops, Something went wrong. Please try again.`, 'notificationx') );
+                nxToast.error(__(`Oops, Something went wrong. Please try again.`, 'notificationx'));
             })
-    },
-    [],
+        },
+        [],
     );
 
     useEffect(() => {
@@ -88,7 +87,7 @@ const SettingsInner = (props) => {
     return (
         <div>
             <Header addNew={true} />
-            {builder?.analytics && <AnalyticsHeader assetsURL={builder.assets} analytics={...builder?.analytics} />}
+            {builder?.analytics && <AnalyticsHeader assetsURL={builder.assets} analytics={{ ...builder?.analytics }} />}
             <div className="nx-settings">
                 <div className="nx-settings-content">
                     <div className="nx-settings-form-wrapper">

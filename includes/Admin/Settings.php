@@ -57,7 +57,7 @@ class Settings extends UsabilityDynamicsSettings {
     }
 
     /**
-     * This method is reponsible for Admin Menu of
+     * This method is responsible for Admin Menu of
      * NotificationX
      *
      * @return void
@@ -121,10 +121,11 @@ class Settings extends UsabilityDynamicsSettings {
             ],
             'tabs'         => apply_filters('nx_settings_tab', [
                 "tab-general" => apply_filters('nx_settings_tab_general', [
-                    'id'      => "tab-general",
-                    'label'   => __("General", 'notificationx'),
-                    'classes' => "tab-general",
-                    'fields'  => [
+                    'id'       => "tab-general",
+                    'label'    => __("General", 'notificationx'),
+                    'classes'  => "tab-general",
+                    'priority' => 10,
+                    'fields'   => [
                         'section-modules' => [
                             'label'   => __("Modules", 'notificationx'),
                             'name'    => "section-modules",
@@ -147,10 +148,11 @@ class Settings extends UsabilityDynamicsSettings {
                     ],
                 ]),
                 "advanced-settings-tab" => apply_filters('nx_settings_tab_advanced', [
-                    'id'      => "tab-advanced-settings",
-                    'label'   => __("Advanced Settings", 'notificationx'),
-                    'classes' => "tab-advanced-settings",
-                    'fields'  => [
+                    'id'       => "tab-advanced-settings",
+                    'label'    => __("Advanced Settings", 'notificationx'),
+                    'classes'  => "tab-advanced-settings",
+                    'priority' => 20,
+                    'fields'   => [
                         'powered_by' => [
                             'name' => 'powered_by',
                             'label'   => __("Powered By", 'notificationx'),
@@ -222,33 +224,35 @@ class Settings extends UsabilityDynamicsSettings {
                     ],
                 ]),
                 'email-analytics-reporting' => apply_filters('nx_settings_tab_email_analytics', [
-                    'label' => __('Analytics & Reporting', 'notificationx'),
-                    'id'      => "email-analytics-reporting",
-                    'classes' => "tab-advanced-settings",
-                    'fields' => [
+                    'label'    => __('Analytics & Reporting', 'notificationx'),
+                    'id'       => "email-analytics-reporting",
+                    'classes'  => "tab-advanced-settings",
+                    'priority' => 30,
+                    'fields'   => [
                         'analytics' => array(
                             'name'        => 'analytics',
                             'priority' => 10,
                             'type'    => "section",
                             'label'    => __('Analytics', 'notificationx'),
                             'fields'   => array(
-                                'disable_dashboard_widget' => array(
-                                    'name'        => 'disable_dashboard_widget',
-                                    'type'        => 'checkbox',
-                                    'label'       => __('Disable Dashboard Widget', 'notificationx'),
-                                    'default'     => false,
-                                    'priority'    => 0,
-                                    'description' => __('Click, if you want to disable dashboard widget of analytics only.', 'notificationx'),
-                                ),
                                 'enable_analytics' => array(
                                     'name'        => 'enable_analytics',
                                     'type'    => 'checkbox',
                                     'label'   => __('Enable Analytics', 'notificationx'),
                                     'default'  => true,
-                                    'priority' => 5,
+                                    'priority' => 0,
+                                ),
+                                'disable_dashboard_widget' => array(
+                                    'name'        => 'disable_dashboard_widget',
+                                    'type'        => 'checkbox',
+                                    'label'       => __('Disable Dashboard Widget', 'notificationx'),
+                                    'default'     => false,
+                                    'priority'    => 5,
+                                    'description' => __('Click, if you want to disable dashboard widget of analytics only.', 'notificationx'),
+                                    'rules'       => Rules::is( 'enable_analytics', true ),
                                 ),
                                 'analytics_from' => array(
-                                    'name'        => 'analytics_from',
+                                    'name'    => 'analytics_from',
                                     'type'    => 'select',
                                     'label'   => __('Analytics From', 'notificationx'),
                                     'options' => GlobalFields::get_instance()->normalize_fields(array(
@@ -258,7 +262,7 @@ class Settings extends UsabilityDynamicsSettings {
                                     )),
                                     'default'  => 'everyone',
                                     'priority' => 10,
-                                    'rules' => Rules::is( 'enable_analytics', true ),
+                                    'rules'    => Rules::is( 'enable_analytics', true ),
                                 ),
                                 'exclude_bot_analytics' => array(
                                     'name'        => 'exclude_bot_analytics',
@@ -374,11 +378,10 @@ class Settings extends UsabilityDynamicsSettings {
                     ],
                 ]),
                 'cache_settings_tab' => apply_filters('nx_settings_tab_cache', [
-                    'id' => 'tab-cache-settings',
-                    'label' => __('Cache Settings', 'notificationx'),
-                    'priority' => 30,
-                    // 'name' => 'cache_settings_tab',
-                    'fields' => [
+                    'id'       => 'tab-cache-settings',
+                    'label'    => __('Cache Settings', 'notificationx'),
+                    'priority' => 40,
+                    'fields'   => [
                         'cache_settings' => array(
                             'name'        => 'cache_settings',
                             'type'    => "section",
@@ -413,8 +416,46 @@ class Settings extends UsabilityDynamicsSettings {
                         ),
                     ],
                 ]),
+                'tab-miscellaneous-settings' => apply_filters('nx_settings_tab_miscellaneous', [
+                    'id'       => 'tab-miscellaneous-settings',
+                    'label'    => __('Miscellaneous', 'notificationx'),
+                    'priority' => 50,
+                    'fields'   => [],
+                ]),
             ]),
         ];
+
+
+        if(defined('NX_DEBUG') && NX_DEBUG){
+            $settings['tabs']['tab-miscellaneous-settings']['fields'][] = array(
+                'name'     => 'danger-zone',
+                'type'     => "section",
+                'label'    => __('Danger Zone', 'notificationx'),
+                'priority' => 200,
+                'fields'   => array(
+                    'delete-settings' => array(
+                        'name'     => 'delete-settings',
+                        'label'    => __('Delete Settings', 'notificationx'),
+                        'text'     => __('Delete Settings', 'notificationx'),
+                        'type'     => 'button',
+                        'priority' => 15,
+                        'ajax'     => [
+                            'on'     => 'click',
+                            'reload' => true,
+                            'api'    => '/notificationx/v1/settings',
+                            'data'   => [
+                                'delete_settings' => true,
+                            ],
+                            'swal' => [
+                                'text'      => __('Successfully deleted Settings.', 'notificationx'),
+                                'icon'      => 'deleted',
+                                'autoClose' => 2000
+                            ],
+                        ],
+                    ),
+                ),
+            );
+        }
 
         $settings = apply_filters('nx_settings_configs', $settings);
         return $settings;
@@ -459,14 +500,24 @@ class Settings extends UsabilityDynamicsSettings {
         $roles = $this->get_selected_roles($settings);
         $settings = array_merge($settings, $roles);
 
+        $settings = apply_filters('nx_settings', $settings);
+
+        if(isset($settings['empty'])){
+            unset($settings['empty']);
+        }
+        // need this to ensure saved value don't return empty array instead of object.
+        if(!empty($settings['delete_settings'])){
+            $settings = ['empty' => true];
+        }
+
         $this->set('settings', $settings);
         delete_transient( 'nx_get_field_names' );
         do_action('nx_settings_saved', $settings);
         return true;
     }
 
-    public function get_role_map($settings = null){
-        if(empty($settings)){
+    public function get_role_map($settings = []){
+        if(empty($settings) || count($settings) == 1){
             $settings = $this->get_selected_roles();
         }
         return [
@@ -489,7 +540,7 @@ class Settings extends UsabilityDynamicsSettings {
         ];
     }
 
-    public function get_selected_roles($settings = null){
+    public function get_selected_roles($settings = []){
         $notification_view_roles = isset($settings['notification_view_roles']) ? $settings['notification_view_roles'] : Settings::get_instance()->get('settings.notification_view_roles', []);
         $notification_roles      = isset($settings['notification_roles']) ? $settings['notification_roles'] : Settings::get_instance()->get('settings.notification_roles', []);
         $settings_roles          = isset($settings['settings_roles']) ? $settings['settings_roles'] : Settings::get_instance()->get('settings.settings_roles', []);

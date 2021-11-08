@@ -2,6 +2,7 @@
 import apiFetch from "@wordpress/api-fetch";
 import { sprintf, __ } from "@wordpress/i18n";
 import Swal from 'sweetalert2';
+import { useNotificationXContext } from "../hooks";
 import { ToastAlert } from './ToasterMsg'
 
 /**
@@ -183,6 +184,16 @@ export const proAlert = ( html = null ) => {
         denyButtonText: 'Close',
         html
     });
+}
+
+export const assetsURL = (path ='', admin = true) => {
+    const builderContext = useNotificationXContext();
+    if(admin){
+        return builderContext.assets.admin + path;
+    }
+    else{
+        return builderContext.assets.public + path;
+    }
 }
 
 export default nxHelper;

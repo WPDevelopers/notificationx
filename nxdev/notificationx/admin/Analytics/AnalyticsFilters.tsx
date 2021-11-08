@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Select from "react-select";
-import { useBuilderContext } from "../../../form-builder";
-import DateControl from "../../../form-builder/src/fields/Date";
-import AnalyticsCard from "./AnalyticsCard";
+import { useBuilderContext, Date as DateControl } from "quickbuilder";
 // @ts-ignore
 import { __experimentalGetSettings, date } from "@wordpress/date";
 import { useLocation } from "react-router";
 import nxHelper from "../../core/functions";
 import { __ } from "@wordpress/i18n";
+import { getTime } from "../../frontend/core/utils";
 
 export const comparisonOptions = {
     views: {
@@ -74,41 +73,41 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
     const onValueChange = ({ target }) => {
         setFilterOptions({
             ...filterOptions,
-            [target.name]:
-                target.type == "date"
-                    ? date(settings.formats.date, target.value, settings.timezone.string)
-                    : target.value,
+            [target.name]: target.value,
         });
     };
 
     const location = useLocation();
+    const query = nxHelper.useQuery(location.search);
 
-    const getComparison = () => {
-        const query = nxHelper.useQuery(location.search);
-        return query.get("comparison");
+    const getNX = () => {
+        let nx = query.get("nx");
+        if(nx){
+            return options.filter(item => {
+                return item.value == nx;
+            });
+        }
+        return null;
     };
 
     useEffect(() => {
-        const selectedComparison = getComparison();
+        const selectedComparison = query.get("comparison");
         let comparison = comparisonOptions.views;
         if (selectedComparison) {
             comparison = comparisonOptions?.[selectedComparison];
         }
         if (filterOptions === null) {
             setFilterOptions({
-                nx: [options?.[0]],
+                nx: getNX() || [options?.[0]],
                 comparison: [comparison],
-                startDate: date(
-                    settings.formats.date,
-                    new Date(Date.now() - 6 * 24 * 60 * 60 * 1000),
-                    settings.timezone.string
-                ),
-                endDate: date(settings.formats.date, new Date(), settings.timezone.string),
+                startDate: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000),
+                endDate: new Date(),
             });
         }
         else {
             setFilterOptions({
                 ...filterOptions,
+                nx: getNX() || filterOptions.nx,
                 comparison: [comparison],
             });
         }
@@ -127,12 +126,14 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
                 />
                 <DateControl
                     name="startDate"
+                    type="date"
                     value={filterOptions?.startDate}
                     onChange={onValueChange}
                     format={settings.formats.date}
                 />
                 <DateControl
                     name="endDate"
+                    type="date"
                     value={filterOptions?.endDate}
                     onChange={onValueChange}
                     format={settings.formats.date}

@@ -17,6 +17,7 @@ return array(
     'NotificationX\\Admin\\Reports\\EmailTemplate' => $baseDir . '/includes/Admin/Reports/EmailTemplate.php',
     'NotificationX\\Admin\\Reports\\ReportEmail' => $baseDir . '/includes/Admin/Reports/ReportEmail.php',
     'NotificationX\\Admin\\Settings' => $baseDir . '/includes/Admin/Settings.php',
+    'NotificationX\\Admin\\XSS' => $baseDir . '/includes/Admin/XSS.php',
     'NotificationX\\CoreInstaller' => $baseDir . '/includes/CoreInstaller.php',
     'NotificationX\\Core\\Ajax' => $baseDir . '/includes/Core/Ajax.php',
     'NotificationX\\Core\\Analytics' => $baseDir . '/includes/Core/Analytics.php',

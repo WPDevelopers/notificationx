@@ -53,6 +53,7 @@ class Give extends Extension {
             return;
         }
         // @todo Something
+        add_filter("nx_can_entry_{$this->id}", array($this, 'limit_by_selected_form'), 10, 3);
     }
 
     /**
@@ -185,14 +186,16 @@ class Give extends Extension {
         $donations = $this->get_give_donations($data);
         if (!empty($donations)) {
             // $this->update_notification($donations, null, $data['nx_id']);
+            $entries = [];
             foreach ($donations as $key => $donation) {
-                $this->update_notification([
+                $entries[] = [
                     'nx_id'      => $data['nx_id'],
                     'source'     => $this->id,
                     'entry_key'  => $key,
                     'data'       => $donation,
-                ]);
+                ];
             }
+            $this->update_notifications($entries);
         }
     }
     /**
@@ -279,6 +282,28 @@ class Give extends Extension {
         }
 
         return $user_data;
+    }
+
+    /**
+     * Hooked with nx_can_entry_give
+     *
+     * @param [type] $return
+     * @param [type] $entry
+     * @param [type] $settings
+     * @return void
+     */
+    public function limit_by_selected_form( $return, $entry, $settings ){
+        if( empty( $settings['give_forms_control'] ) || empty( $settings['give_form_list'] ) || $settings['give_forms_control'] === 'none' ) {
+            return $return;
+        }
+
+        if($settings['give_forms_control'] === 'give_form' && !empty($entry['data']['give_form_id'])){
+            $give_form_id = $entry['data']['give_form_id'];
+            if(!in_array($give_form_id, $settings['give_form_list'])){
+                return false;
+            }
+        }
+        return $return;
     }
 
     public function doc() {

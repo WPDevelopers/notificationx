@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Button, ButtonGroup } from "@wordpress/components";
-import { Date } from "../../form-builder/src/fields";
+import { Date } from "quickbuilder";
 import { isInTheFuture } from "@wordpress/date";
 import nxHelper from "../core/functions";
 import Swal from "sweetalert2";
@@ -27,7 +27,6 @@ const PublishWidget = (props) => {
                 })
                 .then((res: any) => {
                     if (res?.nx_id) {
-                        setIsLoading(false);
                         if (setIsCreated) {
                             builderContext.setRedirect({
                                 page: `nx-edit`,
@@ -35,11 +34,13 @@ const PublishWidget = (props) => {
                                 state: { published: true }
                             });
                         } else {
+                            setIsLoading(false);
                             context.setValues(res);
                             context.setSavedValues(res);
                             rest?.setIsUpdated('saved');
                         }
                     } else {
+                        setIsLoading(false);
                         console.error(__("NX Not Created", 'notificationx'));
                     }
                 })
@@ -65,7 +66,7 @@ const PublishWidget = (props) => {
                     .delete(`nx/${id}`, { nx_id: id })
                     .then((res) => {
                         if (res) {
-                            nxToast.error( __(`Notification Alert has been Deleted.`, 'notificationx') );
+                            nxToast.deleted( __(`Notification Alert has been Deleted.`, 'notificationx') );
                             builderContext.setRedirect({
                                 page  : `nx-admin`,
                             });

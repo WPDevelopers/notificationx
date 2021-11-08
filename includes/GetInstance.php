@@ -47,7 +47,7 @@ trait GetInstance {
             $class = __CLASS__;
             if(strpos($class, "NotificationX\\") === 0){
                 $pro_class = str_replace("NotificationX\\", "NotificationXPro\\", $class);
-                if(class_exists($pro_class)){
+                if(class_exists($pro_class) && is_subclass_of($pro_class, $class)){
                     $class = $pro_class;
                 }
             }

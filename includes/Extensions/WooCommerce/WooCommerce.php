@@ -390,7 +390,7 @@ class WooCommerce extends Extension {
      * @return array
      */
     public function get_orders($data = array()) {
-        if (empty($data)) return null;
+        if (empty($data) || !function_exists('wc_get_orders')) return null;
         $orders = [];
         $from = strtotime(date('Y-m-d', strtotime('-' . intval($data['display_from']) . ' days')));
         $wc_orders = \wc_get_orders([
@@ -475,7 +475,8 @@ class WooCommerce extends Extension {
     }
 
     public function multiorder_combine($data, $settings) {
-        if (empty($settings['combine_multiorder']) || intval($settings['combine_multiorder']) != 1 )  {
+        $should_combine = apply_filters('nx_should_combine', true, $data, $settings);
+        if (!$should_combine || empty($settings['combine_multiorder']) || intval($settings['combine_multiorder']) != 1 )  {
             return $data;
         }
         $items = [];

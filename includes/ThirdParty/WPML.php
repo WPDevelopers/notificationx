@@ -109,25 +109,33 @@ class WPML {
         return $meta;
     }
 
-    public function localize_moment(){
-        $locale      = strtolower(str_replace('_', '-', get_locale()));
-        $locale_path = NOTIFICATIONX_ASSETS_PATH . "public/locale/$locale.js";
-        if(file_exists($locale_path)){
-            $locale_url  = NOTIFICATIONX_ASSETS . "public/locale/$locale.js";
-            wp_enqueue_script( 'nx-moment-locale', $locale_url, ['moment']);
+    public function localize_moment($return_rul = false){
+        $locale_url = '';
+        if($locale = apply_filters( 'wpml_current_language', NULL )){
+            $locale      = strtolower(str_replace('_', '-', $locale));
+            $locale_path = NOTIFICATIONX_ASSETS_PATH . "public/locale/$locale.js";
+            if(file_exists($locale_path)){
+                $locale_url  = NOTIFICATIONX_ASSETS . "public/locale/$locale.js";
+            }
         }
         else{
-            $locale      = apply_filters( 'wpml_current_language', NULL );
-            if($locale){
-                $locale      = strtolower(str_replace('_', '-', $locale));
-                $locale_path = NOTIFICATIONX_ASSETS_PATH . "public/locale/$locale.js";
+            $locale      = strtolower(str_replace('_', '-', get_locale()));
+            $locale_path = NOTIFICATIONX_ASSETS_PATH . "public/locale/$locale.js";
+            $locale_arr  = explode('-', $locale);
+            if(file_exists($locale_path)){
+                $locale_url  = NOTIFICATIONX_ASSETS . "public/locale/$locale.js";
+            }
+            else if(!empty($locale_arr[1])){
+                $locale_path = NOTIFICATIONX_ASSETS_PATH . "public/locale/{$locale_arr[0]}.js";
                 if(file_exists($locale_path)){
-                    $locale_url  = NOTIFICATIONX_ASSETS . "public/locale/$locale.js";
-                    wp_enqueue_script( 'nx-moment-locale', $locale_url, ['moment']);
+                    $locale_url  = NOTIFICATIONX_ASSETS . "public/locale/{$locale_arr[0]}.js";
                 }
             }
-
         }
+        if($locale_url && !$return_rul){
+            wp_enqueue_script( 'nx-moment-locale', $locale_url, ['moment']);
+        }
+        return $locale_url;
     }
 
     public function generate_package($post, $nx_id){
@@ -235,7 +243,6 @@ class WPML {
                     'data' => $post,
                 ], $nx_id);
 
-                // @todo mayb not required.
                 $this->register_package($post, [], $nx_id);
                 wp_redirect(admin_url("admin.php?page=wpml-string-translation/menu/string-translation.php&context=notificationx-$nx_id"));
                 die;

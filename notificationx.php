@@ -3,7 +3,7 @@
  * Plugin Name:       NotificationX
  * Plugin URI:        https://notificationx.com
  * Description:       Social Proof & Recent Sales Popup, Comment Notification, Subscription Notification, Notification Bar and many more.
- * Version:           2.0.3
+ * Version:           2.2.0
  * Author:            WPDeveloper
  * Author URI:        https://wpdeveloper.net
  * License:           GPL-3.0+
@@ -26,15 +26,15 @@ if ( ! defined( 'WPINC' ) ) {
  * Defines CONSTANTS for Whole plugins.
  */
 define( 'NOTIFICATIONX_FILE', __FILE__ );
-define( 'NOTIFICATIONX_VERSION', '2.0.3' );
+define( 'NOTIFICATIONX_VERSION', '2.2.0' );
 define( 'NOTIFICATIONX_URL', plugins_url( '/', __FILE__ ) );
 define( 'NOTIFICATIONX_PATH', plugin_dir_path( __FILE__ ) );
 define( 'NOTIFICATIONX_BASENAME', plugin_basename( __FILE__ ) );
 
 define( 'NOTIFICATIONX_ASSETS', NOTIFICATIONX_URL . 'assets/' );
 define( 'NOTIFICATIONX_ASSETS_PATH', NOTIFICATIONX_PATH . 'assets/' );
-define( 'NOTIFICATIONX_DEV_ASSETS', NOTIFICATIONX_URL . 'build/' );
-define( 'NOTIFICATIONX_DEV_ASSETS_PATH', NOTIFICATIONX_PATH . 'build/' );
+define( 'NOTIFICATIONX_DEV_ASSETS', NOTIFICATIONX_URL . 'nxbuild/' );
+define( 'NOTIFICATIONX_DEV_ASSETS_PATH', NOTIFICATIONX_PATH . 'nxbuild/' );
 define( 'NOTIFICATIONX_INCLUDES', NOTIFICATIONX_PATH . 'includes/' );
 
 
@@ -48,11 +48,11 @@ define( 'NOTIFICATIONX_PUBLIC_URL', NOTIFICATIONX_ASSETS . 'public/' );
 if ( ! class_exists( '\NotificationX\NotificationX' ) ) {
     require_once NOTIFICATIONX_PATH . 'vendor/autoload.php';
     if(nx_is_plugin_active( 'notificationx-pro/notificationx-pro.php' )){
+        add_action( 'admin_notices', 'nx_free_compatibility_notice' );
         if( file_exists(dirname(NOTIFICATIONX_PATH) . '/notificationx-pro/vendor/autoload.php') ) {
             require_once dirname(NOTIFICATIONX_PATH) . '/notificationx-pro/vendor/autoload.php';
         } else {
             add_action('plugins_loaded', function(){
-                add_action( 'admin_notices', 'nx_free_compatibility_notice' );
                 remove_action( 'admin_notices', 'notificationx_install_core_notice' );
                 \NotificationX\Core\Helper::remove_old_notice();
             });
@@ -74,13 +74,13 @@ function nx_free_compatibility_notice(){
         require_once ABSPATH . 'wp-admin/includes/plugin.php';
     }
     $plugins = get_plugins();
-    if( isset( $plugins['notificationx-pro/notificationx-pro.php'], $plugins['notificationx-pro/notificationx-pro.php']['Version'] ) && version_compare( $plugins['notificationx-pro/notificationx-pro.php']['Version'], '2.0.0', '>=' ) ) {
+    if( isset( $plugins['notificationx-pro/notificationx-pro.php'], $plugins['notificationx-pro/notificationx-pro.php']['Version'] ) && version_compare( $plugins['notificationx-pro/notificationx-pro.php']['Version'], '2.1.0', '>=' ) ) {
         return;
     }
     ?>
         <div class="notice notice-warning is-dismissible">
             <p>
-            <?php echo sprintf(__("<strong>Recommended: </strong> Seems like you haven't updated the NotificationX Pro version. Please make sure to update NotificationX Pro plugin from <a href='%s'><strong>wp-admin -> Plugins</strong></a>.", esc_url( admin_url('plugins.php' ) )));?></p>
+            <?php echo sprintf(__("<strong>Recommended: </strong> Seems like you haven't updated the NotificationX Pro version. Please make sure to update NotificationX Pro plugin from <a href='%s'><strong>wp-admin -> Plugins</strong></a>.", 'notificationx' ), esc_url( admin_url('plugins.php' )));?></p>
         </div>
     <?php
 }

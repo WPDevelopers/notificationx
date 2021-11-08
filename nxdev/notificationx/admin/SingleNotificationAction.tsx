@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
-import { __ } from '@wordpress/i18n';
+import { sprintf, __ } from '@wordpress/i18n';
 import { Link, Redirect } from 'react-router-dom';
-import nxHelper from '../core/functions';
+import nxHelper, { proAlert } from '../core/functions';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useNotificationXContext } from '../hooks';
 import classNames from 'classnames';
@@ -17,6 +17,24 @@ const SingleNotificationAction = ({
     ...item
 }) => {
     const nxContext = useNotificationXContext();
+    let xssText = null;
+    if(nxContext?.is_pro_active){
+        let xss_id = {};
+        if(item.source == 'press_bar'){
+            if(!item?.elementor_id){
+                xss_id = {pressbar: [id]};
+            }
+        }
+        else if(item?.global_queue){
+            xss_id = {global: [id]};
+        }
+        else{
+            xss_id = {active: [id]};
+        }
+        const xss_data = {...nxContext.xss_data, ...xss_id};
+        xssText = sprintf(`<script>\nnotificationX = JSON.parse('%s');\n</script>%s`, JSON.stringify(xss_data), nxContext.xss_scripts);
+    }
+
     // @ts-ignore
     const ajaxurl = window.ajaxurl;
     const handleDelete = useCallback(
@@ -96,21 +114,32 @@ const SingleNotificationAction = ({
         });
     };
 
-    const onCopy = () => {
-        nxToast.info( __(`Notification Alert has been Copied to Clipboard.`, 'notificationx') );
+    const onCopy = (text, result) => {
+        nxToast.info(__(`Notification Alert has been copied to Clipboard.`, 'notificationx'));
+    }
+
+    const onCopyXSS = (text, result) => {
+        if(nxContext?.is_pro_active){
+            nxToast.info(__(`Cross Domain Notice code has been copied to Clipboard.`, 'notificationx'));
+        }
+        else{
+            proAlert(
+                sprintf(__("You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use <a target='_blank' href='%s' style='color:red'>Cross Domain Notice</a> feature.", "notificationx"), 'http://wpdeveloper.net/in/upgrade-notificationx', 'https://notificationx.com/docs/notificationx-cross-domain-notice/')
+            ).fire();
+        }
     }
 
     return (
         <div className="nx-admin-actions">
             {/*  || item?.elementor_id */}
             <Link className="nx-admin-title-edit" title={__('Edit', 'notificationx')} to={{
-                        pathname: '/admin.php',
-                        search: `?page=nx-edit&id=${id}`,
-                    }}><span>{__('Edit', 'notificationx')}</span></Link>
-            <a className={classNames("nx-admin-title-translate", {hidden: !nxContext?.can_translate})} title={__("Translate", "notificationx")} href={`${ajaxurl}?action=nx-translate&id=${id}`}>
+                pathname: '/admin.php',
+                search: `?page=nx-edit&id=${id}`,
+            }}><span>{__('Edit', 'notificationx')}</span></Link>
+            <a className={classNames("nx-admin-title-translate", { hidden: !nxContext?.can_translate })} title={__("Translate", "notificationx")} href={`${ajaxurl}?action=nx-translate&id=${id}`}>
                 <span>{__("Translate", "notificationx")}</span>
             </a>
-            <Link className={classNames("nx-admin-title-duplicate", {hidden: nxContext?.createRedirect})} title={__('Duplicate', 'notificationx')} to={{
+            <Link className={classNames("nx-admin-title-duplicate", { hidden: nxContext?.createRedirect })} title={__('Duplicate', 'notificationx')} to={{
                 pathname: '/admin.php',
                 search: `?page=nx-edit`, //&clone=${id}
                 state: { duplicate: true, _id: id }
@@ -121,17 +150,23 @@ const SingleNotificationAction = ({
                     <a></a>
                 </CopyToClipboard>
             }
+            {
+                !item?.elementor_id &&
+                <CopyToClipboard className="nx-admin-title-xss" title={__("Cross Domain Notice", 'notificationx')} text={xssText} options={{format: 'text/plain'}} onCopy={onCopyXSS} >
+                    <a></a>
+                </CopyToClipboard>
+            }
             {/* <Link className="nx-admin-title-duplicate" title="Entries" to={`/entries/${id}`}><span>{__('Entries', 'notificationx')}</span></Link> */}
             {regenerate && (
                 <button
                     className="nx-admin-title-regenerate"
                     onClick={handleRegenerate}
-                    title={__("Re Generate", "notificationx")}
+                    title={__("Regenerate", "notificationx")}
                 >
-                    <span>{__("Re Generate", "notificationx")}</span>
+                    <span>{__("Regenerate", "notificationx")}</span>
                 </button>
             )}
-            <button className={classNames("nx-admin-title-trash", {hidden: nxContext?.createRedirect})} title={__("Delete", "notificationx")} onClick={handleDelete}>
+            <button className={classNames("nx-admin-title-trash", { hidden: nxContext?.createRedirect })} title={__("Delete", "notificationx")} onClick={handleDelete}>
                 <span>{__("Delete", "notificationx")}</span>
             </button>
         </div>

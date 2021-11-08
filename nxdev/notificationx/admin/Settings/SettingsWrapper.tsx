@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import React from 'react'
-import { BuilderProvider, useBuilder } from '../../../form-builder/src/core/hooks';
+import { BuilderProvider, useBuilder } from 'quickbuilder';
 import withDocumentTitle from '../../core/withDocumentTitle';
 import SettingsInner from './SettingsInner';
 

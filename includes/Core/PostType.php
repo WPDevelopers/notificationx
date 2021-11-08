@@ -8,6 +8,7 @@ use NotificationX\Admin\Entries;
 use NotificationX\Admin\Settings;
 use NotificationX\Extensions\ExtensionFactory;
 use NotificationX\Extensions\GlobalFields;
+use NotificationX\FrontEnd\FrontEnd;
 use NotificationX\GetInstance;
 use NotificationX\NotificationX;
 
@@ -90,7 +91,7 @@ class PostType {
         $tabs                           = NotificationX::get_instance()->normalize( GlobalFields::get_instance()->tabs() );
 
         $tabs['createRedirect']               = !current_user_can( 'edit_notificationx' );
-        $tabs['analyticsRedirect']            = !current_user_can( 'read_notificationx_analytics' );
+        $tabs['analyticsRedirect']            = !(current_user_can( 'read_notificationx_analytics' ) && Settings::get_instance()->get('settings.enable_analytics', true));
         $tabs['quick_build']                  = NotificationX::get_instance()->normalize( QuickBuild::get_instance()->tabs() );
         $tabs['rest']                         = REST::get_instance()->rest_data();
         $tabs['current_page']                 = 'add-nx';
@@ -100,7 +101,7 @@ class PostType {
         $tabs['settings']['analytics']        = $tabs['analytics'];
         $tabs['admin_url']                    = get_admin_url();
         $tabs['assets']                       = [
-            'admin' => NOTIFICATIONX_ADMIN_URL,
+            'admin'  => NOTIFICATIONX_ADMIN_URL,
             'public' => NOTIFICATIONX_PUBLIC_URL,
         ];
 
@@ -277,6 +278,11 @@ class PostType {
             return true;
         }
 
+        $ext = ExtensionFactory::get_instance()->get($source);
+        if($ext && $ext->is_pro && !NotificationX::is_pro()){
+            return false;
+        }
+
         $enabled_source = $this->get_enabled_source();
         unset($enabled_source['press_bar']);
         if( count( $enabled_source ) == 0 ) {
@@ -354,9 +360,6 @@ class PostType {
         Entries::get_instance()->delete_entries($post_id);
         Database::get_instance()->delete_posts(Database::$table_stats, ['nx_id' => $post_id]);
 
-        // clear cron when deleted.
-        Cron::get_instance()->clear_schedule(array('post_id' => $post_id));
-        // @todo add action.
         do_action('nx_delete_post', $post_id, $post);
         return $results;
     }

@@ -1,3 +1,12 @@
+<style>
+.notificationx-disabled-javascript-notice {
+    font-size: 20px;
+    width: 700px;
+    border: 1px solid #ffcece;
+    padding: 30px;
+    background: #fff;
+}
+</style>
 <hr class="wp-header-end"/>
 <div class="wrap">
     <div class="notificationx-admin">

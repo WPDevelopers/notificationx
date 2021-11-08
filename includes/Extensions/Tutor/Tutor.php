@@ -497,16 +497,16 @@ class Tutor extends Extension {
         $enrollments = $this->get_purchased_course($data);
         if (!empty($enrollments)) {
             // $enrollments = NotificationX_Helper::sortBy( $enrollments, 'tutor' );
+            $entries = [];
             foreach ($enrollments as $key => $enrollment) {
-                return $this->update_notification(
-                    array(
+                $entries[] = array(
                         'nx_id'     => $data['nx_id'],
                         'source'    => $this->id,
                         'entry_key' => $key,
                         'data'      => $enrollment,
-                    )
-                );
+                    );
             }
+            $this->update_notifications($entries);
         }
     }
     /**

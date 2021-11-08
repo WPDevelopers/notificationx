@@ -40,8 +40,11 @@ class FrontEnd {
      * when its initialized.
      */
     public function __construct() {
-        add_action('init', [$this, 'init'], 10);
         Analytics::get_instance();
+        if (!is_admin() || !empty($_GET['frontend'])) {
+            add_action('init', [$this, 'init'], 10);
+        }
+        add_filter('nx_frontend_localize_data', [$this, 'get_localize_data']);
     }
 
     /**
@@ -56,19 +59,7 @@ class FrontEnd {
         add_filter('nx_fallback_data', [$this, 'fallback_data'], 10, 3);
         add_filter('nx_filtered_data', [$this, 'filtered_data'], 9999, 2);
     }
-    /**
-     * Get File Modification Time or URL
-     *
-     * @param string $file  File relative path for Admin
-     * @param boolean $url  true for URL return
-     * @return void|string|integer
-     */
-    public function file( $file, $url = false ){
-        if( $url ) {
-            return self::ASSET_URL . $file;
-        }
-        return filemtime( self::ASSET_PATH . $file );
-    }
+
     /**
      * This method is responsible for enqueueing scripts for public use.
      *
@@ -81,7 +72,8 @@ class FrontEnd {
         wp_register_style('notificationx-public', Helper::file( 'public/css/frontend.css', true ), [], $d['version'], 'all');
 
         if( empty($_GET['elementor-preview'] ) ) {
-            $nx_ids = $this->localizeScripts();
+            $nx_ids = $this->get_notifications_ids();
+            $nx_ids = apply_filters('nx_frontend_localize_data', $nx_ids);
             if($nx_ids['total'] > 0){
                 wp_enqueue_style('notificationx-public');
                 wp_enqueue_script('notificationx-public');
@@ -96,22 +88,29 @@ class FrontEnd {
         }
     }
 
+    // @todo deprecated. use get_localize_data instead
     public function localizeScripts(){
-        $data = $this->get_notifications_ids();
+        return [];
+    }
+
+    public function get_localize_data($data){
         $data['rest'] = REST::get_instance()->rest_data();
         $data['assets'] = self::ASSET_URL;
         $data['is_pro'] = false;
-        // $this->get_notifications_data($data);
         return $data;
     }
 
     public function get_notifications_data($params) {
+        $_params = $params;
         $result = [
             'global'   => [],
             'active'   => [],
             'pressbar' => [],
             'shortcode' => [],
         ];
+        if(!empty($_params['all_active'])){
+            $params = $this->get_notifications_ids();
+        }
         $params = wp_parse_args($params, [
             'global'   => [],
             'active'   => [],
@@ -153,10 +152,10 @@ class FrontEnd {
                     $timestamp = $entry['timestamp'];
                     $display_from = !empty($settings['display_from']) ? $settings['display_from'] : 2;
                     $display_from = strtotime("-$display_from days");
-                    if(!is_int($timestamp)){
+                    if(!is_numeric($timestamp)){
                         $timestamp = strtotime($timestamp);
                     }
-                    if($display_from > $timestamp){
+                    if($timestamp && $display_from > $timestamp){
                         continue;
                     }
                 }
@@ -190,14 +189,12 @@ class FrontEnd {
                     }
                 }
 
-                if (in_array($nx_id, $global)) {
-                    // $result['global']['entries'][] = $entry;
-                    // $result['global']['posts'][$nx_id] = $settings;
+                if (!empty($settings['global_queue'])) {
                     if (empty($result['global'][$nx_id]['post'])) {
                         $result['global'][$nx_id]['post'] = $settings;
                     }
                     $result['global'][$nx_id]['entries'][] = $entry;
-                } else if(in_array($nx_id, $active)){
+                } else{
                     if (empty($result['active'][$nx_id]['post'])) {
                         $result['active'][$nx_id]['post'] = $settings;
                     }
@@ -223,6 +220,9 @@ class FrontEnd {
                 if ($elementor_post_id == '' || get_post_status($elementor_post_id) !== 'publish' | !class_exists('\Elementor\Plugin')) {
                     $settings['elementor_id'] = false;
                 }
+                if(!empty($_params['all_active']) && $elementor_post_id){
+                    continue;
+                }
 
                 // $settings['button_url'] = apply_filters("nx_notification_link_{$settings['source']}", $settings['button_url'], $settings);
                 $settings['button_url'] = apply_filters('nx_notification_link', $settings['button_url'], $settings);
@@ -238,7 +238,7 @@ class FrontEnd {
         $result['settings'] = [
             'disable_powered_by' => Settings::get_instance()->get('settings.disable_powered_by'),
             'affiliate_link'     => esc_url($branding_url),
-            'enable_analytics'   => Settings::get_instance()->get('settings.enable_analytics'),
+            'enable_analytics'   => Settings::get_instance()->get('settings.enable_analytics', true),
             'analytics_from'     => Settings::get_instance()->get('settings.analytics_from'),
             'delay_before'       => Settings::get_instance()->get('settings.delay_before', 5),
             'display_for'        => Settings::get_instance()->get('settings.display_for', 5),

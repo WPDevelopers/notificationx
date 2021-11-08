@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useBuilderContext } from "../../../form-builder";
+import { useBuilderContext } from "quickbuilder";
 import { Button } from "@wordpress/components";
 import nxHelper from "../../core/functions";
 import { __ } from "@wordpress/i18n";
@@ -23,7 +23,7 @@ const Launch = (props) => {
             .then((res: any) => {
                 if (res?.nx_id) {
                     notificationxContext.setRedirect({
-                        page  : `nx-admin`,
+                        page: `nx-admin`,
                     });
                 }
             })

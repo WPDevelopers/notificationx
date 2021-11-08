@@ -799,6 +799,7 @@ class PressBar extends Extension {
                     'name'  => 'countdown_end_date',
                     'label' => __('End Date', 'notificationx'),
                     'type'  => 'date',
+                    // @todo Something
                     // 'default' => date('Y-m-d H:i:s', time() + 7 * 24 * 60 * 60),
                     'rules' => ["and", ['is', 'evergreen_timer', false], ['is', 'enable_countdown', true]],
                 ),

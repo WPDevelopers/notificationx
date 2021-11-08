@@ -107,6 +107,7 @@ const useNotificationX = (props: any) => {
                                 } else {
                                     clearInterval(intervalID);
                                     clearInterval(timeoutID);
+                                    return;
                                 }
                             } else {
                                 id++;
@@ -153,6 +154,7 @@ const useNotificationX = (props: any) => {
                         } else {
                             clearInterval(intervalID);
                             clearInterval(timeoutID);
+                            return;
                         }
                     } else {
                         id++;

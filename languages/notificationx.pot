@@ -1,17 +1,17 @@
 # Copyright (C) 2021 WPDeveloper
-# This file is distributed under the same license as the NotificationX plugin.
+# This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 2.0.3\n"
+"Project-Id-Version: NotificationX 2.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-09-20T06:40:46+00:00\n"
+"POT-Creation-Date: 2021-10-26T05:47:02+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
+"X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: notificationx\n"
 
 #. Plugin Name of the plugin
@@ -19,7 +19,11 @@ msgstr ""
 #: includes/Admin/Settings.php:104
 #: includes/Core/QuickBuild.php:112
 #: includes/Extensions/GlobalFields.php:43
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:13
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+#: nxdev/notificationx/frontend/themes/helpers/NotificationText.js:13
 msgid "NotificationX"
 msgstr ""
 
@@ -40,39 +44,40 @@ msgid "https://wpdeveloper.net"
 msgstr ""
 
 #: includes/Admin/Admin.php:95
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:3
+#: assets/admin/js/admin.js:15
 msgid "All NotificationX"
 msgstr ""
 
-#: includes/Admin/Admin.php:162
+#: includes/Admin/Admin.php:149
 msgid "Ok, you deserve it!"
 msgstr ""
 
-#: includes/Admin/Admin.php:167
+#: includes/Admin/Admin.php:154
 msgid "I already did"
 msgstr ""
 
-#: includes/Admin/Admin.php:175
+#: includes/Admin/Admin.php:162
 msgid "Maybe Later"
 msgstr ""
 
-#: includes/Admin/Admin.php:183
+#: includes/Admin/Admin.php:170
 msgid "I need help"
 msgstr ""
 
-#: includes/Admin/Admin.php:188
+#: includes/Admin/Admin.php:175
 msgid "Never show again"
 msgstr ""
 
-#: includes/Admin/Admin.php:200
+#: includes/Admin/Admin.php:187
 msgid "We hope you're enjoying NotificationX! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?"
 msgstr ""
 
-#: includes/Admin/Admin.php:231
+#: includes/Admin/Admin.php:218
 msgid "Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage."
 msgstr ""
 
-#: includes/Admin/Admin.php:232
+#: includes/Admin/Admin.php:219
 msgid ""
 "We collect non-sensitive diagnostic data and plugin usage information.\n"
 "\t\t\tYour site URL, WordPress & PHP version, plugins & themes and email address to send you the\n"
@@ -81,8 +86,8 @@ msgid ""
 msgstr ""
 
 #. translators: %s: no of minutes
-#: includes/Admin/Cron.php:91
-#: includes/Admin/Cron.php:97
+#: includes/Admin/Cron.php:92
+#: includes/Admin/Cron.php:98
 msgid "Every %s minutes"
 msgstr ""
 
@@ -108,9 +113,9 @@ msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:61
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:7
+#: assets/admin/js/admin.js:3
 #: assets/admin/js/admin.js:9
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:15
 msgid "Something went wrong."
 msgstr ""
 
@@ -119,17 +124,17 @@ msgid "You have to enable Reporting first."
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:215
-#: includes/Admin/Settings.php:298
+#: includes/Admin/Settings.php:302
 msgid "Once Weekly"
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:219
-#: includes/Admin/Settings.php:297
+#: includes/Admin/Settings.php:301
 msgid "Once Daily"
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:223
-#: includes/Admin/Settings.php:299
+#: includes/Admin/Settings.php:303
 msgid "Once Monthly"
 msgstr ""
 
@@ -153,209 +158,248 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: includes/Admin/Settings.php:129
+#: includes/Admin/Settings.php:130
 msgid "Modules"
 msgstr ""
 
-#: includes/Admin/Settings.php:151
+#: includes/Admin/Settings.php:152
 msgid "Advanced Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:156
+#: includes/Admin/Settings.php:158
 msgid "Powered By"
 msgstr ""
 
-#: includes/Admin/Settings.php:162
+#: includes/Admin/Settings.php:164
 msgid "Disable Powered By"
 msgstr ""
 
-#: includes/Admin/Settings.php:166
+#: includes/Admin/Settings.php:168
 msgid "Click, if you want to disable powered by text from notification"
 msgstr ""
 
-#: includes/Admin/Settings.php:173
+#: includes/Admin/Settings.php:175
 msgid "Role Management"
 msgstr ""
 
-#: includes/Admin/Settings.php:179
+#: includes/Admin/Settings.php:181
 msgid "Who Can View Notification?"
 msgstr ""
 
-#: includes/Admin/Settings.php:190
+#: includes/Admin/Settings.php:192
 msgid "Who Can Create Notification?"
 msgstr ""
 
-#: includes/Admin/Settings.php:201
+#: includes/Admin/Settings.php:203
 msgid "Who Can Edit Settings?"
 msgstr ""
 
-#: includes/Admin/Settings.php:212
+#: includes/Admin/Settings.php:214
 msgid "Who Can Check Analytics?"
 msgstr ""
 
-#: includes/Admin/Settings.php:225
+#: includes/Admin/Settings.php:227
 msgid "Analytics & Reporting"
 msgstr ""
 
-#: includes/Admin/Settings.php:233
-#: includes/Core/Analytics.php:45
-#: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: includes/Admin/Settings.php:236
+#: includes/Core/Analytics.php:46
+#: assets/admin/js/admin.js:3
+#: assets/admin/js/admin.js:15
 msgid "Analytics"
 msgstr ""
 
-#: includes/Admin/Settings.php:238
-msgid "Disable Dashboard Widget"
-msgstr ""
-
 #: includes/Admin/Settings.php:241
-msgid "Click, if you want to disable dashboard widget of analytics only."
-msgstr ""
-
-#: includes/Admin/Settings.php:246
 msgid "Enable Analytics"
 msgstr ""
 
-#: includes/Admin/Settings.php:253
+#: includes/Admin/Settings.php:248
+msgid "Disable Dashboard Widget"
+msgstr ""
+
+#: includes/Admin/Settings.php:251
+msgid "Click, if you want to disable dashboard widget of analytics only."
+msgstr ""
+
+#: includes/Admin/Settings.php:257
 msgid "Analytics From"
 msgstr ""
 
-#: includes/Admin/Settings.php:255
+#: includes/Admin/Settings.php:259
 #: includes/Extensions/GlobalFields.php:761
 msgid "Everyone"
 msgstr ""
 
-#: includes/Admin/Settings.php:256
+#: includes/Admin/Settings.php:260
 msgid "Guests Only"
 msgstr ""
 
-#: includes/Admin/Settings.php:257
+#: includes/Admin/Settings.php:261
 msgid "Registered Users Only"
 msgstr ""
 
-#: includes/Admin/Settings.php:266
+#: includes/Admin/Settings.php:270
 msgid "Exclude Bot Analytics"
 msgstr ""
 
-#: includes/Admin/Settings.php:269
+#: includes/Admin/Settings.php:273
 msgid "Select if you want to exclude bot analytics."
 msgstr ""
 
-#: includes/Admin/Settings.php:278
+#: includes/Admin/Settings.php:282
 msgid "Reporting"
 msgstr ""
 
-#: includes/Admin/Settings.php:283
+#: includes/Admin/Settings.php:287
 msgid "Disable Reporting"
 msgstr ""
 
-#: includes/Admin/Settings.php:291
+#: includes/Admin/Settings.php:295
 msgid "Reporting Frequency"
 msgstr ""
 
-#: includes/Admin/Settings.php:308
+#: includes/Admin/Settings.php:312
 msgid "It will be triggered on the first day of next month."
 msgstr ""
 
-#: includes/Admin/Settings.php:314
+#: includes/Admin/Settings.php:318
 msgid "Select Reporting Day"
 msgstr ""
 
-#: includes/Admin/Settings.php:318
+#: includes/Admin/Settings.php:322
 msgid "Sunday"
 msgstr ""
 
-#: includes/Admin/Settings.php:319
+#: includes/Admin/Settings.php:323
 msgid "Monday"
 msgstr ""
 
-#: includes/Admin/Settings.php:320
+#: includes/Admin/Settings.php:324
 msgid "Tuesday"
 msgstr ""
 
-#: includes/Admin/Settings.php:321
+#: includes/Admin/Settings.php:325
 msgid "Wednesday"
 msgstr ""
 
-#: includes/Admin/Settings.php:322
+#: includes/Admin/Settings.php:326
 msgid "Thursday"
 msgstr ""
 
-#: includes/Admin/Settings.php:323
+#: includes/Admin/Settings.php:327
 msgid "Friday"
 msgstr ""
 
-#: includes/Admin/Settings.php:325
+#: includes/Admin/Settings.php:329
 msgid "Select a Day for Email Report."
 msgstr ""
 
-#: includes/Admin/Settings.php:334
+#: includes/Admin/Settings.php:338
 msgid "Reporting Email"
 msgstr ""
 
-#: includes/Admin/Settings.php:342
+#: includes/Admin/Settings.php:346
 msgid "Reporting Email Subject"
 msgstr ""
 
-#: includes/Admin/Settings.php:350
+#: includes/Admin/Settings.php:354
 msgid "Reporting Test"
 msgstr ""
 
-#: includes/Admin/Settings.php:351
+#: includes/Admin/Settings.php:355
 msgid "Test Report"
 msgstr ""
 
-#: includes/Admin/Settings.php:366
+#: includes/Admin/Settings.php:370
 msgid "Successfully Sent a Test Report in Your Email."
 msgstr ""
 
-#: includes/Admin/Settings.php:378
-#: includes/Admin/Settings.php:385
+#: includes/Admin/Settings.php:382
+#: includes/Admin/Settings.php:388
 msgid "Cache Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:391
+#: includes/Admin/Settings.php:394
 msgid "Cache Limit"
 msgstr ""
 
-#: includes/Admin/Settings.php:392
+#: includes/Admin/Settings.php:395
 msgid "Number of Notification Data to be saved in Database."
 msgstr ""
 
-#: includes/Admin/Settings.php:399
+#: includes/Admin/Settings.php:402
 msgid "Download Stats Cache Duration"
 msgstr ""
 
-#: includes/Admin/Settings.php:400
-#: includes/Admin/Settings.php:408
+#: includes/Admin/Settings.php:403
+#: includes/Admin/Settings.php:411
 msgid "Minutes (Schedule Duration to fetch new data)."
 msgstr ""
 
-#: includes/Admin/Settings.php:407
+#: includes/Admin/Settings.php:410
 msgid "Reviews Cache Duration"
+msgstr ""
+
+#: includes/Admin/Settings.php:421
+msgid "Miscellaneous"
+msgstr ""
+
+#: includes/Admin/Settings.php:433
+msgid "Danger Zone"
+msgstr ""
+
+#: includes/Admin/Settings.php:438
+#: includes/Admin/Settings.php:439
+msgid "Delete Settings"
+msgstr ""
+
+#: includes/Admin/Settings.php:450
+msgid "Successfully deleted Settings."
 msgstr ""
 
 #: includes/Admin/views/analytics.views.php:7
 #: includes/Admin/views/analytics.views.php:11
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:3
 msgid "Total Views"
 msgstr ""
 
 #: includes/Admin/views/analytics.views.php:20
 #: includes/Admin/views/analytics.views.php:24
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:3
 msgid "Total Clicks"
 msgstr ""
 
 #: includes/Admin/views/analytics.views.php:33
 #: includes/Admin/views/analytics.views.php:37
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:3
 msgid "Click-Through-Rate"
 msgstr ""
 
 #. translators: html tags
-#: includes/Admin/views/main.views.php:9
+#: includes/Admin/views/main.views.php:18
 msgid "To work %sNotificationX%s properly you need to %sEnable JavaScript%s in your browser or make sure you have installed updated browser in your device."
+msgstr ""
+
+#: includes/Admin/XSS.php:34
+#: includes/Admin/XSS.php:40
+#: assets/admin/js/admin.js:3
+#: assets/admin/js/admin.js:15
+msgid "Cross Domain Notice"
+msgstr ""
+
+#: includes/Admin/XSS.php:41
+#: assets/admin/js/admin.js:1
+msgid "Click to Copy"
+msgstr ""
+
+#: includes/Admin/XSS.php:42
+#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:15
+msgid "Cross Domain Notice code has been copied to Clipboard."
+msgstr ""
+
+#: includes/Admin/XSS.php:46
+msgid "Show your Notification Alerts in another website using <a target=\"_blank\" href=\"%s\">Cross Domain Notice</a>."
 msgstr ""
 
 #: includes/Core/Locations.php:21
@@ -418,9 +462,9 @@ msgid "All %s taxonomy archives"
 msgstr ""
 
 #: includes/Core/Migration.php:383
-#: includes/Extensions/Give/Give.php:81
 #: includes/Extensions/Give/Give.php:82
 #: includes/Extensions/Give/Give.php:83
+#: includes/Extensions/Give/Give.php:84
 #: includes/Extensions/GlobalFields.php:423
 #: includes/Extensions/ReviewX/ReviewX.php:72
 #: includes/Extensions/ReviewX/ReviewX.php:84
@@ -440,22 +484,22 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WOOReviews.php:93
 #: includes/Extensions/WooCommerce/WOOReviews.php:104
 #: includes/Extensions/WooCommerce/WOOReviews.php:116
-#: includes/Extensions/WordPress/WPComments.php:265
-#: includes/Extensions/WordPress/WPComments.php:266
 #: includes/Extensions/WordPress/WPComments.php:267
 #: includes/Extensions/WordPress/WPComments.php:268
+#: includes/Extensions/WordPress/WPComments.php:269
+#: includes/Extensions/WordPress/WPComments.php:270
+#: includes/FrontEnd/FrontEnd.php:127
 #: includes/FrontEnd/FrontEnd.php:128
 #: includes/FrontEnd/FrontEnd.php:129
-#: includes/FrontEnd/FrontEnd.php:130
 #: includes/FrontEnd/FrontEnd.php:494
-#: includes/Types/Comments.php:46
-#: includes/Types/Comments.php:59
-#: includes/Types/Comments.php:72
-#: includes/Types/Comments.php:85
-#: includes/Types/Comments.php:98
-#: includes/Types/Comments.php:111
-#: includes/Types/Comments.php:125
-#: includes/Types/Comments.php:139
+#: includes/Types/Comments.php:45
+#: includes/Types/Comments.php:58
+#: includes/Types/Comments.php:71
+#: includes/Types/Comments.php:84
+#: includes/Types/Comments.php:97
+#: includes/Types/Comments.php:110
+#: includes/Types/Comments.php:124
+#: includes/Types/Comments.php:138
 #: includes/Types/ContactForm.php:51
 #: includes/Types/ContactForm.php:64
 #: includes/Types/ContactForm.php:77
@@ -474,22 +518,21 @@ msgstr ""
 msgid "Someone"
 msgstr ""
 
-#: includes/Core/PostType.php:54
-#: assets/admin/js/admin.js:11
+#: includes/Core/PostType.php:55
+#: assets/admin/js/admin.js:3
 #: assets/admin/js/admin.js:15
 msgid "Add New"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:47
-#: assets/admin/js/admin.js:11
-#: assets/admin/js/admin.js:13
+#: assets/admin/js/admin.js:15
 msgid "Quick Builder"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:89
 #: includes/Extensions/GlobalFields.php:386
 #: includes/Extensions/GlobalFields.php:396
-#: includes/Extensions/PressBar/PressBar.php:714
+#: includes/Extensions/PressBar/PressBar.php:722
 msgid "Content"
 msgstr ""
 
@@ -533,15 +576,15 @@ msgstr ""
 msgid "Contact Form"
 msgstr ""
 
-#: includes/Core/REST.php:289
+#: includes/Core/REST.php:288
 msgid "Unauthorized Access: You have to logged in first."
 msgstr ""
 
-#: includes/Core/REST.php:292
+#: includes/Core/REST.php:291
 msgid "Invalid Type: You have to give a type."
 msgstr ""
 
-#: includes/Core/REST.php:295
+#: includes/Core/REST.php:294
 msgid "400 Bad Request."
 msgstr ""
 
@@ -584,13 +627,13 @@ msgstr ""
 
 #: includes/Extensions/CF7/CF7.php:40
 #: includes/Extensions/CF7/CF7.php:41
-#: includes/Extensions/CF7/CF7.php:93
+#: includes/Extensions/CF7/CF7.php:92
 msgid "Contact Form 7"
 msgstr ""
 
-#: includes/Extensions/CF7/CF7.php:91
+#: includes/Extensions/CF7/CF7.php:90
 #: includes/Extensions/EDD/EDD.php:94
-#: includes/Extensions/Give/Give.php:102
+#: includes/Extensions/Give/Give.php:103
 #: includes/Extensions/GRVF/GravityForms.php:50
 #: includes/Extensions/NJF/NinjaForms.php:90
 #: includes/Extensions/ReviewX/ReviewX.php:191
@@ -601,9 +644,9 @@ msgstr ""
 msgid "You have to install"
 msgstr ""
 
-#: includes/Extensions/CF7/CF7.php:94
+#: includes/Extensions/CF7/CF7.php:93
 #: includes/Extensions/EDD/EDD.php:97
-#: includes/Extensions/Give/Give.php:105
+#: includes/Extensions/Give/Give.php:106
 #: includes/Extensions/GRVF/GravityForms.php:53
 #: includes/Extensions/NJF/NinjaForms.php:93
 #: includes/Extensions/Tutor/Tutor.php:132
@@ -613,7 +656,8 @@ msgstr ""
 msgid "plugin first."
 msgstr ""
 
-#: includes/Extensions/CF7/CF7.php:227
+#. translators: links
+#: includes/Extensions/CF7/CF7.php:251
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Contact Form 7 installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -671,15 +715,15 @@ msgstr ""
 msgid "Product Page"
 msgstr ""
 
-#: includes/Extensions/EDD/EDD.php:347
-#: includes/Extensions/Give/Give.php:84
+#: includes/Extensions/EDD/EDD.php:349
+#: includes/Extensions/Give/Give.php:85
 #: includes/Extensions/Tutor/Tutor.php:555
 #: includes/Extensions/WooCommerce/WooCommerce.php:530
 #: includes/Types/Conversions.php:60
 msgid "Anonymous Product"
 msgstr ""
 
-#: includes/Extensions/EDD/EDD.php:353
+#: includes/Extensions/EDD/EDD.php:355
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">Easy Digital Downloads installed & activated</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with Easy Digital Downloads</a></p>\n"
@@ -723,7 +767,7 @@ msgstr ""
 msgid "GiveWP"
 msgstr ""
 
-#: includes/Extensions/Give/Give.php:85
+#: includes/Extensions/Give/Give.php:86
 #: includes/Extensions/GlobalFields.php:448
 #: includes/Extensions/GlobalFields.php:466
 #: includes/Extensions/GlobalFields.php:974
@@ -737,26 +781,26 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WOOReviews.php:97
 #: includes/Extensions/WooCommerce/WOOReviews.php:108
 #: includes/Extensions/WooCommerce/WOOReviews.php:120
-#: includes/Extensions/WordPress/WPComments.php:270
-#: includes/FrontEnd/FrontEnd.php:132
-#: includes/Types/Comments.php:51
-#: includes/Types/Comments.php:64
-#: includes/Types/Comments.php:77
-#: includes/Types/Comments.php:90
-#: includes/Types/Comments.php:103
-#: includes/Types/Comments.php:116
-#: includes/Types/Comments.php:130
-#: includes/Types/Comments.php:144
+#: includes/Extensions/WordPress/WPComments.php:272
+#: includes/FrontEnd/FrontEnd.php:131
+#: includes/Types/Comments.php:50
+#: includes/Types/Comments.php:63
+#: includes/Types/Comments.php:76
+#: includes/Types/Comments.php:89
+#: includes/Types/Comments.php:102
+#: includes/Types/Comments.php:115
+#: includes/Types/Comments.php:129
+#: includes/Types/Comments.php:143
 #: includes/Types/ContactForm.php:56
 #: includes/Types/ContactForm.php:69
 #: includes/Types/ContactForm.php:82
 #: includes/Types/Conversions.php:62
-#: includes/Types/Donations.php:47
+#: includes/Types/Donations.php:49
 #: includes/Types/ELearning.php:54
 #: includes/Types/ELearning.php:67
 #: includes/Types/ELearning.php:80
 #: includes/Types/EmailSubscription.php:50
-#: includes/Types/EmailSubscription.php:84
+#: includes/Types/EmailSubscription.php:85
 #: includes/Types/Reviews.php:56
 #: includes/Types/Reviews.php:68
 #: includes/Types/Reviews.php:95
@@ -765,16 +809,16 @@ msgstr ""
 msgid "Some time ago"
 msgstr ""
 
-#: includes/Extensions/Give/Give.php:104
+#: includes/Extensions/Give/Give.php:105
 msgid "GiveWP Donation"
 msgstr ""
 
-#: includes/Extensions/Give/Give.php:156
-#: includes/Extensions/Give/Give.php:232
+#: includes/Extensions/Give/Give.php:157
+#: includes/Extensions/Give/Give.php:235
 msgid "for"
 msgstr ""
 
-#: includes/Extensions/Give/Give.php:285
+#: includes/Extensions/Give/Give.php:310
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">GiveWP installed & configured</a> to use its campaign & donars data. For further assistance, check out our step by step <a href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -788,7 +832,7 @@ msgid "Previous"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:62
-#: includes/Extensions/PressBar/PressBar.php:369
+#: includes/Extensions/PressBar/PressBar.php:377
 msgid "Next"
 msgstr ""
 
@@ -816,12 +860,12 @@ msgid "Advanced Design"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:273
-#: includes/Extensions/PressBar/PressBar.php:214
+#: includes/Extensions/PressBar/PressBar.php:222
 msgid "Background Color"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:279
-#: includes/Extensions/PressBar/PressBar.php:219
+#: includes/Extensions/PressBar/PressBar.php:227
 msgid "Text Color"
 msgstr ""
 
@@ -854,19 +898,19 @@ msgid "Border Color"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:319
-#: includes/Extensions/PressBar/PressBar.php:263
+#: includes/Extensions/PressBar/PressBar.php:271
 msgid "Typography"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:325
 #: includes/Extensions/GlobalFields.php:333
 #: includes/Extensions/GlobalFields.php:341
-#: includes/Extensions/PressBar/PressBar.php:269
+#: includes/Extensions/PressBar/PressBar.php:277
 msgid "Font Size"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:330
-#: includes/Extensions/PressBar/PressBar.php:275
+#: includes/Extensions/PressBar/PressBar.php:283
 msgid "This font size will be applied for <mark>first</mark> row"
 msgstr ""
 
@@ -904,12 +948,12 @@ msgid "Position"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:375
-#: includes/Extensions/PressBar/PressBar.php:254
+#: includes/Extensions/PressBar/PressBar.php:262
 msgid "Left"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:376
-#: includes/Extensions/PressBar/PressBar.php:255
+#: includes/Extensions/PressBar/PressBar.php:263
 msgid "Right"
 msgstr ""
 
@@ -952,8 +996,8 @@ msgstr ""
 
 #: includes/Extensions/GlobalFields.php:544
 #: includes/Extensions/GlobalFields.php:657
-#: includes/Types/Conversions.php:242
-#: includes/Types/Donations.php:108
+#: includes/Types/Conversions.php:254
+#: includes/Types/Donations.php:111
 msgid "None"
 msgstr ""
 
@@ -1123,16 +1167,16 @@ msgid "Delay Before First Notification"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:862
-#: includes/Extensions/PressBar/PressBar.php:543
-#: includes/Extensions/PressBar/PressBar.php:548
+#: includes/Extensions/PressBar/PressBar.php:551
+#: includes/Extensions/PressBar/PressBar.php:556
 msgid "Initial Delay"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:863
 #: includes/Extensions/GlobalFields.php:870
 #: includes/Extensions/GlobalFields.php:879
-#: includes/Extensions/PressBar/PressBar.php:549
-#: includes/Extensions/PressBar/PressBar.php:569
+#: includes/Extensions/PressBar/PressBar.php:557
+#: includes/Extensions/PressBar/PressBar.php:577
 msgid "seconds"
 msgstr ""
 
@@ -1189,10 +1233,10 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WOOReviews.php:137
 #: includes/Types/Comments.php:162
 #: includes/Types/ContactForm.php:100
-#: includes/Types/Conversions.php:127
-#: includes/Types/Donations.php:115
-#: includes/Types/ELearning.php:126
-#: includes/Types/EmailSubscription.php:83
+#: includes/Types/Conversions.php:128
+#: includes/Types/Donations.php:118
+#: includes/Types/ELearning.php:127
+#: includes/Types/EmailSubscription.php:84
 #: includes/Types/Reviews.php:136
 msgid "Definite Time"
 msgstr ""
@@ -1268,7 +1312,7 @@ msgstr ""
 msgid "Ninja Forms"
 msgstr ""
 
-#: includes/Extensions/NJF/NinjaForms.php:201
+#: includes/Extensions/NJF/NinjaForms.php:219
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Ninja Forms installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -1278,26 +1322,31 @@ msgid ""
 msgstr ""
 
 #: includes/Extensions/PressBar/press-bar-frontend.php:135
+#: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Days"
 msgstr ""
 
 #: includes/Extensions/PressBar/press-bar-frontend.php:139
+#: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Hrs"
 msgstr ""
 
 #: includes/Extensions/PressBar/press-bar-frontend.php:143
+#: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Mins"
 msgstr ""
 
 #: includes/Extensions/PressBar/press-bar-frontend.php:147
+#: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Secs"
 msgstr ""
 
 #: includes/Extensions/PressBar/press-bar-frontend.php:157
+#: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "You should setup NX Bar properly"
 msgstr ""
@@ -1306,216 +1355,216 @@ msgstr ""
 msgid "Press Bar"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:224
+#: includes/Extensions/PressBar/PressBar.php:232
 msgid "Button Background Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:229
+#: includes/Extensions/PressBar/PressBar.php:237
 msgid "Button Text Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:234
+#: includes/Extensions/PressBar/PressBar.php:242
 msgid "Countdown Background Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:239
+#: includes/Extensions/PressBar/PressBar.php:247
 msgid "Countdown Text Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:244
+#: includes/Extensions/PressBar/PressBar.php:252
 msgid "Close Button Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:249
+#: includes/Extensions/PressBar/PressBar.php:257
 msgid "Close Button Position"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:284
+#: includes/Extensions/PressBar/PressBar.php:292
 msgid "Edit With Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:298
+#: includes/Extensions/PressBar/PressBar.php:306
 msgid "Remove Elementor Design"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:330
+#: includes/Extensions/PressBar/PressBar.php:338
 msgid "Build With Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:350
-#: includes/Extensions/PressBar/PressBar.php:351
+#: includes/Extensions/PressBar/PressBar.php:358
+#: includes/Extensions/PressBar/PressBar.php:359
 msgid "Import"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:352
+#: includes/Extensions/PressBar/PressBar.php:360
 msgid "Importing..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:390
+#: includes/Extensions/PressBar/PressBar.php:398
 msgid "Choose Your "
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:421
+#: includes/Extensions/PressBar/PressBar.php:429
 msgid "Activate"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:421
+#: includes/Extensions/PressBar/PressBar.php:429
 msgid "Install"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:426
+#: includes/Extensions/PressBar/PressBar.php:434
 msgid "Activate Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:426
+#: includes/Extensions/PressBar/PressBar.php:434
 msgid "Install Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:427
+#: includes/Extensions/PressBar/PressBar.php:435
 msgid "Activated Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:427
+#: includes/Extensions/PressBar/PressBar.php:435
 msgid "Installed Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:428
+#: includes/Extensions/PressBar/PressBar.php:436
 msgid "Activating Elementor..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:428
+#: includes/Extensions/PressBar/PressBar.php:436
 msgid "Installing Elementor..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:430
+#: includes/Extensions/PressBar/PressBar.php:438
 msgid "To Design Notification Bar with <strong>Elementor Page Builder</strong>, You need to %s the Elementor first: &nbsp;&nbsp;&nbsp;"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:455
+#: includes/Extensions/PressBar/PressBar.php:463
 msgid "Successfully Activated"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:507
+#: includes/Extensions/PressBar/PressBar.php:515
 msgid "Top"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:512
+#: includes/Extensions/PressBar/PressBar.php:520
 msgid "Bottom"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:518
+#: includes/Extensions/PressBar/PressBar.php:526
 msgid "Sticky Bar?"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:523
+#: includes/Extensions/PressBar/PressBar.php:531
 msgid "If checked, this will fixed Notification Bar at top or bottom."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:528
+#: includes/Extensions/PressBar/PressBar.php:536
 msgid "Display Overlapping"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:533
+#: includes/Extensions/PressBar/PressBar.php:541
 msgid "Show Notification Bar overlapping content instead of pushing."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:554
+#: includes/Extensions/PressBar/PressBar.php:562
 msgid "Auto Hide"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:559
+#: includes/Extensions/PressBar/PressBar.php:567
 msgid "If checked, notification bar will be hidden after the time set below."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:564
+#: includes/Extensions/PressBar/PressBar.php:572
 msgid "Hide After"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:570
+#: includes/Extensions/PressBar/PressBar.php:578
 msgid "Hide after 60 seconds"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:637
+#: includes/Extensions/PressBar/PressBar.php:645
 msgid "NotificationX Bar"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:715
+#: includes/Extensions/PressBar/PressBar.php:723
 msgid "Write something here..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:725
+#: includes/Extensions/PressBar/PressBar.php:733
 msgid "Button Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:735
+#: includes/Extensions/PressBar/PressBar.php:743
 msgid "Button URL"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:745
+#: includes/Extensions/PressBar/PressBar.php:753
 msgid "Countdown Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:751
+#: includes/Extensions/PressBar/PressBar.php:759
 msgid "Enable Countdown"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:756
+#: includes/Extensions/PressBar/PressBar.php:764
 msgid "Evergreen Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:760
+#: includes/Extensions/PressBar/PressBar.php:768
 msgid "To configure Evergreen Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:765
+#: includes/Extensions/PressBar/PressBar.php:773
 msgid "Countdown Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:774
+#: includes/Extensions/PressBar/PressBar.php:782
 msgid "Expired Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:776
+#: includes/Extensions/PressBar/PressBar.php:784
 msgid "Expired"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:785
+#: includes/Extensions/PressBar/PressBar.php:793
 msgid "Start Date"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:792
+#: includes/Extensions/PressBar/PressBar.php:800
 msgid "End Date"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:799
+#: includes/Extensions/PressBar/PressBar.php:808
 msgid "Randomize"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:805
+#: includes/Extensions/PressBar/PressBar.php:814
 msgid "Time Between"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:811
+#: includes/Extensions/PressBar/PressBar.php:820
 msgid "Start Time"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:818
+#: includes/Extensions/PressBar/PressBar.php:827
 msgid "End Time"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:827
+#: includes/Extensions/PressBar/PressBar.php:836
 msgid "Time Rotation"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:835
+#: includes/Extensions/PressBar/PressBar.php:844
 msgid "Daily Time Reset"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:841
+#: includes/Extensions/PressBar/PressBar.php:850
 msgid "Permanent Close"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:906
+#: includes/Extensions/PressBar/PressBar.php:915
 msgid ""
 "<p>You can showcase the notification bar to do instant popup campaign on WordPress site. For further assistance, check out our step by step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target = \"_blank\" href = \"%2$s\">video tutorial</a> to learn quickly</p>\n"
@@ -1593,7 +1642,8 @@ msgstr ""
 #: includes/Extensions/ReviewX/ReviewX.php:149
 #: includes/Extensions/WooCommerce/WOOReviews.php:131
 #: includes/Extensions/WooCommerce/WOOReviews.php:156
-#: includes/Types/Conversions.php:124
+#: includes/Types/Conversions.php:125
+#: includes/Types/Conversions.php:141
 msgid "Product Title"
 msgstr ""
 
@@ -1607,8 +1657,8 @@ msgstr ""
 #: includes/Extensions/ReviewX/ReviewX.php:171
 #: includes/Extensions/WooCommerce/WOOReviews.php:133
 #: includes/Extensions/WooCommerce/WOOReviews.php:153
-#: includes/FrontEnd/FrontEnd.php:131
-#: includes/Types/Donations.php:112
+#: includes/FrontEnd/FrontEnd.php:130
+#: includes/Types/Donations.php:47
 #: includes/Types/EmailSubscription.php:48
 #: includes/Types/Reviews.php:132
 #: includes/Types/Reviews.php:152
@@ -1639,7 +1689,7 @@ msgstr ""
 
 #: includes/Extensions/ReviewX/ReviewX.php:268
 msgid ""
-"<p>Make sure that you have <a target=\"_blank\" href=\"%1$S\">WooCommerce</a> & <a target=\"_blank\" href=\"%2$S\">ReviewX</a> installed & activated to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%3$S\">documentation</a>.</p>\n"
+"<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce</a> & <a target=\"_blank\" href=\"%2$s\">ReviewX</a> installed & activated to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%3$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
 "\t\t<p>🚀 How to <a target=\"_blank\" href=\"%4$s\">boost WooCommerce Sales</a> Using NotificationX</p>"
 msgstr ""
@@ -1702,7 +1752,7 @@ msgstr ""
 msgid "Some review content"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WOOReviews.php:486
+#: includes/Extensions/WooCommerce/WOOReviews.php:488
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
@@ -1729,19 +1779,19 @@ msgstr ""
 msgid "WordPress"
 msgstr ""
 
-#: includes/Extensions/WordPress/WPComments.php:269
-#: includes/Types/Comments.php:49
-#: includes/Types/Comments.php:62
-#: includes/Types/Comments.php:75
-#: includes/Types/Comments.php:88
-#: includes/Types/Comments.php:101
-#: includes/Types/Comments.php:114
-#: includes/Types/Comments.php:128
-#: includes/Types/Comments.php:142
+#: includes/Extensions/WordPress/WPComments.php:271
+#: includes/Types/Comments.php:48
+#: includes/Types/Comments.php:61
+#: includes/Types/Comments.php:74
+#: includes/Types/Comments.php:87
+#: includes/Types/Comments.php:100
+#: includes/Types/Comments.php:113
+#: includes/Types/Comments.php:127
+#: includes/Types/Comments.php:141
 msgid "Anonymous Post"
 msgstr ""
 
-#: includes/Extensions/WordPress/WPComments.php:271
+#: includes/Extensions/WordPress/WPComments.php:273
 msgid "Some comment"
 msgstr ""
 
@@ -1813,7 +1863,7 @@ msgstr ""
 msgid "WP Forms"
 msgstr ""
 
-#: includes/Extensions/WPF/WPForms.php:220
+#: includes/Extensions/WPF/WPForms.php:256
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WPForms installed & configured</a>  to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -1955,24 +2005,23 @@ msgstr ""
 msgid "<div id=\"notificationx-frontend-root\"><!-- This DIV for NotificationX, It is used to show the notifications by appending them here. For more details please visit: https://notificationx.com/docs --><div id=\"notificationx-frontend\"></div>"
 msgstr ""
 
-#: includes/NotificationX.php:140
-#: assets/admin/js/admin.js:9
-#: assets/admin/js/admin.js:11
+#: includes/NotificationX.php:138
+#: assets/admin/js/admin.js:15
 msgid "Settings"
 msgstr ""
 
-#: includes/NotificationX.php:145
+#: includes/NotificationX.php:143
 msgid "Go Pro"
 msgstr ""
 
-#: includes/Types/Comments.php:47
-#: includes/Types/Comments.php:60
-#: includes/Types/Comments.php:73
-#: includes/Types/Comments.php:86
-#: includes/Types/Comments.php:99
-#: includes/Types/Comments.php:112
-#: includes/Types/Comments.php:126
-#: includes/Types/Comments.php:140
+#: includes/Types/Comments.php:46
+#: includes/Types/Comments.php:59
+#: includes/Types/Comments.php:72
+#: includes/Types/Comments.php:85
+#: includes/Types/Comments.php:98
+#: includes/Types/Comments.php:111
+#: includes/Types/Comments.php:125
+#: includes/Types/Comments.php:139
 msgid "commented on"
 msgstr ""
 
@@ -2010,44 +2059,44 @@ msgstr ""
 msgid "just purchased"
 msgstr ""
 
-#: includes/Types/Conversions.php:177
+#: includes/Types/Conversions.php:189
 msgid "Combine Multi Order"
 msgstr ""
 
-#: includes/Types/Conversions.php:182
+#: includes/Types/Conversions.php:194
 msgid "Combine order like, 2 more products."
 msgstr ""
 
-#: includes/Types/Conversions.php:195
+#: includes/Types/Conversions.php:207
 msgid "Show Purchase Of"
 msgstr ""
 
-#: includes/Types/Conversions.php:203
-#: includes/Types/ELearning.php:181
+#: includes/Types/Conversions.php:215
+#: includes/Types/ELearning.php:193
 msgid "All"
 msgstr ""
 
-#: includes/Types/Conversions.php:204
-#: includes/Types/Conversions.php:243
+#: includes/Types/Conversions.php:216
+#: includes/Types/Conversions.php:255
 msgid "Product Category"
 msgstr ""
 
-#: includes/Types/Conversions.php:205
-#: includes/Types/Conversions.php:244
+#: includes/Types/Conversions.php:217
+#: includes/Types/Conversions.php:256
 msgid "Selected Product"
 msgstr ""
 
-#: includes/Types/Conversions.php:210
-#: includes/Types/Conversions.php:249
+#: includes/Types/Conversions.php:222
+#: includes/Types/Conversions.php:261
 msgid "Select Product Category"
 msgstr ""
 
-#: includes/Types/Conversions.php:222
-#: includes/Types/Conversions.php:260
+#: includes/Types/Conversions.php:234
+#: includes/Types/Conversions.php:272
 msgid "Select Product"
 msgstr ""
 
-#: includes/Types/Conversions.php:234
+#: includes/Types/Conversions.php:246
 msgid "Exclude By"
 msgstr ""
 
@@ -2059,15 +2108,20 @@ msgstr ""
 msgid "recently donated for"
 msgstr ""
 
-#: includes/Types/Donations.php:107
+#: includes/Types/Donations.php:45
+msgid "100"
+msgstr ""
+
+#: includes/Types/Donations.php:110
 msgid "Donation Amount"
 msgstr ""
 
-#: includes/Types/Donations.php:111
+#: includes/Types/Donations.php:114
+#: includes/Types/Donations.php:133
 msgid "Donation For Title"
 msgstr ""
 
-#: includes/Types/Donations.php:168
+#: includes/Types/Donations.php:183
 msgid "Donation Form Page"
 msgstr ""
 
@@ -2129,23 +2183,24 @@ msgstr ""
 msgid "recently enrolled"
 msgstr ""
 
-#: includes/Types/ELearning.php:123
+#: includes/Types/ELearning.php:124
+#: includes/Types/ELearning.php:140
 msgid "Course Title"
 msgstr ""
 
-#: includes/Types/ELearning.php:176
+#: includes/Types/ELearning.php:188
 msgid "Show Notification Of"
 msgstr ""
 
-#: includes/Types/ELearning.php:182
+#: includes/Types/ELearning.php:194
 msgid "By Course"
 msgstr ""
 
-#: includes/Types/ELearning.php:189
+#: includes/Types/ELearning.php:201
 msgid "Select Course"
 msgstr ""
 
-#: includes/Types/ELearning.php:212
+#: includes/Types/ELearning.php:224
 msgid "Course Page"
 msgstr ""
 
@@ -2157,7 +2212,7 @@ msgstr ""
 msgid "just subscribed to"
 msgstr ""
 
-#: includes/Types/EmailSubscription.php:79
+#: includes/Types/EmailSubscription.php:80
 msgid "List Title"
 msgstr ""
 
@@ -2235,24 +2290,15 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-#: assets/public/js/frontend.js:1
-msgid "Title Goes Here: title"
+#: notificationx.php:83
+msgid "<strong>Recommended: </strong> Seems like you haven't updated the NotificationX Pro version. Please make sure to update NotificationX Pro plugin from <a href='%s'><strong>wp-admin -> Plugins</strong></a>."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-msgid "Text Goes Here: text"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: assets/public/js/frontend.js:1
-msgid "You need to upgrade to the <strong><a href='%s' target='_blank'>Premium Version</a></strong> to use this feature."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: assets/public/js/frontend.js:1
-msgid "Opps..."
+#: nxdev/notificationx/frontend/themes/helpers/NXBranding.js:9
+msgid "by"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
@@ -2272,461 +2318,481 @@ msgid "Invalid comparison rule %s."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+msgid "There are no tabs defined!"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Title Goes Here: title"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
 msgid "Test Goes Here: text"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/public/js/frontend.js:1
-msgid "by"
+msgid "Field must have a #type. see documentation."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-msgid "Analytics Data"
+msgid "Copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-msgid "Get PRO to Unlock"
+msgid "You should give a #fields arguments to a group field."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-msgid "loading..."
+msgid "Loading..."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-msgid "NotificationX Fetch Error: "
+msgid "#options is a required arguments for RadioCard field."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-msgid "No notifications are found."
+msgid "Reset"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-msgid "Seems like you haven’t created any notification alerts."
+msgid "Button has a required params #text."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-msgid "Hit on %1$s\"Add New\"%2$s button to get started"
+msgid "Modal needs button/body with it."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-msgid "No notifications are enabled."
+msgid "Save Changes"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-msgid "There’s no enabled Notification Alerts."
+msgid "There are no #tabs args defined in props."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-msgid "Simply use the toggle switch to turn your notifications from %1$s\"All NotificationX\"%2$s page."
+msgid "Not an array."
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-msgid "No notifications are disabled."
+#. translators: Postfix for notice created by duplicate button.
+#: assets/admin/js/admin.js:3
+msgid " - Copy"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-msgid "There’s no disabled Notification Alerts."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:13
+#: assets/admin/js/admin.js:3
 msgid "NotificationX Title"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-msgid "Preview"
+#: assets/admin/js/admin.js:3
+msgid "Successfully Updated."
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-msgid "Status"
+#: assets/admin/js/admin.js:3
+msgid "Successfully Created."
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-msgid "Type"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Stats"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Date"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Action"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Notification Alert has been Enabled."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Notification Alert has been Disabled."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Disabled"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:9
-#: assets/admin/js/admin.js:11
-msgid "Oops, Something went wrong. Please try again."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "%s views"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
-msgid "Scheduled For"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Published"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:7
-#: assets/admin/js/admin.js:11
-msgid "Are you sure?"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:7
-#: assets/admin/js/admin.js:11
-msgid "You won't be able to revert this!"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:7
-#: assets/admin/js/admin.js:11
-msgid "Yes, Delete It"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:7
-#: assets/admin/js/admin.js:11
-msgid "No, Cancel"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
-msgid "Notification Alert has been Deleted."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Translate"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:13
+#: assets/admin/js/admin.js:3
+#: assets/admin/js/admin.js:15
 msgid "Edit"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-msgid "Duplicate"
+#: assets/admin/js/admin.js:3
+msgid "Analytics Data"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-msgid "Shortcode"
+#: assets/admin/js/admin.js:3
+msgid "Get PRO to Unlock"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-msgid "Notification Alert has been Copied to Clipboard."
+#: assets/admin/js/admin.js:3
+msgid "Views"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-msgid "Are you sure you want to Regenerate?"
+#: assets/admin/js/admin.js:3
+msgid "Clicks"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-msgid "Regenerating will fetch new data based on settings"
+#: assets/admin/js/admin.js:3
+msgid "CTR"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-msgid "Regenerate"
+#: assets/admin/js/admin.js:3
+msgid "All Combined"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-msgid "Cancel"
+#: assets/admin/js/admin.js:3
+msgid "All Separated"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-msgid "Notification Alert has been Regenerated."
+#: assets/admin/js/admin.js:3
+msgid "Preview"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-msgid "Re Generate"
+#: assets/admin/js/admin.js:3
+msgid "Status"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
-msgid "Delete"
+#: assets/admin/js/admin.js:3
+msgid "Type"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:3
+msgid "Stats"
+msgstr ""
+
+#: assets/admin/js/admin.js:3
+msgid "Date"
+msgstr ""
+
+#: assets/admin/js/admin.js:3
+msgid "Action"
+msgstr ""
+
+#: assets/admin/js/admin.js:3
+msgid "loading..."
+msgstr ""
+
+#: assets/admin/js/admin.js:3
+msgid "NotificationX Fetch Error: "
+msgstr ""
+
+#: assets/admin/js/admin.js:3
+msgid "No notifications are found."
+msgstr ""
+
+#: assets/admin/js/admin.js:3
+msgid "Seems like you haven’t created any notification alerts."
+msgstr ""
+
+#: assets/admin/js/admin.js:3
+msgid "Hit on %1$s\"Add New\"%2$s button to get started"
+msgstr ""
+
+#: assets/admin/js/admin.js:3
+msgid "No notifications are enabled."
+msgstr ""
+
+#: assets/admin/js/admin.js:3
+msgid "There’s no enabled Notification Alerts."
+msgstr ""
+
+#: assets/admin/js/admin.js:3
+msgid "Simply use the toggle switch to turn your notifications from %1$s\"All NotificationX\"%2$s page."
+msgstr ""
+
+#: assets/admin/js/admin.js:3
+msgid "No notifications are disabled."
+msgstr ""
+
+#: assets/admin/js/admin.js:3
+msgid "There’s no disabled Notification Alerts."
+msgstr ""
+
+#: assets/admin/js/admin.js:3
 msgid "Bulk Action"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:3
 msgid "Enable"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:3
 msgid "Disable"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:3
+#: assets/admin/js/admin.js:15
+msgid "Delete"
+msgstr ""
+
+#: assets/admin/js/admin.js:3
+#: assets/admin/js/admin.js:15
+msgid "Regenerate"
+msgstr ""
+
+#: assets/admin/js/admin.js:3
 msgid "All (%d)"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:3
 msgid "Enabled (%d)"
 msgstr ""
 
-#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:3
 msgid "Disabled (%d)"
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Regenerated.
-#: assets/admin/js/admin.js:3
+#: assets/admin/js/admin.js:5
 msgid "%d Notification Alerts have been Regenerated."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Enabled.
-#: assets/admin/js/admin.js:5
+#: assets/admin/js/admin.js:7
 msgid "%d Notification Alerts have been Enabled."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Disabled.
-#: assets/admin/js/admin.js:7
+#: assets/admin/js/admin.js:9
 msgid "%d Notification Alerts have been Disabled."
 msgstr ""
 
-#: assets/admin/js/admin.js:7
+#: assets/admin/js/admin.js:9
 msgid "Unable to complete bulk action."
 msgstr ""
 
-#: assets/admin/js/admin.js:7
+#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:15
+msgid "Are you sure?"
+msgstr ""
+
+#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:15
+msgid "You won't be able to revert this!"
+msgstr ""
+
+#: assets/admin/js/admin.js:9
 msgid "error"
 msgstr ""
 
-#. translators: %d: Number of Notification Alerts deleted.
 #: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:15
+msgid "Yes, Delete It"
+msgstr ""
+
+#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:15
+msgid "No, Cancel"
+msgstr ""
+
+#. translators: %d: Number of Notification Alerts deleted.
+#: assets/admin/js/admin.js:11
 msgid ""
 "%d notification Alerts have been\n"
 "                Deleted."
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Applying..."
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Apply"
 msgstr ""
 
-#: assets/admin/js/admin.js:9
-msgid "Changes Saved Successfully."
-msgstr ""
-
 #. translators: %1$s: title, %2$s: link to the All NotificationX page.
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "You are about to publish %1$s. You can rename this and edit everything whenever you want from %2$s Page."
 msgstr ""
 
-#: assets/admin/js/admin.js:11
-msgid "NotificationXContext context is undefined, please verify you are calling useNotificationXContext() as child of a <NotificationX> component."
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "NotificationX:"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "NotificationX Pro:"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "NX Not Created"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Error: "
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Delete Error: "
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Published On"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Publish On"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Schedule"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Update"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Publish"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Field must have a #type. see documentation."
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "You should give a #fields arguments to a group field."
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "There are no tabs defined!"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "There are no #tabs args defined in props."
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Not an array."
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Save Changes"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Loading..."
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "#options is a required arguments for RadioCard field."
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Reset"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Button has a required params #text."
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Modal needs button/body with it."
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "NotificationX Instructions"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Views"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Clicks"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "CTR"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "All Combined"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "All Separated"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Manage License"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Upgrade to Pro"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Documentation"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Get started by spending some time with the documentation to get familiar with NotificationX. Build awesome websites for you or your clients with ease."
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Contribute to NotificationX"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "You can contribute to make NotificationX better reporting bugs, creating issues, pull requests at"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Report a bug"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Need Help?"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Stuck with something? Get help from live chat or support ticket."
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Initiate a Chat"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Show Your Love"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "We love to have you in NotificationX family. We are making it more awesome everyday. Take your 2 minutes to review the plugin and spread the love to encourage us to keep it going."
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Leave a Review"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "QuickBuilder Error: "
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Publishing..."
 msgstr ""
 
-#. translators: Title of the new Notification Alert. %1$s: title, %2$s: current date.
 #: assets/admin/js/admin.js:13
+#: assets/admin/js/admin.js:15
+msgid "Publish"
+msgstr ""
+
+#. translators: Title of the new Notification Alert. %1$s: title, %2$s: current date.
+#: assets/admin/js/admin.js:15
 msgid "NotificationX - %1$s - %2$s"
 msgstr ""
 
-#: assets/admin/js/admin.js:13
-msgid "Successfully Updated."
-msgstr ""
-
-#: assets/admin/js/admin.js:13
-msgid "Successfully Created."
-msgstr ""
-
-#. translators: Postfix for notice created by Quick Build.
 #: assets/admin/js/admin.js:15
-msgid " - Copy"
+msgid "Documentation"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Get started by spending some time with the documentation to get familiar with NotificationX. Build awesome websites for you or your clients with ease."
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Contribute to NotificationX"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "You can contribute to make NotificationX better reporting bugs, creating issues, pull requests at"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Report a bug"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Need Help?"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Stuck with something? Get help from live chat or support ticket."
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Initiate a Chat"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Show Your Love"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "We love to have you in NotificationX family. We are making it more awesome everyday. Take your 2 minutes to review the plugin and spread the love to encourage us to keep it going."
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Leave a Review"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Changes Saved Successfully."
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Oops, Something went wrong. Please try again."
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Manage License"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Notification Alert has been Deleted."
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Translate"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Duplicate"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Shortcode"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Notification Alert has been copied to Clipboard."
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use <a target='_blank' href='%s' style='color:red'>Cross Domain Notice</a> feature."
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Are you sure you want to Regenerate?"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Regenerating will fetch new data based on settings"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Cancel"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Notification Alert has been Regenerated."
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Notification Alert has been Enabled."
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Notification Alert has been Disabled."
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification."
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Disabled"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "%s views"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Scheduled For"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Published"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "NotificationX:"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "NotificationX Pro:"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "NotificationX Instructions"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "NX Not Created"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Error: "
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Delete Error: "
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Published On"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Publish On"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Schedule"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Update"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Text Goes Here: text"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "You need to upgrade to the <strong><a href='%s' target='_blank'>Premium Version</a></strong> to use this feature."
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Opps..."
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "NotificationXContext context is undefined, please verify you are calling useNotificationXContext() as child of a <NotificationX> component."
 msgstr ""

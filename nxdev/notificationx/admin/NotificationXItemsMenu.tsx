@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import NavLink from "../components/NavLink";
 import nxHelper from "../core/functions";
 import { useNotificationXContext } from "../hooks";
-// import { SelectControl } from "@wordpress/components";
 import Select from "react-select";
-// import Select from "../../form-builder/src/fields/Select";
 import nxToast from "../core/ToasterMsg";
-import { sprintf, __ } from "@wordpress/i18n";
+import { sprintf, _n, __ } from "@wordpress/i18n";
+import copy from "copy-to-clipboard";
 
 const NotificationXItemsMenu = ({
     notificationx,
@@ -35,6 +34,9 @@ const NotificationXItemsMenu = ({
         ];
     }
     bulkOptions.splice(3, 0, { value: "regenerate", label: __("Regenerate", 'notificationx') });
+    if(builderContext?.is_pro_active && builderContext?.xss_data){
+        bulkOptions.splice(4, 0, { value: "xss", label: __("Cross Domain Notice", 'notificationx') });
+    }
 
     const request = (selectedItem) => {
         return nxHelper.post(`bulk-action/${action.value}`, {
@@ -45,7 +47,7 @@ const NotificationXItemsMenu = ({
     const deleteAction = (selectedItem) => {
         nxHelper.swal({
             title: __("Are you sure?", 'notificationx'),
-            text: __("You won't be able to revert this!", 'notificationx'),
+            html: sprintf(_n("You're about to delete %s notification alert,<br />", "You're about to delete %s notification alerts,<br />", selectedItem.length, 'notificationx'), selectedItem.length) + __("You won't be able to revert this!", 'notificationx'),
             icon: __("error", 'notificationx'),
             showCancelButton: true,
             confirmButtonText: __("Yes, Delete It", 'notificationx'),
@@ -70,7 +72,7 @@ const NotificationXItemsMenu = ({
                             const isDeleted =
                                 result?.count?.[notice.nx_id] &&
                                 selectedItem.indexOf(parseInt(notice.nx_id)) !==
-                                    -1;
+                                -1;
                             if (isDeleted) {
                                 // if deleted then count them in.
                                 count.all += 1;
@@ -99,7 +101,7 @@ const NotificationXItemsMenu = ({
                 return ["deleted", sprintf(__(`%d notification Alerts have been
                 Deleted.`, 'notificationx'), (result?.all || 0))];
             },
-            afterComplete: () => {},
+            afterComplete: () => { },
         });
     };
     const regenerateAction = (selectedItem, result) => {
@@ -163,6 +165,47 @@ const NotificationXItemsMenu = ({
         // translators: %d: Number of Notification Alerts Disabled.
         nxToast.disabled(sprintf(__(`%d Notification Alerts have been Disabled.`, 'notificationx'), count));
     };
+    const generateXSS = (selectedItem) => {
+
+        let xss_id = {
+            pressbar: [],
+            global: [],
+            active: [],
+        };
+        for(let notice of filteredNotice){
+            const id = parseInt(notice.nx_id);
+            if(selectedItem.includes(id)){
+                if(notice.source == 'press_bar'){
+                    if(!notice?.elementor_id){
+                        xss_id.pressbar.push(id);
+                    }
+                }
+                else{
+                    if(notice?.global_queue){
+                        xss_id.global.push(id);
+                    }
+                    else{
+                        xss_id.active.push(id);
+                    }
+                }
+            }
+        }
+
+        const xss_data = {...builderContext.xss_data, ...xss_id};
+        const xssText = sprintf(`<script>\nnotificationX = %s;\n</script>%s`, JSON.stringify(xss_data), builderContext.xss_scripts);
+
+        copy(xssText, {
+            format: 'text/plain',
+            onCopy: () => {
+                nxToast.info(
+                    __(
+                        `Cross Domain Notice code has been copied to Clipboard.`,
+                        "notificationx"
+                    )
+                );
+            },
+        });
+    }
 
     const bulkAction = () => {
         if (!action.value || loading) {
@@ -183,6 +226,10 @@ const NotificationXItemsMenu = ({
 
         if (action.value == "delete") {
             deleteAction(selectedItem);
+            return;
+        }
+        if (action.value == "xss") {
+            generateXSS(selectedItem);
             return;
         }
 
@@ -239,6 +286,7 @@ const NotificationXItemsMenu = ({
                     className="bulk-action-select"
                     classNamePrefix="bulk-action-select"
                     value={action}
+                    isSearchable={false}
                     onChange={(value) => {
                         setAction(value);
                     }}

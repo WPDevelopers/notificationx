@@ -228,9 +228,8 @@ class REST {
      */
     public function save_settings($request) {
         //   $item = $this->prepare_item_for_database( $request );
-        $params = apply_filters('nx_settings', $request->get_params());
 
-        $result = Settings::get_instance()->save_settings($params);
+        $result = Settings::get_instance()->save_settings($request->get_params());
         if($result){
             return [
                 'success' => true,

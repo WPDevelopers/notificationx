@@ -25,6 +25,7 @@ class Cron {
     public function __construct(){
         add_filter('cron_schedules', [$this, 'cron_schedule'], 10, 1);
         add_action($this->hook, array($this, 'update_data'), 10, 1);
+        add_action('nx_delete_post', array($this, 'delete_post'), 10, 1);
 
     }
 
@@ -38,11 +39,11 @@ class Cron {
             return;
         }
         // First clear previously scheduled cron hook.
-        $this->clear_schedule(array('post_id' => $post_id));
+        $this->clear_schedule(array('post_id' => (int) $post_id));
 
         // If there is no next event, start cron now.
         if (!wp_next_scheduled($this->hook, array('post_id' => $post_id))) {
-            wp_schedule_event(time(), $cache_key, $this->hook, array('post_id' => $post_id));
+            wp_schedule_event(time(), $cache_key, $this->hook, array('post_id' => (int) $post_id));
         }
     }
 
@@ -58,7 +59,7 @@ class Cron {
 
         // If there is no next event, start cron now.
         if (!wp_next_scheduled($this->hook, array('post_id' => $post_id))) {
-            wp_schedule_single_event(time() + 10, $this->hook, array('post_id' => $post_id));
+            wp_schedule_single_event(time() + 10, $this->hook, array('post_id' => (int) $post_id));
         }
     }
 
@@ -114,5 +115,9 @@ class Cron {
         else{
             $this->clear_schedule(array('post_id' => $post_id));
         }
+    }
+
+    public function delete_post($post_id) {
+        $this->clear_schedule(array('post_id' => $post_id));
     }
 }
