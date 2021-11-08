@@ -190,7 +190,6 @@ const AdvancedTemplate = (props) => {
                     ga_fifth_param: custom,
                     sixth_param: '',
                 }};
-                console.log(values);
             }
             const tmpl: any = applyFilters(
                 "nx_adv_template_default",
@@ -210,8 +209,6 @@ const AdvancedTemplate = (props) => {
         builderContext.values.themes,
         builderContext.values["notification-template"],
     ]);
-
-    console.log(builderContext.values.themes);
 
 
     return (

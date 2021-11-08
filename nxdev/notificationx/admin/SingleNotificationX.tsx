@@ -116,7 +116,7 @@ const SingleNotificationX = ({
         >
             <td>
                 <div className="nx-item-selector">
-                    <input type="checkbox" name={`check-${id}`} id={`check-${id}`} checked={checked} onChange={onChecked} />
+                    <input type="checkbox" name={`check-${id}`} id={`check-${id}`} checked={checked || false} onChange={onChecked} />
                 </div>
             </td>
             <td>
