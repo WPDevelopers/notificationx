@@ -230,13 +230,14 @@ const AdvancedTemplate = (props) => {
             ) && <div className="template-example">
                 Example: {` `}
                 <code>{`{{title}} {{7days}}`}</code>{` or `}
-                <code>{`{{title}} in last {{d:7}} days`}</code>
+                <code>{`{{title}} in last {{day:7}}`}</code>. {' '}
+                <span>For more information check out this <a href="#" target="_blank">doc</a>.</span>
             </div>}
             {(builderContext.values.themes == 'page_analytics_pa-theme-one' || builderContext.values.themes == 'page_analytics_pa-theme-two') &&
             <div className="template-example">
                 Example: {` `}
-                <code>{`in last {{day:7}}`}</code>
-                {/* <code>{`in last 7 days`}</code> */}
+                <code>{`in last {{day:7}}`}</code>. {' '}
+                <span>For more information check out this <a href="#" target="_blank">doc</a>.</span>
             </div>
             }
             <br />
@@ -270,10 +271,10 @@ const AdvancedTemplate = (props) => {
                     <React.Fragment key=":days">
                         <span
                             className="button button-secondary"
-                            title="7"
-                            onClick={() => clicked("d:7")}
+                            title="7 days"
+                            onClick={() => clicked("day:7")}
                         >
-                            {`{{d:7}}`}
+                            {`{{day:7}}`}
                         </span>
                     </React.Fragment>
                 )}
