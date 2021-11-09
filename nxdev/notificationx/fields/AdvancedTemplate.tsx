@@ -231,13 +231,13 @@ const AdvancedTemplate = (props) => {
                 Example: {` `}
                 <code>{`{{title}} {{7days}}`}</code>{` or `}
                 <code>{`{{title}} in last {{day:7}}`}</code>. {' '}
-                <span>For more information check out this <a href="#" target="_blank">doc</a>.</span>
+                <span className="template-example-doc">For more information check out this <a href="#" target="_blank">doc</a>.</span>
             </div>}
             {(builderContext.values.themes == 'page_analytics_pa-theme-one' || builderContext.values.themes == 'page_analytics_pa-theme-two') &&
             <div className="template-example">
                 Example: {` `}
                 <code>{`in last {{day:7}}`}</code>. {' '}
-                <span>For more information check out this <a href="#" target="_blank">doc</a>.</span>
+                <span className="template-example-doc">For more information check out this <a href="#" target="_blank">doc</a>.</span>
             </div>
             }
             <br />

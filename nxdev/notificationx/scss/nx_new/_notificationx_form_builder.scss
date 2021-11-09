@@ -860,6 +860,25 @@
     }
 }
 
+.template-example-doc {
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    color: #7c8db5;
+    margin-left: 0;
+    line-height: 24px;
+    margin-right: 10px;
+    mark {
+        color: #6a4bff;
+        background-color: transparent;
+    }
+    a {
+        text-decoration: underline;
+        color: #6a4bff;
+    }
+}
+
 .wprf-slider-wrap {
     align-items: flex-start;
     display: flex;
