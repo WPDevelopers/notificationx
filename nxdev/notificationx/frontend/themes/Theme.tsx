@@ -32,7 +32,7 @@ const Theme = (props) => {
             let match;
             while ((match = regex.exec(col))) {
                 let key = match?.[1]?.replace("tag_", "")?.replace("product_", "");
-                let val = entry?.[key];
+                let val = entry?.[key] || '';
 
                 if (key === "time") {
                     val =
@@ -45,7 +45,7 @@ const Theme = (props) => {
                 else if (key == 'rating') {
                     val = `rating::${val}`;
                 }
-                if (val != undefined) col = col.replace(match?.[0], val);
+                col = col.replace(match?.[0], val);
             }
             return col;
         });
