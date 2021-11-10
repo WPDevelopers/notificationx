@@ -15,7 +15,7 @@ const EditNotification = (props) => {
     const builder = useBuilder(builderTabs);
     const notificationxContext = useNotificationXContext();
 
-    const [title, setTitle] = useState<string>('')
+    const [title, setTitle] = useState<string>(undefined)
     const [isUpdated, setIsUpdated] = useState('')
     const [isLoading, setIsLoading] = useState(true);
 
