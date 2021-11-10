@@ -228,21 +228,21 @@ const AdvancedTemplate = (props) => {
             {props?.sales_count_themes?.includes(
                 builderContext.values.themes
             ) && <div className="template-example">
-                Example: {` `}
-                <code>{`{{title}} {{7days}}`}</code>{` or `}
-                <code>{`{{title}} in last {{day:7}}`}</code>. {' '}
-                <span className="template-example-doc">For more information check out this <a href="#" target="_blank">doc</a>.</span>
+                <span className="advance-template-label">Example: {` `}</span>
+                <code>{`{{title}} {{7days}}`}</code><span className="advance-template-doc">{` or `}</span>
+                <code>{`{{title}} in last {{day:7}}`}</code>
+                <span className="advance-template-doc">. {' '}For more information check out this <a href="#" target="_blank">doc</a>.</span>
             </div>}
             {(builderContext.values.themes == 'page_analytics_pa-theme-one' || builderContext.values.themes == 'page_analytics_pa-theme-two') &&
             <div className="template-example">
-                Example: {` `}
-                <code>{`in last {{day:7}}`}</code>. {' '}
-                <span className="template-example-doc">For more information check out this <a href="#" target="_blank">doc</a>.</span>
+                <span className="advance-template-label">Example: {` `}</span>
+                <code>{`in last {{day:7}}`}</code>
+                <span className="advance-template-doc">. {' '}For more information check out this <a href="#" target="_blank">doc</a>.</span>
             </div>
             }
             <br />
             <div className="template-options">
-                Variables:
+            <span className="advance-template-label">Variables:</span>
                 {builderContext
                     .eligibleOptions(templateOptions)
                     .map((val, i) => {
