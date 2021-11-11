@@ -24,7 +24,6 @@ const Image = ({ data, config, id, style, isSplitCss, isSplit }) => {
 
     let newStyle = {};
     let newStyleForSecond = {};
-    console.log(isSplit)
     if (style && isSplitCss) {
         newStyle = {
             ...style,
