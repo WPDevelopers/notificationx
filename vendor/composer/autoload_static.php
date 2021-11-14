@@ -13,6 +13,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Admin\\Cron' => __DIR__ . '/../..' . '/includes/Admin/Cron.php',
         'NotificationX\\Admin\\DashboardWidget' => __DIR__ . '/../..' . '/includes/Admin/DashboardWidget.php',
         'NotificationX\\Admin\\Entries' => __DIR__ . '/../..' . '/includes/Admin/Entries.php',
+        'NotificationX\\Admin\\ImportExport' => __DIR__ . '/../..' . '/includes/Admin/ImportExport.php',
         'NotificationX\\Admin\\Notice' => __DIR__ . '/../..' . '/includes/Admin/Notice.php',
         'NotificationX\\Admin\\PluginInsights' => __DIR__ . '/../..' . '/includes/Admin/PluginInsights.php',
         'NotificationX\\Admin\\Reports\\EmailTemplate' => __DIR__ . '/../..' . '/includes/Admin/Reports/EmailTemplate.php',
