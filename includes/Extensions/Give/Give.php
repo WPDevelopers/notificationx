@@ -267,19 +267,6 @@ class Give extends Extension {
         $user_data['country'] = $donation->address['country'];
         $user_data['city'] = $donation->address['city'];
         $user_data['ip'] = give_get_payment_user_ip($donation->ID);
-        if ((empty($user_data['country']) || empty($user_data['city'])) && !empty($user_data['ip'])) {
-            $user_ip_data = $this->remote_get('http://ip-api.com/json/' . $user_data['ip']);
-            if ($user_ip_data) {
-                $user_data['lat']     = isset( $user_ip_data->lat ) ? $user_ip_data->lat : '';
-                $user_data['lon']     = isset( $user_ip_data->lon ) ? $user_ip_data->lon : '';
-                if (empty($user_data['country'])) {
-                    $user_data['country'] = isset($user_ip_data->country) ? $user_ip_data->country : '';
-                }
-                if (empty($user_data['city'])) {
-                    $user_data['city']    = isset($user_ip_data->city) ? $user_ip_data->city : '';
-                }
-            }
-        }
 
         return $user_data;
     }

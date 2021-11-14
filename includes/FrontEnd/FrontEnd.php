@@ -513,7 +513,7 @@ class FrontEnd {
                     unset($entries[$key]['ip']);
                 }
                 foreach ($entry as $_key => $value) {
-                    if(strpos($_key, 'email') !== false){
+                    if(strpos($_key, 'email') !== false || in_array($_key, ['lat', 'lon'])){
                         unset($entries[$key][$_key]);
                     }
                 }

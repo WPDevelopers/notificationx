@@ -43,10 +43,10 @@ class Upgrader {
         $nx_db_version   = $this->database->get_option('nx_db_version');
 
         $_is_table_created = false;
-        if ($nx_db_version === false) {
+        if ($nx_db_version === false || $nx_db_version != Database::$version) {
             try {
                 Database::get_instance()->Create_DB();
-                $this->database->update_option('nx_db_version', NOTIFICATIONX_VERSION, 'no');
+                $this->database->update_option('nx_db_version', Database::$version, 'no');
                 $_is_table_created = true;
             } catch (\Exception $th) {
                 error_log('NX: Database Creation Failed');
