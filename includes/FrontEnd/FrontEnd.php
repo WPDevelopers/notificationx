@@ -237,7 +237,7 @@ class FrontEnd {
         $branding_url = apply_filters('nx_branding_url', NOTIFICATIONX_PLUGIN_URL . '?utm_source=' . esc_url(home_url()) . '&utm_medium=notificationx');
         $result['settings'] = [
             'disable_powered_by' => Settings::get_instance()->get('settings.disable_powered_by'),
-            'affiliate_link'     => esc_url($branding_url),
+            'affiliate_link'     => $branding_url,
             'enable_analytics'   => Settings::get_instance()->get('settings.enable_analytics', true),
             'analytics_from'     => Settings::get_instance()->get('settings.analytics_from'),
             'delay_before'       => Settings::get_instance()->get('settings.delay_before', 5),
