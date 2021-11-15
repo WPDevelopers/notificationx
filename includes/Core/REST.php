@@ -8,6 +8,7 @@
 
 namespace NotificationX\Core;
 
+use NotificationX\Admin\ImportExport;
 use NotificationX\Types\ContactForm;
 use NotificationX\Admin\Settings;
 use NotificationX\CoreInstaller;
@@ -149,6 +150,18 @@ class REST {
         //         'args'                => [],
         //     ),
         // ));
+
+        // import/export
+        register_rest_route( $namespace, '/import', array(
+            'methods'   => WP_REST_Server::EDITABLE,
+            'callback'  => array( ImportExport::get_instance(), 'import' ),
+            'permission_callback' => array($this, 'edit_permission'),
+        ));
+        register_rest_route( $namespace, '/export', array(
+            'methods'   => WP_REST_Server::EDITABLE,
+            'callback'  => array( ImportExport::get_instance(), 'export' ),
+            'permission_callback' => array($this, 'edit_permission'),
+        ));
     }
 
     public function get_builder( $request ){

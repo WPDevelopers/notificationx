@@ -1,7 +1,10 @@
 <?php
 namespace NotificationX\Admin;
 
+use NotificationX\Core\Database;
+use NotificationX\Core\PostType;
 use NotificationX\Core\Rules;
+use NotificationX\Extensions\GlobalFields;
 use NotificationX\GetInstance;
 
 class ImportExport{
@@ -19,27 +22,82 @@ class ImportExport{
 
     public function settings_tab_help($tabs) {
 
-        $tabs['fields']['import-export'] = array(
-            'name'     => 'import-export',
+        $tabs['fields']['import-section'] = array(
+            'name'     => 'import-section',
             'type'     => "section",
             'label'    => __('Import/Export', 'notificationx'),
-            'priority' => 6,
+            'priority' => 30,
             'fields'   => array(
-                'export' => array(
-                    'name'     => 'export',
-                    'type'     => 'message',
-                    'label'    => __('Export', 'notificationx'),
-                    'priority' => 5,
-                    'html'     => true,
-                    'classes'  => 'wprf-control-wrapper wprf-inline-label',
-                    'message'  => "<div class='wprf-control-label'><label for='import'>Export</label></div><div class='wprf-control-field'><a href='#'>Download export file.</a></div>",
+                'export-notification' => [
+                    'name'     => "export-notification",
+                    'type'     => 'checkbox',
+                    'label'    => __('Export Notifications', 'notificationx'),
+                    'default'  => 0,
+                    'priority' => 10,
+                ],
+                'export-analytics' => [
+                    'name'     => "export-analytics",
+                    'type'     => 'checkbox',
+                    'label'    => __('Analytics', 'notificationx'),
+                    'default'  => 0,
+                    'priority' => 15,
+                    'rules'    => Rules::is( 'export-notification', true ),
+                    // 'description' => __('Click, if you want to disable powered by text from notification', 'notificationx'),
+                ],
+                'export-status' => array(
+                    'name'     => 'export-status',
+                    'type'     => 'select',
+                    'label'    => __('Status', 'notificationx'),
+                    'priority' => 20,
+                    'rules'    => Rules::is( 'export-notification', true ),
+                    'default'  => ['all'],
+                    'options'  => GlobalFields::get_instance()->normalize_fields([
+                        'all' => 'ALL',
+                        'enabled' => 'Enabled',
+                        'disabled' => 'Disabled',
+                    ]),
                 ),
+                'export-settings' => [
+                    'name'     => "export-settings",
+                    'type'     => 'checkbox',
+                    'label'    => __('Export Settings', 'notificationx'),
+                    'default'  => 0,
+                    'priority' => 25,
+                ],
+                'run_export' => array(
+                    'name'     => 'run_export',
+                    // 'label'    => __('Import', 'notificationx'),
+                    'text'     => __('Export', 'notificationx'),
+                    'type'     => 'button',
+                    'priority' => 40,
+                    // 'rules'    => Rules::is( 'import', null, true ),
+                    'rules'    => Rules::logicalRule([
+                        Rules::is( 'export-notification', true ),
+                        Rules::is( 'export-settings', true )
+                    ], 'or'),
+                    'ajax'     => [
+                        'on'   => 'click',
+                        'api'  => '/notificationx/v1/export',
+                        'data' => [
+                            'export-notification' => '@export-notification',
+                            'export-settings'     => '@export-settings',
+                            'export-analytics'    => '@export-analytics',
+                            'export-status'       => '@export-status',
+                        ],
+                        'swal' => [
+                            'text'      => __('Successfully Sent a Test Report in Your Email.', 'notificationx'),
+                            'icon'      => 'success',
+                            'autoClose' => 2000
+                        ],
+                    ],
+                ),
+
                 'import' => array(
                     'name'         => 'import',
                     'type'         => 'media',
                     'label'        => __('Import', 'notificationx'),
                     'reset'        => __('Change', 'notificationx'),
-                    'priority'     => 20,
+                    'priority'     => 60,
                     'notImage'     => true,
                 ),
                 'run_import' => array(
@@ -47,7 +105,7 @@ class ImportExport{
                     // 'label'    => __('Import', 'notificationx'),
                     'text'     => __('Import', 'notificationx'),
                     'type'     => 'button',
-                    'priority' => 25,
+                    'priority' => 70,
                     'rules'    => Rules::is( 'import', null, true ),
                     'ajax'     => [
                         'on'   => 'click',
@@ -66,5 +124,109 @@ class ImportExport{
         );
 
         return $tabs;
+    }
+
+    public function import($request){
+        $params = $request->get_params();
+        $success = false;
+        if(!empty($params['import']['id'])){
+            try {
+                $path = get_attached_file($params['import']['id']);
+                $data = file_get_contents($path);
+                $data = json_decode($data, true);
+                wp_delete_attachment($params['import']['id']);
+
+                if(!empty($data['settings'])){
+                    Settings::get_instance()->set('settings', $data['settings']);
+                }
+
+                if(!empty($data['notifications'])){
+                    foreach ($data['notifications'] as $key => $post) {
+                        $nx_id = $post['nx_id'];
+                        unset($post['nx_id']);
+                        unset($post['id']);
+
+                        if($post['source'] == 'press_bar' && !empty($post['elementor_id'])){
+                            $elementor_data = $data['elementor'][$post['elementor_id']];
+                            unset($elementor_data['post']['ID']);
+                            $el_id = wp_insert_post($elementor_data['post']);
+                            foreach ($elementor_data['meta'] as $key => $value) {
+                                foreach ($value as $s_value) {
+                                    add_post_meta($el_id, $key, $s_value);
+                                }
+                            }
+                            $post['elementor_id'] = $el_id;
+                        }
+
+
+                        $notification = PostType::get_instance()->save_post($post);
+                        $nx_id_new    = $notification['nx_id'];
+                    }
+                }
+
+                $success = true;
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+        }
+
+        return [
+            'success' => $success,
+            'data'    => [
+                'context' => [
+                    'import' => null,
+                ]
+            ]
+        ];
+    }
+
+    public function export($request){
+        $params = $request->get_params();
+        $export = [];
+        if(!empty($params['export-settings'])){
+            $export['settings'] = Settings::get_instance()->get('settings');
+        }
+        if(!empty($params['export-notification'])){
+            $where = [];
+            if(!empty($params['export-status']) && ($params['export-status'] == 'enabled' || $params['export-status'] == 'disabled')){
+                $where = [
+                    'enabled' => $params['export-status'] == 'enabled',
+                ];
+            }
+            $export['notifications'] = PostType::get_instance()->get_posts($where);
+            if(!empty($params['export-analytics']) && !empty($export['notifications'])){
+                $nx_ids = array_column($export['notifications'], 'nx_id');
+                $export['analytics'] = Database::get_instance()->get_posts(Database::$table_stats, '*', [
+                    'nx_id' => [
+                        'IN',
+                        '(' . implode(', ', $nx_ids) . ')'
+                    ]
+                ]);
+            }
+
+            if(!empty($export['notifications'])){
+                foreach ($export['notifications'] as $key => $post) {
+                    if($post['source'] == 'press_bar' && !empty($post['elementor_id'])){
+                        $export['elementor'][$post['elementor_id']]['post'] = get_post($post['elementor_id']);
+                        $meta = get_post_meta($post['elementor_id']);
+                        foreach ($meta as $key => $value) {
+                            $export['elementor'][$post['elementor_id']]['meta'][$key] = array_map('maybe_unserialize', $value);
+                        }
+                    }
+                }
+            }
+        }
+        return [
+            'success' => true,
+            'data'    => [
+                'download'  => $export,
+                'context' => [
+                    'export-notification' => false,
+                    'export-settings'     => false,
+                    'export-analytics'    => false,
+                    'export-status'       => 'all',
+                ]
+            ]
+        ];
     }
 }
