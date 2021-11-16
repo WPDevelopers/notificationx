@@ -185,7 +185,7 @@ class Admin {
          * This is review message and thumbnail.
          */
         $notice->message( 'review', '<p>'. __( 'We hope you\'re enjoying NotificationX! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'notificationx' ) .'</p>' );
-        $notice->thumbnail( 'review', plugins_url( 'admin/assets/img/nx-icon.svg', NOTIFICATIONX_BASENAME ) );
+        $notice->thumbnail( 'review', plugins_url( 'assets/admin/images/nx-icon.svg', NOTIFICATIONX_BASENAME ) );
 
         /**
          * Current Notice End Time.
