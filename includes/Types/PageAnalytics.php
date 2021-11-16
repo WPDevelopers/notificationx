@@ -38,11 +38,11 @@ class PageAnalytics extends Types {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/analytics/ga-theme-one.jpg',
                 'template' => [
                     'first_param'        => 'tag_siteview',
-                    'second_param'       => __('people visited', 'notificationx'),
-                    'third_param'        => 'tag_title',
-                    'custom_third_param' => __('this page', 'notificationx'),
+                    'second_param'       => __('marketers', 'notificationx'),
+                    'third_param'        => 'ga_title',
+                    'custom_third_param' => __('Surfed this page', 'notificationx'),
                     'ga_fourth_param'    => __('in last ', 'notificationx'),
-                    'ga_fifth_param'     => __('7', 'notificationx'),
+                    'ga_fifth_param'     => __('30', 'notificationx'),
                     'sixth_param'        => 'tag_day',
                 ],
             ],
@@ -51,11 +51,11 @@ class PageAnalytics extends Types {
                 'image_shape' => 'rounded',
                 'template' => [
                     'first_param'        => 'tag_siteview',
-                    'second_param'       => __('marketers', 'notificationx'),
-                    'third_param'        => 'tag_title',
-                    'custom_third_param' => __('Surfed this page', 'notificationx'),
+                    'second_param'       => __('people visited', 'notificationx'),
+                    'third_param'        => 'ga_title',
+                    'custom_third_param' => __('this page', 'notificationx'),
                     'ga_fourth_param'    => __('in last ', 'notificationx'),
-                    'ga_fifth_param'     => __('30', 'notificationx'),
+                    'ga_fifth_param'     => __('1', 'notificationx'),
                     'sixth_param'        => 'tag_day',
                 ],
             ],
@@ -65,7 +65,7 @@ class PageAnalytics extends Types {
                 'template' => [
                     'first_param'        => 'tag_realtime_siteview',
                     'second_param'       => __('people looking', 'notificationx'),
-                    'third_param'        => 'tag_title',
+                    'third_param'        => 'ga_title',
                     'custom_third_param' => __('this deal', 'notificationx'),
                     'ga_fourth_param'    => __('right now', 'notificationx'),
                     // need to set this two param unless they won't show up when changing the first param.
@@ -82,7 +82,7 @@ class PageAnalytics extends Types {
                     'tag_realtime_siteview' => __('Realtime site view', 'notificationx')
                 ],
                 'third_param' => [
-                    'tag_title' => __('Site Title', 'notificationx'),
+                    'ga_title'  => __('Site Title', 'notificationx'),
                 ],
                 'sixth_param' => [
                     'tag_day'   => __('Day', 'notificationx'),

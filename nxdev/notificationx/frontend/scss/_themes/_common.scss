@@ -74,6 +74,10 @@
             display: inline-flex;
             align-items: center;
             flex-wrap: wrap;
+            a {
+                position: relative;
+                z-index: 9;
+            }
             &:not(:last-of-type) {
                 margin-bottom: 5px;
             }

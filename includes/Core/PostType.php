@@ -164,6 +164,8 @@ class PostType {
         $post['data']['nx_id'] = $nx_id;
         // return $GLOBALS['wpdb']->last_query;
 
+        $data = apply_filters("nx_get_post_{$data['source']}", $data);
+        $data = apply_filters('nx_get_post', $data);
         do_action("nx_saved_post_{$data['source']}", $post, $data, $nx_id);
         do_action('nx_saved_post', $post, $data, $nx_id);
 

@@ -56,7 +56,7 @@ const config = {
                 ? "admin/js/[name].js"
                 : "public/js/[name].js";
         },
-        path: path.resolve(process.cwd(), isProduction ? "assets" : "build"),
+        path: path.resolve(process.cwd(), isProduction ? "assets" : "nxbuild"),
     },
     plugins: [
         new CleanWebpackPlugin({

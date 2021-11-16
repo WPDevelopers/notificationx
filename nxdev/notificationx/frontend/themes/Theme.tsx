@@ -11,7 +11,8 @@ const Theme = (props) => {
     const entry = props.data;
     const post = props.config;
     const themeName = getThemeName(post);
-    const isSplitCss = post?.advance_edit && splitThemes.includes(themeName);
+    const isSplit = splitThemes.includes(themeName);
+    const isSplitCss = post?.advance_edit && isSplit;
     const settings: any = __experimentalGetSettings();
 
     // console.log("settings", post);
@@ -31,7 +32,7 @@ const Theme = (props) => {
             let match;
             while ((match = regex.exec(col))) {
                 let key = match?.[1]?.replace("tag_", "")?.replace("product_", "");
-                let val = entry?.[key];
+                let val = entry?.[key] || '';
 
                 if (key === "time") {
                     val =
@@ -44,7 +45,7 @@ const Theme = (props) => {
                 else if (key == 'rating') {
                     val = `rating::${val}`;
                 }
-                if (val != undefined) col = col.replace(match?.[0], val);
+                col = col.replace(match?.[0], val);
             }
             return col;
         });
@@ -85,8 +86,8 @@ const Theme = (props) => {
 
     return (
         <div className={componentClasses} style={(post?.advance_edit && !isSplitCss) ? componentCSS : {}}>
-            <Image {...props} theme={themeName} style={isSplitCss ? componentCSS : {}} isSplitCss={isSplitCss} />
-            <Content {...props} template={template} style={isSplitCss ? componentCSS : {}} />
+            <Image {...props} theme={themeName} style={isSplitCss ? componentCSS : {}} isSplitCss={isSplitCss} isSplit={isSplit}/>
+            <Content {...props} template={template} style={isSplitCss ? componentCSS : {}} themes = {themeName}/>
             <Close {...props} />
         </div>
     );

@@ -134,7 +134,7 @@
     .notificationx-image {
         position: relative;
         overflow: initial !important;
-        border-radius: 50px;
+        border-radius: 100px;
         border: none !important;
         z-index: 1;
         height: 100px;
@@ -143,8 +143,8 @@
         }
         .notificationx-image-badge {
             z-index: -1;
-            top: 83px !important;
-            right: 13px !important;
+            bottom: -25px !important;
+            left: 50% !important;
             border-top-color: #fff;
             position: absolute;
             visibility: visible;
