@@ -109,7 +109,7 @@ class WPML {
         return $meta;
     }
 
-    public function localize_moment($return_rul = false){
+    public function localize_moment($nx_ids = null, $return_rul = false){
         $locale_url = '';
         if($locale = apply_filters( 'wpml_current_language', NULL )){
             $locale      = strtolower(str_replace('_', '-', $locale));
