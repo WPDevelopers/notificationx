@@ -180,17 +180,6 @@ class Tutor extends Extension {
         $user_info['name']      = $this->name($user_info['first_name'], $user_info['last_name']);
         $user_info['timestamp'] = strtotime($payment->date) - ($offset * 60 * 60);
         $user_info['ip']        = $payment->ip;
-        if (!empty($user_info['ip'])) {
-            // @todo Something
-            $user_ip_data = $this->remote_get('http://ip-api.com/json/' . $user_info['ip']);
-            if ($user_ip_data) {
-                $user_info['country'] = isset($user_ip_data->country) ? $user_ip_data->country : '';
-                $user_info['city']    = isset($user_ip_data->city) ? $user_ip_data->city : '';
-                $user_info['state']   = isset($user_ip_data->state) ? $user_ip_data->state : '';
-                $user_info['lat']     = isset( $user_ip_data->lat ) ? $user_ip_data->lat : '';
-                $user_info['lon']     = isset( $user_ip_data->lon ) ? $user_ip_data->lon : '';
-            }
-        }
 
         if (is_array($cart_details)) {
             foreach ($cart_details as $cart_index => $download) {
@@ -221,17 +210,6 @@ class Tutor extends Extension {
         if (isset($_SERVER['REMOTE_ADDR'])) {
             $user_ip    = $_SERVER['REMOTE_ADDR'];
             $data['ip'] = $user_ip;
-            if (!empty($user_ip)) {
-                // @todo Something
-                $user_ip_data = $this->remote_get('http://ip-api.com/json/' . $user_ip);
-                if ($user_ip_data) {
-                    $data['country'] = isset($user_ip_data->country) ? $user_ip_data->country : '';
-                    $data['city']    = isset($user_ip_data->city) ? $user_ip_data->city : '';
-                    $data['state']   = isset($user_ip_data->state) ? $user_ip_data->state : '';
-                    $data['lat']     = isset( $user_ip_data->lat ) ? $user_ip_data->lat : '';
-                    $data['lon']     = isset( $user_ip_data->lon ) ? $user_ip_data->lon : '';
-                }
-            }
         }
         $data['first_name'] = $userdata->first_name;
         $data['last_name']  = $userdata->last_name;

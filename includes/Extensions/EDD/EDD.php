@@ -289,16 +289,6 @@ class EDD extends Extension {
         $user_info['timestamp'] = strtotime( $payment->date ) - ( $offset * 60 * 60 );
         $user_info['ip']        = $payment->ip;
         $user_info['id']        = $payment_id;
-        if ( ! empty( $user_info['ip'] ) ) {
-            $user_ip_data = $this->remote_get( 'http://ip-api.com/json/' . $user_info['ip'] );
-            if ( $user_ip_data ) {
-                $user_info['country'] = isset( $user_ip_data->country ) ? $user_ip_data->country : '';
-                $user_info['city']    = isset( $user_ip_data->city ) ? $user_ip_data->city : '';
-                $user_info['state']   = isset( $user_ip_data->state ) ? $user_ip_data->state : '';
-                $user_info['lat']     = isset( $user_ip_data->lat ) ? $user_ip_data->lat : '';
-                $user_info['lon']     = isset( $user_ip_data->lon ) ? $user_ip_data->lon : '';
-            }
-        }
         if ( is_array( $cart_details ) ) {
             foreach ( $cart_details as $cart_index => $download ) {
                 $if_has_course = false;

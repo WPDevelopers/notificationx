@@ -16,7 +16,6 @@ use NotificationX\Core\Database;
 use NotificationX\Core\Modules;
 use NotificationX\Core\PostType;
 use NotificationX\Core\REST;
-use NotificationXPro\Extensions\Freemius\Helper;
 use NotificationX\Extensions\Extension;
 use NotificationX\Extensions\ExtensionFactory;
 use NotificationX\Extensions\GlobalFields;
@@ -25,7 +24,6 @@ use NotificationX\Types\TypeFactory;
 use NotificationX\Types\Types;
 use NotificationX\Core\Limiter;
 use NotificationX\Core\Locations;
-use NotificationXPro\Extensions\CustomNotification\CustomNotification;
 
 /**
  * Base trait make the instances of called class.

@@ -27,7 +27,7 @@ class Database {
      * @var \wpdb
      */
     protected $wpdb;
-    public static $version = '1.0';
+    public static $version = '2.0';
     public static $table_entries;
     public static $table_posts;
     public static $table_stats;
@@ -94,6 +94,7 @@ class Database {
                 KEY nx_id (nx_id)
             ) $charset_collate ;";
         $stats_db = dbDelta($sql);
+
     }
 
     public function update_analytics($type, $id, $date, $data = null) {
