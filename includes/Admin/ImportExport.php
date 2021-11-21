@@ -62,7 +62,7 @@ class ImportExport{
                     'type'     => 'checkbox',
                     'label'    => __('Export Settings', 'notificationx'),
                     'default'  => 0,
-                    'priority' => 25,
+                    'priority' => 30,
                 ],
                 'run_export' => array(
                     'name'     => 'run_export',
@@ -73,7 +73,7 @@ class ImportExport{
                     // 'rules'    => Rules::is( 'import', null, true ),
                     'rules'    => Rules::logicalRule([
                         Rules::is( 'export-notification', true ),
-                        Rules::is( 'export-settings', true )
+                        Rules::is( 'export-settings', true ),
                     ], 'or'),
                     'ajax'     => [
                         'on'   => 'click',
@@ -94,7 +94,7 @@ class ImportExport{
 
                 'import' => array(
                     'name'         => 'import',
-                    'type'         => 'media',
+                    'type'         => 'jsonuploader',
                     'label'        => __('Import', 'notificationx'),
                     'reset'        => __('Change', 'notificationx'),
                     'priority'     => 60,
@@ -129,18 +129,19 @@ class ImportExport{
     public function import($request){
         $params = $request->get_params();
         $success = false;
-        if(!empty($params['import']['id'])){
+        if(!empty($params['import'])){
             try {
-                $path = get_attached_file($params['import']['id']);
-                $data = file_get_contents($path);
-                $data = json_decode($data, true);
-                wp_delete_attachment($params['import']['id']);
+                $data = json_decode($params['import'], true);
 
                 if(!empty($data['settings'])){
                     Settings::get_instance()->set('settings', $data['settings']);
                 }
 
                 if(!empty($data['notifications'])){
+                    $analytics = [];
+                    if(!empty($data['analytics'])){
+                        $analytics = $this->group_stats_by_nx_id($data['analytics']);
+                    }
                     foreach ($data['notifications'] as $key => $post) {
                         $nx_id = $post['nx_id'];
                         unset($post['nx_id']);
@@ -159,8 +160,23 @@ class ImportExport{
                         }
 
 
-                        $notification = PostType::get_instance()->save_post($post);
+                        $notification = PostType::get_instance()->save_post($post); //, ['no_hooks' => true]
                         $nx_id_new    = $notification['nx_id'];
+
+                        if(!empty($analytics[$nx_id])){
+                            foreach ($analytics[$nx_id] as $key => $value) {
+                                $value['nx_id'] = $nx_id_new;
+                                $analytics[$nx_id][$key] = $value;
+                            }
+                            // Database::get_instance()->insert_posts(Database::$table_stats, array_values($analytics[$nx_id]));
+                        }
+                    }
+                    if(!empty($analytics)){
+                        $_analytics = [];
+                        foreach ($analytics as $key => $value) {
+                            $_analytics = array_merge($_analytics, $value);
+                        }
+                        Database::get_instance()->insert_posts(Database::$table_stats, array_values($_analytics));
                     }
                 }
 
@@ -228,5 +244,17 @@ class ImportExport{
                 ]
             ]
         ];
+    }
+
+    public function group_stats_by_nx_id($stats){
+        $new_stats = [];
+        if(!empty($stats)){
+            foreach ($stats as $key => $value) {
+                unset($value['stat_id']);
+                $new_stats[$value['nx_id']][] = $value;
+            }
+        }
+
+        return $new_stats;
     }
 }
