@@ -67,7 +67,11 @@ class ImportExport{
                 'run_export' => array(
                     'name'     => 'run_export',
                     // 'label'    => __('Import', 'notificationx'),
-                    'text'     => __('Export', 'notificationx'),
+                    'text'    => [
+                        'normal'  => __('Export', 'notificationx'),
+                        'saved'   => __('Export', 'notificationx'),
+                        'loading' => __('Exporting...', 'notificationx'),
+                    ],
                     'type'     => 'button',
                     'priority' => 40,
                     // 'rules'    => Rules::is( 'import', null, true ),
@@ -85,7 +89,7 @@ class ImportExport{
                             'export-status'       => '@export-status',
                         ],
                         'swal' => [
-                            'text'      => __('Successfully Sent a Test Report in Your Email.', 'notificationx'),
+                            'text'      => __('Export completed successfully.', 'notificationx'),
                             'icon'      => 'success',
                             'autoClose' => 2000
                         ],
@@ -103,7 +107,11 @@ class ImportExport{
                 'run_import' => array(
                     'name'     => 'run_import',
                     // 'label'    => __('Import', 'notificationx'),
-                    'text'     => __('Import', 'notificationx'),
+                    'text'    => [
+                        'normal'  => __('Import', 'notificationx'),
+                        'saved'   => __('Import', 'notificationx'),
+                        'loading' => __('Importing...', 'notificationx'),
+                    ],
                     'type'     => 'button',
                     'priority' => 70,
                     'rules'    => Rules::is( 'import', null, true ),
@@ -114,7 +122,7 @@ class ImportExport{
                             'import'   => '@import',
                         ],
                         'swal' => [
-                            'text'      => __('Successfully Sent a Test Report in Your Email.', 'notificationx'),
+                            'text'      => __('Import completed successfully.', 'notificationx'),
                             'icon'      => 'success',
                             'autoClose' => 2000
                         ],
