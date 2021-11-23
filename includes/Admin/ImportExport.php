@@ -224,10 +224,12 @@ class ImportExport{
         $params = $request->get_params();
         $export = [];
         if(!empty($params['export-settings'])){
+            $file_name = 'nx-settings-export.json';
             $export['settings'] = Settings::get_instance()->get('settings');
         }
         if(!empty($params['export-notification'])){
             $where = [];
+            $file_name = 'nx-notification-export.json';
             if(!empty($params['export-status']) && ($params['export-status'] == 'enabled' || $params['export-status'] == 'disabled')){
                 $where = [
                     'enabled' => $params['export-status'] == 'enabled',
@@ -256,9 +258,13 @@ class ImportExport{
                 }
             }
         }
+        if(!empty($params['export-settings']) && !empty($params['export-notification'])){
+            $file_name = 'nx-export.json';
+        }
         return [
             'success' => true,
             'data'    => [
+                'filename'  => $file_name,
                 'download'  => $export,
                 'context' => [
                     'export-notification' => false,
