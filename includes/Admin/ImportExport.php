@@ -137,13 +137,14 @@ class ImportExport{
     public function import($request){
         @set_time_limit(0);
         $params = $request->get_params();
-        $success = false;
+        $status = 'error';
         if(!empty($params['import'])){
             try {
                 $data = json_decode($params['import'], true);
 
                 if(!empty($data['settings'])){
                     Settings::get_instance()->set('settings', $data['settings']);
+                    $status = 'success';
                 }
 
                 if(!empty($data['notifications'])){
@@ -198,16 +199,18 @@ class ImportExport{
                         }
                         Database::get_instance()->insert_posts(Database::$table_stats, array_values($_analytics));
                     }
+
+                    $status = 'success';
                 }
 
-                $success = true;
             } catch (\Throwable $th) {
                 //throw $th;
+                $status = 'error';
             }
         }
 
         return [
-            'success' => $success,
+            'status'  => $status,
             'data'    => [
                 'context' => [
                     'import' => null,
