@@ -231,13 +231,13 @@ const AdvancedTemplate = (props) => {
                 <span className="advance-template-label">Example: {` `}</span>
                 <code>{`{{title}} {{7days}}`}</code><span className="advance-template-doc">{` or `}</span>
                 <code>{`{{title}} in last {{day:7}}`}</code>
-                <span className="advance-template-doc">. {' '}For more information check out this <a href="#" target="_blank">doc</a>.</span>
+                <span className="advance-template-doc">. {' '}For more information check out this <a href="https://notificationx.com/docs/notificationx-advanced-template/" target="_blank">doc</a>.</span>
             </div>}
             {(builderContext.values.themes == 'page_analytics_pa-theme-one' || builderContext.values.themes == 'page_analytics_pa-theme-two') &&
             <div className="template-example">
                 <span className="advance-template-label">Example: {` `}</span>
                 <code>{`in last {{day:7}}`}</code>
-                <span className="advance-template-doc">. {' '}For more information check out this <a href="#" target="_blank">doc</a>.</span>
+                <span className="advance-template-doc">. {' '}For more information check out this <a href="https://notificationx.com/docs/notificationx-advanced-template/" target="_blank">doc</a>.</span>
             </div>
             }
             <br />
