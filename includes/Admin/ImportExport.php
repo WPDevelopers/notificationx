@@ -159,13 +159,24 @@ class ImportExport{
                         if($post['source'] == 'press_bar' && !empty($post['elementor_id'])){
                             $elementor_data = $data['elementor'][$post['elementor_id']];
                             unset($elementor_data['post']['ID']);
-                            $el_id = wp_insert_post($elementor_data['post']);
-                            foreach ($elementor_data['meta'] as $key => $value) {
-                                foreach ($value as $s_value) {
-                                    add_post_meta($el_id, $key, $s_value);
-                                }
+
+                            if(class_exists('\Elementor\Plugin')){
+                                $meta = array_filter(array_combine(array_keys($elementor_data['meta']), array_column($elementor_data['meta'], 0)));
+                                $document = \Elementor\Plugin::$instance->documents->create('section', $elementor_data['post'], $meta);
+                                $post['elementor_id'] = $document->get_main_id();
                             }
-                            $post['elementor_id'] = $el_id;
+                            else{
+                                $el_id = wp_insert_post($elementor_data['post']);
+                                foreach ($elementor_data['meta'] as $key => $value) {
+                                    if($key == '_elementor_css') continue;
+                                    foreach ($value as $s_value) {
+                                        add_post_meta($el_id, $key, $s_value);
+                                    }
+                                }
+                                $post['elementor_id'] = $el_id;
+                            }
+
+
                         }
 
 
