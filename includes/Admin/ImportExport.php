@@ -135,6 +135,7 @@ class ImportExport{
     }
 
     public function import($request){
+        @set_time_limit(0);
         $params = $request->get_params();
         $success = false;
         if(!empty($params['import'])){
@@ -205,6 +206,7 @@ class ImportExport{
     }
 
     public function export($request){
+        @set_time_limit(0);
         $params = $request->get_params();
         $export = [];
         if(!empty($params['export-settings'])){
