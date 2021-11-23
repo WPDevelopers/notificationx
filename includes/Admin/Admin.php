@@ -206,6 +206,9 @@ class Admin {
         );
 
         $notice->init();
+
+        wp_enqueue_style( 'wpdeveloper-review-notice', self::ASSET_URL . 'css/wpdeveloper-review-notice.css', array(), false, 'all' );
+
     }
 
     public function plugin_usage_insights(){
