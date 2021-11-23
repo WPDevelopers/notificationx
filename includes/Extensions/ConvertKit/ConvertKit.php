@@ -59,7 +59,7 @@ class ConvertKit extends Extension {
         'https://notificationx.com/docs/convertkit-alert/',
         'https://youtu.be/lk_KMSBkEbY',
         'https://notificationx.com/integrations/convertkit/',
-        'https://wpdeveloper.net/convertkit-social-proof/'
+        'https://wpdeveloper.com/convertkit-social-proof/'
         );
     }
 }

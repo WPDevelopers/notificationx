@@ -144,7 +144,7 @@ https://www.youtube.com/watch?v=75vntaHp9Y4
 ### Loving NotificationX? ###
 
 - Join our [Facebook Group](https://www.facebook.com/groups/NotificationX.Community/)
-- Learn from our tutorials on [Youtube Channel](https://wpdeveloper.net/go/youtube-channel)
+- Learn from our tutorials on [Youtube Channel](https://wpdeveloper.com/go/youtube-channel)
 - Or [rate us](https://notificationx.com/go/review-nx) on WordPress
 
 ### 🎁 GET FREEBIES FOR YOUR WORDPRESS SITE ###

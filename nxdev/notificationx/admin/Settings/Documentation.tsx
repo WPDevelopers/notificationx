@@ -38,7 +38,7 @@ const Documentation = ({ assetsUrl }) => {
                     </header>
                     <div className="nx-admin-block-content">
                         <p>{__('Stuck with something? Get help from live chat or support ticket.', 'notificationx')}</p>
-                        <a rel="nofollow" href="https://wpdeveloper.net" className="nx-button" target="_blank">{__('Initiate a Chat', 'notificationx')}</a>
+                        <a rel="nofollow" href="https://wpdeveloper.com" className="nx-button" target="_blank">{__('Initiate a Chat', 'notificationx')}</a>
                     </div>
                 </div>
                 <div className="nx-admin-block nx-admin-block-community">
@@ -50,7 +50,7 @@ const Documentation = ({ assetsUrl }) => {
                     </header>
                     <div className="nx-admin-block-content">
                         <p>{__('We love to have you in NotificationX family. We are making it more awesome everyday. Take your 2 minutes to review the plugin and spread the love to encourage us to keep it going.', 'notificationx')}</p>
-                        <a rel="nofollow" href="https://wpdeveloper.net/review-notificationx" className="nx-button" target="_blank">{__('Leave a Review', 'notificationx')}</a>
+                        <a rel="nofollow" href="https://wpdeveloper.com/review-notificationx" className="nx-button" target="_blank">{__('Leave a Review', 'notificationx')}</a>
                     </div>
                 </div>
             </div>

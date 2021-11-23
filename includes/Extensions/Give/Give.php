@@ -316,7 +316,7 @@ class Give extends Extension {
         'https://notificationx.com/docs/givewp-donation-alert/',
         'https://www.youtube.com/watch?v=8EFgHSA8mOg',
         'https://notificationx.com/integrations/givewp/',
-        'https://wpdeveloper.net/notificationx-increase-sales-wordpress/'
+        'https://wpdeveloper.com/notificationx-increase-sales-wordpress/'
         );
     }
 }

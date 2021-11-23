@@ -316,7 +316,7 @@ class ReportEmail {
         $subject = $this->email_subject();
         $template = new EmailTemplate();
         $message = $template->template_body( $data, $frequency );
-        $headers = array( 'Content-Type: text/html; charset=UTF-8', "From: NotificationX <support@wpdeveloper.net>" );
+        $headers = array( 'Content-Type: text/html; charset=UTF-8', "From: NotificationX <support@wpdeveloper.com>" );
         if( ! $test ) {
             $triggered = Settings::get_instance()->get("reporting.mail_sent.$frequency");
             $triggered = ! $triggered ? 0 : $triggered++;

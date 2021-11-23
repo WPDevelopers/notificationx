@@ -144,7 +144,7 @@ class Admin {
         $notice->links = [
             'review' => array(
                 'later' => array(
-                    'link' => 'https://wpdeveloper.net/review-notificationx',
+                    'link' => 'https://wpdeveloper.com/review-notificationx',
                     'target' => '_blank',
                     'label' => __( 'Ok, you deserve it!', 'notificationx' ),
                     'icon_class' => 'dashicons dashicons-external',
@@ -166,7 +166,7 @@ class Admin {
                     ]
                 ),
                 'support' => array(
-                    'link' => 'https://wpdeveloper.net/support',
+                    'link' => 'https://wpdeveloper.com/support',
                     'label' => __( 'I need help', 'notificationx' ),
                     'icon_class' => 'dashicons dashicons-sos',
                 ),

@@ -919,7 +919,7 @@ class PressBar extends Extension {
 		<p>🔥 How to <a href="%4$s" target="_blank">design Notification Bar with Elementor Page Builder</a>.</p>', 'notificationx'),
         'https://notificationx.com/docs/notification-bar/',
         'https://www.youtube.com/watch?v=l7s9FXgzbEM',
-        'https://wpdeveloper.net/notificationx-social-proof-fomo/',
+        'https://wpdeveloper.com/notificationx-social-proof-fomo/',
         'https://notificationx.com/docs/notification-bar-with-elementor/'
         );
     }

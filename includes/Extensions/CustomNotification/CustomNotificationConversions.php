@@ -56,7 +56,7 @@ class CustomNotificationConversions extends Extension {
 		<p>🔥 How to <a target="_blank" href="%3$s">Display Custom Notification Alerts</a> On Your Website Using NotificationX</p>', 'notificationx'),
         'https://notificationx.com/docs/custom-notification/',
         'https://www.youtube.com/watch?v=OuTmDZ0_TEw',
-        'https://wpdeveloper.net/custom-notificationx-alert-fomo/'
+        'https://wpdeveloper.com/custom-notificationx-alert-fomo/'
         );
     }
 }

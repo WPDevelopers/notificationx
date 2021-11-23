@@ -60,8 +60,8 @@ class MailChimp extends Extension {
         'https://notificationx.com/docs/mailchimp-email-subscription-alert/',
         'https://youtu.be/WvX8feM5DBw',
         'https://notificationx.com/integrations/mailchimp/',
-        'https://wpdeveloper.net/email-marketing-social-proof/',
-        'https://wpdeveloper.net/email-subscription-list-wordpress/'
+        'https://wpdeveloper.com/email-marketing-social-proof/',
+        'https://wpdeveloper.com/email-subscription-list-wordpress/'
         );
     }
 }

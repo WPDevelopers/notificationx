@@ -22,7 +22,7 @@ trait WordPress
 		'https://www.youtube.com/watch?v=wZKAUKH9XQY',
 		'https://www.youtube.com/watch?v=wZKAUKH9XQY',
 		'https://notificationx.com/blog/hacks-to-get-more-comments-wordpress/',
-		'https://wpdeveloper.net/wordpress-plugin-download/'
+		'https://wpdeveloper.com/wordpress-plugin-download/'
 		);
     }
 }

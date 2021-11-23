@@ -14,14 +14,14 @@ const Sidebar = ({ assetsUrl, is_pro_active = false }) => {
                         {
                             is_pro_active ?
                                 <a
-                                    href="https://wpdeveloper.net/account"
+                                    href="https://store.wpdeveloper.com"
                                     rel="nofollow"
                                     target="_blank"
                                 >
                                     {__('Manage License', 'notificationx')}
                                 </a> :
                                 <a
-                                    href="http://wpdeveloper.net/in/upgrade-notificationx"
+                                    href="http://wpdeveloper.com/in/upgrade-notificationx"
                                     rel="nofollow"
                                     target="_blank"
                                 >

@@ -64,7 +64,7 @@ class LearnDash extends Extension {
         'https://notificationx.com/docs/how-to-display-learndash-course-enrollment-alert-using-notificationx',
         'https://www.youtube.com/watch?v=sTbBt2DVsIA',
         'https://notificationx.com/integrations/learndash/',
-        'https://wpdeveloper.net/learndash-course-enrollment-rate-notificationx/'
+        'https://wpdeveloper.com/learndash-course-enrollment-rate-notificationx/'
         );
     }
 }

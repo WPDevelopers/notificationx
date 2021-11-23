@@ -271,7 +271,7 @@ class ReviewX extends WooReviews {
         'https://wordpress.org/plugins/woocommerce/',
         'https://wordpress.org/plugins/reviewx/',
         'https://notificationx.com/docs/reviewx-notification-alerts',
-        'https://wpdeveloper.net/ecommerce-sales-social-proof/'
+        'https://wpdeveloper.com/ecommerce-sales-social-proof/'
         );
     }
 }

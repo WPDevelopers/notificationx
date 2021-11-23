@@ -492,7 +492,7 @@ class WooReviews extends Extension {
         'https://wordpress.org/plugins/woocommerce/',
         'https://notificationx.com/docs/woocommerce-product-reviews/',
         'https://www.youtube.com/watch?v=bHuaOs9JWvI',
-        'https://wpdeveloper.net/ecommerce-sales-social-proof/'
+        'https://wpdeveloper.com/ecommerce-sales-social-proof/'
         );
     }
 }

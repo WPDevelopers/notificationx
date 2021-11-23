@@ -360,7 +360,7 @@ class EDD extends Extension {
         'https://wordpress.org/plugins/easy-digital-downloads/',
         'https://notificationx.com/docs/notificationx-easy-digital-downloads/',
         'https://notificationx.com/integrations/easy-digital-downloads/',
-        'https://wpdeveloper.net/notificationx-increase-sales-wordpress/'
+        'https://wpdeveloper.com/notificationx-increase-sales-wordpress/'
         );
     }
 }

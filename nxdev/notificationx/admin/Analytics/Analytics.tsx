@@ -237,7 +237,7 @@ const Analytics = (props) => {
                     />
                     <div className="nx-stats-pro-tease">
                         <a
-                            href="http://wpdeveloper.net/in/upgrade-notificationx"
+                            href="http://wpdeveloper.com/in/upgrade-notificationx"
                             target="_blank"
                         >
                             <p>{__("Get PRO to Unlock", 'notificationx')}</p>

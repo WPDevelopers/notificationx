@@ -140,7 +140,7 @@ class NotificationX {
 			$links['deactivate'] = $deactivate_link;
 		}
         if( ! is_plugin_active('notificationx-pro/notificationx-pro.php' ) ) {
-            $links['pro'] = '<a href="' . esc_url('http://wpdeveloper.net/in/upgrade-notificationx') . '" target="_blank" style="color: #349e34;"><b>' . __('Go Pro','notificationx') .'</b></a>';
+            $links['pro'] = '<a href="' . esc_url('http://wpdeveloper.com/in/upgrade-notificationx') . '" target="_blank" style="color: #349e34;"><b>' . __('Go Pro','notificationx') .'</b></a>';
         }
         return $links;
     }

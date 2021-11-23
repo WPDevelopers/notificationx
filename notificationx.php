@@ -5,14 +5,14 @@
  * Description:       Social Proof & Recent Sales Popup, Comment Notification, Subscription Notification, Notification Bar and many more.
  * Version:           2.2.1
  * Author:            WPDeveloper
- * Author URI:        https://wpdeveloper.net
+ * Author URI:        https://wpdeveloper.com
  * License:           GPL-3.0+
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       notificationx
  * Domain Path:       /languages
  *
  * @package           NotificationX
- * @link              https://wpdeveloper.net
+ * @link              https://wpdeveloper.com
  * @since             1.0.0
  */
 

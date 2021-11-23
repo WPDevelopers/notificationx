@@ -173,7 +173,7 @@ export const getThemeName = (settings) => {
 
 export const proAlert = ( html = null ) => {
     if( html === null ) {
-        html = sprintf(__("You need to upgrade to the <strong><a href='%s' target='_blank'>Premium Version</a></strong> to use this feature.", 'notificationx'), 'http://wpdeveloper.net/in/upgrade-notificationx');
+        html = sprintf(__("You need to upgrade to the <strong><a href='%s' target='_blank'>Premium Version</a></strong> to use this feature.", 'notificationx'), 'http://wpdeveloper.com/in/upgrade-notificationx');
     }
     return SweetAlert({
         showConfirmButton: false,

@@ -88,7 +88,7 @@ const SingleNotificationX = ({
                     }
                 } else {
                     proAlert(
-                        enabled ? sprintf(__("You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification.", "notificationx"), 'http://wpdeveloper.net/in/upgrade-notificationx')
+                        enabled ? sprintf(__("You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification.", "notificationx"), 'http://wpdeveloper.com/in/upgrade-notificationx')
                             : __("Disabled", "notificationx")
                     ).fire();
                 }
