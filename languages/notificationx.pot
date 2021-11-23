@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 2.2.0\n"
+"Project-Id-Version: NotificationX 2.2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-10-26T05:47:02+00:00\n"
+"POT-Creation-Date: 2021-11-23T05:59:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: notificationx\n"
@@ -475,9 +475,9 @@ msgstr ""
 #: includes/Extensions/Tutor/Tutor.php:552
 #: includes/Extensions/Tutor/Tutor.php:553
 #: includes/Extensions/Tutor/Tutor.php:554
-#: includes/Extensions/WooCommerce/WooCommerce.php:527
 #: includes/Extensions/WooCommerce/WooCommerce.php:528
 #: includes/Extensions/WooCommerce/WooCommerce.php:529
+#: includes/Extensions/WooCommerce/WooCommerce.php:530
 #: includes/Extensions/WooCommerce/WOOReviews.php:54
 #: includes/Extensions/WooCommerce/WOOReviews.php:66
 #: includes/Extensions/WooCommerce/WOOReviews.php:78
@@ -703,27 +703,27 @@ msgstr ""
 msgid "Easy Digital Downloads"
 msgstr ""
 
-#: includes/Extensions/EDD/EDD.php:126
-#: includes/Extensions/WooCommerce/WooCommerce.php:495
+#: includes/Extensions/EDD/EDD.php:127
+#: includes/Extensions/WooCommerce/WooCommerce.php:496
 msgid "more products"
 msgstr ""
 
-#: includes/Extensions/EDD/EDD.php:143
+#: includes/Extensions/EDD/EDD.php:144
 #: includes/Extensions/WooCommerce/WooCommerce.php:136
 #: includes/Types/DownloadStats.php:178
 #: includes/Types/Reviews.php:206
 msgid "Product Page"
 msgstr ""
 
-#: includes/Extensions/EDD/EDD.php:349
+#: includes/Extensions/EDD/EDD.php:350
 #: includes/Extensions/Give/Give.php:85
 #: includes/Extensions/Tutor/Tutor.php:555
-#: includes/Extensions/WooCommerce/WooCommerce.php:530
+#: includes/Extensions/WooCommerce/WooCommerce.php:531
 #: includes/Types/Conversions.php:60
 msgid "Anonymous Product"
 msgstr ""
 
-#: includes/Extensions/EDD/EDD.php:355
+#: includes/Extensions/EDD/EDD.php:356
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">Easy Digital Downloads installed & activated</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with Easy Digital Downloads</a></p>\n"
@@ -1720,11 +1720,11 @@ msgid "WooCommerce"
 msgstr ""
 
 #. translators: %1$s: title, %2$s: number of product, %3$s: Combine Multi Order Text.
-#: includes/Extensions/WooCommerce/WooCommerce.php:498
+#: includes/Extensions/WooCommerce/WooCommerce.php:499
 msgid "%1$s & %2$s %3$s"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerce.php:535
+#: includes/Extensions/WooCommerce/WooCommerce.php:536
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a href=\"%3$s\" target=\"_blank\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -2221,11 +2221,11 @@ msgid "Page Analytics"
 msgstr ""
 
 #: includes/Types/PageAnalytics.php:41
-msgid "people visited"
+msgid "marketers"
 msgstr ""
 
 #: includes/Types/PageAnalytics.php:43
-msgid "this page"
+msgid "Surfed this page"
 msgstr ""
 
 #: includes/Types/PageAnalytics.php:44
@@ -2234,20 +2234,20 @@ msgid "in last "
 msgstr ""
 
 #: includes/Types/PageAnalytics.php:45
-msgid "7"
+#: includes/Types/PageAnalytics.php:72
+msgid "30"
 msgstr ""
 
 #: includes/Types/PageAnalytics.php:54
-msgid "marketers"
+msgid "people visited"
 msgstr ""
 
 #: includes/Types/PageAnalytics.php:56
-msgid "Surfed this page"
+msgid "this page"
 msgstr ""
 
 #: includes/Types/PageAnalytics.php:58
-#: includes/Types/PageAnalytics.php:72
-msgid "30"
+msgid "1"
 msgstr ""
 
 #: includes/Types/PageAnalytics.php:67
