@@ -227,9 +227,13 @@ class FrontEnd {
                 // $settings['button_url'] = apply_filters("nx_notification_link_{$settings['source']}", $settings['button_url'], $settings);
                 $settings['button_url'] = apply_filters('nx_notification_link', $settings['button_url'], $settings);
 
-                $result['pressbar'][$_nx_id]['post'] = $settings;
-                $result['pressbar'][$_nx_id]['content'] = PressBar::get_instance()->print_bar_notice($settings);
-                $result['pressbar'][$_nx_id]['content'] = apply_filters("nx_filtered_data_{$settings['source']}", $result['pressbar'][$_nx_id]['content'], $settings);
+                $bar_content = PressBar::get_instance()->print_bar_notice($settings);
+                $bar_content = apply_filters("nx_filtered_data_{$settings['source']}", $bar_content, $settings);
+                if(!empty($bar_content)){
+                    $result['pressbar'][$_nx_id]['post']    = $settings;
+                    $result['pressbar'][$_nx_id]['content'] = $bar_content;
+                }
+
                 unset( $_nx_id );
             }
         }
