@@ -232,6 +232,9 @@ class FrontEnd {
                 $_bar_content = str_replace(array("\n","\r\n","\r"), '', $bar_content);
                 $_bar_content = trim(strip_tags($_bar_content));
                 if(!empty($_bar_content) || !empty($settings['enable_countdown'])){
+                    if(empty($_bar_content) && !empty($settings['enable_countdown'])){
+                        $bar_content = '&nbsp;';
+                    }
                     $result['pressbar'][$_nx_id]['post']    = $settings;
                     $result['pressbar'][$_nx_id]['content'] = $bar_content;
                 }
