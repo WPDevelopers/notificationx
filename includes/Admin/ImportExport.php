@@ -180,21 +180,17 @@ class ImportExport{
                             $elementor_data = $data['elementor'][$post['elementor_id']];
                             unset($elementor_data['post']['ID']);
 
-                            if(class_exists('\Elementor\Plugin')){
-                                $meta = array_filter(array_combine(array_keys($elementor_data['meta']), array_column($elementor_data['meta'], 0)));
-                                $document = \Elementor\Plugin::$instance->documents->create('section', $elementor_data['post'], $meta);
-                                $post['elementor_id'] = $document->get_main_id();
-                            }
-                            else{
-                                $el_id = wp_insert_post($elementor_data['post']);
-                                foreach ($elementor_data['meta'] as $key => $value) {
-                                    if($key == '_elementor_css') continue;
-                                    foreach ($value as $s_value) {
-                                        add_post_meta($el_id, $key, $s_value);
+                            $el_id = wp_insert_post($elementor_data['post']);
+                            foreach ($elementor_data['meta'] as $key => $value) {
+                                if($key == '_elementor_css') continue;
+                                foreach ($value as $s_value) {
+                                    if($key == '_elementor_data'){
+                                        $s_value = wp_slash( wp_json_encode(json_decode($s_value)));
                                     }
+                                    add_post_meta($el_id, $key, $s_value);
                                 }
-                                $post['elementor_id'] = $el_id;
                             }
+                            $post['elementor_id'] = $el_id;
 
 
                         }
