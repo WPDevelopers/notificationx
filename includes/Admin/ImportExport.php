@@ -13,6 +13,25 @@ class ImportExport{
     public function __construct(){
         add_filter('nx_settings_tab_miscellaneous', [$this, 'settings_tab_help']);
         add_filter('upload_mimes', [$this, 'cc_mime_types']);
+        add_filter('nx_settings', [$this, 'save_settings']);
+    }
+
+    public function save_settings($settings) {
+        $remove_before_save = [
+            'export-notification',
+            'export-analytics',
+            'export-status',
+            'export-settings',
+            'run_export',
+            'import',
+            'run_import',
+        ];
+        foreach ($remove_before_save as $key) {
+            if(isset($settings[$key])){
+                unset($settings[$key]);
+            }
+        }
+        return $settings;
     }
 
     public function cc_mime_types($mimes) {
