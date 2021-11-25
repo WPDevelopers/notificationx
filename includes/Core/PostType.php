@@ -326,7 +326,9 @@ class PostType {
                 unset($value['data']);
             }
             // @todo maybe remove if there is another better way.
-            $value = NotificationX::get_instance()->normalize_post($value);
+            if($select == "*"){
+                $value = NotificationX::get_instance()->normalize_post($value);
+            }
             $value       = apply_filters("nx_get_post_{$value['source']}", $value);
             $posts[$key] = apply_filters('nx_get_post', $value);
         }

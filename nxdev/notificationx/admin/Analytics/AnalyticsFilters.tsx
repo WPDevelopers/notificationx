@@ -89,7 +89,19 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
         }
         return null;
     };
-
+    function shallowEqual(object1, object2) {
+        const keys1 = Object.keys(object1);
+        const keys2 = Object.keys(object2);
+        if (keys1.length !== keys2.length) {
+            return false;
+        }
+        for (let key of keys1) {
+            if (object1[key] !== object2[key]) {
+                return false;
+            }
+        }
+        return true;
+    }
     useEffect(() => {
         const selectedComparison = query.get("comparison");
         let comparison = comparisonOptions.views;
@@ -105,11 +117,14 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
             });
         }
         else {
-            setFilterOptions({
-                ...filterOptions,
-                nx: getNX() || filterOptions.nx,
-                comparison: [comparison],
-            });
+            // making sure
+            if((getNX() && !shallowEqual(getNX(), filterOptions.nx)) || (selectedComparison && !shallowEqual(filterOptions.comparison, [comparison]))){
+                setFilterOptions({
+                    ...filterOptions,
+                    nx: getNX() || filterOptions.nx,
+                    comparison: [comparison],
+                });
+            }
         }
     }, [location]);
 

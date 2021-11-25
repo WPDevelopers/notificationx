@@ -48,11 +48,31 @@ class Analytics {
     }
 
     public function get_stats($args = []) {
-        $args = wp_parse_args($args, []);
-        $rows = Database::get_instance()->get_posts(Database::$table_stats);
-        $posts = PostType::get_instance()->get_posts([], 'DISTINCT a.nx_id, a.title, a.source, a.theme', Database::$table_stats, '', 'JOIN');
+        $where      = [];
+        $post_where = [];
+        $args       = wp_parse_args($args, []);
+        if(!empty($args['startDate']) && !empty($args['endDate'])){
+            $startDate = date(self::$date_format, strtotime($args['startDate']));
+            $endDate   = date(self::$date_format, strtotime($args['endDate']));
+            $where['created_at'] = [
+                'BETWEEN',
+                "'$startDate' AND '$endDate'"
+            ];
+        }
+        $stats = Database::get_instance()->get_posts(Database::$table_stats, '*', $where);
+        if(!empty($stats)){
+            $nx_ids = array_filter(array_column($stats, 'nx_id'));
+            $post_where = [
+                'nx_id' => [
+                    'in',
+                    "('" . implode("', '", $nx_ids) . "')"
+                ]
+            ];
+
+        }
+        $posts = PostType::get_instance()->get_posts($post_where, 'DISTINCT nx_id, title, source, theme');
         return [
-            'stats' => $rows,
+            'stats' => $stats,
             'posts' => $posts,
         ];
     }

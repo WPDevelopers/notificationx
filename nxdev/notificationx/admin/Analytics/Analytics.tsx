@@ -69,15 +69,34 @@ const Analytics = (props) => {
             });
             return;
         }
+        // setIsLoading(true);
+        // nxHelper.post("analytics/get", {
+        //     ...filterOptions
+        // }).then((res: any) => {
+        //     if (res?.stats) {
+        //         setRawData(res.stats);
+        //         setPosts(res?.posts);
+        //         setIsLoading(false);
+        //     }
+        // });
+    }, []);
+
+    useEffect(() => {
+        console.log(JSON.stringify(filterOptions));
+        if (filterOptions === null) return;
+
         setIsLoading(true);
-        nxHelper.get("analytics").then((res: any) => {
+        nxHelper.post("analytics/get", {
+            startDate: filterOptions?.startDate,
+            endDate  : filterOptions?.endDate,
+        }).then((res: any) => {
             if (res?.stats) {
                 setRawData(res.stats);
                 setPosts(res?.posts);
                 setIsLoading(false);
             }
         });
-    }, []);
+    }, [filterOptions?.startDate, filterOptions?.endDate])
 
     useEffect(() => {
         if (filterOptions === null) return;
@@ -198,7 +217,7 @@ const Analytics = (props) => {
             series: series,
             options: { ...data.options, labels: labels },
         });
-    }, [rawData, filterOptions]);
+    }, [rawData, filterOptions?.nx, filterOptions?.comparison]);
 
     return (
         <div>

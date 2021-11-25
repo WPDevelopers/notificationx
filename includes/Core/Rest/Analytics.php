@@ -51,21 +51,23 @@ class Analytics {
         register_rest_route(
             $this->namespace,
             '/' . $this->rest_base,
+            // For Frontend analytics
             array(
-                // For backend analytics
-                array(
-                    'methods'             => WP_REST_Server::READABLE,
-                    'callback'            => array($this, 'get_analytics'),
-                    // maybe use
-                    'permission_callback' => [$this, 'can_read_analytics'],
-                ),
-                // For Frontend analytics
-                array(
-                    'methods'             => WP_REST_Server::EDITABLE,
-                    'callback'            => array($this, 'insert_analytics'),
-                    'permission_callback' => [$this, 'can_insert_analytics'],
-                ),
-            )
+                'methods'             => WP_REST_Server::EDITABLE,
+                'callback'            => array($this, 'insert_analytics'),
+                'permission_callback' => [$this, 'can_insert_analytics'],
+            ),
+        );
+        register_rest_route(
+            $this->namespace,
+            "/{$this->rest_base}/get",
+            // For backend analytics
+            array(
+                'methods'             => WP_REST_Server::EDITABLE,
+                'callback'            => array($this, 'get_analytics'),
+                // maybe use
+                'permission_callback' => [$this, 'can_read_analytics'],
+            ),
         );
 
     }
