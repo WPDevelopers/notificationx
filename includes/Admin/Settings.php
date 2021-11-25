@@ -496,14 +496,19 @@ class Settings extends UsabilityDynamicsSettings {
         if(!current_user_can( 'edit_notificationx_settings' )){
             return false;
         }
+        $remove_before_save = [
+            'empty',
+        ];
 
         $roles = $this->get_selected_roles($settings);
         $settings = array_merge($settings, $roles);
 
         $settings = apply_filters('nx_settings', $settings);
 
-        if(isset($settings['empty'])){
-            unset($settings['empty']);
+        foreach ($remove_before_save as $key) {
+            if(isset($settings[$key])){
+                unset($settings[$key]);
+            }
         }
         // need this to ensure saved value don't return empty array instead of object.
         if(!empty($settings['delete_settings'])){

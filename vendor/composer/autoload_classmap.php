@@ -12,6 +12,7 @@ return array(
     'NotificationX\\Admin\\Cron' => $baseDir . '/includes/Admin/Cron.php',
     'NotificationX\\Admin\\DashboardWidget' => $baseDir . '/includes/Admin/DashboardWidget.php',
     'NotificationX\\Admin\\Entries' => $baseDir . '/includes/Admin/Entries.php',
+    'NotificationX\\Admin\\ImportExport' => $baseDir . '/includes/Admin/ImportExport.php',
     'NotificationX\\Admin\\Notice' => $baseDir . '/includes/Admin/Notice.php',
     'NotificationX\\Admin\\PluginInsights' => $baseDir . '/includes/Admin/PluginInsights.php',
     'NotificationX\\Admin\\Reports\\EmailTemplate' => $baseDir . '/includes/Admin/Reports/EmailTemplate.php',
