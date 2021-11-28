@@ -73,9 +73,6 @@ class WPOrgReview extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-        if (!$this->is_active()) {
-            return;
-        }
 
         add_action("nx_cron_update_data_{$this->id}", array($this, 'update_data'), 10, 2);
     }
@@ -89,9 +86,6 @@ class WPOrgReview extends Extension {
      */
     public function public_actions() {
         parent::public_actions();
-        if (!$this->is_active()) {
-            return;
-        }
 
         // Show only single entry if total-rated theme.
         add_filter( 'nx_frontend_get_entries', [$this, 'total_rated_theme'], 10, 3);

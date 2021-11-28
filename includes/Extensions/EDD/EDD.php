@@ -67,9 +67,7 @@ class EDD extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-        if ( ! $this->is_active( $this->id ) ) {
-            return;
-        }
+
     }
 
     /**
@@ -80,9 +78,6 @@ class EDD extends Extension {
      */
     public function public_actions() {
         parent::public_actions();
-        if ( ! $this->is_active( $this->id ) ) {
-            return;
-        }
         add_filter("nx_filtered_data_{$this->id}", array($this, 'multiorder_combine'), 11, 3);
     }
 

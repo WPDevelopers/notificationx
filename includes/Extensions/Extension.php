@@ -75,17 +75,14 @@ abstract class Extension {
         add_action('nx_before_metabox_load', [$this, 'init_fields']);
         add_action('nx_before_settings_fields', [$this, 'init_settings_fields']);
         // add_action('init', [$this, 'init']);
-        $this->init();
 
-        if($this->class_exists()){
+        if($this->is_active()) {
+            $this->init();
             $this->admin_actions();
             $this->public_actions();
             if(did_action('wpml_st_loaded')){
                 $this->wpml_actions();
             }
-            // else{
-            //     add_action('wpml_st_loaded', [$this, 'wpml_actions'], 10);
-            // }
         }
     }
 
@@ -93,9 +90,6 @@ abstract class Extension {
      * common init function for admin and frontend.
      */
     public function init(){
-        if (!$this->is_active()) {
-            return;
-        }
         // shouldn't do is_active check.
         if(method_exists($this, 'save_post')){
             add_filter("nx_save_post_{$this->id}", array($this, 'save_post'), 10, 3);
@@ -139,9 +133,6 @@ abstract class Extension {
      * @return void
      */
     public function public_actions() {
-        if (!$this->is_active()) {
-            return;
-        }
         if (method_exists($this, 'fallback_data')) {
             add_filter("nx_fallback_data_{$this->id}", array($this, 'fallback_data'), 11, 3);
         }
@@ -157,9 +148,6 @@ abstract class Extension {
      * @return void
      */
     public function admin_actions() {
-        if (!$this->is_active()) {
-            return;
-        }
         // add_action('nx_get_conversions_ready', array($this, 'get_notification_ready'), 10, 2);
     }
 

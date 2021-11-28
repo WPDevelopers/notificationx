@@ -62,9 +62,6 @@ class NinjaForms extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-        if (!$this->is_active()) {
-            return;
-        }
 
         add_filter("nx_can_entry_{$this->id}", array($this, 'can_entry'), 10, 3);
     }
@@ -77,9 +74,7 @@ class NinjaForms extends Extension {
      */
     public function public_actions() {
         parent::public_actions();
-        if (!$this->is_active()) {
-            return;
-        }
+
     }
 
     public function source_error_message($messages) {

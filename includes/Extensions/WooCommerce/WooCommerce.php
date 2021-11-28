@@ -70,24 +70,15 @@ class WooCommerce extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-        if (!$this->is_active()) {
-            return;
-        }
     }
 
     public function public_actions(){
         parent::public_actions();
-        if (!$this->is_active()) {
-            return;
-        }
+
         add_filter("nx_filtered_data_{$this->id}", array($this, 'multiorder_combine'), 11, 3);
     }
 
     public function wpml_actions(){
-        if (!$this->is_active()) {
-            return;
-        }
-
         add_filter("nx_filtered_entry_{$this->id}", array($this, 'wpml_translate'), 11, 2);
         add_filter("nx_notification_link_{$this->id}", [$this, 'product_link'], 10, 3);
 

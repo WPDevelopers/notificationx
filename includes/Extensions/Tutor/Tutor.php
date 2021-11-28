@@ -50,9 +50,6 @@ class Tutor extends Extension {
      */
     public function public_actions() {
         parent::public_actions();
-        if (!$this->is_active()) {
-            return;
-        }
 
         $monetize_by      = 'free';
         $temp_monetize_by = tutils()->get_option('monetize_by');
@@ -85,9 +82,6 @@ class Tutor extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-        if (!$this->is_active()) {
-            return;
-        }
         $monetize_by = tutils()->get_option('monetize_by');
         // admin actions will be here ...
         if (class_exists('WooCommerce') && $monetize_by == 'wc') {

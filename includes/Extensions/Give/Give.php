@@ -49,9 +49,7 @@ class Give extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-        if (!$this->is_active()) {
-            return;
-        }
+
         // @todo Something
         add_filter("nx_can_entry_{$this->id}", array($this, 'limit_by_selected_form'), 10, 3);
     }
@@ -64,9 +62,6 @@ class Give extends Extension {
      */
     public function public_actions() {
         parent::public_actions();
-        if (!$this->is_active()) {
-            return;
-        }
         // public actions will be here
         add_action('give_complete_donation', [$this, 'save_new_donation'], 10, 1);
         add_filter("nx_filtered_entry_{$this->id}", array($this, 'conversion_data'), 10, 2);
