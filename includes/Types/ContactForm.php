@@ -46,6 +46,7 @@ class ContactForm extends Types {
             'theme-one'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/form/cf7-theme-two.jpg',
                 'image_shape' => 'circle',
+                // Default values for Add New > Content > Notification Template fields
                 'template' => [
                     'first_param'         => 'select_a_tag',
                     'custom_first_param'  => __('Someone', 'notificationx'),
@@ -84,6 +85,7 @@ class ContactForm extends Types {
             ],
         ];
         $this->templates = [
+            // Dropdown options for Add New > Content > Notification Template fields
             'form_template_new' => [
                 'first_param' => [
                     'select_a_tag' => [
@@ -99,6 +101,7 @@ class ContactForm extends Types {
                 'fourth_param' => [
                     'tag_time'       => __('Definite Time', 'notificationx'),
                 ],
+                // themes for this template.
                 '_themes' => [
                     'form_theme-one',
                     'form_theme-two',
@@ -121,32 +124,42 @@ class ContactForm extends Types {
         add_filter('nx_customize_fields', [$this, 'customize_fields'], 20);
     }
 
-
     /**
-     * This method is an implementable method for All Extension coming forward.
+     * Loading forms input field via ajax for first dropdown.
      *
-     * @param array $args Settings arguments.
-     * @return mixed
+     * @param array $fields
+     * @return array
      */
-    public function get_data($args = array()) {
-    }
-
     public function notification_template( $fields ){
         $fields['first_param']['ajax'] = [
-            'on' => 'click',
-            'api' => "/notificationx/v1/get-data",
+            'on'   => 'click',
+            'api'  => "/notificationx/v1/get-data",
             'data' => [
-                'type' => "ContactForm",
+                'type'      => "ContactForm",
                 'form_type' => "@source",
-                'form_id' => "@form_list",
+                'form_id'   => "@form_list",
             ],
             'target' => "notification-template[first_param]",
-            'rules' => [
+            'rules'  => [
                 'is', 'type', 'form'
             ]
         ];
 
         return $fields;
+    }
+
+    /**
+     * Responsible for passing the ajax request to extension.
+     *
+     * @param array $args
+     * @return void
+     */
+    public static function restResponse( $args ){
+        if( ! isset( $args['form_type'] ) || $args['form_type'] === 'undefined' ) {
+            return new \WP_Error('something', 'NILL');
+        }
+        $args['form_id'] = str_replace(trim($args['form_type']) . '_', '', $args['form_id']);
+        return ExtensionFactory::get_instance()->get( trim( $args['form_type'] ) )->restResponse( $args );
     }
 
     /**
@@ -169,14 +182,6 @@ class ContactForm extends Types {
         ];
 
         return $fields;
-    }
-
-    public static function restResponse( $args ){
-        if( ! isset( $args['form_type'] ) || $args['form_type'] === 'undefined' ) {
-            return new \WP_Error('something', 'NILL');
-        }
-        $args['form_id'] = str_replace(trim($args['form_type']) . '_', '', $args['form_id']);
-        return ExtensionFactory::get_instance()->get( trim( $args['form_type'] ) )->restResponse( $args );
     }
 
     /**
