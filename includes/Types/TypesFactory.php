@@ -39,6 +39,7 @@ class TypeFactory {
 	 * Initially Invoked when initialized.
 	 */
 	public function __construct(){
+		$this->types = apply_filters( 'nx_types_classes', $this->types );
 
 	}
 

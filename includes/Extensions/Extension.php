@@ -93,6 +93,9 @@ abstract class Extension {
      * common init function for admin and frontend.
      */
     public function init(){
+        if (!$this->is_active()) {
+            return;
+        }
         // shouldn't do is_active check.
         if(method_exists($this, 'save_post')){
             add_filter("nx_save_post_{$this->id}", array($this, 'save_post'), 10, 3);

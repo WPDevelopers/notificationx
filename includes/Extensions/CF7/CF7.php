@@ -29,8 +29,10 @@ class CF7 extends Extension {
     public $img             = '';
     public $doc_link        = 'https://notificationx.com/docs/contact-form-submission-alert/';
     public $types           = 'form';
+    // used in Settings > General tab
     public $module          = 'modules_cf7';
     public $module_priority = 8;
+    // making sure if contact form plugin is active.
     public $class           = 'WPCF7_ContactForm';
 
     /**
@@ -81,6 +83,12 @@ class CF7 extends Extension {
         }
     }
 
+    /**
+     * Error message if CF7 is disabled.
+     *
+     * @param array $messages
+     * @return array
+     */
     public function source_error_message($messages) {
         if(!$this->class_exists()){
             $url = admin_url('plugin-install.php?s=contact+form+7&tab=search&type=term');
@@ -109,6 +117,29 @@ class CF7 extends Extension {
     public function nx_form_list($forms) {
         $_forms = GlobalFields::get_instance()->normalize_fields($this->get_forms(), 'source', $this->id);
         return array_merge($_forms, $forms);
+    }
+
+    /**
+     * Get available CF7 forms name.
+     *
+     * @return array
+     */
+    public function get_forms() {
+        $args = array(
+            'post_type' => 'wpcf7_contact_form',
+            'order' => 'ASC',
+            'posts_per_page' => -1,
+        );
+        $the_query = get_posts($args);
+        $forms = [];
+        if (!empty($the_query)) {
+            foreach ($the_query as $form) {
+                $key = $this->key($form->ID);
+                $forms[$key] = $form->post_title;
+            }
+        }
+        wp_reset_postdata();
+        return $forms;
     }
 
     /**
@@ -151,28 +182,11 @@ class CF7 extends Extension {
     }
 
     /**
-     * Get available CF7 forms name.
+     * Format list of available input fields name.
      *
-     * @return array
+     * @param [type] $fieldsString
+     * @return void
      */
-    public function get_forms() {
-        $args = array(
-            'post_type' => 'wpcf7_contact_form',
-            'order' => 'ASC',
-            'posts_per_page' => -1,
-        );
-        $the_query = get_posts($args);
-        $forms = [];
-        if (!empty($the_query)) {
-            foreach ($the_query as $form) {
-                $key = $this->key($form->ID);
-                $forms[$key] = $form->post_title;
-            }
-        }
-        wp_reset_postdata();
-        return $forms;
-    }
-
     public function keys_generator($fieldsString) {
         $fieldsString = substr($fieldsString, 0, strpos($fieldsString, 'submit') - 2);
         preg_match_all('/\[(.+?)\]/', $fieldsString, $parsed_fields);
@@ -189,7 +203,12 @@ class CF7 extends Extension {
         return $fields;
     }
 
-
+    /**
+     * Adding new entry to database.
+     *
+     * @param WPCF7_ContactForm $contact_form
+     * @return void
+     */
     public function save_new_records($contact_form) {
         $submission   = \WPCF7_Submission::get_instance();
         $tags = $contact_form->scan_form_tags();
@@ -224,9 +243,9 @@ class CF7 extends Extension {
     /**
      * Limit entry by selected form in 'Select a Form';
      *
-     * @param [type] $return
-     * @param [type] $entry
-     * @param [type] $settings
+     * @param bool $return
+     * @param array $entry
+     * @param array $settings
      * @return boolean
      */
     public function can_entry($return, $entry, $settings){
