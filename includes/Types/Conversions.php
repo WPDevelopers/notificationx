@@ -279,6 +279,16 @@ class Conversions extends Types {
                 Rules::is( 'product_exclude_by', 'manual_selection' ),
             ]),
         );
+        $content_fields['order_status'] = array(
+            'label'    => __('Order Status', 'notificationx'),
+            'name'     => 'order_status',
+            'type'     => 'select',
+            'multiple' => true,
+            'is_pro'   => true,
+            'priority' => 99.5,
+            'default'  => ['wc-completed', 'wc-processing'],
+            'options'  => GlobalFields::get_instance()->normalize_fields(wc_get_order_statuses()),
+        );
 
         return $fields;
     }

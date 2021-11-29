@@ -464,7 +464,7 @@ abstract class Extension {
             if(!$force){
                 $is_exits = Database::get_instance()->get_posts(
                     Database::$table_entries, 'count(*)', [
-                    'nx_id'    => $entry['nx_id'],
+                    'nx_id'     => $entry['nx_id'],
                     'source'    => $this->id,
                     'entry_key' => $entry['entry_key'],
                 ] );

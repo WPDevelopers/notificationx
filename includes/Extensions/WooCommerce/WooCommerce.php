@@ -9,6 +9,7 @@ namespace NotificationX\Extensions\WooCommerce;
 
 use NotificationX\Admin\Entries;
 use NotificationX\Core\Helper;
+use NotificationX\Core\PostType;
 use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
@@ -70,6 +71,7 @@ class WooCommerce extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
+        add_filter("nx_can_entry_{$this->id}", array($this, 'check_order_status'), 10, 3);
     }
 
     public function public_actions(){
@@ -185,45 +187,47 @@ class WooCommerce extends Extension {
     }
 
     public function status_transition($id, $from, $to, $order) {
-        $items  = $order->get_items();
-        $status = ['on-hold', 'cancelled', 'refunded', 'failed', 'pending', 'wcf-main-order'];
-        $done   = ['completed', 'processing'];
+        $has_course = false;
+        $from       = "wc-$from";
+        $to         = "wc-$to";
+        $items      = $order->get_items();
+        $posts      = PostType::get_instance()->get_posts([
+            'source'  => $this->id,
+            'enabled' => true,
+        ]);
+        if (!empty($posts)) {
+            foreach ($posts as $post) {
+                $done     = !empty($post['order_status']) ? $post['order_status'] : ['wc-completed', 'wc-processing'];
+                $status   = array_keys(wc_get_order_statuses());
+                $status   = array_diff($status, $done);
+                $status[] = 'wcf-main-order';
 
-        $if_has_course = false;
+                foreach ($items as $item) {
+                    $key      = $id . '-' . $item->get_id();
+                    if (function_exists('tutor_utils')) {
+                        $has_course = tutor_utils()->product_belongs_with_course($item->get_product_id());
+                    }
+                    if ($has_course) {
+                        continue;
+                    }
 
-        if (in_array($from, $done) && in_array($to, $status)) {
-            foreach ($items as $item) {
-                if (function_exists('tutor_utils')) {
-                    $if_has_course = \tutor_utils()->product_belongs_with_course($item->get_product_id());
-                }
-                if ($if_has_course) {
-                    continue;
-                }
-                $key = $id . '-' . $item->get_id();
+                    if (in_array($from, $done) && in_array($to, $status)) {
+                        $this->delete_notification($key);
+                    }
 
-                $this->delete_notification($key);
-            }
-        }
+                    if (in_array($from, $status) && in_array($to, $done)) {
+                        $single_notification = $this->ordered_product($item->get_id(), $item, $order);
+                        if (!empty($single_notification)) {
+                            $this->update_notification([
+                                'nx_id'     => $post['nx_id'],
+                                'source'    => $this->id,
+                                'entry_key' => $key,
+                                'data'      => $single_notification,
+                            ], false);
+                        }
+                    }
+                }
 
-        if (in_array($from, $status) && in_array($to, $done)) {
-            $orders = [];
-
-            foreach ($items as $item) {
-                $key = $id . '-' . $item->get_id();
-                if (function_exists('tutor_utils')) {
-                    $if_has_course = tutor_utils()->product_belongs_with_course($item->get_product_id());
-                }
-                if ($if_has_course) {
-                    continue;
-                }
-                $single_notification = $this->ordered_product($item->get_id(), $item, $order);
-                if (!empty($single_notification)) {
-                    $this->update_notification([
-                        'source'     => $this->id,
-                        'entry_key'  => $key,
-                        'data'       => $single_notification,
-                    ], false);
-                }
             }
         }
 
@@ -281,12 +285,7 @@ class WooCommerce extends Extension {
             return false;
         }
 
-        $status = $order->get_status();
-        // @todo add options.
-        $done = ['completed', 'processing', 'pending'];
-        if (!in_array($status, $done)) {
-            return false;
-        }
+        $new_order['status'] = 'wc-' . $order->get_status();
 
         $date = $order->get_date_created();
         $countries = new \WC_Countries();
@@ -431,6 +430,23 @@ class WooCommerce extends Extension {
 
         $_options = GlobalFields::get_instance()->normalize_fields($product_list, 'source', $this->id);
         return array_merge($options, $_options);
+    }
+
+    /**
+     * Limit entry by selected status;
+     *
+     * @param bool $return
+     * @param array $entry
+     * @param array $settings
+     * @return boolean
+     */
+    public function check_order_status($return, $entry, $settings){
+        $done     = !empty($settings['order_status']) ? $settings['order_status'] : ['wc-completed', 'wc-processing'];
+        if(!in_array($entry['data']['status'], $done)){
+            return false;
+        }
+
+        return $return;
     }
 
 
