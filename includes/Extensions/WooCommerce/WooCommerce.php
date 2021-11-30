@@ -114,6 +114,18 @@ class WooCommerce extends Extension {
         $content_fields['exclude_categories'] = Rules::includes('source', $this->id, false, $content_fields['exclude_categories']);
         $content_fields['exclude_products']   = Rules::includes('source', $this->id, false, $content_fields['exclude_products']);
 
+        $content_fields['order_status'] = array(
+            'label'    => __('Order Status', 'notificationx'),
+            'name'     => 'order_status',
+            'type'     => 'select',
+            'multiple' => true,
+            'is_pro'   => true,
+            'priority' => 99.5,
+            'default'  => ['wc-completed', 'wc-processing'],
+            'options'  => GlobalFields::get_instance()->normalize_fields(wc_get_order_statuses()),
+            'rules'    => Rules::is('source', $this->id),
+
+        );
         return $fields;
     }
 

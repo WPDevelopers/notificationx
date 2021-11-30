@@ -279,53 +279,29 @@ class Conversions extends Types {
                 Rules::is( 'product_exclude_by', 'manual_selection' ),
             ]),
         );
-        $content_fields['order_status'] = array(
-            'label'    => __('Order Status', 'notificationx'),
-            'name'     => 'order_status',
-            'type'     => 'select',
-            'multiple' => true,
-            'is_pro'   => true,
-            'priority' => 99.5,
-            'default'  => ['wc-completed', 'wc-processing'],
-            'options'  => GlobalFields::get_instance()->normalize_fields(wc_get_order_statuses()),
-        );
 
         return $fields;
     }
 
-
+    /**
+     * @todo remove in the future.
+     *
+     * @param [type] $data
+     * @param [type] $settings
+     * @return void
+     */
     public function excludes_product( $data, $settings ){
         if( empty( $settings['product_exclude_by'] ) || $settings['product_exclude_by'] === 'none' ) {
             return $data;
         }
 
-        $product_category_list = $new_data = [];
+        $new_data = [];
 
 
         if( ! empty( $data ) ) {
             foreach( $data as $key => $product ) {
-                $product_id = $product['product_id'];
-                if( $settings['product_exclude_by'] == 'product_category' ) {
-                    $product_categories = get_the_terms( $product_id, 'product_cat' );
-                    if( ! is_wp_error( $product_categories ) ) {
-                        foreach( $product_categories as $category ) {
-                            $product_category_list[] = $category->slug;
-                        }
-                    }
-
-                    $product_category_count = count( $product_category_list );
-                    $array_diff = array_diff( $product_category_list, $settings['exclude_categories'] );
-                    $array_diff_count = count( $array_diff );
-
-                    if( ! ( $array_diff_count < $product_category_count ) ) {
-                        $new_data[ $key ] = $product;
-                    }
-                    $product_category_list = [];
-                }
-                if( $settings['product_exclude_by'] == 'manual_selection' ) {
-                    if( ! in_array( $product_id, $settings['exclude_products'] ) ) {
-                        $new_data[ $key ] = $product;
-                    }
+                if( $this->_excludes_product($product, $settings) ) {
+                    $new_data[ $key ] = $product;
                 }
             }
         }
@@ -334,42 +310,99 @@ class Conversions extends Types {
 
     }
 
+    public function _excludes_product( $product, $settings ){
+        if( empty( $settings['product_exclude_by'] ) || $settings['product_exclude_by'] === 'none' ) {
+            return true;
+        }
+
+        $product_category_list = [];
+
+        $product_id = $product['product_id'];
+        if( $settings['product_exclude_by'] == 'product_category' ) {
+            $product_categories = get_the_terms( $product_id, 'product_cat' );
+            if( ! is_wp_error( $product_categories ) ) {
+                foreach( $product_categories as $category ) {
+                    $product_category_list[] = $category->slug;
+                }
+            }
+
+            $product_category_count = count( $product_category_list );
+            $array_diff = array_diff( $product_category_list, $settings['exclude_categories'] );
+            $array_diff_count = count( $array_diff );
+
+            if( ! ( $array_diff_count < $product_category_count ) ) {
+                return true;
+            }
+            $product_category_list = [];
+        }
+        if( $settings['product_exclude_by'] == 'manual_selection' ) {
+            if( ! in_array( $product_id, $settings['exclude_products'] ) ) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+    /**
+     * @todo remove in the future.
+     *
+     * @param [type] $data
+     * @param [type] $settings
+     * @return void
+     */
     public function show_purchaseof( $data, $settings ){
         if( empty( $settings['product_control'] ) || $settings['product_control'] === 'none' ) {
             return $data;
         }
 
-        $product_category_list = $new_data = [];
+        $new_data = [];
 
         if( ! empty( $data ) ) {
             foreach( $data as $key => $product ) {
-                $product_id = $product['product_id'];
-                if( $settings['product_control'] == 'product_category' ) {
-                    $product_categories = get_the_terms( $product_id, 'product_cat' );
-                    if( ! is_wp_error( $product_categories ) ) {
-                        foreach( $product_categories as $category ) {
-                            $product_category_list[] = $category->slug;
-                        }
-                    }
-
-                    $product_category_count = count( $product_category_list );
-                    $array_diff = array_diff( $settings['category_list'], $product_category_list );
-                    $array_diff_count = count( $array_diff );
-
-                    $cute_logic = ( count( $settings['category_list'] ) - ( $product_category_count +  $array_diff_count) );
-
-                    if( ! $cute_logic ) {
-                        $new_data[ $key ] = $product;
-                    }
-                    $product_category_list = [];
-                }
-                if( $settings['product_control'] == 'manual_selection' ) {
-                    if( in_array( $product_id, $settings['product_list'] ) ) {
-                        $new_data[ $key ] = $product;
-                    }
+                if( $this->_show_purchaseof($product, $settings) ) {
+                    $new_data[ $key ] = $product;
                 }
             }
         }
         return $new_data;
     }
+
+    public function _show_purchaseof( $product, $settings ){
+        if( empty( $settings['product_control'] ) || $settings['product_control'] === 'none' ) {
+            return true;
+        }
+
+        $product_category_list = [];
+
+        $product_id = $product['product_id'];
+        if( $settings['product_control'] == 'product_category' ) {
+            $product_categories = get_the_terms( $product_id, 'product_cat' );
+            if( ! is_wp_error( $product_categories ) ) {
+                foreach( $product_categories as $category ) {
+                    $product_category_list[] = $category->slug;
+                }
+            }
+
+            $product_category_count = count( $product_category_list );
+            $array_diff = array_diff( $settings['category_list'], $product_category_list );
+            $array_diff_count = count( $array_diff );
+
+            $cute_logic = ( count( $settings['category_list'] ) - ( $product_category_count +  $array_diff_count) );
+
+            if( ! $cute_logic ) {
+                return true;
+            }
+        }
+        if( $settings['product_control'] == 'manual_selection' ) {
+            if( in_array( $product_id, $settings['product_list'] ) ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
 }
