@@ -385,12 +385,13 @@ class WooCommerce extends Extension {
      */
     public function get_orders($data = array()) {
         if (empty($data) || !function_exists('wc_get_orders')) return null;
-        $orders = [];
-        $from = strtotime(date('Y-m-d', strtotime('-' . intval($data['display_from']) . ' days')));
+        $orders    = [];
+        $from      = strtotime(date('Y-m-d', strtotime('-' . intval($data['display_from']) . ' days')));
+        $status    = !empty($data['order_status']) ? $data['order_status'] : ['wc-completed', 'wc-processing'];
         $wc_orders = \wc_get_orders([
-            'status' => array('processing', 'completed', 'pending'),
+            'status'       => $status,
             'date_created' => '>' . $from,
-            'numberposts' => isset($data['display_last']) ? intval($data['display_last']) : 10,
+            'numberposts'  => isset($data['display_last']) ? intval($data['display_last']) : 10,
         ]);
         foreach ($wc_orders as $order) {
             $items = $order->get_items();
