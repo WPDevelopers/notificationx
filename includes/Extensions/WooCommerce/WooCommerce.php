@@ -122,6 +122,7 @@ class WooCommerce extends Extension {
             'is_pro'   => true,
             'priority' => 99.5,
             'default'  => ['wc-completed', 'wc-processing'],
+            'help'     => __("By default it will show Processing & Completed status."),
             'options'  => GlobalFields::get_instance()->normalize_fields(wc_get_order_statuses()),
             'rules'    => Rules::is('source', $this->id),
 
