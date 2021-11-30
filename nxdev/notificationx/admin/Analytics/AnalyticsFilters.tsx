@@ -7,6 +7,7 @@ import { useLocation } from "react-router";
 import nxHelper from "../../core/functions";
 import { __ } from "@wordpress/i18n";
 import { getTime } from "../../frontend/core/utils";
+import { useNotificationXContext } from "../../hooks";
 
 export const comparisonOptions = {
     views: {
@@ -25,6 +26,7 @@ export const comparisonOptions = {
 
 const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
     const settings: any = __experimentalGetSettings();
+    const builderContext = useNotificationXContext();
 
     let options: { label: string; value: string }[] = posts?.map((item) => {
         return {
@@ -75,6 +77,9 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
             ...filterOptions,
             [target.name]: target.value,
         });
+        builderContext.setRedirect({
+            page  : `nx-analytics`,
+        });
     };
 
     const location = useLocation();
@@ -104,25 +109,25 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
     }
     useEffect(() => {
         const selectedComparison = query.get("comparison");
-        let comparison = comparisonOptions.views;
+        let comparison = Object.values(comparisonOptions);
         if (selectedComparison) {
-            comparison = comparisonOptions?.[selectedComparison];
+            comparison = [comparisonOptions?.[selectedComparison]];
         }
         if (filterOptions === null) {
             setFilterOptions({
                 nx: getNX() || [options?.[0]],
-                comparison: [comparison],
+                comparison: comparison,
                 startDate: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000),
                 endDate: new Date(),
             });
         }
         else {
             // making sure
-            if((getNX() && !shallowEqual(getNX(), filterOptions.nx)) || (selectedComparison && !shallowEqual(filterOptions.comparison, [comparison]))){
+            if((getNX() && !shallowEqual(getNX(), filterOptions.nx)) || (selectedComparison && !shallowEqual(filterOptions.comparison, comparison))){
                 setFilterOptions({
                     ...filterOptions,
                     nx: getNX() || filterOptions.nx,
-                    comparison: [comparison],
+                    comparison: comparison,
                 });
             }
         }

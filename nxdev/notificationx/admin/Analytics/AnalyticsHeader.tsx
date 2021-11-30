@@ -23,7 +23,7 @@ const AnalyticsHeader = ({ analytics, assetsURL }) => {
             <AnalyticsCard
                 type="ctr"
                 icon={`${assetsURL.admin}images/analytics/ctr-icon.png`}
-                title={__("Click-Through-Rate", 'notificationx')} count={analytics?.totalCtr} url=""
+                title={__("Click-Through-Rate", 'notificationx')} count={analytics?.totalCtr + "%"} url=""
             />
         </div>
     )
