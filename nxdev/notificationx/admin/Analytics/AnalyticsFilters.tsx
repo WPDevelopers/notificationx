@@ -8,6 +8,7 @@ import nxHelper from "../../core/functions";
 import { __ } from "@wordpress/i18n";
 import { getTime } from "../../frontend/core/utils";
 import { useNotificationXContext } from "../../hooks";
+import moment from "moment";
 
 export const comparisonOptions = {
     views: {
@@ -77,9 +78,7 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
             ...filterOptions,
             [target.name]: target.value,
         });
-        builderContext.setRedirect({
-            page  : `nx-analytics`,
-        });
+
     };
 
     const location = useLocation();
@@ -87,13 +86,34 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
 
     const getNX = () => {
         let nx = query.get("nx");
+        let result = [options?.[0]];
         if(nx){
-            return options.filter(item => {
-                return item.value == nx;
+            const _nx = nx.split(',');
+            // result = options.filter(item => {
+            //     return _nx.includes(item.value);
+            // });
+            result = _nx.map((item) => {
+                return {label: item, value: item}
             });
         }
-        return null;
+        return result;
     };
+    const getComparison = () => {
+        const selectedComparison = query.get("comparison");
+        let   comparison         = Object.values(comparisonOptions);
+
+        if (selectedComparison) {
+            comparison = [];
+            const _selectedComparison = selectedComparison.split(',');
+            for(const cmp in _selectedComparison){
+                const _cmp = _selectedComparison[cmp];
+                if(comparisonOptions?.[_cmp]){
+                    comparison.push(comparisonOptions?.[_cmp])
+                }
+            }
+        }
+        return comparison;
+    }
     function shallowEqual(object1, object2) {
         const keys1 = Object.keys(object1);
         const keys2 = Object.keys(object2);
@@ -107,31 +127,58 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
         }
         return true;
     }
+
     useEffect(() => {
         const selectedComparison = query.get("comparison");
-        let comparison = Object.values(comparisonOptions);
-        if (selectedComparison) {
-            comparison = [comparisonOptions?.[selectedComparison]];
-        }
-        if (filterOptions === null) {
+        let comparison = getComparison();
+        if((filterOptions?.nx && getNX() && !shallowEqual(getNX(), filterOptions.nx)) || (filterOptions?.comparison && selectedComparison && !shallowEqual(filterOptions.comparison, comparison))){
             setFilterOptions({
-                nx: getNX() || [options?.[0]],
+                ...filterOptions,
+                nx: getNX() || filterOptions?.nx,
                 comparison: comparison,
-                startDate: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000),
-                endDate: new Date(),
             });
         }
-        else {
-            // making sure
-            if((getNX() && !shallowEqual(getNX(), filterOptions.nx)) || (selectedComparison && !shallowEqual(filterOptions.comparison, comparison))){
-                setFilterOptions({
-                    ...filterOptions,
-                    nx: getNX() || filterOptions.nx,
-                    comparison: comparison,
-                });
-            }
-        }
     }, [location]);
+
+    useEffect(() => {
+        if (filterOptions === null) {
+            const startDate: number          = Number(query.get("startDate"));
+            const endDate: number            = Number(query.get("endDate"));
+            setFilterOptions({
+                nx: getNX(),
+                comparison: getComparison(),
+                startDate: startDate && !isNaN(startDate) ? new Date(Number(startDate) * 1000) : new Date(Date.now() - 6 * 24 * 60 * 60 * 1000),
+                endDate: endDate && !isNaN(endDate) ? new Date(Number(endDate) * 1000) : new Date(),
+            });
+        }
+    }, []);
+    useEffect(() => {
+        if (filterOptions) {
+            const startDate: number          = Number(query.get("startDate"));
+            const endDate: number            = Number(query.get("endDate"));
+            const comparison = getComparison();
+            setFilterOptions({
+                ...filterOptions,
+                nx: getNX(),
+            });
+        }
+    }, [posts])
+
+    useEffect(() => {
+        if (!filterOptions) return;
+        let nx         = filterOptions?.nx.map((option) => option.value).join(',');
+        let comparison = filterOptions?.comparison.map((option) => option.value).join(',');
+
+
+        builderContext.setRedirect({
+            page      : `nx-analytics`,
+            startDate : moment(filterOptions?.startDate).unix(),
+            endDate   : moment(filterOptions?.endDate).unix(),
+            nx        : nx,
+            comparison: comparison,
+        });
+
+    }, [filterOptions])
 
     return (
         <div className="nx-analytics-filter-wrapper">

@@ -82,7 +82,6 @@ const Analytics = (props) => {
     }, []);
 
     useEffect(() => {
-        console.log(JSON.stringify(filterOptions));
         if (filterOptions === null) return;
 
         setIsLoading(true);
