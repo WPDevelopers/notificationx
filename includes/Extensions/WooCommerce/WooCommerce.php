@@ -114,6 +114,10 @@ class WooCommerce extends Extension {
         $content_fields['exclude_categories'] = Rules::includes('source', $this->id, false, $content_fields['exclude_categories']);
         $content_fields['exclude_products']   = Rules::includes('source', $this->id, false, $content_fields['exclude_products']);
 
+        $status = [];
+        if(function_exists('wc_get_order_statuses')){
+            $status = GlobalFields::get_instance()->normalize_fields(wc_get_order_statuses());
+        }
         $content_fields['order_status'] = array(
             'label'    => __('Order Status', 'notificationx'),
             'name'     => 'order_status',
@@ -123,7 +127,7 @@ class WooCommerce extends Extension {
             'priority' => 99.5,
             'default'  => ['wc-completed', 'wc-processing'],
             'help'     => __("By default it will show Processing & Completed status."),
-            'options'  => GlobalFields::get_instance()->normalize_fields(wc_get_order_statuses()),
+            'options'  => $status,
             'rules'    => Rules::is('source', $this->id),
 
         );
