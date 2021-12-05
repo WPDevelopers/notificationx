@@ -219,7 +219,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 2.3.0 - 2/12/2021 =
+= 2.3.0 - 5/12/2021 =
 - Added: Import/export feature
 - Fixed: Notification bar incomplete configuration alert.
 - Few minor bug fix and improvements.
