@@ -219,9 +219,9 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 2.3.0 - 5/12/2021 =
+= 2.3.0 - 05/12/2021 =
 - Added: Import/export feature
-- Fixed: Notification bar incomplete configuration alert.
+- Fixed: Notification bar incomplete configuration alert
 - Few minor bug fix and improvements.
 
 = 2.2.1 - 16/11/2021 =
@@ -614,4 +614,4 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Upgrade Notice ==
 
-[Minor Update]: Bug-fixes and improvements.
+[Major Update]: New fatures, bug-fixes and improvements.
