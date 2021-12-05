@@ -58,7 +58,7 @@ const SettingsInner = (props) => {
     builder.submit.onSubmit = useCallback(
         (event, context) => {
             context.setSubmitting(true);
-            nxHelper.post('settings', { ...context.values }).then((res: any) => {
+            nxHelper.post('settings', { ...context.values, xss_code: null }).then((res: any) => {
                 if (res?.success) {
                     nxToast.info(__(`Changes Saved Successfully.`, 'notificationx'));
                 }
