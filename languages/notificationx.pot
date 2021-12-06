@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 2.2.1\n"
+"Project-Id-Version: NotificationX 2.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-11-23T07:45:17+00:00\n"
+"POT-Creation-Date: 2021-12-02T06:28:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: notificationx\n"
@@ -43,41 +43,41 @@ msgstr ""
 msgid "https://wpdeveloper.com"
 msgstr ""
 
-#: includes/Admin/Admin.php:95
+#: includes/Admin/Admin.php:96
 #: assets/admin/js/admin.js:3
 #: assets/admin/js/admin.js:15
 msgid "All NotificationX"
 msgstr ""
 
-#: includes/Admin/Admin.php:149
+#: includes/Admin/Admin.php:150
 msgid "Ok, you deserve it!"
 msgstr ""
 
-#: includes/Admin/Admin.php:154
+#: includes/Admin/Admin.php:155
 msgid "I already did"
 msgstr ""
 
-#: includes/Admin/Admin.php:162
+#: includes/Admin/Admin.php:163
 msgid "Maybe Later"
 msgstr ""
 
-#: includes/Admin/Admin.php:170
+#: includes/Admin/Admin.php:171
 msgid "I need help"
 msgstr ""
 
-#: includes/Admin/Admin.php:175
+#: includes/Admin/Admin.php:176
 msgid "Never show again"
 msgstr ""
 
-#: includes/Admin/Admin.php:187
+#: includes/Admin/Admin.php:188
 msgid "We hope you're enjoying NotificationX! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?"
 msgstr ""
 
-#: includes/Admin/Admin.php:221
+#: includes/Admin/Admin.php:222
 msgid "Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage."
 msgstr ""
 
-#: includes/Admin/Admin.php:222
+#: includes/Admin/Admin.php:223
 msgid ""
 "We collect non-sensitive diagnostic data and plugin usage information.\n"
 "\t\t\tYour site URL, WordPress & PHP version, plugins & themes and email address to send you the\n"
@@ -93,6 +93,65 @@ msgstr ""
 
 #: includes/Admin/DashboardWidget.php:48
 msgid "NotificationX Analytics"
+msgstr ""
+
+#: includes/Admin/ImportExport.php:47
+msgid "Import/Export"
+msgstr ""
+
+#: includes/Admin/ImportExport.php:53
+msgid "Export Notifications"
+msgstr ""
+
+#: includes/Admin/ImportExport.php:60
+#: includes/Admin/Settings.php:236
+#: includes/Core/Analytics.php:46
+#: assets/admin/js/admin.js:3
+#: assets/admin/js/admin.js:15
+msgid "Analytics"
+msgstr ""
+
+#: includes/Admin/ImportExport.php:69
+#: assets/admin/js/admin.js:3
+msgid "Status"
+msgstr ""
+
+#: includes/Admin/ImportExport.php:82
+msgid "Export Settings"
+msgstr ""
+
+#: includes/Admin/ImportExport.php:90
+#: includes/Admin/ImportExport.php:91
+msgid "Export"
+msgstr ""
+
+#: includes/Admin/ImportExport.php:92
+msgid "Exporting..."
+msgstr ""
+
+#: includes/Admin/ImportExport.php:111
+msgid "Export completed successfully."
+msgstr ""
+
+#: includes/Admin/ImportExport.php:121
+#: includes/Admin/ImportExport.php:130
+#: includes/Admin/ImportExport.php:131
+#: includes/Extensions/PressBar/PressBar.php:358
+#: includes/Extensions/PressBar/PressBar.php:359
+msgid "Import"
+msgstr ""
+
+#: includes/Admin/ImportExport.php:122
+msgid "Change"
+msgstr ""
+
+#: includes/Admin/ImportExport.php:132
+#: includes/Extensions/PressBar/PressBar.php:360
+msgid "Importing..."
+msgstr ""
+
+#: includes/Admin/ImportExport.php:144
+msgid "Import completed successfully."
 msgstr ""
 
 #: includes/Admin/Notice.php:864
@@ -200,13 +259,6 @@ msgstr ""
 
 #: includes/Admin/Settings.php:227
 msgid "Analytics & Reporting"
-msgstr ""
-
-#: includes/Admin/Settings.php:236
-#: includes/Core/Analytics.php:46
-#: assets/admin/js/admin.js:3
-#: assets/admin/js/admin.js:15
-msgid "Analytics"
 msgstr ""
 
 #: includes/Admin/Settings.php:241
@@ -472,26 +524,26 @@ msgstr ""
 #: includes/Extensions/ReviewX/ReviewX.php:111
 #: includes/Extensions/ReviewX/ReviewX.php:122
 #: includes/Extensions/ReviewX/ReviewX.php:134
-#: includes/Extensions/Tutor/Tutor.php:552
-#: includes/Extensions/Tutor/Tutor.php:553
-#: includes/Extensions/Tutor/Tutor.php:554
-#: includes/Extensions/WooCommerce/WooCommerce.php:528
-#: includes/Extensions/WooCommerce/WooCommerce.php:529
-#: includes/Extensions/WooCommerce/WooCommerce.php:530
+#: includes/Extensions/Tutor/Tutor.php:530
+#: includes/Extensions/Tutor/Tutor.php:531
+#: includes/Extensions/Tutor/Tutor.php:532
+#: includes/Extensions/WooCommerce/WooCommerce.php:520
+#: includes/Extensions/WooCommerce/WooCommerce.php:521
+#: includes/Extensions/WooCommerce/WooCommerce.php:522
 #: includes/Extensions/WooCommerce/WOOReviews.php:54
 #: includes/Extensions/WooCommerce/WOOReviews.php:66
 #: includes/Extensions/WooCommerce/WOOReviews.php:78
 #: includes/Extensions/WooCommerce/WOOReviews.php:93
 #: includes/Extensions/WooCommerce/WOOReviews.php:104
 #: includes/Extensions/WooCommerce/WOOReviews.php:116
-#: includes/Extensions/WordPress/WPComments.php:267
-#: includes/Extensions/WordPress/WPComments.php:268
-#: includes/Extensions/WordPress/WPComments.php:269
-#: includes/Extensions/WordPress/WPComments.php:270
+#: includes/Extensions/WordPress/WPComments.php:259
+#: includes/Extensions/WordPress/WPComments.php:260
+#: includes/Extensions/WordPress/WPComments.php:261
+#: includes/Extensions/WordPress/WPComments.php:262
 #: includes/FrontEnd/FrontEnd.php:127
 #: includes/FrontEnd/FrontEnd.php:128
 #: includes/FrontEnd/FrontEnd.php:129
-#: includes/FrontEnd/FrontEnd.php:494
+#: includes/FrontEnd/FrontEnd.php:503
 #: includes/Types/Comments.php:45
 #: includes/Types/Comments.php:58
 #: includes/Types/Comments.php:71
@@ -500,9 +552,9 @@ msgstr ""
 #: includes/Types/Comments.php:110
 #: includes/Types/Comments.php:124
 #: includes/Types/Comments.php:138
-#: includes/Types/ContactForm.php:51
-#: includes/Types/ContactForm.php:64
-#: includes/Types/ContactForm.php:77
+#: includes/Types/ContactForm.php:52
+#: includes/Types/ContactForm.php:65
+#: includes/Types/ContactForm.php:78
 #: includes/Types/Conversions.php:57
 #: includes/Types/Donations.php:42
 #: includes/Types/ELearning.php:49
@@ -576,15 +628,15 @@ msgstr ""
 msgid "Contact Form"
 msgstr ""
 
-#: includes/Core/REST.php:288
+#: includes/Core/REST.php:301
 msgid "Unauthorized Access: You have to logged in first."
 msgstr ""
 
-#: includes/Core/REST.php:291
+#: includes/Core/REST.php:304
 msgid "Invalid Type: You have to give a type."
 msgstr ""
 
-#: includes/Core/REST.php:294
+#: includes/Core/REST.php:307
 msgid "400 Bad Request."
 msgstr ""
 
@@ -625,13 +677,13 @@ msgstr ""
 msgid "You don't have set any slug and file name to install the plugins"
 msgstr ""
 
-#: includes/Extensions/CF7/CF7.php:40
-#: includes/Extensions/CF7/CF7.php:41
-#: includes/Extensions/CF7/CF7.php:92
+#: includes/Extensions/CF7/CF7.php:42
+#: includes/Extensions/CF7/CF7.php:43
+#: includes/Extensions/CF7/CF7.php:100
 msgid "Contact Form 7"
 msgstr ""
 
-#: includes/Extensions/CF7/CF7.php:90
+#: includes/Extensions/CF7/CF7.php:98
 #: includes/Extensions/EDD/EDD.php:94
 #: includes/Extensions/Give/Give.php:103
 #: includes/Extensions/GRVF/GravityForms.php:50
@@ -644,7 +696,7 @@ msgstr ""
 msgid "You have to install"
 msgstr ""
 
-#: includes/Extensions/CF7/CF7.php:93
+#: includes/Extensions/CF7/CF7.php:101
 #: includes/Extensions/EDD/EDD.php:97
 #: includes/Extensions/Give/Give.php:106
 #: includes/Extensions/GRVF/GravityForms.php:53
@@ -657,7 +709,7 @@ msgid "plugin first."
 msgstr ""
 
 #. translators: links
-#: includes/Extensions/CF7/CF7.php:251
+#: includes/Extensions/CF7/CF7.php:270
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Contact Form 7 installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -704,7 +756,7 @@ msgid "Easy Digital Downloads"
 msgstr ""
 
 #: includes/Extensions/EDD/EDD.php:127
-#: includes/Extensions/WooCommerce/WooCommerce.php:496
+#: includes/Extensions/WooCommerce/WooCommerce.php:488
 msgid "more products"
 msgstr ""
 
@@ -715,15 +767,15 @@ msgstr ""
 msgid "Product Page"
 msgstr ""
 
-#: includes/Extensions/EDD/EDD.php:350
+#: includes/Extensions/EDD/EDD.php:340
 #: includes/Extensions/Give/Give.php:85
-#: includes/Extensions/Tutor/Tutor.php:555
-#: includes/Extensions/WooCommerce/WooCommerce.php:531
+#: includes/Extensions/Tutor/Tutor.php:533
+#: includes/Extensions/WooCommerce/WooCommerce.php:523
 #: includes/Types/Conversions.php:60
 msgid "Anonymous Product"
 msgstr ""
 
-#: includes/Extensions/EDD/EDD.php:356
+#: includes/Extensions/EDD/EDD.php:346
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">Easy Digital Downloads installed & activated</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with Easy Digital Downloads</a></p>\n"
@@ -781,7 +833,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WOOReviews.php:97
 #: includes/Extensions/WooCommerce/WOOReviews.php:108
 #: includes/Extensions/WooCommerce/WOOReviews.php:120
-#: includes/Extensions/WordPress/WPComments.php:272
+#: includes/Extensions/WordPress/WPComments.php:264
 #: includes/FrontEnd/FrontEnd.php:131
 #: includes/Types/Comments.php:50
 #: includes/Types/Comments.php:63
@@ -791,9 +843,9 @@ msgstr ""
 #: includes/Types/Comments.php:115
 #: includes/Types/Comments.php:129
 #: includes/Types/Comments.php:143
-#: includes/Types/ContactForm.php:56
-#: includes/Types/ContactForm.php:69
-#: includes/Types/ContactForm.php:82
+#: includes/Types/ContactForm.php:57
+#: includes/Types/ContactForm.php:70
+#: includes/Types/ContactForm.php:83
 #: includes/Types/Conversions.php:62
 #: includes/Types/Donations.php:49
 #: includes/Types/ELearning.php:54
@@ -818,7 +870,7 @@ msgstr ""
 msgid "for"
 msgstr ""
 
-#: includes/Extensions/Give/Give.php:310
+#: includes/Extensions/Give/Give.php:297
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">GiveWP installed & configured</a> to use its campaign & donars data. For further assistance, check out our step by step <a href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -1232,7 +1284,7 @@ msgstr ""
 #: includes/Extensions/ReviewX/ReviewX.php:155
 #: includes/Extensions/WooCommerce/WOOReviews.php:137
 #: includes/Types/Comments.php:162
-#: includes/Types/ContactForm.php:100
+#: includes/Types/ContactForm.php:102
 #: includes/Types/Conversions.php:128
 #: includes/Types/Donations.php:118
 #: includes/Types/ELearning.php:127
@@ -1389,15 +1441,6 @@ msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:338
 msgid "Build With Elementor"
-msgstr ""
-
-#: includes/Extensions/PressBar/PressBar.php:358
-#: includes/Extensions/PressBar/PressBar.php:359
-msgid "Import"
-msgstr ""
-
-#: includes/Extensions/PressBar/PressBar.php:360
-msgid "Importing..."
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:398
@@ -1687,7 +1730,7 @@ msgstr ""
 msgid "plugin."
 msgstr ""
 
-#: includes/Extensions/ReviewX/ReviewX.php:268
+#: includes/Extensions/ReviewX/ReviewX.php:260
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce</a> & <a target=\"_blank\" href=\"%2$s\">ReviewX</a> installed & activated to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%3$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
@@ -1703,7 +1746,7 @@ msgstr ""
 msgid "Tutor LMS"
 msgstr ""
 
-#: includes/Extensions/Tutor/Tutor.php:561
+#: includes/Extensions/Tutor/Tutor.php:539
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">Tutor LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
@@ -1720,11 +1763,11 @@ msgid "WooCommerce"
 msgstr ""
 
 #. translators: %1$s: title, %2$s: number of product, %3$s: Combine Multi Order Text.
-#: includes/Extensions/WooCommerce/WooCommerce.php:499
+#: includes/Extensions/WooCommerce/WooCommerce.php:491
 msgid "%1$s & %2$s %3$s"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerce.php:536
+#: includes/Extensions/WooCommerce/WooCommerce.php:528
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a href=\"%3$s\" target=\"_blank\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -1752,7 +1795,7 @@ msgstr ""
 msgid "Some review content"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WOOReviews.php:488
+#: includes/Extensions/WooCommerce/WOOReviews.php:480
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
@@ -1779,7 +1822,7 @@ msgstr ""
 msgid "WordPress"
 msgstr ""
 
-#: includes/Extensions/WordPress/WPComments.php:271
+#: includes/Extensions/WordPress/WPComments.php:263
 #: includes/Types/Comments.php:48
 #: includes/Types/Comments.php:61
 #: includes/Types/Comments.php:74
@@ -1791,7 +1834,7 @@ msgstr ""
 msgid "Anonymous Post"
 msgstr ""
 
-#: includes/Extensions/WordPress/WPComments.php:273
+#: includes/Extensions/WordPress/WPComments.php:265
 msgid "Some comment"
 msgstr ""
 
@@ -2001,7 +2044,7 @@ msgstr ""
 msgid "Rating:"
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:532
+#: includes/FrontEnd/FrontEnd.php:541
 msgid "<div id=\"notificationx-frontend-root\"><!-- This DIV for NotificationX, It is used to show the notifications by appending them here. For more details please visit: https://notificationx.com/docs --><div id=\"notificationx-frontend\"></div>"
 msgstr ""
 
@@ -2037,21 +2080,21 @@ msgstr ""
 msgid "Comment URL"
 msgstr ""
 
-#: includes/Types/ContactForm.php:52
-#: includes/Types/ContactForm.php:65
-#: includes/Types/ContactForm.php:78
+#: includes/Types/ContactForm.php:53
+#: includes/Types/ContactForm.php:66
+#: includes/Types/ContactForm.php:79
 msgid "recently contacted via"
 msgstr ""
 
-#: includes/Types/ContactForm.php:90
+#: includes/Types/ContactForm.php:92
 msgid "Select A Tag"
 msgstr ""
 
-#: includes/Types/ContactForm.php:96
+#: includes/Types/ContactForm.php:98
 msgid "Form Title"
 msgstr ""
 
-#: includes/Types/ContactForm.php:165
+#: includes/Types/ContactForm.php:178
 msgid "Select a Form"
 msgstr ""
 
@@ -2341,6 +2384,14 @@ msgid "Copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+msgid "Invalid file type."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "File can't be empty."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
 msgid "You should give a #fields arguments to a group field."
 msgstr ""
 
@@ -2428,10 +2479,6 @@ msgstr ""
 
 #: assets/admin/js/admin.js:3
 msgid "Preview"
-msgstr ""
-
-#: assets/admin/js/admin.js:3
-msgid "Status"
 msgstr ""
 
 #: assets/admin/js/admin.js:3

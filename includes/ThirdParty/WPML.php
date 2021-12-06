@@ -109,7 +109,7 @@ class WPML {
         return $meta;
     }
 
-    public function localize_moment($nx_ids = null, $return_rul = false){
+    public function localize_moment($nx_ids = null, $return_url = false){
         $locale_url = '';
         if($locale = apply_filters( 'wpml_current_language', NULL )){
             $locale      = strtolower(str_replace('_', '-', $locale));
@@ -132,7 +132,7 @@ class WPML {
                 }
             }
         }
-        if($locale_url && !$return_rul){
+        if($locale_url && !$return_url){
             wp_enqueue_script( 'nx-moment-locale', $locale_url, ['moment']);
         }
         return $locale_url;

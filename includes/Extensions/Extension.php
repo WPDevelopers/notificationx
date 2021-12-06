@@ -451,7 +451,7 @@ abstract class Extension {
                     unset($entries[$key]);
                 }
             }
-            Limiter::get_instance()->remove($this->id, count($entries));
+            Limiter::get_instance()->remove($post['nx_id'], count($entries));
             Entries::get_instance()->insert_entries(array_values($entries));
         }
     }
@@ -474,7 +474,7 @@ abstract class Extension {
             $post = PostType::get_instance()->get_post($entry['nx_id']);
             $can_entry = apply_filters("nx_can_entry_{$this->id}", true, $entry, $post);
             if($can_entry){
-                Limiter::get_instance()->remove($this->id, 1);
+                Limiter::get_instance()->remove($post['nx_id'], 1);
                 Entries::get_instance()->insert_entry($entry);
             }
         }
