@@ -56,7 +56,7 @@ class Analytics {
                 'methods'             => WP_REST_Server::EDITABLE,
                 'callback'            => array($this, 'insert_analytics'),
                 'permission_callback' => [$this, 'can_insert_analytics'],
-            ),
+            )
         );
         register_rest_route(
             $this->namespace,
@@ -67,7 +67,7 @@ class Analytics {
                 'callback'            => array($this, 'get_analytics'),
                 // maybe use
                 'permission_callback' => [$this, 'can_read_analytics'],
-            ),
+            )
         );
 
     }
