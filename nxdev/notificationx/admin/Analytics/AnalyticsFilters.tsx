@@ -92,8 +92,8 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
             // result = options.filter(item => {
             //     return _nx.includes(item.value);
             // });
-            result = _nx.map((item) => {
-                return {label: item, value: item}
+            result = options.filter((option) => {
+                return _nx.includes(option.value);
             });
         }
         return result;
