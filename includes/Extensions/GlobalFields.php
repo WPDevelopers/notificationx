@@ -221,6 +221,12 @@ class GlobalFields {
                     ],
                     'classes' => "design_tab",
                     'fields'  => apply_filters('nx_design_tab_fields', [
+                        'themes_error' => [
+                            'type' => 'message',
+                            'name' => 'themes_error',
+                            'messages' => apply_filters('themes_error_message', []),
+                            'rules' => '',
+                        ],
                         "themes" => [
                             'label'  => __("Themes", 'notificationx'),
                             'name'   => "themes",
