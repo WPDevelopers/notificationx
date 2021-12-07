@@ -108,10 +108,10 @@ const Analytics = (props) => {
         const diff = (endDate - startDate) / 1000 / 24 / 60 / 60;
         const comparison =
             filterOptions?.comparison || Object.values(comparisonOptions);
-        const isAllCombined = filterOptions.nx.some((item) => {
+        const isAllCombined = filterOptions.nx?.some((item) => {
             return item.value == "all-combined";
         });
-        const isAllSeparated = filterOptions.nx.some((item) => {
+        const isAllSeparated = filterOptions.nx?.some((item) => {
             return item.value == "all-separated";
         });
 

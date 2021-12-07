@@ -89,12 +89,16 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
         let result = [options?.[0]];
         if(nx){
             const _nx = nx.split(',');
-            // result = options.filter(item => {
-            //     return _nx.includes(item.value);
-            // });
-            result = options.filter((option) => {
-                return _nx.includes(option.value);
-            });
+            if(posts?.length){
+                result = options.filter(item => {
+                    return _nx.includes(item.value);
+                });
+            }
+            else{
+                result = _nx.map((item) => {
+                    return {label: item, value: item}
+                });
+            }
         }
         return result;
     };
@@ -152,17 +156,14 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
             });
         }
     }, []);
-    useEffect(() => {
-        if (filterOptions) {
-            const startDate: number          = Number(query.get("startDate"));
-            const endDate: number            = Number(query.get("endDate"));
-            const comparison = getComparison();
-            setFilterOptions({
-                ...filterOptions,
-                nx: getNX(),
-            });
-        }
-    }, [posts])
+    // useEffect(() => {
+    //     if (filterOptions) {
+    //         setFilterOptions({
+    //             ...filterOptions,
+    //             nx: getNX(),
+    //         });
+    //     }
+    // }, [posts])
 
     useEffect(() => {
         if (!filterOptions) return;

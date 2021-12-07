@@ -60,17 +60,7 @@ class Analytics {
             ];
         }
         $stats = Database::get_instance()->get_posts(Database::$table_stats, '*', $where);
-        if(!empty($stats)){
-            $nx_ids = array_filter(array_column($stats, 'nx_id'));
-            $post_where = [
-                'nx_id' => [
-                    'in',
-                    "('" . implode("', '", $nx_ids) . "')"
-                ]
-            ];
-
-        }
-        $posts = PostType::get_instance()->get_posts($post_where, 'DISTINCT nx_id, title, source, theme');
+        $posts = PostType::get_instance()->get_posts([], 'DISTINCT nx_id, title, source, theme');
         return [
             'stats' => $stats,
             'posts' => $posts,
