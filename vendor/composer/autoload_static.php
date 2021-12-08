@@ -67,6 +67,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Extensions\\ReviewX\\ReviewX' => __DIR__ . '/../..' . '/includes/Extensions/ReviewX/ReviewX.php',
         'NotificationX\\Extensions\\Tutor\\Tutor' => __DIR__ . '/../..' . '/includes/Extensions/Tutor/Tutor.php',
         'NotificationX\\Extensions\\WPF\\WPForms' => __DIR__ . '/../..' . '/includes/Extensions/WPF/WPForms.php',
+        'NotificationX\\Extensions\\WooCommerce\\Woo' => __DIR__ . '/../..' . '/includes/Extensions/WooCommerce/Woo.php',
         'NotificationX\\Extensions\\WooCommerce\\WooCommerce' => __DIR__ . '/../..' . '/includes/Extensions/WooCommerce/WooCommerce.php',
         'NotificationX\\Extensions\\WooCommerce\\WooReviews' => __DIR__ . '/../..' . '/includes/Extensions/WooCommerce/WOOReviews.php',
         'NotificationX\\Extensions\\WordPress\\WPComments' => __DIR__ . '/../..' . '/includes/Extensions/WordPress/WPComments.php',

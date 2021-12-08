@@ -14,6 +14,7 @@ use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
 use NotificationX\Extensions\GlobalFields;
+use NotificationX\Types\Conversions;
 use NotificationX\Types\CustomNotification;
 use NotificationX\Types\DownloadStats;
 
@@ -27,6 +28,7 @@ class WooReviews extends Extension {
      * @var WooReviews
      */
     use GetInstance;
+    use Woo;
 
     public $priority              = 10;
     public $id                    = 'woo_reviews';
@@ -178,8 +180,8 @@ class WooReviews extends Extension {
 
     public function init_fields(){
         parent::init_fields();
+        $this->_init_fields();
     }
-
 
     /**
      * This functions is hooked

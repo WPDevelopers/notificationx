@@ -66,6 +66,7 @@ return array(
     'NotificationX\\Extensions\\ReviewX\\ReviewX' => $baseDir . '/includes/Extensions/ReviewX/ReviewX.php',
     'NotificationX\\Extensions\\Tutor\\Tutor' => $baseDir . '/includes/Extensions/Tutor/Tutor.php',
     'NotificationX\\Extensions\\WPF\\WPForms' => $baseDir . '/includes/Extensions/WPF/WPForms.php',
+    'NotificationX\\Extensions\\WooCommerce\\Woo' => $baseDir . '/includes/Extensions/WooCommerce/Woo.php',
     'NotificationX\\Extensions\\WooCommerce\\WooCommerce' => $baseDir . '/includes/Extensions/WooCommerce/WooCommerce.php',
     'NotificationX\\Extensions\\WooCommerce\\WooReviews' => $baseDir . '/includes/Extensions/WooCommerce/WOOReviews.php',
     'NotificationX\\Extensions\\WordPress\\WPComments' => $baseDir . '/includes/Extensions/WordPress/WPComments.php',

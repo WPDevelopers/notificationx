@@ -25,6 +25,7 @@ class WooCommerce extends Extension {
      * @var WOOReviews
      */
     use GetInstance;
+    use Woo;
 
     public $priority        = 5;
     public $id              = 'woocommerce';
@@ -58,10 +59,7 @@ class WooCommerce extends Extension {
         parent::init_fields();
         add_filter('nx_link_types', [$this, 'link_types']);
         add_filter( 'nx_content_fields', array( $this, 'content_fields' ), 11 );
-
-        add_filter('nx_conversion_product_list', [$this, 'products']);
-        add_filter('nx_conversion_category_list', [$this, 'categories']);
-
+        $this->_init_fields();
     }
 
     /**
@@ -107,13 +105,6 @@ class WooCommerce extends Extension {
 
     public function content_fields($fields){
         $content_fields = &$fields['content']['fields'];
-        $content_fields['product_control']    = Rules::includes('source', $this->id, false, $content_fields['product_control']);
-        $content_fields['category_list']      = Rules::includes('source', $this->id, false, $content_fields['category_list']);
-        $content_fields['product_list']       = Rules::includes('source', $this->id, false, $content_fields['product_list']);
-        $content_fields['product_exclude_by'] = Rules::includes('source', $this->id, false, $content_fields['product_exclude_by']);
-        $content_fields['exclude_categories'] = Rules::includes('source', $this->id, false, $content_fields['exclude_categories']);
-        $content_fields['exclude_products']   = Rules::includes('source', $this->id, false, $content_fields['exclude_products']);
-
         $status = [];
         if(function_exists('wc_get_order_statuses')){
             $status = GlobalFields::get_instance()->normalize_fields(wc_get_order_statuses());
@@ -409,45 +400,6 @@ class WooCommerce extends Extension {
             }
         }
         return $orders;
-    }
-
-
-    public function categories($options){
-
-        $product_categories = get_terms(array(
-            'taxonomy'   => 'product_cat',
-            'hide_empty' => false,
-        ));
-
-        $category_list = [];
-
-        if( ! is_wp_error( $product_categories ) ) {
-            foreach( $product_categories as $product ) {
-                $category_list[ $product->slug ] = $product->name;
-            }
-        }
-
-        $_options = GlobalFields::get_instance()->normalize_fields($category_list, 'source', $this->id);
-        return array_merge($options, $_options);
-    }
-
-    public function products($options){
-        $products = get_posts(array(
-            'post_type'      => 'product',
-            'posts_per_page' => -1,
-            'numberposts' => -1,
-        ));
-        $product_list = [];
-
-        if( ! empty( $products ) ) {
-            foreach( $products as $product ) {
-                $product_list[ $product->ID ] = $product->post_title;
-            }
-        }
-        wp_reset_postdata();
-
-        $_options = GlobalFields::get_instance()->normalize_fields($product_list, 'source', $this->id);
-        return array_merge($options, $_options);
     }
 
     /**

@@ -10,7 +10,10 @@ namespace NotificationX\Extensions\ReviewX;
 use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
+use NotificationX\Extensions\WooCommerce\Woo;
 use NotificationX\Extensions\WooCommerce\WooReviews;
+use NotificationX\NotificationX;
+use NotificationX\Types\Conversions;
 use NotificationX\Types\CustomNotification;
 use NotificationX\Types\DownloadStats;
 
@@ -181,6 +184,18 @@ class ReviewX extends WooReviews {
                 ],
             ],
         ];
+    }
+
+    /**
+     * This functions is hooked
+     *
+     * @return void
+     */
+    public function admin_actions() {
+        parent::admin_actions();
+        if(NotificationX::get_instance()->is_pro()){
+            add_filter("nx_can_entry_{$this->id}", array(Conversions::get_instance(), 'nx_can_entry'), 10, 3);
+        }
     }
 
     public function source_error_message($messages) {
