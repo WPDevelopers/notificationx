@@ -397,6 +397,7 @@ class FrontEnd {
     }
 
     public function get_entries($ids, $notifications) {
+        $entries = [];
         if(!empty($ids) && is_array($ids)){
             $query = [];
             foreach ($ids as $id) {
@@ -414,6 +415,9 @@ class FrontEnd {
                     }
                 }
             }
+        }
+        if(!is_array($entries)){
+            $entries = [];
         }
         $entries = apply_filters('nx_frontend_get_entries', $entries, $ids, $notifications);
         return $entries;
