@@ -53,7 +53,7 @@ class Database {
         $sql = "CREATE TABLE {$table_entries} (
                 entry_id bigint(20) unsigned NOT NULL auto_increment,
                 nx_id bigint(20) unsigned NULL,
-                source varchar(255) default NULL,
+                source varchar(55) default NULL,
                 entry_key varchar(255) default NULL,
                 data longtext,
                 created_at TIMESTAMP NOT NULL,
