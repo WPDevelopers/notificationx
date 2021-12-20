@@ -267,11 +267,12 @@ class WPOrgReview extends Extension {
                 $product_type = $settings['wp_reviews_product_type'];
                 if($theme === 'reviews_total-rated'){
                     if(!in_array($nx_id, $nx_ids)){
-                        $nx_ids  []              = $nx_id;
+                        $nx_ids[]             = $nx_id;
 
                         $entry['rated']       = isset($entry['ratings']) ? $entry['ratings']['5'] : '';
                         $entry['name']        = isset($entry['name']) ? html_entity_decode($entry['name']) : '';
                         $entry['plugin_name'] = $entry['name'];
+                        $entry['timestamp']   = time();
                         $product_type         = $settings['wp_reviews_product_type'];
 
                         if (empty($entry['link']) && $product_type == 'plugin' && isset($entry['slug'])) {

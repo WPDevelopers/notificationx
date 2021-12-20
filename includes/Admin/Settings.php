@@ -14,7 +14,6 @@ use NotificationX\Core\REST;
 use NotificationX\Core\Rules;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\GetInstance;
-use NotificationX\HooksLoader;
 use NotificationX\NotificationX;
 use UsabilityDynamics\Settings as UsabilityDynamicsSettings;
 

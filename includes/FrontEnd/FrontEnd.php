@@ -403,7 +403,7 @@ class FrontEnd {
             foreach ($ids as $id) {
                 if(!empty($notifications[$id])){
                     $post = $notifications[$id];
-                    $query[] = " (nx_id = $id AND source = '{$post['source']}')";
+                    $query[$id] = " (nx_id = $id AND source = '{$post['source']}')";
                 }
             }
             if(!empty($query)){

@@ -493,11 +493,14 @@ class WooCommerce extends Extension {
         return $image_data;
     }
 
-    public function fallback_data($data) {
+    public function fallback_data($data, $entry) {
         $data['name']            = __('Someone', 'notificationx');
         $data['first_name']      = __('Someone', 'notificationx');
         $data['last_name']       = __('Someone', 'notificationx');
         $data['anonymous_title'] = __('Anonymous Product', 'notificationx');
+        if(empty($entry['product_title']) && !empty($entry['title'])){
+            $data['product_title'] = $entry['title'];
+        }
         return $data;
     }
 
