@@ -148,6 +148,12 @@ class FrontEnd {
                 $type = $settings['type'];
                 $source = $settings['source'];
 
+                $exclude = apply_filters("nx_exclude_entry", false, $entry, $settings, $params);
+                if($exclude){
+                    continue;
+                }
+
+
                 if(!empty($entry['timestamp'])){
                     $timestamp = $entry['timestamp'];
                     $display_from = !empty($settings['display_from']) ? $settings['display_from'] : 2;

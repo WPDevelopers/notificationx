@@ -27,7 +27,7 @@ class Database {
      * @var \wpdb
      */
     protected $wpdb;
-    public static $version = '2.0';
+    public static $version = '2.1';
     public static $table_entries;
     public static $table_posts;
     public static $table_stats;
@@ -72,6 +72,7 @@ class Database {
                 type varchar(55) default NULL,
                 source varchar(55) default NULL,
                 theme varchar(55) default NULL,
+                show_on varchar(255) default NULL,
                 global_queue BOOLEAN default false,
                 enabled BOOLEAN default false,
                 data longtext,

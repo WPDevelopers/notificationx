@@ -44,6 +44,7 @@
 		<exclude name="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed"/>
 		<exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>
 		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments"/>
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
 	</rule>
 	<rule ref="Generic.WhiteSpace.ScopeIndent">
 		<properties>
