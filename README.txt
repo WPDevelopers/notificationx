@@ -219,6 +219,9 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
+= 2.3.2 - 21/12/2021 =
+- Fixed: WooCommerce fatal error.
+
 = 2.3.1 - 15/12/2021 =
 - Improvement: Analytics Data fetching.
 - Few minor bug fixes and improvements
