@@ -328,9 +328,11 @@ class PostType {
             }
             // @todo maybe remove if there is another better way.
             if($select == "*"){
-                $value = NotificationX::get_instance()->normalize_post($value);
+                $value       = NotificationX::get_instance()->normalize_post($value);
             }
-            $value       = apply_filters("nx_get_post_{$value['source']}", $value);
+            if(!empty($value['source'])){
+                $value       = apply_filters("nx_get_post_{$value['source']}", $value);
+            }
             $posts[$key] = apply_filters('nx_get_post', $value);
         }
         $posts = apply_filters('nx_get_posts', $posts);
