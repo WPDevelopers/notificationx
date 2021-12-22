@@ -109,7 +109,7 @@ class Cron {
         }
         $post = PostType::get_instance()->get_post($post_id);
 
-        if(!empty($post['source'])){
+        if(!empty($post['source']) && !empty($post['enabled'])){
             do_action("{$this->hook}_{$post['source']}", $post_id, $post);
         }
         else{
