@@ -810,7 +810,7 @@ class GlobalFields {
                                     'type'     => "select",
                                     'default'  => "everywhere",
                                     'priority' => 5,
-                                    'options'  => apply_filters('nx_show_on', $this->normalize_fields([
+                                    'options'  => apply_filters('nx_show_on_options', $this->normalize_fields([
                                         'everywhere'       => __('Show Everywhere', 'notificationx'),
                                         'on_selected'      => __('Show On Selected', 'notificationx'),
                                         'hide_on_selected' => __('Hide On Selected', 'notificationx'),

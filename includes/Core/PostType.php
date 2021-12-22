@@ -383,9 +383,9 @@ class PostType {
                     $url = $themes[$theme]['source'];
                 }
             }
+            $post['preview'] = apply_filters("nx_theme_preview_{$post['source']}", $url, $post);
         }
 
-        $post['preview'] = apply_filters("nx_theme_preview_{$post['source']}", $url, $post);
         return $post;
     }
 

@@ -148,12 +148,6 @@ class FrontEnd {
                 $type = $settings['type'];
                 $source = $settings['source'];
 
-                $exclude = apply_filters("nx_exclude_entry", false, $entry, $settings, $params);
-                if($exclude){
-                    continue;
-                }
-
-
                 if(!empty($entry['timestamp'])){
                     $timestamp = $entry['timestamp'];
                     $display_from = !empty($settings['display_from']) ? $settings['display_from'] : 2;
@@ -333,6 +327,11 @@ class FrontEnd {
              * Check for hiding in mobile device
              */
             if ($settings['hide_on_mobile'] && wp_is_mobile()) {
+                continue;
+            }
+
+            $show_on_exclude = apply_filters('nx_show_on_exclude', false, $settings);
+            if($show_on_exclude){
                 continue;
             }
 
