@@ -153,21 +153,23 @@ const SingleNotificationAction = ({
                     confirmButtonText: __("Copy to Clipboard", "notificationx"),
                     confirmButtonColor: "#6a4bff",
                 }).then((res) => {
-                    let copyText = `[notificationx id=${id}]`;
-                    if (res.value == "inline") {
-                        copyText = `[notificationx_inline id=${id}]`;
+                    if (res.isConfirmed) {
+                        let copyText = `[notificationx id=${id}]`;
+                        if (res.value == "inline") {
+                            copyText = `[notificationx_inline id=${id}]`;
+                        }
+                        copy(copyText, {
+                            format: "text/plain",
+                            onCopy: () => {
+                                nxToast.info(
+                                    __(
+                                        `Notification Alert has been copied to Clipboard.`,
+                                        "notificationx"
+                                    )
+                                );
+                            },
+                        });
                     }
-                    copy(copyText, {
-                        format: "text/plain",
-                        onCopy: () => {
-                            nxToast.info(
-                                __(
-                                    `Notification Alert has been copied to Clipboard.`,
-                                    "notificationx"
-                                )
-                            );
-                        },
-                    });
                 });
             }
         },

@@ -47,7 +47,6 @@ body {
     @import "./nx_new/quick_builder";
 }
 
-
 .swal2-title {
     line-height: 1;
 }
@@ -58,10 +57,10 @@ body {
     align-items: flex-start;
     justify-content: flex-start;
     margin-bottom: 5px !important;
+    padding: 0 10px;
     label {
         display: flex;
         justify-content: flex-start;
-        margin: 0 !important;
         width: 100%;
         input {
             margin-left: 0px;
