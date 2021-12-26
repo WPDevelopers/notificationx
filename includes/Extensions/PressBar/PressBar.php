@@ -880,7 +880,7 @@ class PressBar extends Extension {
     }
 
     public function nx_get_post($post) {
-        if ($post['source'] == $this->id && !empty($post['elementor_id']) && class_exists('\Elementor\Plugin')) {
+        if (isset($post['source']) && $post['source'] == $this->id && !empty($post['elementor_id']) && class_exists('\Elementor\Plugin')) {
             try {
                 $document = \Elementor\Plugin::$instance->documents->get($post['elementor_id']);
                 if(!empty($document)){
