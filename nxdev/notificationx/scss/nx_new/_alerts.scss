@@ -1,3 +1,42 @@
+.swal2-title {
+    line-height: 1;
+}
+.swal2-image {
+    width: 5em;
+    height: 5em;
+}
+.swal2-radio {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 5px !important;
+    padding: 0 10px;
+    label {
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+        input {
+            margin-left: 0px;
+            margin-top: 2px;
+        }
+        .swal2-label {
+            font-size: 15px;
+            span {
+                display: block;
+                font-weight: bold;
+                font-style: italic;
+                font-size: 12px;
+                margin-top: 5px;
+                line-height: 1.1;
+                color: #7e7e7e;
+            }
+        }
+        &:not(:last-child) {
+            margin-bottom: 15px !important;
+        }
+    }
+}
 .swal2-actions {
     &.nx-pro-alert-actions {
         justify-content: flex-end;

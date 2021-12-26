@@ -7,7 +7,7 @@ import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
 import nxToast, { ToastAlert } from "../core/ToasterMsg";
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+import { assetsURL } from "../core/functions";
 import copy from "copy-to-clipboard";
 
 const SingleNotificationAction = ({
@@ -135,12 +135,13 @@ const SingleNotificationAction = ({
         });
     };
 
+    const copyImage = assetsURL("images/regenerate.svg", true);
     // @ts-ignore
     const handleCopy = useCallback(
         (event) => {
             if (id) {
                 Swal.fire({
-                    icon: "info",
+                    imageUrl: `${copyImage}`,
                     title: "Copy to Clipboard",
                     input: "radio",
                     inputOptions: {
