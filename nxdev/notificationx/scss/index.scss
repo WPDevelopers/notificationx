@@ -14,18 +14,18 @@
 @import "./settings";
 
 body {
-    background-color: #F6F7FE;
+    background-color: #f6f7fe;
 }
 
 // Alerts
 @import "./nx_new/alerts";
 
 #notificationx {
-    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+    @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
     @media only screen and (min-width: 1399.98px) {
         padding: 0px 10px;
     }
-    font-family: 'DM Sans', sans-serif;
+    font-family: "DM Sans", sans-serif;
     // HEADER for NX
     @import "./nx_new/header";
     // Analytics Card in Admin List Page
@@ -50,4 +50,37 @@ body {
 
 .swal2-title {
     line-height: 1;
+}
+
+.swal2-radio {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 5px !important;
+    label {
+        display: flex;
+        justify-content: flex-start;
+        margin: 0 !important;
+        width: 100%;
+        input {
+            margin-left: 0px;
+            margin-top: 2px;
+        }
+        .swal2-label {
+            font-size: 15px;
+            span {
+                display: block;
+                font-weight: bold;
+                font-style: italic;
+                font-size: 12px;
+                margin-top: 5px;
+                line-height: 1.1;
+                color: #7e7e7e;
+            }
+        }
+        &:not(:last-child) {
+            margin-bottom: 15px !important;
+        }
+    }
 }
