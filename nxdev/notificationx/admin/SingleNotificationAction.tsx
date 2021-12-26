@@ -7,7 +7,6 @@ import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
 import nxToast, { ToastAlert } from "../core/ToasterMsg";
 import Swal from "sweetalert2";
-import { assetsURL } from "../core/functions";
 import copy from "copy-to-clipboard";
 
 const SingleNotificationAction = ({
@@ -135,13 +134,13 @@ const SingleNotificationAction = ({
         });
     };
 
-    const copyImage = assetsURL("images/regenerate.svg", true);
     // @ts-ignore
     const handleCopy = useCallback(
         (event) => {
             if (id) {
                 Swal.fire({
-                    imageUrl: `${copyImage}`,
+                    iconHtml: `<img alt="NotificationX" src="${nxContext.assets.admin}images/shortcode.svg" style="height: 45px; width:55px" class="shortcodeIcon" />`,
+                    iconColor: "#6a4bff",
                     title: "Copy to Clipboard",
                     input: "radio",
                     inputOptions: {
