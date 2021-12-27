@@ -184,7 +184,7 @@ class FrontEnd {
                     }
                     $result['shortcode'][$nx_id]['entries'][] = $entry;
                     $settings['position'] = $position;
-                    if($settings['show_on'] === 'only_shortcode'){
+                    if($settings['show_on'] === 'only_shortcode' || $settings['show_on'] === 'woocommerce_hooks'){
                         continue;
                     }
                 }
