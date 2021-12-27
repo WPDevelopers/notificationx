@@ -14,18 +14,18 @@
 @import "./settings";
 
 body {
-    background-color: #F6F7FE;
+    background-color: #f6f7fe;
 }
 
 // Alerts
 @import "./nx_new/alerts";
 
 #notificationx {
-    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+    @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
     @media only screen and (min-width: 1399.98px) {
         padding: 0px 10px;
     }
-    font-family: 'DM Sans', sans-serif;
+    font-family: "DM Sans", sans-serif;
     // HEADER for NX
     @import "./nx_new/header";
     // Analytics Card in Admin List Page
@@ -45,9 +45,4 @@ body {
     // datePicker
     @import "./nx_new/datePicker";
     @import "./nx_new/quick_builder";
-}
-
-
-.swal2-title {
-    line-height: 1;
 }

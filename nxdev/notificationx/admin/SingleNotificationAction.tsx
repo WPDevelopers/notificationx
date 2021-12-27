@@ -7,7 +7,6 @@ import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
 import nxToast, { ToastAlert } from "../core/ToasterMsg";
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import copy from "copy-to-clipboard";
 
 const SingleNotificationAction = ({
@@ -140,39 +139,31 @@ const SingleNotificationAction = ({
         (event) => {
             if (id) {
                 Swal.fire({
-                    icon: "info",
+                    iconHtml: `<img alt="NotificationX" src="${nxContext.assets.admin}images/shortcode.svg" style="height: 45px; width:55px" class="shortcodeIcon" />`,
+                    iconColor: "#6a4bff",
                     title: "Copy to Clipboard",
-                    html: `<p>Copy Regular-Shortcode: <code>[notificationx id=${id}]</code> for get with notification
-                            styles</p>
-                            <p> Copy Inline-Shortcode : <code>[notificationx_inline id=${id}]</code> for only the
-                            notification text</P>`,
-                    showConfirmButton: true,
-                    confirmButtonText: __("Regular ShortCode", "notificationx"),
+                    input: "radio",
+                    inputOptions: {
+                        regular: `Copy Regular Shortcode: <code>[notificationx id=${id}]</code>
+                        <span>Note: Regular Shortcode will copy the notification content & its styles</span>`,
+                        inline: `Copy Inline Shortcode : <code>[notificationx_inline id=${id}]</code>
+                        <span>Note: Inline Shortcode will only copy the notification content which you can insert anywhere on your page</span>`,
+                    },
+                    inputValue: "regular",
+                    confirmButtonText: __("Copy to Clipboard", "notificationx"),
                     confirmButtonColor: "#6a4bff",
-                    showDenyButton: true,
-                    denyButtonText: __("Inline ShortCode", "notificationx"),
-                    denyButtonColor: "#6a4bff",
                 }).then((res) => {
                     if (res.isConfirmed) {
-                        copy(`[notificationx id=${id}]`, {
+                        let copyText = `[notificationx id=${id}]`;
+                        if (res.value == "inline") {
+                            copyText = `[notificationx_inline id=${id}]`;
+                        }
+                        copy(copyText, {
                             format: "text/plain",
                             onCopy: () => {
                                 nxToast.info(
                                     __(
-                                        `Regular Notification Alert has been copied to Clipboard.`,
-                                        "notificationx"
-                                    )
-                                );
-                            },
-                        });
-                    }
-                    if (res.isDenied) {
-                        copy(`[notificationx_inline id=${id}]`, {
-                            format: "text/plain",
-                            onCopy: () => {
-                                nxToast.info(
-                                    __(
-                                        `Inline Notification Alert has been copied to Clipboard.`,
+                                        `Notification Alert has been copied to Clipboard.`,
                                         "notificationx"
                                     )
                                 );
@@ -184,15 +175,6 @@ const SingleNotificationAction = ({
         },
         [id, getNotice]
     );
-
-    const onCopy = (text, result) => {
-        nxToast.info(
-            __(
-                `Notification Alert has been copied to Clipboard.`,
-                "notificationx"
-            )
-        );
-    };
 
     const onCopyXSS = (text, result) => {
         if (nxContext?.is_pro_active) {
