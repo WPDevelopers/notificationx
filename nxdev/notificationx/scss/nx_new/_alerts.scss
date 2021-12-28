@@ -33,6 +33,41 @@
         }
     }
 }
+.swal-shortcode-wrapper {
+    label {
+        display: block;
+        font-size: 15px;
+        cursor: initial;
+        img {
+            width: 14px;
+            margin-right: 5px;
+        }
+        code {
+            cursor: pointer;
+            white-space: nowrap;
+            background: rgba(#6a4bff, 0.15);
+            border: 1px solid rgba(#6a4bff, 0.3);
+            color: #6a4bff;
+            font-size: 10px;
+            &:hover {
+                background: #6a4bff;
+                color: #fff;
+            }
+        }
+        span {
+            display: block;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 12px;
+            margin-top: 5px;
+            line-height: 1.1;
+            color: #7e7e7e;
+        }
+        &:not(:last-child) {
+            margin-bottom: 10px !important;
+        }
+    }
+}
 .swal2-actions {
     &.nx-pro-alert-actions {
         justify-content: flex-end;

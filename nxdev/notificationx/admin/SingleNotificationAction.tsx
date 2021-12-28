@@ -142,34 +142,48 @@ const SingleNotificationAction = ({
                     iconHtml: `<img alt="NotificationX" src="${nxContext.assets.admin}images/shortcode.svg" style="height: 45px; width:55px" class="shortcodeIcon" />`,
                     iconColor: "#6a4bff",
                     title: "Copy to Clipboard",
-                    input: "radio",
-                    inputOptions: {
-                        regular: `Copy Regular Shortcode: <code>[notificationx id=${id}]</code>
-                        <span>Note: Regular Shortcode will copy the notification content & its styles</span>`,
-                        inline: `Copy Inline Shortcode : <code>[notificationx_inline id=${id}]</code>
-                        <span>Note: Inline Shortcode will only copy the notification content which you can insert anywhere on your page</span>`,
+                    html: `<div class="swal-shortcode-wrapper">
+                        <label><img src="${nxContext.assets.admin}images/copy icon.svg"/>Copy Regular Shortcode: <code id="regulat-shortcode" title="click to copy">[notificationx id=${id}]</code>
+                            <span>Note: Regular Shortcode will copy the notification content & its styles</span>
+                        </label>
+                        <label><img src="${nxContext.assets.admin}images/copy icon.svg"/>Copy Inline Shortcode : <code id="inline-shortcode" title="click to copy">[notificationx_inline id=${id}]</code>
+                            <span>Note: Inline Shortcode will only copy the notification content which you can insert anywhere on your page</span>
+                        </label>
+                    </div>`,
+                    didOpen: () => {
+                        document
+                            .getElementById("regulat-shortcode")
+                            .addEventListener("click", () => {
+                                copy(`[notificationx id=${id}]`, {
+                                    format: "text/plain",
+                                    onCopy: () => {
+                                        nxToast.info(
+                                            __(
+                                                `Regular Notification Alert has been copied to Clipboard.`,
+                                                "notificationx"
+                                            )
+                                        );
+                                    },
+                                });
+                            });
+                        document
+                            .getElementById("inline-shortcode")
+                            .addEventListener("click", () => {
+                                copy(`[notificationx_inline id=${id}]`, {
+                                    format: "text/plain",
+                                    onCopy: () => {
+                                        nxToast.info(
+                                            __(
+                                                `Inline Notification Alert has been copied to Clipboard.`,
+                                                "notificationx"
+                                            )
+                                        );
+                                    },
+                                });
+                            });
                     },
-                    inputValue: "regular",
-                    confirmButtonText: __("Copy to Clipboard", "notificationx"),
-                    confirmButtonColor: "#6a4bff",
-                }).then((res) => {
-                    if (res.isConfirmed) {
-                        let copyText = `[notificationx id=${id}]`;
-                        if (res.value == "inline") {
-                            copyText = `[notificationx_inline id=${id}]`;
-                        }
-                        copy(copyText, {
-                            format: "text/plain",
-                            onCopy: () => {
-                                nxToast.info(
-                                    __(
-                                        `Notification Alert has been copied to Clipboard.`,
-                                        "notificationx"
-                                    )
-                                );
-                            },
-                        });
-                    }
+                    showConfirmButton: false,
+                    showCancelButton: true,
                 });
             }
         },
