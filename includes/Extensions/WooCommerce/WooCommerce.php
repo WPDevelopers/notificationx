@@ -321,7 +321,12 @@ class WooCommerce extends Extension {
             $new_order['title']      = strip_tags($product_data['title']);
             $new_order['link']       = $product_data['link'];
         }
-        $new_order['timestamp'] = $date->getTimestamp();
+        if($date && method_exists($date, 'getTimestamp')){
+            $new_order['timestamp'] = $date->getTimestamp();
+        }
+        else{
+            $new_order['timestamp'] = time();
+        }
         return array_merge($new_order, $this->buyer($order));
     }
 
