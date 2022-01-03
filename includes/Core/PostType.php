@@ -137,7 +137,7 @@ class PostType {
             'theme'        => $data['themes'],
             'global_queue' => !empty($data['global_queue']) ? $data['global_queue'] : false,
             'enabled'      => $data['enabled'],
-            'show_on'      => $data['show_on'],
+            'is_inline'    => !empty( $data['inline_location'] ),
             'title'        => $title,
             'data'         => $data
         ];

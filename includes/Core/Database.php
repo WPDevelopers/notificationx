@@ -72,7 +72,7 @@ class Database {
                 type varchar(55) default NULL,
                 source varchar(55) default NULL,
                 theme varchar(55) default NULL,
-                show_on varchar(255) default NULL,
+                is_inline varchar(255) default NULL,
                 global_queue BOOLEAN default false,
                 enabled BOOLEAN default false,
                 data longtext,

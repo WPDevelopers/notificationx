@@ -210,6 +210,7 @@ class GlobalFields {
                             ]
                         ],
                     ]),
+                    // 'rules'   => Rules::is('source', false)
                 ],
                 "design_tab" => [
                     'label' => __("Design", 'notificationx'),
@@ -226,7 +227,7 @@ class GlobalFields {
                             'name'   => "themes",
                             'type'   => "section",
                             'fields' => [
-                                [
+                                'themes' => [
                                     // 'label'            => "Themes",
                                     'name'             => "themes",
                                     'type'             => "radio-card",
@@ -246,7 +247,7 @@ class GlobalFields {
                                         'defaults' => apply_filters('nx_themes_trigger', []),
                                     ],
                                 ],
-                                [
+                                'advance_edit' => [
                                     'label'    => __("Advanced Design", 'notificationx'),
                                     'name'     => "advance_edit",
                                     'type'     => "toggle",
@@ -540,7 +541,7 @@ class GlobalFields {
                                         'product_category' => __('Product Category', 'notificationx'),
                                         'manual_selection' => __('Selected Product', 'notificationx'),
                                     ]),
-                                    'rules'       => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx"]),
+                                    'rules'       => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline"]),
                                 ),
                                 'category_list' => array(
                                     'label'    => __('Select Product Category', 'notificationx'),
@@ -550,7 +551,7 @@ class GlobalFields {
                                     'priority' => 95,
                                     'options'  => apply_filters('nx_conversion_category_list', []),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx"]),
+                                        Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline"]),
                                         Rules::is( 'product_control', 'product_category' ),
                                     ]),
                                 ),
@@ -562,7 +563,7 @@ class GlobalFields {
                                     'priority' => 96,
                                     'options'  => apply_filters('nx_conversion_product_list', []),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx"]),
+                                        Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline"]),
                                         Rules::is( 'product_control', 'manual_selection' ),
                                     ]),
                                 ),
@@ -579,7 +580,7 @@ class GlobalFields {
                                         'product_category' => __('Product Category', 'notificationx'),
                                         'manual_selection' => __('Selected Product', 'notificationx'),
                                     ]),
-                                    'rules' => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx"]),
+                                    'rules' => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline"]),
                                 ),
                                 'exclude_categories' => array(
                                     'label'    => __('Select Product Category', 'notificationx'),
@@ -589,7 +590,7 @@ class GlobalFields {
                                     'priority' => 98,
                                     'options'  => apply_filters('nx_conversion_category_list', []),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx"]),
+                                        Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline"]),
                                         Rules::is( 'product_exclude_by', 'product_category' ),
                                     ]),
                                 ),
@@ -601,7 +602,7 @@ class GlobalFields {
                                     'priority' => 99,
                                     'options'  => apply_filters('nx_conversion_product_list', []),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx"]),
+                                        Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline"]),
                                         Rules::is( 'product_exclude_by', 'manual_selection' ),
                                     ]),
                                 ),

@@ -31,6 +31,7 @@ class TypeFactory {
 			'email_subscription' 	=> 'NotificationX\Types\EmailSubscription',
 			'page_analytics'	 	=> 'NotificationX\Types\PageAnalytics',
 			'custom'			 	=> 'NotificationX\Types\CustomNotification',
+			'inline'			 	=> 'NotificationX\Types\Inline',
 		];
 
     public $types_enabled = [];
