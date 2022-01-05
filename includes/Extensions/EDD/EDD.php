@@ -332,6 +332,7 @@ class EDD extends Extension {
 
     // @todo
     public function fallback_data( $data, $saved_data, $settings ) {
+        $data['product_title']   = $saved_data['title'];
         $data['anonymous_title'] = __( 'Anonymous Product', 'notificationx' );
         return $data;
     }
