@@ -66,5 +66,8 @@ class WooInline extends WooCommerce {
 
     }
 
+    public function content_fields($fields){
+        return $fields;
+    }
 
 }

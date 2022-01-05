@@ -58,7 +58,7 @@ class WooCommerce extends Extension {
     public function init_fields(){
         parent::init_fields();
         add_filter('nx_link_types', [$this, 'link_types']);
-        add_filter( 'nx_content_fields', array( $this, 'content_fields' ), 11 );
+        add_filter( 'nx_woo_order_status', array( $this, 'order_status' ), 11 );
         $this->_init_fields();
     }
 
@@ -103,26 +103,11 @@ class WooCommerce extends Extension {
     }
 
 
-    public function content_fields($fields){
-        $content_fields = &$fields['content']['fields'];
-        $status = [];
+    public function order_status($options){
         if(function_exists('wc_get_order_statuses')){
-            $status = GlobalFields::get_instance()->normalize_fields(wc_get_order_statuses());
+            $options = GlobalFields::get_instance()->normalize_fields(wc_get_order_statuses(), 'source', $this->id, $options);
         }
-        $content_fields['order_status'] = array(
-            'label'    => __('Order Status', 'notificationx'),
-            'name'     => 'order_status',
-            'type'     => 'select',
-            'multiple' => true,
-            'is_pro'   => true,
-            'priority' => 99.5,
-            'default'  => ['wc-completed', 'wc-processing'],
-            'help'     => __("By default it will show Processing & Completed status."),
-            'options'  => $status,
-            'rules'    => Rules::is('source', $this->id),
-
-        );
-        return $fields;
+        return $options;
     }
 
 
