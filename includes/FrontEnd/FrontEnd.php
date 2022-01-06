@@ -153,7 +153,7 @@ class FrontEnd {
                     $display_from = !empty($settings['display_from']) ? $settings['display_from'] : 2;
                     $display_from = strtotime("-$display_from days");
                     if(!is_numeric($timestamp)){
-                        $timestamp = strtotime($timestamp);
+                        $entry['timestamp'] = $timestamp = strtotime($timestamp);
                     }
                     if($timestamp && $display_from > $timestamp){
                         continue;
