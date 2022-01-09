@@ -138,11 +138,15 @@ const SingleNotificationAction = ({
     const handleCopy = useCallback(
         (event) => {
             if (id) {
-
+                
                 Swal.fire({
                     iconHtml: `<img alt="NotificationX" src="${nxContext.assets.admin}images/shortcode.svg" style="height: 45px; width:55px" class="shortcodeIcon" />`,
                     iconColor: "#6a4bff",
                     title: "Copy to Clipboard",
+                    showConfirmButton: false,
+                    showCancelButton: true,
+                    cancelButtonText: __("Cancel", "notificationx"),
+                    cancelButtonColor: "#d14529",
                     html: `<div class="swal-shortcode-wrapper">
                         <label><img src="${nxContext.assets.admin}images/copy icon.svg"/>Copy Regular Shortcode: <code id="regulat-shortcode" title="click to copy">[notificationx id=${id}]</code>
                             <span>Note: Regular Shortcode will copy the notification content & its styles.</span>
@@ -183,8 +187,6 @@ const SingleNotificationAction = ({
                                 });
                             });
                     },
-                    showConfirmButton: false,
-                    showCancelButton: true,
                 });
             }
         },
