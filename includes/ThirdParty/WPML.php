@@ -191,7 +191,7 @@ class WPML {
     }
 
     public function translate_values($post){
-        if(empty($_GET['frontend'])){
+        if(empty($_GET['frontend']) && !did_action( "nx_inline" )){
             // checking if request came from frontend.
             return $post;
         }
