@@ -32,6 +32,43 @@ class Inline extends Types {
      */
     public function __construct() {
         $this->title = __('Inline Notification', 'notificationx');
+        $sales_count_template = [
+            'first_param'         => 'tag_sales_count',
+            'custom_first_param'  => __( 'Someone', 'notificationx' ),
+            'second_param'        => __( 'people purchased', 'notificationx' ),
+            'third_param'         => 'tag_product_title',
+            'fourth_param'        => 'tag_7days',
+            'custom_fourth_param' => __( 'in last {{day:7}}', 'notificationx' ),
+        ];
+        $this->themes = [
+            'conv-theme-seven' => array(
+                'is_pro'      => true,
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/inline.jpg',
+                'image_shape' => 'rounded',
+                'template'    => $sales_count_template,
+            ),
+        ];
+        $this->templates = [
+            'woo_template_sales_count' => [
+                'first_param'  => [
+                    'tag_sales_count' => __( 'Sales Count', 'notificationx' ),
+                ],
+                'third_param'  => [
+                    'tag_product_title' => __( 'Product Title', 'notificationx' ),
+                ],
+                'fourth_param' => [
+                    'tag_1day'   => __( 'In last 1 day', 'notificationx' ),
+                    'tag_7days'  => __( 'In last 7 days', 'notificationx' ),
+                    'tag_30days' => __( 'In last 30 days', 'notificationx' ),
+                ],
+                '_themes'      => [
+                    "{$this->id}_conv-theme-six",
+                    "{$this->id}_conv-theme-seven",
+                    "{$this->id}_conv-theme-eight",
+                    "{$this->id}_conv-theme-nine",
+                ],
+            ],
+        ];
 
         // nx_comment_colored_themes
         parent::__construct();
