@@ -1,22 +1,22 @@
-# Copyright (C) 2021 WPDeveloper
+# Copyright (C) 2022 WPDeveloper
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 2.3.1\n"
+"Project-Id-Version: NotificationX 2.3.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-12-15T05:07:44+00:00\n"
+"POT-Creation-Date: 2022-01-10T10:56:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: notificationx\n"
 
 #. Plugin Name of the plugin
 #. translators: %1$s: title, %2$s: link to the All NotificationX page.
-#: includes/Admin/Settings.php:104
+#: includes/Admin/Settings.php:103
 #: includes/Core/QuickBuild.php:112
 #: includes/Extensions/GlobalFields.php:43
 #: assets/admin/js/admin.js:1
@@ -104,7 +104,7 @@ msgid "Export Notifications"
 msgstr ""
 
 #: includes/Admin/ImportExport.php:60
-#: includes/Admin/Settings.php:236
+#: includes/Admin/Settings.php:235
 #: includes/Core/Analytics.php:46
 #: assets/admin/js/admin.js:3
 #: assets/admin/js/admin.js:15
@@ -183,17 +183,17 @@ msgid "You have to enable Reporting first."
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:215
-#: includes/Admin/Settings.php:302
+#: includes/Admin/Settings.php:301
 msgid "Once Weekly"
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:219
-#: includes/Admin/Settings.php:301
+#: includes/Admin/Settings.php:300
 msgid "Once Daily"
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:223
-#: includes/Admin/Settings.php:303
+#: includes/Admin/Settings.php:302
 msgid "Once Monthly"
 msgstr ""
 
@@ -209,203 +209,203 @@ msgstr ""
 msgid "No email found."
 msgstr ""
 
-#: includes/Admin/Settings.php:119
+#: includes/Admin/Settings.php:118
 msgid "Save Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:125
+#: includes/Admin/Settings.php:124
 msgid "General"
 msgstr ""
 
-#: includes/Admin/Settings.php:130
+#: includes/Admin/Settings.php:129
 msgid "Modules"
 msgstr ""
 
-#: includes/Admin/Settings.php:152
+#: includes/Admin/Settings.php:151
 msgid "Advanced Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:158
+#: includes/Admin/Settings.php:157
 msgid "Powered By"
 msgstr ""
 
-#: includes/Admin/Settings.php:164
+#: includes/Admin/Settings.php:163
 msgid "Disable Powered By"
 msgstr ""
 
-#: includes/Admin/Settings.php:168
+#: includes/Admin/Settings.php:167
 msgid "Click, if you want to disable powered by text from notification"
 msgstr ""
 
-#: includes/Admin/Settings.php:175
+#: includes/Admin/Settings.php:174
 msgid "Role Management"
 msgstr ""
 
-#: includes/Admin/Settings.php:181
+#: includes/Admin/Settings.php:180
 msgid "Who Can View Notification?"
 msgstr ""
 
-#: includes/Admin/Settings.php:192
+#: includes/Admin/Settings.php:191
 msgid "Who Can Create Notification?"
 msgstr ""
 
-#: includes/Admin/Settings.php:203
+#: includes/Admin/Settings.php:202
 msgid "Who Can Edit Settings?"
 msgstr ""
 
-#: includes/Admin/Settings.php:214
+#: includes/Admin/Settings.php:213
 msgid "Who Can Check Analytics?"
 msgstr ""
 
-#: includes/Admin/Settings.php:227
+#: includes/Admin/Settings.php:226
 msgid "Analytics & Reporting"
 msgstr ""
 
-#: includes/Admin/Settings.php:241
+#: includes/Admin/Settings.php:240
 msgid "Enable Analytics"
 msgstr ""
 
-#: includes/Admin/Settings.php:248
+#: includes/Admin/Settings.php:247
 msgid "Disable Dashboard Widget"
 msgstr ""
 
-#: includes/Admin/Settings.php:251
+#: includes/Admin/Settings.php:250
 msgid "Click, if you want to disable dashboard widget of analytics only."
 msgstr ""
 
-#: includes/Admin/Settings.php:257
+#: includes/Admin/Settings.php:256
 msgid "Analytics From"
 msgstr ""
 
-#: includes/Admin/Settings.php:259
-#: includes/Extensions/GlobalFields.php:839
+#: includes/Admin/Settings.php:258
+#: includes/Extensions/GlobalFields.php:853
 msgid "Everyone"
 msgstr ""
 
-#: includes/Admin/Settings.php:260
+#: includes/Admin/Settings.php:259
 msgid "Guests Only"
 msgstr ""
 
-#: includes/Admin/Settings.php:261
+#: includes/Admin/Settings.php:260
 msgid "Registered Users Only"
 msgstr ""
 
-#: includes/Admin/Settings.php:270
+#: includes/Admin/Settings.php:269
 msgid "Exclude Bot Analytics"
 msgstr ""
 
-#: includes/Admin/Settings.php:273
+#: includes/Admin/Settings.php:272
 msgid "Select if you want to exclude bot analytics."
 msgstr ""
 
-#: includes/Admin/Settings.php:282
+#: includes/Admin/Settings.php:281
 msgid "Reporting"
 msgstr ""
 
-#: includes/Admin/Settings.php:287
+#: includes/Admin/Settings.php:286
 msgid "Disable Reporting"
 msgstr ""
 
-#: includes/Admin/Settings.php:295
+#: includes/Admin/Settings.php:294
 msgid "Reporting Frequency"
 msgstr ""
 
-#: includes/Admin/Settings.php:312
+#: includes/Admin/Settings.php:311
 msgid "It will be triggered on the first day of next month."
 msgstr ""
 
-#: includes/Admin/Settings.php:318
+#: includes/Admin/Settings.php:317
 msgid "Select Reporting Day"
 msgstr ""
 
-#: includes/Admin/Settings.php:322
+#: includes/Admin/Settings.php:321
 msgid "Sunday"
 msgstr ""
 
-#: includes/Admin/Settings.php:323
+#: includes/Admin/Settings.php:322
 msgid "Monday"
 msgstr ""
 
-#: includes/Admin/Settings.php:324
+#: includes/Admin/Settings.php:323
 msgid "Tuesday"
 msgstr ""
 
-#: includes/Admin/Settings.php:325
+#: includes/Admin/Settings.php:324
 msgid "Wednesday"
 msgstr ""
 
-#: includes/Admin/Settings.php:326
+#: includes/Admin/Settings.php:325
 msgid "Thursday"
 msgstr ""
 
-#: includes/Admin/Settings.php:327
+#: includes/Admin/Settings.php:326
 msgid "Friday"
 msgstr ""
 
-#: includes/Admin/Settings.php:329
+#: includes/Admin/Settings.php:328
 msgid "Select a Day for Email Report."
 msgstr ""
 
-#: includes/Admin/Settings.php:338
+#: includes/Admin/Settings.php:337
 msgid "Reporting Email"
 msgstr ""
 
-#: includes/Admin/Settings.php:346
+#: includes/Admin/Settings.php:345
 msgid "Reporting Email Subject"
 msgstr ""
 
-#: includes/Admin/Settings.php:354
+#: includes/Admin/Settings.php:353
 msgid "Reporting Test"
 msgstr ""
 
-#: includes/Admin/Settings.php:355
+#: includes/Admin/Settings.php:354
 msgid "Test Report"
 msgstr ""
 
-#: includes/Admin/Settings.php:370
+#: includes/Admin/Settings.php:369
 msgid "Successfully Sent a Test Report in Your Email."
 msgstr ""
 
-#: includes/Admin/Settings.php:382
-#: includes/Admin/Settings.php:388
+#: includes/Admin/Settings.php:381
+#: includes/Admin/Settings.php:387
 msgid "Cache Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:394
+#: includes/Admin/Settings.php:393
 msgid "Cache Limit"
 msgstr ""
 
-#: includes/Admin/Settings.php:395
+#: includes/Admin/Settings.php:394
 msgid "Number of Notification Data to be saved in Database."
 msgstr ""
 
-#: includes/Admin/Settings.php:402
+#: includes/Admin/Settings.php:401
 msgid "Download Stats Cache Duration"
 msgstr ""
 
-#: includes/Admin/Settings.php:403
-#: includes/Admin/Settings.php:411
+#: includes/Admin/Settings.php:402
+#: includes/Admin/Settings.php:410
 msgid "Minutes (Schedule Duration to fetch new data)."
 msgstr ""
 
-#: includes/Admin/Settings.php:410
+#: includes/Admin/Settings.php:409
 msgid "Reviews Cache Duration"
 msgstr ""
 
-#: includes/Admin/Settings.php:421
+#: includes/Admin/Settings.php:420
 msgid "Miscellaneous"
 msgstr ""
 
-#: includes/Admin/Settings.php:433
+#: includes/Admin/Settings.php:432
 msgid "Danger Zone"
 msgstr ""
 
+#: includes/Admin/Settings.php:437
 #: includes/Admin/Settings.php:438
-#: includes/Admin/Settings.php:439
 msgid "Delete Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:450
+#: includes/Admin/Settings.php:449
 msgid "Successfully deleted Settings."
 msgstr ""
 
@@ -517,7 +517,7 @@ msgstr ""
 #: includes/Extensions/Give/Give.php:77
 #: includes/Extensions/Give/Give.php:78
 #: includes/Extensions/Give/Give.php:79
-#: includes/Extensions/GlobalFields.php:423
+#: includes/Extensions/GlobalFields.php:424
 #: includes/Extensions/ReviewX/ReviewX.php:75
 #: includes/Extensions/ReviewX/ReviewX.php:87
 #: includes/Extensions/ReviewX/ReviewX.php:99
@@ -527,9 +527,9 @@ msgstr ""
 #: includes/Extensions/Tutor/Tutor.php:524
 #: includes/Extensions/Tutor/Tutor.php:525
 #: includes/Extensions/Tutor/Tutor.php:526
-#: includes/Extensions/WooCommerce/WooCommerce.php:497
-#: includes/Extensions/WooCommerce/WooCommerce.php:498
-#: includes/Extensions/WooCommerce/WooCommerce.php:499
+#: includes/Extensions/WooCommerce/WooCommerce.php:487
+#: includes/Extensions/WooCommerce/WooCommerce.php:488
+#: includes/Extensions/WooCommerce/WooCommerce.php:489
 #: includes/Extensions/WooCommerce/WOOReviews.php:56
 #: includes/Extensions/WooCommerce/WOOReviews.php:68
 #: includes/Extensions/WooCommerce/WOOReviews.php:80
@@ -543,7 +543,7 @@ msgstr ""
 #: includes/FrontEnd/FrontEnd.php:127
 #: includes/FrontEnd/FrontEnd.php:128
 #: includes/FrontEnd/FrontEnd.php:129
-#: includes/FrontEnd/FrontEnd.php:507
+#: includes/FrontEnd/FrontEnd.php:512
 #: includes/Types/Comments.php:45
 #: includes/Types/Comments.php:58
 #: includes/Types/Comments.php:71
@@ -561,6 +561,7 @@ msgstr ""
 #: includes/Types/ELearning.php:62
 #: includes/Types/ELearning.php:75
 #: includes/Types/EmailSubscription.php:45
+#: includes/Types/Inline.php:37
 #: includes/Types/Reviews.php:52
 #: includes/Types/Reviews.php:64
 #: includes/Types/Reviews.php:76
@@ -582,8 +583,8 @@ msgid "Quick Builder"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:89
-#: includes/Extensions/GlobalFields.php:386
-#: includes/Extensions/GlobalFields.php:396
+#: includes/Extensions/GlobalFields.php:387
+#: includes/Extensions/GlobalFields.php:397
 #: includes/Extensions/PressBar/PressBar.php:717
 msgid "Content"
 msgstr ""
@@ -756,26 +757,26 @@ msgid "Easy Digital Downloads"
 msgstr ""
 
 #: includes/Extensions/EDD/EDD.php:122
-#: includes/Extensions/WooCommerce/WooCommerce.php:465
+#: includes/Extensions/WooCommerce/WooCommerce.php:455
 msgid "more products"
 msgstr ""
 
 #: includes/Extensions/EDD/EDD.php:139
-#: includes/Extensions/WooCommerce/WooCommerce.php:137
+#: includes/Extensions/WooCommerce/WooCommerce.php:122
 #: includes/Types/DownloadStats.php:178
 #: includes/Types/Reviews.php:206
 msgid "Product Page"
 msgstr ""
 
-#: includes/Extensions/EDD/EDD.php:335
+#: includes/Extensions/EDD/EDD.php:336
 #: includes/Extensions/Give/Give.php:80
 #: includes/Extensions/Tutor/Tutor.php:527
-#: includes/Extensions/WooCommerce/WooCommerce.php:500
+#: includes/Extensions/WooCommerce/WooCommerce.php:490
 #: includes/Types/Conversions.php:60
 msgid "Anonymous Product"
 msgstr ""
 
-#: includes/Extensions/EDD/EDD.php:341
+#: includes/Extensions/EDD/EDD.php:342
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">Easy Digital Downloads installed & activated</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with Easy Digital Downloads</a></p>\n"
@@ -820,9 +821,9 @@ msgid "GiveWP"
 msgstr ""
 
 #: includes/Extensions/Give/Give.php:81
-#: includes/Extensions/GlobalFields.php:448
-#: includes/Extensions/GlobalFields.php:466
-#: includes/Extensions/GlobalFields.php:1052
+#: includes/Extensions/GlobalFields.php:449
+#: includes/Extensions/GlobalFields.php:467
+#: includes/Extensions/GlobalFields.php:1066
 #: includes/Extensions/ReviewX/ReviewX.php:79
 #: includes/Extensions/ReviewX/ReviewX.php:91
 #: includes/Extensions/ReviewX/ReviewX.php:118
@@ -897,423 +898,427 @@ msgstr ""
 msgid "Notification Type"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:215
-#: includes/Extensions/GlobalFields.php:266
+#: includes/Extensions/GlobalFields.php:216
+#: includes/Extensions/GlobalFields.php:267
 msgid "Design"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:225
+#: includes/Extensions/GlobalFields.php:226
 msgid "Themes"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:250
-#: includes/Extensions/GlobalFields.php:259
+#: includes/Extensions/GlobalFields.php:251
+#: includes/Extensions/GlobalFields.php:260
 msgid "Advanced Design"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:273
+#: includes/Extensions/GlobalFields.php:274
 #: includes/Extensions/PressBar/PressBar.php:217
 msgid "Background Color"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:279
+#: includes/Extensions/GlobalFields.php:280
 #: includes/Extensions/PressBar/PressBar.php:222
 msgid "Text Color"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:285
+#: includes/Extensions/GlobalFields.php:286
 msgid "Want Border?"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:291
+#: includes/Extensions/GlobalFields.php:292
 msgid "Border Size"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:298
+#: includes/Extensions/GlobalFields.php:299
 msgid "Border Style"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:303
+#: includes/Extensions/GlobalFields.php:304
 msgid "Solid"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:304
+#: includes/Extensions/GlobalFields.php:305
 msgid "Dashed"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:305
+#: includes/Extensions/GlobalFields.php:306
 msgid "Dotted"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:310
+#: includes/Extensions/GlobalFields.php:311
 msgid "Border Color"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:319
+#: includes/Extensions/GlobalFields.php:320
 #: includes/Extensions/PressBar/PressBar.php:266
 msgid "Typography"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:325
-#: includes/Extensions/GlobalFields.php:333
-#: includes/Extensions/GlobalFields.php:341
+#: includes/Extensions/GlobalFields.php:326
+#: includes/Extensions/GlobalFields.php:334
+#: includes/Extensions/GlobalFields.php:342
 #: includes/Extensions/PressBar/PressBar.php:272
 msgid "Font Size"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:330
+#: includes/Extensions/GlobalFields.php:331
 #: includes/Extensions/PressBar/PressBar.php:278
 msgid "This font size will be applied for <mark>first</mark> row"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:338
+#: includes/Extensions/GlobalFields.php:339
 msgid "This font size will be applied for <mark>second</mark> row"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:346
+#: includes/Extensions/GlobalFields.php:347
 msgid "This font size will be applied for <mark>third</mark> row"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:351
+#: includes/Extensions/GlobalFields.php:352
 msgid "Image Appearance"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:357
+#: includes/Extensions/GlobalFields.php:358
 msgid "Image Shape"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:363
+#: includes/Extensions/GlobalFields.php:364
 msgid "Circle"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:364
+#: includes/Extensions/GlobalFields.php:365
 msgid "Rounded"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:365
+#: includes/Extensions/GlobalFields.php:366
 msgid "Square"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:369
-#: includes/Extensions/GlobalFields.php:865
+#: includes/Extensions/GlobalFields.php:370
+#: includes/Extensions/GlobalFields.php:879
 msgid "Position"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:375
+#: includes/Extensions/GlobalFields.php:376
 #: includes/Extensions/PressBar/PressBar.php:257
 msgid "Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:376
+#: includes/Extensions/GlobalFields.php:377
 #: includes/Extensions/PressBar/PressBar.php:258
 msgid "Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:402
+#: includes/Extensions/GlobalFields.php:403
 msgid "Notification Template"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:415
-#: includes/Extensions/GlobalFields.php:440
-#: includes/Extensions/GlobalFields.php:458
-#: includes/Extensions/GlobalFields.php:475
-#: includes/Extensions/GlobalFields.php:492
+#: includes/Extensions/GlobalFields.php:416
+#: includes/Extensions/GlobalFields.php:441
+#: includes/Extensions/GlobalFields.php:459
+#: includes/Extensions/GlobalFields.php:476
+#: includes/Extensions/GlobalFields.php:493
 msgid "Custom"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:431
+#: includes/Extensions/GlobalFields.php:432
 msgid "recently purchased"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:507
-#: includes/Extensions/GlobalFields.php:517
+#: includes/Extensions/GlobalFields.php:508
+#: includes/Extensions/GlobalFields.php:518
 msgid "Advanced Template"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:523
+#: includes/Extensions/GlobalFields.php:524
 msgid "Random Order"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:528
+#: includes/Extensions/GlobalFields.php:529
 msgid "Enable to show notification in random order."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:531
+#: includes/Extensions/GlobalFields.php:532
 msgid "Show Purchase Of"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:539
+#: includes/Extensions/GlobalFields.php:540
 #: includes/Types/ELearning.php:193
 msgid "All"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:540
-#: includes/Extensions/GlobalFields.php:579
+#: includes/Extensions/GlobalFields.php:541
+#: includes/Extensions/GlobalFields.php:580
 msgid "Product Category"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:541
-#: includes/Extensions/GlobalFields.php:580
+#: includes/Extensions/GlobalFields.php:542
+#: includes/Extensions/GlobalFields.php:581
 msgid "Selected Product"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:546
-#: includes/Extensions/GlobalFields.php:585
+#: includes/Extensions/GlobalFields.php:547
+#: includes/Extensions/GlobalFields.php:586
 msgid "Select Product Category"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:558
-#: includes/Extensions/GlobalFields.php:597
+#: includes/Extensions/GlobalFields.php:559
+#: includes/Extensions/GlobalFields.php:598
 msgid "Select Product"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:570
+#: includes/Extensions/GlobalFields.php:571
 msgid "Exclude By"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:578
-#: includes/Extensions/GlobalFields.php:622
-#: includes/Extensions/GlobalFields.php:735
+#: includes/Extensions/GlobalFields.php:579
+#: includes/Extensions/GlobalFields.php:636
+#: includes/Extensions/GlobalFields.php:749
 #: includes/Types/Donations.php:111
 msgid "None"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:611
+#: includes/Extensions/GlobalFields.php:610
+msgid "Order Status"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:625
 msgid "Link Options"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:617
+#: includes/Extensions/GlobalFields.php:631
 msgid "Link Type"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:632
+#: includes/Extensions/GlobalFields.php:646
 msgid "Display"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:642
+#: includes/Extensions/GlobalFields.php:656
 msgid "IMAGE"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:650
+#: includes/Extensions/GlobalFields.php:664
 msgid "Show Default Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:656
+#: includes/Extensions/GlobalFields.php:670
 msgid "Choose an Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:660
+#: includes/Extensions/GlobalFields.php:674
 msgid "If checked, this will show in notifications."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:668
+#: includes/Extensions/GlobalFields.php:682
 msgid "Verified"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:673
+#: includes/Extensions/GlobalFields.php:687
 msgid "Flames"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:678
+#: includes/Extensions/GlobalFields.php:692
 msgid "Flames GIF"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:683
+#: includes/Extensions/GlobalFields.php:697
 msgid "Pink Face"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:688
+#: includes/Extensions/GlobalFields.php:702
 msgid "Blue Face"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:695
+#: includes/Extensions/GlobalFields.php:709
 msgid "Upload an Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:697
+#: includes/Extensions/GlobalFields.php:711
 msgid "Upload"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:703
+#: includes/Extensions/GlobalFields.php:717
 msgid "Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:739
+#: includes/Extensions/GlobalFields.php:753
 msgid "Featured Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:769
+#: includes/Extensions/GlobalFields.php:783
 msgid "Gravatar"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:803
+#: includes/Extensions/GlobalFields.php:817
 msgid "Visibility"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:808
+#: includes/Extensions/GlobalFields.php:822
 msgid "Show On"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:814
+#: includes/Extensions/GlobalFields.php:828
 msgid "Show Everywhere"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:815
+#: includes/Extensions/GlobalFields.php:829
 msgid "Show On Selected"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:816
+#: includes/Extensions/GlobalFields.php:830
 msgid "Hide On Selected"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:820
+#: includes/Extensions/GlobalFields.php:834
 msgid "Locations"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:833
-#: includes/Extensions/GlobalFields.php:947
+#: includes/Extensions/GlobalFields.php:847
+#: includes/Extensions/GlobalFields.php:961
 msgid "Display For"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:840
+#: includes/Extensions/GlobalFields.php:854
 msgid "Logged Out User"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:841
+#: includes/Extensions/GlobalFields.php:855
 msgid "Logged In User"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:843
+#: includes/Extensions/GlobalFields.php:857
 msgid "More Control in Pro"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:850
+#: includes/Extensions/GlobalFields.php:864
 msgid "Customize"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:860
+#: includes/Extensions/GlobalFields.php:874
 msgid "Appearance"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:872
+#: includes/Extensions/GlobalFields.php:886
 msgid "Bottom Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:876
+#: includes/Extensions/GlobalFields.php:890
 msgid "Bottom Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:882
+#: includes/Extensions/GlobalFields.php:896
 msgid "Notification Size"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:887
+#: includes/Extensions/GlobalFields.php:901
 msgid "Set a max width for notification."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:890
+#: includes/Extensions/GlobalFields.php:904
 msgid "Display Close Option"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:895
+#: includes/Extensions/GlobalFields.php:909
 msgid "Display a close button."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:898
+#: includes/Extensions/GlobalFields.php:912
 msgid "Mobile Visibility"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:903
+#: includes/Extensions/GlobalFields.php:917
 msgid "Hide NotificationX on mobile."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:908
+#: includes/Extensions/GlobalFields.php:922
 msgid "Queue Management"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:916
+#: includes/Extensions/GlobalFields.php:930
 msgid "Enable Global Queue"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:922
+#: includes/Extensions/GlobalFields.php:936
 msgid "Activate global queue system for this notification."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:922
+#: includes/Extensions/GlobalFields.php:936
 msgid "Check out this doc."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:927
+#: includes/Extensions/GlobalFields.php:941
 msgid "Timing"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:935
+#: includes/Extensions/GlobalFields.php:949
 msgid "Delay Before First Notification"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:940
+#: includes/Extensions/GlobalFields.php:954
 #: includes/Extensions/PressBar/PressBar.php:546
 #: includes/Extensions/PressBar/PressBar.php:551
 msgid "Initial Delay"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:941
-#: includes/Extensions/GlobalFields.php:948
-#: includes/Extensions/GlobalFields.php:957
+#: includes/Extensions/GlobalFields.php:955
+#: includes/Extensions/GlobalFields.php:962
+#: includes/Extensions/GlobalFields.php:971
 #: includes/Extensions/PressBar/PressBar.php:552
 #: includes/Extensions/PressBar/PressBar.php:572
 msgid "seconds"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:949
+#: includes/Extensions/GlobalFields.php:963
 msgid "Display each notification for * seconds"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:956
+#: includes/Extensions/GlobalFields.php:970
 msgid "Delay Between"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:958
+#: includes/Extensions/GlobalFields.php:972
 msgid "Delay between each notification"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:965
+#: includes/Extensions/GlobalFields.php:979
 msgid "Behaviour"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:974
+#: includes/Extensions/GlobalFields.php:988
 msgid "Display The Last"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:983
+#: includes/Extensions/GlobalFields.php:997
 msgid "Display From The Last"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:991
+#: includes/Extensions/GlobalFields.php:1005
 msgid "Loop Notification"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:999
+#: includes/Extensions/GlobalFields.php:1013
 msgid "Open Link In New Tab"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1040
+#: includes/Extensions/GlobalFields.php:1054
 msgid "Full Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1041
+#: includes/Extensions/GlobalFields.php:1055
 msgid "First Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1042
+#: includes/Extensions/GlobalFields.php:1056
 msgid "Last Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1045
+#: includes/Extensions/GlobalFields.php:1059
 msgid "Display Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1051
+#: includes/Extensions/GlobalFields.php:1065
 #: includes/Extensions/ReviewX/ReviewX.php:158
 #: includes/Extensions/WooCommerce/WOOReviews.php:139
 #: includes/Types/Comments.php:162
@@ -1720,6 +1725,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WOOReviews.php:158
 #: includes/Types/Conversions.php:125
 #: includes/Types/Conversions.php:141
+#: includes/Types/Inline.php:57
 msgid "Product Title"
 msgstr ""
 
@@ -1795,16 +1801,12 @@ msgstr ""
 msgid "WooCommerce"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerce.php:113
-msgid "Order Status"
-msgstr ""
-
 #. translators: %1$s: title, %2$s: number of product, %3$s: Combine Multi Order Text.
-#: includes/Extensions/WooCommerce/WooCommerce.php:468
+#: includes/Extensions/WooCommerce/WooCommerce.php:458
 msgid "%1$s & %2$s %3$s"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerce.php:505
+#: includes/Extensions/WooCommerce/WooCommerce.php:498
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a href=\"%3$s\" target=\"_blank\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -2081,7 +2083,7 @@ msgstr ""
 msgid "Rating:"
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:545
+#: includes/FrontEnd/FrontEnd.php:550
 msgid "<div id=\"notificationx-frontend-root\"><!-- This DIV for NotificationX, It is used to show the notifications by appending them here. For more details please visit: https://notificationx.com/docs --><div id=\"notificationx-frontend\"></div>"
 msgstr ""
 
@@ -2194,6 +2196,7 @@ msgstr ""
 
 #: includes/Types/DownloadStats.php:102
 #: includes/Types/DownloadStats.php:122
+#: includes/Types/Inline.php:61
 msgid "In last 7 days"
 msgstr ""
 
@@ -2261,6 +2264,30 @@ msgstr ""
 
 #: includes/Types/EmailSubscription.php:80
 msgid "List Title"
+msgstr ""
+
+#: includes/Types/Inline.php:34
+msgid "Inline Notification"
+msgstr ""
+
+#: includes/Types/Inline.php:38
+msgid "people purchased"
+msgstr ""
+
+#: includes/Types/Inline.php:41
+msgid "in last {{day:7}}"
+msgstr ""
+
+#: includes/Types/Inline.php:54
+msgid "Sales Count"
+msgstr ""
+
+#: includes/Types/Inline.php:60
+msgid "In last 1 day"
+msgstr ""
+
+#: includes/Types/Inline.php:62
+msgid "In last 30 days"
 msgstr ""
 
 #: includes/Types/PageAnalytics.php:34
@@ -2721,6 +2748,18 @@ msgid "Notification Alert has been Deleted."
 msgstr ""
 
 #: assets/admin/js/admin.js:15
+msgid "Cancel"
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Regular Notification Alert has been copied to Clipboard."
+msgstr ""
+
+#: assets/admin/js/admin.js:15
+msgid "Inline Notification Alert has been copied to Clipboard."
+msgstr ""
+
+#: assets/admin/js/admin.js:15
 msgid "Translate"
 msgstr ""
 
@@ -2733,7 +2772,7 @@ msgid "Shortcode"
 msgstr ""
 
 #: assets/admin/js/admin.js:15
-msgid "Notification Alert has been copied to Clipboard."
+msgid "ShortCode"
 msgstr ""
 
 #: assets/admin/js/admin.js:15
@@ -2746,10 +2785,6 @@ msgstr ""
 
 #: assets/admin/js/admin.js:15
 msgid "Regenerating will fetch new data based on settings"
-msgstr ""
-
-#: assets/admin/js/admin.js:15
-msgid "Cancel"
 msgstr ""
 
 #: assets/admin/js/admin.js:15
