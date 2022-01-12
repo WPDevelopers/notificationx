@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'NotificationXPro\\Core\\WPDRoleManagement' => $baseDir . '/includes/Core/WPDRoleManagement.php',
     'NotificationX\\Admin\\Admin' => $baseDir . '/includes/Admin/Admin.php',
     'NotificationX\\Admin\\Cron' => $baseDir . '/includes/Admin/Cron.php',
     'NotificationX\\Admin\\DashboardWidget' => $baseDir . '/includes/Admin/DashboardWidget.php',
@@ -41,6 +40,7 @@ return array(
     'NotificationX\\Core\\Rule' => $baseDir . '/includes/Core/Rule.php',
     'NotificationX\\Core\\Rules' => $baseDir . '/includes/Core/Rules.php',
     'NotificationX\\Core\\Upgrader' => $baseDir . '/includes/Core/Upgrader.php',
+    'NotificationX\\Core\\WPDRoleManagement' => $baseDir . '/includes/Core/WPDRoleManagement.php',
     'NotificationX\\Extensions\\CF7\\CF7' => $baseDir . '/includes/Extensions/CF7/CF7.php',
     'NotificationX\\Extensions\\ConvertKit\\ConvertKit' => $baseDir . '/includes/Extensions/ConvertKit/ConvertKit.php',
     'NotificationX\\Extensions\\CustomNotification\\CustomNotification' => $baseDir . '/includes/Extensions/CustomNotification/CustomNotification.php',

@@ -250,7 +250,7 @@ class Database {
                     $compare = $value[0];
                     $value   = $value[1];
                 } else {
-                    $value   = "'$value'"; //is_bool($value) ? $value :
+                    $value   = "'" . esc_sql($value) . "'"; //is_bool($value) ? $value :
                 }
                 $query .= " AND $key $compare $value";
             }

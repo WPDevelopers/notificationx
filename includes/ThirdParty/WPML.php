@@ -227,7 +227,7 @@ class WPML {
      */
     public function translate($request){
         if(!empty($_GET['id'])){
-            $nx_id = $_GET['id'];
+            $nx_id = sanitize_text_field( $_GET['id'] );
             $post = PostType::get_instance()->get_post($nx_id);
             if($post['source'] == 'press_bar' && !empty($post['elementor_id'])){
 		        $cookie = new \WPML_Cookie();

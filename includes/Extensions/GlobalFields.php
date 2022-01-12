@@ -1022,9 +1022,6 @@ class GlobalFields {
             'instructions' => apply_filters( 'nx_instructions', [] ),
         ];
         $tabs['tabs'] = apply_filters('nx_metabox_tabs', $tabs['tabs']);
-        // @todo Something
-        if (!empty($_GET['post']))
-            $tabs['saved_value'] = get_post_meta($_GET['post'], '_nx_meta', true);
         return $tabs;
     }
 

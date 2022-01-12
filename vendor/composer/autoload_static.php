@@ -8,7 +8,6 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
 {
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'NotificationXPro\\Core\\WPDRoleManagement' => __DIR__ . '/../..' . '/includes/Core/WPDRoleManagement.php',
         'NotificationX\\Admin\\Admin' => __DIR__ . '/../..' . '/includes/Admin/Admin.php',
         'NotificationX\\Admin\\Cron' => __DIR__ . '/../..' . '/includes/Admin/Cron.php',
         'NotificationX\\Admin\\DashboardWidget' => __DIR__ . '/../..' . '/includes/Admin/DashboardWidget.php',
@@ -42,6 +41,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Core\\Rule' => __DIR__ . '/../..' . '/includes/Core/Rule.php',
         'NotificationX\\Core\\Rules' => __DIR__ . '/../..' . '/includes/Core/Rules.php',
         'NotificationX\\Core\\Upgrader' => __DIR__ . '/../..' . '/includes/Core/Upgrader.php',
+        'NotificationX\\Core\\WPDRoleManagement' => __DIR__ . '/../..' . '/includes/Core/WPDRoleManagement.php',
         'NotificationX\\Extensions\\CF7\\CF7' => __DIR__ . '/../..' . '/includes/Extensions/CF7/CF7.php',
         'NotificationX\\Extensions\\ConvertKit\\ConvertKit' => __DIR__ . '/../..' . '/includes/Extensions/ConvertKit/ConvertKit.php',
         'NotificationX\\Extensions\\CustomNotification\\CustomNotification' => __DIR__ . '/../..' . '/includes/Extensions/CustomNotification/CustomNotification.php',

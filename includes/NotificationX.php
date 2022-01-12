@@ -20,7 +20,7 @@ use NotificationX\FrontEnd\FrontEnd;
 use NotificationX\Types\TypeFactory;
 use NotificationX\Extensions\ExtensionFactory;
 use NotificationX\ThirdParty\WPML;
-use NotificationXPro\Core\WPDRoleManagement;
+use NotificationX\Core\WPDRoleManagement;
 
 /**
  * Plugin Engine.

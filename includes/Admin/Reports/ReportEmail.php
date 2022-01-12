@@ -84,7 +84,7 @@ class ReportEmail {
     public function get_stats( $start_date, $end_date = null ){
         global $wpdb;
 
-        $extra_query = "BETWEEN '$start_date' AND '$end_date'";
+        $extra_query = $wpdb->prepare( 'BETWEEN %s AND %s', $start_date, $end_date );
 
         if( is_null($end_date) ) {
             $extra_query = " = '$start_date'";

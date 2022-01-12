@@ -1,6 +1,6 @@
 <?php
 
-namespace NotificationXPro\Core;
+namespace NotificationX\Core;
 
 
 /**
