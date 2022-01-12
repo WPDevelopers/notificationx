@@ -114,12 +114,13 @@ class BulkAction {
         $count = [];
         $params = $request->get_params();
         if(!empty($params['ids']) && is_array($params['ids'])){
+            $ids = array_map( 'esc_sql', $params['ids'] );
             $posts = PostType::get_instance()->get_posts([
                 'nx_id' => [
                     'IN',
-                    '(' . implode(', ', $params['ids']) . ')'
+                    '(' . implode( ', ', $ids ) . ')',
                 ],
-            ], 'nx_id, source');
+            ], 'nx_id, source' );
             if(is_array($posts)){
                 foreach ($posts as $key => $post) {
                     $count[$post['nx_id']] = PostType::get_instance()->update_status([
@@ -140,10 +141,11 @@ class BulkAction {
         $count = [];
         $params = $request->get_params();
         if(!empty($params['ids']) && is_array($params['ids'])){
+            $ids = array_map( 'esc_sql', $params['ids'] );
             $posts = PostType::get_instance()->get_posts([
                 'nx_id' => [
                     'IN',
-                    '(' . implode(', ', $params['ids']) . ')'
+                    '(' . implode(', ', $ids) . ')',
                 ],
             ], 'nx_id, source');
             if(is_array($posts)){

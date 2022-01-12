@@ -262,7 +262,7 @@ class FrontEnd {
     public function get_notifications_ids( $return_posts = false, $args = [] ) {
         $args = wp_parse_args($args, [
             'enabled'    => true,
-            'updated_at' => [ '<=', "'" . Helper::mysql_time() . "'" ],
+            'updated_at' => [ '<=', "'" . esc_sql(Helper::mysql_time()) . "'" ],
             // 'global_queue' => true,
             ]
         );
@@ -382,6 +382,7 @@ class FrontEnd {
 
     public function get_notifications( $ids ) {
         $results       = [];
+        $ids = array_map( 'esc_sql', $ids );
         $notifications = PostType::get_instance()->get_posts([
             'nx_id' => [
                 'IN',

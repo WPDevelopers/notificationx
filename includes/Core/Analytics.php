@@ -49,6 +49,7 @@ class Analytics {
     }
 
     public function get_stats( $args = [] ) {
+        global $wpdb;
         $where      = [];
         $post_where = [];
         $args       = wp_parse_args( $args, [] );
@@ -57,7 +58,7 @@ class Analytics {
             $endDate             = date( self::$date_format, strtotime( $args['endDate'] ) );
             $where['created_at'] = [
                 'BETWEEN',
-                "'$startDate' AND '$endDate'",
+                $wpdb->prepare( '%s AND %s', $startDate, $endDate ),
             ];
         }
         $stats = Database::get_instance()->get_posts( Database::$table_stats, '*', $where );
