@@ -24,7 +24,7 @@
         </noscript>
         <div id="notificationx">
             <div style="display: flex;align-items: center;justify-content: center;height: 60vh;">
-                <img src="<?php  echo self::ASSET_URL . 'images/logos/logo-preloader.gif'; ?>" alt="">
+                <img src="<?php echo esc_url( self::ASSET_URL . 'images/logos/logo-preloader.gif' ); ?>" alt="">
             </div>
         </div>
     </div>
