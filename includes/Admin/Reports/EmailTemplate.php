@@ -84,10 +84,10 @@ NXTEMHEADER;
     }
 
     public function footer(){
-        $facebook = NOTIFICATIONX_PUBLIC_URL  . 'image/reports/facebook.png';
-        $twitter = NOTIFICATIONX_PUBLIC_URL  . 'image/reports/twitter.png';
-        $youtube = NOTIFICATIONX_PUBLIC_URL  . 'image/reports/youtube.png';
-        $web = NOTIFICATIONX_PUBLIC_URL  . 'image/reports/web.png';
+        $facebook = esc_url( NOTIFICATIONX_PUBLIC_URL  . 'image/reports/facebook.png' );
+        $twitter  = esc_url( NOTIFICATIONX_PUBLIC_URL  . 'image/reports/twitter.png' );
+        $youtube  = esc_url( NOTIFICATIONX_PUBLIC_URL  . 'image/reports/youtube.png' );
+        $web      = esc_url( NOTIFICATIONX_PUBLIC_URL  . 'image/reports/web.png' );
 
         $output = <<<NXTEMFOOTER
         </tbody>
@@ -121,7 +121,7 @@ NXTEMFOOTER;
 
     public function body_header( $args = array(), $frequency ){
         $args = current( $args );
-        $logo = NOTIFICATIONX_PUBLIC_URL  . 'image/reports/logo.png';
+        $logo = esc_url( NOTIFICATIONX_PUBLIC_URL . 'image/reports/logo.png' );
         $from_date = isset( $args['from_date'] ) ? date( 'M j, Y', strtotime( $args['from_date'] ) ) : '';
         $to_date = isset( $args['to_date'] ) ? date( 'M j, Y', strtotime( $args['to_date'] ) ) : '';
 
@@ -230,6 +230,7 @@ NXTEMBODY;
         if( $frequency === 'nx_monthly' ) {
             $text_lead = 'In the last month';
         }
+        $text_lead = esc_html( $text_lead );
 
         $output = <<<NXPROMO
 <tr>
@@ -246,17 +247,17 @@ NXPROMO;
             return false;
         }
 
-        $type = $args['type'];
-        $title = $args[ 'title' ];
-        $views = number_format( $args[ 'views' ] );
-        $percentage_views = $args[ 'percentage_views' ];
-        $clicks = number_format( $args[ 'clicks' ] );
-        $percentage_clicks = $args[ 'percentage_clicks' ];
-        $ctr = number_format( $args[ 'ctr' ] );
-        $percentage_ctr = $args[ 'percentage_ctr' ];
+        $type              = $args['type'];
+        $title             = esc_html( $args['title'] );
+        $views             = number_format( $args['views'] );
+        $percentage_views  = esc_html( $args['percentage_views'] );
+        $clicks            = number_format( $args['clicks'] );
+        $percentage_clicks = esc_html( $args['percentage_clicks'] );
+        $ctr               = number_format( $args['ctr'] );
+        $percentage_ctr    = esc_html( $args['percentage_ctr'] );
 
-        $up_arrow = $v_arrow = $c_arrow = $ctr_arrow = NOTIFICATIONX_PUBLIC_URL  . 'image/reports/nx-template-up.png';
-        $down_arrow = NOTIFICATIONX_PUBLIC_URL  . 'image/reports/nx-template-down.png';
+        $up_arrow = $v_arrow = $c_arrow = $ctr_arrow = esc_url( NOTIFICATIONX_PUBLIC_URL . 'image/reports/nx-template-up.png' );
+        $down_arrow = esc_url( NOTIFICATIONX_PUBLIC_URL  . 'image/reports/nx-template-down.png' );
         $v_color = $c_color = $ctr_color = '#34cf8a';
         if( $percentage_views < 0 ) {
             $v_color = '#ff616c';
@@ -271,14 +272,14 @@ NXPROMO;
             $ctr_arrow = $down_arrow;
         }
 
-        $percentage_views = NotificationX_Helper::nice_number( $args[ 'percentage_views' ] );
-        $percentage_clicks = NotificationX_Helper::nice_number( $args[ 'percentage_clicks' ] );
-        $percentage_ctr = NotificationX_Helper::nice_number( $args[ 'percentage_ctr' ] );
+        $percentage_views = NotificationX_Helper::nice_number( $args['percentage_views'] );
+        $percentage_clicks = NotificationX_Helper::nice_number( $args['percentage_clicks'] );
+        $percentage_ctr = NotificationX_Helper::nice_number( $args['percentage_ctr'] );
 
         if( is_array( $type ) ) {
-            $type_name = $type['source'];
+            $type_name = esc_html( $type['source'] );
         } else {
-            $type_name = $type;
+            $type_name = esc_html( $type );
         }
 
         switch( $frequency ) {
@@ -294,6 +295,11 @@ NXPROMO;
                 $days_ago = $days_in_last_month . ' days ago';
                 break;
         }
+
+        $days_ago  = esc_html( $days_ago );
+        $v_color   = esc_attr( $v_color );
+        $c_color   = esc_attr( $c_color );
+        $ctr_color = esc_attr( $ctr_color );
 
         $output = <<<NXBOXTEM
 <tr>
@@ -382,9 +388,9 @@ NXBOXTEM;
     }
 
     public static function pro_message(){
-        $is_pro = defined( 'NOTIFICATIONX_PRO_VERSION' );
-        $graph = NOTIFICATIONX_PUBLIC_URL  . 'image/reports/graph.png';
-        $admin_analytics_url = admin_url('admin.php?page=nx-analytics');
+        $is_pro              = defined( 'NOTIFICATIONX_PRO_VERSION' );
+        $graph               = esc_url( NOTIFICATIONX_PUBLIC_URL . 'image/reports/graph.png' );
+        $admin_analytics_url = admin_url( 'admin.php?page=nx-analytics' );
         if( $is_pro ) {
             $output = <<<NXPROMSG
 <tr>
