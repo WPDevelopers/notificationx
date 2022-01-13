@@ -107,7 +107,7 @@ class Database {
             UPDATE %1$s
             SET %2$s = %2$s + %3$s
             WHERE nx_id = %4$s
-            AND created_at = %5$s',
+            AND created_at = "%5$s"',
             $table_name, $col, $_data, $id, $date
         )
         );
