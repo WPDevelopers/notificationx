@@ -620,7 +620,7 @@ class PluginInsights {
         $output .= '</p>';
         $output .= '</div>';
 
-        echo wp_kses_post( $output );
+        echo $output;
     }
 
     public function notice_script() {
