@@ -86,8 +86,8 @@ class ReportEmail {
 
         $extra_query = $wpdb->prepare( 'BETWEEN %s AND %s', $start_date, $end_date );
 
-        if( is_null($end_date) ) {
-            $extra_query = " = '$start_date'";
+        if ( is_null( $end_date ) ) {
+            $extra_query = $wpdb->prepare( ' = %s', $start_date );
         }
 
         $query = "SELECT MAIN.`nx_id`, MAIN.`title`, MAIN.`type`, STATS.`views`, STATS.`clicks`, STATS.`CTR` FROM ( SELECT P.`nx_id`, title, type FROM {$wpdb->prefix}nx_posts as P LEFT JOIN {$wpdb->prefix}nx_stats as S ON P.`nx_id` = S.`nx_id` GROUP BY P.nx_id ) AS MAIN INNER JOIN ( SELECT *, (clicks/views)*100 as ctr FROM ( SELECT SUM(views) as views, SUM(clicks) as clicks, nx_id FROM {$wpdb->prefix}nx_stats WHERE created_at $extra_query GROUP BY nx_id ) as VCID ) as STATS
