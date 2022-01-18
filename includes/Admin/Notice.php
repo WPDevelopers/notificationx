@@ -426,7 +426,7 @@ class Notice {
         if ( $this->has_thumbnail( 'upsale' ) ) {
             $classes = 'notice-has-thumbnail';
         }
-        echo '<div class="error notice is-dismissible wpdeveloper-upsale-notice ' . $classes . '">';
+        echo '<div class="error notice is-dismissible wpdeveloper-upsale-notice ' . sanitize_html_class( $classes ) . '">';
     }
     /**
      * Upsale Notice
@@ -471,7 +471,7 @@ class Notice {
                 $output .= '<img src="' . esc_url( $this->data['thumbnail'][ $msg_for ] ) . '" alt="NotificationX">';
             $output     .= '</div>';
         }
-        echo $output;
+        echo wp_kses_post( $output );
     }
     /**
      * Has Thumbnail Check
@@ -497,8 +497,8 @@ class Notice {
     protected function get_message( $msg_for ) {
         if ( isset( $this->data['message'] ) && isset( $this->data['message'][ $msg_for ] ) ) {
             echo '<div class="wpdeveloper-notice-message">';
-                echo $this->data['message'][ $msg_for ];
-            if ( $msg_for === 'upsale' ) {
+                echo wp_kses_post( $this->data['message'][ $msg_for ] );
+            if ( 'upsale' === $msg_for ) {
                 $this->upsale_button();
             }
                 $this->dismissible_notice( $msg_for );
@@ -508,7 +508,7 @@ class Notice {
     /**
      * Detect which notice will show @ next.
      *
-     * @return void
+     * @return array
      */
     protected function next_notice() {
         $options_data = $this->get_options_data();
@@ -618,7 +618,7 @@ class Notice {
                 }
             }
             $output .= '</ul>';
-            echo $output;
+            echo wp_kses_post( $output );
         endif;
     }
     /**
@@ -889,23 +889,23 @@ class Notice {
         <script type="text/javascript">
             jQuery(document).ready( function($) {
                 <?php if ( ! empty( $plugin_slug ) && ! empty( $plugin_file ) ) : ?>
-                $('#plugin-install-core-<?php echo $this->plugin_name; ?>').on('click', function (e) {
+                $('#plugin-install-core-<?php echo esc_html( $this->plugin_name ); ?>').on('click', function (e) {
                     var self = $(this);
                     e.preventDefault();
                     self.addClass('install-now updating-message');
-                    self.text('<?php echo __( 'Installing...', 'notificationx' ); ?>');
+                    self.text('<?php echo esc_html__( 'Installing...', 'notificationx' ); ?>');
 
                     $.ajax({
                         url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
                         type: 'POST',
                         data: {
-                            action: 'wpdeveloper_upsale_core_install_<?php echo $this->plugin_name; ?>',
-                            _wpnonce: '<?php echo wp_create_nonce( 'wpdeveloper_upsale_core_install_' . $this->plugin_name ); ?>',
+                            action: 'wpdeveloper_upsale_core_install_<?php echo esc_attr( $this->plugin_name ); ?>',
+                            _wpnonce: '<?php echo wp_create_nonce( 'wpdeveloper_upsale_core_install_' . esc_attr( $this->plugin_name ) ); ?>',
                             slug : '<?php echo esc_html( $plugin_slug ); ?>',
                             file : '<?php echo esc_html( $plugin_file ); ?>'
                         },
                         success: function(response) {
-                            self.text('<?php echo __( 'Installed', 'notificationx' ); ?>');
+                            self.text('<?php echo esc_html__( 'Installed', 'notificationx' ); ?>');
                             <?php if ( ! empty( $page_slug ) ) : ?>
                                 window.location.href = '<?php echo admin_url( "admin.php?page={$page_slug}" ); ?>';
                             <?php endif; ?>
@@ -929,7 +929,7 @@ class Notice {
                         url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
                         type: 'post',
                         data: {
-                            action: 'wpdeveloper_upsale_notice_dissmiss_for_<?php echo $this->plugin_name; ?>',
+                            action: 'wpdeveloper_upsale_notice_dissmiss_for_<?php echo esc_attr( $this->plugin_name ); ?>',
                             _wpnonce: '<?php echo wp_create_nonce( 'wpdeveloper_upsale_notice_dissmiss' ); ?>',
                             dismiss: true
                         },

@@ -29,12 +29,6 @@ class Upgrader {
     public function __construct() {
         $this->database  = Database::get_instance();
         if( isset( $_GET['nx_db_clear'] ) ) {
-            require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-            $table_posts   = Database::$table_posts;
-            $table_entries = Database::$table_entries;
-            $table_stats   = Database::$table_stats;
-            $dbDelta = dbDelta( "DROP TABLE $table_posts; DROP TABLE $table_entries; DROP TABLE $table_stats" );
-
             $this->database->update_option( 'nx_free_version', false, 'no' );
             $this->database->update_option( 'nx_db_version', false, 'no' );
         }
