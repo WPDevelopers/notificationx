@@ -219,15 +219,15 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 2.3.5 - 19/1/2022 =
+= 2.3.5 - 20/01/2022 =
 - Fixed: More sanitization and escaping.
 - Few minor bug fixes and improvements.
 
-= 2.3.4 - 16/1/2022 =
+= 2.3.4 - 16/01/2022 =
 - Fixed: Added sanitization and escaping.
 - Few minor bug fixes and improvements.
 
-= 2.3.3 - 11/1/2022 =
+= 2.3.3 - 11/01/2022 =
 - Few minor bug fixes and improvements.
 
 = 2.3.2 - 21/12/2021 =
