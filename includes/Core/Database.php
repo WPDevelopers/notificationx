@@ -57,7 +57,7 @@ class Database {
                 entry_key varchar(255) default NULL,
                 data longtext,
                 created_at TIMESTAMP NOT NULL,
-                updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP NOT NULL,
                 PRIMARY KEY (entry_id),
                 KEY source (source),
                 KEY nx_id (nx_id)
