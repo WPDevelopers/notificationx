@@ -18,11 +18,10 @@ use NotificationX\Extensions\GlobalFields;
  */
 class WooInline extends WooCommerce {
     /**
-     * Instance of WOOReviews
+     * Instance of WooInline
      *
-     * @var WOOReviews
+     * @var WooInline
      */
-
     protected static $instance = null;
     public $priority        = 5;
     public $id              = 'woo_inline';
@@ -36,7 +35,7 @@ class WooInline extends WooCommerce {
     /**
      * Get the instance of called class.
      *
-     * @return ReviewX
+     * @return WooInline
      */
     public static function get_instance($args = null){
         if ( is_null( static::$instance ) || ! static::$instance instanceof self ) {

@@ -118,12 +118,12 @@ class WooCommerce extends Extension {
      * @return array
      */
     public function link_types($options) {
-        $_options = GlobalFields::get_instance()->normalize_fields([
+        $options = GlobalFields::get_instance()->normalize_fields([
             'product_page' => __('Product Page', 'notificationx'),
-        ], 'source', $this->id);
+        ], 'source', $this->id, $options);
 
         $this->has_link_types = true;
-        return array_merge($options, $_options);
+        return $options;
     }
 
     public function saved_post($post, $data, $nx_id) {
