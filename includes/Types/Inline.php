@@ -82,9 +82,22 @@ class Inline extends Types {
      */
     public function init_fields() {
         parent::init_fields();
-
+        add_filter( 'nx_show_on_exclude', array( $this, 'show_on_exclude' ), 10, 4 );
 
     }
 
-
+    /**
+     * Making sure inline notice don't show as normal notice
+     * if pro is disabled.
+     *
+     * @param  bool $exclude
+     * @param  array $settings
+     * @return bool
+     */
+    public function show_on_exclude( $exclude, $settings ) {
+        if ( ! empty( $settings['inline_location'] ) && $this->id === $settings['type'] ) {
+            return true;
+        }
+        return $exclude;
+    }
 }

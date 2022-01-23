@@ -29,6 +29,7 @@ const SingleNotificationX = ({
     checked,
     // _checked,
     checkItem,
+    setReload,
     ...item
 }) => {
     const builderContext = useNotificationXContext();
@@ -180,6 +181,7 @@ const SingleNotificationX = ({
                     regenerate={item?.can_regenerate}
                     enabled={item.enabled}
                     setTotalItems={setTotalItems}
+                    setReload={setReload}
                     {...item}
                 />
             </td>

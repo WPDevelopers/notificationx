@@ -16,6 +16,7 @@ const NotificationXItemsMenu = ({
     updateNotice,
     setTotalItems,
     setCheckAll,
+    setReload,
 }) => {
     const builderContext = useNotificationXContext();
     const [loading, setLoading] = useState(false);
@@ -62,36 +63,8 @@ const NotificationXItemsMenu = ({
                 setCheckAll(false);
                 setLoading(false);
                 if (result?.success) {
-                    const count = {
-                        all: 0,
-                        enabled: 0,
-                        disabled: 0,
-                    };
-                    updateNotice((notices) =>
-                        notices.filter((notice) => {
-                            const isDeleted =
-                                result?.count?.[notice.nx_id] &&
-                                selectedItem.indexOf(parseInt(notice.nx_id)) !==
-                                -1;
-                            if (isDeleted) {
-                                // if deleted then count them in.
-                                count.all += 1;
-                                count.enabled += notice.enabled ? 1 : 0;
-                                count.disabled += !notice.enabled ? 1 : 0;
-                            }
-                            return !isDeleted;
-                        })
-                    );
-
-                    setTotalItems((prev) => {
-                        return {
-                            all: Number(prev.all) - count.all,
-                            enabled: Number(prev.enabled) - count.enabled,
-                            disabled: Number(prev.disabled) - count.disabled,
-                        };
-                    });
-
-                    return count;
+                    setReload(r => ! r);
+                    return {all: Object.keys(result.count).length};
                 } else {
                     throw new Error(__("Something went wrong.", 'notificationx'));
                 }

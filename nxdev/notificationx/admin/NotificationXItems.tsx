@@ -16,6 +16,7 @@ import parse from 'html-react-parser';
 export const NotificationXItems = (props) => {
     const builderContext = useNotificationXContext();
     const [checkAll, setCheckAll] = useState(false);
+    const [reload, setReload] = useState(false);
     const isMounted = useRef(null);
     const loading = {
         title: __("loading...", 'notificationx'),
@@ -57,8 +58,11 @@ export const NotificationXItems = (props) => {
     useEffect(() => {
         if (currentPage === 0 || perPage === 0) return;
         setIsLoading(true);
+        const controller = typeof AbortController === 'undefined' ? undefined : new AbortController();
         nxHelper
-            .get(`nx?status=${status}&page=${currentPage}&per_page=${perPage}`)
+            .get(`nx?status=${status}&page=${currentPage}&per_page=${perPage}`,
+                { signal: controller?.signal }
+            )
             .then((res: any) => {
                 setIsLoading(false);
                 if (isArray(res?.posts) && isMounted.current) {
@@ -78,7 +82,11 @@ export const NotificationXItems = (props) => {
                 setIsLoading(false);
                 console.error(__('NotificationX Fetch Error: ', 'notificationx'), err);
             });
-    }, [currentPage, perPage, status]);
+
+        return () => {
+            controller?.abort();
+        }
+    }, [currentPage, perPage, status, reload]);
 
     React.useEffect(() => {
         setFilteredNotice(
@@ -115,6 +123,7 @@ export const NotificationXItems = (props) => {
                     filteredNotice={filteredNotice}
                     setTotalItems={setTotalItems}
                     setCheckAll={setCheckAll}
+                    setReload={setReload}
                 />
 
                 <WrapperWithLoader isLoading={isLoading} div={false}>
@@ -157,6 +166,7 @@ export const NotificationXItems = (props) => {
                                 setTotalItems={setTotalItems}
                                 checkAll={checkAll}
                                 setCheckAll={setCheckAll}
+                                setReload={setReload}
                             />
                             <div className="nx-admin-items-footer">
                                 <SelectControl

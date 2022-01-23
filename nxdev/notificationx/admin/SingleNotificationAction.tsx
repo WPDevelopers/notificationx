@@ -16,6 +16,7 @@ const SingleNotificationAction = ({
     regenerate,
     setTotalItems,
     enabled,
+    setReload,
     ...item
 }) => {
     const nxContext = useNotificationXContext();
@@ -60,30 +61,7 @@ const SingleNotificationAction = ({
                         return nxHelper.delete(`nx/${id}`, { nx_id: id });
                     },
                     completeAction: (response) => {
-                        updateNotice((notices) =>
-                            notices.filter(
-                                (notice) =>
-                                    parseInt(notice.nx_id) !== parseInt(id)
-                            )
-                        );
-
-                        if (enabled) {
-                            setTotalItems((prev) => {
-                                return {
-                                    all: Number(prev.all) - 1,
-                                    enabled: Number(prev.enabled) - 1,
-                                    disabled: Number(prev.disabled),
-                                };
-                            });
-                        } else {
-                            setTotalItems((prev) => {
-                                return {
-                                    all: Number(prev.all) - 1,
-                                    enabled: Number(prev.enabled),
-                                    disabled: Number(prev.disabled) - 1,
-                                };
-                            });
-                        }
+                        setReload(r => ! r);
                     },
                     completeArgs: () => {
                         return [
@@ -138,7 +116,7 @@ const SingleNotificationAction = ({
     const handleCopy = useCallback(
         (event) => {
             if (id) {
-                
+
                 Swal.fire({
                     iconHtml: `<img alt="NotificationX" src="${nxContext.assets.admin}images/shortcode.svg" style="height: 45px; width:55px" class="shortcodeIcon" />`,
                     iconColor: "#6a4bff",
