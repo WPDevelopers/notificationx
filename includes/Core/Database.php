@@ -105,10 +105,10 @@ class Database {
 
         return $this->wpdb->query( $this->wpdb->prepare( '
             UPDATE %1$s
-            SET %2$s = %2$s + %3$s
-            WHERE nx_id = %4$s
-            AND created_at = "%5$s"',
-            $table_name, $col, $_data, $id, $date
+            SET %2$s = %3$s + %4$s
+            WHERE nx_id = %5$s
+            AND created_at = "%6$s"',
+            $table_name, $col, $col, $_data, $id, $date
         )
         );
     }
