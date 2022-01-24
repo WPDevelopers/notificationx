@@ -17,6 +17,7 @@ const NotificationXItemsMenu = ({
     setTotalItems,
     setCheckAll,
     setReload,
+    setCurrentPage,
 }) => {
     const builderContext = useNotificationXContext();
     const [loading, setLoading] = useState(false);
@@ -109,6 +110,7 @@ const NotificationXItemsMenu = ({
                 disabled: Number(prev.disabled) - count,
             };
         });
+        status != 'all' && setReload(r => ! r);
         // translators: %d: Number of Notification Alerts Enabled.
         nxToast.enabled(sprintf(__(`%d Notification Alerts have been Enabled.`, 'notificationx'), count));
     };
@@ -135,6 +137,7 @@ const NotificationXItemsMenu = ({
                 disabled: Number(prev.disabled) + count,
             };
         });
+        status != 'all' && setReload(r => ! r);
         // translators: %d: Number of Notification Alerts Disabled.
         nxToast.disabled(sprintf(__(`%d Notification Alerts have been Disabled.`, 'notificationx'), count));
     };
@@ -234,19 +237,19 @@ const NotificationXItemsMenu = ({
     return (
         <div className="nx-admin-menu">
             <ul>
-                <li className={status === "all" ? "nx-active" : ""}>
+                <li className={status === "all" ? "nx-active" : ""} onClick={() => setCurrentPage(1)}>
                     <NavLink status="all" perPage={perPage}>
                         {/* translators: %d: Number of total Notification Alerts. */}
                         {sprintf(__("All (%d)", 'notificationx'), totalItems.all)}
                     </NavLink>
                 </li>
-                <li className={status === "enabled" ? "nx-active" : ""}>
+                <li className={status === "enabled" ? "nx-active" : ""} onClick={() => setCurrentPage(1)}>
                     <NavLink status="enabled" perPage={perPage}>
                         {/* translators: %d: Number of total Notification Alerts enabled. */}
                         {sprintf(__("Enabled (%d)", 'notificationx'), totalItems.enabled)}
                     </NavLink>
                 </li>
-                <li className={status === "disabled" ? "nx-active" : ""}>
+                <li className={status === "disabled" ? "nx-active" : ""} onClick={() => setCurrentPage(1)}>
                     <NavLink status="disabled" perPage={perPage}>
                         {/* translators: %d: Number of total Notification Alerts disabled. */}
                         {sprintf(__("Disabled (%d)", 'notificationx'), totalItems.disabled)}

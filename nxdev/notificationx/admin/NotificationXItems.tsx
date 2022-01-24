@@ -64,6 +64,9 @@ export const NotificationXItems = (props) => {
                 { signal: controller?.signal }
             )
             .then((res: any) => {
+                if(controller?.signal?.aborted){
+                    return;
+                }
                 setIsLoading(false);
                 if (isArray(res?.posts) && isMounted.current) {
                     setNotificationx(res?.posts);
@@ -117,6 +120,7 @@ export const NotificationXItems = (props) => {
                 <NotificationXItemsMenu
                     status={status}
                     perPage={perPage}
+                    setCurrentPage={setCurrentPage}
                     notificationx={notificationx}
                     updateNotice={setNotificationx}
                     totalItems={totalItems}
