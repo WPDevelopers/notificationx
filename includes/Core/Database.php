@@ -100,15 +100,14 @@ class Database {
 
     public function update_analytics( $col, $id, $date, $data = null ) {
         $table_name = self::$table_stats;
-
         $_data = is_null( $data ) ? 1 : $data;
 
         return $this->wpdb->query( $this->wpdb->prepare( '
             UPDATE %1$s
             SET %2$s = %3$s + %4$s
-            WHERE nx_id = %5$s
+            WHERE nx_id = "%5$s"
             AND created_at = "%6$s"',
-            $table_name, $col, $col, $_data, $id, $date
+            $table_name, $col, $col, $_data, intval( $id ), $date
         )
         );
     }
