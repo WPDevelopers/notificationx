@@ -135,13 +135,14 @@ class EDD extends Extension {
      * @return array
      */
     public function link_types( $options ) {
-        $_options = GlobalFields::get_instance()->normalize_fields(array(
-            'product_image' => __( 'Product Page', 'notificationx' ),
-            ), 'source', $this->id
+        $options = GlobalFields::get_instance()->normalize_fields(
+            array(
+                'product_image' => __( 'Product Page', 'notificationx' ),
+            ), 'source', $this->id, $options
         );
 
         $this->has_link_types = true;
-        return array_merge( $options, $_options );
+        return $options;
     }
 
     public function saved_post($post, $data, $nx_id) {
