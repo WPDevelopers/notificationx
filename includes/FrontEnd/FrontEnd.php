@@ -382,7 +382,7 @@ class FrontEnd {
 
     public function get_notifications( $ids ) {
         $results       = [];
-        $ids = array_map( 'esc_sql', $ids );
+        $ids = array_map( 'absint', $ids );
         $notifications = PostType::get_instance()->get_posts([
             'nx_id' => [
                 'IN',
@@ -410,7 +410,7 @@ class FrontEnd {
             foreach ( $ids as $id ) {
                 if ( ! empty( $notifications[ $id ] ) ) {
                     $post         = $notifications[ $id ];
-                    $query[ $id ] = " (nx_id = " . esc_sql( $id ) . " AND source = '" . esc_sql( $post['source'] ) . "')";
+                    $query[ $id ] = " (nx_id = " . absint( $id ) . " AND source = '" . esc_sql( $post['source'] ) . "')";
                 }
             }
             if ( ! empty( $query ) ) {
