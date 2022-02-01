@@ -103,11 +103,11 @@ class Database {
         $_data = is_null( $data ) ? 1 : $data;
 
         return $this->wpdb->query( $this->wpdb->prepare( '
-            UPDATE %1$s
-            SET %2$s = %3$s + %4$s
-            WHERE nx_id = "%5$s"
-            AND created_at = "%6$s"',
-            $table_name, $col, $col, $_data, intval( $id ), $date
+            UPDATE %s
+            SET %s = %s + %s
+            WHERE nx_id = %d
+            AND created_at = %s',
+            $table_name, $col, $col, $_data, $id, $date
         )
         );
     }

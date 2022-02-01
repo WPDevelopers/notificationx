@@ -410,7 +410,7 @@ class FrontEnd {
             foreach ( $ids as $id ) {
                 if ( ! empty( $notifications[ $id ] ) ) {
                     $post         = $notifications[ $id ];
-                    $query[ $id ] = " (nx_id = $id AND source = '{$post['source']}')";
+                    $query[ $id ] = " (nx_id = " . esc_sql( $id ) . " AND source = '" . esc_sql( $post['source'] ) . "')";
                 }
             }
             if ( ! empty( $query ) ) {

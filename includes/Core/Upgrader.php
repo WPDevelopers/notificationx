@@ -28,11 +28,6 @@ class Upgrader {
      */
     public function __construct() {
         $this->database  = Database::get_instance();
-        if( isset( $_GET['nx_db_clear'] ) ) {
-            $this->database->update_option( 'nx_free_version', false, 'no' );
-            $this->database->update_option( 'nx_db_version', false, 'no' );
-        }
-
         $nx_free_version = $this->database->get_option('nx_free_version');
         $nx_db_version   = $this->database->get_option('nx_db_version');
 
