@@ -163,7 +163,9 @@ class Analytics {
      * @return void
      */
     public function insert_views( $entries, $post ) {
-        $this->insert_analytics( $post['nx_id'], 'views' );
+        if ( ! did_action( 'nx_ignore_analytics' ) ) {
+            $this->insert_analytics( $post['nx_id'], 'views' );
+        }
         return $entries;
     }
 
