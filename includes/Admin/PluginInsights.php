@@ -918,7 +918,6 @@ class PluginInsights {
      */
     public function deactivate_reasons_form_script() {
         $form              = $this->deactivation_reasons();
-        $class_plugin_name = esc_attr( $this->plugin_name );
 
         $html              = '<div class="wpinsights-goodbye-form-head"><strong>' . esc_html( $form['heading'] ) . '</strong></div>';
         $html             .= '<div class="wpinsights-goodbye-form-body"><p class="wpinsights-goodbye-form-caption">' . esc_html( $form['body'] ) . '</p>';
@@ -927,9 +926,9 @@ class PluginInsights {
             foreach ( $form['options'] as $option ) {
                 if ( is_array( $option ) ) {
                     $id    = strtolower( str_replace( ' ', '_', esc_attr( $option['label'] ) ) );
-                    $id    = $id . '_' . $class_plugin_name;
+                    $id    = $id . '_' . $this->plugin_name;
                     $html .= '<li class="has-goodbye-extra">';
-                    $html .= '<input type="radio" name="wpinsights-' . $class_plugin_name . '-goodbye-options" id="' . esc_attr( $id ) . '" value="' . esc_attr( $option['label'] ) . '">';
+                    $html .= '<input type="radio" name="wpinsights-' . esc_attr( $this->plugin_name ) . '-goodbye-options" id="' . esc_attr( $id ) . '" value="' . esc_attr( $option['label'] ) . '">';
                     $html .= '<div><label for="' . esc_attr( $id ) . '">' . esc_attr( $option['label'] ) . '</label>';
                     if ( isset( $option['extra_field'] ) && ! isset( $option['type'] ) ) {
                         $html .= '<input type="text" style="display: none" name="' . esc_attr( $id ) . '" id="' . str_replace( ' ', '', esc_attr( $option['extra_field'] ) ) . '" placeholder="' . esc_attr( $option['extra_field'] ) . '">';
@@ -940,11 +939,11 @@ class PluginInsights {
                     $html .= '</div></li>';
                 } else {
                     $id    = strtolower( str_replace( ' ', '_', esc_attr( $option ) ) );
-                    $id    = $id . '_' . $class_plugin_name;
-                    $html .= '<li><input type="radio" name="wpinsights-' . $class_plugin_name . '-goodbye-options" id="' . esc_attr( $id ) . '" value="' . esc_attr( $option ) . '"> <label for="' . esc_attr( $id ) . '">' . esc_attr( $option ) . '</label></li>';
+                    $id    = $id . '_' . $this->plugin_name;
+                    $html .= '<li><input type="radio" name="wpinsights-' . esc_attr( $this->plugin_name ) . '-goodbye-options" id="' . esc_attr( $id ) . '" value="' . esc_attr( $option ) . '"> <label for="' . esc_attr( $id ) . '">' . esc_attr( $option ) . '</label></li>';
                 }
             }
-            $html .= '</ul></div><!-- .wpinsights-' . $class_plugin_name . '-goodbye-options -->';
+            $html .= '</ul></div><!-- .wpinsights-' . esc_attr( $this->plugin_name ) . '-goodbye-options -->';
         }
         $html .= '</div><!-- .wpinsights-goodbye-form-body -->';
         $html .= '<p class="deactivating-spinner"><span class="spinner"></span> ' . __( 'Submitting form', 'wpinsight' ) . '</p>';
@@ -952,20 +951,20 @@ class PluginInsights {
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function($){
-                $("#wpinsights-goodbye-link-<?php echo $class_plugin_name; ?>").on("click",function(){
+                $("#wpinsights-goodbye-link-<?php echo esc_attr( $this->plugin_name ); ?>").on("click",function(){
                     // We'll send the user to this deactivation link when they've completed or dismissed the form
-                    var url = document.getElementById("wpinsights-goodbye-link-<?php echo $class_plugin_name; ?>");
-                    $('body').toggleClass('wpinsights-form-active-<?php echo $class_plugin_name; ?>');
-                    $(".wpinsights-goodbye-form-wrapper-<?php echo $class_plugin_name; ?> #wpinsights-goodbye-form").fadeIn();
-                    $(".wpinsights-goodbye-form-wrapper-<?php echo $class_plugin_name; ?> #wpinsights-goodbye-form").html( '<?php echo $html; ?>' + '<div class="wpinsights-goodbye-form-footer"><div class="wpinsights-goodbye-form-buttons"><a id="wpinsights-submit-form-<?php echo $class_plugin_name; ?>" class="wpinsights-submit-btn" href="#"><?php esc_html_e( 'Submit and Deactivate', 'wpinsight' ); ?></a>&nbsp;<a class="wpsp-put-deactivate-btn" href="'+url+'"><?php esc_html_e( 'Just Deactivate', 'wpinsight' ); ?></a></div></div>');
-                    $('#wpinsights-submit-form-<?php echo $class_plugin_name; ?>').on('click', function(e){
+                    var url = document.getElementById("wpinsights-goodbye-link-<?php echo esc_attr( $this->plugin_name ); ?>");
+                    $('body').toggleClass('wpinsights-form-active-<?php echo esc_attr( $this->plugin_name ); ?>');
+                    $(".wpinsights-goodbye-form-wrapper-<?php echo esc_attr( $this->plugin_name ); ?> #wpinsights-goodbye-form").fadeIn();
+                    $(".wpinsights-goodbye-form-wrapper-<?php echo esc_attr( $this->plugin_name ); ?> #wpinsights-goodbye-form").html( '<?php echo $html; ?>' + '<div class="wpinsights-goodbye-form-footer"><div class="wpinsights-goodbye-form-buttons"><a id="wpinsights-submit-form-<?php echo esc_attr( $this->plugin_name ); ?>" class="wpinsights-submit-btn" href="#"><?php esc_html_e( 'Submit and Deactivate', 'wpinsight' ); ?></a>&nbsp;<a class="wpsp-put-deactivate-btn" href="'+url+'"><?php esc_html_e( 'Just Deactivate', 'wpinsight' ); ?></a></div></div>');
+                    $('#wpinsights-submit-form-<?php echo esc_attr( $this->plugin_name ); ?>').on('click', function(e){
                         // As soon as we click, the body of the form should disappear
-                        $("#wpinsights-goodbye-form-<?php echo $class_plugin_name; ?> .wpinsights-goodbye-form-body").fadeOut();
-                        $("#wpinsights-goodbye-form-<?php echo $class_plugin_name; ?> .wpinsights-goodbye-form-footer").fadeOut();
+                        $("#wpinsights-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?> .wpinsights-goodbye-form-body").fadeOut();
+                        $("#wpinsights-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?> .wpinsights-goodbye-form-footer").fadeOut();
                         // Fade in spinner
-                        $("#wpinsights-goodbye-form-<?php echo $class_plugin_name; ?> .deactivating-spinner").fadeIn();
+                        $("#wpinsights-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?> .deactivating-spinner").fadeIn();
                         e.preventDefault();
-                        var checkedInput = $("input[name='wpinsights-<?php echo $class_plugin_name; ?>-goodbye-options']:checked"),
+                        var checkedInput = $("input[name='wpinsights-<?php echo esc_attr( $this->plugin_name ); ?>-goodbye-options']:checked"),
                             checkedInputVal, details;
                         if( checkedInput.length > 0 ) {
                             checkedInputVal = checkedInput.val();
@@ -980,7 +979,7 @@ class PluginInsights {
                         }
 
                         var data = {
-                            'action': 'deactivation_form_<?php echo $class_plugin_name; ?>',
+                            'action': 'deactivation_form_<?php echo esc_attr( $this->plugin_name ); ?>',
                             'values': checkedInputVal,
                             'details': details,
                             'security': "<?php echo wp_create_nonce( 'wpins_deactivation_nonce' ); ?>",
@@ -1004,7 +1003,7 @@ class PluginInsights {
                     // If we click outside the form, the form will close
                     $('.wpinsights-goodbye-form-bg').on('click',function(){
                         $("#wpinsights-goodbye-form").fadeOut();
-                        $('body').removeClass('wpinsights-form-active-<?php echo $class_plugin_name; ?>');
+                        $('body').removeClass('wpinsights-form-active-<?php echo esc_attr( $this->plugin_name ); ?>');
                     });
                 });
             });

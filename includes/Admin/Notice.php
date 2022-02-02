@@ -374,7 +374,7 @@ class Notice {
             $classes .= 'notice-has-thumbnail';
         }
 
-        echo '<div class="' . sanitize_html_class( $classes ) . ' wpdeveloper-' . sanitize_html_class( $current_notice ) . '-notice">';
+        echo '<div class="' . esc_attr( $classes ) . ' wpdeveloper-' . esc_attr( $current_notice ) . '-notice">';
     }
     /**
      * After Notice
@@ -426,7 +426,7 @@ class Notice {
         if ( $this->has_thumbnail( 'upsale' ) ) {
             $classes = 'notice-has-thumbnail';
         }
-        echo '<div class="error notice is-dismissible wpdeveloper-upsale-notice ' . sanitize_html_class( $classes ) . '">';
+        echo '<div class="error notice is-dismissible wpdeveloper-upsale-notice ' . esc_attr( $classes ) . '">';
     }
     /**
      * Upsale Notice
@@ -599,7 +599,7 @@ class Notice {
                         }
                         $class = '';
                         if ( isset( $link_value['link_class'] ) ) {
-                            $sanitized_classes = array_map( 'sanitize_html_class', $link_value['link_class'] );
+                            $sanitized_classes = array_map( 'esc_attr', $link_value['link_class'] );
                             $class = 'class="' . implode( ' ', $sanitized_classes ) . '"';
                         }
                         $output .= '<a ' . $class . ' href="' . esc_url( $link ) . '" ' . $target . '>';
