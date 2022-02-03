@@ -188,6 +188,9 @@ class FrontEnd {
                     if ( $settings['show_on'] === 'only_shortcode' || 'inline' === $settings['type'] ) {
                         continue;
                     }
+                    if ( empty( $global ) || empty( $active ) ) {
+                        continue;
+                    }
                 }
 
                 if ( ! empty( $settings['global_queue'] ) ) {
