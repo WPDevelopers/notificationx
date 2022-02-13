@@ -150,6 +150,7 @@ class ELearning extends Types {
             ],
         ];
         parent::__construct();
+        add_filter("nx_filtered_entry_{$this->id}", array($this, 'conversion_data'), 10, 2);
     }
 
 
@@ -228,4 +229,10 @@ class ELearning extends Types {
         return array_merge($options, $_options);
     }
 
+    public function conversion_data($saved_data, $settings) {
+        if ( ! empty( $entry['course_title'] ) ) {
+            $entry['course_title'] = strip_tags( html_entity_decode( $entry['course_title'] ) );
+        }
+        return $saved_data;
+    }
 }
