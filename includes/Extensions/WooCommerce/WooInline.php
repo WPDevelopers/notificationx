@@ -63,6 +63,86 @@ class WooInline extends WooCommerce {
     public function __construct(){
         parent::__construct();
 
+        $this->themes = [
+            'conv-theme-seven' => array(
+                'is_pro'      => true,
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/inline.jpg',
+                'image_shape' => 'rounded',
+                'template'    => [
+                    'first_param'         => 'tag_sales_count',
+                    'custom_first_param'  => __( 'Someone', 'notificationx' ),
+                    'second_param'        => __( 'people purchased', 'notificationx' ),
+                    'third_param'         => 'tag_product_title',
+                    'fourth_param'        => 'tag_7days',
+                    'custom_fourth_param' => __( 'in last {{day:7}}', 'notificationx' ),
+                ],
+            ),
+            'stock-theme-one' => array(
+                'is_pro'      => true,
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/inline.jpg',
+                'image_shape' => 'rounded',
+                'template'    => [
+                    // 'first_param'         => 'tag_sales_count',
+                    // 'custom_first_param'  => __( 'Someone', 'notificationx' ),
+                    'second_param'        => __( 'Only', 'notificationx' ),
+                    'third_param'         => 'tag_stock_count',
+                    'fourth_param'        => 'tag_left_in_stock',
+                    'custom_fourth_param' => __( 'left in stock', 'notificationx' ),
+                    'fifth_param'        => 'tag_order_soon',
+                    'custom_fifth_param' => __( '- order soon.', 'notificationx' ),
+                ],
+            ),
+            'stock-theme-two' => array(
+                'is_pro'      => true,
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/inline.jpg',
+                'image_shape' => 'rounded',
+                'template'    => [
+                    // 'first_param'         => 'tag_sales_count',
+                    // 'custom_first_param'  => __( 'Someone', 'notificationx' ),
+                    'second_param'        => __( 'In high demand - only', 'notificationx' ),
+                    'third_param'         => 'tag_stock_count',
+                    'fourth_param'        => 'tag_left',
+                    'custom_fourth_param' => __( 'left', 'notificationx' ),
+                    'fifth_param'         => 'tag_on_our_site',
+                    'custom_fifth_param'  => __( 'on our site!', 'notificationx' ),
+                ],
+            ),
+        ];
+        $this->templates = [
+            'woo_template_sales_count' => [
+                'first_param'  => [
+                    'tag_sales_count' => __( 'Sales Count', 'notificationx' ),
+                ],
+                'third_param'  => [
+                    'tag_product_title' => __( 'Product Title', 'notificationx' ),
+                ],
+                'fourth_param' => [
+                    'tag_1day'   => __( 'In last 1 day', 'notificationx' ),
+                    'tag_7days'  => __( 'In last 7 days', 'notificationx' ),
+                    'tag_30days' => __( 'In last 30 days', 'notificationx' ),
+                ],
+                '_themes'      => [
+                    "{$this->id}_conv-theme-seven",
+                ],
+            ],
+            'inline_stock_template'    => [
+                'third_param'  => [
+                    'tag_stock_count' => __( 'Stock Count', 'notificationx' ),
+                ],
+                'fourth_param' => [
+                    'tag_left_in_stock' => __( 'left in stock', 'notificationx' ),
+                    'tag_left' => __( 'left', 'notificationx' ),
+                ],
+                'fifth_param' => [
+                    'tag_order_soon' => __( '- order soon.', 'notificationx' ),
+                    'tag_on_our_site' => __( 'on our site!', 'notificationx' ),
+                ],
+                '_themes'      => [
+                    "{$this->id}_stock-theme-one",
+                    "{$this->id}_stock-theme-two",
+                ],
+            ],
+        ];
     }
 
     public function content_fields($fields){
