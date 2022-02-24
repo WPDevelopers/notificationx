@@ -169,6 +169,12 @@ const GetTemplate = (settings) => {
                 `${params?.first_param} ${params?.second_param}`,
                 `${params?.third_param} ${params?.ga_fourth_param}`,
             ];
+        case 'stock-theme-one':
+        case 'stock-theme-two':
+            return [
+                `${params?.second_param} ${params?.third_param} ${params?.fourth_param} ${params?.fifth_param}`
+            ];
+            break;
         default:
             console.error("Please select a theme", settings);
             return [

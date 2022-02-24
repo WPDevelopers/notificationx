@@ -86,10 +86,11 @@ class WooInline extends WooCommerce {
                     // 'custom_first_param'  => __( 'Someone', 'notificationx' ),
                     'second_param'        => __( 'Only', 'notificationx' ),
                     'third_param'         => 'tag_stock_count',
+                    'custom_third_param'  => 10,
                     'fourth_param'        => 'tag_left_in_stock',
                     'custom_fourth_param' => __( 'left in stock', 'notificationx' ),
-                    'fifth_param'        => 'tag_order_soon',
-                    'custom_fifth_param' => __( '- order soon.', 'notificationx' ),
+                    'fifth_param'         => 'tag_order_soon',
+                    'custom_fifth_param'  => __( '- order soon.', 'notificationx' ),
                 ],
             ),
             'stock-theme-two' => array(
@@ -101,6 +102,7 @@ class WooInline extends WooCommerce {
                     // 'custom_first_param'  => __( 'Someone', 'notificationx' ),
                     'second_param'        => __( 'In high demand - only', 'notificationx' ),
                     'third_param'         => 'tag_stock_count',
+                    'custom_third_param'  => 10,
                     'fourth_param'        => 'tag_left',
                     'custom_fourth_param' => __( 'left', 'notificationx' ),
                     'fifth_param'         => 'tag_on_our_site',
@@ -134,7 +136,7 @@ class WooInline extends WooCommerce {
                     'tag_left' => __( 'left', 'notificationx' ),
                 ],
                 'fifth_param' => [
-                    'tag_order_soon' => __( '- order soon.', 'notificationx' ),
+                    'tag_order_soon' => __( 'order soon.', 'notificationx' ),
                     'tag_on_our_site' => __( 'on our site!', 'notificationx' ),
                 ],
                 '_themes'      => [
