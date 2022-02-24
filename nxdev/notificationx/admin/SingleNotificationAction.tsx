@@ -228,7 +228,7 @@ const SingleNotificationAction = ({
             >
                 <span>{__("Duplicate", "notificationx")}</span>
             </Link>
-            {nxContext?.is_pro_active && item.source != "press_bar" && (
+            {nxContext?.is_pro_active && item.source != "press_bar" && item.themes !== 'woo_inline_stock-theme-one' && item.themes !== 'woo_inline_stock-theme-two' && (
                 <button
                     className="nx-admin-title-shortcode nx-shortcode-btn"
                     title={__("Shortcode", "notificationx")}
