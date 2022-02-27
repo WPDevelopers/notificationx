@@ -11,10 +11,8 @@
             }
         }
         .wprf-column-3 {
-            @media only screen and (max-width: 1399px) {
-                width: 33.333333%;
-            }
-            @media only screen and (max-width: 782px) {
+            width: 33.333333%;
+            @media only screen and (max-width: 1279px) {
                 width: 50%;
             }
             @media only screen and (max-width: 575px) {
@@ -84,7 +82,7 @@
                 font-size: 14px;
             }
             .wprf-label-image {
-                max-height: 80px;
+                max-height: 85px;
             }
             .wprf-badge {
                 .wprf-badge-item {

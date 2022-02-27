@@ -4,3 +4,23 @@
 @import "color-theme-four";
 @import "color-theme-five";
 @import "color-theme-six";
+
+.themes-download_stats_actively_using,
+.themes-download_stats_7day-download,
+.themes-conversions_conv-theme-seven,
+.themes-page_analytics_pa-theme-one,
+.themes-conversions_theme-one {
+    border-radius: 5px !important;
+}
+
+.themes-elearning_conv-theme-nine,
+.themes-donation_conv-theme-nine,
+.themes-conversions_conv-theme-nine,
+.themes-page_analytics_pa-theme-two {
+    border-radius: 5px !important;
+    background: transparent !important;
+    .notificationx-image,
+    .notificationx-content {
+        border-radius: 5px !important;
+    }
+}
