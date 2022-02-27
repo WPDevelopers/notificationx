@@ -70,9 +70,10 @@ class WooInline extends WooCommerce {
                 'image_shape' => 'rounded',
                 'template'    => [
                     'first_param'         => 'tag_sales_count',
-                    'custom_first_param'  => __( 'Someone', 'notificationx' ),
+                    'custom_first_param'  => __( '99', 'notificationx' ),
                     'second_param'        => __( 'people purchased', 'notificationx' ),
                     'third_param'         => 'tag_product_title',
+                    'custom_fourth_param' => __( 'Anonymous Product', 'notificationx' ),
                     'fourth_param'        => 'tag_7days',
                     'custom_fourth_param' => __( 'in last {{day:7}}', 'notificationx' ),
                 ],
