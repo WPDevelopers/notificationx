@@ -210,8 +210,8 @@ class WooReviews extends Extension {
         $data['plugin_review'] = __('Some review content', 'notificationx');
         $data['rating']    = 5;
 
-        if(!empty($saved_data['tag_plugin_name'])){
-            $data['tag_product_title'] = $saved_data['tag_plugin_name'];
+        if ( empty( $entry['product_title'] ) && ! empty( $saved_data['title'] ) ) {
+            $data['product_title'] = $saved_data['title'];
         }
         return $data;
     }
