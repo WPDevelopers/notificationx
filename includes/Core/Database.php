@@ -154,7 +154,7 @@ class Database {
     public function get_post( $table_name, $where__or_pid, $select = '*' ) {
         if ( ! is_array( $where__or_pid ) ) {
             $id            = $this->get_primary_col( $table_name );
-            $where__or_pid = [ $id => $where__or_pid ];
+            $where__or_pid = [ $id => absint( $where__or_pid ) ];
         }
         $posts = $this->get_posts( $table_name, $select, $where__or_pid );
         return ! empty( $posts[0] ) ? $posts[0] : null;
