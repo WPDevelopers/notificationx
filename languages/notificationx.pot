@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 2.3.7\n"
+"Project-Id-Version: NotificationX 2.3.11\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-02-01T06:22:39+00:00\n"
+"POT-Creation-Date: 2022-02-13T12:36:01+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: notificationx\n"
@@ -547,7 +547,7 @@ msgstr ""
 #: includes/FrontEnd/FrontEnd.php:128
 #: includes/FrontEnd/FrontEnd.php:129
 #: includes/FrontEnd/FrontEnd.php:130
-#: includes/FrontEnd/FrontEnd.php:515
+#: includes/FrontEnd/FrontEnd.php:518
 #: includes/Types/Comments.php:45
 #: includes/Types/Comments.php:58
 #: includes/Types/Comments.php:71
@@ -1048,7 +1048,7 @@ msgid "Show Purchase Of"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:540
-#: includes/Types/ELearning.php:193
+#: includes/Types/ELearning.php:194
 msgid "All"
 msgstr ""
 
@@ -2208,19 +2208,19 @@ msgstr ""
 msgid "Course Title"
 msgstr ""
 
-#: includes/Types/ELearning.php:188
+#: includes/Types/ELearning.php:189
 msgid "Show Notification Of"
 msgstr ""
 
-#: includes/Types/ELearning.php:194
+#: includes/Types/ELearning.php:195
 msgid "By Course"
 msgstr ""
 
-#: includes/Types/ELearning.php:201
+#: includes/Types/ELearning.php:202
 msgid "Select Course"
 msgstr ""
 
-#: includes/Types/ELearning.php:224
+#: includes/Types/ELearning.php:225
 msgid "Course Page"
 msgstr ""
 
