@@ -37,7 +37,7 @@ class Analytics {
     }
 
     /**
-     * This method is reponsible for Admin Menu of
+     * This method is responsible for Admin Menu of
      * NotificationX
      *
      * @return void
@@ -49,17 +49,12 @@ class Analytics {
     }
 
     public function get_stats( $args = [] ) {
-        global $wpdb;
-        $where      = [];
-        $post_where = [];
-        $args       = wp_parse_args( $args, [] );
+        $where = [];
+        $args  = wp_parse_args( $args, [] );
         if ( ! empty( $args['startDate'] ) && ! empty( $args['endDate'] ) ) {
-            $startDate           = date( self::$date_format, strtotime( $args['startDate'] ) );
-            $endDate             = date( self::$date_format, strtotime( $args['endDate'] ) );
-            $where['created_at'] = [
-                'BETWEEN',
-                $wpdb->prepare( '%s AND %s', $startDate, $endDate ),
-            ];
+            $start_date          = date( self::$date_format, strtotime( $args['startDate'] ) );
+            $end_date            = date( self::$date_format, strtotime( $args['endDate'] ) );
+            $where['created_at'] = [ 'BETWEEN', $start_date, $end_date ];
         }
         $stats = Database::get_instance()->get_posts( Database::$table_stats, '*', $where );
         $posts = PostType::get_instance()->get_posts( [], 'DISTINCT nx_id, title, source, theme' );
@@ -134,7 +129,7 @@ class Analytics {
     }
 
     public function get_count( $nx_id, $type ) {
-        $where = [ 'nx_id' => $nx_id ];
+        $where = [ 'nx_id' => absint( $nx_id ) ];
         $stats = Database::get_instance()->get_col( Database::$table_stats, $type, $where );
         if ( ! empty( $stats[0] ) ) {
             return $stats[0];

@@ -52,7 +52,12 @@ class Entries {
                 'methods'             => WP_REST_Server::READABLE,
                 'callback'            => array($this, 'regenerate'),
                 'permission_callback' => array($this, 'check_permission'),
-                'args'                => [],
+                'args'                => array(
+                    'nx_id' => array(
+                        'description' => __( 'Unique identifier for the object.', 'notificationx' ),
+                        'type'        => 'integer',
+                    ),
+                ),
             ),
         ));
     }

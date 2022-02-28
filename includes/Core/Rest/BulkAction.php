@@ -33,7 +33,7 @@ class BulkAction {
     public function __construct() {
         $this->namespace = 'notificationx/v1';
         $this->rest_base = 'bulk-action';
-        add_action('rest_api_init', [$this, 'register_routes']);
+        add_action( 'rest_api_init', [ $this, 'register_routes' ] );
     }
 
     /**
@@ -47,47 +47,71 @@ class BulkAction {
         register_rest_route($this->namespace, "/{$this->rest_base}/delete",
             array(
                 'methods'             => WP_REST_Server::EDITABLE,
-                'callback'            => array($this, 'delete'),
-                'permission_callback' => [$this, 'edit_permission'],
+                'callback'            => array( $this, 'delete' ),
+                'permission_callback' => [ $this, 'edit_permission' ],
+                'args'                => array(
+                    'ids' => array(
+                        'description' => __( 'Array of nx_id.', 'notificationx' ),
+                        'type'        => 'array',
+                    ),
+                ),
             )
         );
         register_rest_route($this->namespace, "/{$this->rest_base}/regenerate",
             array(
                 'methods'             => WP_REST_Server::EDITABLE,
-                'callback'            => array($this, 'regenerate'),
-                'permission_callback' => [$this, 'read_permission'],
+                'callback'            => array( $this, 'regenerate' ),
+                'permission_callback' => [ $this, 'read_permission' ],
+                'args'                => array(
+                    'ids' => array(
+                        'description' => __( 'Array of nx_id.', 'notificationx' ),
+                        'type'        => 'array',
+                    ),
+                ),
             )
         );
         register_rest_route($this->namespace, "/{$this->rest_base}/enable",
             array(
                 'methods'             => WP_REST_Server::EDITABLE,
-                'callback'            => array($this, 'enable'),
-                'permission_callback' => [$this, 'edit_permission'],
+                'callback'            => array( $this, 'enable' ),
+                'permission_callback' => [ $this, 'edit_permission' ],
+                'args'                => array(
+                    'ids' => array(
+                        'description' => __( 'Array of nx_id.', 'notificationx' ),
+                        'type'        => 'array',
+                    ),
+                ),
             )
         );
         register_rest_route($this->namespace, "/{$this->rest_base}/disable",
             array(
                 'methods'             => WP_REST_Server::EDITABLE,
-                'callback'            => array($this, 'disable'),
-                'permission_callback' => [$this, 'edit_permission'],
+                'callback'            => array( $this, 'disable' ),
+                'permission_callback' => [ $this, 'edit_permission' ],
+                'args'                => array(
+                    'ids' => array(
+                        'description' => __( 'Array of nx_id.', 'notificationx' ),
+                        'type'        => 'array',
+                    ),
+                ),
             )
         );
 
     }
 
     public function read_permission( $request ) {
-        return current_user_can('read_notificationx');
+        return current_user_can( 'read_notificationx' );
     }
     public function edit_permission( $request ) {
-        return current_user_can('edit_notificationx');
+        return current_user_can( 'edit_notificationx' );
     }
 
-    public function delete($request){
-        $count = [];
+    public function delete( $request ) {
+        $count  = [];
         $params = $request->get_params();
-        if(!empty($params['ids']) && is_array($params['ids'])){
-            foreach ($params['ids'] as $key => $nx_id) {
-                $count[$nx_id] = PostType::get_instance()->delete_post($nx_id);
+        if ( ! empty( $params['ids'] ) && is_array( $params['ids'] ) ) {
+            foreach ( $params['ids'] as $key => $nx_id ) {
+                $count[ $nx_id ] = PostType::get_instance()->delete_post( $nx_id );
             }
         }
         return [
@@ -96,12 +120,12 @@ class BulkAction {
         ];
     }
 
-    public function regenerate($request){
-        $count = 0;
+    public function regenerate( $request ) {
+        $count  = 0;
         $params = $request->get_params();
-        if(!empty($params['ids']) && is_array($params['ids'])){
-            foreach ($params['ids'] as $key => $nx_id) {
-                $count += Admin::get_instance()->regenerate_notifications(['nx_id' => $nx_id]);
+        if ( ! empty( $params['ids'] ) && is_array( $params['ids'] ) ) {
+            foreach ( $params['ids'] as $key => $nx_id ) {
+                $count += Admin::get_instance()->regenerate_notifications( [ 'nx_id' => $nx_id ] );
             }
         }
         return [
@@ -110,20 +134,15 @@ class BulkAction {
         ];
     }
 
-    public function enable($request){
-        $count = [];
+    public function enable( $request ) {
+        $count  = [];
         $params = $request->get_params();
-        if(!empty($params['ids']) && is_array($params['ids'])){
-            $ids = array_map( 'esc_sql', $params['ids'] );
-            $posts = PostType::get_instance()->get_posts([
-                'nx_id' => [
-                    'IN',
-                    '(' . implode( ', ', $ids ) . ')',
-                ],
-            ], 'nx_id, source' );
-            if(is_array($posts)){
-                foreach ($posts as $key => $post) {
-                    $count[$post['nx_id']] = PostType::get_instance()->update_status([
+        if ( ! empty( $params['ids'] ) && is_array( $params['ids'] ) ) {
+            $ids   = array_map( 'absint', $params['ids'] );
+            $posts = PostType::get_instance()->get_posts_by_ids( $ids, null, 'nx_id, source' );
+            if ( is_array( $posts ) ) {
+                foreach ( $posts as $key => $post ) {
+                    $count[ $post['nx_id'] ] = PostType::get_instance()->update_status([
                         'nx_id'   => $post['nx_id'],
                         'source'  => $post['source'],
                         'enabled' => true,
@@ -137,20 +156,15 @@ class BulkAction {
         ];
     }
 
-    public function disable($request){
-        $count = [];
+    public function disable( $request ) {
+        $count  = [];
         $params = $request->get_params();
-        if(!empty($params['ids']) && is_array($params['ids'])){
-            $ids = array_map( 'esc_sql', $params['ids'] );
-            $posts = PostType::get_instance()->get_posts([
-                'nx_id' => [
-                    'IN',
-                    '(' . implode(', ', $ids) . ')',
-                ],
-            ], 'nx_id, source');
-            if(is_array($posts)){
-                foreach ($posts as $key => $post) {
-                    $count[$post['nx_id']] = PostType::get_instance()->update_status([
+        if ( ! empty( $params['ids'] ) && is_array( $params['ids'] ) ) {
+            $ids   = array_map( 'absint', $params['ids'] );
+            $posts = PostType::get_instance()->get_posts_by_ids( $ids, null, 'nx_id, source' );
+            if ( is_array( $posts ) ) {
+                foreach ( $posts as $key => $post ) {
+                    $count[ $post['nx_id'] ] = PostType::get_instance()->update_status([
                         'nx_id'   => $post['nx_id'],
                         'source'  => $post['source'],
                         'enabled' => false,
