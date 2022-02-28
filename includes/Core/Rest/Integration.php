@@ -58,11 +58,35 @@ class Integration {
                     'methods'             => WP_REST_Server::READABLE,
                     'callback'            => array($this, 'get_response'),
                     'permission_callback' => '__return_true',
+                    'args' => array(
+                        'id' => array(
+                            'required' => true,
+                            'description' => __('Unique identifier for the object.', 'notificationx'),
+                            'type'        => 'integer',
+                        ),
+                        'api_key' => array(
+                            'required' => true,
+                            'description' => __('Unique identifier for the site.', 'notificationx'),
+                            'type'        => 'string',
+                        ),
+                    ),
                 ),
                 array(
                     'methods'             => WP_REST_Server::CREATABLE,
                     'callback'            => array($this, 'save_response'),
                     'permission_callback' => '__return_true',
+                    'args' => array(
+                        'id' => array(
+                            'required' => true,
+                            'description' => __('Unique identifier for the object.', 'notificationx'),
+                            'type'        => 'integer',
+                        ),
+                        'api_key' => array(
+                            'required' => true,
+                            'description' => __('Unique identifier for the site.', 'notificationx'),
+                            'type'        => 'string',
+                        ),
+                    ),
                 ),
             )
         );
@@ -75,11 +99,35 @@ class Integration {
                     'methods'             => WP_REST_Server::READABLE,
                     'callback'            => array($this, 'get_response'),
                     'permission_callback' => '__return_true',
+                    'args' => array(
+                        'id' => array(
+                            'required' => true,
+                            'description' => __('Unique identifier for the object.', 'notificationx'),
+                            'type'        => 'integer',
+                        ),
+                        'api_key' => array(
+                            'required' => true,
+                            'description' => __('Unique identifier for the site.', 'notificationx'),
+                            'type'        => 'string',
+                        ),
+                    ),
                 ),
                 array(
                     'methods'             => WP_REST_Server::CREATABLE,
                     'callback'            => array($this, 'save_response'),
                     'permission_callback' => '__return_true',
+                    'args' => array(
+                        'id' => array(
+                            'required' => true,
+                            'description' => __('Unique identifier for the object.', 'notificationx'),
+                            'type'        => 'integer',
+                        ),
+                        'api_key' => array(
+                            'required' => true,
+                            'description' => __('Unique identifier for the site.', 'notificationx'),
+                            'type'        => 'string',
+                        ),
+                    ),
                 ),
             )
         );

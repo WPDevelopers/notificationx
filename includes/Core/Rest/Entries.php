@@ -75,7 +75,7 @@ class Entries {
     public function get_entries($request){
         $params = $request->get_params();
         $result = Entries::get_instance()->get_entries([
-            'nx_id' => $params['nx_id']
+            'nx_id' => absint( $params['nx_id'] )
         ]);
         wp_send_json($result);
     }
