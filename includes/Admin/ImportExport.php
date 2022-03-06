@@ -254,10 +254,7 @@ class ImportExport{
             if(!empty($params['export-analytics']) && !empty($export['notifications'])){
                 $nx_ids = array_column($export['notifications'], 'nx_id');
                 $export['analytics'] = Database::get_instance()->get_posts(Database::$table_stats, '*', [
-                    'nx_id' => [
-                        'IN',
-                        '(' . implode(', ', $nx_ids) . ')'
-                    ]
+                    'nx_id' => [ 'IN', $nx_ids ],
                 ]);
             }
 

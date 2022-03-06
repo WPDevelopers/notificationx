@@ -100,11 +100,11 @@ class Database {
 
     public function update_analytics( $col, $id, $date, $data = null ) {
         $table_name = self::$table_stats;
-        $_data = is_null( $data ) ? 1 : $data;
+        $_data = is_null( $data ) ? 1 : intval( $data );
 
         return $this->wpdb->query( $this->wpdb->prepare( '
             UPDATE %1$s
-            SET %2$s = %3$s + %4$s
+            SET `%2$s` = `%3$s` + %4$s
             WHERE nx_id = "%5$s"
             AND created_at = "%6$s"',
             $table_name, $col, $col, $_data, intval( $id ), $date
@@ -175,7 +175,8 @@ class Database {
     }
 
     public function get_col( $table_name, $col, $wheres, $distinct = 'DISTINCT' ) {
-        $posts = $this->get_posts( $table_name, "$distinct $col", $wheres );
+        $col   = esc_sql( $col );
+        $posts = $this->get_posts( $table_name, "$distinct `$col`", $wheres );
         return array_column( $posts, $col );
     }
 
@@ -186,7 +187,8 @@ class Database {
 
     public function get_source_count( $table_name, $col, $wheres = [] ) {
         $results = [];
-        $posts   = $this->get_posts( $table_name, "$col, count(*)", $wheres, '', $col );
+        $col     = esc_sql( $col );
+        $posts   = $this->get_posts( $table_name, "`$col`, count(*)", $wheres, '', "`$col`" );
         foreach ( $posts as $key => $value ) {
             $results[ $value[ $col ] ] = $value['count(*)'];
         }
@@ -206,7 +208,8 @@ class Database {
     }
 
     public function delete_posts_limit( $table_name, $wheres, $limit ) {
-        $query  = "DELETE FROM $table_name ";
+        $limit  = absint( $limit );
+        $query  = "DELETE FROM `$table_name` ";
         $query .= $this->get_where_query( $wheres );
         $query .= " LIMIT $limit";
         return $this->wpdb->query( $query );
@@ -246,7 +249,17 @@ class Database {
                 $compare = '=';
                 if ( is_array( $value ) ) {
                     $compare = $value[0];
-                    $value   = $value[1];
+                    // $value   = $value[1];
+                    if ( 'IN' === strtoupper( $compare ) && is_array( $value[1] ) ) {
+                        $value = array_map( 'esc_sql', $value[1] );
+                        $value = "('" . implode( "', '", $value ) . "')";
+                    } elseif ( 'BETWEEN' === strtoupper( $compare ) && isset( $value[1], $value[2] ) ) {
+                        $value = $this->wpdb->prepare( '%s AND %s', $value[1], $value[2] );
+                    } elseif ( in_array( $compare, [ '<', '<=', '>', '>=' ], true ) ) {
+                        $value = "'" . esc_sql( $value[1] ) . "'";
+                    } else {
+                        throw new \Exception( "Unknown parameter $compare.", 1 );
+                    }
                 } else {
                     $value = "'" . esc_sql( $value ) . "'"; // is_bool($value) ? $value :.
                 }

@@ -56,6 +56,13 @@ class Analytics {
                 'methods'             => WP_REST_Server::EDITABLE,
                 'callback'            => array($this, 'insert_analytics'),
                 'permission_callback' => [$this, 'can_insert_analytics'],
+                'args'                => array(
+                    'nx_id' => array(
+                        'required'    => true,
+                        'description' => __( 'Unique identifier for the object.', 'notificationx' ),
+                        'type'        => 'integer',
+                    ),
+                ),
             )
         );
         register_rest_route(
@@ -64,9 +71,21 @@ class Analytics {
             // For backend analytics
             array(
                 'methods'             => WP_REST_Server::EDITABLE,
-                'callback'            => array($this, 'get_analytics'),
-                // maybe use
-                'permission_callback' => [$this, 'can_read_analytics'],
+                'callback'            => array( $this, 'get_analytics' ),
+                // maybe use.
+                'permission_callback' => [ $this, 'can_read_analytics' ],
+                'args' => array(
+                    'startDate' => array(
+                        'required' => true,
+                        'description' => __( 'Start of the date range.', 'notificationx' ),
+                        'type'        => 'string',
+                    ),
+                    'endDate' => array(
+                        'required' => true,
+                        'description' => __( 'End of the date range.', 'notificationx' ),
+                        'type'        => 'string',
+                    ),
+                ),
             )
         );
 
