@@ -44,6 +44,8 @@
         }
     }
     .wprf-tab-content-wrapper {
+        &.woo_inline,
+        &.edd_inline,
         &.woocommerce.conversions_conv-theme-seven,
         &.woocommerce.conversions_conv-theme-eight,
         &.woocommerce.conversions_conv-theme-nine,
