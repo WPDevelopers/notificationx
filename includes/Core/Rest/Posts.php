@@ -150,8 +150,8 @@ class Posts extends WP_REST_Controller {
     public function get_items($request) {
         $params     = $request->get_params();
         $status     = !empty($params['status']) ? $params['status'] : "all";
-        $page       = !empty($params['page']) ? $params['page'] : 1;
-        $per_page   = !empty($params['per_page']) ? $params['per_page'] : 20;
+        $page       = !empty($params['page']) ? absint( $params['page'] ) : 1;
+        $per_page   = !empty($params['per_page']) ? absint( $params['per_page'] ) : 20;
         $start_from = ($page - 1) * $per_page;
         $limit      = "ORDER BY a.updated_at DESC LIMIT $start_from, $per_page";
         $where      = [];
@@ -180,7 +180,7 @@ class Posts extends WP_REST_Controller {
      * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
      */
     public function get_item($request) {
-        return PostType::get_instance()->get_post($request['id']);
+        return PostType::get_instance()->get_post( absint( $request['id'] ) );
     }
 
     /**

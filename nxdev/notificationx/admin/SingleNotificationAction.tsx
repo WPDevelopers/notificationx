@@ -117,6 +117,20 @@ const SingleNotificationAction = ({
         (event) => {
             if (id) {
 
+                if(item?.type == 'inline'){
+                    copy(`[notificationx_inline id=${id}]`, {
+                        format: "text/plain",
+                        onCopy: () => {
+                            nxToast.info(
+                                __(
+                                    `Inline Notification Alert has been copied to Clipboard.`,
+                                    "notificationx"
+                                )
+                            );
+                        },
+                    });
+                    return;
+                }
                 Swal.fire({
                     iconHtml: `<img alt="NotificationX" src="${nxContext.assets.admin}images/shortcode.svg" style="height: 45px; width:55px" class="shortcodeIcon" />`,
                     iconColor: "#6a4bff",
@@ -228,7 +242,7 @@ const SingleNotificationAction = ({
             >
                 <span>{__("Duplicate", "notificationx")}</span>
             </Link>
-            {nxContext?.is_pro_active && item.source != "press_bar" && (
+            {nxContext?.is_pro_active && item.source != "press_bar" && item.themes !== 'woo_inline_stock-theme-one' && item.themes !== 'woo_inline_stock-theme-two' && (
                 <button
                     className="nx-admin-title-shortcode nx-shortcode-btn"
                     title={__("Shortcode", "notificationx")}
