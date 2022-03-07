@@ -4,12 +4,14 @@
   "main": "nxdev/index.js",
   "author": "WPDeveloper",
   "scripts": {
-    "start": "wp-scripts start",
-    "build": "wp-scripts build",
-    "cs": "wp-scripts start --config webpack.cs.config.js --webpack-no-externals",
-    "csb": "wp-scripts build --config webpack.cs.config.js --webpack-no-externals",
-    "up": "npm install github:WPDevelopers/quickbuilder#dev",
-    "pot": "wp i18n make-pot . languages/notificationx.pot "
+    "start" : "wp-scripts start",
+    "build" : "wp-scripts build",
+    "cs"    : "wp-scripts start --config webpack.cs.config.js --webpack-no-externals",
+    "csb"   : "wp-scripts build --config webpack.cs.config.js --webpack-no-externals",
+    "up"    : "npm install github:WPDevelopers/quickbuilder#dev",
+    "pot"   : "wp i18n make-pot . languages/notificationx.pot ",
+    "bb"    : "wp-scripts build --config webpack.blocks.config.js",
+    "blocks": "wp-scripts start --config webpack.blocks.config.js"
   },
   "plugins": [
     "@babel/plugin-transform-runtime",

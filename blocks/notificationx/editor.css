@@ -1,0 +1,44 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-notificationx-notificationx {
+  border: 1px dotted #f00;
+}
+
+.notificationx-block-wrapper .notificationx-block-wrapper {
+	max-width: 100%;
+}
+.components-base-control__label,
+.dimention-label {
+  font-weight: 500 !important;
+  color: #000 !important;
+}
+.nx-color-control {
+  margin-left: -16px;
+  margin-right: -16px;
+}
+.nx-panel-body-default {
+  padding: 15px 15px 5px;
+}
+.nx-block-no-nx-notice {
+  line-height: 1.1;
+}
+.nx-block-no-nx-notice b {
+  font-style: italic;
+}
+.notificationx-block-wrapper .notificationx-block-wrapper {
+  display: inline-block;
+}
+.notificationx-block-wrapper .nx-shortcode-notice {
+  display: inline-block;
+}
+.components-input-control__label {
+  padding-bottom: 5px!important;
+  font-weight: 500!important;
+}
+.components-base-control__label{
+  display: block;
+}

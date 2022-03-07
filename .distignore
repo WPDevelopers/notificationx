@@ -59,3 +59,8 @@ vendor/udx/lib-utility/scripts
 nxdev
 nxbuild
 .gitmodules
+blocks/controls/src
+blocks/controls/LICENSE
+blocks/notificationx/components
+blocks/notificationx/index.js.map
+blocks/notificationx/index.jsx

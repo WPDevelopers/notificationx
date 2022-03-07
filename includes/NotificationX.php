@@ -11,9 +11,11 @@ namespace NotificationX;
 use NotificationX\Admin\Admin;
 use NotificationX\Admin\Cron;
 use NotificationX\Admin\Settings;
+use NotificationX\Blocks\Blocks;
 use NotificationX\Core\PostType;
 use NotificationX\Core\QuickBuild;
 use NotificationX\Core\REST;
+use NotificationX\Core\ShortcodeInline;
 use NotificationX\Core\Upgrader;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\FrontEnd\FrontEnd;
@@ -70,6 +72,8 @@ class NotificationX {
         REST::get_instance();
         Cron::get_instance();
         QuickBuild::get_instance();
+        ShortcodeInline::get_instance();
+        Blocks::get_instance();
 
         CoreInstaller::get_instance(basename(NOTIFICATIONX_FILE, '.php'));
 

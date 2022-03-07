@@ -1,0 +1,19 @@
+{
+    "controls": {
+        "background-control": "BackgroundControl",
+        "border-shadow-control": "BorderShadowControl",
+        "color-control": "ColorControl",
+        "custom-query": "CustomQuery",
+        "dimensions-control": "DimensionsControl",
+        "dimensions-control-v2": "ResponsiveDimensionsControl",
+        "gradient-color-controller": "GradientColorControl",
+        "image-avatar": "ImageAvatar",
+        "reset-control": "ResetControl",
+        "responsive-range-control": "ResponsiveRangeController",
+        "social-profiles-v2": "DealSocialProfiles",
+        "toggle-button": "ToggleButton",
+        "typography-control-v2": "TypographyDropdown",
+        "unit-control": "UnitControl",
+        "withResButtons": "WithResBtns"
+    }
+}

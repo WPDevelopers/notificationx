@@ -21,8 +21,12 @@
     "udx/lib-settings": "dev-master"
   },
   "autoload": {
+    "exclude-from-classmap": [
+        "blocks/controls"
+    ],
     "classmap": [
-      "includes"
+      "includes",
+      "blocks"
     ]
   }
 }
