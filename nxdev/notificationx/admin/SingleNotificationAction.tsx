@@ -251,6 +251,24 @@ const SingleNotificationAction = ({
                     <span>{__("ShortCode", "notificationx")}</span>
                 </button>
             )}
+            {!nxContext?.is_pro_active && item.source != "press_bar" && item.themes !== 'woo_inline_stock-theme-one' && item.themes !== 'woo_inline_stock-theme-two' && (
+                <CopyToClipboard
+                    className="nx-admin-title-shortcode nx-shortcode-btn"
+                    title={__("Shortcode", "notificationx")}
+                    text={`[notificationx_inline id=${id}]`}
+                    options={{ format: "text/plain" }}
+                    onCopy={() => {
+                        nxToast.info(
+                            __(
+                                `Inline Notification Alert has been copied to Clipboard.`,
+                                "notificationx"
+                            )
+                        );
+                    }}
+                >
+                    <a></a>
+                </CopyToClipboard>
+            )}
             {!item?.elementor_id && (
                 <CopyToClipboard
                     className="nx-admin-title-xss"
