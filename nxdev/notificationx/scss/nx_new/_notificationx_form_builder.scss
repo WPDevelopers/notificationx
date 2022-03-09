@@ -981,3 +981,24 @@
         }
     }
 }
+
+.woo_inline,
+.edd_inline {
+    .themes .wprf-control.wprf-radio-card {
+        .wprf-input-radio-option {
+            &.wprf-option-has-image {
+                transform: scale(1);
+                transition: transform 0.1s ease-in-out;
+                svg,
+                object,
+                img {
+                    max-height: 120px;
+                }
+                &:hover {
+                    transform: scale(2.75);
+                    z-index: 100;
+                }
+            }
+        }
+    }
+}
