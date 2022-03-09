@@ -66,7 +66,7 @@ class WooInline extends WooCommerce {
         $this->themes = [
             'conv-theme-seven' => array(
                 'is_pro'      => true,
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/inline.jpg',
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/woo-inline.jpg',
                 'image_shape' => 'rounded',
                 'template'    => [
                     'first_param'         => 'tag_sales_count',
@@ -80,7 +80,7 @@ class WooInline extends WooCommerce {
             ),
             'stock-theme-one' => array(
                 'is_pro'      => true,
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/inline.jpg',
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/woo-inline-2.jpg',
                 'image_shape' => 'rounded',
                 'template'    => [
                     // 'first_param'         => 'tag_sales_count',
@@ -96,7 +96,7 @@ class WooInline extends WooCommerce {
             ),
             'stock-theme-two' => array(
                 'is_pro'      => true,
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/inline.jpg',
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/woo-inline-3.jpg',
                 'image_shape' => 'rounded',
                 'template'    => [
                     // 'first_param'         => 'tag_sales_count',
