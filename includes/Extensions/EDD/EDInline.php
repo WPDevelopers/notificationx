@@ -33,6 +33,40 @@ class EDDInline extends EDD {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        $this->themes = [
+            'conv-theme-seven' => array(
+                'is_pro'      => true,
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/inline.jpg',
+                'image_shape' => 'rounded',
+                'inline_location' => 'edd_single',
+                'template'    => [
+                    'first_param'         => 'tag_sales_count',
+                    'custom_first_param'  => __( 'Someone', 'notificationx' ),
+                    'second_param'        => __( 'people purchased', 'notificationx' ),
+                    'third_param'         => 'tag_product_title',
+                    'fourth_param'        => 'tag_7days',
+                    'custom_fourth_param' => __( 'in last {{day:7}}', 'notificationx' ),
+                ],
+            ),
+        ];
+        $this->templates = [
+            'woo_template_sales_count' => [
+                'first_param'  => [
+                    'tag_sales_count' => __( 'Sales Count', 'notificationx' ),
+                ],
+                'third_param'  => [
+                    'tag_product_title' => __( 'Product Title', 'notificationx' ),
+                ],
+                'fourth_param' => [
+                    'tag_1day'   => __( 'In last 1 day', 'notificationx' ),
+                    'tag_7days'  => __( 'In last 7 days', 'notificationx' ),
+                    'tag_30days' => __( 'In last 30 days', 'notificationx' ),
+                ],
+                '_themes'      => [
+                    "{$this->id}_conv-theme-seven",
+                ],
+            ],
+        ];
         parent::__construct();
     }
     /**

@@ -68,6 +68,7 @@ class WooInline extends WooCommerce {
                 'is_pro'      => true,
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/woo-inline.jpg',
                 'image_shape' => 'rounded',
+                'inline_location' => 'woocommerce_before_add_to_cart_form',
                 'template'    => [
                     'first_param'         => 'tag_sales_count',
                     'custom_first_param'  => __( '99', 'notificationx' ),
@@ -82,6 +83,7 @@ class WooInline extends WooCommerce {
                 'is_pro'      => true,
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/woo-inline-2.jpg',
                 'image_shape' => 'rounded',
+                'inline_location' => 'woocommerce_after_cart_item_name',
                 'template'    => [
                     // 'first_param'         => 'tag_sales_count',
                     // 'custom_first_param'  => __( 'Someone', 'notificationx' ),
@@ -98,6 +100,7 @@ class WooInline extends WooCommerce {
                 'is_pro'      => true,
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/woo-inline-3.jpg',
                 'image_shape' => 'rounded',
+                'inline_location' => 'woocommerce_after_cart_item_name',
                 'template'    => [
                     // 'first_param'         => 'tag_sales_count',
                     // 'custom_first_param'  => __( 'Someone', 'notificationx' ),

@@ -239,6 +239,12 @@ abstract class Extension {
                         $triggers[$tname][] = $t;
                     }
                 }
+                if(!empty($theme['inline_location'])){
+                    $t = "@inline_location:{$theme['inline_location']}";
+                    if(empty($triggers[$tname]) || !in_array($t, $triggers[$tname])){
+                        $triggers[$tname][] = $t;
+                    }
+                }
                 if(!empty($theme['show_notification_image'])){
                     $t = "@show_notification_image:{$theme['show_notification_image']}";
                     if(empty($triggers[$tname]) || !in_array($t, $triggers[$tname]))
