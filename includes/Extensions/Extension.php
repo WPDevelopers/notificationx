@@ -240,9 +240,9 @@ abstract class Extension {
                     }
                 }
                 if(!empty($theme['inline_location'])){
-                    $t = "@inline_location:{$theme['inline_location']}";
-                    if(empty($triggers[$tname]) || !in_array($t, $triggers[$tname])){
-                        $triggers[$tname][] = $t;
+                    $t = $theme['inline_location'];
+                    if(empty($triggers[$tname]['inline_location'])){
+                        $triggers[$tname]['inline_location'] = $theme['inline_location'];
                     }
                 }
                 if(!empty($theme['show_notification_image'])){
