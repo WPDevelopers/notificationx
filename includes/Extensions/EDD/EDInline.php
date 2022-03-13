@@ -36,7 +36,7 @@ class EDDInline extends EDD {
         $this->themes = [
             'conv-theme-seven' => array(
                 'is_pro'      => true,
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/inline.jpg',
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/woo-inline.jpg',
                 'image_shape' => 'rounded',
                 'inline_location' => 'edd_single',
                 'template'    => [
