@@ -38,7 +38,7 @@ class EDDInline extends EDD {
                 'is_pro'      => true,
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/woo-inline.jpg',
                 'image_shape' => 'rounded',
-                'inline_location' => 'edd_single',
+                'inline_location' => ['edd_single'],
                 'template'    => [
                     'first_param'         => 'tag_sales_count',
                     'custom_first_param'  => __( 'Someone', 'notificationx' ),
