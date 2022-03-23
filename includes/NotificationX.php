@@ -89,6 +89,7 @@ class NotificationX {
 		if( ! static::$WP_CLI && current_user_can( 'delete_users' ) ) {
 			set_transient( 'nx_activated', true, 30 );
 		}
+        delete_transient('nx_builder_fields');
     }
     public function maybe_redirect(){
         if( static::$WP_CLI ) {
@@ -217,10 +218,12 @@ class NotificationX {
     }
 
     public function get_tab(){
-        if(empty($this->tabs)){
-            $this->tabs = GlobalFields::get_instance()->tabs();
+        $tabs = get_transient('nx_builder_fields');
+        if(empty($tabs)){
+            $tabs = GlobalFields::get_instance()->tabs();
+            set_transient( 'nx_builder_fields', $tabs, DAY_IN_SECONDS );
         }
-        return $this->tabs;
+        return $tabs;
     }
 
     public function get_field_names(){
