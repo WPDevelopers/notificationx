@@ -92,7 +92,7 @@ class NotificationX {
         delete_transient('nx_builder_fields');
     }
     public function maybe_redirect(){
-        if( static::$WP_CLI ) {
+        if( static::$WP_CLI || wp_doing_ajax() ) {
             return;
         }
         // Bail if no activation transient is set.
