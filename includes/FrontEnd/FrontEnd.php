@@ -230,7 +230,9 @@ class FrontEnd {
 
                 // $settings['button_url'] = apply_filters("nx_notification_link_{$settings['source']}", $settings['button_url'], $settings);
                 $settings['button_url'] = apply_filters( 'nx_notification_link', $settings['button_url'], $settings );
-
+                if  ( strpos($settings['button_url'], '//') === false ) {
+                    $settings['button_url'] = "//{$settings['button_url']}";
+                }
                 $bar_content  = PressBar::get_instance()->print_bar_notice( $settings );
                 $bar_content  = apply_filters( "nx_filtered_data_{$settings['source']}", $bar_content, $settings );
                 $_bar_content = str_replace( array( "\n", "\r\n", "\r" ), '', $bar_content );
