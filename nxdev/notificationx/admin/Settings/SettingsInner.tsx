@@ -80,7 +80,7 @@ const SettingsInner = (props) => {
         //     </>
         // })
         builder.registerIcons('link', <InfoIcon />);
-        builder.registerAlert('pro_alert', proAlert());
+        builder.registerAlert('pro_alert', proAlert);
         builder.registerAlert('toast', ToastAlert);
     }, []);
 

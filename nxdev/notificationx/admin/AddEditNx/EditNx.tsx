@@ -18,7 +18,7 @@ const EditNx = (props) => {
         iconLists['customize'] = <CustomizeIcon />
         builderContext.registerIcons('tabs', iconLists);
 
-        builderContext.registerAlert('pro_alert', proAlert());
+        builderContext.registerAlert('pro_alert', proAlert);
 
         setTitle(typeof title !== 'undefined' ? title : builderContext.values?.title);
     }, [])

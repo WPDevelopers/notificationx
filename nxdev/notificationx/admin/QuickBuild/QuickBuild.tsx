@@ -16,7 +16,7 @@ const QuickBuild = (props) => {
             });
             return;
         }
-        builderContext.registerAlert('pro_alert', proAlert());
+        builderContext.registerAlert('pro_alert', proAlert);
     }, [])
 
     return (
