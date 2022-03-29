@@ -197,7 +197,7 @@ class QuickBuild {
                 'elearning'        => __('eLearning', 'notificationx'),
                 'donation'         => __('Donation', 'notificationx'),
                 'form'             => __('Contact Form', 'notificationx'),
-                'inline'           => __('Inline Notification', 'notificationx'),
+                'inline'           => __('Growth Alert', 'notificationx'),
             )),
         ];
     }
