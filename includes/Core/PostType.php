@@ -366,7 +366,7 @@ class PostType {
             }
             if ( ! empty( $extension ) && $extension->get_type() ) {
                 $type                        = $extension->get_type();
-                $posts[ $key ]['type_label'] = $type->title;
+                $posts[ $key ]['type_label'] = $type->dashboard_title ?: $type->title;
             }
         }
         return $posts;

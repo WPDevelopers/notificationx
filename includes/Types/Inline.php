@@ -32,6 +32,7 @@ class Inline extends Types {
      */
     public function __construct() {
         $this->title = __('Growth Alert 🚀', 'notificationx');
+        $this->dashboard_title = __('Growth Alert', 'notificationx');
 
         // nx_comment_colored_themes
         parent::__construct();

@@ -19,6 +19,7 @@ abstract class Types {
 
     public $id;
     public $title;
+    public $dashboard_title;
     public $is_pro = false;
     public $themes = [];
     public $module = [];
