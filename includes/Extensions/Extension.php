@@ -28,19 +28,20 @@ abstract class Extension {
 
     public $id;
     public $title;
-    public $img             = '';
-    public $doc_link        = 'https://notificationx.com/docs/';
-    public $types           = '';
-    public $themes          = [];
-    public $selected_themes = [];
-    public $is_pro          = false;
-    public $has_link_types  = false;
-    public $module          = '';
-    public $module_title    = '';
-    public $version         = '';
-    public $class           = '';
-    public $function        = '';
-    public $templates       = [];
+    public $img                   = '';
+    public $doc_link              = 'https://notificationx.com/docs/';
+    public $types                 = '';
+    public $themes                = [];
+    public $selected_themes       = [];
+    public $is_pro                = false;
+    public $has_link_types        = false;
+    public $popup                 = null;
+    public $module                = '';
+    public $module_title          = '';
+    public $version               = '';
+    public $class                 = '';
+    public $function              = '';
+    public $templates             = [];
     public $exclude_custom_themes = false;
 
     /**
@@ -267,6 +268,7 @@ abstract class Extension {
             'icon'     => $this->img,
             'value'    => $this->id,
             'is_pro'   => $this->is_pro && ! NotificationX::is_pro(),
+            'popup'    => $this->popup,
             'priority' => $this->priority,
         ];
         return $sources;

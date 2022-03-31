@@ -27,6 +27,7 @@ abstract class Types {
     public $has_link_types = false;
     public $default_source    = '';
     public $default_theme = '';
+    public $popup          = null;
 
     /**
      * Initially Invoked when initialized.
