@@ -31,7 +31,7 @@ class Inline extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        $this->title = __('Growth Alert', 'notificationx');
+        $this->title = __('Growth Alert 🚀', 'notificationx');
 
         // nx_comment_colored_themes
         parent::__construct();
