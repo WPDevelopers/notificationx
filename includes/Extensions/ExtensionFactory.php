@@ -28,8 +28,6 @@ class ExtensionFactory {
 	public $extension_classes = [
 			'woo_inline'                      => 'NotificationX\Extensions\WooCommerce\WooInline',
 			'edd_inline'                      => 'NotificationX\Extensions\EDD\EDDInline',
-			'woo_inline'                      => 'NotificationX\Extensions\WooCommerce\WooInline',
-			'edd_inline'                      => 'NotificationX\Extensions\EDD\EDDInline',
 			'cf7'                             => 'NotificationX\Extensions\CF7\CF7',
 			'convertkit'                      => 'NotificationX\Extensions\ConvertKit\ConvertKit',
 			'custom_notification'             => 'NotificationX\Extensions\CustomNotification\CustomNotification',
