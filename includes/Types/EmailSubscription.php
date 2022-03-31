@@ -38,6 +38,13 @@ class EmailSubscription extends Types {
     public function __construct(){
         $this->id = 'email_subscription';
         $this->title = __('Email Subscription', 'notificationx');
+        $this->popup = __('
+        Show popups to display which users subscribed for your Newsletter
+        <iframe width="420" height="235"
+        src="https://www.youtube.com/embed/WvX8feM5DBw">
+        </iframe>
+
+        ', 'notificationx');
         parent::__construct();
 
         $common_fields = [
