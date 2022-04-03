@@ -45,6 +45,7 @@ class ExtensionFactory {
 			'njf'                             => 'NotificationX\Extensions\NJF\NinjaForms',
 			'press_bar'                       => 'NotificationX\Extensions\PressBar\PressBar',
 			'tutor'                           => 'NotificationX\Extensions\Tutor\Tutor',
+			'tutor_inline'                    => 'NotificationX\Extensions\Tutor\TutorInline',
 			'wpf'                             => 'NotificationX\Extensions\WPF\WPForms',
 			'reviewx'                         => 'NotificationX\Extensions\ReviewX\ReviewX',
 			'woocommerce'                     => 'NotificationX\Extensions\WooCommerce\WooCommerce',

@@ -1,27 +1,26 @@
 <?php
 
 /**
- * EDD Extension
+ * Tutor Extension
  *
  * @package NotificationX\Extensions
  */
 
-namespace NotificationX\Extensions\EDD;
+namespace NotificationX\Extensions\Tutor;
 
 /**
- * EDD Extension
+ * Tutor Extension
  */
-class EDDInline extends EDD {
+class TutorInline extends Tutor {
     protected static $instance = null;
 
-    public $priority        = 10;
-    public $id              = 'edd_inline';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/edd.png';
-    public $doc_link        = 'https://notificationx.com/docs/notificationx-easy-digital-downloads/';
+    public $priority        = 15;
+    public $id              = 'tutor_inline';
+    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/tutor.png';
+    public $doc_link        = 'https://notificationx.com/docs/tutor-lms/';
     public $types           = 'inline';
-    public $module          = 'modules_edd';
-    public $module_priority = 5;
-    public $class           = 'Easy_Digital_Downloads';
+    public $module_priority = 7;
+    public $function        = 'tutor_lms';
     public $is_pro          = true;
 
     /**
@@ -30,40 +29,40 @@ class EDDInline extends EDD {
     public function __construct() {
         $this->themes = [
             'conv-theme-seven' => array(
-                'is_pro'      => true,
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/woo-inline.jpg',
+                'is_pro' => true,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-7.png',
                 'image_shape' => 'rounded',
-                'inline_location' => ['edd_single'],
+                'inline_location' => ['tutor_course/loop/after_title'],
                 'template'    => [
                     'first_param'         => 'tag_sales_count',
-                    'custom_first_param'  => __( 'Someone', 'notificationx' ),
-                    'second_param'        => __( 'people purchased', 'notificationx' ),
-                    'third_param'         => 'tag_product_title',
+                    'second_param'        => __('people enrolled', 'notificationx-pro'),
+                    'third_param'         => 'tag_course_title',
                     'fourth_param'        => 'tag_7days',
-                    'custom_fourth_param' => __( 'in last {{day:7}}', 'notificationx' ),
+                    'custom_fourth_param' => __('in last {{day:7}}', 'notificationx'),
                 ],
             ),
         ];
         $this->templates = [
-            'woo_template_sales_count' => [
+            'tutor_inline_template_sales_count' => [
                 'first_param'  => [
                     'tag_sales_count' => __( 'Sales Count', 'notificationx' ),
                 ],
-                'third_param'  => [
-                    'tag_product_title' => __( 'Product Title', 'notificationx' ),
+                'third_param' => [
+                    'tag_course_title' => __('Course Title', 'notificationx'),
                 ],
                 'fourth_param' => [
                     'tag_1day'   => __( 'In last 1 day', 'notificationx' ),
                     'tag_7days'  => __( 'In last 7 days', 'notificationx' ),
                     'tag_30days' => __( 'In last 30 days', 'notificationx' ),
                 ],
-                '_themes'      => [
-                    "{$this->id}_conv-theme-seven",
-                ],
+                '_themes' => [
+                    'tutor_inline_conv-theme-seven',
+                ]
             ],
         ];
         parent::__construct();
     }
+
     /**
      * Get the instance of called class.
      *
