@@ -73,7 +73,7 @@ class TutorInline extends Tutor {
      * @return void
      */
     public function show_on_exclude( $exclude, $settings ) {
-        if ( ! empty( $settings['inline_location'] ) && 'inline' === $settings['type'] && $settings['source'] === $this->id ) {
+        if ( 'inline' === $settings['type'] && $settings['source'] === $this->id ) {
             $edd_location = $settings['inline_location'];
             $hooks        = [ 'tutor_course/loop/after_title' ];
             $diff         = array_diff( $hooks, $edd_location );
