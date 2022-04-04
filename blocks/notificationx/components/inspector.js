@@ -82,7 +82,7 @@ export default function Inspector(props) {
       let ids = [];
       if (res?.posts?.length > 0) {
         ids = res.posts
-          .filter((item) => item.enabled && item.source != "press_bar" && item.themes !== 'woo_inline_stock-theme-one' && item.themes !== 'woo_inline_stock-theme-two')
+          .filter((item) => item.enabled && item.source != "press_bar" && item.type !== 'inline')
           .map((item) => ({
             label: item?.title || item?.nx_id,
             value: item?.nx_id,
