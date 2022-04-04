@@ -77,7 +77,7 @@ class TutorInline extends Tutor {
             $edd_location = $settings['inline_location'];
             $hooks        = [ 'tutor_course/loop/after_title' ];
             $diff         = array_diff( $hooks, $edd_location );
-            if ( count( $diff ) < count( $hooks ) ) {
+            if ( count( $diff ) <= count( $hooks ) ) {
                 return true;
             }
         }
