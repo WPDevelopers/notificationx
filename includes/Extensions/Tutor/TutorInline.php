@@ -61,6 +61,26 @@ class TutorInline extends Tutor {
             ],
         ];
         parent::__construct();
+        add_filter( 'nx_show_on_exclude', array( $this, 'show_on_exclude' ), 10, 4 );
+    }
+
+    /**
+     * @todo Something
+     *
+     * @param [type] $exclude
+     * @param [type] $settings
+     * @return void
+     */
+    public function show_on_exclude( $exclude, $settings ) {
+        if ( ! empty( $settings['inline_location'] ) && 'inline' === $settings['type'] && $settings['source'] === $this->id ) {
+            $edd_location = $settings['inline_location'];
+            $hooks        = [ 'tutor_course/loop/after_title' ];
+            $diff         = array_diff( $hooks, $edd_location );
+            if ( count( $diff ) < count( $hooks ) ) {
+                return true;
+            }
+        }
+        return $exclude;
     }
 
     /**
