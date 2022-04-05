@@ -36,8 +36,8 @@ class TutorInline extends Tutor {
                 'template'    => [
                     'first_param'         => 'tag_sales_count',
                     'second_param'        => __('people enrolled', 'notificationx'),
-                    'third_param'         => 'tag_course_title',
-                    'custom_third_param'  => __('Anonymous Course', 'notificationx'),
+                    'third_param'         => 'tag_custom',
+                    'custom_third_param'  => ' ',
                     'fourth_param'        => 'tag_7days',
                     'custom_fourth_param' => __('in last {{day:7}}', 'notificationx'),
                 ],
