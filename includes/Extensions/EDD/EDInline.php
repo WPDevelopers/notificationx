@@ -28,6 +28,7 @@ class EDDInline extends EDD {
     public $module          = 'modules_edd';
     public $module_priority = 5;
     public $class           = 'Easy_Digital_Downloads';
+    public $is_pro          = true;
 
     /**
      * Initially Invoked when initialized.

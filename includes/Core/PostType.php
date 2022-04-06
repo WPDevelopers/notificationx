@@ -198,6 +198,9 @@ class PostType {
             $this->update_enabled_source( $data );
             return $this->update_post( $post, $data['nx_id'] );
         }
+        else if ( !$this->can_enable( $data['source'] ) ) {
+            return $this->can_enable( $data['source'] );
+        }
         return false;
     }
 
@@ -284,7 +287,7 @@ class PostType {
 
         $ext = ExtensionFactory::get_instance()->get( $source );
         if ( $ext && $ext->is_pro && ! NotificationX::is_pro() ) {
-            return false;
+            return 0;
         }
 
         $enabled_source = $this->get_enabled_source();

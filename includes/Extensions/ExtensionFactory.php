@@ -26,6 +26,8 @@ class ExtensionFactory {
 	public $types = [];
 	public $extensions = [];
 	public $extension_classes = [
+			'woo_inline'                      => 'NotificationX\Extensions\WooCommerce\WooInline',
+			'edd_inline'                      => 'NotificationX\Extensions\EDD\EDDInline',
 			'cf7'                             => 'NotificationX\Extensions\CF7\CF7',
 			'convertkit'                      => 'NotificationX\Extensions\ConvertKit\ConvertKit',
 			'custom_notification'             => 'NotificationX\Extensions\CustomNotification\CustomNotification',
@@ -53,8 +55,6 @@ class ExtensionFactory {
 			'zapier_conversions'              => 'NotificationX\Extensions\Zapier\ZapierConversions',
 			'zapier_email_subscription'       => 'NotificationX\Extensions\Zapier\ZapierEmailSubscription',
 			'zapier_reviews'                  => 'NotificationX\Extensions\Zapier\ZapierReviews',
-			'woo_inline'                      => 'NotificationX\Extensions\WooCommerce\WooInline',
-			'edd_inline'                      => 'NotificationX\Extensions\EDD\EDDInline',
 		];
 
 	/**

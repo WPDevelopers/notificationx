@@ -31,6 +31,7 @@ class WooInline extends WooCommerce {
     public $module          = 'modules_woocommerce';
     public $module_priority = 3;
     public $class           = '\WooCommerce';
+    public $is_pro          = true;
 
     /**
      * Get the instance of called class.
