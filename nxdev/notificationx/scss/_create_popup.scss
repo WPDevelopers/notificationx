@@ -1,4 +1,4 @@
-.nx-admin-wrapper  {
+.nx-admin-wrapper {
     display: flex;
     .nx-admin-sidebar {
         width: 20%;
@@ -41,5 +41,66 @@
             margin-bottom: 0px;
         }
     }
+}
 
+.pro-video-popup {
+    .pro-video-icon {
+        font-size: 10px;
+        margin-bottom: 12px;
+    }
+    .pro-video-title {
+        font-size: 24px;
+    }
+    .swal2-html-container,
+    .pro-video-content {
+        margin-top: 10px;
+        font-size: 16px;
+        color: #25396f;
+        margin-left: 0;
+        margin-right: 0;
+        line-height: 1.4;
+        span {
+            display: block;
+            text-align: justify;
+        }
+        iframe {
+            margin-top: 20px;
+            width: 100%;
+        }
+    }
+    .nx-pro-alert-actions {
+        justify-content: center !important;
+        flex-direction: row-reverse !important;
+    }
+    .pro-video-confirm-button {
+        border: 1.5px solid #5614d5 !important;
+        background: #5614d5 !important;
+        color: #fff !important;
+        margin-left: auto !important;
+        a {
+            display: block;
+            color: #fff !important;
+            text-decoration: none !important;
+        }
+        &:hover,
+        &:focus {
+            color: #fff !important;
+            background-color: darken(#5614d5, 5%) !important;
+            border-color: darken(#5614d5, 5%) !important;
+            box-shadow: 0 15px 25px -5px rgba(#5614d5, 0.3) !important;
+        }
+    }
+    .pro-video-close-button {
+        border: 1.5px solid #f85679 !important;
+        background: transparent !important;
+        color: #f85679 !important;
+        border-color: darken(#f85679, 1%) !important;
+        &:hover,
+        &:focus {
+            color: #fff !important;
+            background-color: darken(#f85679, 1%) !important;
+            border-color: darken(#f85679, 1%) !important;
+            box-shadow: 0 15px 25px -5px rgba(#f85679, 0.3) !important;
+        }
+    }
 }

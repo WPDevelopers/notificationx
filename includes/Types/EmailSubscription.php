@@ -38,13 +38,26 @@ class EmailSubscription extends Types {
     public function __construct(){
         $this->id = 'email_subscription';
         $this->title = __('Email Subscription', 'notificationx');
-        $this->popup = __('
-        Show popups to display which users subscribed for your Newsletter
-        <iframe width="420" height="235"
-        src="https://www.youtube.com/embed/WvX8feM5DBw">
-        </iframe>
-
-        ', 'notificationx');
+        $this->popup = [
+            "customClass"=> [
+                "container"=> 'pro-video-popup',
+                "icon"=> 'pro-video-icon',
+                "title"=> 'pro-video-title',
+                "content"=> 'pro-video-content',
+                "actions"=> 'nx-pro-alert-actions',
+                "confirmButton"=> 'pro-video-confirm-button',
+                "denyButton"=> 'pro-video-close-button',
+            ],
+            "showConfirmButton"=> true,
+            "confirmButtonText" => __("<a href='https://www.wpdeveloper.com' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "title" => __('Opps! This is PRO Feature.'),
+            "html"=> __('
+                <span>Show popups to display which users subscribed for your Newsletter Show popups to display which users subscribed for your Newsletter Show popups to display which users subscribed for your Newsletter</span>
+                <iframe id="email_subscription_video" type="text/html" allowfullscreen width="450" height="235"
+                src="https://www.youtube.com/embed/WvX8feM5DBw">
+                </iframe>
+            ', 'notificationx')
+        ];
         parent::__construct();
 
         $common_fields = [

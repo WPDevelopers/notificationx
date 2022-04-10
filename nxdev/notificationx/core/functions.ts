@@ -1,9 +1,9 @@
-
 import apiFetch from "@wordpress/api-fetch";
 import { sprintf, __ } from "@wordpress/i18n";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import { useNotificationXContext } from "../hooks";
-import { ToastAlert } from './ToasterMsg'
+import { ToastAlert } from "./ToasterMsg";
+import { isObject } from "quickbuilder";
 
 /**
  * apiFetch setup
@@ -57,47 +57,52 @@ class NotificationXHelpers {
         const query = nxHelper.useQuery(location.search);
         return query.get(param) || d;
     };
-    getRedirect = (params: {[key: string]: any}, keepHash = false) => {
+    getRedirect = (params: { [key: string]: any }, keepHash = false) => {
         const query = nxHelper.useQuery(location.search);
-        const hash = keepHash === true ? location.hash : (typeof keepHash == 'string' ? keepHash : '');
+        const hash =
+            keepHash === true
+                ? location.hash
+                : typeof keepHash == "string"
+                ? keepHash
+                : "";
 
         switch (params.page) {
-            case 'nx-admin':
-                query.delete('comparison');
-                query.delete('tab');
-                query.delete('id');
+            case "nx-admin":
+                query.delete("comparison");
+                query.delete("tab");
+                query.delete("id");
                 break;
-            case 'nx-edit':
-                query.delete('comparison');
-                query.delete('tab');
-                query.delete('status');
-                query.delete('per-page');
-                query.delete('p');
+            case "nx-edit":
+                query.delete("comparison");
+                query.delete("tab");
+                query.delete("status");
+                query.delete("per-page");
+                query.delete("p");
 
                 break;
-            case 'nx-settings':
-                query.delete('comparison');
-                query.delete('status');
-                query.delete('per-page');
-                query.delete('p');
-                query.delete('id');
+            case "nx-settings":
+                query.delete("comparison");
+                query.delete("status");
+                query.delete("per-page");
+                query.delete("p");
+                query.delete("id");
 
                 break;
-            case 'nx-analytics':
-                query.delete('tab');
-                query.delete('status');
-                query.delete('per-page');
-                query.delete('p');
-                query.delete('id');
+            case "nx-analytics":
+                query.delete("tab");
+                query.delete("status");
+                query.delete("per-page");
+                query.delete("p");
+                query.delete("id");
 
                 break;
-            case 'nx-builder':
-                query.delete('comparison');
-                query.delete('tab');
-                query.delete('status');
-                query.delete('per-page');
-                query.delete('p');
-                query.delete('id');
+            case "nx-builder":
+                query.delete("comparison");
+                query.delete("tab");
+                query.delete("status");
+                query.delete("per-page");
+                query.delete("p");
+                query.delete("id");
 
                 break;
 
@@ -110,10 +115,10 @@ class NotificationXHelpers {
         }
 
         return {
-            pathname: '/admin.php',
-            search: '?' + query.toString() + hash,
+            pathname: "/admin.php",
+            search: "?" + query.toString() + hash,
         };
-    }
+    };
     filtered = (notices, status) => {
         return notices.filter((val) => {
             switch (status) {
@@ -130,36 +135,43 @@ class NotificationXHelpers {
             }
         });
     };
-    swal = ({confirmedCallback, completeAction, completeArgs, afterComplete, ...args}) => {
+    swal = ({
+        confirmedCallback,
+        completeAction,
+        completeArgs,
+        afterComplete,
+        ...args
+    }) => {
         Swal.fire(args).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                confirmedCallback().then((res) => {
-                    if (res?.success) {
-                        const result = completeAction(res);
-                        const [type, message] = completeArgs(result);
-                        ToastAlert(type, message).then(afterComplete);
-                    }
-                })
-                .catch((err) => console.error("Delete Error: ", err));
+                confirmedCallback()
+                    .then((res) => {
+                        if (res?.success) {
+                            const result = completeAction(res);
+                            const [type, message] = completeArgs(result);
+                            ToastAlert(type, message).then(afterComplete);
+                        }
+                    })
+                    .catch((err) => console.error("Delete Error: ", err));
             }
         });
-    }
+    };
 }
 
 const nxHelper = new NotificationXHelpers();
 
-export const SweetAlert = ( args: any = {} ) => {
-	return Swal.mixin({
-		target: args?.target ?? "#notificationx",
-		type: args?.type ?? "success",
-		html: args?.html,
-		title: args?.title ?? __("Title Goes Here: title", 'notificationx'),
-		text: args?.text ?? __("Text Goes Here: text", 'notificationx'),
-		icon: args?.icon ?? (args?.type || "success"),
-		timer: args?.timer ?? null,
-		...args,
-	});
+export const SweetAlert = (args: any = {}) => {
+    return Swal.mixin({
+        target: args?.target ?? "#notificationx",
+        type: args?.type ?? "success",
+        html: args?.html,
+        title: args?.title ?? __("Title Goes Here: title", "notificationx"),
+        text: args?.text ?? __("Text Goes Here: text", "notificationx"),
+        icon: args?.icon ?? (args?.type || "success"),
+        timer: args?.timer ?? null,
+        ...args,
+    });
 };
 
 export const getThemeName = (settings) => {
@@ -169,31 +181,45 @@ export const getThemeName = (settings) => {
         themeName = themeName.replace(settings?.custom_type + "_", "");
     }
     return themeName;
-}
+};
 
-export const proAlert = ( html = null ) => {
-    if( html === null ) {
-        html = sprintf(__("You need to upgrade to the <strong><a href='%s' target='_blank'>Premium Version</a></strong> to use this feature.", 'notificationx'), 'http://wpdeveloper.com/in/upgrade-notificationx');
+export const proAlert = (html = null) => {
+    let htmlObject = {};
+    if (html === null) {
+        html = sprintf(
+            __(
+                "You need to upgrade to the <strong><a href='%s' target='_blank'>Premium Version</a></strong> to use this feature.",
+                "notificationx"
+            ),
+            "http://wpdeveloper.com/in/upgrade-notificationx"
+        );
     }
-    return SweetAlert({
+    if (isObject(html)) {
+        htmlObject = html;
+        html = html.message || html.html;
+    }
+    let alertOptions = {
         showConfirmButton: false,
         showDenyButton: true,
-        type: 'warning',
-        title: __('Opps...', 'notificationx'),
-        customClass: { actions: 'nx-pro-alert-actions' },
-        denyButtonText: 'Close',
-        html
-    });
-}
+        type: "warning",
+        title: __("Opps...", "notificationx"),
+        customClass: {
+            actions: "nx-pro-alert-actions",
+        },
+        denyButtonText: "Close",
+        ...htmlObject,
+        html,
+    };
+    return SweetAlert(alertOptions);
+};
 
-export const assetsURL = (path ='', admin = true) => {
+export const assetsURL = (path = "", admin = true) => {
     const builderContext = useNotificationXContext();
-    if(admin){
+    if (admin) {
         return builderContext.assets.admin + path;
-    }
-    else{
+    } else {
         return builderContext.assets.public + path;
     }
-}
+};
 
 export default nxHelper;
