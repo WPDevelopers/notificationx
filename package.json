@@ -4,13 +4,13 @@
   "main": "nxdev/index.js",
   "author": "WPDeveloper",
   "scripts": {
-    "start" : "wp-scripts start",
-    "build" : "wp-scripts build",
-    "cs"    : "wp-scripts start --config webpack.cs.config.js --webpack-no-externals",
-    "csb"   : "wp-scripts build --config webpack.cs.config.js --webpack-no-externals",
-    "up"    : "npm install github:WPDevelopers/quickbuilder#dev",
-    "pot"   : "wp i18n make-pot . languages/notificationx.pot ",
-    "bb"    : "wp-scripts build --config webpack.blocks.config.js",
+    "start": "wp-scripts start",
+    "build": "wp-scripts build",
+    "cs": "wp-scripts start --config webpack.cs.config.js --webpack-no-externals",
+    "csb": "wp-scripts build --config webpack.cs.config.js --webpack-no-externals",
+    "up": "npm install github:WPDevelopers/quickbuilder#dev",
+    "pot": "wp i18n make-pot . languages/notificationx.pot ",
+    "bb": "wp-scripts build --config webpack.blocks.config.js",
     "blocks": "wp-scripts start --config webpack.blocks.config.js"
   },
   "plugins": [
@@ -54,6 +54,6 @@
     "react-select": "^4.3.1",
     "react-toastify": "^8.0.3",
     "sort-array": "^4.1.4",
-    "sweetalert2": "^11.1.4"
+    "sweetalert2": "^11.4.8"
   }
 }
