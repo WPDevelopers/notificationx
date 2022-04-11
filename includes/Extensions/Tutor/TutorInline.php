@@ -32,6 +32,20 @@ class TutorInline extends Tutor {
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/tutor-inline.png',
                 'image_shape' => 'rounded',
+                'inline_location' => ['tutor/course/single/entry-box/free'],
+                'template'    => [
+                    'first_param'         => 'tag_sales_count',
+                    'second_param'        => __('people enrolled', 'notificationx'),
+                    'third_param'         => 'tag_custom',
+                    'custom_third_param'  => ' ',
+                    'fourth_param'        => 'tag_7days',
+                    'custom_fourth_param' => __('in last {{day:7}}', 'notificationx'),
+                ],
+            ),
+            'conv-theme-eight' => array(
+                'is_pro' => true,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/tutor-inline-2.png',
+                'image_shape' => 'rounded',
                 'inline_location' => ['tutor_course/loop/after_title'],
                 'template'    => [
                     'first_param'         => 'tag_sales_count',
