@@ -44,6 +44,10 @@
 }
 
 .pro-video-popup {
+    .pro-video-close-button {
+        font-size: 1.75rem !important;
+        box-shadow: none !important;
+    }
     .pro-video-icon {
         font-size: 10px;
         margin-bottom: 12px;
@@ -69,38 +73,47 @@
         }
     }
     .nx-pro-alert-actions {
+        display: flex !important;
         justify-content: center !important;
         flex-direction: row-reverse !important;
     }
     .pro-video-confirm-button {
-        border: 1.5px solid #5614d5 !important;
+        border: none !important;
         background: #5614d5 !important;
         color: #fff !important;
         margin-left: auto !important;
+        box-shadow: none !important;
+        padding: 0 !important;
         a {
             display: block;
             color: #fff !important;
             text-decoration: none !important;
+            padding: 10px 15px;
         }
-        &:hover,
-        &:focus {
+        &:hover {
             color: #fff !important;
             background-color: darken(#5614d5, 5%) !important;
             border-color: darken(#5614d5, 5%) !important;
             box-shadow: 0 15px 25px -5px rgba(#5614d5, 0.3) !important;
         }
     }
-    .pro-video-close-button {
-        border: 1.5px solid #f85679 !important;
-        background: transparent !important;
-        color: #f85679 !important;
-        border-color: darken(#f85679, 1%) !important;
-        &:hover,
-        &:focus {
+    .pro-video-deny-button {
+        border: none !important;
+        background: #45c9b1 !important;
+        color: #fff !important;
+        border-color: darken(#45c9b1, 1%) !important;
+        padding: 0 !important;
+        a {
+            display: block;
             color: #fff !important;
-            background-color: darken(#f85679, 1%) !important;
-            border-color: darken(#f85679, 1%) !important;
-            box-shadow: 0 15px 25px -5px rgba(#f85679, 0.3) !important;
+            text-decoration: none !important;
+            padding: 10px 20px;
+        }
+        &:hover {
+            color: #fff !important;
+            background-color: darken(#45c9b1, 1%) !important;
+            border-color: darken(#45c9b1, 1%) !important;
+            box-shadow: 0 15px 25px -5px rgba(#45c9b1, 0.3) !important;
         }
     }
 }
