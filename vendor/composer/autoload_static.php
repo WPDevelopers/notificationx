@@ -64,6 +64,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Extensions\\Google_Analytics\\Google_Analytics' => __DIR__ . '/../..' . '/includes/Extensions/Google_Analytics/Google_Analytics.php',
         'NotificationX\\Extensions\\IFTTT\\IFTTT' => __DIR__ . '/../..' . '/includes/Extensions/IFTTT/IFTTT.php',
         'NotificationX\\Extensions\\LearnDash\\LearnDash' => __DIR__ . '/../..' . '/includes/Extensions/LearnDash/LearnDash.php',
+        'NotificationX\\Extensions\\LearnDash\\LearnDashInline' => __DIR__ . '/../..' . '/includes/Extensions/LearnDash/LearnDashInline.php',
         'NotificationX\\Extensions\\MailChimp\\MailChimp' => __DIR__ . '/../..' . '/includes/Extensions/MailChimp/MailChimp.php',
         'NotificationX\\Extensions\\NJF\\NinjaForms' => __DIR__ . '/../..' . '/includes/Extensions/NJF/NinjaForms.php',
         'NotificationX\\Extensions\\PressBar\\Importer' => __DIR__ . '/../..' . '/includes/Extensions/PressBar/importer.php',

@@ -7,6 +7,7 @@
 
 namespace NotificationX\Extensions;
 
+use Exception;
 use NotificationX\Core\Database;
 use NotificationX\GetInstance;
 use NotificationX\Core\Modules;
@@ -28,6 +29,8 @@ class ExtensionFactory {
 	public $extension_classes = [
 			'woo_inline'                      => 'NotificationX\Extensions\WooCommerce\WooInline',
 			'edd_inline'                      => 'NotificationX\Extensions\EDD\EDDInline',
+			'tutor_inline'                    => 'NotificationX\Extensions\Tutor\TutorInline',
+			'learndash_inline'                => 'NotificationX\Extensions\LearnDash\LearnDashInline',
 			'cf7'                             => 'NotificationX\Extensions\CF7\CF7',
 			'convertkit'                      => 'NotificationX\Extensions\ConvertKit\ConvertKit',
 			'custom_notification'             => 'NotificationX\Extensions\CustomNotification\CustomNotification',
@@ -45,7 +48,6 @@ class ExtensionFactory {
 			'njf'                             => 'NotificationX\Extensions\NJF\NinjaForms',
 			'press_bar'                       => 'NotificationX\Extensions\PressBar\PressBar',
 			'tutor'                           => 'NotificationX\Extensions\Tutor\Tutor',
-			'tutor_inline'                    => 'NotificationX\Extensions\Tutor\TutorInline',
 			'wpf'                             => 'NotificationX\Extensions\WPF\WPForms',
 			'reviewx'                         => 'NotificationX\Extensions\ReviewX\ReviewX',
 			'woocommerce'                     => 'NotificationX\Extensions\WooCommerce\WooCommerce',

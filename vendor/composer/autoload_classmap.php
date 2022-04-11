@@ -63,6 +63,7 @@ return array(
     'NotificationX\\Extensions\\Google_Analytics\\Google_Analytics' => $baseDir . '/includes/Extensions/Google_Analytics/Google_Analytics.php',
     'NotificationX\\Extensions\\IFTTT\\IFTTT' => $baseDir . '/includes/Extensions/IFTTT/IFTTT.php',
     'NotificationX\\Extensions\\LearnDash\\LearnDash' => $baseDir . '/includes/Extensions/LearnDash/LearnDash.php',
+    'NotificationX\\Extensions\\LearnDash\\LearnDashInline' => $baseDir . '/includes/Extensions/LearnDash/LearnDashInline.php',
     'NotificationX\\Extensions\\MailChimp\\MailChimp' => $baseDir . '/includes/Extensions/MailChimp/MailChimp.php',
     'NotificationX\\Extensions\\NJF\\NinjaForms' => $baseDir . '/includes/Extensions/NJF/NinjaForms.php',
     'NotificationX\\Extensions\\PressBar\\Importer' => $baseDir . '/includes/Extensions/PressBar/importer.php',

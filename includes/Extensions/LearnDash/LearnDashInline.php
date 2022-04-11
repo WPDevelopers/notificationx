@@ -1,27 +1,29 @@
 <?php
 
 /**
- * Tutor Extension
+ * EDD Extension
  *
  * @package NotificationX\Extensions
  */
 
-namespace NotificationX\Extensions\Tutor;
+namespace NotificationX\Extensions\LearnDash;
 
 /**
- * Tutor Extension
+ * EDD Extension
  */
-class TutorInline extends Tutor {
+class LearnDashInline extends LearnDash {
     protected static $instance = null;
 
-    public $priority        = 15;
-    public $id              = 'tutor_inline';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/tutor.png';
-    public $doc_link        = 'https://notificationx.com/docs/tutor-lms/';
+    public $priority        = 20;
+    public $id              = 'learndash_inline';
+    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/learndash.png';
+    public $doc_link        = 'https://notificationx.com/docs/how-to-display-learndash-course-enrollment-alert-using-notificationx/';
     public $types           = 'inline';
-    public $module_priority = 7;
-    public $function        = 'tutor_lms';
+    public $module          = 'modules_learndash';
+    public $module_priority = 18;
     public $is_pro          = true;
+    public $version         = '1.2.0';
+    public $class           = '\LDLMS_Post_Types';
 
     /**
      * Initially Invoked when initialized.
@@ -32,7 +34,7 @@ class TutorInline extends Tutor {
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-7.png',
                 'image_shape' => 'rounded',
-                'inline_location' => ['tutor_course/loop/after_title'],
+                'inline_location' => ['learndash_content'],
                 'template'    => [
                     'first_param'         => 'tag_sales_count',
                     'second_param'        => __('people enrolled', 'notificationx'),
@@ -44,7 +46,7 @@ class TutorInline extends Tutor {
             ),
         ];
         $this->templates = [
-            'tutor_inline_template_sales_count' => [
+            'learndash_inline_template_sales_count' => [
                 'first_param'  => [
                     'tag_sales_count' => __( 'Sales Count', 'notificationx' ),
                 ],
@@ -57,7 +59,7 @@ class TutorInline extends Tutor {
                     'tag_30days' => __( 'In last 30 days', 'notificationx' ),
                 ],
                 '_themes' => [
-                    'tutor_inline_conv-theme-seven',
+                    'learndash_inline_conv-theme-seven',
                 ]
             ],
         ];
@@ -75,7 +77,7 @@ class TutorInline extends Tutor {
     public function show_on_exclude( $exclude, $settings ) {
         if ( 'inline' === $settings['type'] && $settings['source'] === $this->id ) {
             $edd_location = $settings['inline_location'];
-            $hooks        = [ 'tutor_course/loop/after_title', 'tutor/course/single/entry-box/free' ];
+            $hooks        = [ 'tutor_course/loop/after_title' ];
             $diff         = array_diff( $hooks, $edd_location );
             if ( count( $diff ) <= count( $hooks ) ) {
                 return true;
