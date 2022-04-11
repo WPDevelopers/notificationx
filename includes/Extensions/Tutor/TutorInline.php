@@ -30,7 +30,7 @@ class TutorInline extends Tutor {
         $this->themes = [
             'conv-theme-seven' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-7.png',
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/learndash-inline.png',
                 'image_shape' => 'rounded',
                 'inline_location' => ['tutor_course/loop/after_title'],
                 'template'    => [

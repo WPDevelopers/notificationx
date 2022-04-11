@@ -32,7 +32,7 @@ class LearnDashInline extends LearnDash {
         $this->themes = [
             'conv-theme-seven' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-7.png',
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/learndash-inline.png',
                 'image_shape' => 'rounded',
                 'inline_location' => ['learndash_content'],
                 'template'    => [
