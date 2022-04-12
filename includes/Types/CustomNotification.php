@@ -33,6 +33,16 @@ class CustomNotification extends Types {
     public function __construct(){
         $this->id = 'custom';
         $this->title = __('Custom Notification', 'notificationx');
+        $this->popup = [
+            "denyButtonText" => __("<a href='https://www.wpdeveloper.com' target='_blank'>More Info</a>", "notificationx"),
+            "confirmButtonText" => __("<a href='https://www.wpdeveloper.com' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "html"=> __('
+                <span>Display as many custom conversion notifications as pop up</span>
+                <iframe id="email_subscription_video" type="text/html" allowfullscreen width="450" height="235"
+                src="https://www.youtube.com/watch?v=OuTmDZ0_TEw&list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK&index=11">
+                </iframe>
+            ', 'notificationx')
+        ];
         parent::__construct();
     }
 

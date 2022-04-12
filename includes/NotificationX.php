@@ -66,6 +66,7 @@ class NotificationX {
         add_action('admin_init', [$this, 'maybe_redirect'], 10);
         add_action('init', [$this, 'init'], 10);
         add_action('plugins_loaded', array($this, 'init_extension'));
+        add_filter('nx_pro_alert_popup', array($this, 'pro_alert_popup'));
         /**
          * Register all REST Endpoint
          */
@@ -128,6 +129,27 @@ class NotificationX {
         }
 
         add_action( 'plugin_action_links_' . NOTIFICATIONX_BASENAME, array($this, 'nx_action_links'), 10, 1);
+    }
+
+    public function pro_alert_popup($args) {
+        if ( !empty($args)){
+            $args = wp_parse_args($args, [
+                "showConfirmButton"=> true,
+                "showCloseButton"=>true,
+                "title" => __('Opps! This is PRO Feature.'),
+                "customClass"=> [
+                    "container"=> 'pro-video-popup',
+                    "closeButton"=> 'pro-video-close-button',
+                    "icon"=> 'pro-video-icon',
+                    "title"=> 'pro-video-title',
+                    "content"=> 'pro-video-content',
+                    "actions"=> 'nx-pro-alert-actions',
+                    "confirmButton"=> 'pro-video-confirm-button',
+                    "denyButton"=> 'pro-video-deny-button',
+                ],
+            ]);
+        }
+        return $args;
     }
 
     /**

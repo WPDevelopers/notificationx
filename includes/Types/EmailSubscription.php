@@ -39,21 +39,8 @@ class EmailSubscription extends Types {
         $this->id = 'email_subscription';
         $this->title = __('Email Subscription', 'notificationx');
         $this->popup = [
-            "customClass"=> [
-                "container"=> 'pro-video-popup',
-                "closeButton"=> 'pro-video-close-button',
-                "icon"=> 'pro-video-icon',
-                "title"=> 'pro-video-title',
-                "content"=> 'pro-video-content',
-                "actions"=> 'nx-pro-alert-actions',
-                "confirmButton"=> 'pro-video-confirm-button',
-                "denyButton"=> 'pro-video-deny-button',
-            ],
-            "showConfirmButton"=> true,
-            "showCloseButton"=>true,
             "denyButtonText" => __("<a href='https://www.wpdeveloper.com' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://www.wpdeveloper.com' target='_blank'>Upgrade to PRO</a>", "notificationx"),
-            "title" => __('Opps! This is PRO Feature.'),
             "html"=> __('
                 <span>Show popups to display which users subscribed for your Newsletter Show popups to display which users subscribed for your Newsletter Show popups to display which users subscribed for your Newsletter</span>
                 <iframe id="email_subscription_video" type="text/html" allowfullscreen width="450" height="235"
