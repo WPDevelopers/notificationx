@@ -36,6 +36,16 @@ class ZapierConversions extends Extension {
     public function __construct(){
         $this->title = __('Zapier', 'notificationx');
         $this->module_title = __('Zapier', 'notificationx');
+        $this->popup = [
+            "denyButtonText" => __("<a href='https://notificationx.com/docs/zapier-notification-alert/' target='_blank'>More Info</a>", "notificationx"),
+            "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "html"=> __('
+                <span>A well-known web-based tool to connect with any of your web-based applications & boost productivity.</span>
+                <iframe id="email_subscription_video" type="text/html" allowfullscreen width="450" height="235"
+                src="https://www.youtube.com/embed/KjdLv5YMByQ">
+                </iframe>
+            ', 'notificationx')
+        ];
         parent::__construct();
     }
 

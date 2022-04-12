@@ -37,6 +37,16 @@ class Envato extends Extension {
     public function __construct(){
         $this->title = __('Envato', 'notificationx');
         $this->module_title = __('Envato', 'notificationx');
+        $this->popup = [
+            "denyButtonText" => __("<a href='https://notificationx.com/docs/envato-sales-notification/' target='_blank'>More Info</a>", "notificationx"),
+            "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "html"=> __('
+                <span>A resourceful online marketplace for digital assets and services.</span>
+                <iframe id="email_subscription_video" type="text/html" allowfullscreen width="450" height="235"
+                src="https://www.youtube.com/embed/-df_6KHgr7I">
+                </iframe>
+            ', 'notificationx')
+        ];
         parent::__construct();
     }
 

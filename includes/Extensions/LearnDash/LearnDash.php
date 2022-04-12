@@ -39,6 +39,13 @@ class LearnDash extends Extension {
     public function __construct(){
         $this->title = __('LearnDash', 'notificationx');
         $this->module_title = __('LearnDash', 'notificationx');
+        $this->popup = [
+            "denyButtonText" => __("<a href='https://notificationx.com/docs/how-to-display-learndash-course-enrollment-alert-using-notificationx/' target='_blank'>More Info</a>", "notificationx"),
+            "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "html"=> __('
+                <span>A widely used WordPress learning management system.</span>
+            ', 'notificationx')
+        ];
         parent::__construct();
     }
 
