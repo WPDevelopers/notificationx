@@ -268,7 +268,7 @@ abstract class Extension {
             'icon'     => $this->img,
             'value'    => $this->id,
             'is_pro'   => $this->is_pro && ! NotificationX::is_pro(),
-            'popup'    => $this->popup,
+            'popup'    => apply_filters('nx_pro_alert_popup', $this->popup),
             'priority' => $this->priority,
         ];
         return $sources;

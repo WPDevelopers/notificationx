@@ -72,6 +72,7 @@ class TutorInline extends Tutor {
                 ],
                 '_themes' => [
                     'tutor_inline_conv-theme-seven',
+                    'tutor_inline_conv-theme-eight',
                 ]
             ],
         ];

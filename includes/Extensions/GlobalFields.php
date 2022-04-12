@@ -104,7 +104,7 @@ class GlobalFields {
                                             'label'    => $type->title,
                                             'is_pro'   => $type->is_pro && ! NotificationX::is_pro(),
                                             'priority' => $type->priority,
-                                            'popup'    => $type->popup,
+                                            'popup'    => apply_filters('nx_pro_alert_popup', $type->popup),
                                         ];
                                     }, array_values(TypeFactory::get_instance()->get_all())),
                                     'validation_rules' => [

@@ -32,6 +32,16 @@ class PageAnalytics extends Types {
     public function __construct(){
         $this->id = 'page_analytics';
         $this->title = __('Page Analytics', 'notificationx');
+        $this->popup = [
+            "denyButtonText" => __("<a href='https://www.wpdeveloper.com' target='_blank'>More Info</a>", "notificationx"),
+            "confirmButtonText" => __("<a href='https://www.wpdeveloper.com' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "html"=> __('
+                <span>Connect Google Analytics to display the total number of real-time site visitors</span>
+                <iframe id="email_subscription_video" type="text/html" allowfullscreen width="450" height="235"
+                src="https://www.youtube.com/watch?v=zZPF5nJD4mo&list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK&index=22">
+                </iframe>
+            ', 'notificationx')
+        ];
         parent::__construct();
         $this->themes = [
             'pa-theme-one'   => [
