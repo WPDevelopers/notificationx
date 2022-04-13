@@ -1,3 +1,6 @@
+// @ts-ignore
+window.notificationX = window?.nxCrossSite || window.notificationX;
+
 import './index';
 import momentLib from 'moment';
 import 'moment-timezone/moment-timezone';
