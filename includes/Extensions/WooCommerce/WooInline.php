@@ -163,7 +163,7 @@ class WooInline extends WooCommerce {
     public function show_on_exclude( $exclude, $settings ) {
         if ( 'inline' === $settings['type'] && $settings['source'] === $this->id ) {
             $woo_location = $settings['inline_location'];
-            $hooks        = array_keys( $this->hooks );
+            $hooks        = ['woocommerce_before_add_to_cart_form', 'woocommerce_after_shop_loop_item_title', 'woocommerce_after_shop_loop_item', 'woocommerce_after_cart_item_name'];
             $diff         = array_diff( $hooks, $woo_location );
             if ( count( $diff ) <= count( $hooks ) ) {
                 return true;
