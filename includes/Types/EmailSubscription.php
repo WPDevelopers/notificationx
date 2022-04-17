@@ -42,7 +42,7 @@ class EmailSubscription extends Types {
             "denyButtonText" => __("<a href='https://notificationx.com/docs/mailchimp-email-subscription-alert/' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
             "html"=> __('
-                <span>Show popups to display which users subscribed for your Newsletter Show popups to display which users subscribed for your Newsletter Show popups to display which users subscribed for your Newsletter</span>
+                <span>Show popups to display which users subscribed to your Newsletter.</span>
                 <iframe id="email_subscription_video" type="text/html" allowfullscreen width="450" height="235"
                 src="https://www.youtube.com/embed/WvX8feM5DBw">
                 </iframe>
