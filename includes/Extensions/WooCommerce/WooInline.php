@@ -150,6 +150,26 @@ class WooInline extends WooCommerce {
                 ],
             ],
         ];
+        add_filter( 'nx_show_on_exclude', array( $this, 'show_on_exclude' ), 10, 4 );
+    }
+
+    /**
+     * @todo Something
+     *
+     * @param [type] $exclude
+     * @param [type] $settings
+     * @return void
+     */
+    public function show_on_exclude( $exclude, $settings ) {
+        if ( 'inline' === $settings['type'] && $settings['source'] === $this->id ) {
+            $woo_location = $settings['inline_location'];
+            $hooks        = array_keys( $this->hooks );
+            $diff         = array_diff( $hooks, $woo_location );
+            if ( count( $diff ) <= count( $hooks ) ) {
+                return true;
+            }
+        }
+        return $exclude;
     }
 
     public function content_fields($fields){
