@@ -44,6 +44,12 @@
 }
 
 .pro-video-popup {
+    .swal2-popup {
+        padding: 20px;
+    }
+    .swal2-icon {
+        margin: 20px auto 20px!important;
+    }
     .pro-video-close-button {
         font-size: 1.75rem !important;
         box-shadow: none !important;
@@ -54,6 +60,8 @@
     }
     .pro-video-title {
         font-size: 24px;
+        margin-top: 0;
+        padding-top: 0;
     }
     .swal2-html-container,
     .pro-video-content {
@@ -76,6 +84,7 @@
         display: flex !important;
         justify-content: center !important;
         flex-direction: row-reverse !important;
+        width: 100%;
     }
     .pro-video-confirm-button {
         border: none !important;
