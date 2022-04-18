@@ -36,6 +36,13 @@ class ZapierReviews extends Extension {
     public function __construct(){
         $this->title = __('Zapier', 'notificationx');
         $this->module_title = __('Zapier', 'notificationx');
+        $this->popup = [
+            "denyButtonText" => __("<a href='https://notificationx.com/docs/zapier-notification-alert/' target='_blank'>More Info</a>", "notificationx"),
+            "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "html"=> __('
+                <span>Display review alerts from popular social media networks & encourage visitors to place trust in your business.</span>
+            ', 'notificationx')
+        ];
         parent::__construct();
     }
 

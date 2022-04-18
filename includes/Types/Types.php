@@ -19,6 +19,7 @@ abstract class Types {
 
     public $id;
     public $title;
+    public $dashboard_title;
     public $is_pro = false;
     public $themes = [];
     public $module = [];
@@ -26,6 +27,7 @@ abstract class Types {
     public $has_link_types = false;
     public $default_source    = '';
     public $default_theme = '';
+    public $popup          = null;
 
     /**
      * Initially Invoked when initialized.

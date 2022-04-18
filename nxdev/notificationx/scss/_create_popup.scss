@@ -1,4 +1,4 @@
-.nx-admin-wrapper  {
+.nx-admin-wrapper {
     display: flex;
     .nx-admin-sidebar {
         width: 20%;
@@ -41,5 +41,88 @@
             margin-bottom: 0px;
         }
     }
+}
 
+.pro-video-popup {
+    .swal2-popup {
+        padding: 20px;
+    }
+    .swal2-icon {
+        margin: 20px auto 20px!important;
+    }
+    .pro-video-close-button {
+        font-size: 1.75rem !important;
+        box-shadow: none !important;
+    }
+    .pro-video-icon {
+        font-size: 10px;
+        margin-bottom: 12px;
+    }
+    .pro-video-title {
+        font-size: 24px;
+        margin-top: 0;
+        padding-top: 0;
+    }
+    .swal2-html-container,
+    .pro-video-content {
+        margin-top: 10px;
+        font-size: 16px;
+        color: #25396f;
+        margin-left: 0;
+        margin-right: 0;
+        line-height: 1.4;
+        span {
+            display: block;
+            text-align: justify;
+        }
+        iframe {
+            margin-top: 20px;
+            width: 100%;
+        }
+    }
+    .nx-pro-alert-actions {
+        display: flex !important;
+        justify-content: center !important;
+        flex-direction: row-reverse !important;
+        width: 100%;
+    }
+    .pro-video-confirm-button {
+        border: none !important;
+        background: #5614d5 !important;
+        color: #fff !important;
+        margin-left: auto !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        a {
+            display: block;
+            color: #fff !important;
+            text-decoration: none !important;
+            padding: 10px 15px;
+        }
+        &:hover {
+            color: #fff !important;
+            background-color: darken(#5614d5, 5%) !important;
+            border-color: darken(#5614d5, 5%) !important;
+            box-shadow: 0 15px 25px -5px rgba(#5614d5, 0.3) !important;
+        }
+    }
+    .pro-video-deny-button {
+        border: none !important;
+        background: #45c9b1 !important;
+        color: #fff !important;
+        border-color: darken(#45c9b1, 1%) !important;
+        padding: 0 !important;
+        a {
+            display: block;
+            color: #fff !important;
+            text-decoration: none !important;
+            padding: 10px 20px;
+        }
+        &:hover {
+            color: #fff !important;
+            background-color: darken(#45c9b1, 1%) !important;
+            border-color: darken(#45c9b1, 1%) !important;
+            box-shadow: 0 15px 25px -5px rgba(#45c9b1, 0.3) !important;
+        }
+    }
 }

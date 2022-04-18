@@ -39,6 +39,16 @@ class GravityForms extends Extension {
     public function __construct(){
         $this->title = __('Gravity Forms', 'notificationx');
         $this->module_title = __('Gravity Forms', 'notificationx');
+        $this->popup = [
+            "denyButtonText" => __("<a href='https://notificationx.com/docs/gravity-forms/' target='_blank'>More Info</a>", "notificationx"),
+            "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "html"=> __('
+                <span>A WordPress contact forms plugin that can help you keep important leads and stay in touch with your customers.</span>
+                <iframe id="email_subscription_video" type="text/html" allowfullscreen width="450" height="235"
+                src="https://www.youtube.com/embed/1Gl3XRd1TxY">
+                </iframe>
+            ', 'notificationx')
+        ];
         parent::__construct();
     }
 

@@ -6,23 +6,24 @@
  * @package NotificationX\Extensions
  */
 
-namespace NotificationX\Extensions\EDD;
+namespace NotificationX\Extensions\LearnDash;
 
 /**
  * EDD Extension
  */
-class EDDInline extends EDD {
+class LearnDashInline extends LearnDash {
     protected static $instance = null;
 
-    public $priority        = 10;
-    public $id              = 'edd_inline';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/edd.png';
-    public $doc_link        = 'https://notificationx.com/docs/notificationx-easy-digital-downloads/';
+    public $priority        = 20;
+    public $id              = 'learndash_inline';
+    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/learndash.png';
+    public $doc_link        = 'https://notificationx.com/docs/how-to-display-learndash-course-enrollment-alert-using-notificationx/';
     public $types           = 'inline';
-    public $module          = 'modules_edd';
-    public $module_priority = 5;
-    public $class           = 'Easy_Digital_Downloads';
+    public $module          = 'modules_learndash';
+    public $module_priority = 18;
     public $is_pro          = true;
+    public $version         = '1.2.0';
+    public $class           = '\LDLMS_Post_Types';
 
     /**
      * Initially Invoked when initialized.
@@ -30,41 +31,40 @@ class EDDInline extends EDD {
     public function __construct() {
         $this->themes = [
             'conv-theme-seven' => array(
-                'is_pro'      => true,
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/woo-inline.jpg',
+                'is_pro' => true,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/learndash-inline.png',
                 'image_shape' => 'rounded',
-                'inline_location' => ['edd_single'],
+                'inline_location' => ['learndash_content'],
                 'template'    => [
                     'first_param'         => 'tag_sales_count',
-                    'custom_first_param'  => __( 'Someone', 'notificationx' ),
-                    'second_param'        => __( 'people purchased', 'notificationx' ),
+                    'second_param'        => __('people enrolled', 'notificationx'),
                     'third_param'         => 'tag_custom',
                     'custom_third_param'  => ' ',
                     'fourth_param'        => 'tag_7days',
-                    'custom_fourth_param' => __( 'in last {{day:7}}', 'notificationx' ),
+                    'custom_fourth_param' => __('in last {{day:7}}', 'notificationx'),
                 ],
             ),
         ];
         $this->templates = [
-            'woo_template_sales_count' => [
+            'learndash_inline_template_sales_count' => [
                 'first_param'  => [
                     'tag_sales_count' => __( 'Sales Count', 'notificationx' ),
                 ],
-                'third_param'  => [
-                    'tag_product_title' => __( 'Product Title', 'notificationx' ),
+                'third_param' => [
+                    'tag_course_title' => __('Course Title', 'notificationx'),
                 ],
                 'fourth_param' => [
                     'tag_1day'   => __( 'In last 1 day', 'notificationx' ),
                     'tag_7days'  => __( 'In last 7 days', 'notificationx' ),
                     'tag_30days' => __( 'In last 30 days', 'notificationx' ),
                 ],
-                '_themes'      => [
-                    "{$this->id}_conv-theme-seven",
-                ],
+                '_themes' => [
+                    'learndash_inline_conv-theme-seven',
+                ]
             ],
         ];
-        add_filter( 'nx_show_on_exclude', array( $this, 'show_on_exclude' ), 10, 4 );
         parent::__construct();
+        add_filter( 'nx_show_on_exclude', array( $this, 'show_on_exclude' ), 10, 4 );
     }
 
     /**
@@ -77,7 +77,7 @@ class EDDInline extends EDD {
     public function show_on_exclude( $exclude, $settings ) {
         if ( 'inline' === $settings['type'] && $settings['source'] === $this->id ) {
             $edd_location = $settings['inline_location'];
-            $hooks        = [ 'edd_archive', 'edd_single' ];
+            $hooks        = [ 'tutor_course/loop/after_title' ];
             $diff         = array_diff( $hooks, $edd_location );
             if ( count( $diff ) <= count( $hooks ) ) {
                 return true;
@@ -85,6 +85,7 @@ class EDDInline extends EDD {
         }
         return $exclude;
     }
+
     /**
      * Get the instance of called class.
      *

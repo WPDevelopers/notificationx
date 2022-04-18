@@ -36,6 +36,17 @@ class FreemiusStats extends Extension {
     public function __construct(){
         $this->title = __('Freemius', 'notificationx');
         $this->module_title = __('Freemius', 'notificationx');
+        $this->popup = [
+            "showCloseButton" => false,
+            "denyButtonText" => '',
+            "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "html"=> __('
+                <span>Amazing platform to display download statistics to urge visitors to trust your items.</span>
+                <iframe id="email_subscription_video" type="text/html" allowfullscreen width="450" height="235"
+                src="https://www.youtube.com/embed/0uANsOSFmtw">
+                </iframe>
+            ', 'notificationx')
+        ];
         parent::__construct();
     }
 
