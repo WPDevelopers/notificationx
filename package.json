@@ -27,6 +27,7 @@
     "@wordpress/dom-ready": "^3.2.1",
     "@wordpress/hooks": "^3.2.0",
     "@wordpress/i18n": "^4.2.1",
+    "@wordpress/media-utils": "^3.4.0",
     "@wordpress/scripts": "^18.0.0",
     "mini-css-extract-plugin": "2.4.5",
     "moment": "^2.29.3",
