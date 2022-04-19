@@ -13,8 +13,8 @@ import { NotificationXFrontEnd } from "./core";
     domReady(function () {
         ReactDOM.render(
             <NotificationXFrontEnd config={notificationX} />,
-            document.getElementById("notificationx-frontend")
+            notificationX?.cross ? document.getElementById("notificationx-frontend-crosssite") : document.getElementById("notificationx-frontend")
         );
     });
     // @ts-ignore
-})(window.notificationX);
+})(window.nxCrossSite || window.notificationX);

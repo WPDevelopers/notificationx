@@ -6,7 +6,9 @@ import cookie from "react-cookies";
 import sortArray from "sort-array";
 
 const useNotificationX = (props: any) => {
+
     const [state, dispatch] = useReducer(frontendReducer, {
+        is_pro: props?.config?.is_pro,
         notices: {},
         templates: {},
     });

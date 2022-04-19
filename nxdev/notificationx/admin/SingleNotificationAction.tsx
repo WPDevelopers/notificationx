@@ -32,7 +32,7 @@ const SingleNotificationAction = ({
         } else {
             xss_id = { active: [id] };
         }
-        const xss_data = { ...nxContext.xss_data, ...xss_id };
+        const xss_data = { ...nxContext.xss_data, ...xss_id, cross: true };
         xssText = sprintf(
             `<script>\nnxCrossSite = JSON.parse('%s');\n</script>%s`,
             JSON.stringify(xss_data),
@@ -61,7 +61,7 @@ const SingleNotificationAction = ({
                         return nxHelper.delete(`nx/${id}`, { nx_id: id });
                     },
                     completeAction: (response) => {
-                        setReload(r => ! r);
+                        setReload(r => !r);
                     },
                     completeArgs: () => {
                         return [
@@ -72,7 +72,7 @@ const SingleNotificationAction = ({
                             ),
                         ];
                     },
-                    afterComplete: () => {},
+                    afterComplete: () => { },
                 });
             }
         },
@@ -96,7 +96,7 @@ const SingleNotificationAction = ({
             confirmedCallback: () => {
                 return nxHelper.get(`regenerate/${id}`, { nx_id: id });
             },
-            completeAction: (response) => {},
+            completeAction: (response) => { },
             completeArgs: () => {
                 return [
                     "regenerated",
@@ -117,7 +117,7 @@ const SingleNotificationAction = ({
         (event) => {
             if (id) {
 
-                if(item?.type == 'inline'){
+                if (item?.type == 'inline') {
                     copy(`[notificationx_inline id=${id}]`, {
                         format: "text/plain",
                         onCopy: () => {

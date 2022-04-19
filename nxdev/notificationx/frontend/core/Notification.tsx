@@ -3,9 +3,7 @@ import classNames from "classnames";
 import { Theme } from "../themes";
 import Analytics from "./Analytics";
 import { getThemeName } from "../../core/functions";
-
-/** @ts-ignore */
-const { is_pro } = window?.notificationX;
+import useNotificationContext from "./NotificationProvider";
 
 const Notification = (props) => {
     const [exit, setExit] = useState(false);
@@ -13,7 +11,8 @@ const Notification = (props) => {
     const [intervalID, setIntervalID] = useState(null);
 
     const { config: settings } = props;
-
+    const frontEndContext = useNotificationContext();
+    const is_pro = frontEndContext?.state?.is_pro ?? false;
     const incrementValue = 0.5;
     const displayFor = ((settings?.display_for || 5) * 1000);
     const isMin = displayFor * (incrementValue / 100)
