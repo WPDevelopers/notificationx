@@ -285,6 +285,7 @@ const useNotificationX = (props: any) => {
     };
 
     return {
+        ...props.config,
         isMounted,
         state,
         dispatch,

@@ -7,6 +7,7 @@ import cookie from "react-cookies";
 import { Close } from "../themes/helpers";
 import { getTime as momentGetTime } from "./utils";
 import Analytics from "./Analytics";
+import useNotificationContext from "./NotificationProvider";
 
 /**
  * @example
@@ -26,6 +27,9 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     const [closed, setClosed] = useState(false);
     let elementorRef = useRef();
 
+    const frontEndContext = useNotificationContext();
+    // const frontEndContext = '';
+
 
     const sel = "#nx-consent-accept";
     const consentCallback = useCallback(
@@ -44,7 +48,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                     consentCallback.call(t, event);
                     break;
                 }
-                else if(t.matches?.('a')){
+                else if (t.matches?.('a')) {
                     Analytics(event, t.getAttribute('href'), settings);
                 }
                 t = t.parentNode;
@@ -88,12 +92,12 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         const closeButtonCSS: CSSProperties = {};
         if (settings?.advance_edit) {
             if (settings?.bar_bg_color) componentCSS.backgroundColor = settings.bar_bg_color;
-            if (settings?.bar_text_color) componentCSS.color         = settings.bar_text_color;
-            if (settings?.bar_btn_bg) buttonCSS.backgroundColor      = settings.bar_btn_bg;
-            if (settings?.bar_btn_text_color) buttonCSS.color        = settings.bar_btn_text_color;
+            if (settings?.bar_text_color) componentCSS.color = settings.bar_text_color;
+            if (settings?.bar_btn_bg) buttonCSS.backgroundColor = settings.bar_btn_bg;
+            if (settings?.bar_btn_text_color) buttonCSS.color = settings.bar_btn_text_color;
             if (settings?.bar_counter_bg) counterCSS.backgroundColor = settings.bar_counter_bg;
-            if (settings?.bar_counter_text_color) counterCSS.color   = settings.bar_counter_text_color;
-            if (settings?.bar_close_color) closeButtonCSS.fill       = settings.bar_close_color;
+            if (settings?.bar_counter_text_color) counterCSS.color = settings.bar_counter_text_color;
+            if (settings?.bar_close_color) closeButtonCSS.fill = settings.bar_close_color;
         }
         const barHeight = document.getElementById(`nx-bar-${settings.nx_id}`).offsetHeight;
         document.body.classList.add("has-nx-bar");
@@ -221,7 +225,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                             className="nx-bar-button"
                             href={settings?.button_url}
                             target={settings?.link_open ? "_blank" : ""}
-                            onClick={e => Analytics(e, settings?.button_url, settings)}
+                            onClick={e => Analytics(e, settings?.button_url, settings, frontEndContext)}
                             style={styles?.buttonCSS}
                         >
                             {settings?.button_text}
