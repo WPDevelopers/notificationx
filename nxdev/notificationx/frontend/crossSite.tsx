@@ -1,5 +1,5 @@
 // @ts-ignore
-// window.notificationX = window?.nxCrossSite || window.notificationX;
+const notificationX = window?.nxCrossSite;
 
 import './index';
 import momentLib from 'moment';

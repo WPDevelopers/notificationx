@@ -17,4 +17,4 @@ import { NotificationXFrontEnd } from "./core";
         );
     });
     // @ts-ignore
-})(window.nxCrossSite || window.notificationX);
+})(notificationX);
