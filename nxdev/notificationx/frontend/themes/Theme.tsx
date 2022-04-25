@@ -26,7 +26,7 @@ const Theme = (props) => {
     let regex = /{{(.*?)}}/g;
     tmpl?.forEach((row) => {
         if (!row) return;
-        let cols = row.split(/\s+(?!\w+}})/);
+        let cols = row.split(/\s+(?![^\{]*}})/);
 
         cols = cols.map((col) => {
             let match;
