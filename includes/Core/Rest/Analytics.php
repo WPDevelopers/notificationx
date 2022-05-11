@@ -108,6 +108,6 @@ class Analytics {
     public function insert_analytics($request){
         $params = $request->get_params();
         $result = CoreAnalytics::get_instance()->insert_analytics( absint( $params['nx_id'] ), 'clicks' );
-        wp_send_json_success(['success' => true]);
+        return ['success' => true];
     }
 }
