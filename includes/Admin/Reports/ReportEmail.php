@@ -52,13 +52,16 @@ class ReportEmail {
             $email = $this->receiver_email_address( $email );
 
             if( ! empty( $email ) ) {
-                if( $this->send_email_weekly( $request->get_param('reporting_frequency'), true, $email ) ) {
-                    wp_send_json_success( __( 'Successfully Sent an Email', 'notificationx' ) );
+                $is_send = $this->send_email_weekly( $request->get_param('reporting_frequency'), true, $email );
+                if( $is_send && ! is_wp_error( $is_send ) ) {
+                    return [ 'message' => __( 'Successfully Sent an Email', 'notificationx' ) ];
+                } else if ( is_wp_error( $is_send ) ) {
+                    return $is_send;
                 } else {
-                    wp_send_json_error( __( 'Email cannot be sent for some reason.', 'notificationx' ) );
+                    new \WP_Error('nx_unknown_reason', __( 'Email cannot be sent for some reason.', 'notificationx' ) );
                 }
             }
-            wp_send_json_error( __( 'Something went wrong.', 'notificationx' ) );
+            new \WP_Error('nx_unknown_reason', __( 'Invalid email address.', 'notificationx' ) );
         } else {
             return new \WP_Error('nx_disabled_reporting', __( 'You have to enable Reporting first.', 'notificationx' ) );
         }
