@@ -247,7 +247,7 @@ class WooReviews extends Extension {
             if (!empty($data['product_id']) && has_post_thumbnail($data['product_id'])) {
                 $product_image = wp_get_attachment_image_src(
                     get_post_thumbnail_id($data['product_id']),
-                    '_nx_notification_thumb',
+                    [100, 100],
                     false
                 );
                 $image_data['url'] = is_array($product_image) ? $product_image[0] : '';
