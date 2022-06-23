@@ -526,14 +526,30 @@ class FrontEnd {
      */
     public function filtered_data( $entries, $post ) {
         if ( is_array( $entries ) ) {
-            foreach ( $entries as $key => $entry ) {
-                if ( isset( $entry['ip'] ) ) {
-                    unset( $entries[ $key ]['ip'] );
-                }
-                foreach ( $entry as $_key => $value ) {
-                    if ( strpos( $_key, 'email' ) !== false || in_array( $_key, [ 'lat', 'lon' ] ) ) {
-                        unset( $entries[ $key ][ $_key ] );
+            foreach ( $entries as $index => $entry ) {
+                $_entry = [
+                    'nx_id' => $entry['nx_id'],
+                    // 'entry_id' => $entry['entry_id'],
+                    'timestamp' => $entry['timestamp'],
+                    'updated_at' => $entry['updated_at'],
+                    'image_data' => $entry['image_data'],
+                ];
+                $template_arr = array_values($post['notification-template']);
+                if($post['template_adv']){
+                    $adv_template = $post['advanced_template'];
+                    $pattern = "/{{(.+)}}/i";
+                    if(preg_match_all($pattern, $adv_template, $matches)) {
+                        $template_arr = $matches[1];
                     }
+                }
+                if(is_array($template_arr)){
+                    foreach ($template_arr as $value) {
+                        $entry_key = str_replace('tag_', '', $value);
+                        if(isset($entry[$entry_key])){
+                            $_entry[$entry_key] = $entry[$entry_key];
+                        }
+                    }
+                    $entries[$index] = $_entry;
                 }
             }
         }
