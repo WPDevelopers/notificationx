@@ -34,7 +34,7 @@ const SingleNotificationAction = ({
         }
         const xss_data = { ...nxContext.xss_data, ...xss_id, cross: true };
         xssText = sprintf(
-            `<script>\nnxCrossSite = JSON.parse('%s');\n</script>%s`,
+            `<script>\n window.notificationXArr = window.notificationXArr || []; window.notificationXArr.push(JSON.parse('%s'));\n</script>%s`,
             JSON.stringify(xss_data),
             nxContext.xss_scripts
         );

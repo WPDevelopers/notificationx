@@ -11,7 +11,6 @@ apiFetch.use(apiFetch.createNonceMiddleware(''));
 //     )
 // }
 // @ts-ignore
-const notificationX = [window?.notificationX, window?.nxCrossSite];
 
 function notificationXWrapper(notificationX, id) {
     if (!notificationX?.rest)
@@ -28,34 +27,21 @@ function notificationXWrapper(notificationX, id) {
     console.log("notificationX", notificationX);
 
 
-    domReady(function () {
-        ReactDOM.render(
-            <NotificationXFrontEnd config={notificationX} />,
-            document.getElementById("notificationx-frontend" + id)
-            // notificationX?.cross ? document.getElementById("notificationx-frontend-crosssite") : document.getElementById("notificationx-frontend")
-        );
-    });
+    ReactDOM.render(
+        <NotificationXFrontEnd config={notificationX} />,
+        document.getElementById("notificationx-frontend" + id)
+        // notificationX?.cross ? document.getElementById("notificationx-frontend-crosssite") : document.getElementById("notificationx-frontend")
+    );
     // @ts-ignore
 }
 
 
-(function (notificationX) {
 
-    // console.log("notificationX", notificationX);
+domReady(function () {
+    (function (notificationX) {
 
+        notificationX.map((nx, index) => notificationXWrapper(nx, index))
 
-    notificationX.map((nx, index) => notificationXWrapper(nx, index))
-
-    // if (!notificationX?.rest)
-    //     return;
-    // // apiFetch.use(apiFetch.createNonceMiddleware(notificationX.rest.nonce));
-    // apiFetch.use(apiFetch.createRootURLMiddleware(notificationX.rest.root));
-
-    // domReady(function () {
-    //     ReactDOM.render(
-    //         <NxFrontEndWrapper config={notificationX} />,
-    //         notificationX?.cross ? document.getElementById("notificationx-frontend-crosssite") : document.getElementById("notificationx-frontend")
-    //     );
-    // });
     // @ts-ignore
-})(notificationX);
+    })(window.notificationXArr);
+});

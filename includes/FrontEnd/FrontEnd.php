@@ -34,6 +34,7 @@ class FrontEnd {
      */
     const ASSET_URL  = NOTIFICATIONX_ASSETS . 'public/';
     const ASSET_PATH = NOTIFICATIONX_ASSETS_PATH . 'public/';
+    protected $notificationXArr = [];
 
     /**
      * Initially Invoked
@@ -73,18 +74,29 @@ class FrontEnd {
 
         if ( empty( $_GET['elementor-preview'] ) ) {
             $nx_ids = $this->get_notifications_ids();
-            $nx_ids = apply_filters( 'nx_frontend_localize_data', $nx_ids );
+            $this->notificationXArr = apply_filters( 'nx_frontend_localize_data', $nx_ids );
             if ( $nx_ids['total'] > 0 ) {
                 wp_enqueue_style( 'notificationx-public' );
                 wp_enqueue_script( 'notificationx-public' );
-                wp_localize_script( 'notificationx-public', 'notificationX', $nx_ids );
                 wp_set_script_translations( 'notificationx-public', 'notificationx' );
+                add_action( 'wp_print_footer_scripts', [ $this, 'footer_scripts' ] );
 
                 do_action( 'notificationx_scripts', $nx_ids );
             }
         } else {
             // @todo maybe elementor edit mode CSS. to move to top.
             // LATER
+        }
+    }
+
+    public function footer_scripts() {
+        if ( ! empty( $this->notificationXArr ) ) {
+            ?>
+            <script>
+            notificationXArr = window.notificationXArr || [];
+            notificationXArr.push(<?php echo json_encode( $this->notificationXArr ); ?>);
+            </script>
+            <?php
         }
     }
 

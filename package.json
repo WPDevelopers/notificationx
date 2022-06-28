@@ -11,7 +11,8 @@
     "up": "npm install github:WPDevelopers/quickbuilder#dev",
     "pot": "wp i18n make-pot . languages/notificationx.pot ",
     "bb": "wp-scripts build --config webpack.blocks.config.js",
-    "blocks": "wp-scripts start --config webpack.blocks.config.js"
+    "blocks": "wp-scripts start --config webpack.blocks.config.js",
+    "zip": "npm run build && npm run csb && npm run bb"
   },
   "plugins": [
     "@babel/plugin-transform-runtime",
