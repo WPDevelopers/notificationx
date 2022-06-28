@@ -528,11 +528,12 @@ class FrontEnd {
         if ( is_array( $entries ) ) {
             foreach ( $entries as $index => $entry ) {
                 $_entry = [
-                    'nx_id' => $entry['nx_id'],
-                    // 'entry_id' => $entry['entry_id'],
-                    'timestamp' => $entry['timestamp'],
+                    'nx_id'      => $entry['nx_id'],
+                    // 'entry_id'   => $entry['entry_id'],
+                    'timestamp'  => $entry['timestamp'],
                     'updated_at' => $entry['updated_at'],
                     'image_data' => $entry['image_data'],
+                    'link'       => $entry['link'],
                 ];
                 $template_arr = array_values($post['notification-template']);
                 if($post['template_adv']){
@@ -543,8 +544,19 @@ class FrontEnd {
                     }
                 }
                 if(is_array($template_arr)){
-                    foreach ($template_arr as $value) {
-                        $entry_key = str_replace('tag_', '', $value);
+                    foreach ($template_arr as $entry_key) {
+                        if ( $entry_key == 'tag_siteview' || $entry_key == 'tag_realtime_siteview' ) {
+                            $entry_key = 'views';
+                        } elseif ( $entry_key == 'ga_title' ) {
+                            $entry_key = 'title';
+                        } elseif ( strpos( $entry_key, 'tag_product_' ) === 0 ) {
+                            $entry_key = str_replace( 'tag_product_', '', $entry_key );
+                        } elseif ( strpos( $entry_key, 'tag_' ) === 0 ) {
+                            $entry_key = str_replace( 'tag_', '', $entry_key );
+                        } elseif ( strpos( $entry_key, 'product_' ) === 0 ) {
+                            $entry_key = str_replace( 'product_', '', $entry_key );
+                        }
+
                         if(isset($entry[$entry_key])){
                             $_entry[$entry_key] = $entry[$entry_key];
                         }
