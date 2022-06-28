@@ -111,7 +111,7 @@ class EDD extends Extension {
         $items = [];
         $item_counts = [];
         foreach ($data as $key => $item) {
-            $payment_id = $item['id'];
+            $payment_id = !empty($item['id']) ? $item['id'] : $item['product_id'];
             if (!isset($items[$payment_id])) {
                 $items[$payment_id] = $item;
             } else {
@@ -320,7 +320,7 @@ class EDD extends Extension {
             if (!empty($data['product_id']) && has_post_thumbnail($data['product_id'])) {
                 $product_image = wp_get_attachment_image_src(
                     get_post_thumbnail_id($data['product_id']),
-                    '_nx_notification_thumb',
+                    [100, 100],
                     false
                 );
                 $image_data['url'] = is_array($product_image) ? $product_image[0] : '';
@@ -333,8 +333,10 @@ class EDD extends Extension {
 
     // @todo
     public function fallback_data( $data, $saved_data, $settings ) {
-        $data['product_title']   = $saved_data['title'];
         $data['anonymous_title'] = __( 'Anonymous Product', 'notificationx' );
+        if(empty($saved_data['product_title']) && !empty($saved_data['title'])){
+            $data['product_title'] = $saved_data['title'];
+        }
         return $data;
     }
     /* #endregion */

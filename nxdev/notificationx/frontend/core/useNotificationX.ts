@@ -74,7 +74,7 @@ const useNotificationX = (props: any) => {
                 if (entries?.length > 0) {
                     let id = 0;
                     const config = entries[id].props;
-                    if(!config?.random_order){
+                    if(!config?.random_order && config.source !== 'custom_notification' && config.source !== 'custom_notification_conversions'){
                         sortArray(entries, {
                             by: 'timestamp',
                             order: 'desc',

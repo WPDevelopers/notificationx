@@ -470,7 +470,7 @@ class FrontEnd {
 
         if ( $settings['show_default_image'] ) {
             if ( ! empty( $settings['image_url']['url'] ) ) {
-                $image             = wp_get_attachment_image_src( $settings['image_url']['id'], '_nx_notification_thumb', true );
+                $image             = wp_get_attachment_image_src( $settings['image_url']['id'], [100, 100], true );
                 $image_data['url'] = $image[0];
             } else {
                 $default_avatar    = $settings['default_avatar'];
