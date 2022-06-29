@@ -189,6 +189,12 @@ class Admin {
         $notice->thumbnail( 'review', plugins_url( 'assets/admin/images/nx-icon.svg', NOTIFICATIONX_BASENAME ) );
 
         /**
+         * Freedom30 Notice
+         */
+        $notice->message( 'freedom30', '<p>'. __( 'Are you going to miss your bonus? Grab 30% OFF Hurray!!!', 'notificationx' ) .'<button class="notice-dismiss" data-notice="freedom30"></button></p>' );
+        $notice->thumbnail( 'freedom30', plugins_url( 'assets/admin/images/freedom30.png', NOTIFICATIONX_BASENAME ) );
+
+        /**
          * Current Notice End Time.
          * Notice will dismiss in 3 days if user does nothing.
          */
@@ -201,10 +207,24 @@ class Admin {
 
         $notice->options_args = array(
             'notice_will_show' => [
-                'opt_in' => $notice->timestamp,
-                'review' => $notice->makeTime( $notice->timestamp, '7 Day' ), // after 4 days
+                // 'opt_in' => $notice->timestamp,
+                'opt_in' => $notice->makeTime( $notice->timestamp, '3 Day' ),
+                'review' => $notice->makeTime( $notice->timestamp, '7 Day' ),    // after 4 days
             ]
         );
+
+        if( $notice->timestamp < strtotime( '5th July 2022 11:59:59 PM' ) ) {
+            $notice->options_args['notice_will_show']['freedom30'] = $notice->timestamp;
+            // $notice->options_args['notice_will_show']['freedom30'] = $notice->makeTime( $notice->timestamp, '1 Hour' );
+        }
+
+
+        if ( ! get_user_meta( get_current_user_id(), 'notificationx_freedom30', true ) ) {
+            if( $notice->timestamp > strtotime( '5th July 2022 11:59:59 PM' ) ) {
+                update_user_meta( get_current_user_id(), 'notificationx_freedom30', true );
+            }
+        }
+
 
         $notice->init();
 

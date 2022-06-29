@@ -321,6 +321,9 @@ class Notice {
                     case 'upsale':
                         $later_time = $this->makeTime( $this->timestamp, $this->maybe_later_time );
                         break;
+                    default:
+                        $dismiss    = ( isset( $plugin_action ) ) ? $plugin_action : false;
+                        break;
                 }
 
                 if ( isset( $later ) && $later == true ) {
@@ -371,7 +374,7 @@ class Notice {
         }
 
         if ( $this->has_thumbnail( $current_notice ) ) {
-            $classes .= 'notice-has-thumbnail';
+            $classes .= ' notice-has-thumbnail';
         }
 
         echo '<div class="' . esc_attr( $classes ) . ' wpdeveloper-' . esc_attr( $current_notice ) . '-notice">';
@@ -413,6 +416,12 @@ class Notice {
                 do_action( 'wpdeveloper_review_notice_for_' . $this->plugin_name );
                 $this->get_thumbnail( 'review' );
                 $this->get_message( 'review' );
+                break;
+            default:
+                do_action( 'wpdeveloper_'. $notice .'_notice_for_' . $this->plugin_name );
+                $this->get_thumbnail( $notice );
+                $this->get_message( $notice );
+                $this->dismiss_button_scripts();
                 break;
         }
     }
@@ -803,6 +812,7 @@ class Notice {
         $dismiss = isset( $_POST['dismiss'] ) ? sanitize_text_field( $_POST['dismiss'] ) : false;
         $notice  = isset( $_POST['notice'] ) ? sanitize_text_field( $_POST['notice'] ) : false;
         if ( $dismiss ) {
+            update_user_meta( get_current_user_id(), $this->plugin_name . '_' . $notice, true );
             $this->update( $notice );
             echo 'success';
         } else {

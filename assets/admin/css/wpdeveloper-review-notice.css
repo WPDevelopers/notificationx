@@ -34,10 +34,12 @@
 .wpdeveloper-notice-thumbnail img:hover {
     opacity: 1;
 }
+.wpdeveloper-notice-thumbnail img,
 .wpdeveloper-update-notice .wpdeveloper-notice-thumbnail img,
 .wpdeveloper-update_400k-notice .wpdeveloper-notice-thumbnail img {
     width: 32px;
 }
+.wpdeveloper-notice-thumbnail,
 .wpdeveloper-update-notice .wpdeveloper-notice-thumbnail,
 .wpdeveloper-update_400k-notice .wpdeveloper-notice-thumbnail {
     width: auto;
@@ -145,3 +147,20 @@ span.coupon-code {
 .wpdeveloper-upsale-notice .wpdeveloper-notice-message .button {
     margin-left: 15px;
 }
+
+.notice-has-thumbnail.wpdeveloper-freedom30-notice {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    align-items: center;
+    position: relative;
+    /* background-image: linear-gradient(180deg, #8C94FF 0%, #2564FF 100%);
+    color: #fff;
+    border-left: 0px; */
+}
+.notice-has-thumbnail.wpdeveloper-freedom30-notice .wpdeveloper-notice-thumbnail {
+    width: 70px;
+}
+.notice-has-thumbnail.wpdeveloper-freedom30-notice .wpdeveloper-notice-thumbnail img {
+    width: 50px;
+}
+
