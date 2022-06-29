@@ -366,7 +366,7 @@ class Notice {
      */
     public function before() {
         $current_notice = current( $this->next_notice() );
-        $classes        = 'notice notice-info put-dismiss-notice';
+        $classes = 'notice notice-info put-dismiss-notice ';
         if ( isset( $this->data['classes'] ) ) {
             if ( isset( $this->data['classes'][ $current_notice ] ) ) {
                 $classes = $this->data['classes'][ $current_notice ];
@@ -377,6 +377,7 @@ class Notice {
             $classes .= ' notice-has-thumbnail';
         }
 
+        $classes .= ' ' . $this->plugin_name;
         echo '<div class="' . esc_attr( $classes ) . ' wpdeveloper-' . esc_attr( $current_notice ) . '-notice">';
     }
     /**
@@ -851,7 +852,7 @@ class Notice {
             jQuery(document).ready( function($) {
                 if( $('.notice').length > 0 ) {
                     if( $('.notice').find('.notice-dismiss').length > 0 ) {
-                        $('.notice').on('click', 'button.notice-dismiss', function (e) {
+                        $('.notice.<?php echo $this->plugin_name; ?>').on('click', 'button.notice-dismiss', function(e) {
                             e.preventDefault();
                             $.ajax({
                                 url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
@@ -863,15 +864,13 @@ class Notice {
                                     notice: $(this).data('notice'),
                                 },
                                 success: function(response) {
-                                    $('.notice').hide();
-                                    console.log('Successfully saved!');
+                                    if( response === 'success' ) {
+                                        e.target.offsetParent.style.display = 'none';
+                                    }
                                 },
                                 error: function(error) {
-                                    console.log('Something went wrong!');
+                                    console.log('Nx: Something went wrong!');
                                 },
-                                complete: function() {
-                                    console.log('Its Complete.');
-                                }
                             });
                         });
                     }
