@@ -57,7 +57,7 @@ class FrontEnd {
         add_action( 'wp_footer', array( $this, 'add_notificationx' ) );
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
         add_filter( 'nx_fallback_data', [ $this, 'fallback_data' ], 10, 3 );
-        add_filter( 'nx_filtered_data', [ $this, 'filtered_data' ], 9999, 2 );
+        add_filter( 'nx_filtered_data', [ $this, 'filtered_data' ], 9999, 3 );
     }
 
     /**
@@ -112,10 +112,11 @@ class FrontEnd {
             $params = $this->get_notifications_ids();
         }
         $params    = wp_parse_args($params, [
-            'global'    => [],
-            'active'    => [],
-            'pressbar'  => [],
-            'shortcode' => [],
+            'global'           => [],
+            'active'           => [],
+            'pressbar'         => [],
+            'shortcode'        => [],
+            'inline_shortcode' => false,
             ]
         );
         $global    = $params['global'];
@@ -208,9 +209,9 @@ class FrontEnd {
 
             foreach ( $result as &$group ) {
                 foreach ( $group as &$value ) {
-                    $value['entries'] = apply_filters( "nx_filtered_data_{$value['post']['type']}", $value['entries'], $value['post'] );
-                    $value['entries'] = apply_filters( "nx_filtered_data_{$value['post']['source']}", $value['entries'], $value['post'] );
-                    $value['entries'] = apply_filters( 'nx_filtered_data', $value['entries'], $value['post'] );
+                    $value['entries'] = apply_filters( "nx_filtered_data_{$value['post']['type']}", $value['entries'], $value['post'], $params );
+                    $value['entries'] = apply_filters( "nx_filtered_data_{$value['post']['source']}", $value['entries'], $value['post'], $params );
+                    $value['entries'] = apply_filters( 'nx_filtered_data', $value['entries'], $value['post'], $params );
                 }
             }
             $result = apply_filters( 'nx_filtered_notice', $result, $params );
@@ -524,17 +525,20 @@ class FrontEnd {
      *
      * @return void
      */
-    public function filtered_data( $entries, $post ) {
+    public function filtered_data( $entries, $post, $params ) {
         if ( is_array( $entries ) ) {
             foreach ( $entries as $index => $entry ) {
                 $_entry = [
                     'nx_id'      => $entry['nx_id'],
-                    'product_id' => isset($entry['product_id']) ? $entry['product_id'] : '',
                     'timestamp'  => $entry['timestamp'],
                     'updated_at' => $entry['updated_at'],
                     'image_data' => $entry['image_data'],
                     'link'       => $entry['link'],
                 ];
+                if(!empty($params['inline_shortcode']) && isset($entry['product_id'])){
+                    $_entry['product_id'] = $entry['product_id'];
+                }
+
                 $template_arr = array_values($post['notification-template']);
                 if($post['template_adv']){
                     $adv_template = $post['advanced_template'];
