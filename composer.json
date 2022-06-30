@@ -15,10 +15,15 @@
     {
       "type": "vcs",
       "url": "https://github.com/udx/lib-utility"
+    },
+    {
+      "type": "path",
+      "url": "/Users/priyomukul/Files/Developments/GitHub/wp-notice"
     }
   ],
   "require": {
-    "udx/lib-settings": "dev-master"
+    "udx/lib-settings": "dev-master",
+    "priyomukul/wp-notice": "dev-main"
   },
   "autoload": {
     "exclude-from-classmap": [

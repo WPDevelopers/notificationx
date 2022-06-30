@@ -16,6 +16,8 @@ use NotificationX\Core\Upgrader;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\ExtensionFactory;
 
+use PriyoMukul\WPNotice\Notices;
+
 /**
  * Admin Class, this class is responsible for all Admin Actions
  */
@@ -32,6 +34,8 @@ class Admin {
     const ASSET_URL  = NOTIFICATIONX_ASSETS . 'admin/';
     const ASSET_PATH = NOTIFICATIONX_ASSETS_PATH . 'admin/';
     const VIEWS_PATH = NOTIFICATIONX_INCLUDES . 'Admin/views/';
+
+    private $insights = null;
 
     /**
      * Initially Invoked
@@ -139,11 +143,19 @@ class Admin {
     }
 
     public function admin_notices(){
-        $notice = new Notice(NOTIFICATIONX_BASENAME, NOTIFICATIONX_VERSION);
-        $scheme = (parse_url( $_SERVER['REQUEST_URI'], PHP_URL_QUERY )) ? '&' : '?';
-        $url = $_SERVER['REQUEST_URI'] . $scheme;
-        $notice->links = [
-            'review' => array(
+        $notices = new Notices([
+            'id'          => 'notificationx',
+            'store'       => 'options',
+            'storage_key' => 'notices',
+            'version'     => '1.0.0',
+            'lifetime'    => 3,
+            'styles'      => self::ASSET_URL . 'css/wpdeveloper-review-notice.css',
+        ]);
+
+        $_review_notice = [
+            'thumbnail' => self::ASSET_URL . 'images/nx-icon.svg',
+            'html' => '<p>'. __( 'We hope you\'re enjoying NotificationX! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'notificationx' ) .'</p>',
+            'links' => [
                 'later' => array(
                     'link' => 'https://wpdeveloper.com/review-notificationx',
                     'target' => '_blank',
@@ -151,20 +163,18 @@ class Admin {
                     'icon_class' => 'dashicons dashicons-external',
                 ),
                 'allready' => array(
-                    'link' => $url,
                     'label' => __( 'I already did', 'notificationx' ),
                     'icon_class' => 'dashicons dashicons-smiley',
-                    'data_args' => [
-                        'dismiss' => true,
-                    ]
+                    'attributes' => [
+                        'data-dismiss' => true
+                    ],
                 ),
                 'maybe_later' => array(
-                    'link' => $url,
                     'label' => __( 'Maybe Later', 'notificationx' ),
                     'icon_class' => 'dashicons dashicons-calendar-alt',
-                    'data_args' => [
-                        'later' => true,
-                    ]
+                    'attributes' => [
+                        'data-later' => true
+                    ],
                 ),
                 'support' => array(
                     'link' => 'https://wpdeveloper.com/support',
@@ -172,59 +182,73 @@ class Admin {
                     'icon_class' => 'dashicons dashicons-sos',
                 ),
                 'never_show_again' => array(
-                    'link' => $url,
                     'label' => __( 'Never show again', 'notificationx' ),
                     'icon_class' => 'dashicons dashicons-dismiss',
-                    'data_args' => [
-                        'dismiss' => true,
-                    ]
-                ),
-            )
+                    'attributes' => [
+                        'data-dismiss' => true
+                    ],
+                )
+            ]
         ];
 
-        /**
-         * This is review message and thumbnail.
-         */
-        $notice->message( 'review', '<p>'. __( 'We hope you\'re enjoying NotificationX! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'notificationx' ) .'</p>' );
-        $notice->thumbnail( 'review', plugins_url( 'assets/admin/images/nx-icon.svg', NOTIFICATIONX_BASENAME ) );
-
-        /**
-         * Current Notice End Time.
-         * Notice will dismiss in 3 days if user does nothing.
-         */
-        $notice->cne_time = '3 Day';
-        /**
-         * Current Notice Maybe Later Time.
-         * Notice will show again in 7 days
-         */
-        $notice->maybe_later_time = '7 Day';
-
-        $notice->options_args = array(
-            'notice_will_show' => [
-                'opt_in' => $notice->timestamp,
-                'review' => $notice->makeTime( $notice->timestamp, '7 Day' ), // after 4 days
+        $notices->add(
+            'review',
+            $_review_notice,
+            [
+                'start'       => $notices->strtotime( '+7 day' ),
+                'recurrence'  => 30,
+                'dismissible' => true,
             ]
         );
 
-        $notice->init();
+        $_freedom50_notice= [
+            'thumbnail' => self::ASSET_URL . 'images/usa.png',
+            'html' => '<p>'. __( 'Celebrate freedom with up to <strong>50% OFF</strong>! Upgrade to <strong>NotificationX PRO</strong> & boost conversion rates today', 'notificationx' ) .' <a class="button button-primary btn-nx-cta" target="_blank" href="https://notificationx.com/#pricing">Claim My Offer</a></p>',
+        ];
 
-        wp_enqueue_style( 'wpdeveloper-review-notice', self::ASSET_URL . 'css/wpdeveloper-review-notice.css', array(), false, 'all' );
+        $notices->add(
+            'freedom50',
+            $_freedom50_notice,
+            [
+                'start'       => $notices->time(),
+                'expire'      => strtotime( '5th July 2022 11:59:59 PM' ),
+                'recurrence'  => false,
+                'dismissible' => true,
+                'display_if'  => ! is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
+            ]
+        );
 
+        ob_start();
+        $this->insights->notice();
+        $opt_in_content = ob_get_clean();
+
+        $notices->add(
+            'opt_in',
+            $opt_in_content,
+            [
+                'classes'     => 'updated put-dismiss-notice',
+                'start'       => $notices->strtotime( '+15 day' ),
+                'dismissible' => true,
+                'display_if'  => ! is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
+            ]
+        );
+
+        $notices->init();
     }
 
     public function plugin_usage_insights(){
-        $insights = PluginInsights::get_instance( NOTIFICATIONX_FILE, [
+        $this->insights = PluginInsights::get_instance( NOTIFICATIONX_FILE, [
 			'opt_in'       => true,
 			'goodbye_form' => true,
 			'item_id'      => '6ba8d30bc0beaddb2540'
 		] );
-		$insights->set_notice_options(array(
+		$this->insights->set_notice_options(array(
 			'notice' => __( 'Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage.', 'notificationx' ),
 			'extra_notice' => __( 'We collect non-sensitive diagnostic data and plugin usage information.
 			Your site URL, WordPress & PHP version, plugins & themes and email address to send you the
 			discount coupon. This data lets us make sure this plugin always stays compatible with the most
 			popular plugins and themes. No spam, I promise.', 'notificationx' ),
 		));
-		$insights->init();
+		$this->insights->init();
     }
 }

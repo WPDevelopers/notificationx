@@ -610,7 +610,7 @@ class PluginInsights {
 
         ?>
 
-        <div class="notice notice-info updated put-dismiss-notice">
+        <div class="nx-optin">
             <p><?php echo wp_kses_post( $notice_text ); ?></p>
             <div class="wpinsights-data" style="display: none;">
                 <p><?php echo wp_kses_post( $extra_notice_text ); ?></p>

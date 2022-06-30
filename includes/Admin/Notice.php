@@ -321,6 +321,9 @@ class Notice {
                     case 'upsale':
                         $later_time = $this->makeTime( $this->timestamp, $this->maybe_later_time );
                         break;
+                    default:
+                        $dismiss    = ( isset( $plugin_action ) ) ? $plugin_action : false;
+                        break;
                 }
 
                 if ( isset( $later ) && $later == true ) {
@@ -363,7 +366,7 @@ class Notice {
      */
     public function before() {
         $current_notice = current( $this->next_notice() );
-        $classes        = 'notice notice-info put-dismiss-notice';
+        $classes = 'notice notice-info put-dismiss-notice ';
         if ( isset( $this->data['classes'] ) ) {
             if ( isset( $this->data['classes'][ $current_notice ] ) ) {
                 $classes = $this->data['classes'][ $current_notice ];
@@ -371,9 +374,10 @@ class Notice {
         }
 
         if ( $this->has_thumbnail( $current_notice ) ) {
-            $classes .= 'notice-has-thumbnail';
+            $classes .= ' notice-has-thumbnail';
         }
 
+        $classes .= ' ' . $this->plugin_name;
         echo '<div class="' . esc_attr( $classes ) . ' wpdeveloper-' . esc_attr( $current_notice ) . '-notice">';
     }
     /**
@@ -413,6 +417,12 @@ class Notice {
                 do_action( 'wpdeveloper_review_notice_for_' . $this->plugin_name );
                 $this->get_thumbnail( 'review' );
                 $this->get_message( 'review' );
+                break;
+            default:
+                do_action( 'wpdeveloper_'. $notice .'_notice_for_' . $this->plugin_name );
+                $this->get_thumbnail( $notice );
+                $this->get_message( $notice );
+                $this->dismiss_button_scripts();
                 break;
         }
     }
@@ -803,6 +813,7 @@ class Notice {
         $dismiss = isset( $_POST['dismiss'] ) ? sanitize_text_field( $_POST['dismiss'] ) : false;
         $notice  = isset( $_POST['notice'] ) ? sanitize_text_field( $_POST['notice'] ) : false;
         if ( $dismiss ) {
+            update_user_meta( get_current_user_id(), $this->plugin_name . '_' . $notice, true );
             $this->update( $notice );
             echo 'success';
         } else {
@@ -841,7 +852,7 @@ class Notice {
             jQuery(document).ready( function($) {
                 if( $('.notice').length > 0 ) {
                     if( $('.notice').find('.notice-dismiss').length > 0 ) {
-                        $('.notice').on('click', 'button.notice-dismiss', function (e) {
+                        $('.notice.<?php echo $this->plugin_name; ?>').on('click', 'button.notice-dismiss', function(e) {
                             e.preventDefault();
                             $.ajax({
                                 url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
@@ -853,15 +864,13 @@ class Notice {
                                     notice: $(this).data('notice'),
                                 },
                                 success: function(response) {
-                                    $('.notice').hide();
-                                    console.log('Successfully saved!');
+                                    if( response === 'success' ) {
+                                        e.target.offsetParent.style.display = 'none';
+                                    }
                                 },
                                 error: function(error) {
-                                    console.log('Something went wrong!');
+                                    console.log('Nx: Something went wrong!');
                                 },
-                                complete: function() {
-                                    console.log('Its Complete.');
-                                }
                             });
                         });
                     }

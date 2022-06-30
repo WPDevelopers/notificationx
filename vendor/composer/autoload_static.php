@@ -6,6 +6,20 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
 {
+    public static $prefixLengthsPsr4 = array (
+        'P' => 
+        array (
+            'PriyoMukul\\WPNotice\\' => 20,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'PriyoMukul\\WPNotice\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/priyomukul/wp-notice/src',
+        ),
+    );
+
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'NotificationX\\Admin\\Admin' => __DIR__ . '/../..' . '/includes/Admin/Admin.php',
@@ -116,6 +130,8 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit89ec86686dc155609d949b902a87bbd5::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit89ec86686dc155609d949b902a87bbd5::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit89ec86686dc155609d949b902a87bbd5::$classMap;
 
         }, null, ClassLoader::class);
