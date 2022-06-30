@@ -4,11 +4,19 @@
             "name": "priyomukul/wp-notice",
             "version": "dev-main",
             "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "/Users/priyomukul/Files/Developments/GitHub/wp-notice",
-                "reference": "bae4c47e594ce313136064f052244d534e9f68ae"
+            "source": {
+                "type": "git",
+                "url": "git@github.com:priyomukul/wp-notice.git",
+                "reference": "424b700ecba982e34b6a421a87c461eea0a3c3ce"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/priyomukul/wp-notice/zipball/424b700ecba982e34b6a421a87c461eea0a3c3ce",
+                "reference": "424b700ecba982e34b6a421a87c461eea0a3c3ce",
+                "shasum": ""
+            },
+            "time": "2022-06-30T12:15:07+00:00",
+            "default-branch": true,
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -22,8 +30,9 @@
                     "email": "17237437+priyomukul@users.noreply.github.com"
                 }
             ],
-            "transport-options": {
-                "relative": false
+            "support": {
+                "source": "https://github.com/priyomukul/wp-notice/tree/main",
+                "issues": "https://github.com/priyomukul/wp-notice/issues"
             },
             "install-path": "../priyomukul/wp-notice"
         },

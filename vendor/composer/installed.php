@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
+        'pretty_version' => 'dev-latest',
+        'version' => 'dev-latest',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'fb371a65b820d34a04de44772b4e74558a174d82',
+        'reference' => '6acdd6be371d71ab1bb3b8e401784c4df700bdfd',
         'name' => 'wpdeveloper/notificationx',
         'dev' => true,
     ),
@@ -15,8 +15,10 @@
             'version' => 'dev-main',
             'type' => 'library',
             'install_path' => __DIR__ . '/../priyomukul/wp-notice',
-            'aliases' => array(),
-            'reference' => 'bae4c47e594ce313136064f052244d534e9f68ae',
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
+            'reference' => '424b700ecba982e34b6a421a87c461eea0a3c3ce',
             'dev_requirement' => false,
         ),
         'udx/lib-settings' => array(
@@ -40,12 +42,12 @@
             'dev_requirement' => false,
         ),
         'wpdeveloper/notificationx' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
+            'pretty_version' => 'dev-latest',
+            'version' => 'dev-latest',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'fb371a65b820d34a04de44772b4e74558a174d82',
+            'reference' => '6acdd6be371d71ab1bb3b8e401784c4df700bdfd',
             'dev_requirement' => false,
         ),
     ),
