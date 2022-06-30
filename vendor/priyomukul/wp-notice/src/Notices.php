@@ -29,9 +29,10 @@ final class Notices extends Base {
 	}
 
 	public function __construct( $args ){
-		$this->system_id   = ! empty( $args['app'] ) ? $args['app'] . '-notice-system' : $this->system_id;
-		$this->app  = ! empty( $args['id'] ) ? $args['id'] : $this->app;
-		$this->version  = ! empty( $args['version'] ) ? $args['version'] : '1.0.0';
+		$this->system_id = ! empty( $args['id'] ) ? $args['id'] . '-notice-system' : $this->system_id;
+		$this->app       = ! empty( $args['id'] ) ? $args['id'] : $this->app;
+		$this->version   = ! empty( $args['version'] ) ? $args['version'] : '1.0.0';
+		$this->dev_mode  = ! empty( $args['dev_mode'] ) ? $args['dev_mode'] : false;
 
 		$this->args = $args;
 
@@ -54,11 +55,18 @@ final class Notices extends Base {
 
 	public function notices(){
 		wp_enqueue_style( $this->system_id, $this->scripts );
-		$current_notice = current( $this->eligible_notices() );
 
-		if( isset( $this->notices[ $current_notice ] ) )  {
-			$this->notices[ $current_notice ]->display();
+		if( ! $this->dev_mode ) {
+			$current_notice = current( $this->eligible_notices() );
+			if( isset( $this->notices[ $current_notice ] ) )  {
+				$this->notices[ $current_notice ]->display();
+			}
+		} else {
+			foreach( $this->notices as $key => $notice ) {
+				$notice->display( true );
+			}
 		}
+
 	}
 
 	protected function eligible_notices(){
@@ -84,12 +92,19 @@ final class Notices extends Base {
 	public function scripts(){
 		$current_notice = current( $this->eligible_notices() );
 
-		if( isset( $this->notices[ $current_notice ] ) )  {
+		if( isset( $this->notices[ $current_notice ] ) && ! $this->dev_mode )  {
 			$notice = $this->notices[ $current_notice ];
 			if( $notice->show() ) {
 				$notice->dismiss->print_script();
 			}
 		}
+
+		if( $this->dev_mode ) {
+			foreach( $this->notices as $key => $notice ) {
+				$notice->dismiss->print_script();
+			}
+		}
+
 	}
 
 	public function add( $id, $content, $options = [] ){

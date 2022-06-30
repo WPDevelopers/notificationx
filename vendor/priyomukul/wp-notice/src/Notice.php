@@ -70,8 +70,8 @@ class Notice extends Base {
 	}
 
 
-	public function display(){
-		if ( ! $this->show() ) {
+	public function display( $force = false ){
+		if ( ! $force && ! $this->show() ) {
 			return;
 		}
 
