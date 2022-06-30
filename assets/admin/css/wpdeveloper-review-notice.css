@@ -1,10 +1,34 @@
 /* review notice */
-.wpdeveloper-review-notice {
+.wpnotice-thumbnail-wrapper img {
+    display: block;
+}
+
+.button.button-primary.btn-nx-cta {
+    background-color: #6A4BFF;
+}
+.button.button-primary.btn-nx-cta:hover {
+    background-color: #5414d0;
+}
+
+.btn-nx-cta:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.wpnotice-content-wrapper > p {
+    margin-top: 0px;
+}
+
+.notice-notificationx-opt_in {
+    display: block !important;
+}
+
+.notice-notificationx-review {
     padding: 10px;
     background-color: #fff;
     border-radius: 3px;
     margin: 15px;
-    border-left: 4px solid transparent;
+    grid-template-columns: 80px 1fr !important;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -12,11 +36,13 @@
     -ms-flex-align: center;
     align-items: center;
 }
-.wpdeveloper-review-notice:after {
+
+.notice-notificationx-review:after {
     content: "";
     display: table;
     clear: both;
 }
+
 .wpdeveloper-notice-thumbnail {
     width: 90px;
     float: left;
@@ -87,26 +113,22 @@ span.coupon-code {
     font-size: 13px;
     margin: 0 0 5px;
 }
-.wpdeveloper-notice-link {
+.notificationx-notice-links {
     margin: 8px 0 0 0;
     padding: 0;
 }
-.wpdeveloper-notice-link li {
-    display: inline-block;
+.notificationx-notice-links li {
+    display: inline-flex;
     margin-right: 15px;
+    align-items: center;
 }
-.wpdeveloper-notice-link li a {
+.notificationx-notice-links li a {
     display: inline-block;
     color: #10738b;
     text-decoration: none;
-    padding-left: 26px;
     position: relative;
 }
-.wpdeveloper-notice-link li a span {
-    position: absolute;
-    left: 0;
-    top: -2px;
-}
+
 .wpdeveloper-notice-message {
     padding: 10px 0;
 }
