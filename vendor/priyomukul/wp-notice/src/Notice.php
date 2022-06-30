@@ -82,7 +82,7 @@ class Notice extends Base {
 			esc_attr( $this->get_classes() ), // The classes.
 			! empty( $this->content['thumbnail'] ) ? $this->get_thumbnail( $this->content['thumbnail'] ) : '',
 			! empty( $this->content['html'] ) ? $this->content['html'] : $this->content,
-			! empty( $this->content['links'] ) ? $this->links( $this->content['links'] ) : '',
+			! empty( $this->content['links'] ) ? $this->links( $this->content['links'] ) : ''
 		);
 	}
 

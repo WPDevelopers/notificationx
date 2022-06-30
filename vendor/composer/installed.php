@@ -5,7 +5,7 @@
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '6acdd6be371d71ab1bb3b8e401784c4df700bdfd',
+        'reference' => '41db1310e958bc9f281527b30763488e87ba78e7',
         'name' => 'wpdeveloper/notificationx',
         'dev' => true,
     ),
@@ -18,7 +18,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => '424b700ecba982e34b6a421a87c461eea0a3c3ce',
+            'reference' => '2d3fc6fa4b7a04fd2bad06dac5faa589cd623f6a',
             'dev_requirement' => false,
         ),
         'udx/lib-settings' => array(
@@ -47,7 +47,7 @@
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '6acdd6be371d71ab1bb3b8e401784c4df700bdfd',
+            'reference' => '41db1310e958bc9f281527b30763488e87ba78e7',
             'dev_requirement' => false,
         ),
     ),
