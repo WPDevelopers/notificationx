@@ -143,8 +143,8 @@ class Admin {
     }
 
     public function admin_notices(){
-        $notices = Notices::get_instance([
-            'app'         => 'notificationx',
+        $notices = new Notices([
+            'id'          => 'notificationx',
             'store'       => 'options',
             'storage_key' => 'notices',
             'version'     => '1.0.0',
@@ -201,14 +201,14 @@ class Admin {
             ]
         );
 
-        $_freedom30_notice= [
+        $_freedom50_notice= [
             'thumbnail' => self::ASSET_URL . 'images/usa.png',
             'html' => '<p>'. __( 'Celebrate freedom with up to <strong>50% OFF</strong>! Upgrade to <strong>NotificationX PRO</strong> & boost conversion rates today', 'notificationx' ) .' <a class="button button-primary btn-nx-cta" target="_blank" href="https://notificationx.com/#pricing">Claim My Offer</a></p>',
         ];
 
         $notices->add(
-            'freedom30',
-            $_freedom30_notice,
+            'freedom50',
+            $_freedom50_notice,
             [
                 'start'       => $notices->time(),
                 'expire'      => strtotime( '5th July 2022 11:59:59 PM' ),

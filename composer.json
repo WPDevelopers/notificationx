@@ -17,8 +17,8 @@
       "url": "https://github.com/udx/lib-utility"
     },
     {
-      "type": "vcs",
-      "url": "https://github.com/priyomukul/wp-notice"
+      "type": "path",
+      "url": "/Users/priyomukul/Files/Developments/GitHub/wp-notice"
     }
   ],
   "require": {
