@@ -542,13 +542,14 @@ class FrontEnd {
                 $template_arr = array_values($post['notification-template']);
                 if($post['template_adv']){
                     $adv_template = $post['advanced_template'];
-                    $pattern = "/{{(.+)}}/i";
+                    $pattern = "/{{(.+?)}}/i";
                     if(preg_match_all($pattern, $adv_template, $matches)) {
                         $template_arr = $matches[1];
                     }
                 }
                 if(is_array($template_arr)){
                     foreach ($template_arr as $entry_key) {
+                        $_entry_key = $entry_key;
                         if ( $entry_key == 'tag_siteview' || $entry_key == 'tag_realtime_siteview' ) {
                             $entry_key = 'views';
                         } elseif ( $entry_key == 'ga_title' ) {
@@ -563,6 +564,9 @@ class FrontEnd {
 
                         if(isset($entry[$entry_key])){
                             $_entry[$entry_key] = $entry[$entry_key];
+                        }
+                        if(isset($entry[$_entry_key])){
+                            $_entry[$_entry_key] = $entry[$_entry_key];
                         }
                     }
                     $entries[$index] = $_entry;
