@@ -530,7 +530,7 @@ class FrontEnd {
             foreach ( $entries as $index => $entry ) {
                 $_entry = [
                     'nx_id'      => $entry['nx_id'],
-                    'timestamp'  => $entry['timestamp'],
+                    'timestamp'  => isset($entry['timestamp']) ? $entry['timestamp'] : null,
                     'updated_at' => $entry['updated_at'],
                     'image_data' => $entry['image_data'],
                     'link'       => $entry['link'],
