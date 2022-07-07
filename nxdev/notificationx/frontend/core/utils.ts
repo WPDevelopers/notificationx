@@ -21,20 +21,7 @@ export const proccesNotice = ({ config }) => {
             pressbar  : config?.pressbar || [],
             shortcode : config?.shortcode || [],
         })
-        .then((response: any) => {
-            let mergedGlobalArray    = normalize(response?.global, response?.settings);
-            let mergedActiveArray    = normalize(response?.active, response?.settings);
-            let mergedShortcodeArray = normalize(response?.shortcode, response?.settings);
-            let pressbar             = normalizePressBar(response?.pressbar, response?.settings);
-
-            return {
-                settings: response?.settings,
-                activeNotice: mergedActiveArray,
-                globalNotice: mergedGlobalArray,
-                shortcodeNotice: mergedShortcodeArray,
-                pressbar: pressbar,
-            };
-        })
+        .then(normalizeResponse)
         .catch((err) => console.error("Fetch Error: ", err));
 };
 
@@ -47,6 +34,21 @@ export const isNotClosed = (entry) => {
         }
     }
     return true;
+};
+
+export const normalizeResponse = (response: any) => {
+    let mergedGlobalArray    = normalize(response?.global, response?.settings);
+    let mergedActiveArray    = normalize(response?.active, response?.settings);
+    let mergedShortcodeArray = normalize(response?.shortcode, response?.settings);
+    let pressbar             = normalizePressBar(response?.pressbar, response?.settings);
+
+    return {
+        settings: response?.settings,
+        activeNotice: mergedActiveArray,
+        globalNotice: mergedGlobalArray,
+        shortcodeNotice: mergedShortcodeArray,
+        pressbar: pressbar,
+    };
 };
 
 const normalize = (_entries, globalSettings) => {

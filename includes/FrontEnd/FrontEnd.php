@@ -94,7 +94,7 @@ class FrontEnd {
     }
 
     public function get_localize_data( $data ) {
-        $data['rest']   = REST::get_instance()->rest_data();
+        $data['rest']   = REST::get_instance()->rest_data(false);
         $data['assets'] = self::ASSET_URL;
         $data['is_pro'] = false;
         return $data;

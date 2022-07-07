@@ -1,6 +1,6 @@
 import { useReducer, useEffect, useRef, useState, useCallback } from "react";
 import { frontendReducer } from ".";
-import { proccesNotice, isNotClosed, getTime } from "./utils";
+import { proccesNotice, isNotClosed, getTime, normalizeResponse } from "./utils";
 import { v4 } from "uuid";
 import cookie from "react-cookies";
 import sortArray from "sort-array";
@@ -40,12 +40,35 @@ const useNotificationX = (props: any) => {
         isMounted.current = true;
         // console.log("props frontend", props);
         // Fetch Notices
-        proccesNotice(props).then((response: any) => {
+        let url = props.config.rest.root + props.config.rest.namespace + `/notice/?frontend=true`;
+        if(props.config.rest?.lang){
+            url += `&lang=${props.config.rest.lang}`;
+        }
+
+        const data = {
+            all_active: props.config?.all_active || false,
+            global    : props.config?.global || [],
+            active    : props.config?.active || [],
+            pressbar  : props.config?.pressbar || [],
+            shortcode : props.config?.shortcode || [],
+        };
+
+        fetch(url, {
+            method: 'POST',
+            credentials: 'omit',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(response => normalizeResponse(response))
+        .then((response: any) => {
             // Add Active Notices into State
             if (isMounted.current) {
                 setActiveNotices(response?.activeNotice);
 
-                let gNotices = response?.globalNotice;
+                let gNotices = response?.globalNotice || [];
                 sortArray(gNotices, {
                     by: 'timestamp',
                     order: 'desc',

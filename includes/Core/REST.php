@@ -267,11 +267,11 @@ class REST {
 
     }
 
-    public function rest_data(){
+    public function rest_data($nonce = true){
         return apply_filters('nx_rest_data', array(
             'root'      => rest_url(),
             'namespace' => $this->_namespace(),
-            'nonce'     => wp_create_nonce( 'nx_rest' ),
+            'nonce'     => $nonce ? wp_create_nonce( 'nx_rest' ) : '',
         ));
     }
 
