@@ -8,8 +8,14 @@ export const getThemeName = (settings) => {
 };
 
 class NotificationXHelpers {
-    getPath = (rest, path) => {
-        return `${rest.root}${rest.namespace}/${path}`;
+    getPath = (rest, path, query = {}) => {
+        query = {...query, frontend: 'true'}
+        const url = new URL(`${rest.root}${rest.namespace}/${path}`);
+        for (var key in query) {
+            if (!query.hasOwnProperty(key)) continue;
+            url.searchParams.set(key, query[key]);
+        }
+        return url.toString();
     };
     post = (url, data = {}, args = {}) => {
         return fetch(url, {

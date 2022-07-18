@@ -48,7 +48,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                     break;
                 }
                 else if(t.matches?.('a')){
-                    const restUrl = nxHelper.getPath(frontendContext.rest, `analytics/?frontend=true`);
+                    const restUrl = nxHelper.getPath(frontendContext.rest, `analytics/`);
                     analyticsOnClick(event, restUrl, settings);
                 }
                 t = t.parentNode;

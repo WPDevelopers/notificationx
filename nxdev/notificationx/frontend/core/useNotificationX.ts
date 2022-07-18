@@ -41,10 +41,11 @@ const useNotificationX = (props: any) => {
         isMounted.current = true;
         // console.log("props frontend", props);
         // Fetch Notices
-        let url = nxHelper.getPath(props.config.rest, `notice/?frontend=true`);
+        let query:{[key: string]:string} = {};
         if(props.config.rest?.lang){
-            url += `&lang=${props.config.rest.lang}`;
+            query.lang = props.config.rest.lang;
         }
+        let url = nxHelper.getPath(props.config.rest, `notice/`, query);
 
         const data = {
             all_active: props.config?.all_active || false,

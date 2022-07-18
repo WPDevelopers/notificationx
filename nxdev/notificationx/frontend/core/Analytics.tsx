@@ -30,7 +30,7 @@ export const analyticsOnClick = (event, restUrl, config) => {
 
 const Analytics = ({config, children, ...rest}) => {
     const frontendContext = useNotificationContext();
-    const restUrl = nxHelper.getPath(frontendContext.rest, `analytics/?frontend=true`);
+    const restUrl = nxHelper.getPath(frontendContext.rest, `analytics/`);
 
     return (
         <a
