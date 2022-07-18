@@ -1,9 +1,10 @@
 import { useReducer, useEffect, useRef, useState, useCallback } from "react";
 import { frontendReducer } from ".";
-import { proccesNotice, isNotClosed, getTime, normalizeResponse } from "./utils";
+import { isNotClosed, getTime, normalizeResponse } from "./utils";
 import { v4 } from "uuid";
 import cookie from "react-cookies";
 import sortArray from "sort-array";
+import nxHelper from "./functions";
 
 const useNotificationX = (props: any) => {
 
@@ -40,7 +41,7 @@ const useNotificationX = (props: any) => {
         isMounted.current = true;
         // console.log("props frontend", props);
         // Fetch Notices
-        let url = props.config.rest.root + props.config.rest.namespace + `/notice/?frontend=true`;
+        let url = nxHelper.getPath(props.config.rest, `notice/?frontend=true`);
         if(props.config.rest?.lang){
             url += `&lang=${props.config.rest.lang}`;
         }
@@ -53,15 +54,8 @@ const useNotificationX = (props: any) => {
             shortcode : props.config?.shortcode || [],
         };
 
-        fetch(url, {
-            method: 'POST',
-            credentials: 'omit',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
+        nxHelper
+        .post(url, data)
         .then(response => normalizeResponse(response))
         .then((response: any) => {
             // Add Active Notices into State
@@ -313,6 +307,7 @@ const useNotificationX = (props: any) => {
         dispatch,
         getNxToRender,
         assets: { free: props.config.assets, pro: props.config?.pro_assets },
+        rest: props.config.rest,
     };
 };
 

@@ -8,12 +8,16 @@
                 var link  = wrappers[i].getElementsByTagName("a");
                 if(link && link.length && nx_id){
                     link[0].addEventListener("click", function(){
-                        wp.apiFetch({
-                            path: '/notificationx/v1/analytics/?frontend=true',
-                            method: "POST",
-                            data: {
-                                nx_id: nx_id
+                        var url = notificationxBlockRest.root + 'notificationx/v1/analytics/?frontend=true';
+                        fetch(url, {
+                            method: 'POST',
+                            credentials: 'omit',
+                            headers: {
+                                'Content-Type': 'application/json'
                             },
+                            body: JSON.stringify({
+                                nx_id: nx_id
+                            }),
                         });
                     });
                 }

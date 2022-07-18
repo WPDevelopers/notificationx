@@ -2,7 +2,7 @@ import React, { CSSProperties, useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import { Theme } from "../themes";
 import Analytics from "./Analytics";
-import { getThemeName } from "../../core/functions";
+import { getThemeName } from "../core/functions";
 import useNotificationContext from "./NotificationProvider";
 
 const Notification = (props) => {
@@ -118,12 +118,11 @@ const Notification = (props) => {
                 />
             }
             <Theme {...props} />
-            {props.data?.link && <a
+            {props.data?.link && <Analytics
                 className="notificationx-link"
                 href={props.data.link}
-                target={settings?.link_open ? "_blank" : ""}
-                onClick={e => Analytics(e, props.data.link, settings)}
-            />}
+                config={settings}
+            >{}</Analytics>}
         </div>
     );
 };

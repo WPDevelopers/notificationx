@@ -1,6 +1,6 @@
 import React, { CSSProperties } from "react";
 import { Branding as NXSvg, ThemeFiveShape } from ".";
-import { Star } from "../../../icons";
+import Star from "../../../icons/Star";
 
 const Content = (props) => {
     const { config } = props;

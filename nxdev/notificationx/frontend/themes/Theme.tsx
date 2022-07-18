@@ -4,7 +4,7 @@ import { Image, Content, Close } from "./helpers";
 import moment from "moment";
 // @ts-ignore
 import { __experimentalGetSettings, gmdateI18n, date } from "@wordpress/date";
-import { getThemeName } from "../../core/functions";
+import { getThemeName } from "../core/functions";
 
 const Theme = (props) => {
     const splitThemes = ['theme-five', 'theme-six-free', 'conv-theme-nine', 'review-comment', 'page_analytics_pa-theme-two']

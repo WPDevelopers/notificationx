@@ -2,12 +2,14 @@ const path = require("path");
 const defaultConfig = require("@wordpress/scripts/config/webpack.config");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
+const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
 
 const isProduction = process.env.NODE_ENV === "production";
 
 const plugins = defaultConfig.plugins.filter(
     (plugin) =>
         plugin.constructor.name != "MiniCssExtractPlugin" &&
+        plugin.constructor.name != "DependencyExtractionWebpackPlugin" &&
         plugin.constructor.name != "CleanWebpackPlugin"
 );
 
@@ -85,6 +87,14 @@ const config = {
                     : `public/css/${chunk.name}.css`;
             },
         }),
+        new DependencyExtractionWebpackPlugin( {
+            injectPolyfill: true,
+            requestToExternal( request ) {
+                if(request == '@wordpress/dom-ready')
+                    return false;
+                return undefined;
+            },
+        } ),
         ...plugins,
     ],
 };

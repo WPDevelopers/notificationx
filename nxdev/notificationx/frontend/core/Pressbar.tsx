@@ -6,7 +6,9 @@ import usePortal from "../hooks/usePortal";
 import cookie from "react-cookies";
 import { Close } from "../themes/helpers";
 import { getTime as momentGetTime } from "./utils";
-import Analytics from "./Analytics";
+import Analytics, { analyticsOnClick } from "./Analytics";
+import useNotificationContext from "./NotificationProvider";
+import nxHelper from "./functions";
 
 /**
  * @example
@@ -25,6 +27,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     const [styles, setStyles] = useState<{ [key: string]: CSSProperties }>({});
     const [closed, setClosed] = useState(false);
     let elementorRef = useRef();
+    const frontendContext = useNotificationContext();
 
 
     const sel = "#nx-consent-accept";
@@ -45,7 +48,8 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                     break;
                 }
                 else if(t.matches?.('a')){
-                    Analytics(event, t.getAttribute('href'), settings);
+                    const restUrl = nxHelper.getPath(frontendContext.rest, `analytics/?frontend=true`);
+                    analyticsOnClick(event, restUrl, settings);
                 }
                 t = t.parentNode;
             }
@@ -217,15 +221,14 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                     )}
 
                     {settings?.button_url && (
-                        <a
+                        <Analytics
+                            style={styles?.buttonCSS}
                             className="nx-bar-button"
                             href={settings?.button_url}
-                            target={settings?.link_open ? "_blank" : ""}
-                            onClick={e => Analytics(e, settings?.button_url, settings)}
-                            style={styles?.buttonCSS}
+                            config={settings}
                         >
                             {settings?.button_text}
-                        </a>
+                        </Analytics>
                     )}
                 </div>
                 {/* @todo close button &&& filters */}

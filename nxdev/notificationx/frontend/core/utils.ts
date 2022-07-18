@@ -1,25 +1,24 @@
-import apiFetch from "@wordpress/api-fetch";
 import { GetTemplate } from "../themes";
 import cookie from "react-cookies";
-import nxHelper from "../../core/functions";
+import nxHelper from "../core/functions";
 // @ts-ignore
 import { __experimentalGetSettings } from "@wordpress/date";
 import moment from "moment";
 
 // apiFetch.use(apiFetch.createNonceMiddleware(notificationX.rest.nonce));
 
-export const proccesNotice = ({ config }) => {
+export const processNotice = ({ config }) => {
     let url = `notice/?frontend=true`;
     if(config.rest?.lang){
         url += `&lang=${config.rest.lang}`;
     }
     return nxHelper
         .post(url, {
-            all_active: config?.all_active || false,
-            global    : config?.global || [],
-            active    : config?.active || [],
-            pressbar  : config?.pressbar || [],
-            shortcode : config?.shortcode || [],
+            all_active: config.all_active || false,
+            global    : config.global || [],
+            active    : config.active || [],
+            pressbar  : config.pressbar || [],
+            shortcode : config.shortcode || [],
         })
         .then(normalizeResponse)
         .catch((err) => console.error("Fetch Error: ", err));

@@ -48,7 +48,7 @@ class Blocks {
 
         $asset_file = include NOTIFICATIONX_PATH . 'blocks/controls/dist/index.asset.php';
         $index_js   = 'controls/dist/index.js';
-        wp_enqueue_script(
+        wp_register_script(
             'notificationx-block-controls',
             plugins_url( $index_js, __FILE__ ),
             $asset_file['dependencies'],
@@ -62,7 +62,7 @@ class Blocks {
         wp_register_script(
             'notificationx-block-editor',
             plugins_url( $index_js, __FILE__ ),
-            $asset_file['dependencies'],
+            array_merge($asset_file['dependencies'], ['notificationx-block-controls']),
             $asset_file['version']
         );
 
@@ -84,11 +84,13 @@ class Blocks {
         wp_register_script(
             'notificationx-block-frontend',
             plugins_url( 'notificationx/frontend.js', __FILE__ ),
-            [ 'wp-api-fetch' ],
+            [],
             filemtime( "{$dir}/notificationx/frontend.js" ),
             true
         );
-
+        wp_localize_script('notificationx-block-frontend', 'notificationxBlockRest', [
+            'root'      => rest_url(),
+        ]);
         register_block_type( 'notificationx-pro/notificationx',
             [
                 'editor_script'   => 'notificationx-block-editor',
