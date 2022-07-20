@@ -1,6 +1,42 @@
 {
     "packages": [
         {
+            "name": "priyomukul/wp-notice",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:priyomukul/wp-notice.git",
+                "reference": "d6300563a1b06f61639864b4e3a03c675a688ae6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/priyomukul/wp-notice/zipball/d6300563a1b06f61639864b4e3a03c675a688ae6",
+                "reference": "d6300563a1b06f61639864b4e3a03c675a688ae6",
+                "shasum": ""
+            },
+            "time": "2022-06-30T13:30:48+00:00",
+            "default-branch": true,
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "PriyoMukul\\WPNotice\\": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Priyo Mukul",
+                    "email": "17237437+priyomukul@users.noreply.github.com"
+                }
+            ],
+            "support": {
+                "source": "https://github.com/priyomukul/wp-notice/tree/main",
+                "issues": "https://github.com/priyomukul/wp-notice/issues"
+            },
+            "install-path": "../priyomukul/wp-notice"
+        },
+        {
             "name": "udx/lib-settings",
             "version": "dev-master",
             "version_normalized": "dev-master",

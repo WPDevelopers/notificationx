@@ -352,7 +352,7 @@ class Tutor extends Extension {
      * @return void
      */
     public function ordered_product($item_id, $item, $order_id) {
-        if ($item instanceof \WC_Order_Item_Shipping) {
+        if (!$item instanceof \WC_Order_Item_Product) {
             return false;
         }
 

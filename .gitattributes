@@ -60,3 +60,8 @@ build           export-ignore
 .gitmodules         export-ignore
 webpack.blocks.config.js    export-ignore
 webpack.cs.config.js    export-ignore
+vendor/priyomukul/vendor    export-ignore
+vendor/priyomukul/.editorconfig     export-ignore
+vendor/priyomukul/.gitignore       export-ignore
+vendor/priyomukul/composer.json     export-ignore
+vendor/priyomukul/README.md     export-ignore

@@ -1,4 +1,4 @@
-import { getThemeName } from "../../core/functions";
+import { getThemeName } from "../core/functions";
 
 const GetTemplate = (settings) => {
     const themeName = getThemeName(settings);

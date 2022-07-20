@@ -1,39 +1,26 @@
 import { GetTemplate } from "../themes";
 import cookie from "react-cookies";
+import nxHelper from "../core/functions";
 // @ts-ignore
 import { __experimentalGetSettings } from "@wordpress/date";
 import moment from "moment";
 
-export const proccesNotice = ({ config }) => {
-    let url = config.rest.root + config.rest.namespace + '/notice/?frontend=true';
-    if (config.rest?.lang) {
+// apiFetch.use(apiFetch.createNonceMiddleware(notificationX.rest.nonce));
+
+export const processNotice = ({ config }) => {
+    let url = `notice/?frontend=true`;
+    if(config.rest?.lang){
         url += `&lang=${config.rest.lang}`;
     }
-    return fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            all_active: config?.all_active || false,
-            global: config?.global || [],
-            active: config?.active || [],
-            pressbar: config?.pressbar || [],
-            shortcode: config?.shortcode || [],
+    return nxHelper
+        .post(url, {
+            all_active: config.all_active || false,
+            global    : config.global || [],
+            active    : config.active || [],
+            pressbar  : config.pressbar || [],
+            shortcode : config.shortcode || [],
         })
-    }).then(response => response.json())
-        .then((response: any) => {
-            let mergedGlobalArray = normalize(response?.global, response?.settings);
-            let mergedActiveArray = normalize(response?.active, response?.settings);
-            let mergedShortcodeArray = normalize(response?.shortcode, response?.settings);
-            let pressbar = normalizePressBar(response?.pressbar, response?.settings);
-
-            return {
-                settings: response?.settings,
-                activeNotice: mergedActiveArray,
-                globalNotice: mergedGlobalArray,
-                shortcodeNotice: mergedShortcodeArray,
-                pressbar: pressbar,
-            };
-        })
+        .then(normalizeResponse)
         .catch((err) => console.error("Fetch Error: ", err));
 };
 
@@ -46,6 +33,21 @@ export const isNotClosed = (entry) => {
         }
     }
     return true;
+};
+
+export const normalizeResponse = (response: any) => {
+    let mergedGlobalArray    = normalize(response?.global, response?.settings);
+    let mergedActiveArray    = normalize(response?.active, response?.settings);
+    let mergedShortcodeArray = normalize(response?.shortcode, response?.settings);
+    let pressbar             = normalizePressBar(response?.pressbar, response?.settings);
+
+    return {
+        settings: response?.settings,
+        activeNotice: mergedActiveArray,
+        globalNotice: mergedGlobalArray,
+        shortcodeNotice: mergedShortcodeArray,
+        pressbar: pressbar,
+    };
 };
 
 const normalize = (_entries, globalSettings) => {

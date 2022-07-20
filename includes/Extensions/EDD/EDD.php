@@ -111,7 +111,7 @@ class EDD extends Extension {
         $items = [];
         $item_counts = [];
         foreach ($data as $key => $item) {
-            $payment_id = $item['id'];
+            $payment_id = !empty($item['id']) ? $item['id'] : $item['product_id'];
             if (!isset($items[$payment_id])) {
                 $items[$payment_id] = $item;
             } else {
@@ -333,8 +333,10 @@ class EDD extends Extension {
 
     // @todo
     public function fallback_data( $data, $saved_data, $settings ) {
-        $data['product_title']   = $saved_data['title'];
         $data['anonymous_title'] = __( 'Anonymous Product', 'notificationx' );
+        if(empty($saved_data['product_title']) && !empty($saved_data['title'])){
+            $data['product_title'] = $saved_data['title'];
+        }
         return $data;
     }
     /* #endregion */

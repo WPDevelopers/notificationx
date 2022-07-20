@@ -3,9 +3,9 @@ Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim, s
 Donate link: https://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, elementor, email subscription, recent sales popup, woo popups, woocommerce review, wordpress marketing, marketing, evergreen notice, increase engagement, woocommerce, envato, freemius, givewp, learndash, bottom bar, top bar, marketing plugin, alert, email marketing, conversion, gamification
 Requires at least: 5.0
-Tested up to: 5.9
+Tested up to: 6.0
 Requires PHP: 5.6
-Stable tag: 2.5.0
+Stable tag: 2.5.3
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -218,6 +218,21 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 10. Notification Bar with Countdown
 
 == Changelog ==
+
+= 2.5.3 - 30/06/2022 =
+- Improved: Removed unused data from frontend rest API for better performance.
+- Fixed: Tutor LMS fatal error when used WooCommerce monetization.
+- Few minor bug fixes and improvements
+
+= 2.5.2 - 13/06/2022 =
+- Added: Drag & Drop feature in custom Notification.
+- Fixed: Product title wasn’t showing for EDD.
+- Few minor bug fixes and improvements
+
+= 2.5.1 - 25/05/2022 =
+- Fixed: Feature image size issue.
+- Improved: Error handling in Analytics test report.
+- Few minor bug fixes and improvements
 
 = 2.5.0 - 27/04/2022 =
 - Fixed: Gravity from notification breaking issue.

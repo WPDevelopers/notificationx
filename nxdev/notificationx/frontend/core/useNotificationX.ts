@@ -1,9 +1,10 @@
 import { useReducer, useEffect, useRef, useState, useCallback } from "react";
 import { frontendReducer } from ".";
-import { proccesNotice, isNotClosed, getTime } from "./utils";
+import { isNotClosed, getTime, normalizeResponse } from "./utils";
 import { v4 } from "uuid";
 import cookie from "react-cookies";
 import sortArray from "sort-array";
+import nxHelper from "./functions";
 
 const useNotificationX = (props: any) => {
 
@@ -40,12 +41,29 @@ const useNotificationX = (props: any) => {
         isMounted.current = true;
         // console.log("props frontend", props);
         // Fetch Notices
-        proccesNotice(props).then((response: any) => {
+        let query:{[key: string]:string} = {};
+        if(props.config.rest?.lang){
+            query.lang = props.config.rest.lang;
+        }
+        let url = nxHelper.getPath(props.config.rest, `notice/`, query);
+
+        const data = {
+            all_active: props.config?.all_active || false,
+            global    : props.config?.global || [],
+            active    : props.config?.active || [],
+            pressbar  : props.config?.pressbar || [],
+            shortcode : props.config?.shortcode || [],
+        };
+
+        nxHelper
+        .post(url, data)
+        .then(response => normalizeResponse(response))
+        .then((response: any) => {
             // Add Active Notices into State
             if (isMounted.current) {
                 setActiveNotices(response?.activeNotice);
 
-                let gNotices = response?.globalNotice;
+                let gNotices = response?.globalNotice || [];
                 sortArray(gNotices, {
                     by: 'timestamp',
                     order: 'desc',
@@ -74,7 +92,7 @@ const useNotificationX = (props: any) => {
                 if (entries?.length > 0) {
                     let id = 0;
                     const config = entries[id].props;
-                    if(!config?.random_order){
+                    if(!config?.random_order && config.source !== 'custom_notification' && config.source !== 'custom_notification_conversions'){
                         sortArray(entries, {
                             by: 'timestamp',
                             order: 'desc',
@@ -291,6 +309,7 @@ const useNotificationX = (props: any) => {
         dispatch,
         getNxToRender,
         assets: { free: props.config.assets, pro: props.config?.pro_assets },
+        rest: props.config.rest,
     };
 };
 

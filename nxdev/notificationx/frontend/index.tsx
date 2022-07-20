@@ -1,9 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import apiFetch from "@wordpress/api-fetch";
 import domReady from '@wordpress/dom-ready';
 import { NotificationXFrontEnd } from "./core";
-apiFetch.use(apiFetch.createNonceMiddleware(''));
 
 // export const NxFrontEndWrapper = ({ config: notifications }) => {
 //     return (
@@ -15,8 +13,6 @@ apiFetch.use(apiFetch.createNonceMiddleware(''));
 function notificationXWrapper(notificationX, id) {
     if (!notificationX?.rest)
         return;
-    // apiFetch.use(apiFetch.createNonceMiddleware(''));
-    // apiFetch.use(apiFetch.createRootURLMiddleware(notificationX.rest.root));
 
     let xDiv = document.createElement('div');
     xDiv.id = 'notificationx-frontend' + id;

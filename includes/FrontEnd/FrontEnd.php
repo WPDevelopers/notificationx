@@ -58,7 +58,7 @@ class FrontEnd {
         add_action( 'wp_footer', array( $this, 'add_notificationx' ) );
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
         add_filter( 'nx_fallback_data', [ $this, 'fallback_data' ], 10, 3 );
-        add_filter( 'nx_filtered_data', [ $this, 'filtered_data' ], 9999, 2 );
+        add_filter( 'nx_filtered_data', [ $this, 'filtered_data' ], 9999, 3 );
     }
 
     /**
@@ -106,7 +106,7 @@ class FrontEnd {
     }
 
     public function get_localize_data( $data ) {
-        $data['rest']   = REST::get_instance()->rest_data();
+        $data['rest']   = REST::get_instance()->rest_data(false);
         $data['assets'] = self::ASSET_URL;
         $data['is_pro'] = false;
         return $data;
@@ -124,10 +124,11 @@ class FrontEnd {
             $params = $this->get_notifications_ids();
         }
         $params    = wp_parse_args($params, [
-            'global'    => [],
-            'active'    => [],
-            'pressbar'  => [],
-            'shortcode' => [],
+            'global'           => [],
+            'active'           => [],
+            'pressbar'         => [],
+            'shortcode'        => [],
+            'inline_shortcode' => false,
             ]
         );
         $global    = $params['global'];
@@ -220,9 +221,9 @@ class FrontEnd {
 
             foreach ( $result as &$group ) {
                 foreach ( $group as &$value ) {
-                    $value['entries'] = apply_filters( "nx_filtered_data_{$value['post']['type']}", $value['entries'], $value['post'] );
-                    $value['entries'] = apply_filters( "nx_filtered_data_{$value['post']['source']}", $value['entries'], $value['post'] );
-                    $value['entries'] = apply_filters( 'nx_filtered_data', $value['entries'], $value['post'] );
+                    $value['entries'] = apply_filters( "nx_filtered_data_{$value['post']['type']}", $value['entries'], $value['post'], $params );
+                    $value['entries'] = apply_filters( "nx_filtered_data_{$value['post']['source']}", $value['entries'], $value['post'], $params );
+                    $value['entries'] = apply_filters( 'nx_filtered_data', $value['entries'], $value['post'], $params );
                 }
             }
             $result = apply_filters( 'nx_filtered_notice', $result, $params );
@@ -536,16 +537,51 @@ class FrontEnd {
      *
      * @return void
      */
-    public function filtered_data( $entries, $post ) {
+    public function filtered_data( $entries, $post, $params ) {
         if ( is_array( $entries ) ) {
-            foreach ( $entries as $key => $entry ) {
-                if ( isset( $entry['ip'] ) ) {
-                    unset( $entries[ $key ]['ip'] );
+            foreach ( $entries as $index => $entry ) {
+                $_entry = [
+                    'nx_id'      => $entry['nx_id'],
+                    'timestamp'  => isset($entry['timestamp']) ? $entry['timestamp'] : null,
+                    'updated_at' => $entry['updated_at'],
+                    'image_data' => $entry['image_data'],
+                    'link'       => $entry['link'],
+                ];
+                if(!empty($params['inline_shortcode']) && isset($entry['product_id'])){
+                    $_entry['product_id'] = $entry['product_id'];
                 }
-                foreach ( $entry as $_key => $value ) {
-                    if ( strpos( $_key, 'email' ) !== false || in_array( $_key, [ 'lat', 'lon' ] ) ) {
-                        unset( $entries[ $key ][ $_key ] );
+
+                $template_arr = array_values($post['notification-template']);
+                if($post['template_adv']){
+                    $adv_template = $post['advanced_template'];
+                    $pattern = "/{{(.+?)}}/i";
+                    if(preg_match_all($pattern, $adv_template, $matches)) {
+                        $template_arr = $matches[1];
                     }
+                }
+                if(is_array($template_arr)){
+                    foreach ($template_arr as $entry_key) {
+                        $_entry_key = $entry_key;
+                        if ( $entry_key == 'tag_siteview' || $entry_key == 'tag_realtime_siteview' ) {
+                            $entry_key = 'views';
+                        } elseif ( $entry_key == 'ga_title' ) {
+                            $entry_key = 'title';
+                        } elseif ( strpos( $entry_key, 'tag_product_' ) === 0 ) {
+                            $entry_key = str_replace( 'tag_product_', '', $entry_key );
+                        } elseif ( strpos( $entry_key, 'tag_' ) === 0 ) {
+                            $entry_key = str_replace( 'tag_', '', $entry_key );
+                        } elseif ( strpos( $entry_key, 'product_' ) === 0 ) {
+                            $entry_key = str_replace( 'product_', '', $entry_key );
+                        }
+
+                        if(isset($entry[$entry_key])){
+                            $_entry[$entry_key] = $entry[$entry_key];
+                        }
+                        if(isset($entry[$_entry_key])){
+                            $_entry[$_entry_key] = $entry[$_entry_key];
+                        }
+                    }
+                    $entries[$index] = $_entry;
                 }
             }
         }
