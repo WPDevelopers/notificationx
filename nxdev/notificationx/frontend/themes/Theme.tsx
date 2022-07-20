@@ -1,10 +1,9 @@
 import React, { CSSProperties } from "react";
 import classNames from "classnames";
 import { Image, Content, Close } from "./helpers";
-import moment from "moment";
 // @ts-ignore
-import { __experimentalGetSettings, gmdateI18n, date } from "@wordpress/date";
 import { getThemeName } from "../core/functions";
+import { useNotificationContext } from "../core";
 
 const Theme = (props) => {
     const splitThemes = ['theme-five', 'theme-six-free', 'conv-theme-nine', 'review-comment', 'page_analytics_pa-theme-two']
@@ -13,7 +12,7 @@ const Theme = (props) => {
     const themeName = getThemeName(post);
     const isSplit = splitThemes.includes(themeName);
     const isSplitCss = post?.advance_edit && isSplit;
-    const settings: any = __experimentalGetSettings();
+    const frontendContext = useNotificationContext();
 
     // console.log("settings", post);
     // moment().utcOffset(settings?.timezone?.offset);
@@ -37,10 +36,7 @@ const Theme = (props) => {
                 if (key === "time") {
                     val =
                         entry?.updated_at &&
-                        moment
-                            .utc(entry?.updated_at)
-                            .utcOffset(+settings?.timezone?.offset)
-                            .fromNow();
+                        frontendContext.getTime(entry?.updated_at).fromNow();
                 }
                 else if (key == 'rating') {
                     val = `rating::${val}`;

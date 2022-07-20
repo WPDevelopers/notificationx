@@ -6,7 +6,6 @@ import { __experimentalGetSettings, date } from "@wordpress/date";
 import { useLocation } from "react-router";
 import nxHelper from "../../core/functions";
 import { __ } from "@wordpress/i18n";
-import { getTime } from "../../frontend/core/utils";
 import { useNotificationXContext } from "../../hooks";
 import moment from "moment";
 

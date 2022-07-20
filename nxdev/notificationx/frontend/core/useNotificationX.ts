@@ -1,10 +1,11 @@
 import { useReducer, useEffect, useRef, useState, useCallback } from "react";
 import { frontendReducer } from ".";
-import { isNotClosed, getTime, normalizeResponse } from "./utils";
+import { isNotClosed, normalizeResponse } from "./utils";
 import { v4 } from "uuid";
 import cookie from "react-cookies";
 import sortArray from "sort-array";
 import nxHelper from "./functions";
+import moment from "moment";
 
 const useNotificationX = (props: any) => {
 
@@ -20,6 +21,11 @@ const useNotificationX = (props: any) => {
     const [globalNotices, setGlobalNotices] = useState(null);
     const [pressbarNotices, setPressbarNotices] = useState(null);
     const [shortcodeNotices, setShortcodeNotices] = useState(null);
+
+    const getTime = (value?, keepLocalTime: boolean = false) => {
+        const _value = moment.utc(value ? value : undefined).utcOffset(+props.config.gmt_offset, keepLocalTime);
+        return _value;
+    }
 
     const dispatchNotification = useCallback(( { data, config, ...args } ) => {
             if (!isNotClosed(data)) {
@@ -308,6 +314,7 @@ const useNotificationX = (props: any) => {
         state,
         dispatch,
         getNxToRender,
+        getTime,
         assets: { free: props.config.assets, pro: props.config?.pro_assets },
         rest: props.config.rest,
     };

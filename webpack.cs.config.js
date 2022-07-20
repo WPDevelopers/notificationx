@@ -1,4 +1,5 @@
-const path = require("path");
+const webpack = require('webpack');
+const path = require("path");// webpack.config.js
 const defaultConfig = require("@wordpress/scripts/config/webpack.config");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
@@ -67,6 +68,7 @@ const config = {
                     : `public/css/${chunk.name}.css`;
             },
         }),
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
         ...plugins,
     ],
     // externalsType: 'script',
@@ -74,11 +76,11 @@ const config = {
         function ({ context, request, contextInfo }, callback) {
             const ext = {
                 // lodash                                 : '_',
-                moment                                 : 'moment',
-                react                                  : 'React',
-                'react-dom'                            : 'ReactDOM',
-                'moment-timezone/moment-timezone'      : 'moment',
-                'moment-timezone/moment-timezone-utils': 'moment',
+                // moment                                 : 'moment',
+                // react                                  : 'React',
+                // 'react-dom'                            : 'ReactDOM',
+                // 'moment-timezone/moment-timezone'      : 'moment',
+                // 'moment-timezone/moment-timezone-utils': 'moment',
             };
             if (Object.keys(ext).includes(request)) {
                 // Externalize to a commonjs module using the request path

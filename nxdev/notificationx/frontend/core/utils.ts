@@ -2,8 +2,6 @@ import { GetTemplate } from "../themes";
 import cookie from "react-cookies";
 import nxHelper from "../core/functions";
 // @ts-ignore
-import { __experimentalGetSettings } from "@wordpress/date";
-import moment from "moment";
 
 // apiFetch.use(apiFetch.createNonceMiddleware(notificationX.rest.nonce));
 
@@ -92,10 +90,4 @@ const normalizePressBar = (_entries, globalSettings) => {
         }
     }
     return mergedArray;
-}
-
-export const getTime = (value?, keepLocalTime: boolean = false) => {
-    const settings: any = __experimentalGetSettings();
-    const _value = moment.utc(value ? value : undefined).utcOffset(+settings?.timezone?.offset, keepLocalTime);
-    return _value;
 }

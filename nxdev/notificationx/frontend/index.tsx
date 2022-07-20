@@ -20,13 +20,9 @@ function notificationXWrapper(notificationX, id) {
 
     document.body.appendChild(xDiv);
 
-    console.log("notificationX", notificationX);
-
-
     ReactDOM.render(
         <NotificationXFrontEnd config={notificationX} />,
         document.getElementById("notificationx-frontend" + id)
-        // notificationX?.cross ? document.getElementById("notificationx-frontend-crosssite") : document.getElementById("notificationx-frontend")
     );
     // @ts-ignore
 }

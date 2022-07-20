@@ -109,6 +109,7 @@ class FrontEnd {
         $data['rest']   = REST::get_instance()->rest_data(false);
         $data['assets'] = self::ASSET_URL;
         $data['is_pro'] = false;
+        $data['gmt_offset'] = get_option('gmt_offset');
         return $data;
     }
 

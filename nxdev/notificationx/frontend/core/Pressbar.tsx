@@ -5,7 +5,6 @@ import { createPortal } from "react-dom";
 import usePortal from "../hooks/usePortal";
 import cookie from "react-cookies";
 import { Close } from "../themes/helpers";
-import { getTime as momentGetTime } from "./utils";
 import Analytics, { analyticsOnClick } from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
 import nxHelper from "./functions";
@@ -28,10 +27,6 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     const [closed, setClosed] = useState(false);
     let elementorRef = useRef();
     const frontendContext = useNotificationContext();
-
-    const frontEndContext = useNotificationContext();
-    // const frontEndContext = '';
-
 
     const sel = "#nx-consent-accept";
     const consentCallback = useCallback(
@@ -59,6 +54,43 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         },
         [sel, consentCallback]
     );
+
+    const getTime = (settings) => {
+        let currentTime = new Date().getTime();
+        let expiredTime: number;
+        let countRand = settings?.countdown_rand ? `-${settings.countdown_rand}` : '';
+        if (settings?.evergreen_timer) {
+            let startedAt = cookie.load(`pressbar-evergreen-started-at-${settings.nx_id}${countRand}`);
+            if (!startedAt) {
+                startedAt = currentTime;
+                const expires = new Date();
+                expires.setDate(expires.getDate() + (settings?.time_reset ? 1 : 365));
+                cookie.save(`pressbar-evergreen-started-at-${settings.nx_id}${countRand}`, currentTime, { path: '/', expires })
+            }
+
+            if (settings?.time_randomize) {
+                let timeBetween = cookie.load(`pressbar-evergreen-random-expire-${settings.nx_id}${countRand}`);
+
+                if (!timeBetween) {
+                    const start_time = settings?.time_randomize_between?.start_time;
+                    const end_time = settings?.time_randomize_between?.end_time;
+                    timeBetween = Math.round((Math.random() * (end_time - start_time) + start_time));
+                    const expires = new Date();
+                    expires.setDate(expires.getDate() + (settings?.time_reset ? 1 : 365));
+                    cookie.save(`pressbar-evergreen-random-expire-${settings.nx_id}${countRand}`, timeBetween, { path: '/', expires })
+                }
+
+                expiredTime = parseInt(startedAt) + timeBetween * 60 * 60 * 1000;
+            }
+            else {
+                expiredTime = parseInt(startedAt) + settings?.time_rotation * 60 * 60 * 1000;
+            }
+        }
+        else {
+            expiredTime = frontendContext.getTime(settings.countdown_end_date || undefined).unix() * 1000;
+        }
+        return { currentTime, expiredTime };
+    }
 
     useEffect(() => {
         if (settings?.elementor_id && timeConfig.expired) {
@@ -309,42 +341,5 @@ const countdown = ({ currentTime, expiredTime }) => {
 
     return { days, hours, minutes, seconds, expired };
 };
-
-const getTime = (settings) => {
-    let currentTime = new Date().getTime();
-    let expiredTime: number;
-    let countRand = settings?.countdown_rand ? `-${settings.countdown_rand}` : '';
-    if (settings?.evergreen_timer) {
-        let startedAt = cookie.load(`pressbar-evergreen-started-at-${settings.nx_id}${countRand}`);
-        if (!startedAt) {
-            startedAt = currentTime;
-            const expires = new Date();
-            expires.setDate(expires.getDate() + (settings?.time_reset ? 1 : 365));
-            cookie.save(`pressbar-evergreen-started-at-${settings.nx_id}${countRand}`, currentTime, { path: '/', expires })
-        }
-
-        if (settings?.time_randomize) {
-            let timeBetween = cookie.load(`pressbar-evergreen-random-expire-${settings.nx_id}${countRand}`);
-
-            if (!timeBetween) {
-                const start_time = settings?.time_randomize_between?.start_time;
-                const end_time = settings?.time_randomize_between?.end_time;
-                timeBetween = Math.round((Math.random() * (end_time - start_time) + start_time));
-                const expires = new Date();
-                expires.setDate(expires.getDate() + (settings?.time_reset ? 1 : 365));
-                cookie.save(`pressbar-evergreen-random-expire-${settings.nx_id}${countRand}`, timeBetween, { path: '/', expires })
-            }
-
-            expiredTime = parseInt(startedAt) + timeBetween * 60 * 60 * 1000;
-        }
-        else {
-            expiredTime = parseInt(startedAt) + settings?.time_rotation * 60 * 60 * 1000;
-        }
-    }
-    else {
-        expiredTime = momentGetTime(settings.countdown_end_date || undefined).unix() * 1000;
-    }
-    return { currentTime, expiredTime };
-}
 
 export default Pressbar;
