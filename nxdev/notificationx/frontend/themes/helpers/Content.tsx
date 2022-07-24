@@ -28,7 +28,7 @@ const Content = (props) => {
     }
 
     let content = props.template.map((row, i) => {
-        const rowStyle: CSSProperties = {};
+        const rowStyle: any = {};
         let advTmplRatingRow;
         if (config.advance_edit) {
             if (i == 0 && config.first_font_size)

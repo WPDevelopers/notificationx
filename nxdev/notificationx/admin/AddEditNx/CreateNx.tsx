@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { FormBuilder, useBuilderContext } from 'quickbuilder';
 import { Content, PublishWidget, Sidebar, Instructions } from '../../components';
 import { proAlert } from '../../core/functions';

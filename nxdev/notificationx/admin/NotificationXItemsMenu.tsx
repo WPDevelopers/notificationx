@@ -168,7 +168,7 @@ const NotificationXItemsMenu = ({
         }
 
         const xss_data = {...builderContext.xss_data, ...xss_id};
-        const xssText = sprintf(`<script>\nnotificationXArr = window.notificationXArr || []; window.notificationXArr.push(%s);\n</script>%s`, JSON.stringify(xss_data), builderContext.xss_scripts);
+        const xssText = sprintf(`<script>\nwindow.notificationXArr = window.notificationXArr || []; \nwindow.notificationXArr.push(%s);\n</script>%s`, JSON.stringify(xss_data), builderContext.xss_scripts);
 
         copy(xssText, {
             format: 'text/plain',

@@ -55,10 +55,10 @@ class FrontEnd {
      * @return void
      */
     public function init() {
-        add_action( 'wp_footer', array( $this, 'add_notificationx' ) );
-        add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+        add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ], 10 );
         add_filter( 'nx_fallback_data', [ $this, 'fallback_data' ], 10, 3 );
         add_filter( 'nx_filtered_data', [ $this, 'filtered_data' ], 9999, 3 );
+        add_action( 'wp_print_footer_scripts', [ $this, 'footer_scripts' ] );
     }
 
     /**
@@ -67,21 +67,16 @@ class FrontEnd {
      * @return void
      */
     public function enqueue_scripts() {
-        $d = include Helper::file( 'public/js/frontend.asset.php' );
 
-        wp_register_script( 'notificationx-public', Helper::file( 'public/js/frontend.js', true ), $d['dependencies'], $d['version'], true );
-        wp_register_style( 'notificationx-public', Helper::file( 'public/css/frontend.css', true ), [], $d['version'], 'all' );
+        wp_register_script( 'notificationx-public', Helper::file( 'public/js/frontend.js', true ), [], NOTIFICATIONX_VERSION, true );
+        wp_register_style( 'notificationx-public', Helper::file( 'public/css/frontend.css', true ), [], NOTIFICATIONX_VERSION, 'all' );
 
         if ( empty( $_GET['elementor-preview'] ) ) {
-            $nx_ids = $this->get_notifications_ids();
-            $this->notificationXArr = apply_filters( 'nx_frontend_localize_data', $nx_ids );
-            if ( $nx_ids['total'] > 0 ) {
+            $this->notificationXArr = $this->get_notifications_ids();
+            if ( $this->notificationXArr['total'] > 0 ) {
                 wp_enqueue_style( 'notificationx-public' );
                 wp_enqueue_script( 'notificationx-public' );
-                wp_set_script_translations( 'notificationx-public', 'notificationx' );
-                add_action( 'wp_print_footer_scripts', [ $this, 'footer_scripts' ] );
-
-                do_action( 'notificationx_scripts', $nx_ids );
+                do_action( 'notificationx_scripts', $this->notificationXArr );
             }
         } else {
             // @todo maybe elementor edit mode CSS. to move to top.
@@ -91,12 +86,15 @@ class FrontEnd {
 
     public function footer_scripts() {
         if ( ! empty( $this->notificationXArr ) ) {
-            ?>
+            $this->notificationXArr = apply_filters( 'nx_frontend_localize_data', $this->notificationXArr );
+        ?>
             <script>
-            notificationXArr = window.notificationXArr || [];
-            notificationXArr.push(<?php echo json_encode( $this->notificationXArr ); ?>);
+                (function(){
+                    window.notificationXArr = window.notificationXArr || [];
+                    window.notificationXArr.push(<?php echo json_encode( $this->notificationXArr ); ?>);
+                })();
             </script>
-            <?php
+        <?php
         }
     }
 
@@ -106,10 +104,12 @@ class FrontEnd {
     }
 
     public function get_localize_data( $data ) {
-        $data['rest']   = REST::get_instance()->rest_data(false);
-        $data['assets'] = self::ASSET_URL;
-        $data['is_pro'] = false;
+        $data['rest']       = REST::get_instance()->rest_data(false);
+        $data['assets']     = self::ASSET_URL;
+        $data['is_pro']     = false;
         $data['gmt_offset'] = get_option('gmt_offset');
+        $data['lang']       = get_locale();
+        $data['localeData'] = load_script_textdomain( 'notificationx-public', 'notificationx' );
         return $data;
     }
 
@@ -290,7 +290,6 @@ class FrontEnd {
 
         foreach ( $notifications as $key => $post ) {
             $settings        = NotificationX::get_instance()->normalize_post( $post );
-            $_settings       = new GetData( $settings, \ArrayObject::ARRAY_AS_PROPS );
             $logged_in       = is_user_logged_in();
             $show_on_display = $settings['show_on_display'];
 
@@ -589,16 +588,4 @@ class FrontEnd {
         return $entries;
     }
 
-    /**
-     * Add NotificationX in Footer
-     *
-     * @return void
-     */
-    public function add_notificationx() {
-        $output  = '<div id="notificationx-frontend-root">';
-        $output .= '<!-- This DIV for NotificationX, It is used to show the notifications by appending them here. For more details please visit: https://notificationx.com/docs -->';
-        $output .= '<div id="notificationx-frontend"></div>';
-        $output .= '</div>';
-        echo wp_kses_post( $output );
-    }
 }

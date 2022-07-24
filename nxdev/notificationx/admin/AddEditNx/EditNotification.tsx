@@ -1,6 +1,5 @@
 import { __ } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
-import { Redirect } from 'react-router-dom';
 import { EditNx } from '.';
 import { BuilderProvider, useBuilder } from 'quickbuilder';
 import { Header, WrapperWithLoader } from '../../components';

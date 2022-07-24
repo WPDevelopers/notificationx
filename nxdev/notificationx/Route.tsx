@@ -7,7 +7,6 @@ import {
     EditNotification,
     Settings,
     Analytics,
-    Entries,
     QuickBuild,
 } from "./admin/index";
 

@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useNotificationXContext } from '../../hooks';
 import AnalyticsCard from './AnalyticsCard'
 

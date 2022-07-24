@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { sprintf, __ } from "@wordpress/i18n";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import nxHelper, { proAlert } from "../core/functions";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
-import nxToast, { ToastAlert } from "../core/ToasterMsg";
+import nxToast from "../core/ToasterMsg";
 import Swal from "sweetalert2";
 import copy from "copy-to-clipboard";
 
@@ -34,7 +34,7 @@ const SingleNotificationAction = ({
         }
         const xss_data = { ...nxContext.xss_data, ...xss_id, cross: true };
         xssText = sprintf(
-            `<script>\n window.notificationXArr = window.notificationXArr || []; window.notificationXArr.push(JSON.parse('%s'));\n</script>%s`,
+            `<script>\n window.notificationXArr = window.notificationXArr || []; \nwindow.notificationXArr.push(%s);\n</script>%s`,
             JSON.stringify(xss_data),
             nxContext.xss_scripts
         );

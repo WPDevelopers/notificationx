@@ -66,7 +66,7 @@ const Theme = (props) => {
         // }
     );
 
-    const componentCSS: CSSProperties = {};
+    const componentCSS: any = {};
     if (post?.advance_edit) {
         if (post.bg_color) componentCSS.backgroundColor = post.bg_color;
         if (post.text_color) componentCSS.color = post.text_color;

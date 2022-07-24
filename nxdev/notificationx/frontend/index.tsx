@@ -1,18 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import domReady from '@wordpress/dom-ready';
+import { setLocaleData } from "@wordpress/i18n";
 import { NotificationXFrontEnd } from "./core";
-
-// export const NxFrontEndWrapper = ({ config: notifications }) => {
-//     return (
-// notifications.map((nx, index) => notificationXWrapper(nx, index))
-//     )
-// }
-// @ts-ignore
 
 function notificationXWrapper(notificationX, id) {
     if (!notificationX?.rest)
         return;
+
+    if(notificationX.localeData){
+        const localeData = JSON.parse(notificationX.localeData).locale_data.messages;
+        localeData[""].domain = 'notificationx';
+        setLocaleData(localeData, 'notificationx');
+    }
+    if(notificationX.lang && notificationX.lang !== "en" && notificationX.lang !== "en-us"){
+        let lang = notificationX.lang.replace('_', '-').toLowerCase();
+        import("moment/locale/" + lang).catch(err => {
+            lang = lang.split('-')[0];
+            import("moment/locale/" + lang).catch(err => {
+                console.log("Couldn't locate moment/locale/" + lang);
+            });
+        });
+    }
 
     let xDiv = document.createElement('div');
     xDiv.id = 'notificationx-frontend' + id;
@@ -32,7 +41,7 @@ function notificationXWrapper(notificationX, id) {
 domReady(function () {
     (function (notificationX) {
 
-        notificationX.map((nx, index) => notificationXWrapper(nx, index))
+        notificationX?.map((nx, index) => notificationXWrapper(nx, index))
 
     // @ts-ignore
     })(window.notificationXArr);

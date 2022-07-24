@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import SingleNotificationX from './SingleNotificationX';
 
 const NotificationXInner = ({ filteredNotice, setFilteredNotice, getNotice, updateNotice, totalItems, setTotalItems, checkAll, setCheckAll, setReload }) => {

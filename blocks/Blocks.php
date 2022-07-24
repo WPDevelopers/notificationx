@@ -95,8 +95,8 @@ class Blocks {
             [
                 'editor_script'   => 'notificationx-block-editor',
                 'editor_style'    => 'notificationx-block-editor',
-                'style'           => 'notificationx-block',
-                'script'          => 'notificationx-block-frontend',
+                // 'style'           => 'notificationx-block',
+                // 'script'          => 'notificationx-block-frontend',
                 'render_callback' => [ $this, 'notificationx_render_callback' ],
                 'attributes'      => array(
                     'nx_id'   => array(
@@ -125,6 +125,10 @@ class Blocks {
 
 
     function notificationx_render_callback( $block_attributes, $content ) {
+        if( ! is_admin() ){
+            wp_enqueue_style('notificationx-block');
+            wp_enqueue_script('notificationx-block-frontend');
+        }
         if ( is_admin() || $this->isRestUrl() ) {
             do_action( 'nx_ignore_analytics' );
         }

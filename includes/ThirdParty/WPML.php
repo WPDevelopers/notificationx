@@ -51,7 +51,6 @@ class WPML {
     public function __construct() {
         add_action('wpml_st_loaded', [$this, 'st_loaded'], 10);
         // localize moment even without wpml;
-        add_action('notificationx_scripts', [$this, 'localize_moment'], 10);
         // can't load moment locale in admin. it cause problem in date picker.
         // add_action('notificationx_admin_scripts', [$this, 'localize_moment'], 10);
     }
@@ -107,35 +106,6 @@ class WPML {
             }
         }
         return $meta;
-    }
-
-    public function localize_moment($nx_ids = null, $return_url = false){
-        $locale_url = '';
-        if($locale = apply_filters( 'wpml_current_language', NULL )){
-            $locale      = strtolower(str_replace('_', '-', $locale));
-            $locale_path = NOTIFICATIONX_ASSETS_PATH . "public/locale/$locale.js";
-            if(file_exists($locale_path)){
-                $locale_url  = NOTIFICATIONX_ASSETS . "public/locale/$locale.js";
-            }
-        }
-        else{
-            $locale      = strtolower(str_replace('_', '-', get_locale()));
-            $locale_path = NOTIFICATIONX_ASSETS_PATH . "public/locale/$locale.js";
-            $locale_arr  = explode('-', $locale);
-            if(file_exists($locale_path)){
-                $locale_url  = NOTIFICATIONX_ASSETS . "public/locale/$locale.js";
-            }
-            else if(!empty($locale_arr[1])){
-                $locale_path = NOTIFICATIONX_ASSETS_PATH . "public/locale/{$locale_arr[0]}.js";
-                if(file_exists($locale_path)){
-                    $locale_url  = NOTIFICATIONX_ASSETS . "public/locale/{$locale_arr[0]}.js";
-                }
-            }
-        }
-        if($locale_url && !$return_url){
-            wp_enqueue_script( 'nx-moment-locale', $locale_url, ['moment']);
-        }
-        return $locale_url;
     }
 
     public function generate_package($post, $nx_id){

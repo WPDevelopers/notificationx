@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Redirect, useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useBuilderContext, FormBuilder } from 'quickbuilder';
 import { Header } from '../../components'
 import nxHelper, { proAlert } from '../../core/functions';

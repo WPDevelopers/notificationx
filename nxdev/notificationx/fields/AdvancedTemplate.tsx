@@ -111,15 +111,15 @@ const AdvancedTemplate = (props) => {
         });
     }, [editorState]);
 
-    const updateEditorState = (editorState) => {
-        const raw = convertToRaw(editorState.getCurrentContent());
-        const newRaw: RawDraftContentState = {
-            ...raw,
-            blocks: raw.blocks.slice(0, 3),
-        };
-        const newState = EditorState.createWithContent(convertFromRaw(newRaw));
-        setEditorState(newState);
-    };
+    // const updateEditorState = (editorState) => {
+    //     const raw = convertToRaw(editorState.getCurrentContent());
+    //     const newRaw: RawDraftContentState = {
+    //         ...raw,
+    //         blocks: raw.blocks.slice(0, 3),
+    //     };
+    //     const newState = EditorState.createWithContent(convertFromRaw(newRaw));
+    //     setEditorState(newState);
+    // };
     const handleBeforeInput = (
         chars: string,
         editorState: EditorState,

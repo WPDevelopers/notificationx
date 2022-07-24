@@ -111,9 +111,9 @@ const Analytics = (props) => {
         const isAllCombined = filterOptions.nx?.some((item) => {
             return item.value == "all-combined";
         });
-        const isAllSeparated = filterOptions.nx?.some((item) => {
-            return item.value == "all-separated";
-        });
+        // const isAllSeparated = filterOptions.nx?.some((item) => {
+        //     return item.value == "all-separated";
+        // });
 
         if (
             !startDate ||

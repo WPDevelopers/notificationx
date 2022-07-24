@@ -23,7 +23,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     const { config: settings, data: content } = nxBar;
     const [timeConfig, setTimeConfig] = useState<timeConfig>({ days: '00', hours: '00', minutes: '00', seconds: '00', expired: false });
     const hasContent = content?.replace(/<[^>]+>|[\n\r]/g, '')?.trim() != '';
-    const [styles, setStyles] = useState<{ [key: string]: CSSProperties }>({});
+    const [styles, setStyles] = useState<{ [key: string]: any }>({});
     const [closed, setClosed] = useState(false);
     let elementorRef = useRef();
     const frontendContext = useNotificationContext();
@@ -121,10 +121,10 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         }
 
 
-        const componentCSS: CSSProperties = {};
-        const buttonCSS: CSSProperties = {};
-        const counterCSS: CSSProperties = {};
-        const closeButtonCSS: CSSProperties = {};
+        const componentCSS: any = {};
+        const buttonCSS: any = {};
+        const counterCSS: any = {};
+        const closeButtonCSS: any = {};
         if (settings?.advance_edit) {
             if (settings?.bar_bg_color) componentCSS.backgroundColor = settings.bar_bg_color;
             if (settings?.bar_text_color) componentCSS.color = settings.bar_text_color;

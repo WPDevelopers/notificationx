@@ -95,7 +95,7 @@ const Notification = (props) => {
             "flex-reverse": advance_edit && settings?.image_position === "right",
         }
     );
-    const componentStyle: CSSProperties = {
+    const componentStyle: any = {
         maxWidth: `${settings?.size}px`
     };
     if (settings?.advance_edit && settings?.conversion_size) {
