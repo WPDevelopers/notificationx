@@ -13,8 +13,8 @@ function notificationXWrapper(notificationX, id) {
         localeData[""].domain = 'notificationx';
         setLocaleData(localeData, 'notificationx');
     }
-    if(notificationX.lang && notificationX.lang !== "en" && notificationX.lang !== "en-us"){
-        let lang = notificationX.lang.replace('_', '-').toLowerCase();
+    let lang = notificationX.lang?.replace('_', '-')?.toLowerCase();
+    if(lang && lang !== "en" && lang !== "en-us"){
         import("moment/locale/" + lang).catch(err => {
             lang = lang.split('-')[0];
             import("moment/locale/" + lang).catch(err => {

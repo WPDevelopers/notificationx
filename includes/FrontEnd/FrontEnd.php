@@ -58,6 +58,7 @@ class FrontEnd {
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ], 10 );
         add_filter( 'nx_fallback_data', [ $this, 'fallback_data' ], 10, 3 );
         add_filter( 'nx_filtered_data', [ $this, 'filtered_data' ], 9999, 3 );
+        add_filter( 'nx_filtered_post', [ $this, 'filtered_post' ], 9999, 2 );
         add_action( 'wp_print_footer_scripts', [ $this, 'footer_scripts' ] );
     }
 
@@ -225,6 +226,7 @@ class FrontEnd {
                     $value['entries'] = apply_filters( "nx_filtered_data_{$value['post']['type']}", $value['entries'], $value['post'], $params );
                     $value['entries'] = apply_filters( "nx_filtered_data_{$value['post']['source']}", $value['entries'], $value['post'], $params );
                     $value['entries'] = apply_filters( 'nx_filtered_data', $value['entries'], $value['post'], $params );
+                    $value['post']    = apply_filters( 'nx_filtered_post', $value['post'], $params );
                 }
             }
             $result = apply_filters( 'nx_filtered_notice', $result, $params );
@@ -255,6 +257,7 @@ class FrontEnd {
                     if ( empty( $_bar_content ) && ! empty( $settings['enable_countdown'] ) ) {
                         $bar_content = '&nbsp;';
                     }
+                    $settings = apply_filters( 'nx_filtered_post', $settings, $params );
                     $result['pressbar'][ $_nx_id ]['post']    = $settings;
                     $result['pressbar'][ $_nx_id ]['content'] = $bar_content;
                 }
@@ -586,6 +589,76 @@ class FrontEnd {
             }
         }
         return $entries;
+    }
+
+    /**
+     * Remove unnecessary props from post in frontend.
+     *
+     * @return void
+     */
+    public function filtered_post( $post, $params = null ) {
+        if ( is_array( $post ) ) {
+            $ignore_props = [
+                'all_locations',
+                'category_list',
+                'combine_multiorder_text',
+                'content_trim_length',
+                'convertkit_form',
+                'currentTab',
+                'custom_contents',
+                'custom_ids',
+                'default_avatar',
+                'elementor_edit_link',
+                'enabled',
+                'exclude_categories',
+                'exclude_products',
+                'form_list',
+                'freemius_item_type',
+                'freemius_plugins',
+                'freemius_themes',
+                'give_form_list',
+                'give_forms_control',
+                'image_url',
+                'inline_location',
+                'is_confirmed',
+                'is_elementor',
+                'is_inline',
+                'ld_course_list',
+                'ld_product_control',
+                'link_type',
+                'mailchimp_list',
+                'max_stock',
+                'nx-bar_with_elementor',
+                'nx-bar_with_elementor-remove',
+                'nx-bar_with_elementor_install',
+                'order_status',
+                'press_content',
+                'preview',
+                'product_control',
+                'product_exclude_by',
+                'product_list',
+                'rest_route',
+                'show_default_image',
+                'show_notification_image',
+                'show_on',
+                'show_on_display',
+                'source_error',
+                'utm_campaign',
+                'utm_medium',
+                'utm_source',
+                'wp_reviews_product_type',
+                'wp_reviews_slug',
+                'wp_stats_product_type',
+                'wp_stats_slug',
+                '_locale',
+            ];
+            foreach ( $ignore_props as $prop ) {
+                if(isset($post[$prop])){
+                    unset($post[$prop]);
+                }
+            }
+        }
+        return $post;
     }
 
 }
