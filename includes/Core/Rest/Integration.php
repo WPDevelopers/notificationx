@@ -176,6 +176,12 @@ class Integration {
             if ( isset( $response_data['data']['api_key'] ) ) {
                 unset( $response_data['data']['api_key'] );
             }
+            if (isset($response_data['data']['id'])){
+                $post = PostType::get_instance()->get_post($response_data['data']['id']);
+                if($post['source']){
+                    do_action( "nx_api_response_success_{$post['source']}", $response_data['data'] );
+                }
+            }
             do_action( 'nx_api_response_success', $response_data['data'] );
         }
 
