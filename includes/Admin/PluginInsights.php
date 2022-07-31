@@ -654,7 +654,7 @@ class PluginInsights {
      *
      * @return void
      */
-    public function clicked() {
+    public function clicked( $notice = null ) {
         if ( isset( $_GET['plugin'] ) && isset( $_GET['plugin_action'] ) ) {
             if ( isset( $_GET['tab'] ) && $_GET['tab'] === 'plugin-information' ) {
                 return;
@@ -667,14 +667,19 @@ class PluginInsights {
                 if ( $this->do_tracking( true ) ) {
                     $this->update_block_notice( $plugin );
                 }
-                /**
-                 * Redirect User To the Current URL, but without set query arguments.
-                 */
-                wp_safe_redirect( $this->redirect_to() );
             } else {
                 $this->set_is_tracking_allowed( false, $plugin );
                 $this->update_block_notice( $plugin );
             }
+
+            if( ! is_null ( $notice ) ) {
+                $notice->dismiss->dismiss_notice();
+            }
+
+            /**
+             * Redirect User To the Current URL, but without set query arguments.
+             */
+            wp_safe_redirect( $this->redirect_to() );
         }
     }
     /**
