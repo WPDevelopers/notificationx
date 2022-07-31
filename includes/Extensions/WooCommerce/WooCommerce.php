@@ -427,7 +427,7 @@ class WooCommerce extends Extension {
 
 
     public function product_link($link, $post, $entry) {
-        if(!empty($entry['product_id'])){
+        if(!empty($entry['product_id']) && !empty( $post['link_type'] ) && $post['link_type'] === 'product_page' ){
             $link = get_permalink($entry['product_id']);
         }
         return $link;

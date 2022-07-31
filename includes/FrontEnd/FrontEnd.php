@@ -86,7 +86,7 @@ class FrontEnd {
     }
 
     public function footer_scripts() {
-        if ( ! empty( $this->notificationXArr ) ) {
+        if ( ! empty( $this->notificationXArr['total'] && $this->notificationXArr['total'] > 0 ) ) {
             $this->notificationXArr = apply_filters( 'nx_frontend_localize_data', $this->notificationXArr );
         ?>
             <script>
@@ -597,7 +597,7 @@ class FrontEnd {
      * @return void
      */
     public function filtered_post( $post, $params = null ) {
-        if ( is_array( $post ) ) {
+        if ( is_array( $post ) && empty($params['inline_shortcode']) ) {
             $ignore_props = [
                 'all_locations',
                 'category_list',

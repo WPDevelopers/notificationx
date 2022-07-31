@@ -66,7 +66,7 @@ class ShortcodeInline {
             $settings = $result['shortcode'][ $nx_id ]['post'];
 
             $logged_in       = is_user_logged_in();
-            $show_on_display = $settings['show_on_display'];
+            $show_on_display = isset($settings['show_on_display']) ? $settings['show_on_display'] : '';
             if ( ! ( ( $logged_in && 'logged_out_user' === $show_on_display ) || ( ! $logged_in && 'logged_in_user' === $show_on_display ) ) ) {
 
                 $col = array_column( $entries, 'timestamp' );
