@@ -127,7 +127,7 @@ class Dismiss extends Base {
 	 * @since 1.0
 	 * @return void
 	 */
-	private function dismiss_notice() {
+	public function dismiss_notice() {
 		if ( 'user' === $this->scope ) {
 			return $this->app->storage()->save_meta( $this->id );
 		}
