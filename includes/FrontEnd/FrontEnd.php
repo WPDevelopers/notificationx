@@ -86,7 +86,7 @@ class FrontEnd {
     }
 
     public function footer_scripts() {
-        if ( ! empty( $this->notificationXArr['total'] && $this->notificationXArr['total'] > 0 ) ) {
+        if ( ! empty( $this->notificationXArr['total'] ) && $this->notificationXArr['total'] > 0 ) {
             $this->notificationXArr = apply_filters( 'nx_frontend_localize_data', $this->notificationXArr );
         ?>
             <script>
