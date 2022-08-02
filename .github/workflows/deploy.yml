@@ -14,8 +14,6 @@ jobs:
           node-version: '14'
       - name: Running NPM Install
         run: npm install
-      - name: Running NPM Build For CrossDomain Notice
-        run: npm run csb
       - name: Running NPM Build
         run: npm run build
       - name: WordPress Plugin Deploy

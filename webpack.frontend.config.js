@@ -54,14 +54,7 @@ const config = {
     },
     output: {
         ...defaultConfig.output,
-        filename: (pathData) => {
-            // if (!isProduction) {
-            //     return "[name].js";
-            // }
-            return pathData.chunk.name == "admin"
-                ? "admin/js/[name].js"
-                : "public/js/[name].js";
-        },
+        filename: "public/js/[name].js",
         path: path.resolve(process.cwd(), isProduction ? "assets" : "nxbuild"),
         chunkFilename: (pathData) => {
             return `public/${pathData.chunk.name || pathData.chunk.id}.js`;
