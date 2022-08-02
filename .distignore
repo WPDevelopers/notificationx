@@ -66,6 +66,7 @@ blocks/notificationx/index.js.map
 blocks/notificationx/index.jsx
 webpack.blocks.config.js
 webpack.cs.config.js
+webpack.frontend.config.js
 vendor/priyomukul/vendor
 vendor/priyomukul/.editorconfig
 vendor/priyomukul/.gitignore
