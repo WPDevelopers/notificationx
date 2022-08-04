@@ -108,6 +108,10 @@ class WPML {
         return $meta;
     }
 
+    public function localize_moment($nx_ids = null, $return_url = false){
+        return null;
+    }
+
     public function generate_package($post, $nx_id){
         return array(
             'kind'      => 'NotificationX',
