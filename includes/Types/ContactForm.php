@@ -159,7 +159,11 @@ class ContactForm extends Types {
             return new \WP_Error('something', 'NILL');
         }
         $args['form_id'] = str_replace(trim($args['form_type']) . '_', '', $args['form_id']);
-        return ExtensionFactory::get_instance()->get( trim( $args['form_type'] ) )->restResponse( $args );
+        $form = ExtensionFactory::get_instance()->get( trim( $args['form_type'] ) );
+        if($form && $form->is_active()){
+            return $form->restResponse( $args );
+        }
+        return [];
     }
 
     /**

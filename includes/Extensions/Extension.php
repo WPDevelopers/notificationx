@@ -73,7 +73,10 @@ abstract class Extension {
 
     public function initialize(){
         do_action('nx::extension::init', $this);
-        add_action('nx_before_metabox_load', [$this, 'init_fields']);
+        if($this->is_active(false)) {
+            add_action('nx_before_metabox_load', [$this, 'init_fields']);
+        }
+        add_action('nx_before_metabox_load', [$this, '_init_fields']);
         add_action('nx_before_settings_fields', [$this, 'init_settings_fields']);
         // add_action('init', [$this, 'init']);
 
@@ -108,17 +111,17 @@ abstract class Extension {
     }
 
     /**
-     * common init function for admin and frontend.
+     * common init function .
      */
-    public function init_fields(){
-        add_filter('nx_themes', [$this, 'nx_themes']);
-        add_filter('nx_sources', [$this, 'nx_sources'], 10, 1);
-        add_filter('nx_link_types_dependency', [$this, 'link_types_dependency']);
-        add_filter('nx_notification_template', [$this, 'notification_template']);
-        add_filter('nx_notification_template_dependency', [$this, 'notification_template_dependency']);
-        add_filter('nx_source_trigger', [$this, 'source_trigger']);
-        add_filter('nx_themes_trigger', [$this, 'themes_trigger']);
-        add_filter('nx_is_pro_sources', [$this, 'is_pro_sources']);
+    public function _init_fields(){
+        add_filter('nx_themes', [$this, '__nx_themes']);
+        add_filter('nx_sources', [$this, '__nx_sources'], 10, 1);
+        add_filter('nx_link_types_dependency', [$this, '__link_types_dependency']);
+        add_filter('nx_notification_template', [$this, '__notification_template']);
+        add_filter('nx_notification_template_dependency', [$this, '__notification_template_dependency']);
+        add_filter('nx_source_trigger', [$this, '__source_trigger']);
+        add_filter('nx_themes_trigger', [$this, '__themes_trigger']);
+        add_filter('nx_is_pro_sources', [$this, '__is_pro_sources']);
 
         if(method_exists($this, 'doc')){
             add_filter('nx_instructions', [$this, 'nx_instructions']);
@@ -126,6 +129,12 @@ abstract class Extension {
         if(method_exists($this, 'source_error_message')){
             add_filter('source_error_message', [$this, 'source_error_message']);
         }
+    }
+
+    /**
+     * common init function for admin and frontend.
+     */
+    public function init_fields(){
     }
 
     /**
@@ -163,7 +172,7 @@ abstract class Extension {
      * @param array $args Settings arguments.
      * @return mixed
      */
-    public function source_trigger($triggers){
+    public function __source_trigger($triggers){
         if(empty($this->default_theme)){
             $type = TypeFactory::get_instance()->get($this->types);
             $this->default_theme = $type->default_theme;
@@ -180,7 +189,7 @@ abstract class Extension {
      *
      * @return void
      */
-    public function nx_themes($themes) {
+    public function __nx_themes($themes) {
         $_themes = $this->get_themes();
 
         $i = 0;
@@ -217,7 +226,7 @@ abstract class Extension {
      * @param array $args Settings arguments.
      * @return mixed
      */
-    public function themes_trigger($triggers) {
+    public function __themes_trigger($triggers) {
         $_themes = $this->get_themes();
         if (is_array($_themes)) {
             foreach ($_themes as $tname => $theme) {
@@ -261,7 +270,7 @@ abstract class Extension {
      *
      * @return void
      */
-    public function nx_sources($sources) {
+    public function __nx_sources($sources) {
         $sources[] = [
             'rules'    => ['is', 'type', $this->types],
             'label'    => $this->title,
@@ -280,7 +289,7 @@ abstract class Extension {
      * @param array $dependency
      * @return array
      */
-    public function link_types_dependency($dependency) {
+    public function __link_types_dependency($dependency) {
         if ($this->has_link_types){
             $dependency[] = $this->id;
         } else {
@@ -298,7 +307,7 @@ abstract class Extension {
      * @param array $templates `Notification Template` fields.
      * @return array
      */
-    public function notification_template($templates){
+    public function __notification_template($templates){
         foreach ($this->get_templates() as $key => $tmpl) {
             if(!empty($tmpl['_themes'])){
                 $type = 'themes';
@@ -350,7 +359,7 @@ abstract class Extension {
      * @param array $templates `Notification Template` fields.
      * @return array
      */
-    public function notification_template_dependency($dependency){
+    public function __notification_template_dependency($dependency){
         if($this->get_templates()){
             $dependency[] = $this->id;
         }
@@ -595,7 +604,7 @@ abstract class Extension {
         return $instructions;
     }
 
-    public function is_pro_sources($sources){
+    public function __is_pro_sources($sources){
         $sources[$this->id] = $this->is_pro;
         return $sources;
     }
