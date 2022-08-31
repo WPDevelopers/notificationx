@@ -89,7 +89,7 @@ class FrontEnd {
         if ( ! empty( $this->notificationXArr['total'] ) && $this->notificationXArr['total'] > 0 ) {
             $this->notificationXArr = apply_filters( 'nx_frontend_localize_data', $this->notificationXArr );
         ?>
-            <script>
+            <script data-no-optimize="1">
                 (function(){
                     window.notificationXArr = window.notificationXArr || [];
                     window.notificationXArr.push(<?php echo json_encode( $this->notificationXArr ); ?>);

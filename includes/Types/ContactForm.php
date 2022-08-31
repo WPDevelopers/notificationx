@@ -177,7 +177,7 @@ class ContactForm extends Types {
             'name' => 'form_list',
             'label' => __('Select a Form', 'notificationx'),
             'options' => apply_filters('nx_form_list', []),
-            'priority' => 89,
+            'priority' => 20,
             'rules' => Rules::includes( 'type', $this->id ),
         ];
 

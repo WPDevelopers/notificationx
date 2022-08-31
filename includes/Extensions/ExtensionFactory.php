@@ -58,6 +58,7 @@ class ExtensionFactory {
 			'zapier_conversions'              => 'NotificationX\Extensions\Zapier\ZapierConversions',
 			'zapier_email_subscription'       => 'NotificationX\Extensions\Zapier\ZapierEmailSubscription',
 			'zapier_reviews'                  => 'NotificationX\Extensions\Zapier\ZapierReviews',
+			'elementor_form'                  => 'NotificationX\Extensions\Elementor\From',
 		];
 
 	/**
