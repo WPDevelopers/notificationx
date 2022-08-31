@@ -428,7 +428,24 @@ class Settings extends UsabilityDynamicsSettings {
                     'id'       => 'tab-miscellaneous-settings',
                     'label'    => __( 'Miscellaneous', 'notificationx' ),
                     'priority' => 50,
-                    'fields'   => [],
+                    'fields'   => [
+                        [
+                            'name'     => 'miscellaneous-general',
+                            'type'     => 'section',
+                            'label'    => __( 'General', 'notificationx' ),
+                            'priority' => 5,
+                            'fields'   => array(
+                                'enable_rest_api' => [
+                                    'name'     => "enable_rest_api",
+                                    'type'     => 'checkbox',
+                                    'label'    => __('Enable REST API', 'notificationx'),
+                                    'default'  => 0,
+                                    'priority' => 10,
+                                    'description' => __( 'Forcefully enable anonymous REST API for NotificationX.', 'notificationx' ),
+                                ],
+                            ),
+                        ]
+                    ],
                     ]
                 ),
                 ]

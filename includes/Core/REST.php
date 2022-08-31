@@ -50,7 +50,42 @@ class REST {
         Rest\BulkAction::get_instance();
 
         add_action('rest_api_init', [$this, 'register_routes']);
+        $enable_rest_api = Settings::get_instance()->get('settings.enable_rest_api', false);
+        if($enable_rest_api){
+            add_action('rest_authentication_errors', [$this, 'rest_authentication_errors'], 999);
+        }
     }
+
+	/**
+	 * Checks for a current route being requested, and processes the allowlist
+	 *
+	 * @param $access
+	 *
+	 * @return WP_Error|null|boolean
+	 */
+	public function rest_authentication_errors( $access ) {
+        $namespace = self::_namespace();
+		$current_route = $this->get_current_route();
+        if($access instanceof \WP_Error && $current_route == "/$namespace/notice"){
+            return true;
+        }
+
+		// If we got all the way here, return the unmodified $access response
+		return $access;
+	}
+
+	/**
+	 * Current REST route getter.
+	 *
+	 * @return string
+	 */
+	private function get_current_route() {
+		$rest_route = $GLOBALS['wp']->query_vars['rest_route'];
+
+		return ( empty( $rest_route ) || '/' == $rest_route ) ?
+			$rest_route :
+			untrailingslashit( $rest_route );
+	}
 
     /**
      * Check if a given request has access to get items
@@ -271,7 +306,7 @@ class REST {
         return apply_filters('nx_rest_data', array(
             'root'      => rest_url(),
             'namespace' => $this->_namespace(),
-            'nonce'     => $nonce ? wp_create_nonce( 'nx_rest' ) : '',
+            'nonce'     => $nonce ? wp_create_nonce( 'wp_rest' ) : '',
         ));
     }
 
