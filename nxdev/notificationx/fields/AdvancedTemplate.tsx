@@ -263,13 +263,16 @@ const AdvancedTemplate = (props) => {
                             val.value != "select_a_tag"
                         ) {
                             const tag = val.value.replace("tag_", "");
+                            const label = val.label;
+                            const isElForm = builderContext.values.source === 'elementor_form' && tag.includes("el_");
+
                             return (
                                 <React.Fragment key={i}>
                                     <span
                                         className="button button-secondary"
-                                        title={val.label}
+                                        title={isElForm ? `{{${tag}}}` : label}
                                         onClick={() => clicked(tag)}
-                                    >{`{{${tag}}}`}</span>
+                                    >{isElForm ? label : `{{${tag}}}`}</span>
                                 </React.Fragment>
                             );
                         }
