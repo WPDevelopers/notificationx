@@ -134,7 +134,7 @@ class Admin {
         $post = PostType::get_instance()->get_post($post_id);
         $source = isset($post['source']) ? $post['source'] : false;
         $extension = ExtensionFactory::get_instance()->get($source);
-        if (!empty($extension) && method_exists($extension, 'get_notification_ready') && $extension->is_active(false)) {
+        if (!empty($extension) && method_exists($extension, 'get_notification_ready') && $extension->is_active()) {
             Entries::get_instance()->delete_entries($post_id);
             $result = $extension->get_notification_ready($post, $post_id);
             return true;

@@ -7,6 +7,7 @@
 
 namespace NotificationX\Extensions\Elementor;
 
+use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
 
@@ -50,6 +51,23 @@ class From extends Extension {
         parent::__construct();
     }
 
+    public function source_error_message($messages) {
+        if (!$this->class_exists()) {
+            $url = "https://elementor.com/";
+            $messages[$this->id] = [
+                'message' => sprintf( '%s <a href="%s" target="_blank">%s</a> %s',
+                    __( 'You have to install', 'notificationx' ),
+                    $url,
+                    __( 'Elementor Pro', 'notificationx' ),
+                    __( 'plugin first.', 'notificationx' )
+                ),
+                'html' => true,
+                'type' => 'error',
+                'rules' => Rules::is('source', $this->id),
+            ];
+        }
+        return $messages;
+    }
 
     public function doc(){
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">created & signed in to Envato account</a> to use its campaign & product sales data.  For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>

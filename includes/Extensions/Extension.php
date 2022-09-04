@@ -73,20 +73,17 @@ abstract class Extension {
 
     public function initialize(){
         do_action('nx::extension::init', $this);
-        if($this->is_active(false)) {
-            add_action('nx_before_metabox_load', [$this, 'init_fields']);
-        }
         add_action('nx_before_metabox_load', [$this, '_init_fields']);
         add_action('nx_before_settings_fields', [$this, 'init_settings_fields']);
-        // add_action('init', [$this, 'init']);
 
-        if($this->is_active()) {
+        if($this->is_active(false)) {
             $this->init();
             $this->admin_actions();
             $this->public_actions();
             if(did_action('wpml_st_loaded')){
                 $this->wpml_actions();
             }
+            add_action('nx_before_metabox_load', [$this, 'init_fields']);
         }
     }
 
