@@ -73,7 +73,7 @@ abstract class Extension {
 
     public function initialize(){
         do_action('nx::extension::init', $this);
-        add_action('nx_before_metabox_load', [$this, '_init_fields']);
+        add_action('nx_before_metabox_load', [$this, '__init_fields']);
         add_action('nx_before_settings_fields', [$this, 'init_settings_fields']);
 
         if($this->is_active(false)) {
@@ -110,7 +110,7 @@ abstract class Extension {
     /**
      * common init function .
      */
-    public function _init_fields(){
+    public function __init_fields(){
         add_filter('nx_themes', [$this, '__nx_themes']);
         add_filter('nx_sources', [$this, '__nx_sources'], 10, 1);
         add_filter('nx_link_types_dependency', [$this, '__link_types_dependency']);
