@@ -542,12 +542,10 @@ class FrontEnd {
      */
     public function filtered_data( $entries, $post, $params ) {
         if ( is_array( $entries ) ) {
-            $count = 0;
+            if(!empty($post['display_last'])){
+                $entries = array_slice($entries, 0, $post['display_last']);
+            }
             foreach ( $entries as $index => $entry ) {
-                $count++;
-                if(!empty($post['display_last']) && $post['display_last'] < $count){
-                    break;
-                }
                 $_entry = [
                     'nx_id'      => $entry['nx_id'],
                     'timestamp'  => isset($entry['timestamp']) ? $entry['timestamp'] : null,
