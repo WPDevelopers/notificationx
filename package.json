@@ -4,10 +4,11 @@
   "main": "nxdev/index.js",
   "author": "WPDeveloper",
   "scripts": {
-    "start": "wp-scripts start",
     "admin": "wp-scripts build",
+    "admin-watch": "wp-scripts start",
     "frontend": "wp-scripts build --config webpack.frontend.config.js --webpack-no-externals",
     "frontend-watch": "wp-scripts start --config webpack.frontend.config.js --webpack-no-externals",
+    "start": "npm run admin-watch && npm run frontend-watch",
     "build": "npm run admin && npm run frontend",
     "up": "npm install github:WPDevelopers/quickbuilder#dev",
     "pot": "wp i18n make-pot . languages/notificationx.pot ",
