@@ -542,13 +542,13 @@ class FrontEnd {
      */
     public function filtered_data( $entries, $post, $params ) {
         if ( is_array( $entries ) ) {
-            if(!empty($post['display_last'])){
+            if(!empty($post['display_last']) && !in_array($post['source'], ['google', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline'])){
                 $entries = array_slice($entries, 0, $post['display_last']);
             }
             foreach ( $entries as $index => $entry ) {
                 $_entry = [
                     'nx_id'      => $entry['nx_id'],
-                    'timestamp'  => isset($entry['timestamp']) ? $entry['timestamp'] : null,
+                    'timestamp'  => isset($entry['timestamp']) ? $entry['timestamp'] : Helper::current_timestamp($entry['updated_at']),
                     'updated_at' => $entry['updated_at'],
                     'image_data' => $entry['image_data'],
                     'link'       => $entry['link'],

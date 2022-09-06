@@ -151,7 +151,7 @@ class Blocks {
         if ( $shortcode ) {
             $html .= $shortcode;
         } else {
-            $html .= '<p class="nx-shortcode-notice">' . __( 'There is no data in this notification.', 'notificationx-pro' ) . '</p>';
+            $html .= '<p class="nx-shortcode-notice">' . __( 'There is no data in this notification.', 'notificationx' ) . '</p>';
         }
         $html .= '</div>';
 

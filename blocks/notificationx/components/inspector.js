@@ -89,7 +89,7 @@ export default function Inspector(props) {
           }));
       }
       set_nx_ids([
-        { label: __("Select", "notificationx-pro"), value: "" },
+        { label: __("Select", "notificationx"), value: "" },
         ...ids,
       ]);
     });
@@ -119,7 +119,7 @@ export default function Inspector(props) {
                 <div className="eb-panel-control">
                   <div className="nx-panel-body-default">
                     <SelectControl
-                      label={__("Choose Notification", "notificationx-pro")}
+                      label={__("Choose Notification", "notificationx")}
                       value={nx_id}
                       options={nx_ids}
                       onChange={(selected) =>
@@ -129,10 +129,10 @@ export default function Inspector(props) {
                     {nx_ids && nx_ids.length <= 1 ? (
                       <>
                         <p className="nx-block-no-nx-notice">
-                          <b>{__("Note: ", "notificationx-pro")}</b>
+                          <b>{__("Note: ", "notificationx")}</b>
                           {__(
                             "You have no notification enabled. Please Enable notifications to get here.",
-                            "notificationx-pro"
+                            "notificationx"
                           )}
                         </p>
                       </>
@@ -140,7 +140,7 @@ export default function Inspector(props) {
                       <></>
                     )}
                     <div style={{ marginBottom: 20 }}>
-                      <BaseControl label={__("Alignment", "notificationx-pro")}>
+                      <BaseControl label={__("Alignment", "notificationx")}>
                         <ButtonGroup id="eb-advance-heading-alignment">
                           {WRAPPER_ALIGN.map((item) => (
                             <Button
@@ -168,13 +168,13 @@ export default function Inspector(props) {
                   <div className="nx-panel-body-default">
                     <div style={{ marginBottom: 15 }}>
                       <TypographyDropdown
-                        baseLabel={__("Typography", "notificationx-pro")}
+                        baseLabel={__("Typography", "notificationx")}
                         typographyPrefixConstant={NX_TYPOGRAPHY}
                         resRequiredProps={resRequiredProps}
                       />
                     </div>
                     <div style={{ marginBottom: 20 }}>
-                      <BaseControl label={__("Alignment", "notificationx-pro")}>
+                      <BaseControl label={__("Alignment", "notificationx")}>
                         <ButtonGroup id="eb-advance-heading-alignment">
                           {TEXT_ALIGN.map((item) => (
                             <Button
@@ -209,25 +209,25 @@ export default function Inspector(props) {
                     <PanelColorSettings
                       initialOpen={false}
                       className={"nx-color-control"}
-                      title={__("Color", "notificationx-pro")}
+                      title={__("Color", "notificationx")}
                       colorSettings={[
                         {
                           value: nxLinkColor,
                           onChange: (newColor) =>
                             setAttributes({ nxLinkColor: newColor }),
-                          label: __("Link Color", "notificationx-pro"),
+                          label: __("Link Color", "notificationx"),
                         },
                         {
                           value: nxColor,
                           onChange: (newColor) =>
                             setAttributes({ nxColor: newColor }),
-                          label: __("Text Color", "notificationx-pro"),
+                          label: __("Text Color", "notificationx"),
                         },
                         {
                           value: nxBgColor,
                           onChange: (newColor) =>
                             setAttributes({ nxBgColor: newColor }),
-                          label: __("Background Color", "notificationx-pro"),
+                          label: __("Background Color", "notificationx"),
                         },
                       ]}
                     />
