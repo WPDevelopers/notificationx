@@ -1,5 +1,6 @@
 import { __ } from "@wordpress/i18n";
 import classNames from "classnames";
+import delegate from "delegate";
 import React, { CSSProperties, useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import usePortal from "../hooks/usePortal";
@@ -28,31 +29,15 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     let elementorRef = useRef();
     const frontendContext = useNotificationContext();
 
-    const sel = "#nx-consent-accept";
-    const consentCallback = useCallback(
-        (event) => {
-            setClosed(true);
-        },
-        []
+    const consentCallback = useCallback( (event) => {
+        setClosed(true);
+    }, []
     );
 
-    const delegate = useCallback(
-        (event) => {
-            var t = event.target;
-            while (t && t !== this) {
-                // on click consent accept button
-                if (t.matches?.(sel)) {
-                    consentCallback.call(t, event);
-                    break;
-                }
-                else if(t.matches?.('a')){
-                    const restUrl = nxHelper.getPath(frontendContext.rest, `analytics/`);
-                    analyticsOnClick(event, restUrl, settings);
-                }
-                t = t.parentNode;
-            }
-        },
-        [sel, consentCallback]
+    const analyticCallback = useCallback( (event) => {
+        const restUrl = nxHelper.getPath(frontendContext.rest, `analytics/`);
+        analyticsOnClick(event, restUrl, settings);
+    }, []
     );
 
     const getTime = (settings) => {
@@ -159,13 +144,21 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         })
 
         //@ts-ignore
-        elementorRef?.current?.addEventListener('click', delegate);
-
+        let analyticDelegation;
+        let consentDelegation;
+        if(elementorRef?.current){
+            analyticDelegation = delegate(elementorRef?.current, 'a', 'click', analyticCallback);
+            consentDelegation  = delegate(elementorRef?.current, '#nx-consent-accept', 'click', consentCallback);
+        }
         return () => {
-            countdownInterval && clearInterval(countdownInterval)
+            countdownInterval && clearInterval(countdownInterval);
             document.body.classList.remove("has-nx-bar");
-            //@ts-ignore
-            elementorRef.current?.removeEventListener('click', delegate);
+            if(analyticDelegation){
+                analyticDelegation.destroy();
+            }
+            if(consentDelegation){
+                consentDelegation.destroy();
+            }
 
             if (position == 'top') {
                 document.body.style.paddingTop = null;
