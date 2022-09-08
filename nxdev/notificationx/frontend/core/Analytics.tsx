@@ -6,7 +6,7 @@ export const analyticsOnClick = (event, restUrl, config) => {
     const nx_id = config?.nx_id;
     const enable_analytics = config?.enable_analytics;
 
-    if (!event.target?.href) {
+    if (!event.target?.href && (!event.delegateTarget || !event.delegateTarget.href)) {
         event.preventDefault();
         return false;
     }
