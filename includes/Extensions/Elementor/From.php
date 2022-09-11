@@ -39,13 +39,10 @@ class From extends Extension {
         $this->title = __('Elementor Form', 'notificationx');
         $this->module_title = __('Elementor', 'notificationx');
         $this->popup = [
-            "denyButtonText" => __("<a href='https://notificationx.com/docs/envato-sales-notification/' target='_blank'>More Info</a>", "notificationx"),
+            "denyButtonText" => __("<a href='https://notificationx.com/docs/elementor-form-with-notificationx/' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
             "html"=> __('
-                <span>A resourceful online marketplace for digital assets and services.</span>
-                <iframe id="email_subscription_video" type="text/html" allowfullscreen width="450" height="235"
-                src="https://www.youtube.com/embed/-df_6KHgr7I">
-                </iframe>
+                <span>Elementor forms that can help you keep important leads and stay in touch with your customers.</span>
             ', 'notificationx')
         ];
         parent::__construct();
@@ -70,13 +67,13 @@ class From extends Extension {
     }
 
     public function doc(){
-        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">created & signed in to Envato account</a> to use its campaign & product sales data.  For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
-		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
-		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with Envato</a></p>', 'notificationx'),
-        'https://account.envato.com/sign_in?to=envato-api',
-        'https://notificationx.com/docs/envato-sales-notification/',
-        'https://youtu.be/-df_6KHgr7I',
-        'https://notificationx.com/integrations/envato/'
+        // translators: links
+        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">Elementor Pro installed & configured</a> to use its form submission data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+		<p><strong>Recommended Blog:</strong></p>
+		<p>🔥 Hacks to Increase Your <a target="_blank" href="%3$s">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>', 'notificationx'),
+        'https://elementor.com/',
+        'https://notificationx.com/docs/elementor-form-with-notificationx/',
+        'https://notificationx.com/blog/wordpress-contact-forms/'
         );
     }
 }
