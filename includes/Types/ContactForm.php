@@ -160,7 +160,7 @@ class ContactForm extends Types {
         }
         $args['form_id'] = str_replace(trim($args['form_type']) . '_', '', $args['form_id']);
         $form = ExtensionFactory::get_instance()->get( trim( $args['form_type'] ) );
-        if($form && $form->is_active()){
+        if($form && $form->is_active(false)){
             return $form->restResponse( $args );
         }
         return [];

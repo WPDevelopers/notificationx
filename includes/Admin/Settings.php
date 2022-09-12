@@ -154,6 +154,31 @@ class Settings extends UsabilityDynamicsSettings {
                     'classes'  => 'tab-advanced-settings',
                     'priority' => 20,
                     'fields'   => [
+                        'advanced-general' => [
+                            'name'     => 'advanced-general',
+                            'type'     => 'section',
+                            'label'    => __( 'General', 'notificationx' ),
+                            'priority' => 5,
+                            'fields'   => array(
+                                'enable_rest_api' => [
+                                    'name'     => "enable_rest_api",
+                                    'type'     => 'checkbox',
+                                    'label'    => __('Enable REST API', 'notificationx'),
+                                    'default'  => false,
+                                    'priority' => 10,
+                                    'description' => __( 'Forcefully enable anonymous REST API for NotificationX.', 'notificationx' ),
+                                ],
+                                'omit_credentials' => [
+                                    'name'        => "omit_credentials",
+                                    'type'        => 'checkbox',
+                                    'label'       => __('Exclude Credentials', 'notificationx'),
+                                    'default'     => true,
+                                    'priority'    => 15,
+                                    'description' => __( 'Enabling it will remove cookies, HTTP authentication entries, and TLS client certificates from API calls on the frontend.', 'notificationx' ),
+                                    'help'        => __( 'Note: Recommended if you use any caching plugins.', 'notificationx' ),
+                                ],
+                            ),
+                        ],
                         'powered_by'      => [
                             'name'     => 'powered_by',
                             'label'    => __( 'Powered By', 'notificationx' ),
@@ -429,30 +454,6 @@ class Settings extends UsabilityDynamicsSettings {
                     'label'    => __( 'Miscellaneous', 'notificationx' ),
                     'priority' => 50,
                     'fields'   => [
-                        [
-                            'name'     => 'miscellaneous-general',
-                            'type'     => 'section',
-                            'label'    => __( 'General', 'notificationx' ),
-                            'priority' => 5,
-                            'fields'   => array(
-                                'enable_rest_api' => [
-                                    'name'     => "enable_rest_api",
-                                    'type'     => 'checkbox',
-                                    'label'    => __('Enable REST API', 'notificationx'),
-                                    'default'  => true,
-                                    'priority' => 10,
-                                    'description' => __( 'Forcefully enable anonymous REST API for NotificationX.', 'notificationx' ),
-                                ],
-                                'omit_credentials' => [
-                                    'name'     => "omit_credentials",
-                                    'type'     => 'checkbox',
-                                    'label'    => __('Omit Credentials', 'notificationx'),
-                                    'default'  => true,
-                                    'priority' => 15,
-                                    'description' => __( 'Remove credentials (cookies, HTTP authentication entries, and TLS client certificates) from API call on frontend. Helps with issue created by caching plugins.', 'notificationx' ),
-                                ],
-                            ),
-                        ],
                     ],
                     ]
                 ),
