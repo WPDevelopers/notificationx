@@ -25,7 +25,7 @@ class From extends Extension {
     public $priority        = 25;
     public $id              = 'elementor_form';
     // public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/envato.png';
-    public $doc_link        = 'https://notificationx.com/docs/envato-sales-notification';
+    public $doc_link        = 'https://notificationx.com/docs/elementor-form-with-notificationx/';
     public $types           = 'form';
     public $module          = 'elementor_form';
     public $module_priority = 17;
