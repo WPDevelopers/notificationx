@@ -36,7 +36,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
 
     const analyticCallback = useCallback( (event) => {
         const restUrl = nxHelper.getPath(frontendContext.rest, `analytics/`);
-        analyticsOnClick(event, restUrl, settings);
+        analyticsOnClick(event, restUrl, settings, frontendContext.rest.omit_credentials);
     }, []
     );
 

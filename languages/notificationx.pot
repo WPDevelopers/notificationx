@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-09-11T07:15:23+00:00\n"
+"POT-Creation-Date: 2022-09-12T07:09:41+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: notificationx\n"
@@ -416,16 +416,24 @@ msgstr ""
 msgid "Forcefully enable anonymous REST API for NotificationX."
 msgstr ""
 
-#: includes/Admin/Settings.php:459
+#: includes/Admin/Settings.php:449
+msgid "Omit Credentials"
+msgstr ""
+
+#: includes/Admin/Settings.php:452
+msgid "Remove credentials (cookies, HTTP authentication entries, and TLS client certificates) from API call on frontend. Helps with issue created by caching plugins."
+msgstr ""
+
+#: includes/Admin/Settings.php:467
 msgid "Danger Zone"
 msgstr ""
 
-#: includes/Admin/Settings.php:464
-#: includes/Admin/Settings.php:465
+#: includes/Admin/Settings.php:472
+#: includes/Admin/Settings.php:473
 msgid "Delete Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:476
+#: includes/Admin/Settings.php:484
 msgid "Successfully deleted Settings."
 msgstr ""
 
@@ -667,15 +675,15 @@ msgstr ""
 msgid "Growth Alert"
 msgstr ""
 
-#: includes/Core/REST.php:336
+#: includes/Core/REST.php:337
 msgid "Unauthorized Access: You have to logged in first."
 msgstr ""
 
-#: includes/Core/REST.php:339
+#: includes/Core/REST.php:340
 msgid "Invalid Type: You have to give a type."
 msgstr ""
 
-#: includes/Core/REST.php:342
+#: includes/Core/REST.php:343
 msgid "400 Bad Request."
 msgstr ""
 
@@ -752,7 +760,7 @@ msgstr ""
 
 #: includes/Extensions/CF7/CF7.php:93
 #: includes/Extensions/EDD/EDD.php:89
-#: includes/Extensions/Elementor/From.php:59
+#: includes/Extensions/Elementor/From.php:56
 #: includes/Extensions/Give/Give.php:98
 #: includes/Extensions/GRVF/GravityForms.php:60
 #: includes/Extensions/NJF/NinjaForms.php:85
@@ -766,7 +774,7 @@ msgstr ""
 
 #: includes/Extensions/CF7/CF7.php:96
 #: includes/Extensions/EDD/EDD.php:92
-#: includes/Extensions/Elementor/From.php:62
+#: includes/Extensions/Elementor/From.php:59
 #: includes/Extensions/Give/Give.php:101
 #: includes/Extensions/GRVF/GravityForms.php:63
 #: includes/Extensions/NJF/NinjaForms.php:88
@@ -947,11 +955,37 @@ msgid "Elementor"
 msgstr ""
 
 #: includes/Extensions/Elementor/From.php:42
+msgid "<a href='https://notificationx.com/docs/elementor-form-with-notificationx/' target='_blank'>More Info</a>"
+msgstr ""
+
+#: includes/Extensions/Elementor/From.php:44
+msgid ""
+"\n"
+"                <span>Elementor forms that can help you keep important leads and stay in touch with your customers.</span>\n"
+"            "
+msgstr ""
+
+#: includes/Extensions/Elementor/From.php:58
+msgid "Elementor Pro"
+msgstr ""
+
+#. translators: links
+#: includes/Extensions/Elementor/From.php:71
+msgid ""
+"<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Elementor Pro installed & configured</a> to use its form submission data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
+"\t\t<p><strong>Recommended Blog:</strong></p>\n"
+"\t\t<p>🔥 Hacks to Increase Your <a target=\"_blank\" href=\"%3$s\">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>"
+msgstr ""
+
+#: includes/Extensions/Envato/Envato.php:38
+#: includes/Extensions/Envato/Envato.php:39
+msgid "Envato"
+msgstr ""
+
 #: includes/Extensions/Envato/Envato.php:41
 msgid "<a href='https://notificationx.com/docs/envato-sales-notification/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Extensions/Elementor/From.php:44
 #: includes/Extensions/Envato/Envato.php:43
 msgid ""
 "\n"
@@ -962,21 +996,11 @@ msgid ""
 "            "
 msgstr ""
 
-#: includes/Extensions/Elementor/From.php:61
-msgid "Elementor Pro"
-msgstr ""
-
-#: includes/Extensions/Elementor/From.php:73
 #: includes/Extensions/Envato/Envato.php:64
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">created & signed in to Envato account</a> to use its campaign & product sales data.  For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Envato</a></p>"
-msgstr ""
-
-#: includes/Extensions/Envato/Envato.php:38
-#: includes/Extensions/Envato/Envato.php:39
-msgid "Envato"
 msgstr ""
 
 #: includes/Extensions/Freemius/Freemius.php:20
@@ -3339,45 +3363,45 @@ msgstr ""
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 #: nxbuild/admin/js/admin.js:58890
-#: nxbuild/public/js/crossSite.js:40634
-#: nxbuild/public/js/frontend.js:40634
+#: nxbuild/public/js/crossSite.js:40639
+#: nxbuild/public/js/frontend.js:40639
 msgid "Days"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 #: nxbuild/admin/js/admin.js:58893
-#: nxbuild/public/js/crossSite.js:40637
-#: nxbuild/public/js/frontend.js:40637
+#: nxbuild/public/js/crossSite.js:40642
+#: nxbuild/public/js/frontend.js:40642
 msgid "Hrs"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 #: nxbuild/admin/js/admin.js:58896
-#: nxbuild/public/js/crossSite.js:40640
-#: nxbuild/public/js/frontend.js:40640
+#: nxbuild/public/js/crossSite.js:40645
+#: nxbuild/public/js/frontend.js:40645
 msgid "Mins"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 #: nxbuild/admin/js/admin.js:58899
-#: nxbuild/public/js/crossSite.js:40643
-#: nxbuild/public/js/frontend.js:40643
+#: nxbuild/public/js/crossSite.js:40648
+#: nxbuild/public/js/frontend.js:40648
 msgid "Secs"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 #: nxbuild/admin/js/admin.js:58903
-#: nxbuild/public/js/crossSite.js:40647
-#: nxbuild/public/js/frontend.js:40647
+#: nxbuild/public/js/crossSite.js:40652
+#: nxbuild/public/js/frontend.js:40652
 msgid "You should setup NX Bar properly"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
-#: nxbuild/public/js/crossSite.js:43145
+#: nxbuild/public/js/crossSite.js:43154
 msgid "You are using old version of cross-domain scripts for NotificationX Pro. Please update this from your NotificationX Settings page."
 msgstr ""
 

@@ -61,8 +61,13 @@ const useNotificationX = (props: any) => {
             shortcode : props.config?.shortcode || [],
         };
 
+        const args: {[key: string]: any} = {};
+        if(!props.config.rest.omit_credentials){
+            args.credentials = 'same-origin';
+        }
+
         nxHelper
-        .post(url, data)
+        .post(url, data, args)
         .then(response => normalizeResponse(response))
         .then((response: any) => {
             // Add Active Notices into State

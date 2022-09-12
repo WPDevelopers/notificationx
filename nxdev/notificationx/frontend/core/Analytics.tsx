@@ -2,7 +2,7 @@ import React from "react";
 import nxHelper from "./functions";
 import useNotificationContext from "./NotificationProvider";
 
-export const analyticsOnClick = (event, restUrl, config) => {
+export const analyticsOnClick = (event, restUrl, config, credentials = true) => {
     const nx_id = config?.nx_id;
     const enable_analytics = config?.enable_analytics;
 
@@ -14,13 +14,19 @@ export const analyticsOnClick = (event, restUrl, config) => {
         return;
     }
 
+    const args: {[key: string]: any} = {};
+
+    if(!credentials){
+        args.credentials = 'same-origin';
+    }
+
     nxHelper
         .post(restUrl, {
             nx_id,
             // entry_id,
             // link,
             // referrer: window.location.toString( ),
-        })
+        }, args)
         .then((response) => {
             // console.log("response: ", response);
         })
@@ -36,7 +42,7 @@ const Analytics = ({config, children, ...rest}) => {
         <a
             {...rest}
             target={config?.link_open ? "_blank" : ""}
-            onClick={e => analyticsOnClick(e, restUrl, config)}
+            onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
         >{children}</a>
     );
 };

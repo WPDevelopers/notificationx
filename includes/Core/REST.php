@@ -66,7 +66,7 @@ class REST {
 	public function rest_authentication_errors( $access ) {
         $namespace = self::_namespace();
 		$current_route = $this->get_current_route();
-        if($access instanceof \WP_Error && $current_route == "/$namespace/notice"){
+        if($access instanceof \WP_Error && ($current_route == "/$namespace/notice" || $current_route == "/$namespace/analytics")){
             return true;
         }
 
@@ -304,9 +304,10 @@ class REST {
 
     public function rest_data($nonce = true){
         return apply_filters('nx_rest_data', array(
-            'root'      => rest_url(),
-            'namespace' => $this->_namespace(),
-            'nonce'     => $nonce ? wp_create_nonce( 'wp_rest' ) : '',
+            'root'             => rest_url(),
+            'namespace'        => $this->_namespace(),
+            'nonce'            => $nonce ? wp_create_nonce( 'wp_rest' ) : '',
+            'omit_credentials' => Settings::get_instance()->get( 'settings.omit_credentials', true ),
         ));
     }
 

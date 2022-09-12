@@ -439,12 +439,20 @@ class Settings extends UsabilityDynamicsSettings {
                                     'name'     => "enable_rest_api",
                                     'type'     => 'checkbox',
                                     'label'    => __('Enable REST API', 'notificationx'),
-                                    'default'  => 0,
+                                    'default'  => true,
                                     'priority' => 10,
                                     'description' => __( 'Forcefully enable anonymous REST API for NotificationX.', 'notificationx' ),
                                 ],
+                                'omit_credentials' => [
+                                    'name'     => "omit_credentials",
+                                    'type'     => 'checkbox',
+                                    'label'    => __('Omit Credentials', 'notificationx'),
+                                    'default'  => true,
+                                    'priority' => 15,
+                                    'description' => __( 'Remove credentials (cookies, HTTP authentication entries, and TLS client certificates) from API call on frontend. Helps with issue created by caching plugins.', 'notificationx' ),
+                                ],
                             ),
-                        ]
+                        ],
                     ],
                     ]
                 ),
