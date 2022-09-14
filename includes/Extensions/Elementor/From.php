@@ -30,7 +30,7 @@ class From extends Extension {
     public $module          = 'elementor_form';
     public $module_priority = 17;
     public $is_pro          = true;
-    public $class           = '\ElementorPro\Plugin';
+    public $class           = 'ElementorPro\Modules\Forms\Submissions\Database\Repositories\Form_Snapshot_Repository';
 
     /**
      * Initially Invoked when initialized.
