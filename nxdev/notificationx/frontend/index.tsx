@@ -9,9 +9,15 @@ function notificationXWrapper(notificationX, id) {
         return;
 
     if(notificationX.localeData){
-        const localeData = JSON.parse(notificationX.localeData).locale_data.messages;
-        localeData[""].domain = 'notificationx';
-        setLocaleData(localeData, 'notificationx');
+        const localeData = JSON.parse(notificationX.localeData)?.locale_data;
+        if(localeData?.messages){
+            localeData.messages[""].domain = 'notificationx';
+            setLocaleData(localeData.messages, 'notificationx');
+        }
+        else if(localeData?.['notificationx']){
+            localeData['notificationx'][""].domain = 'notificationx';
+            setLocaleData(localeData['notificationx'], 'notificationx');
+        }
     }
     let lang = notificationX.lang?.replace('_', '-')?.toLowerCase();
     if(lang && lang !== "en" && lang !== "en-us"){
