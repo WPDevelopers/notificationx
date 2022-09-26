@@ -75,6 +75,24 @@ class FrontEnd {
         if ( empty( $_GET['elementor-preview'] ) ) {
             $this->notificationXArr = $this->get_notifications_ids();
             if ( $this->notificationXArr['total'] > 0 ) {
+                $lang = get_locale();
+                $lang = str_replace('_', '-', $lang);
+                $lang = strtolower($lang);
+                $_lang = explode('-', $lang);
+                if($lang !== "en" && $lang !== "en-us"){
+                    $script = Helper::file( "public/locale/$lang.js", false );
+                    if(file_exists($script)){
+                        wp_enqueue_script( 'notificationx-moment-locale', Helper::file( "public/locale/$lang.js", true ), [], NOTIFICATIONX_VERSION, true );
+                    }
+                    else if(!empty($_lang[1])){
+                        $lang = $_lang[0];
+                        $script = Helper::file( "public/locale/$lang.js", false );
+                        if(file_exists($script)){
+                            wp_enqueue_script( 'notificationx-moment-locale', Helper::file( "public/locale/$lang.js", true ), [], NOTIFICATIONX_VERSION, true );
+                        }
+                    }
+                }
+
                 wp_enqueue_style( 'notificationx-public' );
                 wp_enqueue_script( 'notificationx-public' );
                 do_action( 'notificationx_scripts', $this->notificationXArr );
