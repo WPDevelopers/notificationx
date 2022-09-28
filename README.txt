@@ -225,7 +225,6 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 - Fixed: Notices wasn’t appearing when Loco Translate plugin enabled.
 - Few minor bug fixes and improvements
 
-- Few minor bug fixes and improvements
 = 2.5.5 - 13/09/2022 =
 - Added: New setting anonymous REST API for NotificationX.
 - Fixed: NotificationX Bar button text clicking issue
