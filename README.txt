@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce notification, notifica
 Requires at least: 5.0
 Tested up to: 6.0
 Requires PHP: 5.6
-Stable tag: 2.5.5
+Stable tag: 2.5.6
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -149,13 +149,13 @@ https://www.youtube.com/watch?v=75vntaHp9Y4
 
 ### 🎁 GET FREEBIES FOR YOUR WORDPRESS SITE ###
 
-NotificationX is backed by WPDeveloper, a dedicated team trusted by more than 3,800,000 users. Consider checking out our other WordPress solutions & boost your WordPress website:
+NotificationX is backed by WPDeveloper, a dedicated team trusted by more than 5 Millions users. Consider checking out our other WordPress solutions & boost your WordPress website:
 
 🔝 [Essential Addons For Elementor](https://wordpress.org/plugins/essential-addons-for-elementor-lite/): Most popular Elementor extensions with 1 Million+ active users in the WordPress repository
 
 📄 [EmbedPress](https://wordpress.org/plugins/embedpress/): EmbedPress lets you embed videos, images, audio, maps, upload PDF, DOC, PPT & all other types of content into your WordPress site with one-click.
 
-☁ [Templately](https://wordpress.org/plugins/templately/): Ultimate Template clouds with 1000+ ready templates for Elementor & Gutenberg along with FREE cloud collaboration with your team
+☁ [Templately](https://wordpress.org/plugins/templately/): Ultimate Template clouds with 2500+ ready templates for Elementor & Gutenberg along with FREE cloud collaboration with your team
 
 📚 [BetterDocs](https://wordpress.org/plugins/betterdocs/): Best Documentation & Knowledge Base Plugin for WordPress reduce manual support tickets & improve user experience.
 
@@ -219,6 +219,13 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
+= 2.5.6 - 28/09/2022 =
+- Fixed: Language file conflict with Caching plugin.
+- Fixed: Fatal error when Elementor old version is enabled.
+- Fixed: Notices wasn’t appearing when Loco Translate plugin enabled.
+- Few minor bug fixes and improvements
+
+- Few minor bug fixes and improvements
 = 2.5.5 - 13/09/2022 =
 - Added: New setting anonymous REST API for NotificationX.
 - Fixed: NotificationX Bar button text clicking issue
