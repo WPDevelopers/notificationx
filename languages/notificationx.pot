@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 2.5.5\n"
+"Project-Id-Version: NotificationX 2.5.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-09-12T10:40:19+00:00\n"
+"POT-Creation-Date: 2022-09-28T11:01:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: notificationx\n"
@@ -563,10 +563,10 @@ msgstr ""
 #: includes/Extensions/WordPress/WPComments.php:255
 #: includes/Extensions/WordPress/WPComments.php:256
 #: includes/Extensions/WordPress/WPComments.php:257
-#: includes/FrontEnd/FrontEnd.php:143
-#: includes/FrontEnd/FrontEnd.php:144
-#: includes/FrontEnd/FrontEnd.php:145
-#: includes/FrontEnd/FrontEnd.php:528
+#: includes/FrontEnd/FrontEnd.php:161
+#: includes/FrontEnd/FrontEnd.php:162
+#: includes/FrontEnd/FrontEnd.php:163
+#: includes/FrontEnd/FrontEnd.php:546
 #: includes/Types/Comments.php:45
 #: includes/Types/Comments.php:58
 #: includes/Types/Comments.php:71
@@ -1059,7 +1059,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WOOReviews.php:110
 #: includes/Extensions/WooCommerce/WOOReviews.php:122
 #: includes/Extensions/WordPress/WPComments.php:259
-#: includes/FrontEnd/FrontEnd.php:147
+#: includes/FrontEnd/FrontEnd.php:165
 #: includes/Types/Comments.php:50
 #: includes/Types/Comments.php:63
 #: includes/Types/Comments.php:76
@@ -1968,7 +1968,7 @@ msgstr ""
 #: includes/Extensions/ReviewX/ReviewX.php:174
 #: includes/Extensions/WooCommerce/WOOReviews.php:135
 #: includes/Extensions/WooCommerce/WOOReviews.php:155
-#: includes/FrontEnd/FrontEnd.php:146
+#: includes/FrontEnd/FrontEnd.php:164
 #: includes/Types/Donations.php:47
 #: includes/Types/EmailSubscription.php:58
 #: includes/Types/Reviews.php:132
