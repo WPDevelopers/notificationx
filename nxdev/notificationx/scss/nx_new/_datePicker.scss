@@ -40,6 +40,22 @@
         display: flex;
         .components-datetime__time-separator {
           align-self: center;
+          min-height: 30px;
+          box-sizing: border-box;
+          line-height: 30px;
+        }
+        .components-input-control__input {
+            border: none!important;
+            box-shadow: none!important;
+            outline: none!important;
+            &:focus {
+              border: none!important;
+              box-shadow: none!important;
+              outline: none!important;
+            }
+        }
+        .components-input-control__backdrop {
+          box-shadow: none!important;;
         }
       }
       .components-datetime__time-field-am-pm {

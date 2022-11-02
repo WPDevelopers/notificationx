@@ -98,6 +98,7 @@ const PublishWidget = (props) => {
                     <Date
                         name="updated_at"
                         value={context.values?.updated_at}
+                        position="bottom left"
                         onChange={(data) =>
                             context.setFieldValue(
                                 "updated_at",
