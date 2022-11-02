@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce notification, notifica
 Requires at least: 5.0
 Tested up to: 6.1
 Requires PHP: 5.6
-Stable tag: 2.5.6
+Stable tag: 2.5.7
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -219,13 +219,16 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
+= 2.5.7 - 02/11/2022 =
+- Fixed: Clicking on Date picker causes page blank issues.
+- Few minor bug fixes and improvements
+
 = 2.5.6 - 28/09/2022 =
 - Fixed: Language file conflict with Caching plugin.
 - Fixed: Fatal error when Elementor old version is enabled.
 - Fixed: Notices wasn’t appearing when Loco Translate plugin enabled.
 - Few minor bug fixes and improvements
 
-- Few minor bug fixes and improvements
 = 2.5.5 - 13/09/2022 =
 - Added: New setting anonymous REST API for NotificationX.
 - Fixed: NotificationX Bar button text clicking issue
