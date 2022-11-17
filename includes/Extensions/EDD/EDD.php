@@ -184,7 +184,7 @@ class EDD extends Extension {
      * @since 1.3.9
      */
     public function update_payment_status( $payment_id, $new_status, $old_status ) {
-        if ( $new_status !== 'publish' ) {
+        if ( $new_status !== 'publish' && $new_status !== 'complete' ) {
             return;
         }
         $offset             = get_option( 'gmt_offset' );
@@ -216,7 +216,7 @@ class EDD extends Extension {
 
         $args = array(
             'number'     => $amount,
-            'status'     => array( 'publish' ),
+            'status'     => array( 'publish', 'complete' ),
             'date_query' => array(
                 'after' => date( 'Y-m-d', $start_date ),
             ),
@@ -272,17 +272,19 @@ class EDD extends Extension {
             return null;
         }
         $notifications = array();
-        $data         = array();
-        $payment      = new \EDD_Payment( $payment_id );
-        $cart_details = $payment->cart_details;
-        $user_info    = $payment->user_info;
+        $data          = array();
+        $payment       = new \EDD_Payment( $payment_id );
+        $cart_details  = $payment->cart_details;
+        $user_info     = $payment->user_info;
+        $is_3x         = defined('EDD_VERSION') ? version_compare( EDD_VERSION, '3', '<' ) : false;
+        $offset_s      = $is_3x ? ( $offset * 60 * 60 ) : 0;
 
         unset( $user_info['id'] );
         unset( $user_info['discount'] );
         unset( $user_info['address'] );
 
         $user_info['name']      = $this->name( $user_info['first_name'], $user_info['last_name'] );
-        $user_info['timestamp'] = strtotime( $payment->date ) - ( $offset * 60 * 60 );
+        $user_info['timestamp'] = strtotime( $payment->date ) - $offset_s;
         $user_info['ip']        = $payment->ip;
         $user_info['id']        = $payment_id;
         if ( is_array( $cart_details ) ) {
