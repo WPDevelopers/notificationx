@@ -36,13 +36,26 @@
       .components-datetime__time-field-month-select {
         width: 100px;
       }
+      .components-input-control__input {
+        border: none!important;
+        box-shadow: none!important;
+        outline: none!important;
+        &:focus {
+          border: none!important;
+          box-shadow: none!important;
+          outline: none!important;
+        }
+      }
+      .components-number-control {
+        height: 36px;
+      }
       .components-datetime__time-field-time {
         display: flex;
         .components-datetime__time-separator {
           align-self: center;
-          min-height: 30px;
+          min-height: 34px;
           box-sizing: border-box;
-          line-height: 30px;
+          line-height: 34px;
         }
         .components-input-control__input {
             border: none!important;
