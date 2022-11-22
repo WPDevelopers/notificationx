@@ -52,11 +52,11 @@ class Notice extends Base {
 
 		$this->dismiss = new Dismiss( $this->id, $this->options, $this->app );
 
-		if( ! isset( $queue[ $id ] ) ) {
+		if( ! isset( $queue[ $id ] ) || ( ! empty( $this->options['refresh'] ) && (empty( $queue[ $id ]['refresh']) || $queue[ $id ]['refresh'] != $this->options['refresh'] ) ) ) {
 			$queue[ $id ] = [];
-			$_eligible_keys = ['start', 'expire', 'recurrence'];
+			$_eligible_keys = ['start', 'expire', 'recurrence', 'refresh'];
 			array_walk($options, function( $value, $key ) use( $id, &$queue, $_eligible_keys ) {
-				if( in_array( $key, $_eligible_keys, true ) ) {
+				if( in_array( $key, $_eligible_keys, true ) && isset( $this->options[ $key ] ) ) {
 					$queue[ $id ][ $key ] = $value;
 				}
 			});
@@ -66,6 +66,7 @@ class Notice extends Base {
 		} else {
 			$this->options = wp_parse_args( $queue[ $id ], $this->options );
 		}
+
 
 		if( isset( $this->options['do_action'] ) ) {
 			add_action( 'admin_init', [ $this, 'do_action' ] );

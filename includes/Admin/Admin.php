@@ -198,6 +198,7 @@ class Admin {
                 'start'       => $notices->strtotime( '+7 day' ),
                 'recurrence'  => 30,
                 'dismissible' => true,
+                'refresh'     => NOTIFICATIONX_VERSION,
             ]
         );
 
@@ -208,8 +209,9 @@ class Admin {
                 'classes'     => 'updated put-dismiss-notice',
                 'start'       => $notices->strtotime( '+30 days' ),
                 'dismissible' => true,
+                'refresh'     => NOTIFICATIONX_VERSION,
                 'do_action'   => 'wpdeveloper_notice_clicked_for_notificationx',
-                'display_if'  => ! is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
+                // 'display_if'  => ! is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
             ]
         );
 
@@ -227,6 +229,7 @@ class Admin {
                 'start'       => $notices->time(),
                 'recurrence'  => false,
                 'dismissible' => true,
+                'refresh'     => NOTIFICATIONX_VERSION,
                 'expire'      => strtotime( 'Wed, 30 Nov 2022 23:59:59 GMT' ),
             ]
         );
