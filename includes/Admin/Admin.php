@@ -215,7 +215,7 @@ class Admin {
             ]
         );
 
-        $notice_text = sprintf('%s <a href="%s">%s</a>', __( 'Black Friday Exclusive: SAVE up to 40% & access to <strong>NotificationX Pro</strong> features.', 'notificationx' ), esc_url( 'https://notificationx.com/#pricing' ), __('Grab The Offer', 'notificationx') );
+        $notice_text = sprintf('<div style="display: flex; align-items: center;">%s <a class="button button-primary" style="margin-left: 10px; background: #5614d5; border-color: #5614d5;" target="_blank" href="%s">%s</a></div>', __( '<p><strong>Black Friday Exclusive:</strong> SAVE up to 40% & access to <strong>NotificationX Pro</strong> features.</p>', 'notificationx' ), esc_url( 'https://notificationx.com/#pricing' ), __('Grab The Offer', 'notificationx') );
 
         $_black_friday = [
             'thumbnail' => self::ASSET_URL . 'images/nx-icon.svg',
@@ -230,6 +230,7 @@ class Admin {
                 'recurrence'  => false,
                 'dismissible' => true,
                 'expire'      => strtotime( 'Wed, 30 Nov 2022 23:59:59 GMT' ),
+                'display_if'  => ! is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
             ]
         );
 
