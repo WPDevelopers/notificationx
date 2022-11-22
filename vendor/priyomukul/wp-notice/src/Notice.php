@@ -56,7 +56,7 @@ class Notice extends Base {
 			$queue[ $id ] = [];
 			$_eligible_keys = ['start', 'expire', 'recurrence', 'refresh'];
 			array_walk($options, function( $value, $key ) use( $id, &$queue, $_eligible_keys ) {
-				if( in_array( $key, $_eligible_keys, true ) && isset( $this->options[ $key ] ) ) {
+				if( in_array( $key, $_eligible_keys, true ) ) {
 					$queue[ $id ][ $key ] = $value;
 				}
 			});
