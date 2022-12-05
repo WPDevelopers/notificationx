@@ -294,6 +294,7 @@ class FrontEnd {
             'display_for'        => Settings::get_instance()->get( 'settings.display_for', 5 ),
             'delay_between'      => Settings::get_instance()->get( 'settings.delay_between', 5 ),
             'loop'               => Settings::get_instance()->get( 'settings.loop', 5 ),
+            'random'               => Settings::get_instance()->get( 'settings.random', 5 ),
             'analytics_nonce'    => wp_create_nonce( 'analytics_nonce' ),
         ];
         return $result;

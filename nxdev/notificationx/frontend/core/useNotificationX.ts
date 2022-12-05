@@ -26,6 +26,14 @@ const useNotificationX = (props: any) => {
         const _value = moment.utc(value ? value : undefined).utcOffset(+props.config.gmt_offset, keepLocalTime);
         return _value;
     }
+    const shuffleArray = array => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+    }
 
     const dispatchNotification = useCallback(( { data, config, ...args } ) => {
             if (!isNotClosed(data)) {
@@ -75,13 +83,18 @@ const useNotificationX = (props: any) => {
                 setActiveNotices(response?.activeNotice);
 
                 let gNotices = response?.globalNotice || [];
-                sortArray(gNotices, {
-                    by: 'timestamp',
-                    order: 'desc',
-                    computed: {
-                        timestamp: row => row.data?.timestamp ? row.data.timestamp : getTime(row.data?.updated_at)
-                    }
-                });
+                if(response.settings?.random){
+                    shuffleArray(gNotices);
+                }
+                else{
+                    sortArray(gNotices, {
+                        by: 'timestamp',
+                        order: 'desc',
+                        computed: {
+                            timestamp: row => row.data?.timestamp ? row.data.timestamp : getTime(row.data?.updated_at)
+                        }
+                    });
+                }
 
                 setGlobalNotices(gNotices);
                 setShortcodeNotices(response?.shortcodeNotice);
