@@ -26,6 +26,7 @@ const useNotificationX = (props: any) => {
         const _value = moment.utc(value ? value : undefined).utcOffset(+props.config.gmt_offset, keepLocalTime);
         return _value;
     }
+    // The Fisher-Yates algorith
     const shuffleArray = array => {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));

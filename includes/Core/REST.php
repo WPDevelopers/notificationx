@@ -14,6 +14,7 @@ use NotificationX\Admin\Settings;
 use NotificationX\CoreInstaller;
 use NotificationX\Extensions\PressBar\PressBar;
 use NotificationX\Admin\Reports\ReportEmail;
+use NotificationX\Extensions\Google\GoogleReviews;
 use NotificationX\FrontEnd\FrontEnd;
 use NotificationX\GetInstance;
 use WP_REST_Controller;
@@ -262,6 +263,17 @@ class REST {
         switch( $params['type'] ) {
             case 'ContactForm' :
                 return ContactForm::restResponse( $request->get_json_params() );
+                break;
+            case 'reviews' :
+                switch ($params['source']) {
+                    case 'google_reviews':
+                        return GoogleReviews::get_instance()->restResponse($request->get_json_params() );
+                        break;
+
+                    default:
+                        # code...
+                        break;
+                }
                 break;
         }
 
