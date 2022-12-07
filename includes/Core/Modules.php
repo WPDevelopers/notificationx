@@ -28,6 +28,7 @@ class Modules {
 	 */
 	public function __construct(){
 		// echo 'ExtensionFactory';
+        add_filter('nx_settings_page_settings', [$this, 'modules_defaults']);
     }
 
     /**
@@ -58,13 +59,23 @@ class Modules {
 
         return false;
     }
+
     /**
      * Returns all the registered modules.
      *
-     * @param [type] $module
-     * @return boolean
+     * @return array
      */
     public function get_all(){
         return $this->modules;
+    }
+
+    public function modules_defaults($settings){
+        $modules = $this->get_all();
+        foreach ($modules as $key => $value) {
+            if(!isset($settings['modules'][$key])){
+                $settings['modules'][$key] = true;
+            }
+        }
+        return $settings;
     }
 }
