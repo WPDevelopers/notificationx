@@ -23,7 +23,7 @@ class GoogleReviews extends Extension {
 
     public $priority        = 5;
     public $id              = 'google_reviews';
-    // public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/google-analytics.png';
+    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/google-rating.png';
     public $doc_link        = 'https://notificationx.com/docs/google-analytics/';
     public $types           = 'reviews';
     public $module          = 'modules_google_reviews';
