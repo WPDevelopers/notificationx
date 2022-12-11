@@ -57,13 +57,14 @@ const Content = (props) => {
                         ></span>
                     );
                 advTmplRatingRow.push(
-                    <span className={colClasses[i++]}>
-                        <Star star={parseInt(rating[1])} />
+                    <span key={Math.random()} className={colClasses[i++]}>
+                        <Star star={parseFloat(rating[1])} />
                     </span>
                 );
                 if (_row[1])
                     advTmplRatingRow.push(
                         <span
+                            key={Math.random()}
                             className={colClasses[i++]}
                             dangerouslySetInnerHTML={{ __html: _row[1] }}
                         ></span>
@@ -85,7 +86,7 @@ const Content = (props) => {
                             // @todo for adv tmpl
                             return (
                                 <span key={j} className={colClasses[j]}>
-                                    <Star star={parseInt(col.substr(8))} />
+                                    <Star star={parseFloat(col.substr(8))} />
                                 </span>
                             );
                         } else {
