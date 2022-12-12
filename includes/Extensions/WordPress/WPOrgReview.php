@@ -161,7 +161,7 @@ class WPOrgReview extends Extension {
     }
 
     public function saved_post($post, $data, $nx_id) {
-        // $this->update_data($nx_id, $data);
+        $this->update_data($nx_id, $data);
         Cron::get_instance()->set_cron($nx_id, 'nx_wp_review_interval');
     }
 
