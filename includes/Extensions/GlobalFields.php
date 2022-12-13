@@ -205,6 +205,9 @@ class GlobalFields {
                                             "wpf" => [
                                                 'show_notification_image' => '@show_notification_image:gravatar',
                                             ],
+                                            "google_reviews" => [
+                                                'link_type' => '@link_type:map_page',
+                                            ],
                                         ] ),
                                     ]
                                 ],
@@ -670,7 +673,7 @@ class GlobalFields {
                                     'type'  => "checkbox",
                                     'default' => false,
                                 ],
-                                [
+                                'default_avatar' => [
                                     'label'       =>__( "Choose an Image", 'notificationx'),
                                     'name'        => "default_avatar",
                                     'type'        => "radio-card",
@@ -717,7 +720,7 @@ class GlobalFields {
                                     'default' => "",
                                     'rules' => Rules::is( 'show_default_image', true ),
                                 ],
-                                [
+                                'show_notification_image' => [
                                     'label'   => __("Image", 'notificationx'),
                                     'name'    => "show_notification_image",
                                     'type'    => "select",

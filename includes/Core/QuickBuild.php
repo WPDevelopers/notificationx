@@ -187,6 +187,9 @@ class QuickBuild {
                 'all_locations',
                 'show_on_display',
 
+                'google_reviews_place_data',
+                'google_reviews_custom_place_id',
+
             ],
             'types_title' => apply_filters( 'nx_source_types_title', array(
                 'notification_bar' => __('Notification Bar', 'notificationx'),

@@ -190,7 +190,9 @@ class FrontEnd {
                         $entry['timestamp'] = $timestamp = strtotime( $timestamp );
                     }
                     if ( $timestamp && $display_from > $timestamp ) {
-                        continue;
+                        if(apply_filters("nx_entry_display_$source", true, $entry, $settings)){
+                            continue;
+                        }
                     }
                 }
 
@@ -560,7 +562,7 @@ class FrontEnd {
      * @return void
      */
     public function filtered_data( $entries, $post, $params ) {
-        if ( is_array( $entries ) ) {
+        if ( is_array( $entries ) && (!defined('NX_DEBUG') || !NX_DEBUG) ) {
             if(!empty($post['display_last']) && !in_array($post['source'], ['google', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline'])){
                 $entries = array_slice($entries, 0, $post['display_last']);
             }
@@ -619,7 +621,7 @@ class FrontEnd {
      * @return void
      */
     public function filtered_post( $post, $params = null ) {
-        if ( is_array( $post ) && empty($params['inline_shortcode']) ) {
+        if ( is_array( $post ) && empty($params['inline_shortcode']) && (!defined('NX_DEBUG') || !NX_DEBUG) ) {
             $ignore_props = [
                 'all_locations',
                 'category_list',

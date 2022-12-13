@@ -41,7 +41,7 @@ const Content = (props) => {
         }
 
         if (config?.template_adv) {
-            const rating = /rating::(\d+)/.exec(row.join(" "));
+            const rating = /rating::(([0-9]*[.])?[0-9]+)/.exec(row.join(" "));
             if (rating?.[1]) {
                 let i = 0;
                 const _row = row
