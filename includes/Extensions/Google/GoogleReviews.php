@@ -24,7 +24,8 @@ class GoogleReviews extends Extension {
     public $priority        = 5;
     public $id              = 'google_reviews';
     public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/google-rating.png';
-    public $doc_link        = 'https://notificationx.com/docs/google-analytics/';
+    public $doc_link        = 'https://notificationx.com/docs/google-review-with-notificationx/
+    ';
     public $types           = 'reviews';
     public $module          = 'modules_google_reviews';
     public $module_priority = 20;
@@ -110,7 +111,7 @@ class GoogleReviews extends Extension {
             ],
             'maps_theme' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/maps-theme.png',
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/google-review-map.png',
                 'image_shape' => 'square',
                 'show_notification_image' => 'greview_map_image',
                 'template'  => [
@@ -150,7 +151,8 @@ class GoogleReviews extends Extension {
             ],
         ];
         $this->popup = [
-            "denyButtonText" => __("<a href='https://notificationx.com/docs/freemius-review-notificationx/' target='_blank'>More Info</a>", "notificationx"),
+            "denyButtonText" => __("<a href='https://notificationx.com/docs/google-review-with-notificationx/
+            ' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
             "html"=> __('
                 <span>Google reviews provide helpful information and make your business stand out.</span>
@@ -161,13 +163,13 @@ class GoogleReviews extends Extension {
 
 
     public function doc(){
+        $url = admin_url('admin.php?page=nx-settings&tab=tab-api-integrations#google_reviews_settings_section');
         return sprintf(__('<p>Make sure that you have configured your <a target="_blank" href="%1$s">Google Review API</a> key, to showcase your reviews. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 
-		<p>👉NotificationX <a target="_blank" href="%4$s">Integration with Google Reviews</a>.</p>', 'notificationx'),
-        'https://analytics.google.com/analytics/web/',
-        'https://notificationx.com/docs/google-analytics/',
-        'https://www.youtube.com/watch?v=zZPF5nJD4mo',
-        'https://notificationx.com/docs/google-analytics/'
+		<p>👉NotificationX <a target="_blank" href="%3$s">Integration with Google Reviews</a>.</p>', 'notificationx'),
+        $url,
+        'https://notificationx.com/docs/generate-api-key-for-google-review',
+        'https://notificationx.com/docs/google-review-with-notificationx/'
         );
     }
 }

@@ -37,6 +37,7 @@ const GetTemplate = (settings) => {
             }
         }
     }
+    console.log(settings.themes);
 
     switch (settings.themes) {
         case "donation_theme-one":
@@ -56,7 +57,15 @@ const GetTemplate = (settings) => {
                 `${params?.first_param} ${params?.second_param}`,
                 `in ${params?.third_param} ${params?.fourth_param}`,
             ];
+        case "google_reviews_maps_theme":
+            return [
+                `${params?.first_param} ${params?.second_param}`,
+                `${params?.third_param}`,
+                `${params?.map_fourth_param}`,
+            ];
     }
+
+
 
     switch (themeName) {
         case "theme-one":
