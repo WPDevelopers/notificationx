@@ -18,6 +18,7 @@
 .themes-elearning_maps_theme,
 .themes-email_subscription_theme-two,
 .themes-email_subscription_theme-three,
+.themes-google_reviews_maps_theme,
 .themes-email_subscription_maps_theme,
 .themes-email_subscription_theme-one {
     .notificationx-content {
@@ -44,6 +45,16 @@
         & > p {
             &.nx-third-row {
                 color: #45c9b1;
+            }
+        }
+    }
+}
+.themes-google_reviews_maps_theme {
+    .notificationx-content {
+        & > p {
+            &.nx-second-row {
+                font-size: 16px;
+                font-weight: 600;
             }
         }
     }

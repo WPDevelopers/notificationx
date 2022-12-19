@@ -61,7 +61,7 @@ const GetTemplate = (settings) => {
             return [
                 `${params?.first_param} ${params?.second_param}`,
                 `${params?.third_param}`,
-                `${params?.map_fourth_param}`,
+                `${params?.fourth_param}`,
             ];
     }
 
