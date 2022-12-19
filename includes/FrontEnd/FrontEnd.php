@@ -682,9 +682,7 @@ class FrontEnd {
                 }
             }
         }
-        if(isset($post['template_adv'], $post['advanced_template'])){
-            $post['advanced_template'] = do_shortcode($post['advanced_template']);
-        }
         return $post;
     }
+
 }
