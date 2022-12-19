@@ -28,6 +28,7 @@ class GoogleReviews extends Extension {
     public $types           = 'reviews';
     public $module          = 'modules_google_reviews';
     public $module_priority = 20;
+    public $default_theme   = 'google_reviews_total-rated';
     public $is_pro          = true;
 
     /**
@@ -125,7 +126,7 @@ class GoogleReviews extends Extension {
         ];
 
         $this->templates = [
-            'wp_reviews_template_new'  => [
+            "{$this->id}_template_new"  => [
                 'first_param' => [
                     'tag_username' => __('Username', 'notificationx'),
                     'tag_rated'    => __('Rated', 'notificationx'),
@@ -152,7 +153,7 @@ class GoogleReviews extends Extension {
             "denyButtonText" => __("<a href='https://notificationx.com/docs/freemius-review-notificationx/' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
             "html"=> __('
-                <span>Widely used medium to show review teasers to persuade visitors to trust your offerings.</span>
+                <span>Google reviews provide helpful information and make your business stand out.</span>
             ', 'notificationx')
         ];
         parent::__construct();
@@ -160,9 +161,9 @@ class GoogleReviews extends Extension {
 
 
     public function doc(){
-        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">signed in to Google Analytics site</a>, to use its campaign & page analytics data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
-		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
-		<p>👉NotificationX <a target="_blank" href="%4$s">Integration with Google Analytics</a></p>', 'notificationx'),
+        return sprintf(__('<p>Make sure that you have configured your <a target="_blank" href="%1$s">Google Review API</a> key, to showcase your reviews. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+
+		<p>👉NotificationX <a target="_blank" href="%4$s">Integration with Google Reviews</a>.</p>', 'notificationx'),
         'https://analytics.google.com/analytics/web/',
         'https://notificationx.com/docs/google-analytics/',
         'https://www.youtube.com/watch?v=zZPF5nJD4mo',

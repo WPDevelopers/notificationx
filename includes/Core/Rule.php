@@ -46,6 +46,7 @@ class Rule implements JsonSerializable {
         return false;
     }
 
+    #[\ReturnTypeWillChange]
     public function jsonSerialize(){
         return [
             $this->condition,
