@@ -425,6 +425,7 @@
                     }
                     .wprf-async-select__value-container {
                         padding-left: 0px;
+                        cursor: text;
                         .wprf-async-select__single-value {
                             color: #25396f;
                             margin-left: 0px;
@@ -472,9 +473,18 @@
                             svg {
                                 color: #9ca6bc;
                             }
+                            &.wprf-async-select__dropdown-indicator {
+                                padding-left: 3px;
+                            }
                             &.wprf-async-select__clear-indicator {
                                 padding-left: 0;
                                 padding-right: 0;
+                                cursor: pointer;
+                                &:hover {
+                                    svg {
+                                        color: #ff5353;
+                                    }
+                                }
                             }
                         }
                     }
