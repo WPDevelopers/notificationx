@@ -148,6 +148,13 @@ class GoogleReviews extends Extension {
                 ],
             ],
         ];
+        $this->popup = [
+            "denyButtonText" => __("<a href='https://notificationx.com/docs/freemius-review-notificationx/' target='_blank'>More Info</a>", "notificationx"),
+            "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "html"=> __('
+                <span>Widely used medium to show review teasers to persuade visitors to trust your offerings.</span>
+            ', 'notificationx')
+        ];
         parent::__construct();
     }
 
