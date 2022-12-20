@@ -24,7 +24,7 @@ class GoogleReviews extends Extension {
     public $priority        = 5;
     public $id              = 'google_reviews';
     public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/google-rating.png';
-    public $doc_link        = 'https://notificationx.com/docs/google-review-with-notificationx/
+    public $doc_link        = 'https://notificationx.com/docs/google-reviews-with-notificationx/
     ';
     public $types           = 'reviews';
     public $module          = 'modules_google_reviews';
@@ -151,7 +151,7 @@ class GoogleReviews extends Extension {
             ],
         ];
         $this->popup = [
-            "denyButtonText" => __("<a href='https://notificationx.com/docs/google-review-with-notificationx/
+            "denyButtonText" => __("<a href='https://notificationx.com/docs/google-reviews-with-notificationx/
             ' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
             "html"=> __('
@@ -168,8 +168,8 @@ class GoogleReviews extends Extension {
 
 		<p>👉NotificationX <a target="_blank" href="%3$s">Integration with Google Reviews</a>.</p>', 'notificationx'),
         $url,
-        'https://notificationx.com/docs/generate-api-key-for-google-review',
-        'https://notificationx.com/docs/google-review-with-notificationx/'
+        'https://notificationx.com/docs/collect-api-key-for-google-review',
+        'https://notificationx.com/docs/google-reviews-with-notificationx/'
         );
     }
 }
