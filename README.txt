@@ -219,7 +219,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 2.5.9 - 20/12/2022 =
+= 2.5.9 - 21/12/2022 =
 - Few minor bug fixes and improvements
 
 = 2.5.8 - 22/11/2022 =
