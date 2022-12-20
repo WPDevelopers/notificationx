@@ -168,7 +168,7 @@ class GoogleReviews extends Extension {
 
 		<p>👉NotificationX <a target="_blank" href="%3$s">Integration with Google Reviews</a>.</p>', 'notificationx'),
         $url,
-        'https://notificationx.com/docs/collect-api-key-for-google-review',
+        'https://notificationx.com/docs/collect-api-key-from-google-console',
         'https://notificationx.com/docs/google-reviews-with-notificationx/'
         );
     }
