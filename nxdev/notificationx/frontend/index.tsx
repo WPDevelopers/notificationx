@@ -51,4 +51,20 @@ domReady(function () {
 
     // @ts-ignore
     })(window.notificationXArr);
+
+    if (!("Proxy" in window)) {
+        return;
+    }
+
+    // @ts-ignore
+    window.notificationXArr = new Proxy(window.notificationXArr || [], {
+        set: function(target, property, value, receiver) {
+            target[property] = value;
+
+            if('length' !== property){
+                notificationXWrapper(value, property);
+            }
+            return true;
+        }
+    });
 });
