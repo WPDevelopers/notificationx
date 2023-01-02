@@ -68,6 +68,7 @@ const useNotificationX = (props: any) => {
             active    : props.config?.active || [],
             pressbar  : props.config?.pressbar || [],
             shortcode : props.config?.shortcode || [],
+            extra     : props.config?.extra || [],
         };
 
         const args: {[key: string]: any} = {};

@@ -128,6 +128,11 @@ class FrontEnd {
         $data['is_pro']     = false;
         $data['gmt_offset'] = get_option('gmt_offset');
         $data['lang']       = get_locale();
+        $data['extra']      = [
+            'query'      => $GLOBALS['wp_query']->query,
+            'queried_id' => get_queried_object_id(),
+            'pid'        => !empty($GLOBALS['post']->ID) ? $GLOBALS['post']->ID : 0,
+        ];
         $data['localeData'] = load_script_textdomain( 'notificationx-public', 'notificationx' );
         return $data;
     }
@@ -208,7 +213,7 @@ class FrontEnd {
                 $entry = apply_filters( "nx_filtered_entry_$type", $entry, $settings );
                 $entry = apply_filters( "nx_filtered_entry_$source", $entry, $settings );
                 $entry = apply_filters( 'nx_filtered_entry', $entry, $settings );
-                $entry = $this->link_url( $entry, $settings );
+                $entry = $this->link_url( $entry, $settings, $params );
 
                 // @todo shortcode
                 // @todo check if the current page have shortcode.
@@ -470,7 +475,7 @@ class FrontEnd {
      * @param array $data
      * @return void
      */
-    public static function link_url( $entry, $post ) {
+    public static function link_url( $entry, $post, $params = [] ) {
         if ( empty( $entry ) ) {
             return false;
         }
@@ -480,8 +485,8 @@ class FrontEnd {
             $link = '';
         }
 
-        $link          = apply_filters( "nx_notification_link_{$post['source']}", $link, $post, $entry );
-        $entry['link'] = apply_filters( 'nx_notification_link', $link, $post, $entry );
+        $link          = apply_filters( "nx_notification_link_{$post['source']}", $link, $post, $entry, $params );
+        $entry['link'] = apply_filters( 'nx_notification_link', $link, $post, $entry, $params );
         return $entry;
     }
 
