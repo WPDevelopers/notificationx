@@ -12,6 +12,7 @@ use NotificationX\Extensions\Extension;
 
 /**
  * MailChimp Extension
+ * @method static MailChimp get_instance($args = null)
  */
 class MailChimp extends Extension {
     /**

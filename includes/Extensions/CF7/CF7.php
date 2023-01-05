@@ -15,6 +15,7 @@ use NotificationX\Extensions\GlobalFields;
 
 /**
  * CF7 Extension
+ * @method static CF7 get_instance($args = null)
  */
 class CF7 extends Extension {
     /**

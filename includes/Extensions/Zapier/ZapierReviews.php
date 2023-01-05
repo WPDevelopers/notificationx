@@ -12,6 +12,7 @@ use NotificationX\Extensions\Extension;
 
 /**
  * Zapier Extension
+ * @method static ZapierReviews get_instance($args = null)
  */
 class ZapierReviews extends Extension {
     /**

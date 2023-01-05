@@ -15,6 +15,7 @@ use NotificationX\NotificationX;
 
 /**
  * Extension Abstract for all Extension.
+ * @method static Comments get_instance($args = null)
  */
 class Comments extends Types {
     /**

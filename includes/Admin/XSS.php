@@ -10,6 +10,9 @@ namespace NotificationX\Admin;
 
 use NotificationX\GetInstance;
 
+/**
+ * @method static XSS get_instance($args = null)
+ */
 class XSS {
     use GetInstance;
 

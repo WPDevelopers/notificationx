@@ -18,6 +18,7 @@ use NotificationX\GetInstance;
 
 /**
  * PressBar Extension
+ * @method static PressBar get_instance($args = null)
  */
 class PressBar extends Extension {
     /**

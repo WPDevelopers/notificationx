@@ -20,6 +20,7 @@ use PriyoMukul\WPNotice\Notices;
 
 /**
  * Admin Class, this class is responsible for all Admin Actions
+ * @method static Admin get_instance($args = null)
  */
 class Admin {
     /**

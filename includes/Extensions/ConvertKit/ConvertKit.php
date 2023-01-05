@@ -12,6 +12,7 @@ use NotificationX\Extensions\Extension;
 
 /**
  * ConvertKit Extension
+ * @method static ConvertKit get_instance($args = null)
  */
 class ConvertKit extends Extension {
     /**

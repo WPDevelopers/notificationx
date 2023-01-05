@@ -13,6 +13,9 @@ use WP_REST_Response;
 use WP_REST_Server;
 use WP_Error;
 
+/**
+ * @method static Integration get_instance($args = null)
+ */
 class Integration {
     /**
      * Instance of NotificationX

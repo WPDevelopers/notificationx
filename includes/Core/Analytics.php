@@ -7,8 +7,7 @@ use NotificationX\Admin\Settings;
 use NotificationX\GetInstance;
 
 /**
- * Undocumented class
- * https://github.com/priyomukul/notificationx-new/commit/d0c59a2b864d99969b422cdafe2b0c650cfc8819
+ * @method static Analytics get_instance($args = null)
  */
 class Analytics {
     /**

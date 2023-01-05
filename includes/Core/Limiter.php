@@ -8,6 +8,9 @@ use NotificationX\Core\Database;
 use NotificationX\GetInstance;
 
 
+/**
+ * @method static Limiter get_instance($args = null)
+ */
 class Limiter {
     use GetInstance;
 

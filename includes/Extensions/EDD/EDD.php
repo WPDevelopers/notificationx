@@ -16,6 +16,7 @@ use NotificationX\Extensions\GlobalFields;
 
 /**
  * EDD Extension
+ * @method static EDD get_instance($args = null)
  */
 class EDD extends Extension {
     /**

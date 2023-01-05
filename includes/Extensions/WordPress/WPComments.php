@@ -15,6 +15,7 @@ use NotificationX\Extensions\Extension;
 
 /**
  * WPComments Extension
+ * @method static WPComments get_instance($args = null)
  */
 class WPComments extends Extension {
     /**

@@ -12,6 +12,7 @@ use NotificationX\Extensions\Extension;
 
 /**
  * GoogleReviews Extension
+ * @method static GoogleReviews get_instance($args = null)
  */
 class GoogleReviews extends Extension {
     /**

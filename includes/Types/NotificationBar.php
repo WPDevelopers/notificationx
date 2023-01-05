@@ -13,6 +13,7 @@ use NotificationX\Modules;
 
 /**
  * Extension Abstract for all Extension.
+ * @method static NotificationBar get_instance($args = null)
  */
 class NotificationBar extends Types {
     /**

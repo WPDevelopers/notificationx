@@ -4,6 +4,10 @@ namespace NotificationX\Blocks;
 
 use NotificationX\GetInstance;
 
+/**
+ *
+ * @method static StyleHandler get_instance($args = null)
+ */
 final class StyleHandler {
     /**
      * Instance of NotificationX

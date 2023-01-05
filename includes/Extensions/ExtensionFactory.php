@@ -14,6 +14,8 @@ use NotificationX\Core\Modules;
 
 /**
  * ExtensionFactory Class
+ *
+ * @method static ExtensionFactory get_instance($args = null)
  */
 class ExtensionFactory {
     /**

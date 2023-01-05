@@ -16,6 +16,7 @@ use NotificationX\Modules;
 
 /**
  * Extension Abstract for all Extension.
+ * @method static ContactForm get_instance($args = null)
  */
 class ContactForm extends Types {
     /**

@@ -13,7 +13,7 @@ use NotificationX\Core\Helper;
 use NotificationX\GetInstance;
 
 /**
- * ExtensionFactory Class
+ * @method static Entries get_instance($args = null)
  */
 class Entries {
     /**

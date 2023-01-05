@@ -15,6 +15,7 @@ use NotificationX\Extensions\GlobalFields;
 
 /**
  * WPForms Extension
+ * @method static WPForms get_instance($args = null)
  */
 class WPForms extends Extension {
     /**

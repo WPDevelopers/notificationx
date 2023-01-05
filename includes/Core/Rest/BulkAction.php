@@ -7,6 +7,9 @@ use NotificationX\Core\PostType;
 use NotificationX\GetInstance;
 use WP_REST_Server;
 
+/**
+ * @method static BulkAction get_instance($args = null)
+ */
 class BulkAction {
     /**
      * Instance of BulkAction

@@ -13,6 +13,9 @@ use WP_REST_Response;
 use WP_REST_Server;
 use WP_Error;
 
+/**
+ * @method static Posts get_instance($args = null)
+ */
 class Posts extends WP_REST_Controller {
     /**
      * Instance of NotificationX

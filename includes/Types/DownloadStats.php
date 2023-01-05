@@ -14,6 +14,7 @@ use NotificationX\Core\Rules;
 
 /**
  * Extension Abstract for all Extension.
+ * @method static DownloadStats get_instance($args = null)
  */
 class DownloadStats extends Types {
     /**

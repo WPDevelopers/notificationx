@@ -14,6 +14,7 @@ use NotificationX\NotificationX;
 
 /**
  * Extension Abstract for all Extension.
+ * @method static Donations get_instance($args = null)
  */
 class Donations extends Types {
     /**

@@ -15,6 +15,7 @@ use NotificationX\Modules;
 
 /**
  * Extension Abstract for all Extension.
+ * @method static Reviews get_instance($args = null)
  */
 class Reviews extends Types {
     /**

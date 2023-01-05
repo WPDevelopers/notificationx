@@ -4,6 +4,9 @@ namespace NotificationX\Core;
 
 use NotificationX\GetInstance;
 
+/**
+ * @method static Ajax get_instance($args = null)
+ */
 class Ajax {
     /**
      * Instance of Ajax

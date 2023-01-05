@@ -11,7 +11,8 @@ use NotificationX\Admin\Settings;
 use NotificationX\GetInstance;
 
 /**
- * ExtensionFactory Class
+ * Modules Class
+ * @method static Modules get_instance($args = null)
  */
 class Modules {
     /**

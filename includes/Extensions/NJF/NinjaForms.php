@@ -16,6 +16,7 @@ use NotificationX\Extensions\GlobalFields;
 
 /**
  * NinjaForms Extension
+ * @method static NinjaForms get_instance($args = null)
  */
 class NinjaForms extends Extension {
     /**

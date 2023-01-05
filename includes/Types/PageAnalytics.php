@@ -11,6 +11,7 @@ use NotificationX\Modules;
 
 /**
  * Extension Abstract for all Extension.
+ * @method static PageAnalytics get_instance($args = null)
  */
 class PageAnalytics extends Types {
     /**

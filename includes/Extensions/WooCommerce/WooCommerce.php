@@ -17,6 +17,7 @@ use NotificationX\Extensions\GlobalFields;
 
 /**
  * WooCommerce Extension Class
+ * @method static WooCommerce get_instance($args = null)
  */
 class WooCommerce extends Extension {
     /**

@@ -21,6 +21,7 @@ use NotificationX\Extensions\PressBar\PressBar;
 use NotificationX\Core\Helper;
 /**
  * This class is responsible for all Front-End actions.
+ * @method static FrontEnd get_instance($args = null)
  */
 class FrontEnd {
     /**

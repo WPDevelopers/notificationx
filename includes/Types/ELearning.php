@@ -15,6 +15,7 @@ use NotificationX\NotificationX;
 
 /**
  * Extension Abstract for all Extension.
+ * @method static ELearning get_instance($args = null)
  */
 class ELearning extends Types {
     /**

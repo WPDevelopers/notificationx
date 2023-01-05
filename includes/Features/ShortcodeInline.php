@@ -7,6 +7,7 @@ use NotificationX\GetInstance;
 
 /**
  * Class Shortcode For NotificationX
+ * @method static ShortcodeInline get_instance($args = null)
  *
  * @since 1.2.3
  */

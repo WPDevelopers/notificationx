@@ -11,7 +11,8 @@ namespace NotificationX\Core;
 use NotificationX\GetInstance;
 
 /**
- * ExtensionFactory Class
+ * Database Class
+ * @method static Database get_instance($args = null)
  */
 class Database {
     /**

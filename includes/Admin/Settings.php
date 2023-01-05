@@ -18,7 +18,8 @@ use NotificationX\NotificationX;
 use UsabilityDynamics\Settings as UsabilityDynamicsSettings;
 
 /**
- * ExtensionFactory Class
+ * Settings Class
+ * @method static Settings get_instance($args = null)
  */
 class Settings extends UsabilityDynamicsSettings {
     /**

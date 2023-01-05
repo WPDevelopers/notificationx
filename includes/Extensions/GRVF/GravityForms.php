@@ -13,6 +13,7 @@ use NotificationX\Extensions\Extension;
 
 /**
  * GravityForms Extension
+ * @method static GravityForms get_instance($args = null)
  */
 class GravityForms extends Extension {
     /**

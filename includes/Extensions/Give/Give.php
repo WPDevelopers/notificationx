@@ -14,6 +14,7 @@ use NotificationX\Extensions\Extension;
 
 /**
  * Give Extension
+ * @method static Give get_instance($args = null)
  */
 class Give extends Extension {
     /**

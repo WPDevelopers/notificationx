@@ -13,6 +13,7 @@ use NotificationX\Extensions\Extension;
 
 /**
  * LearnDash Extension
+ * @method static LearnDash get_instance($args = null)
  */
 class LearnDash extends Extension {
     /**

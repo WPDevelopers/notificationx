@@ -7,24 +7,6 @@
 
 namespace NotificationX;
 
-use NotificationX\Admin\Admin;
-use NotificationX\Admin\Cron;
-use NotificationX\Admin\Entries;
-use NotificationX\Admin\Settings;
-use NotificationX\Core\Analytics;
-use NotificationX\Core\Database;
-use NotificationX\Core\Modules;
-use NotificationX\Core\PostType;
-use NotificationX\Core\REST;
-use NotificationX\Extensions\Extension;
-use NotificationX\Extensions\ExtensionFactory;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\FrontEnd\FrontEnd;
-use NotificationX\Types\TypeFactory;
-use NotificationX\Types\Types;
-use NotificationX\Core\Limiter;
-use NotificationX\Core\Locations;
-
 /**
  * Base trait make the instances of called class.
  */
@@ -35,10 +17,10 @@ trait GetInstance {
      * @var GetInstance
      */
     protected static $instance = null;
+
     /**
      * Get the instance of called class.
      *
-     * @return Extension|Types|GlobalFields|TypeFactory|ExtensionFactory|Database|Admin|PostType|Settings|UDSettings|REST|NotificationX|Modules|FrontEnd|Entries|Limiter|Analytics|Helper|Cron|CoreInstaller|CustomNotification|Locations
      */
     public static function get_instance($args = null){
         if ( is_null( static::$instance ) || ! static::$instance instanceof self ) {

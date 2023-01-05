@@ -12,6 +12,7 @@ use NotificationX\Extensions\Extension;
 
 /**
  * IFTTT Extension
+ * @method static IFTTT get_instance($args = null)
  */
 class IFTTT extends Extension {
     /**

@@ -11,7 +11,7 @@ use NotificationX\Admin\Settings;
 use NotificationX\GetInstance;
 
 /**
- * ExtensionFactory Class
+ * GetData Class
  */
 class GetData extends \ArrayObject {
 

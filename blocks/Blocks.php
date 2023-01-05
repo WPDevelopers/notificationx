@@ -10,6 +10,10 @@ namespace NotificationX\Blocks;
 
 use NotificationX\GetInstance;
 
+/**
+ *
+ * @method static Blocks get_instance($args = null)
+ */
 class Blocks {
     /**
      * Instance of NotificationX

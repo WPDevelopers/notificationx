@@ -19,7 +19,7 @@ use NotificationX\NotificationX;
 use NotificationX\Types\TypeFactory;
 
 /**
- * ExtensionFactory Class
+ * @method static QuickBuild get_instance($args = null)
  */
 class QuickBuild {
     /**

@@ -13,6 +13,7 @@ use NotificationX\GetInstance;
 
 /**
  * Extension Abstract for all Extension.
+ * @method static Inline get_instance($args = null)
  */
 class Inline extends Types {
     /**

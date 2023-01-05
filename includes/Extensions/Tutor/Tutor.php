@@ -15,6 +15,7 @@ use NotificationX\Extensions\GlobalFields;
 
 /**
  * Tutor Extension
+ * @method static Tutor get_instance($args = null)
  */
 class Tutor extends Extension {
     /**

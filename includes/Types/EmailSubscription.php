@@ -13,6 +13,7 @@ use NotificationX\Modules;
 
 /**
  * Extension Abstract for all Extension.
+ * @method static EmailSubscription get_instance($args = null)
  */
 class EmailSubscription extends Types {
     /**

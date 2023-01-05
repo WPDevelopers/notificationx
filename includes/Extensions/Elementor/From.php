@@ -13,6 +13,7 @@ use NotificationX\Extensions\Extension;
 
 /**
  * Envato Extension
+ * @method static From get_instance($args = null)
  */
 class From extends Extension {
     /**

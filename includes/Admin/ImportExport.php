@@ -7,6 +7,9 @@ use NotificationX\Core\Rules;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\GetInstance;
 
+/**
+ * @method static ImportExport get_instance($args = null)
+ */
 class ImportExport{
     use GetInstance;
 

@@ -11,6 +11,9 @@ use NotificationX\GetInstance;
 use WP_Error;
 use WP_REST_Server;
 
+/**
+ * @method static WPML get_instance($args = null)
+ */
 class WPML {
     /**
      * Instance of WPML

@@ -22,8 +22,9 @@ use WP_REST_Response;
 use WP_REST_Server;
 use WP_Error;
 
+
 /**
- * ExtensionFactory Class
+ * @method static REST get_instance($args = null)
  */
 class REST {
     /**

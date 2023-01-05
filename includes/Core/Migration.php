@@ -28,7 +28,8 @@ use NotificationX\Types\Conversions;
 use NotificationXPro\Feature\SalesFeatures;
 
 /**
- * ExtensionFactory Class
+ * Migration Class
+ * @method static Migration get_instance($args = null)
  */
 class Migration {
     /**

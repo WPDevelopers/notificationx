@@ -11,7 +11,7 @@ namespace NotificationX\Core;
 use NotificationX\GetInstance;
 
 /**
- * ExtensionFactory Class
+ * @method static Upgrader get_instance($args = null)
  */
 class Upgrader {
     /**

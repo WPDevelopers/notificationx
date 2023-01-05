@@ -12,6 +12,9 @@ use NotificationX\FrontEnd\FrontEnd;
 use NotificationX\GetInstance;
 use NotificationX\NotificationX;
 
+/**
+ * @method static PostType get_instance($args = null)
+ */
 class PostType {
     /**
      * Instance of PostType

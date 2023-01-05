@@ -12,6 +12,7 @@ use NotificationX\Extensions\Extension;
 
 /**
  * FreemiusStats Extension
+ * @method static FreemiusStats get_instance($args = null)
  */
 class FreemiusStats extends Extension {
     /**

@@ -12,6 +12,7 @@ use NotificationX\Extensions\Extension;
 
 /**
  * CustomNotification Extension
+ * @method static CustomNotificationConversions get_instance($args = null)
  */
 class CustomNotificationConversions extends Extension {
     /**

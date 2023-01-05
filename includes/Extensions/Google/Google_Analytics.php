@@ -12,6 +12,7 @@ use NotificationX\Extensions\Extension;
 
 /**
  * Google_Analytics Extension
+ * @method static Google_Analytics get_instance($args = null)
  */
 class Google_Analytics extends Extension {
     /**

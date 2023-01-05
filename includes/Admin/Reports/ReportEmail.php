@@ -7,6 +7,7 @@ use NotificationX\GetInstance;
 
 /**
  * This class is responsible for sending weekly email with reports
+ * @method static ReportEmail get_instance($args = null)
  *
  * @since 1.4.4
  */

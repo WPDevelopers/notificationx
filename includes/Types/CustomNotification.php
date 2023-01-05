@@ -11,6 +11,7 @@ use NotificationX\Modules;
 
 /**
  * Extension Abstract for all Extension.
+ * @method static CustomNotification get_instance($args = null)
  */
 class CustomNotification extends Types {
     /**

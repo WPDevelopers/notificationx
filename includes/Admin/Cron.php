@@ -7,6 +7,7 @@ use NotificationX\GetInstance;
 /**
  * This class is responsible for Cron Jobs
  * for NotificationX & NotificationX Pro
+ * @method static Cron get_instance($args = null)
  */
 class Cron {
     /**

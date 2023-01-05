@@ -4,6 +4,7 @@ namespace NotificationX;
 
 /**
  * WPDeveloper Core Install
+ * @method static CoreInstaller get_instance($args = null)
  */
 class CoreInstaller {
     /**

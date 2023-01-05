@@ -10,6 +10,7 @@ use NotificationX\GetInstance;
 
 /**
  * TypeFactory Class
+ * @method static TypeFactory get_instance($args = null)
  */
 class TypeFactory {
     /**

@@ -3,6 +3,9 @@
 namespace NotificationX\Core;
 use NotificationX\GetInstance;
 
+/**
+ * @method static Locations get_instance($args = null)
+ */
 class Locations {
     /**
      * Instance of Locations

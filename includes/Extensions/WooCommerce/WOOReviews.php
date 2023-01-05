@@ -20,6 +20,7 @@ use NotificationX\Types\DownloadStats;
 
 /**
  * WooCommerce Extension Class
+ * @method static WooReviews get_instance($args = null)
  */
 class WooReviews extends Extension {
     /**

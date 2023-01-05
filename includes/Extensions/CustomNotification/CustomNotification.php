@@ -14,6 +14,7 @@ use NotificationX\Types\Conversions;
 
 /**
  * CustomNotification Extension
+ * @method static CustomNotification get_instance($args = null)
  */
 class CustomNotification extends Extension {
     /**

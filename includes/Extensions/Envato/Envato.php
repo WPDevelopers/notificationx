@@ -12,6 +12,7 @@ use NotificationX\Extensions\Extension;
 
 /**
  * Envato Extension
+ * @method static Envato get_instance($args = null)
  */
 class Envato extends Extension {
     /**

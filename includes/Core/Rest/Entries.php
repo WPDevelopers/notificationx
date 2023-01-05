@@ -7,6 +7,9 @@ use NotificationX\Admin\Admin;
 use WP_REST_Controller;
 use WP_REST_Server;
 
+/**
+ * @method static Entries get_instance($args = null)
+ */
 class Entries {
     /**
      * Instance of NotificationX

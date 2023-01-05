@@ -26,6 +26,7 @@ use NotificationX\Core\WPDRoleManagement;
 
 /**
  * Plugin Engine.
+ * @method static NotificationX get_instance($args = null)
  */
 class NotificationX {
     /**

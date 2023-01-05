@@ -11,6 +11,7 @@ use NotificationX\GetInstance;
 use NotificationX\Core\Helper;
 /**
  * Class for Dashboard Widget for Analytics.
+ * @method static DashboardWidget get_instance($args = null)
  */
 class DashboardWidget {
     /**

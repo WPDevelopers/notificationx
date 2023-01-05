@@ -16,6 +16,7 @@ use NotificationX\Extensions\GlobalFields;
 
 /**
  * WPOrgReview Extension
+ * @method static WPOrgReview get_instance($args = null)
  */
 class WPOrgReview extends Extension {
     /**

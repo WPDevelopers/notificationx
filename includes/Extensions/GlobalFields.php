@@ -17,7 +17,7 @@ use NotificationX\NotificationX;
 use NotificationX\Types\TypeFactory;
 
 /**
- * ExtensionFactory Class
+ * @method static GlobalFields get_instance($args = null)
  */
 class GlobalFields {
     /**

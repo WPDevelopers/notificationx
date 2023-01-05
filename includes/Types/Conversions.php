@@ -15,6 +15,7 @@ use NotificationX\NotificationX;
 
 /**
  * Extension Abstract for all Extension.
+ * @method static Conversions get_instance($args = null)
  */
 class Conversions extends Types {
     /**
