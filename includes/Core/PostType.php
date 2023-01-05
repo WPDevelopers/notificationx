@@ -197,7 +197,13 @@ class PostType {
             ];
             if ( $data['enabled'] == false ) {
                 // clear cron when disabled.
-                Cron::get_instance()->clear_schedule( array( 'post_id' => $data['nx_id'] ) );
+                Cron::get_instance()->clear_schedule( $data['nx_id'] );
+            }
+            else {
+                $extension = ExtensionFactory::get_instance()->get($data['source']);
+                if (!empty($extension) && !empty($extension->cron_schedule)) {
+                    Cron::get_instance()->set_cron($data['nx_id'], $extension->cron_schedule);
+                }
             }
             $this->update_enabled_source( $data );
             return $this->update_post( $post, $data['nx_id'] );

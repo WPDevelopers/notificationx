@@ -39,6 +39,7 @@ class WPOrgReview extends Extension {
     public $doc_link = 'https://notificationx.com/docs-category/configurations/';
     public $types    = 'reviews';
     public $module   = 'modules_wordpress';
+    public $cron_schedule = 'nx_wp_review_interval';
 
     /**
      * Initially Invoked when initialized.
@@ -162,7 +163,6 @@ class WPOrgReview extends Extension {
 
     public function saved_post($post, $data, $nx_id) {
         $this->update_data($nx_id, $data);
-        Cron::get_instance()->set_cron($nx_id, 'nx_wp_review_interval');
     }
 
     public function update_data($nx_id, $data = array()) {

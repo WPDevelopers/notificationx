@@ -8,6 +8,7 @@
 
 namespace NotificationX\Extensions;
 
+use NotificationX\Admin\Cron;
 use NotificationX\NotificationX;
 use NotificationX\Admin\Entries;
 use NotificationX\Admin\Settings;
@@ -42,6 +43,7 @@ abstract class Extension {
     public $class                 = '';
     public $function              = '';
     public $templates             = [];
+    public $cron_schedule         = '';
     public $exclude_custom_themes = false;
 
     /**
@@ -98,6 +100,7 @@ abstract class Extension {
         if(method_exists($this, 'saved_post')){
             add_filter("nx_saved_post_{$this->id}", array($this, 'saved_post'), 10, 3);
         }
+        add_filter("nx_saved_post_{$this->id}", array($this, 'add_cron_job'), 15, 3);
     }
 
     /**
@@ -604,6 +607,12 @@ abstract class Extension {
     public function __is_pro_sources($sources){
         $sources[$this->id] = $this->is_pro;
         return $sources;
+    }
+
+    public function add_cron_job($post, $data, $nx_id){
+        if(!empty($this->cron_schedule)){
+            Cron::get_instance()->set_cron($nx_id, $this->cron_schedule);
+        }
     }
 
 }
