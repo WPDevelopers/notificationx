@@ -1,9 +1,44 @@
 import React, { useState, useEffect } from "react";
 import ReactModal from "react-modal";
+import { useBuilderContext } from 'quickbuilder';
+import { Base64 } from 'js-base64';
+import { useNotificationXContext } from "../hooks";
+import { Button } from "@wordpress/components";
 
-const Modal = ({ isOpen, setIsOpen }) => {
+
+const Modal = ({prevTab, nextTab, ...props}) => {
+    const _url = 'https://nxm.test/?nx-preview=';
+    const [isOpen, setIsOpen] = useState(false);
+    const context = useBuilderContext();
     const [previewType, setPreviewType] = useState("desktop");
+    const [nxData, setNxData] = useState("");
+    const [url, setUrl] = useState('')
+
+    console.log(prevTab, nextTab);
+
+    const openModal = () => {
+        setIsOpen(!isOpen);
+
+        if(!isOpen){
+            // const search = new URLSearchParams(context.values);
+            // url.search = search.toString();
+            setUrl(_url + Base64.encode(JSON.stringify(context.values)));
+
+            console.log(context.values);
+            console.log(url.toString());
+        }
+    }
+
+
+
     return (
+        <>
+        <Button
+            className={`wprf-btn wprf-step-btn-${props.name}`}
+            onClick={openModal}
+        >
+            {props.label}
+        </Button>
         <ReactModal
             isOpen={isOpen}
             onRequestClose={() => setIsOpen(false)}
@@ -54,13 +89,14 @@ const Modal = ({ isOpen, setIsOpen }) => {
                 </div>
                 <div style={{}}>
                     <iframe
-                        src="https://notificationx.com/"
+                        src={url}
                         width="100%"
                         height="500px"
                     />
                 </div>
             </>
         </ReactModal>
+        </>
     );
 };
 

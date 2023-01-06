@@ -7,10 +7,8 @@ import { __experimentalGetSettings, date } from "@wordpress/date";
 import moment from "moment";
 import withDocumentTitle from "../../core/withDocumentTitle";
 import { sprintf, __ } from "@wordpress/i18n";
-import Modal from "../../fields/Modal";
 
 const QuickBuildWrapper = (props) => {
-    const [isOpen, setIsOpen] = useState(true);
     const builder = useBuilder(notificationxTabs.quick_build);
     const [isLoading, setIsLoading] = useState(true);
     const [title, setTitle] = useState("");
@@ -43,7 +41,6 @@ const QuickBuildWrapper = (props) => {
             <WrapperWithLoader isLoading={isLoading}>
                 <QuickBuild isLoading={isLoading} />
             </WrapperWithLoader>
-            <Modal isOpen={isOpen} setIsOpen={setIsOpen} />
         </BuilderProvider>
     );
 };

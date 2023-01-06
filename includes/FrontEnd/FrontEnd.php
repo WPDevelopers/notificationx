@@ -47,6 +47,12 @@ class FrontEnd {
             add_action( 'init', [ $this, 'init' ], 10 );
         }
         add_filter( 'nx_frontend_localize_data', [ $this, 'get_localize_data' ] );
+
+        // if(!empty($_GET['nx-preview'])){
+        //     $data = json_decode(base64_decode($_GET['nx-preview']));
+        //     wp_send_json($data);
+        //     die;
+        // }
     }
 
     /**

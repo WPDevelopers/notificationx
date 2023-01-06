@@ -58,8 +58,13 @@ class GlobalFields {
                 'step' => [
                     'show' => true,
                     'buttons' => [
-                        'prev' => __('Previous', 'notificationx'),
-                        'next' => __('Next', 'notificationx'),
+                        'prev'    => __('Previous', 'notificationx'),
+                        'next'    => __('Next', 'notificationx'),
+                        'preview' => [
+                            'label' => __('Preview', 'notificationx'),
+                            'type'  => 'preview-modal',
+                            'name'  => 'preview',
+                        ],
                     ]
                 ],
             ],

@@ -6,6 +6,7 @@ import { Sidebar } from "./notificationx/admin/Settings";
 import Loader from "./notificationx/components/Loader";
 import Field from "./notificationx/fields/Field";
 import 'quickbuilder/dist/index.css';
+import Modal from "./notificationx/fields/Modal";
 
 (function () {
 
@@ -18,6 +19,10 @@ import 'quickbuilder/dist/index.css';
     })
 
     addFilter('custom_field', 'NotificationX', Field);
+    // addFilter('nx-stepped-button-after', 'NotificationX', () => {
+
+    //     return <Modal ></Modal>;
+    // });
 
     ReactDOM.render(
         <NotificationX />,
