@@ -907,6 +907,28 @@ class GlobalFields {
                                     'priority' => 51,
                                     'help'     => __('Set a max width for notification.', 'notificationx'),
                                 ],
+                                'size2' => [
+                                    'label' => __("Notification Size", 'notificationx'),
+                                    'name'  => "size2",
+                                    'type'     => "responsive-number",
+                                    'default'  => 500,
+                                    'priority' => 52,
+                                    'controls' => [
+                                        "desktop" => [
+                                            "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+                                            'size' => 18,
+                                        ],
+                                        "tablet" => [
+                                            "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/tablet.svg',
+                                            'size' => 14,
+                                        ],
+                                        "mobile" => [
+                                            "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/mobile.svg',
+                                            'size' => 12,
+                                        ],
+                                    ],
+                                    'help'     => __('Set a max width for notification.', 'notificationx'),
+                                ],
                                 'close_button' => [
                                     'label'       => __("Display Close Option", 'notificationx'),
                                     'name'        => "close_button",
