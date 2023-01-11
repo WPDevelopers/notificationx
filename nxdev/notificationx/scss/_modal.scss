@@ -1,0 +1,42 @@
+.nx-admin-modal-head {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+    gap: 6px;
+    .nx-admin-modal-preview-button {
+        all: initial;
+        width: 40px;
+        height: 40px;
+        background: rgba(#fff, 0.1);
+        border-radius: 5px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        img {
+            filter: brightness(100);
+        }
+        &.active {
+            background: #5453fd;
+        }
+    }
+    .nx-admin-modal-close-button {
+        all: initial;
+        width: 15px;
+        height: 15px;
+        border-radius: 4px;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: #5453fd;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+}
