@@ -64,6 +64,7 @@ class GlobalFields {
                             'label' => __('Preview', 'notificationx'),
                             'type'  => 'preview-modal',
                             'name'  => 'preview',
+                            'url'  => trailingslashit(home_url()),
                         ],
                     ]
                 ],
@@ -907,17 +908,13 @@ class GlobalFields {
                                 'size' => [
                                     'label' => __("Notification Size", 'notificationx'),
                                     'name'  => "size",
-                                    'type'     => "number",
-                                    'default'  => 500,
-                                    'priority' => 51,
-                                    'help'     => __('Set a max width for notification.', 'notificationx'),
-                                ],
-                                'size2' => [
-                                    'label' => __("Notification Size", 'notificationx'),
-                                    'name'  => "size2",
                                     'type'     => "responsive-number",
-                                    'default'  => 500,
-                                    'priority' => 52,
+                                    'default'  => [
+                                        "desktop" => 500,
+                                        "tablet" => 500,
+                                        "mobile" => 500,
+                                    ],
+                                    'priority' => 51,
                                     'controls' => [
                                         "desktop" => [
                                             "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',

@@ -96,7 +96,7 @@ const Notification = (props) => {
         }
     );
     const componentStyle: any = {
-        maxWidth: `${settings?.size}px`
+        maxWidth: `${settings?.size.desktop}px`
     };
     if (settings?.advance_edit && settings?.conversion_size) {
         componentStyle.maxWidth = settings?.conversion_size;

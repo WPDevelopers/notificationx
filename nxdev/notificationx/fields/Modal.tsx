@@ -7,14 +7,14 @@ import { Button } from "@wordpress/components";
 
 const Modal = ({ prevTab, nextTab, ...props }) => {
     const nxContext = useNotificationXContext();
-    const _url = "http://notificationx.test/?nx-preview=";
+    const _url = props.url + "?nx-preview=";
     const [isOpen, setIsOpen] = useState(false);
     const context = useBuilderContext();
     const [previewType, setPreviewType] = useState("desktop");
     const [nxData, setNxData] = useState("");
     const [url, setUrl] = useState("");
 
-    console.log(prevTab, nextTab);
+    // console.log(prevTab, nextTab);
 
     const openModal = () => {
         setIsOpen(!isOpen);

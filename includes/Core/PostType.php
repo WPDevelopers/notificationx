@@ -45,6 +45,7 @@ class PostType {
         add_action( 'admin_menu', [ $this, 'menu' ], 15 );
         add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
         add_filter( 'nx_get_post', [ $this, 'get_theme_preview_image' ] );
+        add_filter( 'nx_get_post', [ $this, 'responsive_size_backward_comp' ] );
         add_image_size( '_nx_notification_thumb', 100, 100, true );
 
     }
@@ -420,4 +421,16 @@ class PostType {
     public function get_edit_link( $nx_id ) {
         return admin_url( "admin.php?page=nx-edit&id=$nx_id" );
     }
+
+    public function responsive_size_backward_comp($post){
+        if(!is_array($post['size'])){
+            $post['size'] = [
+                "desktop" => $post['size'],
+                "tablet"  => $post['size'],
+                "mobile"  => $post['size'],
+            ];
+        }
+        return $post;
+    }
+
 }
