@@ -48,7 +48,7 @@ export const normalizeResponse = (response: any) => {
     };
 };
 
-const normalize = (_entries, globalSettings) => {
+export const normalize = (_entries, globalSettings) => {
     let mergedArray = [];
     _entries = _entries || {};
     for (const key in _entries) {

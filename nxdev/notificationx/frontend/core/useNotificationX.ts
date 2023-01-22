@@ -1,6 +1,6 @@
 import { useReducer, useEffect, useRef, useState, useCallback } from "react";
 import { frontendReducer } from ".";
-import { isNotClosed, normalizeResponse } from "./utils";
+import { isNotClosed, normalize, normalizeResponse } from "./utils";
 import { v4 } from "uuid";
 import cookie from "react-cookies";
 import sortArray from "sort-array";
@@ -56,6 +56,15 @@ const useNotificationX = (props: any) => {
         isMounted.current = true;
         // console.log("props frontend", props);
         // Fetch Notices
+
+        if(props.config.nxPreview){
+            console.log(props.config.active);
+            setActiveNotices(normalize(props.config.active, {}));
+
+            return;
+        }
+
+
         let query:{[key: string]:string} = {};
         if(props.config.rest?.lang){
             query.lang = props.config.rest.lang;

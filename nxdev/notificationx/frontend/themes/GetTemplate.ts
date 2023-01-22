@@ -37,7 +37,7 @@ const GetTemplate = (settings) => {
             }
         }
     }
-    console.log(settings.themes);
+    // console.log(settings.themes);
 
     switch (settings.themes) {
         case "donation_theme-one":

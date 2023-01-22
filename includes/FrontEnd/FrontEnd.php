@@ -19,6 +19,7 @@ use NotificationX\Core\REST;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\PressBar\PressBar;
 use NotificationX\Core\Helper;
+
 /**
  * This class is responsible for all Front-End actions.
  * @method static FrontEnd get_instance($args = null)
@@ -43,10 +44,10 @@ class FrontEnd {
      */
     public function __construct() {
         Analytics::get_instance();
-        if ( ! is_admin() || ! empty( $_GET['frontend'] ) ) {
-            add_action( 'init', [ $this, 'init' ], 10 );
+        if (!is_admin() || !empty($_GET['frontend'])) {
+            add_action('init', [$this, 'init'], 10);
         }
-        add_filter( 'nx_frontend_localize_data', [ $this, 'get_localize_data' ] );
+        add_filter('nx_frontend_localize_data', [$this, 'get_localize_data']);
 
         // if(!empty($_GET['nx-preview'])){
         //     $data = json_decode(base64_decode($_GET['nx-preview']));
@@ -62,11 +63,11 @@ class FrontEnd {
      * @return void
      */
     public function init() {
-        add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ], 10 );
-        add_filter( 'nx_fallback_data', [ $this, 'fallback_data' ], 10, 3 );
-        add_filter( 'nx_filtered_data', [ $this, 'filtered_data' ], 9999, 3 );
-        add_filter( 'nx_filtered_post', [ $this, 'filtered_post' ], 9999, 2 );
-        add_action( 'wp_print_footer_scripts', [ $this, 'footer_scripts' ] );
+        add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts'], 10);
+        add_filter('nx_fallback_data', [$this, 'fallback_data'], 10, 3);
+        add_filter('nx_filtered_data', [$this, 'filtered_data'], 9999, 3);
+        add_filter('nx_filtered_post', [$this, 'filtered_post'], 9999, 2);
+        add_action('wp_print_footer_scripts', [$this, 'footer_scripts']);
     }
 
     /**
@@ -76,33 +77,99 @@ class FrontEnd {
      */
     public function enqueue_scripts() {
 
-        wp_register_script( 'notificationx-public', Helper::file( 'public/js/frontend.js', true ), [], NOTIFICATIONX_VERSION, true );
-        wp_register_style( 'notificationx-public', Helper::file( 'public/css/frontend.css', true ), [], NOTIFICATIONX_VERSION, 'all' );
+        wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), [], NOTIFICATIONX_VERSION, true);
+        wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], NOTIFICATIONX_VERSION, 'all');
 
-        if ( empty( $_GET['elementor-preview'] ) ) {
+        if (!empty($_GET['nx-preview'])) {
+            $settings = stripslashes($_GET['nx-preview']);
+            $settings = (array) json_decode($settings);
+            if (empty($settings['nx_id']))
+                return;
+            $nx_id = (int) $settings['nx_id'];
+
+            $this->notificationXArr = apply_filters('get_notifications_ids', [
+                'active'   => [
+                    $nx_id => [
+                        'entries' => [
+                            [
+                                "username" => "anonymous",
+                                "avatar" => [
+                                    "src" => NOTIFICATIONX_PUBLIC_URL . 'image/icons/verified.svg'
+                                ],
+                                "content" => "works ok",
+                                "plugin_name" => "NotificationX – Best FOMO, Social Proof, WooCommerce Sales Popup & Notification Bar Plugin With Elementor",
+                                "title" => "Not bad",
+                                "timestamp" => 1674389093,
+                                "rating" => "4",
+                                "link" => "https://wordpress.org/plugins/notificationx",
+                                "slug" => "notificationx",
+                                "icons" => [
+                                    "1x" => "https://ps.w.org/notificationx/assets/icon-128x128.gif?rev=2783824",
+                                    "2x" => "https://ps.w.org/notificationx/assets/icon-256x256.gif?rev=2783824"
+                                ],
+                                "name" => "NotificationX – Best FOMO, Social Proof, WooCommerce Sales Popup & Notification Bar Plugin With Elementor",
+                                "ratings" => [
+                                    6,
+                                    2,
+                                    1,
+                                    4,
+                                    130
+                                ],
+                                "rated" => 130,
+                                "entry_id" => "203",
+                                "nx_id" => "627",
+                                "source" => "wp_reviews",
+                                "entry_key" => "weflut",
+                                "created_at" => "2023-01-06 00:00:00",
+                                "updated_at" => "2023-01-06 00:00:00",
+                                "none" => "",
+                                "first_name" => "NotificationX – Best FOMO, Social Proof, WooCommerce Sales Popup & Notification Bar Plugin With Elementor",
+                                "last_name" => "Someone",
+                                "anonymous_title" => "Anonymous",
+                                "sometime" => "Some time ago",
+                                "plugin_name_text" => "try it out",
+                                "image_data" => [
+                                    "url" => "https://ps.w.org/notificationx/assets/icon-256x256.gif?rev=2783824",
+                                    "alt" => "NotificationX – Best FOMO, Social Proof, WooCommerce Sales Popup & Notification Bar Plugin With Elementor",
+                                    "classes" => "featured_image"
+                                ],
+                                "plugin_review" => "works ok"
+                            ]
+                        ],
+                        'post'    => $settings,
+                    ]
+                ],
+                'total'    => 1,
+                'nxPreview' => true,
+            ]);
+            wp_enqueue_style('notificationx-public');
+            wp_enqueue_script('notificationx-public');
+
+            return;
+        }
+        if (empty($_GET['elementor-preview'])) {
             $this->notificationXArr = $this->get_notifications_ids();
-            if ( $this->notificationXArr['total'] > 0 ) {
+            if ($this->notificationXArr['total'] > 0) {
                 $lang = get_locale();
                 $lang = str_replace('_', '-', $lang);
                 $lang = strtolower($lang);
                 $_lang = explode('-', $lang);
-                if($lang !== "en" && $lang !== "en-us"){
-                    $script = Helper::file( "public/locale/$lang.js", false );
-                    if(file_exists($script)){
-                        wp_enqueue_script( 'notificationx-moment-locale', Helper::file( "public/locale/$lang.js", true ), [], NOTIFICATIONX_VERSION, true );
-                    }
-                    else if(!empty($_lang[1])){
+                if ($lang !== "en" && $lang !== "en-us") {
+                    $script = Helper::file("public/locale/$lang.js", false);
+                    if (file_exists($script)) {
+                        wp_enqueue_script('notificationx-moment-locale', Helper::file("public/locale/$lang.js", true), [], NOTIFICATIONX_VERSION, true);
+                    } else if (!empty($_lang[1])) {
                         $lang = $_lang[0];
-                        $script = Helper::file( "public/locale/$lang.js", false );
-                        if(file_exists($script)){
-                            wp_enqueue_script( 'notificationx-moment-locale', Helper::file( "public/locale/$lang.js", true ), [], NOTIFICATIONX_VERSION, true );
+                        $script = Helper::file("public/locale/$lang.js", false);
+                        if (file_exists($script)) {
+                            wp_enqueue_script('notificationx-moment-locale', Helper::file("public/locale/$lang.js", true), [], NOTIFICATIONX_VERSION, true);
                         }
                     }
                 }
 
-                wp_enqueue_style( 'notificationx-public' );
-                wp_enqueue_script( 'notificationx-public' );
-                do_action( 'notificationx_scripts', $this->notificationXArr );
+                wp_enqueue_style('notificationx-public');
+                wp_enqueue_script('notificationx-public');
+                do_action('notificationx_scripts', $this->notificationXArr);
             }
         } else {
             // @todo maybe elementor edit mode CSS. to move to top.
@@ -111,16 +178,16 @@ class FrontEnd {
     }
 
     public function footer_scripts() {
-        if ( ! empty( $this->notificationXArr['total'] ) && $this->notificationXArr['total'] > 0 ) {
-            $this->notificationXArr = apply_filters( 'nx_frontend_localize_data', $this->notificationXArr );
-        ?>
+        if (!empty($this->notificationXArr['total']) && $this->notificationXArr['total'] > 0) {
+            $this->notificationXArr = apply_filters('nx_frontend_localize_data', $this->notificationXArr);
+?>
             <script data-no-optimize="1">
-                (function(){
+                (function() {
                     window.notificationXArr = window.notificationXArr || [];
-                    window.notificationXArr.push(<?php echo json_encode( $this->notificationXArr ); ?>);
+                    window.notificationXArr.push(<?php echo json_encode($this->notificationXArr); ?>);
                 })();
             </script>
-        <?php
+<?php
         }
     }
 
@@ -129,7 +196,7 @@ class FrontEnd {
         return [];
     }
 
-    public function get_localize_data( $data ) {
+    public function get_localize_data($data) {
         $data['rest']       = REST::get_instance()->rest_data(false);
         $data['assets']     = self::ASSET_URL;
         $data['is_pro']     = false;
@@ -140,11 +207,11 @@ class FrontEnd {
             'queried_id' => get_queried_object_id(),
             'pid'        => !empty($GLOBALS['post']->ID) ? $GLOBALS['post']->ID : 0,
         ];
-        $data['localeData'] = load_script_textdomain( 'notificationx-public', 'notificationx' );
+        $data['localeData'] = load_script_textdomain('notificationx-public', 'notificationx');
         return $data;
     }
 
-    public function get_notifications_data( $params ) {
+    public function get_notifications_data($params) {
         $_params = $params;
         $result  = [
             'global'    => [],
@@ -152,29 +219,31 @@ class FrontEnd {
             'pressbar'  => [],
             'shortcode' => [],
         ];
-        if ( ! empty( $_params['all_active'] ) ) {
+        if (!empty($_params['all_active'])) {
             $params = $this->get_notifications_ids();
         }
-        $params    = wp_parse_args($params, [
-            'global'           => [],
-            'active'           => [],
-            'pressbar'         => [],
-            'shortcode'        => [],
-            'inline_shortcode' => false,
+        $params    = wp_parse_args(
+            $params,
+            [
+                'global'           => [],
+                'active'           => [],
+                'pressbar'         => [],
+                'shortcode'        => [],
+                'inline_shortcode' => false,
             ]
         );
         $global    = $params['global'];
         $active    = $params['active'];
         $pressbar  = $params['pressbar'];
         $shortcode = $params['shortcode'];
-        $all       = array_merge( $global, $active, $shortcode );
+        $all       = array_merge($global, $active, $shortcode);
         $_defaults = array(
             'none'            => '',
-            'name'            => __( 'Someone', 'notificationx' ),
-            'first_name'      => __( 'Someone', 'notificationx' ),
-            'last_name'       => __( 'Someone', 'notificationx' ),
-            'anonymous_title' => __( 'Anonymous Title', 'notificationx' ),
-            'sometime'        => __( 'Some time ago', 'notificationx' ),
+            'name'            => __('Someone', 'notificationx'),
+            'first_name'      => __('Someone', 'notificationx'),
+            'last_name'       => __('Someone', 'notificationx'),
+            'anonymous_title' => __('Anonymous Title', 'notificationx'),
+            'sometime'        => __('Some time ago', 'notificationx'),
         );
 
         // foreach (['global', 'active'] as $key => $type) {
@@ -183,149 +252,149 @@ class FrontEnd {
         // }
         // }
 
-        if ( ! empty( $all ) ) {
-            $notifications = $this->get_notifications( $all );
-            $entries       = $this->get_entries( $all, $notifications );
+        if (!empty($all)) {
+            $notifications = $this->get_notifications($all);
+            $entries       = $this->get_entries($all, $notifications);
 
-            foreach ( $entries as $entry ) {
+            foreach ($entries as $entry) {
                 $nx_id    = $entry['nx_id'];
-                $settings = $notifications[ $nx_id ];
+                $settings = $notifications[$nx_id];
 
                 $type   = $settings['type'];
                 $source = $settings['source'];
 
-                if ( ! empty( $entry['timestamp'] ) ) {
+                if (!empty($entry['timestamp'])) {
                     $timestamp    = $entry['timestamp'];
-                    $display_from = ! empty( $settings['display_from'] ) ? $settings['display_from'] : 2;
-                    $display_from = strtotime( "-$display_from days" );
-                    if ( ! is_numeric( $timestamp ) ) {
-                        $entry['timestamp'] = $timestamp = strtotime( $timestamp );
+                    $display_from = !empty($settings['display_from']) ? $settings['display_from'] : 2;
+                    $display_from = strtotime("-$display_from days");
+                    if (!is_numeric($timestamp)) {
+                        $entry['timestamp'] = $timestamp = strtotime($timestamp);
                     }
-                    if ( $timestamp && $display_from > $timestamp ) {
-                        if(apply_filters("nx_entry_display_$source", true, $entry, $settings)){
+                    if ($timestamp && $display_from > $timestamp) {
+                        if (apply_filters("nx_entry_display_$source", true, $entry, $settings)) {
                             continue;
                         }
                     }
                 }
 
-                $defaults = apply_filters( "nx_fallback_data_$source", $_defaults, $entry, $settings );
-                $defaults = apply_filters( 'nx_fallback_data', $defaults, $entry, $settings );
+                $defaults = apply_filters("nx_fallback_data_$source", $_defaults, $entry, $settings);
+                $defaults = apply_filters('nx_fallback_data', $defaults, $entry, $settings);
 
-                $entry               = $this->apply_defaults( $entry, $defaults );
-                $entry['image_data'] = $this->get_image_url( $entry, $settings );
-                if ( ! empty( $entry['title'] ) ) {
-                    $entry['title'] = strip_tags( html_entity_decode( $entry['title'] ) );
+                $entry               = $this->apply_defaults($entry, $defaults);
+                $entry['image_data'] = $this->get_image_url($entry, $settings);
+                if (!empty($entry['title'])) {
+                    $entry['title'] = strip_tags(html_entity_decode($entry['title']));
                 }
 
-                $entry = apply_filters( "nx_filtered_entry_$type", $entry, $settings );
-                $entry = apply_filters( "nx_filtered_entry_$source", $entry, $settings );
-                $entry = apply_filters( 'nx_filtered_entry', $entry, $settings );
-                $entry = $this->link_url( $entry, $settings, $params );
+                $entry = apply_filters("nx_filtered_entry_$type", $entry, $settings);
+                $entry = apply_filters("nx_filtered_entry_$source", $entry, $settings);
+                $entry = apply_filters('nx_filtered_entry', $entry, $settings);
+                $entry = $this->link_url($entry, $settings, $params);
 
                 // @todo shortcode
                 // @todo check if the current page have shortcode.
-                if ( in_array( $nx_id, $shortcode ) ) {
+                if (in_array($nx_id, $shortcode)) {
                     $position             = $settings['position'];
                     $settings['position'] = "notificationx-shortcode-$nx_id";
-                    if ( empty( $result['shortcode'][ $nx_id ]['post'] ) ) {
-                        $result['shortcode'][ $nx_id ]['post'] = $settings;
+                    if (empty($result['shortcode'][$nx_id]['post'])) {
+                        $result['shortcode'][$nx_id]['post'] = $settings;
                     }
-                    $result['shortcode'][ $nx_id ]['entries'][] = $entry;
+                    $result['shortcode'][$nx_id]['entries'][] = $entry;
                     $settings['position']                       = $position;
-                    if ( $settings['show_on'] === 'only_shortcode' || 'inline' === $settings['type'] ) {
+                    if ($settings['show_on'] === 'only_shortcode' || 'inline' === $settings['type']) {
                         continue;
                     }
-                    if ( empty( $global ) && empty( $active ) ) {
+                    if (empty($global) && empty($active)) {
                         continue;
                     }
                 }
 
-                if ( ! empty( $settings['global_queue'] ) ) {
-                    if ( empty( $result['global'][ $nx_id ]['post'] ) ) {
-                        $result['global'][ $nx_id ]['post'] = $settings;
+                if (!empty($settings['global_queue'])) {
+                    if (empty($result['global'][$nx_id]['post'])) {
+                        $result['global'][$nx_id]['post'] = $settings;
                     }
-                    $result['global'][ $nx_id ]['entries'][] = $entry;
+                    $result['global'][$nx_id]['entries'][] = $entry;
                 } else {
-                    if ( empty( $result['active'][ $nx_id ]['post'] ) ) {
-                        $result['active'][ $nx_id ]['post'] = $settings;
+                    if (empty($result['active'][$nx_id]['post'])) {
+                        $result['active'][$nx_id]['post'] = $settings;
                     }
-                    $result['active'][ $nx_id ]['entries'][] = $entry;
+                    $result['active'][$nx_id]['entries'][] = $entry;
                 }
             }
 
-            foreach ( $result as &$group ) {
-                foreach ( $group as &$value ) {
-                    $value['entries'] = apply_filters( "nx_filtered_data_{$value['post']['type']}", $value['entries'], $value['post'], $params );
-                    $value['entries'] = apply_filters( "nx_filtered_data_{$value['post']['source']}", $value['entries'], $value['post'], $params );
-                    $value['entries'] = apply_filters( 'nx_filtered_data', $value['entries'], $value['post'], $params );
-                    $value['post']    = apply_filters( 'nx_filtered_post', $value['post'], $params );
+            foreach ($result as &$group) {
+                foreach ($group as &$value) {
+                    $value['entries'] = apply_filters("nx_filtered_data_{$value['post']['type']}", $value['entries'], $value['post'], $params);
+                    $value['entries'] = apply_filters("nx_filtered_data_{$value['post']['source']}", $value['entries'], $value['post'], $params);
+                    $value['entries'] = apply_filters('nx_filtered_data', $value['entries'], $value['post'], $params);
+                    $value['post']    = apply_filters('nx_filtered_post', $value['post'], $params);
                 }
             }
-            $result = apply_filters( 'nx_filtered_notice', $result, $params );
+            $result = apply_filters('nx_filtered_notice', $result, $params);
         }
 
-        if ( ! empty( $pressbar ) ) {
-            $notifications = $this->get_notifications( $pressbar );
-            foreach ( $notifications as $key => $settings ) {
+        if (!empty($pressbar)) {
+            $notifications = $this->get_notifications($pressbar);
+            foreach ($notifications as $key => $settings) {
                 $_nx_id            = $settings['nx_id'];
-                $elementor_post_id = isset( $settings['elementor_id'] ) ? $settings['elementor_id'] : '';
-                if ( $elementor_post_id == '' || get_post_status( $elementor_post_id ) !== 'publish' | ! class_exists( '\Elementor\Plugin' ) ) {
+                $elementor_post_id = isset($settings['elementor_id']) ? $settings['elementor_id'] : '';
+                if ($elementor_post_id == '' || get_post_status($elementor_post_id) !== 'publish' | !class_exists('\Elementor\Plugin')) {
                     $settings['elementor_id'] = false;
                 }
-                if ( ! empty( $_params['all_active'] ) && $elementor_post_id ) {
+                if (!empty($_params['all_active']) && $elementor_post_id) {
                     continue;
                 }
 
                 // $settings['button_url'] = apply_filters("nx_notification_link_{$settings['source']}", $settings['button_url'], $settings);
-                $settings['button_url'] = apply_filters( 'nx_notification_link', $settings['button_url'], $settings );
-                if  ( strpos($settings['button_url'], '//') === false ) {
+                $settings['button_url'] = apply_filters('nx_notification_link', $settings['button_url'], $settings);
+                if (strpos($settings['button_url'], '//') === false) {
                     $settings['button_url'] = "//{$settings['button_url']}";
                 }
-                $bar_content  = PressBar::get_instance()->print_bar_notice( $settings );
-                $bar_content  = apply_filters( "nx_filtered_data_{$settings['source']}", $bar_content, $settings );
-                $_bar_content = str_replace( array( "\n", "\r\n", "\r" ), '', $bar_content );
-                $_bar_content = trim( strip_tags( $_bar_content ) );
-                if ( ! empty( $_bar_content ) || ! empty( $settings['enable_countdown'] ) ) {
-                    if ( empty( $_bar_content ) && ! empty( $settings['enable_countdown'] ) ) {
+                $bar_content  = PressBar::get_instance()->print_bar_notice($settings);
+                $bar_content  = apply_filters("nx_filtered_data_{$settings['source']}", $bar_content, $settings);
+                $_bar_content = str_replace(array("\n", "\r\n", "\r"), '', $bar_content);
+                $_bar_content = trim(strip_tags($_bar_content));
+                if (!empty($_bar_content) || !empty($settings['enable_countdown'])) {
+                    if (empty($_bar_content) && !empty($settings['enable_countdown'])) {
                         $bar_content = '&nbsp;';
                     }
-                    $settings = apply_filters( 'nx_filtered_post', $settings, $params );
-                    $result['pressbar'][ $_nx_id ]['post']    = $settings;
-                    $result['pressbar'][ $_nx_id ]['content'] = $bar_content;
+                    $settings = apply_filters('nx_filtered_post', $settings, $params);
+                    $result['pressbar'][$_nx_id]['post']    = $settings;
+                    $result['pressbar'][$_nx_id]['content'] = $bar_content;
                 }
 
-                unset( $_nx_id );
+                unset($_nx_id);
             }
         }
 
-        $branding_url       = apply_filters( 'nx_branding_url', NOTIFICATIONX_PLUGIN_URL . '?utm_source=' . esc_url( home_url() ) . '&utm_medium=notificationx' );
+        $branding_url       = apply_filters('nx_branding_url', NOTIFICATIONX_PLUGIN_URL . '?utm_source=' . esc_url(home_url()) . '&utm_medium=notificationx');
         $result['settings'] = [
-            'disable_powered_by' => Settings::get_instance()->get( 'settings.disable_powered_by' ),
+            'disable_powered_by' => Settings::get_instance()->get('settings.disable_powered_by'),
             'affiliate_link'     => $branding_url,
-            'enable_analytics'   => Settings::get_instance()->get( 'settings.enable_analytics', true ),
-            'analytics_from'     => Settings::get_instance()->get( 'settings.analytics_from' ),
-            'delay_before'       => Settings::get_instance()->get( 'settings.delay_before', 5 ),
-            'display_for'        => Settings::get_instance()->get( 'settings.display_for', 5 ),
-            'delay_between'      => Settings::get_instance()->get( 'settings.delay_between', 5 ),
-            'loop'               => Settings::get_instance()->get( 'settings.loop', 5 ),
-            'random'               => Settings::get_instance()->get( 'settings.random', 5 ),
-            'analytics_nonce'    => wp_create_nonce( 'analytics_nonce' ),
+            'enable_analytics'   => Settings::get_instance()->get('settings.enable_analytics', true),
+            'analytics_from'     => Settings::get_instance()->get('settings.analytics_from'),
+            'delay_before'       => Settings::get_instance()->get('settings.delay_before', 5),
+            'display_for'        => Settings::get_instance()->get('settings.display_for', 5),
+            'delay_between'      => Settings::get_instance()->get('settings.delay_between', 5),
+            'loop'               => Settings::get_instance()->get('settings.loop', 5),
+            'random'               => Settings::get_instance()->get('settings.random', 5),
+            'analytics_nonce'    => wp_create_nonce('analytics_nonce'),
         ];
         return $result;
     }
 
-    public function get_notifications_ids( $return_posts = false, $args = [] ) {
+    public function get_notifications_ids($return_posts = false, $args = []) {
         $args = wp_parse_args($args, [
             'enabled'    => true,
-            'updated_at' => [ '<=', Helper::mysql_time() ],
+            'updated_at' => ['<=', Helper::mysql_time()],
             // 'global_queue' => true,
         ]);
-        $notifications = PostType::get_instance()->get_posts( $args );
+        $notifications = PostType::get_instance()->get_posts($args);
 
         $active_notifications = $global_notifications = $bar_notifications = array();
 
-        foreach ( $notifications as $key => $post ) {
-            $settings        = NotificationX::get_instance()->normalize_post( $post );
+        foreach ($notifications as $key => $post) {
+            $settings        = NotificationX::get_instance()->normalize_post($post);
             $logged_in       = is_user_logged_in();
             $show_on_display = $settings['show_on_display'];
 
@@ -337,54 +406,54 @@ class FrontEnd {
             // }
             // }
 
-            $countdown_rand = ! empty( $settings['countdown_rand'] ) ? "-{$settings['countdown_rand']}" : '';
+            $countdown_rand = !empty($settings['countdown_rand']) ? "-{$settings['countdown_rand']}" : '';
 
-            if ( ! empty( $_COOKIE[ "notificationx_{$settings['nx_id']}$countdown_rand" ] ) && $_COOKIE[ "notificationx_{$settings['nx_id']}$countdown_rand" ] == true ) {
-                unset( $notifications[ $key ] );
+            if (!empty($_COOKIE["notificationx_{$settings['nx_id']}$countdown_rand"]) && $_COOKIE["notificationx_{$settings['nx_id']}$countdown_rand"] == true) {
+                unset($notifications[$key]);
                 continue;
             }
 
-            if ( ( $logged_in && 'logged_out_user' == $show_on_display ) || ( ! $logged_in && 'logged_in_user' == $show_on_display ) ) {
+            if (($logged_in && 'logged_out_user' == $show_on_display) || (!$logged_in && 'logged_in_user' == $show_on_display)) {
                 continue;
             }
 
             $custom_ids = [];
-            $locations  = isset( $settings['all_locations'] ) ? $settings['all_locations'] : [];
+            $locations  = isset($settings['all_locations']) ? $settings['all_locations'] : [];
 
             $check_location = false;
 
-            if ( $locations == 'is_custom' || is_array( $locations ) && in_array( 'is_custom', $locations ) ) {
-                $custom_ids = isset( $settings['custom_ids'] ) ? $settings['custom_ids'] : [];
+            if ($locations == 'is_custom' || is_array($locations) && in_array('is_custom', $locations)) {
+                $custom_ids = isset($settings['custom_ids']) ? $settings['custom_ids'] : [];
             }
-            if ( ! empty( $locations ) ) {
+            if (!empty($locations)) {
                 // @todo need to pass url.
-                $check_location = Locations::get_instance()->check_location( $locations, $custom_ids );
+                $check_location = Locations::get_instance()->check_location($locations, $custom_ids);
             }
 
-            $check_location = apply_filters( 'nx_check_location', $check_location, $settings, $custom_ids );
+            $check_location = apply_filters('nx_check_location', $check_location, $settings, $custom_ids);
 
-            if ( $settings['show_on'] == 'on_selected' ) {
+            if ($settings['show_on'] == 'on_selected') {
                 // show if the page is on selected
-                if ( ! $check_location ) {
+                if (!$check_location) {
                     continue;
                 }
-            } elseif ( $settings['show_on'] == 'hide_on_selected' ) {
+            } elseif ($settings['show_on'] == 'hide_on_selected') {
                 // hide if the page is on selected
-                if ( $check_location ) {
+                if ($check_location) {
                     continue;
                 }
-            } elseif ( $settings['show_on'] === 'only_shortcode' ) {
+            } elseif ($settings['show_on'] === 'only_shortcode') {
                 continue;
             }
             /**
              * Check for hiding in mobile device
              */
-            if ( $settings['hide_on_mobile'] && wp_is_mobile() ) {
+            if ($settings['hide_on_mobile'] && wp_is_mobile()) {
                 continue;
             }
 
-            $show_on_exclude = apply_filters( 'nx_show_on_exclude', false, $settings );
-            if ( $show_on_exclude ) {
+            $show_on_exclude = apply_filters('nx_show_on_exclude', false, $settings);
+            if ($show_on_exclude) {
                 continue;
             }
 
@@ -393,8 +462,8 @@ class FrontEnd {
             // continue;
             // }
 
-            $active_global_queue = boolval( $settings['global_queue'] );
-            if ( $settings['source'] == 'press_bar' ) {
+            $active_global_queue = boolval($settings['global_queue']);
+            if ($settings['source'] == 'press_bar') {
                 // if(
                 // !$_settings->elementor_id &&
                 // $_settings->enable_countdown &&
@@ -408,71 +477,74 @@ class FrontEnd {
                 // }
 
                 $bar_notifications[] = $return_posts ? $settings : $settings['nx_id'];
-                if ( ! empty( $settings['elementor_id'] ) && class_exists( '\Elementor\Plugin' ) ) {
+                if (!empty($settings['elementor_id']) && class_exists('\Elementor\Plugin')) {
                     // @todo Find a function to only load css instead of building content.
-                    \Elementor\Plugin::$instance->frontend->get_builder_content( $settings['elementor_id'], false );
+                    \Elementor\Plugin::$instance->frontend->get_builder_content($settings['elementor_id'], false);
                 }
-            } elseif ( $active_global_queue && NotificationX::is_pro() ) {
+            } elseif ($active_global_queue && NotificationX::is_pro()) {
                 $global_notifications[] = $return_posts ? $settings : $settings['nx_id'];
             } else {
                 $active_notifications[] = $return_posts ? $settings : $settings['nx_id'];
             }
 
-            unset( $notifications[ $key ] );
+            unset($notifications[$key]);
         }
         // do_action('nx_active_notificationx', $notifications);
 
         // @todo maybe combine two hooks.
 
-        return apply_filters('get_notifications_ids', [
-            'global'   => $global_notifications,
-            'active'   => $active_notifications,
-            'pressbar' => $bar_notifications,
-            'total'    => ( count( $global_notifications ) + count( $active_notifications ) + count( $bar_notifications ) ),
-            ], $notifications
+        return apply_filters(
+            'get_notifications_ids',
+            [
+                'global'   => $global_notifications,
+                'active'   => $active_notifications,
+                'pressbar' => $bar_notifications,
+                'total'    => (count($global_notifications) + count($active_notifications) + count($bar_notifications)),
+            ],
+            $notifications
         );
     }
 
-    public function get_notifications( $ids ) {
+    public function get_notifications($ids) {
         $results       = [];
-        $notifications = PostType::get_instance()->get_posts_by_ids( $ids );
+        $notifications = PostType::get_instance()->get_posts_by_ids($ids);
 
-        foreach ( $notifications as $key => $value ) {
+        foreach ($notifications as $key => $value) {
             /**
              * Check for hiding in mobile device
              */
-            if ( ! empty( $value['hide_on_mobile'] ) && wp_is_mobile() ) {
+            if (!empty($value['hide_on_mobile']) && wp_is_mobile()) {
                 continue;
             }
-            $results[ $value['nx_id'] ] = $value;
+            $results[$value['nx_id']] = $value;
         }
         return $results;
     }
 
-    public function get_entries( $ids, $notifications ) {
+    public function get_entries($ids, $notifications) {
         $entries = [];
-        if ( ! empty( $ids ) && is_array( $ids ) ) {
+        if (!empty($ids) && is_array($ids)) {
             $query = [];
-            foreach ( $ids as $id ) {
-                if ( ! empty( $notifications[ $id ] ) ) {
-                    $post         = $notifications[ $id ];
-                    $query[ $id ] = " (nx_id = " . absint( $id ) . " AND source = '" . esc_sql( $post['source'] ) . "')";
+            foreach ($ids as $id) {
+                if (!empty($notifications[$id])) {
+                    $post         = $notifications[$id];
+                    $query[$id] = " (nx_id = " . absint($id) . " AND source = '" . esc_sql($post['source']) . "')";
                 }
             }
-            if ( ! empty( $query ) ) {
-                $entries = Entries::get_instance()->get_entries( 'WHERE' . implode( ' OR ', $query ) );
-                foreach ( $entries as $key => $value ) {
-                    if ( ! empty( $value['data'] ) ) {
-                        $entries[ $key ] = array_merge( $value, $value['data'] );
-                        unset( $entries[ $key ]['data'] );
+            if (!empty($query)) {
+                $entries = Entries::get_instance()->get_entries('WHERE' . implode(' OR ', $query));
+                foreach ($entries as $key => $value) {
+                    if (!empty($value['data'])) {
+                        $entries[$key] = array_merge($value, $value['data']);
+                        unset($entries[$key]['data']);
                     }
                 }
             }
         }
-        if ( ! is_array( $entries ) ) {
+        if (!is_array($entries)) {
             $entries = [];
         }
-        $entries = apply_filters( 'nx_frontend_get_entries', $entries, $ids, $notifications );
+        $entries = apply_filters('nx_frontend_get_entries', $entries, $ids, $notifications);
         return $entries;
     }
 
@@ -482,18 +554,18 @@ class FrontEnd {
      * @param array $data
      * @return void
      */
-    public static function link_url( $entry, $post, $params = [] ) {
-        if ( empty( $entry ) ) {
+    public static function link_url($entry, $post, $params = []) {
+        if (empty($entry)) {
             return false;
         }
-        $link = isset( $entry['link'] ) ? $entry['link'] : '';
+        $link = isset($entry['link']) ? $entry['link'] : '';
         // removing link if link type is none.
-        if ( empty( $post['link_type'] ) || $post['link_type'] === 'none' ) {
+        if (empty($post['link_type']) || $post['link_type'] === 'none') {
             $link = '';
         }
 
-        $link          = apply_filters( "nx_notification_link_{$post['source']}", $link, $post, $entry, $params );
-        $entry['link'] = apply_filters( 'nx_notification_link', $link, $post, $entry, $params );
+        $link          = apply_filters("nx_notification_link_{$post['source']}", $link, $post, $entry, $params);
+        $entry['link'] = apply_filters('nx_notification_link', $link, $post, $entry, $params);
         return $entry;
     }
 
@@ -505,66 +577,66 @@ class FrontEnd {
      * @param array $settings
      * @return array of image data, contains url and title as alt text
      */
-    protected function get_image_url( $data, $settings ) {
+    protected function get_image_url($data, $settings) {
         $source     = $settings['source'];
-        $alt_title  = isset( $data['name'] ) ? $data['name'] : '';
-        $image_type = isset( $settings['show_notification_image'] ) ? $settings['show_notification_image'] : false;
-        if ( empty( $alt_title ) ) {
-            $alt_title = isset( $data['title'] ) ? $data['title'] : '';
+        $alt_title  = isset($data['name']) ? $data['name'] : '';
+        $image_type = isset($settings['show_notification_image']) ? $settings['show_notification_image'] : false;
+        if (empty($alt_title)) {
+            $alt_title = isset($data['title']) ? $data['title'] : '';
         }
         $image_data = [
             'url' => '',
             'alt' => $alt_title,
         ];
 
-        if ( $settings['show_default_image'] ) {
-            if ( ! empty( $settings['image_url']['url'] ) ) {
-                $image             = wp_get_attachment_image_src( $settings['image_url']['id'], [100, 100], true );
+        if ($settings['show_default_image']) {
+            if (!empty($settings['image_url']['url'])) {
+                $image             = wp_get_attachment_image_src($settings['image_url']['id'], [100, 100], true);
                 $image_data['url'] = $image[0];
             } else {
                 $default_avatar    = $settings['default_avatar'];
                 $image_data['url'] = NOTIFICATIONX_PUBLIC_URL . 'image/icons/' . $default_avatar;
             }
         } else {
-            if ( $image_type === 'gravatar' ) {
-                $_data = array_change_key_case( $data );
-                if ( isset( $_data['email'] ) ) {
-                    $image_data['url'] = get_avatar_url( $_data['email'], [ 'size' => '100' ] );
+            if ($image_type === 'gravatar') {
+                $_data = array_change_key_case($data);
+                if (isset($_data['email'])) {
+                    $image_data['url'] = get_avatar_url($_data['email'], ['size' => '100']);
                 }
             }
         }
 
         $image_data['classes'] = $image_type;
-        $image_data            = apply_filters( "nx_notification_image_$source", $image_data, $data, $settings );
-        $image_data            = apply_filters( 'nx_notification_image', $image_data, $data, $settings );
+        $image_data            = apply_filters("nx_notification_image_$source", $image_data, $data, $settings);
+        $image_data            = apply_filters('nx_notification_image', $image_data, $data, $settings);
 
-        if ( ! empty( $image_data['url'] ) ) {
+        if (!empty($image_data['url'])) {
             return $image_data;
         }
 
         return false;
     }
 
-    public function apply_defaults( $entry, $defaults ) {
+    public function apply_defaults($entry, $defaults) {
 
-        foreach ( $defaults as $key => $value ) {
+        foreach ($defaults as $key => $value) {
             // @todo mukul remove  `|| empty(trim($entry[$key]))`
-            if ( empty( $entry[ $key ] ) || empty( trim( $entry[ $key ] ) ) ) {
-                $entry[ $key ] = $value;
+            if (empty($entry[$key]) || empty(trim($entry[$key]))) {
+                $entry[$key] = $value;
             }
         }
 
         return $entry;
     }
 
-    public function fallback_data( $data, $saved_data, $settings ) {
-        if ( ( empty( $saved_data['name'] ) || $data['name'] == __( 'Someone', 'notificationx' ) ) && isset( $saved_data['first_name'] ) || isset( $saved_data['last_name'] ) ) {
-            $data['name'] = Helper::name( $saved_data['first_name'], $saved_data['last_name'] );
+    public function fallback_data($data, $saved_data, $settings) {
+        if ((empty($saved_data['name']) || $data['name'] == __('Someone', 'notificationx')) && isset($saved_data['first_name']) || isset($saved_data['last_name'])) {
+            $data['name'] = Helper::name($saved_data['first_name'], $saved_data['last_name']);
         }
-        if ( ! empty( $saved_data['name'] ) && empty( $saved_data['first_name'] ) && empty( $saved_data['last_name'] ) ) {
+        if (!empty($saved_data['name']) && empty($saved_data['first_name']) && empty($saved_data['last_name'])) {
             $data['first_name'] = $saved_data['name'];
         }
-        $data['title'] = isset( $saved_data['post_title'] ) ? $saved_data['post_title'] : '';
+        $data['title'] = isset($saved_data['post_title']) ? $saved_data['post_title'] : '';
         return $data;
     }
 
@@ -573,12 +645,12 @@ class FrontEnd {
      *
      * @return void
      */
-    public function filtered_data( $entries, $post, $params ) {
-        if ( is_array( $entries ) && (!defined('NX_DEBUG') || !NX_DEBUG) ) {
-            if(!empty($post['display_last']) && !in_array($post['source'], ['google', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'google_reviews'])){
+    public function filtered_data($entries, $post, $params) {
+        if (is_array($entries) && (!defined('NX_DEBUG') || !NX_DEBUG)) {
+            if (!empty($post['display_last']) && !in_array($post['source'], ['google', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'google_reviews'])) {
                 $entries = array_slice($entries, 0, $post['display_last']);
             }
-            foreach ( $entries as $index => $entry ) {
+            foreach ($entries as $index => $entry) {
                 $_entry = [
                     'nx_id'      => $entry['nx_id'],
                     'timestamp'  => isset($entry['timestamp']) ? $entry['timestamp'] : Helper::current_timestamp($entry['updated_at']),
@@ -586,37 +658,37 @@ class FrontEnd {
                     'image_data' => $entry['image_data'],
                     'link'       => $entry['link'],
                 ];
-                if(!empty($params['inline_shortcode']) && isset($entry['product_id'])){
+                if (!empty($params['inline_shortcode']) && isset($entry['product_id'])) {
                     $_entry['product_id'] = $entry['product_id'];
                 }
 
                 $template_arr = array_values($post['notification-template']);
-                if($post['template_adv']){
+                if ($post['template_adv']) {
                     $adv_template = $post['advanced_template'];
                     $pattern = "/{{(.+?)}}/i";
-                    if(preg_match_all($pattern, $adv_template, $matches)) {
+                    if (preg_match_all($pattern, $adv_template, $matches)) {
                         $template_arr = $matches[1];
                     }
                 }
-                if(is_array($template_arr)){
+                if (is_array($template_arr)) {
                     foreach ($template_arr as $entry_key) {
                         $_entry_key = $entry_key;
-                        if ( $entry_key == 'tag_siteview' || $entry_key == 'tag_realtime_siteview' ) {
+                        if ($entry_key == 'tag_siteview' || $entry_key == 'tag_realtime_siteview') {
                             $entry_key = 'views';
-                        } elseif ( $entry_key == 'ga_title' ) {
+                        } elseif ($entry_key == 'ga_title') {
                             $entry_key = 'title';
-                        } elseif ( strpos( $entry_key, 'tag_product_' ) === 0 ) {
-                            $entry_key = str_replace( 'tag_product_', '', $entry_key );
-                        } elseif ( strpos( $entry_key, 'tag_' ) === 0 ) {
-                            $entry_key = str_replace( 'tag_', '', $entry_key );
-                        } elseif ( strpos( $entry_key, 'product_' ) === 0 ) {
-                            $entry_key = str_replace( 'product_', '', $entry_key );
+                        } elseif (strpos($entry_key, 'tag_product_') === 0) {
+                            $entry_key = str_replace('tag_product_', '', $entry_key);
+                        } elseif (strpos($entry_key, 'tag_') === 0) {
+                            $entry_key = str_replace('tag_', '', $entry_key);
+                        } elseif (strpos($entry_key, 'product_') === 0) {
+                            $entry_key = str_replace('product_', '', $entry_key);
                         }
 
-                        if(isset($entry[$entry_key])){
+                        if (isset($entry[$entry_key])) {
                             $_entry[$entry_key] = $entry[$entry_key];
                         }
-                        if(isset($entry[$_entry_key])){
+                        if (isset($entry[$_entry_key])) {
                             $_entry[$_entry_key] = $entry[$_entry_key];
                         }
                     }
@@ -632,8 +704,8 @@ class FrontEnd {
      *
      * @return void
      */
-    public function filtered_post( $post, $params = null ) {
-        if ( is_array( $post ) && empty($params['inline_shortcode']) && (!defined('NX_DEBUG') || !NX_DEBUG) ) {
+    public function filtered_post($post, $params = null) {
+        if (is_array($post) && empty($params['inline_shortcode']) && (!defined('NX_DEBUG') || !NX_DEBUG)) {
             $ignore_props = [
                 'all_locations',
                 'category_list',
@@ -688,13 +760,13 @@ class FrontEnd {
                 'wp_stats_slug',
                 '_locale',
             ];
-            foreach ( $ignore_props as $prop ) {
-                if(isset($post[$prop])){
+            foreach ($ignore_props as $prop) {
+                if (isset($post[$prop])) {
                     unset($post[$prop]);
                 }
             }
         }
-        if(isset($post['template_adv'], $post['advanced_template'])){
+        if (isset($post['template_adv'], $post['advanced_template'])) {
             $post['advanced_template'] = do_shortcode($post['advanced_template']);
         }
 

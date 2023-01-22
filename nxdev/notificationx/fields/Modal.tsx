@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactModal from "react-modal";
 import { useBuilderContext } from "quickbuilder";
-import { Base64 } from "js-base64";
 import { useNotificationXContext } from "../hooks";
 import { Button } from "@wordpress/components";
 
@@ -22,7 +21,7 @@ const Modal = ({ prevTab, nextTab, ...props }) => {
         if (!isOpen) {
             setUrl(
                 _url +
-                    Base64.encode(
+                    encodeURIComponent(
                         JSON.stringify({ ...context.values, previewType })
                     )
             );
