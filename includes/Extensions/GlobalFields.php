@@ -915,6 +915,7 @@ class GlobalFields {
                                         "mobile" => 500,
                                     ],
                                     'priority' => 51,
+                                    'min' => 300,
                                     'controls' => [
                                         "desktop" => [
                                             "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
