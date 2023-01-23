@@ -19,10 +19,10 @@ import Modal from "./notificationx/fields/Modal";
     })
 
     addFilter('custom_field', 'NotificationX', Field);
-    // addFilter('nx-stepped-button-after', 'NotificationX', () => {
+    addFilter('nx-preview-button', 'NotificationX', (props) => {
 
-    //     return <Modal ></Modal>;
-    // });
+        return <Modal {...props} ></Modal>;
+    });
 
     ReactDOM.render(
         <NotificationX />,
