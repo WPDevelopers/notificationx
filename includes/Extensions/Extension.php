@@ -100,6 +100,9 @@ abstract class Extension {
         if(method_exists($this, 'saved_post')){
             add_filter("nx_saved_post_{$this->id}", array($this, 'saved_post'), 10, 3);
         }
+        if(method_exists($this, 'preview_entry')){
+            add_filter("nx_preview_entry_{$this->id}", array($this, 'preview_entry'), 10, 2);
+        }
         add_filter("nx_saved_post_{$this->id}", array($this, 'add_cron_job'), 15, 3);
     }
 

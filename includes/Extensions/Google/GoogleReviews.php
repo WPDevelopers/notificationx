@@ -162,6 +162,41 @@ class GoogleReviews extends Extension {
         parent::__construct();
     }
 
+    public function preview_entry($entry, $settings){
+        $entry = array_merge($entry, [
+            "formatted_address" => "House 592, Road 8 Avenue 5, Dhaka 1216, Bangladesh",
+            "icon"              => "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+            "name"              => "WPDeveloper",
+            "place_id"          => "ChIJ0cpDbNvBVTcRGX9JNhhpC8I",
+            "rating"            => 4.4,
+            "url"               => "https://maps.google.com/?cid=13982385020812754713",
+            "website"           => "https://wpdeveloper.com/",
+            "timestamp"         => 1674479841,
+            "place_name"        => "WPDeveloper",
+            "rated"             => 42,
+            "lat"               => 23.8371427,
+            "lon"               => 90.3704629,
+            "entry_id"          => "2155",
+            "nx_id"             => "60",
+            "source"            => "google_reviews",
+            "entry_key"         => "ChIJ0cpDbNvBVTcRGX9JNhhpC8I",
+            "created_at"        => "2023-01-23 13:17:21",
+            "updated_at"        => "2023-01-23 13:17:21",
+            "none"              => "",
+            "first_name"        => "WPDeveloper",
+            "last_name"         => "Someone",
+            "anonymous_title"   => "Anonymous Title",
+            "sometime"          => "Some time ago",
+            "title"             => "",
+            "image_data"        => [
+                  "url"     => "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+                  "alt"     => "",
+                  "classes" => "greview_icon"
+               ],
+            "link" => "https://maps.google.com/?cid=13982385020812754713"
+        ]);
+        return $entry;
+    }
 
     public function doc(){
         $url = admin_url('admin.php?page=nx-settings&tab=tab-api-integrations#google_reviews_settings_section');

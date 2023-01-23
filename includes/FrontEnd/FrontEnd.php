@@ -91,50 +91,7 @@ class FrontEnd {
                 'active'   => [
                     $nx_id => [
                         'entries' => [
-                            [
-                                "username" => "anonymous",
-                                "avatar" => [
-                                    "src" => NOTIFICATIONX_PUBLIC_URL . 'image/icons/verified.svg'
-                                ],
-                                "content" => "works ok",
-                                "plugin_name" => "NotificationX – Best FOMO, Social Proof, WooCommerce Sales Popup & Notification Bar Plugin With Elementor",
-                                "title" => "Not bad",
-                                "timestamp" => 1674389093,
-                                "rating" => "4",
-                                "link" => "https://wordpress.org/plugins/notificationx",
-                                "slug" => "notificationx",
-                                "icons" => [
-                                    "1x" => "https://ps.w.org/notificationx/assets/icon-128x128.gif?rev=2783824",
-                                    "2x" => "https://ps.w.org/notificationx/assets/icon-256x256.gif?rev=2783824"
-                                ],
-                                "name" => "NotificationX – Best FOMO, Social Proof, WooCommerce Sales Popup & Notification Bar Plugin With Elementor",
-                                "ratings" => [
-                                    6,
-                                    2,
-                                    1,
-                                    4,
-                                    130
-                                ],
-                                "rated" => 130,
-                                "entry_id" => "203",
-                                "nx_id" => "627",
-                                "source" => "wp_reviews",
-                                "entry_key" => "weflut",
-                                "created_at" => "2023-01-06 00:00:00",
-                                "updated_at" => "2023-01-06 00:00:00",
-                                "none" => "",
-                                "first_name" => "NotificationX – Best FOMO, Social Proof, WooCommerce Sales Popup & Notification Bar Plugin With Elementor",
-                                "last_name" => "Someone",
-                                "anonymous_title" => "Anonymous",
-                                "sometime" => "Some time ago",
-                                "plugin_name_text" => "try it out",
-                                "image_data" => [
-                                    "url" => "https://ps.w.org/notificationx/assets/icon-256x256.gif?rev=2783824",
-                                    "alt" => "NotificationX – Best FOMO, Social Proof, WooCommerce Sales Popup & Notification Bar Plugin With Elementor",
-                                    "classes" => "featured_image"
-                                ],
-                                "plugin_review" => "works ok"
-                            ]
+                            $this->preview_entry($settings),
                         ],
                         'post'    => $settings,
                     ]
@@ -144,7 +101,6 @@ class FrontEnd {
             ]);
             wp_enqueue_style('notificationx-public');
             wp_enqueue_script('notificationx-public');
-
             return;
         }
         if (empty($_GET['elementor-preview'])) {
@@ -771,5 +727,96 @@ class FrontEnd {
         }
 
         return $post;
+    }
+
+    public function preview_entry($settings) {
+        $source = !empty($settings['source']) ? $settings['source'] : '';
+        $defaults = array(
+            'username' => 'sofasurfer75',
+            'avatar'   => array(
+                'src' => 'https://secure.gravatar.com/avatar/38eeb7a2fda5880e13576f179522318f?s=16&d=monsterid&r=g',
+            ),
+            'content'     => 'I initially left an honest 1 star review for the experience I had with this plugin (you can read the full review down below if you are interested) and I really did not expect much after posting the review...  BUTTON ON THEIR HOMEPAGE ARE DEFINITELY NOT ALL FREE ELEMENTS.',
+            'plugin_name' => 'Essential Addons for Elementor',
+            'title'       => 'BEWARE BEFORE INSTALLING THIS PLUGIN > Updated Review',
+            'timestamp'   => 1674432000,
+            'rating'      => '5',
+            'link'        => 'https://wordpress.org/plugins/essential-addons-for-elementor-lite?utm_campaign=campaign_automation&utm_medium=medium_automation&utm_source=source_automation',
+            'slug'        => 'essential-addons-for-elementor-lite',
+            'icons'       => array(
+                '1x' => 'https://ps.w.org/essential-addons-for-elementor-lite/assets/icon-128x128.png?rev=2598498',
+                '2x' => 'https://ps.w.org/essential-addons-for-elementor-lite/assets/icon-256x256.png?rev=2598498',
+            ),
+            'name' => 'Essential Addons for Elementor',
+            'ratings' => array(
+                0 => 48,
+                1 => 13,
+                2 => 21,
+                3 => 66,
+                4 => 2825,
+            ),
+            'rated'            => 2973,
+            'entry_id'         => '1479',
+            'nx_id'            => '6',
+            'source'           => 'wp_reviews',
+            'entry_key'        => 'sofasurfer75',
+            'created_at'       => '2023-01-23 00:00:00',
+            'updated_at'       => '2023-01-23 00:00:00',
+            'none'             => '',
+            'first_name'       => 'Essential Addons for Elementor',
+            'last_name'        => 'Someone',
+            'anonymous_title'  => 'Anonymous',
+            'sometime'         => 'Some time ago',
+            'plugin_name_text' => 'try it out',
+            'image_data'       => array(
+                'url'     => 'https://ps.w.org/essential-addons-for-elementor-lite/assets/icon-256x256.png?rev=2598498',
+                'alt'     => 'Essential Addons for Elementor',
+                'classes' => 'featured_image',
+            ),
+            'plugin_review'        => 'I initially left an honest 1 star review for the experience I had with this plug...',
+            'lat'                  => 21.4284959,
+            'lon'                  => 91.9701859,
+            'map_url'              => 'https://nxm.test/wp-content/uploads/nx-map/21.4284959,91.9701859.png',
+            'formatted_address'    => 'Cox\'s Bazar Beach, Bangladesh',
+            'icon'                 => 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/geocode-71.png',
+            'place_id'             => 'ChIJJUltcWjIrTAROzrarWDaOs0',
+            'url'                  => 'https://maps.google.com/?cid=14788372435192920635',
+            'place_name'           => 'Cox\'s Bazar Beach',
+            'city'                 => 'Somewhere',
+            'country'              => '',
+            'city_country'         => 'Somewhere',
+            'email'                => 'navu@hotmail.com',
+            'status'               => 'subscribed',
+            'ip'                   => '103.108.146.110',
+            'id'                   => 'google_realtime_siteview',
+            'last_updated'         => '2023-01-23 at 10:46am',
+            'count'                => 7,
+            'type'                 => 'realtime_siteview',
+            'views'                => 1,
+            'this_page'            => 'this page',
+            'day'                  => 'days',
+            'month'                => 'months',
+            'year'                 => 'years',
+            'ga_title'             => 'My Testing Site',
+            'siteview'             => 1,
+            'realtime_siteview'    => 1,
+            'num_ratings'          => 2973,
+            'version'              => '5.5.2',
+            'downloaded'           => 41505120,
+            'active_installs'      => '1M',
+            'author_profile'       => 'https://profiles.wordpress.org/wpdevteam/',
+            'author'               => '<a href=\'https://wpdeveloper.com/\'>WPDeveloper</a>',
+            'today'                => '4.0K+ times today',
+            'yesterday'            => '7.2K+ times',
+            'last_week'            => '79.1K+ times in last 7 days',
+            'all_time'             => '41.5M+ times',
+            'plugin_theme_name'    => 'Essential Addons for Elementor',
+            'today_text'           => 'Try It Out',
+            'last_week_text'       => 'Get Started for Free.',
+            'all_time_text'        => 'Why Don\'t You?',
+            'active_installs_text' => 'Try It Out',
+        );
+
+        return apply_filters("nx_preview_entry_$source", $defaults, $settings);
     }
 }
