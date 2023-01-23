@@ -4,6 +4,26 @@ import { Theme } from "../themes";
 import Analytics from "./Analytics";
 import { getThemeName } from "../core/functions";
 import useNotificationContext from "./NotificationProvider";
+import { isObject } from "quickbuilder";
+
+const useMediaQuery = (query) => {
+    const mediaQuery = window.matchMedia(query);
+    const [match, setMatch] = useState(!!mediaQuery.matches);
+
+    useEffect(() => {
+        const handler = () => setMatch(!!mediaQuery.matches);
+        mediaQuery.addEventListener("change", handler);
+        return () => mediaQuery.removeEventListener("change", handler);
+    }, []);
+
+    if (
+        typeof window === "undefined" ||
+        typeof window.matchMedia === "undefined"
+    )
+        return false;
+
+    return match;
+};
 
 const Notification = (props) => {
     const [exit, setExit] = useState(false);
@@ -16,6 +36,24 @@ const Notification = (props) => {
     const incrementValue = 0.5;
     const displayFor = ((settings?.display_for || 5) * 1000);
     const isMin = displayFor * (incrementValue / 100)
+
+    const isMobile = useMediaQuery("(max-width: 480px)");
+    const isTablet = useMediaQuery("(max-width: 768px)");
+    const [notificationSize, setNotificationSize] = useState();
+
+    useEffect(() => {
+        if (settings?.size) {
+            if (isObject(settings?.size)) {
+                setNotificationSize(
+                    isMobile
+                        ? settings?.size.mobile
+                        : isTablet
+                        ? settings?.size.tablet
+                        : settings?.size.desktop
+                );
+            } else setNotificationSize(settings?.size);
+        }
+    }, [isMobile, isTablet, settings?.size]);
 
     const handleStartTimer = () => {
         let startTime = Date.now();
@@ -96,7 +134,7 @@ const Notification = (props) => {
         }
     );
     const componentStyle: any = {
-        maxWidth: `${settings?.size.desktop}px`
+        maxWidth: `${notificationSize}px`,
     };
     if (settings?.advance_edit && settings?.conversion_size) {
         componentStyle.maxWidth = settings?.conversion_size;
