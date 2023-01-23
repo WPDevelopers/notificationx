@@ -242,7 +242,7 @@ class NotificationX {
 
     public function get_tab(){
         $tabs = get_transient('nx_builder_fields');
-        if(empty($tabs)){
+        if(empty($tabs) || (defined('NX_DEBUG') && NX_DEBUG)){
             $tabs = GlobalFields::get_instance()->tabs();
             set_transient( 'nx_builder_fields', $tabs, DAY_IN_SECONDS );
         }
