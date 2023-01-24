@@ -4,7 +4,7 @@ import { useBuilderContext } from "quickbuilder";
 import { useNotificationXContext } from "../hooks";
 import { Button } from "@wordpress/components";
 
-const Modal = ({ prevTab, nextTab, ...props }) => {
+const Modal = (props) => {
     const nxContext = useNotificationXContext();
     const _url = props.url + "?nx-preview=";
     const [isOpen, setIsOpen] = useState(false);

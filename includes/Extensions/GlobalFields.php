@@ -60,13 +60,15 @@ class GlobalFields {
                     'buttons' => [
                         'prev'    => __('Previous', 'notificationx'),
                         'next'    => __('Next', 'notificationx'),
-                        'preview' => [
-                            'label' => __('Preview', 'notificationx'),
-                            'type'  => 'preview-modal',
-                            'name'  => 'preview',
-                            'url'  => trailingslashit(home_url()),
-                        ],
                     ]
+                ],
+                'content_heading' => [
+                    'preview' => [
+                        'label' => __('Preview', 'notificationx'),
+                        'type'  => 'preview-modal',
+                        'name'  => 'preview',
+                        'url'  => trailingslashit(home_url()),
+                    ],
                 ],
             ],
             'submit' => [

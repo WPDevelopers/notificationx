@@ -19,10 +19,10 @@ import Modal from "./notificationx/fields/Modal";
     })
 
     addFilter('custom_field', 'NotificationX', Field);
-    addFilter('nx-preview-button', 'NotificationX', (props) => {
+    // addFilter('wprf_tab_content_heading', 'NotificationX', (props) => {
 
-        return <Modal {...props} ></Modal>;
-    });
+    //     return <Modal {...props} ></Modal>;
+    // });
 
     ReactDOM.render(
         <NotificationX />,

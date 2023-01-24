@@ -81,24 +81,38 @@ class FrontEnd {
         wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], NOTIFICATIONX_VERSION, 'all');
 
         if (!empty($_GET['nx-preview'])) {
+            $args = [
+                'total'     => 1,
+                'nxPreview' => true,
+                'pressbar'  => [],
+                'active'    => [],
+            ];
             $settings = stripslashes($_GET['nx-preview']);
             $settings = (array) json_decode($settings);
             if (empty($settings['source']))
                 return;
-            $source = (int) $settings['source'];
+            $source = $settings['source'];
 
-            $this->notificationXArr = apply_filters('get_notifications_ids', [
-                'active'   => [
+            if($source === 'press_bar'){
+                $args['pressbar'] = [
+                    $source => [
+                        'content' => $this->get_bar_content($settings),
+                        'post'    => $settings,
+                    ]
+                ];
+            }
+            else {
+                $args['active'] = [
                     $source => [
                         'entries' => [
                             $this->preview_entry($settings),
                         ],
                         'post'    => $settings,
                     ]
-                ],
-                'total'    => 1,
-                'nxPreview' => true,
-            ]);
+                ];
+            }
+
+            $this->notificationXArr = apply_filters('get_notifications_ids', $args);
             wp_enqueue_style('notificationx-public');
             wp_enqueue_script('notificationx-public');
             return;
@@ -306,10 +320,7 @@ class FrontEnd {
                 if (strpos($settings['button_url'], '//') === false) {
                     $settings['button_url'] = "//{$settings['button_url']}";
                 }
-                $bar_content  = PressBar::get_instance()->print_bar_notice($settings);
-                $bar_content  = apply_filters("nx_filtered_data_{$settings['source']}", $bar_content, $settings);
-                $_bar_content = str_replace(array("\n", "\r\n", "\r"), '', $bar_content);
-                $_bar_content = trim(strip_tags($_bar_content));
+                $bar_content = $this->get_bar_content($settings);
                 if (!empty($_bar_content) || !empty($settings['enable_countdown'])) {
                     if (empty($_bar_content) && !empty($settings['enable_countdown'])) {
                         $bar_content = '&nbsp;';
@@ -732,97 +743,114 @@ class FrontEnd {
     public function preview_entry($settings) {
         $source = !empty($settings['source']) ? $settings['source'] : '';
         $defaults = array(
-            "username" => "StefanoCianchi",
-            "avatar"   => [
-                "src" => "https://secure.gravatar.com/avatar/5f6240274c3b6a9854db00123607f611?s=16&d=monsterid&r=g"
-            ],
-            "content"     => "At my eyes, the documentation to download the Pro plugin is inefficient and sometime confusing. Anyway, I have to say that the assistance by Kathryn has been extremely effective, with high standard of patient despite my (low) competence.Thank youStefano Cianchi",
-            "plugin_name" => "Essential Addons for Elementor",
-            "title"       => "Woo ",
-            "timestamp"   => 1674479841,
-            "rating"      => 4.4,
-            "link"        => "https://maps.google.com/?cid=13982385020812754713",
-            "slug"        => "essential-addons-for-elementor-lite",
-            "icons"       => [
-                "1x" => "https://ps.w.org/essential-addons-for-elementor-lite/assets/icon-128x128.png?rev=2598498",
-                "2x" => "https://ps.w.org/essential-addons-for-elementor-lite/assets/icon-256x256.png?rev=2598498"
-            ],
-            "name"             => "WPDeveloper",
-            "ratings"          => [ 48, 13, 21, 66, 2826 ],
-            "rated"            => 42,
-            "entry_id"         => "2155",
-            "nx_id"            => "60",
-            "source"           => "google_reviews",
-            "entry_key"        => "ChIJ0cpDbNvBVTcRGX9JNhhpC8I",
-            "created_at"       => "2023-01-23 13:17:21",
-            "updated_at"       => "2023-01-23 13:17:21",
-            "first_name"       => "WPDeveloper",
-            "last_name"        => "Someone",
-            "anonymous_title"  => "Anonymous Title",
-            "sometime"         => "Some time ago",
-            "plugin_name_text" => "try it out",
-            "image_data"       => [
-                "url"     => "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
-                "alt"     => "",
-                "classes" => "greview_icon"
-            ],
-            "plugin_review"        => "At my eyes, the documentation to download the Pro plugin is inefficient and some...",
-            "lat"                  => 23.8371427,
-            "lon"                  => 90.3704629,
-            "map_url"              => "https://nxm.test/wp-content/uploads/nx-map/21.4284959,91.9701859.png",
-            "formatted_address"    => "House 592, Road 8 Avenue 5, Dhaka 1216, Bangladesh",
-            "icon"                 => "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
-            "place_id"             => "ChIJ0cpDbNvBVTcRGX9JNhhpC8I",
-            "url"                  => "https://maps.google.com/?cid=13982385020812754713",
-            "place_name"           => "WPDeveloper",
-            "city"                 => "Dhaka",
-            "country"              => "Bangladesh",
-            "city_country"         => "Somewhere",
-            "email"                => "pykycip@mailinator.com",
-            "status"               => "wc-processing",
-            "ip"                   => "103.108.146.88",
-            "id"                   => 5,
-            "last_updated"         => "2023-01-24 at 05:42am",
-            "count"                => 7,
-            "type"                 => "realtime_siteview",
-            "views"                => 1,
-            "this_page"            => "this page",
-            "day"                  => "days",
-            "month"                => "months",
-            "year"                 => "years",
-            "ga_title"             => "My Testing Site",
-            "siteview"             => 1,
-            "realtime_siteview"    => 1,
-            "num_ratings"          => 2974,
-            "version"              => "5.5.2",
-            "downloaded"           => 41514238,
-            "active_installs"      => "1M",
-            "author_profile"       => "https://profiles.wordpress.org/wpdevteam/",
-            "author"               => "<a href=\"https://wpdeveloper.com/\">WPDeveloper</a>",
-            "today"                => "1.4K+ times today",
-            "yesterday"            => "11.4K+ times",
-            "last_week"            => "75.1K+ times in last 7 days",
-            "all_time"             => "41.5M+ times",
-            "plugin_theme_name"    => "Essential Addons for Elementor",
-            "today_text"           => "Try It Out",
-            "last_week_text"       => "Get Started for Free.",
-            "all_time_text"        => "Why Don't You?",
-            "active_installs_text" => "Try It Out",
-            "website"              => "https://wpdeveloper.com/",
-            "your-name"            => "Cadman Jensen",
-            "your-email"           => "mirul@mailinator.com",
-            "your-subject"         => "Sit soluta itaque au",
-            "your-message"         => "Quia dolorum volupta",
-            "product_id"           => 168,
-            "course_title"         => "PHP Beginners – Become a PHP Master",
-            "post_link"            => "https://nxm.test/product/fresh-organic-honey/",
-            "user_id"              => "1",
-            "product_title"        => "Assorted Coffee",
-            "key"                  => "7368a455f5c113afbfd3d8c3ea89a5ed-5719",
-            "order_id"             => 5815,
-            "none"                 => ""
+            'active_installs'      => '1M',
+            'active_installs_text' => 'Try It Out',
+            'all_time'             => '41.5M+ times',
+            'all_time_text'        => 'Why Don\'t You?',
+            'anonymous_title'      => 'Anonymous Title',
+            'author'               => '<a href="https://wpdeveloper.com/">WPDeveloper</a>',
+            'author_profile'       => 'https://profiles.wordpress.org/wpdevteam/',
+            'avatar'               => array(
+                'src' => 'https://secure.gravatar.com/avatar/5f6240274c3b6a9854db00123607f611?s=16&d=monsterid&r=g',
+            ),
+            'city'              => 'Dhaka',
+            'city_country'      => 'Somewhere',
+            'content'           => 'At my eyes, the documentation to download the Pro plugin is inefficient and sometime confusing. Anyway, I have to say that the assistance by Kathryn has been extremely effective, with high standard of patient despite my (low) competence.Thank youStefano Cianchi',
+            'count'             => 7,
+            'country'           => 'Bangladesh',
+            'course_title'      => 'PHP Beginners – Become a PHP Master',
+            'created_at'        => '2023-01-23 13:17:21',
+            'day'               => 'days',
+            'downloaded'        => 41514238,
+            'email'             => 'pykycip@mailinator.com',
+            'entry_id'          => '2155',
+            'entry_key'         => 'ChIJ0cpDbNvBVTcRGX9JNhhpC8I',
+            'first_name'        => 'WPDeveloper',
+            'formatted_address' => 'House 592, Road 8 Avenue 5, Dhaka 1216, Bangladesh',
+            'ga_title'          => 'My Testing Site',
+            'icon'              => 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png',
+            'icons'             => array(
+                '1x' => 'https://ps.w.org/essential-addons-for-elementor-lite/assets/icon-128x128.png?rev=2598498',
+                '2x' => 'https://ps.w.org/essential-addons-for-elementor-lite/assets/icon-256x256.png?rev=2598498',
+            ),
+            'id'         => 5,
+            'image_data' => array(
+                'url'     => 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png',
+                'alt'     => '',
+                'classes' => 'greview_icon',
+            ),
+            'ip'                => '103.108.146.88',
+            'key'               => '7368a455f5c113afbfd3d8c3ea89a5ed-5719',
+            'last_name'         => 'Someone',
+            'last_updated'      => '2023-01-24 at 05:42am',
+            'last_week'         => '75.1K+ times in last 7 days',
+            'last_week_text'    => 'Get Started for Free.',
+            'lat'               => 23.8371427,
+            'link'              => 'https://maps.google.com/?cid=13982385020812754713',
+            'lon'               => 90.3704629,
+            'map_url'           => 'https://nxm.test/wp-content/uploads/nx-map/21.4284959,91.9701859.png',
+            'month'             => 'months',
+            'name'              => 'WPDeveloper',
+            'none'              => '',
+            'num_ratings'       => 2974,
+            'nx_id'             => '60',
+            'order_id'          => 5815,
+            'place_id'          => 'ChIJ0cpDbNvBVTcRGX9JNhhpC8I',
+            'place_name'        => 'WPDeveloper',
+            'plugin_name'       => 'Essential Addons for Elementor',
+            'plugin_name_text'  => 'try it out',
+            'plugin_review'     => 'At my eyes, the documentation to download the Pro plugin is inefficient and some...',
+            'plugin_theme_name' => 'Essential Addons for Elementor',
+            'post_link'         => 'https://nxm.test/product/fresh-organic-honey/',
+            'product_id'        => 168,
+            'product_title'     => 'Assorted Coffee',
+            'rated'             => 42,
+            'rating'            => 4.4,
+            'ratings'           => array(
+                0 => 48,
+                1 => 13,
+                2 => 21,
+                3 => 66,
+                4 => 2826,
+            ),
+            'realtime_siteview' => 1,
+            'siteview'          => 1,
+            'slug'              => 'essential-addons-for-elementor-lite',
+            'sometime'          => 'Some time ago',
+            'source'            => 'google_reviews',
+            'status'            => 'wc-processing',
+            'this_page'         => 'this page',
+            'timestamp'         => 1674479841,
+            'title'             => 'Woo ',
+            'today'             => '1.4K+ times today',
+            'today_text'        => 'Try It Out',
+            'type'              => 'realtime_siteview',
+            'updated_at'        => '2023-01-23 13:17:21',
+            'url'               => 'https://maps.google.com/?cid=13982385020812754713',
+            'user_id'           => '1',
+            'username'          => 'StefanoCianchi',
+            'version'           => '5.5.2',
+            'views'             => 1,
+            'website'           => 'https://wpdeveloper.com/',
+            'year'              => 'years',
+            'yesterday'         => '11.4K+ times',
+            'your-email'        => 'mirul@mailinator.com',
+            'your-message'      => 'Quia dolorum volupta',
+            'your-name'         => 'Cadman Jensen',
+            'your-subject'      => 'Sit soluta itaque au',
         );
-
-        return apply_filters("nx_preview_entry_$source", array_filter($defaults), $settings);
+        // ksort($defaults);
+        // var_export($defaults);
+        // die;
+        return apply_filters("nx_preview_entry_$source", $defaults, $settings);
     }
+
+    public function get_bar_content($settings){
+        $bar_content  = PressBar::get_instance()->print_bar_notice($settings);
+        $bar_content  = apply_filters("nx_filtered_data_{$settings['source']}", $bar_content, $settings);
+        $_bar_content = str_replace(array("\n", "\r\n", "\r"), '', $bar_content);
+        $_bar_content = trim(strip_tags($_bar_content));
+        return $bar_content;
+    }
+
 }

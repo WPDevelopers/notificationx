@@ -1,6 +1,6 @@
 import { useReducer, useEffect, useRef, useState, useCallback } from "react";
 import { frontendReducer } from ".";
-import { isNotClosed, normalize, normalizeResponse } from "./utils";
+import { isNotClosed, normalize, normalizePressBar, normalizeResponse } from "./utils";
 import { v4 } from "uuid";
 import cookie from "react-cookies";
 import sortArray from "sort-array";
@@ -58,9 +58,13 @@ const useNotificationX = (props: any) => {
         // Fetch Notices
 
         if(props.config.nxPreview){
-            console.log(props.config.active);
-            setActiveNotices(normalize(props.config.active, {}));
-
+            console.log(props.config);
+            if(Object.keys(props.config.active).length){
+                setActiveNotices(normalize(props.config.active, {}));
+            }
+            if(Object.keys(props.config.pressbar).length){
+                setPressbarNotices(normalizePressBar(props.config.pressbar, {}));
+            }
             return;
         }
 

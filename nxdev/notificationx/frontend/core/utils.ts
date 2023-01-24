@@ -80,7 +80,7 @@ export const normalize = (_entries, globalSettings) => {
     return mergedArray;
 }
 
-const normalizePressBar = (_entries, globalSettings) => {
+export const normalizePressBar = (_entries, globalSettings) => {
     let mergedArray = [];
     _entries = _entries || {};
     for (const key in _entries) {
