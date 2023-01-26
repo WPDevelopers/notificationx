@@ -123,7 +123,6 @@ class WooCommerce extends Extension {
             'product_page' => __('Product Page', 'notificationx'),
         ], 'source', $this->id, $options);
 
-        $this->has_link_types = true;
         return $options;
     }
 

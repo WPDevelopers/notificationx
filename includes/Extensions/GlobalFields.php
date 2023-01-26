@@ -213,9 +213,6 @@ class GlobalFields {
                                             "wpf" => [
                                                 'show_notification_image' => '@show_notification_image:gravatar',
                                             ],
-                                            "google_reviews" => [
-                                                'link_type' => '@link_type:map_page',
-                                            ],
                                         ] ),
                                     ]
                                 ],

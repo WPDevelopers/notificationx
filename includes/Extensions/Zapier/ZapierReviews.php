@@ -30,6 +30,7 @@ class ZapierReviews extends Extension {
     public $types    = 'reviews';
     public $module   = 'modules_zapier';
     public $is_pro   = true;
+    public $module_priority = 16;
 
     /**
      * Initially Invoked when initialized.

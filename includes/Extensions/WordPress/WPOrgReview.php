@@ -41,6 +41,7 @@ class WPOrgReview extends Extension {
     public $types    = 'reviews';
     public $module   = 'modules_wordpress';
     public $cron_schedule = 'nx_wp_review_interval';
+	public $module_priority = 2;
 
     /**
      * Initially Invoked when initialized.

@@ -7,7 +7,6 @@ namespace NotificationX\Extensions\WordPress;
  */
 trait WordPress
 {
-	public $module_priority = 2;
 
     public function doc(){
         return sprintf(__('<p>Make sure that you have a <a target="_blank" href="%1$s">wordpress.org</a> account to use its campaign on blog comments, reviews and download stats data. For further assistance, check out our step by step documentation on <a target="_blank" href="%2$s">comments popup</a>, <a target="_blank" href="%3$s">plugin reviews</a> & <a target="_blank" href="%4$s">downloads stats</a>.</p>

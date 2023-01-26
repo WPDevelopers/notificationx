@@ -42,6 +42,7 @@ class WPOrgStats extends Extension {
     public $types    = 'download_stats';
     public $module   = 'modules_wordpress';
     public $cron_schedule = 'nx_wp_stats_interval';
+	public $module_priority = 2;
 
     /**
      * Initially Invoked when initialized.

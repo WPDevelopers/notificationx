@@ -33,6 +33,7 @@ class ELearning extends Types {
     ];
     public $default_source    = 'tutor';
     public $default_theme = 'elearning_theme-one';
+    public $link_type = 'course_page';
 
 
     /**
@@ -164,19 +165,6 @@ class ELearning extends Types {
         parent::init_fields();
         add_filter('nx_link_types', [$this, 'link_types']);
         add_filter('nx_content_fields', [$this, 'content_fields']);
-        add_filter('nx_type_trigger', [$this, 'type_trigger'], 20);
-    }
-
-    /**
-     * Get themes for the extension.
-     *
-     *
-     * @param array $args Settings arguments.
-     * @return mixed
-     */
-    public function type_trigger($triggers) {
-        $triggers[$this->id]['link_type'] = "@link_type:course_page";
-        return $triggers;
     }
 
     /**
@@ -226,7 +214,6 @@ class ELearning extends Types {
             'course_page' => __('Course Page', 'notificationx'),
         ], 'type', $this->id);
 
-        $this->has_link_types = true;
         return array_merge($options, $_options);
     }
 

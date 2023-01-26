@@ -35,7 +35,6 @@ abstract class Extension {
     public $themes                = [];
     public $selected_themes       = [];
     public $is_pro                = false;
-    public $has_link_types        = false;
     public $popup                 = null;
     public $module                = '';
     public $module_title          = '';
@@ -45,6 +44,8 @@ abstract class Extension {
     public $templates             = [];
     public $cron_schedule         = '';
     public $exclude_custom_themes = false;
+    public $priority              = 5;
+    public $module_priority       = 5;
 
     /**
      * All Active Notification Items
@@ -53,6 +54,7 @@ abstract class Extension {
      */
     public $enabled_types  = [];
     public $default_theme = '';
+    public $link_type = '';
 
     // @todo Something
     // public abstract function save_post($post_id, $post, $update);
@@ -168,6 +170,20 @@ abstract class Extension {
 
     }
 
+    public function get_link_type(){
+        $link_type = $this->link_type;
+        if(empty($link_type)){
+            $type = $this->get_type();
+            if(!empty($type->link_type)){
+                $link_type = $type->link_type;
+            }
+        }
+        if($link_type === '-1'){
+            $link_type = '';
+        }
+        return $link_type;
+    }
+
     /**
      * Get themes for the extension.
      *
@@ -184,6 +200,12 @@ abstract class Extension {
             $triggers[$this->id]['themes']   = "@themes:{$this->default_theme}";
         }
         $triggers[$this->id]['position'] = "@position:bottom_left";
+
+        $link_type = $this->get_link_type();
+
+        if (!empty($link_type)){
+            $triggers[$this->id]['link_type'] = "@link_type:{$link_type}";
+        }
         return $triggers;
     }
 
@@ -293,13 +315,9 @@ abstract class Extension {
      * @return array
      */
     public function __link_types_dependency($dependency) {
-        if ($this->has_link_types){
+        $link_type = $this->get_link_type();
+        if (!empty($link_type)){
             $dependency[] = $this->id;
-        } else {
-            $type = $this->get_type();
-            if(!empty($type->has_link_types) && $type->has_link_types){
-                $dependency[] = $this->id;
-            }
         }
         return $dependency;
     }

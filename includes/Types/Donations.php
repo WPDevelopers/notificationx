@@ -30,6 +30,7 @@ class Donations extends Types {
     public $module = ['modules_give'];
     public $default_source    = 'give';
     public $default_theme = 'donation_theme-one';
+    public $link_type = 'donation_page';
 
 
     /**
@@ -158,19 +159,6 @@ class Donations extends Types {
     public function init_fields() {
         parent::init_fields();
         add_filter('nx_link_types', [$this, 'link_types']);
-        add_filter('nx_type_trigger', [$this, 'type_trigger'], 20);
-    }
-
-    /**
-     * Get themes for the extension.
-     *
-     *
-     * @param array $args Settings arguments.
-     * @return mixed
-     */
-    public function type_trigger($triggers) {
-        $triggers[$this->id]['link_type'] = "@link_type:donation_page";
-        return $triggers;
     }
 
     /**
@@ -184,7 +172,6 @@ class Donations extends Types {
             'donation_page' => __('Donation Form Page', 'notificationx'),
         ], 'type', $this->id);
 
-        $this->has_link_types = true;
         return array_merge($options, $_options);
     }
 

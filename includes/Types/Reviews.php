@@ -36,6 +36,7 @@ class Reviews extends Types {
     ];
     public $default_source    = 'wp_reviews';
     public $default_theme = 'reviews_total-rated';
+    public $link_type = 'product_page';
 
 
     /**
@@ -181,19 +182,6 @@ class Reviews extends Types {
         parent::init_fields();
         add_filter('nx_notification_template', [$this, 'review_templates'], 7);
         add_filter('nx_content_trim_length_dependency', [$this, 'content_trim_length_dependency']);
-        add_filter('nx_type_trigger', [$this, 'type_trigger'], 20);
-    }
-
-    /**
-     * Get themes for the extension.
-     *
-     *
-     * @param array $args Settings arguments.
-     * @return mixed
-     */
-    public function type_trigger($triggers) {
-        $triggers[$this->id]['link_type'] = "@link_type:product_page";
-        return $triggers;
     }
 
     /**
@@ -207,7 +195,6 @@ class Reviews extends Types {
             'review_page' => __('Product Page', 'notificationx'),
         ], 'type', $this->id);
 
-        $this->has_link_types = true;
         return array_merge($options, $_options);
     }
 

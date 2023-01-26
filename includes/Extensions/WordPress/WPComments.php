@@ -32,6 +32,7 @@ class WPComments extends Extension {
     public $doc_link = 'https://notificationx.com/docs-category/configurations/';
     public $types    = 'comments';
     public $module   = 'modules_wordpress';
+	public $module_priority = 2;
 
     /**
      * Initially Invoked when initialized.

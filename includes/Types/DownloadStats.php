@@ -32,6 +32,7 @@ class DownloadStats extends Types {
     ];
     public $default_source    = 'wp_stats';
     public $default_theme = 'download_stats_today-download';
+    public $link_type = 'product_page';
 
 
     /**
@@ -143,7 +144,6 @@ class DownloadStats extends Types {
     public function init_fields() {
         parent::init_fields();
         add_filter('nx_link_types', [$this, 'link_types']);
-        add_filter('nx_type_trigger', [$this, 'type_trigger'], 20);
         add_filter('nx_content_fields', [$this, 'content_fields'], 20);
     }
     /**
@@ -155,17 +155,6 @@ class DownloadStats extends Types {
     public function content_fields($fields) {
         $fields['content']['fields']['random_order'] = Rules::is('type', $this->id, true, $fields["content"]['fields']['random_order']);
         return $fields;
-    }
-    /**
-     * Get themes for the extension.
-     *
-     *
-     * @param array $args Settings arguments.
-     * @return mixed
-     */
-    public function type_trigger($triggers) {
-        $triggers[$this->id]['link_type'] = "@link_type:product_page";
-        return $triggers;
     }
 
     /**
@@ -179,7 +168,6 @@ class DownloadStats extends Types {
             'stats_page' => __('Product Page', 'notificationx'),
         ], 'type', $this->id);
 
-        $this->has_link_types = true;
         return array_merge($options, $_options);
     }
 }

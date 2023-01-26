@@ -20,14 +20,14 @@ abstract class Types {
     public $id;
     public $title;
     public $dashboard_title;
-    public $is_pro = false;
-    public $themes = [];
-    public $module = [];
-    public $templates = [];
-    public $has_link_types = false;
-    public $default_source    = '';
-    public $default_theme = '';
+    public $is_pro         = false;
+    public $themes         = [];
+    public $module         = [];
+    public $templates      = [];
+    public $default_source = '';
+    public $default_theme  = '';
     public $popup          = null;
+    public $link_type      = 'none';
 
     /**
      * Initially Invoked when initialized.

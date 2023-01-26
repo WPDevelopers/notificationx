@@ -30,6 +30,7 @@ class FreemiusConversions extends Extension {
     public $doc_link = 'https://notificationx.com/docs/freemius-sales-notification/';
     public $module   = 'modules_freemius';
     public $is_pro   = true;
+    public $module_priority = 12;
 
     /**
      * Initially Invoked when initialized.

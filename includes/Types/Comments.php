@@ -29,6 +29,7 @@ class Comments extends Types {
     public $id             = 'comments';
     public $default_source = 'wp_comments';
     public $default_theme  = 'comments_theme-one';
+    public $link_type      = 'comment_url';
 
     /**
      * Initially Invoked when initialized.
@@ -187,20 +188,7 @@ class Comments extends Types {
     public function init_fields() {
         parent::init_fields();
         add_filter('nx_content_trim_length_dependency', [$this, 'content_trim_length_dependency']);
-        add_filter('nx_type_trigger', [$this, 'type_trigger'], 20);
 
-    }
-
-    /**
-     * Get themes for the extension.
-     *
-     *
-     * @param array $args Settings arguments.
-     * @return mixed
-     */
-    public function type_trigger($triggers) {
-        $triggers[$this->id]['link_type'] = "@link_type:comment_url";
-        return $triggers;
     }
 
     /**
@@ -214,7 +202,6 @@ class Comments extends Types {
             'comment_url'      => __('Comment URL', 'notificationx'),
         ], 'type', $this->id);
 
-        $this->has_link_types = true;
         return array_merge($options, $_options);
     }
 

@@ -30,6 +30,7 @@ class ZapierEmailSubscription extends Extension {
     public $types    = 'email_subscription';
     public $module   = 'modules_zapier';
     public $is_pro   = true;
+    public $module_priority = 16;
 
     /**
      * Initially Invoked when initialized.

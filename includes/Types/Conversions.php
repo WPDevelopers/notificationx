@@ -43,6 +43,7 @@ class Conversions extends Types {
 
     public $default_source    = 'woocommerce';
     public $default_theme = 'conversions_theme-one';
+    public $link_type = 'product_page';
 
     /**
      * Initially Invoked when initialized.
@@ -163,19 +164,6 @@ class Conversions extends Types {
     public function init_fields() {
         parent::init_fields();
         add_filter('nx_content_fields', [$this, 'content_fields'], 9);
-        add_filter('nx_type_trigger', [$this, 'type_trigger'], 20);
-    }
-
-    /**
-     * Get themes for the extension.
-     *
-     *
-     * @param array $args Settings arguments.
-     * @return mixed
-     */
-    public function type_trigger($triggers) {
-        $triggers[$this->id]['link_type'] = "@link_type:product_page";
-        return $triggers;
     }
 
     /**

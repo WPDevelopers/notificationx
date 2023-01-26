@@ -142,7 +142,6 @@ class EDD extends Extension {
             ), 'source', $this->id, $options
         );
 
-        $this->has_link_types = true;
         return $options;
     }
 

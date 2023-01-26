@@ -75,7 +75,7 @@ class TypeFactory {
      * This function is responsible for getting the type from loaded type.
      *
      * @param string $key
-     * @return bool|void
+     * @return Types
      */
     public function get( $key ){
         if( empty( $key ) ) {

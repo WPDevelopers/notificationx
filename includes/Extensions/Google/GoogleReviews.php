@@ -32,6 +32,7 @@ class GoogleReviews extends Extension {
     public $module_priority = 20;
     public $default_theme   = 'google_reviews_total-rated';
     public $is_pro          = true;
+    public $link_type       = 'map_page';
 
     /**
      * Initially Invoked when initialized.

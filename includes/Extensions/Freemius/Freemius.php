@@ -14,7 +14,6 @@ namespace NotificationX\Extensions\Freemius;
 trait Freemius
 {
 
-    public $module_priority = 12;
 
     public function doc(){
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">created & signed in to Freemius account</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
