@@ -27,6 +27,7 @@ class Inline extends Types {
     public $module         = ['modules_woocommerce'];
     public $id             = 'inline';
     public $default_source = 'woo_inline';
+    public $link_type      = '-1';
 
     /**
      * Initially Invoked when initialized.
