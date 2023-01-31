@@ -175,4 +175,12 @@ class Donations extends Types {
         return array_merge($options, $_options);
     }
 
+    public function preview_entry($entry, $settings){
+        $entry = array_merge($entry, [
+            "title"             => "Fundraising Camp for Health",
+
+        ]);
+        return $entry;
+    }
+
 }

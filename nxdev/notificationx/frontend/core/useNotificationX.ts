@@ -6,6 +6,7 @@ import cookie from "react-cookies";
 import sortArray from "sort-array";
 import nxHelper from "./functions";
 import moment from "moment";
+import usePreviewType from "./usePreviewType";
 
 const useNotificationX = (props: any) => {
 
@@ -16,7 +17,7 @@ const useNotificationX = (props: any) => {
     });
 
     const isMounted = useRef(null);
-
+    const previewType = usePreviewType();
     const [activeNotices, setActiveNotices] = useState(null);
     const [globalNotices, setGlobalNotices] = useState(null);
     const [pressbarNotices, setPressbarNotices] = useState(null);
@@ -52,19 +53,47 @@ const useNotificationX = (props: any) => {
         [ state ],
     );
 
+
+
+    useEffect(() => {
+        if(props.config.nxPreview){
+            const config = {...props.config};
+            const params = new URLSearchParams(window.location.search);
+            let settings = JSON.parse(params.get('nx-preview'));
+            settings = {...settings, previewType};
+
+
+            if(Object.keys(config.active).length){
+                const filteredConfig = {};
+                Object.keys(config.active).forEach((key) => {
+                    const active = config.active[key];
+                    active['post'] = settings;
+                    if(!(previewType === 'phone' && settings.hide_on_mobile)){
+                        filteredConfig[key] = active;
+                    }
+                });
+                setActiveNotices(normalize(filteredConfig, {}));
+            }
+            if(Object.keys(config.pressbar).length){
+                const filteredConfig = {};
+                Object.keys(config.pressbar).forEach((key) => {
+                    const pressbar = config.pressbar[key];
+                    pressbar['post'] = settings;
+                    if(!(previewType === 'phone' && settings.hide_on_mobile)){
+                        filteredConfig[key] = pressbar;
+                    }
+                });
+                setPressbarNotices(normalizePressBar(filteredConfig, {}));
+            }
+        }
+    }, [previewType])
+
     useEffect(() => {
         isMounted.current = true;
         // console.log("props frontend", props);
         // Fetch Notices
 
         if(props.config.nxPreview){
-            console.log(props.config);
-            if(Object.keys(props.config.active).length){
-                setActiveNotices(normalize(props.config.active, {}));
-            }
-            if(Object.keys(props.config.pressbar).length){
-                setPressbarNotices(normalizePressBar(props.config.pressbar, {}));
-            }
             return;
         }
 
@@ -126,6 +155,8 @@ const useNotificationX = (props: any) => {
      */
     useEffect(() => {
         // Procces to render;
+        let timeoutIDs = {};
+        let intervalIDs = {};
         if (activeNotices != null && activeNotices.length > 0) {
             activeNotices.forEach((entries) => {
                 if (entries?.length > 0) {
@@ -154,30 +185,45 @@ const useNotificationX = (props: any) => {
                         config
                     }
 
-                    const timeoutID = setTimeout(() => {
-                        args.timeoutID = timeoutID;
+                    timeoutIDs[id] = setTimeout(() => {
+                        args.timeoutID = timeoutIDs[id];
                         args.data = entries[id].data;
                         dispatchNotification( args );
                         // notice
-                        const intervalID = setInterval(() => {
+                        intervalIDs[id] = setInterval(() => {
                             if ( id === entries?.length - 1 ) {
                                 if (config.loop) {
                                     id = 0;
                                 } else {
-                                    clearInterval(intervalID);
-                                    clearInterval(timeoutID);
+                                    clearInterval(intervalIDs[id]);
+                                    clearTimeout(timeoutIDs[id]);
                                     return;
                                 }
                             } else {
                                 id++;
                             }
-                            args.intervalID = intervalID;
+                            args.intervalID = intervalIDs[id];
                             args.data = entries[id].data;
                             dispatchNotification( args );
                         }, displayFor + delayBetween );
-                    }, delayBefore )
+                    }, delayBefore );
                 }
             });
+        }
+        return () => {
+            console.log(activeNotices, timeoutIDs, intervalIDs);
+
+            if(Object.keys(timeoutIDs)?.length){
+                Object.keys(timeoutIDs).forEach(id => {
+                    clearTimeout(timeoutIDs?.[id]);
+                });
+            }
+            if(Object.keys(intervalIDs)?.length){
+                Object.keys(intervalIDs).forEach(id => {
+                    clearInterval(intervalIDs?.[id]);
+                });
+            }
+
         }
     }, [activeNotices]);
     /**

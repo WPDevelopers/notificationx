@@ -259,4 +259,11 @@ class Reviews extends Types {
 
         return $saved_data;
     }
+    public function preview_entry($entry, $settings){
+        $entry = array_merge($entry, [
+            "title"             => "Excellent",
+
+        ]);
+        return $entry;
+    }
 }

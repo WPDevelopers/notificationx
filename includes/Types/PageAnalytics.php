@@ -120,5 +120,13 @@ class PageAnalytics extends Types {
 
     }
 
+    public function preview_entry($entry, $settings){
+        $entry = array_merge($entry, [
+            "title"             => "WPDeveloper",
+
+        ]);
+        return $entry;
+    }
+
 
 }

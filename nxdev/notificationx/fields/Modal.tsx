@@ -15,16 +15,20 @@ const Modal = (props) => {
 
     // console.log(prevTab, nextTab);
 
+    const buildUrl = () => {
+        setUrl(
+            _url +
+                encodeURIComponent(
+                    JSON.stringify({ ...context.values, previewType })
+                )
+        );
+    }
+
     const openModal = () => {
         setIsOpen(!isOpen);
 
         if (!isOpen) {
-            setUrl(
-                _url +
-                    encodeURIComponent(
-                        JSON.stringify({ ...context.values, previewType })
-                    )
-            );
+            buildUrl();
         }
     };
 
@@ -133,7 +137,7 @@ const Modal = (props) => {
                     </div>
                     <div style={{}}>
                         <iframe
-                            src={url}
+                            src={url + "#" + previewType}
                             width="100%"
                             height="600px"
                             style={{ display: "flex" }}

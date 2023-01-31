@@ -223,4 +223,12 @@ class ELearning extends Types {
         }
         return $saved_data;
     }
+
+    public function preview_entry($entry, $settings){
+        $entry = array_merge($entry, [
+            "title"             => "PHP Beginners – Become a PHP Master",
+
+        ]);
+        return $entry;
+    }
 }

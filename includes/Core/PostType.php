@@ -403,9 +403,9 @@ class PostType {
     public function get_theme_preview_image( $post ) {
         $url = '';
 
-        if ( ! empty( $post['source'] ) && ! empty( $post['theme'] ) ) {
+        if ( ! empty( $post['source'] ) && ! empty( $post['themes'] ) ) {
             $source = $post['source'];
-            $theme  = $post['theme'];
+            $theme  = $post['themes'];
             if ( $ex = ExtensionFactory::get_instance()->get( $source ) ) {
                 $themes = $ex->get_themes();
                 if ( ! empty( $themes[ $theme ]['source'] ) ) {

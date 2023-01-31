@@ -96,7 +96,7 @@ class FrontEnd {
             if($source === 'press_bar'){
                 $args['pressbar'] = [
                     $source => [
-                        'content' => $this->get_bar_content($settings),
+                        'content' => $this->get_bar_content($settings, true),
                         'post'    => $settings,
                     ]
                 ];
@@ -115,6 +115,7 @@ class FrontEnd {
             $this->notificationXArr = apply_filters('get_notifications_ids', $args);
             wp_enqueue_style('notificationx-public');
             wp_enqueue_script('notificationx-public');
+            add_filter('show_admin_bar', '__return_false');
             return;
         }
         if (empty($_GET['elementor-preview'])) {
@@ -588,7 +589,7 @@ class FrontEnd {
 
         foreach ($defaults as $key => $value) {
             // @todo mukul remove  `|| empty(trim($entry[$key]))`
-            if (empty($entry[$key]) || empty(trim($entry[$key]))) {
+            if (empty($entry[$key]) || (is_string($entry[$key]) && empty(trim($entry[$key])))) {
                 $entry[$key] = $value;
             }
         }
@@ -742,7 +743,10 @@ class FrontEnd {
 
     public function preview_entry($settings) {
         $source = !empty($settings['source']) ? $settings['source'] : '';
-        $defaults = array(
+        $type = !empty($settings['type']) ? $settings['type'] : '';
+        $nx_id = !empty($settings['nx_id']) ? $settings['nx_id'] : '';
+        $defaults = [
+            'nx_id'                => $nx_id,
             'active_installs'      => '1M',
             'active_installs_text' => 'Try It Out',
             'all_time'             => '41.5M+ times',
@@ -754,20 +758,20 @@ class FrontEnd {
                 'src' => 'https://secure.gravatar.com/avatar/5f6240274c3b6a9854db00123607f611?s=16&d=monsterid&r=g',
             ),
             'city'              => 'Dhaka',
-            'city_country'      => 'Somewhere',
-            'content'           => 'At my eyes, the documentation to download the Pro plugin is inefficient and sometime confusing. Anyway, I have to say that the assistance by Kathryn has been extremely effective, with high standard of patient despite my (low) competence.Thank youStefano Cianchi',
+            'city_country'      => 'Bangladesh',
+            'content'           => 'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
             'count'             => 7,
             'country'           => 'Bangladesh',
             'course_title'      => 'PHP Beginners – Become a PHP Master',
-            'created_at'        => '2023-01-23 13:17:21',
+            'created_at'        => current_time('mysql', true),
             'day'               => 'days',
             'downloaded'        => 41514238,
-            'email'             => 'pykycip@mailinator.com',
-            'entry_id'          => '2155',
+            'email'             => 'support@wpdeveloper.com',
+            'entry_id'          => rand(1000, 9999),
             'entry_key'         => 'ChIJ0cpDbNvBVTcRGX9JNhhpC8I',
-            'first_name'        => 'WPDeveloper',
+            'first_name'        => 'John',
             'formatted_address' => 'House 592, Road 8 Avenue 5, Dhaka 1216, Bangladesh',
-            'ga_title'          => 'My Testing Site',
+            'ga_title'          => 'NotificationX',
             'icon'              => 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png',
             'icons'             => array(
                 '1x' => 'https://ps.w.org/essential-addons-for-elementor-lite/assets/icon-128x128.png?rev=2598498',
@@ -775,33 +779,33 @@ class FrontEnd {
             ),
             'id'         => 5,
             'image_data' => array(
-                'url'     => 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png',
+                'url'     => home_url('/wp-content/plugins/notificationx/assets/public/image/icons/pink-face-looped.gif'),
                 'alt'     => '',
                 'classes' => 'greview_icon',
             ),
             'ip'                => '103.108.146.88',
             'key'               => '7368a455f5c113afbfd3d8c3ea89a5ed-5719',
-            'last_name'         => 'Someone',
-            'last_updated'      => '2023-01-24 at 05:42am',
+            'last_name'         => 'Doe',
+            'last_updated'      => current_time('mysql', true),
             'last_week'         => '75.1K+ times in last 7 days',
             'last_week_text'    => 'Get Started for Free.',
             'lat'               => 23.8371427,
-            'link'              => 'https://maps.google.com/?cid=13982385020812754713',
+            // 'link'              => '#',
             'lon'               => 90.3704629,
             'map_url'           => 'https://nxm.test/wp-content/uploads/nx-map/21.4284959,91.9701859.png',
             'month'             => 'months',
-            'name'              => 'WPDeveloper',
+            'name'              => 'John Doe',
             'none'              => '',
             'num_ratings'       => 2974,
             'nx_id'             => '60',
             'order_id'          => 5815,
             'place_id'          => 'ChIJ0cpDbNvBVTcRGX9JNhhpC8I',
             'place_name'        => 'WPDeveloper',
-            'plugin_name'       => 'Essential Addons for Elementor',
+            'plugin_name'       => 'NotificationX',
             'plugin_name_text'  => 'try it out',
-            'plugin_review'     => 'At my eyes, the documentation to download the Pro plugin is inefficient and some...',
-            'plugin_theme_name' => 'Essential Addons for Elementor',
-            'post_link'         => 'https://nxm.test/product/fresh-organic-honey/',
+            'plugin_review'     => 'Lorem Ipsum is simply dummy text...',
+            'plugin_theme_name' => 'NotificationX',
+            'post_link'         => '#',
             'product_id'        => 168,
             'product_title'     => 'Assorted Coffee',
             'rated'             => 42,
@@ -813,41 +817,62 @@ class FrontEnd {
                 3 => 66,
                 4 => 2826,
             ),
-            'realtime_siteview' => 1,
-            'siteview'          => 1,
-            'slug'              => 'essential-addons-for-elementor-lite',
+            'realtime_siteview' => 26,
+            'siteview'          => 105,
+            'slug'              => 'notificafionx',
             'sometime'          => 'Some time ago',
             'source'            => 'google_reviews',
             'status'            => 'wc-processing',
             'this_page'         => 'this page',
-            'timestamp'         => 1674479841,
-            'title'             => 'Woo ',
+            'timestamp'         => current_time('mysql', true),
+            'title'             => 'Hoodie with Logo',
             'today'             => '1.4K+ times today',
             'today_text'        => 'Try It Out',
             'type'              => 'realtime_siteview',
-            'updated_at'        => '2023-01-23 13:17:21',
-            'url'               => 'https://maps.google.com/?cid=13982385020812754713',
+            'updated_at'        => current_time('mysql', true),
+            'url'               => '#',
             'user_id'           => '1',
-            'username'          => 'StefanoCianchi',
+            'username'          => 'johndoe',
             'version'           => '5.5.2',
-            'views'             => 1,
+            'views'             => 26,
             'website'           => 'https://wpdeveloper.com/',
             'year'              => 'years',
             'yesterday'         => '11.4K+ times',
-            'your-email'        => 'mirul@mailinator.com',
-            'your-message'      => 'Quia dolorum volupta',
-            'your-name'         => 'Cadman Jensen',
-            'your-subject'      => 'Sit soluta itaque au',
-        );
+            'your-email'        => 'support@wpdeveloper.com',
+            'your-message'      => 'Lorem Ipsum is simply dummy text.',
+            'your-name'         => 'John Doe',
+            'your-subject'      => 'Lorem Ipsum',
+            'post_title'        => 'Hello World',
+            'sales_count'       => '28',
+            '1day'              => __( 'In last 1 day', 'notificationx' ),
+            '7days'             => __( 'In last 7 days', 'notificationx' ),
+            '30days'            => __( 'In last 30 days', 'notificationx' ),
+            'post_comment'      => 'Lorem Ipsum is simply dummy text...',
+            'select_a_tag'      => 'Jhon',
+
+        ];
         // ksort($defaults);
         // var_export($defaults);
         // die;
+        if($settings['notification-template']->first_param = 'select_a_tag'){
+            $settings['notification-template']->first_param = 'tag_select_a_tag';
+        }
+
+        $defaults['image_data'] = $this->apply_defaults($defaults['image_data'], (array) $this->get_image_url($defaults, $settings));
+
+        $_defaults = apply_filters("nx_fallback_data_$source", $defaults, $defaults, $settings);
+        $_defaults = apply_filters('nx_fallback_data', $_defaults, $_defaults, $settings);
+        $defaults               = $this->apply_defaults($defaults, $_defaults);
+        $defaults = apply_filters("nx_preview_entry_$type", $defaults, $settings);
         return apply_filters("nx_preview_entry_$source", $defaults, $settings);
     }
 
-    public function get_bar_content($settings){
+    public function get_bar_content($settings, $suppress_filters = false){
         $bar_content  = PressBar::get_instance()->print_bar_notice($settings);
-        $bar_content  = apply_filters("nx_filtered_data_{$settings['source']}", $bar_content, $settings);
+        if(!$suppress_filters){
+            $bar_content  = apply_filters("nx_filtered_data_{$settings['source']}", $bar_content, $settings);
+        }
+
         $_bar_content = str_replace(array("\n", "\r\n", "\r"), '', $bar_content);
         $_bar_content = trim(strip_tags($_bar_content));
         return $bar_content;

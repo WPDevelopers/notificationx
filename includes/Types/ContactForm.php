@@ -200,4 +200,12 @@ class ContactForm extends Types {
         $behaviour['link_open'] = Rules::is('type', $this->id, true, $behaviour['link_open']);
         return $fields;
     }
+
+    public function preview_entry($entry, $settings){
+        $entry = array_merge($entry, [
+            "title"             => "Support Us Form",
+
+        ]);
+        return $entry;
+    }
 }

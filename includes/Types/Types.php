@@ -36,6 +36,9 @@ abstract class Types {
         add_action('init', [$this, 'init']);
         add_action('nx_before_metabox_load', [$this, 'init_fields']);
         add_filter('nx_type_trigger', [$this, 'type_trigger']);
+        if(method_exists($this, 'preview_entry')){
+            add_filter("nx_preview_entry_{$this->id}", array($this, 'preview_entry'), 10, 2);
+        }
     }
 
     /**

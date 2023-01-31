@@ -115,4 +115,12 @@ class EmailSubscription extends Types {
 
     }
 
+    public function preview_entry($entry, $settings){
+        $entry = array_merge($entry, [
+            "title"             => "NotificationX Pro",
+
+        ]);
+        return $entry;
+    }
+
 }
