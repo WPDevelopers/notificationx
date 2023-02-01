@@ -790,9 +790,8 @@ class FrontEnd {
             'last_week'         => '75.1K+ times in last 7 days',
             'last_week_text'    => 'Get Started for Free.',
             'lat'               => 23.8371427,
-            // 'link'              => '#',
+            'link'              => '#',
             'lon'               => 90.3704629,
-            'map_url'           => 'https://nxm.test/wp-content/uploads/nx-map/21.4284959,91.9701859.png',
             'month'             => 'months',
             'name'              => 'John Doe',
             'none'              => '',
@@ -858,13 +857,15 @@ class FrontEnd {
             $settings['notification-template']->first_param = 'tag_select_a_tag';
         }
 
-        $defaults['image_data'] = $this->apply_defaults($defaults['image_data'], (array) $this->get_image_url($defaults, $settings));
+        $defaults['image_data'] = $this->apply_defaults((array) $this->get_image_url($defaults, $settings), $defaults['image_data']);
 
         $_defaults = apply_filters("nx_fallback_data_$source", $defaults, $defaults, $settings);
         $_defaults = apply_filters('nx_fallback_data', $_defaults, $_defaults, $settings);
-        $defaults               = $this->apply_defaults($defaults, $_defaults);
-        $defaults = apply_filters("nx_preview_entry_$type", $defaults, $settings);
-        return apply_filters("nx_preview_entry_$source", $defaults, $settings);
+        $defaults  = $this->apply_defaults($defaults, $_defaults);
+        $defaults  = apply_filters("nx_preview_entry_$type", $defaults, $settings);
+        $defaults  = apply_filters("nx_preview_entry_$source", $defaults, $settings);
+        $defaults  = $this->link_url($defaults, $settings);
+        return $defaults;
     }
 
     public function get_bar_content($settings, $suppress_filters = false){

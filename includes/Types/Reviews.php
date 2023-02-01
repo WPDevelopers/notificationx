@@ -36,7 +36,7 @@ class Reviews extends Types {
     ];
     public $default_source    = 'wp_reviews';
     public $default_theme = 'reviews_total-rated';
-    public $link_type = 'product_page';
+    public $link_type = 'review_page';
 
 
     /**

@@ -32,7 +32,7 @@ class DownloadStats extends Types {
     ];
     public $default_source    = 'wp_stats';
     public $default_theme = 'download_stats_today-download';
-    public $link_type = 'product_page';
+    public $link_type = 'stats_page';
 
 
     /**

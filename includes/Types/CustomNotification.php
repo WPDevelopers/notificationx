@@ -27,6 +27,7 @@ class CustomNotification extends Types {
     public $default_source    = 'custom_notification';
     // @todo default theme for custom
     // public $default_theme = 'conversions_theme-one';
+    public $link_type = 'custom_type_url';
 
     /**
      * Initially Invoked when initialized.
