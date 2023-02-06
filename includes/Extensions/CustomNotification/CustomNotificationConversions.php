@@ -30,6 +30,7 @@ class CustomNotificationConversions extends Extension {
     public $module          = 'modules_custom_notification';
     public $module_priority = 13;
     public $is_pro          = true;
+    public $link_type       = '-1';
 
     /**
      * Initially Invoked when initialized.
