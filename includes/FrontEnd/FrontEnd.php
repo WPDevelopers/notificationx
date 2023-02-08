@@ -322,8 +322,8 @@ class FrontEnd {
                     $settings['button_url'] = "//{$settings['button_url']}";
                 }
                 $bar_content = $this->get_bar_content($settings);
-                if (!empty($_bar_content) || !empty($settings['enable_countdown'])) {
-                    if (empty($_bar_content) && !empty($settings['enable_countdown'])) {
+                if (!empty($bar_content) || !empty($settings['enable_countdown'])) {
+                    if (empty($bar_content) && !empty($settings['enable_countdown'])) {
                         $bar_content = '&nbsp;';
                     }
                     $settings = apply_filters('nx_filtered_post', $settings, $params);
@@ -877,8 +877,8 @@ class FrontEnd {
             $bar_content  = apply_filters("nx_filtered_data_{$settings['source']}", $bar_content, $settings);
         }
 
-        $_bar_content = str_replace(array("\n", "\r\n", "\r"), '', $bar_content);
-        $_bar_content = trim(strip_tags($_bar_content));
+        $bar_content = str_replace(array("\n", "\r\n", "\r"), '', $bar_content);
+        $bar_content = trim(strip_tags($bar_content));
         return $bar_content;
     }
 
