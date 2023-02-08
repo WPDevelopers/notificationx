@@ -12,6 +12,7 @@ use NotificationX\Core\Database;
 use NotificationX\Core\Modules;
 use NotificationX\Core\REST;
 use NotificationX\Core\Rules;
+use NotificationX\Core\Upgrader;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\GetInstance;
 use NotificationX\NotificationX;
@@ -55,6 +56,7 @@ class Settings extends UsabilityDynamicsSettings {
         // add_action('admin_enqueue_scripts', [$this, 'admin_enqueue_scripts']);
         add_action( 'admin_menu', [ $this, 'menu' ], 25 );
         add_filter( 'nx_branding_url', array( $this, 'nx_branding_url' ), 12 );
+        add_filter( 'nx_rest_miscellaneous', array( $this, 'miscellaneous' ), 10, 2 );
     }
 
     /**
@@ -491,6 +493,26 @@ class Settings extends UsabilityDynamicsSettings {
                             ],
                         ],
                     ),
+                    'delete-transient' => array(
+                        'name'     => 'delete-transient',
+                        'label'    => __( 'Delete Transient', 'notificationx' ),
+                        'text'     => __( 'Delete Transient', 'notificationx' ),
+                        'type'     => 'button',
+                        'priority' => 25,
+                        'ajax'     => [
+                            'on'     => 'click',
+                            'reload' => true,
+                            'api'    => '/notificationx/v1/miscellaneous',
+                            'data'   => [
+                                'delete_transient' => true,
+                            ],
+                            'swal'   => [
+                                'text'      => __( 'Successfully deleted Transient.', 'notificationx' ),
+                                'icon'      => 'deleted',
+                                'autoClose' => 2000,
+                            ],
+                        ],
+                    ),
                 ),
             );
         }
@@ -667,5 +689,13 @@ class Settings extends UsabilityDynamicsSettings {
             $this->defaults = NotificationX::get_instance()->get_field_names( $tabs['tabs'] );
         }
         return $this->defaults;
+    }
+
+    public function miscellaneous( $return, $params ) {
+        if ( !empty( $params['delete_transient'] ) && $params['delete_transient'] ) {
+            Upgrader::get_instance()->clear_transient();
+            $return = true;
+        }
+        return $return;
     }
 }

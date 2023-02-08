@@ -160,6 +160,16 @@ class REST {
             ),
         ));
 
+        // NX Settings
+        register_rest_route($namespace, '/miscellaneous', array(
+            array(
+                'methods'             => WP_REST_Server::EDITABLE,
+                'callback'            => array( $this, 'miscellaneous' ),
+                'permission_callback' => array($this, 'settings_permission'),
+                'args'                => array(),
+            ),
+        ));
+
         // ajax select
 		register_rest_route($namespace, '/get-data', array(
             array(
@@ -292,14 +302,36 @@ class REST {
 
         $result = Settings::get_instance()->save_settings($request->get_params());
         if($result){
-            return [
+            return rest_ensure_response([
                 'success' => true,
-            ];
+            ]);
         }
         else{
-            return [
+            return rest_ensure_response([
                 'success' => false,
-            ];
+            ]);
+        }
+    }
+
+    /**
+     *
+     *
+     * @param \WP_REST_Request $request Full data about the request.
+     * @return \WP_REST_Response
+     */
+    public function miscellaneous($request) {
+		$params = $request->get_params();
+
+        $result = apply_filters('nx_rest_miscellaneous', null, $params);
+        if($result !== null){
+            return rest_ensure_response([
+                'success' => true,
+            ]);
+        }
+        else{
+            return rest_ensure_response([
+                'success' => false,
+            ]);
         }
     }
 

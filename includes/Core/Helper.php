@@ -490,8 +490,11 @@ class Helper {
             else{
                 $base = NOTIFICATIONX_DEV_ASSETS_PATH;
             }
+            if(!file_exists(path_join(NOTIFICATIONX_DEV_ASSETS_PATH, $file))){
+                $base = '';
+            }
         }
-        else{
+        if(empty($base)){
             if( $url ) {
                 $base = NOTIFICATIONX_ASSETS;
             }

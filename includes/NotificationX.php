@@ -91,8 +91,9 @@ class NotificationX {
 		if( ! static::$WP_CLI && current_user_can( 'delete_users' ) ) {
 			set_transient( 'nx_activated', true, 30 );
 		}
-        delete_transient('nx_builder_fields');
+        Upgrader::get_instance()->clear_transient();
     }
+
     public function maybe_redirect(){
         if( static::$WP_CLI || wp_doing_ajax() ) {
             return;
@@ -249,9 +250,11 @@ class NotificationX {
         return $tabs;
     }
 
-    public function get_field_names(){
+    public function get_field_names($tabs = null){
         $fields = [];
-        $tabs = $this->get_tab();
+        if(empty($tabs)){
+            $tabs = $this->get_tab();
+        }
         if(!empty($tabs['tabs'])){
             $fields = $this->_get_field_names($tabs['tabs']);
         }
@@ -289,4 +292,18 @@ class NotificationX {
 
         return $names;
     }
+
+    function my_upgrade_function( $upgrader_object, $options ) {
+        $current_plugin_path_name = plugin_basename( __FILE__ );
+
+        if ($options['action'] == 'update' && $options['type'] == 'plugin' ) {
+           foreach($options['plugins'] as $each_plugin) {
+              if ($each_plugin==$current_plugin_path_name) {
+                 // .......................... YOUR CODES .............
+
+              }
+           }
+        }
+    }
+
 }

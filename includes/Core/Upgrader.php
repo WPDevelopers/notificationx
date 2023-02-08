@@ -9,6 +9,7 @@
 namespace NotificationX\Core;
 
 use NotificationX\GetInstance;
+use NotificationX\NotificationX;
 
 /**
  * @method static Upgrader get_instance($args = null)
@@ -53,6 +54,12 @@ class Upgrader {
         } elseif(!$nx_free_version && $_is_table_created ){
             $this->database->update_option( 'nx_free_version', NOTIFICATIONX_VERSION, 'no' );
         }
+        if ($nx_free_version !== NOTIFICATIONX_VERSION) {
+            $this->clear_transient();
+        }
     }
 
+    public function clear_transient(){
+        delete_transient('nx_builder_fields');
+    }
 }
