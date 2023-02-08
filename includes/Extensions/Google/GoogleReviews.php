@@ -164,13 +164,15 @@ class GoogleReviews extends Extension {
     }
 
     public function preview_entry($entry, $settings){
-        $entry = array_merge($entry, [
-            "image_data"        => [
-                "url"     => "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
-                "alt"     => "",
-                "classes" => "greview_icon"
-            ],
-        ]);
+        if($settings['show_notification_image'] === "greview_icon" ){
+            $entry = array_merge($entry, [
+                "image_data"        => [
+                    "url"     => "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+                    "alt"     => "",
+                    "classes" => "greview_icon"
+                ],
+            ]);
+        }
         return $entry;
     }
 

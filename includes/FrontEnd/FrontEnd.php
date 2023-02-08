@@ -88,7 +88,7 @@ class FrontEnd {
                 'active'    => [],
             ];
             $settings = stripslashes($_GET['nx-preview']);
-            $settings = (array) json_decode($settings);
+            $settings = json_decode($settings, true);
             if (empty($settings['source']))
                 return;
             $source = $settings['source'];
@@ -754,39 +754,38 @@ class FrontEnd {
             'anonymous_title'      => 'Anonymous Title',
             'author'               => '<a href="https://wpdeveloper.com/">WPDeveloper</a>',
             'author_profile'       => 'https://profiles.wordpress.org/wpdevteam/',
-            'avatar'               => array(
-                'src' => 'https://secure.gravatar.com/avatar/5f6240274c3b6a9854db00123607f611?s=16&d=monsterid&r=g',
-            ),
-            'city'              => 'Dhaka',
-            'city_country'      => 'Bangladesh',
-            'content'           => 'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-            'count'             => 7,
-            'country'           => 'Bangladesh',
-            'course_title'      => 'PHP Beginners – Become a PHP Master',
-            'created_at'        => current_time('mysql', true),
-            'day'               => 'days',
-            'downloaded'        => 41514238,
-            'email'             => 'support@wpdeveloper.com',
-            'entry_id'          => rand(1000, 9999),
-            'entry_key'         => 'ChIJ0cpDbNvBVTcRGX9JNhhpC8I',
-            'first_name'        => 'John',
-            'formatted_address' => 'House 592, Road 8 Avenue 5, Dhaka 1216, Bangladesh',
-            'ga_title'          => 'NotificationX',
-            'icon'              => 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png',
-            'icons'             => array(
-                '1x' => 'https://ps.w.org/essential-addons-for-elementor-lite/assets/icon-128x128.png?rev=2598498',
-                '2x' => 'https://ps.w.org/essential-addons-for-elementor-lite/assets/icon-256x256.png?rev=2598498',
+            'avatar'               => 'https://secure.gravatar.com/avatar/00000000000000000000000000000000?s=100&d=monsterid&r=g',
+            'picture'              => 'https://secure.gravatar.com/avatar/00000000000000000000000000000000?s=100&d=monsterid&r=g',
+            'city'                 => 'Dhaka',
+            'city_country'         => 'Bangladesh',
+            'content'              => 'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+            'count'                => 7,
+            'country'              => 'Bangladesh',
+            'course_title'         => 'PHP Beginners – Become a PHP Master',
+            'created_at'           => wp_date( get_option( 'date_format' ), strtotime('2 days ago') ),
+            'day'                  => 'days',
+            'downloaded'           => 41514238,
+            'email'                => 'support@wpdeveloper.com',
+            'entry_id'             => rand(1000, 9999),
+            'entry_key'            => 'ChIJ0cpDbNvBVTcRGX9JNhhpC8I',
+            'first_name'           => 'John',
+            'formatted_address'    => 'House 592, Road 8 Avenue 5, Dhaka 1216, Bangladesh',
+            'ga_title'             => 'NotificationX',
+            'icon'                 => 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png',
+            'icons'                => array(
+                '1x' => "https://ps.w.org/notificationx/assets/icon-128x128.gif?rev=2783824",
+                '2x' => "https://ps.w.org/notificationx/assets/icon-256x256.gif?rev=2783824",
             ),
             'id'         => 5,
             'image_data' => array(
-                'url'     => home_url('/wp-content/plugins/notificationx/assets/public/image/icons/pink-face-looped.gif'),
+                'url'     => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
                 'alt'     => '',
                 'classes' => 'greview_icon',
             ),
             'ip'                => '103.108.146.88',
             'key'               => '7368a455f5c113afbfd3d8c3ea89a5ed-5719',
             'last_name'         => 'Doe',
-            'last_updated'      => current_time('mysql', true),
+            'last_updated'      => wp_date( get_option( 'date_format' ), strtotime('2 days ago') ),
             'last_week'         => '75.1K+ times in last 7 days',
             'last_week_text'    => 'Get Started for Free.',
             'lat'               => 23.8371427,
@@ -823,12 +822,12 @@ class FrontEnd {
             'source'            => 'google_reviews',
             'status'            => 'wc-processing',
             'this_page'         => 'this page',
-            'timestamp'         => current_time('mysql', true),
+            'timestamp'         => wp_date( get_option( 'date_format' ), strtotime('2 days ago') ),
             'title'             => 'Hoodie with Logo',
             'today'             => '1.4K+ times today',
             'today_text'        => 'Try It Out',
             'type'              => 'realtime_siteview',
-            'updated_at'        => current_time('mysql', true),
+            'updated_at'        => wp_date( get_option( 'date_format' ), strtotime('2 days ago') ),
             'url'               => '#',
             'user_id'           => '1',
             'username'          => 'johndoe',
@@ -853,18 +852,22 @@ class FrontEnd {
         // ksort($defaults);
         // var_export($defaults);
         // die;
-        if($settings['notification-template']->first_param = 'select_a_tag'){
-            $settings['notification-template']->first_param = 'tag_select_a_tag';
+        if($settings['notification-template']['first_param'] = 'select_a_tag'){
+            $settings['notification-template']['first_param'] = 'tag_select_a_tag';
         }
+        $settings['freemius_plugins'] = '';
 
         $defaults['image_data'] = $this->apply_defaults((array) $this->get_image_url($defaults, $settings), $defaults['image_data']);
+        // if ($settings['show_notification_image'] === 'gravatar' && empty($defaults['image_data']['url'])) {
+        //     $defaults['image_data']['url'] = $defaults['picture'];
+        // }
 
         $_defaults = apply_filters("nx_fallback_data_$source", $defaults, $defaults, $settings);
         $_defaults = apply_filters('nx_fallback_data', $_defaults, $_defaults, $settings);
         $defaults  = $this->apply_defaults($defaults, $_defaults);
         $defaults  = apply_filters("nx_preview_entry_$type", $defaults, $settings);
         $defaults  = apply_filters("nx_preview_entry_$source", $defaults, $settings);
-        $defaults  = $this->link_url($defaults, $settings);
+        // $defaults  = $this->link_url($defaults, $settings);
         return $defaults;
     }
 

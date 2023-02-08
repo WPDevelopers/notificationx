@@ -62,15 +62,7 @@ class GlobalFields {
                         'next'    => __('Next', 'notificationx'),
                     ]
                 ],
-                'content_heading' => [
-                    'preview' => [
-                        'label' => __('Preview', 'notificationx'),
-                        'type'  => 'preview-modal',
-                        'name'  => 'preview',
-                        'url'   => trailingslashit(home_url()),
-                        'rules' => Rules::is('type', 'inline', true),
-                    ],
-                ],
+
             ],
             'submit' => [
                 'show' => false,
@@ -1053,6 +1045,17 @@ class GlobalFields {
             ],
             'instructions' => apply_filters( 'nx_instructions', [] ),
         ];
+        if(defined('NX_DEBUG') && NX_DEBUG){
+            $tabs['config']['content_heading'] = [
+                'preview' => [
+                    'label' => __('Preview (Beta)', 'notificationx'),
+                    'type'  => 'preview-modal',
+                    'name'  => 'preview',
+                    'url'   => trailingslashit(home_url()),
+                    'rules' => Rules::is('type', 'inline', true),
+                ],
+            ];
+        }
         $tabs['tabs'] = apply_filters('nx_metabox_tabs', $tabs['tabs']);
         return $tabs;
     }
