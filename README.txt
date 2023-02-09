@@ -219,7 +219,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 2.6.0 - 09/02/2023 =
+= 2.6.0 - 12/02/2023 =
 - Added: Responsive control for Notification.
 - Added: ShortCode support in the advanced template.
 - Fixed: Conflict with a caching plugin.
