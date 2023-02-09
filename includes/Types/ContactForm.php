@@ -36,6 +36,7 @@ class ContactForm extends Types {
     ];
     public $default_source = 'cf7';
     public $default_theme  = 'form_theme-one';
+    public $link_type      = 'none';
 
 
     /**
