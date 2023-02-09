@@ -2,20 +2,20 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 2.5.9\n"
+"Project-Id-Version: NotificationX 2.6.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-02-08T06:57:51+00:00\n"
+"POT-Creation-Date: 2023-02-09T08:36:15+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.0\n"
 "X-Domain: notificationx\n"
 
 #. Plugin Name of the plugin
-#: includes/Admin/Settings.php:107
+#: includes/Admin/Settings.php:109
 #: includes/Core/QuickBuild.php:112
 #: includes/Extensions/GlobalFields.php:43
 #: assets/admin/js/admin.js:11
@@ -120,7 +120,7 @@ msgid "Export Notifications"
 msgstr ""
 
 #: includes/Admin/ImportExport.php:63
-#: includes/Admin/Settings.php:266
+#: includes/Admin/Settings.php:268
 #: includes/Core/Analytics.php:46
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:15
@@ -202,17 +202,17 @@ msgid "You have to enable Reporting first."
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:219
-#: includes/Admin/Settings.php:333
+#: includes/Admin/Settings.php:335
 msgid "Once Weekly"
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:223
-#: includes/Admin/Settings.php:332
+#: includes/Admin/Settings.php:334
 msgid "Once Daily"
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:227
-#: includes/Admin/Settings.php:334
+#: includes/Admin/Settings.php:336
 msgid "Once Monthly"
 msgstr ""
 
@@ -228,225 +228,234 @@ msgstr ""
 msgid "No email found."
 msgstr ""
 
-#: includes/Admin/Settings.php:122
+#: includes/Admin/Settings.php:124
 msgid "Save Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:128
-#: includes/Admin/Settings.php:163
+#: includes/Admin/Settings.php:130
+#: includes/Admin/Settings.php:165
 msgid "General"
 msgstr ""
 
-#: includes/Admin/Settings.php:133
+#: includes/Admin/Settings.php:135
 msgid "Modules"
 msgstr ""
 
-#: includes/Admin/Settings.php:156
+#: includes/Admin/Settings.php:158
 msgid "Advanced Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:169
+#: includes/Admin/Settings.php:171
 msgid "Enable REST API"
 msgstr ""
 
-#: includes/Admin/Settings.php:172
+#: includes/Admin/Settings.php:174
 msgid "Forcefully enable anonymous REST API for NotificationX."
 msgstr ""
 
-#: includes/Admin/Settings.php:177
+#: includes/Admin/Settings.php:179
 msgid "Exclude Credentials"
 msgstr ""
 
-#: includes/Admin/Settings.php:180
+#: includes/Admin/Settings.php:182
 msgid "Enabling it will remove cookies, HTTP authentication entries, and TLS client certificates from API calls on the frontend."
 msgstr ""
 
-#: includes/Admin/Settings.php:181
+#: includes/Admin/Settings.php:183
 msgid "Note: Recommended if you use any caching plugins."
 msgstr ""
 
-#: includes/Admin/Settings.php:187
+#: includes/Admin/Settings.php:189
 msgid "Powered By"
 msgstr ""
 
-#: includes/Admin/Settings.php:193
+#: includes/Admin/Settings.php:195
 msgid "Disable Powered By"
 msgstr ""
 
-#: includes/Admin/Settings.php:197
+#: includes/Admin/Settings.php:199
 msgid "Click, if you want to disable powered by text from notification"
 msgstr ""
 
-#: includes/Admin/Settings.php:204
+#: includes/Admin/Settings.php:206
 msgid "Role Management"
 msgstr ""
 
-#: includes/Admin/Settings.php:210
+#: includes/Admin/Settings.php:212
 msgid "Who Can View Notification?"
 msgstr ""
 
-#: includes/Admin/Settings.php:221
+#: includes/Admin/Settings.php:223
 msgid "Who Can Create Notification?"
 msgstr ""
 
-#: includes/Admin/Settings.php:232
+#: includes/Admin/Settings.php:234
 msgid "Who Can Edit Settings?"
 msgstr ""
 
-#: includes/Admin/Settings.php:243
+#: includes/Admin/Settings.php:245
 msgid "Who Can Check Analytics?"
 msgstr ""
 
-#: includes/Admin/Settings.php:257
+#: includes/Admin/Settings.php:259
 msgid "Analytics & Reporting"
 msgstr ""
 
-#: includes/Admin/Settings.php:271
+#: includes/Admin/Settings.php:273
 msgid "Enable Analytics"
 msgstr ""
 
-#: includes/Admin/Settings.php:278
+#: includes/Admin/Settings.php:280
 msgid "Disable Dashboard Widget"
 msgstr ""
 
-#: includes/Admin/Settings.php:281
+#: includes/Admin/Settings.php:283
 msgid "Click, if you want to disable dashboard widget of analytics only."
 msgstr ""
 
-#: includes/Admin/Settings.php:287
+#: includes/Admin/Settings.php:289
 msgid "Analytics From"
 msgstr ""
 
-#: includes/Admin/Settings.php:289
+#: includes/Admin/Settings.php:291
 #: includes/Extensions/GlobalFields.php:858
 msgid "Everyone"
 msgstr ""
 
-#: includes/Admin/Settings.php:290
+#: includes/Admin/Settings.php:292
 msgid "Guests Only"
 msgstr ""
 
-#: includes/Admin/Settings.php:291
+#: includes/Admin/Settings.php:293
 msgid "Registered Users Only"
 msgstr ""
 
-#: includes/Admin/Settings.php:301
+#: includes/Admin/Settings.php:303
 msgid "Exclude Bot Analytics"
 msgstr ""
 
-#: includes/Admin/Settings.php:304
+#: includes/Admin/Settings.php:306
 msgid "Select if you want to exclude bot analytics."
 msgstr ""
 
-#: includes/Admin/Settings.php:313
+#: includes/Admin/Settings.php:315
 msgid "Reporting"
 msgstr ""
 
-#: includes/Admin/Settings.php:318
+#: includes/Admin/Settings.php:320
 msgid "Disable Reporting"
 msgstr ""
 
-#: includes/Admin/Settings.php:326
+#: includes/Admin/Settings.php:328
 msgid "Reporting Frequency"
 msgstr ""
 
-#: includes/Admin/Settings.php:344
+#: includes/Admin/Settings.php:346
 msgid "It will be triggered on the first day of next month."
 msgstr ""
 
-#: includes/Admin/Settings.php:350
+#: includes/Admin/Settings.php:352
 msgid "Select Reporting Day"
 msgstr ""
 
-#: includes/Admin/Settings.php:354
+#: includes/Admin/Settings.php:356
 msgid "Sunday"
 msgstr ""
 
-#: includes/Admin/Settings.php:355
+#: includes/Admin/Settings.php:357
 msgid "Monday"
 msgstr ""
 
-#: includes/Admin/Settings.php:356
+#: includes/Admin/Settings.php:358
 msgid "Tuesday"
 msgstr ""
 
-#: includes/Admin/Settings.php:357
+#: includes/Admin/Settings.php:359
 msgid "Wednesday"
 msgstr ""
 
-#: includes/Admin/Settings.php:358
+#: includes/Admin/Settings.php:360
 msgid "Thursday"
 msgstr ""
 
-#: includes/Admin/Settings.php:359
+#: includes/Admin/Settings.php:361
 msgid "Friday"
 msgstr ""
 
-#: includes/Admin/Settings.php:362
+#: includes/Admin/Settings.php:364
 msgid "Select a Day for Email Report."
 msgstr ""
 
-#: includes/Admin/Settings.php:372
+#: includes/Admin/Settings.php:374
 msgid "Reporting Email"
 msgstr ""
 
-#: includes/Admin/Settings.php:380
+#: includes/Admin/Settings.php:382
 msgid "Reporting Email Subject"
 msgstr ""
 
-#: includes/Admin/Settings.php:388
+#: includes/Admin/Settings.php:390
 msgid "Reporting Test"
 msgstr ""
 
-#: includes/Admin/Settings.php:389
+#: includes/Admin/Settings.php:391
 msgid "Test Report"
 msgstr ""
 
-#: includes/Admin/Settings.php:404
+#: includes/Admin/Settings.php:406
 msgid "Successfully Sent a Test Report in Your Email."
 msgstr ""
 
-#: includes/Admin/Settings.php:417
-#: includes/Admin/Settings.php:423
+#: includes/Admin/Settings.php:419
+#: includes/Admin/Settings.php:425
 msgid "Cache Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:429
+#: includes/Admin/Settings.php:431
 msgid "Cache Limit"
 msgstr ""
 
-#: includes/Admin/Settings.php:430
+#: includes/Admin/Settings.php:432
 msgid "Number of Notification Data to be saved in Database."
 msgstr ""
 
-#: includes/Admin/Settings.php:437
+#: includes/Admin/Settings.php:439
 msgid "Download Stats Cache Duration"
 msgstr ""
 
-#: includes/Admin/Settings.php:438
-#: includes/Admin/Settings.php:446
+#: includes/Admin/Settings.php:440
+#: includes/Admin/Settings.php:448
 msgid "Minutes (Schedule Duration to fetch new data)."
 msgstr ""
 
-#: includes/Admin/Settings.php:445
+#: includes/Admin/Settings.php:447
 msgid "Reviews Cache Duration"
 msgstr ""
 
-#: includes/Admin/Settings.php:457
+#: includes/Admin/Settings.php:459
 msgid "Miscellaneous"
 msgstr ""
 
-#: includes/Admin/Settings.php:471
+#: includes/Admin/Settings.php:473
 msgid "Danger Zone"
 msgstr ""
 
-#: includes/Admin/Settings.php:476
-#: includes/Admin/Settings.php:477
+#: includes/Admin/Settings.php:478
+#: includes/Admin/Settings.php:479
 msgid "Delete Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:488
+#: includes/Admin/Settings.php:490
 msgid "Successfully deleted Settings."
+msgstr ""
+
+#: includes/Admin/Settings.php:498
+#: includes/Admin/Settings.php:499
+msgid "Delete Transient"
+msgstr ""
+
+#: includes/Admin/Settings.php:510
+msgid "Successfully deleted Transient."
 msgstr ""
 
 #: includes/Admin/views/analytics.views.php:7
@@ -599,7 +608,7 @@ msgstr ""
 #: includes/FrontEnd/FrontEnd.php:213
 #: includes/FrontEnd/FrontEnd.php:214
 #: includes/FrontEnd/FrontEnd.php:215
-#: includes/FrontEnd/FrontEnd.php:601
+#: includes/FrontEnd/FrontEnd.php:598
 #: includes/Types/Comments.php:47
 #: includes/Types/Comments.php:60
 #: includes/Types/Comments.php:73
@@ -695,15 +704,15 @@ msgstr ""
 msgid "Growth Alert"
 msgstr ""
 
-#: includes/Core/REST.php:350
+#: includes/Core/REST.php:382
 msgid "Unauthorized Access: You have to logged in first."
 msgstr ""
 
-#: includes/Core/REST.php:353
+#: includes/Core/REST.php:385
 msgid "Invalid Type: You have to give a type."
 msgstr ""
 
-#: includes/Core/REST.php:356
+#: includes/Core/REST.php:388
 msgid "400 Bad Request."
 msgstr ""
 
@@ -948,7 +957,7 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:57
 #: includes/Extensions/Tutor/TutorInline.php:69
 #: includes/Extensions/WooCommerce/WooInline.php:127
-#: includes/FrontEnd/FrontEnd.php:845
+#: includes/FrontEnd/FrontEnd.php:842
 msgid "In last 1 day"
 msgstr ""
 
@@ -956,7 +965,7 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:58
 #: includes/Extensions/Tutor/TutorInline.php:70
 #: includes/Extensions/WooCommerce/WooInline.php:128
-#: includes/FrontEnd/FrontEnd.php:846
+#: includes/FrontEnd/FrontEnd.php:843
 #: includes/Types/DownloadStats.php:104
 #: includes/Types/DownloadStats.php:124
 msgid "In last 7 days"
@@ -966,7 +975,7 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:59
 #: includes/Extensions/Tutor/TutorInline.php:71
 #: includes/Extensions/WooCommerce/WooInline.php:129
-#: includes/FrontEnd/FrontEnd.php:847
+#: includes/FrontEnd/FrontEnd.php:844
 msgid "In last 30 days"
 msgstr ""
 
@@ -2473,7 +2482,7 @@ msgstr ""
 msgid "Rating:"
 msgstr ""
 
-#: includes/NotificationX.php:166
+#: includes/NotificationX.php:167
 #: assets/admin/js/admin.js:9
 #: assets/admin/js/admin.js:15
 #: nxbuild/admin/js/admin.js:4471
@@ -2481,7 +2490,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: includes/NotificationX.php:171
+#: includes/NotificationX.php:172
 msgid "Go Pro"
 msgstr ""
 
