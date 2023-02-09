@@ -1,3 +1,12 @@
+export const isArray = (args) => {
+    return args !== null && typeof args === "object" && Array.isArray(args);
+};
+
+export const isObject = (obj) => {
+    return obj !== null && typeof obj === 'object' && !isArray(obj)
+}
+
+
 export const getThemeName = (settings) => {
     let themeName = settings.themes.replace(settings.source + "_", "");
     themeName = themeName.replace(settings.type + "_", "");

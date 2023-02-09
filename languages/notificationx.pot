@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-02-09T08:36:15+00:00\n"
+"POT-Creation-Date: 2023-02-09T09:07:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.0\n"
 "X-Domain: notificationx\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:43
 #: assets/admin/js/admin.js:11
 #: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:10
+#: assets/public/js/frontend.js:1
 #: nxbuild/admin/js/admin.js:3945
 #: nxbuild/admin/js/admin.js:9615
 #: nxbuild/public/js/crossSite.js:4367
@@ -617,9 +617,9 @@ msgstr ""
 #: includes/Types/Comments.php:112
 #: includes/Types/Comments.php:126
 #: includes/Types/Comments.php:140
-#: includes/Types/ContactForm.php:53
-#: includes/Types/ContactForm.php:66
-#: includes/Types/ContactForm.php:79
+#: includes/Types/ContactForm.php:54
+#: includes/Types/ContactForm.php:67
+#: includes/Types/ContactForm.php:80
 #: includes/Types/Conversions.php:59
 #: includes/Types/Donations.php:44
 #: includes/Types/ELearning.php:51
@@ -695,7 +695,7 @@ msgid "Donation"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:202
-#: includes/Types/ContactForm.php:45
+#: includes/Types/ContactForm.php:46
 msgid "Contact Form"
 msgstr ""
 
@@ -1124,9 +1124,9 @@ msgstr ""
 #: includes/Types/Comments.php:117
 #: includes/Types/Comments.php:131
 #: includes/Types/Comments.php:145
-#: includes/Types/ContactForm.php:58
-#: includes/Types/ContactForm.php:71
-#: includes/Types/ContactForm.php:84
+#: includes/Types/ContactForm.php:59
+#: includes/Types/ContactForm.php:72
+#: includes/Types/ContactForm.php:85
 #: includes/Types/Conversions.php:64
 #: includes/Types/Donations.php:51
 #: includes/Types/ELearning.php:56
@@ -1613,7 +1613,7 @@ msgstr ""
 #: includes/Extensions/ReviewX/ReviewX.php:158
 #: includes/Extensions/WooCommerce/WOOReviews.php:140
 #: includes/Types/Comments.php:164
-#: includes/Types/ContactForm.php:103
+#: includes/Types/ContactForm.php:104
 #: includes/Types/Conversions.php:130
 #: includes/Types/Donations.php:120
 #: includes/Types/ELearning.php:129
@@ -2517,21 +2517,21 @@ msgstr ""
 msgid "Comment URL"
 msgstr ""
 
-#: includes/Types/ContactForm.php:54
-#: includes/Types/ContactForm.php:67
-#: includes/Types/ContactForm.php:80
+#: includes/Types/ContactForm.php:55
+#: includes/Types/ContactForm.php:68
+#: includes/Types/ContactForm.php:81
 msgid "recently contacted via"
 msgstr ""
 
-#: includes/Types/ContactForm.php:93
+#: includes/Types/ContactForm.php:94
 msgid "Select A Tag"
 msgstr ""
 
-#: includes/Types/ContactForm.php:99
+#: includes/Types/ContactForm.php:100
 msgid "Form Title"
 msgstr ""
 
-#: includes/Types/ContactForm.php:183
+#: includes/Types/ContactForm.php:184
 msgid "Select a Form"
 msgstr ""
 
@@ -3482,9 +3482,8 @@ msgstr ""
 msgid " - Copy"
 msgstr ""
 
-#. translators: 1: The calendar date. 2: Number of events on the calendar date.
 #: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:10
+#: assets/public/js/frontend.js:1
 #: nxbuild/admin/js/admin.js:9579
 #: nxbuild/public/js/crossSite.js:4335
 #: nxbuild/public/js/frontend.js:4261
@@ -3493,7 +3492,7 @@ msgid "by"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:10
+#: assets/public/js/frontend.js:1
 #: nxbuild/admin/js/admin.js:7334
 #: nxbuild/public/js/crossSite.js:2509
 #: nxbuild/public/js/frontend.js:2509
@@ -3501,7 +3500,7 @@ msgid "Days"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:10
+#: assets/public/js/frontend.js:1
 #: nxbuild/admin/js/admin.js:7341
 #: nxbuild/public/js/crossSite.js:2516
 #: nxbuild/public/js/frontend.js:2516
@@ -3509,7 +3508,7 @@ msgid "Hrs"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:10
+#: assets/public/js/frontend.js:1
 #: nxbuild/admin/js/admin.js:7348
 #: nxbuild/public/js/crossSite.js:2523
 #: nxbuild/public/js/frontend.js:2523
@@ -3517,7 +3516,7 @@ msgid "Mins"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:10
+#: assets/public/js/frontend.js:1
 #: nxbuild/admin/js/admin.js:7355
 #: nxbuild/public/js/crossSite.js:2530
 #: nxbuild/public/js/frontend.js:2530
@@ -3525,15 +3524,14 @@ msgid "Secs"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:10
+#: assets/public/js/frontend.js:1
 #: nxbuild/admin/js/admin.js:7369
 #: nxbuild/public/js/crossSite.js:2544
 #: nxbuild/public/js/frontend.js:2544
 msgid "You should setup NX Bar properly"
 msgstr ""
 
-#. translators: 1: The calendar date. 2: Number of events on the calendar date.
-#: assets/public/js/crossSite.js:10
+#: assets/public/js/crossSite.js:1
 #: nxbuild/public/js/crossSite.js:210963
 msgid "You are using old version of cross-domain scripts for NotificationX Pro. Please update this from your NotificationX Settings page."
 msgstr ""

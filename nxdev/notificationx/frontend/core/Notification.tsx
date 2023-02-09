@@ -2,9 +2,8 @@ import React, { CSSProperties, useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import { Theme } from "../themes";
 import Analytics from "./Analytics";
-import { getThemeName } from "../core/functions";
+import { getThemeName, isObject } from "../core/functions";
 import useNotificationContext from "./NotificationProvider";
-import { isObject } from "quickbuilder";
 
 const useMediaQuery = (query) => {
     const mediaQuery = window.matchMedia(query);
