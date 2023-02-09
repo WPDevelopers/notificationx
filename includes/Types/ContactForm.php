@@ -122,7 +122,7 @@ class ContactForm extends Types {
         parent::init_fields();
         add_filter('nx_content_fields', [$this, 'add_form_fields'], 9);
         add_filter('nx_notification_template', [$this, 'notification_template'], 9);
-        add_filter('nx_customize_fields', [$this, 'customize_fields'], 20);
+        // add_filter('nx_customize_fields', [$this, 'customize_fields'], 20);
     }
 
     /**

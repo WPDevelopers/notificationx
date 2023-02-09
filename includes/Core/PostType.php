@@ -423,7 +423,14 @@ class PostType {
     }
 
     public function responsive_size_backward_comp($post){
-        if(!is_array($post['size'])){
+        if(empty($post['size'])){
+            $post['size'] = [
+                "desktop" => 500,
+                "tablet"  => 500,
+                "mobile"  => 500,
+            ];
+        }
+        else if(!is_array($post['size'])){
             $post['size'] = [
                 "desktop" => $post['size'],
                 "tablet"  => $post['size'],
