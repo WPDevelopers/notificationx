@@ -211,7 +211,7 @@ const useNotificationX = (props: any) => {
             });
         }
         return () => {
-            console.log(activeNotices, timeoutIDs, intervalIDs);
+            // console.log(activeNotices, timeoutIDs, intervalIDs);
 
             if(Object.keys(timeoutIDs)?.length){
                 Object.keys(timeoutIDs).forEach(id => {

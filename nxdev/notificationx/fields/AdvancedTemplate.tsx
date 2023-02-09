@@ -188,7 +188,7 @@ const AdvancedTemplate = (props) => {
         if (!builderContext.savedValues?.["advanced_template"]) {
             const theme = builderContext.values.themes;
             let values = {...builderContext.values};
-            console.log(theme, values);
+            // console.log(theme, values);
 
             if(theme == 'page_analytics_pa-theme-two' || theme == 'page_analytics_pa-theme-one'){
                 const fifth = values['notification-template'].ga_fifth_param?.trim();
