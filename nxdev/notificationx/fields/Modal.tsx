@@ -22,7 +22,7 @@ const Modal = (props) => {
                     JSON.stringify({ ...context.values, previewType })
                 )
         );
-    }
+    };
 
     const openModal = () => {
         setIsOpen(!isOpen);
@@ -31,6 +31,22 @@ const Modal = (props) => {
             buildUrl();
         }
     };
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+    }, [isOpen]);
+
+    useEffect(() => {
+
+        return () => {
+            document.body.style.overflow = "unset";
+        };
+    }, [])
+
 
     return (
         <>
@@ -54,7 +70,7 @@ const Modal = (props) => {
                         backgroundColor: "rgba(3, 6, 60, 0.7)",
                         zIndex: 9999,
                         padding: "60px 15px",
-                        overflowY: "auto",
+                        // overflowY: "auto",
                     },
                     content: {
                         position: "static",
@@ -135,7 +151,7 @@ const Modal = (props) => {
                             </svg>
                         </button>
                     </div>
-                    <div style={{}}>
+                    <div className="nx-admin-modal-body">
                         <iframe
                             src={url + "#" + previewType}
                             width="100%"

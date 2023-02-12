@@ -40,3 +40,9 @@
         cursor: pointer;
     }
 }
+.nx-admin-modal-body {
+    overflow: hidden;
+    iframe {
+        max-height: calc(100vh - 150px);
+    }
+}
