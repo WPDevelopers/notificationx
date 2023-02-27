@@ -54,6 +54,7 @@ return array(
     'NotificationX\\Extensions\\Envato\\Envato' => $baseDir . '/includes/Extensions/Envato/Envato.php',
     'NotificationX\\Extensions\\Extension' => $baseDir . '/includes/Extensions/Extension.php',
     'NotificationX\\Extensions\\ExtensionFactory' => $baseDir . '/includes/Extensions/ExtensionFactory.php',
+    'NotificationX\\Extensions\\FluentCRM\\FluentCRM' => $baseDir . '/includes/Extensions/FluentCRM/FluentCRM.php',
     'NotificationX\\Extensions\\Freemius\\Freemius' => $baseDir . '/includes/Extensions/Freemius/Freemius.php',
     'NotificationX\\Extensions\\Freemius\\FreemiusConversions' => $baseDir . '/includes/Extensions/Freemius/FreemiusConversions.php',
     'NotificationX\\Extensions\\Freemius\\FreemiusReviews' => $baseDir . '/includes/Extensions/Freemius/FreemiusReviews.php',

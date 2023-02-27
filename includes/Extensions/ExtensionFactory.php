@@ -45,7 +45,7 @@ class ExtensionFactory {
 			'grvf'                            => 'NotificationX\Extensions\GRVF\GravityForms',
 			'give'                            => 'NotificationX\Extensions\Give\Give',
 			'google'                          => 'NotificationX\Extensions\Google_Analytics\Google_Analytics',
-			'google_reviews'                          => 'NotificationX\Extensions\Google\GoogleReviews',
+			'google_reviews'                  => 'NotificationX\Extensions\Google\GoogleReviews',
 			'learndash'                       => 'NotificationX\Extensions\LearnDash\LearnDash',
 			'mailchimp'                       => 'NotificationX\Extensions\MailChimp\MailChimp',
 			'njf'                             => 'NotificationX\Extensions\NJF\NinjaForms',
@@ -62,6 +62,7 @@ class ExtensionFactory {
 			'zapier_email_subscription'       => 'NotificationX\Extensions\Zapier\ZapierEmailSubscription',
 			'zapier_reviews'                  => 'NotificationX\Extensions\Zapier\ZapierReviews',
 			'elementor_form'                  => 'NotificationX\Extensions\Elementor\From',
+			'fluentcrm'                       => 'NotificationX\Extensions\FluentCRM\FluentCRM',
 		];
 
 	/**
