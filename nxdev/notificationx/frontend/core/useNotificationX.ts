@@ -58,32 +58,32 @@ const useNotificationX = (props: any) => {
     useEffect(() => {
         if(props.config.nxPreview){
             const config = {...props.config};
-            const params = new URLSearchParams(window.location.search);
-            let settings = JSON.parse(params.get('nx-preview'));
-            settings = {...settings, previewType};
+            // const params = new URLSearchParams(window.location.search);
+            // let settings = JSON.parse(params.get('nx-preview'));
+            // settings = {...settings, previewType};
 
 
             if(Object.keys(config.active).length){
                 const filteredConfig = {};
                 Object.keys(config.active).forEach((key) => {
-                    const active = config.active[key];
-                    active['post'] = settings;
+                    const active   = config.active[key];
+                    const settings = {...active['post'], previewType};
                     if(!(previewType === 'phone' && settings.hide_on_mobile)){
                         filteredConfig[key] = active;
                     }
                 });
-                setActiveNotices(normalize(filteredConfig, {}));
+                setActiveNotices(normalize(filteredConfig, config.settings));
             }
             if(Object.keys(config.pressbar).length){
                 const filteredConfig = {};
                 Object.keys(config.pressbar).forEach((key) => {
                     const pressbar = config.pressbar[key];
-                    pressbar['post'] = settings;
+                    const settings = {...pressbar['post'], previewType};
                     if(!(previewType === 'phone' && settings.hide_on_mobile)){
                         filteredConfig[key] = pressbar;
                     }
                 });
-                setPressbarNotices(normalizePressBar(filteredConfig, {}));
+                setPressbarNotices(normalizePressBar(filteredConfig, config.settings));
             }
         }
     }, [previewType])

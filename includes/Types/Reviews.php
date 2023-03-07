@@ -261,8 +261,7 @@ class Reviews extends Types {
     }
     public function preview_entry($entry, $settings){
         $entry = array_merge($entry, [
-            "title"             => "Excellent",
-
+            "title"             => _x("NotificationX", 'nx_preview', 'notificationx'),
         ]);
         return $entry;
     }

@@ -49,11 +49,12 @@ class FrontEnd {
         }
         add_filter('nx_frontend_localize_data', [$this, 'get_localize_data']);
 
-        // if(!empty($_GET['nx-preview'])){
-        //     $data = json_decode(base64_decode($_GET['nx-preview']));
-        //     wp_send_json($data);
-        //     die;
-        // }
+        if (!empty($_GET['nx-preview']) && class_exists('QueryMonitor')) {
+            ini_set('display_errors','Off');
+            ini_set('error_reporting', E_ALL );
+            $qm = \QueryMonitor::init();
+            remove_action('plugins_loaded', [$qm, 'action_plugins_loaded']);
+        }
     }
 
     /**
@@ -68,6 +69,7 @@ class FrontEnd {
         add_filter('nx_filtered_data', [$this, 'filtered_data'], 9999, 3);
         add_filter('nx_filtered_post', [$this, 'filtered_post'], 9999, 2);
         add_action('wp_print_footer_scripts', [$this, 'footer_scripts']);
+
     }
 
     /**
@@ -92,6 +94,7 @@ class FrontEnd {
             if (empty($settings['source']))
                 return;
             $source = $settings['source'];
+            $settings = $this->preview_settings($settings);
 
             if($source === 'press_bar'){
                 $args['pressbar'] = [
@@ -111,13 +114,20 @@ class FrontEnd {
                     ]
                 ];
             }
+            // echo "<pre>";
+            // print_r($args);die;
+            $args['settings'] = $this->get_settings();
 
             $this->notificationXArr = apply_filters('get_notifications_ids', $args);
             wp_enqueue_style('notificationx-public');
             wp_enqueue_script('notificationx-public');
+            do_action('notificationx_scripts', $this->notificationXArr);
+
             add_filter('show_admin_bar', '__return_false');
+
             return;
         }
+
         if (empty($_GET['elementor-preview'])) {
             $this->notificationXArr = $this->get_notifications_ids();
             if ($this->notificationXArr['total'] > 0) {
@@ -159,6 +169,23 @@ class FrontEnd {
                 })();
             </script>
 <?php
+        }
+
+        if (!empty($_GET['nx-preview'])) {
+            ?>
+            <script data-no-optimize="1">
+                (function() {
+                    document.addEventListener("click", function(event) {
+                        if (event.target.tagName === "A") {
+                            event.preventDefault();
+                        }
+                    });
+                    document.addEventListener("submit", function(event) {
+                        event.preventDefault();
+                    });
+                })();
+            </script>
+            <?php
         }
     }
 
@@ -332,8 +359,14 @@ class FrontEnd {
             }
         }
 
+        $result['settings'] = $this->get_settings();
+        return $result;
+    }
+
+    public function get_settings(){
+
         $branding_url       = apply_filters('nx_branding_url', NOTIFICATIONX_PLUGIN_URL . '?utm_source=' . esc_url(home_url()) . '&utm_medium=notificationx');
-        $result['settings'] = [
+        $settings = [
             'disable_powered_by' => Settings::get_instance()->get('settings.disable_powered_by'),
             'affiliate_link'     => $branding_url,
             'enable_analytics'   => Settings::get_instance()->get('settings.enable_analytics', true),
@@ -342,10 +375,10 @@ class FrontEnd {
             'display_for'        => Settings::get_instance()->get('settings.display_for', 5),
             'delay_between'      => Settings::get_instance()->get('settings.delay_between', 5),
             'loop'               => Settings::get_instance()->get('settings.loop', 5),
-            'random'               => Settings::get_instance()->get('settings.random', 5),
+            'random'             => Settings::get_instance()->get('settings.random', 5),
             'analytics_nonce'    => wp_create_nonce('analytics_nonce'),
         ];
-        return $result;
+        return $settings;
     }
 
     public function get_notifications_ids($return_posts = false, $args = []) {
@@ -751,10 +784,11 @@ class FrontEnd {
             'anonymous_title'      => 'Anonymous Title',
             'author'               => '<a href="https://wpdeveloper.com/">WPDeveloper</a>',
             'author_profile'       => 'https://profiles.wordpress.org/wpdevteam/',
-            'avatar'               => 'https://secure.gravatar.com/avatar/00000000000000000000000000000000?s=100&d=monsterid&r=g',
-            'picture'              => 'https://secure.gravatar.com/avatar/00000000000000000000000000000000?s=100&d=monsterid&r=g',
+            'amount'               => 50,
+            'avatar'               => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
+            'picture'              => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
             'city'                 => 'Dhaka',
-            'city_country'         => 'Bangladesh',
+            'city_country'         => 'Dhaka, Bangladesh',
             'content'              => 'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
             'count'                => 7,
             'country'              => 'Bangladesh',
@@ -799,6 +833,7 @@ class FrontEnd {
             'plugin_name'       => 'NotificationX',
             'plugin_name_text'  => 'try it out',
             'plugin_review'     => 'Lorem Ipsum is simply dummy text...',
+            'place_review'      => 'Lorem Ipsum is simply dummy text...',
             'plugin_theme_name' => 'NotificationX',
             'post_link'         => '#',
             'product_id'        => 168,
@@ -843,29 +878,44 @@ class FrontEnd {
             '7days'             => __( 'In last 7 days', 'notificationx' ),
             '30days'            => __( 'In last 30 days', 'notificationx' ),
             'post_comment'      => 'Lorem Ipsum is simply dummy text...',
-            'select_a_tag'      => 'Jhon',
+            // 'select_a_tag'      => 'Jhon',
 
         ];
-        // ksort($defaults);
-        // var_export($defaults);
-        // die;
-        if($settings['notification-template']['first_param'] = 'select_a_tag'){
-            $settings['notification-template']['first_param'] = 'tag_select_a_tag';
-        }
+
+
         $settings['freemius_plugins'] = '';
 
         $defaults['image_data'] = $this->apply_defaults((array) $this->get_image_url($defaults, $settings), $defaults['image_data']);
-        // if ($settings['show_notification_image'] === 'gravatar' && empty($defaults['image_data']['url'])) {
-        //     $defaults['image_data']['url'] = $defaults['picture'];
-        // }
+        if ($settings['show_notification_image'] === 'none' && !$settings['show_default_image']) {
+            $defaults['image_data'] = false;
+        }
 
         $_defaults = apply_filters("nx_fallback_data_$source", $defaults, $defaults, $settings);
         $_defaults = apply_filters('nx_fallback_data', $_defaults, $_defaults, $settings);
         $defaults  = $this->apply_defaults($defaults, $_defaults);
         $defaults  = apply_filters("nx_preview_entry_$type", $defaults, $settings);
         $defaults  = apply_filters("nx_preview_entry_$source", $defaults, $settings);
+        $defaults  = apply_filters("nx_filtered_entry_$type", $defaults, $settings);
+        $defaults  = apply_filters("nx_filtered_entry_$source", $defaults, $settings);
         // $defaults  = $this->link_url($defaults, $settings);
         return $defaults;
+    }
+
+    public function preview_settings($settings){
+        $settings['global_queue'] = false;
+        if(empty($settings['nx_id'])){
+            $settings['nx_id'] = rand();
+        }
+        if(empty($settings['theme'])){
+            $settings['theme'] = $settings['themes'];
+        }
+        if($settings['notification-template']['first_param'] == 'select_a_tag'){
+            $settings['notification-template']['first_param'] = 'tag_first_name';
+        }
+
+        $settings = apply_filters( "nx_get_post_{$settings['source']}", $settings );
+        $settings = apply_filters( 'nx_get_post', $settings );
+        return $settings;
     }
 
     public function get_bar_content($settings, $suppress_filters = false){
