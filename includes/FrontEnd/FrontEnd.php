@@ -882,6 +882,11 @@ class FrontEnd {
 
         ];
 
+        if(!empty($settings['custom_contents']) && is_array($settings['custom_contents']) && count($settings['custom_contents'])){
+            $custom = end($settings['custom_contents']);
+            $custom['name'] = Helper::name($custom['first_name'], $custom['last_name']);
+            $defaults = array_merge($defaults, $custom);
+        }
 
         $settings['freemius_plugins'] = '';
 
