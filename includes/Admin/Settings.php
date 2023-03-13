@@ -273,6 +273,8 @@ class Settings extends UsabilityDynamicsSettings {
                                     'label'    => __( 'Enable Analytics', 'notificationx' ),
                                     'default'  => true,
                                     'priority' => 0,
+                                    'multiple' => true,
+                                    'options'  => $wp_roles,
                                 ),
                                 'disable_dashboard_widget' => array(
                                     'name'        => 'disable_dashboard_widget',

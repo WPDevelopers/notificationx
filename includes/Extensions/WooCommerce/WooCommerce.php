@@ -413,8 +413,8 @@ class WooCommerce extends Extension {
     public function wpml_translate($entry, $settings) {
         if(!empty($entry['product_id'])){
             $product_id = apply_filters( 'wpml_object_id', $entry['product_id'], 'nx_bar', false);
-            if($product_id){
-                $product = wc_get_product($product_id);
+            $product = wc_get_product($product_id);
+            if($product){
                 $current_lang = apply_filters( 'wpml_current_language', NULL );
 
                 $entry['product_id'] = $product_id;

@@ -170,4 +170,14 @@ class DownloadStats extends Types {
 
         return array_merge($options, $_options);
     }
+
+    public function preview_entry($entry, $settings){
+        $entry['image_data'] = array(
+            'url'     => "https://ps.w.org/notificationx/assets/icon-256x256.gif?rev=2783824",
+            'alt'     => '',
+            'classes' => 'greview_icon',
+        );
+        return $entry;
+    }
+
 }

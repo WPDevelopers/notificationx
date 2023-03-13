@@ -176,9 +176,11 @@ class FrontEnd {
             <script data-no-optimize="1">
                 (function() {
                     document.addEventListener("click", function(event) {
-                        if (event.target.tagName === "A") {
+                        // if (event.target.tagName === "A") {
                             event.preventDefault();
-                        }
+                            event.stopPropagation();
+                            event.stopImmediatePropagation();
+                        // }
                     });
                     document.addEventListener("submit", function(event) {
                         event.preventDefault();
@@ -345,7 +347,7 @@ class FrontEnd {
 
                 // $settings['button_url'] = apply_filters("nx_notification_link_{$settings['source']}", $settings['button_url'], $settings);
                 $settings['button_url'] = apply_filters('nx_notification_link', $settings['button_url'], $settings);
-                if (strpos($settings['button_url'], '//') === false) {
+                if (!empty($settings['button_url']) && strpos($settings['button_url'], '//') === false) {
                     $settings['button_url'] = "//{$settings['button_url']}";
                 }
                 $bar_content = $this->get_bar_content($settings);
@@ -793,7 +795,7 @@ class FrontEnd {
             'count'                => 7,
             'country'              => 'Bangladesh',
             'course_title'         => 'PHP Beginners – Become a PHP Master',
-            'created_at'           => wp_date( get_option( 'date_format' ), strtotime('2 days ago') ),
+            'created_at'           => wp_date( 'Y-m-d H:i:s', strtotime('2 days ago') ),
             'day'                  => 'days',
             'downloaded'           => 41514238,
             'email'                => 'support@wpdeveloper.com',
@@ -816,7 +818,7 @@ class FrontEnd {
             'ip'                => '103.108.146.88',
             'key'               => '7368a455f5c113afbfd3d8c3ea89a5ed-5719',
             'last_name'         => 'Doe',
-            'last_updated'      => wp_date( get_option( 'date_format' ), strtotime('2 days ago') ),
+            'last_updated'      => date( 'Y-m-d H:i:s', strtotime('2 days ago') ),
             'last_week'         => '75.1K+ times in last 7 days',
             'last_week_text'    => 'Get Started for Free.',
             'lat'               => 23.8371427,
@@ -854,12 +856,12 @@ class FrontEnd {
             'source'            => 'google_reviews',
             'status'            => 'wc-processing',
             'this_page'         => 'this page',
-            'timestamp'         => wp_date( get_option( 'date_format' ), strtotime('2 days ago') ),
+            'timestamp'         => date( 'Y-m-d H:i:s', strtotime('2 days ago') ),
             'title'             => 'Hoodie with Logo',
             'today'             => '1.4K+ times today',
             'today_text'        => 'Try It Out',
             'type'              => 'realtime_siteview',
-            'updated_at'        => wp_date( get_option( 'date_format' ), strtotime('2 days ago') ),
+            'updated_at'        => date( 'Y-m-d H:i:s', strtotime('2 days ago') ),
             'url'               => '#',
             'user_id'           => '1',
             'username'          => 'johndoe',
@@ -883,8 +885,10 @@ class FrontEnd {
         ];
 
         if(!empty($settings['custom_contents']) && is_array($settings['custom_contents']) && count($settings['custom_contents'])){
-            $custom = end($settings['custom_contents']);
-            $custom['name'] = Helper::name($custom['first_name'], $custom['last_name']);
+            $custom = !empty($settings['custom_contents'][0]) ? $settings['custom_contents'][0] : [];
+            if(isset($custom['first_name'], $custom['last_name'])){
+                $custom['name'] = Helper::name($custom['first_name'], $custom['last_name']);
+            }
             $defaults = array_merge($defaults, $custom);
         }
 
@@ -907,14 +911,17 @@ class FrontEnd {
     }
 
     public function preview_settings($settings){
-        $settings['global_queue'] = false;
+        if($settings['global_queue']){
+            $settings['global_queue']  = false;
+            $settings['_global_queue'] = true;
+        }
         if(empty($settings['nx_id'])){
             $settings['nx_id'] = rand();
         }
         if(empty($settings['theme'])){
             $settings['theme'] = $settings['themes'];
         }
-        if($settings['notification-template']['first_param'] == 'select_a_tag'){
+        if('form' === $settings['type']){
             $settings['notification-template']['first_param'] = 'tag_first_name';
         }
 

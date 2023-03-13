@@ -18,13 +18,8 @@ const NotificationX = (props) => {
     const [title, setTitle] = useState("");
     if (!title) {
         let documentTitle = document.querySelector("title").text;
-        documentTitle = documentTitle
-            .replace(__("All NotificationX", 'notificationx'), "")
-            .replace(__("Add New", 'notificationx'), "")
-            .replace(__("Settings", 'notificationx'), "")
-            .replace(__("Analytics", 'notificationx'), "")
-            .replace(__("Quick Builder", 'notificationx'), "");
-        setTitle(documentTitle);
+        documentTitle = documentTitle.split('‹')[1];
+        setTitle('‹ ' + documentTitle);
     }
 
     const builder = useNotificationX({ ...notificationxTabs, title });

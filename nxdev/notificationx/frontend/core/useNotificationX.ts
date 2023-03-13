@@ -67,8 +67,12 @@ const useNotificationX = (props: any) => {
                 const filteredConfig = {};
                 Object.keys(config.active).forEach((key) => {
                     const active   = config.active[key];
-                    const settings = {...active['post'], previewType};
+                    let settings = {...active['post'], previewType};
+                    if(config.settings._global_queue){
+                        settings = {...settings, ...config.settings};
+                    }
                     if(!(previewType === 'phone' && settings.hide_on_mobile)){
+                        active['post']      = settings;
                         filteredConfig[key] = active;
                     }
                 });
@@ -78,8 +82,12 @@ const useNotificationX = (props: any) => {
                 const filteredConfig = {};
                 Object.keys(config.pressbar).forEach((key) => {
                     const pressbar = config.pressbar[key];
-                    const settings = {...pressbar['post'], previewType};
+                    let settings = {...pressbar['post'], previewType};
+                    if(config.settings._global_queue){
+                        settings = {...settings, ...config.settings};
+                    }
                     if(!(previewType === 'phone' && settings.hide_on_mobile)){
+                        pressbar['post']    = settings;
                         filteredConfig[key] = pressbar;
                     }
                 });

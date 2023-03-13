@@ -249,7 +249,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                         </div>
                     )}
 
-                    {settings?.button_url && (
+                    {(settings?.button_url && settings?.button_text) && (
                         <Analytics
                             style={styles?.buttonCSS}
                             className="nx-bar-button"

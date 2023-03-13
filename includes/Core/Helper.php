@@ -255,9 +255,9 @@ class Helper {
     public static function nice_number($n) {
         $temp_number = str_replace(",", "", $n);
         if (!empty($temp_number)) {
-            $n = (0 + $temp_number);
+            $n = (0 + (int) $temp_number);
         } else {
-            $n = $n;
+            $n = (int) $n;
         }
         if (!is_numeric($n)) return 0;
         $is_neg = false;

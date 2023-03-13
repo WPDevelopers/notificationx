@@ -52,7 +52,7 @@
     "immutable": "^4.1.0",
     "js-base64": "^3.7.3",
     "moment": "^2.29.4",
-    "quickbuilder": "github:WPDevelopers/quickbuilder#dev",
+    "quickbuilder": "github:WPDevelopers/quickbuilder#master",
     "rc-pagination": "^3.1.13",
     "react-apexcharts": "^1.3.9",
     "react-cookies": "^0.1.1",
