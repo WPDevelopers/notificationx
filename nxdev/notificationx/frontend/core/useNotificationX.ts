@@ -68,7 +68,7 @@ const useNotificationX = (props: any) => {
                 Object.keys(config.active).forEach((key) => {
                     const active   = config.active[key];
                     let settings = {...active['post'], previewType};
-                    if(config.settings._global_queue){
+                    if(settings._global_queue){
                         settings = {...settings, ...config.settings};
                     }
                     if(!(previewType === 'phone' && settings.hide_on_mobile)){
@@ -83,7 +83,7 @@ const useNotificationX = (props: any) => {
                 Object.keys(config.pressbar).forEach((key) => {
                     const pressbar = config.pressbar[key];
                     let settings = {...pressbar['post'], previewType};
-                    if(config.settings._global_queue){
+                    if(settings._global_queue){
                         settings = {...settings, ...config.settings};
                     }
                     if(!(previewType === 'phone' && settings.hide_on_mobile)){

@@ -10,7 +10,7 @@
         all: initial;
         width: 40px;
         height: 40px;
-        background: rgba(#fff, 0.1);
+        background: #6a4bff;
         border-radius: 5px;
         flex-shrink: 0;
         display: flex;
@@ -30,9 +30,10 @@
         height: 15px;
         border-radius: 4px;
         position: absolute;
-        top: 5px;
-        right: 5px;
-        background: #5453fd;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 10px;
+        background: #dcd6ff;
         color: #fff;
         display: flex;
         align-items: center;
@@ -42,6 +43,8 @@
 }
 .nx-admin-modal-body {
     overflow: hidden;
+    border: 2px solid #5414D0;
+    background: #F6F7FD;
     iframe {
         max-height: calc(100vh - 150px);
     }

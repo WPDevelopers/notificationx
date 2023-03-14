@@ -895,9 +895,6 @@ class FrontEnd {
         $settings['freemius_plugins'] = '';
 
         $defaults['image_data'] = $this->apply_defaults((array) $this->get_image_url($defaults, $settings), $defaults['image_data']);
-        if ($settings['show_notification_image'] === 'none' && !$settings['show_default_image']) {
-            $defaults['image_data'] = false;
-        }
 
         $_defaults = apply_filters("nx_fallback_data_$source", $defaults, $defaults, $settings);
         $_defaults = apply_filters('nx_fallback_data', $_defaults, $_defaults, $settings);
@@ -907,6 +904,23 @@ class FrontEnd {
         $defaults  = apply_filters("nx_filtered_entry_$type", $defaults, $settings);
         $defaults  = apply_filters("nx_filtered_entry_$source", $defaults, $settings);
         // $defaults  = $this->link_url($defaults, $settings);
+        if(strpos($settings['theme'], 'maps_theme') !== false || 'maps_image' === $settings['show_notification_image']){
+            $defaults['image_data'] = array(
+                'url'     => NOTIFICATIONX_ASSETS . 'admin/images/map.jpg',
+                'alt'     => '',
+                'classes' => 'greview_icon',
+            );
+        }
+        if('gravatar' === $settings['show_notification_image']){
+            $defaults['image_data'] = array(
+                'url'     => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
+                'alt'     => '',
+                'classes' => 'greview_icon',
+            );
+        }
+        if ('none' === $settings['show_notification_image'] && !$settings['show_default_image']) {
+            $defaults['image_data'] = false;
+        }
         return $defaults;
     }
 
@@ -915,9 +929,7 @@ class FrontEnd {
             $settings['global_queue']  = false;
             $settings['_global_queue'] = true;
         }
-        if(empty($settings['nx_id'])){
-            $settings['nx_id'] = rand();
-        }
+        $settings['nx_id'] = rand();
         if(empty($settings['theme'])){
             $settings['theme'] = $settings['themes'];
         }

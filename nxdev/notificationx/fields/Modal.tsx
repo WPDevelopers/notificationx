@@ -3,6 +3,9 @@ import ReactModal from "react-modal";
 import { useBuilderContext } from "quickbuilder";
 import { useNotificationXContext } from "../hooks";
 import { Button } from "@wordpress/components";
+import { ReactComponent as DesktopIcon } from "../icons/responsive/desktop.svg";
+import { ReactComponent as TabletIcon } from "../icons/responsive/tablet.svg";
+import { ReactComponent as MobileIcon } from "../icons/responsive/mobile.svg";
 
 const Modal = (props) => {
     const nxContext = useNotificationXContext();
@@ -41,12 +44,10 @@ const Modal = (props) => {
     }, [isOpen]);
 
     useEffect(() => {
-
         return () => {
             document.body.style.overflow = "unset";
         };
-    }, [])
-
+    }, []);
 
     return (
         <>
@@ -81,8 +82,8 @@ const Modal = (props) => {
                                 ? "768px"
                                 : "480px",
                         margin: "auto",
-                        border: "2px solid #0302b5",
-                        background: "#0302b5",
+                        border: "0px solid #5414D0",
+                        background: "#5414D0",
                         overflow: "auto",
                         WebkitOverflowScrolling: "touch",
                         borderRadius: "4px",
@@ -100,11 +101,7 @@ const Modal = (props) => {
                             type="button"
                             onClick={() => setPreviewType("desktop")}
                         >
-                            <img
-                                src={`${nxContext.assets.admin}images/responsive/desktop.svg`}
-                                alt="desktop"
-                                style={{ width: 20 }}
-                            />
+                            <DesktopIcon style={{ width: 20 }} />
                         </button>
                         <button
                             className={`nx-admin-modal-preview-button ${
@@ -113,11 +110,7 @@ const Modal = (props) => {
                             type="button"
                             onClick={() => setPreviewType("tablet")}
                         >
-                            <img
-                                src={`${nxContext.assets.admin}images/responsive/tablet.svg`}
-                                alt="tablet"
-                                style={{ width: 17 }}
-                            />
+                        <TabletIcon style={{ width: 17 }} />
                         </button>
                         <button
                             className={`nx-admin-modal-preview-button ${
@@ -126,11 +119,7 @@ const Modal = (props) => {
                             type="button"
                             onClick={() => setPreviewType("phone")}
                         >
-                            <img
-                                src={`${nxContext.assets.admin}images/responsive/mobile.svg`}
-                                alt="phone"
-                                style={{ width: 15 }}
-                            />
+                        <MobileIcon style={{ width: 15 }} />
                         </button>
                         <button
                             className="nx-admin-modal-close-button"
@@ -141,7 +130,7 @@ const Modal = (props) => {
                                 width="6px"
                                 height="6px"
                                 viewBox="0 0 48 48"
-                                fill="#ffffff"
+                                fill="#000000"
                             >
                                 <g stroke="none">
                                     <g>

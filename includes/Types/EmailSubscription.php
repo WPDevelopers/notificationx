@@ -118,12 +118,15 @@ class EmailSubscription extends Types {
     public function preview_entry($entry, $settings){
         $entry = array_merge($entry, [
             "title"             => "NotificationX Pro",
-            'image_data' => array(
+        ]);
+
+        if('email_subscription_maps_theme' !== $settings['theme']){
+            $entry['image_data'] = array(
                 'url'     => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
                 'alt'     => '',
                 'classes' => 'greview_icon',
-            ),
-        ]);
+            );
+        }
         return $entry;
     }
 
