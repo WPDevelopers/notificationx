@@ -219,7 +219,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 2.7.0 - 15/03/2023 =
+= 2.7.0 - 16/03/2023 =
 - Added: Notification Preview feature.
 - Few minor bug fixes and improvements
 
