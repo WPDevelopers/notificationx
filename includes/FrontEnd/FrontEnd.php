@@ -904,7 +904,7 @@ class FrontEnd {
         $defaults  = apply_filters("nx_filtered_entry_$type", $defaults, $settings);
         $defaults  = apply_filters("nx_filtered_entry_$source", $defaults, $settings);
         // $defaults  = $this->link_url($defaults, $settings);
-        if(strpos($settings['theme'], 'maps_theme') !== false || 'maps_image' === $settings['show_notification_image']){
+        if(strpos($settings['theme'], 'maps_theme') !== false && 'maps_image' === $settings['show_notification_image']){
             $defaults['image_data'] = array(
                 'url'     => NOTIFICATIONX_ASSETS . 'admin/images/map.jpg',
                 'alt'     => '',

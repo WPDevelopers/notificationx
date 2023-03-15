@@ -1047,7 +1047,7 @@ class GlobalFields {
         ];
         $tabs['config']['content_heading'] = [
             'preview' => [
-                'label' => __('Preview (Beta)', 'notificationx'),
+                'label' => __('Preview', 'notificationx'),
                 'type'  => 'preview-modal',
                 'name'  => 'preview',
                 'url'   => trailingslashit(home_url()),
