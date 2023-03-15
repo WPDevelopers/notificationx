@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 2.6.0\n"
+"Project-Id-Version: NotificationX 2.7.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-02-09T12:24:11+00:00\n"
+"POT-Creation-Date: 2023-03-15T08:16:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.0\n"
 "X-Domain: notificationx\n"
@@ -21,10 +21,10 @@ msgstr ""
 #: assets/admin/js/admin.js:11
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:3938
-#: nxbuild/admin/js/admin.js:9606
-#: nxbuild/public/js/crossSite.js:4374
-#: nxbuild/public/js/frontend.js:4300
+#: nxbuild/admin/js/admin.js:4047
+#: nxbuild/admin/js/admin.js:9744
+#: nxbuild/public/js/crossSite.js:4384
+#: nxbuild/public/js/frontend.js:4310
 #: nxdev/notificationx/frontend/themes/helpers/NotificationText.js:13
 msgid "NotificationX"
 msgstr ""
@@ -51,9 +51,7 @@ msgstr ""
 
 #: includes/Admin/Admin.php:101
 #: assets/admin/js/admin.js:9
-#: assets/admin/js/admin.js:15
-#: nxbuild/admin/js/admin.js:2533
-#: nxbuild/admin/js/admin.js:9277
+#: nxbuild/admin/js/admin.js:2639
 msgid "All NotificationX"
 msgstr ""
 
@@ -123,15 +121,13 @@ msgstr ""
 #: includes/Admin/Settings.php:268
 #: includes/Core/Analytics.php:46
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:15
-#: nxbuild/admin/js/admin.js:2790
-#: nxbuild/admin/js/admin.js:9277
+#: nxbuild/admin/js/admin.js:2896
 msgid "Analytics"
 msgstr ""
 
 #: includes/Admin/ImportExport.php:72
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3342
+#: nxbuild/admin/js/admin.js:3449
 msgid "Status"
 msgstr ""
 
@@ -461,47 +457,48 @@ msgstr ""
 #: includes/Admin/views/analytics.views.php:7
 #: includes/Admin/views/analytics.views.php:11
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3124
+#: nxbuild/admin/js/admin.js:3231
 msgid "Total Views"
 msgstr ""
 
 #: includes/Admin/views/analytics.views.php:20
 #: includes/Admin/views/analytics.views.php:24
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3130
+#: nxbuild/admin/js/admin.js:3237
 msgid "Total Clicks"
 msgstr ""
 
 #: includes/Admin/views/analytics.views.php:33
 #: includes/Admin/views/analytics.views.php:37
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3136
+#: nxbuild/admin/js/admin.js:3243
 msgid "Click-Through-Rate"
 msgstr ""
 
 #. translators: html tags
 #: includes/Admin/views/main.views.php:18
-msgid "To work %sNotificationX%s properly you need to %sEnable JavaScript%s in your browser or make sure you have installed updated browser in your device."
+msgid "To work <strong><em>NotificationX</em></strong> properly you need to <strong>Enable JavaScript</strong> in your browser or make sure you have installed updated browser in your device."
 msgstr ""
 
 #: includes/Admin/XSS.php:37
 #: includes/Admin/XSS.php:43
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3672
-#: nxbuild/admin/js/admin.js:4779
+#: nxbuild/admin/js/admin.js:3780
+#: nxbuild/admin/js/admin.js:4893
 msgid "Cross Domain Notice"
 msgstr ""
 
 #: includes/Admin/XSS.php:44
 #: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:12303
 msgid "Click to Copy"
 msgstr ""
 
 #: includes/Admin/XSS.php:45
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:7
-#: nxbuild/admin/js/admin.js:3809
-#: nxbuild/admin/js/admin.js:4730
+#: nxbuild/admin/js/admin.js:3917
+#: nxbuild/admin/js/admin.js:4844
 msgid "Cross Domain Notice code has been copied to Clipboard."
 msgstr ""
 
@@ -602,10 +599,10 @@ msgstr ""
 #: includes/Extensions/WordPress/WPComments.php:257
 #: includes/Extensions/WordPress/WPComments.php:258
 #: includes/Extensions/WordPress/WPComments.php:259
-#: includes/FrontEnd/FrontEnd.php:213
-#: includes/FrontEnd/FrontEnd.php:214
-#: includes/FrontEnd/FrontEnd.php:215
-#: includes/FrontEnd/FrontEnd.php:598
+#: includes/FrontEnd/FrontEnd.php:242
+#: includes/FrontEnd/FrontEnd.php:243
+#: includes/FrontEnd/FrontEnd.php:244
+#: includes/FrontEnd/FrontEnd.php:633
 #: includes/Types/Comments.php:47
 #: includes/Types/Comments.php:60
 #: includes/Types/Comments.php:73
@@ -635,17 +632,14 @@ msgstr ""
 #: includes/Core/PostType.php:60
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:15
-#: nxbuild/admin/js/admin.js:2177
-#: nxbuild/admin/js/admin.js:5118
-#: nxbuild/admin/js/admin.js:9277
+#: nxbuild/admin/js/admin.js:2280
+#: nxbuild/admin/js/admin.js:5232
 msgid "Add New"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:47
 #: assets/admin/js/admin.js:13
-#: assets/admin/js/admin.js:15
-#: nxbuild/admin/js/admin.js:4143
-#: nxbuild/admin/js/admin.js:9277
+#: nxbuild/admin/js/admin.js:4255
 msgid "Quick Builder"
 msgstr ""
 
@@ -954,7 +948,7 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:57
 #: includes/Extensions/Tutor/TutorInline.php:69
 #: includes/Extensions/WooCommerce/WooInline.php:127
-#: includes/FrontEnd/FrontEnd.php:842
+#: includes/FrontEnd/FrontEnd.php:879
 msgid "In last 1 day"
 msgstr ""
 
@@ -962,7 +956,7 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:58
 #: includes/Extensions/Tutor/TutorInline.php:70
 #: includes/Extensions/WooCommerce/WooInline.php:128
-#: includes/FrontEnd/FrontEnd.php:843
+#: includes/FrontEnd/FrontEnd.php:880
 #: includes/Types/DownloadStats.php:104
 #: includes/Types/DownloadStats.php:124
 msgid "In last 7 days"
@@ -972,7 +966,7 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:59
 #: includes/Extensions/Tutor/TutorInline.php:71
 #: includes/Extensions/WooCommerce/WooInline.php:129
-#: includes/FrontEnd/FrontEnd.php:844
+#: includes/FrontEnd/FrontEnd.php:881
 msgid "In last 30 days"
 msgstr ""
 
@@ -1095,7 +1089,7 @@ msgstr ""
 #: includes/Extensions/Give/Give.php:82
 #: includes/Extensions/GlobalFields.php:451
 #: includes/Extensions/GlobalFields.php:469
-#: includes/Extensions/GlobalFields.php:1098
+#: includes/Extensions/GlobalFields.php:1096
 #: includes/Extensions/Google/GoogleReviews.php:55
 #: includes/Extensions/Google/GoogleReviews.php:69
 #: includes/Extensions/Google/GoogleReviews.php:83
@@ -1112,7 +1106,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WOOReviews.php:111
 #: includes/Extensions/WooCommerce/WOOReviews.php:123
 #: includes/Extensions/WordPress/WPComments.php:261
-#: includes/FrontEnd/FrontEnd.php:217
+#: includes/FrontEnd/FrontEnd.php:246
 #: includes/Types/Comments.php:52
 #: includes/Types/Comments.php:65
 #: includes/Types/Comments.php:78
@@ -1585,27 +1579,29 @@ msgstr ""
 msgid "Open Link In New Tab"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1051
-msgid "Preview (Beta)"
+#: includes/Extensions/GlobalFields.php:1050
+#: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:3449
+msgid "Preview"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1086
+#: includes/Extensions/GlobalFields.php:1084
 msgid "Full Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1087
+#: includes/Extensions/GlobalFields.php:1085
 msgid "First Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1088
+#: includes/Extensions/GlobalFields.php:1086
 msgid "Last Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1091
+#: includes/Extensions/GlobalFields.php:1089
 msgid "Display Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1097
+#: includes/Extensions/GlobalFields.php:1095
 #: includes/Extensions/Google/GoogleReviews.php:143
 #: includes/Extensions/ReviewX/ReviewX.php:158
 #: includes/Extensions/WooCommerce/WOOReviews.php:140
@@ -2080,7 +2076,7 @@ msgstr ""
 #: includes/Extensions/ReviewX/ReviewX.php:174
 #: includes/Extensions/WooCommerce/WOOReviews.php:136
 #: includes/Extensions/WooCommerce/WOOReviews.php:156
-#: includes/FrontEnd/FrontEnd.php:216
+#: includes/FrontEnd/FrontEnd.php:245
 #: includes/Types/Donations.php:49
 #: includes/Types/EmailSubscription.php:59
 #: includes/Types/Reviews.php:134
@@ -2481,9 +2477,7 @@ msgstr ""
 
 #: includes/NotificationX.php:167
 #: assets/admin/js/admin.js:9
-#: assets/admin/js/admin.js:15
-#: nxbuild/admin/js/admin.js:4459
-#: nxbuild/admin/js/admin.js:9277
+#: nxbuild/admin/js/admin.js:4573
 msgid "Settings"
 msgstr ""
 
@@ -2770,667 +2764,687 @@ msgstr ""
 msgid "About"
 msgstr ""
 
+#: includes/Types/Reviews.php:264
+msgctxt "nx_preview"
+msgid "NotificationX"
+msgstr ""
+
 #: notificationx.php:83
 msgid "<strong>Recommended: </strong> Seems like you haven't updated the NotificationX Pro version. Please make sure to update NotificationX Pro plugin from <a href='%s'><strong>wp-admin -> Plugins</strong></a>."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:10317
 msgid "\"allOf\" condition requires an array as #3 argument"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:10326
 msgid "\"anyOf\" condition requires an array as #3 argument"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:10353
 msgid "\"not\" can have only one comparison rule, multiple rules given"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:10369
 msgid "Invalid comparison rule %s."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:10621
 msgid "There are no tabs defined!"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:12020
 msgid "Field must have a #type. see documentation."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:12294
 msgid "Copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:12326
 msgid "Invalid file type."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:12323
 msgid "File can't be empty."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:12385
 msgid "You should give a #fields arguments to a group field."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:12741
 msgid "Loading..."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:12938
 msgid "#options is a required arguments for RadioCard field."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:13520
 msgid "Reset"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:13620
 msgid "Button has a required params #text."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:7
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:3707
-#: nxbuild/admin/js/admin.js:3849
-#: nxbuild/admin/js/admin.js:4393
+#: nxbuild/admin/js/admin.js:3815
+#: nxbuild/admin/js/admin.js:3957
+#: nxbuild/admin/js/admin.js:4506
+#: nxbuild/admin/js/admin.js:13669
 msgid "Something went wrong."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:13830
 msgid "Modal needs button/body with it."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:13946
 msgid "Save Changes"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:14010
 msgid "There are no #tabs args defined in props."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: nxbuild/admin/js/admin.js:14015
 msgid "Not an array."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:8967
+#: nxbuild/admin/js/admin.js:9108
 msgid "NotificationXContext context is undefined, please verify you are calling useNotificationXContext() as child of a <NotificationX> component."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:6096
+#: nxbuild/admin/js/admin.js:6212
 msgid "You need to upgrade to the <strong><a href='%s' target='_blank'>Premium Version</a></strong> to use this feature."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:6106
+#: nxbuild/admin/js/admin.js:6222
 msgid "Opps..."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:6076
+#: nxbuild/admin/js/admin.js:6192
+#: nxbuild/admin/js/admin.js:10893
 msgid "Title Goes Here: title"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:6077
+#: nxbuild/admin/js/admin.js:6193
 msgid "Text Goes Here: text"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5097
+#: nxbuild/admin/js/admin.js:5211
 msgid "NotificationX:"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5122
+#: nxbuild/admin/js/admin.js:5236
 msgid "NotificationX Pro:"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5403
+#: nxbuild/admin/js/admin.js:5518
 msgid "NX Not Created"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5406
+#: nxbuild/admin/js/admin.js:5521
 msgid "Error: "
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:7
-#: nxbuild/admin/js/admin.js:3682
-#: nxbuild/admin/js/admin.js:4632
-#: nxbuild/admin/js/admin.js:5411
+#: nxbuild/admin/js/admin.js:3790
+#: nxbuild/admin/js/admin.js:4746
+#: nxbuild/admin/js/admin.js:5526
 msgid "Are you sure?"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:7
-#: nxbuild/admin/js/admin.js:3683
-#: nxbuild/admin/js/admin.js:4633
-#: nxbuild/admin/js/admin.js:5412
+#: nxbuild/admin/js/admin.js:3791
+#: nxbuild/admin/js/admin.js:4747
+#: nxbuild/admin/js/admin.js:5527
 msgid "You won't be able to revert this!"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:7
-#: nxbuild/admin/js/admin.js:3686
-#: nxbuild/admin/js/admin.js:4636
-#: nxbuild/admin/js/admin.js:5415
+#: nxbuild/admin/js/admin.js:3794
+#: nxbuild/admin/js/admin.js:4750
+#: nxbuild/admin/js/admin.js:5530
 msgid "Yes, Delete It"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:7
-#: nxbuild/admin/js/admin.js:3687
-#: nxbuild/admin/js/admin.js:4637
-#: nxbuild/admin/js/admin.js:5416
+#: nxbuild/admin/js/admin.js:3795
+#: nxbuild/admin/js/admin.js:4751
+#: nxbuild/admin/js/admin.js:5531
 msgid "No, Cancel"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4653
-#: nxbuild/admin/js/admin.js:5428
+#: nxbuild/admin/js/admin.js:4767
+#: nxbuild/admin/js/admin.js:5543
 msgid "Notification Alert has been Deleted."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4396
-#: nxbuild/admin/js/admin.js:4933
-#: nxbuild/admin/js/admin.js:5433
+#: nxbuild/admin/js/admin.js:4509
+#: nxbuild/admin/js/admin.js:5047
+#: nxbuild/admin/js/admin.js:5548
 msgid "Oops, Something went wrong. Please try again."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5436
+#: nxbuild/admin/js/admin.js:5551
 msgid "Delete Error: "
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4984
-#: nxbuild/admin/js/admin.js:5451
+#: nxbuild/admin/js/admin.js:5098
+#: nxbuild/admin/js/admin.js:5566
 msgid "Scheduled For"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5451
+#: nxbuild/admin/js/admin.js:5566
 msgid "Published On"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5451
+#: nxbuild/admin/js/admin.js:5566
 msgid "Publish On"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5471
+#: nxbuild/admin/js/admin.js:5586
 msgid "Schedule"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5471
+#: nxbuild/admin/js/admin.js:5586
 msgid "Update"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:11
-#: nxbuild/admin/js/admin.js:4007
-#: nxbuild/admin/js/admin.js:5471
+#: nxbuild/admin/js/admin.js:4117
+#: nxbuild/admin/js/admin.js:5586
 msgid "Publish"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5156
+#: nxbuild/admin/js/admin.js:5270
 msgid "NotificationX Instructions"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:2893
+#: nxbuild/admin/js/admin.js:3000
 msgid "Views"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:2897
+#: nxbuild/admin/js/admin.js:3004
 msgid "Clicks"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:2901
+#: nxbuild/admin/js/admin.js:3008
 msgid "CTR"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:2918
+#: nxbuild/admin/js/admin.js:3025
 msgid "All Combined"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:2921
+#: nxbuild/admin/js/admin.js:3028
 msgid "All Separated"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:2782
+#: nxbuild/admin/js/admin.js:2888
 msgid "Analytics Data"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:2788
+#: nxbuild/admin/js/admin.js:2894
 msgid "Get PRO to Unlock"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4693
-#: nxbuild/admin/js/admin.js:4720
-#: nxbuild/admin/js/admin.js:4775
+#: nxbuild/admin/js/admin.js:4807
+#: nxbuild/admin/js/admin.js:4834
+#: nxbuild/admin/js/admin.js:4889
 msgid "Inline Notification Alert has been copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4667
-#: nxbuild/admin/js/admin.js:4704
+#: nxbuild/admin/js/admin.js:4781
+#: nxbuild/admin/js/admin.js:4818
 msgid "Cancel"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4712
+#: nxbuild/admin/js/admin.js:4826
 msgid "Regular Notification Alert has been copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
-#: nxbuild/admin/js/admin.js:2366
-#: nxbuild/admin/js/admin.js:4739
-#: nxbuild/admin/js/admin.js:4744
+#: nxbuild/admin/js/admin.js:2471
+#: nxbuild/admin/js/admin.js:4853
+#: nxbuild/admin/js/admin.js:4858
 msgid "Edit"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4748
-#: nxbuild/admin/js/admin.js:4750
+#: nxbuild/admin/js/admin.js:4862
+#: nxbuild/admin/js/admin.js:4864
 msgid "Translate"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4754
-#: nxbuild/admin/js/admin.js:4763
+#: nxbuild/admin/js/admin.js:4868
+#: nxbuild/admin/js/admin.js:4877
 msgid "Duplicate"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4765
-#: nxbuild/admin/js/admin.js:4769
+#: nxbuild/admin/js/admin.js:4879
+#: nxbuild/admin/js/admin.js:4883
 msgid "Shortcode"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4767
+#: nxbuild/admin/js/admin.js:4881
 msgid "ShortCode"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4732
+#: nxbuild/admin/js/admin.js:4846
 msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use <a target='_blank' href='%s' style='color:red'>Cross Domain Notice</a> feature."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4661
+#: nxbuild/admin/js/admin.js:4775
 msgid "Are you sure you want to Regenerate?"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4662
+#: nxbuild/admin/js/admin.js:4776
 msgid "Regenerating will fetch new data based on settings"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3667
-#: nxbuild/admin/js/admin.js:4666
-#: nxbuild/admin/js/admin.js:4788
-#: nxbuild/admin/js/admin.js:4789
+#: nxbuild/admin/js/admin.js:3775
+#: nxbuild/admin/js/admin.js:4780
+#: nxbuild/admin/js/admin.js:4902
+#: nxbuild/admin/js/admin.js:4903
 msgid "Regenerate"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4679
+#: nxbuild/admin/js/admin.js:4793
 msgid "Notification Alert has been Regenerated."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3662
-#: nxbuild/admin/js/admin.js:4793
-#: nxbuild/admin/js/admin.js:4795
+#: nxbuild/admin/js/admin.js:3770
+#: nxbuild/admin/js/admin.js:4907
+#: nxbuild/admin/js/admin.js:4909
 msgid "Delete"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4921
+#: nxbuild/admin/js/admin.js:5035
 msgid "Notification Alert has been Enabled."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4923
+#: nxbuild/admin/js/admin.js:5037
 msgid "Notification Alert has been Disabled."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4926
+#: nxbuild/admin/js/admin.js:5040
 msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use this feature."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4926
-#: nxbuild/admin/js/admin.js:4928
+#: nxbuild/admin/js/admin.js:5040
+#: nxbuild/admin/js/admin.js:5042
 msgid "Disabled"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4928
+#: nxbuild/admin/js/admin.js:5042
 msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4982
+#: nxbuild/admin/js/admin.js:5096
 msgid "%s views"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4984
+#: nxbuild/admin/js/admin.js:5098
 msgid "Published"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
-#: nxbuild/admin/js/admin.js:2238
-#: nxbuild/admin/js/admin.js:2429
-#: nxbuild/admin/js/admin.js:3342
+#: nxbuild/admin/js/admin.js:2342
+#: nxbuild/admin/js/admin.js:2535
+#: nxbuild/admin/js/admin.js:3449
 msgid "NotificationX Title"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3342
-msgid "Preview"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3342
+#: nxbuild/admin/js/admin.js:3449
 msgid "Type"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3342
+#: nxbuild/admin/js/admin.js:3449
 msgid "Stats"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3342
+#: nxbuild/admin/js/admin.js:3449
 msgid "Date"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3342
+#: nxbuild/admin/js/admin.js:3449
 msgid "Action"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3646
+#: nxbuild/admin/js/admin.js:3754
 msgid "Bulk Action"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3656
+#: nxbuild/admin/js/admin.js:3764
 msgid "Enable"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3659
+#: nxbuild/admin/js/admin.js:3767
 msgid "Disable"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3865
+#: nxbuild/admin/js/admin.js:3973
 msgid "All (%d)"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3873
+#: nxbuild/admin/js/admin.js:3981
 msgid "Enabled (%d)"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3881
+#: nxbuild/admin/js/admin.js:3989
 msgid "Disabled (%d)"
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Regenerated.
 #: assets/admin/js/admin.js:3
-#: nxbuild/admin/js/admin.js:3724
+#: nxbuild/admin/js/admin.js:3832
 msgid "%d Notification Alerts have been Regenerated."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Enabled.
 #: assets/admin/js/admin.js:5
-#: nxbuild/admin/js/admin.js:3751
+#: nxbuild/admin/js/admin.js:3859
 msgid "%d Notification Alerts have been Enabled."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Disabled.
 #: assets/admin/js/admin.js:7
-#: nxbuild/admin/js/admin.js:3779
+#: nxbuild/admin/js/admin.js:3887
 msgid "%d Notification Alerts have been Disabled."
 msgstr ""
 
 #: assets/admin/js/admin.js:7
-#: nxbuild/admin/js/admin.js:3852
+#: nxbuild/admin/js/admin.js:3960
 msgid "Unable to complete bulk action."
 msgstr ""
 
 #: assets/admin/js/admin.js:7
-#: nxbuild/admin/js/admin.js:3683
+#: nxbuild/admin/js/admin.js:3791
 msgid "You're about to delete %s notification alert,<br />"
 msgid_plural "You're about to delete %s notification alerts,<br />"
 msgstr[0] ""
 msgstr[1] ""
 
 #: assets/admin/js/admin.js:7
-#: nxbuild/admin/js/admin.js:3684
+#: nxbuild/admin/js/admin.js:3792
 msgid "error"
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts deleted.
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:3712
+#: nxbuild/admin/js/admin.js:3820
 msgid ""
 "%d notification Alerts have been\n"
 "                Deleted."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:3897
+#: nxbuild/admin/js/admin.js:4005
 msgid "Applying..."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:3897
+#: nxbuild/admin/js/admin.js:4005
 msgid "Apply"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:3412
+#: nxbuild/admin/js/admin.js:3520
 msgid "loading..."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:3485
+#: nxbuild/admin/js/admin.js:3593
 msgid "NotificationX Fetch Error: "
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:3531
+#: nxbuild/admin/js/admin.js:3639
 msgid "No notifications are found."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:3531
+#: nxbuild/admin/js/admin.js:3639
 msgid "Seems like you haven’t created any notification alerts."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:3531
+#: nxbuild/admin/js/admin.js:3639
 msgid "Hit on %1$s\"Add New\"%2$s button to get started"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:3531
+#: nxbuild/admin/js/admin.js:3639
 msgid "No notifications are enabled."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:3531
+#: nxbuild/admin/js/admin.js:3639
 msgid "There’s no enabled Notification Alerts."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:3531
+#: nxbuild/admin/js/admin.js:3639
 msgid "Simply use the toggle switch to turn your notifications from %1$s\"All NotificationX\"%2$s page."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:3531
+#: nxbuild/admin/js/admin.js:3639
 msgid "No notifications are disabled."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:3531
+#: nxbuild/admin/js/admin.js:3639
 msgid "There’s no disabled Notification Alerts."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4501
+#: nxbuild/admin/js/admin.js:4615
 msgid "Manage License"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4505
+#: nxbuild/admin/js/admin.js:4619
 msgid "Upgrade to Pro"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4227
-#: nxbuild/admin/js/admin.js:4234
+#: nxbuild/admin/js/admin.js:4339
+#: nxbuild/admin/js/admin.js:4346
 msgid "Documentation"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4229
+#: nxbuild/admin/js/admin.js:4341
 msgid "Get started by spending some time with the documentation to get familiar with NotificationX. Build awesome websites for you or your clients with ease."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4245
+#: nxbuild/admin/js/admin.js:4357
 msgid "Contribute to NotificationX"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4247
+#: nxbuild/admin/js/admin.js:4359
 msgid "You can contribute to make NotificationX better reporting bugs, creating issues, pull requests at"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4256
+#: nxbuild/admin/js/admin.js:4368
 msgid "Report a bug"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4267
+#: nxbuild/admin/js/admin.js:4379
 msgid "Need Help?"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4269
+#: nxbuild/admin/js/admin.js:4381
 msgid "Stuck with something? Get help from live chat or support ticket."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4274
+#: nxbuild/admin/js/admin.js:4386
 msgid "Initiate a Chat"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4285
+#: nxbuild/admin/js/admin.js:4397
 msgid "Show Your Love"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4287
+#: nxbuild/admin/js/admin.js:4399
 msgid "We love to have you in NotificationX family. We are making it more awesome everyday. Take your 2 minutes to review the plugin and spread the love to encourage us to keep it going."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4292
+#: nxbuild/admin/js/admin.js:4404
 msgid "Leave a Review"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4391
+#: nxbuild/admin/js/admin.js:4504
 msgid "Changes Saved Successfully."
 msgstr ""
 
 #. translators: %1$s: title, %2$s: link to the All NotificationX page.
 #: assets/admin/js/admin.js:11
-#: nxbuild/admin/js/admin.js:3933
+#: nxbuild/admin/js/admin.js:4042
 msgid "You are about to publish %1$s. You can rename this and edit everything whenever you want from %2$s Page."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: nxbuild/admin/js/admin.js:3999
+#: nxbuild/admin/js/admin.js:4109
 msgid "QuickBuilder Error: "
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: nxbuild/admin/js/admin.js:4007
+#: nxbuild/admin/js/admin.js:4117
 msgid "Publishing..."
 msgstr ""
 
 #. translators: Title of the new Notification Alert. %1$s: title, %2$s: current date.
 #: assets/admin/js/admin.js:13
-#: nxbuild/admin/js/admin.js:4126
+#: nxbuild/admin/js/admin.js:4238
 msgid "NotificationX - %1$s - %2$s"
 msgstr ""
 
 #: assets/admin/js/admin.js:13
-#: nxbuild/admin/js/admin.js:2353
+#: nxbuild/admin/js/admin.js:2458
 msgid "Successfully Updated."
 msgstr ""
 
 #: assets/admin/js/admin.js:13
-#: nxbuild/admin/js/admin.js:2355
+#: nxbuild/admin/js/admin.js:2460
 msgid "Successfully Created."
 msgstr ""
 
 #. translators: Postfix for notice created by duplicate button.
 #: assets/admin/js/admin.js:15
-#: nxbuild/admin/js/admin.js:2159
+#: nxbuild/admin/js/admin.js:2262
 msgid " - Copy"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:9570
-#: nxbuild/public/js/crossSite.js:4342
-#: nxbuild/public/js/frontend.js:4268
+#: nxbuild/admin/js/admin.js:9708
+#: nxbuild/public/js/crossSite.js:4352
+#: nxbuild/public/js/frontend.js:4278
 #: nxdev/notificationx/frontend/themes/helpers/NXBranding.js:9
 msgid "by"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:7315
+#: nxbuild/admin/js/admin.js:7446
 #: nxbuild/public/js/crossSite.js:2506
 #: nxbuild/public/js/frontend.js:2506
 msgid "Days"
@@ -3438,7 +3452,7 @@ msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:7322
+#: nxbuild/admin/js/admin.js:7453
 #: nxbuild/public/js/crossSite.js:2513
 #: nxbuild/public/js/frontend.js:2513
 msgid "Hrs"
@@ -3446,7 +3460,7 @@ msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:7329
+#: nxbuild/admin/js/admin.js:7460
 #: nxbuild/public/js/crossSite.js:2520
 #: nxbuild/public/js/frontend.js:2520
 msgid "Mins"
@@ -3454,7 +3468,7 @@ msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:7336
+#: nxbuild/admin/js/admin.js:7467
 #: nxbuild/public/js/crossSite.js:2527
 #: nxbuild/public/js/frontend.js:2527
 msgid "Secs"
@@ -3462,14 +3476,14 @@ msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:7350
+#: nxbuild/admin/js/admin.js:7481
 #: nxbuild/public/js/crossSite.js:2541
 #: nxbuild/public/js/frontend.js:2541
 msgid "You should setup NX Bar properly"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
-#: nxbuild/public/js/crossSite.js:43452
+#: nxbuild/public/js/crossSite.js:43462
 msgid "You are using old version of cross-domain scripts for NotificationX Pro. Please update this from your NotificationX Settings page."
 msgstr ""
 
@@ -3507,4 +3521,8 @@ msgstr ""
 #: blocks/notificationx/components/inspector.js:218
 #: blocks/notificationx/index.js:1
 msgid "Link Color"
+msgstr ""
+
+#: nxbuild/admin/js/admin.js:10894
+msgid "Test Goes Here: text"
 msgstr ""
