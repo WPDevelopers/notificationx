@@ -1,7 +1,7 @@
 import React from 'react'
 import { __ } from '@wordpress/i18n';
 import AdvancedTemplate from './AdvancedTemplate';
-import Modal from './Modal';
+import PreviewModal from './PreviewModal';
 
 
 
@@ -11,7 +11,7 @@ const Field = (r, type, props) => {
         case "advanced-template":
             return <AdvancedTemplate {...props} />;
         case "preview-modal":
-            return <Modal {...props} />;
+            return <PreviewModal {...props} />;
         default:
             return <></>;
     }

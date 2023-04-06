@@ -88,6 +88,7 @@ return array(
     'NotificationX\\Extensions\\Zapier\\ZapierEmailSubscription' => $baseDir . '/includes/Extensions/Zapier/ZapierEmailSubscription.php',
     'NotificationX\\Extensions\\Zapier\\ZapierReviews' => $baseDir . '/includes/Extensions/Zapier/ZapierReviews.php',
     'NotificationX\\FrontEnd\\FrontEnd' => $baseDir . '/includes/FrontEnd/FrontEnd.php',
+    'NotificationX\\FrontEnd\\Preview' => $baseDir . '/includes/FrontEnd/Preview.php',
     'NotificationX\\GetInstance' => $baseDir . '/includes/GetInstance.php',
     'NotificationX\\NotificationX' => $baseDir . '/includes/NotificationX.php',
     'NotificationX\\ThirdParty\\WPML' => $baseDir . '/includes/ThirdParty/WPML.php',

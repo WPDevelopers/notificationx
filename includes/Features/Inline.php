@@ -20,6 +20,8 @@ class Inline {
      */
     use GetInstance;
 
+    public $notifications_data = [];
+
     /**
      * __construct__ is for revoke first time to get ready
      *
@@ -31,7 +33,12 @@ class Inline {
     }
 
 
-    public function get_notifications_data( $source ) {
+    public function get_notifications_data( $source, $id = null ) {
+        $exit = apply_filters('nx_inline_notifications_data', null, $source, $id);
+        if($exit){
+            return $exit;
+        }
+
         if ( empty( $this->notifications_data ) ) {
             $this->notifications_data = array( 'shortcode' => array() );
             $notifications            = PostType::get_instance()->get_posts(

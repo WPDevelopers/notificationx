@@ -52,11 +52,12 @@ class GlobalFields {
             'is_pro_active'  => NotificationX::get_instance()->is_pro(),
             'is_pro_sources' => apply_filters('nx_is_pro_sources', []),
             'config'         => [
-                'active'  => "source_tab",
+                'active'          => "source_tab",
                 'completionTrack' => true,
-                'sidebar' => true,
-                'step' => [
-                    'show' => true,
+                'sidebar'         => true,
+                'content_heading' => [],
+                'step'            => [
+                    'show'    => true,
                     'buttons' => [
                         'prev'    => __('Previous', 'notificationx'),
                         'next'    => __('Next', 'notificationx'),
@@ -1045,16 +1046,9 @@ class GlobalFields {
             ],
             'instructions' => apply_filters( 'nx_instructions', [] ),
         ];
-        $tabs['config']['content_heading'] = [
-            'preview' => [
-                'label' => __('Preview', 'notificationx'),
-                'type'  => 'preview-modal',
-                'name'  => 'preview',
-                'url'   => trailingslashit(home_url()),
-                'rules' => Rules::is('type', 'inline', true),
-            ],
-        ];
+
         $tabs['tabs'] = apply_filters('nx_metabox_tabs', $tabs['tabs']);
+        $tabs = apply_filters('nx_metabox_config', $tabs);
         return $tabs;
     }
 
