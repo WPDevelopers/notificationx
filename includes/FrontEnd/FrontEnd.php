@@ -328,8 +328,8 @@ class FrontEnd {
 
         $active_notifications = $global_notifications = $bar_notifications = array();
 
-        foreach ($notifications as $key => $post) {
-            $settings        = NotificationX::get_instance()->normalize_post($post);
+        foreach ($notifications as $key => $settings) {
+            // $settings        = NotificationX::get_instance()->normalize_post($post);
             $logged_in       = is_user_logged_in();
             $show_on_display = $settings['show_on_display'];
 
@@ -694,6 +694,10 @@ class FrontEnd {
                 'wp_stats_product_type',
                 'wp_stats_slug',
                 '_locale',
+                '__product_list',
+                '__form_list',
+                '__ld_course_list',
+                '__give_form_list',
             ];
             foreach ($ignore_props as $prop) {
                 if (isset($post[$prop])) {

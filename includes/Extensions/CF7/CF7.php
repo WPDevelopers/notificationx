@@ -8,6 +8,7 @@
 
 namespace NotificationX\Extensions\CF7;
 
+use NotificationX\Core\Helper;
 use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
@@ -35,6 +36,7 @@ class CF7 extends Extension {
     public $module_priority = 8;
     // making sure if contact form plugin is active.
     public $class           = 'WPCF7_ContactForm';
+    public $post_type       = 'wpcf7_contact_form';
 
     /**
      * Initially Invoked when initialized.
@@ -111,30 +113,20 @@ class CF7 extends Extension {
      * @return array
      */
     public function nx_form_list($forms) {
-        $_forms = GlobalFields::get_instance()->normalize_fields($this->get_forms(), 'source', $this->id);
-        return array_merge($_forms, $forms);
+        $forms = GlobalFields::get_instance()->normalize_fields($this->get_forms(), 'source', $this->id, $forms);
+        return array_values($forms);
     }
 
     /**
      * Get available CF7 forms name.
      *
+     *    'order' => 'ASC',
+     *
+     *
      * @return array
      */
     public function get_forms() {
-        $args = array(
-            'post_type' => 'wpcf7_contact_form',
-            'order' => 'ASC',
-            'posts_per_page' => -1,
-        );
-        $the_query = get_posts($args);
-        $forms = [];
-        if (!empty($the_query)) {
-            foreach ($the_query as $form) {
-                $key = $this->key($form->ID);
-                $forms[$key] = $form->post_title;
-            }
-        }
-        wp_reset_postdata();
+        $forms = Helper::get_post_titles_by_search($this->post_type, '', 10, ['prefix' => $this->key()]);
         return $forms;
     }
 
@@ -144,7 +136,7 @@ class CF7 extends Extension {
      * @param string $key
      * @return string
      */
-    public function key($key) {
+    public function key($key = '') {
         $key = $this->id . '_' . $key;
         return $key;
     }
@@ -155,6 +147,16 @@ class CF7 extends Extension {
      * @return json
      */
     public function restResponse($args) {
+        $result = [];
+        // Check if inputValue is provided
+        if (!empty($args['inputValue'])) {
+            // Get the forms that match the inputValue and have the key prefix
+            $forms = Helper::get_post_titles_by_search($this->post_type, $args['inputValue'], 10, ['prefix' => $this->key()]);
+            // Normalize the fields and return as an indexed array
+            $result = array_values(GlobalFields::get_instance()->normalize_fields($forms, 'source', $this->id));
+            return $result;
+        }
+
         if (isset($args['form_id'])) {
             $form_id = intval($args['form_id']);
 

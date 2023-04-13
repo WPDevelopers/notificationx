@@ -261,6 +261,13 @@ class NotificationX {
         return $fields;
     }
 
+    public function get_field($field_name){
+        $fields = $this->get_field_names();
+        if(!empty($fields[$field_name])){
+            return $fields[$field_name];
+        }
+    }
+
     // @todo maybe remove if not used in future.
     public function _get_field_names($fields, $names = []) {
         foreach ($fields as $key => $field) {
@@ -282,10 +289,11 @@ class NotificationX {
                 }
             } elseif (!empty($field['name'])) {
                 $names[$field['name']] = [
-                    'type'    => $field['type'],
-                    'default' => isset($field['default']) ? $field['default'] : '',
-                    'help'    => isset($field['help']) ? $field['help'] : '',
-                    'label'   => isset($field['label']) ? $field['label'] : '',
+                    'type'     => $field['type'],
+                    'default'  => isset($field['default']) ? $field['default'] : '',
+                    'help'     => isset($field['help']) ? $field['help'] : '',
+                    'label'    => isset($field['label']) ? $field['label'] : '',
+                    'multiple' => isset($field['multiple']) ? $field['multiple'] : '',
                 ];
             }
         }

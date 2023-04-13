@@ -8,6 +8,7 @@
 
 namespace NotificationX\Extensions\WPF;
 
+use NotificationX\Core\Helper;
 use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
@@ -33,6 +34,7 @@ class WPForms extends Extension {
     public $module          = 'modules_wpf';
     public $module_priority = 9;
     public $class           = '\WPForms_Form_Handler';
+    public $post_type       = 'wpforms';
 
     /**
      * Initially Invoked when initialized.
@@ -94,29 +96,25 @@ class WPForms extends Extension {
     }
 
     public function nx_form_list($forms) {
-        $_forms = GlobalFields::get_instance()->normalize_fields($this->get_forms(), 'source', $this->id);
-        return array_merge($_forms, $forms);
+        $forms = GlobalFields::get_instance()->normalize_fields($this->get_forms(), 'source', $this->id, $forms);
+        return $forms;
     }
 
     public function get_forms() {
-        $args = array(
-            'post_type' => 'wpforms',
-            'order' => 'ASC',
-            'posts_per_page' => -1,
-        );
-        $the_query = get_posts($args);
-        $forms = [];
-        if (!empty($the_query)) {
-            foreach ($the_query as $form) {
-                $key = $this->key($form->ID);
-                $forms[$key] = $form->post_title;
-            }
-        }
-        wp_reset_postdata();
+        $forms = Helper::get_post_titles_by_search($this->post_type, '', 10, ['prefix' => $this->key()]);
         return $forms;
     }
 
     public function restResponse($args) {
+        // Check if inputValue is provided
+        if (!empty($args['inputValue'])) {
+            // Get the forms that match the inputValue and have the key prefix
+            $forms = Helper::get_post_titles_by_search($this->post_type, $args['inputValue'], 10, ['prefix' => $this->key()]);
+            // Normalize the fields and return as an indexed array
+            $result = array_values(GlobalFields::get_instance()->normalize_fields($forms, 'source', $this->id));
+            return $result;
+        }
+
         if (isset($args['form_id'])) {
             $form_id = intval($args['form_id']);
 
@@ -205,7 +203,7 @@ class WPForms extends Extension {
         return false;
     }
 
-    public function key($key) {
+    public function key($key = '') {
         $key = $this->id . '_' . $key;
         return $key;
     }
