@@ -12,6 +12,7 @@ use NotificationX\Admin\Admin;
 use NotificationX\Admin\Cron;
 use NotificationX\Admin\Settings;
 use NotificationX\Blocks\Blocks;
+use NotificationX\Core\Database;
 use NotificationX\Core\PostType;
 use NotificationX\Core\QuickBuild;
 use NotificationX\Core\REST;
@@ -88,6 +89,7 @@ class NotificationX {
      */
     public function activator(){
         // nx_activated
+        Database::get_instance()->Create_DB();
 		if( ! static::$WP_CLI && current_user_can( 'delete_users' ) ) {
 			set_transient( 'nx_activated', true, 30 );
 		}
