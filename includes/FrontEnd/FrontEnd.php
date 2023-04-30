@@ -566,7 +566,9 @@ class FrontEnd {
 
     public function fallback_data($data, $saved_data, $settings) {
         if ((empty($saved_data['name']) || $data['name'] == __('Someone', 'notificationx')) && isset($saved_data['first_name']) || isset($saved_data['last_name'])) {
-            $data['name'] = Helper::name($saved_data['first_name'], $saved_data['last_name']);
+            $first_name   = isset($saved_data['first_name']) ? $saved_data['first_name'] : '';
+            $last_name    = isset($saved_data['last_name']) ? $saved_data['last_name'] : '';
+            $data['name'] = Helper::name($first_name, $last_name);
         }
         if (!empty($saved_data['name']) && empty($saved_data['first_name']) && empty($saved_data['last_name'])) {
             $data['first_name'] = $saved_data['name'];
