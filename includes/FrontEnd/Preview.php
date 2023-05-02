@@ -59,8 +59,12 @@ class Preview {
             ];
 
             $settings = $this->preview_settings();
-            if (empty($settings['source']) || empty($settings['type']) || 'inline' === $settings['type'])
+            if (empty($settings['source']) || empty($settings['type']))
                 return;
+            if ('inline' === $settings['type']){
+                $args['total'] = 0;
+                return $args;
+            }
 
             $source   = $settings['source'];
             if ($source === 'press_bar') {
@@ -285,6 +289,7 @@ class Preview {
             $settings['_global_queue'] = true;
         }
         $settings['nx_id'] = rand();
+        $settings['is_preview'] = true;
         if (empty($settings['theme']) && !empty($settings['themes'])) {
             $settings['theme'] = $settings['themes'];
         }
@@ -319,6 +324,9 @@ class Preview {
                 return;
             }
 
+            $source = !empty($settings['source']) ? $settings['source'] : '';
+            $type   = !empty($settings['type']) ? $settings['type'] : '';
+
             $defaults = [
                 "nx_id"           => rand(),
                 "entry_id"        => 78,
@@ -345,11 +353,21 @@ class Preview {
                 "sometime"        => "Some time ago",
                 "product_title"   => "V-Neck T-Shirt.",
                 "sales_count"     => rand(50, 70),
+                "stock_count"     => rand(50, 70),
                 "30days"          => "in last 30 days",
                 "day:30"          => "30 days",
                 "1day"            => "in last 1 day",
                 "7days"           => "in last 7 days",
             ];
+
+
+            $_defaults = apply_filters("nx_fallback_data_$source", $defaults, $defaults, $settings);
+            $_defaults = apply_filters('nx_fallback_data', $_defaults, $_defaults, $settings);
+            $defaults  = FrontEnd::get_instance()->apply_defaults($defaults, $_defaults);
+            $defaults  = apply_filters("nx_preview_entry_$type", $defaults, $settings);
+            $defaults  = apply_filters("nx_preview_entry_$source", $defaults, $settings);
+            $defaults  = apply_filters("nx_filtered_entry_$type", $defaults, $settings);
+            $defaults  = apply_filters("nx_filtered_entry_$source", $defaults, $settings);
 
             return [
                 'shortcode' => [
