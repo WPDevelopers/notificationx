@@ -27,6 +27,7 @@ class Preview {
     protected $notificationXArr = [];
 
     public function __construct() {
+        add_action('wp_head', [$this, 'header_scripts']);
         add_action('wp_print_footer_scripts', [$this, 'footer_scripts']);
 
         add_filter('nx_before_enqueue_scripts', [$this, 'enqueue_scripts']);
@@ -96,6 +97,21 @@ class Preview {
             add_filter('show_admin_bar', '__return_false');
 
             return $this->notificationXArr;
+        }
+    }
+
+    public function header_scripts() {
+        if ($this->is_preview()) {
+?>
+            <style>
+                .notificationx-woo-shortcode-inline-wrapper > * {
+                    display: inline-block;
+                    background: rgb(255 255 0 / 20%);
+                    color: red;
+                    font-weight: 500;
+                }
+            </style>
+<?php
         }
     }
 
