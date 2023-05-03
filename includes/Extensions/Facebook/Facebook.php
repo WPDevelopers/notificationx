@@ -8,9 +8,14 @@
 namespace NotificationX\Extensions\Facebook;
 
 use NotificationX\Admin\Settings;
+use NotificationX\Core\Helper;
+use NotificationX\Core\PostType;
 use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
+use NotificationX\Extensions\GlobalFields;
+use Notificationx\Facebook\WPClient;
+use Notificationx\Facebook\Facebook as FacebookClient;
 
 /**
  * Facebook Extension
@@ -71,7 +76,13 @@ class Facebook extends Extension {
         parent::__construct();
         add_action('admin_init', array($this, 'init_google_client'));
         $this->client = new Client();
-        $this->redirect_url = admin_url('admin.php?page=nx-settings&tab=tab-api-integrations#facebook_settings_section');
+        // #facebook_settings_section
+        $this->redirect_url = admin_url('admin.php?page=nx-settings&tab=tab-api-integrations');
+    }
+
+    public function init_fields() {
+        parent::init_fields();
+        add_filter('nx_content_fields', [$this, 'content_fields']);
     }
 
     public function init_settings_fields() {
@@ -79,6 +90,30 @@ class Facebook extends Extension {
         // settings page
         add_filter('nx_settings_tab_api_integration', [$this, 'api_integration_settings']);
     }
+
+    /**
+     * Get data for WooCommerce Extension.
+     *
+     * @param array $args Settings arguments.
+     * @return mixed
+     */
+    public function content_fields($fields) {
+        $content_fields = &$fields['content']['fields'];
+        $fb_options = $this->get_options();
+
+
+        $content_fields['fb_profile'] = [
+            'name'     => 'fb_profile',
+            'type'     => 'select',
+            'label'    => __('Facebook Profiles', 'notificationx'),
+            'priority' => 79,
+            'default'  => 'plugin',
+            'options'  => GlobalFields::get_instance()->normalize_fields($fb_options['fb_profiles']),
+            'rules'  => ['is', 'source', $this->id]
+        ];
+        return $fields;
+    }
+
 
     /**
      * This method adds google analytics settings section in admin settings
@@ -120,14 +155,74 @@ class Facebook extends Extension {
         return $sections;
     }
 
+    public function saved_post($post, $data, $nx_id) {
+        $this->update_data($nx_id, $data);
+        return $post;
+    }
+
+    /**
+     * This function is responsible for making the notification ready for first time we make the notification.
+     *
+     * @param string $type
+     * @param array $data
+     * @return void
+     */
+    public function get_notification_ready($data, $nx_id) {
+        $this->update_data($nx_id, $data);
+    }
+
+    /**
+     * Update post analytics data if required
+     * @hooked in 'wp'
+     * @return void
+     */
+    public function update_data($nx_id, $notification_meta = []) {
+        if (empty($notification_meta)) {
+            $notification_meta = PostType::get_instance()->get_post($nx_id);
+        }
+        $fb_profile = $notification_meta['fb_profile'];
+        $options = $this->get_options();
+        if (empty($options['fb_profiles'][$fb_profile])) {
+            return;
+        }
+        $profile_data = $options['fb_profiles'][$fb_profile];
+
+
+        $client      = new WPClient();
+        $facebook    = new FacebookClient($client);
+        $rating_data = $facebook->getFBReviews($fb_profile, $profile_data['access_token']);
+
+        $reviews             = $rating_data['ratings']['data'];
+        $rating_data['name'] = $profile_data['label'];
+        // unset($rating_data['access_token']);
+        unset($rating_data['ratings']);
+
+
+        // removing old notifications.
+        $this->delete_notification(null, $nx_id);
+        $entries = [];
+        foreach ($reviews as $review) {
+            $review = array_merge($review, $profile_data);
+            $entries[] = [
+                'nx_id'      => $nx_id,
+                'source'     => $this->id,
+                'entry_key'  => $review['username'],
+                'data'       => $review,
+            ];
+        }
+        $this->update_notifications($entries);
+    }
+
+
     /**
      * Init Google client with auth code
      * @return void
      */
     public function init_google_client() {
-        if (isset($_GET['access_token']) && 'nx-settings' == $_GET['page']) {
+        if (isset($_GET['facebook_code']) && 'nx-settings' == $_GET['page']) {
+            $this->get_options();
             if (!empty($this->fb_options['auth_code'])) {
-                if ($this->fb_options['auth_code'] === $_GET['code']) {
+                if ($this->fb_options['auth_code'] === $_GET['facebook_code']) {
                     return;
                 }
             }
@@ -139,6 +234,16 @@ class Facebook extends Extension {
             }
         }
 
+        if (!empty($this->get_token_info())) {
+            if (empty($this->fb_options['fb_profiles'])) {
+                try {
+                    $this->set_profiles();
+                } catch (\Exception $e) {
+                    // self::$error_message = $e->getMessage();
+                    Helper::write_log(['error' => 'Set Profile failed. Details: ' . $e->getMessage()]);
+                }
+            }
+        }
     }
 
     /**
@@ -149,7 +254,7 @@ class Facebook extends Extension {
      */
     private function authenticate() {
         $token_info = $_GET['access_token'];
-        $code       = $_GET['code'];
+        $code       = $_GET['facebook_code'];
 
 
         if (!array_key_exists('error', $token_info)) {
@@ -163,13 +268,25 @@ class Facebook extends Extension {
             }
 
             $this->set_option($fb_options);
-
             Settings::get_instance()->set("settings.is_fb_connected", true);
 
-            wp_redirect(admin_url('admin.php?page=nx-settings&tab=tab-api-integrations#facebook_settings_section'));
+            // wp_redirect(admin_url('admin.php?page=nx-settings&tab=tab-api-integrations'));
         } else {
             throw new \Exception('Get token with auth code failed.' . $token_info['error']);
         }
+    }
+
+    private function set_profiles() {
+        $token_info = $this->get_token_info();
+        $client   = new WPClient();
+        $facebook = new FacebookClient($client);
+        $pages    = $facebook->getPageAccessTokens($token_info['access_token']);
+        if(!empty($pages)){
+            $fb_options = $this->get_options();
+            $fb_options['fb_profiles'] = $pages;
+            $this->set_option($fb_options);
+        }
+
     }
 
     /**
@@ -213,7 +330,7 @@ class Facebook extends Extension {
     }
 
     public function doc(){
-        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">created & signed in to Facebook account</a> to use its campaign & product sales data.  For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">created & signed in to Facebook account</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
 		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with Facebook</a></p>', 'notificationx'),
         'https://account.facebook.com/sign_in?to=facebook-api',

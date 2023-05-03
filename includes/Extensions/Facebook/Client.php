@@ -38,22 +38,18 @@ class Client {
 
     public function get_access_token($code){
 
-        $token_url = "https://graph.facebook.com/oauth/access_token?"
-            . "client_id=" . $this->client_id . "&redirect_uri=" . urlencode($this->redirect)
-            . "&client_secret=" . $this->app_secret . "&code=" . $code;
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $token_url);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        $result = curl_exec($ch);
-        curl_close($ch);
-        $result = json_decode($result);
-        // echo "<pre>";
-        // print_r($result);die;
-
-        // $oauthClient = $this->client->getOAuth2Client();
-        // $short_access_token = $oauthClient->getAccessTokenFromCode($code, $this->redirect);
-        // $long_accessToken = $oauthClient->getLongLivedAccessToken($short_access_token);
+        $params = [
+            'client_id' => $this->client_id,
+            'redirect_uri' => $this->redirect,
+            'client_secret' => $this->app_secret,
+            'code' => $code
+        ];
+        $token_url = "https://graph.facebook.com/oauth/access_token?" . http_build_query($params);
+        $response = wp_remote_get($token_url);
+        if (is_wp_error($response)) {
+            return false;
+        }
+        $result = json_decode(wp_remote_retrieve_body($response));
 
         return [
             'access_token' => $result->access_token,
