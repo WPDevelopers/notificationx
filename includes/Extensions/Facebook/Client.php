@@ -23,7 +23,7 @@ class Client {
     }
 
     public function get_oauth_url($state){
-        $scope = 'pages_show_list,pages_read_user_content';
+        $scope = 'pages_show_list,pages_read_user_content,pages_read_engagement';
         $state['app_redirect'] = $this->redirect;
 
         return "https://www.facebook.com/dialog/oauth?client_id="
