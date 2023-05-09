@@ -146,12 +146,16 @@ const PreviewModal = (props) => {
                         </button>
                     </div>
                     <div className="nx-admin-modal-body">
-                        <iframe
-                            src={url + "#" + previewType}
-                            width="100%"
-                            height="600px"
-                            style={{ display: "flex" }}
-                        />
+                        {!props.urls?.[context.values.source] ? (
+                            <span>{props.errors[context.values.source]}</span>
+                        ) : (
+                            <iframe
+                                src={url + "#" + previewType}
+                                width="100%"
+                                height="600px"
+                                style={{ display: "flex" }}
+                            />
+                        )}
                     </div>
                 </>
             </ReactModal>
