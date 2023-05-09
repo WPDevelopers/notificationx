@@ -18,18 +18,18 @@ const PreviewModal = (props) => {
     // console.log(prevTab, nextTab);
 
     const buildUrl = () => {
-        const {source} = context.values;
-        let _url = props.urls?.[source] ? props.urls[source] : props.urls['default'];
+        const { source } = context.values;
+        let _url = props.urls?.[source]
+            ? props.urls[source]
+            : props.urls["default"];
         const url = new URL(_url);
         const data = encodeURIComponent(
             JSON.stringify({ ...context.values, previewType })
         );
 
-        url.searchParams.append('nx-preview', data);
+        url.searchParams.append("nx-preview", data);
 
-        setUrl(
-            url.toString()
-        );
+        setUrl(url.toString());
     };
 
     const openModal = () => {
@@ -115,7 +115,7 @@ const PreviewModal = (props) => {
                             type="button"
                             onClick={() => setPreviewType("tablet")}
                         >
-                        <TabletIcon style={{ width: 17 }} />
+                            <TabletIcon style={{ width: 17 }} />
                         </button>
                         <button
                             className={`nx-admin-modal-preview-button ${
@@ -124,7 +124,7 @@ const PreviewModal = (props) => {
                             type="button"
                             onClick={() => setPreviewType("phone")}
                         >
-                        <MobileIcon style={{ width: 15 }} />
+                            <MobileIcon style={{ width: 15 }} />
                         </button>
                         <button
                             className="nx-admin-modal-close-button"
@@ -147,7 +147,18 @@ const PreviewModal = (props) => {
                     </div>
                     <div className="nx-admin-modal-body">
                         {!props.urls?.[context.values.source] ? (
-                            <span>{props.errors[context.values.source]}</span>
+                            <div
+                                style={{
+                                    height: "600px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    fontSize: 24,
+                                    color: "#7c8db5",
+                                }}
+                            >
+                                {props.errors[context.values.source]}
+                            </div>
                         ) : (
                             <iframe
                                 src={url + "#" + previewType}

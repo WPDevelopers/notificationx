@@ -345,6 +345,8 @@ class Preview {
                 return;
             }
 
+            remove_filter('nx_inline_notifications_data', [$this, 'inline_notifications_data'], 10);
+
             $source = !empty($settings['source']) ? $settings['source'] : '';
             $type   = !empty($settings['type']) ? $settings['type'] : '';
             $settings['inline_location'] = is_array($settings['inline_location']) ? $settings['inline_location'] : [];
