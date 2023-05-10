@@ -4,6 +4,7 @@ namespace NotificationX\Core;
 
 use NotificationX\Core\PostType;
 use NotificationX\FrontEnd\FrontEnd;
+use NotificationX\FrontEnd\Preview;
 use NotificationX\GetInstance;
 
 /**
@@ -109,6 +110,9 @@ class Inline {
                 $params[ $param ] = '{{' . str_replace( 'product_', '', $element ) . '}}';
             } else {
                 $params[ $param ] = $element;
+            }
+            if(Preview::get_instance()->is_preview()){
+                $params[ $param ] = "<span class='$param'>{$params[ $param ]}</span>";
             }
         }
 

@@ -110,9 +110,23 @@ class Preview {
             <style>
                 .notificationx-woo-shortcode-inline-wrapper > * {
                     display: inline-block;
-                    background: rgb(255 255 0 / 20%);
-                    color: red;
-                    font-weight: 500;
+                    /* background: rgb(255 255 0 / 20%);
+                    color: red; */
+                    font-weight: 600;
+                }
+                .notificationx-woo-shortcode-inline-wrapper > div.woo_inline_conv-theme-seven span:first-child,
+                .notificationx-woo-shortcode-inline-wrapper > div.edd_inline_conv-theme-seven span:first-child {
+                    color: #61BD6D;
+                }
+                .notificationx-woo-shortcode-inline-wrapper > div.woo_inline_conv-theme-seven span:last-child,
+                .notificationx-woo-shortcode-inline-wrapper > div.edd_inline_conv-theme-seven span:last-child,
+                .notificationx-woo-shortcode-inline-wrapper > div.tutor_inline_conv-theme-seven span:last-child,
+                .notificationx-woo-shortcode-inline-wrapper > div.learndash_inline_conv-theme-seven span:last-child{
+                    color: #E25042;
+                }
+
+                .notificationx-woo-shortcode-inline-wrapper > div.woo_inline_stock-theme-one span {
+                    color: #E25042;
                 }
             </style>
 <?php
@@ -333,7 +347,7 @@ class Preview {
             'name'   => 'preview',
             'urls'   => $urls,
             'errors' => apply_filters('nx_content_heading_preview_errors', []),
-            // 'rules' => Rules::is('type', 'inline', true),
+            'rules'  => Rules::includes('themes', ['woo_inline_stock-theme-two', 'tutor_inline_conv-theme-eight'], true),
         ]);
         return $tabs;
     }
