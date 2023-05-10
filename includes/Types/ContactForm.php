@@ -176,15 +176,27 @@ class ContactForm extends Types {
      */
     public function add_form_fields($fields) {
 
-        $templates = &$fields['content']['fields']['notification-template']['fields'];
-
         $fields['content']['fields']['form_list'] = [
-            'type' => 'select',
-            'name' => 'form_list',
-            'label' => __('Select a Form', 'notificationx'),
-            'options' => apply_filters('nx_form_list', []),
+            'type'    => 'select-async',
+            'name'    => 'form_list',
+            'label'   => __('Select a Form', 'notificationx'),
+            'options' => apply_filters('nx_form_list', [
+                [
+                    'label'    => "Type for more result...",
+                    'value'    => null,
+                    'disabled' => true,
+                ],
+            ]),
             'priority' => 20,
             'rules' => Rules::includes( 'type', $this->id ),
+            'ajax'   => [
+                'api'  => "/notificationx/v1/get-data",
+                'data' => [
+                    'type'   => "@type",
+                    'source' => "@source",
+                    'field'  => "form_list",
+                ],
+            ],
         ];
 
         return $fields;

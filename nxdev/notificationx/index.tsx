@@ -19,7 +19,7 @@ const NotificationX = (props) => {
     if (!title) {
         let documentTitle = document.querySelector("title").text;
         documentTitle = documentTitle.split('‹')[1];
-        setTitle('‹ ' + documentTitle);
+        setTitle(' ‹ ' + documentTitle);
     }
 
     const builder = useNotificationX({ ...notificationxTabs, title });

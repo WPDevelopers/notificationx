@@ -504,4 +504,84 @@ class Helper {
         }
         return path_join($base, $file);
     }
+
+
+    /**
+     * This function returns an array of post titles by searching the post type and the input value
+     *
+     * @param string $post_type The post type to search
+     * @param string|array $inputValue The input value to search by title or ID
+     * @param integer $numberposts The number of posts to return
+     * @return array An associative array of post IDs and titles
+     */
+    public static function get_post_titles_by_search($post_type, $inputValue = '', $numberposts = 10, $args = []) {
+        global $wpdb;
+        $product_list = [];
+        $numberposts = intval( $numberposts );
+        $args = wp_parse_args( $args, [
+            'prefix' => '',
+        ] );
+
+        // Generate a unique cache key based on the input parameters
+        $cache_key = 'get_post_titles_by_search_' . md5( $post_type . serialize( $inputValue ) . $numberposts );
+
+        // Try to get the cached data from the object cache
+        $cached_data = wp_cache_get( $cache_key );
+
+        // If the cached data exists and is not expired, return it
+        if ( false !== $cached_data ) {
+            return $cached_data;
+        }
+
+        // Otherwise, run the original query
+        // Start with the common part of the query
+        $sql = "SELECT ID, post_title FROM {$wpdb->posts} WHERE post_type = %s AND post_status = 'publish'";
+        $query_args = array( $post_type );
+
+        if ( is_array( $inputValue ) && count( $inputValue ) ) {
+            // If the input value is an array of post IDs, use IN clause with placeholders
+            // Generate a string of placeholders like %d,%d,%d
+            $placeholders = implode( ',', array_fill( 0, count( $inputValue ), '%d' ) );
+
+            // Add the IN clause to the query
+            $sql .= " AND ID IN ($placeholders)";
+
+            // Merge the input values to the query arguments
+            $query_args = array_merge( $query_args, array_map( 'intval', $inputValue ) );
+        } else {
+            // If the input value is a string, use LIKE clause with placeholder
+            if ( ! empty( $inputValue ) ) {
+                // Add the LIKE clause to the query
+                $sql .= " AND post_title LIKE %s";
+
+                // Add the input value to the query arguments with wildcards
+                $query_args[] = '%' . $wpdb->esc_like( $inputValue ) . '%';
+            }
+        }
+
+        // Add order and limit clauses
+        $sql .= " ORDER BY post_date DESC LIMIT %d";
+
+        // Add the number of posts to the query arguments
+        $query_args[] = $numberposts;
+
+        // Prepare and execute the query using wpdb methods
+        $sql = $wpdb->prepare( $sql, $query_args );
+        $products = $wpdb->get_results( $sql );
+
+        if ( ! empty( $products ) ) {
+            // Loop through the results and build the output array
+            foreach ( $products as $product ) {
+                $key = $args['prefix'] . $product->ID;
+                $product_list[ $key ] = $product->post_title;
+            }
+        }
+
+        // Store the query result in the object cache with an expiration time of one hour
+        wp_cache_set( $cache_key, $product_list, '', MINUTE_IN_SECONDS );
+
+        // Return the query result
+        return $product_list;
+    }
+
 }

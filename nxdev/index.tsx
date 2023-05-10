@@ -6,7 +6,7 @@ import { Sidebar } from "./notificationx/admin/Settings";
 import Loader from "./notificationx/components/Loader";
 import Field from "./notificationx/fields/Field";
 import 'quickbuilder/dist/index.css';
-import Modal from "./notificationx/fields/Modal";
+import Modal from "./notificationx/fields/PreviewModal";
 
 (function () {
 

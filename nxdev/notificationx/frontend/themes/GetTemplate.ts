@@ -63,6 +63,11 @@ const GetTemplate = (settings) => {
                 `${params?.third_param}`,
                 `${params?.fourth_param}`,
             ];
+        case "woo_inline_conv-theme-seven":
+            return [
+                `${params?.first_param} ${params?.second_param} ${params?.third_param} ${params?.fourth_param}`,
+            ];
+            break;
     }
 
 

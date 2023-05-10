@@ -189,14 +189,28 @@ class ELearning extends Types {
         $content_fields['ld_course_list'] = array(
             'name'     => 'ld_course_list',
             'label'    => __('Select Course', 'notificationx'),
-            'type'     => 'select',
+            'type'     => 'select-async',
             'multiple' => true,
             'priority' => 201,
-            'options'  => apply_filters('nx_elearning_course_list', []),
+            'options'  => apply_filters('nx_elearning_course_list', [
+                [
+                    'label'    => "Type for more result...",
+                    'value'    => null,
+                    'disabled' => true,
+                ],
+            ]),
             'rules'       => Rules::logicalRule([
                 Rules::is('type', $this->id),
                 Rules::is('ld_product_control', 'ld_course'),
             ]),
+            'ajax'   => [
+                'api'  => "/notificationx/v1/get-data",
+                'data' => [
+                    'type'   => "@type",
+                    'source' => "@source",
+                    'field'  => "ld_course_list",
+                ],
+            ],
         );
 
         return $fields;

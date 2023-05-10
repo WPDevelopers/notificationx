@@ -36,6 +36,11 @@ class GlobalFields {
     }
 
     public function tabs() {
+        if(defined('NX_DEBUG') && NX_DEBUG){
+            do_action( 'qm/start', __METHOD__ );
+            do_action( 'qm/debug', __METHOD__ );
+        }
+
         do_action('nx_before_metabox_load');
 
         $tabs = [
@@ -52,11 +57,12 @@ class GlobalFields {
             'is_pro_active'  => NotificationX::get_instance()->is_pro(),
             'is_pro_sources' => apply_filters('nx_is_pro_sources', []),
             'config'         => [
-                'active'  => "source_tab",
+                'active'          => "source_tab",
                 'completionTrack' => true,
-                'sidebar' => true,
-                'step' => [
-                    'show' => true,
+                'sidebar'         => true,
+                'content_heading' => [],
+                'step'            => [
+                    'show'    => true,
                     'buttons' => [
                         'prev'    => __('Previous', 'notificationx'),
                         'next'    => __('Next', 'notificationx'),
@@ -560,14 +566,33 @@ class GlobalFields {
                                 'product_list' => array(
                                     'label'    => __('Select Product', 'notificationx'),
                                     'name'     => 'product_list',
-                                    'type'     => 'select',
+                                    'type'     => 'select-async',
                                     'multiple' => true,
                                     'priority' => 96,
-                                    'options'  => apply_filters('nx_conversion_product_list', []),
+                                    'options'  => apply_filters('nx_conversion_product_list', [
+                                        [
+                                            'label'    => "Type for more result...",
+                                            'value'    => null,
+                                            'disabled' => true,
+                                        ],
+                                    ]),
                                     'rules'       => Rules::logicalRule([
                                         Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline"]),
                                         Rules::is( 'product_control', 'manual_selection' ),
                                     ]),
+                                    'ajax'   => [
+                                        'api'  => "/notificationx/v1/get-data",
+                                        'data' => [
+                                            'type'   => "@type",
+                                            'source' => "@source",
+                                            'field'  => "product_list",
+                                        ],
+                                        // 'target' => "product_list",
+                                        'rules'  => Rules::logicalRule([
+                                            Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline"]),
+                                            Rules::is( 'product_control', 'manual_selection' ),
+                                        ]),
+                                    ],
                                 ),
                                 'product_exclude_by' => array(
                                     'label'    => __('Exclude By', 'notificationx'),
@@ -599,14 +624,32 @@ class GlobalFields {
                                 'exclude_products' => array(
                                     'label'    => __('Select Product', 'notificationx'),
                                     'name'     => 'exclude_products',
-                                    'type'     => 'select',
+                                    'type'     => 'select-async',
                                     'multiple' => true,
                                     'priority' => 99,
-                                    'options'  => apply_filters('nx_conversion_product_list', []),
+                                    'options'  => apply_filters('nx_conversion_product_list', [
+                                        [
+                                            'label'    => "Type for more result...",
+                                            'value'    => null,
+                                            'disabled' => true,
+                                        ],
+                                    ]),
                                     'rules'       => Rules::logicalRule([
                                         Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline"]),
                                         Rules::is( 'product_exclude_by', 'manual_selection' ),
                                     ]),
+                                    'ajax'   => [
+                                        'api'  => "/notificationx/v1/get-data",
+                                        'data' => [
+                                            'type'   => "@type",
+                                            'source' => "@source",
+                                            'field'  => "exclude_products",
+                                        ],
+                                        'rules'       => Rules::logicalRule([
+                                            Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline"]),
+                                            Rules::is( 'product_exclude_by', 'manual_selection' ),
+                                        ]),
+                                    ],
                                 ),
                                 'order_status'  => array(
                                     'label'    => __('Order Status', 'notificationx'),
@@ -1045,16 +1088,13 @@ class GlobalFields {
             ],
             'instructions' => apply_filters( 'nx_instructions', [] ),
         ];
-        $tabs['config']['content_heading'] = [
-            'preview' => [
-                'label' => __('Preview', 'notificationx'),
-                'type'  => 'preview-modal',
-                'name'  => 'preview',
-                'url'   => trailingslashit(home_url()),
-                'rules' => Rules::is('type', 'inline', true),
-            ],
-        ];
+
         $tabs['tabs'] = apply_filters('nx_metabox_tabs', $tabs['tabs']);
+        $tabs = apply_filters('nx_metabox_config', $tabs);
+
+        if(defined('NX_DEBUG') && NX_DEBUG){
+            do_action( 'qm/stop', __METHOD__ );
+        }
         return $tabs;
     }
 

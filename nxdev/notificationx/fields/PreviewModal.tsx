@@ -7,9 +7,8 @@ import { ReactComponent as DesktopIcon } from "../icons/responsive/desktop.svg";
 import { ReactComponent as TabletIcon } from "../icons/responsive/tablet.svg";
 import { ReactComponent as MobileIcon } from "../icons/responsive/mobile.svg";
 
-const Modal = (props) => {
+const PreviewModal = (props) => {
     const nxContext = useNotificationXContext();
-    const _url = props.url + "?nx-preview=";
     const [isOpen, setIsOpen] = useState(false);
     const context = useBuilderContext();
     const [previewType, setPreviewType] = useState("desktop");
@@ -19,11 +18,17 @@ const Modal = (props) => {
     // console.log(prevTab, nextTab);
 
     const buildUrl = () => {
+        const {source} = context.values;
+        let _url = props.urls?.[source] ? props.urls[source] : props.urls['default'];
+        const url = new URL(_url);
+        const data = encodeURIComponent(
+            JSON.stringify({ ...context.values, previewType })
+        );
+
+        url.searchParams.append('nx-preview', data);
+
         setUrl(
-            _url +
-                encodeURIComponent(
-                    JSON.stringify({ ...context.values, previewType })
-                )
+            url.toString()
         );
     };
 
@@ -154,4 +159,4 @@ const Modal = (props) => {
     );
 };
 
-export default Modal;
+export default PreviewModal;

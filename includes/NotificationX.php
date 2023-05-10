@@ -12,6 +12,7 @@ use NotificationX\Admin\Admin;
 use NotificationX\Admin\Cron;
 use NotificationX\Admin\Settings;
 use NotificationX\Blocks\Blocks;
+use NotificationX\Core\Database;
 use NotificationX\Core\PostType;
 use NotificationX\Core\QuickBuild;
 use NotificationX\Core\REST;
@@ -88,6 +89,7 @@ class NotificationX {
      */
     public function activator(){
         // nx_activated
+        Database::get_instance()->Create_DB();
 		if( ! static::$WP_CLI && current_user_can( 'delete_users' ) ) {
 			set_transient( 'nx_activated', true, 30 );
 		}
@@ -261,6 +263,13 @@ class NotificationX {
         return $fields;
     }
 
+    public function get_field($field_name){
+        $fields = $this->get_field_names();
+        if(!empty($fields[$field_name])){
+            return $fields[$field_name];
+        }
+    }
+
     // @todo maybe remove if not used in future.
     public function _get_field_names($fields, $names = []) {
         foreach ($fields as $key => $field) {
@@ -282,10 +291,11 @@ class NotificationX {
                 }
             } elseif (!empty($field['name'])) {
                 $names[$field['name']] = [
-                    'type'    => $field['type'],
-                    'default' => isset($field['default']) ? $field['default'] : '',
-                    'help'    => isset($field['help']) ? $field['help'] : '',
-                    'label'   => isset($field['label']) ? $field['label'] : '',
+                    'type'     => $field['type'],
+                    'default'  => isset($field['default']) ? $field['default'] : '',
+                    'help'     => isset($field['help']) ? $field['help'] : '',
+                    'label'    => isset($field['label']) ? $field['label'] : '',
+                    'multiple' => isset($field['multiple']) ? $field['multiple'] : '',
                 ];
             }
         }

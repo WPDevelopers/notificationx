@@ -48,13 +48,7 @@ class FrontEnd {
             add_action('init', [$this, 'init'], 10);
         }
         add_filter('nx_frontend_localize_data', [$this, 'get_localize_data']);
-
-        if (!empty($_GET['nx-preview']) && class_exists('QueryMonitor')) {
-            ini_set('display_errors','Off');
-            ini_set('error_reporting', E_ALL );
-            $qm = \QueryMonitor::init();
-            remove_action('plugins_loaded', [$qm, 'action_plugins_loaded']);
-        }
+        Preview::get_instance();
     }
 
     /**
@@ -82,53 +76,13 @@ class FrontEnd {
         wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), [], NOTIFICATIONX_VERSION, true);
         wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], NOTIFICATIONX_VERSION, 'all');
 
-        if (!empty($_GET['nx-preview'])) {
-            $args = [
-                'total'     => 1,
-                'nxPreview' => true,
-                'pressbar'  => [],
-                'active'    => [],
-            ];
-            $settings = stripslashes($_GET['nx-preview']);
-            $settings = json_decode($settings, true);
-            if (empty($settings['source']))
-                return;
-            $source = $settings['source'];
-            $settings = $this->preview_settings($settings);
-
-            if($source === 'press_bar'){
-                $args['pressbar'] = [
-                    $source => [
-                        'content' => $this->get_bar_content($settings, true),
-                        'post'    => $settings,
-                    ]
-                ];
-            }
-            else {
-                $args['active'] = [
-                    $source => [
-                        'entries' => [
-                            $this->preview_entry($settings),
-                        ],
-                        'post'    => $settings,
-                    ]
-                ];
-            }
-            // echo "<pre>";
-            // print_r($args);die;
-            $args['settings'] = $this->get_settings();
-
-            $this->notificationXArr = apply_filters('get_notifications_ids', $args);
-            wp_enqueue_style('notificationx-public');
-            wp_enqueue_script('notificationx-public');
-            do_action('notificationx_scripts', $this->notificationXArr);
-
-            add_filter('show_admin_bar', '__return_false');
-
+        $exit = apply_filters('nx_before_enqueue_scripts', null);
+        if(!empty($exit)){
+            $this->notificationXArr = $exit;
             return;
         }
 
-        if (empty($_GET['elementor-preview'])) {
+        if (!$exit && empty($_GET['elementor-preview'])) {
             $this->notificationXArr = $this->get_notifications_ids();
             if ($this->notificationXArr['total'] > 0) {
                 $lang = get_locale();
@@ -161,30 +115,11 @@ class FrontEnd {
     public function footer_scripts() {
         if (!empty($this->notificationXArr['total']) && $this->notificationXArr['total'] > 0) {
             $this->notificationXArr = apply_filters('nx_frontend_localize_data', $this->notificationXArr);
-?>
+            ?>
             <script data-no-optimize="1">
                 (function() {
                     window.notificationXArr = window.notificationXArr || [];
                     window.notificationXArr.push(<?php echo json_encode($this->notificationXArr); ?>);
-                })();
-            </script>
-<?php
-        }
-
-        if (!empty($_GET['nx-preview'])) {
-            ?>
-            <script data-no-optimize="1">
-                (function() {
-                    document.addEventListener("click", function(event) {
-                        // if (event.target.tagName === "A") {
-                            event.preventDefault();
-                            event.stopPropagation();
-                            event.stopImmediatePropagation();
-                        // }
-                    });
-                    document.addEventListener("submit", function(event) {
-                        event.preventDefault();
-                    });
                 })();
             </script>
             <?php
@@ -393,8 +328,8 @@ class FrontEnd {
 
         $active_notifications = $global_notifications = $bar_notifications = array();
 
-        foreach ($notifications as $key => $post) {
-            $settings        = NotificationX::get_instance()->normalize_post($post);
+        foreach ($notifications as $key => $settings) {
+            // $settings        = NotificationX::get_instance()->normalize_post($post);
             $logged_in       = is_user_logged_in();
             $show_on_display = $settings['show_on_display'];
 
@@ -577,7 +512,7 @@ class FrontEnd {
      * @param array $settings
      * @return array of image data, contains url and title as alt text
      */
-    protected function get_image_url($data, $settings) {
+    public function get_image_url($data, $settings) {
         $source     = $settings['source'];
         $alt_title  = isset($data['name']) ? $data['name'] : '';
         $image_type = isset($settings['show_notification_image']) ? $settings['show_notification_image'] : false;
@@ -631,7 +566,9 @@ class FrontEnd {
 
     public function fallback_data($data, $saved_data, $settings) {
         if ((empty($saved_data['name']) || $data['name'] == __('Someone', 'notificationx')) && isset($saved_data['first_name']) || isset($saved_data['last_name'])) {
-            $data['name'] = Helper::name($saved_data['first_name'], $saved_data['last_name']);
+            $first_name   = isset($saved_data['first_name']) ? $saved_data['first_name'] : '';
+            $last_name    = isset($saved_data['last_name']) ? $saved_data['last_name'] : '';
+            $data['name'] = Helper::name($first_name, $last_name);
         }
         if (!empty($saved_data['name']) && empty($saved_data['first_name']) && empty($saved_data['last_name'])) {
             $data['first_name'] = $saved_data['name'];
@@ -759,6 +696,10 @@ class FrontEnd {
                 'wp_stats_product_type',
                 'wp_stats_slug',
                 '_locale',
+                '__product_list',
+                '__form_list',
+                '__ld_course_list',
+                '__give_form_list',
             ];
             foreach ($ignore_props as $prop) {
                 if (isset($post[$prop])) {
@@ -771,175 +712,6 @@ class FrontEnd {
         }
 
         return $post;
-    }
-
-    public function preview_entry($settings) {
-        $source = !empty($settings['source']) ? $settings['source'] : '';
-        $type = !empty($settings['type']) ? $settings['type'] : '';
-        $nx_id = !empty($settings['nx_id']) ? $settings['nx_id'] : '';
-        $defaults = [
-            'nx_id'                => $nx_id,
-            'active_installs'      => '1M',
-            'active_installs_text' => 'Try It Out',
-            'all_time'             => '41.5M+ times',
-            'all_time_text'        => 'Why Don\'t You?',
-            'anonymous_title'      => 'Anonymous Title',
-            'author'               => '<a href="https://wpdeveloper.com/">WPDeveloper</a>',
-            'author_profile'       => 'https://profiles.wordpress.org/wpdevteam/',
-            'amount'               => 50,
-            'avatar'               => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
-            'picture'              => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
-            'city'                 => 'Dhaka',
-            'city_country'         => 'Dhaka, Bangladesh',
-            'content'              => 'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-            'count'                => 7,
-            'country'              => 'Bangladesh',
-            'course_title'         => 'PHP Beginners – Become a PHP Master',
-            'created_at'           => wp_date( 'Y-m-d H:i:s', strtotime('2 days ago') ),
-            'day'                  => 'days',
-            'downloaded'           => 41514238,
-            'email'                => 'support@wpdeveloper.com',
-            'entry_id'             => rand(1000, 9999),
-            'entry_key'            => 'ChIJ0cpDbNvBVTcRGX9JNhhpC8I',
-            'first_name'           => 'John',
-            'formatted_address'    => 'House 592, Road 8 Avenue 5, Dhaka 1216, Bangladesh',
-            'ga_title'             => 'NotificationX',
-            'icon'                 => 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png',
-            'icons'                => array(
-                '1x' => "https://ps.w.org/notificationx/assets/icon-128x128.gif?rev=2783824",
-                '2x' => "https://ps.w.org/notificationx/assets/icon-256x256.gif?rev=2783824",
-            ),
-            'id'         => 5,
-            'image_data' => array(
-                'url'     => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
-                'alt'     => '',
-                'classes' => 'greview_icon',
-            ),
-            'ip'                => '103.108.146.88',
-            'key'               => '7368a455f5c113afbfd3d8c3ea89a5ed-5719',
-            'last_name'         => 'Doe',
-            'last_updated'      => date( 'Y-m-d H:i:s', strtotime('2 days ago') ),
-            'last_week'         => '75.1K+ times in last 7 days',
-            'last_week_text'    => 'Get Started for Free.',
-            'lat'               => 23.8371427,
-            'link'              => '#',
-            'lon'               => 90.3704629,
-            'month'             => 'months',
-            'name'              => 'John Doe',
-            'none'              => '',
-            'num_ratings'       => 2974,
-            'nx_id'             => '60',
-            'order_id'          => 5815,
-            'place_id'          => 'ChIJ0cpDbNvBVTcRGX9JNhhpC8I',
-            'place_name'        => 'WPDeveloper',
-            'plugin_name'       => 'NotificationX',
-            'plugin_name_text'  => 'try it out',
-            'plugin_review'     => 'Lorem Ipsum is simply dummy text...',
-            'place_review'      => 'Lorem Ipsum is simply dummy text...',
-            'plugin_theme_name' => 'NotificationX',
-            'post_link'         => '#',
-            'product_id'        => 168,
-            'product_title'     => 'Assorted Coffee',
-            'rated'             => 42,
-            'rating'            => 4.4,
-            'ratings'           => array(
-                0 => 48,
-                1 => 13,
-                2 => 21,
-                3 => 66,
-                4 => 2826,
-            ),
-            'realtime_siteview' => 26,
-            'siteview'          => 105,
-            'slug'              => 'notificafionx',
-            'sometime'          => 'Some time ago',
-            'source'            => 'google_reviews',
-            'status'            => 'wc-processing',
-            'this_page'         => 'this page',
-            'timestamp'         => date( 'Y-m-d H:i:s', strtotime('2 days ago') ),
-            'title'             => 'Hoodie with Logo',
-            'today'             => '1.4K+ times today',
-            'today_text'        => 'Try It Out',
-            'type'              => 'realtime_siteview',
-            'updated_at'        => date( 'Y-m-d H:i:s', strtotime('2 days ago') ),
-            'url'               => '#',
-            'user_id'           => '1',
-            'username'          => 'johndoe',
-            'version'           => '5.5.2',
-            'views'             => 26,
-            'website'           => 'https://wpdeveloper.com/',
-            'year'              => 'years',
-            'yesterday'         => '11.4K+ times',
-            'your-email'        => 'support@wpdeveloper.com',
-            'your-message'      => 'Lorem Ipsum is simply dummy text.',
-            'your-name'         => 'John Doe',
-            'your-subject'      => 'Lorem Ipsum',
-            'post_title'        => 'Hello World',
-            'sales_count'       => '28',
-            '1day'              => __( 'In last 1 day', 'notificationx' ),
-            '7days'             => __( 'In last 7 days', 'notificationx' ),
-            '30days'            => __( 'In last 30 days', 'notificationx' ),
-            'post_comment'      => 'Lorem Ipsum is simply dummy text...',
-            // 'select_a_tag'      => 'Jhon',
-
-        ];
-
-        if(!empty($settings['custom_contents']) && is_array($settings['custom_contents']) && count($settings['custom_contents'])){
-            $custom = !empty($settings['custom_contents'][0]) ? $settings['custom_contents'][0] : [];
-            if(isset($custom['first_name'], $custom['last_name'])){
-                $custom['name'] = Helper::name($custom['first_name'], $custom['last_name']);
-            }
-            $defaults = array_merge($defaults, $custom);
-        }
-
-        $settings['freemius_plugins'] = '';
-
-        $defaults['image_data'] = $this->apply_defaults((array) $this->get_image_url($defaults, $settings), $defaults['image_data']);
-
-        $_defaults = apply_filters("nx_fallback_data_$source", $defaults, $defaults, $settings);
-        $_defaults = apply_filters('nx_fallback_data', $_defaults, $_defaults, $settings);
-        $defaults  = $this->apply_defaults($defaults, $_defaults);
-        $defaults  = apply_filters("nx_preview_entry_$type", $defaults, $settings);
-        $defaults  = apply_filters("nx_preview_entry_$source", $defaults, $settings);
-        $defaults  = apply_filters("nx_filtered_entry_$type", $defaults, $settings);
-        $defaults  = apply_filters("nx_filtered_entry_$source", $defaults, $settings);
-        // $defaults  = $this->link_url($defaults, $settings);
-        if(strpos($settings['theme'], 'maps_theme') !== false && 'maps_image' === $settings['show_notification_image']){
-            $defaults['image_data'] = array(
-                'url'     => NOTIFICATIONX_ASSETS . 'admin/images/map.jpg',
-                'alt'     => '',
-                'classes' => 'greview_icon',
-            );
-        }
-        if('gravatar' === $settings['show_notification_image']){
-            $defaults['image_data'] = array(
-                'url'     => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
-                'alt'     => '',
-                'classes' => 'greview_icon',
-            );
-        }
-        if ('none' === $settings['show_notification_image'] && !$settings['show_default_image']) {
-            $defaults['image_data'] = false;
-        }
-        return $defaults;
-    }
-
-    public function preview_settings($settings){
-        if($settings['global_queue']){
-            $settings['global_queue']  = false;
-            $settings['_global_queue'] = true;
-        }
-        $settings['nx_id'] = rand();
-        if(empty($settings['theme'])){
-            $settings['theme'] = $settings['themes'];
-        }
-        if('form' === $settings['type']){
-            $settings['notification-template']['first_param'] = 'tag_first_name';
-        }
-
-        $settings = apply_filters( "nx_get_post_{$settings['source']}", $settings );
-        $settings = apply_filters( 'nx_get_post', $settings );
-        return $settings;
     }
 
     public function get_bar_content($settings, $suppress_filters = false){

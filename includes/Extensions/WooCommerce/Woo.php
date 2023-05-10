@@ -7,10 +7,12 @@
 
 namespace NotificationX\Extensions\WooCommerce;
 
+use NotificationX\Core\Helper;
 use NotificationX\Core\Rules;
 use NotificationX\Extensions\GlobalFields;
 
 trait Woo {
+    public $post_type = 'product';
 
 
     public function _init_fields(){
@@ -39,22 +41,25 @@ trait Woo {
     }
 
     public function products($options){
-        $products = get_posts(array(
-            'post_type'      => 'product',
-            'posts_per_page' => -1,
-            'numberposts' => -1,
-        ));
-        $product_list = [];
-
-        if( ! empty( $products ) ) {
-            foreach( $products as $product ) {
-                $product_list[ $product->ID ] = $product->post_title;
-            }
-        }
-        wp_reset_postdata();
-
-        $options = GlobalFields::get_instance()->normalize_fields($product_list, 'source', $this->id, $options);
+        $product_list = Helper::get_post_titles_by_search($this->post_type);
+        $options      = GlobalFields::get_instance()->normalize_fields($product_list, 'source', $this->id, $options);
         return $options;
     }
 
+    /**
+     * Lists available tags in the selected form.
+     *
+     * @param array $args An array of arguments, including inputValue.
+     * @return array An indexed array of product IDs and titles.
+     */
+    public function restResponse($args) {
+        // Check if inputValue is provided
+        if (empty($args['inputValue'])) {
+            return [];
+        }
+        // Get the products that match the inputValue
+        $products = Helper::get_post_titles_by_search($this->post_type, $args['inputValue']);
+        // Normalize the fields and return as an indexed array
+        return array_values(GlobalFields::get_instance()->normalize_fields($products, 'source', $this->id));
+    }
 }

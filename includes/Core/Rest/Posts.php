@@ -183,6 +183,7 @@ class Posts extends WP_REST_Controller {
      * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
      */
     public function get_item($request) {
+        PostType::get_instance()->set_context( 'edit' );
         return PostType::get_instance()->get_post( absint( $request['id'] ) );
     }
 

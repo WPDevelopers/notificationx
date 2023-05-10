@@ -31,6 +31,7 @@ class PostType {
      * @var string the post type of notificationx.
      */
     public $type = 'notificationx';
+    public $context = 'normal';
     public $active_items;
     public $enabled_source;
     public $_edit_link = 'admin.php?page=nx-edit&post=%d';
@@ -46,6 +47,8 @@ class PostType {
         add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
         add_filter( 'nx_get_post', [ $this, 'get_theme_preview_image' ] );
         add_filter( 'nx_get_post', [ $this, 'responsive_size_backward_comp' ] );
+        add_filter( 'nx_get_post', [ $this, 'async_select_get_label' ], 10, 2 );
+        add_filter( 'nx_save_post', [ $this, 'async_select_remove_label' ], 10, 3 );
         add_image_size( '_nx_notification_thumb', 100, 100, true );
 
     }
@@ -97,11 +100,12 @@ class PostType {
     }
 
     public function get_localize_scripts() {
-        $tabs = NotificationX::get_instance()->normalize( GlobalFields::get_instance()->tabs() );
+        $global_fields = GlobalFields::get_instance()->tabs();
+        $tabs = NotificationX::get_instance()->normalize( $global_fields );
 
         $tabs['createRedirect']               = ! current_user_can( 'edit_notificationx' );
         $tabs['analyticsRedirect']            = ! ( current_user_can( 'read_notificationx_analytics' ) && Settings::get_instance()->get( 'settings.enable_analytics', true ) );
-        $tabs['quick_build']                  = NotificationX::get_instance()->normalize( QuickBuild::get_instance()->tabs() );
+        $tabs['quick_build']                  = NotificationX::get_instance()->normalize( QuickBuild::get_instance()->tabs($global_fields) );
         $tabs['rest']                         = REST::get_instance()->rest_data();
         $tabs['current_page']                 = 'add-nx';
         $tabs['analytics']                    = Analytics::get_instance()->get_total_count();
@@ -350,11 +354,11 @@ class PostType {
                 $value = NotificationX::get_instance()->normalize_post( $value );
             }
             if ( ! empty( $value['source'] ) ) {
-                $value = apply_filters( "nx_get_post_{$value['source']}", $value );
+                $value = apply_filters( "nx_get_post_{$value['source']}", $value, $this->context );
             }
-            $posts[ $key ] = apply_filters( 'nx_get_post', $value );
+            $posts[ $key ] = apply_filters( 'nx_get_post', $value, $this->context );
         }
-        $posts = apply_filters( 'nx_get_posts', $posts );
+        $posts = apply_filters( 'nx_get_posts', $posts, $this->context );
         return $posts;
     }
 
@@ -437,6 +441,74 @@ class PostType {
                 "mobile"  => $post['size'],
             ];
         }
+        return $post;
+    }
+
+    public function set_context($context){
+        $this->context = $context;
+    }
+
+    public function get_select_async_fields(){
+        return [
+            'product_list',
+            'form_list',
+            'ld_course_list',
+            'give_form_list',
+        ];
+    }
+
+    public function async_select_get_label($post, $context = null){
+        if('edit' === $context){
+            foreach ($this->get_select_async_fields() as $field_name) {
+                if(isset($post["__$field_name"])){
+                    $post[ $field_name ] = $post["__$field_name"];
+                }
+            }
+        }
+
+        return $post;
+    }
+
+    /**
+     * This function removes the label from the select async fields in the post data.
+     *
+     * @param array $post The post data array.
+     * @param array $data The data array.
+     * @param int $nx_id The notification ID.
+     * @return array The modified post data array.
+     */
+    public function async_select_remove_label($post, $data, $nx_id)
+    {
+        // Get the notification instance
+        $notification = NotificationX::get_instance();
+
+        // Loop through the select async fields
+        foreach ($this->get_select_async_fields() as $field_name) {
+            // Get the field details and the field value from the post data
+            $field_details = $notification->get_field($field_name);
+            // Get the field value from the post data
+            $field_value = isset($post['data'][$field_name]) ? $post['data'][$field_name] : [];
+            $post['data']["__$field_name"] = $field_value;
+
+            // Check if the field value is an array
+            if (!empty($field_value) && is_array($field_value)) {
+                // Put a copy of it in the same array with a _ prefix in the key name
+
+                // Check if the field is multiple
+                if (isset($field_details['multiple']) && $field_details['multiple']) {
+                    // Use array_map to apply a function to each element of the field value
+                    $post['data'][$field_name] = array_map(function ($option) {
+                        // Use ternary operator to return the value key or an empty string
+                        return isset($option['value']) ? $option['value'] : '';
+                    }, $field_value);
+                } else {
+                    // Use ternary operator to return the value key or an empty string
+                    $post['data'][$field_name] = isset($field_value['value']) ? $field_value['value'] : '';
+                }
+            }
+        }
+
+        // Return the modified post data
         return $post;
     }
 

@@ -14,6 +14,7 @@ use NotificationX\Admin\Settings;
 use NotificationX\CoreInstaller;
 use NotificationX\Extensions\PressBar\PressBar;
 use NotificationX\Admin\Reports\ReportEmail;
+use NotificationX\Extensions\ExtensionFactory;
 use NotificationX\Extensions\Google\GoogleReviews;
 use NotificationX\FrontEnd\FrontEnd;
 use NotificationX\GetInstance;
@@ -284,6 +285,13 @@ class REST {
                     default:
                         # code...
                         break;
+                }
+                break;
+            default:
+                $extension = ExtensionFactory::get_instance()->get($params['source']);
+                if (!empty($extension) && method_exists($extension, 'restResponse')) {
+                    $result = $extension->restResponse($request->get_json_params());
+                    return $result;
                 }
                 break;
         }
