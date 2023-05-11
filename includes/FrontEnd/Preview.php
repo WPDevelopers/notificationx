@@ -36,6 +36,10 @@ class Preview {
 
 
 
+        if ($this->is_preview()) {
+            show_admin_bar(false);
+        }
+
         if ($this->is_preview() && class_exists('QueryMonitor')) {
             ini_set('display_errors', 'Off');
             ini_set('error_reporting', E_ALL);
@@ -323,25 +327,30 @@ class Preview {
             'default'    => trailingslashit(home_url()),
         ]);
 
-        $tabs['config']['content_heading']['preview'] = [
-            'label' => __('Preview', 'notificationx'),
-            'type'  => 'preview-modal',
-            'name'  => 'preview',
-            'urls'  => $urls,
+        $tabs['config']['content_heading']['preview'] = apply_filters('nx_content_heading_preview', [
+            'label'  => __('Preview', 'notificationx'),
+            'type'   => 'preview-modal',
+            'name'   => 'preview',
+            'urls'   => $urls,
+            'errors' => apply_filters('nx_content_heading_preview_errors', []),
             // 'rules' => Rules::is('type', 'inline', true),
-        ];
+        ]);
         return $tabs;
     }
 
     public function inline_notifications_data($return, $source, $id) {
-        if ($this->is_preview()) {
+        if ($this->is_preview() && !empty($id)) {
             $settings = $this->preview_settings();
             if (empty($settings['source']) || empty($settings['type']) || 'inline' !== $settings['type']){
                 return;
             }
 
+            remove_filter('nx_inline_notifications_data', [$this, 'inline_notifications_data'], 10);
+
             $source = !empty($settings['source']) ? $settings['source'] : '';
             $type   = !empty($settings['type']) ? $settings['type'] : '';
+            $settings['inline_location'] = is_array($settings['inline_location']) ? $settings['inline_location'] : [];
+            $settings['inline_location'][] = 'woocommerce_before_add_to_cart_form';
 
             $defaults = [
                 "nx_id"           => rand(),
@@ -349,31 +358,27 @@ class Preview {
                 "order_id"        => 96,
                 "product_id"      => $id,
                 "id"              => $id,
-                "status"          => "wc-pending",
-                "country"         => "Bangladesh",
-                "city"            => "Mirpur 12",
-                "ip"              => "127.0.0.1",
-                "title"           => "V-Neck T-Shirt.",
+                // "status"          => "wc-pending",
+                "title"           => get_the_title($id),
+                "product_title"   => get_the_title($id),
                 "link"            => "#",
                 "timestamp"       => date('Y-m-d H:i:s', strtotime('2 days ago')),
-                "first_name"      => "John",
-                "last_name"       => "Doe",
-                "name"            => "John Doe",
+                // "first_name"      => "John",
+                // "last_name"       => "Doe",
+                // "name"            => "John Doe",
                 "email"           => "support@wpdeveloper.com",
-                "source"          => "woo_inline",
+                "source"          => $source,
                 "entry_key"       => "96-7",
                 "created_at"      => date('Y-m-d H:i:s', strtotime('2 days ago')),
                 "updated_at"      => date('Y-m-d H:i:s', strtotime('2 days ago')),
                 "none"            => "",
-                "anonymous_title" => "Anonymous Product",
-                "sometime"        => "Some time ago",
-                "product_title"   => "V-Neck T-Shirt.",
+                // "anonymous_title" => "Anonymous Product",
+                // "sometime"        => "Some time ago",
                 "sales_count"     => rand(50, 70),
-                "stock_count"     => rand(50, 70),
-                "30days"          => "in last 30 days",
-                "day:30"          => "30 days",
-                "1day"            => "in last 1 day",
-                "7days"           => "in last 7 days",
+                // "30days"          => "in last 30 days",
+                // "day:30"          => "30 days",
+                // "1day"            => "in last 1 day",
+                // "7days"           => "in last 7 days",
             ];
 
 

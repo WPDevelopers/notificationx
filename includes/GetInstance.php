@@ -23,7 +23,8 @@ trait GetInstance {
      *
      */
     public static function get_instance($args = null){
-        if ( is_null( static::$instance ) || ! static::$instance instanceof self ) {
+        $class = get_called_class();
+        if ( is_null( static::$instance ) || ! static::$instance instanceof self || (strpos($class, "NotificationXPro\\") === 0 && ! static::$instance instanceof $class) ) {
             $class = __CLASS__;
             if(strpos($class, "NotificationX\\") === 0){
                 $pro_class = str_replace("NotificationX\\", "NotificationXPro\\", $class);
