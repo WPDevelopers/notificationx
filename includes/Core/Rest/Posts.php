@@ -73,7 +73,6 @@ class Posts extends WP_REST_Controller {
             )
         );
 
-
         // $schema = $this->get_item_schema();
         $get_item_args = array(
             'context' => $this->get_context_param(array('default' => 'view')),

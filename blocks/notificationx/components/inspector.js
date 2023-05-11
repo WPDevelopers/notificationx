@@ -5,6 +5,10 @@ import { __ } from "@wordpress/i18n";
 import { useState, useEffect } from "@wordpress/element";
 import { InspectorControls, PanelColorSettings } from "@wordpress/block-editor";
 import apiFetch from "@wordpress/api-fetch";
+import { applyFilters } from '@wordpress/hooks';
+import Select from 'react-select/async';
+
+
 import {
   PanelBody,
   SelectControl,
@@ -54,6 +58,7 @@ export default function Inspector(props) {
     nxLinkColor,
     nxTextAlign,
     nxWrapperAlign,
+    product_id,
   } = attributes;
   const [nx_ids, set_nx_ids] = useState(null);
 
@@ -71,6 +76,12 @@ export default function Inspector(props) {
     });
   }, []);
 
+  // All woocommerce product 
+  const [nx_products,set_nx_products] = useState(null);
+
+  // Notification type state handler
+  const [nx_type,set_nx_type] = useState(null);
+
   const resRequiredProps = {
     setAttributes,
     resOption,
@@ -82,18 +93,53 @@ export default function Inspector(props) {
       let ids = [];
       if (res?.posts?.length > 0) {
         ids = res.posts
-          .filter((item) => item.enabled && item.source != "press_bar" && item.type !== 'inline')
+          .filter((item) => item.enabled && item.source != "press_bar")
           .map((item) => ({
             label: item?.title || item?.nx_id,
             value: item?.nx_id,
+            type: item.type
           }));
       }
       set_nx_ids([
         { label: __("Select", "notificationx"), value: "" },
         ...ids,
       ]);
+
+    });
+    apiFetch({ path: "notificationx/v1/get-data", method: "POST", data:{
+      "search_empty" : true,
+      "key_value" : "adfasdf",
+      "type": "inline",
+      "source": "woo_inline",
+      "field": "product_list"
+    } }).then((res) => {
+      set_nx_products([
+        { label: __("Select", "notificationx"), value: "" },
+        ...res,
+      ]);
     });
   }, []);
+
+  useEffect(() => {
+      // set current notification type
+      set_nx_type( nx_ids ? nx_ids.filter( (item) => item.value == nx_id )[0]?.type : null );
+  },[nx_ids,nx_id]);
+
+  const loadOptions = async (inputValue, callback) => {
+    if (inputValue.length >= 3) {
+      const data = {
+        "search_empty" : true,
+        "inputValue" : inputValue,
+        "type": "inline",
+        "source": "woo_inline",
+        "field": "product_list"
+      }
+      await apiFetch({ path: "notificationx/v1/get-data", method: "POST", data:data } ).then((res) => {
+        callback(res);
+      });
+    }
+  };
+  
   return (
     <InspectorControls key="controls">
       <div className="eb-panel-control">
@@ -126,6 +172,22 @@ export default function Inspector(props) {
                         setAttributes({ nx_id: selected })
                       }
                     />
+                    {nx_type === 'inline' &&
+                      <>
+                        <label htmlFor="chooseProduct">{ __( 'Choose Proudct','notificationx' ) }</label>
+                        <Select
+                          value={ { value : product_id,label : product_id } }
+                          id="chooseProduct"
+                          loadOptions={loadOptions}
+                          defaultOptions={nx_products}
+                          getOptionValue={ () => product_id }
+                          onChange={ (selected) => {
+                            setAttributes( { product_id: selected.value } )
+                          }
+                          }
+                        />
+                      </>
+                    }
                     {nx_ids && nx_ids.length <= 1 ? (
                       <>
                         <p className="nx-block-no-nx-notice">

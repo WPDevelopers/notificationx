@@ -54,7 +54,7 @@ trait Woo {
      */
     public function restResponse($args) {
         // Check if inputValue is provided
-        if (empty($args['inputValue'])) {
+        if ( empty( $args['search_empty']) && empty($args['inputValue'] ) ) {
             return [];
         }
         // Get the products that match the inputValue

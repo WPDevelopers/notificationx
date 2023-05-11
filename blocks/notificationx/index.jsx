@@ -63,6 +63,10 @@ registerBlockType("notificationx-pro/notificationx-render", {
       type: "string",
       default: null,
     },
+    product_id: {
+      type: "string",
+      default: null,
+    },
   },
   // save: () => {
   //   return {};
