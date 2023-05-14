@@ -2620,22 +2620,7 @@ function Inspector(props) {
     attributes: attributes,
     objAttributes: _attributes__WEBPACK_IMPORTED_MODULE_14__["default"]
   };
-  function fetch_product_data(type, data) {
-    _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_7___default()({
-      path: "notificationx/v1/get-data",
-      method: "POST",
-      data: data
-    }).then(function (res) {
-      if (type === 'initial') {
-        set_nx_products([{
-          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Select", "notificationx"),
-          value: ""
-        }].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(res)));
-      } else {
-        callback(res);
-      }
-    });
-  }
+  function fetch_product_data(type, data) {}
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
     var _nx_ids$filter$, _nx_ids$filter$2;
     // set current notification type
@@ -2646,11 +2631,21 @@ function Inspector(props) {
       return item.value == nx_id;
     })[0]) === null || _nx_ids$filter$2 === void 0 ? void 0 : _nx_ids$filter$2.source : null);
     if (nx_source !== null) {
-      fetch_product_data('initial', {
+      var data = {
         "search_empty": true,
         "type": "inline",
         "source": nx_source,
         "field": "product_list"
+      };
+      _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_7___default()({
+        path: "notificationx/v1/get-data",
+        method: "POST",
+        data: data
+      }).then(function (res) {
+        set_nx_products([{
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Select", "notificationx"),
+          value: ""
+        }].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(res)));
       });
     }
   }, [nx_ids, nx_id, nx_source]);
@@ -2681,19 +2676,31 @@ function Inspector(props) {
   }, []);
   var loadOptions = /*#__PURE__*/function () {
     var _ref = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee(inputValue, callback) {
+      var data;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
-            if (inputValue.length >= 3) {
-              fetch_product_data('', {
-                "search_empty": true,
-                "inputValue": inputValue,
-                "type": "inline",
-                "source": nx_source,
-                "field": "product_list"
-              });
+            if (!(inputValue.length >= 3)) {
+              _context.next = 5;
+              break;
             }
-          case 1:
+            data = {
+              "search_empty": true,
+              "inputValue": inputValue,
+              "type": "inline",
+              "source": nx_source,
+              "field": "product_list"
+            };
+            ;
+            _context.next = 5;
+            return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_7___default()({
+              path: "notificationx/v1/get-data",
+              method: "POST",
+              data: data
+            }).then(function (res) {
+              callback(res);
+            });
+          case 5:
           case "end":
             return _context.stop();
         }

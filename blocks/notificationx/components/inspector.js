@@ -91,17 +91,7 @@ export default function Inspector(props) {
   };
 
   function fetch_product_data( type , data ) {
-    apiFetch({ path: "notificationx/v1/get-data", method: "POST", data: data }).then((res) => {
-      if( type === 'initial' ) {
-        set_nx_products([
-          { label: __("Select", "notificationx"), value: "" },
-          ...res,
-        ]);
-      }else{
-        callback(res);
-      }
 
-    });
   }
 
   useEffect(() => {
@@ -109,12 +99,18 @@ export default function Inspector(props) {
     set_nx_type( nx_ids ? nx_ids.filter( (item) => item.value == nx_id )[0]?.type : null );
     set_nx_source( nx_ids ? nx_ids.filter( (item) => item.value == nx_id )[0]?.source : null );
     if ( nx_source !== null ) {
-      fetch_product_data( 'initial', {
+      const data = {
         "search_empty" : true,
         "type": "inline",
         "source": nx_source,
         "field": "product_list"
-      } );
+      };
+      apiFetch({ path: "notificationx/v1/get-data", method: "POST", data: data }).then((res) => {
+        set_nx_products([
+          { label: __("Select", "notificationx"), value: "" },
+          ...res,
+        ]);
+      });
     }
   },[nx_ids,nx_id,nx_source]);
 
@@ -142,13 +138,16 @@ export default function Inspector(props) {
 
   const loadOptions = async (inputValue, callback) => {
     if (inputValue.length >= 3) {
-      fetch_product_data('', {
+      const data = {
         "search_empty" : true,
         "inputValue" : inputValue,
         "type": "inline",
         "source": nx_source,
         "field": "product_list"
-      } )
+      };;
+      await apiFetch({ path: "notificationx/v1/get-data", method: "POST", data: data }).then((res) => {
+        callback(res);
+      });
     }
   };
   
