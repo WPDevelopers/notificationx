@@ -2610,12 +2610,50 @@ function Inspector(props) {
     _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState5, 2),
     nx_type = _useState6[0],
     set_nx_type = _useState6[1];
+  var _useState7 = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(null),
+    _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState7, 2),
+    nx_source = _useState8[0],
+    set_nx_source = _useState8[1];
   var resRequiredProps = {
     setAttributes: setAttributes,
     resOption: resOption,
     attributes: attributes,
     objAttributes: _attributes__WEBPACK_IMPORTED_MODULE_14__["default"]
   };
+  function fetch_product_data(type, data) {
+    _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_7___default()({
+      path: "notificationx/v1/get-data",
+      method: "POST",
+      data: data
+    }).then(function (res) {
+      if (type === 'initial') {
+        set_nx_products([{
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Select", "notificationx"),
+          value: ""
+        }].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(res)));
+      } else {
+        callback(res);
+      }
+    });
+  }
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
+    var _nx_ids$filter$, _nx_ids$filter$2;
+    // set current notification type
+    set_nx_type(nx_ids ? (_nx_ids$filter$ = nx_ids.filter(function (item) {
+      return item.value == nx_id;
+    })[0]) === null || _nx_ids$filter$ === void 0 ? void 0 : _nx_ids$filter$.type : null);
+    set_nx_source(nx_ids ? (_nx_ids$filter$2 = nx_ids.filter(function (item) {
+      return item.value == nx_id;
+    })[0]) === null || _nx_ids$filter$2 === void 0 ? void 0 : _nx_ids$filter$2.source : null);
+    if (nx_source !== null) {
+      fetch_product_data('initial', {
+        "search_empty": true,
+        "type": "inline",
+        "source": nx_source,
+        "field": "product_list"
+      });
+    }
+  }, [nx_ids, nx_id, nx_source]);
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
     _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_7___default()({
       path: "notificationx/v1/nx?per_page=999",
@@ -2630,7 +2668,8 @@ function Inspector(props) {
           return {
             label: (item === null || item === void 0 ? void 0 : item.title) || (item === null || item === void 0 ? void 0 : item.nx_id),
             value: item === null || item === void 0 ? void 0 : item.nx_id,
-            type: item.type
+            type: item.type,
+            source: item.source
           };
         });
       }
@@ -2639,56 +2678,22 @@ function Inspector(props) {
         value: ""
       }].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(ids)));
     });
-    _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_7___default()({
-      path: "notificationx/v1/get-data",
-      method: "POST",
-      data: {
-        "search_empty": true,
-        "key_value": "adfasdf",
-        "type": "inline",
-        "source": "woo_inline",
-        "field": "product_list"
-      }
-    }).then(function (res) {
-      set_nx_products([{
-        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Select", "notificationx"),
-        value: ""
-      }].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(res)));
-    });
   }, []);
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
-    var _nx_ids$filter$;
-    // set current notification type
-    set_nx_type(nx_ids ? (_nx_ids$filter$ = nx_ids.filter(function (item) {
-      return item.value == nx_id;
-    })[0]) === null || _nx_ids$filter$ === void 0 ? void 0 : _nx_ids$filter$.type : null);
-  }, [nx_ids, nx_id]);
   var loadOptions = /*#__PURE__*/function () {
     var _ref = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee(inputValue, callback) {
-      var data;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
-            if (!(inputValue.length >= 3)) {
-              _context.next = 4;
-              break;
+            if (inputValue.length >= 3) {
+              fetch_product_data('', {
+                "search_empty": true,
+                "inputValue": inputValue,
+                "type": "inline",
+                "source": nx_source,
+                "field": "product_list"
+              });
             }
-            data = {
-              "search_empty": true,
-              "inputValue": inputValue,
-              "type": "inline",
-              "source": "woo_inline",
-              "field": "product_list"
-            };
-            _context.next = 4;
-            return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_7___default()({
-              path: "notificationx/v1/get-data",
-              method: "POST",
-              data: data
-            }).then(function (res) {
-              callback(res);
-            });
-          case 4:
+          case 1:
           case "end":
             return _context.stop();
         }
@@ -2715,6 +2720,7 @@ function Inspector(props) {
       className: "eb-tab styles"
     }]
   }, function (tab) {
+    var _nx_products$filter$;
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("div", {
       className: "eb-tab-controls" + tab.name
     }, tab.name === "general" && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("div", {
@@ -2735,7 +2741,9 @@ function Inspector(props) {
     }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Choose Proudct', 'notificationx')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(react_select_async__WEBPACK_IMPORTED_MODULE_9__["default"], {
       value: {
         value: product_id,
-        label: product_id
+        label: nx_products ? (_nx_products$filter$ = nx_products.filter(function (item) {
+          return item.value == product_id;
+        })[0]) === null || _nx_products$filter$ === void 0 ? void 0 : _nx_products$filter$.label : null
       },
       id: "chooseProduct",
       loadOptions: loadOptions,
@@ -2745,7 +2753,7 @@ function Inspector(props) {
       },
       onChange: function onChange(selected) {
         setAttributes({
-          product_id: selected.value
+          product_id: selected.value + ''
         });
       }
     })), nx_ids && nx_ids.length <= 1 ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("p", {
@@ -11206,9 +11214,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__.registerBlockType)("notificationx-pro/notificationx", {
+var settings = {
   title: "Inline Notification",
-  namespace: "notificationx",
+  // namespace: "notificationx",
   apiVersion: 2,
   attributes: _components_attributes__WEBPACK_IMPORTED_MODULE_4__["default"],
   icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
@@ -11253,8 +11261,9 @@ __webpack_require__.r(__webpack_exports__);
   // save: () => {
   //   return {};
   // },
-});
+};
 
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__.registerBlockType)("notificationx-pro/notificationx", settings);
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__.registerBlockType)("notificationx-pro/notificationx-render", {
   title: "NotificationX render",
   namespace: "notificationx",

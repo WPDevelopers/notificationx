@@ -5,9 +5,9 @@ import { __ } from "@wordpress/i18n";
 import attributes from "./components/attributes";
 import Edit from "./components/edit";
 
-registerBlockType("notificationx-pro/notificationx", {
+const settings = {
   title: "Inline Notification",
-  namespace: "notificationx",
+  // namespace: "notificationx",
   apiVersion: 2,
   attributes,
   icon: (
@@ -52,7 +52,10 @@ registerBlockType("notificationx-pro/notificationx", {
   // save: () => {
   //   return {};
   // },
-});
+}
+
+registerBlockType("notificationx-pro/notificationx", settings);
+
 registerBlockType("notificationx-pro/notificationx-render", {
   title: "NotificationX render",
   namespace: "notificationx",

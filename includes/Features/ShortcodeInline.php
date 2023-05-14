@@ -42,6 +42,7 @@ class ShortcodeInline {
             'show_link' => true,
             ), $atts, 'notificationx_inline'
         );
+
         $nx_id = $atts['id'];
 
         if ( empty( $nx_id ) ) {

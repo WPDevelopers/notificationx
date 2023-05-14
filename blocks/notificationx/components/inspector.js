@@ -81,6 +81,7 @@ export default function Inspector(props) {
 
   // Notification type state handler
   const [nx_type,set_nx_type] = useState(null);
+  const [nx_source,set_nx_source] = useState(null);
 
   const resRequiredProps = {
     setAttributes,
@@ -88,6 +89,35 @@ export default function Inspector(props) {
     attributes,
     objAttributes,
   };
+
+  function fetch_product_data( type , data ) {
+    apiFetch({ path: "notificationx/v1/get-data", method: "POST", data: data }).then((res) => {
+      if( type === 'initial' ) {
+        set_nx_products([
+          { label: __("Select", "notificationx"), value: "" },
+          ...res,
+        ]);
+      }else{
+        callback(res);
+      }
+
+    });
+  }
+
+  useEffect(() => {
+    // set current notification type
+    set_nx_type( nx_ids ? nx_ids.filter( (item) => item.value == nx_id )[0]?.type : null );
+    set_nx_source( nx_ids ? nx_ids.filter( (item) => item.value == nx_id )[0]?.source : null );
+    if ( nx_source !== null ) {
+      fetch_product_data( 'initial', {
+        "search_empty" : true,
+        "type": "inline",
+        "source": nx_source,
+        "field": "product_list"
+      } );
+    }
+  },[nx_ids,nx_id,nx_source]);
+
   useEffect(() => {
     apiFetch({ path: "notificationx/v1/nx?per_page=999", method: "GET", }).then((res) => {
       let ids = [];
@@ -97,46 +127,28 @@ export default function Inspector(props) {
           .map((item) => ({
             label: item?.title || item?.nx_id,
             value: item?.nx_id,
-            type: item.type
+            type: item.type,
+            source: item.source,
           }));
       }
       set_nx_ids([
         { label: __("Select", "notificationx"), value: "" },
         ...ids,
       ]);
+      
+    });
 
-    });
-    apiFetch({ path: "notificationx/v1/get-data", method: "POST", data:{
-      "search_empty" : true,
-      "key_value" : "adfasdf",
-      "type": "inline",
-      "source": "woo_inline",
-      "field": "product_list"
-    } }).then((res) => {
-      set_nx_products([
-        { label: __("Select", "notificationx"), value: "" },
-        ...res,
-      ]);
-    });
   }, []);
-
-  useEffect(() => {
-      // set current notification type
-      set_nx_type( nx_ids ? nx_ids.filter( (item) => item.value == nx_id )[0]?.type : null );
-  },[nx_ids,nx_id]);
 
   const loadOptions = async (inputValue, callback) => {
     if (inputValue.length >= 3) {
-      const data = {
+      fetch_product_data('', {
         "search_empty" : true,
         "inputValue" : inputValue,
         "type": "inline",
-        "source": "woo_inline",
+        "source": nx_source,
         "field": "product_list"
-      }
-      await apiFetch({ path: "notificationx/v1/get-data", method: "POST", data:data } ).then((res) => {
-        callback(res);
-      });
+      } )
     }
   };
   
@@ -176,13 +188,13 @@ export default function Inspector(props) {
                       <>
                         <label htmlFor="chooseProduct">{ __( 'Choose Proudct','notificationx' ) }</label>
                         <Select
-                          value={ { value : product_id,label : product_id } }
+                          value={ { value : product_id, label : nx_products ? nx_products.filter( (item) => item.value == product_id )[0]?.label : null } }
                           id="chooseProduct"
                           loadOptions={loadOptions}
                           defaultOptions={nx_products}
                           getOptionValue={ () => product_id }
                           onChange={ (selected) => {
-                            setAttributes( { product_id: selected.value } )
+                            setAttributes( { product_id: selected.value + '' } )
                           }
                           }
                         />

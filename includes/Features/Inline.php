@@ -38,7 +38,6 @@ class Inline {
         if($exit){
             return $exit;
         }
-
         if ( empty( $this->notifications_data ) ) {
             $this->notifications_data = array( 'shortcode' => array() );
             $notifications            = PostType::get_instance()->get_posts(

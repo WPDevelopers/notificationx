@@ -133,7 +133,6 @@ class Blocks {
         );
     }
 
-
     function notificationx_render_callback( $block_attributes, $content ) {
         if( ! is_admin() ){
             wp_enqueue_style('notificationx-block');
@@ -141,7 +140,7 @@ class Blocks {
         }
         if ( is_admin() || $this->isRestUrl() ) {
             do_action( 'nx_ignore_analytics' );
-        }
+        } 
 
         $nx_id = ! empty( $block_attributes['nx_id'] ) ? $block_attributes['nx_id'] : '';
         $product_id     = ! empty( $block_attributes['product_id'] ) ? $block_attributes['product_id'] : '';
@@ -152,7 +151,6 @@ class Blocks {
     }
 
     function gutenberg_examples_dynamic_render_callback( $block_attributes, $content ) {
-
         do_action( 'nx_ignore_analytics' );
         
         $nx_id          = ! empty( $block_attributes['nx_id'] ) ? $block_attributes['nx_id'] : '';
