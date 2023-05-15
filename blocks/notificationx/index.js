@@ -2229,6 +2229,9 @@ var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread({
   product_id: {
     type: "string"
   },
+  selected_product: {
+    type: "object"
+  },
   blockRoot: {
     type: "string",
     "default": "notificationx_pro"
@@ -2585,7 +2588,8 @@ function Inspector(props) {
     nxLinkColor = attributes.nxLinkColor,
     nxTextAlign = attributes.nxTextAlign,
     nxWrapperAlign = attributes.nxWrapperAlign,
-    product_id = attributes.product_id;
+    product_id = attributes.product_id,
+    selected_product = attributes.selected_product;
   var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(null),
     _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState, 2),
     nx_ids = _useState2[0],
@@ -2620,7 +2624,6 @@ function Inspector(props) {
     attributes: attributes,
     objAttributes: _attributes__WEBPACK_IMPORTED_MODULE_14__["default"]
   };
-  function fetch_product_data(type, data) {}
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
     var _nx_ids$filter$, _nx_ids$filter$2;
     // set current notification type
@@ -2727,7 +2730,6 @@ function Inspector(props) {
       className: "eb-tab styles"
     }]
   }, function (tab) {
-    var _nx_products$filter$;
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("div", {
       className: "eb-tab-controls" + tab.name
     }, tab.name === "general" && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("div", {
@@ -2746,12 +2748,7 @@ function Inspector(props) {
     }), nx_type === 'inline' && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("label", {
       htmlFor: "chooseProduct"
     }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Choose Proudct', 'notificationx')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(react_select_async__WEBPACK_IMPORTED_MODULE_9__["default"], {
-      value: {
-        value: product_id,
-        label: nx_products ? (_nx_products$filter$ = nx_products.filter(function (item) {
-          return item.value == product_id;
-        })[0]) === null || _nx_products$filter$ === void 0 ? void 0 : _nx_products$filter$.label : null
-      },
+      value: selected_product,
       id: "chooseProduct",
       loadOptions: loadOptions,
       defaultOptions: nx_products,
@@ -2761,6 +2758,10 @@ function Inspector(props) {
       onChange: function onChange(selected) {
         setAttributes({
           product_id: selected.value + ''
+        });
+        delete selected.rules;
+        setAttributes({
+          selected_product: selected
         });
       }
     })), nx_ids && nx_ids.length <= 1 ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("p", {

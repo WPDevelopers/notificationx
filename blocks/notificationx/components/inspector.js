@@ -59,6 +59,7 @@ export default function Inspector(props) {
     nxTextAlign,
     nxWrapperAlign,
     product_id,
+    selected_product,
   } = attributes;
   const [nx_ids, set_nx_ids] = useState(null);
 
@@ -89,10 +90,6 @@ export default function Inspector(props) {
     attributes,
     objAttributes,
   };
-
-  function fetch_product_data( type , data ) {
-
-  }
 
   useEffect(() => {
     // set current notification type
@@ -187,13 +184,15 @@ export default function Inspector(props) {
                       <>
                         <label htmlFor="chooseProduct">{ __( 'Choose Proudct','notificationx' ) }</label>
                         <Select
-                          value={ { value : product_id, label : nx_products ? nx_products.filter( (item) => item.value == product_id )[0]?.label : null } }
+                          value={ selected_product }                          
                           id="chooseProduct"
                           loadOptions={loadOptions}
                           defaultOptions={nx_products}
                           getOptionValue={ () => product_id }
                           onChange={ (selected) => {
                             setAttributes( { product_id: selected.value + '' } )
+                            delete selected.rules;
+                            setAttributes( { selected_product:  selected } )
                           }
                           }
                         />
