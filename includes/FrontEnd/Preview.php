@@ -31,7 +31,7 @@ class Preview {
         add_action('wp_print_footer_scripts', [$this, 'footer_scripts']);
 
         add_filter('nx_before_enqueue_scripts', [$this, 'enqueue_scripts']);
-        add_filter('nx_inline_notifications_data', [$this, 'inline_notifications_data'], 10, 3);
+        add_filter('nx_inline_notifications_data', [$this, 'inline_notifications_data'], 10, 4);
         add_filter('nx_metabox_config', [$this, 'content_heading']);
 
 
@@ -298,8 +298,9 @@ class Preview {
         return $settings;
     }
 
-    public function preview_settings() {
-        $settings = $this->get_settings();
+    public function preview_settings($settings = []) {
+        $settings = !empty($settings) ? $settings : $this->get_settings();
+
         if (empty($settings['source'])){
             return [];
         }
@@ -340,7 +341,9 @@ class Preview {
 
     public function inline_notifications_data($return, $source, $id, $settings = []) {
         if ($this->is_preview() && !empty($id)) {
-            $settings = !empty($settings) ? $settings : $this->preview_settings();
+            $settings = $this->preview_settings($settings);
+            $settings['is_preview'] = true;
+
             if (empty($settings['source']) || empty($settings['type']) || 'inline' !== $settings['type']){
                 return;
             }
