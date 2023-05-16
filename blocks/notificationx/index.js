@@ -2232,6 +2232,9 @@ var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread({
   selected_product: {
     type: "object"
   },
+  post_type: {
+    type: "string"
+  },
   blockRoot: {
     type: "string",
     "default": "notificationx_pro"
@@ -2506,7 +2509,8 @@ function Edit(props) {
     block: "notificationx-pro/notificationx-render",
     attributes: {
       nx_id: attributes.nx_id,
-      product_id: attributes.product_id
+      product_id: attributes.product_id,
+      post_type: attributes.post_type
     },
     className: "notificationx-block-wrapper ".concat(blockId)
   })));
@@ -2589,7 +2593,8 @@ function Inspector(props) {
     nxTextAlign = attributes.nxTextAlign,
     nxWrapperAlign = attributes.nxWrapperAlign,
     product_id = attributes.product_id,
-    selected_product = attributes.selected_product;
+    selected_product = attributes.selected_product,
+    post_type = attributes.post_type;
   var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(null),
     _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState, 2),
     nx_ids = _useState2[0],
@@ -2602,6 +2607,11 @@ function Inspector(props) {
       resOption: (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_11__.select)(editorStoreForGettingPreivew).__experimentalGetPreviewDeviceType()
     });
   }, []);
+
+  // Get current post type for Site Editor Template from URL
+  var urlParams = new URLSearchParams(window.location.search);
+  var postType = urlParams.get('postType');
+  attributes.post_type = postType;
 
   // All woocommerce product 
   var _useState3 = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(null),
@@ -2745,9 +2755,9 @@ function Inspector(props) {
           nx_id: selected
         });
       }
-    }), nx_type === 'inline' && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("label", {
+    }), nx_type === 'inline' && postType !== 'wp_template' && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("label", {
       htmlFor: "chooseProduct"
-    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Choose Proudct', 'notificationx')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(react_select_async__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Choose Product', 'notificationx')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(react_select_async__WEBPACK_IMPORTED_MODULE_9__["default"], {
       value: selected_product,
       id: "chooseProduct",
       loadOptions: loadOptions,

@@ -198,7 +198,7 @@ export default function Edit(props) {
         </style>
         <ServerSideRender
           block={"notificationx-pro/notificationx-render"}
-          attributes={{ nx_id: attributes.nx_id, product_id: attributes.product_id }}
+          attributes={{ nx_id: attributes.nx_id, product_id: attributes.product_id, post_type:attributes.post_type }}
           className={`notificationx-block-wrapper ${blockId}`}
         />
       </div>

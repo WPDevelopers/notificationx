@@ -8,7 +8,6 @@ import apiFetch from "@wordpress/api-fetch";
 import { applyFilters } from '@wordpress/hooks';
 import Select from 'react-select/async';
 
-
 import {
   PanelBody,
   SelectControl,
@@ -60,6 +59,7 @@ export default function Inspector(props) {
     nxWrapperAlign,
     product_id,
     selected_product,
+    post_type,
   } = attributes;
   const [nx_ids, set_nx_ids] = useState(null);
 
@@ -76,6 +76,11 @@ export default function Inspector(props) {
       ).__experimentalGetPreviewDeviceType(),
     });
   }, []);
+
+  // Get current post type for Site Editor Template from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const postType = urlParams.get('postType');
+  attributes.post_type = postType;
 
   // All woocommerce product 
   const [nx_products,set_nx_products] = useState(null);
@@ -147,7 +152,7 @@ export default function Inspector(props) {
       });
     }
   };
-  
+
   return (
     <InspectorControls key="controls">
       <div className="eb-panel-control">
@@ -180,9 +185,9 @@ export default function Inspector(props) {
                         setAttributes({ nx_id: selected })
                       }
                     />
-                    {nx_type === 'inline' &&
+                    {nx_type === 'inline' && postType !== 'wp_template' &&
                       <>
-                        <label htmlFor="chooseProduct">{ __( 'Choose Proudct','notificationx' ) }</label>
+                        <label htmlFor="chooseProduct">{ __( 'Choose Product','notificationx' ) }</label>
                         <Select
                           value={ selected_product }                          
                           id="chooseProduct"

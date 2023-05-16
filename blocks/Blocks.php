@@ -142,17 +142,21 @@ class Blocks {
             do_action( 'nx_ignore_analytics' );
         } 
 
-        $nx_id = ! empty( $block_attributes['nx_id'] ) ? $block_attributes['nx_id'] : '';
-        $product_id     = ! empty( $block_attributes['product_id'] ) ? $block_attributes['product_id'] : '';
-        $html  = '<div class="' . $block_attributes['blockId'] . ' notificationx-block-wrapper" data-nx_id="' . $nx_id . '">';
-        $html .= do_shortcode( "[notificationx_inline product_id='{$product_id}' id='{$nx_id}']" );
-        $html .= '</div>';
+        // if( !empty( $block_attributes['post_type'] ) ) {
+        //     $html = 
+        // }else {
+            $nx_id = ! empty( $block_attributes['nx_id'] ) ? $block_attributes['nx_id'] : '';
+            $product_id     = ! empty( $block_attributes['product_id'] ) ? $block_attributes['product_id'] : '';
+            $html  = '<div class="' . $block_attributes['blockId'] . ' notificationx-block-wrapper" data-nx_id="' . $nx_id . '">';
+            $html .= do_shortcode( "[notificationx_inline product_id='{$product_id}' id='{$nx_id}']" );
+            $html .= '</div>';
+        // }
         return $html;
     }
 
     function gutenberg_examples_dynamic_render_callback( $block_attributes, $content ) {
         do_action( 'nx_ignore_analytics' );
-        
+
         $nx_id          = ! empty( $block_attributes['nx_id'] ) ? $block_attributes['nx_id'] : '';
         $product_id     = ! empty( $block_attributes['product_id'] ) ? $block_attributes['product_id'] : '';
         $html      = '<div class="' . $block_attributes['blockId'] . ' notificationx-block-wrapper">';
