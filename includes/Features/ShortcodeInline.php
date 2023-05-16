@@ -37,9 +37,10 @@ class ShortcodeInline {
      */
     public function shortcode_inline( $atts, $content = null ) {
         $atts  = shortcode_atts( array(
-            'id'        => '',
-            'product_id' => '',
-            'show_link' => true,
+            'id'            => '',
+            'product_id'    => '',
+            'post_type'     => '',
+            'show_link'     => true,
             ), $atts, 'notificationx_inline'
         );
 
@@ -67,7 +68,7 @@ class ShortcodeInline {
              * @var WooInline|EDDInline
              */
             $extension = \NotificationX\Extensions\ExtensionFactory::get_instance()->get($settings['source']);
-            $output = $extension->show_inline_notification( $atts['product_id'], $settings );
+            $output = $extension->show_inline_notification( $atts['product_id'], $settings, $atts['post_type'] );
             $output = "<div id='notificationx-shortcode-inline-{$atts['id']}' class='notificationx-shortcode-inline-wrapper nx-shortcode-notice'>$output</div>";
             return $output;
         }

@@ -159,11 +159,17 @@ class Blocks {
 
     function gutenberg_examples_dynamic_render_callback( $block_attributes, $content ) {
         do_action( 'nx_ignore_analytics' );
-
         $nx_id          = ! empty( $block_attributes['nx_id'] ) ? $block_attributes['nx_id'] : '';
         $product_id     = ! empty( $block_attributes['product_id'] ) ? $block_attributes['product_id'] : '';
+        $post_type     = ! empty( $block_attributes['post_type'] ) ? $block_attributes['post_type'] : '';
         $html      = '<div class="' . $block_attributes['blockId'] . ' notificationx-block-wrapper">';
-        $shortcode = do_shortcode( "[notificationx_inline product_id='{$product_id}' id='{$nx_id}' show_link=false]" );
+        if( 'wp_template' == $post_type ) {
+            add_filter('nx_is_preview',function(){
+                return true;
+            });
+            $product_id = rand();
+        }
+        $shortcode = do_shortcode( "[notificationx_inline post_type='{$post_type}' product_id='{$product_id}' id='{$nx_id}' show_link=false]" );
         if ( $shortcode ) {
             $html .= $shortcode;
         } else {

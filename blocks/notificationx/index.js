@@ -11295,6 +11295,10 @@ var settings = {
     product_id: {
       type: "string",
       "default": null
+    },
+    post_type: {
+      type: "string",
+      "default": null
     }
   }
   // save: () => {
