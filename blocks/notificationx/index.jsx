@@ -70,6 +70,10 @@ registerBlockType("notificationx-pro/notificationx-render", {
       type: "string",
       default: null,
     },
+    post_type: {
+      type: "string",
+      default: null,
+    },
   },
   // save: () => {
   //   return {};

@@ -33,8 +33,8 @@ class Inline {
     }
 
 
-    public function get_notifications_data( $source, $id = null ) {
-        $exit = apply_filters('nx_inline_notifications_data', null, $source, $id);
+    public function get_notifications_data( $source, $id = null, $settings = [] ) {
+        $exit = apply_filters('nx_inline_notifications_data', null, $source, $id, $settings);
         if($exit){
             return $exit;
         }
