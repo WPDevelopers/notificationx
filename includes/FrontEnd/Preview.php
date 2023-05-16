@@ -307,7 +307,7 @@ class Preview {
     }
 
     public function get_settings(){
-        $settings = urldecode($_GET['nx-preview']);
+        $settings = base64_decode($_POST['nx-preview']);
         $settings = json_decode($settings, true);
         return $settings;
     }
@@ -418,7 +418,7 @@ class Preview {
     }
 
     public function is_preview() {
-        if (!empty($_GET['nx-preview'])) {
+        if (!empty($_POST['nx-preview'])) {
             return true;
         }
         return false;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReactModal from "react-modal";
 import { useBuilderContext } from "quickbuilder";
 import { useNotificationXContext } from "../hooks";
@@ -6,38 +6,16 @@ import { Button } from "@wordpress/components";
 import { ReactComponent as DesktopIcon } from "../icons/responsive/desktop.svg";
 import { ReactComponent as TabletIcon } from "../icons/responsive/tablet.svg";
 import { ReactComponent as MobileIcon } from "../icons/responsive/mobile.svg";
+import { toBase64 } from "js-base64";
 
 const PreviewModal = (props) => {
-    const nxContext = useNotificationXContext();
     const [isOpen, setIsOpen] = useState(false);
     const context = useBuilderContext();
     const [previewType, setPreviewType] = useState("desktop");
-    const [nxData, setNxData] = useState("");
-    const [url, setUrl] = useState("");
-
-    // console.log(prevTab, nextTab);
-
-    const buildUrl = () => {
-        const { source } = context.values;
-        let _url = props.urls?.[source]
-            ? props.urls[source]
-            : props.urls["default"];
-        const url = new URL(_url);
-        const data = encodeURIComponent(
-            JSON.stringify({ ...context.values, previewType })
-        );
-
-        url.searchParams.append("nx-preview", data);
-
-        setUrl(url.toString());
-    };
+    const iframeRef = useRef(null);
 
     const openModal = () => {
         setIsOpen(!isOpen);
-
-        if (!isOpen) {
-            buildUrl();
-        }
     };
 
     useEffect(() => {
@@ -47,6 +25,68 @@ const PreviewModal = (props) => {
             document.body.style.overflow = "unset";
         }
     }, [isOpen]);
+
+    // A function that creates and returns a form element
+    const createForm = (action, method, target, data) => {
+        // Create a form element
+        const form  = document.createElement("form");
+        form.action = action;
+        form.method = method;
+        form.target = target;
+
+        // Loop through the data object and create input elements
+        for (let key in data) {
+            const input = document.createElement("input");
+            input.type  = "hidden";
+            input.name  = key;
+            input.value = data[key];
+            // Append the input to the form
+            form.appendChild(input);
+
+        }
+
+        // Return the form element
+        return form;
+    }
+
+    // A function that creates and submits a form to an iframe
+    const postToIframe = (action, method, target, data) => {
+        // Create a form element with the given parameters
+        const form = createForm(action, method, target, data);
+
+        // Append the form to the document body
+        document.body.appendChild(form);
+
+        // Submit the form
+        form.submit();
+
+        // Remove the form from the document body
+        document.body.removeChild(form);
+    }
+
+    const onAfterOpen = () => {
+        // Get the iframe element
+        const iframe = iframeRef.current;
+        if(!iframe){
+            return;
+        }
+
+        const { source } = context.values;
+        const url = props.urls?.[source]
+            ? props.urls[source]
+            : props.urls["default"];
+
+        const nxPreview = {
+            "nx-preview": toBase64(JSON.stringify({ ...context.values, previewType }))
+        };
+
+        postToIframe(
+            url,
+            "post",
+            iframe.name,
+            nxPreview
+          );
+    }
 
     useEffect(() => {
         return () => {
@@ -64,6 +104,7 @@ const PreviewModal = (props) => {
             </Button>
             <ReactModal
                 isOpen={isOpen}
+                onAfterOpen={onAfterOpen}
                 onRequestClose={() => setIsOpen(false)}
                 style={{
                     overlay: {
@@ -161,7 +202,9 @@ const PreviewModal = (props) => {
                             </div>
                         ) : (
                             <iframe
-                                src={url + "#" + previewType}
+                                ref={iframeRef}
+                                name="preview-modal-iframe"
+                                // src={url + "#" + previewType}
                                 width="100%"
                                 height="600px"
                                 style={{ display: "flex" }}
