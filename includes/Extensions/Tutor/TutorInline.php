@@ -113,7 +113,6 @@ class TutorInline extends Tutor {
                     $class = $pro_class;
                 }
             }
-
             if(!empty($args)){
                 static::$instance = new $class($args);
             }

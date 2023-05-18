@@ -5,6 +5,9 @@ import { __ } from "@wordpress/i18n";
 import { useState, useEffect } from "@wordpress/element";
 import { InspectorControls, PanelColorSettings } from "@wordpress/block-editor";
 import apiFetch from "@wordpress/api-fetch";
+import { applyFilters } from '@wordpress/hooks';
+import Select from 'react-select/async';
+
 import {
   PanelBody,
   SelectControl,
@@ -54,6 +57,9 @@ export default function Inspector(props) {
     nxLinkColor,
     nxTextAlign,
     nxWrapperAlign,
+    product_id,
+    selected_product,
+    post_type,
   } = attributes;
   const [nx_ids, set_nx_ids] = useState(null);
 
@@ -71,29 +77,82 @@ export default function Inspector(props) {
     });
   }, []);
 
+  // Get current post type for Site Editor Template from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const postType = urlParams.get('postType');
+  attributes.post_type = postType;
+
+  // All woocommerce product 
+  const [nx_products,set_nx_products] = useState(null);
+
+  // Notification type state handler
+  const [nx_type,set_nx_type] = useState(null);
+  const [nx_source,set_nx_source] = useState(null);
+
   const resRequiredProps = {
     setAttributes,
     resOption,
     attributes,
     objAttributes,
   };
+
+  useEffect(() => {
+    // set current notification type
+    set_nx_type( nx_ids ? nx_ids.filter( (item) => item.value == nx_id )[0]?.type : null );
+    set_nx_source( nx_ids ? nx_ids.filter( (item) => item.value == nx_id )[0]?.source : null );
+    if ( nx_source !== null ) {
+      const data = {
+        "search_empty" : true,
+        "type": "inline",
+        "source": nx_source,
+        "field": "product_list"
+      };
+      apiFetch({ path: "notificationx/v1/get-data", method: "POST", data: data }).then((res) => {
+        set_nx_products([
+          { label: __("Select", "notificationx"), value: "" },
+          ...res,
+        ]);
+      });
+    }
+  },[nx_ids,nx_id,nx_source]);
+
   useEffect(() => {
     apiFetch({ path: "notificationx/v1/nx?per_page=999", method: "GET", }).then((res) => {
       let ids = [];
       if (res?.posts?.length > 0) {
         ids = res.posts
-          .filter((item) => item.enabled && item.source != "press_bar" && item.type !== 'inline')
+          .filter((item) => item.enabled && item.source != "press_bar")
           .map((item) => ({
             label: item?.title || item?.nx_id,
             value: item?.nx_id,
+            type: item.type,
+            source: item.source,
           }));
       }
       set_nx_ids([
         { label: __("Select", "notificationx"), value: "" },
         ...ids,
       ]);
+      
     });
+
   }, []);
+
+  const loadOptions = async (inputValue, callback) => {
+    if (inputValue.length >= 3) {
+      const data = {
+        "search_empty" : true,
+        "inputValue" : inputValue,
+        "type": "inline",
+        "source": nx_source,
+        "field": "product_list"
+      };;
+      await apiFetch({ path: "notificationx/v1/get-data", method: "POST", data: data }).then((res) => {
+        callback(res);
+      });
+    }
+  };
+
   return (
     <InspectorControls key="controls">
       <div className="eb-panel-control">
@@ -126,6 +185,24 @@ export default function Inspector(props) {
                         setAttributes({ nx_id: selected })
                       }
                     />
+                    {nx_type === 'inline' && postType !== 'wp_template' &&
+                      <>
+                        <label htmlFor="chooseProduct">{ __( 'Choose Product','notificationx' ) }</label>
+                        <Select
+                          value={ selected_product }                          
+                          id="chooseProduct"
+                          loadOptions={loadOptions}
+                          defaultOptions={nx_products}
+                          getOptionValue={ () => product_id }
+                          onChange={ (selected) => {
+                            setAttributes( { product_id: selected.value + '' } )
+                            delete selected.rules;
+                            setAttributes( { selected_product:  selected } )
+                          }
+                          }
+                        />
+                      </>
+                    }
                     {nx_ids && nx_ids.length <= 1 ? (
                       <>
                         <p className="nx-block-no-nx-notice">
