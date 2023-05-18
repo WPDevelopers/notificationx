@@ -61,18 +61,19 @@ class ShortcodeInline {
         }
 
         do_action( 'nx_inline' );
-        $result = FrontEnd::get_instance()->get_notifications_data( [ 'shortcode' => [ $nx_id ] ] );
         $settings = PostType::get_instance()->get_post($nx_id);
         if($settings['type'] == 'inline'){
             /**
              * @var WooInline|EDDInline
              */
             $extension = \NotificationX\Extensions\ExtensionFactory::get_instance()->get($settings['source']);
-            $output = $extension->show_inline_notification( $atts['product_id'], $settings, $atts['post_type'] );
+            $output = $extension->show_inline_notification( $atts, $settings);
             $output = "<div id='notificationx-shortcode-inline-{$atts['id']}' class='notificationx-shortcode-inline-wrapper nx-shortcode-notice'>$output</div>";
             return $output;
         }
-
+        
+        $result = FrontEnd::get_instance()->get_notifications_data( [ 'shortcode' => [ $nx_id ] ] );
+        
         $output = '';
         if ( ! empty( $result['shortcode'][ $nx_id ]['entries'] ) ) {
             $entries  = $result['shortcode'][ $nx_id ]['entries'];

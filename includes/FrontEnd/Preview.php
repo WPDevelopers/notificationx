@@ -34,8 +34,6 @@ class Preview {
         add_filter('nx_inline_notifications_data', [$this, 'inline_notifications_data'], 10, 4);
         add_filter('nx_metabox_config', [$this, 'content_heading']);
 
-
-
         if ($this->is_preview()) {
             show_admin_bar(false);
         }
@@ -89,8 +87,7 @@ class Preview {
                     ]
                 ];
             }
-            // echo "<pre>";
-            // print_r($args);die;
+
             $args['settings'] = FrontEnd::get_instance()->get_settings();
 
             $this->notificationXArr = apply_filters('get_notifications_ids', $args);
