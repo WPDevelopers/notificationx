@@ -68,6 +68,19 @@ const GetTemplate = (settings) => {
                 `${params?.first_param} ${params?.second_param} ${params?.third_param} ${params?.fourth_param}`,
             ];
             break;
+        case "youtube_channel-1":
+            return [
+                `${params?.second_param} ${params?.third_param} ${params?.yt_third_label}`,
+                `${params?.fourth_param} ${params?.fifth_param} ${params?.sixth_param}`,
+                `${params?.yt_fourth_label} ${params?.yt_fifth_label} ${params?.yt_sixth_label}`,
+            ];
+            break;
+        case "youtube_video-1":
+            return [
+                `${params?.second_param}`,
+                `${params?.third_param} ${params?.yt_third_label} ${params?.fourth_param} ${params?.yt_fourth_label} ${params?.fifth_param} ${params?.yt_fifth_label}`,
+            ];
+            break;
     }
 
 

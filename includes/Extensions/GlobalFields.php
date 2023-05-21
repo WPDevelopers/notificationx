@@ -790,6 +790,7 @@ class GlobalFields {
                                         "freemius_conversions",
                                         "freemius_reviews",
                                         "freemius_stats",
+                                        "youtube",
                                     ] ),
                                     'options' => apply_filters('nx_show_image_options', array(
                                         'none'           => [
