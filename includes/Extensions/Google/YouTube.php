@@ -293,7 +293,7 @@ class YouTube extends Extension {
                     'key'         => $api_key,
                 ] );
 
-                $channel_data = Helper::remote_get( $this->api_base . '?' . $query );
+                $channel_data = Helper::remote_get( $this->api_base . 'channels?' . $query );
 
                 if(isset($channel_data->kind) && "youtube#channelListResponse" === $channel_data->kind){
                     return array(
