@@ -283,7 +283,7 @@ class YouTube extends Extension {
 
     public function connect($params) {
         if (!empty($params['google_youtube_api_key'])) {
-            Settings::get_instance()->set('settings.google_review_cache_duration', $params['google_review_cache_duration'] ? $params['google_review_cache_duration'] : 30);
+            Settings::get_instance()->set('settings.google_youtube_cache_duration', $params['google_youtube_cache_duration'] ? $params['google_youtube_cache_duration'] : 30);
             Settings::get_instance()->set('settings.google_youtube_api_key', $params['google_youtube_api_key']);
             $api_key = $params['google_youtube_api_key'];
             if (!empty($api_key)) {
@@ -293,7 +293,7 @@ class YouTube extends Extension {
                     'key'         => $api_key,
                 ] );
 
-                $channel_data = Helper::remote_get( $this->api_base . '?' . $query );
+                $channel_data = Helper::remote_get( $this->api_base . 'channels?' . $query );
 
                 if(isset($channel_data->kind) && "youtube#channelListResponse" === $channel_data->kind){
                     return array(
