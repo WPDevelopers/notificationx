@@ -283,7 +283,7 @@ class YouTube extends Extension {
 
     public function connect($params) {
         if (!empty($params['google_youtube_api_key'])) {
-            Settings::get_instance()->set('settings.google_review_cache_duration', $params['google_review_cache_duration'] ? $params['google_review_cache_duration'] : 30);
+            Settings::get_instance()->set('settings.google_youtube_cache_duration', $params['google_youtube_cache_duration'] ? $params['google_youtube_cache_duration'] : 30);
             Settings::get_instance()->set('settings.google_youtube_api_key', $params['google_youtube_api_key']);
             $api_key = $params['google_youtube_api_key'];
             if (!empty($api_key)) {
