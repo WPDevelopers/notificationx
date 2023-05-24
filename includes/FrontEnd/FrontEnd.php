@@ -189,7 +189,7 @@ class FrontEnd {
 
         if (!empty($all)) {
             $notifications = $this->get_notifications($all);
-            $entries       = $this->get_entries($all, $notifications);
+            $entries       = $this->get_entries($all, $notifications, $params);
 
             foreach ($entries as $entry) {
                 $nx_id    = $entry['nx_id'];
@@ -456,14 +456,16 @@ class FrontEnd {
         return $results;
     }
 
-    public function get_entries($ids, $notifications) {
+    public function get_entries($ids, $notifications,$params) {
         $entries = [];
         if (!empty($ids) && is_array($ids)) {
             $query = [];
             foreach ($ids as $id) {
                 if (!empty($notifications[$id])) {
                     $post         = $notifications[$id];
-                    $query[$id] = " (nx_id = " . absint($id) . " AND source = '" . esc_sql($post['source']) . "')";
+                    $global_query =  " nx_id = " . absint($id) . " AND source = '" . esc_sql($post['source']) . "'";
+                    $_q = apply_filters("nx_get_entries_query_part_{$notifications[$id]['source']}",$global_query, $notifications[$id], $params );
+                    $query[$id] = " (" . $_q . ")";
                 }
             }
             if (!empty($query)) {
@@ -479,7 +481,7 @@ class FrontEnd {
         if (!is_array($entries)) {
             $entries = [];
         }
-        $entries = apply_filters('nx_frontend_get_entries', $entries, $ids, $notifications);
+        $entries = apply_filters('nx_frontend_get_entries', $entries, $ids, $notifications,$params);
         return $entries;
     }
 

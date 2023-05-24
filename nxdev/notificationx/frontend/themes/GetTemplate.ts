@@ -26,7 +26,7 @@ const GetTemplate = (settings) => {
             }
             if (element == 'tag_siteview' || element == 'tag_realtime_siteview') {
                 params[param] = "{{views}}";
-            } else if (element == 'ga_title') {
+            }else if (element == 'ga_title') {
                 params[param] = "{{title}}";
             }else if (element.indexOf("tag_") === 0) {
                 params[param] = "{{" + element.replace("tag_", "") + "}}";
