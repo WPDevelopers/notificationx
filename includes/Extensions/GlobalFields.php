@@ -1044,7 +1044,7 @@ class GlobalFields {
                             ]
                         ],
                         'behaviour' => [
-                            'label'       => __("Behaviour", 'notificationx'),
+                            'label'       => __("Behavior", 'notificationx'),
                             'name'        => "behaviour",
                             'type'        => "section",
                             'priority'    => 300,
