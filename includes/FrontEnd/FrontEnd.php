@@ -614,7 +614,7 @@ class FrontEnd {
                         $_entry_key = $entry_key;
                         if ($entry_key == 'tag_siteview' || $entry_key == 'tag_realtime_siteview') {
                             $entry_key = 'views';
-                        } elseif ($entry_key == 'ga_title') {
+                        } elseif ($entry_key == 'ga_title' || $entry_key == 'ga_page_title') {
                             $entry_key = 'title';
                         } elseif (strpos($entry_key, 'tag_product_') === 0) {
                             $entry_key = str_replace('tag_product_', '', $entry_key);
