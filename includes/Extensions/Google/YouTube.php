@@ -31,7 +31,7 @@ class YouTube extends Extension {
 
     public $priority        = 5;
     public $id              = 'youtube';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/google-rating.png';
+    // public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/google-rating.png';
     public $doc_link        = 'https://notificationx.com/docs/google-reviews-with-notificationx/';
     public $types           = 'social';
     public $module          = 'modules_google_youtube';
