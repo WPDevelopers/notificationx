@@ -49,7 +49,7 @@ class YouTube extends Extension {
         $this->module_title = __('YouTube', 'notificationx');
         $this->themes = [
             'channel-1'     => [
-                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-youtube-channel-1.png',
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/youtube/channel-theme-1.png',
                 'template'                => [
                     // 'first_param'         => 'tag_rated',
                     // 'custom_first_param'  => __('Someone', 'notificationx'),
@@ -58,21 +58,54 @@ class YouTube extends Extension {
                     'custom_third_param'  => __('', 'notificationx'),
                     'yt_third_label'      => __('YouTube Channel', 'notificationx'),
                     'fourth_param'        => 'tag_yt_views',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('', 'notificationx'),
                     'yt_fourth_label'     => __('Views', 'notificationx'),
                     'fifth_param'         => 'tag_yt_videos',
                     'yt_fifth_label'      => __('Videos', 'notificationx'),
-                    'sixth_param'         => 'tag_yt_subscribers',
-                    'yt_sixth_label'      => __('Subscribers', 'notificationx'),
                 ],
                 'defaults'                => [
                     'youtube_type'            => 'channel',
-                    'image_shape'             => 'square',
+                    'image_shape'             => 'rounded',
+                    'show_notification_image' => 'yt_thumbnail',
+                ],
+            ],
+            'channel-2'     => [
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/youtube/channel-theme-2.png',
+                'template'                => [
+                    // 'first_param'         => 'tag_rated',
+                    // 'custom_first_param'  => __('Someone', 'notificationx'),
+                    'second_param'        => __('Join ', 'notificationx'),
+                    'third_param'         => 'tag_yt_channel_title',
+                    'custom_third_param'  => __('', 'notificationx'),
+                    'yt_third_label'      => __('YouTube Channel', 'notificationx'),
+                    'fourth_param'        => 'tag_yt_views',
+                    'custom_fourth_param' => __('', 'notificationx'),
+                    'fifth_param'         => 'tag_yt_videos',
+                    'custom_fifth_param'  => __('', 'notificationx'),
+                ],
+                'defaults'                => [
+                    'youtube_type'            => 'channel',
+                    'image_shape'             => 'circle',
                     'show_notification_image' => 'yt_thumbnail',
                 ],
             ],
             'video-1'     => [
-                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-youtube-video-1.png',
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/youtube/video-theme-1.png',
+                'template'                => [
+                    'second_param'       => __('Check our latest work ', 'notificationx'),
+                    'third_param'        => 'tag_yt_views',
+                    'custom_third_param' => __('', 'notificationx'),
+                    'fourth_param'       => 'tag_yt_likes',
+                    'fifth_param'        => 'tag_yt_comments',
+                ],
+                'defaults'                => [
+                    'youtube_type'            => 'video',
+                    'image_shape'             => 'circle',
+                    'show_notification_image' => 'yt_thumbnail',
+                ],
+            ],
+            'video-2'     => [
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/youtube/video-theme-2.png',
                 'template'                => [
                     'second_param'       => __('Check our latest work ', 'notificationx'),
                     'third_param'        => 'tag_yt_views',
@@ -85,7 +118,40 @@ class YouTube extends Extension {
                 ],
                 'defaults'                => [
                     'youtube_type'            => 'video',
-                    'image_shape'             => 'square',
+                    'image_shape'             => 'rounded',
+                    'show_notification_image' => 'yt_thumbnail',
+                ],
+            ],
+            'video-3'     => [
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/youtube/video-theme-3.png',
+                'template'                => [
+                    'second_param'       => __('Check our latest work ', 'notificationx'),
+                    'third_param'        => 'tag_yt_views',
+                    'custom_third_param' => __('', 'notificationx'),
+                    'fourth_param'       => 'tag_yt_likes',
+                    'fifth_param'        => 'tag_yt_comments',
+                ],
+                'defaults'                => [
+                    'youtube_type'            => 'video',
+                    'image_shape'             => 'circle',
+                    'show_notification_image' => 'yt_thumbnail',
+                ],
+            ],
+            'video-4'     => [
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/youtube/video-theme-4.png',
+                'template'                => [
+                    'second_param'       => __('Check our latest work ', 'notificationx'),
+                    'third_param'        => 'tag_yt_views',
+                    'custom_third_param' => __('', 'notificationx'),
+                    'yt_third_label'     => __('Views', 'notificationx'),
+                    'fourth_param'       => 'tag_yt_likes',
+                    'yt_fourth_label'    => __('Videos', 'notificationx'),
+                    'fifth_param'        => 'tag_yt_comments',
+                    'yt_fifth_label'     => __('Subscribers', 'notificationx'),
+                ],
+                'defaults'                => [
+                    'youtube_type'            => 'video',
+                    'image_shape'             => 'rounded',
                     'show_notification_image' => 'yt_thumbnail',
                 ],
             ],
@@ -104,12 +170,9 @@ class YouTube extends Extension {
                     'tag_yt_videos' => __('Total Videos', 'notificationx'),
                     'tag_none'      => __('None', 'notificationx'),
                 ],
-                'sixth_param' => [
-                    'tag_yt_subscribers' => __('Total Subscriber', 'notificationx'),
-                    'tag_none'           => __('None', 'notificationx'),
-                ],
                 '_themes' => [
                     "{$this->id}_channel-1",
+                    "{$this->id}_channel-2",
                 ],
             ],
             "{$this->id}_video"  => [
@@ -127,6 +190,9 @@ class YouTube extends Extension {
                 ],
                 '_themes' => [
                     "{$this->id}_video-1",
+                    "{$this->id}_video-2",
+                    "{$this->id}_video-3",
+                    "{$this->id}_video-4",
                 ],
             ],
         ];
@@ -195,13 +261,13 @@ class YouTube extends Extension {
             'default'  => '',
             'rules'    => Rules::includes('themes', "{$this->id}_channel-1"),
         ];
-        $template['yt_sixth_label'] = [
-            'name'     => 'yt_sixth_label',
-            'type'     => 'text',
-            'priority' => 57,
-            'default'  => '',
-            'rules'    => Rules::includes('themes', "{$this->id}_channel-1"),
-        ];
+        // $template['yt_sixth_label'] = [
+        //     'name'     => 'yt_sixth_label',
+        //     'type'     => 'text',
+        //     'priority' => 57,
+        //     'default'  => '',
+        //     'rules'    => Rules::includes('themes', "{$this->id}_channel-1"),
+        // ];
         return $template;
     }
 
