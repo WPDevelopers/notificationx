@@ -108,11 +108,17 @@ class Conversions extends Types {
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-4.png',
                 'image_shape' => 'rounded',
+                'defaults'     => [
+                    'link_button'   => true,
+                ],
             ),
             'conv-theme-eleven' => array(
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-5.png',
                 'image_shape' => 'rounded',
+                'defaults'     => [
+                    'link_button'   => true,
+                ],
             ),
             'conv-theme-seven' => array(
                 'is_pro' => true,
@@ -123,6 +129,7 @@ class Conversions extends Types {
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-8.png',
                 'image_shape' => 'circle',
+
             ),
             'conv-theme-nine' => array(
                 'is_pro' => true,
