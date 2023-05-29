@@ -104,6 +104,16 @@ class Conversions extends Types {
                 'image_shape' => 'square',
                 'show_notification_image' => 'maps_image',
             ),
+            'conv-theme-ten' => array(
+                'is_pro' => true,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-4.png',
+                'image_shape' => 'rounded',
+            ),
+            'conv-theme-eleven' => array(
+                'is_pro' => true,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-5.png',
+                'image_shape' => 'rounded',
+            ),
             'conv-theme-seven' => array(
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-7.png',
@@ -188,8 +198,6 @@ class Conversions extends Types {
                 Rules::includes('source', [ 'woocommerce', 'edd' ]),
             ]),
         ];
-
-
         return $fields;
     }
 
