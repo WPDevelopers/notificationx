@@ -51,10 +51,28 @@ const GetTemplate = (settings) => {
             } else {
                 params[param] = element || "";
             }
-            params[param] = `<span>${params[param]}</span>`;
+
+            if(param == "second_param" && ['conversions_conv-theme-seven', 'conversions_conv-theme-eight', 'conversions_conv-theme-nine'].includes(settings?.themes)){
+                const regex = /(\S+)(\s?.*)/;
+                const match = regex.exec(element);
+                if(match){
+                    params[param] = '<span>';
+                    if(match[1]){
+                        params[param] += `<span>${match[1]}</span>`;
+                    }
+                    if(match[2]){
+                        params[param] += `<span>${match[2]}</span>`;
+                    }
+                    params[param] += '</span>';
+                }
+            }
+            else{
+                // must use params[param] instead of element
+                params[param] = `<span>${params[param]}</span>`;
+            }
         }
     }
-    console.log(settings?.themes);
+
     switch (settings.themes) {
         case "donation_theme-one":
         case "donation_theme-two":
