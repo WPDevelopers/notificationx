@@ -164,14 +164,13 @@ class Blocks {
             });
             $product_id = rand();
         }
-        $shortcode = do_shortcode( "[notificationx_inline post_type='{$post_type}' product_id='{$product_id}' id='{$nx_id}' show_link=false]" );
+        $shortcode = do_shortcode( "[notificationx_inline post_type='{$post_type}' product_id='{$product_id}' id='{$nx_id}']" );
         if ( $shortcode ) {
             $html .= $shortcode;
         } else {
             $html .= '<p class="nx-shortcode-notice">' . __( 'There is no data in this notification.', 'notificationx' ) . '</p>';
         }
         $html .= '</div>';
-
         return $html;
     }
 

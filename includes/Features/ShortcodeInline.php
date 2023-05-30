@@ -3,6 +3,7 @@ namespace NotificationX\Core;
 
 use NotificationX\Core\PostType;
 use NotificationX\FrontEnd\FrontEnd;
+use NotificationX\FrontEnd\Preview;
 use NotificationX\GetInstance;
 
 /**
@@ -32,7 +33,7 @@ class ShortcodeInline {
     }
 
     public function nx_inlineshortcode( $return, $source, $id, $settings ){
-        if( !empty( $settings['shortcodeinline'] ) ) {
+        if( !empty( $settings['shortcodeinline'] && !Preview::get_instance()->is_preview() ) ) {
             return FrontEnd::get_instance()->get_notifications_data(
                 array(
                     'shortcode'        => [$settings['nx_id']],
@@ -81,7 +82,10 @@ class ShortcodeInline {
              * @var WooInline|EDDInline
              */
             $extension = \NotificationX\Extensions\ExtensionFactory::get_instance()->get($settings['source']);
-            $output = $extension->show_inline_notification( $atts, $settings);
+            $output = '';
+            if( method_exists( $extension, 'show_inline_notification' ) ) {
+                $output = $extension->show_inline_notification( $atts, $settings);
+            }
             if( !empty( $output ) ) {
                 $output = "<div id='notificationx-shortcode-inline-{$atts['id']}' class='notificationx-shortcode-inline-wrapper nx-shortcode-notice'>$output</div>";
             }

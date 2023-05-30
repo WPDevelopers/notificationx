@@ -451,6 +451,7 @@ class PostType {
     public function get_select_async_fields(){
         return [
             'product_list',
+            'exclude_products',
             'form_list',
             'ld_course_list',
             'give_form_list',

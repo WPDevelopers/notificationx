@@ -88,6 +88,7 @@ export default function Inspector(props) {
   // Notification type state handler
   const [nx_type,set_nx_type] = useState(null);
   const [nx_source,set_nx_source] = useState(null);
+  const [nx_no_options,set_nx_no_options] = useState(null);
 
   const resRequiredProps = {
     setAttributes,
@@ -100,7 +101,7 @@ export default function Inspector(props) {
     // set current notification type
     set_nx_type( nx_ids ? nx_ids.filter( (item) => item.value == nx_id )[0]?.type : null );
     set_nx_source( nx_ids ? nx_ids.filter( (item) => item.value == nx_id )[0]?.source : null );
-    if ( nx_source !== null ) {
+    if ( nx_source ) {
       const data = {
         "search_empty" : true,
         "type": "inline",
@@ -121,7 +122,7 @@ export default function Inspector(props) {
       let ids = [];
       if (res?.posts?.length > 0) {
         ids = res.posts
-          .filter((item) => item.enabled && item.source != "press_bar")
+          .filter((item) => item.enabled && ( ( postType == 'wp_template' && item.source != 'edd_inline' && item.source != 'tutor_inline' && item.source != 'learndash_inline' ) || ( postType === null && item.source != "press_bar") ))
           .map((item) => ({
             label: item?.title || item?.nx_id,
             value: item?.nx_id,
@@ -148,8 +149,14 @@ export default function Inspector(props) {
         "field": "product_list"
       };;
       await apiFetch({ path: "notificationx/v1/get-data", method: "POST", data: data }).then((res) => {
-        callback(res);
+        if( res ) {
+          callback(res);
+          set_nx_no_options('No Result Found'); 
+        }else{
+        }
       });
+    }else{
+      set_nx_no_options('Please type 3 or more characters'); 
     }
   };
 
@@ -198,7 +205,7 @@ export default function Inspector(props) {
                           id="chooseOption"
                           loadOptions={loadOptions}
                           defaultOptions={nx_products}
-                          noOptionsMessage={ () => __( 'Please type 3 or more characters','notificationx' ) }
+                          noOptionsMessage={ () => __( nx_no_options,'notificationx' ) }
                           onChange={ (selected) => {
                             setAttributes( { product_id: selected.value + '' } )
                             delete selected.rules;

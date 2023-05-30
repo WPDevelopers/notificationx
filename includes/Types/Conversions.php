@@ -200,10 +200,9 @@ class Conversions extends Types {
 
         $product_category_list = $new_data = [];
 
-
         if( ! empty( $data ) ) {
             foreach( $data as $key => $product ) {
-                $product_id = $product['product_id'];
+                $product_id = $product['product_id'] ?? '';
                 if( $settings['product_exclude_by'] == 'product_category' ) {
                     $product_categories = get_the_terms( $product_id, 'product_cat' );
                     if( ! is_wp_error( $product_categories ) ) {
