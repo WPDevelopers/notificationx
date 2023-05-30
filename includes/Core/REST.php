@@ -267,6 +267,7 @@ class REST {
      * @return \WP_Error|\WP_REST_Response
      */
 	public function get_data( $request ){
+
 		$params = $request->get_params();
         if( ! $request->has_param('type') ) {
             return $this->error( 'type' );
@@ -288,7 +289,7 @@ class REST {
                 }
                 break;
             default:
-                $extension = ExtensionFactory::get_instance()->get($params['source']);
+            $extension = ExtensionFactory::get_instance()->get( $params['source'] );
                 if (!empty($extension) && method_exists($extension, 'restResponse')) {
                     $result = $extension->restResponse($request->get_json_params());
                     return $result;

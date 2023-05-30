@@ -1,4 +1,51 @@
-.themes-youtube_channel-1,
+.themes-youtube_channel-1 {
+    .notificationx-content {
+        & > p {
+            &.nx-first-row {
+                font-size: 14px;
+                color: #000 !important;
+                font-weight: 500;
+                > span {
+                    span {
+                        &:nth-child(1),
+                        &:nth-child(2) {
+                            font-weight: 500;
+                            color: #000;
+                        }
+                    }
+                }
+            }
+            &.nx-second-row {
+                margin-top: 5px;
+                > span {
+                    font-size: 13px;
+                    width: 100%;
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 5px;
+                    color: #000;
+                    font-weight: 600;
+                }
+            }
+            &.nx-third-row {
+                > span {
+                    font-size: 13px;
+                    width: 100%;
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 5px;
+                    color: #b6bfd1;
+                }
+                .nx-branding {
+                    width: 100%;
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+}
+
+
 .themes-youtube_video-1 {
     .notificationx-content {
         & > p {

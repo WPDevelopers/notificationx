@@ -34,13 +34,14 @@ class Inline {
     }
 
 
-    public function get_notifications_data( $source, $id = null ) {
-        $exit = apply_filters('nx_inline_notifications_data', null, $source, $id);
+    public function get_notifications_data( $source, $id = null, $settings = [] ) {
+        
+        $exit = apply_filters('nx_inline_notifications_data', null, $source, $id, $settings);
         if($exit){
             return $exit;
         }
 
-        if ( empty( $this->notifications_data ) ) {
+        // if ( empty( $this->notifications_data ) ) {
             $this->notifications_data = array( 'shortcode' => array() );
             $notifications            = PostType::get_instance()->get_posts(
                 array(
@@ -49,7 +50,7 @@ class Inline {
                     'is_inline' => true,
                 )
             );
-
+           
             do_action( 'nx_inline' );
 
             if ( ! empty( $notifications ) ) {
@@ -60,8 +61,7 @@ class Inline {
                     )
                 );
             }
-        }
-
+        // }
         return $this->notifications_data;
     }
 
