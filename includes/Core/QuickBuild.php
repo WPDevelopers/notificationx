@@ -38,7 +38,7 @@ class QuickBuild {
     }
 
     /**
-     * This method is reponsible for Admin Menu of
+     * This method is responsible for Admin Menu of
      * NotificationX
      *
      * @return void

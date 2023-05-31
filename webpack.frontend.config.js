@@ -19,11 +19,15 @@ const config = {
     entry: {
         frontend: path.resolve(
             __dirname,
-            "nxdev/notificationx/frontend/index.tsx"
+            "nxdev/notificationx/frontend/index.tsx",
         ),
         crossSite: path.resolve(
             __dirname,
             "nxdev/notificationx/frontend/crossSite.tsx"
+        ),
+        "flashing-tab": path.resolve(
+            __dirname,
+            "nxdev/notificationx/frontend/flashing-tab.ts"
         ),
     },
     module: {

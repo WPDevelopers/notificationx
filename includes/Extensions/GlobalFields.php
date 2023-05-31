@@ -708,7 +708,7 @@ class GlobalFields {
                             //     'type' => '',
                             // ],
                             'fields' => [
-                                [
+                                'show_default_image' => [
                                     'label' => __("Show Default Image", 'notificationx'),
                                     'name'  => "show_default_image",
                                     'type'  => "checkbox",
