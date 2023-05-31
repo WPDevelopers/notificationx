@@ -33,7 +33,7 @@ class ShortcodeInline {
     }
 
     public function nx_inlineshortcode( $return, $source, $id, $settings ){
-        if( !empty( $settings['shortcodeinline'] && !Preview::get_instance()->is_preview() ) ) {
+        if( !empty( $settings['shortcodeinline'] ) && !Preview::get_instance()->is_preview() ) {
             return FrontEnd::get_instance()->get_notifications_data(
                 array(
                     'shortcode'        => [$settings['nx_id']],
