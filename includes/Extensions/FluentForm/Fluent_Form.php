@@ -1,12 +1,12 @@
 <?php
 
 /**
- * CF7 Extension
+ * Fluent_Form Extension
  *
  * @package NotificationX\Extensions
  */
 
-namespace NotificationX\Extensions\NJF;
+namespace NotificationX\Extensions\FluentForm;
 
 use NotificationX\Core\Helper;
 use NotificationX\Core\Rules;
@@ -15,45 +15,43 @@ use NotificationX\Extensions\Extension;
 use NotificationX\Extensions\GlobalFields;
 
 /**
- * NinjaForms Extension
- * @method static NinjaForms get_instance($args = null)
+ * Fluent_Form Extension
+ * @method static Fluent_Form get_instance($args = null)
  */
-class NinjaForms extends Extension {
+class Fluent_Form extends Extension {
     /**
-     * Instance of NinjaForms
+     * Instance of Fluent_Form
      *
-     * @var NinjaForms
+     * @var Fluent_Form
      */
     use GetInstance;
 
-    public $priority        = 15;
-    public $id              = 'njf';
+    public $priority        = 30;
+    public $id              = 'fluentform';
     public $img             = '';
     public $doc_link        = 'https://notificationx.com/docs/contact-form-submission-alert/';
     public $types           = 'form';
-    public $module          = 'modules_njf';
+    public $module          = 'modules_fluentform';
     public $module_priority = 10;
-    public $class           = 'Ninja_Forms';
-
+    public $class           = 'FluentForm\Framework\Foundation\Bootstrap';
+    public $post_type       = 'fluentform';
     /**
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        $this->title = __('Ninja Forms', 'notificationx');
-        $this->module_title = __('Ninja Forms', 'notificationx');
+        $this->title = __('Fluent Form', 'notificationx');
+        $this->module_title = __('Fluent Form', 'notificationx');
         parent::__construct();
     }
 
     public function init() {
         parent::init();
-
-        add_action('ninja_forms_after_submission', array($this, 'save_new_records'));
+        add_action('fluentform_submission_inserted', array($this, 'save_new_records'),10,3);
     }
 
     public function init_fields(){
         parent::init_fields();
         add_filter('nx_form_list', [$this, 'nx_form_list'], 9);
-
     }
 
     /**
@@ -85,7 +83,7 @@ class NinjaForms extends Extension {
                 'message' => sprintf( '%s <a href="%s" target="_blank">%s</a> %s',
                     __( 'You have to install', 'notificationx' ),
                     $url,
-                    __( 'Ninja Forms', 'notificationx' ),
+                    __( 'Fluent Form', 'notificationx' ),
                     __( 'plugin first.', 'notificationx' )
                 ),
                 'html' => true,
@@ -98,59 +96,91 @@ class NinjaForms extends Extension {
 
     public function nx_form_list($forms) {
         $_forms = GlobalFields::get_instance()->normalize_fields($this->get_forms(), 'source', $this->id);
-        return array_merge($_forms, $forms);
+        return array_merge($forms, $_forms);
     }
 
     public function get_forms() {
         $forms = [];
-        if (!class_exists('Ninja_Forms')) {
+        if (!class_exists('FluentForm\Framework\Foundation\Bootstrap')) {
             return [];
         }
         global $wpdb;
-        $form_result = $wpdb->get_results('SELECT id, title FROM `' . $wpdb->prefix . 'nf3_forms` ORDER BY title');
+        $form_result = $wpdb->get_results('SELECT id, title FROM `' . $wpdb->prefix . 'fluentform_forms` ORDER BY title LIMIT 10');
         if (!empty($form_result)) {
             foreach ($form_result as $form) {
                 $key = $this->key($form->id);
                 $forms[$key] = $form->title;
             }
         }
-
         return $forms;
     }
 
     public function restResponse($args) {
-        if (!class_exists('Ninja_Forms')) {
+        $forms = [];
+        if (!class_exists('FluentForm\Framework\Foundation\Bootstrap')) {
             return [];
         }
 
-        if (isset($args['form_id'])) {
-            global $wpdb;
-            if( is_array( $args['form_id'] ) ) {
-                $form_id = intval($args['form_id']['value']);
-            }else{
-                $form_id = intval($args['form_id']);
-            }
-            $queryresult = $wpdb->get_results('SELECT meta_value FROM `' . $wpdb->prefix . 'nf3_form_meta` WHERE parent_id = ' . $form_id . ' AND meta_key = "formContentData"');
-
-            if(isset($queryresult[0]) && isset($queryresult[0]->meta_value)){
-                $formdata = $queryresult[0]->meta_value;
-
-                $keys = $this->keys_generator($formdata);
-
-                $returned_keys = array();
-
-                if (is_array($keys) && !empty($keys)) {
-                    foreach ($keys as $key) {
-                        $returned_keys[] = array(
-                            'label' => ucwords(str_replace('_', ' ', str_replace('-', ' ', $key))),
-                            'value' => "tag_$key",
-                        );
-                    }
-
-                    return $returned_keys;
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'fluentform_forms'; 
+        if (!empty($args['inputValue'])) {
+            $limit      = 10;
+            $status     = 'published';
+           // Prepare the query with a LIKE condition
+            $query = $wpdb->prepare(
+                "SELECT id, title FROM {$table_name} WHERE status = %s WHERE title LIKE %s LIMIT %d", 
+                $status,'%' . $wpdb->esc_like($args['inputValue']) . '%',$limit
+            );
+            // Execute the query and retrieve the results
+            $form_result = $wpdb->get_results($query);
+            if (!empty($form_result)) {
+                foreach ($form_result as $form) {
+                    $key = $this->key($form->id);
+                    $forms[$key] = $form->title;
                 }
             }
+            $result = array_values(GlobalFields::get_instance()->normalize_fields($forms, 'source', $this->id));
+            return $result;
         }
+        if (isset($args['form_id'])) {
+
+           // Prepare the query with a WHERE condition
+            $query = $wpdb->prepare(
+                "SELECT * FROM {$table_name} WHERE id = %d", 
+                $args['form_id']
+            );
+            // Execute the query and retrieve the results
+            $form_result = $wpdb->get_results($query);
+            if( !empty( $form_result ) ) {
+                $form_result = json_decode($form_result[0]->form_fields);
+                $formData = [];
+                foreach ($form_result->fields as $key => $value) {
+                    if( is_object( $value->fields ) ) {
+                        foreach ($value->fields as $_key => $_value) {
+                            if ( !empty( $_value->attributes->placeholder ) ) {
+                                $formData[] = [
+                                    'label' => $_value->attributes->placeholder ?? '',
+                                    'value' => 'tag_'.$_value->attributes->name ?? '',
+                                ];
+                            }
+                           
+                        }
+                    }else{
+                        if( !empty( $value->attributes->placeholder ) ) {
+                            $formData[] = [
+                                'label'  => $value->attributes->placeholder ?? '',
+                                'value'  => 'tag_'.$value->attributes->name ?? '',
+                            ];
+                        }
+                        
+                    }
+                }
+                $formData = array_values(GlobalFields::get_instance()->normalize_fields($formData, 'source', $this->id));
+                return $formData;
+            }
+                        
+        }
+
         wp_send_json_error([]);
     }
 
@@ -170,16 +200,21 @@ class NinjaForms extends Extension {
         return $fields;
     }
 
-    public function save_new_records($form_data) {
-        foreach ($form_data['fields'] as $field) {
-            $arr = Helper::rename_contactform_key_names($field['key']);
-            $data[$arr] = $field['value'];
+    public function save_new_records($insertId,$formData,$form) {
+        $data = [];
+        foreach ($formData as $key => $field) {
+            if( is_array($field) ){
+                foreach ($field as $_key => $value) {
+                    $data[$_key] = $value;
+                }
+            }else{
+                $data[$key] = $field;
+            }
         }
-        $data['title'] = $form_data['settings']['title'];
+        $data['title'] = $form->title ?? '';
         $data['timestamp'] = time();
-
         if (!empty($data)) {
-            $key = $this->key($form_data['form_id']);
+            $key = $this->key($form->id);
             $this->save([
                 'source'    => $this->id,
                 'entry_key' => $key,
@@ -190,7 +225,7 @@ class NinjaForms extends Extension {
         return false;
     }
 
-    public function key($key) {
+    public function key($key = '') {
         $key = $this->id . '_' . $key;
         return $key;
     }
@@ -216,9 +251,9 @@ class NinjaForms extends Extension {
     }
 
     public function doc() {
-        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">Ninja Forms installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">Fluent Form installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
-		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with Ninja Forms</a></p>
+		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with Fluent Form</a></p>
 		<p><strong>Recommended Blog:</strong></p>
 		<p>🔥 Hacks to Increase Your <a target="_blank" href="%5$s">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>', 'notificationx'),
         'https://wordpress.org/plugins/ninja-forms/',

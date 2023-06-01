@@ -69,6 +69,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Extensions\\Envato\\Envato' => __DIR__ . '/../..' . '/includes/Extensions/Envato/Envato.php',
         'NotificationX\\Extensions\\Extension' => __DIR__ . '/../..' . '/includes/Extensions/Extension.php',
         'NotificationX\\Extensions\\ExtensionFactory' => __DIR__ . '/../..' . '/includes/Extensions/ExtensionFactory.php',
+        'NotificationX\\Extensions\\FluentForm\\Fluent_Form' => __DIR__ . '/../..' . '/includes/Extensions/FluentForm/Fluent_Form.php',
         'NotificationX\\Extensions\\Freemius\\Freemius' => __DIR__ . '/../..' . '/includes/Extensions/Freemius/Freemius.php',
         'NotificationX\\Extensions\\Freemius\\FreemiusConversions' => __DIR__ . '/../..' . '/includes/Extensions/Freemius/FreemiusConversions.php',
         'NotificationX\\Extensions\\Freemius\\FreemiusReviews' => __DIR__ . '/../..' . '/includes/Extensions/Freemius/FreemiusReviews.php',
