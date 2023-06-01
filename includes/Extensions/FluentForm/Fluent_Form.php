@@ -105,7 +105,17 @@ class Fluent_Form extends Extension {
             return [];
         }
         global $wpdb;
-        $form_result = $wpdb->get_results('SELECT id, title FROM `' . $wpdb->prefix . 'fluentform_forms` ORDER BY title LIMIT 10');
+
+        $table_name = $wpdb->prefix . 'fluentform_forms'; 
+        $limit      = 10;
+        // Prepare the query with a WHERE condition
+        $query = $wpdb->prepare(
+            "SELECT id, title FROM {$table_name} WHERE status = %s LIMIT %d", 
+            'published', $limit
+        );
+        // Execute the query and retrieve the results
+        $form_result = $wpdb->get_results($query);
+
         if (!empty($form_result)) {
             foreach ($form_result as $form) {
                 $key = $this->key($form->id);
@@ -125,11 +135,10 @@ class Fluent_Form extends Extension {
         $table_name = $wpdb->prefix . 'fluentform_forms'; 
         if (!empty($args['inputValue'])) {
             $limit      = 10;
-            $status     = 'published';
            // Prepare the query with a LIKE condition
             $query = $wpdb->prepare(
-                "SELECT id, title FROM {$table_name} WHERE status = %s WHERE title LIKE %s LIMIT %d", 
-                $status,'%' . $wpdb->esc_like($args['inputValue']) . '%',$limit
+                "SELECT id, title FROM {$table_name} WHERE title LIKE %s AND status = %s LIMIT %d", 
+                '%' . $wpdb->esc_like($args['inputValue']) . '%','published',$limit
             );
             // Execute the query and retrieve the results
             $form_result = $wpdb->get_results($query);
@@ -146,37 +155,14 @@ class Fluent_Form extends Extension {
 
            // Prepare the query with a WHERE condition
             $query = $wpdb->prepare(
-                "SELECT * FROM {$table_name} WHERE id = %d", 
-                $args['form_id']
+                "SELECT * FROM {$table_name} WHERE id = %d AND status = %s", 
+                $args['form_id'], 'published'
             );
             // Execute the query and retrieve the results
-            $form_result = $wpdb->get_results($query);
-            if( !empty( $form_result ) ) {
-                $form_result = json_decode($form_result[0]->form_fields);
-                $formData = [];
-                foreach ($form_result->fields as $key => $value) {
-                    if( is_object( $value->fields ) ) {
-                        foreach ($value->fields as $_key => $_value) {
-                            if ( !empty( $_value->attributes->placeholder ) ) {
-                                $formData[] = [
-                                    'label' => $_value->attributes->placeholder ?? '',
-                                    'value' => 'tag_'.$_value->attributes->name ?? '',
-                                ];
-                            }
-                           
-                        }
-                    }else{
-                        if( !empty( $value->attributes->placeholder ) ) {
-                            $formData[] = [
-                                'label'  => $value->attributes->placeholder ?? '',
-                                'value'  => 'tag_'.$value->attributes->name ?? '',
-                            ];
-                        }
-                        
-                    }
-                }
-                $formData = array_values(GlobalFields::get_instance()->normalize_fields($formData, 'source', $this->id));
-                return $formData;
+            $fieldsString = $wpdb->get_results($query);
+            if( !empty( $fieldsString ) ) {
+                $fieldsString = json_decode($fieldsString[0]->form_fields);
+                return $this->keys_generator($fieldsString);
             }
                         
         }
@@ -185,19 +171,29 @@ class Fluent_Form extends Extension {
     }
 
     public function keys_generator($fieldsString) {
-        $fields = array();
-        $fieldsdata = unserialize($fieldsString);
-        if (!empty($fieldsdata)) {
-            foreach ($fieldsdata as $field) {
-                if(!is_string($field)){
-                    $field = !empty($field['cells'][0]['fields'][0]) ? $field['cells'][0]['fields'][0] : null;
+        $formData = [];
+        foreach ($fieldsString->fields as $key => $value) {
+            if( is_object( $value->fields ) ) {
+                foreach ($value->fields as $_key => $_value) {
+                    if ( !empty( $_value->attributes->placeholder ) ) {
+                        $formData[] = [
+                            'label' => $_value->attributes->placeholder ?? '',
+                            'value' => 'tag_'.$this->id.'_'.$_value->attributes->name ?? '',
+                        ];
+                    }
+                    
                 }
-                if ($field && Helper::filter_contactform_key_names($field)) {
-                    $fields[] = Helper::rename_contactform_key_names($field);
+            }else{
+                if( !empty( $value->attributes->placeholder ) ) {
+                    $formData[] = [
+                        'label'  => $value->attributes->placeholder ?? '',
+                        'value'  => 'tag_'.$value->attributes->name ?? '',
+                    ];
                 }
+                
             }
         }
-        return $fields;
+        return $formData;
     }
 
     public function save_new_records($insertId,$formData,$form) {
@@ -205,7 +201,7 @@ class Fluent_Form extends Extension {
         foreach ($formData as $key => $field) {
             if( is_array($field) ){
                 foreach ($field as $_key => $value) {
-                    $data[$_key] = $value;
+                    $data[$this->id.'_'.$_key] = $value;
                 }
             }else{
                 $data[$key] = $field;

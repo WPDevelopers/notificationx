@@ -98,7 +98,7 @@ class NinjaForms extends Extension {
 
     public function nx_form_list($forms) {
         $_forms = GlobalFields::get_instance()->normalize_fields($this->get_forms(), 'source', $this->id);
-        return array_merge($_forms, $forms);
+        return array_merge($forms, $_forms);
     }
 
     public function get_forms() {
@@ -123,8 +123,28 @@ class NinjaForms extends Extension {
             return [];
         }
 
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'nf3_forms'; 
+        if (!empty($args['inputValue'])) {
+            $limit      = 10;
+           // Prepare the query with a LIKE condition
+            $query = $wpdb->prepare(
+                "SELECT id, title FROM {$table_name} WHERE title LIKE %s LIMIT %d", 
+                '%' . $wpdb->esc_like($args['inputValue']) . '%',$limit
+            );
+            // Execute the query and retrieve the results
+            $form_result = $wpdb->get_results($query);
+            if (!empty($form_result)) {
+                foreach ($form_result as $form) {
+                    $key = $this->key($form->id);
+                    $forms[$key] = $form->title;
+                }
+            }
+            $result = array_values(GlobalFields::get_instance()->normalize_fields($forms, 'source', $this->id));
+            return $result;
+        }
+
         if (isset($args['form_id'])) {
-            global $wpdb;
             if( is_array( $args['form_id'] ) ) {
                 $form_id = intval($args['form_id']['value']);
             }else{
