@@ -178,7 +178,7 @@ class FlashingTab extends Extension {
 
         $content_fields['ft_message_1_'] = [
             'label'    => __('Message Line 1', 'notificationx'),
-            'name'     => 'ft_message_1',
+            'name'     => 'ft_message_1_',
             'type'     => 'flashing-message-icon',
             'priority' => 20,
             'default'  => '',
@@ -187,6 +187,36 @@ class FlashingTab extends Extension {
                 Rules::is('source', $this->id),
                 Rules::includes('themes', ['flashing_tab_theme-1']),
             ]),
+            'default'  => [
+                'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-1.png',
+                'message' => '',
+            ],
+            'options'     => array(
+                array(
+                    'column' => 6,
+                    'value'  => 'theme-1-icon-1.png',
+                    'label'  => __('Verified', 'notificationx'),
+                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-1.png',
+                ),
+                array(
+                    'column' => 6,
+                    'value'  => 'theme-2-icon-1.png',
+                    'label'  => __('Flames', 'notificationx'),
+                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-2-icon-1.png',
+                ),
+                array(
+                    'column' => 6,
+                    'value'  => 'theme-3-icon-1.png',
+                    'label'  => __('Flames GIF', 'notificationx'),
+                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-3-icon-1.png',
+                ),
+                array(
+                    'column' => 6,
+                    'value'  => 'theme-4-icon-1.png',
+                    'label'  => __('Pink Face', 'notificationx'),
+                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-4-icon-1.png',
+                ),
+            )
         ];
 
         $content_fields['ft_message_1'] = [
