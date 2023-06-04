@@ -49,12 +49,16 @@
             height: 25px;
         }
     }
+    .emoji-wrapper {
+        padding: 0 !important;
+
+
+    }
 } 
 .rpt-textbox-container {
     width: auto !important;
     .rpt-shadow-container {
         box-shadow: rgba(10, 10, 10, 0.25) 7px 7px 20px !important;
-        border-radius: 10px !important;
 
     }
 }
