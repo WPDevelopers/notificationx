@@ -89,41 +89,40 @@ const FlashingMessageIcon = (props) => {
                     <span>
                         <img src={emojiAdd} alt="iconImg" onClick={emojiClick} />
                         <Tooltip show={showEmoji} position="bottom center" arrowAlign="start">
-                            <span><Picker data={data} /></span>
+                            <span className="emoji-wrapper"><Picker data={data} /></span>
                         </Tooltip>
                     </span>
                     <span>
-                    <MediaUpload
-                    onSelect={(media) => {
-                        setImageData({
-                            id: media.id,
-                            title: media.title,
-                            url: media.url
-                        });
-                    }}
-                    multiple={false}
-                    allowedTypes={['image']}
-                    value={value?.image}
-                    render={({ open }) => {
-                        return <>
-                            {/* {
-                                imageData != null &&
-                                <button className="wprf-btn wprf-image-remove-btn" onClick={() => setImageData(null)}>
-                                    {props?.remove || 'Remove'}
-                                </button>
-                            } */}
-                            <img src={uploadIcon}
-                                className={classNames("wprf-btn wprf-image-upload-btn",{
-                                    'uploaded-item': value?.image != null,
-                                })}
-                                onClick={open}
-                            />
-                        </>
-                    }}
-                />
+                        <MediaUpload
+                            onSelect={(media) => {
+                                setImageData({
+                                    id: media.id,
+                                    title: media.title,
+                                    url: media.url
+                                });
+                            }}
+                            multiple={false}
+                            allowedTypes={['image']}
+                            value={value?.image}
+                            render={({ open }) => {
+                                return <>
+                                    {/* {
+                                        imageData != null &&
+                                        <button className="wprf-btn wprf-image-remove-btn" onClick={() => setImageData(null)}>
+                                            {props?.remove || 'Remove'}
+                                        </button>
+                                    } */}
+                                    <img src={uploadIcon}
+                                        className={classNames("wprf-btn wprf-image-upload-btn",{
+                                            'uploaded-item': value?.image != null,
+                                        })}
+                                        onClick={open}
+                                    />
+                                </>
+                            }}
+                        />
                     </span>
                 </Tooltip>
-                
             </span>
             <Input type="text" onChange={onTextUpdate} />
             
