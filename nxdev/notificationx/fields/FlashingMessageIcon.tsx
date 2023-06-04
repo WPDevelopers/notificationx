@@ -4,7 +4,10 @@ import { useBuilderContext, withLabel, GenericInput as Input } from "quickbuilde
 import Tooltip from 'react-power-tooltip';
 import data from '@emoji-mart/data';
 import Picker from '@emoji-mart/react';
-import emojiIconImg from '../../../assets/images/happiness.png'
+import emojiIconImg from '../../../assets/images/happiness.png';
+import editIcon from '../../../assets/images/editIcon.png';
+import emojiAdd from '../../../assets/images/emojiAdd.png';
+import uploadIcon from '../../../assets/images/uploadIcon.png';
 import classNames from "classnames";
 
 const FlashingMessageIcon = (props) => {
@@ -19,7 +22,7 @@ const FlashingMessageIcon = (props) => {
       
     // }, [])
     
-    const [show, setShow] = useState(true)
+    const [show, setShow] = useState(false)
     const [showEmoji, setShowEmoji] = useState(false)
 
     const imageClick = () => {
@@ -71,7 +74,10 @@ const FlashingMessageIcon = (props) => {
     return (
         <>
             <span> 
-                <img src={value.icon} alt="iconImg" onClick={imageClick} />
+                <img src={value.icon} alt="iconImg" />
+                <div className="img-overlay">
+                    <img src={editIcon} alt="iconImg" onClick={imageClick} />
+                </div>
                 <Tooltip show={show} position="right center" arrowAlign="start">
                     {props.options.map((option,index)=> {
                         return (
@@ -81,7 +87,7 @@ const FlashingMessageIcon = (props) => {
                         )
                     })}
                     <span>
-                        <img src={emojiIconImg} alt="iconImg" onClick={emojiClick} />
+                        <img src={emojiAdd} alt="iconImg" onClick={emojiClick} />
                         <Tooltip show={showEmoji} position="bottom center" arrowAlign="start">
                             <span><Picker data={data} /></span>
                         </Tooltip>
@@ -106,16 +112,12 @@ const FlashingMessageIcon = (props) => {
                                     {props?.remove || 'Remove'}
                                 </button>
                             } */}
-                            <img src={emojiIconImg}
+                            <img src={uploadIcon}
                                 className={classNames("wprf-btn wprf-image-upload-btn",{
                                     'uploaded-item': value?.image != null,
                                 })}
                                 onClick={open}
-                                
-
-                            >
-
-                            </img>
+                            />
                         </>
                     }}
                 />
