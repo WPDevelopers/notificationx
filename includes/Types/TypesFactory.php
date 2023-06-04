@@ -21,18 +21,19 @@ class TypeFactory {
 	use GetInstance;
 
 	public $types = [
-            'conversions'		 	=> 'NotificationX\Types\Conversions',
-			'comments'			 	=> 'NotificationX\Types\Comments',
-			'reviews'			 	=> 'NotificationX\Types\Reviews',
-			'download_stats'	 	=> 'NotificationX\Types\DownloadStats',
-			'elearning'			 	=> 'NotificationX\Types\ELearning',
-			'donation'			 	=> 'NotificationX\Types\Donations',
-			'notification_bar'		=> 'NotificationX\Types\NotificationBar',
-			'form'				 	=> 'NotificationX\Types\ContactForm',
-			'email_subscription' 	=> 'NotificationX\Types\EmailSubscription',
-			'page_analytics'	 	=> 'NotificationX\Types\PageAnalytics',
-			'custom'			 	=> 'NotificationX\Types\CustomNotification',
-			'inline'			 	=> 'NotificationX\Types\Inline',
+			'conversions'        => 'NotificationX\Types\Conversions',
+			'comments'           => 'NotificationX\Types\Comments',
+			'reviews'            => 'NotificationX\Types\Reviews',
+			'download_stats'     => 'NotificationX\Types\DownloadStats',
+			'elearning'          => 'NotificationX\Types\ELearning',
+			'donation'           => 'NotificationX\Types\Donations',
+			'notification_bar'   => 'NotificationX\Types\NotificationBar',
+			'form'               => 'NotificationX\Types\ContactForm',
+			'email_subscription' => 'NotificationX\Types\EmailSubscription',
+			'page_analytics'     => 'NotificationX\Types\PageAnalytics',
+			'custom'             => 'NotificationX\Types\CustomNotification',
+			'inline'             => 'NotificationX\Types\Inline',
+			'social'             => 'NotificationX\Types\Social',
 		];
 
     public $types_enabled = [];

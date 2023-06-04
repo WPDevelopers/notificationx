@@ -447,7 +447,7 @@ class Helper {
         }
     }
 
-    public static function remote_get($url, $args = array(), $raw = false) {
+    public static function remote_get($url, $args = array(), $raw = false, $assoc = null) {
         $defaults = array(
             'timeout'     => 20,
             'redirection' => 5,
@@ -459,16 +459,19 @@ class Helper {
             'filename'    => null
         );
         $args = wp_parse_args($args, $defaults);
-        $request = wp_remote_get($url, $args);
+        $response = wp_remote_get($url, $args);
 
-        if (is_wp_error($request)) {
+        if (is_wp_error($response)) {
             return false;
         }
         if($raw){
-            return $request;
+            return $response;
         }
-        $response = json_decode($request['body']);
-        if (isset($response->status) && $response->status == 'fail') {
+
+        $body      = wp_remote_retrieve_body( $response );
+        $response  = json_decode($body, $assoc);
+        $_response = (array) $response;
+        if (isset($_response['status']) && $_response['status'] == 'fail') {
             return false;
         }
         return $response;

@@ -82,7 +82,7 @@ export default function Inspector(props) {
   const postType = urlParams.get('postType');
   attributes.post_type = postType;
 
-  // All woocommerce product 
+  // All woocommerce product
   const [nx_products,set_nx_products] = useState(null);
 
   // Notification type state handler
@@ -133,7 +133,7 @@ export default function Inspector(props) {
         { label: __("Select", "notificationx"), value: "" },
         ...ids,
       ]);
-      
+
     });
 
   }, []);
@@ -194,7 +194,7 @@ export default function Inspector(props) {
                             <label htmlFor="chooseOption">{ __( 'Choose Product','notificationx' ) }</label>
                           )}
                         <Select
-                          value={ selected_product }                          
+                          value={ selected_product }
                           id="chooseOption"
                           loadOptions={loadOptions}
                           defaultOptions={nx_products}

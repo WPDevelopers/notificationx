@@ -87,9 +87,9 @@ class ShortcodeInline {
             }
             return $output;
         }
-        
+
         $result = FrontEnd::get_instance()->get_notifications_data( [ 'shortcode' => [ $nx_id ] ] );
-        
+
         $output = '';
         if ( ! empty( $result['shortcode'][ $nx_id ]['entries'] ) ) {
             $entries  = $result['shortcode'][ $nx_id ]['entries'];
