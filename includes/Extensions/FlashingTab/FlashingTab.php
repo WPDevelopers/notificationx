@@ -176,8 +176,52 @@ class FlashingTab extends Extension {
 
         $fields['utm_options'] = Rules::is('source', $this->id, true, $fields['utm_options']);
 
+
         $content_fields['ft_message_1_'] = [
-            'label'    => __('Message Line 1', 'notificationx'),
+            'label'    => __('Line 2', 'notificationx'),
+            'name'     => 'ft_message_1_',
+            'type'     => 'flashing-message-icon',
+            'priority' => 20,
+            'default'  => '',
+            'rules'    => Rules::is('source', $this->id),
+            'rules'    => Rules::logicalRule([
+                Rules::is('source', $this->id),
+                Rules::includes('themes', ['flashing_tab_theme-1']),
+            ]),
+            'default'  => [
+                'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-1.png',
+                'message' => '',
+            ],
+            'options'     => array(
+                array(
+                    'column' => 6,
+                    'value'  => 'theme-1-icon-1.png',
+                    'label'  => __('Verified', 'notificationx'),
+                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-1.png',
+                ),
+                array(
+                    'column' => 6,
+                    'value'  => 'theme-2-icon-1.png',
+                    'label'  => __('Flames', 'notificationx'),
+                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-2-icon-1.png',
+                ),
+                array(
+                    'column' => 6,
+                    'value'  => 'theme-3-icon-1.png',
+                    'label'  => __('Flames GIF', 'notificationx'),
+                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-3-icon-1.png',
+                ),
+                array(
+                    'column' => 6,
+                    'value'  => 'theme-4-icon-1.png',
+                    'label'  => __('Pink Face', 'notificationx'),
+                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-4-icon-1.png',
+                ),
+            )
+        ];
+        
+        $content_fields['ft_message_1'] = [
+            'label'    => __('Line 1', 'notificationx'),
             'name'     => 'ft_message_1_',
             'type'     => 'flashing-message-icon',
             'priority' => 20,
@@ -219,155 +263,155 @@ class FlashingTab extends Extension {
             )
         ];
 
-        $content_fields['ft_message_1'] = [
-            'label'    => __('Message Line 1', 'notificationx'),
-            'name'     => 'ft_message_1',
-            'type'     => 'text',
-            'priority' => 20,
-            'default'  => '',
-            'rules'    => Rules::is('source', $this->id),
-            'rules'    => Rules::logicalRule([
-                Rules::is('source', $this->id),
-                Rules::includes('themes', ['flashing_tab_theme-1']),
-            ]),
-        ];
-        $content_fields['ft_message_2'] = [
-            'label'    => __('Message Line 2', 'notificationx'),
-            'name'     => 'ft_message_2',
-            'type'     => 'text',
-            'priority' => 25,
-            'default'  => '',
-            'rules'    => Rules::logicalRule([
-                Rules::is('source', $this->id),
-                Rules::includes('themes', ['flashing_tab_theme-1']),
-            ]),
-        ];
-        $content_fields['ft_enable_icon_1'] = [
-            'label' => __("Icon 1", 'notificationx'),
-            'name'  => "ft_enable_icon_1",
-            'type'  => "checkbox",
-            'default' => false,
-            'rules'    => Rules::logicalRule([
-                Rules::is('source', $this->id),
-                Rules::includes('themes', ['flashing_tab_theme-1']),
-            ]),
-        ];
-        $content_fields['ft_icon_1'] = [
-            'label'   => __( "Icon 1", 'notificationx'),
-            'name'    => "ft_icon_1",
-            'type'    => "radio-card",
-            'default' => "theme-1-icon-1.png",
-            // 'description' => __('If checked, this will show in notifications.', 'notificationx'),
-            'style'       => [
-                'size' => 'medium'
-            ],
-            'rules'    => Rules::logicalRule([
-                Rules::is('source', $this->id),
-                Rules::is('ft_enable_icon_1', true),
-                Rules::includes('themes', ['flashing_tab_theme-1']),
-            ]),
-            'options'     => array(
-                array(
-                    'column' => 6,
-                    'value'  => 'theme-1-icon-1.png',
-                    'label'  => __('Verified', 'notificationx'),
-                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-1.png',
-                ),
-                array(
-                    'column' => 6,
-                    'value'  => 'theme-2-icon-1.png',
-                    'label'  => __('Flames', 'notificationx'),
-                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-2-icon-1.png',
-                ),
-                array(
-                    'column' => 6,
-                    'value'  => 'theme-3-icon-1.png',
-                    'label'  => __('Flames GIF', 'notificationx'),
-                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-3-icon-1.png',
-                ),
-                array(
-                    'column' => 6,
-                    'value'  => 'theme-4-icon-1.png',
-                    'label'  => __('Pink Face', 'notificationx'),
-                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-4-icon-1.png',
-                ),
-            )
-        ];
-        $content_fields['ft_upload_image_1'] = [
-            'label' => __("Upload an Icon", 'notificationx'),
-            'name'  => "ft_upload_image_1",
-            'button'  => __('Upload', 'notificationx'),
-            'type'  => "media",
-            'default' => "",
-            'rules' => Rules::is( 'ft_enable_icon_1', true ),
-            'rules'    => Rules::logicalRule([
-                Rules::is('source', $this->id),
-                Rules::is( 'ft_enable_icon_1', true ),
-            ]),
-        ];
+        // // $content_fields['ft_message_1'] = [
+        // //     'label'    => __('Message Line 1', 'notificationx'),
+        // //     'name'     => 'ft_message_1',
+        // //     'type'     => 'text',
+        // //     'priority' => 20,
+        // //     'default'  => '',
+        // //     'rules'    => Rules::is('source', $this->id),
+        // //     'rules'    => Rules::logicalRule([
+        // //         Rules::is('source', $this->id),
+        // //         Rules::includes('themes', ['flashing_tab_theme-1']),
+        // //     ]),
+        // // ];
+        // $content_fields['ft_message_2'] = [
+        //     'label'    => __('Line 2', 'notificationx'),
+        //     'name'     => 'ft_message_2',
+        //     'type'     => 'text',
+        //     'priority' => 25,
+        //     'default'  => '',
+        //     'rules'    => Rules::logicalRule([
+        //         Rules::is('source', $this->id),
+        //         Rules::includes('themes', ['flashing_tab_theme-1']),
+        //     ]),
+        // ];
+        // $content_fields['ft_enable_icon_1'] = [
+        //     'label' => __("Icon 1", 'notificationx'),
+        //     'name'  => "ft_enable_icon_1",
+        //     'type'  => "checkbox",
+        //     'default' => false,
+        //     'rules'    => Rules::logicalRule([
+        //         Rules::is('source', $this->id),
+        //         Rules::includes('themes', ['flashing_tab_theme-1']),
+        //     ]),
+        // ];
+        // $content_fields['ft_icon_1'] = [
+        //     'label'   => __( "Icon 1", 'notificationx'),
+        //     'name'    => "ft_icon_1",
+        //     'type'    => "radio-card",
+        //     'default' => "theme-1-icon-1.png",
+        //     // 'description' => __('If checked, this will show in notifications.', 'notificationx'),
+        //     'style'       => [
+        //         'size' => 'medium'
+        //     ],
+        //     'rules'    => Rules::logicalRule([
+        //         Rules::is('source', $this->id),
+        //         Rules::is('ft_enable_icon_1', true),
+        //         Rules::includes('themes', ['flashing_tab_theme-1']),
+        //     ]),
+        //     'options'     => array(
+        //         array(
+        //             'column' => 6,
+        //             'value'  => 'theme-1-icon-1.png',
+        //             'label'  => __('Verified', 'notificationx'),
+        //             'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-1.png',
+        //         ),
+        //         array(
+        //             'column' => 6,
+        //             'value'  => 'theme-2-icon-1.png',
+        //             'label'  => __('Flames', 'notificationx'),
+        //             'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-2-icon-1.png',
+        //         ),
+        //         array(
+        //             'column' => 6,
+        //             'value'  => 'theme-3-icon-1.png',
+        //             'label'  => __('Flames GIF', 'notificationx'),
+        //             'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-3-icon-1.png',
+        //         ),
+        //         array(
+        //             'column' => 6,
+        //             'value'  => 'theme-4-icon-1.png',
+        //             'label'  => __('Pink Face', 'notificationx'),
+        //             'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-4-icon-1.png',
+        //         ),
+        //     )
+        // ];
+        // $content_fields['ft_upload_image_1'] = [
+        //     'label' => __("Upload an Icon", 'notificationx'),
+        //     'name'  => "ft_upload_image_1",
+        //     'button'  => __('Upload', 'notificationx'),
+        //     'type'  => "media",
+        //     'default' => "",
+        //     'rules' => Rules::is( 'ft_enable_icon_1', true ),
+        //     'rules'    => Rules::logicalRule([
+        //         Rules::is('source', $this->id),
+        //         Rules::is( 'ft_enable_icon_1', true ),
+        //     ]),
+        // ];
 
-        $content_fields['ft_enable_icon_2'] = [
-            'label' => __("Icon 2", 'notificationx'),
-            'name'  => "ft_enable_icon_2",
-            'type'  => "checkbox",
-            'default' => false,
-            'rules'    => Rules::logicalRule([
-                Rules::is('source', $this->id),
-            ]),
-        ];
-        $content_fields['ft_icon_2'] = [
-            'label'   => __( "Icon 2", 'notificationx'),
-            'name'    => "ft_icon_2",
-            'type'    => "radio-card",
-            'column'  => 6,
-            'default' => "verified.svg",
-            // 'description' => __('If checked, this will show in notifications.', 'notificationx'),
-            'style'       => [
-                'size' => 'medium'
-            ],
-            'rules'    => Rules::logicalRule([
-                Rules::is('source', $this->id),
-                Rules::is('ft_enable_icon_2', true),
-                Rules::includes('themes', ['flashing_tab_theme-1']),
-            ]),
-            'options'     => array(
-                array(
-                    'column' => 6,
-                    'value'  => 'theme-1-icon-2.png',
-                    'label'  => __('Verified', 'notificationx'),
-                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-2.png',
-                ),
-                array(
-                    'column' => 6,
-                    'value'  => 'theme-2-icon-2.png',
-                    'label'  => __('Flames', 'notificationx'),
-                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-2-icon-2.png',
-                ),
-                array(
-                    'column' => 6,
-                    'value'  => 'theme-3-icon-2.png',
-                    'label'  => __('Flames GIF', 'notificationx'),
-                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-3-icon-2.png',
-                ),
-                array(
-                    'column' => 6,
-                    'value'  => 'theme-4-icon-2.png',
-                    'label'  => __('Pink Face', 'notificationx'),
-                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-4-icon-2.png',
-                ),
-            )
-        ];
-        $content_fields['ft_upload_image_2'] = [
-            'label' => __("Upload an Icon", 'notificationx'),
-            'name'  => "ft_upload_image_2",
-            'button'  => __('Upload', 'notificationx'),
-            'type'  => "media",
-            'default' => "",
-            'rules'    => Rules::logicalRule([
-                Rules::is('source', $this->id),
-                Rules::is( 'ft_enable_icon_2', true ),
-            ]),
-        ];
+        // $content_fields['ft_enable_icon_2'] = [
+        //     'label' => __("Icon 2", 'notificationx'),
+        //     'name'  => "ft_enable_icon_2",
+        //     'type'  => "checkbox",
+        //     'default' => false,
+        //     'rules'    => Rules::logicalRule([
+        //         Rules::is('source', $this->id),
+        //     ]),
+        // ];
+        // $content_fields['ft_icon_2'] = [
+        //     'label'   => __( "Icon 2", 'notificationx'),
+        //     'name'    => "ft_icon_2",
+        //     'type'    => "radio-card",
+        //     'column'  => 6,
+        //     'default' => "verified.svg",
+        //     // 'description' => __('If checked, this will show in notifications.', 'notificationx'),
+        //     'style'       => [
+        //         'size' => 'medium'
+        //     ],
+        //     'rules'    => Rules::logicalRule([
+        //         Rules::is('source', $this->id),
+        //         Rules::is('ft_enable_icon_2', true),
+        //         Rules::includes('themes', ['flashing_tab_theme-1']),
+        //     ]),
+        //     'options'     => array(
+        //         array(
+        //             'column' => 6,
+        //             'value'  => 'theme-1-icon-2.png',
+        //             'label'  => __('Verified', 'notificationx'),
+        //             'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-2.png',
+        //         ),
+        //         array(
+        //             'column' => 6,
+        //             'value'  => 'theme-2-icon-2.png',
+        //             'label'  => __('Flames', 'notificationx'),
+        //             'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-2-icon-2.png',
+        //         ),
+        //         array(
+        //             'column' => 6,
+        //             'value'  => 'theme-3-icon-2.png',
+        //             'label'  => __('Flames GIF', 'notificationx'),
+        //             'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-3-icon-2.png',
+        //         ),
+        //         array(
+        //             'column' => 6,
+        //             'value'  => 'theme-4-icon-2.png',
+        //             'label'  => __('Pink Face', 'notificationx'),
+        //             'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-4-icon-2.png',
+        //         ),
+        //     )
+        // ];
+        // $content_fields['ft_upload_image_2'] = [
+        //     'label' => __("Upload an Icon", 'notificationx'),
+        //     'name'  => "ft_upload_image_2",
+        //     'button'  => __('Upload', 'notificationx'),
+        //     'type'  => "media",
+        //     'default' => "",
+        //     'rules'    => Rules::logicalRule([
+        //         Rules::is('source', $this->id),
+        //         Rules::is( 'ft_enable_icon_2', true ),
+        //     ]),
+        // ];
 
 
         return $fields;
