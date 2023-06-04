@@ -8,8 +8,12 @@
                 font-size: 14px;
                 font-weight: 500;
                 color: #000;
-                .nx-second-word {
-                    font-weight: 500;
+                > span {
+                    span {
+                        &:nth-child(2) {
+                            font-weight: 400;
+                        }
+                    }
                 }
             }
             &.nx-second-row {
@@ -19,6 +23,14 @@
                 .nx-first-word {
                     color: #7c8db5;
                 }
+                > span {
+                    span {
+                        &:nth-child(1) {
+                            color: #7c8db5;
+                        }
+                        
+                    }
+                }
             }
             &.nx-third-row {
                 font-size: 10px;
@@ -27,3 +39,6 @@
         }
     }
 }
+
+
+

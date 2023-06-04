@@ -138,7 +138,7 @@ const Notification = (props) => {
     if (settings?.advance_edit && settings?.conversion_size) {
         componentStyle.maxWidth = settings?.conversion_size;
     }
-
+    
     return (
         <div
             // onMouseEnter={handlePauseTimer}
