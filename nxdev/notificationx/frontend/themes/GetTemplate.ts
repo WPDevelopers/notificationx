@@ -142,6 +142,14 @@ const GetTemplate = (settings) => {
                 `${params?.fourth_param}`,
             ];
             break;
+        case "conv-theme-ten":
+        case "conv-theme-eleven":
+            return [
+                `${params?.first_param} ${params?.second_param}`,
+                `${params?.third_param}`,
+                `${params?.fourth_param}`,
+            ];
+            break;
         // conversion start
         case "conv-theme-six":
             return [

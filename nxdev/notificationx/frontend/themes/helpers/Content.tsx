@@ -66,6 +66,7 @@ const Content = (props) => {
             </p>
         );
     });
+    
     return (
         <div
             className={`notificationx-content ${

@@ -1,5 +1,4 @@
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css);
-
 .notification-item {
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -21,6 +20,22 @@
         // animation: SlideBottom 300ms;
         // animation-fill-mode: forwards;
     }
+    &.button-link {
+        .notificationx-link {
+            left: inherit;
+            bottom: inherit;
+            top: -35px;
+            right: 15px;
+            font-size: 14px;
+            text-decoration: none;
+            padding: 6px 15px;
+            background: #6a4bff;
+            border-radius: 4px;
+            color: #fff;
+            line-height: 18px;
+            font-weight: 500;
+        }
+    } 
     .notificationx-inner {
         display: flex;
         align-items: center;
@@ -183,6 +198,7 @@
     @import "./theme-six";
     @import "./theme-seven";
     @import "./theme-eight";
+    @import "./theme-ten";
 }
 
 .notificationx-shortcode-wrapper {
