@@ -1,0 +1,17 @@
+.wprf-control-field  span {
+    position: relative;
+}
+.rpt-hover {
+    overflow: visible !important;
+    display: flex;
+    align-items: center;
+    span {
+        padding: 10px !important;
+        img {
+            height: 30px;
+        }
+    }
+} 
+.rpt-textbox-container {
+    width: auto !important;
+}
