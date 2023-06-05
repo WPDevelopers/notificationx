@@ -42,3 +42,11 @@
 .components-base-control__label{
   display: block;
 }
+#chooseInlineOption {
+  margin-top: 10px;
+}
+/* Assuming the class name for React Select component is "react-select" */
+.react-select__control:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}

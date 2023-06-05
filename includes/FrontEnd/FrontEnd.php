@@ -575,7 +575,10 @@ class FrontEnd {
         if (!empty($saved_data['name']) && empty($saved_data['first_name']) && empty($saved_data['last_name'])) {
             $data['first_name'] = $saved_data['name'];
         }
-        $data['title'] = isset($saved_data['post_title']) ? $saved_data['post_title'] : $data['title'];
+        if( !empty( $saved_data['post_title'] ) ) {
+            $data['title']  = $saved_data['post_title'];
+        }
+        // $data['title'] = isset($saved_data['post_title']) ? $saved_data['post_title'] : $data['title'];
         return $data;
     }
 

@@ -159,7 +159,14 @@ export default function Inspector(props) {
       set_nx_no_options('Please type 3 or more characters'); 
     }
   };
-
+  const selectProductStyle = {
+    control: (base, state) => ({
+      ...base,
+      "*": {
+        boxShadow: "none !important",
+      },
+    }),
+  };
   return (
     <InspectorControls key="controls">
       <div className="eb-panel-control">
@@ -196,13 +203,14 @@ export default function Inspector(props) {
                       <>
                         {
                           nx_source == 'tutor_inline' || nx_source == 'learndash_inline' ? (
-                            <label htmlFor="chooseOption">{ __( 'Choose Course','notificationx' ) }</label>
+                            <label htmlFor="chooseInlineOption">{ __( 'Choose Course','notificationx' ) }</label>
                           ) : (
-                            <label htmlFor="chooseOption">{ __( 'Choose Product','notificationx' ) }</label>
+                            <label htmlFor="chooseInlineOption">{ __( 'Choose Product','notificationx' ) }</label>
                           )}
                         <Select
                           value={ selected_product }
-                          id="chooseOption"
+                          styles={selectProductStyle}
+                          id="chooseInlineOption"
                           loadOptions={loadOptions}
                           defaultOptions={nx_products}
                           noOptionsMessage={ () => __( nx_no_options,'notificationx' ) }
