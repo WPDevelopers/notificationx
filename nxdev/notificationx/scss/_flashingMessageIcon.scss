@@ -1,12 +1,21 @@
-.wprf-control-field {
+.wprf-type-flashing-message-icon .wprf-control-field {
+    &>span {
+        position: relative;
+        border: 1px solid #E6EFFB;
+        padding: 3px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     span {
         position: relative;
         :hover {
             opacity: 1;
         }
         img {
-            width: 35px;
-            height: 35px;
+            width: 32px;
+            height: 32px;
         }
         .wprf-image-upload-btn {
             padding-right: 5px;
@@ -37,32 +46,32 @@
     input {
         margin-left: 10px;
     }
-}
-.rpt-hover {
-    overflow: visible !important;
-    display: flex;
-    align-items: flex-end;
-    span {
-        padding: 8px 5px !important;
-        img {
-            width: 25px;
-            height: 25px;
+    .rpt-hover {
+        overflow: visible !important;
+        display: flex;
+        align-items: flex-end;
+        span {
+            padding: 8px 5px !important;
+            img {
+                width: 25px;
+                height: 25px;
+            }
+        }
+        .emoji-wrapper {
+            padding: 0 !important;
+
+
         }
     }
-    .emoji-wrapper {
-        padding: 0 !important;
+    .rpt-textbox-container {
+        width: auto !important;
+        .rpt-shadow-container {
+            box-shadow: rgba(10, 10, 10, 0.25) 7px 7px 20px !important;
 
-
+        }
     }
-} 
-.rpt-textbox-container {
-    width: auto !important;
-    .rpt-shadow-container {
+    .rpt-arrow {
+
         box-shadow: rgba(10, 10, 10, 0.25) 7px 7px 20px !important;
-
     }
-}
-.rpt-arrow {
-    
-    box-shadow: rgba(10, 10, 10, 0.25) 7px 7px 20px !important;
 }

@@ -15,7 +15,7 @@
     "bb": "wp-scripts build --config webpack.blocks.config.js",
     "blocks": "wp-scripts start --config webpack.blocks.config.js",
     "release": "npm run build && npm run bb && npm run pot",
-    "zip": "npm run build && wp dist-archive .",
+    "zip": "npm run release && wp dist-archive .",
     "packages-update": "wp-scripts packages-update"
   },
   "plugins": [

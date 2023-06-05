@@ -1,4 +1,3 @@
-import parseGIF from "./parseGIF";
 import interval from "./webWorker";
 
 /**@license

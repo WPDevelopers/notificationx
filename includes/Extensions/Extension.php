@@ -271,9 +271,8 @@ abstract class Extension {
                 }
                 if(!empty($theme['defaults']) && $defaults = $theme['defaults']){
                     foreach ($defaults as $key => $value) {
-                        $t = "@{$key}:{$value}";
-                        if(empty($triggers[$tname]) || !in_array($t, $triggers[$tname])){
-                            $triggers[$tname][] = $t;
+                        if(empty($triggers[$tname][$key])){
+                            $triggers[$tname][$key] = $value;
                         }
                     }
                 }

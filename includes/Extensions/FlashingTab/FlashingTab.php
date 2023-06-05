@@ -44,63 +44,63 @@ class FlashingTab extends Extension {
         $this->module_title = __('Flashing Tab', 'notificationx');
         $this->themes = [
             'theme-1' => array(
-                'is_pro'      => true,
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/flashing-tab/theme-1.gif',
-                'image_shape' => 'rounded',
-                'inline_location' => [ 'woocommerce_before_add_to_cart_form' ],
-                'template'    => [
-                    'first_param'         => 'tag_sales_count',
-                    'custom_first_param'  => __( '99', 'notificationx' ),
-                    'second_param'        => __( 'people purchased', 'notificationx' ),
-                    'third_param'         => 'tag_custom',
-                    'custom_third_param'  => ' ',
-                    'fourth_param'        => 'tag_7days',
-                    'custom_fourth_param' => __( 'in last {{day:7}}', 'notificationx' ),
+                'is_pro'          => true,
+                'source'          => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/flashing-tab/theme-1.gif',
+                'image_shape'     => 'rounded',
+                'defaults'        => [
+                    'ft_message_1' => [
+                        'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-1.png',
+                        'message' => 'Comeback!',
+                    ],
+                    'ft_message_2' => [
+                        'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-2.png',
+                        'message' => 'Comeback!',
+                    ],
                 ],
             ),
             'theme-2' => array(
-                'is_pro'      => true,
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/flashing-tab/theme-2.gif',
-                'image_shape' => 'rounded',
-                'inline_location' => [ 'woocommerce_before_add_to_cart_form' ],
-                'template'    => [
-                    'first_param'         => 'tag_sales_count',
-                    'custom_first_param'  => __( '99', 'notificationx' ),
-                    'second_param'        => __( 'people purchased', 'notificationx' ),
-                    'third_param'         => 'tag_custom',
-                    'custom_third_param'  => ' ',
-                    'fourth_param'        => 'tag_7days',
-                    'custom_fourth_param' => __( 'in last {{day:7}}', 'notificationx' ),
+                'is_pro'          => true,
+                'source'          => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/flashing-tab/theme-2.gif',
+                'image_shape'     => 'rounded',
+                'defaults'        => [
+                    'ft_message_1' => [
+                        'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-2-icon-1.png',
+                        'message' => 'Comeback! We miss you.',
+                    ],
+                    'ft_message_2' => [
+                        'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-2-icon-2.png',
+                        'message' => 'Comeback! We miss you.',
+                    ],
                 ],
             ),
             'theme-3' => array(
-                'is_pro'      => true,
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/flashing-tab/theme-3.gif',
-                'image_shape' => 'rounded',
-                'inline_location' => [ 'woocommerce_before_add_to_cart_form' ],
-                'template'    => [
-                    'first_param'         => 'tag_sales_count',
-                    'custom_first_param'  => __( '99', 'notificationx' ),
-                    'second_param'        => __( 'people purchased', 'notificationx' ),
-                    'third_param'         => 'tag_custom',
-                    'custom_third_param'  => ' ',
-                    'fourth_param'        => 'tag_7days',
-                    'custom_fourth_param' => __( 'in last {{day:7}}', 'notificationx' ),
+                'is_pro'          => true,
+                'source'          => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/flashing-tab/theme-3.gif',
+                'image_shape'     => 'rounded',
+                'defaults'        => [
+                    'ft_message_1' => [
+                        'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-3-icon-1.png',
+                        'message' => 'Comeback!',
+                    ],
+                    'ft_message_2' => [
+                        'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-3-icon-2.png',
+                        'message' => 'You forgot to purchase!',
+                    ],
                 ],
             ),
             'theme-4' => array(
-                'is_pro'      => true,
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/flashing-tab/theme-4.gif',
-                'image_shape' => 'rounded',
-                'inline_location' => [ 'woocommerce_before_add_to_cart_form' ],
-                'template'    => [
-                    'first_param'         => 'tag_sales_count',
-                    'custom_first_param'  => __( '99', 'notificationx' ),
-                    'second_param'        => __( 'people purchased', 'notificationx' ),
-                    'third_param'         => 'tag_custom',
-                    'custom_third_param'  => ' ',
-                    'fourth_param'        => 'tag_7days',
-                    'custom_fourth_param' => __( 'in last {{day:7}}', 'notificationx' ),
+                'is_pro'          => true,
+                'source'          => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/flashing-tab/theme-4.gif',
+                'image_shape'     => 'rounded',
+                'defaults'        => [
+                    'ft_message_1' => [
+                        'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-4-icon-1.png',
+                        'message' => 'Comeback!',
+                    ],
+                    'ft_message_2' => [
+                        'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-4-icon-2.png',
+                        'message' => '{quantity} items in your cart!',
+                    ],
                 ],
             ),
         ];
@@ -154,8 +154,6 @@ class FlashingTab extends Extension {
         if(!empty($posts)){
             // @todo remove unnecessary values
             $settings = end($posts);
-            $settings['ft_icon_1'] = NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/' . $settings['ft_icon_1'];
-            $settings['ft_icon_2'] = NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/' . $settings['ft_icon_2'];
 
             wp_enqueue_script('notificationx-public-flashing-tab', Helper::file('public/js/flashing-tab.js', true), [], NOTIFICATIONX_VERSION, true);
             wp_localize_script('notificationx-public-flashing-tab', 'nx_flashing_tab', $settings);
@@ -177,59 +175,15 @@ class FlashingTab extends Extension {
         $fields['utm_options'] = Rules::is('source', $this->id, true, $fields['utm_options']);
 
 
-        $content_fields['ft_message_1_'] = [
-            'label'    => __('Line 2', 'notificationx'),
-            'name'     => 'ft_message_1_',
-            'type'     => 'flashing-message-icon',
-            'priority' => 20,
-            'default'  => '',
-            'rules'    => Rules::is('source', $this->id),
-            'rules'    => Rules::logicalRule([
-                Rules::is('source', $this->id),
-                Rules::includes('themes', ['flashing_tab_theme-1']),
-            ]),
-            'default'  => [
-                'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-1.png',
-                'message' => '',
-            ],
-            'options'     => array(
-                array(
-                    'column' => 6,
-                    'value'  => 'theme-1-icon-1.png',
-                    'label'  => __('Verified', 'notificationx'),
-                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-1.png',
-                ),
-                array(
-                    'column' => 6,
-                    'value'  => 'theme-2-icon-1.png',
-                    'label'  => __('Flames', 'notificationx'),
-                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-2-icon-1.png',
-                ),
-                array(
-                    'column' => 6,
-                    'value'  => 'theme-3-icon-1.png',
-                    'label'  => __('Flames GIF', 'notificationx'),
-                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-3-icon-1.png',
-                ),
-                array(
-                    'column' => 6,
-                    'value'  => 'theme-4-icon-1.png',
-                    'label'  => __('Pink Face', 'notificationx'),
-                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-4-icon-1.png',
-                ),
-            )
-        ];
-        
         $content_fields['ft_message_1'] = [
-            'label'    => __('Line 1', 'notificationx'),
-            'name'     => 'ft_message_1_',
+            'label'    => __('Message 1', 'notificationx'),
+            'name'     => 'ft_message_1',
             'type'     => 'flashing-message-icon',
             'priority' => 20,
             'default'  => '',
-            'rules'    => Rules::is('source', $this->id),
             'rules'    => Rules::logicalRule([
                 Rules::is('source', $this->id),
-                Rules::includes('themes', ['flashing_tab_theme-1']),
+                // Rules::includes('themes', ['flashing_tab_theme-1']),
             ]),
             'default'  => [
                 'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-1.png',
@@ -263,155 +217,85 @@ class FlashingTab extends Extension {
             )
         ];
 
-        // // $content_fields['ft_message_1'] = [
-        // //     'label'    => __('Message Line 1', 'notificationx'),
-        // //     'name'     => 'ft_message_1',
-        // //     'type'     => 'text',
-        // //     'priority' => 20,
-        // //     'default'  => '',
-        // //     'rules'    => Rules::is('source', $this->id),
-        // //     'rules'    => Rules::logicalRule([
-        // //         Rules::is('source', $this->id),
-        // //         Rules::includes('themes', ['flashing_tab_theme-1']),
-        // //     ]),
-        // // ];
-        // $content_fields['ft_message_2'] = [
-        //     'label'    => __('Line 2', 'notificationx'),
-        //     'name'     => 'ft_message_2',
-        //     'type'     => 'text',
-        //     'priority' => 25,
-        //     'default'  => '',
-        //     'rules'    => Rules::logicalRule([
-        //         Rules::is('source', $this->id),
-        //         Rules::includes('themes', ['flashing_tab_theme-1']),
-        //     ]),
-        // ];
-        // $content_fields['ft_enable_icon_1'] = [
-        //     'label' => __("Icon 1", 'notificationx'),
-        //     'name'  => "ft_enable_icon_1",
-        //     'type'  => "checkbox",
-        //     'default' => false,
-        //     'rules'    => Rules::logicalRule([
-        //         Rules::is('source', $this->id),
-        //         Rules::includes('themes', ['flashing_tab_theme-1']),
-        //     ]),
-        // ];
-        // $content_fields['ft_icon_1'] = [
-        //     'label'   => __( "Icon 1", 'notificationx'),
-        //     'name'    => "ft_icon_1",
-        //     'type'    => "radio-card",
-        //     'default' => "theme-1-icon-1.png",
-        //     // 'description' => __('If checked, this will show in notifications.', 'notificationx'),
-        //     'style'       => [
-        //         'size' => 'medium'
-        //     ],
-        //     'rules'    => Rules::logicalRule([
-        //         Rules::is('source', $this->id),
-        //         Rules::is('ft_enable_icon_1', true),
-        //         Rules::includes('themes', ['flashing_tab_theme-1']),
-        //     ]),
-        //     'options'     => array(
-        //         array(
-        //             'column' => 6,
-        //             'value'  => 'theme-1-icon-1.png',
-        //             'label'  => __('Verified', 'notificationx'),
-        //             'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-1.png',
-        //         ),
-        //         array(
-        //             'column' => 6,
-        //             'value'  => 'theme-2-icon-1.png',
-        //             'label'  => __('Flames', 'notificationx'),
-        //             'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-2-icon-1.png',
-        //         ),
-        //         array(
-        //             'column' => 6,
-        //             'value'  => 'theme-3-icon-1.png',
-        //             'label'  => __('Flames GIF', 'notificationx'),
-        //             'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-3-icon-1.png',
-        //         ),
-        //         array(
-        //             'column' => 6,
-        //             'value'  => 'theme-4-icon-1.png',
-        //             'label'  => __('Pink Face', 'notificationx'),
-        //             'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-4-icon-1.png',
-        //         ),
-        //     )
-        // ];
-        // $content_fields['ft_upload_image_1'] = [
-        //     'label' => __("Upload an Icon", 'notificationx'),
-        //     'name'  => "ft_upload_image_1",
-        //     'button'  => __('Upload', 'notificationx'),
-        //     'type'  => "media",
-        //     'default' => "",
-        //     'rules' => Rules::is( 'ft_enable_icon_1', true ),
-        //     'rules'    => Rules::logicalRule([
-        //         Rules::is('source', $this->id),
-        //         Rules::is( 'ft_enable_icon_1', true ),
-        //     ]),
-        // ];
+        $content_fields['ft_message_2'] = [
+            'label'    => __('Message 2', 'notificationx'),
+            'name'     => 'ft_message_2',
+            'type'     => 'flashing-message-icon',
+            'priority' => 25,
+            'default'  => '',
+            'rules'    => Rules::logicalRule([
+                Rules::is('source', $this->id),
+                // Rules::includes('themes', ['flashing_tab_theme-1']),
+            ]),
+            'default'  => [
+                'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-1.png',
+                'message' => '',
+            ],
+            'options'     => array(
+                array(
+                    'column' => 6,
+                    'value'  => 'theme-1-icon-1.png',
+                    'label'  => __('Verified', 'notificationx'),
+                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-2.png',
+                ),
+                array(
+                    'column' => 6,
+                    'value'  => 'theme-2-icon-1.png',
+                    'label'  => __('Flames', 'notificationx'),
+                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-2-icon-2.png',
+                ),
+                array(
+                    'column' => 6,
+                    'value'  => 'theme-3-icon-1.png',
+                    'label'  => __('Flames GIF', 'notificationx'),
+                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-3-icon-2.png',
+                ),
+                array(
+                    'column' => 6,
+                    'value'  => 'theme-4-icon-1.png',
+                    'label'  => __('Pink Face', 'notificationx'),
+                    'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-4-icon-2.png',
+                ),
+            )
+        ];
 
-        // $content_fields['ft_enable_icon_2'] = [
-        //     'label' => __("Icon 2", 'notificationx'),
-        //     'name'  => "ft_enable_icon_2",
-        //     'type'  => "checkbox",
-        //     'default' => false,
-        //     'rules'    => Rules::logicalRule([
-        //         Rules::is('source', $this->id),
-        //     ]),
-        // ];
-        // $content_fields['ft_icon_2'] = [
-        //     'label'   => __( "Icon 2", 'notificationx'),
-        //     'name'    => "ft_icon_2",
-        //     'type'    => "radio-card",
-        //     'column'  => 6,
-        //     'default' => "verified.svg",
-        //     // 'description' => __('If checked, this will show in notifications.', 'notificationx'),
-        //     'style'       => [
-        //         'size' => 'medium'
-        //     ],
-        //     'rules'    => Rules::logicalRule([
-        //         Rules::is('source', $this->id),
-        //         Rules::is('ft_enable_icon_2', true),
-        //         Rules::includes('themes', ['flashing_tab_theme-1']),
-        //     ]),
-        //     'options'     => array(
-        //         array(
-        //             'column' => 6,
-        //             'value'  => 'theme-1-icon-2.png',
-        //             'label'  => __('Verified', 'notificationx'),
-        //             'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-2.png',
-        //         ),
-        //         array(
-        //             'column' => 6,
-        //             'value'  => 'theme-2-icon-2.png',
-        //             'label'  => __('Flames', 'notificationx'),
-        //             'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-2-icon-2.png',
-        //         ),
-        //         array(
-        //             'column' => 6,
-        //             'value'  => 'theme-3-icon-2.png',
-        //             'label'  => __('Flames GIF', 'notificationx'),
-        //             'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-3-icon-2.png',
-        //         ),
-        //         array(
-        //             'column' => 6,
-        //             'value'  => 'theme-4-icon-2.png',
-        //             'label'  => __('Pink Face', 'notificationx'),
-        //             'icon'   => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-4-icon-2.png',
-        //         ),
-        //     )
-        // ];
-        // $content_fields['ft_upload_image_2'] = [
-        //     'label' => __("Upload an Icon", 'notificationx'),
-        //     'name'  => "ft_upload_image_2",
-        //     'button'  => __('Upload', 'notificationx'),
-        //     'type'  => "media",
-        //     'default' => "",
-        //     'rules'    => Rules::logicalRule([
-        //         Rules::is('source', $this->id),
-        //         Rules::is( 'ft_enable_icon_2', true ),
-        //     ]),
-        // ];
+        $fields['ft_timing'] = [
+            'label'    => __("Timing", 'notificationx'),
+            'name'     => "ft_timing",
+            'type'     => "section",
+            'priority' => 200,
+            'rules'    => Rules::is( 'global_queue', true, true ),
+            'fields'   => [
+                'ft_delay_before' => [
+                    'label'       => __("Start Blinking after", 'notificationx'),
+                    'name'        => "ft_delay_before",
+                    'type'        => "number",
+                    'priority'    => 40,
+                    'default'     => 0,
+                    // 'help'        => __('Initial Delay', 'notificationx'),
+                    'description' => __('seconds', 'notificationx'),
+
+                ],
+                'ft_delay_between' => [
+                    'name'        => "ft_delay_between",
+                    'type'        => "number",
+                    'label'       => __("Delay Between", 'notificationx'),
+                    'description' => __('seconds', 'notificationx'),
+                    // 'help'        => __('Delay between each notification', 'notificationx'),
+                    'priority'    => 50,
+                    'default'     => 1,
+                ],
+                'ft_display_for' => [
+                    'name'        => "ft_display_for",
+                    'type'        => "number",
+                    'label'       => __("Display For", 'notificationx'),
+                    'description' => __('minutes', 'notificationx'),
+                    // 'help'        => __('Display each notification for * seconds', 'notificationx'),
+                    'priority'    => 60,
+                    'default'     => 0,
+                ],
+            ]
+        ];
 
 
         return $fields;
