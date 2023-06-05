@@ -24,7 +24,7 @@ class FlashingTab extends Types {
     use GetInstance;
     public $priority       = 70;
     public $is_pro         = true;
-    public $module         = ['modules_woocommerce'];
+    public $module         = ['modules_flashing'];
     public $id             = 'flashing_tab';
     public $default_source = 'flashing_tab';
     public $link_type      = '-1';
