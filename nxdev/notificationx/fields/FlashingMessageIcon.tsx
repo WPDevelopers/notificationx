@@ -78,7 +78,7 @@ const FlashingMessageIcon = (props) => {
                 <div className="img-overlay">
                     <img src={editIcon} alt="iconImg" onClick={imageClick} />
                 </div>
-                <Tooltip show={show} position="right center" arrowAlign="start">
+                <Tooltip show={show} position="top center" arrowAlign="start">
                     {props.options.map((option,index)=> {
                         return (
                             <span onClick={()=>changeIcon(option)}>

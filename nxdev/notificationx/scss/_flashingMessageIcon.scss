@@ -1,4 +1,14 @@
 .wprf-control-field {
+    
+    &>span {
+        border: 1px solid #E6EFFB;
+        padding: 6px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+        
     span {
         position: relative;
         :hover {
@@ -41,9 +51,10 @@
 .rpt-hover {
     overflow: visible !important;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     span {
-        padding: 8px 5px !important;
+        padding: 10px !important;
+        display: flex !important;
         img {
             width: 25px;
             height: 25px;
@@ -51,18 +62,22 @@
     }
     .emoji-wrapper {
         padding: 0 !important;
-
-
+        background: transparent !important;
+        :hover {
+            background: transparent !important;
+        }
     }
 } 
 .rpt-textbox-container {
     width: auto !important;
+    left: 0 !important;
+    top: -33px !important;
     .rpt-shadow-container {
         box-shadow: rgba(10, 10, 10, 0.25) 7px 7px 20px !important;
 
     }
 }
 .rpt-arrow {
-    
+    margin: 5px !important;
     box-shadow: rgba(10, 10, 10, 0.25) 7px 7px 20px !important;
 }
