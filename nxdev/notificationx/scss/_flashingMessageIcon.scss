@@ -8,6 +8,7 @@
         align-items: center;
         justify-content: center;
     }
+
     span {
         position: relative;
         :hover {
@@ -46,32 +47,36 @@
     input {
         margin-left: 10px;
     }
-    .rpt-hover {
-        overflow: visible !important;
-        display: flex;
-        align-items: flex-end;
-        span {
-            padding: 8px 5px !important;
-            img {
-                width: 25px;
-                height: 25px;
-            }
-        }
-        .emoji-wrapper {
-            padding: 0 !important;
-
-
+}
+.rpt-hover {
+    overflow: visible !important;
+    display: flex;
+    align-items: center;
+    span {
+        padding: 10px !important;
+        display: flex !important;
+        img {
+            width: 25px;
+            height: 25px;
         }
     }
-    .rpt-textbox-container {
-        width: auto !important;
-        .rpt-shadow-container {
-            box-shadow: rgba(10, 10, 10, 0.25) 7px 7px 20px !important;
-
+    .emoji-wrapper {
+        padding: 0 !important;
+        background: transparent !important;
+        :hover {
+            background: transparent !important;
         }
     }
-    .rpt-arrow {
-
+}
+.rpt-textbox-container {
+    width: auto !important;
+    left: 0 !important;
+    top: -33px !important;
+    .rpt-shadow-container {
         box-shadow: rgba(10, 10, 10, 0.25) 7px 7px 20px !important;
     }
+}
+.rpt-arrow {
+    margin: 5px !important;
+    box-shadow: rgba(10, 10, 10, 0.25) 7px 7px 20px !important;
 }
