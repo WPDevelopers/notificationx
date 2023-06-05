@@ -1,4 +1,3 @@
-import parseGIF from "./parseGIF";
 import interval from "./webWorker";
 
 /**@license
@@ -13,7 +12,7 @@ import interval from "./webWorker";
  * Build: Wed, 20 Nov 2019 13:06:21 +0000
  */
 
-// ----------------------------------------------------------------------------------
+
 
 var hidden, visibilityChange;
 if (typeof document.hidden !== "undefined") {
@@ -29,7 +28,7 @@ if (typeof document.hidden !== "undefined") {
     hidden = "webkitHidden";
     visibilityChange = "webkitvisibilitychange";
 }
-// ----------------------------------------------------------------------------------
+
 function warn(message) {
     if (console && console.warn) {
         console.warn(message);
@@ -39,7 +38,7 @@ function warn(message) {
         }, 0);
     }
 }
-// ----------------------------------------------------------------------------------
+
 var ctx:CanvasRenderingContext2D,
     c,
     link,
@@ -53,7 +52,7 @@ var ctx:CanvasRenderingContext2D,
     initial_turns = -0.25,
     interval_id,
     step;
-// ----------------------------------------------------------------------------------
+
 function init(options) {
     if (document.readyState !== "complete") {
         setTimeout(init.bind(this, options), 100);
@@ -102,14 +101,14 @@ function init(options) {
     }
     initialized = true;
 }
-// ----------------------------------------------------------------------------------
+
 function clear() {
     if (interval_id) {
         interval.clear(interval_id);
         interval_id = null;
     }
 }
-// ----------------------------------------------------------------------------------
+
 function createIcon() {
     link = document.querySelector('link[rel*="icon"]');
     if (!link) {
@@ -119,7 +118,7 @@ function createIcon() {
         warn("No default icon found, restore state will not work");
     }
 }
-// ----------------------------------------------------------------------------------
+
 function removeIcon() {
     const links = document.querySelectorAll('link[rel*="icon"]');
     for (var i = 0; i < links.length; i++) {
@@ -128,12 +127,11 @@ function removeIcon() {
         }
     }
 }
-// ----------------------------------------------------------------------------------
+
 function restore() {
     if (link && link.parentNode) {
         link.parentNode.removeChild(link);
     }
-    console.log(links);
     if (links.length) {
         for (var i = 0; i < links.length; i++) {
             document.head.appendChild(links[i]); // append the icon element to the document head
@@ -141,7 +139,7 @@ function restore() {
     }
     clear();
 }
-// ----------------------------------------------------------------------------------
+
 function animate() {
     if (!initialized) {
         setTimeout(animate, 100);
@@ -163,7 +161,7 @@ function animate() {
         interval_id = interval.set(draw, 20);
     }
 }
-// ----------------------------------------------------------------------------------
+
 function animatePng(png) {
     if (!initialized) {
         setTimeout(animate, 100);
@@ -184,7 +182,7 @@ function animatePng(png) {
         };
     }
 }
-// ----------------------------------------------------------------------------------
+
 function animateGIF() {
     progress++;
     if (progress >= gif.uris.length) {
@@ -192,7 +190,7 @@ function animateGIF() {
     }
     update(gif.uris[progress]);
 }
-// ----------------------------------------------------------------------------------
+
 function update(dataURI) {
     var newIcon,
         icon = document.querySelector('link[rel*="icon"]');
@@ -200,16 +198,15 @@ function update(dataURI) {
     icon.parentNode.replaceChild(newIcon, icon);
     link = newIcon;
 }
-// ----------------------------------------------------------------------------------
+
 function draw() {
     ctx.clearRect(0, 0, settings.size, settings.size);
     if (typeof settings.frame === "function") {
         settings.frame(ctx);
     }
     update(ctx.canvas.toDataURL());
-    progress += duration / 100;
 }
-// ----------------------------------------------------------------------------------
+
 export default {
     init      : init,
     start     : animate,

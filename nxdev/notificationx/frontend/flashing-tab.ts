@@ -1,69 +1,92 @@
+// Import the favloader and interval modules
 import favloader from "./flashing/favloader";
 import interval from "./flashing/webWorker";
 
-let interval_id = null;
+// Declare constants for the settings and messages
 // @ts-ignore
-const settings     = window.nx_flashing_tab;
-const ogTitle      = window.document.title;
-const initialDelay = 2000; // @todo get from settings
-const delayBetween = 2000; // @todo get from settings
+const settings     = window.nx_flashing_tab || {};
+const initialDelay = settings.ft_delay_before || 0;
+const delayBetween = settings.ft_delay_between || 1;
+const displayFor   = (settings.ft_display_for || 0) * 60;
+const message1     = settings.ft_message_1;
+const message2     = settings.ft_message_2;
 
-
+// Initialize the favloader with the given parameters
 favloader.init({
-    size: 16,
+    size: 32,
     radius: 6,
     thickness: 2,
-    color: '#0F60A8',
-    duration: 5000,
-    // png: "https://nxm.test/wp-content/plugins/notificationx/assets/public/image/icons/verified.svg",
-    // png: settings.ft_icon_1,
-    // gif: "https://nxm.test/wp-content/plugins/notificationx/assets/public/image/icons/blue-face-non-looped.gif",
-    // frame: (context: CanvasRenderingContext2D) => {
-    //     // The size of the emoji is set with the font
-    //     context.font = '14px serif'
-    //     // use these alignment properties for "better" positioning
-    //     context.textAlign = "center";
-    //     context.textBaseline = "middle";
-    //     context.fillText('😜', 8, 8)
-
-    // },
+    color: "#0F60A8",
 });
 
-window.addEventListener('visibilitychange', (event) => {
-    if (document.visibilityState === "visible") {
-        favloader.stop();
-        clear();
+// Declare variables for the toggle and interval states
+let toggle = false;
+let intervalId = null;
+let initialDelayID = null;
+let displayForID = null;
+
+// Save the original title of the document
+const originalTitle = window.document.title;
+
+// Define a function to change the title based on the toggle state and the message
+const changeTitle = (message) => {
+    if (message) {
+        document.title = message;
+    }
+};
+
+// Define a function to animate the icon based on the icon url
+const animateIcon = (icon) => {
+    if (icon) {
+        favloader.animatePng(icon);
+    }
+};
+
+// Define a function to switch between the messages and icons based on the toggle state
+const switchMessageAndIcon = () => {
+    toggle = !toggle;
+    if (toggle) {
+        // Use message1
+        changeTitle(message1.message);
+        animateIcon(message1.icon);
     } else {
-        // favloader.start();
-        setTimeout(() => {
-            interval_id = interval.set(changeTitle, delayBetween);
+        // Use message2
+        changeTitle(message2.message);
+        animateIcon(message2.icon);
+    }
+};
+
+// Define a function to clear the title and icon and stop the intervals
+const clear = () => {
+    document.title = originalTitle;
+    favloader.stop();
+    if (intervalId) {
+        interval.clear(intervalId);
+        intervalId = null;
+    }
+    if (initialDelayID) {
+        interval.clearTimeout(initialDelayID);
+        initialDelayID = null;
+    }
+    if (displayForID) {
+        interval.clearTimeout(displayForID);
+        displayForID = null;
+    }
+};
+
+// Add an event listener for the visibility change of the document
+window.addEventListener("visibilitychange", (event) => {
+    clear();
+    if (document.visibilityState !== "visible") {
+        // Set a timeout to start switching between the messages and icons after a delay
+        initialDelayID = interval.setTimeout(() => {
+            intervalId = interval.set(switchMessageAndIcon, delayBetween);
         }, initialDelay);
+
+        if (displayFor) {
+            displayForID = interval.setTimeout(() => {
+                clear();
+            }, displayFor);
+        }
     }
 });
-
-const changeTitle = () => {
-    if(document.title !== settings.ft_message_1){
-        document.title = settings.ft_message_1;
-        favloader.animatePng(settings.ft_icon_1)
-    }
-    else{
-        document.title = settings.ft_message_2;
-        favloader.animatePng(settings.ft_icon_2)
-    }
-}
-
-const clear = () => {
-    document.title = ogTitle;
-    if (interval_id) {
-        interval.clear(interval_id);
-        interval_id = null;
-    }
-}
-// window.addEventListener('blur', () => {
-//     // Tab is out of focus
-//     console.log('Tab is blurred');
-
-
-
-
-// });

@@ -93,6 +93,16 @@ var interval = (function () {
             delete callbacks[id];
             return rpc("clearInterval", [id]);
         },
+        setTimeout: function (fn, interval) {
+            var interval_id = Date.now();
+            callbacks[interval_id] = fn;
+            rpc("setTimeout", [interval_id, interval]);
+            return interval_id;
+        },
+        clearTimeout: function (id) {
+            delete callbacks[id];
+            return rpc("clearTimeout", [id]);
+        },
     };
 })();
 

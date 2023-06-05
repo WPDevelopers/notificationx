@@ -1,4 +1,13 @@
-.wprf-control-field {
+.wprf-type-flashing-message-icon .wprf-control-field {
+    &>span {
+        position: relative;
+        border: 1px solid #E6EFFB;
+        padding: 3px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     
     &>span {
         border: 1px solid #E6EFFB;
@@ -15,8 +24,8 @@
             opacity: 1;
         }
         img {
-            width: 35px;
-            height: 35px;
+            width: 32px;
+            height: 32px;
         }
         .wprf-image-upload-btn {
             padding-right: 5px;
@@ -78,6 +87,6 @@
     }
 }
 .rpt-arrow {
-    margin: 5px !important;
+    
     box-shadow: rgba(10, 10, 10, 0.25) 7px 7px 20px !important;
 }
