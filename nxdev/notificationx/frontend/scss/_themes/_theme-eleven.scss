@@ -1,70 +1,102 @@
 &.themes-conversions_conv-theme-eleven {
+    border-radius: 50px 8px 8px 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    filter: drop-shadow(-10px 0px 15px rgba(0, 0, 0, 0.1));
     .notificationx-image {
-            animation: bling 0.5s infinite;
-            position: relative;
-            &:before {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background: rgba(#cc0000, 0.5);
-                animation: bling-before 0.5s infinite;
+        flex-basis: 80px;
+        width: 80px;
+        min-width: 80px;
+        border-radius: 50%;
+        box-shadow: 0 0 0 15px #fff;
+        padding: 0px;
+        animation: bling 1.5s infinite;
+        position: relative;
+        @keyframes bling {
+            0% {
+                outline: 0px solid rgba(86, 18, 214, 0.8);
             }
-            &:after {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background: rgba(#cc0000, 0.5);
-                animation: bling-after 0.5s infinite;
+            33% {
+                outline: 3px solid rgba(86, 18, 214, 0.6);
             }
-            @keyframes bling {
-                0% {
-                    outline: 0px solid #cc0000;
-                }
-                100% {
-                    outline: 5px solid #cc0000;
-                }
-
+            66% {
+                outline: 7px solid rgba(86, 18, 214, 0.4);
             }
-            @keyframes bling-before {
-                0% {
-                    transform: scale(1);
-                }
-                100% {
-                    transform: scale(1.2);
-                }
-
+            100% {
+                outline: 10px solid rgba(86, 18, 214, 0.2);
             }
-            @keyframes bling-after {
-                0% {
-                    transform: scale(1);
-                }
-                100% {
-                    transform: scale(1.4);
-                }
-
+        }
+        @keyframes bling-before {
+            0% {
+                transform: scale(1);
             }
+            100% {
+                transform: scale(1.2);
+            }
+        }
+        @keyframes bling-after {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.4);
+            }
+        }
+        img {
+            border-radius: 50%;
+        }
     }
     .notificationx-content {
+        font-family: "DM Sans";
         width: 100%;
         display: grid;
-        grid-template-columns: repeat( 3, 1fr );
+        grid-template-columns: repeat( 3, auto );
+        column-gap: 15px;
+        margin-right: 10px;
+        margin-left: 20px;
         .nx-first-row {
             grid-column-start: 1;
             grid-column-end: 3;
+            span {
+                font-size: 16px;
+                line-height: 21px;
+                span:nth-child(1) {
+                    color: #344054;
+                    font-weight: 500;
+                }
+                span:nth-child(2) {
+                    color: #98A2B3;
+                    font-weight: 400 !important;
+                }
+            }
         }
         .nx-second-row {
             grid-column-start: 1;
             grid-column-end: 3;
+            span {
+                font-size: 14px;
+                line-height: 18px;
+                font-weight: 500;
+                span:nth-child(1) {
+                    color: #344054;
+                }
+            }
         }
         .nx-third-row {
             grid-row-start: 1;
             grid-row-end: 3;
             grid-column-start: 3;
             grid-column-end: 4;
+            span {
+                span:nth-child(1) {
+                    font-size: 12px;
+                    color: #98A2B3;
+                    font-weight: 500;
+                }
+            }
             .nx-branding {
                 position: absolute;
-                bottom: 5px;
-                right: 5px;
+                bottom: 10px;
+                right: 10px;
             }
         }
     }
