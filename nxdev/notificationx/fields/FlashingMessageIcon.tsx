@@ -118,7 +118,7 @@ const FlashingMessageIcon = (props) => {
                             </span>
                         )
                     })}
-                    <span>
+                    <span className="emoji-container">
                         <img className="emoji-picker" src={emojiAdd} alt="iconImg" onClick={emojiClick} />
                         <Tooltip show={showEmoji} position="bottom center" arrowAlign="start">
                             <span className="emoji-wrapper">

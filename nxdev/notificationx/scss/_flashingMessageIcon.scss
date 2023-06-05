@@ -52,7 +52,7 @@
     display: flex;
     align-items: center;
     span {
-        padding: 10px !important;
+        padding: 8px !important;
         display: flex !important;
         img {
             width: 25px;
@@ -67,10 +67,22 @@
         }
     }
 }
+.emoji-container {
+    .rpt-textbox-container {
+        width: auto !important;
+        left: 0 !important;
+        top: 10px !important;
+        .rpt-shadow-container {
+            box-shadow: rgba(10, 10, 10, 0.25) 7px 7px 20px !important;
+    
+        }
+    }
+
+}
 .rpt-textbox-container {
     width: auto !important;
     left: 0 !important;
-    top: -33px !important;
+    top: -38px !important;
     .rpt-shadow-container {
         box-shadow: rgba(10, 10, 10, 0.25) 7px 7px 20px !important;
 
