@@ -5,18 +5,15 @@ import interval from "./flashing/webWorker";
 // Declare constants for the settings and messages
 // @ts-ignore
 const settings     = window.nx_flashing_tab || {};
-const initialDelay = settings.ft_delay_before || 0;
-const delayBetween = settings.ft_delay_between || 1;
-const displayFor   = (settings.ft_display_for || 0) * 60;
+const initialDelay = (parseInt(settings.ft_delay_before) || 0) * 1000;
+const delayBetween = (parseInt(settings.ft_delay_between) || 1) * 1000;
+const displayFor   = (parseInt(settings.ft_display_for) || 0) * 1000 * 60;
 const message1     = settings.ft_message_1;
 const message2     = settings.ft_message_2;
 
 // Initialize the favloader with the given parameters
 favloader.init({
     size: 32,
-    radius: 6,
-    thickness: 2,
-    color: "#0F60A8",
 });
 
 // Declare variables for the toggle and interval states

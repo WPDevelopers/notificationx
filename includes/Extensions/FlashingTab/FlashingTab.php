@@ -46,7 +46,6 @@ class FlashingTab extends Extension {
             'theme-1' => array(
                 'is_pro'          => true,
                 'source'          => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/flashing-tab/theme-1.gif',
-                'image_shape'     => 'rounded',
                 'defaults'        => [
                     'ft_message_1' => [
                         'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-1.png',
@@ -61,7 +60,6 @@ class FlashingTab extends Extension {
             'theme-2' => array(
                 'is_pro'          => true,
                 'source'          => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/flashing-tab/theme-2.gif',
-                'image_shape'     => 'rounded',
                 'defaults'        => [
                     'ft_message_1' => [
                         'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-2-icon-1.png',
@@ -76,7 +74,6 @@ class FlashingTab extends Extension {
             'theme-3' => array(
                 'is_pro'          => true,
                 'source'          => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/flashing-tab/theme-3.gif',
-                'image_shape'     => 'rounded',
                 'defaults'        => [
                     'ft_message_1' => [
                         'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-3-icon-1.png',
@@ -91,7 +88,6 @@ class FlashingTab extends Extension {
             'theme-4' => array(
                 'is_pro'          => true,
                 'source'          => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/flashing-tab/theme-4.gif',
-                'image_shape'     => 'rounded',
                 'defaults'        => [
                     'ft_message_1' => [
                         'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-4-icon-1.png',
@@ -154,6 +150,14 @@ class FlashingTab extends Extension {
         if(!empty($posts)){
             // @todo remove unnecessary values
             $settings = end($posts);
+            //
+            if(!empty($settings['ft_message_2']['message']) && strpos($settings['ft_message_2']['message'], '{quantity}') !== false){
+                $quantity = '';
+                if(function_exists('WC')){
+                    $quantity = \WC()->cart->get_cart_contents_count();
+                }
+                $settings['ft_message_2']['message'] = str_replace('{quantity}', $quantity, $settings['ft_message_2']['message']);
+            }
 
             wp_enqueue_script('notificationx-public-flashing-tab', Helper::file('public/js/flashing-tab.js', true), [], NOTIFICATIONX_VERSION, true);
             wp_localize_script('notificationx-public-flashing-tab', 'nx_flashing_tab', $settings);

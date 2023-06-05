@@ -36,6 +36,7 @@ var interval = (function () {
                 self[vendors[x] + "CancelRequestAnimationFrame"];
         }
         var raf = {};
+        var timeout = {};
         self.addEventListener("message", function (response) {
             var data = response.data;
             var id = data.id;
@@ -51,7 +52,17 @@ var interval = (function () {
             } else if (data.method == "clearInterval") {
                 self.clearInterval(raf[data.params[0]]);
                 delete raf[data.params[0]];
-            }
+            } else if (data.method == "setTimeout") {
+                var timeout_id = data.params[0];
+                timeout[timeout_id] = self.setTimeout(function () {
+                  self.postMessage({ type: "timeout", id: timeout_id });
+                  delete timeout[timeout_id];
+                }, data.params[1]);
+                self.postMessage({ type: "RPC", id: id, result: timeout_id });
+              } else if (data.method == "clearTimeout") {
+                self.clearTimeout(timeout[data.params[0]]);
+                delete timeout[data.params[0]];
+              }
         });
     });
     var callbacks = {};
@@ -78,7 +89,7 @@ var interval = (function () {
     })();
     worker.addEventListener("message", function (response) {
         var data = response.data;
-        if (data && data.type === "interval" && callbacks[data.id]) {
+        if (data && (data.type === "interval" || data.type === "timeout") && callbacks[data.id]) {
             callbacks[data.id]();
         }
     });

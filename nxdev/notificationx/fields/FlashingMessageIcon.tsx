@@ -24,7 +24,6 @@ const FlashingMessageIcon = (props) => {
     }, [props.value]);
 
     useEffect(() => {
-        console.log(value);
 
         props.onChange({
             target: {
@@ -71,7 +70,6 @@ const FlashingMessageIcon = (props) => {
         });
     }
     const emojiOnClickOutside = (event) => {
-        console.log(event);
 
         if(!event.target?.classList?.contains('emoji-picker')){
             setShowEmoji(false);
