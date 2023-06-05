@@ -1,12 +1,18 @@
-import React, { CSSProperties } from "react";
 import classNames from "classnames";
-import { Image, Content, Close } from "./helpers";
+import React from "react";
+import { Close, Content, Image } from "./helpers";
 // @ts-ignore
-import { getThemeName } from "../core/functions";
 import { useNotificationContext } from "../core";
+import { getThemeName } from "../core/functions";
 
 const Theme = (props) => {
-    const splitThemes = ['theme-five', 'theme-six-free', 'conv-theme-nine', 'review-comment', 'page_analytics_pa-theme-two']
+    const splitThemes = [
+        "theme-five",
+        "theme-six-free",
+        "conv-theme-nine",
+        "review-comment",
+        "page_analytics_pa-theme-two",
+    ];
     const entry = props.data;
     const post = props.config;
     const themeName = getThemeName(post);
@@ -25,32 +31,26 @@ const Theme = (props) => {
     let regex = /{{(.*?)}}/g;
     tmpl?.forEach((row) => {
         if (!row) return;
-        let cols = row.split(/\s+(?![^\{]*}})/);
+        let match;
+        while ((match = regex.exec(row))) {
+            let key = match?.[1]?.replace("tag_", "")?.replace("product_", "");
+            let val = entry?.[key] || "";
 
-        cols = cols.map((col) => {
-            let match;
-            while ((match = regex.exec(col))) {
-                let key = match?.[1]?.replace("tag_", "")?.replace("product_", "");
-                let val = entry?.[key] || '';
-
-                if (key === "time") {
-                    val =
-                        entry?.updated_at &&
-                        frontendContext.getTime(entry?.updated_at).fromNow();
-                }
-                else if (key == 'rating') {
-                    val = `rating::${val}`;
-                }
-                col = col.replace(match?.[0], val);
+            if (key === "time") {
+                val =
+                    entry?.updated_at &&
+                    frontendContext.getTime(entry?.updated_at).fromNow();
+            } else if (key == "rating") {
+                val = `rating::${val}`;
             }
-            return col;
-        });
-        template.push(cols);
+            row = row.replace(match?.[0], val);
+        }
+        template.push(row);
     });
 
     // console.log(template);
     const componentClasses = classNames(
-        "notificationx-inner",
+        "notificationx-inner"
         // `nx-notification-${themeName}`,
         // {
         //     "nx-has-close-btn": post?.close_button,
@@ -81,9 +81,23 @@ const Theme = (props) => {
     }
 
     return (
-        <div className={componentClasses} style={(post?.advance_edit && !isSplitCss) ? componentCSS : {}}>
-            <Image {...props} theme={themeName} style={isSplitCss ? componentCSS : {}} isSplitCss={isSplitCss} isSplit={isSplit}/>
-            <Content {...props} template={template} style={isSplitCss ? componentCSS : {}} themes = {themeName}/>
+        <div
+            className={componentClasses}
+            style={post?.advance_edit && !isSplitCss ? componentCSS : {}}
+        >
+            <Image
+                {...props}
+                theme={themeName}
+                style={isSplitCss ? componentCSS : {}}
+                isSplitCss={isSplitCss}
+                isSplit={isSplit}
+            />
+            <Content
+                {...props}
+                template={template}
+                style={isSplitCss ? componentCSS : {}}
+                themes={themeName}
+            />
             <Close {...props} />
         </div>
     );

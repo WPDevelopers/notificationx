@@ -575,7 +575,7 @@ class FrontEnd {
         if (!empty($saved_data['name']) && empty($saved_data['first_name']) && empty($saved_data['last_name'])) {
             $data['first_name'] = $saved_data['name'];
         }
-        $data['title'] = isset($saved_data['post_title']) ? $saved_data['post_title'] : '';
+        $data['title'] = isset($saved_data['post_title']) ? $saved_data['post_title'] : $data['title'];
         return $data;
     }
 
@@ -586,7 +586,7 @@ class FrontEnd {
      */
     public function filtered_data($entries, $post, $params) {
         if (is_array($entries) && (!defined('NX_DEBUG') || !NX_DEBUG)) {
-            if (!empty($post['display_last']) && !in_array($post['source'], ['google', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'google_reviews'])) {
+            if (!empty($post['display_last']) && !in_array($post['source'], ['google', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'google_reviews', 'youtube'])) {
                 $entries = array_slice($entries, 0, $post['display_last']);
             }
             foreach ($entries as $index => $entry) {

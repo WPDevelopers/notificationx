@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React from "react";
 import { Branding as NXSvg, ThemeFiveShape } from ".";
 import Star from "../../../icons/Star";
 
@@ -9,18 +9,6 @@ const Content = (props) => {
     if (props.style) {
         themeFiveShapeStyle = { fill: props.style?.backgroundColor };
     }
-    let colClasses = [
-        "nx-first-word",
-        "nx-second-word",
-        "nx-third-word",
-        "nx-fourth-word",
-        "nx-fifth-word",
-        "nx-sixth-word",
-        "nx-seventh-word",
-        "nx-eighth-word",
-        "nx-nineth-word",
-        "nx-tenth-word",
-    ];
 
     let template = props.template;
     if (props.template.length < 3) {
@@ -40,63 +28,37 @@ const Content = (props) => {
             if (config.text_color) rowStyle.color = config.text_color;
         }
 
-        if (config?.template_adv) {
-            const rating = /rating::(([0-9]*[.])?[0-9]+)/.exec(row.join(" "));
-            if (rating?.[1]) {
-                let i = 0;
-                const _row = row
-                    .join(" ")
-                    .replace(/(<([^>]+)>)/gi, "")
-                    .split(`rating::${rating[1]}`);
-                advTmplRatingRow = [];
-                if (_row[0])
-                    advTmplRatingRow.push(
-                        <span
-                            className={colClasses[i++]}
-                            dangerouslySetInnerHTML={{ __html: _row[0] }}
-                        ></span>
-                    );
+        const rating = /rating::(([0-9]*[.])?[0-9]+)/.exec(row);
+        if (rating?.[1]) {
+            let i = 0;
+            const _row = row
+                .replace(/(<([^>]+)>)/gi, "")
+                .split(`rating::${rating[1]}`);
+            advTmplRatingRow = [];
+            if (_row[0])
                 advTmplRatingRow.push(
-                    <span key={Math.random()} className={colClasses[i++]}>
-                        <Star star={parseFloat(rating[1])} />
-                    </span>
+                    <span dangerouslySetInnerHTML={{ __html: _row[0] }}></span>
                 );
-                if (_row[1])
-                    advTmplRatingRow.push(
-                        <span
-                            key={Math.random()}
-                            className={colClasses[i++]}
-                            dangerouslySetInnerHTML={{ __html: _row[1] }}
-                        ></span>
-                    );
-            }
+            advTmplRatingRow.push(
+                <span key={Math.random()}>
+                    <Star star={parseFloat(rating[1])} />
+                </span>
+            );
+            if (_row[1])
+                advTmplRatingRow.push(
+                    <span
+                        key={Math.random()}
+                        dangerouslySetInnerHTML={{ __html: _row[1] }}
+                    />
+                );
         }
 
         return (
             <p key={i} className={rowClasses[i]} style={rowStyle}>
                 {advTmplRatingRow && advTmplRatingRow}
-                {config?.template_adv && !advTmplRatingRow && (
-                    <span
-                        dangerouslySetInnerHTML={{ __html: row.join(" ") }}
-                    ></span>
+                {!advTmplRatingRow && (
+                    <span dangerouslySetInnerHTML={{ __html: row }}></span>
                 )}
-                {!config?.template_adv &&
-                    row.map((col: string, j) => {
-                        if (col.includes("rating::") && col.substr(8)) {
-                            // @todo for adv tmpl
-                            return (
-                                <span key={j} className={colClasses[j]}>
-                                    <Star star={parseFloat(col.substr(8))} />
-                                </span>
-                            );
-                        } else {
-                            return (
-                                <span key={j} className={colClasses[j]}>
-                                    {col}{" "}
-                                </span>
-                            );
-                        }
-                    })}
                 {!config?.disable_powered_by &&
                 i == props.template.length - 1 ? (
                     <NXSvg {...props} />
@@ -104,6 +66,7 @@ const Content = (props) => {
             </p>
         );
     });
+    
     return (
         <div
             className={`notificationx-content ${

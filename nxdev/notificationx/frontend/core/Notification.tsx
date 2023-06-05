@@ -121,6 +121,7 @@ const Notification = (props) => {
         `themes-${themeName}`,
         `themes-${settings.themes}`,
         `notificationx-${settings.nx_id}`,
+        props.config.link_button ? `button-link` : '',
         {
             [`type-${settings?.custom_type}`]: settings?.custom_type,
             exit: exit,
@@ -132,6 +133,7 @@ const Notification = (props) => {
             "flex-reverse": advance_edit && settings?.image_position === "right",
         }
     );
+    
     const componentStyle: any = {
         maxWidth: `${notificationSize}px`,
     };
@@ -159,7 +161,7 @@ const Notification = (props) => {
                 className="notificationx-link"
                 href={props.data.link}
                 config={settings}
-            >{}</Analytics>}
+            >{ props.config.link_button ? props.config.link_button_text : '' }</Analytics>}
         </div>
     );
 };

@@ -111,6 +111,7 @@ class Conversions extends Types {
                 'defaults'     => [
                     'link_button'   => true,
                 ],
+                'template'  => $common_fields,
             ),
             'conv-theme-eleven' => array(
                 'is_pro' => true,
@@ -119,6 +120,7 @@ class Conversions extends Types {
                 'defaults'     => [
                     'link_button'   => true,
                 ],
+                'template'  => $common_fields,
             ),
             'conv-theme-seven' => array(
                 'is_pro' => true,
@@ -152,6 +154,8 @@ class Conversions extends Types {
                     'conversions_theme-three',
                     'conversions_theme-four',
                     'conversions_theme-five',
+                    'conversions_conv-theme-ten',
+                    'conversions_conv-theme-eleven',
                 ]
             ],
             'woo_template_sales_count' => [
