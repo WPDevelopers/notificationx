@@ -8,16 +8,6 @@
         align-items: center;
         justify-content: center;
     }
-    
-    &>span {
-        border: 1px solid #E6EFFB;
-        padding: 6px;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-        
     span {
         position: relative;
         :hover {
@@ -76,7 +66,7 @@
             background: transparent !important;
         }
     }
-} 
+}
 .rpt-textbox-container {
     width: auto !important;
     left: 0 !important;
