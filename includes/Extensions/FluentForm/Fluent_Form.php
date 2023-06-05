@@ -26,7 +26,7 @@ class Fluent_Form extends Extension {
      */
     use GetInstance;
 
-    public $priority        = 30;
+    public $priority        = 20;
     public $id              = 'fluentform';
     public $img             = '';
     public $doc_link        = 'https://notificationx.com/docs/contact-form-submission-alert/';
@@ -78,7 +78,7 @@ class Fluent_Form extends Extension {
 
     public function source_error_message($messages) {
         if (!$this->class_exists()) {
-            $url = admin_url('plugin-install.php?s=ninja+forms&tab=search&type=term');
+            $url = admin_url('plugin-install.php?s=fluent-forms&tab=search&type=term');
             $messages[$this->id] = [
                 'message' => sprintf( '%s <a href="%s" target="_blank">%s</a> %s',
                     __( 'You have to install', 'notificationx' ),
@@ -252,10 +252,10 @@ class Fluent_Form extends Extension {
 		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with Fluent Form</a></p>
 		<p><strong>Recommended Blog:</strong></p>
 		<p>🔥 Hacks to Increase Your <a target="_blank" href="%5$s">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>', 'notificationx'),
-        'https://wordpress.org/plugins/ninja-forms/',
-        'https://notificationx.com/docs/ninja-forms/',
+        'https://wordpress.org/plugins/fluentform/',
+        'https://notificationx.com/docs/fluent-forms/',
         'https://www.youtube.com/watch?v=Ibv84iGcBHE',
-        'https://notificationx.com/integrations/ninja-forms/',
+        'https://notificationx.com/integrations/fluent-forms/',
         'https://notificationx.com/blog/wordpress-contact-forms/'
         );
     }
