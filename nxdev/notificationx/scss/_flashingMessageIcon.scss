@@ -8,7 +8,6 @@
         align-items: center;
         justify-content: center;
     }
-
     span {
         position: relative;
         :hover {
@@ -74,9 +73,10 @@
     top: -33px !important;
     .rpt-shadow-container {
         box-shadow: rgba(10, 10, 10, 0.25) 7px 7px 20px !important;
+
     }
 }
 .rpt-arrow {
-    margin: 5px !important;
+    
     box-shadow: rgba(10, 10, 10, 0.25) 7px 7px 20px !important;
 }
