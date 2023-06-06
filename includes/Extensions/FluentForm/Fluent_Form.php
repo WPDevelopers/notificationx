@@ -74,6 +74,7 @@ class Fluent_Form extends Extension {
     public function public_actions() {
         parent::public_actions();
 
+        add_filter("nx_filtered_data_{$this->id}", array($this, 'filter_by_form'), 11, 3);
     }
 
     public function source_error_message($messages) {
@@ -152,59 +153,37 @@ class Fluent_Form extends Extension {
             return $result;
         }
         if (isset($args['form_id'])) {
-
-           // Prepare the query with a WHERE condition
-            $query = $wpdb->prepare(
-                "SELECT * FROM {$table_name} WHERE id = %d AND status = %s", 
-                $args['form_id'], 'published'
-            );
-            // Execute the query and retrieve the results
-            $fieldsString = $wpdb->get_results($query);
-            if( !empty( $fieldsString ) ) {
-                $fieldsString = json_decode($fieldsString[0]->form_fields);
-                return $this->keys_generator($fieldsString);
-            }
-                        
+            return $this->keys_generator($args['form_id']);
         }
 
         wp_send_json_error([]);
     }
 
-    public function keys_generator($fieldsString) {
+    public function keys_generator($form_id) {
         $formData = [];
-        foreach ($fieldsString->fields as $key => $value) {
-            if( is_object( $value->fields ) ) {
-                foreach ($value->fields as $_key => $_value) {
-                    if ( !empty( $_value->attributes->placeholder ) ) {
-                        $formData[] = [
-                            'label' => $_value->attributes->placeholder ?? '',
-                            'value' => 'tag_'.$this->id.'_'.$_value->attributes->name ?? '',
-                        ];
-                    }
-                    
-                }
-            }else{
-                if( !empty( $value->attributes->placeholder ) ) {
-                    $formData[] = [
-                        'label'  => $value->attributes->placeholder ?? '',
-                        'value'  => 'tag_'.$value->attributes->name ?? '',
-                    ];
-                }
-                
-            }
+        $formApi = fluentFormApi('forms')->form($form_id);
+        $formFields = $formApi->labels();
+        foreach ($formFields as $key => $value) {
+            $formData[] = [
+                'label' => $value ?? '',
+                'value' => 'tag_'.$this->id.'_'.$key ?? '',
+            ];
         }
         return $formData;
     }
 
+
     public function save_new_records($insertId,$formData,$form) {
+        $submission = wpFluent()->table('fluentform_submissions')
+        ->where('form_id', $form->id)
+        ->where('id', $insertId)
+        ->first();
         $data = [];
-        foreach ($formData as $key => $field) {
-            if( is_array($field) ){
-                foreach ($field as $_key => $value) {
-                    $data[$this->id.'_'.$_key] = $value;
-                }
-            }else{
-                $data[$key] = $field;
+        if( !empty( $submission ) ) {
+            $inputs = \FluentForm\App\Modules\Form\FormFieldsParser::getEntryInputs($form);
+            $submission = \FluentForm\App\Modules\Form\FormDataParser::parseFormEntry($submission, $form, $inputs, false);
+            foreach ($submission->user_inputs as $key => $field) {
+                $data[$this->id.'_'.$key] = $field;
             }
         }
         $data['title'] = $form->title ?? '';
@@ -227,6 +206,56 @@ class Fluent_Form extends Extension {
     }
 
     /**
+     * This function responsible for making ready the notifications for the first time
+     * we have made a notification.
+     *
+     * @param string $type
+     * @param array $data
+     * @return void
+     */
+    public function get_notification_ready($data = array()) {
+        if( !empty( $data['__form_list']['value'] ) ) {
+            $form_list = explode('_',$data['__form_list']['value']);
+            if( !empty( $form_list[1] ) ) {
+                $form = wpFluent()->table('fluentform_forms')->where('id', $form_list[1])->first();
+                $valueFrom = date('Y-m-d',strtotime('-'.$data['display_from'].' days',time()));
+                $valueTo = date('Y-m-d',strtotime('1 days',time()));
+                $submissionArr = wpFluent()->table('fluentform_submissions')
+                ->where('form_id', $form->id)
+                ->whereBetween('created_at', $valueFrom, $valueTo )
+                ->orderBy('id','DESC')
+                ->limit($data['display_last'])
+                ->get();
+                $entries = [];
+                foreach ($submissionArr as $sub) {
+                    if( !empty( $sub ) ) {
+                        $entry_data = [];
+                        $inputs = \FluentForm\App\Modules\Form\FormFieldsParser::getEntryInputs($form);
+                        $submission = \FluentForm\App\Modules\Form\FormDataParser::parseFormEntry($sub, $form, $inputs, false);
+                        foreach ($submission->user_inputs as $key => $field) {
+                            $entry_data[$this->id.'_'.$key] = $field;
+                        }
+                        $entry_data['title'] = $form->title ?? '';
+                        $entry_data['timestamp'] = $sub->created_at;
+                        $_key = $this->key($form->id);
+                        if (!empty($data)) {
+                            $entries[] = [
+                                'nx_id'      => $data['nx_id'],
+                                'source'     => $this->id,
+                                'entry_key'  => $_key,
+                                'data'       => $entry_data,
+                            ];
+                        }
+                    }
+                }
+                $this->update_notifications($entries);
+            }
+        }
+
+        
+    }
+
+    /**
      * Limit entry by selected form in 'Select a Form';
      *
      * @param [type] $return
@@ -245,6 +274,33 @@ class Fluent_Form extends Extension {
         }
         return $return;
     }
+
+    /**
+     * Filter entries based on selected form
+     *
+     * @param [type] $data
+     * @param [type] $settings
+     * @return boolean
+    */
+    public function filter_by_form($data, $settings){
+        if( empty( $settings['form_list'] )) {
+            return $data;
+        }
+
+        $new_data = [];
+
+        if( ! empty( $data ) ) {
+            foreach( $data as $key => $entry ) {
+                $selected_form = $settings['form_list'];
+                $form_id = $entry['entry_key'];
+                if($selected_form == $form_id){
+                    $new_data[] = $entry;
+                }
+            }
+        }
+        return $new_data;
+    }
+
 
     public function doc() {
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">Fluent Form installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
