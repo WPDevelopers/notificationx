@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { MediaUpload } from '@wordpress/media-utils';
-import { useBuilderContext, withLabel, GenericInput as Input } from "quickbuilder"
+import { useBuilderContext, withLabel, Input } from "quickbuilder"
 import Icon from "./helpers/Icon";
 
 const FlashingMessageIcon = (props) => {
@@ -37,11 +37,10 @@ const FlashingMessageIcon = (props) => {
     
 
     return (
-        <>
+        <div className={`nx-field ${props.wrapperClass ?? ''}`}>
             <Icon value={value} setValue={setValue} options={props.options} />
-            <Input type="text" value={value.message} onChange={onTextUpdate} />
-
-        </>
+            <Input type="text" value={value.message} onChange={onTextUpdate} description={props?.description} />
+        </div>
     );
 };
 

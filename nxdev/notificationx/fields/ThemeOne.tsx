@@ -25,8 +25,6 @@ const ThemeOne = (props) => {
         });
     }, [value])
 
-
-
     
 
     return (
@@ -38,4 +36,4 @@ const ThemeOne = (props) => {
     );
 };
 
-export default ThemeOne;
+export default withLabel(ThemeOne);

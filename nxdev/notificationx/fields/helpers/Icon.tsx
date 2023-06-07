@@ -84,10 +84,10 @@ const Icon = (props) => {
 
     return ( 
         <>
-            <span>
+            <span className="nx-image-popup-wrapper" data-count="21">
                 <img src={value.icon} alt="iconImg" />
-                <div className="img-overlay">
-                    <img src={editIcon} alt="iconImg" onClick={imageClick} />
+                <div className="img-overlay" onClick={imageClick}>
+                    <img src={editIcon} alt="iconImg" />
                 </div>
                 <Tooltip show={show} position="top center" arrowAlign="start">
                     {options.map((option,index)=> {
