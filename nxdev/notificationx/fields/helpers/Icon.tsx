@@ -83,8 +83,8 @@ const Icon = (props) => {
     }
 
     return ( 
-    <>
-        <span>
+        <>
+            <span>
                 <img src={value.icon} alt="iconImg" />
                 <div className="img-overlay">
                     <img src={editIcon} alt="iconImg" onClick={imageClick} />
@@ -131,7 +131,7 @@ const Icon = (props) => {
                     </span>
                 </Tooltip>
             </span>
-    </>
+        </>
     );
 };
 

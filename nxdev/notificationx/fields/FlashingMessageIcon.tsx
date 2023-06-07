@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { MediaUpload } from '@wordpress/media-utils';
-import { useBuilderContext, withLabel, GenericInput as Input } from "quickbuilder";
+import { useBuilderContext, withLabel, GenericInput as Input } from "quickbuilder"
 import Icon from "./helpers/Icon";
 
 const FlashingMessageIcon = (props) => {

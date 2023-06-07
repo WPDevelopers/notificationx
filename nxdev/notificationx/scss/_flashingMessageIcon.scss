@@ -7,6 +7,21 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        &::after {
+            position: absolute;
+            content: '1';
+            width: 16px;
+            height: 16px;
+            line-height: 16px;
+            background: #6a4bff;
+            border-radius: 100%;
+            top: -8px;
+            right: -7px;
+            color: #fff;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
     }
     span {
         position: relative;
