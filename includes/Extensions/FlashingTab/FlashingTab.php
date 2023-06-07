@@ -9,9 +9,11 @@
 namespace NotificationX\Extensions\FlashingTab;
 
 use NotificationX\Core\Helper;
+use NotificationX\Core\Locations;
 use NotificationX\Core\PostType;
 use NotificationX\Core\Rules;
 use NotificationX\Extensions\Extension;
+use NotificationX\Extensions\GlobalFields;
 use NotificationX\GetInstance;
 
 /**
@@ -116,6 +118,7 @@ class FlashingTab extends Extension {
         add_filter( 'nx_display_fields', array( $this, 'display_fields' ), 999 );
 
         add_filter( 'nx_metabox_tabs', [ $this, 'nx_tabs' ], 15 );
+        add_filter( 'design_error_message', [ $this, 'design_error_message' ], 15 );
     }
 
     /**
@@ -137,6 +140,24 @@ class FlashingTab extends Extension {
     public function public_actions() {
         parent::public_actions();
 
+    }
+
+    public function design_error_message($messages) {
+        if (!class_exists('\WooCommerce')) {
+            $url = admin_url('plugin-install.php?s=woocommerce&tab=search&type=term');
+            $messages[$this->id] = [
+                'message' => sprintf( '%s <a href="%s" target="_blank">%s</a> %s',
+                    __( 'You have to install', 'notificationx' ),
+                    $url,
+                    __( 'WooCommerce', 'notificationx' ),
+                    __( 'plugin first.', 'notificationx' )
+                ),
+                'html'  => true,
+                'type'  => 'error',
+                'rules' => Rules::includes('themes', ['flashing_tab_theme-3', 'flashing_tab_theme-4']),
+            ];
+        }
+        return $messages;
     }
 
     public function enqueue_scripts() {
@@ -176,7 +197,9 @@ class FlashingTab extends Extension {
         $content_fields['template_adv'] = Rules::is('source', $this->id, true, $content_fields['template_adv']);
         $content_fields['random_order'] = Rules::is('source', $this->id, true, $content_fields['random_order']);
 
-        $fields['utm_options'] = Rules::is('source', $this->id, true, $fields['utm_options']);
+        if(isset($fields['utm_options'])){
+            $fields['utm_options'] = Rules::is('source', $this->id, true, $fields['utm_options']);
+        }
 
 
         $content_fields['ft_message_1'] = [
@@ -301,6 +324,51 @@ class FlashingTab extends Extension {
             ]
         ];
 
+        $fields["ft_visibility"] = [
+            'label'  => __("Visibility", 'notificationx'),
+            'name'   => "ft_visibility",
+            'type'   => "section",
+            'fields' => [
+                "ft_show_on" => [
+                    'label'    => __("Show On", 'notificationx'),
+                    'name'     => "ft_show_on",
+                    'type'     => "select",
+                    'default'  => "everywhere",
+                    'priority' => 5,
+                    'options'  => apply_filters('nx_ft_show_on_options', GlobalFields::get_instance()->normalize_fields([
+                        'everywhere'       => __('Show Everywhere', 'notificationx'),
+                        'on_selected'      => __('Show On Selected', 'notificationx'),
+                        'hide_on_selected' => __('Hide On Selected', 'notificationx'),
+                    ])),
+                ],
+                "ft_all_locations" => [
+                    'label'    => __("Locations", 'notificationx'),
+                    'name'     => "ft_all_locations",
+                    'type'     => "select",
+                    'default'  => "",
+                    'multiple' => true,
+                    'priority' => 10,
+                    'rules'    => [ 'includes', 'ft_show_on', [
+                        'on_selected',
+                        'hide_on_selected',
+                    ] ],
+                    'options' => GlobalFields::get_instance()->normalize_fields(Locations::get_instance()->get_locations()),
+                ],
+                "ft_show_on_display" => [
+                    'label'    => __("Display For", 'notificationx'),
+                    'name'     => "ft_show_on_display",
+                    'type'     => "select",
+                    'default'  => "always",
+                    'priority' => 15,
+                    'options'  => GlobalFields::get_instance()->normalize_fields([
+                        'always'          => __('Everyone', 'notificationx'),
+                        'logged_out_user' => __('Logged Out User', 'notificationx'),
+                        'logged_in_user'  => __('Logged In User', 'notificationx'),
+                    ]),
+                      // 'help' => sprintf('<a target="_blank" rel="nofollow" href="https://notificationx.com/in/pro-display-control">%s</a>', __('More Control in Pro', 'notificationx')),
+                ],
+            ],
+        ];
 
         return $fields;
     }
