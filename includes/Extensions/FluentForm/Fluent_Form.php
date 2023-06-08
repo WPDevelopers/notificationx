@@ -166,7 +166,7 @@ class Fluent_Form extends Extension {
         foreach ($formFields as $key => $value) {
             $formData[] = [
                 'label' => $value ?? '',
-                'value' => 'tag_'.$this->id.'_'.$key ?? '',
+                'value' => 'tag_'.$key ?? '',
             ];
         }
         return $formData;
@@ -183,7 +183,7 @@ class Fluent_Form extends Extension {
             $inputs = \FluentForm\App\Modules\Form\FormFieldsParser::getEntryInputs($form);
             $submission = \FluentForm\App\Modules\Form\FormDataParser::parseFormEntry($submission, $form, $inputs, false);
             foreach ($submission->user_inputs as $key => $field) {
-                $data[$this->id.'_'.$key] = $field;
+                $data[$key] = $field;
             }
         }
         $data['title'] = $form->title ?? '';
@@ -233,7 +233,7 @@ class Fluent_Form extends Extension {
                         $inputs = \FluentForm\App\Modules\Form\FormFieldsParser::getEntryInputs($form);
                         $submission = \FluentForm\App\Modules\Form\FormDataParser::parseFormEntry($sub, $form, $inputs, false);
                         foreach ($submission->user_inputs as $key => $field) {
-                            $entry_data[$this->id.'_'.$key] = $field;
+                            $entry_data[$key] = $field;
                         }
                         $entry_data['title'] = $form->title ?? '';
                         $entry_data['timestamp'] = $sub->created_at;
