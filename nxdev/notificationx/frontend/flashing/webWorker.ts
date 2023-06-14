@@ -19,6 +19,24 @@ function fworker(fn) {
     }
     return new Worker(URL.createObjectURL(blob));
 }
+function generateUniqueId (callbacks) {
+    // Check if crypto is supported
+    if (!window.crypto && window.crypto.randomUUID) {
+      // Use crypto.randomUUID () if available
+      return crypto.randomUUID ();
+    } else {
+      // Use Date.now () and Math.random () as fallback
+      var id = Date.now () + Math.random ();
+      // Check if id already exists in callbacks
+      while (callbacks && callbacks[id]) {
+        // Generate a new id
+        id = Date.now () + Math.random ();
+      }
+      // Return the unique id
+      return id;
+    }
+  }
+
 // ----------------------------------------------------------------------------------
 var interval = (function () {
     var worker = fworker(function () {
@@ -95,7 +113,7 @@ var interval = (function () {
     });
     return {
         set: function (fn, interval) {
-            var interval_id = Date.now();
+            var interval_id = generateUniqueId(callbacks);
             callbacks[interval_id] = fn;
             rpc("setInterval", [interval_id, interval]);
             return interval_id;
@@ -105,7 +123,7 @@ var interval = (function () {
             return rpc("clearInterval", [id]);
         },
         setTimeout: function (fn, interval) {
-            var interval_id = Date.now();
+            var interval_id = generateUniqueId(callbacks);
             callbacks[interval_id] = fn;
             rpc("setTimeout", [interval_id, interval]);
             return interval_id;

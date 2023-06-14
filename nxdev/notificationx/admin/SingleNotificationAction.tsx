@@ -242,7 +242,7 @@ const SingleNotificationAction = ({
             >
                 <span>{__("Duplicate", "notificationx")}</span>
             </Link>
-            {nxContext?.is_pro_active && item.source != "press_bar" && item.themes !== 'woo_inline_stock-theme-one' && item.themes !== 'woo_inline_stock-theme-two' && (
+            {nxContext?.is_pro_active && item.source != "press_bar" && item.source != "flashing_tab" && item.themes !== 'woo_inline_stock-theme-one' && item.themes !== 'woo_inline_stock-theme-two' && (
                 <button
                     className="nx-admin-title-shortcode nx-shortcode-btn"
                     title={__("Shortcode", "notificationx")}
@@ -251,7 +251,7 @@ const SingleNotificationAction = ({
                     <span>{__("ShortCode", "notificationx")}</span>
                 </button>
             )}
-            {!nxContext?.is_pro_active && item.source != "press_bar" && item.themes !== 'woo_inline_stock-theme-one' && item.themes !== 'woo_inline_stock-theme-two' && (
+            {!nxContext?.is_pro_active && item.source != "press_bar" && item.source != "flashing_tab" && item.themes !== 'woo_inline_stock-theme-one' && item.themes !== 'woo_inline_stock-theme-two' && (
                 <CopyToClipboard
                     className="nx-admin-title-shortcode nx-shortcode-btn"
                     title={__("Shortcode", "notificationx")}
@@ -269,7 +269,7 @@ const SingleNotificationAction = ({
                     <a></a>
                 </CopyToClipboard>
             )}
-            {!item?.elementor_id && (
+            {!item?.elementor_id && item.source != "flashing_tab" && (
                 <CopyToClipboard
                     className="nx-admin-title-xss"
                     title={__("Cross Domain Notice", "notificationx")}

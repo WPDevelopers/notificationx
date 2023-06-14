@@ -108,7 +108,7 @@ class QuickBuild {
         $tabs['source_tab']['fields'] = array_merge($tabs['source_tab']['fields'], $configs['tabs']['content_tab']['fields']);
         $tabs['display_tab']['fields'] = array_merge($tabs['display_tab']['fields'], $configs['tabs']['customize_tab']['fields']);
 
-        return [
+        return apply_filters('nx_quick_builder_tabs', [
             'id'            => 'notificationx_metabox_quick_builder_wrapper',
             'redirect'      => !current_user_can( 'edit_notificationx' ),
             'title'         => __('NotificationX', 'notificationx'),
@@ -192,6 +192,12 @@ class QuickBuild {
                 'google_reviews_place_data',
                 'google_reviews_custom_place_id',
 
+                'ft_theme_one_icons',
+                'ft_theme_one_message',
+                'ft_theme_three_line_one',
+                'ft_theme_three_line_two',
+                'ft_theme_four_line_two',
+
             ],
             'types_title' => apply_filters( 'nx_source_types_title', array(
                 'notification_bar' => __('Notification Bar', 'notificationx'),
@@ -204,7 +210,7 @@ class QuickBuild {
                 'form'             => __('Contact Form', 'notificationx'),
                 'inline'           => __('Growth Alert', 'notificationx'),
             )),
-        ];
+        ]);
     }
 
 }

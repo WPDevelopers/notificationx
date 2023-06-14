@@ -1,5 +1,5 @@
 // Import the favloader and interval modules
-import favloader from "./flashing/favloader";
+import FavLoader from "./flashing/favloader";
 import interval from "./flashing/webWorker";
 
 // Declare constants for the settings and messages
@@ -7,12 +7,37 @@ import interval from "./flashing/webWorker";
 const settings     = window.nx_flashing_tab || {};
 const initialDelay = (parseInt(settings.ft_delay_before) || 0) * 1000;
 const delayBetween = (parseInt(settings.ft_delay_between) || 1) * 1000;
-const displayFor   = (parseInt(settings.ft_display_for) || 0) * 1000 * 60;
-const message1     = settings.ft_message_1;
-const message2     = settings.ft_message_2;
+const displayFor   = (parseFloat(settings.ft_display_for) || 0) * 1000 * 60;
+let   message1     = {message: '', icon: ''};
+let   message2     = {message: '', icon: ''};
+
+switch (settings.themes) {
+    case 'flashing_tab_theme-1':
+    case 'flashing_tab_theme-2':
+        message1.icon = settings.ft_theme_one_icons?.['icon-one'];
+        message2.icon = settings.ft_theme_one_icons?.['icon-two'];
+        message1.message = settings.ft_theme_one_message;
+        break;
+    case 'flashing_tab_theme-3':
+        message1 = settings.ft_theme_three_line_one ?? message1;
+        message2 = settings.ft_theme_three_line_two ?? message2;
+        break;
+    case 'flashing_tab_theme-4':
+        message1 = settings.ft_theme_three_line_one ?? message1;
+        if(!settings.ft_theme_four_line_two?.['is-show-empty']){
+            message2 = settings.ft_theme_four_line_two?.default ?? message2;
+        }
+        else{
+            message2 = settings.ft_theme_four_line_two?.alternative ?? message2;
+        }
+        break;
+
+    default:
+        break;
+}
 
 // Initialize the favloader with the given parameters
-favloader.init({
+FavLoader.init({
     size: 32,
 });
 
@@ -27,7 +52,7 @@ const originalTitle = window.document.title;
 
 // Define a function to change the title based on the toggle state and the message
 const changeTitle = (message) => {
-    if (message) {
+    if (message && message !== document.title) {
         document.title = message;
     }
 };
@@ -35,7 +60,7 @@ const changeTitle = (message) => {
 // Define a function to animate the icon based on the icon url
 const animateIcon = (icon) => {
     if (icon) {
-        favloader.animatePng(icon);
+        FavLoader.animatePng(icon);
     }
 };
 
@@ -55,8 +80,9 @@ const switchMessageAndIcon = () => {
 
 // Define a function to clear the title and icon and stop the intervals
 const clear = () => {
+    console.trace();
     document.title = originalTitle;
-    favloader.stop();
+    FavLoader.stop();
     if (intervalId) {
         interval.clear(intervalId);
         intervalId = null;
@@ -84,6 +110,8 @@ window.addEventListener("visibilitychange", (event) => {
             displayForID = interval.setTimeout(() => {
                 clear();
             }, displayFor);
+            console.log(displayForID, displayFor);
+
         }
     }
 });

@@ -22,7 +22,7 @@ class FlashingTab extends Types {
      * @var FlashingTab
      */
     use GetInstance;
-    public $priority       = 70;
+    public $priority       = 45;
     public $is_pro         = true;
     public $module         = ['modules_flashing'];
     public $id             = 'flashing_tab';

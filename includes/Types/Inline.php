@@ -22,7 +22,7 @@ class Inline extends Types {
      * @var Admin
      */
     use GetInstance;
-    public $priority       = 60;
+    public $priority       = 50;
     public $is_pro         = true;
     public $module         = ['modules_woocommerce'];
     public $id             = 'inline';

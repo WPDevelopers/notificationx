@@ -2,9 +2,9 @@ import React from 'react'
 import { __ } from '@wordpress/i18n';
 import AdvancedTemplate from './AdvancedTemplate';
 import PreviewModal from './PreviewModal';
-import FlashingMessageIcon from './FlashingMessageIcon';
-import ThemeOne from './ThemeOne';
-import ThemeFour from './ThemeFour';
+import FlashingThemeOne from './FlashingThemeOne';
+import FlashingThemeThree from './FlashingThemeThree';
+import FlashingThemeFour from './FlashingThemeFour';
 
 
 
@@ -15,12 +15,13 @@ const Field = (r, type, props) => {
             return <AdvancedTemplate {...props} />;
         case "preview-modal":
             return <PreviewModal {...props} />;
-        case "flashing-message-icon":
-            return <FlashingMessageIcon {...props} />;
         case "flashing-theme-one":
-            return <ThemeOne {...props} />;
+        case "flashing-theme-two":
+            return <FlashingThemeOne {...props} />;
+        case "flashing-theme-three":
+            return <FlashingThemeThree {...props} />;
         case "flashing-theme-four":
-            return <ThemeFour {...props} />;
+            return <FlashingThemeFour {...props} />;
         default:
             return <></>;
     }
