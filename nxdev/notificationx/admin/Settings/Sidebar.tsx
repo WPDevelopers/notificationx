@@ -3,7 +3,6 @@ import { __ } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
 
 const Sidebar = ({ assetsUrl, is_pro_active = false }) => {
-    console.log(assetsUrl, is_pro_active);
     return (
         <div className="nx-settings-right">
             <div className="nx-sidebar">

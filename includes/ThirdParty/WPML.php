@@ -99,13 +99,13 @@ class WPML {
             }
         }
         else{
-            if($post['link_type']){
+            if(!empty($post['link_type'])){
                 $meta['custom_url'] = ['Custom URL', 'LINE'];
             }
-            if($post['template_adv']){
+            if(!empty($post['template_adv'])){
                 $meta['advanced_template'] = ['Advance Template', 'VISUAL'];
             }
-            if(($post['source'] == 'edd' || $post['source'] == 'woocommerce') && $post['combine_multiorder']){
+            if(($post['source'] == 'edd' || $post['source'] == 'woocommerce') && !empty($post['combine_multiorder'])){
                 $meta['combine_multiorder_text'] = ['Combine Multi Order Text', 'LINE'];
             }
         }
@@ -120,7 +120,7 @@ class WPML {
         return array(
             'kind'      => 'NotificationX',
             'name'      => "$nx_id",
-            'title'     => "{$post['title']}", // ($nx_id)
+            'title'     => isset($post['title']) ? $post['title'] : '', // ($nx_id)
             'edit_link' => PostType::get_instance()->get_edit_link($nx_id),
             'view_link' => PostType::get_instance()->get_edit_link($nx_id),
         );

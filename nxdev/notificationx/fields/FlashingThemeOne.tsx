@@ -47,8 +47,8 @@ const FlashingThemeOne = (props) => {
 
     return (
         <>
-            <Icon name="icon-one" count="1" value={props.value?.['icon-one']} onChange={onChange} options={props['icons-one']} />
-            <Icon name="icon-two" count="2" value={props.value?.['icon-two']} onChange={onChange} options={props['icons-two']} />
+            <Icon name="icon-one" count="1" iconPrefix={props.iconPrefix} value={props.value?.['icon-one']} onChange={onChange} options={props['icons-one']} />
+            <Icon name="icon-two" count="2" iconPrefix={props.iconPrefix} value={props.value?.['icon-two']} onChange={onChange} options={props['icons-two']} />
         </>
     );
 };

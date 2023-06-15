@@ -15,9 +15,10 @@ type FlashingThemeFour = {
     'alternative'  ?: FlashingThemeOne,
 }
 type FlashingIcon = {
-    name     : string,
-    value    : string,
-    onChange : Function,
-    options  : Array<{icon: string, label: string}>,
-    count   ?: string
+    name       : string,
+    iconPrefix? : string,
+    value      : string,
+    onChange   : Function,
+    options    : Array<{icon: string, label: string}>,
+    count     ?: string
 }

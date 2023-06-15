@@ -4,30 +4,31 @@ import interval from "./flashing/webWorker";
 
 // Declare constants for the settings and messages
 // @ts-ignore
-const settings     = window.nx_flashing_tab || {};
+const settings = window.nx_flashing_tab || {};
 const initialDelay = (parseInt(settings.ft_delay_before) || 0) * 1000;
 const delayBetween = (parseInt(settings.ft_delay_between) || 1) * 1000;
-const displayFor   = (parseFloat(settings.ft_display_for) || 0) * 1000 * 60;
-let   message1     = {message: '', icon: ''};
-let   message2     = {message: '', icon: ''};
+const displayFor = (parseFloat(settings.ft_display_for) || 0) * 1000 * 60;
+let message1 = { message: "", icon: "" };
+let message2 = { message: "", icon: "" };
+const nx_id = settings.nx_id;
+const restUrl = settings.__rest_api_url;
 
 switch (settings.themes) {
-    case 'flashing_tab_theme-1':
-    case 'flashing_tab_theme-2':
-        message1.icon = settings.ft_theme_one_icons?.['icon-one'];
-        message2.icon = settings.ft_theme_one_icons?.['icon-two'];
+    case "flashing_tab_theme-1":
+    case "flashing_tab_theme-2":
+        message1.icon = settings.ft_theme_one_icons?.["icon-one"];
+        message2.icon = settings.ft_theme_one_icons?.["icon-two"];
         message1.message = settings.ft_theme_one_message;
         break;
-    case 'flashing_tab_theme-3':
+    case "flashing_tab_theme-3":
         message1 = settings.ft_theme_three_line_one ?? message1;
         message2 = settings.ft_theme_three_line_two ?? message2;
         break;
-    case 'flashing_tab_theme-4':
+    case "flashing_tab_theme-4":
         message1 = settings.ft_theme_three_line_one ?? message1;
-        if(!settings.ft_theme_four_line_two?.['is-show-empty']){
+        if (!settings.ft_theme_four_line_two?.["is-show-empty"]) {
             message2 = settings.ft_theme_four_line_two?.default ?? message2;
-        }
-        else{
+        } else {
             message2 = settings.ft_theme_four_line_two?.alternative ?? message2;
         }
         break;
@@ -97,21 +98,56 @@ const clear = () => {
     }
 };
 
+// Define a function that takes nx_id and type as parameters
+function sendAnalyticsRequest(nx_id, type) {
+    // Create an object with the request parameters
+    let params = {
+        nx_id: nx_id,
+        type: type,
+    };
+
+    // Use the fetch api to send a POST request
+    fetch(restUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(params),
+    })
+        .then((response) => response.json()) // Parse the response as json
+        .then((data) => {
+            // Do something with the data
+            // console.log(data);
+        })
+        .catch((error) => {
+            // Handle any errors
+            // console.error(error);
+        });
+}
+
 // Add an event listener for the visibility change of the document
 window.addEventListener("visibilitychange", (event) => {
-    clear();
     if (document.visibilityState !== "visible") {
+        clear();
         // Set a timeout to start switching between the messages and icons after a delay
         initialDelayID = interval.setTimeout(() => {
             intervalId = interval.set(switchMessageAndIcon, delayBetween);
+
+            // reset initialDelayID so we can detect it in clicks analytics
+            initialDelayID = null;
+            sendAnalyticsRequest(nx_id, "views");
         }, initialDelay);
 
         if (displayFor) {
             displayForID = interval.setTimeout(() => {
                 clear();
             }, displayFor);
-            console.log(displayForID, displayFor);
-
         }
+    } else {
+        // making sure we are sending request after initialDelay.
+        if (null == initialDelayID) {
+            sendAnalyticsRequest(nx_id, "clicks");
+        }
+        clear();
     }
 });

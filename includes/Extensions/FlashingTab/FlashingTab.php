@@ -99,7 +99,7 @@ class FlashingTab extends Extension {
                         ],
                         'alternative' => [
                             'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-4-icon-2.png',
-                            'message' => 'We miss you.',
+                            'message' => '',
                         ],
                     ],
                 ],
@@ -136,7 +136,7 @@ class FlashingTab extends Extension {
 		<p>🔥How To <a target="_blank" href="%3$s">Attract Customers With Flashing Browser Tab Notification Using NotificationX?</a></p>
 		', 'notificationx'),
         'https://notificationx.com/docs/flashing-tab-alerts/',
-        'https://www.youtube.com/watch?v=3M-cEhJ8q2E',
+        'https://www.youtube.com/watch?v=RCyB06nI-Xc',
         'https://notificationx.com/blog/flashing-browser-tab-notifications/'
         );
     }

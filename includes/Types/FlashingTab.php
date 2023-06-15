@@ -36,12 +36,12 @@ class FlashingTab extends Types {
         $this->title = __('Flashing Tab', 'notificationx');
         $this->dashboard_title = __('Flashing Tab', 'notificationx');
         $this->popup = [
-            "denyButtonText" => __("<a href='https://notificationx.com/growth-alert/' target='_blank'>More Info</a>", "notificationx"),
+            "denyButtonText" => __("<a href='https://notificationx.com/flashing-tab/' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
             "html"=> __('
-                <span>Highlight your sales, low stock updates with inline growth alert to boost sales</span>
+                <span>Revive lost visitors and convert them into customers with captivating Flashing Tab alerts.</span>
                 <iframe id="email_subscription_video" type="text/html" allowfullscreen width="450" height="235"
-                src="https://www.youtube.com/embed/vXMtBPvizDw">
+                src="https://www.youtube.com/embed/RCyB06nI-Xc">
                 </iframe>
             ', 'notificationx')
         ];

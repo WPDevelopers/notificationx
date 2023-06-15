@@ -1,21 +1,36 @@
-import React, { createRef, useCallback, useEffect, useRef, useState } from "react";
+import React, { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { MediaUpload } from '@wordpress/media-utils';
-import { useBuilderContext, withLabel, GenericInput as Input } from "quickbuilder";
 import Tooltip from 'react-power-tooltip';
-import data from '@emoji-mart/data';
-import Picker from '@emoji-mart/react';
 import classNames from "classnames";
 import editIcon from '../images/editIcon.png';
 import emojiAdd from '../images/emojiAdd.png';
 import uploadIcon from '../images/uploadIcon.png';
+import { lazyWithPreload } from "react-lazy-with-preload";
+const Picker = lazyWithPreload(() => import('@emoji-mart/react'));
 
+// A function that takes a value and an iconPrefix and returns a localValue
+const getLocalValue = (value, iconPrefix) => {
+    // Check if the value is empty
+    if (!value) {
+      // Return an empty string
+      return "";
+    }
+    // Check if the value is a URL or a data URL using regular expressions
+    const isUrl = /^https?:\/\//.test(value); // returns true if value starts with http:// or https://
+    const isDataUrl = /^data:/.test(value); // returns true if value starts with data:
+    // If the value is neither a URL nor a data URL, prepend the iconPrefix
+    const localValue = isUrl || isDataUrl ? value : iconPrefix + value;
+    // Return the localValue
+    return localValue;
+};
 
-
-const Icon = ({name, value, onChange, options, count}: FlashingIcon) => {
+const Icon = ({name, value, onChange, options, count, iconPrefix}: FlashingIcon) => {
     const [show, setShow]               = useState(false)
     const [showEmoji, setShowEmoji]     = useState(false)
     const [mediaUpload, setMediaUpload] = useState('');
     const [isMediaOpen, setIsMediaOpen] = useState(false);
+    const [data, setData]               = useState({});
+    const [localValue, setLocalValue]   = useState(getLocalValue(value, iconPrefix));
     const iconRef                       = useRef<HTMLSpanElement>();
 
     const onImageClick = () => {
@@ -114,9 +129,15 @@ const Icon = ({name, value, onChange, options, count}: FlashingIcon) => {
 
     useEffect(() => {
         setShow(false);
+        setLocalValue(getLocalValue(value, iconPrefix));
     }, [value]);
 
     useEffect(() => {
+        Picker.preload();
+
+        import("@emoji-mart/data").then((data) => {
+            setData(data.default);
+        });
 
         return () => {
             removeListener();
@@ -128,7 +149,7 @@ const Icon = ({name, value, onChange, options, count}: FlashingIcon) => {
             <span className={classNames("nx-image-popup-wrapper", {
                 'has-count': count,
             })} data-count={count} ref={iconRef}>
-                <img src={value} alt="iconImg" />
+                <img src={localValue} alt="iconImg" />
                 <div className="img-overlay" onClick={onImageClick}>
                     <img src={editIcon} alt="iconImg" />
                 </div>
@@ -136,7 +157,7 @@ const Icon = ({name, value, onChange, options, count}: FlashingIcon) => {
                     {options.map((option, index)=> {
                         return (
                             <span key={index} onClick={()=>onChangeIcon(option)}>
-                                <img src={option.icon} alt={option.label} />
+                                <img src={iconPrefix + option.icon} alt={option.label} />
                             </span>
                         )
                     })}
@@ -144,11 +165,13 @@ const Icon = ({name, value, onChange, options, count}: FlashingIcon) => {
                         <img className="emoji-picker" src={emojiAdd} alt="iconImg" onClick={onEmojiClick} />
                         <Tooltip show={showEmoji} position="bottom center" arrowAlign="start">
                             <span className="emoji-wrapper">
-                                <Picker
-                                theme="light"
-                                data={data}
-                                onEmojiSelect={onEmojiSelect}
-                                onClickOutside={onEmojiOnClickOutside} />
+                                <Suspense fallback={<div>Loading...</div>}>
+                                    <Picker
+                                    theme="light"
+                                    data={data}
+                                    onEmojiSelect={onEmojiSelect}
+                                    onClickOutside={onEmojiOnClickOutside} />
+                                </Suspense>
                             </span>
                         </Tooltip>
                     </span>
