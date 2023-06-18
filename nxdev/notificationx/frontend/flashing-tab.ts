@@ -81,7 +81,7 @@ const switchMessageAndIcon = () => {
 
 // Define a function to clear the title and icon and stop the intervals
 const clear = (removeIcon?) => {
-    console.trace();
+    // console.trace();
     document.title = originalTitle;
 
     if(removeIcon){

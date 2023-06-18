@@ -95,7 +95,7 @@ class FlashingTab extends Extension {
                         'is-show-empty' => false,
                         'default'       => [
                             'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-4-icon-2.png',
-                            'message' => '{quantity} items in your cart!',
+                            'message' => __('{quantity} items in your cart!', 'notificationx'),
                         ],
                         'alternative' => [
                             'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-4-icon-2.png',

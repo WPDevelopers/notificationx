@@ -42,7 +42,7 @@ class XSS {
                     'type'         => 'codeviewer',
                     'label'        => __( 'Cross Domain Notice', 'notificationx' ),
                     'button_text'  => __( 'Click to Copy', 'notificationx' ),
-                    'success_text' => __( 'Cross Domain Notice code has been copied to Clipboard.', 'notificationx' ),
+                    'success_text' => __( 'Copied to clipboard.', 'notificationx' ),
                     'is_pro'       => true,
                     'copyOnClick'  => true,
                     'readOnly'     => true,

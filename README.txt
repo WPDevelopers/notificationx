@@ -219,7 +219,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 2.7.2 - 18/06/2023 =
+= 2.7.2 - 19/06/2023 =
 - Fixed: Notification Preview issues.
 - Fixed: Fields weren’t showing in notification form templates.
 - Few minor bug fixes & improvements.

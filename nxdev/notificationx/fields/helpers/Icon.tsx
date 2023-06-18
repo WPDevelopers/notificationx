@@ -90,10 +90,10 @@ const Icon = ({name, value, onChange, options, count, iconPrefix}: FlashingIcon)
 
           // use these alignment properties for "better" positioning
         context.textAlign    = "center";
-        context.textBaseline = "middle";
+        context.textBaseline = "top";
 
           // draw the emoji
-        context.fillText (emoji.native, size / 2 - 1, size / 2 + 6, size)
+        context.fillText (emoji.native, size / 2, 6, size)
 
         const png = context.canvas.toDataURL();
 

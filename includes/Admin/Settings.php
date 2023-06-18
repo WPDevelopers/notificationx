@@ -361,7 +361,7 @@ class Settings extends UsabilityDynamicsSettings {
                                         'friday'    => __( 'Friday', 'notificationx' ),
                                         )
                                     ),
-                                    'description' => __( 'Select a Day for Email Report.', 'notificationx' ),
+                                    'description' => __( 'Select a day for email report.', 'notificationx' ),
                                     'rules'       => Rules::logicalRule([
                                         Rules::is( 'reporting_frequency', 'nx_weekly' ),
                                         Rules::is( 'disable_reporting', false ),
