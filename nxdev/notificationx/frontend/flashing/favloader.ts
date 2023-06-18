@@ -24,8 +24,8 @@ function warn(message) {
 
 let ctx: CanvasRenderingContext2D,
     c: HTMLCanvasElement,
-    link,
     links = [],
+    iconType = ["icon", "mask-icon", "apple-touch-icon"],
     initialized,
     settings;
 
@@ -58,29 +58,35 @@ function init(options) {
 }
 
 function createIcon() {
-    link = document.querySelector('link[rel*="icon"]');
-    link = document.querySelector('link[rel*="icon"]');
-    if (!link) {
-        link = document.createElement("link");
-        link.setAttribute("rel", "icon");
-        document.head.appendChild(link);
-        warn("No default icon found, restore state will not work");
-    }
+
+    iconType.forEach((icon) => {
+        const link = document.querySelector(`link[rel="${icon}"]`);
+        if (!link) {
+            const link = document.createElement("link");
+            link.setAttribute("rel", icon);
+            link.setAttribute("color", "#000000");
+            document.head.appendChild(link);
+            // warn("No default icon found, restore state will not work");
+        }
+    });
+
 }
 
 function removeIcon() {
     const links = document.querySelectorAll('link[rel*="icon"]');
     for (var i = 0; i < links.length; i++) {
-        if (links[i] !== link) {
-            links[i].remove(); // remove the original node from its parent
-        }
+        links[i].remove(); // remove the original node from its parent
     }
 }
 
 function restore() {
-    if (link && link.parentNode) {
-        link.parentNode.removeChild(link);
-    }
+    iconType.forEach((icon) => {
+        const link = document.querySelector(`link[rel="${icon}"]`);
+        if (link && link.parentNode) {
+            link.parentNode.removeChild(link);
+        }
+    });
+
     if (links.length) {
         for (var i = 0; i < links.length; i++) {
             document.head.appendChild(links[i]); // append the icon element to the document head
@@ -89,36 +95,56 @@ function restore() {
 }
 
 function animatePng(png) {
-    if (!initialized) {
-        return;
-    }
-    removeIcon();
-    createIcon();
+    // create a new promise object
+    const promise = new Promise((resolve, reject) => {
+        if (!initialized) {
+            // reject the promise with an error message
+            reject(new Error("Function not initialized"));
+        } else {
+            // removeIcon();
+            createIcon();
 
-    if (png) {
-        ctx.clearRect(0, 0, settings.size, settings.size);
-        const image = new Image(); // create a new image object
-        image.src = png; // set the image source
-        image.onload = function () {
-            // wait for the image to load
-            ctx.drawImage(image, 0, 0, settings.size, settings.size); // draw the image at (0, 0)
+            if (png) {
+                ctx.clearRect(0, 0, settings.size, settings.size);
+                const image = new Image(); // create a new image object
+                image.onload = function () {
+                    // wait for the image to load
+                    ctx.drawImage(image, 0, 0, settings.size, settings.size); // draw the image at (0, 0)
+                    const dataURL = ctx.canvas.toDataURL();
 
-            var newIcon,
-                icon = document.querySelector('link[rel*="icon"]');
-            (newIcon = <Element>icon.cloneNode(true)).setAttribute(
-                "href",
-                ctx.canvas.toDataURL()
-            );
-            icon.parentNode.replaceChild(newIcon, icon);
-            link = newIcon;
-        };
-    }
+                    iconType.forEach((icon) => {
+                        const link = document.querySelector(
+                            `link[rel="${icon}"]`
+                        );
+                        const newIcon = <Element>link.cloneNode(true);
+                        newIcon.setAttribute("href", dataURL);
+                        link.parentNode.replaceChild(newIcon, link);
+                    });
+
+                    // resolve the promise with the dataURL as the value
+                    resolve(dataURL);
+                };
+                // handle the error case
+                image.onerror = function () {
+                    // reject the promise with an error message
+                    reject(new Error("Image loading failed"));
+                };
+                image.src = png; // set the image source
+            }
+            else{
+                reject(new Error("No png provided"));
+            }
+        }
+    });
+    // return the promise object
+    return promise;
 }
 
 export default {
     init      : init,
     animatePng: animatePng,
-    stop      : restore,
+    restore   : restore,
+    removeIcon: removeIcon,
     interval  : interval,
     version   : "0.4.4",
 };

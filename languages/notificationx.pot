@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-06-15T10:20:02+00:00\n"
+"POT-Creation-Date: 2023-06-18T07:46:57+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.0\n"
 "X-Domain: notificationx\n"
@@ -490,7 +490,7 @@ msgstr ""
 
 #: includes/Admin/XSS.php:44
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:46927
+#: nxbuild/admin/js/admin.js:46909
 msgid "Click to Copy"
 msgstr ""
 
@@ -953,7 +953,7 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:57
 #: includes/Extensions/Tutor/TutorInline.php:69
 #: includes/Extensions/WooCommerce/WooInline.php:127
-#: includes/FrontEnd/Preview.php:261
+#: includes/FrontEnd/Preview.php:263
 msgid "In last 1 day"
 msgstr ""
 
@@ -961,7 +961,7 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:58
 #: includes/Extensions/Tutor/TutorInline.php:70
 #: includes/Extensions/WooCommerce/WooInline.php:128
-#: includes/FrontEnd/Preview.php:262
+#: includes/FrontEnd/Preview.php:264
 #: includes/Types/DownloadStats.php:104
 #: includes/Types/DownloadStats.php:124
 msgid "In last 7 days"
@@ -971,7 +971,7 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:59
 #: includes/Extensions/Tutor/TutorInline.php:71
 #: includes/Extensions/WooCommerce/WooInline.php:129
-#: includes/FrontEnd/Preview.php:263
+#: includes/FrontEnd/Preview.php:265
 msgid "In last 30 days"
 msgstr ""
 
@@ -2509,7 +2509,7 @@ msgstr ""
 msgid "Rating:"
 msgstr ""
 
-#: includes/FrontEnd/Preview.php:345
+#: includes/FrontEnd/Preview.php:347
 #: assets/admin/js/admin.js:1
 #: nxbuild/admin/js/admin.js:3961
 msgid "Preview"
@@ -2828,67 +2828,67 @@ msgid "<strong>Recommended: </strong> Seems like you haven't updated the Notific
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:45137
+#: nxbuild/admin/js/admin.js:45119
 msgid "\"allOf\" condition requires an array as #3 argument"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:45146
+#: nxbuild/admin/js/admin.js:45128
 msgid "\"anyOf\" condition requires an array as #3 argument"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:45173
+#: nxbuild/admin/js/admin.js:45155
 msgid "\"not\" can have only one comparison rule, multiple rules given"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:45189
+#: nxbuild/admin/js/admin.js:45171
 msgid "Invalid comparison rule %s."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:45432
+#: nxbuild/admin/js/admin.js:45414
 msgid "There are no tabs defined!"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:46694
+#: nxbuild/admin/js/admin.js:46676
 msgid "Field must have a #type. see documentation."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:46918
+#: nxbuild/admin/js/admin.js:46900
 msgid "Copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:46948
+#: nxbuild/admin/js/admin.js:46930
 msgid "File can't be empty."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:46951
+#: nxbuild/admin/js/admin.js:46933
 msgid "Invalid file type."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:47011
+#: nxbuild/admin/js/admin.js:46993
 msgid "You should give a #fields arguments to a group field."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:47354
+#: nxbuild/admin/js/admin.js:47336
 msgid "Loading..."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:47453
+#: nxbuild/admin/js/admin.js:47435
 msgid "#options is a required arguments for RadioCard field."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:48038
+#: nxbuild/admin/js/admin.js:48020
 msgid "Reset"
 msgstr ""
 
@@ -2898,58 +2898,58 @@ msgstr ""
 #: nxbuild/admin/js/admin.js:4325
 #: nxbuild/admin/js/admin.js:4467
 #: nxbuild/admin/js/admin.js:5006
-#: nxbuild/admin/js/admin.js:48191
+#: nxbuild/admin/js/admin.js:48173
 msgid "Something went wrong."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:48142
+#: nxbuild/admin/js/admin.js:48124
 msgid "Button has a required params #text."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:48336
+#: nxbuild/admin/js/admin.js:48318
 msgid "Modal needs button/body with it."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:48455
+#: nxbuild/admin/js/admin.js:48437
 msgid "Save Changes"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:48521
+#: nxbuild/admin/js/admin.js:48503
 msgid "There are no #tabs args defined in props."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:48526
+#: nxbuild/admin/js/admin.js:48508
 msgid "Not an array."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:10064
+#: nxbuild/admin/js/admin.js:10046
 msgid "NotificationXContext context is undefined, please verify you are calling useNotificationXContext() as child of a <NotificationX> component."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:6694
+#: nxbuild/admin/js/admin.js:6693
 msgid "You need to upgrade to the <strong><a href='%s' target='_blank'>Premium Version</a></strong> to use this feature."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:6704
+#: nxbuild/admin/js/admin.js:6703
 msgid "Opps..."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:6674
-#: nxbuild/admin/js/admin.js:45691
+#: nxbuild/admin/js/admin.js:6673
+#: nxbuild/admin/js/admin.js:45673
 msgid "Title Goes Here: title"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:6675
+#: nxbuild/admin/js/admin.js:6674
 msgid "Text Goes Here: text"
 msgstr ""
 
@@ -3503,7 +3503,7 @@ msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:8421
+#: nxbuild/admin/js/admin.js:8403
 #: nxbuild/public/js/crossSite.js:2821
 #: nxbuild/public/js/frontend.js:2821
 msgid "Days"
@@ -3511,7 +3511,7 @@ msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:8428
+#: nxbuild/admin/js/admin.js:8410
 #: nxbuild/public/js/crossSite.js:2828
 #: nxbuild/public/js/frontend.js:2828
 msgid "Hrs"
@@ -3519,7 +3519,7 @@ msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:8435
+#: nxbuild/admin/js/admin.js:8417
 #: nxbuild/public/js/crossSite.js:2835
 #: nxbuild/public/js/frontend.js:2835
 msgid "Mins"
@@ -3527,7 +3527,7 @@ msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:8442
+#: nxbuild/admin/js/admin.js:8424
 #: nxbuild/public/js/crossSite.js:2842
 #: nxbuild/public/js/frontend.js:2842
 msgid "Secs"
@@ -3535,7 +3535,7 @@ msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:8456
+#: nxbuild/admin/js/admin.js:8438
 #: nxbuild/public/js/crossSite.js:2856
 #: nxbuild/public/js/frontend.js:2856
 msgid "You should setup NX Bar properly"
@@ -3590,6 +3590,6 @@ msgstr ""
 msgid "Link Color"
 msgstr ""
 
-#: nxbuild/admin/js/admin.js:45692
+#: nxbuild/admin/js/admin.js:45674
 msgid "Test Goes Here: text"
 msgstr ""

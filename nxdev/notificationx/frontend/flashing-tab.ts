@@ -60,9 +60,7 @@ const changeTitle = (message) => {
 
 // Define a function to animate the icon based on the icon url
 const animateIcon = (icon) => {
-    if (icon) {
-        FavLoader.animatePng(icon);
-    }
+    return FavLoader.animatePng(icon);
 };
 
 // Define a function to switch between the messages and icons based on the toggle state
@@ -70,20 +68,29 @@ const switchMessageAndIcon = () => {
     toggle = !toggle;
     if (toggle) {
         // Use message1
-        changeTitle(message1.message);
-        animateIcon(message1.icon);
+        animateIcon(message1.icon).finally(() => {
+            changeTitle(message1.message);
+        });
     } else {
         // Use message2
-        changeTitle(message2.message);
-        animateIcon(message2.icon);
+        animateIcon(message2.icon).finally(() => {
+            changeTitle(message2.message);
+        });
     }
 };
 
 // Define a function to clear the title and icon and stop the intervals
-const clear = () => {
+const clear = (removeIcon?) => {
     console.trace();
     document.title = originalTitle;
-    FavLoader.stop();
+
+    if(removeIcon){
+        FavLoader.removeIcon();
+    }
+    else{
+        FavLoader.restore();
+    }
+
     if (intervalId) {
         interval.clear(intervalId);
         intervalId = null;
@@ -128,9 +135,10 @@ function sendAnalyticsRequest(nx_id, type) {
 // Add an event listener for the visibility change of the document
 window.addEventListener("visibilitychange", (event) => {
     if (document.visibilityState !== "visible") {
-        clear();
+        clear(true);
         // Set a timeout to start switching between the messages and icons after a delay
         initialDelayID = interval.setTimeout(() => {
+            switchMessageAndIcon();
             intervalId = interval.set(switchMessageAndIcon, delayBetween);
 
             // reset initialDelayID so we can detect it in clicks analytics

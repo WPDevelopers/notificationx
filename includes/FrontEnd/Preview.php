@@ -169,7 +169,9 @@ class Preview {
             'author'               => '<a href="https://wpdeveloper.com/">WPDeveloper</a>',
             'author_profile'       => 'https://profiles.wordpress.org/wpdevteam/',
             'amount'               => rand(50, 70),
-            'avatar'               => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
+            'avatar'               => [
+                'src' => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
+            ],
             'picture'              => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
             'city'                 => 'Dhaka',
             'city_country'         => 'Dhaka, Bangladesh',

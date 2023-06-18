@@ -58,6 +58,8 @@ const config = {
                 "admin/css/admin.css",
                 "admin/css/admin.css.map",
                 "admin/js/admin.js",
+                "admin/js/emoji-mart.js",
+                "admin/js/react-apexcharts.js",
                 "admin/js/admin.js.map",
                 "admin/js/admin.asset.php",
             ],

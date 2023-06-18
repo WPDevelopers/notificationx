@@ -22,6 +22,7 @@ composer.lock           export-ignore
 dependencies.yml            export-ignore
 Gruntfile.js            export-ignore
 package.json            export-ignore
+stats.json            export-ignore
 package-lock.json           export-ignore
 phpunit.xml         export-ignore
 phpunit.xml.dist            export-ignore
