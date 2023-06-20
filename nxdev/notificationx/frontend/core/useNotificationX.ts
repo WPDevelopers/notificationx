@@ -111,14 +111,14 @@ const useNotificationX = (props: any) => {
             query.lang = props.config.rest.lang;
         }
         let url = nxHelper.getPath(props.config.rest, `notice/`, query);
-
+        const extras = props.config?.extra || [];
         const data = {
             all_active: props.config?.all_active || false,
             global    : props.config?.global || [],
             active    : props.config?.active || [],
             pressbar  : props.config?.pressbar || [],
             shortcode : props.config?.shortcode || [],
-            extra     : props.config?.extra || [],
+            extra     : { ...extras,'url': location.pathname, 'page_title': document.title },
         };
 
         const args: {[key: string]: any} = {};

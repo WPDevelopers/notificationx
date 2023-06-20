@@ -20,6 +20,15 @@ const attributes = {
   blockId: {
     type: "string",
   },
+  product_id: {
+    type: "string",
+  },
+  selected_product: {
+    type: "object",
+  },
+  post_type: {
+    type: "string",
+  },
   blockRoot: {
     type: "string",
     default: "notificationx_pro",

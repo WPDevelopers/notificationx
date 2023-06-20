@@ -17,11 +17,36 @@
                         font-weight: 500;
                         color: #6a4bff;
                     }
+                    > span {
+                        span {
+                            &:nth-child(1) {
+                                font-weight: 500;
+                                color: #6a4bff;
+                            }
+                            // &:nth-child(2) {
+
+                            // }
+                        }
+                    }
                 }
                 &.nx-second-row {
                     font-size: 12px;
                     font-weight: 500;
-                    color: #7c8db5;
+                    color: #000;
+                    .nx-second-word {
+                        font-weight: 400;
+                    }
+                    > span {
+                        span {
+                            // &:nth-child(1) {
+                            //     color: #000;
+                            // }
+                            &:nth-child(2) {
+                                font-weight: 400;
+                                color: #7c8db5;
+                            }
+                        }
+                    }
                 }
                 &.nx-third-row {
                     font-size: 10px;
@@ -46,6 +71,17 @@
                     .nx-first-word {
                         font-weight: 500;
                         color: #6a4bff;
+                    }
+                    > span {
+                        span {
+                            &:nth-child(1) {
+                                font-weight: 500;
+                                color: #6a4bff;
+                            }
+                            // &:nth-child(2) {
+
+                            // }
+                        }
                     }
                 }
                 &.nx-second-row {
@@ -72,16 +108,31 @@
                 font-size: 14px;
                 font-weight: 400;
                 color: #000;
-                .nx-first-word,
-                .nx-second-word {
-                    font-weight: 500;
-                    color: #45c9b1;
+                > span {
+                    span {
+                        &:nth-child(1) {
+                            font-weight: 500;
+                            color: #45c9b1;
+                        }
+                        &:nth-child(2) {
+                            font-weight: 400;
+                            color: #000;
+                        }
+                    }
                 }
             }
             &.nx-second-row {
                 font-size: 12px;
                 font-weight: 500;
-                color: #7c8db5;
+                color: #000;
+                > span {
+                    span {
+                        &:nth-child(2) {
+                            font-weight: 400;
+                            color: #7c8db5;
+                        }
+                    }
+                }
             }
             &.nx-third-row {
                 font-size: 10px;
@@ -102,6 +153,17 @@
                     font-weight: 500;
                     color: #ff66bc;
                 }
+                > span {
+                    span {
+                        &:nth-child(1) {
+                            font-weight: 500;
+                            color: #ff66bc;
+                        }
+                        // &:nth-child(2) {
+                            
+                        // }
+                    }
+                }
             }
             &.nx-second-row {
                 font-size: 12px;
@@ -115,6 +177,140 @@
         }
     }
 }
+
+
+// .themes-google_reviews_reviewed {
+//     .notificationx-content {
+//         & > p {
+//             &.nx-first-row {
+//                 color: #000;
+//                 font-size: 14px;
+//                 font-weight: 400;
+//                 .nx-first-word {
+//                     color: #000;
+//                     font-weight: 400;
+//                 }
+//             }
+//             &.nx-second-row {
+//                 font-size: 15px;
+//                 color: #6a4bff;
+//                 font-weight: 500;
+//             }
+//             &.nx-third-row {
+//                 font-size: 10px;
+//                 color: #7c8db5;
+//             }
+//         }
+//     }
+// }
+
+// .themes-google_reviews_review-comment {
+//     .notificationx-content {
+//         & > p {
+//             &.nx-first-row {
+//                 font-size: 14px;
+//                 font-weight: 400;
+//                 color: #000;
+//                 .nx-first-word {
+//                     font-weight: 500;
+//                     color: #6a4bff;
+//                 }
+//                 > span {
+//                     span {
+//                         &:nth-child(1) {
+//                             font-weight: 500;
+//                             color: #6a4bff;
+//                         }
+//                         // &:nth-child(2) {
+                            
+//                         // }
+//                     }
+//                 }
+//             }
+//             &.nx-second-row {
+//                 font-size: 12px;
+//                 font-weight: 400;
+//                 color: #7c8db5;
+//             }
+//             &.nx-third-row {
+//                 font-size: 10px;
+//                 color: #7c8db5;
+//             }
+//         }
+//     }
+// }
+
+// .themes-google_reviews_review-comment-2 {
+//     .notificationx-content {
+//         & > p {
+//             &.nx-first-row {
+//                 font-size: 14px;
+//                 font-weight: 400;
+//                 color: #000;
+//                 .nx-first-word {
+//                     font-weight: 500;
+//                     color: #ff66bc;
+//                 }
+//                 > span {
+//                     span {
+//                         &:nth-child(1) {
+//                             font-weight: 500;
+//                             color: #ff66bc;
+//                         }
+//                         // &:nth-child(2) {
+                            
+//                         // }
+//                     }
+//                 }
+//             }
+//             &.nx-second-row {
+//                 font-size: 12px;
+//                 font-weight: 400;
+//                 color: #7c8db5;
+//             }
+//             &.nx-third-row {
+//                 font-size: 10px;
+//                 color: #7c8db5;
+//             }
+//         }
+//     }
+// }
+// .themes-google_reviews_review-comment-3 {
+//     .notificationx-content {
+//         & > p {
+//             &.nx-first-row {
+//                 font-size: 14px;
+//                 font-weight: 400;
+//                 color: #000;
+//                 .nx-first-word {
+//                     font-weight: 500;
+//                     color: #6a4bff;
+//                 }
+//                 > span {
+//                     span {
+//                         &:nth-child(1) {
+//                             font-weight: 500;
+//                             color: #6a4bff;
+//                         }
+//                         // &:nth-child(2) {
+                            
+//                         // }
+//                     }
+//                 }
+//             }
+//             &.nx-second-row {
+//                 font-size: 12px;
+//                 font-weight: 400;
+//                 color: #7c8db5;
+//             }
+//             &.nx-third-row {
+//                 font-size: 10px;
+//                 color: #7c8db5;
+//             }
+//         }
+//     }
+// }
+
 
 .themes-comments_theme-six-free,
 .themes-comments_theme-eight-free {
