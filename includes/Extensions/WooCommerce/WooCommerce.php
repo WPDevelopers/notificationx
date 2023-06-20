@@ -14,6 +14,7 @@ use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
 use NotificationX\Extensions\GlobalFields;
+use NotificationX\Types\Conversions;
 
 /**
  * WooCommerce Extension Class
@@ -46,6 +47,9 @@ class WooCommerce extends Extension {
     public function __construct(){
         $this->title = __('WooCommerce', 'notificationx');
         $this->module_title = __('WooCommerce', 'notificationx');
+        $this->templates = Conversions::get_instance()->templates;
+        $this->templates['woo_template_new']['third_param']['product_title_raw'] = __('Product Title Raw', 'notificationx');
+        $this->templates['woo_template_sales_count']['third_param']['product_title_raw'] = __('Product Title Raw', 'notificationx');
         parent::__construct();
     }
 
@@ -252,7 +256,7 @@ class WooCommerce extends Extension {
      * This function is responsible for making ready the orders data.
      *
      * @param int $item_id
-     * @param WC_Order_Item_Product $item
+     * @param \WC_Order_Item_Product $item
      * @param int $order_id
      * @return void
      */
@@ -301,10 +305,12 @@ class WooCommerce extends Extension {
         $new_order['ip'] = $order->get_customer_ip_address();
         $product_data = $this->ready_product_data($item->get_data());
         if (!empty($product_data)) {
-            $new_order['order_id']   = is_int($order_id) ? $order_id : $order_id->get_id();
-            $new_order['product_id'] = $item->get_product_id();
-            $new_order['title']      = strip_tags($product_data['title']);
-            $new_order['link']       = $product_data['link'];
+            $new_order['order_id']      = is_int($order_id) ? $order_id : $order_id->get_id();
+            $new_order['product_id']    = $item->get_variation_id() ? $item->get_variation_id() : $item->get_product_id();
+            $new_order['product_id_og'] = $item->get_product_id();
+            $new_order['title']         = strip_tags($product_data['title']);
+            $new_order['title_raw']     = strip_tags($product_data['product_name']);
+            $new_order['link']          = $product_data['link'];
         }
         if($date && method_exists($date, 'getTimestamp')){
             $new_order['timestamp'] = $date->getTimestamp();
@@ -325,9 +331,11 @@ class WooCommerce extends Extension {
         if (empty($data)) {
             return;
         }
+        $product = wc_get_product( $data['product_id'] );
         return array(
-            'title' => $data['name'],
-            'link' => get_permalink($data['product_id']),
+            'title'        => $data['name'],
+            'product_name' => $product->get_name(),
+            'link'         => get_permalink($data['product_id']),
         );
     }
 
@@ -412,10 +420,10 @@ class WooCommerce extends Extension {
 
     public function wpml_translate($entry, $settings) {
         if(!empty($entry['product_id'])){
-            $product_id = apply_filters( 'wpml_object_id', $entry['product_id'], 'nx_bar', false);
+            $product_id = apply_filters( 'wpml_object_id', $entry['product_id'], 'product', false);
             $product = wc_get_product($product_id);
             if($product){
-                $current_lang = apply_filters( 'wpml_current_language', NULL );
+                // $current_lang = apply_filters( 'wpml_current_language', NULL );
 
                 $entry['product_id'] = $product_id;
                 $entry['title']      = $product->get_name();
