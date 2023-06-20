@@ -217,7 +217,7 @@ class PostType {
             return $this->update_post( $post, $data['nx_id'] );
         }
         else if ( !$this->can_enable( $data['source'] ) ) {
-            return $this->can_enable( $data['source'] );
+            return $this->can_enable( $data['source'], true );
         }
         return false;
     }
@@ -299,21 +299,24 @@ class PostType {
      * @return boolean
      */
     public function can_enable( $source ) {
+        $rest   = func_num_args() == 2 ? func_get_arg(1) : null;
+        $return = false;
+
         if ( $source === 'press_bar' ) {
-            return true;
+            $return = true;
         }
 
         $ext = ExtensionFactory::get_instance()->get( $source );
         if ( $ext && $ext->is_pro && ! NotificationX::is_pro() ) {
-            return 0;
+            $return = 0;
         }
 
         $enabled_source = $this->get_enabled_source();
         unset( $enabled_source['press_bar'] );
-        if ( count( $enabled_source ) == 0 ) {
-            return true;
+        if ( $source !== 'press_bar' && count( $enabled_source ) == 0 ) {
+            $return = true;
         }
-        return false;
+        return apply_filters('nx_can_enable', $return, $source, $rest);
     }
 
     // Wrapper function for Database functions.

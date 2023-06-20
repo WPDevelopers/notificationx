@@ -230,6 +230,12 @@ class GlobalFields {
                     ],
                     'classes' => "design_tab",
                     'fields'  => apply_filters('nx_design_tab_fields', [
+                        'design_error' => [
+                            'type' => 'message',
+                            'name' => 'design_error',
+                            'messages' => apply_filters('design_error_message', []),
+                            'rules' => '',
+                        ],
                         "themes" => [
                             'label'  => __("Themes", 'notificationx'),
                             'name'   => "themes",
@@ -708,7 +714,7 @@ class GlobalFields {
                             //     'type' => '',
                             // ],
                             'fields' => [
-                                [
+                                'show_default_image' => [
                                     'label' => __("Show Default Image", 'notificationx'),
                                     'name'  => "show_default_image",
                                     'type'  => "checkbox",

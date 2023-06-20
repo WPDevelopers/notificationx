@@ -29,6 +29,8 @@ class Analytics {
      * @var string
      */
     protected $post_type;
+    public $namespace;
+    public $rest_base;
 
     /**
      * Constructor.
@@ -41,6 +43,10 @@ class Analytics {
         $this->namespace = 'notificationx/v1';
         $this->rest_base = 'analytics';
         add_action('rest_api_init', [$this, 'register_routes']);
+    }
+
+    public function get_rest_url(){
+        return rest_url($this->namespace . '/' . $this->rest_base);
     }
 
     /**
@@ -64,6 +70,11 @@ class Analytics {
                         'required'    => true,
                         'description' => __( 'Unique identifier for the object.', 'notificationx' ),
                         'type'        => 'integer',
+                    ),
+                    'type' => array(
+                        'required'    => false,
+                        'description' => __( 'Click or View', 'notificationx' ),
+                        'type'        => 'string',
                     ),
                 ),
             )
@@ -110,7 +121,8 @@ class Analytics {
 
     public function insert_analytics($request){
         $params = $request->get_params();
-        $result = CoreAnalytics::get_instance()->insert_analytics( absint( $params['nx_id'] ), 'clicks' );
+        $type   = isset($params['type']) ? $params['type'] : 'clicks';
+        $result = CoreAnalytics::get_instance()->insert_analytics( absint( $params['nx_id'] ), $type );
         return ['success' => true];
     }
 }

@@ -20,7 +20,7 @@ class CustomNotification extends Types {
      * @var Admin
      */
 	use GetInstance;
-    public $priority = 55;
+    public $priority = 70;
     public $is_pro = true;
     public $themes = 'all';
     public $module = ['modules_custom_notification'];

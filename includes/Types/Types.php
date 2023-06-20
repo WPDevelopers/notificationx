@@ -13,7 +13,7 @@ use NotificationX\Core\Themes;
 use NotificationX\Extensions\GlobalFields;
 
 /**
- * Extension Abstract for all Extension.
+ * Extension Abstract for all Types.
  */
 abstract class Types {
 

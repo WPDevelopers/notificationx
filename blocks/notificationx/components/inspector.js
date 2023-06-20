@@ -121,7 +121,7 @@ export default function Inspector(props) {
       let ids = [];
       if (res?.posts?.length > 0) {
         ids = res.posts
-          .filter((item) => item.enabled && item.source != "press_bar")
+          .filter((item) => item.enabled && item.source != "press_bar" && item.type !== 'inline' && item.type !== 'flashing_tab')
           .map((item) => ({
             label: item?.title || item?.nx_id,
             value: item?.nx_id,
