@@ -34,7 +34,7 @@ class TypeFactory {
 			'custom'             => 'NotificationX\Types\CustomNotification',
 			'inline'             => 'NotificationX\Types\Inline',
 			'flashing_tab'       => 'NotificationX\Types\FlashingTab',
-			'social'             => 'NotificationX\Types\Social',
+			// 'social'             => 'NotificationX\Types\Social',
 		];
 
     public $types_enabled = [];
