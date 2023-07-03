@@ -1,4 +1,7 @@
 &.themes-conversions_conv-theme-ten {
+    &, .notificationx-inner{
+        border-radius: 10px;
+    }
     .notificationx-content {
         width: 100%;
         display: grid;

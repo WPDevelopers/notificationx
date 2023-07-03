@@ -108,6 +108,9 @@ class WPML {
             if(($post['source'] == 'edd' || $post['source'] == 'woocommerce') && !empty($post['combine_multiorder'])){
                 $meta['combine_multiorder_text'] = ['Combine Multi Order Text', 'LINE'];
             }
+            if(($post['type'] == 'conversions') && !empty($post['link_button'])){
+                $meta['link_button_text'] = ['Link Button Text', 'LINE'];
+            }
         }
         return apply_filters('nx_wpml_translate_field', $meta, $post);
     }

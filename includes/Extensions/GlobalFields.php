@@ -690,6 +690,19 @@ class GlobalFields {
                                         'none' => __('None', 'notificationx'),
                                     ])),
                                 ],
+                                'link_button' => [
+                                    'label'       => __('Button', 'notificationx'),
+                                    'name'        => 'link_button',
+                                    'type'        => 'checkbox',
+                                    'priority'    => 100,
+                                    'is_pro'      => true,
+                                    'default'     => false,
+                                    'description' => __('Enable button with link', 'notificationx'),
+                                    'rules'       => Rules::logicalRule([
+                                        Rules::is('type', 'conversions'),
+                                        Rules::is('link_type','none',true),
+                                    ]),
+                                ],
                             ],
                             // must be called after nx_link_types filter.
                             'rules' => [ 'includes', 'source', apply_filters('nx_link_types_dependency', []) ],
