@@ -187,13 +187,18 @@ export default function Inspector(props) {
                     />
                     {nx_type === 'inline' && postType !== 'wp_template' &&
                       <>
-                        <label htmlFor="chooseProduct">{ __( 'Choose Product','notificationx' ) }</label>
+                        {
+                          nx_source == 'tutor_inline' || nx_source == 'learndash_inline' ? (
+                            <label htmlFor="chooseOption">{ __( 'Choose Course','notificationx' ) }</label>
+                          ) : (
+                            <label htmlFor="chooseOption">{ __( 'Choose Product','notificationx' ) }</label>
+                          )}
                         <Select
                           value={ selected_product }
-                          id="chooseProduct"
+                          id="chooseOption"
                           loadOptions={loadOptions}
                           defaultOptions={nx_products}
-                          getOptionValue={ () => product_id }
+                          noOptionsMessage={ () => __( 'Please type 3 or more characters','notificationx' ) }
                           onChange={ (selected) => {
                             setAttributes( { product_id: selected.value + '' } )
                             delete selected.rules;

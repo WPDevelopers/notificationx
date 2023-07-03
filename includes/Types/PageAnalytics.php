@@ -84,6 +84,20 @@ class PageAnalytics extends Types {
                     'sixth_param'        => 'tag_day',
                 ],
             ],
+            'pa-theme-four' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/analytics/pa-theme-one.png',
+                'image_shape' => 'circle',
+                'template' => [
+                    'first_param'        => 'tag_current_page_view',
+                    'second_param'       => __('people looking', 'notificationx'),
+                    'third_param'        => 'tag_ga_page_title',
+                    'custom_third_param' => __('this page', 'notificationx'),
+                    'ga_fourth_param'    => __('right now', 'notificationx'),
+                    // need to set this two param unless they won't show up when changing the first param.
+                    'ga_fifth_param'     => __('30', 'notificationx'),
+                    'sixth_param'        => 'tag_day',
+                ],
+            ],
         ];
 
         $this->templates = [
@@ -104,6 +118,22 @@ class PageAnalytics extends Types {
                     'page_analytics_pa-theme-one',
                     'page_analytics_pa-theme-two',
                     'page_analytics_pa-theme-three',
+                ],
+            ],
+            'pa_template_current_page_view' => [
+                'first_param' => [
+                    'tag_current_page_view' => __('Current Page View', 'notificationx')
+                ],
+                'third_param' => [
+                    'tag_ga_page_title'  => __('Page Title', 'notificationx'),
+                ],
+                'sixth_param' => [
+                    'tag_day'   => __('Day', 'notificationx'),
+                    'tag_month' => __('Month', 'notificationx'),
+                    'tag_year'  => __('Year', 'notificationx'),
+                ],
+                '_themes' => [
+                    'page_analytics_pa-theme-four',
                 ],
             ],
         ];

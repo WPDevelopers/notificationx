@@ -144,16 +144,11 @@ class Blocks {
         if ( is_admin() || $this->isRestUrl() ) {
             do_action( 'nx_ignore_analytics' );
         }
-
-        // if( !empty( $block_attributes['post_type'] ) ) {
-        //     $html =
-        // }else {
-            $nx_id = ! empty( $block_attributes['nx_id'] ) ? $block_attributes['nx_id'] : '';
-            $product_id     = ! empty( $block_attributes['product_id'] ) ? $block_attributes['product_id'] : '';
-            $html  = '<div class="' . $block_attributes['blockId'] . ' notificationx-block-wrapper" data-nx_id="' . $nx_id . '">';
-            $html .= do_shortcode( "[notificationx_inline product_id='{$product_id}' id='{$nx_id}']" );
-            $html .= '</div>';
-        // }
+        $nx_id = ! empty( $block_attributes['nx_id'] ) ? $block_attributes['nx_id'] : '';
+        $product_id     = ! empty( $block_attributes['product_id'] ) ? $block_attributes['product_id'] : '';
+        $html  = '<div class="' . $block_attributes['blockId'] . ' notificationx-block-wrapper" data-nx_id="' . $nx_id . '">';
+        $html .= do_shortcode( "[notificationx_inline product_id='{$product_id}' id='{$nx_id}']" );
+        $html .= '</div>';
         return $html;
     }
 

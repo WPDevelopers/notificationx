@@ -189,7 +189,7 @@ class FrontEnd {
 
         if (!empty($all)) {
             $notifications = $this->get_notifications($all);
-            $entries       = $this->get_entries($all, $notifications);
+            $entries       = $this->get_entries($all, $notifications, $params);
 
             foreach ($entries as $entry) {
                 $nx_id    = $entry['nx_id'];
@@ -474,14 +474,16 @@ class FrontEnd {
         return $results;
     }
 
-    public function get_entries($ids, $notifications) {
+    public function get_entries($ids, $notifications,$params) {
         $entries = [];
         if (!empty($ids) && is_array($ids)) {
             $query = [];
             foreach ($ids as $id) {
                 if (!empty($notifications[$id])) {
                     $post         = $notifications[$id];
-                    $query[$id] = " (nx_id = " . absint($id) . " AND source = '" . esc_sql($post['source']) . "')";
+                    $global_query =  " nx_id = " . absint($id) . " AND source = '" . esc_sql($post['source']) . "'";
+                    $_q = apply_filters("nx_get_entries_query_part_{$notifications[$id]['source']}",$global_query, $notifications[$id], $params );
+                    $query[$id] = " (" . $_q . ")";
                 }
             }
             if (!empty($query)) {
@@ -497,7 +499,7 @@ class FrontEnd {
         if (!is_array($entries)) {
             $entries = [];
         }
-        $entries = apply_filters('nx_frontend_get_entries', $entries, $ids, $notifications);
+        $entries = apply_filters('nx_frontend_get_entries', $entries, $ids, $notifications,$params);
         return $entries;
     }
 
@@ -591,7 +593,7 @@ class FrontEnd {
         if (!empty($saved_data['name']) && empty($saved_data['first_name']) && empty($saved_data['last_name'])) {
             $data['first_name'] = $saved_data['name'];
         }
-        $data['title'] = isset($saved_data['post_title']) ? $saved_data['post_title'] : '';
+        $data['title'] = isset($saved_data['post_title']) ? $saved_data['post_title'] : $data['title'];
         return $data;
     }
 
@@ -602,7 +604,7 @@ class FrontEnd {
      */
     public function filtered_data($entries, $post, $params) {
         if (is_array($entries) && (!defined('NX_DEBUG') || !NX_DEBUG)) {
-            if (!empty($post['display_last']) && !in_array($post['source'], ['google', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'google_reviews'])) {
+            if (!empty($post['display_last']) && !in_array($post['source'], ['google', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'google_reviews', 'youtube'])) {
                 $entries = array_slice($entries, 0, $post['display_last']);
             }
             foreach ($entries as $index => $entry) {
@@ -630,7 +632,7 @@ class FrontEnd {
                         $_entry_key = $entry_key;
                         if ($entry_key == 'tag_siteview' || $entry_key == 'tag_realtime_siteview') {
                             $entry_key = 'views';
-                        } elseif ($entry_key == 'ga_title') {
+                        } elseif ($entry_key == 'ga_title' || $entry_key == 'ga_page_title') {
                             $entry_key = 'title';
                         } elseif (strpos($entry_key, 'tag_product_') === 0) {
                             $entry_key = str_replace('tag_product_', '', $entry_key);

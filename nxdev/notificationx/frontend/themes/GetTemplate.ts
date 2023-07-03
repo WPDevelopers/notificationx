@@ -1,43 +1,77 @@
 import { getThemeName } from "../core/functions";
 
+// let colClasses = [
+//     "nx-first-word",
+//     "nx-second-word",
+//     "nx-third-word",
+//     "nx-fourth-word",
+//     "nx-fifth-word",
+//     "nx-sixth-word",
+//     "nx-seventh-word",
+//     "nx-eighth-word",
+//     "nx-nineth-word",
+//     "nx-tenth-word",
+// ];
+
 const GetTemplate = (settings) => {
     const themeName = getThemeName(settings);
     // @todo
     const defaults = {
-        first_param: '',
-        second_param: '',
-        third_param: '',
-        fourth_param: '',
-        fifth_param: '',
-        sixth_param: '',
-        map_fourth_param: '',
-        ga_fourth_param: '',
-        ga_fifth_param: '',
-        review_fourth_param: '',
-    }
-    const params = {...defaults, ...settings?.["notification-template"]};
+        first_param: "",
+        second_param: "",
+        third_param: "",
+        fourth_param: "",
+        fifth_param: "",
+        sixth_param: "",
+        map_fourth_param: "",
+        ga_fourth_param: "",
+        ga_fifth_param: "",
+        review_fourth_param: "",
+    };
+    const params = { ...defaults, ...settings?.["notification-template"] };
 
     for (const param in params) {
         if (Object.hasOwnProperty.call(params, param)) {
-            let element = params[param] || '';
+            let element = params[param] || "";
             if (element == "tag_custom" && params?.["custom_" + param]) {
                 // getting value of custom params.
-                element = params?.["custom_" + param] || '';
+                element = params?.["custom_" + param] || "";
             }
-            if (element == 'tag_siteview' || element == 'tag_realtime_siteview') {
+            if (
+                element == "tag_siteview" ||
+                element == "tag_realtime_siteview"
+            ) {
                 params[param] = "{{views}}";
-            } else if (element == 'ga_title') {
+            } else if (element == "ga_title") {
                 params[param] = "{{title}}";
-            }else if (element.indexOf("tag_") === 0) {
+            } else if (element.indexOf("tag_") === 0) {
                 params[param] = "{{" + element.replace("tag_", "") + "}}";
             } else if (element.indexOf("product_") === 0) {
                 params[param] = "{{" + element.replace("product_", "") + "}}";
             } else {
-                params[param] = element || '';
+                params[param] = element || "";
+            }
+
+            if(param == "second_param" && ['conversions_conv-theme-seven', 'conversions_conv-theme-eight', 'conversions_conv-theme-nine'].includes(settings?.themes)){
+                const regex = /(\S+)(\s?.*)/;
+                const match = regex.exec(element);
+                if(match){
+                    params[param] = '<span>';
+                    if(match[1]){
+                        params[param] += `<span>${match[1]}</span>`;
+                    }
+                    if(match[2]){
+                        params[param] += `<span>${match[2]}</span>`;
+                    }
+                    params[param] += '</span>';
+                }
+            }
+            else{
+                // must use params[param] instead of element
+                params[param] = `<span>${params[param]}</span>`;
             }
         }
     }
-    // console.log(settings.themes);
 
     switch (settings.themes) {
         case "donation_theme-one":
@@ -68,9 +102,33 @@ const GetTemplate = (settings) => {
                 `${params?.first_param} ${params?.second_param} ${params?.third_param} ${params?.fourth_param}`,
             ];
             break;
+        case "youtube_channel-1":
+            return [
+                `${params?.second_param} ${params?.third_param} ${params?.yt_third_label}`,
+                `${params?.fourth_param} ${params?.yt_fourth_label} ${params?.fifth_param} ${params?.yt_fifth_label}`,
+            ];
+            break;
+        case "youtube_channel-2":
+            return [
+                `${params?.second_param} ${params?.third_param} ${params?.yt_third_label}`,
+                `${params?.fourth_param} ${params?.fifth_param}`,
+            ];
+            break;
+        case "youtube_video-1":
+        case "youtube_video-3":
+            return [
+                `${params?.second_param}`,
+                `${params?.third_param} ${params?.fourth_param} ${params?.fifth_param}`,
+            ];
+            break;
+        case "youtube_video-2":
+        case "youtube_video-4":
+            return [
+                `${params?.second_param}`,
+                `${params?.third_param} ${params?.yt_third_label} ${params?.fourth_param} ${params?.yt_fourth_label} ${params?.fifth_param} ${params?.yt_fifth_label}`,
+            ];
+            break;
     }
-
-
 
     switch (themeName) {
         case "theme-one":
@@ -78,6 +136,14 @@ const GetTemplate = (settings) => {
         case "theme-three":
         case "theme-four":
         case "theme-five":
+            return [
+                `${params?.first_param} ${params?.second_param}`,
+                `${params?.third_param}`,
+                `${params?.fourth_param}`,
+            ];
+            break;
+        case "conv-theme-ten":
+        case "conv-theme-eleven":
             return [
                 `${params?.first_param} ${params?.second_param}`,
                 `${params?.third_param}`,
@@ -183,10 +249,10 @@ const GetTemplate = (settings) => {
                 `${params?.first_param} ${params?.second_param}`,
                 `${params?.third_param} ${params?.ga_fourth_param}`,
             ];
-        case 'stock-theme-one':
-        case 'stock-theme-two':
+        case "stock-theme-one":
+        case "stock-theme-two":
             return [
-                `${params?.second_param} ${params?.third_param} ${params?.fourth_param} ${params?.fifth_param}`
+                `${params?.second_param} ${params?.third_param} ${params?.fourth_param} ${params?.fifth_param}`,
             ];
             break;
         default:
