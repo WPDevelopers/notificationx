@@ -41,6 +41,7 @@ abstract class Extension {
     public $version               = '';
     public $class                 = '';
     public $function              = '';
+    public $constant              = '';
     public $templates             = [];
     public $cron_schedule         = '';
     public $exclude_custom_themes = false;
@@ -570,6 +571,9 @@ abstract class Extension {
         if (!empty($this->function) && !function_exists($this->function)) {
             return false;
         }
+        if (!empty($this->constant) && !defined($this->constant)) {
+            return false;
+        }
         if ($check_enabled) {
             $active_sources = PostType::get_instance()->get_active_items();
             if (!empty($active_sources)) {
@@ -586,6 +590,9 @@ abstract class Extension {
         }
         if (!empty($this->function)) {
             return function_exists($this->function);
+        }
+        if (!empty($this->constant)) {
+            return defined($this->constant);
         }
         return true;
     }

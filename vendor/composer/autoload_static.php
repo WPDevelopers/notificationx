@@ -7,14 +7,14 @@ namespace Composer\Autoload;
 class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
 {
     public static $prefixLengthsPsr4 = array (
-        'P' =>
+        'P' => 
         array (
             'PriyoMukul\\WPNotice\\' => 20,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'PriyoMukul\\WPNotice\\' =>
+        'PriyoMukul\\WPNotice\\' => 
         array (
             0 => __DIR__ . '/..' . '/priyomukul/wp-notice/src',
         ),
@@ -70,7 +70,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Extensions\\Extension' => __DIR__ . '/../..' . '/includes/Extensions/Extension.php',
         'NotificationX\\Extensions\\ExtensionFactory' => __DIR__ . '/../..' . '/includes/Extensions/ExtensionFactory.php',
         'NotificationX\\Extensions\\FlashingTab\\FlashingTab' => __DIR__ . '/../..' . '/includes/Extensions/FlashingTab/FlashingTab.php',
-        'NotificationX\\Extensions\\FluentForm\\Fluent_Form' => __DIR__ . '/../..' . '/includes/Extensions/FluentForm/Fluent_Form.php',
+        'NotificationX\\Extensions\\FluentForm\\FluentForm' => __DIR__ . '/../..' . '/includes/Extensions/FluentForm/FluentForm.php',
         'NotificationX\\Extensions\\Freemius\\Freemius' => __DIR__ . '/../..' . '/includes/Extensions/Freemius/Freemius.php',
         'NotificationX\\Extensions\\Freemius\\FreemiusConversions' => __DIR__ . '/../..' . '/includes/Extensions/Freemius/FreemiusConversions.php',
         'NotificationX\\Extensions\\Freemius\\FreemiusReviews' => __DIR__ . '/../..' . '/includes/Extensions/Freemius/FreemiusReviews.php',

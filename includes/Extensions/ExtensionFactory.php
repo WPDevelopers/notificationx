@@ -63,7 +63,7 @@ class ExtensionFactory {
 			'zapier_reviews'                  => 'NotificationX\Extensions\Zapier\ZapierReviews',
 			'elementor_form'                  => 'NotificationX\Extensions\Elementor\From',
 			'flashing_tab'                    => 'NotificationX\Extensions\FlashingTab\FlashingTab',
-			'fluentform'                      => 'NotificationX\Extensions\FluentForm\Fluent_Form',
+			'fluentform'                      => 'NotificationX\Extensions\FluentForm\FluentForm',
 			// 'youtube'                         => 'NotificationX\Extensions\Google\YouTube',
 		];
 

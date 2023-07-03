@@ -18,11 +18,11 @@ use NotificationX\Extensions\GlobalFields;
  * Fluent_Form Extension
  * @method static Fluent_Form get_instance($args = null)
  */
-class Fluent_Form extends Extension {
+class FluentForm extends Extension {
     /**
      * Instance of Fluent_Form
      *
-     * @var Fluent_Form
+     * @var FluentForm
      */
     use GetInstance;
 
@@ -33,7 +33,7 @@ class Fluent_Form extends Extension {
     public $types           = 'form';
     public $module          = 'modules_fluentform';
     public $module_priority = 10;
-    public $class           = 'FluentForm\Framework\Foundation\Bootstrap';
+    public $constant        = 'FLUENTFORM_VERSION';
     public $post_type       = 'fluentform';
     /**
      * Initially Invoked when initialized.
@@ -102,16 +102,16 @@ class Fluent_Form extends Extension {
 
     public function get_forms() {
         $forms = [];
-        if (!class_exists('FluentForm\Framework\Foundation\Bootstrap')) {
+        if (!$this->class_exists()) {
             return [];
         }
         global $wpdb;
 
-        $table_name = $wpdb->prefix . 'fluentform_forms'; 
+        $table_name = $wpdb->prefix . 'fluentform_forms';
         $limit      = 10;
         // Prepare the query with a WHERE condition
         $query = $wpdb->prepare(
-            "SELECT id, title FROM {$table_name} WHERE status = %s LIMIT %d", 
+            "SELECT id, title FROM {$table_name} WHERE status = %s LIMIT %d",
             'published', $limit
         );
         // Execute the query and retrieve the results
@@ -128,17 +128,17 @@ class Fluent_Form extends Extension {
 
     public function restResponse($args) {
         $forms = [];
-        if (!class_exists('FluentForm\Framework\Foundation\Bootstrap')) {
+        if (!$this->class_exists()) {
             return [];
         }
 
         global $wpdb;
-        $table_name = $wpdb->prefix . 'fluentform_forms'; 
+        $table_name = $wpdb->prefix . 'fluentform_forms';
         if (!empty($args['inputValue'])) {
             $limit      = 10;
            // Prepare the query with a LIKE condition
             $query = $wpdb->prepare(
-                "SELECT id, title FROM {$table_name} WHERE title LIKE %s AND status = %s LIMIT %d", 
+                "SELECT id, title FROM {$table_name} WHERE title LIKE %s AND status = %s LIMIT %d",
                 '%' . $wpdb->esc_like($args['inputValue']) . '%','published',$limit
             );
             // Execute the query and retrieve the results
@@ -252,7 +252,7 @@ class Fluent_Form extends Extension {
             }
         }
 
-        
+
     }
 
     /**
@@ -303,16 +303,20 @@ class Fluent_Form extends Extension {
 
 
     public function doc() {
-        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">Fluent Form installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
-		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
-		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with Fluent Form</a></p>
-		<p><strong>Recommended Blog:</strong></p>
-		<p>🔥 Hacks to Increase Your <a target="_blank" href="%5$s">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>', 'notificationx'),
+        return sprintf(__('
+        <p>To use the campaign & form subscription data, make sure that you have <a target="_blank" href="%1$s">Fluent Forms installed and configured</a> on your website. For detailed guidelines, follow this <a target="_blank" href="%2$s">documentation</a>.</p>
+
+        <p>🎥 Learn quickly from the <a target="_blank" href="%3$s">video tutorial</a>.</p>
+
+        <p>⚙️ NotificationX integration with Fluent Forms</p>
+
+        <p>📖 Recommended Reading: </p>
+        <p>🔥How To <a target="_blank" href="%4$s">Display Fluent Form Submission Alert</a> Using NotificationX?</p>
+        ', 'notificationx'),
         'https://wordpress.org/plugins/fluentform/',
-        'https://notificationx.com/docs/fluent-forms/',
+        'https://notificationx.com/docs/fluent-forms-submission-alert-notificationx',
         'https://www.youtube.com/watch?v=Ibv84iGcBHE',
-        'https://notificationx.com/integrations/fluent-forms/',
-        'https://notificationx.com/blog/wordpress-contact-forms/'
+        'https://notificationx.com/blog/display-fluent-forms-submission-alert/',
         );
     }
 }
