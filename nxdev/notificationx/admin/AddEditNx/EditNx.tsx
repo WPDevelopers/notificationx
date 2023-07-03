@@ -21,6 +21,7 @@ const EditNx = (props) => {
         builderContext.registerAlert('pro_alert', proAlert);
 
         setTitle(typeof title !== 'undefined' ? title : builderContext.values?.title);
+        
     }, [])
 
     return (

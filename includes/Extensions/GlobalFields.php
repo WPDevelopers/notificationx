@@ -773,6 +773,7 @@ class GlobalFields {
                                     'type'    => "select",
                                     'default' => "none",
                                     'rules'   => Rules::includes( 'source', [
+                                        "fluentform",
                                         "cf7",
                                         "custom_notification",
                                         "custom_notification_conversions",
@@ -838,6 +839,7 @@ class GlobalFields {
                                             'rules'  => [
                                                 'includes',
                                                 'source',[
+                                                    "fluentform",
                                                     "cf7",
                                                     "custom_notification",
                                                     "custom_notification_conversions",

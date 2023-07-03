@@ -31,10 +31,8 @@ class Preview {
         add_action('wp_print_footer_scripts', [$this, 'footer_scripts']);
 
         add_filter('nx_before_enqueue_scripts', [$this, 'enqueue_scripts']);
-        add_filter('nx_inline_notifications_data', [$this, 'inline_notifications_data'], 10, 3);
+        add_filter('nx_inline_notifications_data', [$this, 'inline_notifications_data'], 10, 4);
         add_filter('nx_metabox_config', [$this, 'content_heading']);
-
-
 
         if ($this->is_preview()) {
             show_admin_bar(false);
@@ -89,8 +87,7 @@ class Preview {
                     ]
                 ];
             }
-            // echo "<pre>";
-            // print_r($args);die;
+
             $args['settings'] = FrontEnd::get_instance()->get_settings();
 
             $this->notificationXArr = apply_filters('get_notifications_ids', $args);
@@ -314,8 +311,9 @@ class Preview {
         return $settings;
     }
 
-    public function preview_settings() {
-        $settings = $this->get_settings();
+    public function preview_settings($settings = []) {
+        $settings = !empty($settings) ? $settings : $this->get_settings();
+
         if (empty($settings['source'])){
             return [];
         }
@@ -354,9 +352,11 @@ class Preview {
         return $tabs;
     }
 
-    public function inline_notifications_data($return, $source, $id) {
+    public function inline_notifications_data($return, $source, $id, $settings = []) {
         if ($this->is_preview() && !empty($id)) {
-            $settings = $this->preview_settings();
+            $settings = $this->preview_settings($settings);
+            $settings['is_preview'] = true;
+
             if (empty($settings['source']) || empty($settings['type']) || 'inline' !== $settings['type']){
                 return;
             }
@@ -420,9 +420,11 @@ class Preview {
     }
 
     public function is_preview() {
-        if (!empty($_POST['nx-preview'])) {
-            return true;
+        $is_preview = false;
+        if (!empty($_GET['nx-preview'])) {
+            $is_preview = true;
         }
-        return false;
+        $is_preview = apply_filters('nx_is_preview',$is_preview);
+        return $is_preview;
     }
 }

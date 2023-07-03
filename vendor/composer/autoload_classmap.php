@@ -55,6 +55,7 @@ return array(
     'NotificationX\\Extensions\\Extension' => $baseDir . '/includes/Extensions/Extension.php',
     'NotificationX\\Extensions\\ExtensionFactory' => $baseDir . '/includes/Extensions/ExtensionFactory.php',
     'NotificationX\\Extensions\\FlashingTab\\FlashingTab' => $baseDir . '/includes/Extensions/FlashingTab/FlashingTab.php',
+    'NotificationX\\Extensions\\FluentForm\\Fluent_Form' => $baseDir . '/includes/Extensions/FluentForm/Fluent_Form.php',
     'NotificationX\\Extensions\\Freemius\\Freemius' => $baseDir . '/includes/Extensions/Freemius/Freemius.php',
     'NotificationX\\Extensions\\Freemius\\FreemiusConversions' => $baseDir . '/includes/Extensions/Freemius/FreemiusConversions.php',
     'NotificationX\\Extensions\\Freemius\\FreemiusReviews' => $baseDir . '/includes/Extensions/Freemius/FreemiusReviews.php',
