@@ -248,7 +248,7 @@ class PostType {
                 [
                     'enabled' => true,
                 ],
-                'nx_id, source'
+                'nx_id, source, type'
             );
             if ( is_array( $enabled_source ) ) {
                 foreach ( $enabled_source as $post ) {

@@ -278,10 +278,11 @@ class GlobalFields {
                             'rules' => Rules::is('advance_edit', true),
                             'fields' => [
                                 "design" => [
-                                    'label' => __("Design", 'notificationx'),
-                                    'name'  => "design",
-                                    'type'  => "section",
-                                    'rules' => Rules::is('advance_edit', true),
+                                    'label'    => __("Design", 'notificationx'),
+                                    'name'     => "design",
+                                    'type'     => "section",
+                                    'priority' => 5,
+                                    'rules'    => Rules::is('advance_edit', true),
                                     // 'rules' => Rules::is( 'advance_edit', true ),
                                     'fields' => [
                                         [
@@ -331,11 +332,12 @@ class GlobalFields {
                                     ]
                                 ],
                                 "typography" => [
-                                    'label'  => __('Typography', 'notificationx'),
-                                    'name'   => "typography",
-                                    'type'   => "section",
-                                    'rules'  => Rules::is( 'advance_edit', true ),
-                                    'fields' => [
+                                    'label'    => __('Typography', 'notificationx'),
+                                    'name'     => "typography",
+                                    'type'     => "section",
+                                    'priority' => 10,
+                                    'rules'    => Rules::is( 'advance_edit', true ),
+                                    'fields'   => [
                                         [
                                             'label'       => __('Font Size', 'notificationx'),
                                             'name'        => "first_font_size",
@@ -363,11 +365,12 @@ class GlobalFields {
                                     ]
                                 ],
                                 "image-appearance" => [
-                                    'label'  => __('Image Appearance', 'notificationx'),
-                                    'name'   => "image-appearance",
-                                    'type'   => "section",
-                                    'rules'  => Rules::is( 'advance_edit', true ),
-                                    'fields' => [
+                                    'label'    => __('Image Appearance', 'notificationx'),
+                                    'name'     => "image-appearance",
+                                    'type'     => "section",
+                                    'priority' => 15,
+                                    'rules'    => Rules::is( 'advance_edit', true ),
+                                    'fields'   => [
                                         'image_shape' => [
                                             'label'    => __('Image Shape', 'notificationx'),
                                             'name'     => "image_shape",
