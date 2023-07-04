@@ -129,6 +129,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
             document.body.classList.add("nx-overlapping-bar");
         }
         if (position == 'top') {
+            document.body.classList.add("nx-position-top")
             const xAdminBar = document.getElementById("wpadminbar");
             if (xAdminBar?.offsetHeight) componentCSS.top = xAdminBar.offsetHeight;
             if (!settings?.pressbar_body) {
@@ -161,6 +162,8 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
             document.body.classList.remove("has-nx-bar");
             document.body.classList.remove("nx-sticky-bar");
             document.body.classList.remove("nx-overlapping-bar");
+            document.body.classList.remove("nx-position-top");
+
             if(analyticDelegation){
                 analyticDelegation.destroy();
             }
