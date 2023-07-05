@@ -1,4 +1,7 @@
 &.themes-conversions_conv-theme-ten {
+    &:not(&:last-child) {
+        margin-bottom: 45px;
+    }
     &, .notificationx-inner{
         border-radius: 8px;
     }
