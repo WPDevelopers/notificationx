@@ -330,8 +330,6 @@ class FrontEnd {
 
         foreach ($notifications as $key => $settings) {
             // $settings        = NotificationX::get_instance()->normalize_post($post);
-            $logged_in       = is_user_logged_in();
-            $show_on_display = $settings['show_on_display'];
 
             // IF PRESSBAR TIME RE_CONFIG THEN REMOVE COOKIE
             // if( $settings['source'] == 'press_bar'){
@@ -348,38 +346,17 @@ class FrontEnd {
                 continue;
             }
 
-            if (($logged_in && 'logged_out_user' == $show_on_display) || (!$logged_in && 'logged_in_user' == $show_on_display)) {
+            if($this->is_logged_in($settings['show_on_display'])){
                 continue;
             }
 
-            $custom_ids = [];
             $locations  = isset($settings['all_locations']) ? $settings['all_locations'] : [];
+            $custom_ids = isset($settings['custom_ids']) ? $settings['custom_ids'] : [];
 
-            $check_location = false;
-
-            if ($locations == 'is_custom' || is_array($locations) && in_array('is_custom', $locations)) {
-                $custom_ids = isset($settings['custom_ids']) ? $settings['custom_ids'] : [];
-            }
-            if (!empty($locations)) {
-                // @todo need to pass url.
-                $check_location = Locations::get_instance()->check_location($locations, $custom_ids);
-            }
-
-            $check_location = apply_filters('nx_check_location', $check_location, $settings, $custom_ids);
-
-            if ($settings['show_on'] == 'on_selected') {
-                // show if the page is on selected
-                if (!$check_location) {
-                    continue;
-                }
-            } elseif ($settings['show_on'] == 'hide_on_selected') {
-                // hide if the page is on selected
-                if ($check_location) {
-                    continue;
-                }
-            } elseif ($settings['show_on'] === 'only_shortcode') {
+            if($this->check_show_on($locations, $custom_ids, $settings['show_on'])){
                 continue;
             }
+
             /**
              * Check for hiding in mobile device
              */
@@ -438,6 +415,47 @@ class FrontEnd {
             ],
             $notifications
         );
+    }
+
+    public function is_logged_in($show_on_display){
+        $logged_in       = is_user_logged_in();
+
+        if (($logged_in && 'logged_out_user' == $show_on_display) || (!$logged_in && 'logged_in_user' == $show_on_display)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @todo filter is not extensive enough.
+     */
+    public function check_show_on($locations, $custom_ids, $show_on){
+        $check_location = false;
+
+        if ($locations == 'is_custom' || is_array($locations) && in_array('is_custom', $locations)) {
+            $custom_ids = !empty($custom_ids) ? $custom_ids : [];
+        }
+        if (!empty($locations)) {
+            // @todo need to pass url.
+            $check_location = Locations::get_instance()->check_location($locations, $custom_ids);
+        }
+
+        $check_location = apply_filters('nx_check_location', $check_location, $custom_ids, $show_on);
+
+        if ($show_on == 'on_selected') {
+            // show if the page is on selected
+            if (!$check_location) {
+                return true;
+            }
+        } elseif ($show_on == 'hide_on_selected') {
+            // hide if the page is on selected
+            if ($check_location) {
+                return true;
+            }
+        } elseif ($show_on === 'only_shortcode') {
+            return true;
+        }
+        return false;
     }
 
     public function get_notifications($ids) {
@@ -575,7 +593,7 @@ class FrontEnd {
         if (!empty($saved_data['name']) && empty($saved_data['first_name']) && empty($saved_data['last_name'])) {
             $data['first_name'] = $saved_data['name'];
         }
-        $data['title'] = isset($saved_data['post_title']) ? $saved_data['post_title'] : $data['title'];
+        $data['title'] = isset($saved_data['post_title']) ? $saved_data['post_title'] : (isset($data['title']) ? $data['title'] : '');
         return $data;
     }
 

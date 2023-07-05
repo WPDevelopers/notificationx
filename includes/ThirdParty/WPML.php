@@ -10,6 +10,7 @@ use NotificationX\Extensions\ExtensionFactory;
 use NotificationX\GetInstance;
 use WP_Error;
 use WP_REST_Server;
+use UsabilityDynamics\Settings as UsabilityDynamicsSettings;
 
 /**
  * @method static WPML get_instance($args = null)
@@ -98,17 +99,20 @@ class WPML {
             }
         }
         else{
-            if($post['link_type']){
+            if(!empty($post['link_type'])){
                 $meta['custom_url'] = ['Custom URL', 'LINE'];
             }
-            if($post['template_adv']){
+            if(!empty($post['template_adv'])){
                 $meta['advanced_template'] = ['Advance Template', 'VISUAL'];
             }
-            if(($post['source'] == 'edd' || $post['source'] == 'woocommerce') && $post['combine_multiorder']){
+            if(($post['source'] == 'edd' || $post['source'] == 'woocommerce') && !empty($post['combine_multiorder'])){
                 $meta['combine_multiorder_text'] = ['Combine Multi Order Text', 'LINE'];
             }
+            if(($post['type'] == 'conversions') && !empty($post['link_button'])){
+                $meta['link_button_text'] = ['Link Button Text', 'LINE'];
+            }
         }
-        return $meta;
+        return apply_filters('nx_wpml_translate_field', $meta, $post);
     }
 
     public function localize_moment($nx_ids = null, $return_url = false){
@@ -119,7 +123,7 @@ class WPML {
         return array(
             'kind'      => 'NotificationX',
             'name'      => "$nx_id",
-            'title'     => "{$post['title']}", // ($nx_id)
+            'title'     => isset($post['title']) ? $post['title'] : '', // ($nx_id)
             'edit_link' => PostType::get_instance()->get_edit_link($nx_id),
             'view_link' => PostType::get_instance()->get_edit_link($nx_id),
         );
@@ -133,11 +137,15 @@ class WPML {
 
         $package = $this->generate_package($data, $nx_id);
 
+        $settings = new UsabilityDynamicsSettings(['data' => $post]);
+
+
         foreach ($this->get_meta($data) as $key => $param) {
-            if(!empty($data[$key])){
+            $_key = isset($param[2]) ? $param[2] : $key;
+            if($value = $settings->get($_key)){
                 $title = $param[0];
                 $type  = $param[1];
-                do_action('wpml_register_string', $data[$key], $key, $package, $title, $type);
+                do_action('wpml_register_string', $value, $key, $package, $title, $type);
             }
         }
 
@@ -149,7 +157,7 @@ class WPML {
             unset($this->template['map_fourth_param']);
         }
 
-        if($post['source'] != 'press_bar'){
+        if($post['source'] != 'press_bar' && $post['source'] != 'flashing_tab'){
             // @todo when theme template have all the params.
             // $source = $data['source'];
             // $theme = $data['themes'];
@@ -159,8 +167,9 @@ class WPML {
             // }
 
             foreach ($this->template as $key => $param) {
-                if(!empty($data['notification-template'][$key])){
-                    do_action('wpml_register_string', $data['notification-template'][$key], $key, $package, $param, 'LINE');
+                $_key = "notification-template.$key";
+                if($value = $settings->get($_key)){
+                    do_action('wpml_register_string', $value, $key, $package, $param, 'LINE');
                 }
             }
         }
@@ -173,22 +182,28 @@ class WPML {
             return $post;
         }
 
+        $settings = new UsabilityDynamicsSettings(['data' => $post]);
+
         $package = $this->generate_package($post, $post['nx_id']);
 
         foreach ($this->get_meta($post) as $key => $param) {
-            if(!empty($post[$key])){
-                $post[$key] = apply_filters( 'wpml_translate_string', $post[$key], $key, $package );
+            $_key = isset($param[2]) ? $param[2] : $key;
+            if($value = $settings->get($_key)){
+                $value = apply_filters( 'wpml_translate_string', $value, $key, $package );
+                $settings->set($_key, $value);
             }
         }
 
         if($post['source'] != 'press_bar'){
             foreach ($this->template as $key => $param) {
-                if(!empty($post['notification-template'][$key])){
-                    $post['notification-template'][$key] = apply_filters( 'wpml_translate_string', $post['notification-template'][$key], $key, $package );
+                $_key = "notification-template.$key";
+                if($value = $settings->get($_key)){
+                    $value = apply_filters( 'wpml_translate_string', $value, $key, $package );
+                    $settings->set($_key, $value);
                 }
             }
         }
-        return $post;
+        return $settings->get();
     }
 
     public function delete_translation($nx_id, $post){
@@ -257,20 +272,20 @@ class WPML {
         return $tabs;
     }
 
-    public function check_location($check_location, $settings, $custom_ids){
+    public function check_location($check_location, $custom_ids, $show_on = []){
         if(!$check_location && $custom_ids){
             global $post;
-            if( empty( $ids ) || empty($post) ) {
+            if( empty( $custom_ids ) || empty($post) ) {
                 return false;
             }
-            $ids = explode(',', $ids);
-            $ids = array_map('trim', $ids);
+            $custom_ids = explode(',', $custom_ids);
+            $custom_ids = array_map('trim', $custom_ids);
             if( is_post_type_archive( 'product' ) ) {
-                if( in_array( get_option( 'woocommerce_shop_page_id' ), $ids ) ) {
+                if( in_array( get_option( 'woocommerce_shop_page_id' ), $custom_ids ) ) {
                     return true;
                 }
             }
-            return in_array( $post->ID, $ids ) ? true : false;
+            return in_array( $post->ID, $custom_ids ) ? true : false;
         }
         return $check_location;
     }

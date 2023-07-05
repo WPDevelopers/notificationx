@@ -230,6 +230,12 @@ class GlobalFields {
                     ],
                     'classes' => "design_tab",
                     'fields'  => apply_filters('nx_design_tab_fields', [
+                        'design_error' => [
+                            'type' => 'message',
+                            'name' => 'design_error',
+                            'messages' => apply_filters('design_error_message', []),
+                            'rules' => '',
+                        ],
                         "themes" => [
                             'label'  => __("Themes", 'notificationx'),
                             'name'   => "themes",
@@ -272,10 +278,11 @@ class GlobalFields {
                             'rules' => Rules::is('advance_edit', true),
                             'fields' => [
                                 "design" => [
-                                    'label' => __("Design", 'notificationx'),
-                                    'name'  => "design",
-                                    'type'  => "section",
-                                    'rules' => Rules::is('advance_edit', true),
+                                    'label'    => __("Design", 'notificationx'),
+                                    'name'     => "design",
+                                    'type'     => "section",
+                                    'priority' => 5,
+                                    'rules'    => Rules::is('advance_edit', true),
                                     // 'rules' => Rules::is( 'advance_edit', true ),
                                     'fields' => [
                                         [
@@ -325,11 +332,12 @@ class GlobalFields {
                                     ]
                                 ],
                                 "typography" => [
-                                    'label'  => __('Typography', 'notificationx'),
-                                    'name'   => "typography",
-                                    'type'   => "section",
-                                    'rules'  => Rules::is( 'advance_edit', true ),
-                                    'fields' => [
+                                    'label'    => __('Typography', 'notificationx'),
+                                    'name'     => "typography",
+                                    'type'     => "section",
+                                    'priority' => 10,
+                                    'rules'    => Rules::is( 'advance_edit', true ),
+                                    'fields'   => [
                                         [
                                             'label'       => __('Font Size', 'notificationx'),
                                             'name'        => "first_font_size",
@@ -357,11 +365,12 @@ class GlobalFields {
                                     ]
                                 ],
                                 "image-appearance" => [
-                                    'label'  => __('Image Appearance', 'notificationx'),
-                                    'name'   => "image-appearance",
-                                    'type'   => "section",
-                                    'rules'  => Rules::is( 'advance_edit', true ),
-                                    'fields' => [
+                                    'label'    => __('Image Appearance', 'notificationx'),
+                                    'name'     => "image-appearance",
+                                    'type'     => "section",
+                                    'priority' => 15,
+                                    'rules'    => Rules::is( 'advance_edit', true ),
+                                    'fields'   => [
                                         'image_shape' => [
                                             'label'    => __('Image Shape', 'notificationx'),
                                             'name'     => "image_shape",
@@ -684,6 +693,19 @@ class GlobalFields {
                                         'none' => __('None', 'notificationx'),
                                     ])),
                                 ],
+                                'link_button' => [
+                                    'label'       => __('Button', 'notificationx'),
+                                    'name'        => 'link_button',
+                                    'type'        => 'checkbox',
+                                    'priority'    => 100,
+                                    'is_pro'      => true,
+                                    'default'     => false,
+                                    'description' => __('Enable button with link', 'notificationx'),
+                                    'rules'       => Rules::logicalRule([
+                                        Rules::is('type', 'conversions'),
+                                        Rules::is('link_type','none',true),
+                                    ]),
+                                ],
                             ],
                             // must be called after nx_link_types filter.
                             'rules' => [ 'includes', 'source', apply_filters('nx_link_types_dependency', []) ],
@@ -708,7 +730,7 @@ class GlobalFields {
                             //     'type' => '',
                             // ],
                             'fields' => [
-                                [
+                                'show_default_image' => [
                                     'label' => __("Show Default Image", 'notificationx'),
                                     'name'  => "show_default_image",
                                     'type'  => "checkbox",
@@ -767,6 +789,7 @@ class GlobalFields {
                                     'type'    => "select",
                                     'default' => "none",
                                     'rules'   => Rules::includes( 'source', [
+                                        "fluentform",
                                         "cf7",
                                         "custom_notification",
                                         "custom_notification_conversions",
@@ -833,6 +856,7 @@ class GlobalFields {
                                             'rules'  => [
                                                 'includes',
                                                 'source',[
+                                                    "fluentform",
                                                     "cf7",
                                                     "custom_notification",
                                                     "custom_notification_conversions",

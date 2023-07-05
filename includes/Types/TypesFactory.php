@@ -33,7 +33,8 @@ class TypeFactory {
 			'page_analytics'     => 'NotificationX\Types\PageAnalytics',
 			'custom'             => 'NotificationX\Types\CustomNotification',
 			'inline'             => 'NotificationX\Types\Inline',
-			'social'             => 'NotificationX\Types\Social',
+			'flashing_tab'       => 'NotificationX\Types\FlashingTab',
+			// 'social'             => 'NotificationX\Types\Social',
 		];
 
     public $types_enabled = [];

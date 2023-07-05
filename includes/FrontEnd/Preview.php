@@ -166,7 +166,9 @@ class Preview {
             'author'               => '<a href="https://wpdeveloper.com/">WPDeveloper</a>',
             'author_profile'       => 'https://profiles.wordpress.org/wpdevteam/',
             'amount'               => rand(50, 70),
-            'avatar'               => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
+            'avatar'               => [
+                'src' => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
+            ],
             'picture'              => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
             'city'                 => 'Dhaka',
             'city_country'         => 'Dhaka, Bangladesh',
@@ -345,7 +347,7 @@ class Preview {
             'name'   => 'preview',
             'urls'   => $urls,
             'errors' => apply_filters('nx_content_heading_preview_errors', []),
-            'rules'  => Rules::includes('themes', ['woo_inline_stock-theme-two', 'tutor_inline_conv-theme-eight'], true),
+            'rules'  => Rules::includes('themes', ['woo_inline_stock-theme-two', 'tutor_inline_conv-theme-eight', 'flashing_tab_theme-1','flashing_tab_theme-2' ,'flashing_tab_theme-3' , 'flashing_tab_theme-4'], true),
         ]);
         return $tabs;
     }

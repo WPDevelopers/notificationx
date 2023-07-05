@@ -47,6 +47,9 @@ const config = {
         ...defaultConfig.output,
         filename: "admin/js/[name].js",
         path: path.resolve(process.cwd(), isProduction ? "assets" : "nxbuild"),
+        chunkFilename: (pathData) => {
+            return `admin/js/${pathData.chunk.name || pathData.chunk.id}.js`;
+        },
     },
     plugins: [
         new CleanWebpackPlugin({
@@ -55,15 +58,46 @@ const config = {
                 "admin/css/admin.css",
                 "admin/css/admin.css.map",
                 "admin/js/admin.js",
+                "admin/js/emoji-mart.js",
+                "admin/js/react-apexcharts.js",
                 "admin/js/admin.js.map",
                 "admin/js/admin.asset.php",
             ],
         }),
         new MiniCSSExtractPlugin({
-            filename: `admin/css/admin.css`,
+            filename: `admin/css/[name].css`,
         }),
         ...plugins,
     ],
+    optimization: {
+        ...defaultConfig.optimization,
+        splitChunks: {
+            ...defaultConfig.optimization.splitChunks,
+            cacheGroups: {
+                ...defaultConfig.optimization.splitChunks.cacheGroups,
+                "emoji-mart": {
+                    test: /node_modules\/@?emoji-mart\/.*/,
+                    chunks: 'all',
+                    enforce: true,
+                    name: 'emoji-mart',
+                },
+                "react-apexcharts": {
+                    test: /node_modules\/(react-apexcharts|apexcharts)\/.*/,
+                    chunks: 'all',
+                    enforce: true,
+                    name: 'react-apexcharts',
+                },
+                // "draft-js": {
+                //     test: /node_modules\/(draft-js|react-draft-wysiwyg)\/.*/,
+                //     chunks: 'all',
+                //     enforce: true,
+                //     maxInitialRequests: 2, // limit the number of initial chunks to 2
+                //     minSize: 300000, // set a minimum size of 30 KB for each chunk
+                //     name: 'draft-js', // give it a name
+                // },
+            },
+        },
+    },
 };
 
 module.exports = config;

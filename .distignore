@@ -45,6 +45,7 @@ develop
 @todo.md
 babel.config.js
 tsconfig.json
+stats.json
 .vscode
 vendor/bin
 vendor/udx/lib-settings/static

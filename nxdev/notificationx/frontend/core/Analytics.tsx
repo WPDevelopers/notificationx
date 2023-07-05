@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import nxHelper from "./functions";
 import useNotificationContext from "./NotificationProvider";
 
@@ -38,9 +38,24 @@ const Analytics = ({config, children, ...rest}) => {
     const frontendContext = useNotificationContext();
     const restUrl = nxHelper.getPath(frontendContext.rest, `analytics/`);
 
+    const styles:CSSProperties = {};
+
+    if (config.link_button && config.advance_edit) {
+        if(config.link_button_bg_color) {
+            styles.backgroundColor = config.link_button_bg_color;
+        }
+        if(config.link_button_text_color) {
+            styles.color = config.link_button_text_color;
+        }
+        if(config.link_button_font_size) {
+            styles.fontSize = config.link_button_font_size;
+        }
+    }
+
     return (
         <a
             {...rest}
+            style={styles}
             target={config?.link_open ? "_blank" : ""}
             onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
         >{children}</a>

@@ -154,7 +154,9 @@ const SingleNotificationX = ({
             </td>
             <td>
                 <div className="nx-admin-stats">
-                    <NavLink to={{
+                    <NavLink
+                    title={sprintf(__("%s clicks", "notificationx"), (item?.clicks || 0))}
+                    to={{
                         pathname: '/admin.php',
                         search  : "?page=nx-analytics&comparison=views&nx=" + id,
                     }}>

@@ -41,6 +41,7 @@ abstract class Extension {
     public $version               = '';
     public $class                 = '';
     public $function              = '';
+    public $constant              = '';
     public $templates             = [];
     public $cron_schedule         = '';
     public $exclude_custom_themes = false;
@@ -271,9 +272,14 @@ abstract class Extension {
                 }
                 if(!empty($theme['defaults']) && $defaults = $theme['defaults']){
                     foreach ($defaults as $key => $value) {
-                        $t = "@{$key}:{$value}";
-                        if(empty($triggers[$tname]) || !in_array($t, $triggers[$tname])){
-                            $triggers[$tname][] = $t;
+                        if(is_array($value) && empty($triggers[$tname][$key])){
+                            $triggers[$tname][$key] = $value;
+                        }
+                        else{
+                            $t = "@{$key}:{$value}";
+                            if(empty($triggers[$tname]) || !in_array($t, $triggers[$tname])){
+                                $triggers[$tname][] = $t;
+                            }
                         }
                     }
                 }
@@ -565,6 +571,9 @@ abstract class Extension {
         if (!empty($this->function) && !function_exists($this->function)) {
             return false;
         }
+        if (!empty($this->constant) && !defined($this->constant)) {
+            return false;
+        }
         if ($check_enabled) {
             $active_sources = PostType::get_instance()->get_active_items();
             if (!empty($active_sources)) {
@@ -581,6 +590,9 @@ abstract class Extension {
         }
         if (!empty($this->function)) {
             return function_exists($this->function);
+        }
+        if (!empty($this->constant)) {
+            return defined($this->constant);
         }
         return true;
     }

@@ -44,7 +44,6 @@ class CF7 extends Extension {
     public function __construct() {
         $this->title = __('Contact Form 7', 'notificationx');
         $this->module_title = __('Contact Form 7', 'notificationx');
-
         parent::__construct();
     }
 
@@ -158,7 +157,11 @@ class CF7 extends Extension {
         }
 
         if (isset($args['form_id'])) {
-            $form_id = intval($args['form_id']);
+            if( is_array( $args['form_id'] ) ) {
+                $form_id = intval($args['form_id']['value']);
+            }else{
+                $form_id = intval($args['form_id']);
+            }
 
             $form = get_post($form_id);
 

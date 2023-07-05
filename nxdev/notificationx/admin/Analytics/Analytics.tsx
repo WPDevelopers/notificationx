@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Chart from "react-apexcharts";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Header, WrapperWithLoader } from "../../components";
 import nxHelper from "../../core/functions";
 import {
@@ -14,6 +13,14 @@ import { __experimentalGetSettings, date } from "@wordpress/date";
 import { useNotificationXContext } from "../../hooks";
 import withDocumentTitle from "../../core/withDocumentTitle";
 import { __ } from "@wordpress/i18n";
+
+import { lazyWithPreload } from "react-lazy-with-preload";
+
+const Chart = lazyWithPreload(() => import("react-apexcharts"));
+
+
+// import Chart from "react-apexcharts";
+// const Chart = lazy(() => import('react-apexcharts'));
 
 const Analytics = (props) => {
     const settings: any = __experimentalGetSettings();
@@ -69,6 +76,10 @@ const Analytics = (props) => {
             });
             return;
         }
+
+        // // Preload the component when needed
+        Chart.preload();
+
         // setIsLoading(true);
         // nxHelper.post("analytics/get", {
         //     ...filterOptions
@@ -233,13 +244,15 @@ const Analytics = (props) => {
                         setFilterOptions={setFilterOptions}
                     />
                     <div className="nx-analytics-graph-wrapper">
-                        <Chart
-                            // @ts-ignore
-                            options={data.options}
-                            series={data.series}
-                            type="area"
-                            height={500}
-                        />
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <Chart
+                                // @ts-ignore
+                                options={data.options}
+                                series={data.series}
+                                type="area"
+                                height={500}
+                            />
+                        </Suspense>
                     </div>
                 </WrapperWithLoader>
             )}
