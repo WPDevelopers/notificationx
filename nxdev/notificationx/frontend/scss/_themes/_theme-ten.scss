@@ -1,6 +1,7 @@
-&.themes-conversions_conv-theme-ten {
-    &, .notificationx-inner{
-        border-radius: 10px;
+.themes-conversions_conv-theme-ten {
+    padding: 50px;
+    .notificationx-inner{
+        border-radius: 8px;
     }
     .notificationx-content {
         width: 100%;
@@ -20,7 +21,7 @@
                     color: #344054;
                 }
                 span:nth-child(2) {
-                    color: #98A2B3;
+                    color: red;
                     font-weight: 400;
                 }
             }
