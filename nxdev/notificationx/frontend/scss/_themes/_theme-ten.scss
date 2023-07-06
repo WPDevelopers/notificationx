@@ -15,16 +15,14 @@
         .nx-first-row {
             grid-column-start: 1;
             grid-column-end: 3;
+            color: #344054;
             font-size: 16px;
             line-height: 21px;
             font-weight: 500;
             span {
-                span:nth-child(1) {
-                    color: #344054;
-                }
                 span:nth-child(2) {
                     color: #b39899;
-                    font-weight: 400;
+                    font-weight: 400 !important;
                 }
             }
         }
