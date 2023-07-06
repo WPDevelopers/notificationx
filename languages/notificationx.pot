@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-07-03T05:57:42+00:00\n"
+"POT-Creation-Date: 2023-07-06T06:07:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.0\n"
 "X-Domain: notificationx\n"
@@ -21,10 +21,6 @@ msgstr ""
 #: assets/admin/js/admin.js:11
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:2510
-#: nxbuild/admin/js/admin.js:4557
-#: nxbuild/public/js/crossSite.js:2195
-#: nxbuild/public/js/frontend.js:2195
 #: nxdev/notificationx/frontend/themes/helpers/NotificationText.js:13
 msgid "NotificationX"
 msgstr ""
@@ -51,7 +47,6 @@ msgstr ""
 
 #: includes/Admin/Admin.php:101
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:3150
 msgid "All NotificationX"
 msgstr ""
 
@@ -121,13 +116,11 @@ msgstr ""
 #: includes/Admin/Settings.php:268
 #: includes/Core/Analytics.php:46
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3414
 msgid "Analytics"
 msgstr ""
 
 #: includes/Admin/ImportExport.php:72
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3961
 msgid "Status"
 msgstr ""
 
@@ -314,7 +307,7 @@ msgid "Analytics From"
 msgstr ""
 
 #: includes/Admin/Settings.php:291
-#: includes/Extensions/GlobalFields.php:910
+#: includes/Extensions/GlobalFields.php:926
 msgid "Everyone"
 msgstr ""
 
@@ -459,21 +452,18 @@ msgstr ""
 #: includes/Extensions/Google/YouTube.php:166
 #: includes/Extensions/Google/YouTube.php:180
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3747
 msgid "Total Views"
 msgstr ""
 
 #: includes/Admin/views/analytics.views.php:20
 #: includes/Admin/views/analytics.views.php:24
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3753
 msgid "Total Clicks"
 msgstr ""
 
 #: includes/Admin/views/analytics.views.php:33
 #: includes/Admin/views/analytics.views.php:37
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3759
 msgid "Click-Through-Rate"
 msgstr ""
 
@@ -485,14 +475,11 @@ msgstr ""
 #: includes/Admin/XSS.php:37
 #: includes/Admin/XSS.php:43
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4290
-#: nxbuild/admin/js/admin.js:5389
 msgid "Cross Domain Notice"
 msgstr ""
 
 #: includes/Admin/XSS.php:44
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:46949
 msgid "Click to Copy"
 msgstr ""
 
@@ -568,7 +555,7 @@ msgstr ""
 #: includes/Extensions/Give/Give.php:78
 #: includes/Extensions/Give/Give.php:79
 #: includes/Extensions/Give/Give.php:80
-#: includes/Extensions/GlobalFields.php:438
+#: includes/Extensions/GlobalFields.php:441
 #: includes/Extensions/Google/GoogleReviews.php:50
 #: includes/Extensions/Google/GoogleReviews.php:64
 #: includes/Extensions/Google/GoogleReviews.php:78
@@ -630,20 +617,17 @@ msgstr ""
 #: includes/Core/PostType.php:63
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:15
-#: nxbuild/admin/js/admin.js:2797
-#: nxbuild/admin/js/admin.js:5725
 msgid "Add New"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:47
 #: assets/admin/js/admin.js:13
-#: nxbuild/admin/js/admin.js:4759
 msgid "Quick Builder"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:91
-#: includes/Extensions/GlobalFields.php:401
-#: includes/Extensions/GlobalFields.php:411
+#: includes/Extensions/GlobalFields.php:404
+#: includes/Extensions/GlobalFields.php:414
 #: includes/Extensions/PressBar/PressBar.php:718
 msgid "Content"
 msgstr ""
@@ -783,7 +767,7 @@ msgstr ""
 #: includes/Extensions/CF7/CF7.php:95
 #: includes/Extensions/EDD/EDD.php:90
 #: includes/Extensions/Elementor/From.php:57
-#: includes/Extensions/FluentForm/Fluent_Form.php:85
+#: includes/Extensions/FluentForm/FluentForm.php:85
 #: includes/Extensions/Give/Give.php:99
 #: includes/Extensions/GRVF/GravityForms.php:61
 #: includes/Extensions/NJF/NinjaForms.php:86
@@ -798,7 +782,7 @@ msgstr ""
 #: includes/Extensions/CF7/CF7.php:98
 #: includes/Extensions/EDD/EDD.php:93
 #: includes/Extensions/Elementor/From.php:60
-#: includes/Extensions/FluentForm/Fluent_Form.php:88
+#: includes/Extensions/FluentForm/FluentForm.php:88
 #: includes/Extensions/Give/Give.php:102
 #: includes/Extensions/GRVF/GravityForms.php:64
 #: includes/Extensions/NJF/NinjaForms.php:89
@@ -835,14 +819,14 @@ msgstr ""
 
 #: includes/Extensions/CustomNotification/CustomNotification.php:41
 #: includes/Extensions/CustomNotification/CustomNotification.php:42
+#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:38
 #: includes/Extensions/CustomNotification/CustomNotificationConversions.php:39
-#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:40
 #: includes/Types/CustomNotification.php:36
 msgid "Custom Notification"
 msgstr ""
 
 #: includes/Extensions/CustomNotification/CustomNotification.php:87
-#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:65
+#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:64
 msgid ""
 "<p>You can make custom notification for its all types of campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%2$s\">video tutorial</a> to learn quickly</p>\n"
@@ -850,12 +834,12 @@ msgid ""
 "\t\t<p>🔥 How to <a target=\"_blank\" href=\"%3$s\">Display Custom Notification Alerts</a> On Your Website Using NotificationX</p>"
 msgstr ""
 
-#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:42
+#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:41
 #: includes/Types/CustomNotification.php:38
 msgid "<a href='https://notificationx.com/docs/custom-notification/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:43
+#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:42
 #: includes/Extensions/Elementor/From.php:44
 #: includes/Extensions/Envato/Envato.php:43
 #: includes/Extensions/Freemius/FreemiusConversions.php:43
@@ -875,7 +859,7 @@ msgstr ""
 msgid "<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>"
 msgstr ""
 
-#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:44
+#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:43
 #: includes/Types/CustomNotification.php:40
 msgid ""
 "\n"
@@ -1069,19 +1053,24 @@ msgid ""
 "\t\t"
 msgstr ""
 
-#: includes/Extensions/FluentForm/Fluent_Form.php:42
-#: includes/Extensions/FluentForm/Fluent_Form.php:43
-#: includes/Extensions/FluentForm/Fluent_Form.php:87
+#: includes/Extensions/FluentForm/FluentForm.php:42
+#: includes/Extensions/FluentForm/FluentForm.php:43
+#: includes/Extensions/FluentForm/FluentForm.php:87
 msgid "Fluent Form"
 msgstr ""
 
-#: includes/Extensions/FluentForm/Fluent_Form.php:306
+#: includes/Extensions/FluentForm/FluentForm.php:306
 msgid ""
-"<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Fluent Form installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
-"\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
-"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Fluent Form</a></p>\n"
-"\t\t<p><strong>Recommended Blog:</strong></p>\n"
-"\t\t<p>🔥 Hacks to Increase Your <a target=\"_blank\" href=\"%5$s\">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>"
+"\n"
+"        <p>To use the campaign & form subscription data, make sure that you have <a target=\"_blank\" href=\"%1$s\">Fluent Forms installed and configured</a> on your website. For detailed guidelines, follow this <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
+"\n"
+"        <p>🎥 Learn quickly from the <a target=\"_blank\" href=\"%3$s\">video tutorial</a>.</p>\n"
+"\n"
+"        <p>⚙️ NotificationX integration with Fluent Forms</p>\n"
+"\n"
+"        <p>📖 Recommended Reading: </p>\n"
+"        <p>🔥How To <a target=\"_blank\" href=\"%4$s\">Display Fluent Form Submission Alert</a> Using NotificationX?</p>\n"
+"        "
 msgstr ""
 
 #: includes/Extensions/Freemius/Freemius.php:19
@@ -1144,9 +1133,9 @@ msgid "GiveWP"
 msgstr ""
 
 #: includes/Extensions/Give/Give.php:82
-#: includes/Extensions/GlobalFields.php:463
-#: includes/Extensions/GlobalFields.php:481
-#: includes/Extensions/GlobalFields.php:1145
+#: includes/Extensions/GlobalFields.php:466
+#: includes/Extensions/GlobalFields.php:484
+#: includes/Extensions/GlobalFields.php:1161
 #: includes/Extensions/Google/GoogleReviews.php:55
 #: includes/Extensions/Google/GoogleReviews.php:69
 #: includes/Extensions/Google/GoogleReviews.php:83
@@ -1240,7 +1229,7 @@ msgstr ""
 msgid "Advanced Design"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:288
+#: includes/Extensions/GlobalFields.php:289
 #: includes/Extensions/PressBar/PressBar.php:218
 #: blocks/notificationx/components/inspector.js:312
 #: blocks/notificationx/index.js:1
@@ -1248,7 +1237,7 @@ msgstr ""
 msgid "Background Color"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:294
+#: includes/Extensions/GlobalFields.php:295
 #: includes/Extensions/PressBar/PressBar.php:223
 #: blocks/notificationx/components/inspector.js:306
 #: blocks/notificationx/index.js:1
@@ -1256,35 +1245,35 @@ msgstr ""
 msgid "Text Color"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:300
+#: includes/Extensions/GlobalFields.php:301
 msgid "Want Border?"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:306
+#: includes/Extensions/GlobalFields.php:307
 msgid "Border Size"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:313
+#: includes/Extensions/GlobalFields.php:314
 msgid "Border Style"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:318
+#: includes/Extensions/GlobalFields.php:319
 msgid "Solid"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:319
+#: includes/Extensions/GlobalFields.php:320
 msgid "Dashed"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:320
+#: includes/Extensions/GlobalFields.php:321
 msgid "Dotted"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:325
+#: includes/Extensions/GlobalFields.php:326
 msgid "Border Color"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:334
+#: includes/Extensions/GlobalFields.php:335
 #: includes/Extensions/PressBar/PressBar.php:267
 #: blocks/notificationx/components/inspector.js:253
 #: blocks/notificationx/index.js:1
@@ -1292,127 +1281,127 @@ msgstr ""
 msgid "Typography"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:340
-#: includes/Extensions/GlobalFields.php:348
-#: includes/Extensions/GlobalFields.php:356
+#: includes/Extensions/GlobalFields.php:342
+#: includes/Extensions/GlobalFields.php:350
+#: includes/Extensions/GlobalFields.php:358
 #: includes/Extensions/PressBar/PressBar.php:273
 msgid "Font Size"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:345
+#: includes/Extensions/GlobalFields.php:347
 #: includes/Extensions/PressBar/PressBar.php:279
 msgid "This font size will be applied for <mark>first</mark> row"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:353
+#: includes/Extensions/GlobalFields.php:355
 msgid "This font size will be applied for <mark>second</mark> row"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:361
+#: includes/Extensions/GlobalFields.php:363
 msgid "This font size will be applied for <mark>third</mark> row"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:366
+#: includes/Extensions/GlobalFields.php:368
 msgid "Image Appearance"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:372
+#: includes/Extensions/GlobalFields.php:375
 msgid "Image Shape"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:378
+#: includes/Extensions/GlobalFields.php:381
 msgid "Circle"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:379
+#: includes/Extensions/GlobalFields.php:382
 msgid "Rounded"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:380
+#: includes/Extensions/GlobalFields.php:383
 msgid "Square"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:384
-#: includes/Extensions/GlobalFields.php:936
+#: includes/Extensions/GlobalFields.php:387
+#: includes/Extensions/GlobalFields.php:952
 msgid "Position"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:390
+#: includes/Extensions/GlobalFields.php:393
 #: includes/Extensions/PressBar/PressBar.php:258
 msgid "Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:391
+#: includes/Extensions/GlobalFields.php:394
 #: includes/Extensions/PressBar/PressBar.php:259
 msgid "Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:417
+#: includes/Extensions/GlobalFields.php:420
 msgid "Notification Template"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:430
-#: includes/Extensions/GlobalFields.php:455
-#: includes/Extensions/GlobalFields.php:473
-#: includes/Extensions/GlobalFields.php:490
-#: includes/Extensions/GlobalFields.php:507
+#: includes/Extensions/GlobalFields.php:433
+#: includes/Extensions/GlobalFields.php:458
+#: includes/Extensions/GlobalFields.php:476
+#: includes/Extensions/GlobalFields.php:493
+#: includes/Extensions/GlobalFields.php:510
 #: includes/Extensions/Google/YouTube.php:533
 msgid "Custom"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:446
+#: includes/Extensions/GlobalFields.php:449
 msgid "recently purchased"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:522
-#: includes/Extensions/GlobalFields.php:532
+#: includes/Extensions/GlobalFields.php:525
+#: includes/Extensions/GlobalFields.php:535
 msgid "Advanced Template"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:538
+#: includes/Extensions/GlobalFields.php:541
 msgid "Random Order"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:543
+#: includes/Extensions/GlobalFields.php:546
 msgid "Enable to show notification in random order."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:546
+#: includes/Extensions/GlobalFields.php:549
 msgid "Show Purchase Of"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:554
+#: includes/Extensions/GlobalFields.php:557
 #: includes/Types/ELearning.php:183
 msgid "All"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:555
-#: includes/Extensions/GlobalFields.php:613
+#: includes/Extensions/GlobalFields.php:558
+#: includes/Extensions/GlobalFields.php:616
 msgid "Product Category"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:556
-#: includes/Extensions/GlobalFields.php:614
+#: includes/Extensions/GlobalFields.php:559
+#: includes/Extensions/GlobalFields.php:617
 msgid "Selected Product"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:561
-#: includes/Extensions/GlobalFields.php:619
+#: includes/Extensions/GlobalFields.php:564
+#: includes/Extensions/GlobalFields.php:622
 msgid "Select Product Category"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:573
-#: includes/Extensions/GlobalFields.php:631
+#: includes/Extensions/GlobalFields.php:576
+#: includes/Extensions/GlobalFields.php:634
 msgid "Select Product"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:604
+#: includes/Extensions/GlobalFields.php:607
 msgid "Exclude By"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:612
-#: includes/Extensions/GlobalFields.php:690
-#: includes/Extensions/GlobalFields.php:805
+#: includes/Extensions/GlobalFields.php:615
+#: includes/Extensions/GlobalFields.php:693
+#: includes/Extensions/GlobalFields.php:821
 #: includes/Extensions/Google/YouTube.php:167
 #: includes/Extensions/Google/YouTube.php:171
 #: includes/Extensions/Google/YouTube.php:181
@@ -1422,246 +1411,254 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:661
+#: includes/Extensions/GlobalFields.php:664
 msgid "Order Status"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:679
+#: includes/Extensions/GlobalFields.php:682
 msgid "Link Options"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:685
+#: includes/Extensions/GlobalFields.php:688
 msgid "Link Type"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:700
+#: includes/Extensions/GlobalFields.php:697
+msgid "Button"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:703
+msgid "Enable button with link"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:716
 msgid "Display"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:710
+#: includes/Extensions/GlobalFields.php:726
 msgid "IMAGE"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:718
+#: includes/Extensions/GlobalFields.php:734
 msgid "Show Default Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:724
+#: includes/Extensions/GlobalFields.php:740
 msgid "Choose an Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:728
+#: includes/Extensions/GlobalFields.php:744
 msgid "If checked, this will show in notifications."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:736
+#: includes/Extensions/GlobalFields.php:752
 msgid "Verified"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:741
+#: includes/Extensions/GlobalFields.php:757
 msgid "Flames"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:746
+#: includes/Extensions/GlobalFields.php:762
 msgid "Flames GIF"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:751
+#: includes/Extensions/GlobalFields.php:767
 msgid "Pink Face"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:756
+#: includes/Extensions/GlobalFields.php:772
 msgid "Blue Face"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:763
+#: includes/Extensions/GlobalFields.php:779
 msgid "Upload an Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:765
+#: includes/Extensions/GlobalFields.php:781
 msgid "Upload"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:771
+#: includes/Extensions/GlobalFields.php:787
 msgid "Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:809
+#: includes/Extensions/GlobalFields.php:825
 msgid "Featured Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:839
+#: includes/Extensions/GlobalFields.php:855
 msgid "Gravatar"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:874
+#: includes/Extensions/GlobalFields.php:890
 msgid "Visibility"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:879
+#: includes/Extensions/GlobalFields.php:895
 msgid "Show On"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:885
+#: includes/Extensions/GlobalFields.php:901
 msgid "Show Everywhere"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:886
+#: includes/Extensions/GlobalFields.php:902
 msgid "Show On Selected"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:887
+#: includes/Extensions/GlobalFields.php:903
 msgid "Hide On Selected"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:891
+#: includes/Extensions/GlobalFields.php:907
 msgid "Locations"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:904
-#: includes/Extensions/GlobalFields.php:1037
+#: includes/Extensions/GlobalFields.php:920
+#: includes/Extensions/GlobalFields.php:1053
 msgid "Display For"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:911
+#: includes/Extensions/GlobalFields.php:927
 msgid "Logged Out User"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:912
+#: includes/Extensions/GlobalFields.php:928
 msgid "Logged In User"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:914
+#: includes/Extensions/GlobalFields.php:930
 msgid "More Control in Pro"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:921
+#: includes/Extensions/GlobalFields.php:937
 msgid "Customize"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:931
+#: includes/Extensions/GlobalFields.php:947
 msgid "Appearance"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:943
+#: includes/Extensions/GlobalFields.php:959
 msgid "Bottom Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:947
+#: includes/Extensions/GlobalFields.php:963
 msgid "Bottom Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:953
+#: includes/Extensions/GlobalFields.php:969
 msgid "Notification Size"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:977
+#: includes/Extensions/GlobalFields.php:993
 msgid "Set a max width for notification."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:980
+#: includes/Extensions/GlobalFields.php:996
 msgid "Display Close Option"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:985
+#: includes/Extensions/GlobalFields.php:1001
 msgid "Display a close button."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:988
+#: includes/Extensions/GlobalFields.php:1004
 msgid "Mobile Visibility"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:993
+#: includes/Extensions/GlobalFields.php:1009
 msgid "Hide NotificationX on mobile."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:998
+#: includes/Extensions/GlobalFields.php:1014
 msgid "Queue Management"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1006
+#: includes/Extensions/GlobalFields.php:1022
 msgid "Enable Global Queue"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1012
+#: includes/Extensions/GlobalFields.php:1028
 msgid "Activate global queue system for this notification."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1012
+#: includes/Extensions/GlobalFields.php:1028
 msgid "Check out this doc."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1017
+#: includes/Extensions/GlobalFields.php:1033
 msgid "Timing"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1025
+#: includes/Extensions/GlobalFields.php:1041
 msgid "Delay Before First Notification"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1030
+#: includes/Extensions/GlobalFields.php:1046
 #: includes/Extensions/PressBar/PressBar.php:547
 #: includes/Extensions/PressBar/PressBar.php:552
 msgid "Initial Delay"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1031
-#: includes/Extensions/GlobalFields.php:1038
 #: includes/Extensions/GlobalFields.php:1047
+#: includes/Extensions/GlobalFields.php:1054
+#: includes/Extensions/GlobalFields.php:1063
 #: includes/Extensions/PressBar/PressBar.php:553
 #: includes/Extensions/PressBar/PressBar.php:573
 msgid "seconds"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1039
+#: includes/Extensions/GlobalFields.php:1055
 msgid "Display each notification for * seconds"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1046
+#: includes/Extensions/GlobalFields.php:1062
 msgid "Delay Between"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1048
+#: includes/Extensions/GlobalFields.php:1064
 msgid "Delay between each notification"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1055
+#: includes/Extensions/GlobalFields.php:1071
 msgid "Behavior"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1064
+#: includes/Extensions/GlobalFields.php:1080
 msgid "Display The Last"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1073
+#: includes/Extensions/GlobalFields.php:1089
 msgid "Display From The Last"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1081
+#: includes/Extensions/GlobalFields.php:1097
 msgid "Loop Notification"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1089
+#: includes/Extensions/GlobalFields.php:1105
 msgid "Open Link In New Tab"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1133
+#: includes/Extensions/GlobalFields.php:1149
 msgid "Full Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1134
+#: includes/Extensions/GlobalFields.php:1150
 msgid "First Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1135
+#: includes/Extensions/GlobalFields.php:1151
 msgid "Last Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1138
+#: includes/Extensions/GlobalFields.php:1154
 msgid "Display Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1144
+#: includes/Extensions/GlobalFields.php:1160
 #: includes/Extensions/Google/GoogleReviews.php:143
 #: includes/Extensions/ReviewX/ReviewX.php:158
 #: includes/Extensions/WooCommerce/WOOReviews.php:140
@@ -1805,7 +1802,6 @@ msgstr ""
 #: includes/Extensions/Google/YouTube.php:113
 #: includes/Extensions/Google/YouTube.php:146
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3516
 msgid "Views"
 msgstr ""
 
@@ -2609,13 +2605,11 @@ msgstr ""
 
 #: includes/FrontEnd/Preview.php:345
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3961
 msgid "Preview"
 msgstr ""
 
 #: includes/NotificationX.php:169
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:5073
 msgid "Settings"
 msgstr ""
 
@@ -2945,723 +2939,547 @@ msgid "<strong>Recommended: </strong> Seems like you haven't updated the Notific
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:45159
 msgid "\"allOf\" condition requires an array as #3 argument"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:45168
 msgid "\"anyOf\" condition requires an array as #3 argument"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:45195
 msgid "\"not\" can have only one comparison rule, multiple rules given"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:45211
 msgid "Invalid comparison rule %s."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:45454
 msgid "There are no tabs defined!"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:46716
 msgid "Field must have a #type. see documentation."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:46940
 msgid "Copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:46970
 msgid "File can't be empty."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:46973
 msgid "Invalid file type."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:47033
 msgid "You should give a #fields arguments to a group field."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:47376
 msgid "Loading..."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:47475
 msgid "#options is a required arguments for RadioCard field."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:48060
 msgid "Reset"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:7
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4325
-#: nxbuild/admin/js/admin.js:4467
-#: nxbuild/admin/js/admin.js:5006
-#: nxbuild/admin/js/admin.js:48213
 msgid "Something went wrong."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:48164
 msgid "Button has a required params #text."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:48358
 msgid "Modal needs button/body with it."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:48477
 msgid "Save Changes"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:48543
 msgid "There are no #tabs args defined in props."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:48548
 msgid "Not an array."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:10086
 msgid "NotificationXContext context is undefined, please verify you are calling useNotificationXContext() as child of a <NotificationX> component."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:6693
 msgid "You need to upgrade to the <strong><a href='%s' target='_blank'>Premium Version</a></strong> to use this feature."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:6703
 msgid "Opps..."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:6673
-#: nxbuild/admin/js/admin.js:45713
 msgid "Title Goes Here: title"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:6674
 msgid "Text Goes Here: text"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5704
 msgid "NotificationX:"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5729
 msgid "NotificationX Pro:"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:6007
 msgid "NX Not Created"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:6010
 msgid "Error: "
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:7
-#: nxbuild/admin/js/admin.js:4300
-#: nxbuild/admin/js/admin.js:5242
-#: nxbuild/admin/js/admin.js:6015
 msgid "Are you sure?"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:7
-#: nxbuild/admin/js/admin.js:4301
-#: nxbuild/admin/js/admin.js:5243
-#: nxbuild/admin/js/admin.js:6016
 msgid "You won't be able to revert this!"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:7
-#: nxbuild/admin/js/admin.js:4304
-#: nxbuild/admin/js/admin.js:5246
-#: nxbuild/admin/js/admin.js:6019
 msgid "Yes, Delete It"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:7
-#: nxbuild/admin/js/admin.js:4305
-#: nxbuild/admin/js/admin.js:5247
-#: nxbuild/admin/js/admin.js:6020
 msgid "No, Cancel"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5263
-#: nxbuild/admin/js/admin.js:6032
 msgid "Notification Alert has been Deleted."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:5009
-#: nxbuild/admin/js/admin.js:5539
-#: nxbuild/admin/js/admin.js:6037
 msgid "Oops, Something went wrong. Please try again."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:6040
 msgid "Delete Error: "
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5591
-#: nxbuild/admin/js/admin.js:6055
 msgid "Scheduled For"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:6055
 msgid "Published On"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:6055
 msgid "Publish On"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:6075
 msgid "Schedule"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:6075
 msgid "Update"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:11
-#: nxbuild/admin/js/admin.js:4625
-#: nxbuild/admin/js/admin.js:6075
 msgid "Publish"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5763
 msgid "NotificationX Instructions"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3520
 msgid "Clicks"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3524
 msgid "CTR"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3541
 msgid "All Combined"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3544
 msgid "All Separated"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3406
 msgid "Analytics Data"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3412
 msgid "Get PRO to Unlock"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5303
-#: nxbuild/admin/js/admin.js:5330
-#: nxbuild/admin/js/admin.js:5385
 msgid "Inline Notification Alert has been copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5277
-#: nxbuild/admin/js/admin.js:5314
 msgid "Cancel"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5322
 msgid "Regular Notification Alert has been copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
-#: nxbuild/admin/js/admin.js:2984
-#: nxbuild/admin/js/admin.js:5349
-#: nxbuild/admin/js/admin.js:5354
 msgid "Edit"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5358
-#: nxbuild/admin/js/admin.js:5360
 msgid "Translate"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5364
-#: nxbuild/admin/js/admin.js:5373
 msgid "Duplicate"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5375
-#: nxbuild/admin/js/admin.js:5379
 msgid "Shortcode"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5377
 msgid "ShortCode"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:7
-#: nxbuild/admin/js/admin.js:4427
-#: nxbuild/admin/js/admin.js:5340
 msgid "Cross Domain Notice code has been copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5342
 msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use <a target='_blank' href='%s' style='color:red'>Cross Domain Notice</a> feature."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5271
 msgid "Are you sure you want to Regenerate?"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5272
 msgid "Regenerating will fetch new data based on settings"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4285
-#: nxbuild/admin/js/admin.js:5276
-#: nxbuild/admin/js/admin.js:5398
-#: nxbuild/admin/js/admin.js:5399
 msgid "Regenerate"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5289
 msgid "Notification Alert has been Regenerated."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4280
-#: nxbuild/admin/js/admin.js:5403
-#: nxbuild/admin/js/admin.js:5405
 msgid "Delete"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5527
 msgid "Notification Alert has been Enabled."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5529
 msgid "Notification Alert has been Disabled."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5532
 msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use this feature."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5532
-#: nxbuild/admin/js/admin.js:5534
 msgid "Disabled"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5534
 msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5584
 msgid "%s clicks"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5589
 msgid "%s views"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:5591
 msgid "Published"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
-#: nxbuild/admin/js/admin.js:2857
-#: nxbuild/admin/js/admin.js:3046
-#: nxbuild/admin/js/admin.js:3961
 msgid "NotificationX Title"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3961
 msgid "Type"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3961
 msgid "Stats"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3961
 msgid "Date"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:3961
 msgid "Action"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4264
 msgid "Bulk Action"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4274
 msgid "Enable"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4277
 msgid "Disable"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4483
 msgid "All (%d)"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4491
 msgid "Enabled (%d)"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:4499
 msgid "Disabled (%d)"
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Regenerated.
 #: assets/admin/js/admin.js:3
-#: nxbuild/admin/js/admin.js:4342
 msgid "%d Notification Alerts have been Regenerated."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Enabled.
 #: assets/admin/js/admin.js:5
-#: nxbuild/admin/js/admin.js:4369
 msgid "%d Notification Alerts have been Enabled."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Disabled.
 #: assets/admin/js/admin.js:7
-#: nxbuild/admin/js/admin.js:4397
 msgid "%d Notification Alerts have been Disabled."
 msgstr ""
 
 #: assets/admin/js/admin.js:7
-#: nxbuild/admin/js/admin.js:4470
 msgid "Unable to complete bulk action."
 msgstr ""
 
 #: assets/admin/js/admin.js:7
-#: nxbuild/admin/js/admin.js:4301
 msgid "You're about to delete %s notification alert,<br />"
 msgid_plural "You're about to delete %s notification alerts,<br />"
 msgstr[0] ""
 msgstr[1] ""
 
 #: assets/admin/js/admin.js:7
-#: nxbuild/admin/js/admin.js:4302
 msgid "error"
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts deleted.
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4330
 msgid ""
 "%d notification Alerts have been\n"
 "                Deleted."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4515
 msgid "Applying..."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4515
 msgid "Apply"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4032
 msgid "loading..."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4105
 msgid "NotificationX Fetch Error: "
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4151
 msgid "No notifications are found."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4151
 msgid "Seems like you haven’t created any notification alerts."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4151
 msgid "Hit on %1$s\"Add New\"%2$s button to get started"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4151
 msgid "No notifications are enabled."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4151
 msgid "There’s no enabled Notification Alerts."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4151
 msgid "Simply use the toggle switch to turn your notifications from %1$s\"All NotificationX\"%2$s page."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4151
 msgid "No notifications are disabled."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4151
 msgid "There’s no disabled Notification Alerts."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:5115
 msgid "Manage License"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:5119
 msgid "Upgrade to Pro"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4841
-#: nxbuild/admin/js/admin.js:4848
 msgid "Documentation"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4843
 msgid "Get started by spending some time with the documentation to get familiar with NotificationX. Build awesome websites for you or your clients with ease."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4859
 msgid "Contribute to NotificationX"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4861
 msgid "You can contribute to make NotificationX better reporting bugs, creating issues, pull requests at"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4870
 msgid "Report a Bug"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4881
 msgid "Need Help?"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4883
 msgid "Stuck with something? Get help from live chat or support ticket."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4888
 msgid "Initiate a Chat"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4899
 msgid "Show Your Love"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4901
 msgid "We love to have you in NotificationX family. We are making it more awesome everyday. Take your 2 minutes to review the plugin and spread the love to encourage us to keep it going."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:4906
 msgid "Leave a Review"
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#: nxbuild/admin/js/admin.js:5004
 msgid "Changes Saved Successfully."
 msgstr ""
 
 #. translators: %1$s: title, %2$s: link to the All NotificationX page.
 #: assets/admin/js/admin.js:11
-#: nxbuild/admin/js/admin.js:4552
 msgid "You are about to publish %1$s. You can rename this and edit everything whenever you want from %2$s Page."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: nxbuild/admin/js/admin.js:4617
 msgid "QuickBuilder Error: "
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: nxbuild/admin/js/admin.js:4625
 msgid "Publishing..."
 msgstr ""
 
 #. translators: Title of the new Notification Alert. %1$s: title, %2$s: current date.
 #: assets/admin/js/admin.js:13
-#: nxbuild/admin/js/admin.js:4742
 msgid "NotificationX - %1$s - %2$s"
 msgstr ""
 
 #: assets/admin/js/admin.js:13
-#: nxbuild/admin/js/admin.js:2971
 msgid "Successfully Updated."
 msgstr ""
 
 #: assets/admin/js/admin.js:13
-#: nxbuild/admin/js/admin.js:2973
 msgid "Successfully Created."
 msgstr ""
 
 #. translators: Postfix for notice created by duplicate button.
 #: assets/admin/js/admin.js:15
-#: nxbuild/admin/js/admin.js:2779
 msgid " - Copy"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:2474
-#: nxbuild/public/js/crossSite.js:2163
-#: nxbuild/public/js/frontend.js:2163
 #: nxdev/notificationx/frontend/themes/helpers/NXBranding.js:9
 msgid "by"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:8403
-#: nxbuild/public/js/crossSite.js:2821
-#: nxbuild/public/js/frontend.js:2821
 msgid "Days"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:8410
-#: nxbuild/public/js/crossSite.js:2828
-#: nxbuild/public/js/frontend.js:2828
 msgid "Hrs"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:8417
-#: nxbuild/public/js/crossSite.js:2835
-#: nxbuild/public/js/frontend.js:2835
 msgid "Mins"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:8424
-#: nxbuild/public/js/crossSite.js:2842
-#: nxbuild/public/js/frontend.js:2842
 msgid "Secs"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:8438
-#: nxbuild/public/js/crossSite.js:2856
-#: nxbuild/public/js/frontend.js:2856
 msgid "You should setup NX Bar properly"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
-#: nxbuild/public/js/crossSite.js:43528
 msgid "You are using old version of cross-domain scripts for NotificationX Pro. Please update this from your NotificationX Settings page."
 msgstr ""
 
@@ -3727,8 +3545,4 @@ msgstr ""
 #: blocks/notificationx/index.js:1
 #: blocks/notificationx/index.js:2524
 msgid "Link Color"
-msgstr ""
-
-#: nxbuild/admin/js/admin.js:45714
-msgid "Test Goes Here: text"
 msgstr ""
