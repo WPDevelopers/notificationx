@@ -50,7 +50,10 @@ const Theme = (props) => {
 
     // console.log(template);
     const componentClasses = classNames(
-        "notificationx-inner"
+        "notificationx-inner",
+        {
+            "no-advance-edit": !post.advance_edit,
+        }
         // `nx-notification-${themeName}`,
         // {
         //     "nx-has-close-btn": post?.close_button,
