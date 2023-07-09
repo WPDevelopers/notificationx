@@ -421,7 +421,7 @@ class Preview {
 
     public function is_preview() {
         $is_preview = false;
-        if (!empty($_GET['nx-preview'])) {
+        if (!empty($_POST['nx-preview'])) {
             $is_preview = true;
         }
         $is_preview = apply_filters('nx_is_preview',$is_preview);
