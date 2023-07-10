@@ -186,7 +186,7 @@ class FluentForm extends Extension {
                 $data[$key] = $field;
             }
         }
-        $data['title'] = $form->title ?? '';
+        $data['title'] = $form->title ? $form->title : '';
         $data['timestamp'] = time();
         if (!empty($data)) {
             $key = $this->key($form->id);
@@ -235,7 +235,7 @@ class FluentForm extends Extension {
                         foreach ($submission->user_inputs as $key => $field) {
                             $entry_data[$key] = $field;
                         }
-                        $entry_data['title'] = $form->title ?? '';
+                        $entry_data['title'] = $form->title ? $form->title : '';
                         $entry_data['timestamp'] = $sub->created_at;
                         $_key = $this->key($form->id);
                         if (!empty($data)) {
