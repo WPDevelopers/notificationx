@@ -165,8 +165,8 @@ class FluentForm extends Extension {
         $formFields = $formApi->labels();
         foreach ($formFields as $key => $value) {
             $formData[] = [
-                'label' => $value ?? '',
-                'value' => 'tag_'.$key ?? '',
+                'label' => $value ? $value : '',
+                'value' => 'tag_'. ($key ? $key : ''),
             ];
         }
         return $formData;
