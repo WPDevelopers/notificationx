@@ -220,12 +220,19 @@ class FluentForm extends Extension {
                 $form = wpFluent()->table('fluentform_forms')->where('id', $form_list[1])->first();
                 $valueFrom = date('Y-m-d',strtotime('-'.$data['display_from'].' days',time()));
                 $valueTo = date('Y-m-d',strtotime('1 days',time()));
-                $submissionArr = wpFluent()->table('fluentform_submissions')
-                ->where('form_id', $form->id)
-                ->whereBetween('created_at', $valueFrom, $valueTo )
-                ->orderBy('id','DESC')
-                ->limit($data['display_last'])
-                ->get();
+                $query = wpFluent()->table('fluentform_submissions')
+                ->where('form_id', $form->id);
+                // define('FLUENTFORM_VERSION', '5.0.6')
+                if( version_compare(FLUENTFORM_VERSION, '5.0.0', '>=')){
+                    $query = $query->whereBetween('created_at', [$valueFrom, $valueTo] );
+                }
+                else{
+                    $query = $query->whereBetween('created_at', $valueFrom, $valueTo );
+                }
+
+                $query = $query->orderBy('id','DESC')
+                ->limit($data['display_last']);
+                $submissionArr = $query->get();
                 $entries = [];
                 foreach ($submissionArr as $sub) {
                     if( !empty( $sub ) ) {
