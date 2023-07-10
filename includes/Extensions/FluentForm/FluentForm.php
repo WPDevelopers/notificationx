@@ -316,7 +316,7 @@ class FluentForm extends Extension {
         'https://wordpress.org/plugins/fluentform/',
         'https://notificationx.com/docs/fluent-forms-submission-alert-notificationx',
         'https://youtu.be/cl0WEazGflU',
-        'https://notificationx.com/blog/display-fluent-forms-submission-alert/',
+        'https://notificationx.com/blog/display-fluent-forms-submission-alert/'
         );
     }
 }
