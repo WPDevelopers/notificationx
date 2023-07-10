@@ -180,14 +180,17 @@ class FluentForm extends Extension {
         ->first();
         $data = [];
         if( !empty( $submission ) ) {
-            $inputs = \FluentForm\App\Modules\Form\FormFieldsParser::getEntryInputs($form);
-            $submission = \FluentForm\App\Modules\Form\FormDataParser::parseFormEntry($submission, $form, $inputs, false);
+            $data['ip']  = $submission->ip;
+            $data['timestamp'] = Helper::get_utc_time($submission->created_at);
+            $inputs            = \FluentForm\App\Modules\Form\FormFieldsParser::getEntryInputs($form);
+            $submission        = \FluentForm\App\Modules\Form\FormDataParser::parseFormEntry($submission, $form, $inputs, false);
             foreach ($submission->user_inputs as $key => $field) {
                 $data[$key] = $field;
             }
         }
-        $data['title'] = $form->title ? $form->title : '';
-        $data['timestamp'] = time();
+        $data['title']     = $form->title ? $form->title : '';
+        $data['timestamp'] = isset($data['timestamp']) ? $data['timestamp'] : time();
+
         if (!empty($data)) {
             $key = $this->key($form->id);
             $this->save([
@@ -203,6 +206,10 @@ class FluentForm extends Extension {
     public function key($key = '') {
         $key = $this->id . '_' . $key;
         return $key;
+    }
+
+    public function saved_post($post, $data, $nx_id) {
+        $this->get_notification_ready($data);
     }
 
     /**
@@ -243,7 +250,8 @@ class FluentForm extends Extension {
                             $entry_data[$key] = $field;
                         }
                         $entry_data['title'] = $form->title ? $form->title : '';
-                        $entry_data['timestamp'] = $sub->created_at;
+                        $entry_data['ip'] = $sub->ip;
+                        $entry_data['timestamp'] = Helper::get_utc_time($sub->created_at);
                         $_key = $this->key($form->id);
                         if (!empty($data)) {
                             $entries[] = [

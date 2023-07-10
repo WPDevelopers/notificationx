@@ -377,6 +377,28 @@ class Helper {
         return $datetime->format($type);
     }
 
+    public static function get_utc_time($timestamp = null) {
+        $type = 'Y-m-d H:i:s';
+        if (empty($timestamp)) {
+            $timestamp = time();
+        }
+
+        // Get the WP timezone as a DateTimeZone object
+        $wp_timezone = wp_timezone();
+        $timezone = new \DateTimeZone('UTC');
+
+        if (is_numeric($timestamp)) {
+            $datetime = new \DateTime(null, $wp_timezone);
+            $datetime->setTimezone($timezone);
+            $datetime->setTimestamp($timestamp);
+        }
+        else{
+            $datetime = new \DateTime($timestamp, $wp_timezone);
+            $datetime->setTimezone($timezone);
+        }
+        return $datetime->format($type);
+    }
+
     public static function mysql_time($timestamp = null) {
         $type = 'Y-m-d H:i:s';
         if (empty($timestamp)) {
