@@ -220,7 +220,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 == Changelog ==
 
 = 2.7.3 - 10/07/2023 =
-- Added: Fluent Form Integration.
+- Added: Fluent Forms Integration.
 - Few minor bug fixes and improvements.
 
 = 2.7.2 - 19/06/2023 =

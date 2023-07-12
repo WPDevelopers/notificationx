@@ -39,8 +39,8 @@ class FluentForm extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        $this->title = __('Fluent Form', 'notificationx');
-        $this->module_title = __('Fluent Form', 'notificationx');
+        $this->title = __('Fluent Forms', 'notificationx');
+        $this->module_title = __('Fluent Forms', 'notificationx');
         parent::__construct();
     }
 
@@ -84,7 +84,7 @@ class FluentForm extends Extension {
                 'message' => sprintf( '%s <a href="%s" target="_blank">%s</a> %s',
                     __( 'You have to install', 'notificationx' ),
                     $url,
-                    __( 'Fluent Form', 'notificationx' ),
+                    __( 'Fluent Forms', 'notificationx' ),
                     __( 'plugin first.', 'notificationx' )
                 ),
                 'html' => true,
@@ -326,7 +326,7 @@ class FluentForm extends Extension {
         <p>⚙️ NotificationX integration with Fluent Forms</p>
 
         <p>📖 Recommended Reading: </p>
-        <p>🔥How To <a target="_blank" href="%4$s">Display Fluent Form Submission Alert</a> Using NotificationX?</p>
+        <p>🔥How To <a target="_blank" href="%4$s">Display Fluent Forms Submission Alert</a> Using NotificationX?</p>
         ', 'notificationx'),
         'https://wordpress.org/plugins/fluentform/',
         'https://notificationx.com/docs/fluent-forms-submission-alert-notificationx',
