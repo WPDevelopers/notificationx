@@ -24,6 +24,7 @@ use NotificationX\Types\TypeFactory;
 use NotificationX\Extensions\ExtensionFactory;
 use NotificationX\ThirdParty\WPML;
 use NotificationX\Core\WPDRoleManagement;
+use NotificationX\ThirdParty\VisualPortfolio;
 
 /**
  * Plugin Engine.
@@ -82,6 +83,7 @@ class NotificationX {
 
         // 3rd Party features.
         WPML::get_instance();
+        VisualPortfolio::get_instance();
     }
     /**
      * The Plugin Activator

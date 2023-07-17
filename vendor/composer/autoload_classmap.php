@@ -94,6 +94,7 @@ return array(
     'NotificationX\\FrontEnd\\Preview' => $baseDir . '/includes/FrontEnd/Preview.php',
     'NotificationX\\GetInstance' => $baseDir . '/includes/GetInstance.php',
     'NotificationX\\NotificationX' => $baseDir . '/includes/NotificationX.php',
+    'NotificationX\\ThirdParty\\VisualPortfolio' => $baseDir . '/includes/ThirdParty/VisualPortfolio.php',
     'NotificationX\\ThirdParty\\WPML' => $baseDir . '/includes/ThirdParty/WPML.php',
     'NotificationX\\Types\\Comments' => $baseDir . '/includes/Types/Comments.php',
     'NotificationX\\Types\\ContactForm' => $baseDir . '/includes/Types/ContactForm.php',
