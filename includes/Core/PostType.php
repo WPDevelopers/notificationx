@@ -35,6 +35,19 @@ class PostType {
     public $active_items;
     public $enabled_source;
     public $_edit_link = 'admin.php?page=nx-edit&post=%d';
+    public $format = [
+        'nx_id'        => '%d',
+        'type'         => '%s',
+        'source'       => '%s',
+        'theme'        => '%s',
+        'enabled'      => '%d',
+        'is_inline'    => '%d',
+        'global_queue' => '%d',
+        'title'        => '%s',
+        'created_at'   => '%s',
+        'updated_at'   => '%s',
+        'data'         => '%s',
+    ];
 
     /**
      * Initially Invoked when initialized.
@@ -327,11 +340,11 @@ class PostType {
         if ( empty( $post['updated_at'] ) ) {
             $post['updated_at'] = Helper::mysql_time();
         }
-        return Database::get_instance()->insert_post( Database::$table_posts, $post );
+        return Database::get_instance()->insert_post( Database::$table_posts, $post, $this->format );
     }
 
     public function update_post( $post, $post_id ) {
-        return Database::get_instance()->update_post( Database::$table_posts, $post, $post_id );
+        return Database::get_instance()->update_post( Database::$table_posts, $post, $post_id, $this->format );
     }
 
     public function get_post( $post_id, $select = '*' ) {
