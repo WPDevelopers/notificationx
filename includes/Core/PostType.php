@@ -454,9 +454,11 @@ class PostType {
     public function get_select_async_fields(){
         return [
             'product_list',
+            'exclude_products',
             'form_list',
             'ld_course_list',
             'give_form_list',
+            // 'google_reviews_place_data' // no need to add this field, because it can handle value in [label, value] format.
         ];
     }
 
