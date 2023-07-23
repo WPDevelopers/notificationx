@@ -76,7 +76,12 @@ class FrontEnd {
         wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), [], NOTIFICATIONX_VERSION, true);
         wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], NOTIFICATIONX_VERSION, 'all');
 
-        $exit = apply_filters('nx_before_enqueue_scripts', null);
+        $exit = false;
+        if(isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], 'wp-admin/widgets.php') !== false){
+            $exit = ['total' => 0];
+        }
+
+        $exit = apply_filters('nx_before_enqueue_scripts', $exit);
         if(!empty($exit)){
             $this->notificationXArr = $exit;
             return;

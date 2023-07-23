@@ -52,7 +52,7 @@ class Preview {
      *
      * @return void
      */
-    public function enqueue_scripts() {
+    public function enqueue_scripts($return) {
         if ($this->is_preview()) {
             $args = [
                 'total'     => 1,
@@ -99,6 +99,7 @@ class Preview {
 
             return $this->notificationXArr;
         }
+        return $return;
     }
 
     public function header_scripts() {
