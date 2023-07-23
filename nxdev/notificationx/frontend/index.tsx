@@ -42,9 +42,20 @@ function notificationXWrapper(notificationX, id) {
     // @ts-ignore
 }
 
-
+function inIframe () {
+    try {
+        return window.self !== window.top;
+    } catch (e) {
+        return true;
+    }
+}
 
 domReady(function () {
+    if(inIframe()){
+        console.warn("NotificationX: NotificationX doesn't work in iframe.");
+        return;
+    }
+
     (function (notificationX) {
 
         notificationX?.map((nx, index) => notificationXWrapper(nx, index))
