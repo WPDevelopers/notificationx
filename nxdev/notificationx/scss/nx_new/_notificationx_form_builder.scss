@@ -104,8 +104,8 @@
                 &{
                     background-image: url('../icons/crown.svg');
                     background-repeat: no-repeat;
-                    top: -20px;
-                    left: calc(100% - 15px);
+                    top: 8px;
+                    left: calc(100% - 32px);
                 }
             }
         }
@@ -211,7 +211,7 @@
                 display: none;
             }
             &{
-                background-image: url('../icons/crown-sm.svg');
+                background-image: url('../icons/crown.svg');
                 background-repeat: no-repeat;
                 width: 20px;
                 height: 20px;
@@ -747,8 +747,8 @@
             &{
                 background-image: url('../icons/crown.svg');
                 background-repeat: no-repeat;
-                top: -20px;
-                left: calc(100% - 15px);
+                top: 28px;
+                left: calc(100% - 85px);
             }
         }
         .wprf-control-label {
