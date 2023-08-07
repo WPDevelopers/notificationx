@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 2.7.3\n"
+"Project-Id-Version: NotificationX 2.7.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-07-10T09:26:52+00:00\n"
+"POT-Creation-Date: 2023-08-07T09:25:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.0\n"
 "X-Domain: notificationx\n"
@@ -492,7 +492,7 @@ msgstr ""
 
 #: includes/Admin/XSS.php:44
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:46974
+#: nxbuild/admin/js/admin.js:46950
 msgid "Click to Copy"
 msgstr ""
 
@@ -597,10 +597,10 @@ msgstr ""
 #: includes/Extensions/WordPress/WPComments.php:257
 #: includes/Extensions/WordPress/WPComments.php:258
 #: includes/Extensions/WordPress/WPComments.php:259
-#: includes/FrontEnd/FrontEnd.php:177
-#: includes/FrontEnd/FrontEnd.php:178
-#: includes/FrontEnd/FrontEnd.php:179
-#: includes/FrontEnd/FrontEnd.php:588
+#: includes/FrontEnd/FrontEnd.php:182
+#: includes/FrontEnd/FrontEnd.php:183
+#: includes/FrontEnd/FrontEnd.php:184
+#: includes/FrontEnd/FrontEnd.php:593
 #: includes/Types/Comments.php:47
 #: includes/Types/Comments.php:60
 #: includes/Types/Comments.php:73
@@ -627,7 +627,7 @@ msgstr ""
 msgid "Someone"
 msgstr ""
 
-#: includes/Core/PostType.php:63
+#: includes/Core/PostType.php:76
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:15
 #: nxbuild/admin/js/admin.js:2797
@@ -954,7 +954,7 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:57
 #: includes/Extensions/Tutor/TutorInline.php:69
 #: includes/Extensions/WooCommerce/WooInline.php:127
-#: includes/FrontEnd/Preview.php:260
+#: includes/FrontEnd/Preview.php:261
 msgid "In last 1 day"
 msgstr ""
 
@@ -962,7 +962,7 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:58
 #: includes/Extensions/Tutor/TutorInline.php:70
 #: includes/Extensions/WooCommerce/WooInline.php:128
-#: includes/FrontEnd/Preview.php:261
+#: includes/FrontEnd/Preview.php:262
 #: includes/Types/DownloadStats.php:104
 #: includes/Types/DownloadStats.php:124
 msgid "In last 7 days"
@@ -972,7 +972,7 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:59
 #: includes/Extensions/Tutor/TutorInline.php:71
 #: includes/Extensions/WooCommerce/WooInline.php:129
-#: includes/FrontEnd/Preview.php:262
+#: includes/FrontEnd/Preview.php:263
 msgid "In last 30 days"
 msgstr ""
 
@@ -1072,7 +1072,7 @@ msgstr ""
 #: includes/Extensions/FluentForm/FluentForm.php:42
 #: includes/Extensions/FluentForm/FluentForm.php:43
 #: includes/Extensions/FluentForm/FluentForm.php:87
-msgid "Fluent Form"
+msgid "Fluent Forms"
 msgstr ""
 
 #: includes/Extensions/FluentForm/FluentForm.php:321
@@ -1085,7 +1085,7 @@ msgid ""
 "        <p>⚙️ NotificationX integration with Fluent Forms</p>\n"
 "\n"
 "        <p>📖 Recommended Reading: </p>\n"
-"        <p>🔥How To <a target=\"_blank\" href=\"%4$s\">Display Fluent Form Submission Alert</a> Using NotificationX?</p>\n"
+"        <p>🔥How To <a target=\"_blank\" href=\"%4$s\">Display Fluent Forms Submission Alert</a> Using NotificationX?</p>\n"
 "        "
 msgstr ""
 
@@ -1168,7 +1168,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WOOReviews.php:111
 #: includes/Extensions/WooCommerce/WOOReviews.php:123
 #: includes/Extensions/WordPress/WPComments.php:261
-#: includes/FrontEnd/FrontEnd.php:181
+#: includes/FrontEnd/FrontEnd.php:186
 #: includes/Types/Comments.php:52
 #: includes/Types/Comments.php:65
 #: includes/Types/Comments.php:78
@@ -2221,7 +2221,7 @@ msgstr ""
 #: includes/Extensions/ReviewX/ReviewX.php:174
 #: includes/Extensions/WooCommerce/WOOReviews.php:136
 #: includes/Extensions/WooCommerce/WOOReviews.php:156
-#: includes/FrontEnd/FrontEnd.php:180
+#: includes/FrontEnd/FrontEnd.php:185
 #: includes/Types/Donations.php:49
 #: includes/Types/EmailSubscription.php:59
 #: includes/Types/Reviews.php:134
@@ -2620,19 +2620,19 @@ msgstr ""
 msgid "Rating:"
 msgstr ""
 
-#: includes/FrontEnd/Preview.php:345
+#: includes/FrontEnd/Preview.php:346
 #: assets/admin/js/admin.js:1
 #: nxbuild/admin/js/admin.js:3961
 msgid "Preview"
 msgstr ""
 
-#: includes/NotificationX.php:169
+#: includes/NotificationX.php:171
 #: assets/admin/js/admin.js:9
 #: nxbuild/admin/js/admin.js:5073
 msgid "Settings"
 msgstr ""
 
-#: includes/NotificationX.php:174
+#: includes/NotificationX.php:176
 msgid "Go Pro"
 msgstr ""
 
@@ -2958,67 +2958,67 @@ msgid "<strong>Recommended: </strong> Seems like you haven't updated the Notific
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:45184
+#: nxbuild/admin/js/admin.js:45160
 msgid "\"allOf\" condition requires an array as #3 argument"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:45193
+#: nxbuild/admin/js/admin.js:45169
 msgid "\"anyOf\" condition requires an array as #3 argument"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:45220
+#: nxbuild/admin/js/admin.js:45196
 msgid "\"not\" can have only one comparison rule, multiple rules given"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:45236
+#: nxbuild/admin/js/admin.js:45212
 msgid "Invalid comparison rule %s."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:45479
+#: nxbuild/admin/js/admin.js:45455
 msgid "There are no tabs defined!"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:46741
+#: nxbuild/admin/js/admin.js:46717
 msgid "Field must have a #type. see documentation."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:46965
+#: nxbuild/admin/js/admin.js:46941
 msgid "Copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:46995
+#: nxbuild/admin/js/admin.js:46971
 msgid "File can't be empty."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:46998
+#: nxbuild/admin/js/admin.js:46974
 msgid "Invalid file type."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:47058
+#: nxbuild/admin/js/admin.js:47034
 msgid "You should give a #fields arguments to a group field."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:47401
+#: nxbuild/admin/js/admin.js:47377
 msgid "Loading..."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:47500
+#: nxbuild/admin/js/admin.js:47476
 msgid "#options is a required arguments for RadioCard field."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:48085
+#: nxbuild/admin/js/admin.js:48061
 msgid "Reset"
 msgstr ""
 
@@ -3028,37 +3028,37 @@ msgstr ""
 #: nxbuild/admin/js/admin.js:4325
 #: nxbuild/admin/js/admin.js:4467
 #: nxbuild/admin/js/admin.js:5006
-#: nxbuild/admin/js/admin.js:48238
+#: nxbuild/admin/js/admin.js:48214
 msgid "Something went wrong."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:48189
+#: nxbuild/admin/js/admin.js:48165
 msgid "Button has a required params #text."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:48383
+#: nxbuild/admin/js/admin.js:48359
 msgid "Modal needs button/body with it."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:48502
+#: nxbuild/admin/js/admin.js:48478
 msgid "Save Changes"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:48568
+#: nxbuild/admin/js/admin.js:48544
 msgid "There are no #tabs args defined in props."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:48573
+#: nxbuild/admin/js/admin.js:48549
 msgid "Not an array."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: nxbuild/admin/js/admin.js:10111
+#: nxbuild/admin/js/admin.js:10087
 msgid "NotificationXContext context is undefined, please verify you are calling useNotificationXContext() as child of a <NotificationX> component."
 msgstr ""
 
@@ -3074,7 +3074,7 @@ msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: nxbuild/admin/js/admin.js:6673
-#: nxbuild/admin/js/admin.js:45738
+#: nxbuild/admin/js/admin.js:45714
 msgid "Title Goes Here: title"
 msgstr ""
 
@@ -3635,46 +3635,46 @@ msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:8426
-#: nxbuild/public/js/crossSite.js:2844
-#: nxbuild/public/js/frontend.js:2844
+#: nxbuild/admin/js/admin.js:8403
+#: nxbuild/public/js/crossSite.js:2821
+#: nxbuild/public/js/frontend.js:2821
 msgid "Days"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:8433
-#: nxbuild/public/js/crossSite.js:2851
-#: nxbuild/public/js/frontend.js:2851
+#: nxbuild/admin/js/admin.js:8410
+#: nxbuild/public/js/crossSite.js:2828
+#: nxbuild/public/js/frontend.js:2828
 msgid "Hrs"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:8440
-#: nxbuild/public/js/crossSite.js:2858
-#: nxbuild/public/js/frontend.js:2858
+#: nxbuild/admin/js/admin.js:8417
+#: nxbuild/public/js/crossSite.js:2835
+#: nxbuild/public/js/frontend.js:2835
 msgid "Mins"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:8447
-#: nxbuild/public/js/crossSite.js:2865
-#: nxbuild/public/js/frontend.js:2865
+#: nxbuild/admin/js/admin.js:8424
+#: nxbuild/public/js/crossSite.js:2842
+#: nxbuild/public/js/frontend.js:2842
 msgid "Secs"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxbuild/admin/js/admin.js:8461
-#: nxbuild/public/js/crossSite.js:2879
-#: nxbuild/public/js/frontend.js:2879
+#: nxbuild/admin/js/admin.js:8438
+#: nxbuild/public/js/crossSite.js:2856
+#: nxbuild/public/js/frontend.js:2856
 msgid "You should setup NX Bar properly"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
-#: nxbuild/public/js/crossSite.js:43553
+#: nxbuild/public/js/crossSite.js:43529
 msgid "You are using old version of cross-domain scripts for NotificationX Pro. Please update this from your NotificationX Settings page."
 msgstr ""
 
@@ -3742,6 +3742,6 @@ msgstr ""
 msgid "Link Color"
 msgstr ""
 
-#: nxbuild/admin/js/admin.js:45739
+#: nxbuild/admin/js/admin.js:45715
 msgid "Test Goes Here: text"
 msgstr ""
