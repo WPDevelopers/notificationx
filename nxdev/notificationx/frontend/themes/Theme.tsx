@@ -28,11 +28,12 @@ const Theme = (props) => {
     // replace space with underscore inside {{}}
 
     let template = [];
-    let regex = /{{(.*?)}}/g;
     tmpl?.forEach((row) => {
         if (!row) return;
         let match;
-        while ((match = regex.exec(row))) {
+        let _row = row;
+        let regex = /{{(.*?)}}/g;
+        while ((match = regex.exec(_row))) {
             let key = match?.[1]?.replace("tag_", "")?.replace("product_", "");
             let val = entry?.[key] || "";
 
