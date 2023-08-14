@@ -4,14 +4,14 @@ import interval from "./flashing/webWorker";
 
 // Declare constants for the settings and messages
 // @ts-ignore
-const settings = window.nx_flashing_tab || {};
+const settings     = window.nx_flashing_tab || {};
 const initialDelay = (parseInt(settings.ft_delay_before) || 0) * 1000;
 const delayBetween = (parseInt(settings.ft_delay_between) || 1) * 1000;
-const displayFor = (parseFloat(settings.ft_display_for) || 0) * 1000 * 60;
-let message1 = { message: "", icon: "" };
-let message2 = { message: "", icon: "" };
-const nx_id = settings.nx_id;
-const restUrl = settings.__rest_api_url;
+const displayFor   = (parseFloat(settings.ft_display_for) || 0) * 1000 * 60;
+let   message1     = { message: "", icon: "" };
+let   message2     = { message: "", icon: "" };
+const nx_id        = settings.nx_id;
+const restUrl      = settings.__rest_api_url;
 
 switch (settings.themes) {
     case "flashing_tab_theme-1":
@@ -43,7 +43,7 @@ FavLoader.init({
 });
 
 // Declare variables for the toggle and interval states
-let toggle = false;
+let toggle = 0;
 let intervalId = null;
 let initialDelayID = null;
 let displayForID = null;
@@ -64,19 +64,28 @@ const animateIcon = (icon) => {
 };
 
 // Define a function to switch between the messages and icons based on the toggle state
+const enableOT     = settings.ft_enable_original_icon_title || false;
 const switchMessageAndIcon = () => {
-    toggle = !toggle;
-    if (toggle) {
+    // if enableOT then will run the else part otherwise toggle first two messages
+    const modulus = enableOT ? 3 : 2;
+    console.log("toggle", toggle);
+
+    if (toggle === 0) {
         // Use message1
         animateIcon(message1.icon).finally(() => {
             changeTitle(message1.message);
         });
-    } else {
+    } else if (toggle === 1) {
         // Use message2
         animateIcon(message2.icon).finally(() => {
             changeTitle(message2.message);
         });
+    } else if(toggle === 2) {
+        // Use message3
+        FavLoader.restore();
+        changeTitle(originalTitle);
     }
+    toggle = (toggle + 1) % modulus;
 };
 
 // Define a function to clear the title and icon and stop the intervals
