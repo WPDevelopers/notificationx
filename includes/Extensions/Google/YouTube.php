@@ -33,14 +33,16 @@ class YouTube extends Extension {
     public $id              = 'youtube';
     // public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/google-rating.png';
     public $doc_link        = 'https://notificationx.com/docs/google-reviews-with-notificationx/';
-    public $types           = 'social';
+    public $types           = 'video';
     public $module          = 'modules_google_youtube';
     public $module_priority = 25;
     public $default_theme   = 'youtube_channel-1';
     public $is_pro          = true;
-    // public $link_type       = 'map_page';
-    public $api_base      = 'https://youtube.googleapis.com/youtube/v3/';
-    public $cron_schedule = 'nx_youtube_interval';
+    public $link_type       = 'yt_channel_link';
+    public $api_base        = 'https://youtube.googleapis.com/youtube/v3/';
+    public $cron_schedule   = 'nx_youtube_interval';
+    public $channel_themes  = ['youtube_channel-1', 'youtube_channel-2'];
+    public $video_themes    = ['youtube_video-1', 'youtube_video-2', 'youtube_video-3', 'youtube_video-4'];
 
     /**
      * Initially Invoked when initialized.
@@ -65,8 +67,9 @@ class YouTube extends Extension {
                     'yt_fifth_label'      => __('Videos', 'notificationx'),
                 ],
                 'defaults'                => [
-                    'youtube_type'            => 'channel',
+                    // 'youtube_type'            => 'channel',
                     'image_shape'             => 'rounded',
+                    'link_type'               => 'yt_channel_link',
                     'show_notification_image' => 'yt_thumbnail',
                 ],
             ],
@@ -85,8 +88,9 @@ class YouTube extends Extension {
                     'custom_fifth_param'  => __('', 'notificationx'),
                 ],
                 'defaults'                => [
-                    'youtube_type'            => 'channel',
+                    // 'youtube_type'            => 'channel',
                     'image_shape'             => 'circle',
+                    'link_type'               => 'yt_channel_link',
                     'show_notification_image' => 'yt_thumbnail',
                 ],
             ],
@@ -100,8 +104,9 @@ class YouTube extends Extension {
                     'fifth_param'        => 'tag_yt_comments',
                 ],
                 'defaults'                => [
-                    'youtube_type'            => 'video',
+                    // 'youtube_type'            => 'video',
                     'image_shape'             => 'circle',
+                    'link_type'               => 'yt_video_link',
                     'show_notification_image' => 'yt_thumbnail',
                 ],
             ],
@@ -118,8 +123,9 @@ class YouTube extends Extension {
                     'yt_fifth_label'     => __('Subscribers', 'notificationx'),
                 ],
                 'defaults'                => [
-                    'youtube_type'            => 'video',
+                    // 'youtube_type'            => 'video',
                     'image_shape'             => 'rounded',
+                    'link_type'               => 'yt_video_link',
                     'show_notification_image' => 'yt_thumbnail',
                 ],
             ],
@@ -133,8 +139,9 @@ class YouTube extends Extension {
                     'fifth_param'        => 'tag_yt_comments',
                 ],
                 'defaults'                => [
-                    'youtube_type'            => 'video',
+                    // 'youtube_type'            => 'video',
                     'image_shape'             => 'circle',
+                    'link_type'               => 'yt_video_link',
                     'show_notification_image' => 'yt_thumbnail',
                 ],
             ],
@@ -151,8 +158,9 @@ class YouTube extends Extension {
                     'yt_fifth_label'     => __('Subscribers', 'notificationx'),
                 ],
                 'defaults'                => [
-                    'youtube_type'            => 'video',
+                    // 'youtube_type'            => 'video',
                     'image_shape'             => 'rounded',
+                    'link_type'               => 'yt_video_link',
                     'show_notification_image' => 'yt_thumbnail',
                 ],
             ],
@@ -231,6 +239,34 @@ class YouTube extends Extension {
         add_filter('nx_content_fields', [$this, 'content_fields']);
         add_filter('nx_show_image_options', [$this, 'show_image_options']);
         add_filter('nx_customize_fields', [$this, 'customize_fields']);
+        add_filter('nx_link_types', [$this, 'link_types']);
+    }
+
+    /**
+     * Adds option to Link Type field in Content tab.
+     *
+     * @param array $options
+     * @return array
+     */
+    public function link_types( $options ) {
+        $options[] = [
+            'value' => 'yt_video_link',
+            'label' => __( 'Video Link', 'notificationx' ),
+            'rules' => Rules::logicalRule([
+                Rules::is( 'source', $this->id ),
+                Rules::includes( 'themes', $this->video_themes ),
+            ]),
+        ];
+        $options[] = [
+            'value' => 'yt_channel_link',
+            'label' => __( 'Channel Link', 'notificationx' ),
+            'rules' => Rules::logicalRule([
+                Rules::is( 'source', $this->id ),
+                // Rules::includes( 'themes', $this->channel_themes ),
+            ]),
+        ];
+
+        return $options;
     }
 
     public function customize_fields($fields){
@@ -557,7 +593,7 @@ class YouTube extends Extension {
             'priority' => 80,
             'rules'    => Rules::logicalRule([
                 Rules::is( 'source', $this->id ),
-                Rules::includes( 'themes', ['youtube_channel-1', 'youtube_channel-2'] ),
+                Rules::includes( 'themes', $this->channel_themes ),
             ]),
         ];
         $content_fields['youtube_video_id'] = [
@@ -567,7 +603,7 @@ class YouTube extends Extension {
             'priority' => 90,
             'rules'    => Rules::logicalRule([
                 Rules::is( 'source', $this->id ),
-                Rules::includes( 'themes', ['youtube_video-1', 'youtube_video-2', 'youtube_video-3', 'youtube_video-4'] ),
+                Rules::includes( 'themes', $this->video_themes ),
             ]),
         ];
         return $fields;
@@ -737,6 +773,8 @@ class YouTube extends Extension {
             foreach ($place_data['items'] as $item) {
                 $item = new UsabilityDynamicsSettings(['data' => $item]);
                 $result[] = [
+                    'yt_channel_link'  => $this->getChannelUrl($item),
+                    'yt_video_link'    => $this->getVideoUrlFromItem($item),
                     'kind'             => $item->get('kind'),
                     'etag'             => $item->get('etag'),
                     'id'               => $item->get('id'),
@@ -755,6 +793,49 @@ class YouTube extends Extension {
         }
         return $result;
     }
+
+    /**
+     * A PHP function to get the channel URL from the YouTube Data API's response
+     *
+     * @param UsabilityDynamicsSettings $item
+     * @return string|null
+     */
+    public function getChannelUrl($item) {
+        // Check the type of the item array
+        if ($item->get('kind') == 'youtube#channel') {
+            // The item is a channel resource
+            // Return the channel link with the custom URL or the channel ID
+            return 'https://www.youtube.com/' . $item->get('snippet.customUrl', 'channel/' . $item->get('id'));
+        } elseif ($item->get('kind') == 'youtube#video') {
+            // The item is a video resource
+            // Return the channel link with the channel ID
+            return 'https://www.youtube.com/channel/' . $item->get('snippet.channelId');
+        } else {
+            // The item is neither a channel nor a video resource
+            // Return null or an error message
+            return null;
+        }
+    }
+
+    /**
+     * A PHP function to get the video URL from an item array using the YouTube Data API
+     *
+     * @param UsabilityDynamicsSettings $item
+     * @return string|null
+     */
+    public function getVideoUrlFromItem($item) {
+        // Check the type of the item array
+        if ($item->get('kind') == 'youtube#video') {
+            // The item is a video resource
+            // Return the video link with the video ID
+            return 'https://www.youtube.com/watch?v=' . $item->get('id');
+        } else {
+            // The item is not a video resource
+            // Return null or an error message
+            return null;
+        }
+    }
+
 
     public function get_channels(){
         $result = [];

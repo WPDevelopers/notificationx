@@ -15,13 +15,13 @@ use NotificationX\Modules;
 
 /**
  * Extension Abstract for all Extension.
- * @method static Social get_instance($args = null)
+ * @method static Video get_instance($args = null)
  */
-class Social extends Types {
+class Video extends Types {
     /**
-     * Instance of Social
+     * Instance of Video
      *
-     * @var Social
+     * @var Video
      */
     use GetInstance;
 
@@ -39,8 +39,8 @@ class Social extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        $this->id    = 'social';
-        $this->title = __('Social', 'notificationx');
+        $this->id    = 'video';
+        $this->title = __('Video', 'notificationx');
         parent::__construct();
     }
 
