@@ -39,7 +39,8 @@ class YouTube extends Extension {
     public $default_theme   = 'youtube_channel-1';
     public $is_pro          = true;
     // public $link_type       = 'map_page';
-    public $api_base        = 'https://youtube.googleapis.com/youtube/v3/';
+    public $api_base      = 'https://youtube.googleapis.com/youtube/v3/';
+    public $cron_schedule = 'nx_youtube_interval';
 
     /**
      * Initially Invoked when initialized.
@@ -204,13 +205,18 @@ class YouTube extends Extension {
                 <span>Google reviews provide helpful information and make your business stand out.</span>
             ', 'notificationx')
         ];
-        add_action('admin_init', array($this, 'init_google_client'));
+        // add_action('admin_init', array($this, 'init_google_client'));
         parent::__construct();
     }
 
     public function init() {
         parent::init();
-        add_filter('nx_settings', [$this, 'nx_settings']);
+        // add_filter('nx_settings', [$this, 'nx_settings']);
+    }
+
+    public function admin_actions() {
+        parent::admin_actions();
+        add_action("nx_cron_update_data_{$this->id}", array($this, 'update_data'), 10, 2);
     }
 
     public function init_settings_fields() {
@@ -284,184 +290,184 @@ class YouTube extends Extension {
             'priority' => 70,
             'rules'    => Rules::is('modules.modules_google_youtube', true),
             'fields'   => [
-                'yt_connect' => array(
-                    'name'      => 'yt_connect',
-                    'type'      => 'button',
-                    'text'      => __('Connect your account', 'notificationx-pro'),
-                    'label'     => __('Connect with YouTube', 'notificationx-pro'),
-                    'className' => 'ga-btn connect-analytics',
-                    'href'      => 'https://accounts.google.com/o/oauth2/auth?client_id=928694219401-b9njpjh55ha3vgepku2269kas5kd9a5c.apps.googleusercontent.com&response_type=code&access_type=offline&approval_prompt=force&redirect_uri=' . urlencode("https://devapi.notificationx.com/youtube/") . '&scope=' . urlencode('https://www.googleapis.com/auth/youtube.readonly') . '&state=' . urlencode(admin_url('admin.php?page=nx-settings&tab=tab-api-integrations')),
-                    // 'rules'    => Rules::logicalRule([Rules::is('is_yt_connected', true, true), Rules::is('yt_disconnect', true)], 'or'),
-                    'rules'    => Rules::logicalRule([Rules::is('is_yt_connected', true, true), Rules::is('yt_own_app', false)], 'and'),
-                    // 'rules'    => Rules::is('is_yt_connected', true, true),
-                ),
-                'yt_own_app' => array(
-                    'name'    => 'yt_own_app',
-                    'type'    => 'toggle',
-                    'default' => false,
-                    'label'   => __('Setup your Google App', 'notificationx-pro'),
-                    // 'link_text' => __('Setup Now', 'notificationx-pro'),
-                    'className' => 'ga-btn setup-google-app',
-                    // translators: %s: Google Analytics docs link.
-                    'help' => sprintf(__('By setting up your app, you will be disconnected from current account. See our <a target="_blank" rel="nofollow" href="%s">Creating Google App in Cloud</a> documentation for help', 'notificationx-pro'), 'https://notificationx.com/docs/google-analytics/'),
-                    // 'rules'    => Rules::logicalRule([Rules::is('is_yt_connected', true, true), Rules::is('yt_disconnect', true)], 'or'),
-                    'rules'    => Rules::is('is_yt_connected', true, true),
-                ),
+                // 'yt_connect' => array(
+                //     'name'      => 'yt_connect',
+                //     'type'      => 'button',
+                //     'text'      => __('Connect your account', 'notificationx-pro'),
+                //     'label'     => __('Connect with YouTube', 'notificationx-pro'),
+                //     'className' => 'ga-btn connect-analytics',
+                //     'href'      => 'https://accounts.google.com/o/oauth2/auth?client_id=928694219401-b9njpjh55ha3vgepku2269kas5kd9a5c.apps.googleusercontent.com&response_type=code&access_type=offline&approval_prompt=force&redirect_uri=' . urlencode("https://devapi.notificationx.com/youtube/") . '&scope=' . urlencode('https://www.googleapis.com/auth/youtube.readonly') . '&state=' . urlencode(admin_url('admin.php?page=nx-settings&tab=tab-api-integrations')),
+                //     // 'rules'    => Rules::logicalRule([Rules::is('is_yt_connected', true, true), Rules::is('yt_disconnect', true)], 'or'),
+                //     'rules'    => Rules::logicalRule([Rules::is('is_yt_connected', true, true), Rules::is('yt_own_app', false)], 'and'),
+                //     // 'rules'    => Rules::is('is_yt_connected', true, true),
+                // ),
+                // 'yt_own_app' => array(
+                //     'name'    => 'yt_own_app',
+                //     'type'    => 'toggle',
+                //     'default' => false,
+                //     'label'   => __('Setup your Google App', 'notificationx-pro'),
+                //     // 'link_text' => __('Setup Now', 'notificationx-pro'),
+                //     'className' => 'ga-btn setup-google-app',
+                //     // translators: %s: Google Analytics docs link.
+                //     'help' => sprintf(__('By setting up your app, you will be disconnected from current account. See our <a target="_blank" rel="nofollow" href="%s">Creating Google App in Cloud</a> documentation for help', 'notificationx-pro'), 'https://notificationx.com/docs/google-analytics/'),
+                //     // 'rules'    => Rules::logicalRule([Rules::is('is_yt_connected', true, true), Rules::is('yt_disconnect', true)], 'or'),
+                //     'rules'    => Rules::is('is_yt_connected', true, true),
+                // ),
 
-                'yt_disconnect' => array(
-                    'name'      => 'yt_disconnect',
-                    'type'      => 'button',
-                    'label'     => __('Disconnect from google analytics', 'notificationx-pro'),
-                    'text'      => __('Logout from account', 'notificationx-pro'),
-                    'className' => 'ga-btn disconnect-analytics',
-                    'rules'     => Rules::is('is_yt_connected', true),
-                    'ajax'      => [
-                        'on'   => 'click',
-                        'api'  => '/notificationx/v1/api-connect',
-                        'data' => [
-                            'source'    => $this->id,
-                            'type'      => 'yt_disconnect',
-                        ],
-                        'trigger' => '@is_yt_connected:false',
-                        'hideSwal' => true,
-                    ],
-                ),
-                'yt_cache_duration' => array(
-                    'name'        => 'yt_cache_duration',
-                    'type'        => 'number',
-                    'label'       => __('Cache Duration', 'notificationx-pro'),
-                    // 'default'     => $this->nx_app_min_cache_duration,
-                    // 'min'         => $this->pa_options['yt_app_type'] == 'nx_app' ? $this->nx_app_min_cache_duration : 1,
-                    'priority'    => 5,
-                    'description' => __('Minutes, scheduled duration for collect new data', 'notificationx-pro'),
-                    'rules'       => Rules::is('is_yt_connected', true),
-                ),
-
-                'yt_redirect_uri' => array(
-                    'name'        => 'yt_redirect_uri',
-                    'type'        => 'text',
-                    'label'       => __('Redirect URI', 'notificationx-pro'),
-                    'className'   => 'ga-client-id ga-hidden',
-                    'default'     => admin_url('admin.php?page=nx-admin'),
-                    'readOnly'    => true,
-                    'help'        => __('Copy this and paste it in your google app redirect uri field', 'notificationx-pro'),
-                    'description' => __('Keep it in your google cloud project app redirect uri.', 'notificationx-pro'),
-                    'rules'       => Rules::logicalRule([Rules::is('yt_own_app', true), Rules::is('is_yt_connected', true, true)]),
-                ),
-                'yt_client_id' => array(
-                    'name'        => 'yt_client_id',
-                    'type'        => 'text',
-                    'label'       => __('Client ID', 'notificationx-pro'),
-                    'className'   => 'ga-client-id ga-hidden',
-                    // translators: %1$s: Google API dashboard link, %2$s: Google Analytics docs link.
-                    'description' => sprintf(__('<a target="_blank" rel="nofollow" href="%1$s">Click here</a> to get Client ID by Creating a Project or you can follow our <a rel="nofollow" target="_blank" href="%2$s">documentation</a>.', 'notificationx-pro'), 'https://console.cloud.google.com/apis/dashboard', 'https://notificationx.com/docs/google-analytics/'),
-                    'rules'       => Rules::logicalRule([Rules::is('yt_own_app', true), Rules::is('is_yt_connected', true, true)]),
-                ),
-                'yt_client_secret' => array(
-                    'name'        => 'yt_client_secret',
-                    'type'        => 'text',
-                    'label'       => __('Client Secret', 'notificationx-pro'),
-                    'className'   => 'ga-client-secret ga-hidden',
-                    // translators: %1$s: Google API dashboard link, %2$s: Google Analytics docs link.
-                    'description' => sprintf(__('<a target="_blank" rel="nofollow" href="%1$s">Click here</a> to get Client Secret by Creating a Project or you can follow our <a target="_blank" rel="nofollow" href="%2$s">documentation</a>.', 'notificationx-pro'), 'https://console.cloud.google.com/apis/dashboard', 'https://notificationx.com/docs/google-analytics/'),
-                    'rules'       => Rules::logicalRule([Rules::is('yt_own_app', true), Rules::is('is_yt_connected', true, true)]),
-                ),
-                'yt_user_app_connect' => array(
-                    'name'      => 'yt_user_app_connect',
-                    'type'      => 'button',
-                    'label'     => ' ',
-                    'className' => 'ga-btn connect-user-app',
-                    'text'      => [
-                        'normal'  => __('Connect your account', 'notificationx-pro'),
-                        'saved'   => __('Connected', 'notificationx-pro'),
-                        'loading' => __('Connecting...', 'notificationx-pro')
-                    ],
-                    'ajax' => [
-                        'on'   => 'click',
-                        'api'  => '/notificationx/v1/api-connect',
-                        'data' => [
-                            'source'           => $this->id,
-                            'type'             => 'user-app',
-                            'yt_redirect_uri'  => '@yt_redirect_uri',
-                            'yt_client_id'     => '@yt_client_id',
-                            'yt_client_secret' => '@yt_client_secret',
-                        ],
-                        'trigger' => '@is_yt_connected:true',
-                    ],
-                    'rules' => Rules::logicalRule([Rules::is('yt_own_app', true), Rules::is('is_yt_connected', true, true)]),
-                ),
-                'yt_save_selected_profile' => array(
-                    'name'      => 'yt_save_selected_profile',
-                    'type'      => 'button',
-                    // 'label'     => __('Save', 'notificationx-pro'),
-                    'className' => 'ga-btn connect-user-app',
-                    'text'      => [
-                        'normal'  => __('Save', 'notificationx-pro'),
-                        'saved'   => __('Saved', 'notificationx-pro'),
-                        'loading' => __('Saving...', 'notificationx-pro')
-                    ],
-                    'ajax' => [
-                        'on'   => 'click',
-                        'api'  => '/notificationx/v1/api-connect',
-                        'data' => [
-                            'source'            => $this->id,
-                            'type'              => 'save',
-                            'yt_profile'        => '@yt_profile',
-                            'yt_cache_duration' => '@yt_cache_duration',
-                        ],
-                        'swal' => [
-                            'text'  => __('Changes Saved!', 'notificationx-pro'),
-                            'icon'  => 'success',
-                        ],
-                    ],
-                    'rules' => Rules::is('is_yt_connected', true),
-                ),
-
-                'is_yt_connected' => array(
-                    'name'      => 'is_yt_connected',
-                    'type'      => 'hidden',
-                    'default'   => $this->is_yt_connected(),
-                ),
-
-                // 'google_youtube_cache_duration' => [
-                //     'name' => 'google_youtube_cache_duration',
+                // 'yt_disconnect' => array(
+                //     'name'      => 'yt_disconnect',
+                //     'type'      => 'button',
+                //     'label'     => __('Disconnect from google analytics', 'notificationx-pro'),
+                //     'text'      => __('Logout from account', 'notificationx-pro'),
+                //     'className' => 'ga-btn disconnect-analytics',
+                //     'rules'     => Rules::is('is_yt_connected', true),
+                //     'ajax'      => [
+                //         'on'   => 'click',
+                //         'api'  => '/notificationx/v1/api-connect',
+                //         'data' => [
+                //             'source'    => $this->id,
+                //             'type'      => 'yt_disconnect',
+                //         ],
+                //         'trigger' => '@is_yt_connected:false',
+                //         'hideSwal' => true,
+                //     ],
+                // ),
+                // 'yt_cache_duration' => array(
+                //     'name'        => 'yt_cache_duration',
                 //     'type'        => 'number',
                 //     'label'       => __('Cache Duration', 'notificationx-pro'),
-                //     'default'     => 30,
-                //     'min'     => 30,
-                //     'description' => __('Minutes, scheduled duration for collect new data. Estimated cost per month around $25 for every 30 minute.', 'notificationx-pro'),
-                // ],
-                // 'google_youtube_api_key' => array(
-                //     'name'  => 'google_youtube_api_key',
-                //     'type'  => 'text',
-                //     'text'  => __('API Key', 'notificationx-pro'),
-                //     'label' => __('API Key', 'notificationx-pro'),
-                //     'description' => sprintf('%s <a href="%s" target="_blank">%s</a>.',
-                //         __('To get an API key, check out', 'notificationx-pro'),
-                //         'https://notificationx.com/docs/collect-api-key-from-google-console',
-                //         __(' this doc', 'notificationx-pro')
-                //     ),
+                //     // 'default'     => $this->nx_app_min_cache_duration,
+                //     // 'min'         => $this->pa_options['yt_app_type'] == 'nx_app' ? $this->nx_app_min_cache_duration : 1,
+                //     'priority'    => 5,
+                //     'description' => __('Minutes, scheduled duration for collect new data', 'notificationx-pro'),
+                //     'rules'       => Rules::is('is_yt_connected', true),
                 // ),
-                // [
-                //     'name' => 'google_youtube_connect',
-                //     // 'label' => 'Connect Button',
-                //     'type' => 'button',
-                //     'default' => false,
-                //     'text' => [
-                //         'normal'  => __('Validate', 'notificationx-pro'),
-                //         'saved'   => __('Refresh', 'notificationx-pro'),
-                //         'loading' => __('Validating...', 'notificationx-pro')
+
+                // 'yt_redirect_uri' => array(
+                //     'name'        => 'yt_redirect_uri',
+                //     'type'        => 'text',
+                //     'label'       => __('Redirect URI', 'notificationx-pro'),
+                //     'className'   => 'ga-client-id ga-hidden',
+                //     'default'     => admin_url('admin.php?page=nx-admin'),
+                //     'readOnly'    => true,
+                //     'help'        => __('Copy this and paste it in your google app redirect uri field', 'notificationx-pro'),
+                //     'description' => __('Keep it in your google cloud project app redirect uri.', 'notificationx-pro'),
+                //     'rules'       => Rules::logicalRule([Rules::is('yt_own_app', true), Rules::is('is_yt_connected', true, true)]),
+                // ),
+                // 'yt_client_id' => array(
+                //     'name'        => 'yt_client_id',
+                //     'type'        => 'text',
+                //     'label'       => __('Client ID', 'notificationx-pro'),
+                //     'className'   => 'ga-client-id ga-hidden',
+                //     // translators: %1$s: Google API dashboard link, %2$s: Google Analytics docs link.
+                //     'description' => sprintf(__('<a target="_blank" rel="nofollow" href="%1$s">Click here</a> to get Client ID by Creating a Project or you can follow our <a rel="nofollow" target="_blank" href="%2$s">documentation</a>.', 'notificationx-pro'), 'https://console.cloud.google.com/apis/dashboard', 'https://notificationx.com/docs/google-analytics/'),
+                //     'rules'       => Rules::logicalRule([Rules::is('yt_own_app', true), Rules::is('is_yt_connected', true, true)]),
+                // ),
+                // 'yt_client_secret' => array(
+                //     'name'        => 'yt_client_secret',
+                //     'type'        => 'text',
+                //     'label'       => __('Client Secret', 'notificationx-pro'),
+                //     'className'   => 'ga-client-secret ga-hidden',
+                //     // translators: %1$s: Google API dashboard link, %2$s: Google Analytics docs link.
+                //     'description' => sprintf(__('<a target="_blank" rel="nofollow" href="%1$s">Click here</a> to get Client Secret by Creating a Project or you can follow our <a target="_blank" rel="nofollow" href="%2$s">documentation</a>.', 'notificationx-pro'), 'https://console.cloud.google.com/apis/dashboard', 'https://notificationx.com/docs/google-analytics/'),
+                //     'rules'       => Rules::logicalRule([Rules::is('yt_own_app', true), Rules::is('is_yt_connected', true, true)]),
+                // ),
+                // 'yt_user_app_connect' => array(
+                //     'name'      => 'yt_user_app_connect',
+                //     'type'      => 'button',
+                //     'label'     => ' ',
+                //     'className' => 'ga-btn connect-user-app',
+                //     'text'      => [
+                //         'normal'  => __('Connect your account', 'notificationx-pro'),
+                //         'saved'   => __('Connected', 'notificationx-pro'),
+                //         'loading' => __('Connecting...', 'notificationx-pro')
                 //     ],
                 //     'ajax' => [
-                //         'on' => 'click',
-                //         'api' => '/notificationx/v1/api-connect',
+                //         'on'   => 'click',
+                //         'api'  => '/notificationx/v1/api-connect',
                 //         'data' => [
-                //             'source'                        => $this->id,
-                //             'google_youtube_cache_duration' => '@google_youtube_cache_duration',
-                //             'google_youtube_api_key'        => '@google_youtube_api_key',
+                //             'source'           => $this->id,
+                //             'type'             => 'user-app',
+                //             'yt_redirect_uri'  => '@yt_redirect_uri',
+                //             'yt_client_id'     => '@yt_client_id',
+                //             'yt_client_secret' => '@yt_client_secret',
                 //         ],
-                //     ]
-                // ],
+                //         'trigger' => '@is_yt_connected:true',
+                //     ],
+                //     'rules' => Rules::logicalRule([Rules::is('yt_own_app', true), Rules::is('is_yt_connected', true, true)]),
+                // ),
+                // 'yt_save_selected_profile' => array(
+                //     'name'      => 'yt_save_selected_profile',
+                //     'type'      => 'button',
+                //     // 'label'     => __('Save', 'notificationx-pro'),
+                //     'className' => 'ga-btn connect-user-app',
+                //     'text'      => [
+                //         'normal'  => __('Save', 'notificationx-pro'),
+                //         'saved'   => __('Saved', 'notificationx-pro'),
+                //         'loading' => __('Saving...', 'notificationx-pro')
+                //     ],
+                //     'ajax' => [
+                //         'on'   => 'click',
+                //         'api'  => '/notificationx/v1/api-connect',
+                //         'data' => [
+                //             'source'            => $this->id,
+                //             'type'              => 'save',
+                //             'yt_profile'        => '@yt_profile',
+                //             'yt_cache_duration' => '@yt_cache_duration',
+                //         ],
+                //         'swal' => [
+                //             'text'  => __('Changes Saved!', 'notificationx-pro'),
+                //             'icon'  => 'success',
+                //         ],
+                //     ],
+                //     'rules' => Rules::is('is_yt_connected', true),
+                // ),
+
+                // 'is_yt_connected' => array(
+                //     'name'      => 'is_yt_connected',
+                //     'type'      => 'hidden',
+                //     'default'   => $this->is_yt_connected(),
+                // ),
+
+                'google_youtube_cache_duration' => [
+                    'name'        => 'google_youtube_cache_duration',
+                    'type'        => 'number',
+                    'label'       => __('Cache Duration', 'notificationx-pro'),
+                    'default'     => 30,
+                    'min'         => 30,
+                    'description' => __('Minutes, scheduled duration for collect new data. Estimated cost per month around $25 for every 30 minute.', 'notificationx-pro'),
+                ],
+                'google_youtube_api_key' => array(
+                    'name'  => 'google_youtube_api_key',
+                    'type'  => 'text',
+                    'text'  => __('API Key', 'notificationx-pro'),
+                    'label' => __('API Key', 'notificationx-pro'),
+                    'description' => sprintf('%s <a href="%s" target="_blank">%s</a>.',
+                        __('To get an API key, check out', 'notificationx-pro'),
+                        'https://notificationx.com/docs/collect-api-key-from-google-console',
+                        __(' this doc', 'notificationx-pro')
+                    ),
+                ),
+                [
+                    'name' => 'google_youtube_connect',
+                    // 'label' => 'Connect Button',
+                    'type' => 'button',
+                    'default' => false,
+                    'text' => [
+                        'normal'  => __('Validate', 'notificationx-pro'),
+                        'saved'   => __('Refresh', 'notificationx-pro'),
+                        'loading' => __('Validating...', 'notificationx-pro')
+                    ],
+                    'ajax' => [
+                        'on' => 'click',
+                        'api' => '/notificationx/v1/api-connect',
+                        'data' => [
+                            'source'                        => $this->id,
+                            'google_youtube_cache_duration' => '@google_youtube_cache_duration',
+                            'google_youtube_api_key'        => '@google_youtube_api_key',
+                        ],
+                    ]
+                ],
             ],
         );
         return $sections;
@@ -533,25 +539,35 @@ class YouTube extends Extension {
             'custom' => __('Custom', 'notificationx'),
         ], isset($settings['channels']) ? $settings['channels'] : []);
 
-        $content_fields['youtube_channels'] = [
-            'label'       => __('Channels', 'notificationx'),
-            'placeholder' => __('Select a Channel', 'notificationx'),
-            'name'        => 'youtube_channels',
-            'type'        => 'select',
-            'priority'    => 79,
-            // 'default'  => 'channel',
-            'options'  => GlobalFields::get_instance()->normalize_fields($options),
-            'rules'    => ['is', 'source', $this->id],
-        ];
+        // $content_fields['youtube_channels'] = [
+        //     'label'       => __('Channels', 'notificationx'),
+        //     'placeholder' => __('Select a Channel', 'notificationx'),
+        //     'name'        => 'youtube_channels',
+        //     'type'        => 'select',
+        //     'priority'    => 79,
+        //     // 'default'  => 'channel',
+        //     'options'  => GlobalFields::get_instance()->normalize_fields($options),
+        //     'rules'    => ['is', 'source', $this->id],
+        // ];
 
-        $content_fields['youtube_id'] = [
-            'label'    => __('ID or Username', 'notificationx'),
-            'name'     => 'youtube_id',
+        $content_fields['youtube_channel_id'] = [
+            'label'    => __('Channel ID or Username', 'notificationx'),
+            'name'     => 'youtube_channel_id',
             'type'     => 'text',
             'priority' => 80,
             'rules'    => Rules::logicalRule([
                 Rules::is( 'source', $this->id ),
-                Rules::is( 'youtube_channels', 'custom' ),
+                Rules::includes( 'themes', ['youtube_channel-1', 'youtube_channel-2'] ),
+            ]),
+        ];
+        $content_fields['youtube_video_id'] = [
+            'label'    => __('Video ID', 'notificationx'),
+            'name'     => 'youtube_video_id',
+            'type'     => 'text',
+            'priority' => 90,
+            'rules'    => Rules::logicalRule([
+                Rules::is( 'source', $this->id ),
+                Rules::includes( 'themes', ['youtube_video-1', 'youtube_video-2', 'youtube_video-3', 'youtube_video-4'] ),
             ]),
         ];
         return $fields;
@@ -610,16 +626,24 @@ class YouTube extends Extension {
             $data = PostType::get_instance()->get_post($nx_id);
         }
 
-        if(!isset($data['youtube_channels'])){
+        if(empty($data['youtube_channel_id']) && empty($data['youtube_video_id'])){
             return;
         }
-        $channel_id       = $data['youtube_channels'];
 
-        if('custom' === $channel_id){
-            $channel_id = $data['youtube_id'];
+        if('youtube_channel-1' === $data['themes'] || 'youtube_channel-2' === $data['themes']){
+            $channel_id       = $data['youtube_channel_id'];
+            $youtube_type     = 'channels';
+        }
+        else{
+            $channel_id       = $data['youtube_video_id'];
+            $youtube_type     = 'videos';
         }
 
-        $youtube_stats = $this->get_stats($channel_id);
+        // if('custom' === $channel_id){
+        //     $channel_id = $data['youtube_id'];
+        // }
+
+        $youtube_stats = $this->get_stats($channel_id, $youtube_type);
 
         // removing old notifications.
         $this->delete_notification(null, $nx_id);
@@ -658,21 +682,25 @@ class YouTube extends Extension {
      * @param array $data
      * @return array
      */
-    public function get_stats($channel_id){
+    public function get_stats($channel_id, $youtube_type){
         $result = [];
-        $api_key = Settings::get_instance()->get('settings.yt_settings');
-        $access_token = $api_key['token_info']['access_token'];
+        // $api_key = Settings::get_instance()->get('settings.yt_settings');
+        // $access_token = $api_key['token_info']['access_token'];
+        $api_key = Settings::get_instance()->get('settings.google_youtube_api_key');
+        if(empty($api_key)){
+            return $result;
+        }
 
         $args = [
             'headers' => [
-                'Authorization' => 'Bearer ' . $access_token,
+                // 'Authorization' => 'Bearer ' . $access_token,
                 'Accept' => 'application/json',
             ]
         ];
 
         $query = [
             'part' => 'snippet,contentDetails,statistics',
-            // 'key'  => $api_key,
+            'key'  => $api_key,
         ];
 
         // if('channel' === $channel_id){
@@ -687,7 +715,7 @@ class YouTube extends Extension {
             // $place_data    = get_transient($transient_key);
 
             if(empty($place_data)){
-                $place_data = Helper::remote_get( $this->api_base . 'channels?' . http_build_query($query), $args, false, true );
+                $place_data = Helper::remote_get( $this->api_base . $youtube_type . '?' . http_build_query($query), $args, false, true );
                 set_transient($transient_key, $place_data, HOUR_IN_SECONDS);
             }
 
@@ -766,14 +794,24 @@ class YouTube extends Extension {
 
     public function preview_entry($entry, $settings){
         if($settings['show_notification_image'] === "greview_icon" ){
-            $entry = array_merge($entry, [
-                "image_data"        => [
-                    "url"     => "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
-                    "alt"     => "",
-                    "classes" => "greview_icon"
-                ],
-            ]);
+            $entry["image_data"] = [
+                "url"     => "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+                "alt"     => "",
+                "classes" => "greview_icon"
+            ];
         }
+
+        $entry = array_merge($entry, [
+            'yt_channel_title' => "Google for Developers",
+            'description'      => "Subscribe to join a community of creative developers and learn the latest in Google technology — from AI and cloud, to mobile and web. Explore more at developers.google.com",
+            'publishedAt'      => "2007-08-23T00:34:43Z",
+            '_yt_subscribers'  => "2300000",
+            '_yt_videos'       => "5815",
+            '_yt_views'        => "234610818",
+            '_yt_favorites'    => 10,
+            '_yt_comments'     => "18",
+            '_yt_likes'        => "526",
+        ]);
         return $entry;
     }
 
@@ -795,8 +833,8 @@ class YouTube extends Extension {
      */
     public function notification_image($image_data, $data, $settings) {
         if (!$settings['show_default_image'] && $settings['show_notification_image'] === 'yt_thumbnail') {
-            $image_data['url'] = $data['image'];
-            $image_data['alt'] = $data['yt_channel_title'];
+            $image_data['url'] = isset($data['image']) ? $data['image'] : '';
+            $image_data['alt'] = isset($data['yt_channel_title']) ? $data['yt_channel_title'] : '';
         }
         return $image_data;
     }

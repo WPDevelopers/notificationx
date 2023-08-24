@@ -64,7 +64,7 @@ class ExtensionFactory {
 			'elementor_form'                  => 'NotificationX\Extensions\Elementor\From',
 			'flashing_tab'                    => 'NotificationX\Extensions\FlashingTab\FlashingTab',
 			'fluentform'                      => 'NotificationX\Extensions\FluentForm\FluentForm',
-			// 'youtube'                         => 'NotificationX\Extensions\Google\YouTube',
+			'youtube'                         => 'NotificationX\Extensions\Google\YouTube',
 		];
 
 	/**

@@ -51,8 +51,9 @@ function inIframe () {
 }
 
 domReady(function () {
-    if(inIframe()){
-        console.warn("NotificationX: NotificationX doesn't work in iframe.");
+    // @ts-ignore
+    if(inIframe() && !window.notificationXArr?.[0]?.nxPreview){
+        console.error("NotificationX: NotificationX doesn't work in iframe.");
         return;
     }
 
