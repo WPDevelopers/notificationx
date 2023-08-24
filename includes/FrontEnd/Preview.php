@@ -278,11 +278,11 @@ class Preview {
 
         $defaults['image_data'] = FrontEnd::get_instance()->apply_defaults((array) FrontEnd::get_instance()->get_image_url($defaults, $settings), $defaults['image_data']);
 
+        $defaults  = apply_filters("nx_preview_entry_$type", $defaults, $settings);
+        $defaults  = apply_filters("nx_preview_entry_$source", $defaults, $settings);
         $_defaults = apply_filters("nx_fallback_data_$source", $defaults, $defaults, $settings);
         $_defaults = apply_filters('nx_fallback_data', $_defaults, $_defaults, $settings);
         $defaults  = FrontEnd::get_instance()->apply_defaults($defaults, $_defaults);
-        $defaults  = apply_filters("nx_preview_entry_$type", $defaults, $settings);
-        $defaults  = apply_filters("nx_preview_entry_$source", $defaults, $settings);
         $defaults  = apply_filters("nx_filtered_entry_$type", $defaults, $settings);
         $defaults  = apply_filters("nx_filtered_entry_$source", $defaults, $settings);
         // $defaults  = $this->link_url($defaults, $settings);
