@@ -702,7 +702,7 @@ class GlobalFields {
                                     'default'     => false,
                                     'description' => __('Enable button with link', 'notificationx'),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::is('type', 'conversions'),
+                                        Rules::includes('type', ['conversions','video']),
                                         Rules::is('link_type','none',true),
                                     ]),
                                 ],

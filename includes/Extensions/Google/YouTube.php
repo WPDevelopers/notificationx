@@ -469,7 +469,7 @@ class YouTube extends Extension {
                     'name'        => 'google_youtube_cache_duration',
                     'type'        => 'number',
                     'label'       => __('Cache Duration', 'notificationx-pro'),
-                    'default'     => 30,
+                    'default'     => 12 * HOUR_IN_SECONDS,
                     'min'         => 30,
                     'description' => __('Minutes, scheduled duration for collect new data. Estimated cost per month around $25 for every 30 minute.', 'notificationx-pro'),
                 ],
@@ -748,11 +748,13 @@ class YouTube extends Extension {
             }
 
             $transient_key = "nx_{$this->id}" . md5(http_build_query($query));
-            // $place_data    = get_transient($transient_key);
+            $place_data    = get_transient($transient_key);
 
             if(empty($place_data)){
+                $cache_duration = Settings::get_instance()->get('settings.google_youtube_cache_duration', 30) * MINUTE_IN_SECONDS;
                 $place_data = Helper::remote_get( $this->api_base . $youtube_type . '?' . http_build_query($query), $args, false, true );
-                set_transient($transient_key, $place_data, HOUR_IN_SECONDS);
+                set_transient($transient_key, $place_data, $cache_duration);
+                // set_transient($transient_key, $place_data, HOUR_IN_SECONDS);
             }
 
 

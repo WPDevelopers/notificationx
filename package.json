@@ -71,6 +71,7 @@
     "react-select": "^4.3.1",
     "react-toastify": "^8.0.3",
     "sort-array": "^4.1.4",
-    "sweetalert2": "11.4.8"
+    "sweetalert2": "11.4.8",
+    "@wordpress/icons": "9.13.0"
   }
 }

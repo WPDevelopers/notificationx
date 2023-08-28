@@ -1,6 +1,6 @@
 import React, { CSSProperties } from "react";
-import nxHelper from "./functions";
 import useNotificationContext from "./NotificationProvider";
+import nxHelper from "./functions";
 
 export const analyticsOnClick = (event, restUrl, config, credentials = true) => {
     const nx_id = config?.nx_id;
@@ -34,7 +34,7 @@ export const analyticsOnClick = (event, restUrl, config, credentials = true) => 
 }
 
 
-const Analytics = ({config, children, ...rest}) => {
+const Analytics = ({config, data, ...rest}) => {
     const frontendContext = useNotificationContext();
     const restUrl = nxHelper.getPath(frontendContext.rest, `analytics/`);
 
@@ -52,13 +52,35 @@ const Analytics = ({config, children, ...rest}) => {
         }
     }
 
+    // Configure link
+    let link;
+    let link_text;
+    switch (config.link_type) {
+        case 'yt_video_link':
+            link = data?.yt_video_link;
+            link_text = config?.link_button_text_video;
+            break;
+        case 'yt_channel_link':
+            link = data?.yt_channel_link;
+            link_text = config?.link_button_text_channel;
+            break;
+        default:
+            link = data?.link
+            link_text = config?.link_button_text;
+            break;
+    }
+    
     return (
-        <a
-            {...rest}
-            style={styles}
-            target={config?.link_open ? "_blank" : ""}
-            onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
-        >{children}</a>
+         <>
+            { link && 
+             <a
+                {...rest}
+                href={ link }
+                style={styles}
+                target={config?.link_open ? "_blank" : ""}
+                onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
+            >{ config.link_button ? link_text: '' }</a> }
+         </>
     );
 };
 
