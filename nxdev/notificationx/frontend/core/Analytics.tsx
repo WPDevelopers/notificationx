@@ -34,10 +34,10 @@ export const analyticsOnClick = (event, restUrl, config, credentials = true) => 
 }
 
 
-const Analytics = ({config, data, ...rest}) => {
+const Analytics = ({config, ...rest}) => {
     const frontendContext = useNotificationContext();
     const restUrl = nxHelper.getPath(frontendContext.rest, `analytics/`);
-
+    const data:any = rest.data || {}
     const styles:CSSProperties = {};
 
     if (config.link_button && config.advance_edit) {
