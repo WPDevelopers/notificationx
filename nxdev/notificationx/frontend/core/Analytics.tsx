@@ -80,6 +80,7 @@ const Analytics = ({config, data, ...rest}) => {
           document.body.removeChild(script);
         };
     }, []);
+    console.log('data',data);
     
     return (
          <>
@@ -89,7 +90,7 @@ const Analytics = ({config, data, ...rest}) => {
                     className="g-ytsubscribe" 
                     data-channel="GoogleDevelopers" 
                     data-layout="default"
-                    data-count="default">Hello World
+                    data-count="default">
                 </div>
            </div> : link && 
              <a
@@ -98,7 +99,8 @@ const Analytics = ({config, data, ...rest}) => {
                 style={styles}
                 target={config?.link_open ? "_blank" : ""}
                 onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
-            >{ config.link_button ? link_text: '' }</a>  
+            >{ config.link_button ? link_text: '' } <span> { data?.yt_subscribers } </span>
+            </a>  
             }
          </>
     );
