@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, useEffect } from "react";
 import useNotificationContext from "./NotificationProvider";
 import nxHelper from "./functions";
 
@@ -55,12 +55,14 @@ const Analytics = ({config, data, ...rest}) => {
     // Configure link
     let link;
     let link_text;
+    let show_default_subscribe = false;
     switch (config.link_type) {
         case 'yt_video_link':
             link = data?.yt_video_link;
             link_text = config?.link_button_text_video;
             break;
         case 'yt_channel_link':
+            show_default_subscribe = true;
             link = data?.yt_channel_link;
             link_text = config?.link_button_text_channel;
             break;
@@ -69,17 +71,35 @@ const Analytics = ({config, data, ...rest}) => {
             link_text = config?.link_button_text;
             break;
     }
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = 'https://apis.google.com/js/platform.js';
+        script.async = true;
+        document.body.appendChild(script);
+        return () => {
+          document.body.removeChild(script);
+        };
+    }, []);
     
     return (
          <>
-            { link && 
+            { (config?.nx_subscribe_button_type === 'yt_default' && show_default_subscribe && config.link_button ) ? <div className="yt-notificationx-link">
+                <div 
+                    style={styles} 
+                    className="g-ytsubscribe" 
+                    data-channel="GoogleDevelopers" 
+                    data-layout="default"
+                    data-count="default">Hello World
+                </div>
+           </div> : link && 
              <a
                 {...rest}
                 href={ link }
                 style={styles}
                 target={config?.link_open ? "_blank" : ""}
                 onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
-            >{ config.link_button ? link_text: '' }</a> }
+            >{ config.link_button ? link_text: '' }</a>  
+            }
          </>
     );
 };
