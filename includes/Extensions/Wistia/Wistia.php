@@ -23,7 +23,7 @@ class Wistia extends Extension {
     use GetInstance;
 
     public $priority        = 15;
-    public $id              = 'Wistia';
+    public $id              = 'wistia';
     public $doc_link        = 'https://notificationx.com/docs/google-reviews-with-notificationx/';
     public $types           = 'video';
     public $module          = 'modules_wistia';
