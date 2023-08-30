@@ -85,6 +85,25 @@
     padding: 6px 12px !important;
 }
 
+.themes-youtube_channel-2.button-link .notificationx-link,
+.themes-youtube_channel-1.button-link .notificationx-link {
+    background: #fff !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    span:first-child {
+        background: #CC0000 !important;
+        color: #fff !important;
+        right: 0 !important;
+        border-radius: 4px 0 0 4px !important;
+    }
+    span {
+        color: #CC0000 !important;
+        padding: 6px 12px !important;
+        font-weight: 600 !important;
+    }
+}
+
 .themes-youtube_channel-2,
 .themes-youtube_video-1, 
 .themes-youtube_video-3 {
