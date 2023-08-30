@@ -587,7 +587,7 @@ class YouTube extends Extension {
         // ];
 
         $content_fields['youtube_channel_id'] = [
-            'label'    => __('Channel ID or Username', 'notificationx'),
+            'label'    => __('Channel ID or @Username', 'notificationx'),
             'name'     => 'youtube_channel_id',
             'type'     => 'text',
             'priority' => 80,

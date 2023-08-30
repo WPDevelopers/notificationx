@@ -80,15 +80,14 @@ const Analytics = ({config, data, ...rest}) => {
           document.body.removeChild(script);
         };
     }, []);
-    console.log('data',data);
     
     return (
          <>
-            { (config?.nx_subscribe_button_type === 'yt_default' && show_default_subscribe && config.link_button ) ? <div className="yt-notificationx-link">
+            { ( data?.id && config?.nx_subscribe_button_type === 'yt_default' && show_default_subscribe && config.link_button ) ? <div className="yt-notificationx-link">
                 <div 
                     style={styles} 
                     className="g-ytsubscribe" 
-                    data-channel="GoogleDevelopers" 
+                    data-channelid={ data.id } 
                     data-layout="default"
                     data-count="default">
                 </div>
@@ -99,7 +98,7 @@ const Analytics = ({config, data, ...rest}) => {
                 style={styles}
                 target={config?.link_open ? "_blank" : ""}
                 onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
-            >{ config.link_button ? link_text: '' } <span> { data?.yt_subscribers } </span>
+            >{ config.link_button ? link_text: '' } { config.link_button && <span> { data?.yt_subscribers } </span> } 
             </a>  
             }
          </>
