@@ -98,7 +98,7 @@ const Analytics = ({config, ...rest}) => {
                 style={styles}
                 target={config?.link_open ? "_blank" : ""}
                 onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
-            >{ config.link_button ? link_text: '' } { config.link_button && <span> { data?.yt_subscribers } </span> } 
+            >{ config.link_button ? <span>{ link_text }</span>: '' } { (config.link_button && config.link_type === 'yt_channel_link')  && <span> { data?.yt_subscribers } </span> } 
             </a>  
             }
          </>
