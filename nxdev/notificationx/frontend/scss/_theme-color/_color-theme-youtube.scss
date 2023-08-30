@@ -76,11 +76,13 @@
             }
         }
     }
-    > .notificationx-link {
-        background: #CC0000 !important;
-        right: 0 !important;
-        padding: 6px 12px !important;
-    }
+}
+
+
+.button-link .notificationx-link {
+    background: #CC0000 !important;
+    right: 0 !important;
+    padding: 6px 12px !important;
 }
 
 .themes-youtube_channel-2,
@@ -97,7 +99,7 @@
             width: 90px;
             min-width: 90px;
             border-radius: 50%;
-            box-shadow: 0 0 0 20px #fff;
+            box-shadow: 0 0 0 15px #fff;
             padding: 0px;
             animation: bling 1.5s infinite;
             position: relative;
@@ -191,12 +193,6 @@
                 }
             }
         }
-    }
-    
-    > .notificationx-link {
-        background: #CC0000 !important;
-        right: 0 !important;
-        padding: 6px 12px !important;
     }
 }
 
