@@ -40,6 +40,7 @@ class YouTube extends Extension {
     public $is_pro          = true;
     public $link_type       = 'yt_channel_link';
     public $api_base        = 'https://youtube.googleapis.com/youtube/v3/';
+    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/youtube.png';
     public $cron_schedule   = 'nx_youtube_interval';
     public $channel_themes  = ['youtube_channel-1', 'youtube_channel-2'];
     public $video_themes    = ['youtube_video-1', 'youtube_video-2', 'youtube_video-3', 'youtube_video-4'];
