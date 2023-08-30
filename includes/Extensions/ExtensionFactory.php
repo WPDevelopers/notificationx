@@ -65,6 +65,8 @@ class ExtensionFactory {
 			'flashing_tab'                    => 'NotificationX\Extensions\FlashingTab\FlashingTab',
 			'fluentform'                      => 'NotificationX\Extensions\FluentForm\FluentForm',
 			'youtube'                         => 'NotificationX\Extensions\Google\YouTube',
+			'vimeo'                           => 'NotificationX\Extensions\Vimeo\Vimeo',
+			'wistia'                          => 'NotificationX\Extensions\Wistia\Wistia',
 		];
 
 	/**
