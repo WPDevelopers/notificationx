@@ -133,14 +133,14 @@ const Notification = (props) => {
             "flex-reverse": advance_edit && settings?.image_position === "right",
         }
     );
-    
+
     const componentStyle: any = {
         maxWidth: `${notificationSize}px`,
     };
     if (settings?.advance_edit && settings?.conversion_size) {
         componentStyle.maxWidth = settings?.conversion_size;
     }
-    
+
     return (
         <div
             // onMouseEnter={handlePauseTimer}
@@ -159,10 +159,9 @@ const Notification = (props) => {
             <Theme {...props} />
             <Analytics
                 className="notificationx-link"
-                href={props.data.link}
                 config={settings}
                 data={props.data}
-            ></Analytics>
+            />
         </div>
     );
 };

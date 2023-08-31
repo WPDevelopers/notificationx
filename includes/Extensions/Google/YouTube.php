@@ -894,10 +894,20 @@ class YouTube extends Extension {
         return $result;
     }
 
+
+    public function preview_settings($settings){
+        if('yt_channel_link' === $settings['link_type'] && !empty($settings['link_button'])){
+            $settings['nx_subscribe_button_type'] = 'nx_custom';
+            $settings['link_button_text_channel'] = 'Subscribe Now';
+        }
+
+        return $settings;
+    }
+
     public function preview_entry($entry, $settings){
-        if($settings['show_notification_image'] === "greview_icon" ){
+        if($settings['show_notification_image'] === "yt_thumbnail" ){
             $entry["image_data"] = [
-                "url"     => "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+                "url"     => "https://yt3.ggpht.com/fca_HuJ99xUxflWdex0XViC3NfctBFreIl8y4i9z411asnGTWY-Ql3MeH_ybA4kNaOjY7kyA=s88-c-k-c0x00ffffff-no-rj",
                 "alt"     => "",
                 "classes" => "greview_icon"
             ];
@@ -913,6 +923,8 @@ class YouTube extends Extension {
             '_yt_favorites'    => 10,
             '_yt_comments'     => "18",
             '_yt_likes'        => "526",
+            'yt_channel_link'  => "https://www.youtube.com/@googledevelopers",
+            'yt_video_link'    => "https://www.youtube.com/watch?v=U3qcRMomnFE",
         ]);
         return $entry;
     }

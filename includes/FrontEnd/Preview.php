@@ -333,6 +333,7 @@ class Preview {
         }
 
         $settings = apply_filters("nx_get_post_{$settings['source']}", $settings);
+        $settings = apply_filters("nx_preview_settings_{$settings['source']}", $settings);
         $settings = apply_filters('nx_get_post', $settings);
         return $settings;
     }

@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect } from "react";
+import React, { CSSProperties, ReactNode, useEffect } from "react";
 import useNotificationContext from "./NotificationProvider";
 import nxHelper from "./functions";
 
@@ -33,11 +33,17 @@ export const analyticsOnClick = (event, restUrl, config, credentials = true) => 
         .catch((err) => console.error("Fetch Error: ", err));
 }
 
+type AnalyticsProps = {
+    config: any;
+    children?: ReactNode;
+    href?: string;
+    data?: {[key: string]: any;};
+    [key: string]: any;
+};
 
-const Analytics = ({config, ...rest}) => {
+const Analytics = ({config, children = null, href = null, data = {}, ...rest}: AnalyticsProps) => {
     const frontendContext = useNotificationContext();
     const restUrl = nxHelper.getPath(frontendContext.rest, `analytics/`);
-    const data:any = rest.data || {}
     const styles:CSSProperties = {};
 
     if (config.link_button && config.advance_edit) {
@@ -53,7 +59,7 @@ const Analytics = ({config, ...rest}) => {
     }
 
     // Configure link
-    let link;
+    let link = href;
     let link_text;
     let show_default_subscribe = false;
     switch (config.link_type) {
@@ -71,6 +77,7 @@ const Analytics = ({config, ...rest}) => {
             link_text = config?.link_button_text;
             break;
     }
+
     useEffect(() => {
         const script = document.createElement('script');
         script.src = 'https://apis.google.com/js/platform.js';
@@ -80,29 +87,32 @@ const Analytics = ({config, ...rest}) => {
           document.body.removeChild(script);
         };
     }, []);
+
     return (
-         <>
-            { ( data?.id && config?.nx_subscribe_button_type === 'yt_default' && show_default_subscribe && config.link_button ) ? <div className="yt-notificationx-link">
-                <div 
-                    style={styles} 
-                    className="g-ytsubscribe" 
-                    data-channelid={ data.id } 
-                    data-layout="default"
-                    data-count="default">
-                </div>
-           </div> : link && 
-            <div  {...rest}>
-                <a
-                    href={ link }
-                    style={styles}
-                    target={config?.link_open ? "_blank" : ""}
-                    onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
-                >{ config.link_button ? link_text : '' } { (config.link_button && config.link_type === 'yt_channel_link') } 
-                </a>
-                <span> { data?.yt_subscribers } </span>
-            </div>
-            }
-         </>
+        <>
+           { ( data?.id && config?.nx_subscribe_button_type === 'yt_default' && show_default_subscribe && config.link_button ) ?
+           <div className="yt-notificationx-link" >
+               <div
+                   style={styles}
+                   className="g-ytsubscribe"
+                   data-channelid={ data.id }
+                   data-layout="default"
+                   data-count="default">
+               </div>
+          </div> : link &&
+           <div  {...rest}>
+               <a
+                   href={ link }
+                   style={styles}
+                   target={config?.link_open ? "_blank" : ""}
+                   onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
+               >
+                { config.link_button ? link_text : '' } {children}
+               </a>
+               { (config.link_button && config.link_type === 'yt_channel_link') && <span> { data?.yt_subscribers } </span> }
+           </div>
+           }
+        </>
     );
 };
 
