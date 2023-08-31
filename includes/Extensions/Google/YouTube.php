@@ -228,6 +228,19 @@ class YouTube extends Extension {
         add_action("nx_cron_update_data_{$this->id}", array($this, 'update_data'), 10, 2);
     }
 
+    public function public_actions() {
+        parent::public_actions();
+        add_action("nx_frontend_keep_entry_{$this->id}", array($this, 'keep_entry'), 10, 4);
+        add_filter("nx_notification_link_{$this->id}", [$this, 'youtube_link'], 10, 3);
+    }
+
+    public function youtube_link($link, $post, $entry) {
+        if( ( !empty($entry['yt_channel_link']) || !empty( $entry['yt_video_link'] ) ) && !empty( $post['nx_subscribe_button_type'] ) && $post['nx_subscribe_button_type'] === 'nx_custom' ){
+            $link =  $entry['yt_video_link'] ?? $entry['yt_channel_link'];
+        }
+        return $link;
+    }
+
     public function init_settings_fields() {
         parent::init_settings_fields();
         // settings page
@@ -470,7 +483,7 @@ class YouTube extends Extension {
                     'name'        => 'google_youtube_cache_duration',
                     'type'        => 'number',
                     'label'       => __('Cache Duration', 'notificationx-pro'),
-                    'default'     => 12 * HOUR_IN_SECONDS,
+                    'default'     => 6 * 60,
                     'min'         => 30,
                     'description' => __('Minutes, scheduled duration for collect new data. Estimated cost per month around $25 for every 30 minute.', 'notificationx-pro'),
                 ],
@@ -940,6 +953,13 @@ class YouTube extends Extension {
         $data['yt_comments']   = Helper::nice_number($saved_data['_yt_comments']);
         $data['yt_favorites']  = Helper::nice_number($saved_data['_yt_favorites']);
         return $data;
+    }
+
+    public function keep_entry($return, $entry, $post, $params){
+        if(isset($entry['id'])){
+            $return['id'] = $entry['id'];
+        }
+        return $return;
     }
 
     public function doc(){

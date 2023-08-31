@@ -80,7 +80,6 @@ const Analytics = ({config, ...rest}) => {
           document.body.removeChild(script);
         };
     }, []);
-    
     return (
          <>
             { ( data?.id && config?.nx_subscribe_button_type === 'yt_default' && show_default_subscribe && config.link_button ) ? <div className="yt-notificationx-link">
@@ -92,14 +91,16 @@ const Analytics = ({config, ...rest}) => {
                     data-count="default">
                 </div>
            </div> : link && 
-             <a
-                {...rest}
-                href={ link }
-                style={styles}
-                target={config?.link_open ? "_blank" : ""}
-                onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
-            >{ config.link_button ? <span>{ link_text }</span>: '' } { (config.link_button && config.link_type === 'yt_channel_link')  && <span> { data?.yt_subscribers } </span> } 
-            </a>  
+            <div  {...rest}>
+                <a
+                    href={ link }
+                    style={styles}
+                    target={config?.link_open ? "_blank" : ""}
+                    onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
+                >{ config.link_button ? link_text : '' } { (config.link_button && config.link_type === 'yt_channel_link') } 
+                </a>
+                <span> { data?.yt_subscribers } </span>
+            </div>
             }
          </>
     );

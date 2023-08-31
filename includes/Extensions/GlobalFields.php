@@ -544,6 +544,7 @@ class GlobalFields {
                                     'default'     => 0,
                                     'is_pro'      => true,
                                     'description' => __('Enable to show notification in random order.', 'notificationx'),
+                                    'rules'       => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline"]),
                                 ),
                                 'product_control' => array(
                                     'label'    => __('Show Purchase Of', 'notificationx'),
