@@ -470,7 +470,7 @@ class YouTube extends Extension {
                     'name'        => 'google_youtube_cache_duration',
                     'type'        => 'number',
                     'label'       => __('Cache Duration', 'notificationx-pro'),
-                    'default'     => 12 * HOUR_IN_SECONDS,
+                    'default'     => 6 * 60,
                     'min'         => 30,
                     'description' => __('Minutes, scheduled duration for collect new data. Estimated cost per month around $25 for every 30 minute.', 'notificationx-pro'),
                 ],
