@@ -231,6 +231,14 @@ class YouTube extends Extension {
     public function public_actions() {
         parent::public_actions();
         add_action("nx_frontend_keep_entry_{$this->id}", array($this, 'keep_entry'), 10, 4);
+        add_filter("nx_notification_link_{$this->id}", [$this, 'youtube_link'], 10, 3);
+    }
+
+    public function youtube_link($link, $post, $entry) {
+        if( ( !empty($entry['yt_channel_link']) || !empty( $entry['yt_video_link'] ) ) && !empty( $post['nx_subscribe_button_type'] ) && $post['nx_subscribe_button_type'] === 'nx_custom' ){
+            $link =  $entry['yt_video_link'] ?? $entry['yt_channel_link'];
+        }
+        return $link;
     }
 
     public function init_settings_fields() {
