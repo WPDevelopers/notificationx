@@ -749,41 +749,38 @@ class YouTube extends Extension {
         ];
 
         $query = [
-            'part' => 'snippet,contentDetails,statistics',
+            'part' => 'id,snippet,contentDetails,statistics',
             'key'  => $api_key,
         ];
 
-        // if('channel' === $channel_id){
-            if(strpos($channel_id, '@') === 0){
-                $query['forUsername'] = ltrim($channel_id, '@');
+        if(strpos($channel_id, '@') === 0){
+            $query['forUsername'] = ltrim($channel_id, '@');
+        }
+        else{
+            $query['id'] = $channel_id;
+        }
+
+        $transient_key = "nx_{$this->id}" . md5(http_build_query($query));
+        $place_data    = get_transient($transient_key);
+
+        if(empty($place_data)){
+            $place_data =  $this->get_channel_data_by_channel_id( $transient_key, $youtube_type, $query, $args );
+        }
+        if( empty($place_data['pageInfo']['totalResult']) && empty($place_data['items']) && strpos($channel_id, '@') === 0 ){
+            $search_query = [
+                'part'       => 'id',
+                'key'        => $api_key,
+                'type'       => 'channel',
+                'maxResults' => 1,
+                'q'          => $channel_id,
+            ];
+            $place_data = Helper::remote_get( $this->api_base . 'search' . '?' . http_build_query($search_query), $args, false, true );
+            if( !empty( $place_data['items']['0']['id']['channelId'] ) ) {
+                $query['id'] = $place_data['items']['0']['id']['channelId'];
+                unset( $query['forUsername'] );
+                $place_data = $this->get_channel_data_by_channel_id( $transient_key, $youtube_type, $query, $args );
             }
-            else{
-                $query['id'] = $channel_id;
-            }
-
-            $transient_key = "nx_{$this->id}" . md5(http_build_query($query));
-            $place_data    = get_transient($transient_key);
-
-            if(empty($place_data)){
-                $cache_duration = Settings::get_instance()->get('settings.google_youtube_cache_duration', 30) * MINUTE_IN_SECONDS;
-                $place_data = Helper::remote_get( $this->api_base . $youtube_type . '?' . http_build_query($query), $args, false, true );
-                set_transient($transient_key, $place_data, $cache_duration);
-                // set_transient($transient_key, $place_data, HOUR_IN_SECONDS);
-            }
-
-
-        // }
-        // else if('video' === $youtube_type){
-        //     $query['id']   = $youtube_id;
-        //     $transient_key = "nx_{$this->id}" . md5(http_build_query($query));
-        //     // $place_data    = get_transient($transient_key);
-
-        //     if(empty($place_data)){
-        //         $place_data = Helper::remote_get( $this->api_base . 'videos?' . http_build_query($query), $args, false, true );
-        //         set_transient($transient_key, $place_data, HOUR_IN_SECONDS);
-        //     }
-
-        // }
+        }
 
         if(!empty($place_data['items']) && is_array($place_data['items'])){
             foreach ($place_data['items'] as $item) {
@@ -808,6 +805,14 @@ class YouTube extends Extension {
             }
         }
         return $result;
+    }
+
+    public function get_channel_data_by_channel_id( $transient_key, $youtube_type, $query, $args ) 
+    {
+        $cache_duration = Settings::get_instance()->get('settings.google_youtube_cache_duration', 30) * MINUTE_IN_SECONDS;
+        $place_data = Helper::remote_get( $this->api_base . $youtube_type . '?' . http_build_query($query), $args, false, true );
+        set_transient($transient_key, $place_data, $cache_duration);
+        return $place_data;
     }
 
     /**
