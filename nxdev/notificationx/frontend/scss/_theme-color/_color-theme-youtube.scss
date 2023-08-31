@@ -5,6 +5,10 @@
     box-shadow: 0px 12px 24px 0px rgba(0, 1, 35, 0.08);
     filter: drop-shadow(-10px 0px 15px rgba(0, 0, 0, 0.1));
 
+    &:not(&:last-child) {
+        margin-bottom: 45px;
+    }
+
     .notificationx-inner {
         .notificationx-image {
             padding: 8px;
@@ -23,15 +27,6 @@
                     color: #344054 !important;
                     font-weight: 500;
                     margin-bottom: 10px;
-                    // > span {
-                    //     span {
-                    //         &:nth-child(1),
-                    //         &:nth-child(2) {
-                    //             font-weight: 500;
-                    //             color: #000;
-                    //         }
-                    //     }
-                    // }
                 }
                 &.nx-second-row {
                     color: #667085;
@@ -62,12 +57,6 @@
                 &.nx-third-row {
                     > span {
                         margin-right: 0;
-                        // font-size: 13px;
-                        // width: 100%;
-                        // display: grid;
-                        // grid-template-columns: repeat(3, 1fr);
-                        // gap: 5px;
-                        // color: #b6bfd1;
                     }
                     .nx-branding {
                         width: 100%;
@@ -83,6 +72,10 @@
     border-radius: 50px 8px 8px 50px;
     box-shadow: 0px 12px 24px 0px rgba(0, 1, 35, 0.08);
     filter: drop-shadow(-10px 0px 15px rgba(0, 0, 0, 0.1));
+
+    &:not(&:last-child) {
+        margin-bottom: 45px;
+    }
     
     .notificationx-inner {
         border-radius: 50px 8px 8px 50px;
@@ -198,6 +191,10 @@
     border-radius: 50px 8px 8px 50px;
     box-shadow: 0px 12px 24px 0px rgba(0, 1, 35, 0.08);
     filter: drop-shadow(-10px 0px 15px rgba(0, 0, 0, 0.1));
+
+    &:not(&:last-child) {
+        margin-bottom: 45px;
+    }
     
     .notificationx-inner {
         border-radius: 50px 8px 8px 50px;
@@ -326,6 +323,10 @@
     background: #CC0000 !important;
     right: 0 !important;
     padding: 6px 12px !important;
+    > a {
+        text-decoration: none;
+        color: #fff;
+    }
 }
 .themes-youtube_channel-2.button-link .notificationx-link,
 .themes-youtube_channel-1.button-link .notificationx-link {
@@ -333,13 +334,16 @@
     display: flex !important;
     align-items: center !important;
     background: #CC0000 !important;
+    border-radius: 4px 6px 6px 4px !important;
     color: #fff !important;
     right: 0 !important;
-    border-radius: 4px 0 0 4px !important;
-    padding: 6px 12px !important;
+    a {
+        padding: 6px 8px !important;
+    }
     span {
         background-color: #fff !important;
         color: #CC0000 !important;
-        font-weight: 600 !important;
+        padding: 6px 8px;
+        border-radius: 0 4px 4px 0 !important;
     }
 }
