@@ -699,7 +699,13 @@ class GlobalFields {
                                     'type'        => 'checkbox',
                                     'priority'    => 100,
                                     'is_pro'      => true,
-                                    'default'     => false,
+                                    'default'     => true,
+                                    // 'default'     => [
+                                    //     'youtube_channel-1' => true,
+                                    //     'youtube_channel-2' => true,
+                                    //     'youtube_video-3'   => true,
+                                    //     'youtube_video-4'   => true,
+                                    // ],
                                     'description' => __('Enable button with link', 'notificationx'),
                                     'rules'       => Rules::logicalRule([
                                         Rules::includes('type', ['conversions','video']),
