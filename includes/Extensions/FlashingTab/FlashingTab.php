@@ -38,6 +38,7 @@ class FlashingTab extends Extension {
     public $module          = 'modules_flashing';
     public $module_priority = 30;
     public $default_theme   = 'flashing_tab_theme-1';
+    public $is_pro          = true;
 
     /**
      * Initially Invoked when initialized.
