@@ -26,15 +26,12 @@ class Wistia extends Extension {
     public $id              = 'wistia';
     public $doc_link        = 'https://notificationx.com/docs/google-reviews-with-notificationx/';
     public $types           = 'video';
-    public $module          = 'modules_wistia';
     public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/wistia.png';
-    public $module_priority = 35;
     /**
      * Initially Invoked when initialized.
      */
     public function __construct(){
         $this->title = __('Wistia', 'notificationx');
-        $this->module_title = __('Wistia', 'notificationx');
         parent::__construct();
     }
 

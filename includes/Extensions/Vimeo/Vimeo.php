@@ -26,15 +26,12 @@ class Vimeo extends Extension {
     public $id              = 'vimeo';
     public $doc_link        = 'https://notificationx.com/docs/google-reviews-with-notificationx/';
     public $types           = 'video';
-    public $module          = 'modules_vimeo';
     public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/vimeo.png';
-    public $module_priority = 30;
     /**
      * Initially Invoked when initialized.
      */
     public function __construct(){
         $this->title = __('Vimeo', 'notificationx');
-        $this->module_title = __('Vimeo', 'notificationx');
         parent::__construct();
     }
 
