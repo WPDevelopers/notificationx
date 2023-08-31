@@ -157,6 +157,7 @@
         }
     }
     .wprf-tab-content-wrapper {
+
         padding: 0;
         background: transparent;
         .wprf-tab-content {
@@ -408,5 +409,17 @@
                 margin-top: 20px;
             }
         }
+    }
+    
+}
+
+.wprf-tab-content-wrapper{
+    &.youtube,
+    &.vimeo,
+    &.wistia {
+        img {
+            width: 150px !important;
+        }
+
     }
 }
