@@ -228,6 +228,11 @@ class YouTube extends Extension {
         add_action("nx_cron_update_data_{$this->id}", array($this, 'update_data'), 10, 2);
     }
 
+    public function public_actions() {
+        parent::public_actions();
+        add_action("nx_frontend_keep_entry_{$this->id}", array($this, 'keep_entry'), 10, 4);
+    }
+
     public function init_settings_fields() {
         parent::init_settings_fields();
         // settings page
@@ -940,6 +945,13 @@ class YouTube extends Extension {
         $data['yt_comments']   = Helper::nice_number($saved_data['_yt_comments']);
         $data['yt_favorites']  = Helper::nice_number($saved_data['_yt_favorites']);
         return $data;
+    }
+
+    public function keep_entry($return, $entry, $post, $params){
+        if(isset($entry['id'])){
+            $return['id'] = $entry['id'];
+        }
+        return $return;
     }
 
     public function doc(){
