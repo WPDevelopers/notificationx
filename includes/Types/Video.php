@@ -31,6 +31,7 @@ class Video extends Types {
         'modules_google_youtube',
     ];
     public $default_source = 'youtube';
+    public $is_pro = true;
     // public $default_theme  = '';
     // public $link_type      = '';
 
