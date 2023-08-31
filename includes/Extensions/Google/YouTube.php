@@ -57,7 +57,7 @@ class YouTube extends Extension {
                 'template'                => [
                     // 'first_param'         => 'tag_rated',
                     // 'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('Join ', 'notificationx'),
+                    'second_param'        => __('Follow ', 'notificationx'),
                     'third_param'         => 'tag_yt_channel_title',
                     'custom_third_param'  => __('', 'notificationx'),
                     'yt_third_label'      => __('YouTube Channel', 'notificationx'),
@@ -79,7 +79,7 @@ class YouTube extends Extension {
                 'template'                => [
                     // 'first_param'         => 'tag_rated',
                     // 'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('Join ', 'notificationx'),
+                    'second_param'        => __('Follow ', 'notificationx'),
                     'third_param'         => 'tag_yt_channel_title',
                     'custom_third_param'  => __('', 'notificationx'),
                     'yt_third_label'      => __('YouTube Channel', 'notificationx'),
@@ -98,7 +98,7 @@ class YouTube extends Extension {
             'video-1'     => [
                 'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/youtube/video-theme-1.png',
                 'template'                => [
-                    'second_param'       => __('Check our latest work ', 'notificationx'),
+                    'second_param'       => __('Check our latest video ', 'notificationx'),
                     'third_param'        => 'tag_yt_views',
                     'custom_third_param' => __('', 'notificationx'),
                     'fourth_param'       => 'tag_yt_likes',
@@ -114,7 +114,7 @@ class YouTube extends Extension {
             'video-2'     => [
                 'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/youtube/video-theme-2.png',
                 'template'                => [
-                    'second_param'       => __('Check our latest work ', 'notificationx'),
+                    'second_param'       => __('Check our latest video ', 'notificationx'),
                     'third_param'        => 'tag_yt_views',
                     'custom_third_param' => __('', 'notificationx'),
                     'yt_third_label'     => __('Views', 'notificationx'),
@@ -133,7 +133,7 @@ class YouTube extends Extension {
             'video-3'     => [
                 'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/youtube/video-theme-3.png',
                 'template'                => [
-                    'second_param'       => __('Check our latest work ', 'notificationx'),
+                    'second_param'       => __('Check our latest video ', 'notificationx'),
                     'third_param'        => 'tag_yt_views',
                     'custom_third_param' => __('', 'notificationx'),
                     'fourth_param'       => 'tag_yt_likes',
@@ -149,7 +149,7 @@ class YouTube extends Extension {
             'video-4'     => [
                 'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/youtube/video-theme-4.png',
                 'template'                => [
-                    'second_param'       => __('Check our latest work ', 'notificationx'),
+                    'second_param'       => __('Check our latest video ', 'notificationx'),
                     'third_param'        => 'tag_yt_views',
                     'custom_third_param' => __('', 'notificationx'),
                     'yt_third_label'     => __('Views', 'notificationx'),
