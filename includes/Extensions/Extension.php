@@ -47,6 +47,7 @@ abstract class Extension {
     public $exclude_custom_themes = false;
     public $priority              = 5;
     public $module_priority       = 5;
+    public $show_on_module        = true;
 
     /**
      * All Active Notification Items
@@ -68,7 +69,9 @@ abstract class Extension {
      */
     public function __construct() {
         $modules = Modules::get_instance();
-        $module_name = $this->register_module();
+        if( $this->show_on_module ) {
+            $module_name = $this->register_module();
+        }
         if ($modules->is_enabled($module_name)) {
             $type_factory = TypeFactory::get_instance();
             $type_factory->register_types($this->types);

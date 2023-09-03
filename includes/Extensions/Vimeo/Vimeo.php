@@ -27,6 +27,8 @@ class Vimeo extends Extension {
     public $doc_link        = 'https://notificationx.com/docs/google-reviews-with-notificationx/';
     public $types           = 'video';
     public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/vimeo.png';
+    public $show_on_module  = false;
+
     /**
      * Initially Invoked when initialized.
      */

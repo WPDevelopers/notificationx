@@ -614,7 +614,7 @@ class YouTube extends Extension {
             'label'    => __('Video ID', 'notificationx'),
             'name'     => 'youtube_video_id',
             'type'     => 'text',
-            'priority' => 90,
+            'priority' => 89,
             'rules'    => Rules::logicalRule([
                 Rules::is( 'source', $this->id ),
                 Rules::includes( 'themes', $this->video_themes ),
@@ -907,24 +907,24 @@ class YouTube extends Extension {
     public function preview_entry($entry, $settings){
         if($settings['show_notification_image'] === "yt_thumbnail" ){
             $entry["image_data"] = [
-                "url"     => "https://yt3.ggpht.com/fca_HuJ99xUxflWdex0XViC3NfctBFreIl8y4i9z411asnGTWY-Ql3MeH_ybA4kNaOjY7kyA=s88-c-k-c0x00ffffff-no-rj",
+                "url"     => "https://yt3.googleusercontent.com/ytc/AOPolaQCL3t4yyoMQASsr-TgYCItiONVyHEYKATxdRCtSQ=s176-c-k-c0x00ffffff-no-rj",
                 "alt"     => "",
                 "classes" => "greview_icon"
             ];
         }
 
         $entry = array_merge($entry, [
-            'yt_channel_title' => "Google for Developers",
-            'description'      => "Subscribe to join a community of creative developers and learn the latest in Google technology — from AI and cloud, to mobile and web. Explore more at developers.google.com",
+            'yt_channel_title' => "WPDeveloper",
+            'description'      => "WPDeveloper is a software company that serving 5 Million users from 180+ countries around the world",
             'publishedAt'      => "2007-08-23T00:34:43Z",
-            '_yt_subscribers'  => "2300000",
-            '_yt_videos'       => "5815",
-            '_yt_views'        => "234610818",
+            '_yt_subscribers'  => "8970",
+            '_yt_videos'       => "659",
+            '_yt_views'        => "2400000",
             '_yt_favorites'    => 10,
-            '_yt_comments'     => "18",
-            '_yt_likes'        => "526",
-            'yt_channel_link'  => "https://www.youtube.com/@googledevelopers",
-            'yt_video_link'    => "https://www.youtube.com/watch?v=U3qcRMomnFE",
+            '_yt_comments'     => "98",
+            '_yt_likes'        => "525",
+            'yt_channel_link'  => "https://www.youtube.com/@WPDeveloper",
+            'yt_video_link'    => "https://www.youtube.com/watch?v=fzssXUfUFGY",
         ]);
         return $entry;
     }
