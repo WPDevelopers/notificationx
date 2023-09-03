@@ -69,9 +69,7 @@ abstract class Extension {
      */
     public function __construct() {
         $modules = Modules::get_instance();
-        if( $this->show_on_module ) {
-            $module_name = $this->register_module();
-        }
+        $module_name = $this->register_module();
         if ($modules->is_enabled($module_name)) {
             $type_factory = TypeFactory::get_instance();
             $type_factory->register_types($this->types);
@@ -478,15 +476,18 @@ abstract class Extension {
      * @return array
      */
     public function register_module() {
-        $modules = Modules::get_instance();
-        return $modules->add(array(
-            'value'    => $this->module,
-            'label'    => $this->module_title,
-            'link'     => $this->doc_link,
-            'is_pro'   => $this->is_pro && ! NotificationX::is_pro(),
-            'badge'    => $this->is_pro,
-            'priority' => $this->module_priority,
-        ));
+        if( $this->show_on_module ) {
+            $modules = Modules::get_instance();
+            return $modules->add(array(
+                'value'    => $this->module,
+                'label'    => $this->module_title,
+                'link'     => $this->doc_link,
+                'is_pro'   => $this->is_pro && ! NotificationX::is_pro(),
+                'badge'    => $this->is_pro,
+                'priority' => $this->module_priority,
+            ));
+        }
+        
     }
 
     public function delete_notification($entry_key = null, $nx_id = null) {
