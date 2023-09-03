@@ -84,23 +84,23 @@
             width: 90px;
             min-width: 90px;
             border-radius: 50%;
-            box-shadow: 0 0 0 15px #fff;
+            box-shadow: 0 0 0 18px #fff;
             padding: 0px;
             animation: bling 1.5s infinite;
             position: relative;
             @keyframes bling {
                 0% {
-                    outline: 0px solid rgba(204, 0, 0, .8);
+                    outline: 4px solid rgba(204, 0, 0, 1);
                 }
-                33% {
-                    outline: 3px solid rgba(204, 0, 0, .6);
-                }
-                66% {
-                    outline: 7px solid rgba(204, 0, 0, .4);
-                }
+                // 33% {
+                //     outline: 8px solid rgba(204, 0, 0, 1);
+                // }
                 100% {
-                    outline: 10px solid rgba(204, 0, 0, .2);
+                    outline: 12px solid rgba(204, 0, 0, .1);
                 }
+                // 100% {
+                //     outline: 10px solid rgba(204, 0, 0, .8);
+                // }
             }
             @keyframes bling-before {
                 0% {
@@ -203,23 +203,23 @@
             width: 90px;
             min-width: 90px;
             border-radius: 50%;
-            box-shadow: 0 0 0 15px #fff;
+            box-shadow: 0 0 0 18px #fff;
             padding: 0px;
             animation: bling 1.5s infinite;
             position: relative;
             @keyframes bling {
                 0% {
-                    outline: 0px solid rgba(204, 0, 0, .8);
+                    outline: 4px solid rgba(204, 0, 0, 1);
                 }
-                33% {
-                    outline: 3px solid rgba(204, 0, 0, .6);
-                }
-                66% {
-                    outline: 7px solid rgba(204, 0, 0, .4);
-                }
+                // 33% {
+                //     outline: 8px solid rgba(204, 0, 0, 1);
+                // }
                 100% {
-                    outline: 10px solid rgba(204, 0, 0, .2);
+                    outline: 12px solid rgba(204, 0, 0, .1);
                 }
+                // 100% {
+                //     outline: 10px solid rgba(204, 0, 0, .8);
+                // }
             }
             @keyframes bling-before {
                 0% {
