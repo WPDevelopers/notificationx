@@ -28,7 +28,7 @@ class Wistia extends Extension {
     public $types           = 'video';
     public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/wistia.png';
     public $show_on_module  = false;
-    
+    public $show_on_type     = false;
     /**
      * Initially Invoked when initialized.
      */

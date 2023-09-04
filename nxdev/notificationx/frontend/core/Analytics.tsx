@@ -69,6 +69,7 @@ const Analytics = ({config, children = null, href = null, data = {}, ...rest}: A
 
     switch (config.link_type) {
         case 'yt_video_link':
+            link = data?.yt_video_link;
             link_text = config?.link_button_text_video;
             break;
         case 'yt_channel_link':
@@ -89,6 +90,7 @@ const Analytics = ({config, children = null, href = null, data = {}, ...rest}: A
           document.body.removeChild(script);
         };
     }, []);
+    
     return (
         <>
            { ( data?.id && config?.nx_subscribe_button_type === 'yt_default' && show_default_subscribe && config.link_button ) ?
