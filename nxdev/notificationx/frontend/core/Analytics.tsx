@@ -41,7 +41,7 @@ type AnalyticsProps = {
     [key: string]: any;
 };
 
-const Analytics = ({config, children = null, href = null, data = {}, ...rest}: AnalyticsProps) => {
+const Analytics = ({config, children = null, href = null, className, data = {}, ...rest}: AnalyticsProps) => {
     const frontendContext = useNotificationContext();
     const restUrl = nxHelper.getPath(frontendContext.rest, `analytics/`);
     const styles:CSSProperties = {};
@@ -60,24 +60,27 @@ const Analytics = ({config, children = null, href = null, data = {}, ...rest}: A
 
     // Configure link
     let link = href;
+    if( data?.link ) {
+        link = data.link;
+    }
+    
     let link_text;
     let show_default_subscribe = false;
     switch (config.link_type) {
+        case 'custom':
         case 'yt_video_link':
-            link = data?.yt_video_link;
             link_text = config?.link_button_text_video;
             break;
+        case 'custom':
         case 'yt_channel_link':
             show_default_subscribe = true;
-            link = data?.yt_channel_link;
             link_text = config?.link_button_text_channel;
             break;
         default:
-            link = data?.link
             link_text = config?.link_button_text;
             break;
     }
-
+    
     useEffect(() => {
         const script = document.createElement('script');
         script.src = 'https://apis.google.com/js/platform.js';
@@ -87,7 +90,6 @@ const Analytics = ({config, children = null, href = null, data = {}, ...rest}: A
           document.body.removeChild(script);
         };
     }, []);
-
     return (
         <>
            { ( data?.id && config?.nx_subscribe_button_type === 'yt_default' && show_default_subscribe && config.link_button ) ?
@@ -99,9 +101,10 @@ const Analytics = ({config, children = null, href = null, data = {}, ...rest}: A
                    data-layout="default"
                    data-count="default">
                </div>
-          </div> : link &&
+          </div> : (link && config.link_type !== 'none') &&
            <div  {...rest}>
                <a
+                   className={className}
                    href={ link }
                    style={styles}
                    target={config?.link_open ? "_blank" : ""}
