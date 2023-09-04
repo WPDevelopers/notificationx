@@ -41,7 +41,7 @@ type AnalyticsProps = {
     [key: string]: any;
 };
 
-const Analytics = ({config, children = null, href = null, className, data = {}, ...rest}: AnalyticsProps) => {
+const Analytics = ({config, children = null, href = null, data = {}, ...rest}: AnalyticsProps) => {
     const frontendContext = useNotificationContext();
     const restUrl = nxHelper.getPath(frontendContext.rest, `analytics/`);
     const styles:CSSProperties = {};
@@ -66,12 +66,11 @@ const Analytics = ({config, children = null, href = null, className, data = {}, 
     
     let link_text;
     let show_default_subscribe = false;
+
     switch (config.link_type) {
-        case 'custom':
         case 'yt_video_link':
             link_text = config?.link_button_text_video;
             break;
-        case 'custom':
         case 'yt_channel_link':
             show_default_subscribe = true;
             link_text = config?.link_button_text_channel;
@@ -102,17 +101,17 @@ const Analytics = ({config, children = null, href = null, className, data = {}, 
                    data-count="default">
                </div>
           </div> : (link && config.link_type !== 'none') &&
-           <div  {...rest}>
+           <div  className="notificationx-link-wrapper">
                <a
-                   className={className}
                    href={ link }
                    style={styles}
                    target={config?.link_open ? "_blank" : ""}
                    onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
+                   {...rest}
                >
                 { config.link_button ? link_text : '' } {children}
                </a>
-               { (config.link_button && config.link_type === 'yt_channel_link') && <span> { data?.yt_subscribers } </span> }
+               { (config.link_button && config.link_type === 'yt_channel_link' && data?.yt_subscribers ) && <span> { data.yt_subscribers } </span> }
            </div>
            }
         </>

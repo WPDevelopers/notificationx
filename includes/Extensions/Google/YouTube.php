@@ -66,6 +66,7 @@ class YouTube extends Extension {
                     'image_shape'             => 'rounded',
                     'link_type'               => 'yt_channel_link',
                     'show_notification_image' => 'yt_thumbnail',
+                    'link_button_text'        => __('Subscribe Now','notificationx'),
                 ],
             ],
             'channel-2'     => [
@@ -87,6 +88,7 @@ class YouTube extends Extension {
                     'image_shape'             => 'circle',
                     'link_type'               => 'yt_channel_link',
                     'show_notification_image' => 'yt_thumbnail',
+                    'link_button_text'        => __('Subscribe Now','notificationx'),
                 ],
             ],
             'video-1'     => [
@@ -105,6 +107,7 @@ class YouTube extends Extension {
                     'image_shape'             => 'circle',
                     'link_type'               => 'yt_video_link',
                     'show_notification_image' => 'yt_thumbnail',
+                    'link_button_text'        => __('Watch Now','notificationx'),
                 ],
             ],
             'video-2'     => [
@@ -126,6 +129,7 @@ class YouTube extends Extension {
                     'image_shape'             => 'rounded',
                     'link_type'               => 'yt_video_link',
                     'show_notification_image' => 'yt_thumbnail',
+                    'link_button_text'        => __('Watch Now','notificationx'),
                 ],
             ],
             'video-3'     => [
@@ -144,6 +148,7 @@ class YouTube extends Extension {
                     'image_shape'             => 'circle',
                     'link_type'               => 'yt_video_link',
                     'show_notification_image' => 'yt_thumbnail',
+                    'link_button_text'        => __('Watch Now','notificationx'),
                 ],
             ],
             'video-4'     => [
@@ -165,6 +170,7 @@ class YouTube extends Extension {
                     'image_shape'             => 'rounded',
                     'link_type'               => 'yt_video_link',
                     'show_notification_image' => 'yt_thumbnail',
+                    'link_button_text'        => __('Watch Now','notificationx'),
                 ],
             ],
         ];

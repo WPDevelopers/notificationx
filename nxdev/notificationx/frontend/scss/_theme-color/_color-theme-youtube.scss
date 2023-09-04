@@ -308,7 +308,7 @@
 } 
 
 .button-link .notificationx-link {
-    background: #CC0000 !important;
+    background: #CC0000;
     right: 0 !important;
     padding: 6px 12px !important;
     > a {
@@ -318,13 +318,13 @@
 }
 .themes-youtube_channel-2.button-link .notificationx-link,
 .themes-youtube_channel-1.button-link .notificationx-link {
-    padding: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    background: #CC0000 !important;
-    border-radius: 4px 6px 6px 4px !important;
-    color: #fff !important;
-    right: 0 !important;
+    // padding: 0 !important;
+    // display: flex !important;
+    // align-items: center !important;
+    // background: #CC0000 !important;
+    // border-radius: 4px 6px 6px 4px !important;
+    // color: #fff !important;
+    // right: 0 !important;
     a {
         padding: 6px 8px !important;
     }
