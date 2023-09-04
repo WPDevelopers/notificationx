@@ -221,13 +221,13 @@ class YouTube extends Extension {
     }
     
     public function doc(){
-        $url = admin_url('admin.php?page=nx-settings&tab=tab-api-integrations#google_youtubes_settings_section');
-        return sprintf(__('<p>Make sure that you have configured your <a target="_blank" href="%1$s">Google Reviews API</a> key, to showcase your reviews. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+        $url = admin_url('admin.php?page=nx-settings&tab=tab-api-integrations#google_youtube_settings_section');
+        return sprintf(__('<p>Make sure that you have configured your <a target="_blank" href="%1$s">YouTube API</a> key, Check out our step-by-step documentation for further assistance. <a target="_blank" href="%2$s">documentation</a>.</p>
 
-		<p>👉NotificationX <a target="_blank" href="%3$s">Integration with Google Reviews</a>.</p>', 'notificationx'),
+		<p>👉NotificationX <a target="_blank" href="%3$s">Integration with Youtube</a>.</p>', 'notificationx'),
         $url,
-        'https://notificationx.com/docs/collect-api-key-from-google-console',
-        'https://notificationx.com/docs/google-reviews-with-notificationx/'
+        'https://notificationx.com/docs/',
+        'https://notificationx.com/docs/'
         );
     }
 }
