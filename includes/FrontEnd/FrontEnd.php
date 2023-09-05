@@ -110,6 +110,7 @@ class FrontEnd {
 
                 wp_enqueue_style('notificationx-public');
                 wp_enqueue_script('notificationx-public');
+                wp_enqueue_style('dashicons');
                 do_action('notificationx_scripts', $this->notificationXArr);
             }
         } else {
