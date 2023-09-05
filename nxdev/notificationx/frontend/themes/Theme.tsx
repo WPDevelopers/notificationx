@@ -36,7 +36,8 @@ const Theme = (props) => {
         let regex = /{{(.*?)}}/g;
         while ((match = regex.exec(_row))) {
             let key = match?.[1]?.replace("tag_", "")?.replace("product_", "");
-            let val = escapeHTML (entry?.[key] ) || "";
+            let val = entry?.[key] || "";
+            val = 'string' === typeof val ? escapeHTML(val) : val;
 
             if (key === "time") {
                 val =
