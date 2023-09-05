@@ -330,25 +330,23 @@
     font-size: 14px;
     text-decoration: none;
     padding: 6px 0px;
-    background: #CC0000 ;
-    border-radius: 4px 6px 6px 4px;
     color: #fff;
     line-height: 18px;
     font-weight: 500;
     .notificationx-link {
-        position: unset;
+        background: #c00;
+        border-radius: 4px 0 0 4px;
+        bottom: inherit;
+        color: inherit;
+        font-size: inherit;
+        font-weight: inherit;
         left: unset;
-        bottom: unset;
-        top: unset;
+        line-height: inherit;
+        padding: inherit;
+        position: unset;
         right: unset;
-        font-size: unset;
-        text-decoration: unset;
-        padding: unset;
-        background: unset;
-        border-radius: unset;
-        color: unset;
-        line-height: unset;
-        font-weight: unset;
+        text-decoration: none;
+        top: unset;
     }
     a {
         padding: 6px 8px !important;

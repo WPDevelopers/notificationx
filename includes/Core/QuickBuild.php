@@ -139,6 +139,7 @@ class QuickBuild {
                 'source_error',
                 'finalize_message',
                 'youtube_channel_id',
+                'youtube_video_id',
                 'type_section',
                 'type',
                 'source_section',

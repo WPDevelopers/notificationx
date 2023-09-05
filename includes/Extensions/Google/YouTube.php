@@ -228,7 +228,7 @@ class YouTube extends Extension {
     
     public function doc(){
         $url = admin_url('admin.php?page=nx-settings&tab=tab-api-integrations#google_youtube_settings_section');
-        return sprintf(__('<p>Make sure that you have configured your <a target="_blank" href="%1$s">YouTube API</a> key, Check out our step-by-step documentation for further assistance. <a target="_blank" href="%2$s">documentation</a>.</p>
+        return sprintf(__('<p>To create YouTube notification popups, make sure that you have configured your <a target="_blank" href="%1$s">YouTube API</a> key, Check out our step-by-step documentation for further assistance. <a target="_blank" href="%2$s">documentation</a>.</p>
 
 		<p>👉NotificationX <a target="_blank" href="%3$s">Integration with Youtube</a>.</p>', 'notificationx'),
         $url,

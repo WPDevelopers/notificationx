@@ -2,6 +2,7 @@ import classNames from "classnames";
 import React from "react";
 import { Close, Content, Image } from "./helpers";
 // @ts-ignore
+import { escapeHTML } from "@wordpress/escape-html";
 import { useNotificationContext } from "../core";
 import { getThemeName } from "../core/functions";
 
@@ -35,7 +36,7 @@ const Theme = (props) => {
         let regex = /{{(.*?)}}/g;
         while ((match = regex.exec(_row))) {
             let key = match?.[1]?.replace("tag_", "")?.replace("product_", "");
-            let val = entry?.[key] || "";
+            let val = escapeHTML (entry?.[key] ) || "";
 
             if (key === "time") {
                 val =
