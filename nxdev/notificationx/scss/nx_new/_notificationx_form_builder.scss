@@ -1127,12 +1127,11 @@
         }
     }
 }
-.wprf-help {
-    span {
-        background: #6a4bff;
-        padding: 2px 4px;
-        border-radius: 4px;
-        color: #ffffff;
+.wprf-name-youtube_channel_id,.wprf-name-youtube_video_id {
+    .wprf-help{
+        font-size: 12px !important;
+        span {
+            color: #6a4bff;
+        }
     }
-
 } 
