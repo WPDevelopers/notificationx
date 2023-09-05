@@ -70,7 +70,11 @@ const Analytics = ({config, children = null, href = null, data = {}, ...rest}: A
     switch (config.link_type) {
         case 'yt_video_link':
             link = data?.yt_video_link;
-            link_text = config?.link_button_text_video;
+            if( config?.link_button_text ) {
+                link_text = config.link_button_text;
+            }else if( config?.link_button_text_video ) {
+                link_text = config?.link_button_text_video;
+            }
             break;
         case 'yt_channel_link':
             show_default_subscribe = true;

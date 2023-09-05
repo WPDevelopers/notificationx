@@ -67,6 +67,7 @@ class YouTube extends Extension {
                     'link_type'               => 'yt_channel_link',
                     'show_notification_image' => 'yt_thumbnail',
                     'link_button_text'        => __('Subscribe Now','notificationx'),
+                    'link_button'             => true,
                 ],
             ],
             'channel-2'     => [
@@ -89,6 +90,7 @@ class YouTube extends Extension {
                     'link_type'               => 'yt_channel_link',
                     'show_notification_image' => 'yt_thumbnail',
                     'link_button_text'        => __('Subscribe Now','notificationx'),
+                    'link_button'             => true,
                 ],
             ],
             'video-1'     => [
@@ -149,6 +151,7 @@ class YouTube extends Extension {
                     'link_type'               => 'yt_video_link',
                     'show_notification_image' => 'yt_thumbnail',
                     'link_button_text'        => __('Watch Now','notificationx'),
+                    'link_button'             => true,
                 ],
             ],
             'video-4'     => [
@@ -171,6 +174,7 @@ class YouTube extends Extension {
                     'link_type'               => 'yt_video_link',
                     'show_notification_image' => 'yt_thumbnail',
                     'link_button_text'        => __('Watch Now','notificationx'),
+                    'link_button'             => true,
                 ],
             ],
         ];
