@@ -1,19 +1,20 @@
-import React, { lazy, Suspense, useEffect, useState } from "react";
-import { Header, WrapperWithLoader } from "../../components";
-import nxHelper from "../../core/functions";
+import React, { Suspense, useEffect, useState } from "react";
 import {
     AnalyticsFilters,
-    comparisonOptions,
     AnalyticsHeader,
-    mergeByDate,
+    comparisonOptions,
     groupByNX,
+    mergeByDate,
 } from ".";
+import { Header, WrapperWithLoader } from "../../components";
+import nxHelper from "../../core/functions";
 // @ts-ignore
 import { __experimentalGetSettings, date } from "@wordpress/date";
-import { useNotificationXContext } from "../../hooks";
-import withDocumentTitle from "../../core/withDocumentTitle";
 import { __ } from "@wordpress/i18n";
+import withDocumentTitle from "../../core/withDocumentTitle";
+import { useNotificationXContext } from "../../hooks";
 
+import { escapeHTML } from "@wordpress/escape-html";
 import { lazyWithPreload } from "react-lazy-with-preload";
 
 const Chart = lazyWithPreload(() => import("react-apexcharts"));
@@ -197,7 +198,7 @@ const Analytics = (props) => {
                             });
                             if (nx?.title || nx?.nx_id)
                                 label =
-                                    type.label + " " + (nx?.title || nx?.nx_id);
+                                    type.label + " " + (escapeHTML(nx?.title) || nx?.nx_id);
                         }
                         switch (name) {
                             case "clicks":
