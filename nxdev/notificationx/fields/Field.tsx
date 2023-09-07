@@ -8,7 +8,7 @@ import FlashingThemeFour from './FlashingThemeFour';
 
 
 
-const Field = (r, type, props) => {
+const Field = (ret, type, props) => {
 
     switch (type) {
         case "advanced-template":
@@ -23,7 +23,7 @@ const Field = (r, type, props) => {
         case "flashing-theme-four":
             return <FlashingThemeFour {...props} />;
         default:
-            return <></>;
+            return ret;
     }
 };
 
