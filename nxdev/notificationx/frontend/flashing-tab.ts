@@ -68,8 +68,6 @@ const enableOT     = settings.ft_enable_original_icon_title || false;
 const switchMessageAndIcon = () => {
     // if enableOT then will run the else part otherwise toggle first two messages
     const modulus = enableOT ? 3 : 2;
-    console.log("toggle", toggle);
-
     if (toggle === 0) {
         // Use message1
         animateIcon(message1.icon).finally(() => {
