@@ -236,8 +236,8 @@ class YouTube extends Extension {
 
 		<p>👉NotificationX <a target="_blank" href="%3$s">Integration with Youtube</a>.</p>', 'notificationx'),
         $url,
-        'https://notificationx.com/docs/',
-        'https://notificationx.com/docs/'
+        'https://notificationx.com/docs/collect-youtube-api-key/',
+        'https://notificationx.com/docs/youtube-video-activities-popups/'
         );
     }
 }
