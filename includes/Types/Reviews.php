@@ -25,7 +25,7 @@ class Reviews extends Types {
      */
     use GetInstance;
 
-    public $priority = 15;
+    public $priority = 20;
     public $themes = [];
     public $module = [
         'modules_wordpress',

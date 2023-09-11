@@ -21,7 +21,7 @@ class PageAnalytics extends Types {
      */
 	use GetInstance;
 
-    public $priority = 60;
+    public $priority = 70;
     public $is_pro = true;
     public $module = ['modules_google_analytics'];
     public $default_source    = 'google';

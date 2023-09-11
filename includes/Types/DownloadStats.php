@@ -24,7 +24,7 @@ class DownloadStats extends Types {
      */
     use GetInstance;
 
-    public $priority = 20;
+    public $priority = 30;
     public $themes = [];
     public $module = [
         'modules_wordpress',

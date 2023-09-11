@@ -25,7 +25,7 @@ class ELearning extends Types {
      */
     use GetInstance;
 
-    public $priority = 25;
+    public $priority = 10;
     public $themes = [];
     public $module = [
         'modules_tutor',

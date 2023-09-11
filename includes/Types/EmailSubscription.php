@@ -23,7 +23,7 @@ class EmailSubscription extends Types {
      */
 	use GetInstance;
 
-    public $priority = 55;
+    public $priority = 65;
     public $is_pro = true;
     public $module = [
         'modules_mailchimp',
