@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-09-11T07:27:34+00:00\n"
+"POT-Creation-Date: 2023-09-11T10:34:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.0\n"
 "X-Domain: notificationx\n"
@@ -456,8 +456,8 @@ msgstr ""
 
 #: includes/Admin/views/analytics.views.php:7
 #: includes/Admin/views/analytics.views.php:11
-#: includes/Extensions/Google/YouTube.php:188
-#: includes/Extensions/Google/YouTube.php:202
+#: includes/Extensions/Google/YouTube.php:189
+#: includes/Extensions/Google/YouTube.php:203
 #: assets/admin/js/admin.js:1
 #: nxbuild/admin/js/admin.js:3847
 msgid "Total Views"
@@ -655,8 +655,8 @@ msgid "Notification Bar"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:206
-#: includes/Extensions/Google/YouTube.php:126
-#: includes/Extensions/Google/YouTube.php:168
+#: includes/Extensions/Google/YouTube.php:127
+#: includes/Extensions/Google/YouTube.php:169
 #: includes/Types/Comments.php:38
 msgid "Comments"
 msgstr ""
@@ -869,7 +869,7 @@ msgstr ""
 #: includes/Extensions/Freemius/FreemiusReviews.php:43
 #: includes/Extensions/Freemius/FreemiusStats.php:44
 #: includes/Extensions/Google/GoogleReviews.php:158
-#: includes/Extensions/Google/YouTube.php:224
+#: includes/Extensions/Google/YouTube.php:225
 #: includes/Extensions/GRVF/GravityForms.php:45
 #: includes/Extensions/LearnDash/LearnDash.php:45
 #: includes/Extensions/Zapier/ZapierConversions.php:43
@@ -1422,11 +1422,11 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:616
 #: includes/Extensions/GlobalFields.php:694
 #: includes/Extensions/GlobalFields.php:828
-#: includes/Extensions/Google/YouTube.php:189
-#: includes/Extensions/Google/YouTube.php:193
-#: includes/Extensions/Google/YouTube.php:203
-#: includes/Extensions/Google/YouTube.php:207
-#: includes/Extensions/Google/YouTube.php:211
+#: includes/Extensions/Google/YouTube.php:190
+#: includes/Extensions/Google/YouTube.php:194
+#: includes/Extensions/Google/YouTube.php:204
+#: includes/Extensions/Google/YouTube.php:208
+#: includes/Extensions/Google/YouTube.php:212
 #: includes/Types/Donations.php:113
 msgid "None"
 msgstr ""
@@ -1769,14 +1769,14 @@ msgid "Rating"
 msgstr ""
 
 #: includes/Extensions/Google/GoogleReviews.php:156
-#: includes/Extensions/Google/YouTube.php:222
+#: includes/Extensions/Google/YouTube.php:223
 msgid ""
 "<a href='https://notificationx.com/docs/google-reviews-with-notificationx/\n"
 "            ' target='_blank'>More Info</a>"
 msgstr ""
 
 #: includes/Extensions/Google/GoogleReviews.php:159
-#: includes/Extensions/Google/YouTube.php:225
+#: includes/Extensions/Google/YouTube.php:226
 msgid ""
 "\n"
 "                <span>Google reviews provide helpful information and make your business stand out.</span>\n"
@@ -1802,18 +1802,18 @@ msgid ""
 "\t\t<p>👉NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Google Analytics</a></p>"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:45
 #: includes/Extensions/Google/YouTube.php:46
+#: includes/Extensions/Google/YouTube.php:47
 msgid "YouTube"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:53
-#: includes/Extensions/Google/YouTube.php:78
+#: includes/Extensions/Google/YouTube.php:54
+#: includes/Extensions/Google/YouTube.php:79
 msgid "Follow "
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:55
-#: includes/Extensions/Google/YouTube.php:80
+#: includes/Extensions/Google/YouTube.php:56
+#: includes/Extensions/Google/YouTube.php:81
 #: includes/Extensions/ReviewX/ReviewX.php:154
 #: includes/Extensions/ReviewX/ReviewX.php:174
 #: includes/Extensions/WooCommerce/WOOReviews.php:136
@@ -1826,67 +1826,67 @@ msgstr ""
 msgid "Anonymous Title"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:56
-#: includes/Extensions/Google/YouTube.php:81
+#: includes/Extensions/Google/YouTube.php:57
+#: includes/Extensions/Google/YouTube.php:82
 msgid "YouTube Channel"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:59
-#: includes/Extensions/Google/YouTube.php:121
-#: includes/Extensions/Google/YouTube.php:163
+#: includes/Extensions/Google/YouTube.php:60
+#: includes/Extensions/Google/YouTube.php:122
+#: includes/Extensions/Google/YouTube.php:164
 #: assets/admin/js/admin.js:1
 #: nxbuild/admin/js/admin.js:3613
 msgid "Views"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:62
+#: includes/Extensions/Google/YouTube.php:63
 msgid "Videos"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:69
-#: includes/Extensions/Google/YouTube.php:92
+#: includes/Extensions/Google/YouTube.php:70
+#: includes/Extensions/Google/YouTube.php:93
 msgid "Subscribe Now"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:99
-#: includes/Extensions/Google/YouTube.php:118
-#: includes/Extensions/Google/YouTube.php:140
-#: includes/Extensions/Google/YouTube.php:160
+#: includes/Extensions/Google/YouTube.php:100
+#: includes/Extensions/Google/YouTube.php:119
+#: includes/Extensions/Google/YouTube.php:141
+#: includes/Extensions/Google/YouTube.php:161
 msgid "Check our latest video "
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:112
-#: includes/Extensions/Google/YouTube.php:134
-#: includes/Extensions/Google/YouTube.php:153
-#: includes/Extensions/Google/YouTube.php:176
+#: includes/Extensions/Google/YouTube.php:113
+#: includes/Extensions/Google/YouTube.php:135
+#: includes/Extensions/Google/YouTube.php:154
+#: includes/Extensions/Google/YouTube.php:177
 msgid "Watch Now"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:124
+#: includes/Extensions/Google/YouTube.php:125
 msgid "Likes"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:166
+#: includes/Extensions/Google/YouTube.php:167
 msgid "Links"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:185
+#: includes/Extensions/Google/YouTube.php:186
 msgid "Channel Title"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:192
+#: includes/Extensions/Google/YouTube.php:193
 msgid "Total Videos"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:206
+#: includes/Extensions/Google/YouTube.php:207
 msgid "Total Likes"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:210
+#: includes/Extensions/Google/YouTube.php:211
 msgid "Total Comments"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:235
+#: includes/Extensions/Google/YouTube.php:255
 msgid ""
 "<p>To create YouTube notification popups, make sure that you have configured your <a target=\"_blank\" href=\"%1$s\">YouTube API</a> key, Check out our step-by-step documentation for further assistance. <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\n"
