@@ -700,7 +700,7 @@ class GlobalFields {
                                     'type'        => 'checkbox',
                                     'priority'    => 100,
                                     'is_pro'      => true,
-                                    'default'     => true,
+                                    'default'     => false,
                                     // 'default'     => [
                                     //     'youtube_channel-1' => true,
                                     //     'youtube_channel-2' => true,
