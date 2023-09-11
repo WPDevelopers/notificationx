@@ -7,6 +7,7 @@
 
 namespace NotificationX\Extensions\Google;
 
+use NotificationX\Core\Helper;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
 
@@ -228,6 +229,25 @@ class YouTube extends Extension {
         ];
         // add_action('admin_init', array($this, 'init_google_client'));
         parent::__construct();
+    }
+
+     /**
+     * @param array $data
+     * @param array $saved_data
+     * @param stdClass $settings
+     * @return array
+     */
+    public function fallback_data($data, $saved_data, $settings) {
+        $data['title']          = $saved_data['yt_channel_title'];
+        // channel
+        $data['yt_views']       = Helper::nice_number($saved_data['_yt_views']);
+        $data['yt_subscribers'] = Helper::nice_number($saved_data['_yt_subscribers']);
+        $data['yt_videos']      = Helper::nice_number($saved_data['_yt_videos']);
+        // single video
+        $data['yt_likes']      = Helper::nice_number($saved_data['_yt_likes']);
+        $data['yt_comments']   = Helper::nice_number($saved_data['_yt_comments']);
+        $data['yt_favorites']  = Helper::nice_number($saved_data['_yt_favorites']);
+        return $data;
     }
     
     public function doc(){
