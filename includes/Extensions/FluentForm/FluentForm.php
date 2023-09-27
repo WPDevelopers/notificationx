@@ -162,16 +162,37 @@ class FluentForm extends Extension {
     public function keys_generator($form_id) {
         $formData = [];
         $formApi = fluentFormApi('forms')->form($form_id);
-        $formFields = $formApi->labels();
-        foreach ($formFields as $key => $value) {
-            $formData[] = [
-                'label' => $value ? $value : '',
-                'value' => 'tag_'. ($key ? $key : ''),
-            ];
-        }
+        $formFields = $formApi->inputs();
+        if( !empty( $formFields ) ) {
+            $formData = $this->extractVisibleFields($formFields);
+        };
         return $formData;
     }
 
+    function extractVisibleFields($inputArray , $recursive = false) {
+        $outputArray = [];
+        foreach ($inputArray as $field) {
+            if ( $recursive && isset($field['settings']['visible']) && $field['settings']['visible']) {
+                $label = $field['settings']['label'];
+                $value = $field['attributes']['name'];
+                if( $value == 'first_name' || $value == 'last_name' ) {
+                    $outputArray[] = ['label' => $label, 'value' => 'tag__' . $value];
+                }else{
+                    $outputArray[] = ['label' => $label, 'value' => 'tag_' . $value];
+                }
+                
+            }
+            if (isset($field['raw']['fields']) && is_array($field['raw']['fields'])) {
+                $outputArray = array_merge($outputArray, $this->extractVisibleFields($field['raw']['fields'], true ) );
+            }else if( !$recursive ) {
+                $label = $field['raw']['settings']['label'];
+                $value = $field['raw']['attributes']['name'];
+                $outputArray[] = [ 'label' => $label, 'value' => 'tag_'. $value ];
+            }
+        }
+        return $outputArray;
+    }
+    
 
     public function save_new_records($insertId,$formData,$form) {
         $submission = wpFluent()->table('fluentform_submissions')
@@ -185,7 +206,28 @@ class FluentForm extends Extension {
             $inputs            = \FluentForm\App\Modules\Form\FormFieldsParser::getEntryInputs($form);
             $submission        = \FluentForm\App\Modules\Form\FormDataParser::parseFormEntry($submission, $form, $inputs, false);
             foreach ($submission->user_inputs as $key => $field) {
-                $data[$key] = $field;
+                $getFieldRow = wpFluent()->table('fluentform_entry_details')
+                                ->where('submission_id', $submission->id)
+                                ->where('field_name',$key)
+                                ->get();
+                if( count( $getFieldRow ) > 1 ) {
+                    foreach ($getFieldRow as $_key => $_value) {
+                        if( !empty( $getFieldRow[$_key] ) ) {
+                            if( $_value->sub_field_name == 'first_name' || $_value->sub_field_name == 'last_name' ) {
+                                $data['_'.$_value->sub_field_name] = $_value->field_value;
+                            }else{
+                                $data[$_key] = $field;
+                                $data[$_value->sub_field_name] = $_value->field_value;
+                            }
+                        }
+                    }
+                }else{
+                    if( $key == 'first_name' || $key == 'last_name' ) {
+                        $data['_'.$key] = $field;
+                    }else{
+                        $data[$key] = $field;
+                    }
+                }
             }
         }
         $data['title']     = $form->title ? $form->title : '';
