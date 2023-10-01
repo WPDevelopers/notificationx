@@ -13,6 +13,7 @@ use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
 use NotificationX\Extensions\GlobalFields;
+use NotificationX\Admin\Entries;
 
 /**
  * Fluent_Form Extension
@@ -207,16 +208,15 @@ class FluentForm extends Extension {
             $submission        = \FluentForm\App\Modules\Form\FormDataParser::parseFormEntry($submission, $form, $inputs, false);
             foreach ($submission->user_inputs as $key => $field) {
                 $getFieldRow = wpFluent()->table('fluentform_entry_details')
-                                ->where('submission_id', $submission->id)
-                                ->where('field_name',$key)
-                                ->get();
+                            ->where('submission_id', $submission->id)
+                            ->where('field_name',$key)
+                            ->get();
                 if( count( $getFieldRow ) > 1 ) {
                     foreach ($getFieldRow as $_key => $_value) {
                         if( !empty( $getFieldRow[$_key] ) ) {
                             if( $_value->sub_field_name == 'first_name' || $_value->sub_field_name == 'last_name' ) {
                                 $data['_'.$_value->sub_field_name] = $_value->field_value;
                             }else{
-                                $data[$_key] = $field;
                                 $data[$_value->sub_field_name] = $_value->field_value;
                             }
                         }
@@ -232,6 +232,7 @@ class FluentForm extends Extension {
         }
         $data['title']     = $form->title ? $form->title : '';
         $data['timestamp'] = isset($data['timestamp']) ? $data['timestamp'] : time();
+        $data['submission_id'] = $submission->id;
 
         if (!empty($data)) {
             $key = $this->key($form->id);
@@ -289,11 +290,35 @@ class FluentForm extends Extension {
                         $inputs = \FluentForm\App\Modules\Form\FormFieldsParser::getEntryInputs($form);
                         $submission = \FluentForm\App\Modules\Form\FormDataParser::parseFormEntry($sub, $form, $inputs, false);
                         foreach ($submission->user_inputs as $key => $field) {
-                            $entry_data[$key] = $field;
+                            $getFieldRow = wpFluent()->table('fluentform_entry_details')
+                            ->where('submission_id', $submission->id)
+                            ->where('field_name',$key)
+                            ->get();
+                            if( count( $getFieldRow ) > 1 ) {
+                                foreach ($getFieldRow as $__key => $_value) {
+                                    if( !empty( $getFieldRow[$__key] ) ) {
+                                        if( $_value->sub_field_name == 'first_name' || $_value->sub_field_name == 'last_name' ) {
+                                            $entry_data['_'.$_value->sub_field_name] = $_value->field_value;
+                                        }else{
+                                            $entry_data[$_value->sub_field_name] = $_value->field_value;
+                                        }
+                                    }
+                                }
+                            }else{
+                                if( $key == 'first_name' || $key == 'last_name' ) {
+                                    $entry_data['_'.$key] = $field;
+                                }else{
+                                    $entry_data[$key] = $field;
+                                }
+                            }
                         }
                         $entry_data['title'] = $form->title ? $form->title : '';
                         $entry_data['ip'] = $sub->ip;
                         $entry_data['timestamp'] = Helper::get_utc_time($sub->created_at);
+                        $entry_data['submission_id'] = $submission->id;
+                        if( $this->is_submission_exists((int) $data['nx_id'], $submission->id) ) {
+                            continue;
+                        }
                         $_key = $this->key($form->id);
                         if (!empty($data)) {
                             $entries[] = [
@@ -308,8 +333,14 @@ class FluentForm extends Extension {
                 $this->update_notifications($entries);
             }
         }
+    }
 
-
+    public function is_submission_exists( $nx_id, $submission_id ) {
+        $entries = Entries::get_instance()->get_entries($nx_id);
+        $filteredData = array_filter($entries, function ($item) use ($submission_id) {
+            return $item['submission_id'] == $submission_id;
+        });
+        return $filteredData ? true : false;
     }
 
     /**
