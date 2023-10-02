@@ -184,6 +184,9 @@ class FluentForm extends Extension {
                 
             }
             if (isset($field['raw']['fields']) && is_array($field['raw']['fields'])) {
+                $main_label = $field['admin_label'];
+                $main_value = $field['raw']['attributes']['name'];
+                $outputArray[] = [ 'label' => $main_label, 'value' => 'tag_'. $main_value ];
                 $outputArray = array_merge($outputArray, $this->extractVisibleFields($field['raw']['fields'], true ) );
             }else if( !$recursive ) {
                 $label = $field['raw']['settings']['label'];
@@ -221,6 +224,7 @@ class FluentForm extends Extension {
                             }
                         }
                     }
+                    $entry_data[$key] = $field;
                 }else{
                     if( $key == 'first_name' || $key == 'last_name' ) {
                         $data['_'.$key] = $field;
@@ -291,9 +295,9 @@ class FluentForm extends Extension {
                         $submission = \FluentForm\App\Modules\Form\FormDataParser::parseFormEntry($sub, $form, $inputs, false);
                         foreach ($submission->user_inputs as $key => $field) {
                             $getFieldRow = wpFluent()->table('fluentform_entry_details')
-                            ->where('submission_id', $submission->id)
-                            ->where('field_name',$key)
-                            ->get();
+                                        ->where('submission_id', $submission->id)
+                                        ->where('field_name',$key)
+                                        ->get();
                             if( count( $getFieldRow ) > 1 ) {
                                 foreach ($getFieldRow as $__key => $_value) {
                                     if( !empty( $getFieldRow[$__key] ) ) {
@@ -304,6 +308,7 @@ class FluentForm extends Extension {
                                         }
                                     }
                                 }
+                                $entry_data[$key] = $field;
                             }else{
                                 if( $key == 'first_name' || $key == 'last_name' ) {
                                     $entry_data['_'.$key] = $field;
