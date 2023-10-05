@@ -206,7 +206,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                             </div>
                         )}
                         <div className="nx-countdown" style={styles?.counterCSS}>
-                            { (!timeConfig.expired && isTimeBetween) &&
+                            { ( ( !timeConfig.expired && isTimeBetween) || ( !timeConfig.expired && settings?.evergreen_timer) ) &&
                                 <>
                                     <div className="nx-time-section" style={styles?.counterCSS}>
                                         <span className="nx-days">
