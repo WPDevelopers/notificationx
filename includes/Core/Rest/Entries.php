@@ -18,6 +18,9 @@ class Entries {
      */
     use GetInstance;
 
+    public $namespace;
+    public $rest_base;
+
     /**
      * Constructor.
      *

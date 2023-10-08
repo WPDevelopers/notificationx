@@ -17,7 +17,8 @@ class BulkAction {
      * @var BulkAction
      */
     use GetInstance;
-
+    public $namespace;
+    public $rest_base;
     /**
      * Post type.
      *
