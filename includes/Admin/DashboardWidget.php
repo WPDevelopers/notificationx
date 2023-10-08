@@ -92,7 +92,9 @@ class DashboardWidget {
             $_results = [];
             foreach( $results as $key => $value ) {
                 if( $key === 'ctr' ) {
-                    $_results[ $key ] = round( $value, 2 );
+                    if( $value !== null ) {
+                        $_results[ $key ] = round( $value, 2 );
+                    }
                 } else {
                     $_results[ $key ] = Helper::nice_number( $value );
                 }
