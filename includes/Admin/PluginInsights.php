@@ -1,7 +1,7 @@
 <?php
 
 namespace NotificationX\Admin;
-
+#[\AllowDynamicProperties]
 class PluginInsights {
     /**
      * WP Insights Version

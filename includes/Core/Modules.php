@@ -70,10 +70,16 @@ class Modules {
         return $this->modules;
     }
 
-    public function modules_defaults($settings){
+    public function modules_defaults($settings) {
+        if (!isset($settings) || !is_array($settings)) {
+            $settings = [];
+            if( !isset( $settings['modules'] ) || !is_array( $settings['modules'] ) ) {
+                $settings['modules'] = [];
+            }
+        }
         $modules = $this->get_all();
         foreach ($modules as $key => $value) {
-            if(!isset($settings['modules'][$key])){
+            if (!isset($settings['modules'][$key])) {
                 $settings['modules'][$key] = true;
             }
         }
