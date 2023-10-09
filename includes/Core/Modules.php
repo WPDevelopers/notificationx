@@ -73,9 +73,9 @@ class Modules {
     public function modules_defaults($settings) {
         if (!isset($settings) || !is_array($settings)) {
             $settings = [];
-            if( !isset( $settings['modules'] ) || !is_array( $settings['modules'] ) ) {
-                $settings['modules'] = [];
-            }
+        }
+        if( !isset( $settings['modules'] ) || !is_array( $settings['modules'] ) ) {
+            $settings['modules'] = [];
         }
         $modules = $this->get_all();
         foreach ($modules as $key => $value) {

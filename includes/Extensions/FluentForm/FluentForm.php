@@ -224,7 +224,7 @@ class FluentForm extends Extension {
                             }
                         }
                     }
-                    $entry_data[$key] = $field;
+                    $data[$key] = $field;
                 }else{
                     if( $key == 'first_name' || $key == 'last_name' ) {
                         $data['_'.$key] = $field;
