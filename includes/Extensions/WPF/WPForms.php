@@ -254,8 +254,8 @@ class WPForms extends Extension {
                             $entry_data['title'] = "Test Title";
                             $entry_data['timestamp'] = time();
                             $entry_data['id'] = $data['nx_id'];
-                            $entry_data['entry_id'] = $entry->entry_id;
-                            if( $this->is_entry_exists((int) $data['nx_id'], $entry->entry_id ) ) {
+                            $entry_data['entry__id'] = $entry->entry_id;
+                            if( $this->is_entry_exists( (int) $data['nx_id'], $entry->entry_id ) ) {
                                 continue;
                             }
                             if (!empty($entry_data)) {
@@ -279,7 +279,7 @@ class WPForms extends Extension {
     public function is_entry_exists( $nx_id, $entry_id ) {
         $entries = Entries::get_instance()->get_entries($nx_id);
         $filteredData = array_filter($entries, function ($item) use ($entry_id) {
-            return $item['entry_id'] == $entry_id;
+            return $item['entry__id'] === $entry_id;
         });
         return $filteredData ? true : false;
     }
