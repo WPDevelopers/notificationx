@@ -2,6 +2,7 @@ import classNames from "classnames";
 import React from "react";
 import { Close, Content, Image } from "./helpers";
 // @ts-ignore
+import { escapeHTML } from "@wordpress/escape-html";
 import { useNotificationContext } from "../core";
 import { getThemeName } from "../core/functions";
 
@@ -28,13 +29,15 @@ const Theme = (props) => {
     // replace space with underscore inside {{}}
 
     let template = [];
-    let regex = /{{(.*?)}}/g;
     tmpl?.forEach((row) => {
         if (!row) return;
         let match;
-        while ((match = regex.exec(row))) {
+        let _row = row;
+        let regex = /{{(.*?)}}/g;
+        while ((match = regex.exec(_row))) {
             let key = match?.[1]?.replace("tag_", "")?.replace("product_", "");
             let val = entry?.[key] || "";
+            val = 'string' === typeof val ? escapeHTML(val) : val;
 
             if (key === "time") {
                 val =
@@ -50,7 +53,10 @@ const Theme = (props) => {
 
     // console.log(template);
     const componentClasses = classNames(
-        "notificationx-inner"
+        "notificationx-inner",
+        {
+            "no-advance-edit": !post.advance_edit,
+        }
         // `nx-notification-${themeName}`,
         // {
         //     "nx-has-close-btn": post?.close_button,

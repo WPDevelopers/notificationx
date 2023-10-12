@@ -75,8 +75,14 @@ class FrontEnd {
 
         wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), [], NOTIFICATIONX_VERSION, true);
         wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], NOTIFICATIONX_VERSION, 'all');
+        // wp_register_style('notificationx-icon-pack', Helper::file('public/icon/style.css', true), [], NOTIFICATIONX_VERSION, 'all');
 
-        $exit = apply_filters('nx_before_enqueue_scripts', null);
+        $exit = false;
+        if(isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], 'wp-admin/widgets.php') !== false){
+            $exit = ['total' => 0];
+        }  
+
+        $exit = apply_filters('nx_before_enqueue_scripts', $exit);
         if(!empty($exit)){
             $this->notificationXArr = $exit;
             return;
@@ -104,6 +110,7 @@ class FrontEnd {
 
                 wp_enqueue_style('notificationx-public');
                 wp_enqueue_script('notificationx-public');
+                wp_enqueue_style('dashicons');
                 do_action('notificationx_scripts', $this->notificationXArr);
             }
         } else {
@@ -593,7 +600,7 @@ class FrontEnd {
         if (!empty($saved_data['name']) && empty($saved_data['first_name']) && empty($saved_data['last_name'])) {
             $data['first_name'] = $saved_data['name'];
         }
-        $data['title'] = isset($saved_data['post_title']) ? $saved_data['post_title'] : $data['title'];
+        $data['title'] = isset($saved_data['post_title']) ? $saved_data['post_title'] : (isset($data['title']) ? $data['title'] : '');
         return $data;
     }
 
@@ -608,13 +615,13 @@ class FrontEnd {
                 $entries = array_slice($entries, 0, $post['display_last']);
             }
             foreach ($entries as $index => $entry) {
-                $_entry = [
+                $_entry = apply_filters("nx_frontend_keep_entry_{$post['source']}", [
                     'nx_id'      => $entry['nx_id'],
                     'timestamp'  => isset($entry['timestamp']) ? $entry['timestamp'] : Helper::current_timestamp($entry['updated_at']),
                     'updated_at' => $entry['updated_at'],
                     'image_data' => $entry['image_data'],
                     'link'       => $entry['link'],
-                ];
+                ], $entry, $post, $params);
                 if (!empty($params['inline_shortcode']) && isset($entry['product_id'])) {
                     $_entry['product_id'] = $entry['product_id'];
                 }
@@ -690,7 +697,6 @@ class FrontEnd {
                 'is_inline',
                 'ld_course_list',
                 'ld_product_control',
-                'link_type',
                 'mailchimp_list',
                 'max_stock',
                 'nx-bar_with_elementor',

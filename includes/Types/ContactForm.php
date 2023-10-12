@@ -26,7 +26,7 @@ class ContactForm extends Types {
      */
     use GetInstance;
 
-    public $priority = 40;
+    public $priority = 25;
     public $id       = 'form';
     public $module   = [
         'modules_cf7',

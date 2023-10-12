@@ -1,10 +1,10 @@
 import { __ } from "@wordpress/i18n";
 import classNames from "classnames";
 import delegate from "delegate";
-import React, { CSSProperties, useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import cookie from "react-cookies";
 import { createPortal } from "react-dom";
 import usePortal from "../hooks/usePortal";
-import cookie from "react-cookies";
 import { Close } from "../themes/helpers";
 import Analytics, { analyticsOnClick } from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
@@ -26,6 +26,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     const hasContent = content?.replace(/<[^>]+>|[\n\r]/g, '')?.trim() != '';
     const [styles, setStyles] = useState<{ [key: string]: any }>({});
     const [closed, setClosed] = useState(false);
+    const [isTimeBetween,setIsTimeBetween] = useState(false);
     let elementorRef = useRef();
     const frontendContext = useNotificationContext();
 
@@ -73,6 +74,10 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         }
         else {
             expiredTime = frontendContext.getTime(settings.countdown_end_date || undefined).unix() * 1000;
+            const startTime = frontendContext.getTime(settings.countdown_start_date || undefined).unix() * 1000;
+            if( startTime < Date.now() ) {
+                setIsTimeBetween(true);
+            }
         }
         return { currentTime, expiredTime };
     }
@@ -122,7 +127,14 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         }
         const barHeight = document.getElementById(`nx-bar-${settings.nx_id}`).offsetHeight;
         document.body.classList.add("has-nx-bar");
+        if(settings?.sticky_bar){
+            document.body.classList.add("nx-sticky-bar");
+        }
+        if(settings?.pressbar_body){
+            document.body.classList.add("nx-overlapping-bar");
+        }
         if (position == 'top') {
+            document.body.classList.add("nx-position-top")
             const xAdminBar = document.getElementById("wpadminbar");
             if (xAdminBar?.offsetHeight) componentCSS.top = xAdminBar.offsetHeight;
             if (!settings?.pressbar_body) {
@@ -153,6 +165,10 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         return () => {
             countdownInterval && clearInterval(countdownInterval);
             document.body.classList.remove("has-nx-bar");
+            document.body.classList.remove("nx-sticky-bar");
+            document.body.classList.remove("nx-overlapping-bar");
+            document.body.classList.remove("nx-position-top");
+
             if(analyticDelegation){
                 analyticDelegation.destroy();
             }
@@ -167,7 +183,6 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                 document.body.style.paddingBottom = null;
             }
         };
-
     }, [])
 
 
@@ -191,7 +206,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                             </div>
                         )}
                         <div className="nx-countdown" style={styles?.counterCSS}>
-                            {!timeConfig.expired &&
+                            { ( ( !timeConfig.expired && isTimeBetween) || ( !timeConfig.expired && settings?.evergreen_timer) ) &&
                                 <>
                                     <div className="nx-time-section" style={styles?.counterCSS}>
                                         <span className="nx-days">

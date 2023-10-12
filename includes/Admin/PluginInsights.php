@@ -1,7 +1,7 @@
 <?php
 
 namespace NotificationX\Admin;
-
+#[\AllowDynamicProperties]
 class PluginInsights {
     /**
      * WP Insights Version
@@ -604,6 +604,9 @@ class PluginInsights {
             )
         );
 
+        $url_yes = wp_nonce_url( $url_yes, '_wpnonce_optin_' . $this->plugin_name );
+        $url_no = wp_nonce_url( $url_no, '_wpnonce_optin_' . $this->plugin_name );
+
         // Decide on notice text
         $notice_text       = $this->notice_options['notice'] . ' <a href="#" class="wpinsights-' . esc_attr( $this->plugin_name ) . '-collect" >' . $this->notice_options['consent_button_text'] . '</a>';
         $extra_notice_text = $this->notice_options['extra_notice'];
@@ -655,10 +658,15 @@ class PluginInsights {
      * @return void
      */
     public function clicked( $notice = null ) {
-        if ( isset( $_GET['plugin'] ) && isset( $_GET['plugin_action'] ) ) {
+        if ( isset( $_GET[ '_wpnonce' ] ) && isset( $_GET['plugin'] ) && isset( $_GET['plugin_action'] ) ) {
             if ( isset( $_GET['tab'] ) && $_GET['tab'] === 'plugin-information' ) {
                 return;
             }
+
+            if( ! wp_verify_nonce( $_GET[ '_wpnonce' ], '_wpnonce_optin_' . $this->plugin_name ) ) {
+                return;
+            }
+
             $plugin = sanitize_text_field( $_GET['plugin'] );
             $action = sanitize_text_field( $_GET['plugin_action'] );
             if ( $action == 'yes' ) {

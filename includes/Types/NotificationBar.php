@@ -23,7 +23,7 @@ class NotificationBar extends Types {
      */
     use GetInstance;
 
-    public $priority       = 35;
+    public $priority       = 15;
     public $themes         = [];
     public $module         = [];
     public $default_source = 'press_bar';

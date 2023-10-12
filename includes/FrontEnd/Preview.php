@@ -52,7 +52,7 @@ class Preview {
      *
      * @return void
      */
-    public function enqueue_scripts() {
+    public function enqueue_scripts($return) {
         if ($this->is_preview()) {
             $args = [
                 'total'     => 1,
@@ -99,6 +99,7 @@ class Preview {
 
             return $this->notificationXArr;
         }
+        return $return;
     }
 
     public function header_scripts() {
@@ -183,6 +184,7 @@ class Preview {
             'entry_id'             => rand(1000, 9999),
             'entry_key'            => 'ChIJ0cpDbNvBVTcRGX9JNhhpC8I',
             'first_name'           => 'John',
+            '_first_name'          => 'John',
             'formatted_address'    => 'House 592, Road 8 Avenue 5, Dhaka 1216, Bangladesh',
             'ga_title'             => 'NotificationX',
             'icon'                 => 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png',
@@ -199,6 +201,7 @@ class Preview {
             'ip'                => '103.108.146.88',
             'key'               => '7368a455f5c113afbfd3d8c3ea89a5ed-5719',
             'last_name'         => 'Doe',
+            '_last_name'        => 'Doe',
             'last_updated'      => date('Y-m-d H:i:s', strtotime('2 days ago')),
             'last_week'         => rand(50, 70),
             'last_week_text'    => 'Get Started for Free.',
@@ -207,6 +210,7 @@ class Preview {
             'lon'               => 90.3704629,
             'month'             => 'months',
             'name'              => 'John Doe',
+            'names'             => 'John Doe',
             'none'              => '',
             'num_ratings'       => 2974,
             'nx_id'             => '60',
@@ -277,11 +281,11 @@ class Preview {
 
         $defaults['image_data'] = FrontEnd::get_instance()->apply_defaults((array) FrontEnd::get_instance()->get_image_url($defaults, $settings), $defaults['image_data']);
 
+        $defaults  = apply_filters("nx_preview_entry_$type", $defaults, $settings);
+        $defaults  = apply_filters("nx_preview_entry_$source", $defaults, $settings);
         $_defaults = apply_filters("nx_fallback_data_$source", $defaults, $defaults, $settings);
         $_defaults = apply_filters('nx_fallback_data', $_defaults, $_defaults, $settings);
         $defaults  = FrontEnd::get_instance()->apply_defaults($defaults, $_defaults);
-        $defaults  = apply_filters("nx_preview_entry_$type", $defaults, $settings);
-        $defaults  = apply_filters("nx_preview_entry_$source", $defaults, $settings);
         $defaults  = apply_filters("nx_filtered_entry_$type", $defaults, $settings);
         $defaults  = apply_filters("nx_filtered_entry_$source", $defaults, $settings);
         // $defaults  = $this->link_url($defaults, $settings);
@@ -332,6 +336,7 @@ class Preview {
         }
 
         $settings = apply_filters("nx_get_post_{$settings['source']}", $settings);
+        $settings = apply_filters("nx_preview_settings_{$settings['source']}", $settings);
         $settings = apply_filters('nx_get_post', $settings);
         return $settings;
     }
@@ -421,7 +426,7 @@ class Preview {
 
     public function is_preview() {
         $is_preview = false;
-        if (!empty($_GET['nx-preview'])) {
+        if (!empty($_POST['nx-preview'])) {
             $is_preview = true;
         }
         $is_preview = apply_filters('nx_is_preview',$is_preview);

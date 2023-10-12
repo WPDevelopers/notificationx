@@ -1,8 +1,8 @@
-import React, { CSSProperties, useEffect, useRef, useState } from "react";
 import classNames from "classnames";
+import React, { useEffect, useRef, useState } from "react";
+import { getThemeName, isObject } from "../core/functions";
 import { Theme } from "../themes";
 import Analytics from "./Analytics";
-import { getThemeName, isObject } from "../core/functions";
 import useNotificationContext from "./NotificationProvider";
 
 const useMediaQuery = (query) => {
@@ -133,14 +133,14 @@ const Notification = (props) => {
             "flex-reverse": advance_edit && settings?.image_position === "right",
         }
     );
-    
+
     const componentStyle: any = {
         maxWidth: `${notificationSize}px`,
     };
     if (settings?.advance_edit && settings?.conversion_size) {
         componentStyle.maxWidth = settings?.conversion_size;
     }
-    
+
     return (
         <div
             // onMouseEnter={handlePauseTimer}
@@ -157,11 +157,11 @@ const Notification = (props) => {
                 />
             }
             <Theme {...props} />
-            {props.data?.link && <Analytics
+            <Analytics
                 className="notificationx-link"
-                href={props.data.link}
                 config={settings}
-            >{ props.config.link_button ? props.config.link_button_text : '' }</Analytics>}
+                data={props.data}
+            />
         </div>
     );
 };

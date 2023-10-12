@@ -25,7 +25,7 @@ class Donations extends Types {
     use GetInstance;
 
     // donation_themes
-    public $priority = 70;
+    public $priority = 40;
     public $themes = [];
     public $module = ['modules_give'];
     public $default_source    = 'give';

@@ -138,6 +138,8 @@ class QuickBuild {
             'show' => [
                 'source_error',
                 'finalize_message',
+                'youtube_channel_id',
+                'youtube_video_id',
                 'type_section',
                 'type',
                 'source_section',
@@ -203,6 +205,7 @@ class QuickBuild {
                 'notification_bar' => __('Notification Bar', 'notificationx'),
                 'comments'         => __('Comments', 'notificationx'),
                 'conversions'      => __('Sales Notification', 'notificationx'),
+                'video'            => __('Video','notificationx'),
                 'reviews'          => __('Reviews', 'notificationx'),
                 'download_stats'   => __('Download Stats', 'notificationx'),
                 'elearning'        => __('eLearning', 'notificationx'),

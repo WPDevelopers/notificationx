@@ -24,6 +24,7 @@ dependencies.yml
 Gruntfile.js
 package.json
 package-lock.json
+yarn.lock
 phpunit.xml
 phpunit.xml.dist
 multisite.xml

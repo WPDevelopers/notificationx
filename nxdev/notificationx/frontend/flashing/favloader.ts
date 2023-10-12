@@ -101,8 +101,8 @@ function animatePng(png) {
             // reject the promise with an error message
             reject(new Error("Function not initialized"));
         } else {
-            // removeIcon();
-            createIcon();
+            removeIcon();
+            // createIcon();
 
             if (png) {
                 ctx.clearRect(0, 0, settings.size, settings.size);
@@ -113,12 +113,17 @@ function animatePng(png) {
                     const dataURL = ctx.canvas.toDataURL();
 
                     iconType.forEach((icon) => {
-                        const link = document.querySelector(
-                            `link[rel="${icon}"]`
-                        );
-                        const newIcon = <Element>link.cloneNode(true);
-                        newIcon.setAttribute("href", dataURL);
-                        link.parentNode.replaceChild(newIcon, link);
+                        // const link = document.querySelector(
+                        //     `link[rel="${icon}"]`
+                        // );
+                        // const newIcon = <Element>link.cloneNode(true);
+                        // newIcon.setAttribute("href", dataURL);
+                        // link.parentNode.replaceChild(newIcon, link);
+                        const link = document.createElement("link");
+                        link.setAttribute("rel", icon);
+                        link.setAttribute("color", "#000000");
+                        link.setAttribute("href", dataURL);
+                        document.head.appendChild(link);
                     });
 
                     // resolve the promise with the dataURL as the value

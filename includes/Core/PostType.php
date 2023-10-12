@@ -35,6 +35,19 @@ class PostType {
     public $active_items;
     public $enabled_source;
     public $_edit_link = 'admin.php?page=nx-edit&post=%d';
+    public $format = [
+        'nx_id'        => '%d',
+        'type'         => '%s',
+        'source'       => '%s',
+        'theme'        => '%s',
+        'enabled'      => '%d',
+        'is_inline'    => '%d',
+        'global_queue' => '%d',
+        'title'        => '%s',
+        'created_at'   => '%s',
+        'updated_at'   => '%s',
+        'data'         => '%s',
+    ];
 
     /**
      * Initially Invoked when initialized.
@@ -248,7 +261,7 @@ class PostType {
                 [
                     'enabled' => true,
                 ],
-                'nx_id, source'
+                'nx_id, source, type'
             );
             if ( is_array( $enabled_source ) ) {
                 foreach ( $enabled_source as $post ) {
@@ -327,11 +340,11 @@ class PostType {
         if ( empty( $post['updated_at'] ) ) {
             $post['updated_at'] = Helper::mysql_time();
         }
-        return Database::get_instance()->insert_post( Database::$table_posts, $post );
+        return Database::get_instance()->insert_post( Database::$table_posts, $post, $this->format );
     }
 
     public function update_post( $post, $post_id ) {
-        return Database::get_instance()->update_post( Database::$table_posts, $post, $post_id );
+        return Database::get_instance()->update_post( Database::$table_posts, $post, $post_id, $this->format );
     }
 
     public function get_post( $post_id, $select = '*' ) {
@@ -454,9 +467,11 @@ class PostType {
     public function get_select_async_fields(){
         return [
             'product_list',
+            'exclude_products',
             'form_list',
             'ld_course_list',
             'give_form_list',
+            // 'google_reviews_place_data' // no need to add this field, because it can handle value in [label, value] format.
         ];
     }
 

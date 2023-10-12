@@ -116,8 +116,12 @@ class WPForms extends Extension {
         }
 
         if (isset($args['form_id'])) {
-            $form_id = intval($args['form_id']);
-
+            if( is_array( $args['form_id'] ) ) {
+                $form_id = intval($args['form_id']['value']);
+            }else{
+                $form_id = intval($args['form_id']);
+            }
+            
             $form = get_post($form_id);
 
             $keys = $this->keys_generator($form->post_content);
@@ -132,7 +136,6 @@ class WPForms extends Extension {
                         'value' => "tag_$key",
                     );
                 }
-
                 return $returned_keys;
             }
         }

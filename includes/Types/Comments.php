@@ -24,7 +24,7 @@ class Comments extends Types {
      * @var Admin
      */
     use GetInstance;
-    public $priority       = 17;
+    public $priority       = 35;
     public $module         = ['modules_wordpress'];
     public $id             = 'comments';
     public $default_source = 'wp_comments';

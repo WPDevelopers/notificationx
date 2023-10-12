@@ -113,13 +113,13 @@ class Database {
         );
     }
 
-    public function insert_post( $table_name, $post ) {
+    public function insert_post( $table_name, $post, $format = null ) {
         $post = $this->serialize_data( $post );
-        $this->wpdb->insert( $table_name, $post );
+        $this->wpdb->insert( $table_name, $post, $this->get_format($format, $post) );
         return $this->wpdb->insert_id;
     }
 
-    public function insert_posts( $table_name, $posts ) {
+    public function insert_posts( $table_name, $posts, $format = null ) {
         if ( ! empty( $posts[0] ) ) {
             $values        = array();
             $place_holders = array();
@@ -127,15 +127,19 @@ class Database {
             $columns       = implode( ', ', $_column );
             $query         = "INSERT INTO $table_name ($columns) VALUES ";
             foreach ( $posts as $key => $entry ) {
-                if ( ! empty( $entry['data'] ) ) {
-                    $entry['data'] = maybe_serialize( $entry['data'] );
-                }
+                $entry = $this->serialize_data( $entry );
                 reset( $_column );
+                $_place_holders = [];
                 foreach ( $_column as $col ) {
                     $values[] = isset( $entry[ $col ] ) ? $entry[ $col ] : '';
+                    if(!empty($format) && isset($format[$col])){
+                        $_place_holders[] = $format[$col];
+                    } else {
+                        $_place_holders[] = '%s';
+                    }
                 }
                 // $values = array_merge($values, array_values($entry));
-                $place_holders[] = '(' . implode( ', ', array_fill( 0, count( $entry ), "'%s'" ) ) . ')'; /* In my case, i know they will always be integers */
+                $place_holders[] = '(' . implode( ', ', $_place_holders ) . ')'; /* In my case, i know they will always be integers */
             }
             $query .= implode( ', ', $place_holders );
             $query  = $this->wpdb->prepare( "$query", $values );
@@ -143,13 +147,13 @@ class Database {
         }
     }
 
-    public function update_post( $table_name, $post, $where__or_pid ) {
+    public function update_post( $table_name, $post, $where__or_pid, $format = null ) {
         $post = $this->serialize_data( $post );
         if ( ! is_array( $where__or_pid ) ) {
             $id            = $this->get_primary_col( $table_name );
             $where__or_pid = [ $id => $where__or_pid ];
         }
-        return $this->wpdb->update( $table_name, $post, $where__or_pid );
+        return $this->wpdb->update( $table_name, $post, $where__or_pid, $this->get_format($format, $post) );
     }
 
     public function get_post( $table_name, $where__or_pid, $select = '*' ) {
@@ -219,6 +223,13 @@ class Database {
     public function serialize_data( $post ) {
         if ( ! empty( $post['data'] ) ) {
             $post['data'] = maybe_serialize( $post['data'] );
+        }
+        // created_at and updated_at if not empty convert to mysql date
+        if ( ! empty( $post['created_at'] ) ) {
+            $post['created_at'] = date( 'Y-m-d H:i:s', strtotime( $post['created_at'] ) );
+        }
+        if ( ! empty( $post['updated_at'] ) ) {
+            $post['updated_at'] = date( 'Y-m-d H:i:s', strtotime( $post['updated_at'] ) );
         }
         return $post;
     }
@@ -291,5 +302,28 @@ class Database {
             return ! empty( $results->option_value ) ? $results->option_value : $default;
         }
         return $default;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $format
+     * @param array $data
+     * @return array
+     */
+    public function get_format($format, $data) {
+        if(empty($format)){
+            return null;
+        }
+
+        $result = array();
+        foreach ($data as $key => $value) {
+            if (isset($format[$key])) {
+                $result[] = $format[$key];
+            } else {
+                $result[] = '%s';
+            }
+        }
+        return $result;
     }
 }

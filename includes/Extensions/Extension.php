@@ -41,12 +41,14 @@ abstract class Extension {
     public $version               = '';
     public $class                 = '';
     public $function              = '';
+    public $constant              = '';
     public $templates             = [];
     public $cron_schedule         = '';
     public $exclude_custom_themes = false;
     public $priority              = 5;
     public $module_priority       = 5;
-
+    public $show_on_module        = true;
+    public $show_on_type          = true;
     /**
      * All Active Notification Items
      *
@@ -70,7 +72,9 @@ abstract class Extension {
         $module_name = $this->register_module();
         if ($modules->is_enabled($module_name)) {
             $type_factory = TypeFactory::get_instance();
-            $type_factory->register_types($this->types);
+            if( $this->show_on_type ) {
+                $type_factory->register_types($this->types);
+            }
             $this->initialize();
         }
     }
@@ -104,6 +108,9 @@ abstract class Extension {
         }
         if(method_exists($this, 'preview_entry')){
             add_filter("nx_preview_entry_{$this->id}", array($this, 'preview_entry'), 10, 2);
+        }
+        if(method_exists($this, 'preview_settings')){
+            add_filter("nx_preview_settings_{$this->id}", array($this, 'preview_settings'), 10, 2);
         }
         add_filter("nx_saved_post_{$this->id}", array($this, 'add_cron_job'), 15, 3);
     }
@@ -471,15 +478,18 @@ abstract class Extension {
      * @return array
      */
     public function register_module() {
-        $modules = Modules::get_instance();
-        return $modules->add(array(
-            'value'    => $this->module,
-            'label'    => $this->module_title,
-            'link'     => $this->doc_link,
-            'is_pro'   => $this->is_pro && ! NotificationX::is_pro(),
-            'badge'    => $this->is_pro,
-            'priority' => $this->module_priority,
-        ));
+        if( $this->show_on_module ) {
+            $modules = Modules::get_instance();
+            return $modules->add(array(
+                'value'    => $this->module,
+                'label'    => $this->module_title,
+                'link'     => $this->doc_link,
+                'is_pro'   => $this->is_pro && ! NotificationX::is_pro(),
+                'badge'    => $this->is_pro,
+                'priority' => $this->module_priority,
+            ));
+        }
+        
     }
 
     public function delete_notification($entry_key = null, $nx_id = null) {
@@ -570,6 +580,9 @@ abstract class Extension {
         if (!empty($this->function) && !function_exists($this->function)) {
             return false;
         }
+        if (!empty($this->constant) && !defined($this->constant)) {
+            return false;
+        }
         if ($check_enabled) {
             $active_sources = PostType::get_instance()->get_active_items();
             if (!empty($active_sources)) {
@@ -586,6 +599,9 @@ abstract class Extension {
         }
         if (!empty($this->function)) {
             return function_exists($this->function);
+        }
+        if (!empty($this->constant)) {
+            return defined($this->constant);
         }
         return true;
     }

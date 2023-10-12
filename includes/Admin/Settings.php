@@ -77,7 +77,7 @@ class Settings extends UsabilityDynamicsSettings {
      */
     function get_form_data() {
         $data     = NotificationX::get_instance()->normalize( $this->settings_form() );
-        $settings = apply_filters('nx_settings_page_settings', $this->get( 'settings', false ));
+        $settings = apply_filters('nx_settings_page_settings', $this->get( 'settings', [] ));
 
         $data['current_page'] = 'settings';
         $data['rest']         = REST::get_instance()->rest_data();

@@ -17,7 +17,8 @@ class BulkAction {
      * @var BulkAction
      */
     use GetInstance;
-
+    public $namespace;
+    public $rest_base;
     /**
      * Post type.
      *
@@ -142,7 +143,7 @@ class BulkAction {
         $params = $request->get_params();
         if ( ! empty( $params['ids'] ) && is_array( $params['ids'] ) ) {
             $ids   = array_map( 'absint', $params['ids'] );
-            $posts = PostType::get_instance()->get_posts_by_ids( $ids, null, 'nx_id, source' );
+            $posts = PostType::get_instance()->get_posts_by_ids( $ids, null, 'nx_id, source, type' );
             if ( is_array( $posts ) ) {
                 foreach ( $posts as $key => $post ) {
                     $count[ $post['nx_id'] ] = PostType::get_instance()->update_status([
@@ -164,7 +165,7 @@ class BulkAction {
         $params = $request->get_params();
         if ( ! empty( $params['ids'] ) && is_array( $params['ids'] ) ) {
             $ids   = array_map( 'absint', $params['ids'] );
-            $posts = PostType::get_instance()->get_posts_by_ids( $ids, null, 'nx_id, source' );
+            $posts = PostType::get_instance()->get_posts_by_ids( $ids, null, 'nx_id, source, type' );
             if ( is_array( $posts ) ) {
                 foreach ( $posts as $key => $post ) {
                     $count[ $post['nx_id'] ] = PostType::get_instance()->update_status([

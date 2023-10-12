@@ -25,6 +25,15 @@ class Entries {
 
     protected $wpdb;
     protected $count = [];
+    public $format = [
+        'entry_id'    => '%d',
+        'nx_id'       => '%d',
+        'source'      => '%s',
+        'entry_key'   => '%s',
+        'data'        => '%s',
+        'created_at'  => '%s',
+        'updated_at'  => '%s',
+    ];
 
     /**
      * Initially Invoked when initialized.
@@ -61,7 +70,7 @@ class Entries {
             $entry['updated_at'] = Helper::mysql_time($timestamp);
         }
         $entry = apply_filters('nx_insert_entry', $entry);
-        return Database::get_instance()->insert_post(Database::$table_entries, $entry);
+        return Database::get_instance()->insert_post(Database::$table_entries, $entry, $this->format);
     }
 
     public function insert_entries($entries) {
@@ -79,7 +88,7 @@ class Entries {
             }
             $entries[$key] = apply_filters('nx_insert_entry', $entry);
         }
-        return Database::get_instance()->insert_posts(Database::$table_entries, $entries);
+        return Database::get_instance()->insert_posts(Database::$table_entries, $entries, $this->format);
     }
 
     public function get_entries($where__or_nx_id = [], $select = "*", $join_table = '', $group_by_col = '') {

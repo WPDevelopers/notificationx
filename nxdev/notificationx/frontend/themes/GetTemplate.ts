@@ -1,3 +1,4 @@
+import { escapeHTML } from "@wordpress/escape-html";
 import { getThemeName } from "../core/functions";
 
 // let colClasses = [
@@ -33,6 +34,8 @@ const GetTemplate = (settings) => {
     for (const param in params) {
         if (Object.hasOwnProperty.call(params, param)) {
             let element = params[param] || "";
+            element = 'string' === typeof element ? escapeHTML(element) : element;
+
             if (element == "tag_custom" && params?.["custom_" + param]) {
                 // getting value of custom params.
                 element = params?.["custom_" + param] || "";

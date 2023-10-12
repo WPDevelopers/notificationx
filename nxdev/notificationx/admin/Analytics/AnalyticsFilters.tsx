@@ -1,13 +1,14 @@
+import { Date as DateControl } from "quickbuilder";
 import React, { useEffect } from "react";
 import Select from "react-select";
-import { useBuilderContext, Date as DateControl } from "quickbuilder";
 // @ts-ignore
-import { __experimentalGetSettings, date } from "@wordpress/date";
+import { __experimentalGetSettings } from "@wordpress/date";
+import { escapeHTML } from "@wordpress/escape-html";
+import { __ } from "@wordpress/i18n";
+import moment from "moment";
 import { useLocation } from "react-router";
 import nxHelper from "../../core/functions";
-import { __ } from "@wordpress/i18n";
 import { useNotificationXContext } from "../../hooks";
-import moment from "moment";
 
 export const comparisonOptions = {
     views: {
@@ -95,7 +96,7 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
             }
             else{
                 result = _nx.map((item) => {
-                    return {label: item, value: item}
+                    return {label: escapeHTML(item), value: item}
                 });
             }
         }
@@ -188,6 +189,9 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
                     isMulti={true}
                     value={filterOptions?.nx}
                     onChange={nxChange}
+                    getOptionLabel={( option ) => {
+                        return escapeHTML(option.label)
+                    }}
                     className="nx-analytic-select-wrapper"
                     classNamePrefix="analytics-select"
                 />
