@@ -35,6 +35,7 @@ class TypeFactory {
 			'inline'             => 'NotificationX\Types\Inline',
 			'flashing_tab'       => 'NotificationX\Types\FlashingTab',
 			'video'              => 'NotificationX\Types\Video',
+			'offer_announcement' => 'NotificationX\Types\OfferAnnouncement',
 		];
 
     public $types_enabled = [];
