@@ -131,6 +131,15 @@ const GetTemplate = (settings) => {
                 `${params?.third_param} ${params?.yt_third_label} ${params?.fourth_param} ${params?.yt_fourth_label} ${params?.fifth_param} ${params?.yt_fifth_label}`,
             ];
             break;
+        case "announcements_theme-1":
+        case "announcements_theme-2":
+        case "announcements_theme-12":
+            return [
+                `${params?.first_param}`,
+                `${params?.second_param}`,
+                `${params?.third_param}`,
+            ];
+            break;
     }
 
     switch (themeName) {

@@ -10,6 +10,7 @@ namespace NotificationX\Extensions\OfferAnnouncement;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
 use NotificationX\Extensions\ExtensionFactory;
+use NotificationX\Extensions\GlobalFields;
 use NotificationX\Types\Conversions;
 
 /**
@@ -41,6 +42,80 @@ class Announcements extends Extension {
         $this->title = __('Announcements', 'notificationx');
         $this->module_title = __('Announcements', 'notificationx');
         parent::__construct();
+
+
+        $this->themes = [
+            'theme-1'   => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-1.png',
+                'image_shape' => 'rounded',
+                'template' => [
+                    'first_param'         => 'tag_offer_title',
+                    'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'notificationx'),
+                    'third_param'         => 'tag_offer_description',
+                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO 
+                    Valid till this week', 'notificationx'),
+                    'fourth_param'        => 'tag_time',
+                    'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+                    // 'fifth_param'         => 'tag_offer_discount',
+                    // 'custom_fifth_param'  => __( 'Some time ago', 'notificationx' ),
+                ],
+            ],
+            'theme-2'   => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-2.png',
+                'template' => [
+                    'first_param'         => 'tag_offer_title',
+                    'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'notificationx'),
+                    'third_param'         => 'tag_offer_description',
+                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO 
+                    Valid till this week', 'notificationx'),
+                    'fourth_param'        => 'tag_time',
+                    'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+                    // 'fifth_param'         => 'tag_offer_discount',
+                    // 'custom_fifth_param'  => __( '25% OFF', 'notificationx' ),
+                ],
+                'image_shape' => 'circle',
+            ],
+            'theme-12'   => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-12.png',
+                'template' => [
+                    'first_param'         => 'tag_offer_title',
+                    'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'notificationx'),
+                    'third_param'         => 'tag_offer_description',
+                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO 
+                    Valid till this week', 'notificationx'),
+                    'fourth_param'        => 'tag_time',
+                    'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+                    // 'fifth_param'         => 'tag_offer_discount',
+                    // 'custom_fifth_param'  => __( '25% OFF', 'notificationx' ),
+                ],
+                'image_shape' => 'circle',
+            ],
+        ];
+
+        $this->templates = [
+            'announcements_template_new' => [
+                'first_param' => [
+                    'tag_offer_title' => __('Offer Title', 'notificationx'),
+                ],
+                'third_param' => [
+                    'tag_offer_description' => __('Offer Description', 'notificationx'),
+                    // 'tag_anonymous_title' => __('Anonymous Title' , 'notificationx'),
+                ],
+                'fourth_param' => [
+                    'tag_time'     => __('Definite Time', 'notificationx'),
+                    'tag_sometime' => __('Some time ago', 'notificationx'),
+                ],
+                'fifth_param' => [
+                    'tag_offer_discount' => __('Discount', 'notificationx'),
+                    'tag_offer_image'    => __('Image', 'notificationx'),
+                ],
+                '_themes' => [
+                    "{$this->id}_theme-1",
+                    "{$this->id}_theme-2",
+                    "{$this->id}_theme-12",
+                ],
+            ],
+        ];
     }
 
     /**
@@ -51,36 +126,6 @@ class Announcements extends Extension {
      */
     public function get_data( $args = array() ){
         return 'Hello From Custom Notification';
-    }
-
-    public function supported_themes() {
-        $custom                = [];
-        $custom['sales_count'] = $this->get_themes_for_type('conversions_count');
-        $custom['conversions'] = $this->get_themes_for_type('conversions');
-        $custom['maps_theme']  = $this->get_themes_for_type('maps_theme');
-        $custom['comments']    = $this->get_themes_for_type('comments');
-        $custom['reviews']     = $this->get_themes_for_type('reviews');
-        $custom['stats']       = $this->get_themes_for_type('download_stats');
-        $custom['subs']        = $this->get_themes_for_type('email_subscription');
-        return $custom;
-    }
-
-    public function get_themes_for_type($type) {
-        $conversions_count = Conversions::get_instance()->conversions_count;
-        $maps_theme = array('conversions_maps_theme', 'conversions_conv-theme-six', 'comments_maps_theme', 'email_subscription_maps_theme');
-        if ($type == 'conversions_count') return $conversions_count;
-        if ($type == 'maps_theme') {
-            return $maps_theme;
-        }
-
-        $themes = ExtensionFactory::get_instance()->get_themes_for_type($type);
-
-        if ($type == 'conversions') {
-            $themes = array_values(array_diff($themes, $conversions_count));
-        }
-        $themes = array_values(array_diff($themes, $maps_theme));
-
-        return $themes;
     }
 
     public function doc(){

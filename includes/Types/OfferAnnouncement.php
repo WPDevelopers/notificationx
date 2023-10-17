@@ -28,8 +28,8 @@ class OfferAnnouncement extends Types {
     public $module         = ['modules_announcements'];
     public $id             = 'offer_announcement';
     public $default_source = 'announcements';
-    public $default_theme  = 'comments_theme-one';
-    public $link_type      = 'comment_url';
+    public $default_theme  = 'announcements_theme-one';
+    // public $link_type      = 'comment_url';
 
     /**
      * Initially Invoked when initialized.
@@ -38,7 +38,7 @@ class OfferAnnouncement extends Types {
         $this->title = __('Offer Announcement', 'notificationx');
         parent::__construct();
 
-        add_filter('nx_link_types', [$this, 'link_types']);
+        // add_filter('nx_link_types', [$this, 'link_types']);
     }
 
     /**
@@ -48,7 +48,7 @@ class OfferAnnouncement extends Types {
      */
     public function init_fields() {
         parent::init_fields();
-        add_filter('nx_content_trim_length_dependency', [$this, 'content_trim_length_dependency']);
+        // add_filter('nx_content_trim_length_dependency', [$this, 'content_trim_length_dependency']);
 
     }
 
