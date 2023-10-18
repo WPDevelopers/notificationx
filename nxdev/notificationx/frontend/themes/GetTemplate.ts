@@ -136,8 +136,8 @@ const GetTemplate = (settings) => {
         case "announcements_theme-12":
             return [
                 `${params?.first_param}`,
-                `${params?.second_param}`,
                 `${params?.third_param}`,
+                `${params?.fourth_param}`,
             ];
             break;
     }

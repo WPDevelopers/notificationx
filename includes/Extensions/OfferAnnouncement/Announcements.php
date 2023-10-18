@@ -52,8 +52,7 @@ class Announcements extends Extension {
                     'first_param'         => 'tag_offer_title',
                     'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'notificationx'),
                     'third_param'         => 'tag_offer_description',
-                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO 
-                    Valid till this week', 'notificationx'),
+                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx'),
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
                     // 'fifth_param'         => 'tag_offer_discount',
@@ -66,8 +65,7 @@ class Announcements extends Extension {
                     'first_param'         => 'tag_offer_title',
                     'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'notificationx'),
                     'third_param'         => 'tag_offer_description',
-                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO 
-                    Valid till this week', 'notificationx'),
+                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx'),
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
                     // 'fifth_param'         => 'tag_offer_discount',
@@ -81,8 +79,7 @@ class Announcements extends Extension {
                     'first_param'         => 'tag_offer_title',
                     'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'notificationx'),
                     'third_param'         => 'tag_offer_description',
-                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO 
-                    Valid till this week', 'notificationx'),
+                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx'),
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
                     // 'fifth_param'         => 'tag_offer_discount',
