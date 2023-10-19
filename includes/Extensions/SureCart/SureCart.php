@@ -132,6 +132,50 @@ class SureCart extends Extension {
         return $image_data;
     }
 
+    public function saved_post($post, $data, $nx_id) {
+        $this->get_notification_ready($data);
+    }
+
+    public function get_notification_ready( $post = array() ) {
+        $orders = $this->get_orders( $post );
+        if ( is_array( $orders ) && ! empty( $orders ) ) {
+            $entries = [];
+            foreach ( $orders as $key => $order ) {
+                $entries[] = [
+                    'nx_id'      => $post['nx_id'],
+                    'source'     => $this->id,
+                    'entry_key'  => $order['key'],
+                    'data'       => $order,
+                ];
+            }
+            $this->update_notifications($entries);
+        }
+    }
+
+    public function get_orders( $post = array() ) {
+        if( empty( $post ) ) {
+            return;
+        }
+        $valueFrom = !empty( $post['display_from'] ) ? date('Y-m-d',strtotime('-'.$post['display_from'].' days',time())) : '';
+        $valueTo = date('Y-m-d',strtotime('1 days',time()));
+        $amount = !empty( $post['display_last'] ) ? $post['display_last'] : 10;
+        $orders = \SureCart\Models\Order::where(
+			[
+				'number'             => 'TEST-0040',
+			]
+		)
+		->paginate(
+			[
+				'per_page' => 2,
+			]
+		);
+        $orders = \SureCart\Models\Order::get();
+        global $wpdb;
+
+        print_r( $wpdb );
+        // die();
+    }
+
     /**
      * Adds option to Link Type field in Content tab.
      *

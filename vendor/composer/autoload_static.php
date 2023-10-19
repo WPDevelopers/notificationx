@@ -89,6 +89,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Extensions\\PressBar\\Importer' => __DIR__ . '/../..' . '/includes/Extensions/PressBar/importer.php',
         'NotificationX\\Extensions\\PressBar\\PressBar' => __DIR__ . '/../..' . '/includes/Extensions/PressBar/PressBar.php',
         'NotificationX\\Extensions\\ReviewX\\ReviewX' => __DIR__ . '/../..' . '/includes/Extensions/ReviewX/ReviewX.php',
+        'NotificationX\\Extensions\\SureCart\\SureCart' => __DIR__ . '/../..' . '/includes/Extensions/SureCart/SureCart.php',
         'NotificationX\\Extensions\\Tutor\\Tutor' => __DIR__ . '/../..' . '/includes/Extensions/Tutor/Tutor.php',
         'NotificationX\\Extensions\\Tutor\\TutorInline' => __DIR__ . '/../..' . '/includes/Extensions/Tutor/TutorInline.php',
         'NotificationX\\Extensions\\Vimeo\\Vimeo' => __DIR__ . '/../..' . '/includes/Extensions/Vimeo/Vimeo.php',
