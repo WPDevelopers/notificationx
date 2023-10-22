@@ -195,7 +195,15 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                 dangerouslySetInnerHTML={{ __html: content }}
             ></div>
         );
-    } else {
+    } else if(settings?.is_custom_bar){
+        innerContent = (
+            <div
+                className="nx-bar-content-wrap"
+                dangerouslySetInnerHTML={{ __html: content }}
+            ></div>
+        );
+    }
+    else {
         innerContent = (
             <div className="nx-bar-content-wrap">
                 {settings?.enable_countdown && (
