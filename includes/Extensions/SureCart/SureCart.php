@@ -161,19 +161,14 @@ class SureCart extends Extension {
         $amount = !empty( $post['display_last'] ) ? $post['display_last'] : 10;
         $orders = \SureCart\Models\Order::where(
 			[
-				'number'             => 'TEST-0040',
+				'fulfillment_status' => [ 'fulfilled' ],
+                'created_at'         => ['BETWEEN',[$valueFrom,$valueTo] ],
 			]
-		)
-		->paginate(
+		)->paginate(
 			[
 				'per_page' => 2,
 			]
 		);
-        $orders = \SureCart\Models\Order::get();
-        global $wpdb;
-
-        print_r( $wpdb );
-        // die();
     }
 
     /**
