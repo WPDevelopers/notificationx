@@ -225,6 +225,9 @@ class WPForms extends Extension {
      * @return void
      */
     public function get_notification_ready($data = array()) {
+        if( !wpforms()->is_pro() ){
+            return [];
+        }
         if( !empty( $data['__form_list']['value'] ) ) {
             $form_list = explode('_',$data['__form_list']['value']);
             if( !empty( $form_list[1] ) ) {
