@@ -28,6 +28,8 @@ const GetTemplate = (settings) => {
         ga_fourth_param: "",
         ga_fifth_param: "",
         review_fourth_param: "",
+        freemius_fifth_param: "",
+        freemius_seventh_param: "",
     };
     const params = { ...defaults, ...settings?.["notification-template"] };
 
@@ -141,7 +143,7 @@ const GetTemplate = (settings) => {
         case "theme-five":
             return [
                 `${params?.first_param} ${params?.second_param}`,
-                `${params?.third_param}`,
+                `${params?.third_param} ${params?.freemius_fifth_param} ${params?.fifth_param} ${params?.freemius_sixth_param} ${params?.freemius_seventh_param}`,
                 `${params?.fourth_param}`,
             ];
             break;
@@ -149,7 +151,7 @@ const GetTemplate = (settings) => {
         case "conv-theme-eleven":
             return [
                 `${params?.first_param} ${params?.second_param}`,
-                `${params?.third_param}`,
+                `${params?.third_param} ${params?.freemius_fifth_param} ${params?.freemius_sixth_param} ${params?.freemius_seventh_param}`,
                 `${params?.fourth_param}`,
             ];
             break;
@@ -157,7 +159,7 @@ const GetTemplate = (settings) => {
         case "conv-theme-six":
             return [
                 `${params?.first_param} ${params?.second_param} ${params?.third_param}`,
-                `${params?.map_fourth_param} ${params?.fourth_param}`,
+                `${params?.map_fourth_param} ${params?.fourth_param} ${params?.freemius_fifth_param} ${params?.freemius_sixth_param} ${params?.freemius_seventh_param}`,
                 `${params?.fifth_param}`,
             ];
             break;
@@ -166,7 +168,7 @@ const GetTemplate = (settings) => {
         case "conv-theme-nine":
             return [
                 `${params?.first_param} ${params?.second_param}`,
-                `${params?.third_param} ${params?.fourth_param}`,
+                `${params?.third_param} ${params?.fourth_param} ${params?.freemius_fifth_param} ${params?.freemius_sixth_param} ${params?.freemius_seventh_param}`,
             ];
             break;
         // conversion end
