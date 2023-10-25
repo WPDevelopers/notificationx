@@ -24,6 +24,9 @@ class Integration {
      */
     use GetInstance;
 
+    public $namespace;
+    public $rest_base;
+
     /**
      * Constructor.
      *
