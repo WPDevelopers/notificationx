@@ -49,3 +49,9 @@ body {
     @import "./nx_new/quick_builder";
 }
 @import "./modal";
+
+.nx-announcement-entries  {
+    >.wprf-section-fields {
+        padding: 0px!important;
+    }
+}
