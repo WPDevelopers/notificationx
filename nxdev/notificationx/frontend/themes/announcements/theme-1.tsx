@@ -13,8 +13,8 @@ const theme1 = ({ offer_discount }) => {
 
     useEffect(() => {
         if (ref.current) {
-            const { width } = ref.current.getBBox();
-            ref.current.setAttribute("x", `${(92 - width) / 2}`);
+            // const { width } = ref.current.getBBox();
+            // ref.current.setAttribute("x", `${(92 - width) / 2}`);
         }
 
     }, [num]);
