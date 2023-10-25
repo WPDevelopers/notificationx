@@ -228,10 +228,12 @@ class WPForms extends Extension {
         if( !wpforms()->is_pro() ){
             return [];
         }
+        
         if( !empty( $data['__form_list']['value'] ) ) {
             $form_list = explode('_',$data['__form_list']['value']);
             if( !empty( $form_list[1] ) ) {
                 $wpform_entries = wpforms()->entry->get_entries( [ 'form_id' => $form_list[1] ] );
+                $form_data = wpforms()->get( 'form' )->get( $form_list[1] );
                 if( count( $wpform_entries ) > 0 ) {
                     $entries = [];
                     foreach ($wpform_entries as $entry) {
@@ -239,22 +241,29 @@ class WPForms extends Extension {
                         if( !empty( $fields ) ) {
                             $entry_data = [];
                             foreach ($fields as $field) {
+                                $sepereated_fields = ['name','email'];
+                                $sepereated_name_fields = ['first','middle','last'];
                                 if ($field['type'] === 'checkbox') {
                                     continue;
                                 }
-                                if ($field['type'] === 'name') {
-                                    if (!empty($field['fields'][$field['id']]) && is_array($field['fields'][$field['id']])) {
-                                        foreach ($field['fields'][$field['id']] as $nKey => $n) {
-                                            $entry_data[$field['id'] . '_' . $nKey . '_name'] = $n;
+                                if ($field['type'] === 'name' ) {
+                                    if (!empty($fields[$field['id']]) && is_array($fields[$field['id']])) {
+                                        foreach ( $fields[$field['id']] as $nKey => $n) {
+                                            if( in_array($nKey, $sepereated_name_fields) ) {
+                                                $entry_data[$field['id'] . '_' . $nKey . '_name'] = $n;
+                                            }
                                         }
+                                        $entry_data[$field['id'] . '_name'] = $fields[$field['id']]['first']. ' '. $fields[$field['id']]['middle']. ' '. $fields[$field['id']]['first']. ' ';
                                     }
                                 }
-                                if ($field['type'] === 'email') {
+                                if ( $field['type'] === 'email' ) {
                                     $entry_data['email'] = $field['value'];
                                 }
-                                $entry_data[$field['id'] . '_' . $field['type']] = $field['value'];
+                                if( !in_array( $field['type'], $sepereated_fields ) ) {
+                                    $entry_data[$field['id'] . '_' . $field['type']] = $field['value'];
+                                }
                             }
-                            $entry_data['title'] = "Test Title";
+                            $entry_data['title'] = $form_data->post_title ?? '';
                             $entry_data['timestamp'] = time();
                             $entry_data['id'] = $data['nx_id'];
                             $entry_data['entry__id'] = $entry->entry_id;
@@ -262,7 +271,7 @@ class WPForms extends Extension {
                                 continue;
                             }
                             if (!empty($entry_data)) {
-                                $key = $this->key($data['nx_id']);
+                                $key = $this->key($form_list[1]);
                                 $entries[] = [
                                     'nx_id'      => $data['nx_id'],
                                     'source'    => $this->id,
@@ -296,7 +305,6 @@ class WPForms extends Extension {
      * @return boolean
      */
     public function can_entry($return, $entry, $settings){
-        return true;
         if(!empty($settings['form_list']) && !empty($entry['entry_key'])){
             $selected_form = $settings['form_list'];
             $form_id = $entry['entry_key'];
