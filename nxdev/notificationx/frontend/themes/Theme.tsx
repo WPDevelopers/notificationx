@@ -45,7 +45,7 @@ const Theme = (props) => {
                 val =
                     entry?.updated_at &&
                     frontendContext.getTime(entry?.updated_at).fromNow(suffix);
-                val += suffix ? _x(" left", "Announcements: 5 days left", 'notificationx') : "";
+                val += suffix ? _x(" remaining", "Announcements: 5 days remaining", 'notificationx') : "";
             } else if (key == "rating") {
                 val = `rating::${val}`;
             }

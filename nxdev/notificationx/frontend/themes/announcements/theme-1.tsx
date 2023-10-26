@@ -45,7 +45,8 @@ const theme1 = ({ offer_discount }) => {
                     letter-spacing="0em"
                 >
                     <tspan x="16" y="53.548">
-                        {num}%
+                        {num}
+                        <tspan font-size="14">%</tspan>
                     </tspan>
                 </text>
             </g>
