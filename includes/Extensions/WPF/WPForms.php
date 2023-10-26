@@ -253,7 +253,7 @@ class WPForms extends Extension {
                                                 $entry_data[$field['id'] . '_' . $nKey . '_name'] = $n;
                                             }
                                         }
-                                        $entry_data[$field['id'] . '_name'] = $fields[$field['id']]['first']. ' '. $fields[$field['id']]['middle']. ' '. $fields[$field['id']]['first']. ' ';
+                                        $entry_data[$field['id'] . '_name'] = $fields[$field['id']]['first']. ' '. $fields[$field['id']]['middle']. ' '. $fields[$field['id']]['last']. ' ';
                                     }
                                 }
                                 if ( $field['type'] === 'email' ) {
