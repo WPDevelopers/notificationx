@@ -5,6 +5,7 @@ import { Close, Content, Image } from "./helpers";
 import { escapeHTML } from "@wordpress/escape-html";
 import { useNotificationContext } from "../core";
 import { getThemeName } from "../core/functions";
+import { __, _x } from "@wordpress/i18n";
 
 const Theme = (props) => {
     const splitThemes = [
@@ -40,9 +41,11 @@ const Theme = (props) => {
             val = 'string' === typeof val ? escapeHTML(val) : val;
 
             if (key === "time") {
+                const suffix = ['announcements'].includes(post.source);
                 val =
                     entry?.updated_at &&
-                    frontendContext.getTime(entry?.updated_at).fromNow();
+                    frontendContext.getTime(entry?.updated_at).fromNow(suffix);
+                val += suffix ? _x(" left", "Announcements: 5 days left", 'notificationx') : "";
             } else if (key == "rating") {
                 val = `rating::${val}`;
             }
