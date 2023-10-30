@@ -9,6 +9,8 @@ namespace NotificationX\Extensions\SureCart;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
 use NotificationX\Extensions\GlobalFields;
+use NotificationX\Admin\Entries;
+use NotificationX\Core\Helper;
 
 /**
  * SureCart Extension Class
@@ -50,11 +52,26 @@ class SureCart extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-        add_filter("nx_can_entry_{$this->id}", array($this, 'check_order_status'), 10, 3);
+        add_filter("nx_can_entry_{$this->id}", array($this, 'can_entry'), 10, 3);
     }
 
-    public function check_order_status($one,$two,$three) {
-        return true;
+    /**
+     * Limit entry by selected form in 'Select a Form';
+     *
+     * @param [type] $return
+     * @param [type] $entry
+     * @param [type] $settings
+     * @return boolean
+     */
+    public function can_entry($return, $entry, $settings){
+        if(!empty($settings['form_list']) && !empty($entry['entry_key'])){
+            $selected_form = $settings['form_list'];
+            $form_id = $entry['entry_key'];
+            if($selected_form != $form_id){
+                return false;
+            }
+        }
+        return $return;
     }
 
     public function public_actions(){
@@ -65,7 +82,7 @@ class SureCart extends Extension {
         foreach ($checkout->line_items->data as $product ) {
             if( !empty( $product ) ) {
                 $single_notifications = $this->ordered_product($checkout, $request, $product );
-                $key = $checkout->order . '-';
+                $key = $checkout->order;
                 $this->save([
                     'source'    => $this->id,
                     'entry_key' => $key,
@@ -78,34 +95,7 @@ class SureCart extends Extension {
     public function ordered_product($checkout, $request, $product ) {
         $new_order = [];
         $finalized =  $checkout->where( $request->get_query_params() )->finalize( $request->get_body_params() );
-        $address_fields = ['city','country','line_1','line_2','postal_code'];
-        $customer_fields = ['first_name','last_name','email','name'];
-        // Get product information 
-        if( !empty( $product->price->product->name ) ) {
-            $new_order['title'] = $product->price->product->name;
-        }
-        if( !empty( $product->price->product->id ) ) {
-            $new_order['product_id'] = $product->price->product->id;
-        }
-        if( !empty( $product->price->product->image_url ) ) {
-            $new_order['image_url'] = $product->price->product->image_url;
-        }
-        // Get billing and shipping address
-        if( $finalized->customer->billing_matches_shipping ) {
-            foreach ( $address_fields as $fields ) {
-                $new_order[$fields] = $finalized->customer->shipping_address->{$fields};
-            }
-        }else{
-            foreach ( $address_fields as $fields ) {
-                $new_order[$fields] = $finalized->customer->billing_address->{$fields};
-            }
-        }
-        // Get customer information
-        foreach ($customer_fields as $customer_field) {
-            if( !empty( $finalized->customer->{$customer_field} ) ) {
-                $new_order[$customer_field] = $finalized->customer->{$customer_field};
-            }
-        }
+        $new_order = $this->prepare_order_data( $product, $finalized->customer, $new_order );
         // Others information
         if( !empty( $finalized->ip_address ) ) {
             $new_order['ip'] = $finalized->ip_address;
@@ -114,6 +104,51 @@ class SureCart extends Extension {
             $new_order['order'] = $finalized->order;
         }
         return $new_order;
+    }
+
+    public function prepare_order_data( $product, $customer, $return = [], $checkout = null ) {
+        $address_fields = ['city','country','line_1','line_2','postal_code'];
+        $customer_fields = ['first_name','last_name','email','name'];
+        // Get product information 
+        if( !empty( $product->price->product->name ) ) {
+            $return['title'] = $product->price->product->name;
+        }
+        if( !empty( $product->price->product->id ) ) {
+            $return['product_id'] = $product->price->product->id;
+        }
+        if( !empty( $product->price->product->image_url ) ) {
+            $return['image_url'] = $product->price->product->image_url;
+        }
+        // Get billing and shipping address
+        if( $customer->billing_matches_shipping ) {
+            if( is_object( $customer->shipping_address ) ) {
+                foreach ( $address_fields as $fields ) {
+                    $return[$fields] = $customer->shipping_address->{$fields};
+                }
+            }else{
+                foreach ( $address_fields as $fields ) {
+                    $return[$fields] = $checkout->shipping_address->{$fields};
+                }
+            }
+            
+        }else{
+            if( is_object( $customer->billing_address ) ) {
+                foreach ( $address_fields as $fields ) {
+                    $return[$fields] = $customer->billing_address->{$fields};
+                }
+            }else{
+                foreach ( $address_fields as $fields ) {
+                    $return[$fields] = $checkout->billing_address->{$fields};
+                }
+            }
+        }
+        // Get customer information
+        foreach ($customer_fields as $customer_field) {
+            if( !empty( $customer->{$customer_field} ) ) {
+                $return[$customer_field] = $customer->{$customer_field};
+            }
+        }
+        return $return;
     }
 
     /**
@@ -140,12 +175,13 @@ class SureCart extends Extension {
         $orders = $this->get_orders( $post );
         if ( is_array( $orders ) && ! empty( $orders ) ) {
             $entries = [];
-            foreach ( $orders as $key => $order ) {
+            foreach ( $orders as $order ) {
                 $entries[] = [
                     'nx_id'      => $post['nx_id'],
                     'source'     => $this->id,
-                    'entry_key'  => $order['key'],
+                    'entry_key'  => $order['order'],
                     'data'       => $order,
+                    'updated_at' => Helper::mysql_time($order['updated_at']),
                 ];
             }
             $this->update_notifications($entries);
@@ -156,19 +192,48 @@ class SureCart extends Extension {
         if( empty( $post ) ) {
             return;
         }
-        $valueFrom = !empty( $post['display_from'] ) ? date('Y-m-d',strtotime('-'.$post['display_from'].' days',time())) : '';
-        $valueTo = date('Y-m-d',strtotime('1 days',time()));
+        $dateFrom = !empty( $post['display_from'] ) ? date('Y-m-d',strtotime('-'.$post['display_from'].' days',time())) : '';
+        $dateTo = date('Y-m-d',strtotime('1 days',time()));
         $amount = !empty( $post['display_last'] ) ? $post['display_last'] : 10;
-        $orders = \SureCart\Models\Order::where(
-			[
-				'fulfillment_status' => [ 'fulfilled' ],
-                'created_at'         => ['BETWEEN',[$valueFrom,$valueTo] ],
-			]
-		)->paginate(
-			[
-				'per_page' => 2,
-			]
-		);
+        $get_orders = \SureCart\Models\Order::where([ 'fulfillment_status' => [ 'unfulfilled' ] ] )->with( [ 'checkout', 'checkout.charge', 'checkout.customer','checkout.line_items','line_item.price','price.product','checkout.shipping_address','checkout.billing_address'] )->paginate( [ 'per_page' => $amount ] );
+        $orders = [];
+        if( count( $get_orders->data ) > 0 ) {
+            foreach ($get_orders->data as $order) {
+                if( $this->is_entry_exists( (int) $post['nx_id'], $order->id ) ) {
+                    continue;
+                }
+                $createdAt = $order['created_at'];
+                if ($createdAt >= strtotime($dateFrom) && strtotime($createdAt) <= $dateTo) {
+                    if( !empty( $order->checkout->line_items->data ) && count( $order->checkout->line_items->data ) > 0 ) {
+                        foreach ($order->checkout->line_items->data as $product) {
+                            $make_orders = [];
+                            if( !empty( $order->checkout->ip_address ) ) {
+                                $make_orders['ip'] = $order->checkout->ip_address;
+                            }
+                            if( !empty( $order->id ) ) {
+                                $make_orders['order'] = $order->id;
+                            }
+                            if( !empty( $order->id ) ) {
+                                $make_orders['updated_at'] = $order->updated_at;
+                            }
+                            $orders[] = $this->prepare_order_data( $product, $order->checkout->customer, $make_orders, $order->checkout );
+                        }
+                    }
+                }
+            }
+        }
+        return $orders;
+    }
+
+    /**
+     * Check entry already exists or not
+     */
+    public function is_entry_exists( $nx_id, $entry_id ) {
+        $entries = Entries::get_instance()->get_entries($nx_id);
+        $is_entry_exists = array_filter($entries, function ($item) use ($entry_id) {
+            return $item['order'] === $entry_id;
+        });
+        return $is_entry_exists ? true : false;
     }
 
     /**
