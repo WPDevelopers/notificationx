@@ -13,6 +13,7 @@ use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
 use NotificationX\Extensions\GlobalFields;
+use NotificationX\Admin\Entries;
 
 /**
  * WPForms Extension
@@ -211,6 +212,90 @@ class WPForms extends Extension {
         return $key;
     }
 
+    public function saved_post($post, $data, $nx_id) {
+        $this->get_notification_ready($data);
+    }
+
+    /**
+     * This function responsible for making ready the notifications for the first time
+     * we have made a notification.
+     *
+     * @param string $type
+     * @param array $data
+     * @return void
+     */
+    public function get_notification_ready($data = array()) {
+        if( !wpforms()->is_pro() ){
+            return [];
+        }
+        
+        if( !empty( $data['__form_list']['value'] ) ) {
+            $form_list = explode('_',$data['__form_list']['value']);
+            if( !empty( $form_list[1] ) ) {
+                $wpform_entries = wpforms()->entry->get_entries( [ 'form_id' => $form_list[1] ] );
+                $form_data = wpforms()->get( 'form' )->get( $form_list[1] );
+                if( count( $wpform_entries ) > 0 ) {
+                    $entries = [];
+                    foreach ($wpform_entries as $entry) {
+                        $fields = wpforms_decode($entry->fields);
+                        if( !empty( $fields ) ) {
+                            $entry_data = [];
+                            foreach ($fields as $field) {
+                                $sepereated_fields = ['name','email'];
+                                $sepereated_name_fields = ['first','middle','last'];
+                                if ($field['type'] === 'checkbox') {
+                                    continue;
+                                }
+                                if ($field['type'] === 'name' ) {
+                                    if (!empty($fields[$field['id']]) && is_array($fields[$field['id']])) {
+                                        foreach ( $fields[$field['id']] as $nKey => $n) {
+                                            if( in_array($nKey, $sepereated_name_fields) ) {
+                                                $entry_data[$field['id'] . '_' . $nKey . '_name'] = $n;
+                                            }
+                                        }
+                                        $entry_data[$field['id'] . '_name'] = $fields[$field['id']]['first']. ' '. $fields[$field['id']]['middle']. ' '. $fields[$field['id']]['last']. ' ';
+                                    }
+                                }
+                                if ( $field['type'] === 'email' ) {
+                                    $entry_data['email'] = $field['value'];
+                                }
+                                if( !in_array( $field['type'], $sepereated_fields ) ) {
+                                    $entry_data[$field['id'] . '_' . $field['type']] = $field['value'];
+                                }
+                            }
+                            $entry_data['title'] = $form_data->post_title ?? '';
+                            $entry_data['timestamp'] = time();
+                            $entry_data['id'] = $data['nx_id'];
+                            $entry_data['entry__id'] = $entry->entry_id;
+                            if( $this->is_entry_exists( (int) $data['nx_id'], $entry->entry_id ) ) {
+                                continue;
+                            }
+                            if (!empty($entry_data)) {
+                                $key = $this->key($form_list[1]);
+                                $entries[] = [
+                                    'nx_id'      => $data['nx_id'],
+                                    'source'    => $this->id,
+                                    'entry_key' => $key,
+                                    'data'      => $entry_data,
+                                ];
+                            }
+                        }
+                    }
+                    $this->update_notifications($entries);
+                }
+                
+            }
+        }
+    }
+
+    public function is_entry_exists( $nx_id, $entry_id ) {
+        $entries = Entries::get_instance()->get_entries($nx_id);
+        $filteredData = array_filter($entries, function ($item) use ($entry_id) {
+            return $item['entry__id'] === $entry_id;
+        });
+        return $filteredData ? true : false;
+    }
+
     /**
      * Limit entry by selected form in 'Select a Form';
      *
@@ -226,10 +311,10 @@ class WPForms extends Extension {
             if($selected_form != $form_id){
                 return false;
             }
-
         }
         return $return;
     }
+    
     public function filter_by_form($data, $settings){
         if( empty( $settings['form_list'] )) {
             return $data;
