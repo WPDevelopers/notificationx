@@ -677,6 +677,21 @@ class GlobalFields {
                                     ]),
 
                                 ),
+                                'order_status'  => array(
+                                    'label'    => __('Order Status', 'notificationx'),
+                                    'name'     => 'order_status',
+                                    'type'     => 'select',
+                                    'multiple' => true,
+                                    'is_pro'   => true,
+                                    'priority' => 99.5,
+                                    'default'  => ['wc-completed', 'wc-processing'],
+                                    'help'     => __("By default it will show Processing, Fulfilled & Delivered status."),
+                                    'options'  => apply_filters('nx_surecart_order_status', []),
+                                    'rules'    => Rules::logicalRule([
+                                        Rules::includes('source', ['surecart']),
+                                    ]),
+
+                                ),
                             ],
                         ],
                         'link_options' => [

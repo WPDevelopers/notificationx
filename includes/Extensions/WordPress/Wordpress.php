@@ -13,7 +13,7 @@ trait WordPress
 		<p>🎦 Watch video tutorial on <a target="_blank" href="%5$s">blog comments</a>, <a target="_blank" href="%6$s">reviews</a> & <a target="_blank" href="%6$s">downloads stats</a> to learn quickly</p>
 		<p><strong>Recommended Blogs:</strong></p>
 		<p>🔥 Proven Hacks To <a target="_blank" href="%7$s">Get More Comments on Your WordPress Blog</a> Posts</p>
-		<p>🚀 How To Increase <a target="_blank" href="%8$s">WordPress Plugin Download Rates & Increase Sales</a> in 2020</p>', 'notificationx'),
+		<p>🚀 How To Increase <a target="_blank" href="%8$s">WordPress Plugin Download Rates & Increase Sales</a> in 2023</p>', 'notificationx'),
 		'https://wordpress.org/',
 		'https://notificationx.com/docs/wordpress-comment-popup-alert/',
 		'https://notificationx.com/docs/wordpress-plugin-review-notificationx/',

@@ -38,11 +38,39 @@ class SureCart extends Extension {
     public function init(){
         parent::init();
         add_action('surecart/checkout_confirmed', array( $this, 'save_new_records'), 10, 2);
+        // add_action('surecart/purchase_revoked', array( $this, 'change_status'), 10, 2);
     }
 
     public function init_fields(){
         parent::init_fields();
         add_filter('nx_link_types', [$this, 'link_types']);
+        add_filter( 'nx_surecart_order_status', array( $this, 'order_status' ), 11 );
+        add_filter("nx_notification_link_{$this->id}", [$this, 'product_link'], 10, 3);
+    }
+
+    public function change_status($purchase, $data) {
+        echo "update";
+        print_r( $purchase );
+        die();
+    }
+
+    public function product_link($link, $post, $entry) {
+        if(!empty($entry['permalink']) && !empty( $post['link_type'] ) && $post['link_type'] === 'product_page' ){
+            $link = $entry['permalink'];
+        }
+        return $link;
+    }
+
+    public function order_status($options){
+        $order_status = [
+            'processing'  => __( 'Processing','notificationx' ),
+            'unfulfilled' => __( 'Unfulfilled','notificationx' ),
+            'fulfilled'   => __( 'Fulfilled','notificationx' ),
+            'delivered'   => __( 'Delivered','notificationx' ),
+            'not-shipped' => __( 'Not Shipped','notificationx' ),
+         ];
+        $options = GlobalFields::get_instance()->normalize_fields( $order_status, 'source', $this->id, $options);
+        return $options;
     }
 
     /**
@@ -52,24 +80,22 @@ class SureCart extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-        add_filter("nx_can_entry_{$this->id}", array($this, 'can_entry'), 10, 3);
+        add_filter("nx_can_entry_{$this->id}", array($this, 'check_order_status'), 10, 3);
     }
 
-    /**
-     * Limit entry by selected form in 'Select a Form';
+     /**
+     * Limit entry by selected status;
      *
-     * @param [type] $return
-     * @param [type] $entry
-     * @param [type] $settings
+     * @param bool $return
+     * @param array $entry
+     * @param array $settings
      * @return boolean
      */
-    public function can_entry($return, $entry, $settings){
-        if(!empty($settings['form_list']) && !empty($entry['entry_key'])){
-            $selected_form = $settings['form_list'];
-            $form_id = $entry['entry_key'];
-            if($selected_form != $form_id){
-                return false;
-            }
+    public function check_order_status($return, $entry, $settings){
+        return true;
+        $done     = !empty($settings['order_status']) ? $settings['order_status'] : ['wc-completed', 'wc-processing'];
+        if(!in_array($entry['data']['status'], $done)){
+            return false;
         }
         return $return;
     }
@@ -103,6 +129,12 @@ class SureCart extends Extension {
         if( !empty( $finalized->order ) ) {
             $new_order['order'] = $finalized->order;
         }
+        if( !empty( $finalized->order ) ) {
+            $new_order['order'] = $finalized->order;
+        }
+        if( !empty( $checkout->status ) ) {
+            $new_order['status'] = $checkout->status;
+        }
         return $new_order;
     }
 
@@ -115,6 +147,9 @@ class SureCart extends Extension {
         }
         if( !empty( $product->price->product->id ) ) {
             $return['product_id'] = $product->price->product->id;
+        }
+        if( !empty( $product->price->product->permalink ) ) {
+            $return['permalink'] = $product->price->product->permalink;
         }
         if( !empty( $product->price->product->image_url ) ) {
             $return['image_url'] = $product->price->product->image_url;
@@ -195,7 +230,7 @@ class SureCart extends Extension {
         $dateFrom = !empty( $post['display_from'] ) ? date('Y-m-d',strtotime('-'.$post['display_from'].' days',time())) : '';
         $dateTo = date('Y-m-d',strtotime('1 days',time()));
         $amount = !empty( $post['display_last'] ) ? $post['display_last'] : 10;
-        $get_orders = \SureCart\Models\Order::where([ 'fulfillment_status' => [ 'unfulfilled' ] ] )->with( [ 'checkout', 'checkout.charge', 'checkout.customer','checkout.line_items','line_item.price','price.product','checkout.shipping_address','checkout.billing_address'] )->paginate( [ 'per_page' => $amount ] );
+        $get_orders = \SureCart\Models\Order::with( [ 'checkout', 'checkout.charge', 'checkout.customer','checkout.line_items','line_item.price','price.product','checkout.shipping_address','checkout.billing_address'] )->paginate( [ 'per_page' => $amount ] );
         $orders = [];
         if( count( $get_orders->data ) > 0 ) {
             foreach ($get_orders->data as $order) {
@@ -215,6 +250,15 @@ class SureCart extends Extension {
                             }
                             if( !empty( $order->id ) ) {
                                 $make_orders['updated_at'] = $order->updated_at;
+                            }
+                            if( !empty( $order->fulfillment_status ) ) {
+                                $make_orders['fulfillment_status'] = $order->fulfillment_status;
+                            }
+                            if( !empty( $order->fulfillment_status ) ) {
+                                $make_orders['shipment_status'] = $order->shipment_status;
+                            }
+                            if( !empty( $order->status ) ) {
+                                $make_orders['status'] = $order->status;
                             }
                             $orders[] = $this->prepare_order_data( $product, $order->checkout->customer, $make_orders, $order->checkout );
                         }
