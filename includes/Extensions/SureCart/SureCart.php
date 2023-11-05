@@ -38,7 +38,6 @@ class SureCart extends Extension {
     public function init(){
         parent::init();
         add_action('surecart/checkout_confirmed', array( $this, 'save_new_records'), 10, 2);
-        // add_action('surecart/purchase_revoked', array( $this, 'change_status'), 10, 2);
     }
 
     public function init_fields(){
@@ -46,12 +45,47 @@ class SureCart extends Extension {
         add_filter('nx_link_types', [$this, 'link_types']);
         add_filter( 'nx_surecart_order_status', array( $this, 'order_status' ), 11 );
         add_filter("nx_notification_link_{$this->id}", [$this, 'product_link'], 10, 3);
+        add_filter('nx_conversion_category_list', [$this, 'collections']);
+        add_filter('nx_conversion_product_list', [$this, 'product_lists']);
     }
 
-    public function change_status($purchase, $data) {
-        echo "update";
-        print_r( $purchase );
-        die();
+    /**
+     * This functions is hooked
+     *
+     * @return void
+     */
+    public function admin_actions() {
+        parent::admin_actions();
+    }
+
+    public function public_actions(){
+        parent::public_actions();
+    }
+
+
+
+    public function product_lists($products) {
+        $all_products = \SureCart\Models\Product::get();
+        $product_lists = [];
+        if( ! is_wp_error( $all_products ) ) {
+            foreach( $all_products as $product ) {
+                $product_lists[ $product->slug ] = $product->name;
+            }
+        }
+        $options = GlobalFields::get_instance()->normalize_fields($product_lists, 'source', $this->id, $products);
+        return $options;
+    }
+
+    public function collections($options) {
+        $collections = \SureCart\Models\ProductCollection::get();
+        $collection_list = [];
+        if( ! is_wp_error( $collections ) ) {
+            foreach( $collections as $collection ) {
+                $collection_list[ $collection->slug ] = $collection->name;
+            }
+        }
+        $options = GlobalFields::get_instance()->normalize_fields($collection_list, 'source', $this->id, $options);
+        return $options;
     }
 
     public function product_link($link, $post, $entry) {
@@ -66,42 +100,12 @@ class SureCart extends Extension {
             'processing'  => __( 'Processing','notificationx' ),
             'unfulfilled' => __( 'Unfulfilled','notificationx' ),
             'fulfilled'   => __( 'Fulfilled','notificationx' ),
+            'shipped'     => __( 'Shipped','notificationx' ),
             'delivered'   => __( 'Delivered','notificationx' ),
             'not-shipped' => __( 'Not Shipped','notificationx' ),
          ];
         $options = GlobalFields::get_instance()->normalize_fields( $order_status, 'source', $this->id, $options);
         return $options;
-    }
-
-    /**
-     * This functions is hooked
-     *
-     * @return void
-     */
-    public function admin_actions() {
-        parent::admin_actions();
-        add_filter("nx_can_entry_{$this->id}", array($this, 'check_order_status'), 10, 3);
-    }
-
-     /**
-     * Limit entry by selected status;
-     *
-     * @param bool $return
-     * @param array $entry
-     * @param array $settings
-     * @return boolean
-     */
-    public function check_order_status($return, $entry, $settings){
-        return true;
-        $done     = !empty($settings['order_status']) ? $settings['order_status'] : ['wc-completed', 'wc-processing'];
-        if(!in_array($entry['data']['status'], $done)){
-            return false;
-        }
-        return $return;
-    }
-
-    public function public_actions(){
-        parent::public_actions();
     }
 
     public function save_new_records($checkout, $request) {
@@ -203,6 +207,7 @@ class SureCart extends Extension {
     }
 
     public function saved_post($post, $data, $nx_id) {
+        $this->delete_notification(null, $nx_id);
         $this->get_notification_ready($data);
     }
 
@@ -230,18 +235,38 @@ class SureCart extends Extension {
         $dateFrom = !empty( $post['display_from'] ) ? date('Y-m-d',strtotime('-'.$post['display_from'].' days',time())) : '';
         $dateTo = date('Y-m-d',strtotime('1 days',time()));
         $amount = !empty( $post['display_last'] ) ? $post['display_last'] : 10;
-        $get_orders = \SureCart\Models\Order::with( [ 'checkout', 'checkout.charge', 'checkout.customer','checkout.line_items','line_item.price','price.product','checkout.shipping_address','checkout.billing_address'] )->paginate( [ 'per_page' => $amount ] );
+        $whereQuery = [];
+        if( !empty( array_intersect( $post['surecart_order_status'], [ 'shipped','delivered','not-shipped' ] ) ) ) {
+            $whereQuery['shipment_status'] = $post['surecart_order_status'];
+        }
+        if( !empty( array_intersect( $post['surecart_order_status'], [ 'unfulfilled','fulfilled' ] ) ) ) {
+            $whereQuery['fulfillment_status'] = $post['surecart_order_status'];
+        }
+        if( !empty( array_intersect( $post['surecart_order_status'], ['processing'] ) ) ) {
+            $whereQuery['status'] = $post['surecart_order_status'];
+        }
+        $get_orders = \SureCart\Models\Order::where($whereQuery)->with( [ 'checkout', 'checkout.charge', 'checkout.customer','checkout.line_items','line_item.price','price.product','checkout.shipping_address','checkout.billing_address','product.collection' ] )->paginate( [ 'per_page' => $amount ] );
         $orders = [];
         if( count( $get_orders->data ) > 0 ) {
             foreach ($get_orders->data as $order) {
-                if( $this->is_entry_exists( (int) $post['nx_id'], $order->id ) ) {
-                    continue;
-                }
                 $createdAt = $order['created_at'];
                 if ($createdAt >= strtotime($dateFrom) && strtotime($createdAt) <= $dateTo) {
                     if( !empty( $order->checkout->line_items->data ) && count( $order->checkout->line_items->data ) > 0 ) {
                         foreach ($order->checkout->line_items->data as $product) {
+                            $collections = \SureCart\Models\ProductCollection::where( [ 'product_ids' => [ $product->price->product->id ]] )->get();
                             $make_orders = [];
+                            if(($this->_excludes_product($product, $post, $collections) && !$this->_show_purchaseof($product, $post, $collections))){
+                                continue;
+                            }
+                            if( !empty( $order->fulfillment_status ) ) {
+                                $make_orders['fulfillment_status'] = $order->fulfillment_status;
+                            }
+                            if( !empty( $order->shipment_status ) ) {
+                                $make_orders['shipment_status'] = $order->shipment_status;
+                            }
+                            if( !empty( $order->status ) ) {
+                                $make_orders['status'] = $order->status;
+                            }
                             if( !empty( $order->checkout->ip_address ) ) {
                                 $make_orders['ip'] = $order->checkout->ip_address;
                             }
@@ -251,15 +276,7 @@ class SureCart extends Extension {
                             if( !empty( $order->id ) ) {
                                 $make_orders['updated_at'] = $order->updated_at;
                             }
-                            if( !empty( $order->fulfillment_status ) ) {
-                                $make_orders['fulfillment_status'] = $order->fulfillment_status;
-                            }
-                            if( !empty( $order->fulfillment_status ) ) {
-                                $make_orders['shipment_status'] = $order->shipment_status;
-                            }
-                            if( !empty( $order->status ) ) {
-                                $make_orders['status'] = $order->status;
-                            }
+                            
                             $orders[] = $this->prepare_order_data( $product, $order->checkout->customer, $make_orders, $order->checkout );
                         }
                     }
@@ -269,15 +286,51 @@ class SureCart extends Extension {
         return $orders;
     }
 
-    /**
-     * Check entry already exists or not
-     */
-    public function is_entry_exists( $nx_id, $entry_id ) {
-        $entries = Entries::get_instance()->get_entries($nx_id);
-        $is_entry_exists = array_filter($entries, function ($item) use ($entry_id) {
-            return $item['order'] === $entry_id;
-        });
-        return $is_entry_exists ? true : false;
+
+    public function _excludes_product( $product, $settings, $collections ) {
+        if( empty( $settings['product_exclude_by'] ) || $settings['product_exclude_by'] === 'none' ) {
+            return true;
+        }
+        // Check product list 
+        if(  $settings['product_exclude_by'] == 'manual_selection' && !empty( $settings['exclude_products'] ) && count( $settings['exclude_products'] ) > 0 ) {
+            foreach ( $settings['exclude_products'] as $__product ) {
+                if( $__product['value'] == $product->price->product->slug ) {
+                    return true;
+                }
+            }
+        }
+        // Check category list 
+        if( $settings['product_exclude_by'] == 'product_category' && !empty( $settings['exclude_categories'] ) && count( $settings['exclude_categories'] ) > 0 ) {
+            foreach ($collections as $collection) {
+                if( in_array( $collection->slug, $settings['exclude_categories'] ) ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function _show_purchaseof( $product, $settings, $collections ) {
+        if( empty( $settings['product_control'] ) || $settings['product_control'] === 'none' ) {
+            return true;
+        }
+        // Check product list 
+        if(  $settings['product_control'] == 'manual_selection' && !empty( $settings['product_list'] ) && count( $settings['product_list'] ) > 0 ) {
+            foreach ( $settings['product_list'] as $__product ) {
+                if( $__product['value'] == $product->price->product->slug ) {
+                    return true;
+                }
+            }
+        }
+        // Check category list 
+        if( $settings['product_control'] == 'product_category' && !empty( $settings['category_list'] ) && count( $settings['category_list'] ) > 0 ) {
+            foreach ($collections as $collection) {
+                if( in_array( $collection->slug, $settings['category_list'] ) ) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
