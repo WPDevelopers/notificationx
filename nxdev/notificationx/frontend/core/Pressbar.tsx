@@ -1,10 +1,10 @@
 import { __ } from "@wordpress/i18n";
 import classNames from "classnames";
 import delegate from "delegate";
-import React, { CSSProperties, useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import cookie from "react-cookies";
 import { createPortal } from "react-dom";
 import usePortal from "../hooks/usePortal";
-import cookie from "react-cookies";
 import { Close } from "../themes/helpers";
 import Analytics, { analyticsOnClick } from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
@@ -26,6 +26,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     const hasContent = content?.replace(/<[^>]+>|[\n\r]/g, '')?.trim() != '';
     const [styles, setStyles] = useState<{ [key: string]: any }>({});
     const [closed, setClosed] = useState(false);
+    const [isTimeBetween,setIsTimeBetween] = useState(false);
     let elementorRef = useRef();
     const frontendContext = useNotificationContext();
 
@@ -73,6 +74,10 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         }
         else {
             expiredTime = frontendContext.getTime(settings.countdown_end_date || undefined).unix() * 1000;
+            const startTime = frontendContext.getTime(settings.countdown_start_date || undefined).unix() * 1000;
+            if( startTime < Date.now() ) {
+                setIsTimeBetween(true);
+            }
         }
         return { currentTime, expiredTime };
     }
@@ -178,7 +183,6 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                 document.body.style.paddingBottom = null;
             }
         };
-
     }, [])
 
 
@@ -202,7 +206,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                             </div>
                         )}
                         <div className="nx-countdown" style={styles?.counterCSS}>
-                            {!timeConfig.expired &&
+                            { ( ( !timeConfig.expired && isTimeBetween) || ( !timeConfig.expired && settings?.evergreen_timer) ) &&
                                 <>
                                     <div className="nx-time-section" style={styles?.counterCSS}>
                                         <span className="nx-days">

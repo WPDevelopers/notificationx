@@ -1152,8 +1152,8 @@ class GlobalFields {
 
 
     public function normalize_fields($fields, $key = '', $value = [], $return = []) {
-
         foreach ($fields as $val => $label) {
+            $val = !empty( $label['value'] ) ? $label['value'] : $val;
             if (empty($return[$val]) && !is_array($label)) {
                 $return[$val] = [
                     'value' => $val,

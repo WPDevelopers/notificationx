@@ -253,7 +253,7 @@ class Helper {
      * @return string
      */
     public static function nice_number($n) {
-        $temp_number = str_replace(",", "", $n);
+        $temp_number = !empty( $n ) ? str_replace(",", "", $n) : '';
         if (!empty($temp_number)) {
             $n = (0 + (int) $temp_number);
         } else {

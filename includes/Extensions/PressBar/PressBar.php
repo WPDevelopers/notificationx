@@ -35,7 +35,7 @@ class PressBar extends Extension {
     public $module          = 'modules_bar';
     public $module_priority = 1;
     public $default_theme   = 'press_bar_theme-one';
-
+    public $bar_themes;
     /**
      * Initially Invoked when initialized.
      */
