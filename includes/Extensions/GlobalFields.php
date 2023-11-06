@@ -173,6 +173,9 @@ class GlobalFields {
                                             "woocommerce" => [
                                                 'show_notification_image' => '@show_notification_image:featured_image',
                                             ],
+                                            "surecart" => [
+                                                'show_notification_image' => '@show_notification_image:featured_image',
+                                            ],
                                             "woo_reviews" => [
                                                 'show_notification_image' => '@show_notification_image:featured_image',
                                             ],
@@ -684,8 +687,8 @@ class GlobalFields {
                                     'multiple' => true,
                                     'is_pro'   => true,
                                     'priority' => 99.6,
-                                    'default'  => ['wc-completed', 'wc-processing'],
-                                    'help'     => __("By default it will show Processing & Completed status."),
+                                    'default'  => ['processing','fulfilled'],
+                                    'help'     => __("By default it will show Processing & Fulfilled status."),
                                     'options'  => apply_filters('nx_surecart_order_status', []),
                                     'rules'    => Rules::logicalRule([
                                         Rules::includes('source', ["surecart"]),
@@ -825,6 +828,7 @@ class GlobalFields {
                                         "wpf",
                                         "reviewx",
                                         "woocommerce",
+                                        "surecart",
                                         "woo_reviews",
                                         "wp_comments",
                                         "wp_reviews",
@@ -862,6 +866,7 @@ class GlobalFields {
                                                     "wpf",
                                                     "reviewx",
                                                     "woocommerce",
+                                                    "surecart",
                                                     "woo_reviews",
                                                     "wp_reviews",
                                                     "freemius_conversions",
@@ -891,6 +896,7 @@ class GlobalFields {
                                                     "wpf",
                                                     "reviewx",
                                                     "woocommerce",
+                                                    "surecart",
                                                     "woo_reviews",
                                                     "wp_comments",
                                                     "wp_reviews",
