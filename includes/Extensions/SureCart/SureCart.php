@@ -255,7 +255,7 @@ class SureCart extends Extension {
                         foreach ($order->checkout->line_items->data as $product) {
                             $collections = \SureCart\Models\ProductCollection::where( [ 'product_ids' => [ $product->price->product->id ]] )->get();
                             $make_orders = [];
-                            if(($this->_excludes_product($product, $post, $collections) && !$this->_show_purchaseof($product, $post, $collections))){
+                            if(( $this->_excludes_product($product, $post, $collections) && !$this->_show_purchaseof($product, $post, $collections))){
                                 continue;
                             }
                             if( !empty( $order->fulfillment_status ) ) {
@@ -275,6 +275,9 @@ class SureCart extends Extension {
                             }
                             if( !empty( $order->id ) ) {
                                 $make_orders['updated_at'] = $order->updated_at;
+                            }
+                            if( !empty( $order->id ) ) {
+                                $make_orders['time']  = $order->updated_at;
                             }
                             
                             $orders[] = $this->prepare_order_data( $product, $order->checkout->customer, $make_orders, $order->checkout );
@@ -312,7 +315,7 @@ class SureCart extends Extension {
 
     public function _show_purchaseof( $product, $settings, $collections ) {
         if( empty( $settings['product_control'] ) || $settings['product_control'] === 'none' ) {
-            return true;
+            return false;
         }
         // Check product list 
         if(  $settings['product_control'] == 'manual_selection' && !empty( $settings['product_list'] ) && count( $settings['product_list'] ) > 0 ) {

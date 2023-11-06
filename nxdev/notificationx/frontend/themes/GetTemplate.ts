@@ -31,7 +31,6 @@ const GetTemplate = (settings) => {
         freemius_fifth_param: "",
         freemius_sixth_param: "",
         freemius_seventh_param: "",
-        freemius_sixth_param : "",
     };
     const params = { ...defaults, ...settings?.["notification-template"] };
 
