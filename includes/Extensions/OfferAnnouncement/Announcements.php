@@ -33,7 +33,7 @@ class Announcements extends Extension {
     public $module          = 'modules_announcements';
     public $module_priority = 18;
     public $is_pro          = true;
-    public $link_type       = '-1';
+    public $link_type       = 'announcements_link';
 
     /**
      * Initially Invoked when initialized.
@@ -58,6 +58,10 @@ class Announcements extends Extension {
                     // 'fifth_param'         => 'tag_offer_discount',
                     // 'custom_fifth_param'  => __( 'Some time ago', 'notificationx' ),
                 ],
+                'defaults' => [
+                    'announcement_link_button'      => false,
+                    'announcement_link_button_text' => __( 'Grab Now', 'notificationx' ),
+                ],
             ],
             'theme-2'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-2.png',
@@ -70,6 +74,10 @@ class Announcements extends Extension {
                     'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
                     // 'fifth_param'         => 'tag_offer_discount',
                     // 'custom_fifth_param'  => __( '25% OFF', 'notificationx' ),
+                ],
+                'defaults' => [
+                    'announcement_link_button'      => false,
+                    'announcement_link_button_text' => __( 'Grab Now', 'notificationx' ),
                 ],
                 'image_shape' => 'circle',
             ],
@@ -84,6 +92,10 @@ class Announcements extends Extension {
                     'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
                     // 'fifth_param'         => 'tag_offer_discount',
                     // 'custom_fifth_param'  => __( '25% OFF', 'notificationx' ),
+                ],
+                'defaults' => [
+                    'announcement_link_button'      => true,
+                    'announcement_link_button_text' => __( 'Buy Now', 'notificationx' ),
                 ],
                 'image_shape' => 'circle',
             ],

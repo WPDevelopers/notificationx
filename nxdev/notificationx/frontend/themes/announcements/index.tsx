@@ -8,6 +8,10 @@ const Announcements = ({themeName, data, config, id, style, componentClasses}) =
                 break;
 
             case 'theme-2':
+                return lazy(() => import('./theme-2'));
+                break;
+
+            case 'theme-12':
                 return lazy(() => import('./theme-1'));
                 break;
 
@@ -17,7 +21,7 @@ const Announcements = ({themeName, data, config, id, style, componentClasses}) =
     }, [themeName]);
 
 
-    console.log(themeName, data);
+    // console.log(themeName, data);
 
     return (
         <div

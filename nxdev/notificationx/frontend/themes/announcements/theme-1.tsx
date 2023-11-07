@@ -1,23 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const theme1 = ({ offer_discount }) => {
-    const [num, setNum] = useState(0);
+const Theme1 = ({ offer_discount, link_text }) => {
     const ref = useRef();
-
-    useEffect(() => {
-        setInterval(() => {
-            setNum((num) => num + 1);
-            console.log(num);
-        }, 1000);
-    }, []);
-
-    useEffect(() => {
-        if (ref.current) {
-            // const { width } = ref.current.getBBox();
-            // ref.current.setAttribute("x", `${(92 - width) / 2}`);
-        }
-
-    }, [num]);
 
     return (
         <svg
@@ -39,14 +23,14 @@ const theme1 = ({ offer_discount }) => {
                     fill="white"
                     xmlSpace="preserve"
                     style={{whiteSpace: "pre"}}
-                    font-family="DM Sans"
-                    font-size="24"
-                    font-weight="bold"
-                    letter-spacing="0em"
+                    fontFamily="DM Sans"
+                    fontSize="24"
+                    fontWeight="bold"
+                    letterSpacing="0em"
                 >
                     <tspan x="16" y="53.548">
-                        {num}
-                        <tspan font-size="14">%</tspan>
+                        {offer_discount}
+                        <tspan fontSize="14">%</tspan>
                     </tspan>
                 </text>
             </g>
@@ -55,10 +39,10 @@ const theme1 = ({ offer_discount }) => {
                     fill="white"
                     xmlSpace="preserve"
                     style={{whiteSpace: "pre"}}
-                    font-family="DM Sans"
-                    font-size="16"
-                    font-weight="bold"
-                    letter-spacing="0em"
+                    fontFamily="DM Sans"
+                    fontSize="16"
+                    fontWeight="bold"
+                    letterSpacing="0em"
                 >
                     <tspan x="37" y="73.456">
                         OFF
@@ -71,13 +55,13 @@ const theme1 = ({ offer_discount }) => {
                     fill="white"
                     xmlSpace="preserve"
                     style={{whiteSpace: "pre"}}
-                    font-family="DM Sans"
-                    font-size="10"
-                    font-weight="500"
-                    letter-spacing="0em"
+                    fontFamily="DM Sans"
+                    fontSize="10"
+                    fontWeight="500"
+                    letterSpacing="0em"
                 >
                     <tspan x="22.709" y="14">
-                        Grab Now
+                        {link_text}
                     </tspan>
                 </text>
             </g>
@@ -89,9 +73,9 @@ const theme1 = ({ offer_discount }) => {
                     width="45.2434"
                     height="21.272"
                     filterUnits="userSpaceOnUse"
-                    color-interpolation-filters="sRGB"
+                    colorInterpolationFilters="sRGB"
                 >
-                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
                     <feColorMatrix
                         in="SourceAlpha"
                         type="matrix"
@@ -123,9 +107,9 @@ const theme1 = ({ offer_discount }) => {
                     width="29.0688"
                     height="12.584"
                     filterUnits="userSpaceOnUse"
-                    color-interpolation-filters="sRGB"
+                    colorInterpolationFilters="sRGB"
                 >
-                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
                     <feColorMatrix
                         in="SourceAlpha"
                         type="matrix"
@@ -157,9 +141,9 @@ const theme1 = ({ offer_discount }) => {
                     width="45.9189"
                     height="8.31999"
                     filterUnits="userSpaceOnUse"
-                    color-interpolation-filters="sRGB"
+                    colorInterpolationFilters="sRGB"
                 >
-                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
                     <feColorMatrix
                         in="SourceAlpha"
                         type="matrix"
@@ -189,4 +173,4 @@ const theme1 = ({ offer_discount }) => {
     );
 };
 
-export default theme1;
+export default Theme1;

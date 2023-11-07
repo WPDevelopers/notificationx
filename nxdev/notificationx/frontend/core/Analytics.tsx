@@ -63,7 +63,7 @@ const Analytics = ({config, children = null, href = null, data = {}, ...rest}: A
     if( data?.link ) {
         link = data.link;
     }
-    
+
     let link_text;
     let show_default_subscribe = false;
 
@@ -80,11 +80,15 @@ const Analytics = ({config, children = null, href = null, data = {}, ...rest}: A
             show_default_subscribe = true;
             link_text = config?.link_button_text_channel;
             break;
+        case 'announcements_link':
+            show_default_subscribe = true;
+            link_text = config?.announcement_link_button_text;
+            break;
         default:
             link_text = config?.link_button_text;
             break;
     }
-    
+
     useEffect(() => {
         const script = document.createElement('script');
         script.src = 'https://apis.google.com/js/platform.js';
@@ -94,7 +98,7 @@ const Analytics = ({config, children = null, href = null, data = {}, ...rest}: A
           document.body.removeChild(script);
         };
     }, []);
-    
+
     return (
         <>
            { ( data?.id && config?.nx_subscribe_button_type === 'yt_default' && show_default_subscribe && config.link_button ) ?
