@@ -139,6 +139,9 @@ class SureCart extends Extension {
         if( !empty( $checkout->status ) ) {
             $new_order['status'] = $checkout->status;
         }
+        if( !empty( $checkout->updated_at ) ) {
+            $new_order['timestamp'] = $checkout->updated_at;
+        }
         return $new_order;
     }
 
@@ -255,7 +258,7 @@ class SureCart extends Extension {
                         foreach ($order->checkout->line_items->data as $product) {
                             $collections = \SureCart\Models\ProductCollection::where( [ 'product_ids' => [ $product->price->product->id ]] )->get();
                             $make_orders = [];
-                            if(( $this->_excludes_product($product, $post, $collections) && !$this->_show_purchaseof($product, $post, $collections))){
+                            if(( $this->_excludes_product($product, $post, $collections) === $this->_show_purchaseof($product, $post, $collections))){
                                 continue;
                             }
                             if( !empty( $order->fulfillment_status ) ) {
@@ -277,7 +280,7 @@ class SureCart extends Extension {
                                 $make_orders['updated_at'] = $order->updated_at;
                             }
                             if( !empty( $order->id ) ) {
-                                $make_orders['time']  = $order->updated_at;
+                                $make_orders['timestamp']  = $order->updated_at;
                             }
                             
                             $orders[] = $this->prepare_order_data( $product, $order->checkout->customer, $make_orders, $order->checkout );
@@ -291,8 +294,11 @@ class SureCart extends Extension {
 
 
     public function _excludes_product( $product, $settings, $collections ) {
-        if( empty( $settings['product_exclude_by'] ) || $settings['product_exclude_by'] === 'none' ) {
-            return true;
+        if( !empty( $settings['product_exclude_by'] ) && $settings['product_exclude_by'] === 'none' ) {
+            if( !empty( $settings['product_control'] ) && $settings['product_control'] === 'none' ) {
+                return true;
+            }
+            return false;
         }
         // Check product list 
         if(  $settings['product_exclude_by'] == 'manual_selection' && !empty( $settings['exclude_products'] ) && count( $settings['exclude_products'] ) > 0 ) {
@@ -314,8 +320,11 @@ class SureCart extends Extension {
     }
 
     public function _show_purchaseof( $product, $settings, $collections ) {
-        if( empty( $settings['product_control'] ) || $settings['product_control'] === 'none' ) {
-            return false;
+        if( !empty( $settings['product_control'] ) && $settings['product_control'] === 'none' ) {
+            if( !empty( $settings['product_exclude_by'] ) && $settings['product_exclude_by'] === 'none' ) {
+                return false;
+            }
+            return true;
         }
         // Check product list 
         if(  $settings['product_control'] == 'manual_selection' && !empty( $settings['product_list'] ) && count( $settings['product_list'] ) > 0 ) {
