@@ -144,6 +144,17 @@ class REST {
             'callback'  => array( $this, 'elementor_remove' ),
             'permission_callback' => array($this, 'edit_permission'),
         ));
+        // Gutenberg Import
+        register_rest_route( $namespace, '/gutenberg/import', array(
+            'methods'   => WP_REST_Server::EDITABLE,
+            'callback'  => array( $this, 'gutenberg_import' ),
+            'permission_callback' => array($this, 'edit_permission'),
+        ));
+        register_rest_route( $namespace, '/gutenberg/remove', array(
+            'methods'   => WP_REST_Server::EDITABLE,
+            'callback'  => array( $this, 'gutenberg_remove' ),
+            'permission_callback' => array($this, 'edit_permission'),
+        ));
         // Reporting Import
         register_rest_route( $namespace, '/reporting-test', array(
             'methods'   => WP_REST_Server::EDITABLE,
@@ -238,6 +249,28 @@ class REST {
         $params = $request->get_params();
         PressBar::get_instance()->delete_elementor_post($params['elementor_id']);
         return true;
+    }
+
+    /**
+     * Gutenberg Import for PressBar design.
+     *
+     * @param [type] $request
+     * @return void
+     */
+    public function gutenberg_import( $request ){
+        $params = $request->get_params();
+        return PressBar::get_instance()->gutenberg_import($params);
+    }
+
+    /**
+     * Gutenberg Import for PressBar design.
+     *
+     * @param [type] $request
+     * @return void
+     */
+    public function gutenberg_remove( $request ){
+        $params = $request->get_params();
+        return PressBar::get_instance()->gutenberg_remove($params['gutenberg_id']);
     }
 
     /**

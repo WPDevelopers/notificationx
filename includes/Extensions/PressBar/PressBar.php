@@ -148,6 +148,8 @@ class PressBar extends Extension {
     public function save_post($post, $data, $nx_id) {
         unset($post['data']['is_elementor']);
         unset($post['data']['is_confirmed']);
+        unset($post['data']['is_gutenberg']);
+        unset($post['data']['is_gb_confirmed']);
         $post['data']['countdown_start_date'] = Helper::mysql_time($data['countdown_start_date']);
         $post['data']['countdown_end_date'] = Helper::mysql_time($data['countdown_end_date']);
         $post['data']['countdown_rand'] = rand();
@@ -204,15 +206,15 @@ class PressBar extends Extension {
      */
     public function design_tab_fields($fields) {
         $_fields                     = &$fields['advance_design_section']['fields'];
-        $_fields['design']           = Rules::is('source', 'press_bar', true, $_fields['design']);
-        $_fields['typography']       = Rules::is('source', 'press_bar', true, $_fields['typography']);
-        $_fields['image-appearance'] = Rules::is('source', 'press_bar', true, $_fields['image-appearance']);
+        $_fields['design']           = Rules::is('source', $this->id, true, $_fields['design']);
+        $_fields['typography']       = Rules::is('source', $this->id, true, $_fields['typography']);
+        $_fields['image-appearance'] = Rules::is('source', $this->id, true, $_fields['image-appearance']);
         $_fields["bar_design"]       = [
             // @todo Move to extension.
             'label'  => "Design",
             'name'   => "bar_design",
             'type'   => "section",
-            'rules'  => ["and", ['is', 'source', "press_bar"], ['is', 'advance_edit', true]],
+            'rules'  => ["and", ['is', 'source', $this->id], ['is', 'advance_edit', true]],
             'fields' => [
                 [
                     'label' => __('Background Color', 'notificationx'),
@@ -267,7 +269,7 @@ class PressBar extends Extension {
             'label'  => __('Typography', 'notificationx'),
             'name'   => "bar_typography",
             'type'   => "section",
-            'rules'  => ["and", ['is', 'source', "press_bar"], ['is', 'advance_edit', true]],
+            'rules'  => ["and", ['is', 'source', $this->id], ['is', 'advance_edit', true]],
             'fields' => [
                 [
                     'label'       => __('Font Size', 'notificationx'),
@@ -414,6 +416,7 @@ class PressBar extends Extension {
                 ],
             ],
             'rules'  => Rules::logicalRule([
+                Rules::is('gutenberg_id', false),
                 Rules::is('elementor_id', false),
                 Rules::is('is_elementor', true),
                 Rules::is('is_confirmed', true, true),
@@ -484,6 +487,166 @@ class PressBar extends Extension {
         //     'rules'   => Rules::is('source', $this->id),
         // ];
 
+
+        // Block pattern
+
+        $fields['themes']['fields'][] = [
+            'name'   => 'gutenberg_edit_link',
+            'type'   => 'button',
+            'text'   => __('Edit With Gutenberg', 'notificationx'),
+            'href'   => -1,
+            'target' => '_blank',
+            'rules'  => Rules::logicalRule([
+                Rules::is('gutenberg_edit_link', false, true),
+                Rules::isOfType('gutenberg_edit_link', 'string'),
+                Rules:: is('gutenberg_id', false, true),
+                // Rules:: is('is_gutenberg', true),
+                // Rules:: is('source', $this->id),
+            ]),
+        ];
+        $fields['themes']['fields'][] = [
+            'name'  => 'nx-bar_with_gutenberg-remove',
+            'type'  => 'button',
+            'text'  => __('Remove Gutenberg Design', 'notificationx'),
+            'rules' => Rules::logicalRule([
+                Rules::is('gutenberg_id', false, true),
+                Rules::is('is_gutenberg', true),
+                Rules::is('source', $this->id),
+            ]),
+            'ajax'    => [
+                'on'   => 'click',
+                'api'  => '/notificationx/v1/gutenberg/remove',
+                'data' => [
+                    'gutenberg_id' => '@gutenberg_id',
+                ],
+                'hideSwal' => true,
+            ],
+            'trigger' => [
+                [
+                    'type'   => 'setFieldValue',
+                    'action' => [
+                        'gutenberg_id' => false,
+                        'gutenberg_edit_link' => '',
+                        'is_gb_confirmed' => false,
+                        'themes' => 'press_bar_theme-one',
+                    ]
+                ],
+            ],
+        ];
+
+        $fields['themes']['fields'][] = [
+            'name'   => 'nx-bar_with_gutenberg',
+            'type'   => 'modal',
+            'button' => [
+                'name' => 'build_with_gutenberg',
+                'text' => __('Build With Gutenberg', 'notificationx'),
+                'trigger' => [
+                    [
+                        'type'   => 'setFieldValue',
+                        'action' => [
+                            'import_gutenberg_theme' => false
+                        ]
+                    ],
+                ],
+            ],
+            'confirm_button' => [
+                'type'   => 'button',
+                'name'   => 'import_gutenberg_theme',
+                'group'  => true,
+                'fields' => [
+                    [
+                        'type'    => 'button',
+                        'name'    => 'import_gutenberg_theme',
+                        "default" => false,
+                        'text'    => [
+                            'normal'  => __('Import', 'notificationx'),
+                            'saved'   => __('Import', 'notificationx'),
+                            'loading' => __('Importing...', 'notificationx'),
+                        ],
+                        'ajax'    => [
+                            'on'   => 'click',
+                            'api'  => '/notificationx/v1/gutenberg/import',
+                            'data' => [
+                                'theme_id' => '@gutenberg_bar_theme',
+                            ],
+                            'trigger' => '@is_gb_confirmed:true',
+                            'hideSwal' => true,
+                        ],
+                        'rules' => Rules::is('is_gb_confirmed', true, true),
+                    ],
+                    [
+                        'type'    => 'button',
+                        'name'    => 'import_gutenberg_theme_next',
+                        "default" => false,
+                        'text'    => __('Next', 'notificationx'),
+                        'rules'   => Rules::is('is_gb_confirmed', true),
+                        'trigger' => [
+                            [
+                                'type'   => 'setContext',
+                                'action' => [
+                                    'config.active' => 'display_tab'
+                                ]
+                            ],
+                            [
+                                'type'   => 'setFieldValue',
+                                'action' => [
+                                    'import_gutenberg_theme_next' => true
+                                ]
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'cancel' => "import_gutenberg_theme_next",
+            'body'   => [
+                'header' => __('Choose Your ', 'notificationx'),
+                'fields' => [
+                    'themes' => [
+                        'type'  => 'radio-card',
+                        'name'  => "gutenberg_bar_theme",
+                        'style' => [
+                            'label' => [
+                                'position' => 'top'
+                            ]
+                        ],
+                        'rules'   => Rules::is('is_gb_confirmed', true, true),
+                        'default' => 'theme-one',
+                        'options' => $this->bar_themes,
+                    ],
+                    'test' => [
+                        'name'    => 'builder_modal_message',
+                        'type'    => 'message',
+                        'message' => 'Hello World',
+                        'rules'   => Rules::is('is_gb_confirmed', true)
+                    ]
+                ],
+            ],
+            'rules'  => Rules::logicalRule([
+                Rules::is('elementor_id', false),
+                Rules::is('gutenberg_id', false),
+                Rules::is('is_gutenberg', true),
+                Rules::is('is_gb_confirmed', true, true),
+                Rules::is('source', $this->id)
+            ]),
+        ];
+        $fields['themes']['fields'][] = [
+            'name'    => 'is_gutenberg',
+            'type'    => 'hidden',
+            'default' => true,
+            'rules'   => Rules::is('source', $this->id),
+        ];
+        $fields['themes']['fields'][] = [
+            'name'    => 'gutenberg_id',
+            'type'    => 'hidden',
+            'default' => false,
+            'rules'   => Rules::is('source', $this->id),
+        ];
+        $fields['themes']['fields'][] = [
+            'type'    => 'hidden',
+            'name'    => 'is_gb_confirmed',
+            'default' => false
+        ];
+
         return $fields;
     }
 
@@ -500,8 +663,8 @@ class PressBar extends Extension {
         $conversion_position = &$_fields['position']['options'];
 
         $_fields['size']         = Rules::is('source', $this->id, true, $_fields['size']);
-        $conversion_position['bottom_left']  = Rules::is('source', 'press_bar', true, $conversion_position['bottom_left']);
-        $conversion_position['bottom_right'] = Rules::is('source', 'press_bar', true, $conversion_position['bottom_right']);
+        $conversion_position['bottom_left']  = Rules::is('source', $this->id, true, $conversion_position['bottom_left']);
+        $conversion_position['bottom_right'] = Rules::is('source', $this->id, true, $conversion_position['bottom_right']);
 
         if (isset($fields['sound_section'])) {
             $fields['sound_section'] = Rules::includes('source', $this->id, true, $fields['sound_section']);
@@ -510,12 +673,12 @@ class PressBar extends Extension {
         $conversion_position['top'] = [
             'label' => __('Top', 'notificationx'),
             'value' => 'top',
-            'rules' => Rules::is('source', 'press_bar'),
+            'rules' => Rules::is('source', $this->id),
         ];
         $conversion_position['bottom'] = [
             'label' => __('Bottom', 'notificationx'),
             'value' => 'bottom',
-            'rules' => Rules::is('source', 'press_bar'),
+            'rules' => Rules::is('source', $this->id),
         ];
 
         $_fields['sticky_bar'] = [
@@ -525,7 +688,7 @@ class PressBar extends Extension {
             'default'     => 0,
             'priority'    => 60,
             'description' => __('If checked, this will fixed Notification Bar at top or bottom.', 'notificationx'),
-            'rules'       => Rules::is('source', 'press_bar'),
+            'rules'       => Rules::is('source', $this->id),
         ];
 
         $_fields['pressbar_body'] = [
@@ -535,13 +698,13 @@ class PressBar extends Extension {
             'default'     => 0,
             'priority'    => 61,
             'description' => __('Show Notification Bar overlapping content instead of pushing.', 'notificationx'),
-            'rules'       => Rules::is('source', 'press_bar'),
+            'rules'       => Rules::is('source', $this->id),
         ];
 
         //
-        $fields["timing"]['fields']['delay_before']  = Rules::is('source', 'press_bar', true, $fields["timing"]['fields']['delay_before']);
-        $fields["timing"]['fields']['display_for']   = Rules::is('source', 'press_bar', true, $fields["timing"]['fields']['display_for']);
-        $fields["timing"]['fields']['delay_between'] = Rules::is('source', 'press_bar', true, $fields["timing"]['fields']['delay_between']);
+        $fields["timing"]['fields']['delay_before']  = Rules::is('source', $this->id, true, $fields["timing"]['fields']['delay_before']);
+        $fields["timing"]['fields']['display_for']   = Rules::is('source', $this->id, true, $fields["timing"]['fields']['display_for']);
+        $fields["timing"]['fields']['delay_between'] = Rules::is('source', $this->id, true, $fields["timing"]['fields']['delay_between']);
 
         $fields["timing"]['fields']['initial_delay'] = [
             'label'       => __("Initial Delay", 'notificationx'),
@@ -551,7 +714,7 @@ class PressBar extends Extension {
             'default'     => 5,
             'help'        => __('Initial Delay', 'notificationx'),
             'description' => __('seconds', 'notificationx'),
-            'rules'       => Rules::is('source', 'press_bar'),
+            'rules'       => Rules::is('source', $this->id),
         ];
 
         $fields["timing"]['fields']['auto_hide'] = [
@@ -561,7 +724,7 @@ class PressBar extends Extension {
             'priority'    => 50,
             'default'     => false,
             'description' => __('If checked, notification bar will be hidden after the time set below.', 'notificationx'),
-            'rules'       => Rules::is('source', 'press_bar'),
+            'rules'       => Rules::is('source', $this->id),
         ];
 
         $fields["timing"]['fields']['hide_after'] = [
@@ -573,16 +736,19 @@ class PressBar extends Extension {
             'description' => __('seconds', 'notificationx'),
             'help'        => __('Hide after 60 seconds', 'notificationx'),
             'rules'       => ['is', 'auto_hide', true],
-            // 'rules'       => Rules::is('source', 'press_bar'),
+            // 'rules'       => Rules::is('source', $this->id),
         ];
 
 
-        $fields["behaviour"]['fields']['display_last'] = Rules::is('source', 'press_bar', true, $fields["behaviour"]['fields']['display_last']);
-        $fields["behaviour"]['fields']['display_from'] = Rules::is('source', 'press_bar', true, $fields["behaviour"]['fields']['display_from']);
-        $fields["behaviour"]['fields']['loop']         = Rules::is('source', 'press_bar', true, $fields["behaviour"]['fields']['loop']);
+        $fields["behaviour"]['fields']['display_last'] = Rules::is('source', $this->id, true, $fields["behaviour"]['fields']['display_last']);
+        $fields["behaviour"]['fields']['display_from'] = Rules::is('source', $this->id, true, $fields["behaviour"]['fields']['display_from']);
+        $fields["behaviour"]['fields']['loop']         = Rules::is('source', $this->id, true, $fields["behaviour"]['fields']['loop']);
         $fields["behaviour"] = Rules::logicalRule([
-            Rules::isOfType('elementor_id', 'number', true),
-            Rules::is('source', 'press_bar', true),
+            Rules::logicalRule([
+                Rules::isOfType('elementor_id', 'number', true),
+                Rules::isOfType('gutenberg_id', 'number', true),
+            ], 'and'),
+            Rules::is('source', $this->id, true),
         ], 'or', $fields["behaviour"]);
         //Rules::isOfType('elementor_id', 'number', true, $fields["behaviour"]);
 
@@ -611,7 +777,10 @@ class PressBar extends Extension {
 
     public function nx_delete_post($postid, $post) {
         $elementor_id = isset($post['elementor_id']) ? $post['elementor_id'] : false;
+        $gutenberg_id = isset($post['gutenberg_id']) ? $post['gutenberg_id'] : false;
+
         $this->delete_elementor_post($elementor_id);
+        $this->gutenberg_remove($gutenberg_id);
     }
 
     public function delete_elementor_post($elementor_id) {
@@ -852,14 +1021,25 @@ class PressBar extends Extension {
             ]),
         );
 
-        $fields["content"]['fields']['template_adv']      = Rules::is('source', 'press_bar', true, $fields["content"]['fields']['template_adv']);
-        $fields["content"]['fields']['advanced_template'] = Rules::is('source', 'press_bar', true, $fields["content"]['fields']['advanced_template']);
+        $fields["content"]['fields']['template_adv']      = Rules::is('source', $this->id, true, $fields["content"]['fields']['template_adv']);
+        $fields["content"]['fields']['advanced_template'] = Rules::is('source', $this->id, true, $fields["content"]['fields']['advanced_template']);
         $fields["content"]                                = Rules::logicalRule([
-            Rules::isOfType('elementor_id', 'number', true),
+            Rules::logicalRule([
+                Rules::isOfType('elementor_id', 'number', true),
+                Rules::isOfType('gutenberg_id', 'number', true),
+            ], 'and'),
             Rules::is('source', $this->id, true),
         ], 'or', $fields["content"]);
 
         $fields['content']['fields']['random_order'] = Rules::is('source', $this->id, true, $fields["content"]['fields']['random_order']);
+        $fields['utm_options'] = Rules::logicalRule([
+            Rules::logicalRule([
+                Rules::isOfType('elementor_id', 'number', true),
+                Rules::isOfType('gutenberg_id', 'number', true),
+            ], 'and'),
+            Rules::is('source', $this->id, true),
+        ], 'or', $fields['utm_options']);
+
 
         return $fields;
     }
@@ -867,16 +1047,23 @@ class PressBar extends Extension {
     public function print_bar_notice($settings, $is_shortcode = false) {
         $settings = new GetData($settings, \ArrayObject::ARRAY_AS_PROPS);
         $elementor_post_id = isset($settings->elementor_id) ? $settings->elementor_id : '';
+        $gb_post_id = isset($settings->gutenberg_id) ? $settings->gutenberg_id : '';
+
         if ($elementor_post_id != '' && get_post_status($elementor_post_id) === 'publish' && class_exists('\Elementor\Plugin')) {
             $elementor_post_id = apply_filters( 'wpml_object_id', $elementor_post_id, 'nx_bar', true);
             return \Elementor\Plugin::$instance->frontend->get_builder_content_for_display($elementor_post_id, false);
+        } else if (!empty($gb_post_id) && get_post_status($gb_post_id) === 'publish') {
+            $gb_post_id = apply_filters( 'wpml_object_id', $gb_post_id, 'wp_block', true);
+            $post       = get_post($gb_post_id);
+            $content    = $post->post_content;
+            return do_blocks($content);
         } else {
             return !empty($settings->press_content) ? do_shortcode($settings->press_content) : '';
         }
     }
 
     public function hide_image_field($fields) {
-        $fields['image-section'] = Rules::is('source', 'press_bar', true, $fields['image-section']);
+        $fields['image-section'] = Rules::is('source', $this->id, true, $fields['image-section']);
         return $fields;
     }
 
@@ -905,6 +1092,69 @@ class PressBar extends Extension {
             }
         }
         return $post;
+    }
+
+    public function gutenberg_import($params) {
+        // Get the JSON file content
+        $json_file = file_get_contents(__DIR__ . "/jsons-gb/" . $params['theme_id'] . '.json');
+
+        // Decode the JSON content into an array
+        $pattern_data = json_decode($json_file, true);
+
+        // Get the sync status from the pattern data
+        $sync_status = $pattern_data['syncStatus'];
+
+        // Create an array of arguments for the wp_block post
+        $post_args = array(
+            'post_title'   => $pattern_data['title'],     // use the pattern title as the post title
+            'post_content' => $pattern_data['content'],   // use the pattern content as the post content
+            'post_status'  => 'publish',                  // set the post status to publish
+            'post_type'    => 'wp_block',                 // set the post type to wp_block
+        );
+
+        // Insert the wp_block post
+        $post_id = wp_insert_post($post_args);
+
+
+        // Check for errors
+        if ($post_id && !is_wp_error($post_id)) {
+            // Display the error message
+            if (!empty($sync_status)) {
+                update_post_meta($post_id, 'wp_pattern_sync_status', $sync_status);
+            }
+            // Display a success message
+            return [
+                'success' => true,
+                'data' => [
+                    'context' => [
+                        'themes'              => null,
+                        'gutenberg_id'        => $post_id,
+                        'gutenberg_edit_link' => get_edit_post_link($post_id, 'link'),
+                    ],
+                ],
+            ];
+        } else {
+            return [
+                'success' => true,
+                'data'    => 'failed',
+            ];
+        }
+    }
+
+    public function gutenberg_remove($pid){
+        if(!empty($pid)){
+            $languages = apply_filters( 'wpml_active_languages', NULL );
+            if(is_array($languages)){
+                foreach ($languages as $lang => $val) {
+                    $wpml_pid = apply_filters( 'wpml_object_id', $pid, 'wp_block', false, $lang);
+                    if($wpml_pid){
+                        wp_delete_post($wpml_pid, true);
+                    }
+                }
+                return;
+            }
+            wp_delete_post($pid, true);
+        }
     }
 
     public function doc() {
