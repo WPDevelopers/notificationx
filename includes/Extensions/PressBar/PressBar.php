@@ -36,6 +36,10 @@ class PressBar extends Extension {
     public $module_priority = 1;
     public $default_theme   = 'press_bar_theme-one';
     public $bar_themes;
+    public $block_themes;
+    public $block_scripts = [];
+    public $block_styles = [];
+
     /**
      * Initially Invoked when initialized.
      */
@@ -104,6 +108,29 @@ class PressBar extends Extension {
                 "title"  => "Theme Five - Cookies Layout",
             ],
         );
+        $this->block_themes = array(
+            'theme-one'   => [
+                'label'  => 'theme-one',
+                'value'  => 'theme-one',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-elementor/theme-one.jpg',
+                'column' => '12',
+                "title"  => "Nx Theme One",
+            ],
+            'theme-two'   => [
+                'label'  => 'theme-two',
+                'value'  => 'theme-two',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-elementor/theme-two.jpg',
+                'column' => '12',
+                "title"  => "Nx Theme Two",
+            ],
+            'theme-three' => [
+                'label'  => 'theme-three',
+                'value'  => 'theme-three',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-elementor/theme-three.jpg',
+                'column' => '12',
+                "title"  => "Nx Theme Three",
+            ],
+        );
     }
 
     public function init() {
@@ -111,6 +138,7 @@ class PressBar extends Extension {
         add_filter("nx_theme_preview_{$this->id}", [$this, 'theme_preview'], 10, 2);
         add_filter("nx_get_post", [$this, 'nx_get_post'], 9);
         add_filter("nx_delete_post", [$this, 'nx_delete_post'], 10, 2);
+        add_filter("nx_filtered_post", [$this, 'add_scripts'], 10, 2);
     }
 
     /**
@@ -611,7 +639,7 @@ class PressBar extends Extension {
                         ],
                         'rules'   => Rules::is('is_gb_confirmed', true, true),
                         'default' => 'theme-one',
-                        'options' => $this->bar_themes,
+                        'options' => $this->block_themes,
                     ],
                     'test' => [
                         'name'    => 'builder_modal_message',
@@ -1056,10 +1084,41 @@ class PressBar extends Extension {
             $gb_post_id = apply_filters( 'wpml_object_id', $gb_post_id, 'wp_block', true);
             $post       = get_post($gb_post_id);
             $content    = $post->post_content;
+
+            add_filter('render_block', function($block_content, $parsed_block, $wp_block){
+
+                if ( ( ! empty( $wp_block->block_type->script_handles ) ) ) {
+                    foreach ( $wp_block->block_type->script_handles as $script_handle ) {
+                        $this->block_scripts[] = $script_handle;
+                    }
+                }
+
+                if ( ! empty( $wp_block->block_type->view_script_handles ) ) {
+                    foreach ( $wp_block->block_type->view_script_handles as $view_script_handle ) {
+                        $this->block_scripts[] = $script_handle;
+                    }
+                }
+
+                if ( ( ! empty( $wp_block->block_type->style_handles ) ) ) {
+                    foreach ( $wp_block->block_type->style_handles as $style_handle ) {
+                        $this->block_styles[] = $style_handle;
+                    }
+                }
+                return $block_content;
+            }, 10, 3);
+
             return do_blocks($content);
         } else {
             return !empty($settings->press_content) ? do_shortcode($settings->press_content) : '';
         }
+    }
+
+    public function add_scripts($settings, $params){
+        // $this->block_scripts
+        // $this->block_styles
+        $settings['press_bar_scripts'] = $this->block_scripts;
+        $settings['press_bar_styles']  = $this->block_styles;
+        return $settings;
     }
 
     public function hide_image_field($fields) {
