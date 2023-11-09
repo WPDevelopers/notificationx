@@ -22,6 +22,7 @@ class SureCart extends Extension {
     public $id              = 'surecart';
     public $doc_link        = 'https://notificationx.com/docs/surecart-sales-notifications/';
     public $types           = 'conversions';
+    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/surecart.png';
     public $module          = 'modules_surecart';
     public $module_priority = 35;
     public $class           = '\SureCart';
