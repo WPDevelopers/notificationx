@@ -185,6 +185,48 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         };
     }, [])
 
+    useEffect(() => {
+        // console.log(settings.press_bar_scripts);
+
+        let range = document.createRange();
+        range.selectNode(document.body); // required in some browsers
+        let fragment = range.createContextualFragment(settings.press_bar_scripts.replace(/\n/g, ''));
+
+        let newFragment = document.createDocumentFragment();
+        Array.from(fragment.childNodes).forEach((node: ChildNode) => {
+            if(node.nodeName === 'SCRIPT' || node.nodeName === 'STYLE' || node.nodeName === 'LINK') {
+                let id = (node as Element).getAttribute('id');
+                // Check if a node with the same id already exists in the document
+                if(!document.getElementById(id)) {
+                    console.log('Added', id, node);
+                    let newNode = document.createElement(node.nodeName.toLowerCase());
+                    newNode.innerHTML = (node as Element).innerHTML;
+                    Array.from((node as Element).attributes).forEach(attr => newNode.setAttribute(attr.name, attr.value));
+                    newFragment.appendChild(newNode);
+                }
+                else{
+                    console.log('already exists', id);
+                }
+            }
+            else{
+                console.log('already exists', node.nodeName, node.nodeValue);
+            }
+        });
+
+        console.log(newFragment);
+
+        document.body.appendChild(newFragment);
+
+        setTimeout(() => {
+            document.dispatchEvent(new Event('DOMContentLoaded'));
+        }, 110);
+
+      return () => {
+
+      }
+    }, []);
+
+
 
     // debugger;
     if (settings?.elementor_id) {

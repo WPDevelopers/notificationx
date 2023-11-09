@@ -168,7 +168,7 @@ class PressBar extends Extension {
         parent::init_fields();
         add_filter('nx_design_tab_fields', [$this, 'design_tab_fields']);
         add_filter('nx_customize_fields', [$this, 'customize_fields']);
-        add_filter('nx_content_fields', [$this, 'content_fields']);
+        add_filter('nx_content_fields', [$this, 'content_fields'], 22);
         add_filter('nx_display_fields', [$this, 'hide_image_field']);
         add_filter('nx_source_trigger', [$this, '_source_trigger'], 20);
     }
@@ -1060,14 +1060,6 @@ class PressBar extends Extension {
         ], 'or', $fields["content"]);
 
         $fields['content']['fields']['random_order'] = Rules::is('source', $this->id, true, $fields["content"]['fields']['random_order']);
-        $fields['utm_options'] = Rules::logicalRule([
-            Rules::logicalRule([
-                Rules::isOfType('elementor_id', 'number', true),
-                Rules::isOfType('gutenberg_id', 'number', true),
-            ], 'and'),
-            Rules::is('source', $this->id, true),
-        ], 'or', $fields['utm_options']);
-
 
         return $fields;
     }
@@ -1080,34 +1072,63 @@ class PressBar extends Extension {
         if ($elementor_post_id != '' && get_post_status($elementor_post_id) === 'publish' && class_exists('\Elementor\Plugin')) {
             $elementor_post_id = apply_filters( 'wpml_object_id', $elementor_post_id, 'nx_bar', true);
             return \Elementor\Plugin::$instance->frontend->get_builder_content_for_display($elementor_post_id, false);
-        } else if (!empty($gb_post_id) && get_post_status($gb_post_id) === 'publish') {
+        } else if (!empty($gb_post_id)) {
             $gb_post_id = apply_filters( 'wpml_object_id', $gb_post_id, 'wp_block', true);
             $post       = get_post($gb_post_id);
             $content    = $post->post_content;
 
-            add_filter('render_block', function($block_content, $parsed_block, $wp_block){
+            // add_filter('render_block', function($block_content, $parsed_block, $wp_block){
 
-                if ( ( ! empty( $wp_block->block_type->script_handles ) ) ) {
-                    foreach ( $wp_block->block_type->script_handles as $script_handle ) {
-                        $this->block_scripts[] = $script_handle;
-                    }
-                }
+            //     if ( ( ! empty( $wp_block->block_type->script_handles ) ) ) {
+            //         foreach ( $wp_block->block_type->script_handles as $script_handle ) {
+            //             $this->block_scripts[] = $script_handle;
+            //         }
+            //     }
 
-                if ( ! empty( $wp_block->block_type->view_script_handles ) ) {
-                    foreach ( $wp_block->block_type->view_script_handles as $view_script_handle ) {
-                        $this->block_scripts[] = $script_handle;
-                    }
-                }
+            //     if ( ! empty( $wp_block->block_type->view_script_handles ) ) {
+            //         foreach ( $wp_block->block_type->view_script_handles as $view_script_handle ) {
+            //             $this->block_scripts[] = $script_handle;
+            //         }
+            //     }
 
-                if ( ( ! empty( $wp_block->block_type->style_handles ) ) ) {
-                    foreach ( $wp_block->block_type->style_handles as $style_handle ) {
-                        $this->block_styles[] = $style_handle;
-                    }
-                }
-                return $block_content;
-            }, 10, 3);
+            //     if ( ( ! empty( $wp_block->block_type->style_handles ) ) ) {
+            //         foreach ( $wp_block->block_type->style_handles as $style_handle ) {
+            //             $this->block_styles[] = $style_handle;
+            //         }
+            //     }
+            //     return $block_content;
+            // }, 10, 3);
 
-            return do_blocks($content);
+            $wp_styles      = wp_styles();
+            $wp_scripts     = wp_scripts();
+
+            $before_styles  = $wp_styles->queue;
+            $before_scripts = $wp_scripts->queue;
+
+            do_action('wp_enqueue_scripts');
+            // wp_send_json($wp_styles);
+            $content        = do_blocks($content);
+
+            $after_styles  = $wp_styles->queue;
+            $after_scripts = $wp_scripts->queue;
+
+            $scripts       = array_diff($after_scripts, $before_scripts);
+            $styles        = array_diff($after_styles, $before_styles);
+
+            // ob_start();
+            // foreach ($scripts as $key => $value) {
+            //     // $this->block_scripts[] = $wp_scripts->registered[$value];
+            //     ob_start();
+            //     wp_print_scripts([$value]);
+            //     $this->block_scripts[$value] = ob_get_clean();
+            // }
+
+            ob_start();
+            wp_print_styles($wp_styles->queue);
+            wp_print_scripts($wp_scripts->queue);
+            $this->block_scripts = ob_get_clean();
+
+            return $content;
         } else {
             return !empty($settings->press_content) ? do_shortcode($settings->press_content) : '';
         }
@@ -1167,7 +1188,7 @@ class PressBar extends Extension {
         $post_args = array(
             'post_title'   => $pattern_data['title'],     // use the pattern title as the post title
             'post_content' => $pattern_data['content'],   // use the pattern content as the post content
-            'post_status'  => 'publish',                  // set the post status to publish
+            'post_status'  => 'private',                  // set the post status to publish
             'post_type'    => 'wp_block',                 // set the post type to wp_block
         );
 
