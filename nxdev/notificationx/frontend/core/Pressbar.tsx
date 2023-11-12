@@ -185,44 +185,57 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         };
     }, [])
 
+
+    /**
+     * Load the asset files for a block
+     */
+    async function LoadAssets(data) {
+        const doc = new window.DOMParser().parseFromString( data, 'text/html' );
+
+        const newAssets = Array.from(
+            doc.querySelectorAll( 'link[rel="stylesheet"],style,script' )
+        ).filter( ( asset ) => asset.id && ! document.getElementById( asset.id ) );
+
+        /*
+        * Load each asset in order, as they may depend upon an earlier loaded script.
+        * Stylesheets and Inline Scripts will resolve immediately upon insertion.
+        */
+        for ( const newAsset of newAssets ) {
+            await LoadAsset( newAsset );
+        }
+    }
+
     useEffect(() => {
-        // console.log(settings.press_bar_scripts);
+        if(typeof settings.press_bar_scripts !== 'string'){
+            return;
+        }
 
-        let range = document.createRange();
-        range.selectNode(document.body); // required in some browsers
-        let fragment = range.createContextualFragment(settings.press_bar_scripts.replace(/\n/g, ''));
+        const originalAddEventListener = document.addEventListener;
 
-        let newFragment = document.createDocumentFragment();
-        Array.from(fragment.childNodes).forEach((node: ChildNode) => {
-            if(node.nodeName === 'SCRIPT' || node.nodeName === 'STYLE' || node.nodeName === 'LINK') {
-                let id = (node as Element).getAttribute('id');
-                // Check if a node with the same id already exists in the document
-                if(!document.getElementById(id)) {
-                    console.log('Added', id, node);
-                    let newNode = document.createElement(node.nodeName.toLowerCase());
-                    newNode.innerHTML = (node as Element).innerHTML;
-                    Array.from((node as Element).attributes).forEach(attr => newNode.setAttribute(attr.name, attr.value));
-                    newFragment.appendChild(newNode);
-                }
-                else{
-                    console.log('already exists', id);
+        document.addEventListener = function(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions, ...args: any[]) {
+            if(type === 'DOMContentLoaded'){
+                // Do your custom stuff here
+                // check if the callback is a function
+                if (typeof listener === 'function') {
+                    // create a dummy Event object
+                    let event = new Event(args[0]);
+                    // call the callback function with the Event object
+                    listener(event);
+                } else if (typeof listener === 'object' && listener !== null && 'handleEvent' in listener) {
+                    // create a dummy Event object
+                    let event = new Event(args[0]);
+                    // call the handleEvent method of the callback object with the Event object
+                    listener.handleEvent(event);
                 }
             }
-            else{
-                console.log('already exists', node.nodeName, node.nodeValue);
-            }
-        });
 
-        console.log(newFragment);
+            originalAddEventListener.apply(document, [type, listener, options, ...args]);
+        };
 
-        document.body.appendChild(newFragment);
-
-        setTimeout(() => {
-            document.dispatchEvent(new Event('DOMContentLoaded'));
-        }, 110);
+        LoadAssets(settings.press_bar_scripts);
 
       return () => {
-
+        document.addEventListener = originalAddEventListener;
       }
     }, []);
 
@@ -394,3 +407,49 @@ const countdown = ({ currentTime, expiredTime }) => {
 };
 
 export default Pressbar;
+
+
+
+/**
+ * Load an asset for a block.
+ *
+ * This function returns a Promise that will resolve once the asset is loaded,
+ * or in the case of Stylesheets and Inline JavaScript, will resolve immediately.
+ *
+ * @param {HTMLElement} el A HTML Element asset to inject.
+ *
+ * @return {Promise} Promise which will resolve when the asset is loaded.
+ */
+export const LoadAsset = ( el ) => {
+	return new Promise<boolean | void>( ( resolve, reject ) => {
+		/*
+		 * Reconstruct the passed element, this is required as inserting the Node directly
+		 * won't always fire the required onload events, even if the asset wasn't already loaded.
+		 */
+		const newNode = document.createElement( el.nodeName );
+
+		[ 'id', 'rel', 'src', 'href', 'type' ].forEach( ( attr ) => {
+			if ( el[ attr ] ) {
+				newNode[ attr ] = el[ attr ];
+			}
+		} );
+
+		// Append inline <script> contents.
+		if ( el.innerHTML ) {
+			newNode.appendChild( document.createTextNode( el.innerHTML ) );
+		}
+
+		newNode.onload = () => resolve( true );
+		newNode.onerror = () => reject( new Error( 'Error loading asset.' ) );
+
+		document.body.appendChild( newNode );
+
+		// Resolve Stylesheets and Inline JavaScript immediately.
+		if (
+			'link' === newNode.nodeName.toLowerCase() ||
+			( 'script' === newNode.nodeName.toLowerCase() && ! newNode.src )
+		) {
+			resolve();
+		}
+	} );
+};
