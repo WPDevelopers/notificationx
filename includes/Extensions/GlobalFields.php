@@ -687,8 +687,8 @@ class GlobalFields {
                                     'multiple' => true,
                                     'is_pro'   => true,
                                     'priority' => 99.6,
-                                    'default'  => ['processing','fulfilled'],
-                                    'help'     => __("By default it will show Processing & Fulfilled status."),
+                                    'default'  => ['processing'],
+                                    'help'     => __("By default it will show Processing status."),
                                     'options'  => apply_filters('nx_surecart_order_status', []),
                                     'rules'    => Rules::logicalRule([
                                         Rules::includes('source', ["surecart"]),

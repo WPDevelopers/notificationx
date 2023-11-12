@@ -18,7 +18,7 @@ use NotificationX\Core\Helper;
  */
 class SureCart extends Extension {
     use GetInstance;
-    public $priority        = 30;
+    public $priority        = 8;
     public $id              = 'surecart';
     public $doc_link        = 'https://notificationx.com/docs/surecart-sales-notifications/';
     public $types           = 'conversions';
