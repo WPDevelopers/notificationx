@@ -39,6 +39,8 @@ class SureCart extends Extension {
     public function init(){
         parent::init();
         add_action('surecart/checkout_confirmed', array( $this, 'save_new_records'), 10, 2);
+        add_filter('surecart/models/fulfillment/created', [$this, 'status_transition'], 10, 2);
+        add_filter('surecart/models/fulfillment/updated', [$this, 'status_transition'], 10, 2);
     }
 
     public function init_fields(){
@@ -48,6 +50,7 @@ class SureCart extends Extension {
         add_filter("nx_notification_link_{$this->id}", [$this, 'product_link'], 10, 3);
         add_filter('nx_conversion_category_list', [$this, 'collections']);
         add_filter('nx_conversion_product_list', [$this, 'product_lists']);
+        
     }
 
     /**
@@ -57,6 +60,7 @@ class SureCart extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
+        add_filter("nx_can_entry_{$this->id}", array($this, 'check_order_status'), 10, 3);
     }
 
     public function public_actions(){
@@ -64,6 +68,13 @@ class SureCart extends Extension {
     }
 
 
+    public function check_order_status($return, $entry, $settings){
+        $done     = !empty($settings['surecart_order_status']) ? $settings['surecart_order_status'] : ['processing'];
+        if( ( !empty( $entry['data']['status'] ) && in_array($entry['data']['status'], $done ) ) || ( !empty( $entry['data']['fulfillment_status'] ) && in_array($entry['data']['fulfillment_status'], $done ) ) || ( !empty( $entry['data']['shipment_status'] ) && in_array($entry['data']['shipment_status'], $done ) ) ){
+            return $return;
+        }
+        return false;
+    }
 
     public function product_lists($products) {
         $all_products = \SureCart\Models\Product::get();
@@ -232,6 +243,74 @@ class SureCart extends Extension {
         }
     }
 
+    public function status_transition($data) {
+        $orders = Entries::get_instance()->get_entries(['entry_key' => $data['order'] ] );
+        if( !empty( $orders ) && count( $orders ) > 0 ) {
+            $entries = [];
+            foreach ( $orders as $order ) {
+                $update_data = !empty( $order) ? $order : [];
+                if( empty( $order ) || (empty( $data['object'] ) ) ) {
+                    return $data;
+                }
+                $update_data['fulfillment_status'] = 'fulfilled';
+                $update_data['shipment_status'] = $data['shipment_status'];
+                unset($update_data['entry_id']);
+                unset($update_data['nx_id']);
+                unset($update_data['source']);
+                unset($update_data['entry_key']);
+                unset($update_data['created_at']);
+                unset($update_data['updated_at']);
+                $entries[] = [
+                    'nx_id'      => $order['nx_id'],
+                    'source'     => $this->id,
+                    'entry_key'  => $order['order'],
+                    'data'       => $update_data,
+                    'updated_at' => Helper::mysql_time($data['updated_at']),
+                ];
+            }
+            $this->delete_notification($order['order'], $order['nx_id']);
+            $this->update_notifications($entries);
+        }else{
+            $get_orders = \SureCart\Models\Order::where( [ 'order_ids' => [ $data['order'] ] ])->with( [ 'checkout', 'checkout.charge', 'checkout.customer','checkout.line_items','line_item.price','price.product','checkout.shipping_address','checkout.billing_address','product.collection' ] )->paginate( [ 'per_page' => 1 ] );
+            if( count( $get_orders->data ) > 0 ) { 
+                foreach ($get_orders->data as $order) {
+                    foreach ($order->checkout->line_items->data as $product) {
+                        $make_orders = [];
+                        if( !empty( $order->fulfillment_status ) ) {
+                            $make_orders['fulfillment_status'] = $order->fulfillment_status;
+                        }
+                        if( !empty( $order->shipment_status ) ) {
+                            $make_orders['shipment_status'] = $order->shipment_status;
+                        }
+                        if( !empty( $order->status ) ) {
+                            $make_orders['status'] = $order->status;
+                        }
+                        if( !empty( $order->checkout->ip_address ) ) {
+                            $make_orders['ip'] = $order->checkout->ip_address;
+                        }
+                        if( !empty( $order->id ) ) {
+                            $make_orders['order'] = $order->id;
+                        }
+                        if( !empty( $order->id ) ) {
+                            $make_orders['updated_at'] = $order->updated_at;
+                        }
+                        if( !empty( $order->id ) ) {
+                            $make_orders['timestamp']  = $order->updated_at;
+                        }
+                        $make_orders = $this->prepare_order_data( $product, $order->checkout->customer, $make_orders, $order->checkout );
+                        $this->save([
+                            'source'    => $this->id,
+                            'entry_key' => $data['order'],
+                            'data'      => $make_orders,
+                            'updated_at'=> Helper::mysql_time($order->updated_at),
+                        ], true );
+                    }
+                }
+            }
+        }
+        return $data;
+    }
+
     public function get_orders( $post = array() ) {
         if( empty( $post ) ) {
             return;
@@ -239,17 +318,7 @@ class SureCart extends Extension {
         $dateFrom = !empty( $post['display_from'] ) ? date('Y-m-d',strtotime('-'.$post['display_from'].' days',time())) : '';
         $dateTo = date('Y-m-d',strtotime('1 days',time()));
         $amount = !empty( $post['display_last'] ) ? $post['display_last'] : 10;
-        $whereQuery = [];
-        if( !empty( array_intersect( $post['surecart_order_status'], [ 'shipped','delivered','not-shipped' ] ) ) ) {
-            $whereQuery['shipment_status'] = $post['surecart_order_status'];
-        }
-        if( !empty( array_intersect( $post['surecart_order_status'], [ 'unfulfilled','fulfilled' ] ) ) ) {
-            $whereQuery['fulfillment_status'] = $post['surecart_order_status'];
-        }
-        if( !empty( array_intersect( $post['surecart_order_status'], ['processing'] ) ) ) {
-            $whereQuery['status'] = $post['surecart_order_status'];
-        }
-        $get_orders = \SureCart\Models\Order::where($whereQuery)->with( [ 'checkout', 'checkout.charge', 'checkout.customer','checkout.line_items','line_item.price','price.product','checkout.shipping_address','checkout.billing_address','product.collection' ] )->paginate( [ 'per_page' => $amount ] );
+        $get_orders = \SureCart\Models\Order::with( [ 'checkout', 'checkout.charge', 'checkout.customer','checkout.line_items','line_item.price','price.product','checkout.shipping_address','checkout.billing_address','product.collection' ] )->paginate( [ 'per_page' => $amount ] );
         $orders = [];
         if( count( $get_orders->data ) > 0 ) {
             foreach ($get_orders->data as $order) {
