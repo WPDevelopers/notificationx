@@ -37,8 +37,6 @@ class PressBar extends Extension {
     public $default_theme   = 'press_bar_theme-one';
     public $bar_themes;
     public $block_themes;
-    public $block_scripts = [];
-    public $block_styles = [];
 
     /**
      * Initially Invoked when initialized.
@@ -161,6 +159,7 @@ class PressBar extends Extension {
         parent::public_actions();
         // add_action('wp_head', [$this, 'print_bar_notice'], 100);
         add_filter("nx_filtered_data_{$this->id}", array($this, 'insert_views'), 11, 3);
+        $this->init_block_scripts();
     }
 
 
@@ -848,6 +847,61 @@ class PressBar extends Extension {
             'supports'            => ['title', 'content', 'author', 'elementor'],
         ];
         register_post_type('nx_bar', $args);
+
+        // $args = [
+        //     'label'               => __('NotificationX Bar', 'notificationx'),
+        //     'public'              => true,
+        //     'show_ui'             => true,
+        //     'rewrite'             => false,
+        //     'menu_icon'           => 'dashicons-admin-page',
+        //     'show_in_menu'        => true,
+        //     'show_in_nav_menus'   => false,
+        //     // 'show_in_rest'        => false,
+        //     'exclude_from_search' => true,
+        //     'capability_type'     => 'post',
+        //     'hierarchical'        => false,
+        //     'supports'            => ['title', 'content', 'author'],
+        // ];
+        // register_post_type('nx_bar_eb', $args);
+
+        register_post_type(
+            'nx_bar_eb',
+            array(
+                'label'              => __('NotificationX Bar', 'notificationx'),
+                'show_in_rest'       => true,
+                'public'             => true,
+                'show_ui'            => true,
+                'show_in_menu'       => false,
+                'show_in_nav_menus'  => false,
+                'rewrite'            => false,
+                'can_export'         => false,
+                // 'publicly_queryable' => false,
+                'template_lock'      => 'block',
+                'rest_base'          => 'NotificationX',
+                'capability_type'    => 'block',
+                // 'rest_controller_class' => 'WP_REST_Blocks_Controller',
+                'capabilities'    => array(
+                    // You need to be able to edit posts, in order to read blocks in their raw form.
+                    'read'                   => 'edit_posts',
+                    // You need to be able to publish posts, in order to create blocks.
+                    'create_posts'           => 'publish_posts',
+                    'edit_posts'             => 'edit_posts',
+                    'edit_published_posts'   => 'edit_published_posts',
+                    'delete_published_posts' => 'delete_published_posts',
+                    // Enables trashing draft posts as well.
+                    'delete_posts'           => 'delete_posts',
+                    'edit_others_posts'      => 'edit_others_posts',
+                    'delete_others_posts'    => 'delete_others_posts',
+                ),
+                'map_meta_cap'          => true,
+                'supports'              => array(
+                    'title',
+                    'editor',
+                    'revisions',
+                    'custom-fields',
+                ),
+            )
+        );
     }
 
     public function convert_to_php_array($array) {
@@ -1076,57 +1130,7 @@ class PressBar extends Extension {
             $gb_post_id = apply_filters( 'wpml_object_id', $gb_post_id, 'wp_block', true);
             $post       = get_post($gb_post_id);
             $content    = $post->post_content;
-
-            // add_filter('render_block', function($block_content, $parsed_block, $wp_block){
-
-            //     if ( ( ! empty( $wp_block->block_type->script_handles ) ) ) {
-            //         foreach ( $wp_block->block_type->script_handles as $script_handle ) {
-            //             $this->block_scripts[] = $script_handle;
-            //         }
-            //     }
-
-            //     if ( ! empty( $wp_block->block_type->view_script_handles ) ) {
-            //         foreach ( $wp_block->block_type->view_script_handles as $view_script_handle ) {
-            //             $this->block_scripts[] = $script_handle;
-            //         }
-            //     }
-
-            //     if ( ( ! empty( $wp_block->block_type->style_handles ) ) ) {
-            //         foreach ( $wp_block->block_type->style_handles as $style_handle ) {
-            //             $this->block_styles[] = $style_handle;
-            //         }
-            //     }
-            //     return $block_content;
-            // }, 10, 3);
-
-            $wp_styles      = wp_styles();
-            $wp_scripts     = wp_scripts();
-
-            $before_styles  = $wp_styles->queue;
-            $before_scripts = $wp_scripts->queue;
-
-            do_action('wp_enqueue_scripts');
-            // wp_send_json($wp_styles);
-            $content        = do_blocks($content);
-
-            $after_styles  = $wp_styles->queue;
-            $after_scripts = $wp_scripts->queue;
-
-            $scripts       = array_diff($after_scripts, $before_scripts);
-            $styles        = array_diff($after_styles, $before_styles);
-
-            // ob_start();
-            // foreach ($scripts as $key => $value) {
-            //     // $this->block_scripts[] = $wp_scripts->registered[$value];
-            //     ob_start();
-            //     wp_print_scripts([$value]);
-            //     $this->block_scripts[$value] = ob_get_clean();
-            // }
-
-            ob_start();
-            wp_print_styles($wp_styles->queue);
-            wp_print_scripts($wp_scripts->queue);
-            $this->block_scripts = ob_get_clean();
+            $content    = do_blocks($content);
 
             return $content;
         } else {
@@ -1135,10 +1139,9 @@ class PressBar extends Extension {
     }
 
     public function add_scripts($settings, $params){
-        // $this->block_scripts
-        // $this->block_styles
-        $settings['press_bar_scripts'] = $this->block_scripts;
-        $settings['press_bar_styles']  = $this->block_styles;
+        if(isset($settings['gutenberg_id'])){
+            $settings['gutenberg_url'] = get_permalink($settings['gutenberg_id']);
+        }
         return $settings;
     }
 
@@ -1186,10 +1189,10 @@ class PressBar extends Extension {
 
         // Create an array of arguments for the wp_block post
         $post_args = array(
-            'post_title'   => $pattern_data['title'],     // use the pattern title as the post title
+            'post_title'   => $pattern_data['title'],      // use the pattern title as the post title
             'post_content' => $pattern_data['content'],   // use the pattern content as the post content
-            'post_status'  => 'private',                  // set the post status to publish
-            'post_type'    => 'wp_block',                 // set the post type to wp_block
+            'post_status'  => 'public',                  // set the post status to publish
+            'post_type'    => 'nx_bar_eb',              // set the post type to wp_block
         );
 
         // Insert the wp_block post
@@ -1218,6 +1221,22 @@ class PressBar extends Extension {
                 'success' => true,
                 'data'    => 'failed',
             ];
+        }
+    }
+
+    public function init_block_scripts(){
+        if(!empty($_GET['nx_gutenberg_id'])){
+
+            $post    = get_post($_GET['nx_gutenberg_id']);
+            if(!empty($post) && $post->post_type == 'nx_bar_eb'){
+                // in case anyone write something from do_blocks
+                ob_start();
+                $content          = $post->post_content;
+                $content          = do_blocks($content);
+                $unwanted_content = ob_get_clean();
+                // no need to echo the content just need to enqueue the scripts
+                echo $content;
+            }
         }
     }
 
