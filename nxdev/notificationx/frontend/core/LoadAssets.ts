@@ -73,12 +73,8 @@ export async function loadAssets(gutenberg_url) {
 	const newAssets = Array.from(
 		doc.querySelectorAll( 'link[rel="stylesheet"],style,script' )
 	).filter( ( asset ) => {
-        document.getElementById( asset.id ) && console.log(asset.id, document.getElementById( asset.id ));
         return asset.id && ! document.getElementById( asset.id );
     } );
-        console.log(doc.querySelectorAll( 'link[rel="stylesheet"],style,script' ));
-        console.log(newAssets);
-        console.log(doc);
 
 	/*
 	 * Load each asset in order, as they may depend upon an earlier loaded script.

@@ -21,6 +21,8 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     let innerContent;
     // @todo isShortcode
     const isShortcode = false;
+    let elementorRef = useRef();
+    const frontendContext = useNotificationContext();
     const target = usePortal(`nx-bar-${position}`, position == 'top');
     const { config: settings, data: content } = nxBar;
     const [timeConfig, setTimeConfig] = useState<timeConfig>({ days: '00', hours: '00', minutes: '00', seconds: '00', expired: false });
@@ -28,8 +30,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     const [styles, setStyles] = useState<{ [key: string]: any }>({});
     const [closed, setClosed] = useState(false);
     const [isTimeBetween,setIsTimeBetween] = useState(false);
-    let elementorRef = useRef();
-    const frontendContext = useNotificationContext();
+    const [isLoading, setIsLoading] = useState(settings.is_gutenberg && settings.gutenberg_id);
 
     const consentCallback = useCallback( (event) => {
         setClosed(true);
@@ -90,6 +91,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     }, [timeConfig.expired])
 
     useEffect(() => {
+        if(isLoading) return;
         let countdownInterval;
         if (settings?.enable_countdown) {
             countdownInterval = setInterval(function () {
@@ -184,12 +186,13 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                 document.body.style.paddingBottom = null;
             }
         };
-    }, [])
+    }, [isLoading])
 
     useEffect(() => {
         if(!settings.is_gutenberg || !settings.gutenberg_id){
             return;
         }
+        setIsLoading(true);
 
         let originalAddEventListener = document.addEventListener;
 
@@ -211,8 +214,6 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
             }
 
             originalAddEventListener.apply(document, [type, listener, options, ...args]);
-            console.warn('addEventListener', type, listener, options, ...args);
-
         };
 
         loadAssets(settings.gutenberg_url).then(() => {
@@ -220,6 +221,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                 document.addEventListener = originalAddEventListener;
             }
             originalAddEventListener = null;
+            setIsLoading(false);
         });
 
         return () => {
@@ -231,6 +233,11 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     }, []);
 
 
+    // @todo maybe do better way!!
+    // TODO: maybe do better way!!
+    if(isLoading){
+        return <></>;
+    }
 
     // debugger;
     if (settings?.elementor_id) {
