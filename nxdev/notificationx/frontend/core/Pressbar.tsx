@@ -186,7 +186,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                 document.body.style.paddingBottom = null;
             }
         };
-    }, [isLoading])
+    }, [])
 
     useEffect(() => {
         if(!settings.is_gutenberg || !settings.gutenberg_id){
@@ -232,12 +232,6 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         }
     }, []);
 
-
-    // @todo maybe do better way!!
-    // TODO: maybe do better way!!
-    if(isLoading){
-        return <></>;
-    }
 
     // debugger;
     if (settings?.elementor_id) {
@@ -353,7 +347,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                     "nx-bar-has-elementor": settings?.elementor_id,
                 }
             )}
-            style={styles?.componentCSS}
+            style={{...styles?.componentCSS, display: isLoading ? 'none' : 'block'}}
         >
             <div className="nx-bar-inner">
                 {innerContent}
