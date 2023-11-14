@@ -22,6 +22,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     // @todo isShortcode
     const isShortcode = false;
     let elementorRef = useRef();
+    let gutenbergRef = useRef();
     const frontendContext = useNotificationContext();
     const target = usePortal(`nx-bar-${position}`, position == 'top');
     const { config: settings, data: content } = nxBar;
@@ -84,13 +85,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         return { currentTime, expiredTime };
     }
 
-    useEffect(() => {
-        if (settings?.elementor_id && timeConfig.expired) {
-            setClosed(true);
-        }
-    }, [timeConfig.expired])
-
-    useEffect(() => {
+    const calcHeight = () => {
         if(isLoading) return;
         let countdownInterval;
         if (settings?.enable_countdown) {
@@ -186,7 +181,21 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                 document.body.style.paddingBottom = null;
             }
         };
+
+    };
+
+    useEffect(() => {
+        if (settings?.elementor_id && timeConfig.expired) {
+            setClosed(true);
+        }
+    }, [timeConfig.expired])
+
+    useEffect(() => {
+        calcHeight();
     }, [])
+    useEffect(() => {
+        calcHeight();
+    }, [isLoading])
 
     useEffect(() => {
         if(!settings.is_gutenberg || !settings.gutenberg_id){
@@ -238,6 +247,14 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         innerContent = (
             <div
                 ref={elementorRef}
+                className="nx-bar-content-wrap"
+                dangerouslySetInnerHTML={{ __html: content }}
+            ></div>
+        );
+    } else if (settings?.gutenberg_id) {
+        innerContent = (
+            <div
+                ref={gutenbergRef}
                 className="nx-bar-content-wrap"
                 dangerouslySetInnerHTML={{ __html: content }}
             ></div>
