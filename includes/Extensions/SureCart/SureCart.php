@@ -11,6 +11,7 @@ use NotificationX\Extensions\Extension;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\Admin\Entries;
 use NotificationX\Core\Helper;
+use NotificationX\Core\Rules;
 
 /**
  * SureCart Extension Class
@@ -440,18 +441,31 @@ class SureCart extends Extension {
         return $data;
     }
 
+    public function source_error_message($messages) {
+        if (!$this->class_exists()) {
+            $url = admin_url('plugin-install.php?s=surecart&tab=search&type=term');
+            $messages[$this->id] = [
+                'message' => sprintf( '%s <a href="%s" target="_blank">%s</a> %s',
+                    __( 'You have to install', 'notificationx' ),
+                    $url,
+                    __( 'SureCart', 'notificationx' ),
+                    __( 'plugin first.', 'notificationx' )
+                ),
+                'html' => true,
+                'type' => 'error',
+                'rules' => Rules::is('source', $this->id),
+            ];
+        }
+        return $messages;
+    }
+
     public function doc(){
-        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">SureCart installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
-        <p>🎦 <a href="%3$s" target="_blank">Watch video tutorial</a> to learn quickly</p>
-        <p>⭐ NotificationX Integration with SureCart</p>
-        <p><strong>Recommended Blog:</strong></p>
-        <p>🔥 Why NotificationX is The <a target="_blank" href="%4$s">Best FOMO and Social Proof Plugin</a> for SureCart?</p>
-        <p>🚀 How to <a target="_blank" href="%5$s">boost SureCart Sales</a> Using NotificationX</p>', 'notificationx'),
-        'https://wordpress.org/plugins/woocommerce/',
+        return sprintf(__('<p>Make sure that you have the <a target="_blank" href="%1$s">SureCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target="_blank" href="%2$s">documentation</a>.</p>
+        <p>🎦 For visual demonstration watch the video tutorial</p>
+        <p>👉 NotificationX Integration with SureCart</p>', 'notificationx'),
+        'https://wordpress.org/plugins/surecart/',
         'https://notificationx.com/docs/woocommerce-sales-notifications/',
         'https://www.youtube.com/watch?v=dVthd36hJ-E&t=1s',
-        'https://notificationx.com/integrations/woocommerce/',
-        'https://notificationx.com/blog/best-fomo-and-social-proof-plugin-for-woocommerce/'
         );
     }
 
