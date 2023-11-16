@@ -362,6 +362,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                     "nx-admin": isAdminBar(),
                     "nx-sticky-bar": settings?.sticky_bar,
                     "nx-bar-has-elementor": settings?.elementor_id,
+                    "nx-bar-has-gutenberg": settings?.gutenberg_id,
                 }
             )}
             style={{...styles?.componentCSS, display: isLoading ? 'none' : 'block'}}

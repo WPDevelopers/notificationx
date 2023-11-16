@@ -874,11 +874,11 @@ class PressBar extends Extension {
                 'show_in_menu'       => false,
                 'show_in_nav_menus'  => false,
                 'rewrite'            => false,
-                'can_export'         => false,
+                'can_export'         => true,
                 // 'publicly_queryable' => false,
-                'template_lock'      => 'block',
+                // 'template_lock'      => 'block',
                 'rest_base'          => 'NotificationX',
-                'capability_type'    => 'block',
+                // 'capability_type'    => 'block',
                 // 'rest_controller_class' => 'WP_REST_Blocks_Controller',
                 'capabilities'    => array(
                     // You need to be able to edit posts, in order to read blocks in their raw form.
