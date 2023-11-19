@@ -2,21 +2,20 @@
     "packages": [
         {
             "name": "priyomukul/wp-notice",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
+            "version": "v2.x-dev",
+            "version_normalized": "2.9999999.9999999.9999999-dev",
             "source": {
                 "type": "git",
                 "url": "git@github.com:priyomukul/wp-notice.git",
-                "reference": "832119aa1f4ddc32375ea88168fc84c2e58e9c29"
+                "reference": "2bc2059ba8fe532776e1bdc90d5c3c47c9f430d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/priyomukul/wp-notice/zipball/832119aa1f4ddc32375ea88168fc84c2e58e9c29",
-                "reference": "832119aa1f4ddc32375ea88168fc84c2e58e9c29",
+                "url": "https://api.github.com/repos/priyomukul/wp-notice/zipball/2bc2059ba8fe532776e1bdc90d5c3c47c9f430d1",
+                "reference": "2bc2059ba8fe532776e1bdc90d5c3c47c9f430d1",
                 "shasum": ""
             },
-            "time": "2022-08-01T07:22:57+00:00",
-            "default-branch": true,
+            "time": "2023-11-19T07:19:31+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -31,7 +30,7 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/priyomukul/wp-notice/tree/main",
+                "source": "https://github.com/priyomukul/wp-notice/tree/v2",
                 "issues": "https://github.com/priyomukul/wp-notice/issues"
             },
             "install-path": "../priyomukul/wp-notice"
@@ -181,6 +180,6 @@
             "install-path": "../udx/lib-utility"
         }
     ],
-    "dev": true,
+    "dev": false,
     "dev-package-names": []
 }
