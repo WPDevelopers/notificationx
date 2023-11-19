@@ -69,6 +69,33 @@ class PressBar extends Extension {
                 'column'  => "12",
             ],
         ];
+
+        $popup = "";
+        // check if essential blocks is installed.
+        if(!Helper::is_plugin_active('essential-blocks/essential-blocks.php')){
+            $popup = array(
+                // forcing the popup without the is_pro.
+                "forced"            => true,
+                "showConfirmButton" => true,
+                "showCloseButton"   => true,
+                "title"             => "You are missing a dependency.",
+                "customClass"       => array(
+                    "container"     => "pressbar-gutenberg-theme-popup",
+                    // "closeButton"   => "pro-video-close-button",
+                    // "icon"          => "pro-video-icon",
+                    // "title"         => "pro-video-title",
+                    // "content"       => "pro-video-content",
+                    // "actions"       => "nx-pro-alert-actions",
+                    // "confirmButton" => "pro-video-confirm-button",
+                    // "denyButton"    => "pro-video-deny-button"
+                ),
+                "denyButtonText"    => sprintf("<a href='%s' target='_blank'>%s</a>", admin_url('plugin-install.php?s=essential-blocks&tab=search&type=term'), __("Install Essential Blocks", 'notificationx')),
+                "confirmButtonText" => "<a href='https://essential-blocks.com/' target='_blank'>More Info</a>",
+                "html"              => "
+                    <span>Highlight your sales, low stock updates with inline growth alert to boost sales</span>
+                "
+            );
+        }
         $this->bar_themes = array(
             'theme-one'   => [
                 'label'  => 'theme-one',
@@ -113,6 +140,7 @@ class PressBar extends Extension {
                 'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-elementor/theme-one.jpg',
                 'column' => '12',
                 "title"  => "Nx Theme One",
+                "popup"  => $popup,
             ],
             'theme-two'   => [
                 'label'  => 'theme-two',
@@ -127,6 +155,7 @@ class PressBar extends Extension {
                 'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-elementor/theme-three.jpg',
                 'column' => '12',
                 "title"  => "Nx Theme Three",
+                "popup"  => $popup,
             ],
         );
     }
