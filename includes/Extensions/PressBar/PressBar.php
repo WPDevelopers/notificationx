@@ -89,7 +89,7 @@ class PressBar extends Extension {
                     // "confirmButton" => "pro-video-confirm-button",
                     // "denyButton"    => "pro-video-deny-button"
                 ),
-                "denyButtonText"    => sprintf("<a href='%s' target='_blank'>%s</a>", admin_url('plugin-install.php?s=essential-blocks&tab=search&type=term'), __("Install Essential Blocks", 'notificationx')),
+                "denyButtonText"    => sprintf("<a href='%s' target='_blank'>%s</a>", admin_url('plugin-install.php?s=Essential%2520Blocks&tab=search&type=term'), __("Install Essential Blocks", 'notificationx')),
                 "confirmButtonText" => "<a href='https://essential-blocks.com/' target='_blank'>More Info</a>",
                 "html"              => "
                     <span>Highlight your sales, low stock updates with inline growth alert to boost sales</span>
@@ -134,6 +134,13 @@ class PressBar extends Extension {
             ],
         );
         $this->block_themes = array(
+            'theme-two'   => [
+                'label'  => 'theme-two',
+                'value'  => 'theme-two',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-elementor/theme-two.jpg',
+                'column' => '12',
+                "title"  => "Nx Theme Two",
+            ],
             'theme-one'   => [
                 'label'  => 'theme-one',
                 'value'  => 'theme-one',
@@ -141,13 +148,6 @@ class PressBar extends Extension {
                 'column' => '12',
                 "title"  => "Nx Theme One",
                 "popup"  => $popup,
-            ],
-            'theme-two'   => [
-                'label'  => 'theme-two',
-                'value'  => 'theme-two',
-                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-elementor/theme-two.jpg',
-                'column' => '12',
-                "title"  => "Nx Theme Two",
             ],
             'theme-three' => [
                 'label'  => 'theme-three',
@@ -340,7 +340,18 @@ class PressBar extends Extension {
         ];
 
 
-        $fields['themes']['fields'][] = [
+        $fields['themes']['fields']['nx_bar_import_design'] = [
+            'name'   => 'nx_bar_import_design',
+            'type'   => 'section',
+            'fields' => [],
+            'rules'  => Rules::logicalRule([
+                Rules:: is('source', $this->id),
+            ]),
+        ];
+
+        $import_design = &$fields['themes']['fields']['nx_bar_import_design']['fields'];
+
+        $import_design[] = [
             'name'   => 'elementor_edit_link',
             'type'   => 'button',
             'text'   => __('Edit With Elementor', 'notificationx'),
@@ -354,7 +365,7 @@ class PressBar extends Extension {
                 // Rules:: is('source', $this->id),
             ]),
         ];
-        $fields['themes']['fields'][] = [
+        $import_design[] = [
             'name'  => 'nx-bar_with_elementor-remove',
             'type'  => 'button',
             'text'  => __('Remove Elementor Design', 'notificationx'),
@@ -384,7 +395,7 @@ class PressBar extends Extension {
             ],
         ];
 
-        $fields['themes']['fields'][] = [
+        $import_design[] = [
             'name'   => 'nx-bar_with_elementor',
             'type'   => 'modal',
             'button' => [
@@ -482,7 +493,7 @@ class PressBar extends Extension {
 
         $is_installed = Helper::is_plugin_installed('elementor/elementor.php');
         $install_activate_text = $is_installed ? __("Activate", 'notificationx') : __("Install", 'notificationx');
-        $fields['themes']['fields'][] = [
+        $import_design[] = [
             'name'        => 'nx-bar_with_elementor_install',
             'type'        => 'button',
             'text'    => [
@@ -520,24 +531,24 @@ class PressBar extends Extension {
                 'trigger' => '@is_elementor:true',
             ],
         ];
-        $fields['themes']['fields'][] = [
+        $import_design[] = [
             'name'    => 'is_elementor',
             'type'    => 'hidden',
             'default' => class_exists('\Elementor\Plugin'),
             'rules'   => Rules::is('source', $this->id),
         ];
-        $fields['themes']['fields'][] = [
+        $import_design[] = [
             'name'    => 'elementor_id',
             'type'    => 'hidden',
             'default' => false,
             'rules'   => Rules::is('source', $this->id),
         ];
-        $fields['themes']['fields'][] = [
+        $import_design[] = [
             'type'    => 'hidden',
             'name'    => 'is_confirmed',
             'default' => false
         ];
-        // $fields['themes']['fields'][] = [
+        // $import_design[] = [
         //     'name'    => 'elementor_edit_link',
         //     'type'    => 'hidden',
         //     'rules'   => Rules::is('source', $this->id),
@@ -546,7 +557,7 @@ class PressBar extends Extension {
 
         // Block pattern
 
-        $fields['themes']['fields'][] = [
+        $import_design[] = [
             'name'   => 'gutenberg_edit_link',
             'type'   => 'button',
             'text'   => __('Edit With Gutenberg', 'notificationx'),
@@ -560,7 +571,7 @@ class PressBar extends Extension {
                 // Rules:: is('source', $this->id),
             ]),
         ];
-        $fields['themes']['fields'][] = [
+        $import_design[] = [
             'name'  => 'nx-bar_with_gutenberg-remove',
             'type'  => 'button',
             'text'  => __('Remove Gutenberg Design', 'notificationx'),
@@ -590,7 +601,7 @@ class PressBar extends Extension {
             ],
         ];
 
-        $fields['themes']['fields'][] = [
+        $import_design[] = [
             'name'   => 'nx-bar_with_gutenberg',
             'type'   => 'modal',
             'button' => [
@@ -685,19 +696,19 @@ class PressBar extends Extension {
                 Rules::is('source', $this->id)
             ]),
         ];
-        $fields['themes']['fields'][] = [
+        $import_design[] = [
             'name'    => 'is_gutenberg',
             'type'    => 'hidden',
             'default' => true,
             'rules'   => Rules::is('source', $this->id),
         ];
-        $fields['themes']['fields'][] = [
+        $import_design[] = [
             'name'    => 'gutenberg_id',
             'type'    => 'hidden',
             'default' => false,
             'rules'   => Rules::is('source', $this->id),
         ];
-        $fields['themes']['fields'][] = [
+        $import_design[] = [
             'type'    => 'hidden',
             'name'    => 'is_gb_confirmed',
             'default' => false
@@ -896,14 +907,14 @@ class PressBar extends Extension {
         register_post_type(
             'nx_bar_eb',
             array(
-                'label'              => __('NotificationX Bar', 'notificationx'),
+                'label'              => __('NotificationX Bar (Gutenberg)', 'notificationx'),
                 'show_in_rest'       => true,
                 'public'             => true,
                 'show_ui'            => true,
+                'can_export'         => true,
                 'show_in_menu'       => false,
                 'show_in_nav_menus'  => false,
                 'rewrite'            => false,
-                'can_export'         => true,
                 // 'publicly_queryable' => false,
                 // 'template_lock'      => 'block',
                 'rest_base'          => 'NotificationX',
