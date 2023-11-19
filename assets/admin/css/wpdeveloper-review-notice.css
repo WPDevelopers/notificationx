@@ -179,6 +179,7 @@ span.coupon-code {
     color: #fff;
     border-left: 0px; */
 }
+
 .notice-has-thumbnail.wpdeveloper-freedom30-notice .wpdeveloper-notice-thumbnail {
     width: 70px;
 }
@@ -186,3 +187,23 @@ span.coupon-code {
     width: 50px;
 }
 
+#wpnotice-notificationx-black_friday_notice {
+    padding: 16px 0;
+}
+#wpnotice-notificationx-black_friday_notice.notice-info {
+    border-left-color: #5614d5;
+}
+#wpnotice-notificationx-black_friday_notice .wpnotice-thumbnail-wrapper {
+    padding-left: 35px;
+    padding-right: 50px;
+}
+#wpnotice-notificationx-black_friday_notice .wpnotice-content-wrapper a {
+    text-transform: capitalize;
+    margin-right: 16px;
+}
+#wpnotice-notificationx-black_friday_notice .wpnotice-content-wrapper button {
+    text-transform: capitalize;
+}
+#wpnotice-notificationx-black_friday_notice .wpnotice-content-wrapper button:hover {
+    background-color: transparent;
+}
