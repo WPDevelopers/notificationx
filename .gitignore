@@ -15,5 +15,6 @@ yarn.lock
 nxbuild
 **/*.map
 **/*.lock
+.idea
 
 stats.json
