@@ -7,15 +7,15 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:priyomukul/wp-notice.git",
-                "reference": "2bc2059ba8fe532776e1bdc90d5c3c47c9f430d1"
+                "reference": "cc674c9b76c74289966d0b395078a9fcfe3a0af1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/priyomukul/wp-notice/zipball/2bc2059ba8fe532776e1bdc90d5c3c47c9f430d1",
-                "reference": "2bc2059ba8fe532776e1bdc90d5c3c47c9f430d1",
+                "url": "https://api.github.com/repos/priyomukul/wp-notice/zipball/cc674c9b76c74289966d0b395078a9fcfe3a0af1",
+                "reference": "cc674c9b76c74289966d0b395078a9fcfe3a0af1",
                 "shasum": ""
             },
-            "time": "2023-11-19T07:19:31+00:00",
+            "time": "2023-11-19T11:03:23+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -180,6 +180,6 @@
             "install-path": "../udx/lib-utility"
         }
     ],
-    "dev": false,
+    "dev": true,
     "dev-package-names": []
 }
