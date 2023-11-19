@@ -51,7 +51,7 @@ class SureCart extends Extension {
         add_filter("nx_notification_link_{$this->id}", [$this, 'product_link'], 10, 3);
         add_filter('nx_conversion_category_list', [$this, 'collections']);
         add_filter('nx_conversion_product_list', [$this, 'product_lists']);
-        
+
     }
 
     /**
@@ -161,7 +161,7 @@ class SureCart extends Extension {
     public function prepare_order_data( $product, $customer, $return = [], $checkout = null ) {
         $address_fields = ['city','country','line_1','line_2','postal_code'];
         $customer_fields = ['first_name','last_name','email','name'];
-        // Get product information 
+        // Get product information
         if( !empty( $product->price->product->name ) ) {
             $return['title'] = $product->price->product->name;
         }
@@ -185,7 +185,7 @@ class SureCart extends Extension {
                     $return[$fields] = $checkout->shipping_address->{$fields};
                 }
             }
-            
+
         }else{
             if( is_object( $customer->billing_address ) ) {
                 foreach ( $address_fields as $fields ) {
@@ -273,7 +273,7 @@ class SureCart extends Extension {
             $this->update_notifications($entries);
         }else{
             $get_orders = \SureCart\Models\Order::where( [ 'order_ids' => [ $data['order'] ] ])->with( [ 'checkout', 'checkout.charge', 'checkout.customer','checkout.line_items','line_item.price','price.product','checkout.shipping_address','checkout.billing_address','product.collection' ] )->paginate( [ 'per_page' => 1 ] );
-            if( count( $get_orders->data ) > 0 ) { 
+            if( count( $get_orders->data ) > 0 ) {
                 foreach ($get_orders->data as $order) {
                     foreach ($order->checkout->line_items->data as $product) {
                         $make_orders = [];
@@ -353,7 +353,7 @@ class SureCart extends Extension {
                             if( !empty( $order->id ) ) {
                                 $make_orders['timestamp']  = $order->updated_at;
                             }
-                            
+
                             $orders[] = $this->prepare_order_data( $product, $order->checkout->customer, $make_orders, $order->checkout );
                         }
                     }
@@ -371,7 +371,7 @@ class SureCart extends Extension {
             }
             return false;
         }
-        // Check product list 
+        // Check product list
         if(  $settings['product_exclude_by'] == 'manual_selection' && !empty( $settings['exclude_products'] ) && count( $settings['exclude_products'] ) > 0 ) {
             foreach ( $settings['exclude_products'] as $__product ) {
                 if( $__product['value'] == $product->price->product->slug ) {
@@ -379,7 +379,7 @@ class SureCart extends Extension {
                 }
             }
         }
-        // Check category list 
+        // Check category list
         if( $settings['product_exclude_by'] == 'product_category' && !empty( $settings['exclude_categories'] ) && count( $settings['exclude_categories'] ) > 0 ) {
             foreach ($collections as $collection) {
                 if( in_array( $collection->slug, $settings['exclude_categories'] ) ) {
@@ -397,7 +397,7 @@ class SureCart extends Extension {
             }
             return true;
         }
-        // Check product list 
+        // Check product list
         if(  $settings['product_control'] == 'manual_selection' && !empty( $settings['product_list'] ) && count( $settings['product_list'] ) > 0 ) {
             foreach ( $settings['product_list'] as $__product ) {
                 if( $__product['value'] == $product->price->product->slug ) {
@@ -405,7 +405,7 @@ class SureCart extends Extension {
                 }
             }
         }
-        // Check category list 
+        // Check category list
         if( $settings['product_control'] == 'product_category' && !empty( $settings['category_list'] ) && count( $settings['category_list'] ) > 0 ) {
             foreach ($collections as $collection) {
                 if( in_array( $collection->slug, $settings['category_list'] ) ) {
@@ -463,8 +463,8 @@ class SureCart extends Extension {
         return sprintf(__('<p>Make sure that you have the <a target="_blank" href="%1$s">SureCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target="_blank" href="%2$s">documentation</a>.</p>
         <a target="_blank" href="%3$s">👉 NotificationX Integration with SureCart</a>', 'notificationx'),
         'https://wordpress.org/plugins/surecart/',
-        'https://notificationx.com/docs/surecart-sales-integrations/',
-        'https://notificationx.com/integrations/surecart/',
+        'https://notificationx.com/docs/surecart-sales-alert/',
+        'https://notificationx.com/surecart/'
         );
     }
 
