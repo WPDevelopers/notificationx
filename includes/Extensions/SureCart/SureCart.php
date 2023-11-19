@@ -461,11 +461,10 @@ class SureCart extends Extension {
 
     public function doc(){
         return sprintf(__('<p>Make sure that you have the <a target="_blank" href="%1$s">SureCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target="_blank" href="%2$s">documentation</a>.</p>
-        <p>🎦 For visual demonstration watch the video tutorial</p>
-        <p>👉 NotificationX Integration with SureCart</p>', 'notificationx'),
+        <a target="_blank" href="%3$s">👉 NotificationX Integration with SureCart</a>', 'notificationx'),
         'https://wordpress.org/plugins/surecart/',
-        'https://notificationx.com/docs/woocommerce-sales-notifications/',
-        'https://www.youtube.com/watch?v=dVthd36hJ-E&t=1s',
+        'https://notificationx.com/docs/surecart-sales-integrations/',
+        'https://notificationx.com/integrations/surecart/',
         );
     }
 
