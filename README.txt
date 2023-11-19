@@ -219,6 +219,10 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
+= 2.7.8 - 19/11/2023 =
+- SureCart Integration
+- Few minor bug fixes and improvements.
+
 = 2.7.7 - 29/10/2023 =
 - Fixed: WPForms old data wasn't showing. 
 - Few minor bug fixes and improvements.
