@@ -189,13 +189,14 @@ span.coupon-code {
 
 #wpnotice-notificationx-black_friday_notice {
     padding: 16px 0;
+    display: flex !important;
 }
 #wpnotice-notificationx-black_friday_notice.notice-info {
     border-left-color: #5614d5;
 }
 #wpnotice-notificationx-black_friday_notice .wpnotice-thumbnail-wrapper {
-    padding-left: 35px;
-    padding-right: 50px;
+    padding-left: 35px !important;
+    padding-right: 50px !important;
 }
 #wpnotice-notificationx-black_friday_notice .wpnotice-content-wrapper a {
     text-transform: capitalize;
