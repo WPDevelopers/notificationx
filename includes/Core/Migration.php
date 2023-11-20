@@ -327,6 +327,14 @@ class Migration {
                         $post['exclude_categories']      = $this->get("_nx_meta_edd_exclude_categories");
                         $post['exclude_products']        = $this->get("_nx_meta_edd_exclude_products");
                         break;
+                    case 'surecart':
+                        $post['product_control']         = $this->get("_nx_meta_surecart_product_control");
+                        $post['category_list']           = $this->get("_nx_meta_surecart_category_list");
+                        $post['product_list']            = $this->get("_nx_meta_surecart_product_list");
+                        $post['product_exclude_by']      = $this->get("_nx_meta_surecart_product_exclude_by");
+                        $post['exclude_categories']      = $this->get("_nx_meta_surecart_exclude_categories");
+                        $post['exclude_products']        = $this->get("_nx_meta_surecart_exclude_products");
+                        break;
                     case 'freemius':
                         if( boolval( $post['enabled'] ) ) {
                             Cron::get_instance()->set_cron($nx_id, 'nx_freemius_interval');

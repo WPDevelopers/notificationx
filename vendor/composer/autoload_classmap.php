@@ -74,6 +74,7 @@ return array(
     'NotificationX\\Extensions\\PressBar\\Importer' => $baseDir . '/includes/Extensions/PressBar/importer.php',
     'NotificationX\\Extensions\\PressBar\\PressBar' => $baseDir . '/includes/Extensions/PressBar/PressBar.php',
     'NotificationX\\Extensions\\ReviewX\\ReviewX' => $baseDir . '/includes/Extensions/ReviewX/ReviewX.php',
+    'NotificationX\\Extensions\\SureCart\\SureCart' => $baseDir . '/includes/Extensions/SureCart/SureCart.php',
     'NotificationX\\Extensions\\Tutor\\Tutor' => $baseDir . '/includes/Extensions/Tutor/Tutor.php',
     'NotificationX\\Extensions\\Tutor\\TutorInline' => $baseDir . '/includes/Extensions/Tutor/TutorInline.php',
     'NotificationX\\Extensions\\Vimeo\\Vimeo' => $baseDir . '/includes/Extensions/Vimeo/Vimeo.php',
