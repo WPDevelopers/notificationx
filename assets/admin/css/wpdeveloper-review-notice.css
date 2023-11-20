@@ -187,7 +187,7 @@ span.coupon-code {
     width: 50px;
 }
 
-#wpnotice-notificationx-black_friday_notice {
+.notice-notificationx-black_friday_notice {
     padding: 16px 0;
     display: flex !important;
 }
