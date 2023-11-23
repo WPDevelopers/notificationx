@@ -219,6 +219,10 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
+= 2.7.9 - 23/11/2023 =
+- Improved: Notification Export option.
+- Few minor bug fixes and improvements.
+
 = 2.7.8 - 20/11/2023 =
 - Added: SureCart Integration
 - Few minor bug fixes and improvements.
