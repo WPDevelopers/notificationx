@@ -253,6 +253,14 @@ class ImportExport{
                     'enabled' => $params['export-status'] == 'enabled',
                 ];
             }
+            if(!empty($params['export-notification-ids']) && is_array($params['export-notification-ids'])){
+                $where = [
+                    'nx_id' => [
+                        'IN',
+                        $params['export-notification-ids'],
+                    ],
+                ];
+            }
             $export['notifications'] = PostType::get_instance()->get_posts($where);
             if(!empty($params['export-analytics']) && !empty($export['notifications'])){
                 $nx_ids = array_column($export['notifications'], 'nx_id');
