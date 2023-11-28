@@ -32,7 +32,7 @@ class WooCommerce extends Extension {
     public $id              = 'woocommerce';
     public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/woocommerce.png';
     public $doc_link        = 'https://notificationx.com/docs/woocommerce-sales-notifications/';
-    public $types           = 'conversions';
+    public $types           = 'woocommerce';
     public $module          = 'modules_woocommerce';
     public $module_priority = 3;
     public $class           = '\WooCommerce';

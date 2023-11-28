@@ -21,6 +21,7 @@ class TypeFactory {
 	use GetInstance;
 
 	public $types = [
+            'woocommerce'        => 'NotificationX\Types\WooCommerce',
 			'conversions'        => 'NotificationX\Types\Conversions',
 			'comments'           => 'NotificationX\Types\Comments',
 			'reviews'            => 'NotificationX\Types\Reviews',
