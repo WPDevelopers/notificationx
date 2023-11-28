@@ -23,7 +23,7 @@
   ],
   "require": {
     "udx/lib-settings": "dev-master",
-    "priyomukul/wp-notice": "dev-main"
+    "priyomukul/wp-notice": "v2.x-dev"
   },
   "autoload": {
     "exclude-from-classmap": [

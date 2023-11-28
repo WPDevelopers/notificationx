@@ -250,7 +250,6 @@
         .wprf-control-field {
             min-height: 40px;
             flex: 70%;
-            .wprf-type-textarea {
                 textarea {
                     padding: 10px 15px;
                     border: 1.5px solid #e6effb;
@@ -277,8 +276,6 @@
                 textarea[readonly] {
                     background: rgba(#6a4bff, 0.1);
                 }
-            }
-            input[type="number"],
             input[type="text"] {
                 min-height: 40px;
                 padding: 2px 15px;
@@ -1134,4 +1131,4 @@
             color: #6a4bff;
         }
     }
-} 
+}

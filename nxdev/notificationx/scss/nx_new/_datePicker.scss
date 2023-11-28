@@ -1,10 +1,19 @@
+.wprf-control-datetime-content {
+  .components-popover__content {
+    background: #fff;
+    border: 1px solid #f2f2f2;
+    border-radius: 5px;
+    padding: 15px;
+    // position: absolute;
+    right: 0;
+    z-index: 9999999;
 
-.wprf-control-datetime{
-  .components-datetime {
-    .components-datetime__time {
-      .components-datetime__time-field-month-select,
-      input[type="number"],
-      input[type="text"] {
+    .components-datetime {
+      .components-datetime__time {
+
+        .components-datetime__time-field-month-select,
+        input[type="number"],
+        input[type="text"] {
           min-height: 32px;
           padding: 2px 8px;
           border: 1.5px solid #e6effb;
@@ -15,95 +24,161 @@
           width: initial;
           max-width: 400px;
           margin-right: 5px;
+
           &::placeholder {
-              color: #a7b6d8;
+            color: #a7b6d8;
           }
+
           &:focus {
-              border-color: #7c8db5;
-              outline: none;
-              box-shadow: none;
+            border-color: #7c8db5;
+            outline: none;
+            box-shadow: none;
           }
-      }
-      input[type="number"] {
+        }
+
+        input[type="number"] {
           max-width: 50px;
-      }
-      input.readonly,
-      input[readonly],
-      textarea.readonly,
-      textarea[readonly] {
+        }
+
+        input.readonly,
+        input[readonly],
+        textarea.readonly,
+        textarea[readonly] {
           background: rgba(#6a4bff, 0.1);
-      }
-      .components-datetime__time-field-month-select {
-        width: 100px;
-      }
-      .components-input-control__input {
-        border: none!important;
-        box-shadow: none!important;
-        outline: none!important;
-        &:focus {
-          border: none!important;
-          box-shadow: none!important;
-          outline: none!important;
         }
-      }
-      .components-number-control {
-        height: 36px;
-      }
-      .components-datetime__time-field-time {
-        display: flex;
-        .components-datetime__time-separator {
-          align-self: center;
-          min-height: 34px;
-          box-sizing: border-box;
-          line-height: 34px;
+
+        .components-datetime__time-field-month-select {
+          width: 100px;
         }
+
         .components-input-control__input {
-            border: none!important;
-            box-shadow: none!important;
-            outline: none!important;
+          border: none !important;
+          box-shadow: none !important;
+          outline: none !important;
+
+          &:focus {
+            border: none !important;
+            box-shadow: none !important;
+            outline: none !important;
+          }
+        }
+
+        .components-number-control {
+          height: 36px;
+        }
+
+        .components-datetime__time-field-time {
+          display: flex;
+
+          .components-datetime__time-separator {
+            align-self: center;
+            min-height: 34px;
+            box-sizing: border-box;
+            line-height: 34px;
+          }
+
+          .components-input-control__input {
+            border: none !important;
+            box-shadow: none !important;
+            outline: none !important;
+
             &:focus {
-              border: none!important;
-              box-shadow: none!important;
-              outline: none!important;
+              border: none !important;
+              box-shadow: none !important;
+              outline: none !important;
             }
-        }
-        .components-input-control__backdrop {
-          box-shadow: none!important;;
-        }
-      }
-      .components-datetime__time-field-am-pm {
-        display: flex;
-      }
-      .components-button-group {
-        .components-button {
-          min-height: 32px;
-          border-radius: 5px;
-          font-size: 12px;
-          padding: 2px 6px;
-          font-weight: 500;
-          margin-right: 5px;
-          &.is-secondary {
-            border: 1.5px solid #7c8db5;
-            color: #fff;
-            background: #7c8db5;
           }
-          &.is-primary {
-            border: 1.5px solid #6a4bff;
-            color: #fff;
-            background: #6a4bff;
+
+          .components-input-control__backdrop {
+            box-shadow: none !important;
+            ;
           }
         }
+
+        .components-datetime__time-field-am-pm {
+          display: flex;
+        }
+
+        .components-button-group {
+          .components-button {
+            min-height: 32px;
+            border-radius: 5px;
+            font-size: 12px;
+            padding: 2px 6px;
+            font-weight: 500;
+            margin-right: 5px;
+
+            &.is-secondary {
+              border: 1.5px solid #7c8db5;
+              color: #fff;
+              background: #7c8db5;
+            }
+
+            &.is-primary {
+              border: 1.5px solid #6a4bff;
+              color: #fff;
+              background: #6a4bff;
+            }
+          }
+        }
+
+        .components-datetime__timezone {
+          display: flex;
+          align-items: center;
+        }
       }
-      .components-datetime__timezone {
-        display: flex;
-        align-items: center;
+
+      .components-datetime__date button {
+        border: none;
+      }
+
+      .components-datetime__date .CalendarDay__selected:hover {
+        background: rgba(rgb(102, 72, 254), 0.7) !important;
+      }
+
+      .components-datetime__buttons {
+        display: none;
       }
     }
-    .components-datetime__date .CalendarDay__selected:hover {
-      background: rgba(#6648fe, 0.7)!important;
-    }
-    .components-datetime__buttons {
-      display: none;
-    }
-  } 
-} 
+  }
+
+}
+
+// .components-popover .components-popover__content {
+//   background: #fff;
+//   border: 1px solid #f2f2f2;
+//   border-radius: 5px;
+//   padding: 15px;
+//   position: absolute;
+//   right: 0;
+//   z-index: 9999999;
+// }
+
+// .components-button-group.components-datetime__time-field.components-datetime__time-field-am-pm {
+//   display: flex;
+//   gap: 4px;
+// }
+
+// .components-button-group .components-button {
+//   border-radius: 5px;
+//   font-size: 12px;
+//   font-weight: 500;
+//   min-height: 32px;
+//   padding: 2px 6px;
+// }
+
+// .components-button-group .components-button.is-secondary {
+//   background: #7c8db5;
+//   border: 1.5px solid #7c8db5;
+//   color: #fff;
+// }
+
+// .components-button-group .components-button.is-primary {
+//   background: #6a4bff;
+//   border: 1.5px solid #6a4bff;
+//   color: #fff;
+// }
+
+// .components-datetime__date button {
+//   border: none;
+// }

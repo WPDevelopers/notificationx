@@ -574,6 +574,7 @@ abstract class Extension {
      * @return boolean
      */
     public function is_active($check_enabled = true) {
+        
         if (!empty($this->class) && !class_exists($this->class)) {
             return false;
         }
