@@ -308,36 +308,36 @@
         .wprf-control-field {
             min-height: 40px;
             flex: 70%;
-                textarea {
-                    padding: 10px 15px;
-                    border: 1.5px solid #e6effb;
-                    border-radius: 5px;
-                    color: #25396f;
-                    font-size: 14px;
-                    font-weight: 500;
-                    width: 100%;
-                    max-width: 400px;
-                    margin-right: 10px;
+            textarea {
+                padding: 10px 15px;
+                border: 1.5px solid #e6effb;
+                border-radius: 5px;
+                color: #25396f;
+                font-size: 14px;
+                font-weight: 500;
+                width: 100%;
+                max-width: 400px;
+                margin-right: 10px;
 
-                    @media only screen and (max-width: 1599px) {
-                        padding: 8px 10px;
-                    }
-
-                    &::placeholder {
-                        color: #a7b6d8;
-                    }
-
-                    &:focus {
-                        border-color: #7c8db5;
-                        outline: none;
-                        box-shadow: none;
-                    }
+                @media only screen and (max-width: 1599px) {
+                    padding: 8px 10px;
                 }
 
-                textarea.readonly,
-                textarea[readonly] {
-                    background: rgba(#6a4bff, 0.1);
+                &::placeholder {
+                    color: #a7b6d8;
                 }
+
+                &:focus {
+                    border-color: #7c8db5;
+                    outline: none;
+                    box-shadow: none;
+                }
+            }
+
+            textarea.readonly,
+            textarea[readonly] {
+                background: rgba(#6a4bff, 0.1);
+            }
             input[type="text"] {
                 min-height: 40px;
                 padding: 2px 15px;
