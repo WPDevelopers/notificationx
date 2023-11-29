@@ -14,6 +14,7 @@ use NotificationX\Core\Helper;
 use NotificationX\Core\Rules;
 use NotificationX\Extensions\Extension;
 use NotificationX\Extensions\GlobalFields;
+use NotificationX\FrontEnd\Preview;
 use NotificationX\GetInstance;
 
 /**
@@ -175,7 +176,7 @@ class PressBar extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-
+        add_filter('templately_cloud_push_post_type', [$this, 'templately_cloud_push_post_type']);
     }
 
     /**
@@ -188,7 +189,6 @@ class PressBar extends Extension {
         parent::public_actions();
         // add_action('wp_head', [$this, 'print_bar_notice'], 100);
         add_filter("nx_filtered_data_{$this->id}", array($this, 'insert_views'), 11, 3);
-        $this->init_block_scripts();
     }
 
 
@@ -1190,7 +1190,7 @@ class PressBar extends Extension {
     }
 
     public function add_scripts($settings, $params){
-        if(isset($settings['gutenberg_id'])){
+        if(!empty($settings['gutenberg_id'])){
             $settings['gutenberg_url'] = get_permalink($settings['gutenberg_id']);
         }
         return $settings;
@@ -1275,22 +1275,6 @@ class PressBar extends Extension {
         }
     }
 
-    public function init_block_scripts(){
-        if(!empty($_GET['nx_gutenberg_id'])){
-
-            $post    = get_post($_GET['nx_gutenberg_id']);
-            if(!empty($post) && $post->post_type == 'nx_bar_eb'){
-                // in case anyone write something from do_blocks
-                ob_start();
-                $content          = $post->post_content;
-                $content          = do_blocks($content);
-                $unwanted_content = ob_get_clean();
-                // no need to echo the content just need to enqueue the scripts
-                echo $content;
-            }
-        }
-    }
-
     public function gutenberg_remove($pid){
         if(!empty($pid)){
             $languages = apply_filters( 'wpml_active_languages', NULL );
@@ -1305,6 +1289,21 @@ class PressBar extends Extension {
             }
             wp_delete_post($pid, true);
         }
+    }
+
+    public function templately_cloud_push_post_type($post_type){
+
+        if($post_type == 'nx_bar_eb'){
+            $post_type = 'NX Bar';
+        }
+        return $post_type;
+    }
+
+    public function preview_settings($settings){
+        if(!empty($settings['gutenberg_id'])){
+            $settings['gutenberg_url'] = get_permalink($settings['gutenberg_id']);
+        }
+        return $settings;
     }
 
     public function doc() {

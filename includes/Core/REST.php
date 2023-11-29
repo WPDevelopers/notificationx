@@ -270,7 +270,8 @@ class REST {
      */
     public function gutenberg_remove( $request ){
         $params = $request->get_params();
-        return PressBar::get_instance()->gutenberg_remove($params['gutenberg_id']);
+        PressBar::get_instance()->gutenberg_remove($params['gutenberg_id']);
+        return true;
     }
 
     /**

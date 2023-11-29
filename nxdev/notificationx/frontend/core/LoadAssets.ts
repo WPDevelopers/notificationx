@@ -40,7 +40,7 @@ export const loadAsset = ( el ) => {
 
 		// Resolve Stylesheets and Inline JavaScript immediately.
 		if (
-			'link' === newNode.nodeName.toLowerCase() ||
+			// 'link' === newNode.nodeName.toLowerCase() ||
 			( 'script' === newNode.nodeName.toLowerCase() && ! newNode.src )
 		) {
             // @ts-ignore

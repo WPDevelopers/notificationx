@@ -190,9 +190,10 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         }
     }, [timeConfig.expired])
 
-    useEffect(() => {
-        calcHeight();
-    }, [])
+    // useEffect(() => {
+    //     calcHeight();
+    // }, [])
+
     useEffect(() => {
         calcHeight();
     }, [isLoading])
