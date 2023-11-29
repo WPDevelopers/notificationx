@@ -343,6 +343,10 @@
                     display: flex;
                     gap: 16px;
                     margin: -20px 0 0 -30px;
+
+                    @media only screen and (max-width: 1399px) {
+                        margin: -25px 0 0 -20px;
+                    }
                 }
             }
 
