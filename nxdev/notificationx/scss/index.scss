@@ -53,3 +53,9 @@ body {
 
 @import "./modal";
 @import "./nx_new/datePicker";
+
+.nx-announcement-entries  {
+    >.wprf-section-fields {
+        padding: 0px!important;
+    }
+}

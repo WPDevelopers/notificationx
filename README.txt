@@ -3,9 +3,9 @@ Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim, s
 Donate link: https://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce notification, notification bar, woocommerce sales, sales popup, popups, boost sales, elementor, email subscription, recent sales popup, woo popups, woocommerce review, wordpress marketing, marketing, evergreen notice, increase engagement, woocommerce, envato, freemius, givewp, learndash, bottom bar, top bar, marketing plugin, alert, email marketing, conversion, gamification
 Requires at least: 5.0
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 5.6
-Stable tag: 2.7.7
+Stable tag: 2.7.9
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -219,8 +219,16 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
+= 2.7.9 - 23/11/2023 =
+- Improved: Notification Export option.
+- Few minor bug fixes and improvements.
+
+= 2.7.8 - 20/11/2023 =
+- Added: SureCart Integration
+- Few minor bug fixes and improvements.
+
 = 2.7.7 - 29/10/2023 =
-- Fixed: WPForms old data wasn't showing. 
+- Fixed: WPForms old data wasn't showing.
 - Few minor bug fixes and improvements.
 
 = 2.7.6 - 09/10/2023 =

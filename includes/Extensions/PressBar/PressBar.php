@@ -339,6 +339,9 @@ class PressBar extends Extension {
             ],
         ];
 
+        $is_installed = Helper::is_plugin_installed('elementor/elementor.php');
+        $install_activate_text = $is_installed ? __("Activate", 'notificationx') : __("Install", 'notificationx');
+
         $fields['themes']['fields'][] = array(
             'name'    => 'nx-bar_with_elementor_install_message',
             'type'    => 'message',
@@ -350,7 +353,7 @@ class PressBar extends Extension {
                 Rules::is('source', $this->id),
             ]),
         );
-        
+
         $fields['themes']['fields']['nx_bar_import_design'] = [
             'name'   => 'nx_bar_import_design',
             'type'   => 'section',
@@ -501,9 +504,6 @@ class PressBar extends Extension {
                 Rules::is('source', $this->id)
             ]),
         ];
-
-        $is_installed = Helper::is_plugin_installed('elementor/elementor.php');
-        $install_activate_text = $is_installed ? __("Activate", 'notificationx') : __("Install", 'notificationx');
 
         $import_design[] = [
             'name'        => 'nx-bar_with_elementor_install',
@@ -688,7 +688,7 @@ class PressBar extends Extension {
                             ]
                         ],
                         'rules'   => Rules::is('is_gb_confirmed', true, true),
-                        'default' => 'theme-one',
+                        'default' => 'theme-two',
                         'options' => $this->block_themes,
                     ],
                     'test' => [
