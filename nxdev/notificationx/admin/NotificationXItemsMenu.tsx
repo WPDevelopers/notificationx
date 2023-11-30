@@ -6,6 +6,7 @@ import Select from "react-select";
 import nxToast from "../core/ToasterMsg";
 import { sprintf, _n, __ } from "@wordpress/i18n";
 import copy from "copy-to-clipboard";
+import { downloadFile } from "quickbuilder";
 
 const NotificationXItemsMenu = ({
     notificationx,
@@ -33,6 +34,7 @@ const NotificationXItemsMenu = ({
             { value: "enable",  label: __("Enable", 'notificationx') },
             { value: "disable", label: __("Disable", 'notificationx') },
             { value: "delete",  label: __("Delete", 'notificationx') },
+            { value: "export",  label: __("Export", 'notificationx') },
         ];
     }
     bulkOptions.splice(3, 0, { value: "regenerate", label: __("Regenerate", 'notificationx') });
@@ -183,6 +185,21 @@ const NotificationXItemsMenu = ({
         });
     }
 
+    const bulkExport = async (selectedItem) => {
+        const response:any = await nxHelper.post(`export`, {
+            'export-notification': true,
+            'export-analytics': true,
+            'export-notification-ids': selectedItem,
+        });
+        if(response?.data?.download){
+            downloadFile({
+                data    : JSON.stringify(response.data.download),
+                fileName: response.data.filename || 'export.json',
+                fileType: 'text/json',
+              });
+        }
+    }
+
     const bulkAction = () => {
         if (!action.value || loading) {
             return;
@@ -206,6 +223,10 @@ const NotificationXItemsMenu = ({
         }
         if (action.value == "xss") {
             generateXSS(selectedItem);
+            return;
+        }
+        if (action.value == "export") {
+            bulkExport(selectedItem);
             return;
         }
 

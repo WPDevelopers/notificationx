@@ -17,6 +17,8 @@ use NotificationX\GetInstance;
 use NotificationX\Extensions\ExtensionFactory;
 
 use PriyoMukul\WPNotice\Notices;
+use PriyoMukul\WPNotice\Utils\CacheBank;
+use PriyoMukul\WPNotice\Utils\NoticeRemover;
 
 /**
  * Admin Class, this class is responsible for all Admin Actions
@@ -37,6 +39,11 @@ class Admin {
     const VIEWS_PATH = NOTIFICATIONX_INCLUDES . 'Admin/views/';
 
     private $insights = null;
+
+    /**
+	 * @var CacheBank
+	 */
+	private static $cache_bank;
 
     /**
      * Initially Invoked
@@ -142,15 +149,29 @@ class Admin {
         }
         return false;
     }
-
+    
     public function admin_notices(){
+        self::$cache_bank = CacheBank::get_instance();
+		try {
+			$this->notices();
+		} catch ( \Exception $e ) {
+			unset( $e );
+		}
+        // Remove OLD notice from 1.0.0 (if other WPDeveloper plugin has notice)
+		NoticeRemover::get_instance( '1.0.0' );
+        
+    }
+
+    public function notices() {
         $notices = new Notices([
-            'id'          => 'notificationx',
-            'store'       => 'options',
-            'storage_key' => 'notices',
-            'version'     => '1.0.0',
-            'lifetime'    => 3,
-            'styles'      => self::ASSET_URL . 'css/wpdeveloper-review-notice.css',
+			'id'             => 'notificationx',
+			'store'          => 'options',
+			'storage_key'    => 'notices',
+			'version'        => '1.0.0',
+			'lifetime'       => 3,
+			'stylesheet_url' => '',
+			'styles'         => self::ASSET_URL . 'css/wpdeveloper-review-notice.css',
+			'priority'       => 5,
         ]);
 
         $_review_notice = [
@@ -234,8 +255,27 @@ class Admin {
                 'display_if'  => ! is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
             ]
         );
+        $b_message            = '<p style="margin-top: 0; margin-bottom: 10px;">Black Friday Sale: Get up to 40% discounts & <strong>boost your sales</strong> with advanced marketing campaigns ⚡</p><a class="button button-primary" href="https://wpdeveloper.com/upgrade/notificationx-bfcm" target="_blank">Upgrade to pro</a> <button data-dismiss="true" class="dismiss-btn button button-link">I don’t want to save money</button>';
+		$_black_friday_notice = [
+			'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
+			'html'      => $b_message,
+		];
 
-        $notices->init();
+		$notices->add(
+			'black_friday_notice',
+			$_black_friday_notice,
+			[
+				'start'       => $notices->time(),
+				'recurrence'  => false,
+				'dismissible' => true,
+				'refresh'     => NOTIFICATIONX_VERSION,
+				"expire"      => strtotime( '11:59:59pm 2nd December, 2023' ),
+				'display_if'  => ! is_plugin_active( 'notificationx-pro/notificationx-pro.php' )
+			]
+		);
+        // $notices->init();
+        self::$cache_bank->create_account( $notices );
+		self::$cache_bank->calculate_deposits( $notices );
     }
 
     public function plugin_usage_insights(){

@@ -29,8 +29,8 @@ const GetTemplate = (settings) => {
         ga_fifth_param: "",
         review_fourth_param: "",
         freemius_fifth_param: "",
+        freemius_sixth_param: "",
         freemius_seventh_param: "",
-        freemius_sixth_param : "",
     };
     const params = { ...defaults, ...settings?.["notification-template"] };
 

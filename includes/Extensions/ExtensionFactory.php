@@ -68,6 +68,7 @@ class ExtensionFactory {
 			'youtube'                         => 'NotificationX\Extensions\Google\YouTube',
 			'vimeo'                           => 'NotificationX\Extensions\Vimeo\Vimeo',
 			'wistia'                          => 'NotificationX\Extensions\Wistia\Wistia',
+			'surecart'                        => 'NotificationX\Extensions\SureCart\SureCart',
 		];
 
 	/**
