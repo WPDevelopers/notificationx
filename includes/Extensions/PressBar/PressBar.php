@@ -350,6 +350,7 @@ class PressBar extends Extension {
             'message' => sprintf(__("To Design Notification Bar with <strong>Elementor Page Builder</strong>, You need to %s the Elementor first: &nbsp;&nbsp;&nbsp;", 'notificationx'), $install_activate_text),
             'rules'   => Rules::logicalRule([
                 Rules::is('is_elementor', false),
+                Rules::is('gutenberg_id', false),
                 Rules::is('source', $this->id),
             ]),
         );
@@ -521,6 +522,7 @@ class PressBar extends Extension {
             // 'classes' => "nx-ele-bar-button nx-bar_with_elementor_install nx-on-click-install",
             'rules'   => Rules::logicalRule([
                 Rules::is('is_elementor', false),
+                Rules::is('gutenberg_id', false),
                 Rules::is('source', $this->id),
             ]),
             // 'data-nonce' => wp_create_nonce('wpdeveloper_upsale_core_install_notificationx'),
@@ -710,7 +712,7 @@ class PressBar extends Extension {
         $import_design[] = [
             'name'    => 'is_gutenberg',
             'type'    => 'hidden',
-            'default' => true,
+            'default' => true, //function_exists('use_block_editor_for_post_type') ? use_block_editor_for_post_type('nx_bar_eb') : true,
             'rules'   => Rules::is('source', $this->id),
         ];
         $import_design[] = [
@@ -927,10 +929,10 @@ class PressBar extends Extension {
                 'show_in_nav_menus'  => false,
                 'rewrite'            => false,
                 // 'publicly_queryable' => false,
-                // 'template_lock'      => 'block',
+                'template_lock'      => 'block',
                 'rest_base'          => 'NotificationX',
-                // 'capability_type'    => 'block',
-                // 'rest_controller_class' => 'WP_REST_Blocks_Controller',
+                'capability_type'    => 'block',
+                'rest_controller_class' => 'WP_REST_Blocks_Controller',
                 'capabilities'    => array(
                     // You need to be able to edit posts, in order to read blocks in their raw form.
                     'read'                   => 'edit_posts',
@@ -1242,7 +1244,7 @@ class PressBar extends Extension {
         $post_args = array(
             'post_title'   => $pattern_data['title'],      // use the pattern title as the post title
             'post_content' => $pattern_data['content'],   // use the pattern content as the post content
-            'post_status'  => 'public',                  // set the post status to publish
+            'post_status'  => 'publish',                  // set the post status to publish
             'post_type'    => 'nx_bar_eb',              // set the post type to wp_block
         );
 
