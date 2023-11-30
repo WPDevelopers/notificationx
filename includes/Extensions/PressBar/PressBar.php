@@ -712,7 +712,7 @@ class PressBar extends Extension {
         $import_design[] = [
             'name'    => 'is_gutenberg',
             'type'    => 'hidden',
-            'default' => true, //function_exists('use_block_editor_for_post_type') ? use_block_editor_for_post_type('nx_bar_eb') : true,
+            'default' => function_exists('use_block_editor_for_post_type') ? use_block_editor_for_post_type('nx_bar_eb') : false,
             'rules'   => Rules::is('source', $this->id),
         ];
         $import_design[] = [
