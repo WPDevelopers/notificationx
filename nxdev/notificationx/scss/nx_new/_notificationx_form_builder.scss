@@ -438,6 +438,15 @@
                     }
                 }
             }
+
+                .components-color-picker {
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+                    .react-colorful {
+                        width: 100%;
+                    }
+                }
+            }
             .wprf-select-wrapper {
                 width: 100%;
                 max-width: 400px;
