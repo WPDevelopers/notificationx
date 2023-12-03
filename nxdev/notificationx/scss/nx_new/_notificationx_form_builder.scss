@@ -313,6 +313,7 @@
         .wprf-control-field {
             min-height: 40px;
             flex: 70%;
+
             textarea {
                 padding: 10px 15px;
                 border: 1.5px solid #e6effb;
@@ -343,6 +344,7 @@
             textarea[readonly] {
                 background: rgba(#6a4bff, 0.1);
             }
+
             input[type="text"] {
                 min-height: 40px;
                 padding: 2px 15px;
@@ -422,6 +424,14 @@
                     .components-button {
                         min-height: 40px;
                         cursor: pointer;
+                    }
+                }
+
+                .components-color-picker {
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+                    .react-colorful {
+                        width: 100%;
                     }
                 }
             }
