@@ -10,7 +10,6 @@ namespace NotificationX\Types;
 use NotificationX\Core\Rules;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\GetInstance;
-use NotificationX\Modules;
 use NotificationX\NotificationX;
 
 /**
@@ -87,7 +86,7 @@ class WooCommerce extends Types {
                 'template'  => $common_fields,
             ),
             // @todo pro map theme
-            'conv-theme-six' => array(
+            'woocommerce-theme-six' => array(
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-6.jpg',
                 'image_shape' => 'circle',
@@ -99,7 +98,7 @@ class WooCommerce extends Types {
                 'image_shape' => 'square',
                 'show_notification_image' => 'maps_image',
             ),
-            'conv-theme-ten' => array(
+            'woocommerce-theme-ten' => array(
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-4.png',
                 'image_shape' => 'rounded',
@@ -108,7 +107,7 @@ class WooCommerce extends Types {
                 ],
                 'template'  => $common_fields,
             ),
-            'conv-theme-eleven' => array(
+            'woocommerce-theme-eleven' => array(
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-5.png',
                 'image_shape' => 'rounded',
@@ -117,18 +116,18 @@ class WooCommerce extends Types {
                 ],
                 'template'  => $common_fields,
             ),
-            'conv-theme-seven' => array(
+            'woocommerce-theme-seven' => array(
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-7.png',
                 'image_shape' => 'rounded',
             ),
-            'conv-theme-eight' => array(
+            'woocommerce-theme-eight' => array(
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-8.png',
                 'image_shape' => 'circle',
 
             ),
-            'conv-theme-nine' => array(
+            'woocommerce-theme-nine' => array(
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-9.png',
                 'image_shape' => 'rounded',

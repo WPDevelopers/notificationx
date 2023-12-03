@@ -206,7 +206,7 @@ class Conversions extends Types {
             'rules' => Rules::logicalRule([
                 Rules::is('type', $this->id),
                 Rules::is('notification-template.first_param', 'tag_sales_count', true),
-                Rules::includes('source', [ 'woocommerce', 'edd' ]),
+                Rules::includes('source', [ 'edd' ]),
             ]),
         ];
         return $fields;
