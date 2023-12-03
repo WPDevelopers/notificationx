@@ -62,6 +62,7 @@ class FrontEnd {
         add_filter('nx_fallback_data', [$this, 'fallback_data'], 10, 3);
         add_filter('nx_filtered_data', [$this, 'filtered_data'], 9999, 3);
         add_filter('nx_filtered_post', [$this, 'filtered_post'], 9999, 2);
+        add_filter('get_notifications_ids', [$this, 'pre_configured'], 10, 2);
         add_action('wp_print_footer_scripts', [$this, 'footer_scripts']);
 
     }
@@ -80,7 +81,7 @@ class FrontEnd {
         $exit = false;
         if(isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], 'wp-admin/widgets.php') !== false){
             $exit = ['total' => 0];
-        }  
+        }
 
         $exit = apply_filters('nx_before_enqueue_scripts', $exit);
         if(!empty($exit)){
@@ -153,7 +154,7 @@ class FrontEnd {
         return $data;
     }
 
-    public function get_notifications_data($params) {
+    public function get_notifications_data($params, $notifications = null) {
         $_params = $params;
         $result  = [
             'global'    => [],
@@ -195,7 +196,9 @@ class FrontEnd {
         // }
 
         if (!empty($all)) {
-            $notifications = $this->get_notifications($all);
+            if(empty($notifications)){
+                $notifications = $this->get_notifications($all);
+            }
             $entries       = $this->get_entries($all, $notifications, $params);
 
             foreach ($entries as $entry) {
@@ -753,6 +756,18 @@ class FrontEnd {
             $bar_content = '&nbsp;';
         }
         return $bar_content;
+    }
+
+    public function pre_configured($results, $notifications){
+        $args = [
+            'is_pre_configured' => true,
+        ];
+        $results = array_merge(
+            $args,
+            $results,
+            $this->get_notifications_data($results, $notifications)
+        );
+        return $results;
     }
 
 }

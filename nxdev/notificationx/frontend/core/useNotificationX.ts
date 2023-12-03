@@ -105,6 +105,36 @@ const useNotificationX = (props: any) => {
             return;
         }
 
+        const setData = (response) => {
+            // Add Active Notices into State
+            if (isMounted.current) {
+                setActiveNotices(response?.activeNotice);
+
+                let gNotices = response?.globalNotice || [];
+                if(response.settings?.random){
+                    shuffleArray(gNotices);
+                }
+                else{
+                    sortArray(gNotices, {
+                        by: 'timestamp',
+                        order: 'desc',
+                        computed: {
+                            timestamp: row => row.data?.timestamp ? row.data.timestamp : getTime(row.data?.updated_at)
+                        }
+                    });
+                }
+
+                setGlobalNotices(gNotices);
+                setShortcodeNotices(response?.shortcodeNotice);
+                setPressbarNotices(response?.pressbar);
+            }
+        };
+
+        if(props.config.is_pre_configured){
+            setData(normalizeResponse(props.config));
+            return;
+        }
+
 
         let query:{[key: string]:string} = {};
         if(props.config.rest?.lang){
@@ -129,30 +159,8 @@ const useNotificationX = (props: any) => {
         nxHelper
         .post(url, data, args)
         .then(response => normalizeResponse(response))
-        .then((response: any) => {
-            // Add Active Notices into State
-            if (isMounted.current) {
-                setActiveNotices(response?.activeNotice);
+        .then((response: any) => setData(response));
 
-                let gNotices = response?.globalNotice || [];
-                if(response.settings?.random){
-                    shuffleArray(gNotices);
-                }
-                else{
-                    sortArray(gNotices, {
-                        by: 'timestamp',
-                        order: 'desc',
-                        computed: {
-                            timestamp: row => row.data?.timestamp ? row.data.timestamp : getTime(row.data?.updated_at)
-                        }
-                    });
-                }
-
-                setGlobalNotices(gNotices);
-                setShortcodeNotices(response?.shortcodeNotice);
-                setPressbarNotices(response?.pressbar);
-            }
-        });
         return () => {
             isMounted.current = false;
         };
