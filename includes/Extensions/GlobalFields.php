@@ -547,7 +547,7 @@ class GlobalFields {
                                     'default'     => 0,
                                     'is_pro'      => true,
                                     'description' => __('Enable to show notification in random order.', 'notificationx'),
-                                    'rules'       => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart"]),
+                                    'rules'       => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart","custom_notification"]),
                                 ),
                                 'product_control' => array(
                                     'label'    => __('Show Purchase Of', 'notificationx'),
@@ -726,7 +726,7 @@ class GlobalFields {
                                     // ],
                                     'description' => __('Enable button with link', 'notificationx'),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::includes('type', ['conversions','video']),
+                                        Rules::includes('type', ['conversions','video','woocommerce']),
                                         Rules::is('link_type','none',true),
                                     ]),
                                 ],

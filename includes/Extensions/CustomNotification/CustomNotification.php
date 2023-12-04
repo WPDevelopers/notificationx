@@ -11,6 +11,8 @@ use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
 use NotificationX\Extensions\ExtensionFactory;
 use NotificationX\Types\Conversions;
+use NotificationX\Types\WooCommerce as WooCommerceSales;
+use WooCommerce;
 
 /**
  * CustomNotification Extension
@@ -67,6 +69,7 @@ class CustomNotification extends Extension {
 
     public function get_themes_for_type($type) {
         $conversions_count = Conversions::get_instance()->conversions_count;
+        $woocommerce_count = WooCommerceSales::get_instance()->woocommerce_count;
         $maps_theme = array('conversions_maps_theme', 'conversions_conv-theme-six', 'comments_maps_theme', 'email_subscription_maps_theme');
         if ($type == 'conversions_count') return $conversions_count;
         if ($type == 'maps_theme') {
@@ -77,6 +80,9 @@ class CustomNotification extends Extension {
 
         if ($type == 'conversions') {
             $themes = array_values(array_diff($themes, $conversions_count));
+        }
+        if ($type == 'woocommerce') {
+            $themes = array_values(array_diff($themes, $woocommerce_count));
         }
         $themes = array_values(array_diff($themes, $maps_theme));
 

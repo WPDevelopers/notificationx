@@ -86,7 +86,7 @@ class WooCommerce extends Types {
                 'template'  => $common_fields,
             ),
             // @todo pro map theme
-            'woocommerce-theme-six' => array(
+            'conv-theme-six' => array(
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-6.jpg',
                 'image_shape' => 'circle',
@@ -116,18 +116,18 @@ class WooCommerce extends Types {
                 ],
                 'template'  => $common_fields,
             ),
-            'woocommerce-theme-seven' => array(
+            'conv-theme-seven' => array(
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-7.png',
                 'image_shape' => 'rounded',
             ),
-            'woocommerce-theme-eight' => array(
+            'conv-theme-eight' => array(
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-8.png',
                 'image_shape' => 'circle',
 
             ),
-            'woocommerce-theme-nine' => array(
+            'conv-theme-nine' => array(
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-9.png',
                 'image_shape' => 'rounded',
