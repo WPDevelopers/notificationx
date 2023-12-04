@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const Theme1 = ({ offer_discount, link_text }) => {
+const Theme1 = ({ offer_discount, link_text, link_button_bg_color, link_button_text_color }) => {
     const ref = useRef();
 
     return (
@@ -54,7 +54,7 @@ const Theme1 = ({ offer_discount, link_text }) => {
                 <text
                     fill="white"
                     xmlSpace="preserve"
-                    style={{whiteSpace: "pre"}}
+                    style={{whiteSpace: "pre", backgroundColor: link_button_bg_color, color: link_button_text_color}}
                     fontFamily="DM Sans"
                     fontSize="10"
                     fontWeight="500"
