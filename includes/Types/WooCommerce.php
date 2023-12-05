@@ -98,7 +98,7 @@ class WooCommerce extends Types {
                 'image_shape' => 'square',
                 'show_notification_image' => 'maps_image',
             ),
-            'woocommerce-theme-ten' => array(
+            'conv-theme-ten' => array(
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-4.png',
                 'image_shape' => 'rounded',
@@ -107,7 +107,7 @@ class WooCommerce extends Types {
                 ],
                 'template'  => $common_fields,
             ),
-            'woocommerce-theme-eleven' => array(
+            'conv-theme-eleven' => array(
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-5.png',
                 'image_shape' => 'rounded',
