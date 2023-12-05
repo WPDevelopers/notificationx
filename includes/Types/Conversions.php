@@ -29,7 +29,6 @@ class Conversions extends Types {
     public $priority = 5;
     public $themes = [];
     public $module = [
-        'modules_woocommerce',
         'modules_edd',
         'modules_custom_notification',
         'modules_zapier',

@@ -58,7 +58,7 @@ const GetTemplate = (settings) => {
                 params[param] = element || "";
             }
 
-            if(param == "second_param" && ['conversions_conv-theme-seven', 'conversions_conv-theme-eight', 'conversions_conv-theme-nine'].includes(settings?.themes)){
+            if(param == "second_param" && ['woocommerce_conv-theme-seven', 'woocommerce_conv-theme-eight', 'woocommerce_conv-theme-nine', 'conversions_conv-theme-seven', 'conversions_conv-theme-eight', 'conversions_conv-theme-nine'].includes(settings?.themes)){
                 const regex = /(\S+)(\s?.*)/;
                 const match = regex.exec(element);
                 if(match){

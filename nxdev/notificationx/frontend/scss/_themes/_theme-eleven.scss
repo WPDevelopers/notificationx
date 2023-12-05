@@ -1,3 +1,4 @@
+&.themes-woocommerce_conv-theme-eleven,
 &.themes-conversions_conv-theme-eleven {
     &:not(&:last-child) {
         margin-bottom: 45px;
@@ -5,7 +6,7 @@
     border-radius: 50px 8px 8px 50px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     filter: drop-shadow(-10px 0px 15px rgba(0, 0, 0, 0.1));
-    
+
     .notificationx-inner {
         border-radius: 50px 8px 8px 50px;
         .notificationx-image {
@@ -111,5 +112,5 @@
             }
         }
     }
-    
+
 }
