@@ -44,7 +44,7 @@ class WooCommerce extends Types {
      */
     public function __construct(){
         $this->id = 'woocommerce';
-        $this->title = __('WooCommerce Sales Notification', 'notificationx');
+        $this->title = __('WooCommerce Sales', 'notificationx');
 
         $is_pro = ! NotificationX::is_pro();
         // nx_colored_themes

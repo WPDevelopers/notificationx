@@ -41,7 +41,7 @@ class Conversions extends Types {
     public $map_dependency = [];
 
 
-    public $default_source    = 'woocommerce';
+    public $default_source    = 'surecart';
     public $default_theme = 'conversions_theme-one';
     public $link_type = 'product_page';
 
