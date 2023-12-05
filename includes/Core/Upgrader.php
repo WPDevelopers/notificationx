@@ -51,7 +51,9 @@ class Upgrader {
                 error_log('NX: Migration Failed');
             }
             $this->database->update_option( 'nx_free_version', NOTIFICATIONX_VERSION, 'no' );
-        } elseif(!$nx_free_version && $_is_table_created ){
+        } else if( $nx_free_version && version_compare($nx_free_version, '2.7.9', '<=') ){
+            $this->woocommerce_type_migration();
+        } else if(!$nx_free_version && $_is_table_created ){
             $this->database->update_option( 'nx_free_version', NOTIFICATIONX_VERSION, 'no' );
         }
         if ($nx_free_version !== NOTIFICATIONX_VERSION) {
@@ -61,5 +63,42 @@ class Upgrader {
 
     public function clear_transient(){
         delete_transient('nx_builder_fields');
+    }
+
+    /**
+     * This function handles the migration of WooCommerce type notifications.
+     * It fetches all the 'conversions' type notifications from the database that have 'woocommerce' as their source.
+     * Then, it updates each notification's type to 'woocommerce' and modifies its theme accordingly.
+     * Finally, it updates the notification in the database with the new type, theme, and data.
+     */
+    public function woocommerce_type_migration(){
+        // Fetch 'conversions' type notifications with 'woocommerce' as their source from the database.
+        // We're not using PostType::get_posts() because it will apply filters.
+        $notifications = Database::get_instance()->get_posts( Database::$table_posts, 'nx_id, theme, data', [
+            'type'   => 'conversions',
+            'source' => 'woocommerce',
+        ] );
+
+        // If there are any notifications,
+        if(!empty($notifications)){
+            // Loop through each notification
+            foreach ($notifications as $notification) {
+                // Replace 'conversions_' in the theme with 'woocommerce_'
+                $theme = str_replace('conversions_', 'woocommerce_', $notification['theme']);
+
+                // Update the notification's type to 'woocommerce' and its theme
+                $notification['data']['type']   = 'woocommerce';
+                $notification['data']['themes'] = $theme;
+
+                // Update the notification in the database
+                PostType::get_instance()->update_post([
+                    'type'  => 'woocommerce',
+                    'theme' => $theme,
+                    'data'  => $notification['data'],
+                ], [
+                    'nx_id'  => $notification['nx_id'],
+                ]);
+            }
+        }
     }
 }
