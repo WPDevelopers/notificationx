@@ -143,13 +143,13 @@ class WooCommerceSales extends Types {
                     'tag_time' => __('Definite Time', 'notificationx'),
                 ],
                 '_themes' => [
-                    'woocommerce_theme-one',
-                    'woocommerce_theme-two',
-                    'woocommerce_theme-three',
-                    'woocommerce_theme-four',
-                    'woocommerce_theme-five',
-                    'woocommerce_conv-theme-ten',
-                    'woocommerce_conv-theme-eleven',
+                    'woocommerce_sales_theme-one',
+                    'woocommerce_sales_theme-two',
+                    'woocommerce_sales_theme-three',
+                    'woocommerce_sales_theme-four',
+                    'woocommerce_sales_theme-five',
+                    'woocommerce_sales_conv-theme-ten',
+                    'woocommerce_sales_conv-theme-eleven',
                 ]
             ],
             'woo_template_sales_count' => [
@@ -161,10 +161,10 @@ class WooCommerceSales extends Types {
                     // 'tag_time' => __('Definite Time', 'notificationx'),
                 ],
                 '_themes' => [
-                    'woocommerce_conv-theme-six',
-                    'woocommerce_conv-theme-seven',
-                    'woocommerce_conv-theme-eight',
-                    'woocommerce_conv-theme-nine',
+                    'woocommerce_sales_conv-theme-six',
+                    'woocommerce_sales_conv-theme-seven',
+                    'woocommerce_sales_conv-theme-eight',
+                    'woocommerce_sales_conv-theme-nine',
                 ]
             ],
         ];
@@ -199,7 +199,7 @@ class WooCommerceSales extends Types {
             'rules' => Rules::logicalRule([
                 Rules::is('type', $this->id),
                 Rules::is('notification-template.first_param', 'tag_sales_count', true),
-                Rules::includes('source', [ 'woocommerce' ]),
+                Rules::includes('source', [ 'woocommerce_sales' ]),
             ]),
         ];
         return $fields;
