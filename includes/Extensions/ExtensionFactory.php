@@ -54,6 +54,7 @@ class ExtensionFactory {
 			'wpf'                             => 'NotificationX\Extensions\WPF\WPForms',
 			'reviewx'                         => 'NotificationX\Extensions\ReviewX\ReviewX',
 			'woocommerce'                     => 'NotificationX\Extensions\WooCommerce\WooCommerce',
+			'woocommerce_sales'               => 'NotificationX\Extensions\WooCommerce\WooCommerceSales',
 			'woo_reviews'                     => 'NotificationX\Extensions\WooCommerce\WooReviews',
 			'wp_comments'                     => 'NotificationX\Extensions\WordPress\WPComments',
 			'wp_reviews'                      => 'NotificationX\Extensions\WordPress\WPOrgReview',
