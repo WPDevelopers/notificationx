@@ -113,17 +113,20 @@ class Preview {
                     font-weight: 600;
                 }
                 .notificationx-woo-shortcode-inline-wrapper > div.woo_inline_conv-theme-seven span:first-child,
-                .notificationx-woo-shortcode-inline-wrapper > div.edd_inline_conv-theme-seven span:first-child {
+                .notificationx-woo-shortcode-inline-wrapper > div.edd_inline_conv-theme-seven span:first-child, 
+                .notificationx-woo-shortcode-inline-wrapper > div.woocommerce_sales_inline_conv-theme-seven span:first-child {
                     color: #61BD6D;
                 }
                 .notificationx-woo-shortcode-inline-wrapper > div.woo_inline_conv-theme-seven span:last-child,
+                .notificationx-woo-shortcode-inline-wrapper > div.woocommerce_sales_inline_conv-theme-seven span:last-child,
                 .notificationx-woo-shortcode-inline-wrapper > div.edd_inline_conv-theme-seven span:last-child,
                 .notificationx-woo-shortcode-inline-wrapper > div.tutor_inline_conv-theme-seven span:last-child,
                 .notificationx-woo-shortcode-inline-wrapper > div.learndash_inline_conv-theme-seven span:last-child{
                     color: #E25042;
                 }
 
-                .notificationx-woo-shortcode-inline-wrapper > div.woo_inline_stock-theme-one span {
+                .notificationx-woo-shortcode-inline-wrapper > div.woo_inline_stock-theme-one span,
+                .notificationx-woo-shortcode-inline-wrapper > div.woocommerce_sales_inline_stock-theme-one span {
                     color: #E25042;
                 }
             </style>
@@ -352,7 +355,7 @@ class Preview {
             'name'   => 'preview',
             'urls'   => $urls,
             'errors' => apply_filters('nx_content_heading_preview_errors', []),
-            'rules'  => Rules::includes('themes', ['woo_inline_stock-theme-two', 'tutor_inline_conv-theme-eight', 'flashing_tab_theme-1','flashing_tab_theme-2' ,'flashing_tab_theme-3' , 'flashing_tab_theme-4'], true),
+            'rules'  => Rules::includes('themes', ['woo_inline_stock-theme-two', 'tutor_inline_conv-theme-eight', 'flashing_tab_theme-1','flashing_tab_theme-2' ,'flashing_tab_theme-3' , 'flashing_tab_theme-4','woocommerce_sales_inline_stock-theme-two'], true),
         ]);
         return $tabs;
     }

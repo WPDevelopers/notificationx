@@ -98,6 +98,8 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Extensions\\WooCommerce\\Woo' => __DIR__ . '/../..' . '/includes/Extensions/WooCommerce/Woo.php',
         'NotificationX\\Extensions\\WooCommerce\\WooCommerce' => __DIR__ . '/../..' . '/includes/Extensions/WooCommerce/WooCommerce.php',
         'NotificationX\\Extensions\\WooCommerce\\WooCommerceSales' => __DIR__ . '/../..' . '/includes/Extensions/WooCommerce/WooCommerceSales.php',
+        'NotificationX\\Extensions\\WooCommerce\\WooCommerceSalesInline' => __DIR__ . '/../..' . '/includes/Extensions/WooCommerce/WooCommerceSalesInline.php',
+        'NotificationX\\Extensions\\WooCommerce\\WooCommerceSalesReviews' => __DIR__ . '/../..' . '/includes/Extensions/WooCommerce/WooCommerceSalesReviews.php',
         'NotificationX\\Extensions\\WooCommerce\\WooInline' => __DIR__ . '/../..' . '/includes/Extensions/WooCommerce/WooInline.php',
         'NotificationX\\Extensions\\WooCommerce\\WooReviews' => __DIR__ . '/../..' . '/includes/Extensions/WooCommerce/WOOReviews.php',
         'NotificationX\\Extensions\\WordPress\\WPComments' => __DIR__ . '/../..' . '/includes/Extensions/WordPress/WPComments.php',

@@ -103,6 +103,7 @@ const GetTemplate = (settings) => {
                 `${params?.third_param}`,
                 `${params?.fourth_param}`,
             ];
+        case "woocommerce_sales_inline_conv-theme-seven":
         case "woo_inline_conv-theme-seven":
             return [
                 `${params?.first_param} ${params?.second_param} ${params?.third_param} ${params?.fourth_param}`,

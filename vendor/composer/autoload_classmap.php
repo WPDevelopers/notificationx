@@ -83,6 +83,8 @@ return array(
     'NotificationX\\Extensions\\WooCommerce\\Woo' => $baseDir . '/includes/Extensions/WooCommerce/Woo.php',
     'NotificationX\\Extensions\\WooCommerce\\WooCommerce' => $baseDir . '/includes/Extensions/WooCommerce/WooCommerce.php',
     'NotificationX\\Extensions\\WooCommerce\\WooCommerceSales' => $baseDir . '/includes/Extensions/WooCommerce/WooCommerceSales.php',
+    'NotificationX\\Extensions\\WooCommerce\\WooCommerceSalesInline' => $baseDir . '/includes/Extensions/WooCommerce/WooCommerceSalesInline.php',
+    'NotificationX\\Extensions\\WooCommerce\\WooCommerceSalesReviews' => $baseDir . '/includes/Extensions/WooCommerce/WooCommerceSalesReviews.php',
     'NotificationX\\Extensions\\WooCommerce\\WooInline' => $baseDir . '/includes/Extensions/WooCommerce/WooInline.php',
     'NotificationX\\Extensions\\WooCommerce\\WooReviews' => $baseDir . '/includes/Extensions/WooCommerce/WOOReviews.php',
     'NotificationX\\Extensions\\WordPress\\WPComments' => $baseDir . '/includes/Extensions/WordPress/WPComments.php',

@@ -550,7 +550,7 @@ class GlobalFields {
                                     'default'     => 0,
                                     'is_pro'      => true,
                                     'description' => __('Enable to show notification in random order.', 'notificationx'),
-                                    'rules'       => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart","custom_notification", 'woocommerce_sales']),
+                                    'rules'       => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart","custom_notification", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
                                 ),
                                 'product_control' => array(
                                     'label'    => __('Show Purchase Of', 'notificationx'),
@@ -565,7 +565,7 @@ class GlobalFields {
                                         'product_category' => __('Product Category', 'notificationx'),
                                         'manual_selection' => __('Selected Product', 'notificationx'),
                                     ]),
-                                    'rules'       => Rules::includes('source', ['woocommerce','woocommerce_sales', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart"]),
+                                    'rules'       => Rules::includes('source', ['woocommerce','woocommerce_sales', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart",'woocommerce_sales_reviews','woocommerce_sales_inline']),
                                 ),
                                 'category_list' => array(
                                     'label'    => __('Select Product Category', 'notificationx'),
@@ -575,7 +575,7 @@ class GlobalFields {
                                     'priority' => 95,
                                     'options'  => apply_filters('nx_conversion_category_list', []),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce' , 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart", 'woocommerce_sales']),
+                                        Rules::includes('source', ['woocommerce' , 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
                                         Rules::is( 'product_control', 'product_category' ),
                                     ]),
                                 ),
@@ -593,7 +593,7 @@ class GlobalFields {
                                         ],
                                     ]),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart"]),
+                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart",'woocommerce_sales_reviews','woocommerce_sales_inline']),
                                         Rules::is( 'product_control', 'manual_selection' ),
                                     ]),
                                     'ajax'   => [
@@ -605,7 +605,7 @@ class GlobalFields {
                                         ],
                                         // 'target' => "product_list",
                                         'rules'  => Rules::logicalRule([
-                                            Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart", 'woocommerce_sales']),
+                                            Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
                                             Rules::is( 'product_control', 'manual_selection' ),
                                         ]),
                                     ],
@@ -623,7 +623,7 @@ class GlobalFields {
                                         'product_category' => __('Product Category', 'notificationx'),
                                         'manual_selection' => __('Selected Product', 'notificationx'),
                                     ]),
-                                    'rules' => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart", 'woocommerce_sales']),
+                                    'rules' => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
                                 ),
                                 'exclude_categories' => array(
                                     'label'    => __('Select Product Category', 'notificationx'),
@@ -633,7 +633,7 @@ class GlobalFields {
                                     'priority' => 98,
                                     'options'  => apply_filters('nx_conversion_category_list', []),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart", 'woocommerce_sales']),
+                                        Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
                                         Rules::is( 'product_exclude_by', 'product_category' ),
                                     ]),
                                 ),
@@ -651,7 +651,7 @@ class GlobalFields {
                                         ],
                                     ]),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart"]),
+                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart",'woocommerce_sales_reviews','woocommerce_sales_inline']),
                                         Rules::is( 'product_exclude_by', 'manual_selection' ),
                                     ]),
                                     'ajax'   => [
@@ -662,7 +662,7 @@ class GlobalFields {
                                             'field'  => "exclude_products",
                                         ],
                                         'rules'       => Rules::logicalRule([
-                                            Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", 'woocommerce_sales']),
+                                            Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
                                             Rules::is( 'product_exclude_by', 'manual_selection' ),
                                         ]),
                                     ],
@@ -678,8 +678,8 @@ class GlobalFields {
                                     'help'     => __("By default it will show Processing & Completed status."),
                                     'options'  => apply_filters('nx_woo_order_status', []),
                                     'rules'    => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', "woo_inline"]),
-                                        Rules::includes('themes', [ 'woo_inline_stock-theme-one', 'woo_inline_stock-theme-two' ], true),
+                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', "woo_inline"],'woocommerce_sales_inline'),
+                                        Rules::includes('themes', [ 'woo_inline_stock-theme-one', 'woo_inline_stock-theme-two', 'woocommerce_sales_inline_stock-theme-one', 'woocommerce_sales_inline_stock-theme-two'], true),
                                     ]),
 
                                 ),
@@ -843,6 +843,7 @@ class GlobalFields {
                                         "freemius_stats",
                                         "youtube",
                                         "woocommerce_sales",
+                                        'woocommerce_sales_reviews',
                                     ] ),
                                     'options' => apply_filters('nx_show_image_options', array(
                                         'none'           => [
@@ -877,6 +878,7 @@ class GlobalFields {
                                                     "freemius_reviews",
                                                     "freemius_stats",
                                                     "woocommerce_sales",
+                                                    'woocommerce_sales_reviews',
                                                 ]
                                             ],
                                         ],
@@ -912,6 +914,7 @@ class GlobalFields {
                                                     "freemius_reviews",
                                                     "freemius_stats",
                                                     "woocommerce_sales",
+                                                    'woocommerce_sales_reviews',
                                                 ],
                                             ],
                                         ],
