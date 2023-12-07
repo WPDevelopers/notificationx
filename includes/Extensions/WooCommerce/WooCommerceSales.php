@@ -20,7 +20,12 @@ use NotificationX\Extensions\GlobalFields;
  * @method static WooCommerce get_instance($args = null)
  */
 class WooCommerceSales extends WooCommerce {
-
+    /**
+     * Instance of WooInline
+     *
+     * @var WooCommerceSales
+     */
+    protected static $instance = null;
     public $priority        = 5;
     public $id              = 'woocommerce_sales';
     public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/woocommerce.png';
