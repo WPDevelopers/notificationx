@@ -215,6 +215,9 @@ class GlobalFields {
                                             "wpf" => [
                                                 'show_notification_image' => '@show_notification_image:gravatar',
                                             ],
+                                            "woocommerce_sales" => [
+                                                'show_notification_image' => '@show_notification_image:featured_image',
+                                            ],
                                         ] ),
                                     ]
                                 ],
