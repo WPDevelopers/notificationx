@@ -57,8 +57,9 @@ class WooCommerceSalesReviews extends WooReviews {
      * Initially Invoked when initialized.
      */
     public function __construct(){
-        $this->title        = $this->title ?        $this->title        : __('WooCommerce Review', 'notificationx');
-        $this->module_title = $this->module_title ? $this->module_title : __('WooCommerce Review', 'notificationx');
+        parent::__construct();
+        $this->title        = __('Reviews', 'notificationx');
+        $this->module_title = __('Reviews', 'notificationx');
         $this->themes       = [
             'total-rated'     => [
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/total-rated.png',
@@ -67,7 +68,7 @@ class WooCommerceSalesReviews extends WooReviews {
                     'first_param'         => 'tag_rated',
                     'custom_first_param'  => __('Someone', 'notificationx'),
                     'second_param'        => __('people rated', 'notificationx'),
-                    'third_param'         => 'tag_plugin_name',
+                    'third_param'         => 'tag_product_title',
                     'fourth_param'        => 'tag_rating',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ]
@@ -79,7 +80,7 @@ class WooCommerceSalesReviews extends WooReviews {
                     'first_param'         => 'tag_username',
                     'custom_first_param'  => __('Someone', 'notificationx'),
                     'second_param'        => __('just reviewed', 'notificationx'),
-                    'third_param'         => 'tag_plugin_name',
+                    'third_param'         => 'tag_product_title',
                     'fourth_param'        => 'tag_rating',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ]
@@ -178,7 +179,6 @@ class WooCommerceSalesReviews extends WooReviews {
                 ],
             ],
         ];
-        parent::__construct();
     }
 
 }

@@ -64,7 +64,7 @@ class Preview {
             $settings = $this->preview_settings();
             if (empty($settings['source']) || empty($settings['type']))
                 return;
-            if ('inline' === $settings['type']){
+            if ('inline' === $settings['type'] || 'woocommerce_sales_inline' == $settings['source'] ){
                 $args['total'] = 0;
                 return $args;
             }
@@ -365,7 +365,7 @@ class Preview {
             $settings = $this->preview_settings($settings);
             $settings['is_preview'] = true;
 
-            if (empty($settings['source']) || empty($settings['type']) || 'inline' !== $settings['type']){
+            if (empty($settings['source']) || empty($settings['type']) || 'inline' !== $settings['type'] || 'woocommerce_sales_inline' == $settings['source'] ){
                 return;
             }
 

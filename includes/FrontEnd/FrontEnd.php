@@ -243,7 +243,7 @@ class FrontEnd {
                     }
                     $result['shortcode'][$nx_id]['entries'][] = $entry;
                     $settings['position']                       = $position;
-                    if ($settings['show_on'] === 'only_shortcode' || 'inline' === $settings['type']) {
+                    if ($settings['show_on'] === 'only_shortcode' || 'inline' === $settings['type'] || 'woocommerce_sales_inline' == $settings['source']) {
                         continue;
                     }
                     if (empty($global) && empty($active)) {

@@ -58,8 +58,9 @@ class WooCommerceSalesInline extends WooInline {
      * Initially Invoked when initialized.
      */
     public function __construct(){
-        $this->title        = __('WooCommerce Inline', 'notificationx');
-        $this->module_title = __('WooCommerce Inline', 'notificationx');
+        parent::__construct();
+        $this->title        = __('Growth Alert', 'notificationx');
+        $this->module_title = __('Growth Alert', 'notificationx');
         $this->themes = [
             'conv-theme-seven' => array(
                 'is_pro'      => true,
@@ -146,7 +147,6 @@ class WooCommerceSalesInline extends WooInline {
                 ],
             ],
         ];
-        parent::__construct();
     }
 
 }
