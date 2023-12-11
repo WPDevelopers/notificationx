@@ -678,7 +678,7 @@ class GlobalFields {
                                     'help'     => __("By default it will show Processing & Completed status."),
                                     'options'  => apply_filters('nx_woo_order_status', []),
                                     'rules'    => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', "woo_inline"],'woocommerce_sales_inline'),
+                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', "woo_inline","woocommerce_sales_inline"]),
                                         Rules::includes('themes', [ 'woo_inline_stock-theme-one', 'woo_inline_stock-theme-two', 'woocommerce_sales_inline_stock-theme-one', 'woocommerce_sales_inline_stock-theme-two'], true),
                                     ]),
 

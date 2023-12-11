@@ -174,6 +174,11 @@ class WooCommerceSales extends Types {
         parent::__construct();
     }
 
+    public function init() {
+        parent::init();
+        add_filter("nx_filtered_entry_{$this->id}", array($this, 'conversion_data'), 11, 2);
+    }
+    
     /**
      * Hooked to nx_before_metabox_load action.
      *
