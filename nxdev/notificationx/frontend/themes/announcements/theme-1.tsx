@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const Theme1 = ({ offer_discount, link_text, link_button_bg_color, link_button_text_color }) => {
+const Theme1 = ({ offer_discount, link_text, link_button_bg_color, link_button_text_color, announcementCSS }) => {
     const ref = useRef();
 
     return (
@@ -13,22 +13,22 @@ const Theme1 = ({ offer_discount, link_text, link_button_bg_color, link_button_t
         >
             <path
                 d="M10 0H82V78C82 84.6274 76.6274 90 70 90H22C15.3726 90 10 84.6274 10 78V0Z"
-                fill="#4F19CD"
+                fill={ announcementCSS?.discountBackground ? announcementCSS?.discountBackground : "#4F19CD" }
             />
-            <path d="M82 0L87 5L92 10H82V0Z" fill="#806FF6" />
-            <path d="M10 0L5 5L0 10H10V0Z" fill="#806FF6" />
+            <path d="M82 0L87 5L92 10H82V0Z" fill={ announcementCSS?.discountBackground ? announcementCSS?.discountBackground : "#806FF6" } />
+            <path d="M10 0L5 5L0 10H10V0Z" fill={ announcementCSS?.discountBackground ? announcementCSS?.discountBackground : "#806FF6" } />
             <g>
                 <text
                     ref={ref}
-                    fill="white"
                     xmlSpace="preserve"
-                    style={{whiteSpace: "pre"}}
+                    style={{whiteSpace: "pre"} }
                     fontFamily="DM Sans"
                     fontSize="24"
                     fontWeight="bold"
                     letterSpacing="0em"
+                    fill={ announcementCSS?.discountTextColor ? announcementCSS?.discountTextColor : "#fff" }
                 >
-                    <tspan x="16" y="53.548">
+                    <tspan x="16" y="53.548" >
                         {offer_discount}
                         <tspan fontSize="14">%</tspan>
                     </tspan>
@@ -36,23 +36,23 @@ const Theme1 = ({ offer_discount, link_text, link_button_bg_color, link_button_t
             </g>
             <g filter="url(#filter1_d_620_42)">
                 <text
-                    fill="white"
                     xmlSpace="preserve"
                     style={{whiteSpace: "pre"}}
                     fontFamily="DM Sans"
                     fontSize="16"
                     fontWeight="bold"
                     letterSpacing="0em"
+                    fill={ announcementCSS?.discountTextColor ? announcementCSS?.discountTextColor : "#fff" }
                 >
                     <tspan x="37" y="73.456">
                         OFF
                     </tspan>
                 </text>
             </g>
-            <rect x="13" y="3" width="66" height="17" rx="2" fill="#806FF6" />
+            <rect x="13" y="3" width="66" height="17" rx="2" fill={ announcementCSS?.linkButtonBgColor ? announcementCSS?.linkButtonBgColor : '#806FF6' } />
             <g filter="url(#filter2_d_620_42)">
                 <text
-                    fill="white"
+                    fill={ announcementCSS?.linkButtonTextColor ? announcementCSS?.linkButtonTextColor : '#fff' }
                     xmlSpace="preserve"
                     style={{whiteSpace: "pre", backgroundColor: link_button_bg_color, color: link_button_text_color}}
                     fontFamily="DM Sans"

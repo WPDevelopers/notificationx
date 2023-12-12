@@ -35,6 +35,29 @@
                 left: 10px;
             }
         }
+        &.nxc-top_right {
+            top: 30px;
+            right: 30px;
+            align-items: flex-end;
+            @media only screen and (max-width: 480px) {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+            }
+        }
+        &.nxc-top_left {
+            left: 30px;
+            top: 30px;
+            align-items: flex-end;
+            @media only screen and (max-width: 480px) {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+            }
+            .notification-item {
+                
+            }
+        }
         .nx-notification {
             pointer-events: initial;
         }

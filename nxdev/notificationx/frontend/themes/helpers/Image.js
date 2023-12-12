@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import Announcements from "../announcements";
 
-const Image = ({ data, config, id, theme: themeName, style, isSplitCss, isSplit }) => {
+const Image = ({ data, config, id, theme: themeName, style, isSplitCss, isSplit, announcementCSS = '' }) => {
     if (!data?.image_data) {
         return null;
     }
@@ -45,9 +45,11 @@ const Image = ({ data, config, id, theme: themeName, style, isSplitCss, isSplit 
         }
         imgRadius = { ...imgRadius, borderRadius: radiusValue };
     }
-
+    
+    // Add announcement css to data object
+    data.announcementCSS = announcementCSS;
     if(["announcements_theme-1", "announcements_theme-2",].includes(themes)){
-        return (<Announcements {...{themeName, data, config, id, style, componentClasses}} />);
+        return (<Announcements {...{themeName, data, config, id, style, componentClasses }} />);
     }
 
     return (

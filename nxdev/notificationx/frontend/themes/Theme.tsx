@@ -76,6 +76,7 @@ const Theme = (props) => {
     );
 
     const componentCSS: any = {};
+    const announcementCSS: any = {};
     if (post?.advance_edit) {
         if (post.bg_color) componentCSS.backgroundColor = post.bg_color;
         if (post.text_color) componentCSS.color = post.text_color;
@@ -87,6 +88,12 @@ const Theme = (props) => {
             // shadow post.bg_color;
             // shadow border - color;
         }
+        // Add announcementCSS
+        if(post.discount_text_color) announcementCSS.discountTextColor      = post.discount_text_color;
+        if(post.discount_background) announcementCSS.discountBackground     = post.discount_background;
+        if(post.link_button_bg_color) announcementCSS.linkButtonBgColor     = post.link_button_bg_color;
+        if(post.link_button_font_size) announcementCSS.linkButtonFontSize   = post.link_button_font_size;
+        if(post.link_button_text_color) announcementCSS.linkButtonTextColor = post.link_button_text_color;
     }
 
     return (
@@ -100,6 +107,7 @@ const Theme = (props) => {
                 style={isSplitCss ? componentCSS : {}}
                 isSplitCss={isSplitCss}
                 isSplit={isSplit}
+                announcementCSS={announcementCSS}
             />
             <Content
                 {...props}
