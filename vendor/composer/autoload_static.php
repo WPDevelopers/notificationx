@@ -57,6 +57,8 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Core\\Rule' => __DIR__ . '/../..' . '/includes/Core/Rule.php',
         'NotificationX\\Core\\Rules' => __DIR__ . '/../..' . '/includes/Core/Rules.php',
         'NotificationX\\Core\\ShortcodeInline' => __DIR__ . '/../..' . '/includes/Features/ShortcodeInline.php',
+        'NotificationX\\Core\\Traits\\Conversions' => __DIR__ . '/../..' . '/includes/Core/Traits/Conversions.php',
+        'NotificationX\\Core\\Traits\\Reviews' => __DIR__ . '/../..' . '/includes/Core/Traits/Reviews.php',
         'NotificationX\\Core\\Upgrader' => __DIR__ . '/../..' . '/includes/Core/Upgrader.php',
         'NotificationX\\Core\\WPDRoleManagement' => __DIR__ . '/../..' . '/includes/Core/WPDRoleManagement.php',
         'NotificationX\\Extensions\\CF7\\CF7' => __DIR__ . '/../..' . '/includes/Extensions/CF7/CF7.php',

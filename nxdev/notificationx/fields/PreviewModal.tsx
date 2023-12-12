@@ -187,7 +187,7 @@ const PreviewModal = (props) => {
                         </button>
                     </div>
                     <div className="nx-admin-modal-body">
-                        {'inline' === context.values.type && !props.urls?.[context.values.source] ? (
+                        {  ( ('inline' === context.values.type && !props.urls?.[context.values.source]) || ('woocommerce_sales_inline' === context.values.source && !props.urls?.[context.values.source]) ) ? (
                             <div
                                 style={{
                                     height: "600px",

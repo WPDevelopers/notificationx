@@ -42,6 +42,8 @@ return array(
     'NotificationX\\Core\\Rule' => $baseDir . '/includes/Core/Rule.php',
     'NotificationX\\Core\\Rules' => $baseDir . '/includes/Core/Rules.php',
     'NotificationX\\Core\\ShortcodeInline' => $baseDir . '/includes/Features/ShortcodeInline.php',
+    'NotificationX\\Core\\Traits\\Conversions' => $baseDir . '/includes/Core/Traits/Conversions.php',
+    'NotificationX\\Core\\Traits\\Reviews' => $baseDir . '/includes/Core/Traits/Reviews.php',
     'NotificationX\\Core\\Upgrader' => $baseDir . '/includes/Core/Upgrader.php',
     'NotificationX\\Core\\WPDRoleManagement' => $baseDir . '/includes/Core/WPDRoleManagement.php',
     'NotificationX\\Extensions\\CF7\\CF7' => $baseDir . '/includes/Extensions/CF7/CF7.php',
