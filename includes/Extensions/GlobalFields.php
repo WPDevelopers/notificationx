@@ -84,12 +84,7 @@ class GlobalFields {
                     ],
                     'classes' => "source_tab",
                     'fields'  => apply_filters('nx_source_fields', [
-                        'source_error' => [
-                            'type' => 'message',
-                            'name' => 'source_error',
-                            'messages' => apply_filters('source_error_message', []),
-                            'rules' => '',
-                        ],
+                        
                         'type_section' => [
                             'label'   => __("Notification Type", 'notificationx'),
                             'name'   => "type_section",
@@ -129,6 +124,12 @@ class GlobalFields {
                             'name'   => "source_section",
                             'type'   => "section",
                             'fields' => [
+                                'source_error' => [
+                                    'type' => 'message',
+                                    'name' => 'source_error',
+                                    'messages' => apply_filters('source_error_message', []),
+                                    'rules' => '',
+                                ],
                                 'source' => [
                                     // 'label'            => "Source",
                                     'name'             => "source",
@@ -618,6 +619,7 @@ class GlobalFields {
                                     'default'  => 'none',
                                     'is_pro'   => true,
                                     'disable' => true,
+                                    'info'        => __('Enter how many characters you want to show in comment or review'),
                                     'options'  => GlobalFields::get_instance()->normalize_fields([
                                         'none'             => __('None', 'notificationx'),
                                         'product_category' => __('Product Category', 'notificationx'),
