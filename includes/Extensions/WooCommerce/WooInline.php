@@ -74,7 +74,7 @@ class WooInline extends WooCommerce {
                     'first_param'         => 'tag_sales_count',
                     'custom_first_param'  => __( '99', 'notificationx' ),
                     'second_param'        => __( 'people purchased', 'notificationx' ),
-                    'third_param'         => 'tag_custom',
+                    'third_param'         => 'tag_product_title',
                     'custom_third_param'  => ' ',
                     'fourth_param'        => 'tag_7days',
                     'custom_fourth_param' => __( 'in last {{day:7}}', 'notificationx' ),

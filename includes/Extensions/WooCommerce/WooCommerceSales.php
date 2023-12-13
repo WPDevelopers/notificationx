@@ -28,7 +28,7 @@ class WooCommerceSales extends WooCommerce {
     protected static $instance = null;
     public $priority        = 5;
     public $id              = 'woocommerce_sales';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/woocommerce.png';
+    public $img             = '';
     public $doc_link        = 'https://notificationx.com/docs/woocommerce-sales-notifications/';
     public $types           = 'woocommerce_sales';
     public $module          = 'modules_woocommerce_sales';
@@ -67,8 +67,9 @@ class WooCommerceSales extends WooCommerce {
      * Initially Invoked when initialized.
      */
     public function __construct(){
-        $this->title = __('WooCommerce Sales', 'notificationx');
-        $this->module_title = __('WooCommerce Sales', 'notificationx');
+        parent::__construct();
+        $this->title = __('Sales Notification', 'notificationx');
+        $this->module_title = __('Sales Notification', 'notificationx');
         // nx_colored_themes
         $common_fields = [
             'first_param'         => 'tag_name',
@@ -190,7 +191,6 @@ class WooCommerceSales extends WooCommerce {
                 ]
             ],
         ];
-        parent::__construct();
     }
 
 }

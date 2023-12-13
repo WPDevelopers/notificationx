@@ -170,6 +170,9 @@
         .wprf-control-label {
             display: inline-flex;
             align-items: flex-start;
+            .wprf-info {
+                transform: translate(40px, 3px);
+            }
         }
         &.pro-deactivated {
             .wprf-control-field {
@@ -227,6 +230,7 @@
             margin-bottom: 10px;
             padding-right: 10px;
             box-sizing: border-box;
+            display: inline-flex;
             @media only screen and (max-width: 1599px) {
                 flex: 20%;
             }
