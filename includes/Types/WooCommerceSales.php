@@ -189,7 +189,6 @@ class WooCommerceSales extends Types {
      */
     public function init_fields() {
         parent::init_fields();
-        add_filter('nx_content_fields', [$this, 'content_fields'], 9);
         add_filter('nx_notification_template', [$this, 'review_templates'], 7);
         add_filter('nx_content_trim_length_dependency', [$this, 'content_trim_length_dependency']);
     }

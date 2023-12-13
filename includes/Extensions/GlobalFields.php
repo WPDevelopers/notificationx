@@ -619,7 +619,7 @@ class GlobalFields {
                                     'default'  => 'none',
                                     'is_pro'   => true,
                                     'disable' => true,
-                                    'info'        => __('Enter how many characters you want to show in comment or review'),
+                                    // 'info'        => __('Enter how many characters you want to show in comment or review'),
                                     'options'  => GlobalFields::get_instance()->normalize_fields([
                                         'none'             => __('None', 'notificationx'),
                                         'product_category' => __('Product Category', 'notificationx'),
@@ -698,7 +698,27 @@ class GlobalFields {
                                     'rules'    => Rules::logicalRule([
                                         Rules::includes('source', ["surecart"]),
                                     ]),
-                                )
+                                ),
+                                'combine_multiorder' => [
+                                    'label'       => __('Combine Multi Order', 'notificationx'),
+                                    'name'        => 'combine_multiorder',
+                                    'type'        => 'checkbox',
+                                    'priority'    => 99.7,
+                                    'default'     => true,
+                                    'description' => __('Combine order like, 2 more products.', 'notificationx'),
+                                    'rules' => Rules::logicalRule([
+                                        Rules::logicalRule([
+                                            Rules::is('type', ['conversions']),
+                                            Rules::is('notification-template.first_param', 'tag_sales_count', true),
+                                            Rules::includes('source', [ 'woocommerce', 'edd' ]),
+                                        ]),
+                                        Rules::logicalRule([
+                                            Rules::is('type', [ 'woocommerce_sales' ]),
+                                            Rules::is('notification-template.first_param', 'tag_sales_count', true),
+                                            Rules::includes('source', [ 'woocommerce_sales' ]),
+                                        ]),
+                                    ],'or'),
+                                ],
                             ],
                         ],
                         'link_options' => [

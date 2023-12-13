@@ -9,30 +9,6 @@ namespace NotificationX\Core\Traits;
 use NotificationX\Core\Rules;
 
 trait Conversions {
-    /**
-     * Adding fields in the metabox.
-     *
-     * @param array $args Settings arguments.
-     * @return mixed
-     */
-    public function content_fields($fields) {
-        $content_fields = &$fields['content']['fields'];
-        $content_fields['combine_multiorder'] = [
-            'label'       => __('Combine Multi Order', 'notificationx'),
-            'name'        => 'combine_multiorder',
-            'type'        => 'checkbox',
-            'priority'    => 100,
-            'default'     => true,
-            'description' => __('Combine order like, 2 more products.', 'notificationx'),
-            // 'rules'  => ["and", ['is', 'type', $this->id], ['includes', 'source', [ 'woocommerce', 'edd' ]]],
-            'rules' => Rules::logicalRule([
-                Rules::is('type', $this->id),
-                Rules::is('notification-template.first_param', 'tag_sales_count', true),
-                Rules::includes('source', [ 'woocommerce', 'edd' ]),
-            ]),
-        ];
-        return $fields;
-    }
 
     public function excludes_product( $data, $settings ){
         if( empty( $settings['product_exclude_by'] ) || $settings['product_exclude_by'] === 'none' ) {

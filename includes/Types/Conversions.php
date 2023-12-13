@@ -185,7 +185,6 @@ class Conversions extends Types {
      */
     public function init_fields() {
         parent::init_fields();
-        add_filter('nx_content_fields', [$this, 'content_fields'], 9);
-    }
-
+    } 
+    
 }
