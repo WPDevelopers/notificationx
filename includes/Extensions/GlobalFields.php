@@ -707,17 +707,9 @@ class GlobalFields {
                                     'default'     => true,
                                     'description' => __('Combine order like, 2 more products.', 'notificationx'),
                                     'rules' => Rules::logicalRule([
-                                        Rules::logicalRule([
-                                            Rules::is('type', ['conversions']),
-                                            Rules::is('notification-template.first_param', 'tag_sales_count', true),
-                                            Rules::includes('source', [ 'woocommerce', 'edd' ]),
-                                        ]),
-                                        Rules::logicalRule([
-                                            Rules::is('type', [ 'woocommerce_sales' ]),
-                                            Rules::is('notification-template.first_param', 'tag_sales_count', true),
-                                            Rules::includes('source', [ 'woocommerce_sales' ]),
-                                        ]),
-                                    ],'or'),
+                                        Rules::is('notification-template.first_param', 'tag_sales_count', true),
+                                        Rules::includes('source', [ 'woocommerce', 'edd', 'woocommerce_sales' ]),
+                                    ]),
                                 ],
                             ],
                         ],
