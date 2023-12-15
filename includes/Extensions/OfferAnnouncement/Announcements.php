@@ -99,6 +99,48 @@ class Announcements extends Extension {
                 ],
                 'image_shape' => 'circle',
             ],
+            'theme-13'   => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-13.png',
+                'template' => [
+                    'first_param'         => 'tag_offer_title',
+                    'custom_first_param'  => __('How Does It Works' , 'notificationx'),
+                ],
+                'defaults' => [
+                    'announcement_link_button'      => false,
+                    'announcement_link_button_text' => __( 'Watch Now', 'notificationx' ),
+                ],
+            ],
+            'theme-14'   => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-14.png',
+                'image_shape' => 'circle',
+                'template' => [
+                    'first_param'         => 'tag_offer_title',
+                    'custom_first_param'  => __('Hi There!' , 'notificationx'),
+                    'third_param'         => 'tag_offer_description',
+                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx'),
+                    'fourth_param'        => 'tag_time',
+                    'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+                    // 'fifth_param'         => 'tag_offer_discount',
+                    // 'custom_fifth_param'  => __( 'Some time ago', 'notificationx' ),
+                ],
+                'defaults' => [
+                    'announcement_link_button'      => false,
+                    'announcement_link_button_text' => __( 'Get It Now', 'notificationx' ),
+                ],
+            ],
+            'theme-15'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-15.png',
+                'template'    => [
+                    'first_param'         => 'tag_offer_title',
+                    'custom_first_param'  => __('Hi There!' , 'notificationx'),
+                    'third_param'         => 'tag_offer_description',
+                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO', 'notificationx'),
+                ],
+                'defaults' => [
+                    'announcement_link_button'      => false,
+                    'announcement_link_button_text' => __( 'Book Now', 'notificationx' ),
+                ],
+            ],
         ];
 
         $this->templates = [
@@ -122,6 +164,8 @@ class Announcements extends Extension {
                     "{$this->id}_theme-1",
                     "{$this->id}_theme-2",
                     "{$this->id}_theme-12",
+                    "{$this->id}_theme-14",
+                    "{$this->id}_theme-15",
                 ],
             ],
         ];

@@ -137,12 +137,22 @@ const GetTemplate = (settings) => {
         case "announcements_theme-1":
         case "announcements_theme-2":
         case "announcements_theme-12":
+        case "announcements_theme-14":
             return [
                 `${params?.first_param}`,
                 `${params?.third_param}`,
                 `${params?.fourth_param}`,
             ];
-            break;
+        case "announcements_theme-13":
+            return [
+                `${params?.first_param}`,
+                `${params?.third_param}`,
+                `${params?.fourth_param}`,
+            ];
+        case "announcements_theme-15":
+            return [
+                `${params?.first_param} ${params?.third_param}`,
+            ];  
     }
 
     switch (themeName) {

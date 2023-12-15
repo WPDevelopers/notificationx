@@ -5,16 +5,10 @@ const Announcements = ({themeName, data, config, id, style, componentClasses}) =
         switch (themeName) {
             case 'theme-1':
                 return lazy(() => import('./theme-1'));
-                break;
-
             case 'theme-2':
                 return lazy(() => import('./theme-2'));
-                break;
-
             case 'theme-12':
                 return lazy(() => import('./theme-1'));
-                break;
-
             default:
                 break;
         }

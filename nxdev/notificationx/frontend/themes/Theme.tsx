@@ -6,6 +6,7 @@ import { escapeHTML } from "@wordpress/escape-html";
 import { useNotificationContext } from "../core";
 import { getThemeName } from "../core/functions";
 import { __, _x } from "@wordpress/i18n";
+import Button from "./helpers/Button";
 
 const Theme = (props) => {
     const splitThemes = [
@@ -114,6 +115,14 @@ const Theme = (props) => {
                 template={template}
                 style={isSplitCss ? componentCSS : {}}
                 themes={themeName}
+            />
+            <Button
+                {...props}
+                theme={themeName}
+                style={isSplitCss ? componentCSS : {}}
+                isSplitCss={isSplitCss}
+                isSplit={isSplit}
+                announcementCSS={announcementCSS}
             />
             <Close {...props} />
         </div>
