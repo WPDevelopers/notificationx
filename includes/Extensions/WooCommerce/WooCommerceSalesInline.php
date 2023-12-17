@@ -22,13 +22,13 @@ class WooCommerceSalesInline extends WooInline {
     public    $priority        = 15;
     public    $id              = 'woocommerce_sales_inline';
     public    $img             = '';
-    public    $doc_link        = 'https://notificationx.com/docs/woocommerce-sales-notifications/';
+    public    $doc_link        = 'https://notificationx.com/docs/woocommerce-growth-alerts/';
     public    $types           = 'woocommerce_sales';
     public    $module          = 'modules_woocommerce_sales_inline';
     public    $module_priority = 3;
     public    $class           = '\WooCommerce';
     public    $is_pro          = true;
-    
+
     /**
      * Get the instance of called class.
      *
@@ -147,6 +147,21 @@ class WooCommerceSalesInline extends WooInline {
                 ],
             ],
         ];
+    }
+
+    public function doc(){
+        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+		<p>🎦 <a href="%3$s" target="_blank">Watch video tutorial</a> to learn quickly</p>
+		<p>⭐ NotificationX Integration with WooCommerce</p>
+		<p><strong>Recommended Blog:</strong></p>
+		<p>🔥 Why NotificationX is The <a target="_blank" href="%4$s">Best FOMO and Social Proof Plugin</a> for WooCommerce?</p>
+		<p>🚀 How to <a target="_blank" href="%5$s">boost WooCommerce Sales</a> Using NotificationX</p>', 'notificationx'),
+        'https://wordpress.org/plugins/woocommerce/',
+        'https://notificationx.com/docs/woocommerce-growth-alerts/',
+        'https://www.youtube.com/watch?v=dVthd36hJ-E&t=1s',
+        'https://notificationx.com/integrations/woocommerce/',
+        'https://notificationx.com/blog/best-fomo-and-social-proof-plugin-for-woocommerce/'
+        );
     }
 
 }
