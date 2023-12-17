@@ -375,8 +375,6 @@ const useNotificationX = (props: any) => {
                             args.intervalID = intervalID;
                             args.data = reverseEntries[id].data;
                             dispatchNotification( args );
-                            console.log( delayBetween + displayFor );
-                            
                         }, delayBetween + displayFor );
                     }, delayBefore)
                 }
