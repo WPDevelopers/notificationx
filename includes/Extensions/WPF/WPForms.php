@@ -263,7 +263,7 @@ class WPForms extends Extension {
                                     $entry_data[$field['id'] . '_' . $field['type']] = $field['value'];
                                 }
                             }
-                            $entry_data['title'] = $form_data->post_title ?? '';
+                            $entry_data['title'] = $form_data->post_title ? $form_data->post_title : '';
                             $entry_data['timestamp'] = time();
                             $entry_data['id'] = $data['nx_id'];
                             $entry_data['entry__id'] = $entry->entry_id;
