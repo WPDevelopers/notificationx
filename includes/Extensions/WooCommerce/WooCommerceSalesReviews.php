@@ -1,81 +1,94 @@
 <?php
-
-/**
- * Extension Abstract
+  /**
+ * WooCommerce Extension
  *
  * @package NotificationX\Extensions
  */
 
-namespace NotificationX\Types;
+namespace NotificationX\Extensions\WooCommerce;
 
-use NotificationX\Core\Rules;
-use NotificationX\Core\Traits\Reviews as TraitsReviews;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\GetInstance;
-use NotificationX\Modules;
-
-/**
- * Extension Abstract for all Extension.
- * @method static Reviews get_instance($args = null)
+  /**
+ * WooCommerce Extension Class
+ * @method static WooCommerce get_instance($args = null)
  */
-class Reviews extends Types {
-    /**
-     * Instance of Admin
+class WooCommerceSalesReviews extends WooReviews {
+      /**
+     * Instance of WooInline
      *
-     * @var Admin
+     * @var WooCommerceSalesReviews
      */
-    use GetInstance;
-    use TraitsReviews;
+    protected static $instance       = null;
+    public    $priority              = 10;
+    public    $id                    = 'woocommerce_sales_reviews';
+    public    $img                   = '';
+    public    $doc_link              = 'https://notificationx.com/docs/woocommerce-sales-notifications/';
+    public    $types                 = 'woocommerce_sales';
+    public    $module                = 'modules_woocommerce_sales_reviews';
+    public    $module_priority       = 3;
+    public    $class                 = '\WooCommerce';
+    public    $default_theme         = 'woocommerce_sales_reviews_total-rated';
+    public    $exclude_custom_themes = true;
 
-    public $priority = 20;
-    public $themes = [];
-    public $module = [
-        'modules_wordpress',
-        'modules_woocommerce',
-        'modules_reviewx',
-        'modules_zapier',
-        'modules_freemius',
-    ];
-    public $default_source    = 'wp_reviews';
-    public $default_theme = 'reviews_total-rated';
-    public $link_type = 'review_page';
+      /**
+     * Get the instance of called class.
+     *
+     * @return WooCommerce
+    */
+    public static function get_instance($args = null){
+        if ( is_null( static::$instance ) || ! static::$instance instanceof self ) {
+            $class = __CLASS__;
+            if(strpos($class, "NotificationX\\") === 0){
+                $pro_class = str_replace("NotificationX\\", "NotificationXPro\\", $class);
+                if(class_exists($pro_class)){
+                    $class = $pro_class;
+                }
+            }
 
-
-    /**
+            if(!empty($args)){
+                static::$instance = new $class($args);
+            }
+            else{
+                static::$instance = new $class;
+            }
+        }
+        return static::$instance;
+    }
+      /**
      * Initially Invoked when initialized.
      */
-    public function __construct() {
-        $this->id    = 'reviews';
-        $this->title = __('Reviews', 'notificationx');
-        $this->themes = [
+    public function __construct(){
+        parent::__construct();
+        $this->title        = __('Reviews', 'notificationx');
+        $this->module_title = __('Reviews', 'notificationx');
+        $this->themes       = [
             'total-rated'     => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/total-rated.png',
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/total-rated.png',
                 'image_shape' => 'square',
-                'template'  => [
+                'template'    => [
                     'first_param'         => 'tag_rated',
                     'custom_first_param'  => __('Someone', 'notificationx'),
                     'second_param'        => __('people rated', 'notificationx'),
-                    'third_param'         => 'tag_plugin_name',
+                    'third_param'         => 'tag_product_title',
                     'fourth_param'        => 'tag_rating',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ]
             ],
             'reviewed'     => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/reviewed.png',
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/reviewed.png',
                 'image_shape' => 'circle',
-                'template'  => [
-                    'first_param'         =>  'tag_username',
+                'template'    => [
+                    'first_param'         => 'tag_username',
                     'custom_first_param'  => __('Someone', 'notificationx'),
                     'second_param'        => __('just reviewed', 'notificationx'),
-                    'third_param'         => 'tag_plugin_name',
+                    'third_param'         => 'tag_product_title',
                     'fourth_param'        => 'tag_rating',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ]
             ],
             'review_saying' => [
-                'source'               => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/saying-review.png',
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/saying-review.png',
                 'image_shape' => 'circle',
-                'template'  => [
+                'template'    => [
                     'first_param'         => 'tag_username',
                     'custom_first_param'  => __('Someone', 'notificationx'),
                     'second_param'        => __('saying', 'notificationx'),
@@ -88,9 +101,9 @@ class Reviews extends Types {
                 ]
             ],
             'review-comment' => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment.jpg',
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment.jpg',
                 'image_shape' => 'rounded',
-                'template'  => [
+                'template'    => [
                     'first_param'         => 'tag_username',
                     'custom_first_param'  => __('Someone', 'notificationx'),
                     'second_param'        => __('just reviewed', 'notificationx'),
@@ -100,8 +113,8 @@ class Reviews extends Types {
                 ]
             ],
             'review-comment-2' => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment-2.jpg',
-                'template'  => [
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment-2.jpg',
+                'template' => [
                     'first_param'         => 'tag_username',
                     'custom_first_param'  => __('Someone', 'notificationx'),
                     'second_param'        => __('just reviewed', 'notificationx'),
@@ -111,9 +124,9 @@ class Reviews extends Types {
                 ]
             ],
             'review-comment-3' => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment-3.jpg',
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment-3.jpg',
                 'image_shape' => 'circle',
-                'template'  => [
+                'template'    => [
                     'first_param'         => 'tag_username',
                     'custom_first_param'  => __('Someone', 'notificationx'),
                     'second_param'        => __('just reviewed', 'notificationx'),
@@ -131,20 +144,20 @@ class Reviews extends Types {
                     'tag_rated'    => __('Rated', 'notificationx'),
                 ],
                 'third_param' => [
-                    'tag_plugin_name'     => __('Plugin Name', 'notificationx'),
+                    'tag_product_title'   => __('Product Title', 'notificationx'),
                     'tag_plugin_review'   => __('Review', 'notificationx'),
                     'tag_anonymous_title' => __('Anonymous Title', 'notificationx'),
                 ],
                 'fourth_param' => [
-                    'tag_rating'   => __('Rating', 'notificationx'),
-                    'tag_time'     => __('Definite Time', 'notificationx'),
+                    'tag_rating' => __('Rating', 'notificationx'),
+                    'tag_time'   => __('Definite Time', 'notificationx'),
                 ],
                 '_themes' => [
-                    'reviews_total-rated',
-                    'reviews_reviewed',
-                    'reviews_review-comment',
-                    'reviews_review-comment-2',
-                    'reviews_review-comment-3',
+                    'woocommerce_sales_reviews_total-rated',
+                    'woocommerce_sales_reviews_reviewed',
+                    'woocommerce_sales_reviews_review-comment',
+                    'woocommerce_sales_reviews_review-comment-2',
+                    'woocommerce_sales_reviews_review-comment-3',
                 ],
             ],
             'review_saying_template_new' => [
@@ -159,31 +172,13 @@ class Reviews extends Types {
                     'tag_plugin_name' => __('Plugin Name', 'notificationx'),
                 ],
                 'sixth_param' => [
-                    // @todo maybe add some predefined texts.
+                      // @todo maybe add some predefined texts.
                 ],
                 '_themes' => [
-                    'reviews_review_saying',
+                    'woocommerce_sales_reviews_review_saying',
                 ],
             ],
         ];
-        add_filter('nx_link_types', [$this, 'link_types']);
-        parent::__construct();
-    }
-
-    public function init() {
-        parent::init();
-        add_filter("nx_filtered_entry_{$this->id}", array($this, 'conversion_data'), 11, 2);
-    }
-
-    /**
-     * Hooked to nx_before_metabox_load action.
-     *
-     * @return void
-     */
-    public function init_fields() {
-        parent::init_fields();
-        add_filter('nx_notification_template', [$this, 'review_templates'], 7);
-        add_filter('nx_content_trim_length_dependency', [$this, 'content_trim_length_dependency']);
     }
 
 }

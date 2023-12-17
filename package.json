@@ -58,7 +58,7 @@
     "immutable": "^4.1.0",
     "js-base64": "^3.7.3",
     "moment": "^2.29.4",
-    "quickbuilder": "github:WPDevelopers/quickbuilder#master",
+    "quickbuilder": "github:WPDevelopers/quickbuilder#notificationx",
     "rc-pagination": "^3.1.13",
     "react": "^17.0.2",
     "react-apexcharts": "^1.3.9",

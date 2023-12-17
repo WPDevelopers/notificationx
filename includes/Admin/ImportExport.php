@@ -121,7 +121,7 @@ class ImportExport{
                 'import' => array(
                     'name'         => 'import',
                     'type'         => 'jsonuploader',
-                    'label'        => __('Import', 'notificationx'),
+                    'label'        => __('Import (*.json)', 'notificationx'),
                     'reset'        => __('Change', 'notificationx'),
                     'priority'     => 60,
                     'notImage'     => true,
