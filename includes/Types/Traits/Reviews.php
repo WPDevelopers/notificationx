@@ -5,7 +5,7 @@
  * @package NotificationX\Types
  */
 
-namespace NotificationX\Core\Traits;
+namespace NotificationX\Types\Traits;
 use NotificationX\Core\Rules;
 use NotificationX\Extensions\GlobalFields;
 

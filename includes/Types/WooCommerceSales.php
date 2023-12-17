@@ -8,8 +8,8 @@
 namespace NotificationX\Types;
 
 use NotificationX\Core\Rules;
-use NotificationX\Core\Traits\Conversions;
-use NotificationX\Core\Traits\Reviews;
+use NotificationX\Types\Traits\Conversions;
+use NotificationX\Types\Traits\Reviews;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\GetInstance;
 use NotificationX\NotificationX;
