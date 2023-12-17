@@ -619,7 +619,6 @@ class GlobalFields {
                                     'default'  => 'none',
                                     'is_pro'   => true,
                                     'disable' => true,
-                                    'info'        => __('Enter how many characters you want to show in comment or review'),
                                     'options'  => GlobalFields::get_instance()->normalize_fields([
                                         'none'             => __('None', 'notificationx'),
                                         'product_category' => __('Product Category', 'notificationx'),
