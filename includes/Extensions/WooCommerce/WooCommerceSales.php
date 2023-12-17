@@ -127,6 +127,7 @@ class WooCommerceSales extends WooCommerce {
                 'image_shape' => 'rounded',
                 'defaults'     => [
                     'link_button'   => true,
+                    'link_button_text'   => __('Buy Now'),
                 ],
                 'template'  => $common_fields,
             ),
@@ -136,6 +137,7 @@ class WooCommerceSales extends WooCommerce {
                 'image_shape' => 'rounded',
                 'defaults'     => [
                     'link_button'   => true,
+                    'link_button_text'   => __('Buy Now'),
                 ],
                 'template'  => $common_fields,
             ),

@@ -111,6 +111,7 @@ class Conversions extends Types {
                 'image_shape' => 'rounded',
                 'defaults'     => [
                     'link_button'   => true,
+                    'link_button_text'  => __( 'Buy Now','notificationx' ),
                 ],
                 'template'  => $common_fields,
             ),
@@ -120,6 +121,7 @@ class Conversions extends Types {
                 'image_shape' => 'rounded',
                 'defaults'     => [
                     'link_button'   => true,
+                    'link_button_text'  => __( 'Buy Now','notificationx' ),
                 ],
                 'template'  => $common_fields,
             ),
