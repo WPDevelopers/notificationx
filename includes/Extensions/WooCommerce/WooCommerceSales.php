@@ -203,7 +203,7 @@ class WooCommerceSales extends WooCommerce {
 		<p>🔥 Why NotificationX is The <a target="_blank" href="%4$s">Best FOMO and Social Proof Plugin</a> for WooCommerce?</p>
 		<p>🚀 How to <a target="_blank" href="%5$s">boost WooCommerce Sales</a> Using NotificationX</p>', 'notificationx'),
         'https://wordpress.org/plugins/woocommerce/',
-        'https://notificationx.com/docs/woocommerce-notification-in-notificationx/',
+        'https://notificationx.com/docs/woocommerce-sales-notifications/',
         'https://www.youtube.com/watch?v=dVthd36hJ-E&t=1s',
         'https://notificationx.com/integrations/woocommerce/',
         'https://notificationx.com/blog/best-fomo-and-social-proof-plugin-for-woocommerce/'
