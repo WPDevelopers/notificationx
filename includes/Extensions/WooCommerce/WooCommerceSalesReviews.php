@@ -21,7 +21,7 @@ class WooCommerceSalesReviews extends WooReviews {
     public    $priority              = 10;
     public    $id                    = 'woocommerce_sales_reviews';
     public    $img                   = '';
-    public    $doc_link              = 'https://notificationx.com/docs/woocommerce-sales-notifications/';
+    public    $doc_link              = 'https://notificationx.com/docs/woocommerce-reviews-notificationx/';
     public    $types                 = 'woocommerce_sales';
     public    $module                = 'modules_woocommerce_sales_reviews';
     public    $module_priority       = 3;
@@ -179,6 +179,18 @@ class WooCommerceSalesReviews extends WooReviews {
                 ],
             ],
         ];
+    }
+
+    public function doc() {
+        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+		<p>🎦 Watch <a target="_blank" href="%3$s">video tutorial</a> to learn quickly</p>
+		<p><strong>Recommended Blog:</strong></p>
+		<p>🚀 How to <a target="_blank" href="%4$s">boost WooCommerce Sales</a> Using NotificationX</p>', 'notificationx'),
+        'https://wordpress.org/plugins/woocommerce/',
+        'https://notificationx.com/docs/woocommerce-reviews-notificationx/',
+        'https://www.youtube.com/watch?v=bHuaOs9JWvI',
+        'https://wpdeveloper.com/ecommerce-sales-social-proof/'
+        );
     }
 
 }
