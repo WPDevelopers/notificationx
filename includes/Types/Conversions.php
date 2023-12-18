@@ -8,7 +8,7 @@
 namespace NotificationX\Types;
 
 use NotificationX\Core\Rules;
-use NotificationX\Core\Traits\Conversions as TraitsConversions;
+use NotificationX\Types\Traits\Conversions as TraitsConversions;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\GetInstance;
 use NotificationX\Modules;

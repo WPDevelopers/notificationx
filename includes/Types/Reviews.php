@@ -9,7 +9,7 @@
 namespace NotificationX\Types;
 
 use NotificationX\Core\Rules;
-use NotificationX\Core\Traits\Reviews as TraitsReviews;
+use NotificationX\Types\Traits\Reviews as TraitsReviews;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\GetInstance;
 use NotificationX\Modules;
