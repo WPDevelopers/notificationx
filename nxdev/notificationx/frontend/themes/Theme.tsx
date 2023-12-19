@@ -90,11 +90,11 @@ const Theme = (props) => {
             // shadow border - color;
         }
         // Add announcementCSS
-        if(post.discount_text_color) announcementCSS.discountTextColor      = post.discount_text_color;
-        if(post.discount_background) announcementCSS.discountBackground     = post.discount_background;
-        if(post.link_button_bg_color) announcementCSS.linkButtonBgColor     = post.link_button_bg_color;
-        if(post.link_button_font_size) announcementCSS.linkButtonFontSize   = post.link_button_font_size;
-        if(post.link_button_text_color) announcementCSS.linkButtonTextColor = post.link_button_text_color;
+        if (post.discount_text_color) announcementCSS.discountTextColor = post.discount_text_color;
+        if (post.discount_background) announcementCSS.discountBackground = post.discount_background;
+        if (post.link_button_bg_color) announcementCSS.linkButtonBgColor = post.link_button_bg_color;
+        if (post.link_button_font_size) announcementCSS.linkButtonFontSize = post.link_button_font_size;
+        if (post.link_button_text_color) announcementCSS.linkButtonTextColor = post.link_button_text_color;
     }
 
     return (
@@ -115,11 +115,6 @@ const Theme = (props) => {
                 template={template}
                 style={isSplitCss ? componentCSS : {}}
                 themes={themeName}
-            />
-            <Button
-                {...props}
-                theme={themeName}
-                style={isSplitCss ? componentCSS : {}}
                 isSplitCss={isSplitCss}
                 isSplit={isSplit}
                 announcementCSS={announcementCSS}

@@ -1,6 +1,7 @@
 import React from "react";
 import { Branding as NXSvg, ThemeFiveShape } from ".";
 import Star from "../../../icons/Star";
+import Button from "./Button";
 
 const Content = (props) => {
     const { config } = props;
@@ -60,18 +61,17 @@ const Content = (props) => {
                     <span dangerouslySetInnerHTML={{ __html: row }}></span>
                 )}
                 {!config?.disable_powered_by &&
-                i == props.template.length - 1 ? (
+                    i == props.template.length - 1 ? (
                     <NXSvg {...props} />
                 ) : null}
             </p>
         );
     });
-    
+
     return (
         <div
-            className={`notificationx-content ${
-                config.template_adv ? "adv-template" : ""
-            }`}
+            className={`notificationx-content ${config.template_adv ? "adv-template" : ""
+                }`}
             style={props.style}
         >
             {props.themes == "theme-five" && (
@@ -79,6 +79,9 @@ const Content = (props) => {
             )}
             {content}
             {/* {post.nx_id} &gt; {props?.data?.entry_id} */}
+            <Button
+                {...props}
+            />
         </div>
     );
 };
