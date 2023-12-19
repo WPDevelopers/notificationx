@@ -8,7 +8,6 @@ import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
 import nxToast from "../core/ToasterMsg";
 import { __ } from "@wordpress/i18n";
-import _ from "lodash";
 
 const PublishWidget = (props) => {
     const { title, context, isEdit, setIsLoading, setIsCreated, id, ...rest } = props;
