@@ -119,6 +119,14 @@ const Theme = (props) => {
                 isSplit={isSplit}
                 announcementCSS={announcementCSS}
             />
+            <Button
+                {...props}
+                theme={themeName}
+                style={isSplitCss ? componentCSS : {}}
+                isSplitCss={isSplitCss}
+                isSplit={isSplit}
+                announcementCSS={announcementCSS}
+            />
             <Close {...props} />
         </div>
     );

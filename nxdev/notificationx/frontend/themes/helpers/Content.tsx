@@ -79,9 +79,9 @@ const Content = (props) => {
             )}
             {content}
             {/* {post.nx_id} &gt; {props?.data?.entry_id} */}
-            <Button
+            {/* <Button
                 {...props}
-            />
+            /> */}
         </div>
     );
 };
