@@ -79,9 +79,11 @@ const Content = (props) => {
             )}
             {content}
             {/* {post.nx_id} &gt; {props?.data?.entry_id} */}
-            <Button
-                {...props}
-            />
+            { ["announcements_theme-14"].includes(props?.config?.themes) && 
+                <Button
+                    {...props}
+                />
+            }
         </div>
     );
 };

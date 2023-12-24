@@ -110,6 +110,11 @@ const Theme = (props) => {
                 isSplit={isSplit}
                 announcementCSS={announcementCSS}
             />
+            { ["announcements_theme-13"].includes(props?.config?.themes) && 
+                <Button
+                    {...props}
+                />
+            }
             <Content
                 {...props}
                 template={template}
@@ -119,6 +124,11 @@ const Theme = (props) => {
                 isSplit={isSplit}
                 announcementCSS={announcementCSS}
             />
+            { ["announcements_theme-15"].includes(props?.config?.themes) && 
+                <Button
+                    {...props}
+                />
+            }
             <Close {...props} />
         </div>
     );
