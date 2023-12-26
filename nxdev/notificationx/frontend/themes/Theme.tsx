@@ -113,6 +113,8 @@ const Theme = (props) => {
             { ["announcements_theme-13"].includes(props?.config?.themes) && 
                 <Button
                     {...props}
+                    announcementCSS={announcementCSS}
+                    icon={true}
                 />
             }
             <Content
