@@ -339,6 +339,7 @@ class GlobalFields {
                                             'default' => "#fff",
                                             'rules'   => Rules::logicalRule([
                                                 Rules::is( 'type', 'offer_announcement' ),
+                                                Rules::includes('themes', [ 'announcements_theme-1', 'announcements_theme-2' ], false),
                                             ]),
                                         ],
                                         [
@@ -347,6 +348,7 @@ class GlobalFields {
                                             'type'    => "colorpicker",
                                             'rules'   => Rules::logicalRule([
                                                 Rules::is( 'type', 'offer_announcement' ),
+                                                Rules::includes('themes', [ 'announcements_theme-1', 'announcements_theme-2' ], false),
                                             ]),
                                         ],
                                     ]
@@ -1007,14 +1009,14 @@ class GlobalFields {
                                             'label' => __('Bottom Right', 'notificationx'),
                                             'value' => 'bottom_right',
                                         ],
-                                        'top_left' => [
-                                            'label' => __('Top Left', 'notificationx'),
-                                            'value' => 'top_left',
-                                        ],
-                                        'top_right' => [
-                                            'label' => __('Top Right', 'notificationx'),
-                                            'value' => 'top_right',
-                                        ],
+                                        // 'top_left' => [
+                                        //     'label' => __('Top Left', 'notificationx'),
+                                        //     'value' => 'top_left',
+                                        // ],
+                                        // 'top_right' => [
+                                        //     'label' => __('Top Right', 'notificationx'),
+                                        //     'value' => 'top_right',
+                                        // ],
                                     ],
                                 ],
                                 'size' => [

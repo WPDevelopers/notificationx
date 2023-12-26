@@ -149,7 +149,8 @@ const GetTemplate = (settings) => {
             ];
         case "announcements_theme-15":
             return [
-                `${params?.first_param} ${params?.third_param}`,
+                `${params?.first_param}`,
+                 `${params?.third_param}`,
             ];  
     }
 
