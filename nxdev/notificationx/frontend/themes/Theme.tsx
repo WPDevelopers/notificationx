@@ -129,6 +129,7 @@ const Theme = (props) => {
             { ["announcements_theme-15"].includes(props?.config?.themes) && 
                 <Button
                     {...props}
+                    announcementCSS={announcementCSS}
                 />
             }
             <Close {...props} />
