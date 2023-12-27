@@ -127,6 +127,22 @@ class Inline {
             case 'donation_conv-theme-eight':
             case 'donation_conv-theme-nine':
                 return "{$params['first_param']} {$params['second_param']} in {$params['third_param']} {$params['fourth_param']}";
+            case 'google_reviews_maps_theme':
+                return "{$params['first_param']} {$params['second_param']} in {$params['third_param']} {$params['fourth_param']}";
+            case 'woocommerce_sales_inline_conv-theme-seven':
+            case 'woo_inline_conv-theme-seven':
+                return "{$params['first_param']} {$params['second_param']} {$params['third_param']} {$params['fourth_param']}";
+            case 'youtube_channel-1':
+                return "{$params['second_param']} {$params['third_param']} {$params['yt_third_label']}, {$params['fourth_param']} {$params['yt_fourth_label']} {$params['fifth_param']} {$params['yt_fifth_label']}";
+            case 'youtube_channel-2':
+                return "{$params['second_param']} {$params['third_param']} {$params['yt_third_label']}, {$params['fourth_param']} {$params['fifth_param']}";
+            case 'youtube_video-1':
+            case 'youtube_video-3':
+                return "{$params['second_param']}, {$params['third_param']} {$params['fourth_param']} {$params['fifth_param']}";
+            case 'youtube_video-2':
+            case 'youtube_video-4':
+                return "{$params['second_param']}, {$params['third_param']} {$params['yt_third_label']} {$params['fourth_param']} {$params['yt_fourth_label']} {$params['fifth_param']} {$params['yt_fifth_label']}";
+                
         }
 
         switch ( $theme_name ) {
@@ -139,12 +155,16 @@ class Inline {
                 break;
                 // conversion start
             case 'conv-theme-six':
-                $template = "{$params['first_param']} {$params['second_param']} {$params['third_param']} {$params['map_fourth_param']} {$params['fourth_param']} {$params['fifth_param']}";
+                $template = "{$params['first_param']} {$params['second_param']} {$params['third_param']} {$params['map_fourth_param']} {$params['fourth_param']} {$params['freemius_fifth_param']} {$params['freemius_sixth_param']} {$params['freemius_seventh_param']} {$params['freemius_seventh_param']} {$params['fifth_param']}";
+                break;
+            case "conv-theme-ten":
+            case "conv-theme-eleven":
+                $template = "{$params['first_param']} {$params['second_param']} {$params['third_param']} {$params['freemius_fifth_param']} {$params['freemius_sixth_param']} {$params['freemius_seventh_param']} {$params['fourth_param']}";
                 break;
             case 'conv-theme-seven':
             case 'conv-theme-eight':
             case 'conv-theme-nine':
-                $template = "{$params['first_param']} {$params['second_param']} {$params['third_param']} {$params['fourth_param']}";
+                $template = "{$params['first_param']} {$params['second_param']} {$params['third_param']} {$params['fourth_param']} {$params['freemius_fifth_param']} {$params['freemius_sixth_param']} {$params['freemius_seventh_param']}";
                 break;
                 // conversion end
 

@@ -8,50 +8,48 @@
 namespace NotificationX\Types;
 
 use NotificationX\Core\Rules;
-use NotificationX\Types\Traits\Conversions as TraitsConversions;
+use NotificationX\Types\Traits\Conversions;
+use NotificationX\Types\Traits\Reviews;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\GetInstance;
-use NotificationX\Modules;
 use NotificationX\NotificationX;
 
 /**
  * Extension Abstract for all Extension.
- * @method static Conversions get_instance($args = null)
+ * @method static WooCommerce get_instance($args = null)
  */
-class Conversions extends Types {
+class WooCommerceSales extends Types {
     /**
      * Instance of Admin
      *
      * @var Admin
      */
 	use GetInstance;
-    use TraitsConversions;
+    use Reviews;
+    use Conversions;
 
     // colored_themes
     public $priority = 5;
     public $themes = [];
     public $module = [
-        'modules_edd',
-        'modules_custom_notification',
-        'modules_zapier',
-        'modules_freemius',
-        'modules_envato',
+        'modules_woocommerce',
+        'modules_woocommerce_sales_reviews',
+        'modules_woocommerce_sales_inline',
     ];
 
-    public $conversions_count = array('conversions_conv-theme-seven', 'conversions_conv-theme-eight', 'conversions_conv-theme-nine');
+    public $woocommerce_count = array('woocommerce_conv-theme-seven', 'woocommerce_conv-theme-eight', 'woocommerce_conv-theme-nine');
     public $map_dependency = [];
 
-
-    public $default_source    = 'woocommerce';
-    public $default_theme = 'conversions_theme-one';
+    public $default_source    = 'woocommerce_sales';
+    // public $default_theme = 'woocommerce_theme-one';
     public $link_type = 'product_page';
 
     /**
      * Initially Invoked when initialized.
      */
     public function __construct(){
-        $this->id = 'conversions';
-        $this->title = __('Sales Notification', 'notificationx');
+        $this->id = 'woocommerce_sales';
+        $this->title = __('WooCommerce', 'notificationx');
 
         $is_pro = ! NotificationX::is_pro();
         // nx_colored_themes
@@ -111,7 +109,6 @@ class Conversions extends Types {
                 'image_shape' => 'rounded',
                 'defaults'     => [
                     'link_button'   => true,
-                    'link_button_text'  => __( 'Buy Now','notificationx' ),
                 ],
                 'template'  => $common_fields,
             ),
@@ -121,7 +118,6 @@ class Conversions extends Types {
                 'image_shape' => 'rounded',
                 'defaults'     => [
                     'link_button'   => true,
-                    'link_button_text'  => __( 'Buy Now','notificationx' ),
                 ],
                 'template'  => $common_fields,
             ),
@@ -141,6 +137,7 @@ class Conversions extends Types {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-9.png',
                 'image_shape' => 'rounded',
             ),
+           
         ];
         $this->templates = [
             'woo_template_new' => [
@@ -152,13 +149,13 @@ class Conversions extends Types {
                     'tag_time' => __('Definite Time', 'notificationx'),
                 ],
                 '_themes' => [
-                    'conversions_theme-one',
-                    'conversions_theme-two',
-                    'conversions_theme-three',
-                    'conversions_theme-four',
-                    'conversions_theme-five',
-                    'conversions_conv-theme-ten',
-                    'conversions_conv-theme-eleven',
+                    'woocommerce_sales_theme-one',
+                    'woocommerce_sales_theme-two',
+                    'woocommerce_sales_theme-three',
+                    'woocommerce_sales_theme-four',
+                    'woocommerce_sales_theme-five',
+                    'woocommerce_sales_conv-theme-ten',
+                    'woocommerce_sales_conv-theme-eleven',
                 ]
             ],
             'woo_template_sales_count' => [
@@ -170,16 +167,21 @@ class Conversions extends Types {
                     // 'tag_time' => __('Definite Time', 'notificationx'),
                 ],
                 '_themes' => [
-                    'conversions_conv-theme-six',
-                    'conversions_conv-theme-seven',
-                    'conversions_conv-theme-eight',
-                    'conversions_conv-theme-nine',
+                    'woocommerce_sales_conv-theme-six',
+                    'woocommerce_sales_conv-theme-seven',
+                    'woocommerce_sales_conv-theme-eight',
+                    'woocommerce_sales_conv-theme-nine',
                 ]
             ],
         ];
         parent::__construct();
     }
 
+    public function init() {
+        parent::init();
+        add_filter("nx_filtered_entry_{$this->id}", array($this, 'conversion_data'), 11, 2);
+    }
+    
     /**
      * Hooked to nx_before_metabox_load action.
      *
@@ -187,6 +189,8 @@ class Conversions extends Types {
      */
     public function init_fields() {
         parent::init_fields();
-    } 
-    
+        add_filter('nx_notification_template', [$this, 'review_templates'], 7);
+        add_filter('nx_content_trim_length_dependency', [$this, 'content_trim_length_dependency']);
+    }
+
 }

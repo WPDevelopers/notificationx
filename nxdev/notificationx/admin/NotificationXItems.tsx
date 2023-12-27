@@ -32,6 +32,7 @@ export const NotificationXItems = (props) => {
     const [notificationx, setNotificationx] = useState([loading]);
     const [filteredNotice, setFilteredNotice] = useState([loading]);
     const location = useLocation();
+    const logoURL = assetsURL('images/logos/large-logo-icon.png');
 
     const getParam = (param, d?) => {
         const query = nxHelper.useQuery(location.search);
@@ -133,7 +134,7 @@ export const NotificationXItems = (props) => {
                 <WrapperWithLoader isLoading={isLoading} div={false}>
                     {filteredNotice.length == 0 &&
                         <div className="nx-no-items">
-                            <img src={assetsURL('images/logos/large-logo-icon.png')} />
+                            <img src={logoURL} />
 
                             {status == 'all'
                                 ? <>

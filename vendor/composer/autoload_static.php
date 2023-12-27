@@ -7,14 +7,14 @@ namespace Composer\Autoload;
 class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
 {
     public static $prefixLengthsPsr4 = array (
-        'P' => 
+        'P' =>
         array (
             'PriyoMukul\\WPNotice\\' => 20,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'PriyoMukul\\WPNotice\\' => 
+        'PriyoMukul\\WPNotice\\' =>
         array (
             0 => __DIR__ . '/..' . '/priyomukul/wp-notice/src',
         ),
@@ -97,6 +97,9 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Extensions\\Wistia\\Wistia' => __DIR__ . '/../..' . '/includes/Extensions/Wistia/Wistia.php',
         'NotificationX\\Extensions\\WooCommerce\\Woo' => __DIR__ . '/../..' . '/includes/Extensions/WooCommerce/Woo.php',
         'NotificationX\\Extensions\\WooCommerce\\WooCommerce' => __DIR__ . '/../..' . '/includes/Extensions/WooCommerce/WooCommerce.php',
+        'NotificationX\\Extensions\\WooCommerce\\WooCommerceSales' => __DIR__ . '/../..' . '/includes/Extensions/WooCommerce/WooCommerceSales.php',
+        'NotificationX\\Extensions\\WooCommerce\\WooCommerceSalesInline' => __DIR__ . '/../..' . '/includes/Extensions/WooCommerce/WooCommerceSalesInline.php',
+        'NotificationX\\Extensions\\WooCommerce\\WooCommerceSalesReviews' => __DIR__ . '/../..' . '/includes/Extensions/WooCommerce/WooCommerceSalesReviews.php',
         'NotificationX\\Extensions\\WooCommerce\\WooInline' => __DIR__ . '/../..' . '/includes/Extensions/WooCommerce/WooInline.php',
         'NotificationX\\Extensions\\WooCommerce\\WooReviews' => __DIR__ . '/../..' . '/includes/Extensions/WooCommerce/WOOReviews.php',
         'NotificationX\\Extensions\\WordPress\\WPComments' => __DIR__ . '/../..' . '/includes/Extensions/WordPress/WPComments.php',
@@ -127,6 +130,8 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Types\\NotificationBar' => __DIR__ . '/../..' . '/includes/Types/NotificationBar.php',
         'NotificationX\\Types\\PageAnalytics' => __DIR__ . '/../..' . '/includes/Types/PageAnalytics.php',
         'NotificationX\\Types\\Reviews' => __DIR__ . '/../..' . '/includes/Types/Reviews.php',
+        'NotificationX\\Types\\Traits\\Conversions' => __DIR__ . '/../..' . '/includes/Types/Traits/Conversions.php',
+        'NotificationX\\Types\\Traits\\Reviews' => __DIR__ . '/../..' . '/includes/Types/Traits/Reviews.php',
         'NotificationX\\Types\\TypeFactory' => __DIR__ . '/../..' . '/includes/Types/TypesFactory.php',
         'NotificationX\\Types\\Types' => __DIR__ . '/../..' . '/includes/Types/Types.php',
         'NotificationX\\Types\\Video' => __DIR__ . '/../..' . '/includes/Types/Video.php',
@@ -138,6 +143,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'PriyoMukul\\WPNotice\\Utils\\Helper' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Utils/Helper.php',
         'PriyoMukul\\WPNotice\\Utils\\NoticeRemover' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Utils/NoticeRemover.php',
         'PriyoMukul\\WPNotice\\Utils\\Storage' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Utils/Storage.php',
+        'NotificationX\\Types\\WooCommerceSales' => __DIR__ . '/../..' . '/includes/Types/WooCommerceSales.php',
         'UsabilityDynamics\\Job' => __DIR__ . '/..' . '/udx/lib-utility/lib/class-job.php',
         'UsabilityDynamics\\Loader' => __DIR__ . '/..' . '/udx/lib-utility/lib/class-loader.php',
         'UsabilityDynamics\\Settings' => __DIR__ . '/..' . '/udx/lib-settings/lib/class-settings.php',
