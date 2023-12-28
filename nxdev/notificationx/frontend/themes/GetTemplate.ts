@@ -256,6 +256,12 @@ const GetTemplate = (settings) => {
                 `${params?.first_param} ${params?.second_param}`,
                 `${params?.third_param} ${params?.ga_fourth_param}`,
             ];
+        case "pa-theme-four":
+            return [
+                `${params?.first_param} ${params?.second_param}`,
+                `${params?.third_param}`,
+                `${params?.sixth_param}`,
+        ]; 
         case "stock-theme-one":
         case "stock-theme-two":
             return [
