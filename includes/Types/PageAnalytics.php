@@ -92,7 +92,7 @@ class PageAnalytics extends Types {
                     'second_param'       => __('people looking', 'notificationx'),
                     'third_param'        => 'tag_ga_page_title',
                     'custom_third_param' => __('this page', 'notificationx'),
-                    'ga_fourth_param'    => __('right now', 'notificationx'),
+                    // 'ga_fourth_param'    => __('right now', 'notificationx'),
                     // need to set this two param unless they won't show up when changing the first param.
                     'ga_fifth_param'     => __('30', 'notificationx'),
                     'sixth_param'        => 'tag_day',

@@ -1,59 +1,75 @@
 <?php
 /**
- * Extension Abstract
+ * WooCommerce Extension
  *
  * @package NotificationX\Extensions
  */
 
-namespace NotificationX\Types;
+namespace NotificationX\Extensions\WooCommerce;
 
+use NotificationX\Admin\Entries;
+use NotificationX\Core\Helper;
+use NotificationX\Core\PostType;
 use NotificationX\Core\Rules;
-use NotificationX\Types\Traits\Conversions as TraitsConversions;
-use NotificationX\Extensions\GlobalFields;
 use NotificationX\GetInstance;
-use NotificationX\Modules;
-use NotificationX\NotificationX;
+use NotificationX\Extensions\Extension;
+use NotificationX\Extensions\GlobalFields;
 
 /**
- * Extension Abstract for all Extension.
- * @method static Conversions get_instance($args = null)
+ * WooCommerce Extension Class
+ * @method static WooCommerce get_instance($args = null)
  */
-class Conversions extends Types {
+class WooCommerceSales extends WooCommerce {
     /**
-     * Instance of Admin
+     * Instance of WooInline
      *
-     * @var Admin
+     * @var WooCommerceSales
      */
-	use GetInstance;
-    use TraitsConversions;
+    protected static $instance = null;
+    public $priority        = 5;
+    public $id              = 'woocommerce_sales';
+    public $img             = '';
+    public $doc_link        = 'https://notificationx.com/docs/woocommerce-notification-in-notificationx/';
+    public $types           = 'woocommerce_sales';
+    public $module          = 'modules_woocommerce_sales';
+    public $module_priority = 3;
+    public $class           = '\WooCommerce';
+    public $default_theme   = 'woocommerce_sales_theme-one';
+    public $wpml_included   = [
+                                'sales_count',
+                              ];
 
-    // colored_themes
-    public $priority = 5;
-    public $themes = [];
-    public $module = [
-        'modules_edd',
-        'modules_custom_notification',
-        'modules_zapier',
-        'modules_freemius',
-        'modules_envato',
-    ];
+    /**
+     * Get the instance of called class.
+     *
+     * @return WooCommerce
+    */
+    public static function get_instance($args = null){
+        if ( is_null( static::$instance ) || ! static::$instance instanceof self ) {
+            $class = __CLASS__;
+            if(strpos($class, "NotificationX\\") === 0){
+                $pro_class = str_replace("NotificationX\\", "NotificationXPro\\", $class);
+                if(class_exists($pro_class)){
+                    $class = $pro_class;
+                }
+            }
 
-    public $conversions_count = array('conversions_conv-theme-seven', 'conversions_conv-theme-eight', 'conversions_conv-theme-nine');
-    public $map_dependency = [];
-
-
-    public $default_source    = 'woocommerce';
-    public $default_theme = 'conversions_theme-one';
-    public $link_type = 'product_page';
-
+            if(!empty($args)){
+                static::$instance = new $class($args);
+            }
+            else{
+                static::$instance = new $class;
+            }
+        }
+        return static::$instance;
+    }
     /**
      * Initially Invoked when initialized.
      */
     public function __construct(){
-        $this->id = 'conversions';
+        parent::__construct();
         $this->title = __('Sales Notification', 'notificationx');
-
-        $is_pro = ! NotificationX::is_pro();
+        $this->module_title = __('Sales Notification', 'notificationx');
         // nx_colored_themes
         $common_fields = [
             'first_param'         => 'tag_name',
@@ -111,7 +127,7 @@ class Conversions extends Types {
                 'image_shape' => 'rounded',
                 'defaults'     => [
                     'link_button'   => true,
-                    'link_button_text'  => __( 'Buy Now','notificationx' ),
+                    'link_button_text'   => __('Buy Now'),
                 ],
                 'template'  => $common_fields,
             ),
@@ -121,7 +137,7 @@ class Conversions extends Types {
                 'image_shape' => 'rounded',
                 'defaults'     => [
                     'link_button'   => true,
-                    'link_button_text'  => __( 'Buy Now','notificationx' ),
+                    'link_button_text'   => __('Buy Now'),
                 ],
                 'template'  => $common_fields,
             ),
@@ -152,13 +168,13 @@ class Conversions extends Types {
                     'tag_time' => __('Definite Time', 'notificationx'),
                 ],
                 '_themes' => [
-                    'conversions_theme-one',
-                    'conversions_theme-two',
-                    'conversions_theme-three',
-                    'conversions_theme-four',
-                    'conversions_theme-five',
-                    'conversions_conv-theme-ten',
-                    'conversions_conv-theme-eleven',
+                    'woocommerce_sales_theme-one',
+                    'woocommerce_sales_theme-two',
+                    'woocommerce_sales_theme-three',
+                    'woocommerce_sales_theme-four',
+                    'woocommerce_sales_theme-five',
+                    'woocommerce_sales_conv-theme-ten',
+                    'woocommerce_sales_conv-theme-eleven',
                 ]
             ],
             'woo_template_sales_count' => [
@@ -170,23 +186,28 @@ class Conversions extends Types {
                     // 'tag_time' => __('Definite Time', 'notificationx'),
                 ],
                 '_themes' => [
-                    'conversions_conv-theme-six',
-                    'conversions_conv-theme-seven',
-                    'conversions_conv-theme-eight',
-                    'conversions_conv-theme-nine',
+                    'woocommerce_sales_conv-theme-six',
+                    'woocommerce_sales_conv-theme-seven',
+                    'woocommerce_sales_conv-theme-eight',
+                    'woocommerce_sales_conv-theme-nine',
                 ]
             ],
         ];
-        parent::__construct();
     }
 
-    /**
-     * Hooked to nx_before_metabox_load action.
-     *
-     * @return void
-     */
-    public function init_fields() {
-        parent::init_fields();
-    } 
-    
+    public function doc(){
+        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+		<p>🎦 <a href="%3$s" target="_blank">Watch video tutorial</a> to learn quickly</p>
+		<p>⭐ NotificationX Integration with WooCommerce</p>
+		<p><strong>Recommended Blog:</strong></p>
+		<p>🔥 Why NotificationX is The <a target="_blank" href="%4$s">Best FOMO and Social Proof Plugin</a> for WooCommerce?</p>
+		<p>🚀 How to <a target="_blank" href="%5$s">boost WooCommerce Sales</a> Using NotificationX</p>', 'notificationx'),
+        'https://wordpress.org/plugins/woocommerce/',
+        'https://notificationx.com/docs/woocommerce-notification-in-notificationx/',
+        'https://www.youtube.com/watch?v=dVthd36hJ-E&t=1s',
+        'https://notificationx.com/integrations/woocommerce/',
+        'https://notificationx.com/blog/best-fomo-and-social-proof-plugin-for-woocommerce/'
+        );
+    }
+
 }

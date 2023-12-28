@@ -22,6 +22,7 @@ class TypeFactory {
 
 	public $types = [
 			'conversions'        => 'NotificationX\Types\Conversions',
+			'woocommerce_sales'  => 'NotificationX\Types\WooCommerceSales',
 			'comments'           => 'NotificationX\Types\Comments',
 			'reviews'            => 'NotificationX\Types\Reviews',
 			'download_stats'     => 'NotificationX\Types\DownloadStats',

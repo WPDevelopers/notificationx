@@ -1,5 +1,5 @@
 <?php
-/**
+  /**
  * WooCommerce Extension
  *
  * @package NotificationX\Extensions
@@ -7,31 +7,27 @@
 
 namespace NotificationX\Extensions\WooCommerce;
 
-use NotificationX\Core\PostType;
-use NotificationX\Core\Rules;
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
-use NotificationX\Extensions\GlobalFields;
-
-/**
+  /**
  * WooCommerce Extension Class
+ * @method static WooCommerce get_instance($args = null)
  */
-class WooInline extends WooCommerce {
+class WooCommerceSalesInline extends WooInline {
+
     /**
      * Instance of WooInline
      *
      * @var WooInline
-     */
+    */
     protected static $instance = null;
-    public $priority        = 5;
-    public $id              = 'woo_inline';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/woocommerce.png';
-    public $doc_link        = 'https://notificationx.com/docs/woocommerce-sales-notifications/';
-    public $types           = 'inline';
-    public $module          = 'modules_woocommerce';
-    public $module_priority = 3;
-    public $class           = '\WooCommerce';
-    public $is_pro          = true;
+    public    $priority        = 15;
+    public    $id              = 'woocommerce_sales_inline';
+    public    $img             = '';
+    public    $doc_link        = 'https://notificationx.com/docs/woocommerce-growth-alerts/';
+    public    $types           = 'woocommerce_sales';
+    public    $module          = 'modules_woocommerce_sales_inline';
+    public    $module_priority = 3;
+    public    $class           = '\WooCommerce';
+    public    $is_pro          = true;
 
     /**
      * Get the instance of called class.
@@ -63,7 +59,8 @@ class WooInline extends WooCommerce {
      */
     public function __construct(){
         parent::__construct();
-
+        $this->title        = __('Growth Alert', 'notificationx');
+        $this->module_title = __('Growth Alert', 'notificationx');
         $this->themes = [
             'conv-theme-seven' => array(
                 'is_pro'      => true,
@@ -150,30 +147,21 @@ class WooInline extends WooCommerce {
                 ],
             ],
         ];
-        add_filter( 'nx_show_on_exclude', array( $this, 'show_on_exclude' ), 10, 4 );
     }
 
-    /**
-     * @todo Something
-     *
-     * @param [type] $exclude
-     * @param [type] $settings
-     * @return void
-     */
-    public function show_on_exclude( $exclude, $settings ) {
-        if ( $settings['source'] === $this->id ) {
-            $woo_location = $settings['inline_location'];
-            $hooks        = ['woocommerce_before_add_to_cart_form', 'woocommerce_after_shop_loop_item_title', 'woocommerce_after_shop_loop_item', 'woocommerce_after_cart_item_name'];
-            $diff         = array_diff( $hooks, $woo_location );
-            if ( count( $diff ) <= count( $hooks ) ) {
-                return true;
-            }
-        }
-        return $exclude;
-    }
-
-    public function content_fields($fields){
-        return $fields;
+    public function doc(){
+        return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+		<p>🎦 <a href="%3$s" target="_blank">Watch video tutorial</a> to learn quickly</p>
+		<p>⭐ NotificationX Integration with WooCommerce</p>
+		<p><strong>Recommended Blog:</strong></p>
+		<p>🔥 Why NotificationX is The <a target="_blank" href="%4$s">Best FOMO and Social Proof Plugin</a> for WooCommerce?</p>
+		<p>🚀 How to <a target="_blank" href="%5$s">boost WooCommerce Sales</a> Using NotificationX</p>', 'notificationx'),
+        'https://wordpress.org/plugins/woocommerce/',
+        'https://notificationx.com/docs/woocommerce-growth-alerts/',
+        'https://www.youtube.com/watch?v=dVthd36hJ-E&t=1s',
+        'https://notificationx.com/integrations/woocommerce/',
+        'https://notificationx.com/blog/best-fomo-and-social-proof-plugin-for-woocommerce/'
+        );
     }
 
 }
