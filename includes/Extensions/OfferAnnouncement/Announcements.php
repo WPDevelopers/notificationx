@@ -59,7 +59,8 @@ class Announcements extends Extension {
                     // 'custom_fifth_param'  => __( 'Some time ago', 'notificationx' ),
                 ],
                 'defaults' => [
-                    'announcement_link_button'      => false,
+                    // 'announcement_link_button'      => false,
+                    'link'                          => '#',
                     'announcement_link_button_text' => __( 'Grab Now', 'notificationx' ),
                 ],
             ],
@@ -76,7 +77,8 @@ class Announcements extends Extension {
                     // 'custom_fifth_param'  => __( '25% OFF', 'notificationx' ),
                 ],
                 'defaults' => [
-                    'announcement_link_button'      => false,
+                    // 'announcement_link_button'      => false,
+                    'link'                          => '#',
                     'announcement_link_button_text' => __( 'Grab Now', 'notificationx' ),
                 ],
                 'image_shape' => 'circle',
@@ -94,8 +96,11 @@ class Announcements extends Extension {
                     // 'custom_fifth_param'  => __( '25% OFF', 'notificationx' ),
                 ],
                 'defaults' => [
-                    'announcement_link_button'      => true,
+                    // 'announcement_link_button'      => true,
                     'announcement_link_button_text' => __( 'Buy Now', 'notificationx' ),
+                    'link'                          => '#',
+                    'offer_title'                   => __( 'Flash Sale: Limited Time Offer!', 'notificationx' ),
+                    'link_button'                   => true,
                 ],
                 'image_shape' => 'circle',
             ],
@@ -106,8 +111,10 @@ class Announcements extends Extension {
                     'custom_first_param'  => __('How Does It Works' , 'notificationx'),
                 ],
                 'defaults' => [
-                    'announcement_link_button'      => false,
+                    // 'announcement_link_button'      => false,
                     'announcement_link_button_text' => __( 'Watch Now', 'notificationx' ),
+                    'offer_title'                   => __( 'How Does It Works', 'notificationx' ),
+                    'link'                          => '#',
                 ],
             ],
             'theme-14'   => [
@@ -124,8 +131,10 @@ class Announcements extends Extension {
                     // 'custom_fifth_param'  => __( 'Some time ago', 'notificationx' ),
                 ],
                 'defaults' => [
-                    'announcement_link_button'      => false,
+                    // 'announcement_link_button'      => false,
                     'announcement_link_button_text' => __( 'Get It Now', 'notificationx' ),
+                    'offer_title'                   => __( 'Hi There!', 'notificationx' ),
+                    'link'                          => '#',
                 ],
             ],
             'theme-15'   => [
@@ -137,8 +146,11 @@ class Announcements extends Extension {
                     'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO', 'notificationx'),
                 ],
                 'defaults' => [
-                    'announcement_link_button'      => false,
+                    // 'announcement_link_button'      => false,
                     'announcement_link_button_text' => __( 'Book Now', 'notificationx' ),
+                    'offer_title'                   => __( 'Hi There!', 'notificationx' ),
+                    'offer_description'             => __( 'Enjoy flat 50% Off on NotificationX PRO', 'notificationx' ),
+                    'link'                          => '#',
                 ],
             ],
         ];

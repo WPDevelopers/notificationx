@@ -1,6 +1,6 @@
 import React from "react";
 
-function Theme2({offer_discount, link_text}) {
+function Theme2({offer_discount, link_text, announcementCSS}) {
     return (
         <svg
             width="92"
@@ -12,24 +12,24 @@ function Theme2({offer_discount, link_text}) {
             <g clip-path="url(#clip0_627_254)">
                 <path
                     d="M81.4718 0.315067C80.6538 -0.398997 79.3267 -0.228982 78.5087 0.6925L63.7409 17.3778C62.9229 18.3027 62.9229 19.6322 63.7409 20.3462C64.5589 21.0603 65.886 20.8903 66.704 19.9688L81.4718 3.28353C82.2898 2.35865 82.2898 1.02913 81.4718 0.315067Z"
-                    fill="#D1CBFF"
+                    fill={ announcementCSS?.discountBackground ? announcementCSS?.discountBackground : "#D1CBFF" }
                 />
                 <path
                     d="M51.3488 23.0495C50.9007 22.6584 50.1744 22.7503 49.7298 23.2569L10.7755 67.2602C10.3274 67.7668 10.3274 68.4911 10.7755 68.8821C11.2235 69.2732 11.9498 69.1814 12.3945 68.6747L51.3488 24.668C51.7968 24.1614 51.7968 23.4371 51.3488 23.0461V23.0495Z"
-                    fill="#D1CBFF"
+                    fill={ announcementCSS?.discountBackground ? announcementCSS?.discountBackground : "#D1CBFF" }
                 />
                 <path
                     d="M50.8942 13.3587C50.4462 12.9676 49.7198 13.0594 49.2752 13.5661L10.3209 57.5728C9.87286 58.0794 9.87286 58.8037 10.3209 59.1947C10.7689 59.5858 11.4952 59.4939 11.9399 58.9873L50.8942 14.9806C51.3422 14.474 51.3422 13.7497 50.8942 13.3587Z"
-                    fill="#D1CBFF"
+                    fill={ announcementCSS?.discountBackground ? announcementCSS?.discountBackground : "#D1CBFF" }
                 />
                 <path
                     d="M66.1647 46.451L5.47427 54.2558C2.86796 54.592 0.753906 52.7342 0.753906 50.1089V18.8592C0.753906 16.2339 2.86796 13.8327 5.47427 13.4964L66.1647 5.69506C68.771 5.35882 70.885 7.21662 70.885 9.84198V41.0882C70.885 43.7136 68.771 46.1148 66.1647 46.451Z"
-                    fill="#806FF6"
+                    fill={ announcementCSS?.discountBackground ? announcementCSS?.discountBackground : "#D1CBFF" }
                 />
                 <g filter="url(#filter0_d_627_254)">
                     <text
                         transform="translate(10.9346 38.0566) rotate(-8)"
-                        fill="white"
+                        fill={ announcementCSS?.discountTextColor ? announcementCSS?.discountTextColor : "#fff" }
                         xmlSpace="preserve"
                         style={{whiteSpace: "pre"}}
                         fontFamily="DM Sans"
@@ -45,7 +45,7 @@ function Theme2({offer_discount, link_text}) {
                 <g filter="url(#filter1_d_627_254)">
                     <text
                         transform="translate(8.67188 19.1128) rotate(-8)"
-                        fill="white"
+                        fill={ announcementCSS?.discountTextColor ? announcementCSS?.discountTextColor : "#fff" }
                         xmlSpace="preserve"
                         style={{whiteSpace: "pre"}}
                         fontFamily="DM Sans"
@@ -59,15 +59,15 @@ function Theme2({offer_discount, link_text}) {
                     </text>
                     <text
                         transform="translate(8.67188 19.1128) rotate(-8)"
-                        fill="white"
                         xmlSpace="preserve"
                         style={{whiteSpace: "pre"}}
                         fontFamily="DM Sans"
                         fontSize="18.0984"
                         fontWeight="bold"
                         letterSpacing="0em"
+                        fill={ announcementCSS?.discountTextColor ? announcementCSS?.discountTextColor : "#fff" }
                     >
-                        <tspan x="0" y="14.0896">
+                        <tspan x="0" y="14.0896" fill={ announcementCSS?.discountTextColor ? announcementCSS?.discountTextColor : "#fff" }>
                             {offer_discount}
                         </tspan>
                     </text>
@@ -78,18 +78,18 @@ function Theme2({offer_discount, link_text}) {
                 />
                 <path
                     d="M84.4615 49.8734L50.7477 54.185C48.4974 54.474 46.6748 52.8792 46.6748 50.6248V38.4937C46.6748 36.2393 48.4974 34.1787 50.7477 33.8931L84.4615 29.5815C86.7118 29.2924 88.5345 30.8872 88.5345 33.1416V45.2728C88.5345 47.5272 86.7118 49.5877 84.4615 49.8734Z"
-                    fill="#4F19CD"
+                    fill={ announcementCSS?.discountBackground ? announcementCSS?.discountBackground : "#806FF6" }
                 />
                 <g filter="url(#filter2_d_627_254)">
                     <text
                         transform="translate(50.5244 39.6309) rotate(-8)"
-                        fill="white"
                         xmlSpace="preserve"
                         style={{whiteSpace: "pre"}}
                         fontFamily="Poppins"
                         fontSize="6.78688"
                         fontWeight="500"
                         letterSpacing="-0.02em"
+                        fill={ announcementCSS?.discountTextColor ? announcementCSS?.discountTextColor : "#fff" }
                     >
                         <tspan x="0.156996" y="8.03115">
                             {link_text}
@@ -98,15 +98,15 @@ function Theme2({offer_discount, link_text}) {
                 </g>
                 <path
                     d="M84.2782 21.8172L81.4698 21.6212L79.382 23.7541L79.0499 21.0703L76.541 20.0592L79.1418 18.5937L79.6786 15.8361L81.618 17.6139L84.459 16.921L83.0563 19.4855L84.2782 21.8172Z"
-                    fill="#D1CBFF"
+                    fill={ announcementCSS?.discountBackground ? announcementCSS?.discountBackground : "D1CBFF" }
                 />
                 <path
                     d="M39.9413 56.641L38.6346 56.4574L37.596 57.4571L37.5213 56.114L36.3809 55.5325L37.6401 54.8865L37.9761 53.5298L38.828 54.4716L40.1755 54.2132L39.4424 55.4441L39.9413 56.641Z"
-                    fill="#D1CBFF"
+                    fill={ announcementCSS?.discountBackground ? announcementCSS?.discountBackground : "D1CBFF" }
                 />
                 <path
                     d="M21.3583 8.01334L22.3052 6.02757L21.3413 4.29681L23.4049 4.36142L24.8644 2.68167L25.1936 4.70485L27.0604 5.39851L25.2004 6.58522L24.8916 8.6934L23.4185 7.40129L21.3583 8.01334Z"
-                    fill="#D1CBFF"
+                    fill={ announcementCSS?.discountBackground ? announcementCSS?.discountBackground : "D1CBFF" }
                 />
             </g>
             <defs>

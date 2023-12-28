@@ -5,8 +5,9 @@ import nxHelper from "../../core/functions";
 import { useNotificationContext } from "../../core";
 
 const Button = ({ data, config, announcementCSS = '', icon = false }) => {
-    const { themes, link, announcement_link_button, announcement_link_button_text } = config;
-    if (!announcement_link_button && !["announcements_theme-15", "announcements_theme-14"].includes(themes)) {
+    
+    const { themes, link, announcement_link_button_text } = config;
+    if (!["announcements_theme-15", "announcements_theme-14", "announcements_theme-13"].includes(themes)) {
         return (<></>);
     }
     const frontendContext = useNotificationContext();
