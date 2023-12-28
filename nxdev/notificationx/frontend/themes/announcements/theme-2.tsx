@@ -1,4 +1,5 @@
 import React from "react";
+import { __ } from "@wordpress/i18n";
 
 function Theme2({offer_discount, link_text, announcementCSS}) {
     return (
@@ -38,7 +39,7 @@ function Theme2({offer_discount, link_text, announcementCSS}) {
                         letterSpacing="0em"
                     >
                         <tspan x="0" y="8.3818">
-                            OFF
+                            { __( 'OFF', 'notificationx') }
                         </tspan>
                     </text>
                 </g>
