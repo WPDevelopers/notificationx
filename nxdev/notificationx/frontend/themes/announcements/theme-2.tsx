@@ -2,6 +2,8 @@ import React from "react";
 import { __ } from "@wordpress/i18n";
 
 function Theme2({offer_discount, link_text, announcementCSS}) {
+    console.log('offer',offer_discount);
+    
     return (
         <svg
             width="92"

@@ -61,6 +61,8 @@ class Announcements extends Extension {
                 'defaults' => [
                     // 'announcement_link_button'      => false,
                     'link'                          => '#',
+                    'offer_title'                   => __( 'Flash Sale: Limited Time Offer!', 'notificationx' ),
+                    'offer_description'             => __( 'Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx' ),
                     'announcement_link_button_text' => __( 'Grab Now', 'notificationx' ),
                 ],
             ],
@@ -79,6 +81,8 @@ class Announcements extends Extension {
                 'defaults' => [
                     // 'announcement_link_button'      => false,
                     'link'                          => '#',
+                    'offer_title'                   => __( 'Flash Sale: Limited Time Offer!', 'notificationx' ),
+                    'offer_description'             => __( 'Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx' ),
                     'announcement_link_button_text' => __( 'Grab Now', 'notificationx' ),
                 ],
                 'image_shape' => 'circle',
@@ -102,7 +106,7 @@ class Announcements extends Extension {
                     'offer_title'                   => __( 'Flash Sale: Limited Time Offer!', 'notificationx' ),
                     'link_button'                   => true,
                 ],
-                'image_shape' => 'circle',
+                'image_shape' => 'rounded',
             ],
             'theme-13'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-13.png',
@@ -118,20 +122,20 @@ class Announcements extends Extension {
                 ],
             ],
             'theme-14'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-14.png',
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-14.png',
                 'image_shape' => 'circle',
-                'template' => [
+                'template'    => [
                     'first_param'         => 'tag_offer_title',
                     'custom_first_param'  => __('Hi There!' , 'notificationx'),
                     'third_param'         => 'tag_offer_description',
                     'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx'),
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
-                    // 'fifth_param'         => 'tag_offer_discount',
-                    // 'custom_fifth_param'  => __( 'Some time ago', 'notificationx' ),
+                      // 'fifth_param'         => 'tag_offer_discount',
+                      // 'custom_fifth_param'  => __( 'Some time ago', 'notificationx' ),
                 ],
                 'defaults' => [
-                    // 'announcement_link_button'      => false,
+                      // 'announcement_link_button'      => false,
                     'announcement_link_button_text' => __( 'Get It Now', 'notificationx' ),
                     'offer_title'                   => __( 'Hi There!', 'notificationx' ),
                     'link'                          => '#',
@@ -182,6 +186,8 @@ class Announcements extends Extension {
             ],
         ];
     }
+
+   
 
     /**
      * Get data for CustomNotification Extension.

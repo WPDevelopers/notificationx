@@ -3,7 +3,8 @@ import { __ } from "@wordpress/i18n";
 
 const Theme1 = ({ offer_discount, link_text, link_button_bg_color, link_button_text_color, announcementCSS }) => {
     const ref = useRef();
-
+    console.log(offer_discount);
+    
     return (
         <svg
             width="92"
@@ -30,7 +31,7 @@ const Theme1 = ({ offer_discount, link_text, link_button_bg_color, link_button_t
                     fill={ announcementCSS?.discountTextColor ? announcementCSS?.discountTextColor : "#fff" }
                 >
                     <tspan x="16" y="53.548" >
-                        {offer_discount}
+                        { offer_discount } 
                         <tspan fontSize="14">%</tspan>
                     </tspan>
                 </text>
