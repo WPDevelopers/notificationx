@@ -4,6 +4,7 @@ import { getThemeName, isObject } from "../core/functions";
 import { Theme } from "../themes";
 import Analytics from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
+import 'animate.css';
 
 const useMediaQuery = (query) => {
     const mediaQuery = window.matchMedia(query);
@@ -114,6 +115,9 @@ const Notification = (props) => {
     const { advance_edit } = settings;
 
     const componentClasses = classNames(
+        "animate__animated",
+        exit ? "animate__fadeOutLeft" : "animate__fadeInLeft",
+        "animate__faster",
         "notification-item nx-notification",
         `source-${settings.source}`,
         `position-${settings.position}`,
