@@ -260,7 +260,7 @@ const GetTemplate = (settings) => {
             return [
                 `${params?.first_param} ${params?.second_param}`,
                 `${params?.third_param}`,
-                `${params?.sixth_param}`,
+                `${params?.ga_fourth_param} ${params?.ga_fifth_param} ${params?.sixth_param}`,
         ]; 
         case "stock-theme-one":
         case "stock-theme-two":
