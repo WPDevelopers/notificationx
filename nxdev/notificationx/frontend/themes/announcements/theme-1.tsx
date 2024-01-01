@@ -3,7 +3,6 @@ import { __ } from "@wordpress/i18n";
 
 const Theme1 = ({ offer_discount, link_text, link_button_bg_color, link_button_text_color, announcementCSS }) => {
     const ref = useRef();
-    console.log(offer_discount);
     
     return (
         <svg
