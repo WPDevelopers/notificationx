@@ -145,29 +145,44 @@ class Inline {
                 
         }
 
+        if ($settings['source'] === 'freemius_conversions') {
+            switch ( $theme_name ) {
+                case "theme-one":
+                case "theme-two":
+                case "theme-three":
+                case "theme-four":
+                case "theme-five":
+                    return ["{$params['first_param']} {$params['second_param']}", "{$params['third_param']} {$params['freemius_fifth_param']} {$params['fifth_param']} {$params['freemius_sixth_param']} {$params['freemius_seventh_param']}", "{$params['fourth_param']}"];
+                case "conv-theme-ten":
+                case "conv-theme-eleven":
+                    return ["{$params['first_param']} {$params['second_param']}", "{$params['third_param']} {$params['freemius_fifth_param']} {$params['freemius_sixth_param']} {$params['freemius_seventh_param']}", "{$params['fourth_param']}"];
+                // conversion start
+                case "conv-theme-six":
+                    return ["{$params['first_param']} {$params['second_param']} {$params['third_param']}", "{$params['map_fourth_param']} {$params['fourth_param']} {$params['freemius_fifth_param']} {$params['freemius_sixth_param']} {$params['freemius_seventh_param']}", "{$params['fifth_param']}"];
+                case "conv-theme-seven":
+                case "conv-theme-eight":
+                case "conv-theme-nine":
+                    return ["{$params['first_param']} {$params['second_param']}", "{$params['third_param']} {$params['fourth_param']} {$params['freemius_fifth_param']} {$params['freemius_sixth_param']} {$params['freemius_seventh_param']}"];
+            }
+        }        
         switch ( $theme_name ) {
             case 'theme-one':
             case 'theme-two':
             case 'theme-three':
             case 'theme-four':
             case 'theme-five':
+            case "conv-theme-ten":
+            case "conv-theme-eleven":
+            case 'conv-theme-seven':
+            case 'conv-theme-eight':
+            case 'conv-theme-nine':
                 $template = "{$params['first_param']} {$params['second_param']} {$params['third_param']} {$params['fourth_param']}";
                 break;
                 // conversion start
             case 'conv-theme-six':
-                $template = "{$params['first_param']} {$params['second_param']} {$params['third_param']} {$params['map_fourth_param']} {$params['fourth_param']} {$params['freemius_fifth_param']} {$params['freemius_sixth_param']} {$params['freemius_seventh_param']} {$params['freemius_seventh_param']} {$params['fifth_param']}";
-                break;
-            case "conv-theme-ten":
-            case "conv-theme-eleven":
-                $template = "{$params['first_param']} {$params['second_param']} {$params['third_param']} {$params['freemius_fifth_param']} {$params['freemius_sixth_param']} {$params['freemius_seventh_param']} {$params['fourth_param']}";
-                break;
-            case 'conv-theme-seven':
-            case 'conv-theme-eight':
-            case 'conv-theme-nine':
-                $template = "{$params['first_param']} {$params['second_param']} {$params['third_param']} {$params['fourth_param']} {$params['freemius_fifth_param']} {$params['freemius_sixth_param']} {$params['freemius_seventh_param']}";
+                $template = "{$params['first_param']} {$params['second_param']} {$params['third_param']} {$params['map_fourth_param']} {$params['fourth_param']} {$params['fifth_param']}";
                 break;
                 // conversion end
-
                 // comments theme start.
             case 'theme-six-free':
             case 'theme-seven-free':
