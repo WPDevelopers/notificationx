@@ -999,9 +999,26 @@ class GlobalFields {
                             'fields' => [
                                 'position' => [
                                     'label'    => __("Position", 'notificationx'),
-                                    'name'     => "position",      // combined "pressbar_position" && "conversion_position"
+                                    'name'     => "position",                        // combined "pressbar_position" && "conversion_position"
                                     'type'     => "select",
-                                    'default'    => 'bottom_left',
+                                    'default'  => 'bottom_left',
+                                    'priority' => 50,
+                                    'options'  => [
+                                        'bottom_left' => [
+                                            'label' => __('Bottom Left', 'notificationx'),
+                                            'value' => 'bottom_left',
+                                        ],
+                                        'bottom_right' => [
+                                            'label' => __('Bottom Right', 'notificationx'),
+                                            'value' => 'bottom_right',
+                                        ],
+                                    ],
+                                ],
+                                'animation' => [
+                                    'label'    => __("Position", 'notificationx'),
+                                    'name'     => "position",                        // combined "pressbar_position" && "conversion_position"
+                                    'type'     => "select",
+                                    'default'  => 'bottom_left',
                                     'priority' => 50,
                                     'options'  => [
                                         'bottom_left' => [
@@ -1015,16 +1032,16 @@ class GlobalFields {
                                     ],
                                 ],
                                 'size' => [
-                                    'label' => __("Notification Size", 'notificationx'),
-                                    'name'  => "size",
-                                    'type'     => "responsive-number",
-                                    'default'  => [
+                                    'label'   => __("Notification Size", 'notificationx'),
+                                    'name'    => "size",
+                                    'type'    => "responsive-number",
+                                    'default' => [
                                         "desktop" => 500,
-                                        "tablet" => 500,
-                                        "mobile" => 500,
+                                        "tablet"  => 500,
+                                        "mobile"  => 500,
                                     ],
                                     'priority' => 51,
-                                    'min' => 300,
+                                    'min'      => 300,
                                     'controls' => [
                                         "desktop" => [
                                             "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
@@ -1039,7 +1056,7 @@ class GlobalFields {
                                             'size' => 12,
                                         ],
                                     ],
-                                    'help'     => __('Set a max width for notification.', 'notificationx'),
+                                    'help' => __('Set a max width for notification.', 'notificationx'),
                                 ],
                                 'close_button' => [
                                     'label'       => __("Display Close Option", 'notificationx'),
@@ -1056,6 +1073,207 @@ class GlobalFields {
                                     'default'     => 1,
                                     'priority'    => 200,
                                     'description' => __('Hide NotificationX on mobile.', 'notificationx'),
+                                ],
+                            ]
+                        ],
+                        'appearance' => [
+                            'label'  => __("Appearance", 'notificationx'),
+                            'name'   => "appearance",
+                            'type'   => "section",
+                            'fields' => [
+                                'position' => [
+                                    'label'    => __("Position", 'notificationx'),
+                                    'name'     => "position",                        // combined "pressbar_position" && "conversion_position"
+                                    'type'     => "select",
+                                    'default'  => 'bottom_left',
+                                    'priority' => 50,
+                                    'options'  => [
+                                        'bottom_left' => [
+                                            'label' => __('Bottom Left', 'notificationx'),
+                                            'value' => 'bottom_left',
+                                        ],
+                                        'bottom_right' => [
+                                            'label' => __('Bottom Right', 'notificationx'),
+                                            'value' => 'bottom_right',
+                                        ],
+                                    ],
+                                ],
+                                'size' => [
+                                    'label'   => __("Notification Size", 'notificationx'),
+                                    'name'    => "size",
+                                    'type'    => "responsive-number",
+                                    'default' => [
+                                        "desktop" => 500,
+                                        "tablet"  => 500,
+                                        "mobile"  => 500,
+                                    ],
+                                    'priority' => 51,
+                                    'min'      => 300,
+                                    'controls' => [
+                                        "desktop" => [
+                                            "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+                                            'size' => 18,
+                                        ],
+                                        "tablet" => [
+                                            "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/tablet.svg',
+                                            'size' => 14,
+                                        ],
+                                        "mobile" => [
+                                            "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/mobile.svg',
+                                            'size' => 12,
+                                        ],
+                                    ],
+                                    'help' => __('Set a max width for notification.', 'notificationx'),
+                                ],
+                                'close_button' => [
+                                    'label'       => __("Display Close Option", 'notificationx'),
+                                    'name'        => "close_button",
+                                    'type'        => "checkbox",
+                                    'default'     => 1,
+                                    'priority'    => 70,
+                                    'description' => __('Display a close button.', 'notificationx'),
+                                ],
+                                'hide_on_mobile' => [
+                                    'label'       => __("Mobile Visibility", 'notificationx'),
+                                    'name'        => "hide_on_mobile",
+                                    'type'        => "checkbox",
+                                    'default'     => 1,
+                                    'priority'    => 200,
+                                    'description' => __('Hide NotificationX on mobile.', 'notificationx'),
+                                ],
+                            ]
+                        ],
+                        'animation' => [
+                            'label'  => __("Animation", 'notificationx'),
+                            'name'   => "animation",
+                            'type'   => "section",
+                            'fields' => [
+                                'animation_notification_show' => [
+                                    'label'    => __("Notification Show", 'notificationx'),
+                                    'name'     => "animation_notification_show",
+                                    'type'     => "select",
+                                    'default'  => 'animate__fadeInUp',
+                                    'priority' => 5,
+                                    'options'  => [
+                                        'animate__fadeIn' => [
+                                            'label' => __('Fade In', 'notificationx'),
+                                            'value' => 'animate__fadeIn',
+                                        ],
+                                        'animate__fadeInUp' => [
+                                            'label' => __('Fade In Up', 'notificationx'),
+                                            'value' => 'animate__fadeInUp',
+                                        ],
+                                        'animate__fadeInDown' => [
+                                            'label' => __('Fade In Down', 'notificationx'),
+                                            'value' => 'animate__fadeInDown',
+                                        ],
+                                        'animate__fadeInDownBig' => [
+                                            'label' => __('Fade In Down Big', 'notificationx'),
+                                            'value' => 'animate__fadeInDownBig',
+                                        ],
+                                        'animate__fadeInLeft' => [
+                                            'label' => __('Fade In Left', 'notificationx'),
+                                            'value' => 'animate__fadeInLeft',
+                                        ],
+                                        'animate__fadeInRight' => [
+                                            'label' => __('Fade In Right', 'notificationx'),
+                                            'value' => 'animate__fadeInRight',
+                                        ],
+                                        'animate__lightSpeedInLeft' => [
+                                            'label' => __('Light Speed In Left', 'notificationx'),
+                                            'value' => 'animate__lightSpeedInLeft',
+                                        ],
+                                        'animate__lightSpeedInRight' => [
+                                            'label' => __('Light Speed In Right', 'notificationx'),
+                                            'value' => 'animate__lightSpeedInRight',
+                                        ],
+                                        'animate__zoomIn' => [
+                                            'label' => __('Zoom In', 'notificationx'),
+                                            'value' => 'animate__zoomIn',
+                                        ],
+                                        'animate__slideInUp' => [
+                                            'label' => __('Slide In Up', 'notificationx'),
+                                            'value' => 'animate__slideInUp',
+                                        ],
+                                        'animate__slideInLeft' => [
+                                            'label' => __('Slide In Left', 'notificationx'),
+                                            'value' => 'animate__slideInLeft',
+                                        ],
+                                        'animate__slideInRight' => [
+                                            'label' => __('Slide In Right', 'notificationx'),
+                                            'value' => 'animate__slideInRight',
+                                        ],
+                                        'animate__slideInUp' => [
+                                            'label' => __('Slide In Up', 'notificationx'),
+                                            'value' => 'animate__slideInUp',
+                                        ],
+                                    ],
+                                ],
+                                'animation_notification_hide' => [
+                                    'label'    => __("Notification Hide", 'notificationx'),
+                                    'name'     => "animation_notification_hide",
+                                    'type'     => "select",
+                                    'default'  => 'animate__fadeOutDown',
+                                    'priority' => 10,
+                                    'options'  => [
+                                        'animate__fadeOut' => [
+                                            'label' => __('Fade Out', 'notificationx'),
+                                            'value' => 'animate__fadeOut',
+                                        ],
+                                        'animate__fadeOutDown' => [
+                                            'label' => __('Fade Out Down', 'notificationx'),
+                                            'value' => 'animate__fadeOutDown',
+                                        ],
+                                        'animate__fadeOutRight' => [
+                                            'label' => __('Fade Out Right', 'notificationx'),
+                                            'value' => 'animate__fadeOutRight',
+                                        ],
+                                        'animate__fadeOutUp' => [
+                                            'label' => __('Fade Out Up', 'notificationx'),
+                                            'value' => 'animate__fadeOutUp',
+                                        ],
+                                        'animate__lightSpeedOutLeft' => [
+                                            'label' => __('Light Speed Out Left', 'notificationx'),
+                                            'value' => 'animate__lightSpeedOutLeft',
+                                        ],
+                                        'animate__zoomOut' => [
+                                            'label' => __('Zoom Out', 'notificationx'),
+                                            'value' => 'animate__zoomOut',
+                                        ],
+                                        'animate__slideOutDown' => [
+                                            'label' => __('Slide Out Down', 'notificationx'),
+                                            'value' => 'animate__slideOutDown',
+                                        ],
+                                        'animate__slideOutLeft' => [
+                                            'label' => __('Slide Out Left', 'notificationx'),
+                                            'value' => 'animate__slideOutLeft',
+                                        ],
+                                        'animate__slideOutRight' => [
+                                            'label' => __('Slide Out Right', 'notificationx'),
+                                            'value' => 'animate__slideOutRight',
+                                        ],
+                                        'animate__slideOutUp' => [
+                                            'label' => __('Slide Out Up', 'notificationx'),
+                                            'value' => 'animate__slideOutUp',
+                                        ],
+                                    ],
+                                ],
+                                'animation_notification_duration' => [
+                                    'label'    => __("Duration", 'notificationx'),
+                                    'name'     => "animation_notification_duration",
+                                    'type'     => "select",
+                                    'default'  => 'animate__faster',
+                                    'priority' => 15,
+                                    'options'  => [
+                                        'animate__faster' => [
+                                            'label' => __('Faster', 'notificationx'),
+                                            'value' => 'animate__faster',
+                                        ],
+                                        'animate__fast' => [
+                                            'label' => __('Fast', 'notificationx'),
+                                            'value' => 'animate__fast',
+                                        ],
+                                    ],
                                 ],
                             ]
                         ],

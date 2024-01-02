@@ -84,6 +84,28 @@ const Notification = (props) => {
 
     // Close notification
     useEffect(() => {
+        // let calc_nx_close_duration = 500;
+        // switch (settings?.animation_notification_duration) {
+        //     case 'animate__faster':
+        //         calc_nx_close_duration = 500;
+        //         break;
+        //     case 'animate__fast':
+        //         calc_nx_close_duration = 800;
+        //         break;
+        //     case 'animate__slower':
+        //         calc_nx_close_duration = 3000;
+        //         break;
+        //     case 'animate__slow':
+        //         calc_nx_close_duration = 2000;
+        //         break;
+        //     default:
+        //         calc_nx_close_duration = 500;
+        //         break;
+        // }
+
+        // console.log(calc_nx_close_duration);
+        
+
         if (width >= 99.5) {
             handleCloseNotification();
             setTimeout(() => {
@@ -92,7 +114,7 @@ const Notification = (props) => {
                     type: "REMOVE_NOTIFICATION",
                     payload: props.id,
                 });
-            }, 500)
+            }, 500 )
         }
     }, [width]);
 
@@ -116,8 +138,8 @@ const Notification = (props) => {
 
     const componentClasses = classNames(
         "animate__animated",
-        exit ? "animate__fadeOutLeft" : "animate__fadeInLeft",
-        "animate__faster",
+        exit ? settings.animation_notification_hide : settings.animation_notification_show,
+        settings?.animation_notification_duration,
         "notification-item nx-notification",
         `source-${settings.source}`,
         `position-${settings.position}`,
