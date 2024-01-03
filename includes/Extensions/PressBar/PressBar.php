@@ -140,7 +140,7 @@ class PressBar extends Extension {
                 'value'  => 'theme-one',
                 'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-gutenberg/theme-one.png',
                 'column' => '12',
-                "title"  => "Nx Theme Four",
+                "title"  => "Nx Theme One",
             ],
             'theme-two' => [
                 'label'  => 'theme-two',
