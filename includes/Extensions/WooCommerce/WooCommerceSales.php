@@ -36,7 +36,7 @@ class WooCommerceSales extends WooCommerce {
     public $class           = '\WooCommerce';
     public $default_theme   = 'woocommerce_sales_theme-one';
     public $wpml_included   = [
-                                'sales_count',
+                                'sales_count', 'donation_count'
                               ];
 
     /**

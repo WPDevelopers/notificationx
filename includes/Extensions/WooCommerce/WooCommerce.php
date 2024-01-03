@@ -37,7 +37,7 @@ class WooCommerce extends Extension {
     public $module_priority = 3;
     public $class           = '\WooCommerce';
     public $wpml_included   = [
-                                'sales_count',
+                                'sales_count', 'donation_count'
                               ];
 
     /**
