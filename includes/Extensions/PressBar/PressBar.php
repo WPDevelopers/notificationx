@@ -135,27 +135,55 @@ class PressBar extends Extension {
             ],
         );
         $this->block_themes = array(
-            'theme-two'   => [
-                'label'  => 'theme-two',
-                'value'  => 'theme-two',
-                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-elementor/theme-two.jpg',
-                'column' => '12',
-                "title"  => "Nx Theme Two",
-            ],
-            'theme-one'   => [
+            'theme-one' => [
                 'label'  => 'theme-one',
                 'value'  => 'theme-one',
-                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-elementor/theme-one.jpg',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-gutenberg/theme-one.png',
                 'column' => '12',
-                "title"  => "Nx Theme One",
-                "popup"  => $popup,
+                "title"  => "Nx Theme Four",
+            ],
+            'theme-two' => [
+                'label'  => 'theme-two',
+                'value'  => 'theme-two',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-gutenberg/theme-two.png',
+                'column' => '12',
+                "title"  => "Nx Theme Two",
             ],
             'theme-three' => [
                 'label'  => 'theme-three',
                 'value'  => 'theme-three',
-                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-elementor/theme-three.jpg',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-gutenberg/theme-three.png',
                 'column' => '12',
                 "title"  => "Nx Theme Three",
+            ],
+            'theme-four' => [
+                'label'  => 'theme-four',
+                'value'  => 'theme-four',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-gutenberg/theme-four.png',
+                'column' => '12',
+                "title"  => "Nx Theme Four",
+            ],
+            'theme-five'   => [
+                'label'  => 'theme-five',
+                'value'  => 'theme-five',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-one.jpg',
+                'column' => '12',
+                "title"  => "Nx Theme Five",
+                "popup"  => $popup,
+            ],
+            'theme-six'   => [
+                'label'  => 'theme-six',
+                'value'  => 'theme-six',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-two.jpg',
+                'column' => '12',
+                "title"  => "Nx Theme Six",
+            ],
+            'theme-seven' => [
+                'label'  => 'theme-seven',
+                'value'  => 'theme-seven',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-three.jpg',
+                'column' => '12',
+                "title"  => "Nx Theme Seven",
                 "popup"  => $popup,
             ],
         );
