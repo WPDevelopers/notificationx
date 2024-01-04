@@ -302,6 +302,10 @@ class WooCommerce extends Extension {
         $product_data = $this->ready_product_data($item->get_data());
         if (!empty($product_data)) {
             $new_order['order_id']   = is_int($order_id) ? $order_id : $order_id->get_id();
+            $product      = $item->get_product();
+            if ( isset($product) && $product->get_type() === 'variation' ) {
+                $new_order['var_product_id'] = $item->get_variation_id();
+            }
             $new_order['product_id'] = $item->get_product_id();
             $new_order['title']      = strip_tags($product_data['title']);
             $new_order['link']       = $product_data['link'];
@@ -471,9 +475,10 @@ class WooCommerce extends Extension {
      */
     public function notification_image($image_data, $data, $settings) {
         if (!$settings['show_default_image'] && $settings['show_notification_image'] === 'featured_image') {
-            if (!empty($data['product_id']) && has_post_thumbnail($data['product_id'])) {
+            $id = $this->product_img_id( $data );
+            if ( ! empty( $id ) ) {
                 $product_image = wp_get_attachment_image_src(
-                    get_post_thumbnail_id($data['product_id']),
+                    get_post_thumbnail_id($id),
                     [100, 100],
                     false
                 );
@@ -481,6 +486,14 @@ class WooCommerce extends Extension {
             }
         }
         return $image_data;
+    }
+
+    private function product_img_id( $data ) {
+        if (!empty($data['var_product_id']) && has_post_thumbnail($data['var_product_id'])) {
+            return $data['var_product_id'];
+        } elseif (!empty($data['product_id']) && has_post_thumbnail($data['product_id'])) {
+            return $data['product_id'];
+        }
     }
 
     public function fallback_data($data, $entry) {
