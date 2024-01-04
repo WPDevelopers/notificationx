@@ -29,6 +29,7 @@ class OfferAnnouncement extends Types {
     public $id             = 'offer_announcement';
     public $default_source = 'announcements';
     public $default_theme  = 'announcements_theme-one';
+    public $is_pro         = true;
     // public $link_type      = 'comment_url';
 
     /**
