@@ -1438,20 +1438,16 @@
     }
 }
 
-.main-wrapper {
-    background-color: rgba(0, 0, 0, 0.4);
-    position: fixed;
-    inset: 0px;
-    z-index: 99999999;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 0.625em;
-    overflow: hidden auto;
+.wprf-control.wprf-modal {
+    div:nth-child(2) {
+        >div {
+            z-index: 999999 !important;
+        }
+    }
 }
 
 .wprf-modal-inner {
+    width: 80% !important;
     height: 80%;
     border-radius: 0.3125em;
     padding: 10px 50px 25px !important;
@@ -1486,8 +1482,4 @@
     overflow: hidden auto;
     height: 100%;
     flex-grow: 1;
-}
-
-#notificationx .wprf-control-wrapper {
-    align-items: flex-start;
 }
