@@ -718,7 +718,7 @@ class PressBar extends Extension {
                             ]
                         ],
                         'rules'   => Rules::is('is_gb_confirmed', true, true),
-                        'default' => 'theme-two',
+                        'default' => 'theme-one',
                         'options' => $this->block_themes,
                     ],
                     'test' => [
