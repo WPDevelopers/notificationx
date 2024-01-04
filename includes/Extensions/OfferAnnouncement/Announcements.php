@@ -39,8 +39,8 @@ class Announcements extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
-        $this->title = __('Announcements', 'notificationx');
-        $this->module_title = __('Announcements', 'notificationx');
+        $this->title = __('Discount Announcement', 'notificationx');
+        $this->module_title = __('Discount Announcement', 'notificationx');
         parent::__construct();
 
 
@@ -108,19 +108,19 @@ class Announcements extends Extension {
                 ],
                 'image_shape' => 'rounded',
             ],
-            'theme-13'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-13.png',
-                'template' => [
-                    'first_param'         => 'tag_offer_title',
-                    'custom_first_param'  => __('How Does It Works' , 'notificationx'),
-                ],
-                'defaults' => [
-                    // 'announcement_link_button'      => false,
-                    'announcement_link_button_text' => __( 'Watch Now', 'notificationx' ),
-                    'offer_title'                   => __( 'How Does It Works', 'notificationx' ),
-                    'link'                          => '#',
-                ],
-            ],
+            // 'theme-13'   => [
+            //     'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-13.png',
+            //     'template' => [
+            //         'first_param'         => 'tag_offer_title',
+            //         'custom_first_param'  => __('How Does It Works' , 'notificationx'),
+            //     ],
+            //     'defaults' => [
+            //         // 'announcement_link_button'      => false,
+            //         'announcement_link_button_text' => __( 'Watch Now', 'notificationx' ),
+            //         'offer_title'                   => __( 'How Does It Works', 'notificationx' ),
+            //         'link'                          => '#',
+            //     ],
+            // ],
             'theme-14'   => [
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-14.png',
                 'image_shape' => 'circle',

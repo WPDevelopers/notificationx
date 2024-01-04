@@ -36,7 +36,7 @@ class OfferAnnouncement extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        $this->title = __('Offer Announcement', 'notificationx');
+        $this->title = __('Discount Alert', 'notificationx');
         parent::__construct();
 
         // add_filter('nx_link_types', [$this, 'link_types']);
