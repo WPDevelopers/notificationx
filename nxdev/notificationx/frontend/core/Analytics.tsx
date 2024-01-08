@@ -95,30 +95,48 @@ const Analytics = ({config, children = null, href = null, data = {}, ...rest}: A
         };
     }, []);
     
+    if( config.source == 'press_bar' ) {
+        return (
+            <>
+                <div  className="notificationx-link-wrapper">
+                    <a
+                        href={ link }
+                        style={styles}
+                        target={config?.link_open ? "_blank" : ""}
+                        onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
+                        {...rest}
+                    >
+                        { config.link_text ? link_text : '' } {children}
+                    </a>
+                </div>
+            </>
+        );
+    }
+
     return (
         <>
            { ( data?.id && config?.nx_subscribe_button_type === 'yt_default' && show_default_subscribe && config.link_button ) ?
-           <div className="yt-notificationx-link" >
-               <div
-                   style={styles}
-                   className="g-ytsubscribe"
-                   data-channelid={ data.id }
-                   data-layout="default"
-                   data-count="default">
-               </div>
-          </div> : (link && ( config.link_type !== 'none' || config.source == 'press_bar' ) ) &&
-           <div  className="notificationx-link-wrapper">
-               <a
-                   href={ link }
-                   style={styles}
-                   target={config?.link_open ? "_blank" : ""}
-                   onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
-                   {...rest}
-               >
-                { config.link_button ? link_text : '' } {children}
-               </a>
-               { (config.link_button && config.link_type === 'yt_channel_link' && data?.yt_subscribers ) && <span> { data.yt_subscribers } </span> }
-           </div>
+            <div className="yt-notificationx-link" >
+                <div
+                    style={styles}
+                    className="g-ytsubscribe"
+                    data-channelid={ data.id }
+                    data-layout="default"
+                    data-count="default">
+                </div>
+            </div> : (link && ( config.link_type !== 'none' ) ) &&
+            <div  className="notificationx-link-wrapper">
+                <a
+                    href={ link }
+                    style={styles}
+                    target={config?.link_open ? "_blank" : ""}
+                    onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
+                    {...rest}
+                >
+                    { config.link_button ? link_text : '' } {children}
+                </a>
+                { (config.link_button && config.link_type === 'yt_channel_link' && data?.yt_subscribers ) && <span> { data.yt_subscribers } </span> }
+            </div>
            }
         </>
     );
