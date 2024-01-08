@@ -106,7 +106,7 @@ const Analytics = ({config, children = null, href = null, data = {}, ...rest}: A
                    data-layout="default"
                    data-count="default">
                </div>
-          </div> : (link && config.link_type !== 'none') &&
+          </div> : (link && ( config.link_type !== 'none' || config.source == 'press_bar' ) ) &&
            <div  className="notificationx-link-wrapper">
                <a
                    href={ link }
