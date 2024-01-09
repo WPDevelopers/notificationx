@@ -1203,9 +1203,9 @@ class GlobalFields {
                                             'label' => __('Slide In Right', 'notificationx'),
                                             'value' => 'animate__slideInRight',
                                         ],
-                                        'animate__slideInUp' => [
+                                        'animate__slideInDown' => [
                                             'label' => __('Slide In Up', 'notificationx'),
-                                            'value' => 'animate__slideInUp',
+                                            'value' => 'animate__slideInDown',
                                         ],
                                     ],
                                 ],

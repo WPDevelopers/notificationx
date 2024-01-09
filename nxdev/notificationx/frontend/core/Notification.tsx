@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
-import { getThemeName, isObject } from "../core/functions";
+import { getThemeName, isObject, calculateAnimationStartTime } from "../core/functions";
 import { Theme } from "../themes";
 import Analytics from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
@@ -27,6 +27,7 @@ const useMediaQuery = (query) => {
 
 const Notification = (props) => {
     const [exit, setExit] = useState(false);
+    const [animation, setAnimation] = useState(false);
     const [width, setWidth] = useState(0);
     const [intervalID, setIntervalID] = useState(null);
 
@@ -103,9 +104,10 @@ const Notification = (props) => {
         //         break;
         // }
 
-        // console.log(calc_nx_close_duration);
-        
-
+        // console.log(calc_nx_close_duration);        
+        if( width >= calculateAnimationStartTime( settings?.display_for, settings.animation_notification_hide ) ) { 
+            setAnimation(true);
+        }
         if (width >= 99.5) {
             handleCloseNotification();
             setTimeout(() => {
@@ -135,10 +137,10 @@ const Notification = (props) => {
 
 
     const { advance_edit } = settings;
-
+    
     const componentClasses = classNames(
         "animate__animated",
-        exit ? settings.animation_notification_hide : settings.animation_notification_show,
+        animation ? settings.animation_notification_hide : settings.animation_notification_show,
         settings?.animation_notification_duration,
         "notification-item nx-notification",
         `source-${settings.source}`,
