@@ -1445,7 +1445,9 @@
         }
     }
 }
-
+.pressbar-gutenberg-theme-popup {
+    z-index: 999999;
+}
 .wprf-modal-inner {
     width: 80% !important;
     height: 80%;
@@ -1453,7 +1455,7 @@
     padding: 10px 50px 25px !important;
     overflow: hidden !important;
     justify-content: unset !important;
-
+    
     >span.btn {
         right: 10px !important;
         top: 10px !important;

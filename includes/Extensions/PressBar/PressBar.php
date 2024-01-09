@@ -177,6 +177,7 @@ class PressBar extends Extension {
                 'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-two.jpg',
                 'column' => '12',
                 "title"  => "Nx Theme Six",
+                "popup"  => $popup,
             ],
             'theme-seven' => [
                 'label'  => 'theme-seven',
