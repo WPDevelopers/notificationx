@@ -83,28 +83,46 @@ const Notification = (props) => {
         setExit(true);
     };
 
-    // Close notification
-    useEffect(() => {
-        // let calc_nx_close_duration = 500;
-        // switch (settings?.animation_notification_duration) {
-        //     case 'animate__faster':
-        //         calc_nx_close_duration = 500;
-        //         break;
-        //     case 'animate__fast':
-        //         calc_nx_close_duration = 800;
-        //         break;
-        //     case 'animate__slower':
-        //         calc_nx_close_duration = 3000;
-        //         break;
-        //     case 'animate__slow':
-        //         calc_nx_close_duration = 2000;
-        //         break;
-        //     default:
-        //         calc_nx_close_duration = 500;
-        //         break;
-        // }
+    const getAnimationStyles = () => {
+        const commonPosition = !animation ? '30px' : '0';
+        const commonStyles = { left: '30px', right: '30px', bottom: '30px' };
+      
+        switch (settings.animation_notification_hide) {
+          case 'animate__slideOutDown':
+            return {
+              bottom: commonPosition,
+              left: commonPosition,
+              right: commonPosition,
+              transition: '300ms',
+            };
+          case 'animate__slideOutLeft':
+            return {
+              left: commonPosition,
+              bottom: commonPosition,
+              right: commonPosition,
+              transition: '300ms',
+            };
+          case 'animate__slideOutRight':
+            return {
+              right: commonPosition,
+              left: commonPosition,
+              bottom: commonPosition,
+              transition: '300ms',
+            };
+          case 'animate__slideOutUp':
+            return {
+              top: commonPosition,
+              left: commonPosition,
+              bottom: commonPosition,
+              transition: '300ms',
+            };
+          default:
+            return commonStyles;
+        }
+      };      
 
-        // console.log(calc_nx_close_duration);        
+    // Close notification
+    useEffect(() => {     
         if( width >= calculateAnimationStartTime( settings?.display_for, settings.animation_notification_hide ) ) { 
             setAnimation(true);
         }
@@ -116,6 +134,7 @@ const Notification = (props) => {
                     type: "REMOVE_NOTIFICATION",
                     payload: props.id,
                 });
+                setAnimation(false);
             }, 500 )
         }
     }, [width]);
@@ -161,9 +180,10 @@ const Notification = (props) => {
             "flex-reverse": advance_edit && settings?.image_position === "right",
         }
     );
-
+    
     const componentStyle: any = {
         maxWidth: `${notificationSize}px`,
+        ...getAnimationStyles()
     };
     if (settings?.advance_edit && settings?.conversion_size) {
         componentStyle.maxWidth = settings?.conversion_size;

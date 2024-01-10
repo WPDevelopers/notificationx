@@ -35,7 +35,7 @@ export function calculateAnimationStartTime(userInput, animationType) {
             result = 80;
             break;
         case userInput >= 5 && userInput <= 8:
-            result = 90;
+            result = 85;
             break;
         case userInput > 8 && userInput <= 10:
             result = 93;
