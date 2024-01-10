@@ -84,45 +84,46 @@ const Notification = (props) => {
     };
 
     const getAnimationStyles = () => {
-        const commonPosition = !animation ? '30px' : '0';
-        const commonStyles = { left: '30px', right: '30px', bottom: '30px' };
-      
         switch (settings.animation_notification_hide) {
-          case 'animate__slideOutDown':
+          case 'animate__slideOutDown': 
             return {
-              bottom: commonPosition,
-              left: commonPosition,
-              right: commonPosition,
-              transition: '300ms',
+                bottom: !animation ? '30px': '0',
+                left  : !animation ? '30px': '30px',
+                right : !animation ? '30px': '30px',
+                transition  : '300ms',
             };
-          case 'animate__slideOutLeft':
+          case 'animate__slideOutLeft': 
             return {
-              left: commonPosition,
-              bottom: commonPosition,
-              right: commonPosition,
-              transition: '300ms',
+                left  : !animation ? '30px': '0',
+                bottom: !animation ? '30px': '30px',
+                right : !animation ? '30px': '30px',
+                transition  : '300ms',
             };
-          case 'animate__slideOutRight':
+          case 'animate__slideOutRight': 
             return {
-              right: commonPosition,
-              left: commonPosition,
-              bottom: commonPosition,
-              transition: '300ms',
+                right : !animation ? '30px': '0',
+                left  : !animation ? '30px': '30px',
+                bottom: !animation ? '30px': '30px',
+                transition  : '300ms',
             };
-          case 'animate__slideOutUp':
+          case 'animate__slideOutUp': 
             return {
-              top: commonPosition,
-              left: commonPosition,
-              bottom: commonPosition,
-              transition: '300ms',
+                top   : !animation ? '30px': '0',
+                left  : !animation ? '30px': '30px',
+                bottom: !animation ? '30px': '30px',
+                transition: '300ms',
             };
-          default:
-            return commonStyles;
+          default: 
+            return {
+                bottom: '30px',
+                left  : '30px',
+                right : '0',
+            };
         }
-      };      
+      };
 
     // Close notification
-    useEffect(() => {     
+    useEffect(() => {    
         if( width >= calculateAnimationStartTime( settings?.display_for, settings.animation_notification_hide ) ) { 
             setAnimation(true);
         }
