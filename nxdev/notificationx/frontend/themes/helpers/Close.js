@@ -31,6 +31,7 @@ function Close({id, config, dispatch, style, closed}) {
             type: "REMOVE_NOTIFICATION",
             payload: id,
         });
+        document.body.style.paddingTop = `0px`;
     };
 
     useEffect(() => {
