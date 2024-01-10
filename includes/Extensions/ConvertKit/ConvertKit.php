@@ -24,7 +24,7 @@ class ConvertKit extends Extension {
 
     public $priority        = 10;
     public $id              = 'convertkit';
-    public $img             = '';
+    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/convertkit.png';
     public $doc_link        = 'https://notificationx.com/docs/contact-form-submission-alert/';
     public $types           = 'email_subscription';
     public $module          = 'modules_convertkit';
