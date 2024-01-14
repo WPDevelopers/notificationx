@@ -36,9 +36,9 @@ class Reviews extends Types {
         'modules_zapier',
         'modules_freemius',
     ];
-    public $default_source    = 'wp_reviews';
-    public $default_theme = 'reviews_total-rated';
-    public $link_type = 'review_page';
+    public $default_source = 'wp_reviews';
+    public $default_theme  = 'reviews_total-rated';
+    public $link_type      = 'review_page';
 
 
     /**
