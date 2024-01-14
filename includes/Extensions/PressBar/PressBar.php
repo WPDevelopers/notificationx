@@ -253,6 +253,9 @@ class PressBar extends Extension {
     }
 
     public function theme_preview($url, $post) {
+        if (!empty($post['gutenberg_id']) && !empty($post['gutenberg_bar_theme']) && !empty($this->bar_themes[$post['gutenberg_bar_theme']])) {
+            return $this->block_themes[$post['gutenberg_bar_theme']]['icon'];
+        }
         if (!empty($post['elementor_id']) && !empty($post['elementor_bar_theme']) && !empty($this->bar_themes[$post['elementor_bar_theme']])) {
             return $this->bar_themes[$post['elementor_bar_theme']]['icon'];
         }
