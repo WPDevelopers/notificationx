@@ -19,6 +19,7 @@ use NotificationX\Core\REST;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\PressBar\PressBar;
 use NotificationX\Core\Helper;
+use NotificationX\Extensions\ExtensionFactory;
 
 /**
  * This class is responsible for all Front-End actions.
@@ -80,7 +81,7 @@ class FrontEnd {
         $exit = false;
         if(isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], 'wp-admin/widgets.php') !== false){
             $exit = ['total' => 0];
-        }  
+        }
 
         $exit = apply_filters('nx_before_enqueue_scripts', $exit);
         if(!empty($exit)){
@@ -346,6 +347,16 @@ class FrontEnd {
             // }
             // }
 
+            /**
+             * Check if it's a pro source and pro plugin is disabled.
+             */
+            if(!NotificationX::is_pro()){
+                $ext = ExtensionFactory::get_instance()->get($settings['source']);
+                if($ext && $ext->is_pro){
+                    continue;
+                }
+            }
+
             $countdown_rand = !empty($settings['countdown_rand']) ? "-{$settings['countdown_rand']}" : '';
 
             if (!empty($_COOKIE["notificationx_{$settings['nx_id']}$countdown_rand"]) && $_COOKIE["notificationx_{$settings['nx_id']}$countdown_rand"] == true) {
@@ -476,6 +487,17 @@ class FrontEnd {
             if (!empty($value['hide_on_mobile']) && wp_is_mobile()) {
                 continue;
             }
+
+            /**
+             * Check if it's a pro source and pro plugin is disabled.
+             */
+            if(!NotificationX::is_pro()){
+                $ext = ExtensionFactory::get_instance()->get($value['source']);
+                if($ext && $ext->is_pro){
+                    continue;
+                }
+            }
+
             $results[$value['nx_id']] = $value;
         }
         return $results;
