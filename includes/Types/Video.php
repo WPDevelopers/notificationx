@@ -47,9 +47,9 @@ class Video extends Types {
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
             "html"=> __('
                 <span>NotificationX will help you increasing engagement of your YouTube channel and gaining more credibility.</span>
-                <iframe id="email_subscription_video" type="text/html" allowfullscreen width="450" height="235"
-                src="https://www.youtube.com/embed/gJLQTpumZS4?si=ErcLlvH7V5rnbCaA">
-                </iframe>
+                <video id="pro_alert_video_popup" type="text/html" allowfullscreen width="450" height="235" autoplay loop muted>
+                    <source src="https://notificationx.com/wp-content/uploads/2024/01/How-To-Show-YouTube-Activities-Popup-With-NotificationX.mp4" type="video/mp4">
+                </video>
             ', 'notificationx')
         ];
         parent::__construct();
