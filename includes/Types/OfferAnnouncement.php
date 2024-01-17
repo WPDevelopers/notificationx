@@ -38,7 +38,16 @@ class OfferAnnouncement extends Types {
     public function __construct() {
         $this->title = __('Discount Alert', 'notificationx');
         parent::__construct();
-
+        $this->popup = [
+            "denyButtonText" => __("<a href='https://notificationx.com/docs/configure-discount-alert/' target='_blank'>More Info</a>", "notificationx"),
+            "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "html"=> __('
+                <span>Discount Alert by NotificationX will allow you to display offers/discounts of your products/services on your website interactively & easily.</span>
+                <video id="discount_alert_video" type="text/html" allowfullscreen width="450" height="235" controls autoplay>
+                    <source src="https://notificationx.com/wp-content/uploads/2024/01/NX-Discount-Alert-1.mp4" type="video/mp4">
+                </video>
+            ', 'notificationx')
+        ];
         // add_filter('nx_link_types', [$this, 'link_types']);
     }
 
