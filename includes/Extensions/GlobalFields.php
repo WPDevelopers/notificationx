@@ -336,6 +336,25 @@ class GlobalFields {
                                             'default' => "#000",
                                             'rules'   => Rules::is( 'border', true ),
                                         ],
+                                        [
+                                            'label'   => __('Discount Text Color', 'notificationx'),
+                                            'name'    => "discount_text_color",
+                                            'type'    => "colorpicker",
+                                            'default' => "#fff",
+                                            'rules'   => Rules::logicalRule([
+                                                Rules::is( 'type', 'offer_announcement' ),
+                                                Rules::includes('themes', [ 'announcements_theme-1', 'announcements_theme-2' ], false),
+                                            ]),
+                                        ],
+                                        [
+                                            'label'   => __('Discount Background', 'notificationx'),
+                                            'name'    => "discount_background",
+                                            'type'    => "colorpicker",
+                                            'rules'   => Rules::logicalRule([
+                                                Rules::is( 'type', 'offer_announcement' ),
+                                                Rules::includes('themes', [ 'announcements_theme-1', 'announcements_theme-2' ], false),
+                                            ]),
+                                        ],
                                     ]
                                 ],
                                 "typography" => [
@@ -1012,6 +1031,14 @@ class GlobalFields {
                                             'label' => __('Bottom Right', 'notificationx'),
                                             'value' => 'bottom_right',
                                         ],
+                                        // 'top_left' => [
+                                        //     'label' => __('Top Left', 'notificationx'),
+                                        //     'value' => 'top_left',
+                                        // ],
+                                        // 'top_right' => [
+                                        //     'label' => __('Top Right', 'notificationx'),
+                                        //     'value' => 'top_right',
+                                        // ],
                                     ],
                                 ],
                                 'size' => [

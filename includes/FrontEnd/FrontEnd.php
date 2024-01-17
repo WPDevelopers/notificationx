@@ -19,6 +19,7 @@ use NotificationX\Core\REST;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\PressBar\PressBar;
 use NotificationX\Core\Helper;
+use NotificationX\Extensions\ExtensionFactory;
 
 /**
  * This class is responsible for all Front-End actions.
@@ -80,7 +81,7 @@ class FrontEnd {
         $exit = false;
         if(isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], 'wp-admin/widgets.php') !== false){
             $exit = ['total' => 0];
-        }  
+        }
 
         $exit = apply_filters('nx_before_enqueue_scripts', $exit);
         if(!empty($exit)){
@@ -145,9 +146,10 @@ class FrontEnd {
         $data['gmt_offset'] = get_option('gmt_offset');
         $data['lang']       = get_locale();
         $data['extra']      = [
-            'query'      => $GLOBALS['wp_query']->query,
-            'queried_id' => get_queried_object_id(),
-            'pid'        => !empty($GLOBALS['post']->ID) ? $GLOBALS['post']->ID : 0,
+            'is_singular' => is_singular(),
+            'query'       => $GLOBALS['wp_query']->query,
+            'queried_id'  => get_queried_object_id(),
+            'pid'         => !empty($GLOBALS['post']->ID) ? $GLOBALS['post']->ID : 0,
         ];
         $data['localeData'] = load_script_textdomain('notificationx-public', 'notificationx');
         return $data;
@@ -292,7 +294,7 @@ class FrontEnd {
                 if (!empty($settings['button_url']) && strpos($settings['button_url'], '//') === false) {
                     $settings['button_url'] = "//{$settings['button_url']}";
                 }
-                $bar_content = $this->get_bar_content($settings);
+                $bar_content = $this->get_bar_content($settings, false, $params);
                 if ($bar_content !== '&nbsp;' || !empty($settings['enable_countdown'])) {
                     $settings = apply_filters('nx_filtered_post', $settings, $params);
                     $result['pressbar'][$_nx_id]['post']    = $settings;
@@ -345,6 +347,16 @@ class FrontEnd {
             // \setcookie("notificationx_{$settings['nx_id']}", null);
             // }
             // }
+
+            /**
+             * Check if it's a pro source and pro plugin is disabled.
+             */
+            if(!NotificationX::is_pro()){
+                $ext = ExtensionFactory::get_instance()->get($settings['source']);
+                if($ext && $ext->is_pro){
+                    continue;
+                }
+            }
 
             $countdown_rand = !empty($settings['countdown_rand']) ? "-{$settings['countdown_rand']}" : '';
 
@@ -476,6 +488,17 @@ class FrontEnd {
             if (!empty($value['hide_on_mobile']) && wp_is_mobile()) {
                 continue;
             }
+
+            /**
+             * Check if it's a pro source and pro plugin is disabled.
+             */
+            if(!NotificationX::is_pro()){
+                $ext = ExtensionFactory::get_instance()->get($value['source']);
+                if($ext && $ext->is_pro){
+                    continue;
+                }
+            }
+
             $results[$value['nx_id']] = $value;
         }
         return $results;
@@ -740,10 +763,10 @@ class FrontEnd {
         return $post;
     }
 
-    public function get_bar_content($settings, $suppress_filters = false){
+    public function get_bar_content($settings, $suppress_filters = false, $params = []){
         $bar_content  = PressBar::get_instance()->print_bar_notice($settings);
         if(!$suppress_filters){
-            $bar_content  = apply_filters("nx_filtered_data_{$settings['source']}", $bar_content, $settings);
+            $bar_content  = apply_filters("nx_filtered_data_{$settings['source']}", $bar_content, $settings, $params);
         }
 
         // checking if content is empty
