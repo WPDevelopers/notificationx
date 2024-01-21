@@ -332,6 +332,9 @@ class WooCommerce extends Extension {
             return;
         }
         $product = wc_get_product( $data['product_id'] );
+        if( empty( $product ) ) {
+            return;
+        }
         return array(
             'title'        => $data['name'],
             'product_name' => $product->get_name(),
