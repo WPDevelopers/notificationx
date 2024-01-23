@@ -761,7 +761,7 @@ class GlobalFields {
                                     // ],
                                     'description' => __('Enable button with link', 'notificationx'),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::includes('type', ['conversions','video','woocommerce', 'woocommerce_sales']),
+                                        Rules::includes('type', ['conversions','video','woocommerce', 'woocommerce_sales','page_analytics']),
                                         Rules::is('link_type','none',true),
                                     ]),
                                 ],
