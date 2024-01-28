@@ -56,6 +56,11 @@ class PageAnalytics extends Types {
                     'ga_fifth_param'     => __('30', 'notificationx'),
                     'sixth_param'        => 'tag_day',
                 ],
+                'defaults'                => [
+                    'link_button'        => false,
+                    'link_type'          => 'none',
+                    'show_default_image' => true,
+                ],
             ],
             'pa-theme-two'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/analytics/pa-theme-one.png',
@@ -68,6 +73,11 @@ class PageAnalytics extends Types {
                     'ga_fourth_param'    => __('in last ', 'notificationx'),
                     'ga_fifth_param'     => __('1', 'notificationx'),
                     'sixth_param'        => 'tag_day',
+                ],
+                'defaults'                => [
+                    'link_button'        => false,
+                    'link_type'          => 'none',
+                    'show_default_image' => true,
                 ],
             ],
             'pa-theme-three' => [
@@ -83,19 +93,31 @@ class PageAnalytics extends Types {
                     'ga_fifth_param'     => __('30', 'notificationx'),
                     'sixth_param'        => 'tag_day',
                 ],
+                'defaults'                => [
+                    'link_button'      => false,
+                    'link_type'        => 'none',
+                    'show_default_image' => true,
+                ],
             ],
             'pa-theme-four' => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/analytics/pa-theme-one.png',
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/analytics/pa-theme-four.png',
                 'image_shape' => 'circle',
                 'template' => [
                     'first_param'        => 'tag_current_page_view',
-                    'second_param'       => __('people looking', 'notificationx'),
-                    'third_param'        => 'tag_ga_page_title',
-                    'custom_third_param' => __('this page', 'notificationx'),
-                    // 'ga_fourth_param'    => __('right now', 'notificationx'),
+                    'second_param'       => __('People Is Now Visiting', 'notificationx'),
+                    'third_param'        => 'tag_custom',
+                    'custom_third_param' => __('Holiday Deal Page', 'notificationx'),
+                    'ga_fourth_param'    => __('Check out now & grab exceptional deals', 'notificationx'),
                     // need to set this two param unless they won't show up when changing the first param.
                     'ga_fifth_param'     => __('30', 'notificationx'),
                     'sixth_param'        => 'tag_day',
+                ],
+                'defaults'                => [
+                    'link_button_text'   => __('Grab Now','notificationx'),
+                    'link_button'        => true,
+                    'link_type'          => 'custom',
+                    'custom_url'         => '#',
+                    'show_default_image' => true,
                 ],
             ],
         ];

@@ -27,6 +27,7 @@ const GetTemplate = (settings) => {
         map_fourth_param: "",
         ga_fourth_param: "",
         ga_fifth_param: "",
+        pa_fourth_param: "",
         review_fourth_param: "",
         freemius_fifth_param: "",
         freemius_sixth_param: "",
@@ -276,8 +277,8 @@ const GetTemplate = (settings) => {
             ];
         case "pa-theme-four":
             return [
-                `${params?.first_param} ${params?.second_param}`,
-                `${params?.third_param}`,
+                `${params?.first_param} ${params?.second_param} ${params?.third_param}`,
+                `${params?.pa_fourth_param}`,
                 `${params?.sixth_param}`,
         ]; 
         case "stock-theme-one":
