@@ -24,7 +24,7 @@ class OfferAnnouncement extends Types {
      * @var OfferAnnouncement
      */
     use GetInstance;
-    public $priority       = 35;
+    public $priority       = 36;
     public $module         = ['modules_announcements'];
     public $id             = 'offer_announcement';
     public $default_source = 'announcements';
