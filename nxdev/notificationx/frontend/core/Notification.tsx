@@ -108,9 +108,9 @@ const Notification = (props) => {
             };
           case 'animate__slideOutUp': 
             return {
-                top   : !animation ? '30px': '0',
-                left  : !animation ? '30px': '30px',
-                bottom: !animation ? '30px': '30px',
+                right     : !animation ? '30px': '0',
+                left      : !animation ? '30px': '30px',
+                bottom    : !animation ? '30px': '30px',
                 transition: '300ms',
             };
           default: 
