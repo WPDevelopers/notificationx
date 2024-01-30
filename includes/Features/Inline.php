@@ -73,16 +73,19 @@ class Inline {
 
         $template = '';
         $defaults = array(
-            'first_param'         => '',
-            'second_param'        => '',
-            'third_param'         => '',
-            'fourth_param'        => '',
-            'fifth_param'         => '',
-            'sixth_param'         => '',
-            'map_fourth_param'    => '',
-            'ga_fourth_param'     => '',
-            'ga_fifth_param'      => '',
-            'review_fourth_param' => '',
+            'first_param'            => '',
+            'second_param'           => '',
+            'third_param'            => '',
+            'fourth_param'           => '',
+            'fifth_param'            => '',
+            'sixth_param'            => '',
+            'map_fourth_param'       => '',
+            'ga_fourth_param'        => '',
+            'ga_fifth_param'         => '',
+            'review_fourth_param'    => '',
+            'freemius_fifth_param'   => '',
+            'freemius_sixth_param'   => '',
+            'freemius_seventh_param' => '',
         );
 
         $theme_name = $settings['themes'];
