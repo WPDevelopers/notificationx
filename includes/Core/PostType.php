@@ -434,6 +434,12 @@ class PostType {
             }
             $post['preview'] = apply_filters( "nx_theme_preview_{$post['source']}", $url, $post );
         }
+        // Disable animation options if NX Pro not exists
+        if ( !NotificationX::is_pro() ) {
+            $post['animation_notification_show']     = 'default';
+            $post['animation_notification_hide']     = 'default';
+            $post['animation_notification_duration'] = 'default';
+        }
 
         return $post;
     }
