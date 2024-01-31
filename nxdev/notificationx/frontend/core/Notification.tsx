@@ -158,10 +158,7 @@ const Notification = (props) => {
 
     const { advance_edit } = settings;
     
-    const componentClasses = classNames(
-        "animate__animated",
-        animation ? settings.animation_notification_hide : settings.animation_notification_show,
-        settings?.animation_notification_duration,
+    let baseClasses = [
         "notification-item nx-notification",
         `source-${settings.source}`,
         `position-${settings.position}`,
@@ -180,7 +177,7 @@ const Notification = (props) => {
             [`img-position-${settings?.image_position}`]: advance_edit,
             "flex-reverse": advance_edit && settings?.image_position === "right",
         }
-    );
+    ];
     
     const componentStyle: any = {
         maxWidth: `${notificationSize}px`,
@@ -188,6 +185,38 @@ const Notification = (props) => {
     };
     if (settings?.advance_edit && settings?.conversion_size) {
         componentStyle.maxWidth = settings?.conversion_size;
+    }
+    
+    let componentClasses;
+    let animationStyle = 'SlideTop 300ms';
+    if ( (is_pro && settings.animation_notification_show !== 'default') || (is_pro && settings.animation_notification_hide !== 'default') ) {
+        let animate_effect;
+        if( settings.animation_notification_hide !== 'default' && settings.animation_notification_show === 'default' ) {
+            if( animation ) {
+                animate_effect = settings.animation_notification_hide;
+            }else{
+                componentStyle.animation = animationStyle
+            }
+        }else if( settings.animation_notification_show !== 'default' && settings.animation_notification_hide === 'default' ) {
+            if( animation ) {
+                componentStyle.animation = animationStyle;
+            }else{
+                animate_effect = settings.animation_notification_show;
+            }
+        }else{
+            animate_effect = animation ? settings.animation_notification_hide : settings.animation_notification_show
+        }
+        componentClasses = classNames(
+            "animate__animated",
+            animate_effect,
+            settings?.animation_notification_duration,
+            ...baseClasses
+        );
+    } else {
+        componentClasses = classNames(
+            ...baseClasses
+        );
+        componentStyle.animation = animationStyle
     }
 
     return (

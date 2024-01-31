@@ -511,6 +511,11 @@
                 }
                 .wprf-select__menu {
                     z-index: 10;
+                    div {
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
                 }
             }
             .wprf-async-select-wrapper {
