@@ -54,6 +54,9 @@ class Upgrader {
         } elseif(!$nx_free_version && $_is_table_created ){
             $this->database->update_option( 'nx_free_version', NOTIFICATIONX_VERSION, 'no' );
         }
+        if ( version_compare($nx_free_version, '2.8.0', '<=') ) {
+            $this->migrate_for_donation();
+        }
         if ($nx_free_version !== NOTIFICATIONX_VERSION) {
             $this->clear_transient();
         }
@@ -61,5 +64,18 @@ class Upgrader {
 
     public function clear_transient(){
         delete_transient('nx_builder_fields');
+    }
+
+    public function migrate_for_donation() {
+        $posts = Database::get_instance()->get_col( Database::$table_posts, 'data', ['type'  => 'donation'] );
+
+        if ( ! empty( $posts ) ) {
+            foreach( $posts as $post ) {
+                if ( isset( $post['notification-template']['first_param'] ) && $post['notification-template']['first_param'] === 'tag_sales_count' ) {
+                    $post['notification-template']['first_param'] = 'tag_donation_count';
+                    Database::get_instance()->update_post( Database::$table_posts, ['data' => $post], $post['nx_id'] );
+                }
+            }
+        }
     }
 }

@@ -24,7 +24,7 @@ class MailChimp extends Extension {
 
     public $priority        = 5;
     public $id              = 'mailchimp';
-    public $img             = '';
+    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/mailchimp.png';
     public $doc_link        = 'https://notificationx.com/docs/mailchimp-email-subscription-alert/';
     public $types           = 'email_subscription';
     public $module          = 'modules_mailchimp';
