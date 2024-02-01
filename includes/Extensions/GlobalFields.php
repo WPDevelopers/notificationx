@@ -1290,29 +1290,29 @@ class GlobalFields {
                                         ],
                                     ],
                                 ],
-                                'animation_notification_duration' => [
-                                    'label'    => __("Duration", 'notificationx'),
-                                    'name'     => "animation_notification_duration",
-                                    'type'     => "select",
-                                    'default'  => 'default',
-                                    'priority' => 15,
-                                    'options'  => [
-                                        'default' => [
-                                            'label' => __('Default', 'notificationx'),
-                                            'value' => 'default',
-                                        ],
-                                        'animate__faster' => [
-                                            'label'    => __('Faster', 'notificationx'),
-                                            'value'    => 'animate__faster',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
-                                        ],
-                                        'animate__fast' => [
-                                            'label'    => __('Fast', 'notificationx'),
-                                            'value'    => 'animate__fast',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
-                                        ],
-                                    ],
-                                ],
+                                // 'animation_notification_duration' => [
+                                //     'label'    => __("Duration", 'notificationx'),
+                                //     'name'     => "animation_notification_duration",
+                                //     'type'     => "select",
+                                //     'default'  => 'default',
+                                //     'priority' => 15,
+                                //     'options'  => [
+                                //         'default' => [
+                                //             'label' => __('Default', 'notificationx'),
+                                //             'value' => 'default',
+                                //         ],
+                                //         'animate__faster' => [
+                                //             'label'    => __('Faster', 'notificationx'),
+                                //             'value'    => 'animate__faster',
+                                //             'disabled' => NotificationX::is_pro() ? false : true,
+                                //         ],
+                                //         'animate__fast' => [
+                                //             'label'    => __('Fast', 'notificationx'),
+                                //             'value'    => 'animate__fast',
+                                //             'disabled' => NotificationX::is_pro() ? false : true,
+                                //         ],
+                                //     ],
+                                // ],
                             ]
                         ],
                         'queue_management' => [
