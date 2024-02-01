@@ -518,7 +518,8 @@
                 }
                 .wprf-select__menu {
                     z-index: 10;
-                    div {
+                    div.wprf-select__option {
+                        line-height: 8px;
                         &:hover {
                             cursor: pointer;
                         }

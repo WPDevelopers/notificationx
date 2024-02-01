@@ -189,27 +189,28 @@ const Notification = (props) => {
     
     let componentClasses;
     let animationStyle = 'SlideTop 300ms';
-    if ( (is_pro && settings.animation_notification_show !== 'default') || (is_pro && settings.animation_notification_hide !== 'default') ) {
+    if ( (is_pro && settings?.animation_notification_show !== 'default') || (is_pro && settings?.animation_notification_hide !== 'default') ) {
         let animate_effect;
-        if( settings.animation_notification_hide !== 'default' && settings.animation_notification_show === 'default' ) {
+        if( settings?.animation_notification_hide !== 'default' && settings?.animation_notification_show === 'default' ) {
             if( animation ) {
-                animate_effect = settings.animation_notification_hide;
+                animate_effect = settings?.animation_notification_hide;
             }else{
                 componentStyle.animation = animationStyle
             }
-        }else if( settings.animation_notification_show !== 'default' && settings.animation_notification_hide === 'default' ) {
+        }else if( settings?.animation_notification_show !== 'default' && settings?.animation_notification_hide === 'default' ) {
             if( animation ) {
                 componentStyle.animation = animationStyle;
             }else{
-                animate_effect = settings.animation_notification_show;
+                animate_effect = settings?.animation_notification_show;
             }
         }else{
-            animate_effect = animation ? settings.animation_notification_hide : settings.animation_notification_show
+            animate_effect = animation ? settings?.animation_notification_hide : settings?.animation_notification_show
         }
         componentClasses = classNames(
             "animate__animated",
             animate_effect,
-            settings?.animation_notification_duration,
+            // settings?.animation_notification_duration,
+            "animate__faster",
             ...baseClasses
         );
     } else {
