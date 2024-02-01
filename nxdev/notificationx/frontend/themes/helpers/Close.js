@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React, { useEffect } from "react";
 import cookie from "react-cookies";
 
@@ -37,9 +38,19 @@ function Close({id, config, dispatch, style, closed}) {
     useEffect(() => {
         closed && handleCloseNotification();
     }, [closed])
+    
+    let componentClasses = ['notificationx-close'];
+    if( config?.source === 'press_bar' ) {
+        componentClasses.push('pressbar');
+        if( config?.close_icon_position === 'top_left' ) {
+            componentClasses.push('position-top-left');
+        }else{
+            componentClasses.push('position-top-right');
+        }
+    }
 
     return (
-        <div className="notificationx-close" style={style} onClick={handleCloseNotification}>
+        <div className={ classNames(componentClasses) } style={style} onClick={handleCloseNotification}>
             <svg width="10px" height="10px" viewBox="0 0 48 48">
                 <g stroke="none">
                     <g>

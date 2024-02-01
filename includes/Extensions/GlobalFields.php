@@ -1014,6 +1014,24 @@ class GlobalFields {
                                         ],
                                     ],
                                 ],
+                                'close_icon_position' => [
+                                    'label'    => __("Close Icon Position", 'notificationx'),
+                                    'name'     => "close_icon_position",
+                                    'type'     => "select",
+                                    'default'    => 'top_right',
+                                    'priority' => 51,
+                                    'options'  => [
+                                        'top_right' => [
+                                            'label' => __('Top Right', 'notificationx'),
+                                            'value' => 'top_right',
+                                        ],
+                                        'top_left' => [
+                                            'label' => __('Top Left', 'notificationx'),
+                                            'value' => 'top_left',
+                                        ]
+                                    ],
+                                    'rules'       => Rules::includes('source', ['press_bar']),
+                                ],
                                 'size' => [
                                     'label' => __("Notification Size", 'notificationx'),
                                     'name'  => "size",

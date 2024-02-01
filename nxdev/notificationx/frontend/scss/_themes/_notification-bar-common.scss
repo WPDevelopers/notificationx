@@ -180,6 +180,16 @@
             line-height: 17px;
             font-size: 14px;
         }
+        .notificationx-close.pressbar.position-top-right {
+            right: 20px;
+            top: 20px;
+            left: auto;
+        }
+        .notificationx-close.pressbar.position-top-left {
+            left: 20px;
+            top: 20px;
+            right: auto;
+        }
     }
 
     &.nx-close-left {
