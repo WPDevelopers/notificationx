@@ -1,6 +1,10 @@
 .nx-admin-wrapper {
     display: flex;
     .nx-admin-sidebar {
+        .nx-admin-sidebar-wrapper {
+            position: sticky;
+            top: 50px;
+        }
         width: 20%;
         flex-basis: 20%;
         margin-left: 30px;
