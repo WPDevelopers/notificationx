@@ -899,6 +899,42 @@
             }
         }
     }
+    &.animation-pro-disabled .wprf-select__menu .wprf-select__menu-list .wprf-select__option:not(:first-child) {
+        color: #25396f !important;
+    }
+    &.animation-pro-disabled .wprf-select__menu .wprf-select__menu-list .wprf-select__option::before{
+        position: absolute;
+        content: '';
+        top: 30px;
+        left: 0;
+        width: 100%;
+        height: calc( 100% - 30px );
+        background: rgba(105, 74, 233, 0.19);
+        opacity: 0.15;
+        z-index: 5;
+    }
+    &.animation-pro-disabled .wprf-select__menu .wprf-select__menu-list:after{
+        position: absolute;
+        content: "Get Pro to Unlock";
+        // content: url('../icons/crown.svg');
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 50%;
+        width: 30%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        z-index: 6;
+        padding: 10px 20px;
+        background-color: #6A4BFF;
+        font-weight: 500;
+        font-size: 14px;
+        color: #fff;
+        border-radius: 8px;
+    }
+    &.animation-pro-disabled #animation_notification_show .wprf-select__menu .wprf-select__menu-list .wprf-select__option::before {
+        height: calc(100% + 10px);
+    }
 }
 .wprf-code-viewer {
     width: 100%;
