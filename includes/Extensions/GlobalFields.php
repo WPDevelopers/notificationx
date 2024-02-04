@@ -1153,6 +1153,7 @@ class GlobalFields {
                                     'name'     => "animation_notification_show",
                                     'type'     => "select",
                                     'default'  => 'default',
+                                    'classes'  => NotificationX::is_pro() ? '' : 'animation-pro-disabled',
                                     'priority' => 5,
                                     'options'  => [
                                         'default' => [
@@ -1232,6 +1233,7 @@ class GlobalFields {
                                     'name'     => "animation_notification_hide",
                                     'type'     => "select",
                                     'default'  => 'default',
+                                    'classes'  => NotificationX::is_pro() ? '' : 'animation-pro-disabled',
                                     'priority' => 10,
                                     'options'  => [
                                         'default' => [

@@ -899,6 +899,22 @@
             }
         }
     }
+    &.animation-pro-disabled .wprf-select__menu .wprf-select__menu-list .wprf-select__option::before{
+        position: absolute;
+        content: url('../icons/crown.svg');
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 30px;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background: #A9A9A903;
+        z-index: 5;
+    }
+    &.animation-pro-disabled #animation_notification_show .wprf-select__menu .wprf-select__menu-list .wprf-select__option::before {
+        height: calc(100% + 10px);
+    }
 }
 .wprf-code-viewer {
     width: 100%;
