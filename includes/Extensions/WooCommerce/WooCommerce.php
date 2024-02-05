@@ -264,6 +264,10 @@ class WooCommerce extends Extension {
         if (!$item instanceof \WC_Order_Item_Product) {
             return false;
         }
+        $product = wc_get_product( $item->get_product_id() );
+        if( empty( $product ) ) {
+            return false;
+        }
         $if_has_course = false;
         if (function_exists('tutor_utils')) {
             $if_has_course = tutor_utils()->product_belongs_with_course($item->get_product_id());
