@@ -36,8 +36,7 @@ class WooCommerceSales extends Types {
         'modules_woocommerce_sales_reviews',
         'modules_woocommerce_sales_inline',
     ];
-
-    public $woocommerce_count = array('woocommerce_conv-theme-seven', 'woocommerce_conv-theme-eight', 'woocommerce_conv-theme-nine');
+    
     public $map_dependency = [];
 
     public $default_source    = 'woocommerce_sales';
@@ -138,41 +137,6 @@ class WooCommerceSales extends Types {
                 'image_shape' => 'rounded',
             ),
            
-        ];
-        $this->templates = [
-            'woo_template_new' => [
-                'first_param' => GlobalFields::get_instance()->common_name_fields(),
-                'third_param' => [
-                    'tag_product_title' => __('Product Title', 'notificationx'),
-                ],
-                'fourth_param' => [
-                    'tag_time' => __('Definite Time', 'notificationx'),
-                ],
-                '_themes' => [
-                    'woocommerce_sales_theme-one',
-                    'woocommerce_sales_theme-two',
-                    'woocommerce_sales_theme-three',
-                    'woocommerce_sales_theme-four',
-                    'woocommerce_sales_theme-five',
-                    'woocommerce_sales_conv-theme-ten',
-                    'woocommerce_sales_conv-theme-eleven',
-                ]
-            ],
-            'woo_template_sales_count' => [
-                'first_param' => GlobalFields::get_instance()->common_name_fields(),
-                'third_param' => [
-                    'tag_product_title' => __('Product Title', 'notificationx'),
-                ],
-                'fourth_param' => [
-                    // 'tag_time' => __('Definite Time', 'notificationx'),
-                ],
-                '_themes' => [
-                    'woocommerce_sales_conv-theme-six',
-                    'woocommerce_sales_conv-theme-seven',
-                    'woocommerce_sales_conv-theme-eight',
-                    'woocommerce_sales_conv-theme-nine',
-                ]
-            ],
         ];
         parent::__construct();
     }
