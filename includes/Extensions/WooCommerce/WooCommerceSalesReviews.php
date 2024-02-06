@@ -23,7 +23,7 @@ class WooCommerceSalesReviews extends WooReviews {
     public    $img                   = '';
     public    $doc_link              = 'https://notificationx.com/docs/woocommerce-reviews-notificationx/';
     public    $types                 = 'woocommerce_sales';
-    public    $module                = 'modules_woocommerce_sales_reviews';
+    public    $module                = 'modules_woocommerce';
     public    $module_priority       = 3;
     public    $class                 = '\WooCommerce';
     public    $default_theme         = 'woocommerce_sales_reviews_total-rated';
