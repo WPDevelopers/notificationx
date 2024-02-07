@@ -44,6 +44,7 @@ return array(
     'NotificationX\\Core\\ShortcodeInline' => $baseDir . '/includes/Features/ShortcodeInline.php',
     'NotificationX\\Core\\Upgrader' => $baseDir . '/includes/Core/Upgrader.php',
     'NotificationX\\Core\\WPDRoleManagement' => $baseDir . '/includes/Core/WPDRoleManagement.php',
+    'NotificationX\\Extensions\\ActiveCampaign\\ActiveCampaign' => $baseDir . '/includes/Extensions/ActiveCampaign/ActiveCampaign.php',
     'NotificationX\\Extensions\\CF7\\CF7' => $baseDir . '/includes/Extensions/CF7/CF7.php',
     'NotificationX\\Extensions\\ConvertKit\\ConvertKit' => $baseDir . '/includes/Extensions/ConvertKit/ConvertKit.php',
     'NotificationX\\Extensions\\CustomNotification\\CustomNotification' => $baseDir . '/includes/Extensions/CustomNotification/CustomNotification.php',

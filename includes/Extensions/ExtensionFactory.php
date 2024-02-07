@@ -72,6 +72,7 @@ class ExtensionFactory {
 			'vimeo'                           => 'NotificationX\Extensions\Vimeo\Vimeo',
 			'wistia'                          => 'NotificationX\Extensions\Wistia\Wistia',
 			'surecart'                        => 'NotificationX\Extensions\SureCart\SureCart',
+			'ActiveCampaign'									=> 'NotificationX\Extensions\ActiveCampaign\ActiveCampaign',
 		];
 
 	/**
