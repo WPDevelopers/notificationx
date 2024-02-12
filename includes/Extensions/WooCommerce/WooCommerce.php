@@ -343,7 +343,7 @@ class WooCommerce extends Extension {
         }
         return array(
             'title'        => $data['name'],
-            'product_name' => $product->get_name(),
+            'product_name' => $product ? $product->get_name() : $data['name'],
             'link'         => get_permalink($data['product_id']),
         );
     }
