@@ -15,12 +15,11 @@ use NotificationX\GetInstance;
  */
 class GetData extends \ArrayObject {
 
-
+    #[\ReturnTypeWillChange]
     public function offsetGet ($name){
         if(parent::offsetExists($name)){
             return parent::offsetGet($name);
         }
-
     }
 
 }
