@@ -325,6 +325,9 @@ class PostType {
         }
 
         $enabled_source = $this->get_enabled_source();
+        if ( $source == 'press_bar' && ( isset( $enabled_source['press_bar'] ) && count( $enabled_source['press_bar'] ) ) ) {
+            $return = false;
+        }
         unset( $enabled_source['press_bar'] );
         if ( $source !== 'press_bar' && count( $enabled_source ) == 0 ) {
             $return = true;
