@@ -108,7 +108,7 @@ class Database {
             SET `%2$s` = `%3$s` + %4$s
             WHERE nx_id = "%5$s"
             AND created_at = "%6$s"',
-            $table_name, $col, $col, $_data, intval( $id ), $date
+            $table_name, esc_sql( $col ), esc_sql( $col ), $_data, intval( $id ), $date
         )
         );
     }

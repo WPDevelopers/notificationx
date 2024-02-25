@@ -121,7 +121,7 @@ class Analytics {
 
     public function insert_analytics($request){
         $params = $request->get_params();
-        $type   = isset($params['type']) ? $params['type'] : 'clicks';
+        $type = !empty( $params['type'] ) && in_array( $params['type'], ['clicks', 'views', 'ctr'] ) ? esc_sql( $params['type'] ) : 'clicks';
         $result = CoreAnalytics::get_instance()->insert_analytics( absint( $params['nx_id'] ), $type );
         return ['success' => true];
     }
