@@ -149,9 +149,9 @@ https://www.youtube.com/watch?v=75vntaHp9Y4
 
 ### 🎁 GET FREEBIES FOR YOUR WORDPRESS SITE ###
 
-NotificationX is backed by WPDeveloper, a dedicated team trusted by more than 5 Millions users. Consider checking out our other WordPress solutions & boost your WordPress website:
+NotificationX is backed by WPDeveloper, a dedicated team trusted by more than 6 Millions users. Consider checking out our other WordPress solutions & boost your WordPress website:
 
-🔝 [Essential Addons For Elementor](https://wordpress.org/plugins/essential-addons-for-elementor-lite/): Most popular Elementor extensions with 1 Million+ active users in the WordPress repository
+🔝 [Essential Addons For Elementor](https://wordpress.org/plugins/essential-addons-for-elementor-lite/): Most popular Elementor extensions with 2 Million+ active users in the WordPress repository
 
 📄 [EmbedPress](https://wordpress.org/plugins/embedpress/): EmbedPress lets you embed videos, images, audio, maps, upload PDF, DOC, PPT & all other types of content into your WordPress site with one-click.
 
