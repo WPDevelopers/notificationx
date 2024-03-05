@@ -40,6 +40,7 @@
   "dependencies": {
     "@emoji-mart/data": "^1.1.2",
     "@emoji-mart/react": "^1.1.1",
+    "@svgr/webpack": "^6.5.1",
     "@wordpress/api-fetch": "^6.45.0",
     "@wordpress/components": "^22.1.0",
     "@wordpress/data": "^7.6.0",
@@ -82,7 +83,6 @@
     "sort-array": "^4.1.5",
     "sweetalert2": "11.4.8",
     "tiny-warning": "^1.0.3",
-    "uuid": "^8.3.2",
-    "@svgr/webpack": "^6.5.1"
+    "uuid": "^8.3.2"
   }
 }
