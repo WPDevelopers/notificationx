@@ -59,6 +59,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Core\\ShortcodeInline' => __DIR__ . '/../..' . '/includes/Features/ShortcodeInline.php',
         'NotificationX\\Core\\Upgrader' => __DIR__ . '/../..' . '/includes/Core/Upgrader.php',
         'NotificationX\\Core\\WPDRoleManagement' => __DIR__ . '/../..' . '/includes/Core/WPDRoleManagement.php',
+        'NotificationX\\Extensions\\ActiveCampaign\\ActiveCampaign' => __DIR__ . '/../..' . '/includes/Extensions/ActiveCampaign/ActiveCampaign.php',
         'NotificationX\\Extensions\\CF7\\CF7' => __DIR__ . '/../..' . '/includes/Extensions/CF7/CF7.php',
         'NotificationX\\Extensions\\ConvertKit\\ConvertKit' => __DIR__ . '/../..' . '/includes/Extensions/ConvertKit/ConvertKit.php',
         'NotificationX\\Extensions\\CustomNotification\\CustomNotification' => __DIR__ . '/../..' . '/includes/Extensions/CustomNotification/CustomNotification.php',
