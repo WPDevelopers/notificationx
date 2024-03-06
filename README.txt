@@ -205,7 +205,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 2.8.4 - 5/3/2024 =
+= 2.8.4 - 6/3/2024 =
 Fixed: Notification preview responsive issues.
 Few minor bug fixes and improvements
 
