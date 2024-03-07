@@ -35,8 +35,8 @@ class REST {
      */
     use GetInstance;
 
-	private static $_namespace = 'notificationx';
-	private static $_version = 1;
+    private static $_namespace = 'notificationx';
+    private static $_version = 1;
 
     public static function _namespace(){
         return  self::$_namespace . '/v' . self::$_version;
@@ -56,39 +56,54 @@ class REST {
         $enable_rest_api = Settings::get_instance()->get('settings.enable_rest_api', false);
         if($enable_rest_api){
             add_action('rest_authentication_errors', [$this, 'rest_authentication_errors'], 999);
+            add_filter('bb_exclude_endpoints_from_restriction', [$this, 'bb_exclude_endpoints'], 10, 2);
         }
     }
 
-	/**
-	 * Checks for a current route being requested, and processes the allowlist
-	 *
-	 * @param $access
-	 *
-	 * @return WP_Error|null|boolean
-	 */
-	public function rest_authentication_errors( $access ) {
+    /**
+     * Checks for a current route being requested, and processes the allowlist
+     *
+     * @param $access
+     *
+     * @return WP_Error|null|boolean
+     */
+    public function rest_authentication_errors( $access ) {
         $namespace = self::_namespace();
-		$current_route = $this->get_current_route();
+        $current_route = $this->get_current_route();
         if($access instanceof \WP_Error && ($current_route == "/$namespace/notice" || $current_route == "/$namespace/analytics")){
             return true;
         }
 
-		// If we got all the way here, return the unmodified $access response
-		return $access;
-	}
+        // If we got all the way here, return the unmodified $access response
+        return $access;
+    }
 
-	/**
-	 * Current REST route getter.
-	 *
-	 * @return string
-	 */
-	private function get_current_route() {
-		$rest_route = $GLOBALS['wp']->query_vars['rest_route'];
+    /**
+     * Exclude endpoints from bbPress restriction
+     *
+     * @param array $endpoints
+     * @param string $current_endpoint
+     * @return array
+     */
+    public function bb_exclude_endpoints( $endpoints, $current_endpoint ) {
+        $namespace   = self::_namespace();
+        $endpoints[] = "/$namespace/notice";
+        $endpoints[] = "/$namespace/analytics";
+        return $endpoints;
+    }
 
-		return ( empty( $rest_route ) || '/' == $rest_route ) ?
-			$rest_route :
-			untrailingslashit( $rest_route );
-	}
+    /**
+     * Current REST route getter.
+     *
+     * @return string
+     */
+    private function get_current_route() {
+        $rest_route = $GLOBALS['wp']->query_vars['rest_route'];
+
+        return ( empty( $rest_route ) || '/' == $rest_route ) ?
+            $rest_route :
+            untrailingslashit( $rest_route );
+    }
 
     /**
      * Check if a given request has access to get items
@@ -183,7 +198,7 @@ class REST {
         ));
 
         // ajax select
-		register_rest_route($namespace, '/get-data', array(
+        register_rest_route($namespace, '/get-data', array(
             array(
                 'methods'             => WP_REST_Server::EDITABLE,
                 'callback'            => array($this, 'get_data'),
@@ -192,7 +207,7 @@ class REST {
             ),
         ));
         // For Frontend Notice
-		register_rest_route($namespace, '/notice', array(
+        register_rest_route($namespace, '/notice', array(
             array(
                 'methods'             => WP_REST_Server::EDITABLE,
                 'callback'            => array($this, 'notice'),
@@ -300,9 +315,9 @@ class REST {
      * @param \WP_REST_Request $request Full data about the request.
      * @return \WP_Error|\WP_REST_Response
      */
-	public function get_data( $request ){
+    public function get_data( $request ){
 
-		$params = $request->get_params();
+        $params = $request->get_params();
         if( ! $request->has_param('type') ) {
             return $this->error( 'type' );
         }
@@ -331,8 +346,8 @@ class REST {
                 break;
         }
 
-		return $this->error();
-	}
+        return $this->error();
+    }
 
     /**
      *
@@ -363,7 +378,7 @@ class REST {
      * @return \WP_REST_Response
      */
     public function miscellaneous($request) {
-		$params = $request->get_params();
+        $params = $request->get_params();
 
         $result = apply_filters('nx_rest_miscellaneous', null, $params);
         if($result !== null){

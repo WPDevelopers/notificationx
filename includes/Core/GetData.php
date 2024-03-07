@@ -22,11 +22,11 @@ class GetData extends \ArrayObject {
         trigger_error('Undefined property: ' . $name);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet ($name){
         if(parent::offsetExists($name)){
             return parent::offsetGet($name);
         }
-
     }
 
 }

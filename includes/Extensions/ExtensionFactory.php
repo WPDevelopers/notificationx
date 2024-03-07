@@ -37,6 +37,7 @@ class ExtensionFactory {
 			'convertkit'                      => 'NotificationX\Extensions\ConvertKit\ConvertKit',
 			'custom_notification'             => 'NotificationX\Extensions\CustomNotification\CustomNotification',
 			'custom_notification_conversions' => 'NotificationX\Extensions\CustomNotification\CustomNotificationConversions',
+			'announcements'                   => 'NotificationX\Extensions\OfferAnnouncement\Announcements',
 			'edd'                             => 'NotificationX\Extensions\EDD\EDD',
 			'envato'                          => 'NotificationX\Extensions\Envato\Envato',
 			'freemius_conversions'            => 'NotificationX\Extensions\Freemius\FreemiusConversions',
@@ -71,6 +72,7 @@ class ExtensionFactory {
 			'vimeo'                           => 'NotificationX\Extensions\Vimeo\Vimeo',
 			'wistia'                          => 'NotificationX\Extensions\Wistia\Wistia',
 			'surecart'                        => 'NotificationX\Extensions\SureCart\SureCart',
+			'ActiveCampaign'									=> 'NotificationX\Extensions\ActiveCampaign\ActiveCampaign',
 		];
 
 	/**

@@ -16,6 +16,46 @@ export const getThemeName = (settings) => {
     return themeName;
 };
 
+export function calculateAnimationStartTime(userInput, animationType) {
+    const allowedAnimations = [
+        'animate__slideOutDown',
+        'animate__slideOutLeft',
+        'animate__slideOutRight',
+        'animate__slideOutUp',
+    ];
+    if( !allowedAnimations.includes(animationType) ){
+        return 99.5;
+    }
+
+    let result;
+    switch (true) {
+        case userInput < 3:
+            result = 75;
+        case userInput < 5:
+            result = 80;
+            break;
+        case userInput >= 5 && userInput <= 8:
+            result = 85;
+            break;
+        case userInput > 8 && userInput <= 10:
+            result = 93;
+            break;
+        case userInput > 10 && userInput <= 13:
+            result = 95;
+            break;
+        case userInput > 13 && userInput <= 16:
+            result = 93 + (userInput - 13) * 1.5;
+            break;
+        case userInput > 16 && userInput <= 20:
+            result = 95 + (userInput - 16) * 0.5;
+            break;
+        default:
+            result = 97;
+    }
+
+    return result;
+}
+
 class NotificationXHelpers {
     getPath = (rest, path, query = {}) => {
         query = {...query, frontend: 'true'}

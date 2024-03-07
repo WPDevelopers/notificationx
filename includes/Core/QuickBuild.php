@@ -172,6 +172,7 @@ class QuickBuild {
                 'city',
                 'country',
                 'sales_count',
+                'donation_count',
                 'image',
                 'link',
                 'rated',

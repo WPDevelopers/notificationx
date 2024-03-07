@@ -38,9 +38,9 @@ class PageAnalytics extends Types {
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
             "html"=> __('
                 <span>Connect Google Analytics to display the total number of real-time site visitors</span>
-                <iframe id="email_subscription_video" type="text/html" allowfullscreen width="450" height="235"
-                src="https://www.youtube.com/embed/zZPF5nJD4mo">
-                </iframe>
+                <video id="pro_alert_video_popup" type="text/html" allowfullscreen width="450" height="235" autoplay loop muted>
+                    <source src="https://notificationx.com/wp-content/uploads/2024/01/Google-Analytics-Integration-With-NotificationX-How-To-Show-Active-Users-Traffic-in-WordPress.mp4" type="video/mp4">
+                </video>
             ', 'notificationx')
         ];
         parent::__construct();
@@ -56,6 +56,11 @@ class PageAnalytics extends Types {
                     'ga_fifth_param'     => __('30', 'notificationx'),
                     'sixth_param'        => 'tag_day',
                 ],
+                'defaults'                => [
+                    'link_button'        => false,
+                    'link_type'          => 'none',
+                    'show_default_image' => true,
+                ],
             ],
             'pa-theme-two'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/analytics/pa-theme-one.png',
@@ -68,6 +73,11 @@ class PageAnalytics extends Types {
                     'ga_fourth_param'    => __('in last ', 'notificationx'),
                     'ga_fifth_param'     => __('1', 'notificationx'),
                     'sixth_param'        => 'tag_day',
+                ],
+                'defaults'                => [
+                    'link_button'        => false,
+                    'link_type'          => 'none',
+                    'show_default_image' => true,
                 ],
             ],
             'pa-theme-three' => [
@@ -83,19 +93,31 @@ class PageAnalytics extends Types {
                     'ga_fifth_param'     => __('30', 'notificationx'),
                     'sixth_param'        => 'tag_day',
                 ],
+                'defaults'                => [
+                    'link_button'      => false,
+                    'link_type'        => 'none',
+                    'show_default_image' => true,
+                ],
             ],
             'pa-theme-four' => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/analytics/pa-theme-one.png',
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/analytics/pa-theme-four.png',
                 'image_shape' => 'circle',
                 'template' => [
                     'first_param'        => 'tag_current_page_view',
-                    'second_param'       => __('people looking', 'notificationx'),
-                    'third_param'        => 'tag_ga_page_title',
-                    'custom_third_param' => __('this page', 'notificationx'),
-                    'ga_fourth_param'    => __('right now', 'notificationx'),
+                    'second_param'       => __('People Is Now Visiting', 'notificationx'),
+                    'third_param'        => 'tag_custom',
+                    'custom_third_param' => __('Holiday Deal Page', 'notificationx'),
+                    'ga_fourth_param'    => __('Check out now & grab exceptional deals', 'notificationx'),
                     // need to set this two param unless they won't show up when changing the first param.
                     'ga_fifth_param'     => __('30', 'notificationx'),
                     'sixth_param'        => 'tag_day',
+                ],
+                'defaults'                => [
+                    'link_button_text'   => __('Grab Now','notificationx'),
+                    'link_button'        => true,
+                    'link_type'          => 'custom',
+                    'custom_url'         => '#',
+                    'show_default_image' => true,
                 ],
             ],
         ];

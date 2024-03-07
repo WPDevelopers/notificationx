@@ -39,9 +39,9 @@ class CustomNotification extends Types {
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
             "html"=> __('
                 <span style="text-align:center;">Display custom conversion notifications as pop up.</span>
-                <iframe id="email_subscription_video" type="text/html" allowfullscreen width="450" height="235"
-                src="https://www.youtube.com/embed/OuTmDZ0_TEw">
-                </iframe>
+                <video id="pro_alert_video_popup" type="text/html" allowfullscreen width="450" height="235" autoplay loop muted>
+                    <source src="https://notificationx.com/wp-content/uploads/2024/01/How-to-Create-Custom-Notification-Alerts-with-NotificationX.mp4" type="video/mp4">
+                </video>
             ', 'notificationx')
         ];
         parent::__construct();

@@ -27,6 +27,7 @@ const GetTemplate = (settings) => {
         map_fourth_param: "",
         ga_fourth_param: "",
         ga_fifth_param: "",
+        pa_fourth_param: "",
         review_fourth_param: "",
         freemius_fifth_param: "",
         freemius_sixth_param: "",
@@ -135,6 +136,24 @@ const GetTemplate = (settings) => {
                 `${params?.third_param} ${params?.yt_third_label} ${params?.fourth_param} ${params?.yt_fourth_label} ${params?.fifth_param} ${params?.yt_fifth_label}`,
             ];
             break;
+        case "announcements_theme-1":
+        case "announcements_theme-2":
+        case "announcements_theme-12":
+        case "announcements_theme-14":
+            return [
+                `${params?.first_param}`,
+                `${params?.third_param}`,
+                `${params?.fourth_param}`,
+            ];
+        case "announcements_theme-13":
+            return [
+                `${params?.first_param}`,
+            ];
+        case "announcements_theme-15":
+            return [
+                `${params?.first_param}`,
+                `${params?.third_param}`,
+            ];  
     }
 
     switch (themeName) {
@@ -256,6 +275,12 @@ const GetTemplate = (settings) => {
                 `${params?.first_param} ${params?.second_param}`,
                 `${params?.third_param} ${params?.ga_fourth_param}`,
             ];
+        case "pa-theme-four":
+            return [
+                `${params?.first_param} ${params?.second_param} ${params?.third_param}`,
+                `${params?.pa_fourth_param}`,
+                `${params?.sixth_param}`,
+        ]; 
         case "stock-theme-one":
         case "stock-theme-two":
             return [

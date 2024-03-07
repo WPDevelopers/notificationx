@@ -325,6 +325,9 @@ class PostType {
         }
 
         $enabled_source = $this->get_enabled_source();
+        if ( $source == 'press_bar' && ( isset( $enabled_source['press_bar'] ) && count( $enabled_source['press_bar'] ) ) ) {
+            $return = false;
+        }
         unset( $enabled_source['press_bar'] );
         if ( $source !== 'press_bar' && count( $enabled_source ) == 0 ) {
             $return = true;
@@ -433,6 +436,11 @@ class PostType {
                 }
             }
             $post['preview'] = apply_filters( "nx_theme_preview_{$post['source']}", $url, $post );
+        }
+        // Disable animation options if NX Pro not exists
+        if ( !NotificationX::is_pro() ) {
+            $post['animation_notification_show']     = 'default';
+            $post['animation_notification_hide']     = 'default';
         }
 
         return $post;

@@ -38,7 +38,7 @@ class Conversions extends Types {
         'modules_envato',
     ];
 
-    public $conversions_count = array('conversions_conv-theme-seven', 'conversions_conv-theme-eight', 'conversions_conv-theme-nine');
+    public $conversions_count = array('conversions_conv-theme-seven', 'conversions_conv-theme-eight', 'conversions_conv-theme-nine','woocommerce_sales_conv-theme-seven', 'woocommerce_sales_conv-theme-eight', 'woocommerce_sales_conv-theme-nine');
     public $map_dependency = [];
 
 
@@ -159,6 +159,13 @@ class Conversions extends Types {
                     'conversions_theme-five',
                     'conversions_conv-theme-ten',
                     'conversions_conv-theme-eleven',
+                    'woocommerce_sales_theme-one',
+                    'woocommerce_sales_theme-two',
+                    'woocommerce_sales_theme-three',
+                    'woocommerce_sales_theme-four',
+                    'woocommerce_sales_theme-five',
+                    'woocommerce_sales_conv-theme-ten',
+                    'woocommerce_sales_conv-theme-eleven',
                 ]
             ],
             'woo_template_sales_count' => [
@@ -174,6 +181,10 @@ class Conversions extends Types {
                     'conversions_conv-theme-seven',
                     'conversions_conv-theme-eight',
                     'conversions_conv-theme-nine',
+                    'woocommerce_sales_conv-theme-six',
+                    'woocommerce_sales_conv-theme-seven',
+                    'woocommerce_sales_conv-theme-eight',
+                    'woocommerce_sales_conv-theme-nine',
                 ]
             ],
         ];

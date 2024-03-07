@@ -24,7 +24,7 @@ class WooCommerceSalesInline extends WooInline {
     public    $img             = '';
     public    $doc_link        = 'https://notificationx.com/docs/woocommerce-growth-alerts/';
     public    $types           = 'woocommerce_sales';
-    public    $module          = 'modules_woocommerce_sales_inline';
+    public    $module          = 'modules_woocommerce';
     public    $module_priority = 3;
     public    $class           = '\WooCommerce';
     public    $is_pro          = true;

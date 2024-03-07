@@ -260,7 +260,8 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                 dangerouslySetInnerHTML={{ __html: content }}
             ></div>
         );
-    } else {
+    }
+    else {
         innerContent = (
             <div className="nx-bar-content-wrap">
                 {settings?.enable_countdown && (

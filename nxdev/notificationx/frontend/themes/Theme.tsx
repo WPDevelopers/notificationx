@@ -5,6 +5,8 @@ import { Close, Content, Image } from "./helpers";
 import { escapeHTML } from "@wordpress/escape-html";
 import { useNotificationContext } from "../core";
 import { getThemeName } from "../core/functions";
+import { __, _x } from "@wordpress/i18n";
+import Button from "./helpers/Button";
 
 const Theme = (props) => {
     const splitThemes = [
@@ -40,9 +42,11 @@ const Theme = (props) => {
             val = 'string' === typeof val ? escapeHTML(val) : val;
 
             if (key === "time") {
+                const suffix = ['announcements'].includes(post.source);
                 val =
                     entry?.updated_at &&
-                    frontendContext.getTime(entry?.updated_at).fromNow();
+                    frontendContext.getTime(entry?.updated_at).fromNow(suffix);
+                val += suffix ? _x(" remaining", "Announcements: 5 days remaining", 'notificationx') : "";
             } else if (key == "rating") {
                 val = `rating::${val}`;
             }
@@ -73,6 +77,7 @@ const Theme = (props) => {
     );
 
     const componentCSS: any = {};
+    const announcementCSS: any = {};
     if (post?.advance_edit) {
         if (post.bg_color) componentCSS.backgroundColor = post.bg_color;
         if (post.text_color) componentCSS.color = post.text_color;
@@ -84,6 +89,12 @@ const Theme = (props) => {
             // shadow post.bg_color;
             // shadow border - color;
         }
+        // Add announcementCSS
+        if (post.discount_text_color) announcementCSS.discountTextColor = post.discount_text_color;
+        if (post.discount_background) announcementCSS.discountBackground = post.discount_background;
+        if (post.link_button_bg_color) announcementCSS.linkButtonBgColor = post.link_button_bg_color;
+        if (post.link_button_font_size) announcementCSS.linkButtonFontSize = post.link_button_font_size;
+        if (post.link_button_text_color) announcementCSS.linkButtonTextColor = post.link_button_text_color;
     }
 
     return (
@@ -97,13 +108,30 @@ const Theme = (props) => {
                 style={isSplitCss ? componentCSS : {}}
                 isSplitCss={isSplitCss}
                 isSplit={isSplit}
+                announcementCSS={announcementCSS}
             />
+            { ["announcements_theme-13"].includes(props?.config?.themes) && 
+                <Button
+                    {...props}
+                    announcementCSS={announcementCSS}
+                    icon={true}
+                />
+            }
             <Content
                 {...props}
                 template={template}
                 style={isSplitCss ? componentCSS : {}}
                 themes={themeName}
+                isSplitCss={isSplitCss}
+                isSplit={isSplit}
+                announcementCSS={announcementCSS}
             />
+            { ["announcements_theme-15"].includes(props?.config?.themes) && 
+                <Button
+                    {...props}
+                    announcementCSS={announcementCSS}
+                />
+            }
             <Close {...props} />
         </div>
     );

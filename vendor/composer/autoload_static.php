@@ -7,14 +7,14 @@ namespace Composer\Autoload;
 class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
 {
     public static $prefixLengthsPsr4 = array (
-        'P' =>
+        'P' => 
         array (
             'PriyoMukul\\WPNotice\\' => 20,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'PriyoMukul\\WPNotice\\' =>
+        'PriyoMukul\\WPNotice\\' => 
         array (
             0 => __DIR__ . '/..' . '/priyomukul/wp-notice/src',
         ),
@@ -59,6 +59,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Core\\ShortcodeInline' => __DIR__ . '/../..' . '/includes/Features/ShortcodeInline.php',
         'NotificationX\\Core\\Upgrader' => __DIR__ . '/../..' . '/includes/Core/Upgrader.php',
         'NotificationX\\Core\\WPDRoleManagement' => __DIR__ . '/../..' . '/includes/Core/WPDRoleManagement.php',
+        'NotificationX\\Extensions\\ActiveCampaign\\ActiveCampaign' => __DIR__ . '/../..' . '/includes/Extensions/ActiveCampaign/ActiveCampaign.php',
         'NotificationX\\Extensions\\CF7\\CF7' => __DIR__ . '/../..' . '/includes/Extensions/CF7/CF7.php',
         'NotificationX\\Extensions\\ConvertKit\\ConvertKit' => __DIR__ . '/../..' . '/includes/Extensions/ConvertKit/ConvertKit.php',
         'NotificationX\\Extensions\\CustomNotification\\CustomNotification' => __DIR__ . '/../..' . '/includes/Extensions/CustomNotification/CustomNotification.php',
@@ -86,6 +87,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Extensions\\LearnDash\\LearnDashInline' => __DIR__ . '/../..' . '/includes/Extensions/LearnDash/LearnDashInline.php',
         'NotificationX\\Extensions\\MailChimp\\MailChimp' => __DIR__ . '/../..' . '/includes/Extensions/MailChimp/MailChimp.php',
         'NotificationX\\Extensions\\NJF\\NinjaForms' => __DIR__ . '/../..' . '/includes/Extensions/NJF/NinjaForms.php',
+        'NotificationX\\Extensions\\OfferAnnouncement\\Announcements' => __DIR__ . '/../..' . '/includes/Extensions/OfferAnnouncement/Announcements.php',
         'NotificationX\\Extensions\\PressBar\\Importer' => __DIR__ . '/../..' . '/includes/Extensions/PressBar/importer.php',
         'NotificationX\\Extensions\\PressBar\\PressBar' => __DIR__ . '/../..' . '/includes/Extensions/PressBar/PressBar.php',
         'NotificationX\\Extensions\\ReviewX\\ReviewX' => __DIR__ . '/../..' . '/includes/Extensions/ReviewX/ReviewX.php',
@@ -128,6 +130,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Types\\FlashingTab' => __DIR__ . '/../..' . '/includes/Types/FlashingTab.php',
         'NotificationX\\Types\\Inline' => __DIR__ . '/../..' . '/includes/Types/Inline.php',
         'NotificationX\\Types\\NotificationBar' => __DIR__ . '/../..' . '/includes/Types/NotificationBar.php',
+        'NotificationX\\Types\\OfferAnnouncement' => __DIR__ . '/../..' . '/includes/Types/OfferAnnouncement.php',
         'NotificationX\\Types\\PageAnalytics' => __DIR__ . '/../..' . '/includes/Types/PageAnalytics.php',
         'NotificationX\\Types\\Reviews' => __DIR__ . '/../..' . '/includes/Types/Reviews.php',
         'NotificationX\\Types\\Traits\\Conversions' => __DIR__ . '/../..' . '/includes/Types/Traits/Conversions.php',
@@ -135,14 +138,6 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Types\\TypeFactory' => __DIR__ . '/../..' . '/includes/Types/TypesFactory.php',
         'NotificationX\\Types\\Types' => __DIR__ . '/../..' . '/includes/Types/Types.php',
         'NotificationX\\Types\\Video' => __DIR__ . '/../..' . '/includes/Types/Video.php',
-        'PriyoMukul\\WPNotice\\Dismiss' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Dismiss.php',
-        'PriyoMukul\\WPNotice\\Notice' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Notice.php',
-        'PriyoMukul\\WPNotice\\Notices' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Notices.php',
-        'PriyoMukul\\WPNotice\\Utils\\Base' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Utils/Base.php',
-        'PriyoMukul\\WPNotice\\Utils\\CacheBank' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Utils/CacheBank.php',
-        'PriyoMukul\\WPNotice\\Utils\\Helper' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Utils/Helper.php',
-        'PriyoMukul\\WPNotice\\Utils\\NoticeRemover' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Utils/NoticeRemover.php',
-        'PriyoMukul\\WPNotice\\Utils\\Storage' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Utils/Storage.php',
         'NotificationX\\Types\\WooCommerceSales' => __DIR__ . '/../..' . '/includes/Types/WooCommerceSales.php',
         'UsabilityDynamics\\Job' => __DIR__ . '/..' . '/udx/lib-utility/lib/class-job.php',
         'UsabilityDynamics\\Loader' => __DIR__ . '/..' . '/udx/lib-utility/lib/class-loader.php',
