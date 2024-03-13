@@ -67,7 +67,7 @@ class Locations {
         return $locations;
     }
 
-    public function check_location( $locations = array(), $custom_ids = '' ) {
+    public function check_location( $locations = array(), $custom_ids = '', $taxonomy_ids = '' ) {
         if ( empty( $locations ) ) {
             return true;
         }
@@ -75,6 +75,17 @@ class Locations {
             $locations = [$locations];
         }
 
+        if( ! empty( $taxonomy_ids ) ) {
+            $taxonomy_arr = explode( ',', $taxonomy_ids );
+            $taxonomy_arr = array_map('trim', $taxonomy_arr);
+            foreach( $taxonomy_arr as $tax ) {
+                $term = (get_term($tax));
+                if( has_term($term->term_id, $term->taxonomy) || ( is_archive() && in_array( get_queried_object_id(), $taxonomy_arr ) ) ) {
+                    return true;
+                }
+            }
+        }
+        
         $status = array(
 			'is_front_page' => is_front_page(),
 			'is_home'       => is_home(),

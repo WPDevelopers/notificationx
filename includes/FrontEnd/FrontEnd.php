@@ -369,10 +369,11 @@ class FrontEnd {
                 continue;
             }
 
-            $locations  = isset($settings['all_locations']) ? $settings['all_locations'] : [];
-            $custom_ids = isset($settings['custom_ids']) ? $settings['custom_ids'] : [];
+            $locations    = isset($settings['all_locations']) ? $settings['all_locations'] : [];
+            $custom_ids   = isset($settings['custom_ids']) ? $settings['custom_ids'] : [];
+            $taxonomy_ids = isset($settings['taxonomy_ids']) ? $settings['taxonomy_ids'] : '';
 
-            if($this->check_show_on($locations, $custom_ids, $settings['show_on'])){
+            if($this->check_show_on($locations, $custom_ids, $taxonomy_ids, $settings['show_on'])){
                 continue;
             }
 
@@ -448,7 +449,7 @@ class FrontEnd {
     /**
      * @todo filter is not extensive enough.
      */
-    public function check_show_on($locations, $custom_ids, $show_on){
+    public function check_show_on($locations, $custom_ids, $taxonomy_ids, $show_on){
         $check_location = false;
 
         if ($locations == 'is_custom' || is_array($locations) && in_array('is_custom', $locations)) {
@@ -456,7 +457,7 @@ class FrontEnd {
         }
         if (!empty($locations)) {
             // @todo need to pass url.
-            $check_location = Locations::get_instance()->check_location($locations, $custom_ids);
+            $check_location = Locations::get_instance()->check_location($locations, $custom_ids, $taxonomy_ids);
         }
 
         $check_location = apply_filters('nx_check_location', $check_location, $custom_ids, $show_on);
