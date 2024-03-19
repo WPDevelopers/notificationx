@@ -1249,7 +1249,7 @@ class GlobalFields {
                                             'disabled' => NotificationX::is_pro() ? false : true,
                                         ],
                                         'animate__slideInDown' => [
-                                            'label' => __('Slide In Up', 'notificationx'),
+                                            'label' => __('Slide In Down', 'notificationx'),
                                             'value' => 'animate__slideInDown',
                                             'disabled' => NotificationX::is_pro() ? false : true,
                                         ],
