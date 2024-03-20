@@ -1,5 +1,5 @@
-=== NotificationX - Best FOMO, Social Proof, WooCommerce Sales Popup & Notification Bar Plugin With Elementor ===
-Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim, sapanmozammel, shuvo247
+=== NotificationX - Best FOMO, Social Proof, Custom & Live Sales Notification, WooCommerce Sales Popup, Floating & Sticky Notification Bar ===
+Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim, sapanmozammel, shuvo247, fuadragib
 Donate link: https://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce sales, notification bar 
 Requires at least: 5.0
@@ -205,7 +205,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 2.8.4 - 7/3/2024 =
+= 2.8.4 - 10/3/2024 =
 Fixed: Notification preview responsive issues.
 Few minor bug fixes and improvements
 
