@@ -1341,15 +1341,16 @@ class PressBar extends Extension {
     }
 
     public function doc() {
-        return sprintf(__('<p>You can showcase the notification bar to do instant popup campaign on WordPress site. For further assistance, check out our step by step <a target="_blank" href="%1$s">documentation</a>.</p>
-		<p>🎦 Watch <a target = "_blank" href = "%2$s">video tutorial</a> to learn quickly</p>
+        return sprintf(__('<p>You can showcase the notification bar to run instant popup campaigns on WordPress sites. For further assistance, check out our step-by-step guides on adding notification bars built with both <a target="_blank" href="%1$s">Elementor</a> and <a target="_blank" href="%2$s">Gutenberg</a>.</p>
+		<p>🎦 Watch the <a target = "_blank" href = "%3$s">video tutorial</a> for a quick guide.</p>
 		<p><strong>Recommended Blog                     : </strong></p>
-		<p>🔥                  Introducing NotificationX: <a target="_blank" href="%3$s">Social Proof & FOMO Marketing Solution</a> for WordPress</p>
-		<p>🔥 How to <a href="%4$s" target="_blank">design Notification Bar with Elementor Page Builder</a>.</p>', 'notificationx'),
+		<p>🔥 How to <a target="_blank" href="%4$s">design a Notification Bar with Elementor Page Builder.</a></p>
+		<p>🔥 <a href="%5$s" target="_blank">Evergreen Dynamic Notification Bar</a> to Boost Sales in WordPress.</p>', 'notificationx'),
         'https://notificationx.com/docs/notification-bar/',
+        'https://notificationx.com/docs/configure-a-notification-bar-in-gutenberg/',
         'https://www.youtube.com/watch?v=l7s9FXgzbEM',
-        'https://wpdeveloper.com/notificationx-social-proof-fomo/',
-        'https://notificationx.com/docs/notification-bar-with-elementor/'
+        'https://notificationx.com/docs/notification-bar-with-elementor/',
+        'https://notificationx.com/blog/dynamic-notification-bar-wordpress/'
         );
     }
 }
