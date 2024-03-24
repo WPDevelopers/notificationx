@@ -3,9 +3,9 @@ Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim, s
 Donate link: https://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce sales, notification bar 
 Requires at least: 5.0
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 2.8.4
+Stable tag: 2.8.5
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -205,13 +205,14 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 2.8.4 - 10/3/2024 =
-Fixed: Notification preview responsive issues.
+= 2.8.5 - 24/3/2024 =
+Added: WordPress 6.5 compatibility.
+Added: Notification Bar support for Gutenberg
+Fixed: Conflict with JWT Auth plugin
 Few minor bug fixes and improvements
 
-= 2.8.3 - 25/2/2024 =
-Fixed: Notification bar styling issues.
-Updated: Security patch for better performance.
+= 2.8.4 - 10/3/2024 =
+Fixed: Notification preview responsive issues.
 Few minor bug fixes and improvements
 
 [See changelog for all versions](https://notificationx.com/changelog)
