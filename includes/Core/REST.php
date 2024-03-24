@@ -58,6 +58,10 @@ class REST {
             add_action('rest_authentication_errors', [$this, 'rest_authentication_errors'], 999);
             add_filter('bb_exclude_endpoints_from_restriction', [$this, 'bb_exclude_endpoints'], 10, 2);
         }
+
+
+        // third party
+        add_filter('jwt_auth_whitelist', [$this, 'jwt_whitelist']);
     }
 
     /**
@@ -458,5 +462,41 @@ class REST {
      */
     private function formattedError( $code, $message, $http_code, $args = [] ){
         return new \WP_Error( "nx_$code", $message, [ 'status' => $http_code ] );
+    }
+
+    /**
+     * JWT Whitelist
+     *
+     * @param array $endpoints
+     * @return array
+     */
+    public function jwt_whitelist( $endpoints ) {
+        $__endpoints = array(
+            '/wp-json/notificationx/v1',
+            '/wp-json/notificationx/v1/nx',
+            '/wp-json/notificationx/v1/nx/*',
+            '/wp-json/notificationx/v1/api-connect',
+            '/wp-json/notificationx/v1/notification/*',
+            '/wp-json/notificationx/v1/regenerate/*',
+            '/wp-json/notificationx/v1/analytics',
+            '/wp-json/notificationx/v1/analytics/get',
+            '/wp-json/notificationx/v1/bulk-action/delete',
+            '/wp-json/notificationx/v1/bulk-action/regenerate',
+            '/wp-json/notificationx/v1/bulk-action/enable',
+            '/wp-json/notificationx/v1/bulk-action/disable',
+            '/wp-json/notificationx/v1/builder',
+            '/wp-json/notificationx/v1/core-install',
+            '/wp-json/notificationx/v1/elementor/import',
+            '/wp-json/notificationx/v1/elementor/remove',
+            '/wp-json/notificationx/v1/reporting-test',
+            '/wp-json/notificationx/v1/settings',
+            '/wp-json/notificationx/v1/miscellaneous',
+            '/wp-json/notificationx/v1/get-data',
+            '/wp-json/notificationx/v1/notice',
+            '/wp-json/notificationx/v1/import',
+            '/wp-json/notificationx/v1/export',
+        );
+
+        return array_unique( array_merge( $endpoints, $__endpoints ) );
     }
 }
