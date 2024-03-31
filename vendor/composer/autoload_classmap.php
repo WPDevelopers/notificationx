@@ -49,6 +49,7 @@ return array(
     'NotificationX\\Extensions\\ConvertKit\\ConvertKit' => $baseDir . '/includes/Extensions/ConvertKit/ConvertKit.php',
     'NotificationX\\Extensions\\CustomNotification\\CustomNotification' => $baseDir . '/includes/Extensions/CustomNotification/CustomNotification.php',
     'NotificationX\\Extensions\\CustomNotification\\CustomNotificationConversions' => $baseDir . '/includes/Extensions/CustomNotification/CustomNotificationConversions.php',
+    'NotificationX\\Extensions\\Drip\\Drip' => $baseDir . '/includes/Extensions/Drip/Drip.php',
     'NotificationX\\Extensions\\EDD\\EDD' => $baseDir . '/includes/Extensions/EDD/EDD.php',
     'NotificationX\\Extensions\\EDD\\EDDInline' => $baseDir . '/includes/Extensions/EDD/EDInline.php',
     'NotificationX\\Extensions\\Elementor\\From' => $baseDir . '/includes/Extensions/Elementor/From.php',

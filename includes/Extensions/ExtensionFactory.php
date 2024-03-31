@@ -73,6 +73,7 @@ class ExtensionFactory {
 			'wistia'                          => 'NotificationX\Extensions\Wistia\Wistia',
 			'surecart'                        => 'NotificationX\Extensions\SureCart\SureCart',
 			'ActiveCampaign'									=> 'NotificationX\Extensions\ActiveCampaign\ActiveCampaign',
+			'Drip'														=> 'NotificationX\Extensions\Drip\Drip',
 		];
 
 	/**
