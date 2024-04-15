@@ -410,7 +410,7 @@ class FrontEnd {
                 $bar_notifications[] = $return_posts ? $settings : $settings['nx_id'];
                 if (!empty($settings['elementor_id']) && class_exists('\Elementor\Plugin')) {
                     // @todo Find a function to only load css instead of building content.
-                    \Elementor\Plugin::$instance->frontend->get_builder_content($settings['elementor_id'], false);
+                    \Elementor\Plugin::$instance->frontend->get_builder_content($settings['elementor_id'], true);
                 }
             } elseif ($active_global_queue && NotificationX::is_pro()) {
                 $global_notifications[] = $return_posts ? $settings : $settings['nx_id'];

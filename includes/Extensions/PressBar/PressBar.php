@@ -1210,7 +1210,7 @@ class PressBar extends Extension {
 
         if ($elementor_post_id != '' && get_post_status($elementor_post_id) === 'publish' && class_exists('\Elementor\Plugin')) {
             $elementor_post_id = apply_filters( 'wpml_object_id', $elementor_post_id, 'nx_bar', true);
-            return \Elementor\Plugin::$instance->frontend->get_builder_content_for_display($elementor_post_id, false);
+            return \Elementor\Plugin::$instance->frontend->get_builder_content_for_display($elementor_post_id, true);
         } else if (!empty($gb_post_id)) {
             $gb_post_id = apply_filters( 'wpml_object_id', $gb_post_id, 'wp_block', true);
             $post       = get_post($gb_post_id);

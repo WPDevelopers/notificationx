@@ -8,7 +8,7 @@ import usePortal from "../hooks/usePortal";
 import { Close } from "../themes/helpers";
 import Analytics, { analyticsOnClick } from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
-import nxHelper from "./functions";
+import nxHelper, { prefixStyleTags } from "./functions";
 import { loadAssets } from "./LoadAssets";
 
 /**
@@ -245,11 +245,12 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
 
     // debugger;
     if (settings?.elementor_id) {
+        const prefixedContent = prefixStyleTags(content, `#nx-bar-${settings.nx_id}`);
         innerContent = (
             <div
                 ref={elementorRef}
                 className="nx-bar-content-wrap"
-                dangerouslySetInnerHTML={{ __html: content }}
+                dangerouslySetInnerHTML={{ __html: prefixedContent }}
             ></div>
         );
     } else if (settings?.gutenberg_id) {

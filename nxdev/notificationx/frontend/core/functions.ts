@@ -56,6 +56,29 @@ export function calculateAnimationStartTime(userInput, animationType) {
     return result;
 }
 
+import { parse } from 'cssom';
+
+export const prefixCssSelectors = (css, prefix) => {
+    const stylesheet = parse(css);
+    stylesheet.cssRules.forEach(rule => {
+        if (rule.selectorText) {
+            rule.selectorText = prefix + ' ' + rule.selectorText;
+        }
+    });
+    return stylesheet.toString();
+}
+
+export const prefixStyleTags = (content, prefix) => {
+    const styleTagRegex = /<style>(.*?)<\/style>/gs;
+    let match;
+    while ((match = styleTagRegex.exec(content)) !== null) {
+        const css = match[1];
+        const prefixedCss = prefixCssSelectors(css, prefix);
+        content = content.replace(css, prefixedCss);
+    }
+    return content;
+}
+
 class NotificationXHelpers {
     getPath = (rest, path, query = {}) => {
         query = {...query, frontend: 'true'}
