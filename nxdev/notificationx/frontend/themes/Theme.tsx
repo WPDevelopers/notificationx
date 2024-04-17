@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import React, { useState } from "react";
 import { Close, Content, Image } from "./helpers";
 // @ts-ignore
 import { escapeHTML } from "@wordpress/escape-html";
@@ -7,6 +7,7 @@ import { useNotificationContext } from "../core";
 import { getThemeName } from "../core/functions";
 import { __, _x } from "@wordpress/i18n";
 import Button from "./helpers/Button";
+import Cookies from 'js-cookie';
 
 const Theme = (props) => {
     const splitThemes = [
@@ -22,6 +23,8 @@ const Theme = (props) => {
     const isSplit = splitThemes.includes(themeName);
     const isSplitCss = post?.advance_edit && isSplit;
     const frontendContext = useNotificationContext();
+
+    const [randomNumber, setRandomNumber] = useState(null);
 
     // console.log("settings", post);
     // moment().utcOffset(settings?.timezone?.offset);
@@ -49,6 +52,41 @@ const Theme = (props) => {
                 val += suffix ? _x(" remaining", "Announcements: 5 days remaining", 'notificationx') : "";
             } else if (key == "rating") {
                 val = `rating::${val}`;
+            } else if (key.includes('random:')) {
+                /*
+                The key string format is "random:min-max:range:expiry", where:
+                - "random" is a fixed string.
+                - "min" is the minimum value for the random number.
+                - "max" is the maximum value for the random number.
+                - "range" (optional) is the range within which the new random number should be close to a previously stored cookie value. If not provided, it defaults to 10.
+                - "expiry" (optional) is the expiry time in minutes for the cookie. If not provided, it defaults to 15 minutes.
+
+                The generated random number is then stored in a cookie named 'randomNumber' with an expiry time specified by 'expiry'. The random number is also set to a state variable using 'setRandomNumber(val)'.
+                */
+
+                let matches = key.match(/(random):(\d+)-(\d+)(?::(\d+))?(?::(\d+))?/);
+                let cookieValue = Cookies.get('randomNumber');
+
+                if (randomNumber) {
+                    val = randomNumber;
+                } else if (matches && matches[2] && matches[3]) {
+                    let min = parseInt(matches[2]);
+                    let max = parseInt(matches[3]);
+                    let range = matches[4] ? parseInt(matches[4]) : 10; // Use the optional range if it's present, otherwise default to 10
+                    let expiry = matches[5] ? parseInt(matches[5]) : 15; // Use the optional expiry if it's present, otherwise default to 15 minutes
+
+                    val = Math.floor(Math.random() * (max - min + 1)) + min;
+                    if (cookieValue) {
+                        // Generate a random number close to the cookie value
+                        while (Math.abs(val - parseInt(cookieValue)) > range) {
+                            val = Math.floor(Math.random() * (max - min + 1)) + min;
+                        }
+                    }
+
+                    setRandomNumber(val);
+                    Cookies.set('randomNumber', val.toString(), { expires: expiry / (24 * 60) }); // Cookie will expire after expiry minutes
+                    console.log('views', key, val);
+                }
             }
             row = row.replace(match?.[0], val);
         }
@@ -110,7 +148,7 @@ const Theme = (props) => {
                 isSplit={isSplit}
                 announcementCSS={announcementCSS}
             />
-            { ["announcements_theme-13"].includes(props?.config?.themes) && 
+            { ["announcements_theme-13"].includes(props?.config?.themes) &&
                 <Button
                     {...props}
                     announcementCSS={announcementCSS}
@@ -126,7 +164,7 @@ const Theme = (props) => {
                 isSplit={isSplit}
                 announcementCSS={announcementCSS}
             />
-            { ["announcements_theme-15"].includes(props?.config?.themes) && 
+            { ["announcements_theme-15"].includes(props?.config?.themes) &&
                 <Button
                     {...props}
                     announcementCSS={announcementCSS}
