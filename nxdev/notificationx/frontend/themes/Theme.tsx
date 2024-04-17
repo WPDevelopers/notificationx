@@ -85,7 +85,7 @@ const Theme = (props) => {
 
                     setRandomNumber(val);
                     Cookies.set('randomNumber', val.toString(), { expires: expiry / (24 * 60) }); // Cookie will expire after expiry minutes
-                    console.log('views', key, val);
+                    // console.log('views', key, val);
                 }
             }
             row = row.replace(match?.[0], val);
