@@ -70,6 +70,8 @@ return array(
     'NotificationX\\Extensions\\IFTTT\\IFTTT' => $baseDir . '/includes/Extensions/IFTTT/IFTTT.php',
     'NotificationX\\Extensions\\LearnDash\\LearnDash' => $baseDir . '/includes/Extensions/LearnDash/LearnDash.php',
     'NotificationX\\Extensions\\LearnDash\\LearnDashInline' => $baseDir . '/includes/Extensions/LearnDash/LearnDashInline.php',
+    'NotificationX\\Extensions\\LearnPress\\LearnPress' => $baseDir . '/includes/Extensions/LearnPress/LearnPress.php',
+    'NotificationX\\Extensions\\LearnPress\\LearnPressInline' => $baseDir . '/includes/Extensions/LearnPress/LearnPressInline.php',
     'NotificationX\\Extensions\\MailChimp\\MailChimp' => $baseDir . '/includes/Extensions/MailChimp/MailChimp.php',
     'NotificationX\\Extensions\\NJF\\NinjaForms' => $baseDir . '/includes/Extensions/NJF/NinjaForms.php',
     'NotificationX\\Extensions\\OfferAnnouncement\\Announcements' => $baseDir . '/includes/Extensions/OfferAnnouncement/Announcements.php',
