@@ -71,8 +71,8 @@ class LearnPressInline extends LearnPress {
                     'tag_30days' => __( 'In last 30 days', 'notificationx' ),
                 ],
                 '_themes' => [
-                    'tutor_inline_conv-theme-seven',
-                    'tutor_inline_conv-theme-eight',
+                    'learnpress_inline_conv-theme-seven',
+                    'learnpress_inline_conv-theme-eight',
                 ]
             ],
         ];
