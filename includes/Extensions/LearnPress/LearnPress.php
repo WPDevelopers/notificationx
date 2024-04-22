@@ -216,7 +216,7 @@ class LearnPress extends Extension {
         $data['timestamp']  = time();
 
         if (!empty($data)) {
-            $key = $course_id . '-' . 'lp';
+            $key = $item['item_id'] . '-' . $id;
             return $this->update_notification(
                 array(
                     'source'    => $this->id,
@@ -234,13 +234,13 @@ class LearnPress extends Extension {
         $meta_info = metadata_exists('post', $enrolled_data->ID, '_tutor_enrolled_by_order_id');
         $order_id  = 0;
         $user_data = $this->user_data_by($enrolled_data->post_author, $order_id);
-		$order = learn_press_get_order($enrolled_data->ID);
-		$items = $order->get_items();
-		foreach($items as $item) {
-			$data['title']      = get_the_title($item['course_id']);
-			$data['link']       = get_permalink($item['course_id']);
-			$data['product_id'] = $item['course_id'];
-		}
+		// $order = learn_press_get_order($enrolled_data->ID);
+		// $items = $order->get_items();
+		// foreach($items as $item) {
+        $data['title']      = get_the_title($enrolled_data->post_parent);
+        $data['link']       = get_permalink($enrolled_data->post_parent);
+        $data['product_id'] = $enrolled_data->post_parent;
+		// }
         $data['timestamp']  = get_gmt_from_date($enrolled_data->post_date);
         $data               = array_merge($data, $user_data);
         if (!empty($data)) {
@@ -508,6 +508,11 @@ class LearnPress extends Extension {
             )
         );
         foreach ($enrolled as $single_enroll) {
+            $order = learn_press_get_order($single_enroll->ID);
+		    $items = $order->get_items();
+            foreach($items as $item) {
+                $single_enroll->post_parent = $item['course_id'];
+            }
             $orders[$single_enroll->post_parent . '-' . $single_enroll->ID] = $this->ready_enrolled_data($single_enroll);
         }
         wp_reset_postdata();

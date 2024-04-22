@@ -32,7 +32,7 @@ class LearnPressInline extends LearnPress {
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/tutor-inline.png',
                 'image_shape' => 'rounded',
-                'inline_location' => ['tutor/course/single/entry-box/free'],
+                'inline_location' => ['learn-press/after-course-buttons'],
                 'template'    => [
                     'first_param'         => 'tag_sales_count',
                     'second_param'        => __('people enrolled', 'notificationx'),
@@ -46,7 +46,7 @@ class LearnPressInline extends LearnPress {
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/tutor-inline-2.png',
                 'image_shape' => 'rounded',
-                'inline_location' => ['tutor_course/loop/after_title'],
+                'inline_location' => ['learn-press/list-courses/layout/item/section/bottom'],
                 'template'    => [
                     'first_param'         => 'tag_sales_count',
                     'second_param'        => __('people enrolled', 'notificationx'),
@@ -58,7 +58,7 @@ class LearnPressInline extends LearnPress {
             ),
         ];
         $this->templates = [
-            'tutor_inline_template_sales_count' => [
+            'learnpress_inline_template_sales_count' => [
                 'first_param'  => [
                     'tag_sales_count' => __( 'Sales Count', 'notificationx' ),
                 ],
@@ -90,7 +90,7 @@ class LearnPressInline extends LearnPress {
     public function show_on_exclude( $exclude, $settings ) {
         if ( 'inline' === $settings['type'] && $settings['source'] === $this->id ) {
             $edd_location = $settings['inline_location'];
-            $hooks        = [ 'tutor_course/loop/after_title', 'tutor/course/single/entry-box/free' ];
+            $hooks        = [ 'learn-press/list-courses/layout/item/section/bottom', 'learn-press/after-course-buttons' ];
             $diff         = array_diff( $hooks, $edd_location );
             if ( count( $diff ) <= count( $hooks ) ) {
                 return true;
