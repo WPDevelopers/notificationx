@@ -255,7 +255,7 @@ class LearnPress extends Extension {
             $userdata           = get_userdata($user_id);
             $data['first_name'] = $userdata->first_name;
             $data['last_name']  = $userdata->last_name;
-            $data['name']       = $this->name($userdata->first_name, $userdata->last_name);
+            $data['name']       = ( empty( $userdata->first_name ) || empty( $userdata->last_name ) ) ? "Someone" : $this->name($userdata->first_name, $userdata->last_name);
 
             $data['email'] = $userdata->user_email;
         }
