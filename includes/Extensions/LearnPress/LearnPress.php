@@ -538,10 +538,10 @@ class LearnPress extends Extension {
         return sprintf(__('<p>Make sure that you have <a href="%1$s" target="_blank">LearnPress LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 Watch <a target="_blank" href="%3$s">video tutorial</a> to learn quickly</p>
 		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with LearnPress LMS</a></p>', 'notificationx'),
-        'https://wordpress.org/plugins/tutor/',
-        'https://notificationx.com/docs/tutor-lms/',
-        'https://www.youtube.com/watch?v=EMrjLfL563Q',
-        'https://notificationx.com/integrations/tutor-lms/'
+        'https://wordpress.org/plugins/learnpress/',
+        'https://notificationx.com/docs/how-to-display-learnpress-course-enrollment-alert-using-notificationx/',
+        'https://notificationx.com/integrations/learnpress/',
+        'https://notificationx.com/integrations/learnpress/'
         );
     }
 }
