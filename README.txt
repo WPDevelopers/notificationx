@@ -205,7 +205,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 2.8.6 - 24/4/2024 =
+= 2.8.6 - 25/4/2024 =
 Added: LearnPress Integration.
 Fixed: Plugin update issue for old version users.
 Improved: WooCommerce notification for variable products.
