@@ -58,6 +58,7 @@ class Upgrader {
             $this->migrate_for_donation();
         }
         if ($nx_free_version !== NOTIFICATIONX_VERSION) {
+            $this->database->update_option( 'nx_free_version', NOTIFICATIONX_VERSION, 'no' );
             $this->clear_transient();
         }
     }

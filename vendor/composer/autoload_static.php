@@ -85,6 +85,8 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Extensions\\IFTTT\\IFTTT' => __DIR__ . '/../..' . '/includes/Extensions/IFTTT/IFTTT.php',
         'NotificationX\\Extensions\\LearnDash\\LearnDash' => __DIR__ . '/../..' . '/includes/Extensions/LearnDash/LearnDash.php',
         'NotificationX\\Extensions\\LearnDash\\LearnDashInline' => __DIR__ . '/../..' . '/includes/Extensions/LearnDash/LearnDashInline.php',
+        'NotificationX\\Extensions\\LearnPress\\LearnPress' => __DIR__ . '/../..' . '/includes/Extensions/LearnPress/LearnPress.php',
+        'NotificationX\\Extensions\\LearnPress\\LearnPressInline' => __DIR__ . '/../..' . '/includes/Extensions/LearnPress/LearnPressInline.php',
         'NotificationX\\Extensions\\MailChimp\\MailChimp' => __DIR__ . '/../..' . '/includes/Extensions/MailChimp/MailChimp.php',
         'NotificationX\\Extensions\\NJF\\NinjaForms' => __DIR__ . '/../..' . '/includes/Extensions/NJF/NinjaForms.php',
         'NotificationX\\Extensions\\OfferAnnouncement\\Announcements' => __DIR__ . '/../..' . '/includes/Extensions/OfferAnnouncement/Announcements.php',
