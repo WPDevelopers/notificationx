@@ -13,9 +13,9 @@ Want to boost business trust & conversions? 97% of visitors hesitate to buy beca
 
 == Description ==
 
-= Best FOMO, Social Proof, WooCommerce Sales Popup & Notification Bar Plugin With Elementor Support =
+== Best FOMO, Social Proof, WooCommerce Sales Popup & Notification Bar Plugin With Elementor Support ==
 
-## BUILD INSTANT CREDIBILITY USING SOCIAL PROOF NOTIFICATION ##
+#### **BUILD INSTANT CREDIBILITY USING SOCIAL PROOF NOTIFICATION** ####
 
 People don’t like being left behind and they love to follow the trends. If your visitors know what other people are buying, reading, and commenting then it’s more likely that they will get the confidence instantly and they will want to buy it as well because of this FOMO effect.
 
@@ -71,51 +71,51 @@ https://youtu.be/zZPF5nJD4mo?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 
 ## 🚀 BOOST CONVERSIONS WITH DIFFERENT NOTIFICATIONS ##
 
-1. **Sales Notifications:** With NotificationX, you can easily design attention-grabbing Sales Notifications to increase your sales rate. If you have WooCommerce or Easy Digital Downloads installed, you can display the recent purchase activity by other customers to influence the website visitors. [More sources in Pro: LearnDash, Envato, Themeforest, CodeCanyon)]
+- **Sales Notifications:** With NotificationX, you can easily design attention-grabbing Sales Notifications to increase your sales rate. If you have WooCommerce or Easy Digital Downloads installed, you can display the recent purchase activity by other customers to influence the website visitors. [More sources in Pro: LearnDash, Envato, Themeforest, CodeCanyon)]
 
-2. **WP Comments:** Let you shows the recent comments made by users on your WordPress posts as a notification alert. This is helpful to gain immediate attention from your visitors to check out the specified posts.
+- **WP Comments:** Let you shows the recent comments made by users on your WordPress posts as a notification alert. This is helpful to gain immediate attention from your visitors to check out the specified posts.
 
-3. **WordPress/Woocommerce Reviews:** Showcase your Plugin/Theme reviews from WordPress.org & build credibility. [Source: WordPress, Freemius, WooCommerce & also ReviewX]
+- **WordPress/Woocommerce Reviews:** Showcase your Plugin/Theme reviews from WordPress.org & build credibility. [Source: WordPress, Freemius, WooCommerce & also ReviewX]
 
-4. **WordPress Download Count:** Display how many people have downloaded your product from WordPress.org recently. [Source: WooCommerce, EDD, Freemius, Envato]
+- **WordPress Download Count:** Display how many people have downloaded your product from WordPress.org recently. [Source: WooCommerce, EDD, Freemius, Envato]
 
-5. **Notification Bar:** With "Notification Bar", you can easily display a nice looking special discount offer or important notice on your website. Besides, you can even use a countdown timer to create a sense of urgency among your customers or users to hurry up.
+- **Notification Bar:** With "Notification Bar", you can easily display a nice looking special discount offer or important notice on your website. Besides, you can even use a countdown timer to create a sense of urgency among your customers or users to hurry up.
 
-6. **Contact Form Notifications:** Display your favourite contact form popup notifications on websites and create urgency among your site visitors to get engaged with you. [Source: Contact Form 7, Ninja Forms, WPForms, Gravity Forms (PRO)]
+- **Contact Form Notifications:** Display your favourite contact form popup notifications on websites and create urgency among your site visitors to get engaged with you. [Source: Contact Form 7, Ninja Forms, WPForms, Gravity Forms (PRO)]
 
-7. **Email Subscriptions [PRO]:** MailChimp notification lets you showcase the users who have subscribed to your MailChimp list as a popup on your website. [Source: MailChimp, ConvertKit, ActiveCampaign]
+- **Email Subscriptions [PRO]:** MailChimp notification lets you showcase the users who have subscribed to your MailChimp list as a popup on your website. [Source: MailChimp, ConvertKit, ActiveCampaign]
 
-8. **CUSTOM NOTIFICATIONS [PRO]:** You can create advanced and customized notifications just the way you want using these options.
+- **CUSTOM NOTIFICATIONS [PRO]:** You can create advanced and customized notifications just the way you want using these options.
 
 https://youtu.be/AGaq1wtdd00?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 
 ## 🔥 POWER UP WITH ADVANCED INTEGRATIONS ##
 
-1. **[WooCommerce](https://notificationx.com/integrations/woocommerce/):** Showcase your product sales alert and customer activities live on the website with an automated process to increase your eCommerce site conversion rates. **From V 1.7.0 we now support WooCommerce Product reviews as well.**
+- **[WooCommerce](https://notificationx.com/integrations/woocommerce/):** Showcase your product sales alert and customer activities live on the website with an automated process to increase your eCommerce site conversion rates. **From V 1.7.0 we now support WooCommerce Product reviews as well.**
 
     https://youtu.be/bHuaOs9JWvI?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 
-2. **[Easy Digital Downloads](https://notificationx.com/integrations/easy-digital-downloads/):** Display your clients’ live sales updates on the website to build credibility and gather more traffic to boost business growth.
+- **[Easy Digital Downloads](https://notificationx.com/integrations/easy-digital-downloads/):** Display your clients’ live sales updates on the website to build credibility and gather more traffic to boost business growth.
 
-3. **[Freemius [PRO]](https://notificationx.com/integrations/freemius/):** Lets you showcase your customers' real-time sales and review activities through live notification pop ups from the Freemius account to your website.
+- **[Freemius [PRO]](https://notificationx.com/integrations/freemius/):** Lets you showcase your customers' real-time sales and review activities through live notification pop ups from the Freemius account to your website.
 
-4. **[GiveWP](https://notificationx.com/integrations/givewp/):** Showcase your donor live notification popup on the website to influence others to make more donations.
+- **[GiveWP](https://notificationx.com/integrations/givewp/):** Showcase your donor live notification popup on the website to influence others to make more donations.
 
-5. **[Zapier [PRO]](https://notificationx.com/integrations/zapier/):** Integrate Zapier with NotificationX to pull data from supported apps and display custom popups of users' real-time notifications to convert your visitors into your permanent clients.
+- **[Zapier [PRO]](https://notificationx.com/integrations/zapier/):** Integrate Zapier with NotificationX to pull data from supported apps and display custom popups of users' real-time notifications to convert your visitors into your permanent clients.
 
-6. **[MailChimp [PRO]](https://notificationx.com/integrations/mailchimp/):** Create urgency among your visitors to signup for your email list to get updates and increase your overall engagement rates.
+- **[MailChimp [PRO]](https://notificationx.com/integrations/mailchimp/):** Create urgency among your visitors to signup for your email list to get updates and increase your overall engagement rates.
 
-7. **[ConvertKit [PRO]](https://notificationx.com/integrations/convertkit/):** Enhance your email marketing strategy by showcasing real-time signup activities from ConvertKit and boost site engagement rate instantly.
+- **[ConvertKit [PRO]](https://notificationx.com/integrations/convertkit/):** Enhance your email marketing strategy by showcasing real-time signup activities from ConvertKit and boost site engagement rate instantly.
 
-8. **[LearnDash [PRO]](https://notificationx.com/integrations/learndash/):** Showcase your course enrollment activities to gain credibility and influence others to signup for your next online course.
+- **[LearnDash [PRO]](https://notificationx.com/integrations/learndash/):** Showcase your course enrollment activities to gain credibility and influence others to signup for your next online course.
 
-9. **[Envato [PRO]](https://notificationx.com/integrations/envato/):** Display your download or sales notification from Envato (Themeforest/CodeCanyon) and increase conversion rates.
+- **[Envato [PRO]](https://notificationx.com/integrations/envato/):** Display your download or sales notification from Envato (Themeforest/CodeCanyon) and increase conversion rates.
 
-10. **[Google Analytics[PRO]](https://notificationx.com/integrations/google-analytics/):** Display Google Analytics insights and visitor counts with more marketing insight to engage your potential buyers.
+- **[Google Analytics[PRO]](https://notificationx.com/integrations/google-analytics/):** Display Google Analytics insights and visitor counts with more marketing insight to engage your potential buyers.
 
-11. **[ReviewX](https://reviewx.io/):** Display beautiful reviews from ReviewX. Currently it supports WooCommerce, and you can showcase your multi-criteria reviews.
+- **[ReviewX](https://reviewx.io/):** Display beautiful reviews from ReviewX. Currently it supports WooCommerce, and you can showcase your multi-criteria reviews.
 
-12. **[Elementor](https://wordpress.org/plugins/elementor/):** With the introduction of Elementor integration, you can create & design stunning Notification Bars quite easily. You can choose from various pre-set layouts and customize the layout any way you want. Also can create a GDPR Cookie consent bar[PRO], and use an evergreen timer [PRO].
+- **[Elementor](https://wordpress.org/plugins/elementor/):** With the introduction of Elementor integration, you can create & design stunning Notification Bars quite easily. You can choose from various pre-set layouts and customize the layout any way you want. Also can create a GDPR Cookie consent bar[PRO], and use an evergreen timer [PRO].
 
 https://youtu.be/lWLY72HrqDM?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 
