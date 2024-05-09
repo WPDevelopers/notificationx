@@ -8,6 +8,10 @@ const AnalyticsHeader = ({ analytics, assetsURL }) => {
     if(builderContext?.analyticsRedirect){
         return <></>;
     }
+    if( builderContext?.state?.analytics ) {
+        analytics = builderContext?.state?.analytics;
+    }
+    
     return (
         <div className="nx-analytics-counter-wrapper">
             <AnalyticsCard

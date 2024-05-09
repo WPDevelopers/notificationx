@@ -47,6 +47,15 @@ const useNotificationX = ( props ) => {
         });
     };
 
+    const setReset = ({ analytics } ) => {
+        dispatch({
+            type: 'SET_RESET',
+            payload: {
+                ...analytics,
+            }
+        });
+    };
+
     const getOptions = useCallback(
         ( name ) => {
             return state.common?.[name];
@@ -66,6 +75,7 @@ const useNotificationX = ( props ) => {
         state,
         dispatch,
         setRedirect,
+        setReset,
         getSettings: getSettings,
         setOptions: setOptions,
         getOptions: getOptions,

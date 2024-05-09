@@ -118,6 +118,15 @@ class Analytics {
         return false;
     }
 
+    public function delete_analytics($where__or_nx_id, $limit = 0) {
+        if (!is_array($where__or_nx_id)) {
+            $where__or_nx_id = ['nx_id' => $where__or_nx_id];
+        }
+        Database::get_instance()->delete_posts(Database::$table_stats, $where__or_nx_id, $limit);
+        $analytics = $this->get_total_count();
+        return $analytics;
+    }
+
     public function stats_exists( $where = [] ) {
         $stats = Database::get_instance()->get_col( Database::$table_stats, 'stat_id', $where );
         return $stats;

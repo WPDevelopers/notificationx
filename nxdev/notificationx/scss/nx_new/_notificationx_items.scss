@@ -160,7 +160,6 @@
             margin-top: 20px;
             display: block;
             width: 100%;
-            overflow-x: auto;
             @media only screen and (max-width: 1599px) {
                 margin-top: 10px;
             }
@@ -370,14 +369,16 @@
                 max-height: 100%;
             }
         }
+        .nx-admin-actions-wrapper {
+            position: relative;
+        }
         .nx-admin-actions {
-            margin-top: 15px;
             display: flex;
             & > a,
             & > button {
                 font-size: 14px;
                 background-repeat: no-repeat;
-                background-size: 13px 15px;
+                background-size: 15px 15px;
                 padding-left: 20px;
                 margin-right: 10px;
                 color: #555555;
@@ -402,47 +403,94 @@
                 &.nx-admin-title-xss:before{
                     width: 95px;
                 }
-                &:before {
-                    content: attr(title);
-                    position: absolute;
-                    bottom: calc(100% + 5px);
-                    left: 50%;
-                    transform: translateX(-50%);
-                    padding: 5px 10px;
-                    line-height: 1.2;
-                    border-radius: 3px;
-                    background: #6a4bff;
-                    color: #fff;
-                    text-transform: uppercase;
-                    font-size: 12px;
-                    font-weight: 500;
-                    display: inline-flex;
-                    justify-content: center;
-                    text-align: center;
-                    visibility: hidden;
-                    @media only screen and (max-width: 1599px) {
-                        font-size: 10px;
-                    }
-                    opacity: 0;
+                // &:before {
+                //     content: attr(title);
+                //     position: absolute;
+                //     bottom: calc(100% + 5px);
+                //     left: 50%;
+                //     transform: translateX(-50%);
+                //     padding: 5px 10px;
+                //     line-height: 1.2;
+                //     border-radius: 3px;
+                //     background: #6a4bff;
+                //     color: #fff;
+                //     text-transform: uppercase;
+                //     font-size: 12px;
+                //     font-weight: 500;
+                //     display: inline-flex;
+                //     justify-content: center;
+                //     text-align: center;
+                //     visibility: hidden;
+                //     @media only screen and (max-width: 1599px) {
+                //         font-size: 10px;
+                //     }
+                //     opacity: 0;
+                // }
+                // &:after {
+                //     content: "";
+                //     border-top: 5px solid #6a4bff;
+                //     border-right: 5px solid transparent;
+                //     border-left: 5px solid transparent;
+                //     position: absolute;
+                //     bottom: calc(100% + 1px);
+                //     left: 50%;
+                //     transform: translateX(-50%);
+                //     visibility: hidden;
+                //     opacity: 0;
+                // }
+                // &:hover {
+                //     &::after,
+                //     &::before {
+                //         visibility: visible;
+                //         opacity: 1;
+                //     }
+                // }
+            }
+            &::after {
+                position: absolute;
+                content: '';
+                top: -6px;
+                left: 50%;
+                margin-left: -7px;
+                height: 0;
+                width: 0;
+                border-left: 7px solid transparent;
+                border-right: 7px solid transparent;
+                border-bottom: 7px solid #fff;
+            }
+            &.nx-admin-actions-lists {
+                position: absolute;
+                transform: translateX(-100%);
+                background: #fff;
+                border-radius: 4px;
+                z-index: 999;
+                box-shadow: 0px 0 14px 0px rgba(0,0,0,0.2);
+                margin: 0;
+                flex-direction: column;
+                width: 160px;
+                padding: 10px;
+                gap: 10px;
+                top: -5px;
+                left: -15px;
+                
+                span{
+                    display: block;
+                    text-align: left;
+                    line-height: 18px;
                 }
-                &:after {
-                    content: "";
-                    border-top: 5px solid #6a4bff;
-                    border-right: 5px solid transparent;
-                    border-left: 5px solid transparent;
-                    position: absolute;
-                    bottom: calc(100% + 1px);
-                    left: 50%;
-                    transform: translateX(-50%);
-                    visibility: hidden;
-                    opacity: 0;
+                a,button {
+                    width: 140px;
+                    background-position: left;
+                    padding-left: 23px;
+                    line-height: 20px;
                 }
-                &:hover {
-                    &::after,
-                    &::before {
-                        visibility: visible;
-                        opacity: 1;
-                    }
+                &::after {
+                    top: 12px;
+                    left: auto;
+                    right: -14px;
+                    border-top: 7px solid transparent;
+                    border-bottom: 7px solid transparent;
+                    border-left: 7px solid #fff;
                 }
             }
             .nx-admin-title-translate {
@@ -474,6 +522,16 @@
                 background-image: url('../icons/xss.png');
                 color: #844dee;
                 background-size: 16px;
+            }
+            .nx-admin-three-dots {
+                background-image: url('../icons/three-dots.svg');
+                background-color: #efeffe;
+                padding: 15px 14px 12px 15px;
+                border: 1px solid #e9e8fe;
+                border-radius: 4px;
+            }
+            .nx-admin-title-reset {
+                background-image: url("../icons/refresh.svg");
             }
         }
     }

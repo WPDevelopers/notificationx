@@ -478,6 +478,7 @@ class REST {
             '/wp-json/notificationx/v1/api-connect',
             '/wp-json/notificationx/v1/notification/*',
             '/wp-json/notificationx/v1/regenerate/*',
+            '/wp-json/notificationx/v1/reset/*',
             '/wp-json/notificationx/v1/analytics',
             '/wp-json/notificationx/v1/analytics/get',
             '/wp-json/notificationx/v1/bulk-action/delete',

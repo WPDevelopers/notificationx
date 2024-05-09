@@ -149,6 +149,26 @@ class Admin {
         }
         return false;
     }
+
+    /**
+     * This method is responsible for re generating notification for single type.
+     * @param string $current_url
+     * @since 1.4.0
+     */
+    public function reset_notifications($params) {
+        $nx_id = null;
+        if (!empty($entry_key)) {
+            $nx_id = $params['entry_key'];
+        }
+        if (!empty($params['nx_id'])) {
+            $nx_id = $params['nx_id'];
+        }
+        if (!empty($nx_id)) {
+            return Analytics::get_instance()->delete_analytics($nx_id);
+        }
+    }
+
+
     
     public function admin_notices(){
         self::$cache_bank = CacheBank::get_instance();
