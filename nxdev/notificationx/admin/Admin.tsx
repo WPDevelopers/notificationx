@@ -15,7 +15,7 @@ const Admin = (props) => {
     return (
         <div>
             <Header />
-            <AnalyticsHeader analytics={...builderContext?.analytics} assetsURL={builderContext.assets} />
+            <AnalyticsHeader assetsURL={builderContext.assets} />
             <NotificationXItems />
         </div>
     )

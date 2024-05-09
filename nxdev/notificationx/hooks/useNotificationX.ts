@@ -24,6 +24,7 @@ const useNotificationX = ( props ) => {
         settings: {
             time: timeSettings.current
         },
+        analytics: props?.analytics,
         redirect: {
         }
     });

@@ -3,6 +3,7 @@
 namespace NotificationX\Core\Rest;
 
 use NotificationX\Admin\Admin;
+use NotificationX\Core\Analytics;
 use NotificationX\Core\PostType;
 use NotificationX\GetInstance;
 use WP_REST_Server;
@@ -100,7 +101,19 @@ class BulkAction {
                 ),
             )
         );
-
+        register_rest_route($this->namespace, "/{$this->rest_base}/reset",
+            array(
+                'methods'             => WP_REST_Server::EDITABLE,
+                'callback'            => array( $this, 'reset' ),
+                'permission_callback' => [ $this, 'edit_permission' ],
+                'args'                => array(
+                    'ids' => array(
+                        'description' => __( 'Array of nx_id.', 'notificationx' ),
+                        'type'        => 'array',
+                    ),
+                ),
+            )
+        );
     }
 
     public function read_permission( $request ) {
@@ -179,6 +192,25 @@ class BulkAction {
         return [
             'success' => true,
             'count'   => $count,
+        ];
+    }
+
+
+    public function reset( $request ) {
+        $analytics = [];
+        $count     = 0;
+        $params = $request->get_params();
+        if ( ! empty( $params['ids'] ) && is_array( $params['ids'] ) ) {
+            foreach ( $params['ids'] as $key => $nx_id ) {
+                Admin::get_instance()->reset_notifications( [ 'nx_id' => $nx_id ] );
+                $count++;
+            }
+            $analytics = Analytics::get_instance()->get_total_count();
+        }
+        return [
+            'success' => true,
+            'count'   => $count,
+            'data'    => $analytics,
         ];
     }
 }

@@ -33,6 +33,7 @@ const NotificationXItemsMenu = ({
             ...bulkOptions,
             { value: "enable",  label: __("Enable", 'notificationx') },
             { value: "disable", label: __("Disable", 'notificationx') },
+            { value: "reset",  label: __("Reset", 'notificationx') },
             { value: "delete",  label: __("Delete", 'notificationx') },
             { value: "export",  label: __("Export", 'notificationx') },
         ];
@@ -88,6 +89,17 @@ const NotificationXItemsMenu = ({
         );
         // translators: %d: Number of Notification Alerts Regenerated.
         nxToast.regenerated(sprintf(__("%d Notification Alerts have been Regenerated.", 'notificationx'), (result?.count || 0)));
+    };
+    const resetAction = (selectedItem, result) => {
+        if( result.data ) {
+            builderContext.setReset({
+                analytics: result.data,
+            })
+        }
+        
+        setReload(r => !r);
+        // translators: %d: Number of Notification Alerts Reset.
+        nxToast.regenerated(sprintf(__("%d Notification Alerts have been Reset.", 'notificationx'), (result?.count || 0)));
     };
     const enableAction = (selectedItem, result) => {
         let count = 0;
@@ -239,6 +251,9 @@ const NotificationXItemsMenu = ({
                 if (result?.success) {
                     if (action.value == "regenerate") {
                         regenerateAction(selectedItem, result);
+                    }
+                    if (action.value == "reset") {
+                        resetAction(selectedItem, result);
                     }
                     if (action.value == "enable") {
                         enableAction(selectedItem, result);
