@@ -372,166 +372,65 @@
         .nx-admin-actions-wrapper {
             position: relative;
         }
-        .nx-admin-actions {
-            display: flex;
-            & > a,
-            & > button {
-                font-size: 14px;
-                background-repeat: no-repeat;
-                background-size: 15px 15px;
-                padding-left: 20px;
-                margin-right: 10px;
-                color: #555555;
-                border: 0;
-                background-color: #fff;
-                cursor: pointer;
-                height: 20px;
-                width: 20px;
-                padding-left: 0;
-                background-position: center center;
-                box-shadow: none;
-                position: relative;
-                cursor: pointer;
-                @media only screen and (max-width: 1599px) {
-                    font-size: 12px;
-                    height: 15px;
-                    width: 15px;
-                }
-                span {
-                    display: none;
-                }
-                &.nx-admin-title-xss:before{
-                    width: 95px;
-                }
-                // &:before {
-                //     content: attr(title);
-                //     position: absolute;
-                //     bottom: calc(100% + 5px);
-                //     left: 50%;
-                //     transform: translateX(-50%);
-                //     padding: 5px 10px;
-                //     line-height: 1.2;
-                //     border-radius: 3px;
-                //     background: #6a4bff;
-                //     color: #fff;
-                //     text-transform: uppercase;
-                //     font-size: 12px;
-                //     font-weight: 500;
-                //     display: inline-flex;
-                //     justify-content: center;
-                //     text-align: center;
-                //     visibility: hidden;
-                //     @media only screen and (max-width: 1599px) {
-                //         font-size: 10px;
-                //     }
-                //     opacity: 0;
-                // }
-                // &:after {
-                //     content: "";
-                //     border-top: 5px solid #6a4bff;
-                //     border-right: 5px solid transparent;
-                //     border-left: 5px solid transparent;
-                //     position: absolute;
-                //     bottom: calc(100% + 1px);
-                //     left: 50%;
-                //     transform: translateX(-50%);
-                //     visibility: hidden;
-                //     opacity: 0;
-                // }
-                // &:hover {
-                //     &::after,
-                //     &::before {
-                //         visibility: visible;
-                //         opacity: 1;
-                //     }
-                // }
-            }
-            &::after {
-                position: absolute;
-                content: '';
-                top: -6px;
-                left: 50%;
-                margin-left: -7px;
-                height: 0;
-                width: 0;
-                border-left: 7px solid transparent;
-                border-right: 7px solid transparent;
-                border-bottom: 7px solid #fff;
-            }
-            &.nx-admin-actions-lists {
-                position: absolute;
-                transform: translateX(-100%);
-                background: #fff;
-                border-radius: 4px;
-                z-index: 999;
-                box-shadow: 0px 0 14px 0px rgba(0,0,0,0.2);
-                margin: 0;
-                flex-direction: column;
-                width: 160px;
-                padding: 10px;
-                gap: 10px;
-                top: -5px;
-                left: -15px;
-                
-                span{
-                    display: block;
-                    text-align: left;
-                    line-height: 18px;
-                }
-                a,button {
-                    width: 140px;
-                    background-position: left;
-                    padding-left: 23px;
-                    line-height: 20px;
-                }
-                &::after {
-                    top: 12px;
-                    left: auto;
-                    right: -14px;
-                    border-top: 7px solid transparent;
-                    border-bottom: 7px solid transparent;
-                    border-left: 7px solid #fff;
-                }
-            }
-            .nx-admin-title-translate {
-                background-image: url("../icons/translate.png");
-            }
-            .nx-admin-title-edit {
-                background-image: url("../icons/edit.png");
-            }
-            .nx-admin-title-regenerate {
-                background-image: url("../icons/regenerate.png");
-            }
-            .nx-admin-title-duplicate {
-                background-image: url("../icons/duplicate.png");
-            }
-            .nx-admin-title-restore {
-                background-size: 16px 16px;
-                padding-left: 22px;
-                background-image: url("../icons/restore.png");
-            }
-            .nx-admin-title-trash {
-                color: #c4434e;
-                background-image: url("../icons/trash.png");
-            }
-            .nx-admin-title-shortcode {
-                background-image: url("../icons/shortcode.png");
-                color: #844dee;
-            }
-            .nx-admin-title-xss {
-                background-image: url('../icons/xss.png');
-                color: #844dee;
-                background-size: 16px;
-            }
-            .nx-admin-three-dots {
-                background-image: url('../icons/three-dots.svg');
+        .nx-admin-three-dots {
+            cursor: pointer;
+        }
+        .nx-admin-action-button {
+            a {
+                padding: 10px 10px 2px;
                 background-color: #efeffe;
-                padding: 15px 14px 12px 15px;
+                line-height: 0;
                 border: 1px solid #e9e8fe;
                 border-radius: 4px;
             }
-            .nx-admin-title-reset {
-                background-image: url("../icons/refresh.svg");
+        }
+        .nx-admin-actions-lists {
+            position: absolute;
+            transform: translateX(-100%);
+            background: #fff;
+            border-radius: 4px;
+            z-index: 999;
+            box-shadow: 0px 0 14px 0px rgba(0,0,0,0.2);
+            margin: 0;
+            top: -10px;
+            left: -15px;
+            ul {
+                margin: 0;
+                padding: 8px 0;
+                li {
+                    margin-bottom: 0;
+                    border-bottom: 1px solid rgba(230,239,251,0.3);
+                    a {
+                        text-align: left;
+                        padding: 10px 25px 10px 20px;
+                        white-space: nowrap;
+                        color: #495463;
+                        font-size: 12px;
+                        font-weight: 600;
+                        letter-spacing: 0.05em;
+                        display: flex;
+                        align-items: center;
+                        line-height: 0;
+                        gap: 10px;
+                        &:hover {
+                            cursor: pointer;
+                            color: #6a4bff;
+                        }
+                    }
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                }
+            }
+            &::before {
+                content: '';
+                position: absolute;
+                top: 13px;
+                left: auto;
+                right: -7px;
+                border-top: 7px solid transparent;
+                border-bottom: 7px solid transparent;
+                border-left: 7px solid #fff;
             }
         }
     }

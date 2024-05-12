@@ -8,6 +8,17 @@ import classNames from "classnames";
 import nxToast from "../core/ToasterMsg";
 import Swal from "sweetalert2";
 import copy from "copy-to-clipboard";
+import editIcon from '../icons/edit.png';
+import translateIcon from '../icons/translate.png';
+import duplicateIcon from '../icons/duplicate.png';
+import shortcodeIcon from '../icons/shortcode.png';
+import regenerateIcon from '../icons/regenerate.png';
+import refreshIcon from '../icons/refresh.svg';
+import deleteIcon from '../icons/trash.png';
+import xssIcon from '../icons/xss.png';
+import threeDots from '../icons/three-dots.svg';
+
+// import copyToClipboard from '../icons/cross.png';
 
 const SingleNotificationAction = ({
     id,
@@ -264,116 +275,145 @@ const SingleNotificationAction = ({
 
     return (
         <div className="nx-admin-actions-wrapper">
-            <div className="nx-admin-actions" ref={buttonRef}>
-                <button
+            <div className="nx-admin-actions nx-admin-action-button" ref={buttonRef}>
+                <a
                     className="nx-admin-three-dots"
                     title={__("Three Dots", "notificationx")}
                     onClick={ () => setAction(!action) }
-                >
-                    <span>{__("Three Dots", "notificationx")}</span>
-                </button>
+                >   
+                    <img src={threeDots} alt={'three-dots'} />
+                </a>
             </div>
             { action && 
                 <div className="nx-admin-actions nx-admin-actions-lists">
                     {/*  || item?.elementor_id */}
-                    <Link
-                        className="nx-admin-title-edit"
-                        title={__("Edit", "notificationx")}
-                        to={{
-                            pathname: "/admin.php",
-                            search: `?page=nx-edit&id=${id}`,
-                        }}
-                    >
-                        <span>{__("Edit", "notificationx")}</span>
-                    </Link>
-                    <a
-                        className={classNames("nx-admin-title-translate", {
-                            hidden: !nxContext?.can_translate,
-                        })}
-                        title={__("Translate", "notificationx")}
-                        href={`${ajaxurl}?action=nx-translate&id=${id}`}
-                    >
-                        <span>{__("Translate", "notificationx")}</span>
-                    </a>
-                    <Link
-                        className={classNames("nx-admin-title-duplicate", {
-                            hidden: nxContext?.createRedirect,
-                        })}
-                        title={__("Duplicate", "notificationx")}
-                        to={{
-                            pathname: "/admin.php",
-                            search: `?page=nx-edit`, //&clone=${id}
-                            state: { duplicate: true, _id: id },
-                        }}
-                    >
-                        <span>{__("Duplicate", "notificationx")}</span>
-                    </Link>
-                    {nxContext?.is_pro_active && item.source != "press_bar" && item.source != "flashing_tab" && item.themes !== 'woo_inline_stock-theme-one' && item.themes !== 'woocommerce_sales_inline_stock-theme-one' && item.themes !== 'woo_inline_stock-theme-two' && item.themes !== 'woocommerce_sales_inline_stock-theme-two' && (
-                        <button
-                            className="nx-admin-title-shortcode nx-shortcode-btn"
-                            title={__("Shortcode", "notificationx")}
-                            onClick={handleCopy}
-                        >
-                            <span>{__("ShortCode", "notificationx")}</span>
-                        </button>
-                    )}
-                    {!nxContext?.is_pro_active && item.source != "press_bar" && item.source != "flashing_tab" && item.themes !== 'woo_inline_stock-theme-one' && item.themes !== 'woocommerce_sales_inline_stock-theme-one' && item.themes !== 'woo_inline_stock-theme-two' && item.themes !== 'woocommerce_sales_inline_stock-theme-two' && (
-                        <CopyToClipboard
-                            className="nx-admin-title-shortcode nx-shortcode-btn"
-                            title={__("Shortcode", "notificationx")}
-                            text={`[notificationx_inline id=${id}]`}
-                            options={{ format: "text/plain" }}
-                            onCopy={() => {
-                                nxToast.info(
-                                    __(
-                                        `Inline Notification Alert has been copied to Clipboard.`,
-                                        "notificationx"
-                                    )
-                                );
-                            }}
-                        >
-                            <a></a>
-                        </CopyToClipboard>
-                    )}
-                    {!item?.elementor_id && item.source != "flashing_tab" && (
-                        <CopyToClipboard
-                            className="nx-admin-title-xss"
-                            title={__("Cross Domain Notice", "notificationx")}
-                            text={xssText}
-                            options={{ format: "text/plain" }}
-                            onCopy={onCopyXSS}
-                        >
-                            <a>{__("Cross Domain Notice", "notificationx")}</a>
-                        </CopyToClipboard>
-                    )}
-                    {/* <Link className="nx-admin-title-duplicate" title="Entries" to={`/entries/${id}`}><span>{__('Entries', 'notificationx')}</span></Link> */}
-                    {regenerate && (
-                        <button
-                            className="nx-admin-title-regenerate"
-                            onClick={handleRegenerate}
-                            title={__("Regenerate", "notificationx")}
-                        >
-                            <span>{__("Regenerate", "notificationx")}</span>
-                        </button>
-                    )}
-                    <button
-                        className={classNames("nx-admin-title-reset", {
-                            hidden: nxContext?.createRedirect,
-                        })}
-                        title={__("Reset", "notificationx")}
-                        onClick={ handleReset }
-                    >
-                        <span>{__("Reset", "notificationx")}</span>
-                    </button>
-                    <button
-                        className={classNames("nx-admin-title-trash", {
-                            hidden: nxContext?.createRedirect,
-                        })}
-                        title={__("Delete", "notificationx")}
-                        onClick={handleDelete}
-                    >
-                        <span>{__("Delete", "notificationx")}</span>
-                    </button>
+                     <ul id="nx-admin-actions-ul">
+                        <li>
+                            <Link
+                                className="nx-admin-title-edit"
+                                title={__("Edit", "notificationx")}
+                                to={{
+                                    pathname: "/admin.php",
+                                    search: `?page=nx-edit&id=${id}`,
+                                }}
+                            >
+                                <img src={editIcon} alt={'edit-icon'} />
+                                <span>{__("Edit", "notificationx")}</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <a
+                                className={classNames("nx-admin-title-translate", {
+                                    hidden: !nxContext?.can_translate,
+                                })}
+                                title={__("Translate", "notificationx")}
+                                href={`${ajaxurl}?action=nx-translate&id=${id}`}
+                            >
+                                <img src={translateIcon} alt={'translate-icon'} />
+                                <span>{__("Translate", "notificationx")}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <Link
+                                className={classNames("nx-admin-title-duplicate", {
+                                    hidden: nxContext?.createRedirect,
+                                })}
+                                title={__("Duplicate", "notificationx")}
+                                to={{
+                                    pathname: "/admin.php",
+                                    search: `?page=nx-edit`, //&clone=${id}
+                                    state: { duplicate: true, _id: id },
+                                }}
+                            >
+                                <img src={duplicateIcon} alt={'duplicate-icon'} />
+                                <span>{__("Duplicate", "notificationx")}</span>
+                            </Link>
+                        </li>
+                        <li>
+                            {nxContext?.is_pro_active && item.source != "press_bar" && item.source != "flashing_tab" && item.themes !== 'woo_inline_stock-theme-one' && item.themes !== 'woocommerce_sales_inline_stock-theme-one' && item.themes !== 'woo_inline_stock-theme-two' && item.themes !== 'woocommerce_sales_inline_stock-theme-two' && (
+                                <a
+                                    className="nx-admin-title-shortcode nx-shortcode-btn"
+                                    title={__("Shortcode", "notificationx")}
+                                    onClick={handleCopy}
+                                >
+                                    <img src={shortcodeIcon} alt={'shortcode-icon'} />
+                                    <span>{__("ShortCode", "notificationx")}</span>
+                                </a>
+                            )}
+                        </li>
+                        {!nxContext?.is_pro_active && item.source != "press_bar" && item.source != "flashing_tab" && item.themes !== 'woo_inline_stock-theme-one' && item.themes !== 'woocommerce_sales_inline_stock-theme-one' && item.themes !== 'woo_inline_stock-theme-two' && item.themes !== 'woocommerce_sales_inline_stock-theme-two' && (
+                            <li>
+                                <CopyToClipboard
+                                    className="nx-admin-title-shortcode nx-shortcode-btn"
+                                    title={__("Shortcode", "notificationx")}
+                                    text={`[notificationx_inline id=${id}]`}
+                                    options={{ format: "text/plain" }}
+                                    onCopy={() => {
+                                        nxToast.info(
+                                            __(
+                                                `Inline Notification Alert has been copied to Clipboard.`,
+                                                "notificationx"
+                                            )
+                                        );
+                                    }}
+                                >
+                                    <a></a>
+                                </CopyToClipboard>
+                            </li>
+                        )}
+                        <li>
+                            {!item?.elementor_id && item.source != "flashing_tab" && (
+                                <CopyToClipboard
+                                    className="nx-admin-title-xss"
+                                    title={__("Cross Domain Notice", "notificationx")}
+                                    text={xssText}
+                                    options={{ format: "text/plain" }}
+                                    onCopy={onCopyXSS}
+                                >
+                                    <a> <img src={xssIcon} alt={'cross-domain-notice'} /> {__("Cross Domain Notice", "notificationx")}</a>
+                                </CopyToClipboard>
+                            )}
+                        </li>
+                        <li>
+                            {/* <Link className="nx-admin-title-duplicate" title="Entries" to={`/entries/${id}`}><span>{__('Entries', 'notificationx')}</span></Link> */}
+                            {regenerate && (
+                                <Fragment>
+                                    <a
+                                        className="nx-admin-title-regenerate"
+                                        onClick={handleRegenerate}
+                                        title={__("Regenerate", "notificationx")}
+                                    >
+                                        <img src={regenerateIcon} alt={'regenerate-icon'} />
+                                        <span>{__("Regenerate", "notificationx")}</span>
+                                    </a>
+                                </Fragment>
+                            )}
+                        </li>
+                        <li>
+                            <a
+                                className={classNames("nx-admin-title-reset", {
+                                    hidden: nxContext?.createRedirect,
+                                })}
+                                title={__("Reset", "notificationx")}
+                                onClick={ handleReset }
+                            >
+                                <img src={refreshIcon} alt={'reset-icon'} />
+                                <span>{__("Reset", "notificationx")}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                className={classNames("nx-admin-title-trash", {
+                                    hidden: nxContext?.createRedirect,
+                                })}
+                                title={__("Delete", "notificationx")}
+                                onClick={handleDelete}
+                            >
+                                <img src={deleteIcon} alt={'delete-icon'} />
+                                <span>{__("Delete", "notificationx")}</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>  
             }
         </div>
