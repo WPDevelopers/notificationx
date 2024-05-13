@@ -329,8 +329,8 @@ const SingleNotificationAction = ({
                                 <span>{__("Duplicate", "notificationx")}</span>
                             </Link>
                         </li>
-                        <li>
-                            {nxContext?.is_pro_active && item.source != "press_bar" && item.source != "flashing_tab" && item.themes !== 'woo_inline_stock-theme-one' && item.themes !== 'woocommerce_sales_inline_stock-theme-one' && item.themes !== 'woo_inline_stock-theme-two' && item.themes !== 'woocommerce_sales_inline_stock-theme-two' && (
+                        {nxContext?.is_pro_active && item.source != "press_bar" && item.source != "flashing_tab" && item.themes !== 'woo_inline_stock-theme-one' && item.themes !== 'woocommerce_sales_inline_stock-theme-one' && item.themes !== 'woo_inline_stock-theme-two' && item.themes !== 'woocommerce_sales_inline_stock-theme-two' && (
+                            <li>
                                 <a
                                     className="nx-admin-title-shortcode nx-shortcode-btn"
                                     title={__("Shortcode", "notificationx")}
@@ -339,8 +339,8 @@ const SingleNotificationAction = ({
                                     <img src={shortcodeIcon} alt={'shortcode-icon'} />
                                     <span>{__("ShortCode", "notificationx")}</span>
                                 </a>
-                            )}
-                        </li>
+                            </li>
+                         )}
                         {!nxContext?.is_pro_active && item.source != "press_bar" && item.source != "flashing_tab" && item.themes !== 'woo_inline_stock-theme-one' && item.themes !== 'woocommerce_sales_inline_stock-theme-one' && item.themes !== 'woo_inline_stock-theme-two' && item.themes !== 'woocommerce_sales_inline_stock-theme-two' && (
                             <li>
                                 <CopyToClipboard
@@ -357,7 +357,7 @@ const SingleNotificationAction = ({
                                         );
                                     }}
                                 >
-                                    <a></a>
+                                    <a><img src={shortcodeIcon} alt={'shortcode-icon'} />{ __('Shortcode', 'notificationx') }</a>
                                 </CopyToClipboard>
                             </li>
                         )}
