@@ -71,6 +71,14 @@
         .nx-bulk-action-wrapper {
             display: flex;
             flex-wrap: wrap;
+            .nx-search-input {
+                width: 250px;
+                height: 40px;
+                border: 2px solid #e9e8fe;
+                &:focus {
+                    border: none;
+                }
+            }
             .bulk-action-select {
                 height: 40px;
                 .components-input-control__container {

@@ -150,26 +150,32 @@ class Posts extends WP_REST_Controller {
      * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
      */
     public function get_items($request) {
-        $params     = $request->get_params();
-        $status     = !empty($params['status']) ? $params['status'] : "all";
-        $page       = !empty($params['page']) ? absint( $params['page'] ) : 1;
-        $per_page   = !empty($params['per_page']) ? absint( $params['per_page'] ) : 20;
-        $start_from = ($page - 1) * $per_page;
-        $limit      = "ORDER BY a.updated_at DESC LIMIT $start_from, $per_page";
-        $where      = [];
+        $params         = $request->get_params();
+        $status         = !empty($params['status']) ? $params['status'] : "all";
+        $page           = !empty($params['page']) ? absint( $params['page'] ) : 1;
+        $per_page       = !empty($params['per_page']) ? absint( $params['per_page'] ) : 20;
+        $search_keyword = !empty($params['s']) ? $params['s'] : '';
+        $start_from     = ($page - 1) * $per_page;
+        $limit          = "ORDER BY a.updated_at DESC LIMIT $start_from, $per_page";
 
-        if($status == 'enabled' || $status == 'disabled'){
+        $where = [];
+        if ($status == 'enabled' || $status == 'disabled') {
             $where['enabled'] = $status == 'enabled' ? true : false;
         }
-        $total_posts = Database::get_instance()->get_post(Database::$table_posts, [], 'count(*) AS total');
-        $enabled     = Database::get_instance()->get_post(Database::$table_posts, ['enabled' => true], 'count(*) AS total');
-        $disabled    = Database::get_instance()->get_post(Database::$table_posts, ['enabled' => false], 'count(*) AS total');
+        if (!empty($search_keyword)) {
+            $where['title'] = $search_keyword;
+        }
+
+        $total_posts    = Database::get_instance()->get_post(Database::$table_posts, [], 'count(*) AS total');
+        $enabled        = Database::get_instance()->get_post(Database::$table_posts, ['enabled' => true], 'count(*) AS total');
+        $disabled       = Database::get_instance()->get_post(Database::$table_posts, ['enabled' => false], 'count(*) AS total');
 
         return [
-            'total'    => $total_posts['total'],
-            'enabled'  => $enabled['total'],
-            'disabled' => $disabled['total'],
-            'posts'    => PostType::get_instance()->get_post_with_analytics($where, $limit),
+            'total'          => $total_posts['total'],
+            'enabled'        => $enabled['total'],
+            'disabled'       => $disabled['total'],
+            'search_keyword' => $search_keyword,
+            'posts'          => PostType::get_instance()->get_post_with_analytics($where, $limit),
         ];
     }
 

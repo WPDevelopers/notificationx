@@ -19,6 +19,7 @@ const NotificationXItemsMenu = ({
     setCheckAll,
     setReload,
     setCurrentPage,
+    setFilteredNotice,
 }) => {
     const builderContext = useNotificationXContext();
     const [loading, setLoading] = useState(false);
@@ -255,6 +256,28 @@ const NotificationXItemsMenu = ({
             });
     };
 
+    // filter notification based on title & type
+    const filterNotification = (event) => {
+        console.log(event.target.value);
+        const controller = typeof AbortController === 'undefined' ? undefined : new AbortController();
+        nxHelper
+            .get(`nx?s=${event.target.value}`,
+                { signal: controller?.signal }
+            )
+            .then((res: any) => {
+                setFilteredNotice(res.posts);
+                if(controller?.signal?.aborted){
+                    return;
+                }
+            }).catch(err => {
+                console.error(__('NotificationX Fetch Error: ', 'notificationx'), err);
+            });
+
+        return () => {
+            controller?.abort();
+        }
+    }
+
     return (
         <div className="nx-admin-menu">
             <ul>
@@ -278,6 +301,7 @@ const NotificationXItemsMenu = ({
                 </li>
             </ul>
             <div className="nx-bulk-action-wrapper">
+                <input type="text" className="nx-search-input" onChange={ (event) => filterNotification(event) } />
                 <Select
                     name="bulk-action"
                     className="bulk-action-select"
