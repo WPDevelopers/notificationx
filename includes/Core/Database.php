@@ -9,6 +9,7 @@
 namespace NotificationX\Core;
 
 use NotificationX\GetInstance;
+use WPDeveloper\QueryBuilder\Query as QueryBuilder;
 
 /**
  * Database Class
@@ -32,6 +33,7 @@ class Database {
     public static $table_entries;
     public static $table_posts;
     public static $table_stats;
+    protected static $query;
 
     /**
      * Initially Invoked when initialized.
@@ -44,6 +46,12 @@ class Database {
         self::$table_stats   = $wpdb->prefix . 'nx_stats';
     }
 
+    public static function query() {
+        if (!isset(self::$query)) {
+            self::$query = QueryBuilder::init();
+        }
+        return self::$query;
+    }
 
     public function Create_DB() {
         $charset_collate = $this->wpdb->get_charset_collate();

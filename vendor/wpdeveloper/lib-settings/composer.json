@@ -1,9 +1,9 @@
 {
-  "name": "udx/lib-settings",
+  "name": "wpdeveloper/lib-settings",
   "keywords": [ "settings" ],
   "type": "library",
   "require": {
-    "udx/lib-utility": "~0.3"
+    "wpdeveloper/lib-utility": "dev-master"
   },
   "require-dev": {
     "justinrainbow/json-schema": "1.1.*"
@@ -11,8 +11,8 @@
   "minimum-stability": "dev",
   "repositories": [
     {
-      "type": "composer",
-      "url": "https://repository.usabilitydynamics.com"
+      "type": "vcs",
+      "url": "https://github.com/WPDevelopers/lib-utility"
     }
   ],
   "autoload": {
