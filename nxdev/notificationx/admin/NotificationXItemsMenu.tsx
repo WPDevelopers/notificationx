@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import NavLink from "../components/NavLink";
 import nxHelper from "../core/functions";
 import { useNotificationXContext } from "../hooks";
@@ -7,6 +7,7 @@ import nxToast from "../core/ToasterMsg";
 import { sprintf, _n, __ } from "@wordpress/i18n";
 import copy from "copy-to-clipboard";
 import { downloadFile } from "quickbuilder";
+import debounce from 'lodash/debounce';
 
 const NotificationXItemsMenu = ({
     notificationx,
@@ -24,6 +25,9 @@ const NotificationXItemsMenu = ({
     const builderContext = useNotificationXContext();
     const [loading, setLoading] = useState(false);
     const defaultOption = { value: "", label: __("Bulk Action", 'notificationx'), isDisabled: true };
+    const [searchTerm, setSearchTerm] = useState('');
+    const searchInputRef = useRef(null);
+
     const [action, setAction] = useState<{
         label: string;
         value: string;
@@ -256,26 +260,34 @@ const NotificationXItemsMenu = ({
             });
     };
 
-    // filter notification based on title & type
-    const filterNotification = (event) => {
-        console.log(event.target.value);
+    // Debounce logic
+    const getSearchResult = async (term) => {
         const controller = typeof AbortController === 'undefined' ? undefined : new AbortController();
         nxHelper
-            .get(`nx?s=${event.target.value}`,
-                { signal: controller?.signal }
-            )
-            .then((res: any) => {
-                setFilteredNotice(res.posts);
-                if(controller?.signal?.aborted){
-                    return;
-                }
-            }).catch(err => {
-                console.error(__('NotificationX Fetch Error: ', 'notificationx'), err);
-            });
+        .get(`nx?s=${term}`,
+            { signal: controller?.signal }
+        )
+        .then((res: any) => {
+            setFilteredNotice(res.posts);
+            if(controller?.signal?.aborted){
+                return;
+            }
+        }).catch(err => {
+            console.error(__('NotificationX Fetch Error: ', 'notificationx'), err);
+        });
+    }
 
-        return () => {
-            controller?.abort();
-        }
+     // Debounced function
+     const setDebounceSearchTerm = useCallback(
+        debounce((debounceSearchTerm) => getSearchResult(debounceSearchTerm), 400),
+        [],
+    );
+
+    // filter notification based on title & type
+    const filterNotification = (event) => {
+        const term = event.target.value;
+        setSearchTerm(term);
+        setDebounceSearchTerm(term);
     }
 
     return (
@@ -301,7 +313,7 @@ const NotificationXItemsMenu = ({
                 </li>
             </ul>
             <div className="nx-bulk-action-wrapper">
-                <input type="text" className="nx-search-input" onChange={ (event) => filterNotification(event) } />
+                <input type="text" className="nx-search-input" ref={searchInputRef} placeholder={'Search...'} value={searchTerm} onChange={ (event) => filterNotification(event) } />
                 <Select
                     name="bulk-action"
                     className="bulk-action-select"
