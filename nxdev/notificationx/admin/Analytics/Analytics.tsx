@@ -235,7 +235,6 @@ const Analytics = (props) => {
             <Header addNew={true} />
             <AnalyticsHeader
                 assetsURL={builderContext.assets}
-                analytics={...builderContext?.analytics}
             />
             {builderContext?.is_pro_active && (
                 <WrapperWithLoader isLoading={isLoading} div={false}>

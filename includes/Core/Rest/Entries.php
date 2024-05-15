@@ -66,6 +66,21 @@ class Entries {
                 ),
             ),
         ));
+
+        // Reset Notices
+		register_rest_route($this->namespace, '/reset/(?P<nx_id>[0-9]+)', array(
+            array(
+                'methods'             => WP_REST_Server::READABLE,
+                'callback'            => array($this, 'reset'),
+                'permission_callback' => array($this, 'check_permission'),
+                'args'                => array(
+                    'nx_id' => array(
+                        'description' => __( 'Unique identifier for the object.', 'notificationx' ),
+                        'type'        => 'integer',
+                    ),
+                ),
+            ),
+        ));
     }
 
     /**
@@ -79,6 +94,18 @@ class Entries {
         Admin::get_instance()->regenerate_notifications($params);
         wp_send_json_success();
         // return new \WP_Error('cant-update', __('message', 'notificationx'), array('status' => 500));
+    }
+
+    /**
+     * Reset analytics based on notification id
+     *
+     * @param \WP_REST_Request $request Full data about the request.
+     * @return \WP_Error|\WP_REST_Response
+     */
+    public function reset($request) {
+        $params = $request->get_params();
+        $updated_analytics = Admin::get_instance()->reset_notifications($params);
+        wp_send_json_success($updated_analytics, 200);
     }
 
 

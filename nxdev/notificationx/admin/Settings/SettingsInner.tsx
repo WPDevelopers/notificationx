@@ -87,7 +87,7 @@ const SettingsInner = (props) => {
     return (
         <div>
             <Header addNew={true} />
-            {builder?.analytics && <AnalyticsHeader assetsURL={builder.assets} analytics={{ ...builder?.analytics }} />}
+            {builder?.analytics && <AnalyticsHeader assetsURL={builder.assets} />}
             <div className="nx-settings">
                 <div className="nx-settings-content">
                     <div className="nx-settings-form-wrapper">
