@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import NavLink from "../components/NavLink";
 import nxHelper from "../core/functions";
 import { useNotificationXContext } from "../hooks";
@@ -8,6 +8,7 @@ import { sprintf, _n, __ } from "@wordpress/i18n";
 import copy from "copy-to-clipboard";
 import { downloadFile } from "quickbuilder";
 import debounce from 'lodash/debounce';
+import searchIcon from '../icons/searchIcon.svg';
 
 const NotificationXItemsMenu = ({
     notificationx,
@@ -283,12 +284,32 @@ const NotificationXItemsMenu = ({
         [],
     );
 
-    // filter notification based on title & type
+    // filter notification based on title
     const filterNotification = (event) => {
         const term = event.target.value;
         setSearchTerm(term);
         setDebounceSearchTerm(term);
     }
+
+    useEffect(() => {
+        let inputBox = document.querySelector(".input-box");
+        let searchButton = document.querySelector(".icon");
+        function handleClickOutside(event) {
+            if (!inputBox.contains(event.target) && !searchButton.contains(event.target) && !searchInputRef.current.value) {
+                inputBox.classList.remove("open");
+                window.removeEventListener('click', handleClickOutside);
+            }
+        }
+        searchButton.addEventListener("click", (event) => {
+            event.stopPropagation();
+            inputBox.classList.toggle("open");
+            window.addEventListener('click', handleClickOutside);
+        });
+        return () => {
+            window.removeEventListener('click', handleClickOutside);
+        };
+
+    }, [])
 
     return (
         <div className="nx-admin-menu">
@@ -313,7 +334,15 @@ const NotificationXItemsMenu = ({
                 </li>
             </ul>
             <div className="nx-bulk-action-wrapper">
-                <input type="text" className="nx-search-input" ref={searchInputRef} placeholder={'Search...'} value={searchTerm} onChange={ (event) => filterNotification(event) } />
+                <div id="nx-search-wrapper" className="nx-search-wrapper">
+                    <div className="input-box">
+                        <input type="text" className="nx-search-input" ref={searchInputRef} placeholder={'Search...'} value={searchTerm} onChange={ (event) => filterNotification(event) } />
+                        <span className="icon input-search-icon">
+                            <img src={searchIcon} alt={'search-icon'} />
+                        </span>
+                        <i className="uil uil-times close-icon"></i>
+                    </div>
+                </div>
                 <Select
                     name="bulk-action"
                     className="bulk-action-select"
