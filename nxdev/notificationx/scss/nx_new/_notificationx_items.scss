@@ -75,7 +75,7 @@
                 display: flex;
                 justify-content: end;
                 overflow: hidden;
-                width: 250px;
+                width: 300px;
                 .input-box {
                     position: relative;
                     height: 40px;
@@ -84,7 +84,7 @@
                     margin-right: 10px;
                     border-radius: 6px;
                     background-color: #fff;
-                    transition: all 0.6s ease;
+                    transition: all 0.6s;
                     &:not(.open) {
                         width: 20px;
                         background-color: transparent;
@@ -95,7 +95,10 @@
                     }
                 }
                 .input-box.open {
-                    max-width: 350px;
+                    max-width: 280px;
+                   .icon {
+                    border-radius: 0 6px 6px 0;
+                   } 
                 }
                 input {
                     position: relative;
@@ -109,20 +112,29 @@
                     color: #333;
                     background-color: #fff;
                     padding-left: 12px;
+                    margin: 0;
+                    border: 2px solid #e9e8fe;
+                    transform: translateX(-5px);
                     &:focus {
                         box-shadow: none;
+                    }
+                    &::placeholder {
+                        font-size: 13px;
+                        font-family: "DM Sans", sans-serif;
                     }
                 }
                 .icon {
                     position: absolute;
-                    height: 38px;
-                    top: 1px;
-                    right: 0;
+                    height: 36px;
+                    top: 0;
+                    right: -1px;
                     width: 40px;
                     border-radius: 6px;
                     display: flex;
                     justify-content: center;
                     background-color: #efeffe;
+                    border: 2px solid #e9e8fe;
+                    cursor: pointer;
                 }
                 .input-search-icon img{
                     width: 18px;
@@ -336,9 +348,10 @@
                     }
                     & > td:last-child {
                         border-top-right-radius: 10px;
-                        width: 175px;
+                        width: 100px;
+                        text-align: center;
                         @media only screen and (max-width: 782px) {
-                            width: 175px !important;
+                            width: 100px !important;
                         }
                     }
                 }
@@ -437,6 +450,7 @@
         }
         .nx-admin-actions-wrapper {
             position: relative;
+            text-align: center;
         }
         .nx-admin-three-dots {
             cursor: pointer;
@@ -459,7 +473,7 @@
             box-shadow: 0px 0 14px 0px rgba(0,0,0,0.2);
             margin: 0;
             top: -10px;
-            left: -15px;
+            left: 40px;
             ul {
                 margin: 0;
                 padding: 8px 0;
