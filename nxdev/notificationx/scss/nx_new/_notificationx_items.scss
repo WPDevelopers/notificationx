@@ -111,7 +111,7 @@
                     font-weight: 400;
                     color: #333;
                     background-color: #fff;
-                    padding-left: 12px;
+                    padding: 0 44px 0 8px;
                     margin: 0;
                     border: 2px solid #e9e8fe;
                     transform: translateX(-5px);
@@ -457,7 +457,7 @@
         }
         .nx-admin-action-button {
             a {
-                padding: 10px 10px 2px;
+                padding: 12px 8px 2px;
                 background-color: #efeffe;
                 line-height: 0;
                 border: 1px solid #e9e8fe;

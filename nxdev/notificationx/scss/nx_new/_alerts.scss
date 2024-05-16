@@ -77,11 +77,11 @@
     }
     &.nx-delete-actions {
         button.swal2-cancel {
-            background-color: #6a4bff;
+            background-color: #6a4bff !important;
             color: #fff;
         }
         button.swal2-confirm {
-            background-color: #d14529;
+            background-color: #d14529 !important;
             color: #fff;
         }
     }

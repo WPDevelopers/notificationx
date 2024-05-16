@@ -1,6 +1,6 @@
 import React, { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { sprintf, __ } from "@wordpress/i18n";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import nxHelper, { proAlert } from "../core/functions";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useNotificationXContext } from "../hooks";
@@ -32,8 +32,7 @@ const SingleNotificationAction = ({
 }) => {
     const nxContext = useNotificationXContext();
     const [action, setAction] = useState(false);
-    const buttonRef = useRef(null);
-
+    const buttonRef = useRef(null);    
     let xssText = null;
     if (nxContext?.is_pro_active) {
         let xss_id = {};
@@ -229,7 +228,7 @@ const SingleNotificationAction = ({
                 "Reset will delete All analytics report based on this notification",
                 "notificationx"
             ),
-            iconHtml: `<img alt="NotificationX" src="${nxContext.assets.admin}images/regenerate.svg" style="height: 85px; width:85px" />`,
+            iconHtml: `<img alt="NotificationX" src="${refreshIcon}" style="height: 85px; width:85px" />`,
             showCancelButton: true,
             iconColor: "transparent",
             confirmButtonText: __("Reset", "notificationx"),
@@ -273,6 +272,19 @@ const SingleNotificationAction = ({
         };
     }, []);
 
+    const handleWPMLRedirection = (event) => {        
+        if( !nxContext.settings.is_wpml_active ) {
+            nxToast.warning(
+                __(
+                    `You need to Install and Activate WPML first to use this feature.`,
+                    "notificationx"
+                )
+            );
+        }else{
+            window.open(`${ajaxurl}?action=nx-translate&id=${id}`);
+        }
+    }
+
     return (
         <div className="nx-admin-actions-wrapper">
             <div className="nx-admin-actions nx-admin-action-button" ref={buttonRef}>
@@ -307,7 +319,7 @@ const SingleNotificationAction = ({
                                     hidden: !nxContext?.can_translate,
                                 })}
                                 title={__("Translate", "notificationx")}
-                                href={`${ajaxurl}?action=nx-translate&id=${id}`}
+                                onClick={ handleWPMLRedirection }
                             >
                                 <img src={translateIcon} alt={'translate-icon'} />
                                 <span>{__("Translate", "notificationx")}</span>

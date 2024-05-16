@@ -114,6 +114,7 @@ class Settings extends UsabilityDynamicsSettings {
             'tabnumber'     => true,
             'layout'        => 'horizontal',
             'is_pro_active' => NotificationX::get_instance()->is_pro(),
+            'is_wpml_active'=> did_action('wpml_loaded') ? true : false,
             'config'        => [
                 'active'  => 'tab-general',
                 'sidebar' => false,
