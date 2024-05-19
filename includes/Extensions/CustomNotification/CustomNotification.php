@@ -62,6 +62,8 @@ class CustomNotification extends Extension {
         $custom['reviews']     = $this->get_themes_for_type('reviews');
         $custom['stats']       = $this->get_themes_for_type('download_stats');
         $custom['subs']        = $this->get_themes_for_type('email_subscription');
+        $custom['custom']      = ['custom_notification_custom-nx-theme-1'];
+        // $custom['custom']      = $this->get_themes_for_type('custom_notification');
         return $custom;
     }
 
