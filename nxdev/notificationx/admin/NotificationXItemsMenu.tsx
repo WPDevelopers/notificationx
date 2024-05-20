@@ -309,6 +309,7 @@ const NotificationXItemsMenu = ({
     useEffect(() => {
         let inputBox = document.querySelector(".input-box");
         let searchButton = document.querySelector(".icon");
+        let searchInput = document.getElementById("search_input");
         function handleClickOutside(event) {
             if (!inputBox.contains(event.target) && !searchButton.contains(event.target) && !searchInputRef.current.value) {
                 inputBox.classList.remove("open");
@@ -318,6 +319,7 @@ const NotificationXItemsMenu = ({
         searchButton.addEventListener("click", (event) => {
             event.stopPropagation();
             inputBox.classList.toggle("open");
+            searchInput.focus();
             window.addEventListener('click', handleClickOutside);
         });
         return () => {
@@ -351,7 +353,7 @@ const NotificationXItemsMenu = ({
             <div className="nx-bulk-action-wrapper">
                 <div id="nx-search-wrapper" className="nx-search-wrapper">
                     <div className="input-box">
-                        <input type="text" className="nx-search-input" ref={searchInputRef} placeholder={'Search...'} value={searchTerm} onChange={ (event) => filterNotification(event) } />
+                        <input type="text" id="search_input" className="nx-search-input" ref={searchInputRef} placeholder={'Search...'} value={searchTerm} onChange={ (event) => filterNotification(event) } />
                         <span className="icon input-search-icon">
                             <img src={searchIcon} alt={'search-icon'} />
                         </span>

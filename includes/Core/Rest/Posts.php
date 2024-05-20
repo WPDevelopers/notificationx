@@ -160,7 +160,13 @@ class Posts extends WP_REST_Controller {
         if ($status !== 'all') {
             $query->where('enabled', $status == 'enabled' ? true : false);
         }
-        $query->where('title', 'LIKE', '%' . $search_keyword . '%');
+        if( $search_keyword ) {
+            $query->where(function($query) use ($search_keyword) {
+                $query->where('title', 'LIKE', '%' . $search_keyword . '%')
+                      ->orWhere( 'a.nx_id', 'LIKE', '%'. $search_keyword . '%' );
+            });
+        }
+        
         $query->offset($start_from)
                 ->limit($per_page);
         $posts = $query->get();
