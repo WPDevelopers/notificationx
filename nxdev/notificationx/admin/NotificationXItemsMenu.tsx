@@ -355,7 +355,6 @@ const NotificationXItemsMenu = ({
                         <span className="icon input-search-icon">
                             <img src={searchIcon} alt={'search-icon'} />
                         </span>
-                        <i className="uil uil-times close-icon"></i>
                     </div>
                 </div>
                 <Select
