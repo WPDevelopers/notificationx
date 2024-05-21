@@ -225,7 +225,7 @@ const SingleNotificationAction = ({
         nxHelper.swal({
             title: __("Are you sure you want to Reset?", "notificationx"),
             text: __(
-                "Reset will delete All analytics report based on this notification",
+                "Reset will delete All analytics report for this notification",
                 "notificationx"
             ),
             iconHtml: `<img alt="NotificationX" src="${refreshIcon}" style="height: 85px; width:85px" />`,
