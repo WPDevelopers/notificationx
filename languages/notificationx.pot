@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 2.8.6\n"
+"Project-Id-Version: NotificationX 2.8.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-24T10:34:32+00:00\n"
+"POT-Creation-Date: 2024-05-21T04:35:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: notificationx\n"
@@ -18,7 +18,7 @@ msgstr ""
 #: includes/Admin/Settings.php:109
 #: includes/Core/QuickBuild.php:114
 #: includes/Extensions/GlobalFields.php:48
-#: assets/admin/js/admin.js:12
+#: assets/admin/js/admin.js:14
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 #: nxdev/notificationx/frontend/themes/helpers/NotificationText.js:13
@@ -46,47 +46,47 @@ msgid "There is no data in this notification."
 msgstr ""
 
 #: includes/Admin/Admin.php:108
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "All NotificationX"
 msgstr ""
 
-#: includes/Admin/Admin.php:179
+#: includes/Admin/Admin.php:199
 msgid "We hope you're enjoying NotificationX! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?"
 msgstr ""
 
-#: includes/Admin/Admin.php:184
+#: includes/Admin/Admin.php:204
 msgid "Ok, you deserve it!"
 msgstr ""
 
-#: includes/Admin/Admin.php:188
+#: includes/Admin/Admin.php:208
 msgid "I already did"
 msgstr ""
 
-#: includes/Admin/Admin.php:195
+#: includes/Admin/Admin.php:215
 msgid "Maybe Later"
 msgstr ""
 
-#: includes/Admin/Admin.php:203
+#: includes/Admin/Admin.php:223
 msgid "I need help"
 msgstr ""
 
-#: includes/Admin/Admin.php:207
+#: includes/Admin/Admin.php:227
 msgid "Never show again"
 msgstr ""
 
-#: includes/Admin/Admin.php:240
+#: includes/Admin/Admin.php:260
 msgid "<p><strong>Black Friday Exclusive:</strong> SAVE up to 40% & access to <strong>NotificationX Pro</strong> features.</p>"
 msgstr ""
 
-#: includes/Admin/Admin.php:240
+#: includes/Admin/Admin.php:260
 msgid "Grab The Offer"
 msgstr ""
 
-#: includes/Admin/Admin.php:288
+#: includes/Admin/Admin.php:308
 msgid "Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage."
 msgstr ""
 
-#: includes/Admin/Admin.php:289
+#: includes/Admin/Admin.php:309
 msgid ""
 "We collect non-sensitive diagnostic data and plugin usage information.\n"
 "\t\t\tYour site URL, WordPress & PHP version, plugins & themes and email address to send you the\n"
@@ -113,7 +113,7 @@ msgid "Export Notifications"
 msgstr ""
 
 #: includes/Admin/ImportExport.php:63
-#: includes/Admin/Settings.php:268
+#: includes/Admin/Settings.php:269
 #: includes/Core/Analytics.php:46
 #: assets/admin/js/admin.js:1
 msgid "Analytics"
@@ -198,17 +198,17 @@ msgid "You have to enable Reporting first."
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:219
-#: includes/Admin/Settings.php:335
+#: includes/Admin/Settings.php:336
 msgid "Once Weekly"
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:223
-#: includes/Admin/Settings.php:334
+#: includes/Admin/Settings.php:335
 msgid "Once Daily"
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:227
-#: includes/Admin/Settings.php:336
+#: includes/Admin/Settings.php:337
 msgid "Once Monthly"
 msgstr ""
 
@@ -224,233 +224,233 @@ msgstr ""
 msgid "No email found."
 msgstr ""
 
-#: includes/Admin/Settings.php:124
+#: includes/Admin/Settings.php:125
 msgid "Save Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:130
-#: includes/Admin/Settings.php:165
+#: includes/Admin/Settings.php:131
+#: includes/Admin/Settings.php:166
 msgid "General"
 msgstr ""
 
-#: includes/Admin/Settings.php:135
+#: includes/Admin/Settings.php:136
 msgid "Modules"
 msgstr ""
 
-#: includes/Admin/Settings.php:158
+#: includes/Admin/Settings.php:159
 msgid "Advanced Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:171
+#: includes/Admin/Settings.php:172
 msgid "Enable REST API"
 msgstr ""
 
-#: includes/Admin/Settings.php:174
+#: includes/Admin/Settings.php:175
 msgid "Forcefully enable anonymous REST API for NotificationX."
 msgstr ""
 
-#: includes/Admin/Settings.php:179
+#: includes/Admin/Settings.php:180
 msgid "Exclude Credentials"
 msgstr ""
 
-#: includes/Admin/Settings.php:182
+#: includes/Admin/Settings.php:183
 msgid "Enabling it will remove cookies, HTTP authentication entries, and TLS client certificates from API calls on the frontend."
 msgstr ""
 
-#: includes/Admin/Settings.php:183
+#: includes/Admin/Settings.php:184
 msgid "Note: Recommended if you use any caching plugins."
 msgstr ""
 
-#: includes/Admin/Settings.php:189
+#: includes/Admin/Settings.php:190
 msgid "Powered By"
 msgstr ""
 
-#: includes/Admin/Settings.php:195
+#: includes/Admin/Settings.php:196
 msgid "Disable Powered By"
 msgstr ""
 
-#: includes/Admin/Settings.php:199
+#: includes/Admin/Settings.php:200
 msgid "Click, if you want to disable powered by text from notification"
 msgstr ""
 
-#: includes/Admin/Settings.php:206
+#: includes/Admin/Settings.php:207
 msgid "Role Management"
 msgstr ""
 
-#: includes/Admin/Settings.php:212
+#: includes/Admin/Settings.php:213
 msgid "Who Can View Notification?"
 msgstr ""
 
-#: includes/Admin/Settings.php:223
+#: includes/Admin/Settings.php:224
 msgid "Who Can Create Notification?"
 msgstr ""
 
-#: includes/Admin/Settings.php:234
+#: includes/Admin/Settings.php:235
 msgid "Who Can Edit Settings?"
 msgstr ""
 
-#: includes/Admin/Settings.php:245
+#: includes/Admin/Settings.php:246
 msgid "Who Can Check Analytics?"
 msgstr ""
 
-#: includes/Admin/Settings.php:259
+#: includes/Admin/Settings.php:260
 msgid "Analytics & Reporting"
 msgstr ""
 
-#: includes/Admin/Settings.php:273
+#: includes/Admin/Settings.php:274
 msgid "Enable Analytics"
 msgstr ""
 
-#: includes/Admin/Settings.php:280
+#: includes/Admin/Settings.php:281
 msgid "Disable Dashboard Widget"
 msgstr ""
 
-#: includes/Admin/Settings.php:283
+#: includes/Admin/Settings.php:284
 msgid "Click, if you want to disable dashboard widget of analytics only."
 msgstr ""
 
-#: includes/Admin/Settings.php:289
+#: includes/Admin/Settings.php:290
 msgid "Analytics From"
 msgstr ""
 
-#: includes/Admin/Settings.php:291
+#: includes/Admin/Settings.php:292
 #: includes/Extensions/GlobalFields.php:993
 msgid "Everyone"
 msgstr ""
 
-#: includes/Admin/Settings.php:292
+#: includes/Admin/Settings.php:293
 msgid "Guests Only"
 msgstr ""
 
-#: includes/Admin/Settings.php:293
+#: includes/Admin/Settings.php:294
 msgid "Registered Users Only"
 msgstr ""
 
-#: includes/Admin/Settings.php:303
+#: includes/Admin/Settings.php:304
 msgid "Exclude Bot Analytics"
 msgstr ""
 
-#: includes/Admin/Settings.php:306
+#: includes/Admin/Settings.php:307
 msgid "Select if you want to exclude bot analytics."
 msgstr ""
 
-#: includes/Admin/Settings.php:315
+#: includes/Admin/Settings.php:316
 msgid "Reporting"
 msgstr ""
 
-#: includes/Admin/Settings.php:320
+#: includes/Admin/Settings.php:321
 msgid "Disable Reporting"
 msgstr ""
 
-#: includes/Admin/Settings.php:328
+#: includes/Admin/Settings.php:329
 msgid "Reporting Frequency"
 msgstr ""
 
-#: includes/Admin/Settings.php:346
+#: includes/Admin/Settings.php:347
 msgid "It will be triggered on the first day of next month."
 msgstr ""
 
-#: includes/Admin/Settings.php:352
+#: includes/Admin/Settings.php:353
 msgid "Select Reporting Day"
 msgstr ""
 
-#: includes/Admin/Settings.php:356
+#: includes/Admin/Settings.php:357
 msgid "Sunday"
 msgstr ""
 
-#: includes/Admin/Settings.php:357
+#: includes/Admin/Settings.php:358
 msgid "Monday"
 msgstr ""
 
-#: includes/Admin/Settings.php:358
+#: includes/Admin/Settings.php:359
 msgid "Tuesday"
 msgstr ""
 
-#: includes/Admin/Settings.php:359
+#: includes/Admin/Settings.php:360
 msgid "Wednesday"
 msgstr ""
 
-#: includes/Admin/Settings.php:360
+#: includes/Admin/Settings.php:361
 msgid "Thursday"
 msgstr ""
 
-#: includes/Admin/Settings.php:361
+#: includes/Admin/Settings.php:362
 msgid "Friday"
 msgstr ""
 
-#: includes/Admin/Settings.php:364
+#: includes/Admin/Settings.php:365
 msgid "Select a day for email report."
 msgstr ""
 
-#: includes/Admin/Settings.php:374
+#: includes/Admin/Settings.php:375
 msgid "Reporting Email"
 msgstr ""
 
-#: includes/Admin/Settings.php:382
+#: includes/Admin/Settings.php:383
 msgid "Reporting Email Subject"
 msgstr ""
 
-#: includes/Admin/Settings.php:390
+#: includes/Admin/Settings.php:391
 msgid "Reporting Test"
 msgstr ""
 
-#: includes/Admin/Settings.php:391
+#: includes/Admin/Settings.php:392
 msgid "Test Report"
 msgstr ""
 
-#: includes/Admin/Settings.php:406
+#: includes/Admin/Settings.php:407
 msgid "Successfully Sent a Test Report in Your Email."
 msgstr ""
 
-#: includes/Admin/Settings.php:419
-#: includes/Admin/Settings.php:425
+#: includes/Admin/Settings.php:420
+#: includes/Admin/Settings.php:426
 msgid "Cache Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:431
+#: includes/Admin/Settings.php:432
 msgid "Cache Limit"
 msgstr ""
 
-#: includes/Admin/Settings.php:432
+#: includes/Admin/Settings.php:433
 msgid "Number of Notification Data to be saved in Database."
 msgstr ""
 
-#: includes/Admin/Settings.php:439
+#: includes/Admin/Settings.php:440
 msgid "Download Stats Cache Duration"
 msgstr ""
 
-#: includes/Admin/Settings.php:440
-#: includes/Admin/Settings.php:448
+#: includes/Admin/Settings.php:441
+#: includes/Admin/Settings.php:449
 msgid "Minutes (Schedule Duration to fetch new data)."
 msgstr ""
 
-#: includes/Admin/Settings.php:447
+#: includes/Admin/Settings.php:448
 msgid "Reviews Cache Duration"
 msgstr ""
 
-#: includes/Admin/Settings.php:459
+#: includes/Admin/Settings.php:460
 msgid "Miscellaneous"
 msgstr ""
 
-#: includes/Admin/Settings.php:473
+#: includes/Admin/Settings.php:474
 msgid "Danger Zone"
 msgstr ""
 
-#: includes/Admin/Settings.php:478
 #: includes/Admin/Settings.php:479
+#: includes/Admin/Settings.php:480
 msgid "Delete Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:490
+#: includes/Admin/Settings.php:491
 msgid "Successfully deleted Settings."
 msgstr ""
 
-#: includes/Admin/Settings.php:498
 #: includes/Admin/Settings.php:499
+#: includes/Admin/Settings.php:500
 msgid "Delete Transient"
 msgstr ""
 
-#: includes/Admin/Settings.php:510
+#: includes/Admin/Settings.php:511
 msgid "Successfully deleted Transient."
 msgstr ""
 
@@ -636,12 +636,12 @@ msgstr ""
 
 #: includes/Core/PostType.php:76
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:16
+#: assets/admin/js/admin.js:18
 msgid "Add New"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:47
-#: assets/admin/js/admin.js:14
+#: assets/admin/js/admin.js:16
 msgid "Quick Builder"
 msgstr ""
 
@@ -724,11 +724,12 @@ msgstr ""
 
 #: includes/Core/Rest/Analytics.php:71
 #: includes/Core/Rest/Entries.php:63
+#: includes/Core/Rest/Entries.php:78
 #: includes/Core/Rest/Integration.php:70
 #: includes/Core/Rest/Integration.php:87
 #: includes/Core/Rest/Integration.php:111
 #: includes/Core/Rest/Integration.php:128
-#: includes/Core/Rest/Posts.php:87
+#: includes/Core/Rest/Posts.php:89
 msgid "Unique identifier for the object."
 msgstr ""
 
@@ -744,10 +745,11 @@ msgstr ""
 msgid "End of the date range."
 msgstr ""
 
-#: includes/Core/Rest/BulkAction.php:58
-#: includes/Core/Rest/BulkAction.php:71
-#: includes/Core/Rest/BulkAction.php:84
-#: includes/Core/Rest/BulkAction.php:97
+#: includes/Core/Rest/BulkAction.php:59
+#: includes/Core/Rest/BulkAction.php:72
+#: includes/Core/Rest/BulkAction.php:85
+#: includes/Core/Rest/BulkAction.php:98
+#: includes/Core/Rest/BulkAction.php:111
 msgid "Array of nx_id."
 msgstr ""
 
@@ -774,12 +776,12 @@ msgstr ""
 msgid "Error: Invalid API key."
 msgstr ""
 
-#: includes/Core/Rest/Posts.php:111
+#: includes/Core/Rest/Posts.php:113
 msgid "Whether to bypass Trash and force deletion."
 msgstr ""
 
-#: includes/Core/Rest/Posts.php:201
-#: includes/Core/Rest/Posts.php:221
+#: includes/Core/Rest/Posts.php:214
+#: includes/Core/Rest/Posts.php:234
 msgid "Cannot create existing post."
 msgstr ""
 
@@ -3056,7 +3058,7 @@ msgid "Preview"
 msgstr ""
 
 #: includes/NotificationX.php:171
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Settings"
 msgstr ""
 
@@ -3482,8 +3484,8 @@ msgid "Reset"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:7
 #: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Something went wrong."
 msgstr ""
 
@@ -3544,22 +3546,22 @@ msgid "Error: "
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:7
+#: assets/admin/js/admin.js:9
 msgid "Are you sure?"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:7
+#: assets/admin/js/admin.js:9
 msgid "You won't be able to revert this!"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:7
+#: assets/admin/js/admin.js:9
 msgid "Yes, Delete It"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:7
+#: assets/admin/js/admin.js:9
 msgid "No, Cancel"
 msgstr ""
 
@@ -3568,7 +3570,7 @@ msgid "Notification Alert has been Deleted."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Oops, Something went wrong. Please try again."
 msgstr ""
 
@@ -3597,7 +3599,7 @@ msgid "Update"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:12
+#: assets/admin/js/admin.js:14
 msgid "Publish"
 msgstr ""
 
@@ -3642,12 +3644,20 @@ msgid "Regular Notification Alert has been copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:14
+msgid "Three Dots"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:16
 msgid "Edit"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 msgid "Translate"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "You need to Install and Activate WPML first to use this feature."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
@@ -3663,7 +3673,7 @@ msgid "ShortCode"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:7
+#: assets/admin/js/admin.js:9
 msgid "Cross Domain Notice code has been copied to Clipboard."
 msgstr ""
 
@@ -3685,6 +3695,18 @@ msgstr ""
 
 #: assets/admin/js/admin.js:1
 msgid "Notification Alert has been Regenerated."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Are you sure you want to Reset?"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Reset will delete All analytics report based on this notification"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Notification Alert has been Reset."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
@@ -3724,7 +3746,7 @@ msgid "Published"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:14
+#: assets/admin/js/admin.js:16
 msgid "NotificationX Title"
 msgstr ""
 
@@ -3757,6 +3779,11 @@ msgid "Disable"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:11
+msgid "NotificationX Fetch Error: "
+msgstr ""
+
+#: assets/admin/js/admin.js:1
 msgid "All (%d)"
 msgstr ""
 
@@ -3773,169 +3800,170 @@ msgstr ""
 msgid "%d Notification Alerts have been Regenerated."
 msgstr ""
 
-#. translators: %d: Number of Notification Alerts Enabled.
+#. translators: %d: Number of Notification Alerts Reset.
 #: assets/admin/js/admin.js:5
+msgid "%d Notification Alerts have been Reset."
+msgstr ""
+
+#. translators: %d: Number of Notification Alerts Enabled.
+#: assets/admin/js/admin.js:7
 msgid "%d Notification Alerts have been Enabled."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Disabled.
-#: assets/admin/js/admin.js:7
+#: assets/admin/js/admin.js:9
 msgid "%d Notification Alerts have been Disabled."
 msgstr ""
 
-#: assets/admin/js/admin.js:7
+#: assets/admin/js/admin.js:9
 msgid "Unable to complete bulk action."
 msgstr ""
 
-#: assets/admin/js/admin.js:7
+#: assets/admin/js/admin.js:9
 msgid "You're about to delete %s notification alert,<br />"
 msgid_plural "You're about to delete %s notification alerts,<br />"
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/admin/js/admin.js:7
+#: assets/admin/js/admin.js:9
 msgid "error"
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts deleted.
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid ""
 "%d notification Alerts have been\n"
 "                Deleted."
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Applying..."
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Apply"
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "loading..."
 msgstr ""
 
-#: assets/admin/js/admin.js:9
-msgid "NotificationX Fetch Error: "
-msgstr ""
-
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "No notifications are found."
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Seems like you haven’t created any notification alerts."
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Hit on %1$s\"Add New\"%2$s button to get started"
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "No notifications are enabled."
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "There’s no enabled Notification Alerts."
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Simply use the toggle switch to turn your notifications from %1$s\"All NotificationX\"%2$s page."
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "No notifications are disabled."
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "There’s no disabled Notification Alerts."
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Manage License"
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Documentation"
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Get started by spending some time with the documentation to get familiar with NotificationX. Build awesome websites for you or your clients with ease."
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Contribute to NotificationX"
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "You can contribute to make NotificationX better reporting bugs, creating issues, pull requests at"
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Report a Bug"
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Need Help?"
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Stuck with something? Get help from live chat or support ticket."
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Initiate a Chat"
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Show Your Love"
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "We love to have you in NotificationX family. We are making it more awesome everyday. Take your 2 minutes to review the plugin and spread the love to encourage us to keep it going."
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Leave a Review"
 msgstr ""
 
-#: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
 msgid "Changes Saved Successfully."
 msgstr ""
 
 #. translators: %1$s: title, %2$s: link to the All NotificationX page.
-#: assets/admin/js/admin.js:12
+#: assets/admin/js/admin.js:14
 msgid "You are about to publish %1$s. You can rename this and edit everything whenever you want from %2$s Page."
 msgstr ""
 
-#: assets/admin/js/admin.js:12
+#: assets/admin/js/admin.js:14
 msgid "QuickBuilder Error: "
 msgstr ""
 
-#: assets/admin/js/admin.js:12
+#: assets/admin/js/admin.js:14
 msgid "Publishing..."
 msgstr ""
 
 #. translators: Title of the new Notification Alert. %1$s: title, %2$s: current date.
-#: assets/admin/js/admin.js:14
+#: assets/admin/js/admin.js:16
 msgid "NotificationX - %1$s - %2$s"
 msgstr ""
 
-#: assets/admin/js/admin.js:14
+#: assets/admin/js/admin.js:16
 msgid "Successfully Updated."
 msgstr ""
 
-#: assets/admin/js/admin.js:14
+#: assets/admin/js/admin.js:16
 msgid "Successfully Created."
 msgstr ""
 
 #. translators: Postfix for notice created by duplicate button.
-#: assets/admin/js/admin.js:16
+#: assets/admin/js/admin.js:18
 msgid " - Copy"
 msgstr ""
 
