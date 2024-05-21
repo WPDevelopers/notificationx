@@ -205,7 +205,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 2.8.7 - 20/5/2024 =
+= 2.8.7 - 21/5/2024 =
 Added: Notification analytics reset option.
 Added: Notification search field based on title.
 Improved: Notification time duration preview.
