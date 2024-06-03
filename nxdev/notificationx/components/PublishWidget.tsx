@@ -10,7 +10,7 @@ import nxToast from "../core/ToasterMsg";
 import { __ } from "@wordpress/i18n";
 
 const PublishWidget = (props) => {
-    const { title, context, isEdit, setIsLoading, setIsCreated, id, ...rest } = props;
+    const { title, context, isEdit, setIsLoading, setIsCreated, id, formattedCurrentDateTime, ...rest } = props;
     const builderContext = useNotificationXContext();
 
     const handleSubmit = useCallback(
@@ -93,18 +93,29 @@ const PublishWidget = (props) => {
                         }
                         {" "}
                         :{" "}
-                    </label>
-                    <Date
+                        </label>
+                        <Date
                         name="updated_at"
                         value={context.values?.updated_at}
                         position="bottom left"
-                        onChange={(data) =>
-                            context.setFieldValue(
-                                "updated_at",
-                                data.target.value
-                            )
+                        onChange={(data) => {
+                                context.setFieldValue(
+                                    "updated_at",
+                                    data.target.value
+                                )
+                            } 
                         }
                     />
+                </div>
+                <div className="nx-publish-reset-btn">
+                    <button 
+                        onClick={() => {
+                            context.setFieldValue(
+                                "updated_at",
+                                formattedCurrentDateTime,
+                            )
+                        }}
+                        >{ __('Set Reset Time', 'notificationx') }</button>
                 </div>
                 <ButtonGroup>
                     {isEdit && (

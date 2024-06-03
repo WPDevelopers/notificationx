@@ -45,6 +45,7 @@
                         display: flex;
                         align-items: center;
                         margin-bottom: 15px;
+                        justify-content: space-between;
                         label {
                             font-size: 16px;
                             font-weight: 500;
@@ -156,6 +157,19 @@
                                     box-shadow: none;
                                     cursor: not-allowed;
                                 }
+                            }
+                        }
+                    }
+                    .nx-publish-reset-btn {
+                        display: flex;
+                        justify-content: end;
+                        margin-bottom: 15px;
+                        button {
+                            border: none;
+                            background-color: transparent;
+                            color: #6a4bff;
+                            &:hover{
+                                cursor: pointer;
                             }
                         }
                     }
