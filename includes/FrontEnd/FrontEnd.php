@@ -63,7 +63,8 @@ class FrontEnd {
         add_filter('nx_fallback_data', [$this, 'fallback_data'], 10, 3);
         add_filter('nx_filtered_data', [$this, 'filtered_data'], 9999, 3);
         add_filter('nx_filtered_post', [$this, 'filtered_post'], 9999, 2);
-        add_action('wp_print_footer_scripts', [$this, 'footer_scripts']);
+        add_filter('get_notifications_ids', [$this, 'pre_configured'], 10, 2);
+        add_action('wp_print_scripts', [$this, 'footer_scripts']);
 
     }
 
@@ -74,7 +75,7 @@ class FrontEnd {
      */
     public function enqueue_scripts() {
 
-        wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), [], NOTIFICATIONX_VERSION, true);
+        wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), [], NOTIFICATIONX_VERSION, false);
         wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], NOTIFICATIONX_VERSION, 'all');
         // wp_register_style('notificationx-icon-pack', Helper::file('public/icon/style.css', true), [], NOTIFICATIONX_VERSION, 'all');
 
@@ -99,12 +100,12 @@ class FrontEnd {
                 if ($lang !== "en" && $lang !== "en-us") {
                     $script = Helper::file("public/locale/$lang.js", false);
                     if (file_exists($script)) {
-                        wp_enqueue_script('notificationx-moment-locale', Helper::file("public/locale/$lang.js", true), [], NOTIFICATIONX_VERSION, true);
+                        wp_enqueue_script('notificationx-moment-locale', Helper::file("public/locale/$lang.js", true), [], NOTIFICATIONX_VERSION, false);
                     } else if (!empty($_lang[1])) {
                         $lang = $_lang[0];
                         $script = Helper::file("public/locale/$lang.js", false);
                         if (file_exists($script)) {
-                            wp_enqueue_script('notificationx-moment-locale', Helper::file("public/locale/$lang.js", true), [], NOTIFICATIONX_VERSION, true);
+                            wp_enqueue_script('notificationx-moment-locale', Helper::file("public/locale/$lang.js", true), [], NOTIFICATIONX_VERSION, false);
                         }
                     }
                 }
@@ -155,7 +156,7 @@ class FrontEnd {
         return $data;
     }
 
-    public function get_notifications_data($params) {
+    public function get_notifications_data($params, $notifications = null) {
         $_params = $params;
         $result  = [
             'global'    => [],
@@ -197,7 +198,9 @@ class FrontEnd {
         // }
 
         if (!empty($all)) {
-            $notifications = $this->get_notifications($all);
+            if(empty($notifications)){
+                $notifications = $this->get_notifications($all);
+            }
             $entries       = $this->get_entries($all, $notifications, $params);
 
             foreach ($entries as $entry) {
@@ -776,6 +779,18 @@ class FrontEnd {
             $bar_content = '&nbsp;';
         }
         return $bar_content;
+    }
+
+    public function pre_configured($results, $notifications){
+        $args = [
+            'is_pre_configured' => true,
+        ];
+        $results = array_merge(
+            $args,
+            $results,
+            $this->get_notifications_data($results, $notifications)
+        );
+        return $results;
     }
 
 }
