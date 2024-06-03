@@ -188,6 +188,15 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         if (settings?.elementor_id && timeConfig.expired) {
             setClosed(true);
         }
+        else if (settings?.close_after_expire && timeConfig.expired) {
+            setClosed(true);
+        }
+    }, [timeConfig.expired])
+    
+    useEffect(() => {
+        if (settings?.elementor_id && timeConfig.expired) {
+            setClosed(true);
+        }
     }, [timeConfig.expired])
 
     // useEffect(() => {

@@ -1182,6 +1182,11 @@ class PressBar extends Extension {
                     'label' => __('Permanent Close', 'notificationx'),
                     'type'  => 'checkbox',
                 ),
+                'close_after_expire'          => array(
+                    'name'  => 'close_after_expire',
+                    'label' => __('Close After Expire', 'notificationx'),
+                    'type'  => 'checkbox',
+                ),
             ),
             'rules' => Rules::logicalRule([
                 Rules::is('source', $this->id),
