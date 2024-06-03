@@ -22,9 +22,15 @@ const EditNx = (props) => {
 
     }, [])
 
-    // @ts-ignore 
-    const currentDateTime = new Date();
-    const formattedCurrentDateTime = currentDateTime.toISOString();
+    const setCurrentPublishDate = () => {
+        // @ts-ignore 
+        const currentDateTime = new Date();
+        const formattedCurrentDateTime = currentDateTime.toISOString();
+        builderContext.setFieldValue(
+            "updated_at",
+            formattedCurrentDateTime,
+        )
+    }
 
     return (
         <>
@@ -49,7 +55,7 @@ const EditNx = (props) => {
                     setIsUpdated={setIsUpdated}
                     setIsLoading={setIsLoading}
                     context={builderContext}
-                    formattedCurrentDateTime={formattedCurrentDateTime}
+                    setCurrentPublishDate={setCurrentPublishDate}
                 />
                 <Instructions  {...builderContext} />
             </Sidebar>
