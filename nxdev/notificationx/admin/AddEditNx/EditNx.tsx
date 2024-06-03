@@ -22,6 +22,10 @@ const EditNx = (props) => {
 
     }, [])
 
+    // @ts-ignore 
+    const currentDateTime = new Date();
+    const formattedCurrentDateTime = currentDateTime.toISOString();
+
     return (
         <>
             <Content>
@@ -45,6 +49,7 @@ const EditNx = (props) => {
                     setIsUpdated={setIsUpdated}
                     setIsLoading={setIsLoading}
                     context={builderContext}
+                    formattedCurrentDateTime={formattedCurrentDateTime}
                 />
                 <Instructions  {...builderContext} />
             </Sidebar>

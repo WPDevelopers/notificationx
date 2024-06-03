@@ -22,6 +22,9 @@ const CreateNx = ({ setIsLoading, title, setTitle }) => {
         builderContext.registerAlert('toast', ToastAlert);
     }, []);
 
+    // @ts-ignore 
+    const currentDateTime = new Date();
+    const formattedCurrentDateTime = currentDateTime.toISOString();
 
     return (
         <>
@@ -44,6 +47,7 @@ const CreateNx = ({ setIsLoading, title, setTitle }) => {
                     setIsCreated={true}
                     setIsLoading={setIsLoading}
                     context={builderContext}
+                    formattedCurrentDateTime={formattedCurrentDateTime}
                 />
                 <Instructions  {...builderContext} />
             </Sidebar>
