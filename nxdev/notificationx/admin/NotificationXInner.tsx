@@ -17,7 +17,7 @@ const NotificationXInner = ({ filteredNotice, setFilteredNotice, getNotice, upda
                 return {...item, checked: !item?.checked};
             }
             return {...item};
-        });
+        });        
         setFilteredNotice(notices);
     }
 
