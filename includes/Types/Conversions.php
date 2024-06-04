@@ -80,15 +80,14 @@ class Conversions extends Types {
                 'image_shape' => 'square',
                 'template'  => $common_fields,
             ],
-            'theme-four' => array(
-                'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-four.png',
+            'theme-five' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-five.png',
                 'image_shape' => 'circle',
                 'template'  => $common_fields,
             ),
-            'theme-five' => array(
+            'theme-four' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-five.png',
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-four.png',
                 'image_shape' => 'circle',
                 'template'  => $common_fields,
             ),
