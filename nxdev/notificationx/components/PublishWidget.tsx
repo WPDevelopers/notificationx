@@ -8,6 +8,7 @@ import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
 import nxToast from "../core/ToasterMsg";
 import { __ } from "@wordpress/i18n";
+import infoIcon from '../icons/Info.svg';
 
 const PublishWidget = (props) => {
     const { title, context, isEdit, setIsLoading, setIsCreated, id, setCurrentPublishDate, ...rest } = props;
@@ -110,7 +111,12 @@ const PublishWidget = (props) => {
                 <div className="nx-publish-reset-btn">
                     <button 
                         onClick={ setCurrentPublishDate }
-                        >{ __('Set Reset Time', 'notificationx') }</button>
+                        >{ __('Reset Time', 'notificationx') } 
+                    </button> 
+                    <div className="reset-info-wrapper">
+                        <img className="reset-time-icon" src={infoIcon} />
+                        <p className="reset-time-info"> <span>This will reset the time to the current time</span> </p>
+                    </div>
                 </div>
                 <ButtonGroup>
                     {isEdit && (
