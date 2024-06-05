@@ -913,7 +913,7 @@
             .wprf-image-uploader {
                 .wprf-image-remove-btn {
                     background: #f85656;
-                    border-radius: 3px;
+                    border-radius: 5px;
                     box-sizing: border-box;
                     min-height: 36px;
                     transition: 0.3s ease-in-out;
@@ -928,7 +928,7 @@
                     background: transparent;
                     border: 1px solid #6a4bff;
                     color: #6a4bff;
-                    border-radius: 3px;
+                    border-radius: 5px;
                     box-sizing: border-box;
                     min-height: 36px;
                     display: inline-flex;
@@ -947,7 +947,7 @@
                     background: transparent;
                     border: 1px solid #6a4bff;
                     color: #6a4bff;
-                    border-radius: 3px;
+                    border-radius: 5px;
                     box-sizing: border-box;
                     min-height: 36px;
                     display: inline-flex;
@@ -1125,6 +1125,11 @@
     &.animation-pro-disabled #animation_notification_show .wprf-select__menu .wprf-select__menu-list .wprf-select__option::before {
         height: calc(100% + 10px);
     }
+
+}
+
+.wprf-control-wrapper.wprf-type-csv-upload.wprf-inline-label.wprf-name-custom-nx-csv-upload {
+    margin-bottom: 40px;
 }
 
 .wprf-code-viewer {
@@ -1575,14 +1580,81 @@
 }
 
 .wprf-advanced-repeater-control {
+    background: #F8FAFB;
+    padding: 12px 10px;
+    border-radius: 7px;
+
     .wprf-advanced-repeater-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        background: #fff;
+        padding: 12px;
+        border-radius: 4px;
+        margin-bottom: 16px;
 
         .wprf-repeater-label {
             gap: 10px;
             display: flex;
+
+            .wprf-repeater-button {
+                margin-top: 0;
+            }
+        }
+    }
+
+    .wprf-repeater-content {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        .wprf-repeater-field {
+            margin-top: 0;
+            background: #fff;
+            border-radius: 4px;
+
+            .wprf-repeater-field-title {
+                padding: 12px;
+                background-color: transparent;
+
+                h4 {
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #25396F;
+                    line-height: 18px;
+                }
+
+                .wprf-repeater-field-controls {
+                    span {
+                        margin-left: 0;
+                        align-items: center;
+                        gap: 12px;
+                    }
+
+                    .dashicon.dashicons-admin-page,
+                    .dashicon.dashicons-trash {
+                        color: #7C8DB5;
+                        font-size: 18px;
+                        transition: ease-in-out .25s;
+                    }
+
+                    .dashicon.dashicons-admin-page:hover {
+                        color: #5f7eff;
+                    }
+
+                    .dashicon.dashicons-trash:hover {
+                        color: #dc4f4b;
+                    }
+
+                }
+            }
+
+            .wprf-repeater-inner-field {
+                padding: 20px 12px 25px;
+                background-color: #fff;
+                border: 0px solid;
+                border-top: 1px solid #E6EFFB;
+            }
         }
     }
 
@@ -1591,11 +1663,84 @@
         justify-content: space-between;
         margin-top: 20px;
 
+        .items-per-page-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            label {
+                font-size: 14px;
+                color: #25396F;
+            }
+
+            .components-base-control {
+                .css-1t5ousf {
+                    margin-bottom: 0;
+
+                    .css-hsfpxc {
+
+                        .css-1imalal.css-1imalal.css-1imalal {
+                            font-size: 14px;
+                            color: #25396F;
+                            font-weight: 400;
+                            line-height: 1.4;
+                            text-transform: capitalize;
+                            box-sizing: border-box;
+                            display: block;
+                            padding-top: 0px;
+                            padding-bottom: 0px;
+                            max-width: 100%;
+                            z-index: 1;
+                            overflow: unset;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                        }
+                    }
+                }
+
+                .css-l4hgcf.css-l4hgcf.css-l4hgcf {
+                    appearance: none;
+                    box-sizing: border-box;
+                    border: 1px solid #6A4BFF !important;
+                    color: #6A4BFF;
+                    display: block;
+                    font-family: inherit;
+                    margin: 0px;
+                    width: 100%;
+                    max-width: none;
+                    cursor: pointer;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    font-size: 16px;
+                    height: 32px;
+                    min-height: 32px;
+                    padding: 0px 26px 0px 8px;
+                    overflow: hidden;
+                    box-shadow: none !important;
+                    background: transparent;
+                }
+
+                .css-83ljq2.css-83ljq2.css-83ljq2 {
+                    display: none;
+                    box-sizing: border-box;
+                    border-radius: inherit;
+                    inset: 0px;
+                    margin: 0px;
+                    padding: 0px 0px 0px 0px;
+                    pointer-events: none;
+                    position: absolute;
+                    border-color: #6A4BFF;
+                    border-style: solid;
+                    border-width: 1px;
+                }
+            }
+        }
+
         .pagination-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
+            gap: 16px;
 
             .pagination-info {
                 font-size: 14px;
@@ -1646,7 +1791,7 @@
                     justify-content: center;
                     align-items: center;
                     width: 100%;
-                    color: #6a4bff;
+                    color: #000000E0;
                     transition: none;
                     box-shadow: none;
                     cursor: pointer;
@@ -1658,22 +1803,26 @@
 
                     // background: #6a4bff;
                     a {
-                        color: #25396F;
+                        color: #25396FE0;
+                        background: #6A4BFF1A;
+                        border-radius: 10px;
                     }
                 }
 
                 &-active {
                     // background: #6a4bff;
-                    background-color: rgba(#6a4bff, 0.15);
+                    background-color: transparent;
+                    border: 1px solid #6A4BFF;
 
                     // border: 1px solid #6a4bff;
                     a {
-                        color: #25396F;
+                        color: #6A4BFF;
                     }
 
                     &:focus a,
                     &:hover a {
-                        color: #25396F;
+                        color: #6A4BFF;
+                        background-color: transparent;
                     }
                 }
             }
@@ -1697,7 +1846,9 @@
                     align-items: center;
                     justify-content: center;
                     border-radius: 10px;
-                    color: transparent;
+                    color: #000000E0;
+                    border: none;
+                    background: transparent;
                     box-shadow: none;
                     text-decoration: none;
                     position: relative;
@@ -1733,7 +1884,7 @@
                         text-decoration: none;
 
                         &:after {
-                            color: #fff;
+                            color: #6a4bff;
                         }
                     }
                 }
@@ -1806,6 +1957,12 @@
                 //         color: #fff;
                 //     }
                 // }
+                &:hover button {
+                    color: rgba(37, 57, 111, 0.8784313725);
+                    background: rgba(106, 75, 255, 0.1019607843);
+                    border-radius: 10px;
+                }
+
             }
 
             &-prev {

@@ -85,7 +85,7 @@ const AdvancedRepeater = (props) => {
         setItemsPerPage(parseInt(value));
         setCurrentPage(1); // Reset to first page when items per page change
     };
-    
+
     const handleChangeCollapseState = (event, index) => {
         handleChange(event, index);
     };
@@ -110,7 +110,7 @@ const AdvancedRepeater = (props) => {
             setSelectedField([]);
         }
     };
-    
+
 
     const bulkDelete = () => {
         const bulkDeleteFromLocal = localMemoizedValue.filter(item => !selectedField.includes(item.index));
@@ -122,34 +122,34 @@ const AdvancedRepeater = (props) => {
     const startIndex = (currentPage - 1) * itemsPerPage + 1;
     const endIndex = Math.min(currentPage * itemsPerPage, totalItems);
     const currentPageItems = paginatedItems[currentPage - 1] || [];
-    
+
     return (
         <div className="wprf-repeater-control wprf-advanced-repeater-control">
             <div className="wprf-advanced-repeater-header">
                 <div className="nx-all-selector">
-                    <input id="nx-advanced-repeater-all-checkbox" type="checkbox" checked={ selectedField?.length == localMemoizedValue?.length ? true : false } onChange={ (event) => checkAll(event) } />
-                    <label htmlFor="nx-advanced-repeater-all-checkbox">{ __('Select All', 'notificationx') }</label>
+                    <input id="nx-advanced-repeater-all-checkbox" type="checkbox" checked={selectedField?.length == localMemoizedValue?.length ? true : false} onChange={(event) => checkAll(event)} />
+                    <label htmlFor="nx-advanced-repeater-all-checkbox">{__('Select All', 'notificationx')}</label>
                 </div>
                 <div className="wprf-repeater-label">
                     <button
                         className="wprf-repeater-button add-new"
                         onClick={() => builderContext.setFieldValue(fieldName, [...localMemoizedValue, { index: v4() }])}
-                        disabled={ totalItems >= 100 ? true : false }
+                        disabled={totalItems >= 100 ? true : false}
                     >
                         {button?.label}
                     </button>
                     <button
                         className='wprf-repeater-button bulk-edit'
                     >
-                        { __('Bulk Edit', 'notificationx') }
+                        {__('Bulk Edit', 'notificationx')}
                     </button>
                     <button
                         className="wprf-repeater-button bulk-delete"
                         onClick={() => bulkDelete()}
                     >
-                        { __('Bulk Delete', 'notificationx') }
+                        {__('Bulk Delete', 'notificationx')}
                     </button>
-            </div>
+                </div>
             </div>
             {localMemoizedValue && localMemoizedValue.length > 0 && (
                 <>
@@ -171,29 +171,33 @@ const AdvancedRepeater = (props) => {
                                 parent={fieldName}
                                 clone={handleClone}
                                 remove={handleRemove}
-                                checked={ selectedField.findIndex( element => element == value.index ) != -1 ? true : false  }
+                                checked={selectedField.findIndex(element => element == value.index) != -1 ? true : false}
                                 onChange={(event) => handleChangeCollapseState(event, index + (currentPage - 1) * itemsPerPage)}
                                 onChecked={onChecked}
                             />
                         ))}
                     </ReactSortable>
                     <div className="nx-admin-items-footer">
-                        <SelectControl
-                            label={ __('Item Per Page', 'notificationx') }
-                            options={[
-                                { value: "5", label: __("5") },
-                                { value: "10", label: __("10") },
-                                { value: "20", label: __("20") },
-                                { value: "50", label: __("50") },
-                                { value: "100", label: __("100") },
-                            ]}
-                            value={itemsPerPage.toString()}
-                            onChange={(value) => handleItemsPerPageChange(value)}
-                        />
+                        <div className="items-per-page-wrapper">
+                            <SelectControl
+                                // label={__('Item Per Page', 'notificationx')}
+                                options={[
+                                    { value: "5", label: __("5") },
+                                    { value: "10", label: __("10") },
+                                    { value: "20", label: __("20") },
+                                    { value: "50", label: __("50") },
+                                    { value: "100", label: __("100") },
+                                ]}
+                                value={itemsPerPage.toString()}
+                                onChange={(value) => handleItemsPerPageChange(value)}
+                            />
+                            <label htmlFor="">{__('Items Per Page')}</label>
+                        </div>
                         <div className='pagination-wrapper'>
                             <div className="pagination-info">
                                 {`Displaying ${startIndex}-${endIndex} of ${totalItems}`}
                             </div>
+                            {/* @ts-ignore  */}
                             <Pagination
                                 current={currentPage}
                                 onChange={handlePageChange}

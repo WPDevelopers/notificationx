@@ -14,16 +14,16 @@ import Swal from 'sweetalert2';
 const Media = (props) => {
     const [csvData, setCSVData] = useState(props.value?.url ? props.value : null)
     const builderContext = useBuilderContext();
-    const [ isOpen, setIsOpen ] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     const [headers, setHeaders] = useState([]);
-    const [importBtnClass, setImportButtonClass] = useState( 'wprf-btn wprf-import-csv-btn' );
+    const [importBtnClass, setImportButtonClass] = useState('wprf-btn wprf-import-csv-btn');
     const [data, setData] = useState([]);
     const [itemsPerPage, setItemsPerPage] = useState(5);
     const [currentPage, setCurrentPage] = useState(1);
 
 
     useEffect(() => {
-        if( csvData ) {
+        if (csvData) {
             props.onChange({
                 target: {
                     type: 'media',
@@ -32,10 +32,10 @@ const Media = (props) => {
                 }
             })
             nxHelper.post("csv-upload", {
-                csv : csvData,
+                csv: csvData,
                 uploadImage: false
             }).then((res: any) => {
-                if( res.data.data.length > 100 ) {
+                if (res.data.data.length > 100) {
                     // @ts-ignore 
                     Swal.fire({
                         title: __("Your CSV file contains more than 100 data entries.", "notificationx"),
@@ -59,20 +59,20 @@ const Media = (props) => {
                             setData([]);
                             setCSVData(null);
                         }
-                    });                    
+                    });
                 }
-            }).catch( (error) => {
+            }).catch((error) => {
                 setImportButtonClass('wprf-btn wprf-import-csv-btn error');
-            } );
+            });
         }
     }, [csvData])
 
     const importCSVData = () => {
         setImportButtonClass('wprf-btn wprf-import-csv-btn loading');
         nxHelper.post("csv-upload", {
-            csv        : csvData,
+            csv: csvData,
             uploadImage: true,
-            take       : 100,
+            take: 100,
         }).then((res: any) => {
             setHeaders(res.data.headers);
             setData(res.data.data);
@@ -81,15 +81,15 @@ const Media = (props) => {
                 res.data.data
             )
             setImportButtonClass('wprf-btn wprf-import-csv-btn completed');
-        }).catch( (error) => {
+        }).catch((error) => {
             setImportButtonClass('wprf-btn wprf-import-csv-btn error');
-        } );
+        });
     }
 
     const previewCSVData = () => {
         setIsOpen(true);
     }
-    
+
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
@@ -112,7 +112,7 @@ const Media = (props) => {
     const startIndex = (currentPage - 1) * itemsPerPage + 1;
     const endIndex = Math.min(currentPage * itemsPerPage, totalItems);
     const totalAddedItems = builderContext.getFieldValue('custom_contents');
-    
+
     return (
         <div className="wprf-control wprf-media">
             <div className="wprf-image-uploader wprf-csv-uploader">
@@ -128,11 +128,11 @@ const Media = (props) => {
                     value={csvData}
                     render={({ open }) => {
                         return <>
-                            { csvData?.title && <span>{ csvData?.title }</span> }
+                            {csvData?.title && <span>{csvData?.title}</span>}
                             {
                                 csvData != null &&
                                 // @ts-ignore 
-                                <button  className={ importBtnClass } onClick={() => importCSVData()} disabled={ totalAddedItems?.length >= 100 ? true : false }>
+                                <button className={importBtnClass} onClick={() => importCSVData()} disabled={totalAddedItems?.length >= 100 ? true : false}>
                                     {'Import'}
                                 </button>
                             }
@@ -140,12 +140,12 @@ const Media = (props) => {
                                 className="wprf-btn wprf-image-upload-btn"
                                 onClick={open}
                             >
-                               <UploadIcon/> {csvData != null ? (props?.reset || __( 'Change CSV', 'notificationx' )) : (props?.button || 'Upload')}
+                                <UploadIcon /> {csvData != null ? (props?.reset || __('Change CSV', 'notificationx')) : (props?.button || 'Upload')}
                             </button>
                             <button
                                 className='wprf-btn wprf-btn-sample-csv'
                             >
-                               <DownloadIcon/> { __('Sample CSV', 'notificationx') }
+                                <DownloadIcon /> {__('Sample CSV', 'notificationx')}
                             </button>
                             {
                                 csvData != null &&
@@ -191,43 +191,48 @@ const Media = (props) => {
                     {headers.length > 0 && (
                         <>
                             <div className="csv-preview-header">
-                                { csvData?.title }
+                                {csvData?.title}
                             </div>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        {headers.map(header => (
-                                            <th key={header}>{header}</th>
-                                        ))}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {paginatedData.map((row, index) => (
-                                        <tr key={index}>
+                            <div className='csv-table-wrapper'>
+                                <table>
+                                    <thead>
+                                        <tr>
                                             {headers.map(header => (
-                                                <td key={header}> { header != 'image' ? row[header] : '' } <img width={100} src={ header == 'image' ? row[header] : '' } /> </td>
+                                                <th key={header}>{header}</th>
                                             ))}
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {paginatedData.map((row, index) => (
+                                            <tr key={index}>
+                                                {headers.map(header => (
+                                                    <td key={header}> {header != 'image' ? row[header] : ''} <img width={100} src={header == 'image' ? row[header] : ''} /> </td>
+                                                ))}
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                             <div className="csv-preview-footer">
-                                <SelectControl
-                                    label={ __('Item Per Page', 'notificationx') }
-                                    options={[
-                                        { value: "5", label: __("5") },
-                                        { value: "10", label: __("10") },
-                                        { value: "20", label: __("20") },
-                                        { value: "50", label: __("50") },
-                                        { value: "100", label: __("100") },
-                                    ]}
-                                    value={itemsPerPage.toString()}
-                                    onChange={(value) => handleItemsPerPageChange(value)}
-                                />
+                                <div className="items-per-page-wrapper">
+                                    <SelectControl
+                                        options={[
+                                            { value: "5", label: __("5") },
+                                            { value: "10", label: __("10") },
+                                            { value: "20", label: __("20") },
+                                            { value: "50", label: __("50") },
+                                            { value: "100", label: __("100") },
+                                        ]}
+                                        value={itemsPerPage.toString()}
+                                        onChange={(value) => handleItemsPerPageChange(value)}
+                                    />
+                                    <label htmlFor="">{__('Items Per Page')}</label>
+                                </div>
                                 <div className='pagination-wrapper'>
                                     <div className="pagination-info">
                                         {`Displaying ${startIndex}-${endIndex} of ${totalItems}`}
                                     </div>
+                                    {/* @ts-ignore  */}
                                     <Pagination
                                         current={currentPage}
                                         onChange={handlePageChange}
