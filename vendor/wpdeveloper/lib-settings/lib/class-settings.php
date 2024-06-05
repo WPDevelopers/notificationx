@@ -216,7 +216,7 @@ namespace UsabilityDynamics {
        *
        * @param bool                         $default
        *
-       * @return mixed
+       * @return type
        */
       public function get( $key = false, $default = false ) {
 

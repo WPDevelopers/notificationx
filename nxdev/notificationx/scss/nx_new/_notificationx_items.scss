@@ -1,5 +1,7 @@
 .notificationx-items {
     padding: 0;
+    position: relative;
+    margin-bottom: 45px;
     .nx-admin-menu {
         margin-top: 30px;
         margin-bottom: 0px;
@@ -71,6 +73,84 @@
         .nx-bulk-action-wrapper {
             display: flex;
             flex-wrap: wrap;
+            .nx-search-wrapper {
+                display: flex;
+                justify-content: end;
+                overflow: hidden;
+                width: 300px;
+                .input-box {
+                    position: relative;
+                    height: 40px;
+                    max-width: 55px;
+                    width: 100%;
+                    margin-right: 10px;
+                    border-radius: 6px;
+                    background-color: #fff;
+                    transition: all 0.6s;
+                    &:not(.open) {
+                        width: 20px;
+                        background-color: transparent;
+                        transition: 0.6s;
+                        input {
+                            display: none;
+                        }
+                    }
+                }
+                .input-box.open {
+                    max-width: 280px;
+                   .icon {
+                    border-radius: 0 6px 6px 0;
+                   } 
+                }
+                input {
+                    position: relative;
+                    outline: none;
+                    border: none;
+                    height: 100%;
+                    width: 100%;
+                    border-radius: 6px;
+                    font-size: 16px;
+                    font-weight: 400;
+                    color: #333;
+                    background-color: #fff;
+                    padding-left: 12px;
+                    margin: 0;
+                    border: 2px solid #e9e8fe;
+                    transform: translateX(-5px);
+                    &:focus {
+                        box-shadow: none;
+                    }
+                    &::placeholder {
+                        font-size: 13px;
+                        font-family: "DM Sans", sans-serif;
+                    }
+                }
+                .icon {
+                    position: absolute;
+                    height: 36px;
+                    top: 0;
+                    right: -1px;
+                    width: 40px;
+                    border-radius: 6px;
+                    display: flex;
+                    justify-content: center;
+                    background-color: #efeffe;
+                    border: 2px solid #e9e8fe;
+                    cursor: pointer;
+                }
+                .input-search-icon img{
+                    width: 18px;
+                }
+                .search-icon {
+                    position: absolute;
+                    top: 50%;
+                    font-size: 30px;
+                    transition: all 0.6s;
+                }
+                .search-icon {
+                    color: #000;
+                }
+            }
             .bulk-action-select {
                 height: 40px;
                 .components-input-control__container {
@@ -160,7 +240,6 @@
             margin-top: 20px;
             display: block;
             width: 100%;
-            overflow-x: auto;
             @media only screen and (max-width: 1599px) {
                 margin-top: 10px;
             }
@@ -271,9 +350,10 @@
                     }
                     & > td:last-child {
                         border-top-right-radius: 10px;
-                        width: 175px;
+                        width: 100px;
+                        text-align: center;
                         @media only screen and (max-width: 782px) {
-                            width: 175px !important;
+                            width: 100px !important;
                         }
                     }
                 }
@@ -370,117 +450,81 @@
                 max-height: 100%;
             }
         }
-        .nx-admin-actions {
-            margin-top: 15px;
-            display: flex;
-            & > a,
-            & > button {
-                font-size: 14px;
-                background-repeat: no-repeat;
-                background-size: 13px 15px;
-                padding-left: 20px;
-                margin-right: 10px;
-                color: #555555;
-                border: 0;
-                background-color: #fff;
-                cursor: pointer;
-                height: 20px;
-                width: 20px;
-                padding-left: 0;
-                background-position: center center;
-                box-shadow: none;
-                position: relative;
-                cursor: pointer;
-                @media only screen and (max-width: 1599px) {
-                    font-size: 12px;
-                    height: 15px;
-                    width: 15px;
-                }
-                span {
-                    display: none;
-                }
-                &.nx-admin-title-xss:before{
-                    width: 95px;
-                }
-                &:before {
-                    content: attr(title);
-                    position: absolute;
-                    bottom: calc(100% + 5px);
-                    left: 50%;
-                    transform: translateX(-50%);
-                    padding: 5px 10px;
-                    line-height: 1.2;
-                    border-radius: 3px;
-                    background: #6a4bff;
-                    color: #fff;
-                    text-transform: uppercase;
-                    font-size: 12px;
-                    font-weight: 500;
-                    display: inline-flex;
-                    justify-content: center;
-                    text-align: center;
-                    visibility: hidden;
-                    @media only screen and (max-width: 1599px) {
-                        font-size: 10px;
+        .nx-admin-actions-wrapper {
+            position: relative;
+            text-align: center;
+        }
+        .nx-admin-three-dots {
+            cursor: pointer;
+        }
+        .nx-admin-action-button {
+            a {
+                padding: 12px 8px 2px;
+                background-color: #efeffe;
+                line-height: 0;
+                border: 1px solid #e9e8fe;
+                border-radius: 4px;
+            }
+        }
+        .nx-admin-actions-lists {
+            position: absolute;
+            transform: translateX(-100%);
+            background: #fff;
+            border-radius: 4px;
+            z-index: 999;
+            box-shadow: 0px 0 14px 0px rgba(0,0,0,0.2);
+            margin: 0;
+            top: -10px;
+            left: 40px;
+            ul {
+                margin: 0;
+                padding: 8px 0;
+                li {
+                    margin-bottom: 0;
+                    border-bottom: 1px solid rgba(230,239,251,0.3);
+                    a {
+                        text-align: left;
+                        padding: 10px 25px 10px 20px;
+                        white-space: nowrap;
+                        color: #495463;
+                        font-size: 12px;
+                        font-weight: 600;
+                        letter-spacing: 0.05em;
+                        display: flex;
+                        align-items: center;
+                        line-height: 0;
+                        gap: 10px;
+                        &:hover {
+                            cursor: pointer;
+                            color: #6a4bff;
+                        }
                     }
-                    opacity: 0;
-                }
-                &:after {
-                    content: "";
-                    border-top: 5px solid #6a4bff;
-                    border-right: 5px solid transparent;
-                    border-left: 5px solid transparent;
-                    position: absolute;
-                    bottom: calc(100% + 1px);
-                    left: 50%;
-                    transform: translateX(-50%);
-                    visibility: hidden;
-                    opacity: 0;
-                }
-                &:hover {
-                    &::after,
-                    &::before {
-                        visibility: visible;
-                        opacity: 1;
+                    &:last-child {
+                        border-bottom: none;
                     }
                 }
             }
-            .nx-admin-title-translate {
-                background-image: url("../icons/translate.png");
-            }
-            .nx-admin-title-edit {
-                background-image: url("../icons/edit.png");
-            }
-            .nx-admin-title-regenerate {
-                background-image: url("../icons/regenerate.png");
-            }
-            .nx-admin-title-duplicate {
-                background-image: url("../icons/duplicate.png");
-            }
-            .nx-admin-title-restore {
-                background-size: 16px 16px;
-                padding-left: 22px;
-                background-image: url("../icons/restore.png");
-            }
-            .nx-admin-title-trash {
-                color: #c4434e;
-                background-image: url("../icons/trash.png");
-            }
-            .nx-admin-title-shortcode {
-                background-image: url("../icons/shortcode.png");
-                color: #844dee;
-            }
-            .nx-admin-title-xss {
-                background-image: url('../icons/xss.png');
-                color: #844dee;
-                background-size: 16px;
+            &::before {
+                content: '';
+                position: absolute;
+                top: 13px;
+                left: auto;
+                right: -7px;
+                border-top: 7px solid transparent;
+                border-bottom: 7px solid transparent;
+                border-left: 7px solid #fff;
             }
         }
     }
     .nx-admin-items-footer {
+        align-items: center;
         display: flex;
         margin-top: 20px;
-        align-items: center;
+        position: absolute;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        z-index: -1;
         > .components-base-control {
             margin-right: 10px;
             display: flex;

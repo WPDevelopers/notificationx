@@ -156,23 +156,54 @@ const GetTemplate = (settings) => {
             ];  
     }
 
+    // get template based on source
+    if( settings.source === 'freemius_conversions' ) {
+        switch (themeName) {
+            case "theme-one":
+            case "theme-two":
+            case "theme-three":
+            case "theme-four":
+            case "theme-five":
+                return [
+                    `${params?.first_param} ${params?.second_param}`,
+                    `${params?.third_param} ${params?.freemius_fifth_param} ${params?.fifth_param} ${params?.freemius_sixth_param} ${params?.freemius_seventh_param}`,
+                    `${params?.fourth_param}`,
+                ];
+            case "conv-theme-ten":
+            case "conv-theme-eleven":
+                return [
+                    `${params?.first_param} ${params?.second_param}`,
+                    `${params?.third_param} ${params?.freemius_fifth_param} ${params?.freemius_sixth_param} ${params?.freemius_seventh_param}`,
+                    `${params?.fourth_param}`,
+                ];
+            // conversion start
+            case "conv-theme-six":
+                return [
+                    `${params?.first_param} ${params?.second_param} ${params?.third_param}`,
+                    `${params?.map_fourth_param} ${params?.fourth_param} ${params?.freemius_fifth_param} ${params?.freemius_sixth_param} ${params?.freemius_seventh_param}`,
+                    `${params?.fifth_param}`,
+                ];
+            case "conv-theme-seven":
+            case "conv-theme-eight":
+            case "conv-theme-nine":
+                return [
+                    `${params?.first_param} ${params?.second_param}`,
+                    `${params?.third_param} ${params?.fourth_param} ${params?.freemius_fifth_param} ${params?.freemius_sixth_param} ${params?.freemius_seventh_param}`,
+                ];    
+        }
+    }
+
     switch (themeName) {
         case "theme-one":
         case "theme-two":
         case "theme-three":
         case "theme-four":
         case "theme-five":
-            return [
-                `${params?.first_param} ${params?.second_param}`,
-                `${params?.third_param} ${params?.freemius_fifth_param} ${params?.fifth_param} ${params?.freemius_sixth_param} ${params?.freemius_seventh_param}`,
-                `${params?.fourth_param}`,
-            ];
-            break;
         case "conv-theme-ten":
         case "conv-theme-eleven":
             return [
                 `${params?.first_param} ${params?.second_param}`,
-                `${params?.third_param} ${params?.freemius_fifth_param} ${params?.freemius_sixth_param} ${params?.freemius_seventh_param}`,
+                `${params?.third_param}`,
                 `${params?.fourth_param}`,
             ];
             break;
@@ -180,7 +211,7 @@ const GetTemplate = (settings) => {
         case "conv-theme-six":
             return [
                 `${params?.first_param} ${params?.second_param} ${params?.third_param}`,
-                `${params?.map_fourth_param} ${params?.fourth_param} ${params?.freemius_fifth_param} ${params?.freemius_sixth_param} ${params?.freemius_seventh_param}`,
+                `${params?.map_fourth_param} ${params?.fourth_param}`,
                 `${params?.fifth_param}`,
             ];
             break;
@@ -189,7 +220,7 @@ const GetTemplate = (settings) => {
         case "conv-theme-nine":
             return [
                 `${params?.first_param} ${params?.second_param}`,
-                `${params?.third_param} ${params?.fourth_param} ${params?.freemius_fifth_param} ${params?.freemius_sixth_param} ${params?.freemius_seventh_param}`,
+                `${params?.third_param} ${params?.fourth_param}`,
             ];
             break;
         // conversion end

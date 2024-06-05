@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
 {
     public static $prefixLengthsPsr4 = array (
+        'W' => 
+        array (
+            'WPDeveloper\\QueryBuilder\\' => 25,
+        ),
         'P' => 
         array (
             'PriyoMukul\\WPNotice\\' => 20,
@@ -14,6 +18,10 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
     );
 
     public static $prefixDirsPsr4 = array (
+        'WPDeveloper\\QueryBuilder\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/wpdeveloper/query-builder/src',
+        ),
         'PriyoMukul\\WPNotice\\' => 
         array (
             0 => __DIR__ . '/..' . '/priyomukul/wp-notice/src',
@@ -47,6 +55,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Core\\Migration' => __DIR__ . '/../..' . '/includes/Core/Migration.php',
         'NotificationX\\Core\\Modules' => __DIR__ . '/../..' . '/includes/Core/Modules.php',
         'NotificationX\\Core\\PostType' => __DIR__ . '/../..' . '/includes/Core/PostType.php',
+        'NotificationX\\Core\\QueryBuilder' => __DIR__ . '/../..' . '/includes/Core/QueryBuilder.php',
         'NotificationX\\Core\\QuickBuild' => __DIR__ . '/../..' . '/includes/Core/QuickBuild.php',
         'NotificationX\\Core\\REST' => __DIR__ . '/../..' . '/includes/Core/REST.php',
         'NotificationX\\Core\\Rest\\Analytics' => __DIR__ . '/../..' . '/includes/Core/Rest/Analytics.php',
@@ -141,13 +150,13 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Types\\Types' => __DIR__ . '/../..' . '/includes/Types/Types.php',
         'NotificationX\\Types\\Video' => __DIR__ . '/../..' . '/includes/Types/Video.php',
         'NotificationX\\Types\\WooCommerceSales' => __DIR__ . '/../..' . '/includes/Types/WooCommerceSales.php',
-        'UsabilityDynamics\\Job' => __DIR__ . '/..' . '/udx/lib-utility/lib/class-job.php',
-        'UsabilityDynamics\\Loader' => __DIR__ . '/..' . '/udx/lib-utility/lib/class-loader.php',
-        'UsabilityDynamics\\Settings' => __DIR__ . '/..' . '/udx/lib-settings/lib/class-settings.php',
-        'UsabilityDynamics\\Structure' => __DIR__ . '/..' . '/udx/lib-utility/lib/class-structure.php',
-        'UsabilityDynamics\\Term' => __DIR__ . '/..' . '/udx/lib-utility/lib/class-term.php',
-        'UsabilityDynamics\\Utility' => __DIR__ . '/..' . '/udx/lib-utility/lib/class-utility.php',
-        'UsabilityDynamics\\Utility\\Guid_Fix' => __DIR__ . '/..' . '/udx/lib-utility/lib/class-guid-fix.php',
+        'UsabilityDynamics\\Job' => __DIR__ . '/..' . '/wpdeveloper/lib-utility/lib/class-job.php',
+        'UsabilityDynamics\\Loader' => __DIR__ . '/..' . '/wpdeveloper/lib-utility/lib/class-loader.php',
+        'UsabilityDynamics\\Settings' => __DIR__ . '/..' . '/wpdeveloper/lib-settings/lib/class-settings.php',
+        'UsabilityDynamics\\Structure' => __DIR__ . '/..' . '/wpdeveloper/lib-utility/lib/class-structure.php',
+        'UsabilityDynamics\\Term' => __DIR__ . '/..' . '/wpdeveloper/lib-utility/lib/class-term.php',
+        'UsabilityDynamics\\Utility' => __DIR__ . '/..' . '/wpdeveloper/lib-utility/lib/class-utility.php',
+        'UsabilityDynamics\\Utility\\Guid_Fix' => __DIR__ . '/..' . '/wpdeveloper/lib-utility/lib/class-guid-fix.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

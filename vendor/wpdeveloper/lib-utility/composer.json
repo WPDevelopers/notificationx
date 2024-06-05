@@ -1,5 +1,5 @@
 {
-  "name": "udx/lib-utility",
+  "name": "wpdeveloper/lib-utility",
   "keywords": [
     "utility",
     "process",
@@ -10,8 +10,8 @@
   "minimum-stability": "dev",
   "repositories": [
     {
-      "type": "composer",
-      "url": "https://repository.usabilitydynamics.com"
+      "type": "vcs",
+      "url": "https://github.com/WPDevelopers/lib-settings"
     }
   ],
   "require": {},

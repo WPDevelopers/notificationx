@@ -8,9 +8,10 @@ import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
 import nxToast from "../core/ToasterMsg";
 import { __ } from "@wordpress/i18n";
+import infoIcon from '../icons/Info.svg';
 
 const PublishWidget = (props) => {
-    const { title, context, isEdit, setIsLoading, setIsCreated, id, ...rest } = props;
+    const { title, context, isEdit, setIsLoading, setIsCreated, id, setCurrentPublishDate, ...rest } = props;
     const builderContext = useNotificationXContext();
 
     const handleSubmit = useCallback(
@@ -93,18 +94,29 @@ const PublishWidget = (props) => {
                         }
                         {" "}
                         :{" "}
-                    </label>
-                    <Date
+                        </label>
+                        <Date
                         name="updated_at"
                         value={context.values?.updated_at}
                         position="bottom left"
-                        onChange={(data) =>
-                            context.setFieldValue(
-                                "updated_at",
-                                data.target.value
-                            )
+                        onChange={(data) => {
+                                context.setFieldValue(
+                                    "updated_at",
+                                    data.target.value
+                                )
+                            } 
                         }
                     />
+                </div>
+                <div className="nx-publish-reset-btn">
+                    <button 
+                        onClick={ setCurrentPublishDate }
+                        >{ __('Reset Time', 'notificationx') } 
+                    </button> 
+                    <div className="reset-info-wrapper">
+                        <img className="reset-time-icon" src={infoIcon} />
+                        <p className="reset-time-info"> <span>This will reset the time to the current time</span> </p>
+                    </div>
                 </div>
                 <ButtonGroup>
                     {isEdit && (

@@ -129,6 +129,7 @@ export const NotificationXItems = (props) => {
                     setTotalItems={setTotalItems}
                     setCheckAll={setCheckAll}
                     setReload={setReload}
+                    setFilteredNotice={setFilteredNotice}
                 />
 
                 <WrapperWithLoader isLoading={isLoading} div={false}>
