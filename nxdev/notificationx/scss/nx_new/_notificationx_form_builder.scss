@@ -911,6 +911,10 @@
             }
 
             .wprf-image-uploader {
+                position: relative;
+                flex: 1;
+                display: inline-flex;
+
                 .wprf-image-remove-btn {
                     background: #f85656;
                     border-radius: 5px;
@@ -1176,20 +1180,19 @@
         margin-top: 15px;
         display: inline-flex;
         width: initial;
-        min-height: 40px;
-        background: transparent;
-        border: 1.5px solid #6a4bff;
+        min-height: auto;
+        border: 1px solid #6a4bff;
         border-radius: 4px;
-        padding: 2px 25px;
-        font-size: 16px;
+        padding: 6px 14px;
+        font-size: 12px;
         font-weight: 500;
         align-items: center;
         justify-content: center;
         text-decoration: none;
         outline: none;
-        background: #6a4bff;
-        color: #fff;
-        line-height: 1.15;
+        background: transparent;
+        color: #6A4BFF;
+        line-height: 1.2;
         transition: 0.3s ease-in-out;
         box-sizing: border-box;
         cursor: pointer;
@@ -1625,10 +1628,11 @@
                 }
 
                 .wprf-repeater-field-controls {
+                    align-items: center;
+                    gap: 10px;
+
                     span {
                         margin-left: 0;
-                        align-items: center;
-                        gap: 12px;
                     }
 
                     .dashicon.dashicons-admin-page,
@@ -1718,6 +1722,10 @@
                     overflow: hidden;
                     box-shadow: none !important;
                     background: transparent;
+
+                    &:focus-visible {
+                        outline: 0;
+                    }
                 }
 
                 .css-83ljq2.css-83ljq2.css-83ljq2 {
@@ -1771,15 +1779,15 @@
 
             &-total-text {
                 display: flex;
-                height: 36px;
+                height: 32px;
                 align-items: center;
                 justify-content: center;
             }
 
             &-item {
                 display: flex;
-                min-width: 36px;
-                height: 36px;
+                aspect-ratio: 1;
+                height: 32px;
                 margin-bottom: 0;
                 border-radius: 10px;
                 cursor: pointer;
@@ -1897,8 +1905,8 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                min-width: 36px;
-                height: 36px;
+                height: 32px;
+                aspect-ratio: 1;
                 margin-bottom: 0;
                 color: #6a4bff;
                 border-radius: 10px;
@@ -2019,7 +2027,8 @@
 
             &-simple &-prev,
             &-simple &-next {
-                height: 36px;
+                height: 32px;
+                aspect-ratio: 1;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -2027,10 +2036,10 @@
                 button,
                 a {
                     text-decoration: none;
-                    height: 36px;
+                    height: 32px;
 
                     &::after {
-                        height: 36px;
+                        height: 32px;
                     }
                 }
             }
@@ -2038,12 +2047,25 @@
     }
 }
 
-.wprf-csv-uploader {
+.wprf-name-custom-nx-csv-upload .wprf-media .wprf-image-uploader.wprf-csv-uploader {
+    position: relative;
+    flex: 1;
+    display: inline-flex;
+    gap: 16px;
+
+    button {
+        margin-right: 0;
+
+        &.wprf-btn.wprf-import-csv-btn {
+            border-radius: 5px;
+        }
+    }
+
     .wprf-import-csv-btn {
         &:disabled {
-            background: transparent;
+            background: #6a4bff;
             border: 1px solid #6a4bff;
-            color: #6a4bff;
+            color: #fff;
             cursor: not-allowed;
             padding: 10px 20px;
             border-radius: 5px;
@@ -2061,5 +2083,57 @@
         color: #fff;
         border: 1px solid;
         padding: 10px 16px;
+    }
+}
+
+.wprf-advanced-repeater-control {
+    .nx-all-selector {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .wprf-advanced-repeater-content {
+        .wprf-repeater-field-title {
+            h4 {
+                margin-left: 6px;
+
+                >span {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    input[type=checkbox] {
+        border: 1px solid #E6EFFB;
+        border-radius: 4px;
+        background: transparent;
+        cursor: pointer;
+        display: inline-block;
+        margin: 0;
+        outline: 0;
+        padding: 0 !important;
+        height: 20px;
+        aspect-ratio: 1;
+        width: auto;
+        min-width: auto;
+        -webkit-appearance: none;
+        box-shadow: none;
+        transition: 0.05s border-color ease-in-out;
+        position: relative;
+    }
+
+    input[type=checkbox]:checked::before {
+        content: "";
+        position: absolute;
+        left: 10px;
+        top: 6px;
+        width: 4px;
+        height: 10px;
+        border: solid #0CCFC2;
+        border-width: 0 1px 1px 0;
+        transition: ease-in-out 0.35s;
+        transform: rotate(45deg);
     }
 }

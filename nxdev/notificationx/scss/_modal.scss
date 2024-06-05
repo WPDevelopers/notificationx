@@ -100,15 +100,15 @@
 
         &-total-text {
             display: flex;
-            height: 36px;
+            height: 32px;
             align-items: center;
             justify-content: center;
         }
 
         &-item {
             display: flex;
-            min-width: 36px;
-            height: 36px;
+            height: 32px;
+            aspect-ratio: 1;
             margin-bottom: 0;
             border-radius: 10px;
             cursor: pointer;
@@ -220,8 +220,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-width: 36px;
-            height: 36px;
+            height: 32px;
+            aspect-ratio: 1;
             margin-bottom: 0;
             color: #6a4bff;
             border-radius: 10px;
@@ -309,7 +309,8 @@
 
         &-simple &-prev,
         &-simple &-next {
-            height: 36px;
+            height: 32px;
+            aspect-ratio: 1;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -317,10 +318,10 @@
             button,
             a {
                 text-decoration: none;
-                height: 36px;
+                height: 32px;
 
                 &::after {
-                    height: 36px;
+                    height: 32px;
                 }
             }
         }
@@ -330,12 +331,22 @@
 
 .ReactModal__Overlay.ReactModal__Overlay--after-open {
     background-color: rgba(11, 5, 44, 0.7) !important;
+    padding: unset !important;
 
     .ReactModal__Content.ReactModal__Content--after-open {
+        position: absolute !important;
+        inset: unset !important;
         border: none !important;
         background: transparent !important;
-        padding: 0 !important;
-        width: 900px !important;
+        padding: 0px !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        margin: 20px auto;
+        width: 100% !important;
+        max-width: 900px !important;
         overflow: unset !important;
 
         .csv-preview-header {
@@ -350,60 +361,75 @@
             padding: 24px;
             padding-bottom: 20px;
             background: #F6F7FE;
-            max-width: 900px;
-            overflow: auto;
 
-            thead {
-                tr {
-                    display: flex;
-                    align-items: center;
-                    background: #C7CDF8;
-                    border-radius: 4px 4px 0 0;
+            >table {
+                max-width: 900px;
+                max-height: calc(100vh - 250px);
+                overflow: auto;
+                display: block;
 
-                    th {
-                        padding: 15px 10px;
+                thead {
+                    tr {
+                        display: flex;
+                        align-items: center;
                         background: #C7CDF8;
-                        font-size: 12px;
-                        font-weight: 500;
-                        line-height: 1.1em;
-                        color: #25396F;
-                        text-transform: capitalize;
-                        width: 136px;
-                        text-align: left;
-                        border-right: 1px solid #E0EAF8;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
+                        border-radius: 4px 4px 0 0;
+
+                        th {
+                            padding: 15px 10px;
+                            background: #C7CDF8;
+                            font-size: 12px;
+                            font-weight: 500;
+                            line-height: 1.1em;
+                            color: #25396F;
+                            text-transform: capitalize;
+                            width: 136px;
+                            text-align: left;
+                            border-right: 1px solid #E0EAF8;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            box-sizing: border-box;
+
+                            &:first-child {
+                                width: 110px;
+                            }
+                        }
                     }
                 }
-            }
 
-            tbody {
-                tr {
-                    display: flex;
-                    align-items: center;
-                    background: #fff;
+                tbody {
+                    tr {
+                        display: flex;
+                        align-items: center;
+                        background: #fff;
 
-                    &:last-child {
-                        border-bottom: 1px solid #E0EAF8;
-                    }
+                        &:last-child {
+                            border-bottom: 1px solid #E0EAF8;
+                        }
 
-                    td {
-                        padding: 15px 10px;
-                        font-size: 12px;
-                        font-weight: 500;
-                        line-height: 1.1em;
-                        color: #7C8DB5;
-                        text-transform: capitalize;
-                        width: 136px;
-                        text-align: left;
-                        border-right: 1px solid #E0EAF8;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
+                        td {
+                            padding: 15px 10px;
+                            font-size: 12px;
+                            font-weight: 500;
+                            line-height: 1.1em;
+                            color: #7C8DB5;
+                            text-transform: capitalize;
+                            width: 136px;
+                            text-align: left;
+                            border-right: 1px solid #E0EAF8;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            box-sizing: border-box;
 
-                        img {
-                            max-height: 10px;
+                            &:first-child {
+                                width: 110px;
+                            }
+
+                            img {
+                                max-height: 10px;
+                            }
                         }
                     }
                 }
@@ -469,6 +495,10 @@
                         overflow: hidden;
                         box-shadow: none !important;
                         background: transparent;
+
+                        &:focus-visible {
+                            outline: 0;
+                        }
                     }
 
                     .css-83ljq2.css-83ljq2.css-83ljq2 {
@@ -528,15 +558,15 @@
 
                     &-total-text {
                         display: flex;
-                        height: 36px;
+                        height: 32px;
                         align-items: center;
                         justify-content: center;
                     }
 
                     &-item {
                         display: flex;
-                        min-width: 36px;
-                        height: 36px;
+                        aspect-ratio: 1;
+                        height: 32px;
                         margin-bottom: 0;
                         border-radius: 10px;
                         cursor: pointer;
@@ -654,8 +684,8 @@
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        min-width: 36px;
-                        height: 36px;
+                        height: 32px;
+                        aspect-ratio: 1;
                         margin-bottom: 0;
                         color: #6a4bff;
                         border-radius: 10px;
@@ -776,7 +806,8 @@
 
                     &-simple &-prev,
                     &-simple &-next {
-                        height: 36px;
+                        height: 32px;
+                        aspect-ratio: 1;
                         display: flex;
                         align-items: center;
                         justify-content: center;
@@ -784,10 +815,12 @@
                         button,
                         a {
                             text-decoration: none;
-                            height: 36px;
+                            height: 32px;
+                            aspect-ratio: 1;
 
                             &::after {
-                                height: 36px;
+                                height: 32px;
+                                aspect-ratio: 1;
                             }
                         }
                     }
