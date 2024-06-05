@@ -1106,6 +1106,7 @@ class PressBar extends Extension {
                     'type'  => 'text',
                     'rules'  => Rules::logicalRule([
                         Rules::is('elementor_id', false),
+                        Rules::is('gutenberg_id', false),
                         Rules::is('enable_countdown', true),
                     ]),
                 ),
@@ -1116,6 +1117,7 @@ class PressBar extends Extension {
                     'default' => __('Expired', 'notificationx'),
                     'rules'  => Rules::logicalRule([
                         Rules::is('elementor_id', false),
+                        Rules::is('gutenberg_id', false),
                         Rules::is('evergreen_timer', false),
                         Rules::is('enable_countdown', true),
                     ]),

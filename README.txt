@@ -1,4 +1,4 @@
-=== NotificationX - Best FOMO, Social Proof, Custom & Live Sales Notification, WooCommerce Sales Popup, Floating & Sticky Notification Bar ===
+=== NotificationX - WooCommerce Sales Notification Popup, Custom & Live Sales Notification, FOMO, Social Proof, Announcement Banner & Sticky Notification Bar ===
 Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim, sapanmozammel, shuvo247, fuadragib
 Donate link: https://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce sales, notification bar 
@@ -205,7 +205,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 2.8.8 - 04/6/2024 =
+= 2.8.8 - 05/6/2024 =
 Added: Notification bar Auto hide after expiration.
 Fixed: NotificationX conflicts with WooCommerce Subscription plugin.
 Fixed: Start & End time selection style was broken.
