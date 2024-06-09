@@ -9,6 +9,9 @@ import { SelectControl } from "@wordpress/components";
 import { __ } from '@wordpress/i18n';
 import localeInfo from 'rc-pagination/es/locale/en_US';
 import { chunkArray } from '../core/functions';
+import ReactModal from "react-modal";
+import PreviewField from './helpers/PreviewField';
+import BulkEditField from './helpers/PreviewField';
 
 const AdvancedRepeater = (props) => {
     const { name: fieldName, value: fieldValue, button, field } = props;
@@ -17,7 +20,7 @@ const AdvancedRepeater = (props) => {
     const [selectedField, setSelectedField] = useState([]);
     const builderContext = useBuilderContext();
     const [localMemoizedValue, setLocalMemoizedValue] = useState(builderContext.values?.[fieldName]);
-
+    const [isOpen, setIsOpen] = useState(false);
     useEffect(() => {
         if (builderContext.values?.[fieldName] !== undefined) {
             setLocalMemoizedValue(builderContext.values?.[fieldName]);
@@ -125,31 +128,37 @@ const AdvancedRepeater = (props) => {
 
     return (
         <div className="wprf-repeater-control wprf-advanced-repeater-control">
+            <div className="wprf-advanced-repeater-heading">
+                <span>{ __('Custom Notification') }</span>
+                <button
+                    className="wprf-repeater-button add-new"
+                    onClick={() => builderContext.setFieldValue(fieldName, [...localMemoizedValue, { index: v4() }])}
+                    disabled={totalItems >= 100 ? true : false}
+                >
+                    {button?.label}
+                </button>
+            </div>
             <div className="wprf-advanced-repeater-header">
                 <div className="nx-all-selector">
                     <input id="nx-advanced-repeater-all-checkbox" type="checkbox" checked={selectedField?.length == localMemoizedValue?.length ? true : false} onChange={(event) => checkAll(event)} />
                     <label htmlFor="nx-advanced-repeater-all-checkbox">{__('Select All', 'notificationx')}</label>
                 </div>
-                <div className="wprf-repeater-label">
-                    <button
-                        className="wprf-repeater-button add-new"
-                        onClick={() => builderContext.setFieldValue(fieldName, [...localMemoizedValue, { index: v4() }])}
-                        disabled={totalItems >= 100 ? true : false}
-                    >
-                        {button?.label}
-                    </button>
-                    <button
-                        className='wprf-repeater-button bulk-edit'
-                    >
-                        {__('Bulk Edit', 'notificationx')}
-                    </button>
-                    <button
-                        className="wprf-repeater-button bulk-delete"
-                        onClick={() => bulkDelete()}
-                    >
-                        {__('Bulk Delete', 'notificationx')}
-                    </button>
-                </div>
+                { totalItems > 1 &&
+                    <div className="wprf-repeater-label">
+                        <button
+                            className='wprf-repeater-button bulk-edit'
+                            onClick={ () => setIsOpen(true) }
+                        >
+                            {__('Edit', 'notificationx')}
+                        </button>
+                        <button
+                            className="wprf-repeater-button bulk-delete"
+                            onClick={() => bulkDelete()}
+                        >
+                            {__('Delete', 'notificationx')}
+                        </button>
+                    </div>
+                }
             </div>
             {localMemoizedValue && localMemoizedValue.length > 0 && (
                 <>
@@ -210,6 +219,62 @@ const AdvancedRepeater = (props) => {
                     </div>
                 </>
             )}
+            <ReactModal
+                isOpen={isOpen}
+                onRequestClose={() => setIsOpen(false)}
+                ariaHideApp={false}
+                style={{
+                    overlay: {
+                        position: "fixed",
+                        display: "flex",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        backgroundColor: "rgba(3, 6, 60, 0.7)",
+                        zIndex: 9999,
+                        padding: "60px 15px",
+                    },
+                    content: {
+                        position: "static",
+                        width: '900px',
+                        margin: "auto",
+                        border: "0px solid #5414D0",
+                        // background: "#5414D0",
+                        overflow: "auto",
+                        WebkitOverflowScrolling: "touch",
+                        borderRadius: "4px",
+                        outline: "none",
+                        padding: "15px",
+                    },
+                }}
+            >
+                <>
+                    <div className="wprf-modal-preview-header">
+                        <span>Edit</span>
+                    </div>
+                    <div className="wprf-modal-table-wrapper wpsp-bulk-edit-fields">
+                        {currentPageItems.map((value, index) => (
+                            <BulkEditField
+                                isCollapsed={true}
+                                key={value?.index || (index + (currentPage - 1) * itemsPerPage)}
+                                fields={field}
+                                index={index + (currentPage - 1) * itemsPerPage}
+                                __index={value?.index}
+                                parent={fieldName}
+                                clone={handleClone}
+                                remove={handleRemove}
+                                checked={selectedField.findIndex(element => element == value.index) != -1 ? true : false}
+                                onChange={(event) => handleChangeCollapseState(event, index + (currentPage - 1) * itemsPerPage)}
+                                onChecked={onChecked}
+                            />
+                        ))}
+                    </div>
+                    <div className="wprf-modal-preview-footer">
+                        <button className='wpsp-btn wpsp-btn-preview-update'>{ __('Update', 'notificationx') }</button>
+                    </div>
+                </>
+            </ReactModal>
         </div>
     );
 };

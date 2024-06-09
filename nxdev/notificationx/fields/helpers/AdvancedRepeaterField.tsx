@@ -10,7 +10,6 @@ const AdvancedRepeaterField = (props) => {
     const { fields, onChange, index, parent, onChecked, checked, __index } = props;
     const [isCollapsed, setIsCollapsed] = useState(props.isCollapsed);
     const instanceId = useInstanceId(AdvancedRepeaterField);
-    // onClick={() => setIsCollapse(!isCollapse)}
     const values = builderContext.values?.[parent]?.[index];
     const title = values?.title || values?.post_title || values?.username || values?.plugin_theme_name;
     const _title = title ? ((title.length < 40 ? title : title.substr(0, 40) + "...")) : '';

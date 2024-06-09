@@ -946,7 +946,28 @@
                         box-shadow: 0 15px 25px -5px rgba(#5614d5, 0.3);
                     }
                 }
-
+                .wprf-csv-upload-btn {
+                    background: #6a4bff;
+                    border: 1.5px solid #6a4bff;
+                    border-radius: 5px;
+                    display: flex;
+                    font-size: 16px;
+                    font-weight: 500;
+                    align-items: center;
+                    justify-content: center;
+                    text-decoration: none;
+                    outline: none;
+                    color: #fff;
+                    line-height: 1.15;
+                    transition: 0.3s ease-in-out;
+                    cursor: pointer;
+                    gap: 5px;
+                    svg {
+                        background: #795dff;
+                        padding: 4px;
+                        border-radius: 5px;
+                    }
+                }
                 .wprf-btn-sample-csv {
                     background: transparent;
                     border: 1px solid #6a4bff;
@@ -958,7 +979,6 @@
                     align-items: center;
                     gap: 8px;
                     transition: 0.3s ease-in-out;
-
                     &:hover {
                         background: transparent;
                         color: #6a4bff;
@@ -1605,12 +1625,19 @@
             }
         }
     }
-
+    
+    .wprf-advanced-repeater-heading {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px;
+        background: #fff;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
     .wprf-repeater-content {
         display: flex;
         flex-direction: column;
         gap: 12px;
-
         .wprf-repeater-field {
             margin-top: 0;
             background: #fff;
@@ -2062,9 +2089,24 @@
     }
 
     .wprf-import-csv-btn {
+        // background: #6a4bff;
+        // border: 1.5px solid #6a4bff;
+        // border-radius: 5px;
+        // display: flex;
+        // font-size: 16px;
+        // font-weight: 500;
+        // align-items: center;
+        // justify-content: center;
+        // text-decoration: none;
+        // outline: none;
+        // color: #fff;
+        // line-height: 1.15;
+        // transition: 0.3s ease-in-out;
+        // cursor: pointer;
+        // gap: 5px;
         &:disabled {
-            background: #6a4bff;
-            border: 1px solid #6a4bff;
+            background: #8D92B1;
+            // border: 1px solid #6a4bff;
             color: #fff;
             cursor: not-allowed;
             padding: 10px 20px;

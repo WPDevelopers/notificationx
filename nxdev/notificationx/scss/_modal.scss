@@ -60,7 +60,7 @@
     margin-top: 20px;
 }
 
-.csv-preview-footer {
+.wprf-modal-preview-footer {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
@@ -349,7 +349,7 @@
         max-width: 900px !important;
         overflow: unset !important;
 
-        .csv-preview-header {
+        .wprf-modal-preview-header {
             font-size: 16px;
             color: #1B1B50;
             padding: 26px 24px;
@@ -357,7 +357,7 @@
             border-radius: 8px 8px 0 0;
         }
 
-        .csv-table-wrapper {
+        .wprf-modal-table-wrapper {
             padding: 24px;
             padding-bottom: 20px;
             background: #F6F7FE;
@@ -436,7 +436,7 @@
             }
         }
 
-        .csv-preview-footer {
+        .wprf-modal-preview-footer {
             background: #F6F7FE;
             border-radius: 0 0 8px 8px;
             display: flex;
@@ -826,6 +826,61 @@
                     }
                 }
             }
+        }
+    }
+}
+
+.wpsp-bulk-edit-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .wprf-repeater-field {
+        margin-top: 0;
+        background: #fff;
+        border-radius: 4px;
+    
+        .wprf-repeater-field-title {
+            padding: 12px;
+            background-color: transparent;
+    
+            h4 {
+                font-size: 14px;
+                font-weight: 500;
+                color: #25396F;
+                line-height: 18px;
+            }
+    
+            .wprf-repeater-field-controls {
+                align-items: center;
+                gap: 10px;
+    
+                span {
+                    margin-left: 0;
+                }
+    
+                .dashicon.dashicons-admin-page,
+                .dashicon.dashicons-trash {
+                    color: #7C8DB5;
+                    font-size: 18px;
+                    transition: ease-in-out .25s;
+                }
+    
+                .dashicon.dashicons-admin-page:hover {
+                    color: #5f7eff;
+                }
+    
+                .dashicon.dashicons-trash:hover {
+                    color: #dc4f4b;
+                }
+    
+            }
+        }
+    
+        .wprf-repeater-inner-field {
+            padding: 20px 12px 25px;
+            background-color: #fff;
+            border: 0px solid;
+            border-top: 1px solid #E6EFFB;
         }
     }
 }

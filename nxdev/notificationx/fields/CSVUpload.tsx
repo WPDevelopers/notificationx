@@ -6,6 +6,7 @@ import ReactModal from "react-modal";
 import { __ } from '@wordpress/i18n';
 import DownloadIcon from '../icons/DownloadIcon';
 import UploadIcon from '../icons/UploadIcon';
+import Ic_Round_Done from '../icons/check_done';
 import Pagination from 'rc-pagination';
 import { SelectControl } from "@wordpress/components";
 import Swal from 'sweetalert2';
@@ -17,6 +18,8 @@ const Media = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const [headers, setHeaders] = useState([]);
     const [importBtnClass, setImportButtonClass] = useState('wprf-btn wprf-import-csv-btn');
+    const [loading, setLoading]  = useState(false);
+    const [complete, setComplete] = useState(false);
     const [data, setData] = useState([]);
     const [itemsPerPage, setItemsPerPage] = useState(5);
     const [currentPage, setCurrentPage] = useState(1);
@@ -69,6 +72,7 @@ const Media = (props) => {
 
     const importCSVData = () => {
         setImportButtonClass('wprf-btn wprf-import-csv-btn loading');
+        setLoading(true);
         nxHelper.post("csv-upload", {
             csv: csvData,
             uploadImage: true,
@@ -81,8 +85,11 @@ const Media = (props) => {
                 res.data.data
             )
             setImportButtonClass('wprf-btn wprf-import-csv-btn completed');
+            setLoading(false);
+            setComplete(true);
         }).catch((error) => {
             setImportButtonClass('wprf-btn wprf-import-csv-btn error');
+            setLoading(false);
         });
     }
 
@@ -128,31 +135,22 @@ const Media = (props) => {
                     value={csvData}
                     render={({ open }) => {
                         return <>
-                            {csvData?.title && <span>{csvData?.title}</span>}
-                            {
-                                csvData != null &&
-                                // @ts-ignore 
-                                <button className={importBtnClass} onClick={() => importCSVData()} disabled={totalAddedItems?.length >= 100 ? true : false}>
-                                    {'Import'}
-                                </button>
-                            }
                             <button
-                                className="wprf-btn wprf-image-upload-btn"
+                                className="wprf-btn wprf-csv-upload-btn"
                                 onClick={open}
                             >
-                                <UploadIcon /> {csvData != null ? (props?.reset || __('Change CSV', 'notificationx')) : (props?.button || 'Upload')}
+                                { complete ? <Ic_Round_Done /> : <UploadIcon /> }  { csvData != null ? (props?.reset || __('Upload', 'notificationx')) : (props?.button || 'Upload') }
+                            </button>
+                            {csvData?.title && <span>{csvData?.title}</span>}
+                            {/* disabled={totalAddedItems?.length >= 100 ? true : false} */}
+                            <button className={importBtnClass} disabled={ csvData == null ? true : false } onClick={() => importCSVData()}>
+                                <DownloadIcon /> {'Import'}
                             </button>
                             <button
                                 className='wprf-btn wprf-btn-sample-csv'
                             >
-                                <DownloadIcon /> {__('Sample CSV', 'notificationx')}
+                                {__('Sample CSV', 'notificationx')}
                             </button>
-                            {
-                                csvData != null &&
-                                <button className="wprf-btn wprf-preview-csv-btn" onClick={() => previewCSVData()}>
-                                    {'Preview'}
-                                </button>
-                            }
                         </>
                     }}
                 />
@@ -190,10 +188,10 @@ const Media = (props) => {
                 <>
                     {headers.length > 0 && (
                         <>
-                            <div className="csv-preview-header">
+                            <div className="wprf-modal-preview-header">
                                 {csvData?.title}
                             </div>
-                            <div className='csv-table-wrapper'>
+                            <div className='wprf-modal-table-wrapper'>
                                 <table>
                                     <thead>
                                         <tr>
@@ -213,7 +211,7 @@ const Media = (props) => {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="csv-preview-footer">
+                            <div className="wprf-modal-preview-footer">
                                 <div className="items-per-page-wrapper">
                                     <SelectControl
                                         options={[
