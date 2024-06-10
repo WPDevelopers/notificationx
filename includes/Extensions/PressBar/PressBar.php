@@ -11,11 +11,15 @@ namespace NotificationX\Extensions\PressBar;
 use NotificationX\Core\Analytics;
 use NotificationX\Core\GetData;
 use NotificationX\Core\Helper;
+use NotificationX\Core\PostType;
 use NotificationX\Core\Rules;
 use NotificationX\Extensions\Extension;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\FrontEnd\Preview;
 use NotificationX\GetInstance;
+
+use Elementor\Core\Files\CSS\Post as Post_CSS;
+
 
 /**
  * PressBar Extension
@@ -218,6 +222,7 @@ class PressBar extends Extension {
         parent::public_actions();
         // add_action('wp_head', [$this, 'print_bar_notice'], 100);
         add_filter("nx_filtered_data_{$this->id}", array($this, 'insert_views'), 11, 3);
+        add_filter("rocket_rucss_safelist", array($this, 'rocket_rucss_safelist'), 11);
     }
 
 
@@ -1345,6 +1350,31 @@ class PressBar extends Extension {
             $settings['gutenberg_url'] = get_permalink($settings['gutenberg_id']);
         }
         return $settings;
+    }
+
+    /**
+     *
+     * https://docs.wp-rocket.me/article/1529-remove-unused-css
+     *
+     * @param array $list
+     * @return array
+     */
+    public function rocket_rucss_safelist($list){
+        try {
+            $posts = PostType::get_instance()->get_posts(['source' => $this->id]);
+            foreach ($posts as $post) {
+                if(class_exists('Elementor\Core\Files\CSS\Post') && !empty($post['elementor_id'])){
+                    $css = Post_CSS::create( $post['elementor_id'] );
+                    if(!empty($css)){
+                        // maybe need to remove the domain from url
+                        $list[] = $css->get_url();
+                    }
+                }
+            }
+        } catch (\Exception $th) {
+            //throw $th;
+        }
+        return $list;
     }
 
     public function doc() {
