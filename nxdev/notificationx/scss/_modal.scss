@@ -356,6 +356,10 @@
             padding: 26px 24px;
             background: #fff;
             border-radius: 8px 8px 0 0;
+            position: sticky;
+            top: 0px;
+            z-index: 999;
+            box-shadow: 0 0 10px #0000001a;
         }
 
         .wprf-modal-table-wrapper {
@@ -479,6 +483,7 @@
                                 color: #7C8DB5;
                                 font-size: 18px;
                                 transition: ease-in-out .25s;
+                                cursor: pointer;
                             }
 
                             .dashicon.dashicons-admin-page:hover {
