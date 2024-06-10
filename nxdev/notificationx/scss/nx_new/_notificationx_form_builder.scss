@@ -1225,8 +1225,7 @@
         box-sizing: border-box;
         cursor: pointer;
 
-        &:hover,
-        &:focus {
+        &:hover {
             color: #fff;
             background-color: darken(#5614d5, 1%);
             border-color: darken(#5614d5, 1%);
@@ -1705,7 +1704,11 @@
             .wprf-repeater-field-title {
                 padding: 12px;
                 background: transparent;
-
+                .wprf-repeater-field-content {
+                    display: flex;
+                    flex-basis: 100%;
+                    justify-content: space-between;
+                }
                 h4 {
                     font-size: 14px;
                     font-weight: 500;

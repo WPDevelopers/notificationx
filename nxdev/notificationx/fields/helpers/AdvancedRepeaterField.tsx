@@ -30,12 +30,14 @@ const AdvancedRepeaterField = (props) => {
 
     return (
         <div className="wprf-repeater-field">
-            <div className="wprf-repeater-field-title" onClick={() => setIsCollapsed(!isCollapsed)} >
+            <div className="wprf-repeater-field-title">
                 <input type="checkbox" name={`check-${index}`} id={`check-${index}`} checked={ checked || false } onChange={ () => onChecked( __index ) } />
-                <h4><Icon icon="move"/>{props.index+1}: {_title}</h4>
-                <div className="wprf-repeater-field-controls">
-                    <Icon onClick={onClone} icon="admin-page" />
-                    <Icon onClick={onDelete} icon="trash" />
+                <div className="wprf-repeater-field-content" onClick={() => setIsCollapsed(!isCollapsed)}>
+                    <h4><Icon icon="move"/>{props.index+1}: {_title}</h4>
+                    <div className="wprf-repeater-field-controls">
+                        <Icon onClick={onClone} icon="admin-page" />
+                        <Icon onClick={onDelete} icon="trash" />
+                    </div>
                 </div>
             </div>
             { !isCollapsed &&

@@ -10,6 +10,7 @@ import Ic_Round_Done from '../icons/check_done';
 import Pagination from 'rc-pagination';
 import { SelectControl } from "@wordpress/components";
 import Swal from 'sweetalert2';
+import FileIcon from '../icons/FileIcon';
 
 
 const Media = (props) => {
@@ -149,7 +150,7 @@ const Media = (props) => {
                             <button
                                 className='wprf-btn wprf-btn-sample-csv'
                             >
-                                {__('Sample CSV', 'notificationx')}
+                                <FileIcon/> {__('Sample CSV', 'notificationx')}
                             </button>
                         </>
                     }}
