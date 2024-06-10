@@ -356,10 +356,19 @@
             padding: 26px 24px;
             background: #fff;
             border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             position: sticky;
             top: 0px;
             z-index: 999;
             box-shadow: 0 0 10px #0000001a;
+
+            button {
+                background: transparent;
+                border: none;
+                cursor: pointer;
+            }
         }
 
         .wprf-modal-table-wrapper {
@@ -457,6 +466,7 @@
                         align-items: center;
                         justify-content: space-between;
                         gap: 8px;
+
                         h4 {
                             font-size: 14px;
                             font-weight: 500;
@@ -961,7 +971,8 @@
                 font-weight: 500;
                 line-height: 1.3em;
                 margin-top: 10px;
-                &:hover{
+
+                &:hover {
                     cursor: pointer;
                 }
             }

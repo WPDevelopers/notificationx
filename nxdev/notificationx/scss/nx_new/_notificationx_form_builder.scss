@@ -435,6 +435,32 @@
                 }
             }
 
+            textarea {
+                min-height: 40px;
+                padding: 10px 15px;
+                border: 1.5px solid #e6effb;
+                border-radius: 5px;
+                color: #25396f;
+                font-size: 14px;
+                font-weight: 500;
+                width: 100%;
+                max-width: 400px;
+                margin-right: 10px;
+                outline: 0;
+                box-shadow: none;
+                resize: none;
+
+                &::placeholder {
+                    color: #a7b6d8;
+                }
+
+                &:focus {
+                    border-color: #7c8db5;
+                    outline: none;
+                    box-shadow: none;
+                }
+            }
+
             input[type="number"],
             input[type="text"] {
                 min-height: 40px;
@@ -1629,42 +1655,72 @@
             color: #25396F;
         }
 
-        button.add-new {
-            padding: 6px 12px 6px 32px;
-            background: #6A4BFF;
-            border: none;
-            border-radius: 4px;
-            color: #fff;
-            font-size: 12px;
-            font-weight: 500;
-            line-height: 1.3em;
-            cursor: pointer;
-            position: relative;
+        .wprf-advanced-repeater-header-action {
+            display: flex;
+            gap: 16px;
+            align-items: center;
 
-            &:after {
-                content: '';
-                position: absolute;
-                left: 15px;
-                bottom: 50%;
-                transform: translateY(-50%);
-                width: 10px;
-                height: 1.5px;
-                background: #fff;
-                border-radius: 0px;
+            button.wprf-repeater-button {
+                padding: 6px 12px;
+                border-radius: 4px;
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 1.3em;
+                cursor: pointer;
+                position: relative;
+
+                &.preview {
+                    background: transparent;
+                    border: 1px solid #6A4BFF;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    color: #6A4BFF;
+
+                    svg {
+                        width: 16px;
+
+                        path {
+                            stroke: #6A4BFF;
+                        }
+                    }
+                }
+
+                &.add-new {
+                    padding: 6px 12px 6px 32px;
+                    background: #6A4BFF;
+                    border: 1px solid #6A4BFF;
+                    color: #fff;
+
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        left: 15px;
+                        bottom: 50%;
+                        transform: translateY(-50%);
+                        width: 10px;
+                        height: 1.5px;
+                        background: #fff;
+                        border-radius: 0px;
+                    }
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        left: 15px;
+                        bottom: 50%;
+                        transform: translateY(-50%) rotate(90deg);
+                        width: 10px;
+                        height: 1.5px;
+                        background: #fff;
+                        border-radius: 0px;
+                    }
+                }
             }
 
-            &:before {
-                content: '';
-                position: absolute;
-                left: 15px;
-                bottom: 50%;
-                transform: translateY(-50%) rotate(90deg);
-                width: 10px;
-                height: 1.5px;
-                background: #fff;
-                border-radius: 0px;
-            }
         }
+
+
     }
 
     .wprf-advanced-repeater-header {
@@ -1686,7 +1742,17 @@
             display: flex;
 
             .wprf-repeater-button {
+                padding: 5px 14px;
                 margin-top: 0;
+                gap: 5px;
+
+                svg path {
+                    transition: 0.3s ease-in-out;
+                }
+
+                &:hover svg path {
+                    stroke: #fff;
+                }
             }
         }
     }
@@ -1704,11 +1770,13 @@
             .wprf-repeater-field-title {
                 padding: 12px;
                 background: transparent;
+
                 .wprf-repeater-field-content {
                     display: flex;
                     flex-basis: 100%;
                     justify-content: space-between;
                 }
+
                 h4 {
                     font-size: 14px;
                     font-weight: 500;

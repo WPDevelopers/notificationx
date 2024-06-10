@@ -136,10 +136,10 @@ const AdvancedRepeater = (props) => {
     return (
         <div className="wprf-repeater-control wprf-advanced-repeater-control">
             <div className="wprf-advanced-repeater-heading">
-                <span>{ __('Custom Notification') }</span>
+                <span>{__('Custom Notification')}</span>
                 <div className="wprf-advanced-repeater-header-action">
-                    <button className='wprf-repeater-button add-new'>
-                        <EyeIcon/> { __('Preview', 'notificationx') }
+                    <button className='wprf-repeater-button preview'>
+                        <EyeIcon /> {__('Preview', 'notificationx')}
                     </button>
                     <button
                         className="wprf-repeater-button add-new"
@@ -155,19 +155,19 @@ const AdvancedRepeater = (props) => {
                     <input id="nx-advanced-repeater-all-checkbox" type="checkbox" checked={selectedField?.length == localMemoizedValue?.length ? true : false} onChange={(event) => checkAll(event)} />
                     <label htmlFor="nx-advanced-repeater-all-checkbox">{__('Select All', 'notificationx')}</label>
                 </div>
-                { totalItems > 1 &&
+                {totalItems > 1 &&
                     <div className="wprf-repeater-label">
                         <button
                             className='wprf-repeater-button bulk-edit'
-                            onClick={ () => setIsOpen(true) }
+                            onClick={() => setIsOpen(true)}
                         >
-                           <EditIcon/> {__('Edit', 'notificationx')}
+                            <EditIcon /> {__('Edit', 'notificationx')}
                         </button>
                         <button
                             className="wprf-repeater-button bulk-delete"
                             onClick={() => bulkDelete()}
                         >
-                            <TrashIcon/> {__('Delete', 'notificationx')}
+                            <TrashIcon /> {__('Delete', 'notificationx')}
                         </button>
                     </div>
                 }
@@ -264,8 +264,8 @@ const AdvancedRepeater = (props) => {
                 <>
                     <div className="wprf-modal-preview-header">
                         <span>Edit</span>
-                        <button onClick={ () => setIsOpen(false) }>
-                            <CloseIcon/>
+                        <button onClick={() => setIsOpen(false)}>
+                            <CloseIcon />
                         </button>
                     </div>
                     <div className="wprf-modal-table-wrapper wpsp-bulk-edit-fields">
@@ -274,16 +274,16 @@ const AdvancedRepeater = (props) => {
                                 isCollapsed={true}
                                 key={value?.index}
                                 fields={field}
-                                index={ localMemoizedValue.findIndex( ele => ele.index == value?.index ) }
+                                index={localMemoizedValue.findIndex(ele => ele.index == value?.index)}
                                 __index={value?.index}
                                 parent={fieldName}
                                 remove={handleRemove}
-                                onChange={(event) => handleChangeCollapseState(event, localMemoizedValue.findIndex( ele => ele.index == value?.index ))}
+                                onChange={(event) => handleChangeCollapseState(event, localMemoizedValue.findIndex(ele => ele.index == value?.index))}
                             />
                         ))}
                     </div>
                     <div className="wprf-modal-preview-footer">
-                        <button className='wpsp-btn wpsp-btn-preview-update' onClick={ () => setIsOpen(false) }>{ __('Update', 'notificationx') }</button>
+                        <button className='wpsp-btn wpsp-btn-preview-update' onClick={() => setIsOpen(false)}>{__('Update', 'notificationx')}</button>
                     </div>
                 </>
             </ReactModal>
