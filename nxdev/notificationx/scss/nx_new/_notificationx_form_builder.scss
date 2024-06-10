@@ -946,6 +946,7 @@
                         box-shadow: 0 15px 25px -5px rgba(#5614d5, 0.3);
                     }
                 }
+
                 .wprf-csv-upload-btn {
                     background: #6a4bff;
                     border: 1.5px solid #6a4bff;
@@ -962,12 +963,14 @@
                     transition: 0.3s ease-in-out;
                     cursor: pointer;
                     gap: 5px;
+
                     svg {
                         background: #795dff;
                         padding: 4px;
                         border-radius: 5px;
                     }
                 }
+
                 .wprf-btn-sample-csv {
                     background: transparent;
                     border: 1px solid #6a4bff;
@@ -979,6 +982,7 @@
                     align-items: center;
                     gap: 8px;
                     transition: 0.3s ease-in-out;
+
                     &:hover {
                         background: transparent;
                         color: #6a4bff;
@@ -1605,16 +1609,74 @@
 .wprf-advanced-repeater-control {
     background: #F8FAFB;
     padding: 12px 10px;
-    border-radius: 7px;
+    border-radius: 4px;
+
+    .wprf-advanced-repeater-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px;
+        background: #fff;
+        border-radius: 4px;
+
+        >span {
+            font-size: 14px;
+            line-height: 1.3em;
+            font-weight: 600;
+            color: #25396F;
+        }
+
+        button.add-new {
+            padding: 6px 12px 6px 32px;
+            background: #6A4BFF;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1.3em;
+            cursor: pointer;
+            position: relative;
+
+            &:after {
+                content: '';
+                position: absolute;
+                left: 15px;
+                bottom: 50%;
+                transform: translateY(-50%);
+                width: 10px;
+                height: 1.5px;
+                background: #fff;
+                border-radius: 0px;
+            }
+
+            &:before {
+                content: '';
+                position: absolute;
+                left: 15px;
+                bottom: 50%;
+                transform: translateY(-50%) rotate(90deg);
+                width: 10px;
+                height: 1.5px;
+                background: #fff;
+                border-radius: 0px;
+            }
+        }
+    }
 
     .wprf-advanced-repeater-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: #fff;
+        background: transparent;
         padding: 12px;
         border-radius: 4px;
-        margin-bottom: 16px;
+
+        .nx-all-selector {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
 
         .wprf-repeater-label {
             gap: 10px;
@@ -1625,19 +1687,12 @@
             }
         }
     }
-    
-    .wprf-advanced-repeater-heading {
-        display: flex;
-        justify-content: space-between;
-        padding: 15px;
-        background: #fff;
-        margin-bottom: 20px;
-        border-radius: 5px;
-    }
+
     .wprf-repeater-content {
         display: flex;
         flex-direction: column;
         gap: 12px;
+
         .wprf-repeater-field {
             margin-top: 0;
             background: #fff;
@@ -1645,13 +1700,18 @@
 
             .wprf-repeater-field-title {
                 padding: 12px;
-                background-color: transparent;
+                background: transparent;
 
                 h4 {
                     font-size: 14px;
                     font-weight: 500;
                     color: #25396F;
                     line-height: 18px;
+                    margin-left: 8px;
+
+                    >span {
+                        display: none;
+                    }
                 }
 
                 .wprf-repeater-field-controls {
@@ -1689,10 +1749,43 @@
         }
     }
 
+    input[type=checkbox] {
+        border: 1px solid #E6EFFB;
+        border-radius: 4px;
+        background: transparent;
+        cursor: pointer;
+        display: inline-block;
+        margin: 0;
+        outline: 0;
+        padding: 0 !important;
+        height: 20px;
+        aspect-ratio: 1;
+        width: auto;
+        min-width: auto;
+        -webkit-appearance: none;
+        box-shadow: none;
+        transition: 0.05s border-color ease-in-out;
+        position: relative;
+    }
+
+    input[type=checkbox]:checked::before {
+        content: "";
+        position: absolute;
+        left: 10px;
+        top: 6px;
+        width: 4px;
+        height: 10px;
+        border: solid #0CCFC2;
+        border-width: 0 1px 1px 0;
+        transition: ease-in-out 0.35s;
+        transform: rotate(45deg);
+    }
+
     .nx-admin-items-footer {
         display: flex;
         justify-content: space-between;
         margin-top: 20px;
+        gap: 12px;
 
         .items-per-page-wrapper {
             display: flex;
@@ -2083,12 +2176,47 @@
     button {
         margin-right: 0;
 
+        &.wprf-import-csv-btn {
+            background: #6a4bff;
+            border: 1.5px solid #6a4bff;
+            border-radius: 5px;
+            display: flex;
+            font-size: 16px;
+            font-weight: 500;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            line-height: 1.15;
+            transition: 0.3s ease-in-out;
+            cursor: pointer;
+            gap: 5px;
+
+            &:disabled {
+                border: none;
+
+                svg {
+                    background: #FFFFFF1A;
+                    padding: 4px;
+                    border-radius: 5px;
+                }
+            }
+
+            svg {
+                background: #795dff;
+                padding: 4px;
+                border-radius: 5px;
+            }
+        }
+
         &.wprf-btn.wprf-import-csv-btn {
             border-radius: 5px;
         }
     }
 
     .wprf-import-csv-btn {
+
         // background: #6a4bff;
         // border: 1.5px solid #6a4bff;
         // border-radius: 5px;
@@ -2125,57 +2253,5 @@
         color: #fff;
         border: 1px solid;
         padding: 10px 16px;
-    }
-}
-
-.wprf-advanced-repeater-control {
-    .nx-all-selector {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .wprf-advanced-repeater-content {
-        .wprf-repeater-field-title {
-            h4 {
-                margin-left: 6px;
-
-                >span {
-                    display: none;
-                }
-            }
-        }
-    }
-
-    input[type=checkbox] {
-        border: 1px solid #E6EFFB;
-        border-radius: 4px;
-        background: transparent;
-        cursor: pointer;
-        display: inline-block;
-        margin: 0;
-        outline: 0;
-        padding: 0 !important;
-        height: 20px;
-        aspect-ratio: 1;
-        width: auto;
-        min-width: auto;
-        -webkit-appearance: none;
-        box-shadow: none;
-        transition: 0.05s border-color ease-in-out;
-        position: relative;
-    }
-
-    input[type=checkbox]:checked::before {
-        content: "";
-        position: absolute;
-        left: 10px;
-        top: 6px;
-        width: 4px;
-        height: 10px;
-        border: solid #0CCFC2;
-        border-width: 0 1px 1px 0;
-        transition: ease-in-out 0.35s;
-        transform: rotate(45deg);
     }
 }

@@ -345,9 +345,10 @@
         -webkit-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
         margin: 20px auto;
-        width: 100% !important;
-        max-width: 900px !important;
-        overflow: unset !important;
+        width: 90% !important;
+        max-width: 990px !important;
+        overflow: auto !important;
+        max-height: calc(100vh - 100px);
 
         .wprf-modal-preview-header {
             font-size: 16px;
@@ -429,6 +430,124 @@
 
                             img {
                                 max-height: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.wpsp-bulk-edit-fields {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .wprf-repeater-field {
+                    margin-top: 0;
+                    background: #fff;
+                    border-radius: 4px;
+
+                    .wprf-repeater-field-title {
+                        padding: 12px;
+                        background-color: transparent;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 8px;
+
+                        h4 {
+                            font-size: 14px;
+                            font-weight: 500;
+                            color: #25396F;
+                            line-height: 18px;
+                            margin: 0;
+
+                            >span {
+                                display: none;
+                            }
+                        }
+
+                        .wprf-repeater-field-controls {
+                            align-items: center;
+                            gap: 10px;
+
+                            span {
+                                margin-left: 0;
+                            }
+
+                            .dashicon.dashicons-admin-page,
+                            .dashicon.dashicons-trash {
+                                color: #7C8DB5;
+                                font-size: 18px;
+                                transition: ease-in-out .25s;
+                            }
+
+                            .dashicon.dashicons-admin-page:hover {
+                                color: #5f7eff;
+                            }
+
+                            .dashicon.dashicons-trash:hover {
+                                color: #dc4f4b;
+                            }
+
+                        }
+                    }
+
+                    .wprf-repeater-inner-field {
+                        padding: 16px 12px 14px;
+                        border: 0px solid;
+                        border-top: 1px solid #E6EFFB;
+                        display: flex;
+                        justify-content: space-between;
+                        gap: 20px;
+
+                        .wprf-control-wrapper {
+                            display: flex;
+                            align-items: flex-start;
+                            flex-direction: column;
+                            gap: 4px;
+                            flex: 1;
+
+                            .wprf-control-label {
+                                font-weight: 500;
+                                font-size: 16px;
+                                line-height: 1.2em;
+                                color: #7C8DB5;
+                            }
+
+                            .wprf-control-field {
+                                align-items: flex-start;
+                                flex: 1;
+                                width: 100%;
+
+                                input {
+                                    border-radius: 4px;
+                                    border: 1px solid #E6EFFB;
+                                    width: 100%;
+                                    font-size: 14px;
+                                    line-height: 1.1em;
+                                    color: #25396F;
+                                    padding: 12px;
+
+                                    &:focus-visible {
+                                        outline: 0;
+                                        box-shadow: none;
+                                    }
+                                }
+
+                                .wprf-control-datetime {
+                                    width: 100%;
+
+                                    .components-button.is-tertiary {
+                                        background-color: transparent;
+                                        border: 1px solid #E6EFFB;
+                                        border-radius: 4px;
+                                        padding: 12px;
+                                        cursor: pointer;
+                                        font-size: 16px;
+                                        color: #1B1B50;
+                                        width: 100%;
+                                    }
+                                }
                             }
                         }
                     }
@@ -826,6 +945,17 @@
                     }
                 }
             }
+
+            .wpsp-btn.wpsp-btn-preview-update {
+                padding: 12px 20px;
+                background: #6A4BFF;
+                border: none;
+                border-radius: 5px;
+                color: #fff;
+                font-weight: 500;
+                line-height: 1.3em;
+                margin-top: 10px;
+            }
         }
     }
 }
@@ -834,48 +964,49 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+
     .wprf-repeater-field {
         margin-top: 0;
         background: #fff;
         border-radius: 4px;
-    
+
         .wprf-repeater-field-title {
             padding: 12px;
             background-color: transparent;
-    
+
             h4 {
                 font-size: 14px;
                 font-weight: 500;
                 color: #25396F;
                 line-height: 18px;
             }
-    
+
             .wprf-repeater-field-controls {
                 align-items: center;
                 gap: 10px;
-    
+
                 span {
                     margin-left: 0;
                 }
-    
+
                 .dashicon.dashicons-admin-page,
                 .dashicon.dashicons-trash {
                     color: #7C8DB5;
                     font-size: 18px;
                     transition: ease-in-out .25s;
                 }
-    
+
                 .dashicon.dashicons-admin-page:hover {
                     color: #5f7eff;
                 }
-    
+
                 .dashicon.dashicons-trash:hover {
                     color: #dc4f4b;
                 }
-    
+
             }
         }
-    
+
         .wprf-repeater-inner-field {
             padding: 20px 12px 25px;
             background-color: #fff;
