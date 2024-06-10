@@ -99,7 +99,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         }
 
         // @ts-ignore
-        if (elementorRef?.current && elementorFrontend?.elementsHandler?.runReadyTrigger) {
+        if (elementorRef?.current && window.elementorFrontend?.elementsHandler?.runReadyTrigger) {
             // @ts-ignore
             const elements = elementorRef?.current?.getElementsByClassName('elementor-element');
             for (const element of elements) {
@@ -192,7 +192,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
             setClosed(true);
         }
     }, [timeConfig.expired])
-    
+
     useEffect(() => {
         if (settings?.elementor_id && timeConfig.expired) {
             setClosed(true);
@@ -202,6 +202,15 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     // useEffect(() => {
     //     calcHeight();
     // }, [])
+
+    useEffect(() => {
+        // event elementor/frontend/init
+        window.addEventListener('elementor/frontend/init', calcHeight);
+
+        return () => {
+            window.removeEventListener('elementor/frontend/init', calcHeight);
+        }
+    }, []);
 
     useEffect(() => {
         calcHeight();
