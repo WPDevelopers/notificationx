@@ -962,12 +962,16 @@
                     line-height: 1.15;
                     transition: 0.3s ease-in-out;
                     cursor: pointer;
-                    gap: 5px;
+                    gap: 8px;
 
                     svg {
                         background: #795dff;
                         padding: 4px;
                         border-radius: 5px;
+
+                        path {
+                            stroke: #fff;
+                        }
                     }
                 }
 
@@ -2191,7 +2195,7 @@
             line-height: 1.15;
             transition: 0.3s ease-in-out;
             cursor: pointer;
-            gap: 5px;
+            gap: 8px;
 
             &:disabled {
                 border: none;
@@ -2200,6 +2204,10 @@
                     background: #FFFFFF1A;
                     padding: 4px;
                     border-radius: 5px;
+
+                    path {
+                        stroke: #fff;
+                    }
                 }
             }
 
@@ -2207,6 +2215,10 @@
                 background: #795dff;
                 padding: 4px;
                 border-radius: 5px;
+
+                path {
+                    stroke: #fff;
+                }
             }
         }
 
