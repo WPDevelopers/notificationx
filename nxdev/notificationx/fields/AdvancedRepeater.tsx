@@ -12,6 +12,10 @@ import { chunkArray } from '../core/functions';
 import ReactModal from "react-modal";
 import PreviewField from './helpers/PreviewField';
 import BulkEditField from './helpers/PreviewField';
+import CloseIcon from '../icons/Close';
+import EditIcon from '../icons/EditIcon';
+import TrashIcon from '../icons/TrashIcon';
+import EyeIcon from '../icons/EyeIcon';
 
 const AdvancedRepeater = (props) => {
     const { name: fieldName, value: fieldValue, button, field } = props;
@@ -126,17 +130,25 @@ const AdvancedRepeater = (props) => {
     const endIndex = Math.min(currentPage * itemsPerPage, totalItems);
     const currentPageItems = paginatedItems[currentPage - 1] || [];
 
+    // selected bulk items
+    const bulkSelectedItems = localMemoizedValue.filter(obj => selectedField.includes(obj.index));
+
     return (
         <div className="wprf-repeater-control wprf-advanced-repeater-control">
             <div className="wprf-advanced-repeater-heading">
                 <span>{ __('Custom Notification') }</span>
-                <button
-                    className="wprf-repeater-button add-new"
-                    onClick={() => builderContext.setFieldValue(fieldName, [...localMemoizedValue, { index: v4() }])}
-                    disabled={totalItems >= 100 ? true : false}
-                >
-                    {button?.label}
-                </button>
+                <div className="wprf-advanced-repeater-header-action">
+                    <button className='wprf-repeater-button add-new'>
+                        <EyeIcon/> { __('Preview', 'notificationx') }
+                    </button>
+                    <button
+                        className="wprf-repeater-button add-new"
+                        onClick={() => builderContext.setFieldValue(fieldName, [...localMemoizedValue, { index: v4() }])}
+                        disabled={totalItems >= 100 ? true : false}
+                    >
+                        {button?.label}
+                    </button>
+                </div>
             </div>
             <div className="wprf-advanced-repeater-header">
                 <div className="nx-all-selector">
@@ -149,13 +161,13 @@ const AdvancedRepeater = (props) => {
                             className='wprf-repeater-button bulk-edit'
                             onClick={ () => setIsOpen(true) }
                         >
-                            {__('Edit', 'notificationx')}
+                           <EditIcon/> {__('Edit', 'notificationx')}
                         </button>
                         <button
                             className="wprf-repeater-button bulk-delete"
                             onClick={() => bulkDelete()}
                         >
-                            {__('Delete', 'notificationx')}
+                            <TrashIcon/> {__('Delete', 'notificationx')}
                         </button>
                     </div>
                 }
@@ -252,26 +264,26 @@ const AdvancedRepeater = (props) => {
                 <>
                     <div className="wprf-modal-preview-header">
                         <span>Edit</span>
+                        <button onClick={ () => setIsOpen(false) }>
+                            <CloseIcon/>
+                        </button>
                     </div>
                     <div className="wprf-modal-table-wrapper wpsp-bulk-edit-fields">
-                        {currentPageItems.map((value, index) => (
+                        {bulkSelectedItems.map((value, index) => (
                             <BulkEditField
                                 isCollapsed={true}
-                                key={value?.index || (index + (currentPage - 1) * itemsPerPage)}
+                                key={value?.index}
                                 fields={field}
-                                index={index + (currentPage - 1) * itemsPerPage}
+                                index={ localMemoizedValue.findIndex( ele => ele.index == value?.index ) }
                                 __index={value?.index}
                                 parent={fieldName}
-                                clone={handleClone}
                                 remove={handleRemove}
-                                checked={selectedField.findIndex(element => element == value.index) != -1 ? true : false}
-                                onChange={(event) => handleChangeCollapseState(event, index + (currentPage - 1) * itemsPerPage)}
-                                onChecked={onChecked}
+                                onChange={(event) => handleChangeCollapseState(event, localMemoizedValue.findIndex( ele => ele.index == value?.index ))}
                             />
                         ))}
                     </div>
                     <div className="wprf-modal-preview-footer">
-                        <button className='wpsp-btn wpsp-btn-preview-update'>{ __('Update', 'notificationx') }</button>
+                        <button className='wpsp-btn wpsp-btn-preview-update' onClick={ () => setIsOpen(false) }>{ __('Update', 'notificationx') }</button>
                     </div>
                 </>
             </ReactModal>

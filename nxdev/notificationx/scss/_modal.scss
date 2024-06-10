@@ -457,7 +457,6 @@
                         align-items: center;
                         justify-content: space-between;
                         gap: 8px;
-
                         h4 {
                             font-size: 14px;
                             font-weight: 500;
@@ -962,6 +961,9 @@
                 font-weight: 500;
                 line-height: 1.3em;
                 margin-top: 10px;
+                &:hover{
+                    cursor: pointer;
+                }
             }
         }
     }

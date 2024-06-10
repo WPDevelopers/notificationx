@@ -7,7 +7,9 @@ import { GenericField } from 'quickbuilder';
 
 const BulkEditField = (props) => {
     const builderContext = useBuilderContext();
-    const { fields, onChange, index, parent, onChecked, checked, __index } = props;
+    const { fields, onChange, index, parent } = props;
+    console.log('index', index);
+    
     const instanceId = useInstanceId(BulkEditField);
     const values = builderContext.values?.[parent]?.[index];
     const title = values?.title || values?.post_title || values?.username || values?.plugin_theme_name;
