@@ -230,4 +230,10 @@ export const chunkArray = (array, chunkSize) => {
     return result;
 };
 
+export const dateConvertToHumanReadable = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    // @ts-ignore 
+    return new Date(dateString).toLocaleDateString(undefined, options);
+};
+
 export default nxHelper;

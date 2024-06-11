@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ReactSortable } from "react-sortablejs";
 import { RepeaterField } from 'quickbuilder/src/fields/helpers';
 import { executeChange, useBuilderContext } from 'quickbuilder';
@@ -8,9 +8,8 @@ import Pagination from 'rc-pagination';
 import { SelectControl } from "@wordpress/components";
 import { __ } from '@wordpress/i18n';
 import localeInfo from 'rc-pagination/es/locale/en_US';
-import { chunkArray } from '../core/functions';
+import { chunkArray, dateConvertToHumanReadable } from '../core/functions';
 import ReactModal from "react-modal";
-import PreviewField from './helpers/PreviewField';
 import BulkEditField from './helpers/PreviewField';
 import CloseIcon from '../icons/Close';
 import EditIcon from '../icons/EditIcon';
@@ -25,6 +24,10 @@ const AdvancedRepeater = (props) => {
     const builderContext = useBuilderContext();
     const [localMemoizedValue, setLocalMemoizedValue] = useState(builderContext.values?.[fieldName]);
     const [isOpen, setIsOpen] = useState(false);
+    const [isPreview, setIsPreview] = useState(false);
+    const [previewCurrentPage, setPreviewCurrentPage] = useState(1);
+    const [previewItemsPerPage, setPreviewItemsPerPage] = useState(5);
+
     useEffect(() => {
         if (builderContext.values?.[fieldName] !== undefined) {
             setLocalMemoizedValue(builderContext.values?.[fieldName]);
@@ -76,7 +79,7 @@ const AdvancedRepeater = (props) => {
                 indexedCopy = { ...indexedCopy, plugin_theme_name: (indexedCopy.plugin_theme_name + ' - Copy') };
             }
             indexedCopy = { ...indexedCopy, index: v4(), isCollapsed: false };
-            builderContext.setFieldValue([fieldName, localMemoizedValue.length], indexedCopy);
+            builderContext.setFieldValue([fieldName, localMemoizedValue?.length], indexedCopy);
         }
     }, [localMemoizedValue]);
 
@@ -125,22 +128,55 @@ const AdvancedRepeater = (props) => {
         setSelectedField([]);
     }
 
-    const totalItems = localMemoizedValue?.length || 0;
-    const startIndex = (currentPage - 1) * itemsPerPage + 1;
-    const endIndex = Math.min(currentPage * itemsPerPage, totalItems);
+    const totalItems       = localMemoizedValue?.length || 0;
+    const startIndex       = (currentPage - 1) * itemsPerPage + 1;
+    const endIndex         = Math.min(currentPage * itemsPerPage, totalItems);
     const currentPageItems = paginatedItems[currentPage - 1] || [];
 
+    // Headers to exclude
+    const excludedHeaders   = ["index", "chosen", "selected", "isCollapsed",'iscollapsed', 'id'];
+    const customHeaderOrder = ["first_name", "last_name", "post_title", "timestamp", "image"];
+    // Generate headers
+    const headers = useMemo(() => {
+        if (localMemoizedValue?.length > 0) {
+            const allHeaders     = Object.keys(localMemoizedValue[0]).filter(header => !excludedHeaders.includes(header));
+            const orderedHeaders = customHeaderOrder.filter(header => allHeaders.includes(header));
+            const otherHeaders   = allHeaders.filter(header => !customHeaderOrder.includes(header));
+            return [...orderedHeaders.slice(0, 3), ...otherHeaders, ...orderedHeaders.slice(3)];
+        }
+        return [];
+    }, [localMemoizedValue, excludedHeaders, customHeaderOrder]);
+    
     // selected bulk items
-    const bulkSelectedItems = localMemoizedValue.filter(obj => selectedField.includes(obj.index));
+    const bulkSelectedItems = localMemoizedValue?.filter(obj => selectedField.includes(obj.index));
+    const previewPaginatedItems = useMemo(() => {
+        return chunkArray(localMemoizedValue || [], previewItemsPerPage);
+    }, [localMemoizedValue, previewItemsPerPage]);
+    
+    const handlePreviewPageChange = (page) => {
+        setPreviewCurrentPage(page);
+    };
+    
+    const handlePreviewItemsPerPageChange = (value) => {
+        setPreviewItemsPerPage(parseInt(value));
+        setPreviewCurrentPage(1);
+    };
+    
+    const previewStartIndex       = (previewCurrentPage - 1) * previewItemsPerPage + 1;
+    const previewEndIndex         = Math.min(previewCurrentPage * previewItemsPerPage, totalItems);
+    const previewCurrentPageItems = previewPaginatedItems[previewCurrentPage - 1] || [];
+
 
     return (
         <div className="wprf-repeater-control wprf-advanced-repeater-control">
             <div className="wprf-advanced-repeater-heading">
                 <span>{__('Custom Notification')}</span>
                 <div className="wprf-advanced-repeater-header-action">
-                    <button className='wprf-repeater-button preview'>
-                        <EyeIcon /> {__('Preview', 'notificationx')}
-                    </button>
+                    { localMemoizedValue?.length > 9 &&
+                        <button className='wprf-repeater-button preview' onClick={ () => setIsPreview(true) }>
+                            <EyeIcon /> {__('Preview', 'notificationx')}
+                        </button>
+                    }
                     <button
                         className="wprf-repeater-button add-new"
                         onClick={() => builderContext.setFieldValue(fieldName, [...localMemoizedValue, { index: v4() }])}
@@ -160,6 +196,7 @@ const AdvancedRepeater = (props) => {
                         <button
                             className='wprf-repeater-button bulk-edit'
                             onClick={() => setIsOpen(true)}
+                            disabled={ bulkSelectedItems?.length > 1 ? true : false }
                         >
                             <EditIcon /> {__('Edit', 'notificationx')}
                         </button>
@@ -263,13 +300,13 @@ const AdvancedRepeater = (props) => {
             >
                 <>
                     <div className="wprf-modal-preview-header">
-                        <span>Edit</span>
+                        <span>{ __( 'Edit','notificationx' ) }</span>
                         <button onClick={() => setIsOpen(false)}>
                             <CloseIcon />
                         </button>
                     </div>
                     <div className="wprf-modal-table-wrapper wpsp-bulk-edit-fields">
-                        {bulkSelectedItems.map((value, index) => (
+                        { bulkSelectedItems && bulkSelectedItems.map((value, index) => (
                             <BulkEditField
                                 isCollapsed={true}
                                 key={value?.index}
@@ -282,9 +319,133 @@ const AdvancedRepeater = (props) => {
                             />
                         ))}
                     </div>
-                    <div className="wprf-modal-preview-footer">
-                        <button className='wpsp-btn wpsp-btn-preview-update' onClick={() => setIsOpen(false)}>{__('Update', 'notificationx')}</button>
-                    </div>
+                    { localMemoizedValue?.length > 9 &&
+                        <div className="wprf-modal-preview-footer">
+                            <button className='wpsp-btn wpsp-btn-preview-update' onClick={() => setIsOpen(false)}>{__('Update', 'notificationx')}</button>
+                        </div>
+                    }
+                </>
+            </ReactModal>
+            <ReactModal
+                isOpen={isPreview}
+                onRequestClose={() => setIsPreview(false)}
+                ariaHideApp={false}
+                style={{
+                    overlay: {
+                        position: "fixed",
+                        display: "flex",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        backgroundColor: "rgba(3, 6, 60, 0.7)",
+                        zIndex: 9999,
+                        padding: "60px 15px",
+                    },
+                    content: {
+                        position: "static",
+                        width: '900px',
+                        margin: "auto",
+                        border: "0px solid #5414D0",
+                        // background: "#5414D0",
+                        overflow: "auto",
+                        WebkitOverflowScrolling: "touch",
+                        borderRadius: "4px",
+                        outline: "none",
+                        padding: "15px",
+                    },
+                }}
+            >
+                <>
+                    {headers.length > 0 && (
+                        <>
+                            <div className="wprf-modal-preview-header">
+                                <span>{ __( 'Custom Notification Preview','notificationx' ) }</span>
+                                <button onClick={() => setIsPreview(false)}>
+                                    <CloseIcon />
+                                </button>
+                            </div>
+                            <div className='wprf-modal-table-wrapper'>
+                                <table className="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            {headers.map(header => (
+                                                <th key={header}>{header}</th>
+                                            ))}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {previewCurrentPageItems && previewCurrentPageItems.map((row, index) => (
+                                            <tr key={index}>
+                                                {headers.map(header => {
+                                                    const cellData = row[header];
+                                                    if (header === 'timestamp' && cellData) {
+                                                        return (
+                                                            <td key={header}>
+                                                                {dateConvertToHumanReadable(cellData)}
+                                                            </td>
+                                                        );
+                                                    }
+                                                    if (header === 'image' && cellData) {
+                                                        return (
+                                                            <td key={header} className='wprf-preview-img'>
+                                                                <div className="image-container">
+                                                                    <img src={cellData} style={{ maxWidth: '100px', height: 'auto' }} className="image" />
+                                                                    <div className="popup-image">
+                                                                        <img src={cellData} />
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        );
+                                                    }
+                                                    if (typeof cellData === 'object' && cellData !== null) {
+                                                        return (
+                                                            <td key={header}>
+                                                                {JSON.stringify(cellData)}
+                                                            </td>
+                                                        );
+                                                    }
+                                                    return (
+                                                        <td key={header}>
+                                                            {cellData !== undefined ? cellData : ''}
+                                                        </td>
+                                                    );
+                                                })}
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="wprf-modal-preview-footer">
+                                <div className="items-per-page-wrapper">
+                                    <SelectControl
+                                        className="items-per-page"
+                                        value={previewItemsPerPage.toString()}
+                                        options={[
+                                            { label: '5', value: '5' },
+                                            { label: '10', value: '10' },
+                                            { label: '15', value: '15' },
+                                            { label: '20', value: '20' },
+                                        ]}
+                                        onChange={(value) => handlePreviewItemsPerPageChange(value)}
+                                    />
+                                    <label>{ __('Items Per Page', 'notificationx') }</label>
+                                </div>
+                                <div className='pagination-wrapper'>
+                                    <div className="pagination-info">
+                                        {`${previewStartIndex} - ${previewEndIndex} of ${totalItems} items`}
+                                    </div>
+                                    <Pagination
+                                        current={previewCurrentPage}
+                                        total={totalItems}
+                                        pageSize={previewItemsPerPage}
+                                        onChange={handlePreviewPageChange}
+                                        locale={localeInfo}
+                                    />
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </>
             </ReactModal>
         </div>

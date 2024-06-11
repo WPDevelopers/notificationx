@@ -35,39 +35,6 @@ const Media = (props) => {
                     value: csvData
                 }
             })
-            nxHelper.post("csv-upload", {
-                csv: csvData,
-                uploadImage: false
-            }).then((res: any) => {
-                if (res.data.data.length > 100) {
-                    // @ts-ignore 
-                    Swal.fire({
-                        title: __("Your CSV file contains more than 100 data entries.", "notificationx"),
-                        text: __(
-                            "We can only add 100 entries at a time. To proceed, you can either add the first 100 entries or cancel the operation.",
-                            "notificationx"
-                        ),
-                        iconHtml: `<img alt="NotificationX" src="${builderContext.assets.admin}images/regenerate.svg" style="height: 85px; width:85px" />`,
-                        showDenyButton: true,
-                        iconColor: "transparent",
-                        confirmButtonText: __("Add First 100 Entries", "notificationx"),
-                        denyButtonText: __("Cancel", "notificationx"),
-                        reverseButtons: true,
-                        customClass: { actions: "nx-delete-actions" },
-                        // @ts-ignore 
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            setHeaders(res.data.headers);
-                            setData(chunkArray(res.data.data, 5));
-                        } else if (result.isDenied) {
-                            setData([]);
-                            setCSVData(null);
-                        }
-                    });
-                }
-            }).catch((error) => {
-                setImportButtonClass('wprf-btn wprf-import-csv-btn error');
-            });
         }
     }, [csvData])
 
@@ -76,7 +43,7 @@ const Media = (props) => {
         setLoading(true);
         nxHelper.post("csv-upload", {
             csv: csvData,
-            uploadImage: true,
+            uploadImage: false,
             take: 100,
         }).then((res: any) => {
             setHeaders(res.data.headers);
@@ -120,7 +87,8 @@ const Media = (props) => {
     const startIndex = (currentPage - 1) * itemsPerPage + 1;
     const endIndex = Math.min(currentPage * itemsPerPage, totalItems);
     const totalAddedItems = builderContext.getFieldValue('custom_contents');
-
+    console.log('paginatedData-csv', paginatedData);
+    
     return (
         <div className="wprf-control wprf-media">
             <div className="wprf-image-uploader wprf-csv-uploader">
@@ -151,6 +119,12 @@ const Media = (props) => {
                                 className='wprf-btn wprf-btn-sample-csv'
                             >
                                 <FileIcon/> {__('Sample CSV', 'notificationx')}
+                            </button>
+                            <button
+                                className='wprf-btn wprf-btn-sample-csv'
+                                onClick={ () => setIsOpen(true) }
+                            >
+                                <FileIcon/> {__('Preview', 'notificationx')}
                             </button>
                         </>
                     }}

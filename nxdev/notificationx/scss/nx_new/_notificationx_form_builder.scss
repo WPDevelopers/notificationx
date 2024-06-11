@@ -1676,13 +1676,18 @@
                     align-items: center;
                     gap: 8px;
                     color: #6A4BFF;
-
+                    line-height: 16px;
+                    transition: 0.3s ease-in-out;
                     svg {
                         width: 16px;
-
                         path {
                             stroke: #6A4BFF;
                         }
+                    }
+                    &:hover {
+                        background: transparent;
+                        color: #6a4bff;
+                        box-shadow: 0 15px 25px -5px rgba(#5614d5, 0.3);
                     }
                 }
 
@@ -1699,7 +1704,7 @@
                         bottom: 50%;
                         transform: translateY(-50%);
                         width: 10px;
-                        height: 1.5px;
+                        height: 1px;
                         background: #fff;
                         border-radius: 0px;
                     }
@@ -1711,7 +1716,7 @@
                         bottom: 50%;
                         transform: translateY(-50%) rotate(90deg);
                         width: 10px;
-                        height: 1.5px;
+                        height: 1px;
                         background: #fff;
                         border-radius: 0px;
                     }

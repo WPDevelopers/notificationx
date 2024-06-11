@@ -377,7 +377,7 @@
             background: #F6F7FE;
 
             >table {
-                max-width: 900px;
+                // max-width: 900px;
                 max-height: calc(100vh - 250px);
                 overflow: auto;
                 display: block;
@@ -428,7 +428,7 @@
                             font-weight: 500;
                             line-height: 1.1em;
                             color: #7C8DB5;
-                            text-transform: capitalize;
+                            // text-transform: capitalize;
                             width: 136px;
                             text-align: left;
                             border-right: 1px solid #E0EAF8;
@@ -436,13 +436,80 @@
                             text-overflow: ellipsis;
                             white-space: nowrap;
                             box-sizing: border-box;
-
+                            position: relative;
                             &:first-child {
                                 width: 110px;
                             }
 
                             img {
                                 max-height: 10px;
+                            }
+
+                            // .popup-image {
+                            //     display: none;
+                            //     position: absolute;
+                            //     top: 0;
+                            //     left: 110%;
+                            //     width: 300px;
+                            //     height: auto;
+                            //     border: 1px solid #ccc;
+                            //     background-color: #fff;
+                            //     padding: 10px;
+                            //     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                            //     z-index: 1000;
+                            // }
+                            // .popup-image img {
+                            //     width: 300px;
+                            // }
+                            // .image-container:hover .popup-image {
+                            //     display: block;
+                            // }
+
+                            .image-container {
+                                position: relative;
+                            }
+                            
+                            .image {
+                                display: block;
+                                width: 50px;
+                                min-height: 60px;
+                                max-height: 70px;
+                                transition: transform 0.3s ease-in-out;
+                                object-fit: cover;
+                                &:hover{
+                                    cursor: pointer;
+                                }
+                            }
+                            
+                            .popup-image {
+                                position: absolute;
+                                top: 50%;
+                                right: 95%;
+                                transform: translate(-60%, -50%);
+                                opacity: 0;
+                                visibility: hidden;
+                                transition: opacity 0.3s ease-in-out;
+                            }
+                            .image-container:hover .popup-image {
+                                opacity: 1;
+                                visibility: visible;
+                                width: 80px;
+                                img {
+                                    max-height: 80px;
+                                }
+                            }
+                            
+                            .magnified-image {
+                                display: block;
+                                width: 200%;
+                                height: 200%;
+                                position: relative;
+                                left: -50%;
+                                top: -50%;
+                                cursor: zoom-out;
+                            }
+                            &.wprf-preview-img {
+                                overflow: visible;
                             }
                         }
                     }
@@ -482,7 +549,7 @@
                         .wprf-repeater-field-controls {
                             align-items: center;
                             gap: 10px;
-
+                            display: none;
                             span {
                                 margin-left: 0;
                             }
@@ -573,13 +640,13 @@
             background: #F6F7FE;
             border-radius: 0 0 8px 8px;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
             margin-top: 0;
             padding: 24px;
-            padding-top: 0;
+            // padding-top: 0;
             position: sticky;
             bottom: 0;
-
+            
             .items-per-page-wrapper {
                 display: flex;
                 align-items: center;

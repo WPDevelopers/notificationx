@@ -109,7 +109,8 @@
             padding: 2px 6px;
             font-weight: 500;
             margin-right: 5px;
-
+            box-shadow: none;
+            height: 36px;
             &.is-secondary {
               border: 1.5px solid #7c8db5;
               color: #fff;
