@@ -87,6 +87,7 @@ class Admin {
      */
     public function admin_init(){
         DashboardWidget::get_instance();
+        add_action('in_admin_header', [ $this, 'hide_others_plugin_admin_notice' ], 99);
     }
 
     /**
@@ -179,7 +180,17 @@ class Admin {
 		}
         // Remove OLD notice from 1.0.0 (if other WPDeveloper plugin has notice)
 		NoticeRemover::get_instance( '1.0.0' );
-        
+    }
+
+
+    public function hide_others_plugin_admin_notice() 
+    {
+        $current_screen = get_current_screen();
+        $hide_on = ['toplevel_page_nx-admin','notificationx_page_nx-edit','notificationx_page_nx-settings','notificationx_page_nx-analytics','notificationx_page_nx-builder'];
+        if ( $current_screen && isset( $current_screen->base ) &&  in_array($current_screen->base, $hide_on) ) {
+            remove_all_actions('user_admin_notices');
+            remove_all_actions('admin_notices');
+        }
     }
 
     public function notices() {
