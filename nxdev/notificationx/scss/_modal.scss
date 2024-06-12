@@ -437,6 +437,7 @@
                             white-space: nowrap;
                             box-sizing: border-box;
                             position: relative;
+
                             &:first-child {
                                 width: 110px;
                             }
@@ -468,7 +469,7 @@
                             .image-container {
                                 position: relative;
                             }
-                            
+
                             .image {
                                 display: block;
                                 width: 50px;
@@ -476,11 +477,12 @@
                                 max-height: 70px;
                                 transition: transform 0.3s ease-in-out;
                                 object-fit: cover;
-                                &:hover{
+
+                                &:hover {
                                     cursor: pointer;
                                 }
                             }
-                            
+
                             .popup-image {
                                 position: absolute;
                                 top: 50%;
@@ -490,15 +492,17 @@
                                 visibility: hidden;
                                 transition: opacity 0.3s ease-in-out;
                             }
+
                             .image-container:hover .popup-image {
                                 opacity: 1;
                                 visibility: visible;
                                 width: 80px;
+
                                 img {
                                     max-height: 80px;
                                 }
                             }
-                            
+
                             .magnified-image {
                                 display: block;
                                 width: 200%;
@@ -508,6 +512,7 @@
                                 top: -50%;
                                 cursor: zoom-out;
                             }
+
                             &.wprf-preview-img {
                                 overflow: visible;
                             }
@@ -550,6 +555,7 @@
                             align-items: center;
                             gap: 10px;
                             display: none;
+
                             span {
                                 margin-left: 0;
                             }
@@ -585,14 +591,15 @@
                             display: flex;
                             align-items: flex-start;
                             flex-direction: column;
-                            gap: 4px;
+                            gap: 8px;
                             flex: 1;
+                            margin: 0;
 
                             .wprf-control-label {
+                                font-size: 12px;
                                 font-weight: 500;
-                                font-size: 16px;
-                                line-height: 1.2em;
-                                color: #7C8DB5;
+                                line-height: 13px;
+                                color: #092161;
                             }
 
                             .wprf-control-field {
@@ -606,13 +613,17 @@
                                     width: 100%;
                                     font-size: 14px;
                                     line-height: 1.1em;
-                                    color: #25396F;
+                                    color: #092161;
                                     padding: 12px;
 
                                     &:focus-visible {
                                         outline: 0;
                                         box-shadow: none;
                                     }
+                                }
+
+                                ::placeholder {
+                                    color: #778095 !important;
                                 }
 
                                 .wprf-control-datetime {
@@ -624,8 +635,8 @@
                                         border-radius: 4px;
                                         padding: 12px;
                                         cursor: pointer;
-                                        font-size: 16px;
-                                        color: #1B1B50;
+                                        font-size: 14px;
+                                        color: #778095;
                                         width: 100%;
                                     }
                                 }
@@ -646,7 +657,7 @@
             // padding-top: 0;
             position: sticky;
             bottom: 0;
-            
+
             .items-per-page-wrapper {
                 display: flex;
                 align-items: center;
@@ -1037,7 +1048,6 @@
                 color: #fff;
                 font-weight: 500;
                 line-height: 1.3em;
-                margin-top: 10px;
 
                 &:hover {
                     cursor: pointer;
