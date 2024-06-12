@@ -1639,7 +1639,21 @@
     background: #F8FAFB;
     padding: 12px 10px;
     border-radius: 4px;
-
+    position: relative;
+    .loader-wrapper {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        background: #6a4bff26;
+        z-index: 999;
+        transform: translate(-10px, -12px);
+        img {
+            width: 100px;
+        }
+    }
     .wprf-advanced-repeater-heading {
         display: flex;
         align-items: center;
@@ -1674,7 +1688,7 @@
                     border: 1px solid #6A4BFF;
                     display: flex;
                     align-items: center;
-                    gap: 8px;
+                    gap: 5px;
                     color: #6A4BFF;
                     line-height: 16px;
                     transition: 0.3s ease-in-out;
@@ -1741,7 +1755,9 @@
             align-items: center;
             gap: 6px;
         }
-
+        button.bulk-edit, button.bulk-delete {
+            line-height: 1.4;
+        }
         .wprf-repeater-label {
             gap: 10px;
             display: flex;

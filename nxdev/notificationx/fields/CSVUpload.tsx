@@ -1,30 +1,24 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { MediaUpload } from '@wordpress/media-utils';
 import { useBuilderContext, withLabel } from 'quickbuilder';
-import nxHelper, { chunkArray } from '../core/functions';
-import ReactModal from "react-modal";
-import { __ } from '@wordpress/i18n';
+import nxHelper, { checkCSVItems } from '../core/functions';
+import { __, sprintf } from '@wordpress/i18n';
 import DownloadIcon from '../icons/DownloadIcon';
 import UploadIcon from '../icons/UploadIcon';
 import Ic_Round_Done from '../icons/check_done';
-import Pagination from 'rc-pagination';
-import { SelectControl } from "@wordpress/components";
-import Swal from 'sweetalert2';
 import FileIcon from '../icons/FileIcon';
+import Swal from 'sweetalert2';
+import nxToast from '../core/ToasterMsg';
+import { useNotificationXContext } from '../hooks';
 
 
 const Media = (props) => {
     const [csvData, setCSVData] = useState(props.value?.url ? props.value : null)
     const builderContext = useBuilderContext();
-    const [isOpen, setIsOpen] = useState(false);
-    const [headers, setHeaders] = useState([]);
+    const nxContext = useNotificationXContext();
     const [importBtnClass, setImportButtonClass] = useState('wprf-btn wprf-import-csv-btn');
     const [loading, setLoading]  = useState(false);
     const [complete, setComplete] = useState(false);
-    const [data, setData] = useState([]);
-    const [itemsPerPage, setItemsPerPage] = useState(5);
-    const [currentPage, setCurrentPage] = useState(1);
-
 
     useEffect(() => {
         if (csvData) {
@@ -38,16 +32,82 @@ const Media = (props) => {
         }
     }, [csvData])
 
+
+    const handleMediaSelection = async (media) => {
+        if (media.mime !== 'text/csv') {
+            nxHelper.swal({
+                title: __("Invalid File Type!", "notificationx"),
+                text: __(
+                    "Please upload a CSV file to import custom notification data.",
+                    "notificationx"
+                ),
+                iconHtml: `<img alt="NotificationX" src="${builderContext.assets.admin}images/file-type.svg" />`,
+                confirmButtonText: __("Cancel", "notificationx"),
+                customClass: { actions: "nx-delete-actions" },
+                confirmedCallback: () => {},
+                completeAction: (response) => {},
+                completeArgs: () => {},
+                afterComplete: () => { },
+            });
+            return;
+        }
+
+        setCSVData({
+            id: media.id,
+            title: media.title,
+            url: media.url
+        });
+        try {
+            const itemCount = await checkCSVItems(media.url);
+            if (itemCount > 101) {
+                Swal.fire({
+                    title: __("Import Limit Exceeded.", "notificationx"),
+                    html: __(
+                        "Your file contains more than 100 rows. Only the first 100 rows will be imported. Click <strong>Continue</strong> to proceed or <strong>Cancel</strong> to abort.",
+                        "notificationx"
+                    ),
+                    iconHtml: `<img alt="NotificationX" src="${builderContext.assets.admin}images/file-type.svg" style="height: 85px; width:85px" />`,
+                    showDenyButton: true,
+                    iconColor: "transparent",
+                    confirmButtonText: __("Add First 100 Entries", "notificationx"),
+                    denyButtonText: __("Cancel", "notificationx"),
+                    reverseButtons: true,
+                    customClass: { actions: "nx-delete-actions" },
+                    allowOutsideClick: false,
+                    // @ts-ignore 
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        setCSVData({
+                            id: media.id,
+                            title: media.title,
+                            url: media.url
+                        });
+                    } else if (result.isDenied) {
+                        setCSVData(null);
+                    }
+                });
+            } else {
+                setCSVData({
+                    id: media.id,
+                    title: media.title,
+                    url: media.url
+                });
+            }
+        } catch (error) {
+            console.error("Error processing the CSV file:", error);
+        }
+    }
+
     const importCSVData = () => {
         setImportButtonClass('wprf-btn wprf-import-csv-btn loading');
-        setLoading(true);
+        nxContext.setCSVUploaderLoader({
+            csv_upload_loader: true,
+        })
         nxHelper.post("csv-upload", {
             csv: csvData,
             uploadImage: false,
             take: 100,
         }).then((res: any) => {
-            setHeaders(res.data.headers);
-            setData(res.data.data);
             builderContext.setFieldValue(
                 "custom_contents",
                 res.data.data
@@ -55,51 +115,30 @@ const Media = (props) => {
             setImportButtonClass('wprf-btn wprf-import-csv-btn completed');
             setLoading(false);
             setComplete(true);
+            nxToast.info(
+                __(
+                    `Success! CSV data imported successfully!`,
+                    "notificationx"
+                )
+            );
+            nxContext.setCSVUploaderLoader({
+                csv_upload_loader: false,
+            })
         }).catch((error) => {
             setImportButtonClass('wprf-btn wprf-import-csv-btn error');
             setLoading(false);
+            console.error(error);
+            nxContext.setCSVUploaderLoader({
+                csv_upload_loader: false,
+            })
         });
     }
 
-    const previewCSVData = () => {
-        setIsOpen(true);
-    }
-
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
-    };
-
-    const csvLocalMemoizedValue = useMemo(() => {
-        return data.flat();
-    }, [data]);
-
-    const paginatedData = useMemo(() => {
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        return csvLocalMemoizedValue.slice(startIndex, startIndex + itemsPerPage);
-    }, [currentPage, csvLocalMemoizedValue, itemsPerPage]);
-
-    const handleItemsPerPageChange = (value) => {
-        setItemsPerPage(parseInt(value));
-        setCurrentPage(1);
-    };
-
-    const totalItems = csvLocalMemoizedValue?.length || 0;
-    const startIndex = (currentPage - 1) * itemsPerPage + 1;
-    const endIndex = Math.min(currentPage * itemsPerPage, totalItems);
-    const totalAddedItems = builderContext.getFieldValue('custom_contents');
-    console.log('paginatedData-csv', paginatedData);
-    
     return (
         <div className="wprf-control wprf-media">
             <div className="wprf-image-uploader wprf-csv-uploader">
                 <MediaUpload
-                    onSelect={(media) => {
-                        setCSVData({
-                            id: media.id,
-                            title: media.title,
-                            url: media.url
-                        });
-                    }}
+                    onSelect={(media) => handleMediaSelection(media)}
                     multiple={false}
                     value={csvData}
                     render={({ open }) => {
@@ -120,105 +159,11 @@ const Media = (props) => {
                             >
                                 <FileIcon/> {__('Sample CSV', 'notificationx')}
                             </button>
-                            <button
-                                className='wprf-btn wprf-btn-sample-csv'
-                                onClick={ () => setIsOpen(true) }
-                            >
-                                <FileIcon/> {__('Preview', 'notificationx')}
-                            </button>
                         </>
                     }}
                 />
+
             </div>
-            <ReactModal
-                isOpen={isOpen}
-                onRequestClose={() => setIsOpen(false)}
-                ariaHideApp={false}
-                style={{
-                    overlay: {
-                        position: "fixed",
-                        display: "flex",
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        backgroundColor: "rgba(3, 6, 60, 0.7)",
-                        zIndex: 9999,
-                        padding: "60px 15px",
-                    },
-                    content: {
-                        position: "static",
-                        width: '900px',
-                        margin: "auto",
-                        border: "0px solid #5414D0",
-                        // background: "#5414D0",
-                        overflow: "auto",
-                        WebkitOverflowScrolling: "touch",
-                        borderRadius: "4px",
-                        outline: "none",
-                        padding: "15px",
-                    },
-                }}
-            >
-                <>
-                    {headers.length > 0 && (
-                        <>
-                            <div className="wprf-modal-preview-header">
-                                {csvData?.title}
-                            </div>
-                            <div className='wprf-modal-table-wrapper'>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            {headers.map(header => (
-                                                <th key={header}>{header}</th>
-                                            ))}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {paginatedData.map((row, index) => (
-                                            <tr key={index}>
-                                                {headers.map(header => (
-                                                    <td key={header}> {header != 'image' ? row[header] : ''} <img width={100} src={header == 'image' ? row[header] : ''} /> </td>
-                                                ))}
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div className="wprf-modal-preview-footer">
-                                <div className="items-per-page-wrapper">
-                                    <SelectControl
-                                        options={[
-                                            { value: "5", label: __("5") },
-                                            { value: "10", label: __("10") },
-                                            { value: "20", label: __("20") },
-                                            { value: "50", label: __("50") },
-                                            { value: "100", label: __("100") },
-                                        ]}
-                                        value={itemsPerPage.toString()}
-                                        onChange={(value) => handleItemsPerPageChange(value)}
-                                    />
-                                    <label htmlFor="">{__('Items Per Page')}</label>
-                                </div>
-                                <div className='pagination-wrapper'>
-                                    <div className="pagination-info">
-                                        {`Displaying ${startIndex}-${endIndex} of ${totalItems}`}
-                                    </div>
-                                    {/* @ts-ignore  */}
-                                    <Pagination
-                                        current={currentPage}
-                                        onChange={handlePageChange}
-                                        total={csvLocalMemoizedValue.length}
-                                        pageSize={itemsPerPage}
-                                        showTitle={false}
-                                    />
-                                </div>
-                            </div>
-                        </>
-                    )}
-                </>
-            </ReactModal>
         </div>
     )
 }

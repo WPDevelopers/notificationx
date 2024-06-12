@@ -8,20 +8,24 @@ import Pagination from 'rc-pagination';
 import { SelectControl } from "@wordpress/components";
 import { __ } from '@wordpress/i18n';
 import localeInfo from 'rc-pagination/es/locale/en_US';
-import { chunkArray, dateConvertToHumanReadable } from '../core/functions';
+import nxHelper, { chunkArray, dateConvertToHumanReadable } from '../core/functions';
 import ReactModal from "react-modal";
 import BulkEditField from './helpers/PreviewField';
 import CloseIcon from '../icons/Close';
 import EditIcon from '../icons/EditIcon';
 import TrashIcon from '../icons/TrashIcon';
 import EyeIcon from '../icons/EyeIcon';
+import Swal from 'sweetalert2';
+import { useNotificationXContext } from '../hooks';
 
 const AdvancedRepeater = (props) => {
     const { name: fieldName, value: fieldValue, button, field } = props;
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(5);
+    const [currentPage, setCurrentPage]     = useState(1);
+    const [itemsPerPage, setItemsPerPage]   = useState(5);
     const [selectedField, setSelectedField] = useState([]);
-    const builderContext = useBuilderContext();
+    const builderContext                    = useBuilderContext();
+    const nxContext                         = useNotificationXContext();
+
     const [localMemoizedValue, setLocalMemoizedValue] = useState(builderContext.values?.[fieldName]);
     const [isOpen, setIsOpen] = useState(false);
     const [isPreview, setIsPreview] = useState(false);
@@ -121,12 +125,24 @@ const AdvancedRepeater = (props) => {
         }
     };
 
-
     const bulkDelete = () => {
-        const bulkDeleteFromLocal = localMemoizedValue.filter(item => !selectedField.includes(item.index));
-        builderContext.setFieldValue(fieldName, bulkDeleteFromLocal);
-        setSelectedField([]);
-    }
+        Swal.fire({
+            title: __("Are you sure?", "notificationx"),
+            text: __("Do you really want to delete the selected items? This process cannot be undone.", "notificationx"),
+            icon: "error",
+            showCancelButton: true,
+            confirmButtonText: __("Yes, Delete Them", "notificationx"),
+            cancelButtonText: __("No, Keep Them", "notificationx"),
+            customClass: { actions: "nx-delete-actions" },
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const bulkDeleteFromLocal = localMemoizedValue.filter(item => !selectedField.includes(item.index));
+                builderContext.setFieldValue(fieldName, bulkDeleteFromLocal);
+                setSelectedField([]);
+            }
+        });
+    };
+    
 
     const totalItems       = localMemoizedValue?.length || 0;
     const startIndex       = (currentPage - 1) * itemsPerPage + 1;
@@ -165,10 +181,15 @@ const AdvancedRepeater = (props) => {
     const previewStartIndex       = (previewCurrentPage - 1) * previewItemsPerPage + 1;
     const previewEndIndex         = Math.min(previewCurrentPage * previewItemsPerPage, totalItems);
     const previewCurrentPageItems = previewPaginatedItems[previewCurrentPage - 1] || [];
-
-
+    const csv_upload_loader = nxContext?.state?.csv_upload_loader?.csv_upload_loader;
+    
     return (
-        <div className="wprf-repeater-control wprf-advanced-repeater-control">
+        <div className={`wprf-repeater-control wprf-advanced-repeater-control ${ csv_upload_loader ? 'loading' : 'loading' }`}>
+            { csv_upload_loader && 
+                <div className="loader-wrapper">
+                    <img src={ `${nxContext.assets.admin}images/logos/logo-preloader.gif` } />
+                </div>
+            }
             <div className="wprf-advanced-repeater-heading">
                 <span>{__('Custom Notification')}</span>
                 <div className="wprf-advanced-repeater-header-action">
@@ -196,13 +217,14 @@ const AdvancedRepeater = (props) => {
                         <button
                             className='wprf-repeater-button bulk-edit'
                             onClick={() => setIsOpen(true)}
-                            disabled={ bulkSelectedItems?.length > 1 ? true : false }
+                            disabled={ bulkSelectedItems?.length < 2 ? true : false }
                         >
                             <EditIcon /> {__('Edit', 'notificationx')}
                         </button>
                         <button
                             className="wprf-repeater-button bulk-delete"
                             onClick={() => bulkDelete()}
+                            disabled={ bulkSelectedItems?.length < 2 ? true : false }
                         >
                             <TrashIcon /> {__('Delete', 'notificationx')}
                         </button>
@@ -319,11 +341,9 @@ const AdvancedRepeater = (props) => {
                             />
                         ))}
                     </div>
-                    { localMemoizedValue?.length > 9 &&
-                        <div className="wprf-modal-preview-footer">
-                            <button className='wpsp-btn wpsp-btn-preview-update' onClick={() => setIsOpen(false)}>{__('Update', 'notificationx')}</button>
-                        </div>
-                    }
+                    <div className="wprf-modal-preview-footer">
+                        <button className='wpsp-btn wpsp-btn-preview-update' onClick={() => setIsOpen(false)}>{__('Update', 'notificationx')}</button>
+                    </div>
                 </>
             </ReactModal>
             <ReactModal
