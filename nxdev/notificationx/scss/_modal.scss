@@ -345,7 +345,7 @@
         -webkit-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
         margin: 20px auto;
-        width: 90% !important;
+        width: auto !important;
         max-width: 990px !important;
         overflow: auto !important;
         max-height: calc(100vh - 100px);
@@ -353,7 +353,7 @@
         .wprf-modal-preview-header {
             font-size: 16px;
             color: #1B1B50;
-            padding: 26px 24px;
+            padding: 20px 24px;
             background: #fff;
             border-radius: 8px 8px 0 0;
             display: flex;
@@ -380,9 +380,12 @@
                 // max-width: 900px;
                 max-height: calc(100vh - 250px);
                 overflow: auto;
-                display: block;
+                display: flex;
+                flex-direction: column;
 
                 thead {
+                    flex: 1;
+
                     tr {
                         display: flex;
                         align-items: center;
@@ -404,6 +407,7 @@
                             text-overflow: ellipsis;
                             white-space: nowrap;
                             box-sizing: border-box;
+                            flex: 1;
 
                             &:first-child {
                                 width: 110px;
@@ -413,6 +417,8 @@
                 }
 
                 tbody {
+                    flex: 1;
+
                     tr {
                         display: flex;
                         align-items: center;
@@ -437,6 +443,7 @@
                             white-space: nowrap;
                             box-sizing: border-box;
                             position: relative;
+                            flex: 1;
 
                             &:first-child {
                                 width: 110px;
