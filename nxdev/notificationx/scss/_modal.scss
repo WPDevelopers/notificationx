@@ -346,7 +346,7 @@
         -ms-transform: translate(-50%, -50%);
         margin: 20px auto;
         width: auto !important;
-        max-width: 990px !important;
+        max-width: 980px !important;
         overflow: auto !important;
         max-height: calc(100vh - 100px);
 
@@ -377,11 +377,12 @@
             background: #F6F7FE;
 
             >table {
-                // max-width: 900px;
+                max-width: 932px;
                 max-height: calc(100vh - 250px);
                 overflow: auto;
                 display: flex;
                 flex-direction: column;
+                background: #fff;
 
                 thead {
                     flex: 1;
@@ -400,7 +401,7 @@
                             line-height: 1.1em;
                             color: #25396F;
                             text-transform: capitalize;
-                            width: 136px;
+                            min-width: 136px;
                             text-align: left;
                             border-right: 1px solid #E0EAF8;
                             overflow: hidden;
@@ -435,7 +436,7 @@
                             line-height: 1.1em;
                             color: #7C8DB5;
                             // text-transform: capitalize;
-                            width: 136px;
+                            min-width: 136px;
                             text-align: left;
                             border-right: 1px solid #E0EAF8;
                             overflow: hidden;
