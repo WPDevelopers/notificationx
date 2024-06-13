@@ -373,7 +373,7 @@
 
         .wprf-modal-table-wrapper {
             padding: 24px;
-            padding-bottom: 20px;
+            padding-bottom: 0px;
             background: #F6F7FE;
 
             >table {
@@ -599,6 +599,7 @@
                             display: flex;
                             align-items: flex-start;
                             flex-direction: column;
+                            flex-wrap: nowrap;
                             gap: 8px;
                             flex: 1;
                             margin: 0;
@@ -614,6 +615,8 @@
                                 align-items: flex-start;
                                 flex: 1;
                                 width: 100%;
+                                min-width: 210px;
+                                max-width: 210px;
 
                                 input {
                                     border-radius: 4px;
@@ -632,6 +635,11 @@
 
                                 ::placeholder {
                                     color: #778095 !important;
+                                    max-width: 160px;
+                                    min-width: 160px;
+                                    text-overflow: ellipsis;
+                                    white-space: nowrap;
+                                    overflow: hidden;
                                 }
 
                                 .wprf-control-datetime {
@@ -646,6 +654,7 @@
                                         font-size: 14px;
                                         color: #778095;
                                         width: 100%;
+                                        text-align: left;
                                     }
                                 }
                             }
