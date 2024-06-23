@@ -1014,6 +1014,7 @@
                     transition: 0.3s ease-in-out;
                     text-decoration: none;
                     padding: 10px 15px;
+
                     &:hover {
                         background: transparent;
                         color: #6a4bff;
@@ -1642,6 +1643,7 @@
     padding: 12px 10px;
     border-radius: 4px;
     position: relative;
+
     .loader-wrapper {
         position: absolute;
         display: flex;
@@ -1652,10 +1654,12 @@
         background: #6a4bff26;
         z-index: 999;
         transform: translate(-10px, -12px);
+
         img {
             width: 100px;
         }
     }
+
     .wprf-advanced-repeater-heading {
         display: flex;
         align-items: center;
@@ -1692,14 +1696,16 @@
                     align-items: center;
                     gap: 5px;
                     color: #6A4BFF;
-                    line-height: 16px;
                     transition: 0.3s ease-in-out;
+
                     svg {
                         width: 16px;
+
                         path {
                             stroke: #6A4BFF;
                         }
                     }
+
                     &:hover {
                         background: transparent;
                         color: #6a4bff;
@@ -1708,34 +1714,12 @@
                 }
 
                 &.add-new {
-                    padding: 6px 12px 6px 32px;
                     background: #6A4BFF;
                     border: 1px solid #6A4BFF;
                     color: #fff;
-
-                    &:after {
-                        content: '';
-                        position: absolute;
-                        left: 15px;
-                        bottom: 50%;
-                        transform: translateY(-50%);
-                        width: 10px;
-                        height: 1px;
-                        background: #fff;
-                        border-radius: 0px;
-                    }
-
-                    &:before {
-                        content: '';
-                        position: absolute;
-                        left: 15px;
-                        bottom: 50%;
-                        transform: translateY(-50%) rotate(90deg);
-                        width: 10px;
-                        height: 1px;
-                        background: #fff;
-                        border-radius: 0px;
-                    }
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
                 }
             }
 
@@ -1757,9 +1741,12 @@
             align-items: center;
             gap: 6px;
         }
-        button.bulk-edit, button.bulk-delete {
-            line-height: 1.4;
+
+        button.bulk-edit,
+        button.bulk-delete {
+            line-height: 1;
         }
+
         .wprf-repeater-label {
             gap: 10px;
             display: flex;
