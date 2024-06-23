@@ -1012,7 +1012,8 @@
                     align-items: center;
                     gap: 8px;
                     transition: 0.3s ease-in-out;
-
+                    text-decoration: none;
+                    padding: 10px 15px;
                     &:hover {
                         background: transparent;
                         color: #6a4bff;

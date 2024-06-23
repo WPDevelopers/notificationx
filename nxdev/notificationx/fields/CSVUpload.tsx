@@ -51,12 +51,6 @@ const Media = (props) => {
             });
             return;
         }
-
-        setCSVData({
-            id: media.id,
-            title: media.title,
-            url: media.url
-        });
         try {
             const itemCount = await checkCSVItems(media.url);
             if (itemCount > 101) {
@@ -105,7 +99,7 @@ const Media = (props) => {
         })
         nxHelper.post("csv-upload", {
             csv: csvData,
-            uploadImage: false,
+            uploadImage: true,
             take: 100,
         }).then((res: any) => {
             builderContext.setFieldValue(
@@ -117,7 +111,7 @@ const Media = (props) => {
             setComplete(true);
             nxToast.info(
                 __(
-                    `Success! CSV data imported successfully!`,
+                    `CSV data imported successfully!`,
                     "notificationx"
                 )
             );
@@ -154,11 +148,13 @@ const Media = (props) => {
                             <button className={importBtnClass} disabled={ csvData == null ? true : false } onClick={() => importCSVData()}>
                                 <DownloadIcon /> {'Import'}
                             </button>
-                            <button
+                            <a
                                 className='wprf-btn wprf-btn-sample-csv'
+                                href={`${nxContext.assets.admin}sample_data.csv`}
+                                download
                             >
                                 <FileIcon/> {__('Sample CSV', 'notificationx')}
-                            </button>
+                            </a>
                         </>
                     }}
                 />

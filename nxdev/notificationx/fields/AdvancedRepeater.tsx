@@ -17,6 +17,8 @@ import TrashIcon from '../icons/TrashIcon';
 import EyeIcon from '../icons/EyeIcon';
 import Swal from 'sweetalert2';
 import { useNotificationXContext } from '../hooks';
+import AddNew from '../icons/AddNew';
+
 
 const AdvancedRepeater = (props) => {
     const { name: fieldName, value: fieldValue, button, field } = props;
@@ -115,16 +117,6 @@ const AdvancedRepeater = (props) => {
         setSelectedField(_fields);
     };
 
-    const checkAll = (event) => {
-        const isChecked = event.target.checked;
-        if (isChecked) {
-            const allIndices = localMemoizedValue.map(item => item.index);
-            setSelectedField(allIndices);
-        } else {
-            setSelectedField([]);
-        }
-    };
-
     const bulkDelete = () => {
         Swal.fire({
             title: __("Are you sure?", "notificationx"),
@@ -162,6 +154,18 @@ const AdvancedRepeater = (props) => {
         }
         return [];
     }, [localMemoizedValue, excludedHeaders, customHeaderOrder]);
+    
+    // Select All Item
+    const checkAll = (event) => {
+        const isChecked = event.target.checked;
+        if (isChecked) {
+            const currentPageIndices = currentPageItems.map(item => item.index);
+            setSelectedField(currentPageIndices);
+        } else {
+            setSelectedField([]);
+        }
+    };
+
     
     // selected bulk items
     const bulkSelectedItems = localMemoizedValue?.filter(obj => selectedField.includes(obj.index));
@@ -203,13 +207,13 @@ const AdvancedRepeater = (props) => {
                         onClick={() => builderContext.setFieldValue(fieldName, [...localMemoizedValue, { index: v4() }])}
                         disabled={totalItems >= 100 ? true : false}
                     >
-                        {button?.label}
+                       <AddNew /> <span> {button?.label}</span>
                     </button>
                 </div>
             </div>
             <div className="wprf-advanced-repeater-header">
                 <div className="nx-all-selector">
-                    <input id="nx-advanced-repeater-all-checkbox" type="checkbox" checked={selectedField?.length == localMemoizedValue?.length ? true : false} onChange={(event) => checkAll(event)} />
+                    <input id="nx-advanced-repeater-all-checkbox" type="checkbox" checked={selectedField?.length == currentPageItems?.length ? true : false} onChange={(event) => checkAll(event)} />
                     <label htmlFor="nx-advanced-repeater-all-checkbox">{__('Select All', 'notificationx')}</label>
                 </div>
                 {totalItems > 1 &&
@@ -219,14 +223,14 @@ const AdvancedRepeater = (props) => {
                             onClick={() => setIsOpen(true)}
                             disabled={ bulkSelectedItems?.length < 2 ? true : false }
                         >
-                            <EditIcon /> {__('Edit', 'notificationx')}
+                            <EditIcon /> <span>{__('Edit', 'notificationx')}</span>
                         </button>
                         <button
                             className="wprf-repeater-button bulk-delete"
                             onClick={() => bulkDelete()}
                             disabled={ bulkSelectedItems?.length < 2 ? true : false }
                         >
-                            <TrashIcon /> {__('Delete', 'notificationx')}
+                            <TrashIcon /> <span>{__('Delete', 'notificationx')}</span>
                         </button>
                     </div>
                 }
@@ -410,9 +414,9 @@ const AdvancedRepeater = (props) => {
                                                         return (
                                                             <td key={header} className='wprf-preview-img'>
                                                                 <div className="image-container">
-                                                                    <img src={cellData} style={{ maxWidth: '100px', height: 'auto' }} className="image" />
+                                                                    <img src={cellData?.url} style={{ maxWidth: '100px', height: 'auto' }} className="image" />
                                                                     <div className="popup-image">
-                                                                        <img src={cellData} />
+                                                                        <img src={cellData?.url} />
                                                                     </div>
                                                                 </div>
                                                             </td>

@@ -29,7 +29,7 @@ const AdvancedRepeaterField = (props) => {
     useEffect(() => {
         builderContext.setFieldValue([parent, index, 'isCollapsed'], isCollapsed);        
     }, [isCollapsed])    
-
+    
     return (
         <div className="wprf-repeater-field">
             <div className="wprf-repeater-field-title">
