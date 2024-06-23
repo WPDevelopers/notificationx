@@ -1744,7 +1744,11 @@
 
         button.bulk-edit,
         button.bulk-delete {
-            line-height: 1;
+            line-height: 0;
+
+            span {
+                margin-top: 2px;
+            }
         }
 
         .wprf-repeater-label {
