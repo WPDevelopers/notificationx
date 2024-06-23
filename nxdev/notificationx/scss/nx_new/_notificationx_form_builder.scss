@@ -1850,9 +1850,9 @@
     }
 
     input[type=checkbox] {
-        border: 1px solid #E6EFFB;
+        border: 1.5px solid #E6EFFB;
         border-radius: 4px;
-        background: transparent;
+        background: #fff;
         cursor: pointer;
         display: inline-block;
         margin: 0;
@@ -1868,15 +1868,23 @@
         position: relative;
     }
 
+    input[type=checkbox]:checked {
+        border: 1.5px solid #6A4BFF;
+        border-radius: 4px;
+        background: #6A4BFF;
+        transition: 0.05s border-color ease-in-out;
+
+    }
+
     input[type=checkbox]:checked::before {
         content: "";
         position: absolute;
         left: 10px;
-        top: 6px;
+        top: 5px;
         width: 4px;
         height: 10px;
-        border: solid #0CCFC2;
-        border-width: 0 1px 1px 0;
+        border: solid #fff;
+        border-width: 0 1.5px 1.5px 0;
         transition: ease-in-out 0.35s;
         transform: rotate(45deg);
     }
