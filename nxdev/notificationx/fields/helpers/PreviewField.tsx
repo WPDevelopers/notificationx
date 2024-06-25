@@ -7,9 +7,7 @@ import { GenericField } from 'quickbuilder';
 
 const BulkEditField = (props) => {
     const builderContext = useBuilderContext();
-    const { fields, onChange, index, parent } = props;
-    console.log('index', index);
-    
+    const { fields, onChange, index, parent } = props;    
     const instanceId = useInstanceId(BulkEditField);
     const values = builderContext.values?.[parent]?.[index];
     const title = values?.title || values?.post_title || values?.username || values?.plugin_theme_name;
@@ -19,7 +17,7 @@ const BulkEditField = (props) => {
         event?.stopPropagation();
         props.remove(props.index);
     }
-
+    
     fieldsArray = fieldsArray.filter(item => {
         // @ts-ignore 
         return ['title', 'first_name', 'last_name', 'timestamp', 'plugin_name', 'post_title','username','sales_count','today','last_week','all_time','active_installs','rated'].includes(item?.name);

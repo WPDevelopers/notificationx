@@ -13,12 +13,12 @@ import { useNotificationXContext } from '../hooks';
 
 
 const Media = (props) => {
-    const [csvData, setCSVData] = useState(props.value?.url ? props.value : null)
+    const [csvData, setCSVData] = useState(null)
     const builderContext = useBuilderContext();
     const nxContext = useNotificationXContext();
-    const [importBtnClass, setImportButtonClass] = useState('wprf-btn wprf-import-csv-btn');
-    const [loading, setLoading]  = useState(false);
+    // const [importBtnClass, setImportButtonClass] = useState('wprf-btn wprf-import-csv-btn');
     const [complete, setComplete] = useState(false);
+    const [importCSV, setImportCSV] = useState(false);
 
     useEffect(() => {
         if (csvData) {
@@ -32,6 +32,12 @@ const Media = (props) => {
         }
     }, [csvData])
 
+    useEffect(() => {
+      if( importCSV ) {
+        importCSVData();
+      }
+    }, [importCSV])
+    
 
     const handleMediaSelection = async (media) => {
         if (media.mime !== 'text/csv') {
@@ -42,8 +48,12 @@ const Media = (props) => {
                     "notificationx"
                 ),
                 iconHtml: `<img alt="NotificationX" src="${builderContext.assets.admin}images/file-type.svg" />`,
-                confirmButtonText: __("Cancel", "notificationx"),
-                customClass: { actions: "nx-delete-actions" },
+                confirmButtonText: __("Close", "notificationx"),
+                customClass: {
+                    container: 'nx-csv-modal-ift-container',
+                    popup: 'nx-csv-modal-ift-popup',
+                    actions: "nx-delete-actions nx-csv-invalid-file-type",
+                  },
                 confirmedCallback: () => {},
                 completeAction: (response) => {},
                 completeArgs: () => {},
@@ -63,19 +73,24 @@ const Media = (props) => {
                     iconHtml: `<img alt="NotificationX" src="${builderContext.assets.admin}images/file-type.svg" style="height: 85px; width:85px" />`,
                     showDenyButton: true,
                     iconColor: "transparent",
-                    confirmButtonText: __("Add First 100 Entries", "notificationx"),
+                    confirmButtonText: __("Continue", "notificationx"),
                     denyButtonText: __("Cancel", "notificationx"),
                     reverseButtons: true,
-                    customClass: { actions: "nx-delete-actions" },
+                    customClass: {
+                        container: 'nx-csv-modal-import-limit-container',
+                        popup: 'nx-csv-modal-import-limit-popup',
+                        actions: "nx-delete-actions nx-csv-import-limit",
+                      },
                     allowOutsideClick: false,
                     // @ts-ignore 
                 }).then((result) => {
                     if (result.isConfirmed) {
                         setCSVData({
                             id: media.id,
-                            title: media.title,
-                            url: media.url
+                            title: media?.filename,
+                            url: media.url,
                         });
+                        setImportCSV(true);
                     } else if (result.isDenied) {
                         setCSVData(null);
                     }
@@ -83,17 +98,18 @@ const Media = (props) => {
             } else {
                 setCSVData({
                     id: media.id,
-                    title: media.title,
+                    title: media?.filename,
                     url: media.url
                 });
+                setImportCSV(true);
             }
         } catch (error) {
             console.error("Error processing the CSV file:", error);
         }
     }
 
-    const importCSVData = () => {
-        setImportButtonClass('wprf-btn wprf-import-csv-btn loading');
+    const importCSVData = () => {        
+        // setImportButtonClass('wprf-btn wprf-import-csv-btn loading');
         nxContext.setCSVUploaderLoader({
             csv_upload_loader: true,
         })
@@ -102,32 +118,43 @@ const Media = (props) => {
             uploadImage: true,
             take: 100,
         }).then((res: any) => {
-            builderContext.setFieldValue(
-                "custom_contents",
-                res.data.data
-            )
-            setImportButtonClass('wprf-btn wprf-import-csv-btn completed');
-            setLoading(false);
-            setComplete(true);
-            nxToast.info(
-                __(
-                    `CSV data imported successfully!`,
-                    "notificationx"
+            if( res?.success ) {
+                builderContext.setFieldValue(
+                    "custom_contents",
+                    res.data.data
                 )
-            );
-            nxContext.setCSVUploaderLoader({
-                csv_upload_loader: false,
-            })
+                // setImportButtonClass('wprf-btn wprf-import-csv-btn completed');
+                setComplete(true);
+                nxToast.info(
+                    __(
+                        `CSV data imported successfully!`,
+                        "notificationx"
+                    )
+                );
+                nxContext.setCSVUploaderLoader({
+                    csv_upload_loader: false,
+                })
+            }else{
+                nxToast.error(
+                    __(
+                        `${res?.data?.error}`,
+                        "notificationx"
+                    )
+                );
+                nxContext.setCSVUploaderLoader({
+                    csv_upload_loader: false,
+                })
+            }
+            
         }).catch((error) => {
-            setImportButtonClass('wprf-btn wprf-import-csv-btn error');
-            setLoading(false);
+            // setImportButtonClass('wprf-btn wprf-import-csv-btn error');
             console.error(error);
             nxContext.setCSVUploaderLoader({
                 csv_upload_loader: false,
             })
         });
     }
-
+    
     return (
         <div className="wprf-control wprf-media">
             <div className="wprf-image-uploader wprf-csv-uploader">
@@ -145,9 +172,9 @@ const Media = (props) => {
                             </button>
                             {csvData?.title && <span>{csvData?.title}</span>}
                             {/* disabled={totalAddedItems?.length >= 100 ? true : false} */}
-                            <button className={importBtnClass} disabled={ csvData == null ? true : false } onClick={() => importCSVData()}>
+                            {/* <button className={importBtnClass} disabled={ csvData == null ? true : false } onClick={() => importCSVData()}>
                                 <DownloadIcon /> {'Import'}
-                            </button>
+                            </button> */}
                             <a
                                 className='wprf-btn wprf-btn-sample-csv'
                                 href={`${nxContext.assets.admin}sample_data.csv`}

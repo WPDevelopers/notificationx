@@ -328,6 +328,9 @@
     }
 }
 
+.nx-template-preview .ReactModal__Overlay.ReactModal__Overlay--after-open {
+    
+}
 
 .ReactModal__Overlay.ReactModal__Overlay--after-open {
     background-color: rgba(11, 5, 44, 0.7) !important;
@@ -337,7 +340,6 @@
         position: absolute !important;
         inset: unset !important;
         border: none !important;
-        background: transparent !important;
         padding: 0px !important;
         top: 50% !important;
         left: 50% !important;
@@ -345,11 +347,14 @@
         -webkit-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
         margin: 20px auto;
-        width: auto !important;
+        
         max-width: 980px !important;
         overflow: auto !important;
         max-height: calc(100vh - 100px);
-
+        &.nx-custom-notification-preview {
+            width: auto !important;
+            background: transparent !important;
+        }
         .wprf-modal-preview-header {
             font-size: 16px;
             color: #1B1B50;

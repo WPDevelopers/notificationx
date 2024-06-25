@@ -9,8 +9,8 @@ import TrashIconTwo from '../../icons/TrashIconTwo';
 
 const AdvancedRepeaterField = (props) => {
     const builderContext = useBuilderContext();
-    const { fields, onChange, index, parent, onChecked, checked, __index } = props;
-    const [isCollapsed, setIsCollapsed] = useState(props.isCollapsed);
+    const { fields, onChange, index, parent, onChecked, checked, __index, isCollapsed, setIsCollapsed } = props;
+    // const [isCollapsed, setIsCollapsed] = useState(props.isCollapsed);
     const instanceId = useInstanceId(AdvancedRepeaterField);
     const values = builderContext.values?.[parent]?.[index];
     const title = values?.post_title || values?.title  || values?.username || values?.plugin_theme_name;
@@ -25,16 +25,12 @@ const AdvancedRepeaterField = (props) => {
         event?.stopPropagation();
         props.remove(props.index);
     }
-
-    useEffect(() => {
-        builderContext.setFieldValue([parent, index, 'isCollapsed'], isCollapsed);        
-    }, [isCollapsed])    
     
     return (
         <div className="wprf-repeater-field">
             <div className="wprf-repeater-field-title">
                 <input type="checkbox" name={`check-${index}`} id={`check-${index}`} checked={ checked || false } onChange={ () => onChecked( __index ) } />
-                <div className="wprf-repeater-field-content" onClick={() => setIsCollapsed(!isCollapsed)}>
+                <div className="wprf-repeater-field-content" onClick={() => setIsCollapsed(__index)}>
                     <h4><Icon icon="move"/>{props.index+1}: {_title}</h4>
                     <div className="wprf-repeater-field-controls">
                         {/* @ts-ignore  */}

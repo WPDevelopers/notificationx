@@ -8,7 +8,7 @@ import Pagination from 'rc-pagination';
 import { SelectControl } from "@wordpress/components";
 import { __ } from '@wordpress/i18n';
 import localeInfo from 'rc-pagination/es/locale/en_US';
-import nxHelper, { chunkArray, dateConvertToHumanReadable } from '../core/functions';
+import nxHelper, { arraysEqualByIndex, chunkArray, dateConvertToHumanReadable } from '../core/functions';
 import ReactModal from "react-modal";
 import BulkEditField from './helpers/PreviewField';
 import CloseIcon from '../icons/Close';
@@ -19,15 +19,15 @@ import Swal from 'sweetalert2';
 import { useNotificationXContext } from '../hooks';
 import AddNew from '../icons/AddNew';
 
-
 const AdvancedRepeater = (props) => {
     const { name: fieldName, value: fieldValue, button, field } = props;
-    const [currentPage, setCurrentPage]     = useState(1);
+    const [currentPage, setCurrentPage]   = useState(1);
     const [itemsPerPage, setItemsPerPage]   = useState(5);
     const [selectedField, setSelectedField] = useState([]);
-    const builderContext                    = useBuilderContext();
-    const nxContext                         = useNotificationXContext();
-
+    const builderContext  = useBuilderContext();
+    const nxContext = useNotificationXContext();
+    const [expandedIndex, setExpandedIndex] = useState(null);
+    const [templateOptions, setTemplateOptions] = useState([]);
     const [localMemoizedValue, setLocalMemoizedValue] = useState(builderContext.values?.[fieldName]);
     const [isOpen, setIsOpen] = useState(false);
     const [isPreview, setIsPreview] = useState(false);
@@ -38,16 +38,38 @@ const AdvancedRepeater = (props) => {
         if (builderContext.values?.[fieldName] !== undefined) {
             setLocalMemoizedValue(builderContext.values?.[fieldName]);
         }
+        if(  builderContext.values?.[fieldName]?.length < 1 ) {
+            builderContext.setFieldValue(fieldName, [{ index: v4() }]);
+        }
     }, [builderContext.values?.[fieldName]]);
 
     useEffect(() => {
-        if (localMemoizedValue === undefined || localMemoizedValue === '') {
+        if (localMemoizedValue === undefined || localMemoizedValue === '' ) {
             setLocalMemoizedValue([{ index: v4() }]);
-        } else {
-            setLocalMemoizedValue((items) => items.map((item) => {
-                return { ...item, index: v4() };
-            }));
         }
+    }, []);
+
+    const getField = (arr, name) => {
+        if (arr.length) {
+            return arr.find((field) => field.name == name)?.fields;
+        }
+        return [];
+    };
+
+    let __field = getField(builderContext.tabs, "content_tab");
+    __field = getField(__field, "content");
+    __field = getField(__field, "notification-template");
+    
+    useEffect(() => {
+        // triggering menu open for Contact Form First field.
+        let templateIndex = props.parentIndex;
+        templateIndex = [...templateIndex, templateIndex.pop() - 1];
+        builderContext.setFormField(templateIndex, __field);
+        let options = __field
+            .filter((f) => f?.options)
+            .map((f) => f?.options)
+            .flat();
+        setTemplateOptions(options);
     }, []);
 
     const handleSort = (value) => {
@@ -125,7 +147,7 @@ const AdvancedRepeater = (props) => {
             showCancelButton: true,
             confirmButtonText: __("Yes, Delete Them", "notificationx"),
             cancelButtonText: __("No, Keep Them", "notificationx"),
-            customClass: { actions: "nx-delete-actions" },
+            customClass: { actions: "nx-delete-actions nx-bulk-delete-actions" },
         }).then((result) => {
             if (result.isConfirmed) {
                 const bulkDeleteFromLocal = localMemoizedValue.filter(item => !selectedField.includes(item.index));
@@ -133,6 +155,10 @@ const AdvancedRepeater = (props) => {
                 setSelectedField([]);
             }
         });
+    };
+
+    const handleSetIsCollapsed = (index) => {
+        setExpandedIndex( expandedIndex === index ? null : index );
     };
     
 
@@ -154,6 +180,15 @@ const AdvancedRepeater = (props) => {
         }
         return [];
     }, [localMemoizedValue, excludedHeaders, customHeaderOrder]);
+
+    const  previewFields = (headers, templateOptions, builderContext, commonFields = ["email", "image", "link"]) => {
+        const modifiedArray2Values = builderContext.eligibleOptions(templateOptions).map(item => item.value.replace(/^tag_/, ''));
+        const modifiedValuesSet = new Set(modifiedArray2Values);
+        const filteredArray1 = headers.filter(item => modifiedValuesSet.has(item));
+        const finalArray = [...filteredArray1, ...commonFields];
+        return finalArray;
+    }
+    const previewField = previewFields(headers, templateOptions, builderContext);
     
     // Select All Item
     const checkAll = (event) => {
@@ -166,9 +201,11 @@ const AdvancedRepeater = (props) => {
         }
     };
 
+    const bulkSelectedItems = useMemo(() => {
+        return localMemoizedValue?.filter(obj => selectedField.includes(obj.index));
+    }, [selectedField]);
     
     // selected bulk items
-    const bulkSelectedItems = localMemoizedValue?.filter(obj => selectedField.includes(obj.index));
     const previewPaginatedItems = useMemo(() => {
         return chunkArray(localMemoizedValue || [], previewItemsPerPage);
     }, [localMemoizedValue, previewItemsPerPage]);
@@ -186,7 +223,19 @@ const AdvancedRepeater = (props) => {
     const previewEndIndex         = Math.min(previewCurrentPage * previewItemsPerPage, totalItems);
     const previewCurrentPageItems = previewPaginatedItems[previewCurrentPage - 1] || [];
     const csv_upload_loader = nxContext?.state?.csv_upload_loader?.csv_upload_loader;
-    
+
+    const checkAllSelectedOrNot = arraysEqualByIndex(currentPageItems, bulkSelectedItems);    
+
+    useEffect(() => {
+        if (field?.[0]?.options?.length > 0) {
+            let options = field
+                .filter((f) => f?.options)
+                .map((f) => f?.options)
+                .flat();
+            setTemplateOptions(options);
+        }
+    }, [field?.[0]?.options]);
+
     return (
         <div className={`wprf-repeater-control wprf-advanced-repeater-control ${ csv_upload_loader ? 'loading' : 'loading' }`}>
             { csv_upload_loader && 
@@ -212,10 +261,12 @@ const AdvancedRepeater = (props) => {
                 </div>
             </div>
             <div className="wprf-advanced-repeater-header">
-                <div className="nx-all-selector">
-                    <input id="nx-advanced-repeater-all-checkbox" type="checkbox" checked={selectedField?.length == currentPageItems?.length ? true : false} onChange={(event) => checkAll(event)} />
-                    <label htmlFor="nx-advanced-repeater-all-checkbox">{__('Select All', 'notificationx')}</label>
-                </div>
+                { currentPageItems?.length > 0 &&
+                    <div className="nx-all-selector">
+                        <input id="nx-advanced-repeater-all-checkbox" type="checkbox" checked={ checkAllSelectedOrNot } onChange={(event) => checkAll(event)} />
+                        <label htmlFor="nx-advanced-repeater-all-checkbox">{__('Select All', 'notificationx')}</label>
+                    </div>
+                }
                 {totalItems > 1 &&
                     <div className="wprf-repeater-label">
                         <button
@@ -247,7 +298,7 @@ const AdvancedRepeater = (props) => {
                     >
                         {currentPageItems.map((value, index) => (
                             <AdvancedRepeaterField
-                                isCollapsed={true}
+                                isCollapsed={ (expandedIndex === value?.index || currentPageItems.length == 1) ? false : true }
                                 key={value?.index || (index + (currentPage - 1) * itemsPerPage)}
                                 fields={field}
                                 index={index + (currentPage - 1) * itemsPerPage}
@@ -258,6 +309,7 @@ const AdvancedRepeater = (props) => {
                                 checked={selectedField.findIndex(element => element == value.index) != -1 ? true : false}
                                 onChange={(event) => handleChangeCollapseState(event, index + (currentPage - 1) * itemsPerPage)}
                                 onChecked={onChecked}
+                                setIsCollapsed={handleSetIsCollapsed}
                             />
                         ))}
                     </ReactSortable>
@@ -298,6 +350,7 @@ const AdvancedRepeater = (props) => {
                 isOpen={isOpen}
                 onRequestClose={() => setIsOpen(false)}
                 ariaHideApp={false}
+                overlayClassName={`nx-custom-notification-edit`}
                 style={{
                     overlay: {
                         position: "fixed",
@@ -354,6 +407,7 @@ const AdvancedRepeater = (props) => {
                 isOpen={isPreview}
                 onRequestClose={() => setIsPreview(false)}
                 ariaHideApp={false}
+                overlayClassName={`nx-custom-notification-preview`}
                 style={{
                     overlay: {
                         position: "fixed",
@@ -381,7 +435,7 @@ const AdvancedRepeater = (props) => {
                 }}
             >
                 <>
-                    {headers.length > 0 && (
+                    { previewField.length > 0 && (
                         <>
                             <div className="wprf-modal-preview-header">
                                 <span>{ __( 'Custom Notification Preview','notificationx' ) }</span>
@@ -393,7 +447,7 @@ const AdvancedRepeater = (props) => {
                                 <table className="table table-striped">
                                     <thead>
                                         <tr>
-                                            {headers.map(header => (
+                                            {previewField.map(header => (
                                                 <th key={header}>{header}</th>
                                             ))}
                                         </tr>
@@ -401,7 +455,7 @@ const AdvancedRepeater = (props) => {
                                     <tbody>
                                         {previewCurrentPageItems && previewCurrentPageItems.map((row, index) => (
                                             <tr key={index}>
-                                                {headers.map(header => {
+                                                {previewField.map(header => {
                                                     const cellData = row[header];
                                                     if (header === 'timestamp' && cellData) {
                                                         return (

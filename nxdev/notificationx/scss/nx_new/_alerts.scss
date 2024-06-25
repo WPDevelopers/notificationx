@@ -92,13 +92,12 @@
 
     &.nx-delete-actions {
         button.swal2-cancel {
-            background-color: #d14529 !important;
+            background-color: #6A4BFF !important;
             color: #fff;
             flex: 1;
         }
-
         button.swal2-confirm {
-            background-color: #6a4bff !important;
+            background-color: #d14529 !important;
             color: #fff;
             flex: 1;
 
@@ -107,8 +106,23 @@
             }
         }
     }
+    &.nx-csv-invalid-file-type {
+        background-color: #6A4BFF !important;
+    }
+    &.nx-bulk-delete-actions {
+        flex-direction: row-reverse;
+        button.swal2-cancel{
+            background-color: #6A4BFF !important;
+        }
+        button.swal2-confirm{
+            background-color: #d14529 !important;
+        }
+    }
 }
 
+.swal2-modal .swal2-icon.swal2-icon-show {
+    border: .25em solid #f27474 !important;
+}
 
 
 
