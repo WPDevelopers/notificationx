@@ -1,5 +1,10 @@
 a {
     text-decoration: none;
+    display: inline-flex;
+}
+
+button {
+    cursor: pointer;
 }
 
 .nx-admin-wrapper {
@@ -19,22 +24,82 @@ a {
             background-color: #6A4BFF;
             color: #fff;
             border: none;
-            padding: 2px 30px;
+            padding: 12px 16px;
             font-size: 16px;
             font-weight: 500;
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 6px;
             min-height: 48px;
             box-sizing: border-box;
             transition: 0.3s ease-in-out;
 
             &:hover {
-                color: #fff;
                 background-color: #5414d0;
-                outline: none;
                 box-shadow: 0 15px 25px -5px rgba(86, 20, 213, 0.3);
+            }
+        }
+    }
+
+    .nx-admin-content-wrapper {
+        padding: 24px;
+        background: #fff;
+        border-radius: 12px;
+
+        &.nx-started {
+            padding: 0;
+            background: linear-gradient(90deg, #FFFFFF 53.81%, #E8E4FC 100%);
+        }
+
+        .nx-started-wrapper {
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 64px;
+            background: url(http://localhost:10013/wp-content/plugins/notificationx/assets/admin/images/new-img/get-started-bg.png);
+            background-repeat: no-repeat;
+            background-position: right;
+
+            .nx-started-content {
+                max-width: 788px;
+            }
+
+            .nx-content-details {
+                h2 {
+                    font-size: 32px;
+                    color: #092161;
+                    line-height: 35px;
+                    font-weight: 600;
+                    margin: 0;
+                    padding-bottom: 16px;
+                }
+
+                p {
+                    font-size: 16px;
+                    line-height: 1.5;
+                    color: #778095;
+                    margin: 0;
+                    padding-bottom: 32px;
+                }
+
+                .nx-primary-btn {
+                    background-color: #6A4BFF;
+                    color: #fff;
+                    border: 1px solid #6A4BFF;
+                    padding: 12px 16px;
+                    font-size: 16px;
+                    font-weight: 500;
+                    border-radius: 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 6px;
+                    min-height: 48px;
+                    box-sizing: border-box;
+                    transition: 0.3s ease-in-out;
+                }
             }
         }
     }
