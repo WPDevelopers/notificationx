@@ -21,10 +21,12 @@ body {
 
 // Alerts
 @import "./nx_new/alerts";
+
 .notificationx-admin {
     position: relative;
     z-index: 11;
 }
+
 #notificationx {
     @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 
@@ -52,6 +54,8 @@ body {
     @import "./nx_new/settings";
     // datePicker
     @import "./nx_new/quick_builder";
+    // newAdmin
+    @import "./nx_new/new_admin";
 
     .pressbar-gutenberg-theme-popup {
         .swal2-actions {

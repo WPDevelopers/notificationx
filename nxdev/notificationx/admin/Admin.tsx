@@ -18,7 +18,7 @@ const Admin = (props) => {
             {/* <Header />
             <AnalyticsHeader assetsURL={builderContext.assets} />
             <NotificationXItems /> */}
-            <NewAdmin/>
+            <NewAdmin />
         </div>
     )
 }

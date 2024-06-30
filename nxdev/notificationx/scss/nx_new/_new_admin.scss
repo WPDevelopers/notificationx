@@ -1,0 +1,41 @@
+a {
+    text-decoration: none;
+}
+
+.nx-admin-wrapper {
+    // padding: 20px 32px;
+    background: #F6F7FE;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    .nx-admin-header {
+        padding-top: 32px;
+        display: flex;
+        align-items: center;
+        gap: 32px;
+
+        a.nx-add-new-btn {
+            background-color: #6A4BFF;
+            color: #fff;
+            border: none;
+            padding: 2px 30px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            box-sizing: border-box;
+            transition: 0.3s ease-in-out;
+
+            &:hover {
+                color: #fff;
+                background-color: #5414d0;
+                outline: none;
+                box-shadow: 0 15px 25px -5px rgba(86, 20, 213, 0.3);
+            }
+        }
+    }
+}
