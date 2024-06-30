@@ -328,10 +328,6 @@
     }
 }
 
-.nx-template-preview .ReactModal__Overlay.ReactModal__Overlay--after-open {
-    
-}
-
 .ReactModal__Overlay.ReactModal__Overlay--after-open {
     background-color: rgba(11, 5, 44, 0.7) !important;
     padding: unset !important;
@@ -1079,6 +1075,44 @@
     }
 }
 
+.nx-csv-modal-ift-container {
+    .nx-csv-modal-ift-popup {
+        max-width: 500px;
+        .swal2-modal.swal2-show .swal2-html-container {
+            margin-bottom: 30px;
+        }
+        .swal2-modal.swal2-show .swal2-styled.swal2-confirm {
+            max-width: 150px;
+        }
+    }
+}
+.nx-csv-modal-import-limit-container {
+   .nx-csv-modal-import-limit-popup {
+        .swal2-icon-show {
+            border: none !important;
+        }
+        .nx-csv-import-limit button.swal2-confirm{
+            background-color: #6A4BFF !important;
+        }
+        .swal2-html-container {
+            font-weight: 300;
+            strong {
+                font-weight: 400;
+                color: #000;
+            }
+        }
+   } 
+}
+.nx-custom-notification-edit.ReactModal__Overlay.ReactModal__Overlay--after-open {
+    .ReactModal__Content.ReactModal__Content--after-open .wprf-modal-table-wrapper.wpsp-bulk-edit-fields .wprf-repeater-field .wprf-repeater-inner-field {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+    }
+   
+    .ReactModal__Content.ReactModal__Content--after-open .wprf-modal-table-wrapper.wpsp-bulk-edit-fields .wprf-repeater-field .wprf-repeater-inner-field .wprf-control-wrapper .wprf-control-field {
+        min-width: auto;
+    }
+}
 /*.wpsp-bulk-edit-fields {
     display: flex;
     flex-direction: column;

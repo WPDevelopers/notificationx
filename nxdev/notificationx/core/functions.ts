@@ -266,29 +266,4 @@ export const checkCSVItems = (csvUrl: string): Promise<number> => {
     });
 };
 
-export const  arraysEqualByIndex = (arr1, arr2) => {
-    // Check if the arrays have the same length
-    if (arr1?.length !== arr2?.length || arr1?.length > arr2?.length) {
-        return false;
-    }
-
-    // Convert the first array into a map for quick lookup by index
-    const map1 = new Map(arr1.map(item => [item.index, item]));
-
-    // Compare each element in the second array by its index
-    for (let item of arr2) {
-        if (!map1.has(item.index)) {
-            return false;
-        }
-        
-        // If you want to compare all properties, you can do a deep comparison here
-        const item1 = map1.get(item.index);
-        if (JSON.stringify(item1) !== JSON.stringify(item)) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
 export default nxHelper;

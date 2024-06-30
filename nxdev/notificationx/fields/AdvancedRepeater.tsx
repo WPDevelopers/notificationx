@@ -8,7 +8,7 @@ import Pagination from 'rc-pagination';
 import { SelectControl } from "@wordpress/components";
 import { __ } from '@wordpress/i18n';
 import localeInfo from 'rc-pagination/es/locale/en_US';
-import nxHelper, { arraysEqualByIndex, chunkArray, dateConvertToHumanReadable } from '../core/functions';
+import nxHelper, { chunkArray, dateConvertToHumanReadable } from '../core/functions';
 import ReactModal from "react-modal";
 import BulkEditField from './helpers/PreviewField';
 import CloseIcon from '../icons/Close';
@@ -117,6 +117,7 @@ const AdvancedRepeater = (props) => {
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
+        setSelectedField([]);
     };
 
     const handleItemsPerPageChange = (value) => {
@@ -224,8 +225,6 @@ const AdvancedRepeater = (props) => {
     const previewCurrentPageItems = previewPaginatedItems[previewCurrentPage - 1] || [];
     const csv_upload_loader = nxContext?.state?.csv_upload_loader?.csv_upload_loader;
 
-    const checkAllSelectedOrNot = arraysEqualByIndex(currentPageItems, bulkSelectedItems);    
-
     useEffect(() => {
         if (field?.[0]?.options?.length > 0) {
             let options = field
@@ -263,7 +262,7 @@ const AdvancedRepeater = (props) => {
             <div className="wprf-advanced-repeater-header">
                 { currentPageItems?.length > 0 &&
                     <div className="nx-all-selector">
-                        <input id="nx-advanced-repeater-all-checkbox" type="checkbox" checked={ checkAllSelectedOrNot } onChange={(event) => checkAll(event)} />
+                        <input id="nx-advanced-repeater-all-checkbox" type="checkbox" checked={ currentPageItems?.length == bulkSelectedItems?.length ? true : false } onChange={(event) => checkAll(event)} />
                         <label htmlFor="nx-advanced-repeater-all-checkbox">{__('Select All', 'notificationx')}</label>
                     </div>
                 }

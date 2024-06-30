@@ -35,9 +35,8 @@ const Media = (props) => {
     useEffect(() => {
       if( importCSV ) {
         importCSVData();
-      }
-    }, [importCSV])
-    
+      }      
+    }, [importCSV])    
 
     const handleMediaSelection = async (media) => {
         if (media.mime !== 'text/csv') {
@@ -67,7 +66,7 @@ const Media = (props) => {
                 Swal.fire({
                     title: __("Import Limit Exceeded.", "notificationx"),
                     html: __(
-                        "Your file contains more than 100 rows. Only the first 100 rows will be imported. Click <strong>Continue</strong> to proceed or <strong>Cancel</strong> to abort.",
+                        `Your file contains more than 100 rows. Only the first 100 rows will be imported. Click <strong>"Continue"</strong> to proceed or <strong>"Cancel"</strong> to abort.`,
                         "notificationx"
                     ),
                     iconHtml: `<img alt="NotificationX" src="${builderContext.assets.admin}images/file-type.svg" style="height: 85px; width:85px" />`,
@@ -93,6 +92,7 @@ const Media = (props) => {
                         setImportCSV(true);
                     } else if (result.isDenied) {
                         setCSVData(null);
+                        setImportCSV(false);
                     }
                 });
             } else {
@@ -105,6 +105,7 @@ const Media = (props) => {
             }
         } catch (error) {
             console.error("Error processing the CSV file:", error);
+            setImportCSV(false);
         }
     }
 
@@ -141,17 +142,19 @@ const Media = (props) => {
                         "notificationx"
                     )
                 );
+                setCSVData({});
                 nxContext.setCSVUploaderLoader({
                     csv_upload_loader: false,
                 })
             }
-            
+            setImportCSV(false);
         }).catch((error) => {
             // setImportButtonClass('wprf-btn wprf-import-csv-btn error');
             console.error(error);
             nxContext.setCSVUploaderLoader({
                 csv_upload_loader: false,
             })
+            setImportCSV(false);
         });
     }
     
