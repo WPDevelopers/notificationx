@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 2.8.9\n"
+"Project-Id-Version: NotificationX 2.8.10\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-13T06:36:51+00:00\n"
+"POT-Creation-Date: 2024-07-01T09:24:01+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: notificationx\n"
@@ -1574,6 +1574,7 @@ msgid "Upload an Image"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:839
+#: assets/admin/js/admin.js:18
 msgid "Upload"
 msgstr ""
 
@@ -3058,6 +3059,7 @@ msgstr ""
 
 #: includes/FrontEnd/Preview.php:354
 #: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:18
 msgid "Preview"
 msgstr ""
 
@@ -3551,6 +3553,7 @@ msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:18
 msgid "Are you sure?"
 msgstr ""
 
@@ -3603,6 +3606,7 @@ msgid "Schedule"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:18
 msgid "Update"
 msgstr ""
 
@@ -3644,6 +3648,7 @@ msgid "Inline Notification Alert has been copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:18
 msgid "Cancel"
 msgstr ""
 
@@ -3657,6 +3662,7 @@ msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:16
+#: assets/admin/js/admin.js:18
 msgid "Edit"
 msgstr ""
 
@@ -3718,6 +3724,7 @@ msgid "Notification Alert has been Reset."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:18
 msgid "Delete"
 msgstr ""
 
@@ -3973,6 +3980,62 @@ msgstr ""
 #. translators: Postfix for notice created by duplicate button.
 #: assets/admin/js/admin.js:18
 msgid " - Copy"
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "CSV data imported successfully!"
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "Invalid File Type!"
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "Please upload a CSV file to import custom notification data."
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "Close"
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "Import Limit Exceeded."
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "Your file contains more than 100 rows. Only the first 100 rows will be imported. Click <strong>\"Continue\"</strong> to proceed or <strong>\"Cancel\"</strong> to abort."
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "Continue"
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "Sample CSV"
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "Select All"
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "Do you really want to delete the selected items? This process cannot be undone."
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "Yes, Delete Them"
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "No, Keep Them"
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "Custom Notification Preview"
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "Items Per Page"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1

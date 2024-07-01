@@ -641,7 +641,7 @@ class FrontEnd {
                 $_entry = apply_filters("nx_frontend_keep_entry_{$post['source']}", [
                     'nx_id'      => $entry['nx_id'],
                     'timestamp'  => isset($entry['timestamp']) ? $entry['timestamp'] : Helper::current_timestamp($entry['updated_at']),
-                    'updated_at' => $entry['updated_at'],
+                    'updated_at' => isset( $entry['updated_at'] ) ? $entry['updated_at'] : '',
                     'image_data' => $entry['image_data'],
                     'link'       => $entry['link'],
                 ], $entry, $post, $params);
