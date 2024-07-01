@@ -3,6 +3,11 @@ a {
     display: inline-flex;
 }
 
+a:focus {
+    box-shadow: none;
+    outline: 0;
+}
+
 button {
     cursor: pointer;
 }
@@ -13,6 +18,64 @@ button {
     display: flex;
     flex-direction: column;
     gap: 32px;
+
+    .nx-content-details {
+        h2 {
+            font-size: 32px;
+            color: #092161;
+            line-height: 35px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        h4 {
+            font-size: 24px;
+            line-height: 26px;
+            font-weight: 600;
+            color: #092161;
+            margin: 0;
+        }
+
+        h5 {
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: 700;
+            color: #092161;
+            margin: 0;
+        }
+
+
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #778095;
+            margin: 0;
+        }
+
+        .nx-primary-btn {
+            background-color: #6A4BFF;
+            color: #fff;
+            border: 1px solid #6A4BFF;
+            padding: 12px 16px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            min-height: 48px;
+            box-sizing: border-box;
+            transition: 0.3s ease-in-out;
+        }
+
+        a.nx-resource-link {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 18px;
+            color: #6A4BFF;
+        }
+    }
 
     .nx-admin-header {
         padding-top: 32px;
@@ -64,41 +127,220 @@ button {
 
             .nx-started-content {
                 max-width: 788px;
-            }
 
-            .nx-content-details {
                 h2 {
-                    font-size: 32px;
-                    color: #092161;
-                    line-height: 35px;
-                    font-weight: 600;
-                    margin: 0;
                     padding-bottom: 16px;
                 }
 
                 p {
-                    font-size: 16px;
-                    line-height: 1.5;
-                    color: #778095;
-                    margin: 0;
                     padding-bottom: 32px;
                 }
 
-                .nx-primary-btn {
-                    background-color: #6A4BFF;
-                    color: #fff;
-                    border: 1px solid #6A4BFF;
-                    padding: 12px 16px;
-                    font-size: 16px;
+                a.nx-resource-link {
+                    margin-top: 12px;
+                }
+            }
+        }
+
+
+    }
+
+    .nx-analytics-wrapper {
+        display: flex;
+        gap: 32px;
+
+        .nx-analytics-content-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 32px;
+            background: #fff;
+            border-radius: 10px;
+
+            img {
+                max-width: 100%;
+                padding: 15px 18px;
+                background: #F6F7FE;
+                border: 1px solid #F0F6FF;
+                border-radius: 10px;
+                height: 68px;
+            }
+
+            .analytics-counter {
+                span.nx-counter-label {
+                    font-size: 20px;
+                    line-height: 20px;
                     font-weight: 500;
-                    border-radius: 8px;
+                    color: #778095;
+                    margin: 0;
+                    padding-bottom: 16px;
+                    display: inline-block;
+                }
+
+                h3.nx-counter-number {
+                    font-size: 36px;
+                    font-weight: 600;
+                    line-height: 30px;
+                    color: #092161;
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    .nx-notifications-wrapper {
+        .nx-integrations-details {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+            margin-bottom: 16px;
+        }
+
+        .nx-notifications-details {
+            .notifications-list-header {
+                background: #F6F7FE;
+                padding: 18px 16px 18px 20px;
+                border-radius: 5px 5px 0 0;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 32px;
+                margin-bottom: 4px;
+
+                span.th {
+                    font-size: 16px;
+                    line-height: 24px;
+                    color: #7C8DB5;
+                    flex: 1;
+
+                    &:first-child {
+                        min-width: 370px;
+                    }
+
+                    &:last-child {
+                        max-width: 50px;
+                        min-width: 50px;
+                        display: flex;
+                        justify-content: center;
+                    }
+                }
+            }
+
+            .notifications-list-body {
+                .notifications-list-wrapper {
                     display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 6px;
-                    min-height: 48px;
-                    box-sizing: border-box;
-                    transition: 0.3s ease-in-out;
+                    flex-direction: column;
+                    gap: 4px;
+
+                    .notifications-list-items {
+                        background: #F6F7FE;
+                        padding: 22px 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 32px;
+
+                        &:last-child {
+                            border-radius: 0 0 5px 5px;
+                        }
+
+                        span.td {
+                            font-size: 16px;
+                            line-height: 24px;
+                            color: #092161;
+                            flex: 1;
+
+                            .toggle-wrap {
+                                position: relative;
+                                display: inline-block;
+                                width: 32px;
+                                height: 16px;
+                            }
+
+                            .toggle-wrap input {
+                                opacity: 0;
+                                width: 0;
+                                height: 0;
+                            }
+
+                            .slider {
+                                position: absolute;
+                                cursor: pointer;
+                                top: 0;
+                                left: 0;
+                                right: 0;
+                                bottom: 0;
+                                background-color: #8D92B1;
+                                border-radius: 17px;
+                                transition: ease-in-out .35s;
+                            }
+
+                            .slider:before {
+                                position: absolute;
+                                content: "";
+                                height: 14px;
+                                width: 14px;
+                                left: 1px;
+                                bottom: 1px;
+                                background-color: #fff;
+                                border-radius: 50%;
+                                transition: ease-in-out .35s;
+                                box-shadow: 0 1px 2px 0 #1018280F, 0 1px 3px 0 #1018281A;
+                            }
+
+                            input:checked+.slider {
+                                background-color: #6A4BFF;
+                            }
+
+                            input:checked+.slider:before {
+                                transform: translateX(16px);
+                            }
+
+                            &:first-child {
+                                min-width: 370px;
+                            }
+
+                            &:last-child {
+                                max-width: 50px;
+                                min-width: 50px;
+                                display: flex;
+                                justify-content: center;
+                            }
+
+                            span.td--ex {
+                                color: #7C8DB5;
+                                display: block;
+                            }
+                        }
+                    }
+                }
+
+                .notifications-not-found {
+                    max-width: 400px;
+                    margin: 0 auto;
+                    text-align: center;
+                    padding: 30px;
+
+                    h5 {
+                        padding-bottom: 12px;
+                    }
+
+                    p {
+                        padding-bottom: 16px;
+                    }
+
+                    button.nx-primary-btn {
+                        font-size: 12px;
+                        display: inline-flex;
+                        padding: 6px 12px;
+                        min-height: 32px;
+
+                        img {
+                            width: 16px;
+                        }
+                    }
                 }
             }
         }
