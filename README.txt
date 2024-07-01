@@ -206,6 +206,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 == Changelog ==
 
 = 2.8.10 - 01/7/2024 =
+Added: Bulk Custom Notification with CSV.
 Few minor bug fixes and improvements.
 
 = 2.8.9 - 13/6/2024 =
