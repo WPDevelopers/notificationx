@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ReactSortable } from "react-sortablejs";
-import { RepeaterField } from 'quickbuilder/src/fields/helpers';
 import { executeChange, useBuilderContext } from 'quickbuilder';
 import { v4 } from "uuid";
 import AdvancedRepeaterField from './helpers/AdvancedRepeaterField';
