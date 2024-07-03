@@ -59,7 +59,7 @@ const NewAdmin = () => {
       <div className='nx-admin-content-wrapper nx-notifications-wrapper'>
         <div className='nx-integrations-details nx-content-details'>
           <h4>Integrations</h4>
-          <button className='nx-primary-btn'>View all Notifiation</button>
+          <button className='nx-primary-btn'>View all Notification</button>
         </div>
         <div className='nx-notifications-details'>
           <div className='notifications-list-header'>
@@ -142,9 +142,102 @@ const NewAdmin = () => {
       </div>
 
       <div className='nx-analytics-integration-wrapper'>
-        <div className='nx-admin-content-wrapper'>
-          <div className="nx-analytics-graph-wrapper">
-            <h2>graps</h2>
+        <div className='nx-analytics-graph-wrapper nx-admin-content-wrapper'>
+          <div className='nx-analytics-overlay'>
+            <button className='nx-get-pro'>
+              <img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/pro-icon.svg" alt="icon" />
+              Get Pro to Unlock
+            </button>
+          </div>
+          <div className='nx-analytics-header nx-content-details'>
+            <h4>Analytics</h4>
+            <button className='nx-secondary-btn'>View all</button>
+          </div>
+          <div className='nx-analytics-body'>
+            <img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/analytics-graph.png" alt="icon" />
+          </div>
+        </div>
+        <div className='nx-integration-wrapper nx-admin-content-wrapper'>
+          <div className='nx-integrations-header nx-content-details'>
+            <h4>Integrations</h4>
+            <button className='nx-secondary-btn'>View all Integration</button>
+          </div>
+          <div className='nx-integrations-body'>
+            <img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/integration.png" alt="icon" />
+          </div>
+        </div>
+      </div>
+
+      <div className='nx-other-details-wrapper'>
+        <div className='nx-notification-type nx-admin-content-wrapper'>
+          <div className='nx-notification-type-header nx-content-details'>
+            <div>
+              <h4>Notification Type</h4>
+              <p>We support various types of notifications including</p>
+            </div>
+            <button className='nx-secondary-btn'>
+              Add New
+              <img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/add-icon-2.svg" alt="icon" />
+            </button>
+          </div>
+          <div className='nx-notification-type-body'>
+            <div className='nx-body-content-wrapper'>
+              <img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/theme-1.png" alt="icon" />
+              <div className='nx-body-content nx-content-details'>
+                <h5>Sales Notification</h5>
+                <p>Showcase your latest sales to boost credibility and drive more conversions.</p>
+                <button className='nx-secondary-btn'>Create Now</button>
+              </div>
+            </div>
+            <div className='nx-body-content-wrapper'>
+              <img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/theme-3.png" alt="icon" />
+              <div className='nx-body-content nx-content-details'>
+                <h5>Review Notification</h5>
+                <p>Showcase your latest sales to boost credibility and drive more conversions.</p>
+                <button className='nx-secondary-btn'>Create Now</button>
+              </div>
+            </div>
+            <div className='nx-body-content-wrapper'>
+              <img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/theme-4.png" alt="icon" />
+              <div className='nx-body-content nx-content-details'>
+                <h5>Notification Bar</h5>
+                <p>Showcase your latest sales to boost credibility and drive more conversions.</p>
+                <button className='nx-secondary-btn'>Create Now</button>
+              </div>
+            </div>
+            <div className='nx-body-content-wrapper'>
+              <img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/theme-5.png" alt="icon" />
+              <div className='nx-body-content nx-content-details'>
+                <h5>Growth Alert</h5>
+                <p>Showcase your latest sales to boost credibility and drive more conversions.</p>
+                <button className='nx-secondary-btn'>Create Now</button>
+              </div>
+            </div>
+            <div className='nx-body-content-wrapper'>
+              <img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/theme-6.png" alt="icon" />
+              <div className='nx-body-content nx-content-details'>
+                <h5>Flashing Tab</h5>
+                <p>Showcase your latest sales to boost credibility and drive more conversions.</p>
+                <button className='nx-secondary-btn'>Create Now</button>
+              </div>
+            </div>
+            <div className='nx-body-content-wrapper'>
+              <img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/theme-7.png" alt="icon" />
+              <div className='nx-body-content nx-content-details'>
+                <h5>Cross - Domain</h5>
+                <p>Showcase your latest sales to boost credibility and drive more conversions.</p>
+                <button className='nx-secondary-btn'>Create Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className='nx-notification-type nx-admin-content-wrapper'>
+          <div className='nx-integrations-header nx-content-details'>
+            <h4>Integrations</h4>
+            <button className='nx-secondary-btn'>View all Integration</button>
+          </div>
+          <div className='nx-integrations-body'>
+            <img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/integration.png" alt="icon" />
           </div>
         </div>
       </div>

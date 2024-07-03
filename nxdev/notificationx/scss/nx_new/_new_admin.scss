@@ -38,7 +38,7 @@ button {
 
         h5 {
             font-size: 16px;
-            line-height: 24px;
+            line-height: 1em;
             font-weight: 700;
             color: #092161;
             margin: 0;
@@ -67,6 +67,30 @@ button {
             min-height: 48px;
             box-sizing: border-box;
             transition: 0.3s ease-in-out;
+        }
+
+        .nx-secondary-btn {
+            background-color: transparent;
+            color: #6A4BFF;
+            border: 1px solid #6A4BFF;
+            padding: 8px 12px;
+            font-size: 12px;
+            line-height: 1em;
+            font-weight: 500;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            min-height: 32px;
+            box-sizing: border-box;
+            transition: 0.3s ease-in-out;
+
+            // &:hover {
+            //     background-color: #6A4BFF;
+            //     color: #FFFFFF;
+            //     border: 1px solid #6A4BFF;
+            // }
         }
 
         a.nx-resource-link {
@@ -357,6 +381,117 @@ button {
 
                         img {
                             width: 16px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .nx-admin-content-wrapper {
+        flex: 1;
+
+        .nx-content-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+    }
+
+    .nx-analytics-integration-wrapper {
+        display: flex;
+        gap: 32px;
+
+        .nx-analytics-graph-wrapper {
+            flex: 65%;
+            border-radius: 6px;
+            position: relative;
+
+            .nx-analytics-overlay {
+                position: absolute;
+                inset: 0;
+                background: #16007E1A;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .nx-get-pro {
+                    background-color: #FF9437;
+                    color: #fff;
+                    border: 1px solid #FF9437;
+                    padding: 12px 16px;
+                    font-size: 16px;
+                    font-weight: 500;
+                    border-radius: 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 8px;
+                    min-height: 48px;
+                    box-shadow: 0px 0px 10px 2px #FFFFFF1A inset;
+                    box-sizing: border-box;
+                    transition: 0.3s ease-in-out;
+                }
+            }
+        }
+
+        .nx-integration-wrapper {
+            flex: 35%;
+
+
+            .nx-integrations-body {
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .nx-other-details-wrapper {
+        display: flex;
+        gap: 32px;
+
+        .nx-notification-type-body {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+
+            .nx-body-content-wrapper {
+                padding: 16px;
+                border: 1px solid #F0F6FF;
+                border-radius: 6px;
+                background: linear-gradient(180deg, #F9F8FC 0%, #FFFFFF 100%);
+
+                img {
+                    margin-bottom: 16px;
+                }
+
+                .nx-content-details {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    gap: 0;
+                    margin-bottom: 0;
+
+                    h5 {
+                        font-weight: 500;
+                        padding-bottom: 8px;
+                    }
+
+                    p {
+                        font-size: 14px;
+                        padding-bottom: 16px;
+                    }
+
+                    .nx-secondary-btn {
+                        &:hover {
+                            background-color: #6A4BFF;
+                            color: #FFFFFF;
+                            border: 1px solid #6A4BFF;
                         }
                     }
                 }
