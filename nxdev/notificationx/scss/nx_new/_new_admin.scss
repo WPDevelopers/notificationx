@@ -216,7 +216,11 @@ button {
                     flex: 1;
 
                     &:first-child {
-                        min-width: 370px;
+                        min-width: 400px;
+                    }
+
+                    &:nth-child(2) {
+                        min-width: 220px;
                     }
 
                     &:last-child {
@@ -236,7 +240,7 @@ button {
 
                     .notifications-list-items {
                         background: #F6F7FE;
-                        padding: 22px 20px;
+                        padding: 16px 20px;
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
@@ -299,7 +303,11 @@ button {
                             }
 
                             &:first-child {
-                                min-width: 370px;
+                                min-width: 400px;
+                            }
+
+                            &:nth-child(2) {
+                                min-width: 220px;
                             }
 
                             &:last-child {
@@ -312,6 +320,16 @@ button {
                             span.td--ex {
                                 color: #7C8DB5;
                                 display: block;
+                            }
+                        }
+
+                        span.td.action {
+                            img {
+                                padding: 10px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                cursor: pointer;
                             }
                         }
                     }

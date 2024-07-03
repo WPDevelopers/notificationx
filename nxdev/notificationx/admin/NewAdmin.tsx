@@ -75,7 +75,7 @@ const NewAdmin = () => {
             <div className='notifications-list-wrapper'>
               <div className='notifications-list-items'>
                 <span className='td'>NotificationX - Sales Notification - June 9, 2024</span>
-                <span className='td'><img src="" alt="theme img" /></span>
+                <span className='td'><img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/theme-01.png" alt="theme img" /></span>
                 <span className='td'>
                   <label className="toggle-wrap">
                     <input type="checkbox" />
@@ -88,13 +88,13 @@ const NewAdmin = () => {
                   <span className='td--ex'>Published</span>
                   June 9, 2024 6:07 am
                 </span>
-                <span className='td'>
+                <span className='td action'>
                   <img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/action-btn.svg" alt="icon" />
                 </span>
               </div>
               <div className='notifications-list-items'>
                 <span className='td'>NotificationX - Sales Notification - June 9, 2024</span>
-                <span className='td'><img src="" alt="theme img" /></span>
+                <span className='td'><img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/theme-2.png" alt="theme img" /></span>
                 <span className='td'>
                   <label className="toggle-wrap">
                     <input type="checkbox" checked />
@@ -107,13 +107,13 @@ const NewAdmin = () => {
                   <span className='td--ex'>Published</span>
                   June 9, 2024 6:07 am
                 </span>
-                <span className='td'>
+                <span className='td action'>
                   <img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/action-btn.svg" alt="icon" />
                 </span>
               </div>
               <div className='notifications-list-items'>
                 <span className='td'>NotificationX - Sales Notification - June 9, 2024</span>
-                <span className='td'><img src="" alt="theme img" /></span>
+                <span className='td'><img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/theme-01.png" alt="theme img" /></span>
                 <span className='td'>
                   <label className="toggle-wrap">
                     <input type="checkbox" />
@@ -126,7 +126,7 @@ const NewAdmin = () => {
                   <span className='td--ex'>Published</span>
                   June 9, 2024 6:07 am
                 </span>
-                <span className='td'>
+                <span className='td action'>
                   <img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/action-btn.svg" alt="icon" />
                 </span>
               </div>
@@ -137,6 +137,14 @@ const NewAdmin = () => {
               <p>Seems like you haven’t created any notification alerts. Hit on "Add New" button to get started</p>
               <button className='nx-primary-btn'>Add New<img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/add.svg" alt="icon"></img></button>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div className='nx-analytics-integration-wrapper'>
+        <div className='nx-admin-content-wrapper'>
+          <div className="nx-analytics-graph-wrapper">
+            <h2>graps</h2>
           </div>
         </div>
       </div>
