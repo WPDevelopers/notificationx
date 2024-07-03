@@ -1741,55 +1741,141 @@
             align-items: center;
             gap: 6px;
         }
+
         .change-time {
             position: relative;
+
             .wprf-change-time-wrapper {
                 position: absolute;
-                top: 100%;
-                margin-top: 10px;
-                transform: translateX(-150px);
+                top: 40px;
+                left: 50%;
+                transform: translateX(-50%);
                 background-color: #F6F7FE;
                 width: 400px;
-                box-shadow: 0px 0px 19px 6px #0F00571A;
+                border: 1px solid #CCC9DA;
+                border-radius: 8px;
+                box-shadow: 0px 0px 19px 6px rgba(15, 0, 87, 0.1019607843);
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    top: -7px;
+                    left: 50%;
+                    width: 12px;
+                    height: 12px;
+                    background: #fff;
+                    transform: translateX(-50%) rotate(45deg);
+                    border-radius: 2px 0 0 0;
+                    border-style: solid;
+                    border-width: 1px 0 0 1px;
+                    border-color: #CCC9DA;
+                }
+
                 .wprf-change-time-header {
                     background-color: #fff;
-                    padding: 10px 15px;
-                    text-align: left;
+                    padding: 16px 24px;
+                    border-radius: 8px 8px 0 0;
+
                     h4 {
-                        margin: 0;
-                        margin-bottom: 5px;
                         color: #1B1B50;
-                        font-size: 15px;
+                        font-size: 16px;
+                        line-height: 14px;
                         font-weight: 500;
+                        margin: 0;
+                        margin-bottom: 8px;
                     }
+
                     span {
                         color: #7C8DB5;
                         size: 14px;
                         line-height: 18px;
-                        font-weight: 300;
+                        font-weight: 400;
                     }
                 }
+
                 .wprf-change-time-content {
-                    width: 90%;
-                    margin: 0 auto;
                     display: flex;
-                    justify-content: center;
                     align-items: center;
-                    gap: 10px;
-                    padding-top: 14px;
-                    background-color: #fff;
-                    margin-bottom: 20px;
-                    padding-bottom: 10px;
-                    margin-top: 15px;
+                    gap: 20px;
+                    margin: 24px;
+                    background: #fff;
+                    padding: 16px 12px;
+                    border-radius: 4px;
+
+                    .wrf-change-time-from {
+                        flex: 1;
+
+                        label {
+                            color: #505E80;
+                        }
+
+                        .wprf-control-wrapper {
+                            .wprf-control-field {
+                                flex: 1;
+
+                                .wprf-control-datetime {
+                                    flex: 1;
+
+                                    .components-button.is-tertiary {
+                                        background-color: transparent;
+                                        border: 1px solid #E6EFFB;
+                                        border-radius: 4px;
+                                        color: #505E80;
+                                        padding: 12px;
+                                        cursor: pointer;
+                                        width: 100%;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .wrf-change-time-to {
+                        flex: 1;
+
+                        label {
+                            color: #7C8DB5;
+                        }
+
+                        .wprf-control-wrapper {
+                            .wprf-control-field {
+                                flex: 1;
+
+                                .wprf-control-datetime {
+                                    flex: 1;
+
+                                    .components-button.is-tertiary {
+                                        background-color: transparent;
+                                        border: 1px solid #E6EFFB;
+                                        border-radius: 4px;
+                                        color: #1B1B50;
+                                        padding: 12px;
+                                        cursor: pointer;
+                                        width: 100%;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    label {
+                        font-size: 14px;
+                        font-weight: 500;
+                        line-height: 18px;
+                        margin-bottom: 6px;
+                        display: inline-block;
+                    }
                 }
+
                 .wprf-change-time-bottom {
                     display: flex;
                     justify-content: end;
                     align-items: center;
-                    margin: 0 18px 20px 0;
+                    margin: 0 24px 30px 0;
+
                     .wprf-change-time-apply-change-btn {
                         background: #6a4bff;
-                        border: 1.5px solid #6a4bff;
+                        border: none;
                         border-radius: 5px;
                         display: flex;
                         font-size: 16px;
@@ -1799,15 +1885,16 @@
                         text-decoration: none;
                         outline: none;
                         color: #fff;
-                        line-height: 1.15;
+                        line-height: 1.5;
                         transition: 0.3s ease-in-out;
                         cursor: pointer;
                         gap: 8px;
-                        padding: 10px 20px;
+                        padding: 12px 20px;
                     }
                 }
             }
         }
+
         button.bulk-edit,
         button.bulk-delete {
             line-height: 0;
