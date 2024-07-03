@@ -1,15 +1,23 @@
 import React, { useState } from 'react'
 import { Date as DateControl } from "quickbuilder";
+import CloseIcon from '../../icons/Close';
 
-const ChangeCustomNotificationTime = ( { handleChangeTime } ) => {
+const ChangeCustomNotificationTime = ( { handleChangeTime, setChangeTimeToggle } ) => {
     const [ startDate, setStartDate ] = useState(null);
     const [ endDate, setEndDate ]     = useState(null);
     
     return (
         <div className="wprf-change-time-wrapper">
             <div className="wprf-change-time-header">
-                <h4>Change Time</h4>
-                <span>This will effect on all selected Items</span>
+                <div className="wprf-change-time-header-content">
+                    <h4>Change Time</h4>
+                    <span>This will effect on all selected Items</span>
+                </div>
+                <div className="wprf-change-time-header-icon">
+                    <button onClick={() => setChangeTimeToggle(false)}>
+                        <CloseIcon />
+                    </button>
+                </div>
             </div>
             <div className="wprf-change-time-content">
                 <div className="wrf-change-time-from">

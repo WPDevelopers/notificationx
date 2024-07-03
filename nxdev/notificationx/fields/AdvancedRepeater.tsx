@@ -186,6 +186,7 @@ const AdvancedRepeater = (props) => {
                     return item;
                 });
                 setLocalMemoizedValue(updatedData);
+                setChangeTimeToggle(false);
                 nxToast.info(
                     __(
                         `Selected custom notification timestamp updated successfully!`,
@@ -267,7 +268,7 @@ const AdvancedRepeater = (props) => {
                 .flat();
             setTemplateOptions(options);
         }
-    }, [field?.[0]?.options]);
+    }, [field?.[0]?.options]);    
 
     return (
         <div className={`wprf-repeater-control wprf-advanced-repeater-control ${ csv_upload_loader ? 'loading' : 'loading' }`}>
@@ -310,7 +311,7 @@ const AdvancedRepeater = (props) => {
                                 <EditIcon /> <span> {__('Change Time', 'notificationx')} </span>
                             </button>
                             { changeTimeToggle &&
-                                <ChangeCustomNotificationTime handleChangeTime={handleChangeTime} />
+                                <ChangeCustomNotificationTime handleChangeTime={handleChangeTime} setChangeTimeToggle={setChangeTimeToggle} />
                             }
                         </div>
                         <button
