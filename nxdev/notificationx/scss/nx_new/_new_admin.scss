@@ -540,11 +540,30 @@ img {
                 gap: 12px;
 
                 .nx-resource-content {
-                    display: flex;
+                    display: inline-flex;
                     gap: 8px;
                     align-items: center;
                     padding: 10px 0;
                     border-bottom: 1px solid #F0F6FF;
+                    cursor: pointer;
+
+                    p,
+                    svg path {
+                        transition: ease-in-out .25s;
+                        fill: #ADA6D6;
+                        color: #ADA6D6;
+                    }
+
+                    &:hover {
+                        p {
+                            color: #6A4BFF;
+                        }
+
+                        svg path {
+                            fill: #6A4BFF;
+                        }
+
+                    }
 
                     &:last-child {
                         border-bottom: none;
@@ -610,6 +629,7 @@ img {
     .nx-more-docs-wrapper {
         display: flex;
         gap: 32px;
+        margin-top: 18px;
 
         .nx-docs-content-wrapper {
             display: flex;
