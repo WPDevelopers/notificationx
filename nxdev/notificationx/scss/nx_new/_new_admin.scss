@@ -12,6 +12,10 @@ button {
     cursor: pointer;
 }
 
+img {
+    max-width: 100%;
+}
+
 .nx-admin-wrapper {
     // padding: 20px 32px;
     background: #F6F7FE;
@@ -44,6 +48,13 @@ button {
             margin: 0;
         }
 
+        h6 {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.3em;
+            color: #092161;
+            margin: 0;
+        }
 
         p {
             font-size: 16px;
@@ -98,6 +109,9 @@ button {
             font-weight: 500;
             line-height: 18px;
             color: #6A4BFF;
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
         }
     }
 
@@ -151,6 +165,12 @@ button {
 
             .nx-started-content {
                 max-width: 788px;
+                // display: flex;
+                // flex-direction: column;
+                // gap: 0;
+                // justify-content: flex-start;
+                // align-items: flex-start;
+
 
                 h2 {
                     padding-bottom: 16px;
@@ -214,13 +234,6 @@ button {
     }
 
     .nx-notifications-wrapper {
-        .nx-integrations-details {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 32px;
-            margin-bottom: 16px;
-        }
 
         .nx-notifications-details {
             .notifications-list-header {
@@ -364,6 +377,11 @@ button {
                     margin: 0 auto;
                     text-align: center;
                     padding: 30px;
+                    // display: flex;
+                    // flex-direction: column;
+                    // align-items: center;
+                    // justify-content: center;
+                    // gap: 0;
 
                     h5 {
                         padding-bottom: 12px;
@@ -391,7 +409,7 @@ button {
     .nx-admin-content-wrapper {
         flex: 1;
 
-        .nx-content-details {
+        .nx-content-details.header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -454,47 +472,178 @@ button {
         display: flex;
         gap: 32px;
 
-        .nx-notification-type-body {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+        .nx-notification-type-wrapper {
+            flex: 50%;
 
-            .nx-body-content-wrapper {
-                padding: 16px;
-                border: 1px solid #F0F6FF;
-                border-radius: 6px;
-                background: linear-gradient(180deg, #F9F8FC 0%, #FFFFFF 100%);
-
-                img {
-                    margin-bottom: 16px;
+            .nx-notification-type-header {
+                h4 {
+                    margin-bottom: 4px;
                 }
+            }
 
-                .nx-content-details {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: flex-start;
-                    align-items: flex-start;
-                    gap: 0;
-                    margin-bottom: 0;
+            .nx-notification-type-body {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 24px;
 
-                    h5 {
-                        font-weight: 500;
-                        padding-bottom: 8px;
+                .nx-body-content-wrapper {
+                    padding: 16px;
+                    border: 1px solid #F0F6FF;
+                    border-radius: 6px;
+                    background: linear-gradient(180deg, #F9F8FC 0%, #FFFFFF 100%);
+
+                    img {
+                        margin-bottom: 6px;
+                        max-width: 100%;
                     }
 
-                    p {
-                        font-size: 14px;
-                        padding-bottom: 16px;
-                    }
+                    .nx-content-details {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-start;
+                        align-items: flex-start;
+                        gap: 0;
+                        margin-bottom: 0;
 
-                    .nx-secondary-btn {
-                        &:hover {
-                            background-color: #6A4BFF;
-                            color: #FFFFFF;
-                            border: 1px solid #6A4BFF;
+                        h5 {
+                            font-weight: 500;
+                            padding-bottom: 8px;
+                        }
+
+                        p {
+                            font-size: 14px;
+                            padding-bottom: 16px;
+                        }
+
+                        .nx-secondary-btn {
+                            &:hover {
+                                background-color: #6A4BFF;
+                                color: #FFFFFF;
+                                border: 1px solid #6A4BFF;
+                            }
                         }
                     }
                 }
+            }
+        }
+
+
+        .nx-resource-stories-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            flex: 50%;
+
+            .nx-resource-wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+
+                .nx-resource-content {
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                    padding: 10px 0;
+                    border-bottom: 1px solid #F0F6FF;
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+
+                    span {
+                        display: inline-flex;
+                    }
+                }
+            }
+
+            .nx-stories-wrapper {
+                .nx-stories-body {
+                    display: flex;
+                    gap: 24px;
+
+                    .nx-stories-content {
+                        border: 1px solid #F0F6FF;
+                        border-radius: 6px;
+
+                        img.stories-bg {
+                            border-radius: 6px;
+                            max-width: 100%;
+                        }
+
+                        .nx-content-details {
+                            padding: 12px 16px 20px;
+
+                            h5 {
+                                font-weight: 500;
+                                line-height: 1.2em;
+                                margin-bottom: 6px;
+                            }
+
+                            p {
+                                font-size: 12px;
+                                margin-bottom: 16px;
+                            }
+
+                            .nx-author-details {
+                                display: flex;
+                                align-items: center;
+                                gap: 14px;
+
+                                h6 {
+                                    margin-bottom: 4px;
+                                }
+
+                                p {
+                                    font-size: 12px;
+                                    margin-bottom: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    .nx-more-docs-wrapper {
+        display: flex;
+        gap: 32px;
+
+        .nx-docs-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding: 32px;
+            background: #FFFFFF;
+            border: 1px solid #F0F6FF;
+            border-radius: 12px;
+
+            .img-wrap {
+                width: 56px;
+                height: 56px;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                background: #6A4BFF0D;
+                border-radius: 6px;
+                margin-bottom: 24px;
+            }
+
+            h3 {
+                font-size: 20px;
+                font-weight: 600;
+                line-height: 1.1em;
+                color: #092161;
+                margin: 0;
+                margin-bottom: 16px;
+            }
+
+            p {
+                font-size: 14px;
+                padding-bottom: 32px;
+                flex: 1;
             }
         }
     }
