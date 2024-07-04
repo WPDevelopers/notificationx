@@ -189,7 +189,7 @@ const AdvancedRepeater = (props) => {
                 setChangeTimeToggle(false);
                 nxToast.info(
                     __(
-                        `Selected custom notification timestamp updated successfully!`,
+                        `Selected custom notification Time updated successfully!`,
                         "notificationx"
                     )
                 );
@@ -270,6 +270,9 @@ const AdvancedRepeater = (props) => {
         }
     }, [field?.[0]?.options]);    
 
+    console.log('bulkSelectedItems',bulkSelectedItems);
+    
+
     return (
         <div className={`wprf-repeater-control wprf-advanced-repeater-control ${ csv_upload_loader ? 'loading' : 'loading' }`}>
             { csv_upload_loader && 
@@ -305,9 +308,8 @@ const AdvancedRepeater = (props) => {
                     <div className="wprf-repeater-label">
                         <div
                             className='change-time'
-                            // disabled={ bulkSelectedItems?.length < 2 ? true : false }
                         >
-                            <button className='wprf-repeater-button'  onClick={() => setChangeTimeToggle(!changeTimeToggle)}>
+                            <button disabled={ (bulkSelectedItems === undefined || bulkSelectedItems?.length < 2) ? true : false } className='wprf-repeater-button'  onClick={() => setChangeTimeToggle(!changeTimeToggle)}>
                                 <EditIcon /> <span> {__('Change Time', 'notificationx')} </span>
                             </button>
                             { changeTimeToggle &&
@@ -317,14 +319,14 @@ const AdvancedRepeater = (props) => {
                         <button
                             className='wprf-repeater-button bulk-edit'
                             onClick={() => setIsOpen(true)}
-                            disabled={ bulkSelectedItems?.length < 2 ? true : false }
+                            disabled={ (bulkSelectedItems === undefined || bulkSelectedItems?.length < 2) ? true : false }
                         >
                             <EditIcon /> <span>{__('Edit', 'notificationx')}</span>
                         </button>
                         <button
                             className="wprf-repeater-button bulk-delete"
                             onClick={() => bulkDelete()}
-                            disabled={ bulkSelectedItems?.length < 2 ? true : false }
+                            disabled={ (bulkSelectedItems === undefined || bulkSelectedItems?.length < 2) ? true : false }
                         >
                             <TrashIcon /> <span>{__('Delete', 'notificationx')}</span>
                         </button>

@@ -1896,22 +1896,23 @@
                     margin: 0 24px 30px 0;
 
                     .wprf-change-time-apply-change-btn {
+                        align-items: center;
                         background: #6a4bff;
-                        border: none;
-                        border-radius: 5px;
+                        border: 1.5px solid #6a4bff;
+                        border-radius: 4px;
+                        box-shadow: none;
+                        color: #fff;
+                        cursor: pointer;
                         display: flex;
                         font-size: 16px;
                         font-weight: 500;
-                        align-items: center;
                         justify-content: center;
-                        text-decoration: none;
+                        line-height: 1.15;
+                        min-height: 36px;
                         outline: none;
-                        color: #fff;
-                        line-height: 1.5;
-                        transition: 0.3s ease-in-out;
-                        cursor: pointer;
-                        gap: 8px;
-                        padding: 12px 20px;
+                        padding: 2px 20px;
+                        text-decoration: none;
+                        transition: .3s ease-in-out;
                     }
                 }
             }

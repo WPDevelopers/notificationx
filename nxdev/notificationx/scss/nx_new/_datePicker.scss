@@ -133,6 +133,9 @@
 
       .components-datetime__date button {
         border: none;
+        &:hover{
+          cursor: pointer;
+        }
       }
 
       .components-datetime__date .CalendarDay__selected:hover {
