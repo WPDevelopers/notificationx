@@ -345,6 +345,13 @@ class PressBar extends Extension {
                     'type'  => "colorpicker",
                 ],
                 [
+                    'label'       => __('Close Button Size', 'notificationx'),
+                    'name'        => "bar_close_button_size",
+                    'type'        => "number",
+                    'default'     => '10',
+                    'description' => 'px',
+                ],
+                [
                     'label'   => __('Close Button Position', 'notificationx'),
                     'name'    => "bar_close_position",
                     'type'    => "select",
@@ -352,6 +359,46 @@ class PressBar extends Extension {
                     'options' => GlobalFields::get_instance()->normalize_fields([
                         'left'  => __('Left', 'notificationx'),
                         'right' => __('Right', 'notificationx'),
+                    ]),
+                ],
+                [
+                    'label'       => __('Close Button Position Top', 'notificationx'),
+                    'name'        => "bar_position_left_top",
+                    'type'        => "number",
+                    'default'     => '15',
+                    'description' => 'px',
+                    'rules'       => Rules::logicalRule([
+                        Rules::is('bar_close_position', 'left'),
+                    ]),
+                ],
+                [
+                    'label'       => __('Close Button Position Left', 'notificationx'),
+                    'name'        => "bar_position_left_left",
+                    'type'        => "number",
+                    'default'     => '15',
+                    'description' => 'px',
+                    'rules'       => Rules::logicalRule([
+                        Rules::is('bar_close_position', 'left'),
+                    ]),
+                ],
+                [
+                    'label'       => __('Close Button Position Top', 'notificationx'),
+                    'name'        => "bar_position_right_top",
+                    'type'        => "number",
+                    'default'     => '15',
+                    'description' => 'px',
+                    'rules'       => Rules::logicalRule([
+                        Rules::is('bar_close_position', 'right'),
+                    ]),
+                ],
+                [
+                    'label'       => __('Close Button Position Right', 'notificationx'),
+                    'name'        => "bar_position_right_right",
+                    'type'        => "number",
+                    'default'     => '15',
+                    'description' => 'px',
+                    'rules'       => Rules::logicalRule([
+                        Rules::is('bar_close_position', 'right'),
                     ]),
                 ],
             ],
