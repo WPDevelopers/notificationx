@@ -173,7 +173,7 @@ const NewAdmin = () => {
       <div className='nx-other-details-wrapper'>
         <div className='nx-notification-type-wrapper nx-admin-content-wrapper'>
           <div className='nx-notification-type-header nx-content-details header'>
-            <div>
+            <div className='header-content-ex'>
               <h4>Notification Type</h4>
               <p>We support various types of notifications including</p>
             </div>
