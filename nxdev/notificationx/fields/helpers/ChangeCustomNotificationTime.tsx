@@ -3,29 +3,26 @@ import { Date as DateControl } from "quickbuilder";
 import CloseIcon from '../../icons/Close';
 import AdvancedDateTimePicker from './AdvancedDateTimePicker';
 import moment from 'moment';
+import { __ } from '@wordpress/i18n';
+import classNames from 'classnames';
 
 const ChangeCustomNotificationTime = ( { handleChangeTime, setChangeTimeToggle } ) => {
     const [ startDate, setStartDate ] = useState(null);
     const [ endDate, setEndDate ]     = useState(null);
+    const [applyDisabled, setApplyDisabled] = useState(false);
     const day = moment().toISOString();
 
     const handleDateChange = (value, type) => {
-        const selectedDate = moment(value?.target?.value).toISOString();
-        if (moment(selectedDate).isSameOrAfter(day)) {
-            const currentDate = moment().toISOString();
-            if( 'start' === type ) {
-                setStartDate(currentDate);
+        const selectedDate = moment(value?.target?.value).startOf('day');
+        if (type === 'start') {
+            setStartDate(selectedDate.toISOString());
+        } else if (type === 'end') {
+            if (selectedDate.isBefore(startDate)) {
+                setApplyDisabled(true);
+            } else {
+                setApplyDisabled(false);
             }
-            if( 'end' === type ) {
-                setEndDate(currentDate);
-            }
-        } else {
-            if( 'start' === type ) {
-                setStartDate(selectedDate);
-            }
-            if( 'end' === type ) {
-                setEndDate(selectedDate);
-            }
+            setEndDate(selectedDate.toISOString());
         }
     };
 
@@ -33,8 +30,8 @@ const ChangeCustomNotificationTime = ( { handleChangeTime, setChangeTimeToggle }
         <div className="wprf-change-time-wrapper">
             <div className="wprf-change-time-header">
                 <div className="wprf-change-time-header-content">
-                    <h4>Change Time</h4>
-                    <span>This will effect on all selected Items</span>
+                    <h4>{ __('Change Time', 'notificationx') }</h4>
+                    <span>{ __('This will effect on all selected Items', 'notificationx') }</span>
                 </div>
                 <div className="wprf-change-time-header-icon">
                     <button onClick={() => setChangeTimeToggle(false)}>
@@ -44,7 +41,7 @@ const ChangeCustomNotificationTime = ( { handleChangeTime, setChangeTimeToggle }
             </div>
             <div className="wprf-change-time-content">
                 <div className="wrf-change-time-from">
-                    <label>From</label>
+                    <label>{ __('From', 'notificationx') }</label>
                     <AdvancedDateTimePicker
                         name="startDate"
                         type="date"
@@ -56,8 +53,8 @@ const ChangeCustomNotificationTime = ( { handleChangeTime, setChangeTimeToggle }
                         }}
                     />
                 </div>
-                <div className="wrf-change-time-to">
-                    <label>To</label>
+                <div className={ classNames(`wrf-change-time-to ${ applyDisabled ? 'apply-disabled' : '' } `) }>
+                    <label>{ __('To', 'notificationx') }</label>
                     <AdvancedDateTimePicker
                         name="startDate"
                         type="date"
@@ -71,7 +68,7 @@ const ChangeCustomNotificationTime = ( { handleChangeTime, setChangeTimeToggle }
                 </div>
             </div>
             <div className="wprf-change-time-bottom">
-                <button className='wprf-change-time-apply-change-btn' onClick={ () => handleChangeTime(startDate, endDate) }>Apply Changes</button>
+                <button className='wprf-change-time-apply-change-btn' disabled={applyDisabled} onClick={ () => handleChangeTime(startDate, endDate) }>{ __('Apply Changes', 'notificationx') }</button>
             </div>
         </div>
     )

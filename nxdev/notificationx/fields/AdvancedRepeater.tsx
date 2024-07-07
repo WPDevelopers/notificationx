@@ -268,10 +268,7 @@ const AdvancedRepeater = (props) => {
                 .flat();
             setTemplateOptions(options);
         }
-    }, [field?.[0]?.options]);    
-
-    console.log('bulkSelectedItems',bulkSelectedItems);
-    
+    }, [field?.[0]?.options]);        
 
     return (
         <div className={`wprf-repeater-control wprf-advanced-repeater-control ${ csv_upload_loader ? 'loading' : 'loading' }`}>

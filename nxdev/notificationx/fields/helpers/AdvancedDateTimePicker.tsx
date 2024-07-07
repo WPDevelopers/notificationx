@@ -61,7 +61,6 @@ const AdvancedDateTimePicker = (props) => {
                         }}
                         isInvalidDate={isInvalidDate}
                         is12Hour={is12HourTime}
-                        
                     />
                 )
             }}>

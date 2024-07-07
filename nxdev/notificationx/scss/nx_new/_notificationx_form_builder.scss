@@ -1878,6 +1878,14 @@
                                 }
                             }
                         }
+                        &.apply-disabled {
+                            .wprf-control-wrapper .wprf-control-field .wprf-control-datetime {
+                                button {
+                                    color: #ff416b !important;
+                                    border: 1px solid #ffb2c3 !important;
+                                }
+                            }
+                        }
                     }
 
                     label {
@@ -1913,6 +1921,12 @@
                         padding: 2px 20px;
                         text-decoration: none;
                         transition: .3s ease-in-out;
+                        &:disabled {
+                            background: #8D92B1;
+                            border: 1px solid #8D92B1;
+                            color: #fff;
+                            cursor: not-allowed;
+                        }
                     }
                 }
             }
