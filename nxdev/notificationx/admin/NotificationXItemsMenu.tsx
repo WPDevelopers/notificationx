@@ -22,11 +22,12 @@ const NotificationXItemsMenu = ({
     setReload,
     setCurrentPage,
     setFilteredNotice,
+    searchKey,
+    setSearchKey,
 }) => {
     const builderContext = useNotificationXContext();
     const [loading, setLoading] = useState(false);
     const defaultOption = { value: "", label: __("Bulk Action", 'notificationx'), isDisabled: true };
-    const [searchTerm, setSearchTerm] = useState('');
     const searchInputRef = useRef(null);
 
     const [action, setAction] = useState<{
@@ -102,7 +103,6 @@ const NotificationXItemsMenu = ({
                 analytics: result.data,
             })
         }
-        
         setReload(r => !r);
         // translators: %d: Number of Notification Alerts Reset.
         nxToast.regenerated(sprintf(__("%d Notification Alerts have been Reset.", 'notificationx'), (result?.count || 0)));
@@ -279,6 +279,9 @@ const NotificationXItemsMenu = ({
     // Debounce logic
     const getSearchResult = async (term) => {
         const controller = typeof AbortController === 'undefined' ? undefined : new AbortController();
+        builderContext.setRedirect({
+            s: `${term}`,
+        });
         nxHelper
         .get(`nx?s=${term}`,
             { signal: controller?.signal }
@@ -302,7 +305,7 @@ const NotificationXItemsMenu = ({
     // filter notification based on title
     const filterNotification = (event) => {
         const term = event.target.value;
-        setSearchTerm(term);
+        setSearchKey(term);
         setDebounceSearchTerm(term);
     }
 
@@ -332,19 +335,19 @@ const NotificationXItemsMenu = ({
         <div className="nx-admin-menu">
             <ul>
                 <li className={status === "all" ? "nx-active" : ""} onClick={() => setCurrentPage(1)}>
-                    <NavLink status="all" perPage={perPage}>
+                    <NavLink status="all" perPage={perPage} s={searchKey}>
                         {/* translators: %d: Number of total Notification Alerts. */}
                         {sprintf(__("All (%d)", 'notificationx'), totalItems.all)}
                     </NavLink>
                 </li>
                 <li className={status === "enabled" ? "nx-active" : ""} onClick={() => setCurrentPage(1)}>
-                    <NavLink status="enabled" perPage={perPage}>
+                    <NavLink status="enabled" perPage={perPage} s={searchKey}>
                         {/* translators: %d: Number of total Notification Alerts enabled. */}
                         {sprintf(__("Enabled (%d)", 'notificationx'), totalItems.enabled)}
                     </NavLink>
                 </li>
                 <li className={status === "disabled" ? "nx-active" : ""} onClick={() => setCurrentPage(1)}>
-                    <NavLink status="disabled" perPage={perPage}>
+                    <NavLink status="disabled" perPage={perPage} s={searchKey}>
                         {/* translators: %d: Number of total Notification Alerts disabled. */}
                         {sprintf(__("Disabled (%d)", 'notificationx'), totalItems.disabled)}
                     </NavLink>
@@ -353,7 +356,7 @@ const NotificationXItemsMenu = ({
             <div className="nx-bulk-action-wrapper">
                 <div id="nx-search-wrapper" className="nx-search-wrapper">
                     <div className="input-box">
-                        <input type="text" id="search_input" className="nx-search-input" ref={searchInputRef} placeholder={'Search...'} value={searchTerm} onChange={ (event) => filterNotification(event) } />
+                        <input type="text" id="search_input" className="nx-search-input" ref={searchInputRef} placeholder={'Search...'} value={searchKey} onChange={ (event) => filterNotification(event) } />
                         <span className="icon input-search-icon">
                             <img src={searchIcon} alt={'search-icon'} />
                         </span>
