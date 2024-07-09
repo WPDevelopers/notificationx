@@ -372,6 +372,10 @@ const NewAdmin = () => {
           </a>
         </div>
       </div>
+
+      <div className='notification--wrapper'>
+        <img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/notification.svg" alt="NX-Img" />
+      </div>
     </div>
   )
 }

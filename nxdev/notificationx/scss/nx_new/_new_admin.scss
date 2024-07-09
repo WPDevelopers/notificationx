@@ -92,6 +92,11 @@ img {
             min-height: 48px;
             box-sizing: border-box;
             transition: 0.3s ease-in-out;
+
+            &:hover {
+                background-color: #5414d0;
+                box-shadow: 0 15px 25px -5px rgba(86, 20, 213, 0.3);
+            }
         }
 
         .nx-secondary-btn {
@@ -203,8 +208,6 @@ img {
                 }
             }
         }
-
-
     }
 
     .nx-analytics-wrapper {
@@ -775,8 +778,6 @@ img {
                 }
             }
         }
-
-
     }
 
     .nx-more-docs-wrapper {
@@ -818,6 +819,28 @@ img {
                 padding-bottom: 32px;
                 flex: 1;
             }
+        }
+    }
+
+    .notification--wrapper {
+        position: fixed;
+        right: 48px;
+        bottom: 48px;
+        display: inline-flex;
+        height: 64px;
+        aspect-ratio: 1;
+        background: #FFFFFF;
+        box-shadow: 0px 18px 24px 8px #170A531F;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 9999;
+
+        img {
+            height: 44px;
+            aspect-ratio: 1;
         }
     }
 }
