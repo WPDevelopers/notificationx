@@ -1186,6 +1186,9 @@
     &.animation-pro-disabled #animation_notification_show .wprf-select__menu .wprf-select__menu-list .wprf-select__option::before {
         height: calc(100% + 10px);
     }
+    &.wprf-name-add_custom_css .wprf-control-field .wprf-code-viewer .wprf-copy-button{
+        display: none;
+    }
 
 }
 
