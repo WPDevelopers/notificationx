@@ -38,10 +38,11 @@ export const NotificationXItems = (props) => {
         const query = nxHelper.useQuery(location.search);
         return query.get(param) || d;
     };
+    const [searchKey, setSearchKey] = useState( getParam('s','') );
     const status = getParam("status", "all");
-
+    const search = getParam('s', '');
     const itemRender = (current, type, element) => {
-        return <NavLink status={status} current={current} perPage={perPage}>{__(current)}</NavLink>;
+        return <NavLink status={status} current={current} perPage={perPage} s={search}>{__(current)}</NavLink>;
     };
 
     useEffect(() => {
@@ -57,11 +58,18 @@ export const NotificationXItems = (props) => {
     }, []);
 
     useEffect(() => {
+      if( getParam('s', '') ) {
+        setSearchKey( getParam('s', '') );
+      }
+    }, [location.search])
+    
+
+    useEffect(() => {
         if (currentPage === 0 || perPage === 0) return;
         setIsLoading(true);
-        const controller = typeof AbortController === 'undefined' ? undefined : new AbortController();
+        const controller = typeof AbortController === 'undefined' ? undefined : new AbortController();        
         nxHelper
-            .get(`nx?status=${status}&page=${currentPage}&per_page=${perPage}`,
+            .get(`nx?status=${status}&page=${currentPage}&per_page=${perPage}&s=${searchKey}`,
                 { signal: controller?.signal }
             )
             .then((res: any) => {
@@ -104,9 +112,10 @@ export const NotificationXItems = (props) => {
             page: `nx-admin`,
             status: status,
             p: currentPage,
+            s: searchKey,
             'per-page': perPage,
         });
-    }, [perPage, currentPage]);
+    }, [perPage, currentPage, searchKey]);
 
     useEffect(() => {
         // if current page is empty() go to prev page.
@@ -130,6 +139,8 @@ export const NotificationXItems = (props) => {
                     setCheckAll={setCheckAll}
                     setReload={setReload}
                     setFilteredNotice={setFilteredNotice}
+                    searchKey={searchKey}
+                    setSearchKey={setSearchKey}
                 />
 
                 <WrapperWithLoader isLoading={isLoading} div={false}>
