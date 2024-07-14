@@ -17,6 +17,8 @@ import EyeIcon from '../icons/EyeIcon';
 import Swal from 'sweetalert2';
 import { useNotificationXContext } from '../hooks';
 import AddNew from '../icons/AddNew';
+import ChangeCustomNotificationTime from './helpers/ChangeCustomNotificationTime';
+import nxToast from '../core/ToasterMsg';
 
 const AdvancedRepeater = (props) => {
     const { name: fieldName, value: fieldValue, button, field } = props;
@@ -32,7 +34,7 @@ const AdvancedRepeater = (props) => {
     const [isPreview, setIsPreview] = useState(false);
     const [previewCurrentPage, setPreviewCurrentPage] = useState(1);
     const [previewItemsPerPage, setPreviewItemsPerPage] = useState(5);
-
+    const [ changeTimeToggle, setChangeTimeToggle ] = useState(false);
     useEffect(() => {
         if (builderContext.values?.[fieldName] !== undefined) {
             setLocalMemoizedValue(builderContext.values?.[fieldName]);
@@ -70,6 +72,7 @@ const AdvancedRepeater = (props) => {
             .flat();
         setTemplateOptions(options);
     }, []);
+    
 
     const handleSort = (value) => {
         builderContext.setFieldValue(fieldName, value);
@@ -160,6 +163,39 @@ const AdvancedRepeater = (props) => {
     const handleSetIsCollapsed = (index) => {
         setExpandedIndex( expandedIndex === index ? null : index );
     };
+
+    // Function to generate a random date within the range
+    const getRandomDate = (start, end) => {
+        return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+    };
+
+
+    const handleChangeTime = (from, to) => {
+        if( from && to ) {
+            const fromDate = new Date(from);
+            const toDate   = new Date(to);
+            if( fromDate && toDate ) {
+                const updatedData = localMemoizedValue.map(item => {
+                    if (selectedField.includes(item.index)) {
+                        return {
+                            ...item,
+                            timestamp: getRandomDate(fromDate, toDate).toISOString(),
+                            selected: true
+                        };
+                    }
+                    return item;
+                });
+                setLocalMemoizedValue(updatedData);
+                setChangeTimeToggle(false);
+                nxToast.info(
+                    __(
+                        `Selected custom notification Time updated successfully!`,
+                        "notificationx"
+                    )
+                );
+            }
+        }
+    }
     
 
     const totalItems       = localMemoizedValue?.length || 0;
@@ -232,7 +268,7 @@ const AdvancedRepeater = (props) => {
                 .flat();
             setTemplateOptions(options);
         }
-    }, [field?.[0]?.options]);
+    }, [field?.[0]?.options]);        
 
     return (
         <div className={`wprf-repeater-control wprf-advanced-repeater-control ${ csv_upload_loader ? 'loading' : 'loading' }`}>
@@ -267,17 +303,27 @@ const AdvancedRepeater = (props) => {
                 }
                 {totalItems > 1 &&
                     <div className="wprf-repeater-label">
+                        <div
+                            className='change-time'
+                        >
+                            <button disabled={ (bulkSelectedItems === undefined || bulkSelectedItems?.length < 2) ? true : false } className='wprf-repeater-button'  onClick={() => setChangeTimeToggle(!changeTimeToggle)}>
+                                <EditIcon /> <span> {__('Change Time', 'notificationx')} </span>
+                            </button>
+                            { changeTimeToggle &&
+                                <ChangeCustomNotificationTime handleChangeTime={handleChangeTime} setChangeTimeToggle={setChangeTimeToggle} />
+                            }
+                        </div>
                         <button
                             className='wprf-repeater-button bulk-edit'
                             onClick={() => setIsOpen(true)}
-                            disabled={ bulkSelectedItems?.length < 2 ? true : false }
+                            disabled={ (bulkSelectedItems === undefined || bulkSelectedItems?.length < 2) ? true : false }
                         >
                             <EditIcon /> <span>{__('Edit', 'notificationx')}</span>
                         </button>
                         <button
                             className="wprf-repeater-button bulk-delete"
                             onClick={() => bulkDelete()}
-                            disabled={ bulkSelectedItems?.length < 2 ? true : false }
+                            disabled={ (bulkSelectedItems === undefined || bulkSelectedItems?.length < 2) ? true : false }
                         >
                             <TrashIcon /> <span>{__('Delete', 'notificationx')}</span>
                         </button>
