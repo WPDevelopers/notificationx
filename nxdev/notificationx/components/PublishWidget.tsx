@@ -120,10 +120,12 @@ const PublishWidget = (props) => {
         <div className="sidebar-widget nx-widget">
             <div className="nx-widget-title">
                 <h4>Publish</h4>
-                <div className="nx-admin-status">
-                    <input type="checkbox" name={"_nx_meta_active_check"} id={meta_id} onChange={ (event) => toggleStatus(event) } checked={isEnabled} />
-                    <label htmlFor={meta_id}></label>
-                </div>
+                { id &&
+                    <div className="nx-admin-status">
+                        <input type="checkbox" name={"_nx_meta_active_check"} id={meta_id} onChange={ (event) => toggleStatus(event) } checked={isEnabled} />
+                        <label htmlFor={meta_id}></label>
+                    </div>
+                } 
             </div>
             <div className="nx-widget-content">
                 <div className="nx-publish-date-widget">
