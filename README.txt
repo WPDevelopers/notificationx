@@ -3,9 +3,9 @@ Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim, s
 Donate link: https://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce sales, notification bar 
 Requires at least: 5.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 2.8.10
+Stable tag: 2.8.11
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -204,6 +204,12 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 10. Notification Bar with Countdown
 
 == Changelog ==
+
+= 2.8.11 - 15/7/2024 =
+Added: WordPress 6.6 compatibility.
+Improved: Notification Search feature.
+Fixed: EB Countdown wasn't work Properly on Notification Bar.
+Few minor bug fixes and improvements.
 
 = 2.8.10 - 01/7/2024 =
 Added: Bulk Custom Notification with CSV.

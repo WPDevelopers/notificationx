@@ -85,7 +85,7 @@ const PublishWidget = (props) => {
         nxHelper
         .post("nx/" + id, {
             source: props.source,
-            enabled,
+            enabled: enabled,
             nx_id: id,
             update_status: true,
         })
@@ -124,6 +124,7 @@ const PublishWidget = (props) => {
                     <div className="nx-admin-status">
                         <input type="checkbox" name={"_nx_meta_active_check"} id={meta_id} onChange={ (event) => toggleStatus(event) } checked={isEnabled} />
                         <label htmlFor={meta_id}></label>
+                        <span>{ isEnabled ? __('Active', 'notificationx') : __('Inactive', 'notificationx') } </span>
                     </div>
                 } 
             </div>
