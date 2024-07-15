@@ -100,7 +100,7 @@ export const NotificationXItems = (props) => {
             });
 
         return () => {
-            isMounted.current = false;
+            // isMounted.current = false;
             controller?.abort();
         }
     }, [currentPage, perPage, status, reload]);

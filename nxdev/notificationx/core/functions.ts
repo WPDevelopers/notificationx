@@ -36,7 +36,7 @@ class NotificationXHelpers {
         args = { path, method: "GET", ...args };
         return apiFetch(args)
             .then((res) => res)
-            .catch((err) => console.error(err));
+            .catch((err) => {});
     };
     // getData: (args) => {
     //     apiFetch({
