@@ -91,11 +91,16 @@ export const NotificationXItems = (props) => {
                     });
                 }
             }).catch(err => {
+                if (err.name === 'AbortError') {
+                    console.log('Fetch aborted');
+                    return;
+                }
                 setIsLoading(false);
                 console.error(__('NotificationX Fetch Error: ', 'notificationx'), err);
             });
 
         return () => {
+            isMounted.current = false;
             controller?.abort();
         }
     }, [currentPage, perPage, status, reload]);
