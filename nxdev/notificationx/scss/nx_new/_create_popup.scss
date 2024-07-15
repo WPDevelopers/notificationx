@@ -27,6 +27,7 @@
                     color: #7c8db5;
                     padding: 0 20px;
                     border-bottom: 1px solid #f2f2f2;
+                    justify-content: space-between;
                     h4 {
                         padding: 0;
                         margin: 0;
@@ -163,55 +164,6 @@
                             }
                         }
                     }
-                    .nx-publish-reset-btn {
-                        display: flex;
-                        justify-content: end;
-                        margin-bottom: 15px;
-                        align-items: center;
-                        button {
-                            border: none;
-                            background-color: transparent;
-                            color: #D93011;
-                            &:hover{
-                                cursor: pointer;
-                            }
-                        }
-                        .reset-info-wrapper {
-                            position: relative;
-                            line-height: 0;
-                            &:hover {
-                                .reset-time-info {
-                                    opacity: 1;
-                                }
-                            }
-                            .reset-time-info {
-                                opacity: 0;
-                                pointer-events: none;
-                                position: absolute;
-                                bottom: 30px;
-                                background: #fff;
-                                padding: 8px 12px;
-                                width: 260px;
-                                border-radius: 8px;
-                                transform: translateX(-88%);
-                                box-shadow: 0px 4px 6px -2px #10182808,
-                                            0px 12px 16px -4px #10182814;
-                                color: #344054;
-                                margin: 0;
-                                span::after {
-                                    border-left: 7px solid transparent;
-                                    border-right: 7px solid transparent;
-                                    border-top: 7px solid #fff;
-                                    content: "";
-                                    right: 5%;
-                                    position: absolute;
-                                    top: 100%;
-                                    transform: translateX(-50%);
-                                    z-index: 1;
-                                }
-                            }
-                        }
-                    }
                     .nxins-type {
                         .instructions-header {
                             display: flex;
@@ -266,6 +218,58 @@
                             }
                           }
                         }
+                    }
+                }
+            }
+            .nx-admin-status {
+                label {
+                    width: 40px;
+                    height: 20px;
+                    min-height: 20px;
+                    position: relative;
+                    cursor: pointer;
+                    display: flex;
+                    font-size: 24px;
+                    &:before,
+                    &:after {
+                        content: "";
+                        position: absolute;
+                    }
+                    &:before {
+                        width: 40px;
+                        height: 20px;
+                        left: 0;
+                        transition: background 0.1s 0.1s ease;
+                        background: #7c8db5;
+                        border: 1px solid #7c8db5;
+                        border-radius: 50px;
+                        margin: 0;
+                        box-sizing: border-box;
+                    }
+                    &:after {
+                        width: 18px;
+                        height: 18px;
+                        border-radius: 50px;
+                        left: 1px;
+                        top: 1px;
+                        transition: all 0.2s ease;
+                        box-shadow: 0 0 0 5px #fcfff4 inset;
+                        background: #fff;
+                        z-index: 2;
+                        animation: switch-off 0.3s ease-out;
+                    }
+                }
+                input[type="checkbox"] {
+                    visibility: hidden;
+                    display: none;
+                    &:checked + label::before {
+                        background: #6a4bff;
+                        border: 1px solid #6a4bff;
+                    }
+                    &:checked + label::after {
+                        left: 21px;
+                        background: #ffffff;
+                        animation: switch-on 0.3s ease-out;
                     }
                 }
             }

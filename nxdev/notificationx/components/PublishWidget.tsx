@@ -1,19 +1,18 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { Button, ButtonGroup } from "@wordpress/components";
 import { Date } from "quickbuilder";
 import { isInTheFuture } from "@wordpress/date";
-import nxHelper from "../core/functions";
+import nxHelper, { proAlert } from "../core/functions";
 import Swal from "sweetalert2";
 import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
 import nxToast from "../core/ToasterMsg";
-import { __ } from "@wordpress/i18n";
-import infoIcon from '../icons/Info.svg';
+import { __, sprintf } from "@wordpress/i18n";
 
 const PublishWidget = (props) => {
-    const { title, context, isEdit, setIsLoading, setIsCreated, id, setCurrentPublishDate, ...rest } = props;
+    const { title, context, isEdit, setIsLoading, setIsCreated, id, ...rest } = props;
     const builderContext = useNotificationXContext();
-
+    const [ isEnabled, setIsEnabled  ] = useState(props?.context?.values?.enabled);
     const handleSubmit = useCallback(
         (event) => {
             context.setSubmitting(true);
@@ -79,10 +78,54 @@ const PublishWidget = (props) => {
         });
     }, [isEdit]);
 
+  
+    const toggleStatus = (event) => {        
+        let target = event.target ? event.target : event.currentTarget;
+        const enabled = target.checked;
+        nxHelper
+        .post("nx/" + id, {
+            source: props.source,
+            enabled,
+            nx_id: id,
+            update_status: true,
+        })
+        .then((res) => {
+            setIsEnabled(enabled);
+            if (res) {
+                if (enabled) {
+                    nxToast.enabled( __(`Notification Alert has been Enabled.`, "notificationx") );
+                }else {
+                    nxToast.disabled( __(`Notification Alert has been Disabled.`, "notificationx") );
+                }
+            } else if(res === 0) {
+                proAlert(
+                    enabled ? sprintf(__("You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use this feature.", "notificationx"), 'http://wpdeveloper.com/in/upgrade-notificationx')
+                        : __("Disabled", "notificationx")
+                ).fire();
+            } else {
+                proAlert(
+                    enabled ? sprintf(__("You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification.", "notificationx"), 'http://wpdeveloper.com/in/upgrade-notificationx')
+                        : __("Disabled", "notificationx")
+                ).fire();
+            }
+            return res;
+        })
+        .catch((err) => {
+            nxToast.error( __(`Oops, Something went wrong. Please try again.`, "notificationx") );
+        });
+    };
+    
+    const meta_id = `_nx_meta_active_check_${id}`;
     return (
         <div className="sidebar-widget nx-widget">
             <div className="nx-widget-title">
                 <h4>Publish</h4>
+                { id &&
+                    <div className="nx-admin-status">
+                        <input type="checkbox" name={"_nx_meta_active_check"} id={meta_id} onChange={ (event) => toggleStatus(event) } checked={isEnabled} />
+                        <label htmlFor={meta_id}></label>
+                    </div>
+                } 
             </div>
             <div className="nx-widget-content">
                 <div className="nx-publish-date-widget">
@@ -107,16 +150,6 @@ const PublishWidget = (props) => {
                             } 
                         }
                     />
-                </div>
-                <div className="nx-publish-reset-btn">
-                    <button 
-                        onClick={ setCurrentPublishDate }
-                        >{ __('Reset Time', 'notificationx') } 
-                    </button> 
-                    <div className="reset-info-wrapper">
-                        <img className="reset-time-icon" src={infoIcon} />
-                        <p className="reset-time-info"> <span>This will reset the time to the current time</span> </p>
-                    </div>
                 </div>
                 <ButtonGroup>
                     {isEdit && (
