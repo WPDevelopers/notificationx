@@ -138,9 +138,9 @@ const Notification = (props) => {
                 setAnimation(false);
             }, 500 )
         }
-        return () => {
-            handlePauseTimer();
-        };
+        // return () => {
+        //     handlePauseTimer();
+        // };
     }, [width]);
 
     const audioRef = useRef(null);
