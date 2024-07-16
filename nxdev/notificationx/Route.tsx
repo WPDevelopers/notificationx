@@ -8,6 +8,7 @@ import {
     Settings,
     Analytics,
     QuickBuild,
+    Dashboard,
 } from "./admin/index";
 
 function Route(props) {
@@ -15,6 +16,11 @@ function Route(props) {
     const [matchedRoutes, setMatchedRoutes] = useState([]);
 
     const routes = [
+        {
+            path: "nx-dashboard",
+            component: Dashboard,
+            exact: true,
+        },
         {
             path: "nx-admin",
             component: Admin,

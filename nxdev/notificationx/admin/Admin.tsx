@@ -5,7 +5,6 @@ import withDocumentTitle from '../core/withDocumentTitle';
 import { useNotificationXContext } from '../hooks';
 import { AnalyticsHeader } from './Analytics';
 import NotificationXItems from './NotificationXItems';
-import NewAdmin from './NewAdmin';
 
 // const useQuery = () => new URLSearchParams(useLocation().search.replace(/^\?/, ''));
 
@@ -15,10 +14,9 @@ const Admin = (props) => {
 
     return (
         <div>
-            {/* <Header />
+            <Header />
             <AnalyticsHeader assetsURL={builderContext.assets} />
-            <NotificationXItems /> */}
-            <NewAdmin />
+            <NotificationXItems />
         </div>
     )
 }

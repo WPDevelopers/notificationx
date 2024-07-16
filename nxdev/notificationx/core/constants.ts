@@ -1,0 +1,2 @@
+export const GET_STARTED_TXT = "Get Started with NotificationX";
+export const GET_STARTED_DESC = "Elevate your website's engagement by creating dynamic notifications, sales banners, and more. Follow this guide to get started quickly and make the most of NotificationX's features.";

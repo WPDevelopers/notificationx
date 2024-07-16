@@ -10,6 +10,7 @@ namespace NotificationX\Admin;
 use NotificationX\NotificationX;
 use NotificationX\Admin\Reports\ReportEmail;
 use NotificationX\Core\Analytics;
+use NotificationX\Core\Dashboard;
 use NotificationX\Core\Database;
 use NotificationX\Core\PostType;
 use NotificationX\Core\Upgrader;
@@ -74,6 +75,7 @@ class Admin {
         }
         add_action('admin_init', [$this, 'admin_init']);
         add_action('admin_menu', [$this, 'menu'], 10);
+        Dashboard::get_instance();
         PostType::get_instance();
         Settings::get_instance()->init();
         Entries::get_instance();
