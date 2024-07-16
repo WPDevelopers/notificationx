@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 2.8.11\n"
+"Project-Id-Version: NotificationX 2.8.12\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-16T05:31:59+00:00\n"
+"POT-Creation-Date: 2024-07-16T09:57:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: notificationx\n"
@@ -3461,8 +3461,12 @@ msgstr ""
 msgid "<strong>Recommended: </strong> Seems like you haven't updated the NotificationX Pro version. Please make sure to update NotificationX Pro plugin from <a href='%s'><strong>wp-admin -> Plugins</strong></a>."
 msgstr ""
 
+#: assets/admin/js/223.js:1
+#: assets/admin/js/468.js:1
 #: assets/admin/js/605.js:1
 #: assets/admin/js/929.js:1
+#: assets/public/4468.js:1
+#: assets/public/5223.js:1
 #: assets/public/6929.js:1
 #: assets/public/7147.js:1
 msgid "OFF"
@@ -3617,6 +3621,34 @@ msgid "Delete Error: "
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+msgid "Notification Alert has been Enabled."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Notification Alert has been Disabled."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use this feature."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Disabled"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification."
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Active"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Inactive"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
 msgid "Scheduled For"
 msgstr ""
 
@@ -3626,10 +3658,6 @@ msgstr ""
 
 #: assets/admin/js/admin.js:1
 msgid "Publish On"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Reset Time"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
@@ -3757,26 +3785,6 @@ msgstr ""
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:18
 msgid "Delete"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Notification Alert has been Enabled."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Notification Alert has been Disabled."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use this feature."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Disabled"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
@@ -4046,7 +4054,31 @@ msgid "Sample CSV"
 msgstr ""
 
 #: assets/admin/js/admin.js:18
+msgid "Change Time"
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "This will effect on all selected Items"
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "From"
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "To"
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "Apply Changes"
+msgstr ""
+
+#: assets/admin/js/admin.js:18
 msgid "Select All"
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "Selected custom notification Time updated successfully!"
 msgstr ""
 
 #: assets/admin/js/admin.js:18
