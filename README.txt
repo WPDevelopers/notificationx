@@ -205,7 +205,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 2.8.11 - 15/7/2024 =
+= 2.8.11 - 16/7/2024 =
 Added: WordPress 6.6 compatibility.
 Improved: Notification Search feature.
 Fixed: EB Countdown wasn't work Properly on Notification Bar.
