@@ -2,9 +2,11 @@
 
 namespace NotificationX\Core\Rest;
 
+use FluentForm\Framework\Database\Query\Expression;
 use NotificationX\Core\Database;
 use NotificationX\Core\PostType;
 use NotificationX\Core\REST;
+use NotificationX\Extensions\ExtensionFactory;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\GetInstance;
 use NotificationX\NotificationX;
@@ -141,36 +143,47 @@ class Posts extends WP_REST_Controller {
         return current_user_can('read_notificationx');
     }
 
-    /**
-     * Retrieves a collection of posts.
-     *
-     * @since 4.7.0
-     *
-     * @param WP_REST_Request $request Full details about the request.
-     * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
-     */
-    public function get_items($request) {
-        $params     = $request->get_params();
-        $status     = !empty($params['status']) ? $params['status'] : "all";
-        $page       = !empty($params['page']) ? absint( $params['page'] ) : 1;
-        $per_page   = !empty($params['per_page']) ? absint( $params['per_page'] ) : 20;
-        $start_from = ($page - 1) * $per_page;
-        $limit      = "ORDER BY a.updated_at DESC LIMIT $start_from, $per_page";
-        $where      = [];
 
-        if($status == 'enabled' || $status == 'disabled'){
-            $where['enabled'] = $status == 'enabled' ? true : false;
+    public function get_items($request) {
+       $params         = $request->get_params();
+       $status         = !empty($params['status']) ? $params['status'] : "all";
+       $page           = !empty($params['page']) ? intval( $params['page'] ) : 1;
+       $per_page       = !empty($params['per_page']) ? intval( $params['per_page'] ) : 20;
+       $search_keyword = !empty($params['s']) ? $params['s'] : '';
+       $start_from     = ($page - 1) * $per_page;
+       $query = Database::get_instance()->query()
+                ->from('nx_posts a')
+                ->join('nx_stats b', 'b.nx_id', '=', 'a.nx_id')
+                ->group_by('a.nx_id')
+                ->order_by('a.updated_at', 'DESC')
+                ->select('a.*, SUM(b.clicks) clicks, SUM(b.views) views');
+        if ($status !== 'all') {
+            $query->where('enabled', $status == 'enabled' ? true : false);
         }
+        if( $search_keyword ) {
+            $query->where(function($query) use ($search_keyword) {
+                $query->where('title', 'LIKE', '%' . $search_keyword . '%')
+                      ->orWhere( 'a.nx_id', 'LIKE', '%'. $search_keyword . '%' );
+            });
+        }
+        
+        $query->offset($start_from)
+                ->limit($per_page);
+        $posts = $query->get();
+        $posts       = PostType::get_instance()->__get_posts( $posts, '*' );
+        
         $total_posts = Database::get_instance()->get_post(Database::$table_posts, [], 'count(*) AS total');
         $enabled     = Database::get_instance()->get_post(Database::$table_posts, ['enabled' => true], 'count(*) AS total');
         $disabled    = Database::get_instance()->get_post(Database::$table_posts, ['enabled' => false], 'count(*) AS total');
 
         return [
-            'total'    => $total_posts['total'],
-            'enabled'  => $enabled['total'],
-            'disabled' => $disabled['total'],
-            'posts'    => PostType::get_instance()->get_post_with_analytics($where, $limit),
+            'total'          => $total_posts['total'],
+            'enabled'        => $enabled['total'],
+            'disabled'       => $disabled['total'],
+            'search_keyword' => $search_keyword,
+            'posts'          => $posts,
         ];
+
     }
 
     /**

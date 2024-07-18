@@ -332,6 +332,7 @@ const useNotificationX = (props: any) => {
                                 type: "REMOVE_NOTIFICATION",
                                 payload: ID,
                             });
+                            document.body.style.paddingTop = `0px`;
                         }, hideAfter);
                     }
                 }, initialDelay);
@@ -351,9 +352,9 @@ const useNotificationX = (props: any) => {
 
                     let id = 0;
                     const config = reverseEntries[id].props;
-                    const delayBefore = (config?.delay_before || 5) * 1000;
+                    const delayBefore  = (config?.delay_before || 5) * 1000;
                     const delayBetween = (config?.delay_between || 5) * 1000;
-                    const displayFor = (config?.dislay_for || 5) * 1000;
+                    const displayFor = (config?.display_for || 5) * 1000;
 
                     let args = {
                         id,

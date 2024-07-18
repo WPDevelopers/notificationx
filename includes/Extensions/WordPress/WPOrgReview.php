@@ -34,7 +34,7 @@ class WPOrgReview extends Extension {
      */
     public $helper;
 
-    public $priority = 5;
+    public $priority = 2;
     public $id       = 'wp_reviews';
     public $img      = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/wordpress.png';
     public $doc_link = 'https://notificationx.com/docs-category/configurations/';

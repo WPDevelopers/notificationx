@@ -44,13 +44,15 @@
         }
     }
     .wprf-tab-content-wrapper {
+        &.learnpress_inline,
         &.learndash_inline,
         &.tutor_inline,
         &.woo_inline,
+        &.woocommerce_sales_inline,
         &.edd_inline,
-        &.woocommerce.conversions_conv-theme-seven,
-        &.woocommerce.conversions_conv-theme-eight,
-        &.woocommerce.conversions_conv-theme-nine,
+        &.woocommerce.woocommerce_conv_sales-theme-seven,
+        &.woocommerce.woocommerce_conv_sales-theme-eight,
+        &.woocommerce.woocommerce_conv_sales-theme-nine,
         &.edd.conversions_conv-theme-seven,
         &.edd.conversions_conv-theme-eight,
         &.edd.conversions_conv-theme-nine,

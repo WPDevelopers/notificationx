@@ -3,7 +3,9 @@ import React from 'react'
 const Sidebar = ({ children }) => {
     return (
         <div className="nx-admin-sidebar">
-            {children}
+            <div className="nx-admin-sidebar-wrapper">
+                {children}
+            </div>
         </div>
     )
 }

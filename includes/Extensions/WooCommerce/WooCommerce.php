@@ -14,6 +14,7 @@ use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
 use NotificationX\Extensions\GlobalFields;
+use NotificationX\Types\Conversions;
 
 /**
  * WooCommerce Extension Class
@@ -37,7 +38,7 @@ class WooCommerce extends Extension {
     public $module_priority = 3;
     public $class           = '\WooCommerce';
     public $wpml_included   = [
-                                'sales_count',
+                                'sales_count', 'donation_count'
                               ];
 
     /**
@@ -46,6 +47,9 @@ class WooCommerce extends Extension {
     public function __construct(){
         $this->title = __('WooCommerce', 'notificationx');
         $this->module_title = __('WooCommerce', 'notificationx');
+        $this->templates = Conversions::get_instance()->templates;
+        $this->templates['woo_template_new']['third_param']['product_title_raw'] = __('Product Title Raw', 'notificationx');
+        $this->templates['woo_template_sales_count']['third_param']['product_title_raw'] = __('Product Title Raw', 'notificationx');
         parent::__construct();
     }
 
@@ -252,12 +256,16 @@ class WooCommerce extends Extension {
      * This function is responsible for making ready the orders data.
      *
      * @param int $item_id
-     * @param WC_Order_Item_Product $item
+     * @param \WC_Order_Item_Product $item
      * @param int $order_id
      * @return void
      */
     public function ordered_product($item_id, $item, $order_id) {
         if (!$item instanceof \WC_Order_Item_Product) {
+            return false;
+        }
+        $product = wc_get_product( $item->get_product_id() );
+        if( empty( $product ) ) {
             return false;
         }
         $if_has_course = false;
@@ -302,6 +310,10 @@ class WooCommerce extends Extension {
         $product_data = $this->ready_product_data($item->get_data());
         if (!empty($product_data)) {
             $new_order['order_id']   = is_int($order_id) ? $order_id : $order_id->get_id();
+            $product      = $item->get_product();
+            if ( isset($product) && $product->get_type() === 'variation' ) {
+                $new_order['var_product_id'] = $item->get_variation_id();
+            }
             $new_order['product_id'] = $item->get_product_id();
             $new_order['title']      = strip_tags($product_data['title']);
             $new_order['link']       = $product_data['link'];
@@ -325,9 +337,14 @@ class WooCommerce extends Extension {
         if (empty($data)) {
             return;
         }
+        $product = wc_get_product( $data['product_id'] );
+        if( empty( $product ) ) {
+            return;
+        }
         return array(
-            'title' => $data['name'],
-            'link' => get_permalink($data['product_id']),
+            'title'        => $data['name'],
+            'product_name' => $product ? $product->get_name() : $data['name'],
+            'link'         => get_permalink($data['product_id']),
         );
     }
 
@@ -412,10 +429,10 @@ class WooCommerce extends Extension {
 
     public function wpml_translate($entry, $settings) {
         if(!empty($entry['product_id'])){
-            $product_id = apply_filters( 'wpml_object_id', $entry['product_id'], 'nx_bar', false);
+            $product_id = apply_filters( 'wpml_object_id', $entry['product_id'], 'product', false);
             $product = wc_get_product($product_id);
             if($product){
-                $current_lang = apply_filters( 'wpml_current_language', NULL );
+                // $current_lang = apply_filters( 'wpml_current_language', NULL );
 
                 $entry['product_id'] = $product_id;
                 $entry['title']      = $product->get_name();
@@ -471,9 +488,10 @@ class WooCommerce extends Extension {
      */
     public function notification_image($image_data, $data, $settings) {
         if (!$settings['show_default_image'] && $settings['show_notification_image'] === 'featured_image') {
-            if (!empty($data['product_id']) && has_post_thumbnail($data['product_id'])) {
+            $id = $this->product_img_id( $data );
+            if ( ! empty( $id ) ) {
                 $product_image = wp_get_attachment_image_src(
-                    get_post_thumbnail_id($data['product_id']),
+                    get_post_thumbnail_id($id),
                     [100, 100],
                     false
                 );
@@ -481,6 +499,14 @@ class WooCommerce extends Extension {
             }
         }
         return $image_data;
+    }
+
+    private function product_img_id( $data ) {
+        if (!empty($data['var_product_id']) && has_post_thumbnail($data['var_product_id'])) {
+            return $data['var_product_id'];
+        } elseif (!empty($data['product_id']) && has_post_thumbnail($data['product_id'])) {
+            return $data['product_id'];
+        }
     }
 
     public function fallback_data($data, $entry) {

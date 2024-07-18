@@ -1,0 +1,50 @@
+{
+  "name": "wpdeveloper/lib-settings",
+  "keywords": [ "settings" ],
+  "type": "library",
+  "require": {
+    "wpdeveloper/lib-utility": "dev-master"
+  },
+  "require-dev": {
+    "justinrainbow/json-schema": "1.1.*"
+  },
+  "minimum-stability": "dev",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/WPDevelopers/lib-utility"
+    }
+  ],
+  "autoload": {
+    "classmap": [ "lib" ]
+  },
+  "homepage": "https://github.com/udx/lib-settings",
+  "authors": [
+    {
+      "name": "Andy Potanin",
+      "email": "andy.potanin@usabilitydynamics.com",
+      "homepage": "https://www.usabilitydynamics.com",
+      "role": "Developer"
+    },
+    {
+      "name": "Maxim Peshkov",
+      "email": "maxim.peshkov@usabilitydynamics.com",
+      "homepage": "https://www.usabilitydynamics.com",
+      "role": "Developer"
+    },
+    {
+      "name": "Anton Korotkov",
+      "email": "anton.korotkov@usabilitydynamics.com",
+      "homepage": "https://www.usabilitydynamics.com",
+      "role": "Developer"
+    }
+  ],
+  "extra": {
+    "component": {
+      "scripts":    [ "static/scripts/settings.js" ],
+      "templates":  [ "static/views/new-installation.xhtml" ],
+      "files":      [ "static/schemas/settings.json" ]
+    }
+  },
+  "license": "MIT"
+}

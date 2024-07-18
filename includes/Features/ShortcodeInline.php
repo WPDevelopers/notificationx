@@ -75,7 +75,7 @@ class ShortcodeInline {
 
         do_action( 'nx_inline' );
         $settings = PostType::get_instance()->get_post($nx_id);
-        if($settings['type'] == 'inline'){
+        if( $settings['type'] == 'inline' || $settings['source'] == 'woocommerce_sales_inline' ){
             $settings['shortcodeinline'] = true;
             /**
              * @var WooInline|EDDInline

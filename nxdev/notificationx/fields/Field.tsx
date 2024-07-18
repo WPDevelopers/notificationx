@@ -5,6 +5,8 @@ import PreviewModal from './PreviewModal';
 import FlashingThemeOne from './FlashingThemeOne';
 import FlashingThemeThree from './FlashingThemeThree';
 import FlashingThemeFour from './FlashingThemeFour';
+import CSVUpload from './CSVUpload';
+import AdvancedRepeater from './AdvancedRepeater';
 
 
 
@@ -22,6 +24,10 @@ const Field = (ret, type, props) => {
             return <FlashingThemeThree {...props} />;
         case "flashing-theme-four":
             return <FlashingThemeFour {...props} />;
+        case "advanced-repeater":
+            return <AdvancedRepeater {...props} />;
+        case "csv-upload":
+            return <CSVUpload {...props} />;
         default:
             return ret;
     }

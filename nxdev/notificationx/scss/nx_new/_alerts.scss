@@ -1,6 +1,7 @@
 .swal2-title {
     line-height: 1;
 }
+
 .swal2-radio {
     display: flex;
     flex-direction: column;
@@ -8,16 +9,20 @@
     justify-content: flex-start;
     margin-bottom: 5px !important;
     padding: 0 10px;
+
     label {
         display: flex;
         justify-content: flex-start;
         width: 100%;
+
         input {
             margin-left: 0px;
             margin-top: 2px;
         }
+
         .swal2-label {
             font-size: 15px;
+
             span {
                 display: block;
                 font-weight: bold;
@@ -28,23 +33,28 @@
                 color: #7e7e7e;
             }
         }
+
         &:not(:last-child) {
             margin-bottom: 15px !important;
         }
     }
 }
+
 .swal2-html-container {
     overflow: visible !important;
 }
+
 .swal-shortcode-wrapper {
     label {
         display: block;
         font-size: 15px;
         cursor: initial;
+
         img {
             width: 14px;
             margin-right: 5px;
         }
+
         code {
             cursor: pointer;
             white-space: nowrap;
@@ -52,11 +62,13 @@
             border: 1px solid rgba(#6a4bff, 0.3);
             color: #6a4bff;
             font-size: 10px;
+
             &:hover {
                 background: #6a4bff;
                 color: #fff;
             }
         }
+
         span {
             display: block;
             font-weight: bold;
@@ -66,23 +78,124 @@
             line-height: 1.1;
             color: #7e7e7e;
         }
+
         &:not(:last-child) {
             margin-bottom: 10px !important;
         }
     }
 }
+
 .swal2-actions {
     &.nx-pro-alert-actions {
         justify-content: flex-end;
     }
+
     &.nx-delete-actions {
         button.swal2-cancel {
-            background-color: #d14529;
+            background-color: #6A4BFF !important;
             color: #fff;
+            flex: 1;
         }
         button.swal2-confirm {
-            background-color: #6a4bff;
+            background-color: #d14529 !important;
             color: #fff;
+            flex: 1;
+
+            &:focus {
+                box-shadow: none;
+            }
         }
+    }
+    &.nx-csv-invalid-file-type {
+        background-color: #6A4BFF !important;
+    }
+    &.nx-bulk-delete-actions {
+        flex-direction: row-reverse;
+        button.swal2-cancel{
+            background-color: #6A4BFF !important;
+        }
+        button.swal2-confirm{
+            background-color: #d14529 !important;
+        }
+    }
+}
+
+.swal2-modal .swal2-icon.swal2-icon-show.swal2-error {
+    border: .25em solid #f27474 !important;
+}
+.swal2-modal .swal2-icon.swal2-warning {
+    border: .25em solid #f8bb86 !important;
+}
+
+.swal2-modal.swal2-show {
+    width: 560px;
+    padding: 40px 32px 34px;
+
+    .swal2-icon {
+        position: relative;
+        box-sizing: content-box;
+        justify-content: center;
+        width: 5em;
+        height: 5em;
+        margin: 0 auto;
+        margin-bottom: 64px;
+        border: none;
+        border-radius: none;
+    }
+
+    .swal2-title {
+        margin: 0;
+        margin-bottom: 24px;
+        padding: 0;
+        color: #1B1B50;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .swal2-html-container {
+        font-size: 1em;
+        font-size: 16px;
+        line-height: 1.5em;
+        color: #7C8DB5;
+        text-align: center;
+        margin: 0;
+        margin-bottom: 48px;
+        padding: 0;
+    }
+
+    .swal2-actions {
+        margin: 0;
+        padding: 0;
+        gap: 16px;
+    }
+
+    .swal2-styled {
+        font-size: 1em;
+        color: #fff;
+        margin: 0;
+        padding: 12px 20px;
+        box-shadow: none;
+        font-weight: 500;
+        border-radius: 5px;
+    }
+
+    .swal2-styled.swal2-deny {
+        border: 0;
+        border-radius: .25em;
+        background: initial;
+        background-color: #F85151;
+        color: #fff;
+        font-size: 1em;
+        flex: 1;
+    }
+
+    .swal2-styled.swal2-confirm {
+        border: 0;
+        border-radius: .25em;
+        background: initial;
+        background-color: #6A4BFF;
+        color: #fff;
+        font-size: 1em;
+        flex: 1;
     }
 }

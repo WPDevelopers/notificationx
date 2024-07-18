@@ -24,6 +24,7 @@ const useNotificationX = ( props ) => {
         settings: {
             time: timeSettings.current
         },
+        analytics: props?.analytics,
         redirect: {
         }
     });
@@ -47,6 +48,22 @@ const useNotificationX = ( props ) => {
         });
     };
 
+    const setReset = ({ analytics } ) => {
+        dispatch({
+            type: 'SET_RESET',
+            payload: {
+                ...analytics,
+            }
+        });
+    };
+
+    const setCSVUploaderLoader = ({ csv_upload_loader } ) => {
+        dispatch({
+            type: 'SET_CSV_UPLOAD_LOADER',
+            payload: { csv_upload_loader }
+        });
+    };
+
     const getOptions = useCallback(
         ( name ) => {
             return state.common?.[name];
@@ -66,6 +83,8 @@ const useNotificationX = ( props ) => {
         state,
         dispatch,
         setRedirect,
+        setReset,
+        setCSVUploaderLoader,
         getSettings: getSettings,
         setOptions: setOptions,
         getOptions: getOptions,

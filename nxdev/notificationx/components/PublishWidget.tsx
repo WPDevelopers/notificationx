@@ -1,19 +1,18 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { Button, ButtonGroup } from "@wordpress/components";
 import { Date } from "quickbuilder";
 import { isInTheFuture } from "@wordpress/date";
-import nxHelper from "../core/functions";
+import nxHelper, { proAlert } from "../core/functions";
 import Swal from "sweetalert2";
 import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
 import nxToast from "../core/ToasterMsg";
-import { __ } from "@wordpress/i18n";
-import _ from "lodash";
+import { __, sprintf } from "@wordpress/i18n";
 
 const PublishWidget = (props) => {
     const { title, context, isEdit, setIsLoading, setIsCreated, id, ...rest } = props;
     const builderContext = useNotificationXContext();
-
+    const [ isEnabled, setIsEnabled  ] = useState(props?.context?.values?.enabled);
     const handleSubmit = useCallback(
         (event) => {
             context.setSubmitting(true);
@@ -79,10 +78,55 @@ const PublishWidget = (props) => {
         });
     }, [isEdit]);
 
+  
+    const toggleStatus = (event) => {        
+        let target = event.target ? event.target : event.currentTarget;
+        const enabled = target.checked;
+        nxHelper
+        .post("nx/" + id, {
+            source: props.source,
+            enabled: enabled,
+            nx_id: id,
+            update_status: true,
+        })
+        .then((res) => {
+            setIsEnabled(enabled);
+            if (res) {
+                if (enabled) {
+                    nxToast.enabled( __(`Notification Alert has been Enabled.`, "notificationx") );
+                }else {
+                    nxToast.disabled( __(`Notification Alert has been Disabled.`, "notificationx") );
+                }
+            } else if(res === 0) {
+                proAlert(
+                    enabled ? sprintf(__("You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use this feature.", "notificationx"), 'http://wpdeveloper.com/in/upgrade-notificationx')
+                        : __("Disabled", "notificationx")
+                ).fire();
+            } else {
+                proAlert(
+                    enabled ? sprintf(__("You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification.", "notificationx"), 'http://wpdeveloper.com/in/upgrade-notificationx')
+                        : __("Disabled", "notificationx")
+                ).fire();
+            }
+            return res;
+        })
+        .catch((err) => {
+            nxToast.error( __(`Oops, Something went wrong. Please try again.`, "notificationx") );
+        });
+    };
+    
+    const meta_id = `_nx_meta_active_check_${id}`;
     return (
         <div className="sidebar-widget nx-widget">
             <div className="nx-widget-title">
                 <h4>Publish</h4>
+                { id &&
+                    <div className="nx-admin-status">
+                        <input type="checkbox" name={"_nx_meta_active_check"} id={meta_id} onChange={ (event) => toggleStatus(event) } checked={isEnabled} />
+                        <label htmlFor={meta_id}></label>
+                        <span>{ isEnabled ? __('Active', 'notificationx') : __('Inactive', 'notificationx') } </span>
+                    </div>
+                } 
             </div>
             <div className="nx-widget-content">
                 <div className="nx-publish-date-widget">
@@ -94,16 +138,17 @@ const PublishWidget = (props) => {
                         }
                         {" "}
                         :{" "}
-                    </label>
-                    <Date
+                        </label>
+                        <Date
                         name="updated_at"
                         value={context.values?.updated_at}
                         position="bottom left"
-                        onChange={(data) =>
-                            context.setFieldValue(
-                                "updated_at",
-                                data.target.value
-                            )
+                        onChange={(data) => {
+                                context.setFieldValue(
+                                    "updated_at",
+                                    data.target.value
+                                )
+                            } 
                         }
                     />
                 </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import NavLink from "../components/NavLink";
 import nxHelper from "../core/functions";
 import { useNotificationXContext } from "../hooks";
@@ -7,6 +7,8 @@ import nxToast from "../core/ToasterMsg";
 import { sprintf, _n, __ } from "@wordpress/i18n";
 import copy from "copy-to-clipboard";
 import { downloadFile } from "quickbuilder";
+import debounce from 'lodash/debounce';
+import searchIcon from '../icons/searchIcon.svg';
 
 const NotificationXItemsMenu = ({
     notificationx,
@@ -19,10 +21,15 @@ const NotificationXItemsMenu = ({
     setCheckAll,
     setReload,
     setCurrentPage,
+    setFilteredNotice,
+    searchKey,
+    setSearchKey,
 }) => {
     const builderContext = useNotificationXContext();
     const [loading, setLoading] = useState(false);
     const defaultOption = { value: "", label: __("Bulk Action", 'notificationx'), isDisabled: true };
+    const searchInputRef = useRef(null);
+
     const [action, setAction] = useState<{
         label: string;
         value: string;
@@ -33,6 +40,7 @@ const NotificationXItemsMenu = ({
             ...bulkOptions,
             { value: "enable",  label: __("Enable", 'notificationx') },
             { value: "disable", label: __("Disable", 'notificationx') },
+            { value: "reset",  label: __("Reset", 'notificationx') },
             { value: "delete",  label: __("Delete", 'notificationx') },
             { value: "export",  label: __("Export", 'notificationx') },
         ];
@@ -88,6 +96,16 @@ const NotificationXItemsMenu = ({
         );
         // translators: %d: Number of Notification Alerts Regenerated.
         nxToast.regenerated(sprintf(__("%d Notification Alerts have been Regenerated.", 'notificationx'), (result?.count || 0)));
+    };
+    const resetAction = (selectedItem, result) => {
+        if( result.data ) {
+            builderContext.setReset({
+                analytics: result.data,
+            })
+        }
+        setReload(r => !r);
+        // translators: %d: Number of Notification Alerts Reset.
+        nxToast.regenerated(sprintf(__("%d Notification Alerts have been Reset.", 'notificationx'), (result?.count || 0)));
     };
     const enableAction = (selectedItem, result) => {
         let count = 0;
@@ -240,6 +258,9 @@ const NotificationXItemsMenu = ({
                     if (action.value == "regenerate") {
                         regenerateAction(selectedItem, result);
                     }
+                    if (action.value == "reset") {
+                        resetAction(selectedItem, result);
+                    }
                     if (action.value == "enable") {
                         enableAction(selectedItem, result);
                     }
@@ -255,29 +276,92 @@ const NotificationXItemsMenu = ({
             });
     };
 
+    // Debounce logic
+    const getSearchResult = async (term) => {
+        const controller = typeof AbortController === 'undefined' ? undefined : new AbortController();
+        builderContext.setRedirect({
+            s: `${term}`,
+        });
+        nxHelper
+        .get(`nx?s=${term}`,
+            { signal: controller?.signal }
+        )
+        .then((res: any) => {
+            setFilteredNotice(res.posts);
+            if(controller?.signal?.aborted){
+                return;
+            }
+        }).catch(err => {
+            console.error(__('NotificationX Fetch Error: ', 'notificationx'), err);
+        });
+    }
+
+     // Debounced function
+     const setDebounceSearchTerm = useCallback(
+        debounce((debounceSearchTerm) => getSearchResult(debounceSearchTerm), 400),
+        [],
+    );
+
+    // filter notification based on title
+    const filterNotification = (event) => {
+        const term = event.target.value;
+        setSearchKey(term);
+        setDebounceSearchTerm(term);
+    }
+
+    useEffect(() => {
+        let inputBox = document.querySelector(".input-box");
+        let searchButton = document.querySelector(".icon");
+        let searchInput = document.getElementById("search_input");
+        function handleClickOutside(event) {
+            if (!inputBox.contains(event.target) && !searchButton.contains(event.target) && !searchInputRef.current.value) {
+                inputBox.classList.remove("open");
+                window.removeEventListener('click', handleClickOutside);
+            }
+        }
+        searchButton.addEventListener("click", (event) => {
+            event.stopPropagation();
+            inputBox.classList.toggle("open");
+            searchInput.focus();
+            window.addEventListener('click', handleClickOutside);
+        });
+        return () => {
+            window.removeEventListener('click', handleClickOutside);
+        };
+
+    }, [])
+
     return (
         <div className="nx-admin-menu">
             <ul>
                 <li className={status === "all" ? "nx-active" : ""} onClick={() => setCurrentPage(1)}>
-                    <NavLink status="all" perPage={perPage}>
+                    <NavLink status="all" perPage={perPage} s={searchKey}>
                         {/* translators: %d: Number of total Notification Alerts. */}
                         {sprintf(__("All (%d)", 'notificationx'), totalItems.all)}
                     </NavLink>
                 </li>
                 <li className={status === "enabled" ? "nx-active" : ""} onClick={() => setCurrentPage(1)}>
-                    <NavLink status="enabled" perPage={perPage}>
+                    <NavLink status="enabled" perPage={perPage} s={searchKey}>
                         {/* translators: %d: Number of total Notification Alerts enabled. */}
                         {sprintf(__("Enabled (%d)", 'notificationx'), totalItems.enabled)}
                     </NavLink>
                 </li>
                 <li className={status === "disabled" ? "nx-active" : ""} onClick={() => setCurrentPage(1)}>
-                    <NavLink status="disabled" perPage={perPage}>
+                    <NavLink status="disabled" perPage={perPage} s={searchKey}>
                         {/* translators: %d: Number of total Notification Alerts disabled. */}
                         {sprintf(__("Disabled (%d)", 'notificationx'), totalItems.disabled)}
                     </NavLink>
                 </li>
             </ul>
             <div className="nx-bulk-action-wrapper">
+                <div id="nx-search-wrapper" className="nx-search-wrapper">
+                    <div className="input-box">
+                        <input type="text" id="search_input" className="nx-search-input" ref={searchInputRef} placeholder={'Search...'} value={searchKey} onChange={ (event) => filterNotification(event) } />
+                        <span className="icon input-search-icon">
+                            <img src={searchIcon} alt={'search-icon'} />
+                        </span>
+                    </div>
+                </div>
                 <Select
                     name="bulk-action"
                     className="bulk-action-select"

@@ -1,9 +1,10 @@
 import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
-import { getThemeName, isObject } from "../core/functions";
+import { getThemeName, isObject, calculateAnimationStartTime } from "../core/functions";
 import { Theme } from "../themes";
 import Analytics from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
+import 'animate.css';
 
 const useMediaQuery = (query) => {
     const mediaQuery = window.matchMedia(query);
@@ -26,6 +27,7 @@ const useMediaQuery = (query) => {
 
 const Notification = (props) => {
     const [exit, setExit] = useState(false);
+    const [animation, setAnimation] = useState(false);
     const [width, setWidth] = useState(0);
     const [intervalID, setIntervalID] = useState(null);
 
@@ -81,8 +83,50 @@ const Notification = (props) => {
         setExit(true);
     };
 
+    const getAnimationStyles = () => {
+        switch (settings.animation_notification_hide) {
+          case 'animate__slideOutDown': 
+            return {
+                bottom: !animation ? '30px': '0',
+                left  : !animation ? '30px': '30px',
+                right : !animation ? '30px': '30px',
+                transition  : '300ms',
+            };
+          case 'animate__slideOutLeft': 
+            return {
+                left  : !animation ? '30px': '0',
+                bottom: !animation ? '30px': '30px',
+                right : !animation ? '30px': '30px',
+                transition  : '300ms',
+            };
+          case 'animate__slideOutRight': 
+            return {
+                right : !animation ? '30px': '0',
+                left  : !animation ? '30px': '30px',
+                bottom: !animation ? '30px': '30px',
+                transition  : '300ms',
+            };
+          case 'animate__slideOutUp': 
+            return {
+                right     : !animation ? '30px': '0',
+                left      : !animation ? '30px': '30px',
+                bottom    : !animation ? '30px': '30px',
+                transition: '300ms',
+            };
+          default: 
+            return {
+                bottom: '30px',
+                left  : '30px',
+                right : '0',
+            };
+        }
+      };
+
     // Close notification
-    useEffect(() => {
+    useEffect(() => {    
+        if( width >= calculateAnimationStartTime( settings?.display_for, settings.animation_notification_hide ) ) { 
+            setAnimation(true);
+        }
         if (width >= 99.5) {
             handleCloseNotification();
             setTimeout(() => {
@@ -91,8 +135,12 @@ const Notification = (props) => {
                     type: "REMOVE_NOTIFICATION",
                     payload: props.id,
                 });
-            }, 500)
+                setAnimation(false);
+            }, 500 )
         }
+        // return () => {
+        //     handlePauseTimer();
+        // };
     }, [width]);
 
     const audioRef = useRef(null);
@@ -106,14 +154,17 @@ const Notification = (props) => {
             }).catch(err => console.error("NX SoundError: ", err))
         }
         handleStartTimer();
+        return () => {
+            handlePauseTimer();
+        };
     }, []);
 
     const themeName = getThemeName(settings);
 
 
     const { advance_edit } = settings;
-
-    const componentClasses = classNames(
+    
+    let baseClasses = [
         "notification-item nx-notification",
         `source-${settings.source}`,
         `position-${settings.position}`,
@@ -132,13 +183,47 @@ const Notification = (props) => {
             [`img-position-${settings?.image_position}`]: advance_edit,
             "flex-reverse": advance_edit && settings?.image_position === "right",
         }
-    );
-
+    ];
+    
     const componentStyle: any = {
         maxWidth: `${notificationSize}px`,
+        ...getAnimationStyles()
     };
     if (settings?.advance_edit && settings?.conversion_size) {
         componentStyle.maxWidth = settings?.conversion_size;
+    }
+    
+    let componentClasses;
+    let animationStyle = 'SlideTop 300ms';
+    if ( (is_pro && settings?.animation_notification_show !== 'default') || (is_pro && settings?.animation_notification_hide !== 'default') ) {
+        let animate_effect;
+        if( settings?.animation_notification_hide !== 'default' && settings?.animation_notification_show === 'default' ) {
+            if( animation ) {
+                animate_effect = settings?.animation_notification_hide;
+            }else{
+                componentStyle.animation = animationStyle
+            }
+        }else if( settings?.animation_notification_show !== 'default' && settings?.animation_notification_hide === 'default' ) {
+            if( animation ) {
+                componentStyle.animation = animationStyle;
+            }else{
+                animate_effect = settings?.animation_notification_show;
+            }
+        }else{
+            animate_effect = animation ? settings?.animation_notification_hide : settings?.animation_notification_show
+        }
+        componentClasses = classNames(
+            "animate__animated",
+            animate_effect,
+            // settings?.animation_notification_duration,
+            "animate__faster",
+            ...baseClasses
+        );
+    } else {
+        componentClasses = classNames(
+            ...baseClasses
+        );
+        componentStyle.animation = animationStyle
     }
 
     return (

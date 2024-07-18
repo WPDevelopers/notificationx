@@ -3,11 +3,13 @@ import React from 'react'
 import { useNotificationXContext } from '../../hooks';
 import AnalyticsCard from './AnalyticsCard'
 
-const AnalyticsHeader = ({ analytics, assetsURL }) => {
+const AnalyticsHeader = ({ assetsURL }) => {
     const builderContext = useNotificationXContext();
     if(builderContext?.analyticsRedirect){
         return <></>;
     }
+    const analytics = builderContext?.state?.analytics;
+    
     return (
         <div className="nx-analytics-counter-wrapper">
             <AnalyticsCard

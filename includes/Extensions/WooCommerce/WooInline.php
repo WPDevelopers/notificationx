@@ -74,7 +74,7 @@ class WooInline extends WooCommerce {
                     'first_param'         => 'tag_sales_count',
                     'custom_first_param'  => __( '99', 'notificationx' ),
                     'second_param'        => __( 'people purchased', 'notificationx' ),
-                    'third_param'         => 'tag_custom',
+                    'third_param'         => 'tag_product_title',
                     'custom_third_param'  => ' ',
                     'fourth_param'        => 'tag_7days',
                     'custom_fourth_param' => __( 'in last {{day:7}}', 'notificationx' ),
@@ -161,7 +161,7 @@ class WooInline extends WooCommerce {
      * @return void
      */
     public function show_on_exclude( $exclude, $settings ) {
-        if ( 'inline' === $settings['type'] && $settings['source'] === $this->id ) {
+        if ( $settings['source'] === $this->id ) {
             $woo_location = $settings['inline_location'];
             $hooks        = ['woocommerce_before_add_to_cart_form', 'woocommerce_after_shop_loop_item_title', 'woocommerce_after_shop_loop_item', 'woocommerce_after_cart_item_name'];
             $diff         = array_diff( $hooks, $woo_location );

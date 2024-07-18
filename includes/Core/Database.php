@@ -9,6 +9,7 @@
 namespace NotificationX\Core;
 
 use NotificationX\GetInstance;
+use WPDeveloper\QueryBuilder\Query as QueryBuilder;
 
 /**
  * Database Class
@@ -32,6 +33,7 @@ class Database {
     public static $table_entries;
     public static $table_posts;
     public static $table_stats;
+    protected static $query;
 
     /**
      * Initially Invoked when initialized.
@@ -44,6 +46,12 @@ class Database {
         self::$table_stats   = $wpdb->prefix . 'nx_stats';
     }
 
+    public static function query() {
+        if (!isset(self::$query)) {
+            self::$query = QueryBuilder::init();
+        }
+        return self::$query;
+    }
 
     public function Create_DB() {
         $charset_collate = $this->wpdb->get_charset_collate();
@@ -108,7 +116,7 @@ class Database {
             SET `%2$s` = `%3$s` + %4$s
             WHERE nx_id = "%5$s"
             AND created_at = "%6$s"',
-            $table_name, $col, $col, $_data, intval( $id ), $date
+            $table_name, esc_sql( $col ), esc_sql( $col ), $_data, intval( $id ), $date
         )
         );
     }

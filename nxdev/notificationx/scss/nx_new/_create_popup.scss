@@ -27,6 +27,7 @@
                     color: #7c8db5;
                     padding: 0 20px;
                     border-bottom: 1px solid #f2f2f2;
+                    justify-content: space-between;
                     h4 {
                         padding: 0;
                         margin: 0;
@@ -45,6 +46,9 @@
                         display: flex;
                         align-items: center;
                         margin-bottom: 15px;
+                        justify-content: space-between;
+                        flex-wrap: wrap;
+                        gap: 5px;
                         label {
                             font-size: 16px;
                             font-weight: 500;
@@ -112,6 +116,7 @@
                             margin-right: 5px;
                             outline: none;
                             cursor: pointer;
+                            box-shadow: none;
                             @media only screen and (max-width: 1599px) {
                                 font-size: 14px;
                                 min-height: 32px;
@@ -216,6 +221,62 @@
                     }
                 }
             }
+            .nx-admin-status {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 5px;
+                label {
+                    width: 40px;
+                    height: 20px;
+                    min-height: 20px;
+                    position: relative;
+                    cursor: pointer;
+                    display: flex;
+                    font-size: 24px;
+                    &:before,
+                    &:after {
+                        content: "";
+                        position: absolute;
+                    }
+                    &:before {
+                        width: 40px;
+                        height: 20px;
+                        left: 0;
+                        transition: background 0.1s 0.1s ease;
+                        background: #7c8db5;
+                        border: 1px solid #7c8db5;
+                        border-radius: 50px;
+                        margin: 0;
+                        box-sizing: border-box;
+                    }
+                    &:after {
+                        width: 18px;
+                        height: 18px;
+                        border-radius: 50px;
+                        left: 1px;
+                        top: 1px;
+                        transition: all 0.2s ease;
+                        box-shadow: 0 0 0 5px #fcfff4 inset;
+                        background: #fff;
+                        z-index: 2;
+                        animation: switch-off 0.3s ease-out;
+                    }
+                }
+                input[type="checkbox"] {
+                    visibility: hidden;
+                    display: none;
+                    &:checked + label::before {
+                        background: #6a4bff;
+                        border: 1px solid #6a4bff;
+                    }
+                    &:checked + label::after {
+                        left: 21px;
+                        background: #ffffff;
+                        animation: switch-on 0.3s ease-out;
+                    }
+                }
+            }
         }
         .notificationx-instruction {
             padding: 0px;
@@ -292,4 +353,8 @@
     &:not(:first-child) {
         margin-top: 15px;
     }
+}
+
+.pressbar-gutenberg-theme-popup{
+    z-index: 5500;
 }

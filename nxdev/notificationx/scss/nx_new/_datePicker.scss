@@ -1,4 +1,6 @@
 .wprf-control-datetime-content {
+  z-index: 9999999;
+
   .components-popover__content {
     background: #fff;
     border: 1px solid #f2f2f2;
@@ -6,7 +8,7 @@
     padding: 15px;
     // position: absolute;
     right: 0;
-    z-index: 9999999;
+    // z-index: 9999999;
 
     .components-datetime {
       .components-datetime__time {
@@ -74,7 +76,7 @@
             align-self: center;
             min-height: 34px;
             box-sizing: border-box;
-            line-height: 34px;
+            line-height: 38px;
           }
 
           .components-input-control__input {
@@ -107,7 +109,8 @@
             padding: 2px 6px;
             font-weight: 500;
             margin-right: 5px;
-
+            box-shadow: none;
+            height: 36px;
             &.is-secondary {
               border: 1.5px solid #7c8db5;
               color: #fff;
@@ -130,6 +133,9 @@
 
       .components-datetime__date button {
         border: none;
+        &:hover{
+          cursor: pointer;
+        }
       }
 
       .components-datetime__date .CalendarDay__selected:hover {

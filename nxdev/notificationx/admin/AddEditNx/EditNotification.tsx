@@ -14,7 +14,7 @@ const EditNotification = (props) => {
     const builder = useBuilder(builderTabs);
     const notificationxContext = useNotificationXContext();
 
-    const [title, setTitle] = useState<string>(undefined)
+    const [title, setTitle] = useState<string>('')
     const [isUpdated, setIsUpdated] = useState('')
     const [isLoading, setIsLoading] = useState(true);
 
@@ -43,6 +43,7 @@ const EditNotification = (props) => {
                     currentTab = 'source_tab';
                 }
                 builder.setActiveTab(currentTab || 'source_tab');
+                setTitle(res?.title);
                 setIsLoading(false);
             } else {
                 // If response is not valid than redirect to all.

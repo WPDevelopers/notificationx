@@ -1,0 +1,8 @@
+.DS_Store
+
+# Dependencies
+/vendor
+
+# Generated
+/tests/.tmp
+composer.lock

@@ -35,8 +35,8 @@ class REST {
      */
     use GetInstance;
 
-	private static $_namespace = 'notificationx';
-	private static $_version = 1;
+    private static $_namespace = 'notificationx';
+    private static $_version = 1;
 
     public static function _namespace(){
         return  self::$_namespace . '/v' . self::$_version;
@@ -56,39 +56,58 @@ class REST {
         $enable_rest_api = Settings::get_instance()->get('settings.enable_rest_api', false);
         if($enable_rest_api){
             add_action('rest_authentication_errors', [$this, 'rest_authentication_errors'], 999);
+            add_filter('bb_exclude_endpoints_from_restriction', [$this, 'bb_exclude_endpoints'], 10, 2);
         }
+
+
+        // third party
+        add_filter('jwt_auth_whitelist', [$this, 'jwt_whitelist']);
     }
 
-	/**
-	 * Checks for a current route being requested, and processes the allowlist
-	 *
-	 * @param $access
-	 *
-	 * @return WP_Error|null|boolean
-	 */
-	public function rest_authentication_errors( $access ) {
+    /**
+     * Checks for a current route being requested, and processes the allowlist
+     *
+     * @param $access
+     *
+     * @return WP_Error|null|boolean
+     */
+    public function rest_authentication_errors( $access ) {
         $namespace = self::_namespace();
-		$current_route = $this->get_current_route();
+        $current_route = $this->get_current_route();
         if($access instanceof \WP_Error && ($current_route == "/$namespace/notice" || $current_route == "/$namespace/analytics")){
             return true;
         }
 
-		// If we got all the way here, return the unmodified $access response
-		return $access;
-	}
+        // If we got all the way here, return the unmodified $access response
+        return $access;
+    }
 
-	/**
-	 * Current REST route getter.
-	 *
-	 * @return string
-	 */
-	private function get_current_route() {
-		$rest_route = $GLOBALS['wp']->query_vars['rest_route'];
+    /**
+     * Exclude endpoints from bbPress restriction
+     *
+     * @param array $endpoints
+     * @param string $current_endpoint
+     * @return array
+     */
+    public function bb_exclude_endpoints( $endpoints, $current_endpoint ) {
+        $namespace   = self::_namespace();
+        $endpoints[] = "/$namespace/notice";
+        $endpoints[] = "/$namespace/analytics";
+        return $endpoints;
+    }
 
-		return ( empty( $rest_route ) || '/' == $rest_route ) ?
-			$rest_route :
-			untrailingslashit( $rest_route );
-	}
+    /**
+     * Current REST route getter.
+     *
+     * @return string
+     */
+    private function get_current_route() {
+        $rest_route = $GLOBALS['wp']->query_vars['rest_route'];
+
+        return ( empty( $rest_route ) || '/' == $rest_route ) ?
+            $rest_route :
+            untrailingslashit( $rest_route );
+    }
 
     /**
      * Check if a given request has access to get items
@@ -144,6 +163,17 @@ class REST {
             'callback'  => array( $this, 'elementor_remove' ),
             'permission_callback' => array($this, 'edit_permission'),
         ));
+        // Gutenberg Import
+        register_rest_route( $namespace, '/gutenberg/import', array(
+            'methods'   => WP_REST_Server::EDITABLE,
+            'callback'  => array( $this, 'gutenberg_import' ),
+            'permission_callback' => array($this, 'edit_permission'),
+        ));
+        register_rest_route( $namespace, '/gutenberg/remove', array(
+            'methods'   => WP_REST_Server::EDITABLE,
+            'callback'  => array( $this, 'gutenberg_remove' ),
+            'permission_callback' => array($this, 'edit_permission'),
+        ));
         // Reporting Import
         register_rest_route( $namespace, '/reporting-test', array(
             'methods'   => WP_REST_Server::EDITABLE,
@@ -172,7 +202,7 @@ class REST {
         ));
 
         // ajax select
-		register_rest_route($namespace, '/get-data', array(
+        register_rest_route($namespace, '/get-data', array(
             array(
                 'methods'             => WP_REST_Server::EDITABLE,
                 'callback'            => array($this, 'get_data'),
@@ -181,7 +211,7 @@ class REST {
             ),
         ));
         // For Frontend Notice
-		register_rest_route($namespace, '/notice', array(
+        register_rest_route($namespace, '/notice', array(
             array(
                 'methods'             => WP_REST_Server::EDITABLE,
                 'callback'            => array($this, 'notice'),
@@ -241,6 +271,29 @@ class REST {
     }
 
     /**
+     * Gutenberg Import for PressBar design.
+     *
+     * @param [type] $request
+     * @return void
+     */
+    public function gutenberg_import( $request ){
+        $params = $request->get_params();
+        return PressBar::get_instance()->gutenberg_import($params);
+    }
+
+    /**
+     * Gutenberg Import for PressBar design.
+     *
+     * @param [type] $request
+     * @return void
+     */
+    public function gutenberg_remove( $request ){
+        $params = $request->get_params();
+        PressBar::get_instance()->gutenberg_remove($params['gutenberg_id']);
+        return true;
+    }
+
+    /**
      * Analytics Reporting
      *
      * @param WP_REST_Request $request
@@ -266,9 +319,9 @@ class REST {
      * @param \WP_REST_Request $request Full data about the request.
      * @return \WP_Error|\WP_REST_Response
      */
-	public function get_data( $request ){
+    public function get_data( $request ){
 
-		$params = $request->get_params();
+        $params = $request->get_params();
         if( ! $request->has_param('type') ) {
             return $this->error( 'type' );
         }
@@ -297,8 +350,8 @@ class REST {
                 break;
         }
 
-		return $this->error();
-	}
+        return $this->error();
+    }
 
     /**
      *
@@ -329,7 +382,7 @@ class REST {
      * @return \WP_REST_Response
      */
     public function miscellaneous($request) {
-		$params = $request->get_params();
+        $params = $request->get_params();
 
         $result = apply_filters('nx_rest_miscellaneous', null, $params);
         if($result !== null){
@@ -409,5 +462,48 @@ class REST {
      */
     private function formattedError( $code, $message, $http_code, $args = [] ){
         return new \WP_Error( "nx_$code", $message, [ 'status' => $http_code ] );
+    }
+
+    /**
+     * JWT Whitelist
+     *
+     * @param array $endpoints
+     * @return array
+     */
+    public function jwt_whitelist( $endpoints ) {
+        $__endpoints = array(
+            '/wp-json/notificationx/v1',
+            '/wp-json/notificationx/v1/nx',
+            '/wp-json/notificationx/v1/nx/*',
+            '/wp-json/notificationx/v1/api-connect',
+            '/wp-json/notificationx/v1/notification/*',
+            '/wp-json/notificationx/v1/regenerate/*',
+            '/wp-json/notificationx/v1/reset/*',
+            '/wp-json/notificationx/v1/analytics',
+            '/wp-json/notificationx/v1/analytics/get',
+            '/wp-json/notificationx/v1/bulk-action/delete',
+            '/wp-json/notificationx/v1/bulk-action/regenerate',
+            '/wp-json/notificationx/v1/bulk-action/enable',
+            '/wp-json/notificationx/v1/bulk-action/disable',
+            '/wp-json/notificationx/v1/builder',
+            '/wp-json/notificationx/v1/core-install',
+            '/wp-json/notificationx/v1/elementor/import',
+            '/wp-json/notificationx/v1/gutenberg/import',
+            '/wp-json/notificationx/v1/elementor/remove',
+            '/wp-json/notificationx/v1/gutenberg/remove',
+            '/wp-json/notificationx/v1/reporting-test',
+            '/wp-json/notificationx/v1/settings',
+            '/wp-json/notificationx/v1/miscellaneous',
+            '/wp-json/notificationx/v1/get-data',
+            '/wp-json/notificationx/v1/notice',
+            '/wp-json/notificationx/v1/import',
+            '/wp-json/notificationx/v1/export',
+            '/wp-json/notificationx/v1/license/activate',
+            '/wp-json/notificationx/v1/license/deactivate',
+            '/wp-json/notificationx/v1/license/submit-otp',
+            '/wp-json/notificationx/v1/license/resend-otp',
+        );
+
+        return array_unique( array_merge( $endpoints, $__endpoints ) );
     }
 }

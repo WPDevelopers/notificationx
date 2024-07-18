@@ -22,6 +22,7 @@ class TypeFactory {
 
 	public $types = [
 			'conversions'        => 'NotificationX\Types\Conversions',
+			'woocommerce_sales'  => 'NotificationX\Types\WooCommerceSales',
 			'comments'           => 'NotificationX\Types\Comments',
 			'reviews'            => 'NotificationX\Types\Reviews',
 			'download_stats'     => 'NotificationX\Types\DownloadStats',
@@ -35,6 +36,7 @@ class TypeFactory {
 			'inline'             => 'NotificationX\Types\Inline',
 			'flashing_tab'       => 'NotificationX\Types\FlashingTab',
 			'video'              => 'NotificationX\Types\Video',
+			'offer_announcement' => 'NotificationX\Types\OfferAnnouncement',
 		];
 
     public $types_enabled = [];

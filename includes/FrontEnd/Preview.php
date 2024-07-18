@@ -64,7 +64,7 @@ class Preview {
             $settings = $this->preview_settings();
             if (empty($settings['source']) || empty($settings['type']))
                 return;
-            if ('inline' === $settings['type']){
+            if ('inline' === $settings['type'] || 'woocommerce_sales_inline' == $settings['source'] ){
                 $args['total'] = 0;
                 return $args;
             }
@@ -113,17 +113,20 @@ class Preview {
                     font-weight: 600;
                 }
                 .notificationx-woo-shortcode-inline-wrapper > div.woo_inline_conv-theme-seven span:first-child,
-                .notificationx-woo-shortcode-inline-wrapper > div.edd_inline_conv-theme-seven span:first-child {
+                .notificationx-woo-shortcode-inline-wrapper > div.edd_inline_conv-theme-seven span:first-child, 
+                .notificationx-woo-shortcode-inline-wrapper > div.woocommerce_sales_inline_conv-theme-seven span:first-child {
                     color: #61BD6D;
                 }
                 .notificationx-woo-shortcode-inline-wrapper > div.woo_inline_conv-theme-seven span:last-child,
+                .notificationx-woo-shortcode-inline-wrapper > div.woocommerce_sales_inline_conv-theme-seven span:last-child,
                 .notificationx-woo-shortcode-inline-wrapper > div.edd_inline_conv-theme-seven span:last-child,
                 .notificationx-woo-shortcode-inline-wrapper > div.tutor_inline_conv-theme-seven span:last-child,
                 .notificationx-woo-shortcode-inline-wrapper > div.learndash_inline_conv-theme-seven span:last-child{
                     color: #E25042;
                 }
 
-                .notificationx-woo-shortcode-inline-wrapper > div.woo_inline_stock-theme-one span {
+                .notificationx-woo-shortcode-inline-wrapper > div.woo_inline_stock-theme-one span,
+                .notificationx-woo-shortcode-inline-wrapper > div.woocommerce_sales_inline_stock-theme-one span {
                     color: #E25042;
                 }
             </style>
@@ -170,25 +173,25 @@ class Preview {
             'avatar'               => [
                 'src' => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
             ],
-            'picture'              => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
-            'city'                 => 'Dhaka',
-            'city_country'         => 'Dhaka, Bangladesh',
-            'content'              => 'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-            'count'                => rand(50, 70),
-            'country'              => 'Bangladesh',
-            'course_title'         => 'PHP Beginners – Become a PHP Master',
-            'created_at'           => wp_date('Y-m-d H:i:s', strtotime('2 days ago')),
-            'day'                  => 'days',
-            'downloaded'           => rand(50, 70),
-            'email'                => 'support@wpdeveloper.com',
-            'entry_id'             => rand(1000, 9999),
-            'entry_key'            => 'ChIJ0cpDbNvBVTcRGX9JNhhpC8I',
-            'first_name'           => 'John',
-            '_first_name'          => 'John',
-            'formatted_address'    => 'House 592, Road 8 Avenue 5, Dhaka 1216, Bangladesh',
-            'ga_title'             => 'NotificationX',
-            'icon'                 => 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png',
-            'icons'                => array(
+            'picture'           => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
+            'city'              => 'Dhaka',
+            'city_country'      => 'Dhaka, Bangladesh',
+            'content'           => 'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+            'count'             => rand(50, 70),
+            'country'           => 'Bangladesh',
+            'course_title'      => 'PHP Beginners – Become a PHP Master',
+            'created_at'        => wp_date('Y-m-d H:i:s', strtotime('2 days ago')),
+            'day'               => 'days',
+            'downloaded'        => rand(50, 70),
+            'email'             => 'support@wpdeveloper.com',
+            'entry_id'          => rand(1000, 9999),
+            'entry_key'         => 'ChIJ0cpDbNvBVTcRGX9JNhhpC8I',
+            'first_name'        => 'John',
+            '_first_name'       => 'John',
+            'formatted_address' => 'House 592, Road 8 Avenue 5, Dhaka 1216, Bangladesh',
+            'ga_title'          => 'NotificationX',
+            'icon'              => 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png',
+            'icons'             => array(
                 '1x' => "https://ps.w.org/notificationx/assets/icon-128x128.gif?rev=2783824",
                 '2x' => "https://ps.w.org/notificationx/assets/icon-256x256.gif?rev=2783824",
             ),
@@ -261,6 +264,7 @@ class Preview {
             'your-subject'      => 'Lorem Ipsum',
             'post_title'        => 'Hello World',
             'sales_count'       => rand(50, 70),
+            'donation_count'       => rand(50, 70),
             '1day'              => __('In last 1 day', 'notificationx'),
             '7days'             => __('In last 7 days', 'notificationx'),
             '30days'            => __('In last 30 days', 'notificationx'),
@@ -352,7 +356,7 @@ class Preview {
             'name'   => 'preview',
             'urls'   => $urls,
             'errors' => apply_filters('nx_content_heading_preview_errors', []),
-            'rules'  => Rules::includes('themes', ['woo_inline_stock-theme-two', 'tutor_inline_conv-theme-eight', 'flashing_tab_theme-1','flashing_tab_theme-2' ,'flashing_tab_theme-3' , 'flashing_tab_theme-4'], true),
+            'rules'  => Rules::includes('themes', ['woo_inline_stock-theme-two', 'tutor_inline_conv-theme-eight', 'flashing_tab_theme-1','flashing_tab_theme-2' ,'flashing_tab_theme-3' , 'flashing_tab_theme-4','woocommerce_sales_inline_stock-theme-two','learnpress_inline_conv-theme-eight'], true),
         ]);
         return $tabs;
     }
@@ -362,7 +366,7 @@ class Preview {
             $settings = $this->preview_settings($settings);
             $settings['is_preview'] = true;
 
-            if (empty($settings['source']) || empty($settings['type']) || 'inline' !== $settings['type']){
+            if ( ( empty($settings['source']) || empty($settings['type']) || 'inline' !== $settings['type']) && ('woocommerce_sales_inline' !== $settings['source']) ){
                 return;
             }
 
@@ -396,6 +400,7 @@ class Preview {
                 // "anonymous_title" => "Anonymous Product",
                 // "sometime"        => "Some time ago",
                 "sales_count"     => rand(50, 70),
+                "donation_count"     => rand(50, 70),
                 // "30days"          => "in last 30 days",
                 // "day:30"          => "30 days",
                 // "1day"            => "in last 1 day",

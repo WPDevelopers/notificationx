@@ -18,3 +18,4 @@ nxbuild
 .idea
 
 stats.json
+pnpm-lock.yaml

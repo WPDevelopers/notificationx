@@ -22,6 +22,11 @@ body {
 // Alerts
 @import "./nx_new/alerts";
 
+.notificationx-admin {
+    position: relative;
+    z-index: 11;
+}
+
 #notificationx {
     @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 
@@ -49,13 +54,52 @@ body {
     @import "./nx_new/settings";
     // datePicker
     @import "./nx_new/quick_builder";
+
+    a:focus {
+        outline: 0;
+        box-shadow: none;
+    }
+
+    .pressbar-gutenberg-theme-popup {
+        .swal2-actions {
+            gap: 12px;
+
+            .swal2-styled {
+                background: #6A4BFF;
+                border: 1px solid #6A4BFF;
+                Margin: 0;
+                transition-duration: .05s;
+                transition-timing-function: ease-in-out;
+
+                a {
+                    color: #FFFFFF;
+                    text-decoration: none;
+                    transition-duration: .05s;
+                    transition-timing-function: ease-in-out;
+
+                    :hover {
+                        color: #FFFFFF;
+                    }
+                }
+            }
+
+            :hover {
+                background: #5414D0;
+                box-shadow: rgba(86, 20, 213, 0.3) 0px 15px 25px -5px;
+            }
+
+            :focus {
+                box-shadow: none;
+            }
+        }
+    }
 }
 
 @import "./modal";
 @import "./nx_new/datePicker";
 
-.nx-announcement-entries  {
+.nx-announcement-entries {
     >.wprf-section-fields {
-        padding: 0px!important;
+        padding: 0px !important;
     }
 }

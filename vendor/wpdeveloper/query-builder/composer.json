@@ -1,0 +1,26 @@
+{
+    "name": "wpdeveloper/query-builder",
+    "description": "The simple ORM for WordPress Query",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "wordpress",
+        "query builder",
+        "database"
+    ],
+    "authors": [
+        {
+            "name": "WPDeveloper",
+            "email": "support@wpdeveloper.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "WPDeveloper\\QueryBuilder\\": "src"
+        }
+    },
+    "minimum-stability": "dev"
+}

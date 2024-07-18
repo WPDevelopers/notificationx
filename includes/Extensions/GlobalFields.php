@@ -84,12 +84,6 @@ class GlobalFields {
                     ],
                     'classes' => "source_tab",
                     'fields'  => apply_filters('nx_source_fields', [
-                        'source_error' => [
-                            'type' => 'message',
-                            'name' => 'source_error',
-                            'messages' => apply_filters('source_error_message', []),
-                            'rules' => '',
-                        ],
                         'type_section' => [
                             'label'   => __("Notification Type", 'notificationx'),
                             'name'   => "type_section",
@@ -129,6 +123,12 @@ class GlobalFields {
                             'name'   => "source_section",
                             'type'   => "section",
                             'fields' => [
+                                'source_error' => [
+                                    'type' => 'message',
+                                    'name' => 'source_error',
+                                    'messages' => apply_filters('source_error_message', []),
+                                    'rules' => '',
+                                ],
                                 'source' => [
                                     // 'label'            => "Source",
                                     'name'             => "source",
@@ -214,6 +214,9 @@ class GlobalFields {
                                             ],
                                             "wpf" => [
                                                 'show_notification_image' => '@show_notification_image:gravatar',
+                                            ],
+                                            "woocommerce_sales" => [
+                                                'show_notification_image' => '@show_notification_image:featured_image',
                                             ],
                                         ] ),
                                     ]
@@ -332,6 +335,25 @@ class GlobalFields {
                                             'default' => "#000",
                                             'rules'   => Rules::is( 'border', true ),
                                         ],
+                                        [
+                                            'label'   => __('Discount Text Color', 'notificationx'),
+                                            'name'    => "discount_text_color",
+                                            'type'    => "colorpicker",
+                                            'default' => "#fff",
+                                            'rules'   => Rules::logicalRule([
+                                                Rules::is( 'type', 'offer_announcement' ),
+                                                Rules::includes('themes', [ 'announcements_theme-1', 'announcements_theme-2' ], false),
+                                            ]),
+                                        ],
+                                        [
+                                            'label'   => __('Discount Background', 'notificationx'),
+                                            'name'    => "discount_background",
+                                            'type'    => "colorpicker",
+                                            'rules'   => Rules::logicalRule([
+                                                Rules::is( 'type', 'offer_announcement' ),
+                                                Rules::includes('themes', [ 'announcements_theme-1', 'announcements_theme-2' ], false),
+                                            ]),
+                                        ],
                                     ]
                                 ],
                                 "typography" => [
@@ -396,6 +418,26 @@ class GlobalFields {
                                                 'left'  => __('Left', 'notificationx'),
                                                 'right' => __('Right', 'notificationx'),
                                             ]),
+                                        ],
+                                    ]
+                                ],
+                                "custom_css" => [
+                                    'label'    => __('Custom CSS', 'notificationx'),
+                                    'name'     => "custom_css",
+                                    'type'     => "section",
+                                    'priority' => 16,
+                                    'rules'    => Rules::is( 'advance_edit', true ),
+                                    'fields'   => [
+                                        [
+                                            'label'       => __('Add Custom CSS', 'notificationx'),
+                                            'name'        => "add_custom_css",
+                                            'type'        => "codeviewer",
+                                            'button_text'  => __( 'Click to Copy', 'notificationx' ),
+                                            'success_text' => __( 'Copied to clipboard.', 'notificationx' ),
+                                            'is_pro'       => true,
+                                            'copyOnClick'  => false,
+                                            'priority' => 5,
+                                            'help'         => __('Use custom CSS to style this Notification.', 'notificationx'),
                                         ],
                                     ]
                                 ],
@@ -547,7 +589,7 @@ class GlobalFields {
                                     'default'     => 0,
                                     'is_pro'      => true,
                                     'description' => __('Enable to show notification in random order.', 'notificationx'),
-                                    'rules'       => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart"]),
+                                    'rules'       => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart","custom_notification", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
                                 ),
                                 'product_control' => array(
                                     'label'    => __('Show Purchase Of', 'notificationx'),
@@ -562,7 +604,7 @@ class GlobalFields {
                                         'product_category' => __('Product Category', 'notificationx'),
                                         'manual_selection' => __('Selected Product', 'notificationx'),
                                     ]),
-                                    'rules'       => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart"]),
+                                    'rules'       => Rules::includes('source', ['woocommerce','woocommerce_sales', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart",'woocommerce_sales_reviews','woocommerce_sales_inline']),
                                 ),
                                 'category_list' => array(
                                     'label'    => __('Select Product Category', 'notificationx'),
@@ -572,7 +614,7 @@ class GlobalFields {
                                     'priority' => 95,
                                     'options'  => apply_filters('nx_conversion_category_list', []),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart"]),
+                                        Rules::includes('source', ['woocommerce' , 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
                                         Rules::is( 'product_control', 'product_category' ),
                                     ]),
                                 ),
@@ -590,7 +632,7 @@ class GlobalFields {
                                         ],
                                     ]),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart"]),
+                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart",'woocommerce_sales_reviews','woocommerce_sales_inline']),
                                         Rules::is( 'product_control', 'manual_selection' ),
                                     ]),
                                     'ajax'   => [
@@ -602,7 +644,7 @@ class GlobalFields {
                                         ],
                                         // 'target' => "product_list",
                                         'rules'  => Rules::logicalRule([
-                                            Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart"]),
+                                            Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
                                             Rules::is( 'product_control', 'manual_selection' ),
                                         ]),
                                     ],
@@ -620,7 +662,7 @@ class GlobalFields {
                                         'product_category' => __('Product Category', 'notificationx'),
                                         'manual_selection' => __('Selected Product', 'notificationx'),
                                     ]),
-                                    'rules' => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart"]),
+                                    'rules' => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
                                 ),
                                 'exclude_categories' => array(
                                     'label'    => __('Select Product Category', 'notificationx'),
@@ -630,7 +672,7 @@ class GlobalFields {
                                     'priority' => 98,
                                     'options'  => apply_filters('nx_conversion_category_list', []),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart"]),
+                                        Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
                                         Rules::is( 'product_exclude_by', 'product_category' ),
                                     ]),
                                 ),
@@ -648,7 +690,7 @@ class GlobalFields {
                                         ],
                                     ]),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart"]),
+                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart",'woocommerce_sales_reviews','woocommerce_sales_inline']),
                                         Rules::is( 'product_exclude_by', 'manual_selection' ),
                                     ]),
                                     'ajax'   => [
@@ -659,7 +701,7 @@ class GlobalFields {
                                             'field'  => "exclude_products",
                                         ],
                                         'rules'       => Rules::logicalRule([
-                                            Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline"]),
+                                            Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
                                             Rules::is( 'product_exclude_by', 'manual_selection' ),
                                         ]),
                                     ],
@@ -675,8 +717,8 @@ class GlobalFields {
                                     'help'     => __("By default it will show Processing & Completed status."),
                                     'options'  => apply_filters('nx_woo_order_status', []),
                                     'rules'    => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce', "woo_inline"]),
-                                        Rules::includes('themes', [ 'woo_inline_stock-theme-one', 'woo_inline_stock-theme-two' ], true),
+                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', "woo_inline","woocommerce_sales_inline"]),
+                                        Rules::includes('themes', [ 'woo_inline_stock-theme-one', 'woo_inline_stock-theme-two', 'woocommerce_sales_inline_stock-theme-one', 'woocommerce_sales_inline_stock-theme-two'], true),
                                     ]),
 
                                 ),
@@ -693,7 +735,19 @@ class GlobalFields {
                                     'rules'    => Rules::logicalRule([
                                         Rules::includes('source', ["surecart"]),
                                     ]),
-                                )
+                                ),
+                                'combine_multiorder' => [
+                                    'label'       => __('Combine Multi Order', 'notificationx'),
+                                    'name'        => 'combine_multiorder',
+                                    'type'        => 'checkbox',
+                                    'priority'    => 99.7,
+                                    'default'     => true,
+                                    'description' => __('Combine order like, 2 more products.', 'notificationx'),
+                                    'rules' => Rules::logicalRule([
+                                        Rules::is('notification-template.first_param', 'tag_sales_count', true),
+                                        Rules::includes('source', [ 'woocommerce', 'edd', 'woocommerce_sales' ]),
+                                    ]),
+                                ],
                             ],
                         ],
                         'link_options' => [
@@ -726,7 +780,7 @@ class GlobalFields {
                                     // ],
                                     'description' => __('Enable button with link', 'notificationx'),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::includes('type', ['conversions','video']),
+                                        Rules::includes('type', ['conversions','video','woocommerce', 'woocommerce_sales','page_analytics']),
                                         Rules::is('link_type','none',true),
                                     ]),
                                 ],
@@ -839,6 +893,8 @@ class GlobalFields {
                                         "freemius_reviews",
                                         "freemius_stats",
                                         "youtube",
+                                        "woocommerce_sales",
+                                        'woocommerce_sales_reviews',
                                     ] ),
                                     'options' => apply_filters('nx_show_image_options', array(
                                         'none'           => [
@@ -872,6 +928,8 @@ class GlobalFields {
                                                     "freemius_conversions",
                                                     "freemius_reviews",
                                                     "freemius_stats",
+                                                    "woocommerce_sales",
+                                                    'woocommerce_sales_reviews',
                                                 ]
                                             ],
                                         ],
@@ -906,6 +964,8 @@ class GlobalFields {
                                                     "freemius_conversions",
                                                     "freemius_reviews",
                                                     "freemius_stats",
+                                                    "woocommerce_sales",
+                                                    'woocommerce_sales_reviews',
                                                 ],
                                             ],
                                         ],
@@ -977,9 +1037,9 @@ class GlobalFields {
                             'fields' => [
                                 'position' => [
                                     'label'    => __("Position", 'notificationx'),
-                                    'name'     => "position",      // combined "pressbar_position" && "conversion_position"
+                                    'name'     => "position",                        // combined "pressbar_position" && "conversion_position"
                                     'type'     => "select",
-                                    'default'    => 'bottom_left',
+                                    'default'  => 'bottom_left',
                                     'priority' => 50,
                                     'options'  => [
                                         'bottom_left' => [
@@ -992,17 +1052,35 @@ class GlobalFields {
                                         ],
                                     ],
                                 ],
+                                'close_icon_position' => [
+                                    'label'    => __("Close Icon Position", 'notificationx'),
+                                    'name'     => "close_icon_position",
+                                    'type'     => "select",
+                                    'default'    => 'top_right',
+                                    'priority' => 51,
+                                    'options'  => [
+                                        'top_right' => [
+                                            'label' => __('Top Right', 'notificationx'),
+                                            'value' => 'top_right',
+                                        ],
+                                        'top_left' => [
+                                            'label' => __('Top Left', 'notificationx'),
+                                            'value' => 'top_left',
+                                        ]
+                                    ],
+                                    'rules'       => Rules::includes('source', ['press_bar']),
+                                ],
                                 'size' => [
-                                    'label' => __("Notification Size", 'notificationx'),
-                                    'name'  => "size",
-                                    'type'     => "responsive-number",
-                                    'default'  => [
+                                    'label'   => __("Notification Size", 'notificationx'),
+                                    'name'    => "size",
+                                    'type'    => "responsive-number",
+                                    'default' => [
                                         "desktop" => 500,
-                                        "tablet" => 500,
-                                        "mobile" => 500,
+                                        "tablet"  => 500,
+                                        "mobile"  => 500,
                                     ],
                                     'priority' => 51,
-                                    'min' => 300,
+                                    'min'      => 300,
                                     'controls' => [
                                         "desktop" => [
                                             "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
@@ -1017,7 +1095,7 @@ class GlobalFields {
                                             'size' => 12,
                                         ],
                                     ],
-                                    'help'     => __('Set a max width for notification.', 'notificationx'),
+                                    'help' => __('Set a max width for notification.', 'notificationx'),
                                 ],
                                 'close_button' => [
                                     'label'       => __("Display Close Option", 'notificationx'),
@@ -1035,6 +1113,247 @@ class GlobalFields {
                                     'priority'    => 200,
                                     'description' => __('Hide NotificationX on mobile.', 'notificationx'),
                                 ],
+                            ]
+                        ],
+                        'appearance' => [
+                            'label'  => __("Appearance", 'notificationx'),
+                            'name'   => "appearance",
+                            'type'   => "section",
+                            'fields' => [
+                                'position' => [
+                                    'label'    => __("Position", 'notificationx'),
+                                    'name'     => "position",                        // combined "pressbar_position" && "conversion_position"
+                                    'type'     => "select",
+                                    'default'  => 'bottom_left',
+                                    'priority' => 50,
+                                    'options'  => [
+                                        'bottom_left' => [
+                                            'label' => __('Bottom Left', 'notificationx'),
+                                            'value' => 'bottom_left',
+                                        ],
+                                        'bottom_right' => [
+                                            'label' => __('Bottom Right', 'notificationx'),
+                                            'value' => 'bottom_right',
+                                        ],
+                                    ],
+                                ],
+                                'size' => [
+                                    'label'   => __("Notification Size", 'notificationx'),
+                                    'name'    => "size",
+                                    'type'    => "responsive-number",
+                                    'default' => [
+                                        "desktop" => 500,
+                                        "tablet"  => 500,
+                                        "mobile"  => 500,
+                                    ],
+                                    'priority' => 51,
+                                    'min'      => 300,
+                                    'controls' => [
+                                        "desktop" => [
+                                            "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+                                            'size' => 18,
+                                        ],
+                                        "tablet" => [
+                                            "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/tablet.svg',
+                                            'size' => 14,
+                                        ],
+                                        "mobile" => [
+                                            "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/mobile.svg',
+                                            'size' => 12,
+                                        ],
+                                    ],
+                                    'help' => __('Set a max width for notification.', 'notificationx'),
+                                ],
+                                'close_button' => [
+                                    'label'       => __("Display Close Option", 'notificationx'),
+                                    'name'        => "close_button",
+                                    'type'        => "checkbox",
+                                    'default'     => 1,
+                                    'priority'    => 70,
+                                    'description' => __('Display a close button.', 'notificationx'),
+                                ],
+                                'hide_on_mobile' => [
+                                    'label'       => __("Mobile Visibility", 'notificationx'),
+                                    'name'        => "hide_on_mobile",
+                                    'type'        => "checkbox",
+                                    'default'     => 1,
+                                    'priority'    => 200,
+                                    'description' => __('Hide NotificationX on mobile.', 'notificationx'),
+                                ],
+                            ]
+                        ],
+                        'animation' => [
+                            'label'  => __("Animation", 'notificationx'),
+                            'name'   => "animation",
+                            'type'   => "section",
+                            'fields' => [
+                                'animation_notification_show' => [
+                                    'label'    => __("Notification Show", 'notificationx'),
+                                    'name'     => "animation_notification_show",
+                                    'type'     => "select",
+                                    'default'  => 'default',
+                                    'classes'  => NotificationX::is_pro() ? '' : 'animation-pro-disabled',
+                                    'priority' => 5,
+                                    'options'  => [
+                                        'default' => [
+                                            'label'    => __('Default', 'notificationx'),
+                                            'value'    => 'default',
+                                            'selected' => 'selected',
+                                        ],
+                                        'animate__fadeIn' => [
+                                            'label'    => __('Fade In', 'notificationx'),
+                                            'value'    => 'animate__fadeIn',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__fadeInUp' => [
+                                            'label'    => __('Fade In Up', 'notificationx'),
+                                            'value'    => 'animate__fadeInUp',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__fadeInDown' => [
+                                            'label'    => __('Fade In Down', 'notificationx'),
+                                            'value'    => 'animate__fadeInDown',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__fadeInDownBig' => [
+                                            'label'    => __('Fade In Down Big', 'notificationx'),
+                                            'value'    => 'animate__fadeInDownBig',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__fadeInLeft' => [
+                                            'label'    => __('Fade In Left', 'notificationx'),
+                                            'value'    => 'animate__fadeInLeft',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__fadeInRight' => [
+                                            'label' => __('Fade In Right', 'notificationx'),
+                                            'value' => 'animate__fadeInRight',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__lightSpeedInLeft' => [
+                                            'label' => __('Light Speed In Left', 'notificationx'),
+                                            'value' => 'animate__lightSpeedInLeft',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__lightSpeedInRight' => [
+                                            'label' => __('Light Speed In Right', 'notificationx'),
+                                            'value' => 'animate__lightSpeedInRight',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__zoomIn' => [
+                                            'label' => __('Zoom In', 'notificationx'),
+                                            'value' => 'animate__zoomIn',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__slideInUp' => [
+                                            'label' => __('Slide In Up', 'notificationx'),
+                                            'value' => 'animate__slideInUp',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__slideInLeft' => [
+                                            'label' => __('Slide In Left', 'notificationx'),
+                                            'value' => 'animate__slideInLeft',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__slideInRight' => [
+                                            'label' => __('Slide In Right', 'notificationx'),
+                                            'value' => 'animate__slideInRight',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__slideInDown' => [
+                                            'label' => __('Slide In Down', 'notificationx'),
+                                            'value' => 'animate__slideInDown',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                    ],
+                                ],
+                                'animation_notification_hide' => [
+                                    'label'    => __("Notification Hide", 'notificationx'),
+                                    'name'     => "animation_notification_hide",
+                                    'type'     => "select",
+                                    'default'  => 'default',
+                                    'classes'  => NotificationX::is_pro() ? '' : 'animation-pro-disabled',
+                                    'priority' => 10,
+                                    'options'  => [
+                                        'default' => [
+                                            'label' => __('Default', 'notificationx'),
+                                            'value' => 'default',
+                                        ],
+                                        'animate__fadeOut' => [
+                                            'label'    => __('Fade Out', 'notificationx'),
+                                            'value'    => 'animate__fadeOut',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__fadeOutDown' => [
+                                            'label'    => __('Fade Out Down', 'notificationx'),
+                                            'value'    => 'animate__fadeOutDown',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__fadeOutRight' => [
+                                            'label'    => __('Fade Out Right', 'notificationx'),
+                                            'value'    => 'animate__fadeOutRight',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__fadeOutUp' => [
+                                            'label'    => __('Fade Out Up', 'notificationx'),
+                                            'value'    => 'animate__fadeOutUp',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__lightSpeedOutLeft' => [
+                                            'label'    => __('Light Speed Out Left', 'notificationx'),
+                                            'value'    => 'animate__lightSpeedOutLeft',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__zoomOut' => [
+                                            'label'    => __('Zoom Out', 'notificationx'),
+                                            'value'    => 'animate__zoomOut',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__slideOutDown' => [
+                                            'label'    => __('Slide Out Down', 'notificationx'),
+                                            'value'    => 'animate__slideOutDown',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__slideOutLeft' => [
+                                            'label'    => __('Slide Out Left', 'notificationx'),
+                                            'value'    => 'animate__slideOutLeft',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__slideOutRight' => [
+                                            'label'    => __('Slide Out Right', 'notificationx'),
+                                            'value'    => 'animate__slideOutRight',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'animate__slideOutUp' => [
+                                            'label'    => __('Slide Out Up', 'notificationx'),
+                                            'value'    => 'animate__slideOutUp',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                    ],
+                                ],
+                                // 'animation_notification_duration' => [
+                                //     'label'    => __("Duration", 'notificationx'),
+                                //     'name'     => "animation_notification_duration",
+                                //     'type'     => "select",
+                                //     'default'  => 'default',
+                                //     'priority' => 15,
+                                //     'options'  => [
+                                //         'default' => [
+                                //             'label' => __('Default', 'notificationx'),
+                                //             'value' => 'default',
+                                //         ],
+                                //         'animate__faster' => [
+                                //             'label'    => __('Faster', 'notificationx'),
+                                //             'value'    => 'animate__faster',
+                                //             'disabled' => NotificationX::is_pro() ? false : true,
+                                //         ],
+                                //         'animate__fast' => [
+                                //             'label'    => __('Fast', 'notificationx'),
+                                //             'value'    => 'animate__fast',
+                                //             'disabled' => NotificationX::is_pro() ? false : true,
+                                //         ],
+                                //     ],
+                                // ],
                             ]
                         ],
                         'queue_management' => [

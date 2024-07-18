@@ -9,6 +9,7 @@ import { Close } from "../themes/helpers";
 import Analytics, { analyticsOnClick } from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
 import nxHelper from "./functions";
+import { loadAssets } from "./LoadAssets";
 
 /**
  * @example
@@ -20,6 +21,9 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     let innerContent;
     // @todo isShortcode
     const isShortcode = false;
+    let elementorRef = useRef();
+    let gutenbergRef = useRef();
+    const frontendContext = useNotificationContext();
     const target = usePortal(`nx-bar-${position}`, position == 'top');
     const { config: settings, data: content } = nxBar;
     const [timeConfig, setTimeConfig] = useState<timeConfig>({ days: '00', hours: '00', minutes: '00', seconds: '00', expired: false });
@@ -27,8 +31,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     const [styles, setStyles] = useState<{ [key: string]: any }>({});
     const [closed, setClosed] = useState(false);
     const [isTimeBetween,setIsTimeBetween] = useState(false);
-    let elementorRef = useRef();
-    const frontendContext = useNotificationContext();
+    const [isLoading, setIsLoading] = useState(settings.is_gutenberg && settings.gutenberg_id);
 
     const consentCallback = useCallback( (event) => {
         setClosed(true);
@@ -82,13 +85,8 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         return { currentTime, expiredTime };
     }
 
-    useEffect(() => {
-        if (settings?.elementor_id && timeConfig.expired) {
-            setClosed(true);
-        }
-    }, [timeConfig.expired])
-
-    useEffect(() => {
+    const calcHeight = () => {
+        if(isLoading) return;
         let countdownInterval;
         if (settings?.enable_countdown) {
             countdownInterval = setInterval(function () {
@@ -101,7 +99,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         }
 
         // @ts-ignore
-        if (elementorRef?.current && elementorFrontend?.elementsHandler?.runReadyTrigger) {
+        if (elementorRef?.current && window.elementorFrontend?.elementsHandler?.runReadyTrigger) {
             // @ts-ignore
             const elements = elementorRef?.current?.getElementsByClassName('elementor-element');
             for (const element of elements) {
@@ -183,7 +181,88 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                 document.body.style.paddingBottom = null;
             }
         };
-    }, [])
+
+    };
+
+    useEffect(() => {
+        if (settings?.elementor_id && timeConfig.expired) {
+            setClosed(true);
+        }
+        else if (settings?.close_after_expire && timeConfig.expired) {
+            setClosed(true);
+        }
+    }, [timeConfig.expired])
+
+    useEffect(() => {
+        if (settings?.elementor_id && timeConfig.expired) {
+            setClosed(true);
+        }
+    }, [timeConfig.expired])
+
+    // useEffect(() => {
+    //     calcHeight();
+    // }, [])
+
+    useEffect(() => {
+        // event elementor/frontend/init
+        window.addEventListener('elementor/frontend/init', calcHeight);
+
+        return () => {
+            window.removeEventListener('elementor/frontend/init', calcHeight);
+        }
+    }, []);
+
+    useEffect(() => {
+        calcHeight();
+    }, [isLoading])
+
+    useEffect(() => {
+        if(!settings.is_gutenberg || !settings.gutenberg_id){
+            return;
+        }
+        setIsLoading(true);
+
+        let originalAddEventListener = document.addEventListener;
+
+        document.addEventListener = function(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions, ...args: any[]) {
+            if(type === 'DOMContentLoaded'){
+                // Do your custom stuff here
+                // check if the callback is a function
+                if (typeof listener === 'function') {
+                    // create a dummy Event object
+                    let event = new Event(args[0]);
+                    // call the callback function with the Event object
+                    listener(event);
+                } else if (typeof listener === 'object' && listener !== null && 'handleEvent' in listener) {
+                    // create a dummy Event object
+                    let event = new Event(args[0]);
+                    // call the handleEvent method of the callback object with the Event object
+                    listener.handleEvent(event);
+                }
+            }
+            originalAddEventListener.apply(document, [type, listener, options, ...args]);
+            
+        };
+
+        loadAssets(settings.gutenberg_url).then(() => {
+            if(originalAddEventListener){
+                document.addEventListener = originalAddEventListener;
+            }
+            originalAddEventListener = null;
+            setIsLoading(false);
+        });
+        // @ts-ignore
+        if( typeof window.ebRunCountDown === 'function' ) {
+            // @ts-ignore
+            ebRunCountDown();
+        }
+        return () => {
+            if(originalAddEventListener){
+                document.addEventListener = originalAddEventListener;
+            }
+            originalAddEventListener = null;
+        }
+    }, []);
 
 
     // debugger;
@@ -195,7 +274,16 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                 dangerouslySetInnerHTML={{ __html: content }}
             ></div>
         );
-    } else {
+    } else if (settings?.gutenberg_id) {
+        innerContent = (
+            <div
+                ref={gutenbergRef}
+                className="nx-bar-content-wrap"
+                dangerouslySetInnerHTML={{ __html: content }}
+            ></div>
+        );
+    }
+    else {
         innerContent = (
             <div className="nx-bar-content-wrap">
                 {settings?.enable_countdown && (
@@ -298,9 +386,10 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                     "nx-admin": isAdminBar(),
                     "nx-sticky-bar": settings?.sticky_bar,
                     "nx-bar-has-elementor": settings?.elementor_id,
+                    "nx-bar-has-gutenberg": settings?.gutenberg_id,
                 }
             )}
-            style={styles?.componentCSS}
+            style={{...styles?.componentCSS, display: isLoading ? 'none' : 'block'}}
         >
             <div className="nx-bar-inner">
                 {innerContent}
@@ -352,3 +441,4 @@ const countdown = ({ currentTime, expiredTime }) => {
 };
 
 export default Pressbar;
+

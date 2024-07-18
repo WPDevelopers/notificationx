@@ -33,10 +33,12 @@ class ExtensionFactory {
 			'edd_inline'                      => 'NotificationX\Extensions\EDD\EDDInline',
 			'tutor_inline'                    => 'NotificationX\Extensions\Tutor\TutorInline',
 			'learndash_inline'                => 'NotificationX\Extensions\LearnDash\LearnDashInline',
+			'learnpress_inline'               => 'NotificationX\Extensions\LearnPress\LearnPressInline',
 			'cf7'                             => 'NotificationX\Extensions\CF7\CF7',
 			'convertkit'                      => 'NotificationX\Extensions\ConvertKit\ConvertKit',
 			'custom_notification'             => 'NotificationX\Extensions\CustomNotification\CustomNotification',
 			'custom_notification_conversions' => 'NotificationX\Extensions\CustomNotification\CustomNotificationConversions',
+			'announcements'                   => 'NotificationX\Extensions\OfferAnnouncement\Announcements',
 			'edd'                             => 'NotificationX\Extensions\EDD\EDD',
 			'envato'                          => 'NotificationX\Extensions\Envato\Envato',
 			'freemius_conversions'            => 'NotificationX\Extensions\Freemius\FreemiusConversions',
@@ -47,6 +49,7 @@ class ExtensionFactory {
 			'google'                          => 'NotificationX\Extensions\Google_Analytics\Google_Analytics',
 			'google_reviews'                  => 'NotificationX\Extensions\Google\GoogleReviews',
 			'learndash'                       => 'NotificationX\Extensions\LearnDash\LearnDash',
+			'learnpress'                      => 'NotificationX\Extensions\LearnPress\LearnPress',
 			'mailchimp'                       => 'NotificationX\Extensions\MailChimp\MailChimp',
 			'njf'                             => 'NotificationX\Extensions\NJF\NinjaForms',
 			'press_bar'                       => 'NotificationX\Extensions\PressBar\PressBar',
@@ -54,6 +57,9 @@ class ExtensionFactory {
 			'wpf'                             => 'NotificationX\Extensions\WPF\WPForms',
 			'reviewx'                         => 'NotificationX\Extensions\ReviewX\ReviewX',
 			'woocommerce'                     => 'NotificationX\Extensions\WooCommerce\WooCommerce',
+			'woocommerce_sales'               => 'NotificationX\Extensions\WooCommerce\WooCommerceSales',
+			'woocommerce_sales_reviews'       => 'NotificationX\Extensions\WooCommerce\WooCommerceSalesReviews',
+			'woocommerce_sales_inline'       => 'NotificationX\Extensions\WooCommerce\WooCommerceSalesInline',
 			'woo_reviews'                     => 'NotificationX\Extensions\WooCommerce\WooReviews',
 			'wp_comments'                     => 'NotificationX\Extensions\WordPress\WPComments',
 			'wp_reviews'                      => 'NotificationX\Extensions\WordPress\WPOrgReview',
@@ -68,6 +74,7 @@ class ExtensionFactory {
 			'vimeo'                           => 'NotificationX\Extensions\Vimeo\Vimeo',
 			'wistia'                          => 'NotificationX\Extensions\Wistia\Wistia',
 			'surecart'                        => 'NotificationX\Extensions\SureCart\SureCart',
+			'ActiveCampaign'									=> 'NotificationX\Extensions\ActiveCampaign\ActiveCampaign',
 		];
 
 	/**

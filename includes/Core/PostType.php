@@ -325,6 +325,9 @@ class PostType {
         }
 
         $enabled_source = $this->get_enabled_source();
+        if ( $source == 'press_bar' && ( isset( $enabled_source['press_bar'] ) && count( $enabled_source['press_bar'] ) ) ) {
+            $return = false;
+        }
         unset( $enabled_source['press_bar'] );
         if ( $source !== 'press_bar' && count( $enabled_source ) == 0 ) {
             $return = true;
@@ -354,6 +357,40 @@ class PostType {
         );
 
         return ! empty( $posts[0] ) ? $posts[0] : null;
+    }
+
+    public function __get_posts( $posts , $select = '') {
+        foreach ( $posts as $key => $value ) {
+            $value = get_object_vars($value);
+            if ( ! empty( $value['data'] ) ) {
+                $data                  = maybe_unserialize( $value['data'] );
+                $value                 = array_merge( $data, $value );
+                $value['enabled']      = (bool) $value['enabled'];
+                $value['global_queue'] = (bool) $value['global_queue'];
+                unset( $value['data'] );
+            }
+            // @todo maybe remove if there is another better way.
+            if ( '*' === $select ) {
+                $value = NotificationX::get_instance()->normalize_post( $value );
+            }
+            if ( ! empty( $value['source'] ) ) {
+                $value = apply_filters( "nx_get_post_{$value['source']}", $value, $this->context );
+            }
+            $posts[ $key ] = apply_filters( 'nx_get_post', $value, $this->context );
+            $source                          = $value['source'];
+            $posts[ $key ]['can_regenerate'] = false;
+            $extension                       = ExtensionFactory::get_instance()->get( $source );
+            $posts[ $key ]['source_label']   = $extension->title;
+            if ( ! empty( $extension ) && method_exists( $extension, 'get_notification_ready' ) && $extension->is_active( false ) ) {
+                $posts[ $key ]['can_regenerate'] = true;
+            }
+            if ( ! empty( $extension ) && $extension->get_type() ) {
+                $type                        = $extension->get_type();
+                $posts[ $key ]['type_label'] = $type->dashboard_title ?: $type->title;
+            }
+        }
+        $posts = apply_filters( 'nx_get_posts', $posts, $this->context );
+        return $posts;
     }
 
     public function get_posts( $wheres = [], $select = '*', $join_table = '', $group_by_col = '', $join_type = 'LEFT JOIN', $extra_query = '' ) {
@@ -433,6 +470,11 @@ class PostType {
                 }
             }
             $post['preview'] = apply_filters( "nx_theme_preview_{$post['source']}", $url, $post );
+        }
+        // Disable animation options if NX Pro not exists
+        if ( !NotificationX::is_pro() ) {
+            $post['animation_notification_show']     = 'default';
+            $post['animation_notification_hide']     = 'default';
         }
 
         return $post;

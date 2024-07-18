@@ -6,6 +6,10 @@ const notificationXReducer = (state: any, action: any) => {
             return {...state, common: { ...state.common, [action.payload.field]: action.payload.value }};
         case 'SET_REDIRECT':
             return { ...state, redirect: { ...state.redirect, ...action.payload } }
+        case 'SET_RESET':
+            return { ...state, analytics: { ...state.analytics, ...action.payload } }
+        case 'SET_CSV_UPLOAD_LOADER':
+            return { ...state, csv_upload_loader: { ...state.csv_upload_loader, ...action.payload } }
     }
 }
 

@@ -11,6 +11,7 @@ namespace NotificationX\FrontEnd;
 use NotificationX\Admin\Entries;
 use NotificationX\Admin\Settings;
 use NotificationX\Core\Analytics;
+use NotificationX\Core\Database;
 use NotificationX\Core\GetData;
 use NotificationX\NotificationX;
 use NotificationX\Core\Locations;
@@ -19,6 +20,7 @@ use NotificationX\Core\REST;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\PressBar\PressBar;
 use NotificationX\Core\Helper;
+use NotificationX\Extensions\ExtensionFactory;
 
 /**
  * This class is responsible for all Front-End actions.
@@ -73,7 +75,7 @@ class FrontEnd {
      * @return void
      */
     public function enqueue_scripts() {
-
+        $custom_css = $this->generate_custom_css();
         wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), [], NOTIFICATIONX_VERSION, false);
         wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], NOTIFICATIONX_VERSION, 'all');
         // wp_register_style('notificationx-icon-pack', Helper::file('public/icon/style.css', true), [], NOTIFICATIONX_VERSION, 'all');
@@ -113,11 +115,27 @@ class FrontEnd {
                 wp_enqueue_script('notificationx-public');
                 wp_enqueue_style('dashicons');
                 do_action('notificationx_scripts', $this->notificationXArr);
+                wp_add_inline_style( 'notificationx-public', $custom_css );
             }
         } else {
             // @todo maybe elementor edit mode CSS. to move to top.
             // LATER
         }
+    }
+
+    public function generate_custom_css() {
+        $posts     = Database::get_instance()->get_posts(Database::$table_posts, 'data', ['enabled' => true] );
+        $combine_css = "";
+        foreach ($posts as $post) {
+            if( !empty( $post['data']['add_custom_css'] ) && !empty( $post['data']['id'] ) ) {
+                if( !empty( $post['data']['source'] ) && $post['data']['source'] == 'press_bar' ) {
+                    $combine_css .= " #nx-bar-{$post['data']['id']} { {$post['data']['add_custom_css']} } ";
+                }else{
+                    $combine_css .= " .notificationx-{$post['data']['id']} { {$post['data']['add_custom_css']} } ";
+                }
+            }
+        }
+        return $combine_css;
     }
 
     public function footer_scripts() {
@@ -146,9 +164,10 @@ class FrontEnd {
         $data['gmt_offset'] = get_option('gmt_offset');
         $data['lang']       = get_locale();
         $data['extra']      = [
-            'query'      => $GLOBALS['wp_query']->query,
-            'queried_id' => get_queried_object_id(),
-            'pid'        => !empty($GLOBALS['post']->ID) ? $GLOBALS['post']->ID : 0,
+            'is_singular' => is_singular(),
+            'query'       => $GLOBALS['wp_query']->query,
+            'queried_id'  => get_queried_object_id(),
+            'pid'         => !empty($GLOBALS['post']->ID) ? $GLOBALS['post']->ID : 0,
         ];
         $data['localeData'] = load_script_textdomain('notificationx-public', 'notificationx');
         return $data;
@@ -246,7 +265,7 @@ class FrontEnd {
                     }
                     $result['shortcode'][$nx_id]['entries'][] = $entry;
                     $settings['position']                       = $position;
-                    if ($settings['show_on'] === 'only_shortcode' || 'inline' === $settings['type']) {
+                    if ($settings['show_on'] === 'only_shortcode' || 'inline' === $settings['type'] || 'woocommerce_sales_inline' == $settings['source']) {
                         continue;
                     }
                     if (empty($global) && empty($active)) {
@@ -295,7 +314,7 @@ class FrontEnd {
                 if (!empty($settings['button_url']) && strpos($settings['button_url'], '//') === false) {
                     $settings['button_url'] = "//{$settings['button_url']}";
                 }
-                $bar_content = $this->get_bar_content($settings);
+                $bar_content = $this->get_bar_content($settings, false, $params);
                 if ($bar_content !== '&nbsp;' || !empty($settings['enable_countdown'])) {
                     $settings = apply_filters('nx_filtered_post', $settings, $params);
                     $result['pressbar'][$_nx_id]['post']    = $settings;
@@ -348,6 +367,16 @@ class FrontEnd {
             // \setcookie("notificationx_{$settings['nx_id']}", null);
             // }
             // }
+
+            /**
+             * Check if it's a pro source and pro plugin is disabled.
+             */
+            if(!NotificationX::is_pro()){
+                $ext = ExtensionFactory::get_instance()->get($settings['source']);
+                if($ext && $ext->is_pro){
+                    continue;
+                }
+            }
 
             $countdown_rand = !empty($settings['countdown_rand']) ? "-{$settings['countdown_rand']}" : '';
 
@@ -479,6 +508,17 @@ class FrontEnd {
             if (!empty($value['hide_on_mobile']) && wp_is_mobile()) {
                 continue;
             }
+
+            /**
+             * Check if it's a pro source and pro plugin is disabled.
+             */
+            if(!NotificationX::is_pro()){
+                $ext = ExtensionFactory::get_instance()->get($value['source']);
+                if($ext && $ext->is_pro){
+                    continue;
+                }
+            }
+
             $results[$value['nx_id']] = $value;
         }
         return $results;
@@ -614,14 +654,14 @@ class FrontEnd {
      */
     public function filtered_data($entries, $post, $params) {
         if (is_array($entries) && (!defined('NX_DEBUG') || !NX_DEBUG)) {
-            if (!empty($post['display_last']) && !in_array($post['source'], ['google', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'google_reviews', 'youtube'])) {
+            if (!empty($post['display_last']) && !in_array($post['source'], ['google', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'google_reviews', 'youtube','woocommerce_sales_inline'])) {
                 $entries = array_slice($entries, 0, $post['display_last']);
             }
             foreach ($entries as $index => $entry) {
                 $_entry = apply_filters("nx_frontend_keep_entry_{$post['source']}", [
                     'nx_id'      => $entry['nx_id'],
                     'timestamp'  => isset($entry['timestamp']) ? $entry['timestamp'] : Helper::current_timestamp($entry['updated_at']),
-                    'updated_at' => $entry['updated_at'],
+                    'updated_at' => isset( $entry['updated_at'] ) ? $entry['updated_at'] : '',
                     'image_data' => $entry['image_data'],
                     'link'       => $entry['link'],
                 ], $entry, $post, $params);
@@ -743,10 +783,10 @@ class FrontEnd {
         return $post;
     }
 
-    public function get_bar_content($settings, $suppress_filters = false){
+    public function get_bar_content($settings, $suppress_filters = false, $params = []){
         $bar_content  = PressBar::get_instance()->print_bar_notice($settings);
         if(!$suppress_filters){
-            $bar_content  = apply_filters("nx_filtered_data_{$settings['source']}", $bar_content, $settings);
+            $bar_content  = apply_filters("nx_filtered_data_{$settings['source']}", $bar_content, $settings, $params);
         }
 
         // checking if content is empty
