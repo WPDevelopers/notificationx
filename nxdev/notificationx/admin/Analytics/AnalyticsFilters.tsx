@@ -25,7 +25,7 @@ export const comparisonOptions = {
     },
 };
 
-const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
+const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions, isDashboard }) => {
     const settings: any = __experimentalGetSettings();
     const builderContext = useNotificationXContext();
 
@@ -171,14 +171,16 @@ const AnalyticsFilters = ({ posts, filterOptions, setFilterOptions }) => {
         let comparison = filterOptions?.comparison.map((option) => option.value).join(',');
 
 
-        builderContext.setRedirect({
-            page      : `nx-analytics`,
-            startDate : moment(filterOptions?.startDate).unix(),
-            endDate   : moment(filterOptions?.endDate).unix(),
-            nx        : nx,
-            comparison: comparison,
-        });
-
+        if( !isDashboard ) {
+            builderContext.setRedirect({
+                page      : `nx-analytics`,
+                startDate : moment(filterOptions?.startDate).unix(),
+                endDate   : moment(filterOptions?.endDate).unix(),
+                nx        : nx,
+                comparison: comparison,
+            });    
+        }
+        
     }, [filterOptions])
 
     return (

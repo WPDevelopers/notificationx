@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Fragment, Suspense, useEffect, useState } from "react";
 import {
     AnalyticsFilters,
     AnalyticsHeader,
@@ -23,7 +23,7 @@ const Chart = lazyWithPreload(() => import("react-apexcharts"));
 // import Chart from "react-apexcharts";
 // const Chart = lazy(() => import('react-apexcharts'));
 
-const Analytics = (props) => {
+const Analytics = ( { isDashboard = false } ) => {
     const settings: any = __experimentalGetSettings();
     const builderContext = useNotificationXContext();
     const [isLoading, setIsLoading] = useState(false);
@@ -71,6 +71,7 @@ const Analytics = (props) => {
     });
 
     useEffect(() => {
+
         if(builderContext?.analyticsRedirect){
             builderContext.setRedirect({
                 page  : `nx-admin`,
@@ -232,16 +233,21 @@ const Analytics = (props) => {
 
     return (
         <div>
-            <Header addNew={true} />
-            <AnalyticsHeader
-                assetsURL={builderContext.assets}
-            />
+            { !isDashboard &&
+                <Fragment>
+                    <Header addNew={true} />
+                    <AnalyticsHeader
+                        assetsURL={builderContext.assets}
+                    />
+                </Fragment>
+            }
             {builderContext?.is_pro_active && (
                 <WrapperWithLoader isLoading={isLoading} div={false}>
                     <AnalyticsFilters
                         posts={posts}
                         filterOptions={filterOptions}
                         setFilterOptions={setFilterOptions}
+                        isDashboard={isDashboard}
                     />
                     <div className="nx-analytics-graph-wrapper">
                         <Suspense fallback={<div>Loading...</div>}>

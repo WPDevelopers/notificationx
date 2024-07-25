@@ -842,7 +842,17 @@ img {
             height: 44px;
             aspect-ratio: 1;
         }
+        .nx-dashboard-floating-actions {
+            position: absolute;
+            bottom: 100%;
+            width: 200px;
+            ul li a{
+                margin-bottom: 20px;
+                padding: 5px 10px;
+            }
+        }
     }
+
 }
 
 @media only screen and (max-width: 1280px) {
