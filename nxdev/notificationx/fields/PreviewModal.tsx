@@ -106,6 +106,7 @@ const PreviewModal = (props) => {
                 isOpen={isOpen}
                 onAfterOpen={onAfterOpen}
                 onRequestClose={() => setIsOpen(false)}
+                overlayClassName={`nx-template-preview`}
                 style={{
                     overlay: {
                         position: "fixed",

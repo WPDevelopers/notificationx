@@ -240,8 +240,8 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                     listener.handleEvent(event);
                 }
             }
-
             originalAddEventListener.apply(document, [type, listener, options, ...args]);
+            
         };
 
         loadAssets(settings.gutenberg_url).then(() => {
@@ -251,7 +251,11 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
             originalAddEventListener = null;
             setIsLoading(false);
         });
-
+        // @ts-ignore
+        if( typeof window.ebRunCountDown === 'function' ) {
+            // @ts-ignore
+            ebRunCountDown();
+        }
         return () => {
             if(originalAddEventListener){
                 document.addEventListener = originalAddEventListener;

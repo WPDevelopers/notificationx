@@ -57,6 +57,11 @@ body {
     // newAdmin
     @import "./nx_new/new_admin";
 
+    a:focus {
+        outline: 0;
+        box-shadow: none;
+    }
+
     .pressbar-gutenberg-theme-popup {
         .swal2-actions {
             gap: 12px;

@@ -421,6 +421,26 @@ class GlobalFields {
                                         ],
                                     ]
                                 ],
+                                "custom_css" => [
+                                    'label'    => __('Custom CSS', 'notificationx'),
+                                    'name'     => "custom_css",
+                                    'type'     => "section",
+                                    'priority' => 16,
+                                    'rules'    => Rules::is( 'advance_edit', true ),
+                                    'fields'   => [
+                                        [
+                                            'label'       => __('Add Custom CSS', 'notificationx'),
+                                            'name'        => "add_custom_css",
+                                            'type'        => "codeviewer",
+                                            'button_text'  => __( 'Click to Copy', 'notificationx' ),
+                                            'success_text' => __( 'Copied to clipboard.', 'notificationx' ),
+                                            'is_pro'       => true,
+                                            'copyOnClick'  => false,
+                                            'priority' => 5,
+                                            'help'         => __('Use custom CSS to style this Notification.', 'notificationx'),
+                                        ],
+                                    ]
+                                ],
                             ]
                         ]
                     ])

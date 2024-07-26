@@ -27,7 +27,7 @@ class LearnPress extends Extension {
 
     public $priority        = 11;
     public $id              = 'learnpress';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/learnPress.png';
+    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/learnpress.png';
     public $doc_link        = 'https://notificationx.com/docs/tutor-lms/';
     public $types           = 'elearning';
     public $module          = 'modules_learnpress';

@@ -234,7 +234,11 @@ const SingleNotificationAction = ({
             confirmButtonText: __("Reset", "notificationx"),
             cancelButtonText: __("Cancel", "notificationx"),
             reverseButtons: true,
-            customClass: { actions: "nx-delete-actions" },
+            customClass: {
+                container: 'nx-reset-analytics-container',
+                popup: 'nx-reset-analytics-popup',
+                actions: "nx-delete-actions nx-reset-analytics-action",
+            },
             confirmedCallback: () => {
                 return nxHelper.get(`reset/${id}`, { nx_id: id });
             },

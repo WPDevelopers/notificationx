@@ -138,6 +138,9 @@ const Notification = (props) => {
                 setAnimation(false);
             }, 500 )
         }
+        // return () => {
+        //     handlePauseTimer();
+        // };
     }, [width]);
 
     const audioRef = useRef(null);
@@ -151,6 +154,9 @@ const Notification = (props) => {
             }).catch(err => console.error("NX SoundError: ", err))
         }
         handleStartTimer();
+        return () => {
+            handlePauseTimer();
+        };
     }, []);
 
     const themeName = getThemeName(settings);

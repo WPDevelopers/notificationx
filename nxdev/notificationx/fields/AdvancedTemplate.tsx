@@ -79,6 +79,8 @@ const AdvancedTemplate = (props) => {
         let templateIndex = props.parentIndex;
         templateIndex = [...templateIndex, templateIndex.pop() - 1];
         field[0].menuOpen = true;
+        console.log('field-adv',field);
+        
         builderContext.setFormField(templateIndex, field);
 
         let options = field

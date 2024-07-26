@@ -57,6 +57,13 @@ const useNotificationX = ( props ) => {
         });
     };
 
+    const setCSVUploaderLoader = ({ csv_upload_loader } ) => {
+        dispatch({
+            type: 'SET_CSV_UPLOAD_LOADER',
+            payload: { csv_upload_loader }
+        });
+    };
+
     const getOptions = useCallback(
         ( name ) => {
             return state.common?.[name];
@@ -77,6 +84,7 @@ const useNotificationX = ( props ) => {
         dispatch,
         setRedirect,
         setReset,
+        setCSVUploaderLoader,
         getSettings: getSettings,
         setOptions: setOptions,
         getOptions: getOptions,

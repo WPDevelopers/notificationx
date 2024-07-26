@@ -36,7 +36,7 @@ class NotificationXHelpers {
         args = { path, method: "GET", ...args };
         return apiFetch(args)
             .then((res) => res)
-            .catch((err) => console.error(err));
+            .catch((err) => {});
     };
     // getData: (args) => {
     //     apiFetch({
@@ -220,6 +220,50 @@ export const assetsURL = (path = "", admin = true) => {
     } else {
         return builderContext.assets.public + path;
     }
+};
+
+export const chunkArray = (array, chunkSize) => {
+    const result = [];
+    for (let i = 0; i < array.length; i += chunkSize) {
+        result.push(array.slice(i, i + chunkSize));
+    }
+    return result;
+};
+
+export const dateConvertToHumanReadable = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    // @ts-ignore 
+    return new Date(dateString).toLocaleDateString(undefined, options);
+};
+
+export const checkCSVItems = (csvUrl: string): Promise<number> => {
+    return new Promise((resolve, reject) => {
+        // Ensure the URL is using HTTPS if the current page is HTTPS
+        const url = new URL(csvUrl, window.location.href);
+        if (window.location.protocol === 'https:' && url.protocol !== 'https:') {
+            url.protocol = 'https:';
+        }
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url.toString(), true);
+        xhr.responseType = 'blob';
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                const fileReader = new FileReader();
+                fileReader.onload = function(event) {
+                    const csvContent = event.target?.result as string;
+                    const rows = csvContent.split('\n');
+                    resolve(rows.length);
+                };
+                fileReader.onerror = () => reject(new Error('Error reading CSV file.'));
+                fileReader.readAsText(xhr.response);
+            } else {
+                reject(new Error('Error fetching CSV file.'));
+            }
+        };
+        xhr.onerror = () => reject(new Error('Error fetching CSV file.'));
+        xhr.send();
+    });
 };
 
 export default nxHelper;
