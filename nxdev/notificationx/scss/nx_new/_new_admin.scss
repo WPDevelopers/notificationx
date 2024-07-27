@@ -1,28 +1,29 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-a {
-    text-decoration: none;
-    display: inline-flex;
-}
-
-a:focus {
-    box-shadow: none;
-    outline: 0;
-}
-
-button {
-    cursor: pointer;
-}
-
-img {
-    max-width: 100%;
-}
-
 .nx-admin-wrapper {
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    a {
+        text-decoration: none;
+        display: inline-flex;
+    }
+
+    a:focus {
+        box-shadow: none;
+        outline: 0;
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
     // padding: 20px 32px;
     background: #F6F7FE;
     display: flex;
@@ -85,7 +86,7 @@ img {
             font-size: 16px;
             font-weight: 500;
             border-radius: 8px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
@@ -95,7 +96,6 @@ img {
 
             &:hover {
                 background-color: #5414d0;
-                box-shadow: 0 15px 25px -5px rgba(86, 20, 213, 0.3);
             }
         }
 
@@ -128,8 +128,7 @@ img {
             font-weight: 500;
             line-height: 18px;
             color: #6A4BFF;
-            display: inline-flex;
-            align-items: center;
+            display: flex;
             gap: 2px;
         }
     }
@@ -681,6 +680,7 @@ img {
         }
 
 
+
         .nx-resource-stories-wrapper {
             display: flex;
             flex-direction: column;
@@ -794,6 +794,18 @@ img {
             border: 1px solid #F0F6FF;
             border-radius: 12px;
 
+            &:first-child {
+                padding: 0;
+                background: linear-gradient(238.66deg, #ECE8FC 0%, #FFFFFF 57.84%);
+            }
+
+            .nx-docs-content-items:first-child {
+                padding: 32px;
+                background: url(http://localhost:10013/wp-content/plugins/notificationx/assets/admin/images/new-img/show-love.png);
+                background-repeat: no-repeat;
+                background-position: top right;
+            }
+
             .img-wrap {
                 width: 56px;
                 height: 56px;
@@ -842,11 +854,13 @@ img {
             height: 44px;
             aspect-ratio: 1;
         }
+
         .nx-dashboard-floating-actions {
             position: absolute;
             bottom: 100%;
             width: 200px;
-            ul li a{
+
+            ul li a {
                 margin-bottom: 20px;
                 padding: 5px 10px;
             }
@@ -973,6 +987,13 @@ img {
 
     .nx-admin-wrapper .nx-more-docs-wrapper .nx-docs-content-wrapper {
         padding: 20px;
+
+        .nx-docs-content-items {
+            padding: 20px;
+            background: url(http://localhost:10013/wp-content/plugins/notificationx/assets/admin/images/new-img/show-love.png);
+            background-repeat: no-repeat;
+            background-position: top right;
+        }
     }
 
     .nx-admin-wrapper .nx-more-docs-wrapper .nx-docs-content-wrapper h3 {
