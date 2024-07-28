@@ -8,7 +8,7 @@ import usePortal from "../hooks/usePortal";
 import { Close } from "../themes/helpers";
 import Analytics, { analyticsOnClick } from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
-import nxHelper from "./functions";
+import nxHelper, { addParentSelectorToCSS } from "./functions";
 import { loadAssets } from "./LoadAssets";
 
 /**
@@ -259,15 +259,14 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
             originalAddEventListener = null;
         }
     }, []);
-
-
+    
     // debugger;
     if (settings?.elementor_id) {
         innerContent = (
             <div
                 ref={elementorRef}
                 className="nx-bar-content-wrap"
-                dangerouslySetInnerHTML={{ __html: content }}
+                dangerouslySetInnerHTML={{ __html: addParentSelectorToCSS(content) }}
             ></div>
         );
     } else if (settings?.gutenberg_id) {

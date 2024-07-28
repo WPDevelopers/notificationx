@@ -6,6 +6,23 @@ export const isObject = (obj) => {
     return obj !== null && typeof obj === 'object' && !isArray(obj)
 }
 
+export function addParentSelectorToCSS(htmlContent) {
+    let tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlContent;
+    let styleElements = tempDiv.querySelectorAll('style');
+    if( styleElements?.length > 0 ) {
+        let section =  tempDiv.querySelector('section[data-id]');
+        let dataId = section.getAttribute('data-id');
+        let parentSelector = `.elementor-element-${dataId}`;
+        styleElements.forEach(styleElement => {
+            let cssText = styleElement.innerHTML;
+            cssText = cssText.replace(/([^\r\n,{}]+)(\s*\{)/g, `${parentSelector} $1$2`);
+            styleElement.innerHTML = cssText;
+        });
+        return tempDiv.innerHTML;
+    }
+    return htmlContent;
+}
 
 export const getThemeName = (settings) => {
     let themeName = settings.themes.replace(settings.source + "_", "");
