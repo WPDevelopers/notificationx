@@ -325,13 +325,13 @@
 
 
                 thead {
-                    background: #F6F7FE;
+                    background: transparent;
 
                     td {
                         font-size: 16px;
                         line-height: 24px;
                         color: #7C8DB5;
-                        background-color: transparent;
+                        background-color: #F6F7FE;
                         height: auto;
                         padding: 18px 20px;
 
@@ -341,6 +341,10 @@
                             &:nth-child(2) {
                                 width: 180px;
                             }
+                        }
+
+                        &:nth-child(2) {
+                            border-radius: 4px 0 0 0;
                         }
 
                         &:nth-child(1) {
@@ -361,6 +365,7 @@
 
                         &:last-child {
                             width: 70px;
+                            border-radius: 0 4px 0 0;
                         }
                     }
                 }
@@ -368,17 +373,23 @@
                 tbody {
 
                     tr {
-                        background: #F6F7FE;
+                        background: transparent;
 
-                        &:last-child {
-                            border-radius: 0 0 5px 5px;
+                        &:last-child td {
+                            &:nth-child(2) {
+                                border-radius: 0 0 0 4px;
+                            }
+
+                            &:last-child {
+                                border-radius: 0 0 4px 0;
+                            }
                         }
 
                         td {
                             font-size: 16px;
                             line-height: 24px;
                             color: #092161;
-                            background-color: transparent;
+                            background-color: #F6F7FE;
                             padding: 16px 20px;
 
                             @media only screen and (max-width: 1600px) {
@@ -445,7 +456,7 @@
                                 }
 
                                 .nx-admin-actions-lists {
-                                    left: 7px;
+                                    left: 18px;
                                 }
                             }
                         }
@@ -531,8 +542,12 @@
             }
 
             .nx-analytics-filter-wrapper {
+                margin-bottom: 24px;
+
                 .nx-analytics-filter {
                     gap: 12px;
+                    margin: 0;
+                    padding: 0;
 
                     .nx-analytic-select-wrapper {
                         width: 100%;
@@ -540,6 +555,33 @@
                         max-width: 300px;
                         margin: 0;
                         padding: 0;
+
+                        .analytics-select__control {
+                            min-height: 42px;
+                            padding: 0px 0px 0px 12px;
+
+                            .analytics-select__value-container {
+                                gap: 4px;
+
+                                .analytics-select__multi-value {
+                                    background: rgba(106, 75, 255, 0.1);
+                                    border: 1px solid rgba(106, 75, 255, 0.02);
+                                    border-radius: 30px;
+                                    padding-left: 0;
+                                    padding-right: 0;
+                                    margin: 0;
+
+                                    .analytics-select__multi-value__label {
+                                        padding: 2px 6px;
+                                    }
+
+                                    .analytics-select__multi-value__remove {
+                                        padding-left: 0;
+                                    }
+
+                                }
+                            }
+                        }
 
                         .analytics-select__control:focus-within {
                             border-color: #e6effb;
@@ -555,16 +597,28 @@
                                 padding: 6px 8px !important;
                             }
                         }
+                    }
 
-                        .wprf-control-wrapper {
-                            margin: 0;
-                            padding: 0;
-
-                            >* {
-                                margin: 0;
-                                padding: 0;
+                    .wprf-control-wrapper {
+                        .wprf-control-field {
+                            .components-button {
+                                min-height: 42px;
+                                box-sizing: border-box;
+                                padding: 4px 18px;
+                                border: 1.5px solid #e6effb;
+                                border-radius: 5px;
+                                background: #fff;
+                                font-size: 14px;
+                                font-weight: 500;
+                                color: #6a4bff;
+                                cursor: pointer;
                             }
                         }
+                    }
+
+                    >* {
+                        margin: 0;
+                        padding: 0;
                     }
                 }
             }
@@ -692,6 +746,8 @@
                         transition: ease-in-out .25s;
                         fill: #ADA6D6;
                         color: #ADA6D6;
+                        font-size: 16px;
+
                     }
 
                     &:hover {
@@ -941,25 +997,45 @@
 
     .nx-admin-wrapper .nx-analytics-wrapper {
         gap: 20px;
+
+        .nx-analytics-content-wrapper {
+            gap: 10px;
+            padding: 20px;
+
+            img {
+                padding: 10px 10px;
+                height: 50px;
+            }
+
+            .analytics-counter {
+
+                span.nx-counter-label {
+                    font-size: 16px;
+                    line-height: 18px;
+                    padding-bottom: 8px;
+                }
+
+                h3.nx-counter-number {
+                    font-size: 22px;
+                    line-height: 26px;
+                }
+            }
+        }
     }
 
-    .nx-admin-wrapper .nx-analytics-wrapper .nx-analytics-content-wrapper {
-        gap: 12px;
-        padding: 20px;
+    .nx-admin-wrapper .nx-notifications-wrapper .nx-admin-items .nx-list-table-wrapper thead td {
+        font-size: 14px;
+        line-height: 20px;
+        padding: 12px 16px;
     }
 
-    .nx-admin-wrapper .nx-analytics-wrapper .nx-analytics-content-wrapper .analytics-counter span.nx-counter-label {
-        font-size: 18px;
-        line-height: 18px;
-        padding-bottom: 8px;
+    .nx-admin-wrapper .nx-notifications-wrapper .nx-admin-items .nx-list-table-wrapper tbody tr td {
+        font-size: 14px;
+        line-height: 20px;
+        padding: 12px 16px;
     }
 
-    .nx-admin-wrapper .nx-analytics-wrapper .nx-analytics-content-wrapper .analytics-counter h3.nx-counter-number {
-        font-size: 24px;
-        line-height: 26px;
-    }
-
-    .nx-admin-wrapper .nx-admin-content-wrapper {
+    .nx-admin-wrapper .nx-analytics-wrapper .nx-analytics-content-wrapper .nx-admin-wrapper .nx-analytics-wrapper .nx-analytics-content-wrapper .analytics-counter .nx-admin-wrapper .nx-admin-content-wrapper {
         padding: 16px;
     }
 
@@ -990,6 +1066,11 @@
     }
 
     .nx-admin-wrapper .nx-analytics-integration-wrapper {
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .nx-admin-wrapper .nx-analytics-integration-wrapper {
         gap: 24px;
     }
 
@@ -1012,11 +1093,21 @@
 
     .nx-admin-wrapper .nx-other-details-wrapper .nx-resource-stories-wrapper {
         gap: 24px;
+
+        .nx-resource-wrapper {
+            .nx-resource-body {
+                .nx-resource-content {
+                    p {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
     }
 
     .nx-admin-wrapper .nx-other-details-wrapper .nx-resource-stories-wrapper .nx-stories-wrapper .nx-stories-body {
         gap: 16px;
-        flex-wrap: wrap;
+        flex-direction: column;
     }
 
     .nx-admin-wrapper .nx-more-docs-wrapper {
@@ -1048,6 +1139,14 @@
     }
 }
 
+
+@media only screen and (max-width: 1024px) {
+    .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
 @media only screen and (max-width: 768px) {
     .nx-started-wrapper {
         flex-wrap: wrap;
@@ -1069,11 +1168,6 @@
     .nx-admin-wrapper .nx-analytics-wrapper {
         gap: 16px;
         display: grid;
-    }
-
-    .nx-admin-wrapper .nx-analytics-integration-wrapper {
-        gap: 16px;
-        flex-wrap: wrap;
     }
 
     .nx-admin-wrapper .nx-other-details-wrapper {
