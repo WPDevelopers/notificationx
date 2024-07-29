@@ -531,19 +531,39 @@
             }
 
             .nx-analytics-filter-wrapper {
-                .nx-analytics-filter .nx-analytic-select-wrapper {
-                    .analytics-select__control:focus-within {
-                        border-color: #e6effb;
-                    }
+                .nx-analytics-filter {
+                    gap: 12px;
 
-                    .analytics-select__menu {
-                        z-index: 999;
-                        border-radius: 0;
-                        margin-top: 10px;
-                        border-radius: 5px;
+                    .nx-analytic-select-wrapper {
+                        width: 100%;
+                        min-width: 300px;
+                        max-width: 300px;
+                        margin: 0;
+                        padding: 0;
 
-                        option {
-                            padding: 6px 8px !important;
+                        .analytics-select__control:focus-within {
+                            border-color: #e6effb;
+                        }
+
+                        .analytics-select__menu {
+                            z-index: 999;
+                            border-radius: 0;
+                            margin-top: 10px;
+                            border-radius: 5px;
+
+                            option {
+                                padding: 6px 8px !important;
+                            }
+                        }
+
+                        .wprf-control-wrapper {
+                            margin: 0;
+                            padding: 0;
+
+                            >* {
+                                margin: 0;
+                                padding: 0;
+                            }
                         }
                     }
                 }
