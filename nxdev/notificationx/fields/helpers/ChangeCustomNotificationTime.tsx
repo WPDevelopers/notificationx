@@ -13,7 +13,12 @@ const ChangeCustomNotificationTime = ( { handleChangeTime, setChangeTimeToggle }
     const day = moment().toISOString();
 
     const handleDateChange = (value, type) => {
-        const selectedDate = moment(value?.target?.value).startOf('day');
+        let selectedDate = moment(value?.target?.value).startOf('day');
+        const currentDate = moment().startOf('day');        
+        if (selectedDate.isAfter(currentDate)) {
+            selectedDate = currentDate;
+        }
+
         if (type === 'start') {
             setStartDate(selectedDate.toISOString());
         } else if (type === 'end') {
