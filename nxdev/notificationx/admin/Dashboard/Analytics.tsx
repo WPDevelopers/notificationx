@@ -5,7 +5,7 @@ import Analytics from "../Analytics/Analytics";
 const AnalyticsDashboard = (props) => {
     return (
         <div className='nx-analytics-integration-wrapper'>
-            <div className='nx-analytics-graph-wrapper nx-admin-content-wrapper'>
+            <div className='nx-analytics-graph-main-wrapper nx-admin-content-wrapper'>
                 <Analytics isDashboard={true} />
             </div>
             <div className='nx-integration-wrapper nx-admin-content-wrapper'>

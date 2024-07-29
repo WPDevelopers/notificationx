@@ -1,10 +1,8 @@
 .nx-admin-wrapper {
 
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 
     a {
         text-decoration: none;
@@ -116,11 +114,21 @@
             box-sizing: border-box;
             transition: 0.3s ease-in-out;
 
-            // &:hover {
-            //     background-color: #6A4BFF;
-            //     color: #FFFFFF;
-            //     border: 1px solid #6A4BFF;
-            // }
+
+            svg path {
+                transition: 0.3s ease-in-out;
+            }
+
+            &:hover {
+                background-color: #5414d0;
+                color: #FFFFFF;
+                border: 1px solid #5414d0;
+                box-shadow: 0 15px 25px -5px rgba(86, 20, 213, 0.3);
+
+                svg path {
+                    stroke: #FFFFFF;
+                }
+            }
         }
 
         a.nx-resource-link {
@@ -177,7 +185,7 @@
             display: flex;
             align-items: center;
             gap: 64px;
-            background: url(http://localhost:10013/wp-content/plugins/notificationx/assets/admin/images/new-img/get-started-bg.png);
+            background: url(../../../assets/admin/images/new-img/get-started-bg.png);
             background-repeat: no-repeat;
             background-position: right;
 
@@ -414,6 +422,32 @@
                                 justify-content: flex-start;
                                 width: 200px;
                             }
+
+                            a {
+                                color: #092161;
+                            }
+
+                            .nx-admin-actions-wrapper {
+
+                                .nx-admin-action-button {
+                                    a {
+                                        background-color: #efeffe;
+                                        border: 1px solid #e9e8fe;
+                                        border-radius: 4px;
+                                        line-height: 0;
+                                        padding: 0;
+                                        width: 38px;
+                                        height: 38px;
+                                        display: inline-flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                    }
+                                }
+
+                                .nx-admin-actions-lists {
+                                    left: 7px;
+                                }
+                            }
                         }
                     }
                 }
@@ -463,7 +497,7 @@
         display: flex;
         gap: 32px;
 
-        .nx-analytics-graph-wrapper {
+        .nx-analytics-graph-main-wrapper {
             flex: 65%;
             border-radius: 6px;
             position: relative;
@@ -496,25 +530,57 @@
                 }
             }
 
-            .nx-analytics-filter-wrapper .nx-analytics-filter .nx-analytic-select-wrapper {
-                .analytics-select__control:focus-within {
-                    border-color: #e6effb;
-                }
+            .nx-analytics-filter-wrapper {
+                .nx-analytics-filter .nx-analytic-select-wrapper {
+                    .analytics-select__control:focus-within {
+                        border-color: #e6effb;
+                    }
 
-                .analytics-select__menu {
-                    border-radius: 0;
-                    padding: 10px;
+                    .analytics-select__menu {
+                        z-index: 999;
+                        border-radius: 0;
+                        margin-top: 10px;
+                        border-radius: 5px;
+
+                        option {
+                            padding: 6px 8px !important;
+                        }
+                    }
+                }
+            }
+
+            .nx-analytics-graph-wrapper {
+                padding: 0;
+
+                .apexcharts-toolbar {
+                    padding: 0 6px 2px;
+
+                    .apexcharts-menu-open {
+                        .apexcharts-menu-item {
+                            text-align: center;
+                            padding: 6px 7px;
+                            font-size: 12px;
+                            cursor: pointer;
+                        }
+                    }
                 }
             }
         }
 
         .nx-integration-wrapper {
             flex: 35%;
+            display: flex;
+            flex-direction: column;
 
 
             .nx-integrations-body {
+                display: flex;
+                flex: 1;
+
                 img {
                     width: 100%;
+                    height: 100%;
+
                 }
             }
         }
@@ -572,6 +638,7 @@
                                 background-color: #6A4BFF;
                                 color: #FFFFFF;
                                 border: 1px solid #6A4BFF;
+                                box-shadow: none;
                             }
                         }
                     }
@@ -703,7 +770,7 @@
                     position: absolute;
                     top: 0px;
                     right: 0;
-                    background: url(http://localhost:10013/wp-content/plugins/notificationx/assets/admin/images/new-img/show-love.png);
+                    background: url(../../../assets/admin/images/new-img/show-love.png);
                     z-index: 999;
                     width: 64px;
                     height: 69px;
@@ -744,17 +811,16 @@
         position: fixed;
         right: 48px;
         bottom: 48px;
-        display: inline-flex;
         height: 64px;
         aspect-ratio: 1;
         background: #FFFFFF;
         box-shadow: 0px 18px 24px 8px #170A531F;
         border-radius: 50%;
-        display: flex;
+        display: inline-flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        z-index: 9999;
+        z-index: 99999;
 
         img {
             height: 44px;
@@ -769,6 +835,55 @@
             ul li a {
                 margin-bottom: 20px;
                 padding: 5px 10px;
+            }
+        }
+
+        .nx-dashboard-floating-actions {
+            position: fixed;
+            z-index: 999;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            top: 0;
+            width: 100%;
+            background: #120B354D;
+
+            ul {
+                position: absolute;
+                right: 56px;
+                bottom: 146px;
+                width: 280px;
+                display: flex;
+                flex-direction: column;
+                gap: 32px;
+
+                li {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                    gap: 24px;
+
+                    a {
+                        margin-bottom: 0;
+                        font-size: 16px;
+                        font-weight: 500;
+                        line-height: 20px;
+                        color: #092161;
+                        padding: 8px 16px;
+                        background: #FFFFFF;
+                        border-radius: 4px;
+                    }
+
+                    .nx-icons--wrap {
+                        display: inline-flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 48px;
+                        height: 48px;
+                        background: #FFFFFF;
+                        border-radius: 50%;
+                    }
+                }
             }
         }
     }
