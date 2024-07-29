@@ -313,6 +313,7 @@
 
             .nx-list-table-wrapper {
                 min-width: 1180px;
+                margin-top: 0;
 
 
                 thead {
@@ -492,6 +493,17 @@
                     box-shadow: 0px 0px 10px 2px #FFFFFF1A inset;
                     box-sizing: border-box;
                     transition: 0.3s ease-in-out;
+                }
+            }
+
+            .nx-analytics-filter-wrapper .nx-analytics-filter .nx-analytic-select-wrapper {
+                .analytics-select__control:focus-within {
+                    border-color: #e6effb;
+                }
+
+                .analytics-select__menu {
+                    border-radius: 0;
+                    padding: 10px;
                 }
             }
         }
@@ -683,15 +695,21 @@
             border-radius: 12px;
 
             &:first-child {
-                padding: 0;
                 background: linear-gradient(238.66deg, #ECE8FC 0%, #FFFFFF 57.84%);
-            }
+                position: relative;
 
-            .nx-docs-content-items {
-                padding: 32px;
-                background: url(http://localhost:10013/wp-content/plugins/notificationx/assets/admin/images/new-img/show-love.png);
-                background-repeat: no-repeat;
-                background-position: top right;
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: 0px;
+                    right: 0;
+                    background: url(http://localhost:10013/wp-content/plugins/notificationx/assets/admin/images/new-img/show-love.png);
+                    z-index: 999;
+                    width: 64px;
+                    height: 69px;
+                    background-repeat: no-repeat;
+                    background-position: top center;
+                }
             }
 
             .img-wrap {
