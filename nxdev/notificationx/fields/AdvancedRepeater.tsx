@@ -171,10 +171,10 @@ const AdvancedRepeater = (props) => {
 
 
     const handleChangeTime = (from, to) => {
-        if( from && to ) {
+        if (from && to) {
             const fromDate = new Date(from);
-            const toDate   = new Date(to);
-            if( fromDate && toDate ) {
+            const toDate = new Date(to);
+            if (fromDate && toDate) {
                 const updatedData = localMemoizedValue.map(item => {
                     if (selectedField.includes(item.index)) {
                         return {
@@ -186,6 +186,7 @@ const AdvancedRepeater = (props) => {
                     return item;
                 });
                 setLocalMemoizedValue(updatedData);
+                builderContext.setFieldValue(fieldName, updatedData); // Update the builder context's field value
                 setChangeTimeToggle(false);
                 nxToast.info(
                     __(
@@ -196,6 +197,7 @@ const AdvancedRepeater = (props) => {
             }
         }
     }
+    
     
 
     const totalItems       = localMemoizedValue?.length || 0;
