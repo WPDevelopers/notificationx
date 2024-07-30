@@ -266,4 +266,66 @@ export const checkCSVItems = (csvUrl: string): Promise<number> => {
     });
 };
 
+const formatCSS = (css) => {
+    return css.replace(/^\s+/gm, '').trim();
+};
+
+export const defaultCustomCSSValue = ( type = '') => {    
+    if (type === 'bar') {
+        return formatCSS(`
+            .nx-bar-inner {
+                // write css code here
+            }
+            .nx-bar-inner .nx-bar-content-wrap {
+                // write css code here
+            }
+            .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper{
+                // write css code here
+            }
+            .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-countdown{
+                // write css code here
+            }
+            .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-time-section{
+                // write css code here
+            }
+            .nx-bar-inner .nx-bar-content-wrap .nx-countdown-wrapper .nx-expired-text{
+                // write css code here
+            }
+            .nx-bar-inner .nx-bar-content-wrap .nx-inner-content-wrapper {
+                // write css code here
+            }
+            .nx-bar-inner .nx-bar-content-wrap .nx-bar-content p {
+                // write css code here
+            }
+            .nx-bar-inner .nx-bar-content-wrap .nx-bar-content .notificationx-link-wrapper {
+                // write css code here
+            }
+        `);
+    }
+    return formatCSS(`
+        .notificationx-inner {
+            // write css code here
+        }
+        .notificationx-inner .notificationx-content {
+            // write css code here
+        }
+        .notificationx-content .nx-first-row {
+            // write css code here
+        }
+        .notificationx-content .nx-second-row {
+            // write css code here
+        }
+        .notificationx-content .nx-third-row {
+            // write css code here
+        }
+        .notificationx-content .notificationx-close {
+            // write css code here
+        }
+        .notificationx-content .notificationx-link-wrapper {
+            // write css code here
+        }
+    `);
+}
+
+
 export default nxHelper;
