@@ -62,6 +62,7 @@ class PostType {
         add_filter( 'nx_get_post', [ $this, 'responsive_size_backward_comp' ] );
         add_filter( 'nx_get_post', [ $this, 'async_select_get_label' ], 10, 2 );
         add_filter( 'nx_save_post', [ $this, 'async_select_remove_label' ], 10, 3 );
+        add_filter( 'nx_save_post', [ $this, 'format_custom_css' ], 11, 3 );
         add_image_size( '_nx_notification_thumb', 100, 100, true );
 
     }
@@ -569,6 +570,20 @@ class PostType {
         }
 
         // Return the modified post data
+        return $post;
+    }
+
+    public function format_custom_css($post, $data, $nx_id)
+    {
+        // Get the notification instance
+        if( 0 != intval( $nx_id ) ) {
+            $get_value = $post['data']['add_custom_css'];
+            if( !empty( $post['data']['source'] ) && $post['data']['source'] == 'press_bar' ) {
+                $post['data']['add_custom_css'] = Helper::add_wrapper_class_to_css($get_value, "#nx-bar--{$nx_id}");
+            }else{
+                $post['data']['add_custom_css'] = Helper::add_wrapper_class_to_css($get_value, ".notificationx-{$nx_id}");
+            }
+        }
         return $post;
     }
 

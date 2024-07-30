@@ -127,11 +127,7 @@ class FrontEnd {
         $combine_css = "";
         foreach ($posts as $post) {
             if( !empty( $post['data']['add_custom_css'] ) && !empty( $post['data']['id'] ) ) {
-                if( !empty( $post['data']['source'] ) && $post['data']['source'] == 'press_bar' ) {
-                    $combine_css .= " #nx-bar-{$post['data']['id']} { {$post['data']['add_custom_css']} } ";
-                }else{
-                    $combine_css .= " .notificationx-{$post['data']['id']} { {$post['data']['add_custom_css']} } ";
-                }
+                $combine_css .= "{$post['data']['add_custom_css']}";
             }
         }
         return $combine_css;

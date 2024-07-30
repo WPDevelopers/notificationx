@@ -609,4 +609,28 @@ class Helper {
         return $product_list;
     }
 
+    public static function add_wrapper_class_to_css($css, $wrapperClass) {
+        // Regular expression to match CSS selectors
+        $pattern = '/(^|})\s*([^{]+)/';
+        
+        // Callback function to prepend the wrapper class if it doesn't already exist
+        $callback = function($matches) use ($wrapperClass) {
+            $selectors = explode(',', trim($matches[2]));
+            foreach ($selectors as &$selector) {
+                $selector = trim($selector);
+                // Skip if the selector is an empty string or if it already contains the wrapper class
+                if ($selector !== '' && strpos($selector, $wrapperClass) === false) {
+                    $selector = "$wrapperClass $selector";
+                }
+            }
+            // Adding a newline character after each rule
+            return $matches[1] . ' ' . implode(', ', $selectors);
+        };
+    
+        // Perform the replacement
+        $newCss = preg_replace_callback($pattern, $callback, $css);
+    
+        return $newCss;
+    }
+
 }

@@ -4,6 +4,7 @@ namespace NotificationX\Core\Rest;
 
 use FluentForm\Framework\Database\Query\Expression;
 use NotificationX\Core\Database;
+use NotificationX\Core\Helper;
 use NotificationX\Core\PostType;
 use NotificationX\Core\REST;
 use NotificationX\Extensions\ExtensionFactory;
@@ -268,6 +269,12 @@ class Posts extends WP_REST_Controller {
      */
     public function update_item($request) {
         $params = $request->get_params();
+        $get_value = $params['add_custom_css'];
+        if( !empty( $params['source'] ) && $params['source'] == 'press_bar' ) {
+            $params['add_custom_css'] = Helper::add_wrapper_class_to_css($get_value, "#nx-bar-{$params['nx_id']}");
+        }else{
+            $params['add_custom_css'] = Helper::add_wrapper_class_to_css($get_value, ".notificationx-{$params['nx_id']}");
+        }
         return PostType::get_instance()->save_post($params);
     }
 
