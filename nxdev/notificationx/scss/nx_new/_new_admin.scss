@@ -457,6 +457,16 @@
 
                                 .nx-admin-actions-lists {
                                     left: 18px;
+
+                                    @media only screen and (max-width: 1600px) {
+
+                                        left: 10px;
+                                    }
+
+                                    @media only screen and (max-width: 782px) {
+
+                                        left: 30px;
+                                    }
                                 }
                             }
                         }
@@ -985,6 +995,7 @@
     }
 
     .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper .nx-started-content p {
+        font-size: 14px;
         padding-bottom: 22px;
     }
 
@@ -1047,6 +1058,10 @@
     .nx-admin-wrapper .nx-content-details h4 {
         font-size: 20px;
         line-height: 22px;
+
+        p {
+            font-size: 14px;
+        }
     }
 
     .nx-admin-wrapper .nx-notifications-wrapper .notifications-not-found {
@@ -1135,7 +1150,12 @@
     }
 
     .nx-admin-wrapper .nx-more-docs-wrapper .nx-docs-content-wrapper p {
+        font-size: 12px;
         padding-bottom: 24px;
+    }
+
+    .nx-admin-wrapper .nx-content-details a.nx-resource-link {
+        font-size: 12px;
     }
 }
 
