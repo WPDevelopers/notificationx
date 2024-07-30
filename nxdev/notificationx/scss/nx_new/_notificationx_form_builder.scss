@@ -1024,7 +1024,7 @@
             }
         }
 
-        &.wprf-type-codeviewer {
+        &.wprf-type-codeviewer, &.wprf-type-advanced-codeviewer {
             .wprf-control-field {
                 textarea {
                     max-width: 100%;
