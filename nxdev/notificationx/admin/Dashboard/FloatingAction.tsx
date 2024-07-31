@@ -36,6 +36,11 @@ const FloatingAction = () => {
                                     <JoinCommunity />
                                 </span>
                             </li>
+                            <li>
+                                <span className='nx-close'>
+                                    <img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/notification-close.svg" alt="NX-Close-Img" />
+                                </span>
+                            </li>
                         </ul>
                     </div>
                 }
