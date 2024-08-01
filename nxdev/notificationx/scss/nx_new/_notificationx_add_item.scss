@@ -331,6 +331,44 @@
                         margin-bottom: 20px;
                     }
                 }
+                #close_button_section .wprf-section-fields{
+                    padding: 0;
+                    display: flex;
+                    align-items: baseline;
+                    .closed_button_section_label {
+                        flex-basis: 30%;
+                    }
+                    .wprf-control-label {
+                        display: none;
+                    }
+                    .wprf-closed_button_section_label_text-message p {
+                        font-size: 15px;
+                        font-weight: 500;
+                        color: #7c8db5;
+                        line-height: 1.2;
+                        margin-top: 5px;
+                        margin-bottom: 5px;
+                        letter-spacing: -0.03px;
+                    }
+                    .wprf-name-bar_position_left_top .wprf-control-field, 
+                    .wprf-name-bar_position_right_top .wprf-control-field, 
+                    .wprf-name-bar_position_right_right .wprf-control-field , 
+                    .wprf-name-bar_position_left_left .wprf-control-field {
+                        width: 190px;
+                        position: relative;
+                        input {
+                            padding: 2px 70px 2px 15px;
+                        }
+                        p.wprf-help {
+                            position: absolute;
+                            right: 40px;
+                        }
+                        p.wprf-description {
+                            position: absolute;
+                            left: 38px;
+                        }
+                    }
+                }
             }
 
             .nx_bar_import_design {

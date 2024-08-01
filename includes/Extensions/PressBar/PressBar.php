@@ -352,54 +352,83 @@ class PressBar extends Extension {
                     'description' => 'px',
                 ],
                 [
-                    'label'   => __('Close Button Position', 'notificationx'),
-                    'name'    => "bar_close_position",
-                    'type'    => "select",
-                    'value'   => 'right',
-                    'options' => GlobalFields::get_instance()->normalize_fields([
-                        'left'  => __('Left', 'notificationx'),
-                        'right' => __('Right', 'notificationx'),
-                    ]),
-                ],
-                [
-                    'label'       => __('Close Button Position Top', 'notificationx'),
-                    'name'        => "bar_position_left_top",
-                    'type'        => "number",
-                    'default'     => '15',
-                    'description' => 'px',
-                    'rules'       => Rules::logicalRule([
-                        Rules::is('bar_close_position', 'left'),
-                    ]),
-                ],
-                [
-                    'label'       => __('Close Button Position Left', 'notificationx'),
-                    'name'        => "bar_position_left_left",
-                    'type'        => "number",
-                    'default'     => '15',
-                    'description' => 'px',
-                    'rules'       => Rules::logicalRule([
-                        Rules::is('bar_close_position', 'left'),
-                    ]),
-                ],
-                [
-                    'label'       => __('Close Button Position Top', 'notificationx'),
-                    'name'        => "bar_position_right_top",
-                    'type'        => "number",
-                    'default'     => '15',
-                    'description' => 'px',
-                    'rules'       => Rules::logicalRule([
-                        Rules::is('bar_close_position', 'right'),
-                    ]),
-                ],
-                [
-                    'label'       => __('Close Button Position Right', 'notificationx'),
-                    'name'        => "bar_position_right_right",
-                    'type'        => "number",
-                    'default'     => '15',
-                    'description' => 'px',
-                    'rules'       => Rules::logicalRule([
-                        Rules::is('bar_close_position', 'right'),
-                    ]),
+                    'name'    => "close_button_section",
+                    'type'    => "section",
+                    'fields' => [
+                       [
+                            'name'  => 'closed_button_section_label',
+                            'type'  => 'section',
+                            'fields'    => [
+                                [
+                                    'name'    => 'closed_button_section_label_text',
+                                    'type'    => 'message',
+                                    'class'   => 'nx-close-button-label',
+                                    'html'    => true,
+                                    'message' => __('Close Button Position', 'notificationx'),
+                                ]
+                            ]
+                        ],
+                        [
+                            'name'  => 'closed_button_section_fields',
+                            'type'  => 'section',
+                            'fields'    => [
+                                [
+                                    'label'   => __('Close Button Position', 'notificationx'),
+                                    'name'    => "bar_close_position",
+                                    'type'    => "select",
+                                    'default' => 'right',
+                                    'options' => GlobalFields::get_instance()->normalize_fields([
+                                        'left'  => __('Left', 'notificationx'),
+                                        'right' => __('Right', 'notificationx'),
+                                    ]),
+                                ],
+                                [
+                                    'label'       => __('Close Button Position Top', 'notificationx'),
+                                    'help'        => __('Top', 'notificationx'),
+                                    'name'        => "bar_position_left_top",
+                                    'type'        => "number",
+                                    'default'     => '15',
+                                    'description' => 'px',
+                                    'rules'       => Rules::logicalRule([
+                                        Rules::is('bar_close_position', 'left'),
+                                    ]),
+                                ],
+                                [
+                                    'label'       => __('Close Button Position Left', 'notificationx'),
+                                    'help'        => __('Left', 'notificationx'),
+                                    'name'        => "bar_position_left_left",
+                                    'type'        => "number",
+                                    'default'     => '15',
+                                    'description' => 'px',
+                                    'rules'       => Rules::logicalRule([
+                                        Rules::is('bar_close_position', 'left'),
+                                    ]),
+                                ],
+                                [
+                                    'label'       => __('Close Button Position Top', 'notificationx'),
+                                    'help'        => __('Top', 'notificationx'),
+                                    'name'        => "bar_position_right_top",
+                                    'type'        => "number",
+                                    'default'     => '15',
+                                    'description' => 'px',
+                                    'rules'       => Rules::logicalRule([
+                                        Rules::is('bar_close_position', 'right'),
+                                    ]),
+                                ],
+                                [
+                                    'label'       => __('Close Button Position Right', 'notificationx'),
+                                    'help'        => __('Right', 'notificationx'),
+                                    'name'        => "bar_position_right_right",
+                                    'type'        => "number",
+                                    'default'     => '15',
+                                    'description' => 'px',
+                                    'rules'       => Rules::logicalRule([
+                                        Rules::is('bar_close_position', 'right'),
+                                    ]),
+                                ],
+                            ]
+                        ]   
+                    ]
                 ],
             ],
         ];

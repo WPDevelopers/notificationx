@@ -66,11 +66,14 @@ const AdvancedRepeater = (props) => {
         let templateIndex = props.parentIndex;
         templateIndex = [...templateIndex, templateIndex.pop() - 1];
         builderContext.setFormField(templateIndex, __field);
-        let options = __field
+        let options;
+        if( __field ) {
+            options = __field
             .filter((f) => f?.options)
             .map((f) => f?.options)
             .flat();
-        setTemplateOptions(options);
+            setTemplateOptions(options);
+        }
     }, []);
     
 

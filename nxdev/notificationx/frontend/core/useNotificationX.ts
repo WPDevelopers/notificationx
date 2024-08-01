@@ -391,9 +391,11 @@ const useNotificationX = (props: any) => {
             noticeToRender[position] || (noticeToRender[position] = []);
             noticeToRender[position]!.push(notice);
         }
-        return (Object.keys(noticeToRender) as Array<any>).map((p) =>
-            callback(p, noticeToRender[p]!)
-        );
+        // Define a fixed order of positions
+        const fixedOrder = ['top','bottom', 'bottom_left', 'bottom_right', 'top_left', 'top_right'];
+        return fixedOrder.map((p) => 
+            noticeToRender[p] ? callback(p, noticeToRender[p]!) : null
+        ).filter(Boolean);
     };
 
     return {
