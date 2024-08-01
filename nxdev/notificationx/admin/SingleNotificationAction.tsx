@@ -280,7 +280,7 @@ const SingleNotificationAction = ({
         if( !nxContext.settings.is_wpml_active ) {
             nxToast.warning(
                 __(
-                    `You need to Install and Activate WPML first to use this feature.`,
+                    `You need to Install and Activate WPML Multilingual CMS & WPML String Translation plugins to use this feature.`,
                     "notificationx"
                 )
             );
