@@ -1,6 +1,7 @@
 import React from "react";
 import { __ } from "@wordpress/i18n";
 import Analytics from "../Analytics/Analytics";
+import { assetsURL } from "../../core/functions";
 
 const AnalyticsDashboard = (props) => {
     return (
@@ -10,11 +11,11 @@ const AnalyticsDashboard = (props) => {
             </div>
             <div className='nx-integration-wrapper nx-admin-content-wrapper'>
                 <div className='nx-integrations-header nx-content-details header'>
-                    <h4>Integrations</h4>
-                    <button className='nx-secondary-btn'>View all Integration</button>
+                    <h4>{ __('Integrations', 'notificationx') }</h4>
+                    <button className='nx-secondary-btn'>{ __('View All Integrations', 'notificationx') }</button>
                 </div>
                 <div className='nx-integrations-body'>
-                    <img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/integration.png" alt="icon" />
+                    <img src={ assetsURL('/images/new-img/integration.png') } alt="icon" />
                 </div>
             </div>
         </div>

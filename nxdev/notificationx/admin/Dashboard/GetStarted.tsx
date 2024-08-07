@@ -25,11 +25,11 @@ const GetStarted = ({props, context}) => {
                     </a>
                 </div>
                 <div className='nx-started-content nx-content-details'>
-                    <h2>{ sprintf( __('%s', 'notificationx'), GET_STARTED_TXT ) }</h2>
-                    <p>{ sprintf( __('%s', 'notificationx'), GET_STARTED_DESC ) }</p>
-                    <Link className="nx-primary-btn" to={ { pathname: "/admin.php", search: `?page=nx-edit`} }>{ __('Launch Setup Wizard', 'notificationx') }</Link>
+                    <h2>{ sprintf( '%s', GET_STARTED_TXT ) }</h2>
+                    <p>{ sprintf( '%s', GET_STARTED_DESC ) }</p>
+                    <Link className="nx-primary-btn" to={ { pathname: "/admin.php", search: `?page=nx-builder`} }>{ __('Launch Setup Wizard', 'notificationx') }</Link>
                     <a className='nx-resource-link' href="#">
-                        { __('Read Starter Guide', 'notificationx') }
+                        { __('Watch Tutorials', 'notificationx') }
                         <img src={assetsURL('/images/new-img/link.svg')} alt={ __('link-icon', 'notificationx') } />
                     </a>
                 </div>
@@ -49,7 +49,6 @@ const GetStarted = ({props, context}) => {
                         backgroundColor: "rgba(3, 6, 60, 0.7)",
                         zIndex: 9999,
                         padding: "60px 15px",
-                        // overflowY: "auto",
                     },
                     content: {
                         position: "static",

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import nxHelper, { assetsURL } from '../../core/functions';
 import { isArray } from '../../frontend/core/functions';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import SingleNotificationX from '../SingleNotificationX';
+import { NOT_FOUND_DESC, NOT_FOUND_TITLE } from '../../core/constants';
 
 const Integration = ({props, context}) => {
   const [notificationx, setNotificationx] = useState([]);
@@ -27,8 +28,8 @@ const Integration = ({props, context}) => {
   return (
     <div className='nx-admin-content-wrapper nx-notifications-wrapper notificationx-items'>
         <div className='nx-integrations-details nx-content-details header'>
-          <h4>Integrations</h4>
-          <button className='nx-primary-btn'>View all Notification</button>
+          <h4>{ __('Integrations', 'notificationx') }</h4>
+          <button className='nx-primary-btn'>{ __('View All Notifications', 'notificationx') }</button>
         </div>
         <div className="nx-admin-items">
           <div className="nx-list-table-wrapper">
@@ -53,9 +54,9 @@ const Integration = ({props, context}) => {
                   { notificationx?.length <= 0 &&
                     <div className='notifications-not-found nx-content-details'>
                       <img src={ assetsURL('/images/new-img/not-found.svg') } alt="icon" />
-                      <h5>NO NOTIFICATIONS ARE FOUND.</h5>
-                      <p>Seems like you haven’t created any notification alerts. Hit on "Add New" button to get started</p>
-                      <button className='nx-primary-btn'>Add New<img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/add.svg" alt="icon"></img></button>
+                      <h5>{ sprintf( '%s', NOT_FOUND_TITLE  ) }</h5>
+                      <p>{ sprintf( '%s', NOT_FOUND_DESC  ) }</p>
+                      <button className='nx-primary-btn'> { __('Add New', 'notificationx') } <img src={assetsURL('/images/new-img/add.svg')} alt="icon"/></button>
                     </div>
                   }
                   </tbody>

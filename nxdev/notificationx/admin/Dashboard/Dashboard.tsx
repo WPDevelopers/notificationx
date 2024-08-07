@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import withDocumentTitle from "../../core/withDocumentTitle";
 import GetStarted from "./GetStarted";
 import AnalyticsOverview from "./AnalyticsOverview";
@@ -7,23 +7,41 @@ import { useNotificationXContext } from "../../hooks";
 import NotificationTypeResource from "./NotificationTypeResource";
 import Docs from "./Docs";
 import AnalyticsDashboard from "./Analytics";
-import NewAdmin from "../NewAdmin";
 import FloatingAction from "./FloatingAction";
+import { BuilderProvider, useBuilder } from "quickbuilder";
+import { WrapperWithLoader } from "../../components";
+// @ts-ignore
+import { __ } from "@wordpress/i18n";
 
 const Dashboard = (props) => {
     const builderContext = useNotificationXContext();
-    
+    const builder = useBuilder(notificationxTabs.quick_build);
+    const [isLoading, setIsLoading] = useState(true);
+    const [title, setTitle] = useState("");
+    useEffect(() => {
+        setIsLoading(false);
+    }, []);
+
     return (
-        <div className="nx-admin-wrapper nx-admin-new-wrapper">
-            <GetStarted props={props} context={builderContext}/>
-            <AnalyticsOverview props={props} context={builderContext} />
-            <Integration props={props} context={builderContext}/>
-            <AnalyticsDashboard/>
-            <NotificationTypeResource props={props} context={builderContext} />
-            <Docs props={props} context={builderContext}  />
-            <FloatingAction/>
-        </div>
+        <BuilderProvider
+            value={{ ...builder, isLoading, setIsLoading, title, setTitle }}
+        >
+            <WrapperWithLoader isLoading={isLoading}>
+                <div className="nx-admin-wrapper nx-admin-new-wrapper">
+                    <GetStarted props={props} context={builderContext}/>
+                    <AnalyticsOverview props={props} context={builderContext} />
+                    <Integration props={props} context={builderContext}/>
+                    <AnalyticsDashboard/>
+                    <NotificationTypeResource props={props} context={builderContext} />
+                    <Docs props={props} context={builderContext}  />
+                    <FloatingAction/>
+                </div>
+            </WrapperWithLoader>
+        </BuilderProvider>
     );
 };
 
-export default withDocumentTitle(Dashboard, "Dashboard");
+export default withDocumentTitle(
+    Dashboard,
+    __("Dashboard", "notificationx")
+);

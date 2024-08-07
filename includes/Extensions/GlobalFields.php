@@ -112,9 +112,9 @@ class GlobalFields {
                                         'required' => true,
                                         'label'    => "Type",
                                     ],
-                                    'trigger' => [
-                                        'defaults' => apply_filters( 'nx_type_trigger', [] ),
-                                    ]
+                                    // 'trigger' => [
+                                    //     'defaults' => apply_filters( 'nx_type_trigger', [] ),
+                                    // ]
                                 ],
                             ]
                         ],
