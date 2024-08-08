@@ -3,12 +3,13 @@ import Crown from '../../icons/Crown'
 import GetSupport from '../../icons/getSupport'
 import LightOn from '../../icons/lightOn'
 import JoinCommunity from '../../icons/joinCommunity'
+import { assetsURL } from '../../core/functions'
 
 const FloatingAction = () => {
     const [showAction, setShowAction] = useState(false);
     return (
         <Fragment>
-            <div className='notification--wrapper'>
+            <div className={`notification--wrapper${ showAction ? ' open' : '' }`}>
                 {showAction &&
                     <div className='nx-dashboard-floating-actions'>
                         <ul>
@@ -37,14 +38,14 @@ const FloatingAction = () => {
                                 </span>
                             </li>
                             <li>
-                                <span className='nx-close'>
-                                    <img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/notification-close.svg" alt="NX-Close-Img" />
+                                <span className='nx-close' onClick={ () => setShowAction(false) }>
+                                    <img src={ assetsURL('/images/new-img/notification-close.svg') } alt="NX-Close-Img" />
                                 </span>
                             </li>
                         </ul>
                     </div>
                 }
-                <img src="/wp-content/plugins/notificationx/assets/admin/images/new-img/notification.svg" alt="NX-Img" onClick={() => setShowAction(!showAction)} />
+                <img src={assetsURL('/images/new-img/notification.svg')} alt="NX-Img" onClick={() => setShowAction(!showAction)} />
             </div>
         </Fragment>
     )
