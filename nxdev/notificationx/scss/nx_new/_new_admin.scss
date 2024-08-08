@@ -911,90 +911,120 @@
         img {
             height: 44px;
             aspect-ratio: 1;
+            visibility: visible;
+            opacity: 1;
+            transition: all .3s ease-in-out;
+            transform: scale(1);
         }
 
         .nx-dashboard-floating-actions {
-            position: absolute;
-            bottom: 100%;
-            width: 200px;
 
-            ul li a {
-                margin-bottom: 20px;
-                padding: 5px 10px;
+            .floating-item {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                opacity: 0;
+                visibility: hidden;
+                transition: all .2s ease-in-out;
+
+                &.item-1 {
+                    bottom: 260px;
+                    transition: ease-in .8s;
+                }
+
+                &.item-2 {
+                    bottom: 200px;
+                    transition: ease-in .7s;
+                }
+
+                &.item-3 {
+                    bottom: 140px;
+                    transition: ease-in .5s;
+                }
+
+                &.item-4 {
+                    bottom: 80px;
+                    transition: ease-in .3s;
+                }
+
+                &:not(:last-child) {
+                    margin-right: 8px;
+                }
+
+                &:first-child .nx-icons--wrap {
+                    background: #FF9940;
+                }
+
+                a {
+                    font-size: 16px;
+                    font-weight: 500;
+                    line-height: 20px;
+                    color: #092161;
+                    padding: 8px 16px;
+                    background: #FFFFFF;
+                    border-radius: 4px;
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    right: calc(100% - -16px);
+                    white-space: nowrap;
+                    box-shadow: 0px 18px 24px 8px rgba(23, 10, 83, 0.1215686275);
+                    transition: all .2s ease-out;
+                }
+
+                .nx-icons--wrap {
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 48px;
+                    height: 48px;
+                    background: #FFFFFF;
+                    border-radius: 50%;
+                    box-shadow: 0px 18px 24px 8px rgba(23, 10, 83, 0.1215686275);
+                }
+
+                .nx-close {
+                    height: 64px;
+                    aspect-ratio: 1;
+                    background: #FFFFFF;
+                    // box-shadow: 0px 18px 24px 8px #170A531F;
+                    border-radius: 50%;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    z-index: 99999;
+
+                    img {
+                        width: 32px;
+                        opacity: 0;
+                        visibility: hidden;
+                        transform: scale(1.5);
+                        transition: all .3s ease-in-out;
+                    }
+                }
             }
         }
 
-        .nx-dashboard-floating-actions {
-            position: fixed;
-            z-index: 99999;
-            right: 0;
-            left: 0;
-            bottom: 0;
-            top: 0;
-            width: 100%;
-            background: #120B354D;
-            cursor: auto;
+        &.open {
+            img {
+                visibility: hidden;
+                opacity: 0;
+                transition: all .3s ease-in-out;
+                transform: scale(.2);
+            }
 
-            ul {
-                position: absolute;
-                right: 48px;
-                bottom: 48px;
-                width: 280px;
-                display: flex;
-                flex-direction: column;
-                gap: 32px;
-                margin: 0;
-
-                li {
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-end;
-                    gap: 24px;
-                    margin: 0;
-
-                    &:not(:last-child) {
-                        margin-right: 8px;
-                    }
-
-                    &:first-child .nx-icons--wrap {
-                        background: #FF9940;
-                    }
-
-                    a {
-                        margin-bottom: 0;
-                        font-size: 16px;
-                        font-weight: 500;
-                        line-height: 20px;
-                        color: #092161;
-                        padding: 8px 16px;
-                        background: #FFFFFF;
-                        border-radius: 4px;
-                    }
-
-                    .nx-icons--wrap {
-                        display: inline-flex;
-                        justify-content: center;
-                        align-items: center;
-                        width: 48px;
-                        height: 48px;
-                        background: #FFFFFF;
-                        border-radius: 50%;
-                    }
+            .nx-dashboard-floating-actions {
+                .floating-item {
+                    opacity: 1;
+                    visibility: visible;
 
                     .nx-close {
-                        height: 64px;
-                        aspect-ratio: 1;
-                        background: #FFFFFF;
-                        box-shadow: 0px 18px 24px 8px #170A531F;
-                        border-radius: 50%;
-                        display: inline-flex;
-                        align-items: center;
-                        justify-content: center;
-                        cursor: pointer;
-                        z-index: 99999;
-
                         img {
-                            width: 32px;
+                            opacity: 1;
+                            visibility: visible;
+                            transition: all .3s ease-in-out;
+                            transform: scale(1);
                         }
                     }
                 }

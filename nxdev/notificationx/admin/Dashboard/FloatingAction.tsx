@@ -9,40 +9,39 @@ const FloatingAction = () => {
     const [showAction, setShowAction] = useState(false);
     return (
         <Fragment>
-            <div className={`notification--wrapper${ showAction ? ' open' : '' }`}>
+            <div className={`notification--wrapper${showAction ? ' open' : ''}`}>
                 {showAction &&
                     <div className='nx-dashboard-floating-actions'>
-                        <ul>
-                            <li>
-                                <a href="">Unlock pro Features</a>
-                                <span className='nx-icons--wrap'>
-                                    <Crown />
-                                </span>
-                            </li>
-                            <li>
-                                <a href="">Get Support</a>
-                                <span className='nx-icons--wrap'>
-                                    <GetSupport />
-                                </span>
-                            </li>
-                            <li>
-                                <a href="">Suggest a Feature</a>
-                                <span className='nx-icons--wrap'>
-                                    <LightOn />
-                                </span>
-                            </li>
-                            <li>
-                                <a href="">Join Our Community</a>
-                                <span className='nx-icons--wrap'>
-                                    <JoinCommunity />
-                                </span>
-                            </li>
-                            <li>
-                                <span className='nx-close' onClick={ () => setShowAction(false) }>
-                                    <img src={ assetsURL('/images/new-img/notification-close.svg') } alt="NX-Close-Img" />
-                                </span>
-                            </li>
-                        </ul>
+
+                        <div className='floating-item item-1'>
+                            <a href="">Unlock pro Features</a>
+                            <span className='nx-icons--wrap'>
+                                <Crown />
+                            </span>
+                        </div>
+                        <div className='floating-item item-2'>
+                            <a href="">Get Support</a>
+                            <span className='nx-icons--wrap'>
+                                <GetSupport />
+                            </span>
+                        </div>
+                        <div className='floating-item item-3'>
+                            <a href="">Suggest a Feature</a>
+                            <span className='nx-icons--wrap'>
+                                <LightOn />
+                            </span>
+                        </div>
+                        <div className='floating-item item-4'>
+                            <a href="">Join Our Community</a>
+                            <span className='nx-icons--wrap'>
+                                <JoinCommunity />
+                            </span>
+                        </div>
+                        <div className='floating-item item-5'>
+                            <span className='nx-close' onClick={() => setShowAction(false)}>
+                                <img src={assetsURL('/images/new-img/notification-close.svg')} alt="NX-Close-Img" />
+                            </span>
+                        </div>
                     </div>
                 }
                 <img src={assetsURL('/images/new-img/notification.svg')} alt="NX-Img" onClick={() => setShowAction(!showAction)} />
