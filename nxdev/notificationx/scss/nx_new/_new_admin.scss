@@ -505,6 +505,10 @@
     .nx-admin-content-wrapper {
         flex: 1;
 
+        &.notificationx-items {
+            margin-bottom: 0;
+        }
+
         .nx-content-details.header {
             display: flex;
             justify-content: space-between;
@@ -949,11 +953,11 @@
                     bottom: 0;
                 }
 
-                &:first-child .nx-icons--wrap {
+                &:first-child .nx-items--icon {
                     background: #FF9940;
                 }
 
-                a {
+                .nx-items--details {
                     font-size: 16px;
                     font-weight: 500;
                     line-height: 20px;
@@ -964,13 +968,13 @@
                     position: absolute;
                     top: 50%;
                     transform: translateY(-50%);
-                    right: calc(100% - -16px);
+                    right: calc(100% + 16px);
                     white-space: nowrap;
                     box-shadow: 0px 18px 24px 8px rgba(23, 10, 83, 0.1215686275);
                     transition: all .2s ease-out;
                 }
 
-                .nx-icons--wrap {
+                .nx-items--icon {
                     display: inline-flex;
                     justify-content: center;
                     align-items: center;
@@ -978,7 +982,7 @@
                     height: 48px;
                     background: #FFFFFF;
                     border-radius: 50%;
-                    box-shadow: 0px 18px 24px 8px rgba(23, 10, 83, 0.1215686275);
+                    box-shadow: 0px 18px 24px 8px rgba(23, 10, 83, 0.215686275);
                 }
 
                 .nx-close {

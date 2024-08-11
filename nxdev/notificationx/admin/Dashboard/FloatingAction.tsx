@@ -11,31 +11,31 @@ const FloatingAction = () => {
         <Fragment>
             <div className={`notification--wrapper${showAction ? ' open' : ''}`}>
                 <div className='nx-dashboard-floating-actions'>
-                    
-                    <div className='floating-item item-1'>
-                        <a href="">Unlock pro Features</a>
-                        <span className='nx-icons--wrap'>
+
+                    <a href="#" className='floating-item item-1'>
+                        <span className='nx-items--details'>Unlock pro Features</span>
+                        <span className='nx-items--icon'>
                             <Crown />
                         </span>
-                    </div>
-                    <div className='floating-item item-2'>
-                        <a href="">Get Support</a>
-                        <span className='nx-icons--wrap'>
+                    </a>
+                    <a href="#" className='floating-item item-2'>
+                        <span className='nx-items--details'>Get Support</span>
+                        <span className='nx-items--icon'>
                             <GetSupport />
                         </span>
-                    </div>
-                    <div className='floating-item item-3'>
-                        <a href="">Suggest a Feature</a>
-                        <span className='nx-icons--wrap'>
+                    </a>
+                    <a href="#" className='floating-item item-3'>
+                        <span className='nx-items--details'>Suggest a Feature</span>
+                        <span className='nx-items--icon'>
                             <LightOn />
                         </span>
-                    </div>
-                    <div className='floating-item item-4'>
-                        <a href="">Join Our Community</a>
-                        <span className='nx-icons--wrap'>
+                    </a>
+                    <a href="#" className='floating-item item-4'>
+                        <span className='nx-items--details'>Join Our Community</span>
+                        <span className='nx-items--icon'>
                             <JoinCommunity />
                         </span>
-                    </div>
+                    </a>
                     <div className='floating-item item-5'>
                         <span className='nx-close' onClick={() => setShowAction(false)}>
                             <img src={assetsURL('/images/new-img/notification-close.svg')} alt="NX-Close-Img" />
