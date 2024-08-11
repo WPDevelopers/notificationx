@@ -55,7 +55,7 @@
 
         h5 {
             font-size: 16px;
-            line-height: 1em;
+            line-height: 1.2em;
             font-weight: 700;
             color: #092161;
             margin: 0;
@@ -64,7 +64,7 @@
         h6 {
             font-size: 14px;
             font-weight: 400;
-            line-height: 1.3em;
+            line-height: 1.2em;
             color: #092161;
             margin: 0;
         }
@@ -476,7 +476,8 @@
         }
 
         .notifications-not-found {
-            max-width: 400px;
+            max-width: 450px;
+            width: 100%;
             margin: 0 auto;
             text-align: center;
             padding: 30px;
