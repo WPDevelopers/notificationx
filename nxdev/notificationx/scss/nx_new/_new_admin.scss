@@ -921,34 +921,32 @@
 
             .floating-item {
                 position: absolute;
-                right: 0;
-                bottom: 0;
+                right: 8px;
                 opacity: 0;
                 visibility: hidden;
+                transform: scale(0);
                 transition: all .2s ease-in-out;
 
                 &.item-1 {
-                    bottom: 260px;
-                    transition: ease-in .8s;
+                    bottom: 268px;
+
                 }
 
                 &.item-2 {
-                    bottom: 200px;
-                    transition: ease-in .7s;
+                    bottom: 204px;
                 }
 
                 &.item-3 {
-                    bottom: 140px;
-                    transition: ease-in .5s;
+                    bottom: 142px;
                 }
 
                 &.item-4 {
                     bottom: 80px;
-                    transition: ease-in .3s;
                 }
 
-                &:not(:last-child) {
-                    margin-right: 8px;
+                &:last-child {
+                    right: 0;
+                    bottom: 0;
                 }
 
                 &:first-child .nx-icons--wrap {
@@ -987,20 +985,21 @@
                     height: 64px;
                     aspect-ratio: 1;
                     background: #FFFFFF;
-                    // box-shadow: 0px 18px 24px 8px #170A531F;
                     border-radius: 50%;
                     display: inline-flex;
                     align-items: center;
                     justify-content: center;
                     cursor: pointer;
+                    opacity: 0;
+                    visibility: hidden;
                     z-index: 99999;
 
                     img {
                         width: 32px;
                         opacity: 0;
                         visibility: hidden;
-                        transform: scale(1.5);
-                        transition: all .3s ease-in-out;
+                        transform: scale(.2);
+                        transition: all .4s ease-in-out;
                     }
                 }
             }
@@ -1018,13 +1017,33 @@
                 .floating-item {
                     opacity: 1;
                     visibility: visible;
+                    transform: scale(1);
+
+                    &.item-1 {
+                        transition: transform .2s 105ms;
+
+                    }
+
+                    &.item-2 {
+                        transition: transform .2s 70ms;
+                    }
+
+                    &.item-3 {
+                        transition: transform .2s 35ms;
+                    }
+
+                    &.item-4 {
+                        transition: transform .2s 0ms;
+                    }
 
                     .nx-close {
+                        opacity: 1;
+                        visibility: visible;
+
                         img {
                             opacity: 1;
                             visibility: visible;
-                            transition: all .3s ease-in-out;
-                            transform: scale(1);
+                            transform: scale(1.2);
                         }
                     }
                 }
