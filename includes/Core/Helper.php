@@ -609,4 +609,14 @@ class Helper {
         return $product_list;
     }
 
+    public static function is_wpml_setup()
+    {
+        
+        $wpml_has_run = get_option('WPML(TM-has-run)');
+        if( !empty( $wpml_has_run['WPML\TM\ATE\Sitekey\Sync'] ) && did_action('wpml_loaded') && function_exists('load_wpml_st_basics') ) {
+            return true;
+        }
+        return false;
+    }
+
 }

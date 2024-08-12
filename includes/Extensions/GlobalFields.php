@@ -10,6 +10,7 @@ namespace NotificationX\Extensions;
 
 use NotificationX\Core\Rules;
 use NotificationX\Core\Database;
+use NotificationX\Core\Helper;
 use NotificationX\Core\Locations;
 use NotificationX\GetInstance;
 use NotificationX\Core\Modules;
@@ -429,15 +430,15 @@ class GlobalFields {
                                     'rules'    => Rules::is( 'advance_edit', true ),
                                     'fields'   => [
                                         [
-                                            'label'       => __('Add Custom CSS', 'notificationx'),
-                                            'name'        => "add_custom_css",
-                                            'type'        => "codeviewer",
-                                            'button_text'  => __( 'Click to Copy', 'notificationx' ),
-                                            'success_text' => __( 'Copied to clipboard.', 'notificationx' ),
-                                            'is_pro'       => true,
-                                            'copyOnClick'  => false,
-                                            'priority' => 5,
-                                            'help'         => __('Use custom CSS to style this Notification.', 'notificationx'),
+                                            'label'           => __('Add Custom CSS', 'notificationx'),
+                                            'name'            => "add_custom_css",
+                                            'type'            => "advanced-codeviewer",
+                                            'button_text'     => __( 'Click to Copy', 'notificationx' ),
+                                            'success_text'    => __( 'Copied to clipboard.', 'notificationx' ),
+                                            'is_pro'          => true,
+                                            'copyOnClick'     => false,
+                                            'priority'        => 5,
+                                            'help'            => __('Use custom CSS to style this Notification.', 'notificationx'),
                                         ],
                                     ]
                                 ],

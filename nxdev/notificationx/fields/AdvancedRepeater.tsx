@@ -66,11 +66,14 @@ const AdvancedRepeater = (props) => {
         let templateIndex = props.parentIndex;
         templateIndex = [...templateIndex, templateIndex.pop() - 1];
         builderContext.setFormField(templateIndex, __field);
-        let options = __field
+        let options;
+        if( __field ) {
+            options = __field
             .filter((f) => f?.options)
             .map((f) => f?.options)
             .flat();
-        setTemplateOptions(options);
+            setTemplateOptions(options);
+        }
     }, []);
     
 
@@ -171,10 +174,10 @@ const AdvancedRepeater = (props) => {
 
 
     const handleChangeTime = (from, to) => {
-        if( from && to ) {
+        if (from && to) {
             const fromDate = new Date(from);
-            const toDate   = new Date(to);
-            if( fromDate && toDate ) {
+            const toDate = new Date(to);
+            if (fromDate && toDate) {
                 const updatedData = localMemoizedValue.map(item => {
                     if (selectedField.includes(item.index)) {
                         return {
@@ -186,6 +189,7 @@ const AdvancedRepeater = (props) => {
                     return item;
                 });
                 setLocalMemoizedValue(updatedData);
+                builderContext.setFieldValue(fieldName, updatedData); // Update the builder context's field value
                 setChangeTimeToggle(false);
                 nxToast.info(
                     __(
@@ -196,6 +200,7 @@ const AdvancedRepeater = (props) => {
             }
         }
     }
+    
     
 
     const totalItems       = localMemoizedValue?.length || 0;

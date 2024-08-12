@@ -97,6 +97,7 @@ const PublishWidget = (props) => {
                 }else {
                     nxToast.disabled( __(`Notification Alert has been Disabled.`, "notificationx") );
                 }
+                context.setFieldValue( "enabled", enabled );
             } else if(res === 0) {
                 proAlert(
                     enabled ? sprintf(__("You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use this feature.", "notificationx"), 'http://wpdeveloper.com/in/upgrade-notificationx')

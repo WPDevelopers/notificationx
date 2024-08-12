@@ -7,6 +7,7 @@ import FlashingThemeThree from './FlashingThemeThree';
 import FlashingThemeFour from './FlashingThemeFour';
 import CSVUpload from './CSVUpload';
 import AdvancedRepeater from './AdvancedRepeater';
+import AdvancedCodeViewer from './AdvancedCodeViewer';
 
 
 
@@ -28,6 +29,8 @@ const Field = (ret, type, props) => {
             return <AdvancedRepeater {...props} />;
         case "csv-upload":
             return <CSVUpload {...props} />;
+        case "advanced-codeviewer":
+            return <AdvancedCodeViewer {...props} />;
         default:
             return ret;
     }

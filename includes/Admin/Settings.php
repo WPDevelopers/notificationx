@@ -17,6 +17,7 @@ use NotificationX\Extensions\GlobalFields;
 use NotificationX\GetInstance;
 use NotificationX\NotificationX;
 use UsabilityDynamics\Settings as UsabilityDynamicsSettings;
+use NotificationX\Core\Helper;
 
 /**
  * Settings Class
@@ -114,7 +115,7 @@ class Settings extends UsabilityDynamicsSettings {
             'tabnumber'     => true,
             'layout'        => 'horizontal',
             'is_pro_active' => NotificationX::get_instance()->is_pro(),
-            'is_wpml_active'=> did_action('wpml_loaded') ? true : false,
+            'is_wpml_active'=> Helper::is_wpml_setup(),
             'config'        => [
                 'active'  => 'tab-general',
                 'sidebar' => false,
