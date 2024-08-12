@@ -162,7 +162,7 @@
             min-height: 48px;
             box-sizing: border-box;
             transition: 0.3s ease-in-out;
-
+            cursor: pointer;
             &:hover {
                 background-color: #5414d0;
                 box-shadow: 0 15px 25px -5px rgba(86, 20, 213, 0.3);
@@ -481,11 +481,10 @@
             margin: 0 auto;
             text-align: center;
             padding: 30px;
-
+            background-color: transparent !important;
             h5 {
                 padding-bottom: 12px;
             }
-
             p {
                 padding-bottom: 16px;
             }
@@ -756,7 +755,7 @@
                     border-bottom: 1px solid #F0F6FF;
                     cursor: pointer;
 
-                    p,
+                    a,
                     svg path {
                         transition: ease-in-out .25s;
                         fill: #ADA6D6;
@@ -766,7 +765,7 @@
                     }
 
                     &:hover {
-                        p {
+                        a {
                             color: #6A4BFF;
                         }
 
@@ -780,7 +779,7 @@
                         border-bottom: none;
                     }
 
-                    span {
+                    a {
                         display: inline-flex;
                     }
                 }
@@ -1194,7 +1193,7 @@
         .nx-resource-wrapper {
             .nx-resource-body {
                 .nx-resource-content {
-                    p {
+                    a {
                         font-size: 14px;
                     }
                 }

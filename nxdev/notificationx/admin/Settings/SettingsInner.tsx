@@ -25,6 +25,7 @@ const SettingsInner = (props) => {
         if (qTab) {
             builder.setActiveTab(qTab);
         }
+        props?.setIsLoading(false);
     }, [Location])
 
     useEffect(() => {

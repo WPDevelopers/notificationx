@@ -7,14 +7,20 @@ import ReactModal from "react-modal";
 
 const GetStarted = ({props, context}) => {
     const [isOpenGetStartedModal, setIsOpenGetStartedModal] = useState(false);
+    const addNewRedirect = () => {
+        context.setRedirect({
+            page: `nx-edit`,
+            state: { type: 'comments', source: 'wp_reviews', timestamp: new Date().getTime() }
+        });
+    }
     return (
         <Fragment>
             <div className="nx-admin-header">
                 <img src={ assetsURL('/images/new-img/main-logo.svg') } alt={__('NotificationX Logo', 'notificationx') } />
-                <Link className="nx-add-new-btn" to={ { pathname: "/admin.php", search: `?page=nx-edit`} }>
+                <a className="nx-add-new-btn" onClick={ () => addNewRedirect }>
                     { __('Add New', 'notificationx') }
                     <img src={ assetsURL('/images/new-img/add.svg') } alt={__('add icon', 'notificationx') } />
-                </Link>
+                </a>
             </div>
 
             <div className="nx-admin-content-wrapper nx-started">

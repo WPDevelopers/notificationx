@@ -58,12 +58,9 @@ const AddNewNotification = (props) => {
 
     useEffect(() => {
       if( notificationxContext?.state?.redirect?.state?.type ) {
-        builder.setFieldValue(
-            "type",
-            notificationxContext?.state?.redirect?.state?.type
-        )
+        builder.setValues( { type: notificationxContext?.state?.redirect?.state?.type, source : notificationxContext?.state?.redirect?.state?.source } );
       }
-    }, [notificationxContext?.state?.redirect?.state?.type])
+    }, [])
         
 
     return (

@@ -31,7 +31,7 @@ const Dashboard = (props) => {
                     <GetStarted props={props} context={builderContext}/>
                     <AnalyticsOverview props={props} context={builderContext} />
                     <Integration props={props} context={builderContext}/>
-                    <AnalyticsDashboard/>
+                    <AnalyticsDashboard props={props} context={builderContext} />
                     <NotificationTypeResource props={props} context={builderContext} />
                     <Docs props={props} context={builderContext}  />
                     <FloatingAction/>

@@ -1,12 +1,21 @@
 import { __, sprintf } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
 import { assetsURL } from '../../core/functions';
+import { Link } from 'react-router-dom';
 import { DOCS, NotificationType } from '../../core/constants';
 const NotificationTypeResource = ({ props, context }) => {
-    const handleSalesRedirection = ( type ) => {
+    const handleSalesRedirection = ( type, source ) => {
         context.setRedirect({
             page: `nx-edit`,
-            state: { type: type }
+            state: { type: type, source: source, timestamp: new Date().getTime() }
+        });
+    }
+
+    const handleCrossDomain = () => {
+        context.setRedirect({
+            page: `nx-settings`,
+            tab: 'tab-miscellaneous-settings',
+            keepHash: true,
         });
     }
 
@@ -15,15 +24,15 @@ const NotificationTypeResource = ({ props, context }) => {
             <div className='nx-notification-type-wrapper nx-admin-content-wrapper'>
                 <div className='nx-notification-type-header nx-content-details header'>
                     <div className='header-content-ex'>
-                        <h4>{ __('Notification Type', 'notificationx') }</h4>
-                        <p>We support various types of notifications including</p>
+                        <h4>{ __('Exclusive Features & Notification Types', 'notificationx') }</h4>
+                        <p>{ __('Get various types of notification support including', 'notificationx') }</p>
                     </div>
-                    <button className='nx-secondary-btn'>
-                        Add New
+                    <Link className="nx-secondary-btn" to={ { pathname: "/admin.php", search: `?page=nx-edit`} }>
+                        { __('Add New', 'notificationx') }
                         <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8 4V13M12.5 8.5H3.5" stroke="#6A4BFF" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
-                    </button>
+                    </Link>
                 </div>
                 <div className='nx-notification-type-body'>
                     { NotificationType.map( (item, index) => (
@@ -32,7 +41,12 @@ const NotificationTypeResource = ({ props, context }) => {
                             <div className='nx-body-content nx-content-details'>
                                 <h5>{ item?.title }</h5>
                                 <p>{ item?.desc }</p>
-                                <button className='nx-secondary-btn' onClick={ () => handleSalesRedirection( item?.type ) }>{ item?.button_text }</button>
+                                { item?.type == 'cross-domain' ? 
+                                    <button className='nx-secondary-btn' onClick={ () => handleCrossDomain() }>{ item?.button_text }</button>
+                                    : 
+                                    <button className='nx-secondary-btn' onClick={ () => handleSalesRedirection( item?.type, item?.source ) }>{ item?.button_text }</button>
+                                }
+                                
                             </div>
                         </div>
                     ) ) }
@@ -44,7 +58,7 @@ const NotificationTypeResource = ({ props, context }) => {
                 <div className='nx-resource-wrapper nx-admin-content-wrapper'>
                     <div className='nx-resource-header nx-content-details header'>
                         <h4>{ __('Helpful Resources', 'notificationx') }</h4>
-                        <button className='nx-secondary-btn'>{ __('Explore More', 'notificationx') }</button>
+                        <a className='nx-secondary-btn' href={ sprintf('%s', 'https://notificationx.com/docs/') } target='_blank'>{ __('Explore More', 'notificationx') }</a>
                     </div>
 
                     <div className='nx-resource-body'>
@@ -53,7 +67,7 @@ const NotificationTypeResource = ({ props, context }) => {
                                 <span>
                                     <div dangerouslySetInnerHTML={ { __html: item?.svg } }></div>
                                 </span>
-                                <p>{ item?.desc }</p>
+                                <a href={item?.url} target='_blank'>{ item?.desc }</a>
                             </div>
                         ) ) }
                     </div>
