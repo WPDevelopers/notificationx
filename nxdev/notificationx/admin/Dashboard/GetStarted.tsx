@@ -17,7 +17,7 @@ const GetStarted = ({props, context}) => {
         <Fragment>
             <div className="nx-admin-header">
                 <img src={ assetsURL('/images/new-img/main-logo.svg') } alt={__('NotificationX Logo', 'notificationx') } />
-                <a className="nx-add-new-btn" onClick={ () => addNewRedirect }>
+                <a className="nx-add-new-btn" onClick={ addNewRedirect }>
                     { __('Add New', 'notificationx') }
                     <img src={ assetsURL('/images/new-img/add.svg') } alt={__('add icon', 'notificationx') } />
                 </a>
@@ -34,7 +34,7 @@ const GetStarted = ({props, context}) => {
                     <h2>{ sprintf( '%s', GET_STARTED_TXT ) }</h2>
                     <p>{ sprintf( '%s', GET_STARTED_DESC ) }</p>
                     <Link className="nx-primary-btn" to={ { pathname: "/admin.php", search: `?page=nx-builder`} }>{ __('Launch Setup Wizard', 'notificationx') }</Link>
-                    <a className='nx-resource-link' href="#">
+                    <a className='nx-resource-link' target='_blank' href={sprintf('%s','https://www.youtube.com/playlist?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK')}>
                         { __('Watch Tutorials', 'notificationx') }
                         <img src={assetsURL('/images/new-img/link.svg')} alt={ __('link-icon', 'notificationx') } />
                     </a>
@@ -44,6 +44,7 @@ const GetStarted = ({props, context}) => {
             <ReactModal
                 isOpen={isOpenGetStartedModal}
                 onRequestClose={() => setIsOpenGetStartedModal(false)}
+                className='nx-get-started-modal'
                 style={{
                     overlay: {
                         position: "fixed",

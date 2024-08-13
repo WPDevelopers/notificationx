@@ -14,7 +14,7 @@ const AnalyticsDashboard = ({ props, context}) => {
             <div className='nx-integration-wrapper nx-admin-content-wrapper'>
                 <div className='nx-integrations-header nx-content-details header'>
                     <h4>{ __('Integrations', 'notificationx') }</h4>
-                    <Link className="nx-secondary-btn" to={ { pathname: "/admin.php", search: `?page=nx-admin`} }>
+                    <Link className="nx-secondary-btn" to={ { pathname: "/admin.php", search: `?page=nx-settings`} }>
                         { __('View All Integrations', 'notificationx') }
                     </Link>
                 </div>

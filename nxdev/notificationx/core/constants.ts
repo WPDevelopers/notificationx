@@ -112,7 +112,7 @@ export const FOOTER_DOCS = [
         'title'      : __('Join Our Community', 'notificationx'),
         'desc'       : __('Join the Facebook community to discuss with fellow developers, connect with others, and stay updated.', 'notificationx'),
         'button_text': __('Get Support', 'notificationx'),
-        'button_url' : 'https://wpdeveloper.com/support/',
+        'button_url' : 'https://www.facebook.com/TheNotificationX',
     },
     {
         'image'      : 'contribute.svg',
