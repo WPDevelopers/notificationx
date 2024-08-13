@@ -163,6 +163,7 @@
             box-sizing: border-box;
             transition: 0.3s ease-in-out;
             cursor: pointer;
+
             &:hover {
                 background-color: #5414d0;
                 box-shadow: 0 15px 25px -5px rgba(86, 20, 213, 0.3);
@@ -482,9 +483,11 @@
             text-align: center;
             padding: 30px;
             background-color: transparent !important;
+
             h5 {
                 padding-bottom: 12px;
             }
+
             p {
                 padding-bottom: 16px;
             }
@@ -697,6 +700,8 @@
                     border: 1px solid #F0F6FF;
                     border-radius: 6px;
                     background: linear-gradient(180deg, #F9F8FC 0%, #FFFFFF 100%);
+                    display: flex;
+                    flex-direction: column;
 
                     img {
                         margin-bottom: 6px;
@@ -706,8 +711,8 @@
                     .nx-content-details {
                         display: flex;
                         flex-direction: column;
-                        justify-content: flex-start;
                         align-items: flex-start;
+                        flex: 1;
                         gap: 0;
                         margin-bottom: 0;
 
@@ -719,6 +724,7 @@
                         p {
                             font-size: 14px;
                             padding-bottom: 16px;
+                            flex: 1;
                         }
 
                         .nx-secondary-btn {
@@ -747,42 +753,48 @@
                 flex-direction: column;
                 gap: 12px;
 
-                .nx-resource-content {
-                    display: inline-flex;
-                    gap: 8px;
-                    align-items: center;
-                    padding: 10px 0;
-                    border-bottom: 1px solid #F0F6FF;
-                    cursor: pointer;
+                .nx-resource-body {
+                    display: flex;
+                    flex-direction: column;
 
-                    a,
-                    svg path {
-                        transition: ease-in-out .25s;
-                        fill: #ADA6D6;
-                        color: #ADA6D6;
-                        font-size: 16px;
-
-                    }
-
-                    &:hover {
-                        a {
-                            color: #6A4BFF;
-                        }
-
-                        svg path {
-                            fill: #6A4BFF;
-                        }
-
-                    }
-
-                    &:last-child {
-                        border-bottom: none;
-                    }
-
-                    a {
+                    .nx-resource-content {
                         display: inline-flex;
+                        gap: 8px;
+                        align-items: center;
+                        padding: 10px 0;
+                        border-bottom: 1px solid #F0F6FF;
+                        cursor: pointer;
+
+                        a,
+                        svg path {
+                            transition: ease-in-out .25s;
+                            fill: #ADA6D6;
+                            color: #ADA6D6;
+                            font-size: 16px;
+
+                        }
+
+                        &:hover {
+                            a {
+                                color: #6A4BFF;
+                            }
+
+                            svg path {
+                                fill: #6A4BFF;
+                            }
+
+                        }
+
+                        &:last-child {
+                            border-bottom: none;
+                        }
+
+                        a {
+                            display: inline-flex;
+                        }
                     }
                 }
+
             }
 
             .nx-stories-wrapper {
@@ -1215,14 +1227,6 @@
 
     .nx-admin-wrapper .nx-more-docs-wrapper .nx-docs-content-wrapper {
         padding: 20px;
-
-        &:first-child {
-            padding: 0;
-        }
-
-        .nx-docs-content-items {
-            padding: 20px;
-        }
     }
 
     .nx-admin-wrapper .nx-more-docs-wrapper .nx-docs-content-wrapper h3 {
