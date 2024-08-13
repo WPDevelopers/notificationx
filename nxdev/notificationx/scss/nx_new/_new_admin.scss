@@ -930,7 +930,7 @@
             visibility: visible;
             opacity: 1;
             transition: all .3s ease-in-out;
-            transform: scale(1);
+            transform: scale(.8);
         }
 
         .nx-dashboard-floating-actions {
@@ -1059,7 +1059,7 @@
                         img {
                             opacity: 1;
                             visibility: visible;
-                            transform: scale(1.2);
+                            transform: scale(1);
                         }
                     }
                 }
