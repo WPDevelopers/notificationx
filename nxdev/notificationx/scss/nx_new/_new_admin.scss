@@ -318,7 +318,7 @@
     .nx-notifications-wrapper {
 
         .nx-admin-items {
-            overflow: auto;
+            // overflow: auto;
 
             .nx-list-table-wrapper {
                 min-width: 1180px;
@@ -529,7 +529,7 @@
             flex: 65%;
             border-radius: 6px;
             position: relative;
-
+            padding-bottom: 0;
             .nx-analytics-overlay {
                 position: absolute;
                 inset: 0;

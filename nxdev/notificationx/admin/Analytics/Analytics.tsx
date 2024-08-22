@@ -256,7 +256,7 @@ const Analytics = ( { isDashboard = false } ) => {
                                 options={data.options}
                                 series={data.series}
                                 type="area"
-                                height={500}
+                                height={ isDashboard ? 350 : 500 }
                             />
                         </Suspense>
                     </div>
