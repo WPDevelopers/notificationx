@@ -42,10 +42,10 @@ const Media = (props) => {
                 title: media?.filename,
                 url: media.url,
             });
-            const csvUrl = media.url.replace('http://', 'https://');
+            const csvUrl = media.url;
             const csvContent = await fetch(csvUrl).then(res => res.text());
             const lines = csvContent.split('\n');
-            const chunkSize = 10;
+            const chunkSize = 100;
             const totalChunks = Math.ceil(lines.length / chunkSize);
             
             Swal.fire({

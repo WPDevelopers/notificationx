@@ -184,6 +184,21 @@ class Settings extends UsabilityDynamicsSettings {
                                     'description' => __( 'Enabling it will remove cookies, HTTP authentication entries, and TLS client certificates from API calls on the frontend.', 'notificationx' ),
                                     'help'        => __( 'Note: Recommended if you use any caching plugins.', 'notificationx' ),
                                 ],
+                                'notification_image_size' => [
+                                    'name'    => "notification_image_size",
+                                    'type'    => 'select',
+                                    'label'   => __('Image Size', 'notificationx'),
+                                    'default' => '100_100',
+                                    'options' => GlobalFields::get_instance()->normalize_fields([
+                                                '100_100' => __('100x100 PX', 'notificationx'),
+                                                '200_200' => __('200x200 PX', 'notificationx'),
+                                                '300_300' => __('300x300 PX', 'notificationx'),
+                                                '400_400' => __('400x400 PX', 'notificationx'),
+                                                '500_500' => __('500x500 PX', 'notificationx'),
+                                            ]),
+                                    'priority' => 20,
+                                    'help'     => __('Select the size for your notification image.', 'notificationx'),
+                                ],
                             ),
                         ],
                         'powered_by'      => [
