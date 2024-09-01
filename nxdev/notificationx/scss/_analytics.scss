@@ -1,12 +1,13 @@
 .analytics-display-area {
     &.nx-stats-tease {
-        position: relative;
+        // position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
         img {
             width: 100%;
         }
+        min-height: 400px;
         &::before {
             position: absolute;
             content: "";
@@ -15,6 +16,7 @@
             width: 100%;
             height: 100%;
             background: rgb(105 74 233 / 19%);
+            border-radius: 12px;
         }
         .nx-stats-pro-tease {
             position: absolute;

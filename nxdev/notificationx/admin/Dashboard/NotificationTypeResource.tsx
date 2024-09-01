@@ -37,7 +37,9 @@ const NotificationTypeResource = ({ props, context }) => {
                 <div className='nx-notification-type-body'>
                     { NotificationType.map( (item, index) => (
                         <div className='nx-body-content-wrapper' key={index}>
-                            <img src={ assetsURL(`/images/new-img/${item?.img}`) } alt="icon" />
+                            <div className="type-image">
+                                <img src={ assetsURL(`/images/new-img/${item?.img}`) } alt="icon" />
+                            </div>
                             <div className='nx-body-content nx-content-details'>
                                 <h5>{ item?.title }</h5>
                                 <p>{ item?.desc }</p>

@@ -45,7 +45,7 @@ export const DOCS = [
 
 export const NotificationType = [
     {
-        'img'        : 'theme-1.png',
+        'img'        : 'gif/sales_notification.gif',
         'title'      : __('Sales Notification', 'notificationx'),
         'type'       : 'conversions',
         'button_text': __('Create Now', 'notificationx'),
@@ -53,7 +53,7 @@ export const NotificationType = [
         'source'     : 'woocommerce',
     },
     {
-        'img'        : 'theme-2.png',
+        'img'        : 'gif/review_notification.gif',
         'title'      : __('Review Notification', 'notificationx'),
         'type'       : 'reviews',
         'button_text': __('Create Now', 'notificationx'),
@@ -61,7 +61,7 @@ export const NotificationType = [
         'source'     : 'wp_reviews',
     },
     {
-        'img'        : 'theme-3.png',
+        'img'        : 'gif/notification_bar.gif',
         'title'      : __('Notification Bar', 'notificationx'),
         'type'       : 'notification_bar',
         'button_text': __('Create Now', 'notificationx'),
@@ -69,7 +69,7 @@ export const NotificationType = [
         'source'     : 'press_bar',
     },
     {
-        'img'        : 'theme-4.png',
+        'img'        : 'gif/growth_alert.gif',
         'title'      : __('Growth Alert', 'notificationx'),
         'type'       : 'inline',
         'button_text': __('Create Now', 'notificationx'),
@@ -77,7 +77,7 @@ export const NotificationType = [
         'source'     : 'woo_inline',
     },
     {
-        'img'        : 'theme-5.png',
+        'img'        : 'gif/flash_tab.gif',
         'title'      : __('Flashing Tabs', 'notificationx'),
         'type'       : 'flashing_tab',
         'button_text': __('Create Now', 'notificationx'),
@@ -85,7 +85,7 @@ export const NotificationType = [
         'source'     : 'flashing_tab',
     },
     {
-        'img'        : 'theme-6.png',
+        'img'        : 'gif/cross_domain.gif',
         'title'      : __('Cross - Domain Notice', 'notificationx'),
         'type'       : 'cross-domain',
         'button_text': __('Copy & Explore', 'notificationx'),
