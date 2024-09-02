@@ -203,6 +203,7 @@ class Admin {
 			'stylesheet_url' => '',
 			'styles'         => self::ASSET_URL . 'css/wpdeveloper-review-notice.css',
 			'priority'       => 5,
+            // 'dev_mode'       => true
         ]);
 
         $_review_notice = [
@@ -286,22 +287,25 @@ class Admin {
                 'display_if'  => ! is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
             ]
         );
-        $b_message            = '<p style="margin-top: 0; margin-bottom: 10px;">Black Friday Sale: Get up to 40% discounts & <strong>boost your sales</strong> with advanced marketing campaigns ⚡</p><a class="button button-primary" href="https://wpdeveloper.com/upgrade/notificationx-bfcm" target="_blank">Upgrade to pro</a> <button data-dismiss="true" class="dismiss-btn button button-link">I don’t want to save money</button>';
+
+
+        // New Notice
+        $b_message            = '<p>6th Anniversary Sale: Unlock premium features with <strong>up to 25% discounts</strong> & skyrocket your conversions 🚀</p><a class="button button-primary" href="https://wpdeveloper.com/upgrade/notificationx-bfcm" target="_blank">Upgrade to PRO</a>';
 		$_black_friday_notice = [
 			'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
 			'html'      => $b_message,
 		];
 
 		$notices->add(
-			'black_friday_notice',
+			'6th_anniversary',
 			$_black_friday_notice,
 			[
 				'start'       => $notices->time(),
 				'recurrence'  => false,
 				'dismissible' => true,
 				'refresh'     => NOTIFICATIONX_VERSION,
-				"expire"      => strtotime( '11:59:59pm 2nd December, 2023' ),
-				'display_if'  => ! is_plugin_active( 'notificationx-pro/notificationx-pro.php' )
+				"expire"      => strtotime( '11:59:59pm 2nd December, 2024' ),
+				// 'display_if'  => ! is_plugin_active( 'notificationx-pro/notificationx-pro.php' )
 			]
 		);
         // $notices->init();
