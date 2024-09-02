@@ -259,59 +259,6 @@
                     margin: 0;
                 }
             }
-
-
-            /*toggle css
-
-
-
-            .toggle-wrap {
-                position: relative;
-                display: inline-block;
-                width: 32px;
-                height: 16px;
-            }
-
-            .toggle-wrap input {
-                opacity: 0;
-                width: 0;
-                height: 0;
-            }
-
-            .slider {
-                position: absolute;
-                cursor: pointer;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: #8D92B1;
-                border-radius: 17px;
-                transition: ease-in-out .35s;
-            }
-
-            .slider:before {
-                position: absolute;
-                content: "";
-                height: 14px;
-                width: 14px;
-                left: 1px;
-                bottom: 1px;
-                background-color: #fff;
-                border-radius: 50%;
-                transition: ease-in-out .35s;
-                box-shadow: 0 1px 2px 0 #1018280F, 0 1px 3px 0 #1018281A;
-            }
-
-            input:checked+.slider {
-                background-color: #6A4BFF;
-            }
-
-            input:checked+.slider:before {
-                transform: translateX(16px);
-            }
-
-            */
         }
     }
 
@@ -531,6 +478,7 @@
             position: relative;
             padding-bottom: 0;
             border-radius: 12px;
+
             .nx-analytics-overlay {
                 position: absolute;
                 inset: 0;
@@ -703,10 +651,12 @@
                     background: linear-gradient(180deg, #F9F8FC 0%, #FFFFFF 100%);
                     display: flex;
                     flex-direction: column;
+
                     .type-image {
                         min-height: 150px;
                         text-align: center;
                     }
+
                     img {
                         margin-bottom: 6px;
                         max-width: 100%;
@@ -743,8 +693,6 @@
                 }
             }
         }
-
-
 
         .nx-resource-stories-wrapper {
             display: flex;
@@ -1192,10 +1140,6 @@
 
     .nx-notification-type-header {
         flex-wrap: wrap;
-
-        .header-content-ex {
-            max-width: 294px;
-        }
     }
 
     .nx-admin-wrapper .nx-other-details-wrapper .nx-notification-type-wrapper .nx-notification-type-body {
