@@ -19,7 +19,6 @@ const GetStarted = ({props, context}) => {
                 <img src={ assetsURL('/images/new-img/main-logo.svg') } alt={__('NotificationX Logo', 'notificationx') } />
                 <a className="nx-add-new-btn" onClick={ addNewRedirect }>
                     { __('Add New', 'notificationx') }
-                    <img src={ assetsURL('/images/new-img/add.svg') } alt={__('add icon', 'notificationx') } />
                 </a>
             </div>
 

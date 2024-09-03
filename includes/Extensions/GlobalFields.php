@@ -1459,6 +1459,7 @@ class GlobalFields {
                 ],
             ],
             'instructions' => apply_filters( 'nx_instructions', [] ),
+            'pro_popup'    => apply_filters( 'nx_popup_alert', [] ),
         ];
 
         $tabs['tabs'] = apply_filters('nx_metabox_tabs', $tabs['tabs']);

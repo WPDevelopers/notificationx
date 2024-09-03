@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Toggle from "../components/Toggle";
 import SingleNotificationAction from "./SingleNotificationAction";
-import nxHelper, { proAlert } from "../core/functions";
+import nxHelper, { getAlert, proAlert } from "../core/functions";
 import nxToast from "../core/ToasterMsg";
-
+import { getIn } from 'quickbuilder';
 import { sprintf, __ } from "@wordpress/i18n";
 import { ThemePreview } from "../components";
 // @ts-ignore
@@ -16,7 +16,6 @@ import moment from "moment";
 import { Link, NavLink } from "react-router-dom";
 import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
-import parse from 'html-react-parser';
 
 const SingleNotificationX = ({
     i,
@@ -31,7 +30,7 @@ const SingleNotificationX = ({
     checkItem,
     setReload,
     ...item
-}) => {
+}) => {    
     const builderContext = useNotificationXContext();
     const settings: any = __experimentalGetSettings();
     const updated_at = moment
@@ -88,15 +87,11 @@ const SingleNotificationX = ({
                         nxToast.disabled( __(`Notification Alert has been Disabled.`, "notificationx") );
                     }
                 } else if(res === 0) {
-                    proAlert(
-                        enabled ? sprintf(__("You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use this feature.", "notificationx"), 'http://wpdeveloper.com/in/upgrade-notificationx')
-                            : __("Disabled", "notificationx")
-                    ).fire();
+                    const popup = getAlert(item?.type, builderContext);                    
+                    proAlert(popup).fire();
                 } else {
-                    proAlert(
-                        enabled ? sprintf(__("You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification.", "notificationx"), 'http://wpdeveloper.com/in/upgrade-notificationx')
-                            : __("Disabled", "notificationx")
-                    ).fire();
+                    const popup = getAlert(item?.type, builderContext);                    
+                    proAlert(popup).fire();
                 }
                 return res;
             })
@@ -104,7 +99,8 @@ const SingleNotificationX = ({
                 setLoading(false);
                 nxToast.error( __(`Oops, Something went wrong. Please try again.`, "notificationx") );
             });
-    };
+    };   
+
     // const [checked, setChecked] = useState(false);
     const onChecked = (e) => {
         checkItem(i);

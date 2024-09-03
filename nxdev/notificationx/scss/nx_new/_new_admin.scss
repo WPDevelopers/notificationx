@@ -129,6 +129,22 @@
                     stroke: #FFFFFF;
                 }
             }
+            &.upgrade-pro {
+                background-color: rgba(106, 75, 255, .05);
+                border: 1px solid rgba(106, 75, 255, .05);
+                border-radius: 5px;
+                box-sizing: border-box;
+                color: #6a4bff;
+                display: flex;
+                font-size: 12px;
+                font-weight: 500;
+                gap: 5px;
+                justify-content: center;
+                line-height: 1em;
+                min-height: 32px;
+                padding: 8px 12px;
+                transition: .3s ease-in-out;
+            }
         }
 
         a.nx-resource-link {
@@ -517,17 +533,19 @@
 
                     .nx-analytic-select-wrapper {
                         width: 100%;
-                        min-width: 300px;
-                        max-width: 300px;
+                        min-width: 250px;
+                        max-width: 250px;
                         margin: 0;
                         padding: 0;
 
                         .analytics-select__control {
                             min-height: 42px;
                             padding: 0px 0px 0px 12px;
-
+                            .analytics-select__indicators .analytics-select__indicator {
+                                padding: 2px;
+                            }
                             .analytics-select__value-container {
-                                gap: 4px;
+                                gap: 2px;
 
                                 .analytics-select__multi-value {
                                     background: rgba(106, 75, 255, 0.1);
@@ -538,11 +556,12 @@
                                     margin: 0;
 
                                     .analytics-select__multi-value__label {
-                                        padding: 2px 6px;
+                                        padding: 2px 4px;
                                     }
 
                                     .analytics-select__multi-value__remove {
                                         padding-left: 0;
+                                        padding-right: 2px;
                                     }
 
                                 }

@@ -3,7 +3,7 @@ import { sprintf, __ } from "@wordpress/i18n";
 import Swal from "sweetalert2";
 import { useNotificationXContext } from "../hooks";
 import { ToastAlert } from "./ToasterMsg";
-import { isObject } from "quickbuilder";
+import { isObject, getIn } from "quickbuilder";
 
 /**
  * apiFetch setup
@@ -191,7 +191,7 @@ export const proAlert = (html = null) => {
                 "You need to upgrade to the <strong><a href='%s' target='_blank'>Premium Version</a></strong> to use this feature.",
                 "notificationx"
             ),
-            "http://wpdeveloper.com/in/upgrade-notificationx"
+            "https://notificationx.com/#pricing"
         );
     }
     if (isObject(html)) {
@@ -327,5 +327,10 @@ export const defaultCustomCSSValue = ( type = '') => {
     `);
 }
 
+export const getAlert = (type, context) => {
+    const all_sources = getIn(context, 'tabs.0.fields.0.fields.0.options');        
+    const single_type = all_sources.find( (item) => item?.value == type );
+    return single_type?.popup;
+} 
 
 export default nxHelper;

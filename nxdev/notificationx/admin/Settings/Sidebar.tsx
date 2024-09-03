@@ -21,7 +21,7 @@ const Sidebar = ({ assetsUrl, is_pro_active = false }) => {
                                     {__('Manage License', 'notificationx')}
                                 </a> :
                                 <a
-                                    href="http://wpdeveloper.com/in/upgrade-notificationx"
+                                    href="https://notificationx.com/#pricing"
                                     rel="nofollow"
                                     target="_blank"
                                 >

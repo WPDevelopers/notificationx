@@ -213,7 +213,7 @@ const SingleNotificationAction = ({
                         "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use <a target='_blank' href='%s' style='color:red'>Cross Domain Notice</a> feature.",
                         "notificationx"
                     ),
-                    "http://wpdeveloper.com/in/upgrade-notificationx",
+                    "https://notificationx.com/#pricing",
                     "https://notificationx.com/docs/notificationx-cross-domain-notice/"
                 )
             ).fire();

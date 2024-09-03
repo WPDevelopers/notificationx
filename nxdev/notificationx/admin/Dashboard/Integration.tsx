@@ -42,7 +42,7 @@ const Integration = ({props, context}) => {
   return (
     <div className='nx-admin-content-wrapper nx-notifications-wrapper notificationx-items'>
         <div className='nx-integrations-details nx-content-details header'>
-          <h4>{ __('Integrations', 'notificationx') }</h4>
+          <h4>{ __('Notifications', 'notificationx') }</h4>
           <Link className="nx-primary-btn" to={ { pathname: "/admin.php", search: `?page=nx-admin`} }>
               { __('View All Notifications', 'notificationx') }
           </Link>
@@ -79,7 +79,6 @@ const Integration = ({props, context}) => {
                     <p>{ sprintf( '%s', NOT_FOUND_DESC  ) }</p>
                     <Link className="nx-primary-btn" to={ { pathname: "/admin.php", search: `?page=nx-edit`} }>
                       { __('Add New', 'notificationx') }
-                      <img src={assetsURL('/images/new-img/add.svg')} alt="icon"/>
                     </Link>
                   </div>
                 }

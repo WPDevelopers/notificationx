@@ -34,16 +34,6 @@ class CustomNotification extends Types {
     public function __construct(){
         $this->id = 'custom';
         $this->title = __('Custom Notification', 'notificationx');
-        $this->popup = [
-            "denyButtonText" => __("<a href='https://notificationx.com/docs/custom-notification/' target='_blank'>More Info</a>", "notificationx"),
-            "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
-            "html"=> __('
-                <span style="text-align:center;">Display custom conversion notifications as pop up.</span>
-                <video id="pro_alert_video_popup" type="text/html" allowfullscreen width="450" height="235" autoplay loop muted>
-                    <source src="https://notificationx.com/wp-content/uploads/2024/01/How-to-Create-Custom-Notification-Alerts-with-NotificationX.mp4" type="video/mp4">
-                </video>
-            ', 'notificationx')
-        ];
         parent::__construct();
     }
 

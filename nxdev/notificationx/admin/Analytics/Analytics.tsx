@@ -256,7 +256,7 @@ const Analytics = ( { isDashboard = false } ) => {
                                 options={data.options}
                                 series={data.series}
                                 type="area"
-                                height={ isDashboard ? 350 : 500 }
+                                height={ isDashboard ? 300 : 500 }
                             />
                         </Suspense>
                     </div>
@@ -274,7 +274,7 @@ const Analytics = ( { isDashboard = false } ) => {
                     />
                     <div className="nx-stats-pro-tease">
                         <a
-                            href="http://wpdeveloper.com/in/upgrade-notificationx"
+                            href="https://notificationx.com/#pricing"
                             target="_blank"
                         >
                             <p>{__("Get PRO to Unlock", 'notificationx')}</p>

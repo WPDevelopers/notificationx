@@ -1,23 +1,33 @@
 import { __, sprintf } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
-import { assetsURL } from '../../core/functions';
+import { assetsURL, getAlert, proAlert } from '../../core/functions';
 import { Link } from 'react-router-dom';
 import { DOCS, NotificationType } from '../../core/constants';
 const NotificationTypeResource = ({ props, context }) => {
     const handleSalesRedirection = ( type, source ) => {
-        context.setRedirect({
-            page: `nx-edit`,
-            state: { type: type, source: source, timestamp: new Date().getTime() }
-        });
+        if( ['inline', 'flashing_tab', 'cross-domain'].includes( type ) && !context?.is_pro_active ) {
+            const popup = getAlert( type , context );                    
+            proAlert(popup).fire();
+        }else{
+            context.setRedirect({
+                page: `nx-edit`,
+                state: { type: type, source: source, timestamp: new Date().getTime() }
+            });
+        }
     }
 
     const handleCrossDomain = () => {
-        context.setRedirect({
-            page: `nx-settings`,
-            tab: 'tab-miscellaneous-settings',
-            keepHash: true,
-        });
-    }
+        if(  !context?.is_pro_active ) {
+            const popup = getAlert('cross-domain', context);                    
+            proAlert(popup).fire();
+        }else{
+            context.setRedirect({
+                page: `nx-settings`,
+                tab: 'tab-miscellaneous-settings',
+                keepHash: true,
+            });
+        }
+    }    
 
     return (
         <div className='nx-other-details-wrapper'>
@@ -29,9 +39,6 @@ const NotificationTypeResource = ({ props, context }) => {
                     </div>
                     <Link className="nx-secondary-btn" to={ { pathname: "/admin.php", search: `?page=nx-edit`} }>
                         { __('Add New', 'notificationx') }
-                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8 4V13M12.5 8.5H3.5" stroke="#6A4BFF" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
                     </Link>
                 </div>
                 <div className='nx-notification-type-body'>
@@ -44,15 +51,13 @@ const NotificationTypeResource = ({ props, context }) => {
                                 <h5>{ item?.title }</h5>
                                 <p>{ item?.desc }</p>
                                 { item?.type == 'cross-domain' ? 
-                                    <button className='nx-secondary-btn' onClick={ () => handleCrossDomain() }>{ item?.button_text }</button>
+                                    <button className={`nx-secondary-btn ${!context?.is_pro_active && ['inline', 'flashing_tab', 'cross-domain'].includes( item?.type ) ? 'upgrade-pro' : ''}`} onClick={ () => handleCrossDomain() }>{ !context?.is_pro_active ? __('Upgrade To Pro') : item?.button_text }</button>
                                     : 
-                                    <button className='nx-secondary-btn' onClick={ () => handleSalesRedirection( item?.type, item?.source ) }>{ item?.button_text }</button>
+                                    <button className={`nx-secondary-btn ${!context?.is_pro_active && ['inline', 'flashing_tab', 'cross-domain'].includes( item?.type ) ? 'upgrade-pro' : ''}`} onClick={ () => handleSalesRedirection( item?.type, item?.source ) }>{ ['inline', 'flashing_tab', 'cross-domain'].includes( item?.type ) && !context?.is_pro_active ? __('Upgrade To Pro') : item?.button_text }</button>
                                 }
-                                
                             </div>
                         </div>
                     ) ) }
-                    
                 </div>
             </div>
 
@@ -78,7 +83,7 @@ const NotificationTypeResource = ({ props, context }) => {
                 <div className='nx-stories-wrapper nx-admin-content-wrapper'>
                     <div className='nx-stories-header nx-content-details header'>
                         <h4>{ __('Customer Success Stories', 'notificationx') }</h4>
-                        <button className='nx-secondary-btn'>{ __('Learn More', 'notificationx') }</button>
+                        <a target='_blank' className='nx-secondary-btn' href={ `https://notificationx.com/case-study/` }>{ __('Learn More', 'notificationx') }</a>
                     </div>
 
                     <div className='nx-stories-body'>
