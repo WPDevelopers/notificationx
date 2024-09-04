@@ -87,7 +87,7 @@ const NotificationTypeResource = ({ props, context }) => {
 
                     <div className='nx-stories-body'>
                         <div className='nx-stories-content'>
-                            <img className='stories-bg' src="/wp-content/plugins/notificationx/assets/admin/images/new-img/stories-2.png" alt="stories img" />
+                            <img className='stories-bg' src={`https://notificationx.com/wp-content/uploads/2024/09/stories-2.png`} alt="stories img" />
                             <div className='nx-content-details'>
                                 <h5 dangerouslySetInnerHTML={{ __html: __('How Emilio Johann <br> Got 1.4M+ Views with NotificationX Sales Alert') }}></h5>
                                 <p>{ __('eCommerce & Entrepreneurship Consultant', 'notificationx') }</p>
@@ -102,7 +102,7 @@ const NotificationTypeResource = ({ props, context }) => {
                         </div>
 
                         <div className='nx-stories-content'>
-                            <img className='stories-bg' src="/wp-content/plugins/notificationx/assets/admin/images/new-img/stories-2.png" alt="stories img" />
+                            <img className='stories-bg' src={`https://notificationx.com/wp-content/uploads/2024/09/stories-2.png`} alt="stories img" />
                             <div className='nx-content-details'>
                                 <h5>{ __('Converting Prospects to Customers: Barn2\'s Success Story with NotificationX', 'notificationx') }</h5>
                                 <p>{ __('WordPress Plugin Developer Company', 'notificationx') }</p>

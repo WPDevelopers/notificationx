@@ -19,7 +19,7 @@ const AnalyticsDashboard = ({ props, context}) => {
                     </Link>
                 </div>
                 <div className='nx-integrations-body'>
-                    <img src={ assetsURL('/images/new-img/integration.png') } alt="icon" />
+                    <img src={ `https://notificationx.com/wp-content/uploads/2024/09/integration.png` } alt="icon" />
                 </div>
             </div>
         </div>

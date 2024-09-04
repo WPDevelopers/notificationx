@@ -147,6 +147,8 @@ export const proFeaturePopupConfigCrossDomain = {
     confirmButtonText: "<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>",
     html: `
         <span>Boost credibility by displaying single, multiple or all live alerts on multiple websites.</span>
-        <iframe style="margin-top:20px;" width="450" height="235" src="https://www.youtube.com/embed/-jJxoCEmtWE?si=cIOY_6_PnN85OmnY" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+        <video id="pro_alert_video_popup" type="text/html" allowfullscreen width="450" height="235" autoplay loop muted>
+            <source src="https://notificationx.com/wp-content/uploads/2024/09/Introducing-NotificationX-CrossDomain-Notice.mp4" type="video/mp4">
+        </video>
     `
 };
