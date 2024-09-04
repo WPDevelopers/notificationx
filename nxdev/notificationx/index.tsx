@@ -11,6 +11,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Route from "./Route";
 import { __ } from "@wordpress/i18n";
+import FloatingAction from "./admin/Dashboard/FloatingAction";
 
 const NotificationX = (props) => {
     // const builder = useBuilder(notificationxTabs);
@@ -41,6 +42,7 @@ const NotificationX = (props) => {
                     }
                     <R component={Route} />
                     <ToastContainer />
+                    <FloatingAction/>
                 </NotificationXProvider>
             </div>
         </Router>

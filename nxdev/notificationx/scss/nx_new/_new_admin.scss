@@ -3,6 +3,9 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    // .analytics-display-area.nx-stats-tease {
+    //     min-height: 300px;
+    // }
 
     a {
         text-decoration: none;
@@ -819,225 +822,6 @@
             }
         }
     }
-
-    .nx-more-docs-wrapper {
-        display: flex;
-        gap: 32px;
-        margin-top: 18px;
-
-        .nx-docs-content-wrapper {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            padding: 32px;
-            background: #FFFFFF;
-            border: 1px solid #F0F6FF;
-            border-radius: 12px;
-
-            &:first-child {
-                background: linear-gradient(238.66deg, #ECE8FC 0%, #FFFFFF 57.84%);
-                position: relative;
-
-                &::after {
-                    content: "";
-                    position: absolute;
-                    top: 0px;
-                    right: 0;
-                    background: url(../../../assets/admin/images/new-img/show-love.png);
-                    z-index: 999;
-                    width: 64px;
-                    height: 69px;
-                    background-repeat: no-repeat;
-                    background-position: top center;
-                }
-            }
-
-            .img-wrap {
-                width: 56px;
-                height: 56px;
-                display: inline-flex;
-                justify-content: center;
-                align-items: center;
-                background: #6A4BFF0D;
-                border-radius: 6px;
-                margin-bottom: 24px;
-            }
-
-            h3 {
-                font-size: 20px;
-                font-weight: 600;
-                line-height: 1.1em;
-                color: #092161;
-                margin: 0;
-                margin-bottom: 16px;
-            }
-
-            p {
-                font-size: 14px;
-                padding-bottom: 32px;
-                flex: 1;
-            }
-        }
-    }
-
-    .notification--wrapper {
-        position: fixed;
-        right: 48px;
-        bottom: 48px;
-        height: 64px;
-        aspect-ratio: 1;
-        background: #FFFFFF;
-        box-shadow: 0px 18px 24px 8px #170A531F;
-        border-radius: 50%;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        z-index: 999;
-
-        img {
-            height: 44px;
-            aspect-ratio: 1;
-            visibility: visible;
-            opacity: 1;
-            transition: all .3s ease-in-out;
-            transform: scale(.8);
-        }
-
-        .nx-dashboard-floating-actions {
-
-            .floating-item {
-                position: absolute;
-                right: 8px;
-                opacity: 0;
-                visibility: hidden;
-                transform: scale(0);
-                transition: all .2s ease-in-out;
-
-                &.item-1 {
-                    bottom: 268px;
-
-                }
-
-                &.item-2 {
-                    bottom: 204px;
-                }
-
-                &.item-3 {
-                    bottom: 142px;
-                }
-
-                &.item-4 {
-                    bottom: 80px;
-                }
-
-                &:last-child {
-                    right: 0;
-                    bottom: 0;
-                }
-
-                &:first-child .nx-items--icon {
-                    background: #FF9940;
-                }
-
-                .nx-items--details {
-                    font-size: 16px;
-                    font-weight: 500;
-                    line-height: 20px;
-                    color: #092161;
-                    padding: 8px 16px;
-                    background: #FFFFFF;
-                    border-radius: 4px;
-                    position: absolute;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    right: calc(100% + 16px);
-                    white-space: nowrap;
-                    box-shadow: 0px 18px 24px 8px rgba(23, 10, 83, 0.1215686275);
-                    transition: all .2s ease-out;
-                }
-
-                .nx-items--icon {
-                    display: inline-flex;
-                    justify-content: center;
-                    align-items: center;
-                    width: 48px;
-                    height: 48px;
-                    background: #FFFFFF;
-                    border-radius: 50%;
-                    box-shadow: 0px 18px 24px 8px rgba(23, 10, 83, 0.215686275);
-                }
-
-                .nx-close {
-                    height: 64px;
-                    aspect-ratio: 1;
-                    background: #FFFFFF;
-                    border-radius: 50%;
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
-                    cursor: pointer;
-                    opacity: 0;
-                    visibility: hidden;
-                    z-index: 99999;
-
-                    img {
-                        width: 32px;
-                        opacity: 0;
-                        visibility: hidden;
-                        transform: scale(.2);
-                        transition: all .4s ease-in-out;
-                    }
-                }
-            }
-        }
-
-        &.open {
-            img {
-                visibility: hidden;
-                opacity: 0;
-                transition: all .3s ease-in-out;
-                transform: scale(.2);
-            }
-
-            .nx-dashboard-floating-actions {
-                .floating-item {
-                    opacity: 1;
-                    visibility: visible;
-                    transform: scale(1);
-
-                    &.item-1 {
-                        transition: transform .2s 105ms;
-
-                    }
-
-                    &.item-2 {
-                        transition: transform .2s 70ms;
-                    }
-
-                    &.item-3 {
-                        transition: transform .2s 35ms;
-                    }
-
-                    &.item-4 {
-                        transition: transform .2s 0ms;
-                    }
-
-                    .nx-close {
-                        opacity: 1;
-                        visibility: visible;
-
-                        img {
-                            opacity: 1;
-                            visibility: visible;
-                            transform: scale(1);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
 }
 
 @media only screen and (max-width: 1280px) {
@@ -1257,4 +1041,235 @@
         font-size: 16px;
     }
 
+}
+
+.notification--wrapper {
+    position: fixed;
+    right: 48px;
+    bottom: 48px;
+    height: 64px;
+    aspect-ratio: 1;
+    background: #FFFFFF;
+    box-shadow: 0px 18px 24px 8px #170A531F;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 999;
+    img {
+        aspect-ratio: 1;
+        visibility: visible;
+        opacity: 1;
+        transition: all .3s ease-in-out;
+        transform: scale(.15);
+    }
+    .nx-floating-icon {
+        display: inline-flex;
+        width: 66px;
+        height: 66px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+    }
+    .nx-dashboard-floating-actions {
+        .floating-item {
+            position: absolute;
+            right: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0);
+            transition: all .2s ease-in-out;
+    
+            &.item-1 {
+                bottom: 268px;
+    
+            }
+    
+            &.item-2 {
+                bottom: 204px;
+            }
+    
+            &.item-3 {
+                bottom: 142px;
+            }
+    
+            &.item-4 {
+                bottom: 80px;
+            }
+    
+            &:last-child {
+                right: 0;
+                bottom: 0;
+            }
+    
+            &:first-child .nx-items--icon {
+                background: #FF9940;
+            }
+    
+            .nx-items--details {
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 20px;
+                color: #092161;
+                padding: 8px 16px;
+                background: #FFFFFF;
+                border-radius: 4px;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                right: calc(100% + 16px);
+                white-space: nowrap;
+                box-shadow: 0px 18px 24px 8px rgba(23, 10, 83, 0.1215686275);
+                transition: all .2s ease-out;
+            }
+    
+            .nx-items--icon {
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                width: 48px;
+                height: 48px;
+                background: #FFFFFF;
+                border-radius: 50%;
+                box-shadow: 0px 18px 24px 8px rgba(23, 10, 83, 0.215686275);
+            }
+    
+            .nx-close {
+                height: 64px;
+                aspect-ratio: 1;
+                background: #FFFFFF;
+                border-radius: 50%;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                opacity: 0;
+                visibility: hidden;
+                z-index: 99999;
+    
+                img {
+                    width: 32px;
+                    opacity: 0;
+                    visibility: hidden;
+                    transform: scale(.2);
+                    transition: all .4s ease-in-out;
+                }
+            }
+        }
+    } 
+    &.open {
+        img {
+            visibility: hidden;
+            opacity: 0;
+            transition: all .3s ease-in-out;
+            transform: scale(.2);
+        }
+
+        .nx-dashboard-floating-actions {
+            .floating-item {
+                opacity: 1;
+                visibility: visible;
+                transform: scale(1);
+
+                &.item-1 {
+                    transition: transform .2s 105ms;
+
+                }
+
+                &.item-2 {
+                    transition: transform .2s 70ms;
+                }
+
+                &.item-3 {
+                    transition: transform .2s 35ms;
+                }
+
+                &.item-4 {
+                    transition: transform .2s 0ms;
+                }
+
+                .nx-close {
+                    opacity: 1;
+                    visibility: visible;
+
+                    img {
+                        opacity: 1;
+                        visibility: visible;
+                        transform: scale(1);
+                    }
+                }
+            }
+        }
+    }
+}
+.nx-more-docs-wrapper {
+    display: flex;
+    gap: 32px;
+    margin-top: 18px;
+    a.nx-resource-link {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 18px;
+        color: #6A4BFF;
+        display: flex;
+        gap: 2px;
+        text-decoration: none;
+    }
+    .nx-docs-content-wrapper {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 32px;
+        background: #FFFFFF;
+        border: 1px solid #F0F6FF;
+        border-radius: 12px;
+
+        &:first-child {
+            background: linear-gradient(238.66deg, #ECE8FC 0%, #FFFFFF 57.84%);
+            position: relative;
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: 0px;
+                right: 0;
+                background: url(../../../assets/admin/images/new-img/show-love.png);
+                z-index: 999;
+                width: 64px;
+                height: 69px;
+                background-repeat: no-repeat;
+                background-position: top center;
+            }
+        }
+
+        .img-wrap {
+            width: 56px;
+            height: 56px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background: #6A4BFF0D;
+            border-radius: 6px;
+            margin-bottom: 24px;
+        }
+
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.1em;
+            color: #092161;
+            margin: 0;
+            margin-bottom: 16px;
+        }
+
+        p {
+            font-size: 14px;
+            padding-bottom: 32px;
+            flex: 1;
+            line-height: 1.5;
+            color: #778095;
+            margin: 0;
+        }
+    }
 }

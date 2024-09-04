@@ -2,11 +2,11 @@ import { __, sprintf } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
 import { assetsURL, getAlert, proAlert } from '../../core/functions';
 import { Link } from 'react-router-dom';
-import { DOCS, NotificationType } from '../../core/constants';
+import { DOCS, NotificationType, proFeaturePopupConfigCrossDomain } from '../../core/constants';
 const NotificationTypeResource = ({ props, context }) => {
     const handleSalesRedirection = ( type, source ) => {
         if( ['inline', 'flashing_tab', 'cross-domain'].includes( type ) && !context?.is_pro_active ) {
-            const popup = getAlert( type , context );                    
+            const popup = getAlert( type , context );            
             proAlert(popup).fire();
         }else{
             context.setRedirect({
@@ -17,9 +17,8 @@ const NotificationTypeResource = ({ props, context }) => {
     }
 
     const handleCrossDomain = () => {
-        if(  !context?.is_pro_active ) {
-            const popup = getAlert('cross-domain', context);                    
-            proAlert(popup).fire();
+        if(  !context?.is_pro_active ) {               
+            proAlert(proFeaturePopupConfigCrossDomain).fire();
         }else{
             context.setRedirect({
                 page: `nx-settings`,

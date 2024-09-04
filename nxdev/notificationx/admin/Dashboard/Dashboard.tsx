@@ -34,7 +34,6 @@ const Dashboard = (props) => {
                     <AnalyticsDashboard props={props} context={builderContext} />
                     <NotificationTypeResource props={props} context={builderContext} />
                     <Docs props={props} context={builderContext}  />
-                    <FloatingAction/>
                 </div>
             </WrapperWithLoader>
         </BuilderProvider>

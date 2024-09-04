@@ -112,7 +112,7 @@ class NotificationX {
         if ( ! is_multisite() ) {
             // Redirect to the welcome page.
             wp_safe_redirect( add_query_arg( array(
-                'page'		=> 'nx-builder'
+                'page'		=> 'nx-dashboard'
             ), admin_url( 'admin.php' ) ) );
         }
     }

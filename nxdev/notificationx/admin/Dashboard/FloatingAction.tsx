@@ -18,19 +18,19 @@ const FloatingAction = () => {
                             <Crown />
                         </span>
                     </a>
-                    <a href={'https://wpdeveloper.com/support/'} target='_blank' className='floating-item item-2'>
+                    <a href={'https://notificationx.com/support/'} target='_blank' className='floating-item item-2'>
                         <span className='nx-items--details'>{ __('Get Support', 'notificationx') }</span>
                         <span className='nx-items--icon'>
                             <GetSupport />
                         </span>
                     </a>
-                    <a href={'https://wordpress.org/support/plugin/notificationx/'} target='_blank' className='floating-item item-3'>
+                    <a href={'https://wpdeveloper.com/support/new-ticket/'} target='_blank' className='floating-item item-3'>
                         <span className='nx-items--details'>{ __('Suggest a Feature', 'notificationx') }</span>
                         <span className='nx-items--icon'>
                             <LightOn />
                         </span>
                     </a>
-                    <a href={'https://www.facebook.com/TheNotificationX'} target='_blank' className='floating-item item-4'>
+                    <a href={'https://www.facebook.com/groups/NotificationX.Community/'} target='_blank' className='floating-item item-4'>
                         <span className='nx-items--details'>{ __('Join Our Community', 'notificationx') }</span>
                         <span className='nx-items--icon'>
                             <JoinCommunity />
@@ -42,7 +42,9 @@ const FloatingAction = () => {
                         </span>
                     </div>
                 </div>
-                <img src={assetsURL('/images/new-img/notification.svg')} alt="NX-Img" onClick={() => setShowAction(!showAction)} />
+                <div className='nx-floating-icon'  onClick={() => setShowAction(!showAction)}>
+                    <img src={assetsURL('/images/new-img/gif/main.gif')} alt="NX-Img" />
+                </div>
             </div>
         </Fragment>
     )
