@@ -43,7 +43,7 @@ const FloatingAction = () => {
                     </div>
                 </div>
                 <div className='nx-floating-icon'  onClick={() => setShowAction(!showAction)}>
-                    <img src={assetsURL('/images/new-img/gif/main.gif')} alt="NX-Img" />
+                    <img src={ 'https://notificationx.com/wp-content/uploads/2024/09/main.gif' } alt="NX-Img" />
                 </div>
             </div>
         </Fragment>

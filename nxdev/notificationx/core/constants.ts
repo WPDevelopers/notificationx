@@ -51,7 +51,7 @@ export const DOCS = [
 
 export const NotificationType = [
     {
-        'img'        : 'gif/sales_notification.gif',
+        'img'        : 'https://notificationx.com/wp-content/uploads/2024/09/sales_notification.gif',
         'title'      : __('Sales Notification', 'notificationx'),
         'type'       : 'conversions',
         'button_text': __('Create Now', 'notificationx'),
@@ -59,7 +59,7 @@ export const NotificationType = [
         'source'     : 'woocommerce',
     },
     {
-        'img'        : 'gif/review_notification.gif',
+        'img'        : 'https://notificationx.com/wp-content/uploads/2024/09/review_notification.gif',
         'title'      : __('Review Notification', 'notificationx'),
         'type'       : 'reviews',
         'button_text': __('Create Now', 'notificationx'),
@@ -67,7 +67,7 @@ export const NotificationType = [
         'source'     : 'wp_reviews',
     },
     {
-        'img'        : 'gif/notification_bar.gif',
+        'img'        : 'https://notificationx.com/wp-content/uploads/2024/09/notification_bar.gif',
         'title'      : __('Notification Bar', 'notificationx'),
         'type'       : 'notification_bar',
         'button_text': __('Create Now', 'notificationx'),
@@ -75,7 +75,7 @@ export const NotificationType = [
         'source'     : 'press_bar',
     },
     {
-        'img'        : 'gif/growth_alert.gif',
+        'img'        : 'https://notificationx.com/wp-content/uploads/2024/09/growth_alert.gif',
         'title'      : __('Growth Alert', 'notificationx'),
         'type'       : 'inline',
         'button_text': __('Create Now', 'notificationx'),
@@ -83,7 +83,7 @@ export const NotificationType = [
         'source'     : 'woo_inline',
     },
     {
-        'img'        : 'gif/flash_tab.gif',
+        'img'        : 'https://notificationx.com/wp-content/uploads/2024/09/flash_tab.gif',
         'title'      : __('Flashing Tabs', 'notificationx'),
         'type'       : 'flashing_tab',
         'button_text': __('Create Now', 'notificationx'),
@@ -91,7 +91,7 @@ export const NotificationType = [
         'source'     : 'flashing_tab',
     },
     {
-        'img'        : 'gif/cross_domain.gif',
+        'img'        : 'https://notificationx.com/wp-content/uploads/2024/09/cross_domain.gif',
         'title'      : __('Cross - Domain Notice', 'notificationx'),
         'type'       : 'cross-domain',
         'button_text': __('Copy & Explore', 'notificationx'),
