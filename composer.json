@@ -4,7 +4,7 @@
   "authors": [
     {
       "name": "Md. Alimuzzaman Alim",
-      "email": "alim@ar.com.bd"
+      "email": "alim@wpdeveloper.com"
     }
   ],
   "repositories": [
@@ -14,15 +14,21 @@
     },
     {
       "type": "vcs",
-      "url": "https://github.com/udx/lib-utility"
+      "url": "https://github.com/WPDevelopers/lib-utility"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/WPDevelopers/query-builder"
     },
     {
       "type": "vcs",
       "url": "https://github.com/priyomukul/wp-notice"
     }
   ],
+  "minimum-stability": "dev",
   "require": {
-    "udx/lib-settings": "dev-master",
+    "wpdeveloper/lib-settings": "dev-master",
+    "wpdeveloper/query-builder": "dev-main",
     "priyomukul/wp-notice": "v2.x-dev"
   },
   "autoload": {

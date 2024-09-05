@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'wpdeveloper/notificationx',
-        'pretty_version' => '524.x-dev',
-        'version' => '524.9999999.9999999.9999999-dev',
-        'reference' => '8a174e972df93d7670fd70053103a0c55d81e8ef',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => '41e925ef6b48080026eeec5394295deee8a3c128',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -42,9 +42,9 @@
             'dev_requirement' => false,
         ),
         'wpdeveloper/notificationx' => array(
-            'pretty_version' => '524.x-dev',
-            'version' => '524.9999999.9999999.9999999-dev',
-            'reference' => '8a174e972df93d7670fd70053103a0c55d81e8ef',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '41e925ef6b48080026eeec5394295deee8a3c128',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
