@@ -172,7 +172,7 @@ class Admin {
     }
 
 
-    
+
     public function admin_notices(){
         self::$cache_bank = CacheBank::get_instance();
 		try {
@@ -185,7 +185,7 @@ class Admin {
     }
 
 
-    public function hide_others_plugin_admin_notice() 
+    public function hide_others_plugin_admin_notice()
     {
         $current_screen = get_current_screen();
         $hide_on = ['toplevel_page_nx-admin', 'notificationx_page_nx-dashboard', 'notificationx_page_nx-edit','notificationx_page_nx-settings','notificationx_page_nx-analytics','notificationx_page_nx-builder'];
@@ -306,7 +306,7 @@ class Admin {
 				'recurrence'  => false,
 				'dismissible' => true,
 				'refresh'     => NOTIFICATIONX_VERSION,
-				"expire"      => strtotime( '11:59:59pm 2nd December, 2024' ),
+				"expire"      => strtotime( '11:59:59pm 20th September, 2024' ),
 				// 'display_if'  => ! is_plugin_active( 'notificationx-pro/notificationx-pro.php' )
 			]
 		);
