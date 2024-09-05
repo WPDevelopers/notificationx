@@ -10,8 +10,8 @@ export function addParentSelectorToCSS(htmlContent) {
     let tempDiv = document.createElement('div');
     tempDiv.innerHTML = htmlContent;
     let styleElements = tempDiv.querySelectorAll('style');
-    if( styleElements?.length > 0 ) {
-        let section =  tempDiv.querySelector('section[data-id]');
+    let section =  tempDiv.querySelector('section[data-id]');
+    if( section && styleElements?.length > 0 ) {
         let dataId = section.getAttribute('data-id');
         let parentSelector = `.elementor-element-${dataId}`;
         styleElements.forEach(styleElement => {
