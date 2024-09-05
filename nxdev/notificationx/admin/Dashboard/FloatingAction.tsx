@@ -12,7 +12,7 @@ const FloatingAction = ({isPro}) => {
         <Fragment>
             <div className={`notification--wrapper${showAction ? ' open' : ''}`}>
                 <div className='nx-dashboard-floating-actions'>
-                    {isPro &&
+                    {!isPro &&
                         <a href={'https://notificationx.com/#pricing'} target='_blank' className='floating-item item-1'>
                             <span className='nx-items--details'>{ __('Unlock pro Features','notificationx') }</span>
                             <span className='nx-items--icon'>
