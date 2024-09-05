@@ -176,6 +176,10 @@ class WPOrgReview extends Extension {
         }
 
         $plugin_data = $this->get_plugins_data($nx_id, $data);
+        if(empty($plugin_data)){
+            return;
+        }
+
         $reviews = $plugin_data['reviews'];
         unset($plugin_data['reviews']);
 
