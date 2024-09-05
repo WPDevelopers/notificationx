@@ -14,6 +14,8 @@ jobs:
           node-version: '14'
       - name: Running NPM Install
         run: npm install
+      - name: Delete WordPress Compose node_modules
+        run: rm -rf ./node_modules/@wordpress/compose/node_modules
       - name: Delete WordPress Scripts node_modules
         run: rm -rf ./node_modules/@wordpress/scripts/node_modules
       - name: Running NPM Build
