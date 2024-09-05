@@ -6,18 +6,20 @@ import JoinCommunity from '../../icons/JoinCommunity'
 import { assetsURL } from '../../core/functions'
 import { __ } from '@wordpress/i18n'
 
-const FloatingAction = () => {
+const FloatingAction = ({isPro}) => {
     const [showAction, setShowAction] = useState(false);
     return (
         <Fragment>
             <div className={`notification--wrapper${showAction ? ' open' : ''}`}>
                 <div className='nx-dashboard-floating-actions'>
-                    <a href={'https://notificationx.com/#pricing'} target='_blank' className='floating-item item-1'>
-                        <span className='nx-items--details'>{ __('Unlock pro Features','notificationx') }</span>
-                        <span className='nx-items--icon'>
-                            <Crown />
-                        </span>
-                    </a>
+                    {isPro &&
+                        <a href={'https://notificationx.com/#pricing'} target='_blank' className='floating-item item-1'>
+                            <span className='nx-items--details'>{ __('Unlock pro Features','notificationx') }</span>
+                            <span className='nx-items--icon'>
+                                <Crown />
+                            </span>
+                        </a>
+                    }
                     <a href={'https://notificationx.com/support/'} target='_blank' className='floating-item item-2'>
                         <span className='nx-items--details'>{ __('Get Support', 'notificationx') }</span>
                         <span className='nx-items--icon'>

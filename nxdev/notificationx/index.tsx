@@ -42,7 +42,7 @@ const NotificationX = (props) => {
                     }
                     <R component={Route} />
                     <ToastContainer />
-                    <FloatingAction/>
+                    <FloatingAction isPro={builder?.is_pro_active}/>
                 </NotificationXProvider>
             </div>
         </Router>
