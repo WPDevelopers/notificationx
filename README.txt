@@ -1,7 +1,7 @@
 === NotificationX - WooCommerce Sales Popup, Custom & Live Sales Notification, FOMO, Social Proof, Announcement Banner & Sticky Notification Bar ===
 Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim, sapanmozammel, shuvo247, fuadragib
 Donate link: https://notificationx.com
-Tags: sales notification, fomo, social proof, woocommerce sales, notification bar 
+Tags: sales notification, fomo, social proof, woocommerce sales, notification bar
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 5.6
@@ -205,7 +205,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 2.9.0 - 4/9/2024 =
+= 2.9.0 - 5/9/2024 =
 Revamped: NotificationX Dashboard UI.
 Few minor bug fixes and improvements.
 
