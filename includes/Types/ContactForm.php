@@ -86,6 +86,50 @@ class ContactForm extends Types {
                 ],
             ],
         ];
+        $this->res_themes = [
+            'res-theme-one'   => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_form/cf-res-theme-1.png',
+                'image_shape' => 'circle',
+                // Default values for Add New > Content > Notification Template fields
+                'template' => [
+                    'first_param'         => 'select_a_tag',
+                    'custom_first_param'  => __('Someone', 'notificationx'),
+                    'second_param'        => __('recently contacted via', 'notificationx'),
+                    'third_param'         => 'tag_title',
+                    'custom_third_param'  => '',
+                    'fourth_param'        => 'tag_time',
+                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                ],
+            ],
+            'res-theme-two'   => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_form/cf-res-theme-2.png',
+                'image_shape' => 'circle',
+                // Default values for Add New > Content > Notification Template fields
+                'template' => [
+                    'first_param'         => 'select_a_tag',
+                    'custom_first_param'  => __('Someone', 'notificationx'),
+                    'second_param'        => __('recently contacted via', 'notificationx'),
+                    'third_param'         => 'tag_title',
+                    'custom_third_param'  => '',
+                    'fourth_param'        => 'tag_time',
+                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                ],
+            ],
+            'res-theme-three'   => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_form/cf-res-theme-3.png',
+                'image_shape' => 'circle',
+                // Default values for Add New > Content > Notification Template fields
+                'template' => [
+                    'first_param'         => 'select_a_tag',
+                    'custom_first_param'  => __('Someone', 'notificationx'),
+                    'second_param'        => __('recently contacted via', 'notificationx'),
+                    'third_param'         => 'tag_title',
+                    'custom_third_param'  => '',
+                    'fourth_param'        => 'tag_time',
+                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                ],
+            ],
+        ];
         $this->templates = [
             // Dropdown options for Add New > Content > Notification Template fields
             'form_template_new' => [

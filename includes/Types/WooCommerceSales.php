@@ -31,6 +31,7 @@ class WooCommerceSales extends Types {
     // colored_themes
     public $priority = 5;
     public $themes = [];
+    public $res_themes = [];
     public $module = [
         'modules_woocommerce',
         'modules_woocommerce_sales_reviews',
@@ -136,6 +137,63 @@ class WooCommerceSales extends Types {
                 'image_shape' => 'rounded',
             ),
            
+        ];
+        $this->res_themes = [
+            'res-theme-one'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-1.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+            'res-theme-two'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-2.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+            'res-theme-three'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-3.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+            'res-theme-four'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-4.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+            'res-theme-five'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-5.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+            'res-theme-six'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-6.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+            'res-theme-seven'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-7.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+            'res-theme-eight'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-8.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+            'res-theme-nine'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-9.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+            'res-theme-ten'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-10.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+            'res-theme-eleven'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-11.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
         ];
         parent::__construct();
     }

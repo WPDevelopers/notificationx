@@ -33,6 +33,7 @@ abstract class Extension {
     public $doc_link              = 'https://notificationx.com/docs/';
     public $types                 = '';
     public $themes                = [];
+    public $res_themes            = [];
     public $selected_themes       = [];
     public $is_pro                = false;
     public $popup                 = null;
@@ -43,6 +44,7 @@ abstract class Extension {
     public $function              = '';
     public $constant              = '';
     public $templates             = [];
+    public $mobile_templates      = [];
     public $cron_schedule         = '';
     public $exclude_custom_themes = false;
     public $priority              = 5;
@@ -127,10 +129,13 @@ abstract class Extension {
      */
     public function __init_fields(){
         add_filter('nx_themes', [$this, '__nx_themes']);
+        add_filter('nx_res_themes', [$this, '__nx_res_themes']);
         add_filter('nx_sources', [$this, '__nx_sources'], 10, 1);
         add_filter('nx_link_types_dependency', [$this, '__link_types_dependency']);
         add_filter('nx_notification_template', [$this, '__notification_template']);
+        add_filter('nx_notification_template_mobile', [$this, '__notification_mobile_template']);
         add_filter('nx_notification_template_dependency', [$this, '__notification_template_dependency']);
+        add_filter('nx_notification_template_mobile_dependency', [$this, '__notification_template_mobile_dependency']);
         add_filter('nx_source_trigger', [$this, '__source_trigger']);
         add_filter('nx_themes_trigger', [$this, '__themes_trigger']);
         add_filter('nx_is_pro_sources', [$this, '__is_pro_sources']);
@@ -250,6 +255,42 @@ abstract class Extension {
         }
         return $themes;
     }
+
+    /**
+     * Runs when modules is enabled.
+     *
+     * @return void
+     */
+    public function __nx_res_themes($themes) {
+        $_themes = $this->get_res_themes();
+
+        $i = 0;
+        if(is_array($_themes)){
+            foreach ($_themes as $tname => $theme) {
+                if (empty($themes[$tname])) {
+                    $themes[$tname] = [
+                        'label'   => $tname,
+                        'value'   => $tname,
+                        'is_pro'  => isset($theme['is_pro']) ? $theme['is_pro'] && ! NotificationX::is_pro() : null,
+                        'icon'    => isset($theme['source']) ? $theme['source'] : $theme,
+                        // @todo converts
+                        // 'trigger' => isset($theme['template']) ? ['notification-template' => $theme['template']] : null,
+                    ];
+                    if(!empty($theme['column'])){
+                        $themes[$tname]['column'] = $theme['column'];
+                    }
+                }
+
+                $themes[$tname] = Rules::includes('source', $this->id, false, $themes[$tname]);
+                // $themes[$tname] = Rules::includes('type', $this->types, false, $themes[$tname]);
+                // $themes[$tname] = Rules::includes('i', [++$i], false, $themes[$tname]);
+                // $themes[$tname] = Rules::includes('i', [++$i], false, $themes[$tname]);
+                // $themes[$tname] = Rules::includes('i', [++$i], false, $themes[$tname]);
+            }
+        }
+        return $themes;
+    }
+
 
     /**
      * Get themes for the extension.
@@ -401,6 +442,58 @@ abstract class Extension {
     }
 
     /**
+     * Adds options and dependency for `Notification Mobile Template` field from `Content` tab.
+     *
+     * @param array $templates `Notification Template` fields.
+     * @return array
+     */
+    public function __notification_mobile_template($templates){
+        foreach ($this->get_mobile_templates() as $key => $tmpl) {
+            if(!empty($tmpl['_themes'])){
+                $type = 'responsive_themes';
+                $themes = $tmpl['_themes'];
+                unset($tmpl['_themes']);
+            }
+            elseif(!empty($tmpl['_source'])) {
+                $type = 'source';
+                $themes = $tmpl['_source'];
+                unset($tmpl['_source']);
+            }
+
+            foreach ($tmpl as $param => $options) {
+                foreach ($options as $name => $label) {
+                    if(empty($templates[$param]['options'][$name])){
+                        if(is_array($label)){
+                            $templates[$param]['options'][$name] = $label;
+                        }
+                        else{
+                            $templates[$param]['options'][$name] = [
+                                'value'     => $name,
+                                'label'     => $label,
+                                'rules'     => [],
+                            ];
+                        }
+                    }
+                    $templates[$param]['options'][$name] = Rules::includes($type, $themes, false, $templates[$param]['options'][$name]);
+                }
+            }
+        }
+
+        if(is_array($this->get_res_themes())){
+            foreach ($this->get_res_themes() as $name => $theme) {
+                if(!empty($theme['template'])){
+                    foreach ($theme['template'] as $param => $value) {
+                        if(strpos($param, 'custom_') === 0 || empty($templates[$param])) continue;
+                        $templates[$param] = Rules::includes('responsive_themes', [$name], false, $templates[$param]);
+                    }
+                }
+            }
+        }
+
+        return $templates;
+    }
+
+    /**
      * Adds options and dependency for `Notification Template` field from `Content` tab.
      *
      * @param array $templates `Notification Template` fields.
@@ -408,6 +501,19 @@ abstract class Extension {
      */
     public function __notification_template_dependency($dependency){
         if($this->get_templates()){
+            $dependency[] = $this->id;
+        }
+        return $dependency;
+    }
+
+    /**
+     * Adds options and dependency for `Notification Template` field from `Content` tab.
+     *
+     * @param array $templates `Notification Template` fields.
+     * @return array
+     */
+    public function __notification_template_mobile_dependency($dependency){
+        if($this->get_mobile_templates()){
             $dependency[] = $this->id;
         }
         return $dependency;
@@ -433,6 +539,24 @@ abstract class Extension {
             }
         }
         return $this->array_add_prefix($this->themes, $this->id . "_");
+    }
+
+    /**
+     * Get responsive themes for the extension.
+     *
+     *
+     * @param array $args Settings arguments.
+     * @return mixed
+     */
+    public function get_res_themes() {
+        if (empty($this->res_themes)) {
+            $type_obj = $this->get_type();
+            if ($type_obj instanceof Types) {
+                $themes = $type_obj->get_res_themes();
+                return $this->array_add_prefix($themes, $this->types . "_");
+            }
+        }
+        return $this->array_add_prefix($this->res_themes, $this->id . "_");
     }
 
     /**
@@ -469,6 +593,22 @@ abstract class Extension {
             }
         }
         return $this->templates;
+    }
+
+    /**
+     * Get templates for the extension.
+     *
+     *
+     * @return array
+     */
+    public function get_mobile_templates(){
+        if(empty($this->mobile_templates)){
+            $type_obj = $this->get_type();
+            if ($type_obj instanceof Types) {
+                return $type_obj->get_mobile_templates();
+            }
+        }
+        return $this->mobile_templates;
     }
 
     /**

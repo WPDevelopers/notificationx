@@ -119,6 +119,48 @@ class ELearning extends Types {
                 'show_notification_image' => 'maps_image',
             ),
         ];
+        $this->res_themes = [
+            'res-theme-one' => array(
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-1.png',
+                'image_shape' => 'circle',
+            ),
+            'res-theme-two' => array(
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-2.png',
+                'image_shape' => 'circle',
+            ),
+            'res-theme-three' => array(
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-3.png',
+                'image_shape' => 'circle',
+            ),
+            'res-theme-four' => array(
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-4.png',
+                'image_shape' => 'circle',
+            ),
+            'res-theme-five' => array(
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-5.png',
+                'image_shape' => 'circle',
+            ),
+            'res-theme-six' => array(
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-6.png',
+                'image_shape' => 'circle',
+            ),
+            'res-theme-seven' => array(
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-7.png',
+                'image_shape' => 'circle',
+            ),
+            'res-theme-eight' => array(
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-8.png',
+                'image_shape' => 'circle',
+            ),
+            'res-theme-nine' => array(
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-9.png',
+                'image_shape' => 'circle',
+            ),
+            'res-theme-ten' => array(
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-10.png',
+                'image_shape' => 'circle',
+            ),
+        ];
         $this->templates = [
             'elearning_template_new' => [
                 'first_param' => GlobalFields::get_instance()->common_name_fields(),

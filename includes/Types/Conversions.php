@@ -64,6 +64,15 @@ class Conversions extends Types {
             'fourth_param'        => 'tag_time',
             'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
         ];
+        $common_res_fields = [
+            'res_first_param'         => 'tag_name',
+            'custom_first_param'  => __('Someone' , 'notificationx'),
+            'second_param'        => __('just purchased', 'notificationx'),
+            'third_param'         => 'tag_product_title',
+            'custom_third_param'  => __('Anonymous Product', 'notificationx'),
+            'fourth_param'        => 'tag_time',
+            'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+        ];
         $this->themes = [
             'theme-one'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-2.jpg',
@@ -141,6 +150,63 @@ class Conversions extends Types {
                 'image_shape' => 'rounded',
             ),
         ];
+        $this->res_themes = [
+            'res-theme-one'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-1.png',
+                'image_shape' => 'square',
+                'template'    => $common_res_fields,
+            ],
+            'res-theme-two'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-2.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+            'res-theme-three'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-3.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+            'res-theme-four'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-4.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+            'res-theme-five'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-5.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+            'res-theme-six'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-6.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+            'res-theme-seven'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-7.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+            'res-theme-eight'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-8.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+            'res-theme-nine'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-9.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+            'res-theme-ten'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-10.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+            'res-theme-eleven'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-11.png',
+                'image_shape' => 'square',
+                'template'    => $common_fields,
+            ],
+        ];
         $this->templates = [
             'woo_template_new' => [
                 'first_param' => GlobalFields::get_instance()->common_name_fields(),
@@ -184,6 +250,17 @@ class Conversions extends Types {
                     'woocommerce_sales_conv-theme-seven',
                     'woocommerce_sales_conv-theme-eight',
                     'woocommerce_sales_conv-theme-nine',
+                ]
+            ],
+        ];
+        $this->mobile_templates = [
+            'res-template-one' => [
+                'res_first_param' => GlobalFields::get_instance()->common_name_fields(),
+                // 'fourth_param' => [
+                //     'tag_time' => __('Definite Time', 'notificationx'),
+                // ],
+                '_themes' => [
+                    'conversions_res-theme-one',
                 ]
             ],
         ];

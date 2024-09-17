@@ -244,7 +244,7 @@ class GlobalFields {
                             'rules' => '',
                         ],
                         "themes" => [
-                            'label'  => __("Themes", 'notificationx'),
+                            'label'  => __("Themes for Desktop", 'notificationx'),
                             'name'   => "themes",
                             'type'   => "section",
                             'fields' => [
@@ -274,6 +274,31 @@ class GlobalFields {
                                     'type'     => "toggle",
                                     'default'  => false,
                                     'priority' => 20,
+                                ],
+                            ]
+                        ],
+                        "responsive_themes" => [
+                            'label'  => __("Mobile Responsive Themes", 'notificationx'),
+                            'name'   => "responsive_themes",
+                            'type'   => "section",
+                            'fields' => [
+                                'responsive_themes' => [
+                                    'name'             => "responsive_themes",
+                                    'type'             => "radio-card",
+                                    'options'          => apply_filters('nx_res_themes', []),
+                                    'priority'         => 10,
+                                    'style'   => [
+                                        'label' => [
+                                            'position' => 'top'
+                                        ]
+                                    ],
+                                    'validation_rules' => [
+                                        'required' => true,
+                                        'label'    => __("Mobile Responsive Themes",'notificationx'),
+                                    ],
+                                    'trigger' => [
+                                        'defaults' => apply_filters('nx_themes_trigger', []),
+                                    ],
                                 ],
                             ]
                         ],
@@ -566,6 +591,30 @@ class GlobalFields {
 
                                     ]),
                                     'rules' => Rules::includes( 'source', apply_filters('nx_notification_template_dependency', []) ),
+                                ],
+                                "notification-template-mobile" => [
+                                    'label'    => __("Notification Template for Mobile", 'notificationx'),
+                                    'name'     => "notification-template-mobile",
+                                    'type'     => "group",
+                                    'display'  => 'inline',
+                                    'priority' => 90.5,
+                                    'fields'   => apply_filters('nx_notification_template_mobile',  [
+                                        "res_first_param" => [
+                                            'name'     => "res_first_param",
+                                            'type'     => "select",
+                                            'priority' => 40,
+                                            'options'  => $this->normalize_fields([
+                                                'tag_custom' => __('Custom', 'notificationx'),
+                                            ]),
+                                        ],
+                                        "custom_res_first_param" => [
+                                            'name'     => "custom_first_param",
+                                            'type'     => "text",
+                                            'priority' => 45,
+                                            'rules'    => Rules::is( 'notification-template-mobile.res_first_param', 'tag_custom' ),
+                                        ],
+                                    ]),
+                                    // 'rules' => Rules::includes( 'source', apply_filters('nx_notification_template_mobile_dependency', []) ),
                                 ],
                                 'template_adv' => [
                                     'label'    => __("Advanced Template", 'notificationx'),

@@ -29,6 +29,7 @@ class Reviews extends Types {
 
     public $priority = 20;
     public $themes = [];
+    public $res_themes = [];
     public $module = [
         'modules_wordpress',
         'modules_woocommerce',
@@ -119,6 +120,80 @@ class Reviews extends Types {
                     'second_param'        => __('just reviewed', 'notificationx'),
                     'third_param'         => 'tag_plugin_review',
                     'fourth_param'        => 'tag_time',
+                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                ]
+            ],
+        ];
+        $this->res_themes = [
+            'res-theme-one'     => [
+                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-1.png',
+                'image_shape' => 'square',
+                'template'  => [
+                    'first_param'         => 'tag_rated',
+                    'custom_first_param'  => __('Someone', 'notificationx'),
+                    'second_param'        => __('people rated', 'notificationx'),
+                    'third_param'         => 'tag_plugin_name',
+                    'fourth_param'        => 'tag_rating',
+                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                ]
+            ],
+            'res-theme-two'     => [
+                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-2.png',
+                'image_shape' => 'square',
+                'template'  => [
+                    'first_param'         => 'tag_rated',
+                    'custom_first_param'  => __('Someone', 'notificationx'),
+                    'second_param'        => __('people rated', 'notificationx'),
+                    'third_param'         => 'tag_plugin_name',
+                    'fourth_param'        => 'tag_rating',
+                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                ]
+            ],
+            'res-theme-three'     => [
+                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-3.png',
+                'image_shape' => 'square',
+                'template'  => [
+                    'first_param'         => 'tag_rated',
+                    'custom_first_param'  => __('Someone', 'notificationx'),
+                    'second_param'        => __('people rated', 'notificationx'),
+                    'third_param'         => 'tag_plugin_name',
+                    'fourth_param'        => 'tag_rating',
+                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                ]
+            ],
+            'res-theme-four'     => [
+                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-4.png',
+                'image_shape' => 'square',
+                'template'  => [
+                    'first_param'         => 'tag_rated',
+                    'custom_first_param'  => __('Someone', 'notificationx'),
+                    'second_param'        => __('people rated', 'notificationx'),
+                    'third_param'         => 'tag_plugin_name',
+                    'fourth_param'        => 'tag_rating',
+                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                ]
+            ],
+            'res-theme-five'     => [
+                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-5.png',
+                'image_shape' => 'square',
+                'template'  => [
+                    'first_param'         => 'tag_rated',
+                    'custom_first_param'  => __('Someone', 'notificationx'),
+                    'second_param'        => __('people rated', 'notificationx'),
+                    'third_param'         => 'tag_plugin_name',
+                    'fourth_param'        => 'tag_rating',
+                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                ]
+            ],
+            'res-theme-six'     => [
+                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-6.png',
+                'image_shape' => 'square',
+                'template'  => [
+                    'first_param'         => 'tag_rated',
+                    'custom_first_param'  => __('Someone', 'notificationx'),
+                    'second_param'        => __('people rated', 'notificationx'),
+                    'third_param'         => 'tag_plugin_name',
+                    'fourth_param'        => 'tag_rating',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ]
             ],
