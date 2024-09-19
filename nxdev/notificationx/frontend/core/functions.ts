@@ -32,6 +32,17 @@ export const getThemeName = (settings) => {
     }
     return themeName;
 };
+export const getResThemeName = (settings) => {
+    let themeName;
+    if( settings?.responsive_themes ) {
+        themeName = settings.responsive_themes.replace(settings.source + "_", "");
+        themeName = themeName.replace(settings.type + "_", "");
+        if (settings?.custom_type) {
+            themeName = themeName.replace(settings?.custom_type + "_", "");
+        }
+    }
+    return themeName;
+};
 
 export function calculateAnimationStartTime(userInput, animationType) {
     const allowedAnimations = [

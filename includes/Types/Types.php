@@ -20,16 +20,17 @@ abstract class Types {
     public $id;
     public $title;
     public $dashboard_title;
-    public $is_pro           = false;
-    public $themes           = [];
-    public $res_themes       = [];
-    public $module           = [];
-    public $templates        = [];
-    public $mobile_templates = [];
-    public $default_source   = '';
-    public $default_theme    = '';
-    public $popup            = null;
-    public $link_type        = 'none';
+    public $is_pro            = false;
+    public $themes            = [];
+    public $res_themes        = [];
+    public $module            = [];
+    public $templates         = [];
+    public $mobile_templates  = [];
+    public $default_source    = '';
+    public $default_theme     = '';
+    public $default_res_theme = '';
+    public $popup             = null;
+    public $link_type         = 'none';
 
     /**
      * Initially Invoked when initialized.

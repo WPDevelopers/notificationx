@@ -297,8 +297,14 @@ class GlobalFields {
                                         'label'    => __("Mobile Responsive Themes",'notificationx'),
                                     ],
                                     'trigger' => [
-                                        'defaults' => apply_filters('nx_themes_trigger', []),
+                                        'defaults' => apply_filters('nx_themes_trigger_for_responsive', []),
                                     ],
+                                ],
+                                'advanced_template_for_mobile' => [
+                                    'name'     => 'advanced_template_for_mobile',
+                                    'type'     => 'advanced-template-mobile',
+                                    'label'    => __('Advanced Template for Mobile', 'notificationx'),
+                                    'priority' => 92.5,
                                 ],
                             ]
                         ],
@@ -591,30 +597,6 @@ class GlobalFields {
 
                                     ]),
                                     'rules' => Rules::includes( 'source', apply_filters('nx_notification_template_dependency', []) ),
-                                ],
-                                "notification-template-mobile" => [
-                                    'label'    => __("Notification Template for Mobile", 'notificationx'),
-                                    'name'     => "notification-template-mobile",
-                                    'type'     => "group",
-                                    'display'  => 'inline',
-                                    'priority' => 90.5,
-                                    'fields'   => apply_filters('nx_notification_template_mobile',  [
-                                        "res_first_param" => [
-                                            'name'     => "res_first_param",
-                                            'type'     => "select",
-                                            'priority' => 40,
-                                            'options'  => $this->normalize_fields([
-                                                'tag_custom' => __('Custom', 'notificationx'),
-                                            ]),
-                                        ],
-                                        "custom_res_first_param" => [
-                                            'name'     => "custom_first_param",
-                                            'type'     => "text",
-                                            'priority' => 45,
-                                            'rules'    => Rules::is( 'notification-template-mobile.res_first_param', 'tag_custom' ),
-                                        ],
-                                    ]),
-                                    // 'rules' => Rules::includes( 'source', apply_filters('nx_notification_template_mobile_dependency', []) ),
                                 ],
                                 'template_adv' => [
                                     'label'    => __("Advanced Template", 'notificationx'),

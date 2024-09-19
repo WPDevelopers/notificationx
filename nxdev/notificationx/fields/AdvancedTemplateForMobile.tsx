@@ -48,7 +48,7 @@ export const toolbarOptions = {
       ],
     },
 };
-const AdvancedTemplate = (props) => {
+const AdvancedTemplateForMobile = (props) => {
     const builderContext = useBuilderContext();
     const editor = useRef<{ editor: Editor }>();
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -185,11 +185,10 @@ const AdvancedTemplate = (props) => {
 
     useEffect(() => {
         // generating template for first time.
-
-        if (!builderContext.savedValues?.["advanced_template_for_mobile"]) {
-            const theme = builderContext.values.themes;
+        if (!builderContext.savedValues?.["advanced_template_for_mobile"]) {            
+            const theme = builderContext.values.responsive_themes;
             let values = {...builderContext.values};
-            values['is_mobile'] = false;
+            values['is_mobile'] = true;
             if(theme == 'page_analytics_pa-theme-two' || theme == 'page_analytics_pa-theme-one'){
                 const fifth = values['notification-template'].ga_fifth_param?.trim();
                 const sixth = values['notification-template'].sixth_param?.replace('tag_', '');
@@ -199,11 +198,17 @@ const AdvancedTemplate = (props) => {
                     ga_fifth_param: custom,
                     sixth_param: '',
                 }};
-            }            
+            }
+                  
             const tmpl: any = applyFilters(
                 "nx_adv_template_default",
                 values
             );
+            
+            console.log('values', values);
+            console.log('tmpl', tmpl);
+            
+
             const { contentBlocks, entityMap } = htmlToDraft(
                 tmpl.map((val) => `<p>${val}</p>`).join("\r\n")
             );
@@ -215,8 +220,8 @@ const AdvancedTemplate = (props) => {
             setEditorState(editorState);
         }
     }, [
-        builderContext.values.themes,
-        builderContext.values["notification-template"],
+        builderContext.values.responsive_themes,
+        builderContext.values["notification-template-mobile"],
     ]);
 
 
@@ -326,4 +331,4 @@ const AdvancedTemplate = (props) => {
     );
 };
 
-export default AdvancedTemplate;
+export default AdvancedTemplateForMobile;

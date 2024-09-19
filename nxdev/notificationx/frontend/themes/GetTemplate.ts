@@ -1,5 +1,5 @@
 import { escapeHTML } from "@wordpress/escape-html";
-import { getThemeName } from "../core/functions";
+import { getResThemeName, getThemeName } from "../core/functions";
 
 // let colClasses = [
 //     "nx-first-word",
@@ -15,7 +15,13 @@ import { getThemeName } from "../core/functions";
 // ];
 
 const GetTemplate = (settings) => {
-    const themeName = getThemeName(settings);
+    let themeName;
+    if( settings?.is_mobile ) {
+        themeName = getResThemeName(settings);
+    }else{
+        themeName = getThemeName(settings);
+    }
+
     // @todo
     const defaults = {
         first_param: "",
@@ -32,8 +38,12 @@ const GetTemplate = (settings) => {
         freemius_fifth_param: "",
         freemius_sixth_param: "",
         freemius_seventh_param: "",
+        res_first_param: "",
+        res_second_param: "",
+        res_third_param: "",
+        res_fourth_param: "",
     };
-    const params = { ...defaults, ...settings?.["notification-template"] };
+    const params = { ...defaults,...settings?.["notification-template"],  ...settings?.["notification-template-mobile"] };
 
     for (const param in params) {
         if (Object.hasOwnProperty.call(params, param)) {
@@ -190,6 +200,36 @@ const GetTemplate = (settings) => {
                     `${params?.first_param} ${params?.second_param}`,
                     `${params?.third_param} ${params?.fourth_param} ${params?.freemius_fifth_param} ${params?.freemius_sixth_param} ${params?.freemius_seventh_param}`,
                 ];    
+        }
+    }
+
+    console.log('params', params);
+    console.log('settings', settings?.is_mobile);
+    
+    if( settings?.is_mobile ) {          
+        switch (themeName) {
+            case "res-theme-one":
+            case "res-theme-two":
+            case "res-theme-three":
+            case "res-theme-four":
+            case "res-theme-seven":
+            case "res-theme-eight":
+            case "res-theme-nine":
+            case "res-theme-ten":
+            case "res-theme-eleven":
+                return [
+                    `${params?.res_first_param} ${params?.res_second_param} ${params?.res_third_param}`,
+                ];
+            case "res-theme-five":
+            case "res-theme-six":
+                return [
+                    `${params?.res_first_param} ${params?.res_second_param} ${params?.res_third_param} ${params?.res_fourth_param}`,
+                ];
+            default:
+                return [
+                    `${params?.first_param} ${params?.second_param} ${params?.third_param} ${params?.fourth_param}`,
+                ];
+                break;
         }
     }
 
