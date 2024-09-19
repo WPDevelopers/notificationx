@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
-import { getThemeName, isObject, calculateAnimationStartTime } from "../core/functions";
+import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName } from "../core/functions";
 import { Theme } from "../themes";
 import Analytics from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
@@ -159,7 +159,7 @@ const NotificationForMobile = (props) => {
         };
     }, []);
 
-    const themeName = getThemeName(settings);
+    const themeName = getResThemeName(settings);
 
 
     const { advance_edit } = settings;
@@ -170,7 +170,7 @@ const NotificationForMobile = (props) => {
         `position-${settings.position}`,
         `type-${settings.type}`,
         `themes-${themeName}`,
-        `themes-${settings.themes}`,
+        `themes-${settings.responsive_themes}`,
         `notificationx-${settings.nx_id}`,
         props.config.link_button ? `button-link` : '',
         {

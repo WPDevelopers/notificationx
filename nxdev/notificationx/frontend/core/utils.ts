@@ -56,6 +56,7 @@ export const normalize = (_entries, globalSettings) => {
             let settings = _entries[key]?.post;
             let template;
             if( window.innerWidth <= 425 ) {
+                settings['is_mobile'] = true;
                 template = settings?.template_adv ? settings?.advanced_template_for_mobile?.split?.(/\r\n|\r|\n/) : GetTemplate(settings);
             }else{
                 template = settings?.template_adv ? settings?.advanced_template?.split?.(/\r\n|\r|\n/) : GetTemplate(settings);

@@ -126,75 +126,57 @@ class Reviews extends Types {
         ];
         $this->res_themes = [
             'res-theme-one'     => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-1.png',
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-1.png',
                 'image_shape' => 'square',
-                'template'  => [
-                    'first_param'         => 'tag_rated',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('people rated', 'notificationx'),
-                    'third_param'         => 'tag_plugin_name',
-                    'fourth_param'        => 'tag_rating',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                'template'    => [
+                    'res_first_param'  => 'tag_rated',
+                    'res_second_param' => __('people rated', 'notificationx'),
+                    'res_third_param'  => 'tag_plugin_name',
                 ]
             ],
             'res-theme-two'     => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-2.png',
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-2.png',
                 'image_shape' => 'square',
-                'template'  => [
-                    'first_param'         => 'tag_rated',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('people rated', 'notificationx'),
-                    'third_param'         => 'tag_plugin_name',
-                    'fourth_param'        => 'tag_rating',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                'template'    => [
+                    'res_first_param'  => 'tag_username',
+                    'res_second_param' => __('just reviewed', 'notificationx'),
+                    'res_third_param'  => 'tag_plugin_name',
                 ]
             ],
             'res-theme-three'     => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-3.png',
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-3.png',
                 'image_shape' => 'square',
-                'template'  => [
-                    'first_param'         => 'tag_rated',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('people rated', 'notificationx'),
-                    'third_param'         => 'tag_plugin_name',
-                    'fourth_param'        => 'tag_rating',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                'template'    => [
+                    'res_first_param'  => 'tag_username',
+                    'res_second_param' => __('just reviewed', 'notificationx'),
+                    'res_third_param'  => 'tag_plugin_name',
                 ]
             ],
-            'res-theme-four'     => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-4.png',
+            'rating-res-theme-four'     => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-4.png',
                 'image_shape' => 'square',
-                'template'  => [
-                    'first_param'         => 'tag_rated',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('people rated', 'notificationx'),
-                    'third_param'         => 'tag_plugin_name',
-                    'fourth_param'        => 'tag_rating',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                'template'    => [
+                    'res_first_param'  => 'tag_username',
+                    'res_second_param' => __('just reviewed', 'notificationx'),
+                    'res_third_param'  => 'tag_rating',
                 ]
             ],
-            'res-theme-five'     => [
+            'rating-res-theme-five'     => [
                 'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-5.png',
                 'image_shape' => 'square',
                 'template'  => [
-                    'first_param'         => 'tag_rated',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('people rated', 'notificationx'),
-                    'third_param'         => 'tag_plugin_name',
-                    'fourth_param'        => 'tag_rating',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'res_first_param'  => 'tag_username',
+                    'res_second_param' => __('just reviewed', 'notificationx'),
+                    'res_third_param'  => 'tag_rating',
                 ]
             ],
-            'res-theme-six'     => [
+            'rating-res-theme-six'     => [
                 'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-6.png',
                 'image_shape' => 'square',
                 'template'  => [
-                    'first_param'         => 'tag_rated',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('people rated', 'notificationx'),
-                    'third_param'         => 'tag_plugin_name',
-                    'fourth_param'        => 'tag_rating',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'res_first_param'  => 'tag_username',
+                    'res_second_param' => __('just reviewed', 'notificationx'),
+                    'res_third_param'  => 'tag_rating',
                 ]
             ],
         ];

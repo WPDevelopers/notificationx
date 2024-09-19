@@ -202,32 +202,36 @@ const GetTemplate = (settings) => {
                 ];    
         }
     }
-
-    console.log('params', params);
-    console.log('settings', settings?.is_mobile);
     
-    if( settings?.is_mobile ) {          
+    if( settings?.is_mobile ) {  
         switch (themeName) {
+            case "rating-res-theme-four":
+            case "rating-res-theme-five":
+            case "rating-res-theme-six":
+                return [
+                    `${params?.res_first_param} ${params?.res_second_param}`,
+                    `${params?.res_third_param}`,
+                ];
             case "res-theme-one":
             case "res-theme-two":
             case "res-theme-three":
             case "res-theme-four":
             case "res-theme-seven":
             case "res-theme-eight":
-            case "res-theme-nine":
-            case "res-theme-ten":
-            case "res-theme-eleven":
                 return [
                     `${params?.res_first_param} ${params?.res_second_param} ${params?.res_third_param}`,
                 ];
             case "res-theme-five":
             case "res-theme-six":
+            case "res-theme-nine":
+            case "res-theme-ten":
+            case "res-theme-eleven":
                 return [
                     `${params?.res_first_param} ${params?.res_second_param} ${params?.res_third_param} ${params?.res_fourth_param}`,
                 ];
             default:
                 return [
-                    `${params?.first_param} ${params?.second_param} ${params?.third_param} ${params?.fourth_param}`,
+                    `${params?.res_first_param} ${params?.res_second_param} ${params?.res_third_param} ${params?.res_fourth_param}`,
                 ];
                 break;
         }

@@ -62,6 +62,21 @@ class WooCommerceSales extends Types {
             'fourth_param'        => 'tag_time',
             'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
         ];
+        $res_common_fields = [
+            'res_first_param'         => 'tag_name',
+            'custom_res_first_param'  => __('Someone' , 'notificationx'),
+            'res_second_param'        => __('just purchased', 'notificationx'),
+            'res_third_param'         => 'tag_product_title',
+            'custom_res_third_param'  => __('Anonymous Product', 'notificationx'),
+        ];
+        $res_sales_count_common_fields = [
+            'res_first_param'         => 'tag_sales_count',
+            'custom_res_first_param'  => __('Someone' , 'notificationx'),
+            'res_second_param'        => __('people', 'notificationx'),
+            'res_third_param'         => __('purchased', 'notificationx'),
+            'res_fourth_param'        => 'tag_product_title',
+            'custom_res_fourth_param' => __('Anonymous Product', 'notificationx'),
+        ];
         $this->themes = [
             'theme-one'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-2.jpg',
@@ -141,58 +156,67 @@ class WooCommerceSales extends Types {
         $this->res_themes = [
             'res-theme-one'   => [
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-1.png',
-                'image_shape' => 'square',
-                'template'    => $common_fields,
+                'template'    => $res_common_fields,
             ],
             'res-theme-two'   => [
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-2.png',
-                'image_shape' => 'square',
-                'template'    => $common_fields,
+                'template'    => $res_common_fields,
             ],
             'res-theme-three'   => [
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-3.png',
                 'image_shape' => 'square',
-                'template'    => $common_fields,
+                'template'    => $res_common_fields,
             ],
             'res-theme-four'   => [
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-4.png',
                 'image_shape' => 'square',
-                'template'    => $common_fields,
+                'template'    => $res_common_fields,
             ],
             'res-theme-five'   => [
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-5.png',
                 'image_shape' => 'square',
-                'template'    => $common_fields,
+                'template'  => [
+                    'res_first_param'         => 'tag_name',
+                    'custom_res_first_param'  => __('Someone', 'notificationx'),
+                    'res_second_param'        => __('from', 'notificationx'),
+                    'res_third_param'         => 'tag_city',
+                    'custom_res_third_param'  => __('Anonymous Place', 'notificationx'),
+                    'res_fourth_param'        => __('Purchased', 'notificationx'),
+                ],
             ],
             'res-theme-six'   => [
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-6.png',
                 'image_shape' => 'square',
-                'template'    => $common_fields,
+                'template'  => [
+                    'res_first_param'         => __('A marketer from', 'notificationx'),
+                    'res_second_param'        => 'tag_city',
+                    'custom_res_second_param' => __('Anonymous Place', 'notificationx'),
+                    'res_third_param'         => __('purchased', 'notificationx'),
+                    'res_fourth_param'         => 'tag_product_title',
+                    'custom_res_fourth_param'  => __('Someone', 'notificationx'),
+                ],
             ],
             'res-theme-seven'   => [
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-7.png',
-                'image_shape' => 'square',
-                'template'    => $common_fields,
+                'template'    => $res_common_fields,
             ],
             'res-theme-eight'   => [
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-8.png',
-                'image_shape' => 'square',
-                'template'    => $common_fields,
+                'template'    => $res_common_fields,
             ],
             'res-theme-nine'   => [
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-9.png',
                 'image_shape' => 'square',
-                'template'    => $common_fields,
+                'template'    => $res_sales_count_common_fields,
             ],
             'res-theme-ten'   => [
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-10.png',
-                'image_shape' => 'square',
-                'template'    => $common_fields,
+                'template'    => $res_sales_count_common_fields,
             ],
             'res-theme-eleven'   => [
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-11.png',
                 'image_shape' => 'square',
-                'template'    => $common_fields,
+                'template'    => $res_sales_count_common_fields,
             ],
         ];
         parent::__construct();
