@@ -202,8 +202,8 @@ const GetTemplate = (settings) => {
                 ];    
         }
     }
-    
-    if( settings?.is_mobile ) {  
+        
+    if( settings?.is_mobile ) {
         switch (themeName) {
             case "rating-res-theme-four":
             case "rating-res-theme-five":
@@ -212,28 +212,40 @@ const GetTemplate = (settings) => {
                     `${params?.res_first_param} ${params?.res_second_param}`,
                     `${params?.res_third_param}`,
                 ];
+            case "elearning-res-theme-six":
+            case "elearning-res-theme-ten":
+            case "subscriptions-res-theme-four":
+                return [
+                    `${params?.res_first_param} ${params?.res_second_param} ${params?.res_third_param} ${params?.res_fourth_param} ${params?.res_fifth_param}`,
+                ];
             case "res-theme-one":
             case "res-theme-two":
             case "res-theme-three":
             case "res-theme-four":
             case "res-theme-seven":
             case "res-theme-eight":
+            case "elearning-res-theme-five":
                 return [
                     `${params?.res_first_param} ${params?.res_second_param} ${params?.res_third_param}`,
                 ];
             case "res-theme-five":
-            case "res-theme-six":
             case "res-theme-nine":
             case "res-theme-ten":
+            case "res-theme-six":
             case "res-theme-eleven":
+            case "elearning-res-theme-seven":
+            case "elearning-res-theme-eight":
                 return [
                     `${params?.res_first_param} ${params?.res_second_param} ${params?.res_third_param} ${params?.res_fourth_param}`,
+                ];
+            case "res_maps_theme":
+                return [
+                    `${params?.res_first_param} ${params?.res_second_param} ${params?.res_third_param} ${params?.map_fourth_param}`,
                 ];
             default:
                 return [
                     `${params?.res_first_param} ${params?.res_second_param} ${params?.res_third_param} ${params?.res_fourth_param}`,
                 ];
-                break;
         }
     }
 

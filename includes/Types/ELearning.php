@@ -123,42 +123,113 @@ class ELearning extends Types {
             'res-theme-one' => array(
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-1.png',
                 'image_shape' => 'circle',
+                'template'  => [
+                    'res_first_param'         => 'tag_name',
+                    // 'custom_res_first_param'  => __('Someone' , 'notificationx'),
+                    'res_second_param'        => __('just enrolled', 'notificationx'),
+                    'res_third_param'         => 'tag_course_title',
+                    // 'custom_res_third_param'  => __('Anonymous Course' , 'notificationx'),
+                ],
             ),
             'res-theme-two' => array(
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-2.png',
                 'image_shape' => 'circle',
+                'template'  => [
+                    'res_first_param'         => 'tag_name',
+                    // 'custom_res_first_param'  => __('Someone' , 'notificationx'),
+                    'res_second_param'        => __('just enrolled' , 'notificationx'),
+                    'res_third_param'         => 'tag_course_title',
+                    // 'custom_res_third_param'  => __('Anonymous Course' , 'notificationx'),
+                ],
             ),
             'res-theme-three' => array(
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-3.png',
                 'image_shape' => 'circle',
+                'template' => [
+                    'res_first_param'         => 'tag_name',
+                    // 'custom_res_first_param'  => __('Someone' , 'notificationx'),
+                    'res_second_param'        => __('just enrolled' , 'notificationx'),
+                    'res_third_param'         => 'tag_course_title',
+                    // 'custom_res_third_param'  => __('Anonymous Course' , 'notificationx'),
+                ],
             ),
             'res-theme-four' => array(
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-4.png',
                 'image_shape' => 'circle',
+                'template' => [
+                    'res_first_param'         => 'tag_name',
+                    // 'custom_res_first_param'  => __('Someone' , 'notificationx'),
+                    'res_second_param'        => __('just enrolled in' , 'notificationx'),
+                    'res_third_param'         => 'tag_course_title',
+                    // 'custom_res_third_param'  => __('Anonymous Course' , 'notificationx'),
+                ],
             ),
-            'res-theme-five' => array(
+            'elearning-res-theme-five' => array(
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-5.png',
                 'image_shape' => 'circle',
+                'template' => [
+                    'res_first_param'         => 'tag_name',
+                    // 'custom_res_first_param'  => __('Someone' , 'notificationx'),
+                    'res_second_param'        => __('just enrolled in' , 'notificationx'),
+                    'res_third_param'         => 'tag_course_title',
+                    // 'custom_res_third_param'  => __('Anonymous Course' , 'notificationx'),
+                ],
             ),
-            'res-theme-six' => array(
+            'elearning-res-theme-six' => array(
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-6.png',
                 'image_shape' => 'circle',
+                'template' => [
+                    'res_first_param'         => 'tag_name',
+                    'res_second_param'        => __('from' , 'notificationx'),
+                    'res_third_param'         => 'tag_city',
+                    'res_fourth_param'        => __('enrolled in' , 'notificationx'),
+                    'res_fifth_param'         => 'tag_course_title',
+                ],
             ),
-            'res-theme-seven' => array(
+            'elearning-res-theme-seven' => array(
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-7.png',
                 'image_shape' => 'circle',
+                'template'    => [
+                    'res_first_param'         => 'tag_sales_count',
+                    'res_second_param'        => __('people', 'notificationx'),
+                    'res_third_param'        => __('enrolled in' , 'notificationx'),
+                    'res_fourth_param'         => 'tag_course_title',
+                    // 'fourth_param'        => 'tag_7days',
+                    // 'custom_fourth_param' => __('in last {{day:7}}', 'notificationx'),
+                ],
             ),
-            'res-theme-eight' => array(
+            'elearning-res-theme-eight' => array(
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-8.png',
                 'image_shape' => 'circle',
+                'template'    => [
+                    'res_first_param'         => 'tag_sales_count',
+                    'res_second_param'        => __('people', 'notificationx'),
+                    'res_third_param'        => __('enrolled in' , 'notificationx'),
+                    'res_fourth_param'         => 'tag_course_title',
+                    // 'fourth_param'        => 'tag_7days',
+                    // 'custom_fourth_param' => __('in last {{day:7}}', 'notificationx'),
+                ],
             ),
             'res-theme-nine' => array(
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-9.png',
                 'image_shape' => 'circle',
+                'template'    => [
+                    'res_first_param'         => 'tag_sales_count',
+                    'res_second_param'        => __('people', 'notificationx'),
+                    'res_third_param'        => __('enrolled in' , 'notificationx'),
+                    'res_fourth_param'         => 'tag_course_title',
+                ],
             ),
-            'res-theme-ten' => array(
+            'elearning-res-theme-ten' => array(
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-10.png',
                 'image_shape' => 'circle',
+                'template'    => [
+                    'res_first_param'  => 'tag_name',
+                    'res_second_param' => __('from', 'notificationx'),
+                    'res_third_param'  => 'tag_city',
+                    'res_fourth_param' => __('enrolled', 'notificationx'),
+                    'res_fifth_param'  => 'tag_course_title',
+                ],
             ),
         ];
         $this->templates = [

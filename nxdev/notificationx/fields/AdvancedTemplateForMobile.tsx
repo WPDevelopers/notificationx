@@ -112,15 +112,6 @@ const AdvancedTemplateForMobile = (props) => {
         });
     }, [editorState]);
 
-    // const updateEditorState = (editorState) => {
-    //     const raw = convertToRaw(editorState.getCurrentContent());
-    //     const newRaw: RawDraftContentState = {
-    //         ...raw,
-    //         blocks: raw.blocks.slice(0, 3),
-    //     };
-    //     const newState = EditorState.createWithContent(convertFromRaw(newRaw));
-    //     setEditorState(newState);
-    // };
     const handleBeforeInput = (
         chars: string,
         editorState: EditorState,
@@ -185,33 +176,42 @@ const AdvancedTemplateForMobile = (props) => {
 
     useEffect(() => {
         // generating template for first time.
-        if (!builderContext.savedValues?.["advanced_template_for_mobile"]) {            
-            const theme = builderContext.values.responsive_themes;
-            let values = {...builderContext.values};
-            values['is_mobile'] = true;
-            if(theme == 'page_analytics_pa-theme-two' || theme == 'page_analytics_pa-theme-one'){
-                const fifth = values['notification-template'].ga_fifth_param?.trim();
-                const sixth = values['notification-template'].sixth_param?.replace('tag_', '');
-                const custom = `{{${sixth}:${fifth}}}`;
-                values = {...values, 'notification-template': {
-                    ...values['notification-template'],
-                    ga_fifth_param: custom,
-                    sixth_param: '',
-                }};
-            }
-                  
-            const tmpl: any = applyFilters(
-                "nx_adv_template_default",
-                values
-            );
-            
-            console.log('values', values);
-            console.log('tmpl', tmpl);
-            
+        const theme = builderContext.values.responsive_themes;
+        let values = {...builderContext.values};
+        values['is_mobile'] = true;
+        if(theme == 'page_analytics_pa-theme-two' || theme == 'page_analytics_pa-theme-one'){
+            const fifth = values['notification-template'].ga_fifth_param?.trim();
+            const sixth = values['notification-template'].sixth_param?.replace('tag_', '');
+            const custom = `{{${sixth}:${fifth}}}`;
+            values = {...values, 'notification-template': {
+                ...values['notification-template'],
+                ga_fifth_param: custom,
+                sixth_param: '',
+            }};
+        }
+                
+        const tmpl: any = applyFilters(
+            "nx_adv_template_default",
+            values
+        );
+        
+        const { contentBlocks, entityMap } = htmlToDraft(
+            tmpl.map((val) => `<p>${val}</p>`).join("\r\n")
+        );
+        const contentState = ContentState.createFromBlockArray(
+            contentBlocks,
+            entityMap
+        );
+        const editorState = EditorState.createWithContent(contentState);
+        setEditorState(editorState);
+    }, [
+        builderContext.values.responsive_themes,
+        builderContext.values["notification-template-mobile"],
+    ]);
 
-            const { contentBlocks, entityMap } = htmlToDraft(
-                tmpl.map((val) => `<p>${val}</p>`).join("\r\n")
-            );
+    useEffect(() => {
+        if (builderContext.savedValues?.["advanced_template_for_mobile"]) {            
+            const { contentBlocks, entityMap } = htmlToDraft(builderContext.savedValues?.["advanced_template_for_mobile"]);
             const contentState = ContentState.createFromBlockArray(
                 contentBlocks,
                 entityMap
@@ -219,10 +219,8 @@ const AdvancedTemplateForMobile = (props) => {
             const editorState = EditorState.createWithContent(contentState);
             setEditorState(editorState);
         }
-    }, [
-        builderContext.values.responsive_themes,
-        builderContext.values["notification-template-mobile"],
-    ]);
+    }, [builderContext.savedValues?.["advanced_template_for_mobile"]])
+    
 
 
     return (

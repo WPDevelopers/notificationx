@@ -158,6 +158,65 @@ class Announcements extends Extension {
                 ],
             ],
         ];
+        $this->res_themes = [
+            'res-theme-one'   => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-1.png',
+                'image_shape' => 'rounded',
+                'template' => [
+                    'first_param'  => 'tag_offer_title',
+                    'custom_first_param'  => __('Flash Sale:' , 'notificationx'),
+                    'third_param'  => 'tag_offer_description',
+                    'fourth_param' => 'tag_time',
+                ],
+            ],
+            'res-theme-two'   => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-2.png',
+                'template' => [
+                    'first_param'         => 'tag_offer_title',
+                    'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'notificationx'),
+                    'third_param'         => 'tag_offer_description',
+                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx'),
+                    'fourth_param'        => 'tag_time',
+                    'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+                    // 'fifth_param'         => 'tag_offer_discount',
+                    // 'custom_fifth_param'  => __( '25% OFF', 'notificationx' ),
+                ],
+            ],
+            'res-theme-three'   => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-12.png',
+                'template' => [
+                    'first_param'         => 'tag_offer_title',
+                    'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'notificationx'),
+                    'third_param'         => 'tag_offer_description',
+                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx'),
+                    'fourth_param'        => 'tag_time',
+                    'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+                    // 'fifth_param'         => 'tag_offer_discount',
+                    // 'custom_fifth_param'  => __( '25% OFF', 'notificationx' ),
+                ],
+            ],
+            'res-theme-four'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-14.png',
+                'image_shape' => 'circle',
+                'template'    => [
+                    'first_param'         => 'tag_offer_title',
+                    'custom_first_param'  => __('Hi There!' , 'notificationx'),
+                    'third_param'         => 'tag_offer_description',
+                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx'),
+                    'fourth_param'        => 'tag_time',
+                    'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+                ],
+            ],
+            'theme-15'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-15.png',
+                'template'    => [
+                    'first_param'         => 'tag_offer_title',
+                    'custom_first_param'  => __('Hi There!' , 'notificationx'),
+                    'third_param'         => 'tag_offer_description',
+                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO', 'notificationx'),
+                ],
+            ],
+        ];
 
         $this->templates = [
             'announcements_template_new' => [

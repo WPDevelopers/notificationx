@@ -61,6 +61,12 @@ class EmailSubscription extends Types {
             'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
         ];
 
+        $res_common_fields = [
+            'res_first_param'  => 'tag_first_name',
+            'res_second_param' => __('just subscribed to', 'notificationx'),
+            'res_third_param'  => 'tag_title',
+        ];
+
         $this->themes = [
             'theme-one'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/subscriptions/mailchimp-theme-1.jpg',
@@ -81,6 +87,35 @@ class EmailSubscription extends Types {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/subscriptions/maps-theme-subscribed.png',
                 'image_shape' => 'square',
                 'show_notification_image' => 'maps_image',
+            ],
+        ];
+
+        $this->res_themes = [
+            'res-theme-one'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_subscriptions/mailchimp-res-theme-1.png',
+                'image_shape' => 'rounded',
+                'template'    => $res_common_fields,
+            ],
+            'res-theme-two'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_subscriptions/mailchimp-res-theme-2.png',
+                'image_shape' => 'circle',
+                'template'    => $res_common_fields,
+            ],
+            'res-theme-three' => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_subscriptions/mailchimp-res-theme-3.png',
+                'image_shape' => 'square',
+                'template'    => $res_common_fields,
+            ],
+            'subscriptions-res-theme-four'  => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_subscriptions/mailchimp-res-theme-4.png',
+                'image_shape' => 'square',
+                'template'    => [
+                    'res_first_param'  => 'tag_name',
+                    'res_second_param' => __('from', 'notificationx'),
+                    'res_third_param'  => 'tag_city',
+                    'res_fourth_param' => __('subscribed to', 'notificationx'),
+                    'res_fifth_param'  => 'tag_title',
+                ],
             ],
         ];
 
