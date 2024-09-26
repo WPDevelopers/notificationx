@@ -315,9 +315,9 @@ class PostType {
         $rest   = func_num_args() == 2 ? func_get_arg(1) : null;
         $return = false;
 
-        if ( $source === 'press_bar' ) {
-            $return = true;
-        }
+        // if ( $source === 'press_bar' ) {
+        //     $return = true;
+        // }
 
         $ext = ExtensionFactory::get_instance()->get( $source );
         if ( $ext && $ext->is_pro && ! NotificationX::is_pro() ) {
@@ -328,8 +328,8 @@ class PostType {
         if ( $source == 'press_bar' && ( isset( $enabled_source['press_bar'] ) && count( $enabled_source['press_bar'] ) ) ) {
             $return = false;
         }
-        unset( $enabled_source['press_bar'] );
-        if ( $source !== 'press_bar' && count( $enabled_source ) == 0 ) {
+        // unset( $enabled_source['press_bar'] );
+        if ( count( $enabled_source ) == 0 ) {
             $return = true;
         }
         return apply_filters('nx_can_enable', $return, $source, $rest);
