@@ -8,8 +8,6 @@ import FlashingThemeFour from './FlashingThemeFour';
 import CSVUpload from './CSVUpload';
 import AdvancedRepeater from './AdvancedRepeater';
 import AdvancedCodeViewer from './AdvancedCodeViewer';
-import AdvancedTemplateForMobile from './AdvancedTemplateForMobile';
-
 
 
 const Field = (ret, type, props) => {
@@ -17,8 +15,6 @@ const Field = (ret, type, props) => {
     switch (type) {
         case "advanced-template":
             return <AdvancedTemplate {...props} />;
-        case "advanced-template-mobile":
-            return <AdvancedTemplateForMobile {...props} />;
         case "preview-modal":
             return <PreviewModal {...props} />;
         case "flashing-theme-one":

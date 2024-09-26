@@ -300,12 +300,6 @@ class GlobalFields {
                                         'defaults' => apply_filters('nx_themes_trigger_for_responsive', []),
                                     ],
                                 ],
-                                'advanced_template_for_mobile' => [
-                                    'name'     => 'advanced_template_for_mobile',
-                                    'type'     => 'advanced-template-mobile',
-                                    'label'    => __('Advanced Template for Mobile', 'notificationx'),
-                                    'priority' => 92.5,
-                                ],
                             ]
                         ],
                         'advance_design_section' => [

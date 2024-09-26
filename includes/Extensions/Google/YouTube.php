@@ -179,7 +179,26 @@ class YouTube extends Extension {
                 ],
             ],
         ];
-
+        $this->res_themes = [
+            'res-channel-1'     => [
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_youtube/channel-res-theme-1.png',
+            ],
+            'res-channel-2'     => [
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_youtube/channel-res-theme-2.png',
+            ],
+            'res-video-1'     => [
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_youtube/channel-res-theme-3.png',
+            ],
+            'res-video-2'     => [
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_youtube/channel-res-theme-4.png',
+            ],
+            'res-video-3'     => [
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_youtube/channel-res-theme-5.png',
+            ],
+            'res-video-4'     => [
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_youtube/channel-res-theme-6.png',
+            ],
+        ];
         $this->templates = [
             "{$this->id}_channel"  => [
                 'third_param' => [

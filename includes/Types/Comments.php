@@ -153,6 +153,45 @@ class Comments extends Types {
                 'show_notification_image' => 'maps_image',
             ),
         ];
+        $this->res_themes = [
+            'res-theme-one'        => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-1.png',
+                '_template'    => 'comments_template_new',
+            ],
+            'res-theme-two'        => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-2.png',
+                '_template'    => 'comments_template_new',
+            ],
+            'res-theme-three'      => [
+                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-3.png',
+                '_template' => 'comments_template_new',
+            ],
+            'res-theme-four'   => [
+                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-4.png',
+                '_template' => 'comments_template_new',
+            ],
+            'res-theme-five' => [
+                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-5.png',
+                '_template' => 'comments_template_new',
+            ],
+            'res-theme-six' => [
+                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-6.png',
+                '_template' => 'comments_template_new',
+            ],
+            'res-theme-seven'       => array(
+                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-7.png',
+                '_template' => 'comments_template_new',
+            ),
+            'res-theme-eight' => array(
+                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-8.png',
+                '_template' => 'comments_template_new',
+            ),
+            // @todo pro fix
+            'res-theme-nine' => array(
+                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-9.png',
+                '_template' => 'maps_template_new',
+            ),
+        ];
         $this->templates = [
             'comments_template_new' => [
                 'first_param' => GlobalFields::get_instance()->common_name_fields(true),

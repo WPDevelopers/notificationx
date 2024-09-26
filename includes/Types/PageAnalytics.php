@@ -121,7 +121,20 @@ class PageAnalytics extends Types {
                 ],
             ],
         ];
-
+        $this->res_themes = [
+            'res-pa-theme-one'   => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_analytics/ga-res-theme-1.png',
+            ],
+            'res-pa-theme-two'   => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_analytics/ga-res-theme-2.png',
+            ],
+            'res-pa-theme-three' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_analytics/ga-res-theme-3.png',
+            ],
+            'res-pa-theme-four' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_analytics/ga-res-theme-4.png',
+            ],
+        ];
         $this->templates = [
             'pa_template_new' => [
                 'first_param' => [

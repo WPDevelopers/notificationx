@@ -186,10 +186,9 @@ const AdvancedTemplate = (props) => {
     useEffect(() => {
         // generating template for first time.
 
-        if (!builderContext.savedValues?.["advanced_template_for_mobile"]) {
+        if (!builderContext.savedValues?.["advanced_template"]) {
             const theme = builderContext.values.themes;
             let values = {...builderContext.values};
-            values['is_mobile'] = false;
             if(theme == 'page_analytics_pa-theme-two' || theme == 'page_analytics_pa-theme-one'){
                 const fifth = values['notification-template'].ga_fifth_param?.trim();
                 const sixth = values['notification-template'].sixth_param?.replace('tag_', '');

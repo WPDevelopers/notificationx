@@ -264,7 +264,6 @@ abstract class Extension {
      */
     public function __nx_res_themes($themes) {
         $_themes = $this->get_res_themes();
-
         $i = 0;
         if(is_array($_themes)){
             foreach ($_themes as $tname => $theme) {
@@ -281,12 +280,16 @@ abstract class Extension {
                         $themes[$tname]['column'] = $theme['column'];
                     }
                 }
-
-                $themes[$tname] = Rules::includes('source', $this->id, false, $themes[$tname]);
-                // $themes[$tname] = Rules::includes('type', $this->types, false, $themes[$tname]);
-                // $themes[$tname] = Rules::includes('i', [++$i], false, $themes[$tname]);
-                // $themes[$tname] = Rules::includes('i', [++$i], false, $themes[$tname]);
-                // $themes[$tname] = Rules::includes('i', [++$i], false, $themes[$tname]);
+                $template = isset($theme['_template']) ? $theme['_template'] : '';
+                if( $template ) {
+                    $templates               = $this->get_templates();
+                    $main_themes             = isset( $templates[$template] ) ? (isset( $templates[$template]['_themes'] ) ? $templates[$template]['_themes'] : '') : '' ;
+                    $themes[$tname]['rules'] = Rules::logicalRule([
+                        Rules::includes('themes', $main_themes, false),
+                    ]);
+                }else{
+                    $themes[$tname]  = Rules::includes('source', $this->id, false, $themes[$tname]);
+                }
             }
         }
         return $themes;

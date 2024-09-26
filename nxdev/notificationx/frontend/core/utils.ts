@@ -55,12 +55,7 @@ export const normalize = (_entries, globalSettings) => {
         if (Object.hasOwnProperty.call(_entries, key)) {
             let settings = _entries[key]?.post;
             let template;
-            if( window.innerWidth <= 425 ) {
-                settings['is_mobile'] = true;
-                template = settings?.advanced_template_for_mobile ? settings?.advanced_template_for_mobile?.split?.(/\r\n|\r|\n/) : GetTemplate(settings);
-            }else{
-                template = settings?.template_adv ? settings?.advanced_template?.split?.(/\r\n|\r|\n/) : GetTemplate(settings);
-            }
+            template = settings?.template_adv ? settings?.advanced_template?.split?.(/\r\n|\r|\n/) : GetTemplate(settings);
             if (settings?.global_queue) {
                 settings = { ...settings, ...globalSettings, template };
             }

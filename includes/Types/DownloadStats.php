@@ -93,6 +93,58 @@ class DownloadStats extends Types {
                 ],
             ],
         ];
+        $this->res_themes = [
+            'res-today-download' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_wporg/wporg-res-theme-1.png',
+                'image_shape' => 'square',
+                'template'  => [
+                    'first_param'  => 'tag_plugin_theme_name',
+                    'custom_first_param' => '',
+                    'second_param' => __('has been downloaded' , 'notificationx'),
+                    'third_param'  => 'tag_today',
+                    'custom_third_param' => '',
+                    'fourth_param' => 'tag_today_text',
+                    'custom_fourth_param' => '',
+                ],
+            ],
+            'res-7day-download'  => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_wporg/wporg-res-theme-2.png',
+                'image_shape' => 'rounded',
+                'template'  => [
+                    'first_param'  => 'tag_plugin_theme_name',
+                    'custom_first_param' => '',
+                    'second_param' => __('has been downloaded', 'notificationx'),
+                    'third_param'  => 'tag_last_week',
+                    'custom_third_param' => '',
+                    'fourth_param' => 'tag_last_week_text',
+                    'custom_fourth_param' => '',
+                ],
+            ],
+            'res-actively_using' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_wporg/wporg-res-theme-3.png',
+                'image_shape' => 'rounded',
+                'template'  => [
+                    'first_param' => 'tag_active_installs',
+                    'custom_first_param' => '',
+                    'second_param' => __('people are actively using' , 'notificationx'),
+                    'third_param' => 'tag_plugin_theme_name',
+                    'custom_third_param' => '',
+                ],
+            ],
+            'res-total-download' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_wporg/wporg-res-theme-4.png',
+                'image_shape' => 'circle',
+                'template'  => [
+                    'first_param'  => 'tag_plugin_theme_name',
+                    'custom_first_param' => '',
+                    'second_param' => __('has been downloaded', 'notificationx'),
+                    'third_param'  => 'tag_all_time',
+                    'custom_third_param' => '',
+                    'fourth_param' => 'tag_all_time_text',
+                    'custom_fourth_param' => '',
+                ],
+            ],
+        ];
         $this->templates = [
             'wp_stats_template_new' => [
                 'first_param' => [

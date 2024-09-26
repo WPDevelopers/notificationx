@@ -160,7 +160,7 @@ class Announcements extends Extension {
         ];
         $this->res_themes = [
             'res-theme-one'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-1.png',
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-1.png',
                 'image_shape' => 'rounded',
                 'template' => [
                     'first_param'  => 'tag_offer_title',
@@ -170,7 +170,7 @@ class Announcements extends Extension {
                 ],
             ],
             'res-theme-two'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-2.png',
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-2.png',
                 'template' => [
                     'first_param'         => 'tag_offer_title',
                     'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'notificationx'),
@@ -183,7 +183,7 @@ class Announcements extends Extension {
                 ],
             ],
             'res-theme-three'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-12.png',
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-3.png',
                 'template' => [
                     'first_param'         => 'tag_offer_title',
                     'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'notificationx'),
@@ -196,7 +196,7 @@ class Announcements extends Extension {
                 ],
             ],
             'res-theme-four'   => [
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-14.png',
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-4.png',
                 'image_shape' => 'circle',
                 'template'    => [
                     'first_param'         => 'tag_offer_title',
@@ -207,8 +207,8 @@ class Announcements extends Extension {
                     'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
                 ],
             ],
-            'theme-15'   => [
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-15.png',
+            'res-theme-five'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-5.png',
                 'template'    => [
                     'first_param'         => 'tag_offer_title',
                     'custom_first_param'  => __('Hi There!' , 'notificationx'),
