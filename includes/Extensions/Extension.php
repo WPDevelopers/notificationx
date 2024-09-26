@@ -284,12 +284,9 @@ abstract class Extension {
                 if( $template ) {
                     $templates               = $this->get_templates();
                     $main_themes             = isset( $templates[$template] ) ? (isset( $templates[$template]['_themes'] ) ? $templates[$template]['_themes'] : '') : '' ;
-                    $themes[$tname]['rules'] = Rules::logicalRule([
-                        Rules::includes('themes', $main_themes, false),
-                    ]);
-                }else{
-                    $themes[$tname]  = Rules::includes('source', $this->id, false, $themes[$tname]);
+                    $themes[$tname] = Rules::includes('themes', $main_themes, false, $themes[$tname]);
                 }
+                $themes[$tname]  = Rules::includes('source', $this->id, false, $themes[$tname]);
             }
         }
         return $themes;
