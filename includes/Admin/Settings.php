@@ -115,6 +115,7 @@ class Settings extends UsabilityDynamicsSettings {
             'tabnumber'     => true,
             'layout'        => 'horizontal',
             'is_pro_active' => NotificationX::get_instance()->is_pro(),
+            'cus_imp_limit' => Settings::get_instance()->get('settings.custom_notification_import_limit', 100),
             'is_wpml_active'=> Helper::is_wpml_setup(),
             'config'        => [
                 'active'  => 'tab-general',
@@ -198,6 +199,13 @@ class Settings extends UsabilityDynamicsSettings {
                                             ]),
                                     'priority' => 20,
                                     'help'     => __('Select the size for your notification image.', 'notificationx'),
+                                ],
+                                'custom_notification_import_limit' => [
+                                    'name'    => "custom_notification_import_limit",
+                                    'type'    => 'number',
+                                    'label'   => __('Custom Notification Import Limit', 'notificationx'),
+                                    'default' => 100,
+                                    'priority' => 25,
                                 ],
                             ),
                         ],

@@ -16,10 +16,11 @@ const Media = (props) => {
     const [csvData, setCSVData] = useState(null)
     const builderContext = useBuilderContext();
     const nxContext = useNotificationXContext();
+    const [importCSV, setImportCSV] = useState(false);
     const [complete, setComplete] = useState(false);
     const [localContents, setLocalContents] = useState([]);
     const [progress, setProgress] = useState(0);
-
+    
     useEffect(() => {
         if (csvData) {
             props.onChange({
@@ -34,49 +35,116 @@ const Media = (props) => {
 
     const handleMediaSelection = async (media) => {
         if (media.mime !== 'text/csv') {
+            nxHelper.swal({
+                title: __("Invalid File Type!", "notificationx"),
+                text: __(
+                    "Please upload a CSV file to import custom notification data.",
+                    "notificationx"
+                ),
+                iconHtml: `<img alt="NotificationX" src="${builderContext.assets.admin}images/file-type.svg" />`,
+                confirmButtonText: __("Close", "notificationx"),
+                customClass: {
+                    container: 'nx-csv-modal-ift-container',
+                    popup: 'nx-csv-modal-ift-popup',
+                    actions: "nx-delete-actions nx-csv-invalid-file-type",
+                  },
+                confirmedCallback: () => {},
+                completeAction: (response) => {},
+                completeArgs: () => {},
+                afterComplete: () => { },
+            });
             return;
         }
         try {
-            setCSVData({
-                id: media.id,
-                title: media?.filename,
-                url: media.url,
-            });
-            const csvUrl = media.url;
-            const csvContent = await fetch(csvUrl).then(res => res.text());
-            const lines = csvContent.split('\n');
-            const chunkSize = 100;
-            const totalChunks = Math.ceil(lines.length / chunkSize);
-            
-            Swal.fire({
-                title: __('Uploading CSV...', 'notificationx'),
-                html: `<progress id="csv-progress-bar" value="0" max="100" style="width: 100%"></progress>`,
-                showConfirmButton: false,
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading();
-                }
-            });
-    
-            for (let i = 0; i < totalChunks; i++) {    
-                await uploadChunk(csvUrl, chunkSize, i, totalChunks, media.id);
-                const progressValue = Math.round(((i + 1) / totalChunks) * 100);
-                setProgress(progressValue);
-                // @ts-ignore 
-                document.getElementById('csv-progress-bar').value = progressValue;
+            const itemCount = await checkCSVItems(media.url);
+            if (itemCount > parseInt( nxContext?.cus_imp_limit ) ) {
+                Swal.fire({
+                    title: __("Import Limit Exceeded.", "notificationx"),
+                    html: __(
+                        `Your file contains more than ${parseInt( nxContext?.cus_imp_limit )} rows. Only the first ${parseInt( nxContext?.cus_imp_limit )} rows will be imported. Click <strong>"Continue"</strong> to proceed or <strong>"Cancel"</strong> to abort.`,
+                        "notificationx"
+                    ),
+                    iconHtml: `<img alt="NotificationX" src="${builderContext.assets.admin}images/file-type.svg" style="height: 85px; width:85px" />`,
+                    showDenyButton: true,
+                    iconColor: "transparent",
+                    confirmButtonText: __("Continue", "notificationx"),
+                    denyButtonText: __("Cancel", "notificationx"),
+                    reverseButtons: true,
+                    customClass: {
+                        container: 'nx-csv-modal-import-limit-container',
+                        popup: 'nx-csv-modal-import-limit-popup',
+                        actions: "nx-delete-actions nx-csv-import-limit",
+                      },
+                    allowOutsideClick: false,
+                    // @ts-ignore 
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        setCSVData({
+                            id: media.id,
+                            title: media?.filename,
+                            url: media.url,
+                        });
+                        setImportCSV(true);
+                    } else if (result.isDenied) {
+                        setCSVData(null);
+                        setImportCSV(false);
+                    }
+                });
+            } else {
+                setCSVData({
+                    id: media.id,
+                    title: media?.filename,
+                    url: media.url
+                });
+                setImportCSV(true);
             }
-    
-            setComplete(true);
-            Swal.close();
-            nxToast.info(__('CSV data imported successfully!', "notificationx"));
         } catch (error) {
             console.error("Error processing the CSV file:", error);
-            Swal.close();
             nxToast.error(__('Error processing the CSV file', 'notificationx'));
         }
     };
     
+    useEffect(() => {
+        if( importCSV ) {
+          importCSVData();
+        }      
+      }, [importCSV])  
     
+      const generateChunkSize = (csvLength) => {
+        let chunkSize;
+    
+        if (csvLength > 1000) {
+            chunkSize = 100; // Fixed chunk size if csvLength is more than 1000
+        } else {
+            // Calculate chunk size based on a maximum of 10 requests
+            chunkSize = Math.ceil(csvLength / 10);
+        }
+    
+        return chunkSize;
+    };
+
+    const importCSVData = async () => {
+        const csvUrl      = csvData?.url;
+        const csvContent  = await fetch(csvUrl).then(res => res.text());
+        const lines       = csvContent.split('\n');
+        const chunkSize   = generateChunkSize( lines?.length );
+        const totalChunks = Math.ceil(lines.length / chunkSize);
+        console.log('totalChunks',totalChunks);
+        console.log('lines.length',lines.length);
+        
+        // for (let i = 0; i < totalChunks; i++) {    
+        //     await uploadChunk(csvUrl, chunkSize, i, totalChunks, csvData?.id);
+        //     const progressValue = Math.round(((i + 1) / totalChunks) * 100);
+        //     setProgress(progressValue);
+        //     // @ts-ignore 
+        //     document.getElementById('csv-progress-bar').value = progressValue;
+        // }
+
+        // setComplete(true);
+        // Swal.close();
+        // nxToast.info(__('CSV data imported successfully!', "notificationx"));
+    }
+
     const uploadChunk = async (csvUrl, chunkSize, chunkIndex, totalChunks, mediaId) => {
         nxContext.setCSVUploaderLoader({ csv_upload_loader: true });
         try {
@@ -86,7 +154,7 @@ const Media = (props) => {
                 totalChunks,
                 mediaId,
                 chunkSize,
-                uploadImage: true,
+                uploadImage: false,
             });
             // @ts-ignore 
             if (response.success) {
@@ -108,6 +176,7 @@ const Media = (props) => {
             nxContext.setCSVUploaderLoader({ csv_upload_loader: false });
         }
     };
+
     useEffect(() => {
         if (complete) {
             builderContext.setFieldValue("custom_contents", localContents);
@@ -115,7 +184,7 @@ const Media = (props) => {
     }, [complete]);
 
     return (
-        <div className="wprf-control wprf-media">
+        <div className="wprf-control wprf-media wprf-csv-upload">
             <div className="wprf-image-uploader wprf-csv-uploader">
                 <MediaUpload
                     onSelect={(media) => handleMediaSelection(media)}
@@ -140,7 +209,9 @@ const Media = (props) => {
                         </>
                     }}
                 />
-
+            </div>
+            <div className="progress-container">
+                <div className="progress-bar"><span>50%</span></div>
             </div>
         </div>
     )
