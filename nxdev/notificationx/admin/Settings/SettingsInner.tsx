@@ -15,6 +15,8 @@ const SettingsInner = (props) => {
     const builder = useBuilderContext();
     const notificationxContext = useNotificationXContext();
     const [Location, setLocation] = useState(location.search);
+    const [activeTab, setActiveTab] = useState('');
+
     let history = useHistory();
     history.listen(() => {
         setLocation(location.search);
@@ -43,6 +45,7 @@ const SettingsInner = (props) => {
                 }
             }, 1000);
         }
+        setActiveTab(tab);
     }, [builder.config.active]);
 
     useEffect(() => {
@@ -91,7 +94,7 @@ const SettingsInner = (props) => {
             {builder?.analytics && <AnalyticsHeader assetsURL={builder.assets} />}
             <div className="nx-settings">
                 <div className="nx-settings-content">
-                    <div className="nx-settings-form-wrapper">
+                    <div className={`nx-settings-form-wrapper ${activeTab}`}>
                         <FormBuilder {...builder} useQuery={true} />
                     </div>
                 </div>
