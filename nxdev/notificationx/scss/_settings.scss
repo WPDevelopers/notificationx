@@ -5,6 +5,13 @@
         display: flex;
         .nx-settings-form-wrapper {
             flex: 6;
+            &.tab-go-license {
+                .wprf-tab-content-wrapper {
+                    .wprf-submit {
+                        display: none !important;
+                    }
+                }
+            }
         }
     }
     // Right Side Settings CSS
