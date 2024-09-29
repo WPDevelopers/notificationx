@@ -43,7 +43,7 @@ const AddNewNotification = (props) => {
                     delete res.id;
                     delete res.nx_id;
                     res.nx_id = null;
-                    res.enabled = true;
+                    res.enabled = notificationxContext?.is_pro_active ? true : false;
                     builder.setValues(res);
                     builder.setSavedValues(res);
                     builder.setActiveTab(res?.currentTab);
