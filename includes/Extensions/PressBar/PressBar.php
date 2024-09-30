@@ -240,8 +240,8 @@ class PressBar extends Extension {
         unset($post['data']['is_confirmed']);
         unset($post['data']['is_gutenberg']);
         unset($post['data']['is_gb_confirmed']);
-        $post['data']['countdown_start_date'] = Helper::mysql_time($data['countdown_start_date']);
-        $post['data']['countdown_end_date'] = Helper::mysql_time($data['countdown_end_date']);
+        $post['data']['countdown_start_date'] = !empty( $data['countdown_start_date'] ) ? Helper::mysql_time($data['countdown_start_date']) : '';
+        $post['data']['countdown_end_date'] = !empty( $data['countdown_end_date'] ) ? Helper::mysql_time($data['countdown_end_date']) : '';
         $post['data']['countdown_rand'] = rand();
         return $post;
     }
