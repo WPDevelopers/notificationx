@@ -205,7 +205,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 2.9.1 - 30/9/2024 =
+= 2.9.1 - 01/10/2024 =
 Fixed: Issues with custom notification shortcode.
 Improved: Notification creation and duplication process.
 Few minor bug fixes and improvements.
