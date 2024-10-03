@@ -170,6 +170,8 @@ const NotificationForMobile = (props) => {
         `position-${settings.position}`,
         `type-${settings.type}`,
         `themes-${themeName}`,
+        `res-notification`,
+        `res-type-${settings.type}`,
         `themes-${settings.responsive_themes}`,
         `notificationx-${settings.nx_id}`,
         props.config.link_button ? `button-link` : '',
