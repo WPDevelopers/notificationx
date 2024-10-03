@@ -4,50 +4,69 @@
 &.themes-total-download,
 &.themes-reviewed {
     border-radius: 100px;
+
     .notificationx-inner {
         border-radius: 100px;
     }
+
     &:not(.img-position-right) {
         .notificationx-content:first-child {
             margin-left: 25px;
         }
     }
+
     &.img-position-right {
         .notificationx-content:first-child {
             margin-right: 25px;
         }
     }
+
     .notificationx-image:not(.image-circle) {
         flex-basis: 80px;
         width: 80px;
         margin: 10px;
         margin-right: 0px;
         padding: 15px;
+
+        @media only screen and (max-width: 576px) {
+            flex-basis: 32px;
+            min-width: 32px;
+            width: 32px;
+            margin: 0 4px;
+            padding: 8px 4px;
+        }
+
         &.position-left {
             margin-left: 10px;
             margin-right: 0px;
         }
+
         &.position-right {
             margin-right: 10px;
             margin-left: 0px;
         }
     }
+
     .notificationx-close {
         align-self: center;
         margin-top: 0px;
     }
+
     &.img-position-right {
         .notificationx-close {
             order: 0;
             padding: 10px 10px 10px 15px;
         }
+
         .notificationx-content {
             order: 1;
         }
+
         .notificationx-image {
             order: 2;
         }
     }
+
     .notificationx-link {
         border-radius: 100px;
     }
