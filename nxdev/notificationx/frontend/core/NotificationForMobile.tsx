@@ -165,15 +165,15 @@ const NotificationForMobile = (props) => {
     const { advance_edit } = settings;
     
     let baseClasses = [
-        "notification-item nx-notification",
-        `source-${settings.source}`,
-        `position-${settings.position}`,
-        `type-${settings.type}`,
-        `themes-${themeName}`,
+        "notification-res-item nx-res-notification",
+        `source-res-${settings.source}`,
+        `position-res-${settings.position}`,
+        `type-res-${settings.type}`,
+        `themes-res-${themeName}`,
         `res-notification`,
         `res-type-${settings.type}`,
         `themes-${settings.responsive_themes}`,
-        `notificationx-${settings.nx_id}`,
+        `notificationx-res-${settings.nx_id}`,
         props.config.link_button ? `button-link` : '',
         {
             [`type-${settings?.custom_type}`]: settings?.custom_type,
