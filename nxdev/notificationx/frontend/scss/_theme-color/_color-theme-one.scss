@@ -25,17 +25,28 @@
 .themes-email_subscription_maps_theme,
 .themes-email_subscription_theme-one {
     .notificationx-content {
-        & > p {
+        &>p {
             &.nx-first-row {
                 font-size: 13px;
                 font-weight: 500;
                 color: #000;
             }
+
             &.nx-second-row {
                 font-size: 14px;
                 font-weight: 500;
                 color: #6a4bff;
+
+                >span {
+                    span {
+
+                        @media only screen and (max-width: 576px) {
+                            display: none;
+                        }
+                    }
+                }
             }
+
             &.nx-third-row {
                 font-size: 10px;
                 color: #7c8db5;
@@ -43,18 +54,20 @@
         }
     }
 }
+
 .themes-review_saying {
     .notificationx-content {
-        & > p {
+        &>p {
             &.nx-third-row {
                 color: #45c9b1;
             }
         }
     }
 }
+
 .themes-google_reviews_maps_theme {
     .notificationx-content {
-        & > p {
+        &>p {
             &.nx-second-row {
                 font-size: 16px;
                 font-weight: 600;

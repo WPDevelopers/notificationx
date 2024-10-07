@@ -1,3 +1,26 @@
 .notification-item.nx-notification {
-    &.res-notification {}
+
+    &.themes-woocommerce_sales_res-theme-nine,
+    &.themes-woocommerce_sales_maps_theme {
+        .notificationx-inner {
+            .notificationx-image {
+                margin: 0;
+                padding: 0;
+                transform: scale(1.2);
+
+            }
+
+            .notificationx-content {
+                margin-left: 12px;
+
+                .nx-second-row {
+                    >span {
+                        span {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
