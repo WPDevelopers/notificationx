@@ -1,0 +1,184 @@
+// .notification-item.nx-notification {
+
+//     &.themes-woocommerce_sales_res-theme-nine,
+//     &.themes-woocommerce_sales_maps_theme {
+//         .notificationx-inner {
+//             .notificationx-image {
+//                 margin: 0;
+//                 padding: 0;
+//                 transform: scale(1.2);
+
+//             }
+
+//             .notificationx-content {
+//                 margin-left: 12px;
+
+//                 .nx-second-row {
+//                     >span {
+//                         span {
+//                             display: none;
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
+
+.notificationx-frontend {
+    .nx-container {
+
+        .notification-res-item {
+            &.nx-res-notification {
+                pointer-events: initial;
+            }
+
+            pointer-events: initial;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            left: auto;
+            animation-fill-mode: forwards;
+            bottom: 16px !important;
+            left: 16px !important;
+            min-width: 190px;
+            position: relative;
+            z-index: 99998;
+
+            .notificationx-inner {
+                display: flex;
+                align-items: center;
+
+                .notificationx-image {
+                    flex-basis: 32px;
+                    width: 32px;
+                    min-width: 32px;
+                    aspect-ratio: 1;
+                    padding: 4px;
+                    margin: 0 4px;
+                    overflow: hidden;
+                    align-self: stretch;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    img {
+                        object-fit: cover;
+                        max-height: 100%;
+                        max-width: 100%;
+                    }
+
+                    .notificationx-image-badge {
+                        visibility: hidden;
+                        opacity: 0;
+                    }
+                }
+
+                .notificationx-content {
+                    .notificationX-theme-five-shape {
+                        display: none;
+                    }
+
+                    margin-left: 4px;
+                    margin-right: 12px;
+                    font-size: 10px;
+                    display: flex;
+                    flex-direction: row;
+                    flex: 1;
+                    padding: 12px 0px;
+
+                    p {
+                        font-size: 10px;
+                        font-weight: 400;
+                        line-height: 1.2;
+                        margin: 0;
+                        display: inline-flex;
+                        align-items: center;
+                        flex-wrap: wrap;
+
+                        &.nx-first-row {
+                            color: #7c8db5;
+
+                            span {
+                                span {
+                                    color: #344054;
+
+                                    &:nth-child(1) {
+                                        color: #344054;
+                                        font-weight: 500;
+                                    }
+
+                                    &:nth-child(2) {
+                                        color: #7c8db5;
+                                        font-weight: 400;
+                                    }
+                                }
+                            }
+                        }
+
+                        .nx-second-row {
+                            font-size: 10px;
+                            font-weight: 500;
+                            color: #000;
+                        }
+
+                        &.nx-third-row {
+                            font-size: 8px;
+                            color: #7c8db5;
+                            margin-left: 4px;
+
+                            span {
+                                span {
+                                    display: none;
+                                }
+                            }
+
+                            .nx-branding {
+                                svg {
+                                    display: none;
+
+                                }
+
+                                .nx-byline {
+                                    display: none;
+                                }
+
+                                a>svg {
+                                    width: 65px;
+                                    fill: #5614d5;
+                                    height: 16px;
+                                    display: block;
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+                .notificationx-close {
+                    display: none;
+
+                    svg {
+                        cursor: pointer;
+                        fill: #000000;
+                    }
+                }
+            }
+
+            .notificationx-link {
+                position: absolute;
+                left: inherit;
+                bottom: inherit;
+                top: -22px;
+                right: 8px;
+                text-decoration: none;
+                padding: 3px 8px;
+                background: #5612D6;
+                border-radius: 2px;
+                color: #fff;
+                font-size: 8px;
+                line-height: 12px;
+                font-weight: 500;
+            }
+        }
+    }
+}

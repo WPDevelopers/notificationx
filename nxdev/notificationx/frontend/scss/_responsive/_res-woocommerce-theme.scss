@@ -1,0 +1,93 @@
+.notificationx-frontend {
+    .nx-container {
+        .notification-res-item {
+
+            &.themes-res-res-theme-three,
+            &.themes-woocommerce_sales_res-theme-two {
+                .notificationx-image {
+                    border-right: 1px solid #f2f2f2;
+                }
+            }
+
+            &.themes-woocommerce_sales_res-theme-three {
+                background: transparent;
+                box-shadow: none;
+
+                .notificationx-image {
+                    position: relative;
+                    overflow: initial !important;
+                    background: #FFFFFF;
+                    border-radius: 50%;
+                    border: none !important;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    flex-basis: 40px;
+                    width: 40px;
+                    min-width: 40px;
+                    z-index: 1;
+
+                    .notificationx-image-badge:not(.second-span) {
+                        display: none;
+                    }
+
+                    .notificationx-image-badge {
+                        z-index: -1;
+                        bottom: -9px !important;
+                        left: 52% !important;
+                        border-top-width: 16px !important;
+                        border-right-width: 14px !important;
+                        border-top-color: #fff;
+                        position: absolute;
+                        visibility: visible;
+                        opacity: 1;
+                        border-right-color: transparent !important;
+                        border-style: solid !important;
+                        border-bottom-width: 0px !important;
+                        border-left-width: 0px !important;
+                        background: transparent !important;
+                    }
+                }
+
+                .notificationx-content {
+                    border: none !important;
+                    position: relative;
+                    margin-left: 2px !important;
+                    margin-right: 0px !important;
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+                    border-top-right-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                    background: #fff;
+                    justify-content: center;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    padding-left: 8px;
+                    padding-right: 16px;
+
+                    .notificationX-theme-five-shape {
+                        position: absolute;
+                        right: 100%;
+                        top: 0;
+                        bottom: 0;
+                        height: 100%;
+                        fill: #fff;
+                        display: block;
+                    }
+                }
+            }
+
+            &.themes-woocommerce_sales_res-theme-four {
+                border-radius: 20px;
+
+                .notificationx-image {
+                    border-radius: 50%;
+                    background: #fff;
+                    margin: 4px;
+                    margin-right: 10px;
+                    padding: 0;
+                    box-shadow: 0 0 0 2px #ead9f8;
+                }
+            }
+
+            &.themes-woocommerce_sales_res-theme-seven {}
+        }
+    }
+}
