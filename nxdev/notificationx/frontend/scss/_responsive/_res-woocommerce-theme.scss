@@ -4,6 +4,7 @@
 
             &.themes-res-res-theme-three,
             &.themes-woocommerce_sales_res-theme-two {
+
                 .notificationx-image {
                     border-right: 1px solid #f2f2f2;
                 }
@@ -87,7 +88,282 @@
                 }
             }
 
-            &.themes-woocommerce_sales_res-theme-seven {}
+            &.themes-woocommerce_sales_res-theme-seven,
+            &.themes-woocommerce_sales_res-theme-eight {
+                border-radius: 7px;
+
+                &.button-link {
+                    .notificationx-link {
+                        position: absolute;
+                        left: inherit;
+                        bottom: inherit;
+                        top: -21px;
+                        right: 8px;
+                        text-decoration: none;
+                        padding: 3px 8px;
+                        background: #5612D6;
+                        border-radius: 2px;
+                        color: #fff;
+                        font-size: 8px;
+                        line-height: 12px;
+                        font-weight: 500;
+                    }
+                }
+            }
+
+            &.themes-woocommerce_sales_res-theme-eight {
+                box-shadow: 0 0 28px rgba(0, 0, 0, 0.2);
+
+                .notificationx-image {
+                    flex-basis: 28px;
+                    width: 28px;
+                    min-width: 28px;
+                    height: 28px;
+                    border-radius: 50%;
+                    box-shadow: 0 0 0 10px #fff;
+                    padding: 0px;
+                    margin: 4px;
+                    animation: ani 1.5s infinite;
+                    position: relative;
+
+                    @keyframes ani {
+                        0% {
+                            outline: 0px solid rgba(86, 18, 214, 0.8);
+                        }
+
+                        33% {
+                            outline: 2px solid rgba(86, 18, 214, 0.6);
+                        }
+
+                        66% {
+                            outline: 4px solid rgba(86, 18, 214, 0.4);
+                        }
+
+                        100% {
+                            outline: 6px solid rgba(86, 18, 214, 0.2);
+                        }
+                    }
+
+                    img {
+                        border-radius: 50%;
+                    }
+                }
+
+                .notificationx-content {
+                    padding: 8px 0px;
+                    margin-left: 14px;
+                }
+            }
+
+            &.themes-woocommerce_sales_res-theme-nine {
+                border-radius: 3px;
+
+                .notificationx-image:after {
+                    position: absolute;
+                    top: -10px;
+                    left: -10px;
+                    font-family: "FontAwesome";
+                    content: "\f07a";
+                    background: #45c9b1;
+                    height: 20px;
+                    width: 20px;
+                    border-radius: 50px;
+                    border: 2px solid #fff;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #fff;
+                    font-size: 7px;
+                    box-shadow: 0 5px 10px rgba(69, 201, 177, 0.4);
+                }
+
+                .notificationx-content {
+                    p {
+                        &.nx-first-row {
+                            span {
+                                span:nth-child(2) {
+
+                                    span {
+                                        &:nth-child(1) {
+                                            color: #3AD0BF;
+                                        }
+
+                                        &:nth-child(2) {
+                                            color: #344054;
+                                            font-weight: 400;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        &.nx-second-row {
+                            span {
+                                span {
+                                    &:nth-child(2) {
+                                        display: none;
+                                    }
+                                }
+                            }
+                        }
+
+                        &.nx-third-row {
+                            .nx-branding {
+                                a>svg {
+                                    fill: #687895;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.themes-woocommerce_sales_res-theme-ten {
+                border-radius: 20px;
+
+                .notificationx-image {
+                    border-radius: 50%;
+                    background: #fff;
+                    margin: 4px;
+                    margin-right: 10px;
+                    padding: 4px;
+                    box-shadow: 0 0 0 2px #ead9f8;
+
+                    &::after {
+                        position: absolute;
+                        top: -3px;
+                        left: -5px;
+                        font-family: "FontAwesome";
+                        content: "\f07a";
+                        background: #6F51EC;
+                        height: 20px;
+                        width: 20px;
+                        border-radius: 50px;
+                        border: 2px solid #fff;
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: #fff;
+                        font-size: 7px;
+                        box-shadow: 0 5px 10px rgba(69, 201, 177, 0.4);
+                    }
+                }
+
+                .notificationx-content {
+                    p {
+                        &.nx-first-row {
+                            span {
+                                span:nth-child(2) {
+
+                                    span {
+                                        &:nth-child(1) {
+                                            color: #7253EC;
+                                        }
+
+                                        &:nth-child(2) {
+                                            color: #344054;
+                                            font-weight: 400;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        &.nx-second-row {
+                            span {
+                                span {
+                                    &:nth-child(2) {
+                                        display: none;
+                                    }
+                                }
+                            }
+                        }
+
+                        &.nx-third-row {
+                            .nx-branding {
+                                a>svg {
+                                    fill: #687895;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.themes-woocommerce_sales_res-theme-eleven {
+                border-radius: 20px;
+
+                .notificationx-image {
+                    border-radius: 3px;
+                    background: #fff;
+                    margin: 4px;
+                    margin-right: 10px;
+                    padding: 4px;
+                    box-shadow: 0 0 0 2px #ead9f8;
+
+                    &::after {
+                        position: absolute;
+                        top: -11px;
+                        left: 5px;
+                        font-family: "FontAwesome";
+                        content: "\f07a";
+                        background: #6F51EC;
+                        height: 20px;
+                        width: 20px;
+                        border-radius: 50px;
+                        border: 2px solid #fff;
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: #fff;
+                        font-size: 7px;
+                        box-shadow: 0 5px 10px rgba(69, 201, 177, 0.4);
+                    }
+                }
+
+                .notificationx-content {
+                    p {
+                        &.nx-first-row {
+                            span {
+                                span:nth-child(2) {
+
+                                    span {
+                                        &:nth-child(1) {
+                                            color: #7253EC;
+                                        }
+
+                                        &:nth-child(2) {
+                                            color: #344054;
+                                            font-weight: 400;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        &.nx-second-row {
+                            span {
+                                span {
+                                    &:nth-child(2) {
+                                        display: none;
+                                    }
+                                }
+                            }
+                        }
+
+                        &.nx-third-row {
+                            .nx-branding {
+                                a>svg {
+                                    fill: #687895;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
