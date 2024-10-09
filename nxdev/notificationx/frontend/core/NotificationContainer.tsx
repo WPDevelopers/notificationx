@@ -15,9 +15,9 @@ const NotificationContainer = (props: any) => {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
-    
+
     const renderNotice = (NoticeList, position) => {
-        if ( isMobile ) {
+        if (isMobile) {
             return (
                 <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
                     {NoticeList.map((notice) => {
@@ -32,7 +32,7 @@ const NotificationContainer = (props: any) => {
                     })}
                 </div>
             );
-        } else{
+        } else {
             return (
                 <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
                     {NoticeList.map((notice) => {
@@ -48,7 +48,7 @@ const NotificationContainer = (props: any) => {
                 </div>
             );
         }
-       
+
     };
 
     return (

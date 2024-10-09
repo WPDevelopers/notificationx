@@ -26,6 +26,10 @@
                     min-width: 40px;
                     z-index: 1;
 
+                    img {
+                        border-radius: 50%;
+                    }
+
                     .notificationx-image-badge:not(.second-span) {
                         display: none;
                     }
@@ -160,13 +164,13 @@
 
                 .notificationx-image:after {
                     position: absolute;
-                    top: -10px;
-                    left: -10px;
+                    top: -2px;
+                    left: -2px;
                     font-family: "FontAwesome";
                     content: "\f07a";
                     background: #45c9b1;
-                    height: 20px;
-                    width: 20px;
+                    height: 14px;
+                    width: 14px;
                     border-radius: 50px;
                     border: 2px solid #fff;
                     display: inline-flex;
@@ -227,18 +231,18 @@
                     background: #fff;
                     margin: 4px;
                     margin-right: 10px;
-                    padding: 4px;
+                    padding: 0;
                     box-shadow: 0 0 0 2px #ead9f8;
 
                     &::after {
                         position: absolute;
-                        top: -3px;
-                        left: -5px;
+                        top: 0px;
+                        left: -1px;
                         font-family: "FontAwesome";
                         content: "\f07a";
                         background: #6F51EC;
-                        height: 20px;
-                        width: 20px;
+                        height: 14px;
+                        width: 14px;
                         border-radius: 50px;
                         border: 2px solid #fff;
                         display: inline-flex;
@@ -247,6 +251,10 @@
                         color: #fff;
                         font-size: 7px;
                         box-shadow: 0 5px 10px rgba(69, 201, 177, 0.4);
+                    }
+
+                    img {
+                        border-radius: 50%;
                     }
                 }
 
@@ -293,25 +301,30 @@
             }
 
             &.themes-woocommerce_sales_res-theme-eleven {
-                border-radius: 20px;
+                background: transparent;
+                box-shadow: none;
 
                 .notificationx-image {
                     border-radius: 3px;
                     background: #fff;
-                    margin: 4px;
-                    margin-right: 10px;
-                    padding: 4px;
-                    box-shadow: 0 0 0 2px #ead9f8;
+                    margin: 0;
+                    margin-right: 8px;
+                    padding: 2px;
+                    flex-basis: 36px;
+                    width: 36px;
+                    min-width: 36px;
+                    height: 36px;
+                    box-shadow: 1.2px 0px 4.8px 1.2px #3520880F;
 
                     &::after {
                         position: absolute;
-                        top: -11px;
-                        left: 5px;
+                        top: -9px;
+                        left: 3px;
                         font-family: "FontAwesome";
                         content: "\f07a";
                         background: #6F51EC;
-                        height: 20px;
-                        width: 20px;
+                        height: 14px;
+                        width: 14px;
                         border-radius: 50px;
                         border: 2px solid #fff;
                         display: inline-flex;
@@ -324,6 +337,14 @@
                 }
 
                 .notificationx-content {
+                    background: #FFFFFF;
+                    padding: 10px 0px;
+                    padding-left: 10px;
+                    padding-right: 16px;
+                    box-shadow: 1.2px 0px 4.8px 1.2px #3520880F;
+                    border-radius: 2px;
+                    margin: 0;
+
                     p {
                         &.nx-first-row {
                             span {

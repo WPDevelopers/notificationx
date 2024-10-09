@@ -49,8 +49,8 @@ const NotificationForMobile = (props) => {
                     isMobile
                         ? settings?.size.mobile
                         : isTablet
-                        ? settings?.size.tablet
-                        : settings?.size.desktop
+                            ? settings?.size.tablet
+                            : settings?.size.desktop
                 );
             } else setNotificationSize(settings?.size);
         }
@@ -85,46 +85,46 @@ const NotificationForMobile = (props) => {
 
     const getAnimationStyles = () => {
         switch (settings.animation_notification_hide) {
-          case 'animate__slideOutDown': 
-            return {
-                bottom: !animation ? '30px': '0',
-                left  : !animation ? '30px': '30px',
-                right : !animation ? '30px': '30px',
-                transition  : '300ms',
-            };
-          case 'animate__slideOutLeft': 
-            return {
-                left  : !animation ? '30px': '0',
-                bottom: !animation ? '30px': '30px',
-                right : !animation ? '30px': '30px',
-                transition  : '300ms',
-            };
-          case 'animate__slideOutRight': 
-            return {
-                right : !animation ? '30px': '0',
-                left  : !animation ? '30px': '30px',
-                bottom: !animation ? '30px': '30px',
-                transition  : '300ms',
-            };
-          case 'animate__slideOutUp': 
-            return {
-                right     : !animation ? '30px': '0',
-                left      : !animation ? '30px': '30px',
-                bottom    : !animation ? '30px': '30px',
-                transition: '300ms',
-            };
-          default: 
-            return {
-                bottom: '30px',
-                left  : '30px',
-                right : '0',
-            };
+            case 'animate__slideOutDown':
+                return {
+                    bottom: !animation ? '30px' : '0',
+                    left: !animation ? '30px' : '30px',
+                    right: !animation ? '30px' : '30px',
+                    transition: '300ms',
+                };
+            case 'animate__slideOutLeft':
+                return {
+                    left: !animation ? '30px' : '0',
+                    bottom: !animation ? '30px' : '30px',
+                    right: !animation ? '30px' : '30px',
+                    transition: '300ms',
+                };
+            case 'animate__slideOutRight':
+                return {
+                    right: !animation ? '30px' : '0',
+                    left: !animation ? '30px' : '30px',
+                    bottom: !animation ? '30px' : '30px',
+                    transition: '300ms',
+                };
+            case 'animate__slideOutUp':
+                return {
+                    right: !animation ? '30px' : '0',
+                    left: !animation ? '30px' : '30px',
+                    bottom: !animation ? '30px' : '30px',
+                    transition: '300ms',
+                };
+            default:
+                return {
+                    bottom: '30px',
+                    left: '30px',
+                    right: '0',
+                };
         }
     };
 
     // Close notification
-    useEffect(() => {    
-        if( width >= calculateAnimationStartTime( settings?.display_for, settings.animation_notification_hide ) ) { 
+    useEffect(() => {
+        if (width >= calculateAnimationStartTime(settings?.display_for, settings.animation_notification_hide)) {
             setAnimation(true);
         }
         if (width >= 99.5) {
@@ -136,7 +136,7 @@ const NotificationForMobile = (props) => {
                     payload: props.id,
                 });
                 setAnimation(false);
-            }, 500 )
+            }, 500)
         }
         // return () => {
         //     handlePauseTimer();
@@ -163,7 +163,7 @@ const NotificationForMobile = (props) => {
 
 
     const { advance_edit } = settings;
-    
+
     let baseClasses = [
         "notification-res-item nx-res-notification",
         `source-res-${settings.source}`,
@@ -186,7 +186,7 @@ const NotificationForMobile = (props) => {
             "flex-reverse": advance_edit && settings?.image_position === "right",
         }
     ];
-    
+
     const componentStyle: any = {
         maxWidth: `${notificationSize}px`,
         ...getAnimationStyles()
@@ -194,24 +194,24 @@ const NotificationForMobile = (props) => {
     if (settings?.advance_edit && settings?.conversion_size) {
         componentStyle.maxWidth = settings?.conversion_size;
     }
-    
+
     let componentClasses;
     let animationStyle = 'SlideTop 300ms';
-    if ( (is_pro && settings?.animation_notification_show !== 'default') || (is_pro && settings?.animation_notification_hide !== 'default') ) {
+    if ((is_pro && settings?.animation_notification_show !== 'default') || (is_pro && settings?.animation_notification_hide !== 'default')) {
         let animate_effect;
-        if( settings?.animation_notification_hide !== 'default' && settings?.animation_notification_show === 'default' ) {
-            if( animation ) {
+        if (settings?.animation_notification_hide !== 'default' && settings?.animation_notification_show === 'default') {
+            if (animation) {
                 animate_effect = settings?.animation_notification_hide;
-            }else{
+            } else {
                 componentStyle.animation = animationStyle
             }
-        }else if( settings?.animation_notification_show !== 'default' && settings?.animation_notification_hide === 'default' ) {
-            if( animation ) {
+        } else if (settings?.animation_notification_show !== 'default' && settings?.animation_notification_hide === 'default') {
+            if (animation) {
                 componentStyle.animation = animationStyle;
-            }else{
+            } else {
                 animate_effect = settings?.animation_notification_show;
             }
-        }else{
+        } else {
             animate_effect = animation ? settings?.animation_notification_hide : settings?.animation_notification_show
         }
         componentClasses = classNames(
@@ -227,7 +227,7 @@ const NotificationForMobile = (props) => {
         );
         componentStyle.animation = animationStyle
     }
-
+    const splitThemes = ['res-theme-three'];
     return (
         <div
             // onMouseEnter={handlePauseTimer}
@@ -243,7 +243,7 @@ const NotificationForMobile = (props) => {
                     src={`${props.assets.pro}sounds/${settings.sound}.mp3`}
                 />
             }
-            <Theme {...props} />
+            <Theme {...props} is_mobile={true} splitThemes={splitThemes} />
             <Analytics
                 className="notificationx-link"
                 config={settings}
