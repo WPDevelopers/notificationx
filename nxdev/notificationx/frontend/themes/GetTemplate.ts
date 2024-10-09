@@ -15,13 +15,7 @@ import { getResThemeName, getThemeName } from "../core/functions";
 // ];
 
 const GetTemplate = (settings) => {
-    let themeName;
-    if( settings?.is_mobile ) {
-        themeName = getResThemeName(settings);
-    }else{
-        themeName = getThemeName(settings);
-    }
-
+    const themeName = getThemeName(settings);
     // @todo
     const defaults = {
         first_param: "",
@@ -43,8 +37,7 @@ const GetTemplate = (settings) => {
         res_third_param: "",
         res_fourth_param: "",
     };
-    const params = { ...defaults,...settings?.["notification-template"],  ...settings?.["notification-template-mobile"] };
-
+    const params = { ...defaults, ...settings?.["notification-template"] };
     for (const param in params) {
         if (Object.hasOwnProperty.call(params, param)) {
             let element = params[param] || "";
@@ -69,21 +62,21 @@ const GetTemplate = (settings) => {
                 params[param] = element || "";
             }
 
-            if(param == "second_param" && ['woocommerce_sales_conv-theme-seven', 'woocommerce_sales_conv-theme-eight', 'woocommerce_sales_conv-theme-nine', 'conversions_conv-theme-seven', 'conversions_conv-theme-eight', 'conversions_conv-theme-nine'].includes(settings?.themes)){
+            if (param == "second_param" && ['woocommerce_sales_conv-theme-seven', 'woocommerce_sales_conv-theme-eight', 'woocommerce_sales_conv-theme-nine', 'conversions_conv-theme-seven', 'conversions_conv-theme-eight', 'conversions_conv-theme-nine'].includes(settings?.themes)) {
                 const regex = /(\S+)(\s?.*)/;
                 const match = regex.exec(element);
-                if(match){
+                if (match) {
                     params[param] = '<span>';
-                    if(match[1]){
+                    if (match[1]) {
                         params[param] += `<span>${match[1]}</span>`;
                     }
-                    if(match[2]){
+                    if (match[2]) {
                         params[param] += `<span>${match[2]}</span>`;
                     }
                     params[param] += '</span>';
                 }
             }
-            else{
+            else {
                 // must use params[param] instead of element
                 params[param] = `<span>${params[param]}</span>`;
             }
@@ -163,11 +156,11 @@ const GetTemplate = (settings) => {
             return [
                 `${params?.first_param}`,
                 `${params?.third_param}`,
-            ];  
+            ];
     }
 
     // get template based on source
-    if( settings.source === 'freemius_conversions' ) {
+    if (settings.source === 'freemius_conversions') {
         switch (themeName) {
             case "theme-one":
             case "theme-two":
@@ -199,7 +192,7 @@ const GetTemplate = (settings) => {
                 return [
                     `${params?.first_param} ${params?.second_param}`,
                     `${params?.third_param} ${params?.fourth_param} ${params?.freemius_fifth_param} ${params?.freemius_sixth_param} ${params?.freemius_seventh_param}`,
-                ];    
+                ];
         }
     }
 
@@ -321,7 +314,7 @@ const GetTemplate = (settings) => {
                 `${params?.first_param} ${params?.second_param} ${params?.third_param}`,
                 `${params?.pa_fourth_param}`,
                 `${params?.sixth_param}`,
-        ]; 
+            ];
         case "stock-theme-one":
         case "stock-theme-two":
             return [
