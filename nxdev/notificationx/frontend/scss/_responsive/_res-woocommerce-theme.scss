@@ -2,7 +2,58 @@
     .nx-container {
         .notification-res-item {
 
+            &.themes-woocommerce_sales_reviews_res-theme-one {
 
+                .notificationx-image {
+                    padding: 2px;
+                    margin: 0;
+
+                    img {
+                        border-radius: 2px;
+                    }
+                }
+
+                .notificationx-content {
+                    margin-left: 8px;
+                    padding: 8px 0px;
+
+                    p {
+                        &.nx-first-row {
+
+                            span {
+                                span {
+                                    color: #344054;
+
+                                    &:nth-child(1) {
+                                        color: #344054;
+                                        font-weight: 600;
+                                    }
+
+                                    &:nth-child(2) {
+                                        color: #344054;
+                                        font-weight: 600;
+                                    }
+                                }
+                            }
+                        }
+
+                        &.nx-second-row {
+                            span {
+                                span {
+                                    font-weight: 600;
+                                    margin-left: 4px;
+                                }
+                            }
+                        }
+
+                        &.nx-third-row {
+                            span {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
 
             &.themes-res-res-theme-three,
             &.themes-woocommerce_sales_res-theme-two {
