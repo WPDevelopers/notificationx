@@ -107,14 +107,16 @@
                 }
             }
 
-            &.themes-woocommerce_sales_res-theme-two {
+            &.themes-woocommerce_sales_res-theme-two,
+            &.themes-conversions_res-theme-two {
 
                 .notificationx-image {
                     border-right: 1px solid #f2f2f2;
                 }
             }
 
-            &.themes-woocommerce_sales_res-theme-three {
+            &.themes-woocommerce_sales_res-theme-three,
+            &.themes-conversions_res-theme-three {
                 background: transparent;
                 box-shadow: none;
 
@@ -180,6 +182,20 @@
                         fill: #fff;
                         display: block;
                     }
+                }
+            }
+
+            &.themes-woocommerce_sales_res-theme-four,
+            &.themes-conversions_res-theme-four {
+                border-radius: 20px;
+
+                .notificationx-image {
+                    border-radius: 50%;
+                    background: #fff;
+                    margin: 4px;
+                    margin-right: 10px;
+                    padding: 0;
+                    box-shadow: 0 0 0 2px #ead9f8;
                 }
             }
 
@@ -351,6 +367,30 @@
                 }
             }
 
+            &.themes-conversions_res-theme-six {
+                .notificationx-image {
+                    margin: 0;
+                    padding: 0;
+                    transform: scale(1.2);
+                    transform-origin: right center;
+                }
+
+                .notificationx-content {
+                    margin-left: 8px;
+                    padding: 8px 0;
+
+                    p {
+                        &.nx-first-row {
+                            span {
+                                span:nth-child(2) {
+                                    color: #344054;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             &.themes-woocommerce_sales_reviews_rating-res-theme-six {
                 border-radius: 36px;
                 min-width: 160px;
@@ -430,22 +470,17 @@
                 }
             }
 
-            &.themes-woocommerce_sales_res-theme-four {
-                border-radius: 20px;
+            &.themes-woocommerce_sales_res-theme-seven,
+            &.themes-conversions_res-theme-seven,
+            &.themes-woocommerce_sales_res-theme-eight,
+            &.themes-conversions_res-theme-eight {
+                border-radius: 6px;
 
                 .notificationx-image {
-                    border-radius: 50%;
-                    background: #fff;
-                    margin: 4px;
-                    margin-right: 10px;
-                    padding: 0;
-                    box-shadow: 0 0 0 2px #ead9f8;
+                    img {
+                        border-radius: 50%;
+                    }
                 }
-            }
-
-            &.themes-woocommerce_sales_res-theme-seven,
-            &.themes-woocommerce_sales_res-theme-eight {
-                border-radius: 7px;
 
                 &.button-link {
                     .notificationx-link {
@@ -467,7 +502,8 @@
                 }
             }
 
-            &.themes-woocommerce_sales_res-theme-eight {
+            &.themes-woocommerce_sales_res-theme-eight,
+            &.themes-conversions_res-theme-eight {
                 box-shadow: 0 0 28px rgba(0, 0, 0, 0.2);
 
                 .notificationx-image {
@@ -511,7 +547,7 @@
                 }
             }
 
-            &.themes-woocommerce_sales_res-theme-nine {
+            &.themes-woocommerce_sales_res-theme-nine &.themes-conversions_res-theme-nine {
                 border-radius: 3px;
 
                 .notificationx-image:after {
@@ -575,7 +611,9 @@
                 }
             }
 
-            &.themes-woocommerce_sales_res-theme-ten {
+            &.themes-woocommerce_sales_res-theme-ten,
+            &.themes-conversions_res-theme-five,
+            &.themes-conversions_res-theme-ten {
                 border-radius: 20px;
 
                 .notificationx-image {
@@ -652,7 +690,8 @@
                 }
             }
 
-            &.themes-woocommerce_sales_res-theme-eleven {
+            &.themes-woocommerce_sales_res-theme-eleven,
+            &.themes-conversions_res-theme-ten {
                 background: transparent;
                 box-shadow: none;
 
