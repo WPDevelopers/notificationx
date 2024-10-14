@@ -315,6 +315,13 @@ class PressBar extends Extension {
                     'type'  => "colorpicker",
                 ],
                 [
+                    'label' => __("Background Image", 'notificationx'),
+                    'name'  => "bar_bg_image",
+                    'button'  => __('Upload', 'notificationx'),
+                    'type'  => "media",
+                    'default' => "",
+                ],
+                [
                     'label' => __('Text Color', 'notificationx'),
                     'name'  => "bar_text_color",
                     'type'  => "colorpicker",
