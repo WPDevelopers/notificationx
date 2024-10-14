@@ -1,30 +1,3 @@
-// .notification-item.nx-notification {
-
-//     &.themes-woocommerce_sales_res-theme-nine,
-//     &.themes-woocommerce_sales_maps_theme {
-//         .notificationx-inner {
-//             .notificationx-image {
-//                 margin: 0;
-//                 padding: 0;
-//                 transform: scale(1.2);
-
-//             }
-
-//             .notificationx-content {
-//                 margin-left: 12px;
-
-//                 .nx-second-row {
-//                     >span {
-//                         span {
-//                             display: none;
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
-
 .notificationx-frontend {
     .nx-container {
 
@@ -85,7 +58,7 @@
                 display: flex;
                 flex-direction: row;
                 flex: 1;
-                padding: 12px 0px;
+                padding: 14px 0px;
 
                 p {
                     font-size: 10px;
@@ -117,44 +90,30 @@
                     }
 
                     &.nx-second-row {
-                        span {
+                        >span {
                             font-size: 10px;
                             font-weight: 500;
                             color: #344054;
+                            margin-left: 4px;
 
                             span {
-                                margin-left: 4px;
+                                &:nth-child(2) {
+                                    margin-left: 4px;
+                                }
                             }
                         }
                     }
 
                     &.nx-third-row {
-                        font-size: 8px;
+                        font-size: 10px;
                         color: #7c8db5;
-                        margin-left: 4px;
 
                         span {
-                            span {
-                                display: none;
-                            }
+                            display: none;
                         }
 
                         .nx-branding {
-                            svg {
-                                display: none;
-
-                            }
-
-                            .nx-byline {
-                                display: none;
-                            }
-
-                            a>svg {
-                                width: 65px;
-                                fill: #5614d5;
-                                height: 16px;
-                                display: block;
-                            }
+                            display: none;
                         }
 
                     }
