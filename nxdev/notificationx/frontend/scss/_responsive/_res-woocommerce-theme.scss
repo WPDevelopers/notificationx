@@ -91,15 +91,145 @@
                 }
             }
 
-            &.themes-comments_res-theme-two {
-                border-radius: 36px;
+            &.type-res-offer_announcement {
+                border-radius: 4px;
 
-                .notificationx-image {
-                    padding: 2px;
-                    margin: 0;
+                &.themes-announcements_res-theme-one {
+                    .notificationx-image {
+                        svg {
+                            position: absolute;
+                            top: -3px;
+                            max-height: 34px;
+                        }
+                    }
 
-                    img {
-                        border-radius: 50%;
+                    .notificationx-content {
+                        p {
+                            &.nx-first-row {
+
+                                span {
+                                    span {
+                                        color: #687895;
+                                    }
+                                }
+                            }
+
+                            &.nx-second-row {
+                                span {
+                                    color: #344054;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.themes-announcements_res-theme-two {
+                    .notificationx-content {
+                        p {
+                            &.nx-first-row {
+
+                                span {
+                                    span {
+                                        color: #687895;
+                                    }
+                                }
+                            }
+
+                            &.nx-second-row {
+                                span {
+                                    color: #344054;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.themes-announcements_res-theme-three {
+                    .notificationx-image {
+                        padding: 3px;
+
+                        img {
+                            border-radius: 4px;
+                        }
+                    }
+
+                    .notificationx-content {
+                        p {
+                            &.nx-first-row {
+
+                                span {
+                                    span {
+                                        color: #687895;
+                                    }
+                                }
+                            }
+
+                            &.nx-second-row {
+                                span {
+                                    color: #344054;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.themes-announcements_res-theme-four,
+                &.themes-announcements_res-theme-five {
+                    padding-right: 10px;
+
+                    .notificationx-inner {
+                        .notificationx-image {
+                            margin: 0;
+
+                            img {
+                                border-radius: 50%;
+                            }
+                        }
+
+                        .notificationx-content {
+                            margin: 0;
+
+                            p {
+                                &.nx-first-row {
+                                    span {
+                                        span {
+                                            font-size: 12px;
+                                            font-weight: 500;
+                                            color: #344054;
+                                            margin-left: 4px;
+                                        }
+                                    }
+                                }
+
+                                &.nx-second-row {
+                                    span {
+                                        color: #687895;
+                                    }
+                                }
+                            }
+
+                            a {
+                                font-size: 8px;
+                                font-weight: 500;
+                                line-height: 1.1em;
+                                color: #AB48B3;
+                                padding: 6px 12px;
+                                background: #FEF1FF;
+                                border-radius: 4px;
+                                margin-left: 4px;
+                            }
+                        }
+
+                        a {
+                            font-size: 8px;
+                            font-weight: 500;
+                            line-height: 1.1em;
+                            color: #FFFFFF;
+                            padding: 6px 12px;
+                            background: #4F19CD;
+                            border-radius: 4px;
+                            margin-left: 4px;
+                        }
                     }
                 }
             }
@@ -175,6 +305,19 @@
                                 display: none;
                             }
                         }
+                    }
+                }
+            }
+
+            &.themes-comments_res-theme-two {
+                border-radius: 36px;
+
+                .notificationx-image {
+                    padding: 2px;
+                    margin: 0;
+
+                    img {
+                        border-radius: 50%;
                     }
                 }
             }
