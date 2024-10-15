@@ -2,6 +2,40 @@
     .nx-container {
         .notification-res-item {
 
+            &.res-type-comments {
+
+                &.themes-comments_res-theme-one,
+                &.themes-comments_res-theme-two,
+                &.themes-comments_res-theme-three,
+                &.themes-comments_res-theme-seven,
+                &.themes-comments_res-theme-eight,
+                &.themes-comments_res-theme-nine {
+                    .notificationx-content {
+                        p {
+                            &.nx-second-row {
+                                max-width: 100px;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.themes-comments_res-theme-two {
+                border-radius: 36px;
+
+                .notificationx-image {
+                    padding: 2px;
+                    margin: 0;
+
+                    img {
+                        border-radius: 50%;
+                    }
+                }
+            }
+
             &.themes-woocommerce_sales_res-theme-one {
                 .notificationx-content {
                     p {
@@ -136,7 +170,8 @@
             &.themes-conversions_res-theme-two,
             &.themes-elearning_res-theme-three,
             &.themes-donation_res-theme-three,
-            &.themes-form_res-theme-three {
+            &.themes-form_res-theme-three,
+            &.themes-comments_res-theme-three {
 
                 .notificationx-image {
                     border-right: 1px solid #f2f2f2;
@@ -146,7 +181,8 @@
             &.themes-woocommerce_sales_res-theme-three,
             &.themes-conversions_res-theme-three,
             &.themes-elearning_elearning-res-theme-five,
-            &.themes-donation_res-theme-five {
+            &.themes-donation_res-theme-five,
+            &.themes-comments_res-theme-eight {
                 background: transparent;
                 box-shadow: none;
 
@@ -157,9 +193,10 @@
                     border-radius: 50%;
                     border: none !important;
                     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-                    flex-basis: 30px;
-                    width: 30px;
-                    min-width: 30px;
+                    flex-basis: 32px;
+                    width: 32px;
+                    min-width: 32px;
+                    padding: 4px;
                     z-index: 1;
 
                     img {
@@ -172,7 +209,7 @@
 
                     .notificationx-image-badge {
                         z-index: -1;
-                        bottom: -9px !important;
+                        bottom: -7px !important;
                         left: 52% !important;
                         border-top-width: 16px !important;
                         border-right-width: 14px !important;
@@ -244,7 +281,8 @@
             &.themes-woocommerce_sales_res-theme-four,
             &.themes-conversions_res-theme-four,
             &.themes-elearning_res-theme-four,
-            &.themes-donation_res-theme-four {
+            &.themes-donation_res-theme-four,
+            &.themes-comments_res-theme-seven {
                 border-radius: 20px;
 
                 .notificationx-image {
@@ -265,7 +303,8 @@
                 }
             }
 
-            &.themes-woocommerce_sales_reviews_rating-res-theme-four {
+            &.themes-woocommerce_sales_reviews_rating-res-theme-four,
+            &.themes-comments_res-theme-four {
                 background: transparent;
                 box-shadow: none;
                 min-width: 160px;
@@ -276,7 +315,7 @@
                     border-top-left-radius: 2px;
                     border-top-right-radius: 2px;
                     border-bottom-left-radius: 2px;
-                    margin: 6px 0 10px;
+                    padding: 4px;
                     background: #FFFFFF;
                     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
@@ -337,10 +376,10 @@
 
                         &.nx-second-row {
                             span {
-                                span {
-                                    color: #687895;
-                                    margin-left: 0;
-                                }
+                                margin-left: 0;
+                                color: #687895;
+
+
                             }
                         }
 
@@ -416,7 +455,8 @@
                 }
             }
 
-            &.themes-woocommerce_sales_reviews_rating-res-theme-five {
+            &.themes-woocommerce_sales_reviews_rating-res-theme-five,
+            &.themes-comments_res-theme-five {
                 border-radius: 36px;
                 min-width: 160px;
 
@@ -499,7 +539,8 @@
 
             &.themes-conversions_res-theme-six,
             &.themes-elearning_elearning-res-theme-ten,
-            &.themes-donation_res-theme-seven {
+            &.themes-donation_res-theme-seven,
+            &.themes-comments_res-theme-nine {
                 .notificationx-image {
                     margin: 0;
                     padding: 0;
@@ -531,7 +572,8 @@
                 }
             }
 
-            &.themes-woocommerce_sales_reviews_rating-res-theme-six {
+            &.themes-woocommerce_sales_reviews_rating-res-theme-six,
+            &.themes-comments_res-theme-six {
                 border-radius: 36px;
                 min-width: 160px;
                 max-width: 200px;
