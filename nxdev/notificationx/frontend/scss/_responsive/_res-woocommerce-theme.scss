@@ -145,7 +145,8 @@
 
             &.themes-woocommerce_sales_res-theme-three,
             &.themes-conversions_res-theme-three,
-            &.themes-elearning_elearning-res-theme-five {
+            &.themes-elearning_elearning-res-theme-five,
+            &.themes-donation_res-theme-five {
                 background: transparent;
                 box-shadow: none;
 
@@ -155,7 +156,7 @@
                     background: #FFFFFF;
                     border-radius: 50%;
                     border: none !important;
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
                     flex-basis: 30px;
                     width: 30px;
                     min-width: 30px;
@@ -430,20 +431,21 @@
 
                     &::after {
                         position: absolute;
-                        top: -5px;
-                        left: 0px;
+                        top: -3px;
+                        left: 2px;
                         font-family: "FontAwesome";
                         content: "\f10d";
                         background: #FE70BC;
-                        height: 14px;
-                        width: 14px;
+                        height: 11px;
+                        width: 11px;
                         border-radius: 50px;
                         border: 1px solid #fff;
                         display: inline-flex;
                         align-items: center;
                         justify-content: center;
                         color: #fff;
-                        font-size: 7px;
+                        font-size: 5px;
+                        line-height: 5px;
                         box-shadow: 0.4px 0.4px 8.24px 0.76px #660C3C1A;
                     }
                 }
@@ -496,7 +498,8 @@
             }
 
             &.themes-conversions_res-theme-six,
-            &.themes-elearning_elearning-res-theme-ten {
+            &.themes-elearning_elearning-res-theme-ten,
+            &.themes-donation_res-theme-seven {
                 .notificationx-image {
                     margin: 0;
                     padding: 0;
@@ -544,20 +547,21 @@
 
                     &::after {
                         position: absolute;
-                        top: -5px;
-                        left: 0px;
+                        top: -3px;
+                        left: 2px;
                         font-family: "FontAwesome";
                         content: "\f10d";
                         background: #775AF3;
-                        height: 14px;
-                        width: 14px;
+                        height: 11px;
+                        width: 11px;
                         border-radius: 50px;
                         border: 1px solid #fff;
                         display: inline-flex;
                         align-items: center;
                         justify-content: center;
                         color: #fff;
-                        font-size: 7px;
+                        font-size: 5px;
+                        line-height: 5px;
                         box-shadow: 0.4px 0.4px 8.24px 0.76px #660C3C1A;
                     }
                 }
@@ -636,6 +640,7 @@
                         justify-content: center;
                         color: #fff;
                         font-size: 6px;
+                        line-height: 6px;
                         box-shadow: 0 5px 10px rgba(69, 201, 177, 0.4);
                     }
 
@@ -761,7 +766,8 @@
 
             &.themes-woocommerce_sales_res-theme-nine,
             &.themes-conversions_res-theme-nine,
-            &.themes-elearning_elearning-res-theme-seven {
+            &.themes-elearning_elearning-res-theme-seven,
+            &.themes-donation_res-theme-eight {
                 border-radius: 3px;
 
                 .notificationx-image {
@@ -788,6 +794,7 @@
                         justify-content: center;
                         color: #fff;
                         font-size: 6px;
+                        line-height: 6px;
                         box-shadow: 0 5px 10px rgba(69, 201, 177, 0.4);
                     }
                 }
@@ -824,7 +831,8 @@
 
             &.themes-woocommerce_sales_res-theme-ten,
             &.themes-conversions_res-theme-ten,
-            &.themes-elearning_elearning-res-theme-eight {
+            &.themes-elearning_elearning-res-theme-eight,
+            &.themes-donation_res-theme-nine {
                 border-radius: 20px;
 
                 .notificationx-image {
@@ -851,6 +859,7 @@
                         justify-content: center;
                         color: #fff;
                         font-size: 6px;
+                        line-height: 6px;
                         box-shadow: 0 5px 10px rgba(69, 201, 177, 0.4);
                     }
 
@@ -892,7 +901,8 @@
 
             &.themes-woocommerce_sales_res-theme-eleven,
             &.themes-conversions_res-theme-eleven,
-            &.themes-elearning_res-theme-nine {
+            &.themes-elearning_res-theme-nine,
+            &.themes-donation_res-theme-ten {
                 background: transparent;
                 box-shadow: none;
 
@@ -925,6 +935,7 @@
                         justify-content: center;
                         color: #fff;
                         font-size: 6px;
+                        line-height: 6px;
                         box-shadow: 0 5px 10px rgba(69, 201, 177, 0.4);
                     }
                 }
