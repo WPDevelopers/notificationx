@@ -2,6 +2,74 @@
     .nx-container {
         .notification-res-item {
 
+            &.res-type-download_stats {
+
+                &.themes-res-res-today-download,
+                &.themes-res-res-7day-download,
+                &.themes-res-res-total-download {
+                    .notificationx-content {
+                        p {
+                            &.nx-first-row {
+                                max-width: 76px;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+
+                                span {
+                                    span {
+                                        color: #5614D5;
+                                    }
+                                }
+                            }
+
+                            &.nx-second-row {
+                                span {
+                                    color: #687895;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.themes-res-res-total-download {
+                    border-radius: 36px;
+
+                    .notificationx-image {
+                        padding: 4px;
+                        margin: 0;
+
+                        img {
+                            border-radius: 50%;
+                        }
+                    }
+                }
+
+                &.themes-res-res-actively_using {
+                    .notificationx-content {
+                        p {
+                            &.nx-first-row {
+                                span {
+                                    color: #687895;
+                                }
+                            }
+
+                            &.nx-second-row {
+                                max-width: 76px;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+
+                                span {
+                                    span {
+                                        color: #5614D5;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             &.res-type-comments {
 
                 &.themes-comments_res-theme-one,
@@ -119,7 +187,7 @@
                 border-radius: 36px;
 
                 .notificationx-image {
-                    padding: 2px;
+                    padding: 4px;
                     margin: 0;
 
                     img {
