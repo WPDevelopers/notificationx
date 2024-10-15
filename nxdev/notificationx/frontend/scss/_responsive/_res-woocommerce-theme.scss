@@ -77,12 +77,11 @@
                 }
             }
 
-
-
             &.themes-woocommerce_sales_reviews_res-theme-two,
             &.themes-elearning_res-theme-two,
             &.themes-woocommerce_sales_reviews_res-theme-three,
-            &.themes-donation_res-theme-two {
+            &.themes-donation_res-theme-two,
+            &.themes-form_res-theme-two {
                 border-radius: 36px;
 
                 .notificationx-image {
@@ -136,7 +135,8 @@
             &.themes-woocommerce_sales_res-theme-two,
             &.themes-conversions_res-theme-two,
             &.themes-elearning_res-theme-three,
-            &.themes-donation_res-theme-three {
+            &.themes-donation_res-theme-three,
+            &.themes-form_res-theme-three {
 
                 .notificationx-image {
                     border-right: 1px solid #f2f2f2;

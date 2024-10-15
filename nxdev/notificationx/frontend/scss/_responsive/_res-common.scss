@@ -23,12 +23,13 @@
             }
 
             .notificationx-image {
-                flex-basis: 32px;
-                width: 32px;
-                min-width: 32px;
+                flex-basis: 36px;
+                width: 36px;
+                min-width: 36px;
                 aspect-ratio: 1;
-                padding: 4px;
-                margin: 0 4px;
+                padding: 6px;
+                margin: 0;
+                margin-right: 2px;
                 overflow: hidden;
                 align-self: stretch;
                 display: flex;
@@ -58,7 +59,7 @@
                 display: flex;
                 flex-direction: row;
                 flex: 1;
-                padding: 14px 0px;
+                padding: 4px 0px;
 
                 p {
                     font-size: 10px;
