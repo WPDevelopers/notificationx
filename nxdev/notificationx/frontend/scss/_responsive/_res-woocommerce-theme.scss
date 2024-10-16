@@ -266,6 +266,307 @@
                 }
             }
 
+            &.type-res-video {
+                border-radius: 4px;
+
+                .notificationx-content {
+                    gap: 2px;
+                    flex-direction: column;
+
+                    p {
+                        &.nx-first-row {
+                            span {
+                                span {
+                                    font-weight: 500;
+
+                                    &:nth-child(1) {
+                                        color: #344054;
+                                    }
+
+                                    &:nth-child(2) {
+                                        color: #344054;
+                                        font-weight: 500;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.themes-youtube_res-channel-1,
+                &.themes-youtube_res-video-2,
+                &.themes-youtube_res-video-4 {
+                    .notificationx-content {
+                        p {
+                            &.nx-second-row {
+                                >span {
+                                    margin-left: 0;
+                                    color: #667085;
+
+                                    span {
+                                        &:nth-child(1) {
+                                            color: #5614D5;
+                                        }
+
+                                        &:nth-child(2) {
+                                            margin-left: 0;
+                                        }
+
+                                        &:nth-child(3) {
+                                            color: #5614D5;
+                                            margin-left: 4px;
+                                        }
+
+                                        &:nth-child(5) {
+                                            color: #5614D5;
+                                            margin-left: 4px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.themes-youtube_res-channel-2 {
+                    border-radius: 50px 4px 4px 50px;
+                    filter: drop-shadow(-10px 0px 15px rgba(0, 0, 0, 0.1));
+
+                    .notificationx-image {
+                        border-radius: 50%;
+                        box-shadow: none;
+                        padding: 0px;
+                        animation: animated 2s infinite;
+                        position: relative;
+
+                        @keyframes animated {
+                            0% {
+                                outline: 0px solid rgba(204, 0, 0, 1);
+                            }
+
+                            100% {
+                                outline: 6px solid rgba(204, 0, 0, .2);
+                            }
+                        }
+
+                        @keyframes animated-before {
+                            0% {
+                                transform: scale(1);
+                            }
+
+                            100% {
+                                transform: scale(1.2);
+                            }
+                        }
+
+                        @keyframes animated-after {
+                            0% {
+                                transform: scale(1);
+                            }
+
+                            100% {
+                                transform: scale(1.4);
+                            }
+                        }
+                    }
+
+                    .notificationx-content {
+                        padding-left: 8px;
+
+                        p {
+                            &.nx-second-row {
+                                >span {
+                                    margin-left: 0;
+                                    color: #667085;
+
+                                    span {
+                                        position: relative;
+
+                                        &:nth-child(1) {
+                                            color: #5614D5;
+                                            margin-left: 14px;
+
+                                            &:before {
+                                                content: "\f177";
+                                                font-family: "dashicons";
+                                                position: absolute;
+                                                left: -15px;
+                                                top: 50%;
+                                                transform: translateY(-50%);
+                                                font-size: 12px;
+                                                color: #667085 !important;
+                                            }
+                                        }
+
+                                        &:nth-child(2) {
+                                            color: #5614D5;
+                                            margin-left: 18px;
+
+                                            &:before {
+                                                content: "\f236";
+                                                font-family: "dashicons";
+                                                position: absolute;
+                                                left: -15px;
+                                                top: 50%;
+                                                transform: translateY(-50%);
+                                                font-size: 12px;
+                                                color: #667085 !important;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.themes-youtube_res-video-1,
+                &.themes-youtube_res-video-3 {
+                    border-radius: 50px 4px 4px 50px;
+                    filter: drop-shadow(-10px 0px 15px rgba(0, 0, 0, 0.1));
+
+                    .notificationx-image {
+                        border-radius: 50%;
+                        box-shadow: none;
+                        padding: 0px;
+                        animation: animated 2s infinite;
+                        position: relative;
+
+                        @keyframes animated {
+                            0% {
+                                outline: 0px solid rgba(204, 0, 0, 1);
+                            }
+
+                            100% {
+                                outline: 6px solid rgba(204, 0, 0, .2);
+                            }
+                        }
+
+                        @keyframes animated-before {
+                            0% {
+                                transform: scale(1);
+                            }
+
+                            100% {
+                                transform: scale(1.2);
+                            }
+                        }
+
+                        @keyframes animated-after {
+                            0% {
+                                transform: scale(1);
+                            }
+
+                            100% {
+                                transform: scale(1.4);
+                            }
+                        }
+                    }
+
+                    .notificationx-content {
+                        padding-left: 8px;
+
+                        p {
+                            &.nx-second-row {
+                                >span {
+                                    margin-left: 0;
+                                    color: #667085;
+
+                                    span {
+                                        position: relative;
+
+                                        &:nth-child(1) {
+                                            color: #5614D5;
+                                            margin-left: 14px;
+
+                                            &:before {
+                                                content: "\f177";
+                                                font-family: "dashicons";
+                                                position: absolute;
+                                                left: -15px;
+                                                top: 50%;
+                                                transform: translateY(-50%);
+                                                font-size: 12px;
+                                                color: #667085 !important;
+                                            }
+                                        }
+
+                                        &:nth-child(2) {
+                                            color: #5614D5;
+                                            margin-left: 18px;
+
+                                            &:before {
+                                                content: "\f529";
+                                                font-family: "dashicons";
+                                                position: absolute;
+                                                left: -15px;
+                                                top: 50%;
+                                                transform: translateY(-50%);
+                                                font-size: 12px;
+                                                color: #667085 !important;
+                                            }
+                                        }
+
+                                        &:nth-child(3) {
+                                            color: #5614D5;
+                                            margin-left: 18px;
+
+                                            &:before {
+                                                content: "\f473";
+                                                font-family: "dashicons";
+                                                position: absolute;
+                                                left: -15px;
+                                                top: 50%;
+                                                transform: translateY(-50%);
+                                                font-size: 12px;
+                                                color: #667085 !important;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.button-link {
+                    .notificationx-link {
+                        display: block;
+                        left: inherit;
+                        bottom: inherit;
+                        top: -18px;
+                        right: 6px;
+                        font-size: 8px;
+                        text-decoration: none;
+                        background: #CC0000;
+                        padding: 3px 6px;
+                        border-radius: 2px;
+                        color: #fff;
+                        line-height: 10px;
+                        font-weight: 500;
+                    }
+
+                    .yt-notificationx-link {
+                        position: absolute;
+                        left: auto;
+                        bottom: inherit;
+                        top: -24px;
+                        right: 4px;
+                        font-size: 10px;
+                        text-decoration: none;
+                        border-radius: 4px;
+                        color: #fff;
+                        line-height: 12px;
+                        font-weight: 500;
+
+                        .yt-subscription-button-subscriber-count-branded-horizontal {
+                            height: 18px !important;
+                            line-height: 18px !important;
+                        }
+                    }
+                }
+            }
+
             &.res-type-page_analytics {
                 &.themes-res-res-pa-theme-one {
                     .notificationx-content {
