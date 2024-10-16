@@ -12,7 +12,7 @@
             left: auto;
             animation-fill-mode: forwards;
             bottom: 20px !important;
-            left: 16px !important;
+            left: 10px !important;
             min-width: 190px;
             position: relative;
             z-index: 99998;
@@ -142,6 +142,10 @@
                 .notificationx-link {
                     display: none;
                 }
+            }
+
+            &:not(:last-child) {
+                margin-bottom: 20px;
             }
         }
     }
