@@ -2,6 +2,38 @@
     .nx-container {
         .notification-res-item {
 
+            &.type-res-email_subscription {
+                &.themes-email_subscription_res-theme-two {
+                    border-radius: 36px;
+
+                    .notificationx-image {
+                        padding: 4px;
+                        margin: 0;
+
+                        img {
+                            border-radius: 50%;
+                        }
+                    }
+                }
+
+                &.themes-email_subscription_res-theme-three {
+                    .notificationx-content {
+                        margin-left: 6px;
+                    }
+                }
+
+                .notificationx-content {
+
+                    p {
+                        &.nx-second-row {
+                            span {
+                                color: #5220B4;
+                            }
+                        }
+                    }
+                }
+            }
+
             &.res-type-download_stats {
 
                 &.themes-res-res-today-download,
@@ -534,7 +566,8 @@
             &.themes-elearning_res-theme-three,
             &.themes-donation_res-theme-three,
             &.themes-form_res-theme-three,
-            &.themes-comments_res-theme-three {
+            &.themes-comments_res-theme-three,
+            &.themes-email_subscription_res-theme-three {
 
                 .notificationx-image {
                     border-right: 1px solid #f2f2f2;
