@@ -234,6 +234,158 @@
                 }
             }
 
+            &.res-type-page_analytics {
+                &.themes-res-res-pa-theme-one {
+                    .notificationx-content {
+                        p {
+                            &.nx-first-row {
+                                color: #5220B4;
+                                font-weight: 600;
+
+                                span {
+                                    span {
+                                        &:nth-child(1) {
+                                            color: #5220B4;
+                                            font-weight: 600;
+                                        }
+
+                                        &:nth-child(2) {
+                                            color: #5220B4;
+                                            font-weight: 600;
+                                        }
+                                    }
+                                }
+                            }
+
+                            &.nx-second-row {
+                                span {
+                                    color: #5220B4;
+                                    font-weight: 600;
+                                }
+                            }
+
+                            &.nx-third-row {
+                                span {
+                                    display: block;
+                                    color: #5220B4;
+                                    font-weight: 600;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.themes-res-res-pa-theme-two {
+                    background: transparent;
+                    border-radius: 0;
+                    box-shadow: none;
+
+                    .notificationx-image {
+                        background: #FFFFFF;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                        border-radius: 3px;
+
+                        img {
+                            border-radius: 3px;
+                        }
+                    }
+
+                    .notificationx-content {
+                        background: #fff;
+                        border-radius: 3px;
+                        margin-left: 6px;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                        padding: 12px 10px;
+
+                        p {
+                            &.nx-first-row {
+                                color: #344054;
+                                font-weight: 500;
+
+                                span {
+                                    span {
+                                        &:nth-child(1) {
+                                            color: #7253EC;
+                                            font-weight: 600;
+                                        }
+
+                                        &:nth-child(2) {
+                                            color: #344054;
+                                            font-weight: 500;
+                                        }
+                                    }
+                                }
+                            }
+
+                            &.nx-second-row {
+                                span {
+                                    color: #687895;
+                                    font-weight: 500;
+                                }
+                            }
+
+                            &.nx-third-row {
+                                span {
+                                    display: block;
+                                    color: #687895;
+                                    font-weight: 500;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.themes-res-res-pa-theme-three {
+                    border-radius: 36px;
+
+                    .notificationx-image {
+                        margin-right: 0;
+
+                        img {
+                            border-radius: 50%;
+                        }
+                    }
+
+                    .notificationx-content {
+                        p {
+                            &.nx-first-row {
+                                color: #344054;
+                                font-weight: 500;
+
+                                span {
+                                    span {
+                                        &:nth-child(1) {
+                                            color: #02C7A1;
+                                            font-weight: 600;
+                                        }
+
+                                        &:nth-child(2) {
+                                            color: #344054;
+                                            font-weight: 500;
+                                        }
+                                    }
+                                }
+                            }
+
+                            &.nx-second-row {
+                                span {
+                                    color: #687895;
+                                    font-weight: 500;
+                                }
+                            }
+
+                            &.nx-third-row {
+                                span {
+                                    display: block;
+                                    color: #687895;
+                                    font-weight: 500;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             &.themes-woocommerce_sales_res-theme-one {
                 .notificationx-content {
                     p {
