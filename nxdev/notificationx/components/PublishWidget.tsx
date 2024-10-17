@@ -90,8 +90,8 @@ const PublishWidget = (props) => {
             update_status: true,
         })
         .then((res) => {
-            setIsEnabled(enabled);
             if (res) {
+                setIsEnabled(enabled);
                 if (enabled) {
                     nxToast.enabled( __(`Notification Alert has been Enabled.`, "notificationx") );
                 }else {
