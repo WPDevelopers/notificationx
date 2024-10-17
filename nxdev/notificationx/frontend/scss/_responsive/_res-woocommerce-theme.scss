@@ -34,6 +34,62 @@
                 }
             }
 
+            &.res-type-reviews {
+                &.themes-reviews_res-theme-one {
+                    .notificationx-content {
+                        p {
+
+                            &.nx-second-row {
+
+                                max-width: 76px;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+
+                                span {
+                                    span {
+                                        color: #5614D5;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.themes-reviews_res-theme-two,
+                &.themes-reviews_res-theme-three {
+                    border-radius: 36px;
+
+                    .notificationx-image {
+                        padding: 4px;
+                        margin: 0;
+
+                        img {
+                            border-radius: 50%;
+                        }
+                    }
+
+                    .notificationx-content {
+                        p {
+
+                            &.nx-second-row {
+
+                                max-width: 76px;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+
+                                span {
+                                    span {
+                                        color: #5614D5;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             &.res-type-download_stats {
 
                 &.themes-res-res-today-download,
@@ -989,7 +1045,8 @@
             }
 
             &.themes-woocommerce_sales_reviews_rating-res-theme-four,
-            &.themes-comments_res-theme-four {
+            &.themes-comments_res-theme-four,
+            &.themes-reviews_rating-res-theme-four {
                 background: transparent;
                 box-shadow: none;
                 min-width: 160px;
@@ -1060,11 +1117,14 @@
                         }
 
                         &.nx-second-row {
+                            max-width: 150px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+
                             span {
                                 margin-left: 0;
                                 color: #687895;
-
-
                             }
                         }
 
@@ -1141,7 +1201,8 @@
             }
 
             &.themes-woocommerce_sales_reviews_rating-res-theme-five,
-            &.themes-comments_res-theme-five {
+            &.themes-comments_res-theme-five,
+            &.themes-reviews_rating-res-theme-five {
                 border-radius: 36px;
                 min-width: 160px;
 
@@ -1203,6 +1264,7 @@
 
                         &.nx-second-row {
                             line-height: 1;
+                            max-width: 180px;
 
                             span {
                                 margin-left: 0;
@@ -1258,10 +1320,10 @@
             }
 
             &.themes-woocommerce_sales_reviews_rating-res-theme-six,
-            &.themes-comments_res-theme-six {
+            &.themes-comments_res-theme-six,
+            &.themes-reviews_rating-res-theme-six {
                 border-radius: 36px;
                 min-width: 160px;
-                max-width: 200px;
 
                 .notificationx-image {
                     flex-basis: 40px;
@@ -1321,6 +1383,7 @@
 
                         &.nx-second-row {
                             line-height: 1;
+                            max-width: 180px;
 
                             span {
                                 margin-left: 0;
