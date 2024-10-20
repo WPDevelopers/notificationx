@@ -160,17 +160,18 @@ class Announcements extends Extension {
         ];
         $this->res_themes = [
             'res-theme-one'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-1.png',
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-1.png',
                 'image_shape' => 'rounded',
-                'template' => [
-                    'first_param'  => 'tag_offer_title',
-                    'custom_first_param'  => __('Flash Sale:' , 'notificationx'),
-                    'third_param'  => 'tag_offer_description',
-                    'fourth_param' => 'tag_time',
+                'template'    => [
+                    'first_param'        => 'tag_offer_title',
+                    'custom_first_param' => __('Flash Sale:' , 'notificationx'),
+                    'third_param'        => 'tag_offer_description',
+                    'fourth_param'       => 'tag_time',
                 ],
+                'is_pro' => true,
             ],
             'res-theme-two'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-2.png',
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-2.png',
                 'template' => [
                     'first_param'         => 'tag_offer_title',
                     'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'notificationx'),
@@ -178,12 +179,13 @@ class Announcements extends Extension {
                     'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx'),
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
-                    // 'fifth_param'         => 'tag_offer_discount',
-                    // 'custom_fifth_param'  => __( '25% OFF', 'notificationx' ),
+                      // 'fifth_param'         => 'tag_offer_discount',
+                      // 'custom_fifth_param'  => __( '25% OFF', 'notificationx' ),
                 ],
+                'is_pro' => true,
             ],
             'res-theme-three'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-3.png',
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-3.png',
                 'template' => [
                     'first_param'         => 'tag_offer_title',
                     'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'notificationx'),
@@ -191,9 +193,10 @@ class Announcements extends Extension {
                     'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx'),
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
-                    // 'fifth_param'         => 'tag_offer_discount',
-                    // 'custom_fifth_param'  => __( '25% OFF', 'notificationx' ),
+                      // 'fifth_param'         => 'tag_offer_discount',
+                      // 'custom_fifth_param'  => __( '25% OFF', 'notificationx' ),
                 ],
+                'is_pro' => true,
             ],
             'res-theme-four'   => [
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-4.png',
@@ -206,6 +209,7 @@ class Announcements extends Extension {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
                 ],
+                'is_pro'    => true,
             ],
             'res-theme-five'   => [
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-5.png',
@@ -215,6 +219,7 @@ class Announcements extends Extension {
                     'third_param'         => 'tag_offer_description',
                     'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO', 'notificationx'),
                 ],
+                'is_pro'    => true,
             ],
         ];
 

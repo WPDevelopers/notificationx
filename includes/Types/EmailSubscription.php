@@ -88,18 +88,22 @@ class EmailSubscription extends Types {
             'res-theme-one'   => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_subscriptions/mailchimp-res-theme-1.png',
                 '_template' => 'mailchimp_template_new',
+                'is_pro'    => true,
             ],
             'res-theme-two'   => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_subscriptions/mailchimp-res-theme-2.png',
                 '_template' => 'mailchimp_template_new',
+                'is_pro'    => true,
             ],
             'res-theme-three' => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_subscriptions/mailchimp-res-theme-3.png',
                 '_template' => 'mailchimp_template_new',
+                'is_pro'    => true,
             ],
             'subscriptions-res-theme-four'  => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_subscriptions/mailchimp-res-theme-4.png',
                 '_template' => 'maps_template_new',
+                'is_pro'    => true,
             ],
         ];
 

@@ -142,46 +142,57 @@ class WooCommerceSales extends Types {
             'res-theme-one'   => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-1.png',
                 '_template' => 'woo_template_new',
+                'is_pro'    => true,
             ],
             'res-theme-two'   => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-2.png',
                 '_template' => 'woo_template_new',
+                'is_pro'    => true,
             ],
             'res-theme-three'   => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-3.png',
                 '_template' => 'woo_template_new',
+                'is_pro'    => true,
             ],
             'res-theme-four'   => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-4.png',
                 '_template' => 'woo_template_new',
+                'is_pro'    => true,
             ],
             'res-theme-five'   => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-5.png',
                 '_template' => 'maps_template_new',
+                'is_pro'    => true,
             ],
             'res-theme-six'   => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-6.png',
                 '_template' => 'maps_template_new',
+                'is_pro'    => true,
             ],
             'res-theme-seven'   => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-7.png',
                 '_template' => 'woo_template_new',
+                'is_pro'    => true,
             ],
             'res-theme-eight'   => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-8.png',
                 '_template' => 'woo_template_new',
+                'is_pro'    => true,
             ],
             'res-theme-nine'   => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-9.png',
                 '_template' => 'woo_template_sales_count',
+                'is_pro'    => true,
             ],
             'res-theme-ten'   => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-10.png',
                 '_template' => 'woo_template_sales_count',
+                'is_pro'    => true,
             ],
             'res-theme-eleven'   => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-11.png',
                 '_template' => 'woo_template_sales_count',
+                'is_pro'    => true,
             ],
         ];
         parent::__construct();

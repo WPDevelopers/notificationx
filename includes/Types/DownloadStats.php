@@ -106,6 +106,7 @@ class DownloadStats extends Types {
                     'fourth_param' => 'tag_today_text',
                     'custom_fourth_param' => '',
                 ],
+                'is_pro'    => true,
             ],
             'res-7day-download'  => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_wporg/wporg-res-theme-2.png',
@@ -119,6 +120,7 @@ class DownloadStats extends Types {
                     'fourth_param' => 'tag_last_week_text',
                     'custom_fourth_param' => '',
                 ],
+                'is_pro'    => true,
             ],
             'res-actively_using' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_wporg/wporg-res-theme-3.png',
@@ -130,6 +132,7 @@ class DownloadStats extends Types {
                     'third_param' => 'tag_plugin_theme_name',
                     'custom_third_param' => '',
                 ],
+                'is_pro'    => true,
             ],
             'res-total-download' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_wporg/wporg-res-theme-4.png',
@@ -143,6 +146,7 @@ class DownloadStats extends Types {
                     'fourth_param' => 'tag_all_time_text',
                     'custom_fourth_param' => '',
                 ],
+                'is_pro'    => true,
             ],
         ];
         $this->templates = [

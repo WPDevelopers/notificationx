@@ -155,16 +155,19 @@ class Comments extends Types {
         ];
         $this->res_themes = [
             'res-theme-one'        => [
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-1.png',
-                '_template'    => 'comments_template_new',
+                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-1.png',
+                '_template' => 'comments_template_new',
+                'is_pro'    => true,
             ],
             'res-theme-two'        => [
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-2.png',
-                '_template'    => 'comments_template_new',
+                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-2.png',
+                '_template' => 'comments_template_new',
+                'is_pro'    => true,
             ],
             'res-theme-three'      => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-3.png',
                 '_template' => 'comments_template_new',
+                'is_pro'    => true,
             ],
             'res-theme-four'   => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-4.png',

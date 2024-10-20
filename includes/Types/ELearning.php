@@ -122,43 +122,53 @@ class ELearning extends Types {
         $this->res_themes = [
             'res-theme-one' => array(
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-1.png',
-                '_template' => 'elearning_template_new'
+                '_template' => 'elearning_template_new',
+                'is_pro'    => true,
             ),
             'res-theme-two' => array(
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-2.png',
-                '_template' => 'elearning_template_new'
+                '_template' => 'elearning_template_new',
+                'is_pro'    => true,
             ),
             'res-theme-three' => array(
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-3.png',
-                '_template' => 'elearning_template_new'
+                '_template' => 'elearning_template_new',
+                'is_pro'    => true,
             ),
             'res-theme-four' => array(
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-4.png',
-                '_template' => 'elearning_template_new'
+                '_template' => 'elearning_template_new',
+                'is_pro'    => true,
             ),
             'elearning-res-theme-five' => array(
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-5.png',
-                '_template' => 'elearning_template_new'
+                '_template' => 'elearning_template_new',
+                'is_pro'    => true,
             ),
             'elearning-res-theme-six' => array(
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-6.png',
-                '_template' => 'maps_template_new'
+                '_template' => 'maps_template_new',
+                'is_pro'    => true,
             ),
             'elearning-res-theme-seven' => array(
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-7.png',
-                '_template' => 'elearning_template_sales_count'
+                '_template' => 'elearning_template_sales_count',
+                'is_pro'    => true,
             ),
             'elearning-res-theme-eight' => array(
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-8.png',
-                '_template' => 'elearning_template_sales_count'
+                '_template' => 'elearning_template_sales_count',
+                'is_pro'    => true,
             ),
             'res-theme-nine' => array(
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-9.png',
-                '_template' => 'elearning_template_sales_count'
+                '_template' => 'elearning_template_sales_count',
+                'is_pro'    => true,
             ),
             'elearning-res-theme-ten' => array(
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-10.png',
-                '_template' => 'maps_template_new'
+                '_template' => 'maps_template_new',
+                'is_pro'    => true,
             ),
         ];
         $this->templates = [
