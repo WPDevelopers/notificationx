@@ -244,8 +244,9 @@ class GlobalFields {
                             'rules' => '',
                         ],
                         "themes" => [
-                            'type'  => 'section',
-                            'name'  => 'themes_section',
+                            'type'    => 'section',
+                            'name'    => 'themes_section',
+                            'classes' => NotificationX::is_pro() ? 'pro-activated' : 'pro-deactivated',
                             'fields'    => [
                                 'themes_tab'    => [
                                     'type'   => 'tab',
@@ -253,7 +254,6 @@ class GlobalFields {
                                     'submit' => [
                                         'show' => false,
                                     ],
-                                    'classes'  => NotificationX::is_pro() ? 'pro-activated' : 'pro-activated wprf-theme-tab-wrapper',
                                     'default' => 'for_desktop',
                                     'fields' => [
                                         'for_desktop'    => [
