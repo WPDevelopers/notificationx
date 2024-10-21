@@ -583,3 +583,88 @@
         }
     }
 }
+
+#design_tab {
+    .wprf-section-fields {
+        padding: 0;
+
+        .wp-react-form.wprf-tabs-wrapper {
+            margin: 0;
+            
+            .wprf-tab-menu-wrapper {
+                border-bottom: 1px solid #F6F7FE;
+                padding: 0 32px;
+                .wprf-tab-nav {
+                    margin: 0;
+                    .wprf-tab-nav-item {
+                        font-size: 16px;
+                        line-height: 24px;
+                        font-weight: 500;
+                        text-transform: capitalize;
+                        color: #778095;
+                        min-height: auto;
+                        padding: 20px;
+                        border-radius: 0;
+                        margin: 0;
+                        background: transparent;
+                        border: none;
+                        border-bottom: 2px solid transparent;
+                        gap: 8px;
+
+                        img{
+                            height: 20px;
+                        }
+                        svg {
+                            height: 20px;
+
+                            path {
+                                fill: #778095;
+                            }
+                        }
+                        &.wprf-active-nav {
+                            background: transparent;
+                            border-color: #6A4BFF;
+                            color: #092161;
+                            svg {
+                                path {
+                                    fill: #778095;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .wprf-tab-content-wrapper {
+                margin: 0;
+                .wprf-tab-content {
+                    .wprf-tab-heading-wrapper {
+                        display: none;
+                    }
+                    .wprf-control-section {
+                        .wprf-section-fields {
+                            padding: 0;
+                            border-radius: 0;
+                            .wprf-control-wrapper {
+                                padding: 32px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .wprf-control-wrapper {
+            padding: 10px 32px 32px;
+            align-items: center;
+            .wprf-control-label {
+                margin: 0;
+                label {
+                    margin: 0;
+                }
+            }
+            .wprf-control-field {
+                min-height: auto;
+            }
+        }
+    }
+}
