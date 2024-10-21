@@ -11,12 +11,6 @@
     position: relative;
     z-index: 99998;
 
-    @media only screen and (max-width: 576px) {
-        bottom: 16px !important;
-        left: 16px !important;
-        min-width: 190px;
-    }
-
     audio {
         display: none;
     }
@@ -82,15 +76,6 @@
         align-items: center;
         justify-content: center;
 
-        @media only screen and (max-width: 576px) {
-            flex-basis: 32px;
-            min-width: 32px;
-            width: 32px;
-            aspect-ratio: 1;
-            margin: 0 4px;
-            padding: 4px;
-        }
-
         &>img {
             object-fit: cover;
             max-height: 100%;
@@ -125,16 +110,6 @@
         flex: 1;
         padding: 10px 0px;
 
-        @media only screen and (max-width: 576px) {
-            margin-left: 4px;
-            margin-right: 12px;
-            font-size: 10px !important;
-            flex-direction: row;
-            align-items: center;
-            flex: 1;
-            padding: 8px 0px;
-        }
-
         &:first-child {
             margin-left: 25px;
         }
@@ -156,10 +131,6 @@
 
             &:not(:last-of-type) {
                 margin-bottom: 5px;
-
-                @media only screen and (max-width: 576px) {
-                    margin-bottom: 0px;
-                }
             }
 
             &>span {
@@ -175,11 +146,6 @@
                 font-size: 13px;
                 line-height: 1.2;
 
-                @media only screen and (max-width: 576px) {
-                    font-size: 10px !important;
-                    margin-bottom: 0;
-                }
-
                 * {
                     line-height: 1.2;
                 }
@@ -191,21 +157,11 @@
                 // * {
                 //     line-height: 1.2;
                 // }
-
-                @media only screen and (max-width: 576px) {
-                    font-size: 10px !important;
-                }
             }
 
             &.nx-third-row {
                 font-size: 13px;
                 line-height: 1.2;
-
-                @media only screen and (max-width: 576px) {
-                    span {
-                        display: none;
-                    }
-                }
 
                 * {
                     line-height: 1.2;
@@ -236,13 +192,6 @@
             align-items: center;
             z-index: 9;
 
-
-            @media only screen and (max-width: 576px) {
-                svg {
-                    display: none;
-                }
-            }
-
             &>* {
                 margin-right: 5px;
             }
@@ -257,10 +206,6 @@
                 fill: #5614d5;
                 height: 16px;
                 display: block;
-
-                @media only screen and (max-width: 576px) {
-                    width: 65px;
-                }
             }
 
             &>a:hover>svg {
@@ -277,10 +222,6 @@
         align-self: start;
         margin-top: 5px;
         display: inline-flex;
-
-        @media only screen and (max-width: 576px) {
-            display: none;
-        }
 
         svg {
             cursor: pointer;

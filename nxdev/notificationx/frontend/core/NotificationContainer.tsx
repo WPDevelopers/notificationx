@@ -17,7 +17,7 @@ const NotificationContainer = (props: any) => {
     }, []);
 
     const renderNotice = (NoticeList, position) => {
-        if (isMobile) {
+        if (isMobile && frontendContext?.is_pro) {
             return (
                 <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
                     {NoticeList.map((notice) => {

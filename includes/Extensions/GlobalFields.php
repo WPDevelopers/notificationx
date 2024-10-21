@@ -249,6 +249,7 @@ class GlobalFields {
                             'submit' => [
                                 'show' => false,
                             ],
+                            'classes'  => NotificationX::is_pro() ? 'pro-activated' : 'pro-deactivated wprf-theme-tab-wrapper',
                             'default' => 'for_desktop',
                             'fields' => [
                                 'for_desktop'    => [
