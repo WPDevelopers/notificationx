@@ -298,6 +298,7 @@ class GlobalFields {
                                             'name'             => 'for_mobile',
                                             'id'               => 'for_mobile',
                                             'icon'             => NOTIFICATIONX_ADMIN_URL . 'images/responsive/mobile.svg',
+                                            'rules'            => Rules::includes('type', ['notification_bar', 'flashing_tab','inline', 'custom'], true),
                                             'fields'           => [
                                                 "responsive_themes" => [
                                                     // 'label'  => __("Mobile Responsive Themes", 'notificationx'),

@@ -42,5 +42,5 @@ const Dashboard = (props) => {
 
 export default withDocumentTitle(
     Dashboard,
-    __("Dashboard", "notificationx")
+    __("NotificationX", "notificationx")
 );
