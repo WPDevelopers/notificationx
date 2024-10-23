@@ -9,7 +9,7 @@ const NotificationContainer = (props: any) => {
     // Detect screen size
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth <= 425);
+            setIsMobile(window.innerWidth <= 574);
         };
         handleResize();
         window.addEventListener("resize", handleResize);

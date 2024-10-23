@@ -703,5 +703,15 @@
                 }
             }
         }
+        &.pro-activated {
+            .wp-react-form.wprf-tabs-wrapper {
+                .wprf-tab-nav-item[data-key="for_mobile"] {
+                    &::after {
+                        display: none;
+                    }
+                }
+            }
+        }
     }
+
 }

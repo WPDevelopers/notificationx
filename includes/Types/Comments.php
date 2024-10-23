@@ -172,27 +172,33 @@ class Comments extends Types {
             'res-theme-four'   => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-4.png',
                 '_template' => 'comments_template_new',
+                'is_pro'    => true,
             ],
             'res-theme-five' => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-5.png',
                 '_template' => 'comments_template_new',
+                'is_pro'    => true,
             ],
             'res-theme-six' => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-6.png',
                 '_template' => 'comments_template_new',
+                'is_pro'    => true,
             ],
             'res-theme-seven'       => array(
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-7.png',
                 '_template' => 'comments_template_new',
+                'is_pro'    => true,
             ),
             'res-theme-eight' => array(
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-8.png',
                 '_template' => 'comments_template_new',
+                'is_pro'    => true,
             ),
             // @todo pro fix
             'res-theme-nine' => array(
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-9.png',
                 '_template' => 'maps_template_new',
+                'is_pro'    => true,
             ),
         ];
         $this->templates = [
