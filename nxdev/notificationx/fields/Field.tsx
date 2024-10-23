@@ -10,7 +10,6 @@ import AdvancedRepeater from './AdvancedRepeater';
 import AdvancedCodeViewer from './AdvancedCodeViewer';
 
 
-
 const Field = (ret, type, props) => {
 
     switch (type) {

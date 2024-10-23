@@ -20,14 +20,17 @@ abstract class Types {
     public $id;
     public $title;
     public $dashboard_title;
-    public $is_pro         = false;
-    public $themes         = [];
-    public $module         = [];
-    public $templates      = [];
-    public $default_source = '';
-    public $default_theme  = '';
-    public $popup          = null;
-    public $link_type      = 'none';
+    public $is_pro            = false;
+    public $themes            = [];
+    public $res_themes        = [];
+    public $module            = [];
+    public $templates         = [];
+    public $mobile_templates  = [];
+    public $default_source    = '';
+    public $default_theme     = '';
+    public $default_res_theme = '';
+    public $popup             = null;
+    public $link_type         = 'none';
 
     /**
      * Initially Invoked when initialized.
@@ -85,6 +88,17 @@ abstract class Types {
     }
 
     /**
+     * Get responsive themes for the extension.
+     *
+     *
+     * @param array $args Settings arguments.
+     * @return mixed
+     */
+    public function get_res_themes(){
+        return $this->res_themes;
+    }
+
+    /**
      * Get templates for the extension.
      *
      *
@@ -92,5 +106,15 @@ abstract class Types {
      */
     public function get_templates(){
         return $this->templates;
+    }
+
+    /**
+     * Get mobile templates for the extension.
+     *
+     *
+     * @return array
+     */
+    public function get_mobile_templates(){
+        return $this->mobile_templates;
     }
 }

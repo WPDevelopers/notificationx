@@ -79,7 +79,6 @@ const AdvancedTemplate = (props) => {
         let templateIndex = props.parentIndex;
         templateIndex = [...templateIndex, templateIndex.pop() - 1];
         field[0].menuOpen = true;
-        console.log('field-adv',field);
         
         builderContext.setFormField(templateIndex, field);
 
@@ -190,8 +189,6 @@ const AdvancedTemplate = (props) => {
         if (!builderContext.savedValues?.["advanced_template"]) {
             const theme = builderContext.values.themes;
             let values = {...builderContext.values};
-            // console.log(theme, values);
-
             if(theme == 'page_analytics_pa-theme-two' || theme == 'page_analytics_pa-theme-one'){
                 const fifth = values['notification-template'].ga_fifth_param?.trim();
                 const sixth = values['notification-template'].sixth_param?.replace('tag_', '');
@@ -201,7 +198,7 @@ const AdvancedTemplate = (props) => {
                     ga_fifth_param: custom,
                     sixth_param: '',
                 }};
-            }
+            }            
             const tmpl: any = applyFilters(
                 "nx_adv_template_default",
                 values

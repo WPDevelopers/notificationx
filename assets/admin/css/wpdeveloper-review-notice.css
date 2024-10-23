@@ -38,6 +38,10 @@
     align-items: center;
 }
 
+.notice-notificationx-review .wpnotice-thumbnail-wrapper img{
+    height: 50px;
+}
+
 .notice-notificationx-review:after {
     content: "";
     display: table;

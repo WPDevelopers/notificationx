@@ -243,7 +243,9 @@ const AdvancedRepeater = (props) => {
     };
 
     const bulkSelectedItems = useMemo(() => {
-        return localMemoizedValue?.filter(obj => selectedField.includes(obj.index));
+        if( localMemoizedValue ) {
+            return localMemoizedValue?.filter(obj => selectedField.includes(obj.index));
+        }
     }, [selectedField]);
     
     // selected bulk items

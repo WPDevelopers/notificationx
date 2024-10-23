@@ -7,16 +7,16 @@ import nxHelper from "../core/functions";
 
 export const processNotice = ({ config }) => {
     let url = `notice/?frontend=true`;
-    if(config.rest?.lang){
+    if (config.rest?.lang) {
         url += `&lang=${config.rest.lang}`;
     }
     return nxHelper
         .post(url, {
             all_active: config.all_active || false,
-            global    : config.global || [],
-            active    : config.active || [],
-            pressbar  : config.pressbar || [],
-            shortcode : config.shortcode || [],
+            global: config.global || [],
+            active: config.active || [],
+            pressbar: config.pressbar || [],
+            shortcode: config.shortcode || [],
         })
         .then(normalizeResponse)
         .catch((err) => console.error("Fetch Error: ", err));
@@ -34,10 +34,10 @@ export const isNotClosed = (entry) => {
 };
 
 export const normalizeResponse = (response: any) => {
-    let mergedGlobalArray    = normalize(response?.global, response?.settings);
-    let mergedActiveArray    = normalize(response?.active, response?.settings);
+    let mergedGlobalArray = normalize(response?.global, response?.settings);
+    let mergedActiveArray = normalize(response?.active, response?.settings);
     let mergedShortcodeArray = normalize(response?.shortcode, response?.settings);
-    let pressbar             = normalizePressBar(response?.pressbar, response?.settings);
+    let pressbar = normalizePressBar(response?.pressbar, response?.settings);
 
     return {
         settings: response?.settings,
@@ -54,7 +54,8 @@ export const normalize = (_entries, globalSettings) => {
     for (const key in _entries) {
         if (Object.hasOwnProperty.call(_entries, key)) {
             let settings = _entries[key]?.post;
-            let template = settings?.template_adv ? settings?.advanced_template?.split?.(/\r\n|\r|\n/) : GetTemplate(settings);
+            let template;
+            template = settings?.template_adv ? settings?.advanced_template?.split?.(/\r\n|\r|\n/) : GetTemplate(settings);
             if (settings?.global_queue) {
                 settings = { ...settings, ...globalSettings, template };
             }

@@ -33,6 +33,7 @@ abstract class Extension {
     public $doc_link              = 'https://notificationx.com/docs/';
     public $types                 = '';
     public $themes                = [];
+    public $res_themes            = [];
     public $selected_themes       = [];
     public $is_pro                = false;
     public $popup                 = null;
@@ -43,6 +44,7 @@ abstract class Extension {
     public $function              = '';
     public $constant              = '';
     public $templates             = [];
+    public $mobile_templates      = [];
     public $cron_schedule         = '';
     public $exclude_custom_themes = false;
     public $priority              = 5;
@@ -127,12 +129,16 @@ abstract class Extension {
      */
     public function __init_fields(){
         add_filter('nx_themes', [$this, '__nx_themes']);
+        add_filter('nx_res_themes', [$this, '__nx_res_themes']);
         add_filter('nx_sources', [$this, '__nx_sources'], 10, 1);
         add_filter('nx_link_types_dependency', [$this, '__link_types_dependency']);
         add_filter('nx_notification_template', [$this, '__notification_template']);
+        add_filter('nx_notification_template_mobile', [$this, '__notification_mobile_template']);
         add_filter('nx_notification_template_dependency', [$this, '__notification_template_dependency']);
+        add_filter('nx_notification_template_mobile_dependency', [$this, '__notification_template_mobile_dependency']);
         add_filter('nx_source_trigger', [$this, '__source_trigger']);
         add_filter('nx_themes_trigger', [$this, '__themes_trigger']);
+        add_filter('nx_themes_trigger_for_responsive', [$this, '__res_themes_trigger']);
         add_filter('nx_is_pro_sources', [$this, '__is_pro_sources']);
 
         if(method_exists($this, 'doc')){
@@ -252,6 +258,42 @@ abstract class Extension {
     }
 
     /**
+     * Runs when modules is enabled.
+     *
+     * @return void
+     */
+    public function __nx_res_themes($themes) {
+        $_themes = $this->get_res_themes();
+        $i = 0;
+        if(is_array($_themes)){
+            foreach ($_themes as $tname => $theme) {
+                if (empty($themes[$tname])) {
+                    $themes[$tname] = [
+                        'label'   => $tname,
+                        'value'   => $tname,
+                        'is_pro'  => isset($theme['is_pro']) ? $theme['is_pro'] && ! NotificationX::is_pro() : null,
+                        'icon'    => isset($theme['source']) ? $theme['source'] : $theme,
+                        // @todo converts
+                        // 'trigger' => isset($theme['template']) ? ['notification-template' => $theme['template']] : null,
+                    ];
+                    if(!empty($theme['column'])){
+                        $themes[$tname]['column'] = $theme['column'];
+                    }
+                }
+                $template = isset($theme['_template']) ? $theme['_template'] : '';
+                if( $template ) {
+                    $templates               = $this->get_templates();
+                    $main_themes             = isset( $templates[$template] ) ? (isset( $templates[$template]['_themes'] ) ? $templates[$template]['_themes'] : '') : '' ;
+                    $themes[$tname] = Rules::includes('themes', $main_themes, false, $themes[$tname]);
+                }
+                $themes[$tname]  = Rules::includes('source', $this->id, false, $themes[$tname]);
+            }
+        }
+        return $themes;
+    }
+
+
+    /**
      * Get themes for the extension.
      *
      *
@@ -265,6 +307,71 @@ abstract class Extension {
                 if(!empty($theme['template']) && $templates = $theme['template']){
                     foreach ($templates as $key => $value) {
                         $t = "@notification-template.{$key}:{$value}";
+                        if(empty($triggers[$tname]) || !in_array($t, $triggers[$tname])){
+                            $triggers[$tname][] = $t;
+                        }
+                    }
+                }
+                if(empty($theme['defaults']['link_button'])){
+                    $t = "@link_button:false";
+                    if(empty($triggers[$tname]) || !in_array($t, $triggers[$tname])){
+                        $triggers[$tname][] = $t;
+                    }
+                }
+                if(!empty($theme['defaults']) && $defaults = $theme['defaults']){
+                    foreach ($defaults as $key => $value) {
+                        if(is_array($value) && empty($triggers[$tname][$key])){
+                            $triggers[$tname][$key] = $value;
+                        }
+                        else{
+                            $t = "@{$key}:{$value}";
+                            if(empty($triggers[$tname]) || !in_array($t, $triggers[$tname])){
+                                $triggers[$tname][] = $t;
+                            }
+                        }
+                    }
+                }
+                if(!empty($theme['image_shape'])){
+                    $t = "@image_shape:{$theme['image_shape']}";
+                    if(empty($triggers[$tname]) || !in_array($t, $triggers[$tname])){
+                        $triggers[$tname][] = $t;
+                    }
+                    // default image shape for theme.
+                    $t = "@image_shape_default:{$theme['image_shape']}";
+                    if(empty($triggers[$tname]) || !in_array($t, $triggers[$tname])){
+                        $triggers[$tname][] = $t;
+                    }
+                }
+                if(!empty($theme['inline_location'])){
+                    $t = $theme['inline_location'];
+                    if(empty($triggers[$tname]['inline_location'])){
+                        $triggers[$tname]['inline_location'] = $theme['inline_location'];
+                    }
+                }
+                if(!empty($theme['show_notification_image'])){
+                    $t = "@show_notification_image:{$theme['show_notification_image']}";
+                    if(empty($triggers[$tname]) || !in_array($t, $triggers[$tname]))
+                        $triggers[$tname][] = $t;
+                }
+            }
+        }
+        return $triggers;
+    }
+
+    /**
+     * Get responsive themes for the extension.
+     *
+     *
+     * @param array $args Settings arguments.
+     * @return mixed
+     */
+    public function __res_themes_trigger($triggers) {
+        $_themes = $this->get_res_themes();
+        if (is_array($_themes)) {
+            foreach ($_themes as $tname => $theme) {
+                if(!empty($theme['template']) && $templates = $theme['template']){
+                    foreach ($templates as $key => $value) {
+                        $t = "@notification-template-mobile.{$key}:{$value}";
                         if(empty($triggers[$tname]) || !in_array($t, $triggers[$tname])){
                             $triggers[$tname][] = $t;
                         }
@@ -433,6 +540,24 @@ abstract class Extension {
             }
         }
         return $this->array_add_prefix($this->themes, $this->id . "_");
+    }
+
+    /**
+     * Get responsive themes for the extension.
+     *
+     *
+     * @param array $args Settings arguments.
+     * @return mixed
+     */
+    public function get_res_themes() {
+        if (empty($this->res_themes)) {
+            $type_obj = $this->get_type();
+            if ($type_obj instanceof Types) {
+                $themes = $type_obj->get_res_themes();
+                return $this->array_add_prefix($themes, $this->types . "_");
+            }
+        }
+        return $this->array_add_prefix($this->res_themes, $this->id . "_");
     }
 
     /**
