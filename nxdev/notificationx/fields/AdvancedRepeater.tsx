@@ -374,6 +374,7 @@ const AdvancedRepeater = (props) => {
                                     { value: "20", label: __("20") },
                                     { value: "50", label: __("50") },
                                     { value: "100", label: __("100") },
+                                    { value: "500", label: __("500") },
                                 ]}
                                 value={itemsPerPage.toString()}
                                 onChange={(value) => handleItemsPerPageChange(value)}

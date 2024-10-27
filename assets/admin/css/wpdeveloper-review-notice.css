@@ -243,12 +243,10 @@ span.coupon-code {
 #wpnotice-notificationx-black_friday_notice .wpnotice-content-wrapper button:hover {
     background-color: transparent;
 }
-
 .notice-notificationx-6th_anniversary.is-dismissible {
     gap: 40px !important;
     padding: 6px 0;
 }
-
 .notice-notificationx-6th_anniversary.is-dismissible .wpnotice-thumbnail-wrapper img {
     width: auto !important;
     max-width: 160px !important;
@@ -277,5 +275,38 @@ span.coupon-code {
     .notice-notificationx-6th_anniversary.is-dismissible .wpnotice-content-wrapper {
         flex-wrap: wrap;
         gap: 8px;
+    }
+}
+
+/*
+* Halloween Notice css
+*/
+#wpnotice-notificationx-nx_halloween_2024 {
+    border-left-color: #593dbd;
+    padding: 10px 40px 10px 20px;
+}
+#wpnotice-notificationx-nx_halloween_2024 .wpnotice-content-wrapper > a.button-primary,
+#wpnotice-notificationx-nx_halloween_2024 .wpnotice-content-wrapper > a.button-primary:focus,
+#wpnotice-notificationx-nx_halloween_2024 .wpnotice-content-wrapper > a.button-primary:hover {
+    background-color: #593dbd;
+    border-color: #593dbd;
+}
+#wpnotice-notificationx-nx_halloween_2024 .wpnotice-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+#wpnotice-notificationx-nx_halloween_2024 .wpnotice-content-wrapper p{
+    font-size: 15px;
+}
+.notice-notificationx-nx_halloween_2024.is-dismissible .wpnotice-thumbnail-wrapper img {
+    width: auto !important;
+    max-width: 160px !important;
+    padding-left: 12px;
+}
+@media screen and (max-width: 574px) {
+    #wpnotice-notificationx-nx_halloween_2024 {
+        display: none !important;
     }
 }
