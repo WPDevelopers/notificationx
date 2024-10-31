@@ -14,21 +14,31 @@ const NotificationContainer = (props: any) => {
         handleResize();
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
+    }, []);    
     const renderNotice = (NoticeList, position) => {
         if (isMobile && frontendContext?.is_pro) {
             return (
                 <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
                     {NoticeList.map((notice) => {
-                        return (
-                            <NotificationForMobile
-                                assets={frontendContext.assets}
-                                dispatch={frontendContext.dispatch}
-                                key={notice.id}
-                                {...notice}
-                            />
-                        );
+                        if( notice?.config?.is_mobile_responsive && notice?.config?.source !== 'announcements' ) {
+                            return (
+                                <NotificationForMobile
+                                    assets={frontendContext.assets}
+                                    dispatch={frontendContext.dispatch}
+                                    key={notice.id}
+                                    {...notice}
+                                />
+                            );
+                        }else{
+                            return (
+                                <Notification
+                                    assets={frontendContext.assets}
+                                    dispatch={frontendContext.dispatch}
+                                    key={notice.id}
+                                    {...notice}
+                                />
+                            );
+                        }
                     })}
                 </div>
             );

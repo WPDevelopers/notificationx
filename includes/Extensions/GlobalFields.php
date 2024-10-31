@@ -243,88 +243,110 @@ class GlobalFields {
                             'messages' => apply_filters('design_error_message', []),
                             'rules' => '',
                         ],
-                        "themes" => [
-                            'type'    => 'section',
-                            'name'    => 'themes_section',
-                            'classes' => NotificationX::is_pro() ? 'pro-activated' : 'pro-deactivated',
-                            'fields'    => [
-                                'themes_tab'    => [
-                                    'type'   => 'tab',
-                                    'name'   => 'themes_tab',
-                                    'submit' => [
-                                        'show' => false,
-                                    ],
-                                    'default' => 'for_desktop',
-                                    'fields' => [
-                                        'for_desktop'    => [
-                                            'label'            => __("For Desktop", 'notificationx'),
-                                            'name'             => 'for_desktop',
-                                            'id'               => 'for_desktop',
-                                            'type'             => 'section',
-                                            'icon'             => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
-                                            'fields'           => [
-                                                "desktop_themes" => [
-                                                    // 'label'  => __("Desktop Themes", 'notificationx'),
-                                                    'name'   => "desktop_themes",
-                                                    'type'   => "section",
-                                                    'fields' => [
-                                                        'themes' => [
-                                                            // 'label'            => "For Desktop",
-                                                            'name'             => "themes",
-                                                            'type'             => "radio-card",
-                                                            // 'default'          => "conversions_theme-one",
-                                                            'options'          => apply_filters('nx_themes', []),
-                                                            'priority'         => 10,
-                                                            'style'   => [
-                                                                'label' => [
-                                                                    'position' => 'top'
-                                                                ]
-                                                            ],
-                                                            'validation_rules' => [
-                                                                'required' => true,
-                                                                'label'    => "Theme",
-                                                            ],
-                                                            'trigger' => [
-                                                                'defaults' => apply_filters('nx_themes_trigger', []),
-                                                            ],
-                                                        ],
-                                                    ]
+                       "themes" => [
+                            // 'label'  => __("Themes", 'notificationx'),
+                            'name'   => "themes",
+                            'type'   => "section",
+                            'fields' => [
+                                "themes_section" => [
+                                    'type'    => 'section',
+                                    'name'    => 'themes_section',
+                                    'classes' => NotificationX::is_pro() ? 'pro-activated' : 'pro-deactivated',
+                                    'fields'    => [
+                                        'themes_tab'    => [
+                                            'type'   => 'tab',
+                                            'name'   => 'themes_tab',
+                                            'submit' => [
+                                                'show' => false,
+                                            ],
+                                            'default' => 'for_desktop',
+                                            'fields' => [
+                                                'for_desktop'    => [
+                                                    'label'            => __("For Desktop", 'notificationx'),
+                                                    'name'             => 'for_desktop',
+                                                    'id'               => 'for_desktop',
+                                                    'type'             => 'section',
+                                                    'icon'             => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+                                                ],
+                                                'for_mobile'      => [
+                                                    'label'            => __("For Mobile", 'notificationx'),
+                                                    'type'             => 'section',
+                                                    'name'             => 'for_mobile',
+                                                    'id'               => 'for_mobile',
+                                                    'icon'             => NOTIFICATIONX_ADMIN_URL . 'images/responsive/mobile.svg',
+                                                    'rules'            => Rules::includes('type', [ 'nx_bar', 'inline', 'offer_announcement', 'custom' ], true),
+                                                    // 'fields'           => [
+                                                        // 'is_mobile_responsive' => [
+                                                        //     'label'    => __("Enable Mobile Responsive", 'notificationx'),
+                                                        //     'name'     => "is_mobile_responsive",
+                                                        //     'type'     => "toggle",
+                                                        //     'default'  => true,
+                                                        //     'priority' => 20,
+                                                        // ],
+                                                    // ],
                                                 ],
                                             ]
                                         ],
-                                        'for_mobile'      => [
-                                            'label'            => __("For Mobile", 'notificationx'),
-                                            'type'             => 'section',
-                                            'name'             => 'for_mobile',
-                                            'id'               => 'for_mobile',
-                                            'icon'             => NOTIFICATIONX_ADMIN_URL . 'images/responsive/mobile.svg',
-                                            'fields'           => [
-                                                "responsive_themes" => [
-                                                    // 'label'  => __("Mobile Responsive Themes", 'notificationx'),
-                                                    'name'   => "responsive_themes",
-                                                    'type'   => "section",
-                                                    'fields' => [
-                                                        'responsive_themes' => [
-                                                            'name'             => "responsive_themes",
-                                                            'type'             => "radio-card",
-                                                            'options'          => apply_filters('nx_res_themes', []),
-                                                            'priority'         => 10,
-                                                            'style'   => [
-                                                                'label' => [
-                                                                    'position' => 'top'
-                                                                ]
-                                                            ],
-                                                            'validation_rules' => [
-                                                                'required' => true,
-                                                                'label'    => __("Mobile Responsive Themes",'notificationx'),
-                                                            ],
-                                                            'trigger' => [
-                                                                'defaults' => apply_filters('nx_themes_trigger_for_responsive', []),
-                                                            ],
-                                                        ],
-                                                    ]
-                                                ],
+                                    ],
+                                ],
+                                'themes' => [
+                                    // 'label'            => "Themes",
+                                    'name'             => "themes",
+                                    'type'             => "radio-card",
+                                    // 'default'          => "conversions_theme-one",
+                                    'options'          => apply_filters('nx_themes', []),
+                                    'priority'         => 10,
+                                    'style'   => [
+                                        'label' => [
+                                            'position' => 'top'
+                                        ]
+                                    ],
+                                    'validation_rules' => [
+                                        'required' => true,
+                                        'label'    => "Theme",
+                                    ],
+                                    'trigger' => [
+                                        'defaults' => apply_filters('nx_themes_trigger', []),
+                                    ],
+                                    'rules'   => Rules::logicalRule([
+                                        Rules::is('themes_tab', 'for_desktop'),
+                                     ]),
+                                ],
+                                "responsive_themes" => [
+                                    // 'label'  => __("Mobile Responsive Themes", 'notificationx'),
+                                    'name'     => "responsive_themes",
+                                    'type'     => "section",
+                                    'priority' => 10,
+                                    'classes'  => NotificationX::is_pro() ? 'pro-activated' : 'pro-deactivated',
+                                    'rules'    => Rules::logicalRule([
+                                        Rules::is('themes_tab', 'for_mobile'),
+                                    ]),
+                                    'fields' => [
+                                        'responsive_themes' => [
+                                            'name'             => "responsive_themes",
+                                            'type'             => "radio-card",
+                                            'options'          => apply_filters('nx_res_themes', []),
+                                            'priority'         => 10,
+                                            'style'   => [
+                                                'label' => [
+                                                    'position' => 'top'
+                                                ]
                                             ],
+                                            'validation_rules' => [
+                                                'required' => true,
+                                                'label'    => __("Mobile Responsive Themes",'notificationx'),
+                                            ],
+                                            'trigger' => [
+                                                'defaults' => apply_filters('nx_themes_trigger_for_responsive', []),
+                                            ],
+                                        ],
+                                        'is_mobile_responsive' => [
+                                            'label'    => __("Enable Mobile Responsive", 'notificationx'),
+                                            'name'     => "is_mobile_responsive",
+                                            'type'     => "toggle",
+                                            'default'  => true,
+                                            'priority' => 20,
+                                            'is_pro'   => true,
                                         ],
                                     ]
                                 ],
@@ -334,15 +356,19 @@ class GlobalFields {
                                     'type'     => "toggle",
                                     'default'  => false,
                                     'priority' => 20,
+                                    'rules'    => Rules::is('themes_tab', 'for_desktop'),
                                 ],
-                            ],
+                            ]
                         ],
                         'advance_design_section' => [
                             'label' => __('Advanced Design', 'notificationx'),
                             'type' => 'section',
                             'name' => 'advance_design_section',
                             'classes' => 'wprf-no-bg',
-                            'rules' => Rules::is('advance_edit', true),
+                            'rules'   => Rules::logicalRule([
+                                Rules::is('advance_edit', true),
+                                Rules::is('themes_tab', 'for_desktop'),
+                             ]),
                             'fields' => [
                                 "design" => [
                                     'label'    => __("Design", 'notificationx'),

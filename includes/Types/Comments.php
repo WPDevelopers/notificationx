@@ -171,17 +171,17 @@ class Comments extends Types {
             ],
             'res-theme-four'   => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-4.png',
-                '_template' => 'comments_template_new',
+                '_template' => 'comments_template_with_comments',
                 'is_pro'    => true,
             ],
             'res-theme-five' => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-5.png',
-                '_template' => 'comments_template_new',
+                '_template' => 'comments_template_with_comments',
                 'is_pro'    => true,
             ],
             'res-theme-six' => [
                 'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-6.png',
-                '_template' => 'comments_template_new',
+                '_template' => 'comments_template_with_comments',
                 'is_pro'    => true,
             ],
             'res-theme-seven'       => array(
@@ -206,7 +206,6 @@ class Comments extends Types {
                 'first_param' => GlobalFields::get_instance()->common_name_fields(true),
                 'third_param' => [
                     'tag_post_title'     => __('Post Title', 'notificationx'),
-                    'tag_post_comment'   => __('Post Comment', 'notificationx'),
                 ],
                 'fourth_param' => [
                     'tag_time' => __('Definite Time', 'notificationx'),
@@ -215,11 +214,23 @@ class Comments extends Types {
                     'comments_theme-one',
                     'comments_theme-two',
                     'comments_theme-three',
+                    'comments_theme-four',
+                    'comments_theme-five',
+                ],
+            ],
+            'comments_template_with_comments' => [
+                'first_param' => GlobalFields::get_instance()->common_name_fields(true),
+                'third_param' => [
+                    'tag_post_title'     => __('Post Title', 'notificationx'),
+                    'tag_post_comment'   => __('Post Comment', 'notificationx'),
+                ],
+                'fourth_param' => [
+                    'tag_time' => __('Definite Time', 'notificationx'),
+                ],
+                '_themes' => [
                     'comments_theme-six-free',
                     'comments_theme-seven-free',
                     'comments_theme-eight-free',
-                    'comments_theme-four',
-                    'comments_theme-five',
                 ],
             ],
         ];

@@ -683,21 +683,13 @@
                 }
             }
         }
-        &.pro-deactivated {
-            .wp-react-form.wprf-tabs-wrapper {
-                .wprf-tab-content-wrapper {
-                    .wprf-tab-for_mobile {
-                        .wprf-control-section {
-                            .wprf-row {
-                                .wprf-column {
-                                    .wprf-input-radio-option {
-                                        &:before,
-                                        &:after {
-                                            display: none;
-                                        }
-                                    }
-                                }
-                            }
+        &.pro-deactivated.responsive_themes {
+            .wprf-control-wrapper.wprf-name-responsive_themes {
+                .wprf-control-field {
+                    .wprf-input-radio-option {
+                        &:before,
+                        &:after {
+                            display: none;
                         }
                     }
                 }
