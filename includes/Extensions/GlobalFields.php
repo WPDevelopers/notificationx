@@ -275,15 +275,16 @@ class GlobalFields {
                                                     'id'               => 'for_mobile',
                                                     'icon'             => NOTIFICATIONX_ADMIN_URL . 'images/responsive/mobile.svg',
                                                     'rules'            => Rules::includes('type', [ 'nx_bar', 'inline', 'offer_announcement', 'custom' ], true),
-                                                    // 'fields'           => [
-                                                        // 'is_mobile_responsive' => [
-                                                        //     'label'    => __("Enable Mobile Responsive", 'notificationx'),
-                                                        //     'name'     => "is_mobile_responsive",
-                                                        //     'type'     => "toggle",
-                                                        //     'default'  => true,
-                                                        //     'priority' => 20,
-                                                        // ],
-                                                    // ],
+                                                    'fields'           => [
+                                                        'res_get_pro_btn' => array(
+                                                            'name'    => 'res_get_pro_btn',
+                                                            'text'    => __( 'Get PRO to Unlock', 'notificationx' ),
+                                                            'type'    => 'button',
+                                                            'href'    => esc_url('https://notificationx.com/#pricing'),
+                                                            'target'  => '_blank',
+                                                            'classes' => 'res_get_pro_btn',
+                                                        ),
+                                                    ],
                                                 ],
                                             ]
                                         ],

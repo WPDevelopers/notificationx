@@ -694,6 +694,76 @@
                     }
                 }
             }
+            .wprf-name-responsive_themes .wprf-control-field .wprf-control{
+                &::before {
+                    position: absolute;
+                    content: "";
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgb(105 74 233 / 19%);
+                    z-index: 99;
+                }
+                .nx-stats-pro-tease {
+                    position: absolute;
+                    z-index: 99;
+                    background-color: #6A4BFF;
+                    color: #fff;
+                    border: none;
+                    padding: 2px 30px;
+                    font-size: 16px;
+                    font-weight: 500;
+                    border-radius: 10px;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 50px;
+                    box-sizing: border-box;
+                    transition: 0.3s ease-in-out;
+                    a {
+                        text-decoration: none;
+                        color: #fff;
+                    }
+                    &:hover {
+                        color: #fff;
+                        background-color: darken(#5614d5, 1%);
+                        outline: none;
+                        box-shadow: 0 15px 25px -5px rgba(#5614d5, 0.3);
+                    }
+                }
+                .wprf-input-radio-option .wprf-badge{
+                    background-image: none;
+                }
+            }
+        }
+        &#themes_section.pro-deactivated {
+            #for_mobile {
+                .res_get_pro_btn.wprf-name-res_get_pro_btn {
+                    position: absolute;
+                    top: 50%;
+                    display: flex;
+                    justify-content: center;
+                    z-index: 999;
+                    left: 50%;
+                    transform: translate(-50%, 85%);
+                    a {
+                        background-color: #6A4BFF;
+                        color: #fff;
+                        border: none;
+                        padding: 2px 30px;
+                        font-size: 16px;
+                        font-weight: 500;
+                        border-radius: 10px;
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        min-height: 50px;
+                        box-sizing: border-box;
+                        transition: 0.3s ease-in-out;
+                    }
+                }
+            }
         }
         &.pro-activated {
             .wp-react-form.wprf-tabs-wrapper {
