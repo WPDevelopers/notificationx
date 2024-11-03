@@ -12,15 +12,34 @@ import { BuilderProvider, useBuilder } from "quickbuilder";
 import { WrapperWithLoader } from "../../components";
 // @ts-ignore
 import { __ } from "@wordpress/i18n";
+import { useLocation } from "react-router";
+import nxHelper from "../../core/functions";
+
 
 const Dashboard = (props) => {
     const builderContext = useNotificationXContext();
     const builder = useBuilder(notificationxTabs.quick_build);
     const [isLoading, setIsLoading] = useState(true);
     const [title, setTitle] = useState("");
+    const location = useLocation();
+
+    const getParam = (param, d?) => {
+        const query = nxHelper.useQuery(location.search);
+        return query.get(param) || d;
+    };
+
     useEffect(() => {
         setIsLoading(false);
-    }, []);
+        const section = getParam("section", '');
+        if( section == 'resource' ) {
+            setTimeout(() => {
+                const section = document.getElementById('nx-other-details-wrapper');
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 500);
+        }
+    }, []);    
 
     return (
         <BuilderProvider

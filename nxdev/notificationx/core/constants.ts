@@ -152,3 +152,18 @@ export const proFeaturePopupConfigCrossDomain = {
         </video>
     `
 };
+
+export const WhatsNew = [
+    {
+        'label'  : __('We Just Release Mobile Version', 'notificationx'),
+        'url'   : 'https://notificationx.com/docs/configure-woocommerce-sales-alert/',
+    },
+    {
+        'label'  : __('We Just Release Mobile Version', 'notificationx'),
+        'url'   : 'https://notificationx.com/docs/configure-woocommerce-sales-alert/',
+    },
+    {
+        'label'  : __('We Just Release Mobile Version', 'notificationx'),
+        'url'   : 'https://notificationx.com/docs/configure-woocommerce-sales-alert/',
+    }
+]

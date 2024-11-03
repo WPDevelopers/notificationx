@@ -1071,6 +1071,20 @@
         justify-content: center;
         align-items: center;
         border-radius: 50%;
+        .nx-new-feature-badge {
+            position: absolute;
+            background: red;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            top: -5px;
+            right: 6px;
+        }
     }
     .nx-dashboard-floating-actions {
         .floating-item {

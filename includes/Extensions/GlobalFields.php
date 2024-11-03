@@ -243,11 +243,53 @@ class GlobalFields {
                             'messages' => apply_filters('design_error_message', []),
                             'rules' => '',
                         ],
-                        "themes" => [
-                            'label'  => __("Themes", 'notificationx'),
+                       "themes" => [
+                            // 'label'  => __("Themes", 'notificationx'),
                             'name'   => "themes",
                             'type'   => "section",
                             'fields' => [
+                                "themes_section" => [
+                                    'type'    => 'section',
+                                    'name'    => 'themes_section',
+                                    'classes' => NotificationX::is_pro() ? 'pro-activated' : 'pro-deactivated',
+                                    'fields'    => [
+                                        'themes_tab'    => [
+                                            'type'   => 'tab',
+                                            'name'   => 'themes_tab',
+                                            'submit' => [
+                                                'show' => false,
+                                            ],
+                                            'default' => 'for_desktop',
+                                            'fields' => [
+                                                'for_desktop'    => [
+                                                    'label'            => __("For Desktop", 'notificationx'),
+                                                    'name'             => 'for_desktop',
+                                                    'id'               => 'for_desktop',
+                                                    'type'             => 'section',
+                                                    'icon'             => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+                                                ],
+                                                'for_mobile'      => [
+                                                    'label'            => __("For Mobile", 'notificationx'),
+                                                    'type'             => 'section',
+                                                    'name'             => 'for_mobile',
+                                                    'id'               => 'for_mobile',
+                                                    'icon'             => NOTIFICATIONX_ADMIN_URL . 'images/responsive/mobile.svg',
+                                                    'rules'            => Rules::includes('type', [ 'nx_bar', 'inline', 'offer_announcement', 'custom' ], true),
+                                                    'fields'           => [
+                                                        'res_get_pro_btn' => array(
+                                                            'name'    => 'res_get_pro_btn',
+                                                            'text'    => __( 'Get PRO to Unlock', 'notificationx' ),
+                                                            'type'    => 'button',
+                                                            'href'    => esc_url('https://notificationx.com/#pricing'),
+                                                            'target'  => '_blank',
+                                                            'classes' => 'res_get_pro_btn',
+                                                        ),
+                                                    ],
+                                                ],
+                                            ]
+                                        ],
+                                    ],
+                                ],
                                 'themes' => [
                                     // 'label'            => "Themes",
                                     'name'             => "themes",
@@ -267,6 +309,47 @@ class GlobalFields {
                                     'trigger' => [
                                         'defaults' => apply_filters('nx_themes_trigger', []),
                                     ],
+                                    'rules'   => Rules::logicalRule([
+                                        Rules::is('themes_tab', 'for_desktop'),
+                                     ]),
+                                ],
+                                "responsive_themes" => [
+                                    // 'label'  => __("Mobile Responsive Themes", 'notificationx'),
+                                    'name'     => "responsive_themes",
+                                    'type'     => "section",
+                                    'priority' => 10,
+                                    'classes'  => NotificationX::is_pro() ? 'pro-activated' : 'pro-deactivated',
+                                    'rules'    => Rules::logicalRule([
+                                        Rules::is('themes_tab', 'for_mobile'),
+                                    ]),
+                                    'fields' => [
+                                        'responsive_themes' => [
+                                            'name'             => "responsive_themes",
+                                            'type'             => "radio-card",
+                                            'options'          => apply_filters('nx_res_themes', []),
+                                            'priority'         => 10,
+                                            'style'   => [
+                                                'label' => [
+                                                    'position' => 'top'
+                                                ]
+                                            ],
+                                            'validation_rules' => [
+                                                'required' => true,
+                                                'label'    => __("Mobile Responsive Themes",'notificationx'),
+                                            ],
+                                            'trigger' => [
+                                                'defaults' => apply_filters('nx_themes_trigger_for_responsive', []),
+                                            ],
+                                        ],
+                                        'is_mobile_responsive' => [
+                                            'label'    => __("Enable Mobile Responsive", 'notificationx'),
+                                            'name'     => "is_mobile_responsive",
+                                            'type'     => "toggle",
+                                            'default'  => true,
+                                            'priority' => 20,
+                                            'is_pro'   => true,
+                                        ],
+                                    ]
                                 ],
                                 'advance_edit' => [
                                     'label'    => __("Advanced Design", 'notificationx'),
@@ -274,6 +357,7 @@ class GlobalFields {
                                     'type'     => "toggle",
                                     'default'  => false,
                                     'priority' => 20,
+                                    'rules'    => Rules::is('themes_tab', 'for_desktop'),
                                 ],
                             ]
                         ],
@@ -282,7 +366,10 @@ class GlobalFields {
                             'type' => 'section',
                             'name' => 'advance_design_section',
                             'classes' => 'wprf-no-bg',
-                            'rules' => Rules::is('advance_edit', true),
+                            'rules'   => Rules::logicalRule([
+                                Rules::is('advance_edit', true),
+                                Rules::is('themes_tab', 'for_desktop'),
+                             ]),
                             'fields' => [
                                 "design" => [
                                     'label'    => __("Design", 'notificationx'),
@@ -1110,7 +1197,7 @@ class GlobalFields {
                                     'label'       => __("Mobile Visibility", 'notificationx'),
                                     'name'        => "hide_on_mobile",
                                     'type'        => "checkbox",
-                                    'default'     => 1,
+                                    'default'     => false,
                                     'priority'    => 200,
                                     'description' => __('Hide NotificationX on mobile.', 'notificationx'),
                                 ],
@@ -1177,7 +1264,7 @@ class GlobalFields {
                                     'label'       => __("Mobile Visibility", 'notificationx'),
                                     'name'        => "hide_on_mobile",
                                     'type'        => "checkbox",
-                                    'default'     => 1,
+                                    'default'     => false,
                                     'priority'    => 200,
                                     'description' => __('Hide NotificationX on mobile.', 'notificationx'),
                                 ],
