@@ -107,8 +107,10 @@ const NotificationTypeResource = ({ props, context }) => {
                                 <ul className='whats-new-lists'>
                                     { WhatsNew.map( (item) => (
                                         <li>
-                                            <Stars/>
-                                            {item?.label}
+                                            <div className='whats-new-details'>
+                                                <Stars/>
+                                                {item?.label}
+                                            </div>
                                             <a target='_blank' href={item?.url}>{ __('Document', 'notificationx') }</a>
                                         </li>
                                     ) ) }

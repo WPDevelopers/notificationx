@@ -731,6 +731,100 @@
                     display: flex;
                     flex-direction: column;
 
+                    .nx-resource-tab-wrapper {
+                        display: flex;
+                        align-items: center;
+                        border-bottom: 1px solid #F0F6FF;
+                        margin-bottom: 12px;
+
+                        button {
+                            font-size: 14px;
+                            line-height: 1.1em;
+                            font-weight: 500;
+                            color: #535D77 !important;
+                            background-color: transparent !important;
+                            border: none;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            padding: 8px 16px;
+                            min-height: 36px;
+                            gap: 6px;
+                            border-bottom: 1.5px solid transparent;
+                            margin-bottom: -1px;
+
+                            &.active-tab {
+                                color: #092161 !important;
+                                border-bottom: 1.5px solid #6A4BFF;
+                                margin-bottom: -1px;
+                            }
+                        }
+                    }
+                    .whats-new-lists {
+                        padding: 0;
+                        margin: 0;
+                        display: flex;
+                        flex-direction: column;
+
+                        li {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            gap: 16px;
+                            padding: 10px 0;
+                            border-bottom: 1px solid #F0F6FF;
+                            cursor: pointer;
+
+                            .whats-new-details {
+                                font-size: 16px;
+                                font-weight: 500;
+                                color: #092161;
+                                display: flex;
+                                align-items: center;
+                                gap: 8px;
+                                transition: ease-in-out .25s;
+                            }
+
+                            
+                            a {
+                                font-size: 12px;
+                                line-height: 1.2em;
+                                font-weight: 500;
+                                color: #6A4BFF;
+                                text-decoration: underline;
+                                margin-right: 32px;
+                            }
+
+                            svg path {
+                                transition: ease-in-out .25s;
+                                fill: #ADA6D6;
+                                color: #ADA6D6;
+                                font-size: 16px;
+
+                            }
+
+                            &:hover {
+
+                                .whats-new-details {
+                                    color: #6A4BFF;
+                                }
+
+                                svg path {
+                                    fill: #6A4BFF;
+                                }
+
+                            }
+
+                            &:last-child {
+                                border-bottom: none;
+                            }
+
+                            a {
+                                display: inline-flex;
+                            }
+                        }
+                    }
+
                     .nx-resource-content {
                         display: inline-flex;
                         gap: 8px;
@@ -739,12 +833,23 @@
                         border-bottom: 1px solid #F0F6FF;
                         cursor: pointer;
 
-                        a,
+                        span {
+                            display: inline-flex;
+                            div {
+                                display: inline-flex;
+                            }
+                        }
+
+                        a {
+                            font-size: 16px;
+                            color: #092161;
+                            font-weight: 500;
+                            transition: ease-in-out .25s;
+                        }
+
                         svg path {
                             transition: ease-in-out .25s;
                             fill: #ADA6D6;
-                            color: #ADA6D6;
-                            font-size: 16px;
 
                         }
 
