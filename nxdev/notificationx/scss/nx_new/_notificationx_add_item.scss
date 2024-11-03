@@ -684,6 +684,33 @@
             }
         }
         &.pro-deactivated.responsive_themes {
+            position: relative;
+            .res_get_pro_btn.wprf-name-res_get_pro_btn {
+                position: absolute;
+                display: flex;
+                justify-content: center;
+                z-index: 999;
+                transform: translate(-50%, -50%);
+                left: 50%;
+                top:50%;
+                padding: 0;
+                margin: 0 !important;
+                a {
+                    background-color: #6A4BFF;
+                    color: #fff;
+                    border: none;
+                    padding: 2px 30px;
+                    font-size: 16px;
+                    font-weight: 500;
+                    border-radius: 10px;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 50px;
+                    box-sizing: border-box;
+                    transition: 0.3s ease-in-out;
+                }
+            }
             .wprf-control-wrapper.wprf-name-responsive_themes {
                 .wprf-control-field {
                     .wprf-input-radio-option {
@@ -738,32 +765,7 @@
             }
         }
         &#themes_section.pro-deactivated {
-            #for_mobile {
-                .res_get_pro_btn.wprf-name-res_get_pro_btn {
-                    position: absolute;
-                    top: 50%;
-                    display: flex;
-                    justify-content: center;
-                    z-index: 999;
-                    left: 50%;
-                    transform: translate(-50%, 85%);
-                    a {
-                        background-color: #6A4BFF;
-                        color: #fff;
-                        border: none;
-                        padding: 2px 30px;
-                        font-size: 16px;
-                        font-weight: 500;
-                        border-radius: 10px;
-                        display: inline-flex;
-                        align-items: center;
-                        justify-content: center;
-                        min-height: 50px;
-                        box-sizing: border-box;
-                        transition: 0.3s ease-in-out;
-                    }
-                }
-            }
+            margin-bottom: 0;
         }
         &.pro-activated {
             .wp-react-form.wprf-tabs-wrapper {

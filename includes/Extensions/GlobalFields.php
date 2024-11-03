@@ -276,14 +276,7 @@ class GlobalFields {
                                                     'icon'             => NOTIFICATIONX_ADMIN_URL . 'images/responsive/mobile.svg',
                                                     'rules'            => Rules::includes('type', [ 'nx_bar', 'inline', 'offer_announcement', 'custom' ], true),
                                                     'fields'           => [
-                                                        'res_get_pro_btn' => array(
-                                                            'name'    => 'res_get_pro_btn',
-                                                            'text'    => __( 'Get PRO to Unlock', 'notificationx' ),
-                                                            'type'    => 'button',
-                                                            'href'    => esc_url('https://notificationx.com/#pricing'),
-                                                            'target'  => '_blank',
-                                                            'classes' => 'res_get_pro_btn',
-                                                        ),
+                                                        
                                                     ],
                                                 ],
                                             ]
@@ -323,6 +316,14 @@ class GlobalFields {
                                         Rules::is('themes_tab', 'for_mobile'),
                                     ]),
                                     'fields' => [
+                                        'res_get_pro_btn' => array(
+                                            'name'    => 'res_get_pro_btn',
+                                            'text'    => __( 'Get PRO to Unlock', 'notificationx' ),
+                                            'type'    => 'button',
+                                            'href'    => esc_url('https://notificationx.com/#pricing'),
+                                            'target'  => '_blank',
+                                            'classes' => 'res_get_pro_btn',
+                                        ),
                                         'responsive_themes' => [
                                             'name'             => "responsive_themes",
                                             'type'             => "radio-card",
