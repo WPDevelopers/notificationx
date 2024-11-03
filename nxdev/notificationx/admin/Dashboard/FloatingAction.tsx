@@ -7,6 +7,7 @@ import nxHelper, { assetsURL } from '../../core/functions'
 import { __ } from '@wordpress/i18n'
 import { Link } from 'react-router-dom'
 import { useNotificationXContext } from '../../hooks'
+import WhatsNew from '../../icons/whatsNew'
 
 const FloatingAction = ({isPro}) => {
     const [showAction, setShowAction] = useState(false);
@@ -52,7 +53,7 @@ const FloatingAction = ({isPro}) => {
                     <Link to={ { pathname: "/admin.php", search: `?page=nx-dashboard&section=resource`} } className={`floating-item item-5 ${ nxContext?.notification_alert_version > nxContext?.settings?.savedValues?.notification_alert_version ? 'active' : '' }`}>
                         <span className='nx-items--details'>{ __('What\'s New', 'notificationx') }</span>
                         <span className='nx-items--icon'>
-                            <JoinCommunity />
+                            <WhatsNew/>
                         </span>
                     </Link>
                     <div className='floating-item item-5'>

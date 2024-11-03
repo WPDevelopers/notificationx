@@ -1189,6 +1189,31 @@
             color: #fff;
             top: -5px;
             right: 6px;
+            animation: notice 2s infinite;
+        }
+        @keyframes notice {
+            0% {
+                outline: 0px solid rgba(204, 0, 0, 1);
+            }
+            100% {
+                outline: 6px solid rgba(204, 0, 0, .6);
+            }
+        }
+        @keyframes notice-before {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
+        @keyframes notice-after {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.3);
+            }
         }
     }
     .nx-dashboard-floating-actions {
@@ -1201,19 +1226,22 @@
             transition: all .2s ease-in-out;
 
             &.item-1 {
-                bottom: 268px;
-
+                bottom: 330px;
             }
 
             &.item-2 {
-                bottom: 204px;
+                bottom: 268px;
             }
 
             &.item-3 {
-                bottom: 142px;
+                bottom: 204px;
             }
 
             &.item-4 {
+                bottom: 142px;
+            }
+
+            &.item-5 {
                 bottom: 80px;
             }
 
@@ -1293,7 +1321,6 @@
 
                 &.item-1 {
                     transition: transform .2s 105ms;
-
                 }
 
                 &.item-2 {
@@ -1306,6 +1333,10 @@
 
                 &.item-4 {
                     transition: transform .2s 0ms;
+                }
+
+                &.item-5 {
+                    transition: transform .1s 65ms;
                 }
 
                 .nx-close {
