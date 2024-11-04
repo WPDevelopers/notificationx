@@ -248,6 +248,20 @@ class GlobalFields {
                             'name'   => "themes",
                             'type'   => "section",
                             'fields' => [
+                                [
+                                    'label'   => __("Select Theme", 'notificationx'),
+                                    'name'    => "gdpr_theme",
+                                    'type'    => "select",
+                                    'default' => 'light',
+                                    'options' => GlobalFields::get_instance()->normalize_fields([
+                                        'light'  => __('Light', 'notificationx'),
+                                        'dark' => __('Dark', 'notificationx'),
+                                    ]),
+                                    // 'rules'   => Rules::logicalRule([
+                                    //     // Rules::is( 'type', 'gdpr' ),
+                                    //     Rules::includes('themes', [ 'gdpr_theme-banner-light-one', 'gdpr_theme-banner-light-two', 'gdpr_theme-banner-dark-one', 'gdpr_theme-banner-dark-two' ], false),
+                                    // ]),
+                                ],
                                 'themes' => [
                                     // 'label'            => "Themes",
                                     'name'             => "themes",
