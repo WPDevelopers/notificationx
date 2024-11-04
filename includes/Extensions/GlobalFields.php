@@ -791,6 +791,97 @@ class GlobalFields {
                         ],
                     ]),
                 ],
+                "manager_tab" => [
+                    'label' => __("Manager", 'notificationx'),
+                    'id'    => "manager_tab",
+                    'name'  => "manager_tab",
+                    'icon'  => [
+                        'type' => 'tabs',
+                        'name' => 'content'
+                    ],
+                    'classes' => "manager_tab",
+                    'fields'  => apply_filters('nx_manager_fields', [
+                        'cookies_lists'    => [
+                            'type'   => 'tab',
+                            'name'   => 'cookies_lists',
+                            'submit' => [
+                                'show' => false,
+                            ],
+                            'default' => 'necessary_tab',
+                            'fields' => [
+                                'necessary_tab'    => [
+                                    'label'            => __("Necessary", 'notificationx'),
+                                    'name'             => 'necessary_tab',
+                                    'id'               => 'necessary_tab',
+                                    'type'             => 'section',
+                                    'fields'           => [
+                                        'necessary_cookie_lists'    => [
+                                            'label'    => __('', 'notificationx-pro'),
+                                            'name'     => '_necessary_cookie_lists',
+                                            'type'     => 'repeater',
+                                            'priority' => 10,
+                                            'button'  => [
+                                                'label' => __('Add New', 'notificationx-pro')
+                                            ],
+                                            'fields'   => [
+                                                'necessary_cookies_modal'   => [
+                                                    'name'   => 'nx-bar_with_elementor',
+                                                    'type'   => 'modal',
+                                                    'button' => [
+                                                        'name' => 'save_necessary_cookies',
+                                                        'text' => __('Save Necessary Cookies', 'notificationx'),
+                                                        'trigger' => [
+                                                            [
+                                                                'type'   => 'setFieldValue',
+                                                                'action' => [
+                                                                    'add_necessary_cookies' => false
+                                                                ]
+                                                            ],
+                                                        ],
+                                                    ],
+                                                    'confirm_button' => [
+                                                        'type'   => 'button',
+                                                        'name'   => 'add_necessary_cookies',
+                                                        'group'  => true,
+                                                        'fields' => [
+                                                           'title' => array(
+                                                                'type'     => 'text',
+                                                                'name'     => 'title',
+                                                                'label'    => __('Title', 'notificationx-pro'),
+                                                                'priority' => 5,
+                                                            ), 
+                                                        ],
+                                                    ],
+                                                    'cancel' => "add_necessary_cookies_next",
+                                                    'body'   => [
+                                                        'header' => __('Edit Cookies ', 'notificationx'),
+                                                        'fields' => [
+                                                            'title' => array(
+                                                                'type'     => 'text',
+                                                                'name'     => 'title',
+                                                                'label'    => __('Title', 'notificationx-pro'),
+                                                                'priority' => 5,
+                                                            ),
+                                                        ],
+                                                    ],
+                                                ],
+                                            ]
+                                        ]
+                                    ],
+                                ],
+                                'functional_tab'      => [
+                                    'label'            => __("Functional", 'notificationx'),
+                                    'type'             => 'section',
+                                    'name'             => 'functional_tab',
+                                    'id'               => 'functional_tab',
+                                    'fields'           => [
+                                        
+                                    ],
+                                ],
+                            ]
+                        ],
+                    ]),
+                ],
                 "display_tab" => [
                     'label' => __("Display", 'notificationx'),
                     'id'    => "display_tab",
