@@ -371,6 +371,14 @@
                 }
             }
 
+            #themes.themes {
+                .wprf-nx-bar_with_elementor_install_message-message {
+                    padding: 0 32px 10px;
+                }
+                #nx_bar_import_design {
+                    padding: 0 32px;
+                }
+            }
             .nx_bar_import_design {
                 .wprf-control {
                     margin-bottom: 0px;
@@ -768,6 +776,11 @@
             margin-bottom: 0;
         }
         &.pro-activated {
+            &.responsive_themes {
+                .res_get_pro_btn {
+                    display: none;
+                }
+            }
             .wp-react-form.wprf-tabs-wrapper {
                 .wprf-tab-nav-item[data-key="for_mobile"] {
                     &::after {

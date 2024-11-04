@@ -144,6 +144,7 @@ class QuickBuild {
                 'themes_section',
                 'for_desktop',
                 'for_mobile',
+                'is_mobile_responsive',
                 'responsive_themes',
                 'desktop_themes',
                 'type',

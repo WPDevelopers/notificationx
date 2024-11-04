@@ -274,7 +274,7 @@ class GlobalFields {
                                                     'name'             => 'for_mobile',
                                                     'id'               => 'for_mobile',
                                                     'icon'             => NOTIFICATIONX_ADMIN_URL . 'images/responsive/mobile.svg',
-                                                    'rules'            => Rules::includes('type', [ 'nx_bar', 'inline', 'offer_announcement', 'custom' ], true),
+                                                    'rules'            => Rules::includes('type', [ 'notification_bar', 'flashing_tab', 'inline', 'offer_announcement', 'custom' ], true),
                                                     'fields'           => [
                                                         
                                                     ],
