@@ -32,6 +32,7 @@ const NotificationX = (props) => {
     catch (e){
         basename = builder.admin_url.replace(/\/$/, "");
     }
+    
     return (
         <Router basename={basename}>
             <div className="notificationx-main">

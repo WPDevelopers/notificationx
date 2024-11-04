@@ -276,7 +276,14 @@ class GlobalFields {
                                                     'icon'             => NOTIFICATIONX_ADMIN_URL . 'images/responsive/mobile.svg',
                                                     'rules'            => Rules::includes('type', [ 'notification_bar', 'flashing_tab', 'inline', 'offer_announcement', 'custom' ], true),
                                                     'fields'           => [
-                                                        
+                                                        'res_get_pro_btn' => array(
+                                                            'name'    => 'res_get_pro_btn',
+                                                            'text'    => __( 'Get PRO to Unlock', 'notificationx' ),
+                                                            'type'    => 'button',
+                                                            'href'    => esc_url('https://notificationx.com/#pricing'),
+                                                            'target'  => '_blank',
+                                                            'classes' => 'res_get_pro_btn',
+                                                        ),
                                                     ],
                                                 ],
                                             ]

@@ -1,9 +1,15 @@
 import { __, sprintf } from '@wordpress/i18n';
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { assetsURL, getAlert, proAlert } from '../../core/functions';
 import { Link } from 'react-router-dom';
-import { DOCS, NotificationType, proFeaturePopupConfigCrossDomain } from '../../core/constants';
+import { DOCS, NotificationType, proFeaturePopupConfigCrossDomain, WhatsNew } from '../../core/constants';
+import Whats_New_Icon from '../../icons/Whats_New_Icon';
+import Stars from '../../icons/Stars';
+
+
 const NotificationTypeResource = ({ props, context }) => {
+     const [resourceActiveTab, setResourceActiveTab] = useState('whats_new');
+
     const handleSalesRedirection = ( type, source ) => {
         if( ['inline', 'flashing_tab', 'cross-domain'].includes( type ) && !context?.is_pro_active ) {
             const popup = getAlert( type , context );            
@@ -28,8 +34,13 @@ const NotificationTypeResource = ({ props, context }) => {
         }
     }    
 
+    // Function to handle tab switching
+    const handleResourceTabClick = (tab) => {
+        setResourceActiveTab(tab);
+    };
+
     return (
-        <div className='nx-other-details-wrapper'>
+        <div className='nx-other-details-wrapper' id="nx-other-details-wrapper">
             <div className='nx-notification-type-wrapper nx-admin-content-wrapper'>
                 <div className='nx-notification-type-header nx-content-details header'>
                     <div className='header-content-ex'>
@@ -68,14 +79,57 @@ const NotificationTypeResource = ({ props, context }) => {
                     </div>
 
                     <div className='nx-resource-body'>
-                        { DOCS.map( (item) => (
-                            <div className='nx-resource-content nx-content-details'>
-                                <span>
-                                    <div dangerouslySetInnerHTML={ { __html: item?.svg } }></div>
-                                </span>
-                                <a href={item?.url} target='_blank'>{ item?.desc }</a>
-                            </div>
-                        ) ) }
+                        <div className="nx-resource-tab-wrapper">
+                            <button
+                                onClick={() => handleResourceTabClick('whats_new')}
+                                style={{
+                                    backgroundColor: resourceActiveTab === 'tab1' ? '#007bff' : '#f0f0f0',
+                                    color: resourceActiveTab === 'tab1' ? '#fff' : '#000',
+                                }}
+                                className={ resourceActiveTab === 'whats_new' ? 'active-tab' : '' }
+                                >
+                                    <Whats_New_Icon/>
+                                    { __('What\'s New', 'notificationx') }
+                            </button>
+                            <button
+                                onClick={() => handleResourceTabClick('docs')}
+                                style={{
+                                    backgroundColor: resourceActiveTab === 'tab2' ? '#007bff' : '#f0f0f0',
+                                    color: resourceActiveTab === 'tab2' ? '#fff' : '#000',
+                                }}
+                                className={ resourceActiveTab === 'docs' ? 'active-tab' : '' }
+                                >
+                                    { __('Documents', 'notificationx') }
+                            </button>
+                        </div>
+                        {resourceActiveTab === 'whats_new' &&
+                            <Fragment>
+                                <ul className='whats-new-lists'>
+                                    { WhatsNew.map( (item) => (
+                                        <li>
+                                            <div className='whats-new-details'>
+                                                <Stars/>
+                                                {item?.label}
+                                            </div>
+                                            <a target='_blank' href={item?.url}>{ __('Document', 'notificationx') }</a>
+                                        </li>
+                                    ) ) }
+                                </ul>
+                            </Fragment>
+                        }
+
+                        {resourceActiveTab === 'docs' &&
+                            <Fragment>
+                                { DOCS.map( (item) => (
+                                    <div className='nx-resource-content nx-content-details'>
+                                        <span>
+                                            <div dangerouslySetInnerHTML={ { __html: item?.svg } }></div>
+                                        </span>
+                                        <a href={item?.url} target='_blank'>{ item?.desc }</a>
+                                    </div>
+                                ) ) }
+                            </Fragment>
+                        }
                     </div>
                 </div>
 

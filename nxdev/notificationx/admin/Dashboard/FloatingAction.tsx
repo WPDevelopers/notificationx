@@ -3,11 +3,23 @@ import Crown from '../../icons/Crown'
 import GetSupport from '../../icons/GetSupport'
 import LightOn from '../../icons/LightOn'
 import JoinCommunity from '../../icons/JoinCommunity'
-import { assetsURL } from '../../core/functions'
+import nxHelper, { assetsURL } from '../../core/functions'
 import { __ } from '@wordpress/i18n'
+import { Link } from 'react-router-dom'
+import { useNotificationXContext } from '../../hooks'
+import WhatsNew from '../../icons/whatsNew'
 
 const FloatingAction = ({isPro}) => {
     const [showAction, setShowAction] = useState(false);
+    const [hideNewFeatureBadge, setHideNewFeatureBadge] = useState(true);
+    const nxContext = useNotificationXContext();
+    
+    const handleFloatingActionButton = () => {
+        setShowAction(!showAction)
+        nxHelper.post('settings', { notification_alert_version : 1 } ).then((res: any) => {
+            setHideNewFeatureBadge(false);
+        })
+    }
     return (
         <Fragment>
             <div className={`notification--wrapper${showAction ? ' open' : ''}`}>
@@ -38,14 +50,23 @@ const FloatingAction = ({isPro}) => {
                             <JoinCommunity />
                         </span>
                     </a>
+                    <Link to={ { pathname: "/admin.php", search: `?page=nx-dashboard&section=resource`} } className={`floating-item item-5 ${ nxContext?.notification_alert_version > nxContext?.settings?.savedValues?.notification_alert_version ? 'active' : '' }`}>
+                        <span className='nx-items--details'>{ __('What\'s New', 'notificationx') }</span>
+                        <span className='nx-items--icon'>
+                            <WhatsNew/>
+                        </span>
+                    </Link>
                     <div className='floating-item item-5'>
                         <span className='nx-close' onClick={() => setShowAction(false)}>
                             <img src={assetsURL('/images/new-img/notification-close.svg')} alt={__('NX-Close-Img', 'notificationx')} />
                         </span>
                     </div>
                 </div>
-                <div className='nx-floating-icon'  onClick={() => setShowAction(!showAction)}>
+                <div className='nx-floating-icon'  onClick={handleFloatingActionButton}>
                     <img src={ 'https://notificationx.com/wp-content/uploads/2024/09/main.gif' } alt="NX-Img" />
+                    { (hideNewFeatureBadge && nxContext?.notification_alert_version > nxContext?.settings?.savedValues?.notification_alert_version) &&
+                        <span className='nx-new-feature-badge'>1</span>
+                    }
                 </div>
             </div>
         </Fragment>
