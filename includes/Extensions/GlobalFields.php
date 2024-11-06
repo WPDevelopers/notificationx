@@ -817,54 +817,27 @@ class GlobalFields {
                                     'fields'           => [
                                         'necessary_cookie_lists'    => [
                                             'label'    => __('', 'notificationx-pro'),
-                                            'name'     => '_necessary_cookie_lists',
-                                            'type'     => 'repeater',
+                                            'name'     => 'necessary_cookie_lists',
+                                            'type'     => 'better-repeater',
                                             'priority' => 10,
                                             'button'  => [
-                                                'label' => __('Add New', 'notificationx-pro')
+                                                'label'    => __('Add New', 'notificationx-pro'),
+                                                'position' => 'top',
                                             ],
-                                            'fields'   => [
-                                                'necessary_cookies_modal'   => [
-                                                    'name'   => 'nx-bar_with_elementor',
-                                                    'type'   => 'modal',
-                                                    'button' => [
-                                                        'name' => 'save_necessary_cookies',
-                                                        'text' => __('Save Necessary Cookies', 'notificationx'),
-                                                        'trigger' => [
-                                                            [
-                                                                'type'   => 'setFieldValue',
-                                                                'action' => [
-                                                                    'add_necessary_cookies' => false
-                                                                ]
-                                                            ],
-                                                        ],
-                                                    ],
-                                                    'confirm_button' => [
-                                                        'type'   => 'button',
-                                                        'name'   => 'add_necessary_cookies',
-                                                        'group'  => true,
-                                                        'fields' => [
-                                                           'title' => array(
-                                                                'type'     => 'text',
-                                                                'name'     => 'title',
-                                                                'label'    => __('Title', 'notificationx-pro'),
-                                                                'priority' => 5,
-                                                            ), 
-                                                        ],
-                                                    ],
-                                                    'cancel' => "add_necessary_cookies_next",
-                                                    'body'   => [
-                                                        'header' => __('Edit Cookies ', 'notificationx'),
-                                                        'fields' => [
-                                                            'title' => array(
-                                                                'type'     => 'text',
-                                                                'name'     => 'title',
-                                                                'label'    => __('Title', 'notificationx-pro'),
-                                                                'priority' => 5,
-                                                            ),
-                                                        ],
-                                                    ],
-                                                ],
+                                            'visible_fields'    => ['title', 'name'],
+                                            '_fields'   => [
+                                                'title' => array(
+                                                    'type'     => 'text',
+                                                    'name'     => 'title',
+                                                    'label'    => __('Title', 'notificationx-pro'),
+                                                    'priority' => 5,
+                                                ), 
+                                                'name' => array(
+                                                    'type'     => 'text',
+                                                    'name'     => 'name',
+                                                    'label'    => __('Name', 'notificationx-pro'),
+                                                    'priority' => 10,
+                                                ), 
                                             ]
                                         ]
                                     ],
