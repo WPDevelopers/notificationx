@@ -7,7 +7,7 @@ import nxHelper, { assetsURL } from '../../core/functions'
 import { __ } from '@wordpress/i18n'
 import { Link } from 'react-router-dom'
 import { useNotificationXContext } from '../../hooks'
-import WhatsNew from '../../icons/whatsNew'
+import WhatsNew from '../../icons/Whats_New_Icon'
 
 const FloatingAction = ({isPro}) => {
     const [showAction, setShowAction] = useState(false);
@@ -16,9 +16,12 @@ const FloatingAction = ({isPro}) => {
     
     const handleFloatingActionButton = () => {
         setShowAction(!showAction)
-        nxHelper.post('settings', { notification_alert_version : 1 } ).then((res: any) => {
-            setHideNewFeatureBadge(false);
-        })
+        if (nxContext?.show_notification_alert && hideNewFeatureBadge) {
+            nxHelper.post('feature_alert').then((res: any) => {
+                setHideNewFeatureBadge(false);
+            })
+        }
+        
     }
     return (
         <Fragment>
@@ -64,7 +67,7 @@ const FloatingAction = ({isPro}) => {
                 </div>
                 <div className='nx-floating-icon'  onClick={handleFloatingActionButton}>
                     <img src={ 'https://notificationx.com/wp-content/uploads/2024/09/main.gif' } alt="NX-Img" />
-                    { (hideNewFeatureBadge && nxContext?.notification_alert_version > nxContext?.settings?.savedValues?.notification_alert_version) &&
+                    { (hideNewFeatureBadge && nxContext?.show_notification_alert) &&
                         <span className='nx-new-feature-badge'>1</span>
                     }
                 </div>

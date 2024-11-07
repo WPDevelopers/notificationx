@@ -240,6 +240,11 @@ class REST {
             'callback'  => array( ImportExport::get_instance(), 'export' ),
             'permission_callback' => array($this, 'edit_permission'),
         ));
+        register_rest_route( $namespace, '/feature_alert', array(
+            'methods'   => WP_REST_Server::EDITABLE,
+            'callback'  => array( $this, 'feature_alert' ),
+            'permission_callback' => array($this, 'edit_permission'),
+        ));
     }
 
     public function get_builder( $request ){
@@ -256,6 +261,20 @@ class REST {
         $params = $request->get_params();
         PressBar::get_instance()->create_bar_of_type_bar_with_elementor($params);
         return true;
+    }
+
+    public function feature_alert($request) {
+        $result = Settings::get_instance()->save_feature_alert_version($request->get_params());
+        if($result){
+            return rest_ensure_response([
+                'success' => true,
+            ]);
+        }
+        else{
+            return rest_ensure_response([
+                'success' => false,
+            ]);
+        }
     }
 
     /**

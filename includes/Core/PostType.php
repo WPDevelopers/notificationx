@@ -126,7 +126,7 @@ class PostType {
         $tabs['settings']['settingsRedirect'] = ! current_user_can( 'edit_notificationx_settings' );
         $tabs['settings']['analytics']        = $tabs['analytics'];
         $tabs['admin_url']                    = get_admin_url();
-        $tabs['notification_alert_version']   = 1;
+        $tabs['show_notification_alert']      = ( empty( get_option('notification_alert_version') ) || get_option('notification_alert_version') < 1 ) ? true : false ;
         $tabs['assets']                       = [
             'admin'  => NOTIFICATIONX_ADMIN_URL,
             'public' => NOTIFICATIONX_PUBLIC_URL,
