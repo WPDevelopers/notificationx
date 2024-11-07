@@ -155,15 +155,23 @@ export const proFeaturePopupConfigCrossDomain = {
 
 export const WhatsNew = [
     {
-        'label'  : __('We Just Release Mobile Version', 'notificationx'),
-        'url'   : 'https://notificationx.com/docs/configure-woocommerce-sales-alert/',
+        'label': __('Mobile responsive design added for Notifications.', 'notificationx'),
+        'url'  : 'https://notificationx.com/docs/configure-mobile-responsive-themes/',
     },
     {
-        'label'  : __('We Just Release Mobile Version', 'notificationx'),
-        'url'   : 'https://notificationx.com/docs/configure-woocommerce-sales-alert/',
+        'label': __('Custom notification create using CSV file', 'notificationx'),
+        'url'  : 'https://notificationx.com/docs/custom-notification/#4-toc-title',
     },
     {
-        'label'  : __('We Just Release Mobile Version', 'notificationx'),
-        'url'   : 'https://notificationx.com/docs/configure-woocommerce-sales-alert/',
+        'label': __('ActiveCampaign Integration added', 'notificationx'),
+        'url'  : 'https://notificationx.com/docs/activecampaign-email-subscription-alert/',
+    },
+    {
+        'label': __('Discount Alert notification type added on Notification', 'notificationx'),
+        'url'  : 'https://notificationx.com/docs/configure-discount-alert/',
+    },
+    {
+        'label': __('LearnPress Integration added on Notification', 'notificationx'),
+        'url'  : 'https://notificationx.com/docs/display-learnpress-course-enrollment-alert/',
     }
 ]

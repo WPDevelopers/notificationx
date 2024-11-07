@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { DOCS, NotificationType, proFeaturePopupConfigCrossDomain, WhatsNew } from '../../core/constants';
 import Whats_New_Icon from '../../icons/Whats_New_Icon';
 import Stars from '../../icons/Stars';
-
+import NewFeatureGif from '../../icons/new-img/new-badge.gif';
 
 const NotificationTypeResource = ({ props, context }) => {
      const [resourceActiveTab, setResourceActiveTab] = useState('whats_new');
@@ -74,7 +74,7 @@ const NotificationTypeResource = ({ props, context }) => {
             <div className='nx-resource-stories-wrapper'>
                 <div className='nx-resource-wrapper nx-admin-content-wrapper'>
                     <div className='nx-resource-header nx-content-details header'>
-                        <h4>{ __('Helpful Resources', 'notificationx') }</h4>
+                        <h4>{ __('Helpful Resources', 'notificationx') } { context?.show_notification_alert ?  <img height={26} src={NewFeatureGif} /> : '' } </h4>
                         <a className='nx-secondary-btn' href={ sprintf('%s', 'https://notificationx.com/docs/') } target='_blank'>{ __('Explore More', 'notificationx') }</a>
                     </div>
 

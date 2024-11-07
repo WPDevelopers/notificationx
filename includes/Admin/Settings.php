@@ -585,6 +585,13 @@ class Settings extends UsabilityDynamicsSettings {
         return true;
     }
 
+    public function save_feature_alert_version( $settings ) {
+        if ( ! current_user_can( 'edit_notificationx_settings' ) ) {
+            return false;
+        }
+        return update_option('notification_alert_version', 1);
+    }
+
     public function get_role_map( $settings = [] ) {
         if ( empty( $settings ) || count( $settings ) == 1 ) {
             $settings = $this->get_selected_roles();
