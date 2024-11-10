@@ -532,7 +532,7 @@
                 }
             }
 
-            &.wpsp-bulk-edit-fields {
+            &.wpsp-bulk-edit-fields, &.wpsp-better-repeater-fields {
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
@@ -664,6 +664,9 @@
                         }
                     }
                 }
+            }
+            &.wpsp-better-repeater-fields {
+                padding-bottom: 24px;
             }
         }
 

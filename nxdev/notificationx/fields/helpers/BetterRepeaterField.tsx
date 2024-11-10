@@ -29,7 +29,7 @@ const BetterRepeaterField = (props) => {
     
     return (
         <div className="wprf-repeater-field">
-            <div className="wprf-repeater-field-title" onClick={() => setIsCollapsed(!isCollapsed)} >
+            <div className="wprf-repeater-field-title">
                 <h4><Icon icon="move"/>{props.index+1}: {_title}</h4>
                 <div className="wprf-repeater-field-controls">
                     <Icon onClick={onClone} icon="admin-page" />

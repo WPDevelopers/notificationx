@@ -820,6 +820,11 @@ class GlobalFields {
                                             'name'     => 'necessary_cookie_lists',
                                             'type'     => 'better-repeater',
                                             'priority' => 10,
+                                            'default'  => [
+                                                'google_analytics'  => [
+                                                    
+                                                ],
+                                            ],
                                             'button'  => [
                                                 'label'    => __('Add New', 'notificationx-pro'),
                                                 'position' => 'top',
