@@ -19,6 +19,7 @@ import { useNotificationXContext } from '../hooks';
 import AddNew from '../icons/AddNew';
 import ChangeCustomNotificationTime from './helpers/ChangeCustomNotificationTime';
 import nxToast from '../core/ToasterMsg';
+import { FixedSizeList as List } from "react-window";
 
 const AdvancedRepeater = (props) => {
     const { name: fieldName, value: fieldValue, button, field } = props;
@@ -122,7 +123,7 @@ const AdvancedRepeater = (props) => {
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
-        setSelectedField([]);
+        // setSelectedField([]);
     };
 
     const handleItemsPerPageChange = (value) => {
@@ -231,16 +232,30 @@ const AdvancedRepeater = (props) => {
     }
     const previewField = previewFields(headers, templateOptions, builderContext);
     
-    // Select All Item
+    const extractIndexes = (arr) => {
+        let indexes = [];
+        arr.forEach(item => {
+            if (Array.isArray(item)) {
+                indexes = indexes.concat(extractIndexes(item)); // Recursive call for nested arrays
+            } else if (item && typeof item === 'object' && item.index) {
+                indexes.push(item.index); // Collect index if present
+            }
+        });
+        return indexes;
+    };
+
+    
     const checkAll = (event) => {
-        const isChecked = event.target.checked;
+        const isChecked = event.target.checked;   
         if (isChecked) {
-            const currentPageIndices = currentPageItems.map(item => item.index);
-            setSelectedField(currentPageIndices);
+            const allCheckedItem = extractIndexes(paginatedItems);            
+            setSelectedField(allCheckedItem);
         } else {
             setSelectedField([]);
         }
     };
+    
+    
 
     const bulkSelectedItems = useMemo(() => {
         if( localMemoizedValue ) {
@@ -275,7 +290,7 @@ const AdvancedRepeater = (props) => {
                 .flat();
             setTemplateOptions(options);
         }
-    }, [field?.[0]?.options]);        
+    }, [field?.[0]?.options]);            
 
     return (
         <div className={`wprf-repeater-control wprf-advanced-repeater-control ${ csv_upload_loader ? 'loading' : 'loading' }`}>
@@ -302,9 +317,9 @@ const AdvancedRepeater = (props) => {
                 </div>
             </div>
             <div className="wprf-advanced-repeater-header">
-                { currentPageItems?.length > 0 &&
+                { paginatedItems?.length > 0 &&
                     <div className="nx-all-selector">
-                        <input id="nx-advanced-repeater-all-checkbox" type="checkbox" checked={ currentPageItems?.length == bulkSelectedItems?.length ? true : false } onChange={(event) => checkAll(event)} />
+                        <input id="nx-advanced-repeater-all-checkbox" type="checkbox" checked={ totalItems == bulkSelectedItems?.length ? true : false } onChange={(event) => checkAll(event)} />
                         <label htmlFor="nx-advanced-repeater-all-checkbox">{__('Select All', 'notificationx')}</label>
                     </div>
                 }
@@ -313,7 +328,7 @@ const AdvancedRepeater = (props) => {
                         <div
                             className='change-time'
                         >
-                            <button disabled={ (bulkSelectedItems === undefined || bulkSelectedItems?.length < 2) ? true : false } className='wprf-repeater-button'  onClick={() => setChangeTimeToggle(!changeTimeToggle)}>
+                            <button disabled={ (bulkSelectedItems === undefined || bulkSelectedItems?.length < 1) ? true : false } className='wprf-repeater-button'  onClick={() => setChangeTimeToggle(!changeTimeToggle)}>
                                 <EditIcon /> <span> {__('Change Time', 'notificationx')} </span>
                             </button>
                             { changeTimeToggle &&
@@ -323,14 +338,14 @@ const AdvancedRepeater = (props) => {
                         <button
                             className='wprf-repeater-button bulk-edit'
                             onClick={() => setIsOpen(true)}
-                            disabled={ (bulkSelectedItems === undefined || bulkSelectedItems?.length < 2) ? true : false }
+                            disabled={ (bulkSelectedItems === undefined || bulkSelectedItems?.length < 1) ? true : false }
                         >
                             <EditIcon /> <span>{__('Edit', 'notificationx')}</span>
                         </button>
                         <button
                             className="wprf-repeater-button bulk-delete"
                             onClick={() => bulkDelete()}
-                            disabled={ (bulkSelectedItems === undefined || bulkSelectedItems?.length < 2) ? true : false }
+                            disabled={ (bulkSelectedItems === undefined || bulkSelectedItems?.length < 1) ? true : false }
                         >
                             <TrashIcon /> <span>{__('Delete', 'notificationx')}</span>
                         </button>

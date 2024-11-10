@@ -8,6 +8,7 @@
 namespace NotificationX\Extensions\WooCommerce;
 
 use NotificationX\Admin\Entries;
+use NotificationX\Admin\Settings;
 use NotificationX\Core\Helper;
 use NotificationX\Core\PostType;
 use NotificationX\Core\Rules;
@@ -490,9 +491,17 @@ class WooCommerce extends Extension {
         if (!$settings['show_default_image'] && $settings['show_notification_image'] === 'featured_image') {
             $id = $this->product_img_id( $data );
             if ( ! empty( $id ) ) {
+                $image_size = (string) Settings::get_instance()->get('settings.notification_image_size', '100_100');
+                $image_size = explode('_', $image_size);
+                $width      = 100;
+                $height     = 100;
+                if( !empty( $image_size[0] ) && !empty( $image_size[1] ) ) {
+                    $width  = $image_data[0];
+                    $height = $image_data[1];
+                }
                 $product_image = wp_get_attachment_image_src(
                     get_post_thumbnail_id($id),
-                    [100, 100],
+                    [$width, $height],
                     false
                 );
                 $image_data['url'] = is_array($product_image) ? $product_image[0] : '';

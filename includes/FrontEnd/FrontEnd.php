@@ -593,7 +593,15 @@ class FrontEnd {
 
         if ($settings['show_default_image']) {
             if (!empty($settings['image_url']['url'])) {
-                $image             = wp_get_attachment_image_src($settings['image_url']['id'], [100, 100], true);
+                $image_size = (string) Settings::get_instance()->get('settings.notification_image_size', '100_100');
+                $image_size = explode('_', $image_size);
+                $width      = 100;
+                $height     = 100;
+                if( !empty( $image_size[0] ) && !empty( $image_size[1] ) ) {
+                    $width  = $image_data[0];
+                    $height = $image_data[1];
+                }
+                $image             = wp_get_attachment_image_src($settings['image_url']['id'], [$width, $height], true);
                 $image_data['url'] = $image[0];
             } else {
                 $default_avatar    = $settings['default_avatar'];

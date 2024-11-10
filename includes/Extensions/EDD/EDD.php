@@ -8,6 +8,7 @@
 
 namespace NotificationX\Extensions\EDD;
 
+use NotificationX\Admin\Settings;
 use NotificationX\Core\Database;
 use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
@@ -320,9 +321,17 @@ class EDD extends Extension {
     public function notification_image($image_data, $data, $settings) {
         if (!$settings['show_default_image'] && $settings['show_notification_image'] === 'featured_image') {
             if (!empty($data['product_id']) && has_post_thumbnail($data['product_id'])) {
+                $image_size = (string) Settings::get_instance()->get('settings.notification_image_size', '100_100');
+                $image_size = explode('_', $image_size);
+                $width      = 100;
+                $height     = 100;
+                if( !empty( $image_size[0] ) && !empty( $image_size[1] ) ) {
+                    $width  = $image_data[0];
+                    $height = $image_data[1];
+                }
                 $product_image = wp_get_attachment_image_src(
                     get_post_thumbnail_id($data['product_id']),
-                    [100, 100],
+                    [$width, $height],
                     false
                 );
                 $image_data['url'] = is_array($product_image) ? $product_image[0] : '';
