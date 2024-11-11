@@ -19,7 +19,6 @@ import { useNotificationXContext } from '../hooks';
 import AddNew from '../icons/AddNew';
 import ChangeCustomNotificationTime from './helpers/ChangeCustomNotificationTime';
 import nxToast from '../core/ToasterMsg';
-import { FixedSizeList as List } from "react-window";
 
 const AdvancedRepeater = (props) => {
     const { name: fieldName, value: fieldValue, button, field } = props;
