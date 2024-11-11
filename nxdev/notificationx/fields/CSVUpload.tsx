@@ -20,7 +20,9 @@ const Media = (props) => {
     const [complete, setComplete] = useState(false);
     const [localContents, setLocalContents] = useState([]);
     const [progress, setProgress] = useState(0);
-    
+    const csv_upload_loader = nxContext?.state?.csv_upload_loader?.csv_upload_loader;
+
+
     useEffect(() => {
         if (csvData) {
             props.onChange({
@@ -129,20 +131,22 @@ const Media = (props) => {
         const lines       = csvContent.split('\n');
         const chunkSize   = generateChunkSize( lines?.length );
         const totalChunks = Math.ceil(lines.length / chunkSize);
-        console.log('totalChunks',totalChunks);
-        console.log('lines.length',lines.length);
-        
-        // for (let i = 0; i < totalChunks; i++) {    
-        //     await uploadChunk(csvUrl, chunkSize, i, totalChunks, csvData?.id);
-        //     const progressValue = Math.round(((i + 1) / totalChunks) * 100);
-        //     setProgress(progressValue);
-        //     // @ts-ignore 
-        //     document.getElementById('csv-progress-bar').value = progressValue;
-        // }
 
-        // setComplete(true);
-        // Swal.close();
-        // nxToast.info(__('CSV data imported successfully!', "notificationx"));
+        for (let i = 0; i < totalChunks; i++) {    
+            await uploadChunk(csvUrl, chunkSize, i, totalChunks, csvData?.id);
+            const progressValue = Math.round(((i + 1) / totalChunks) * 100);
+            setProgress(progressValue);            
+            // @ts-ignore 
+            const progressBar = document.getElementById('nx-progress-bar');
+            if (progressBar) {
+                progressBar.style.width = `${progressValue}%`;
+                progressBar.querySelector('span').innerText = `${progressValue}%`;
+            }
+        }
+
+        setComplete(true);
+        Swal.close();
+        nxToast.info(__('CSV data imported successfully!', "notificationx"));
     }
 
     const uploadChunk = async (csvUrl, chunkSize, chunkIndex, totalChunks, mediaId) => {
@@ -210,9 +214,11 @@ const Media = (props) => {
                     }}
                 />
             </div>
-            <div className="progress-container">
-                <div className="progress-bar"><span>50%</span></div>
-            </div>
+            { (progress > 0 || csv_upload_loader) &&
+                <div className="progress-container">
+                    <div id="nx-progress-bar" className="nx-progress-bar"><span>0%</span></div>
+                </div>
+            }
         </div>
     )
 }
