@@ -240,7 +240,7 @@ class WPOrgStats extends Extension {
         $this->update_notification([
             'nx_id'      => $post_id,
             'source'     => $this->id,
-            'entry_key'  => $plugins_data['slug'],
+            'entry_key'  => !empty(  $plugins_data['slug'] ) ?  $plugins_data['slug'] : '',
             'data'       => $plugins_data,
         ]);
     }

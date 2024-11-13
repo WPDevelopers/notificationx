@@ -593,7 +593,7 @@
 }
 
 #design_tab {
-    .wprf-control-section {
+    .wprf-control-section.themes {
         .wprf-section-fields {
             padding: 0;
 
@@ -691,7 +691,7 @@
                 }
             }
         }
-        &.pro-deactivated.responsive_themes {
+        .pro-deactivated.responsive_themes {
             position: relative;
             .res_get_pro_btn.wprf-name-res_get_pro_btn {
                 position: absolute;
@@ -775,7 +775,7 @@
         &#themes_section.pro-deactivated {
             margin-bottom: 0;
         }
-        &.pro-activated {
+        .pro-activated {
             &.responsive_themes {
                 .res_get_pro_btn {
                     display: none;

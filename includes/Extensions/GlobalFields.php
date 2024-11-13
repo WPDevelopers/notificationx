@@ -1525,7 +1525,7 @@ class GlobalFields {
                                     'type'        => 'number',
                                     'label'       => __('Display From The Last', 'notificationx'),
                                     'priority'    => 45,
-                                    'default'       => 2,
+                                    'default'       => 30,
                                     'description' => 'days',
                                 ],
                                 'loop' => [

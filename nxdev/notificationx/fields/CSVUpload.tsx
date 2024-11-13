@@ -158,7 +158,7 @@ const Media = (props) => {
                 totalChunks,
                 mediaId,
                 chunkSize,
-                uploadImage: false,
+                uploadImage: true,
             });
             // @ts-ignore 
             if (response.success) {

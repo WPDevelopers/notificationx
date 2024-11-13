@@ -2,6 +2,18 @@
     .nx-container {
         .notification-res-item {
 
+            &.source-res-freemius_conversions {
+                .notificationx-content {
+                    flex-direction: column;
+                    gap: 4px;
+                    .nx-second-row {
+                        span {
+                            margin-left: 0;
+                        }
+                    }
+                }
+            }
+
             &.type-res-email_subscription {
                 &.themes-email_subscription_res-theme-two {
                     border-radius: 36px;
