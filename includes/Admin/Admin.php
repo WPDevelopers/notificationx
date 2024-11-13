@@ -311,27 +311,27 @@ class Admin {
 			]
 		);
 
-        // Halloween 2024
         $crown = self::ASSET_URL . 'images/crown.svg';
-        $notice_text = "<p>🎃 This Halloween, enjoy a <strong>flat 25% OFF</strong> on NotificationX PRO and unlock exclusive marketing strategies.</p><a style='display: inline-flex;column-gap:5px;' class='button button-primary' href='https://notificationx.com/halloween-2024' target='_blank'><img style='width:15px;' src='{$crown}'/>Upgrade to pro</a>";
-        $_halloween_2024 = [
+        // Back Friday 2024
+        $notice_text = "<p>🏷️ This Black Friday, enjoy <strong>up to 35% OFF</strong> on NotificationX PRO and unlock exclusive marketing strategies.</p><a style='display: inline-flex;column-gap:5px;' class='button button-primary' href='https://notificationx.com/#pricing' target='_blank'><img style='width:15px;' src='{$crown}'/>Upgrade to pro</a>";
+        $_black_friday_2024 = [
             'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
             'html'      => $notice_text,
         ];
         $notices->add(
-            'nx_halloween_2024',
-            $_halloween_2024,
+            'nx_black_friday_2024',
+            $_black_friday_2024,
             [
                 'start'       => $notices->time(),
                 'recurrence'  => false,
                 'dismissible' => true,
-                'refresh'     => NOTIFICATIONX_VERSION,
+                'refresh'     => time(),
                 'screens'     => [ 'dashboard' ],
-                "expire"      => strtotime( '11:59:59pm 3nd November, 2024' ),
+                "expire"      => strtotime( '11:59:59pm 5th December, 2024' ),
                 'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
             ]
         );
-
+        
         // $notices->init();
         self::$cache_bank->create_account( $notices );
 		self::$cache_bank->calculate_deposits( $notices );
