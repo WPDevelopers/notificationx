@@ -313,8 +313,8 @@ class Admin {
 
         $crown = self::ASSET_URL . 'images/crown.svg';
         // Back Friday 2024
-        $notice_text = "<p>🏷️ This Black Friday, enjoy <strong>up to 35% OFF</strong> on NotificationX PRO and unlock exclusive marketing strategies.</p><a style='display: inline-flex;column-gap:5px;' class='button button-primary' href='https://notificationx.com/#pricing' target='_blank'><img style='width:15px;' src='{$crown}'/>Upgrade to pro</a>";
-        $_black_friday_2024 = [
+        $notice_text = "<p>🛍️ This Black Friday, enjoy <strong>up to 35% OFF</strong> on NotificationX PRO and unlock exclusive marketing strategies.</p><a style='display: inline-flex;column-gap:5px;' class='button button-primary' href='https://notificationx.com/bfcm24-pricing' target='_blank'><img style='width:15px;' src='{$crown}'/>Upgrade to pro</a>";
+            $_black_friday_2024 = [
             'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
             'html'      => $notice_text,
         ];
