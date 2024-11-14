@@ -206,6 +206,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 == Changelog ==
 
 = 2.9.3 - 14/11/2024 =
+Added: WordPress 6.7 compatibility.
 Fixed: NotificationX plugin dashboard wasn't loading.
 Few minor bug fixes and improvements.
 
