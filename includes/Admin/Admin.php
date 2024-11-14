@@ -204,7 +204,7 @@ class Admin {
 			'lifetime'       => 3,
 			'stylesheet_url' => '',
 			'styles'         => self::ASSET_URL . 'css/wpdeveloper-review-notice.css',
-			'priority'       => 5,
+			'priority'       => 7,
             // 'dev_mode'       => true
         ]);
 
@@ -331,7 +331,7 @@ class Admin {
                 'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
             ]
         );
-        
+
         // $notices->init();
         self::$cache_bank->create_account( $notices );
 		self::$cache_bank->calculate_deposits( $notices );
