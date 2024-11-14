@@ -252,8 +252,8 @@ class WooReviews extends Extension {
                 $width      = 100;
                 $height     = 100;
                 if( !empty( $image_size[0] ) && !empty( $image_size[1] ) ) {
-                    $width  = $image_data[0];
-                    $height = $image_data[1];
+                    $width  = !empty($image_data[0]) ? $image_data[0] : 100;
+                    $height = !empty($image_data[1]) ? $image_data[1] : 100;
                 }
                 $product_image = wp_get_attachment_image_src(
                     get_post_thumbnail_id($data['product_id']),
