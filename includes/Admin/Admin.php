@@ -325,7 +325,7 @@ class Admin {
                 'start'       => $notices->time(),
                 'recurrence'  => false,
                 'dismissible' => true,
-                'refresh'     => time(),
+                'refresh'     => NOTIFICATIONX_VERSION,
                 'screens'     => [ 'dashboard' ],
                 "expire"      => strtotime( '11:59:59pm 5th December, 2024' ),
                 'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
