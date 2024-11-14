@@ -293,7 +293,7 @@ class Notice extends Base {
 
 	public function get_thumbnail( $image ) {
 		$output = '<div class="wpnotice-thumbnail-wrapper">';
-		$output .= '<img style="max-width: 100%; width:45px;" src="' . esc_url( $image ) . '">';
+		$output .= '<img style="max-width: 100%;" src="' . esc_url( $image ) . '">';
 		$output .= '</div>';
 
 		return wp_kses_post( $output );

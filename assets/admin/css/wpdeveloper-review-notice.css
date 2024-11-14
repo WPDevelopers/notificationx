@@ -2,6 +2,9 @@
 .wpnotice-thumbnail-wrapper img {
     display: block;
 }
+.wpnotice-wrapper.notificationx .wpnotice-thumbnail-wrapper img {
+    width: 45px;
+}
 
 .button.button-primary.btn-nx-cta {
     background-color: #6A4BFF;
