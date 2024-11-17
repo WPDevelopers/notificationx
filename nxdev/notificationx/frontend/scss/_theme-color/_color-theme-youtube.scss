@@ -86,30 +86,23 @@
             border-radius: 50%;
             box-shadow: 0 0 0 16px #fff;
             padding: 0px;
-            animation: bling 2s infinite;
+            outline-style: solid;
+            outline-color: rgba(204, 0, 0, 1);
+            outline-width: 0px;
+            animation: bling 2s infinite ease-out;
             position: relative;
             @keyframes bling {
                 0% {
-                    outline: 0px solid rgba(204, 0, 0, 1);
+                    outline-width: 0;
+                    outline-color: rgba(204, 0, 0, 1);
                 }
-                100% {
-                    outline: 10px solid rgba(204, 0, 0, .2);
+                50% {
+                    outline-width: 10px;
+                    outline-color: rgba(204, 0, 0, 0);
                 }
-            }
-            @keyframes bling-before {
-                0% {
-                    transform: scale(1);
-                }
-                100% {
-                    transform: scale(1.2);
-                }
-            }
-            @keyframes bling-after {
-                0% {
-                    transform: scale(1);
-                }
-                100% {
-                    transform: scale(1.4);
+                 100% {
+                    outline-width: 2px;
+                    outline-color: rgba(204, 0, 0, 0);
                 }
             }
             img {
@@ -199,30 +192,23 @@
             border-radius: 50%;
             box-shadow: 0 0 0 16px #fff;
             padding: 0px;
-            animation: bling 2s infinite;
+            outline-style: solid;
+            outline-color: rgba(204, 0, 0, 1);
+            outline-width: 0px;
+            animation: bling 2s infinite ease-out;
             position: relative;
             @keyframes bling {
                 0% {
-                    outline: 0px solid rgba(204, 0, 0, 1);
+                    outline-width: 0;
+                    outline-color: rgba(204, 0, 0, 1);
                 }
-                100% {
-                    outline: 10px solid rgba(204, 0, 0, .2);
+                50% {
+                    outline-width: 10px;
+                    outline-color: rgba(204, 0, 0, 0);
                 }
-            }
-            @keyframes bling-before {
-                0% {
-                    transform: scale(1);
-                }
-                100% {
-                    transform: scale(1.2);
-                }
-            }
-            @keyframes bling-after {
-                0% {
-                    transform: scale(1);
-                }
-                100% {
-                    transform: scale(1.4);
+                 100% {
+                    outline-width: 2px;
+                    outline-color: rgba(204, 0, 0, 0);
                 }
             }
             img {
