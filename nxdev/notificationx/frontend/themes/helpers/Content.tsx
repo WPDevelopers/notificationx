@@ -67,12 +67,12 @@ const Content = (props) => {
             </p>
         );
     });
-
+    
     return (
         <div
             className={`notificationx-content ${config.template_adv ? "adv-template" : ""
                 }`}
-            style={props.style}
+            // style={props.style}
         >
             {(props.themes == "theme-five" || (props?.isSplit && props?.splitThemes?.includes('res-theme-three'))) && (
                 <ThemeFiveShape style={themeFiveShapeStyle} />

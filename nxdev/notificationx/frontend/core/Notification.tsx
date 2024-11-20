@@ -184,10 +184,28 @@ const Notification = (props) => {
             "flex-reverse": advance_edit && settings?.image_position === "right",
         }
     ];
+    const componentCSS: any = {};
+    const announcementCSS: any = {};
+    if (props?.config?.advance_edit) {
+        if (props?.config?.bg_color) componentCSS.backgroundColor = props?.config?.bg_color;
+        if (props?.config?.text_color) componentCSS.color = props?.config?.text_color;
+        if (+props?.config?.border && +props?.config?.border_size) {
+            componentCSS.borderWidth = props?.config?.border_size;
+            if (props?.config?.border_style) componentCSS.borderStyle = props?.config?.border_style;
+            if (props?.config?.border_color) componentCSS.borderColor = props?.config?.border_color;
+        }
+        // Add announcementCSS
+        if (props?.config?.discount_text_color) announcementCSS.discountTextColor = props?.config?.discount_text_color;
+        if (props?.config?.discount_background) announcementCSS.discountBackground = props?.config?.discount_background;
+        if (props?.config?.link_button_bg_color) announcementCSS.linkButtonBgColor = props?.config?.link_button_bg_color;
+        if (props?.config?.link_button_font_size) announcementCSS.linkButtonFontSize = props?.config?.link_button_font_size;
+        if (props?.config?.link_button_text_color) announcementCSS.linkButtonTextColor = props?.config?.link_button_text_color;
+    }
     
     const componentStyle: any = {
+        ...componentCSS,
         maxWidth: `${notificationSize}px`,
-        ...getAnimationStyles()
+        ...getAnimationStyles(),
     };
     if (settings?.advance_edit && settings?.conversion_size) {
         componentStyle.maxWidth = settings?.conversion_size;
