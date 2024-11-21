@@ -67,7 +67,7 @@ class Locations {
         return $locations;
     }
 
-    public function check_location( $locations = array(), $custom_ids = '' ) {
+    public function check_location( $locations = array(), $custom_ids = '', $taxonomy_ids = '' ) {
         if ( empty( $locations ) ) {
             return true;
         }
@@ -111,6 +111,17 @@ class Locations {
 
             foreach ( $taxonomies as $slug => $tax ) {
                 $status[ 'is_tax-' . $slug ] = is_tax( $slug );
+            }
+        }
+         // Check for specific taxonomy ID
+        if ( in_array( 'is_taxonomy', $locations ) && ! empty($taxonomy_ids ) ) {
+            $current_term_id = get_queried_object_id();
+            $ids_array = explode(',',$taxonomy_ids );
+            foreach ($ids_array as $id) {
+                if ( $current_term_id == $id ) {
+                    $status['is_taxonomy'] = ( $current_term_id == $id );
+                    break;
+                }
             }
         }
 
