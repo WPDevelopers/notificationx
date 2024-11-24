@@ -404,36 +404,23 @@
                         border-radius: 50%;
                         box-shadow: none;
                         padding: 0px;
-                        animation: animated 2s infinite;
+                        outline-style: solid;
+                        outline-color: rgba(204, 0, 0, 1);
+                        outline-width: 0px;
+                        animation: animated 1.5s infinite ease-out;
                         position: relative;
-
                         @keyframes animated {
                             0% {
-                                outline: 0px solid rgba(204, 0, 0, 1);
+                                outline-width: 0;
+                                outline-color: rgba(204, 0, 0, 1);
                             }
-
-                            100% {
-                                outline: 6px solid rgba(204, 0, 0, .2);
+                            50% {
+                                outline-width: 6px;
+                                outline-color: rgba(204, 0, 0, 0);
                             }
-                        }
-
-                        @keyframes animated-before {
-                            0% {
-                                transform: scale(1);
-                            }
-
-                            100% {
-                                transform: scale(1.2);
-                            }
-                        }
-
-                        @keyframes animated-after {
-                            0% {
-                                transform: scale(1);
-                            }
-
-                            100% {
-                                transform: scale(1.4);
+                             100% {
+                                outline-width: 2px;
+                                outline-color: rgba(204, 0, 0, 0);
                             }
                         }
                     }
@@ -497,36 +484,23 @@
                         border-radius: 50%;
                         box-shadow: none;
                         padding: 0px;
-                        animation: animated 2s infinite;
+                        outline-style: solid;
+                        outline-color: rgba(204, 0, 0, 1);
+                        outline-width: 0px;
+                        animation: animated 1.5s infinite ease-out;
                         position: relative;
-
                         @keyframes animated {
                             0% {
-                                outline: 0px solid rgba(204, 0, 0, 1);
+                                outline-width: 0;
+                                outline-color: rgba(204, 0, 0, 1);
                             }
-
-                            100% {
-                                outline: 6px solid rgba(204, 0, 0, .2);
+                            50% {
+                                outline-width: 6px;
+                                outline-color: rgba(204, 0, 0, 0);
                             }
-                        }
-
-                        @keyframes animated-before {
-                            0% {
-                                transform: scale(1);
-                            }
-
-                            100% {
-                                transform: scale(1.2);
-                            }
-                        }
-
-                        @keyframes animated-after {
-                            0% {
-                                transform: scale(1);
-                            }
-
-                            100% {
-                                transform: scale(1.4);
+                             100% {
+                                outline-width: 2px;
+                                outline-color: rgba(204, 0, 0, 0);
                             }
                         }
                     }
