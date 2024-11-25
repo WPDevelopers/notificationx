@@ -8,6 +8,7 @@
 
 namespace NotificationX\Types;
 
+use NotificationX\Core\Rule;
 use NotificationX\Core\Rules;
 use NotificationX\Extensions\ExtensionFactory;
 use NotificationX\Extensions\GlobalFields;
@@ -212,8 +213,30 @@ class GDPR extends Types {
         parent::init_fields();
         add_filter('nx_design_tab_fields', [$this, 'add_design_fields'], 9);
         add_filter('nx_content_gdpr', [$this, 'add_content_fields'], 9);
+        add_filter('nx_content_fields', [$this, '__add_content_fields'], 9);
         // add_filter('nx_notification_template', [$this, 'notification_template'], 9);
         // add_filter('nx_customize_fields', [$this, 'customize_fields'], 20);
+    }
+
+    public function __add_content_fields( $fields ) {
+        // dd($fields['themes']['fields']);
+        $_fields = &$fields;
+        $_fields['preference_center'] = [
+            'name'     => "preference_center",
+            'type'     => "section",
+            'priority' => 15,
+            'label'    => 'Preference Center',
+            'rules'     => Rules::is('type', 'gdpr'),
+            'fields'   => [
+                [
+                    'label' => __("Title", 'notificationx'),
+                    'name'  => "preference_title",
+                    'type'  => "text",
+                ],
+            ]
+        ];
+
+        return $fields;
     }
 
     public function add_content_fields( $fields ) {
