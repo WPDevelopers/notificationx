@@ -211,7 +211,7 @@ class GDPR extends Types {
     public function init_fields() {
         parent::init_fields();
         add_filter('nx_design_tab_fields', [$this, 'add_design_fields'], 9);
-        add_filter('nx_content_fields', [$this, 'add_content_fields'], 9);
+        add_filter('nx_content_gdpr', [$this, 'add_content_fields'], 9);
         // add_filter('nx_notification_template', [$this, 'notification_template'], 9);
         // add_filter('nx_customize_fields', [$this, 'customize_fields'], 20);
     }
@@ -219,7 +219,7 @@ class GDPR extends Types {
     public function add_content_fields( $fields ) {
 
         // dd($fields);
-        $_fields = &$fields['content']['fields'];
+        $_fields = &$fields['fields'];
         $_fields['gdpr_title'] = [
             'label'    => __('Title', 'notificationx'),
             'name'     => 'gdpr_title',

@@ -470,7 +470,7 @@ class GlobalFields {
                     ],
                     'classes' => "content_tab",
                     'fields'  => apply_filters('nx_content_fields', [
-                        'content' => [
+                       'content' => apply_filters('nx_content_field', [
                             'label'    => __("Content", 'notificationx'),
                             'name'     => "content",
                             'type'     => "section",
@@ -764,7 +764,20 @@ class GlobalFields {
                                     ]),
                                 ],
                             ],
-                        ],
+                            'rules'       => Rules::logicalRule([
+                                Rules::includes('type', ['gdpr'], false ),
+                            ]),
+                        ]),
+                        'gdpr_content' => apply_filters('nx_content_gdpr', [
+                            'label'    => __("Cookies Lists", 'notificationx'),
+                            'name'     => "content",
+                            'type'     => "section",
+                            'priority' => 90,
+                            'fields'   => apply_filters('nx_content_fields_gdpr', []),
+                            'rules'       => Rules::logicalRule([
+                                Rules::includes('type', ['gdpr'] ),
+                            ]),
+                        ]),
                         'link_options' => [
                             'label'    => __('Link Options', 'notificationx'),
                             'name'     => "link_options",
