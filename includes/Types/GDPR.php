@@ -210,12 +210,88 @@ class GDPR extends Types {
      */
     public function init_fields() {
         parent::init_fields();
-        add_filter('nx_design_tab_fields', [$this, 'add_form_fields'], 9);
+        add_filter('nx_design_tab_fields', [$this, 'add_design_fields'], 9);
+        add_filter('nx_content_fields', [$this, 'add_content_fields'], 9);
         // add_filter('nx_notification_template', [$this, 'notification_template'], 9);
         // add_filter('nx_customize_fields', [$this, 'customize_fields'], 20);
     }
 
-    public function add_form_fields( $fields ) {
+    public function add_content_fields( $fields ) {
+
+        // dd($fields);
+        $_fields = &$fields['content']['fields'];
+        $_fields['gdpr_title'] = [
+            'label'    => __('Title', 'notificationx'),
+            'name'     => 'gdpr_title',
+            'type'     => 'text',
+            'priority' => 101,
+            'default' => __('We value your privacy', 'notificationx'),       
+        ];
+        $_fields['gdpr_message'] = [
+            'label'    => __('Message', 'notificationx'),
+            'name'     => 'gdpr_message',
+            'type'     => 'textarea',
+            'priority' => 102,
+            'default' => __('We value your privacy', 'notificationx'),       
+        ];
+        $_fields['gdpr_accept_btn'] = [
+            'label'    => __('Accept All Button', 'notificationx'),
+            'name'     => 'gdpr_accept_btn',
+            'type'     => 'text',
+            'priority' => 103,
+            'default' => __('Accept All', 'notificationx'),       
+        ];
+        $_fields['gdpr_reject_btn'] = [
+            'label'    => __('Reject All Button', 'notificationx'),
+            'name'     => 'gdpr_reject_btn',
+            'type'     => 'text',
+            'priority' => 104,
+            'default' => __('Reject All', 'notificationx'),       
+        ];
+        $_fields['gdpr_customize_btn'] = [
+            'label'    => __('Customize Button', 'notificationx'),
+            'name'     => 'gdpr_customize_btn',
+            'type'     => 'text',
+            'priority' => 105,
+            'default' => __('Customize Button', 'notificationx'),       
+        ];
+        $_fields['gdpr_cookies_policy_toggle'] = [
+            'label'    => __('Cookies Policy Link', 'notificationx'),
+            'name'     => 'gdpr_cookies_policy_toggle',
+            'type'     => 'toggle',
+            'priority' => 106,
+            'default' => true,       
+        ];
+        $_fields['gdpr_cookies_policy_link_text'] = [
+            'label'    => __('Cookies Policy Link Text', 'notificationx'),
+            'name'     => 'gdpr_cookies_policy_link_text',
+            'type'     => 'text',
+            'priority' => 107,
+            'placeholder' => __('Link Text', 'notificationx'),
+            'rules' => Rules::logicalRule([
+                Rules::is('gdpr_cookies_policy_toggle', true),
+            ]),      
+        ];
+        $_fields['gdpr_cookies_policy_link_url'] = [
+            'label'    => __('Cookies Policy URL', 'notificationx'),
+            'name'     => 'gdpr_cookies_policy_link_url',
+            'type'     => 'text',
+            'priority' => 108,
+            'placeholder' => __('Cookies Policy URL', 'notificationx'),
+            'rules' => Rules::logicalRule([
+                Rules::is('gdpr_cookies_policy_toggle', true),
+            ]),      
+        ];
+        $_fields['gdpr_custom_logo'] = [
+            'label'    => __('Custom Logo', 'notificationx'),
+            'name'     => 'gdpr_custom_logo',
+            'type'     => 'media',
+            'priority' => 109,       
+        ];
+        return $fields;
+    }
+
+    public function add_design_fields( $fields ) {
         // dd($fields['themes']['fields']);
         $_fields = &$fields['themes']['fields'];
         $_fields['gdpr_design'] = [
