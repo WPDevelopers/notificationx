@@ -336,6 +336,7 @@
                     padding: 0;
                     display: flex;
                     align-items: baseline;
+                    gap: 20px;
                     margin-left: 30%;
                     @media only screen and (max-width: 1599px) {
                         margin-left: 25%;
@@ -351,9 +352,9 @@
                         margin-bottom: 0;
 
                         .wprf-control-field {
-                            width: 190px;
+                            width: 150px;
                             position: relative;
-                            flex-basis: 80%;
+                            flex-basis: 100%;
 
                             @media only screen and (max-width: 1150px) {
                                 width: 136px;
@@ -372,10 +373,6 @@
                                 font-size: 14px;
                                 font-weight: 400;
                                 color: #7c8db5;
-                            }
-                            p.wprf-description {
-                                position: absolute;
-                                left: 38px;
                             }
                         }
                     }
