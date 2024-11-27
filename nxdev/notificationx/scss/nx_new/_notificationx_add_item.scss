@@ -338,12 +338,17 @@
                     align-items: baseline;
                     gap: 20px;
                     margin-left: 30%;
+
                     @media only screen and (max-width: 1599px) {
                         margin-left: 25%;
                     }
                     @media only screen and (max-width: 700px) {
                         margin-left: 0;
                     }
+                    @media only screen and (max-width: 1150px) {
+                        gap: 8px;
+                    }
+
                     .wprf-control-label {
                         display: none;
                     }
@@ -357,8 +362,9 @@
                             flex-basis: 100%;
 
                             @media only screen and (max-width: 1150px) {
-                                width: 136px;
+                                width: 100px;
                             }
+
                             input {
                                 padding: 2px 70px 2px 15px;
                                 max-width: 150px;
