@@ -787,7 +787,10 @@ class GlobalFields {
                                 ],
                             ],
                             // must be called after nx_link_types filter.
-                            'rules' => [ 'includes', 'source', apply_filters('nx_link_types_dependency', []) ],
+                            'rules'   => Rules::logicalRule([
+                                [ 'includes', 'source', apply_filters('nx_link_types_dependency', []) ],
+                                Rules::is( 'type', 'offer_announcement' ),
+                            ]),
                         ],
                     ]),
                 ],
@@ -820,28 +823,67 @@ class GlobalFields {
                                             'name'     => 'necessary_cookie_lists',
                                             'type'     => 'better-repeater',
                                             'priority' => 10,
-                                            'default'  => [
+                                            '_default'  => [
                                                 'google_analytics'  => [
-                                                    
+                                                    'enabled'             => true,
+                                                    'tracking_id'         => 'google_analytics_tracking_id',
+                                                    'cookies_category'    => 'necessary',
+                                                    'domain'              => 'https://notificationx.com',
+                                                    'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
+                                                    'scripts_url_pattern' => 'test pattern for google analytics',
+                                                    'description'         => 'lorem ipsum',
+                                                ],
+                                                'google_tag_manager'  => [
+                                                    'enabled'             => true,
+                                                    'tracking_id'         => 'google_tag_manager_tracking_id',
+                                                    'cookies_category'    => 'necessary',
+                                                    'domain'              => 'https://notificationx.com',
+                                                    'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
+                                                    'scripts_url_pattern' => 'test pattern for google tag manager',
+                                                    'description'         => 'lorem ipsum for google tag manager',
                                                 ],
                                             ],
                                             'button'  => [
                                                 'label'    => __('Add New', 'notificationx-pro'),
                                                 'position' => 'top',
                                             ],
-                                            'visible_fields'    => ['title', 'name'],
+                                            'visible_fields'    => ['enabled', 'cookies_id','domain'],
                                             '_fields'   => [
-                                                'title' => array(
-                                                    'type'     => 'text',
-                                                    'name'     => 'title',
-                                                    'label'    => __('Title', 'notificationx-pro'),
+                                                'enabled' => array(
+                                                    'type'     => 'toggle',
+                                                    'name'     => 'enabled',
+                                                    'label'    => __('Enabled', 'notificationx-pro'),
                                                     'priority' => 5,
                                                 ), 
-                                                'name' => array(
+                                                'cookies_id' => array(
                                                     'type'     => 'text',
-                                                    'name'     => 'name',
-                                                    'label'    => __('Name', 'notificationx-pro'),
+                                                    'name'     => 'cookies_id',
+                                                    'label'    => __('Cookie ID', 'notificationx-pro'),
                                                     'priority' => 10,
+                                                ), 
+                                                'domain' => array(
+                                                    'type'     => 'text',
+                                                    'name'     => 'domain',
+                                                    'label'    => __('Domain', 'notificationx-pro'),
+                                                    'priority' => 15,
+                                                ), 
+                                                'duration' => array(
+                                                    'type'     => 'text',
+                                                    'name'     => 'duration',
+                                                    'label'    => __('Duration', 'notificationx-pro'),
+                                                    'priority' => 20,
+                                                ), 
+                                                'script_url_pattern' => array(
+                                                    'type'     => 'text',
+                                                    'name'     => 'script_url_pattern',
+                                                    'label'    => __('Script URL Pattern', 'notificationx-pro'),
+                                                    'priority' => 25,
+                                                ), 
+                                                'description' => array(
+                                                    'type'     => 'text',
+                                                    'name'     => 'description',
+                                                    'label'    => __('Description', 'notificationx-pro'),
+                                                    'priority' => 30,
                                                 ), 
                                             ]
                                         ]

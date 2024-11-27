@@ -152,3 +152,29 @@ export const proFeaturePopupConfigCrossDomain = {
         </video>
     `
 };
+
+export const modalStyle = {
+    overlay: {
+        position: "fixed",
+        display: "flex",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "rgba(3, 6, 60, 0.7)",
+        zIndex: 9999,
+        padding: "60px 15px",
+    },
+    content: {
+        position: "static",
+        width: '900px',
+        margin: "auto",
+        border: "0px solid #5414D0",
+        // background: "#5414D0",
+        overflow: "auto",
+        WebkitOverflowScrolling: "touch",
+        borderRadius: "4px",
+        outline: "none",
+        padding: "15px",
+    }
+}

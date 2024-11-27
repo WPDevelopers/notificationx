@@ -22,7 +22,9 @@ const BetterRepeaterValueShow = (props) => {
     }
 
     useEffect(() => {
-        setIsOpen(isModalOpen)
+        if( isModalOpen ) {
+            setIsOpen(isModalOpen)
+        }
     }, [isModalOpen])
 
     return (

@@ -7,6 +7,7 @@ import ReactModal from "react-modal";
 import BetterRepeaterValueShow from './helpers/BetterRepeaterValueShow';
 import CloseIcon from '../icons/Close';
 import { __ } from '@wordpress/i18n';
+import { modalStyle } from '../core/constants';
 
 
 const BetterRepeater = (props) => {
@@ -80,7 +81,9 @@ const BetterRepeater = (props) => {
 
     const _handleButtonClick = () => {
         setIsIntegrationModalOpen(true);
-    }
+    }    
+    
+    console.log('props',props);
     
     return (
         <div className="wprf-repeater-control">
@@ -93,25 +96,25 @@ const BetterRepeater = (props) => {
                 </div>
             }
             {
-            localMemoizedValue && localMemoizedValue?.length > 0 &&
-            <div className="wprf-repeater-content">
-                {
-                    localMemoizedValue.map((value, index) => {
-                        return <BetterRepeaterValueShow
-                            isCollapsed={value?.isCollapsed}
-                            key={value?.index || index}
-                            fields={_fields}
-                            index={index}
-                            parent={fieldName}
-                            clone={handleClone}
-                            remove={handleRemove}
-                            onChange={(event: any) => handleChange(event, index)}
-                            visible_fields={visible_fields}
-                            setIsOpen={setIsOpen}
-                        />
-                    })
-                }
-            </div>
+                localMemoizedValue && localMemoizedValue?.length > 0 &&
+                <div className="wprf-repeater-content">
+                    {
+                        localMemoizedValue.map((value, index) => {
+                            return <BetterRepeaterValueShow
+                                isCollapsed={value?.isCollapsed}
+                                key={value?.index || index}
+                                fields={_fields}
+                                index={index}
+                                parent={fieldName}
+                                clone={handleClone}
+                                remove={handleRemove}
+                                onChange={(event: any) => handleChange(event, index)}
+                                visible_fields={visible_fields}
+                                setIsOpen={setIsOpen}
+                            />
+                        })
+                    }
+                </div>
             }
             { button?.position == 'bottom' && 
                 <div className="wprf-repeater-label">
@@ -126,31 +129,7 @@ const BetterRepeater = (props) => {
                 onRequestClose={() => setIsOpen(false)}
                 ariaHideApp={false}
                 overlayClassName={`nx-custom-notification-edit`}
-                style={{
-                    overlay: {
-                        position: "fixed",
-                        display: "flex",
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        backgroundColor: "rgba(3, 6, 60, 0.7)",
-                        zIndex: 9999,
-                        padding: "60px 15px",
-                    },
-                    content: {
-                        position: "static",
-                        width: '900px',
-                        margin: "auto",
-                        border: "0px solid #5414D0",
-                        // background: "#5414D0",
-                        overflow: "auto",
-                        WebkitOverflowScrolling: "touch",
-                        borderRadius: "4px",
-                        outline: "none",
-                        padding: "15px",
-                    },
-                }}
+                style={modalStyle}
             >
                 <>
                     <div className="wprf-modal-preview-header">
@@ -191,41 +170,78 @@ const BetterRepeater = (props) => {
                 onRequestClose={() => setIsIntegrationModalOpen(false)}
                 ariaHideApp={false}
                 overlayClassName={`nx-cookies-list-integrations`}
-                style={{
-                    overlay: {
-                        position: "fixed",
-                        display: "flex",
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        backgroundColor: "rgba(3, 6, 60, 0.7)",
-                        zIndex: 9999,
-                        padding: "60px 15px",
-                    },
-                    content: {
-                        position: "static",
-                        width: '900px',
-                        margin: "auto",
-                        border: "0px solid #5414D0",
-                        // background: "#5414D0",
-                        overflow: "auto",
-                        WebkitOverflowScrolling: "touch",
-                        borderRadius: "4px",
-                        outline: "none",
-                        padding: "15px",
-                    },
-                }}
+                style={modalStyle}
                 >
                      <>
                         <div className="wprf-modal-preview-header">
                             <span>{ __( 'Integrations','notificationx' ) }</span>
-                            <button onClick={() => setIsOpen(false)}>
-                                <CloseIcon />
-                            </button>
+                            <div className="wprf-repeater-label">
+                                <button className="wprf-repeater-button" onClick={handleButtonClick}>
+                                    Custom Cookies
+                                </button>
+                            </div>
                         </div>
                         <div className="wprf-modal-table-wrapper wpsp-better-repeater-fields">
-                           
+                        {Object.entries(props?._default).map(([key, value]) => (
+                            <div key={key}>
+                                {localMemoizedValue && localMemoizedValue?.length > 0 && (
+                                    <div className="wprf-repeater-content">
+                                        {localMemoizedValue.map((item, index) => {
+                                            if (localMemoizedValue?.length === index + 1) {
+                                                const filteredFields = Object.fromEntries(
+                                                    Object.entries(_fields).filter(([key]) =>
+                                                        props?.visible_fields?.includes(key)
+                                                    )
+                                                );
+                                                const handleFieldChange = (event, fieldIndex) => {
+                                                    const updatedValues = [...localMemoizedValue];
+                                                    updatedValues[fieldIndex] = {
+                                                        ...updatedValues[fieldIndex],
+                                                        [event.target.name]: event.target.value,
+                                                    };
+                                                    setLocalMemoizedValue(updatedValues);
+                                                };
+
+                                                return (
+                                                    <BetterRepeaterField
+                                                        isCollapsed={item?.isCollapsed}
+                                                        key={item?.index || index}
+                                                        fields={filteredFields}
+                                                        index={index}
+                                                        parent={fieldName}
+                                                        clone={handleClone}
+                                                        remove={handleRemove}
+                                                        onChange={(event) => handleFieldChange(event, index)}
+                                                    />
+                                                );
+                                            }
+                                        })}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+
+                            
+                            {/* { localMemoizedValue && localMemoizedValue?.length > 0 &&
+                                <div className="wprf-repeater-content">
+                                    {
+                                        localMemoizedValue.map((value, index) => {
+                                            if( localMemoizedValue?.length == (index + 1) ) {
+                                                return <BetterRepeaterField
+                                                    isCollapsed={value?.isCollapsed}
+                                                    key={value?.index || index}
+                                                    fields={_fields}
+                                                    index={index}
+                                                    parent={fieldName}
+                                                    clone={handleClone}
+                                                    remove={handleRemove}
+                                                    onChange={(event: any) => handleChange(event, index)}
+                                                />
+                                            }
+                                        })
+                                    }
+                                </div>
+                            } */}
                         </div>
                         <div className="wprf-modal-preview-footer">
                             <button className='wpsp-btn wpsp-btn-preview-update' onClick={() => setIsOpen(false)}>{__('Save', 'notificationx')}</button>
