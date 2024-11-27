@@ -215,16 +215,59 @@ class GDPR extends Types {
         add_filter('nx_content_gdpr', [$this, 'add_content_fields'], 9);
         add_filter('nx_content_fields', [$this, '__add_content_fields'], 9);
         // add_filter('nx_notification_template', [$this, 'notification_template'], 9);
-        // add_filter('nx_customize_fields', [$this, 'customize_fields'], 20);
+        add_filter('nx_customize_fields', array($this, 'customize_fields'), 999);
+    }
+
+    public function customize_fields( $fields ) {
+        $fields[] = [
+            'label'  => __("Visibility", 'notificationx'),
+            'name'   => "visibility",
+            'type'   => "section",
+            'priority'=> 10,
+            'fields' => [
+                [
+                    'label' => __("Show On", 'notificationx'),
+                    'name'  => "cookie_visibility_show_on",
+                    'type'  => "select",
+                    'default' => 'default',
+                    'options'  => [
+                        'default' => [
+                            'label' => __('Show Everywhere', 'notificationx'),
+                            'value' => 'everywhere',
+                        ],
+                    ]
+                ],
+                [
+                    'label' => __("Display For", 'notificationx'),
+                    'name'  => "cookie_visibility_display_for",
+                    'type'  => "select",
+                    'default' => 'default',
+                    'options'  => [
+                        'default' => [
+                            'label' => __('Everyone', 'notificationx'),
+                            'value' => 'everyone',
+                        ],
+                    ]
+                ],
+                [
+                    'label' => __("Delay Before First Notification", 'notificationx'),
+                    'name'  => "cookie_visibility_delay_before",
+                    'type'  => "text",
+                    'default' => 5,
+                    'help'  => __("Initial Delay", "notificationx"),
+                ],
+            ]
+        ];
+
+        return $fields;
     }
 
     public function __add_content_fields( $fields ) {
-        // dd($fields['themes']['fields']);
         $_fields = &$fields;
         $_fields['preference_center'] = [
             'name'     => "preference_center",
             'type'     => "section",
-            'priority' => 15,
+            'priority' => 98,
             'label'    => 'Preference Center',
             'rules'     => Rules::is('type', 'gdpr'),
             'fields'   => [
@@ -232,6 +275,85 @@ class GDPR extends Types {
                     'label' => __("Title", 'notificationx'),
                     'name'  => "preference_title",
                     'type'  => "text",
+                    'placeholder' => __("We value your privacy", 'notificationx'),
+                ],
+                [
+                    'label' => __("Privacy Overview", 'notificationx'),
+                    'name'  => "preference_overview",
+                    'type'  => "textarea",
+                    'placeholder' => __("We value your privacy", 'notificationx'),
+                ],
+                [
+                    'label' => __("Show Google Privacy Policy", 'notificationx'),
+                    'name'  => "preference_google",
+                    'type'  => "toggle",
+                    'default' => false,
+                ],
+                [
+                    'label' => __("Save My Preferences Button", 'notificationx'),
+                    'name'  => "preference_btn",
+                    'type'  => "text",
+                    'placeholder' => __("Save My Preferences", 'notificationx'),
+                ],
+                [
+                    'label' => __("See More Button", 'notificationx'),
+                    'name'  => "preference_more_btn",
+                    'type'  => "text",
+                    'placeholder' => __("See More", 'notificationx'),
+                ],
+                [
+                    'label' => __("See Less Button", 'notificationx'),
+                    'name'  => "preference_less_btn",
+                    'type'  => "text",
+                    'placeholder' => __("See Less", 'notificationx'),
+                ],
+            ]
+        ];
+
+        $_fields['cookies_list'] = [
+            'name'     => "cookies_list",
+            'type'     => "section",
+            'priority' => 100,
+            'label'    => 'Cookies List',
+            'rules'    => Rules::is('type', 'gdpr'),
+            'fields'   => [
+                [
+                    'label' => __("Show Cookie List on banner", 'notificationx'),
+                    'name'  => "cookie_list_show_banner",
+                    'type'  => "toggle",
+                    'default' => false,
+                    // 'help'  => __("Help text", "notificationx"),
+                ],
+                [
+                    'label' => __("Embed Code", 'notificationx'),
+                    'name'  => "cookie_list_embed_code",
+                    'type'  => "textarea",
+                    'placeholder' => __("We value your privacy", 'notificationx'),
+                    'is_pro' => true,
+                ],
+                [
+                    'label' => __("Cookie", 'notificationx'),
+                    'name'  => "cookie_list_cookie",
+                    'type'  => "text",
+                    'placeholder' => __("Cookie", 'notificationx'),
+                ],
+                [
+                    'label' => __("Duration", 'notificationx'),
+                    'name'  => "cookie_list_duration",
+                    'type'  => "text",
+                    'default' => 0,
+                ],
+                [
+                    'label' => __("Always Active Label", 'notificationx'),
+                    'name'  => "cookie_list_active_label",
+                    'type'  => "text",
+                    'placeholder' => __("Always Active", 'notificationx'),
+                ],
+                [
+                    'label' => __("No Cookies to Display Label", 'notificationx'),
+                    'name'  => "cookie_list_no_cookies_label",
+                    'type'  => "text",
+                    'placeholder' => __("No Cookies to Display", 'notificationx'),
                 ],
             ]
         ];
@@ -240,8 +362,6 @@ class GDPR extends Types {
     }
 
     public function add_content_fields( $fields ) {
-
-        // dd($fields);
         $_fields = &$fields['fields'];
         $_fields['gdpr_title'] = [
             'label'    => __('Title', 'notificationx'),
@@ -309,13 +429,13 @@ class GDPR extends Types {
             'label'    => __('Custom Logo', 'notificationx'),
             'name'     => 'gdpr_custom_logo',
             'type'     => 'media',
-            'priority' => 109,       
+            'priority' => 109, 
+            'is_pro'   => true,      
         ];
         return $fields;
     }
 
     public function add_design_fields( $fields ) {
-        // dd($fields['themes']['fields']);
         $_fields = &$fields['themes']['fields'];
         $_fields['gdpr_design'] = [
             'name'   => "gdpr_design",
@@ -333,7 +453,6 @@ class GDPR extends Types {
                         'center' => __('Center', 'notificationx'),
                     ]),
                     'rules'   => Rules::logicalRule([
-                        // Rules::is( 'type', 'gdpr' ),
                         Rules::includes('themes', [ 'gdpr_theme-light-one', 'gdpr_theme-light-two', 'gdpr_theme-light-three',
                      'gdpr_theme-light-four', 'gdpr_theme-dark-one', 'gdpr_theme-dark-two', 'gdpr_theme-dark-three', 'gdpr_theme-dark-four' ], false),
                     ]),
@@ -348,7 +467,6 @@ class GDPR extends Types {
                         'top' => __('Top', 'notificationx'),
                     ]),
                     'rules'   => Rules::logicalRule([
-                        // Rules::is( 'type', 'gdpr' ),
                         Rules::includes('themes', [ 'gdpr_theme-banner-light-one', 'gdpr_theme-banner-light-two', 'gdpr_theme-banner-dark-one', 'gdpr_theme-banner-dark-two' ], false),
                     ]),
                 ],

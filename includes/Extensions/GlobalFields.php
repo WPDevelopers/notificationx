@@ -475,7 +475,6 @@ class GlobalFields {
                             'name'     => "content",
                             'type'     => "section",
                             'priority' => 90,
-                            'rules'    => Rules::is('type', 'gdpr', true ),
                             'fields'   => [
                                 "notification-template" => [
                                     'label'    => __("Notification Template", 'notificationx'),
@@ -767,7 +766,7 @@ class GlobalFields {
                             ],
                         ]),
                         'gdpr_content' => apply_filters('nx_content_gdpr', [
-                            'label'    => __("Cookies Lists", 'notificationx'),
+                            'label'    => __("Cookies Content", 'notificationx'),
                             'name'     => "content",
                             'type'     => "section",
                             'priority' => 95,
@@ -810,7 +809,11 @@ class GlobalFields {
                                 ],
                             ],
                             // must be called after nx_link_types filter.
-                            'rules' => [ 'includes', 'source', apply_filters('nx_link_types_dependency', []) ],
+                            // 'rules' => [ 'includes', 'source', apply_filters('nx_link_types_dependency', []) ],
+                            'rules'   => Rules::logicalRule([
+                                [ 'includes', 'source', apply_filters('nx_link_types_dependency', []) ],
+                                Rules::is( 'type', 'gdpr', true ),
+                            ]),
                         ],
                     ]),
                 ],
@@ -1076,91 +1079,6 @@ class GlobalFields {
                                         ],
                                     ],
                                 ],
-                                'close_icon_position' => [
-                                    'label'    => __("Close Icon Position", 'notificationx'),
-                                    'name'     => "close_icon_position",
-                                    'type'     => "select",
-                                    'default'    => 'top_right',
-                                    'priority' => 51,
-                                    'options'  => [
-                                        'top_right' => [
-                                            'label' => __('Top Right', 'notificationx'),
-                                            'value' => 'top_right',
-                                        ],
-                                        'top_left' => [
-                                            'label' => __('Top Left', 'notificationx'),
-                                            'value' => 'top_left',
-                                        ]
-                                    ],
-                                    'rules'       => Rules::includes('source', ['press_bar']),
-                                ],
-                                'size' => [
-                                    'label'   => __("Notification Size", 'notificationx'),
-                                    'name'    => "size",
-                                    'type'    => "responsive-number",
-                                    'default' => [
-                                        "desktop" => 500,
-                                        "tablet"  => 500,
-                                        "mobile"  => 500,
-                                    ],
-                                    'priority' => 51,
-                                    'min'      => 300,
-                                    'controls' => [
-                                        "desktop" => [
-                                            "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
-                                            'size' => 18,
-                                        ],
-                                        "tablet" => [
-                                            "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/tablet.svg',
-                                            'size' => 14,
-                                        ],
-                                        "mobile" => [
-                                            "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/mobile.svg',
-                                            'size' => 12,
-                                        ],
-                                    ],
-                                    'help' => __('Set a max width for notification.', 'notificationx'),
-                                ],
-                                'close_button' => [
-                                    'label'       => __("Display Close Option", 'notificationx'),
-                                    'name'        => "close_button",
-                                    'type'        => "checkbox",
-                                    'default'     => 1,
-                                    'priority'    => 70,
-                                    'description' => __('Display a close button.', 'notificationx'),
-                                ],
-                                'hide_on_mobile' => [
-                                    'label'       => __("Mobile Visibility", 'notificationx'),
-                                    'name'        => "hide_on_mobile",
-                                    'type'        => "checkbox",
-                                    'default'     => 1,
-                                    'priority'    => 200,
-                                    'description' => __('Hide NotificationX on mobile.', 'notificationx'),
-                                ],
-                            ]
-                        ],
-                        'appearance' => [
-                            'label'  => __("Appearance", 'notificationx'),
-                            'name'   => "appearance",
-                            'type'   => "section",
-                            'fields' => [
-                                'position' => [
-                                    'label'    => __("Position", 'notificationx'),
-                                    'name'     => "position",                        // combined "pressbar_position" && "conversion_position"
-                                    'type'     => "select",
-                                    'default'  => 'bottom_left',
-                                    'priority' => 50,
-                                    'options'  => [
-                                        'bottom_left' => [
-                                            'label' => __('Bottom Left', 'notificationx'),
-                                            'value' => 'bottom_left',
-                                        ],
-                                        'bottom_right' => [
-                                            'label' => __('Bottom Right', 'notificationx'),
-                                            'value' => 'bottom_right',
-                                        ],
-                                    ],
-                                ],
                                 'size' => [
                                     'label'   => __("Notification Size", 'notificationx'),
                                     'name'    => "size",
@@ -1210,6 +1128,7 @@ class GlobalFields {
                             'label'  => __("Animation", 'notificationx'),
                             'name'   => "animation",
                             'type'   => "section",
+                            'priority'=> 15,
                             'fields' => [
                                 'animation_notification_show' => [
                                     'label'    => __("Notification Show", 'notificationx'),
