@@ -1529,8 +1529,8 @@ class GlobalFields {
                                     'description' => 'days',
                                     'min'          => 0,
                                 ],
-                                'close_button_section' => [
-                                    'name'    => "close_button_section",
+                                'hour_minutes_section' => [
+                                    'name'    => "hour_minutes_section",
                                     'type'    => "section",
                                     'fields' => [
                                         [
