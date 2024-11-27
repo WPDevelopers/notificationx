@@ -223,6 +223,7 @@ class GDPR extends Types {
             'label'  => __("Visibility", 'notificationx'),
             'name'   => "visibility",
             'type'   => "section",
+            'rules'     => Rules::is('type', 'gdpr'),
             'priority'=> 10,
             'fields' => [
                 [
@@ -232,8 +233,9 @@ class GDPR extends Types {
                     'default' => 'default',
                     'options'  => [
                         'default' => [
-                            'label' => __('Show Everywhere', 'notificationx'),
-                            'value' => 'everywhere',
+                            'label'    => __('Show Everywhere', 'notificationx'),
+                            'value'    => 'default',
+                            'selected' => 'selected',
                         ],
                     ]
                 ],
@@ -244,8 +246,9 @@ class GDPR extends Types {
                     'default' => 'default',
                     'options'  => [
                         'default' => [
-                            'label' => __('Everyone', 'notificationx'),
-                            'value' => 'everyone',
+                            'label'    => __('Everyone', 'notificationx'),
+                            'value'    => 'default',
+                            'selected' => 'selected',
                         ],
                     ]
                 ],
@@ -260,6 +263,26 @@ class GDPR extends Types {
         ];
 
         return $fields;
+    }
+
+    private function normalize_fields($fields, $key = '', $value = [], $return = []) {
+        foreach ($fields as $val => $label) {
+            $val = !empty( $label['value'] ) ? $label['value'] : $val;
+            if (empty($return[$val]) && !is_array($label)) {
+                $return[$val] = [
+                    'value' => $val,
+                    'label' => $label,
+                ];
+            }
+            elseif (empty($return[$val])){
+                $return[$val] = $label;
+            }
+            if(!empty($key)){
+                $return[$val] = Rules::includes($key, $value, false, $return[$val]);
+            }
+        }
+
+        return $return;
     }
 
     public function __add_content_fields( $fields ) {
