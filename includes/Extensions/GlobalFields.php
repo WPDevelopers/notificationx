@@ -1527,6 +1527,39 @@ class GlobalFields {
                                     'priority'    => 45,
                                     'default'       => 30,
                                     'description' => 'days',
+                                    'min'          => 0,
+                                ],
+                                'close_button_section' => [
+                                    'name'    => "close_button_section",
+                                    'type'    => "section",
+                                    'fields' => [
+                                        [
+                                            'label'       => __('Close Button Position Top', 'notificationx'),
+                                            'help'        => __('Hours', 'notificationx'),
+                                            'name'        => "display_from_hour",
+                                            'type'        => "number",
+                                            'default'     => '0',
+                                            'description' => '',
+                                            'max'         => 23,
+                                            'min'         => 0,
+                                            'rules'       => Rules::logicalRule([
+                                                Rules::includes('source', ['woocommerce', 'woocommerce_sales']),
+                                             ]),
+                                        ],
+                                        [
+                                            'label'       => __('Close Button Position Right', 'notificationx'),
+                                            'help'        => __('Minutes', 'notificationx'),
+                                            'name'        => "display_from_minute",
+                                            'type'        => "number",
+                                            'default'     => '0',
+                                            'description' => '',
+                                            'max'         => 59,
+                                            'min'         => 0,
+                                            'rules'       => Rules::logicalRule([
+                                                Rules::includes('source', ['woocommerce', 'woocommerce_sales']),
+                                             ]),
+                                        ],  
+                                    ]
                                 ],
                                 'loop' => [
                                     'name'     => 'loop',

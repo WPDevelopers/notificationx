@@ -390,7 +390,8 @@ class WooCommerce extends Extension {
     public function get_orders($data = array()) {
         if (empty($data) || !function_exists('wc_get_orders')) return null;
         $orders    = [];
-        $from      = strtotime(date('Y-m-d', strtotime('-' . intval($data['display_from']) . ' days')));
+        $time = strtotime('-' . intval($data['display_from']) . ' days ' . intval($data['display_from_hour']) . ' hours ' . intval($data['display_from_minute']) . ' minutes');
+        $from      = strtotime(date('Y-m-d h:i', $time));
         $status    = !empty($data['order_status']) ? $data['order_status'] : ['wc-completed', 'wc-processing'];
         $wc_orders = \wc_get_orders([
             'status'       => $status,
