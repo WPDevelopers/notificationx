@@ -129,7 +129,13 @@ const BetterRepeater = (props) => {
                 onRequestClose={() => setIsOpen(false)}
                 ariaHideApp={false}
                 overlayClassName={`nx-custom-notification-edit`}
-                style={modalStyle}
+                style={{
+                    ...modalStyle,
+                    overlay: {
+                        ...modalStyle.overlay,
+                        zIndex: 99999,
+                    }
+                }}                
             >
                 <>
                     <div className="wprf-modal-preview-header">
