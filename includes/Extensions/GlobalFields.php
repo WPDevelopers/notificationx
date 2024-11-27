@@ -1534,7 +1534,7 @@ class GlobalFields {
                                     'type'    => "section",
                                     'fields' => [
                                         [
-                                            'label'       => __('Close Button Position Top', 'notificationx'),
+                                            // 'label'       => __('Close Button Position Top', 'notificationx'),
                                             'help'        => __('Hours', 'notificationx'),
                                             'name'        => "display_from_hour",
                                             'type'        => "number",
@@ -1547,7 +1547,7 @@ class GlobalFields {
                                              ]),
                                         ],
                                         [
-                                            'label'       => __('Close Button Position Right', 'notificationx'),
+                                            // 'label'       => __('Close Button Position Right', 'notificationx'),
                                             'help'        => __('Minutes', 'notificationx'),
                                             'name'        => "display_from_minute",
                                             'type'        => "number",
