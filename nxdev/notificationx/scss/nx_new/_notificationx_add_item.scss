@@ -331,7 +331,57 @@
                         margin-bottom: 20px;
                     }
                 }
-                #close_button_section .wprf-section-fields{
+                #hour_minutes_section
+                 .wprf-section-fields{
+                    padding: 0;
+                    display: flex;
+                    align-items: baseline;
+                    margin-left: 30%;
+                    @media only screen and (max-width: 1599px) {
+                        margin-left: 25%;
+                    }
+                    @media only screen and (max-width: 700px) {
+                        margin-left: 0;
+                    }
+                    .wprf-control-label {
+                        display: none;
+                    }
+                    .wprf-name-display_from_hour,
+                    .wprf-name-display_from_minute {
+                        margin-bottom: 0;
+
+                        .wprf-control-field {
+                            width: 190px;
+                            position: relative;
+                            flex-basis: 80%;
+
+                            @media only screen and (max-width: 1150px) {
+                                width: 136px;
+                            }
+                            input {
+                                padding: 2px 70px 2px 15px;
+                                max-width: 150px;
+                                border: 1px solid #e6effb;
+                                min-height: 40px;
+                                width: 100%;
+                            }
+                            p.wprf-help {
+                                position: absolute;
+                                right: 16px;
+                                margin: 0;
+                                font-size: 14px;
+                                font-weight: 400;
+                                color: #7c8db5;
+                            }
+                            p.wprf-description {
+                                position: absolute;
+                                left: 38px;
+                            }
+                        }
+                    }
+                }
+                #close_button_section
+                 .wprf-section-fields{
                     padding: 0;
                     display: flex;
                     align-items: baseline;
