@@ -14,8 +14,12 @@ function createRootElement(id) {
  * Appends element as last child of body.
  * @param {HTMLElement} rootElem
  */
-function addRootElement(rootElem, top) {
+function addRootElement(rootElem, top, bottom = false) {
   if(top){
+    document.body.prepend(rootElem);
+    return;
+  }
+  if(bottom){
     document.body.prepend(rootElem);
     return;
   }
@@ -36,7 +40,7 @@ function addRootElement(rootElem, top) {
  * @param {String} id The id of the target container, e.g 'modal' or 'spotlight'
  * @returns {HTMLElement} The DOM node to use as the Portal target.
  */
-function usePortal(id, top = true) {
+function usePortal(id, top = true, bottom = false) {
   const rootElemRef = useRef(null);
 
   useEffect(function setupElement() {
@@ -47,7 +51,7 @@ function usePortal(id, top = true) {
 
     // If there is no existing DOM element, add a new one.
     if (!existingParent) {
-      addRootElement(parentElem, top);
+      addRootElement(parentElem, top, bottom);
     }
 
     // Add the detached element to the parent
