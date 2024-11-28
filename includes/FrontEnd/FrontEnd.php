@@ -178,6 +178,7 @@ class FrontEnd {
             'global'    => [],
             'active'    => [],
             'pressbar'  => [],
+            'gdpr'      => [],
             'shortcode' => [],
         ];
         if (!empty($_params['all_active'])) {
@@ -189,6 +190,7 @@ class FrontEnd {
                 'global'           => [],
                 'active'           => [],
                 'pressbar'         => [],
+                'gdpr'             => [],
                 'shortcode'        => [],
                 'inline_shortcode' => false,
             ]
@@ -196,6 +198,7 @@ class FrontEnd {
         $global    = $params['global'];
         $active    = $params['active'];
         $pressbar  = $params['pressbar'];
+        $gdpr      = $params['gdpr'];
         $shortcode = $params['shortcode'];
         $all       = array_merge($global, $active, $shortcode);
         $_defaults = array(
@@ -322,6 +325,20 @@ class FrontEnd {
             }
         }
 
+        if (!empty($gdpr)) {
+            $notifications = $this->get_notifications($gdpr);
+            foreach ($notifications as $key => $settings) {
+                $_nx_id            = $settings['nx_id'];
+                if (!empty($_params['all_active']) && $elementor_post_id) {
+                    continue;
+                }
+
+                $settings = apply_filters('nx_filtered_post', $settings, $params);
+                $result['gdpr'][$_nx_id]['post']    = $settings;
+                unset($_nx_id);
+            }
+        }
+
         $result['settings'] = $this->get_settings();
         return $result;
     }
@@ -352,7 +369,7 @@ class FrontEnd {
         ]);
         $notifications = PostType::get_instance()->get_posts($args);
 
-        $active_notifications = $global_notifications = $bar_notifications = array();
+        $active_notifications = $global_notifications = $bar_notifications = $gdpr_notification = array();
 
         foreach ($notifications as $key => $settings) {
             // $settings        = NotificationX::get_instance()->normalize_post($post);
@@ -429,6 +446,8 @@ class FrontEnd {
                     // @todo Find a function to only load css instead of building content.
                     \Elementor\Plugin::$instance->frontend->get_builder_content($settings['elementor_id'], false);
                 }
+            } elseif($settings['source'] == 'gdpr_notification') {
+                $gdpr_notification[] = $return_posts ? $settings : $settings['nx_id'];
             } elseif ($active_global_queue && NotificationX::is_pro()) {
                 $global_notifications[] = $return_posts ? $settings : $settings['nx_id'];
             } else {
@@ -447,7 +466,8 @@ class FrontEnd {
                 'global'   => $global_notifications,
                 'active'   => $active_notifications,
                 'pressbar' => $bar_notifications,
-                'total'    => (count($global_notifications) + count($active_notifications) + count($bar_notifications)),
+                'gdpr'     => $gdpr_notification,
+                'total'    => (count($global_notifications) + count($active_notifications) + count($bar_notifications) + count($gdpr_notification)),
             ],
             $notifications
         );
