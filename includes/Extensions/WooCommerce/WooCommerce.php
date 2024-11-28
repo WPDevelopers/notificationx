@@ -389,10 +389,10 @@ class WooCommerce extends Extension {
      */
     public function get_orders($data = array()) {
         if (empty($data) || !function_exists('wc_get_orders')) return null;
-        $orders    = [];
-        $time = strtotime('-' . intval($data['display_from']) . ' days ' . intval($data['display_from_hour']) . ' hours ' . intval($data['display_from_minute']) . ' minutes');
-        $from      = strtotime(date('Y-m-d h:i', $time));
-        $status    = !empty($data['order_status']) ? $data['order_status'] : ['wc-completed', 'wc-processing'];
+        $orders = [];
+        $time   = $this->generate_time_string($data);
+        $from   = strtotime(date('Y-m-d h:i', $time));
+        $status = !empty($data['order_status']) ? $data['order_status'] : ['wc-completed', 'wc-processing'];
         $wc_orders = \wc_get_orders([
             'status'       => $status,
             'date_created' => '>' . $from,
@@ -409,6 +409,29 @@ class WooCommerce extends Extension {
             }
         }
         return $orders;
+    }
+
+
+    public function generate_time_string($data) {
+        $timeString = '';
+        if (isset($data['display_from']) && intval($data['display_from']) > 0) {
+            $timeString .= intval($data['display_from']) . ' days ';
+        }
+
+        if (isset($data['display_from_hour']) && intval($data['display_from_hour']) > 0) {
+            $timeString .= intval($data['display_from_hour']) . ' hours ';
+        }
+
+        if (isset($data['display_from_minute']) && intval($data['display_from_minute']) > 0) {
+            $timeString .= intval($data['display_from_minute']) . ' minutes ';
+        }
+
+        if (!empty($timeString)) {
+            $time = strtotime('-' . $timeString);
+        } else {
+            $time = time(); // Default to current time if no valid inputs
+        }
+        return $time;
     }
 
     /**
