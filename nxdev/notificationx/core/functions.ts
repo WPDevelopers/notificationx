@@ -384,7 +384,7 @@ export const getAlert = (type, context) => {
  * Calculates relative position and generates CSS for a target element relative to the base.
  * @param {string} cssTargetSelector - The CSS selector of the element to apply styles to.
  */
-export const updateGeneratedCSS = (cssTargetSelector) => {
+export const updateGeneratedCSS = (cssTargetSelector) => {    
     const baseElement = document.querySelector('#behaviour');
     const relativeElement = document.querySelector('.wprf-name-display_from');
 
