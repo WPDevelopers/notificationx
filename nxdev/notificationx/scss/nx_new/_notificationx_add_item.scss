@@ -337,10 +337,12 @@
                         position: relative;
                         input {
                             padding: 2px 70px 2px 15px;
-                            max-width: 150px;
                             border: 1px solid #e6effb;
                             min-height: 40px;
                             width: 100%;
+                            @media only screen and (max-width: 1150px) {
+                                max-width: 100px;
+                            }
                         }
                         p.wprf-description {
                             position: absolute;
@@ -350,6 +352,9 @@
                             font-weight: 400;
                             color: #7c8db5;
                             left: 105px;
+                            @media only screen and (max-width: 1150px) {
+                                left: 55px;
+                            }
                         }
                     }
                 }

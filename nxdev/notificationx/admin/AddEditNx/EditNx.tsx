@@ -30,9 +30,14 @@ const EditNx = (props) => {
 
     }, [])
 
-    const div1 = document.querySelector('#behaviour');
-    const div2 = document.querySelector('.wprf-name-display_from');
-    updateGeneratedCSS(div1, div2, '#hour_minutes_section');
+    // Function to initialize the event listener
+    const initializeResizeHandler = (cssTargetSelector) => {
+        const updateCSS = () => updateGeneratedCSS(cssTargetSelector);
+        updateCSS();
+        window.addEventListener('resize', updateCSS);
+    };
+    initializeResizeHandler('#hour_minutes_section');
+
 
     return (
         <>
