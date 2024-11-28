@@ -380,4 +380,32 @@ export const getAlert = (type, context) => {
     return single_type?.popup;
 } 
 
+/**
+ * Calculates relative position and generates CSS for a target element.
+ * @param {HTMLElement} baseElement - The reference element for position calculation.
+ * @param {HTMLElement} relativeElement - The element to calculate position relative to the base.
+ * @param {string} cssTargetSelector - The CSS selector of the element to apply styles to.
+ */
+export const  updateGeneratedCSS = (baseElement, relativeElement, cssTargetSelector) => {
+    const label = document.querySelector('.wprf-name-display_from .wprf-control-label');
+    const cssTarget = document.querySelector(cssTargetSelector);
+
+    if( !baseElement || !relativeElement || !label || !cssTarget ) {
+        return;
+    }
+
+    const basePosition = baseElement.getBoundingClientRect();
+    const relativePosition = relativeElement.getBoundingClientRect();
+    const labelPosition = label.getBoundingClientRect();
+
+    // Calculate relative positions
+    const top = relativePosition.top - basePosition.top;
+    const left = labelPosition?.width + 200;
+    if (cssTarget) {
+      cssTarget.style.position = 'absolute';
+      cssTarget.style.top = `${top}px`;
+      cssTarget.style.left = `${left}px`;
+    }
+  }
+
 export default nxHelper;

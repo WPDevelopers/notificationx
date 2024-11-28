@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
 import { FormBuilder, useBuilderContext } from 'quickbuilder';
 import { Content, Instructions, PublishWidget, Sidebar } from '../../components';
-import { permissionAlert, proAlert } from '../../core/functions';
+import { permissionAlert, proAlert, updateGeneratedCSS } from '../../core/functions';
 import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon, FunctionalIcon, NecessaryIcon, AnalyticsIcon, PerformanceIcon, UncategorizedIcon, ManagerIcon, EditIcon } from '../../icons'
 
 const EditNx = (props) => {
@@ -29,6 +29,10 @@ const EditNx = (props) => {
         builderContext.registerAlert('has_permission_alert', permissionAlert);
 
     }, [])
+
+    const div1 = document.querySelector('#behaviour');
+    const div2 = document.querySelector('.wprf-name-display_from');
+    updateGeneratedCSS(div1, div2, '#hour_minutes_section');
 
     return (
         <>
