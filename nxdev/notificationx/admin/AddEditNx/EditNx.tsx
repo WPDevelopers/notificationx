@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
 import { FormBuilder, useBuilderContext } from 'quickbuilder';
 import { Content, Instructions, PublishWidget, Sidebar } from '../../components';
-import { proAlert } from '../../core/functions';
+import { proAlert, updateGeneratedCSS } from '../../core/functions';
 import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon } from '../../icons'
 
 const EditNx = (props) => {
@@ -19,8 +19,12 @@ const EditNx = (props) => {
         builderContext.registerIcons('tabs', iconLists);
 
         builderContext.registerAlert('pro_alert', proAlert);
-
+        
     }, [])
+
+    const div1 = document.querySelector('#behaviour');
+    const div2 = document.querySelector('.wprf-name-display_from');
+    updateGeneratedCSS(div1, div2, '#hour_minutes_section');
 
     return (
         <>

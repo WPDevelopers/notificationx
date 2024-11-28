@@ -1526,7 +1526,7 @@ class GlobalFields {
                                     'label'       => __('Display From The Last', 'notificationx'),
                                     'priority'    => 45,
                                     'default'       => 30,
-                                    'description' => 'days',
+                                    'description' => 'Days',
                                     'min'          => 0,
                                 ],
                                 'hour_minutes_section' => [
