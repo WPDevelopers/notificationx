@@ -286,7 +286,7 @@ class FrontEnd {
                 if (!empty($entry['timestamp'])) {
                     $timestamp    = $entry['timestamp'];
                     $display_from = !empty($settings['display_from']) ? $settings['display_from'] : 2;
-                    $display_from = strtotime("-$display_from days");
+                    $display_from = Helper::generate_time_string($settings);
                     if (!is_numeric($timestamp)) {
                         $entry['timestamp'] = $timestamp = strtotime($timestamp);
                     }
