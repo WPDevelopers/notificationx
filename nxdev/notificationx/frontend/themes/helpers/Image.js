@@ -56,7 +56,7 @@ const Image = ({ data, config, id, theme: themeName, style, isSplitCss, isSplit,
         <div
             className={componentClasses}
             {...data?.image_data?.attr}
-            style={style}
+            // style={style}
         >
             <img
                 src={data?.image_data?.url}
