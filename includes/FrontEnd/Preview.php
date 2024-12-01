@@ -338,6 +338,9 @@ class Preview {
         if ('form' === $settings['type']) {
             $settings['notification-template']['first_param'] = 'tag_first_name';
         }
+        if( !empty( $settings['notification-template'] ) ) {
+            $settings['notification-template'] = array_map( 'esc_html', $settings['notification-template'] );
+        }
 
         $settings = apply_filters("nx_get_post_{$settings['source']}", $settings);
         $settings = apply_filters("nx_preview_settings_{$settings['source']}", $settings);
