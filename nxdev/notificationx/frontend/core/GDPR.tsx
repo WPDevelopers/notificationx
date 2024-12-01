@@ -3,6 +3,9 @@ import usePortal from '../hooks/usePortal';
 import classNames from 'classnames';
 import { isAdminBar } from './utils';
 import { createPortal } from 'react-dom';
+import GdprActions from '../gdpr/utils/GdprActions';
+import GdprFooter from '../gdpr/utils/GdprFooter';
+import CloseIcon from '../../icons/Close';
 
 const GDPR = ({ position, gdpr, dispatch }) => {
     const target = usePortal(`nx-gdpr-${position}`, position == 'bottom_left', true);
@@ -15,7 +18,7 @@ const GDPR = ({ position, gdpr, dispatch }) => {
             className={classNames(
                 `nx-gdpr`,
                 settings.themes,
-                settings.gdpr_theme,
+                settings?.gdpr_theme,
                 `nx-gdpr-${settings.nx_id}`,
 
                 {
@@ -48,25 +51,13 @@ const GDPR = ({ position, gdpr, dispatch }) => {
                                 <a href={settings?.gdpr_cookies_policy_link_url} target='_blank' className="nx-gdpr-link">{ settings?.gdpr_cookies_policy_link_text }</a>
                             }
                         </p>
-                        <div className="nx-gdpr-actions">
-                            <div className="button-group">
-                                <button type="button" className="btn btn-primary">{settings?.gdpr_accept_btn}</button>
-                                <button type="button" className="btn btn-secondary">{ settings?.gdpr_customize_btn }</button>
-                            </div>
-                            <div className="button-single">
-                                <button type="button" className="btn btn-danger">{settings?.gdpr_reject_btn}</button>
-                            </div>
-                        </div>
+                        <GdprActions settings={settings}/>
                     </div>
-
-                    <div className="nx-gdpr-card-footer">
-                        <p className="nx-gdpr-powered">Powered by</p>
-                        <img src="" alt="Powered By Logo" className="nx-gdpr-powered-logo" />
-                    </div>
+                   <GdprFooter settings={settings} />
 
                     {/* Close Icon */}
                     <button type="button" className="nx-gdpr-close" aria-label="Close">
-                        <img src="" alt="Close Icon" />
+                        <CloseIcon/>
                     </button>
                 </div>
             </div>

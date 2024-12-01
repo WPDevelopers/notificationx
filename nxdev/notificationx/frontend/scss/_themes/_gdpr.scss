@@ -98,7 +98,11 @@
                 cursor: pointer;
             }
         }
-
+        .nx-branding {
+            .nx-byline {
+                display: none;
+            }
+        }
         &.light {
             background: #FFFFFF;
             .nx-gdpr-card {
