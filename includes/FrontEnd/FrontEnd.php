@@ -308,7 +308,7 @@ class FrontEnd {
 
                 // $settings['button_url'] = apply_filters("nx_notification_link_{$settings['source']}", $settings['button_url'], $settings);
                 $settings['button_url'] = apply_filters('nx_notification_link', $settings['button_url'], $settings);
-                if (!empty($settings['button_url']) && strpos($settings['button_url'], '//') === false) {
+                if (!empty($settings['button_url']) && strpos($settings['button_url'], '//') === false && strpos($settings['button_url'], './') === false) {
                     $settings['button_url'] = "//{$settings['button_url']}";
                 }
                 $bar_content = $this->get_bar_content($settings, false, $params);
