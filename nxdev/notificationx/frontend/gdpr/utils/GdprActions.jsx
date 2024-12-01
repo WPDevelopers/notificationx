@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import ReactModal from "react-modal";
 import { modalStyle } from '../../../core/constants';
+import { __ } from '@wordpress/i18n';
+import Customization from '../Customization';
 
 const GdprActions = ({ settings }) => {
     const [isOpenCustomizationModal, setIsOpenGdprCustomizationModal] = useState(false);
@@ -17,12 +19,11 @@ const GdprActions = ({ settings }) => {
         <ReactModal
                 isOpen={isOpenCustomizationModal}
                 onRequestClose={() => setIsOpenGdprCustomizationModal(false)}
-                className='nx-get-started-modal'
+                className={`nx-gdpr-customization`}
                 style={modalStyle}
+                ariaHideApp={false}
             >
-                <>
-                    <h2>Hello World!!</h2>
-                </>
+                <Customization settings={settings}/>
             </ReactModal>
     </div>
   )
