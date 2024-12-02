@@ -483,8 +483,8 @@ class GDPR extends Types {
                     'type'    => "select",
                     'default' => 'bottom-left',
                     'options' => GlobalFields::get_instance()->normalize_fields([
-                        'bottom-left'  => __('Bottom Left', 'notificationx'),
-                        'bottom-right' => __('Bottom Right', 'notificationx'),
+                        'bottom_left'  => __('Bottom Left', 'notificationx'),
+                        'bottom_right' => __('Bottom Right', 'notificationx'),
                         'center' => __('Center', 'notificationx'),
                     ]),
                     'rules'   => Rules::logicalRule([
