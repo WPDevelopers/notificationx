@@ -71,6 +71,17 @@
                         line-height: 16px;
                         font-weight: 500;
                         border-radius: 8px;
+                        transition: 0.3s ease-in-out;
+                        &.btn-primary {
+                            color: #ffffff;
+                            background: #6A4BFF;
+                            border: 1px solid #6A4BFF;
+                            &:hover {
+                                background: #5414d0;
+                                border: 1px solid #5414d0;
+                                box-shadow: 0 15px 10px -10px rgba(86, 20, 213, 0.3);
+                            }
+                        }
                     }
                 }
             }
@@ -87,6 +98,21 @@
                     font-weight: 500;
                     margin: 0;
                 }
+                .nx-branding {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 6px;
+                    .nx-byline {
+                        display: none;
+                    }
+                    .nx-powered-by {
+                        svg {
+                            width: 65px;
+                            height: 8px;
+                        }
+                    }
+                }
             }
             .nx-gdpr-close {
                 position: absolute;
@@ -95,14 +121,14 @@
                 width: 24px;
                 height: 24px;
                 border-radius: 4px;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 cursor: pointer;
             }
         }
-        .nx-branding {
-            .nx-byline {
-                display: none;
-            }
-        }
+        
         &.light {
             background: #FFFFFF;
             .nx-gdpr-card {
@@ -121,11 +147,6 @@
                     }
                     .nx-gdpr-actions {
                         .btn {
-                            &.btn-primary {
-                                color: #ffffff;
-                                background: #6A4BFF;
-                                border: 1px solid #6A4BFF;
-                            }
                             &.btn-secondary {
                                 color: #092161;
                                 background: #FFFFFF;
@@ -144,9 +165,19 @@
                     .nx-gdpr-powered {
                         color: #7C8DB5;
                     }
+                    .nx-powered-by {
+                        svg {
+                            fill: #1F3155;
+                        }
+                    }
                 }
                 .nx-gdpr-close {
                     background: #F8F7FA;
+                    svg {
+                        path {
+                            stroke: #092161;
+                        }
+                    }
                 }
             }
 
@@ -218,11 +249,6 @@
                     }
                     .nx-gdpr-actions {
                         .btn {
-                            &.btn-primary {
-                                color: #ffffff;
-                                background: #6A4BFF;
-                                border: 1px solid #6A4BFF;
-                            }
                             &.btn-secondary {
                                 color: #EDEDF2;
                                 background: #141414;
@@ -241,10 +267,19 @@
                     .nx-gdpr-powered {
                         color: #959599;
                     }
+                    .nx-powered-by {
+                        svg {
+                            fill: #FFFFFF;
+                        }
+                    }
                 }
                 .nx-gdpr-close {
-                    background: transparent;
-                    color: #EDEDF2;
+                    background: #19191A;
+                    svg {
+                        path {
+                            stroke: #EDEDF2;
+                        }
+                    }
                 }
             }
 
