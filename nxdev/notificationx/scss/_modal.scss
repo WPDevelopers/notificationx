@@ -1078,6 +1078,116 @@
             }
         }
     }
+    &.nx-cookies-list-integrations {
+        .ReactModal__Content.ReactModal__Content--after-open {
+            max-width: 620px !important;
+            .wprf-modal-preview-header {
+                font-weight: 600;
+                line-height: 21px;
+                color: #092161;
+                padding: 24px;
+                box-shadow: none;
+                // border-bottom: 1px solid #EBEEF5;
+                .wprf-repeater-label {
+                    .wprf-repeater-button {
+                        font-size: 16px;
+                        font-weight: 500;
+                        color: #6A4BFF;
+                        padding: 10px 20px;
+                        border: 1px solid #6A4BFF;
+                        border-radius: 8px; 
+                    }
+                }
+            }
+            .wprf-modal-table-wrapper.wpsp-better-repeater-fields {
+                background: #FFFFFF;
+                gap: 16px; 
+                .wprf-repeater-field {
+                    background: transparent;
+                    border: 1px solid #EAECFA;
+                    padding: 16px;
+                    position: relative;
+                    .wprf-repeater-field-title {
+                        padding: 0;
+                        h4 {
+                            font-size: 16px;
+                            font-weight: 500;
+                            color: #092161;
+                            line-height: 21px;
+                            margin: 0;
+                        }
+                    }
+                    .wprf-repeater-inner-field {
+                        padding: 0;
+                        border: 0px solid;
+                        border-top: unset;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: unset;
+                        gap: 16px;
+                        .wprf-control-wrapper {
+                            .wprf-control-field {
+                                max-width: unset;
+                            }
+                        }
+                        .wprf-control-wrapper:first-child {
+                            .wprf-control-label {
+                                display: none;
+                            }
+                            .wprf-control-field {
+                                position: absolute;
+                                right: 16px;
+                                top: 16px;
+                                width: auto;
+                                max-width: unset;
+                                min-width: unset;
+                                .wprf-label-position-right {
+                                    .wprf-input-label {
+                                        width: 40px;
+                                        position: relative;
+                                        min-height: 20px;
+                                        height: 20px;
+                                        max-height: 20px;
+                                        margin-bottom: 0;
+                                        cursor: pointer;
+                                        display: inline-block;
+                                        margin-right: 0;
+                                        &:before {
+                                            background: #f0f0f0;
+                                            width: 40px;
+                                            height: 20px;
+                                            border: none;
+                                            left: 0;
+                                            top: 0;
+                                            border-radius: 20px;
+                                            transition: all 0.4s ease;
+                                        }
+                                        &:after {
+                                            left: 1px;
+                                            top: 1px;
+                                            width: 18px;
+                                            height: 18px;
+                                            border-radius: 50%;
+                                            background: #fbfbfb;
+                                            transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
+                                            box-shadow: none;
+                                        }
+                                    }
+                                    input:checked + label:before {
+                                        background: #6A4BFF;
+                                    }
+                                    input:checked + label:after {
+                                        left: auto;
+                                        right: 1px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 .nx-csv-modal-ift-container {
