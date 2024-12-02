@@ -257,10 +257,9 @@ class GlobalFields {
                                         'light'  => __('Light', 'notificationx'),
                                         'dark' => __('Dark', 'notificationx'),
                                     ]),
-                                    // 'rules'   => Rules::logicalRule([
-                                    //     // Rules::is( 'type', 'gdpr' ),
-                                    //     Rules::includes('themes', [ 'gdpr_theme-banner-light-one', 'gdpr_theme-banner-light-two', 'gdpr_theme-banner-dark-one', 'gdpr_theme-banner-dark-two' ], false),
-                                    // ]),
+                                    'rules'   => Rules::logicalRule([
+                                        Rules::is( 'type', 'gdpr' ),
+                                    ]),
                                 ],
                                 'themes' => [
                                     // 'label'            => "Themes",
