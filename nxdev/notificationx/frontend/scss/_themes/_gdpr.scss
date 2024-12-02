@@ -296,3 +296,39 @@
     }
 }
 
+.nx-gdpr-modal-header {
+    h3 {
+        margin: 0;
+        padding: 0;
+    }
+    p {
+        font-size: 12px;
+        margin: 0;
+    }
+}
+.wprf-gdpr-modal-frontend-content {
+    h3 {
+        margin: 0;
+        padding: 0;
+    }
+    .nx_gdpr-cookies-list-header {
+        display: flex;
+        justify-content: space-between;
+    }
+    .nx_gdpr-cookies-list-header-title {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 5px;
+    }
+    p {
+        font-size: 12px;
+        margin: 0;
+    }
+}
+.nx-gdpr-customization-close {
+    position: absolute;
+    top: 10px;
+    z-index: 9;
+    right: 20px;
+}

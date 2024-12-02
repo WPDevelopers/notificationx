@@ -9,8 +9,7 @@ import CloseIcon from '../../icons/Close';
 
 const GDPR = ({ position, gdpr, dispatch }) => {
     const target = usePortal(`nx-gdpr-${position}`, position == 'bottom_left', true);
-    const { config: settings, data: content } = gdpr;
-    
+    const { config: settings, data: content } = gdpr;    
     const wrapper = (
         // @todo advanced style.
         <div

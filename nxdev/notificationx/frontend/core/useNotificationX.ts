@@ -357,7 +357,7 @@ const useNotificationX = (props: any) => {
         if (gdprNotices != null && gdprNotices.length > 0) {
             gdprNotices.forEach((gdprItem) => {
                 const config = gdprItem.post;
-                const initialDelay = (+config?.initial_delay || 5) * 1000;
+                const initialDelay = (+config?.cookie_visibility_delay_before || 5) * 1000;
                 const hideAfter = (+config?.hide_after || 5) * 1000;
 
                 let args = {

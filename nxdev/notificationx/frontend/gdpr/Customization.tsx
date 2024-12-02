@@ -1,7 +1,9 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import CookiesAccordion from './utils/CookiesAccordion'
+import NXBranding from '../themes/helpers/NXBranding'
 
-const Customization = ({ settings }) => {
+const Customization = ({ settings, onEnableCookiesItem }) => {
+    
   return (
     <Fragment>
         <div className="wprf-modal-table-wrapper nx-gdpr-modal-header">
@@ -12,11 +14,17 @@ const Customization = ({ settings }) => {
                 <p>{settings?.preference_overview}</p>
             }
         </div>
-        <div className="wprf-modal-table-wrapper wprf-gdpr-modal-content">
-            <CookiesAccordion/>
+        <div className="wprf-modal-table-wrapper wprf-gdpr-modal-frontend-content">
+            <CookiesAccordion settings={settings} onEnableCookiesItem={onEnableCookiesItem} />
         </div>
         <div className="wprf-modal-preview-footer">
-            Click Me
+            <div className="nx_gdpr-action-button">
+                <button>Accept All</button>
+                <button>Customize</button>
+            </div>
+            <div className="wprf-modal-preview-copyright">
+                <NXBranding/>
+            </div>
         </div>
     </Fragment>
   )

@@ -419,7 +419,7 @@ class GDPR extends Types {
             'name'     => 'gdpr_customize_btn',
             'type'     => 'text',
             'priority' => 105,
-            'default' => __('Customize Button', 'notificationx'),       
+            'default' => __('Customize', 'notificationx'),       
         ];
         $_fields['gdpr_cookies_policy_toggle'] = [
             'label'    => __('Cookies Policy Link', 'notificationx'),
