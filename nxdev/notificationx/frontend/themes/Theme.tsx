@@ -21,7 +21,7 @@ const Theme = (props) => {
     const entry = props.data;
     const post = props.config;
     const themeName = getThemeName(post);
-    const resThemeName = getResThemeName(post);
+    const resThemeName = getResThemeName(post) || null;
     const isSplit = splitThemes.includes(themeName) || splitThemes.includes(resThemeName);
     const isSplitCss = post?.advance_edit && isSplit;
     const frontendContext = useNotificationContext();
