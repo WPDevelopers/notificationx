@@ -840,7 +840,7 @@ class GlobalFields {
                                     'type'             => 'section',
                                     'fields'           => [
                                         'necessary_cookie_lists'    => [
-                                            'label'    => __('', 'notificationx-pro'),
+                                            'label'    => __('', 'notificationx'),
                                             'name'     => 'necessary_cookie_lists',
                                             'type'     => 'better-repeater',
                                             'priority' => 10,
@@ -864,8 +864,22 @@ class GlobalFields {
                                                     'description'         => 'lorem ipsum for google tag manager',
                                                 ],
                                             ],
+                                            'tab_info' => [
+                                                'tab_title' => array(
+                                                    'type'     => 'text',
+                                                    'name'     => 'necessary_cookies_title',
+                                                    'default'    => __('Necessary', 'notificationx'),
+                                                    'label'    => __('Name', 'notificationx'),
+                                                ),
+                                                'tab_description' => array(
+                                                    'type'     => 'text',
+                                                    'name'     => 'necessary_cookies_description',
+                                                    'label'    => __('Description', 'notificationx'),
+                                                    'default'    => __('Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+                                                ),
+                                            ],
                                             'button'  => [
-                                                'label'    => __('Add New', 'notificationx-pro'),
+                                                'label'    => __('Add New', 'notificationx'),
                                                 'position' => 'top',
                                             ],
                                             'visible_fields'    => ['enabled', 'cookies_id','domain'],
@@ -873,37 +887,37 @@ class GlobalFields {
                                                 'enabled' => array(
                                                     'type'     => 'toggle',
                                                     'name'     => 'enabled',
-                                                    'label'    => __('Enabled', 'notificationx-pro'),
+                                                    'label'    => __('Enabled', 'notificationx'),
                                                     'priority' => 5,
                                                 ), 
                                                 'cookies_id' => array(
                                                     'type'     => 'text',
                                                     'name'     => 'cookies_id',
-                                                    'label'    => __('Cookie ID', 'notificationx-pro'),
+                                                    'label'    => __('Cookie ID', 'notificationx'),
                                                     'priority' => 10,
                                                 ), 
                                                 'domain' => array(
                                                     'type'     => 'text',
                                                     'name'     => 'domain',
-                                                    'label'    => __('Domain', 'notificationx-pro'),
+                                                    'label'    => __('Domain', 'notificationx'),
                                                     'priority' => 15,
                                                 ), 
                                                 'duration' => array(
                                                     'type'     => 'text',
                                                     'name'     => 'duration',
-                                                    'label'    => __('Duration', 'notificationx-pro'),
+                                                    'label'    => __('Duration', 'notificationx'),
                                                     'priority' => 20,
                                                 ), 
                                                 'script_url_pattern' => array(
                                                     'type'     => 'text',
                                                     'name'     => 'script_url_pattern',
-                                                    'label'    => __('Script URL Pattern', 'notificationx-pro'),
+                                                    'label'    => __('Script URL Pattern', 'notificationx'),
                                                     'priority' => 25,
                                                 ), 
                                                 'description' => array(
                                                     'type'     => 'text',
                                                     'name'     => 'description',
-                                                    'label'    => __('Description', 'notificationx-pro'),
+                                                    'label'    => __('Description', 'notificationx'),
                                                     'priority' => 30,
                                                 ), 
                                             ]
