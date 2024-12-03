@@ -13,6 +13,10 @@ const WrapperWithLoader: React.FC<{ isLoading?: boolean, classes?: string, div?:
                 if( selectedType ) {
                     setContentHeight(document.documentElement.scrollHeight);
                 }
+                builderContext.setFieldValue(
+                    "themes_tab",
+                    'for_desktop',
+                )
             }
         }, [builderContext.values.type])
 
@@ -24,7 +28,7 @@ const WrapperWithLoader: React.FC<{ isLoading?: boolean, classes?: string, div?:
                 });
             }, 300);
         }, [contentHeight]);
-
+        
         return (
             <div className={classes}>
                 {isLoading && <Loader />}

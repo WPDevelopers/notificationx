@@ -4,23 +4,25 @@ import { Close, Content, Image } from "./helpers";
 // @ts-ignore
 import { escapeHTML } from "@wordpress/escape-html";
 import { useNotificationContext } from "../core";
-import { getThemeName } from "../core/functions";
+import { getResThemeName, getThemeName } from "../core/functions";
 import { __, _x } from "@wordpress/i18n";
 import Button from "./helpers/Button";
 import Cookies from 'js-cookie';
 
 const Theme = (props) => {
-    const splitThemes = [
+    let splitThemes = [
         "theme-five",
         "theme-six-free",
         "conv-theme-nine",
         "review-comment",
         "page_analytics_pa-theme-two",
     ];
+    splitThemes = splitThemes.concat(props?.splitThemes);
     const entry = props.data;
     const post = props.config;
     const themeName = getThemeName(post);
-    const isSplit = splitThemes.includes(themeName);
+    const resThemeName = getResThemeName(post);
+    const isSplit = splitThemes.includes(themeName) || splitThemes.includes(resThemeName);
     const isSplitCss = post?.advance_edit && isSplit;
     const frontendContext = useNotificationContext();
 
@@ -148,7 +150,7 @@ const Theme = (props) => {
                 isSplit={isSplit}
                 announcementCSS={announcementCSS}
             />
-            { ["announcements_theme-13"].includes(props?.config?.themes) &&
+            {["announcements_theme-13"].includes(props?.config?.themes) &&
                 <Button
                     {...props}
                     announcementCSS={announcementCSS}
@@ -164,7 +166,7 @@ const Theme = (props) => {
                 isSplit={isSplit}
                 announcementCSS={announcementCSS}
             />
-            { ["announcements_theme-15"].includes(props?.config?.themes) &&
+            {["announcements_theme-15"].includes(props?.config?.themes) &&
                 <Button
                     {...props}
                     announcementCSS={announcementCSS}

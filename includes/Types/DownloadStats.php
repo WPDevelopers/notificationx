@@ -93,6 +93,32 @@ class DownloadStats extends Types {
                 ],
             ],
         ];
+        $this->res_themes = [
+            'res-today-download' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_wporg/wporg-res-theme-1.png',
+                'image_shape' => 'square',
+                '_template'  => 'wp_stats_template_new',
+                'is_pro'    => true,
+            ],
+            'res-7day-download'  => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_wporg/wporg-res-theme-2.png',
+                'image_shape' => 'rounded',
+                '_template'  => 'wp_stats_template_new',
+                'is_pro'    => true,
+            ],
+            'res-actively_using' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_wporg/wporg-res-theme-3.png',
+                'image_shape' => 'rounded',
+                '_template'  => 'actively_using_template_new',
+                'is_pro'    => true,
+            ],
+            'res-total-download' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_wporg/wporg-res-theme-4.png',
+                'image_shape' => 'circle',
+                '_template'  => 'wp_stats_template_new',
+                'is_pro'    => true,
+            ],
+        ];
         $this->templates = [
             'wp_stats_template_new' => [
                 'first_param' => [

@@ -364,8 +364,8 @@ class PostType {
         foreach ( $posts as $key => $value ) {
             $value = get_object_vars($value);
             if ( ! empty( $value['data'] ) ) {
-                $data                  = maybe_unserialize( $value['data'] );
-                $value                 = array_merge( (array) $data, $value );
+                $data                  = (array) maybe_unserialize( $value['data'] );
+                $value                 = array_merge( $data, $value );
                 $value['enabled']      = (bool) $value['enabled'];
                 $value['global_queue'] = (bool) $value['global_queue'];
                 unset( $value['data'] );

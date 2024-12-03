@@ -179,6 +179,68 @@ class WooCommerceSalesReviews extends WooReviews {
                 ],
             ],
         ];
+        $this->res_themes = [
+            'res-theme-one'     => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-1.png',
+                'image_shape' => 'square',
+                'template'    => [
+                    'res_first_param'  => 'tag_rated',
+                    'res_second_param' => __('people rated', 'notificationx'),
+                    'res_third_param'  => 'tag_plugin_name',
+                ],
+                'is_pro'    => true,
+            ],
+            'res-theme-two'     => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-2.png',
+                'image_shape' => 'square',
+                'template'    => [
+                    'res_first_param'  => 'tag_username',
+                    'res_second_param' => __('just reviewed', 'notificationx'),
+                    'res_third_param'  => 'tag_plugin_name',
+                ],
+                'is_pro'    => true,
+            ],
+            'res-theme-three'     => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-3.png',
+                'image_shape' => 'square',
+                'template'    => [
+                    'res_first_param'  => 'tag_username',
+                    'res_second_param' => __('just reviewed', 'notificationx'),
+                    'res_third_param'  => 'tag_plugin_name',
+                ],
+                'is_pro'    => true,
+            ],
+            'rating-res-theme-four'     => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-4.png',
+                'image_shape' => 'square',
+                'template'    => [
+                    'res_first_param'  => 'tag_username',
+                    'res_second_param' => __('just reviewed', 'notificationx'),
+                    'res_third_param'  => 'tag_rating',
+                ],
+                'is_pro'    => true,
+            ],
+            'rating-res-theme-five'     => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-5.png',
+                'image_shape' => 'square',
+                'template'    => [
+                    'res_first_param'  => 'tag_username',
+                    'res_second_param' => __('just reviewed', 'notificationx'),
+                    'res_third_param'  => 'tag_rating',
+                ],
+                'is_pro' => true,
+            ],
+            'rating-res-theme-six'     => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-6.png',
+                'image_shape' => 'square',
+                'template'    => [
+                    'res_first_param'  => 'tag_username',
+                    'res_second_param' => __('just reviewed', 'notificationx'),
+                    'res_third_param'  => 'tag_rating',
+                ],
+                'is_pro' => true,
+            ],
+        ];
     }
 
     public function doc() {

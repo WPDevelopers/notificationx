@@ -16,9 +16,12 @@ const Media = (props) => {
     const [csvData, setCSVData] = useState(null)
     const builderContext = useBuilderContext();
     const nxContext = useNotificationXContext();
-    // const [importBtnClass, setImportButtonClass] = useState('wprf-btn wprf-import-csv-btn');
-    const [complete, setComplete] = useState(false);
     const [importCSV, setImportCSV] = useState(false);
+    const [complete, setComplete] = useState(false);
+    const [localContents, setLocalContents] = useState([]);
+    const [progress, setProgress] = useState(0);
+    const csv_upload_loader = nxContext?.state?.csv_upload_loader?.csv_upload_loader;
+
 
     useEffect(() => {
         if (csvData) {
@@ -31,12 +34,6 @@ const Media = (props) => {
             })
         }
     }, [csvData])
-
-    useEffect(() => {
-      if( importCSV ) {
-        importCSVData();
-      }      
-    }, [importCSV])    
 
     const handleMediaSelection = async (media) => {
         if (media.mime !== 'text/csv') {
@@ -62,11 +59,11 @@ const Media = (props) => {
         }
         try {
             const itemCount = await checkCSVItems(media.url);
-            if (itemCount > 101) {
+            if (itemCount > parseInt( nxContext?.cus_imp_limit ) ) {
                 Swal.fire({
                     title: __("Import Limit Exceeded.", "notificationx"),
                     html: __(
-                        `Your file contains more than 100 rows. Only the first 100 rows will be imported. Click <strong>"Continue"</strong> to proceed or <strong>"Cancel"</strong> to abort.`,
+                        `Your file contains more than ${parseInt( nxContext?.cus_imp_limit )} rows. Only the first ${parseInt( nxContext?.cus_imp_limit )} rows will be imported. Click <strong>"Continue"</strong> to proceed or <strong>"Cancel"</strong> to abort.`,
                         "notificationx"
                     ),
                     iconHtml: `<img alt="NotificationX" src="${builderContext.assets.admin}images/file-type.svg" style="height: 85px; width:85px" />`,
@@ -105,61 +102,93 @@ const Media = (props) => {
             }
         } catch (error) {
             console.error("Error processing the CSV file:", error);
-            setImportCSV(false);
+            nxToast.error(__('Error processing the CSV file', 'notificationx'));
         }
+    };
+    
+    useEffect(() => {
+        if( importCSV ) {
+          importCSVData();
+        }      
+      }, [importCSV])  
+    
+      const generateChunkSize = (csvLength) => {
+        let chunkSize;
+    
+        if (csvLength > 1000) {
+            chunkSize = 100; // Fixed chunk size if csvLength is more than 1000
+        } else {
+            // Calculate chunk size based on a maximum of 10 requests
+            chunkSize = Math.ceil(csvLength / 10);
+        }
+    
+        return chunkSize;
+    };
+
+    const importCSVData = async () => {
+        const csvUrl      = csvData?.url;
+        const csvContent  = await fetch(csvUrl).then(res => res.text());
+        const lines       = csvContent.split('\n');
+        const chunkSize   = generateChunkSize( lines?.length );
+        const totalChunks = Math.ceil(lines.length / chunkSize);
+
+        for (let i = 0; i < totalChunks; i++) {    
+            await uploadChunk(csvUrl, chunkSize, i, totalChunks, csvData?.id);
+            const progressValue = Math.round(((i + 1) / totalChunks) * 100);
+            setProgress(progressValue);            
+            // @ts-ignore 
+            const progressBar = document.getElementById('nx-progress-bar');
+            if (progressBar) {
+                progressBar.style.width = `${progressValue}%`;
+                progressBar.querySelector('span').innerText = `${progressValue}%`;
+            }
+        }
+
+        setComplete(true);
+        Swal.close();
+        nxToast.info(__('CSV data imported successfully!', "notificationx"));
     }
 
-    const importCSVData = () => {        
-        // setImportButtonClass('wprf-btn wprf-import-csv-btn loading');
-        nxContext.setCSVUploaderLoader({
-            csv_upload_loader: true,
-        })
-        nxHelper.post("csv-upload", {
-            csv: csvData,
-            uploadImage: true,
-            take: 100,
-        }).then((res: any) => {
-            if( res?.success ) {
-                builderContext.setFieldValue(
-                    "custom_contents",
-                    res.data.data
-                )
-                // setImportButtonClass('wprf-btn wprf-import-csv-btn completed');
-                setComplete(true);
-                nxToast.info(
-                    __(
-                        `CSV data imported successfully!`,
-                        "notificationx"
-                    )
-                );
-                nxContext.setCSVUploaderLoader({
-                    csv_upload_loader: false,
-                })
-            }else{
-                nxToast.error(
-                    __(
-                        `${res?.data?.error}`,
-                        "notificationx"
-                    )
-                );
-                setCSVData({});
+    const uploadChunk = async (csvUrl, chunkSize, chunkIndex, totalChunks, mediaId) => {
+        nxContext.setCSVUploaderLoader({ csv_upload_loader: true });
+        try {
+            const response = await nxHelper.post("csv-upload", {
+                csv: csvUrl,
+                chunkIndex,
+                totalChunks,
+                mediaId,
+                chunkSize,
+                uploadImage: true,
+            });
+            // @ts-ignore 
+            if (response.success) {
+                setLocalContents(prevContents => [
+                    ...prevContents,
+                    // @ts-ignore 
+                    ...(response.data.data || [])
+                ]);
+            } else {
+                // @ts-ignore 
+                console.error(response.data.error);
                 nxContext.setCSVUploaderLoader({
                     csv_upload_loader: false,
                 })
             }
-            setImportCSV(false);
-        }).catch((error) => {
-            // setImportButtonClass('wprf-btn wprf-import-csv-btn error');
-            console.error(error);
-            nxContext.setCSVUploaderLoader({
-                csv_upload_loader: false,
-            })
-            setImportCSV(false);
-        });
-    }
-    
+        } catch (error) {
+            console.error("Error uploading the chunk:", error);
+        } finally {
+            nxContext.setCSVUploaderLoader({ csv_upload_loader: false });
+        }
+    };
+
+    useEffect(() => {
+        if (complete) {
+            builderContext.setFieldValue("custom_contents", localContents);
+        }
+    }, [complete]);
+
     return (
-        <div className="wprf-control wprf-media">
+        <div className="wprf-control wprf-media wprf-csv-upload">
             <div className="wprf-image-uploader wprf-csv-uploader">
                 <MediaUpload
                     onSelect={(media) => handleMediaSelection(media)}
@@ -174,10 +203,6 @@ const Media = (props) => {
                                 { complete ? <Ic_Round_Done /> : <UploadIcon /> }  { csvData != null ? (props?.reset || __('Upload', 'notificationx')) : (props?.button || 'Upload') }
                             </button>
                             {csvData?.title && <span>{csvData?.title}</span>}
-                            {/* disabled={totalAddedItems?.length >= 100 ? true : false} */}
-                            {/* <button className={importBtnClass} disabled={ csvData == null ? true : false } onClick={() => importCSVData()}>
-                                <DownloadIcon /> {'Import'}
-                            </button> */}
                             <a
                                 className='wprf-btn wprf-btn-sample-csv'
                                 href={`${nxContext.assets.admin}sample_data.csv`}
@@ -188,8 +213,12 @@ const Media = (props) => {
                         </>
                     }}
                 />
-
             </div>
+            { (progress > 0 || csv_upload_loader) &&
+                <div className="progress-container">
+                    <div id="nx-progress-bar" className="nx-progress-bar"><span>0%</span></div>
+                </div>
+            }
         </div>
     )
 }
