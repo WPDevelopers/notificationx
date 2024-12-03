@@ -1078,16 +1078,19 @@
             }
         }
     }
-    &.nx-cookies-list-integrations {
+    &.nx-cookies-list-integrations,
+    &.nx-custom-notification-edit {
         .ReactModal__Content.ReactModal__Content--after-open {
             max-width: 620px !important;
+            background: #FFFFFF !important;
+            border-radius: 8px !important;
             .wprf-modal-preview-header {
                 font-weight: 600;
                 line-height: 21px;
                 color: #092161;
                 padding: 24px;
                 box-shadow: none;
-                // border-bottom: 1px solid #EBEEF5;
+                border-bottom: 1px solid #EBEEF5;
                 .wprf-repeater-label {
                     .wprf-repeater-button {
                         font-size: 16px;
@@ -1102,6 +1105,7 @@
             .wprf-modal-table-wrapper.wpsp-better-repeater-fields {
                 background: #FFFFFF;
                 gap: 16px; 
+                padding: 24px;
                 .wprf-repeater-field {
                     background: transparent;
                     border: 1px solid #EAECFA;
@@ -1126,8 +1130,47 @@
                         justify-content: unset;
                         gap: 16px;
                         .wprf-control-wrapper {
+                            .wprf-control-label {
+                                label {
+                                    font-size: 14px;
+                                    line-height: 19px;
+                                    font-weight: 500;
+                                    color: #535D77;
+                                }
+                            }
                             .wprf-control-field {
-                                max-width: unset;
+                                max-width: 100%;
+                                input {
+                                    border: 1px solid #E6EFFB;
+                                }
+                                .wprf-help {
+                                    margin: 0;
+                                    margin-top: 8px;
+                                    display: block;
+                                    flex-basis: 100%;
+                                    font-size: 12px;
+                                    line-height: 16px;
+                                    color: #535D77;
+                                    background: #FFF1EB;
+                                    border-radius: 4px;
+                                    padding: 12px;
+                                }
+                                textarea {
+                                    border-radius: 4px;
+                                    border: 1px solid #E6EFFB;
+                                    width: 100%;
+                                    font-size: 14px;
+                                    line-height: 1.1em;
+                                    color: #092161;
+                                    padding: 10px 12px;
+                                    resize: none;
+
+                                    &:focus-visible,
+                                    &:focus {
+                                        box-shadow: none;
+                                        outline: 0;
+                                    }
+                                }
                             }
                         }
                         .wprf-control-wrapper:first-child {
@@ -1153,7 +1196,7 @@
                                         display: inline-block;
                                         margin-right: 0;
                                         &:before {
-                                            background: #f0f0f0;
+                                            background: #8D92B1;
                                             width: 40px;
                                             height: 20px;
                                             border: none;
@@ -1168,7 +1211,7 @@
                                             width: 18px;
                                             height: 18px;
                                             border-radius: 50%;
-                                            background: #fbfbfb;
+                                            background: #FFFFFF;
                                             transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
                                             box-shadow: none;
                                         }
@@ -1182,6 +1225,37 @@
                                     }
                                 }
                             }
+                        }
+                    }
+                }
+            }
+            .wprf-modal-preview-footer {
+                background: #FFFFFF;
+                display: flex;
+                gap: 12px;
+                justify-content: flex-end;
+                padding: 16px;
+                border-top: 1px solid #EAECFA;
+                .wpsp-btn.wpsp-btn-preview-update {
+                    font-size: 14px;
+                    line-height: 16px;
+                    padding: 12px 24px;
+                }
+            }
+        }
+    }
+    &.nx-custom-notification-edit {
+        .ReactModal__Content.ReactModal__Content--after-open {
+            .wprf-modal-table-wrapper.wpsp-better-repeater-fields {
+                .wprf-repeater-field {
+                    border: none !important;
+                    padding: 0px;
+                    .wprf-repeater-field-title {
+                        display: none;
+                    }
+                    .wprf-repeater-inner-field {
+                        .wprf-control-wrapper:first-child {
+                            display: none;
                         }
                     }
                 }

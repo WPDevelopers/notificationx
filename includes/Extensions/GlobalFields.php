@@ -894,15 +894,18 @@ class GlobalFields {
                                                     'name'     => 'duration',
                                                     'label'    => __('Duration', 'notificationx-pro'),
                                                     'priority' => 20,
+                                                    'info'     => '10 Days',
                                                 ), 
                                                 'script_url_pattern' => array(
                                                     'type'     => 'text',
                                                     'name'     => 'script_url_pattern',
                                                     'label'    => __('Script URL Pattern', 'notificationx-pro'),
                                                     'priority' => 25,
+                                                    'help'     => '10 Days',
+
                                                 ), 
                                                 'description' => array(
-                                                    'type'     => 'text',
+                                                    'type'     => 'textarea',
                                                     'name'     => 'description',
                                                     'label'    => __('Description', 'notificationx-pro'),
                                                     'priority' => 30,
