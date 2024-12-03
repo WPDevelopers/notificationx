@@ -16,24 +16,34 @@ const BetterRepeater = (props) => {
     const [isIntegrationModalOpen, setIsIntegrationModalOpen] = useState(false);
     const [isEditNecessaryModalOpen, setIsEditCookieInfoModalOpen] = useState(false);
     const builderContext = useBuilderContext();
-    const [localMemoizedValue, setLocalMemoizedValue] = useState(builderContext.values?.[fieldName])
-    const [localMemoizedValueForTab, setLocalMemoizedValueForTab] = useState(builderContext.values?.tab_info)
-    // console.log(builderContext?.values?.[fieldName])
+    const [localMemoizedValue, setLocalMemoizedValue] = useState(builderContext.values?.[fieldName]);
+    const [localMemoizedValueForTab, setLocalMemoizedValueForTab] = useState(builderContext.values?.tab_info);
+    
     useEffect(() => {
         if (builderContext.values?.[fieldName] != undefined) {
             setLocalMemoizedValue(builderContext.values?.[fieldName]);
-            console.log(builderContext?.values?.[fieldName])
         }
-    }, [builderContext.values?.[fieldName]])
+    }, [builderContext.values?.[fieldName]]);
 
-    console.log('localMemoizedValue',localMemoizedValue);
-    
+    useEffect(() => {
+        if (builderContext.values?.tab_info) {
+            setLocalMemoizedValueForTab(builderContext.values?.tab_info);
+        }
+    }, [builderContext.values?.tab_info]);
 
     const handleSort = (value) => {
         builderContext.setFieldValue(fieldName, value);
     }
 
     const handleChange = (event, index) => {
+        if (event.persist) {
+            event.persist();
+        }
+        const { field, val: value } = executeChange(event);
+        builderContext.setFieldValue([fieldName, index, field], value);
+    }
+
+    const handleChangeTabInfo = (event, index) => {
         if (event.persist) {
             event.persist();
         }
@@ -101,19 +111,18 @@ const BetterRepeater = (props) => {
     }
     
     const tabFieldsArray = Object.values(tab_info);
-    
+
     console.log('builderContext', builderContext);
-    
 
     return (
         <div className="wprf-repeater-control">
-            { tab_info &&
+            { localMemoizedValueForTab && localMemoizedValueForTab.length &&
                 <div className='tab_info'>
                     <h4>
-                        {tab_info?.tab_title?.default}
+                        {localMemoizedValueForTab[0]?.tab_title}
                         <span onClick={handleEditCookieInfo}> Edit</span>
                     </h4>
-                    <p>{tab_info?.tab_description?.default}</p>
+                    <p>{localMemoizedValueForTab[0]?.tab_description}</p>
                 </div>
             }
             { button?.position == 'top' && 
@@ -292,7 +301,7 @@ const BetterRepeater = (props) => {
                                             fields={tab_info}
                                             index={index}
                                             parent={'tab_info'}
-                                            onChange={(event: any) => handleChange(event, index)}
+                                            onChange={(event: any) => handleChangeTabInfo(event, index)}
                                         />
                                     })
                                 }

@@ -867,13 +867,13 @@ class GlobalFields {
                                             'tab_info' => [
                                                 'tab_title' => array(
                                                     'type'     => 'text',
-                                                    'name'     => 'necessary_cookies_title',
+                                                    'name'     => 'tab_title',
                                                     'default'    => __('Necessary', 'notificationx'),
                                                     'label'    => __('Name', 'notificationx'),
                                                 ),
                                                 'tab_description' => array(
-                                                    'type'     => 'text',
-                                                    'name'     => 'necessary_cookies_description',
+                                                    'type'     => 'textarea',
+                                                    'name'     => 'tab_description',
                                                     'label'    => __('Description', 'notificationx'),
                                                     'default'    => __('Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
                                                 ),
