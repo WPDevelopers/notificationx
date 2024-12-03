@@ -1,44 +1,137 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
+import ChevronRight from '../../../icons/ChevronRight';
+import ChevronDown from '../../../icons/ChevronDown';
+import { __ } from '@wordpress/i18n';
 
-const CookiesAccordion = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+const AccordionItem = ({
+  itemKey,
+  title,
+  description,
+  isAlwaysActive,
+  cookiesList,
+  isCollapsed,
+  toggleItem,
+  isEnabled,
+  toggleEnable,
+}) => (
+  <div className="nx_gdpr-cookies-list-main-item">
+    <div className="nx_gdpr-cookies-list-header">
+      <div className="nx_gdpr-cookies-list-header-title" onClick={() => toggleItem(itemKey)}>
+        {isCollapsed ? <ChevronDown /> : <ChevronRight />}
+        <h3>{title}</h3>
+      </div>
+      <div className="nx_gdpr-cookies-list-header-active">
+        {isAlwaysActive ? (
+          <span>Always Active</span>
+        ) : (
+          <label className="nx_gdpr-toggle">
+            <input
+              type="checkbox"
+              checked={isEnabled}
+              onChange={() => toggleEnable(itemKey)}
+            />
+            <span className="nx_gdpr-toggle-slider"></span>
+          </label>
+        )}
+      </div>
+    </div>
+    <div className="nx_gdpr-cookies-list-content">
+      <p>{description}</p>
+    </div>
+    {isCollapsed && (
+      <div className="nx_gdpr-cookies-list-wrapper">
+        {cookiesList?.map((cookie, index) => (
+          <div className="nx_gdpr-cookies-list-wrapper-item" key={index}>
+            <div className="nx_gdpr-cookies-list-wrapper-item-value">
+              <span>{__('Cookie', 'notificationx')}</span>
+              <p>{cookie?.cookies_id}</p>
+            </div>
+            <div className="nx_gdpr-cookies-list-wrapper-item-value">
+              <span>{__('Duration', 'notificationx')}</span>
+              <p>{cookie?.duration}</p>
+            </div>
+            <div className="nx_gdpr-cookies-list-wrapper-item-value">
+              <span>{__('Description', 'notificationx')}</span>
+              <p>{cookie?.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+);
 
-  // Toggle the accordion item
-  const toggleAccordion = (index: number) => {
-    setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
+const CookiesAccordion = ({ settings, onEnableCookiesItem }) => {
+  const [collapsedItems, setCollapsedItems] = useState([]);
+  const [enabledItems, setEnabledItems] = useState({
+    necessary: true, // Necessary cookies are always enabled
+    functional: true,
+    analytics: false,
+  });
+
+  const toggleItem = (itemKey) => {
+    setCollapsedItems((prev) =>
+      prev.includes(itemKey) ? prev.filter((key) => key !== itemKey) : [...prev, itemKey]
+    );
   };
 
-  // Sample accordion data
+  const toggleEnable = (itemKey) => {
+    const updatedEnabledItems = {
+      ...enabledItems,
+      [itemKey]: !enabledItems[itemKey],
+    };
+    setEnabledItems(updatedEnabledItems);
+    onEnableCookiesItem(updatedEnabledItems); // Pass the updated state to the parent component
+  };
+
   const accordionItems = [
-    { id: 1, title: 'Accordion Item 1', content: 'Content for item 1' },
-    { id: 2, title: 'Accordion Item 2', content: 'Content for item 2' },
-    { id: 3, title: 'Accordion Item 3', content: 'Content for item 3' },
-    { id: 4, title: 'Accordion Item 4', content: 'Content for item 4' },
-    { id: 5, title: 'Accordion Item 5', content: 'Content for item 5' },
+    {
+      key: 'necessary',
+      title: __('Necessary', 'notificationx'),
+      description: __(
+        'Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.',
+        'notificationx'
+      ),
+      isAlwaysActive: true,
+      cookiesList: settings?.necessary_cookie_lists,
+    },
+    {
+      key: 'functional',
+      title: __('Functional', 'notificationx'),
+      description: __(
+        'Functional cookies help perform certain functionalities like sharing the content of the website on social media platforms, collecting feedback, and other third-party features.',
+        'notificationx'
+      ),
+      isAlwaysActive: true,
+      cookiesList: settings?.functional_cookie_lists,
+    },
+    {
+      key: 'analytics',
+      title: __('Analytics', 'notificationx'),
+      description: __(
+        'Analytics cookies help analyze website usage to improve user experience.',
+        'notificationx'
+      ),
+      isAlwaysActive: false,
+      cookiesList: settings?.analytics_cookie_lists,
+    },
   ];
 
   return (
-    <div>
-      {accordionItems.map((item, index) => (
-        <div key={item.id}>
-          {/* Accordion Header */}
-          <div
-            onClick={() => toggleAccordion(index)}
-            role="button"
-            aria-expanded={openIndex === index}
-          >
-            <span>{item.title}</span>
-            {/* Icon changes based on open state */}
-            <span>{openIndex === index ? '🔽' : '🔼'}</span>
-          </div>
-
-          {/* Accordion Content */}
-          {openIndex === index && (
-            <div>
-              <p>{item.content}</p>
-            </div>
-          )}
-        </div>
+    <div className="nx_gdpr-cookies-list-main-wrapper">
+      {accordionItems.map((item) => (
+        <AccordionItem
+          key={item.key}
+          itemKey={item.key}
+          title={item.title}
+          description={item.description}
+          isAlwaysActive={item.isAlwaysActive}
+          cookiesList={item.cookiesList}
+          isCollapsed={collapsedItems.includes(item.key)}
+          toggleItem={toggleItem}
+          isEnabled={enabledItems[item.key]}
+          toggleEnable={toggleEnable}
+        />
       ))}
     </div>
   );
