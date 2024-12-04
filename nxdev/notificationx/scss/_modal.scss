@@ -353,6 +353,12 @@
             background: transparent !important;
         }
 
+        &.nx-gdpr-customization {
+            .nx-gdpr-modal-header {
+                display: none;
+            }
+        }
+
         .wprf-modal-preview-header {
             font-size: 16px;
             color: #1B1B50;
