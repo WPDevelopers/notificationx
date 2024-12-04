@@ -248,18 +248,32 @@ class GlobalFields {
                             'name'   => "themes",
                             'type'   => "section",
                             'fields' => [
+                                // [
+                                //     'label'   => __("Select Theme", 'notificationx'),
+                                //     'name'    => "gdpr_s_theme",
+                                //     'type'    => "select",
+                                //     'default' => 'light',
+                                //     'options' => GlobalFields::get_instance()->normalize_fields([
+                                //         'light'  => __('Light', 'notificationx'),
+                                //         'dark' => __('Dark', 'notificationx'),
+                                //     ]),
+                                //     'rules'   => Rules::logicalRule([
+                                //         Rules::is( 'type', 'gdpr' ),
+                                //     ]),
+                                // ],
                                 [
-                                    'label'   => __("Select Theme", 'notificationx'),
-                                    'name'    => "gdpr_theme",
-                                    'type'    => "select",
-                                    'default' => 'light',
-                                    'options' => GlobalFields::get_instance()->normalize_fields([
-                                        'light'  => __('Light', 'notificationx'),
-                                        'dark' => __('Dark', 'notificationx'),
+                                    'label'            => __("Select Theme", 'notificationx'),
+                                    'name'             => "gdpr_theme",
+                                    'type'             => "radio-card",
+                                    'default'          => "light",
+                                    'options'          => GlobalFields::get_instance()->normalize_fields([
+                                        'light' => 'Light', 'dark' => 'Dark'
                                     ]),
-                                    'rules'   => Rules::logicalRule([
-                                        Rules::is( 'type', 'gdpr' ),
-                                    ]),
+                                    'priority'         => 9,
+                                    'validation_rules' => [
+                                        'required' => true,
+                                        'label'    => "Theme",
+                                    ],
                                 ],
                                 'themes' => [
                                     // 'label'            => "Themes",
