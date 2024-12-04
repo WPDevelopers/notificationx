@@ -26,6 +26,8 @@ const BetterRepeaterField = (props) => {
     useEffect(() => {
         builderContext.setFieldValue([parent, index, 'isCollapsed'], isCollapsed);
     }, [isCollapsed])
+
+    // console.log(fieldsArray);
     
     return (
         <div className="wprf-repeater-field">

@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useEffect, useState } from 'react'
 import { ReactSortable } from "react-sortablejs";
 import { v4 } from "uuid";
-import { executeChange, useBuilderContext } from 'quickbuilder';
+import { executeChange, useBuilderContext, GenericField } from 'quickbuilder';
 import BetterRepeaterField from './helpers/BetterRepeaterField';
 import ReactModal from "react-modal";
 import BetterRepeaterValueShow from './helpers/BetterRepeaterValueShow';
@@ -11,18 +11,30 @@ import { modalStyle } from '../core/constants';
 
 
 const BetterRepeater = (props) => {
-    const { name: fieldName, value: fieldValue, button, _fields, visible_fields } = props;
+    const { name: fieldName, value: fieldValue, tab_info, button, _fields, visible_fields } = props;
     const [isOpen, setIsOpen] = useState(false);
     const [isIntegrationModalOpen, setIsIntegrationModalOpen] = useState(false);
+    const [isEditNecessaryModalOpen, setIsEditCookieInfoModalOpen] = useState(false);
     const builderContext = useBuilderContext();
-    const [localMemoizedValue, setLocalMemoizedValue] = useState(builderContext.values?.[fieldName])
-
+    const [localMemoizedValue, setLocalMemoizedValue] = useState(builderContext.values?.[fieldName]);
+    const [localMemoizedValueForTab, setLocalMemoizedValueForTab] = useState(builderContext.values?.tab_info);
+    
     useEffect(() => {
         if (builderContext.values?.[fieldName] != undefined) {
             setLocalMemoizedValue(builderContext.values?.[fieldName]);
         }
-    }, [builderContext.values?.[fieldName]])
+    }, [builderContext.values?.[fieldName]]);
 
+    useEffect(() => {
+        if (builderContext.values?.tab_info !== localMemoizedValueForTab) {
+            setLocalMemoizedValueForTab(builderContext.values?.tab_info);
+        }
+    }, [builderContext.values?.tab_info, localMemoizedValueForTab]);
+    // useEffect(() => {
+    //     if (builderContext.values?.tab_info) {
+    //         setLocalMemoizedValueForTab(builderContext.values?.tab_info);
+    //     }
+    // }, [builderContext.values?.tab_info]);
 
     const handleSort = (value) => {
         builderContext.setFieldValue(fieldName, value);
@@ -34,6 +46,14 @@ const BetterRepeater = (props) => {
         }
         const { field, val: value } = executeChange(event);
         builderContext.setFieldValue([fieldName, index, field], value);
+    }
+
+    const handleChangeTabInfo = (event, index) => {
+        if (event.persist) {
+            event.persist();
+        }
+        const { field, val: value } = executeChange(event);
+        builderContext.setFieldValue(['tab_info', index, field], value);
     }
 
     const handleRemove = useCallback((index) => {
@@ -72,6 +92,14 @@ const BetterRepeater = (props) => {
                 return {...item, index: v4()};
             }))
         }
+        if (localMemoizedValueForTab == undefined || localMemoizedValueForTab == '') {
+            setLocalMemoizedValueForTab([{index: v4()}]);
+        }
+        else{
+            setLocalMemoizedValueForTab((items) => items.map((item) => {
+                return {...item, index: v4()};
+            }))
+        }
     }, [])    
     
     const handleButtonClick = () => {
@@ -82,11 +110,24 @@ const BetterRepeater = (props) => {
     const _handleButtonClick = () => {
         setIsIntegrationModalOpen(true);
     }    
-    
-    console.log('props',props);
-    
+
+    const handleEditCookieInfo = () => {
+        setIsEditCookieInfoModalOpen(true);
+    }
+
+    console.log('builderContext', builderContext);
+
     return (
         <div className="wprf-repeater-control">
+            { localMemoizedValueForTab && localMemoizedValueForTab.length &&
+                <div className='tab_info'>
+                    <h4>
+                        {localMemoizedValueForTab[0]?.tab_title}
+                        <span onClick={handleEditCookieInfo}> Edit</span>
+                    </h4>
+                    <p>{localMemoizedValueForTab[0]?.tab_description}</p>
+                </div>
+            }
             { button?.position == 'top' && 
                 <div className="wprf-repeater-label">
                     <button className="wprf-repeater-button"
@@ -124,7 +165,7 @@ const BetterRepeater = (props) => {
                     </button>
                 </div>
             }
-             <ReactModal
+            <ReactModal
                 isOpen={isOpen}
                 onRequestClose={() => setIsOpen(false)}
                 ariaHideApp={false}
@@ -177,17 +218,17 @@ const BetterRepeater = (props) => {
                 ariaHideApp={false}
                 overlayClassName={`nx-cookies-list-integrations`}
                 style={modalStyle}
-                >
-                     <>
-                        <div className="wprf-modal-preview-header">
-                            <span>{ __( 'Integrations','notificationx' ) }</span>
-                            <div className="wprf-repeater-label">
-                                <button className="wprf-repeater-button" onClick={handleButtonClick}>
-                                    Custom Cookies
-                                </button>
-                            </div>
+            >
+                    <>
+                    <div className="wprf-modal-preview-header">
+                        <span>{ __( 'Integrations','notificationx' ) }</span>
+                        <div className="wprf-repeater-label">
+                            <button className="wprf-repeater-button" onClick={handleButtonClick}>
+                                Custom Cookies
+                            </button>
                         </div>
-                        <div className="wprf-modal-table-wrapper wpsp-better-repeater-fields">
+                    </div>
+                    <div className="wprf-modal-table-wrapper wpsp-better-repeater-fields">
                         {Object.entries(props?._default).map(([key, value]) => (
                             <div key={key}>
                                 {localMemoizedValue && localMemoizedValue?.length > 0 && (
@@ -226,33 +267,54 @@ const BetterRepeater = (props) => {
                                 )}
                             </div>
                         ))}
-
-                            
-                            {/* { localMemoizedValue && localMemoizedValue?.length > 0 &&
-                                <div className="wprf-repeater-content">
-                                    {
-                                        localMemoizedValue.map((value, index) => {
-                                            if( localMemoizedValue?.length == (index + 1) ) {
-                                                return <BetterRepeaterField
-                                                    isCollapsed={value?.isCollapsed}
-                                                    key={value?.index || index}
-                                                    fields={_fields}
-                                                    index={index}
-                                                    parent={fieldName}
-                                                    clone={handleClone}
-                                                    remove={handleRemove}
-                                                    onChange={(event: any) => handleChange(event, index)}
-                                                />
-                                            }
-                                        })
-                                    }
-                                </div>
-                            } */}
-                        </div>
-                        <div className="wprf-modal-preview-footer">
-                            <button className='wpsp-btn wpsp-btn-preview-update' onClick={() => setIsOpen(false)}>{__('Save', 'notificationx')}</button>
-                        </div>
-                    </>
+                    </div>
+                    <div className="wprf-modal-preview-footer">
+                        <button className='wpsp-btn wpsp-btn-preview-update' onClick={() => setIsOpen(false)}>{__('Save', 'notificationx')}</button>
+                    </div>
+                </>
+            </ReactModal>
+            <ReactModal
+                isOpen={isEditNecessaryModalOpen}
+                onRequestClose={() => setIsEditCookieInfoModalOpen(false)}
+                ariaHideApp={false}
+                overlayClassName={`nx-custom-notification-edit`}
+                style={{
+                    ...modalStyle,
+                    overlay: {
+                        ...modalStyle.overlay,
+                        zIndex: 99999,
+                    }
+                }}                
+            >
+                <>
+                    <div className="wprf-modal-preview-header">
+                        <span>{ __( 'Edit Category','notificationx' ) }</span>
+                        <button onClick={() => setIsEditCookieInfoModalOpen(false)}>
+                            <CloseIcon />
+                        </button>
+                    </div>
+                    <div className="wprf-modal-table-wrapper wpsp-better-repeater-fields">
+                        {
+                            localMemoizedValueForTab && localMemoizedValueForTab?.length > 0 &&
+                            <div className="wprf-repeater-content">
+                                {
+                                    localMemoizedValueForTab.map((value, index) => {
+                                        return <BetterRepeaterField
+                                            key={value?.index || index}
+                                            fields={tab_info}
+                                            index={index}
+                                            parent={'tab_info'}
+                                            onChange={(event: any) => handleChangeTabInfo(event, index)}
+                                        />
+                                    })
+                                }
+                            </div>
+                        }
+                    </div>
+                    <div className="wprf-modal-preview-footer">
+                        <button className='wpsp-btn wpsp-btn-preview-update' onClick={() => setIsEditCookieInfoModalOpen(false)}>{__('Save', 'notificationx')}</button>
+                    </div>
+                </>
             </ReactModal>
         </div>
     )
