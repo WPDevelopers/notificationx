@@ -355,10 +355,25 @@
 
         &.nx-gdpr-customization {
             background: #FFFFFF !important;
-            max-width: 520px !important;
-            border-radius: 16px;
+            max-width: 620px !important;
+            border-radius: 16px !important;
             .nx-gdpr-modal-header {
-                display: none;
+                background: transparent;
+
+                h3 {
+                    font-size: 20px;
+                    line-height: 22px;
+                    font-weight: 600;
+                    color: #092161;
+                    margin: 0;
+                    padding-bottom: 18px;
+                }
+                p {
+                    font-size: 14px;
+                    line-height: 22px;
+                    color: #535D77;
+                    margin: 0;
+                }
             }
             .wprf-gdpr-modal-frontend-content {
                 padding: 20px 24px;
@@ -383,14 +398,7 @@
                             .nx_gdpr-cookies-list-header-title {
                                 display: flex;
                                 align-items: center;
-                                gap: 6px;
-                                svg {
-                                    width: 16px;
-                                    height: 16px;
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                }
+                                gap: 10px;
                                 h3 {
                                     margin: 0;
                                     padding: 0;
@@ -477,6 +485,14 @@
                                 flex-direction: column;
                                 gap: 16px;
 
+                                &:not(:last-child) {
+                                    padding-bottom: 16px;
+                                    border-bottom: 1px solid #EAECFA;
+                                }
+                                &:not(:first-child) {
+                                    padding-top: 16px;
+                                }
+
                                 .nx_gdpr-cookies-list-wrapper-item-value {
                                     span {
                                         font-size: 12px;
@@ -556,8 +572,8 @@
             }
             .nx-gdpr-customization-close {
                 position: absolute;
-                top: 8px;
-                right: 8px;
+                top: 20px;
+                right: 24px;
                 width: 24px;
                 height: 24px;
                 border-radius: 4px;
