@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
-import { getThemeName, isObject, calculateAnimationStartTime } from "../core/functions";
+import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName } from "../core/functions";
 import { Theme } from "../themes";
 import Analytics from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
@@ -184,10 +184,22 @@ const Notification = (props) => {
             "flex-reverse": advance_edit && settings?.image_position === "right",
         }
     ];
+    let splitThemes = [
+        "theme-five",
+        "theme-six-free",
+        "conv-theme-nine",
+        "review-comment",
+        "page_analytics_pa-theme-two",
+    ];
+    splitThemes = splitThemes.concat(props?.splitThemes);
+
     const componentCSS: any = {};
     const announcementCSS: any = {};
+    const resThemeName = getResThemeName(settings) || null;
+    const isSplit = splitThemes.includes(themeName) || splitThemes.includes(resThemeName);
+    
     if (props?.config?.advance_edit) {
-        if (props?.config?.bg_color) componentCSS.backgroundColor = props?.config?.bg_color;
+        if (props?.config?.bg_color && !isSplit ) componentCSS.backgroundColor = props?.config?.bg_color;
         if (props?.config?.text_color) componentCSS.color = props?.config?.text_color;
         if (+props?.config?.border && +props?.config?.border_size) {
             componentCSS.borderWidth = props?.config?.border_size;
