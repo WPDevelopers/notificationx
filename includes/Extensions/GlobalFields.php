@@ -281,6 +281,36 @@ class GlobalFields {
                                         'defaults' => apply_filters('nx_themes_trigger', []),
                                     ],
                                 ],
+                                [
+                                    'label'   => __("Position", 'notificationx'),
+                                    'name'    => "gdpr_position",
+                                    'type'    => "select",
+                                    'default' => 'bottom_left',
+                                    'options' => GlobalFields::get_instance()->normalize_fields([
+                                        'bottom_left'  => __('Bottom Left', 'notificationx'),
+                                        'bottom_right' => __('Bottom Right', 'notificationx'),
+                                        'center' => __('Center', 'notificationx'),
+                                    ]),
+                                    'rules'   => Rules::logicalRule([
+                                        Rules::is( 'type', 'gdpr' ),
+                                        Rules::includes('themes', [ 'gdpr_theme-light-one', 'gdpr_theme-light-two', 'gdpr_theme-light-three',
+                                     'gdpr_theme-light-four', 'gdpr_theme-dark-one', 'gdpr_theme-dark-two', 'gdpr_theme-dark-three', 'gdpr_theme-dark-four' ], false),
+                                    ]),
+                                ],
+                                [
+                                    'label'   => __("Position", 'notificationx'),
+                                    'name'    => "gdpr_banner_position",
+                                    'type'    => "select",
+                                    'default' => 'bottom',
+                                    'options' => GlobalFields::get_instance()->normalize_fields([
+                                        'bottom'  => __('Bottom', 'notificationx'),
+                                        'top' => __('Top', 'notificationx'),
+                                    ]),
+                                    'rules'   => Rules::logicalRule([
+                                        Rules::is( 'type', 'gdpr' ),
+                                        Rules::includes('themes', [ 'gdpr_theme-banner-light-one', 'gdpr_theme-banner-light-two', 'gdpr_theme-banner-dark-one', 'gdpr_theme-banner-dark-two' ], false),
+                                    ]),
+                                ],
                                 'advance_edit' => [
                                     'label'    => __("Advanced Design", 'notificationx'),
                                     'name'     => "advance_edit",
