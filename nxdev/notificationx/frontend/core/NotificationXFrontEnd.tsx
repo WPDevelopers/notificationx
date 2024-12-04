@@ -4,7 +4,7 @@ import { NotificationProvider, NotificationContainer, useNotificationX } from ".
 import "../scss/theme.scss";
 
 const NotificationXFrontEnd = (props) => {
-    const notificationx = useNotificationX(props);
+    const notificationx = useNotificationX(props);    
     return <NotificationProvider value={notificationx}>
         <NotificationContainer />
     </NotificationProvider>;

@@ -124,6 +124,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
             if (settings?.bar_close_color) closeButtonCSS.fill = settings.bar_close_color;
         }
         const barHeight = document.getElementById(`nx-bar-${settings.nx_id}`).offsetHeight;
+        
         document.body.classList.add("has-nx-bar");
         if(settings?.sticky_bar){
             document.body.classList.add("nx-sticky-bar");
@@ -199,9 +200,11 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         }
     }, [timeConfig.expired])
 
-    // useEffect(() => {
-    //     calcHeight();
-    // }, [])
+    useEffect(() => {
+        setTimeout(() => {
+            calcHeight();
+        }, 1000);
+    }, [])
 
     useEffect(() => {
         // event elementor/frontend/init

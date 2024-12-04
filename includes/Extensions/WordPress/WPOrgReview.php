@@ -92,6 +92,33 @@ class WPOrgReview extends Extension {
 
         // Show only single entry if total-rated theme.
         add_filter( 'nx_frontend_get_entries', [$this, 'total_rated_theme'], 10, 3);
+        // Slice product name
+        add_filter( 'nx_frontend_get_entries', [$this, 'slice_product_name'], 10, 3);
+    }
+
+    /**
+     * Truncates product names in entries based on device-specific length settings.
+     * 
+     * @param array $entries Array of product entries to process.
+     * @param array $ids Array of IDs to process (not used here).
+     * @param array $notifications Notification settings keyed by `nx_id`.
+     * @return array Updated entries array with truncated product names.
+     */
+    public function slice_product_name($entries, $ids, $notifications) {
+        foreach ($entries as $key => $entry) {
+            if($entry['source'] == $this->id){
+                $nx_id        = $entry['nx_id'];
+                $settings     = $notifications[$nx_id];
+                if ( !empty( $settings['wp_reviews_product_name_length'] ) && !empty( $entry['plugin_name'] ) ) {
+                    $text                       = $entry['plugin_name'] ?? '';
+                    $maxLength                  = wp_is_mobile()  ? ($settings['wp_reviews_product_name_length']['mobile'] ?? 0)  : ($settings['wp_reviews_product_name_length']['desktop'] ?? 0);
+                    $entry['plugin_name'] = (strlen($text) > $maxLength && $maxLength > 0)  ? substr($text, 0, $maxLength) . '...' : $text;
+                }
+                $entries[$key] = $entry;
+            }
+        }
+
+        return $entries;
     }
 
     /**
@@ -121,6 +148,29 @@ class WPOrgReview extends Extension {
             'type'     => 'text',
             'priority' => 80,
             'rules'  => ['is', 'source', $this->id]
+        ];
+        $content_fields['wp_reviews_product_name_length'] = [
+            'name'    => 'wp_reviews_product_name_length',
+            'type'    => "responsive-number",
+            'label'   => __('Product Name Length', 'notificationx'),
+            'rules'   => ['is', 'source', $this->id],
+            'default' => [
+                "desktop" => 30,
+                "mobile"  => 20,
+            ],
+            'priority' => 90,
+            'min'      => 10,
+            'controls' => [
+                "desktop" => [
+                    "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+                    'size' => 18,
+                ],
+                "mobile" => [
+                    "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/mobile.svg',
+                    'size' => 12,
+                ],
+            ],
+            'help' => __('Set a max content length for product name.', 'notificationx'),
         ];
         return $fields;
     }

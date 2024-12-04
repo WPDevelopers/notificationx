@@ -2472,13 +2472,40 @@
         }
     }
 }
-
+.wprf-name-custom-nx-csv-upload .wprf-media {
+    &.wprf-csv-upload {
+        flex-direction: column;
+        align-items: baseline;
+        gap: 10px;
+    }
+    .progress-container {
+        width: 40%;
+        background-color: #ccc;
+        border-radius: 25px;
+        overflow: hidden;
+        position: relative;
+        // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .nx-progress-bar {
+        width: 0%;
+        height: 20px;
+        background-color: #4caf50;
+        text-align: center;
+        line-height: 20px;
+        color: white;
+        font-weight: bold;
+        transition: width 0.4s ease;
+        span {
+            position: absolute;
+            left: 48%;
+        }
+    }
+}
 .wprf-name-custom-nx-csv-upload .wprf-media .wprf-image-uploader.wprf-csv-uploader {
     position: relative;
     flex: 1;
     display: inline-flex;
     gap: 16px;
-
     button {
         margin-right: 0;
 

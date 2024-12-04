@@ -86,6 +86,41 @@ class ContactForm extends Types {
                 ],
             ],
         ];
+        $this->res_themes = [
+            'res-theme-one'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_form/cf-res-theme-1.png',
+                'image_shape' => 'circle',
+                  // Default values for Add New > Content > Notification Template fields
+                'template' => [
+                    'res_first_param'  => 'select_a_tag',
+                    'res_second_param' => __('just contacted via', 'notificationx'),
+                    'res_third_param'  => 'tag_title',
+                ],
+                'is_pro' => true,
+            ],
+            'res-theme-two'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_form/cf-res-theme-2.png',
+                'image_shape' => 'circle',
+                  // Default values for Add New > Content > Notification Template fields
+                'template' => [
+                    'res_first_param'  => 'select_a_tag',
+                    'res_second_param' => __('just contacted via', 'notificationx'),
+                    'res_third_param'  => 'tag_title',
+                ],
+                'is_pro' => true,
+            ],
+            'res-theme-three'   => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_form/cf-res-theme-3.png',
+                'image_shape' => 'circle',
+                  // Default values for Add New > Content > Notification Template fields
+                'template' => [
+                    'res_first_param'  => 'select_a_tag',
+                    'res_second_param' => __('just contacted via', 'notificationx'),
+                    'res_third_param'  => 'tag_title',
+                ],
+                'is_pro' => true,
+            ],
+        ];
         $this->templates = [
             // Dropdown options for Add New > Content > Notification Template fields
             'form_template_new' => [

@@ -1,25 +1,65 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNotificationContext, Notification, Shortcode, Pressbar } from ".";
 import GDPR from "./GDPR";
+import NotificationForMobile from "./NotificationForMobile";
 
 const NotificationContainer = (props: any) => {
     const frontendContext = useNotificationContext();
-    
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Detect screen size
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 574);
+        };
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);    
     const renderNotice = (NoticeList, position) => {
-        return (
-            <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
-                {NoticeList.map((notice) => {
-                    return (
-                        <Notification
-                            assets={frontendContext.assets}
-                            dispatch={frontendContext.dispatch}
-                            key={notice.id}
-                            {...notice}
-                        />
-                    );
-                })}
-            </div>
-        );
+        if (isMobile && frontendContext?.is_pro) {
+            return (
+                <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
+                    {NoticeList.map((notice) => {
+                        if( notice?.config?.is_mobile_responsive && notice?.config?.source !== 'announcements' ) {
+                            return (
+                                <NotificationForMobile
+                                    assets={frontendContext.assets}
+                                    dispatch={frontendContext.dispatch}
+                                    key={notice.id}
+                                    {...notice}
+                                />
+                            );
+                        }else{
+                            return (
+                                <Notification
+                                    assets={frontendContext.assets}
+                                    dispatch={frontendContext.dispatch}
+                                    key={notice.id}
+                                    {...notice}
+                                />
+                            );
+                        }
+                    })}
+                </div>
+            );
+        } else {
+            return (
+                <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
+                    {NoticeList.map((notice) => {
+                        return (
+                            <Notification
+                                assets={frontendContext.assets}
+                                dispatch={frontendContext.dispatch}
+                                key={notice.id}
+                                {...notice}
+                            />
+                        );
+                    })}
+                </div>
+            );
+        }
+
     };
     
     return (

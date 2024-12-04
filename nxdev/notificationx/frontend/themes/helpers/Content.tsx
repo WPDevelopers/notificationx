@@ -74,12 +74,12 @@ const Content = (props) => {
                 }`}
             style={props.style}
         >
-            {props.themes == "theme-five" && (
+            {(props.themes == "theme-five" || (props?.isSplit && props?.splitThemes?.includes('res-theme-three'))) && (
                 <ThemeFiveShape style={themeFiveShapeStyle} />
             )}
             {content}
             {/* {post.nx_id} &gt; {props?.data?.entry_id} */}
-            { ["announcements_theme-14"].includes(props?.config?.themes) && 
+            {["announcements_theme-14"].includes(props?.config?.themes) &&
                 <Button
                     {...props}
                 />
