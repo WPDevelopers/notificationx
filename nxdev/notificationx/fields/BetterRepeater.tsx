@@ -26,10 +26,15 @@ const BetterRepeater = (props) => {
     }, [builderContext.values?.[fieldName]]);
 
     useEffect(() => {
-        if (builderContext.values?.tab_info) {
+        if (builderContext.values?.tab_info !== localMemoizedValueForTab) {
             setLocalMemoizedValueForTab(builderContext.values?.tab_info);
         }
-    }, [builderContext.values?.tab_info]);
+    }, [builderContext.values?.tab_info, localMemoizedValueForTab]);
+    // useEffect(() => {
+    //     if (builderContext.values?.tab_info) {
+    //         setLocalMemoizedValueForTab(builderContext.values?.tab_info);
+    //     }
+    // }, [builderContext.values?.tab_info]);
 
     const handleSort = (value) => {
         builderContext.setFieldValue(fieldName, value);
@@ -109,8 +114,6 @@ const BetterRepeater = (props) => {
     const handleEditCookieInfo = () => {
         setIsEditCookieInfoModalOpen(true);
     }
-    
-    const tabFieldsArray = Object.values(tab_info);
 
     console.log('builderContext', builderContext);
 
