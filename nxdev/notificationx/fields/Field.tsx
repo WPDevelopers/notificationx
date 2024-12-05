@@ -9,6 +9,7 @@ import CSVUpload from './CSVUpload';
 import AdvancedRepeater from './AdvancedRepeater';
 import AdvancedCodeViewer from './AdvancedCodeViewer';
 import BetterRepeater from './BetterRepeater';
+import BetterToggle from './BetterToggle';
 
 
 
@@ -34,6 +35,8 @@ const Field = (ret, type, props) => {
             return <AdvancedCodeViewer {...props} />;
         case "better-repeater":
             return <BetterRepeater {...props} />;
+        case "better-toggle":
+            return <BetterToggle {...props} />;
         default:
             return ret;
     }

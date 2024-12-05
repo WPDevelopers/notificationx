@@ -264,16 +264,20 @@ class GlobalFields {
                                 [
                                     'label'            => __("Select Theme", 'notificationx'),
                                     'name'             => "gdpr_theme",
-                                    'type'             => "radio-card",
-                                    'default'          => "light",
-                                    'options'          => GlobalFields::get_instance()->normalize_fields([
-                                        'light' => 'Light', 'dark' => 'Dark'
+                                    'type'             => "better-toggle",
+                                    'default'          => true,
+                                    'toggle_label'     => ['toggle_label_1' => __('Dark', 'notificationx'), 'toggle_label_2' => __('Light', 'notificationx')],
+                                    'rules'   => Rules::logicalRule([
+                                        Rules::is( 'type', 'gdpr' ),
                                     ]),
-                                    'priority'         => 9,
-                                    'validation_rules' => [
-                                        'required' => true,
-                                        'label'    => "Theme",
-                                    ],
+                                    // 'options'          => GlobalFields::get_instance()->normalize_fields([
+                                    //     'light' => 'Light', 'dark' => 'Dark'
+                                    // ]),
+                                    // 'priority'         => 9,
+                                    // 'validation_rules' => [
+                                    //     'required' => true,
+                                    //     'label'    => "Theme",
+                                    // ],
                                 ],
                                 'themes' => [
                                     // 'label'            => "Themes",
