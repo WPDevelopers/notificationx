@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ReactModal from "react-modal";
 import { modalStyle } from '../../../core/constants';
 import { __ } from '@wordpress/i18n';
@@ -15,35 +15,6 @@ const GdprActions = ({ settings }) => {
         performance: false,
         uncategorized: false,
     });
-
-    // Function to get WP Consent status from cookie
-    const getWpConsentStatus = () => {
-        // Check if WP Consent cookie exists
-        const consentCookie = document.cookie.split('; ').find(row => row.startsWith('wpconsent='));
-        if (!consentCookie) return null;
-
-        const consentValue = consentCookie.split('=')[1];
-        try {
-            const parsedConsent = JSON.parse(decodeURIComponent(consentValue));
-            return parsedConsent;
-        } catch (error) {
-            return null;
-        }
-    };
-
-    // Use effect to initialize consent from WP Consent API (if available)
-    useEffect(() => {
-        const wpConsent = getWpConsentStatus();
-        if (wpConsent) {
-            setConsent({
-                necessary: wpConsent.necessary || false,
-                functional: wpConsent.functional || false,
-                analytics: wpConsent.analytics || false,
-                performance: wpConsent.performance || false,
-                uncategorized: wpConsent.uncategorized || false,
-            });
-        }
-    }, []);
 
     // Example cookie lists
     const necessaryCookieList = [
@@ -105,16 +76,14 @@ const GdprActions = ({ settings }) => {
 
     // Handle full cookie acceptance
     const handleCookieAccept = () => {
-        const newConsent = {
+        setConsent({
             necessary: true,
             functional: true,
             analytics: true,
             performance: true,
             uncategorized: true,
-        };
-        setConsent(newConsent);
+        });
 
-        // Initialize and load all cookies and scripts
         initializeCookies(necessaryCookieList);
         initializeCookies(functionalCookieList);
         initializeCookies(analyticsCookieList);
@@ -123,25 +92,21 @@ const GdprActions = ({ settings }) => {
 
         loadScripts(analyticsCookieList); // Dynamically load analytics scripts
 
-        setCookie('wpconsent', JSON.stringify(newConsent), 365); // Save consent to wpconsent cookie
         alert("All cookies accepted.");
     };
 
     // Handle cookie rejection
     const handleCookieReject = () => {
-        const newConsent = {
+        setConsent({
             necessary: true,
             functional: false,
             analytics: false,
             performance: false,
             uncategorized: false,
-        };
-        setConsent(newConsent);
+        });
 
-        // Initialize only necessary cookies
-        initializeCookies(necessaryCookieList);
+        initializeCookies(necessaryCookieList); // Only necessary cookies
 
-        setCookie('wpconsent', JSON.stringify(newConsent), 365); // Save consent to wpconsent cookie
         alert("Only necessary cookies enabled.");
     };
 
@@ -149,17 +114,15 @@ const GdprActions = ({ settings }) => {
     const handleCustomizedConsent = (customConsent) => {
         setConsent(customConsent);
 
-        // Initialize and load cookies based on consent
         initializeCookies(necessaryCookieList);
         if (customConsent.functional) initializeCookies(functionalCookieList);
         if (customConsent.analytics) {
             initializeCookies(analyticsCookieList);
-            loadScripts(analyticsCookieList); // Load analytics scripts if consented
+            loadScripts(analyticsCookieList); // Load analytics scripts
         }
         if (customConsent.performance) initializeCookies(performanceCookieList);
         if (customConsent.uncategorized) initializeCookies(uncategorizedCookieList);
 
-        setCookie('wpconsent', JSON.stringify(customConsent), 365); // Save custom consent to wpconsent cookie
         alert("Custom cookie preferences saved.");
     };
 
