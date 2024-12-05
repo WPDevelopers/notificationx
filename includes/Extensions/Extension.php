@@ -245,6 +245,9 @@ abstract class Extension {
                     if(!empty($theme['column'])){
                         $themes[$tname]['column'] = $theme['column'];
                     }
+                    if(!empty($theme['rules'])){
+                        $themes[$tname]['rules'] = $theme['rules'];
+                    }
                 }
 
                 $themes[$tname] = Rules::includes('source', $this->id, false, $themes[$tname]);

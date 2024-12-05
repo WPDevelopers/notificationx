@@ -57,6 +57,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
+                'rules'                   => Rules::is('gdpr_theme', 'light'),
             ],
             'theme-light-two'        => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/light-2.jpg',
@@ -70,6 +71,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
+                'rules'                   => Rules::is('gdpr_theme', 'light'),
             ],
             'theme-light-three'      => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/light-3.jpg',
@@ -83,6 +85,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
+                'rules'                   => Rules::is('gdpr_theme', 'light'),
             ],
             'theme-light-four'   => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/light-4.jpg',
@@ -96,6 +99,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
+                'rules'                   => Rules::is('gdpr_theme', 'light'),
             ],
             'theme-dark-one'   => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/dark-1.jpg',
@@ -109,6 +113,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
+                'rules'                   => Rules::is('gdpr_theme', 'dark'),
             ],
             'theme-dark-two'   => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/dark-2.jpg',
@@ -122,6 +127,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
+                'rules'                   => Rules::is('gdpr_theme', 'dark'),
             ],
             'theme-dark-three'   => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/dark-3.jpg',
@@ -135,6 +141,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
+                'rules'                   => Rules::is('gdpr_theme', 'dark'),
             ],
             'theme-dark-four'   => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/dark-4.jpg',
@@ -148,6 +155,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
+                'rules'                   => Rules::is('gdpr_theme', 'dark'),
             ],
             'theme-banner-light-one' => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/banner-light-1.jpg',
@@ -161,6 +169,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
+                'rules'                   => Rules::is('gdpr_theme', 'light'),
             ],
             'theme-banner-light-two' => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/banner-light-2.jpg',
@@ -174,6 +183,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
+                'rules'                   => Rules::is('gdpr_theme', 'light'),
             ],
             'theme-banner-dark-one' => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/banner-dark-1.jpg',
@@ -187,6 +197,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
+                'rules'                   => Rules::is('gdpr_theme', 'dark'),
             ],
             'theme-banner-dark-two' => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/banner-dark-2.jpg',
@@ -200,6 +211,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
+                'rules'                   => Rules::is('gdpr_theme', 'dark'),
             ],
         ];
     }
@@ -495,7 +507,7 @@ class GDPR extends Types {
                 ],
                 [
                     'label'       => __('Display Close Option', 'notificationx'),
-                    'name'        => 'link_button',
+                    'name'        => 'dispaly_close_option',
                     'type'        => 'checkbox',
                     'priority'    => 10,
                     'is_pro'      => true,

@@ -17,6 +17,7 @@ const GDPR = ({ position, gdpr, dispatch }) => {
             className={classNames(
                 `nx-gdpr`,
                 settings.themes,
+                settings?.themes?.includes('banner') ? `banner-gdpr banner-gdpr-${settings?.gdpr_theme}` : `card-gdpr card-gdpr-${settings?.gdpr_theme}`,
                 settings?.gdpr_theme,
                 `nx-gdpr-${settings.nx_id}`,
 
