@@ -9,6 +9,7 @@ namespace NotificationX\Extensions\GDPR;
 
 use NotificationX\GetInstance;
 use NotificationX\Core\Rules;
+use NotificationX\Extensions\GlobalFields;
 use NotificationX\Extensions\Extension;
 
 /**
@@ -36,8 +37,210 @@ class GDPR_Notification extends Extension {
     public function __construct(){
         $this->title = __('GDPR Notification', 'notificationx');
         parent::__construct();
+        add_filter('nx_design_tab_fields', [$this, 'design_fields'], 99);
         add_filter('nx_content_fields', array($this, 'content_fields'), 999);
         add_filter('nx_customize_fields', array($this, 'customize_fields'), 999);
+    }
+
+    public function design_fields( $fields ) {
+        if (isset($fields['advance_design_section']['fields']['design'])) {
+			$fields['advance_design_section']['fields']['design'] = Rules::is('source', $this->id, true, $fields['advance_design_section']['fields']['design']);
+		}
+        if (isset($fields['advance_design_section']['fields']['typography'])) {
+			$fields['advance_design_section']['fields']['typography'] = Rules::is('source', $this->id, true, $fields['advance_design_section']['fields']['typography']);
+		}
+        if (isset($fields['advance_design_section']['fields']['image-appearance'])) {
+			$fields['advance_design_section']['fields']['image-appearance'] = Rules::is('source', $this->id, true, $fields['advance_design_section']['fields']['image-appearance']);
+		}
+        if (isset($fields['advance_design_section']['fields']['link_button_design'])) {
+			$fields['advance_design_section']['fields']['link_button_design'] = Rules::is('source', $this->id, true, $fields['advance_design_section']['fields']['link_button_design']);
+		}
+
+        $fields['advance_design_section']['fields']['gdpr_design'] = [
+            'label'    => __("Design", 'notificationx'),
+            'name'     => "gdpr_design",
+            'type'     => "section",
+            'priority' => 5,
+            'rules'    => Rules::logicalRule([
+                Rules::is('source', $this->id, false),
+                Rules::is('advance_edit', true),
+            ]),
+            'fields' => [
+                [
+                    'label' => __("Background Color", 'notificationx'),
+                    'name'  => "gdpr_design_bg_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#fff",
+                ],
+                [
+                    'label' => __("Footer Background Color", 'notificationx'),
+                    'name'  => "gdpr_design_ft_bg_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#F7F7FB",
+                ],
+                [
+                    'label' => __("Title Color", 'notificationx'),
+                    'name'  => "title_text_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#092161",
+                ],
+                [
+                    'label'       => __('Title Font Size', 'notificationx'),
+                    'name'        => "title_font_size",
+                    'type'        => "number",
+                    'default'     => '20',
+                    'description' => 'px',
+                    'help'        => __('This font size will be applied for <mark>Title</mark> only', 'notificationx'),
+                ],
+                [
+                    'label' => __("Description Color", 'notificationx'),
+                    'name'  => "description_text_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#6B7793",
+                ],
+                [
+                    'label'       => __('Description Font Size', 'notificationx'),
+                    'name'        => "description_font_size",
+                    'type'        => "number",
+                    'default'     => '16',
+                    'description' => 'px',
+                    'help'        => __('This font size will be applied for <mark>Description</mark> only', 'notificationx'),
+                ],
+                [
+                    'label' => __("Close Button Color", 'notificationx'),
+                    'name'  => "close_btn_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#092161",
+                    'rules' => Rules::logicalRule([
+                        Rules::is('themes', 'gdpr_theme-banner-light-one', true),
+                        Rules::is('themes', 'gdpr_theme-light-two', true),
+                        Rules::is('themes', 'gdpr_theme-light-four', true),
+                        Rules::is('themes', 'gdpr_theme-banner-dark-one', true),
+                        Rules::is('themes', 'gdpr_theme-dark-two', true),
+                        Rules::is('themes', 'gdpr_theme-dark-four', true),
+                    ]),
+                ],
+                [
+                    'label'       => __('Close Button Size', 'notificationx'),
+                    'name'        => "close_btn_size",
+                    'type'        => "number",
+                    'default'     => '18',
+                    'description' => 'px',
+                    'rules' => Rules::logicalRule([
+                        Rules::is('themes', 'gdpr_theme-banner-light-one', true),
+                        Rules::is('themes', 'gdpr_theme-light-two', true),
+                        Rules::is('themes', 'gdpr_theme-light-four', true),
+                        Rules::is('themes', 'gdpr_theme-banner-dark-one', true),
+                        Rules::is('themes', 'gdpr_theme-dark-two', true),
+                        Rules::is('themes', 'gdpr_theme-dark-four', true),
+                    ]),
+                ],
+            ]
+        ];
+
+        $fields['advance_design_section']['fields']['gdpr_accept_btn'] = [
+            'label'    => __("Accept Button", 'notificationx'),
+            'name'     => "gdpr_accept_btn",
+            'type'     => "section",
+            'priority' => 6,
+            'rules'    => Rules::logicalRule([
+                Rules::is('source', $this->id, false),
+                Rules::is('advance_edit', true),
+            ]),
+            'fields' => [
+                [
+                    'label' => __("Background Color", 'notificationx'),
+                    'name'  => "gdpr_accept_btn_bg_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#6A4BFF",
+                ],
+                [
+                    'label' => __("Text Color", 'notificationx'),
+                    'name'  => "gdpr_accept_btn_text_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#fff",
+                ],
+                [
+                    'label'       => __('Font Size', 'notificationx'),
+                    'name'        => "gdpr_accept_btn_font_size",
+                    'type'        => "number",
+                    'default'     => '14',
+                    'description' => 'px',
+                ],
+            ]
+        ];
+
+        $fields['advance_design_section']['fields']['gdpr_reject_btn'] = [
+            'label'    => __("Reject Button", 'notificationx'),
+            'name'     => "gdpr_reject_btn",
+            'type'     => "section",
+            'priority' => 7,
+            'rules'    => Rules::logicalRule([
+                Rules::is('source', $this->id, false),
+                Rules::is('advance_edit', true),
+                Rules::is('themes', 'gdpr_theme-banner-light-two', true),
+                Rules::is('themes', 'gdpr_theme-light-one', true),
+                Rules::is('themes', 'gdpr_theme-light-three', true),
+                Rules::is('themes', 'gdpr_theme-banner-dark-two', true),
+                Rules::is('themes', 'gdpr_theme-dark-one', true),
+                Rules::is('themes', 'gdpr_theme-dark-three', true),
+            ]),
+            'fields' => [
+                [
+                    'label' => __("Background Color", 'notificationx'),
+                    'name'  => "gdpr_reject_btn_bg_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#F7F7FB",
+                ],
+                [
+                    'label' => __("Text Color", 'notificationx'),
+                    'name'  => "gdpr_reject_btn_text_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#092161",
+                ],
+                [
+                    'label'       => __('Font Size', 'notificationx'),
+                    'name'        => "gdpr_reject_btn_font_size",
+                    'type'        => "number",
+                    'default'     => '14',
+                    'description' => 'px',
+                ],
+            ]
+        ];
+
+        $fields['advance_design_section']['fields']['gdpr_customize_btn'] = [
+            'label'    => __("Customize Button", 'notificationx'),
+            'name'     => "gdpr_customize_btn",
+            'type'     => "section",
+            'priority' => 8,
+            'rules'    => Rules::logicalRule([
+                Rules::is('source', $this->id, false),
+                Rules::is('advance_edit', true),
+            ]),
+            'fields' => [
+                [
+                    'label' => __("Background Color", 'notificationx'),
+                    'name'  => "gdpr_customize_btn_bg_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#fff",
+                ],
+                [
+                    'label' => __("Text Color", 'notificationx'),
+                    'name'  => "gdpr_customize_btn_text_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#092161",
+                ],
+                [
+                    'label'       => __('Font Size', 'notificationx'),
+                    'name'        => "gdpr_customize_btn_font_size",
+                    'type'        => "number",
+                    'default'     => '14',
+                    'description' => 'px',
+                ],
+            ]
+        ];
+
+        return $fields;
     }
 
     public function customize_fields( $fields ) {

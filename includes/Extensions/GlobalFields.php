@@ -250,18 +250,36 @@ class GlobalFields {
                             'name'   => "themes",
                             'type'   => "section",
                             'fields' => [
+                                // [
+                                //     'label'   => __("Select Theme", 'notificationx'),
+                                //     'name'    => "gdpr_s_theme",
+                                //     'type'    => "select",
+                                //     'default' => 'light',
+                                //     'options' => GlobalFields::get_instance()->normalize_fields([
+                                //         'light'  => __('Light', 'notificationx'),
+                                //         'dark' => __('Dark', 'notificationx'),
+                                //     ]),
+                                //     'rules'   => Rules::logicalRule([
+                                //         Rules::is( 'type', 'gdpr' ),
+                                //     ]),
+                                // ],
                                 [
-                                    'label'   => __("Select Theme", 'notificationx'),
-                                    'name'    => "gdpr_theme",
-                                    'type'    => "select",
-                                    'default' => 'light',
-                                    'options' => GlobalFields::get_instance()->normalize_fields([
-                                        'light'  => __('Light', 'notificationx'),
-                                        'dark' => __('Dark', 'notificationx'),
-                                    ]),
+                                    'label'            => __("Select Theme", 'notificationx'),
+                                    'name'             => "gdpr_theme",
+                                    'type'             => "better-toggle",
+                                    'default'          => true,
+                                    'toggle_label'     => ['toggle_label_1' => __('Dark', 'notificationx'), 'toggle_label_2' => __('Light', 'notificationx')],
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
                                     ]),
+                                    // 'options'          => GlobalFields::get_instance()->normalize_fields([
+                                    //     'light' => 'Light', 'dark' => 'Dark'
+                                    // ]),
+                                    // 'priority'         => 9,
+                                    // 'validation_rules' => [
+                                    //     'required' => true,
+                                    //     'label'    => "Theme",
+                                    // ],
                                 ],
                                 "themes_section" => [
                                     'type'    => 'section',
@@ -366,6 +384,36 @@ class GlobalFields {
                                             'is_pro'   => true,
                                         ],
                                     ]
+                                ],
+                                [
+                                    'label'   => __("Position", 'notificationx'),
+                                    'name'    => "gdpr_position",
+                                    'type'    => "select",
+                                    'default' => 'bottom_left',
+                                    'options' => GlobalFields::get_instance()->normalize_fields([
+                                        'bottom_left'  => __('Bottom Left', 'notificationx'),
+                                        'bottom_right' => __('Bottom Right', 'notificationx'),
+                                        'center' => __('Center', 'notificationx'),
+                                    ]),
+                                    'rules'   => Rules::logicalRule([
+                                        Rules::is( 'type', 'gdpr' ),
+                                        Rules::includes('themes', [ 'gdpr_theme-light-one', 'gdpr_theme-light-two', 'gdpr_theme-light-three',
+                                     'gdpr_theme-light-four', 'gdpr_theme-dark-one', 'gdpr_theme-dark-two', 'gdpr_theme-dark-three', 'gdpr_theme-dark-four' ], false),
+                                    ]),
+                                ],
+                                [
+                                    'label'   => __("Position", 'notificationx'),
+                                    'name'    => "gdpr_banner_position",
+                                    'type'    => "select",
+                                    'default' => 'bottom',
+                                    'options' => GlobalFields::get_instance()->normalize_fields([
+                                        'bottom'  => __('Bottom', 'notificationx'),
+                                        'top' => __('Top', 'notificationx'),
+                                    ]),
+                                    'rules'   => Rules::logicalRule([
+                                        Rules::is( 'type', 'gdpr' ),
+                                        Rules::includes('themes', [ 'gdpr_theme-banner-light-one', 'gdpr_theme-banner-light-two', 'gdpr_theme-banner-dark-one', 'gdpr_theme-banner-dark-two' ], false),
+                                    ]),
                                 ],
                                 'advance_edit' => [
                                     'label'    => __("Advanced Design", 'notificationx'),
