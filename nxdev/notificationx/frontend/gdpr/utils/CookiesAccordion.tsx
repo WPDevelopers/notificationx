@@ -115,6 +115,26 @@ const CookiesAccordion = ({ settings, onEnableCookiesItem }) => {
       isAlwaysActive: false,
       cookiesList: settings?.analytics_cookie_lists,
     },
+    {
+      key: 'performance',
+      title: __('Performance', 'notificationx'),
+      description: __(
+        'Performance cookies help analyze website usage to improve user experience.',
+        'notificationx'
+      ),
+      isAlwaysActive: false,
+      cookiesList: settings?.performance_cookie_lists,
+    },
+    {
+      key: 'uncategorized',
+      title: __('Uncategorized', 'notificationx'),
+      description: __(
+        'Uncategorized cookies help analyze website usage to improve user experience.',
+        'notificationx'
+      ),
+      isAlwaysActive: false,
+      cookiesList: settings?.uncategorized_cookie_lists,
+    },
   ];
 
   return (
