@@ -680,6 +680,11 @@
             .wprf-control-wrapper {
                 padding: 10px 32px 32px;
                 align-items: center;
+                &.wprf-name-gdpr_theme {
+                    padding-top: 14px;
+                    padding-bottom: 14px;
+                    margin-bottom: 0;
+                }
                 .wprf-control-label {
                     margin: 0;
                     label {

@@ -268,7 +268,7 @@ class GlobalFields {
                                     'name'             => "gdpr_theme",
                                     'type'             => "better-toggle",
                                     'default'          => true,
-                                    'toggle_label'     => ['toggle_label_1' => __('Dark', 'notificationx'), 'toggle_label_2' => __('Light', 'notificationx')],
+                                    'toggle_label'     => ['toggle_label_1' => __('Light', 'notificationx'), 'toggle_label_2' => __('Dark', 'notificationx')],
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
                                     ]),
