@@ -77,6 +77,9 @@
                                 border: 1px solid #EAECFA;
                                 border-radius: 8px;
                                 position: relative;
+                                display: grid;
+                                grid-template-columns: repeat(2, 1fr);
+                                gap: 20px 40px;
 
                                 .wprf-repeater-inner-field-item {
                                     span {
