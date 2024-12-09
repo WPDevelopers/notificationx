@@ -57,7 +57,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
-                'rules'                   => Rules::is('gdpr_theme', true),
+                'rules'                   => Rules::is('gdpr_theme', false),
             ],
             'theme-light-two'        => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/light-2.jpg',
@@ -71,7 +71,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
-                'rules'                   => Rules::is('gdpr_theme', true),
+                'rules'                   => Rules::is('gdpr_theme', false),
             ],
             'theme-light-three'      => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/light-3.jpg',
@@ -85,7 +85,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
-                'rules'                   => Rules::is('gdpr_theme', true),
+                'rules'                   => Rules::is('gdpr_theme', false),
             ],
             'theme-light-four'   => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/light-4.jpg',
@@ -99,7 +99,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
-                'rules'                   => Rules::is('gdpr_theme', true),
+                'rules'                   => Rules::is('gdpr_theme', false),
             ],
             'theme-dark-one'   => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/dark-1.jpg',
@@ -113,7 +113,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
-                'rules'                   => Rules::is('gdpr_theme', false),
+                'rules'                   => Rules::is('gdpr_theme', true),
             ],
             'theme-dark-two'   => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/dark-2.jpg',
@@ -127,7 +127,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
-                'rules'                   => Rules::is('gdpr_theme', false),
+                'rules'                   => Rules::is('gdpr_theme', true),
             ],
             'theme-dark-three'   => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/dark-3.jpg',
@@ -141,7 +141,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
-                'rules'                   => Rules::is('gdpr_theme', false),
+                'rules'                   => Rules::is('gdpr_theme', true),
             ],
             'theme-dark-four'   => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/dark-4.jpg',
@@ -155,7 +155,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
-                'rules'                   => Rules::is('gdpr_theme', false),
+                'rules'                   => Rules::is('gdpr_theme', true),
             ],
             'theme-banner-light-one' => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/banner-light-1.jpg',
@@ -169,7 +169,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
-                'rules'                   => Rules::is('gdpr_theme', true),
+                'rules'                   => Rules::is('gdpr_theme', false),
             ],
             'theme-banner-light-two' => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/banner-light-2.jpg',
@@ -183,7 +183,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
-                'rules'                   => Rules::is('gdpr_theme', true),
+                'rules'                   => Rules::is('gdpr_theme', false),
             ],
             'theme-banner-dark-one' => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/banner-dark-1.jpg',
@@ -197,7 +197,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
-                'rules'                   => Rules::is('gdpr_theme', false),
+                'rules'                   => Rules::is('gdpr_theme', true),
             ],
             'theme-banner-dark-two' => [
                 'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/banner-dark-2.jpg',
@@ -211,7 +211,7 @@ class GDPR extends Types {
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
-                'rules'                   => Rules::is('gdpr_theme', false),
+                'rules'                   => Rules::is('gdpr_theme', true),
             ],
         ];
     }

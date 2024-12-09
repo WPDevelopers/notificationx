@@ -16,6 +16,32 @@ const GdprActions = ({ settings }) => {
         uncategorized: false,
     });
 
+    let acceptBtnStyles = {};
+    let customizeBtnStyles = {};
+    let rejectBtnStyles = {};
+    if ( settings?.advance_edit ) {
+        acceptBtnStyles = {
+            backgroundColor: settings?.gdpr_accept_btn_bg_color,
+            color: settings?.gdpr_accept_btn_text_color,
+            fontSize: settings?.gdpr_accept_btn_font_size,
+            border: `1px solid ${settings?.gdpr_accept_btn_border_color}`,
+        };
+
+        customizeBtnStyles = {
+            backgroundColor: settings?.gdpr_customize_btn_bg_color,
+            color: settings?.gdpr_customize_btn_text_color,
+            fontSize: settings?.gdpr_customize_btn_font_size,
+            border: `1px solid ${settings?.gdpr_customize_btn_border_color}`,
+        };
+
+        rejectBtnStyles = {
+            backgroundColor: settings?.gdpr_reject_btn_bg_color,
+            color: settings?.gdpr_reject_btn_text_color,
+            fontSize: settings?.gdpr_reject_btn_font_size,
+            border: `1px solid ${settings?.gdpr_reject_btn_border_color}`,
+        };
+    }
+
     // Function to get WP Consent status from cookie
     const getWpConsentStatus = () => {
         // Check if WP Consent cookie exists
@@ -170,6 +196,7 @@ const GdprActions = ({ settings }) => {
                     type="button"
                     className="btn btn-primary"
                     onClick={handleCookieAccept}
+                    style={acceptBtnStyles}
                 >
                     {settings?.gdpr_accept_btn}
                 </button>
@@ -177,6 +204,7 @@ const GdprActions = ({ settings }) => {
                     type="button"
                     onClick={() => setIsOpenGdprCustomizationModal(!isOpenCustomizationModal)}
                     className="btn btn-secondary"
+                    style={customizeBtnStyles}
                 >
                     {settings?.gdpr_customize_btn}
                 </button>
@@ -186,6 +214,7 @@ const GdprActions = ({ settings }) => {
                     type="button"
                     className="btn btn-danger"
                     onClick={handleCookieReject}
+                    style={rejectBtnStyles}
                 >
                     {settings?.gdpr_reject_btn}
                 </button>

@@ -155,6 +155,12 @@ class GDPR_Notification extends Extension {
                     'default'  => "#6A4BFF",
                 ],
                 [
+                    'label' => __("Border Color", 'notificationx'),
+                    'name'  => "gdpr_accept_btn_border_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#6A4BFF",
+                ],
+                [
                     'label' => __("Text Color", 'notificationx'),
                     'name'  => "gdpr_accept_btn_text_color",
                     'type'  => "colorpicker",
@@ -190,7 +196,13 @@ class GDPR_Notification extends Extension {
                     'label' => __("Background Color", 'notificationx'),
                     'name'  => "gdpr_reject_btn_bg_color",
                     'type'  => "colorpicker",
-                    'default'  => "#F7F7FB",
+                    'default'  => "#F6F7FE",
+                ],
+                [
+                    'label' => __("Border Color", 'notificationx'),
+                    'name'  => "gdpr_reject_btn_border_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#E5E7F2",
                 ],
                 [
                     'label' => __("Text Color", 'notificationx'),
@@ -223,6 +235,12 @@ class GDPR_Notification extends Extension {
                     'name'  => "gdpr_customize_btn_bg_color",
                     'type'  => "colorpicker",
                     'default'  => "#fff",
+                ],
+                [
+                    'label' => __("Border Color", 'notificationx'),
+                    'name'  => "gdpr_customize_btn_border_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#EFF0F6",
                 ],
                 [
                     'label' => __("Text Color", 'notificationx'),

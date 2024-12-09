@@ -9,7 +9,12 @@ import CloseIcon from '../../icons/Close';
 
 const GDPR = ({ position, gdpr, dispatch }) => {
     const target = usePortal(`nx-gdpr-${position}`, position == 'bottom_left', true);
-    const { config: settings, data: content } = gdpr;    
+    const { config: settings, data: content } = gdpr; 
+    console.log(settings);
+    const closeBtnStyle: any = {
+        color: settings?.close_btn_color,
+        fontSize: settings?.close_btn_size,
+    };   
     const wrapper = (
         // @todo advanced style.
         <div
@@ -18,7 +23,7 @@ const GDPR = ({ position, gdpr, dispatch }) => {
                 `nx-gdpr`,
                 settings.themes,
                 settings?.themes?.includes('banner') ? `banner-gdpr banner-gdpr-${settings?.gdpr_theme}` : `card-gdpr card-gdpr-${settings?.gdpr_theme}`,
-                settings?.gdpr_theme,
+                settings?.gdpr_theme ? 'dark' : 'light',
                 `nx-gdpr-${settings.nx_id}`,
 
                 {
@@ -56,7 +61,7 @@ const GDPR = ({ position, gdpr, dispatch }) => {
                    <GdprFooter settings={settings} />
 
                     {/* Close Icon */}
-                    <button type="button" className="nx-gdpr-close" aria-label="Close">
+                    <button style={closeBtnStyle} type="button" className="nx-gdpr-close" aria-label="Close">
                         <CloseIcon/>
                     </button>
                 </div>
