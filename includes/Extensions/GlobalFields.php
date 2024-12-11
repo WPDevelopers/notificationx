@@ -959,9 +959,10 @@ class GlobalFields {
                     'label' => __("Manager", 'notificationx'),
                     'id'    => "manager_tab",
                     'name'  => "manager_tab",
+                    'rules' => Rules::is('type', 'gdpr'),
                     'icon'  => [
                         'type' => 'tabs',
-                        'name' => 'content'
+                        'name' => 'manager'
                     ],
                     'classes' => "manager_tab",
                     'fields'  => apply_filters('nx_manager_fields', [
@@ -1541,6 +1542,7 @@ class GlobalFields {
                     'label' => __("Display", 'notificationx'),
                     'id'    => "display_tab",
                     'name'  => "display_tab",
+                    'rules' => Rules::is('type', 'gdpr', true),
                     'icon'  => [
                         'type' => 'tabs',
                         'name' => 'display'
