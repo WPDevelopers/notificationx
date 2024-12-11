@@ -2688,14 +2688,104 @@
     }
 }
 
-.wprf-tab-manager_tab .general_settngs .wprf-control-wrapper.wprf-inline-label .wprf-control-field .wprf-toggle-wrap {
-    width: 50%;
-    height: 20px;
-    margin-right: 10px;
-    justify-content: space-between;
-    border: 1px solid #F0F6FF;
-    border-radius: 8px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    padding-left: 15px;
-}
+.general_settngs {
+    .wprf-section-title {
+        padding: 20px 24px;
+        min-height: auto;
+
+        h4 {
+            color: #092161;
+        }
+    }
+    .wprf-section-fields {
+        padding: 32px 24px 24px;
+        .wprf-control-wrapper.wprf-inline-label {
+            align-items: center;
+
+            &:not(:last-child) {
+                margin-bottom: 24px;
+            }
+
+            .wprf-control-label {
+                min-height: auto;
+                margin: 0;
+                flex-direction: column;
+                gap: 6px;
+                flex: 35%;
+                padding-right: 32px;
+                
+                label {
+                    font-size: 16px;
+                    color: #535D77;
+                    line-height: 21px;
+                    margin: 0;
+                    letter-spacing: unset;
+                }
+                .wprf-info {
+                    width: unset;
+                    height: unset;
+                    transform: unset;
+                    position: relative;
+                    .wprf-info-button {
+                        display: none;
+                    }
+                    .wprf-info-text {
+                        margin: 0;
+                        width: unset;
+                        max-width: 280px;
+                        display: flex;
+                        visibility: visible;
+                        opacity: 1;
+                        padding-bottom: 0;
+                        position: unset;
+                        bottom: 0;
+                        transform: unset;
+                        span {
+                            border-radius: 0;
+                            box-shadow: none;
+                            background: transparent;
+                            border: none;
+                            white-space: unset;
+                            padding: 0;
+                            text-align: unset;
+                            font-size: 12px;
+                            line-height: 18px;
+                            color: #7C8DB5;
+                            &:after {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .wprf-control-field { 
+                flex: 65%; 
+                .wprf-toggle-wrap {
+                    width: 100%;
+                    max-width: 400px;
+                    height: auto;
+                    margin-right: 0;
+                    justify-content: space-between;
+                    border: 1px solid #F0F6FF;
+                    border-radius: 8px;
+                    padding: 12px 16px;
+                    box-sizing: border-box;
+    
+                    .toggle_label_1 {
+                        font-size: 14px;
+                        line-height: 20px;
+                        color: #092161;
+                    }
+                    .wprf-input-label {
+                        margin-right: 0;
+                    }
+                }
+                input {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+    
+} 
