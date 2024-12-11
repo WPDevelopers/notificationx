@@ -2789,3 +2789,22 @@
     }
     
 } 
+
+.wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content .wprf-control-section.cookies_list_section {
+
+    .wprf-section-title {
+        padding: 20px 24px;
+        min-height: auto;
+
+        h4 {
+            color: #092161;
+        }
+    }
+    
+    .wprf-section-fields {
+        padding: 0;
+        .wp-react-form.wprf-tabs-wrapper {
+            margin-top: 0;
+        }
+    }
+}

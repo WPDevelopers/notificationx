@@ -24,12 +24,22 @@
                     font-weight: 400;
                     margin-left: 0;
                     margin-right: 0;
+                    gap: 10px;
+
+                    svg path {
+                        stroke: #535D77;
+                        transition: 0.3s ease-in-out;
+                    }
 
                     &.wprf-active-nav {
                         background: transparent;
                         border-color: #6a4bff;
                         color: #092161;
                         font-weight: 500;
+
+                        svg path {
+                            stroke: #6A4BFF;
+                        }
                     }
                 }
             }
