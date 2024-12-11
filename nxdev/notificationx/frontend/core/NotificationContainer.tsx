@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNotificationContext, Notification, Shortcode, Pressbar } from ".";
 import NotificationForMobile from "./NotificationForMobile";
-
 const NotificationContainer = (props: any) => {
     const frontendContext = useNotificationContext();
     const [isMobile, setIsMobile] = useState(false);
@@ -16,6 +15,15 @@ const NotificationContainer = (props: any) => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);    
     const renderNotice = (NoticeList, position) => {
+        // Check using custom animation
+        const hasCustomAnimation = NoticeList.some(item =>  item.config.animation_notification_hide !== 'default' ||  item.config.animation_notification_show !== 'default' );
+        let isAnimateImport = false;
+        if (hasCustomAnimation && !isAnimateImport) {
+            // @ts-ignore 
+            import("animate.css/animate.min.css")
+            isAnimateImport = true;
+        }
+
         if (isMobile && frontendContext?.is_pro) {
             return (
                 <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
