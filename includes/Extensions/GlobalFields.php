@@ -1008,7 +1008,9 @@ class GlobalFields {
                                 'gdpr_consent_expiry' => [
                                     'label'   => __("Consent Expiry", 'notificationx'),
                                     'name'    => "gdpr_consent_expiry",
-                                    'type'    => "text",
+                                    'type'    => "number",
+                                    'min'     => 0,
+                                    'description' => __('Days', 'notificationx'),
                                     'default' => '0 days',
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
