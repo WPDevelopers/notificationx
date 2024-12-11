@@ -1025,10 +1025,14 @@
         }
 
         &.wprf-name-gdpr_theme {
+            .wprf-control-label {
+                flex: 45%;
+            }
             .wprf-control-field {
+                flex: 55%;
                 .wprf-toggle-wrap.wprf-label-position-right {
-                    width: 150px;
-                    height: 32px;
+                    width: 100px;
+                    height: 24px;
                     margin-right: 0;
                     background: transparent;
                     border: 1px solid #6A4BFF;
@@ -1038,7 +1042,7 @@
                         position: absolute;
                         top: 50%;
                         transform: translateY(-50%);
-                        font-size: 14px;
+                        font-size: 12px;
                         font-weight: 500;
                         color: #092161;
                         letter-spacing: 1px;
@@ -1048,34 +1052,33 @@
                             display: none;
                         }
                         &.toggle_label_2 {
-                            right: 20px;
+                            right: 12px;
                         }
                     }
 
                     input[type=checkbox]:checked + label::before {
                         content: 'Light';
-                        padding-left: 20px;
+                        padding-left: 12px;
                         background: transparent;
                         border: 1px solid transparent;
                     }
                     input[type=checkbox]:checked + label::after {
                         content: 'Dark';
-                        left: 69px;
+                        left: 49px;
                         background: #6A4BFF;
                     }
 
                     label {
-                        width: 150px;
-                        height: 32px;
+                        width: 100px;
+                        height: 24px;
                         min-height: 100%;
                         position: relative;
                         display: flex;
-                        font-size: 24px;
                         margin-right: 0;
                         &:before {
-                            font-size: 14px;
+                            font-size: 12px;
                             font-weight: 500;
-                            line-height: 29px;
+                            line-height: 22px;
                             letter-spacing: 1px;
                             color: #092161;
                             width: 100%;
@@ -1092,14 +1095,14 @@
                         }
                         &:after {
                             content: "Light";
-                            font-size: 14px;
+                            font-size: 12px;
                             font-weight: 500;
-                            line-height: 29px;
+                            line-height: 22px;
                             color: #FFF;
                             text-align: center;
                             letter-spacing: 1px;
-                            width: 80px;
-                            height: 30px;
+                            width: 50px;
+                            height: 22px;
                             border-radius: 20px;
                             left: 1px;
                             top: 1px;
@@ -2800,7 +2803,7 @@
             color: #092161;
         }
     }
-    
+
     .wprf-section-fields {
         padding: 0;
         .wp-react-form.wprf-tabs-wrapper {

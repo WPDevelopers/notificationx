@@ -90,6 +90,7 @@
                                 grid-template-columns: repeat(2, 1fr);
                                 gap: 20px 40px;
                                 position: relative;
+                                max-width: 740px;
 
                                 .wprf-repeater-inner-field-item {
                                     display: flex;
