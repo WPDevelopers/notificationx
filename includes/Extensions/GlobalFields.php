@@ -1034,7 +1034,10 @@ class GlobalFields {
                                             'name'             => 'necessary_tab',
                                             'id'               => 'necessary_tab',
                                             'type'             => 'section',
-                                            'icon'  => NOTIFICATIONX_PUBLIC_URL . 'image/icons/ShieldMinimalistic.svg',
+                                            'icon'  => [
+                                                'type' => 'tabs',
+                                                'name' => 'necessary'
+                                            ],
                                             'fields'           => [
                                                 'necessary_cookie_lists'    => [
                                                     'label'    => __('', 'notificationx'),
@@ -1129,7 +1132,10 @@ class GlobalFields {
                                             'type'             => 'section',
                                             'name'             => 'functional_tab',
                                             'id'               => 'functional_tab',
-                                            'icon'  => NOTIFICATIONX_PUBLIC_URL . 'image/icons/WidgetAdd.svg',
+                                            'icon'  => [
+                                                'type' => 'tabs',
+                                                'name' => 'functional'
+                                            ],
                                             '_default' => [
                                                         'google_analytics'  => [
                                                             'enabled'             => true,
@@ -1227,7 +1233,10 @@ class GlobalFields {
                                             'type'             => 'section',
                                             'name'             => 'analytics_tab',
                                             'id'               => 'analytics_tab',
-                                            'icon'  => NOTIFICATIONX_PUBLIC_URL . 'image/icons/statistics.svg',
+                                            'icon'  => [
+                                                'type' => 'tabs',
+                                                'name' => 'analytics'
+                                            ],
                                             '_default' => [
                                                         'google_analytics'  => [
                                                             'enabled'             => true,
@@ -1325,7 +1334,10 @@ class GlobalFields {
                                             'type'             => 'section',
                                             'name'             => 'performance_tab',
                                             'id'               => 'performance_tab',
-                                            'icon'  => NOTIFICATIONX_PUBLIC_URL . 'image/icons/ShieldMinimalistic.svg',
+                                            'icon'  => [
+                                                'type' => 'tabs',
+                                                'name' => 'performance'
+                                            ],
                                             '_default' => [
                                                         'google_analytics'  => [
                                                             'enabled'             => true,
@@ -1423,7 +1435,10 @@ class GlobalFields {
                                             'type'             => 'section',
                                             'name'             => 'uncategorized_tab',
                                             'id'               => 'uncategorized_tab',
-                                            'icon'  => NOTIFICATIONX_PUBLIC_URL . 'image/icons/ShieldMinimalistic.svg',
+                                            'icon'  => [
+                                                'type' => 'tabs',
+                                                'name' => 'uncategorized'
+                                            ],
                                             '_default' => [
                                                         'google_analytics'  => [
                                                             'enabled'             => true,

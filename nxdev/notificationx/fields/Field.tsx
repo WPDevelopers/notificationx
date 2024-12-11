@@ -10,6 +10,7 @@ import AdvancedRepeater from './AdvancedRepeater';
 import AdvancedCodeViewer from './AdvancedCodeViewer';
 import BetterRepeater from './BetterRepeater';
 import BetterToggle from './BetterToggle';
+import BetterText from './BetterText';
 
 
 const Field = (ret, type, props) => {
@@ -36,6 +37,8 @@ const Field = (ret, type, props) => {
             return <BetterRepeater {...props} />;
         case "better-toggle":
             return <BetterToggle {...props} />;
+        case "better-text":
+            return <BetterText {...props} />;
         default:
             return ret;
     }

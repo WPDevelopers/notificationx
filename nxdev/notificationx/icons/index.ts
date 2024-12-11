@@ -5,3 +5,8 @@ export { default as DisplayIcon } from './DisplayIcon';
 export { default as CustomizeIcon } from './CustomizeIcon';
 export { default as InfoIcon } from './InfoIcon';
 export { default as Star } from './Star';
+export { default as NecessaryIcon } from './NecessaryIcon';
+export { default as FunctionalIcon } from './FunctionalIcon';
+export { default as AnalyticsIcon } from './AnalyticsIcon';
+export { default as PerformanceIcon } from './PerformanceIcon';
+export { default as UncategorizedIcon } from './UncategorizedIcon';
