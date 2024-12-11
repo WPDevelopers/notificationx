@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { FormBuilder, useBuilderContext } from 'quickbuilder';
 import { Content, Instructions, PublishWidget, Sidebar } from '../../components';
 import { proAlert } from '../../core/functions';
-import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon } from '../../icons'
+import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon, FunctionalIcon, NecessaryIcon, AnalyticsIcon, PerformanceIcon, UncategorizedIcon } from '../../icons'
 
 const EditNx = (props) => {
     const { setIsLoading, setIsDelete, id, title, setTitle, setIsUpdated } = props;
@@ -16,6 +16,11 @@ const EditNx = (props) => {
         iconLists['content'] = <ContentIcon />
         iconLists['display'] = <DisplayIcon />
         iconLists['customize'] = <CustomizeIcon />
+        iconLists['necessary'] = <NecessaryIcon />
+        iconLists['functional'] = <FunctionalIcon />
+        iconLists['analytics'] = <AnalyticsIcon />
+        iconLists['performance'] = <PerformanceIcon />
+        iconLists['uncategorized'] = <UncategorizedIcon />
         builderContext.registerIcons('tabs', iconLists);
 
         builderContext.registerAlert('pro_alert', proAlert);
