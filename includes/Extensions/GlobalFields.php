@@ -1031,6 +1031,7 @@ class GlobalFields {
                                         'show' => false,
                                     ],
                                     'default' => 'necessary_tab',
+                                    'dataShare' => true,
                                     'fields' => [
                                         'necessary_tab'    => [
                                             'label'            => __("Necessary", 'notificationx'),

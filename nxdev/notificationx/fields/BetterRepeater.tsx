@@ -115,8 +115,6 @@ const BetterRepeater = (props) => {
         setIsEditCookieInfoModalOpen(true);
     }
 
-    console.log('builderContext', builderContext);
-
     return (
         <div className="wprf-repeater-control">
             { localMemoizedValueForTab && localMemoizedValueForTab.length &&
