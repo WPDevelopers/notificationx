@@ -959,9 +959,10 @@ class GlobalFields {
                     'label' => __("Manager", 'notificationx'),
                     'id'    => "manager_tab",
                     'name'  => "manager_tab",
+                    'rules' => Rules::is('type', 'gdpr'),
                     'icon'  => [
                         'type' => 'tabs',
-                        'name' => 'content'
+                        'name' => 'manager'
                     ],
                     'classes' => "manager_tab",
                     'fields'  => apply_filters('nx_manager_fields', [
@@ -1007,7 +1008,9 @@ class GlobalFields {
                                 'gdpr_consent_expiry' => [
                                     'label'   => __("Consent Expiry", 'notificationx'),
                                     'name'    => "gdpr_consent_expiry",
-                                    'type'    => "text",
+                                    'type'    => "number",
+                                    'min'     => 0,
+                                    'description' => __('Days', 'notificationx'),
                                     'default' => '0 days',
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
@@ -1028,6 +1031,7 @@ class GlobalFields {
                                         'show' => false,
                                     ],
                                     'default' => 'necessary_tab',
+                                    'dataShare' => true,
                                     'fields' => [
                                         'necessary_tab'    => [
                                             'label'            => __("Necessary", 'notificationx'),
@@ -1541,6 +1545,7 @@ class GlobalFields {
                     'label' => __("Display", 'notificationx'),
                     'id'    => "display_tab",
                     'name'  => "display_tab",
+                    'rules' => Rules::is('type', 'gdpr', true),
                     'icon'  => [
                         'type' => 'tabs',
                         'name' => 'display'

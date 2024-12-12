@@ -4,7 +4,7 @@ import { FormBuilder, useBuilderContext } from 'quickbuilder';
 import { Content, PublishWidget, Sidebar, Instructions } from '../../components';
 import { proAlert } from '../../core/functions';
 import { ToastAlert } from '../../core/ToasterMsg';
-import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon, FunctionalIcon, NecessaryIcon, AnalyticsIcon, PerformanceIcon, UncategorizedIcon } from '../../icons'
+import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon, FunctionalIcon, NecessaryIcon, AnalyticsIcon, PerformanceIcon, UncategorizedIcon, ManagerIcon } from '../../icons'
 
 const CreateNx = ({ setIsLoading, title, setTitle }) => {
     const builderContext = useBuilderContext();
@@ -15,6 +15,7 @@ const CreateNx = ({ setIsLoading, title, setTitle }) => {
         iconLists['design'] = <DesignIcon />
         iconLists['content'] = <ContentIcon />
         iconLists['display'] = <DisplayIcon />
+        iconLists['manager'] = <ManagerIcon />
         iconLists['customize'] = <CustomizeIcon />
         iconLists['necessary'] = <NecessaryIcon />
         iconLists['functional'] = <FunctionalIcon />
