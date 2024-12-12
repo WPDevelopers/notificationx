@@ -41,6 +41,21 @@
                             stroke: #6A4BFF;
                         }
                     }
+
+                    .list-count {
+                        font-size: 10px;
+                        line-height: 13px;
+                        color: #535D77;
+                        width: 24px;
+                        height: 16px;
+                        border: 1px solid #F0F6FF;
+                        border-radius: 7px;
+                        background: transparent;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin-left: 6px;
+                    }
                 }
             }
         }
