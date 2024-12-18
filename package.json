@@ -1,6 +1,6 @@
 {
   "name": "notificationx",
-  "version": "2.9.3",
+  "version": "2.9.4",
   "main": "nxdev/index.js",
   "author": "WPDeveloper",
   "scripts": {
@@ -33,6 +33,7 @@
     "@wordpress/eslint-plugin": "13.6.0",
     "@wordpress/scripts": "^24.6.0",
     "animate.css": "^4.1.1",
+    "react-select": "^5.8.3",
     "ts-loader": "^9.5.1",
     "typescript": "^4.9.5",
     "url-loader": "^4.1.1"
@@ -82,7 +83,6 @@
     "react-power-tooltip": "^1.0.2",
     "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4",
-    "react-select": "^4.3.1",
     "react-sortablejs": "^6.1.4",
     "react-toastify": "^8.2.0",
     "react-window": "^1.8.10",
