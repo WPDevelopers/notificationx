@@ -332,6 +332,35 @@ class Admin {
             ]
         );
 
+        // Holiday Deal
+        $notice_text = "<p>🎁 <strong>SAVE 25% now</strong> & unlock advanced social-proof marketing features to skyrocket conversions in 2025.</p>
+                        <div class='nx-notice-action-button'>
+                            <a style='display: inline-flex;column-gap:5px;' class='button button-primary' href='https://notificationx.com/holiday24-admin-notice' target='_blank'>
+                                <img style='width:15px;' src='{$crown}'/>GET PRO Lifetime Access
+                            </a>
+                            <a class='nx-notice-action-dismiss dismiss-btn' data-dismiss='true' href='#'>
+                                <img style='width:15px;' src='{$crown}'/>No, I'll Pay Full Price Later
+                            </a>
+                        </div>
+                        ";
+            $_holidays_deal = [
+            'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
+            'html'      => $notice_text,
+        ];
+        $notices->add(
+            'nx_holidays_deal',
+            $_holidays_deal,
+            [
+                'start'       => $notices->time(),
+                'recurrence'  => false,
+                'dismissible' => true,
+                'refresh'     => NOTIFICATIONX_VERSION,
+                'screens'     => [ 'dashboard' ],
+                "expire"      => strtotime( '11:59:59pm 10th January, 2025' ),
+                // 'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
+            ]
+        );
+
         // $notices->init();
         self::$cache_bank->create_account( $notices );
 		self::$cache_bank->calculate_deposits( $notices );
