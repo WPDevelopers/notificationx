@@ -8,6 +8,7 @@ import BetterRepeaterValueShow from './helpers/BetterRepeaterValueShow';
 import CloseIcon from '../icons/Close';
 import { __ } from '@wordpress/i18n';
 import { modalStyle } from '../core/constants';
+import EditIcon from '../icons/EditIcon';
 
 
 const BetterRepeater = (props) => {
@@ -115,13 +116,17 @@ const BetterRepeater = (props) => {
         setIsEditCookieInfoModalOpen(true);
     }
 
+    console.log('localMemoizedValueForTab',localMemoizedValueForTab);
+    
     return (
         <div className="wprf-repeater-control">
             { localMemoizedValueForTab && localMemoizedValueForTab.length &&
                 <div className='tab_info'>
                     <h4>
                         {localMemoizedValueForTab[0]?.tab_title}
-                        <span onClick={handleEditCookieInfo}> Edit</span>
+                        <span onClick={handleEditCookieInfo}>
+                            <EditIcon/>
+                        </span>
                     </h4>
                     <p>{localMemoizedValueForTab[0]?.tab_description}</p>
                 </div>
@@ -129,7 +134,7 @@ const BetterRepeater = (props) => {
             { button?.position == 'top' && 
                 <div className="wprf-repeater-label">
                     <button className="wprf-repeater-button"
-                        onClick={_handleButtonClick}>
+                        onClick={handleButtonClick}>
                         {button?.label}
                     </button>
                 </div>
@@ -222,7 +227,7 @@ const BetterRepeater = (props) => {
                         <span>{ __( 'Integrations','notificationx' ) }</span>
                         <div className="wprf-repeater-label">
                             <button className="wprf-repeater-button" onClick={handleButtonClick}>
-                                Custom Cookies
+                                { __('Custom Cookies','notificationx') }
                             </button>
                         </div>
                     </div>

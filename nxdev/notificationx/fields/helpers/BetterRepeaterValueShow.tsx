@@ -3,6 +3,10 @@ import { Icon } from '@wordpress/components';
 import { useInstanceId } from "@wordpress/compose";
 import { GenericField, useBuilderContext } from 'quickbuilder';
 import threeDots from '../../icons/three-dots.svg';
+import EditIconNew from '../../icons/EditIconNew';
+import { __ } from '@wordpress/i18n';
+import TrashIcon from '../../icons/TrashIcon';
+
 
 const BetterRepeaterValueShow = (props) => {
     const builderContext = useBuilderContext();
@@ -25,7 +29,7 @@ const BetterRepeaterValueShow = (props) => {
         if( isModalOpen ) {
             setIsOpen(isModalOpen)
         }
-    }, [isModalOpen])
+    }, [isModalOpen])    
 
     return (
         <div className="wprf-repeater-field">
@@ -49,8 +53,11 @@ const BetterRepeaterValueShow = (props) => {
                         <div className="nx-cookies-list-action">
                             {/*  || item?.elementor_id */}
                             <ul id="nx-admin-actions-ul">
-                                <li> <Icon onClick={() => setIsModalOpen(!isModalOpen)} icon="trash" /> Edit Cookies </li>
-                                <li>  <Icon onClick={onDelete} icon="trash" /> Delete Cookies </li>
+                                <li onClick={() => setIsModalOpen(!isModalOpen)}> 
+                                    <EditIconNew/> { __('Edit Cookies','notificationx') }
+                                </li>
+                                {/* @ts-ignore  */}
+                                <li onClick={(event) => onDelete(event)}>  <TrashIcon/> { __('Delete Cookies', 'notificationx') } </li>
                             </ul>
                         </div>  
                     }

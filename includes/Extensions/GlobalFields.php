@@ -1086,7 +1086,7 @@ class GlobalFields {
                                                         'label'    => __('Add New', 'notificationx'),
                                                         'position' => 'top',
                                                     ],
-                                                    'visible_fields'    => ['enabled', 'cookies_id','domain'],
+                                                    'visible_fields'    => ['cookies_id','domain', 'script_url_pattern', 'duration'],
                                                     '_fields'   => [
                                                         'enabled' => array(
                                                             'type'     => 'toggle',
@@ -1111,15 +1111,12 @@ class GlobalFields {
                                                             'name'     => 'duration',
                                                             'label'    => __('Duration', 'notificationx'),
                                                             'priority' => 20,
-                                                            'info'     => '10 Days',
                                                         ), 
                                                         'script_url_pattern' => array(
                                                             'type'     => 'textarea',
                                                             'name'     => 'script_url_pattern',
                                                             'label'    => __('Script URL Pattern', 'notificationx-pro'),
                                                             'priority' => 25,
-                                                            'help'     => '10 Days',
-
                                                         ), 
                                                         'description' => array(
                                                             'type'     => 'textarea',
@@ -1186,11 +1183,25 @@ class GlobalFields {
                                                             'description'         => 'lorem ipsum for google tag manager',
                                                         ],
                                                     ],
+                                                    'tab_info' => [
+                                                        'tab_title' => array(
+                                                            'type'     => 'text',
+                                                            'name'     => 'tab_title',
+                                                            'default'    => __('Functional', 'notificationx'),
+                                                            'label'    => __('Name', 'notificationx'),
+                                                        ),
+                                                        'tab_description' => array(
+                                                            'type'     => 'textarea',
+                                                            'name'     => 'tab_description',
+                                                            'label'    => __('Description', 'notificationx'),
+                                                            'default'    => __('Functional cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+                                                        ),
+                                                    ],
                                                     'button'  => [
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',
                                                     ],
-                                                    'visible_fields'    => ['enabled', 'cookies_id','domain'],
+                                                    'visible_fields'    => ['cookies_id','domain', 'script_url_pattern', 'duration'],
                                                     '_fields'   => [
                                                         'enabled' => array(
                                                             'type'     => 'toggle',
@@ -1287,11 +1298,25 @@ class GlobalFields {
                                                             'description'         => 'lorem ipsum for google tag manager',
                                                         ],
                                                     ],
+                                                    'tab_info' => [
+                                                        'tab_title' => array(
+                                                            'type'     => 'text',
+                                                            'name'     => 'tab_title',
+                                                            'default'    => __('Analytics', 'notificationx'),
+                                                            'label'    => __('Name', 'notificationx'),
+                                                        ),
+                                                        'tab_description' => array(
+                                                            'type'     => 'textarea',
+                                                            'name'     => 'tab_description',
+                                                            'label'    => __('Description', 'notificationx'),
+                                                            'default'    => __('Analytics cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+                                                        ),
+                                                    ],
                                                     'button'  => [
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',
                                                     ],
-                                                    'visible_fields'    => ['enabled', 'cookies_id','domain'],
+                                                    'visible_fields'    => ['cookies_id','domain', 'script_url_pattern', 'duration'],
                                                     '_fields'   => [
                                                         'enabled' => array(
                                                             'type'     => 'toggle',
@@ -1388,11 +1413,25 @@ class GlobalFields {
                                                             'description'         => 'lorem ipsum for google tag manager',
                                                         ],
                                                     ],
+                                                    'tab_info' => [
+                                                        'tab_title' => array(
+                                                            'type'     => 'text',
+                                                            'name'     => 'tab_title',
+                                                            'default'    => __('Performance', 'notificationx'),
+                                                            'label'    => __('Name', 'notificationx'),
+                                                        ),
+                                                        'tab_description' => array(
+                                                            'type'     => 'textarea',
+                                                            'name'     => 'tab_description',
+                                                            'label'    => __('Description', 'notificationx'),
+                                                            'default'    => __('Performance cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+                                                        ),
+                                                    ],
                                                     'button'  => [
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',
                                                     ],
-                                                    'visible_fields'    => ['enabled', 'cookies_id','domain'],
+                                                    'visible_fields'    => ['cookies_id','domain', 'script_url_pattern', 'duration'],
                                                     '_fields'   => [
                                                         'enabled' => array(
                                                             'type'     => 'toggle',
@@ -1469,6 +1508,20 @@ class GlobalFields {
                                                     'name'     => 'uncategorized_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
+                                                    'tab_info' => [
+                                                        'tab_title' => array(
+                                                            'type'     => 'text',
+                                                            'name'     => 'tab_title',
+                                                            'default'    => __('Uncategorized', 'notificationx'),
+                                                            'label'    => __('Name', 'notificationx'),
+                                                        ),
+                                                        'tab_description' => array(
+                                                            'type'     => 'textarea',
+                                                            'name'     => 'tab_description',
+                                                            'label'    => __('Description', 'notificationx'),
+                                                            'default'    => __('Uncategorized cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+                                                        ),
+                                                    ],
                                                     '_default'  => [
                                                         'google_analytics'  => [
                                                             'enabled'             => true,
@@ -1493,7 +1546,7 @@ class GlobalFields {
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',
                                                     ],
-                                                    'visible_fields'    => ['enabled', 'cookies_id','domain'],
+                                                    'visible_fields'    => ['cookies_id','domain', 'script_url_pattern', 'duration'],
                                                     '_fields'   => [
                                                         'enabled' => array(
                                                             'type'     => 'toggle',
