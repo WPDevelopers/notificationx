@@ -19,7 +19,8 @@ const BetterRepeater = (props) => {
     const builderContext = useBuilderContext();
     const [localMemoizedValue, setLocalMemoizedValue] = useState(builderContext.values?.[fieldName]);
     const [localMemoizedValueForTab, setLocalMemoizedValueForTab] = useState(builderContext.values?.tab_info);
-    
+    const [activeEditItem, setActiveEditItem] = useState("");
+
     useEffect(() => {
         if (builderContext.values?.[fieldName] != undefined) {
             setLocalMemoizedValue(builderContext.values?.[fieldName]);
@@ -115,8 +116,6 @@ const BetterRepeater = (props) => {
     const handleEditCookieInfo = () => {
         setIsEditCookieInfoModalOpen(true);
     }
-
-    console.log('localMemoizedValueForTab',localMemoizedValueForTab);
     
     return (
         <div className="wprf-repeater-control">
@@ -154,7 +153,10 @@ const BetterRepeater = (props) => {
                                 remove={handleRemove}
                                 onChange={(event: any) => handleChange(event, index)}
                                 visible_fields={visible_fields}
-                                setIsOpen={setIsOpen}
+                                setIsOpen={() => {
+                                    setIsOpen(true);
+                                    setActiveEditItem(value?.index);
+                                }}
                             />
                         })
                     }
@@ -193,7 +195,7 @@ const BetterRepeater = (props) => {
                             <div className="wprf-repeater-content">
                                 {
                                     localMemoizedValue.map((value, index) => {
-                                        if( localMemoizedValue?.length == (index + 1) ) {
+                                        if( value?.index == activeEditItem ) {
                                             return <BetterRepeaterField
                                                 isCollapsed={value?.isCollapsed}
                                                 key={value?.index || index}
