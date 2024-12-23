@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 2.9.4\n"
+"Project-Id-Version: NotificationX 2.9.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-12-10T08:12:19+00:00\n"
+"POT-Creation-Date: 2024-12-22T06:10:41+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: notificationx\n"
@@ -83,11 +83,11 @@ msgstr ""
 msgid "Grab The Offer"
 msgstr ""
 
-#: includes/Admin/Admin.php:347
+#: includes/Admin/Admin.php:376
 msgid "Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage."
 msgstr ""
 
-#: includes/Admin/Admin.php:348
+#: includes/Admin/Admin.php:377
 msgid ""
 "We collect non-sensitive diagnostic data and plugin usage information.\n"
 "\t\t\tYour site URL, WordPress & PHP version, plugins & themes and email address to send you the\n"
@@ -154,16 +154,16 @@ msgstr ""
 
 #: includes/Admin/ImportExport.php:133
 #: includes/Admin/ImportExport.php:134
-#: includes/Extensions/PressBar/PressBar.php:551
-#: includes/Extensions/PressBar/PressBar.php:552
-#: includes/Extensions/PressBar/PressBar.php:755
-#: includes/Extensions/PressBar/PressBar.php:756
+#: includes/Extensions/PressBar/PressBar.php:558
+#: includes/Extensions/PressBar/PressBar.php:559
+#: includes/Extensions/PressBar/PressBar.php:762
+#: includes/Extensions/PressBar/PressBar.php:763
 msgid "Import"
 msgstr ""
 
 #: includes/Admin/ImportExport.php:135
-#: includes/Extensions/PressBar/PressBar.php:553
-#: includes/Extensions/PressBar/PressBar.php:757
+#: includes/Extensions/PressBar/PressBar.php:560
+#: includes/Extensions/PressBar/PressBar.php:764
 msgid "Importing..."
 msgstr ""
 
@@ -695,7 +695,7 @@ msgstr ""
 #: includes/Core/QuickBuild.php:91
 #: includes/Extensions/GlobalFields.php:540
 #: includes/Extensions/GlobalFields.php:550
-#: includes/Extensions/PressBar/PressBar.php:1135
+#: includes/Extensions/PressBar/PressBar.php:1142
 msgid "Content"
 msgstr ""
 
@@ -1338,8 +1338,8 @@ msgid "Previous"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:71
-#: includes/Extensions/PressBar/PressBar.php:570
-#: includes/Extensions/PressBar/PressBar.php:774
+#: includes/Extensions/PressBar/PressBar.php:577
+#: includes/Extensions/PressBar/PressBar.php:781
 msgid "Next"
 msgstr ""
 
@@ -1393,7 +1393,7 @@ msgid "Background Color"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:392
-#: includes/Extensions/PressBar/PressBar.php:318
+#: includes/Extensions/PressBar/PressBar.php:325
 #: blocks/notificationx/components/inspector.js:307
 #: blocks/notificationx/index.js:1
 #: blocks/notificationx/index.js:2601
@@ -1437,7 +1437,7 @@ msgid "Discount Background"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:451
-#: includes/Extensions/PressBar/PressBar.php:438
+#: includes/Extensions/PressBar/PressBar.php:445
 #: blocks/notificationx/components/inspector.js:254
 #: blocks/notificationx/index.js:1
 #: blocks/notificationx/index.js:2548
@@ -1447,12 +1447,12 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:458
 #: includes/Extensions/GlobalFields.php:466
 #: includes/Extensions/GlobalFields.php:474
-#: includes/Extensions/PressBar/PressBar.php:444
+#: includes/Extensions/PressBar/PressBar.php:451
 msgid "Font Size"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:463
-#: includes/Extensions/PressBar/PressBar.php:450
+#: includes/Extensions/PressBar/PressBar.php:457
 msgid "This font size will be applied for <mark>first</mark> row"
 msgstr ""
 
@@ -1491,14 +1491,14 @@ msgid "Position"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:509
-#: includes/Extensions/PressBar/PressBar.php:381
-#: includes/Extensions/PressBar/PressBar.php:398
+#: includes/Extensions/PressBar/PressBar.php:388
+#: includes/Extensions/PressBar/PressBar.php:405
 msgid "Left"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:510
-#: includes/Extensions/PressBar/PressBar.php:382
-#: includes/Extensions/PressBar/PressBar.php:420
+#: includes/Extensions/PressBar/PressBar.php:389
+#: includes/Extensions/PressBar/PressBar.php:427
 msgid "Right"
 msgstr ""
 
@@ -1662,6 +1662,7 @@ msgid "Upload an Image"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:950
+#: includes/Extensions/PressBar/PressBar.php:320
 #: assets/admin/js/admin.js:18
 msgid "Upload"
 msgstr ""
@@ -1915,16 +1916,16 @@ msgid "Delay Before First Notification"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1483
-#: includes/Extensions/PressBar/PressBar.php:903
-#: includes/Extensions/PressBar/PressBar.php:908
+#: includes/Extensions/PressBar/PressBar.php:910
+#: includes/Extensions/PressBar/PressBar.php:915
 msgid "Initial Delay"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1484
 #: includes/Extensions/GlobalFields.php:1491
 #: includes/Extensions/GlobalFields.php:1500
-#: includes/Extensions/PressBar/PressBar.php:909
-#: includes/Extensions/PressBar/PressBar.php:929
+#: includes/Extensions/PressBar/PressBar.php:916
+#: includes/Extensions/PressBar/PressBar.php:936
 msgid "seconds"
 msgstr ""
 
@@ -2433,248 +2434,252 @@ msgstr ""
 msgid "Install Essential Blocks"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:323
+#: includes/Extensions/PressBar/PressBar.php:318
+msgid "Background Image"
+msgstr ""
+
+#: includes/Extensions/PressBar/PressBar.php:330
 msgid "Button Background Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:328
+#: includes/Extensions/PressBar/PressBar.php:335
 msgid "Button Text Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:333
+#: includes/Extensions/PressBar/PressBar.php:340
 msgid "Countdown Background Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:338
+#: includes/Extensions/PressBar/PressBar.php:345
 msgid "Countdown Text Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:343
+#: includes/Extensions/PressBar/PressBar.php:350
 msgid "Close Button Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:348
+#: includes/Extensions/PressBar/PressBar.php:355
 msgid "Close Button Size"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:367
-#: includes/Extensions/PressBar/PressBar.php:376
+#: includes/Extensions/PressBar/PressBar.php:374
+#: includes/Extensions/PressBar/PressBar.php:383
 msgid "Close Button Position"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:386
-#: includes/Extensions/PressBar/PressBar.php:408
+#: includes/Extensions/PressBar/PressBar.php:393
+#: includes/Extensions/PressBar/PressBar.php:415
 msgid "Close Button Position Top"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:387
-#: includes/Extensions/PressBar/PressBar.php:409
-#: includes/Extensions/PressBar/PressBar.php:867
+#: includes/Extensions/PressBar/PressBar.php:394
+#: includes/Extensions/PressBar/PressBar.php:416
+#: includes/Extensions/PressBar/PressBar.php:874
 msgid "Top"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:397
+#: includes/Extensions/PressBar/PressBar.php:404
 msgid "Close Button Position Left"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:419
+#: includes/Extensions/PressBar/PressBar.php:426
 msgid "Close Button Position Right"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:456
+#: includes/Extensions/PressBar/PressBar.php:463
 msgid "Activate"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:456
+#: includes/Extensions/PressBar/PressBar.php:463
 msgid "Install"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:463
+#: includes/Extensions/PressBar/PressBar.php:470
 msgid "To Design Notification Bar with <strong>Elementor Page Builder</strong>, You need to %s the Elementor first: &nbsp;&nbsp;&nbsp;"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:485
+#: includes/Extensions/PressBar/PressBar.php:492
 msgid "Edit With Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:499
+#: includes/Extensions/PressBar/PressBar.php:506
 msgid "Remove Elementor Design"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:531
+#: includes/Extensions/PressBar/PressBar.php:538
 msgid "Build With Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:591
-#: includes/Extensions/PressBar/PressBar.php:795
+#: includes/Extensions/PressBar/PressBar.php:598
+#: includes/Extensions/PressBar/PressBar.php:802
 msgid "Choose Your "
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:626
+#: includes/Extensions/PressBar/PressBar.php:633
 msgid "Activate Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:626
+#: includes/Extensions/PressBar/PressBar.php:633
 msgid "Install Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:627
+#: includes/Extensions/PressBar/PressBar.php:634
 msgid "Activated Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:627
+#: includes/Extensions/PressBar/PressBar.php:634
 msgid "Installed Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:628
+#: includes/Extensions/PressBar/PressBar.php:635
 msgid "Activating Elementor..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:628
+#: includes/Extensions/PressBar/PressBar.php:635
 msgid "Installing Elementor..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:655
+#: includes/Extensions/PressBar/PressBar.php:662
 msgid "Successfully Activated"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:689
+#: includes/Extensions/PressBar/PressBar.php:696
 msgid "Edit With Gutenberg"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:703
+#: includes/Extensions/PressBar/PressBar.php:710
 msgid "Remove Gutenberg Design"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:735
+#: includes/Extensions/PressBar/PressBar.php:742
 msgid "Build With Gutenberg"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:872
+#: includes/Extensions/PressBar/PressBar.php:879
 msgid "Bottom"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:878
+#: includes/Extensions/PressBar/PressBar.php:885
 msgid "Sticky Bar?"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:883
+#: includes/Extensions/PressBar/PressBar.php:890
 msgid "If checked, this will fixed Notification Bar at top or bottom."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:888
+#: includes/Extensions/PressBar/PressBar.php:895
 msgid "Display Overlapping"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:893
+#: includes/Extensions/PressBar/PressBar.php:900
 msgid "Show Notification Bar overlapping content instead of pushing."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:914
+#: includes/Extensions/PressBar/PressBar.php:921
 msgid "Auto Hide"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:919
+#: includes/Extensions/PressBar/PressBar.php:926
 msgid "If checked, notification bar will be hidden after the time set below."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:924
+#: includes/Extensions/PressBar/PressBar.php:931
 msgid "Hide After"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:930
+#: includes/Extensions/PressBar/PressBar.php:937
 msgid "Hide after 60 seconds"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1003
+#: includes/Extensions/PressBar/PressBar.php:1010
 msgid "NotificationX Bar"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1036
+#: includes/Extensions/PressBar/PressBar.php:1043
 msgid "NotificationX Bar (Gutenberg)"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1136
+#: includes/Extensions/PressBar/PressBar.php:1143
 msgid "Write something here..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1146
+#: includes/Extensions/PressBar/PressBar.php:1153
 msgid "Button Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1156
+#: includes/Extensions/PressBar/PressBar.php:1163
 msgid "Button URL"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1166
+#: includes/Extensions/PressBar/PressBar.php:1173
 msgid "Countdown Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1172
+#: includes/Extensions/PressBar/PressBar.php:1179
 msgid "Enable Countdown"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1177
+#: includes/Extensions/PressBar/PressBar.php:1184
 msgid "Evergreen Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1181
+#: includes/Extensions/PressBar/PressBar.php:1188
 msgid "To configure Evergreen Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1186
+#: includes/Extensions/PressBar/PressBar.php:1193
 msgid "Countdown Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1196
+#: includes/Extensions/PressBar/PressBar.php:1203
 msgid "Expired Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1198
+#: includes/Extensions/PressBar/PressBar.php:1205
 msgid "Expired"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1208
+#: includes/Extensions/PressBar/PressBar.php:1215
 msgid "Start Date"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1215
+#: includes/Extensions/PressBar/PressBar.php:1222
 msgid "End Date"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1223
+#: includes/Extensions/PressBar/PressBar.php:1230
 msgid "Randomize"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1229
+#: includes/Extensions/PressBar/PressBar.php:1236
 msgid "Time Between"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1235
+#: includes/Extensions/PressBar/PressBar.php:1242
 msgid "Start Time"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1242
+#: includes/Extensions/PressBar/PressBar.php:1249
 msgid "End Time"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1251
+#: includes/Extensions/PressBar/PressBar.php:1258
 msgid "Time Rotation"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1259
+#: includes/Extensions/PressBar/PressBar.php:1266
 msgid "Daily Time Reset"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1265
+#: includes/Extensions/PressBar/PressBar.php:1272
 msgid "Permanent Close"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1270
+#: includes/Extensions/PressBar/PressBar.php:1277
 msgid "Close After Expire"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1457
+#: includes/Extensions/PressBar/PressBar.php:1464
 msgid ""
 "<p>You can showcase the notification bar to run instant popup campaigns on WordPress sites. For further assistance, check out our step-by-step guides on adding notification bars built with both <a target=\"_blank\" href=\"%1$s\">Elementor</a> and <a target=\"_blank\" href=\"%2$s\">Gutenberg</a>.</p>\n"
 "\t\t<p>🎦 Watch the <a target = \"_blank\" href = \"%3$s\">video tutorial</a> for a quick guide.</p>\n"

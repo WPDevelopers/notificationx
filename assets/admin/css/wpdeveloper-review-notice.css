@@ -318,3 +318,52 @@ span.coupon-code {
         display: none !important;
     }
 }
+
+/*
+* Holidays Deal css
+*/
+#wpnotice-notificationx-nx_holidays_deal, #wpnotice-notificationx-nx_black_friday_2024 {
+    border-left: 1px solid #c3c4c7;
+    padding: 10px 40px 10px 20px;
+}
+#wpnotice-notificationx-nx_holidays_deal .wpnotice-content-wrapper .nx-notice-action-button > a.button-primary,
+#wpnotice-notificationx-nx_holidays_deal .wpnotice-content-wrapper .nx-notice-action-button > a.button-primary:focus,
+#wpnotice-notificationx-nx_holidays_deal .wpnotice-content-wrapper .nx-notice-action-button > a.button-primary:hover
+{
+    background-color: #5626E7;
+    border-color: #5626E7;
+}
+#wpnotice-notificationx-nx_holidays_deal .wpnotice-content-wrapper .nx-notice-action-button {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+#wpnotice-notificationx-nx_holidays_deal .wpnotice-content-wrapper .nx-notice-action-button .nx-notice-action-dismiss {
+    color: #5626E7;
+    font-size: 14px;
+}
+#wpnotice-notificationx-nx_holidays_deal .wpnotice-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+#wpnotice-notificationx-nx_holidays_deal .wpnotice-content-wrapper {
+    align-items: start;
+    flex-direction: column;
+    gap: 5px;
+}
+#wpnotice-notificationx-nx_holidays_deal .wpnotice-content-wrapper p {
+    font-size: 15px;
+    margin: 0;
+}
+.notice-notificationx-nx_holidays_deal.is-dismissible .wpnotice-thumbnail-wrapper img {
+    width: auto !important;
+    max-width: 160px !important;
+    padding-left: 12px;
+}
+@media screen and (max-width: 574px) {
+#wpnotice-notificationx-nx_holidays_deal {
+        display: none !important;
+    }
+}
