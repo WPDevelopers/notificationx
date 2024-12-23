@@ -2764,6 +2764,7 @@
 
             .wprf-control-field { 
                 flex: 65%; 
+                position: relative;
                 .wprf-toggle-wrap {
                     width: 100%;
                     max-width: 400px;
@@ -2786,6 +2787,28 @@
                 }
                 input {
                     margin-right: 0;
+                }
+                p.wprf-description {
+                    position: absolute;
+                    top: 0;
+                    left: 80px;
+                    margin-left: 0;
+                    margin-right: 0;
+                    padding: 0;
+                }
+                .wprf-num-suggestions {
+                    display: flex;
+                    gap: 8px;
+                    margin-top: 8px;
+                    span {
+                        font-size: 12px;
+                        line-height: 16px;
+                        color: #092161;
+                        background: #F0F3F7;
+                        border: 1px solid #E1E5EB;
+                        padding: 4px 8px;
+                        border-radius: 3px;
+                    }
                 }
             }
         }
