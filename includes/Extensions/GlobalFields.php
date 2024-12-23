@@ -17,6 +17,7 @@ use NotificationX\GetInstance;
 use NotificationX\Core\Modules;
 use NotificationX\NotificationX;
 use NotificationX\Types\TypeFactory;
+use Sabberworm\CSS\Value\Value;
 
 /**
  * @method static GlobalFields get_instance($args = null)
@@ -1011,7 +1012,29 @@ class GlobalFields {
                                     'type'    => "number",
                                     'min'     => 0,
                                     'description' => __('Days', 'notificationx'),
-                                    'default' => '0 days',
+                                    'default' => 10,
+                                    'suggestions' => [
+                                        [
+                                            'value' => 0,
+                                            'unit'  => 'days',
+                                        ],
+                                        [
+                                            'value' => 30,
+                                            'unit'  => 'days',
+                                        ],
+                                        [
+                                            'value' => 90,
+                                            'unit'  => 'days',
+                                        ],
+                                        [
+                                            'value' => 180,
+                                            'unit'  => 'days',
+                                        ],
+                                        [
+                                            'value' => 365,
+                                            'unit'  => 'days',
+                                        ],
+                                    ],
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
                                     ]),
