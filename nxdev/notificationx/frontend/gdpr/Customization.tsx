@@ -1,8 +1,9 @@
 import React, { Fragment, useState } from 'react'
 import CookiesAccordion from './utils/CookiesAccordion'
 import NXBranding from '../themes/helpers/NXBranding'
+import { __ } from '@wordpress/i18n'
 
-const Customization = ({ settings, onEnableCookiesItem }) => {
+const Customization = ({ settings, onEnableCookiesItem, onHandleAccept, onHandleReject }) => {
     
   return (
     <Fragment>
@@ -19,8 +20,8 @@ const Customization = ({ settings, onEnableCookiesItem }) => {
         </div>
         <div className="wprf-modal-preview-footer">
             <div className="nx_gdpr-action-button">
-                <button>Accept All</button>
-                <button>Customize</button>
+                <button onClick={onHandleAccept}>{ __("Accept All", "notificationx") }</button>
+                <button onClick={onHandleReject}>{ __("Reject All", "notificationx") }</button>
             </div>
             <div className="wprf-modal-preview-copyright">
                 <NXBranding/>

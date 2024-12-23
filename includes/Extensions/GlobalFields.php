@@ -1086,7 +1086,7 @@ class GlobalFields {
                                                         'label'    => __('Add New', 'notificationx'),
                                                         'position' => 'top',
                                                     ],
-                                                    'visible_fields'    => ['cookies_id','domain', 'script_url_pattern', 'duration'],
+                                                    'visible_fields'    => ['cookies_id','load_inside', 'script_url_pattern', 'description'],
                                                     '_fields'   => [
                                                         'enabled' => array(
                                                             'type'     => 'toggle',
@@ -1100,22 +1100,21 @@ class GlobalFields {
                                                             'label'    => __('Cookie ID', 'notificationx'),
                                                             'priority' => 10,
                                                         ), 
-                                                        'domain' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'domain',
-                                                            'label'    => __('Domain', 'notificationx'),
+                                                        'load_inside' => array(
+                                                            'label'    => __('Load On', 'notificationx'),
+                                                            'name'     => 'product_control',
+                                                            'type'     => 'select',
                                                             'priority' => 15,
-                                                        ), 
-                                                        'duration' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'duration',
-                                                            'label'    => __('Duration', 'notificationx'),
-                                                            'priority' => 20,
-                                                        ), 
+                                                            'default'  => 'head',
+                                                            'options'  => GlobalFields::get_instance()->normalize_fields([
+                                                                'head'   => __('Head', 'notificationx'),
+                                                                'footer' => __('Footer', 'notificationx'),
+                                                            ]),
+                                                        ),
                                                         'script_url_pattern' => array(
                                                             'type'     => 'textarea',
                                                             'name'     => 'script_url_pattern',
-                                                            'label'    => __('Script URL Pattern', 'notificationx-pro'),
+                                                            'label'    => __('Script', 'notificationx-pro'),
                                                             'priority' => 25,
                                                         ), 
                                                         'description' => array(
@@ -1230,7 +1229,7 @@ class GlobalFields {
                                                         'script_url_pattern' => array(
                                                             'type'     => 'textarea',
                                                             'name'     => 'script_url_pattern',
-                                                            'label'    => __('Script URL Pattern', 'notificationx'),
+                                                            'label'    => __('Script', 'notificationx'),
                                                             'priority' => 25,
                                                         ), 
                                                         'description' => array(
@@ -1345,7 +1344,7 @@ class GlobalFields {
                                                         'script_url_pattern' => array(
                                                             'type'     => 'textarea',
                                                             'name'     => 'script_url_pattern',
-                                                            'label'    => __('Script URL Pattern', 'notificationx'),
+                                                            'label'    => __('Script', 'notificationx'),
                                                             'priority' => 25,
                                                         ), 
                                                         'description' => array(
@@ -1460,7 +1459,7 @@ class GlobalFields {
                                                         'script_url_pattern' => array(
                                                             'type'     => 'textarea',
                                                             'name'     => 'script_url_pattern',
-                                                            'label'    => __('Script URL Pattern', 'notificationx'),
+                                                            'label'    => __('Script', 'notificationx'),
                                                             'priority' => 25,
                                                         ), 
                                                         'description' => array(
@@ -1575,7 +1574,7 @@ class GlobalFields {
                                                         'script_url_pattern' => array(
                                                             'type'     => 'textarea',
                                                             'name'     => 'script_url_pattern',
-                                                            'label'    => __('Script URL Pattern', 'notificationx'),
+                                                            'label'    => __('Script', 'notificationx'),
                                                             'priority' => 25,
                                                         ), 
                                                         'description' => array(

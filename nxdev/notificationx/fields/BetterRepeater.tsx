@@ -88,16 +88,15 @@ const BetterRepeater = (props) => {
     useEffect(() => {
         if (localMemoizedValue == undefined || localMemoizedValue == '') {
             setLocalMemoizedValue([{index: v4()}]);
-        }
-        else{
+        } else{
             setLocalMemoizedValue((items) => items.map((item) => {
                 return {...item, index: v4()};
             }))
         }
+        
         if (localMemoizedValueForTab == undefined || localMemoizedValueForTab == '') {
             setLocalMemoizedValueForTab([{index: v4()}]);
-        }
-        else{
+        } else{
             setLocalMemoizedValueForTab((items) => items.map((item) => {
                 return {...item, index: v4()};
             }))
@@ -185,7 +184,7 @@ const BetterRepeater = (props) => {
             >
                 <>
                     <div className="wprf-modal-preview-header">
-                        <span>{ __( 'Add Custom Cookies','notificationx' ) }</span>
+                        <span>{ activeEditItem ? __( 'Edit Custom Cookies','notificationx' ) : __( 'Add Custom Cookies','notificationx' ) }</span>
                         <button onClick={() => setIsOpen(false)}>
                             <CloseIcon />
                         </button>
@@ -193,9 +192,25 @@ const BetterRepeater = (props) => {
                     <div className="wprf-modal-table-wrapper wpsp-better-repeater-fields">
                         { localMemoizedValue && localMemoizedValue?.length > 0 &&
                             <div className="wprf-repeater-content">
-                                {
+                                { activeEditItem &&
                                     localMemoizedValue.map((value, index) => {
-                                        if( value?.index == activeEditItem ) {
+                                        if(  value?.index == activeEditItem ) {
+                                            return <BetterRepeaterField
+                                                isCollapsed={value?.isCollapsed}
+                                                key={value?.index || index}
+                                                fields={_fields}
+                                                index={index}
+                                                parent={fieldName}
+                                                clone={handleClone}
+                                                remove={handleRemove}
+                                                onChange={(event: any) => handleChange(event, index)}
+                                            />
+                                        }
+                                    })
+                                }
+                                { !activeEditItem &&
+                                    localMemoizedValue.map((value, index) => {                                        
+                                        if(  localMemoizedValue?.length == (index + 1) ) {
                                             return <BetterRepeaterField
                                                 isCollapsed={value?.isCollapsed}
                                                 key={value?.index || index}

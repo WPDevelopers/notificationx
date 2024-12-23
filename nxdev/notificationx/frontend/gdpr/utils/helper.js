@@ -42,3 +42,56 @@ export const thirdPartyAnalytics = [
         },
     },
 ];
+const COOKIE_EXPIRY_DAYS = 365;
+
+export const isValidScriptContent = (scriptContent) => {
+    try {
+        const unsafePatterns = [/<script>/gi, /<\/script>/gi];
+        return !unsafePatterns.some(pattern => pattern.test(scriptContent));
+    } catch (error) {
+        return false;
+    }
+};
+export const processScriptContent = (scriptContent) => {
+    const scriptTagMatch = scriptContent.match(/<script[^>]*>([\s\S]*?)<\/script>/i);
+    if (scriptTagMatch) {
+        return scriptTagMatch[1];
+    }
+    return scriptContent;
+};
+
+export const setDynamicCookie = (type, value) => {
+    const name = `nx_${type}`;
+    const expires = new Date(Date.now() + COOKIE_EXPIRY_DAYS * 24 * 60 * 60 * 1000).toUTCString();
+    document.cookie = `${name}=${encodeURIComponent(JSON.stringify(value))}; expires=${expires}; path=/;`;
+};
+
+export const getDynamicCookie = (type) => {
+    const name = `nx_${type}`;
+    const cookie = document.cookie.split('; ').find(row => row.startsWith(`${name}=`));
+    if (!cookie) return null;
+    return JSON.parse(decodeURIComponent(cookie.split('=')[1]));
+};
+
+
+// Helper: Dynamically load scripts
+export const loadScripts = (cookieList) => {
+    if ( !cookieList || cookieList?.length < 0 ) return;
+    cookieList.forEach(cookie => {
+        if (cookie?.script_url_pattern && !isValidScriptContent(cookie?.script_url_pattern) ) {
+            const sanitizedContent = processScriptContent(cookie.script_url_pattern);
+            const scriptElement = document.createElement('script');
+            scriptElement.type = 'text/javascript';
+            if (sanitizedContent.startsWith('http')) {
+                scriptElement.src = sanitizedContent;
+            } else {
+                scriptElement.textContent = sanitizedContent;
+            }
+            if( cookie?.load_on == 'head' ) {
+                document.head.appendChild(scriptElement);
+            }else{
+                document.body.appendChild(scriptElement);
+            }
+        }
+    });
+};
