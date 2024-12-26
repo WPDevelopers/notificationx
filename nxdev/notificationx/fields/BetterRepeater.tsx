@@ -18,20 +18,20 @@ const BetterRepeater = (props) => {
     const [isEditNecessaryModalOpen, setIsEditCookieInfoModalOpen] = useState(false);
     const builderContext = useBuilderContext();
     const [localMemoizedValue, setLocalMemoizedValue] = useState(builderContext.values?.[fieldName]);
-    const [localMemoizedValueForTab, setLocalMemoizedValueForTab] = useState(builderContext.values?.tab_info);
+    const [localMemoizedValueForTab, setLocalMemoizedValueForTab] = useState(builderContext.values?.[fieldName + '_tab_info'] || Object.values(tab_info));
     const [activeEditItem, setActiveEditItem] = useState("");
-
+console.log(builderContext.values?.[fieldName + '_tab_info'], localMemoizedValueForTab);
     useEffect(() => {
         if (builderContext.values?.[fieldName] != undefined) {
             setLocalMemoizedValue(builderContext.values?.[fieldName]);
         }
     }, [builderContext.values?.[fieldName]]);
 
-    useEffect(() => {
-        if (builderContext.values?.tab_info !== localMemoizedValueForTab) {
-            setLocalMemoizedValueForTab(builderContext.values?.tab_info);
-        }
-    }, [builderContext.values?.tab_info, localMemoizedValueForTab]);
+    // useEffect(() => {
+    //     if (builderContext.values?.tab_info !== localMemoizedValueForTab) {
+    //         setLocalMemoizedValueForTab(builderContext.values?.tab_info);
+    //     }
+    // }, [builderContext.values?.tab_info, localMemoizedValueForTab]);
     // useEffect(() => {
     //     if (builderContext.values?.tab_info) {
     //         setLocalMemoizedValueForTab(builderContext.values?.tab_info);
@@ -93,14 +93,15 @@ const BetterRepeater = (props) => {
                 return {...item, index: v4()};
             }))
         }
+        builderContext.setFieldValue(fieldName + '_tab_info', Object.values(tab_info));
         
-        if (localMemoizedValueForTab == undefined || localMemoizedValueForTab == '') {
-            setLocalMemoizedValueForTab([{index: v4()}]);
-        } else{
-            setLocalMemoizedValueForTab((items) => items.map((item) => {
-                return {...item, index: v4()};
-            }))
-        }
+        // if (localMemoizedValueForTab == undefined || localMemoizedValueForTab == '') {
+        //     setLocalMemoizedValueForTab([{index: v4()}]);
+        // } else{
+        //     setLocalMemoizedValueForTab((items) => items.map((item) => {
+        //         return {...item, index: v4()};
+        //     }))
+        // }
     }, [])    
     
     const handleButtonClick = () => {
