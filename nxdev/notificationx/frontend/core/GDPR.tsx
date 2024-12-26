@@ -6,65 +6,32 @@ import { createPortal } from 'react-dom';
 import GdprActions from '../gdpr/utils/GdprActions';
 import GdprFooter from '../gdpr/utils/GdprFooter';
 import CloseIcon from '../../icons/Close';
-import { loadScripts } from '../gdpr/utils/helper';
-
-// Helper functions for cookies
-const getDynamicCookie = (type) => {
-    const name = `nx_${type}`;
-    const cookie = document.cookie.split('; ').find(row => row.startsWith(`${name}=`));
-    if (!cookie) return null;
-    return JSON.parse(decodeURIComponent(cookie.split('=')[1]));
-};
+import { getDynamicCookie, loadScripts } from '../gdpr/utils/helper';
 
 const GDPR = ({ position, gdpr, dispatch }) => {
     const target = usePortal(`nx-gdpr-${position}`, position == 'bottom_left', true);
     const { config: settings, data: content } = gdpr; 
     const [isVisible, setIsVisible] = useState(false);
-    console.log(settings);
     const closeBtnStyle: any = {
         color: settings?.close_btn_color,
         fontSize: settings?.close_btn_size,
     };   
-
-    const getCookie = (name) => {
-        // Retrieve a specific cookie value by name
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-        return null;
-    };
-    
-    const areConsentCookiesSet = (cookieNames) => {
-        // Check if all required cookies have been set
-        return cookieNames.every(name => {
-            const value = getCookie(name);
-            return value !== null; // Ensure the cookie exists
-        });
-    };
     
     const handleGDPRBanner = () => {
-        const cookieNames = [
-            'nx_analytics',
-            'nx_functional',
-            'nx_necessary',
-            'nx_performance',
-            'nx_uncategorized'
-        ];
-    
-        const isConsentSet = areConsentCookiesSet(cookieNames);
-        
-        if (isConsentSet) {
+        const areCookiesSet = document.cookie.split(';').some(cookie => cookie.trim().startsWith(`nx_cookie_manager=`));
+        if (areCookiesSet) {
             setIsVisible(false);
         } else {
             setIsVisible(true);
         }
     };
+    
 
      // Check consent state on mount
      useEffect(() => {
         const consent = {
-            necessary: getDynamicCookie('necessary') ?? false,
-            functional: getDynamicCookie('functional') ?? false,
+            necessary: getDynamicCookie('necessary') ?? true,
+            functional: getDynamicCookie('functional') ?? true,
             analytics: getDynamicCookie('analytics') ?? false,
             performance: getDynamicCookie('performance') ?? false,
             uncategorized: getDynamicCookie('uncategorized') ?? false,
@@ -74,8 +41,6 @@ const GDPR = ({ position, gdpr, dispatch }) => {
         const isConsentIncomplete = Object.values(consent).some((value) => value === false);
         setIsVisible(isConsentIncomplete);
         handleGDPRBanner();
-        console.log('consent',consent);
-        
         if (consent.necessary) loadScripts(settings?.necessary_cookie_lists);
         if (consent.functional) loadScripts(settings?.functional_cookie_lists);
         if (consent.analytics) loadScripts(settings?.analytics_cookie_lists);

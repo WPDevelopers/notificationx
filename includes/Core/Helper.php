@@ -2,7 +2,7 @@
 
 namespace NotificationX\Core;
 
-
+use NotificationX\Extensions\GlobalFields;
 use NotificationX\Types\TypeFactory;
 /**
  * This class will provide all kind of helper methods.
@@ -619,4 +619,50 @@ class Helper {
         return false;
     }
 
+    public static function gdpr_common_fields()
+    {
+        return [
+            'enabled' => array(
+                'type'     => 'toggle',
+                'name'     => 'enabled',
+                'label'    => __('Enabled', 'notificationx'),
+                'priority' => 5,
+            ), 
+            'cookies_id' => array(
+                'type'     => 'text',
+                'name'     => 'cookies_id',
+                'label'    => __('Cookie ID', 'notificationx'),
+                'priority' => 10,
+            ), 
+            'load_inside' => array(
+                'label'    => __('Load On', 'notificationx'),
+                'name'     => 'product_control',
+                'type'     => 'select',
+                'priority' => 15,
+                'default'  => 'head',
+                'options'  => GlobalFields::get_instance()->normalize_fields([
+                    'head'   => __('Head Section', 'notificationx'),
+                    'body'   => __('Body Section', 'notificationx'),
+                    'footer' => __('Footer Section', 'notificationx'),
+                ]),
+            ),
+            'script_url_pattern' => array(
+                'type'     => 'codeviewer',
+                'name'     => 'script_url_pattern',
+                'label'    => __('Script', 'notificationx-pro'),
+                'priority' => 25,
+            ), 
+            'description' => array(
+                'type'     => 'textarea',
+                'name'     => 'description',
+                'label'    => __('Description', 'notificationx-pro'),
+                'priority' => 30,
+            ), 
+        ];
+    }
+
+    public static function gdpr_cookie_list_visible_fields()
+    {
+        return ['cookies_id','domain', 'script_url_pattern', 'duration'];
+    }
 }

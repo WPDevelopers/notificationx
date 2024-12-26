@@ -4,19 +4,12 @@ import { modalStyle } from '../../../core/constants';
 import { __ } from '@wordpress/i18n';
 import Customization from '../Customization';
 import CloseIcon from '../../../icons/Close';
-import { isValidScriptContent, loadScripts, processScriptContent, setDynamicCookie } from './helper';
+import { loadScripts, setDynamicCookie } from './helper';
 
 const GdprActions = ({ settings, onConsentGiven }) => {
     const [isOpenCustomizationModal, setIsOpenGdprCustomizationModal] = useState(false);
     const [enabledItem, setEnabledItem] = useState([]);
-    const [consent, setConsent] = useState({
-        necessary: true,
-        functional: false,
-        analytics: false,
-        performance: false,
-        uncategorized: false,
-    });
-
+    const COOKIE_EXPIRY_DAYS = settings?.gdpr_consent_expiry;
     let acceptBtnStyles = {};
     let customizeBtnStyles = {};
     let rejectBtnStyles = {};
@@ -43,35 +36,6 @@ const GdprActions = ({ settings, onConsentGiven }) => {
         };
     }
 
-    // Function to get WP Consent status from cookie
-    const getWpConsentStatus = () => {
-        // Check if WP Consent cookie exists
-        const consentCookie = document.cookie.split('; ').find(row => row.startsWith('wpconsent='));
-        if (!consentCookie) return null;
-
-        const consentValue = consentCookie.split('=')[1];
-        try {
-            const parsedConsent = JSON.parse(decodeURIComponent(consentValue));
-            return parsedConsent;
-        } catch (error) {
-            return null;
-        }
-    };
-
-    // Use effect to initialize consent from WP Consent API (if available)
-    useEffect(() => {
-        const wpConsent = getWpConsentStatus();
-        if (wpConsent) {
-            setConsent({
-                necessary: wpConsent.necessary || false,
-                functional: wpConsent.functional || false,
-                analytics: wpConsent.analytics || false,
-                performance: wpConsent.performance || false,
-                uncategorized: wpConsent.uncategorized || false,
-            });
-        }
-    }, []);
-
     const handleCookieAccept = () => {
         const newConsent = {
             necessary    : true,
@@ -80,16 +44,12 @@ const GdprActions = ({ settings, onConsentGiven }) => {
             performance  : true,
             uncategorized: true,
         };
-        setConsent(newConsent);
-    
         // Save consent for each type
         Object.entries(newConsent).forEach(([type, value]) => {
-            setDynamicCookie(type, value);
+            setDynamicCookie(type, value, COOKIE_EXPIRY_DAYS);
         });
 
         // Initialize and load cookies/scripts based on custom consent
-        loadScripts(settings?.necessary_cookie_lists);
-        loadScripts(settings?.functional_cookie_lists);
         loadScripts(settings?.analytics_cookie_lists);
         loadScripts(settings?.performance_cookie_lists);
         loadScripts(settings?.uncategorized_cookie_lists);
@@ -99,28 +59,24 @@ const GdprActions = ({ settings, onConsentGiven }) => {
     
     const handleCookieReject = () => {
         const newConsent = {
-            necessary    : false,
-            functional   : false,
+            necessary    : true,
+            functional   : true,
             analytics    : false,
             performance  : false,
             uncategorized: false,
         };
-        setConsent(newConsent);
-    
         Object.entries(newConsent).forEach(([type, value]) => {
-            setDynamicCookie(type, value);
+            setDynamicCookie(type, value, COOKIE_EXPIRY_DAYS);
         });
 
         // Notify parent to hide popup
         onConsentGiven();
     };
     
-    const handleCustomizedConsent = (customConsent) => {
-        setConsent(customConsent);
-    
+    const handleCustomizedConsent = (customConsent) => {    
         // Save consent for each type
         Object.entries(customConsent).forEach(([type, value]) => {
-            setDynamicCookie(type, value);
+            setDynamicCookie(type, value, COOKIE_EXPIRY_DAYS);
         });
     
         // Initialize and load cookies/scripts based on custom consent

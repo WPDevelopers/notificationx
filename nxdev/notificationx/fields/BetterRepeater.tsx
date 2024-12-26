@@ -116,6 +116,8 @@ const BetterRepeater = (props) => {
         setIsEditCookieInfoModalOpen(true);
     }
     
+    console.log('localMemoizedValue',localMemoizedValue);
+    
     return (
         <div className="wprf-repeater-control">
             { localMemoizedValueForTab && localMemoizedValueForTab.length &&
@@ -185,7 +187,10 @@ const BetterRepeater = (props) => {
                 <>
                     <div className="wprf-modal-preview-header">
                         <span>{ activeEditItem ? __( 'Edit Custom Cookies','notificationx' ) : __( 'Add Custom Cookies','notificationx' ) }</span>
-                        <button onClick={() => setIsOpen(false)}>
+                        <button onClick={() => {
+                                setIsOpen(false);
+                                setActiveEditItem("");
+                            }}>
                             <CloseIcon />
                         </button>
                     </div>
@@ -249,44 +254,7 @@ const BetterRepeater = (props) => {
                         </div>
                     </div>
                     <div className="wprf-modal-table-wrapper wpsp-better-repeater-fields">
-                        {Object.entries(props?._default).map(([key, value]) => (
-                            <div key={key}>
-                                {localMemoizedValue && localMemoizedValue?.length > 0 && (
-                                    <div className="wprf-repeater-content">
-                                        {localMemoizedValue.map((item, index) => {
-                                            if (localMemoizedValue?.length === index + 1) {
-                                                const filteredFields = Object.fromEntries(
-                                                    Object.entries(_fields).filter(([key]) =>
-                                                        props?.visible_fields?.includes(key)
-                                                    )
-                                                );
-                                                const handleFieldChange = (event, fieldIndex) => {
-                                                    const updatedValues = [...localMemoizedValue];
-                                                    updatedValues[fieldIndex] = {
-                                                        ...updatedValues[fieldIndex],
-                                                        [event.target.name]: event.target.value,
-                                                    };
-                                                    setLocalMemoizedValue(updatedValues);
-                                                };
-
-                                                return (
-                                                    <BetterRepeaterField
-                                                        isCollapsed={item?.isCollapsed}
-                                                        key={item?.index || index}
-                                                        fields={filteredFields}
-                                                        index={index}
-                                                        parent={fieldName}
-                                                        clone={handleClone}
-                                                        remove={handleRemove}
-                                                        onChange={(event) => handleFieldChange(event, index)}
-                                                    />
-                                                );
-                                            }
-                                        })}
-                                    </div>
-                                )}
-                            </div>
-                        ))}
+                        
                     </div>
                     <div className="wprf-modal-preview-footer">
                         <button className='wpsp-btn wpsp-btn-preview-update' onClick={() => setIsOpen(false)}>{__('Save', 'notificationx')}</button>

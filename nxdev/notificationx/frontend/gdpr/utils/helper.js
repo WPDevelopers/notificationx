@@ -42,7 +42,6 @@ export const thirdPartyAnalytics = [
         },
     },
 ];
-const COOKIE_EXPIRY_DAYS = 365;
 
 export const isValidScriptContent = (scriptContent) => {
     try {
@@ -60,38 +59,90 @@ export const processScriptContent = (scriptContent) => {
     return scriptContent;
 };
 
-export const setDynamicCookie = (type, value) => {
-    const name = `nx_${type}`;
+export const setDynamicCookie = (type, value, COOKIE_EXPIRY_DAYS) => {
+    const cookieName = 'nx_cookie_manager';
     const expires = new Date(Date.now() + COOKIE_EXPIRY_DAYS * 24 * 60 * 60 * 1000).toUTCString();
-    document.cookie = `${name}=${encodeURIComponent(JSON.stringify(value))}; expires=${expires}; path=/;`;
+
+    // Retrieve the existing cookie manager object
+    const existingCookie = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith(`${cookieName}=`));
+    const cookieManager = existingCookie
+        ? JSON.parse(decodeURIComponent(existingCookie.split('=')[1]))
+        : {};
+
+    // Update the specific consent type
+    cookieManager[type] = value;
+
+    // Save the updated cookie manager object back as a single cookie
+    document.cookie = `${cookieName}=${encodeURIComponent(
+        JSON.stringify(cookieManager)
+    )}; expires=${expires}; path=/;`;
 };
+
 
 export const getDynamicCookie = (type) => {
-    const name = `nx_${type}`;
-    const cookie = document.cookie.split('; ').find(row => row.startsWith(`${name}=`));
-    if (!cookie) return null;
-    return JSON.parse(decodeURIComponent(cookie.split('=')[1]));
+    const cookieName = 'nx_cookie_manager';
+    const existingCookie = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith(`${cookieName}=`));
+
+    if (!existingCookie) return null;
+
+    const cookieManager = JSON.parse(decodeURIComponent(existingCookie.split('=')[1]));
+    return cookieManager[type] ?? null; // Return the value of the specified type or null if not found
 };
 
 
-// Helper: Dynamically load scripts
 export const loadScripts = (cookieList) => {
-    if ( !cookieList || cookieList?.length < 0 ) return;
+    if (!cookieList || cookieList.length < 0) return;
+
     cookieList.forEach(cookie => {
-        if (cookie?.script_url_pattern && !isValidScriptContent(cookie?.script_url_pattern) ) {
-            const sanitizedContent = processScriptContent(cookie.script_url_pattern);
-            const scriptElement = document.createElement('script');
-            scriptElement.type = 'text/javascript';
-            if (sanitizedContent.startsWith('http')) {
-                scriptElement.src = sanitizedContent;
-            } else {
-                scriptElement.textContent = sanitizedContent;
-            }
-            if( cookie?.load_on == 'head' ) {
-                document.head.appendChild(scriptElement);
-            }else{
-                document.body.appendChild(scriptElement);
-            }
+        if (cookie?.script_url_pattern) {
+            const scriptsContent = cookie.script_url_pattern;
+
+            // Create a temporary container to parse the <script> tags
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = scriptsContent; // Place the script content in a div to parse it as HTML
+
+            // Loop through all <script> tags in the parsed content
+            const scriptTags = tempDiv.getElementsByTagName('script');
+
+            Array.from(scriptTags).forEach(scriptTag => {
+                const scriptElement = document.createElement('script');
+                scriptElement.type = 'text/javascript';
+
+                // If the script has a 'src' attribute, it's an external script
+                if (scriptTag.src) {
+                    scriptElement.src = scriptTag.src;
+                    scriptElement.async = true;  // Load the external script asynchronously
+                } else {
+                    // If it's inline script, take the text content
+                    scriptElement.textContent = scriptTag.textContent;
+                }
+
+                // Append the script tag to either <head> or <body> based on `load_inside`
+                switch (cookie?.load_inside) {
+                    case 'head':
+                        document.head.appendChild(scriptElement);
+                        break;
+                    case 'body':
+                        document.body.appendChild(scriptElement);
+                        break;
+                    case 'footer':
+                        const footer = document.querySelector('footer');
+                        if (footer) {
+                            footer.appendChild(scriptElement);
+                        } else {
+                            document.body.appendChild(scriptElement);
+                        }
+                        break;
+                    default:
+                        document.head.appendChild(scriptElement);
+                        break;
+                }
+            });
         }
     });
 };
+

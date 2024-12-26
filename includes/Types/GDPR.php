@@ -331,30 +331,10 @@ class GDPR extends Types {
             'rules'    => Rules::is('type', 'gdpr'),
             'fields'   => [
                 [
-                    'label' => __("Show Cookie List on banner", 'notificationx'),
+                    'label' => __("Show Cookie List", 'notificationx'),
                     'name'  => "cookie_list_show_banner",
                     'type'  => "toggle",
-                    'default' => false,
-                    // 'help'  => __("Help text", "notificationx"),
-                ],
-                [
-                    'label' => __("Embed Code", 'notificationx'),
-                    'name'  => "cookie_list_embed_code",
-                    'type'  => "textarea",
-                    'placeholder' => __("We value your privacy", 'notificationx'),
-                    'is_pro' => true,
-                ],
-                [
-                    'label' => __("Cookie", 'notificationx'),
-                    'name'  => "cookie_list_cookie",
-                    'type'  => "text",
-                    'placeholder' => __("Cookie", 'notificationx'),
-                ],
-                [
-                    'label' => __("Duration", 'notificationx'),
-                    'name'  => "cookie_list_duration",
-                    'type'  => "text",
-                    'default' => 0,
+                    'default' => true,
                 ],
                 [
                     'label' => __("Always Active Label", 'notificationx'),
