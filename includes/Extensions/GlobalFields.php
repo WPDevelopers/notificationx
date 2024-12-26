@@ -1066,6 +1066,64 @@ class GlobalFields {
                                                 'name' => 'necessary'
                                             ],
                                             'fields'           => [
+                                                'tab_title' => array(
+                                                    'type'     => 'text',
+                                                    'name'     => 'tab_title',
+                                                    'default'    => __('Necessary', 'notificationx'),
+                                                    'label'    => __('Name', 'notificationx'),
+                                                ),
+                                                'tab_description' => array(
+                                                    'type'     => 'textarea',
+                                                    'name'     => 'tab_description',
+                                                    'label'    => __('Description', 'notificationx'),
+                                                    'default'    => __('Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+                                                ),
+                                                'tab_info_modal' => [
+                                                    'name'   => 'tab_info_modal',
+                                                    'type'   => 'modal',
+                                                    'button' => [
+                                                        'name' => 'tab_info_edit',
+                                                        'text' => __('Edit', 'notificationx'),
+                                                    ],
+                                                    'confirm_button' => [
+                                                        'type'   => 'button',
+                                                        'text'  => 'Save',
+                                                        'name'   => 'close_tab_info_modal',
+                                                        "default" => false,
+                                                        'trigger' => [
+                                                            [
+                                                                'type'   => 'setContext',
+                                                                'action' => [
+                                                                    'config.active' => 'manager_tab'
+                                                                ]
+                                                            ],
+                                                            [
+                                                                'type'   => 'setFieldValue',
+                                                                'action' => [
+                                                                    'close_tab_info_modal' => true
+                                                                ]
+                                                            ],
+                                                        ],
+                                                    ],
+                                                    'cancel' => "close_tab_info_modal",
+                                                    'body'   => [
+                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'fields' => [
+                                                            'tab_title' => array(
+                                                                'type'     => 'text',
+                                                                'name'     => 'tab_title',
+                                                                'default'    => __('Necessary', 'notificationx'),
+                                                                'label'    => __('Name', 'notificationx'),
+                                                            ),
+                                                            'tab_description' => array(
+                                                                'type'     => 'textarea',
+                                                                'name'     => 'tab_description',
+                                                                'label'    => __('Description', 'notificationx'),
+                                                                'default'    => __('Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+                                                            ),
+                                                        ],
+                                                    ],
+                                                ],
                                                 'necessary_cookie_lists'    => [
                                                     'label'    => __('', 'notificationx'),
                                                     'name'     => 'necessary_cookie_lists',
@@ -1147,7 +1205,7 @@ class GlobalFields {
                                                             'priority' => 30,
                                                         ), 
                                                     ]
-                                                ]
+                                                ],
                                             ],
                                         ],
                                         'functional_tab'      => [
