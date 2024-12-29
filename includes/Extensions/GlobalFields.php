@@ -1073,7 +1073,7 @@ class GlobalFields {
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __('Edit', 'notificationx'),
+                                                        'text' => __(' ', 'notificationx'),
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1229,7 +1229,7 @@ class GlobalFields {
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __('Edit', 'notificationx'),
+                                                        'text' => __(' ', 'notificationx'),
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1386,7 +1386,7 @@ class GlobalFields {
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __('Edit', 'notificationx'),
+                                                        'text' => __(' ', 'notificationx'),
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1543,7 +1543,7 @@ class GlobalFields {
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __('Edit', 'notificationx'),
+                                                        'text' => __(' ', 'notificationx'),
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1700,7 +1700,7 @@ class GlobalFields {
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __('Edit', 'notificationx'),
+                                                        'text' => __(' ', 'notificationx'),
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
