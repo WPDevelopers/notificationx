@@ -984,17 +984,6 @@ class GlobalFields {
                                     ]),
                                     'info'    => __('Choose if you’d like the page to reload when user accepts cookies. if you choose not to, your analytical software will not count the current page visit as the cookies will be loaded during the next page load only', 'notificationx'),
                                 ],
-                                'gdpr_insert_script' => [
-                                    'label'   => __("Script Insertion Method", 'notificationx'),
-                                    'name'    => "gdpr_insert_script",
-                                    'type'    => "better-toggle",
-                                    'default' => false,
-                                    'toggle_label'     => ['toggle_label_1' => __('Enable Script Insertion Method', 'notificationx'), 'toggle_label_2' => __('', 'notificationx')],
-                                    'rules'   => Rules::logicalRule([
-                                        Rules::is( 'type', 'gdpr' ),
-                                    ]),
-                                    'info'    => __('Recommended default method is Static. Switch to dynamic only if you experience issues with static method (dynamic way uses more server resources)', 'notificationx'),
-                                ],
                                 'gdpr_cookie_removal' => [
                                     'label'   => __("Cookie Removal", 'notificationx'),
                                     'name'    => "gdpr_cookie_removal",

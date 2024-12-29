@@ -5,6 +5,7 @@ import { __ } from '@wordpress/i18n';
 import Customization from '../Customization';
 import CloseIcon from '../../../icons/Close';
 import { loadScripts, setDynamicCookie } from './helper';
+import nxHelper from '../../../core/functions';
 
 const GdprActions = ({ settings, onConsentGiven }) => {
     const [isOpenCustomizationModal, setIsOpenGdprCustomizationModal] = useState(false);
@@ -55,9 +56,16 @@ const GdprActions = ({ settings, onConsentGiven }) => {
         loadScripts(settings?.uncategorized_cookie_lists);
         // Notify parent to hide popup
         onConsentGiven();
+        if( settings?.gdpr_force_reload ) {
+            // Reloads the current page
+            location.reload();
+        }
     };
     
     const handleCookieReject = () => {
+        if( settings?.gdpr_cookie_removal ) {
+            delete_cookies();
+        }
         const newConsent = {
             necessary    : true,
             functional   : true,
@@ -65,14 +73,21 @@ const GdprActions = ({ settings, onConsentGiven }) => {
             performance  : false,
             uncategorized: false,
         };
-        Object.entries(newConsent).forEach(([type, value]) => {
-            setDynamicCookie(type, value, COOKIE_EXPIRY_DAYS);
-        });
-
+        setTimeout(() => {
+            Object.entries(newConsent).forEach(([type, value]) => {
+                setDynamicCookie(type, value, COOKIE_EXPIRY_DAYS);
+            });
+        }, 500);
         // Notify parent to hide popup
         onConsentGiven();
     };
-    
+
+    const delete_cookies = async () => {
+        nxHelper
+        .get(`index.php?rest_route=/notificationx/v1/delete-cookies/`)
+        .catch((err) => console.error("Fetch Error: ", err));
+    }
+
     const handleCustomizedConsent = (customConsent) => {    
         // Save consent for each type
         Object.entries(customConsent).forEach(([type, value]) => {

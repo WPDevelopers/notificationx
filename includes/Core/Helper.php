@@ -609,16 +609,25 @@ class Helper {
         return $product_list;
     }
 
+   /**
+     * Checks if WPML (WordPress Multilingual Plugin) is properly set up and loaded.
+     *
+     * @return bool True if WPML is set up, false otherwise.
+     */
     public static function is_wpml_setup()
     {
-        
         $wpml_has_run = get_option('WPML(TM-has-run)');
-        if( !empty( $wpml_has_run['WPML\TM\ATE\Sitekey\Sync'] ) && did_action('wpml_loaded') && function_exists('load_wpml_st_basics') ) {
+        if (!empty($wpml_has_run['WPML\TM\ATE\Sitekey\Sync']) && did_action('wpml_loaded') && function_exists('load_wpml_st_basics')) {
             return true;
         }
         return false;
     }
 
+    /**
+     * Returns a list of common fields for GDPR cookie configuration settings.
+     *
+     * @return array An associative array of common GDPR cookie fields.
+     */
     public static function gdpr_common_fields()
     {
         return [
@@ -661,8 +670,69 @@ class Helper {
         ];
     }
 
+    /**
+     * Specifies the fields to be shown in the GDPR cookie list.
+     *
+     * @return array An array of field names visible in the GDPR cookie list.
+     */
     public static function gdpr_cookie_list_visible_fields()
     {
-        return ['cookies_id','domain', 'script_url_pattern', 'duration'];
+        return ['cookies_id', 'domain', 'script_url_pattern', 'duration', 'load_inside'];
     }
+
+    /**
+     * Deletes specific cookies on the server and returns a list of removed cookies.
+     *
+     * @return void Outputs a JSON-encoded list of removed cookies.
+     */
+    public static function delete_server_cookies()
+    {
+        $urlparts = wp_parse_url(site_url('/'));
+        $domain   = preg_replace('/www\./i', '', $urlparts['host']);
+        $cookies_removed = array();
+        $d_domains = array('_ga', '_fbp', '_gid', '_gat', '__utma', '__utmb', '__utmc', '__utmt', '__utmz');
+        $d_domains = apply_filters('gdpr_d_domains_filter', $d_domains);
+
+        // Iterate over all cookies and remove them if they match specific conditions.
+        if (isset($_COOKIE) && is_array($_COOKIE) && $domain) :
+            foreach ($_COOKIE as $key => $value) {
+                if ($key !== 'moove_gdpr_popup' && strpos($key, 'woocommerce') === false && strpos($key, 'wc_') === false && strpos($key, 'wordpress') === false) : 
+                    if ('language' === $key || 'currency' === $key) {
+                        setcookie($key, null, -1, '/', 'www.' . $domain);
+                        $cookies_removed[$key] = $domain;
+                    } elseif (in_array($key, $d_domains) || strpos($key, '_ga') !== false || strpos($key, '_fbp') !== false) {
+                        setcookie($key, null, -1, '/', '.' . $domain);
+                        $cookies_removed[$key] = $domain;
+                    }
+                endif;
+            }
+        endif;
+
+        // Parse and remove cookies from the HTTP header.
+        $cookies = isset($_SERVER['HTTP_COOKIE']) ? explode(';', sanitize_text_field(wp_unslash($_SERVER['HTTP_COOKIE']))) : false;
+        if (is_array($cookies)) :
+            foreach ($cookies as $cookie) {
+                $parts = explode('=', $cookie);
+                $name  = trim($parts[0]);
+                if ($name && $name !== 'moove_gdpr_popup' && strpos($name, 'woocommerce') === false && strpos($name, 'wc_') === false && strpos($name, 'wordpress') === false) :
+                    setcookie($name, '', time() - 1000);
+                    setcookie($name, '', time() - 1000, '/');
+                    if ('language' === $name || 'currency' === $name) {
+                        setcookie($name, null, -1, '/', 'www.' . $domain);
+                        $cookies_removed[$name] = $domain;
+                    } elseif (in_array($key, $d_domains) || strpos($name, '_ga') !== false || strpos($name, '_fbp') !== false) {
+                        setcookie($name, null, -1, '/', '.' . $domain);
+                        $cookies_removed[$name] = '.' . $domain;
+                    } else {
+                        setcookie($name, null, -1, '/');
+                        $cookies_removed[$name] = $domain;
+                    }
+                endif;
+            }
+        endif;
+
+        // Output the list of removed cookies as a JSON response.
+        echo json_encode($cookies_removed);
+    }
+
 }
