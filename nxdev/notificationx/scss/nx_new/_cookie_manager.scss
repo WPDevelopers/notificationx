@@ -92,7 +92,7 @@
                     .wprf-control-field {
                         min-height: auto;
                         flex: 100%;
-                        
+
                         input {
                             min-height: auto;
                             height: 18px;
@@ -118,6 +118,24 @@
                             width: 100%;
                             max-width: 720px;
                             margin-right: 0;
+                        }
+                    }
+                }
+                .wprf-control.wprf-modal {
+                    margin-bottom: 0;
+                    width: auto;
+                    position: absolute;
+                    top: 0;
+                    left: 74px;
+                    .wprf-btn {
+                        border: none;
+                        background: transparent;
+                        min-height: auto;
+                        border: none;
+                        padding: 0;
+                        border-radius: 0;
+                        svg path {
+                            stroke: #092161;
                         }
                     }
                 }
