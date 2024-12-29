@@ -64,15 +64,61 @@
             margin-top: 24px;
 
             .wprf-tab-content {
-                .wprf-tab-heading-wrapper {
-                    margin-bottom: 16px;
+                position: relative;
 
-                    h4 {
-                        font-size: 14px;
-                        line-height: 20px;
-                        font-weight: 500;
-                        color: #092161;
-                        background: transparent;
+                .wprf-tab-heading-wrapper {
+
+                    display: none;
+                    // margin-bottom: 16px;
+
+                    // h4 {
+                    //     font-size: 14px;
+                    //     line-height: 20px;
+                    //     font-weight: 500;
+                    //     color: #092161;
+                    //     background: transparent;
+                    // }
+                }
+                .wprf-control-wrapper { 
+                    &.wprf-name-necessary_tab_title {
+                        margin-bottom: 12px;
+                    }
+                    &.wprf-name-necessary_tab_desc {
+                        margin-bottom: 16px;
+                    }
+                    .wprf-control-label {
+                        display: none;
+                    }
+                    .wprf-control-field {
+                        min-height: auto;
+                        flex: 100%;
+                        
+                        input {
+                            min-height: auto;
+                            height: 18px;
+                            padding: 0;
+                            border: none;
+                            border-radius: 0;
+                            color: #092161;
+                            font-size: 14px;
+                            font-weight: 500;
+                            width: 100%;
+                            max-width: 400px;
+                            margin-right: 0;
+                        }
+                        textarea {
+                            min-height: auto;
+                            padding: 0;
+                            border: none;
+                            border-radius: 0;
+                            color: #535D77;
+                            font-size: 12px;
+                            font-weight: 400;
+                            line-height: 16px;
+                            width: 100%;
+                            max-width: 720px;
+                            margin-right: 0;
+                        }
                     }
                 }
                 .wprf-repeater-control {
