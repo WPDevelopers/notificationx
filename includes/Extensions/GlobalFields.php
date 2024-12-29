@@ -1074,6 +1074,10 @@ class GlobalFields {
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
                                                         'text' => __('Edit', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
                                                     ],
                                                     'confirm_button' => [
                                                         'type'   => 'button',
@@ -1226,6 +1230,10 @@ class GlobalFields {
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
                                                         'text' => __('Edit', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
                                                     ],
                                                     'confirm_button' => [
                                                         'type'   => 'button',
@@ -1379,6 +1387,10 @@ class GlobalFields {
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
                                                         'text' => __('Edit', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
                                                     ],
                                                     'confirm_button' => [
                                                         'type'   => 'button',
@@ -1532,6 +1544,10 @@ class GlobalFields {
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
                                                         'text' => __('Edit', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
                                                     ],
                                                     'confirm_button' => [
                                                         'type'   => 'button',
