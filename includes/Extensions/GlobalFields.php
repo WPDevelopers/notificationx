@@ -1073,7 +1073,7 @@ class GlobalFields {
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __('Edit', 'notificationx'),
+                                                        'text' => __(' ', 'notificationx'),
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1229,7 +1229,7 @@ class GlobalFields {
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __('Edit', 'notificationx'),
+                                                        'text' => __(' ', 'notificationx'),
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1386,7 +1386,7 @@ class GlobalFields {
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __('Edit', 'notificationx'),
+                                                        'text' => __(' ', 'notificationx'),
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1543,7 +1543,7 @@ class GlobalFields {
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __('Edit', 'notificationx'),
+                                                        'text' => __(' ', 'notificationx'),
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1700,7 +1700,7 @@ class GlobalFields {
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __('Edit', 'notificationx'),
+                                                        'text' => __(' ', 'notificationx'),
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1729,6 +1729,10 @@ class GlobalFields {
                                                     'cancel' => "close_tab_info_modal",
                                                     'body'   => [
                                                         'header' => __('Edit Category ', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
                                                         'fields' => [
                                                             'tab_title' => Helper::tab_info_title('uncategorized', 'Uncategorized'),
                                                             'tab_description' => Helper::tab_info_desc('uncategorized', 'Uncategorized cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
