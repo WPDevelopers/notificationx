@@ -63,6 +63,8 @@ class PostType {
         add_filter( 'nx_get_post', [ $this, 'async_select_get_label' ], 10, 2 );
         add_filter( 'nx_save_post', [ $this, 'async_select_remove_label' ], 10, 3 );
         add_image_size( '_nx_notification_thumb', 100, 100, true );
+        add_filter( 'nx_save_post', [ $this, 'maximize_notification_size' ], 10, 3 );
+        add_filter( 'nx_get_post', [ $this, 'get_maximize_notification_size' ], 10, 3 );
 
     }
 
@@ -571,6 +573,47 @@ class PostType {
 
         // Return the modified post data
         return $post;
+    }
+
+    /**
+     * Adjusts the notification size to ensure a minimum size of 300px for mobile, desktop, and tablet devices.
+     *
+     * (mobile, desktop, and tablet) is less than 300px. If so, it updates the size
+     * to 300px to maintain a consistent and usable notification display.
+     *
+     * @param array $post The existing post data, which will be modified with the updated sizes.
+     * @param array $data The data array.
+     * @param int $nx_id The unique ID of the notification being processed.
+     *
+     * @return array The modified post data with updated notification sizes.
+    */
+    public function maximize_notification_size($post, $data, $nx_id)
+    {
+        if (!empty($data['size']) && is_array($data['size'])) {
+            foreach (['mobile', 'desktop', 'tablet'] as $device) {
+                if (!empty($data['size'][$device]) && $data['size'][$device] < 300) {
+                    $post['data']['size'][$device] = 300;
+                }
+            }
+        }
+        return $post;
+    }
+
+    /**
+     * Adjusts the notification size to ensure a minimum size of 300px for mobile, desktop, and tablet devices in dashboard frontend.
+     * @param array $data The data array.
+     *
+     * @return array The modified data with updated notification sizes.
+    */
+    public function get_maximize_notification_size($data) {
+        if (!empty($data['size']) && is_array($data['size'])) {
+            foreach (['mobile', 'desktop', 'tablet'] as $device) {
+                if (!empty($data['size'][$device]) && $data['size'][$device] < 300) {
+                    $data['size'][$device] = 300;
+                }
+            }
+        }
+        return $data;
     }
 
 }

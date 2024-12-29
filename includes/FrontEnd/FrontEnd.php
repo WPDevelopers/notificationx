@@ -311,7 +311,7 @@ class FrontEnd {
 
                 // $settings['button_url'] = apply_filters("nx_notification_link_{$settings['source']}", $settings['button_url'], $settings);
                 $settings['button_url'] = apply_filters('nx_notification_link', $settings['button_url'], $settings);
-                if (!empty($settings['button_url']) && strpos($settings['button_url'], '//') === false) {
+                if (!empty($settings['button_url']) && strpos($settings['button_url'], '//') === false && strpos($settings['button_url'], './') === false) {
                     $settings['button_url'] = "//{$settings['button_url']}";
                 }
                 $bar_content = $this->get_bar_content($settings, false, $params);
@@ -405,8 +405,9 @@ class FrontEnd {
 
             $locations  = isset($settings['all_locations']) ? $settings['all_locations'] : [];
             $custom_ids = isset($settings['custom_ids']) ? $settings['custom_ids'] : [];
+            $taxonomy_ids = isset($settings['taxonomy_ids']) ? $settings['taxonomy_ids'] : [];
 
-            if($this->check_show_on($locations, $custom_ids, $settings['show_on'])){
+            if($this->check_show_on($locations, $custom_ids, $settings['show_on'], $taxonomy_ids)){
                 continue;
             }
 
@@ -485,7 +486,7 @@ class FrontEnd {
     /**
      * @todo filter is not extensive enough.
      */
-    public function check_show_on($locations, $custom_ids, $show_on){
+    public function check_show_on($locations, $custom_ids, $show_on, $taxonomy_ids = ''){
         $check_location = false;
 
         if ($locations == 'is_custom' || is_array($locations) && in_array('is_custom', $locations)) {
@@ -493,7 +494,7 @@ class FrontEnd {
         }
         if (!empty($locations)) {
             // @todo need to pass url.
-            $check_location = Locations::get_instance()->check_location($locations, $custom_ids);
+            $check_location = Locations::get_instance()->check_location($locations, $custom_ids, $taxonomy_ids);
         }
 
         $check_location = apply_filters('nx_check_location', $check_location, $custom_ids, $show_on);
@@ -804,7 +805,9 @@ class FrontEnd {
         if (isset($post['template_adv'], $post['advanced_template'])) {
             $post['advanced_template'] = do_shortcode($post['advanced_template']);
         }
-
+        if( !empty( $post['notification-template'] ) ) {
+            $post['notification-template'] = array_map( 'esc_html', $post['notification-template'] );
+        }
         return $post;
     }
 

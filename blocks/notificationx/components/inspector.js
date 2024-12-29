@@ -138,19 +138,21 @@ export default function Inspector(props) {
 
   }, []);
 
-  const loadOptions = async (inputValue, callback) => {
-    if (inputValue.length >= 3) {
-      const data = {
-        "search_empty" : true,
-        "inputValue" : inputValue,
-        "type": "inline",
-        "source": nx_source,
-        "field": "product_list"
-      };;
-      await apiFetch({ path: "notificationx/v1/get-data", method: "POST", data: data }).then((res) => {
-        callback(res);
-      });
-    }
+  const loadOptions = (inputValue, callback) => {
+    setTimeout(() => {
+      if (inputValue.length >= 3) {
+        const data = {
+          "search_empty": true,
+          "inputValue"  : inputValue,
+          "type"        : "inline",
+          "source"      : nx_source,
+          "field"       : "product_list"
+        };
+        apiFetch({ path: "notificationx/v1/get-data", method: "POST", data: data }).then((res) => {
+          callback(res);
+        });
+      }
+    }, 1000);
   };
 
   return (
@@ -194,17 +196,16 @@ export default function Inspector(props) {
                             <label htmlFor="chooseOption">{ __( 'Choose Product','notificationx' ) }</label>
                           )}
                         <Select
-                          value={ selected_product }
+                          value={selected_product || null}
                           id="chooseOption"
                           loadOptions={loadOptions}
-                          defaultOptions={nx_products}
-                          noOptionsMessage={ () => __( 'Please type 3 or more characters','notificationx' ) }
-                          onChange={ (selected) => {
-                            setAttributes( { product_id: selected.value + '' } )
-                            delete selected.rules;
-                            setAttributes( { selected_product:  selected } )
-                          }
-                          }
+                          defaultOptions={nx_products || []}
+                          noOptionsMessage={() => __("Please type 3 or more characters", "notificationx")}
+                          onChange={(selected) => {
+                            const safeSelected = selected || {};
+                            setAttributes({ product_id: String(safeSelected.value || "") });
+                            setAttributes({ selected_product: safeSelected });
+                          }}
                         />
                       </>
                     }

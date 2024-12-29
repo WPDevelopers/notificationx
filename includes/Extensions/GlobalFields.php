@@ -34,7 +34,7 @@ class GlobalFields {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-
+        
         // dump(Rules::logicalRule([ Rules::is('test'), Rules::is('test2') ]));
     }
 
@@ -1012,7 +1012,7 @@ class GlobalFields {
                                     'type'    => "number",
                                     'min'     => 0,
                                     'description' => __('Days', 'notificationx'),
-                                    'default' => 10,
+                                    'default' => 0,
                                     'suggestions' => [
                                         [
                                             'value' => 0,
@@ -1066,6 +1066,48 @@ class GlobalFields {
                                                 'name' => 'necessary'
                                             ],
                                             'fields'           => [
+                                                'tab_title' => Helper::tab_info_title('necessary', 'Necessary'),
+                                                'tab_description' => Helper::tab_info_desc('necessary', 'Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                'tab_info_modal' => [
+                                                    'name'   => 'tab_info_modal',
+                                                    'type'   => 'modal',
+                                                    'button' => [
+                                                        'name' => 'tab_info_edit',
+                                                        'text' => __('Edit', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
+                                                    ],
+                                                    'confirm_button' => [
+                                                        'type'   => 'button',
+                                                        'text'  => 'Save',
+                                                        'name'   => 'close_tab_info_modal',
+                                                        "default" => false,
+                                                        'trigger' => [
+                                                            [
+                                                                'type'   => 'setContext',
+                                                                'action' => [
+                                                                    'config.active' => 'manager_tab'
+                                                                ]
+                                                            ],
+                                                            [
+                                                                'type'   => 'setFieldValue',
+                                                                'action' => [
+                                                                    'close_tab_info_modal' => true
+                                                                ]
+                                                            ],
+                                                        ],
+                                                    ],
+                                                    'cancel' => "close_tab_info_modal",
+                                                    'body'   => [
+                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'fields' => [
+                                                            'tab_title' => Helper::tab_info_title('necessary', 'Necessary'),
+                                                            'tab_description' => Helper::tab_info_desc('necessary', 'Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                        ],
+                                                    ],
+                                                ],
                                                 'necessary_cookie_lists'    => [
                                                     'label'    => __('', 'notificationx'),
                                                     'name'     => 'necessary_cookie_lists',
@@ -1109,7 +1151,7 @@ class GlobalFields {
                                                         'label'    => __('Add New', 'notificationx'),
                                                         'position' => 'top',
                                                     ],
-                                                    'visible_fields'    => ['enabled', 'cookies_id','domain'],
+                                                    'visible_fields'    => ['cookies_id','load_inside', 'script_url_pattern', 'description'],
                                                     '_fields'   => [
                                                         'enabled' => array(
                                                             'type'     => 'toggle',
@@ -1123,26 +1165,22 @@ class GlobalFields {
                                                             'label'    => __('Cookie ID', 'notificationx'),
                                                             'priority' => 10,
                                                         ), 
-                                                        'domain' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'domain',
-                                                            'label'    => __('Domain', 'notificationx'),
+                                                        'load_inside' => array(
+                                                            'label'    => __('Load On', 'notificationx'),
+                                                            'name'     => 'product_control',
+                                                            'type'     => 'select',
                                                             'priority' => 15,
-                                                        ), 
-                                                        'duration' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'duration',
-                                                            'label'    => __('Duration', 'notificationx'),
-                                                            'priority' => 20,
-                                                            'info'     => '10 Days',
-                                                        ), 
+                                                            'default'  => 'head',
+                                                            'options'  => GlobalFields::get_instance()->normalize_fields([
+                                                                'head'   => __('Head', 'notificationx'),
+                                                                'footer' => __('Footer', 'notificationx'),
+                                                            ]),
+                                                        ),
                                                         'script_url_pattern' => array(
                                                             'type'     => 'textarea',
                                                             'name'     => 'script_url_pattern',
-                                                            'label'    => __('Script URL Pattern', 'notificationx-pro'),
+                                                            'label'    => __('Script', 'notificationx-pro'),
                                                             'priority' => 25,
-                                                            'help'     => '10 Days',
-
                                                         ), 
                                                         'description' => array(
                                                             'type'     => 'textarea',
@@ -1151,7 +1189,7 @@ class GlobalFields {
                                                             'priority' => 30,
                                                         ), 
                                                     ]
-                                                ]
+                                                ],
                                             ],
                                         ],
                                         'functional_tab'      => [
@@ -1184,6 +1222,48 @@ class GlobalFields {
                                                         ],
                                             ],
                                             'fields'           => [
+                                                'tab_title' => Helper::tab_info_title('functional', 'Functional'),
+                                                'tab_description' => Helper::tab_info_desc('functional', 'Functional cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                'tab_info_modal' => [
+                                                    'name'   => 'tab_info_modal',
+                                                    'type'   => 'modal',
+                                                    'button' => [
+                                                        'name' => 'tab_info_edit',
+                                                        'text' => __('Edit', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
+                                                    ],
+                                                    'confirm_button' => [
+                                                        'type'   => 'button',
+                                                        'text'  => 'Save',
+                                                        'name'   => 'close_tab_info_modal',
+                                                        "default" => false,
+                                                        'trigger' => [
+                                                            [
+                                                                'type'   => 'setContext',
+                                                                'action' => [
+                                                                    'config.active' => 'manager_tab'
+                                                                ]
+                                                            ],
+                                                            [
+                                                                'type'   => 'setFieldValue',
+                                                                'action' => [
+                                                                    'close_tab_info_modal' => true
+                                                                ]
+                                                            ],
+                                                        ],
+                                                    ],
+                                                    'cancel' => "close_tab_info_modal",
+                                                    'body'   => [
+                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'fields' => [
+                                                            'tab_title' => Helper::tab_info_title('functional', 'Functional'),
+                                                            'tab_description' => Helper::tab_info_desc('functional', 'Functional cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                        ],
+                                                    ],
+                                                ],
                                                 'functional_cookie_lists'    => [
                                                     'label'    => __('', 'notificationx-pro'),
                                                     'name'     => 'functional_cookie_lists',
@@ -1209,11 +1289,25 @@ class GlobalFields {
                                                             'description'         => 'lorem ipsum for google tag manager',
                                                         ],
                                                     ],
+                                                    'tab_info' => [
+                                                        'tab_title' => array(
+                                                            'type'     => 'text',
+                                                            'name'     => 'tab_title',
+                                                            'default'    => __('Functional', 'notificationx'),
+                                                            'label'    => __('Name', 'notificationx'),
+                                                        ),
+                                                        'tab_description' => array(
+                                                            'type'     => 'textarea',
+                                                            'name'     => 'tab_description',
+                                                            'label'    => __('Description', 'notificationx'),
+                                                            'default'    => __('Functional cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+                                                        ),
+                                                    ],
                                                     'button'  => [
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',
                                                     ],
-                                                    'visible_fields'    => ['enabled', 'cookies_id','domain'],
+                                                    'visible_fields'    => ['cookies_id','domain', 'script_url_pattern', 'duration'],
                                                     '_fields'   => [
                                                         'enabled' => array(
                                                             'type'     => 'toggle',
@@ -1242,7 +1336,7 @@ class GlobalFields {
                                                         'script_url_pattern' => array(
                                                             'type'     => 'textarea',
                                                             'name'     => 'script_url_pattern',
-                                                            'label'    => __('Script URL Pattern', 'notificationx'),
+                                                            'label'    => __('Script', 'notificationx'),
                                                             'priority' => 25,
                                                         ), 
                                                         'description' => array(
@@ -1285,6 +1379,48 @@ class GlobalFields {
                                                         ],
                                             ],
                                             'fields'           => [
+                                                'tab_title' => Helper::tab_info_title('analytics', 'Analytics'),
+                                                'tab_description' => Helper::tab_info_desc('analytics', 'Analytics cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                'tab_info_modal' => [
+                                                    'name'   => 'tab_info_modal',
+                                                    'type'   => 'modal',
+                                                    'button' => [
+                                                        'name' => 'tab_info_edit',
+                                                        'text' => __('Edit', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
+                                                    ],
+                                                    'confirm_button' => [
+                                                        'type'   => 'button',
+                                                        'text'  => 'Save',
+                                                        'name'   => 'close_tab_info_modal',
+                                                        "default" => false,
+                                                        'trigger' => [
+                                                            [
+                                                                'type'   => 'setContext',
+                                                                'action' => [
+                                                                    'config.active' => 'manager_tab'
+                                                                ]
+                                                            ],
+                                                            [
+                                                                'type'   => 'setFieldValue',
+                                                                'action' => [
+                                                                    'close_tab_info_modal' => true
+                                                                ]
+                                                            ],
+                                                        ],
+                                                    ],
+                                                    'cancel' => "close_tab_info_modal",
+                                                    'body'   => [
+                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'fields' => [
+                                                            'tab_title' => Helper::tab_info_title('analytics', 'Analytics'),
+                                                            'tab_description' => Helper::tab_info_desc('analytics', 'Analytics cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                        ],
+                                                    ],
+                                                ],
                                                 'analytics_cookie_lists'    => [
                                                     'label'    => __('', 'notificationx-pro'),
                                                     'name'     => 'analytics_cookie_lists',
@@ -1310,11 +1446,25 @@ class GlobalFields {
                                                             'description'         => 'lorem ipsum for google tag manager',
                                                         ],
                                                     ],
+                                                    'tab_info' => [
+                                                        'tab_title' => array(
+                                                            'type'     => 'text',
+                                                            'name'     => 'tab_title',
+                                                            'default'    => __('Analytics', 'notificationx'),
+                                                            'label'    => __('Name', 'notificationx'),
+                                                        ),
+                                                        'tab_description' => array(
+                                                            'type'     => 'textarea',
+                                                            'name'     => 'tab_description',
+                                                            'label'    => __('Description', 'notificationx'),
+                                                            'default'    => __('Analytics cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+                                                        ),
+                                                    ],
                                                     'button'  => [
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',
                                                     ],
-                                                    'visible_fields'    => ['enabled', 'cookies_id','domain'],
+                                                    'visible_fields'    => ['cookies_id','domain', 'script_url_pattern', 'duration'],
                                                     '_fields'   => [
                                                         'enabled' => array(
                                                             'type'     => 'toggle',
@@ -1343,7 +1493,7 @@ class GlobalFields {
                                                         'script_url_pattern' => array(
                                                             'type'     => 'textarea',
                                                             'name'     => 'script_url_pattern',
-                                                            'label'    => __('Script URL Pattern', 'notificationx'),
+                                                            'label'    => __('Script', 'notificationx'),
                                                             'priority' => 25,
                                                         ), 
                                                         'description' => array(
@@ -1386,6 +1536,48 @@ class GlobalFields {
                                                         ],
                                             ],
                                             'fields'           => [
+                                                'tab_title' => Helper::tab_info_title('performance', 'Performance'),
+                                                'tab_description' => Helper::tab_info_desc('performance', 'Performance cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                'tab_info_modal' => [
+                                                    'name'   => 'tab_info_modal',
+                                                    'type'   => 'modal',
+                                                    'button' => [
+                                                        'name' => 'tab_info_edit',
+                                                        'text' => __('Edit', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
+                                                    ],
+                                                    'confirm_button' => [
+                                                        'type'   => 'button',
+                                                        'text'  => 'Save',
+                                                        'name'   => 'close_tab_info_modal',
+                                                        "default" => false,
+                                                        'trigger' => [
+                                                            [
+                                                                'type'   => 'setContext',
+                                                                'action' => [
+                                                                    'config.active' => 'manager_tab'
+                                                                ]
+                                                            ],
+                                                            [
+                                                                'type'   => 'setFieldValue',
+                                                                'action' => [
+                                                                    'close_tab_info_modal' => true
+                                                                ]
+                                                            ],
+                                                        ],
+                                                    ],
+                                                    'cancel' => "close_tab_info_modal",
+                                                    'body'   => [
+                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'fields' => [
+                                                            'tab_title' => Helper::tab_info_title('performance', 'Performance'),
+                                                            'tab_description' => Helper::tab_info_desc('performance', 'Performance cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                        ],
+                                                    ],
+                                                ],
                                                 'performance_cookie_lists'    => [
                                                     'label'    => __('', 'notificationx-pro'),
                                                     'name'     => 'performance_cookie_lists',
@@ -1411,11 +1603,25 @@ class GlobalFields {
                                                             'description'         => 'lorem ipsum for google tag manager',
                                                         ],
                                                     ],
+                                                    'tab_info' => [
+                                                        'tab_title' => array(
+                                                            'type'     => 'text',
+                                                            'name'     => 'tab_title',
+                                                            'default'    => __('Performance', 'notificationx'),
+                                                            'label'    => __('Name', 'notificationx'),
+                                                        ),
+                                                        'tab_description' => array(
+                                                            'type'     => 'textarea',
+                                                            'name'     => 'tab_description',
+                                                            'label'    => __('Description', 'notificationx'),
+                                                            'default'    => __('Performance cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+                                                        ),
+                                                    ],
                                                     'button'  => [
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',
                                                     ],
-                                                    'visible_fields'    => ['enabled', 'cookies_id','domain'],
+                                                    'visible_fields'    => ['cookies_id','domain', 'script_url_pattern', 'duration'],
                                                     '_fields'   => [
                                                         'enabled' => array(
                                                             'type'     => 'toggle',
@@ -1444,7 +1650,7 @@ class GlobalFields {
                                                         'script_url_pattern' => array(
                                                             'type'     => 'textarea',
                                                             'name'     => 'script_url_pattern',
-                                                            'label'    => __('Script URL Pattern', 'notificationx'),
+                                                            'label'    => __('Script', 'notificationx'),
                                                             'priority' => 25,
                                                         ), 
                                                         'description' => array(
@@ -1487,11 +1693,67 @@ class GlobalFields {
                                                         ],
                                             ],
                                             'fields'           => [
+                                                'tab_title' => Helper::tab_info_title('uncategorized', 'Uncategorized'),
+                                                'tab_description' => Helper::tab_info_desc('uncategorized', 'Uncategorized cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                'tab_info_modal' => [
+                                                    'name'   => 'tab_info_modal',
+                                                    'type'   => 'modal',
+                                                    'button' => [
+                                                        'name' => 'tab_info_edit',
+                                                        'text' => __('Edit', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
+                                                    ],
+                                                    'confirm_button' => [
+                                                        'type'   => 'button',
+                                                        'text'  => 'Save',
+                                                        'name'   => 'close_tab_info_modal',
+                                                        "default" => false,
+                                                        'trigger' => [
+                                                            [
+                                                                'type'   => 'setContext',
+                                                                'action' => [
+                                                                    'config.active' => 'manager_tab'
+                                                                ]
+                                                            ],
+                                                            [
+                                                                'type'   => 'setFieldValue',
+                                                                'action' => [
+                                                                    'close_tab_info_modal' => true
+                                                                ]
+                                                            ],
+                                                        ],
+                                                    ],
+                                                    'cancel' => "close_tab_info_modal",
+                                                    'body'   => [
+                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'fields' => [
+                                                            'tab_title' => Helper::tab_info_title('uncategorized', 'Uncategorized'),
+                                                            'tab_description' => Helper::tab_info_desc('uncategorized', 'Uncategorized cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                        ],
+                                                    ],
+                                                ],
                                                 'uncategorized_cookie_lists'    => [
                                                     'label'    => __('', 'notificationx-pro'),
                                                     'name'     => 'uncategorized_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
+                                                    'tab_info' => [
+                                                        'tab_title' => array(
+                                                            'type'     => 'text',
+                                                            'name'     => 'tab_title',
+                                                            'default'    => __('Uncategorized', 'notificationx'),
+                                                            'label'    => __('Name', 'notificationx'),
+                                                        ),
+                                                        'tab_description' => array(
+                                                            'type'     => 'textarea',
+                                                            'name'     => 'tab_description',
+                                                            'label'    => __('Description', 'notificationx'),
+                                                            'default'    => __('Uncategorized cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+                                                        ),
+                                                    ],
                                                     '_default'  => [
                                                         'google_analytics'  => [
                                                             'enabled'             => true,
@@ -1516,7 +1778,7 @@ class GlobalFields {
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',
                                                     ],
-                                                    'visible_fields'    => ['enabled', 'cookies_id','domain'],
+                                                    'visible_fields'    => ['cookies_id','domain', 'script_url_pattern', 'duration'],
                                                     '_fields'   => [
                                                         'enabled' => array(
                                                             'type'     => 'toggle',
@@ -1545,7 +1807,7 @@ class GlobalFields {
                                                         'script_url_pattern' => array(
                                                             'type'     => 'textarea',
                                                             'name'     => 'script_url_pattern',
-                                                            'label'    => __('Script URL Pattern', 'notificationx'),
+                                                            'label'    => __('Script', 'notificationx'),
                                                             'priority' => 25,
                                                         ), 
                                                         'description' => array(
