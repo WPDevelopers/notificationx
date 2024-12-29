@@ -30,10 +30,81 @@ class GlobalFields {
      */
     use GetInstance;
 
+    private $necessary_tab_title = [];
+    private $necessary_tab_desc = [];
+    private $functional_tab_title = [];
+    private $functional_tab_desc = [];
+    private $analytics_tab_title = [];
+    private $analytics_tab_desc = [];
+    private $performance_tab_title = [];
+    private $performance_tab_desc = [];
+    private $uncategorized_tab_title = [];
+    private $uncategorized_tab_desc = [];
+
     /**
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        $this->necessary_tab_title = array(
+            'type'     => 'text',
+            'name'     => 'necessary_tab_title',
+            'default'    => __('Necessary', 'notificationx'),
+            'label'    => __('Name', 'notificationx'),
+        );
+        $this->necessary_tab_desc = array(
+            'type'     => 'textarea',
+            'name'     => 'necessary_tab_desc',
+            'label'    => __('Description', 'notificationx'),
+            'default'    => __('Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+        );
+        $this->functional_tab_title = array(
+            'type'     => 'text',
+            'name'     => 'functional_tab_title',
+            'default'    => __('Functional', 'notificationx'),
+            'label'    => __('Name', 'notificationx'),
+        );
+        $this->functional_tab_desc = array(
+            'type'     => 'textarea',
+            'name'     => 'functional_tab_desc',
+            'label'    => __('Description', 'notificationx'),
+            'default'    => __('Functional cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+        );
+        $this->analytics_tab_title = array(
+            'type'     => 'text',
+            'name'     => 'analytics_tab_title',
+            'default'    => __('Analytics', 'notificationx'),
+            'label'    => __('Name', 'notificationx'),
+        );
+        $this->analytics_tab_desc = array(
+            'type'     => 'textarea',
+            'name'     => 'analytics_tab_desc',
+            'label'    => __('Description', 'notificationx'),
+            'default'    => __('Analytics cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+        );
+        $this->performance_tab_title = array(
+            'type'     => 'text',
+            'name'     => 'performance_tab_title',
+            'default'    => __('Performance', 'notificationx'),
+            'label'    => __('Name', 'notificationx'),
+        );
+        $this->performance_tab_desc = array(
+            'type'     => 'textarea',
+            'name'     => 'performance_tab_desc',
+            'label'    => __('Description', 'notificationx'),
+            'default'    => __('Performance cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+        );
+        $this->uncategorized_tab_title = array(
+            'type'     => 'text',
+            'name'     => 'uncategorized_tab_title',
+            'default'    => __('Uncategorized', 'notificationx'),
+            'label'    => __('Name', 'notificationx'),
+        );
+        $this->uncategorized_tab_desc = array(
+            'type'     => 'textarea',
+            'name'     => 'uncategorized_tab_desc',
+            'label'    => __('Description', 'notificationx'),
+            'default'    => __('Uncategorized cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+        );
 
         // dump(Rules::logicalRule([ Rules::is('test'), Rules::is('test2') ]));
     }
@@ -1055,6 +1126,44 @@ class GlobalFields {
                                                 'name' => 'necessary'
                                             ],
                                             'fields'           => [
+                                                'tab_title' => $this->necessary_tab_title,
+                                                'tab_description' => $this->necessary_tab_desc,
+                                                'tab_info_modal' => [
+                                                    'name'   => 'tab_info_modal',
+                                                    'type'   => 'modal',
+                                                    'button' => [
+                                                        'name' => 'tab_info_edit',
+                                                        'text' => __('Edit', 'notificationx'),
+                                                    ],
+                                                    'confirm_button' => [
+                                                        'type'   => 'button',
+                                                        'text'  => 'Save',
+                                                        'name'   => 'close_tab_info_modal',
+                                                        "default" => false,
+                                                        'trigger' => [
+                                                            [
+                                                                'type'   => 'setContext',
+                                                                'action' => [
+                                                                    'config.active' => 'manager_tab'
+                                                                ]
+                                                            ],
+                                                            [
+                                                                'type'   => 'setFieldValue',
+                                                                'action' => [
+                                                                    'close_tab_info_modal' => true
+                                                                ]
+                                                            ],
+                                                        ],
+                                                    ],
+                                                    'cancel' => "close_tab_info_modal",
+                                                    'body'   => [
+                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'fields' => [
+                                                            'tab_title' => $this->necessary_tab_title,
+                                                            'tab_description' => $this->necessary_tab_desc,
+                                                        ],
+                                                    ],
+                                                ],
                                                 'necessary_cookie_lists'    => [
                                                     'label'    => __('', 'notificationx'),
                                                     'name'     => 'necessary_cookie_lists',
@@ -1093,6 +1202,44 @@ class GlobalFields {
                                                 'name' => 'functional'
                                             ],
                                             'fields'           => [
+                                                'tab_title' => $this->functional_tab_title,
+                                                'tab_description' => $this->functional_tab_desc,
+                                                'tab_info_modal' => [
+                                                    'name'   => 'tab_info_modal',
+                                                    'type'   => 'modal',
+                                                    'button' => [
+                                                        'name' => 'tab_info_edit',
+                                                        'text' => __('Edit', 'notificationx'),
+                                                    ],
+                                                    'confirm_button' => [
+                                                        'type'   => 'button',
+                                                        'text'  => 'Save',
+                                                        'name'   => 'close_tab_info_modal',
+                                                        "default" => false,
+                                                        'trigger' => [
+                                                            [
+                                                                'type'   => 'setContext',
+                                                                'action' => [
+                                                                    'config.active' => 'manager_tab'
+                                                                ]
+                                                            ],
+                                                            [
+                                                                'type'   => 'setFieldValue',
+                                                                'action' => [
+                                                                    'close_tab_info_modal' => true
+                                                                ]
+                                                            ],
+                                                        ],
+                                                    ],
+                                                    'cancel' => "close_tab_info_modal",
+                                                    'body'   => [
+                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'fields' => [
+                                                            'tab_title' => $this->functional_tab_title,
+                                                            'tab_description' => $this->functional_tab_desc,
+                                                        ],
+                                                    ],
+                                                ],
                                                 'functional_cookie_lists'    => [
                                                     'label'    => __('', 'notificationx-pro'),
                                                     'name'     => 'functional_cookie_lists',
@@ -1131,6 +1278,44 @@ class GlobalFields {
                                                 'name' => 'analytics'
                                             ],
                                             'fields'           => [
+                                                'tab_title' => $this->analytics_tab_title,
+                                                'tab_description' => $this->analytics_tab_desc,
+                                                'tab_info_modal' => [
+                                                    'name'   => 'tab_info_modal',
+                                                    'type'   => 'modal',
+                                                    'button' => [
+                                                        'name' => 'tab_info_edit',
+                                                        'text' => __('Edit', 'notificationx'),
+                                                    ],
+                                                    'confirm_button' => [
+                                                        'type'   => 'button',
+                                                        'text'  => 'Save',
+                                                        'name'   => 'close_tab_info_modal',
+                                                        "default" => false,
+                                                        'trigger' => [
+                                                            [
+                                                                'type'   => 'setContext',
+                                                                'action' => [
+                                                                    'config.active' => 'manager_tab'
+                                                                ]
+                                                            ],
+                                                            [
+                                                                'type'   => 'setFieldValue',
+                                                                'action' => [
+                                                                    'close_tab_info_modal' => true
+                                                                ]
+                                                            ],
+                                                        ],
+                                                    ],
+                                                    'cancel' => "close_tab_info_modal",
+                                                    'body'   => [
+                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'fields' => [
+                                                            'tab_title' => $this->analytics_tab_title,
+                                                            'tab_description' => $this->analytics_tab_desc,
+                                                        ],
+                                                    ],
+                                                ],
                                                 'analytics_cookie_lists'    => [
                                                     'label'    => __('', 'notificationx-pro'),
                                                     'name'     => 'analytics_cookie_lists',
@@ -1169,6 +1354,44 @@ class GlobalFields {
                                                 'name' => 'performance'
                                             ],
                                             'fields'           => [
+                                                'tab_title' => $this->performance_tab_title,
+                                                'tab_description' => $this->performance_tab_desc,
+                                                'tab_info_modal' => [
+                                                    'name'   => 'tab_info_modal',
+                                                    'type'   => 'modal',
+                                                    'button' => [
+                                                        'name' => 'tab_info_edit',
+                                                        'text' => __('Edit', 'notificationx'),
+                                                    ],
+                                                    'confirm_button' => [
+                                                        'type'   => 'button',
+                                                        'text'  => 'Save',
+                                                        'name'   => 'close_tab_info_modal',
+                                                        "default" => false,
+                                                        'trigger' => [
+                                                            [
+                                                                'type'   => 'setContext',
+                                                                'action' => [
+                                                                    'config.active' => 'manager_tab'
+                                                                ]
+                                                            ],
+                                                            [
+                                                                'type'   => 'setFieldValue',
+                                                                'action' => [
+                                                                    'close_tab_info_modal' => true
+                                                                ]
+                                                            ],
+                                                        ],
+                                                    ],
+                                                    'cancel' => "close_tab_info_modal",
+                                                    'body'   => [
+                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'fields' => [
+                                                            'tab_title' => $this->performance_tab_title,
+                                                            'tab_description' => $this->performance_tab_desc,
+                                                        ],
+                                                    ],
+                                                ],
                                                 'performance_cookie_lists'    => [
                                                     'label'    => __('', 'notificationx-pro'),
                                                     'name'     => 'performance_cookie_lists',
@@ -1207,6 +1430,44 @@ class GlobalFields {
                                                 'name' => 'uncategorized'
                                             ],
                                             'fields'           => [
+                                                'tab_title' => $this->uncategorized_tab_title,
+                                                'tab_description' => $this->uncategorized_tab_desc,
+                                                'tab_info_modal' => [
+                                                    'name'   => 'tab_info_modal',
+                                                    'type'   => 'modal',
+                                                    'button' => [
+                                                        'name' => 'tab_info_edit',
+                                                        'text' => __('Edit', 'notificationx'),
+                                                    ],
+                                                    'confirm_button' => [
+                                                        'type'   => 'button',
+                                                        'text'  => 'Save',
+                                                        'name'   => 'close_tab_info_modal',
+                                                        "default" => false,
+                                                        'trigger' => [
+                                                            [
+                                                                'type'   => 'setContext',
+                                                                'action' => [
+                                                                    'config.active' => 'manager_tab'
+                                                                ]
+                                                            ],
+                                                            [
+                                                                'type'   => 'setFieldValue',
+                                                                'action' => [
+                                                                    'close_tab_info_modal' => true
+                                                                ]
+                                                            ],
+                                                        ],
+                                                    ],
+                                                    'cancel' => "close_tab_info_modal",
+                                                    'body'   => [
+                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'fields' => [
+                                                            'tab_title' => $this->uncategorized_tab_title,
+                                                            'tab_description' => $this->uncategorized_tab_desc,
+                                                        ],
+                                                    ],
+                                                ],
                                                 'uncategorized_cookie_lists'    => [
                                                     'label'    => __('', 'notificationx-pro'),
                                                     'name'     => 'uncategorized_cookie_lists',
