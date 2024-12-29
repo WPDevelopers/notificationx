@@ -213,6 +213,39 @@ export const proAlert = (html = null) => {
     return SweetAlert(alertOptions);
 };
 
+export const permissionAlert = (html = null) => {
+    let htmlObject = {};
+
+    if (html === null) {
+        // Globalized message
+        html = __(
+            "You are not authorized to perform this action. Please contact the administrator or check your access rights.",
+            "notificationx"
+        );
+    }
+
+    if (isObject(html)) {
+        htmlObject = html;
+        html = html.message || html.html;
+    }
+
+    let alertOptions = {
+        showConfirmButton: false,
+        showDenyButton: true,
+        type: "warning",
+        title: __("Access Denied", "notificationx"),
+        customClass: {
+            actions: "nx-alert-actions",
+        },
+        denyButtonText: __("Close", "notificationx"),
+        ...htmlObject,
+        html,
+    };
+
+    return SweetAlert(alertOptions);
+};
+
+
 export const assetsURL = (path = "", admin = true) => {
     const builderContext = useNotificationXContext();
     if (admin) {

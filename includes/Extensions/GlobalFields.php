@@ -176,11 +176,12 @@ class GlobalFields {
                                     ],
                                     'options' => (array) array_map(function ($type) {
                                         return [
-                                            'value'    => $type->id,
-                                            'label'    => $type->title,
-                                            'is_pro'   => $type->is_pro && ! NotificationX::is_pro(),
-                                            'priority' => $type->priority,
-                                            'popup'    => apply_filters('nx_pro_alert_popup', $type->popup),
+                                            'value'             => $type->id,
+                                            'label'             => $type->title,
+                                            'is_pro'            => $type->is_pro && ! NotificationX::is_pro(),
+                                            'priority'          => $type->priority,
+                                            'popup'             => apply_filters('nx_pro_alert_popup', $type->popup),
+                                            'nx_has_permission' => apply_filters('nx_permission_popup', $type->permission_popup),
                                         ];
                                     }, array_values(TypeFactory::get_instance()->get_all())),
                                     'validation_rules' => [
