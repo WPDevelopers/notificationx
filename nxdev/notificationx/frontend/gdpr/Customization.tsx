@@ -8,12 +8,8 @@ const Customization = ({ settings, onEnableCookiesItem, onHandleAccept, onHandle
   return (
     <Fragment>
         <div className="wprf-modal-table-wrapper nx-gdpr-modal-header">
-            {settings?.preference_title &&
-                <h3>{settings?.preference_title}</h3>
-            }
-            {settings?.preference_overview &&
-                <p>{settings?.preference_overview}</p>
-            }
+            {settings?.preference_title && <h3>{settings?.preference_title}</h3> }
+            { settings?.preference_overview && <p>{settings?.preference_overview}</p> }
         </div>
         <div className="wprf-modal-table-wrapper wprf-gdpr-modal-frontend-content">
             <CookiesAccordion settings={settings} onEnableCookiesItem={onEnableCookiesItem} />

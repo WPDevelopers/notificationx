@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { sprintf, __ } from "@wordpress/i18n";
 import { Link, Redirect } from "react-router-dom";
-import nxHelper, { proAlert } from "../core/functions";
+import nxHelper, { getAlert, permissionAlert, proAlert } from "../core/functions";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
@@ -91,7 +91,7 @@ const SingleNotificationAction = ({
         },
         [id, getNotice]
     );
-
+    
     const handleRegenerate = (event) => {
         nxHelper.swal({
             title: __("Are you sure you want to Regenerate?", "notificationx"),
@@ -288,14 +288,21 @@ const SingleNotificationAction = ({
             window.open(`${ajaxurl}?action=nx-translate&id=${id}`);
         }
     }
-
+    
     return (
         <div className="nx-admin-actions-wrapper">
             <div className="nx-admin-actions nx-admin-action-button" ref={buttonRef}>
                 <a
                     className="nx-admin-three-dots"
                     title={__("Three Dots", "notificationx")}
-                    onClick={ () => setAction(!action) }
+                    onClick={ () =>{
+                        if( 'gdpr' === item?.type && Boolean(!nxContext?.has_gdpr_permission) ) {
+                            const popup = getAlert(item?.type, nxContext);
+                            permissionAlert(popup).fire();
+                        }else{
+                            setAction(!action)
+                        }
+                    }  }
                 >   
                     <img src={threeDots} alt={'three-dots'} />
                 </a>

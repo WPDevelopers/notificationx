@@ -110,7 +110,7 @@
             padding: 5px;
             line-height: 1.3;
             text-align: center;
-
+            cursor: pointer;
             @media only screen and (max-width: 1599px) {
                 font-size: 14px;
             }
@@ -120,6 +120,8 @@
             }
 
             .wprf-badge {
+                width: 20px;
+                height: 20px;
                 .wprf-badge-item {
                     height: 24px;
                     display: flex;

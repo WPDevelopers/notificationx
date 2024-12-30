@@ -2,7 +2,7 @@
 
 namespace NotificationX\Core;
 
-
+use NotificationX\Extensions\GlobalFields;
 use NotificationX\Types\TypeFactory;
 /**
  * This class will provide all kind of helper methods.
@@ -609,16 +609,132 @@ class Helper {
         return $product_list;
     }
 
+   /**
+     * Checks if WPML (WordPress Multilingual Plugin) is properly set up and loaded.
+     *
+     * @return bool True if WPML is set up, false otherwise.
+     */
     public static function is_wpml_setup()
     {
-        
         $wpml_has_run = get_option('WPML(TM-has-run)');
-        if( !empty( $wpml_has_run['WPML\TM\ATE\Sitekey\Sync'] ) && did_action('wpml_loaded') && function_exists('load_wpml_st_basics') ) {
+        if (!empty($wpml_has_run['WPML\TM\ATE\Sitekey\Sync']) && did_action('wpml_loaded') && function_exists('load_wpml_st_basics')) {
             return true;
         }
         return false;
     }
 
+    /**
+     * Returns a list of common fields for GDPR cookie configuration settings.
+     *
+     * @return array An associative array of common GDPR cookie fields.
+     */
+    public static function gdpr_common_fields()
+    {
+        return [
+            'enabled' => array(
+                'type'     => 'toggle',
+                'name'     => 'enabled',
+                'label'    => __('Enabled', 'notificationx'),
+                'priority' => 5,
+            ), 
+            'cookies_id' => array(
+                'type'     => 'text',
+                'name'     => 'cookies_id',
+                'label'    => __('Cookie ID', 'notificationx'),
+                'priority' => 10,
+            ), 
+            'load_inside' => array(
+                'label'    => __('Load On', 'notificationx'),
+                'name'     => 'product_control',
+                'type'     => 'select',
+                'priority' => 15,
+                'default'  => 'head',
+                'options'  => GlobalFields::get_instance()->normalize_fields([
+                    'head'   => __('Head Section', 'notificationx'),
+                    'body'   => __('Body Section', 'notificationx'),
+                    'footer' => __('Footer Section', 'notificationx'),
+                ]),
+            ),
+            'script_url_pattern' => array(
+                'type'     => 'codeviewer',
+                'name'     => 'script_url_pattern',
+                'label'    => __('Script', 'notificationx-pro'),
+                'priority' => 25,
+            ), 
+            'description' => array(
+                'type'     => 'textarea',
+                'name'     => 'description',
+                'label'    => __('Description', 'notificationx-pro'),
+                'priority' => 30,
+            ), 
+        ];
+    }
+
+    /**
+     * Specifies the fields to be shown in the GDPR cookie list.
+     *
+     * @return array An array of field names visible in the GDPR cookie list.
+     */
+    public static function gdpr_cookie_list_visible_fields()
+    {
+        return ['cookies_id', 'domain', 'script_url_pattern', 'duration', 'load_inside'];
+    }
+
+    /**
+     * Deletes specific cookies on the server and returns a list of removed cookies.
+     *
+     * @return void Outputs a JSON-encoded list of removed cookies.
+     */
+    public static function delete_server_cookies()
+    {
+        $urlparts = wp_parse_url(site_url('/'));
+        $domain   = preg_replace('/www\./i', '', $urlparts['host']);
+        $cookies_removed = array();
+        $d_domains = array('_ga', '_fbp', '_gid', '_gat', '__utma', '__utmb', '__utmc', '__utmt', '__utmz');
+        $d_domains = apply_filters('gdpr_d_domains_filter', $d_domains);
+
+        // Iterate over all cookies and remove them if they match specific conditions.
+        if (isset($_COOKIE) && is_array($_COOKIE) && $domain) :
+            foreach ($_COOKIE as $key => $value) {
+                if ($key !== 'moove_gdpr_popup' && strpos($key, 'woocommerce') === false && strpos($key, 'wc_') === false && strpos($key, 'wordpress') === false) : 
+                    if ('language' === $key || 'currency' === $key) {
+                        setcookie($key, null, -1, '/', 'www.' . $domain);
+                        $cookies_removed[$key] = $domain;
+                    } elseif (in_array($key, $d_domains) || strpos($key, '_ga') !== false || strpos($key, '_fbp') !== false) {
+                        setcookie($key, null, -1, '/', '.' . $domain);
+                        $cookies_removed[$key] = $domain;
+                    }
+                endif;
+            }
+        endif;
+
+        // Parse and remove cookies from the HTTP header.
+        $cookies = isset($_SERVER['HTTP_COOKIE']) ? explode(';', sanitize_text_field(wp_unslash($_SERVER['HTTP_COOKIE']))) : false;
+        if (is_array($cookies)) :
+            foreach ($cookies as $cookie) {
+                $parts = explode('=', $cookie);
+                $name  = trim($parts[0]);
+                if ($name && $name !== 'moove_gdpr_popup' && strpos($name, 'woocommerce') === false && strpos($name, 'wc_') === false && strpos($name, 'wordpress') === false) :
+                    setcookie($name, '', time() - 1000);
+                    setcookie($name, '', time() - 1000, '/');
+                    if ('language' === $name || 'currency' === $name) {
+                        setcookie($name, null, -1, '/', 'www.' . $domain);
+                        $cookies_removed[$name] = $domain;
+                    } elseif (in_array($key, $d_domains) || strpos($name, '_ga') !== false || strpos($name, '_fbp') !== false) {
+                        setcookie($name, null, -1, '/', '.' . $domain);
+                        $cookies_removed[$name] = '.' . $domain;
+                    } else {
+                        setcookie($name, null, -1, '/');
+                        $cookies_removed[$name] = $domain;
+                    }
+                endif;
+            }
+        endif;
+
+        // Output the list of removed cookies as a JSON response.
+        echo json_encode($cookies_removed);
+    }
+    
     public static function tab_info_title($name, $title_default) 
     {
         return [

@@ -58,6 +58,7 @@ class GlobalFields {
             'version'        => defined('NOTIFICATIONX_VERSION') ? NOTIFICATIONX_VERSION : null,
             'pro_version'    => defined('NOTIFICATIONX_PRO_VERSION') ? NOTIFICATIONX_PRO_VERSION : null,
             'is_pro_active'  => NotificationX::get_instance()->is_pro(),
+            'has_gdpr_permission' => current_user_can('edit_notificationx_gdpr'),
             'cus_imp_limit'  => Settings::get_instance()->get('settings.custom_notification_import_limit', 100),
             'is_pro_sources' => apply_filters('nx_is_pro_sources', []),
             'config'         => [
@@ -105,11 +106,12 @@ class GlobalFields {
                                     ],
                                     'options' => (array) array_map(function ($type) {
                                         return [
-                                            'value'    => $type->id,
-                                            'label'    => $type->title,
-                                            'is_pro'   => $type->is_pro && ! NotificationX::is_pro(),
-                                            'priority' => $type->priority,
-                                            'popup'    => apply_filters('nx_pro_alert_popup', $type->popup),
+                                            'value'             => $type->id,
+                                            'label'             => $type->title,
+                                            'is_pro'            => $type->is_pro && ! NotificationX::is_pro(),
+                                            'priority'          => $type->priority,
+                                            'popup'             => apply_filters('nx_pro_alert_popup', $type->popup),
+                                            'nx_has_permission' => apply_filters('nx_permission_popup', $type->permission_popup),
                                         ];
                                     }, array_values(TypeFactory::get_instance()->get_all())),
                                     'validation_rules' => [
@@ -984,17 +986,6 @@ class GlobalFields {
                                     ]),
                                     'info'    => __('Choose if you’d like the page to reload when user accepts cookies. if you choose not to, your analytical software will not count the current page visit as the cookies will be loaded during the next page load only', 'notificationx'),
                                 ],
-                                'gdpr_insert_script' => [
-                                    'label'   => __("Script Insertion Method", 'notificationx'),
-                                    'name'    => "gdpr_insert_script",
-                                    'type'    => "better-toggle",
-                                    'default' => false,
-                                    'toggle_label'     => ['toggle_label_1' => __('Enabel Script Insertion Method', 'notificationx'), 'toggle_label_2' => __('', 'notificationx')],
-                                    'rules'   => Rules::logicalRule([
-                                        Rules::is( 'type', 'gdpr' ),
-                                    ]),
-                                    'info'    => __('Recommended default method is Static. Switch to dynamic only if you experience issues with static method (dynamic way uses more server resources)', 'notificationx'),
-                                ],
                                 'gdpr_cookie_removal' => [
                                     'label'   => __("Cookie Removal", 'notificationx'),
                                     'name'    => "gdpr_cookie_removal",
@@ -1113,83 +1104,27 @@ class GlobalFields {
                                                     'name'     => 'necessary_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
-                                                    '_default'  => [
-                                                        'google_analytics'  => [
-                                                            'enabled'             => true,
-                                                            'tracking_id'         => 'google_analytics_tracking_id',
-                                                            'cookies_category'    => 'necessary',
-                                                            'domain'              => 'https://notificationx.com',
-                                                            'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
-                                                            'scripts_url_pattern' => 'test pattern for google analytics',
-                                                            'description'         => 'lorem ipsum',
-                                                        ],
-                                                        'google_tag_manager'  => [
-                                                            'enabled'             => true,
-                                                            'tracking_id'         => 'google_tag_manager_tracking_id',
-                                                            'cookies_category'    => 'necessary',
-                                                            'domain'              => 'https://notificationx.com',
-                                                            'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
-                                                            'scripts_url_pattern' => 'test pattern for google tag manager',
-                                                            'description'         => 'lorem ipsum for google tag manager',
-                                                        ],
-                                                    ],
                                                     'tab_info' => [
                                                         'tab_title' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'tab_title',
-                                                            'default'    => __('Necessary', 'notificationx'),
-                                                            'label'    => __('Name', 'notificationx'),
+                                                            'type'    => 'text',
+                                                            'name'    => 'tab_title',
+                                                            'default' => __('Necessary', 'notificationx'),
+                                                            'label'   => __('Name', 'notificationx'),
                                                         ),
                                                         'tab_description' => array(
-                                                            'type'     => 'textarea',
-                                                            'name'     => 'tab_description',
-                                                            'label'    => __('Description', 'notificationx'),
-                                                            'default'    => __('Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+                                                            'type'    => 'textarea',
+                                                            'name'    => 'tab_description',
+                                                            'label'   => __('Description', 'notificationx'),
+                                                            'default' => __('Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
                                                         ),
                                                     ],
                                                     'button'  => [
                                                         'label'    => __('Add New', 'notificationx'),
                                                         'position' => 'top',
                                                     ],
-                                                    'visible_fields'    => ['cookies_id','load_inside', 'script_url_pattern', 'description'],
-                                                    '_fields'   => [
-                                                        'enabled' => array(
-                                                            'type'     => 'toggle',
-                                                            'name'     => 'enabled',
-                                                            'label'    => __('Enabled', 'notificationx'),
-                                                            'priority' => 5,
-                                                        ), 
-                                                        'cookies_id' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'cookies_id',
-                                                            'label'    => __('Cookie ID', 'notificationx'),
-                                                            'priority' => 10,
-                                                        ), 
-                                                        'load_inside' => array(
-                                                            'label'    => __('Load On', 'notificationx'),
-                                                            'name'     => 'product_control',
-                                                            'type'     => 'select',
-                                                            'priority' => 15,
-                                                            'default'  => 'head',
-                                                            'options'  => GlobalFields::get_instance()->normalize_fields([
-                                                                'head'   => __('Head', 'notificationx'),
-                                                                'footer' => __('Footer', 'notificationx'),
-                                                            ]),
-                                                        ),
-                                                        'script_url_pattern' => array(
-                                                            'type'     => 'textarea',
-                                                            'name'     => 'script_url_pattern',
-                                                            'label'    => __('Script', 'notificationx-pro'),
-                                                            'priority' => 25,
-                                                        ), 
-                                                        'description' => array(
-                                                            'type'     => 'textarea',
-                                                            'name'     => 'description',
-                                                            'label'    => __('Description', 'notificationx-pro'),
-                                                            'priority' => 30,
-                                                        ), 
-                                                    ]
-                                                ],
+                                                    'visible_fields' => ['cookies_id','load_inside', 'script_url_pattern', 'description'],
+                                                    '_fields'        => Helper::gdpr_common_fields(),
+                                                ]
                                             ],
                                         ],
                                         'functional_tab'      => [
@@ -1200,26 +1135,6 @@ class GlobalFields {
                                             'icon'  => [
                                                 'type' => 'tabs',
                                                 'name' => 'functional'
-                                            ],
-                                            '_default' => [
-                                                        'google_analytics'  => [
-                                                            'enabled'             => true,
-                                                            'tracking_id'         => 'google_analytics_tracking_id',
-                                                            'cookies_category'    => 'necessary',
-                                                            'domain'              => 'https://notificationx.com',
-                                                            'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
-                                                            'scripts_url_pattern' => 'test pattern for google analytics',
-                                                            'description'         => 'lorem ipsum',
-                                                        ],
-                                                        'google_tag_manager'  => [
-                                                            'enabled'             => true,
-                                                            'tracking_id'         => 'google_tag_manager_tracking_id',
-                                                            'cookies_category'    => 'necessary',
-                                                            'domain'              => 'https://notificationx.com',
-                                                            'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
-                                                            'scripts_url_pattern' => 'test pattern for google tag manager',
-                                                            'description'         => 'lorem ipsum for google tag manager',
-                                                        ],
                                             ],
                                             'fields'           => [
                                                 'tab_title' => Helper::tab_info_title('functional', 'Functional'),
@@ -1269,83 +1184,26 @@ class GlobalFields {
                                                     'name'     => 'functional_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
-                                                    '_default'  => [
-                                                        'google_analytics'  => [
-                                                            'enabled'             => true,
-                                                            'tracking_id'         => 'google_analytics_tracking_id',
-                                                            'cookies_category'    => 'necessary',
-                                                            'domain'              => 'https://notificationx.com',
-                                                            'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
-                                                            'scripts_url_pattern' => 'test pattern for google analytics',
-                                                            'description'         => 'lorem ipsum',
-                                                        ],
-                                                        'google_tag_manager'  => [
-                                                            'enabled'             => true,
-                                                            'tracking_id'         => 'google_tag_manager_tracking_id',
-                                                            'cookies_category'    => 'necessary',
-                                                            'domain'              => 'https://notificationx.com',
-                                                            'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
-                                                            'scripts_url_pattern' => 'test pattern for google tag manager',
-                                                            'description'         => 'lorem ipsum for google tag manager',
-                                                        ],
-                                                    ],
                                                     'tab_info' => [
                                                         'tab_title' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'tab_title',
-                                                            'default'    => __('Functional', 'notificationx'),
-                                                            'label'    => __('Name', 'notificationx'),
+                                                            'type'    => 'text',
+                                                            'name'    => 'tab_title',
+                                                            'default' => __('Functional', 'notificationx'),
+                                                            'label'   => __('Name', 'notificationx'),
                                                         ),
                                                         'tab_description' => array(
-                                                            'type'     => 'textarea',
-                                                            'name'     => 'tab_description',
-                                                            'label'    => __('Description', 'notificationx'),
-                                                            'default'    => __('Functional cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+                                                            'type'    => 'textarea',
+                                                            'name'    => 'tab_description',
+                                                            'label'   => __('Description', 'notificationx'),
+                                                            'default' => __('Functional cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
                                                         ),
                                                     ],
                                                     'button'  => [
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',
                                                     ],
-                                                    'visible_fields'    => ['cookies_id','domain', 'script_url_pattern', 'duration'],
-                                                    '_fields'   => [
-                                                        'enabled' => array(
-                                                            'type'     => 'toggle',
-                                                            'name'     => 'enabled',
-                                                            'label'    => __('Enabled', 'notificationx-pro'),
-                                                            'priority' => 5,
-                                                        ), 
-                                                        'cookies_id' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'cookies_id',
-                                                            'label'    => __('Cookie ID', 'notificationx-pro'),
-                                                            'priority' => 10,
-                                                        ), 
-                                                        'domain' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'domain',
-                                                            'label'    => __('Domain', 'notificationx-pro'),
-                                                            'priority' => 15,
-                                                        ), 
-                                                        'duration' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'duration',
-                                                            'label'    => __('Duration', 'notificationx-pro'),
-                                                            'priority' => 20,
-                                                        ), 
-                                                        'script_url_pattern' => array(
-                                                            'type'     => 'textarea',
-                                                            'name'     => 'script_url_pattern',
-                                                            'label'    => __('Script', 'notificationx'),
-                                                            'priority' => 25,
-                                                        ), 
-                                                        'description' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'description',
-                                                            'label'    => __('Description', 'notificationx'),
-                                                            'priority' => 30,
-                                                        ), 
-                                                    ]
+                                                    'visible_fields' => Helper::gdpr_cookie_list_visible_fields(),
+                                                    '_fields'        => Helper::gdpr_common_fields(),
                                                 ]
                                             ],
                                         ],
@@ -1357,26 +1215,6 @@ class GlobalFields {
                                             'icon'  => [
                                                 'type' => 'tabs',
                                                 'name' => 'analytics'
-                                            ],
-                                            '_default' => [
-                                                        'google_analytics'  => [
-                                                            'enabled'             => true,
-                                                            'tracking_id'         => 'google_analytics_tracking_id',
-                                                            'cookies_category'    => 'necessary',
-                                                            'domain'              => 'https://notificationx.com',
-                                                            'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
-                                                            'scripts_url_pattern' => 'test pattern for google analytics',
-                                                            'description'         => 'lorem ipsum',
-                                                        ],
-                                                        'google_tag_manager'  => [
-                                                            'enabled'             => true,
-                                                            'tracking_id'         => 'google_tag_manager_tracking_id',
-                                                            'cookies_category'    => 'necessary',
-                                                            'domain'              => 'https://notificationx.com',
-                                                            'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
-                                                            'scripts_url_pattern' => 'test pattern for google tag manager',
-                                                            'description'         => 'lorem ipsum for google tag manager',
-                                                        ],
                                             ],
                                             'fields'           => [
                                                 'tab_title' => Helper::tab_info_title('analytics', 'Analytics'),
@@ -1426,83 +1264,26 @@ class GlobalFields {
                                                     'name'     => 'analytics_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
-                                                    '_default'  => [
-                                                        'google_analytics'  => [
-                                                            'enabled'             => true,
-                                                            'tracking_id'         => 'google_analytics_tracking_id',
-                                                            'cookies_category'    => 'necessary',
-                                                            'domain'              => 'https://notificationx.com',
-                                                            'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
-                                                            'scripts_url_pattern' => 'test pattern for google analytics',
-                                                            'description'         => 'lorem ipsum',
-                                                        ],
-                                                        'google_tag_manager'  => [
-                                                            'enabled'             => true,
-                                                            'tracking_id'         => 'google_tag_manager_tracking_id',
-                                                            'cookies_category'    => 'necessary',
-                                                            'domain'              => 'https://notificationx.com',
-                                                            'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
-                                                            'scripts_url_pattern' => 'test pattern for google tag manager',
-                                                            'description'         => 'lorem ipsum for google tag manager',
-                                                        ],
-                                                    ],
                                                     'tab_info' => [
                                                         'tab_title' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'tab_title',
-                                                            'default'    => __('Analytics', 'notificationx'),
-                                                            'label'    => __('Name', 'notificationx'),
+                                                            'type'    => 'text',
+                                                            'name'    => 'tab_title',
+                                                            'default' => __('Analytics', 'notificationx'),
+                                                            'label'   => __('Name', 'notificationx'),
                                                         ),
                                                         'tab_description' => array(
-                                                            'type'     => 'textarea',
-                                                            'name'     => 'tab_description',
-                                                            'label'    => __('Description', 'notificationx'),
-                                                            'default'    => __('Analytics cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+                                                            'type'    => 'textarea',
+                                                            'name'    => 'tab_description',
+                                                            'label'   => __('Description', 'notificationx'),
+                                                            'default' => __('Analytics cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
                                                         ),
                                                     ],
                                                     'button'  => [
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',
                                                     ],
-                                                    'visible_fields'    => ['cookies_id','domain', 'script_url_pattern', 'duration'],
-                                                    '_fields'   => [
-                                                        'enabled' => array(
-                                                            'type'     => 'toggle',
-                                                            'name'     => 'enabled',
-                                                            'label'    => __('Enabled', 'notificationx-pro'),
-                                                            'priority' => 5,
-                                                        ), 
-                                                        'cookies_id' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'cookies_id',
-                                                            'label'    => __('Cookie ID', 'notificationx-pro'),
-                                                            'priority' => 10,
-                                                        ), 
-                                                        'domain' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'domain',
-                                                            'label'    => __('Domain', 'notificationx-pro'),
-                                                            'priority' => 15,
-                                                        ), 
-                                                        'duration' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'duration',
-                                                            'label'    => __('Duration', 'notificationx-pro'),
-                                                            'priority' => 20,
-                                                        ), 
-                                                        'script_url_pattern' => array(
-                                                            'type'     => 'textarea',
-                                                            'name'     => 'script_url_pattern',
-                                                            'label'    => __('Script', 'notificationx'),
-                                                            'priority' => 25,
-                                                        ), 
-                                                        'description' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'description',
-                                                            'label'    => __('Description', 'notificationx'),
-                                                            'priority' => 30,
-                                                        ), 
-                                                    ]
+                                                    'visible_fields' => Helper::gdpr_cookie_list_visible_fields(),
+                                                    '_fields'        => Helper::gdpr_common_fields(),
                                                 ]
                                             ],
                                         ],
@@ -1514,26 +1295,6 @@ class GlobalFields {
                                             'icon'  => [
                                                 'type' => 'tabs',
                                                 'name' => 'performance'
-                                            ],
-                                            '_default' => [
-                                                        'google_analytics'  => [
-                                                            'enabled'             => true,
-                                                            'tracking_id'         => 'google_performance_tracking_id',
-                                                            'cookies_category'    => 'necessary',
-                                                            'domain'              => 'https://notificationx.com',
-                                                            'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
-                                                            'scripts_url_pattern' => 'test pattern for google analytics',
-                                                            'description'         => 'lorem ipsum',
-                                                        ],
-                                                        'google_tag_manager'  => [
-                                                            'enabled'             => true,
-                                                            'tracking_id'         => 'google_tag_manager_tracking_id',
-                                                            'cookies_category'    => 'necessary',
-                                                            'domain'              => 'https://notificationx.com',
-                                                            'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
-                                                            'scripts_url_pattern' => 'test pattern for google tag manager',
-                                                            'description'         => 'lorem ipsum for google tag manager',
-                                                        ],
                                             ],
                                             'fields'           => [
                                                 'tab_title' => Helper::tab_info_title('performance', 'Performance'),
@@ -1583,83 +1344,26 @@ class GlobalFields {
                                                     'name'     => 'performance_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
-                                                    '_default'  => [
-                                                        'google_analytics'  => [
-                                                            'enabled'             => true,
-                                                            'tracking_id'         => 'google_performance_tracking_id',
-                                                            'cookies_category'    => 'necessary',
-                                                            'domain'              => 'https://notificationx.com',
-                                                            'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
-                                                            'scripts_url_pattern' => 'test pattern for google analytics',
-                                                            'description'         => 'lorem ipsum',
-                                                        ],
-                                                        'google_tag_manager'  => [
-                                                            'enabled'             => true,
-                                                            'tracking_id'         => 'google_tag_manager_tracking_id',
-                                                            'cookies_category'    => 'necessary',
-                                                            'domain'              => 'https://notificationx.com',
-                                                            'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
-                                                            'scripts_url_pattern' => 'test pattern for google tag manager',
-                                                            'description'         => 'lorem ipsum for google tag manager',
-                                                        ],
-                                                    ],
                                                     'tab_info' => [
                                                         'tab_title' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'tab_title',
-                                                            'default'    => __('Performance', 'notificationx'),
-                                                            'label'    => __('Name', 'notificationx'),
+                                                            'type'    => 'text',
+                                                            'name'    => 'tab_title',
+                                                            'default' => __('Performance', 'notificationx'),
+                                                            'label'   => __('Name', 'notificationx'),
                                                         ),
                                                         'tab_description' => array(
-                                                            'type'     => 'textarea',
-                                                            'name'     => 'tab_description',
-                                                            'label'    => __('Description', 'notificationx'),
-                                                            'default'    => __('Performance cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+                                                            'type'    => 'textarea',
+                                                            'name'    => 'tab_description',
+                                                            'label'   => __('Description', 'notificationx'),
+                                                            'default' => __('Performance cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
                                                         ),
                                                     ],
                                                     'button'  => [
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',
                                                     ],
-                                                    'visible_fields'    => ['cookies_id','domain', 'script_url_pattern', 'duration'],
-                                                    '_fields'   => [
-                                                        'enabled' => array(
-                                                            'type'     => 'toggle',
-                                                            'name'     => 'enabled',
-                                                            'label'    => __('Enabled', 'notificationx-pro'),
-                                                            'priority' => 5,
-                                                        ), 
-                                                        'cookies_id' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'cookies_id',
-                                                            'label'    => __('Cookie ID', 'notificationx-pro'),
-                                                            'priority' => 10,
-                                                        ), 
-                                                        'domain' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'domain',
-                                                            'label'    => __('Domain', 'notificationx-pro'),
-                                                            'priority' => 15,
-                                                        ), 
-                                                        'duration' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'duration',
-                                                            'label'    => __('Duration', 'notificationx-pro'),
-                                                            'priority' => 20,
-                                                        ), 
-                                                        'script_url_pattern' => array(
-                                                            'type'     => 'textarea',
-                                                            'name'     => 'script_url_pattern',
-                                                            'label'    => __('Script', 'notificationx'),
-                                                            'priority' => 25,
-                                                        ), 
-                                                        'description' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'description',
-                                                            'label'    => __('Description', 'notificationx'),
-                                                            'priority' => 30,
-                                                        ), 
-                                                    ]
+                                                    'visible_fields' => Helper::gdpr_cookie_list_visible_fields(),
+                                                    '_fields'        => Helper::gdpr_common_fields(),
                                                 ]
                                             ],
                                         ],
@@ -1671,26 +1375,6 @@ class GlobalFields {
                                             'icon'  => [
                                                 'type' => 'tabs',
                                                 'name' => 'uncategorized'
-                                            ],
-                                            '_default' => [
-                                                        'google_analytics'  => [
-                                                            'enabled'             => true,
-                                                            'tracking_id'         => 'google_uncategorized_tracking_id',
-                                                            'cookies_category'    => 'necessary',
-                                                            'domain'              => 'https://notificationx.com',
-                                                            'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
-                                                            'scripts_url_pattern' => 'test pattern for google analytics',
-                                                            'description'         => 'lorem ipsum',
-                                                        ],
-                                                        'google_tag_manager'  => [
-                                                            'enabled'             => true,
-                                                            'tracking_id'         => 'google_tag_manager_tracking_id',
-                                                            'cookies_category'    => 'necessary',
-                                                            'domain'              => 'https://notificationx.com',
-                                                            'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
-                                                            'scripts_url_pattern' => 'test pattern for google tag manager',
-                                                            'description'         => 'lorem ipsum for google tag manager',
-                                                        ],
                                             ],
                                             'fields'           => [
                                                 'tab_title' => Helper::tab_info_title('uncategorized', 'Uncategorized'),
@@ -1742,81 +1426,24 @@ class GlobalFields {
                                                     'priority' => 10,
                                                     'tab_info' => [
                                                         'tab_title' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'tab_title',
-                                                            'default'    => __('Uncategorized', 'notificationx'),
-                                                            'label'    => __('Name', 'notificationx'),
+                                                            'type'    => 'text',
+                                                            'name'    => 'tab_title',
+                                                            'default' => __('Uncategorized', 'notificationx'),
+                                                            'label'   => __('Name', 'notificationx'),
                                                         ),
                                                         'tab_description' => array(
-                                                            'type'     => 'textarea',
-                                                            'name'     => 'tab_description',
-                                                            'label'    => __('Description', 'notificationx'),
-                                                            'default'    => __('Uncategorized cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
+                                                            'type'    => 'textarea',
+                                                            'name'    => 'tab_description',
+                                                            'label'   => __('Description', 'notificationx'),
+                                                            'default' => __('Uncategorized cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
                                                         ),
-                                                    ],
-                                                    '_default'  => [
-                                                        'google_analytics'  => [
-                                                            'enabled'             => true,
-                                                            'tracking_id'         => 'google_tracking_id',
-                                                            'cookies_category'    => 'necessary',
-                                                            'domain'              => 'https://notificationx.com',
-                                                            'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
-                                                            'scripts_url_pattern' => 'test pattern for google analytics',
-                                                            'description'         => 'lorem ipsum',
-                                                        ],
-                                                        'google_tag_manager'  => [
-                                                            'enabled'             => true,
-                                                            'tracking_id'         => 'google_tag_manager_tracking_id',
-                                                            'cookies_category'    => 'necessary',
-                                                            'domain'              => 'https://notificationx.com',
-                                                            'duration'            => date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60),
-                                                            'scripts_url_pattern' => 'test pattern for google tag manager',
-                                                            'description'         => 'lorem ipsum for google tag manager',
-                                                        ],
                                                     ],
                                                     'button'  => [
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',
                                                     ],
-                                                    'visible_fields'    => ['cookies_id','domain', 'script_url_pattern', 'duration'],
-                                                    '_fields'   => [
-                                                        'enabled' => array(
-                                                            'type'     => 'toggle',
-                                                            'name'     => 'enabled',
-                                                            'label'    => __('Enabled', 'notificationx-pro'),
-                                                            'priority' => 5,
-                                                        ), 
-                                                        'cookies_id' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'cookies_id',
-                                                            'label'    => __('Cookie ID', 'notificationx-pro'),
-                                                            'priority' => 10,
-                                                        ), 
-                                                        'domain' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'domain',
-                                                            'label'    => __('Domain', 'notificationx-pro'),
-                                                            'priority' => 15,
-                                                        ), 
-                                                        'duration' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'duration',
-                                                            'label'    => __('Duration', 'notificationx-pro'),
-                                                            'priority' => 20,
-                                                        ), 
-                                                        'script_url_pattern' => array(
-                                                            'type'     => 'textarea',
-                                                            'name'     => 'script_url_pattern',
-                                                            'label'    => __('Script', 'notificationx'),
-                                                            'priority' => 25,
-                                                        ), 
-                                                        'description' => array(
-                                                            'type'     => 'text',
-                                                            'name'     => 'description',
-                                                            'label'    => __('Description', 'notificationx'),
-                                                            'priority' => 30,
-                                                        ), 
-                                                    ]
+                                                    'visible_fields' => Helper::gdpr_cookie_list_visible_fields(),
+                                                    '_fields'        => Helper::gdpr_common_fields(),
                                                 ]
                                             ],
                                         ],

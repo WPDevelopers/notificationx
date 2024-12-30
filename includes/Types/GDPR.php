@@ -33,7 +33,7 @@ class GDPR extends Types {
         'modules_gdpr',
     ];
     public $default_source = 'gdpr_notification';
-
+    public $nx_has_permission = true;
 
     /**
      * Initially Invoked when initialized.
@@ -42,7 +42,16 @@ class GDPR extends Types {
         $this->id    = 'gdpr';
         $this->title = __('GDPR Notification', 'notificationx');
         parent::__construct();
-
+        if ( ! current_user_can( 'edit_notificationx_gdpr' ) ) {
+            $this->permission_popup = [
+                "title"             => __("Access Denied", "notificationx"),
+                "denyButtonText"    => __("Close", "notificationx"),
+                "showConfirmButton" => false,
+                "html"              => __('
+                    <span>You are not authorized to perform this action. Please contact the administrator or check your access rights.</span>
+                ', 'notificationx')
+            ];
+        }
         // nx_comment_colored_themes
         $this->themes = [
             'theme-light-one'        => [
@@ -331,30 +340,10 @@ class GDPR extends Types {
             'rules'    => Rules::is('type', 'gdpr'),
             'fields'   => [
                 [
-                    'label' => __("Show Cookie List on banner", 'notificationx'),
+                    'label' => __("Show Cookie List", 'notificationx'),
                     'name'  => "cookie_list_show_banner",
                     'type'  => "toggle",
-                    'default' => false,
-                    // 'help'  => __("Help text", "notificationx"),
-                ],
-                [
-                    'label' => __("Embed Code", 'notificationx'),
-                    'name'  => "cookie_list_embed_code",
-                    'type'  => "textarea",
-                    'placeholder' => __("We value your privacy", 'notificationx'),
-                    'is_pro' => true,
-                ],
-                [
-                    'label' => __("Cookie", 'notificationx'),
-                    'name'  => "cookie_list_cookie",
-                    'type'  => "text",
-                    'placeholder' => __("Cookie", 'notificationx'),
-                ],
-                [
-                    'label' => __("Duration", 'notificationx'),
-                    'name'  => "cookie_list_duration",
-                    'type'  => "text",
-                    'default' => 0,
+                    'default' => true,
                 ],
                 [
                     'label' => __("Always Active Label", 'notificationx'),
@@ -447,4 +436,6 @@ class GDPR extends Types {
         ];
         return $fields;
     }
+
+
 }

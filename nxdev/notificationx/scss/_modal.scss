@@ -1388,6 +1388,14 @@
                                     border-radius: 4px;
                                     padding: 12px;
                                 }
+                                .wprf-code-viewer {
+                                    textarea {
+                                        color: #fff;
+                                    } 
+                                    button {
+                                        display: none;
+                                    }
+                                }
                                 textarea {
                                     border-radius: 4px;
                                     border: 1px solid #E6EFFB;
@@ -1458,6 +1466,12 @@
                                     }
                                 }
                             }
+                        }
+                    }
+                    .wprf-code-viewer {
+                        width: 100%;
+                        textarea {
+                            color: #fff;
                         }
                     }
                 }

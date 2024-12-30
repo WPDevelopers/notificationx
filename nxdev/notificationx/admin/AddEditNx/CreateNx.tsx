@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import React, { useEffect } from 'react'
 import { FormBuilder, useBuilderContext } from 'quickbuilder';
 import { Content, PublishWidget, Sidebar, Instructions } from '../../components';
-import { proAlert } from '../../core/functions';
+import { permissionAlert, proAlert } from '../../core/functions';
 import { ToastAlert } from '../../core/ToasterMsg';
 import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon, FunctionalIcon, NecessaryIcon, AnalyticsIcon, PerformanceIcon, UncategorizedIcon, ManagerIcon, EditIcon } from '../../icons'
 
@@ -27,6 +27,7 @@ const CreateNx = ({ setIsLoading, title, setTitle }) => {
 
         builderContext.registerAlert('pro_alert', proAlert);
         builderContext.registerAlert('toast', ToastAlert);
+        builderContext.registerAlert('has_permission_alert', permissionAlert);
     }, []);
 
 

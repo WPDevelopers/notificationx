@@ -13,16 +13,19 @@ const AccordionItem = ({
   toggleItem,
   isEnabled,
   toggleEnable,
+  settings,
 }) => (
   <div className="nx_gdpr-cookies-list-main-item">
     <div className="nx_gdpr-cookies-list-header">
       <div className="nx_gdpr-cookies-list-header-title" onClick={() => toggleItem(itemKey)}>
-        {isCollapsed ? <ChevronDown /> : <ChevronRight />}
+        { settings?.cookie_list_show_banner && (
+          <Fragment>{isCollapsed ? <ChevronDown /> : <ChevronRight />}</Fragment>
+        )}
         <h3>{title}</h3>
       </div>
       <div className="nx_gdpr-cookies-list-header-active">
         {isAlwaysActive ? (
-          <span>Always Active</span>
+          <span>{ settings.cookie_list_active_label ? settings.cookie_list_active_label : __('Always Active', 'notificationx') }</span>
         ) : (
           <label className="nx_gdpr-toggle">
             <input
@@ -38,7 +41,7 @@ const AccordionItem = ({
     <div className="nx_gdpr-cookies-list-content">
       <p>{description}</p>
     </div>
-    {isCollapsed && (
+    {(isCollapsed && settings?.cookie_list_show_banner ) && (
       <div className="nx_gdpr-cookies-list-wrapper">
         {cookiesList?.map((cookie, index) => (
           <div className="nx_gdpr-cookies-list-wrapper-item" key={index}>
@@ -56,6 +59,7 @@ const AccordionItem = ({
             </div>
           </div>
         ))}
+        { !cookiesList ? (<span>{ settings?.cookie_list_no_cookies_label }</span>) : '' }
       </div>
     )}
   </div>
@@ -151,6 +155,7 @@ const CookiesAccordion = ({ settings, onEnableCookiesItem }) => {
           toggleItem={toggleItem}
           isEnabled={enabledItems[item.key]}
           toggleEnable={toggleEnable}
+          settings={settings}
         />
       ))}
     </div>

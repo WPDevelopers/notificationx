@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
 import { FormBuilder, useBuilderContext } from 'quickbuilder';
 import { Content, Instructions, PublishWidget, Sidebar } from '../../components';
-import { proAlert } from '../../core/functions';
+import { permissionAlert, proAlert } from '../../core/functions';
 import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon, FunctionalIcon, NecessaryIcon, AnalyticsIcon, PerformanceIcon, UncategorizedIcon, ManagerIcon, EditIcon } from '../../icons'
 
 const EditNx = (props) => {
@@ -26,6 +26,7 @@ const EditNx = (props) => {
         builderContext.registerIcons('tabs', iconLists);
 
         builderContext.registerAlert('pro_alert', proAlert);
+        builderContext.registerAlert('has_permission_alert', permissionAlert);
 
     }, [])
 
