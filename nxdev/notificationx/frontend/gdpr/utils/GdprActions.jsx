@@ -104,6 +104,10 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
         if (customConsent.analytics) loadScripts(settings?.analytics_cookie_lists);
         if (customConsent.performance) loadScripts(settings?.performance_cookie_lists);
         if (customConsent.uncategorized) loadScripts(settings?.uncategorized_cookie_lists);
+        if( settings?.gdpr_force_reload ) {
+            // Reloads the current page
+            location.reload();
+        }
         setIsOpenGdprCustomizationModal(false);
         setIsVisible(false);
     };

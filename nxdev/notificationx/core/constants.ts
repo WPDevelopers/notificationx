@@ -162,7 +162,7 @@ export const modalStyle = {
         right: 0,
         bottom: 0,
         backgroundColor: "rgba(3, 6, 60, 0.7)",
-        zIndex: 9999,
+        zIndex: 9999999,
         padding: "60px 15px",
     },
     content: {

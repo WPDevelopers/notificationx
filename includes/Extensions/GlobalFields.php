@@ -993,9 +993,9 @@ class GlobalFields {
                                     'label'   => __("Consent Expiry", 'notificationx'),
                                     'name'    => "gdpr_consent_expiry",
                                     'type'    => "number",
-                                    'min'     => 0,
+                                    'min'     => 1,
                                     'description' => __('Days', 'notificationx'),
-                                    'default' => 0,
+                                    'default' => 30,
                                     'suggestions' => [
                                         [
                                             'value' => 30,
