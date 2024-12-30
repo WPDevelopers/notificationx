@@ -1006,10 +1006,6 @@ class GlobalFields {
                                     'default' => 0,
                                     'suggestions' => [
                                         [
-                                            'value' => 0,
-                                            'unit'  => 'days',
-                                        ],
-                                        [
                                             'value' => 30,
                                             'unit'  => 'days',
                                         ],
@@ -1104,24 +1100,11 @@ class GlobalFields {
                                                     'name'     => 'necessary_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
-                                                    'tab_info' => [
-                                                        'tab_title' => array(
-                                                            'type'    => 'text',
-                                                            'name'    => 'tab_title',
-                                                            'default' => __('Necessary', 'notificationx'),
-                                                            'label'   => __('Name', 'notificationx'),
-                                                        ),
-                                                        'tab_description' => array(
-                                                            'type'    => 'textarea',
-                                                            'name'    => 'tab_description',
-                                                            'label'   => __('Description', 'notificationx'),
-                                                            'default' => __('Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
-                                                        ),
-                                                    ],
-                                                    'button'  => [
+                                                    'button'   => [
                                                         'label'    => __('Add New', 'notificationx'),
                                                         'position' => 'top',
                                                     ],
+                                                    'default'        => Helper::default_cookie_list(),
                                                     'visible_fields' => ['cookies_id','load_inside', 'script_url_pattern', 'description'],
                                                     '_fields'        => Helper::gdpr_common_fields(),
                                                 ]
@@ -1184,20 +1167,6 @@ class GlobalFields {
                                                     'name'     => 'functional_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
-                                                    'tab_info' => [
-                                                        'tab_title' => array(
-                                                            'type'    => 'text',
-                                                            'name'    => 'tab_title',
-                                                            'default' => __('Functional', 'notificationx'),
-                                                            'label'   => __('Name', 'notificationx'),
-                                                        ),
-                                                        'tab_description' => array(
-                                                            'type'    => 'textarea',
-                                                            'name'    => 'tab_description',
-                                                            'label'   => __('Description', 'notificationx'),
-                                                            'default' => __('Functional cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
-                                                        ),
-                                                    ],
                                                     'button'  => [
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',
@@ -1264,20 +1233,6 @@ class GlobalFields {
                                                     'name'     => 'analytics_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
-                                                    'tab_info' => [
-                                                        'tab_title' => array(
-                                                            'type'    => 'text',
-                                                            'name'    => 'tab_title',
-                                                            'default' => __('Analytics', 'notificationx'),
-                                                            'label'   => __('Name', 'notificationx'),
-                                                        ),
-                                                        'tab_description' => array(
-                                                            'type'    => 'textarea',
-                                                            'name'    => 'tab_description',
-                                                            'label'   => __('Description', 'notificationx'),
-                                                            'default' => __('Analytics cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
-                                                        ),
-                                                    ],
                                                     'button'  => [
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',
@@ -1344,20 +1299,6 @@ class GlobalFields {
                                                     'name'     => 'performance_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
-                                                    'tab_info' => [
-                                                        'tab_title' => array(
-                                                            'type'    => 'text',
-                                                            'name'    => 'tab_title',
-                                                            'default' => __('Performance', 'notificationx'),
-                                                            'label'   => __('Name', 'notificationx'),
-                                                        ),
-                                                        'tab_description' => array(
-                                                            'type'    => 'textarea',
-                                                            'name'    => 'tab_description',
-                                                            'label'   => __('Description', 'notificationx'),
-                                                            'default' => __('Performance cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
-                                                        ),
-                                                    ],
                                                     'button'  => [
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',
@@ -1424,20 +1365,6 @@ class GlobalFields {
                                                     'name'     => 'uncategorized_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
-                                                    'tab_info' => [
-                                                        'tab_title' => array(
-                                                            'type'    => 'text',
-                                                            'name'    => 'tab_title',
-                                                            'default' => __('Uncategorized', 'notificationx'),
-                                                            'label'   => __('Name', 'notificationx'),
-                                                        ),
-                                                        'tab_description' => array(
-                                                            'type'    => 'textarea',
-                                                            'name'    => 'tab_description',
-                                                            'label'   => __('Description', 'notificationx'),
-                                                            'default' => __('Uncategorized cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
-                                                        ),
-                                                    ],
                                                     'button'  => [
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',
