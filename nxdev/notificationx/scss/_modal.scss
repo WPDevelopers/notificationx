@@ -1373,6 +1373,9 @@
                             }
                             .wprf-control-field {
                                 max-width: 100%;
+                                > span {
+                                    width: 100%;
+                                }
                                 input {
                                     border: 1px solid #E6EFFB;
                                 }
@@ -1410,6 +1413,16 @@
                                     &:focus {
                                         box-shadow: none;
                                         outline: 0;
+                                    }
+                                }
+                                .wprf-select-wrapper {
+                                    width: 100%;
+                                    .wprf-select__control {
+                                        border-color: #F0F6FF;
+                                        box-shadow: none;
+                                        &:hover {
+                                            border-color: #F0F6FF;
+                                        }
                                     }
                                 }
                             }
