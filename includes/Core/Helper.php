@@ -677,7 +677,7 @@ class Helper {
      */
     public static function gdpr_cookie_list_visible_fields()
     {
-        return ['cookies_id', 'domain', 'script_url_pattern', 'duration', 'load_inside'];
+        return ['cookies_id', 'domain', 'script_url_pattern', 'duration', 'load_inside','description'];
     }
 
     /**
@@ -756,4 +756,59 @@ class Helper {
         ];
     }
 
+
+    public static function default_cookie_list() 
+    {
+        return [
+            [
+                'enabled'            => true,
+                'cookies_id'         => 'wordpress_test_cookie',
+                'load_inside'        => 'head',
+                'script_url_pattern' => '',
+                'description'        => __('Tests whether cookies are enabled in the browser to provide a better user experience.', 'notificationx'),
+            ],
+            [
+                'enabled'            => true,
+                'cookies_id'         => 'wordpress_logged_in',
+                'load_inside'        => 'head',
+                'script_url_pattern' => '',
+                'description'        => __('Indicates when a user is logged in and who they are, for most interface use.','notificationx'),
+            ],
+            [
+                'enabled'            => true,
+                'cookies_id'         => 'wordpress_sec',
+                'load_inside'        => 'head',
+                'script_url_pattern' => '',
+                'description'        => __('Used for security purposes for logged-in users.', 'notificationx'),
+            ],
+            [
+                'enabled'            => true,
+                'cookies_id'         => 'wp-settings-{user_id}',
+                'load_inside'        => 'head',
+                'script_url_pattern' => '',
+                'description'        => __('Used to persist a user\'s WordPress admin settings.','notificationx'),
+            ],
+            [
+                'enabled'            => true,
+                'cookies_id'         => 'wp-settings-time-{user_id}',
+                'load_inside'        => 'head',
+                'script_url_pattern' => '',
+                'description'        => __('Records the time that wp-settings-{user_id} was set.', 'notificationx'),
+            ],
+            [
+                'enabled'            => true,
+                'cookies_id'         => 'wp-settings-time-{user_id}',
+                'load_inside'        => 'head',
+                'script_url_pattern' => '',
+                'description'        => __('Records the time that wp-settings-{user_id} was set.', 'notificationx'),
+            ],
+            [
+                'enabled'            => true,
+                'cookies_id'         => 'nx_cookie_manager',
+                'script_url_pattern' => '',
+                'description'        => __('Manages the cookies on the site, ensuring user consent for GDPR compliance.', 'notificationx'),
+            ],
+        ];
+
+    }
 }

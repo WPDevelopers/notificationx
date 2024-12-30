@@ -4,9 +4,9 @@ import { useInstanceId } from "@wordpress/compose";
 import { GenericField, useBuilderContext } from 'quickbuilder';
 import threeDots from '../../icons/three-dots.svg';
 import EditIconNew from '../../icons/EditIconNew';
-import { __ } from '@wordpress/i18n';
+import { __, _n, sprintf } from '@wordpress/i18n';
 import TrashIcon from '../../icons/TrashIcon';
-
+import nxHelper from '../../core/functions';
 
 const BetterRepeaterValueShow = (props) => {
     const builderContext = useBuilderContext();
@@ -21,8 +21,30 @@ const BetterRepeaterValueShow = (props) => {
         props.clone(props.index);
     }
     const onDelete = (event:Event) => {
-        event?.stopPropagation();
-        props.remove(props.index);
+        const binIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                            <path d="M20.5001 6.5H3.5" stroke="#D92D21" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M18.8346 9L18.3747 15.8991C18.1977 18.554 18.1092 19.8815 17.2442 20.6907C16.3792 21.5 15.0488 21.5 12.388 21.5H11.6146C8.95382 21.5 7.62342 21.5 6.75841 20.6907C5.8934 19.8815 5.8049 18.554 5.62791 15.8991L5.16797 9" stroke="#D92D21" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M9.17188 4.5C9.58371 3.33481 10.695 2.5 12.0012 2.5C13.3074 2.5 14.4186 3.33481 14.8305 4.5" stroke="#D92D21" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>`;
+        nxHelper.swal({
+            html: `<div class"nx-gdpr-cookies-delete-modal">
+                    ${binIcon} 
+                    <h2>${ __("Delete this Cookies", 'notificationx') }</h2>
+                    <p>${__('Lorem ipsum dolor sit amet consectetur. Maecenas felis dictum lectus eget vel. At leo commodo risus mi arcu vitae semper. Nullam suspendisse nulla sapien arcu nunc nunc non. Magna magna malesuada quam consectetur blandit quis.','notificationx')}</p>
+                </div>`,
+            showCancelButton: true,
+            confirmButtonText: __("Delete", 'notificationx'),
+            cancelButtonText: __("Cancel", 'notificationx'),
+            reverseButtons: true,
+            customClass: { actions: "nx-delete-actions" },
+            confirmedCallback: () => {
+                event?.stopPropagation();
+                props.remove(props.index);
+            },
+            completeAction: (result) => { },
+            completeArgs: (result?) => { },
+            afterComplete: () => { },
+        });
     }
 
     useEffect(() => {
