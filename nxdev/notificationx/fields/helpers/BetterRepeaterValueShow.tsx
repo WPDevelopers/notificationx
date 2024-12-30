@@ -27,7 +27,7 @@ const BetterRepeaterValueShow = (props) => {
                             <path d="M9.17188 4.5C9.58371 3.33481 10.695 2.5 12.0012 2.5C13.3074 2.5 14.4186 3.33481 14.8305 4.5" stroke="#D92D21" stroke-width="1.5" stroke-linecap="round"/>
                         </svg>`;
         nxHelper.swal({
-            html: `<div class"nx-gdpr-cookies-delete-modal">
+            html: `<div class="nx-gdpr-cookies-delete-modal">
                     ${binIcon} 
                     <h2>${ __("Delete this Cookies", 'notificationx') }</h2>
                     <p>${__('Lorem ipsum dolor sit amet consectetur. Maecenas felis dictum lectus eget vel. At leo commodo risus mi arcu vitae semper. Nullam suspendisse nulla sapien arcu nunc nunc non. Magna magna malesuada quam consectetur blandit quis.','notificationx')}</p>

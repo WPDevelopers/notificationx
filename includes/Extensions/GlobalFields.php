@@ -275,14 +275,6 @@ class GlobalFields {
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
                                     ]),
-                                    // 'options'          => GlobalFields::get_instance()->normalize_fields([
-                                    //     'light' => 'Light', 'dark' => 'Dark'
-                                    // ]),
-                                    // 'priority'         => 9,
-                                    // 'validation_rules' => [
-                                    //     'required' => true,
-                                    //     'label'    => "Theme",
-                                    // ],
                                 ],
                                 "themes_section" => [
                                     'type'    => 'section',

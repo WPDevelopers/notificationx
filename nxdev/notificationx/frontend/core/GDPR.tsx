@@ -97,6 +97,7 @@ const GDPR = ({ position, gdpr, dispatch }) => {
                                 <a href={settings?.gdpr_cookies_policy_link_url} target='_blank' className="nx-gdpr-link">{ settings?.gdpr_cookies_policy_link_text }</a>
                             }
                         </p>
+                        {/* @ts-ignore  */}
                         <GdprActions settings={settings} onConsentGiven={handleConsentGiven} setIsVisible={setIsVisible} />
                     </div>
                    <GdprFooter settings={settings} />
