@@ -121,12 +121,16 @@
                         }
                     }
                 }
+                &.wprf-tab-necessary_tab {
+                    .wprf-control.wprf-modal {
+                        left: 74px;
+                    }
+                }
                 .wprf-control.wprf-modal {
                     margin-bottom: 0;
                     width: auto;
                     position: absolute;
                     top: 0;
-                    left: 74px;
                     .wprf-btn {
                         border: none;
                         background: transparent;
