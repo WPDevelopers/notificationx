@@ -50,10 +50,6 @@ const AccordionItem = ({
               <p>{cookie?.cookies_id}</p>
             </div>
             <div className="nx_gdpr-cookies-list-wrapper-item-value">
-              <span>{__('Duration', 'notificationx')}</span>
-              <p>{cookie?.duration}</p>
-            </div>
-            <div className="nx_gdpr-cookies-list-wrapper-item-value">
               <span>{__('Description', 'notificationx')}</span>
               <p>{cookie?.description}</p>
             </div>

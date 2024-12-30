@@ -794,6 +794,19 @@ class Helper {
                 'script_url_pattern' => '',
                 'description'        => __('Records the time that wp-settings-{user_id} was set.', 'notificationx'),
             ],
+            [
+                'enabled'            => true,
+                'cookies_id'         => 'wp-settings-time-{user_id}',
+                'load_inside'        => 'head',
+                'script_url_pattern' => '',
+                'description'        => __('Records the time that wp-settings-{user_id} was set.', 'notificationx'),
+            ],
+            [
+                'enabled'            => true,
+                'cookies_id'         => 'nx_cookie_manager',
+                'script_url_pattern' => '',
+                'description'        => __('Manages the cookies on the site, ensuring user consent for GDPR compliance.', 'notificationx'),
+            ],
         ];
 
     }
