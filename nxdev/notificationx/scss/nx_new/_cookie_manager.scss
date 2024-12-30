@@ -173,7 +173,7 @@
                             font-size: 16px !important;
                             font-weight: 400 !important;
                             color: #535D77 !important;
-                            border: 1px solid #535D77 !important;
+                            border: none !important;
                             width: 24px !important;
                             height: 24px !important;
                             top: 20px !important;
@@ -198,16 +198,18 @@
                                 gap: 20px;
 
                                 .wprf-control-wrapper {
+                                    flex-direction: column;
+                                    gap: 8px;
                                     .wprf-control-label {
                                         display: inline-flex;
                                         margin: 0;
+                                        padding-right: 0;
                                         label {
                                             font-size: 16px;
                                             font-weight: 500;
                                             color: #535D77;
                                             line-height: 21px;
-                                            margin-top: 0;
-                                            margin-bottom: 8px;
+                                            margin: 0;
                                             letter-spacing: unset;
                                         }
                                     }
