@@ -749,6 +749,7 @@ class Helper {
     {
         return [
             'type'    => 'textarea',
+            'row'      => 3,
             'name'    => "{$name}_tab_desc",
             'default' => sprintf( __('%s', 'notificationx'), $desc_default),
             'label'   => __('Description', 'notificationx'),

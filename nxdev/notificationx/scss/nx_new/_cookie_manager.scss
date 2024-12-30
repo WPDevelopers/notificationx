@@ -64,15 +64,100 @@
             margin-top: 24px;
 
             .wprf-tab-content {
-                .wprf-tab-heading-wrapper {
-                    margin-bottom: 16px;
+                position: relative;
 
-                    h4 {
-                        font-size: 14px;
-                        line-height: 20px;
-                        font-weight: 500;
-                        color: #092161;
+                .wprf-tab-heading-wrapper {
+
+                    display: none;
+                    // margin-bottom: 16px;
+
+                    // h4 {
+                    //     font-size: 14px;
+                    //     line-height: 20px;
+                    //     font-weight: 500;
+                    //     color: #092161;
+                    //     background: transparent;
+                    // }
+                }
+                .wprf-control-wrapper { 
+                    margin-bottom: 0;
+                    .wprf-control-label {
+                        display: none;
+                    }
+                    .wprf-control-field {
+                        min-height: auto;
+                        flex: 100%;
+
+                        input {
+                            min-height: auto;
+                            height: 18px;
+                            padding: 0;
+                            border: none;
+                            border-radius: 0;
+                            color: #092161;
+                            font-size: 14px;
+                            font-weight: 500;
+                            width: 100%;
+                            max-width: 400px;
+                            margin-right: 0;
+                            margin-bottom: 12px;
+                        }
+                        textarea {
+                            min-height: auto;
+                            padding: 0;
+                            border: none;
+                            border-radius: 0;
+                            color: #535D77;
+                            font-size: 12px;
+                            font-weight: 400;
+                            line-height: 16px;
+                            width: 100%;
+                            max-width: 720px;
+                            margin-right: 0;
+                            margin-bottom: 16px;
+                        }
+                    }
+                }
+                &.wprf-tab-necessary_tab {
+                    .wprf-control.wprf-modal {
+                        left: 74px;
+                    }
+                }
+                &.wprf-tab-functional_tab {
+                    .wprf-control.wprf-modal {
+                        left: 74px;
+                    }
+                }
+                &.wprf-tab-analytics_tab {
+                    .wprf-control.wprf-modal {
+                        left: 65px;
+                    }
+                }
+                &.wprf-tab-performance_tab {
+                    .wprf-control.wprf-modal {
+                        left: 88px;
+                    }
+                }
+                &.wprf-tab-uncategorized_tab {
+                    .wprf-control.wprf-modal {
+                        left: 98px;
+                    }
+                }
+                .wprf-control.wprf-modal {
+                    margin-bottom: 0;
+                    width: auto;
+                    position: absolute;
+                    top: 0;
+                    .wprf-btn {
+                        border: none;
                         background: transparent;
+                        min-height: auto;
+                        border: none;
+                        padding: 0;
+                        border-radius: 0;
+                        svg path {
+                            stroke: #092161;
+                        }
                     }
                 }
                 .wprf-repeater-control {
