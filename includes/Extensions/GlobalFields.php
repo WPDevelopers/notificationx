@@ -1047,8 +1047,8 @@ class GlobalFields {
                                             'fields'           => [
                                                 'tab_title' => Helper::tab_info_title('necessary', 'Necessary'),
                                                 'tab_description' => Helper::tab_info_desc('necessary', 'Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
-                                                'tab_info_modal' => [
-                                                    'name'   => 'tab_info_modal',
+                                                'necessary_tab_info_modal' => [
+                                                    'name'   => 'necessary_tab_info_modal',
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
@@ -1061,7 +1061,7 @@ class GlobalFields {
                                                     'confirm_button' => [
                                                         'type'   => 'button',
                                                         'text'  => 'Save',
-                                                        'name'   => 'close_tab_info_modal',
+                                                        'name'   => 'necessary_close_tab_info_modal',
                                                         "default" => false,
                                                         'trigger' => [
                                                             [
@@ -1073,12 +1073,12 @@ class GlobalFields {
                                                             [
                                                                 'type'   => 'setFieldValue',
                                                                 'action' => [
-                                                                    'close_tab_info_modal' => true
+                                                                    'necessary_close_tab_info_modal' => true
                                                                 ]
                                                             ],
                                                         ],
                                                     ],
-                                                    'cancel' => "close_tab_info_modal",
+                                                    'cancel' => "necessary_close_tab_info_modal",
                                                     'body'   => [
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
@@ -1114,8 +1114,8 @@ class GlobalFields {
                                             'fields'           => [
                                                 'tab_title' => Helper::tab_info_title('functional', 'Functional'),
                                                 'tab_description' => Helper::tab_info_desc('functional', 'Functional cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
-                                                'tab_info_modal' => [
-                                                    'name'   => 'tab_info_modal',
+                                                'functional_tab_info_modal' => [
+                                                    'name'   => 'functional_tab_info_modal',
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
@@ -1128,7 +1128,7 @@ class GlobalFields {
                                                     'confirm_button' => [
                                                         'type'   => 'button',
                                                         'text'  => 'Save',
-                                                        'name'   => 'close_tab_info_modal',
+                                                        'name'   => 'functional_close_tab_info_modal',
                                                         "default" => false,
                                                         'trigger' => [
                                                             [
@@ -1140,12 +1140,12 @@ class GlobalFields {
                                                             [
                                                                 'type'   => 'setFieldValue',
                                                                 'action' => [
-                                                                    'close_tab_info_modal' => true
+                                                                    'functional_close_tab_info_modal' => true
                                                                 ]
                                                             ],
                                                         ],
                                                     ],
-                                                    'cancel' => "close_tab_info_modal",
+                                                    'cancel' => "functional_close_tab_info_modal",
                                                     'body'   => [
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
@@ -1180,8 +1180,8 @@ class GlobalFields {
                                             'fields'           => [
                                                 'tab_title' => Helper::tab_info_title('analytics', 'Analytics'),
                                                 'tab_description' => Helper::tab_info_desc('analytics', 'Analytics cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
-                                                'tab_info_modal' => [
-                                                    'name'   => 'tab_info_modal',
+                                                'analytics_tab_info_modal' => [
+                                                    'name'   => 'analytics_tab_info_modal',
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
@@ -1194,7 +1194,7 @@ class GlobalFields {
                                                     'confirm_button' => [
                                                         'type'   => 'button',
                                                         'text'  => 'Save',
-                                                        'name'   => 'close_tab_info_modal',
+                                                        'name'   => 'analytics_close_tab_info_modal',
                                                         "default" => false,
                                                         'trigger' => [
                                                             [
@@ -1206,12 +1206,12 @@ class GlobalFields {
                                                             [
                                                                 'type'   => 'setFieldValue',
                                                                 'action' => [
-                                                                    'close_tab_info_modal' => true
+                                                                    'analytics_close_tab_info_modal' => true
                                                                 ]
                                                             ],
                                                         ],
                                                     ],
-                                                    'cancel' => "close_tab_info_modal",
+                                                    'cancel' => "analytics_close_tab_info_modal",
                                                     'body'   => [
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
@@ -1246,8 +1246,8 @@ class GlobalFields {
                                             'fields'           => [
                                                 'tab_title' => Helper::tab_info_title('performance', 'Performance'),
                                                 'tab_description' => Helper::tab_info_desc('performance', 'Performance cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
-                                                'tab_info_modal' => [
-                                                    'name'   => 'tab_info_modal',
+                                                'performance_tab_info_modal' => [
+                                                    'name'   => 'performance_tab_info_modal',
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
@@ -1260,7 +1260,7 @@ class GlobalFields {
                                                     'confirm_button' => [
                                                         'type'   => 'button',
                                                         'text'  => 'Save',
-                                                        'name'   => 'close_tab_info_modal',
+                                                        'name'   => 'performance_close_tab_info_modal',
                                                         "default" => false,
                                                         'trigger' => [
                                                             [
@@ -1272,12 +1272,12 @@ class GlobalFields {
                                                             [
                                                                 'type'   => 'setFieldValue',
                                                                 'action' => [
-                                                                    'close_tab_info_modal' => true
+                                                                    'performance_close_tab_info_modal' => true
                                                                 ]
                                                             ],
                                                         ],
                                                     ],
-                                                    'cancel' => "close_tab_info_modal",
+                                                    'cancel' => "performance_close_tab_info_modal",
                                                     'body'   => [
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
@@ -1312,8 +1312,8 @@ class GlobalFields {
                                             'fields'           => [
                                                 'tab_title' => Helper::tab_info_title('uncategorized', 'Uncategorized'),
                                                 'tab_description' => Helper::tab_info_desc('uncategorized', 'Uncategorized cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
-                                                'tab_info_modal' => [
-                                                    'name'   => 'tab_info_modal',
+                                                'uncategorized_tab_info_modal' => [
+                                                    'name'   => 'uncategorized_tab_info_modal',
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
