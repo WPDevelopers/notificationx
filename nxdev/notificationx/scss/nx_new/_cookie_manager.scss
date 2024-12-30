@@ -159,6 +159,97 @@
                             stroke: #092161;
                         }
                     }
+
+                    .wprf-modal-inner {
+                        max-width: 480px !important;
+                        height: auto;
+                        border-radius: 8px !important;
+                        padding: 24px !important;
+                        box-shadow: 0px 3px 14px 4px #06041B1F;
+                        text-align: left !important;
+                        align-items: flex-start !important;
+
+                        .btn {
+                            font-size: 16px !important;
+                            font-weight: 400 !important;
+                            color: #535D77 !important;
+                            border: 1px solid #535D77 !important;
+                            width: 24px !important;
+                            height: 24px !important;
+                            top: 20px !important;
+                            right: 20px !important;
+                        }
+                        h2, 
+                        h3 {
+                            font-size: 16px !important;
+                            color: #092161;
+                            margin: 0 !important;
+                        }
+                        h2 {
+                            margin-bottom: 24px !important;
+                        }
+                        div {
+                            width: 100%;
+                        }
+                        .wprf-modal-body {
+                            .wprf-modal-content {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 20px;
+
+                                .wprf-control-wrapper {
+                                    .wprf-control-label {
+                                        display: inline-flex;
+                                        margin: 0;
+                                        label {
+                                            font-size: 16px;
+                                            font-weight: 500;
+                                            color: #535D77;
+                                            line-height: 21px;
+                                            margin-top: 0;
+                                            margin-bottom: 8px;
+                                            letter-spacing: unset;
+                                        }
+                                    }
+                                    .wprf-control-field {
+                                        span {
+                                            flex: 1;
+                                        }
+                                        input {
+                                            min-height: 40px;
+                                            height: auto;
+                                            padding: 8px 12px;
+                                            border: 1px solid #F0F6FF;
+                                            border-radius: 4px;
+                                            color: #092161;
+                                            font-size: 14px;
+                                            font-weight: 400;
+                                            width: 100%;
+                                            max-width: 100%;
+                                            margin: 0;
+                                            box-shadow: none;
+                                        }
+                                        textarea {
+                                            padding: 10px 12px;
+                                            border: 1px solid #F0F6FF;
+                                            border-radius: 4px;
+                                            color: #092161;
+                                            font-size: 14px;
+                                            line-height: 19px;
+                                            font-weight: 400;
+                                            width: 100%;
+                                            max-width: 100%;
+                                            margin: 0;
+                                            box-shadow: none;
+                                        }
+                                    }
+                                }
+                            }
+                            .wprf-modal-footer {
+                                display: none;
+                            }
+                        }
+                    }
                 }
                 .wprf-repeater-control {
                     .wprf-repeater-label {
@@ -167,10 +258,32 @@
                             min-height: auto;
                             border: 0px solid transparent;
                             border-radius: 4px;
-                            padding: 10px 14px;
+                            padding: 10px 14px 10px 32px;
                             background: #6A4BFF;
                             color: #FFFFFF;
                             line-height: 16px;
+                            position: relative;
+
+                            &::after {
+                                content: '';
+                                position: absolute;
+                                top: 50%;
+                                left: 15px;
+                                width: 10px;
+                                height: 2px;
+                                background: #FFFF;
+                                transform: translateY(-50%);
+                            }
+                            &::before {
+                                content: '';
+                                position: absolute;
+                                top: 50%;
+                                left: 15px;
+                                width: 10px;
+                                height: 2px;
+                                background: #FFFF;
+                                transform: translateY(-50%) rotate(90deg);
+                            }
 
                             &:hover {
                                 background: #6A4BFF;

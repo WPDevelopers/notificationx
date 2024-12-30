@@ -128,7 +128,7 @@
 }
 
 .swal2-modal.swal2-show {
-    width: 560px;
+    max-width: 560px;
     padding: 20px 32px 34px;
 
     .swal2-icon {
@@ -200,6 +200,7 @@
     }
 }
 .swal2-popup.swal2-modal.swal2-show {
+    max-width: 480px;
     padding: 20px;
     display: flex !important;
     justify-content: flex-start;
