@@ -240,16 +240,35 @@
                                             font-size: 14px;
                                             line-height: 19px;
                                             font-weight: 400;
-                                            width: 100%;
-                                            max-width: 100%;
                                             margin: 0;
                                             box-shadow: none;
+                                            width: 100%;
+                                            max-width: 100%;
+                                            height: auto;
                                         }
                                     }
                                 }
                             }
                             .wprf-modal-footer {
-                                display: none;
+                                display: flex;
+                                justify-content: flex-end;
+                                margin: 0;
+                                padding: 0;
+                                padding-top: 20px;
+                                border: none;
+
+                                .wprf-control-field {
+                                    justify-content: flex-end;
+
+                                    .wprf-btn {
+                                        font-size: 14px;
+                                        background: #6a4bff;
+                                        min-height: 40px;
+                                        border: none;
+                                        padding: 8px 24px;
+                                        border-radius: 8px;
+                                    }
+                                }
                             }
                         }
                     }
@@ -274,7 +293,7 @@
                                 left: 15px;
                                 width: 10px;
                                 height: 2px;
-                                background: #FFFF;
+                                background: #FFFFFF;
                                 transform: translateY(-50%);
                             }
                             &::before {
@@ -284,7 +303,7 @@
                                 left: 15px;
                                 width: 10px;
                                 height: 2px;
-                                background: #FFFF;
+                                background: #FFFFFF;
                                 transform: translateY(-50%) rotate(90deg);
                             }
 
