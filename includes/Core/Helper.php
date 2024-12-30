@@ -734,5 +734,25 @@ class Helper {
         // Output the list of removed cookies as a JSON response.
         echo json_encode($cookies_removed);
     }
+    
+    public static function tab_info_title($name, $title_default) 
+    {
+        return [
+            'type'    => 'text',
+            'name'    => "{$name}_tab_title",
+            'default' => sprintf( __('%s', 'notificationx'), $title_default),
+            'label'   => __('Name', 'notificationx'),
+        ];
+    }
+
+    public static function tab_info_desc($name, $desc_default) 
+    {
+        return [
+            'type'    => 'textarea',
+            'name'    => "{$name}_tab_desc",
+            'default' => sprintf( __('%s', 'notificationx'), $desc_default),
+            'label'   => __('Description', 'notificationx'),
+        ];
+    }
 
 }

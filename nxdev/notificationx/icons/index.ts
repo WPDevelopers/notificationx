@@ -11,3 +11,4 @@ export { default as FunctionalIcon } from './FunctionalIcon';
 export { default as AnalyticsIcon } from './AnalyticsIcon';
 export { default as PerformanceIcon } from './PerformanceIcon';
 export { default as UncategorizedIcon } from './UncategorizedIcon';
+export { default as EditIcon } from './EditIcon';

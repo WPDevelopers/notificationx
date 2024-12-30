@@ -30,82 +30,11 @@ class GlobalFields {
      */
     use GetInstance;
 
-    private $necessary_tab_title = [];
-    private $necessary_tab_desc = [];
-    private $functional_tab_title = [];
-    private $functional_tab_desc = [];
-    private $analytics_tab_title = [];
-    private $analytics_tab_desc = [];
-    private $performance_tab_title = [];
-    private $performance_tab_desc = [];
-    private $uncategorized_tab_title = [];
-    private $uncategorized_tab_desc = [];
-
     /**
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        $this->necessary_tab_title = array(
-            'type'     => 'text',
-            'name'     => 'necessary_tab_title',
-            'default'    => __('Necessary', 'notificationx'),
-            'label'    => __('Name', 'notificationx'),
-        );
-        $this->necessary_tab_desc = array(
-            'type'     => 'textarea',
-            'name'     => 'necessary_tab_desc',
-            'label'    => __('Description', 'notificationx'),
-            'default'    => __('Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
-        );
-        $this->functional_tab_title = array(
-            'type'     => 'text',
-            'name'     => 'functional_tab_title',
-            'default'    => __('Functional', 'notificationx'),
-            'label'    => __('Name', 'notificationx'),
-        );
-        $this->functional_tab_desc = array(
-            'type'     => 'textarea',
-            'name'     => 'functional_tab_desc',
-            'label'    => __('Description', 'notificationx'),
-            'default'    => __('Functional cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
-        );
-        $this->analytics_tab_title = array(
-            'type'     => 'text',
-            'name'     => 'analytics_tab_title',
-            'default'    => __('Analytics', 'notificationx'),
-            'label'    => __('Name', 'notificationx'),
-        );
-        $this->analytics_tab_desc = array(
-            'type'     => 'textarea',
-            'name'     => 'analytics_tab_desc',
-            'label'    => __('Description', 'notificationx'),
-            'default'    => __('Analytics cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
-        );
-        $this->performance_tab_title = array(
-            'type'     => 'text',
-            'name'     => 'performance_tab_title',
-            'default'    => __('Performance', 'notificationx'),
-            'label'    => __('Name', 'notificationx'),
-        );
-        $this->performance_tab_desc = array(
-            'type'     => 'textarea',
-            'name'     => 'performance_tab_desc',
-            'label'    => __('Description', 'notificationx'),
-            'default'    => __('Performance cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
-        );
-        $this->uncategorized_tab_title = array(
-            'type'     => 'text',
-            'name'     => 'uncategorized_tab_title',
-            'default'    => __('Uncategorized', 'notificationx'),
-            'label'    => __('Name', 'notificationx'),
-        );
-        $this->uncategorized_tab_desc = array(
-            'type'     => 'textarea',
-            'name'     => 'uncategorized_tab_desc',
-            'label'    => __('Description', 'notificationx'),
-            'default'    => __('Uncategorized cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', 'notificationx'),
-        );
-
+        
         // dump(Rules::logicalRule([ Rules::is('test'), Rules::is('test2') ]));
     }
 
@@ -1074,7 +1003,7 @@ class GlobalFields {
                                     'type'    => "number",
                                     'min'     => 0,
                                     'description' => __('Days', 'notificationx'),
-                                    'default' => 10,
+                                    'default' => 0,
                                     'suggestions' => [
                                         [
                                             'value' => 0,
@@ -1128,14 +1057,18 @@ class GlobalFields {
                                                 'name' => 'necessary'
                                             ],
                                             'fields'           => [
-                                                'tab_title' => $this->necessary_tab_title,
-                                                'tab_description' => $this->necessary_tab_desc,
+                                                'tab_title' => Helper::tab_info_title('necessary', 'Necessary'),
+                                                'tab_description' => Helper::tab_info_desc('necessary', 'Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
                                                 'tab_info_modal' => [
                                                     'name'   => 'tab_info_modal',
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __('Edit', 'notificationx'),
+                                                        'text' => __(' ', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
                                                     ],
                                                     'confirm_button' => [
                                                         'type'   => 'button',
@@ -1161,8 +1094,8 @@ class GlobalFields {
                                                     'body'   => [
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
-                                                            'tab_title' => $this->necessary_tab_title,
-                                                            'tab_description' => $this->necessary_tab_desc,
+                                                            'tab_title' => Helper::tab_info_title('necessary', 'Necessary'),
+                                                            'tab_description' => Helper::tab_info_desc('necessary', 'Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
                                                         ],
                                                     ],
                                                 ],
@@ -1204,14 +1137,18 @@ class GlobalFields {
                                                 'name' => 'functional'
                                             ],
                                             'fields'           => [
-                                                'tab_title' => $this->functional_tab_title,
-                                                'tab_description' => $this->functional_tab_desc,
+                                                'tab_title' => Helper::tab_info_title('functional', 'Functional'),
+                                                'tab_description' => Helper::tab_info_desc('functional', 'Functional cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
                                                 'tab_info_modal' => [
                                                     'name'   => 'tab_info_modal',
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __('Edit', 'notificationx'),
+                                                        'text' => __(' ', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
                                                     ],
                                                     'confirm_button' => [
                                                         'type'   => 'button',
@@ -1237,8 +1174,8 @@ class GlobalFields {
                                                     'body'   => [
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
-                                                            'tab_title' => $this->functional_tab_title,
-                                                            'tab_description' => $this->functional_tab_desc,
+                                                            'tab_title' => Helper::tab_info_title('functional', 'Functional'),
+                                                            'tab_description' => Helper::tab_info_desc('functional', 'Functional cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
                                                         ],
                                                     ],
                                                 ],
@@ -1280,14 +1217,18 @@ class GlobalFields {
                                                 'name' => 'analytics'
                                             ],
                                             'fields'           => [
-                                                'tab_title' => $this->analytics_tab_title,
-                                                'tab_description' => $this->analytics_tab_desc,
+                                                'tab_title' => Helper::tab_info_title('analytics', 'Analytics'),
+                                                'tab_description' => Helper::tab_info_desc('analytics', 'Analytics cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
                                                 'tab_info_modal' => [
                                                     'name'   => 'tab_info_modal',
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __('Edit', 'notificationx'),
+                                                        'text' => __(' ', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
                                                     ],
                                                     'confirm_button' => [
                                                         'type'   => 'button',
@@ -1313,8 +1254,8 @@ class GlobalFields {
                                                     'body'   => [
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
-                                                            'tab_title' => $this->analytics_tab_title,
-                                                            'tab_description' => $this->analytics_tab_desc,
+                                                            'tab_title' => Helper::tab_info_title('analytics', 'Analytics'),
+                                                            'tab_description' => Helper::tab_info_desc('analytics', 'Analytics cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
                                                         ],
                                                     ],
                                                 ],
@@ -1356,14 +1297,18 @@ class GlobalFields {
                                                 'name' => 'performance'
                                             ],
                                             'fields'           => [
-                                                'tab_title' => $this->performance_tab_title,
-                                                'tab_description' => $this->performance_tab_desc,
+                                                'tab_title' => Helper::tab_info_title('performance', 'Performance'),
+                                                'tab_description' => Helper::tab_info_desc('performance', 'Performance cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
                                                 'tab_info_modal' => [
                                                     'name'   => 'tab_info_modal',
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __('Edit', 'notificationx'),
+                                                        'text' => __(' ', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
                                                     ],
                                                     'confirm_button' => [
                                                         'type'   => 'button',
@@ -1389,8 +1334,8 @@ class GlobalFields {
                                                     'body'   => [
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
-                                                            'tab_title' => $this->performance_tab_title,
-                                                            'tab_description' => $this->performance_tab_desc,
+                                                            'tab_title' => Helper::tab_info_title('performance', 'Performance'),
+                                                            'tab_description' => Helper::tab_info_desc('performance', 'Performance cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
                                                         ],
                                                     ],
                                                 ],
@@ -1432,14 +1377,18 @@ class GlobalFields {
                                                 'name' => 'uncategorized'
                                             ],
                                             'fields'           => [
-                                                'tab_title' => $this->uncategorized_tab_title,
-                                                'tab_description' => $this->uncategorized_tab_desc,
+                                                'tab_title' => Helper::tab_info_title('uncategorized', 'Uncategorized'),
+                                                'tab_description' => Helper::tab_info_desc('uncategorized', 'Uncategorized cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
                                                 'tab_info_modal' => [
                                                     'name'   => 'tab_info_modal',
                                                     'type'   => 'modal',
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __('Edit', 'notificationx'),
+                                                        'text' => __(' ', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
                                                     ],
                                                     'confirm_button' => [
                                                         'type'   => 'button',
@@ -1465,8 +1414,8 @@ class GlobalFields {
                                                     'body'   => [
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
-                                                            'tab_title' => $this->uncategorized_tab_title,
-                                                            'tab_description' => $this->uncategorized_tab_desc,
+                                                            'tab_title' => Helper::tab_info_title('uncategorized', 'Uncategorized'),
+                                                            'tab_description' => Helper::tab_info_desc('uncategorized', 'Uncategorized cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
                                                         ],
                                                     ],
                                                 ],

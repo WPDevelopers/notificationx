@@ -4,7 +4,7 @@ import { FormBuilder, useBuilderContext } from 'quickbuilder';
 import { Content, PublishWidget, Sidebar, Instructions } from '../../components';
 import { permissionAlert, proAlert } from '../../core/functions';
 import { ToastAlert } from '../../core/ToasterMsg';
-import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon, FunctionalIcon, NecessaryIcon, AnalyticsIcon, PerformanceIcon, UncategorizedIcon, ManagerIcon } from '../../icons'
+import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon, FunctionalIcon, NecessaryIcon, AnalyticsIcon, PerformanceIcon, UncategorizedIcon, ManagerIcon, EditIcon } from '../../icons'
 
 const CreateNx = ({ setIsLoading, title, setTitle }) => {
     const builderContext = useBuilderContext();
@@ -22,6 +22,7 @@ const CreateNx = ({ setIsLoading, title, setTitle }) => {
         iconLists['analytics'] = <AnalyticsIcon />
         iconLists['performance'] = <PerformanceIcon />
         iconLists['uncategorized'] = <UncategorizedIcon />
+        iconLists['edit_modal'] = <EditIcon />
         builderContext.registerIcons('tabs', iconLists);
 
         builderContext.registerAlert('pro_alert', proAlert);
