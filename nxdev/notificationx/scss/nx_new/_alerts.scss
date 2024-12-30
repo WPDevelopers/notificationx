@@ -237,6 +237,27 @@
         color: #535D77;
         text-align: left;
         margin-bottom: 24px;
+        .nx-gdpr-cookies-delete-modal {
+            svg {
+                background: #FEE4E2;
+                padding: 8px;
+                border-radius: 6px;
+                margin-bottom: 16px;
+            }
+            h2 {
+                color: #092161;
+                font-size: 16px;
+                line-height: 21px;
+                margin: 0;
+                margin-bottom: 12px;
+            }
+            p {
+                font-size: 14px;
+                line-height: 19px;
+                color: #535D77;
+                margin: 0;
+            }
+        }
     }
     .swal2-styled.swal2-deny {
         border-radius: 8px;
