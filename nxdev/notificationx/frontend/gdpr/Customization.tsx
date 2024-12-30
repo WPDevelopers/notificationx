@@ -3,7 +3,7 @@ import CookiesAccordion from './utils/CookiesAccordion'
 import NXBranding from '../themes/helpers/NXBranding'
 import { __ } from '@wordpress/i18n'
 
-const Customization = ({ settings, onEnableCookiesItem, onHandleAccept, onHandleReject }) => {
+const Customization = ({ settings, onEnableCookiesItem, onHandleAccept, onSaveConsent }) => {
     
   return (
     <Fragment>
@@ -16,8 +16,8 @@ const Customization = ({ settings, onEnableCookiesItem, onHandleAccept, onHandle
         </div>
         <div className="wprf-modal-preview-footer">
             <div className="nx_gdpr-action-button">
-                <button onClick={onHandleAccept}>{ __("Accept All", "notificationx") }</button>
-                <button onClick={onHandleReject}>{ __("Reject All", "notificationx") }</button>
+                <button onClick={ onHandleAccept }>{ __("Accept All", "notificationx") }</button>
+                <button onClick={ onSaveConsent }>{ __("Customize", "notificationx") }</button>
             </div>
             <div className="wprf-modal-preview-copyright">
                 <NXBranding/>
