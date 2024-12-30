@@ -7,7 +7,7 @@ import CloseIcon from '../../../icons/Close';
 import { loadScripts, setDynamicCookie } from './helper';
 import nxHelper from '../../../core/functions';
 
-const GdprActions = ({ settings, onConsentGiven }) => {
+const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
     const [isOpenCustomizationModal, setIsOpenGdprCustomizationModal] = useState(false);
     const [enabledItem, setEnabledItem] = useState([]);
     const COOKIE_EXPIRY_DAYS = settings?.gdpr_consent_expiry;
@@ -37,7 +37,7 @@ const GdprActions = ({ settings, onConsentGiven }) => {
         };
     }
 
-    const handleCookieAccept = () => {
+    const handleCookieAccept = () => {        
         const newConsent = {
             necessary    : true,
             functional   : true,
@@ -60,6 +60,8 @@ const GdprActions = ({ settings, onConsentGiven }) => {
             // Reloads the current page
             location.reload();
         }
+        setIsVisible(false);
+        setIsOpenGdprCustomizationModal(false);
     };
     
     const handleCookieReject = () => {
@@ -80,6 +82,8 @@ const GdprActions = ({ settings, onConsentGiven }) => {
         }, 500);
         // Notify parent to hide popup
         onConsentGiven();
+        setIsVisible(false);
+        setIsOpenGdprCustomizationModal(false);
     };
 
     const delete_cookies = async () => {
@@ -90,7 +94,7 @@ const GdprActions = ({ settings, onConsentGiven }) => {
 
     const handleCustomizedConsent = (customConsent) => {    
         // Save consent for each type
-        Object.entries(customConsent).forEach(([type, value]) => {
+        Object.entries(enabledItem).forEach(([type, value]) => {
             setDynamicCookie(type, value, COOKIE_EXPIRY_DAYS);
         });
     
@@ -98,8 +102,14 @@ const GdprActions = ({ settings, onConsentGiven }) => {
         loadScripts(settings?.necessary_cookie_lists);
         loadScripts(settings?.functional_cookie_lists);
         if (customConsent.analytics) loadScripts(settings?.analytics_cookie_lists);
-        if (customConsent.performance) loadScripts(performance_cookie_lists);
+        if (customConsent.performance) loadScripts(settings?.performance_cookie_lists);
         if (customConsent.uncategorized) loadScripts(settings?.uncategorized_cookie_lists);
+        if( settings?.gdpr_force_reload ) {
+            // Reloads the current page
+            location.reload();
+        }
+        setIsOpenGdprCustomizationModal(false);
+        setIsVisible(false);
     };
     
     return (
@@ -143,9 +153,8 @@ const GdprActions = ({ settings, onConsentGiven }) => {
                     <Customization
                         settings={settings}
                         onEnableCookiesItem={setEnabledItem}
-                        onSaveConsent={handleCustomizedConsent}
                         onHandleAccept={handleCookieAccept}
-                        onHandleReject={handleCookieReject}
+                        onSaveConsent={handleCustomizedConsent}
                     />
                     <button
                         type="button"

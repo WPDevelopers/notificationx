@@ -1058,13 +1058,13 @@
                         }
                     }
 
-                    input[type=checkbox]:checked + label::before {
+                    input[type=checkbox]:checked + span::before {
                         content: 'Light';
                         padding-left: 12px;
                         background: transparent;
                         border: 1px solid transparent;
                     }
-                    input[type=checkbox]:checked + label::after {
+                    input[type=checkbox]:checked + span::after {
                         content: 'Dark';
                         left: 49px;
                         background: #6A4BFF;
@@ -2802,6 +2802,7 @@
                     display: flex;
                     gap: 8px;
                     margin-top: 8px;
+                    cursor: pointer;
                     span {
                         font-size: 12px;
                         line-height: 16px;

@@ -64,9 +64,11 @@ const AccordionItem = ({
 const CookiesAccordion = ({ settings, onEnableCookiesItem }) => {
   const [collapsedItems, setCollapsedItems] = useState([]);
   const [enabledItems, setEnabledItems] = useState({
-    necessary: true, // Necessary cookies are always enabled
-    functional: true,
-    analytics: false,
+    necessary    : true,
+    functional   : true,
+    analytics    : false,
+    performance  : false,
+    uncategorized: false,
   });
 
   const toggleItem = (itemKey) => {
