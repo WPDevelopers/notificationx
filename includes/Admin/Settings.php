@@ -115,6 +115,7 @@ class Settings extends UsabilityDynamicsSettings {
             'tabnumber'     => true,
             'layout'        => 'horizontal',
             'is_pro_active' => NotificationX::get_instance()->is_pro(),
+            'has_gdpr_permission' => current_user_can('edit_notificationx_gdpr'),
             'cus_imp_limit' => Settings::get_instance()->get('settings.custom_notification_import_limit', 100),
             'is_wpml_active'=> Helper::is_wpml_setup(),
             'config'        => [

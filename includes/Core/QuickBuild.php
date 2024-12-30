@@ -113,6 +113,7 @@ class QuickBuild {
             'redirect'      => !current_user_can( 'edit_notificationx' ),
             'title'         => __('NotificationX', 'notificationx'),
             'is_pro_active' => NotificationX::get_instance()->is_pro(),
+            'has_gdpr_permission' => current_user_can('edit_notificationx_gdpr'),
             'config'        => [
                 'active'  => "source_tab",
                 'completionTrack' => true,

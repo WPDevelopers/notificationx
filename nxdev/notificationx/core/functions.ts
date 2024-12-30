@@ -17,12 +17,17 @@ class NotificationXHelpers {
     getPath = (path) => {
         return `${this.namespace}/${this.version}/${path}`;
     };
-    post = (endpoint, data = {}, args = {}) => {
+    post = (endpoint, data = {}, args:any = {}) => {
         let path = this.getPath(endpoint);
         args = { path, method: "POST", data, ...args };
         return apiFetch(args)
             .then((res) => res)
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                if( args?.get_error ) {
+                    return err;
+                }
+            });
     };
     delete = (endpoint, data = {}, args = {}) => {
         let path = this.getPath(endpoint);

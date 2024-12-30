@@ -129,6 +129,7 @@ class GlobalFields {
             'version'        => defined('NOTIFICATIONX_VERSION') ? NOTIFICATIONX_VERSION : null,
             'pro_version'    => defined('NOTIFICATIONX_PRO_VERSION') ? NOTIFICATIONX_PRO_VERSION : null,
             'is_pro_active'  => NotificationX::get_instance()->is_pro(),
+            'has_gdpr_permission' => current_user_can('edit_notificationx_gdpr'),
             'cus_imp_limit'  => Settings::get_instance()->get('settings.custom_notification_import_limit', 100),
             'is_pro_sources' => apply_filters('nx_is_pro_sources', []),
             'config'         => [
