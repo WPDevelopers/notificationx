@@ -412,7 +412,7 @@
                                 font-size: 12px;
                                 font-weight: 500;
                                 line-height: 16px;
-                                color: #7C8DB5;
+                                color: #45C9B1;
 
                                 .nx_gdpr-toggle {
                                     input {
@@ -482,6 +482,11 @@
                             padding: 12px 16px;
                             background: #F7F8FC;
                             border-radius: 8px;
+
+                            span {
+                                font-size: 12px;
+                            }
+                            
                             .nx_gdpr-cookies-list-wrapper-item {
                                 display: flex;
                                 flex-direction: column;
@@ -1427,6 +1432,12 @@
                                         &:hover {
                                             border-color: #F0F6FF;
                                         }
+                                    }
+                                }
+                                .wprf-code-viewer {
+                                    textarea {
+                                        background: #F0F3F7;
+                                        border: 1px solid #E9EBF0;
                                     }
                                 }
                             }
