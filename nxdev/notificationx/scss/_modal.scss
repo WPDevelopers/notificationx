@@ -482,6 +482,8 @@
                             padding: 12px 16px;
                             background: #F7F8FC;
                             border-radius: 8px;
+                            display: flex;
+                            flex-direction: column;
 
                             span {
                                 font-size: 12px;
