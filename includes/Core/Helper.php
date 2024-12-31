@@ -742,6 +742,7 @@ class Helper {
             'name'    => "{$name}_tab_title",
             'default' => sprintf( __('%s', 'notificationx'), $title_default),
             'label'   => __('Name', 'notificationx'),
+            'disabled' => true,
         ];
     }
 
@@ -753,6 +754,7 @@ class Helper {
             'name'    => "{$name}_tab_desc",
             'default' => sprintf( __('%s', 'notificationx'), $desc_default),
             'label'   => __('Description', 'notificationx'),
+            'disabled' => true,
         ];
     }
 

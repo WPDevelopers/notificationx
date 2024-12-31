@@ -276,6 +276,7 @@ class GDPR extends Types {
                     'name'  => "cookie_visibility_delay_before",
                     'type'  => "text",
                     'default' => 5,
+                    'description' => __("Seconds", "notificationx"),
                     'help'  => __("Initial Delay", "notificationx"),
                 ],
             ]
