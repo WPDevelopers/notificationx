@@ -1058,13 +1058,13 @@
                         }
                     }
 
-                    input[type=checkbox]:checked + span::before {
+                    &.wprf-checked label::before {
                         content: 'Light';
                         padding-left: 12px;
                         background: transparent;
                         border: 1px solid transparent;
                     }
-                    input[type=checkbox]:checked + span::after {
+                    &.wprf-checked label::after {
                         content: 'Dark';
                         left: 49px;
                         background: #6A4BFF;
