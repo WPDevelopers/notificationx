@@ -311,6 +311,35 @@ class GDPR extends Types {
                     'name'  => "preference_google",
                     'type'  => "toggle",
                     'default' => false,
+                    'info' => __("If you use services offered by Google, such as AdSense, Firebase, and Analytics on your website, the Digital Markets Act (DMA) requires you to display Google's Privacy Policy on the second layer of your banner.", 'notificationx'),
+                ],
+                [
+                    'label' => __("Message", 'notificationx'),
+                    'name'  => "preference_google_message",
+                    'type'  => "textarea",
+                    'placeholder' => __("We value your privacy", 'notificationx'),
+                    'rules' => Rules::logicalRule([
+                        Rules::is('preference_google', true),
+                    ]),
+                ],
+                [
+                    'label' => __("Link text", 'notificationx'),
+                    'name'  => "preference_google_Link_text",
+                    'type'  => "text",
+                    'placeholder' => __("We value your privacy", 'notificationx'),
+                    'rules' => Rules::logicalRule([
+                        Rules::is('preference_google', true),
+                    ]),
+                ],
+                [
+                    'label' => __("URL", 'notificationx'),
+                    'name'  => "preference_google_Link_url",
+                    'type'  => "text",
+                    'placeholder' => __("We value your privacy", 'notificationx'),
+                    'default' => 'https://business.safety.google/privacy',
+                    'rules' => Rules::logicalRule([
+                        Rules::is('preference_google', true),
+                    ]),
                 ],
                 [
                     'label' => __("Save My Preferences Button", 'notificationx'),
@@ -433,7 +462,15 @@ class GDPR extends Types {
             'name'     => 'gdpr_custom_logo',
             'type'     => 'media',
             'priority' => 109, 
-            'is_pro'   => true,      
+            'is_pro'   => true, 
+            'rules' => Rules::logicalRule([
+                Rules::is('themes', 'gdpr_theme-banner-light-one', true),
+                Rules::is('themes', 'gdpr_theme-light-one', true),
+                Rules::is('themes', 'gdpr_theme-light-two', true),
+                Rules::is('themes', 'gdpr_theme-banner-dark-one', true),
+                Rules::is('themes', 'gdpr_theme-dark-one', true),
+                Rules::is('themes', 'gdpr_theme-dark-two', true),
+            ]),     
         ];
         return $fields;
     }

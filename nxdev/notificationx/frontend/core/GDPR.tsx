@@ -12,10 +12,7 @@ const GDPR = ({ position, gdpr, dispatch }) => {
     const target = usePortal(`nx-gdpr-${position}`, position == 'bottom_left', true);
     const { config: settings, data: content } = gdpr; 
     const [isVisible, setIsVisible] = useState(false);
-    const closeBtnStyle: any = {
-        color: settings?.close_btn_color,
-        fontSize: settings?.close_btn_size,
-    };   
+       
     
     const handleGDPRBanner = () => {
         const areCookiesSet = document.cookie.split(';').some(cookie => cookie.trim().startsWith(`nx_cookie_manager=`));
@@ -103,9 +100,7 @@ const GDPR = ({ position, gdpr, dispatch }) => {
                    <GdprFooter settings={settings} />
 
                     {/* Close Icon */}
-                    <button style={closeBtnStyle} type="button" className="nx-gdpr-close" aria-label="Close">
-                        <CloseIcon/>
-                    </button>
+                    
                 </div>
             </div>
         </div>
