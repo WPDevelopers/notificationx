@@ -12,7 +12,7 @@ const BetterRepeaterValueShow = (props) => {
     const builderContext = useBuilderContext();
     const [action, setAction] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(props.isCollapsed);
-    const { fields, onChange, index, parent, visible_fields, setIsOpen } = props;    
+    const { fields, onChange, index, parent, visible_fields, setIsOpen, isDefault } = props;    
     // @ts-ignore 
     const fieldsArray = Object.values(fields).filter(field => visible_fields.includes(field?.name));
 
@@ -51,7 +51,7 @@ const BetterRepeaterValueShow = (props) => {
         if( isModalOpen ) {
             setIsOpen(isModalOpen)
         }
-    }, [isModalOpen])    
+    }, [isModalOpen]); 
 
     return (
         <div className="wprf-repeater-field">
@@ -64,26 +64,28 @@ const BetterRepeaterValueShow = (props) => {
                         <p>{ builderContext.values?.[parent]?.[index]?.[field?.name] }</p>
                     </div>
                 })}
-                <div className="nx-action-toggle-wrapper">
-                    <a
-                        className="nx-admin-three-dots"
-                        onClick={ () => setAction(!action) }
-                    >   
-                        <img src={threeDots} alt={'three-dots'} />
-                    </a>
-                    { action && 
-                        <div className="nx-cookies-list-action">
-                            {/*  || item?.elementor_id */}
-                            <ul id="nx-admin-actions-ul">
-                                <li onClick={() => setIsModalOpen(!isModalOpen)}> 
-                                    <EditIconNew/> { __('Edit Cookies','notificationx') }
-                                </li>
-                                {/* @ts-ignore  */}
-                                <li onClick={(event) => onDelete(event)}>  <TrashIcon/> { __('Delete Cookies', 'notificationx') } </li>
-                            </ul>
-                        </div>  
-                    }
-                </div>
+                {!isDefault && (
+                    <div className="nx-action-toggle-wrapper">
+                        <a
+                            className="nx-admin-three-dots"
+                            onClick={ () => setAction(!action) }
+                        >   
+                            <img src={threeDots} alt={'three-dots'} />
+                        </a>
+                        { action && 
+                            <div className="nx-cookies-list-action">
+                                {/*  || item?.elementor_id */}
+                                <ul id="nx-admin-actions-ul">
+                                    <li onClick={() => setIsModalOpen(!isModalOpen)}> 
+                                        <EditIconNew/> { __('Edit Cookies','notificationx') }
+                                    </li>
+                                    {/* @ts-ignore  */}
+                                    <li onClick={(event) => onDelete(event)}>  <TrashIcon/> { __('Delete Cookies', 'notificationx') } </li>
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                )}
             </div>
             
         </div>

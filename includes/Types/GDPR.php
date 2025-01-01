@@ -433,7 +433,15 @@ class GDPR extends Types {
             'name'     => 'gdpr_custom_logo',
             'type'     => 'media',
             'priority' => 109, 
-            'is_pro'   => true,      
+            'is_pro'   => true, 
+            'rules' => Rules::logicalRule([
+                Rules::is('themes', 'gdpr_theme-banner-light-one', true),
+                Rules::is('themes', 'gdpr_theme-light-one', true),
+                Rules::is('themes', 'gdpr_theme-light-two', true),
+                Rules::is('themes', 'gdpr_theme-banner-dark-one', true),
+                Rules::is('themes', 'gdpr_theme-dark-one', true),
+                Rules::is('themes', 'gdpr_theme-dark-two', true),
+            ]),     
         ];
         return $fields;
     }

@@ -8,12 +8,19 @@ import { loadScripts, setDynamicCookie } from './helper';
 import nxHelper from '../../../core/functions';
 
 const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
+    const themesWithCloseBtn = ['gdpr_theme-light-one', 'gdpr_theme-light-three', 'gdpr_theme-dark-one', 'gdpr_theme-dark-three', 'gdpr_theme-banner-light-two', 'gdpr_theme-banner-dark-two'];
+    const isCloseBtnVisible = themesWithCloseBtn.includes(settings?.theme);
     const [isOpenCustomizationModal, setIsOpenGdprCustomizationModal] = useState(false);
     const [enabledItem, setEnabledItem] = useState([]);
     const COOKIE_EXPIRY_DAYS = settings?.gdpr_consent_expiry;
     let acceptBtnStyles = {};
     let customizeBtnStyles = {};
     let rejectBtnStyles = {};
+    let closeBtnStyle = {
+        color: settings?.close_btn_color,
+        fontSize: settings?.close_btn_size,
+    };
+    
     if ( settings?.advance_edit ) {
         acceptBtnStyles = {
             backgroundColor: settings?.gdpr_accept_btn_bg_color,
@@ -133,16 +140,18 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
                         {settings?.gdpr_customize_btn}
                     </button>
                 </div>
-                <div className="button-single">
-                    <button
-                        type="button"
-                        className="btn btn-danger"
-                        onClick={handleCookieReject}
-                        style={rejectBtnStyles}
-                    >
-                        {settings?.gdpr_reject_btn}
-                    </button>
-                </div>
+                {!isCloseBtnVisible &&
+                    <div className="button-single">
+                        <button
+                            type="button"
+                            className="btn btn-danger"
+                            onClick={handleCookieReject}
+                            style={rejectBtnStyles}
+                        >
+                            {settings?.gdpr_reject_btn}
+                        </button>
+                    </div>
+                }
                 <ReactModal
                     isOpen={isOpenCustomizationModal}
                     onRequestClose={() => setIsOpenGdprCustomizationModal(false)}
@@ -166,6 +175,11 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
                     </button>
                 </ReactModal>
             </div>
+            {isCloseBtnVisible &&
+                <button style={closeBtnStyle} type="button" className="nx-gdpr-close" aria-label="Close" onClick={() => handleCookieReject()}>
+                    <CloseIcon/>
+                </button>
+            }
         </Fragment>
         
     );

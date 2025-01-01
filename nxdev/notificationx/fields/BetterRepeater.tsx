@@ -97,6 +97,7 @@ const BetterRepeater = (props) => {
                     {
                         localMemoizedValue.map((value, index) => {
                             return <BetterRepeaterValueShow
+                                isDefault={value?.default ? true : false}
                                 isCollapsed={value?.isCollapsed}
                                 key={value?.index || index}
                                 fields={_fields}
