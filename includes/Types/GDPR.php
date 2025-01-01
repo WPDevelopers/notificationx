@@ -311,6 +311,35 @@ class GDPR extends Types {
                     'name'  => "preference_google",
                     'type'  => "toggle",
                     'default' => false,
+                    'info' => __("If you use services offered by Google, such as AdSense, Firebase, and Analytics on your website, the Digital Markets Act (DMA) requires you to display Google's Privacy Policy on the second layer of your banner.", 'notificationx'),
+                ],
+                [
+                    'label' => __("Message", 'notificationx'),
+                    'name'  => "preference_google_message",
+                    'type'  => "textarea",
+                    'placeholder' => __("We value your privacy", 'notificationx'),
+                    'rules' => Rules::logicalRule([
+                        Rules::is('preference_google', true),
+                    ]),
+                ],
+                [
+                    'label' => __("Link text", 'notificationx'),
+                    'name'  => "preference_google_Link_text",
+                    'type'  => "text",
+                    'placeholder' => __("We value your privacy", 'notificationx'),
+                    'rules' => Rules::logicalRule([
+                        Rules::is('preference_google', true),
+                    ]),
+                ],
+                [
+                    'label' => __("URL", 'notificationx'),
+                    'name'  => "preference_google_Link_url",
+                    'type'  => "text",
+                    'placeholder' => __("We value your privacy", 'notificationx'),
+                    'default' => 'https://business.safety.google/privacy',
+                    'rules' => Rules::logicalRule([
+                        Rules::is('preference_google', true),
+                    ]),
                 ],
                 [
                     'label' => __("Save My Preferences Button", 'notificationx'),
