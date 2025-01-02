@@ -357,6 +357,7 @@
             background: #FFFFFF !important;
             max-width: 620px !important;
             border-radius: 16px !important;
+            
             .nx-gdpr-modal-header {
                 background: transparent;
 
@@ -373,6 +374,28 @@
                     line-height: 22px;
                     color: #535D77;
                     margin: 0;
+                    margin-bottom: 12px;
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+                button {
+                    font-size: 14px;
+                    background: transparent;
+                    border: none;
+                    color: #6A4BFF;
+                    padding: 0;
+
+                    &.show-more-btn {
+                        margin-left: 4px;
+                    }
+                    &.show-less-btn {
+                        margin-bottom: 12px;
+                    }
+                }
+                a {
+                    color: #6A4BFF;
+                    text-decoration: underline;
                 }
             }
             .wprf-gdpr-modal-frontend-content {
@@ -393,12 +416,12 @@
                             align-items: center;
                             gap: 16px;
                             justify-content: space-between;
-                            cursor: pointer;
                             padding-bottom: 10px;
                             .nx_gdpr-cookies-list-header-title {
                                 display: flex;
                                 align-items: center;
                                 gap: 10px;
+                                cursor: pointer;
                                 h3 {
                                     margin: 0;
                                     padding: 0;
@@ -540,7 +563,6 @@
                         line-height: 16px;
                         font-weight: 500;
                         border-radius: 8px;
-                        transition: 0.3s ease-in-out;
                         &:nth-child(1) {
                             color: #ffffff;
                             background: #6A4BFF;
