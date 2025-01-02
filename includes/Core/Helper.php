@@ -735,18 +735,18 @@ class Helper {
         echo json_encode($cookies_removed);
     }
     
-    public static function tab_info_title($name, $title_default) 
+    public static function tab_info_title($name, $title_default, $modal = false) 
     {
         return [
             'type'    => 'text',
             'name'    => "{$name}_tab_title",
             'default' => sprintf( __('%s', 'notificationx'), $title_default),
             'label'   => __('Name', 'notificationx'),
-            'disabled' => true,
+            'disabled' => !$modal,
         ];
     }
 
-    public static function tab_info_desc($name, $desc_default) 
+    public static function tab_info_desc($name, $desc_default, $modal = false) 
     {
         return [
             'type'    => 'textarea',
@@ -754,7 +754,7 @@ class Helper {
             'name'    => "{$name}_tab_desc",
             'default' => sprintf( __('%s', 'notificationx'), $desc_default),
             'label'   => __('Description', 'notificationx'),
-            'disabled' => true,
+            'disabled' => !$modal,
         ];
     }
 
