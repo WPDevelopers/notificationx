@@ -35,7 +35,7 @@ class GDPR_Notification extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
-        $this->title = __('GDPR Notification', 'notificationx');
+        $this->title = __('GDPR', 'notificationx');
         parent::__construct();
         add_filter('nx_design_tab_fields', [$this, 'design_fields'], 99);
         add_filter('nx_content_fields', array($this, 'content_fields'), 999);

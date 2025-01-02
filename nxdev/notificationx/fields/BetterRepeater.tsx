@@ -200,7 +200,7 @@ const BetterRepeater = (props) => {
                         }
                     </div>
                     <div className="wprf-modal-preview-footer">
-                        <button className='wpsp-btn wpsp-btn-preview-update' onClick={() => setIsOpen(false)}>{__('Update', 'notificationx')}</button>
+                        <button className='wpsp-btn wpsp-btn-preview-update' onClick={() => setIsOpen(false)}> { activeEditItem ? __( 'Update','notificationx' ) : __( 'Save','notificationx' ) }</button>
                     </div>
                 </>
             </ReactModal>

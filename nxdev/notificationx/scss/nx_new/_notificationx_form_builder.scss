@@ -1040,6 +1040,20 @@
                     border: 1px solid #6A4BFF;
                     border-radius: 20px;
                     position: relative;
+                    &::before {
+                        content: "";
+                        position:absolute;
+                        z-index: 999999;
+                        width: 50%;
+                        height: 100%;
+                        border-radius: 10px;
+                        left: 0;
+                    }
+                    &.wprf-checked::before {
+                        right: 0;
+                        left: unset;
+                        background-color: transparent;
+                    }
                     span {
                         position: absolute;
                         top: 50%;
@@ -2802,7 +2816,6 @@
                     display: flex;
                     gap: 8px;
                     margin-top: 8px;
-                    cursor: pointer;
                     span {
                         font-size: 12px;
                         line-height: 16px;
@@ -2811,7 +2824,7 @@
                         border: 1px solid #E1E5EB;
                         padding: 4px 8px;
                         border-radius: 3px;
-                        cursor: default;
+                        cursor: pointer;
                     }
                 }
             }
