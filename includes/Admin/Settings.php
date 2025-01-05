@@ -279,7 +279,7 @@ class Settings extends UsabilityDynamicsSettings {
                                 'gdpr_notification_role'         => array(
                                     'name'     => 'gdpr_notification_role',
                                     'type'     => 'select',
-                                    'label'    => __( 'Who Can Create GDPR Notification?', 'notificationx' ),
+                                    'label'    => __( 'Who Can Create Cookie Notice?', 'notificationx' ),
                                     'priority' => 5,
                                     'multiple' => true,
                                     'is_pro'   => true,

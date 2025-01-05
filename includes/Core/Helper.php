@@ -650,9 +650,9 @@ class Helper {
                 'priority' => 15,
                 'default'  => 'head',
                 'options'  => GlobalFields::get_instance()->normalize_fields([
-                    'head'   => __('Head Section', 'notificationx'),
-                    'body'   => __('Body Section', 'notificationx'),
-                    'footer' => __('Footer Section', 'notificationx'),
+                    'head'   => __('Head', 'notificationx'),
+                    'body'   => __('Body', 'notificationx'),
+                    'footer' => __('Footer', 'notificationx'),
                 ]),
             ),
             'script_url_pattern' => array(
@@ -742,7 +742,6 @@ class Helper {
             'name'    => "{$name}_tab_title",
             'default' => sprintf( __('%s', 'notificationx'), $title_default),
             'label'   => __('Name', 'notificationx'),
-            'disabled' => !$modal,
         ];
     }
 
@@ -754,7 +753,6 @@ class Helper {
             'name'    => "{$name}_tab_desc",
             'default' => sprintf( __('%s', 'notificationx'), $desc_default),
             'label'   => __('Description', 'notificationx'),
-            'disabled' => !$modal,
         ];
     }
 

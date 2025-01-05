@@ -40,7 +40,7 @@ class GDPR extends Types {
      */
     public function __construct() {
         $this->id    = 'gdpr';
-        $this->title = __('GDPR Notification', 'notificationx');
+        $this->title = __('Cookie Notice', 'notificationx');
         parent::__construct();
         if ( ! current_user_can( 'edit_notificationx_gdpr' ) ) {
             $this->permission_popup = [

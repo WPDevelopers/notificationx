@@ -1045,11 +1045,11 @@ class GlobalFields {
                                                 'name' => 'necessary'
                                             ],
                                             'fields'           => [
-                                                'tab_title' => Helper::tab_info_title('necessary', 'Necessary'),
-                                                'tab_description' => Helper::tab_info_desc('necessary', 'Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
                                                 'necessary_tab_info_modal' => [
-                                                    'name'   => 'necessary_tab_info_modal',
-                                                    'type'   => 'modal',
+                                                    'name'      => 'necessary_tab_info_modal',
+                                                    'type'      => 'modal',
+                                                    'show_body' => true,
+                                                    'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
                                                         'text' => __(' ', 'notificationx'),
@@ -1059,31 +1059,18 @@ class GlobalFields {
                                                         ],
                                                     ],
                                                     'confirm_button' => [
-                                                        'type'   => 'button',
-                                                        'text'  => 'Save',
-                                                        'name'   => 'necessary_close_tab_info_modal',
-                                                        "default" => false,
-                                                        'trigger' => [
-                                                            [
-                                                                'type'   => 'setContext',
-                                                                'action' => [
-                                                                    'config.active' => 'manager_tab'
-                                                                ]
-                                                            ],
-                                                            [
-                                                                'type'   => 'setFieldValue',
-                                                                'action' => [
-                                                                    'necessary_close_tab_info_modal' => true
-                                                                ]
-                                                            ],
-                                                        ],
+                                                        'type'         => 'button',
+                                                        'text'         => 'Save',
+                                                        'name'         => 'necessary_close_tab_info_modal',
+                                                        "default"      => false,
+                                                        'close_action' => true,
                                                     ],
                                                     'cancel' => "necessary_close_tab_info_modal",
                                                     'body'   => [
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
-                                                            'tab_title' => Helper::tab_info_title('necessary', 'Necessary', true),
-                                                            'tab_description' => Helper::tab_info_desc('necessary', 'Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', true),
+                                                            'tab_title'       => Helper::tab_info_title('necessary', 'Necessary'),
+                                                            'tab_description' => Helper::tab_info_desc('necessary', 'Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
                                                         ],
                                                     ],
                                                 ],
@@ -1112,11 +1099,11 @@ class GlobalFields {
                                                 'name' => 'functional'
                                             ],
                                             'fields'           => [
-                                                'tab_title' => Helper::tab_info_title('functional', 'Functional'),
-                                                'tab_description' => Helper::tab_info_desc('functional', 'Functional cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
                                                 'functional_tab_info_modal' => [
-                                                    'name'   => 'functional_tab_info_modal',
-                                                    'type'   => 'modal',
+                                                    'name'          => 'functional_tab_info_modal',
+                                                    'type'          => 'modal',
+                                                    'show_body'     => true,
+                                                    'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
                                                         'text' => __(' ', 'notificationx'),
@@ -1126,24 +1113,11 @@ class GlobalFields {
                                                         ],
                                                     ],
                                                     'confirm_button' => [
-                                                        'type'   => 'button',
-                                                        'text'  => 'Save',
-                                                        'name'   => 'functional_close_tab_info_modal',
-                                                        "default" => false,
-                                                        'trigger' => [
-                                                            [
-                                                                'type'   => 'setContext',
-                                                                'action' => [
-                                                                    'config.active' => 'manager_tab'
-                                                                ]
-                                                            ],
-                                                            [
-                                                                'type'   => 'setFieldValue',
-                                                                'action' => [
-                                                                    'functional_close_tab_info_modal' => true
-                                                                ]
-                                                            ],
-                                                        ],
+                                                        'type'         => 'button',
+                                                        'text'         => 'Save',
+                                                        'name'         => 'functional_close_tab_info_modal',
+                                                        "default"      => false,
+                                                        'close_action' => true,
                                                     ],
                                                     'cancel' => "functional_close_tab_info_modal",
                                                     'body'   => [
@@ -1178,11 +1152,11 @@ class GlobalFields {
                                                 'name' => 'analytics'
                                             ],
                                             'fields'           => [
-                                                'tab_title' => Helper::tab_info_title('analytics', 'Analytics'),
-                                                'tab_description' => Helper::tab_info_desc('analytics', 'Analytics cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
                                                 'analytics_tab_info_modal' => [
-                                                    'name'   => 'analytics_tab_info_modal',
-                                                    'type'   => 'modal',
+                                                    'name'          => 'analytics_tab_info_modal',
+                                                    'type'          => 'modal',
+                                                    'show_body'     => true,
+                                                    'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
                                                         'text' => __(' ', 'notificationx'),
@@ -1192,24 +1166,11 @@ class GlobalFields {
                                                         ],
                                                     ],
                                                     'confirm_button' => [
-                                                        'type'   => 'button',
-                                                        'text'  => 'Save',
-                                                        'name'   => 'analytics_close_tab_info_modal',
-                                                        "default" => false,
-                                                        'trigger' => [
-                                                            [
-                                                                'type'   => 'setContext',
-                                                                'action' => [
-                                                                    'config.active' => 'manager_tab'
-                                                                ]
-                                                            ],
-                                                            [
-                                                                'type'   => 'setFieldValue',
-                                                                'action' => [
-                                                                    'analytics_close_tab_info_modal' => true
-                                                                ]
-                                                            ],
-                                                        ],
+                                                        'type'         => 'button',
+                                                        'text'         => 'Save',
+                                                        'name'         => 'analytics_close_tab_info_modal',
+                                                        "default"      => false,
+                                                        'close_action' => true,
                                                     ],
                                                     'cancel' => "analytics_close_tab_info_modal",
                                                     'body'   => [
@@ -1244,11 +1205,11 @@ class GlobalFields {
                                                 'name' => 'performance'
                                             ],
                                             'fields'           => [
-                                                'tab_title' => Helper::tab_info_title('performance', 'Performance'),
-                                                'tab_description' => Helper::tab_info_desc('performance', 'Performance cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
                                                 'performance_tab_info_modal' => [
-                                                    'name'   => 'performance_tab_info_modal',
-                                                    'type'   => 'modal',
+                                                    'name'          => 'performance_tab_info_modal',
+                                                    'type'          => 'modal',
+                                                    'show_body'     => true,
+                                                    'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
                                                         'text' => __(' ', 'notificationx'),
@@ -1258,24 +1219,11 @@ class GlobalFields {
                                                         ],
                                                     ],
                                                     'confirm_button' => [
-                                                        'type'   => 'button',
-                                                        'text'  => 'Save',
-                                                        'name'   => 'performance_close_tab_info_modal',
-                                                        "default" => false,
-                                                        'trigger' => [
-                                                            [
-                                                                'type'   => 'setContext',
-                                                                'action' => [
-                                                                    'config.active' => 'manager_tab'
-                                                                ]
-                                                            ],
-                                                            [
-                                                                'type'   => 'setFieldValue',
-                                                                'action' => [
-                                                                    'performance_close_tab_info_modal' => true
-                                                                ]
-                                                            ],
-                                                        ],
+                                                        'type'         => 'button',
+                                                        'text'         => 'Save',
+                                                        'name'         => 'performance_close_tab_info_modal',
+                                                        "default"      => false,
+                                                        'close_action' => true,
                                                     ],
                                                     'cancel' => "performance_close_tab_info_modal",
                                                     'body'   => [
@@ -1310,11 +1258,11 @@ class GlobalFields {
                                                 'name' => 'uncategorized'
                                             ],
                                             'fields'           => [
-                                                'tab_title' => Helper::tab_info_title('uncategorized', 'Uncategorized'),
-                                                'tab_description' => Helper::tab_info_desc('uncategorized', 'Uncategorized cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
                                                 'uncategorized_tab_info_modal' => [
-                                                    'name'   => 'uncategorized_tab_info_modal',
-                                                    'type'   => 'modal',
+                                                    'name'          => 'uncategorized_tab_info_modal',
+                                                    'type'          => 'modal',
+                                                    'show_body'     => true,
+                                                    'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
                                                         'text' => __(' ', 'notificationx'),
@@ -1324,26 +1272,13 @@ class GlobalFields {
                                                         ],
                                                     ],
                                                     'confirm_button' => [
-                                                        'type'   => 'button',
-                                                        'text'  => 'Save',
-                                                        'name'   => 'close_tab_info_modal',
-                                                        "default" => false,
-                                                        'trigger' => [
-                                                            [
-                                                                'type'   => 'setContext',
-                                                                'action' => [
-                                                                    'config.active' => 'manager_tab'
-                                                                ]
-                                                            ],
-                                                            [
-                                                                'type'   => 'setFieldValue',
-                                                                'action' => [
-                                                                    'close_tab_info_modal' => true
-                                                                ]
-                                                            ],
-                                                        ],
+                                                        'type'         => 'button',
+                                                        'text'         => 'Save',
+                                                        'name'         => 'uncategorized_close_tab_info',
+                                                        "default"      => false,
+                                                        'close_action' => true,
                                                     ],
-                                                    'cancel' => "close_tab_info_modal",
+                                                    'cancel' => "uncategorized_close_tab_info",
                                                     'body'   => [
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
