@@ -1082,8 +1082,8 @@ class GlobalFields {
                                                     'body'   => [
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
-                                                            'tab_title' => Helper::tab_info_title('necessary', 'Necessary'),
-                                                            'tab_description' => Helper::tab_info_desc('necessary', 'Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                            'tab_title' => Helper::tab_info_title('necessary', 'Necessary', true),
+                                                            'tab_description' => Helper::tab_info_desc('necessary', 'Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', true),
                                                         ],
                                                     ],
                                                 ],
@@ -1149,8 +1149,8 @@ class GlobalFields {
                                                     'body'   => [
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
-                                                            'tab_title' => Helper::tab_info_title('functional', 'Functional'),
-                                                            'tab_description' => Helper::tab_info_desc('functional', 'Functional cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                            'tab_title' => Helper::tab_info_title('functional', 'Functional', true),
+                                                            'tab_description' => Helper::tab_info_desc('functional', 'Functional cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', true),
                                                         ],
                                                     ],
                                                 ],
@@ -1215,8 +1215,8 @@ class GlobalFields {
                                                     'body'   => [
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
-                                                            'tab_title' => Helper::tab_info_title('analytics', 'Analytics'),
-                                                            'tab_description' => Helper::tab_info_desc('analytics', 'Analytics cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                            'tab_title' => Helper::tab_info_title('analytics', 'Analytics', true),
+                                                            'tab_description' => Helper::tab_info_desc('analytics', 'Analytics cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', true),
                                                         ],
                                                     ],
                                                 ],
@@ -1281,8 +1281,8 @@ class GlobalFields {
                                                     'body'   => [
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
-                                                            'tab_title' => Helper::tab_info_title('performance', 'Performance'),
-                                                            'tab_description' => Helper::tab_info_desc('performance', 'Performance cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                            'tab_title' => Helper::tab_info_title('performance', 'Performance', true),
+                                                            'tab_description' => Helper::tab_info_desc('performance', 'Performance cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', true),
                                                         ],
                                                     ],
                                                 ],
@@ -1347,8 +1347,8 @@ class GlobalFields {
                                                     'body'   => [
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
-                                                            'tab_title' => Helper::tab_info_title('uncategorized', 'Uncategorized'),
-                                                            'tab_description' => Helper::tab_info_desc('uncategorized', 'Uncategorized cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                            'tab_title' => Helper::tab_info_title('uncategorized', 'Uncategorized', true),
+                                                            'tab_description' => Helper::tab_info_desc('uncategorized', 'Uncategorized cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.', true),
                                                         ],
                                                     ],
                                                 ],
