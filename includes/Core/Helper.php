@@ -644,13 +644,13 @@ class Helper {
                 'priority' => 10,
             ), 
             'load_inside' => array(
-                'label'    => __('Load On', 'notificationx'),
+                'label'    => __('Add Script on', 'notificationx'),
                 'name'     => 'product_control',
                 'type'     => 'select',
                 'priority' => 15,
                 'default'  => 'head',
                 'options'  => GlobalFields::get_instance()->normalize_fields([
-                    'head'   => __('Head', 'notificationx'),
+                    'head'   => __('Header', 'notificationx'),
                     'body'   => __('Body', 'notificationx'),
                     'footer' => __('Footer', 'notificationx'),
                 ]),
@@ -735,7 +735,7 @@ class Helper {
         echo json_encode($cookies_removed);
     }
     
-    public static function tab_info_title($name, $title_default) 
+    public static function tab_info_title($name, $title_default, $modal = false) 
     {
         return [
             'type'    => 'text',
@@ -745,7 +745,7 @@ class Helper {
         ];
     }
 
-    public static function tab_info_desc($name, $desc_default) 
+    public static function tab_info_desc($name, $desc_default, $modal = false) 
     {
         return [
             'type'    => 'textarea',

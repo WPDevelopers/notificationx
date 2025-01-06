@@ -164,6 +164,7 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
                         onEnableCookiesItem={setEnabledItem}
                         onHandleAccept={handleCookieAccept}
                         onSaveConsent={handleCustomizedConsent}
+                        onrejectConsent={handleCookieReject}
                     />
                     <button
                         type="button"

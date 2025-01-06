@@ -272,7 +272,7 @@ class GDPR extends Types {
                     ]
                 ],
                 [
-                    'label' => __("Delay Before First Notification", 'notificationx'),
+                    'label' => __("Delay Before Appearance", 'notificationx'),
                     'name'  => "cookie_visibility_delay_before",
                     'type'  => "text",
                     'default' => 5,
@@ -298,13 +298,15 @@ class GDPR extends Types {
                     'label' => __("Title", 'notificationx'),
                     'name'  => "preference_title",
                     'type'  => "text",
-                    'placeholder' => __("We value your privacy", 'notificationx'),
+                    'placeholder' => __("Title", 'notificationx'),
+                    'default' => __("Customized Cookie Preferences", 'notificationx'),
                 ],
                 [
                     'label' => __("Privacy Overview", 'notificationx'),
                     'name'  => "preference_overview",
                     'type'  => "textarea",
-                    'placeholder' => __("We value your privacy", 'notificationx'),
+                    'placeholder' => __("Privacy Overview", 'notificationx'),
+                    'default' => __("We use cookies and similar technologies to enhance your experience and analyze site usage. Manage your preferences to control which data is collected.", 'notificationx'),
                 ],
                 [
                     'label' => __("Show Google Privacy Policy", 'notificationx'),
@@ -317,7 +319,8 @@ class GDPR extends Types {
                     'label' => __("Message", 'notificationx'),
                     'name'  => "preference_google_message",
                     'type'  => "textarea",
-                    'placeholder' => __("We value your privacy", 'notificationx'),
+                    'placeholder' => __("Message", 'notificationx'),
+                    'default' => __("To learn more about how Google's third-party cookies function and manage your data, read from here.", 'notificationx'),
                     'rules' => Rules::logicalRule([
                         Rules::is('preference_google', true),
                     ]),
@@ -326,7 +329,8 @@ class GDPR extends Types {
                     'label' => __("Link text", 'notificationx'),
                     'name'  => "preference_google_Link_text",
                     'type'  => "text",
-                    'placeholder' => __("We value your privacy", 'notificationx'),
+                    'default' => __("Google Privacy Policy", 'notificationx'),
+                    'placeholder' => __("Google Privacy Policy", 'notificationx'),
                     'rules' => Rules::logicalRule([
                         Rules::is('preference_google', true),
                     ]),
@@ -335,7 +339,7 @@ class GDPR extends Types {
                     'label' => __("URL", 'notificationx'),
                     'name'  => "preference_google_Link_url",
                     'type'  => "text",
-                    'placeholder' => __("We value your privacy", 'notificationx'),
+                    'placeholder' => __("Google Privacy Policy URL", 'notificationx'),
                     'default' => 'https://business.safety.google/privacy',
                     'rules' => Rules::logicalRule([
                         Rules::is('preference_google', true),
@@ -345,19 +349,22 @@ class GDPR extends Types {
                     'label' => __("Save My Preferences Button", 'notificationx'),
                     'name'  => "preference_btn",
                     'type'  => "text",
-                    'placeholder' => __("Save My Preferences", 'notificationx'),
+                    'default' => __("Save My Preferences", 'notificationx'),
+                    'placeholder' => __("Button text", 'notificationx'),
                 ],
                 [
-                    'label' => __("See More Button", 'notificationx'),
+                    'label' => __("See more Button", 'notificationx'),
                     'name'  => "preference_more_btn",
                     'type'  => "text",
-                    'placeholder' => __("See More", 'notificationx'),
+                    'default' => __("See more", 'notificationx'),
+                    'placeholder' => __("Button text", 'notificationx'),
                 ],
                 [
-                    'label' => __("See Less Button", 'notificationx'),
+                    'label' => __("See less Button", 'notificationx'),
                     'name'  => "preference_less_btn",
                     'type'  => "text",
-                    'placeholder' => __("See Less", 'notificationx'),
+                    'default' => __("See less", 'notificationx'),
+                    'placeholder' => __("Button text", 'notificationx'),
                 ],
             ]
         ];
@@ -376,16 +383,18 @@ class GDPR extends Types {
                     'default' => true,
                 ],
                 [
-                    'label' => __("Always Active Label", 'notificationx'),
+                    'label' => __("Enabled Label", 'notificationx'),
                     'name'  => "cookie_list_active_label",
                     'type'  => "text",
-                    'placeholder' => __("Always Active", 'notificationx'),
+                    'default' => __("Enabled", 'notificationx'),
+                    'placeholder' => __("Label text", 'notificationx'),
                 ],
                 [
-                    'label' => __("No Cookies to Display Label", 'notificationx'),
+                    'label' => __("No Cookies Available Label", 'notificationx'),
                     'name'  => "cookie_list_no_cookies_label",
                     'type'  => "text",
-                    'placeholder' => __("No Cookies to Display", 'notificationx'),
+                    'placeholder' => __("Label text", 'notificationx'),
+                    'default' => __("No Cookies Available", 'notificationx'),
                 ],
             ]
         ];
@@ -401,19 +410,22 @@ class GDPR extends Types {
             'type'     => 'text',
             'priority' => 101,
             'default' => __('We value your privacy', 'notificationx'),       
+            'placeholder' => __('Cookie Notice Title', 'notificationx'),       
         ];
         $_fields['gdpr_message'] = [
             'label'    => __('Message', 'notificationx'),
             'name'     => 'gdpr_message',
             'type'     => 'textarea',
             'priority' => 102,
-            'default' => __('We value your privacy', 'notificationx'),       
+            'default' => __('We use cookies to improve your experience. By continuing to use our site, you agree to our use of cookies and data collection. You can learn more in our Privacy Policy and change your preferences anytime.', 'notificationx'),   
+            'placeholder' => __('Message', 'notificationx'),    
         ];
         $_fields['gdpr_accept_btn'] = [
             'label'    => __('Accept All Button', 'notificationx'),
             'name'     => 'gdpr_accept_btn',
             'type'     => 'text',
             'priority' => 103,
+            'placeholder' => __('Button Text', 'notificationx'),
             'default' => __('Accept All', 'notificationx'),       
         ];
         $_fields['gdpr_reject_btn'] = [
@@ -421,6 +433,7 @@ class GDPR extends Types {
             'name'     => 'gdpr_reject_btn',
             'type'     => 'text',
             'priority' => 104,
+            'placeholder' => __('Button Text', 'notificationx'),
             'default' => __('Reject All', 'notificationx'),       
         ];
         $_fields['gdpr_customize_btn'] = [
@@ -428,6 +441,7 @@ class GDPR extends Types {
             'name'     => 'gdpr_customize_btn',
             'type'     => 'text',
             'priority' => 105,
+            'placeholder' => __('Button Text', 'notificationx'),
             'default' => __('Customize', 'notificationx'),       
         ];
         $_fields['gdpr_cookies_policy_toggle'] = [
@@ -443,6 +457,7 @@ class GDPR extends Types {
             'type'     => 'text',
             'priority' => 107,
             'placeholder' => __('Link Text', 'notificationx'),
+            'default' => __('Cookies Policy', 'notificationx'),
             'rules' => Rules::logicalRule([
                 Rules::is('gdpr_cookies_policy_toggle', true),
             ]),      

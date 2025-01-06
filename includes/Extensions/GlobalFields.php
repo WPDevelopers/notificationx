@@ -976,7 +976,7 @@ class GlobalFields {
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
                                     ]),
-                                    'info'    => __('Choose if you’d like the page to reload when user accepts cookies. if you choose not to, your analytical software will not count the current page visit as the cookies will be loaded during the next page load only', 'notificationx'),
+                                    'info'    => __('Choose whether the page should reload after the user accepts cookies. If not, your analytics software won’t register the current page visit, as cookies will only be loaded during the next page load', 'notificationx'),
                                 ],
                                 'gdpr_cookie_removal' => [
                                     'label'   => __("Cookie Removal", 'notificationx'),
@@ -987,7 +987,7 @@ class GlobalFields {
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
                                     ]),
-                                    'info'    => __('Recommended default method is Static. Switch to dynamic for advanced cookie removal method if needed (uses more server performance)', 'notificationx'),
+                                    'info'    => __('The default setting is Static. Use dynamic for a more advanced cookie removal method, which requires extra server performance', 'notificationx'),
                                 ],
                                 'gdpr_consent_expiry' => [
                                     'label'   => __("Consent Expiry", 'notificationx'),
@@ -1017,7 +1017,7 @@ class GlobalFields {
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
                                     ]),
-                                    'info'    => __('Enter 0 if you want the consent to expire at the end of the current browsing session', 'notificationx'),
+                                    'info'    => __('By default, consent expires after 30 days. If needed, you can adjust this number to your preference', 'notificationx'),
                                 ],
                             ]
                         ],
@@ -1070,7 +1070,7 @@ class GlobalFields {
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
                                                             'tab_title'       => Helper::tab_info_title('necessary', 'Necessary'),
-                                                            'tab_description' => Helper::tab_info_desc('necessary', 'Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                            'tab_description' => Helper::tab_info_desc('necessary', 'Necessary cookies are needed to ensure the basic functions of this site, like allowing secure log-ins and managing your consent settings. These cookies do not collect any personal information.'),
                                                         ],
                                                     ],
                                                 ],
@@ -1124,7 +1124,7 @@ class GlobalFields {
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
                                                             'tab_title' => Helper::tab_info_title('functional', 'Functional'),
-                                                            'tab_description' => Helper::tab_info_desc('functional', 'Functional cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                            'tab_description' => Helper::tab_info_desc('functional', 'Functional cookies assist in performing tasks like sharing website content on social media, collecting feedback, and enabling other third-party features.'),
                                                         ],
                                                     ],
                                                 ],
@@ -1177,7 +1177,7 @@ class GlobalFields {
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
                                                             'tab_title' => Helper::tab_info_title('analytics', 'Analytics'),
-                                                            'tab_description' => Helper::tab_info_desc('analytics', 'Analytics cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                            'tab_description' => Helper::tab_info_desc('analytics', 'Analytical cookies help us understand how visitors use the website. They provide data on metrics like the number of visitors, bounce rate, traffic sources etc.'),
                                                         ],
                                                     ],
                                                 ],
@@ -1230,7 +1230,7 @@ class GlobalFields {
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
                                                             'tab_title' => Helper::tab_info_title('performance', 'Performance'),
-                                                            'tab_description' => Helper::tab_info_desc('performance', 'Performance cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                            'tab_description' => Helper::tab_info_desc('performance', "Performance cookies help analyze the website's key performance indicators, which in turn helps improve the user experience for visitors."),
                                                         ],
                                                     ],
                                                 ],
@@ -1283,7 +1283,7 @@ class GlobalFields {
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
                                                             'tab_title' => Helper::tab_info_title('uncategorized', 'Uncategorized'),
-                                                            'tab_description' => Helper::tab_info_desc('uncategorized', 'Uncategorized cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.'),
+                                                            'tab_description' => Helper::tab_info_desc('uncategorized', "Uncategorized cookies are those that don't fall into any specific category but may still be used for various purposes on the site. These cookies help us improve user experience by tracking interactions that don't fit into other cookie types."),
                                                         ],
                                                     ],
                                                 ],

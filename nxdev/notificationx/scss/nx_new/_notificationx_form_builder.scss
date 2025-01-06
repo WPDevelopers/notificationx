@@ -207,6 +207,9 @@
 
 .wprf-control-wrapper {
     align-items: flex-start;
+    &.wprf-name-preference_google {
+        align-items: center;
+    }
 
     @media only screen and (max-width: 700px) {
         flex-direction: column;
@@ -899,6 +902,9 @@
                     text-decoration: underline;
                     color: #6a4bff;
                 }
+            }
+            .wprf-description {
+                margin-left: 8px;
             }
 
             .wprf-group-control {
