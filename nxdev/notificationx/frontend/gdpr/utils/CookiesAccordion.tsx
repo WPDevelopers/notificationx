@@ -55,7 +55,7 @@ const AccordionItem = ({
             </div>
           </div>
         ))}
-        { !cookiesList ? (<span>{ settings?.cookie_list_no_cookies_label }</span>) : '' }
+        { cookiesList?.length < 1 ? (<span>{ settings?.cookie_list_no_cookies_label }</span>) : '' }
       </div>
     )}
   </div>

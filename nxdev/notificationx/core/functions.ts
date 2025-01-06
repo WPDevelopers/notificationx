@@ -148,9 +148,13 @@ class NotificationXHelpers {
         ...args
     }) => {
         Swal.fire(args).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                confirmedCallback()
+                const callbackResult = confirmedCallback();
+                const promise = callbackResult instanceof Promise
+                    ? callbackResult
+                    : Promise.resolve(callbackResult);
+        
+                promise
                     .then((res) => {
                         if (res?.success) {
                             const result = completeAction(res);
@@ -161,6 +165,7 @@ class NotificationXHelpers {
                     .catch((err) => console.error("Delete Error: ", err));
             }
         });
+        
     };
 }
 
