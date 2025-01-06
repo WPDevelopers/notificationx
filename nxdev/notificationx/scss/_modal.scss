@@ -355,11 +355,13 @@
 
         &.nx-gdpr-customization {
             background: #FFFFFF !important;
-            max-width: 620px !important;
-            border-radius: 16px !important;
+            max-width: 750px !important;
+            border-radius: 8px !important;
+            max-height: 80vh !important;
             
             .nx-gdpr-modal-header {
                 background: transparent;
+                // padding: 0;
 
                 h3 {
                     font-size: 20px;
@@ -368,6 +370,11 @@
                     color: #092161;
                     margin: 0;
                     padding-bottom: 18px;
+                    // padding: 24px;
+                    // border-bottom: 1px solid #EAECFA;
+                    // position: sticky;
+                    // top: 0;
+
                 }
                 p {
                     font-size: 14px;
@@ -551,6 +558,17 @@
                 background: transparent;
                 border-radius: 0 0 16px 16px;
                 padding: 0;
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: -20px;
+                    left: 0;
+                    right: 0;
+                    height: 30px;
+                    background: linear-gradient(180deg, rgb(255 255 255 / 40%) 0%, #ffffff 85%);
+                }
+
                 .nx_gdpr-action-button {
                     display: flex;
                     gap: 12px;
