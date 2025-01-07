@@ -90,7 +90,7 @@ const GDPR = ({ position, gdpr, dispatch }) => {
                     <div className="nx-gdpr-card-body">
                         <p className="nx-gdpr-description">
                             {settings?.gdpr_message}
-                            { settings?.gdpr_cookies_policy_toggle &&
+                            { settings?.gdpr_cookies_policy_toggle && settings?.gdpr_cookies_policy_link_url &&
                                 <a href={settings?.gdpr_cookies_policy_link_url} target='_blank' className="nx-gdpr-link">{ settings?.gdpr_cookies_policy_link_text }</a>
                             }
                         </p>

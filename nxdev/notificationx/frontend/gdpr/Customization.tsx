@@ -13,7 +13,9 @@ const Customization = ({ settings, onEnableCookiesItem, onHandleAccept, onSaveCo
   return (
     <Fragment>
         <div className="wprf-modal-table-wrapper nx-gdpr-modal-header">
-            {settings?.preference_title && <h3>{settings?.preference_title}</h3> }
+            <div className='wprf-modal-title'>
+                {settings?.preference_title && <h3>{settings?.preference_title}</h3>}
+            </div>
             {settings?.preference_overview && settings?.preference_overview?.length > 300 ? (
                 <>
                     <p>
