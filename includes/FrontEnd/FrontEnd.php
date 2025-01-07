@@ -78,6 +78,33 @@ class FrontEnd {
         wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), [], NOTIFICATIONX_VERSION, true);
         wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], NOTIFICATIONX_VERSION, 'all');
         // wp_register_style('notificationx-icon-pack', Helper::file('public/icon/style.css', true), [], NOTIFICATIONX_VERSION, 'all');
+        // Localize scripts for frontend
+        wp_localize_script(
+            'notificationx-public',
+            'notificationxPublic',
+            array(
+                'necessary_tab_info'   => [
+                    'title' => __('Necessary', 'notificationx'),
+                    'desc' => __('Necessary cookies are needed to ensure the basic functions of this site, like allowing secure log-ins and managing your consent settings. These cookies do not collect any personal information.', 'notificationx'),
+                ],
+                'functional_tab_info'   => [
+                    'title' => __('Functional', 'notificationx'),
+                    'desc' => __('Functional cookies assist in performing tasks like sharing website content on social media, collecting feedback, and enabling other third-party features.', 'notificationx'),
+                ],
+                'analytics_tab_info'   => [
+                    'title' => __('Analytics', 'notificationx'),
+                    'desc' => __('Analytical cookies help us understand how visitors use the website. They provide data on metrics like the number of visitors, bounce rate, traffic sources etc.', 'notificationx'),
+                ],
+                'performance_tab_info'   => [
+                    'title' => __('Performance', 'notificationx'),
+                    'desc' => __("Performance cookies help analyze the website's key performance indicators, which in turn helps improve the user experience for visitors.", 'notificationx'),
+                ],
+                'uncategorized_tab_info'   => [
+                    'title' => __('Uncategorized', 'notificationx'),
+                    'desc' => __("Uncategorized cookies are those that don't fall into any specific category but may still be used for various purposes on the site. These cookies help us improve user experience by tracking interactions that don't fit into other cookie types.", 'notificationx'),
+                ],
+            )
+        );
 
         $exit = false;
         if(isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], 'wp-admin/widgets.php') !== false){
