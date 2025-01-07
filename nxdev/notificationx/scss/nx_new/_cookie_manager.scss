@@ -210,7 +210,17 @@
                         h3 {
                             font-size: 16px !important;
                             color: #092161;
+                            padding-left: 36px;
                             margin: 0 !important;
+                            position: relative;
+
+                            &:after {
+                                content: url("data:image/svg+xml;base64,CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSI+CjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8yNDM4Xzc5NTQpIj4KPHBhdGggZD0iTTcgN0g2QzUuNDY5NTcgNyA0Ljk2MDg2IDcuMjEwNzEgNC41ODU3OSA3LjU4NTc5QzQuMjEwNzEgNy45NjA4NiA0IDguNDY5NTcgNCA5VjE4QzQgMTguNTMwNCA0LjIxMDcxIDE5LjAzOTEgNC41ODU3OSAxOS40MTQyQzQuOTYwODYgMTkuNzg5MyA1LjQ2OTU3IDIwIDYgMjBIMTVDMTUuNTMwNCAyMCAxNi4wMzkxIDE5Ljc4OTMgMTYuNDE0MiAxOS40MTQyQzE2Ljc4OTMgMTkuMDM5MSAxNyAxOC41MzA0IDE3IDE4VjE3IiBzdHJva2U9IiMwOTIxNjEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik0yMC4zODUgNi41ODUxMUMyMC43Nzg4IDYuMTkxMjYgMjEuMDAwMSA1LjY1NzA5IDIxLjAwMDEgNS4xMDAxMUMyMS4wMDAxIDQuNTQzMTIgMjAuNzc4OCA0LjAwODk1IDIwLjM4NSAzLjYxNTExQzE5Ljk5MTIgMy4yMjEyNiAxOS40NTcgMyAxOC45IDNDMTguMzQzIDMgMTcuODA4OCAzLjIyMTI2IDE3LjQxNSAzLjYxNTExTDkgMTIuMDAwMVYxNS4wMDAxSDEyTDIwLjM4NSA2LjU4NTExWiIgc3Ryb2tlPSIjMDkyMTYxIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8cGF0aCBkPSJNMTYgNUwxOSA4IiBzdHJva2U9IiMwOTIxNjEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfMjQzOF83OTU0Ij4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=");
+                                position: absolute;
+                                left: 0;
+                                top: 50%;
+                                transform: translateY(-50%);
+                            }
                         }
                         h2 {
                             margin-bottom: 24px !important;
