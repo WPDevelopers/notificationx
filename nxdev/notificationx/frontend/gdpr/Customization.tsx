@@ -13,32 +13,32 @@ const Customization = ({ settings, onEnableCookiesItem, onHandleAccept, onSaveCo
   return (
     <Fragment>
         <div className="wprf-modal-table-wrapper nx-gdpr-modal-header">
-            <div className='wprf-modal-title'>
-                {settings?.preference_title && <h3>{settings?.preference_title}</h3>}
-            </div>
-            {settings?.preference_overview && settings?.preference_overview?.length > 300 ? (
-                <>
-                    <p>
-                        {isExpanded ? settings?.preference_overview : `${settings?.preference_overview.substring(0, 200)}...`}
-                        {!isExpanded && (
-                            <button onClick={toggleText} className="show-more-btn">
-                                {showMoreText}
-                            </button>
-                        )}
-                    </p>
-                    {isExpanded && (
-                        <button onClick={toggleText} className="show-less-btn">
-                            {showLessText}
-                        </button>
-                    )}
-                </>
-            ) : (
-                <p>{settings?.preference_overview}</p>
-            )}
-
-            {settings?.preference_google && settings?.preference_google_message && <p className='preference_google_message'>{`${settings?.preference_google_message} `}{settings?.preference_google_Link_text && settings?.preference_google_Link_url && <a href={settings?.preference_google_Link_url} target='_blank'>{`${settings?.preference_google_Link_text}`}</a>}</p> }
+            {settings?.preference_title && <h3>{settings?.preference_title}</h3>}
         </div>
         <div className="wprf-modal-table-wrapper wprf-gdpr-modal-frontend-content">
+            <div className="wprf-modal-table-content-top">
+                {settings?.preference_overview && settings?.preference_overview?.length > 300 ? (
+                    <>
+                        <p>
+                            {isExpanded ? settings?.preference_overview : `${settings?.preference_overview.substring(0, 200)}...`}
+                            {!isExpanded && (
+                                <button onClick={toggleText} className="show-more-btn">
+                                    {showMoreText}
+                                </button>
+                            )}
+                        </p>
+                        {isExpanded && (
+                            <button onClick={toggleText} className="show-less-btn">
+                                {showLessText}
+                            </button>
+                        )}
+                    </>
+                ) : (
+                    <p>{settings?.preference_overview}</p>
+                )}
+
+                {settings?.preference_google && settings?.preference_google_message && <p className='preference_google_message'>{`${settings?.preference_google_message} `}{settings?.preference_google_Link_text && settings?.preference_google_Link_url && <a href={settings?.preference_google_Link_url} target='_blank'>{`${settings?.preference_google_Link_text}`}</a>}</p> }
+            </div>
             <CookiesAccordion settings={settings} onEnableCookiesItem={onEnableCookiesItem} />
         </div>
         <div className="wprf-modal-preview-footer">

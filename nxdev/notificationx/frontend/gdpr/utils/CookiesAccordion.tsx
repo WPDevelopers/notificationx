@@ -85,40 +85,41 @@ const CookiesAccordion = ({ settings, onEnableCookiesItem }) => {
     setEnabledItems(updatedEnabledItems);
     onEnableCookiesItem(updatedEnabledItems); // Pass the updated state to the parent component
   };
-
+  // @ts-ignore
+  let notificationxPublicValue = notificationxPublic;
   const accordionItems = [
     {
       key: 'necessary',
-      title: settings?.necessary_tab_title || notificationxPublic?.necessary_tab_info?.title,
-      description: settings?.necessary_tab_desc || notificationxPublic?.necessary_tab_info?.desc,
+      title: settings?.necessary_tab_title || notificationxPublicValue?.necessary_tab_info?.title,
+      description: settings?.necessary_tab_desc || notificationxPublicValue?.necessary_tab_info?.desc,
       isAlwaysActive: true,
       cookiesList: settings?.necessary_cookie_lists,
     },
     {
       key: 'functional',
-      title: settings?.functional_tab_title || notificationxPublic?.functional_tab_info?.title,
-      description: settings?.functional_tab_desc || notificationxPublic?.functional_tab_info?.desc,
+      title: settings?.functional_tab_title || notificationxPublicValue?.functional_tab_info?.title,
+      description: settings?.functional_tab_desc || notificationxPublicValue?.functional_tab_info?.desc,
       isAlwaysActive: false,
       cookiesList: settings?.functional_cookie_lists,
     },
     {
       key: 'analytics',
-      title: settings?.analytics_tab_title || notificationxPublic?.analytics_tab_info?.title,
-      description: settings?.analytics_tab_desc || notificationxPublic?.analytics_tab_info?.desc,
+      title: settings?.analytics_tab_title || notificationxPublicValue?.analytics_tab_info?.title,
+      description: settings?.analytics_tab_desc || notificationxPublicValue?.analytics_tab_info?.desc,
       isAlwaysActive: false,
       cookiesList: settings?.analytics_cookie_lists,
     },
     {
       key: 'performance',
-      title: settings?.performance_tab_title || notificationxPublic?.performance_tab_info?.title,
-      description: settings?.performance_tab_desc || notificationxPublic?.performance_tab_info?.desc,
+      title: settings?.performance_tab_title || notificationxPublicValue?.performance_tab_info?.title,
+      description: settings?.performance_tab_desc || notificationxPublicValue?.performance_tab_info?.desc,
       isAlwaysActive: false,
       cookiesList: settings?.performance_cookie_lists,
     },
     {
       key: 'uncategorized',
-      title: settings?.uncategorized_tab_title || notificationxPublic?.uncategorized_tab_info?.title,
-      description: settings?.uncategorized_tab_desc || notificationxPublic?.uncategorized_tab_info?.desc,
+      title: settings?.uncategorized_tab_title || notificationxPublicValue?.uncategorized_tab_info?.title,
+      description: settings?.uncategorized_tab_desc || notificationxPublicValue?.uncategorized_tab_info?.desc,
       isAlwaysActive: false,
       cookiesList: settings?.uncategorized_cookie_lists,
     },
