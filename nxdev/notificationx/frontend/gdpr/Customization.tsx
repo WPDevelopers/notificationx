@@ -3,7 +3,7 @@ import CookiesAccordion from './utils/CookiesAccordion'
 import NXBranding from '../themes/helpers/NXBranding'
 import { __ } from '@wordpress/i18n'
 
-const Customization = ({ settings, onEnableCookiesItem, onHandleAccept, onSaveConsent }) => {
+const Customization = ({ settings, onEnableCookiesItem, onHandleAccept, onSaveConsent, onHandleReject }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     let showMoreText = settings?.preference_more_btn ? settings?.preference_more_btn : "Show more";
     let showLessText = settings?.preference_less_btn ? settings?.preference_less_btn : "Show ess";
@@ -43,6 +43,7 @@ const Customization = ({ settings, onEnableCookiesItem, onHandleAccept, onSaveCo
             <div className="nx_gdpr-action-button">
                 <button onClick={ onHandleAccept }>{ __("Accept All", "notificationx") }</button>
                 <button onClick={ onSaveConsent }>{ settings?.preference_btn ? settings?.preference_btn : __("Customize", "notificationx") }</button>
+                <button onClick={ onHandleReject }>{ __("Reject All", "notificationx") }</button>
             </div>
             <div className="wprf-modal-preview-copyright">
                 <NXBranding/>

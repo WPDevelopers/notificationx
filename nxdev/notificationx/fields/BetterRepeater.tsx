@@ -132,7 +132,7 @@ const BetterRepeater = (props) => {
                         (item.cookies_id && item.cookies_id.trim() !== "")
                     );
                     if( isArray(updatedData) ) {
-                        setLocalMemoizedValue(updatedData)
+                        // setLocalMemoizedValue(updatedData)
                     }
                 }}
                 ariaHideApp={false}
@@ -154,7 +154,7 @@ const BetterRepeater = (props) => {
                                     (item.cookies_id && item.cookies_id.trim() !== "")
                                 );
                                 if( isArray(updatedData) ) {
-                                    setLocalMemoizedValue(updatedData)
+                                    // setLocalMemoizedValue(updatedData)
                                 }
                                 setActiveEditItem("");
                             }}>

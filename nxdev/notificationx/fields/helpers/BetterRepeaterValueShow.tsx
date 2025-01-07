@@ -11,7 +11,6 @@ import nxHelper from '../../core/functions';
 const BetterRepeaterValueShow = (props) => {
     const builderContext = useBuilderContext();
     const [action, setAction] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(props.isCollapsed);
     const { fields, onChange, index, parent, visible_fields, setIsOpen, isDefault } = props;    
     // @ts-ignore 
     const fieldsArray = Object.values(fields).filter(field => visible_fields.includes(field?.name));
@@ -47,12 +46,6 @@ const BetterRepeaterValueShow = (props) => {
         });
     }
 
-    useEffect(() => {
-        if( isModalOpen ) {
-            setIsOpen(isModalOpen)
-        }
-    }, [isModalOpen]); 
-
     return (
         <div className="wprf-repeater-field">
             <div className="wprf-repeater-inner-field">
@@ -76,7 +69,10 @@ const BetterRepeaterValueShow = (props) => {
                             <div className="nx-cookies-list-action">
                                 {/*  || item?.elementor_id */}
                                 <ul id="nx-admin-actions-ul">
-                                    <li onClick={() => setIsModalOpen(!isModalOpen)}> 
+                                    <li onClick={() => {
+                                        setIsOpen(true);
+                                        setAction(false);
+                                    }}> 
                                         <EditIconNew/> { __('Edit Cookies','notificationx') }
                                     </li>
                                     {/* @ts-ignore  */}

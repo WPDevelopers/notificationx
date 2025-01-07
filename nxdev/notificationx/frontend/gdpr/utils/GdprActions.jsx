@@ -133,7 +133,13 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
                     </button>
                     <button
                         type="button"
-                        onClick={() => setIsOpenGdprCustomizationModal(!isOpenCustomizationModal)}
+                        onClick={() => {
+                            setIsOpenGdprCustomizationModal(!isOpenCustomizationModal);
+                            const elements = document.getElementsByClassName('nx-gdpr');
+                            for (let i = 0; i < elements.length; i++) {
+                                elements[i].style.display = 'none';
+                            }
+                        }}
                         className="btn btn-secondary"
                         style={customizeBtnStyles}
                     >
@@ -154,7 +160,6 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
                 }
                 <ReactModal
                     isOpen={isOpenCustomizationModal}
-                    onRequestClose={() => setIsOpenGdprCustomizationModal(false)}
                     className={`nx-gdpr-customization`}
                     style={modalStyle}
                     ariaHideApp={false}
@@ -164,10 +169,17 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
                         onEnableCookiesItem={setEnabledItem}
                         onHandleAccept={handleCookieAccept}
                         onSaveConsent={handleCustomizedConsent}
+                        onrejectConsent={handleCookieReject}
                     />
                     <button
                         type="button"
-                        onClick={() => setIsOpenGdprCustomizationModal(false)}
+                        onClick={() => {
+                            setIsOpenGdprCustomizationModal(false)
+                            const elements = document.getElementsByClassName('nx-gdpr');
+                            for (let i = 0; i < elements.length; i++) {
+                                elements[i].style.display = 'block';
+                            }
+                        }}
                         className="nx-gdpr-customization-close"
                         aria-label="Close"
                     >

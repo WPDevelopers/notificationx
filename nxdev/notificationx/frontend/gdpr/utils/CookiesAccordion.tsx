@@ -55,7 +55,7 @@ const AccordionItem = ({
             </div>
           </div>
         ))}
-        { !cookiesList ? (<span>{ settings?.cookie_list_no_cookies_label }</span>) : '' }
+        { cookiesList?.length < 1 ? (<span>{ settings?.cookie_list_no_cookies_label }</span>) : '' }
       </div>
     )}
   </div>
@@ -65,7 +65,7 @@ const CookiesAccordion = ({ settings, onEnableCookiesItem }) => {
   const [collapsedItems, setCollapsedItems] = useState([]);
   const [enabledItems, setEnabledItems] = useState({
     necessary    : true,
-    functional   : true,
+    functional   : false,
     analytics    : false,
     performance  : false,
     uncategorized: false,
@@ -104,7 +104,7 @@ const CookiesAccordion = ({ settings, onEnableCookiesItem }) => {
         'Functional cookies help perform certain functionalities like sharing the content of the website on social media platforms, collecting feedback, and other third-party features.',
         'notificationx'
       ),
-      isAlwaysActive: true,
+      isAlwaysActive: false,
       cookiesList: settings?.functional_cookie_lists,
     },
     {
