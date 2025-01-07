@@ -406,8 +406,7 @@
                 }
             }
             .wprf-gdpr-modal-frontend-content {
-                padding: 20px 24px;
-                padding-bottom: 0px;
+                padding: 20px 24px 30px;
                 background: transparent;
                 box-shadow: 0px 5px 14px 0px #080F340A;
                 .nx_gdpr-cookies-list-main-wrapper {
@@ -502,8 +501,8 @@
                         .nx_gdpr-cookies-list-content {
                             padding-bottom: 10px;
                             p {
-                                font-size: 12px;
-                                line-height: 16px;
+                                font-size: 14px;
+                                line-height: 19px;
                                 color: #7C8DB5;
                                 margin: 0;
                             }
@@ -572,7 +571,7 @@
                 .nx_gdpr-action-button {
                     display: flex;
                     gap: 12px;
-                    padding: 12px 16px;
+                    padding: 20px 16px 12px;
                     background: #FFFFFF;
                     button {
                         cursor: pointer;
@@ -580,16 +579,15 @@
                         font-size: 14px;
                         line-height: 16px;
                         font-weight: 500;
+                        color: #6A4BFF;
+                        background: #FFFFFF;
+                        border: 1px solid #6A4BFF;
                         border-radius: 8px;
+                        flex: auto;
                         &:nth-child(1) {
                             color: #ffffff;
                             background: #6A4BFF;
                             border: 1px solid #6A4BFF;
-                        }
-                        &:nth-child(2) {
-                            color: #092161;
-                            background: #FFFFFF;
-                            border: 1px solid #EFF0F6;
                         }
                     }
                 }
