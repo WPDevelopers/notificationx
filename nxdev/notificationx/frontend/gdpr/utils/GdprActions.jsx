@@ -9,9 +9,16 @@ import nxHelper from '../../../core/functions';
 
 const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
     const themesWithCloseBtn = ['gdpr_theme-light-one', 'gdpr_theme-light-three', 'gdpr_theme-dark-one', 'gdpr_theme-dark-three', 'gdpr_theme-banner-light-two', 'gdpr_theme-banner-dark-two'];
+    const initialSavePreference = {
+        necessary    : true,
+        functional   : false,
+        analytics    : false,
+        performance  : false,
+        uncategorized: false,
+    };
     const isCloseBtnVisible = themesWithCloseBtn.includes(settings?.theme);
     const [isOpenCustomizationModal, setIsOpenGdprCustomizationModal] = useState(false);
-    const [enabledItem, setEnabledItem] = useState([]);
+    const [enabledItem, setEnabledItem] = useState(initialSavePreference);
     const COOKIE_EXPIRY_DAYS = settings?.gdpr_consent_expiry;
     let acceptBtnStyles = {};
     let customizeBtnStyles = {};
@@ -77,7 +84,7 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
         }
         const newConsent = {
             necessary    : true,
-            functional   : true,
+            functional   : false,
             analytics    : false,
             performance  : false,
             uncategorized: false,
@@ -169,7 +176,7 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
                         onEnableCookiesItem={setEnabledItem}
                         onHandleAccept={handleCookieAccept}
                         onSaveConsent={handleCustomizedConsent}
-                        onrejectConsent={handleCookieReject}
+                        onHandleReject={handleCookieReject}
                     />
                     <button
                         type="button"
