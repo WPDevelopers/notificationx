@@ -76,17 +76,24 @@ const NotificationContainer = (props: any) => {
                         );
                     });
                 }
-                if (NoticeList?.[0]?.config?.type == 'gdpr' && (position == 'bottom_right' || position == 'bottom_left' || position == 'center')) {
-                    return NoticeList.map((gdprItem) => {                        
-                        return (
-                            <GDPR
-                                key={`pressbar-${gdprItem?.config?.nx_id}`}
-                                position={position}
-                                gdpr={gdprItem}
-                                dispatch={frontendContext.dispatch} />
-                        );
+                if (
+                    NoticeList?.[0]?.config?.type === 'gdpr' && 
+                    (position === 'bottom_right' || position === 'bottom_left' || position === 'center')
+                ) {
+                    return NoticeList.map((item) => {
+                        const gdprItem = NoticeList.find((item) => item?.config?.type === 'gdpr');
+                        if (gdprItem) {
+                            return (
+                                <GDPR
+                                    key={`pressbar-${gdprItem?.config?.nx_id}`}
+                                    position={position}
+                                    gdpr={gdprItem}
+                                    dispatch={frontendContext.dispatch}
+                                />
+                            );
+                        }
                     });
-                }
+                }                
                 if (position.indexOf('notificationx-shortcode-') === 0) {
                     return (
                         <Shortcode key={`shortcode-${position}`} position={position}>
