@@ -65,6 +65,7 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
         });
 
         // Initialize and load cookies/scripts based on custom consent
+        loadScripts(settings?.functional_cookie_lists);
         loadScripts(settings?.analytics_cookie_lists);
         loadScripts(settings?.performance_cookie_lists);
         loadScripts(settings?.uncategorized_cookie_lists);
@@ -111,13 +112,12 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
         Object.entries(enabledItem).forEach(([type, value]) => {
             setDynamicCookie(type, value, COOKIE_EXPIRY_DAYS);
         });
-    
         // Initialize and load cookies/scripts based on custom consent
         loadScripts(settings?.necessary_cookie_lists);
-        loadScripts(settings?.functional_cookie_lists);
-        if (customConsent.analytics) loadScripts(settings?.analytics_cookie_lists);
-        if (customConsent.performance) loadScripts(settings?.performance_cookie_lists);
-        if (customConsent.uncategorized) loadScripts(settings?.uncategorized_cookie_lists);
+        if (enabledItem.functional) loadScripts(settings?.functional_cookie_lists);
+        if (enabledItem.analytics) loadScripts(settings?.analytics_cookie_lists);
+        if (enabledItem.performance) loadScripts(settings?.performance_cookie_lists);
+        if (enabledItem.uncategorized) loadScripts(settings?.uncategorized_cookie_lists);
         if( settings?.gdpr_force_reload ) {
             // Reloads the current page
             location.reload();
@@ -179,20 +179,6 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
                         onHandleReject={handleCookieReject}
                         setIsOpenGdprCustomizationModal={setIsOpenGdprCustomizationModal}
                     />
-                    {/* <button
-                        type="button"
-                        onClick={() => {
-                            setIsOpenGdprCustomizationModal(false)
-                            const elements = document.getElementsByClassName('nx-gdpr');
-                            for (let i = 0; i < elements.length; i++) {
-                                elements[i].style.display = 'block';
-                            }
-                        }}
-                        className="nx-gdpr-customization-close"
-                        aria-label="Close"
-                    >
-                        <CloseIcon />
-                    </button> */}
                 </ReactModal>
             </div>
             {isCloseBtnVisible &&

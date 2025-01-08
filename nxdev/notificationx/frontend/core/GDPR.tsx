@@ -28,7 +28,7 @@ const GDPR = ({ position, gdpr, dispatch }) => {
      useEffect(() => {
         const consent = {
             necessary: getDynamicCookie('necessary') ?? true,
-            functional: getDynamicCookie('functional') ?? true,
+            functional: getDynamicCookie('functional') ?? false,
             analytics: getDynamicCookie('analytics') ?? false,
             performance: getDynamicCookie('performance') ?? false,
             uncategorized: getDynamicCookie('uncategorized') ?? false,
@@ -98,9 +98,6 @@ const GDPR = ({ position, gdpr, dispatch }) => {
                         <GdprActions settings={settings} onConsentGiven={handleConsentGiven} setIsVisible={setIsVisible} />
                     </div>
                    <GdprFooter settings={settings} />
-
-                    {/* Close Icon */}
-                    
                 </div>
             </div>
         </div>
