@@ -740,8 +740,9 @@ class Helper {
         return [
             'type'    => 'text',
             'name'    => "{$name}_tab_title",
-            'default' => sprintf( __('%s', 'notificationx'), $title_default),
+            'default' => $title_default,
             'label'   => __('Name', 'notificationx'),
+            'autoFocus' => true,
         ];
     }
 
@@ -751,7 +752,7 @@ class Helper {
             'type'    => 'textarea',
             'row'      => 3,
             'name'    => "{$name}_tab_desc",
-            'default' => sprintf( __('%s', 'notificationx'), $desc_default),
+            'default' => $desc_default,
             'label'   => __('Description', 'notificationx'),
         ];
     }

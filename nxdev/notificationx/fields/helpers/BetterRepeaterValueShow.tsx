@@ -50,7 +50,7 @@ const BetterRepeaterValueShow = (props) => {
         <div className="wprf-repeater-field">
             <div className="wprf-repeater-inner-field">
                 {fieldsArray.map((field, fieldIndex) => {
-                    return <div className='wprf-repeater-inner-field-item'>
+                    return <div className='wprf-repeater-inner-field-item' key={'wprf-repeater-inner-field' + fieldIndex}>
                         {/* @ts-ignore  */}
                         <span>{ field?.label }</span>
                         {/* @ts-ignore  */}

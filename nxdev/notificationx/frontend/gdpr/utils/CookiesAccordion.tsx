@@ -85,55 +85,41 @@ const CookiesAccordion = ({ settings, onEnableCookiesItem }) => {
     setEnabledItems(updatedEnabledItems);
     onEnableCookiesItem(updatedEnabledItems); // Pass the updated state to the parent component
   };
-
+  // @ts-ignore
+  let notificationxPublicValue = notificationxPublic;
   const accordionItems = [
     {
       key: 'necessary',
-      title: __('Necessary', 'notificationx'),
-      description: __(
-        'Necessary cookies are required to enable the basic features of this site, such as providing secure log-in or adjusting your consent preferences. These cookies do not store any personally identifiable data.',
-        'notificationx'
-      ),
+      title: settings?.necessary_tab_title || notificationxPublicValue?.necessary_tab_info?.title,
+      description: settings?.necessary_tab_desc || notificationxPublicValue?.necessary_tab_info?.desc,
       isAlwaysActive: true,
       cookiesList: settings?.necessary_cookie_lists,
     },
     {
       key: 'functional',
-      title: __('Functional', 'notificationx'),
-      description: __(
-        'Functional cookies help perform certain functionalities like sharing the content of the website on social media platforms, collecting feedback, and other third-party features.',
-        'notificationx'
-      ),
+      title: settings?.functional_tab_title || notificationxPublicValue?.functional_tab_info?.title,
+      description: settings?.functional_tab_desc || notificationxPublicValue?.functional_tab_info?.desc,
       isAlwaysActive: false,
       cookiesList: settings?.functional_cookie_lists,
     },
     {
       key: 'analytics',
-      title: __('Analytics', 'notificationx'),
-      description: __(
-        'Analytics cookies help analyze website usage to improve user experience.',
-        'notificationx'
-      ),
+      title: settings?.analytics_tab_title || notificationxPublicValue?.analytics_tab_info?.title,
+      description: settings?.analytics_tab_desc || notificationxPublicValue?.analytics_tab_info?.desc,
       isAlwaysActive: false,
       cookiesList: settings?.analytics_cookie_lists,
     },
     {
       key: 'performance',
-      title: __('Performance', 'notificationx'),
-      description: __(
-        'Performance cookies help analyze website usage to improve user experience.',
-        'notificationx'
-      ),
+      title: settings?.performance_tab_title || notificationxPublicValue?.performance_tab_info?.title,
+      description: settings?.performance_tab_desc || notificationxPublicValue?.performance_tab_info?.desc,
       isAlwaysActive: false,
       cookiesList: settings?.performance_cookie_lists,
     },
     {
       key: 'uncategorized',
-      title: __('Uncategorized', 'notificationx'),
-      description: __(
-        'Uncategorized cookies help analyze website usage to improve user experience.',
-        'notificationx'
-      ),
+      title: settings?.uncategorized_tab_title || notificationxPublicValue?.uncategorized_tab_info?.title,
+      description: settings?.uncategorized_tab_desc || notificationxPublicValue?.uncategorized_tab_info?.desc,
       isAlwaysActive: false,
       cookiesList: settings?.uncategorized_cookie_lists,
     },
