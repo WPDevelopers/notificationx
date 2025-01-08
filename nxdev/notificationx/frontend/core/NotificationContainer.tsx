@@ -59,12 +59,10 @@ const NotificationContainer = (props: any) => {
                 </div>
             );
         }
-
     };
-    
     return (
         <>
-            {frontendContext.getNxToRender((position, NoticeList) => {
+            {frontendContext.getNxToRender((position, NoticeList) => {                
                 if (NoticeList?.[0]?.config?.type == 'notification_bar' && (position == 'top' || position == 'bottom')) {
                     return NoticeList.map((nxBar) => {
                         return (
@@ -76,24 +74,23 @@ const NotificationContainer = (props: any) => {
                         );
                     });
                 }
-                if (
-                    NoticeList?.[0]?.config?.type === 'gdpr' && 
-                    (position === 'bottom_right' || position === 'bottom_left' || position === 'center')
-                ) {
-                    return NoticeList.map((item) => {
-                        const gdprItem = NoticeList.find((item) => item?.config?.type === 'gdpr');
-                        if (gdprItem) {
+                {
+                    const findGDPRIndex = NoticeList?.findIndex( (item) => {
+                        return item?.config?.type == 'gdpr';
+                    } )
+                    if (NoticeList?.[findGDPRIndex]?.config?.type == 'gdpr' && (position == 'bottom_right' || position == 'bottom_left' || position == 'center')) {                        
+                        return NoticeList.map((gdprItem) => { 
                             return (
                                 <GDPR
                                     key={`pressbar-${gdprItem?.config?.nx_id}`}
                                     position={position}
                                     gdpr={gdprItem}
-                                    dispatch={frontendContext.dispatch}
-                                />
+                                    dispatch={frontendContext.dispatch} />
                             );
-                        }
-                    });
-                }                
+                        });
+                    }
+                }
+                
                 if (position.indexOf('notificationx-shortcode-') === 0) {
                     return (
                         <Shortcode key={`shortcode-${position}`} position={position}>
