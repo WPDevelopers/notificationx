@@ -742,6 +742,7 @@ class Helper {
             'name'    => "{$name}_tab_title",
             'default' => $title_default,
             'label'   => __('Name', 'notificationx'),
+            'autoFocus' => true,
         ];
     }
 

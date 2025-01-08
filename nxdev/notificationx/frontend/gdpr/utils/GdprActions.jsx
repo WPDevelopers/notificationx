@@ -177,8 +177,9 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
                         onHandleAccept={handleCookieAccept}
                         onSaveConsent={handleCustomizedConsent}
                         onHandleReject={handleCookieReject}
+                        setIsOpenGdprCustomizationModal={setIsOpenGdprCustomizationModal}
                     />
-                    <button
+                    {/* <button
                         type="button"
                         onClick={() => {
                             setIsOpenGdprCustomizationModal(false)
@@ -191,7 +192,7 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
                         aria-label="Close"
                     >
                         <CloseIcon />
-                    </button>
+                    </button> */}
                 </ReactModal>
             </div>
             {isCloseBtnVisible &&

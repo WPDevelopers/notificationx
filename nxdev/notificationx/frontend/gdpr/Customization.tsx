@@ -2,8 +2,9 @@ import React, { Fragment, useState } from 'react'
 import CookiesAccordion from './utils/CookiesAccordion'
 import NXBranding from '../themes/helpers/NXBranding'
 import { __ } from '@wordpress/i18n'
+import CloseIcon from '../../icons/Close';
 
-const Customization = ({ settings, onEnableCookiesItem, onHandleAccept, onSaveConsent, onHandleReject }) => {
+const Customization = ({ settings, onEnableCookiesItem, onHandleAccept, onSaveConsent, onHandleReject, setIsOpenGdprCustomizationModal }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     let showMoreText = settings?.preference_more_btn ? settings?.preference_more_btn : "Show more";
     let showLessText = settings?.preference_less_btn ? settings?.preference_less_btn : "Show ess";
@@ -14,6 +15,21 @@ const Customization = ({ settings, onEnableCookiesItem, onHandleAccept, onSaveCo
     <Fragment>
         <div className="wprf-modal-table-wrapper nx-gdpr-modal-header">
             {settings?.preference_title && <h3>{settings?.preference_title}</h3>}
+            <button
+                type="button"
+                onClick={() => {
+                    setIsOpenGdprCustomizationModal(false)
+                    const elements = document.getElementsByClassName('nx-gdpr');
+                    for (let i = 0; i < elements.length; i++) {
+                        // @ts-ignore
+                        elements[i].style.display = 'block';
+                    }
+                }}
+                className="nx-gdpr-customization-close"
+                aria-label="Close"
+            >
+                <CloseIcon />
+            </button>
         </div>
         <div className="wprf-modal-table-wrapper wprf-gdpr-modal-frontend-content">
             <div className="wprf-modal-table-content-top">
