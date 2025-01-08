@@ -199,6 +199,34 @@
         flex: 1;
     }
 }
+.swal2-modal .swal2-icon.swal2-error.swal2-icon-show {
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    margin-bottom: 20px;
+    background: #FFF1EB;
+    border-radius: 6px;
+    border: none !important;
+    align-items: center;
+    animation: none;
+
+    .swal2-x-mark {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        span {
+            display: unset;
+            position: absolute;
+            top: 50%;
+            left: 11px;
+            width: 18px;
+            height: 2px;
+            border-radius: 1px;
+            background-color: #f27474;
+        }
+    }
+}
 .swal2-popup.swal2-modal.swal2-show {
     max-width: 480px;
     padding: 20px;
