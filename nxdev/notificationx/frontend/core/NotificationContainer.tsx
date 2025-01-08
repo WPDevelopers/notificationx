@@ -15,38 +15,36 @@ const NotificationContainer = (props: any) => {
         handleResize();
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
-    }, []);    
+    }, []);
+
     const renderNotice = (NoticeList, position) => {
-        if (isMobile && frontendContext?.is_pro) {
-            return (
-                <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
-                    {NoticeList.map((notice) => {
-                        if( notice?.config?.is_mobile_responsive && notice?.config?.source !== 'announcements' ) {
+        const isMobileAndPro = isMobile && frontendContext?.is_pro;
+
+        return (
+            <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
+                {NoticeList.map((notice) => {
+                    if (isMobileAndPro && notice?.config?.is_mobile_responsive && notice?.config?.source !== 'announcements') {
+                        return (
+                            <NotificationForMobile
+                                assets={frontendContext.assets}
+                                dispatch={frontendContext.dispatch}
+                                key={notice.id}
+                                {...notice}
+                            />
+                        );
+                    } else {
+                        if (notice?.config?.type == 'gdpr' && (position == 'bottom_right' || position == 'bottom_left' || position == 'center')) {
+                            const gdprItem = notice;
                             return (
-                                <NotificationForMobile
-                                    assets={frontendContext.assets}
-                                    dispatch={frontendContext.dispatch}
-                                    key={notice.id}
-                                    {...notice}
-                                />
+                                <GDPR
+                                    key={`pressbar-${gdprItem?.config?.nx_id}`}
+                                    position={position}
+                                    gdpr={gdprItem}
+                                    dispatch={frontendContext.dispatch} />
                             );
-                        }else{
-                            return (
-                                <Notification
-                                    assets={frontendContext.assets}
-                                    dispatch={frontendContext.dispatch}
-                                    key={notice.id}
-                                    {...notice}
-                                />
-                            );
+
                         }
-                    })}
-                </div>
-            );
-        } else {
-            return (
-                <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
-                    {NoticeList.map((notice) => {
+
                         return (
                             <Notification
                                 assets={frontendContext.assets}
@@ -55,14 +53,15 @@ const NotificationContainer = (props: any) => {
                                 {...notice}
                             />
                         );
-                    })}
-                </div>
-            );
-        }
+                    }
+                })}
+            </div>
+        );
     };
+
     return (
         <>
-            {frontendContext.getNxToRender((position, NoticeList) => {                
+            {frontendContext.getNxToRender((position, NoticeList) => {
                 if (NoticeList?.[0]?.config?.type == 'notification_bar' && (position == 'top' || position == 'bottom')) {
                     return NoticeList.map((nxBar) => {
                         return (
@@ -74,23 +73,7 @@ const NotificationContainer = (props: any) => {
                         );
                     });
                 }
-                {
-                    const findGDPRIndex = NoticeList?.findIndex( (item) => {
-                        return item?.config?.type == 'gdpr';
-                    } )
-                    if (NoticeList?.[findGDPRIndex]?.config?.type == 'gdpr' && (position == 'bottom_right' || position == 'bottom_left' || position == 'center')) {                        
-                        return NoticeList.map((gdprItem) => { 
-                            return (
-                                <GDPR
-                                    key={`pressbar-${gdprItem?.config?.nx_id}`}
-                                    position={position}
-                                    gdpr={gdprItem}
-                                    dispatch={frontendContext.dispatch} />
-                            );
-                        });
-                    }
-                }
-                
+
                 if (position.indexOf('notificationx-shortcode-') === 0) {
                     return (
                         <Shortcode key={`shortcode-${position}`} position={position}>
