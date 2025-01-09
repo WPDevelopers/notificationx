@@ -987,7 +987,7 @@ class GlobalFields {
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
                                     ]),
-                                    'info'    => __('The default setting is Static. Use dynamic for a more advanced cookie removal method, which requires extra server performance', 'notificationx'),
+                                    'info'    => __('When cookies are not accepted, non-essential cookies are removed, ensuring compliance with GDPR requirements.', 'notificationx'),
                                 ],
                                 'gdpr_consent_expiry' => [
                                     'label'   => __("Consent Expiry", 'notificationx'),

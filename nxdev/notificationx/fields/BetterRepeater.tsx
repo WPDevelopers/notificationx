@@ -90,9 +90,7 @@ const BetterRepeater = (props) => {
             setLocalMemoizedValue(updatedData)
         }
     }
-    }, [isOpen])
-
-    console.log('logged');
+    }, [isOpen]);
 
     return (
         <div className="wprf-repeater-control">
