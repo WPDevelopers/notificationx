@@ -41,33 +41,6 @@ const GDPR = (props) => {
     const [notificationSize, setNotificationSize] = useState();
     const [animation, setAnimation] = useState(false);
     const is_pro = frontEndContext?.state?.is_pro ?? false;
-    // const [width, setWidth] = useState(0);
-    // const [intervalID, setIntervalID] = useState(null);
-    // const [exit, setExit] = useState(false);
-    // const incrementValue = 0.5;
-    // const displayFor = ((settings?.display_for || 5) * 1000);
-    // const isMin = displayFor * (incrementValue / 100)
-    
-    // Close notification
-    // useEffect(() => {    
-    //     if( width >= calculateAnimationStartTime( settings?.display_for, settings.animation_notification_hide ) ) { 
-    //         setAnimation(true);
-    //     }
-    //     if (width >= 99.5) {
-    //         handleCloseNotification();
-    //         setTimeout(() => {
-    //             handlePauseTimer();
-    //             props.dispatch({
-    //                 type: "REMOVE_NOTIFICATION",
-    //                 payload: props.id,
-    //             });
-    //             setAnimation(false);
-    //         }, 500 )
-    //     }
-    //     // return () => {
-    //     //     handlePauseTimer();
-    //     // };
-    // }, [width]);
     
     useEffect(() => {
         if (settings?.size) {
@@ -91,51 +64,6 @@ const GDPR = (props) => {
             setIsVisible(true);
         }
     };
-
-    // const audioRef = useRef(null);
-    
-    // useEffect(() => {
-    //     if (audioRef.current && is_pro) {
-    //         audioRef.current.volume = parseInt(settings.volume || 1) / 100;
-    //         audioRef.current.muted = false;
-    //         audioRef.current.play().then(res => {
-    //             // console.log('Playing Audio Sound for NX Notice');
-    //         }).catch(err => console.error("NX SoundError: ", err))
-    //     }
-    //     handleStartTimer();
-    //     return () => {
-    //         handlePauseTimer();
-    //     };
-    // }, []);
-
-    // const handleStartTimer = () => {
-    //     let startTime = Date.now();
-    //     const id = setInterval(() => {
-    //         const dateNow = Date.now();
-    //         const diffTime = dateNow - startTime;
-    //         startTime = dateNow;
-    //         const incrementValue = (100 * diffTime / displayFor);
-
-    //         setWidth((prev) => {
-    //             if (prev < 100) {
-    //                 return prev + incrementValue;
-    //             }
-    //             clearInterval(id);
-    //             return prev;
-    //         });
-    //     }, isMin); // 25 = 5sec is for how much time notice will display
-    //     setIntervalID(id);
-    // };
-
-    // const handlePauseTimer = () => {
-    //     clearInterval(intervalID);
-    // };
-
-    // const handleCloseNotification = () => {
-    //     setExit(true);
-    // };
-    
-
      // Check consent state on mount
      useEffect(() => {
         const consent = {
@@ -158,7 +86,7 @@ const GDPR = (props) => {
     }, []);
 
     const handleConsentGiven = () => {
-        setIsVisible(false); // Hide GDPR popup
+        setAnimation(true);
     };
 
     if (!isVisible) {
@@ -249,9 +177,10 @@ const GDPR = (props) => {
             }else {
                 animate_effect = settings?.animation_notification_show;
             }
-        }else {
+        }else {            
             animate_effect = animation ? settings?.animation_notification_hide : settings?.animation_notification_show
         }
+
         componentClasses = classNames(
             "animate__animated",
             animate_effect,
