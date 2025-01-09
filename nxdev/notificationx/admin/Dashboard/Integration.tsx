@@ -13,6 +13,7 @@ const Integration = ({props, context}) => {
     enabled: 0,
     disabled: 0,
   });
+  const [reload, setReload] = useState();
 
   useEffect(() => {
       const controller = typeof AbortController === 'undefined' ? undefined : new AbortController();
@@ -37,7 +38,9 @@ const Integration = ({props, context}) => {
           }).catch(err => {
               console.error(__('NotificationX Fetch Error: ', 'notificationx'), err);
           });
-  }, []);    
+  }, [reload]);   
+  
+  
   
   return (
     <div className='nx-admin-content-wrapper nx-notifications-wrapper notificationx-items'>
@@ -67,7 +70,7 @@ const Integration = ({props, context}) => {
                     </thead>
                     <tbody>
                       { notificationx.map((item, i) => {
-                        return <SingleNotificationX updateNotice={setNotificationx} totalItems={totalItems} setTotalItems={setTotalItems} i={i} key={`nx-${item.nx_id}`} {...item} />
+                        return <SingleNotificationX updateNotice={setNotificationx} totalItems={totalItems} setTotalItems={setTotalItems} i={i} key={`nx-${item.nx_id}`} setReload={setReload} {...item} />
                       } ) }
                     </tbody>
                   </Fragment>

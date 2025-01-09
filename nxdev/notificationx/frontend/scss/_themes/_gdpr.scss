@@ -1,4 +1,9 @@
-
+.nxc-cookie_notice_bottom_left {
+    bottom: 30px;
+    left: 30px;
+    right: 0;
+    align-items: flex-start;
+}
 .nx-gdpr {
     // left: auto;
     // animation-fill-mode: forwards;
@@ -17,6 +22,15 @@
         max-width: 480px; 
         z-index: 999;
     }
+    &.card-gdpr.cookie_notice_bottom_right {
+        right: 30px;
+        bottom: 30px;
+        left: unset;
+    }
+    &.card-gdpr.cookie_notice_center {
+        left: calc(50% - 240px);
+        bottom: 30px;
+    }
     &.banner-gdpr { 
         position: fixed;
         bottom: 0;
@@ -24,7 +38,10 @@
         right: 0;
         border-radius: 0;
         z-index: 9999999;
-
+        &.cookie_banner_top {
+            top: 0;
+            bottom: unset;
+        }
         .nx-gdpr-card {
             position: relative;
             .nx-gdpr-card-header {

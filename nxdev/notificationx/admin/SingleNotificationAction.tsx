@@ -53,6 +53,9 @@ const SingleNotificationAction = ({
         );
     }
 
+    console.log('setReload',setReload);
+                        
+    
     // @ts-ignore
     const ajaxurl = window.ajaxurl;
     const handleDelete = useCallback(

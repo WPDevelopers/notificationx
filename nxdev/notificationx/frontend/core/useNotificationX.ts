@@ -454,16 +454,25 @@ const useNotificationX = (props: any) => {
     const getNxToRender = (callback: (position, NoticeList: []) => void) => {
         const noticeToRender = {};
         // Define a fixed order of positions
-        let fixedOrder = ['top','bottom', 'bottom_left', 'bottom_right', 'top_left', 'top_right','center'];
+        let fixedOrder = ['top','bottom', 'bottom_left', 'bottom_right', 'top_left', 'top_right','center','cookie_notice_bottom_left','cookie_notice_bottom_right', 'cookie_notice_center','cookie_banner_top', 'cookie_banner_bottom'];
         for (let i = 0; i < state.notices.length; i++) {
             const notice = state.notices[i];
-            let { position } = notice.config;
-            if (position.startsWith('notificationx-shortcode-')) {
-                fixedOrder.push(position);
+            let get_position;
+            if( notice.config.type == 'gdpr' ) {
+                let { gdpr_position } = notice.config;
+                get_position = gdpr_position;
+            }else{
+                let { position } = notice.config;
+                get_position = position;
             }
-            noticeToRender[position] || (noticeToRender[position] = []);
-            noticeToRender[position]!.push(notice);
+            if (get_position.startsWith('notificationx-shortcode-')) {
+                fixedOrder.push(get_position);
+            }
+            noticeToRender[get_position] || (noticeToRender[get_position] = []);
+            noticeToRender[get_position]!.push(notice);
         }
+        console.log('noticeToRender',noticeToRender);
+        
         return fixedOrder.map((p) => 
             noticeToRender[p] ? callback(p, noticeToRender[p]!) : null
         ).filter(Boolean);

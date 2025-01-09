@@ -386,11 +386,11 @@ class GlobalFields {
                                     'label'   => __("Position", 'notificationx'),
                                     'name'    => "gdpr_position",
                                     'type'    => "select",
-                                    'default' => 'bottom_left',
+                                    'default' => 'cookie_notice_bottom_right',
                                     'options' => GlobalFields::get_instance()->normalize_fields([
-                                        'bottom_left'  => __('Bottom Left', 'notificationx'),
-                                        'bottom_right' => __('Bottom Right', 'notificationx'),
-                                        'center' => __('Center', 'notificationx'),
+                                        'cookie_notice_bottom_left'  => __('Bottom Left', 'notificationx'),
+                                        'cookie_notice_bottom_right' => __('Bottom Right', 'notificationx'),
+                                        'cookie_notice_center'       => __('Center', 'notificationx'),
                                     ]),
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
@@ -402,10 +402,10 @@ class GlobalFields {
                                     'label'   => __("Position", 'notificationx'),
                                     'name'    => "gdpr_banner_position",
                                     'type'    => "select",
-                                    'default' => 'bottom',
+                                    'default' => 'cookie_banner_bottom',
                                     'options' => GlobalFields::get_instance()->normalize_fields([
-                                        'bottom'  => __('Bottom', 'notificationx'),
-                                        'top' => __('Top', 'notificationx'),
+                                        'cookie_banner_bottom' => __('Bottom', 'notificationx'),
+                                        'cookie_banner_top'    => __('Top', 'notificationx'),
                                     ]),
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),

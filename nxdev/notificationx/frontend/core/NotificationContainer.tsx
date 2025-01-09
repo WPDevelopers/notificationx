@@ -33,7 +33,14 @@ const NotificationContainer = (props: any) => {
                             />
                         );
                     } else {
-                        if (notice?.config?.type == 'gdpr' && (position == 'bottom_right' || position == 'bottom_left' || position == 'center')) {
+                        if (    
+                            notice?.config?.type == 'gdpr' && 
+                            (position == 'cookie_notice_bottom_left' || 
+                            position == 'cookie_notice_bottom_right' || 
+                            position == 'cookie_notice_center' || 
+                            position == 'cookie_banner_bottom' ||
+                            position == 'cookie_banner_top' )
+                        ) {
                             const gdprItem = notice;
                             return (
                                 <GDPR

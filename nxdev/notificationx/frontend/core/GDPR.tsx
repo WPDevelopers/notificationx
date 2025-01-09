@@ -32,7 +32,7 @@ const useMediaQuery = (query) => {
 
 const GDPR = (props) => {
     const { position, gdpr, dispatch } = props;
-    const target = usePortal(`nx-gdpr-${position}`, position == 'bottom_left', true);
+    const target = usePortal(`nx-gdpr-${position}`, position == 'cookie_notice_bottom_left', true);
     const { config: settings, data: content } = gdpr; 
     const frontEndContext = useNotificationContext();
     const [isVisible, setIsVisible] = useState(false); 
@@ -143,6 +143,8 @@ const GDPR = (props) => {
 
     let baseClasses = [
         `nx-gdpr`,
+        position,
+        settings?.gdpr_banner_position,
         settings.themes,
         settings?.themes?.includes('banner') ? `banner-gdpr banner-gdpr-${settings?.gdpr_theme}` : `card-gdpr card-gdpr-${settings?.gdpr_theme}`,
         settings?.gdpr_theme ? 'dark' : 'light',
