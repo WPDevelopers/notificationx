@@ -56,6 +56,7 @@ class QuickBuild {
             'source_tab'  => $configs['tabs']['source_tab'],
             'design_tab'  => $configs['tabs']['design_tab'],
             'content_tab' => [],
+            'manager_tab' => $configs['tabs']['manager_tab'],
             'display_tab' => $configs['tabs']['display_tab'],
             'finalize'    => [
                 'label'   => "Finalize",
@@ -151,9 +152,12 @@ class QuickBuild {
                 'type',
                 'source_section',
                 'source',
-
                 'themes',
-
+                'gdpr_theme',
+                'gdpr_position',
+                'gdpr_title',
+                'gdpr_message',
+                'cookies_list_section',
                 'content',
                 'combine_multiorder',
                 'freemius_item_type',
@@ -220,6 +224,7 @@ class QuickBuild {
                 'donation'         => __('Donation', 'notificationx'),
                 'form'             => __('Contact Form', 'notificationx'),
                 'inline'           => __('Growth Alert', 'notificationx'),
+                'gdpr'             => __('Cookie Notice', 'notificationx'),
             )),
         ]);
     }

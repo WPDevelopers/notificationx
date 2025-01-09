@@ -94,7 +94,7 @@ const useNotificationX = (props: any) => {
                 });
                 setPressbarNotices(normalizePressBar(filteredConfig, config.settings));
             }
-            if(Object.keys(config.gdpr).length){
+            if(config && Object.keys(config?.gdpr).length){
                 const filteredConfig = {};
                 Object.keys(config.gdpr).forEach((key) => {
                     const gdpr = config.gdpr[key];

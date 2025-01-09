@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import usePortal from '../hooks/usePortal';
 import classNames from 'classnames';
 import { isAdminBar } from './utils';
@@ -7,13 +7,82 @@ import GdprActions from '../gdpr/utils/GdprActions';
 import GdprFooter from '../gdpr/utils/GdprFooter';
 import CloseIcon from '../../icons/Close';
 import { getDynamicCookie, loadScripts } from '../gdpr/utils/helper';
+import useNotificationContext from "./NotificationProvider";
+import 'animate.css';
+import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName } from "../core/functions";
 
-const GDPR = ({ position, gdpr, dispatch }) => {
+const useMediaQuery = (query) => {
+    const mediaQuery = window.matchMedia(query);
+    const [match, setMatch] = useState(!!mediaQuery.matches);
+
+    useEffect(() => {
+        const handler = () => setMatch(!!mediaQuery.matches);
+        mediaQuery.addEventListener("change", handler);
+        return () => mediaQuery.removeEventListener("change", handler);
+    }, []);
+
+    if (
+        typeof window === "undefined" ||
+        typeof window.matchMedia === "undefined"
+    )
+        return false;
+
+    return match;
+};
+
+const GDPR = (props) => {
+    const { position, gdpr, dispatch } = props;
     const target = usePortal(`nx-gdpr-${position}`, position == 'bottom_left', true);
     const { config: settings, data: content } = gdpr; 
-    const [isVisible, setIsVisible] = useState(false);
-       
+    const frontEndContext = useNotificationContext();
+    const [isVisible, setIsVisible] = useState(false); 
+    const isMobile = useMediaQuery("(max-width: 480px)");
+    const isTablet = useMediaQuery("(max-width: 768px)"); 
+    const [notificationSize, setNotificationSize] = useState();
+    const [animation, setAnimation] = useState(false);
+    const is_pro = frontEndContext?.state?.is_pro ?? false;
+    // const [width, setWidth] = useState(0);
+    // const [intervalID, setIntervalID] = useState(null);
+    // const [exit, setExit] = useState(false);
+    // const incrementValue = 0.5;
+    // const displayFor = ((settings?.display_for || 5) * 1000);
+    // const isMin = displayFor * (incrementValue / 100)
     
+    // Close notification
+    // useEffect(() => {    
+    //     if( width >= calculateAnimationStartTime( settings?.display_for, settings.animation_notification_hide ) ) { 
+    //         setAnimation(true);
+    //     }
+    //     if (width >= 99.5) {
+    //         handleCloseNotification();
+    //         setTimeout(() => {
+    //             handlePauseTimer();
+    //             props.dispatch({
+    //                 type: "REMOVE_NOTIFICATION",
+    //                 payload: props.id,
+    //             });
+    //             setAnimation(false);
+    //         }, 500 )
+    //     }
+    //     // return () => {
+    //     //     handlePauseTimer();
+    //     // };
+    // }, [width]);
+    
+    useEffect(() => {
+        if (settings?.size) {
+            if (isObject(settings?.size)) {
+                setNotificationSize(
+                    isMobile
+                        ? settings?.size.mobile
+                        : isTablet
+                        ? settings?.size.tablet
+                        : settings?.size.desktop
+                );
+            } else setNotificationSize(settings?.size);
+        }
+    }, [isMobile, isTablet, settings?.size]);
+
     const handleGDPRBanner = () => {
         const areCookiesSet = document.cookie.split(';').some(cookie => cookie.trim().startsWith(`nx_cookie_manager=`));
         if (areCookiesSet) {
@@ -22,6 +91,49 @@ const GDPR = ({ position, gdpr, dispatch }) => {
             setIsVisible(true);
         }
     };
+
+    // const audioRef = useRef(null);
+    
+    // useEffect(() => {
+    //     if (audioRef.current && is_pro) {
+    //         audioRef.current.volume = parseInt(settings.volume || 1) / 100;
+    //         audioRef.current.muted = false;
+    //         audioRef.current.play().then(res => {
+    //             // console.log('Playing Audio Sound for NX Notice');
+    //         }).catch(err => console.error("NX SoundError: ", err))
+    //     }
+    //     handleStartTimer();
+    //     return () => {
+    //         handlePauseTimer();
+    //     };
+    // }, []);
+
+    // const handleStartTimer = () => {
+    //     let startTime = Date.now();
+    //     const id = setInterval(() => {
+    //         const dateNow = Date.now();
+    //         const diffTime = dateNow - startTime;
+    //         startTime = dateNow;
+    //         const incrementValue = (100 * diffTime / displayFor);
+
+    //         setWidth((prev) => {
+    //             if (prev < 100) {
+    //                 return prev + incrementValue;
+    //             }
+    //             clearInterval(id);
+    //             return prev;
+    //         });
+    //     }, isMin); // 25 = 5sec is for how much time notice will display
+    //     setIntervalID(id);
+    // };
+
+    // const handlePauseTimer = () => {
+    //     clearInterval(intervalID);
+    // };
+
+    // const handleCloseNotification = () => {
+    //     setExit(true);
+    // };
     
 
      // Check consent state on mount
@@ -53,28 +165,111 @@ const GDPR = ({ position, gdpr, dispatch }) => {
         return null; // Hide GDPR banner if consent is complete
     }
 
+    const getAnimationStyles = () => {
+        switch (settings.animation_notification_hide) {
+            case 'animate__slideOutDown': 
+                return {
+                    bottom: !animation ? '30px': '0',
+                    left  : !animation ? '30px': '30px',
+                    right : !animation ? '30px': '30px',
+                    transition  : '300ms',
+                };
+            case 'animate__slideOutLeft': 
+                return {
+                    left  : !animation ? '30px': '0',
+                    bottom: !animation ? '30px': '30px',
+                    right : !animation ? '30px': '30px',
+                    transition  : '300ms',
+                };
+            case 'animate__slideOutRight': 
+                return {
+                    right : !animation ? '30px': '0',
+                    left  : !animation ? '30px': '30px',
+                    bottom: !animation ? '30px': '30px',
+                    transition  : '300ms',
+                };
+            case 'animate__slideOutUp': 
+                return {
+                    right     : !animation ? '30px': '0',
+                    left      : !animation ? '30px': '30px',
+                    bottom    : !animation ? '30px': '30px',
+                    transition: '300ms',
+                };
+            default: 
+                return {
+                    bottom: '30px',
+                    left  : '30px',
+                    right : '0',
+                };
+        }
+    };
+    const componentCSS: any = {};
+    const componentStyle: any = {
+        ...componentCSS,
+        maxWidth: `${notificationSize}px`,
+        ...getAnimationStyles(),
+    };
+    if (settings?.advance_edit && settings?.conversion_size) {
+        componentStyle.maxWidth = settings?.conversion_size;
+    }
+
+    let baseClasses = [
+        `nx-gdpr`,
+        settings.themes,
+        settings?.themes?.includes('banner') ? `banner-gdpr banner-gdpr-${settings?.gdpr_theme}` : `card-gdpr card-gdpr-${settings?.gdpr_theme}`,
+        settings?.gdpr_theme ? 'dark' : 'light',
+        `nx-gdpr-${settings.nx_id}`,
+
+        {
+            "nx-position-top": "top" == settings?.position,
+            "nx-position-bottom":
+                "bottom" == settings?.position,
+            // exit: exit,
+            [`nx-close-${settings?.bar_close_position}`]: settings?.bar_close_position,
+            "nx-admin": isAdminBar(),
+            "nx-sticky-bar": settings?.sticky_bar,
+            "nx-gdpr-has-elementor": settings?.elementor_id,
+            "nx-gdpr-has-gutenberg": settings?.gutenberg_id,
+        }
+    ];
+
+    let componentClasses;
+    let animationStyle = 'SlideTop 300ms';
+    if ( (is_pro && settings?.animation_notification_show !== 'default') || (is_pro && settings?.animation_notification_hide !== 'default') ) {
+        let animate_effect;
+        if( settings?.animation_notification_hide !== 'default' && settings?.animation_notification_show === 'default' ) {
+            if( animation ) {
+                animate_effect = settings?.animation_notification_hide;
+            }else{
+                componentStyle.animation = animationStyle
+            }
+        }else if( settings?.animation_notification_show !== 'default' && settings?.animation_notification_hide === 'default' ) {
+            if( animation ) {
+                componentStyle.animation = animationStyle;
+            }else {
+                animate_effect = settings?.animation_notification_show;
+            }
+        }else {
+            animate_effect = animation ? settings?.animation_notification_hide : settings?.animation_notification_show
+        }
+        componentClasses = classNames(
+            "animate__animated",
+            animate_effect,
+            // settings?.animation_notification_duration,
+            "animate__faster",
+            ...baseClasses
+        );
+    } else {
+        componentClasses = classNames(
+            ...baseClasses
+        );
+        componentStyle.animation = animationStyle
+    }
     const wrapper = (
         // @todo advanced style.
         <div
             id={`nx-gdpr-${settings.nx_id}`}
-            className={classNames(
-                `nx-gdpr`,
-                settings.themes,
-                settings?.themes?.includes('banner') ? `banner-gdpr banner-gdpr-${settings?.gdpr_theme}` : `card-gdpr card-gdpr-${settings?.gdpr_theme}`,
-                settings?.gdpr_theme ? 'dark' : 'light',
-                `nx-gdpr-${settings.nx_id}`,
-
-                {
-                    "nx-position-top": "top" == settings?.position,
-                    "nx-position-bottom":
-                        "bottom" == settings?.position,
-                    [`nx-close-${settings?.bar_close_position}`]: settings?.bar_close_position,
-                    "nx-admin": isAdminBar(),
-                    "nx-sticky-bar": settings?.sticky_bar,
-                    "nx-gdpr-has-elementor": settings?.elementor_id,
-                    "nx-gdpr-has-gutenberg": settings?.gutenberg_id,
-                }
-            )}
+            className={componentClasses}
         >
             <div className="nx-gdpr">
                 <div className="nx-gdpr-card">
@@ -98,9 +293,6 @@ const GDPR = ({ position, gdpr, dispatch }) => {
                         <GdprActions settings={settings} onConsentGiven={handleConsentGiven} setIsVisible={setIsVisible} />
                     </div>
                    <GdprFooter settings={settings} />
-
-                    {/* Close Icon */}
-                    
                 </div>
             </div>
         </div>
