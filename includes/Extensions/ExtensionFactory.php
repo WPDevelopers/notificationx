@@ -76,6 +76,7 @@ class ExtensionFactory {
 			'surecart'                        => 'NotificationX\Extensions\SureCart\SureCart',
 			'ActiveCampaign'				  => 'NotificationX\Extensions\ActiveCampaign\ActiveCampaign',
 			'gdpr_notification'				  => 'NotificationX\Extensions\GDPR\GDPR_Notification',
+			'ccpa_notification'				  => 'NotificationX\Extensions\CCPA\CCPA_Notification',
 		];
 
 	/**
