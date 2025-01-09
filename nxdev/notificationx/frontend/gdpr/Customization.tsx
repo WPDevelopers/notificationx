@@ -6,8 +6,8 @@ import CloseIcon from '../../icons/Close';
 
 const Customization = ({ settings, onEnableCookiesItem, onHandleAccept, onSaveConsent, onHandleReject, setIsOpenGdprCustomizationModal }) => {
     const [isExpanded, setIsExpanded] = useState(false);
-    let showMoreText = settings?.preference_more_btn ? settings?.preference_more_btn : "Show more";
-    let showLessText = settings?.preference_less_btn ? settings?.preference_less_btn : "Show ess";
+    let showMoreText = settings?.preference_more_btn ? settings?.preference_more_btn : __("Show more",'notificationx');
+    let showLessText = settings?.preference_less_btn ? settings?.preference_less_btn : __("Show less",'notificationx');
     const toggleText = () => {
         setIsExpanded(!isExpanded);
     };
@@ -60,7 +60,7 @@ const Customization = ({ settings, onEnableCookiesItem, onHandleAccept, onSaveCo
         <div className="wprf-modal-preview-footer">
             <div className="nx_gdpr-action-button">
                 <button onClick={ onHandleAccept }>{ __("Accept All", "notificationx") }</button>
-                <button onClick={ onSaveConsent }>{ settings?.preference_btn ? settings?.preference_btn : __("Customize", "notificationx") }</button>
+                <button onClick={ onSaveConsent }>{ settings?.preference_btn ? settings?.preference_btn : __("Save My Preferences", "notificationx") }</button>
                 <button onClick={ onHandleReject }>{ __("Reject All", "notificationx") }</button>
             </div>
             <div className="wprf-modal-preview-copyright">

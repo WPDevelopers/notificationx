@@ -43,6 +43,9 @@
 .swal2-html-container {
     overflow: visible !important;
 }
+.nx-permission-popup .nx-permission-close-button {
+    display: none;
+}
 
 .swal-shortcode-wrapper {
     label {

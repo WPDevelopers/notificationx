@@ -64,7 +64,7 @@ const BetterRepeater = (props) => {
 
     useEffect(() => {
         if (localMemoizedValue == undefined || localMemoizedValue == '') {
-            setLocalMemoizedValue([{index: v4()}]);
+            setLocalMemoizedValue([]);
         } else{
             setLocalMemoizedValue((items) => items.map((item) => {
                 return {...item, index: v4()};
@@ -80,6 +80,19 @@ const BetterRepeater = (props) => {
     const _handleButtonClick = () => {
         setIsIntegrationModalOpen(true);
     }
+
+    useEffect(() => {
+      if( !isOpen && isArray(localMemoizedValue) ) {
+        const updatedData = localMemoizedValue.filter(item => 
+            (item.cookies_id && item.cookies_id.trim() !== "")
+        );
+        if( isArray(updatedData) ) {
+            setLocalMemoizedValue(updatedData)
+        }
+    }
+    }, [isOpen])
+
+    console.log('logged');
 
     return (
         <div className="wprf-repeater-control">
@@ -126,15 +139,6 @@ const BetterRepeater = (props) => {
             }
             <ReactModal
                 isOpen={isOpen}
-                onRequestClose={() => {
-                    setIsOpen(false)
-                    const updatedData = localMemoizedValue.filter(item => 
-                        (item.cookies_id && item.cookies_id.trim() !== "")
-                    );
-                    if( isArray(updatedData) ) {
-                        // setLocalMemoizedValue(updatedData)
-                    }
-                }}
                 ariaHideApp={false}
                 overlayClassName={`nx-custom-notification-edit`}
                 style={{
@@ -143,19 +147,13 @@ const BetterRepeater = (props) => {
                         ...modalStyle.overlay,
                         zIndex: 99999,
                     }
-                }}                
+                }}
             >
                 <>
                     <div className="wprf-modal-preview-header">
                         <span>{ activeEditItem ? __( 'Edit Custom Cookies','notificationx' ) : __( 'Add Custom Cookies','notificationx' ) }</span>
                         <button onClick={() => {
                                 setIsOpen(false);
-                                const updatedData = localMemoizedValue.filter(item => 
-                                    (item.cookies_id && item.cookies_id.trim() !== "")
-                                );
-                                if( isArray(updatedData) ) {
-                                    // setLocalMemoizedValue(updatedData)
-                                }
                                 setActiveEditItem("");
                             }}>
                             <CloseIcon />

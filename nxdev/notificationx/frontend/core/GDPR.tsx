@@ -140,7 +140,7 @@ const GDPR = (props) => {
      useEffect(() => {
         const consent = {
             necessary: getDynamicCookie('necessary') ?? true,
-            functional: getDynamicCookie('functional') ?? true,
+            functional: getDynamicCookie('functional') ?? false,
             analytics: getDynamicCookie('analytics') ?? false,
             performance: getDynamicCookie('performance') ?? false,
             uncategorized: getDynamicCookie('uncategorized') ?? false,

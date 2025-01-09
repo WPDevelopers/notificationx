@@ -21,6 +21,7 @@ use NotificationX\GetInstance;
 use NotificationX\Extensions\PressBar\PressBar;
 use NotificationX\Core\Helper;
 use NotificationX\Extensions\ExtensionFactory;
+use NotificationX\Types\GDPR;
 
 /**
  * This class is responsible for all Front-End actions.
@@ -361,7 +362,9 @@ class FrontEnd {
                 }
 
                 $settings = apply_filters('nx_filtered_post', $settings, $params);
+
                 $result['gdpr'][$_nx_id]['post']    = $settings;
+                $result['gdpr'][$_nx_id]['content'] = "";
                 unset($_nx_id);
             }
         }
