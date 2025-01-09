@@ -55,7 +55,7 @@ const AccordionItem = ({
             </div>
           </div>
         ))}
-        { cookiesList?.length < 1 ? (<span>{ settings?.cookie_list_no_cookies_label }</span>) : '' }
+        { !cookiesList && (<span>{ settings?.cookie_list_no_cookies_label }</span>)}
       </div>
     )}
   </div>
@@ -124,7 +124,7 @@ const CookiesAccordion = ({ settings, onEnableCookiesItem }) => {
       cookiesList: settings?.uncategorized_cookie_lists,
     },
   ];
-
+  console.log(accordionItems);
   return (
     <div className="nx_gdpr-cookies-list-main-wrapper">
       {accordionItems.map((item) => (
