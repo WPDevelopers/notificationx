@@ -55,7 +55,7 @@ class GDPR extends Types {
         // nx_comment_colored_themes
         $this->themes = [
             'theme-light-one'        => [
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/light-1.jpg',
+                'source'  => 'https://notificationx.com/wp-content/uploads/2025/01/gdpr-light-1.png',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         => 'tag_name',
@@ -69,7 +69,7 @@ class GDPR extends Types {
                 'rules'                   => Rules::is('gdpr_theme', false),
             ],
             'theme-light-two'        => [
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/light-2.jpg',
+                'source'  => 'https://notificationx.com/wp-content/uploads/2025/01/gdpr-light-2.png',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         => 'tag_name',
@@ -83,7 +83,7 @@ class GDPR extends Types {
                 'rules'                   => Rules::is('gdpr_theme', false),
             ],
             'theme-light-three'      => [
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/light-3.jpg',
+                'source'  => 'https://notificationx.com/wp-content/uploads/2025/01/gdpr-light-3.png',
                 'image_shape' => 'square',
                 'template'  => [
                     'first_param'         => 'tag_name',
@@ -97,7 +97,7 @@ class GDPR extends Types {
                 'rules'                   => Rules::is('gdpr_theme', false),
             ],
             'theme-light-four'   => [
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/light-4.jpg',
+                'source'  => 'https://notificationx.com/wp-content/uploads/2025/01/gdpr-light-4.png',
                 'image_shape' => 'rounded',
                 'template'  => [
                     'first_param'         => 'tag_name',
@@ -111,7 +111,7 @@ class GDPR extends Types {
                 'rules'                   => Rules::is('gdpr_theme', false),
             ],
             'theme-dark-one'   => [
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/dark-1.jpg',
+                'source'  => 'https://notificationx.com/wp-content/uploads/2025/01/gdpr-dark-1.png',
                 'image_shape' => 'rounded',
                 'template'  => [
                     'first_param'         => 'tag_name',
@@ -125,7 +125,7 @@ class GDPR extends Types {
                 'rules'                   => Rules::is('gdpr_theme', true),
             ],
             'theme-dark-two'   => [
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/dark-2.jpg',
+                'source'  => 'https://notificationx.com/wp-content/uploads/2025/01/gdpr-dark-2.png',
                 'image_shape' => 'rounded',
                 'template'  => [
                     'first_param'         => 'tag_name',
@@ -139,7 +139,7 @@ class GDPR extends Types {
                 'rules'                   => Rules::is('gdpr_theme', true),
             ],
             'theme-dark-three'   => [
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/dark-3.jpg',
+                'source'  => 'https://notificationx.com/wp-content/uploads/2025/01/gdpr-dark-3.png',
                 'image_shape' => 'rounded',
                 'template'  => [
                     'first_param'         => 'tag_name',
@@ -153,7 +153,7 @@ class GDPR extends Types {
                 'rules'                   => Rules::is('gdpr_theme', true),
             ],
             'theme-dark-four'   => [
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/dark-4.jpg',
+                'source'  => 'https://notificationx.com/wp-content/uploads/2025/01/gdpr-dark-4.png',
                 'image_shape' => 'rounded',
                 'template'  => [
                     'first_param'         => 'tag_name',
@@ -167,7 +167,7 @@ class GDPR extends Types {
                 'rules'                   => Rules::is('gdpr_theme', true),
             ],
             'theme-banner-light-one' => [
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/banner-light-1.jpg',
+                'source'  => 'https://notificationx.com/wp-content/uploads/2025/01/gdpr-banner-light-1.png',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         => 'tag_name',
@@ -181,7 +181,7 @@ class GDPR extends Types {
                 'rules'                   => Rules::is('gdpr_theme', false),
             ],
             'theme-banner-light-two' => [
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/banner-light-2.jpg',
+                'source'  => 'https://notificationx.com/wp-content/uploads/2025/01/gdpr-banner-light-2.png',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         => 'tag_name',
@@ -195,7 +195,7 @@ class GDPR extends Types {
                 'rules'                   => Rules::is('gdpr_theme', false),
             ],
             'theme-banner-dark-one' => [
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/banner-dark-1.jpg',
+                'source'  => 'https://notificationx.com/wp-content/uploads/2025/01/gdpr-banner-dark-1.png',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         => 'tag_name',
@@ -209,7 +209,7 @@ class GDPR extends Types {
                 'rules'                   => Rules::is('gdpr_theme', true),
             ],
             'theme-banner-dark-two' => [
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/gdpr/banner-dark-2.jpg',
+                'source'  => 'https://notificationx.com/wp-content/uploads/2025/01/gdpr-banner-dark-2.png',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         => 'tag_name',
