@@ -4,6 +4,9 @@ namespace NotificationX\Core;
 
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\Types\TypeFactory;
+use NotificationX\Admin\Settings;
+use NotificationX\Extensions\GlobalFields;
+
 /**
  * This class will provide all kind of helper methods.
  */
@@ -819,4 +822,44 @@ class Helper {
         ];
 
     }
+
+    // Helper function to get the image ID from data
+    public static function get_image_id_from_settings($data) {
+        return isset($data['image']['id']) ? $data['image']['id'] : null;
+    }
+
+    // Helper function to get custom image size
+    public static function get_custom_image_size() {
+        $default_size = '100_100'; // Default size
+        $image_size = (string) Settings::get_instance()->get('settings.notification_image_size', $default_size);
+        $image_size_parts = explode('_', $image_size);
+
+        if (!empty($image_size_parts[0]) && is_numeric($image_size_parts[0]) && !empty($image_size_parts[1]) && is_numeric($image_size_parts[1])) {
+            return [
+                'width'  => (int) $image_size_parts[0],
+                'height' => (int) $image_size_parts[1],
+            ];
+        }
+
+        return [
+            'width'  => 100, // Default width
+            'height' => 100, // Default height
+        ];
+    }
+
+    // Helper function to get resized image URL
+    public static function get_resized_image_url($image_id, $custom_size) {
+        if (!$image_id || empty($custom_size['width']) || empty($custom_size['height'])) {
+            return null;
+        }
+
+        $image = wp_get_attachment_image_src(
+            $image_id,
+            [$custom_size['width'], $custom_size['height']],
+            true // Crop the image to exact dimensions
+        );
+
+        return $image && isset($image[0]) ? $image[0] : null;
+    }
+
 }
