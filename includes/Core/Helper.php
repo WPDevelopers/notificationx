@@ -5,7 +5,6 @@ namespace NotificationX\Core;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\Types\TypeFactory;
 use NotificationX\Admin\Settings;
-use NotificationX\Extensions\GlobalFields;
 
 /**
  * This class will provide all kind of helper methods.
