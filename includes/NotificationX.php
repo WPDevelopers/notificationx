@@ -70,6 +70,8 @@ class NotificationX {
         add_action('init', [$this, 'init'], 10);
         add_action('plugins_loaded', array($this, 'init_extension'));
         add_filter('nx_pro_alert_popup', array($this, 'pro_alert_popup'));
+        add_filter('nx_permission_popup', array($this, 'permission_popup'));
+        add_action( 'init', [ $this, 'register_custom_image_size' ] );
         /**
          * Register all REST Endpoint
          */
@@ -316,6 +318,21 @@ class NotificationX {
               }
            }
         }
+    }
+
+    
+    public function register_custom_image_size() {
+        // Retrieve the custom image size from settings
+        $default_size = '100_100'; // Default size
+        $image_size = (string) Settings::get_instance()->get('settings.notification_image_size', $default_size);
+        $image_size = explode('_', $image_size);
+    
+        // Validate and assign width and height from settings
+        $width = isset($image_size[0]) && is_numeric($image_size[0]) ? (int) $image_size[0] : 100;
+        $height = isset($image_size[1]) && is_numeric($image_size[1]) ? (int) $image_size[1] : 100;
+    
+        // Register the custom image size
+        add_image_size('_nx_notification_thumb', $width, $height, true); // true for cropping
     }
 
 }

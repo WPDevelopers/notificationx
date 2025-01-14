@@ -12,6 +12,7 @@ use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
 use NotificationX\Extensions\GlobalFields;
+use NotificationX\Admin\Settings;
 
 /**
  * LearnPress Extension
@@ -103,7 +104,7 @@ class LearnPress extends Extension {
         if(!$settings['show_default_image']){
             switch ($settings['show_notification_image']) {
                 case 'featured_image':
-                    $image_data['url'] = get_the_post_thumbnail_url($data['product_id'], 'thumbnail');
+                    $image_data['url'] = get_the_post_thumbnail_url($data['product_id'], '_nx_notification_thumb' );
                     $image_data['alt'] = !empty($data['title']) ? $data['title'] : '';
                     break;
                 case 'gravatar':

@@ -4,6 +4,9 @@ namespace NotificationX\Core;
 
 
 use NotificationX\Types\TypeFactory;
+use NotificationX\Admin\Settings;
+use NotificationX\Extensions\GlobalFields;
+
 /**
  * This class will provide all kind of helper methods.
  */
@@ -617,6 +620,242 @@ class Helper {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Returns a list of common fields for GDPR cookie configuration settings.
+     *
+     * @return array An associative array of common GDPR cookie fields.
+     */
+    public static function gdpr_common_fields()
+    {
+        return [
+            'enabled' => array(
+                'type'     => 'toggle',
+                'name'     => 'enabled',
+                'label'    => __('Enabled', 'notificationx'),
+                'priority' => 5,
+            ), 
+            'cookies_id' => array(
+                'type'     => 'text',
+                'name'     => 'cookies_id',
+                'label'    => __('Cookie ID', 'notificationx'),
+                'priority' => 10,
+            ), 
+            'load_inside' => array(
+                'label'    => __('Add Script on', 'notificationx'),
+                'name'     => 'product_control',
+                'type'     => 'select',
+                'priority' => 15,
+                'default'  => 'head',
+                'options'  => GlobalFields::get_instance()->normalize_fields([
+                    'head'   => __('Header', 'notificationx'),
+                    'body'   => __('Body', 'notificationx'),
+                    'footer' => __('Footer', 'notificationx'),
+                ]),
+            ),
+            'script_url_pattern' => array(
+                'type'     => 'codeviewer',
+                'name'     => 'script_url_pattern',
+                'label'    => __('Script', 'notificationx-pro'),
+                'priority' => 25,
+            ), 
+            'description' => array(
+                'type'     => 'textarea',
+                'name'     => 'description',
+                'label'    => __('Description', 'notificationx-pro'),
+                'priority' => 30,
+            ), 
+        ];
+    }
+
+    /**
+     * Specifies the fields to be shown in the GDPR cookie list.
+     *
+     * @return array An array of field names visible in the GDPR cookie list.
+     */
+    public static function gdpr_cookie_list_visible_fields()
+    {
+        return ['cookies_id', 'domain', 'script_url_pattern', 'duration', 'load_inside','description'];
+    }
+
+    /**
+     * Deletes specific cookies on the server and returns a list of removed cookies.
+     *
+     * @return void Outputs a JSON-encoded list of removed cookies.
+     */
+    public static function delete_server_cookies()
+    {
+        $urlparts = wp_parse_url(site_url('/'));
+        $domain   = preg_replace('/www\./i', '', $urlparts['host']);
+        $cookies_removed = array();
+        $d_domains = array('_ga', '_fbp', '_gid', '_gat', '__utma', '__utmb', '__utmc', '__utmt', '__utmz');
+        $d_domains = apply_filters('gdpr_d_domains_filter', $d_domains);
+
+        // Iterate over all cookies and remove them if they match specific conditions.
+        if (isset($_COOKIE) && is_array($_COOKIE) && $domain) :
+            foreach ($_COOKIE as $key => $value) {
+                if ($key !== 'moove_gdpr_popup' && strpos($key, 'woocommerce') === false && strpos($key, 'wc_') === false && strpos($key, 'wordpress') === false) : 
+                    if ('language' === $key || 'currency' === $key) {
+                        setcookie($key, null, -1, '/', 'www.' . $domain);
+                        $cookies_removed[$key] = $domain;
+                    } elseif (in_array($key, $d_domains) || strpos($key, '_ga') !== false || strpos($key, '_fbp') !== false) {
+                        setcookie($key, null, -1, '/', '.' . $domain);
+                        $cookies_removed[$key] = $domain;
+                    }
+                endif;
+            }
+        endif;
+
+        // Parse and remove cookies from the HTTP header.
+        $cookies = isset($_SERVER['HTTP_COOKIE']) ? explode(';', sanitize_text_field(wp_unslash($_SERVER['HTTP_COOKIE']))) : false;
+        if (is_array($cookies)) :
+            foreach ($cookies as $cookie) {
+                $parts = explode('=', $cookie);
+                $name  = trim($parts[0]);
+                if ($name && $name !== 'moove_gdpr_popup' && strpos($name, 'woocommerce') === false && strpos($name, 'wc_') === false && strpos($name, 'wordpress') === false) :
+                    setcookie($name, '', time() - 1000);
+                    setcookie($name, '', time() - 1000, '/');
+                    if ('language' === $name || 'currency' === $name) {
+                        setcookie($name, null, -1, '/', 'www.' . $domain);
+                        $cookies_removed[$name] = $domain;
+                    } elseif (in_array($key, $d_domains) || strpos($name, '_ga') !== false || strpos($name, '_fbp') !== false) {
+                        setcookie($name, null, -1, '/', '.' . $domain);
+                        $cookies_removed[$name] = '.' . $domain;
+                    } else {
+                        setcookie($name, null, -1, '/');
+                        $cookies_removed[$name] = $domain;
+                    }
+                endif;
+            }
+        endif;
+
+        // Output the list of removed cookies as a JSON response.
+        echo json_encode($cookies_removed);
+    }
+    
+    public static function tab_info_title($name, $title_default, $modal = false) 
+    {
+        return [
+            'type'    => 'text',
+            'name'    => "{$name}_tab_title",
+            'default' => $title_default,
+            'label'   => __('Name', 'notificationx'),
+            'autoFocus' => true,
+        ];
+    }
+
+    public static function tab_info_desc($name, $desc_default, $modal = false) 
+    {
+        return [
+            'type'    => 'textarea',
+            'row'      => 3,
+            'name'    => "{$name}_tab_desc",
+            'default' => $desc_default,
+            'label'   => __('Description', 'notificationx'),
+        ];
+    }
+
+
+    public static function default_cookie_list() 
+    {
+        return [
+            [
+                'enabled'            => true,
+                'default'            => true,
+                'cookies_id'         => 'wordpress_test_cookie',
+                'load_inside'        => 'head',
+                'script_url_pattern' => '',
+                'description'        => __('Tests whether cookies are enabled in the browser to provide a better user experience.', 'notificationx'),
+            ],
+            [
+                'enabled'            => true,
+                'default'            => true,
+                'cookies_id'         => 'wordpress_logged_in',
+                'load_inside'        => 'head',
+                'script_url_pattern' => '',
+                'description'        => __('Indicates when a user is logged in and who they are, for most interface use.','notificationx'),
+            ],
+            [
+                'enabled'            => true,
+                'default'            => true,
+                'cookies_id'         => 'wordpress_sec',
+                'load_inside'        => 'head',
+                'script_url_pattern' => '',
+                'description'        => __('Used for security purposes for logged-in users.', 'notificationx'),
+            ],
+            [
+                'enabled'            => true,
+                'default'            => true,
+                'cookies_id'         => 'wp-settings-{user_id}',
+                'load_inside'        => 'head',
+                'script_url_pattern' => '',
+                'description'        => __('Used to persist a user\'s WordPress admin settings.','notificationx'),
+            ],
+            [
+                'enabled'            => true,
+                'default'            => true,
+                'cookies_id'         => 'wp-settings-time-{user_id}',
+                'load_inside'        => 'head',
+                'script_url_pattern' => '',
+                'description'        => __('Records the time that wp-settings-{user_id} was set.', 'notificationx'),
+            ],
+            [
+                'enabled'            => true,
+                'default'            => true,
+                'cookies_id'         => 'wp-settings-time-{user_id}',
+                'load_inside'        => 'head',
+                'script_url_pattern' => '',
+                'description'        => __('Records the time that wp-settings-{user_id} was set.', 'notificationx'),
+            ],
+            [
+                'enabled'            => true,
+                'default'            => true,
+                'cookies_id'         => 'nx_cookie_manager',
+                'script_url_pattern' => '',
+                'description'        => __('Manages the cookies on the site, ensuring user consent for GDPR compliance.', 'notificationx'),
+            ],
+        ];
+
+    }
+
+    // Helper function to get the image ID from data
+    public static function get_image_id_from_settings($data) {
+        return isset($data['image']['id']) ? $data['image']['id'] : null;
+    }
+
+    // Helper function to get custom image size
+    public static function get_custom_image_size() {
+        $default_size = '100_100'; // Default size
+        $image_size = (string) Settings::get_instance()->get('settings.notification_image_size', $default_size);
+        $image_size_parts = explode('_', $image_size);
+
+        if (!empty($image_size_parts[0]) && is_numeric($image_size_parts[0]) && !empty($image_size_parts[1]) && is_numeric($image_size_parts[1])) {
+            return [
+                'width'  => (int) $image_size_parts[0],
+                'height' => (int) $image_size_parts[1],
+            ];
+        }
+
+        return [
+            'width'  => 100, // Default width
+            'height' => 100, // Default height
+        ];
+    }
+
+    // Helper function to get resized image URL
+    public static function get_resized_image_url($image_id, $custom_size) {
+        if (!$image_id || empty($custom_size['width']) || empty($custom_size['height'])) {
+            return null;
+        }
+
+        $image = wp_get_attachment_image_src(
+            $image_id,
+            [$custom_size['width'], $custom_size['height']],
+            true // Crop the image to exact dimensions
+        );
+
+        return $image && isset($image[0]) ? $image[0] : null;
     }
 
 }
