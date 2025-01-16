@@ -124,10 +124,10 @@
 }
 
 .swal2-modal .swal2-icon.swal2-icon-show.swal2-error {
-    border: .25em solid #f27474 !important;
+    border: .25em solid #f27474;
 }
 .swal2-modal .swal2-icon.swal2-warning {
-    border: .25em solid #f8bb86 !important;
+    border: .25em solid #f8bb86;
 }
 
 .swal2-modal.swal2-show {
@@ -179,12 +179,12 @@
         padding: 12px 20px;
         box-shadow: none;
         font-weight: 500;
-        border-radius: 5px;
+        border-radius: 6px;
     }
 
     .swal2-styled.swal2-deny {
         border: 0;
-        border-radius: .25em;
+        border-radius: 6px;
         background: initial;
         background-color: #F85151;
         color: #fff;
@@ -194,7 +194,7 @@
 
     .swal2-styled.swal2-confirm {
         border: 0;
-        border-radius: .25em;
+        border-radius: 6px;
         background: initial;
         background-color: #6A4BFF;
         color: #fff;
@@ -202,7 +202,7 @@
         flex: 1;
     }
 }
-.swal2-modal .swal2-icon.swal2-error.swal2-icon-show {
+.swal2-modal .swal2-icon.swal2-icon-show {
     width: 40px;
     height: 40px;
     margin: 0;
@@ -211,7 +211,7 @@
     border-radius: 6px;
     border: none !important;
     align-items: center;
-    animation: none;
+    animation: none !important;
 
     .swal2-x-mark {
         display: flex;
@@ -229,18 +229,28 @@
             background-color: #f27474;
         }
     }
+    .swal2-icon-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            width: 20px !important;
+        }
+    }
 }
 .swal2-popup.swal2-modal.swal2-show {
     max-width: 480px;
     padding: 20px;
     display: flex !important;
+    flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     .swal2-icon.swal2-warning.swal2-icon-show {
         width: 40px;
         height: 40px;
-        margin: 0;
-        margin-bottom: 20px;
+        margin: 0 !important;
+        margin-bottom: 20px !important;
         background: #FFF1EB;
         border-radius: 6px;
         border: none !important;
@@ -292,11 +302,19 @@
         }
     }
     .swal2-styled.swal2-deny {
-        border-radius: 8px;
+        border-radius: 6px;
         background-color: #FF8447;
         font-size: 14px;
         &:focus {
             box-shadow: none;
         }
+    }
+    .swal2-actions {
+        width: 100%;
+    }
+    .swal2-close {
+        position: absolute;
+        right: 20px;
+        top: 20px;
     }
 }
