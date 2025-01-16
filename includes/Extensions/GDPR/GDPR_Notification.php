@@ -294,10 +294,10 @@ class GDPR_Notification extends Extension {
     }
 
     public function doc(){
-        return sprintf(__('<p>You can Showcase GDPR notifications effortlessly on your WordPress site to ensure compliance with visitors. Need help? Follow our step-by-step guides for creating GDPR notification in WordPress website.</p>
+        return sprintf(__('<p>You can showcase Cookie Notice effortlessly on your WordPress site to ensure compliance with visitors. Need help? Follow our step-by-step guides for creating a Cookie Notice on the WordPress website.</p>
 		<p>🎦 Watch the video <a target="_blank" href="%1$s">tutorial</a> for a quick guide.</p>
 		<p><strong>Recommended Blogs:</strong></p>
-		<p>🔥 A Comprehensive Guide to GDPR Notification How to <a target="_blank" href="%2$s">Create & Implement</a></p>', 'notificationx'),
+		<p>🔥 A Comprehensive Guide to Cookie Notice in WordPress <a target="_blank" href="%2$s">How to Create & Implement</a></p>', 'notificationx'),
         '#',
         '#',
         );
