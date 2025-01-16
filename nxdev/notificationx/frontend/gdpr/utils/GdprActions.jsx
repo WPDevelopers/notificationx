@@ -61,11 +61,13 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
             setDynamicCookie(type, value, COOKIE_EXPIRY_DAYS)
         );
         if (settings?.gdpr_force_reload) location.reload();
-        // setIsVisible(false);
+        if (settings?.animation_notification_hide === 'default' && settings?.animation_notification_show === 'default') {
+            setIsVisible(false);
+        }
         setIsOpenCustomizationModal(false);
         onConsentGiven();
     };
-
+    
     const handleCookieAccept = () => {
         handleConsent({
             necessary    : true,
