@@ -23,20 +23,22 @@ const AccordionItem = ({
         )}
         <h3>{title}</h3>
       </div>
-      <div className="nx_gdpr-cookies-list-header-active">
-        {isAlwaysActive ? (
-          <span>{ settings.cookie_list_active_label ? settings.cookie_list_active_label : __('Always Active', 'notificationx') }</span>
-        ) : (
-          <label className="nx_gdpr-toggle">
-            <input
-              type="checkbox"
-              checked={isEnabled}
-              onChange={() => toggleEnable(itemKey)}
-            />
-            <span className="nx_gdpr-toggle-slider"></span>
-          </label>
-        )}
-      </div>
+      {cookiesList && (
+        <div className="nx_gdpr-cookies-list-header-active">
+          {isAlwaysActive ? (
+            <span>{ settings.cookie_list_active_label ? settings.cookie_list_active_label : __('Always Active', 'notificationx') }</span>
+          ) : (
+            <label className="nx_gdpr-toggle">
+              <input
+                type="checkbox"
+                checked={isEnabled}
+                onChange={() => toggleEnable(itemKey)}
+              />
+              <span className="nx_gdpr-toggle-slider"></span>
+            </label>
+          )}
+        </div>
+      )}
     </div>
     <div className="nx_gdpr-cookies-list-content">
       <p>{description}</p>
@@ -124,7 +126,7 @@ const CookiesAccordion = ({ settings, onEnableCookiesItem }) => {
       cookiesList: settings?.uncategorized_cookie_lists,
     },
   ];
-  console.log(accordionItems);
+  
   return (
     <div className="nx_gdpr-cookies-list-main-wrapper">
       {accordionItems.map((item) => (
