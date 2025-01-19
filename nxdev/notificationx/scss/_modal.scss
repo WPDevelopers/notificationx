@@ -1116,6 +1116,38 @@
     .ReactModal__Content.ReactModal__Content--after-open .wprf-modal-table-wrapper.wpsp-bulk-edit-fields .wprf-repeater-field .wprf-repeater-inner-field {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
+
+        .wprf-control-wrapper.wprf-name-image {
+            .wprf-control-field {
+                .wprf-image-preview {
+
+                }
+                .wprf-image-uploader {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                    .wprf-btn {
+                        background: transparent;
+                        border-radius: 5px;
+                        min-height: 36px;
+                        transition: 0.3s ease-in-out;
+                    }
+                    .wprf-image-remove-btn {
+                        background: #f85656;
+                        border: 1px solid #f85656;
+                        color: #FFFFFF;
+                    }
+                    .wprf-image-upload-btn {
+                        border: 1px solid #6a4bff;
+                        color: #6a4bff;
+                        margin-right: 0;
+                        &:hover {
+                            box-shadow: 0 15px 25px -5px rgba(86, 20, 213, 0.3);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     .ReactModal__Content.ReactModal__Content--after-open .wprf-modal-table-wrapper.wpsp-bulk-edit-fields .wprf-repeater-field .wprf-repeater-inner-field .wprf-control-wrapper .wprf-control-field {
