@@ -1115,7 +1115,26 @@
 .nx-custom-notification-edit.ReactModal__Overlay.ReactModal__Overlay--after-open {
     .ReactModal__Content.ReactModal__Content--after-open .wprf-modal-table-wrapper.wpsp-bulk-edit-fields .wprf-repeater-field .wprf-repeater-inner-field {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(12, 1fr);
+
+        .wprf-control-wrapper.wprf-name-post_title {
+            grid-column: 1 / span 3;
+        }
+        .wprf-control-wrapper.wprf-name-first_name {
+            grid-column: 4 / span 3;
+        }
+        .wprf-control-wrapper.wprf-name-last_name {
+            grid-column: 7 / span 3;
+        }
+        .wprf-control-wrapper.wprf-name-link {
+            grid-column: 10 / span 3;
+        }
+        .wprf-control-wrapper.wprf-name-timestamp {
+            grid-column: 1 / span 4;
+        }
+        .wprf-control-wrapper.wprf-name-image {
+            grid-column: 5 / span 5;
+        }
 
         .wprf-control-wrapper.wprf-name-image {
             .wprf-control-field {
