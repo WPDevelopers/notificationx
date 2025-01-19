@@ -119,7 +119,7 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
                         onClick={handleCookieAccept}
                         style={getButtonStyles('accept')}
                     >
-                        {settings?.gdpr_accept_btn}
+                        {settings?.gdpr_accept_btn || __('Accept All', 'notificationx')}
                     </button>
                     <button
                         type="button"
@@ -127,7 +127,7 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
                         onClick={toggleCustomizationModal}
                         style={getButtonStyles('customize')}
                     >
-                        {settings?.gdpr_customize_btn}
+                        {settings?.gdpr_customize_btn || __('Customize', 'notificationx')}
                     </button>
                 </div>
                 {!isCloseBtnVisible && (
@@ -138,7 +138,7 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
                             onClick={handleCookieReject}
                             style={getButtonStyles('reject')}
                         >
-                            {settings?.gdpr_reject_btn}
+                            {settings?.gdpr_reject_btn || __('Reject All', 'notificationx')}    
                         </button>
                     </div>
                 )}

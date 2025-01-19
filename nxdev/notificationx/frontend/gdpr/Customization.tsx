@@ -59,9 +59,9 @@ const Customization = ({ settings, onEnableCookiesItem, onHandleAccept, onSaveCo
         </div>
         <div className="wprf-modal-preview-footer">
             <div className="nx_gdpr-action-button">
-                <button onClick={ onHandleAccept }>{ __("Accept All", "notificationx") }</button>
+                <button onClick={ onHandleAccept }>{settings?.gdpr_accept_btn || __('Accept All', 'notificationx')}</button>
                 <button onClick={ onSaveConsent }>{ settings?.preference_btn ? settings?.preference_btn : __("Save My Preferences", "notificationx") }</button>
-                <button onClick={ onHandleReject }>{ __("Reject All", "notificationx") }</button>
+                <button onClick={ onHandleReject }>{settings?.gdpr_reject_btn || __('Reject All', 'notificationx')}</button>
             </div>
             <div className="wprf-modal-preview-copyright">
                 <NXBranding/>
