@@ -471,7 +471,6 @@ const useNotificationX = (props: any) => {
             noticeToRender[get_position] || (noticeToRender[get_position] = []);
             noticeToRender[get_position]!.push(notice);
         }
-        console.log('noticeToRender',noticeToRender);
         
         return fixedOrder.map((p) => 
             noticeToRender[p] ? callback(p, noticeToRender[p]!) : null
