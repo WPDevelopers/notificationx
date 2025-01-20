@@ -15,12 +15,13 @@ const NotificationContainer = (props: any) => {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);    
+    const noMobileDesign = ['announcements', 'flashing_tab', 'custom_notification', 'press_bar', 'inline'];
     const renderNotice = (NoticeList, position) => {
         if (isMobile && frontendContext?.is_pro) {
             return (
                 <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
                     {NoticeList.map((notice) => {
-                        if( notice?.config?.is_mobile_responsive && notice?.config?.source !== 'announcements' ) {
+                        if( notice?.config?.is_mobile_responsive && !noMobileDesign?.includes(notice?.config?.source) ) {
                             return (
                                 <NotificationForMobile
                                     assets={frontendContext.assets}
