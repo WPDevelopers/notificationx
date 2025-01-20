@@ -1131,20 +1131,21 @@
         }
         .wprf-control-wrapper.wprf-name-timestamp {
             grid-column: 1 / span 4;
-        }
-        .wprf-control-wrapper.wprf-name-image {
-            grid-column: 5 / span 5;
-        }
-
-        .wprf-control-wrapper.wprf-name-image {
+            
             .wprf-control-field {
-                .wprf-image-preview {
+                max-width: 250px;
+                width: auto;
+            }
+        }
+        .wprf-control-wrapper.wprf-name-image {
+            grid-column: 5 / span 8;
 
-                }
+            .wprf-control-field {
+                min-width: auto;
+                max-width: 100%;
+                flex: 1;
                 .wprf-image-uploader {
                     display: flex;
-                    flex-direction: column;
-                    gap: 8px;
                     .wprf-btn {
                         background: transparent;
                         border-radius: 5px;
