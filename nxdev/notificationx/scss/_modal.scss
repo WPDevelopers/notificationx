@@ -604,6 +604,10 @@
                         border: 1px solid #6A4BFF;
                         border-radius: 8px;
                         flex: auto;
+
+                        @media only screen and (max-width: 550px) {
+                            padding: 10px 20px;
+                        }
                         &:nth-child(1) {
                             color: #ffffff;
                             background: #6A4BFF;
