@@ -23,7 +23,7 @@ const NotificationContainer = (props: any) => {
         return (
             <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
                 {NoticeList.map((notice) => {
-                    if (isMobileAndPro && notice?.config?.is_mobile_responsive && notice?.config?.source !== 'announcements') {
+                    if (isMobileAndPro && notice?.config?.is_mobile_responsive && notice?.config?.type !== 'gdpr') {
                         return (
                             <NotificationForMobile
                                 assets={frontendContext.assets}
