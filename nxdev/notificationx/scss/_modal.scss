@@ -629,6 +629,7 @@
                                     line-height: 1.1em;
                                     color: #092161;
                                     padding: 12px;
+                                    margin: 0;
 
                                     &:focus-visible {
                                         outline: 0;
@@ -1117,7 +1118,7 @@
         display: grid;
         grid-template-columns: repeat(12, 1fr);
 
-        .wprf-control-wrapper.wprf-name-post_title {
+        .wprf-control-wrapper.wprf-name-title {
             grid-column: 1 / span 3;
         }
         .wprf-control-wrapper.wprf-name-first_name {
@@ -1131,10 +1132,20 @@
         }
         .wprf-control-wrapper.wprf-name-timestamp {
             grid-column: 1 / span 4;
-            
+
             .wprf-control-field {
                 max-width: 250px;
                 width: auto;
+
+                .wprf-control-datetime {
+                    .components-button.is-tertiary {
+                        border: none;
+                        background: #f2f2f2;
+                        color: #6648fe;
+                        font-size: 13px;
+                        padding: 10px 14px;
+                    }
+                }
             }
         }
         .wprf-control-wrapper.wprf-name-image {
