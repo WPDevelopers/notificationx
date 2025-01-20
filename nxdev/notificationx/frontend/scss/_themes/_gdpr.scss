@@ -3,6 +3,11 @@
     left: 30px;
     right: 0;
     align-items: flex-start;
+
+    @media only screen and (max-width: 450px) {
+        bottom: 15px;
+        left: 15px;
+    }
 }
 .nx-gdpr {
     // left: auto;
@@ -18,18 +23,34 @@
         position: fixed;
         bottom: 30px;
         left: 30px;
-        min-width: 480px;
+        min-width: 300px;
         max-width: 480px; 
+        width: 90%;
         z-index: 999;
+
+        @media only screen and (max-width: 450px) {
+            bottom: 15px;
+            left: 15px;
+        }
     }
     &.card-gdpr.cookie_notice_bottom_right {
         right: 30px;
         bottom: 30px;
         left: unset;
+
+        @media only screen and (max-width: 450px) {
+            bottom: 15px;
+            right: 15px;
+        }
     }
     &.card-gdpr.cookie_notice_center {
         left: calc(50% - 240px);
         bottom: 30px;
+
+        @media only screen and (max-width: 550px) {
+            bottom: 15px;
+            left: 15px;
+        }
     }
     &.banner-gdpr { 
         position: fixed;
@@ -71,6 +92,13 @@
                 justify-content: space-between;
                 padding: 8px 24px 12px;
                 gap: 40px;
+
+                @media only screen and (max-width: 767px) {
+                    flex-direction: column;
+                    gap: 16px;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                }
                 .nx-gdpr-description {
                     flex: 75%;
                     max-width: 1165px;
@@ -80,6 +108,11 @@
                     padding: 0;
                     flex: 25%;
                     justify-content: flex-end;
+
+                    @media only screen and (max-width: 450px) {
+                        flex: 1;
+                        width: 100%;
+                    }
                     .button-single {
                         display: none;
                     }
@@ -134,9 +167,19 @@
                 padding-left: 24px;
                 padding-right: 24px;
                 padding-bottom: 12px;
+
+                @media only screen and (max-width: 450px) {
+                    flex-direction: column;
+                    gap: 12px;
+                }
                 .button-group {
                     display: flex;
                     gap: 12px;
+
+                    @media only screen and (max-width: 450px) {
+                        flex-direction: column;
+                        width: 100%;
+                    }
                 }
                 .btn {
                     padding: 12px 20px;
@@ -147,6 +190,11 @@
                     min-width: 110px;
                     transition: 0.3s ease-in-out;
                     cursor: pointer;
+
+                    @media only screen and (max-width: 450px) {
+                        flex: 1;
+                    }
+
                     &.btn-primary {
                         color: #ffffff;
                         background: #6A4BFF;
@@ -158,6 +206,12 @@
                         }
                     }
                 }
+                .button-single {
+                    @media only screen and (max-width: 450px) {
+                        width: 100%;
+                        display: inline-flex;
+                    }
+                }
             }
         }
         .nx-gdpr-card-footer {
@@ -167,6 +221,10 @@
             align-items: center;
             gap: 8px;
             justify-content: flex-end;
+
+            @media only screen and (max-width: 450px) {
+            justify-content: center;
+            }
             .nx-gdpr-powered {
                 font-size: 12px;
                 line-height: 15px;
@@ -234,6 +292,7 @@
                             color: #092161;
                             background: transparent;
                             border: 1px solid #E5E7F2;
+                            transition: none;
                         }
                     }
                 }
@@ -351,6 +410,7 @@
                             color: #EDEDF2;
                             background: transparent;
                             border: 1px solid #222224;
+                            transition: none;
                         }
                     }
                 }
