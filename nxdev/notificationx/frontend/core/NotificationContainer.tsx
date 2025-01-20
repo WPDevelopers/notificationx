@@ -15,7 +15,7 @@ const NotificationContainer = (props: any) => {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);    
-    const noMobileDesign = ['announcements', 'flashing_tab', 'custom_notification', 'press_bar', 'inline'];
+    const noMobileDesign = ['announcements',, 'custom_notification', 'inline'];
     const renderNotice = (NoticeList, position) => {
         if (isMobile && frontendContext?.is_pro) {
             return (
