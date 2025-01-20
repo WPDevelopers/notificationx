@@ -71,10 +71,18 @@
             .nx-gdpr-card-body {
                 .nx-gdpr-description {
                     padding-bottom: 16px;
+
+                    @media only screen and (max-width: 450px) {
+                        padding-bottom: 12px;
+                    }
                 }
             }
             .nx-gdpr-card-footer {
                 padding: 4px 26px 8px;
+
+                @media only screen and (max-width: 450px) {
+                    padding: 4px 20px 8px;
+                }
             }
             .nx-gdpr-close {
                 top: 16px;
@@ -95,14 +103,20 @@
 
                 @media only screen and (max-width: 767px) {
                     flex-direction: column;
-                    gap: 16px;
+                    gap: 20px;
                     justify-content: flex-start;
                     align-items: flex-start;
+                    padding: 8px 20px 12px;
                 }
                 .nx-gdpr-description {
                     flex: 75%;
                     max-width: 1165px;
-                    padding: 0
+                    padding: 0;
+
+                    @media only screen and (max-width: 450px) {
+                        flex: 1;
+                        width: 100%;
+                    }
                 }
                 .nx-gdpr-actions {
                     padding: 0;
@@ -136,10 +150,22 @@
             align-items: center;
             gap: 6px;
             border-radius: 16px 16px 0 0;
+
+            @media only screen and (max-width: 450px) {
+                padding-top: 20px;
+                padding-left: 20px;
+                padding-right: 20px;
+                padding-bottom: 16px;
+            }
             .nx-gdpr-title {
                 font-size: 20px;
                 line-height: 22px;
                 font-weight: 600;
+
+                @media only screen and (max-width: 450px) {
+                    font-size: 16px;
+                    line-height: 18px;
+                }
             }
         }
         .nx-gdpr-card-body {
@@ -151,6 +177,14 @@
                 padding-right: 24px;
                 padding-bottom: 24px;
                 margin: 0;
+
+                @media only screen and (max-width: 450px) {
+                    font-size: 14px;
+                    line-height: 20px;
+                    padding-left: 20px;
+                    padding-right: 20px;
+                    padding-bottom: 20px;
+                }
 
                 .nx-gdpr-link {
                     font-weight: 500;
@@ -171,6 +205,8 @@
                 @media only screen and (max-width: 450px) {
                     flex-direction: column;
                     gap: 12px;
+                    padding-left: 20px;
+                    padding-right: 20px;
                 }
                 .button-group {
                     display: flex;
@@ -223,7 +259,8 @@
             justify-content: flex-end;
 
             @media only screen and (max-width: 450px) {
-            justify-content: center;
+                justify-content: center;
+                padding: 8px 20px;
             }
             .nx-gdpr-powered {
                 font-size: 12px;
@@ -260,6 +297,13 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+
+            @media only screen and (max-width: 450px) {
+                top: 20px;
+                right: 20px;
+                width: 20px;
+                height: 20px;
+            }
         }
     }
     
@@ -362,6 +406,11 @@
                 img {
                     width: 24px;
                     height: 24px;
+
+                    @media only screen and (max-width: 450px) {
+                        width: 20px;
+                        height: 20px;
+                    }
                 }
             }
         }
@@ -377,6 +426,11 @@
                 img {
                     width: 48px;
                     height: 48px;
+
+                    @media only screen and (max-width: 450px) {
+                        width: 40px;
+                        height: 40px;
+                    }
                 }
             }
         }
