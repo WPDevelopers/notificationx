@@ -150,15 +150,40 @@ class FrontEnd {
         }
     }
 
+    private function separate_css($css) {
+        $media_css = '';
+        $normal_css = '';
+    
+        // Match @media blocks
+        preg_match_all('/@media[^{]*{([^}]*{[^}]*})*[^}]*}/', $css, $media_matches);
+    
+        // Extract normal CSS
+        $normal_css = preg_replace('/@media[^{]*{([^}]*{[^}]*})*[^}]*}/', '', $css);
+    
+        // Extract @media CSS
+        if (!empty($media_matches[0])) {
+            $media_css = implode("\n", $media_matches[0]);
+        }
+    
+        // Clean up normal CSS (remove extra whitespace)
+        $normal_css = trim($normal_css);
+    
+        return [
+            'normal_css' => $normal_css,
+            'media_css' => $media_css
+        ];
+    }
+
     public function generate_custom_css() {
         $posts     = Database::get_instance()->get_posts(Database::$table_posts, '*', ['enabled' => true] );
         $combine_css = "";
         foreach ($posts as $post) {
             if( !empty( $post['data']['add_custom_css'] ) && !empty( $post['nx_id'] ) ) {
+                $separatedCss = $this->separate_css($post['data']['add_custom_css']);
                 if( !empty( $post['data']['source'] ) && $post['data']['source'] == 'press_bar' ) {
-                    $combine_css .= " #nx-bar-{$post['nx_id']} { {$post['data']['add_custom_css']} } ";
+                    $combine_css .= " #nx-bar-{$post['nx_id']} { {$separatedCss['normal_css']} } {$separatedCss['media_css']} ";
                 }else{
-                    $combine_css .= " .notificationx-{$post['nx_id']} { {$post['data']['add_custom_css']} } ";
+                    $combine_css .= " .notificationx-{$post['nx_id']} { {$separatedCss['normal_css']} } {$separatedCss['media_css']} ";
                 }
             }
         }
