@@ -8,6 +8,7 @@
 
 namespace NotificationX\Blocks;
 
+use NotificationX\Core\Helper;
 use NotificationX\GetInstance;
 
 /**
@@ -173,7 +174,7 @@ class Blocks {
         }
         $html .= '</div>';
 
-        return wp_kses_post($html);
+        return wp_kses($html, Helper::nx_allowed_html());
     }
 
     function isRestUrl() {

@@ -619,4 +619,143 @@ class Helper {
         return false;
     }
 
+    public static function nx_allowed_html()
+    {
+        return [
+            'a' => [
+                'href' => [],
+                'title' => [],
+                'target' => [],
+                'rel' => [],
+                'class' => [],
+                'id' => [],
+            ],
+            'abbr' => [
+                'title' => [],
+                'class' => [],
+            ],
+            'style' => [],
+            'b' => [
+                'class' => [],
+            ],
+            'blockquote' => [
+                'cite' => [],
+                'class' => [],
+            ],
+            'br' => [],
+            'cite' => [
+                'class' => [],
+            ],
+            'code' => [
+                'class' => [],
+            ],
+            'del' => [
+                'datetime' => [],
+                'class' => [],
+            ],
+            'div' => [
+                'class' => [],
+                'id' => [],
+                'style' => [],
+            ],
+            'em' => [
+                'class' => [],
+            ],
+            'h1' => [
+                'class' => [],
+                'id' => [],
+            ],
+            'h2' => [
+                'class' => [],
+                'id' => [],
+            ],
+            'h3' => [
+                'class' => [],
+                'id' => [],
+            ],
+            'h4' => [
+                'class' => [],
+                'id' => [],
+            ],
+            'h5' => [
+                'class' => [],
+                'id' => [],
+            ],
+            'h6' => [
+                'class' => [],
+                'id' => [],
+            ],
+            'hr' => [
+                'class' => [],
+            ],
+            'i' => [
+                'class' => [],
+            ],
+            'img' => [
+                'src' => [],
+                'alt' => [],
+                'title' => [],
+                'width' => [],
+                'height' => [],
+                'class' => [],
+                'id' => [],
+            ],
+            'li' => [
+                'class' => [],
+            ],
+            'ol' => [
+                'class' => [],
+            ],
+            'p' => [
+                'class' => [],
+                'style' => [],
+            ],
+            'pre' => [
+                'class' => [],
+            ],
+            'q' => [
+                'cite' => [],
+                'class' => [],
+            ],
+            'span' => [
+                'class' => [],
+                'style' => [],
+            ],
+            'strong' => [
+                'class' => [],
+            ],
+            'table' => [
+                'class' => [],
+                'style' => [],
+            ],
+            'tbody' => [
+                'class' => [],
+            ],
+            'td' => [
+                'colspan' => [],
+                'rowspan' => [],
+                'class' => [],
+                'style' => [],
+            ],
+            'tfoot' => [
+                'class' => [],
+            ],
+            'th' => [
+                'colspan' => [],
+                'rowspan' => [],
+                'scope' => [],
+                'class' => [],
+                'style' => [],
+            ],
+            'thead' => [
+                'class' => [],
+            ],
+            'tr' => [
+                'class' => [],
+            ],
+            'ul' => [
+                'class' => [],
+            ],
+        ];        
+    }
 }
