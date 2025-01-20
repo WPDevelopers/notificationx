@@ -19,11 +19,12 @@ const NotificationContainer = (props: any) => {
 
     const renderNotice = (NoticeList, position) => {
         const isMobileAndPro = isMobile && frontendContext?.is_pro;
+        const noMobileDesign = ['announcements',, 'custom_notification', 'inline','gdpr_notification'];
 
         return (
             <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
                 {NoticeList.map((notice) => {
-                    if (isMobileAndPro && notice?.config?.is_mobile_responsive && notice?.config?.type !== 'gdpr') {
+                    if (isMobileAndPro && notice?.config?.is_mobile_responsive && !noMobileDesign?.includes(notice?.config?.source) ) {
                         return (
                             <NotificationForMobile
                                 assets={frontendContext.assets}
