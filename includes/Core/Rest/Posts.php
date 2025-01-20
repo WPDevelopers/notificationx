@@ -141,8 +141,8 @@ class Posts extends WP_REST_Controller {
      */
     public function get_item_permissions_check($request) {
         $params = $request->get_params();
-        if( !empty( $params['source'] ) && 'gdpr_notification' == $params['source'] ) {
-            return current_user_can('read_notificationx') && current_user_can('edit_notificationx_gdpr');
+        if( !empty( $params['source'] ) ) {
+            return current_user_can('read_notificationx');
         }
         return current_user_can('read_notificationx');
     }
@@ -260,8 +260,8 @@ class Posts extends WP_REST_Controller {
      */
     public function update_item_permissions_check($request) {
         $params = $request->get_params();
-        if( !empty( $params['source'] ) && 'gdpr_notification' == $params['source'] ) {
-            return current_user_can('edit_notificationx') && current_user_can('edit_notificationx_gdpr');
+        if( !empty( $params['source'] ) ) {
+            return current_user_can('edit_notificationx');
         }
         return current_user_can('edit_notificationx');
     }

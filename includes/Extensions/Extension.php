@@ -37,7 +37,6 @@ abstract class Extension {
     public $selected_themes       = [];
     public $is_pro                = false;
     public $popup                 = null;
-    public $permission_popup      = null;
     public $module                = '';
     public $module_title          = '';
     public $version               = '';
@@ -440,7 +439,6 @@ abstract class Extension {
             'value'            => $this->id,
             'is_pro'           => $this->is_pro && ! NotificationX::is_pro(),
             'popup'            => apply_filters('nx_pro_alert_popup', $this->popup),
-            'permission_popup' => apply_filters('nx_permission_popup', $this->permission_popup),
             'priority'         => $this->priority,
         ];
         return $sources;

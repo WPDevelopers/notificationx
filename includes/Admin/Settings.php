@@ -115,7 +115,6 @@ class Settings extends UsabilityDynamicsSettings {
             'tabnumber'     => true,
             'layout'        => 'horizontal',
             'is_pro_active' => NotificationX::get_instance()->is_pro(),
-            'has_gdpr_permission' => current_user_can('edit_notificationx_gdpr'),
             'cus_imp_limit' => Settings::get_instance()->get('settings.custom_notification_import_limit', 100),
             'is_wpml_active'=> Helper::is_wpml_setup(),
             'config'        => [
@@ -270,17 +269,6 @@ class Settings extends UsabilityDynamicsSettings {
                                     'type'     => 'select',
                                     'label'    => __( 'Who Can Check Analytics?', 'notificationx' ),
                                     'priority' => 3,
-                                    'multiple' => true,
-                                    'is_pro'   => true,
-                                    'disable'  => true,
-                                    'default'  => [ 'administrator' ],
-                                    'options'  => $wp_roles,
-                                ),
-                                'gdpr_notification_role'         => array(
-                                    'name'     => 'gdpr_notification_role',
-                                    'type'     => 'select',
-                                    'label'    => __( 'Who Can Create Cookie Notice?', 'notificationx' ),
-                                    'priority' => 5,
                                     'multiple' => true,
                                     'is_pro'   => true,
                                     'disable'  => true,
@@ -641,10 +629,6 @@ class Settings extends UsabilityDynamicsSettings {
                 'roles' => $settings['analytics_roles'],
                 'map'   => [ 'read_notificationx' ],
             ],
-            'edit_notificationx_gdpr' => [
-                'roles' => $settings['gdpr_notification_role'],
-                'map'   => [ 'read_notificationx' ],
-            ],
         ];
     }
 
@@ -653,7 +637,6 @@ class Settings extends UsabilityDynamicsSettings {
         $notification_roles      = isset( $settings['notification_roles'] ) ? $settings['notification_roles'] : self::get_instance()->get( 'settings.notification_roles', [] );
         $settings_roles          = isset( $settings['settings_roles'] ) ? $settings['settings_roles'] : self::get_instance()->get( 'settings.settings_roles', [] );
         $analytics_roles         = isset( $settings['analytics_roles'] ) ? $settings['analytics_roles'] : self::get_instance()->get( 'settings.analytics_roles', [] );
-        $gdpr_notification_role  = isset( $settings['gdpr_notification_role'] ) ? $settings['gdpr_notification_role'] : self::get_instance()->get( 'settings.gdpr_notification_role', [] );
 
         if ( ! is_array( $notification_view_roles ) ) {
             $notification_view_roles = [ $notification_view_roles ];
@@ -667,16 +650,12 @@ class Settings extends UsabilityDynamicsSettings {
         if ( ! is_array( $analytics_roles ) ) {
             $analytics_roles = [ $analytics_roles ];
         }
-        if ( ! is_array( $gdpr_notification_role ) ) {
-            $gdpr_notification_role = [ $gdpr_notification_role ];
-        }
 
         return apply_filters('nx_role_management', [
             'notification_view_roles' => array_values( array_unique( array_merge( [ 'administrator' ], $notification_view_roles ) ) ),
             'notification_roles'      => array_values( array_unique( array_merge( [ 'administrator' ], $notification_roles ) ) ),
             'settings_roles'          => array_values( array_unique( array_merge( [ 'administrator' ], $settings_roles ) ) ),
             'analytics_roles'         => array_values( array_unique( array_merge( [ 'administrator' ], $analytics_roles ) ) ),
-            'gdpr_notification_role'  => array_values( array_unique( array_merge( [ 'administrator' ], $gdpr_notification_role ) ) ),
         ]
         );
     }

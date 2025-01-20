@@ -70,7 +70,6 @@ class NotificationX {
         add_action('init', [$this, 'init'], 10);
         add_action('plugins_loaded', array($this, 'init_extension'));
         add_filter('nx_pro_alert_popup', array($this, 'pro_alert_popup'));
-        add_filter('nx_permission_popup', array($this, 'permission_popup'));
         add_action( 'init', [ $this, 'register_custom_image_size' ] );
         /**
          * Register all REST Endpoint
@@ -154,27 +153,6 @@ class NotificationX {
                     "actions"=> 'nx-pro-alert-actions',
                     "confirmButton"=> 'pro-video-confirm-button',
                     "denyButton"=> 'pro-video-deny-button',
-                ],
-            ]);
-        }
-        return $args;
-    }
-
-    public function permission_popup($args) {
-        if ( !empty($args)){
-            $args = wp_parse_args($args, [
-                "showConfirmButton"=> true,
-                "showCloseButton"=>true,
-                "title" => __('Opps! You are unable to access this features!.'),
-                "customClass"=> [
-                    "container"=> 'nx-permission-popup',
-                    "closeButton"=> 'nx-permission-close-button',
-                    "icon"=> 'nx-permission-icon',
-                    "title"=> 'nx-permission-title',
-                    "content"=> 'nx-permission-content',
-                    "actions"=> 'nx-pro-alert-actions',
-                    "confirmButton"=> 'nx-permission-confirm-button',
-                    "denyButton"=> 'nx-permission-deny-button',
                 ],
             ]);
         }

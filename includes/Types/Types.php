@@ -30,7 +30,6 @@ abstract class Types {
     public $default_theme     = '';
     public $default_res_theme = '';
     public $popup             = null;
-    public $permission_popup  = null;
     public $link_type         = 'none';
 
     /**

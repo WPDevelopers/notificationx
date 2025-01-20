@@ -42,16 +42,6 @@ class GDPR extends Types {
         $this->id    = 'gdpr';
         $this->title = __('Cookie Notice', 'notificationx');
         parent::__construct();
-        if ( ! current_user_can( 'edit_notificationx_gdpr' ) ) {
-            $this->permission_popup = [
-                "title"             => __("Access Denied", "notificationx"),
-                "denyButtonText"    => __("Close", "notificationx"),
-                "showConfirmButton" => false,
-                "html"              => __('
-                    <span>You are not authorized to perform this action. Please contact the administrator or check your access rights.</span>
-                ', 'notificationx')
-            ];
-        }
         // nx_comment_colored_themes
         $this->themes = [
             'theme-light-one'        => [
