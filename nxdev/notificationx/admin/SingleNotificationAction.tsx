@@ -298,14 +298,7 @@ const SingleNotificationAction = ({
                 <a
                     className="nx-admin-three-dots"
                     title={__("Three Dots", "notificationx")}
-                    onClick={ () =>{
-                        if( 'gdpr' === item?.type && Boolean(!nxContext?.has_gdpr_permission) ) {
-                            const popup = getAlert(item?.type, nxContext);
-                            permissionAlert(popup).fire();
-                        }else{
-                            setAction(!action)
-                        }
-                    }  }
+                    onClick={ () => setAction(!action) }
                 >   
                     <img src={threeDots} alt={'three-dots'} />
                 </a>

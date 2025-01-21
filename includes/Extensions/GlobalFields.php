@@ -970,7 +970,7 @@ class GlobalFields {
                                     'name'    => "gdpr_force_reload",
                                     'type'    => "better-toggle",
                                     'default' => false,
-                                    'toggle_label'     => ['toggle_label_1' => __('Enabel Force Reload', 'notificationx'), 'toggle_label_2' => __('', 'notificationx')],
+                                    'toggle_label'     => ['toggle_label_1' => __('Enable Force Reload', 'notificationx'), 'toggle_label_2' => __('', 'notificationx')],
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
                                     ]),
@@ -981,7 +981,7 @@ class GlobalFields {
                                     'name'    => "gdpr_cookie_removal",
                                     'type'    => "better-toggle",
                                     'default' => false,
-                                    'toggle_label'     => ['toggle_label_1' => __('Enabel Cookie Removal', 'notificationx'), 'toggle_label_2' => __('', 'notificationx')],
+                                    'toggle_label'     => ['toggle_label_1' => __('Enable Cookie Removal', 'notificationx'), 'toggle_label_2' => __('', 'notificationx')],
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
                                     ]),

@@ -11,7 +11,7 @@ import nxHelper from '../../core/functions';
 const BetterRepeaterValueShow = (props) => {
     const builderContext = useBuilderContext();
     const [action, setAction] = useState(false);
-    const { fields, onChange, index, parent, visible_fields, setIsOpen, isDefault } = props;    
+    const { fields, onChange, index, parent, visible_fields, setIsOpen, isDefault } = props;  
     // @ts-ignore 
     const fieldsArray = Object.values(fields).filter(field => visible_fields.includes(field?.name));
 
@@ -28,8 +28,8 @@ const BetterRepeaterValueShow = (props) => {
         nxHelper.swal({
             html: `<div class="nx-gdpr-cookies-delete-modal">
                     ${binIcon} 
-                    <h2>${ __("Delete this Cookies", 'notificationx') }</h2>
-                    <p>${__('Lorem ipsum dolor sit amet consectetur. Maecenas felis dictum lectus eget vel. At leo commodo risus mi arcu vitae semper. Nullam suspendisse nulla sapien arcu nunc nunc non. Magna magna malesuada quam consectetur blandit quis.','notificationx')}</p>
+                    <h2>${ __("Are you sure you want to delete this cookie?", 'notificationx') }</h2>
+                    <p>The cookie <strong>${builderContext.values?.[parent]?.[index]?.cookies_id}</strong> will be permanently deleted. This cookie will no longer be displayed on your cookie list nor be blocked prior to receiving user consent.</p>
                 </div>`,
             showCancelButton: true,
             confirmButtonText: __("Delete", 'notificationx'),
@@ -73,10 +73,10 @@ const BetterRepeaterValueShow = (props) => {
                                         setIsOpen(true);
                                         setAction(false);
                                     }}> 
-                                        <EditIconNew/> { __('Edit Cookies','notificationx') }
+                                        <EditIconNew/> { __('Edit Cookie','notificationx') }
                                     </li>
                                     {/* @ts-ignore  */}
-                                    <li onClick={(event) => onDelete(event)}>  <TrashIcon/> { __('Delete Cookies', 'notificationx') } </li>
+                                    <li onClick={(event) => onDelete(event)}>  <TrashIcon/> { __('Delete Cookie', 'notificationx') } </li>
                                 </ul>
                             </div>
                         }

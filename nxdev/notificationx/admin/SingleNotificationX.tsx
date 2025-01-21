@@ -129,19 +129,10 @@ const SingleNotificationX = ({
             <td>
                 <div className="nx-admin-title">
                     <strong>
-                        { ('gdpr' === item?.type && Boolean(!builderContext?.has_gdpr_permission)) ?
-                            <a href="#" onClick={ () => {
-                                const popup = getAlert(item?.type, builderContext);
-                                permissionAlert(popup).fire();
-                            } }>
-                                {title || id}
-                            </a>
-                            :
-                            <Link to={{
-                                pathname: '/admin.php',
-                                search: `?page=nx-edit&id=${id}`,
-                            }}>{title || id}</Link>
-                        }
+                    <Link to={{
+                            pathname: '/admin.php',
+                            search: `?page=nx-edit&id=${id}`,
+                        }}>{title || id}</Link>
                     </strong>
                 </div>
             </td>
