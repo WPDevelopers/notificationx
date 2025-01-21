@@ -1680,22 +1680,23 @@
 .tutor_inline,
 .woo_inline,
 .woocommerce_sales_inline,
-.edd_inline {
+.edd_inline,
+.gdpr_notification {
     .themes .wprf-control.wprf-radio-card {
         .wprf-input-radio-option {
             &.wprf-option-has-image {
-                transform: scale(1);
-                transition: transform 0.1s ease-in-out;
 
                 svg,
                 object,
                 img {
                     max-height: 120px;
-                }
+                    transform: scale(1);
+                    transition: transform 0.1s ease-in-out;
 
-                &:hover {
-                    transform: scale(1.75);
-                    z-index: 100;
+                    &:hover {
+                        transform: scale(1.8);
+                        z-index: 9999;
+                    }
                 }
             }
         }
