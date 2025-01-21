@@ -28,7 +28,7 @@ const BetterRepeaterValueShow = (props) => {
         nxHelper.swal({
             html: `<div class="nx-gdpr-cookies-delete-modal">
                     ${binIcon} 
-                    <h2>${ __("Are you sure you want to delete this cookie?", 'notificationx') }</h2>
+                    <h2>${ __("Are you sure you want to delete this Cookie?", 'notificationx') }</h2>
                     <p>The cookie <strong>${builderContext.values?.[parent]?.[index]?.cookies_id}</strong> will be permanently deleted. This cookie will no longer be displayed on your cookie list nor be blocked prior to receiving user consent.</p>
                 </div>`,
             showCancelButton: true,
@@ -57,31 +57,31 @@ const BetterRepeaterValueShow = (props) => {
                         <p>{ builderContext.values?.[parent]?.[index]?.[field?.name] }</p>
                     </div>
                 })}
-                {!isDefault && (
-                    <div className="nx-action-toggle-wrapper">
-                        <a
-                            className="nx-admin-three-dots"
-                            onClick={ () => setAction(!action) }
-                        >   
-                            <img src={threeDots} alt={'three-dots'} />
-                        </a>
-                        { action && 
-                            <div className="nx-cookies-list-action">
-                                {/*  || item?.elementor_id */}
-                                <ul id="nx-admin-actions-ul">
-                                    <li onClick={() => {
-                                        setIsOpen(true);
-                                        setAction(false);
-                                    }}> 
-                                        <EditIconNew/> { __('Edit Cookie','notificationx') }
-                                    </li>
-                                    {/* @ts-ignore  */}
-                                    <li onClick={(event) => onDelete(event)}>  <TrashIcon/> { __('Delete Cookie', 'notificationx') } </li>
-                                </ul>
-                            </div>
-                        }
-                    </div>
-                )}
+                {/* {!isDefault && ( */}
+                <div className="nx-action-toggle-wrapper">
+                    <a
+                        className="nx-admin-three-dots"
+                        onClick={ () => setAction(!action) }
+                    >   
+                        <img src={threeDots} alt={'three-dots'} />
+                    </a>
+                    { action && 
+                        <div className="nx-cookies-list-action">
+                            {/*  || item?.elementor_id */}
+                            <ul id="nx-admin-actions-ul">
+                                <li onClick={() => {
+                                    setIsOpen(true);
+                                    setAction(false);
+                                }}> 
+                                    <EditIconNew/> { __('Edit Cookie','notificationx') }
+                                </li>
+                                {/* @ts-ignore  */}
+                                <li onClick={(event) => onDelete(event)}>  <TrashIcon/> { __('Delete Cookie', 'notificationx') } </li>
+                            </ul>
+                        </div>
+                    }
+                </div>
+                {/* )} */}
             </div>
             
         </div>
