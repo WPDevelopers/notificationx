@@ -1077,6 +1077,7 @@ class GlobalFields {
                                                     'name'     => 'necessary_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
+                                                    'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
                                                     'button'   => [
                                                         'label'    => __('Add New', 'notificationx'),
                                                         'position' => 'top',
@@ -1131,6 +1132,7 @@ class GlobalFields {
                                                     'name'     => 'functional_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
+                                                    'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
                                                     'button'  => [
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',
@@ -1184,6 +1186,7 @@ class GlobalFields {
                                                     'name'     => 'analytics_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
+                                                    'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
                                                     'button'  => [
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',
@@ -1237,6 +1240,7 @@ class GlobalFields {
                                                     'name'     => 'performance_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
+                                                    'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
                                                     'button'  => [
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',
@@ -1290,6 +1294,7 @@ class GlobalFields {
                                                     'name'     => 'uncategorized_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
+                                                    'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
                                                     'button'  => [
                                                         'label'    => __('Add New', 'notificationx-pro'),
                                                         'position' => 'top',

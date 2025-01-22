@@ -12,7 +12,7 @@ import EditIcon from '../icons/EditIcon';
 
 
 const BetterRepeater = (props) => {
-    const { name: fieldName, value: fieldValue, button, _fields, visible_fields } = props;
+    const { name: fieldName, value: fieldValue, placeholder_img, button, _fields, visible_fields } = props;
     const [isOpen, setIsOpen] = useState(false);
     const [isIntegrationModalOpen, setIsIntegrationModalOpen] = useState(false);
     const [isEditNecessaryModalOpen, setIsEditCookieInfoModalOpen] = useState(false);
@@ -94,13 +94,30 @@ const BetterRepeater = (props) => {
 
     return (
         <div className="wprf-repeater-control">
-            { button?.position == 'top' && 
-                <div className="wprf-repeater-label">
-                    <button className="wprf-repeater-button"
-                        onClick={handleButtonClick}>
-                        {button?.label}
-                    </button>
-                </div>
+            {localMemoizedValue?.length > 0 ? (
+                button?.position == 'top' && 
+                    <div className="wprf-repeater-label">
+                        <button className="wprf-repeater-button"
+                            onClick={handleButtonClick}>
+                            {button?.label}
+                        </button>
+                    </div>
+                ) : (
+                    <div className="wprf-repeater-empty">
+                        <div className='wprf-repeater-empty-img'>
+                            <img src={placeholder_img || ''} alt="empty-repeater" />
+                        </div>
+                        <p>{__('No Cookies found!')}</p>
+                        {button?.position == 'top' && 
+                            <div className="wprf-repeater-label">
+                                <button className="wprf-repeater-button"
+                                    onClick={handleButtonClick}>
+                                    {button?.label}
+                                </button>
+                            </div>
+                        }
+                    </div>
+                )
             }
             {
                 localMemoizedValue && localMemoizedValue?.length > 0 &&
