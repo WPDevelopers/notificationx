@@ -88,6 +88,7 @@ const BetterRepeater = (props) => {
         );
         if( isArray(updatedData) ) {
             setLocalMemoizedValue(updatedData)
+            builderContext.setFieldValue(fieldName, [...updatedData]);
         }
     }
     }, [isOpen]);
