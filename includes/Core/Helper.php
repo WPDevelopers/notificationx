@@ -770,6 +770,7 @@ class Helper {
                 'load_inside'        => 'head',
                 'script_url_pattern' => '',
                 'description'        => __('Tests whether cookies are enabled in the browser to provide a better user experience.', 'notificationx'),
+                'index'              => wp_generate_uuid4(),
             ],
             [
                 'enabled'            => true,
@@ -778,6 +779,7 @@ class Helper {
                 'load_inside'        => 'head',
                 'script_url_pattern' => '',
                 'description'        => __('Indicates when a user is logged in and who they are, for most interface use.','notificationx'),
+                'index'              => wp_generate_uuid4(),
             ],
             [
                 'enabled'            => true,
@@ -786,6 +788,7 @@ class Helper {
                 'load_inside'        => 'head',
                 'script_url_pattern' => '',
                 'description'        => __('Used for security purposes for logged-in users.', 'notificationx'),
+                'index'              => wp_generate_uuid4(),
             ],
             [
                 'enabled'            => true,
@@ -794,6 +797,7 @@ class Helper {
                 'load_inside'        => 'head',
                 'script_url_pattern' => '',
                 'description'        => __('Used to persist a user\'s WordPress admin settings.','notificationx'),
+                'index'              => wp_generate_uuid4(),
             ],
             [
                 'enabled'            => true,
@@ -802,6 +806,7 @@ class Helper {
                 'load_inside'        => 'head',
                 'script_url_pattern' => '',
                 'description'        => __('Records the time that wp-settings-{user_id} was set.', 'notificationx'),
+                'index'              => wp_generate_uuid4(),
             ],
             [
                 'enabled'            => true,
@@ -810,6 +815,7 @@ class Helper {
                 'load_inside'        => 'head',
                 'script_url_pattern' => '',
                 'description'        => __('Records the time that wp-settings-{user_id} was set.', 'notificationx'),
+                'index'              => wp_generate_uuid4(),
             ],
             [
                 'enabled'            => true,
@@ -817,6 +823,7 @@ class Helper {
                 'cookies_id'         => 'nx_cookie_manager',
                 'script_url_pattern' => '',
                 'description'        => __('Manages the cookies on the site, ensuring user consent for GDPR compliance.', 'notificationx'),
+                'index'              => wp_generate_uuid4(),
             ],
         ];
 
