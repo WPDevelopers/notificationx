@@ -453,6 +453,30 @@
                             }
                         }
                     }
+                    .wprf-repeater-empty {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+
+                        .wprf-repeater-empty-img {
+                            display: inline-flex;
+                            padding-bottom: 20px;
+
+                            img {
+                                max-width: 100%;
+                            }
+                        }
+
+                        p {
+                            font-size: 16px;
+                            line-height: 21px;
+                            font-weight: 500;
+                            color: #092161;
+                            margin: 0;
+                            padding-bottom: 16px;
+                        }
+                    }
                 }
             }
         }
