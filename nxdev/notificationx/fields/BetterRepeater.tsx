@@ -166,7 +166,7 @@ const BetterRepeater = (props) => {
             >
                 <>
                     <div className="wprf-modal-preview-header">
-                        <span>{ activeEditItem ? __( 'Edit Custom Cookie','notificationx' ) : __( 'Add Custom Cookies','notificationx' ) }</span>
+                        <span>{ activeEditItem ? __( 'Edit Custom Cookie','notificationx' ) : __( 'Add Custom Cookie','notificationx' ) }</span>
                         <button onClick={() => {
                                 setIsOpen(false);
                                 setActiveEditItem("");
