@@ -23,10 +23,10 @@ const AccordionItem = ({
         )}
         <h3>{title}</h3>
       </div>
-      {cookiesList && (
+      {cookiesList?.length > 0 && (
         <div className="nx_gdpr-cookies-list-header-active">
           {isAlwaysActive ? (
-            <span>{ settings.cookie_list_active_label ? settings.cookie_list_active_label : __('Always Active', 'notificationx') }</span>
+            <span>{ settings.cookie_list_active_label ? settings.cookie_list_active_label : __('Enabled', 'notificationx') }</span>
           ) : (
             <label className="nx_gdpr-toggle">
               <input
@@ -57,7 +57,7 @@ const AccordionItem = ({
             </div>
           </div>
         ))}
-        { !cookiesList && (<span>{ settings?.cookie_list_no_cookies_label }</span>)}
+        { (!cookiesList || !cookiesList?.length) && (<span>{ settings?.cookie_list_no_cookies_label }</span>)}
       </div>
     )}
   </div>
