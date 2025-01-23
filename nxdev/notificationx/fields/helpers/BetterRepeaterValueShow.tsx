@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { Icon } from '@wordpress/components';
 import { useInstanceId } from "@wordpress/compose";
 import { GenericField, useBuilderContext } from 'quickbuilder';
@@ -12,9 +12,23 @@ import nxHelper from '../../core/functions';
 const BetterRepeaterValueShow = (props) => {
     const builderContext = useBuilderContext();
     const [action, setAction] = useState(false);
+    const buttonRef = useRef(null);
     const { fields, onChange, index, parent, visible_fields, setIsOpen, isDefault } = props;  
     // @ts-ignore 
     const fieldsArray = Object.values(fields).filter(field => visible_fields.includes(field?.name));
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (buttonRef.current && !buttonRef.current.contains(event.target)) {
+            setAction(false);
+            }
+        }
+    
+        window.addEventListener('click', handleClickOutside);
+        return () => {
+            window.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
 
     const onClone = (event:Event) => {
         event?.stopPropagation();
@@ -31,7 +45,7 @@ const BetterRepeaterValueShow = (props) => {
             html: `<div class="nx-gdpr-cookies-delete-modal">
                     ${binIcon} 
                     <h2>${ __("Are you sure you want to delete this Cookie?", 'notificationx') }</h2>
-                    <p>The cookie <strong>${builderContext.values?.[parent]?.[index]?.cookies_id}</strong> will be permanently deleted. This cookie will no longer be displayed on your cookie list nor be blocked prior to receiving user consent.</p>
+                    <p>${sprintf(__('The cookie <strong>%s</strong> will be permanently deleted. This cookie will no longer be displayed on your cookie list nor be blocked prior to receiving user consent.', 'notificationx'), builderContext.values?.[parent]?.[index]?.cookies_id)}</p>
                 </div>`,
             showCancelButton: true,
             confirmButtonText: __("Delete", 'notificationx'),
@@ -60,7 +74,7 @@ const BetterRepeaterValueShow = (props) => {
                     </div>
                 })}
                 {/* {!isDefault && ( */}
-                <div className="nx-action-toggle-wrapper">
+                <div className="nx-action-toggle-wrapper" ref={buttonRef}>
                     <a
                         className="nx-admin-three-dots"
                         onClick={ () => setAction(!action) }

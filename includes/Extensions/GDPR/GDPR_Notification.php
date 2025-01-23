@@ -295,12 +295,11 @@ class GDPR_Notification extends Extension {
     }
 
     public function doc(){
-        return sprintf(__('<p>You can showcase Cookie Notice effortlessly on your WordPress site to ensure compliance with visitors. Need help? Follow our step-by-step guides for creating a Cookie Notice on the WordPress website.</p>
-		<p>🎦 Watch the video <a target="_blank" href="%1$s">tutorial</a> for a quick guide.</p>
+        return sprintf(__('<p>You can showcase Cookie Notice effortlessly on your WordPress site to ensure compliance with visitors. Need help? Follow our <a href="%1$s" target="_blank">step-by-step guides</a> for creating a Cookie Notice on the WordPress website.</p>
 		<p><strong>Recommended Blogs:</strong></p>
-		<p>🔥 A Comprehensive Guide to Cookie Notice in WordPress <a target="_blank" href="%2$s">How to Create & Implement</a></p>', 'notificationx'),
-        '#',
-        '#',
+		<p>🔥 <a target="_blank" href="%2$s">How to Display WordPress Cookie Notice Using NotificationX?</a></p>', 'notificationx'),
+        'https://notificationx.com/docs/how-to-configure-cookies-policy-for-website/',
+        'https://notificationx.com/blog/display-wordpress-cookie-notice/',
         );
     }
 

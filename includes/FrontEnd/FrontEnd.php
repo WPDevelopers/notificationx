@@ -522,7 +522,7 @@ class FrontEnd {
                 'global'   => $global_notifications,
                 'active'   => $active_notifications,
                 'pressbar' => $bar_notifications,
-                'gdpr'     => $gdpr_notification,
+                // 'gdpr'     => $gdpr_notification,
                 'total'    => (count($global_notifications) + count($active_notifications) + count($bar_notifications) + count($gdpr_notification)),
             ],
             $notifications
