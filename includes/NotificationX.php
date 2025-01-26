@@ -321,17 +321,11 @@ class NotificationX {
 
     
     public function register_custom_image_size() {
-        // Retrieve the custom image size from settings
-        $default_size = '100_100'; // Default size
-        $image_size = (string) Settings::get_instance()->get('settings.notification_image_size', $default_size);
-        $image_size = explode('_', $image_size);
-    
-        // Validate and assign width and height from settings
-        $width = isset($image_size[0]) && is_numeric($image_size[0]) ? (int) $image_size[0] : 100;
-        $height = isset($image_size[1]) && is_numeric($image_size[1]) ? (int) $image_size[1] : 100;
-    
-        // Register the custom image size
-        add_image_size('_nx_notification_thumb', $width, $height, true); // true for cropping
+        add_image_size('_nx_notification_thumb_100_100', 100, 100, true);
+        add_image_size('_nx_notification_thumb_200_200', 200, 200, true);
+        add_image_size('_nx_notification_thumb_300_300', 300, 300, true);
+        add_image_size('_nx_notification_thumb_400_400', 400, 400, true);
+        add_image_size('_nx_notification_thumb_500_500', 500, 500, true);
     }
 
 }
