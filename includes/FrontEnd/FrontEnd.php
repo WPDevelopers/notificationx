@@ -382,7 +382,7 @@ class FrontEnd {
             $notifications = $this->get_notifications($gdpr);
             foreach ($notifications as $key => $settings) {
                 $_nx_id            = $settings['nx_id'];
-                if (!empty($_params['all_active']) && $elementor_post_id) {
+                if (!empty($_params['all_active'])) {
                     continue;
                 }
 
