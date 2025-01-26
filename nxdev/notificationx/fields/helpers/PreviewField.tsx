@@ -27,7 +27,7 @@ const BulkEditField = (props) => {
     
     fieldsArray = fieldsArray.filter(item => {
         // @ts-ignore 
-        return ['title', 'first_name', 'last_name', 'timestamp', 'plugin_name', 'post_title','username','sales_count','today','last_week','all_time','active_installs','rated', 'image', 'link'].includes(item?.name);
+        return ['title', 'first_name', 'last_name', 'timestamp', 'plugin_name', 'post_title','username','sales_count','today','last_week','all_time','active_installs','rated'].includes(item?.name);
     });
     
     return (
