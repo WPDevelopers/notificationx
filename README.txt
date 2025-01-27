@@ -56,6 +56,8 @@ Let the visitors know about your special offers, deals, announcements, etc. with
 - Quick Builder Setup to improve user experience
 - Supports WooCommerce, Easy Digital Download, Freemius [PRO], Envato [PRO]
 - Customization option to display across the site, on specific posts, pages or exclude from the specific location
+- Display cookie notification banner on your website for seamless cookie consent and GDPR compliance from users/visitors
+- Get notifications that are perfectly mobile responsive with bunch of customization options based on your needs
 - Advanced **19+ integrations** to power up your social-proof marketing strategies
 - Connect NotificationX with **Zapier** to build absolutely anything [PRO]
 - Showcase live notifications to any other WordPress or non-WordPress websites with [Cross Domain Notice](https://notificationx.com/docs/notificationx-cross-domain-notice/) [PRO]
