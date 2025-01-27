@@ -7,7 +7,6 @@ const BetterTabField = (props) => {
     const builderContext = useBuilderContext();
     const { fields, onChange, index, parent } = props;
     const fieldsArray = Object.values(fields);
-    console.log('_localMemoizedValueForTab',fields);
     
     const [isCollapsed, setIsCollapsed] = useState(props.isCollapsed);
     const instanceId = useInstanceId(BetterTabField);

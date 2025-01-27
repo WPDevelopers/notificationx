@@ -51,10 +51,7 @@ const SingleNotificationAction = ({
             JSON.stringify(xss_data),
             nxContext.xss_scripts
         );
-    }
-
-    console.log('setReload',setReload);
-                        
+    }                        
     
     // @ts-ignore
     const ajaxurl = window.ajaxurl;
