@@ -209,7 +209,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 3.0.0 - 29/01/2025 =
+= 3.0.0 - 28/01/2025 =
 Added: GDPR-type Cookie Notice.
 Fixed: Image size support for notifications.
 Fixed: Mobile responsiveness issues for notifications.
