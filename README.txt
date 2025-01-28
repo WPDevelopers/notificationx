@@ -13,7 +13,7 @@ Want to boost business trust & conversions? 97% of visitors hesitate to buy beca
 
 == Description ==
 
-== Best FOMO, Social Proof, WooCommerce Sales Popup & Notification Bar Plugin With Elementor Support ==
+== Best FOMO, Social Proof, GDPR, WooCommerce Sales Popup & Notification Bar Plugin With Elementor Support ==
 
 #### **BUILD INSTANT CREDIBILITY USING SOCIAL PROOF NOTIFICATION** ####
 
