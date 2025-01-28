@@ -300,7 +300,7 @@ class GDPR_Notification extends Extension {
 		<p><strong>Recommended Blogs:</strong></p>
 		<p>🔥 <a target="_blank" href="%3$s">How to Display WordPress Cookie Notice Using NotificationX?</a></p>', 'notificationx'),
         'https://notificationx.com/docs/how-to-configure-cookies-policy-for-website/',
-        'https://www.youtube.com/watch?v=xK85BFnl7ss',
+        'https://youtu.be/xMiRgH436SE',
         'https://notificationx.com/blog/display-wordpress-cookie-notice/',
         );
     }
