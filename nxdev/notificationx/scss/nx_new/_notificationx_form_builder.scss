@@ -184,11 +184,13 @@
             &.wprf-option-has-image {
                 &:before {
                     background: #45c9b1;
+                    z-index: 999;
                 }
 
                 &:after {
                     border-bottom: 2px solid #fff;
                     border-right: 2px solid #fff;
+                    z-index: 999;
                 }
             }
         }

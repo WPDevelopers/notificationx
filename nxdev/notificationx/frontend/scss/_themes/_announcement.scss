@@ -1,0 +1,72 @@
+.notification-item.nx-notification.source-announcements {
+	&.themes-announcements_theme-1 {
+		.notificationx-image {
+			svg {
+				position: absolute;
+			}
+		}
+
+		.notificationx-content {
+			.nx-second-row {
+				span {
+					@media only screen and (max-width: 550px) {
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						max-width: 120px;
+					}
+				}
+			}
+		}
+	}
+
+	&.themes-announcements_theme-2,
+	&.themes-announcements_theme-12 {
+		.notificationx-content {
+			.nx-second-row {
+				span {
+					@media only screen and (max-width: 550px) {
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						max-width: 120px;
+					}
+				}
+			}
+		}
+	}
+	&.themes-announcements_theme-14 {
+		.notificationx-content {
+			>p {
+                &.nx-second-row {
+					span {
+						@media only screen and (max-width: 550px) {
+							white-space: nowrap;
+							overflow: hidden;
+							text-overflow: ellipsis;
+							max-width: 120px;
+						}
+					}
+				}
+				&.nx-third-row {
+					.nx-branding {
+						@media only screen and (max-width: 550px) {
+							display: none;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	&.themes-announcements_theme-15 {
+		.notificationx-inner {
+			.notificationx-content {
+				padding: 10px 6px 10px 6px;
+			}
+			>a {
+				text-align: center;
+			}
+		}
+	}
+}
