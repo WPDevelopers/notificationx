@@ -1,4 +1,4 @@
-=== NotificationX – Live Sales Notification, WooCommerce Sales Popup, FOMO, Social Proof, Announcement Banner & Floating Notification Top Bar ===
+=== NotificationX – FOMO, Live Sales Notification, WooCommerce Sales Popup, GDPR, Social Proof, Announcement Banner & Floating Notification Bar ===
 Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim, sapanmozammel, shuvo247, fuadragib
 Donate link: https://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce sales, notification bar
@@ -22,7 +22,7 @@ People don’t like being left behind and they love to follow the trends. If you
 #### **What is 'FOMO'?** ####
 FOMO means "**F**ear **O**f **M**issing **O**ut"! It’s a popular marketing technique to make your visitors eager to buy from your site leveraging the sense of urgency.
 
-https://youtu.be/E-QR1QdRUrg?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
+https://youtu.be/6A4OLJjRW_g
 
 ## 🌟 USE FOMO TO INCREASE YOUR LEADS, SALES & ENGAGEMENTS ##
 
@@ -49,6 +49,8 @@ https://youtu.be/6XJ2lLmH3w8?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 ## 📌 BEST NOTIFICATION BAR PLUGIN FOR WORDPRESS ##
 
 Let the visitors know about your special offers, deals, announcements, etc. with a call to action. **NotificationX** brings the [best notification bar](https://notificationx.com/features/) solution for WordPress, and it's absolutely free. You could turn on the end, and start time, you will get detailed analytics on how your notification bar performed as well.
+
+https://youtu.be/xMiRgH436SE
 
 ### 🔝 FEATURES: ###
 
@@ -207,7 +209,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 3.0.0 - 27/01/2025 =
+= 3.0.0 - 28/01/2025 =
 Added: GDPR-type Cookie Notice.
 Fixed: Image size support for notifications.
 Fixed: Mobile responsiveness issues for notifications.
@@ -238,39 +240,6 @@ Few minor bug fixes and improvements.
 = 2.9.1 - 01/10/2024 =
 Fixed: Issues with custom notification shortcode.
 Improved: Notification creation and duplication process.
-Few minor bug fixes and improvements.
-
-= 2.9.0 - 5/9/2024 =
-Revamped: NotificationX Dashboard UI.
-Few minor bug fixes and improvements.
-
-= 2.8.13 - 5/8/2024 =
-Improved: Bulk time customization option for Custom Notifications.
-Improved: Elementor Global CSS loading for Notification Bar.
-Few minor bug fixes and improvements.
-
-= 2.8.12 - 16/7/2024 =
-Hotfix: Notification pop-ups were stacking up.
-
-= 2.8.11 - 16/7/2024 =
-Added: WordPress 6.6 compatibility.
-Improved: Notification Search feature.
-Fixed: EB Countdown wasn't work Properly on Notification Bar.
-Few minor bug fixes and improvements.
-
-= 2.8.10 - 01/7/2024 =
-Added: Bulk Custom Notification with CSV.
-Few minor bug fixes and improvements.
-
-= 2.8.9 - 13/6/2024 =
-Improved: Notification Bar asset loading.
-Improved: Notification dashboard notice showing process.
-Few minor bug fixes and improvements.
-
-= 2.8.8 - 05/6/2024 =
-Added: Notification bar Auto hide after expiration.
-Fixed: NotificationX conflicts with WooCommerce Subscription plugin.
-Fixed: Start & End time selection style was broken.
 Few minor bug fixes and improvements.
 
 [See changelog for all versions](https://notificationx.com/changelog)
