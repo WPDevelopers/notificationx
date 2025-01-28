@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-27T09:37:04+00:00\n"
+"POT-Creation-Date: 2025-01-28T09:52:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -995,7 +995,7 @@ msgid "plugin first."
 msgstr ""
 
 #. translators: links
-#: includes/Extensions/CF7/CF7.php:271
+#: includes/Extensions/CF7/CF7.php:274
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Contact Form 7 installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -3611,7 +3611,7 @@ msgstr ""
 msgid "Form Title"
 msgstr ""
 
-#: includes/Types/ContactForm.php:218
+#: includes/Types/ContactForm.php:220
 msgid "Select a Form"
 msgstr ""
 
@@ -4635,6 +4635,12 @@ msgstr ""
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:12
 msgid "How To Configure 'WooCommerce Sales Alerts' In NotificationX?"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:12
+msgid "How to Configure Cookies Policy for Website Using NotificationX’s Cookie Notice?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
