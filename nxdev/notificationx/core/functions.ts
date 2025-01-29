@@ -344,6 +344,10 @@ export const defaultCustomCSSValue = ( type = '') => {
                 // write css code here
             }
         `);
+    } else if (type === 'gdpr') {
+        return formatCSS(`
+            
+        `);
     }
     return formatCSS(`
         .notificationx-inner {

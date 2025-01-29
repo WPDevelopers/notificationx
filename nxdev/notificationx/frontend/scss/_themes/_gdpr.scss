@@ -53,6 +53,11 @@
             left: 15px;
         }
     }
+    .nx-gdpr-card.no-branding{
+        .nx-gdpr-card-body {
+            border-radius: 0 0 16px 16px;
+        }
+    }
     &.banner-gdpr { 
         position: fixed;
         bottom: 0;
@@ -502,6 +507,7 @@
                     padding-top: 16px;
                     padding-bottom: 12px;
                     background: #0F0F0F;
+                    border-radius: 0 0 16px 16px;
                 }
             }
         }

@@ -44,7 +44,11 @@ const AdvancedCodeViewer = (props) => {
         if (props?.context?.values?.source === 'press_bar' && !props?.value) {
             const bar = defaultCustomCSSValue('bar');
             setDefaultVal(bar);
-        } else if(!props?.value) {
+        } else if (props?.context?.values?.source === 'gdpr_notification' && !props?.value) {
+            const gdpr = defaultCustomCSSValue('gdpr');
+            setDefaultVal(gdpr);
+        }
+        else if(!props?.value) {
             const popup = defaultCustomCSSValue('');
             setDefaultVal(popup);
         }
