@@ -182,7 +182,10 @@ class FrontEnd {
                 $separatedCss = $this->separate_css($post['data']['add_custom_css']);
                 if( !empty( $post['data']['source'] ) && $post['data']['source'] == 'press_bar' ) {
                     $combine_css .= " #nx-bar-{$post['nx_id']} { {$separatedCss['normal_css']} } {$separatedCss['media_css']} ";
-                }else{
+                } else if( !empty( $post['data']['source'] ) && $post['data']['source'] == 'gdpr_notification' ) {
+                    $combine_css .= " #nx-gdpr-{$post['nx_id']} { {$separatedCss['normal_css']} } {$separatedCss['media_css']} ";
+                } 
+                else {
                     $combine_css .= " .notificationx-{$post['nx_id']} { {$separatedCss['normal_css']} } {$separatedCss['media_css']} ";
                 }
             }

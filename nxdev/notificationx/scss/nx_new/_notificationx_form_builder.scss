@@ -1146,7 +1146,9 @@
             .wprf-control-field {
                 textarea {
                     max-width: 100%;
-                    color: #fff;
+                    color: #535D77 !important;
+                    background: #F0F3F7 !important;
+                    border: 1px solid #E9EBF0;
                     height: 250px;
                 }
             }

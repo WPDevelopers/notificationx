@@ -468,6 +468,9 @@ class GDPR extends Types {
             'type'     => 'media',
             'priority' => 109, 
             'is_pro'   => true, 
+            'default'  => [
+                'url' => 'https://notificationx.com/wp-content/uploads/2025/01/cookie-image.png',
+            ],
             'rules' => Rules::logicalRule([
                 Rules::is('themes', 'gdpr_theme-banner-light-one', true),
                 Rules::is('themes', 'gdpr_theme-light-one', true),

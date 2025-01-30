@@ -42,20 +42,20 @@ const GDPR = (props) => {
     const [animation, setAnimation] = useState(false);
     const is_pro = frontEndContext?.state?.is_pro ?? false;
     let mainBGColor = {};
-    let titleColorFontSize = {};
-    let descColorFontSize = {};
+    let titleColorFont = {};
+    let descColorFont = {};
 
     if ( settings?.advance_edit ) {
         mainBGColor = {
             backgroundColor: settings?.gdpr_design_bg_color,
         };
-        titleColorFontSize = {
-            color: settings?.title_text_color,
+        titleColorFont = {
+            color: settings?.title_font_color,
             fontSize: settings?.title_font_size,
         };
-        descColorFontSize = {
+        descColorFont = {
             color: settings?.description_text_color,
-            fontSize: settings?.description_text_size,
+            fontSize: settings?.description_font_size,
         };
     }
     
@@ -221,18 +221,19 @@ const GDPR = (props) => {
             className={componentClasses}
         >
             <div className="nx-gdpr">
-                <div className="nx-gdpr-card">
+                <div className={`nx-gdpr-card ${settings?.disable_powered_by ? 'no-branding' : '' }`}>
+                
                     {/* Header Section */}
                     <div className="nx-gdpr-card-header" style={mainBGColor}>
                         { settings?.gdpr_custom_logo &&
                             <img src={settings?.gdpr_custom_logo?.url} alt={settings?.gdpr_custom_logo?.title} className="nx-gdpr-logo" />
                         }
-                        <h3 className="nx-gdpr-title" style={descColorFontSize}>{settings?.gdpr_title}</h3>
+                        <h3 className="nx-gdpr-title" style={titleColorFont}>{settings?.gdpr_title}</h3>
                     </div>
 
                     {/* Content Section */}
                     <div className="nx-gdpr-card-body" style={mainBGColor}>
-                        <p className="nx-gdpr-description" style={titleColorFontSize}>
+                        <p className="nx-gdpr-description" style={descColorFont}>
                             {settings?.gdpr_message}
                             { settings?.gdpr_cookies_policy_toggle && settings?.gdpr_cookies_policy_link_url &&
                                 <a href={settings?.gdpr_cookies_policy_link_url} target='_blank' className="nx-gdpr-link">{ settings?.gdpr_cookies_policy_link_text }</a>
