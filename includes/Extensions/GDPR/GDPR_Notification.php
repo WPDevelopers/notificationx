@@ -65,6 +65,7 @@ class GDPR_Notification extends Extension {
             'rules'    => Rules::logicalRule([
                 Rules::is('source', $this->id, false),
                 Rules::is('advance_edit', true),
+                Rules::is('gdpr_theme', false),
             ]),
             'fields' => [
                 [
@@ -103,7 +104,90 @@ class GDPR_Notification extends Extension {
                     'label'       => __('Description Font Size', 'notificationx'),
                     'name'        => "description_font_size",
                     'type'        => "number",
-                    'default'     => '16',
+                    'default'     => '14',
+                    'description' => 'px',
+                    'help'        => __('This font size will be applied for <mark>Description</mark> only', 'notificationx'),
+                ],
+                [
+                    'label' => __("Close Button Color", 'notificationx'),
+                    'name'  => "close_btn_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#092161",
+                    'rules' => Rules::logicalRule([
+                        Rules::is('themes', 'gdpr_theme-banner-light-one', true),
+                        Rules::is('themes', 'gdpr_theme-light-two', true),
+                        Rules::is('themes', 'gdpr_theme-light-four', true),
+                        Rules::is('themes', 'gdpr_theme-banner-dark-one', true),
+                        Rules::is('themes', 'gdpr_theme-dark-two', true),
+                        Rules::is('themes', 'gdpr_theme-dark-four', true),
+                    ]),
+                ],
+                [
+                    'label'       => __('Close Button Size', 'notificationx'),
+                    'name'        => "close_btn_size",
+                    'type'        => "number",
+                    'default'     => '18',
+                    'description' => 'px',
+                    'rules' => Rules::logicalRule([
+                        Rules::is('themes', 'gdpr_theme-banner-light-one', true),
+                        Rules::is('themes', 'gdpr_theme-light-two', true),
+                        Rules::is('themes', 'gdpr_theme-light-four', true),
+                        Rules::is('themes', 'gdpr_theme-banner-dark-one', true),
+                        Rules::is('themes', 'gdpr_theme-dark-two', true),
+                        Rules::is('themes', 'gdpr_theme-dark-four', true),
+                    ]),
+                ],
+            ]
+        ];
+        // For dark theme
+        $fields['advance_design_section']['fields']['gdpr_design_dark'] = [
+            'label'    => __("Design", 'notificationx'),
+            'name'     => "gdpr_design",
+            'type'     => "section",
+            'priority' => 5,
+            'rules'    => Rules::logicalRule([
+                Rules::is('source', $this->id, false),
+                Rules::is('advance_edit', true),
+                Rules::is('gdpr_theme', true),
+            ]),
+            'fields' => [
+                [
+                    'label' => __("Background Color", 'notificationx'),
+                    'name'  => "gdpr_design_bg_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#fff",
+                ],
+                [
+                    'label' => __("Footer Background Color", 'notificationx'),
+                    'name'  => "gdpr_design_ft_bg_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#F7F7FB",
+                ],
+                [
+                    'label' => __("Title Color", 'notificationx'),
+                    'name'  => "title_text_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#092161",
+                ],
+                [
+                    'label'       => __('Title Font Size', 'notificationx'),
+                    'name'        => "title_font_size",
+                    'type'        => "number",
+                    'default'     => '20',
+                    'description' => 'px',
+                    'help'        => __('This font size will be applied for <mark>Title</mark> only', 'notificationx'),
+                ],
+                [
+                    'label' => __("Description Color", 'notificationx'),
+                    'name'  => "description_text_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#6B7793",
+                ],
+                [
+                    'label'       => __('Description Font Size', 'notificationx'),
+                    'name'        => "description_font_size",
+                    'type'        => "number",
+                    'default'     => '14',
                     'description' => 'px',
                     'help'        => __('This font size will be applied for <mark>Description</mark> only', 'notificationx'),
                 ],
@@ -147,6 +231,46 @@ class GDPR_Notification extends Extension {
             'rules'    => Rules::logicalRule([
                 Rules::is('source', $this->id, false),
                 Rules::is('advance_edit', true),
+                Rules::is('gdpr_theme', false),
+            ]),
+            'fields' => [
+                [
+                    'label' => __("Background Color", 'notificationx'),
+                    'name'  => "gdpr_accept_btn_bg_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#6A4BFF",
+                ],
+                [
+                    'label' => __("Border Color", 'notificationx'),
+                    'name'  => "gdpr_accept_btn_border_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#6A4BFF",
+                ],
+                [
+                    'label' => __("Text Color", 'notificationx'),
+                    'name'  => "gdpr_accept_btn_text_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#fff",
+                ],
+                [
+                    'label'       => __('Font Size', 'notificationx'),
+                    'name'        => "gdpr_accept_btn_font_size",
+                    'type'        => "number",
+                    'default'     => '14',
+                    'description' => 'px',
+                ],
+            ]
+        ];
+        // For dark theme
+        $fields['advance_design_section']['fields']['gdpr_accept_btn_dark'] = [
+            'label'    => __("Accept Button", 'notificationx'),
+            'name'     => "gdpr_accept_btn",
+            'type'     => "section",
+            'priority' => 6,
+            'rules'    => Rules::logicalRule([
+                Rules::is('source', $this->id, false),
+                Rules::is('advance_edit', true),
+                Rules::is('gdpr_theme', true),
             ]),
             'fields' => [
                 [
@@ -185,6 +309,52 @@ class GDPR_Notification extends Extension {
             'rules'    => Rules::logicalRule([
                 Rules::is('source', $this->id, false),
                 Rules::is('advance_edit', true),
+                Rules::is('gdpr_theme', false),
+                Rules::is('themes', 'gdpr_theme-banner-light-two', true),
+                Rules::is('themes', 'gdpr_theme-light-one', true),
+                Rules::is('themes', 'gdpr_theme-light-three', true),
+                Rules::is('themes', 'gdpr_theme-banner-dark-two', true),
+                Rules::is('themes', 'gdpr_theme-dark-one', true),
+                Rules::is('themes', 'gdpr_theme-dark-three', true),
+            ]),
+            'fields' => [
+                [
+                    'label' => __("Background Color", 'notificationx'),
+                    'name'  => "gdpr_reject_btn_bg_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#F6F7FE",
+                ],
+                [
+                    'label' => __("Border Color", 'notificationx'),
+                    'name'  => "gdpr_reject_btn_border_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#E5E7F2",
+                ],
+                [
+                    'label' => __("Text Color", 'notificationx'),
+                    'name'  => "gdpr_reject_btn_text_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#092161",
+                ],
+                [
+                    'label'       => __('Font Size', 'notificationx'),
+                    'name'        => "gdpr_reject_btn_font_size",
+                    'type'        => "number",
+                    'default'     => '14',
+                    'description' => 'px',
+                ],
+            ]
+        ];
+        // For dark theme
+        $fields['advance_design_section']['fields']['gdpr_reject_btn_dark'] = [
+            'label'    => __("Reject Button", 'notificationx'),
+            'name'     => "gdpr_reject_btn",
+            'type'     => "section",
+            'priority' => 7,
+            'rules'    => Rules::logicalRule([
+                Rules::is('source', $this->id, false),
+                Rules::is('advance_edit', true),
+                Rules::is('gdpr_theme', true),
                 Rules::is('themes', 'gdpr_theme-banner-light-two', true),
                 Rules::is('themes', 'gdpr_theme-light-one', true),
                 Rules::is('themes', 'gdpr_theme-light-three', true),
@@ -229,6 +399,46 @@ class GDPR_Notification extends Extension {
             'rules'    => Rules::logicalRule([
                 Rules::is('source', $this->id, false),
                 Rules::is('advance_edit', true),
+                Rules::is('gdpr_theme', false),
+            ]),
+            'fields' => [
+                [
+                    'label' => __("Background Color", 'notificationx'),
+                    'name'  => "gdpr_customize_btn_bg_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#fff",
+                ],
+                [
+                    'label' => __("Border Color", 'notificationx'),
+                    'name'  => "gdpr_customize_btn_border_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#EFF0F6",
+                ],
+                [
+                    'label' => __("Text Color", 'notificationx'),
+                    'name'  => "gdpr_customize_btn_text_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#092161",
+                ],
+                [
+                    'label'       => __('Font Size', 'notificationx'),
+                    'name'        => "gdpr_customize_btn_font_size",
+                    'type'        => "number",
+                    'default'     => '14',
+                    'description' => 'px',
+                ],
+            ]
+        ];
+        // For dark theme
+        $fields['advance_design_section']['fields']['gdpr_customize_btn_dark'] = [
+            'label'    => __("Customize Button", 'notificationx'),
+            'name'     => "gdpr_customize_btn",
+            'type'     => "section",
+            'priority' => 8,
+            'rules'    => Rules::logicalRule([
+                Rules::is('source', $this->id, false),
+                Rules::is('advance_edit', true),
+                Rules::is('gdpr_theme', true),
             ]),
             'fields' => [
                 [
