@@ -37,19 +37,22 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
                       backgroundColor: settings?.gdpr_accept_btn_bg_color,
                       color: settings?.gdpr_accept_btn_text_color,
                       fontSize: settings?.gdpr_accept_btn_font_size,
-                      border: `1px solid ${settings?.gdpr_accept_btn_border_color}`,
+                    //   border: `1px solid ${settings?.gdpr_accept_btn_border_color}`,
+                      ...(settings?.gdpr_accept_btn_border_color && { border: `1px solid ${settings.gdpr_accept_btn_border_color}` })
                   },
                   customize: {
                       backgroundColor: settings?.gdpr_customize_btn_bg_color,
                       color: settings?.gdpr_customize_btn_text_color,
                       fontSize: settings?.gdpr_customize_btn_font_size,
-                      border: `1px solid ${settings?.gdpr_customize_btn_border_color}`,
+                    //   border: `1px solid ${settings?.gdpr_customize_btn_border_color}`,
+                    ...(settings?.gdpr_customize_btn_border_color && { border: `1px solid ${settings.gdpr_customize_btn_border_color}` })
                   },
                   reject: {
                       backgroundColor: settings?.gdpr_reject_btn_bg_color,
                       color: settings?.gdpr_reject_btn_text_color,
                       fontSize: settings?.gdpr_reject_btn_font_size,
-                      border: `1px solid ${settings?.gdpr_reject_btn_border_color}`,
+                    //   border: `1px solid ${settings?.gdpr_reject_btn_border_color}`,
+                    ...(settings?.gdpr_reject_btn_border_color && { border: `1px solid ${settings.gdpr_reject_btn_border_color}` })
                   },
               }
             : {};

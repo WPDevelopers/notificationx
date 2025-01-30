@@ -50,12 +50,12 @@ const GDPR = (props) => {
             backgroundColor: settings?.gdpr_design_bg_color,
         };
         titleColorFont = {
-            color: settings?.title_text_color,
+            color: settings?.title_font_color,
             fontSize: settings?.title_font_size,
         };
         descColorFont = {
             color: settings?.description_text_color,
-            fontSize: settings?.description_text_size,
+            fontSize: settings?.description_font_size,
         };
     }
     
