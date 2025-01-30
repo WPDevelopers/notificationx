@@ -766,15 +766,6 @@ class Helper {
             [
                 'enabled'            => true,
                 'default'            => true,
-                'cookies_id'         => 'wordpress_test_cookie',
-                'load_inside'        => 'head',
-                'script_url_pattern' => '',
-                'description'        => __('Tests whether cookies are enabled in the browser to provide a better user experience.', 'notificationx'),
-                'index'              => wp_generate_uuid4(),
-            ],
-            [
-                'enabled'            => true,
-                'default'            => true,
                 'cookies_id'         => 'wordpress_logged_in',
                 'load_inside'        => 'head',
                 'script_url_pattern' => '',

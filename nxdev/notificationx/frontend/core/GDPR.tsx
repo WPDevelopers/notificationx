@@ -75,7 +75,8 @@ const GDPR = (props) => {
 
     const handleGDPRBanner = () => {
         const areCookiesSet = document.cookie.split(';').some(cookie => cookie.trim().startsWith(`nx_cookie_manager=`));
-        if (areCookiesSet) {
+        // @ts-ignore 
+        if (areCookiesSet && !window.notificationXArr?.[0]?.nxPreview) {
             setIsVisible(false);
         } else {
             setIsVisible(true);
