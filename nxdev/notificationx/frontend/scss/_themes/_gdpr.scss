@@ -58,7 +58,6 @@
         bottom: 0;
         left: 0;
         right: 0;
-        border-radius: 0;
         z-index: 9999999;
         &.cookie_banner_top {
             top: 0;
@@ -89,8 +88,26 @@
                 top: 16px;
             }
         }
+        &.gdpr_theme-banner-light-one,
+        &.gdpr_theme-banner-dark-one {
+            border-radius: 0;
+            .nx-gdpr {
+                .nx-gdpr-card-header {
+                    border-radius: 0;
+                }
+                .nx-gdpr-card-footer {
+                    border-radius: 0;
+                }
+            }
+        }
+
         &.gdpr_theme-banner-light-two,
         &.gdpr_theme-banner-dark-two {
+            left: 20px;
+            right: 20px;
+            bottom: 16px;
+            border-radius: 16px;
+
             .nx-gdpr-card-header {
                 padding-top: 12px;
                 padding-bottom: 8px;
@@ -313,7 +330,7 @@
     }
     
     &.light {
-        background: #FFFFFF;
+        background: transparent;
         border: 1px solid #D9DBE9;
         .nx-gdpr-card {
             .nx-gdpr-card-header {
@@ -323,6 +340,9 @@
                 }
             }
             .nx-gdpr-card-body {
+                background: #FFFFFF;
+                // border-radius: 0 0 16px 16px;
+
                 .nx-gdpr-description {
                     color: #535D77;
 
@@ -374,6 +394,7 @@
                     padding-top: 12px;
                     padding-bottom: 8px;
                     background: #F7F7FB;
+                    // border-radius: 0 0 16px 16px;
                 }
             }
         }
@@ -383,6 +404,7 @@
                 .nx-gdpr-actions {
                     padding-top: 12px;
                     background: #F7F7FB;
+                    // border-radius: 0 0 16px 16px;
                 }
             }
         }
@@ -438,15 +460,20 @@
     }
 
     &.dark {
-        background: #000000;
+        background: transparent;
         border: 1px solid #222224;
         .nx-gdpr-card {
             .nx-gdpr-card-header {
+                background: #000000;
+
                 .nx-gdpr-title {
                     color: #EDEDF2;
                 }
             }
             .nx-gdpr-card-body {
+                background: #000000;
+                // border-radius: 0 0 16px 16px;
+
                 .nx-gdpr-description {
                     color: #959599;
 
@@ -498,6 +525,7 @@
                     padding-top: 16px;
                     padding-bottom: 12px;
                     background: #0F0F0F;
+                    // border-radius: 0 0 16px 16px;
                 }
             }
         }
@@ -507,6 +535,7 @@
                 .nx-gdpr-actions {
                     padding-top: 16px;
                     background: #0F0F0F;
+                    // border-radius: 0 0 16px 16px;
                 }
             }
         }
