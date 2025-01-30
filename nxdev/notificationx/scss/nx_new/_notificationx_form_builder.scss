@@ -941,7 +941,9 @@
             }
 
             .wprf-image-preview {
+                max-width: 55px;
                 img {
+                    width: auto;
                     border-radius: 5px;
                 }
             }
