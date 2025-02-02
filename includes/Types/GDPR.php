@@ -407,7 +407,7 @@ class GDPR extends Types {
             'name'     => 'gdpr_message',
             'type'     => 'textarea',
             'priority' => 102,
-            'default' => __('We use cookies to improve your experience. By continuing to use our site, you agree to our use of cookies and data collection. You can learn more in our Privacy Policy and change your preferences anytime.', 'notificationx'),   
+            'default' => __('This website uses cookies and other tracking technologies to improve your browsing experience for the following purposes: to enable basic functionality of the website, to provide a better experience on the website, to measure your interest in our products and services and to personalize marketing interactions, to deliver ads that are more relevant to you.', 'notificationx'),   
             'placeholder' => __('Message', 'notificationx'),    
         ];
         $_fields['gdpr_accept_btn'] = [
