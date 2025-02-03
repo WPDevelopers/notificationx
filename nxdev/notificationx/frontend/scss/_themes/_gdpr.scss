@@ -1,18 +1,8 @@
-.nxc-cookie_notice_bottom_left {
-    bottom: 30px;
-    left: 30px;
-    right: 0;
-    align-items: flex-start;
-
-    @media only screen and (max-width: 450px) {
-        bottom: 15px;
-        left: 15px;
-    }
-}
 .nx-gdpr {
     border-radius: 16px;
     box-shadow: 0px 5px 14px 0px #080F340A;
     font-family: "Open Sans",sans-serif;
+
     &.card-gdpr {   
         position: fixed;
         bottom: 30px;
@@ -20,13 +10,27 @@
         min-width: 300px;
         max-width: 480px; 
         width: 90%;
-        z-index: 999;
+        overflow: hidden;
+        z-index: 9999;
 
         @media only screen and (max-width: 450px) {
             bottom: 15px;
             left: 15px;
         }
     }
+    
+    .nxc-cookie_notice_bottom_left {
+        bottom: 30px;
+        left: 30px;
+        right: 0;
+        align-items: flex-start;
+    
+        @media only screen and (max-width: 450px) {
+            bottom: 15px;
+            left: 15px;
+        }
+    }
+
     &.card-gdpr.cookie_notice_bottom_right {
         right: 30px;
         bottom: 30px;
@@ -37,6 +41,7 @@
             right: 15px;
         }
     }
+
     &.card-gdpr.cookie_notice_center {
         left: calc(50% - 240px);
         bottom: 30px;
@@ -46,133 +51,25 @@
             left: 15px;
         }
     }
-    .nx-gdpr-card.no-branding{
-        .nx-gdpr-card-body {
-            border-radius: 0 0 16px 16px;
-        }
-    }
-    &.banner-gdpr { 
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 9999999;
-        &.cookie_banner_top {
-            top: 0;
-            bottom: unset;
-        }
-        .nx-gdpr-card {
-            position: relative;
-            .nx-gdpr-card-header {
-                padding-bottom: 12px;
-            }
-            .nx-gdpr-card-body {
-                .nx-gdpr-description {
-                    padding-bottom: 16px;
-
-                    @media only screen and (max-width: 450px) {
-                        padding-bottom: 12px;
-                    }
-                }
-            }
-            .nx-gdpr-card-footer {
-                padding: 4px 26px 8px;
-
-                @media only screen and (max-width: 450px) {
-                    padding: 4px 20px 8px;
-                }
-            }
-            .nx-gdpr-close {
-                top: 16px;
-            }
-        }
-        &.gdpr_theme-banner-light-one,
-        &.gdpr_theme-banner-dark-one {
-            border-radius: 0;
-            .nx-gdpr {
-                .nx-gdpr-card-header {
-                    border-radius: 0;
-                }
-                .nx-gdpr-card-footer {
-                    border-radius: 0;
-                }
-            }
-        }
-
-        &.gdpr_theme-banner-light-two,
-        &.gdpr_theme-banner-dark-two {
-            left: 20px;
-            right: 20px;
-            bottom: 16px;
-            border-radius: 16px;
-
-            .nx-gdpr-card-header {
-                padding-top: 24px;
-                padding-bottom: 8px;
-            }
-            .nx-gdpr-card-body {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 8px 24px 12px;
-                gap: 40px;
-
-                @media only screen and (max-width: 767px) {
-                    flex-direction: column;
-                    gap: 20px;
-                    justify-content: flex-start;
-                    align-items: flex-start;
-                    padding: 8px 20px 12px;
-                }
-                .nx-gdpr-description {
-                    flex: 75%;
-                    max-width: 1165px;
-                    padding: 0;
-
-                    @media only screen and (max-width: 450px) {
-                        flex: 1;
-                        width: 100%;
-                    }
-                }
-                .nx-gdpr-actions {
-                    padding: 0;
-                    flex: 25%;
-                    justify-content: flex-end;
-
-                    @media only screen and (max-width: 450px) {
-                        flex: 1;
-                        width: 100%;
-                    }
-                    .button-single {
-                        display: none;
-                    }
-                }
-            }
-            .nx-gdpr-card-footer {
-                padding: 8px 26px;
-            }
-        }
-
-    }
-
+    
     .nx-gdpr-card {
         position: relative;
+
         .nx-gdpr-card-header {
             padding-top: 24px;
             padding-left: 24px;
             padding-right: 24px;
-            padding-bottom: 18px;
+            padding-bottom: 16px;
             display: flex;
             align-items: center;
             gap: 6px;
-            border-radius: 16px 16px 0 0;
             background: #FFFFFF;
 
             @media only screen and (max-width: 450px) {
                 padding-top: 20px;
                 padding-left: 20px;
                 padding-right: 20px;
-                padding-bottom: 16px;
+                padding-bottom: 14px;
             }
             .nx-gdpr-title {
                 font-size: 20px;
@@ -198,8 +95,6 @@
                 margin: 0;
 
                 @media only screen and (max-width: 450px) {
-                    font-size: 13px;
-                    line-height: 18px;
                     padding-left: 20px;
                     padding-right: 20px;
                     padding-bottom: 20px;
@@ -219,7 +114,7 @@
                 gap: 16px;
                 padding-left: 24px;
                 padding-right: 24px;
-                padding-bottom: 12px;
+                padding-bottom: 16px;
 
                 @media only screen and (max-width: 450px) {
                     flex-direction: column;
@@ -270,8 +165,9 @@
                 }
             }
         }
+
         .nx-gdpr-card-footer {
-            padding: 8px 26px;
+            padding: 8px 24px;
             border-radius: 0 0 16px 16px;
             display: flex;
             align-items: center;
@@ -282,6 +178,7 @@
                 justify-content: center;
                 padding: 8px 20px;
             }
+
             .nx-gdpr-powered {
                 font-size: 12px;
                 font-family: "Open Sans",sans-serif;
@@ -289,16 +186,20 @@
                 font-weight: 500;
                 margin: 0;
             }
+
             .nx-branding {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 gap: 6px;
+
                 .nx-byline {
                     display: none;
                 }
+
                 .nx-powered-by {
                     display: inline-flex;
+
                     svg {
                         width: 65px;
                         height: 8px;
@@ -306,6 +207,7 @@
                 }
             }
         }
+
         .nx-gdpr-close {
             position: absolute;
             top: 24px;
@@ -327,10 +229,125 @@
             }
         }
     }
+
+    &.banner-gdpr { 
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        overflow: hidden;
+
+        &.cookie_banner_top {
+            top: 0;
+            bottom: unset;
+        }
+
+        .nx-gdpr-card {
+            position: relative;
+
+            .nx-gdpr-card-header {
+                padding-bottom: 8px;
+            }
+
+            .nx-gdpr-card-body {
+                .nx-gdpr-description {
+                    padding-top: 4px;
+                    padding-bottom: 16px;
+
+                    @media only screen and (max-width: 450px) {
+                        padding-bottom: 12px;
+                    }
+                }
+            }
+
+            .nx-gdpr-card-footer {
+                padding: 8px 24px;
+
+                @media only screen and (max-width: 450px) {
+                    padding: 8px 20px;
+                }
+            }
+            .nx-gdpr-close {
+                top: 16px;
+            }
+        }
+
+        &.gdpr_theme-banner-light-one,
+        &.gdpr_theme-banner-dark-one {
+            border-radius: 0;
+
+            .nx-gdpr {
+                .nx-gdpr-card-header {
+                    border-radius: 0;
+                }
+
+                .nx-gdpr-card-footer {
+                    border-radius: 0;
+                }
+            }
+        }
+
+        &.gdpr_theme-banner-light-two,
+        &.gdpr_theme-banner-dark-two {
+            left: 20px;
+            right: 20px;
+            bottom: 16px;
+            border-radius: 16px;
+
+            .nx-gdpr-card-body {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 8px 24px 12px;
+                gap: 40px;
+
+                @media only screen and (max-width: 767px) {
+                    flex-direction: column;
+                    gap: 20px;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    padding: 8px 20px 12px;
+                }
+
+                .nx-gdpr-description {
+                    flex: 75%;
+                    max-width: 1165px;
+                    padding: 0;
+
+                    @media only screen and (max-width: 450px) {
+                        flex: 1;
+                        width: 100%;
+                    }
+                }
+
+                .nx-gdpr-actions {
+                    padding: 0;
+                    flex: 25%;
+                    justify-content: flex-end;
+
+                    @media only screen and (max-width: 450px) {
+                        flex: 1;
+                        width: 100%;
+                    }
+
+                    .button-single {
+                        display: none;
+                    }
+                }
+            }
+
+            .nx-gdpr-card-footer {
+                padding: 8px 24px;
+            }
+        }
+
+    }
     
     &.light {
         background: transparent;
         border: 1px solid #D9DBE9;
+
         .nx-gdpr-card {
             .nx-gdpr-card-header {
                 .nx-gdpr-title {
@@ -338,9 +355,9 @@
                     margin: 0;
                 }
             }
+
             .nx-gdpr-card-body {
                 background: #FFFFFF;
-                // border-radius: 0 0 16px 16px;
 
                 .nx-gdpr-description {
                     color: #535D77;
@@ -356,6 +373,7 @@
                             background: #FFFFFF;
                             border: 1px solid #EFF0F6;
                         }
+
                         &.btn-danger {
                             color: #092161;
                             background: transparent;
@@ -367,18 +385,22 @@
             }
             .nx-gdpr-card-footer {
                 background: #F6F7FE;
+
                 .nx-gdpr-powered {
                     color: #7C8DB5;
                 }
+
                 .nx-powered-by {
                     svg {
                         fill: #1F3155;
                     }
                 }
             }
+
             .nx-gdpr-close {
                 background: #F8F7FA;
                 border: 1px solid #F8F7FA;
+
                 svg {
                     path {
                         stroke: #092161;
@@ -402,6 +424,92 @@
                 .nx-gdpr-actions {
                     padding-top: 12px;
                     background: #F7F7FB;
+                }
+            }
+        }
+    }
+
+    &.dark {
+        background: transparent;
+        border: 1px solid #222224;
+
+        .nx-gdpr-card {
+            .nx-gdpr-card-header {
+                background: #000000;
+
+                .nx-gdpr-title {
+                    color: #EDEDF2;
+                }
+            }
+
+            .nx-gdpr-card-body {
+                background: #000000;
+
+                .nx-gdpr-description {
+                    color: #959599;
+
+                    .nx-gdpr-link {
+                        color: #6A4BFF;
+                    }
+                }
+                .nx-gdpr-actions {
+                    .btn {
+                        &.btn-secondary {
+                            color: #EDEDF2;
+                            background: #141414;
+                            border: 1px solid #222224;
+                        }
+
+                        &.btn-danger {
+                            color: #EDEDF2;
+                            background: transparent;
+                            border: 1px solid #222224;
+                            transition: none;
+                        }
+                    }
+                }
+            }
+            .nx-gdpr-card-footer {
+                background: #0F0F0F;
+
+                .nx-gdpr-powered {
+                    color: #959599;
+                }
+
+                .nx-powered-by {
+                    svg {
+                        fill: #FFFFFF;
+                    }
+                }
+            }
+
+            .nx-gdpr-close {
+                background: #19191A;
+                border: 1px solid #19191A;
+
+                svg {
+                    path {
+                        stroke: #EDEDF2;
+                    }
+                }
+            }
+        }
+
+        &.gdpr_theme-dark-two {
+            .nx-gdpr-card {
+                .nx-gdpr-actions {
+                    padding-top: 16px;
+                    padding-bottom: 12px;
+                    background: #0F0F0F;
+                }
+            }
+        }
+
+        &.gdpr_theme-banner-dark-one {
+            .nx-gdpr-card {
+                .nx-gdpr-actions {
+                    padding-top: 12px;
+                    background: #0F0F0F;
                 }
             }
         }
@@ -446,6 +554,7 @@
                 flex-direction: column;
                 gap: 12px;
                 align-items: flex-start;
+
                 img {
                     max-width: 48px;
 
@@ -457,121 +566,47 @@
         }
     }
 
-    &.dark {
-        background: transparent;
-        border: 1px solid #222224;
+    &.gdpr-no-branding {
         .nx-gdpr-card {
-            .nx-gdpr-card-header {
-                background: #000000;
-
-                .nx-gdpr-title {
-                    color: #EDEDF2;
-                }
-            }
             .nx-gdpr-card-body {
-                background: #000000;
-
-                .nx-gdpr-description {
-                    color: #959599;
-
-                    .nx-gdpr-link {
-                        color: #6A4BFF;
-                    }
-                }
                 .nx-gdpr-actions {
-                    .btn {
-                        &.btn-secondary {
-                            color: #EDEDF2;
-                            background: #141414;
-                            border: 1px solid #222224;
-                        }
-                        &.btn-danger {
-                            color: #EDEDF2;
-                            background: transparent;
-                            border: 1px solid #222224;
-                            transition: none;
-                        }
-                    }
-                }
-            }
-            .nx-gdpr-card-footer {
-                background: #0F0F0F;
-                .nx-gdpr-powered {
-                    color: #959599;
-                }
-                .nx-powered-by {
-                    svg {
-                        fill: #FFFFFF;
-                    }
-                }
-            }
-            .nx-gdpr-close {
-                background: #19191A;
-                border: 1px solid #19191A;
-                svg {
-                    path {
-                        stroke: #EDEDF2;
+                    padding-bottom: 24px;
+
+                    @media only screen and (max-width: 450px) {
+                        padding-bottom: 20px;
                     }
                 }
             }
         }
-
-        &.gdpr_theme-dark-two {
-            .nx-gdpr-card {
-                .nx-gdpr-actions {
-                    padding-top: 16px;
-                    padding-bottom: 12px;
-                    background: #0F0F0F;
-                }
-            }
-        }
-
+        &.gdpr_theme-light-two,
+        &.gdpr_theme-dark-two,
+        &.gdpr_theme-banner-light-one,
         &.gdpr_theme-banner-dark-one {
             .nx-gdpr-card {
-                .nx-gdpr-actions {
-                    padding-top: 16px;
-                    background: #0F0F0F;
+                .nx-gdpr-card-body {
+                    .nx-gdpr-actions {
+                        padding-bottom: 12px;
+                    }
+                }
+            }
+        }
+        &.gdpr_theme-banner-light-two,
+        &.gdpr_theme-banner-dark-two {
+            .nx-gdpr-card {
+                .nx-gdpr-card-body {
+                    padding: 8px 24px 24px;
+
+                    @media only screen and (max-width: 767px) {
+                        padding: 8px 20px 20px;
+                    }
+
+                    .nx-gdpr-actions {
+                        padding-bottom: 0;
+                    }
                 }
             }
         }
     }
 }
 
-.nx-gdpr-modal-header {
-    h3 {
-        margin: 0;
-        padding: 0;
-    }
-    p {
-        font-size: 12px;
-        margin: 0;
-    }
-}
 
-.wprf-gdpr-modal-frontend-content {
-    h3 {
-        margin: 0;
-        padding: 0;
-    }
-    .nx_gdpr-cookies-list-header {
-        display: flex;
-        justify-content: space-between;
-    }
-    .nx_gdpr-cookies-list-header-title {
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        gap: 5px;
-    }
-    p {
-        font-size: 12px;
-        margin: 0;
-    }
-}
-
-.nx-gdpr-customization-close {
-    position: absolute;
-    top: 10px;
-    z-index: 9;
-    right: 20px;
-}
