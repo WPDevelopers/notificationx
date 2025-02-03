@@ -76,6 +76,7 @@
                 font-family: "Open Sans",sans-serif;
                 line-height: 22px;
                 font-weight: 600;
+                margin: 0;
 
                 @media only screen and (max-width: 450px) {
                     font-size: 16px;
@@ -352,7 +353,6 @@
             .nx-gdpr-card-header {
                 .nx-gdpr-title {
                     color: #092161;
-                    margin: 0;
                 }
             }
 
