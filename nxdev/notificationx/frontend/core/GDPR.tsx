@@ -166,6 +166,7 @@ const GDPR = (props) => {
         settings.themes,
         settings?.themes?.includes('banner') ? `banner-gdpr banner-gdpr-${settings?.gdpr_theme}` : `card-gdpr card-gdpr-${settings?.gdpr_theme}`,
         settings?.gdpr_theme ? 'dark' : 'light',
+        settings?.disable_powered_by && 'gdpr-no-branding',
         `nx-gdpr-${settings.nx_id}`,
 
         {
