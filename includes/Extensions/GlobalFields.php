@@ -1532,9 +1532,11 @@ class GlobalFields {
                                 'hour_minutes_section' => [
                                     'name'    => "hour_minutes_section",
                                     'type'    => "section",
+                                    'rules'   => Rules::logicalRule([
+                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', 'woocommerce_sales_reviews', 'custom_notification_conversions',]),
+                                    ]),
                                     'fields' => [
                                         [
-                                            // 'label'       => __('Close Button Position Top', 'notificationx'),
                                             'help'        => __('Hours', 'notificationx'),
                                             'name'        => "display_from_hour",
                                             'type'        => "number",
@@ -1542,12 +1544,8 @@ class GlobalFields {
                                             'description' => '',
                                             'max'         => 23,
                                             'min'         => 0,
-                                            'rules'       => Rules::logicalRule([
-                                                Rules::includes('source', ['woocommerce', 'woocommerce_sales']),
-                                             ]),
                                         ],
                                         [
-                                            // 'label'       => __('Close Button Position Right', 'notificationx'),
                                             'help'        => __('Minutes', 'notificationx'),
                                             'name'        => "display_from_minute",
                                             'type'        => "number",
@@ -1555,9 +1553,6 @@ class GlobalFields {
                                             'description' => '',
                                             'max'         => 59,
                                             'min'         => 0,
-                                            'rules'       => Rules::logicalRule([
-                                                Rules::includes('source', ['woocommerce', 'woocommerce_sales']),
-                                             ]),
                                         ],  
                                     ]
                                 ],
