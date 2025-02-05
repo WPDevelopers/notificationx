@@ -1013,7 +1013,7 @@ class Helper {
         }
 
         if (!empty($timeString)) {
-            $time = strtotime('-' . $timeString);
+            $time = strtotime($timeString . ' ago');
         } else {
             $time = time(); // Default to current time if no valid inputs
         }
