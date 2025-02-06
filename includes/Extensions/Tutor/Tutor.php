@@ -8,6 +8,7 @@
 
 namespace NotificationX\Extensions\Tutor;
 
+use NotificationX\Core\Helper;
 use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
@@ -494,7 +495,8 @@ class Tutor extends Extension {
             return null;
         }
         $orders   = array();
-        $from     = date(get_option('date_format'), strtotime('-' . intval($data['display_from']) . ' days'));
+        // $from     = date(get_option('date_format'), strtotime('-' . intval($data['display_from']) . ' days'));
+        $from     = date('Y-m-d H:i:s', Helper::generate_time_string($data));
         $enrolled = get_posts(
             array(
                 'post_type'      => 'tutor_enrolled',
