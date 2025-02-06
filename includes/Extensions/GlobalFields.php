@@ -1533,7 +1533,7 @@ class GlobalFields {
                                     'name'    => "hour_minutes_section",
                                     'type'    => "section",
                                     'rules'   => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', 'woocommerce_sales_reviews', 'custom_notification_conversions',]),
+                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', 'woocommerce_sales_reviews', 'custom_notification_conversions', 'surecart', 'edd', 'tutor', 'learndash', 'learnpress', 'cf7']),
                                     ]),
                                     'fields' => [
                                         [
