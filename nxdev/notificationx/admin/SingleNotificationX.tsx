@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Toggle from "../components/Toggle";
 import SingleNotificationAction from "./SingleNotificationAction";
-import nxHelper, { getAlert, proAlert } from "../core/functions";
+import nxHelper, { getAlert, permissionAlert, proAlert } from "../core/functions";
 import nxToast from "../core/ToasterMsg";
 import { getIn } from 'quickbuilder';
 import { sprintf, __ } from "@wordpress/i18n";
@@ -51,10 +51,10 @@ const SingleNotificationX = ({
                 enabled,
                 nx_id: id,
                 update_status: true,
-            })
-            .then((res) => {
+            }, { get_error: true } )
+            .then((res:any) => {
                 setLoading(false);
-                if (res) {
+                if (res && 403 !== parseInt(res?.data?.status) ) {
                     if (enabled) {
                         setTotalItems((prev) => {
                             return {
@@ -90,8 +90,13 @@ const SingleNotificationX = ({
                     const popup = getAlert(item?.type, builderContext);                    
                     proAlert(popup).fire();
                 } else {
-                    const popup = getAlert(item?.type, builderContext);                    
-                    proAlert(popup).fire();
+                    if ( 403 === parseInt(res?.data?.status) ) {
+                        const popup = getAlert(item?.type, builderContext);
+                        permissionAlert(popup).fire();
+                    }else {
+                        const popup = getAlert(item?.type, builderContext);                    
+                        proAlert(popup).fire();
+                    }
                 }
                 return res;
             })
@@ -124,10 +129,10 @@ const SingleNotificationX = ({
             <td>
                 <div className="nx-admin-title">
                     <strong>
-                        <Link to={{
-                        pathname: '/admin.php',
-                        search: `?page=nx-edit&id=${id}`,
-                    }}>{title || id}</Link>
+                    <Link to={{
+                            pathname: '/admin.php',
+                            search: `?page=nx-edit&id=${id}`,
+                        }}>{title || id}</Link>
                     </strong>
                 </div>
             </td>

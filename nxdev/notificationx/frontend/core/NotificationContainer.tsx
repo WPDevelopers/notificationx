@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNotificationContext, Notification, Shortcode, Pressbar } from ".";
+import GDPR from "./GDPR";
 import NotificationForMobile from "./NotificationForMobile";
 
 const NotificationContainer = (props: any) => {
@@ -14,38 +15,44 @@ const NotificationContainer = (props: any) => {
         handleResize();
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
-    }, []);    
+    }, []);
+
     const renderNotice = (NoticeList, position) => {
-        if (isMobile && frontendContext?.is_pro) {
-            return (
-                <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
-                    {NoticeList.map((notice) => {
-                        if( notice?.config?.is_mobile_responsive && notice?.config?.source !== 'announcements' ) {
+        const isMobileAndPro = isMobile && frontendContext?.is_pro;
+        const noMobileDesign = ['announcements', 'custom_notification', 'inline','gdpr_notification'];
+
+        return (
+            <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
+                {NoticeList.map((notice) => {
+                    if (isMobileAndPro && notice?.config?.is_mobile_responsive && !noMobileDesign?.includes(notice?.config?.source) ) {
+                        return (
+                            <NotificationForMobile
+                                assets={frontendContext.assets}
+                                dispatch={frontendContext.dispatch}
+                                key={notice.id}
+                                {...notice}
+                            />
+                        );
+                    } else {
+                        if (    
+                            notice?.config?.type == 'gdpr' && 
+                            (position == 'cookie_notice_bottom_left' || 
+                            position == 'cookie_notice_bottom_right' || 
+                            position == 'cookie_notice_center' || 
+                            position == 'cookie_banner_bottom' ||
+                            position == 'cookie_banner_top' )
+                        ) {
+                            const gdprItem = notice;
                             return (
-                                <NotificationForMobile
-                                    assets={frontendContext.assets}
-                                    dispatch={frontendContext.dispatch}
-                                    key={notice.id}
-                                    {...notice}
-                                />
+                                <GDPR
+                                    key={`pressbar-${gdprItem?.config?.nx_id}`}
+                                    position={position}
+                                    gdpr={gdprItem}
+                                    dispatch={frontendContext.dispatch} />
                             );
-                        }else{
-                            return (
-                                <Notification
-                                    assets={frontendContext.assets}
-                                    dispatch={frontendContext.dispatch}
-                                    key={notice.id}
-                                    {...notice}
-                                />
-                            );
+
                         }
-                    })}
-                </div>
-            );
-        } else {
-            return (
-                <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
-                    {NoticeList.map((notice) => {
+
                         return (
                             <Notification
                                 assets={frontendContext.assets}
@@ -54,11 +61,10 @@ const NotificationContainer = (props: any) => {
                                 {...notice}
                             />
                         );
-                    })}
-                </div>
-            );
-        }
-
+                    }
+                })}
+            </div>
+        );
     };
 
     return (
@@ -75,6 +81,7 @@ const NotificationContainer = (props: any) => {
                         );
                     });
                 }
+
                 if (position.indexOf('notificationx-shortcode-') === 0) {
                     return (
                         <Shortcode key={`shortcode-${position}`} position={position}>

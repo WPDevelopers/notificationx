@@ -245,6 +245,9 @@ abstract class Extension {
                     if(!empty($theme['column'])){
                         $themes[$tname]['column'] = $theme['column'];
                     }
+                    if(!empty($theme['rules'])){
+                        $themes[$tname]['rules'] = $theme['rules'];
+                    }
                 }
 
                 $themes[$tname] = Rules::includes('source', $this->id, false, $themes[$tname]);
@@ -430,13 +433,13 @@ abstract class Extension {
      */
     public function __nx_sources($sources) {
         $sources[] = [
-            'rules'    => ['is', 'type', $this->types],
-            'label'    => $this->title,
-            'icon'     => $this->img,
-            'value'    => $this->id,
-            'is_pro'   => $this->is_pro && ! NotificationX::is_pro(),
-            'popup'    => apply_filters('nx_pro_alert_popup', $this->popup),
-            'priority' => $this->priority,
+            'rules'            => ['is', 'type', $this->types],
+            'label'            => $this->title,
+            'icon'             => $this->img,
+            'value'            => $this->id,
+            'is_pro'           => $this->is_pro && ! NotificationX::is_pro(),
+            'popup'            => apply_filters('nx_pro_alert_popup', $this->popup),
+            'priority'         => $this->priority,
         ];
         return $sources;
     }

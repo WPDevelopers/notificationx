@@ -21,6 +21,7 @@ use NotificationX\GetInstance;
 use NotificationX\Extensions\PressBar\PressBar;
 use NotificationX\Core\Helper;
 use NotificationX\Extensions\ExtensionFactory;
+use NotificationX\Types\GDPR;
 
 /**
  * This class is responsible for all Front-End actions.
@@ -78,6 +79,33 @@ class FrontEnd {
         wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), [], NOTIFICATIONX_VERSION, true);
         wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], NOTIFICATIONX_VERSION, 'all');
         // wp_register_style('notificationx-icon-pack', Helper::file('public/icon/style.css', true), [], NOTIFICATIONX_VERSION, 'all');
+        // Localize scripts for frontend
+        wp_localize_script(
+            'notificationx-public',
+            'notificationxPublic',
+            array(
+                'necessary_tab_info'   => [
+                    'title' => __('Necessary', 'notificationx'),
+                    'desc' => __('Necessary cookies are needed to ensure the basic functions of this site, like allowing secure log-ins and managing your consent settings. These cookies do not collect any personal information.', 'notificationx'),
+                ],
+                'functional_tab_info'   => [
+                    'title' => __('Functional', 'notificationx'),
+                    'desc' => __('Functional cookies assist in performing tasks like sharing website content on social media, collecting feedback, and enabling other third-party features.', 'notificationx'),
+                ],
+                'analytics_tab_info'   => [
+                    'title' => __('Analytics', 'notificationx'),
+                    'desc' => __('Analytical cookies help us understand how visitors use the website. They provide data on metrics like the number of visitors, bounce rate, traffic sources etc.', 'notificationx'),
+                ],
+                'performance_tab_info'   => [
+                    'title' => __('Performance', 'notificationx'),
+                    'desc' => __("Performance cookies help analyze the website's key performance indicators, which in turn helps improve the user experience for visitors.", 'notificationx'),
+                ],
+                'uncategorized_tab_info'   => [
+                    'title' => __('Uncategorized', 'notificationx'),
+                    'desc' => __("Uncategorized cookies are those that don't fall into any specific category but may still be used for various purposes on the site. These cookies help us improve user experience by tracking interactions that don't fit into other cookie types.", 'notificationx'),
+                ],
+            )
+        );
 
         $exit = false;
         if(isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], 'wp-admin/widgets.php') !== false){
@@ -122,15 +150,43 @@ class FrontEnd {
         }
     }
 
+    private function separate_css($css) {
+        $media_css = '';
+        $normal_css = '';
+    
+        // Match @media blocks
+        preg_match_all('/@media[^{]*{([^}]*{[^}]*})*[^}]*}/', $css, $media_matches);
+    
+        // Extract normal CSS
+        $normal_css = preg_replace('/@media[^{]*{([^}]*{[^}]*})*[^}]*}/', '', $css);
+    
+        // Extract @media CSS
+        if (!empty($media_matches[0])) {
+            $media_css = implode("\n", $media_matches[0]);
+        }
+    
+        // Clean up normal CSS (remove extra whitespace)
+        $normal_css = trim($normal_css);
+    
+        return [
+            'normal_css' => $normal_css,
+            'media_css' => $media_css
+        ];
+    }
+
     public function generate_custom_css() {
         $posts     = Database::get_instance()->get_posts(Database::$table_posts, '*', ['enabled' => true] );
         $combine_css = "";
         foreach ($posts as $post) {
             if( !empty( $post['data']['add_custom_css'] ) && !empty( $post['nx_id'] ) ) {
+                $separatedCss = $this->separate_css($post['data']['add_custom_css']);
                 if( !empty( $post['data']['source'] ) && $post['data']['source'] == 'press_bar' ) {
-                    $combine_css .= " #nx-bar-{$post['nx_id']} { {$post['data']['add_custom_css']} } ";
-                }else{
-                    $combine_css .= " .notificationx-{$post['nx_id']} { {$post['data']['add_custom_css']} } ";
+                    $combine_css .= " #nx-bar-{$post['nx_id']} { {$separatedCss['normal_css']} } {$separatedCss['media_css']} ";
+                } else if( !empty( $post['data']['source'] ) && $post['data']['source'] == 'gdpr_notification' ) {
+                    $combine_css .= " #nx-gdpr-{$post['nx_id']} { {$separatedCss['normal_css']} } {$separatedCss['media_css']} ";
+                } 
+                else {
+                    $combine_css .= " .notificationx-{$post['nx_id']} { {$separatedCss['normal_css']} } {$separatedCss['media_css']} ";
                 }
             }
         }
@@ -178,6 +234,7 @@ class FrontEnd {
             'global'    => [],
             'active'    => [],
             'pressbar'  => [],
+            'gdpr'      => [],
             'shortcode' => [],
         ];
         if (!empty($_params['all_active'])) {
@@ -189,6 +246,7 @@ class FrontEnd {
                 'global'           => [],
                 'active'           => [],
                 'pressbar'         => [],
+                'gdpr'             => [],
                 'shortcode'        => [],
                 'inline_shortcode' => false,
             ]
@@ -196,6 +254,7 @@ class FrontEnd {
         $global    = $params['global'];
         $active    = $params['active'];
         $pressbar  = $params['pressbar'];
+        $gdpr      = $params['gdpr'];
         $shortcode = $params['shortcode'];
         $all       = array_merge($global, $active, $shortcode);
         $_defaults = array(
@@ -322,6 +381,22 @@ class FrontEnd {
             }
         }
 
+        if (!empty($gdpr)) {
+            $notifications = $this->get_notifications($gdpr);
+            foreach ($notifications as $key => $settings) {
+                $_nx_id            = $settings['nx_id'];
+                if (!empty($_params['all_active'])) {
+                    continue;
+                }
+
+                $settings = apply_filters('nx_filtered_post', $settings, $params);
+
+                $result['gdpr'][$_nx_id]['post']    = $settings;
+                $result['gdpr'][$_nx_id]['content'] = "";
+                unset($_nx_id);
+            }
+        }
+
         $result['settings'] = $this->get_settings();
         return $result;
     }
@@ -352,7 +427,7 @@ class FrontEnd {
         ]);
         $notifications = PostType::get_instance()->get_posts($args);
 
-        $active_notifications = $global_notifications = $bar_notifications = array();
+        $active_notifications = $global_notifications = $bar_notifications = $gdpr_notification = array();
 
         foreach ($notifications as $key => $settings) {
             // $settings        = NotificationX::get_instance()->normalize_post($post);
@@ -430,6 +505,8 @@ class FrontEnd {
                     // @todo Find a function to only load css instead of building content.
                     \Elementor\Plugin::$instance->frontend->get_builder_content($settings['elementor_id'], false);
                 }
+            } elseif($settings['source'] == 'gdpr_notification') {
+                $gdpr_notification[] = $return_posts ? $settings : $settings['nx_id'];
             } elseif ($active_global_queue && NotificationX::is_pro()) {
                 $global_notifications[] = $return_posts ? $settings : $settings['nx_id'];
             } else {
@@ -448,7 +525,8 @@ class FrontEnd {
                 'global'   => $global_notifications,
                 'active'   => $active_notifications,
                 'pressbar' => $bar_notifications,
-                'total'    => (count($global_notifications) + count($active_notifications) + count($bar_notifications)),
+                'gdpr'     => $gdpr_notification,
+                'total'    => (count($global_notifications) + count($active_notifications) + count($bar_notifications) + count($gdpr_notification)),
             ],
             $notifications
         );

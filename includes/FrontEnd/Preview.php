@@ -59,6 +59,7 @@ class Preview {
                 'nxPreview' => true,
                 'pressbar'  => [],
                 'active'    => [],
+                'gdpr'      => [],
             ];
 
             $settings = $this->preview_settings();
@@ -74,6 +75,15 @@ class Preview {
                 $args['pressbar'] = [
                     $source => [
                         'content' => FrontEnd::get_instance()->get_bar_content($settings, true),
+                        'post'    => $settings,
+                    ]
+                ];
+            } else if($source === 'gdpr_notification') {
+                $args['gdpr'] = [
+                    $source => [
+                        'entries' => [
+                            $this->preview_entry($settings),
+                        ],
                         'post'    => $settings,
                     ]
                 ];

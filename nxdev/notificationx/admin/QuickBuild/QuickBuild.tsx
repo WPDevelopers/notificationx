@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { FormBuilder, useBuilderContext } from 'quickbuilder';
 import { Content } from '../../components';
-import { proAlert } from '../../core/functions';
+import { permissionAlert, proAlert } from '../../core/functions';
 import { useNotificationXContext } from '../../hooks';
 
 const QuickBuild = (props) => {
@@ -17,6 +17,7 @@ const QuickBuild = (props) => {
             return;
         }
         builderContext.registerAlert('pro_alert', proAlert);
+        builderContext.registerAlert('has_permission_alert', permissionAlert);
     }, [])
 
     return (

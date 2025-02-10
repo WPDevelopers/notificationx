@@ -34,17 +34,19 @@ export const isNotClosed = (entry) => {
 };
 
 export const normalizeResponse = (response: any) => {
-    let mergedGlobalArray = normalize(response?.global, response?.settings);
-    let mergedActiveArray = normalize(response?.active, response?.settings);
+    let mergedGlobalArray    = normalize(response?.global, response?.settings);
+    let mergedActiveArray    = normalize(response?.active, response?.settings);
     let mergedShortcodeArray = normalize(response?.shortcode, response?.settings);
-    let pressbar = normalizePressBar(response?.pressbar, response?.settings);
+    let pressbar             = normalizePressBar(response?.pressbar, response?.settings);
+    let gdpr                 = normalizePressBar(response?.gdpr, response?.settings);
 
     return {
-        settings: response?.settings,
-        activeNotice: mergedActiveArray,
-        globalNotice: mergedGlobalArray,
+        settings       : response?.settings,
+        activeNotice   : mergedActiveArray,
+        globalNotice   : mergedGlobalArray,
         shortcodeNotice: mergedShortcodeArray,
-        pressbar: pressbar,
+        pressbar       : pressbar,
+        gdpr           : gdpr,
     };
 };
 
@@ -92,3 +94,10 @@ export const normalizePressBar = (_entries, globalSettings) => {
     }
     return mergedArray;
 }
+export const isAdminBar = () => {
+    const adminBar = document.getElementById("wpadminbar");
+    if (adminBar) {
+        return true;
+    }
+    return false;
+};

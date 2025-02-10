@@ -54,7 +54,7 @@
                 }
 
                 margin-left: 4px;
-                margin-right: 12px;
+                margin-right: 20px;
                 font-size: 10px;
                 display: flex;
                 flex-direction: row;
@@ -122,9 +122,14 @@
             }
 
             .notificationx-close {
-                display: none;
+                position: absolute;
+                top: 6px !important;
+                right: 8px !important;
+                display: inline-flex;
 
                 svg {
+                    width: 7px;
+                    height: 7px;
                     cursor: pointer;
                     fill: #000000;
                 }
