@@ -164,20 +164,20 @@ class CF7 extends Extension {
             }
 
             $form = get_post($form_id);
-
-            $keys = $this->keys_generator($form->post_content);
-
-            $returned_keys = array();
-
-            if (is_array($keys) && !empty($keys)) {
-                foreach ($keys as $key) {
-                    $returned_keys[] = array(
-                        'label' => ucwords(str_replace(['_', '-'], ' ', $key)),
-                        'value' => "tag_$key",
-                    );
+            if( !empty($form->post_content) ) {
+                $keys = $this->keys_generator($form->post_content);
+                $returned_keys = array();
+                if (is_array($keys) && !empty($keys)) {
+                    foreach ($keys as $key) {
+                        $returned_keys[] = array(
+                            'label' => ucwords(str_replace(['_', '-'], ' ', $key)),
+                            'value' => "tag_$key",
+                        );
+                    }
+                    return $returned_keys;
                 }
-                return $returned_keys;
             }
+            
         }
         return [];
     }
@@ -189,6 +189,9 @@ class CF7 extends Extension {
      * @return void
      */
     public function keys_generator($fieldsString) {
+        if( empty($fieldsString) ) {
+            return [];
+        }
         $fieldsString = substr($fieldsString, 0, strpos($fieldsString, 'submit') - 2);
         preg_match_all('/\[(.+?)\]/', $fieldsString, $parsed_fields);
         $fields = array();

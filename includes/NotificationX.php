@@ -70,6 +70,7 @@ class NotificationX {
         add_action('init', [$this, 'init'], 10);
         add_action('plugins_loaded', array($this, 'init_extension'));
         add_filter('nx_pro_alert_popup', array($this, 'pro_alert_popup'));
+        add_action( 'init', [ $this, 'register_custom_image_size' ] );
         /**
          * Register all REST Endpoint
          */
@@ -316,6 +317,15 @@ class NotificationX {
               }
            }
         }
+    }
+
+    
+    public function register_custom_image_size() {
+        add_image_size('_nx_notification_thumb_100_100', 100, 100, true);
+        add_image_size('_nx_notification_thumb_200_200', 200, 200, true);
+        add_image_size('_nx_notification_thumb_300_300', 300, 300, true);
+        add_image_size('_nx_notification_thumb_400_400', 400, 400, true);
+        add_image_size('_nx_notification_thumb_500_500', 500, 500, true);
     }
 
 }

@@ -262,6 +262,7 @@ const Notification = (props) => {
             // onMouseLeave={handleStartTimer}
             className={componentClasses}
             style={componentStyle}
+            id={`notificationx-${settings.nx_id}`}
         >
             {
                 is_pro && settings?.sound && settings?.sound != 'none' && settings.sound.length > 0 && props.assets?.pro &&

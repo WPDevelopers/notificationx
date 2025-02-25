@@ -110,7 +110,7 @@
             padding: 5px;
             line-height: 1.3;
             text-align: center;
-
+            cursor: pointer;
             @media only screen and (max-width: 1599px) {
                 font-size: 14px;
             }
@@ -120,6 +120,8 @@
             }
 
             .wprf-badge {
+                width: 20px;
+                height: 20px;
                 .wprf-badge-item {
                     height: 24px;
                     display: flex;
@@ -182,11 +184,13 @@
             &.wprf-option-has-image {
                 &:before {
                     background: #45c9b1;
+                    z-index: 999;
                 }
 
                 &:after {
                     border-bottom: 2px solid #fff;
                     border-right: 2px solid #fff;
+                    z-index: 999;
                 }
             }
         }
@@ -205,6 +209,9 @@
 
 .wprf-control-wrapper {
     align-items: flex-start;
+    &.wprf-name-preference_google {
+        align-items: center;
+    }
 
     @media only screen and (max-width: 700px) {
         flex-direction: column;
@@ -898,6 +905,9 @@
                     color: #6a4bff;
                 }
             }
+            .wprf-description {
+                margin-left: 8px;
+            }
 
             .wprf-group-control {
                 .wprf-group-control-inner {
@@ -931,7 +941,9 @@
             }
 
             .wprf-image-preview {
+                max-width: 55px;
                 img {
+                    width: auto;
                     border-radius: 5px;
                 }
             }
@@ -1024,11 +1036,121 @@
             }
         }
 
+        &.wprf-name-gdpr_theme {
+            .wprf-control-label {
+                flex: 45%;
+            }
+            .wprf-control-field {
+                flex: 55%;
+                .wprf-toggle-wrap.wprf-label-position-right {
+                    width: 100px;
+                    height: 24px;
+                    margin-right: 0;
+                    background: transparent;
+                    border: 1px solid #6A4BFF;
+                    border-radius: 20px;
+                    position: relative;
+                    &::before {
+                        content: "";
+                        position:absolute;
+                        z-index: 999999;
+                        width: 50%;
+                        height: 100%;
+                        border-radius: 10px;
+                        left: 0;
+                    }
+                    &.wprf-checked::before {
+                        right: 0;
+                        left: unset;
+                        background-color: transparent;
+                    }
+                    span {
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        font-size: 12px;
+                        font-weight: 500;
+                        color: #092161;
+                        letter-spacing: 1px;
+                        z-index: 99;
+
+                        &.toggle_label_1 {
+                            display: none;
+                        }
+                        &.toggle_label_2 {
+                            right: 12px;
+                        }
+                    }
+
+                    &.wprf-checked label::before {
+                        content: 'Light';
+                        padding-left: 12px;
+                        background: transparent;
+                        border: 1px solid transparent;
+                    }
+                    &.wprf-checked label::after {
+                        content: 'Dark';
+                        left: 49px;
+                        background: #6A4BFF;
+                    }
+
+                    label {
+                        width: 100px;
+                        height: 24px;
+                        min-height: 100%;
+                        position: relative;
+                        display: flex;
+                        margin-right: 0;
+                        &:before {
+                            font-size: 12px;
+                            font-weight: 500;
+                            line-height: 22px;
+                            letter-spacing: 1px;
+                            color: #092161;
+                            width: 100%;
+                            height: 100%;
+                            left: 0;
+                            transition: background 0.1s 0.1s ease;
+                            background: transparent;
+                            border: 1px solid transparent;
+                            border-radius: 0;
+                            margin: 0;
+                            box-sizing: border-box;
+                            z-index: 999;
+                            cursor: pointer;
+                        }
+                        &:after {
+                            content: "Light";
+                            font-size: 12px;
+                            font-weight: 500;
+                            line-height: 22px;
+                            color: #FFF;
+                            text-align: center;
+                            letter-spacing: 1px;
+                            width: 50px;
+                            height: 22px;
+                            border-radius: 20px;
+                            left: 1px;
+                            top: 1px;
+                            transition: all 0.25s ease-in-out;
+                            box-shadow: none;
+                            background: #6A4BFF;
+                            box-shadow: none;
+                            animation: switch-off 0.3s ease-out;
+                            z-index: 9999;
+                        }
+                    }
+                }
+            }
+        }
+
         &.wprf-type-codeviewer, &.wprf-type-advanced-codeviewer {
             .wprf-control-field {
                 textarea {
                     max-width: 100%;
-                    color: #fff;
+                    color: #535D77 !important;
+                    background: #F0F3F7 !important;
+                    border: 1px solid #E9EBF0;
                     height: 250px;
                 }
             }
@@ -1067,8 +1189,8 @@
 
         .wprf-badge {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 20px;
+            height: 20px;
             overflow: hidden;
             z-index: -1;
 
@@ -1564,22 +1686,23 @@
 .tutor_inline,
 .woo_inline,
 .woocommerce_sales_inline,
-.edd_inline {
+.edd_inline,
+.gdpr_notification {
     .themes .wprf-control.wprf-radio-card {
         .wprf-input-radio-option {
             &.wprf-option-has-image {
-                transform: scale(1);
-                transition: transform 0.1s ease-in-out;
 
                 svg,
                 object,
                 img {
                     max-height: 120px;
-                }
+                    transform: scale(1);
+                    transition: transform 0.1s ease-in-out;
 
-                &:hover {
-                    transform: scale(1.75);
-                    z-index: 100;
+                    &:hover {
+                        transform: scale(1.8);
+                        z-index: 9999;
+                    }
                 }
             }
         }
@@ -2594,5 +2717,150 @@
         color: #fff;
         border: 1px solid;
         padding: 10px 16px;
+    }
+}
+
+.general_settngs {
+    .wprf-section-title {
+        padding: 20px 24px;
+        min-height: auto;
+
+        h4 {
+            color: #092161;
+        }
+    }
+    .wprf-section-fields {
+        padding: 32px 24px 24px;
+        .wprf-control-wrapper.wprf-inline-label {
+            align-items: center;
+
+            &:not(:last-child) {
+                margin-bottom: 24px;
+            }
+
+            .wprf-control-label {
+                min-height: auto;
+                margin: 0;
+                flex-direction: column;
+                gap: 6px;
+                flex: 35%;
+                padding-right: 32px;
+                
+                label {
+                    font-size: 16px;
+                    color: #535D77;
+                    line-height: 21px;
+                    margin: 0;
+                    letter-spacing: unset;
+                }
+                .wprf-info {
+                    width: unset;
+                    height: unset;
+                    transform: unset;
+                    position: relative;
+                    .wprf-info-button {
+                        display: none;
+                    }
+                    .wprf-info-text {
+                        margin: 0;
+                        width: unset;
+                        max-width: 280px;
+                        display: flex;
+                        visibility: visible;
+                        opacity: 1;
+                        padding-bottom: 0;
+                        position: unset;
+                        bottom: 0;
+                        transform: unset;
+                        span {
+                            border-radius: 0;
+                            box-shadow: none;
+                            background: transparent;
+                            border: none;
+                            white-space: unset;
+                            padding: 0;
+                            text-align: unset;
+                            font-size: 12px;
+                            line-height: 18px;
+                            color: #7C8DB5;
+                            &:after {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .wprf-control-field { 
+                flex: 65%; 
+                position: relative;
+                .wprf-toggle-wrap {
+                    width: 100%;
+                    max-width: 400px;
+                    height: auto;
+                    margin-right: 0;
+                    justify-content: space-between;
+                    border: 1px solid #F0F6FF;
+                    border-radius: 8px;
+                    padding: 12px 16px;
+                    box-sizing: border-box;
+    
+                    .toggle_label_1 {
+                        font-size: 14px;
+                        line-height: 20px;
+                        color: #092161;
+                    }
+                    .wprf-input-label {
+                        margin-right: 0;
+                    }
+                }
+                input {
+                    margin-right: 0;
+                }
+                p.wprf-description {
+                    position: absolute;
+                    top: 0;
+                    left: 80px;
+                    margin-left: 0;
+                    margin-right: 0;
+                    padding: 0;
+                }
+                .wprf-num-suggestions {
+                    display: flex;
+                    gap: 8px;
+                    margin-top: 8px;
+                    span {
+                        font-size: 12px;
+                        line-height: 16px;
+                        color: #092161;
+                        background: #F0F3F7;
+                        border: 1px solid #E1E5EB;
+                        padding: 4px 8px;
+                        border-radius: 3px;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+    
+} 
+
+.wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content .wprf-control-section.cookies_list_section {
+
+    .wprf-section-title {
+        padding: 20px 24px;
+        min-height: auto;
+
+        h4 {
+            color: #092161;
+        }
+    }
+
+    .wprf-section-fields {
+        padding: 0;
+        .wp-react-form.wprf-tabs-wrapper {
+            margin-top: 0;
+        }
     }
 }

@@ -74,7 +74,7 @@ class REST {
     public function rest_authentication_errors( $access ) {
         $namespace = self::_namespace();
         $current_route = $this->get_current_route();
-        if($access instanceof \WP_Error && ($current_route == "/$namespace/notice" || $current_route == "/$namespace/analytics")){
+        if($access instanceof \WP_Error && ($current_route == "/$namespace/notice" || $current_route == "/$namespace/analytics" || $current_route == "/$namespace/delete-cookies")){
             return true;
         }
 
@@ -93,6 +93,7 @@ class REST {
         $namespace   = self::_namespace();
         $endpoints[] = "/$namespace/notice";
         $endpoints[] = "/$namespace/analytics";
+        $endpoints[] = "/$namespace/delete-cookies";
         return $endpoints;
     }
 
@@ -219,6 +220,15 @@ class REST {
                 'args'                => [],
             ),
         ));
+        register_rest_route($namespace, '/delete-cookies', array(
+            array(
+                'methods'             => WP_REST_Server::READABLE,
+                'callback'            => array($this, 'delete_cookies'),
+                'permission_callback' => '__return_true',
+                'args'                => [],
+            ),
+        ));
+
         // For entries page.
         // register_rest_route($namespace, '/entries/(?P<nx_id>[0-9]+)', array(
         //     array(
@@ -409,6 +419,11 @@ class REST {
 
     }
 
+    public function delete_cookies($request)
+    {
+        return Helper::delete_server_cookies();
+    }
+
     public function rest_data($nonce = true){
         return apply_filters('nx_rest_data', array(
             'root'             => rest_url(),
@@ -496,6 +511,7 @@ class REST {
             '/wp-json/notificationx/v1/miscellaneous',
             '/wp-json/notificationx/v1/get-data',
             '/wp-json/notificationx/v1/notice',
+            '/wp-json/notificationx/v1/delete-cookies',
             '/wp-json/notificationx/v1/import',
             '/wp-json/notificationx/v1/export',
             '/wp-json/notificationx/v1/license/activate',

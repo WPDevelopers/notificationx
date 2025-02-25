@@ -62,10 +62,9 @@ class PostType {
         add_filter( 'nx_get_post', [ $this, 'responsive_size_backward_comp' ] );
         add_filter( 'nx_get_post', [ $this, 'async_select_get_label' ], 10, 2 );
         add_filter( 'nx_save_post', [ $this, 'async_select_remove_label' ], 10, 3 );
-        add_image_size( '_nx_notification_thumb', 100, 100, true );
+        // add_image_size( '_nx_notification_thumb', 100, 100, true );
         add_filter( 'nx_save_post', [ $this, 'maximize_notification_size' ], 10, 3 );
         add_filter( 'nx_get_post', [ $this, 'get_maximize_notification_size' ], 10, 3 );
-
     }
 
     /**

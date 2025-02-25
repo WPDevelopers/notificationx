@@ -1,6 +1,6 @@
 {
   "name": "notificationx",
-  "version": "2.9.4",
+  "version": "3.0.1",
   "main": "nxdev/index.js",
   "author": "WPDeveloper",
   "scripts": {
@@ -10,7 +10,7 @@
     "frontend-watch": "wp-scripts start --config webpack.frontend.config.js --webpack-no-externals",
     "start": "npm run admin-watch & npm run frontend-watch",
     "build": "npm run admin && npm run frontend",
-    "up": "npm install github:WPDevelopers/quickbuilder#dev",
+    "up": "npm install github:WPDevelopers/quickbuilder#notificationx",
     "pot": "wp i18n make-pot . languages/notificationx.pot --exclude='nxbuild'",
     "bb": "wp-scripts build --config webpack.blocks.config.js",
     "blocks": "wp-scripts start --config webpack.blocks.config.js",

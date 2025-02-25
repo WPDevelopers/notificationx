@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { sprintf, __ } from "@wordpress/i18n";
 import { Link, Redirect } from "react-router-dom";
-import nxHelper, { proAlert } from "../core/functions";
+import nxHelper, { getAlert, permissionAlert, proAlert } from "../core/functions";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useNotificationXContext } from "../hooks";
 import classNames from "classnames";
@@ -51,8 +51,8 @@ const SingleNotificationAction = ({
             JSON.stringify(xss_data),
             nxContext.xss_scripts
         );
-    }
-
+    }                        
+    
     // @ts-ignore
     const ajaxurl = window.ajaxurl;
     const handleDelete = useCallback(
@@ -91,7 +91,7 @@ const SingleNotificationAction = ({
         },
         [id, getNotice]
     );
-
+    
     const handleRegenerate = (event) => {
         nxHelper.swal({
             title: __("Are you sure you want to Regenerate?", "notificationx"),
@@ -288,7 +288,7 @@ const SingleNotificationAction = ({
             window.open(`${ajaxurl}?action=nx-translate&id=${id}`);
         }
     }
-
+    
     return (
         <div className="nx-admin-actions-wrapper">
             <div className="nx-admin-actions nx-admin-action-button" ref={buttonRef}>
@@ -345,7 +345,7 @@ const SingleNotificationAction = ({
                                 <span>{__("Duplicate", "notificationx")}</span>
                             </Link>
                         </li>
-                        {nxContext?.is_pro_active && item.source != "press_bar" && item.source != "flashing_tab" && item.themes !== 'woo_inline_stock-theme-one' && item.themes !== 'woocommerce_sales_inline_stock-theme-one' && item.themes !== 'woo_inline_stock-theme-two' && item.themes !== 'woocommerce_sales_inline_stock-theme-two' && (
+                        {nxContext?.is_pro_active && item.source != "press_bar" && item.source != "gdpr_notification" && item.source != "flashing_tab" && item.themes !== 'woo_inline_stock-theme-one' && item.themes !== 'woocommerce_sales_inline_stock-theme-one' && item.themes !== 'woo_inline_stock-theme-two' && item.themes !== 'woocommerce_sales_inline_stock-theme-two' && (
                             <li>
                                 <a
                                     className="nx-admin-title-shortcode nx-shortcode-btn"
@@ -356,8 +356,8 @@ const SingleNotificationAction = ({
                                     <span>{__("ShortCode", "notificationx")}</span>
                                 </a>
                             </li>
-                         )}
-                        {!nxContext?.is_pro_active && item.source != "press_bar" && item.source != "flashing_tab" && item.themes !== 'woo_inline_stock-theme-one' && item.themes !== 'woocommerce_sales_inline_stock-theme-one' && item.themes !== 'woo_inline_stock-theme-two' && item.themes !== 'woocommerce_sales_inline_stock-theme-two' && (
+                        )}
+                        {!nxContext?.is_pro_active && item.source != "press_bar" && item.source != "flashing_tab" && item.source != "gdpr_notification" && item.themes !== 'woo_inline_stock-theme-one' && item.themes !== 'woocommerce_sales_inline_stock-theme-one' && item.themes !== 'woo_inline_stock-theme-two' && item.themes !== 'woocommerce_sales_inline_stock-theme-two' && (
                             <li>
                                 <CopyToClipboard
                                     className="nx-admin-title-shortcode nx-shortcode-btn"
@@ -378,7 +378,7 @@ const SingleNotificationAction = ({
                             </li>
                         )}
                         <li>
-                            {!item?.elementor_id && item.source != "flashing_tab" && (
+                            {!item?.elementor_id && item.source != "flashing_tab" && item.source != "gdpr_notification" && (
                                 <CopyToClipboard
                                     className="nx-admin-title-xss"
                                     title={__("Cross Domain Notice", "notificationx")}

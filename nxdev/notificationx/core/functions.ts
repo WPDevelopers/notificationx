@@ -17,12 +17,17 @@ class NotificationXHelpers {
     getPath = (path) => {
         return `${this.namespace}/${this.version}/${path}`;
     };
-    post = (endpoint, data = {}, args = {}) => {
+    post = (endpoint, data = {}, args:any = {}) => {
         let path = this.getPath(endpoint);
         args = { path, method: "POST", data, ...args };
         return apiFetch(args)
             .then((res) => res)
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                if( args?.get_error ) {
+                    return err;
+                }
+            });
     };
     delete = (endpoint, data = {}, args = {}) => {
         let path = this.getPath(endpoint);
@@ -143,9 +148,13 @@ class NotificationXHelpers {
         ...args
     }) => {
         Swal.fire(args).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                confirmedCallback()
+                const callbackResult = confirmedCallback();
+                const promise = callbackResult instanceof Promise
+                    ? callbackResult
+                    : Promise.resolve(callbackResult);
+        
+                promise
                     .then((res) => {
                         if (res?.success) {
                             const result = completeAction(res);
@@ -156,6 +165,7 @@ class NotificationXHelpers {
                     .catch((err) => console.error("Delete Error: ", err));
             }
         });
+        
     };
 }
 
@@ -212,6 +222,39 @@ export const proAlert = (html = null) => {
     };
     return SweetAlert(alertOptions);
 };
+
+export const permissionAlert = (html = null) => {
+    let htmlObject = {};
+
+    if (html === null) {
+        // Globalized message
+        html = __(
+            "You are not authorized to perform this action. Please contact the administrator or check your access rights.",
+            "notificationx"
+        );
+    }
+
+    if (isObject(html)) {
+        htmlObject = html;
+        html = html.message || html.html;
+    }
+
+    let alertOptions = {
+        showConfirmButton: false,
+        showDenyButton: true,
+        type: "warning",
+        title: __("Access Denied", "notificationx"),
+        customClass: {
+            actions: "nx-alert-actions",
+        },
+        denyButtonText: __("Close", "notificationx"),
+        ...htmlObject,
+        html,
+    };
+
+    return SweetAlert(alertOptions);
+};
+
 
 export const assetsURL = (path = "", admin = true) => {
     const builderContext = useNotificationXContext();
@@ -300,6 +343,10 @@ export const defaultCustomCSSValue = ( type = '') => {
             .nx-bar-inner .nx-bar-content-wrap .nx-bar-content .notificationx-link-wrapper {
                 // write css code here
             }
+        `);
+    } else if (type === 'gdpr') {
+        return formatCSS(`
+            
         `);
     }
     return formatCSS(`

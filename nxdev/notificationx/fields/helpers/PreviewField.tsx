@@ -12,7 +12,14 @@ const BulkEditField = (props) => {
     const values = builderContext.values?.[parent]?.[index];
     const title = values?.title || values?.post_title || values?.username || values?.plugin_theme_name;
     const _title = title ? ((title.length < 40 ? title : title.substr(0, 40) + "...")) : '';
-    let fieldsArray = Object.values(fields);
+    let fieldsArrayData = Object.values(fields);
+    // @ts-ignore
+    let fieldsArray = [
+        // @ts-ignore
+        ...fieldsArrayData.filter(obj => obj.name !== "image"), // Keep all objects except the one with name "image"
+        // @ts-ignore
+        ...fieldsArrayData.filter(obj => obj.name === "image")  // Append the object with name "image"
+    ];
     const onDelete = (event:Event) => {
         event?.stopPropagation();
         props.remove(props.index);

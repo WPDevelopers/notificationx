@@ -70,7 +70,7 @@ const GetStarted = ({props, context}) => {
                 }}
             >
                 <>
-                    <iframe id="email_subscription_video" allowFullScreen width="750" height="500" src="https://www.youtube.com/embed/81j_2qvCVhs?si=C67ifDoBQMy6T-55"></iframe>
+                    <iframe id="email_subscription_video" allowFullScreen width="750" height="500" src="https://www.youtube.com/embed/6A4OLJjRW_g?si=xhHcE5qIYw9qtRWf"></iframe>
                 </>
             </ReactModal>
         </Fragment>
