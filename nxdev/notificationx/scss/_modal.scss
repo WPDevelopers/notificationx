@@ -936,6 +936,7 @@
                                 font-weight: 500;
                                 line-height: 13px;
                                 color: #092161;
+                                flex-basis: auto;
                             }
 
                             .wprf-control-field {
@@ -949,7 +950,7 @@
                                     border-radius: 4px;
                                     border: 1px solid #E6EFFB;
                                     width: 100%;
-                                    font-size: 14px;
+                                    font-size: 12px;
                                     line-height: 1.1em;
                                     color: #092161;
                                     padding: 12px;
@@ -1664,18 +1665,22 @@
         display: grid;
         grid-template-columns: repeat(12, 1fr);
 
-        .wprf-control-wrapper.wprf-name-title,
-        .wprf-control-wrapper.wprf-name-post_title {
-            grid-column: 1 / span 3;
-        }
-        .wprf-control-wrapper.wprf-name-first_name {
-            grid-column: 4 / span 3;
-        }
-        .wprf-control-wrapper.wprf-name-last_name {
-            grid-column: 7 / span 3;
-        }
-        .wprf-control-wrapper.wprf-name-link {
-            grid-column: 10 / span 3;
+        .wprf-control-wrapper {
+            &:nth-child(1),
+            &:nth-child(5) {
+                grid-column: 1 / span 3;
+            }
+            &:nth-child(2),
+            &:nth-child(6) {
+                grid-column: 4 / span 3;
+            }
+            &:nth-child(3),
+            &:nth-child(7) {
+                grid-column: 7 / span 3;
+            }
+            &:nth-child(4) {
+                grid-column: 10 / span 3;
+            }
         }
         .wprf-control-wrapper.wprf-name-timestamp {
             grid-column: 1 / span 5;
