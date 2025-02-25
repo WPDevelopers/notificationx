@@ -920,7 +920,7 @@
                         border-top: 1px solid #E6EFFB;
                         display: flex;
                         justify-content: space-between;
-                        gap: 20px;
+                        gap: 16px;
 
                         .wprf-control-wrapper {
                             display: flex;
@@ -1664,7 +1664,8 @@
         display: grid;
         grid-template-columns: repeat(12, 1fr);
 
-        .wprf-control-wrapper.wprf-name-title {
+        .wprf-control-wrapper.wprf-name-title,
+        .wprf-control-wrapper.wprf-name-post_title {
             grid-column: 1 / span 3;
         }
         .wprf-control-wrapper.wprf-name-first_name {
@@ -1677,7 +1678,7 @@
             grid-column: 10 / span 3;
         }
         .wprf-control-wrapper.wprf-name-timestamp {
-            grid-column: 1 / span 4;
+            grid-column: 1 / span 5;
 
             .wprf-control-field {
                 max-width: 250px;
@@ -1695,12 +1696,16 @@
             }
         }
         .wprf-control-wrapper.wprf-name-image {
-            grid-column: 5 / span 8;
+            grid-column: 6 / span 7;
 
             .wprf-control-field {
                 min-width: auto;
                 max-width: 100%;
                 flex: 1;
+                .wprf-image-preview {
+                    max-width: 55px;
+                    margin-right: 16px;
+                }
                 .wprf-image-uploader {
                     display: flex;
                     .wprf-btn {
