@@ -1683,7 +1683,7 @@
             }
         }
         .wprf-control-wrapper.wprf-name-timestamp {
-            grid-column: 1 / span 5;
+            grid-column: 1 / span 5 !important;
 
             .wprf-control-field {
                 max-width: 250px;
@@ -1701,7 +1701,7 @@
             }
         }
         .wprf-control-wrapper.wprf-name-image {
-            grid-column: 6 / span 7;
+            grid-column: 6 / span 7 !important;
 
             .wprf-control-field {
                 min-width: auto;
