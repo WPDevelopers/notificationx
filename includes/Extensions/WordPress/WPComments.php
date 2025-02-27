@@ -38,11 +38,14 @@ class WPComments extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        $this->title = __('WP Comments', 'notificationx');
-        $this->module_title = __('WordPress', 'notificationx');
         parent::__construct();
     }
 
+    public function init_extension()
+    {
+        $this->title = __('WP Comments', 'notificationx');
+        $this->module_title = __('WordPress', 'notificationx');
+    }
 
 
     public function init() {

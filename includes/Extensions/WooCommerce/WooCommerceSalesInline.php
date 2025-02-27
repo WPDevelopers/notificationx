@@ -59,6 +59,10 @@ class WooCommerceSalesInline extends WooInline {
      */
     public function __construct(){
         parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title        = __('Growth Alert', 'notificationx');
         $this->module_title = __('Growth Alert', 'notificationx');
         $this->themes = [

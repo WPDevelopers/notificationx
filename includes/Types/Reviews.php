@@ -46,6 +46,12 @@ class Reviews extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        add_filter('nx_link_types', [$this, 'link_types']);
+        parent::__construct();
+    }
+
+    public function init() {
+        parent::init();
         $this->id    = 'reviews';
         $this->title = __('Reviews', 'notificationx');
         $this->themes = [
@@ -229,12 +235,6 @@ class Reviews extends Types {
                 ],
             ],
         ];
-        add_filter('nx_link_types', [$this, 'link_types']);
-        parent::__construct();
-    }
-
-    public function init() {
-        parent::init();
         add_filter("nx_filtered_entry_{$this->id}", array($this, 'conversion_data'), 11, 2);
     }
 

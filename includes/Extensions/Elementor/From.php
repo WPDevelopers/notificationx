@@ -37,6 +37,11 @@ class From extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('Elementor Form', 'notificationx');
         $this->module_title = __('Elementor', 'notificationx');
         $this->popup = [
@@ -46,7 +51,6 @@ class From extends Extension {
                 <span>Elementor forms that can help you keep important leads and stay in touch with your customers.</span>
             ', 'notificationx')
         ];
-        parent::__construct();
     }
 
     public function source_error_message($messages) {

@@ -31,6 +31,16 @@ class PageAnalytics extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    /**
+     * Runs when modules is enabled.
+     *
+     * @return void
+     */
+    public function init(){
+        parent::init();
         $this->id = 'page_analytics';
         $this->title = __('Page Analytics', 'notificationx');
         $this->popup = [
@@ -43,7 +53,6 @@ class PageAnalytics extends Types {
                 </video>
             ', 'notificationx')
         ];
-        parent::__construct();
         $this->themes = [
             'pa-theme-one'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/analytics/ga-theme-one.jpg',
@@ -176,17 +185,6 @@ class PageAnalytics extends Types {
                 ],
             ],
         ];
-
-    }
-
-    /**
-     * Runs when modules is enabled.
-     *
-     * @return void
-     */
-    public function init(){
-        parent::init();
-
     }
 
     public function preview_entry($entry, $settings){

@@ -35,8 +35,15 @@ class Comments extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        $this->title = __('Comments', 'notificationx');
+        parent::__construct();
 
+        add_filter('nx_link_types', [$this, 'link_types']);
+    }
+
+    public function init()
+    {
+        parent::init();
+        $this->title = __('Comments', 'notificationx');
         // nx_comment_colored_themes
         $this->themes = [
             'theme-one'        => [
@@ -234,9 +241,6 @@ class Comments extends Types {
                 ],
             ],
         ];
-        parent::__construct();
-
-        add_filter('nx_link_types', [$this, 'link_types']);
     }
 
     /**

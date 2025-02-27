@@ -46,12 +46,16 @@ class WooCommerce extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('WooCommerce', 'notificationx');
         $this->module_title = __('WooCommerce', 'notificationx');
         $this->templates = Conversions::get_instance()->templates;
         $this->templates['woo_template_new']['third_param']['product_title_raw'] = __('Product Title Raw', 'notificationx');
         $this->templates['woo_template_sales_count']['third_param']['product_title_raw'] = __('Product Title Raw', 'notificationx');
-        parent::__construct();
     }
 
     public function init(){

@@ -32,8 +32,6 @@ class CustomNotification extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct(){
-        $this->id = 'custom';
-        $this->title = __('Custom Notification', 'notificationx');
         parent::__construct();
     }
 
@@ -44,7 +42,8 @@ class CustomNotification extends Types {
      */
     public function init(){
         parent::init();
-
+        $this->id = 'custom';
+        $this->title = __('Custom Notification', 'notificationx');
     }
 
 

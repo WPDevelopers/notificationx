@@ -36,6 +36,11 @@ class Envato extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('Envato', 'notificationx');
         $this->module_title = __('Envato', 'notificationx');
         $this->popup = [
@@ -48,7 +53,6 @@ class Envato extends Extension {
                 </iframe>
             ', 'notificationx')
         ];
-        parent::__construct();
     }
 
     /**

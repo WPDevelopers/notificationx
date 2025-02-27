@@ -40,9 +40,13 @@ class FluentForm extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        $this->title = __('Fluent Forms', 'notificationx');
-        $this->module_title = __('Fluent Forms', 'notificationx');
         parent::__construct();
+    }
+
+    public function init_extension()
+    {
+        $this->title        = __('Fluent Forms', 'notificationx');
+        $this->module_title = __('Fluent Forms', 'notificationx');
     }
 
     public function init() {

@@ -33,6 +33,13 @@ class FlashingTab extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        // nx_comment_colored_themes
+        parent::__construct();
+    }
+
+    public function init()
+    {
+        parent::init();
         $this->title = __('Flashing Tab', 'notificationx');
         $this->dashboard_title = __('Flashing Tab', 'notificationx');
         $this->popup = [
@@ -45,10 +52,6 @@ class FlashingTab extends Types {
                 </video>
             ', 'notificationx')
         ];
-
-        // nx_comment_colored_themes
-        parent::__construct();
-
     }
 
 }

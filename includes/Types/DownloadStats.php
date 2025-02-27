@@ -39,6 +39,12 @@ class DownloadStats extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
+    }
+
+    public function init()
+    {
+        parent::init();
         $this->id = 'download_stats';
         $this->title = __('Download Stats', 'notificationx');
         $this->themes = [
@@ -159,7 +165,6 @@ class DownloadStats extends Types {
                 ]
             ],
         ];
-        parent::__construct();
     }
 
     /**

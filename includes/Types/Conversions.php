@@ -51,10 +51,14 @@ class Conversions extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init()
+    {
+        parent::init();
         $this->id = 'conversions';
         $this->title = __('Sales Notification', 'notificationx');
-
-        $is_pro = ! NotificationX::is_pro();
         // nx_colored_themes
         $common_fields = [
             'first_param'         => 'tag_name',
@@ -65,33 +69,6 @@ class Conversions extends Types {
             'fourth_param'        => 'tag_time',
             'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
         ];
-        $res_common_fields = [
-            'res_first_param'         => 'tag_name',
-            'custom_res_first_param'  => __('Someone' , 'notificationx'),
-            'res_second_param'        => __('just purchased', 'notificationx'),
-            'res_third_param'         => 'tag_product_title',
-            'custom_res_third_param'  => __('Anonymous Product', 'notificationx'),
-        ];
-        $res_sales_count_common_fields = [
-            'res_first_param'         => 'tag_sales_count',
-            'custom_res_first_param'  => __('Someone' , 'notificationx'),
-            'res_second_param'        => __('people', 'notificationx'),
-            'res_third_param'         => __('purchased', 'notificationx'),
-            'res_fourth_param'        => 'tag_product_title',
-            'custom_res_fourth_param' => __('Anonymous Product', 'notificationx'),
-        ];
-        $rules = [
-            'conversions_theme-one',
-            'conversions_theme-two',
-            'conversions_theme-three',
-            'conversions_theme-five',
-            'conversions_theme-four',
-            'conversions_res-theme-six',
-            'conversions_res-theme-seven',
-            'conversions_res-theme-eight',
-            'conversions_res-theme-nine',
-        ];
-
         $this->themes = [
             'theme-one'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-2.jpg',
@@ -272,7 +249,6 @@ class Conversions extends Types {
                 ]
             ],
         ];
-        parent::__construct();
     }
 
     /**

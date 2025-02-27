@@ -28,6 +28,12 @@ class EDDInline extends EDD {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        add_filter( 'nx_show_on_exclude', array( $this, 'show_on_exclude' ), 10, 4 );
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->themes = [
             'conv-theme-seven' => array(
                 'is_pro'      => true,
@@ -63,8 +69,6 @@ class EDDInline extends EDD {
                 ],
             ],
         ];
-        add_filter( 'nx_show_on_exclude', array( $this, 'show_on_exclude' ), 10, 4 );
-        parent::__construct();
     }
 
     /**

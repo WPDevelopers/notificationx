@@ -63,9 +63,13 @@ class ReviewX extends WooReviews {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('ReviewX', 'notificationx');
         $this->module_title = __('ReviewX', 'notificationx');
-        parent::__construct();
         $this->themes = [
             'total-rated'     => [
                 'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/total-rated.png',
@@ -185,7 +189,6 @@ class ReviewX extends WooReviews {
             ],
         ];
     }
-
     /**
      * This functions is hooked
      *

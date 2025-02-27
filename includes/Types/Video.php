@@ -40,6 +40,12 @@ class Video extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
+    }
+
+    public function init()
+    {
+        parent::init();
         $this->id    = 'video';
         $this->title = __('Video', 'notificationx');
         $this->popup = [
@@ -52,7 +58,6 @@ class Video extends Types {
                 </video>
             ', 'notificationx')
         ];
-        parent::__construct();
     }
 
 }

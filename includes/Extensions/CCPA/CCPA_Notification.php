@@ -34,8 +34,11 @@ class CCPA_Notification extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
-        $this->title = __('CCPA', 'notificationx');
         parent::__construct();
     }
 
+    public function init_extension()
+    {
+        $this->title = __('CCPA', 'notificationx');
+    }
 }

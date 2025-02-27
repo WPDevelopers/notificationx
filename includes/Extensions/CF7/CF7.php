@@ -42,9 +42,13 @@ class CF7 extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('Contact Form 7', 'notificationx');
         $this->module_title = __('Contact Form 7', 'notificationx');
-        parent::__construct();
     }
 
     public function init(){

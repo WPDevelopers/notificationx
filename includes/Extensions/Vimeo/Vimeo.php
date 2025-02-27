@@ -34,8 +34,12 @@ class Vimeo extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
-        $this->title = __('Vimeo', 'notificationx');
         parent::__construct();
+    }
+    
+    public function init_extension()
+    {
+        $this->title = __('Vimeo', 'notificationx');
     }
 
 }

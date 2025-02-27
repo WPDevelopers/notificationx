@@ -33,8 +33,12 @@ class Wistia extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
-        $this->title = __('Wistia', 'notificationx');
         parent::__construct();
+    }
+    
+    public function init_extension()
+    {
+        $this->title = __('Wistia', 'notificationx');
     }
 
 }

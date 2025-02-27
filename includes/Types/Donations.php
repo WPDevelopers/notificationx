@@ -37,6 +37,11 @@ class Donations extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init() {
+        parent::init();
         $this->id     = 'donation';
         $this->title  = __('Donations', 'notificationx');
         $common_fields = array(
@@ -49,12 +54,6 @@ class Donations extends Types {
             'custom_fourth_param' => __('Anonymous Title', 'notificationx'),
             'fifth_param' => 'tag_time',
             'custom_fifth_param' => __('Some time ago', 'notificationx'),
-        );
-        $res_common_fields = array(
-            'res_first_param'  => 'tag_name',
-            'res_second_param' => __('recently donated for', 'notificationx'),
-            'res_third_param'  => 'tag_none',
-            'res_fourth_param' => 'tag_title',
         );
         $this->themes = [
             'theme-one'   => [
@@ -204,10 +203,7 @@ class Donations extends Types {
                 ],
             ],
         ];
-        parent::__construct();
-
     }
-
 
     /**
      * Hooked to nx_before_metabox_load action.

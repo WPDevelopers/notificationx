@@ -41,9 +41,13 @@ class WPForms extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('WPForms', 'notificationx');
         $this->module_title = __('WPForms', 'notificationx');
-        parent::__construct();
     }
 
     public function init() {

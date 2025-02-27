@@ -58,6 +58,10 @@ class WooCommerceSalesReviews extends WooReviews {
      */
     public function __construct(){
         parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title        = __('Reviews', 'notificationx');
         $this->module_title = __('Reviews', 'notificationx');
         $this->themes       = [
@@ -240,7 +244,7 @@ class WooCommerceSalesReviews extends WooReviews {
                 ],
                 'is_pro' => true,
             ],
-        ];
+        ];    
     }
 
     public function doc() {
