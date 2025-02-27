@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-30T12:05:31+00:00\n"
+"POT-Creation-Date: 2025-02-27T06:46:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:51
 #: assets/admin/js/admin.js:11
 #: assets/admin/js/admin.js:14
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 #: nxdev/notificationx/frontend/themes/helpers/NotificationText.js:13
 msgid "NotificationX"
@@ -554,7 +554,7 @@ msgstr ""
 
 #: includes/Core/Helper.php:639
 #: includes/Types/GDPR.php:379
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Enabled"
 msgstr ""
@@ -584,7 +584,7 @@ msgid "Name"
 msgstr ""
 
 #: includes/Core/Helper.php:758
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Description"
 msgstr ""
@@ -784,7 +784,7 @@ msgstr ""
 #: includes/Extensions/PressBar/PressBar.php:51
 #: includes/Types/NotificationBar.php:38
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Notification Bar"
 msgstr ""
@@ -801,7 +801,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WooCommerceSales.php:72
 #: includes/Types/Conversions.php:55
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Sales Notification"
 msgstr ""
@@ -842,7 +842,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:63
 #: includes/Types/Inline.php:37
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Growth Alert"
 msgstr ""
@@ -1887,7 +1887,7 @@ msgid "Consent Expiry"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:995
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Days"
 msgstr ""
@@ -2042,7 +2042,7 @@ msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1545
 #: includes/Types/GDPR.php:435
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 #: nxdev/notificationx/frontend/gdpr/utils/GdprActions.jsx:133
 msgid "Customize"
@@ -2645,7 +2645,7 @@ msgstr ""
 msgid "Ninja Forms"
 msgstr ""
 
-#: includes/Extensions/NJF/NinjaForms.php:239
+#: includes/Extensions/NJF/NinjaForms.php:400
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Ninja Forms installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -3830,7 +3830,7 @@ msgid "Save My Preferences Button"
 msgstr ""
 
 #: includes/Types/GDPR.php:342
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Save My Preferences"
 msgstr ""
@@ -3895,7 +3895,7 @@ msgid "Accept All Button"
 msgstr ""
 
 #: includes/Types/GDPR.php:419
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 #: nxdev/notificationx/frontend/gdpr/utils/GdprActions.jsx:125
 msgid "Accept All"
@@ -3906,7 +3906,7 @@ msgid "Reject All Button"
 msgstr ""
 
 #: includes/Types/GDPR.php:427
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 #: nxdev/notificationx/frontend/gdpr/utils/GdprActions.jsx:144
 msgid "Reject All"
@@ -4645,200 +4645,200 @@ msgid "Upgrade to Pro"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Display Social Proof Alerts With NotificationX"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Accelerate website engagement & conversions by creating dynamic notifications, sales banners, and more. Follow this guide to explore all advanced NotificationX's features & quickly get started.  "
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "NO NOTIFICATIONS ARE FOUND."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "It seems like you haven't created any notification alerts.Hit on \"Add New\" button to get started"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "How To Configure 'WooCommerce Sales Alerts' In NotificationX?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "How to Configure Cookies Policy for Website Using NotificationX’s Cookie Notice?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "How to Use Notification Bar in NotificationX?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Display WooCommerce Growth Alerts With NotificationX"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "How To Create Custom Notification With NotificationX?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "How To Configure NotificationX Cross Domain Notice?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "How To Configure Google Reviews With NotificationX?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Create Now"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Display your latest sales to boost credibility and drive more conversions."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Review Notification"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Showcase attractive customer review notification popups to build credibility."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Display latest sales, discounts, or announcements to boost sales."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Display sales count, low stock notification to influence viewer to make instant purchases."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Flashing Tabs"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Encourage visitors or potential customers to take action & turn browsing into buying."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Cross - Domain Notice"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Copy & Explore"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Display single, multiple, or all live alerts on multiple WordPress websites or others."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Show Your Love"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "We love having you in the NotificationX family. We are making it more awesome every day. Please take two minutes to review the plugin and spread the love to encourage us to keep it going."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Leave a Review"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Explore Our Knowledge Base"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Get started by spending some time with the documentation to familiarize yourself with NotificationX and boost your website conversions immediately."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Documentation"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
 #: assets/admin/js/admin.js:18
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Join Our Community"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Join the Facebook community to discuss with fellow developers, connect with others, and stay updated."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Need Any Help?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "If you encounter issues or need assistance, we're here to help or report specific problems on our GitHub issues page."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Report a Bug"
 msgstr ""
@@ -5099,54 +5099,54 @@ msgstr ""
 msgid "Edit Category"
 msgstr ""
 
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 #: nxdev/notificationx/frontend/themes/helpers/NXBranding.js:9
 msgid "by"
 msgstr ""
 
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgctxt "Announcements: 5 days remaining"
 msgid " remaining"
 msgstr ""
 
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Cookie"
 msgstr ""
 
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Show more"
 msgstr ""
 
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Show less"
 msgstr ""
 
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Powered by"
 msgstr ""
 
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Hrs"
 msgstr ""
 
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Mins"
 msgstr ""
 
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "Secs"
 msgstr ""
 
-#: assets/public/js/crossSite.js:1
+#: assets/public/js/crossSite.js:15
 #: assets/public/js/frontend.js:15
 msgid "You should setup NX Bar properly"
 msgstr ""
