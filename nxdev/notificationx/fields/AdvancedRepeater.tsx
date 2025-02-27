@@ -50,6 +50,13 @@ const AdvancedRepeater = (props) => {
         }
     }, []);
 
+    useEffect(() => {
+        if( isOpen ) {
+            setExpandedIndex(null);
+        }
+    }, [isOpen])
+    
+
     const getField = (arr, name) => {
         if (arr.length) {
             return arr.find((field) => field.name == name)?.fields;
