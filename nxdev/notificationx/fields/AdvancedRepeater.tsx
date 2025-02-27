@@ -28,6 +28,7 @@ const AdvancedRepeater = (props) => {
     const builderContext  = useBuilderContext();
     const nxContext = useNotificationXContext();
     const [expandedIndex, setExpandedIndex] = useState(null);
+    const [prevExpandedIndex, setPrevExpandedIndex] = useState(null);
     const [templateOptions, setTemplateOptions] = useState([]);
     const [localMemoizedValue, setLocalMemoizedValue] = useState(builderContext.values?.[fieldName]);
     const [isOpen, setIsOpen] = useState(false);
@@ -52,6 +53,7 @@ const AdvancedRepeater = (props) => {
 
     useEffect(() => {
         if( isOpen ) {
+            setPrevExpandedIndex(expandedIndex);
             setExpandedIndex(null);
         }
     }, [isOpen])
@@ -472,7 +474,11 @@ const AdvancedRepeater = (props) => {
                         ))}
                     </div>
                     <div className="wprf-modal-preview-footer">
-                        <button className='wpsp-btn wpsp-btn-preview-update' onClick={() => setIsOpen(false)}>{__('Update', 'notificationx')}</button>
+                        <button className='wpsp-btn wpsp-btn-preview-update' 
+                        onClick={() => {
+                            setIsOpen(false)
+                            setExpandedIndex(prevExpandedIndex);
+                        }}>{__('Update', 'notificationx')}</button>
                     </div>
                 </>
             </ReactModal>
