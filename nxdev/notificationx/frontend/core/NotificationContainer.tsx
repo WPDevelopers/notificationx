@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNotificationContext, Notification, Shortcode, Pressbar } from ".";
 import GDPR from "./GDPR";
 import NotificationForMobile from "./NotificationForMobile";
-
 const NotificationContainer = (props: any) => {
     const frontendContext = useNotificationContext();
     const [isMobile, setIsMobile] = useState(false);
@@ -18,6 +17,15 @@ const NotificationContainer = (props: any) => {
     }, []);
 
     const renderNotice = (NoticeList, position) => {
+        // Check using custom animation
+        const hasCustomAnimation = NoticeList.some(item =>  item.config.animation_notification_hide !== 'default' ||  item.config.animation_notification_show !== 'default' );
+        let isAnimateImport = false;
+        if (hasCustomAnimation && !isAnimateImport) {
+            // @ts-ignore 
+            import("animate.css/animate.min.css")
+            isAnimateImport = true;
+        }
+        
         const isMobileAndPro = isMobile && frontendContext?.is_pro;
         const noMobileDesign = ['announcements', 'custom_notification', 'inline','gdpr_notification'];
 
