@@ -41,13 +41,13 @@ class ELearning extends Types {
      */
     public function __construct(){
         parent::__construct();
+        $this->id = 'elearning';
         add_filter("nx_filtered_entry_{$this->id}", array($this, 'conversion_data'), 10, 2);
     }
 
     public function init()
     {
         parent::init();
-        $this->id = 'elearning';
         $this->title = __('eLearning', 'notificationx');
         $this->themes = [
             'theme-one'   => [

@@ -40,12 +40,12 @@ class GDPR extends Types {
      */
     public function __construct() {
         parent::__construct();
+        $this->id    = 'gdpr';
     }
 
     public function init()
     {
         parent::init();
-        $this->id    = 'gdpr';
         $this->title = __('Cookie Notice', 'notificationx');
         // nx_comment_colored_themes
         $this->themes = [

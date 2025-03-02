@@ -41,12 +41,12 @@ class Video extends Types {
      */
     public function __construct() {
         parent::__construct();
+        $this->id    = 'video';
     }
 
     public function init()
     {
         parent::init();
-        $this->id    = 'video';
         $this->title = __('Video', 'notificationx');
         $this->popup = [
             "denyButtonText" => __("<a href='https://notificationx.com/docs/youtube-video-activities-popups/' target='_blank'>More Info</a>", "notificationx"),

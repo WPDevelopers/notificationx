@@ -48,11 +48,11 @@ class Reviews extends Types {
     public function __construct() {
         add_filter('nx_link_types', [$this, 'link_types']);
         parent::__construct();
+        $this->id    = 'reviews';
     }
 
     public function init() {
         parent::init();
-        $this->id    = 'reviews';
         $this->title = __('Reviews', 'notificationx');
         $this->themes = [
             'total-rated'     => [

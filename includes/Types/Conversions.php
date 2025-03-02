@@ -52,12 +52,12 @@ class Conversions extends Types {
      */
     public function __construct(){
         parent::__construct();
+        $this->id = 'conversions';
     }
 
     public function init()
     {
         parent::init();
-        $this->id = 'conversions';
         $this->title = __('Sales Notification', 'notificationx');
         // nx_colored_themes
         $common_fields = [

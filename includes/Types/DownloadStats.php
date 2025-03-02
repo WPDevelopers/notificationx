@@ -40,12 +40,12 @@ class DownloadStats extends Types {
      */
     public function __construct() {
         parent::__construct();
+        $this->id = 'download_stats';
     }
 
     public function init()
     {
         parent::init();
-        $this->id = 'download_stats';
         $this->title = __('Download Stats', 'notificationx');
         $this->themes = [
             'today-download' => [

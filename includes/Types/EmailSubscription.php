@@ -38,6 +38,7 @@ class EmailSubscription extends Types {
      */
     public function __construct(){
         parent::__construct();
+        $this->id = 'email_subscription';
     }
 
     /**
@@ -47,7 +48,6 @@ class EmailSubscription extends Types {
      */
     public function init(){
         parent::init();
-        $this->id = 'email_subscription';
         $this->title = __('Email Subscription', 'notificationx');
         $this->popup = [
             "denyButtonText" => __("<a href='https://notificationx.com/docs/mailchimp-email-subscription-alert/' target='_blank'>More Info</a>", "notificationx"),

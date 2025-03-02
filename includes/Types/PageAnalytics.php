@@ -32,6 +32,7 @@ class PageAnalytics extends Types {
      */
     public function __construct(){
         parent::__construct();
+        $this->id = 'page_analytics';
     }
 
     /**
@@ -41,7 +42,6 @@ class PageAnalytics extends Types {
      */
     public function init(){
         parent::init();
-        $this->id = 'page_analytics';
         $this->title = __('Page Analytics', 'notificationx');
         $this->popup = [
             "denyButtonText" => __("<a href='https://notificationx.com/docs/google-analytics/' target='_blank'>More Info</a>", "notificationx"),

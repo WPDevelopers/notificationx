@@ -38,11 +38,11 @@ class Donations extends Types {
      */
     public function __construct(){
         parent::__construct();
+        $this->id     = 'donation';
     }
 
     public function init() {
         parent::init();
-        $this->id     = 'donation';
         $this->title  = __('Donations', 'notificationx');
         $common_fields = array(
             'first_param' => 'tag_name',

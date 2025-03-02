@@ -49,11 +49,11 @@ class WooCommerceSales extends Types {
      */
     public function __construct(){
         parent::__construct();
+        $this->id = 'woocommerce_sales';
     }
 
     public function init() {
         parent::init();
-        $this->id = 'woocommerce_sales';
         $this->title = __('WooCommerce', 'notificationx');
 
         $is_pro = ! NotificationX::is_pro();
