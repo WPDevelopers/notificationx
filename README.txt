@@ -209,7 +209,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 3.0.2 - 27/02/2025 =
+= 3.0.2 - 02/03/2025 =
 Fixed: Ninja Forms – Previous notifications were not showing.
 Added: Bulk image and URL update feature for Custom Notifications.
 Improved: Website loading performance with NotificationX.
