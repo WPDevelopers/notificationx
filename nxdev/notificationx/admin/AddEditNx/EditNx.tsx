@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
 import { FormBuilder, useBuilderContext } from 'quickbuilder';
-import { Content, Instructions, PublishWidget, Sidebar } from '../../components';
+import { Content, Instructions, ProWidget, PublishWidget, RatingWidget, Sidebar } from '../../components';
 import { permissionAlert, proAlert } from '../../core/functions';
 import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon, FunctionalIcon, NecessaryIcon, AnalyticsIcon, PerformanceIcon, UncategorizedIcon, ManagerIcon, EditIcon } from '../../icons'
 
@@ -55,6 +55,8 @@ const EditNx = (props) => {
                     context={builderContext}
                 />
                 <Instructions  {...builderContext} />
+                <RatingWidget/>
+                <ProWidget/>
             </Sidebar>
         </>
     )

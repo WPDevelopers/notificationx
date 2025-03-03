@@ -94,6 +94,7 @@ class REST {
         $endpoints[] = "/$namespace/notice";
         $endpoints[] = "/$namespace/analytics";
         $endpoints[] = "/$namespace/delete-cookies";
+        $endpoints[] = "/$namespace/send-rating";
         return $endpoints;
     }
 
