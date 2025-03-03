@@ -195,6 +195,9 @@ class ContactForm extends Types {
         if( ! isset( $args['form_type'] ) || $args['form_type'] === 'undefined' ) {
             return new \WP_Error('something', 'NILL');
         }
+        if ( !isset($args['form_id']) && empty($args['form_id']) ) {
+            return [];
+        }
         $args['form_id'] = isset($args['form_id']['value']) ? $args['form_id']['value'] : $args['form_id'];
         $args['form_id'] = str_replace(trim($args['form_type']) . '_', '', $args['form_id']);
         $form = ExtensionFactory::get_instance()->get( trim( $args['form_type'] ) );
