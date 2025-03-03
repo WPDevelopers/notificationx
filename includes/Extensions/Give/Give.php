@@ -151,9 +151,9 @@ class Give extends Extension {
                 'id' => $result->ID,
                 'title' => $result->form_title,
                 'amount' => $result->total . ' ' . __('for', 'notificationx'),
-                'link' => $result->payment_meta['_give_current_url'],
+                'link' => isset($result->payment_meta['_give_current_url']) ? $result->payment_meta['_give_current_url'] : '',
                 'give_form_id' => $result->form_id,
-                'give_page_id' => $result->payment_meta['_give_current_page_id'],
+                'give_page_id' => isset($result->payment_meta['_give_current_page_id']) ? $result->payment_meta['_give_current_page_id'] : '',
                 'timestamp' => get_gmt_from_date($result->date),
             ), $this->get_donor($result));
 
@@ -226,10 +226,10 @@ class Give extends Extension {
                     array(
                         'id' => $result->ID,
                         'title' => $result->form_title,
-                        'link' => $result->payment_meta['_give_current_url'],
+                        'link' => isset($result->payment_meta['_give_current_url']) ? $result->payment_meta['_give_current_url'] : '',
                         'give_form_id' => $result->form_id,
                         'amount' => $result->total . ' ' . __('for', 'notificationx'),
-                        'give_page_id' => $result->payment_meta['_give_current_page_id'],
+                        'give_page_id' => isset($result->payment_meta['_give_current_page_id']) ? $result->payment_meta['_give_current_page_id'] : '',
                         'timestamp' => get_gmt_from_date($result->date),
                     ),
                     $this->get_donor($result)
