@@ -269,6 +269,9 @@
                                 border: 1px solid #EDEEFC;
                                 background: #F8F8FF;
                                 resize: none;
+                                &:focus {
+                                    box-shadow: none;
+                                }
                             }
                         }
                     }
