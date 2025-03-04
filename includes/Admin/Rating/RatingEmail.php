@@ -1,6 +1,6 @@
 <?php
 
-namespace NotificationX\Admin\Reports;
+namespace NotificationX\Admin\Rating;
 
 use NotificationX\GetInstance;
 use WP_REST_Server;
@@ -35,7 +35,7 @@ class RatingEmail {
 
         register_rest_route($namespace, '/send-rating', array(
             array(
-                'methods'             => WP_REST_Server::READABLE,
+                'methods'             => WP_REST_Server::EDITABLE,
                 'callback'            => array($this, 'send_rating'),
                 'permission_callback' => '__return_true',
                 'args'                => [],
@@ -44,23 +44,51 @@ class RatingEmail {
     }
 
 
+    /**
+     * Set Email Subject
+     * By Default, subject will be "Weekly Reporting for NotificationX"
+     * Admin can set Custom Subject from NotificationX Advanced Settings Panel
+     * @return subject||String
+     */
+    public function email_subject() {
+        $site_name = get_bloginfo( 'name' );
+        $subject = __( "Plugin Review Feedback for NotificationX at ‘{$site_name}’", 'notificationx' );
+        return $subject;
+    }
+
     public function send_rating($request)
     {
+        $params = $request->get_params();
+        $rating = isset($params['rating']) ? intval($params['rating']) : null;
+        $review = isset($params['review']) ? sanitize_text_field($params['review']) : '';
+    
+        if (!$rating) {
+            return new \WP_REST_Response(['message' => 'Invalid rating'], 400);
+        }
+    
         $to = self::$_mail_sendto; // Email recipient
-        $subject = 'Weekly Rating Report';
-        $message = 'Hello, this is your weekly rating report.';
-        $headers = ['Content-Type: text/html; charset=UTF-8'];
-
+        $subject = $this->email_subject();
+        
+        $data = [
+            'rating' => $rating,
+            'review' => $review
+        ];
+        
+        $template = new EmailTemplate();
+        $message = $template->template_body($data, 'weekly'); // Pass data
+        
+        $headers = ['Content-Type: text/html; charset=UTF-8', "From: NotificationX <support@wpdeveloper.com>"];
+    
         // Send email
         $sent = wp_mail($to, $subject, $message, $headers);
-
+    
         if ($sent) {
             return new \WP_REST_Response(['message' => 'Email sent successfully'], 200);
         } else {
             return new \WP_REST_Response(['message' => 'Failed to send email'], 500);
         }
-        
     }
+    
 
 
     public static function _namespace(){

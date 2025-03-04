@@ -7,7 +7,7 @@
 
 namespace NotificationX\Admin;
 
-use NotificationX\Admin\Reports\RatingEmail;
+use NotificationX\Admin\Rating\RatingEmail;
 use NotificationX\NotificationX;
 use NotificationX\Admin\Reports\ReportEmail;
 use NotificationX\Core\Analytics;
