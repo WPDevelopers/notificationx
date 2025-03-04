@@ -37,7 +37,7 @@ const RatingWidget = () => {
                                         width="24"
                                         height="24"
                                         viewBox="0 0 24 24"
-                                        fill={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+                                        fill={ratingValue <= (hover || rating) ? "#FFBB00" : "#B1B8C2"}
                                         xmlns="http://www.w3.org/2000/svg"
                                         onMouseEnter={() => setHover(ratingValue)}
                                         onMouseLeave={() => setHover(null)}
