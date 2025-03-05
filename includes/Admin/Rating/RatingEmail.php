@@ -58,6 +58,7 @@ class RatingEmail {
 
     public function send_rating($request)
     {
+        update_option('nx_feedback_shared', true);
         $params = $request->get_params();
         $rating = isset($params['rating']) ? intval($params['rating']) : null;
         $review = isset($params['review']) ? sanitize_text_field($params['review']) : '';

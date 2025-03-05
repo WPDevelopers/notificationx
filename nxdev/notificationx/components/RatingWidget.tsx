@@ -3,6 +3,9 @@ import React, { Fragment, useEffect, useState } from 'react';
 import nxHelper from '../core/functions';
 
 const RatingWidget = () => {
+
+    // @ts-ignore 
+    const isSharedFeedback = notificationxTabs?.nx_feedback_shared;
     const [rating, setRating] = useState(null);
     const [hover, setHover] = useState(null);
     const [ratingSubmitted, setRatingSubmitted] = useState(false);
@@ -28,64 +31,66 @@ const RatingWidget = () => {
 
     return (
         <div className="notificationx-rating-widget sidebar-widget nx-widget">
-            <div className="nx-widget-title-wrapper">
-                <div className="nx-widget-title">
-                    { !ratingSubmitted &&
-                        <Fragment>
-                            {!rating && <h4>{__('Share your feeling', 'notificationx')}</h4>}
-                            {!rating && (
-                                <div className="nx-widget-rating-area">
-                                    {[...Array(5)].map((_, index) => {
-                                        const ratingValue = index + 1;
-                                        return (
-                                            <svg
-                                                key={index}
-                                                width="24"
-                                                height="24"
-                                                viewBox="0 0 24 24"
-                                                fill={ratingValue <= (hover || rating) ? '#ffc107' : '#e4e5e9'}
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                onMouseEnter={() => setHover(ratingValue)}
-                                                onMouseLeave={() => setHover(null)}
-                                                onClick={() => setRating(ratingValue)}
-                                                style={{ cursor: 'pointer', transition: 'fill 0.2s' }}
-                                            >
-                                                <path xmlns="http://www.w3.org/2000/svg" d="M6.1822 4.8034L1.3972 5.49715L1.31245 5.5144C1.18415 5.54846 1.06719 5.61596 0.973516 5.71001C0.879839 5.80405 0.812799 5.92127 0.779243 6.0497C0.745687 6.17813 0.746817 6.31316 0.782517 6.44101C0.818217 6.56886 0.887209 6.68494 0.982446 6.7774L4.44895 10.1517L3.63145 14.9179L3.6217 15.0004C3.61384 15.1331 3.6414 15.2655 3.70153 15.384C3.76167 15.5026 3.85223 15.603 3.96395 15.675C4.07566 15.7471 4.20451 15.7881 4.33731 15.794C4.4701 15.7998 4.60207 15.7703 4.7197 15.7084L8.9992 13.4584L13.2689 15.7084L13.3439 15.7429C13.4677 15.7917 13.6023 15.8066 13.7338 15.7862C13.8652 15.7658 13.9889 15.7108 14.0921 15.6269C14.1953 15.5429 14.2744 15.433 14.3211 15.3084C14.3678 15.1838 14.3805 15.049 14.3579 14.9179L13.5397 10.1517L17.0077 6.77665L17.0662 6.7129C17.1498 6.60998 17.2046 6.48674 17.225 6.35575C17.2454 6.22476 17.2308 6.09069 17.1825 5.9672C17.1343 5.84372 17.0541 5.73523 16.9503 5.65279C16.8465 5.57035 16.7227 5.51691 16.5914 5.4979L11.8064 4.8034L9.66745 0.468404C9.60555 0.342805 9.50973 0.23704 9.39084 0.163082C9.27194 0.0891243 9.13472 0.0499268 8.9947 0.0499268C8.85468 0.0499268 8.71745 0.0891243 8.59855 0.163082C8.47966 0.23704 8.38384 0.342805 8.32195 0.468404L6.1822 4.8034Z"/>
-                                            </svg>
-                                        );
-                                    })}
-                                </div>
-                            )}
-                            {(rating && rating < 5) && (
-                                <div className="nx-widget-review-box">
-                                    <h4>{__('Help us make it better!', 'notificationx')}</h4>
-                                    <div className="review-box">
-                                        <label htmlFor="review-box-desc">{__('Description', 'notificationx')}</label>
-                                        <textarea
-                                            id="review-box-desc"
-                                            value={reviewMessage}
-                                            onChange={(e) => setReviewMessage(e.target.value)}
-                                        ></textarea>
+            { !isSharedFeedback &&
+                <div className="nx-widget-title-wrapper">
+                    <div className="nx-widget-title">
+                        { !ratingSubmitted &&
+                            <Fragment>
+                                {!rating && <h4>{__('Share your feeling', 'notificationx')}</h4>}
+                                {!rating && (
+                                    <div className="nx-widget-rating-area">
+                                        {[...Array(5)].map((_, index) => {
+                                            const ratingValue = index + 1;
+                                            return (
+                                                <svg
+                                                    key={index}
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill={ratingValue <= (hover || rating) ? '#ffc107' : '#e4e5e9'}
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    onMouseEnter={() => setHover(ratingValue)}
+                                                    onMouseLeave={() => setHover(null)}
+                                                    onClick={() => setRating(ratingValue)}
+                                                    style={{ cursor: 'pointer', transition: 'fill 0.2s' }}
+                                                >
+                                                    <path xmlns="http://www.w3.org/2000/svg" d="M6.1822 4.8034L1.3972 5.49715L1.31245 5.5144C1.18415 5.54846 1.06719 5.61596 0.973516 5.71001C0.879839 5.80405 0.812799 5.92127 0.779243 6.0497C0.745687 6.17813 0.746817 6.31316 0.782517 6.44101C0.818217 6.56886 0.887209 6.68494 0.982446 6.7774L4.44895 10.1517L3.63145 14.9179L3.6217 15.0004C3.61384 15.1331 3.6414 15.2655 3.70153 15.384C3.76167 15.5026 3.85223 15.603 3.96395 15.675C4.07566 15.7471 4.20451 15.7881 4.33731 15.794C4.4701 15.7998 4.60207 15.7703 4.7197 15.7084L8.9992 13.4584L13.2689 15.7084L13.3439 15.7429C13.4677 15.7917 13.6023 15.8066 13.7338 15.7862C13.8652 15.7658 13.9889 15.7108 14.0921 15.6269C14.1953 15.5429 14.2744 15.433 14.3211 15.3084C14.3678 15.1838 14.3805 15.049 14.3579 14.9179L13.5397 10.1517L17.0077 6.77665L17.0662 6.7129C17.1498 6.60998 17.2046 6.48674 17.225 6.35575C17.2454 6.22476 17.2308 6.09069 17.1825 5.9672C17.1343 5.84372 17.0541 5.73523 16.9503 5.65279C16.8465 5.57035 16.7227 5.51691 16.5914 5.4979L11.8064 4.8034L9.66745 0.468404C9.60555 0.342805 9.50973 0.23704 9.39084 0.163082C9.27194 0.0891243 9.13472 0.0499268 8.9947 0.0499268C8.85468 0.0499268 8.71745 0.0891243 8.59855 0.163082C8.47966 0.23704 8.38384 0.342805 8.32195 0.468404L6.1822 4.8034Z"/>
+                                                </svg>
+                                            );
+                                        })}
                                     </div>
-                                    <button onClick={() => {
-                                        sendRating(rating, reviewMessage)
-                                        setRatingSubmitted(true);
-                                        setRating(null);
-                                        setReviewMessage('');
-                                    }}>{__('Send', 'notificationx')}</button>
-                                </div>
-                            )}
-                        </Fragment>
-                    }
-                    
-                    {ratingSubmitted && (
-                        <div className="review-submitted-box">
-                            <h5>{__('Thanks for sharing!', 'notificationx')}</h5>
-                            <p>{__('We really appreciate you taking the time to share your thoughts with us.', 'notificationx')}</p>
-                        </div>
-                    )}
+                                )}
+                                {(rating && rating < 5) && (
+                                    <div className="nx-widget-review-box">
+                                        <h4>{__('Help us make it better!', 'notificationx')}</h4>
+                                        <div className="review-box">
+                                            <label htmlFor="review-box-desc">{__('Description', 'notificationx')}</label>
+                                            <textarea
+                                                id="review-box-desc"
+                                                value={reviewMessage}
+                                                onChange={(e) => setReviewMessage(e.target.value)}
+                                            ></textarea>
+                                        </div>
+                                        <button onClick={() => {
+                                            sendRating(rating, reviewMessage)
+                                            setRatingSubmitted(true);
+                                            setRating(null);
+                                            setReviewMessage('');
+                                        }}>{__('Send', 'notificationx')}</button>
+                                    </div>
+                                )}
+                            </Fragment>
+                        }
+                        
+                        {ratingSubmitted && (
+                            <div className="review-submitted-box">
+                                <h5>{__('Thanks for sharing!', 'notificationx')}</h5>
+                                <p>{__('We really appreciate you taking the time to share your thoughts with us.', 'notificationx')}</p>
+                            </div>
+                        )}
+                    </div>
                 </div>
-            </div>
+            }
             <div className="nx-widget-initiate-chat">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
                     <rect y="0.298462" width="32" height="32" rx="5.33333" fill="url(#paint0_linear_4156_3185)"/>
