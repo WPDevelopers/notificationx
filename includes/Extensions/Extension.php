@@ -85,7 +85,7 @@ abstract class Extension {
         do_action('nx::extension::init', $this);
         add_action('nx_before_metabox_load', [$this, '__init_fields']);
         add_action('nx_before_settings_fields', [$this, 'init_settings_fields']);
-        add_action('init', [$this, 'init_extension']);
+        add_action('init', [$this, '__init_extension']);
 
         if($this->is_active(false)) {
             $this->init();
@@ -116,6 +116,13 @@ abstract class Extension {
             add_filter("nx_preview_settings_{$this->id}", array($this, 'preview_settings'), 10, 2);
         }
         add_filter("nx_saved_post_{$this->id}", array($this, 'add_cron_job'), 15, 3);
+    }
+
+    public function __init_extension() {
+        $this->init_extension();
+        if( $this->show_on_module ) {
+            Modules::get_instance()->update($this->module,'label',$this->module_title);
+        }
     }
 
     public function init_extension() {}
