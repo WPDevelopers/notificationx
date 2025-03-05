@@ -3,7 +3,10 @@ import React, { useEffect } from "react";
 import cookie from "react-cookies";
 
 function Close({id, config, dispatch, style, closed}) {
-    if (!config?.close_button) return null;
+    const innerWidth = window.innerWidth;
+    if (innerWidth >= 1024 && !config?.close_button) return null;
+    if ( ( innerWidth > 767 && innerWidth < 1024 ) && !config?.close_button_tab) return null;
+    if (innerWidth < 678 && !config?.close_button_mobile) return null;
 
     const handleCloseNotification = (e) => {
         let date = new Date();

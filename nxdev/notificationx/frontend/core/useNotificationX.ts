@@ -112,6 +112,18 @@ const useNotificationX = (props: any) => {
         }
     }, [previewType])
 
+    const getDeviceType = () => {
+        const width = window?.innerWidth;
+    
+        if (width >= 1024) {
+            return "desktop";
+        } else if (width >= 768 && width < 1024) {
+            return "tablet";
+        } else {
+            return "mobile";
+        }
+    }
+
     useEffect(() => {
         isMounted.current = true;
         // console.log("props frontend", props);
@@ -128,6 +140,7 @@ const useNotificationX = (props: any) => {
         }
         let url = nxHelper.getPath(props.config.rest, `notice/`, query);
         const extras = props.config?.extra || [];
+        const deviceType = getDeviceType();
         const data = {
             all_active: props.config?.all_active || false,
             global    : props.config?.global || [],
@@ -135,6 +148,7 @@ const useNotificationX = (props: any) => {
             pressbar  : props.config?.pressbar || [],
             shortcode : props.config?.shortcode || [],
             gdpr      : props.config?.gdpr || [],
+            deviceType: deviceType,
             extra     : { ...extras,'url': location.pathname, 'page_title': document.title },
         };
 
