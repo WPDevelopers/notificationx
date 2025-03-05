@@ -86,6 +86,12 @@ const RatingWidget = () => {
                             <div className="review-submitted-box">
                                 <h5>{__('Thanks for sharing!', 'notificationx')}</h5>
                                 <p>{__('We really appreciate you taking the time to share your thoughts with us.', 'notificationx')}</p>
+                                <button>
+                                    { __('Rate the Plugin','notificationx') }
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                                    <path d="M6 3.63175L10 8.29842L6 12.9651" stroke="#6A4BFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
                             </div>
                         )}
                     </div>
