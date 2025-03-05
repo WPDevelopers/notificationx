@@ -1315,6 +1315,58 @@
 
 }
 
+.wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-contents .wprf-control-section.close_button_control {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    &:not(:last-child) {
+        margin-bottom: 20px;
+    }
+    .wprf-section-title {
+        flex: 30%;
+        min-height: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding-right: 10px;
+        box-sizing: border-box;
+        display: inline-flex;
+        padding: 0;
+        h4 {
+            font-size: 15px;
+            font-weight: 400;
+            color: #7c8db5;
+            line-height: 18px;
+            margin: 0;
+            letter-spacing: -0.03px;
+            text-transform: capitalize;
+        }
+    }
+    .wprf-section-fields {
+        min-height: 40px;
+        flex: 70%;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 36px;
+        padding: 0;
+        .wprf-control-wrapper {
+            margin-bottom: 0;
+            .wprf-control-field {
+                gap: 8px;
+                .wprf-description {
+                    font-size: 14px;
+                    font-weight: 500;
+                    line-height: 18px;
+                    color: #25396F;
+                    margin: 0;
+                }
+            }
+        }
+    }
+        
+}
+
 .wprf-control-wrapper.wprf-type-csv-upload.wprf-inline-label.wprf-name-custom-nx-csv-upload {
     margin-bottom: 40px;
 }
