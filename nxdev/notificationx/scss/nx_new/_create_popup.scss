@@ -223,12 +223,12 @@
             }
             &.notificationx-rating-widget {
                 background: linear-gradient(222.89deg, #E0E2FF 1.87%, #FFFFFF 72.64%);
-
                 .nx-widget-title {
                     min-height: auto;
                     padding: 16px 16px 20px;
                     flex-direction: column;
                     align-items: flex-start;
+                    border-bottom: 1px solid #D8DEEE;
                     h4 {
                         font-size: 18px;
                         font-weight: 600;
@@ -238,9 +238,6 @@
                     }
                     .nx-widget-rating-area {
                         display: flex;
-                        svg path {
-                            // fill: #B1B8C2;
-                        }
                     }
                     .nx-widget-review-box {
                         width: 100%;
@@ -282,6 +279,9 @@
                         color: #6A4BFF;
                         padding: 9px 12px;
                         width: 100%;
+                        display: flex;
+                        justify-content: center;
+                        gap: 4px;
                         background: transparent;
                         border: 1px solid #6A4BFF;
                         border-radius: 8px;
@@ -295,13 +295,14 @@
                         line-height: 25px;
                         color: #092161;
                         margin: 0;
-                        margin-bottom: 8px;
+                        margin-bottom: 12px;
                     }
                     p {
                         font-size: 12px;
                         line-height: 17px;
                         color: #7C8DB5;
                         margin: 0;
+                        margin-bottom: 12px;
                     }
                 }
                 .nx-widget-initiate-chat {
