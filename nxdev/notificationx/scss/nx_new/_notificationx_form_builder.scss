@@ -1348,7 +1348,7 @@
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        gap: 36px;
+        gap: 16px 30px;
         padding: 0;
         .wprf-control-wrapper {
             margin-bottom: 0;
@@ -1360,6 +1360,42 @@
                     line-height: 18px;
                     color: #25396F;
                     margin: 0;
+                }
+                input {
+                    appearance: none;
+                    width: 30px;
+                    height: 30px;
+                    border: 1px solid #E6EFFB;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    box-shadow: none;
+                    outline: 0;
+                    margin: 0;
+                    background: transparent;
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        width: 5px;
+                        height: 13px;
+                        border: solid transparent;
+                        border-width: 0 1px 1px 0;
+                        transition: ease-in-out .25s;
+                        transform: translate(-50%, -50%) rotate(45deg);
+                    }
+                    &:checked::after {
+                        border: solid #6A4BFF;
+                        border-width: 0 1px 1px 0;
+                    }
+                    &::before {
+                        display: none;
+                    }
+
                 }
             }
         }
