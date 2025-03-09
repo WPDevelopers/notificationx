@@ -16,6 +16,7 @@ return array(
     'NotificationX\\Admin\\PluginInsights' => $baseDir . '/includes/Admin/PluginInsights.php',
     'NotificationX\\Admin\\Reports\\EmailTemplate' => $baseDir . '/includes/Admin/Reports/EmailTemplate.php',
     'NotificationX\\Admin\\Reports\\ReportEmail' => $baseDir . '/includes/Admin/Reports/ReportEmail.php',
+    'NotificationX\\Admin\\Scanner\\Scanner' => $baseDir . '/includes/Admin/Scanner/Scanner.php',
     'NotificationX\\Admin\\Settings' => $baseDir . '/includes/Admin/Settings.php',
     'NotificationX\\Admin\\XSS' => $baseDir . '/includes/Admin/XSS.php',
     'NotificationX\\Blocks\\Blocks' => $baseDir . '/blocks/Blocks.php',

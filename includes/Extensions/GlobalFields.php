@@ -1019,6 +1019,19 @@ class GlobalFields {
                                 ],
                             ]
                         ],
+                        'scan_cookies' => [
+                            'label' => 'Scan Cookies',
+                            'type' => 'section',
+                            'name' => 'scan_cookies',
+                            'fields' => [
+                                'cookie_scanner' => [
+                                    'type'  => 'cookie-scanner',
+                                    'name'  => 'cookie_scanner',
+                                    'id'    => 'cookie_scanner',
+                                    'label' => 'Cookie Scanner',
+                                ],
+                            ]
+                        ],
                         'cookies_list_section' => [
                             'label' => 'Cookies List',
                             'type' => 'section',
