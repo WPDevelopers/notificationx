@@ -71,9 +71,9 @@ const CookieScanner = () => {
   }, [scanId]);
 
   return (
-    <div id='cookie-scanner'>
+    <div id='cookie-scanner' className='cookie-scanner'>
       <div className='scan-controls'>
-        <div>
+        <div className='scan-controls-items'>
           <div className='scan-img'>
             <img src={scan} alt={'Scan cookie'} />
           </div>
@@ -91,7 +91,7 @@ const CookieScanner = () => {
             <p>{scanStatus}</p>
           </div>
         </div>
-        <p><span>0 of 5</span> free scans used</p>
+        <p className='scan-info'><span>0 of 5</span> free scans used</p>
       </div>
       <div className='scan-schedule'>
         <img src={schedule} alt={'Comming soon'} />
