@@ -1060,6 +1060,7 @@
     justify-content: center;
     cursor: pointer;
     z-index: 999;
+
     img {
         aspect-ratio: 1;
         visibility: visible;
@@ -1074,6 +1075,10 @@
         justify-content: center;
         align-items: center;
         border-radius: 50%;
+
+        .nx-floating-icon-wrapper {
+            position: absolute;
+        }
     }
     .nx-dashboard-floating-actions {
         .floating-item {
@@ -1169,6 +1174,11 @@
             transform: scale(.2);
         }
 
+        .nx-floating-icon-wrapper {
+            opacity: 0;
+            visibility: hidden;
+        }
+
         .nx-dashboard-floating-actions {
             position: fixed;
             inset: 0;
@@ -1214,6 +1224,7 @@
     display: flex;
     gap: 32px;
     margin-top: 18px;
+
     a.nx-resource-link {
         font-size: 14px;
         font-weight: 500;
