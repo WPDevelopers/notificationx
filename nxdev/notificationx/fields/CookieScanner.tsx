@@ -128,14 +128,14 @@ const CookieScanner = () => {
 					<div className="wprf-modal-table-wrapper wpsp-scan-start-body">
 						<img src={scan_warning} alt={'Scan cookie warning'} />
 						<h2>Ready to start scanning?</h2>
-						<p><span>0 of 5</span> free scans used</p>
+						<p className='scan-info'><span>0 of 5</span> free scans used</p>
 						<p>
 							Your existing cookie list (cookies discovered in the previous scan) will be replaced with the cookies discovered in this scan. Therefore, make sure you don’t exclude the pages that sets cookies.
 						</p>
 					</div>
 					<div className="wprf-modal-preview-footer wpsp-scan-start-footer">
-						<button className='wpsp-btn wpsp-btn-preview-update' onClick={handleScanStartModalCancel}>{__('Cancel', 'notificationx')}</button>
-						<button className='wpsp-btn wpsp-btn-preview-update' onClick={handleScan}>{__('Scan Now', 'notificationx')}</button>
+						<button className='wpsp-btn wpsp-btn-scan-secondary' onClick={handleScanStartModalCancel}>{__('Cancel', 'notificationx')}</button>
+						<button className='wpsp-btn wpsp-btn-scan-primary' onClick={handleScan}>{__('Scan Now', 'notificationx')}</button>
 					</div>
 				</>
 			</ReactModal>
@@ -153,8 +153,8 @@ const CookieScanner = () => {
 						<p>A scan is already running. Please wait for it to complete before starting a new one.</p>
 					</div>
 					<div className="wprf-modal-preview-footer wpsp-scan-progress-footer">
-						<button className='wpsp-btn wpsp-btn-preview-update' onClick={handleScanCancel}>{__('Cancel Scan', 'notificationx')}</button>
-						<button className='wpsp-btn wpsp-btn-preview-update' onClick={handleScan}>{__('Wait', 'notificationx')}</button>
+						<button className='wpsp-btn wpsp-btn-scan-secondary' onClick={handleScanCancel}>{__('Cancel Scan', 'notificationx')}</button>
+						<button className='wpsp-btn wpsp-btn-scan-primary' onClick={handleScan}>{__('Wait', 'notificationx')}</button>
 					</div>
 				</>
 			</ReactModal>

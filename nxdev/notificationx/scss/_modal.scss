@@ -1605,24 +1605,67 @@
             }
         }
     }
-    &.nx-cookies-list-integrations.nx-cookies-scan-start {
+    &.nx-cookies-list-integrations.nx-cookies-scan-start,
+    &.nx-cookies-list-integrations.nx-cookies-scan-progress {
         .ReactModal__Content.ReactModal__Content--after-open {
+            max-width: 450px !important;
             .wprf-modal-table-wrapper {
                 background: transparent;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 padding-bottom: 24px;
-                .wprf-modal-preview-footer {
-                    justify-content: unset;
-                    .wpsp-btn {
-                        flex: 1;
-                        border-radius: 8px;
-                        .wpsp-btn-preview-update {
-                            background: transparent;
-                            border: 1px solid #D9DBE9;
-                            color: #092161;
-                        }
+                img {
+                    margin-bottom: 20px;
+                }
+                h2 {
+                    font-size: 20px;
+                    font-weight: 600;
+                    line-height: 1.2em;
+                    color: #092161;
+                    margin: 0;
+                    margin-bottom: 4px;
+                }
+                p {
+                    font-size: 14px;
+                    line-height: 1.5;
+                    color: #535D77;
+                    text-align: center;
+                    margin: 0;
+                }
+                .scan-info {
+                    font-size: 12px;
+                    line-height: 1em;
+                    color: #535D77;
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+                    margin: 0;
+                    margin-bottom: 20px;
+                    span {
+                        color: #092161;
+                        font-weight: 500;
+                    }
+                }
+            }
+            .wprf-modal-preview-footer {
+                justify-content: unset;
+                .wpsp-btn {
+                    font-size: 14px;
+                    font-weight: 500;
+                    flex: 1;
+                    border-radius: 8px;
+                    height: 40px;
+                    cursor: pointer;
+                    &.wpsp-btn-scan-primary {
+                        background: #6A4BFF;
+                        border: 1px solid #6A4BFF;
+                        color: #FFFFFF;
+                    }
+                    &.wpsp-btn-scan-secondary {
+                        background: #F7F8FA;
+                        border: 1px solid #D9DBE9;
+                        color: #092161;
                     }
                 }
             }
