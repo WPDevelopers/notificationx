@@ -1332,6 +1332,9 @@
         box-sizing: border-box;
         display: inline-flex;
         padding: 0;
+        @media only screen and (max-width: 1599px) {
+            flex: 20%;
+        }
         h4 {
             font-size: 15px;
             font-weight: 400;
