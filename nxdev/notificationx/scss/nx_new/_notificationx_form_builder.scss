@@ -1343,6 +1343,9 @@
             margin: 0;
             letter-spacing: -0.03px;
             text-transform: capitalize;
+            @media only screen and (max-width: 1599px) {
+                font-size: 13px;
+            }
         }
     }
     .wprf-section-fields {
