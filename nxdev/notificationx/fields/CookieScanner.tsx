@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useBuilderContext } from 'quickbuilder';
 
 const CookieScanner = () => {
   const [scanStatus, setScanStatus] = useState('');
+  const [status, setStatus] = useState('');
   const [isScanning, setIsScanning] = useState(false);
   const [scanId, setScanId] = useState(null);
+  const builderContext = useBuilderContext();
 
   const handleScan = async () => {
     const currentDomain = window.location.origin;
@@ -22,7 +25,8 @@ const CookieScanner = () => {
       });
 
       const res = await response.json();
-      const data = res?.data;      
+      const data = res?.data;
+      setStatus(data?.status);
       if (data?.scan_id) {
         setScanId(data.scan_id);
       } else {
@@ -46,7 +50,7 @@ const CookieScanner = () => {
         const response = await fetch(statusUrl);
         const res = await response.json();
         const data = res?.data;
-        
+        setStatus(data?.status);
         if (data?.status === 'completed') {
           setScanStatus('Scan completed.');
           setIsScanning(false);
@@ -70,6 +74,34 @@ const CookieScanner = () => {
 
     return () => clearInterval(interval);
   }, [scanId]);
+
+  useEffect(() => {
+    if ( status == 'completed' ) {
+      // Example for another cookie list
+      addCookiesToList(builderContext, "necessary_cookie_lists", [
+        {
+            "enabled"           : true,
+            "default"           : true,
+            "cookies_id"        : "google_analytics",
+            "load_inside"       : "head",
+            "script_url_pattern": "",
+            "description"       : "Used for tracking site usage.",
+            "index"             : crypto.randomUUID()
+        }
+      ]);
+      console.log('logged');
+      
+    }
+    console.log('status',status);
+    
+  }, [status]);
+
+  const addCookiesToList = (builderContext: any, fieldName: string, newCookies: any[]) => {
+    const existingCookies = builderContext.getFieldValue(fieldName) || [];
+    const updatedCookies = [...existingCookies, ...newCookies];
+    builderContext.setFieldValue(fieldName, updatedCookies);
+  };
+
 
   return (
     <div>
