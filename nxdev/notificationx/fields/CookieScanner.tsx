@@ -3,6 +3,7 @@ import scan from './images/scan.png';
 import scan_warning from './images/scan-warning.png';
 import scan_danger from './images/scan-danger.png';
 import schedule from './images/coming-soon.png';
+import CloseIcon from '../icons/Close';
 import ReactModal from "react-modal";
 import { modalStyle } from '../core/constants';
 import { __ } from '@wordpress/i18n';
@@ -14,6 +15,104 @@ const CookieScanner = () => {
   	const [scanId, setScanId] = useState(null);
   	const [isReadyToScanModalOpen, setIsReadyToScanModalOpen] = useState(false);
   	const [isScanProgressModalOpen, setIsScanProgressModalOpen] = useState(false);
+  	const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
+  	const [isDiscoveredCookieModalOpen, setIsDiscoveredCookieModalOpen] = useState(false);
+	const dummyHistoryData = [
+		{
+		 	 "scan_date": "03 March 2025 05:06:24",
+			"scan_status": "Completed",
+			"category": "02",
+			"cookies": 23,
+			"scripts": "01",
+			"more_info": "View"
+		},
+		{
+			"scan_date": "03 March 2025 05:06:24",
+			"scan_status": "Failed",
+			"category": "0",
+			"cookies": 0,
+			"scripts": "0",
+			"more_info": "View"
+		},
+		{
+			"scan_date": "03 March 2025 05:06:24",
+			"scan_status": "Completed",
+			"category": "02",
+			"cookies": 23,
+			"scripts": "01",
+			"more_info": "View"
+		},
+		{
+			"scan_date": "03 March 2025 05:06:24",
+			"scan_status": "Completed",
+			"category": "02",
+			"cookies": 23,
+			"scripts": "01",
+			"more_info": "View"
+		},
+		{
+			"scan_date": "03 March 2025 05:06:24",
+			"scan_status": "Failed",
+			"category": "0",
+			"cookies": 0,
+			"scripts": "0",
+			"more_info": "View"
+		},
+		{
+			"scan_date": "03 March 2025 05:06:24",
+			"scan_status": "Completed",
+			"category": "02",
+			"cookies": 23,
+			"scripts": "01",
+			"more_info": "View"
+		}
+	];
+	const dummyDiscoverCookies = [
+		{
+			"id": "wordpress_3e130031865ca4e6...",
+			"first_found_url": "example.com/whyweneedex",
+			"duration": "Past",
+			"description": "No Description found"
+		},
+		{
+			"id": "wordpress_3e130031865ca4e6...",
+			"first_found_url": "example.com/whyweneedex",
+			"duration": "Past",
+			"description": "No Description found"
+		},
+		{
+			"id": "wordpress_3e130031865ca4e6...",
+			"first_found_url": "example.com/whyweneedex",
+			"duration": "Past",
+			"description": "No Description found"
+		},
+		{
+			"id": "wordpress_3e130031865ca4e6...",
+			"first_found_url": "example.com/whyweneedex",
+			"duration": "Past",
+			"description": "No Description found"
+		},
+		{
+			"id": "wordpress_3e130031865ca4e6...",
+			"first_found_url": "example.com/whyweneedex",
+			"duration": "Past",
+			"description": "No Description found"
+		},
+		{
+			"id": "wordpress_3e130031865ca4e6...",
+			"first_found_url": "example.com/whyweneedex",
+			"duration": "Past",
+			"description": "No Description found"
+		},
+		{
+			"id": "wordpress_3e130031865ca4e6...",
+			"first_found_url": "example.com/whyweneedex",
+			"duration": "Past",
+			"description": "No Description found"
+		}
+	]
+	  
+	  
 
   	const handleScan = async () => {
 		setIsReadyToScanModalOpen(false);
@@ -92,6 +191,14 @@ const CookieScanner = () => {
 		setIsReadyToScanModalOpen(false);
 	};
 
+	const handleHistoryBtnClick = () => {
+		setIsHistoryModalOpen(true);
+	};
+
+	const handleScanedCookieView = () => {
+		setIsDiscoveredCookieModalOpen(true);
+	};
+
   	return (
 		<div id='cookie-scanner' className='cookie-scanner'>
 			<div className='scan-controls'>
@@ -106,7 +213,7 @@ const CookieScanner = () => {
 							<button onClick={handleScanNowModalPop} disabled={isScanning} className='primary'>
 								{isScanning ? 'Scanning...' : 'Scan Now'}
 							</button>
-							<button onClick={handleScan} disabled={isScanning} className='secondary'>
+							<button onClick={handleHistoryBtnClick} disabled={isScanning} className='secondary'>
 								History
 							</button>
 						</div>
@@ -155,6 +262,86 @@ const CookieScanner = () => {
 					<div className="wprf-modal-preview-footer wpsp-scan-progress-footer">
 						<button className='wpsp-btn wpsp-btn-scan-secondary' onClick={handleScanCancel}>{__('Cancel Scan', 'notificationx')}</button>
 						<button className='wpsp-btn wpsp-btn-scan-primary' onClick={handleScan}>{__('Wait', 'notificationx')}</button>
+					</div>
+				</>
+			</ReactModal>
+			<ReactModal
+				isOpen={isHistoryModalOpen}
+				onRequestClose={() => setIsHistoryModalOpen(false)}
+				ariaHideApp={false}
+				overlayClassName={`nx-cookies-list-integrations nx-cookies-history`}
+				style={modalStyle}
+			>
+				<>
+					<div className="wprf-modal-preview-header">
+                        <span>{ __( 'History','notificationx' ) }</span>
+                        <button onClick={() => setIsHistoryModalOpen(false)}>
+                            <CloseIcon />
+                        </button>
+                    </div>
+					<div className="wprf-modal-table-wrapper wpsp-better-repeater-fields">
+						<table>
+        					<thead>
+								<tr>
+									<th>Scan Date</th>
+									<th>Scan Status</th>
+									<th>Category</th>
+									<th>Cookies</th>
+									<th>Scripts</th>
+									<th>More info</th>
+								</tr>
+							</thead>
+							<tbody>
+								{dummyHistoryData.map((data, index) => (
+									<tr key={index}>
+										<td>{data.scan_date}</td>
+										<td><span className={`status-${data.scan_status.toLowerCase()}`}>{data.scan_status}</span></td>
+										<td>{data.category}</td>
+										<td>{data.cookies}</td>
+										<td>{data.scripts}</td>
+										<td><a onClick={handleScanedCookieView}>{data.more_info}</a></td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
+				</>
+			</ReactModal>
+			<ReactModal
+				isOpen={isDiscoveredCookieModalOpen}
+				onRequestClose={() => setIsDiscoveredCookieModalOpen(false)}
+				ariaHideApp={false}
+				overlayClassName={`nx-cookies-list-integrations nx-cookies-discovered`}
+				style={modalStyle}
+			>
+				<>
+					<div className="wprf-modal-preview-header">
+                        <span>{ __( 'Discovered cookies','notificationx' ) }</span>
+                        <button onClick={() => setIsDiscoveredCookieModalOpen(false)}>
+                            <CloseIcon />
+                        </button>
+                    </div>
+					<div className="wprf-modal-table-wrapper wpsp-better-repeater-fields">
+						<table>
+        					<thead>
+								<tr>
+									<th>ID</th>
+									<th>First found URL</th>
+									<th>Duration</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								{dummyDiscoverCookies.map((data, index) => (
+									<tr key={index}>
+										<td>{data.id}</td>
+										<td>{data.first_found_url}</td>
+										<td>{data.duration}</td>
+										<td>{data.description}</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
 					</div>
 				</>
 			</ReactModal>
