@@ -46,11 +46,14 @@ const CookieScanner = () => {
         const response = await fetch(statusUrl);
         const res = await response.json();
         const data = res?.data;
+        
         if (data?.status === 'completed') {
           setScanStatus('Scan completed.');
           setIsScanning(false);
           setScanId(null);
         } else if (data?.status === 'pending') {
+          setScanStatus('Scanning in pending...');
+        } else if (data?.status === 'in-progress') {
           setScanStatus('Scanning in progress...');
         } else {
           setScanStatus('Unknown scan status.');
@@ -63,7 +66,7 @@ const CookieScanner = () => {
       }
     };
 
-    const interval = setInterval(checkScanStatus, 10000);
+    const interval = setInterval(checkScanStatus, 5000);
 
     return () => clearInterval(interval);
   }, [scanId]);

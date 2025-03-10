@@ -73,7 +73,7 @@ class Scanner
             return new WP_REST_Response(['error' => 'Invalid scan ID'], 404);
         }
 
-        return new WP_REST_Response(['status' => $status], 200);
+        return new WP_REST_Response(['data' => $status], 200);
     }
 
     public function read_permission()
@@ -88,26 +88,26 @@ class Scanner
     }
 
     private function trigger_scan($url)
-{
-    // API endpoint that will process the scan
-    $apiEndpoint = "https://notificationx-api.test/cookie-scanner/v1?url=" . urlencode($url);
+    {
+        // API endpoint that will process the scan
+        $apiEndpoint = "https://notificationx-api.test/cookie-scanner/v1?url=" . urlencode($url);
 
-    // Make an HTTP GET request
-    $response = wp_remote_get($apiEndpoint, [
-        'timeout'   => 200, // Set timeout (adjust as needed)
-        'sslverify' => false, // Bypass SSL verification temporarily (for local dev)
-    ]);
+        // Make an HTTP GET request
+        $response = wp_remote_get($apiEndpoint, [
+            'timeout'   => 200, // Set timeout (adjust as needed)
+            'sslverify' => false, // Bypass SSL verification temporarily (for local dev)
+        ]);
 
-    // Check for errors in the response
-    if (is_wp_error($response)) {
-        return new WP_REST_Response(['error' => $response->get_error_message()], 500);
+        // Check for errors in the response
+        if (is_wp_error($response)) {
+            return new WP_REST_Response(['error' => $response->get_error_message()], 500);
+        }
+
+        // Decode response body
+        $responseBody = json_decode(wp_remote_retrieve_body($response), true);
+
+        return wp_send_json_success($responseBody);
     }
-
-    // Decode response body
-    $responseBody = json_decode(wp_remote_retrieve_body($response), true);
-
-    return wp_send_json_success($responseBody);
-}
 
     
 
@@ -129,6 +129,7 @@ class Scanner
 
         // Decode response body
         $responseBody = json_decode(wp_remote_retrieve_body($response), true);
+        return $responseBody;
     }
 }
 ?>
