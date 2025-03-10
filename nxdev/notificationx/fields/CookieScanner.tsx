@@ -4,6 +4,8 @@ import scan_warning from './images/scan-warning.png';
 import scan_danger from './images/scan-danger.png';
 import schedule from './images/coming-soon.png';
 import CloseIcon from '../icons/Close';
+import ScanHistory from '../icons/ScanHistory';
+import DiscoveredCookies from '../icons/DiscoveredCookies';
 import ReactModal from "react-modal";
 import { modalStyle } from '../core/constants';
 import { __ } from '@wordpress/i18n';
@@ -274,6 +276,7 @@ const CookieScanner = () => {
 			>
 				<>
 					<div className="wprf-modal-preview-header">
+						<ScanHistory />
                         <span>{ __( 'History','notificationx' ) }</span>
                         <button onClick={() => setIsHistoryModalOpen(false)}>
                             <CloseIcon />
@@ -316,6 +319,7 @@ const CookieScanner = () => {
 			>
 				<>
 					<div className="wprf-modal-preview-header">
+						<DiscoveredCookies />
                         <span>{ __( 'Discovered cookies','notificationx' ) }</span>
                         <button onClick={() => setIsDiscoveredCookieModalOpen(false)}>
                             <CloseIcon />
