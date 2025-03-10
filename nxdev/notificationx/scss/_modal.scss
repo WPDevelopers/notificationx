@@ -1675,6 +1675,23 @@
     &.nx-cookies-list-integrations.nx-cookies-discovered {
         .ReactModal__Content.ReactModal__Content--after-open {
             max-width: 980px !important;
+            .wprf-modal-preview-header {
+                .header-details {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+
+                    .icon-wrap {
+                        width: 48px;
+                        height: 48px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border: 1px solid #EBEEF5;
+                        border-radius: 6px;
+                    }
+                }
+            }
             .wprf-modal-table-wrapper.wpsp-better-repeater-fields {
                 table {
                     border: 1px solid #EAECFA;
@@ -1746,6 +1763,11 @@
                     }
                 } 
             }
+        }
+    }
+    &.nx-cookies-list-integrations.nx-cookies-discovered {
+        .ReactModal__Content.ReactModal__Content--after-open {
+            margin-top: 44px !important;
         }
     }
     &.nx-custom-notification-edit {

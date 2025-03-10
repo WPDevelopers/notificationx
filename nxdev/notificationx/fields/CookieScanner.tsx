@@ -276,8 +276,10 @@ const CookieScanner = () => {
 			>
 				<>
 					<div className="wprf-modal-preview-header">
-						<div>
-							<ScanHistory />
+						<div className='header-details'>
+							<div className='icon-wrap'>
+								<ScanHistory />
+							</div>
 							<span>{ __( 'History','notificationx' ) }</span>
 						</div>
                         <button onClick={() => setIsHistoryModalOpen(false)}>
@@ -321,8 +323,10 @@ const CookieScanner = () => {
 			>
 				<>
 					<div className="wprf-modal-preview-header">
-						<div>
-							<DiscoveredCookies />
+						<div className='header-details'>
+							<div className='icon-wrap'>
+								<DiscoveredCookies />
+							</div>
 							<span>{ __( 'Discovered cookies','notificationx' ) }</span>
 						</div>
                         <button onClick={() => setIsDiscoveredCookieModalOpen(false)}>
