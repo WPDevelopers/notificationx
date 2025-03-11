@@ -35,9 +35,13 @@ class MailChimp extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('MailChimp', 'notificationx');
         $this->module_title = __('MailChimp', 'notificationx');
-        parent::__construct();
     }
 
     /**

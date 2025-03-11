@@ -35,9 +35,13 @@ class ActiveCampaign extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
-        $this->title = __('ActiveCampaign', 'notificationx');
-        $this->module_title = __('ActiveCampaign', 'notificationx');
         parent::__construct();
+    }
+
+    public function init_extension()
+    {
+        $this->title        = __('ActiveCampaign', 'notificationx');
+        $this->module_title = __('ActiveCampaign', 'notificationx');
     }
 
     /**

@@ -38,9 +38,13 @@ class Give extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('Give', 'notificationx');
         $this->module_title = __('GiveWP', 'notificationx');
-        parent::__construct();
     }
 
     /**

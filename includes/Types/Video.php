@@ -40,7 +40,13 @@ class Video extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
         $this->id    = 'video';
+    }
+
+    public function init()
+    {
+        parent::init();
         $this->title = __('Video', 'notificationx');
         $this->popup = [
             "denyButtonText" => __("<a href='https://notificationx.com/docs/youtube-video-activities-popups/' target='_blank'>More Info</a>", "notificationx"),
@@ -52,7 +58,6 @@ class Video extends Types {
                 </video>
             ', 'notificationx')
         ];
-        parent::__construct();
     }
 
 }

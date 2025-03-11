@@ -37,7 +37,17 @@ class EmailSubscription extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
         $this->id = 'email_subscription';
+    }
+
+    /**
+     * Runs when modules is enabled.
+     *
+     * @return void
+     */
+    public function init(){
+        parent::init();
         $this->title = __('Email Subscription', 'notificationx');
         $this->popup = [
             "denyButtonText" => __("<a href='https://notificationx.com/docs/mailchimp-email-subscription-alert/' target='_blank'>More Info</a>", "notificationx"),
@@ -49,7 +59,6 @@ class EmailSubscription extends Types {
                 </video>
             ', 'notificationx')
         ];
-        parent::__construct();
 
         $common_fields = [
             'first_param'         => 'tag_first_name',
@@ -126,16 +135,6 @@ class EmailSubscription extends Types {
                 ],
             ],
         ];
-    }
-
-    /**
-     * Runs when modules is enabled.
-     *
-     * @return void
-     */
-    public function init(){
-        parent::init();
-
     }
 
     public function preview_entry($entry, $settings){

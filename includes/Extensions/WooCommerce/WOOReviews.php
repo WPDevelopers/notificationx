@@ -47,6 +47,11 @@ class WooReviews extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title        = $this->title ?        $this->title        : __('WooCommerce', 'notificationx');
         $this->module_title = $this->module_title ? $this->module_title : __('WooCommerce', 'notificationx');
         $this->themes = [
@@ -167,7 +172,6 @@ class WooReviews extends Extension {
                 ],
             ],
         ];
-        parent::__construct();
     }
 
 

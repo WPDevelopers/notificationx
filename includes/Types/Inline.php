@@ -33,6 +33,14 @@ class Inline extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        // nx_comment_colored_themes
+        parent::__construct();
+
+    }
+
+    public function init()
+    {
+        parent::init();
         $this->title = __('Growth Alert 🚀', 'notificationx');
         $this->dashboard_title = __('Growth Alert', 'notificationx');
         $this->popup = [
@@ -45,9 +53,6 @@ class Inline extends Types {
                 </video>
             ', 'notificationx')
         ];
-        // nx_comment_colored_themes
-        parent::__construct();
-
     }
 
     /**

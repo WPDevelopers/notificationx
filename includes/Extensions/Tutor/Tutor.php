@@ -38,9 +38,13 @@ class Tutor extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title        = __('Tutor', 'notificationx');
         $this->module_title = __('Tutor LMS', 'notificationx');
-        parent::__construct();
     }
 
     /**

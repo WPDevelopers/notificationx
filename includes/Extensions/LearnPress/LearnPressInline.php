@@ -27,6 +27,12 @@ class LearnPressInline extends LearnPress {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
+        add_filter( 'nx_show_on_exclude', array( $this, 'show_on_exclude' ), 10, 4 );
+    }
+
+    public function init_extension()
+    {
         $this->themes = [
             'conv-theme-seven' => array(
                 'is_pro' => true,
@@ -76,8 +82,6 @@ class LearnPressInline extends LearnPress {
                 ]
             ],
         ];
-        parent::__construct();
-        add_filter( 'nx_show_on_exclude', array( $this, 'show_on_exclude' ), 10, 4 );
     }
 
     /**

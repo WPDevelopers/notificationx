@@ -44,6 +44,11 @@ class FlashingTab extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('Flashing Tab', 'notificationx');
         $this->module_title = __('Flashing Tab', 'notificationx');
         $this->themes = [
@@ -106,8 +111,6 @@ class FlashingTab extends Extension {
                 ],
             ),
         ];
-
-        parent::__construct();
     }
 
     public function init_fields(){

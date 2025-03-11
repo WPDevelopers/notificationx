@@ -43,6 +43,12 @@ class ContactForm extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
+    }
+
+    public function init()
+    {
+        parent::init();
         $this->title = __('Contact Form', 'notificationx');
         $this->themes = [
             'theme-one'   => [
@@ -146,7 +152,6 @@ class ContactForm extends Types {
                 ],
             ],
         ];
-        parent::__construct();
     }
 
     /**

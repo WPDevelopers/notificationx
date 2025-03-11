@@ -38,6 +38,11 @@ class GravityForms extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('Gravity Forms', 'notificationx');
         $this->module_title = __('Gravity Forms', 'notificationx');
         $this->popup = [
@@ -50,7 +55,6 @@ class GravityForms extends Extension {
                 </iframe>
             ', 'notificationx')
         ];
-        parent::__construct();
     }
 
     public function source_error_message($messages) {

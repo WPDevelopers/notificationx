@@ -68,8 +68,6 @@ class WooCommerceSales extends WooCommerce {
      */
     public function __construct(){
         parent::__construct();
-        $this->title = __('Sales Notification', 'notificationx');
-        $this->module_title = __('Sales Notification', 'notificationx');
         // nx_colored_themes
         // $common_fields = [
         //     'first_param'         => 'tag_name',
@@ -193,6 +191,12 @@ class WooCommerceSales extends WooCommerce {
         //         ]
         //     ],
         // ];
+    }
+
+    public function init_extension()
+    {
+        $this->title = __('Sales Notification', 'notificationx');
+        $this->module_title = __('Sales Notification', 'notificationx');
     }
 
     public function doc(){

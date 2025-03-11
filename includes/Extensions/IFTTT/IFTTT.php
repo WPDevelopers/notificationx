@@ -33,9 +33,13 @@ class IFTTT extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('IFTTT', 'notificationx');
         $this->module_title = __('IFTTT', 'notificationx');
-        parent::__construct();
     }
 
     /**

@@ -38,6 +38,11 @@ class GoogleReviews extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('Google Reviews', 'notificationx');
         $this->module_title = __('Google Reviews', 'notificationx');
         $this->themes = [
@@ -160,7 +165,6 @@ class GoogleReviews extends Extension {
                 <span>Google reviews provide helpful information and make your business stand out.</span>
             ', 'notificationx')
         ];
-        parent::__construct();
     }
 
     public function preview_entry($entry, $settings){

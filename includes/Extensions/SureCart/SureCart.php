@@ -32,9 +32,13 @@ class SureCart extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('SureCart', 'notificationx');
         $this->module_title = __('SureCart', 'notificationx');
-        parent::__construct();
     }
 
     public function init(){

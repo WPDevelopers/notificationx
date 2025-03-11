@@ -47,9 +47,13 @@ class WPOrgReview extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('WP.Org Reviews', 'notificationx');
         $this->module_title = __('WordPress', 'notificationx');
-        parent::__construct();
     }
 
     public function init() {
