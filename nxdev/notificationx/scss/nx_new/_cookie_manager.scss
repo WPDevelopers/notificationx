@@ -350,29 +350,35 @@
                         }
                     }
                     .wprf-repeater-content {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 20px;
+                        margin-top: 32px;
                         .wprf-repeater-field {
-                            margin-top: 32px;
+                            display: flex;
+                            margin-top: 0;
 
                             .wprf-repeater-inner-field {
-                                padding: 12px 16px;
+                                padding: 16px 48px 16px 16px;
                                 border: 1px solid #EAECFA;
                                 border-radius: 8px;
-                                display: grid;
-                                grid-template-columns: repeat(2, 1fr);
-                                gap: 20px 40px;
+                                display: flex;
+                                flex-direction: column;
+                                gap: 20px;
+                                flex: 1;
                                 position: relative;
-                                max-width: 740px;
 
                                 .wprf-repeater-inner-field-item {
                                     display: flex;
-                                    flex-direction: column;
-                                    gap: 8px;
+                                    align-items: self-start;
+                                    gap: 16px;
 
                                     span {
                                         font-size: 12px;
                                         line-height: 16px;
                                         font-weight: 500;
                                         color: #7C8DB5;
+                                        min-width: 120px;
                                     }
 
                                     p {
@@ -392,13 +398,14 @@
                                     display: inline-flex;
                                     justify-content: center;
                                     align-items: center;
-                                    // cursor: pointer;
+                                    border: 1px solid #EBEEF5;
+                                    border-radius: 3px;
+                                    cursor: pointer;
 
                                     .nx-admin-three-dots {
                                         display: inline-flex;
-                                        cursor: pointer;
                                         img {
-                                            width: 14px;
+                                            width: 12px;
                                             transform: rotate(90deg);
                                         }
                                     }
