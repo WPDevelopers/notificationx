@@ -4,7 +4,7 @@ import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName } 
 import { Theme } from "../themes";
 import Analytics from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
-import 'animate.css';
+// import 'animate.css';
 
 const useMediaQuery = (query) => {
     const mediaQuery = window.matchMedia(query);
