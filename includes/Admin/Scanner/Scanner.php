@@ -10,7 +10,8 @@ class Scanner
 {
     use GetInstance;
     private static $_namespace = 'notificationx';
-    private static $_version = 1;
+    private static $_version   = 1;
+    private static $_apiBase   = "https://notificationx-api.test/cookie-scanner/v1";
 
     public function __construct() 
     {
@@ -73,48 +74,13 @@ class Scanner
             return new WP_REST_Response(['error' => 'Invalid scan ID'], 404);
         }
 
-        return new WP_REST_Response(['status' => $status], 200);
-    }
-
-    public function read_permission()
-    {
-        // Implement your permission checks here
-        return current_user_can('edit_notificationx');
-    }
-
-    private function insert_scan_request($scanId, $url)
-    {
-        // Implement the logic to insert the scan request into your database
+        return new WP_REST_Response(['data' => $status], 200);
     }
 
     private function trigger_scan($url)
-{
-    // API endpoint that will process the scan
-    $apiEndpoint = "https://notificationx-api.test/cookie-scanner/v1?url=" . urlencode($url);
-
-    // Make an HTTP GET request
-    $response = wp_remote_get($apiEndpoint, [
-        'timeout'   => 200, // Set timeout (adjust as needed)
-        'sslverify' => false, // Bypass SSL verification temporarily (for local dev)
-    ]);
-
-    // Check for errors in the response
-    if (is_wp_error($response)) {
-        return new WP_REST_Response(['error' => $response->get_error_message()], 500);
-    }
-
-    // Decode response body
-    $responseBody = json_decode(wp_remote_retrieve_body($response), true);
-
-    return wp_send_json_success($responseBody);
-}
-
-    
-
-    private function get_scan_status($scanId)
     {
-       // API endpoint that will process the scan
-        $apiEndpoint = "https://notificationx-api.test/cookie-scanner/v1/status.php?scan_id=" . urlencode($scanId);
+        // API endpoint that will process the scan
+        $apiEndpoint = self::$_apiBase . "?url=" . urlencode($url);
 
         // Make an HTTP GET request
         $response = wp_remote_get($apiEndpoint, [
@@ -129,6 +95,31 @@ class Scanner
 
         // Decode response body
         $responseBody = json_decode(wp_remote_retrieve_body($response), true);
+
+        return wp_send_json_success($responseBody);
+    }
+
+    
+
+    private function get_scan_status($scanId)
+    {
+       // API endpoint that will process the scan
+        $apiEndpoint = self::$_apiBase . "/status.php?scan_id=" . urlencode($scanId);
+
+        // Make an HTTP GET request
+        $response = wp_remote_get($apiEndpoint, [
+            'timeout'   => 200, // Set timeout (adjust as needed)
+            'sslverify' => false, // Bypass SSL verification temporarily (for local dev)
+        ]);
+
+        // Check for errors in the response
+        if (is_wp_error($response)) {
+            return new WP_REST_Response(['error' => $response->get_error_message()], 500);
+        }
+
+        // Decode response body
+        $responseBody = json_decode(wp_remote_retrieve_body($response), true);
+        return $responseBody;
     }
 }
 ?>
