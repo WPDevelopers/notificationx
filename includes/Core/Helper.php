@@ -998,4 +998,26 @@ class Helper {
             ],
         ];        
     }
+    public static function generate_time_string($data) {
+        $timeString = '';
+        if (isset($data['display_from']) && intval($data['display_from']) > 0) {
+            $timeString .= intval($data['display_from']) . ' days ';
+        }
+
+        if (isset($data['display_from_hour']) && intval($data['display_from_hour']) > 0) {
+            $timeString .= intval($data['display_from_hour']) . ' hours ';
+        }
+
+        if (isset($data['display_from_minute']) && intval($data['display_from_minute']) > 0) {
+            $timeString .= intval($data['display_from_minute']) . ' minutes ';
+        }
+
+        if (!empty($timeString)) {
+            $time = strtotime($timeString . ' ago');
+        } else {
+            $time = time(); // Default to current time if no valid inputs
+        }
+        return $time;
+    }
+
 }

@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
 import { FormBuilder, useBuilderContext } from 'quickbuilder';
 import { Content, Instructions, ProWidget, PublishWidget, RatingWidget, Sidebar } from '../../components';
-import { permissionAlert, proAlert } from '../../core/functions';
+import { permissionAlert, proAlert, updateGeneratedCSS } from '../../core/functions';
 import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon, FunctionalIcon, NecessaryIcon, AnalyticsIcon, PerformanceIcon, UncategorizedIcon, ManagerIcon, EditIcon } from '../../icons'
 
 const EditNx = (props) => {
@@ -29,6 +29,15 @@ const EditNx = (props) => {
         builderContext.registerAlert('has_permission_alert', permissionAlert);
 
     }, [])
+
+    // Function to initialize the event listener
+    const initializeResizeHandler = (cssTargetSelector) => {
+        const updateCSS = () => updateGeneratedCSS(cssTargetSelector);
+        updateCSS();
+        window.addEventListener('resize', updateCSS);
+    };
+    initializeResizeHandler('#hour_minutes_section');
+
 
     return (
         <>

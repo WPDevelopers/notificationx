@@ -17,6 +17,7 @@ Thumbs.db
 behat.yml
 bitbucket-pipelines.yml
 bin
+.nvmrc
 .circleci/config.yml
 composer.json
 composer.lock

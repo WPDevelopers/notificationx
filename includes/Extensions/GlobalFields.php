@@ -1997,7 +1997,35 @@ class GlobalFields {
                                     'label'       => __('Display From The Last', 'notificationx'),
                                     'priority'    => 45,
                                     'default'       => 30,
-                                    'description' => 'days',
+                                    'description' => 'Days',
+                                    'min'          => 0,
+                                ],
+                                'hour_minutes_section' => [
+                                    'name'    => "hour_minutes_section",
+                                    'type'    => "section",
+                                    'rules'   => Rules::logicalRule([
+                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', 'woocommerce_sales_reviews', 'custom_notification_conversions', 'surecart', 'edd', 'tutor', 'learndash', 'learnpress', 'cf7']),
+                                    ]),
+                                    'fields' => [
+                                        [
+                                            'help'        => __('Hours', 'notificationx'),
+                                            'name'        => "display_from_hour",
+                                            'type'        => "number",
+                                            'default'     => '0',
+                                            'description' => '',
+                                            'max'         => 23,
+                                            'min'         => 0,
+                                        ],
+                                        [
+                                            'help'        => __('Minutes', 'notificationx'),
+                                            'name'        => "display_from_minute",
+                                            'type'        => "number",
+                                            'default'     => '0',
+                                            'description' => '',
+                                            'max'         => 59,
+                                            'min'         => 0,
+                                        ],  
+                                    ]
                                 ],
                                 'loop' => [
                                     'name'     => 'loop',

@@ -393,9 +393,10 @@ class WooCommerce extends Extension {
      */
     public function get_orders($data = array()) {
         if (empty($data) || !function_exists('wc_get_orders')) return null;
-        $orders    = [];
-        $from      = strtotime(date('Y-m-d', strtotime('-' . intval($data['display_from']) . ' days')));
-        $status    = !empty($data['order_status']) ? $data['order_status'] : ['wc-completed', 'wc-processing'];
+        $orders = [];
+        $time   = Helper::generate_time_string($data);
+        $from   = strtotime(date('Y-m-d h:i', $time));
+        $status = !empty($data['order_status']) ? $data['order_status'] : ['wc-completed', 'wc-processing'];
         $wc_orders = \wc_get_orders([
             'status'       => $status,
             'date_created' => '>' . $from,
@@ -413,7 +414,6 @@ class WooCommerce extends Extension {
         }
         return $orders;
     }
-
     /**
      * Limit entry by selected status;
      *

@@ -411,7 +411,8 @@ class WooReviews extends Extension {
     public function get_comments($data) {
         if (empty($data)) return null;
 
-        $from = isset($data['display_from']) ? intval($data['display_from']) : 0;
+        // $from = isset($data['display_from']) ? intval($data['display_from']) : 0;
+        $from   = date('Y-m-d H:i:s', Helper::generate_time_string($data));
         $needed = isset($data['display_last']) ? intval($data['display_last']) : 0;
 
         $comments = get_comments([
@@ -419,7 +420,7 @@ class WooReviews extends Extension {
             'number'     => $needed,
             'post_type'  => 'product',
             'date_query' => [
-                'after'     => $from . ' days ago',
+                'after'     => $from,
                 'inclusive' => true,
             ]
         ]);
