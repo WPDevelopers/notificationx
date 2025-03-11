@@ -2004,7 +2004,7 @@ class GlobalFields {
                                     'name'    => "hour_minutes_section",
                                     'type'    => "section",
                                     'rules'   => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', 'woocommerce_sales_reviews', 'custom_notification_conversions', 'surecart', 'edd', 'tutor', 'learndash', 'learnpress', 'cf7']),
+                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', 'woocommerce_sales_reviews', 'custom_notification_conversions', 'surecart', 'edd', 'tutor', 'learndash', 'learnpress', 'cf7', 'wp_comments', 'njf', 'wpf', 'fluentform', 'elementor_form', 'custom_notification', 'grvf', 'mailchimp', 'convertkit', 'ActiveCampaign', 'zapier_email_subscription', 'give', 'woo_reviews', 'freemius_conversions', 'freemius_reviews', 'zapier_conversions', 'zapier_reviews']),
                                     ]),
                                     'fields' => [
                                         [

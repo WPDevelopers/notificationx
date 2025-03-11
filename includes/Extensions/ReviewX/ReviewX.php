@@ -30,7 +30,8 @@ class ReviewX extends WooReviews {
     public $types                 = 'reviews';
     public $module                = 'modules_reviewx';
     public $module_priority       = 4;
-    public $class                 = '\ReviewX';
+    // public $class                 = '\ReviewX';
+    public $function              = 'rvx_wpdrill_init';
     public $default_theme         = 'reviewx_total-rated';
     public $exclude_custom_themes = true;
 
