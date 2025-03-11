@@ -404,6 +404,11 @@
 
                                     .nx-admin-three-dots {
                                         display: inline-flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        width: 100%;
+                                        height: 100%;
+                                        
                                         img {
                                             width: 12px;
                                             transform: rotate(90deg);
