@@ -273,7 +273,7 @@ class FrontEnd {
         // }
 
         if (!empty($all)) {
-            $notifications = $this->get_notifications($all);
+            $notifications = $this->get_notifications($all, $params['deviceType']);
             $entries       = $this->get_entries($all, $notifications, $params);
 
             foreach ($entries as $entry) {
@@ -472,9 +472,9 @@ class FrontEnd {
             /**
              * Check for hiding in mobile device
              */
-            if ($settings['hide_on_mobile'] && wp_is_mobile()) {
-                continue;
-            }
+            // if ($settings['hide_on_mobile'] && wp_is_mobile()) {
+            //     continue;
+            // }
 
             $show_on_exclude = apply_filters('nx_show_on_exclude', false, $settings);
             if ($show_on_exclude) {
@@ -573,7 +573,7 @@ class FrontEnd {
         return false;
     }
 
-    public function get_notifications($ids) {
+    public function get_notifications($ids, $device = '') {
         $results       = [];
         $notifications = PostType::get_instance()->get_posts_by_ids($ids);
 
@@ -581,7 +581,21 @@ class FrontEnd {
             /**
              * Check for hiding in mobile device
              */
-            if (!empty($value['hide_on_mobile']) && wp_is_mobile()) {
+            if (empty($value['hide_on_mobile']) && $device === 'mobile') {
+                continue;
+            } 
+
+            /**
+             * Check for hiding in tablet device
+             */
+            if (empty($value['hide_on_tab']) && $device === 'tablet') {
+                continue;
+            }
+
+            /**
+             * Check for hiding in desktop device
+             */
+            if (empty($value['hide_on_desktop']) && $device === 'desktop') {
                 continue;
             }
 
