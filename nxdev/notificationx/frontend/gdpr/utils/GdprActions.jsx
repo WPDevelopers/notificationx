@@ -150,6 +150,7 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
                     className="nx-gdpr-customization"
                     style={modalStyle}
                     ariaHideApp={false}
+                    portalClassName={'nx-gdpr-modal-wrapper'}
                 >
                     <Customization
                         settings={settings}
