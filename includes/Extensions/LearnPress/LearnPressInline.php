@@ -16,7 +16,7 @@ class LearnPressInline extends LearnPress {
 
     public $priority        = 22;
     public $id              = 'learnpress_inline';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/LearnPress.png';
+    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/_learnpress.png';
     public $doc_link        = 'https://notificationx.com/docs/tutor-lms/';
     public $types           = 'inline';
     public $module_priority = 20;
