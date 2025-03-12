@@ -14,7 +14,19 @@ class EmailTemplate
         $wp_version  = get_bloginfo('version');
 
         $admin_user = get_user_by('ID', 1);
-        $admin_name = $admin_user ? $admin_user->display_name : 'Unknown';
+        if ($admin_user) {
+            $first_name = get_user_meta($admin_user->ID, 'first_name', true);
+            $last_name = get_user_meta($admin_user->ID, 'last_name', true);
+            
+            $admin_full_name = trim("$first_name $last_name");
+            
+            // Fallback to display name if full name is not set
+            if (empty($admin_full_name)) {
+                $admin_full_name = $admin_user->display_name;
+            }
+        } else {
+            $admin_full_name = 'Unknown';
+        }
         
         $emailTemplate = '
         <!DOCTYPE html>
@@ -73,20 +85,29 @@ class EmailTemplate
 
                                     <tr>
                                         <td>
-                                            <table cellpadding="5" cellspacing="2" align="center" border="0"
-                                                   style="border: 1px solid #eee; margin-bottom: 20px; border-collapse: collapse; min-width: 75%">
+                                            <table cellpadding="5" cellspacing="2" align="center" border="0" style="border: 1px solid #eee; margin-bottom: 20px; border-collapse: collapse; min-width: 75%">
+                                                <tr>
+                                                    <td colspan="2" style="border-bottom: 1px solid #eee; text-align:left; padding: 6px 15px;">
+                                                        <strong style="font-size: 16px; font-family: Lato, sans-serif; color: #052d3d;">Email:</strong>
+                                                        <a href="mailto:' . $admin_email . '">' . $admin_email . '</a>
+                                                    </td>
+                                                </tr>
                                                 <tr>
                                                     <td style="border-bottom: 1px solid #eee; padding: 6px 15px">
                                                         <strong style="font-size: 16px; font-family: Lato, sans-serif; color: #052d3d;">Rating:</strong>
-                                                    </td>
-                                                    <td style="border-bottom: 1px solid #eee; padding: 6px 15px">
                                                         <span style="font-size: 16px; font-family: Lato, sans-serif; color: #052d3d;">
                                                            ' . $rating . ' ⭐
                                                         </span>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="2" style=" text-align:left;padding: 6px 15px">
+                                                    <td colspan="2" style="border-bottom: 1px solid #eee;text-align:left; padding: 6px 15px;">
+                                                        <strong style="font-size: 16px; font-family: Lato, sans-serif; color: #052d3d;">User:</strong>
+                                                         <a href="' . $site_url . '" target="_blank">' . $admin_full_name . '</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2" style="text-align:left;padding: 6px 15px">
                                                         <strong style="font-size: 16px; font-family: Lato, sans-serif; color: #052d3d;">Feedback:</strong>
                                                     </td>
                                                 </tr>
@@ -95,30 +116,6 @@ class EmailTemplate
                                                         <span style="font-size: 16px; font-family: Lato, sans-serif; color: #052d3d;">
                                                            ' . nl2br($review) . '
                                                         </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2" style="text-align:left; padding: 6px 15px;">
-                                                        <strong style="font-size: 16px; font-family: Lato, sans-serif; color: #052d3d;">Site Name:</strong>
-                                                        <a href="' . $site_url . '" target="_blank">' . $site_name . '</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2" style="text-align:left; padding: 6px 15px;">
-                                                        <strong style="font-size: 16px; font-family: Lato, sans-serif; color: #052d3d;">Admin Name:</strong>
-                                                        ' . $admin_name . '
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2" style="text-align:left; padding: 6px 15px;">
-                                                        <strong style="font-size: 16px; font-family: Lato, sans-serif; color: #052d3d;">Admin Email:</strong>
-                                                        <a href="mailto:' . $admin_email . '">' . $admin_email . '</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2" style="text-align:left; padding: 6px 15px;">
-                                                        <strong style="font-size: 16px; font-family: Lato, sans-serif; color: #052d3d;">WordPress Version:</strong>
-                                                        ' . $wp_version . '
                                                     </td>
                                                 </tr>
                                             </table>

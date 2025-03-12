@@ -12,9 +12,9 @@ use WP_REST_Server;
  * @since 1.4.4
  */
 class RatingEmail {
-    private static $_namespace = 'notificationx';
-    private static $_version = 1;
-    private static $_mail_sendto = 'shakibul@wpdeveloper.com';
+    private static $_namespace   = 'notificationx';
+    private static $_version     = 1;
+    private static $_mail_sendto = 'support@wpdeveloper.com';
     /**
      * Instance of RatingEmail
      *
@@ -51,8 +51,7 @@ class RatingEmail {
      * @return subject||String
      */
     public function email_subject() {
-        $site_name = get_bloginfo( 'name' );
-        $subject = __( "Plugin Review Feedback for NotificationX at ‘{$site_name}’", 'notificationx' );
+        $subject = __( "[IMPORTANT] New feedback received from a NotificationX user", 'notificationx' );
         return $subject;
     }
 

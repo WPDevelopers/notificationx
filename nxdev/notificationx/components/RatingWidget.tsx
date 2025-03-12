@@ -6,7 +6,7 @@ const RatingWidget = () => {
 
     // @ts-ignore 
     const isSharedFeedback = notificationxTabs?.nx_feedback_shared;
-    const [rating, setRating] = useState(null);
+    const [rating, setRating] = useState(5);
     const [hover, setHover] = useState(null);
     const [ratingSubmitted, setRatingSubmitted] = useState(false);
     const [reviewMessage, setReviewMessage] = useState('');
@@ -86,12 +86,14 @@ const RatingWidget = () => {
                             <div className="review-submitted-box">
                                 <h5>{__('Done ', 'notificationx')}🎉</h5>
                                 <p>{__('We really appreciate you taking the time to share your feedback with us.', 'notificationx')}</p>
-                                <a href='https://wordpress.org/support/plugin/notificationx/reviews/#new-post' target='_blank'>
-                                    { __('Rate the Plugin','notificationx') }
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
-                                    <path d="M6 3.63175L10 8.29842L6 12.9651" stroke="#6A4BFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </a>
+                                { (rating === 5) &&
+                                    <a href='https://wordpress.org/support/plugin/notificationx/reviews/#new-post' target='_blank'>
+                                        { __('Rate the Plugin','notificationx') }
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                                        <path d="M6 3.63175L10 8.29842L6 12.9651" stroke="#6A4BFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                }
                             </div>
                         )}
                     </div>
