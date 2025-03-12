@@ -639,11 +639,48 @@ class Helper {
                 'label'    => __('Enabled', 'notificationx'),
                 'priority' => 5,
             ), 
+            'discovered' => array(
+                'type'     => 'toggle',
+                'name'     => 'discovered',
+                'label'    => __('Discovered', 'notificationx'),
+                'priority' => 5,
+            ), 
             'cookies_id' => array(
                 'type'     => 'text',
                 'name'     => 'cookies_id',
                 'label'    => __('Cookie ID', 'notificationx'),
                 'priority' => 10,
+            ), 
+            'domain' => array(
+                'type'     => 'text',
+                'name'     => 'domain',
+                'label'    => __('Domain', 'notificationx'),
+                'priority' => 15,
+            ), 
+            'duration' => array(
+                'type'        => 'number',
+                'name'        => 'duration',
+                'label'       => __('Duration', 'notificationx'),
+                'min'         => 1,
+                'priority'    => 20,
+                'suggestions' => [
+                    [
+                        'value' => 30,
+                        'unit'  => 'days',
+                    ],
+                    [
+                        'value' => 90,
+                        'unit'  => 'days',
+                    ],
+                    [
+                        'value' => 180,
+                        'unit'  => 'days',
+                    ],
+                    [
+                        'value' => 365,
+                        'unit'  => 'days',
+                    ],
+                ],
             ), 
             'load_inside' => array(
                 'label'    => __('Add Script on', 'notificationx'),

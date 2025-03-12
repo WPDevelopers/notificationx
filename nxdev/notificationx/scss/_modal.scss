@@ -1790,6 +1790,23 @@
         }
     }
 }
+.wprf-repeater-content .wprf-control-field {
+    .wprf-num-suggestions {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+        span {
+            font-size: 12px;
+            line-height: 16px;
+            color: #092161;
+            background: #F0F3F7;
+            border: 1px solid #E1E5EB;
+            padding: 4px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    }
+}
 
 .nx-csv-modal-ift-container {
     .nx-csv-modal-ift-popup {

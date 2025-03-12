@@ -18,9 +18,23 @@ const addCookiesToList = (builderContext: any, fieldName: string, newCookies: an
   builderContext.setFieldValue(fieldName, updatedCookies);
 };
 
+const processCookies = (cookiesData: any) => {
+  return Object.values(cookiesData).map((cookie: any) => ({
+    enabled: true,
+    discovered: true,
+    cookies_id: cookie.name,
+    domain: cookie.domain,
+    duration: cookie.expires == -1 
+      ? 0 
+      : Math.max(1, Math.floor((cookie.expires - Math.floor(Date.now() / 1000)) / 86400)), 
+    description: cookie.value
+  }));
+};
+
 const CookieScanner = () => {
   const [scanMessage, setScanMessage] = useState('');
   const [status, setStatus] = useState('');
+  const [results, setResults] = useState([]);
   const [isScanning, setIsScanning] = useState(false);
   const [scanId, setScanId] = useState<string | null>(null);
   const builderContext = useBuilderContext();
@@ -131,7 +145,7 @@ const CookieScanner = () => {
       setIsScanning(true);
       setScanMessage('Scanning started...');
       setIsReadyToScanModalOpen(false);
-      setIsScanProgressModalOpen(true);
+      // setIsScanProgressModalOpen(true);
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -176,6 +190,7 @@ const CookieScanner = () => {
 
   
   useEffect(() => {
+    if( !scanId ) return;
     const checkScanStatus = async () => {
       try {
         const statusUrl = `${window.location.origin}/wp-json/notificationx/v1/scan/status?scan_id=${scanId}`;
@@ -183,11 +198,12 @@ const CookieScanner = () => {
         const res = await response.json();
         const data = res?.data;
 
-        setStatus(data?.status || 'unknown');
+        setStatus(data?.status || 'unknown');        
         if (data?.status === 'completed') {
           setScanMessage('Scan completed.');
           setIsScanning(false);
           setScanId(null);
+          setResults(data?.result)
         } else if (data?.status === 'pending') {
           setScanMessage('Scanning is pending...');
         } else if (data?.status === 'in-progress') {
@@ -208,20 +224,14 @@ const CookieScanner = () => {
 }, [scanId]);
 
 useEffect(() => {
+  console.log('logged');
+  
   if (status === 'completed') {
-    addCookiesToList(builderContext, 'necessary_cookie_lists', [
-      {
-        enabled: true,
-        default: true,
-        cookies_id: 'google_analytics',
-        load_inside: 'head',
-        script_url_pattern: '',
-        description: 'Used for tracking site usage.',
-        index: crypto.randomUUID(),
-      },
-    ]);
+    console.log('cookie-list',results);
+    const cookieList = processCookies(results);
+    addCookiesToList(builderContext, 'necessary_cookie_lists', cookieList);
   }
-}, [status, builderContext]);
+}, [status, results]);
 
   return (
     <div id='cookie-scanner' className='cookie-scanner'>
