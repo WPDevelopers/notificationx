@@ -273,7 +273,8 @@ class FrontEnd {
         // }
 
         if (!empty($all)) {
-            $notifications = $this->get_notifications($all, $params['deviceType']);
+            $device = isset($params['deviceType']) && !empty($params['deviceType']) ? $params['deviceType'] : '';
+            $notifications = $this->get_notifications($all, $device);
             $entries       = $this->get_entries($all, $notifications, $params);
 
             foreach ($entries as $entry) {
