@@ -36,7 +36,7 @@ const RatingWidget = () => {
                     <div className="nx-widget-title">
                         { !ratingSubmitted &&
                             <Fragment>
-                                {!rating && <h4>{__('Share your feeling', 'notificationx')}</h4>}
+                                {!rating && <h4>{__('Rate NotificationX', 'notificationx')}</h4>}
                                 {!rating && (
                                     <div className="nx-widget-rating-area">
                                         {[...Array(5)].map((_, index) => {
@@ -44,9 +44,9 @@ const RatingWidget = () => {
                                             return (
                                                 <svg
                                                     key={index}
-                                                    width="24"
-                                                    height="24"
-                                                    viewBox="0 0 24 24"
+                                                    width="32"
+                                                    height="32"
+                                                    viewBox="0 0 32 32"
                                                     fill={ratingValue <= (hover || rating) ? '#ffc107' : '#e4e5e9'}
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     onMouseEnter={() => setHover(ratingValue)}
@@ -64,7 +64,7 @@ const RatingWidget = () => {
                                     <div className="nx-widget-review-box">
                                         <h4>{__('Help us make it better!', 'notificationx')}</h4>
                                         <div className="review-box">
-                                            <label htmlFor="review-box-desc">{__('Description', 'notificationx')}</label>
+                                            <label htmlFor="review-box-desc">{__('Please share what went wrong with The NotificationX so that we can improve further *', 'notificationx')}</label>
                                             <textarea
                                                 id="review-box-desc"
                                                 value={reviewMessage}
@@ -84,8 +84,8 @@ const RatingWidget = () => {
                         
                         {ratingSubmitted && (
                             <div className="review-submitted-box">
-                                <h5>{__('Thanks for sharing!', 'notificationx')}</h5>
-                                <p>{__('We really appreciate you taking the time to share your thoughts with us.', 'notificationx')}</p>
+                                <h5>{__('Done ', 'notificationx')}🎉</h5>
+                                <p>{__('We really appreciate you taking the time to share your feedback with us.', 'notificationx')}</p>
                                 <a href='https://wordpress.org/support/plugin/notificationx/reviews/#new-post' target='_blank'>
                                     { __('Rate the Plugin','notificationx') }
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">

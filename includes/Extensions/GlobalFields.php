@@ -1686,7 +1686,7 @@ class GlobalFields {
                                     'help' => __('Set a max width for notification.', 'notificationx'),
                                 ],
                                 'close_button_control' => [
-                                    'label'  => __("Display Close Option", 'notificationx'),
+                                    'label'  => __("Display Close Button", 'notificationx'),
                                     'name'   => "close_button_control",
                                     'type'   => "section",
                                     'fields' => [
