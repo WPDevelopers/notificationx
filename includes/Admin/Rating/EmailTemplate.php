@@ -103,7 +103,13 @@ class EmailTemplate
                                                 <tr>
                                                     <td colspan="2" style="border-bottom: 1px solid #eee;text-align:left; padding: 6px 15px;">
                                                         <strong style="font-size: 16px; font-family: Lato, sans-serif; color: #052d3d;">User:</strong>
-                                                         <a href="' . $site_url . '" target="_blank">' . $admin_full_name . '</a>
+                                                         <a target="_blank">' . $admin_full_name . '</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2" style="border-bottom: 1px solid #eee;text-align:left; padding: 6px 15px;">
+                                                        <strong style="font-size: 16px; font-family: Lato, sans-serif; color: #052d3d;">Site URL:</strong>
+                                                         <a href="' . $site_url . '" target="_blank">' . $site_url . '</a>
                                                     </td>
                                                 </tr>
                                                 <tr>
