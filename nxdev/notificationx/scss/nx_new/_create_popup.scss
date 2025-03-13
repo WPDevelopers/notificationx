@@ -286,6 +286,11 @@
                         border: 1px solid #6A4BFF;
                         border-radius: 8px;
                         cursor: pointer;
+                        &:disabled {
+                            color: #ababab;
+                            border-color: #ababab;
+                            cursor: no-drop;
+                        }
                     }
                 }
                 .review-submitted-box {

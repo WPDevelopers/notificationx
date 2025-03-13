@@ -6,8 +6,8 @@ const RatingWidget = () => {
 
     // @ts-ignore 
     const isSharedFeedback = notificationxTabs?.nx_feedback_shared;
-    const [rating, setRating] = useState(5);
-    const [hover, setHover] = useState(null);
+    const [rating, setRating] = useState(null);
+    const [hover, setHover] = useState(-1);
     const [ratingSubmitted, setRatingSubmitted] = useState(false);
     const [reviewMessage, setReviewMessage] = useState('');
 
@@ -47,7 +47,7 @@ const RatingWidget = () => {
                                                     width="32"
                                                     height="32"
                                                     viewBox="0 0 32 32"
-                                                    fill={ratingValue <= (hover || rating) ? '#ffc107' : '#e4e5e9'}
+                                                    fill={(ratingValue <= (hover || rating) || hover == -1) ? '#ffc107' : '#e4e5e9'}
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     onMouseEnter={() => setHover(ratingValue)}
                                                     onMouseLeave={() => setHover(null)}
@@ -71,7 +71,7 @@ const RatingWidget = () => {
                                                 onChange={(e) => setReviewMessage(e.target.value)}
                                             ></textarea>
                                         </div>
-                                        <button onClick={() => {
+                                        <button disabled={ reviewMessage ? false : true } onClick={() => {
                                             sendRating(rating, reviewMessage)
                                             setRatingSubmitted(true);
                                             setRating(null);
@@ -118,7 +118,7 @@ const RatingWidget = () => {
                 </svg>
                 <h5>{__('We are here to help', 'notificationx')}</h5>
                 <p>{__('Lorem ipsum dolor sit amet consectetur. Vitae tellus pretium', 'notificationx')}</p>
-                <a href="https://wpdeveloper.com/contact/" target="_blank">{__('Initiate Chat', 'notificationx')}</a>
+                <a href="https://wpdeveloper.com/contact?chatbox=show" target="_blank">{__('Initiate Chat', 'notificationx')}</a>
             </div>
         </div>
     );

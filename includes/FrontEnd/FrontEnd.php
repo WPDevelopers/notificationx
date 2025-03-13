@@ -77,7 +77,7 @@ class FrontEnd {
     public function enqueue_scripts() {
         $custom_css = $this->generate_custom_css();
         wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), [], apply_filters('nx_frontend_js_version', NOTIFICATIONX_VERSION ), true);
-        wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], NOTIFICATIONX_VERSION, 'all');
+        wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], apply_filters('nx_frontend_css_version', NOTIFICATIONX_VERSION ), 'all');
         // wp_register_style('notificationx-icon-pack', Helper::file('public/icon/style.css', true), [], NOTIFICATIONX_VERSION, 'all');
         // Localize scripts for frontend
         wp_localize_script(
