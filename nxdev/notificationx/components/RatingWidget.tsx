@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState, useRef } from 'react';
 import nxHelper from '../core/functions';
 
 const RatingWidget = () => {
@@ -10,6 +10,11 @@ const RatingWidget = () => {
     const [hover, setHover] = useState(-1);
     const [ratingSubmitted, setRatingSubmitted] = useState(false);
     const [reviewMessage, setReviewMessage] = useState('');
+    const feedbackRef = useRef(null);
+
+    useEffect(() => {
+        feedbackRef.current?.focus(); // Focus the input field when the component mounts
+    }, [rating]);
 
     useEffect(() => {
         if (rating === 5) {
@@ -67,6 +72,7 @@ const RatingWidget = () => {
                                             <label htmlFor="review-box-desc">{__('Please share what went wrong with The NotificationX so that we can improve further *', 'notificationx')}</label>
                                             <textarea
                                                 id="review-box-desc"
+                                                ref={feedbackRef}
                                                 value={reviewMessage}
                                                 onChange={(e) => setReviewMessage(e.target.value)}
                                             ></textarea>
