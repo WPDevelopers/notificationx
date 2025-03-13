@@ -10,9 +10,9 @@ const ProWidget = () => {
   return (
     <div className='notificationx-pro-widget sidebar-widget nx-widget'>
         <div className="nx-widget-content">
-            <h4>{__('Upgrade to Pro', 'notificationx')}</h4>
-            <p>{ __('Lorem ipsum dolor sit amet consectetur. Vitae tellus pretium','notificationx') } </p>
-            <a href="https://notificationx.com/#pricing">Go Premium</a>
+            <h4>{__('Want to explore more?', 'notificationx')}</h4>
+            <p>{ __('Dive in and discover all the premium features','notificationx') } </p>
+            <a target='_blank' href="https://notificationx.com/#pricing">{__('Upgrade To PRO', 'notificationx')}</a>
         </div>
     </div>
   )

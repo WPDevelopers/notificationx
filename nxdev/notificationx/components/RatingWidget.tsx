@@ -69,7 +69,7 @@ const RatingWidget = () => {
                                     <div className="nx-widget-review-box">
                                         <h4>{__('Help us make it better!', 'notificationx')}</h4>
                                         <div className="review-box">
-                                            <label htmlFor="review-box-desc">{__('Please share what went wrong with The NotificationX so that we can improve further *', 'notificationx')}</label>
+                                            <label htmlFor="review-box-desc">{__('Please share what went wrong with The NotificationX so that we can improve further', 'notificationx')}<span>*</span></label>
                                             <textarea
                                                 id="review-box-desc"
                                                 ref={feedbackRef}
@@ -90,8 +90,9 @@ const RatingWidget = () => {
                         
                         {ratingSubmitted && (
                             <div className="review-submitted-box">
-                                <h5>{__('Done ', 'notificationx')}🎉</h5>
-                                <p>{__('We really appreciate you taking the time to share your feedback with us.', 'notificationx')}</p>
+                                <h5 className={rating === 5 ? 'five-star' : ''}>{rating === 5 ? __('We’re glad that you liked us! 😍', 'notificationx') : __('We appreciate it!', 'notificationx')}
+                                </h5>
+                                <p>{rating === 5 ? __('If you don’t mind, could you take 30 seconds to review us on WordPress? Your feedback will help us improve and grow. Thank you in advance! 🙏', 'notificationx') : __('A heartfelt gratitude for managing the time to share your thoughts with us', 'notificationx')}</p>
                                 { (rating === 5) &&
                                     <a href='https://wordpress.org/support/plugin/notificationx/reviews/#new-post' target='_blank'>
                                         { __('Rate the Plugin','notificationx') }
@@ -122,9 +123,9 @@ const RatingWidget = () => {
                         </clipPath>
                     </defs>
                 </svg>
-                <h5>{__('We are here to help', 'notificationx')}</h5>
-                <p>{__('Lorem ipsum dolor sit amet consectetur. Vitae tellus pretium', 'notificationx')}</p>
-                <a href="https://wpdeveloper.com/contact?chatbox=show" target="_blank">{__('Initiate Chat', 'notificationx')}</a>
+                <h5>{__('Need help? We\'re here', 'notificationx')}</h5>
+                <p>{__('Ready to assist you every step of the way', 'notificationx')}</p>
+                <a href="https://notificationx.com/support/?chatbox=show" target="_blank">{__('Let\'s Chat', 'notificationx')}</a>
             </div>
         </div>
     );

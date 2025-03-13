@@ -247,13 +247,16 @@
                         .review-box {
                             display: flex;
                             flex-direction: column;
-                            gap: 4px;
+                            gap: 6px;
                             margin-bottom: 20px;
                             label {
                                 font-size: 12px;
                                 line-height: 16px;
                                 font-weight: 500;
                                 color: #092161;
+                                span {
+                                    color: red;
+                                }
                             }
                             textarea {
                                 font-size: 12px;
@@ -301,6 +304,9 @@
                         color: #092161;
                         margin: 0;
                         margin-bottom: 12px;
+                        &.five-star {
+                            font-size: 16px;
+                        }
                     }
                     p {
                         font-size: 12px;
