@@ -25,7 +25,7 @@ const RatingWidget = () => {
 
     const sendRating = async (rating, reviewMessage) => {
         try {
-            await nxHelper.post('index.php?rest_route=/notificationx/v1/send-rating', {
+            await nxHelper.post('send-rating', {
                 rating,
                 review: reviewMessage,
             });
