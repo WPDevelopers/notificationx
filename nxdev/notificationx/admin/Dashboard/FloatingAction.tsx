@@ -24,7 +24,7 @@ const FloatingAction = ({isPro}) => {
                                 </span>
                             </a>
                         }
-                        <a href={'https://notificationx.com/support/'} target='_blank' className='floating-item item-2'>
+                        <a href={'https://notificationx.com/support/?chatbox=show'} target='_blank' className='floating-item item-2'>
                             <span className='nx-items--details'>{ __('Get Support', 'notificationx') }</span>
                             <span className='nx-items--icon'>
                                 <GetSupport />

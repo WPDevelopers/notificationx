@@ -209,7 +209,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 3.0.3 - 13/03/2025 =
+= 3.0.3 - 16/03/2025 =
 Fixed: Issue with text domain when changing website language.
 Improved: Preview option for notifications on Desktop, Tablet, and Mobile devices.
 Improved: Close button visibility option for Desktop, Tablet, and Mobile devices.
